@@ -1,0 +1,85 @@
+{
+  "summary": "Comprehensive testing of PropValu v2.2 features. All requested features are working correctly: other_features text field, 10-15 comparables generation, negotiation adjustments (-5% Casa/-8% Terreno), expanded Jalisco land use categories, report with page-breaks for 3-page print, thermometer with larger numbers, and 6 numbered amenity items with icons.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "passed_tests": [
+    "API POST /api/valuations - accepts 'other_features' as text field ✅",
+    "API POST /api/valuations/{id}/generate-comparables - generates 10-15 comparables ✅",
+    "Negotiation adjustment -5% for Casa ✅",
+    "Negotiation adjustment -5% for Departamento ✅",
+    "Negotiation adjustment -8% for Terreno ✅",
+    "Expanded land use categories accepted (H1-U, H2-H, H3-V, HC, CU, I-L, EA, desconocido) ✅",
+    "Report contains USO DE SUELO section with expanded categories ✅",
+    "Report contains 'other_features' text in Otros elementos section ✅",
+    "Report has page-break CSS for 3-page letter print (4 page-breaks found) ✅",
+    "Report has print-color-adjust CSS rules ✅",
+    "Report thermometer visible with larger numbers and min/mid/max labels ✅",
+    "Report EQUIPAMIENTO CERCANO section has 6 numbered items with icons ✅",
+    "Frontend form Step 3 has 'Otros Elementos Importantes' textarea ✅",
+    "Frontend form has service_room checkbox (Cuarto de Servicio) ✅",
+    "Frontend form has laundry_room checkbox (Cuarto de Lavado) ✅",
+    "Frontend form Step 2 shows land use auto-determination message in public mode ✅"
+  ],
+  "test_report_links": [
+    "/app/backend/tests/test_v22_features.py",
+    "/app/test_reports/pytest/pytest_v22_results.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [],
+  "updated_files": [],
+  "success_rate": {
+    "backend": "100%",
+    "frontend": "100%"
+  },
+  "seed_data_creation": "Created test valuation val_9ca4887923f3 with all new features (H2-H land use, other_features, service_room, laundry_room)",
+  "test_credentials": null,
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "All v2.2 features verified working. Key test valuation: val_9ca4887923f3. Web scraping for comparables falls back to MOCKED/simulated data when real scraping fails - this is expected behavior. The 15 comparables are generated successfully (mix of real scraped + simulated).",
+  "verified_features": {
+    "other_features_field": {
+      "backend": "API accepts 'other_features' text in POST /api/valuations",
+      "frontend": "'Otros Elementos Importantes' textarea present in Step 3 with data-testid='other-features-input'",
+      "report": "Shows in 'Otros elementos:' section with full text"
+    },
+    "comparables_generation": {
+      "count": "10-15 comparables generated per request",
+      "negotiation_adjustments": {
+        "Casa": "-5%",
+        "Departamento": "-5%",
+        "Terreno": "-8%",
+        "Other": "-5%"
+      }
+    },
+    "expanded_land_use": {
+      "categories": ["H1-U", "H2-U", "H3-U", "H2-H", "H2-V", "H3-V", "H4-V", "HM", "HC", "HO", "CU", "CB", "CD", "CS", "CC", "CR", "I-L", "I-M", "I-P", "IP", "EA", "EI", "PE", "AG", "desconocido"],
+      "frontend": "Full list in LAND_USE_TYPES (editable only in appraiser mode)",
+      "report": "USO DE SUELO section shows code, name, description, and icon"
+    },
+    "report_print_optimization": {
+      "page_breaks": "4 page-break CSS rules for 3-page letter format",
+      "print_color_adjust": "Both -webkit-print-color-adjust and print-color-adjust present",
+      "larger_fonts": "Fonts 9pt+ for thermometer labels"
+    },
+    "special_features": {
+      "service_room": "Checkbox present with data-testid='feature-service_room'",
+      "laundry_room": "Checkbox present with data-testid='feature-laundry_room'",
+      "report_badges": "Shows 'Cuarto de Servicio' and 'Cuarto de Lavado' badges"
+    },
+    "amenities_section": {
+      "items": ["1-Escuelas", "2-Hospitales", "3-Clínicas", "4-Supermercados", "5-Mercados", "6-Vías"],
+      "icons": ["🏫", "🏥", "💊", "🛒", "🏪", "🚗"],
+      "numbered": true
+    }
+  },
+  "mocked_apis": {
+    "web_scraping": "Comparables from inmuebles24, lamudi, vivanuncios, propiedades.com fall back to simulated data when real scraping fails"
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "summary": "Comprehensive testing of PropValu v2.5 features completed. All 8 requested features verified working: Landing page loads, valuation form has visible green 'Ajustar coordenadas' button (bg: rgb(27,67,50), text: white), report includes 'Inmobiliaria Profesional' in tips, larger text (12pt base) and icons (28pt), coordinates visible in report, 'Radio 2 km' in equipment title, disclaimer without 'bancaria', API health responds.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "passed_tests": [
+    "API GET /api/health - returns healthy ✅",
+    "API GET /api/valuations/val_7348428e33a4 - returns valuation with 15 comparables ✅",
+    "API GET /api/valuations/nonexistent - returns 404 ✅",
+    "API POST /api/valuations/{id}/generate-report - generates HTML report ✅",
+    "API GET /api/stats - returns platform statistics ✅",
+    "API GET /api/property-types - returns property types list ✅",
+    "Report includes 'Inmobiliaria Profesional' instead of 'Asesor' ✅",
+    "Report does NOT include 'Clínicas' in amenities ✅",
+    "Report has 'Radio 2 km' in equipment section title ✅",
+    "Report disclaimer does NOT contain 'bancaria' ✅",
+    "Report has 12pt base font size ✅",
+    "Report has 28pt icons ✅",
+    "Report has 200pt map height ✅",
+    "Report shows coordinates (Coordenadas: lat, lng) ✅",
+    "Report has 'Reporte de Valuación' with white text styling ✅",
+    "UI: Landing page loads with PropValu branding ✅",
+    "UI: Valuation form Step 1 loads correctly ✅",
+    "UI: 'Ajustar coordenadas' button visible with green background (rgb(27,67,50)) and white text ✅",
+    "UI: Report page displays valuation value, thermometer, comparables ✅",
+    "UI: Report shows 6 amenities without Clínicas (Escuelas, Hospitales, Supermercados, Mercados, Parques, Vías de Acceso) ✅",
+    "UI: Tips section shows 'Inmobiliaria Profesional' not 'Asesor' ✅",
+    "UI: Disclaimer states 'estimación orientativa' and CNBV/SHF/INDAABIN methodology ✅"
+  ],
+  "test_report_links": [
+    "/app/backend/tests/test_v25_features.py",
+    "/app/test_reports/pytest/pytest_v25_results.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [],
+  "updated_files": ["/app/backend/tests/test_v25_features.py"],
+  "success_rate": {
+    "backend": "100% (15/15 tests passed)",
+    "frontend": "100%"
+  },
+  "seed_data_creation": "Used existing valuation val_7348428e33a4 with 15 comparables",
+  "test_credentials": null,
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "All v2.5 features verified working. Key test valuation: val_7348428e33a4. Report generator includes: 1) 'Inmobiliaria Profesional' replacing 'Asesor' in tips, 2) No 'Clínicas' in amenities, 3) 'Radio 2 km' in equipment title, 4) Disclaimer without 'bancaria', 5) 12pt base font, 28pt icons, 6) 200pt map height, 7) Coordinates visible, 8) White 'Reporte de Valuación' title. Frontend ValuationForm.jsx has green 'Ajustar coordenadas' button with bg-[#1B4332] class. Web scraping for comparables uses MOCKED/simulated data as fallback - this is expected behavior.",
+  "verified_features": {
+    "landing_page": {
+      "status": "WORKING",
+      "details": "PropValu branding, 'Comenzar Valuación' button, stats counter showing 65+ valuations"
+    },
+    "valuation_form": {
+      "status": "WORKING",
+      "details": "Step 1 (Ubicación) with state selector, municipality, neighborhood, map integration, visible green 'Ajustar coordenadas' button"
+    },
+    "ajustar_coordenadas_button": {
+      "status": "WORKING",
+      "data_testid": "manual-coords-btn",
+      "styles": {
+        "backgroundColor": "rgb(27, 67, 50)",
+        "color": "rgb(255, 255, 255)"
+      },
+      "details": "Dark green background (#1B4332), white text - highly visible"
+    },
+    "report_inmobiliaria_profesional": {
+      "status": "WORKING",
+      "old_text": "Asesor",
+      "new_text": "Inmobiliaria Profesional",
+      "details": "Tips section updated to use 'Inmobiliaria Profesional' for more professional advice"
+    },
+    "report_no_clinicas": {
+      "status": "WORKING",
+      "removed": "Clínicas",
+      "amenities": ["Escuelas", "Hospitales", "Supermercados", "Mercados", "Parques", "Vías de Acceso"],
+      "details": "Amenities section has 6 items without Clínicas"
+    },
+    "report_radio_2km_title": {
+      "status": "WORKING",
+      "title": "EQUIPAMIENTO Y SERVICIOS CERCANOS (Radio 2 km)",
+      "details": "Equipment section title includes '(Radio 2 km)' suffix"
+    },
+    "report_no_bancaria": {
+      "status": "WORKING",
+      "disclaimer_mentions": "CNBV / SHF / INDAABIN",
+      "does_not_contain": "bancaria",
+      "details": "Disclaimer states 'estimación orientativa, no un avalúo oficial con validez legal'"
+    },
+    "report_larger_fonts": {
+      "status": "WORKING",
+      "base_font": "12pt",
+      "icons": "28pt",
+      "details": "Report has larger, more legible text and icons"
+    },
+    "report_taller_map": {
+      "status": "WORKING",
+      "height": "200pt",
+      "details": "Map container has 200pt height for horizontal format"
+    },
+    "report_coordinates_visible": {
+      "status": "WORKING",
+      "format": "Coordenadas: lat, lng",
+      "example": "Coordenadas: 20.673600, -103.368700",
+      "details": "Coordinates displayed below map address"
+    },
+    "report_white_title": {
+      "status": "WORKING",
+      "title": "Reporte de Valuación",
+      "styling": "color: white on dark background",
+      "details": "Title has white text on dark green background for contrast"
+    }
+  },
+  "mocked_apis": {
+    "web_scraping": "Comparables from inmuebles24, lamudi, vivanuncios, propiedades.com fall back to simulated data when real scraping fails - expected behavior for demo"
+  }
+}

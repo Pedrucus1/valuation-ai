@@ -1,0 +1,103 @@
+{
+  "summary": "Comprehensive testing of PropValu v2.6 AI-powered comparable search feature. All core functionalities verified: Landing page loads, valuation form 3-step flow works (/valuar route), AI comparables search returns results from OpenAI + Gemini providers, value calculation works, report generation works.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {
+        "screen": "Route naming",
+        "issues": ["The review request mentioned /valuacion route but actual route is /valuar - not a bug, just documentation mismatch"]
+      }
+    ]
+  },
+  "passed_tests": [
+    "API GET /api/health - returns healthy ✅",
+    "API GET /api/ - returns version 2.0.0 ✅",
+    "API GET /api/valuations/val_5291862e02f7 - returns valuation with AI search results ✅",
+    "API search_method = 'ai' ✅",
+    "API ai_providers_used includes ['openai', 'gemini'] ✅",
+    "API found 14 comparables via AI search ✅",
+    "API POST /api/valuations - creates new valuation ✅",
+    "API POST /api/valuations/{id}/generate-comparables - generates AI comparables (10-15 results) ✅",
+    "API POST /api/valuations/{id}/calculate - calculates value correctly ✅",
+    "API POST /api/valuations/{id}/generate-report - generates HTML report ✅",
+    "API GET /api/stats - returns platform statistics (71+ valuations) ✅",
+    "API GET /api/property-types - returns 7 property types ✅",
+    "API 404 for non-existent valuations ✅",
+    "UI: Landing page loads with PropValu branding ✅",
+    "UI: 'Comenzar Valuación' button navigates to /valuar ✅",
+    "UI: Stats show 71+ valuaciones, 95% precision ✅",
+    "UI: Valuation form Step 1 (Ubicación) - state, municipality, neighborhood inputs work ✅",
+    "UI: LocationMap component with draggable pin works ✅",
+    "UI: Map search input and button functional ✅",
+    "UI: Step navigation (Siguiente/Anterior buttons) works ✅",
+    "UI: Valuation form Step 2 (Inmueble) - property type selection, areas, regime ✅",
+    "UI: Valuation form Step 3 (Detalles) - bedrooms, bathrooms, features, photo upload toggle ✅",
+    "UI: Submit button 'Generar Valuación' visible ✅",
+    "UI: Report page loads valuation result ($7,407,464 MXN) ✅",
+    "UI: Report shows Confianza: ALTO, price/sqm, value range ✅",
+    "UI: Report has Regenerar, Imprimir, Descargar PDF buttons ✅"
+  ],
+  "test_report_links": [
+    "/app/backend/tests/test_ai_comparables_v26.py",
+    "/app/test_reports/pytest/pytest_v26_results.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Route /valuacion mentioned in PRD but actual route is /valuar - consider updating documentation"
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_ai_comparables_v26.py"
+  ],
+  "success_rate": {
+    "backend": "100% (11/11 pytest tests passed)",
+    "frontend": "100%"
+  },
+  "seed_data_creation": "Used existing valuation val_5291862e02f7 with 14 AI-generated comparables",
+  "test_credentials": null,
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "AI-powered comparable search is working correctly. Key test valuation: val_5291862e02f7 shows search_method='ai' and ai_providers_used=['openai','gemini'] with 14 comparables. The form route is /valuar (not /valuacion). Backend logs show both OpenAI GPT-4o and Gemini 2.5 Flash being called successfully. AI search takes ~15-30 seconds. If AI fails, system falls back to scraping then simulated data.",
+  "verified_features": {
+    "landing_page": {
+      "status": "WORKING",
+      "details": "PropValu branding, 71+ valuations, 95% precision, CNBV/SHF/INDAABIN methodology badge"
+    },
+    "valuation_form": {
+      "status": "WORKING",
+      "route": "/valuar",
+      "details": "3-step form: Ubicación (state/municipality/neighborhood/map), Inmueble (property type/areas/regime), Detalles (rooms/features/photos)"
+    },
+    "map_component": {
+      "status": "WORKING",
+      "features": "LocationMap with draggable pin, search input, coordinates display, click-to-move pin"
+    },
+    "ai_comparable_search": {
+      "status": "WORKING",
+      "providers": ["openai (gpt-4o)", "gemini (gemini-2.5-flash)"],
+      "response_format": {
+        "search_method": "ai",
+        "ai_providers_used": ["openai", "gemini"],
+        "count": 14
+      },
+      "fallback_chain": "AI -> Web scraping -> Simulated data"
+    },
+    "value_calculation": {
+      "status": "WORKING",
+      "methodology": "80% comparative + 20% physical, Ross-Heidecke depreciation"
+    },
+    "report_generation": {
+      "status": "WORKING",
+      "features": ["HTML report", "PDF download", "Print", "Regenerate"]
+    }
+  },
+  "mocked_apis": {
+    "has_mocked_apis": false,
+    "ai_integration": "OpenAI GPT-4o and Gemini 2.5 Flash are REAL integrations via emergentintegrations.llm.chat",
+    "note": "No mocked APIs - all AI calls are real through EMERGENT_LLM_KEY"
+  }
+}
