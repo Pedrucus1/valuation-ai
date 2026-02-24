@@ -1,0 +1,76 @@
+{
+  "summary": "Comprehensive testing of PropValu v2.1 - New features: land_use field, improved valuation methodology, report sections (USO DE SUELO, EQUIPAMIENTO, thermometer, 8 tips). All features working correctly. Fixed bug in report_generator.py for None latitude/longitude.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [],
+    "fixed": [
+      {
+        "file": "/app/backend/report_generator.py",
+        "issue": "TypeError when latitude/longitude is None - using .get() default didn't work because key exists with None value",
+        "fix": "Changed from prop.get('latitude', 19.4326) to prop.get('latitude') or 19.4326"
+      }
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "passed_tests": [
+    "Health endpoint (200) - API healthy",
+    "Property types endpoint - returns all 7 types",
+    "Create valuation with land_use field - H1, H2, H3, HC accepted",
+    "Create valuation without land_use - field is optional",
+    "Generate comparables - returns 6+ comparables with rental data",
+    "Calculate valuation - improved 80/20 methodology producing realistic values",
+    "Generate report contains USO DE SUELO section with land use code",
+    "Generate report contains EQUIPAMIENTO Y SERVICIOS CERCANOS with 6 numbered amenities",
+    "Generate report contains thermometer visualization",
+    "Generate report contains 8 numbered selling tips",
+    "Error handling - 404 for non-existent valuation",
+    "Error handling - 400 for report without calculation",
+    "Frontend: 3-step form navigation (Ubicación → Inmueble → Detalles)",
+    "Frontend: Land use selector visible on Step 2 with all options (H1-H4, HC, CU, CB, CS, I, EA)",
+    "Frontend: 7 property type buttons visible",
+    "Frontend: Report page shows all new sections"
+  ],
+  "test_report_links": [
+    "/app/backend/tests/test_valuation_features.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [],
+  "updated_files": [
+    "/app/backend/report_generator.py"
+  ],
+  "success_rate": {
+    "backend": "100%",
+    "frontend": "100%"
+  },
+  "seed_data_creation": "Created multiple test valuations with land_use field",
+  "test_credentials": null,
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "All new features (land_use, improved methodology, report sections) are working. The web scraping for comparables falls back to simulated data when real scraping fails - this is expected MOCKED behavior. Sample valuation val_6250e8a5af3d has complete data including report.",
+  "verified_features": {
+    "land_use_field": {
+      "backend": "API accepts land_use in POST /api/valuations",
+      "frontend": "Selector present on Step 2 with 11 options",
+      "report": "USO DE SUELO section shows code and description"
+    },
+    "improved_methodology": {
+      "calculation": "80% comparative + 20% physical method",
+      "values": "Realistic for CDMX - $31,149/m² for Del Valle Centro",
+      "cap_rate": "6.0% annual return estimate"
+    },
+    "report_sections": {
+      "uso_de_suelo": "Shows H2 - Habitacional Plurifamiliar Baja with description",
+      "equipamiento": "6 numbered amenities with icons (escuelas, hospitales, clínicas, supermercados, mercados, vías)",
+      "thermometer": "Visual indicator of value position in range",
+      "selling_tips": "8 numbered tips (Pintura, Limpieza, Fotos, Home Staging, Reparaciones, Precio, Documentación, Asesor)"
+    }
+  },
+  "mocked_apis": {
+    "web_scraping": "Comparables from inmuebles24, lamudi, etc. fall back to simulated data when scraping fails"
+  }
+}

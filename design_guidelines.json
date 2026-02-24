@@ -1,0 +1,134 @@
+{
+  "project_name": "PropValu Mexico",
+  "design_philosophy": {
+    "core_identity": "Institutional Trust meets Modern Tech",
+    "emotional_tone": "Professional, Accurate, Efficient, Secure",
+    "key_principles": [
+      "Data Density with Clarity: Appraisers need data, not fluff.",
+      "Institutional Trust: Use deep greens and crisp whites.",
+      "Print-Ready Logic: The screen report must look like the PDF.",
+      "Mexican Context: Localized terminology (Colonia, Alcaldía, Predial)."
+    ]
+  },
+  "typography": {
+    "font_family": {
+      "headings": "Outfit, sans-serif",
+      "body": "Manrope, sans-serif",
+      "mono": "JetBrains Mono, monospace"
+    },
+    "installation": "IMPERATIVE: Add these fonts via Google Fonts in index.html: <link href='https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&display=swap' rel='stylesheet'>",
+    "scale": {
+      "display": "text-5xl md:text-7xl font-bold tracking-tight",
+      "h1": "text-4xl md:text-5xl font-bold tracking-tight",
+      "h2": "text-3xl md:text-4xl font-semibold tracking-tight",
+      "h3": "text-2xl font-semibold tracking-normal",
+      "body_lg": "text-lg leading-relaxed font-medium",
+      "body": "text-base leading-relaxed text-slate-600",
+      "caption": "text-sm text-slate-500 font-medium tracking-wide uppercase",
+      "legal": "text-xs text-slate-400"
+    }
+  },
+  "colors": {
+    "palette": {
+      "primary": {
+        "DEFAULT": "#1B4332",
+        "foreground": "#FFFFFF",
+        "description": "Deep Forest Green - The anchor of trust."
+      },
+      "secondary": {
+        "DEFAULT": "#52B788",
+        "foreground": "#081C15",
+        "description": "Vibrant Sage - Growth and active elements."
+      },
+      "accent": {
+        "DEFAULT": "#D9ED92",
+        "foreground": "#081C15",
+        "description": "Pale Lime - Highlighting key data points."
+      },
+      "background": "#F8F9FA",
+      "surface": "#FFFFFF",
+      "muted": "#E9ECEF",
+      "border": "#DEE2E6"
+    },
+    "gradients": {
+      "hero": "bg-gradient-to-br from-[#1B4332] to-[#081C15]",
+      "glass": "bg-white/80 backdrop-blur-md border border-white/20 shadow-sm"
+    }
+  },
+  "layout_system": {
+    "spacing": {
+      "container_padding": "p-6 md:p-12 lg:p-16",
+      "section_gap": "gap-12 md:gap-24",
+      "component_gap": "gap-6"
+    },
+    "grid_strategies": {
+      "landing": "grid-cols-1 md:grid-cols-12 gap-8 (Bento Style)",
+      "dashboard": "grid-cols-1 md:grid-cols-4 gap-6 (High Density)",
+      "report": "w-full max-w-[210mm] mx-auto bg-white shadow-2xl p-[20mm] (A4 Ratio)"
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "rounded-md bg-[#1B4332] text-white hover:bg-[#2D6A4F] px-8 py-3 font-semibold shadow-lg hover:shadow-xl transition-all active:scale-95",
+      "secondary": "rounded-md border-2 border-[#1B4332] text-[#1B4332] hover:bg-[#1B4332] hover:text-white px-8 py-3 font-semibold transition-all",
+      "ghost": "text-[#1B4332] hover:bg-[#D9ED92]/30 px-4 py-2 rounded-md font-medium"
+    },
+    "cards": {
+      "feature": "bg-white rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition-all p-8",
+      "property_preview": "group relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-xl transition-all duration-300",
+      "metric": "bg-white rounded-lg border border-slate-100 p-6 flex flex-col gap-2"
+    },
+    "inputs": {
+      "default": "h-12 rounded-lg border-slate-200 bg-white focus:border-[#52B788] focus:ring-[#52B788]/20 transition-all font-medium text-[#1B4332]",
+      "label": "text-sm font-semibold text-[#1B4332] mb-2 block"
+    }
+  },
+  "visual_assets": {
+    "images": [
+      {
+        "category": "hero_bg",
+        "url": "https://images.pexels.com/photos/17174768/pexels-photo-17174768.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "alt": "Modern Luxury Villa Mexico"
+      },
+      {
+        "category": "appraiser_professional",
+        "url": "https://images.unsplash.com/photo-1656646424739-1a4f4d7c3e2b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2ODl8MHwxfHNlYXJjaHwzfHxwcm9mZXNzaW9uYWwlMjByZWFsJTIwZXN0YXRlJTIwYXBwcmFpc2VyJTIwcG9ydHJhaXR8ZW58MHx8fHwxNzcxNDc5NzM2fDA&ixlib=rb-4.1.0&q=85",
+        "alt": "Professional Appraiser Office"
+      },
+      {
+        "category": "mexico_skyline",
+        "url": "https://images.pexels.com/photos/12901815/pexels-photo-12901815.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "alt": "Mexico City Skyline Sunset"
+      },
+      {
+        "category": "blueprint_detail",
+        "url": "https://images.pexels.com/photos/4458210/pexels-photo-4458210.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "alt": "Architectural Blueprint"
+      },
+      {
+        "category": "modern_building_detail",
+        "url": "https://images.unsplash.com/photo-1771189255468-1bd3c9f76f7c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODh8MHwxfHNlYXJjaHwxfHxhcmNoaXRlY3R1cmFsJTIwYmx1ZXByaW50JTIwZGV0YWlsfGVufDB8fHx8MTc3MTQ3OTczOHww&ixlib=rb-4.1.0&q=85",
+        "alt": "Modern Building Glass Detail"
+      }
+    ],
+    "icons_library": "lucide-react (primary) + @phosphor-icons/react (for report details)"
+  },
+  "motion_guidelines": {
+    "page_transition": "initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.4, ease: 'easeOut' }}",
+    "hover_lift": "hover:-translate-y-1 hover:shadow-lg transition-all duration-300",
+    "stagger_children": "variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.1 } } }}"
+  },
+  "specific_instructions": {
+    "report_generation": "The report page (Reporte de Valuación) must be designed as a 'Digital Twin' of a physical paper document. Use CSS @media print to hide navbars and ensure page breaks are clean.",
+    "map_integration": "Use a grayscale or muted map style. Do not use default vibrant Google Maps colors. Overlays should be in the #1B4332 palette.",
+    "forms": "Split long forms into 'Steppers' (e.g., Ubicación > Características > Legal > Fotos). Do not overwhelm the user with 50 inputs at once.",
+    "comparables_grid": "When showing comparables, use a dense table or horizontal scroll cards. Key metric: '$/m²' must be highlighted."
+  },
+  "universal_guidelines": [
+    "Do not use gradients for text.",
+    "Ensure all inputs have a valid label.",
+    "Use data-testid for all interactive elements.",
+    "Never use 'Lorem Ipsum' in final output - use realistic real estate copy.",
+    "Respect the 'Institutional Green' constraint - do not drift into Teal or Blue."
+  ]
+}

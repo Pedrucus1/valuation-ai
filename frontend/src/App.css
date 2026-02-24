@@ -1,0 +1,168 @@
+/* PropValu Mexico - Custom Styles */
+
+/* Hero gradient */
+.hero-gradient {
+  background: linear-gradient(135deg, #1B4332 0%, #081C15 100%);
+}
+
+/* Glass effect */
+.glass {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Card hover effect */
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Button styles */
+.btn-primary {
+  background-color: #1B4332;
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #2D6A4F;
+  transform: scale(1.02);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-secondary {
+  border: 2px solid #1B4332;
+  color: #1B4332;
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #1B4332;
+  color: white;
+}
+
+/* Input focus styles */
+.input-focus:focus {
+  border-color: #52B788;
+  box-shadow: 0 0 0 3px rgba(82, 183, 136, 0.2);
+}
+
+/* Stepper styles */
+.stepper-item {
+  position: relative;
+}
+
+.stepper-item::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: 100%;
+  height: 2px;
+  background-color: #DEE2E6;
+  transform: translateY(-50%);
+}
+
+.stepper-item:last-child::after {
+  display: none;
+}
+
+.stepper-item.active::after {
+  background-color: #52B788;
+}
+
+/* Report styles */
+.report-container {
+  max-width: 210mm;
+  margin: 0 auto;
+  background: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Comparable card */
+.comparable-card {
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.comparable-card:hover {
+  border-color: #52B788;
+}
+
+.comparable-card.selected {
+  border-color: #1B4332;
+  background-color: rgba(217, 237, 146, 0.1);
+}
+
+/* Badge styles */
+.badge-confidence-alto {
+  background-color: #D9ED92;
+  color: #1B4332;
+}
+
+.badge-confidence-medio {
+  background-color: #FEF3C7;
+  color: #92400E;
+}
+
+.badge-confidence-bajo {
+  background-color: #FEE2E2;
+  color: #991B1B;
+}
+
+/* Loading spinner */
+.spinner {
+  border: 3px solid #E9ECEF;
+  border-top: 3px solid #52B788;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Pulse animation for loading */
+.pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Responsive table */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Number formatting */
+.currency::before {
+  content: '$';
+}
+
+/* Tooltip */
+.tooltip-trigger:hover .tooltip-content {
+  opacity: 1;
+  visibility: visible;
+}
+
+.tooltip-content {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+}
