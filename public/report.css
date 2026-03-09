@@ -222,19 +222,19 @@ h2 {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 12px;
-    margin-bottom: 15px;
+    margin-bottom: 8px;
 }
 
 .summary-card {
     background: white;
-    padding: 12px 8px;
+    padding: 8px 6px;
     border-radius: 12px;
     border: 1px solid var(--gray-200);
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-height: 60px;
+    min-height: 52px;
 }
 
 .summary-card.highlight {
@@ -333,8 +333,8 @@ h2 {
     background: #f8fafc;
     border: 1px solid #cbd5e1;
     border-radius: 8px;
-    padding: 15px;
-    margin-top: 15px;
+    padding: 10px 15px;
+    margin-top: 8px;
 }
 
 .warning-title {

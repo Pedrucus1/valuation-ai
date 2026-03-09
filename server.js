@@ -122,10 +122,39 @@ const generateAnalysisText = (prop, result, selectedComps) => {
 
 // Serve static files (CSS, etc.)
 app.use(express.static(path.join(__dirname, 'public')));
-// Serve static files from the React app
+// Serve frontend public folder (PDFs, viewer, etc.)
+app.use(express.static(path.join(__dirname, 'frontend/public')));
+// Serve static files from the React app build
 app.use(express.static(path.join(__dirname, 'frontend/build')));
 
 // API Endpoints
+
+// PDF text extraction endpoint — for dev tooling
+app.get('/api/read-pdf', async (req, res) => {
+  const { file } = req.query;
+  const allowedDir = path.join(__dirname, 'frontend', 'public');
+  const safeName = path.basename(file || 'reporte_referencia.pdf');
+  const fullPath = path.join(allowedDir, safeName);
+
+  if (!require('fs').existsSync(fullPath)) {
+    return res.status(404).json({ error: 'Archivo no encontrado: ' + safeName });
+  }
+
+  try {
+    // Try pdf-parse
+    const pdfParse = require('./node_modules/pdf-parse/lib/pdf-parse.js');
+    const buf = require('fs').readFileSync(fullPath);
+    const data = await pdfParse(buf);
+    res.json({
+      file: safeName,
+      pages: data.numpages,
+      chars: data.text.length,
+      text: data.text
+    });
+  } catch (e) {
+    res.status(500).json({ error: 'Error al leer PDF: ' + e.message });
+  }
+});
 
 // Geocoding proxy — prioritize Google Maps if API key is available
 app.get('/api/geocode', async (req, res) => {
@@ -234,6 +263,72 @@ app.get('/api/valuations/:id', (req, res) => {
   }
 });
 
+// ============================================================
+// Homologación de Factores INDAABIN/SHF
+// ============================================================
+function calcularAjustesHomologacion(comparable, propertyData) {
+  const clamp = (val, min, max) => Math.min(Math.max(val, min), max);
+
+  // 1. FACTOR SUPERFICIE
+  const ratioSup = (comparable.construction_area || propertyData.construction_area) / propertyData.construction_area;
+  const areaAdj = parseFloat(clamp((1 / ratioSup - 1) * 50, -15, 15).toFixed(1));
+
+  // 2. FACTOR CONDICIÓN/CONSERVACIÓN
+  const conservScores = { 'Excelente': 1.0, 'Bueno': 0.85, 'Regular': 0.65, 'Malo': 0.40 };
+  const subjCondScore = conservScores[propertyData.conservation_state] || 0.85;
+  const compCondScore = conservScores[comparable.condition] || 0.85;
+  const condAdj = parseFloat(clamp((subjCondScore - compCondScore) * 20, -15, 15).toFixed(1));
+
+  // 3. FACTOR EDAD (Ross-Heidecke simplificado)
+  const ageSubj = propertyData.estimated_age || 10;
+  const ageComp = comparable.age != null ? comparable.age : ageSubj;
+  const depSubj = Math.min(ageSubj / 60, 0.50);
+  const depComp = Math.min(ageComp / 60, 0.50);
+  const ageAdj = parseFloat(clamp((depComp - depSubj) * 40, -20, 20).toFixed(1));
+
+  // 4. FACTOR CALIDAD DE ACABADOS
+  const qualScores = {
+    'Residencial plus': 1.25, 'Residencial': 1.0, 'Media-alta': 0.88,
+    'Media': 0.75, 'Interés social': 0.60
+  };
+  const subjQualScore = qualScores[propertyData.construction_quality] || 0.75;
+  const compQualScore = qualScores[comparable.quality] || 0.75;
+  const qualAdj = parseFloat(clamp((subjQualScore / compQualScore - 1) * 100 * 0.5, -15, 15).toFixed(1));
+
+  // 5. FACTOR UBICACIÓN / FRENTES (INDAABIN)
+  const frontScores = {
+    'medianero': 1.00,    // 1 frente — base
+    '2_frentes': 1.05,    // 2 frentes — esquina +5%
+    'esquina': 1.05,      // legacy alias
+    '3_frentes': 1.10,    // 3 frentes +10%
+    '4_frentes': 1.15,    // manzana completa +15%
+    'multiple_frentes': 1.15  // legacy alias
+  };
+  const subjFrontScore = frontScores[propertyData.frontage_type] || 1.00;
+  const compFrontScore = frontScores[comparable.frontage_type] || 1.00;
+  const locAdj = parseFloat(clamp((subjFrontScore / compFrontScore - 1) * 100, -15, 15).toFixed(1));
+
+  // 6. FACTOR RÉGIMEN
+  const regimeDiscounts = { 'EJIDAL': -20, 'COMUNAL': -25, 'RUSTICO': -30 };
+  const compRegimeDiscount = regimeDiscounts[comparable.land_regime] || 0;
+  const subjRegimeDiscount = regimeDiscounts[propertyData.land_regime] || 0;
+  const regimeAdj = parseFloat(((subjRegimeDiscount - compRegimeDiscount) * -1).toFixed(1));
+
+  const otherAdj = areaAdj + condAdj + ageAdj + qualAdj + locAdj + regimeAdj;
+  const negotiationDefault = -5;
+
+  return {
+    area_adjustment: areaAdj,
+    condition_adjustment: condAdj,
+    age_adjustment: ageAdj,
+    quality_adjustment: qualAdj,
+    location_adjustment: locAdj,
+    regime_adjustment: regimeAdj,
+    negotiation_adjustment: negotiationDefault,
+    total_adjustment: parseFloat((otherAdj + negotiationDefault).toFixed(1))
+  };
+}
+
 app.post('/api/valuations/:id/generate-comparables', async (req, res) => {
   const valuation = valuations[req.params.id];
   if (!valuation) return res.status(404).json({ error: 'Valuación no encontrada' });
@@ -242,7 +337,17 @@ app.post('/api/valuations/:id/generate-comparables', async (req, res) => {
   const count = append ? 5 : 10;
 
   try {
-    const comps = await searchComparablesWithAI(valuation.property_data, count);
+    const rawComps = await searchComparablesWithAI(valuation.property_data, count);
+
+    // Apply INDAABIN adjustment factors to each comparable
+    const comps = rawComps.map(comp => {
+      const adjustments = calcularAjustesHomologacion(comp, valuation.property_data);
+      return {
+        ...comp,
+        ...adjustments,
+        comparable_id: comp.comparable_id || ('comp_' + Math.random().toString(36).substr(2, 9))
+      };
+    });
 
     if (append) {
       valuation.comparables = [...(valuation.comparables || []), ...comps];
@@ -264,6 +369,7 @@ app.post('/api/valuations/:id/generate-comparables', async (req, res) => {
     res.status(500).json({ error: 'Error al buscar comparables con AI' });
   }
 });
+
 
 app.post('/api/valuations/:id/select-comparables', (req, res) => {
   const valuation = valuations[req.params.id];
@@ -400,6 +506,23 @@ app.post('/api/valuations/:id/calculate', async (req, res) => {
   // Market Metrics
   const marketMetrics = calculateMarketMetrics(estimatedValue, prop.property_type || 'Casa');
 
+  // Investment Indicators (new — matches PDF reference)
+  const annualRent = marketMetrics.annual_rent_estimate;
+  const capRate = parseFloat(marketMetrics.cap_rate); // %
+  const cetesRate = 10.0; // Reference CETES rate %
+  const plusvaliaAnual = 5.2; // % estimated annual appreciation
+  const paybackYears = annualRent > 0 ? (estimatedValue / annualRent).toFixed(1) : 'N/A';
+  const roi10 = annualRent > 0
+    ? (((annualRent * 10) + (estimatedValue * (Math.pow(1 + plusvaliaAnual / 100, 10) - 1))) / estimatedValue * 100).toFixed(0)
+    : 'N/A';
+  const difCapCetes = (capRate - cetesRate).toFixed(1);
+
+  // Plusvalia proyectada (5 years compound)
+  const plusvaliaProyectada = [1, 2, 3, 4, 5].map(yr => ({
+    year: new Date().getFullYear() + yr,
+    pct: ((Math.pow(1 + plusvaliaAnual / 100, yr) - 1) * 100).toFixed(1)
+  }));
+
   valuation.result = {
     estimated_value: Math.round(estimatedValue),
     value_range_min: Math.round(estimatedValue * 0.90),
@@ -413,7 +536,16 @@ app.post('/api/valuations/:id/calculate', async (req, res) => {
     land_value: Math.round(landValue),
     construction_depreciated: Math.round(constructionDepreciated),
     depreciation_percent: Math.round(totalDepreciation * 100),
-    market_metrics: marketMetrics
+    market_metrics: marketMetrics,
+    investment_indicators: {
+      cap_rate: capRate,
+      cetes_rate: cetesRate,
+      dif_cap_cetes: parseFloat(difCapCetes),
+      plusvalia_anual: plusvaliaAnual,
+      payback_years: paybackYears,
+      roi_10_years: roi10,
+      plusvalia_proyectada: plusvaliaProyectada
+    }
   };
 
   // 4. Generate Strategic Insights via AI
@@ -583,49 +715,49 @@ app.post('/api/valuations/:id/generate-report', (req, res) => {
 
         <div class="section">
           <h2>🏠 DATOS DEL INMUEBLE</h2>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--gray-100); border: 1px solid var(--gray-200); border-radius: 8px; overflow: hidden; font-size: 13px;">
-            <div style="background: white; padding: 10px 12px; display: flex; justify-content: space-between;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--gray-100); border: 1px solid var(--gray-200); border-radius: 8px; overflow: hidden; font-size: 12px;">
+            <div style="background: white; padding: 7px 12px; display: flex; justify-content: space-between;">
               <span style="color:var(--gray-500)">📍 Ubicación</span>
               <span style="font-weight:700">${prop.neighborhood.toUpperCase()}, ${prop.municipality.toUpperCase()}</span>
             </div>
-            <div style="background: white; padding: 10px 12px; display: flex; justify-content: space-between;">
+            <div style="background: white; padding: 7px 12px; display: flex; justify-content: space-between;">
               <span style="color:var(--gray-500)">🚩 Estado</span>
               <span style="font-weight:700">${prop.state}</span>
             </div>
-            <div style="background: white; padding: 10px 12px; display: flex; justify-content: space-between;">
+            <div style="background: white; padding: 7px 12px; display: flex; justify-content: space-between;">
               <span style="color:var(--gray-500)">📐 Terreno</span>
               <span style="font-weight:700">${prop.land_area} m²</span>
             </div>
-            <div style="background: white; padding: 10px 12px; display: flex; justify-content: space-between;">
+            <div style="background: white; padding: 7px 12px; display: flex; justify-content: space-between;">
               <span style="color:var(--gray-500)">🏗 Construcción</span>
               <span style="font-weight:700">${prop.construction_area} m²</span>
             </div>
-            <div style="background: white; padding: 10px 12px; display: flex; justify-content: space-between;">
+            <div style="background: white; padding: 7px 12px; display: flex; justify-content: space-between;">
               <span style="color:var(--gray-500)">🏘 Tipo</span>
               <span style="font-weight:700">${prop.property_type}</span>
             </div>
-            <div style="background: white; padding: 10px 12px; display: flex; justify-content: space-between;">
+            <div style="background: white; padding: 7px 12px; display: flex; justify-content: space-between;">
               <span style="color:var(--gray-500)">📜 Régimen</span>
               <span style="font-weight:700">${prop.land_regime || 'URBANO'}</span>
             </div>
-            <div style="background: white; padding: 10px 12px; display: flex; justify-content: space-between;">
+            <div style="background: white; padding: 7px 12px; display: flex; justify-content: space-between;">
               <span style="color:var(--gray-500)">🏢 Niveles</span>
               <span style="font-weight:700">${prop.property_level || 'PB'} de ${prop.total_floors || '1'}</span>
             </div>
-            <div style="background: white; padding: 10px 12px; display: flex; justify-content: space-between;">
+            <div style="background: white; padding: 7px 12px; display: flex; justify-content: space-between;">
               <span style="color:var(--gray-500)">🏗️ Uso de Suelo</span>
               <span style="font-weight:700">${prop.land_use || 'H2/20'}</span>
             </div>
-            <div style="background: white; padding: 10px 12px; display: flex; justify-content: space-between;">
+            <div style="background: white; padding: 7px 12px; display: flex; justify-content: space-between;">
               <span style="color:var(--gray-500)">📄 Fuente info.</span>
               <span style="font-weight:700">${prop.surface_source || 'No especificada'}</span>
             </div>
-            <div style="background: white; padding: 10px 12px; display: flex; justify-content: space-between;">
+            <div style="background: white; padding: 7px 12px; display: flex; justify-content: space-between;">
               <span style="color:var(--gray-500)">📅 Edad estimada</span>
               <span style="font-weight:700">${prop.estimated_age || 0} años</span>
             </div>
             ${prop.surface_source === 'Predial' ? `
-            <div style="background: #fef2f2; padding: 8px 12px; font-size: 10px; color: #991b1b; border-top: 1px solid #fee2e2; border-right: 1px solid var(--gray-200); line-height: 1.3;">
+            <div style="background: #fef2f2; padding: 6px 12px; font-size: 10px; color: #991b1b; border-top: 1px solid #fee2e2; border-right: 1px solid var(--gray-200); line-height: 1.3;">
               ⚠️ <strong>Nota Técnica:</strong> Las superficies de Predial no están validadas físicamente. Discrepancias impactarán la precisión del valor.
             </div>
             <div style="background: #fef2f2; border-top: 1px solid #fee2e2;"></div>
@@ -636,42 +768,72 @@ app.post('/api/valuations/:id/generate-report', (req, res) => {
             ${topBadges.map(b => `<div class="amenity-badge"><span>${b.icon}</span> ${b.text}</div>`).join('')}
           </div>
 
-          ${(selectedFeatureLabels.length > 0 || prop.other_features) ? `
-          <div style="margin-top: 10px; padding: 12px; background: #f7fee7; border: 1.5px solid #d9f99d; border-radius: 8px;">
-            <div style="font-size: 11px; font-weight: 800; color: var(--primary); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">✨ CARACTERÍSTICAS ESPECIALES E INSTALACIONES:</div>
-            <div style="font-size: 14px; font-weight: 700; color: #081C15; line-height: 1.5;">
-              ${selectedFeatureLabels.join(' • ')}${selectedFeatureLabels.length > 0 && prop.other_features ? ' • ' : ''}${prop.other_features || ''}
-            </div>
+          ${prop.other_features ? `
+          <div style="margin-top: 8px; padding: 10px 12px; background: #f7fee7; border: 1.5px solid #d9f99d; border-radius: 8px;">
+            <div style="font-size: 10px; font-weight: 800; color: var(--primary); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">✨ OTROS ELEMENTOS IMPORTANTES:</div>
+            <div style="font-size: 13px; font-weight: 700; color: #081C15; line-height: 1.5;">${prop.other_features}</div>
           </div>
           ` : ''}
         </div>
 
         <div class="section">
           <h2>📍 UBICACIÓN Y FACHADA</h2>
-          <div style="font-weight: 600; color: var(--primary); margin-bottom: 8px;">📍 ${prop.street_address || prop.neighborhood}${prop.internal_number ? ' Int. ' + prop.internal_number : ''}, ${prop.neighborhood}</div>
+          <div style="font-weight: 600; color: var(--primary); margin-bottom: 6px; font-size:12px;">📍 ${prop.street_address ? prop.street_address + ', ' : ''}${prop.neighborhood}, ${prop.municipality}</div>
           
-          <div style="display: flex; gap: 12px; align-items: stretch;">
-            <div class="map-container" style="flex: 1; height: 260px; position: relative; border-radius: 8px; overflow: hidden; border: 1px solid var(--gray-200);">
+          <div style="display: flex; gap: 10px; align-items: stretch;">
+            <div class="map-container" style="flex: 1; height: 240px; position: relative; border-radius: 8px; overflow: hidden; border: 1px solid var(--gray-200);">
               <img class="map-image" src="https://maps.googleapis.com/maps/api/staticmap?center=${prop.latitude},${prop.longitude}&zoom=16&size=600x800&maptype=roadmap&markers=color:red%7C${prop.latitude},${prop.longitude}&key=${GOOGLE_MAPS_API_KEY}" alt="Mapa" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
-            
             ${(prop.facade_photo_index !== null && prop.photos && prop.photos[prop.facade_photo_index]) ? `
-              <div style="flex: 1; height: 260px; border-radius: 8px; overflow: hidden; border: 1px solid var(--gray-200);">
+              <div style="flex: 1; height: 240px; border-radius: 8px; overflow: hidden; border: 1px solid var(--gray-200);">
                 <img src="${prop.photos[prop.facade_photo_index]}" style="width: 100%; height: 100%; object-fit: cover;" alt="Fachada">
               </div>
             ` : ''}
           </div>
-
-          <div style="font-size: 11px; color: var(--gray-500); margin-top: 6px; text-align: right;">
+          <div style="font-size: 11px; color: var(--gray-500); margin-top: 5px; text-align: right;">
             📌 Coordenadas: ${prop.latitude.toFixed(6)}, ${prop.longitude.toFixed(6)}
+          </div>
+
+          <!-- PLUSVALÍA PROYECTADA + PERFIL DEL ENTORNO — columnas simétricas 50/50 -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+            <!-- Plusvalía proyectada bar chart -->
+            <div style="background: #f0fdf4; border: 1.5px solid #bbf7d0; border-radius: 10px; padding: 12px;">
+              <div style="font-size: 10px; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">📈 PLUSVALÍA PROYECTADA (5 AÑOS)</div>
+              <div style="display: flex; align-items: flex-end; gap: 5px; height: 64px;">
+                ${result.investment_indicators.plusvalia_proyectada.map((p, i) => {
+    // Heights in px: 8, 16, 28, 40, 56 — clearly increasing
+    const pxH = [10, 20, 32, 44, 58][i] || 20;
+    return `<div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:64px;">
+                    <div style="font-size:7.5px;font-weight:800;color:#15803d;margin-bottom:2px;">+${p.pct}%</div>
+                    <div style="width:100%;background:linear-gradient(to top,#15803d,#52B788);border-radius:3px 3px 0 0;height:${pxH}px;"></div>
+                    <div style="font-size:7px;color:var(--gray-500);font-weight:600;margin-top:2px;text-align:center;">${p.year}</div>
+                  </div>`;
+  }).join('')}
+              </div>
+              <div style="font-size: 9px; color: var(--gray-500); margin-top: 3px;">Tasa anual est.: ~${result.investment_indicators.plusvalia_anual}% · Fuente: SHF / BBVA</div>
+
+            </div>
+            <!-- Perfil del entorno -->
+            <div style="background: white; border: 1.5px solid var(--gray-200); border-radius: 10px; padding: 12px;">
+              <div style="font-size: 10px; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">📍 PERFIL DEL ENTORNO</div>
+              ${(result.ai_insights && result.ai_insights.nearby_amenities) ? `
+              <div style="display: flex; flex-direction: column; gap: 4px; font-size: 10.5px;">
+                <div style="display:flex;align-items:center;gap:5px;"><span>🛡</span><span style="color:var(--gray-500)">Seguridad:</span><span style="font-weight:700;">Zona con vigilancia regular</span></div>
+                <div style="display:flex;align-items:center;gap:5px;"><span>🚗</span><span style="color:var(--gray-500)">Movilidad:</span><span style="font-weight:700;">Acceso a vialidades de primer orden</span></div>
+                ${result.ai_insights.nearby_amenities.filter(a => ['escuelas', 'hospitales', 'supermercados', 'parques', 'plazas'].includes(a.key)).map(a => {
+    const cat = { escuelas: '📚 Educación', hospitales: '🏥 Salud', supermercados: '🛒 Comercio', parques: '🌳 Recreación', plazas: '🛍 Plazas' }[a.key] || a.label;
+    return `<div style="display:flex;align-items:center;gap:5px;"><span>${a.icon}</span><span style="color:var(--gray-500)">${cat.split(' ').slice(1).join(' ')}:</span><span style="font-weight:700;">${a.count}+ ${a.label.toLowerCase()} cercanos</span></div>`;
+  }).join('')}
+              </div>` : `<div style="font-size:10px;color:var(--gray-500);">Datos de entorno no disponibles.</div>`}
+            </div>
           </div>
         </div>
       </div>
       <!-- PAGE 2: VALOR Y ESTRATEGIA -->
       <div class="page">
         ${headerHtml}
-        <div class="main-value-box" style="padding: 30px 20px; background: linear-gradient(135deg, #1B4332 0%, #081C15 100%);">
-          <div style="font-size: 15px; font-weight: 700; letter-spacing: 3px; color: var(--accent); text-transform: uppercase; margin-bottom: 25px;">💰 VALOR MEDIO O JUSTO</div>
+        <div class="main-value-box" style="padding: 18px 20px; background: linear-gradient(135deg, #1B4332 0%, #081C15 100%);">
+          <div style="font-size: 13px; font-weight: 700; letter-spacing: 3px; color: var(--accent); text-transform: uppercase; margin-bottom: 14px;">💰 VALOR MEDIO O JUSTO</div>
           
           <div class="value-grid-3">
             <!-- Izquierda: Valor Máximo -->
@@ -760,6 +922,38 @@ app.post('/api/valuations/:id/generate-report', (req, res) => {
           </div>
         </div>
 
+        <!-- INDICADORES DE INVERSIÓN (new section from PDF) -->
+        <div class="section">
+          <h2>📊 INDICADORES DE INVERSIÓN</h2>
+          <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;">
+            <div style="text-align:center; padding:10px 6px; border-radius:8px; background:#f0fdf4; border:1.5px solid #bbf7d0;">
+              <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--gray-500);margin-bottom:4px;">CAP RATE</div>
+              <div style="font-size:20px;font-weight:800;color:${result.investment_indicators.cap_rate >= 8 ? '#15803d' : result.investment_indicators.cap_rate >= 6 ? '#1B4332' : '#92400e'}">${result.investment_indicators.cap_rate}%</div>
+              <div style="font-size:8px;color:var(--gray-500);margin-top:2px;">vs CETES ${result.investment_indicators.cetes_rate}%</div>
+            </div>
+            <div style="text-align:center; padding:10px 6px; border-radius:8px; background:#f0fdf4; border:1.5px solid #bbf7d0;">
+              <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--gray-500);margin-bottom:4px;">PLUSVALÍA ANUAL</div>
+              <div style="font-size:20px;font-weight:800;color:#15803d;">${result.investment_indicators.plusvalia_anual}%</div>
+              <div style="font-size:8px;color:var(--gray-500);margin-top:2px;">Estimada</div>
+            </div>
+            <div style="text-align:center; padding:10px 6px; border-radius:8px; background:#f8fafc; border:1.5px solid var(--gray-200);">
+              <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--gray-500);margin-bottom:4px;">PAYBACK</div>
+              <div style="font-size:20px;font-weight:800;color:var(--primary);">${result.investment_indicators.payback_years}</div>
+              <div style="font-size:8px;color:var(--gray-500);margin-top:2px;">años (Recup. renta)</div>
+            </div>
+            <div style="text-align:center; padding:10px 6px; border-radius:8px; background:#f0fdf4; border:1.5px solid #bbf7d0;">
+              <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--gray-500);margin-bottom:4px;">ROI 10 AÑOS</div>
+              <div style="font-size:20px;font-weight:800;color:#15803d;">${result.investment_indicators.roi_10_years}%</div>
+              <div style="font-size:8px;color:var(--gray-500);margin-top:2px;">Renta+Plusvalía</div>
+            </div>
+            <div style="text-align:center; padding:10px 6px; border-radius:8px; background:${result.investment_indicators.dif_cap_cetes >= 0 ? '#f0fdf4' : '#fef2f2'}; border:1.5px solid ${result.investment_indicators.dif_cap_cetes >= 0 ? '#bbf7d0' : '#fecaca'};">
+              <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--gray-500);margin-bottom:4px;">DIF. CAP-CETES</div>
+              <div style="font-size:20px;font-weight:800;color:${result.investment_indicators.dif_cap_cetes >= 0 ? '#15803d' : '#dc2626'};">${result.investment_indicators.dif_cap_cetes > 0 ? '+' : ''}${result.investment_indicators.dif_cap_cetes}%</div>
+              <div style="font-size:8px;color:var(--gray-500);margin-top:2px;">${result.investment_indicators.dif_cap_cetes >= 0 ? '▲ Sobre CETES' : '▼ Abajo CETES'}</div>
+            </div>
+          </div>
+        </div>
+
         <div class="section">
           <h2>⚖ DESGLOSE DE VALOR FÍSICO</h2>
           <div style="display: grid; grid-template-columns: 80px 1.5fr 1fr 1.2fr; gap: 15px; align-items: center; padding: 12px; border: 1px solid var(--gray-200); border-radius: 8px; background: white;">
@@ -820,12 +1014,15 @@ app.post('/api/valuations/:id/generate-report', (req, res) => {
               ${selectedComps.map((c, i) => `
                 <tr>
                   <td class="text-center">${i + 1}</td>
-                  <td style="font-size: 10px;">${c.neighborhood}</td>
+                  <td style="font-size: 10px; line-height:1.3;">
+                    <div style="font-weight:600;">${c.neighborhood}</div>
+                    ${c.street_address ? `<div style="font-size:8.5px;color:var(--gray-500);">${c.street_address}</div>` : ''}
+                  </td>
                   <td class="text-right">${c.land_area}</td>
                   <td class="text-right">${c.construction_area}</td>
                   <td class="text-right">${new Intl.NumberFormat('es-MX').format(c.price)}</td>
                   <td class="text-right">${new Intl.NumberFormat('es-MX', { maximumFractionDigits: 0 }).format(c.price_per_sqm)}</td>
-                  <td class="text-right" style="color: ${c.total_adjustment < 0 ? 'var(--danger)' : 'var(--success)'}; font-weight: 700;">${c.total_adjustment}%</td>
+                  <td class="text-right" style="color: ${c.total_adjustment < 0 ? 'var(--danger)' : 'var(--success)'}; font-weight: 700;">${Number(c.total_adjustment).toFixed(1)}%</td>
                   <td class="text-right" style="font-weight: 700;">${new Intl.NumberFormat('es-MX', { maximumFractionDigits: 0 }).format(Math.round(c.price_per_sqm * (1 + c.total_adjustment / 100)))}</td>
                   <td class="text-right">
                     <a href="${c.source_url || '#'}" target="_blank" style="color: var(--secondary); font-size: 9px; text-decoration: none; font-weight: 700;">
@@ -861,6 +1058,15 @@ app.post('/api/valuations/:id/generate-report', (req, res) => {
       }).join('');
     })()}
           </div>
+        </div>
+
+        <!-- METODOLOGÍA DE VALUACIÓN -->
+        <div style="margin-top: 10px; padding: 12px; background: #f8fafc; border: 1px solid var(--gray-200); border-radius: 8px;">
+          <div style="font-size: 10px; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px;">🏛 METODOLOGÍA DE VALUACIÓN</div>
+          <div style="font-size: 10px; color: var(--gray-700); line-height: 1.5;">
+            Se aplicó el <strong>Método de Comparación de Mercado con Homologación Técnica</strong>. A cada comparable se le aplicaron factores de ajuste por: <strong>Edad (Ross-Heidecke)</strong>, <strong>Estado de Conservación</strong> y <strong>Margen de Negociación</strong> comercial. El valor final es un promedio ponderado que prioriza la <strong>mediana estadística</strong> para eliminar valores atípicos.
+          </div>
+          <div style="font-size: 8.5px; color: var(--gray-500); margin-top: 4px;">Norma: INDAABIN · Manual de Valuación Bancaria SHF · Circular CNBV 1/2009</div>
         </div>
       </div>
 

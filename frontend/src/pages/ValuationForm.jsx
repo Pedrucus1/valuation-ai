@@ -261,36 +261,67 @@ const LocationMap = ({ latitude, longitude, onLocationChange, address, autoSearc
   );
 };
 
+// Compress image to max 800x600 keeping aspect ratio, returns {dataUrl, isVertical}
+const compressImage = (file) => {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const img = new window.Image();
+      img.onload = () => {
+        const MAX_W = 800;
+        const MAX_H = 600;
+        const isVertical = img.height > img.width; // portrait (phone vertical)
+        let { width, height } = img;
+
+        // Rotate constraints for vertical photos
+        const maxW = isVertical ? MAX_H : MAX_W;
+        const maxH = isVertical ? MAX_W : MAX_H;
+
+        if (width > maxW || height > maxH) {
+          const ratio = Math.min(maxW / width, maxH / height);
+          width = Math.round(width * ratio);
+          height = Math.round(height * ratio);
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+        resolve({ dataUrl, isVertical });
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
+};
+
 // Photo Upload Component
-// Photo Upload Component
-const PhotoUploader = ({ photos, onPhotosChange, facadeIndex, onFacadeChange, maxPhotos = 12 }) => {
+const PhotoUploader = ({ photos, onPhotosChange, facadeIndex, onFacadeChange, photoOrientations, onOrientationsChange, maxPhotos = 12 }) => {
   const fileInputRef = useRef(null);
 
-  const handleFileSelect = (e) => {
+  const handleFileSelect = async (e) => {
     const files = Array.from(e.target.files || []);
     const remainingSlots = maxPhotos - photos.length;
     const filesToProcess = files.slice(0, remainingSlots);
 
-    filesToProcess.forEach((file) => {
-      if (file.size > 5 * 1024 * 1024) {
-        toast.error(`${file.name} es muy grande (máx 5MB)`);
-        return;
-      }
-
-      const reader = new FileReader();
-      reader.onloadend = () => {
+    for (const file of filesToProcess) {
+      try {
+        const { dataUrl, isVertical } = await compressImage(file);
         onPhotosChange((prev) => {
           if (prev.length >= maxPhotos) return prev;
-          const newList = [...prev, reader.result];
-          // Si es la primera foto y no hay fachada, marcarla
+          const newList = [...prev, dataUrl];
           if (newList.length === 1 && facadeIndex === null) {
             onFacadeChange(0);
           }
           return newList;
         });
-      };
-      reader.readAsDataURL(file);
-    });
+        onOrientationsChange((prev) => [...prev, isVertical]);
+      } catch {
+        toast.error(`Error al procesar ${file.name}`);
+      }
+    }
   };
 
   const removePhoto = (index) => {
@@ -338,40 +369,43 @@ const PhotoUploader = ({ photos, onPhotosChange, facadeIndex, onFacadeChange, ma
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-3">
-        {photos.map((photo, index) => (
-          <div key={index} className="relative group aspect-square rounded-lg border border-slate-200 overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow">
-            <img src={photo} alt={`Subida ${index}`} className="w-full h-full object-cover" />
+        {photos.map((photo, index) => {
+          const isVert = photoOrientations && photoOrientations[index];
+          return (
+            <div key={index} className={`relative group rounded-lg border border-slate-200 overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow ${isVert ? 'aspect-[2/3]' : 'aspect-square'}`}>
+              <img src={photo} alt={`Subida ${index}`} className="w-full h-full object-cover" />
 
-            {/* Overlay controls */}
-            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-2">
-              <button
-                type="button"
-                onClick={() => removePhoto(index)}
-                className="self-end p-1 bg-white/20 hover:bg-red-500 text-white rounded-full transition-colors"
-              >
-                <X className="w-4 h-4" />
-              </button>
+              {/* Overlay controls */}
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-2">
+                <button
+                  type="button"
+                  onClick={() => removePhoto(index)}
+                  className="self-end p-1 bg-white/20 hover:bg-red-500 text-white rounded-full transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                </button>
 
-              <button
-                type="button"
-                onClick={() => onFacadeChange(facadeIndex === index ? null : index)}
-                className={`w-full py-1.5 rounded text-[10px] font-bold uppercase transition-all duration-300 transform active:scale-95 ${facadeIndex === index
-                  ? "bg-[#52B788] text-white shadow-lg"
-                  : "bg-white/90 text-[#1B4332] hover:bg-white shadow-sm"
-                  } ${facadeIndex === null ? 'animate-bounce' : ''}`}
-              >
-                {facadeIndex === index ? "⭐ Fachada Principal" : "Elegir Portada"}
-              </button>
-            </div>
-
-            {/* Indicator badge if facade */}
-            {facadeIndex === index && (
-              <div className="absolute top-1 left-1 bg-[#52B788] text-white text-[8px] font-bold px-1.5 py-0.5 rounded shadow-sm">
-                PORTADA
+                <button
+                  type="button"
+                  onClick={() => onFacadeChange(facadeIndex === index ? null : index)}
+                  className={`w-full py-1.5 rounded text-[10px] font-bold uppercase transition-all duration-300 transform active:scale-95 ${facadeIndex === index
+                    ? "bg-[#52B788] text-white shadow-lg"
+                    : "bg-white/90 text-[#1B4332] hover:bg-white shadow-sm"
+                    } ${facadeIndex === null ? 'animate-bounce' : ''}`}
+                >
+                  {facadeIndex === index ? "⭐ Fachada Principal" : "Elegir Portada"}
+                </button>
               </div>
-            )}
-          </div>
-        ))}
+
+              {/* Indicator badge if facade */}
+              {facadeIndex === index && (
+                <div className="absolute top-1 left-1 bg-[#52B788] text-white text-[8px] font-bold px-1.5 py-0.5 rounded shadow-sm">
+                  PORTADA
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
 
       <p className="text-xs text-slate-500">
@@ -398,6 +432,7 @@ const ValuationForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [includePhotos, setIncludePhotos] = useState(false);
+  const [photoOrientations, setPhotoOrientations] = useState([]); // track vertical photos
 
   const [formData, setFormData] = useState({
     // Step 1 - Location
@@ -413,20 +448,23 @@ const ValuationForm = () => {
     // Step 2 - Property Details
     land_area: "",
     construction_area: "",
-    land_regime: "URBANO",
+    land_regime: "",
     property_type: "Casa",
-    land_use: "desconocido",
-    surface_source: "Escrituras",
+    land_use: "",
+    surface_source: "",
 
     // Step 3 - Details
     bedrooms: "",
     bathrooms: "",
     parking_spots: "2",
+    parking_covered: "",
+    parking_uncovered: "",
     property_level: "PB",
     total_floors: "",
     estimated_age: "",
     conservation_state: "",
     construction_quality: "",
+    frontage_type: "medianero", // NEW: tipo de frente
     special_features: [],
     other_features: "",
 
@@ -452,17 +490,28 @@ const ValuationForm = () => {
     }
   }, []);
 
-  // Persistencia: Guardar en localStorage al cambiar (sin fotos si son muy pesadas)
+  // Persistencia: Guardar en localStorage al cambiar
   useEffect(() => {
-    const dataToSave = { ...formData };
-    try {
-      localStorage.setItem("propvalu_draft", JSON.stringify(dataToSave));
-    } catch (e) {
-      if (e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
-        localStorage.setItem("propvalu_draft", JSON.stringify({ ...dataToSave, photos: [] }));
+    const timer = setTimeout(() => {
+      try {
+        // Siempre guardar sin fotos primero (para garantizar persistencia)
+        const dataWithoutPhotos = { ...formData, photos: [] };
+        localStorage.setItem("propvalu_draft", JSON.stringify(dataWithoutPhotos));
+        // Intentar también guardar con fotos
+        if (formData.photos && formData.photos.length > 0) {
+          try {
+            localStorage.setItem("propvalu_draft", JSON.stringify(formData));
+          } catch {
+            // Si las fotos son muy pesadas, dejar la versión sin fotos
+          }
+        }
+      } catch (e) {
+        console.warn("No se pudo guardar borrador:", e.message);
       }
-    }
+    }, 500); // debounce 500ms
+    return () => clearTimeout(timer);
   }, [formData]);
+
 
   const resetForm = () => {
     if (window.confirm("¿Está seguro de que desea borrar todos los datos del formulario? Esta acción no se puede deshacer.")) {
@@ -484,11 +533,14 @@ const ValuationForm = () => {
         bedrooms: "",
         bathrooms: "",
         parking_spots: "2",
+        parking_covered: "",
+        parking_uncovered: "",
         property_level: "PB",
         total_floors: "",
         estimated_age: "",
         conservation_state: "",
         construction_quality: "",
+        frontage_type: "medianero",
         special_features: [],
         other_features: "",
         photos: [],
@@ -496,6 +548,7 @@ const ValuationForm = () => {
       };
       setFormData(emptyState);
       setIncludePhotos(false);
+      setPhotoOrientations([]);
       setCurrentStep(1);
       localStorage.removeItem("propvalu_draft");
       toast.success("Formulario reiniciado");
@@ -717,54 +770,54 @@ const ValuationForm = () => {
 
       {/* Stepper */}
       <div className="max-w-4xl mx-auto mb-8">
-        <div className="flex flex-col md:flex-row md:items-center gap-6">
-          <div className="flex justify-between items-center flex-grow">
-            {steps.map((step, index) => (
-              <div key={step.number} className="flex items-center flex-1">
-                <div className="flex flex-col items-center">
-                  <div
-                    className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${currentStep >= step.number
-                      ? "bg-[#1B4332] text-white"
-                      : "bg-slate-200 text-slate-500"
-                      }`}
-                  >
-                    {currentStep > step.number ? (
-                      <CheckCircle2 className="w-5 h-5" />
-                    ) : (
-                      step.icon
-                    )}
-                  </div>
-                  <span className={`mt-2 text-sm font-medium ${currentStep >= step.number ? "text-[#1B4332]" : "text-slate-500"
-                    }`}>
-                    {step.title}
-                  </span>
+        <div className="flex justify-between items-center">
+          {steps.map((step, index) => (
+            <div key={step.number} className="flex items-center flex-1">
+              <div className="flex flex-col items-center">
+                <div
+                  className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${currentStep >= step.number
+                    ? "bg-[#1B4332] text-white"
+                    : "bg-slate-200 text-slate-500"
+                    }`}
+                >
+                  {currentStep > step.number ? (
+                    <CheckCircle2 className="w-5 h-5" />
+                  ) : (
+                    step.icon
+                  )}
                 </div>
-                {index < steps.length - 1 && (
-                  <div className={`flex-1 h-0.5 mx-4 ${currentStep > step.number ? "bg-[#52B788]" : "bg-slate-200"
-                    }`} />
-                )}
+                <span className={`mt-2 text-sm font-medium ${currentStep >= step.number ? "text-[#1B4332]" : "text-slate-500"
+                  }`}>
+                  {step.title}
+                </span>
               </div>
-            ))}
-          </div>
-
-          <Button
-            onClick={resetForm}
-            className="bg-orange-600 hover:bg-orange-700 text-white shadow-md transition-all md:self-start mt-4 md:mt-0"
-            size="sm"
-          >
-            <RefreshCw className="w-4 h-4 mr-2" />
-            Limpiar Datos Guardados
-          </Button>
+              {index < steps.length - 1 && (
+                <div className={`flex-1 h-0.5 mx-4 ${currentStep > step.number ? "bg-[#52B788]" : "bg-slate-200"
+                  }`} />
+              )}
+            </div>
+          ))}
         </div>
       </div>
 
       {/* Form Card */}
       <Card className="max-w-4xl mx-auto bg-white shadow-lg border-0">
         <CardHeader className="border-b border-slate-100">
-          <CardTitle className="font-['Outfit'] text-xl text-[#1B4332] flex items-center gap-2">
-            {steps[currentStep - 1].icon}
-            {steps[currentStep - 1].title}
-          </CardTitle>
+          <div className="flex items-center justify-between">
+            <CardTitle className="font-['Outfit'] text-xl text-[#1B4332] flex items-center gap-2">
+              {steps[currentStep - 1].icon}
+              {steps[currentStep - 1].title}
+            </CardTitle>
+            <Button
+              onClick={resetForm}
+              variant="ghost"
+              size="sm"
+              className="text-orange-600 hover:bg-orange-50 hover:text-orange-700 border border-orange-200"
+            >
+              <RefreshCw className="w-3.5 h-3.5 mr-1.5" />
+              Limpiar Datos
+            </Button>
+          </div>
         </CardHeader>
         <CardContent className="p-6">
           {/* Step 1 - Location */}
@@ -1156,8 +1209,8 @@ const ValuationForm = () => {
                     value={formData.conservation_state}
                     onValueChange={(value) => handleInputChange("conservation_state", value)}
                   >
-                    <SelectTrigger data-testid="conservation-select" className="h-12">
-                      <SelectValue placeholder="Seleccione" />
+                    <SelectTrigger data-testid="conservation-select" className={`h-12 ${!formData.conservation_state ? 'text-slate-400' : 'text-slate-900'}`}>
+                      <SelectValue placeholder="▾ Seleccione estado" />
                     </SelectTrigger>
                     <SelectContent>
                       {CONSERVATION_STATES.map(state => (
@@ -1175,8 +1228,8 @@ const ValuationForm = () => {
                     value={formData.construction_quality}
                     onValueChange={(value) => handleInputChange("construction_quality", value)}
                   >
-                    <SelectTrigger data-testid="quality-select" className="h-12">
-                      <SelectValue placeholder="Seleccione" />
+                    <SelectTrigger data-testid="quality-select" className={`h-12 ${!formData.construction_quality ? 'text-slate-400' : 'text-slate-900'}`}>
+                      <SelectValue placeholder="▾ Seleccione calidad" />
                     </SelectTrigger>
                     <SelectContent>
                       {CONSTRUCTION_QUALITIES.map(quality => (
@@ -1187,6 +1240,28 @@ const ValuationForm = () => {
                     </SelectContent>
                   </Select>
                 </div>
+              </div>
+
+              {/* Tipo de frente — campo INDAABIN con Select */}
+              <div className="space-y-2">
+                <Label className="text-sm font-semibold text-[#1B4332] flex items-center gap-2">
+                  <MapPin className="w-4 h-4 text-[#52B788]" /> Tipo de Frente del Inmueble
+                </Label>
+                <Select
+                  value={formData.frontage_type}
+                  onValueChange={(value) => handleInputChange('frontage_type', value)}
+                >
+                  <SelectTrigger className="h-12">
+                    <SelectValue placeholder="Seleccione tipo de frente" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="medianero">▪ 1 Frente — Medianero (interior, sin ventaja de esquina)</SelectItem>
+                    <SelectItem value="2_frentes">▣ 2 Frentes — Esquina (+5% ubicación)</SelectItem>
+                    <SelectItem value="3_frentes">⬡ 3 Frentes (+10% ubicación)</SelectItem>
+                    <SelectItem value="4_frentes">⬟ 4 Frentes — Manzana completa (+15% ubicación)</SelectItem>
+                  </SelectContent>
+                </Select>
+                <p className="text-xs text-slate-400">Afecta el factor de ubicación en la homologación INDAABIN</p>
               </div>
 
               {/* Special Features - including service/laundry rooms */}
@@ -1264,6 +1339,8 @@ const ValuationForm = () => {
                     }}
                     facadeIndex={formData.facade_photo_index}
                     onFacadeChange={(idx) => handleInputChange("facade_photo_index", idx)}
+                    photoOrientations={photoOrientations}
+                    onOrientationsChange={setPhotoOrientations}
                     maxPhotos={12}
                   />
                 )}
