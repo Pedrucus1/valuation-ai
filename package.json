@@ -8,5 +8,8 @@
     "dotenv": "^17.3.1",
     "express": "^4.21.2",
     "openai": "^6.22.0"
+  },
+  "devDependencies": {
+    "pdf-parse": "^1.1.1"
   }
 }

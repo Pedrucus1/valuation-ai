@@ -90,3 +90,6 @@ frontend/node_modules/.cache/default-development/5.pack
 # Environment files
 *.env
 *.env.*
+
+# Private memory files (API keys backup — NEVER commit)
+memory/api_keys_backup.md

@@ -38,6 +38,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
+    "core-js-pure": "3.26.1",
     "cra-template": "1.2.0",
     "date-fns": "^4.1.0",
     "embla-carousel-react": "^8.6.0",
@@ -60,6 +61,10 @@
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^1.1.2",
     "zod": "^3.24.4"
+  },
+  "overrides": {
+    "@pmmmwh/react-refresh-webpack-plugin": "0.5.10",
+    "core-js-pure": "3.26.1"
   },
   "scripts": {
     "start": "craco start",

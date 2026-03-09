@@ -1,73 +1,188 @@
-# CURRENT STATE — PropValu México (Handoff para nuevo chat)
-
-## Proyecto
-- **Ruta:** `c:\Users\pedru\Notebook LM\valuation-ai\Pagina-Valuacion-con-Ai--main\`
-- **Archivo principal:** `server.js` (1118 líneas aprox.)
-- **Puerto:** `3000` → `http://localhost:3000`
-- **Stack:** Node.js + Express.js, HTML/CSS en string template dentro de `server.js`
-- **Inicio del servidor:** `node server.js` (desde PowerShell en la carpeta del proyecto)
+# CURRENT STATE — PropValu México
+> **Última actualización:** 04 Mar 2026  
+> **Instrucción para nuevo chat:** Lee este archivo y di dónde nos quedamos.
 
 ---
 
-## Arquitectura del Reporte PDF (5 páginas)
+## 📍 Rutas del Proyecto
 
-| Página | Contenido |
-|--------|-----------|
-| 1 | Portada: Header, Mapa Yandex, Datos del Inmueble |
-| 2 | Resumen Ejecutivo + Valor estimado |
-| 3 | Comparables en tabla + Equipamiento y Servicios (iconos emoji) |
-| 4 | Análisis AI / Análisis Estratégico |
-| 5 | Consejos de venta + Aviso Legal + Footer |
+| Elemento | Ruta |
+|---|---|
+| Raíz del proyecto | `c:\Users\pedru\valuation-ai\Pagina-Valuacion-con-Ai--main\` |
+| Backend (Node/Express) | `server.js` (raíz, ~1100 líneas) |
+| Servicios AI | `services/aiSearch.js` |
+| Frontend (React) | `frontend/` |
+| Variables de entorno | `.env` (raíz) y `frontend/.env` |
+| Documentación | `memory/CURRENT_STATE.md` (este archivo) y `memory/PRD.md` |
 
 ---
 
-## Cambios Recientes Completados
+## 🏗️ Arquitectura Actual (Node.js — versión en uso)
 
-### 1. Motor de Análisis Estratégico (`generateAnalysisText` — línea ~47)
-La función ahora genera análisis dinámico con:
-- **Ventajas de ubicación** según colonia/municipio/estado
-- **Dinámica oferta/demanda:** absorción estimada (Alta/Media/Baja) según número de comparables
-- **Impacto del estado de conservación** en velocidad de venta
-- **Comparación de superficie** vs promedio del mercado (espacioso/compacto/estándar)
-
-### 2. Iconos de Equipamiento (línea ~989)
-Sección "Equipamiento y Servicios Cercanos" usa emojis descriptivos:
-- 🎓 Escuelas, 🏥 Hospitales, 🛒 Supermercados, 🏪 Mercados, 🌳 Parques, 🛣️ Vías de Acceso
-- CSS: `.service-icon-circle` → 44px, border-radius: 12px, fondo gris claro, emoji 24px
-
-### 3. Márgenes de Impresión PDF
-Se añadió bloque `@media print` (línea ~422):
-```css
-@media print {
-  @page { size: A4; margin: 0; }
-  .page { width: 210mm; height: 297mm; padding: 15mm; page-break-after: always; }
-}
+```
+[React Frontend :3001]  →  proxy  →  [Express Backend :3000]
+                                              ↓
+                                    Google Maps API (geocoding + mapa)
+                                    Gemini API     (comparables IA)
+                                    OpenAI API     (comparables IA)
 ```
 
-### 4. Tamaño de Fuente en Datos del Inmueble
-- Datos del inmueble en Página 1: `font-size: 14px`
-- `.card-value`: 12px, `.card-label`: 10px
-
-### 5. Análisis en Páginas 2 y 4
-- Página 2 muestra el resumen ejecutivo del `templateAnalysis`
-- Página 4 muestra el análisis más detallado o el de IA si está disponible
+> **NOTA IMPORTANTE:** Existe también un `backend/` con código Python/FastAPI + MongoDB que fue la arquitectura original. **NO está en uso actualmente.** El backend activo es `server.js` (Node/Express con almacenamiento en memoria).
 
 ---
 
-## Estado del Servidor
-- El servidor YA estaba corriendo en puerto 3000 (error `EADDRINUSE` al intentar iniciar otro)
-- No hay `npm run dev`; el script de inicio es simplemente: `node server.js`
+## 🌐 Despliegue en Producción
+
+| Elemento | Valor |
+|---|---|
+| Plataforma | Render.com |
+| URL de producción | https://valuation-ai-1.onrender.com |
+| Repositorio GitHub | https://github.com/Pedrucus1/valuation-ai |
+| Rama principal | `master` |
+| Deploy automático | Sí — cada `git push` a `master` dispara redespliegue |
+
+### 🚨 REGLA ABSOLUTA — GITHUB NO SE TOCA
+> **El agente NUNCA debe ejecutar `git push`, `git push --force`, ni ningún comando que modifique el repositorio remoto.**
+> 
+> - El usuario debe pedirlo **explícitamente** en ese momento
+> - Solo proceder si el usuario escribe **"AUTORIZADO"** de forma clara
+> - Render despliega automáticamente con cada push → un push erróneo rompe producción inmediatamente
+> - Todo el trabajo de desarrollo se hace **solo en la PC local**
+> - Los commits locales (`git add`, `git commit`) están permitidos, pero **NUNCA el push**
 
 ---
 
-## Pendientes / Próximas Mejoras Sugeridas
-- [ ] Verificar visualmente el PDF en el navegador y confirmar que los márgenes A4 se apliquen correctamente al imprimir
-- [ ] Mejorar el diseño del mapa (Página 1) para mejor integración visual
-- [ ] Revisar si el análisis estratégico aparece correctamente en Página 2 con el HTML actual
-- [ ] Considerar separar el CSS a un archivo externo para reducir el tamaño de `server.js`
-- [ ] Agregar validación de formulario en el frontend antes de enviar datos al backend
+## 🔑 Variables de Entorno
+
+### Backend (`.env` en raíz — NUNCA subir a GitHub)
+```env
+GOOGLE_MAPS_API_KEY=AIzaSyAMScvl0Wi9dUsjvp5K5-6ofJOx9LkNLUc
+GEMINI_API_KEY=          ← necesaria para búsqueda IA con Gemini
+OPENAI_API_KEY=          ← necesaria para búsqueda IA con OpenAI
+```
+
+### Frontend (`frontend/.env` — NUNCA subir a GitHub)
+```env
+REACT_APP_BACKEND_URL=http://localhost:3000
+REACT_APP_GOOGLE_MAPS_API_KEY=AIzaSyDI4ylOZOmQku-P1PUArf4PD-rn8uuw6OA
+```
+
+### En Render (variables de entorno del servidor de producción)
+Configurar en: Dashboard → tu servicio → Environment
+- `GOOGLE_MAPS_API_KEY`
+- `GEMINI_API_KEY`
+- `OPENAI_API_KEY`
+
+> ⚠️ La key de Google Maps en el frontend (REACT_APP_*) queda visible en el navegador.
+> Restringirla por dominio en Google Cloud Console para evitar uso no autorizado.
 
 ---
 
-## Cómo Iniciar en Nuevo Chat
-En el nuevo chat, di: **"Lee el archivo `memory/CURRENT_STATE.md` del proyecto PropValu y dime dónde nos quedamos"**
+## 🚀 Cómo correr el proyecto localmente
+
+### Terminal 1 — Backend
+```bash
+cd c:\Users\pedru\valuation-ai\Pagina-Valuacion-con-Ai--main
+npm start
+# Servidor en http://localhost:3000
+```
+
+### Terminal 2 — Frontend
+```bash
+cd c:\Users\pedru\valuation-ai\Pagina-Valuacion-con-Ai--main\frontend
+npm start
+# React en http://localhost:3001 (si 3000 ocupado, elige Y para otro puerto)
+```
+
+---
+
+## 📦 Stack Técnico
+
+| Capa | Tecnología |
+|---|---|
+| Backend | Node.js v24 + Express.js |
+| Frontend | React 19 + CRA (via CRACO) + TailwindCSS + Shadcn/UI |
+| UI Components | Radix UI + Lucide React |
+| Build tool | CRACO (Create React App Config Override) |
+| Despliegue | Render.com (Docker o Node directo) |
+| Mapas | Google Maps API (geocoding + Static Maps en reporte) |
+| IA comparables | Gemini 1.5 Flash + OpenAI GPT-4o |
+
+---
+
+## 🗂️ Historial de Versiones (Git)
+
+| Commit | Fecha | Descripción |
+|---|---|---|
+| `073d1e6` | 24 Feb 2026 | ⭐ Versión base estable — "Primer respaldo: Sistema de Valuación con IA" |
+| `740ae504` | 26 Feb 2026 | ❌ Commit no autorizado — agregó Panel INDAABIN, Dockerfile, cambió proxy a :3002 → rompió producción |
+
+**Estado actual en GitHub:** `073d1e6` (revertido el 4 Mar 2026 con `git push --force`)
+
+---
+
+## ✅ Correcciones Aplicadas (04 Mar 2026)
+
+### 1. Proxy del frontend corregido
+- **Problema:** `frontend/package.json` tenía `"proxy": "http://localhost:3002"` → frontend no podía comunicarse con backend en `:3000`
+- **Solución:** Corregido a `"proxy": "http://localhost:3000"`
+- **Archivo:** `frontend/package.json` línea 5
+
+### 2. Dependencia `core-js-pure` añadida
+- **Problema:** `@pmmmwh/react-refresh-webpack-plugin` requería `core-js-pure/features/global-this` que no existía → `Failed to compile`
+- **Solución:** Instalado `core-js-pure@3.26.1` (versión específica que incluye la ruta `/features/`)
+- **Comando aplicado:** `npm install core-js-pure@3.26.1 --legacy-peer-deps`
+- **Nota:** La versión `0.5.10` de `@pmmmwh/react-refresh-webpack-plugin` es la correcta para React Scripts 5.0.1 (CRA/CRACO). No requiere downgrade adicional.
+
+### 3. Archivos `.env.example` creados
+- `/.env.example` — plantilla para el backend
+- `/frontend/.env.example` — plantilla para el frontend
+- Sirven como documentación de qué variables se necesitan
+
+### 4. Seguridad verificada
+- Los archivos `.env` NUNCA fueron subidos a GitHub (confirmado con `git ls-files`)
+- El `.gitignore` raíz incluye `*.env` y `*.env.*`
+- El `frontend/.gitignore` cubre `.env.local` y variantes, pero NO `.env` directamente → puede ser riesgo futuro
+
+---
+
+## 🧩 Arquitectura del Reporte PDF
+
+| Página | Contenido |
+|---|---|
+| 1 | Header + Datos del Inmueble + Mapa Google Static + Badges de características |
+| 2 | Valor Estimado (caja verde oscuro) + Rango min/max + Plusvalía 5 años |
+| 3 | Tabla de comparables seleccionados + Homologación |
+| 4 | Análisis estratégico (IA o template) + Amenities cercanos |
+| 5 | Consejos de venta + Aviso legal + Footer |
+
+---
+
+## 🔄 Metodología de Cálculo del Avalúo
+
+```
+80% Método Comparativo de Mercado (Homologación)
+   + Factores INDAABIN: Negociación, Conservación, Edad (Ross-Heidecke)
+   + Mediana ponderada con promedio (60/40)
+
+20% Método Físico / Costo
+   + Terreno: precio/m² × área × ratio por estado
+   + Construcción: costo/m² × área × (1 - depreciación)
+   + Depreciación: Edad/Vida útil + factor conservación
+
+Ajustes finales:
+   × Factor Manzana (INDAABIN)
+   × Factor Vialidad (INDAABIN)
+   × (1 - Descuento Régimen de Tierra: EJIDAL/COMUNAL/RUSTICO)
+```
+
+---
+
+## 📋 Pendientes / Próximo Trabajo
+
+- [ ] Agregar Gemini y OpenAI API keys en Render para habilitar IA en producción
+- [ ] Verificar que el PDF funcione correctamente en producción (post-revert)
+- [ ] Decidir si recuperar el Panel de Factores INDAABIN del commit `740ae504` (era funcional aunque llegó sin autorización)
+- [ ] Restricción de Google Maps key por dominio en Google Cloud Console
+- [ ] Agregar `.env` explícitamente al `frontend/.gitignore` como medida de seguridad adicional
+- [ ] Evaluar migrar a Vite en lugar de CRA/CRACO (CRA está deprecated desde 2023)

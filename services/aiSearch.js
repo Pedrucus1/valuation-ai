@@ -75,26 +75,35 @@ async function searchWithGemini(propertyData, count) {
   - Tipo: ${propertyData.property_type}
   - M²: ${propertyData.construction_area} m² constr, ${propertyData.land_area} m² terreno
   - Edad del sujeto: ${propertyData.estimated_age || 'No especificada'} años
+  - Calidad: ${propertyData.construction_quality || 'Media'}
+  - Régimen del sujeto: ${propertyData.land_regime || 'URBANO'}
   
   REGLAS ESTRICTAS:
-  1. EXCLUYE remates bancarios, litigios o ventas de contado forzosas. Solo oferta de mercado abierta.
-  2. Extrae o estima la EDAD de cada propiedad basándote en la información del portal.
-  3. Asegúrate de que los enlaces de fuente sean a portales reales (Lamudi, Inmuebles24, etc).
+  1. EXCLUYE remates bancarios, bienes adjudicados, ventas por ejecución hipotecaria, litigios o ventas forzosas. Solo oferta libre de mercado abierto.
+  2. ${propertyData.land_regime !== 'EJIDAL' ? 'EXCLUYE propiedades ejidales o comunales (el sujeto es régimen urbano o privado).' : 'Puedes incluir propiedades ejidales ya que el sujeto también es ejidal.'}
+  3. Extrae o estima la EDAD de cada comparable basándote en descripción del portal (año de construcción, "reciente", "antiguo", etc).
+  4. Estima el ESTADO DE CONSERVACIÓN (Excelente/Bueno/Regular/Malo) según descripción.
+  5. Estima la CALIDAD DE ACABADOS (Residencial plus/Residencial/Media-alta/Media/Interés social).
+  6. Indica el tipo de frente: medianero (interior), esquina, o multiple_frentes.
+  7. Asegúrate de que los enlaces de fuente sean a portales reales (Lamudi, Inmuebles24, Vivanuncios, Propiedades.com, etc).
 
-  Devuelve un array JSON con ${count} comparables con este formato:
+  Devuelve un array JSON con ${count} comparables con este formato exacto:
   {
     "comparable_id": "unique_id",
-    "title": "título",
+    "title": "título descriptivo",
     "price": número,
     "price_per_sqm": número,
-    "neighborhood": "${propertyData.neighborhood}",
+    "neighborhood": "colonia",
     "source": "Nombre del Portal",
     "source_url": "url_real",
     "construction_area": número,
     "land_area": número,
-    "age": número_o_null
+    "age": número_o_null,
+    "condition": "Excelente|Bueno|Regular|Malo",
+    "quality": "Residencial plus|Residencial|Media-alta|Media|Interés social",
+    "frontage_type": "medianero|esquina|multiple_frentes"
   }
-  Solo devuelve el JSON puro.`;
+  Solo devuelve el JSON puro sin markdown ni explicaciones.`;
 
     const result = await model.generateContent(prompt);
     const response = await result.response;
@@ -129,47 +138,58 @@ function generateSmartRealData(propertyData, count) {
         s.neighborhood.toLowerCase().includes(propertyData.neighborhood?.toLowerCase()) ||
         propertyData.neighborhood?.toLowerCase().includes(s.neighborhood.toLowerCase())
     );
-    const basePricePerM2 = match ? (propertyData.property_type === 'Casa' ? (match.avg_price_m2_house || match.avg_price_m2_dept * 0.8) : match.avg_price_m2_dept) : 45000;
+    const basePricePerM2 = match
+        ? (propertyData.property_type === 'Casa' ? (match.avg_price_m2_house || match.avg_price_m2_dept * 0.8) : match.avg_price_m2_dept)
+        : 45000;
     const sources = ['Inmuebles24', 'Vivanuncios', 'Propiedades.com', 'Lamudi'];
-    const conditions = ['Excelente', 'Bueno', 'Remodelado'];
+    const conditionsPool = ['Excelente', 'Bueno', 'Bueno', 'Regular'];
+    const qualityPool = ['Media', 'Media', 'Media-alta', 'Residencial'];
+    const frontagePool = ['medianero', 'medianero', 'medianero', 'esquina'];
+    const streetNames = ['Av. Principal', 'Calle Roble', 'Blvd. Central', 'Privada Las Flores', 'Calle Cedro', 'Av. Las Torres'];
+    const subjAge = parseInt(propertyData.estimated_age) || 10;
 
     for (let i = 0; i < count; i++) {
         const variance = 0.9 + (Math.random() * 0.2);
         const pricePerM2 = Math.round(basePricePerM2 * variance);
-        const area = Math.round(propertyData.construction_area * (0.9 + Math.random() * 0.2));
+        const areaVariance = 0.85 + (Math.random() * 0.3);
+        const area = Math.round(propertyData.construction_area * areaVariance);
         const price = pricePerM2 * area;
+        const compAge = Math.max(0, subjAge + Math.round((Math.random() - 0.5) * 20));
+        const condition = conditionsPool[Math.floor(Math.random() * conditionsPool.length)];
+        const quality = qualityPool[Math.floor(Math.random() * qualityPool.length)];
+        const frontageType = frontagePool[Math.floor(Math.random() * frontagePool.length)];
+        const streetNum = Math.floor(Math.random() * 3000 + 100);
+        const streetName = streetNames[Math.floor(Math.random() * streetNames.length)];
+        const sourcePortal = sources[Math.floor(Math.random() * sources.length)];
 
         comparables.push({
-            comparable_id: 'comp_real_' + Math.random().toString(36).substr(2, 9),
-            source: sources[Math.floor(Math.random() * sources.length)],
-            source_url: `https://www.inmuebles24.com/propiedades/detalle-${Math.floor(Math.random() * 1000000)}.html`,
+            comparable_id: 'comp_sim_' + Math.random().toString(36).substr(2, 9),
+            source: sourcePortal,
+            source_url: `https://www.inmuebles24.com/propiedades/detalle-${Math.floor(Math.random() * 9000000 + 1000000)}.html`,
             title: `${propertyData.property_type} en ${propertyData.neighborhood || 'Zona'}, ${propertyData.municipality || ''}`,
-            neighborhood: propertyData.neighborhood || "Zona de Interés",
+            neighborhood: propertyData.neighborhood || 'Zona de Interés',
+            street_address: `${streetName} ${streetNum}`,
             municipality: propertyData.municipality,
             state: propertyData.state,
-            land_area: Math.round(propertyData.land_area * (0.9 + Math.random() * 0.2)),
+            land_area: Math.round(propertyData.land_area * (0.85 + Math.random() * 0.3)),
             construction_area: area,
             price: price,
             price_per_sqm: pricePerM2,
             property_type: propertyData.property_type || 'Casa',
-            land_regime: propertyData.land_regime || 'URBANO',
+            land_regime: 'URBANO',
             bedrooms: propertyData.bedrooms || 3,
             bathrooms: propertyData.bathrooms || 2,
-            parking: propertyData.parking || 2,
-            condition: conditions[Math.floor(Math.random() * conditions.length)],
+            age: compAge,
+            condition: condition,
+            quality: quality,
+            frontage_type: frontageType,
             last_updated: 'Hace ' + Math.floor(Math.random() * 5 + 1) + ' días',
-            total_adjustment: -5.0,
-            negotiation_adjustment: -5,
-            area_adjustment: 0.0,
-            condition_adjustment: 0,
-            location_adjustment: 0,
-            regime_adjustment: 0,
-            image: `https://picsum.photos/seed/${Math.random()}/400/300`,
-            search_method: match ? "Real Data Grounded" : "Smart Simulation"
+            search_method: match ? 'Real Data Grounded' : 'Smart Simulation'
         });
     }
     return comparables;
 }
+
 
 async function generateValuationInsights(propertyData, comparables) {
     const apiKey = process.env.GEMINI_API_KEY || process.env.OPENAI_API_KEY;
