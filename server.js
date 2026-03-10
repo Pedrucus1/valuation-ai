@@ -413,6 +413,61 @@ app.get('/api/stats', (req, res) => {
   });
 });
 
+// ============================================================
+// Estimación del valor de tierra por m2 (cuando el valuador no lo proporciona)
+// Basado en promedios por estado y tipo de zona
+// ============================================================
+function estimarValorTierra(propertyData) {
+  const valorTierraBase = {
+    'Ciudad de México': 12000,
+    'Nuevo León': 6000,
+    'Jalisco': 3500,
+    'Quintana Roo': 5000,
+    'Estado de México': 4000,
+    'Querétaro': 4500,
+    'Guanajuato': 3000,
+    'Puebla': 3000,
+    'Yucatán': 3500,
+    'Baja California': 4500,
+    'Baja California Sur': 5000,
+    'Sonora': 3000,
+    'Chihuahua': 2800,
+    'Sinaloa': 3200,
+    'Coahuila': 3000,
+    'Tamaulipas': 2500,
+    'Veracruz': 2200,
+    'Michoacán': 2500,
+    'Oaxaca': 2000,
+    'Guerrero': 2500,
+    'Tabasco': 2000,
+    'Colima': 3000,
+    'Nayarit': 2800,
+    'Aguascalientes': 3200,
+    'Morelos': 3500,
+    'Tlaxcala': 2000,
+    'Durango': 2500,
+    'Zacatecas': 2000,
+    'San Luis Potosí': 2800,
+    'Hidalgo': 2500,
+    'Campeche': 2000,
+    'Chiapas': 1800
+  };
+
+  // Ajuste por calidad de construcción (proxy de nivel socio-económico de la zona)
+  const qualityMultiplier = {
+    'Residencial plus': 2.0,
+    'Residencial': 1.5,
+    'Media-alta': 1.2,
+    'Media': 1.0,
+    'Interés social': 0.7
+  };
+
+  const base = valorTierraBase[propertyData.state] || 3000;
+  const multiplier = qualityMultiplier[propertyData.construction_quality] || 1.0;
+
+  return Math.round(base * multiplier);
+}
+
 app.post('/api/valuations/:id/calculate', async (req, res) => {
   const valuation = valuations[req.params.id];
   if (!valuation) return res.status(404).json({ error: 'Valuación no encontrada' });
@@ -427,29 +482,164 @@ app.post('/api/valuations/:id/calculate', async (req, res) => {
   const construction_area = prop.construction_area;
   const land_area = prop.land_area;
 
-  // 1. Comparative Market Method (80% weight)
-  const rawPricesSqM = selectedComps.map(c => c.price_per_sqm);
-  const adjustedPricesSqM = selectedComps.map(c => {
-    const customNegotiation = valuation.custom_negotiation !== undefined ? valuation.custom_negotiation : -5;
-    const otherAdj = c.total_adjustment - (c.negotiation_adjustment || -5);
-    return c.price_per_sqm * (1 + (customNegotiation + otherAdj) / 100);
+  // ============================================================
+  // CUS del sujeto (Coeficiente de Utilización de Suelo)
+  // ============================================================
+  const cusSujeto = (construction_area && land_area) ? (construction_area / land_area) : 1.0;
+
+  // Valor unitario de tierra — usar el proporcionado o estimarlo
+  // En modo valuador, el usuario puede proporcionar este valor
+  const valorTierraM2 = prop.land_value_per_sqm || estimarValorTierra(prop);
+
+  // ============================================================
+  // ETAPA 1: TABLA DE HOMOLOGACIÓN CUS (Ajuste de Dinero)
+  // Replicando exactamente las fórmulas del Excel:
+  //   ter.nec. = ConstrucciónComp / CUS_Sujeto
+  //   ter.dif. = ter.nec. - TerrenoComp
+  //   total$dif = ter.dif. * ValorTierra$/m2
+  //   $Homologa = PrecioComp + total$dif
+  //   PU_H = $Homologa / ConstrucciónComp
+  // ============================================================
+  const comparablesConCUS = selectedComps.map(comp => {
+    const compConstArea = comp.construction_area || construction_area;
+    const compLandArea = comp.land_area || land_area;
+    const compPrecio = comp.price;
+
+    // Terreno necesario según CUS del sujeto
+    const terrenoNecesario = compConstArea / cusSujeto;
+    // Diferencia de terreno
+    const terrenoDiferencia = terrenoNecesario - compLandArea;
+    // Ajuste monetario
+    const ajusteDinero = terrenoDiferencia * valorTierraM2;
+    // Precio nivelado por CUS
+    const precioNivelado = compPrecio + ajusteDinero;
+    // Precio Unitario Homologado CUS ($/m2)
+    const puHomologadoCUS = precioNivelado / compConstArea;
+
+    return {
+      ...comp,
+      _cus: compConstArea / compLandArea,
+      _terrenoNecesario: terrenoNecesario,
+      _terrenoDiferencia: terrenoDiferencia,
+      _ajusteDinero: ajusteDinero,
+      _precioNivelado: precioNivelado,
+      _puHomologadoCUS: puHomologadoCUS
+    };
   });
 
-  // Weighted prices for robustness: 60% adjusted + 40% raw
-  const weightedPrices = adjustedPricesSqM.map((adj, i) => (adj * 0.6 + rawPricesSqM[i] * 0.4));
+  // ============================================================
+  // ETAPA 2: TABLA DE CALIFICACIÓN (Factores Multiplicativos)
+  // Replicando las fórmulas del Excel:
+  //   CUS_factor = (CUS_sujeto/CUS_comp)^(1/6)
+  //   SUP_factor = (SupTerrenoSujeto/SupTerrenoComp)^(1/6)
+  //   EDAD_factor = %edad_sujeto / %edad_comp (según catálogos Ross-Heidecke)
+  //   Factor Resultante = Zona * Ubicación * CUS * Superficie * Edad * Conservación * Acabados * Otro(Negociación)
+  //   PU Final = PU_Homologado_CUS * Factor_Resultante
+  // ============================================================
+  const N_RAIZ = 6; // Exponente usado en las fórmulas del Excel para CUS y Superficie
 
-  const minPriceSqM = Math.min(...weightedPrices);
-  const maxPriceSqM = Math.max(...weightedPrices);
-  const avgPriceSqM = weightedPrices.reduce((a, b) => a + b, 0) / weightedPrices.length;
+  // Ross-Heidecke simplificado: Porcentaje de valor remanente por edad
+  const getEdadPct = (age) => {
+    if (age <= 0) return 1.0;
+    if (age <= 5) return 0.96;
+    if (age <= 10) return 0.91;
+    if (age <= 15) return 0.88;
+    if (age <= 20) return 0.85;
+    if (age <= 25) return 0.80;
+    if (age <= 30) return 0.75;
+    if (age <= 35) return 0.70;
+    if (age <= 40) return 0.65;
+    if (age <= 50) return 0.55;
+    return 0.45;
+  };
 
-  // Median calculation
-  const sorted = [...weightedPrices].sort((a, b) => a - b);
-  const mid = Math.floor(sorted.length / 2);
-  const medianPriceSqM = sorted.length % 2 !== 0 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
+  const edadSujeto = prop.estimated_age || 10;
+  const pctEdadSujeto = getEdadPct(edadSujeto);
 
-  // Final Price SqM (70% median + 30% average)
-  const finalPriceSqM = medianPriceSqM * 0.7 + avgPriceSqM * 0.3;
-  const comparativeWeighted = finalPriceSqM * construction_area;
+  // Conservación scores para factor
+  const conservScoresMulti = { 'Excelente': 1.0, 'Bueno': 0.95, 'Regular': 0.85, 'Malo': 0.70 };
+  // Calidad de acabados scores para factor
+  const qualScoresMulti = {
+    'Residencial plus': 1.15, 'Residencial': 1.05, 'Media-alta': 1.0,
+    'Media': 0.95, 'Interés social': 0.85
+  };
+  // Frentes para factor ubicación
+  const frontScoresMulti = {
+    'medianero': 1.00, '2_frentes': 1.05, 'esquina': 1.05,
+    '3_frentes': 1.10, '4_frentes': 1.15, 'multiple_frentes': 1.15
+  };
+
+  const subjFrontScore = frontScoresMulti[prop.frontage_type] || 1.00;
+
+  const valoresHomologadosFinales = comparablesConCUS.map(comp => {
+    const compCUS = comp._cus;
+    const compLandArea = comp.land_area || land_area;
+
+    // Factor CUS (exponencial como en el Excel)
+    const factorCUS = Math.pow(cusSujeto / compCUS, 1 / N_RAIZ);
+
+    // Factor Superficie (terreno, exponencial)
+    const factorSuperficie = Math.pow(land_area / compLandArea, 1 / N_RAIZ);
+
+    // Factor Edad
+    const compAge = comp.age != null ? comp.age : edadSujeto;
+    const pctEdadComp = getEdadPct(compAge);
+    const factorEdad = pctEdadComp > 0 ? (pctEdadSujeto / pctEdadComp) : 1.0;
+
+    // Factor Conservación (1.0 para ambos = neutro)
+    const subjConsScore = conservScoresMulti[prop.conservation_state] || 0.95;
+    const compConsScore = conservScoresMulti[comp.condition] || 0.95;
+    const factorConservacion = subjConsScore / compConsScore;
+
+    // Factor Acabados
+    const subjQualScore = qualScoresMulti[prop.construction_quality] || 0.95;
+    const compQualScore = qualScoresMulti[comp.quality] || 0.95;
+    const factorAcabados = subjQualScore / compQualScore;
+
+    // Factor Ubicación (frentes)
+    const compFrontScore = frontScoresMulti[comp.frontage_type] || 1.00;
+    const factorUbicacion = subjFrontScore / compFrontScore;
+
+    // Factor Zona (1.0 = misma zona; Gemini ya filtra por zona)
+    const factorZona = 1.0;
+
+    // Factor Negociación (0.95 = 5% descuento estándar como en Excel)
+    const customNeg = valuation.custom_negotiation !== undefined
+      ? (1 + valuation.custom_negotiation / 100) : 0.95;
+
+    // FACTOR RESULTANTE (multiplicativo, redondeado a 2 decimales igual que Excel)
+    const factorResultante = Math.round(
+      factorZona * factorUbicacion * factorCUS * factorSuperficie *
+      factorEdad * factorConservacion * factorAcabados * customNeg * 100
+    ) / 100;
+
+    // VALOR UNITARIO HOMOLOGADO FINAL = PU_CUS * Factor_Resultante
+    const puFinal = comp._puHomologadoCUS * factorResultante;
+
+    return {
+      comp,
+      factorCUS,
+      factorSuperficie,
+      factorEdad,
+      factorConservacion,
+      factorAcabados,
+      factorUbicacion,
+      factorResultante,
+      puFinal
+    };
+  });
+
+  // PROMEDIO de valores unitarios homologados finales (igual que AVERAGE(AL203:AL207) en Excel)
+  const promedioUnitarioFinal = valoresHomologadosFinales.reduce((sum, v) => sum + v.puFinal, 0)
+    / valoresHomologadosFinales.length;
+
+  // VALOR COMERCIAL DE MERCADO = Promedio PU * Superficie de Construcción del Sujeto
+  const valorComparativo = promedioUnitarioFinal * construction_area;
+
+  console.log(`[CUS Laboratorio] CUS Sujeto: ${cusSujeto.toFixed(4)}, Valor Tierra: $${valorTierraM2}/m2`);
+  console.log(`[CUS Laboratorio] Promedio PU Homologado Final: $${promedioUnitarioFinal.toFixed(2)}/m2`);
+  console.log(`[CUS Laboratorio] Valor Comparativo Total: $${Math.round(valorComparativo)}`);
+
 
   // 2. Physical/Cost Method (20% weight)
   const landRatioByState = {
@@ -461,7 +651,7 @@ app.post('/api/valuations/:id/calculate', async (req, res) => {
     'Querétaro': 0.40
   };
   const landRatio = landRatioByState[prop.state] || 0.38;
-  const landValuePerSqM = finalPriceSqM * landRatio;
+  const landValuePerSqM = valorTierraM2 || (promedioUnitarioFinal * landRatio);
   const landValue = landValuePerSqM * land_area;
 
   const qualityCosts = {
@@ -493,12 +683,9 @@ app.post('/api/valuations/:id/calculate', async (req, res) => {
   const regimeDiscounts = { 'URBANO': 0, 'EJIDAL': 0.20, 'COMUNAL': 0.25, 'RUSTICO': 0.30 };
   const regimeDiscount = regimeDiscounts[prop.land_regime] || 0;
 
-  let estimatedValue = (comparativeWeighted * 0.80 + physicalTotal * 0.20) * (1 - regimeDiscount);
+  let estimatedValue = (valorComparativo * 0.80 + physicalTotal * 0.20) * (1 - regimeDiscount);
 
-  // Sanity check vs comparable raw average
-  const compRawAvg = selectedComps.reduce((acc, c) => acc + c.price, 0) / selectedComps.length;
-  if (estimatedValue < compRawAvg * 0.70) estimatedValue = (estimatedValue + compRawAvg * 0.70) / 2;
-  if (estimatedValue > compRawAvg * 1.30) estimatedValue = (estimatedValue + compRawAvg * 1.30) / 2;
+  // Sanity check: no sanity-cap — confiamos en el método CUS
 
   // Confidence Level
   const confidence = selectedComps.length >= 5 ? 'ALTO' : (selectedComps.length >= 3 ? 'MEDIO' : 'BAJO');
@@ -529,9 +716,12 @@ app.post('/api/valuations/:id/calculate', async (req, res) => {
     value_range_max: Math.round(estimatedValue * 1.10),
     price_per_sqm: Math.round(estimatedValue / construction_area),
     confidence_level: confidence,
-    comparative_min_value: Math.round(minPriceSqM * construction_area),
-    comparative_max_value: Math.round(maxPriceSqM * construction_area),
-    comparative_weighted: Math.round(comparativeWeighted),
+    comparative_min_value: Math.round(Math.min(...valoresHomologadosFinales.map(v => v.puFinal)) * construction_area),
+    comparative_max_value: Math.round(Math.max(...valoresHomologadosFinales.map(v => v.puFinal)) * construction_area),
+    comparative_weighted: Math.round(valorComparativo),
+    cus_sujeto: cusSujeto,
+    valor_tierra_m2: valorTierraM2,
+    promedio_pu_homologado: Math.round(promedioUnitarioFinal * 100) / 100,
     physical_total: Math.round(physicalTotal),
     land_value: Math.round(landValue),
     construction_depreciated: Math.round(constructionDepreciated),
