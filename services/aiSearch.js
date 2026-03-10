@@ -46,7 +46,15 @@ async function searchComparablesWithAI(propertyData, count = 10) {
     const { neighborhood, municipality, state, land_area, construction_area, property_type } = propertyData;
     const apiKey = process.env.GEMINI_API_KEY || process.env.OPENAI_API_KEY;
 
-    console.log(`Buscando comparables para ${neighborhood} vía AI...`);
+    // Calcular CUS del sujeto para filtrado
+    const cusSujeto = (construction_area && land_area) ? (construction_area / land_area) : 1.0;
+    const cusMin = cusSujeto * 0.4; // tolerancia 60% abajo
+    const cusMax = cusSujeto * 1.6; // tolerancia 60% arriba
+    propertyData._cusSujeto = cusSujeto;
+    propertyData._cusMin = cusMin;
+    propertyData._cusMax = cusMax;
+
+    console.log(`Buscando comparables para ${neighborhood} vía AI... (CUS sujeto: ${cusSujeto.toFixed(4)}, rango: ${cusMin.toFixed(2)}-${cusMax.toFixed(2)})`);
 
     if (!apiKey) {
         console.warn("No se encontró API_KEY para AI. Usando motor Smart Real Data (Seeded).");
@@ -69,11 +77,16 @@ async function searchWithGemini(propertyData, count) {
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
+    const cusSujeto = propertyData._cusSujeto || (propertyData.construction_area / propertyData.land_area);
+    const cusMin = propertyData._cusMin || (cusSujeto * 0.4);
+    const cusMax = propertyData._cusMax || (cusSujeto * 1.6);
+
     const prompt = `Actúa como un experto valuador inmobiliario en México. 
   Busca propiedades REALES en venta similares a:
   - Ubicación: ${propertyData.neighborhood}, ${propertyData.municipality}, ${propertyData.state}
   - Tipo: ${propertyData.property_type}
   - M²: ${propertyData.construction_area} m² constr, ${propertyData.land_area} m² terreno
+  - CUS del sujeto: ${cusSujeto.toFixed(4)} (Construcción / Terreno)
   - Edad del sujeto: ${propertyData.estimated_age || 'No especificada'} años
   - Calidad: ${propertyData.construction_quality || 'Media'}
   - Régimen del sujeto: ${propertyData.land_regime || 'URBANO'}
@@ -86,6 +99,7 @@ async function searchWithGemini(propertyData, count) {
   5. Estima la CALIDAD DE ACABADOS (Residencial plus/Residencial/Media-alta/Media/Interés social).
   6. Indica el tipo de frente: medianero (interior), esquina, o multiple_frentes.
   7. Asegúrate de que los enlaces de fuente sean a portales reales (Lamudi, Inmuebles24, Vivanuncios, Propiedades.com, etc).
+  8. FILTRO CUS IMPORTANTE: Prioriza propiedades cuyo CUS (construcción/terreno) esté entre ${cusMin.toFixed(2)} y ${cusMax.toFixed(2)}. Esto equivale a un rango de ±60% del CUS del sujeto (${cusSujeto.toFixed(4)}). Este filtro es la "Regla del Pastel" y asegura coherencia en el valor por m2.
 
   Devuelve un array JSON con ${count} comparables con este formato exacto:
   {
@@ -148,11 +162,19 @@ function generateSmartRealData(propertyData, count) {
     const streetNames = ['Av. Principal', 'Calle Roble', 'Blvd. Central', 'Privada Las Flores', 'Calle Cedro', 'Av. Las Torres'];
     const subjAge = parseInt(propertyData.estimated_age) || 10;
 
+    // CUS del sujeto para generar comparables con terrenos coherentes
+    const cusSujeto = (propertyData.construction_area && propertyData.land_area)
+        ? (propertyData.construction_area / propertyData.land_area) : 1.0;
+
     for (let i = 0; i < count; i++) {
         const variance = 0.9 + (Math.random() * 0.2);
         const pricePerM2 = Math.round(basePricePerM2 * variance);
         const areaVariance = 0.85 + (Math.random() * 0.3);
         const area = Math.round(propertyData.construction_area * areaVariance);
+        // Terreno generado con CUS dentro del ±60% del sujeto
+        const cusVariance = 0.7 + (Math.random() * 0.6); // CUS del comparable varía ±30% del sujeto
+        const compCus = cusSujeto * cusVariance;
+        const compLandArea = Math.round(area / compCus);
         const price = pricePerM2 * area;
         const compAge = Math.max(0, subjAge + Math.round((Math.random() - 0.5) * 20));
         const condition = conditionsPool[Math.floor(Math.random() * conditionsPool.length)];
@@ -171,7 +193,7 @@ function generateSmartRealData(propertyData, count) {
             street_address: `${streetName} ${streetNum}`,
             municipality: propertyData.municipality,
             state: propertyData.state,
-            land_area: Math.round(propertyData.land_area * (0.85 + Math.random() * 0.3)),
+            land_area: compLandArea,
             construction_area: area,
             price: price,
             price_per_sqm: pricePerM2,
