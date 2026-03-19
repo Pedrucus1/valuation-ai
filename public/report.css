@@ -373,3 +373,104 @@ h2 {
     font-size: 10px;
     color: #94a3b8;
 }
+
+/* ── Mobile breakpoints ────────────────────────────────── */
+@media (max-width: 640px) {
+    .page {
+        padding: 12px 12px 60px;
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .header {
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    /* CSS grid classes */
+    .summary-cards-4 {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .info-grid-3 {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .data-grid-2 {
+        grid-template-columns: 1fr !important;
+    }
+
+    .value-grid-3 {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+
+    .services-grid-2 {
+        grid-template-columns: 1fr !important;
+    }
+
+    .tips-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Desglose Valor Físico — selector por atributo único "80px 1.5fr"
+       funciona en reportes existentes y nuevos sin necesidad de regenerar */
+    div[style*="80px 1.5fr"] {
+        grid-template-columns: 1fr 1fr !important;
+        align-items: start !important;
+        gap: 8px !important;
+    }
+    /* pie: centrar en su columna */
+    div[style*="80px 1.5fr"] > *:nth-child(1) {
+        display: flex !important;
+        justify-content: center !important;
+    }
+    /* ref info: quitar bordes laterales */
+    div[style*="80px 1.5fr"] > *:nth-child(3) {
+        border-left: none !important;
+        border-right: none !important;
+        padding: 6px 4px !important;
+    }
+    /* totals: izquierda en mobile */
+    div[style*="80px 1.5fr"] > *:nth-child(4) {
+        text-align: left !important;
+    }
+
+    /* Override ALL inline grid-template-columns excepto el de valor físico */
+    div[style*="grid-template-columns"]:not([style*="80px 1.5fr"]) {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Comparables table — horizontal scroll */
+    .comparables-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+        font-size: 10px;
+    }
+
+    .comparables-table td,
+    .comparables-table th {
+        padding: 6px 8px;
+    }
+
+    /* Footer — pull out of absolute flow */
+    .footer-report {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        right: auto;
+        margin-top: 20px;
+    }
+
+    /* Smaller font for dense sections */
+    .data-item {
+        font-size: 11px;
+        padding: 8px 10px;
+    }
+
+    .summary-value {
+        font-size: 13px;
+    }
+}
