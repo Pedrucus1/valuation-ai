@@ -3,6 +3,7 @@ require('dotenv').config();
 const cors = require('cors');
 const path = require('path');
 const { searchComparablesWithAI, generateValuationInsights } = require('./services/aiSearch');
+const { enrichOneComparable, closeBrowser } = require('./services/browserEnricher');
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -21,6 +22,9 @@ app.use((req, res, next) => {
 
 // In-memory storage for valuations
 const valuations = {};
+
+// In-memory role storage per user (persiste mientras el servidor corra)
+const userRoles = {};
 
 // --------------------------------------------------------------------------
 // Helper Functions (Original Logic from Portfolio)
@@ -54,7 +58,10 @@ const fetchNearbyAmenities = async (lat, lng) => {
     { key: 'hospitales', type: 'hospital', label: 'Hospitales', icon: '🏥', sub: 'Salud' },
     { key: 'supermercados', type: 'supermarket', label: 'Súper', icon: '🛒', sub: 'Tiendas' },
     { key: 'parques', type: 'park', label: 'Parques', icon: '🌳', sub: 'Recreación' },
-    { key: 'plazas', type: 'shopping_mall', label: 'Plazas', icon: '🛍️', sub: 'Comercio' }
+    { key: 'plazas', type: 'shopping_mall', label: 'Plazas', icon: '🛍️', sub: 'Comercio' },
+    { key: 'farmacias', type: 'pharmacy', label: 'Farmacias', icon: '💊', sub: 'Salud cercana' },
+    { key: 'restaurantes', type: 'restaurant', label: 'Restaurantes', icon: '🍽️', sub: 'Gastronomía' },
+    { key: 'bancos', type: 'bank', label: 'Bancos y Cajeros', icon: '🏦', sub: 'Servicios financieros' }
   ];
 
   try {
@@ -212,12 +219,25 @@ app.get('/api/geocode', async (req, res) => {
   }
 });
 
-app.get('/api/auth/me', (req, res) => {
+// Stub de sesión para desarrollo local
+app.post('/api/auth/session', (req, res) => {
+  const userId = 'user_local_dev';
   res.json({
-    user_id: 'user_local_dev',
+    user_id: userId,
     email: 'dev@example.com',
     name: 'Local Developer',
-    role: 'appraiser', // Always appraiser for dev
+    role: userRoles[userId] || 'appraiser',
+    created_at: new Date().toISOString()
+  });
+});
+
+app.get('/api/auth/me', (req, res) => {
+  const userId = 'user_local_dev';
+  res.json({
+    user_id: userId,
+    email: 'dev@example.com',
+    name: 'Local Developer',
+    role: userRoles[userId] || 'appraiser',
     created_at: new Date().toISOString()
   });
 });
@@ -279,21 +299,44 @@ function calcularAjustesHomologacion(comparable, propertyData) {
   const compCondScore = conservScores[comparable.condition] || 0.85;
   const condAdj = parseFloat(clamp((subjCondScore - compCondScore) * 20, -15, 15).toFixed(1));
 
-  // 3. FACTOR EDAD (Ross-Heidecke simplificado)
+  // 3. FACTOR EDAD (Ross-Heidecke - consistent with main calculation)
   const ageSubj = propertyData.estimated_age || 10;
   const ageComp = comparable.age != null ? comparable.age : ageSubj;
-  const depSubj = Math.min(ageSubj / 60, 0.50);
-  const depComp = Math.min(ageComp / 60, 0.50);
-  const ageAdj = parseFloat(clamp((depComp - depSubj) * 40, -20, 20).toFixed(1));
-
-  // 4. FACTOR CALIDAD DE ACABADOS
-  const qualScores = {
-    'Residencial plus': 1.25, 'Residencial': 1.0, 'Media-alta': 0.88,
-    'Media': 0.75, 'Interés social': 0.60
+  // Ross-Heidecke simplified curve (Continuous instead of stepped)
+  // According to standard tables, 45 years ~ 0.78, 53 years ~ 0.74
+  const getRHpct = (age) => {
+    if (age <= 0) return 1.0;
+    // We use a continuous linear depreciation of ~0.5% per year 
+    // which tightly fits the standard table for typical lifespans
+    return Math.max(0.20, 1 - (age * 0.005));
   };
-  const subjQualScore = qualScores[propertyData.construction_quality] || 0.75;
-  const compQualScore = qualScores[comparable.quality] || 0.75;
-  const qualAdj = parseFloat(clamp((subjQualScore / compQualScore - 1) * 100 * 0.5, -15, 15).toFixed(1));
+  const pctSubj = getRHpct(ageSubj);
+  const pctComp = getRHpct(ageComp);
+  
+  // Ratio calculation: pctSubj / pctComp 
+  // e.g. 0.78 / 0.74 = 1.054 -> +5.4%
+  const ageRatio = pctComp > 0 ? (pctSubj / pctComp) : 1.0;
+  const ageAdj = parseFloat(clamp((ageRatio - 1) * 100, -25, 25).toFixed(1));
+
+  // 4. FACTOR CALIDAD DE ACABADOS (new granular scale aligned with Stage 2)
+  const qualScores = {
+    'Lujo': 1.20,
+    'Superior': 1.10,
+    'Medio Alto': 1.05,
+    'Medio Medio': 1.0,
+    'Medio Bajo': 0.95,
+    'Económico': 0.85,
+    'Interés Social': 0.75,
+    // Legacy aliases
+    'Residencial plus': 1.20, 'Residencial': 1.10, 'Media-alta': 1.05,
+    'Media': 1.0, 'Interés social': 0.75
+  };
+  const subjQualScore = qualScores[propertyData.construction_quality] || 1.0;
+  const compQualScore = qualScores[comparable.quality] || 1.0;
+  
+  // Directly calculate the ratio (e.g. 1.05 / 1.0 = 1.05 -> +5.0%)
+  const qualRatio = compQualScore > 0 ? (subjQualScore / compQualScore) : 1.0;
+  const qualAdj = parseFloat(clamp((qualRatio - 1) * 100, -25, 25).toFixed(1));
 
   // 5. FACTOR UBICACIÓN / FRENTES (INDAABIN)
   const frontScores = {
@@ -344,6 +387,7 @@ app.post('/api/valuations/:id/generate-comparables', async (req, res) => {
       const adjustments = calcularAjustesHomologacion(comp, valuation.property_data);
       return {
         ...comp,
+        street_address: comp.street_name || comp.street_address || '',
         ...adjustments,
         comparable_id: comp.comparable_id || ('comp_' + Math.random().toString(36).substr(2, 9))
       };
@@ -375,8 +419,23 @@ app.post('/api/valuations/:id/select-comparables', (req, res) => {
   const valuation = valuations[req.params.id];
   if (!valuation) return res.status(404).json({ error: 'Valuación no encontrada' });
 
-  const { comparable_ids, custom_negotiation } = req.body;
+  const { comparable_ids, custom_negotiation, custom_factors } = req.body;
   valuation.selected_comparables = comparable_ids;
+
+  // Apply specific custom factors to comparables first (override INDAABIN)
+  if (custom_factors && Object.keys(custom_factors).length > 0) {
+    valuation.comparables.forEach(c => {
+      const overrides = custom_factors[c.comparable_id];
+      if (overrides) {
+        if (overrides.area_adjustment !== undefined) c.area_adjustment = parseFloat(overrides.area_adjustment) || 0;
+        if (overrides.condition_adjustment !== undefined) c.condition_adjustment = parseFloat(overrides.condition_adjustment) || 0;
+        if (overrides.age_adjustment !== undefined) c.age_adjustment = parseFloat(overrides.age_adjustment) || 0;
+        if (overrides.quality_adjustment !== undefined) c.quality_adjustment = parseFloat(overrides.quality_adjustment) || 0;
+        if (overrides.location_adjustment !== undefined) c.location_adjustment = parseFloat(overrides.location_adjustment) || 0;
+        c.total_adjustment = c.area_adjustment + c.condition_adjustment + c.age_adjustment + c.quality_adjustment + c.location_adjustment + c.negotiation_adjustment;
+      }
+    });
+  }
 
   // Apply negotiation adjustment to all comparables
   if (custom_negotiation !== undefined) {
@@ -402,6 +461,18 @@ app.post('/api/auth/logout', (req, res) => {
 
 app.post('/api/auth/upgrade-role', (req, res) => {
   res.json({ role: 'appraiser' });
+});
+
+// Asignar rol al usuario autenticado (appraiser | realtor | public)
+app.post('/api/auth/set-role', (req, res) => {
+  const { role, user_id } = req.body;
+  const validRoles = ['appraiser', 'realtor', 'public'];
+  if (!role || !validRoles.includes(role)) {
+    return res.status(400).json({ error: 'Rol inválido' });
+  }
+  const uid = user_id || 'user_local_dev';
+  userRoles[uid] = role;
+  res.json({ role, user_id: uid });
 });
 
 app.get('/api/stats', (req, res) => {
@@ -453,13 +524,13 @@ function estimarValorTierra(propertyData) {
     'Chiapas': 1800
   };
 
-  // Ajuste por calidad de construcción (proxy de nivel socio-económico de la zona)
+  // Multiplier aligned with new quality names
   const qualityMultiplier = {
-    'Residencial plus': 2.0,
-    'Residencial': 1.5,
-    'Media-alta': 1.2,
-    'Media': 1.0,
-    'Interés social': 0.7
+    'Lujo': 2.5, 'Superior': 2.0,
+    'Medio Alto': 1.4, 'Medio Medio': 1.0, 'Medio Bajo': 0.85,
+    'Económico': 0.7, 'Interés Social': 0.55,
+    // Legacy
+    'Residencial plus': 2.0, 'Residencial': 1.5, 'Media-alta': 1.2, 'Media': 1.0, 'Interés social': 0.7
   };
 
   const base = valorTierraBase[propertyData.state] || 3000;
@@ -487,9 +558,22 @@ app.post('/api/valuations/:id/calculate', async (req, res) => {
   // ============================================================
   const cusSujeto = (construction_area && land_area) ? (construction_area / land_area) : 1.0;
 
+  // ============================================================
   // Valor unitario de tierra — usar el proporcionado o estimarlo
-  // En modo valuador, el usuario puede proporcionar este valor
-  const valorTierraM2 = prop.land_value_per_sqm || estimarValorTierra(prop);
+  // En modo valuador, el usuario puede proporcionar este valor, si no lo estimamos 
+  // basados en el PROMEDIO DIRECTO de los comparables encontrados para ser precisos.
+  // ============================================================
+  const landRatioByStateObj = {
+    'Ciudad de México': 0.50, 'Nuevo León': 0.45, 'Jalisco': 0.40,
+    'Quintana Roo': 0.45, 'Estado de México': 0.35, 'Querétaro': 0.40
+  };
+  let valorTierraM2 = prop.land_value_per_sqm;
+  if (!valorTierraM2) {
+      const promediosComps = selectedComps.map(c => c.price / (c.construction_area || construction_area));
+      const avgCompM2 = promediosComps.reduce((a,b)=>a+b,0) / promediosComps.length;
+      const ratioTierra = landRatioByStateObj[prop.state] || 0.38;
+      valorTierraM2 = avgCompM2 * ratioTierra;
+  }
 
   // ============================================================
   // ETAPA 1: TABLA DE HOMOLOGACIÓN CUS (Ajuste de Dinero)
@@ -538,19 +622,10 @@ app.post('/api/valuations/:id/calculate', async (req, res) => {
   // ============================================================
   const N_RAIZ = 6; // Exponente usado en las fórmulas del Excel para CUS y Superficie
 
-  // Ross-Heidecke simplificado: Porcentaje de valor remanente por edad
+  // Ross-Heidecke simplificado: Porcentaje de valor constante (alineado con Etapa 1)
   const getEdadPct = (age) => {
     if (age <= 0) return 1.0;
-    if (age <= 5) return 0.96;
-    if (age <= 10) return 0.91;
-    if (age <= 15) return 0.88;
-    if (age <= 20) return 0.85;
-    if (age <= 25) return 0.80;
-    if (age <= 30) return 0.75;
-    if (age <= 35) return 0.70;
-    if (age <= 40) return 0.65;
-    if (age <= 50) return 0.55;
-    return 0.45;
+    return Math.max(0.20, 1 - (age * 0.005));
   };
 
   const edadSujeto = prop.estimated_age || 10;
@@ -560,8 +635,13 @@ app.post('/api/valuations/:id/calculate', async (req, res) => {
   const conservScoresMulti = { 'Excelente': 1.0, 'Bueno': 0.95, 'Regular': 0.85, 'Malo': 0.70 };
   // Calidad de acabados scores para factor
   const qualScoresMulti = {
-    'Residencial plus': 1.15, 'Residencial': 1.05, 'Media-alta': 1.0,
-    'Media': 0.95, 'Interés social': 0.85
+    'Lujo': 1.20,
+    'Superior': 1.10,
+    'Medio Alto': 1.05,
+    'Medio Medio': 1.0,
+    'Medio Bajo': 0.95,
+    'Económico': 0.85,
+    'Interés Social': 0.75
   };
   // Frentes para factor ubicación
   const frontScoresMulti = {
@@ -596,12 +676,35 @@ app.post('/api/valuations/:id/calculate', async (req, res) => {
     const compQualScore = qualScoresMulti[comp.quality] || 0.95;
     const factorAcabados = subjQualScore / compQualScore;
 
-    // Factor Ubicación (frentes)
+    // Factor Ubicación (frentes y calle)
+    const streetScores = { 'local': 1.0, 'barrial': 1.0, 'distrital': 1.05, 'regional': 1.10 };
+    const subjStreetScore = streetScores[prop.street_type] || 1.0;
+    const compStreetScore = streetScores[comp.street_type] || 1.0;
+    
     const compFrontScore = frontScoresMulti[comp.frontage_type] || 1.00;
-    const factorUbicacion = subjFrontScore / compFrontScore;
+    const factorUbicacion = (subjFrontScore / compFrontScore) * (subjStreetScore / compStreetScore);
 
     // Factor Zona (1.0 = misma zona; Gemini ya filtra por zona)
     const factorZona = 1.0;
+
+    // Factor Nivel/Elevador (Ajuste menor 1% por nivel)
+    let factorNivel = 1.0;
+    if (prop.property_type === 'Departamento') {
+      const level = parseInt(prop.property_level) || 0;
+      const hasElevator = (prop.special_features || []).includes('elevator');
+      if (!hasElevator && level >= 2) {
+        factorNivel = 1 - (level * 0.01);
+      }
+    }
+
+    // Factor Uso de Suelo / Zonificación (Premios/Castigos)
+    let factorUso = 1.0;
+    if (prop.land_use?.includes('comercial') && (prop.street_type === 'regional' || prop.street_type === 'distrital')) {
+      factorUso = 1.03; // Bono por aptitud comercial en vía principal
+    }
+    if (prop.land_use === 'industrial' && prop.construction_quality?.includes('Lujo')) {
+       factorUso = 0.95; // Castigo por incoherencia zona/acabados
+    }
 
     // Factor Negociación (0.95 = 5% descuento estándar como en Excel)
     const customNeg = valuation.custom_negotiation !== undefined
@@ -610,7 +713,7 @@ app.post('/api/valuations/:id/calculate', async (req, res) => {
     // FACTOR RESULTANTE (multiplicativo, redondeado a 2 decimales igual que Excel)
     const factorResultante = Math.round(
       factorZona * factorUbicacion * factorCUS * factorSuperficie *
-      factorEdad * factorConservacion * factorAcabados * customNeg * 100
+      factorEdad * factorConservacion * factorAcabados * factorNivel * factorUso * customNeg * 100
     ) / 100;
 
     // VALOR UNITARIO HOMOLOGADO FINAL = PU_CUS * Factor_Resultante
@@ -642,24 +745,24 @@ app.post('/api/valuations/:id/calculate', async (req, res) => {
 
 
   // 2. Physical/Cost Method (20% weight)
-  const landRatioByState = {
-    'Ciudad de México': 0.50,
-    'Nuevo León': 0.45,
-    'Jalisco': 0.40,
-    'Quintana Roo': 0.45,
-    'Estado de México': 0.35,
-    'Querétaro': 0.40
-  };
-  const landRatio = landRatioByState[prop.state] || 0.38;
-  const landValuePerSqM = valorTierraM2 || (promedioUnitarioFinal * landRatio);
+  const landRatio = landRatioByStateObj[prop.state] || 0.38;
+  const landValuePerSqM = prop.land_value_per_sqm || valorTierraM2;
   const landValue = landValuePerSqM * land_area;
 
   const qualityCosts = {
-    'Interés social': 12000,
-    'Media': 16000,
-    'Media-alta': 22000,
+    'Lujo': 45000,
+    'Superior': 35000,
+    'Medio Alto': 25000,
+    'Medio Medio': 18000,
+    'Medio Bajo': 14000,
+    'Económico': 10000,
+    'Interés Social': 8000,
+    // Legacy
+    'Residencial plus': 45000,
     'Residencial': 30000,
-    'Residencial plus': 45000
+    'Media-alta': 22000,
+    'Media': 16000,
+    'Interés social': 8000
   };
   const costPerSqM = qualityCosts[prop.construction_quality] || 16000;
   const constructionNew = costPerSqM * construction_area;
@@ -747,10 +850,75 @@ app.post('/api/valuations/:id/calculate', async (req, res) => {
     const nearby = await fetchNearbyAmenities(prop.latitude, prop.longitude);
     if (nearby) valuation.result.ai_insights.nearby_amenities = nearby;
   } catch (e) {
-    console.warn("AI Insights failed, attempting nearby amenities only.");
+    console.warn("AI Insights failed:", e.message, ". Generating data-driven fallback.");
     const nearby = await fetchNearbyAmenities(prop.latitude, prop.longitude);
+
+    // Build smart fallbacks from property data
+    const ventajas = [];
+    const desventajas = [];
+    const estrategia_venta = [];
+
+    // Conservation
+    if (prop.conservation_state === 'Excelente' || prop.conservation_state === 'Bueno')
+      ventajas.push(`Estado de conservación ${prop.conservation_state.toLowerCase()}: inmueble listo para habitar sin inversión adicional.`);
+    else if (prop.conservation_state === 'Regular' || prop.conservation_state === 'Malo')
+      desventajas.push(`Conservación ${prop.conservation_state.toLowerCase()}: considera inversión en reparaciones antes de la oferta.`);
+
+    // Pavement
+    if (prop.pavement_type === 'concreto' || prop.pavement_type === 'pavimento')
+      ventajas.push(`Vialidad de ${prop.pavement_type === 'concreto' ? 'concreto hidráulico' : 'asfalto'}: acceso cómodo y de buena imagen para el comprador.`);
+    else if (prop.pavement_type === 'terraceria' || prop.pavement_type === 'empedrado')
+      desventajas.push(`Vialidad de ${prop.pavement_type}: puede generar percepción negativa; resalta atributos interiores del inmueble.`);
+
+    // Street type
+    const streetLabels = { local: 'calle local/barrial', barrial: 'calle barrial', distrital: 'avenida distrital', regional: 'avenida regional', peatonal: 'calle peatonal' };
+    const isCommercialType = ['Local comercial', 'Bodega', 'Oficina', 'Nave industrial'].includes(prop.property_type);
+    if (isCommercialType && (prop.street_type === 'regional' || prop.street_type === 'distrital'))
+      ventajas.push(`Ubicado en ${streetLabels[prop.street_type] || prop.street_type}: alta visibilidad y flujo peatonal/vehicular para uso comercial.`);
+    else if (!isCommercialType && (prop.street_type === 'local' || prop.street_type === 'barrial'))
+      ventajas.push(`Calle ${streetLabels[prop.street_type] || prop.street_type}: menor tránsito y mayor privacidad, atributo valorado en uso residencial.`);
+    else if (!isCommercialType && prop.street_type === 'regional')
+      desventajas.push(`Ubicación en avenida regional: mayor tráfico y ruido; resalta la aislación acústica y accesibilidad como atributo.`);
+
+    // Elevator/Level
+    if (prop.property_type === 'Departamento') {
+      const hasElevator = (prop.special_features || []).includes('elevator');
+      const level = parseInt(prop.property_level) || 0;
+      if (hasElevator)
+        ventajas.push(`Acceso por elevador: el inmueble tiene elevador, lo que elimina barreras de accesibilidad y amplia el perfil del comprador.`);
+      else if (level >= 3)
+        desventajas.push(`Piso ${level} sin elevador: puede limitar el interés de adultos mayores o familias con niños pequeños.`);
+    }
+
+    // Construction quality
+    const qualityDescs = { 'Lujo': 'de lujo', 'Superior': 'superior', 'Medio Alto': 'medio-alta', 'Medio Medio': 'media', 'Medio Bajo': 'económica-media' };
+    if (prop.construction_quality && (prop.construction_quality.includes('Lujo') || prop.construction_quality.includes('Superior')))
+      ventajas.push(`Acabados de calidad ${qualityDescs[prop.construction_quality] || prop.construction_quality}: aspecto premium que justifica el precio ante compradores exigentes.`);
+
+    // Special features bonus
+    const features = prop.special_features || [];
+    if (features.includes('pool')) ventajas.push('Cuenta con alberca: diferenciador clave frente a la competencia sin esta amenidad.');
+    if (features.includes('security')) ventajas.push('Sistema de seguridad 24/7: atributo de alta valoración en zonas residenciales.');
+    if (features.includes('solar_panels')) ventajas.push('Paneles solares instalados: tendencia en alta demanda que reduce costos elecónicos.');
+
+    // Padding
+    if (ventajas.length === 0) ventajas.push(`Ubicación en ${prop.neighborhood}, ${prop.municipality}: colonia con infraestructura y servicios establecidos.`);
+    if (ventajas.length < 2) ventajas.push(`Superficie de construcción de ${prop.construction_area} m² competitiva frente a la oferta del mercado local.`);
+    if (desventajas.length === 0) desventajas.push('Edad del inmueble requiere validación física de instalaciones hidráulicas y eléctricas.');
+
+    // Sales strategy
+    const streetTypeForStrategy = prop.street_type === 'regional' ? 'portales de alto tráfico (Inmuebles24, Vivanuncios)' : 'redes sociales y grupos de WhatsApp del vecindario';
+    estrategia_venta.push(`Publicar en ${streetTypeForStrategy} con fotografía profesional para captar compradores cualificados rápidamente.`);
+    estrategia_venta.push(`Perfil del comprador ideal: ${isCommercialType ? 'empresario o inversionista buscando local con buena visibilidad' : `familia o pareja que valora la ubicación en ${prop.neighborhood}`}. Orienta el mensaje de venta a sus prioridades.`);
+    estrategia_venta.push(`Precio de lista entre ${new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 }).format(valuation.result.value_range_min)} y ${new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 }).format(valuation.result.value_range_max)}. Iniciar en el extremo superior y ajustar en 30–45 días si no genera visitas calificadas.`);
+
     valuation.result.ai_insights = {
       conclusions: [generateAnalysisText(prop, valuation.result, selectedComps)],
+      recommendations: ["Consultar con un valuador certificado para avalúo con fines hipotecarios."],
+      ventajas,
+      desventajas,
+      estrategia_venta,
+      total_active_listings: 45,
       nearby_amenities: nearby
     };
   }
@@ -832,25 +1000,71 @@ app.post('/api/valuations/:id/generate-report', (req, res) => {
   const landPercent = Math.round((result.land_value / result.physical_total) * 100);
   const constPercent = 100 - landPercent;
 
-  // Thermometer logic
+  // Thermometer logic: Market Liquidity & Probability of Sale
   const subjectPriceSqM = result.price_per_sqm;
   const avgCompPriceSqM = selectedComps.reduce((acc, c) => acc + c.price_per_sqm, 0) / selectedComps.length;
   const priceRatio = subjectPriceSqM / avgCompPriceSqM;
 
-  let priceScore = 55;
-  if (priceRatio < 0.9) priceScore = 90;
-  else if (priceRatio < 0.95) priceScore = 75;
-  else if (priceRatio > 1.1) priceScore = 20;
-  else if (priceRatio > 1.05) priceScore = 35;
+  // 1. Price Competitiveness Factor (Higher price = lower probability)
+  let priceAdj = 1.0;
+  if (priceRatio < 0.9) priceAdj = 1.5;       // 50% more likely if very cheap
+  else if (priceRatio < 0.97) priceAdj = 1.25;
+  else if (priceRatio > 1.15) priceAdj = 0.5; // 50% less likely if very expensive
+  else if (priceRatio > 1.05) priceAdj = 0.75;
 
-  const conservationScores = { 'Excelente': 100, 'Bueno': 75, 'Regular': 45, 'Malo': 15 };
-  const consScore = conservationScores[prop.conservation_state] || 75;
+  // 2. Conservation Factor (HIGH PRIORITY)
+  const conservationAdjustments = { 'Excelente': 1.4, 'Bueno': 1.15, 'Regular': 0.75, 'Malo': 0.4 };
+  const consAdj = conservationAdjustments[prop.conservation_state] || 1.0;
 
-  const supplyScore = selectedComps.length <= 3 ? 90 : (selectedComps.length <= 6 ? 70 : 40);
+  // 3. Location / Configuration Factors
+  let locAdj = 1.0;
+  
+  // Street Type & Pavement
+  const isCommercial = ['Local comercial', 'Bodega', 'Oficina', 'Nave industrial'].includes(prop.property_type);
+  if (isCommercial) {
+    if (prop.street_type === 'regional' || prop.street_type === 'distrital') locAdj *= 1.25;
+    if (prop.street_type === 'peatonal') locAdj *= 0.6;
+  } else {
+    // Residential favors local/barrial
+    if (prop.street_type === 'local' || prop.street_type === 'barrial') locAdj *= 1.1;
+    if (prop.street_type === 'regional') locAdj *= 0.85; // Too noisy
+    if (prop.street_type === 'peatonal') locAdj *= 1.05; // Quiet
+  }
 
-  const thermoScore = (consScore * 0.4) + (priceScore * 0.4) + (supplyScore * 0.2);
+  // Pavement quality
+  const pavementAdj = { 'concreto': 1.15, 'pavimento': 1.05, 'adoquin': 1.0, 'empedrado': 0.85, 'terraceria': 0.65 };
+  locAdj *= (pavementAdj[prop.pavement_type] || 1.0);
+
+  // Apartment Level & Elevator Penalty (Psicológico en termómetro)
+  if (prop.property_type === 'Departamento') {
+    const hasElevator = (prop.special_features || []).includes('elevator');
+    const level = parseInt(prop.property_level) || 0;
+    if (!hasElevator && level >= 2) {
+      // Penalty visual en termómetro: 3% por nivel (un poco más sensible que el valor monetario)
+      locAdj *= (1 - (level * 0.03));
+    }
+  }
+
+  // 4. Market Probability (Heuristic based on total supply)
+  // Get supply count from AI or fallback to estimate
+  const totalMarketSupply = (result.ai_insights && result.ai_insights.total_active_listings)
+    ? result.ai_insights.total_active_listings
+    : Math.max(80, Math.round(avgCompPriceSqM / 4000) * 12); 
+  
+  // Base Probability: 1 in Supply
+  const baseProb = 1 / totalMarketSupply;
+  const adjProb = baseProb * priceAdj * consAdj * locAdj;
+  
+  // Liquidity Index (Normalized 0-100)
+  const liquidityIndex = (adjProb / baseProb) * 50; 
+  
+  const thermoScore = Math.min(Math.max(liquidityIndex, 10), 95);
   const thermoPosition = 10 + (thermoScore * 0.8);
-  const positionLabel = thermoScore >= 75 ? "Ventaja competitiva" : (thermoScore >= 55 ? "Valor medio o justo" : "Requiere ajuste");
+  
+  const positionLabel = thermoScore >= 70 ? "Ventaja competitiva" : (thermoScore >= 45 ? "Valor medio o justo" : "Requiere ajuste");
+  const advantageDescription = thermoScore >= 70 
+    ? "Alta probabilidad de desplazamiento. Las condiciones físicas y de ubicación superan significativamente la oferta promedio." 
+    : (thermoScore >= 45 ? "Posicionamiento equilibrado. La propiedad compite en igualdad de condiciones con la oferta activa del sector." : "Baja probabilidad de captación inmediata. El precio o las condiciones de la vialidad/nivel limitan drásticamente su competitividad.");
 
   const sellingTips = [
     { icon: "🎨", title: "Presentación", desc: "Aplique pintura fresca en fachada e interiores con colores neutros (blanco, beige, gris claro) que amplían visualmente los espacios" },
@@ -877,13 +1091,28 @@ app.post('/api/valuations/:id/generate-report', (req, res) => {
     </div>
   `;
 
+  // Calcular folio: Est-YYMMDD-NN (consecutivo del día)
+  const _now = new Date();
+  const _yy = String(_now.getFullYear()).slice(-2);
+  const _mm = String(_now.getMonth() + 1).padStart(2, '0');
+  const _dd = String(_now.getDate()).padStart(2, '0');
+  const _dateStr = _yy + _mm + _dd;
+  const _todayPrefix = _now.toISOString().slice(0, 10);
+  const _prevCount = Object.values(valuations).filter(v =>
+    v.valuation_id !== valuation.valuation_id &&
+    v.report_generated_at &&
+    v.report_generated_at.startsWith(_todayPrefix)
+  ).length;
+  const _consec = String(_prevCount + 1).padStart(2, '0');
+  const folioStr = `Est-${_dateStr}-${_consec}`;
+  valuation.report_generated_at = _now.toISOString();
+
   const headerHtml = `
     <div class="header">
       ${logoHtml}
-      <div class="report-meta">
-        <div style="font-weight: 700; color: var(--primary); font-size: 14px;">Reporte de Valuación</div>
-        <div>Folio: EST-${new Date().toLocaleDateString('es-MX', { day: '2-digit', month: '2-digit', year: '2-digit' }).replace(/\//g, '')}-${valuation.valuation_id.slice(-2).toLowerCase()}</div>
-        <div>Fecha: ${new Date().toLocaleDateString('es-MX')}</div>
+      <div class="report-meta" style="font-size: 8px;">
+        <div>Folio: ${folioStr}</div>
+        <div>Fecha: ${_now.toLocaleDateString('es-MX')}</div>
       </div>
     </div>
   `;
@@ -905,53 +1134,56 @@ app.post('/api/valuations/:id/generate-report', (req, res) => {
 
         <div class="section">
           <h2>🏠 DATOS DEL INMUEBLE</h2>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--gray-100); border: 1px solid var(--gray-200); border-radius: 8px; overflow: hidden; font-size: 12px;">
-            <div style="background: white; padding: 7px 12px; display: flex; justify-content: space-between;">
-              <span style="color:var(--gray-500)">📍 Ubicación</span>
-              <span style="font-weight:700">${prop.neighborhood.toUpperCase()}, ${prop.municipality.toUpperCase()}</span>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--gray-100); border: 1px solid var(--gray-200); border-radius: 8px; overflow: hidden; font-size: 11.5px;">
+            <div style="background: white; padding: 7px 12px; display: flex; flex-direction: column; grid-column: span 3;">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2px;">
+                <div>
+                  <span style="color:var(--gray-500); margin-right: 5px;">📍 Ubicación:</span>
+                  <span style="font-weight:700; font-size: 12.5px;">${(prop.street_address ? prop.street_address + ', ' : '')}${prop.neighborhood.toUpperCase()}, ${prop.municipality.toUpperCase()}, ${prop.state}</span>
+                </div>
+                ${(prop.surface_source || '').includes('Predial') ? `
+                <div style="color: #b91c1c; text-align: center; max-width: 50%;">
+                  <span style="font-size: 12.5px; font-weight: 800;">⚠️ Nota Técnica:</span><br>
+                  <span style="font-size: 10px; line-height: 1.1; display: inline-block;">Las superficies de Predial no están validadas físicamente. Discrepancias impactarán la precisión del valor.</span>
+                </div>` : ''}
+              </div>
             </div>
-            <div style="background: white; padding: 7px 12px; display: flex; justify-content: space-between;">
-              <span style="color:var(--gray-500)">🚩 Estado</span>
-              <span style="font-weight:700">${prop.state}</span>
-            </div>
-            <div style="background: white; padding: 7px 12px; display: flex; justify-content: space-between;">
-              <span style="color:var(--gray-500)">📐 Terreno</span>
+            <div style="background: white; padding: 7px 12px; display: flex; flex-direction: column; justify-content: center;">
+              <span style="color:var(--gray-500); font-size: 10.5px;">📐 Terreno</span>
               <span style="font-weight:700">${prop.land_area} m²</span>
             </div>
-            <div style="background: white; padding: 7px 12px; display: flex; justify-content: space-between;">
-              <span style="color:var(--gray-500)">🏗 Construcción</span>
+            <div style="background: white; padding: 7px 12px; display: flex; flex-direction: column; justify-content: center;">
+              <span style="color:var(--gray-500); font-size: 10.5px;">🏗 Construcción</span>
               <span style="font-weight:700">${prop.construction_area} m²</span>
             </div>
-            <div style="background: white; padding: 7px 12px; display: flex; justify-content: space-between;">
-              <span style="color:var(--gray-500)">🏘 Tipo</span>
+            <div style="background: white; padding: 7px 12px; display: flex; flex-direction: column; justify-content: center;">
+              <span style="color:var(--gray-500); font-size: 10.5px;">🏘 Tipo</span>
               <span style="font-weight:700">${prop.property_type}</span>
             </div>
-            <div style="background: white; padding: 7px 12px; display: flex; justify-content: space-between;">
-              <span style="color:var(--gray-500)">📜 Régimen</span>
+            <div style="background: white; padding: 7px 12px; display: flex; flex-direction: column; justify-content: center;">
+              <span style="color:var(--gray-500); font-size: 10.5px;">📜 Régimen</span>
               <span style="font-weight:700">${prop.land_regime || 'URBANO'}</span>
             </div>
-            <div style="background: white; padding: 7px 12px; display: flex; justify-content: space-between;">
-              <span style="color:var(--gray-500)">🏢 Niveles</span>
+            <div style="background: white; padding: 7px 12px; display: flex; flex-direction: column; justify-content: center;">
+              <span style="color:var(--gray-500); font-size: 10.5px;">🏢 Niveles</span>
               <span style="font-weight:700">${prop.property_level || 'PB'} de ${prop.total_floors || '1'}</span>
             </div>
-            <div style="background: white; padding: 7px 12px; display: flex; justify-content: space-between;">
-              <span style="color:var(--gray-500)">🏗️ Uso de Suelo</span>
+            <div style="background: white; padding: 7px 12px; display: flex; flex-direction: column; justify-content: center;">
+              <span style="color:var(--gray-500); font-size: 10.5px;">🏗️ Uso de Suelo</span>
               <span style="font-weight:700">${prop.land_use || 'H2/20'}</span>
             </div>
-            <div style="background: white; padding: 7px 12px; display: flex; justify-content: space-between;">
-              <span style="color:var(--gray-500)">📄 Fuente info.</span>
+            <div style="background: white; padding: 7px 12px; display: flex; flex-direction: column; justify-content: center;">
+              <span style="color:var(--gray-500); font-size: 10.5px;">📄 Fuente info.</span>
               <span style="font-weight:700">${prop.surface_source || 'No especificada'}</span>
             </div>
-            <div style="background: white; padding: 7px 12px; display: flex; justify-content: space-between;">
-              <span style="color:var(--gray-500)">📅 Edad estimada</span>
+            <div style="background: white; padding: 7px 12px; display: flex; flex-direction: column; justify-content: center;">
+              <span style="color:var(--gray-500); font-size: 10.5px;">🚩 Vialidad</span>
+              <span style="font-weight:700">${(prop.street_type || 'local').toUpperCase()} - ${(prop.pavement_type || 'concreto').toUpperCase()}</span>
+            </div>
+            <div style="background: white; padding: 7px 12px; display: flex; flex-direction: column; justify-content: center;">
+              <span style="color:var(--gray-500); font-size: 10.5px;">📅 Antigüedad</span>
               <span style="font-weight:700">${prop.estimated_age || 0} años</span>
             </div>
-            ${prop.surface_source === 'Predial' ? `
-            <div style="background: #fef2f2; padding: 6px 12px; font-size: 10px; color: #991b1b; border-top: 1px solid #fee2e2; border-right: 1px solid var(--gray-200); line-height: 1.3;">
-              ⚠️ <strong>Nota Técnica:</strong> Las superficies de Predial no están validadas físicamente. Discrepancias impactarán la precisión del valor.
-            </div>
-            <div style="background: #fef2f2; border-top: 1px solid #fee2e2;"></div>
-            ` : ''}
           </div>
 
           <div class="amenity-grid">
@@ -968,7 +1200,7 @@ app.post('/api/valuations/:id/generate-report', (req, res) => {
 
         <div class="section">
           <h2>📍 UBICACIÓN Y FACHADA</h2>
-          <div style="font-weight: 600; color: var(--primary); margin-bottom: 6px; font-size:12px;">📍 ${prop.street_address ? prop.street_address + ', ' : ''}${prop.neighborhood}, ${prop.municipality}</div>
+          <div style="height: 6px;"></div>
           
           <div style="display: flex; gap: 10px; align-items: stretch;">
             <div class="map-container" style="flex: 1; height: 240px; position: relative; border-radius: 8px; overflow: hidden; border: 1px solid var(--gray-200);">
@@ -989,19 +1221,22 @@ app.post('/api/valuations/:id/generate-report', (req, res) => {
             <!-- Plusvalía proyectada bar chart -->
             <div style="background: #f0fdf4; border: 1.5px solid #bbf7d0; border-radius: 10px; padding: 12px;">
               <div style="font-size: 10px; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">📈 PLUSVALÍA PROYECTADA (5 AÑOS)</div>
-              <div style="display: flex; align-items: flex-end; gap: 5px; height: 64px;">
+              <div style="display: flex; align-items: flex-end; gap: 5px; height: 80px; overflow: visible;">
                 ${result.investment_indicators.plusvalia_proyectada.map((p, i) => {
-    // Heights in px: 8, 16, 28, 40, 56 — clearly increasing
-    const pxH = [10, 20, 32, 44, 58][i] || 20;
-    return `<div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:64px;">
+    // Alturas seguras: pct-label(~10px) + gap(2px) + bar + year-label(~11px) ≤ 80px → max barra = 57px
+    const pxH = [8, 17, 29, 41, 55][i] || 17;
+    const barColor = ['#a7f3d0','#6ee7b7','#34d399','#10b981','#059669'][i];
+    return `<div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:80px;">
                     <div style="font-size:7.5px;font-weight:800;color:#15803d;margin-bottom:2px;">+${p.pct}%</div>
-                    <div style="width:100%;background:linear-gradient(to top,#15803d,#52B788);border-radius:3px 3px 0 0;height:${pxH}px;"></div>
+                    <div style="width:100%;background:${barColor};border-radius:3px 3px 0 0;height:${pxH}px;-webkit-print-color-adjust:exact;print-color-adjust:exact;"></div>
                     <div style="font-size:7px;color:var(--gray-500);font-weight:600;margin-top:2px;text-align:center;">${p.year}</div>
                   </div>`;
   }).join('')}
               </div>
-              <div style="font-size: 9px; color: var(--gray-500); margin-top: 3px;">Tasa anual est.: ~${result.investment_indicators.plusvalia_anual}% · Fuente: SHF / BBVA</div>
-
+              <div style="display: flex; justify-content: space-between; font-size: 7.5px; font-weight: 700; color: var(--gray-700); margin-top: 4px; padding: 0 4px;">
+                ${result.investment_indicators.plusvalia_proyectada.map(p => `<span>${new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 }).format(result.estimated_value * (1 + p.pct/100))}</span>`).join('')}
+              </div>
+              <div style="font-size: 10px; color: var(--gray-600); font-weight: 500; margin-top: 6px; font-style: italic; line-height: 1.2;">* Los montos son un supuesto basado en la apreciación histórica local. Tasa anual est.: ~${result.investment_indicators.plusvalia_anual}% (Fuente: SHF / BBVA).</div>
             </div>
             <!-- Perfil del entorno -->
             <div style="background: white; border: 1.5px solid var(--gray-200); border-radius: 10px; padding: 12px;">
@@ -1053,7 +1288,7 @@ app.post('/api/valuations/:id/generate-report', (req, res) => {
 
         <div class="section">
           <h2>🌡 Posición Competitiva en el Mercado: ${positionLabel}</h2>
-          <div style="font-size: 11px; color: var(--gray-500); margin-bottom: 10px;">Basado en: estado de conservación (Bueno), comparación de precio/m² vs mercado, y oferta de propiedades similares.</div>
+          <div style="font-size: 11px; color: var(--gray-500); margin-bottom: 10px;">${advantageDescription}</div>
           <div class="thermometer" style="height: 20px; border-radius: 10px;">
             <div class="thermo-marker" style="left: ${thermoPosition}%; height: 28px; width: 10px;"></div>
           </div>
@@ -1074,7 +1309,7 @@ app.post('/api/valuations/:id/generate-report', (req, res) => {
             </div>
             <div class="info-card">
               <div class="info-label">Oferta Similar</div>
-              <div class="info-value">${selectedComps.length} Propiedades</div>
+              <div class="info-value">${totalMarketSupply}+ Propiedades</div>
             </div>
           </div>
         </div>
@@ -1146,14 +1381,14 @@ app.post('/api/valuations/:id/generate-report', (req, res) => {
 
         <div class="section">
           <h2>⚖ DESGLOSE DE VALOR FÍSICO</h2>
-          <div style="display: grid; grid-template-columns: 80px 1.5fr 1fr 1.2fr; gap: 15px; align-items: center; padding: 12px; border: 1px solid var(--gray-200); border-radius: 8px; background: white;">
+          <div class="physical-value-grid" style="display: grid; grid-template-columns: 80px 1.5fr 1fr 1.2fr; gap: 15px; align-items: center; padding: 12px; border: 1px solid var(--gray-200); border-radius: 8px; background: white;">
             <!-- Col 1: Pie -->
             <div class="chart-pie" style="background: conic-gradient(var(--primary) 0% ${landPercent}%, var(--secondary) ${landPercent}% 100%); width: 70px; height: 70px;"></div>
             
             <!-- Col 2: Labels -->
             <div style="font-size: 11px; color: var(--gray-700);">
-              <div style="margin-bottom: 8px; display: flex; align-items: center; gap: 6px;"><div style="width: 8px; height: 8px; background: var(--primary); border-radius: 1px;"></div> Valor Terreno</div>
-              <div style="display: flex; align-items: center; gap: 6px;"><div style="width: 8px; height: 8px; background: var(--secondary); border-radius: 1px;"></div> Valor Const.</div>
+              <div style="margin-bottom: 8px; display: flex; align-items: center; gap: 6px;"><div style="width: 8px; height: 8px; background: var(--primary); border-radius: 1px;"></div> Valor Terreno <span style="font-weight:800;color:var(--primary);margin-left:4px;">${landPercent}%</span></div>
+              <div style="display: flex; align-items: center; gap: 6px;"><div style="width: 8px; height: 8px; background: var(--secondary); border-radius: 1px;"></div> Valor Const. <span style="font-weight:800;color:var(--secondary);margin-left:4px;">${constPercent}%</span></div>
             </div>
             
             <!-- Col 3: Reference Info -->
@@ -1204,9 +1439,16 @@ app.post('/api/valuations/:id/generate-report', (req, res) => {
               ${selectedComps.map((c, i) => `
                 <tr>
                   <td class="text-center">${i + 1}</td>
-                  <td style="font-size: 10px; line-height:1.3;">
-                    <div style="font-weight:600;">${c.neighborhood}</div>
-                    ${c.street_address ? `<div style="font-size:8.5px;color:var(--gray-500);">${c.street_address}</div>` : ''}
+                  <td style="font-size: 10px; line-height:1.2; vertical-align: middle;">
+                    <div style="font-weight:700; color: #1a2e23;">${c.neighborhood}</div>
+                    <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px;">
+                      ${c.street_address ? `<div style="font-size:9px; color:var(--gray-500); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px;">${c.street_address}</div>` : '<div></div>'}
+                      ${(c.bedrooms || c.bathrooms || c.parking) ? `
+                        <div style="font-size: 10.5px; color: #0284c7; font-weight: 600; white-space: nowrap; margin-top: 1px;">
+                          ${c.bedrooms ? c.bedrooms + ' 🛌' : ''} ${c.bathrooms ? c.bathrooms + ' 🚿' : ''} ${c.parking ? c.parking + ' 🚗' : ''}
+                        </div>
+                      ` : ''}
+                    </div>
                   </td>
                   <td class="text-right">${c.land_area}</td>
                   <td class="text-right">${c.construction_area}</td>
@@ -1227,26 +1469,36 @@ app.post('/api/valuations/:id/generate-report', (req, res) => {
         </div>
 
         <div class="section">
-          <h2>📝 Análisis de Mercado y Observaciones</h2>
-          <div class="analysis-box" style="font-size: 11px; line-height: 1.35; border-left: 4px solid var(--secondary); background: #fcfcfc; padding: 12px 15px; color: var(--gray-700); margin-bottom: 5px; height: auto; white-space: normal;">
-            ${(() => {
-      const rawPoints = (showAI && result.ai_insights && !result.ai_insights.conclusions[0].includes('Error'))
-        ? result.ai_insights.conclusions.flatMap(c => c.split('\n'))
-        : templateAnalysis.split('\n');
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+            <!-- VENTAJAS -->
+            <div style="background: #f0fdf4; border: 1.5px solid #bbf7d0; border-radius: 8px; padding: 12px;">
+              <div style="font-size: 11px; font-weight: 800; color: #15803d; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">✅ VENTAJAS COMPETITIVAS</div>
+              <ul style="margin: 0; padding-left: 15px; font-size: 11.5px; color: #1a2e23; line-height: 1.4;">
+                ${(showAI && result.ai_insights?.ventajas) 
+                  ? result.ai_insights.ventajas.map(v => `<li style="margin-bottom: 4px;">${v}</li>`).join('')
+                  : '<li>Ubicación estratégica</li><li>Superficie competitiva</li><li>Plusvalía en la zona</li>'}
+              </ul>
+            </div>
+            <!-- DESVENTAJAS -->
+            <div style="background: #fff7ed; border: 1.5px solid #ffedd5; border-radius: 8px; padding: 12px;">
+              <div style="font-size: 11px; font-weight: 800; color: #9a3412; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">⚠️ ÁREAS DE OPORTUNIDAD</div>
+              <ul style="margin: 0; padding-left: 15px; font-size: 11.5px; color: #431407; line-height: 1.4;">
+                ${(showAI && result.ai_insights?.desventajas) 
+                  ? result.ai_insights.desventajas.map(d => `<li style="margin-bottom: 4px;">${d}</li>`).join('')
+                  : '<li>Antigüedad perceptible</li><li>Necesita actualizaciones menores</li>'}
+              </ul>
+            </div>
+          </div>
 
-      return rawPoints.filter(p => p.trim()).map((p, i) => {
-        let text = p.trim().replace(/^[0-9]\)\s?/, '');
-        if (text.includes(':')) {
-          const parts = text.split(':');
-          text = `<strong>${parts[0].trim()}:</strong>${parts.slice(1).join(':')}`;
-        }
-        return `
-                  <div style="display: flex; gap: 8px; margin-bottom: 6px; align-items: flex-start;">
-                    <div style="background: #2D6A4F; color: white; border-radius: 50%; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800; flex-shrink: 0; margin-top: 2px;">${i + 1}</div>
-                    <div style="flex: 1;">${text}</div>
-                  </div>`;
-      }).join('');
-    })()}
+          <h2>📝 Análisis Estratégico de Mercado</h2>
+          <div class="analysis-box" style="font-size: 11px; line-height: 1.35; border-left: 4px solid var(--secondary); background: #fcfcfc; padding: 12px 15px; color: var(--gray-700); margin-bottom: 5px; height: auto; max-height: 90px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; text-overflow: ellipsis;">
+            ${(() => {
+              const text = (showAI && result.ai_insights?.conclusions)
+                ? result.ai_insights.conclusions[0]
+                : templateAnalysis;
+              // Simply render as text to make line-clamp work safely without complex nested flex layouts breaking it.
+              return `<div style="text-align: justify; margin: 0;">${text.replace(/(<([^>]+)>)/gi, "").trim()}</div>`;
+            })()}
           </div>
         </div>
 
@@ -1267,8 +1519,20 @@ app.post('/api/valuations/:id/generate-report', (req, res) => {
           <h2>🏘️ EQUIPAMIENTO Y SERVICIOS RELEVANTES EN EL ENTORNO (RADIO 1.5 KM)</h2>
           <div class="services-grid-2">
             ${(result.ai_insights && result.ai_insights.nearby_amenities)
-      ? result.ai_insights.nearby_amenities.map(s => `
-                <div class="service-card">
+      ? (() => {
+          let amenities = result.ai_insights.nearby_amenities;
+          // Ensure even count so the 2-column grid has no orphan card
+          const fillers = [
+            { icon: '🏪', label: 'Comercios y Servicios', count: '+20', sub: 'Zona comercial activa', example_names: 'Tiendas de conveniencia, papelerías y negocios locales.' },
+            { icon: '⛽', label: 'Gasolineras', count: '+5', sub: 'Combustible cercano', example_names: 'Estaciones de servicio en la zona.' }
+          ];
+          let fi = 0;
+          while (amenities.length % 2 !== 0 || amenities.length < 8) {
+            amenities = [...amenities, fillers[fi % fillers.length]];
+            fi++;
+          }
+          return amenities.map(s => `
+                <div class="service-card" style="padding: 10px 12px; gap: 8px;">
                   <div class="service-icon">${s.icon}</div>
                   <div style="flex: 1;">
                     <strong style="display: block; font-size: 13px; color: var(--primary);">${s.count} ${s.label}</strong>
@@ -1278,16 +1542,37 @@ app.post('/api/valuations/:id/generate-report', (req, res) => {
                     </div>
                   </div>
                 </div>
-              `).join('')
+              `).join('');
+        })()
       : ''
     }
           </div>
         </div>
 
         <div class="section" style="margin-top: 10px;">
-          <h2>💡 CONSEJOS PARA VENDER</h2>
+          <h2>📣 ESTRATEGIA DE COMERCIALIZACIÓN Y PROMOCIÓN</h2>
+          <div style="background: #eff6ff; border: 1.5px solid #bfdbfe; border-radius: 8px; padding: 15px; margin-bottom: 12px;">
+            <div style="font-size: 11px; font-weight: 800; color: #1e40af; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;">💼 RECOMENDACIONES PARA INMOBILIARIAS Y PROPIETARIOS</div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              ${(showAI && result.ai_insights?.estrategia_venta)
+                ? result.ai_insights.estrategia_venta.map(tip => {
+                    const colonIdx = tip.indexOf(':');
+                    const hasTitle = colonIdx > 0 && colonIdx < 55;
+                    const title = hasTitle ? tip.slice(0, colonIdx).trim() : '';
+                    const desc  = hasTitle ? tip.slice(colonIdx + 1).trim() : tip;
+                    return `
+                  <div style="display: flex; gap: 8px; align-items: flex-start;">
+                    <span style="font-size: 15px;">🎯</span>
+                    <div style="font-size: 11.5px; color: #1e3a8a; line-height: 1.4; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">${hasTitle ? `<strong style="font-weight:800;color:#1e40af;">${title}:</strong> ` : ''}${desc}</div>
+                  </div>`;
+                  }).join('')
+                : '<div style="font-size: 11.5px; color: #1e3a8a;">Análisis de promoción no disponible.</div>'}
+            </div>
+          </div>
+
+          <h2>💡 TIPS GENERALES DE PRESENTACIÓN (HOME STAGING)</h2>
           <div class="tips-grid" style="grid-template-columns: repeat(2, 1fr); gap: 6px;">
-            ${sellingTips.map(t => `
+            ${sellingTips.slice(0, 6).map(t => `
               <div class="tip-item" style="padding: 6px 10px; border: 1px solid var(--gray-100); border-radius: 6px;">
                 <span class="tip-icon" style="font-size: 18px;">${t.icon}</span>
                 <div>
@@ -1306,7 +1591,7 @@ app.post('/api/valuations/:id/generate-report', (req, res) => {
             No constituye un avalúo reglamentado por la SHF o normativas locales para fines hipotecarios. 
             El valor es una estimación estadística; la precisión depende de los datos proporcionados y la disponibilidad de comparables. 
             PropValu México no se hace responsable por decisiones comerciales tomadas con base en este reporte.
-            <div style="margin-top: 6px; font-weight: 700; font-size: 9.5px;">🗓 Generado: ${new Date().toLocaleDateString('es-MX')} · Folio: EST-${new Date().toLocaleDateString('es-MX', { day: '2-digit', month: '2-digit', year: '2-digit' }).replace(/\//g, '')}-${valuation.valuation_id.slice(-2).toLowerCase()}</div>
+            <div style="margin-top: 6px; font-weight: 700; font-size: 9.5px;">🗓 Generado: ${_now.toLocaleDateString('es-MX')} · Folio: ${folioStr}</div>
           </div>
         </div>
       </div>${(prop.photos && prop.photos.length > 0) ? `<!-- PAGE 5: EVIDENCIA FOTOGRÁFICA --><div class="page photo-evidence-page" style="display: flex; flex-direction: column;">
@@ -1331,11 +1616,68 @@ app.post('/api/valuations/:id/generate-report', (req, res) => {
   res.json({ report_html: valuation.report_html });
 });
 
+// ---------------------------------------------------------------------------
+// SSE: enriquecimiento de comparables con Puppeteer
+// GET /api/valuations/:id/enrich-stream
+// Emite eventos: { type: 'enriched', comparable_id, updates } | { type: 'done' } | { type: 'error' }
+// ---------------------------------------------------------------------------
+app.get('/api/valuations/:id/enrich-stream', async (req, res) => {
+  const valuation = valuations[req.params.id];
+  if (!valuation) return res.status(404).json({ error: 'Valuación no encontrada' });
+
+  const comparables = valuation.comparables || [];
+  if (comparables.length === 0) {
+    res.writeHead(200, { 'Content-Type': 'text/event-stream', 'Cache-Control': 'no-cache', 'Connection': 'keep-alive' });
+    res.write('data: ' + JSON.stringify({ type: 'done', enriched: 0 }) + '\n\n');
+    return res.end();
+  }
+
+  res.writeHead(200, {
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
+    'Access-Control-Allow-Origin': '*'
+  });
+
+  // Keepalive cada 20s para que el cliente no cierre la conexión
+  const keepalive = setInterval(() => res.write(': ping\n\n'), 20000);
+
+  let enrichedCount = 0;
+  const send = (data) => res.write('data: ' + JSON.stringify(data) + '\n\n');
+
+  // Enriquecer comparables en secuencia (evita sobrecarga del browser)
+  for (const comp of comparables) {
+    if (req.socket.destroyed) break;
+    try {
+      const updates = await enrichOneComparable(comp);
+      if (updates && Object.keys(updates).length > 0) {
+        // Aplicar updates al comparable en memoria
+        Object.assign(comp, updates);
+        // Recalcular price_per_sqm si ahora tenemos construction_area
+        if (updates.construction_area && comp.price) {
+          comp.price_per_sqm = parseFloat((comp.price / updates.construction_area).toFixed(2));
+        }
+        enrichedCount++;
+        send({ type: 'enriched', comparable_id: comp.comparable_id, updates });
+      }
+    } catch (e) {
+      // continuar con el siguiente
+    }
+  }
+
+  clearInterval(keepalive);
+  send({ type: 'done', enriched: enrichedCount });
+  res.end();
+});
+
 // The "catchall" handler
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'frontend/build/index.html'));
 });
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Server started on http://localhost:${port}`);
 });
+
+process.on('SIGTERM', async () => { await closeBrowser(); server.close(); });
+process.on('SIGINT',  async () => { await closeBrowser(); server.close(); process.exit(0); });
