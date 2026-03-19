@@ -55,8 +55,39 @@ const ComparablesPage = () => {
   const [isSearchingMore, setIsSearchingMore] = useState(false);
   const [detailView, setDetailView] = useState("row"); // "card" | "row"
 
+  // Enriquecimiento con Puppeteer via SSE
+  const [isEnriching, setIsEnriching] = useState(false);
+  const [enrichProgress, setEnrichProgress] = useState({ done: 0, total: 0 });
+  const [adIndex, setAdIndex] = useState(0);
+  const [adProgress, setAdProgress] = useState(0); // 0-100 per slide
+
+  const ADS = [
+    { tag: "Consejo PropValu", title: "El valor lo define la oferta y la demanda", body: "No existe un precio único para una propiedad. El valor real es el que un comprador informado está dispuesto a pagar en el mercado actual." },
+    { tag: "¿Sabías que?", title: "El predial puede engañarte", body: "Las medidas del predial a menudo no coinciden con las escrituras. Siempre usa la superficie real de construcción de tus escrituras para una valuación más precisa." },
+    { tag: "Dato de mercado", title: "La ubicación vale más que los metros", body: "Una propiedad 30% más pequeña en una zona premium puede superar en valor a una grande en zona periférica. La plusvalía de la colonia es clave." },
+    { tag: "Consejo PropValu", title: "Las fotos importan al vender", body: "Las propiedades con fotografías profesionales reciben hasta 3 veces más contactos en portales. La primera impresión es digital." },
+    { tag: "¿Sabías que?", title: "Nivel y orientación afectan el precio", body: "En edificios, los pisos altos con buena vista tienen un premium del 5-12%. La orientación al sur maximiza la iluminación natural." },
+    { tag: "Dato de mercado", title: "Renta vs compra: cuándo conviene cada uno", body: "Si el precio de venta dividido entre la renta anual da más de 25 años, comprar puede ser menos eficiente que rentar e invertir la diferencia." },
+    { tag: "Consejo PropValu", title: "Negocia con datos, no con intuición", body: "Conocer el precio por m² de los comparables activos en la zona te da ventaja real en cualquier negociación, ya seas comprador o vendedor." },
+    { tag: "¿Sabías que?", title: "La antigüedad deprecia el valor físico", body: "Una construcción pierde en promedio 2% de valor físico por año. Por eso las remodelaciones recientes son uno de los factores que más incrementan el avalúo." },
+    { tag: "Dato de mercado", title: "El cap rate revela la rentabilidad real", body: "Un cap rate del 5-7% anual es saludable en México. Propiedades con cap rate menor al 4% suelen estar sobrevaloradas para inversión de renta." },
+    { tag: "Consejo PropValu", title: "Comparables: calidad sobre cantidad", body: "5 comparables bien seleccionados (mismo tipo, misma zona, mismos m²) son más precisos que 20 mal filtrados. La homologación hace la diferencia." },
+  ];
+
   // Active top selection tracker
   const [activeTopFilter, setActiveTopFilter] = useState(null); // null | 6 | 10 | "all"
+
+  // Appraiser factor editing
+  const [user, setUser] = useState(null);
+  const [isEditable, setIsEditable] = useState(false);
+  const [customFactors, setCustomFactors] = useState({});
+
+  useEffect(() => {
+    fetch(`${API}/auth/me`, { credentials: "include" })
+      .then(r => r.json())
+      .then(data => setUser(data))
+      .catch(() => {});
+  }, []);
 
   // Negotiation adjustment (combo, -1 to -10%, max 10%)
   const [negotiation, setNegotiation] = useState(-5);
@@ -64,6 +95,64 @@ const ComparablesPage = () => {
   useEffect(() => {
     fetchValuation();
   }, [valuationId]);
+
+  // Slide timer for loading ads (6s per slide = 60s total for 10 slides)
+  useEffect(() => {
+    if (!isLoading) return;
+    const SLIDE_MS = 6000;
+    const TICK_MS = 100;
+    let elapsed = 0;
+    const timer = setInterval(() => {
+      elapsed += TICK_MS;
+      const withinSlide = elapsed % SLIDE_MS;
+      setAdProgress(Math.round((withinSlide / SLIDE_MS) * 100));
+      if (withinSlide === 0) {
+        setAdIndex(i => (i + 1) % ADS.length);
+      }
+    }, TICK_MS);
+    return () => clearInterval(timer);
+  }, [isLoading]);
+
+  // Iniciar enriquecimiento SSE cuando los comparables estén listos
+  useEffect(() => {
+    if (!valuation || !valuation.comparables?.length || isEnriching) return;
+    // Solo enriquecer si hay comparables sin datos completos
+    const needsEnrich = valuation.comparables.some(c => !c.construction_area || !c.land_area || c.age === null || c.age === undefined);
+    if (!needsEnrich) return;
+
+    setIsEnriching(true);
+    setEnrichProgress({ done: 0, total: valuation.comparables.length });
+
+    const es = new EventSource(`${API}/valuations/${valuationId}/enrich-stream`);
+    const adTimer = setInterval(() => setAdIndex(i => (i + 1) % ADS.length), 6000);
+
+    es.onmessage = (e) => {
+      const msg = JSON.parse(e.data);
+      if (msg.type === "enriched") {
+        setValuation(prev => {
+          if (!prev) return prev;
+          const updatedComps = prev.comparables.map(c =>
+            c.comparable_id === msg.comparable_id ? { ...c, ...msg.updates } : c
+          );
+          return { ...prev, comparables: updatedComps };
+        });
+        setEnrichProgress(p => ({ ...p, done: p.done + 1 }));
+      }
+      if (msg.type === "done") {
+        clearInterval(adTimer);
+        setIsEnriching(false);
+        es.close();
+        if (msg.enriched > 0) toast.success(`Datos actualizados en ${msg.enriched} comparables`);
+      }
+    };
+    es.onerror = () => {
+      clearInterval(adTimer);
+      setIsEnriching(false);
+      es.close();
+    };
+
+    return () => { es.close(); clearInterval(adTimer); };
+  }, [valuation?.comparables?.length]);
 
   const fetchValuation = async () => {
     try {
@@ -146,13 +235,66 @@ const ComparablesPage = () => {
   };
 
   const getAdjustedPrice = (comp) => {
-    const otherAdjustments = comp.total_adjustment - (comp.negotiation_adjustment || -5);
+    const custom = customFactors[comp.comparable_id] || {};
+    const areaAdj = custom.area_adjustment ?? comp.area_adjustment ?? 0;
+    const conditionAdj = custom.condition_adjustment ?? comp.condition_adjustment ?? 0;
+    const ageAdj = custom.age_adjustment ?? comp.age_adjustment ?? 0;
+    const qualityAdj = custom.quality_adjustment ?? comp.quality_adjustment ?? 0;
+    const locationAdj = custom.location_adjustment ?? comp.location_adjustment ?? 0;
+
+    const otherAdjustments = areaAdj + conditionAdj + ageAdj + qualityAdj + locationAdj;
     const newTotalAdj = negotiation + otherAdjustments;
-    const newAdjustedPrice = comp.price_per_sqm * (1 + newTotalAdj / 100);
+    
+    // Fix NaN: if priceSqM or price is string from AI, parse it correctly
+    const parseNum = (val) => typeof val === 'string' ? parseFloat(val.replace(/[$,]/g, '')) : Number(val);
+    let baseSqm = parseNum(comp.price_per_sqm);
+    if (!baseSqm || isNaN(baseSqm)) {
+      const p = parseNum(comp.price);
+      const a = parseNum(comp.construction_area);
+      baseSqm = (p > 0 && a > 0) ? p / a : 0;
+    }
+
+    const newAdjustedPrice = baseSqm * (1 + newTotalAdj / 100);
     return {
       totalAdjustment: newTotalAdj,
-      adjustedPrice: newAdjustedPrice
+      adjustedPrice: newAdjustedPrice,
+      baseSqm: baseSqm
     };
+  };
+
+  const toFactor = (val) => {
+    const num = Number(val);
+    if (isNaN(num)) return "1.00";
+    return (1 + num / 100).toFixed(2);
+  };
+
+  const renderFactorCell = (comp, fieldKey, originalValue) => {
+    const val = customFactors[comp.comparable_id]?.[fieldKey] ?? originalValue ?? 0;
+    if (!isEditable) {
+      return (
+        <span className={`text-xs font-semibold ${val > 0 ? 'text-green-600' : val < 0 ? 'text-red-600' : 'text-slate-500'}`}>
+          {toFactor(val)}
+        </span>
+      );
+    }
+    return (
+      <input 
+        type="number" 
+        step="0.1" 
+        className="w-16 text-center text-xs border border-[#52B788] rounded px-1 py-0.5 bg-white shadow-sm"
+        value={val}
+        onChange={(e) => {
+          const v = parseFloat(e.target.value) || 0;
+          setCustomFactors(prev => ({
+            ...prev,
+            [comp.comparable_id]: {
+              ...(prev[comp.comparable_id] || {}),
+              [fieldKey]: v
+            }
+          }));
+        }}
+      />
+    );
   };
 
   const handleSubmit = async () => {
@@ -173,7 +315,8 @@ const ComparablesPage = () => {
         credentials: "include",
         body: JSON.stringify({
           comparable_ids: selectedIds,
-          custom_negotiation: negotiation
+          custom_negotiation: negotiation,
+          custom_factors: customFactors
         })
       });
 
@@ -197,18 +340,74 @@ const ComparablesPage = () => {
   };
 
   const formatCurrency = (value) => {
+    const num = Number(value);
+    if (isNaN(num)) return "$0";
     return new Intl.NumberFormat('es-MX', {
       style: 'currency',
       currency: 'MXN',
       minimumFractionDigits: 0,
       maximumFractionDigits: 0
-    }).format(value);
+    }).format(num);
   };
 
   if (isLoading) {
+    const ad = ADS[adIndex];
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#F8F9FA]">
-        <div className="spinner"></div>
+      <div className="min-h-screen bg-[#1B4332] flex flex-col items-center justify-center px-4">
+        {/* Logo */}
+        <div className="flex items-center gap-2 mb-10">
+          <Building2 className="w-8 h-8 text-[#D9ED92]" />
+          <span className="font-['Outfit'] text-2xl font-bold text-white">
+            Prop<span className="text-[#52B788]">Valu</span>
+          </span>
+        </div>
+
+        {/* Searching message */}
+        <div className="flex items-center gap-3 mb-10">
+          <div className="w-5 h-5 border-2 border-[#52B788] border-t-transparent rounded-full animate-spin" />
+          <p className="text-white/70 text-sm">Buscando comparables en el mercado...</p>
+        </div>
+
+        {/* Ad card */}
+        <div className="w-full max-w-lg bg-white/10 backdrop-blur rounded-2xl p-8 border border-white/20">
+          <p className="text-xs font-bold text-[#D9ED92] uppercase tracking-widest mb-2">
+            {ad.tag}
+          </p>
+          <h2 className="font-['Outfit'] text-xl font-bold text-white mb-3 leading-snug">
+            {ad.title}
+          </h2>
+          <p className="text-white/80 text-sm leading-relaxed">
+            {ad.body}
+          </p>
+        </div>
+
+        {/* Slide progress dots */}
+        <div className="flex gap-1.5 mt-8 mb-3">
+          {ADS.map((_, i) => (
+            <div
+              key={i}
+              className={`rounded-full transition-all duration-300 ${
+                i === adIndex
+                  ? "w-6 h-2 bg-[#D9ED92]"
+                  : i < adIndex
+                  ? "w-2 h-2 bg-[#52B788]"
+                  : "w-2 h-2 bg-white/20"
+              }`}
+            />
+          ))}
+        </div>
+
+        {/* Slide timer bar */}
+        <div className="w-full max-w-lg h-0.5 bg-white/10 rounded-full overflow-hidden">
+          <div
+            className="h-0.5 bg-[#52B788] transition-none"
+            style={{ width: `${adProgress}%` }}
+          />
+        </div>
+
+        <p className="text-white/30 text-xs mt-4">
+          Estimación realizada con inteligencia de PropValu
+        </p>
       </div>
     );
   }
@@ -226,7 +425,40 @@ const ComparablesPage = () => {
   const selectedComps = comparables.filter(c => selectedIds.includes(c.comparable_id));
 
   return (
-    <div className="min-h-screen bg-[#F8F9FA] py-8 px-4 sm:px-6 lg:px-8">
+    <div className={`min-h-screen bg-[#F8F9FA] py-8 px-4 sm:px-6 lg:px-8 ${isEnriching ? 'pb-24' : ''}`}>
+
+      {/* Banner de enriquecimiento con Puppeteer */}
+      {isEnriching && (
+        <div className="fixed bottom-0 left-0 right-0 z-50 bg-[#1B4332] text-white shadow-2xl border-t-4 border-[#52B788]">
+          <div className="max-w-6xl mx-auto px-4 py-3 flex items-center gap-6">
+            {/* Anuncio rotativo */}
+            <div className="flex-1 min-w-0">
+              <p className="text-xs font-semibold text-[#D9ED92] uppercase tracking-wide mb-0.5">
+                {ADS[adIndex].title}
+              </p>
+              <p className="text-sm text-white/90 truncate">{ADS[adIndex].body}</p>
+            </div>
+            {/* Progreso */}
+            <div className="flex items-center gap-3 shrink-0">
+              <div className="text-right">
+                <p className="text-xs text-white/60">Completando datos...</p>
+                <p className="text-sm font-semibold text-[#D9ED92]">
+                  {enrichProgress.done} / {enrichProgress.total}
+                </p>
+              </div>
+              <div className="w-8 h-8 border-2 border-[#52B788] border-t-transparent rounded-full animate-spin" />
+            </div>
+          </div>
+          {/* Barra de progreso */}
+          <div className="h-1 bg-white/10">
+            <div
+              className="h-1 bg-[#52B788] transition-all duration-500"
+              style={{ width: `${enrichProgress.total > 0 ? (enrichProgress.done / enrichProgress.total) * 100 : 0}%` }}
+            />
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <div className="max-w-6xl mx-auto mb-8">
         <Button
@@ -362,11 +594,11 @@ const ComparablesPage = () => {
               ].map(({ label, count, testId }) => (
                 <Button
                   key={count}
-                  variant={activeTopFilter === count ? "default" : "outline"}
+                  variant="outline"
                   size="sm"
                   onClick={() => selectTop(count)}
                   className={activeTopFilter === count
-                    ? "bg-[#1B4332] text-white border-[#1B4332] shadow-md"
+                    ? "bg-[#1B4332] !text-white border-[#1B4332] hover:bg-[#1B4332] hover:!text-white shadow-md"
                     : "border-slate-300 text-slate-600 hover:border-[#1B4332] hover:text-[#1B4332]"
                   }
                   data-testid={testId}
@@ -375,12 +607,12 @@ const ComparablesPage = () => {
                 </Button>
               ))}
               <Button
-                variant={activeTopFilter === "all" ? "default" : "outline"}
+                variant="outline"
                 size="sm"
                 onClick={selectAll}
                 className={activeTopFilter === "all"
-                  ? "bg-[#1B4332] text-white border-[#1B4332] shadow-md"
-                  : "border-[#1B4332] text-[#1B4332] hover:bg-[#1B4332] hover:text-white"
+                  ? "bg-[#1B4332] !text-white border-[#1B4332] hover:bg-[#1B4332] hover:!text-white shadow-md"
+                  : "border-[#1B4332] text-[#1B4332] hover:bg-[#1B4332] hover:!text-white"
                 }
                 data-testid="select-all-btn"
               >
@@ -442,7 +674,7 @@ const ComparablesPage = () => {
                       </TableCell>
                       <TableCell className="text-center">
                         {comp.age != null ? (
-                          <span className="text-xs font-semibold text-slate-500">{comp.age} años</span>
+                          <span className="text-xs font-semibold text-slate-500">{comp.age} años{comp.age === 0 ? " (nuevo)" : ""}</span>
                         ) : <span className="text-slate-300 text-xs">—</span>}
                       </TableCell>
                       <TableCell className="text-right text-slate-600">{comp.land_area} m²</TableCell>
@@ -451,7 +683,7 @@ const ComparablesPage = () => {
                         {formatCurrency(comp.price)}
                       </TableCell>
                       <TableCell className="text-right">
-                        {formatCurrency(comp.price_per_sqm)}
+                        {formatCurrency(adjusted.baseSqm)}
                       </TableCell>
                       <TableCell className="text-center">
                         <Badge
@@ -463,7 +695,7 @@ const ComparablesPage = () => {
                               : "border-slate-300"
                             }`}
                         >
-                          {adjusted.totalAdjustment > 0 ? "+" : ""}{adjusted.totalAdjustment.toFixed(1)}%
+                          {toFactor(adjusted.totalAdjustment)}
                         </Badge>
                       </TableCell>
                       <TableCell className={`text-right font-semibold ${isSelected ? "text-[#1B4332]" : "text-slate-700"}`}>
@@ -491,20 +723,30 @@ const ComparablesPage = () => {
           {/* Detail of selected comparables */}
           {selectedIds.length > 0 && (
             <div className="p-6 border-t border-slate-100 bg-slate-50/50">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="font-['Outfit'] font-semibold text-[#1B4332] text-lg">
+              <div className="flex flex-wrap items-center gap-2 mb-4">
+                <h3 className="font-['Outfit'] font-semibold text-[#1B4332] text-lg w-full sm:w-auto sm:flex-1">
                   Detalle de Comparables Seleccionados ({selectedComps.length})
                 </h3>
-                {/* Toggle view */}
+                {user?.role === "appraiser" && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      setIsEditable(!isEditable);
+                      if (!isEditable) setDetailView("row");
+                    }}
+                    className={`h-7 px-2 text-xs transition-colors ${isEditable ? 'bg-amber-100 text-amber-700 border-amber-300 hover:bg-amber-200' : 'text-[#1B4332] border-[#52B788]/50 hover:bg-[#52B788]/10'}`}
+                  >
+                    {isEditable ? '💾 Guardar Cambios (Modo Edición)' : '✏️ Editar Factores (Valuador)'}
+                  </Button>
+                )}
+                {/* Toggle view — mismo renglón que Editar Factores */}
                 <div className="flex items-center gap-1 bg-white border border-slate-200 rounded-lg p-1">
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={() => setDetailView("card")}
-                    className={`px-2 py-1 h-7 rounded transition-all ${detailView === "card"
-                      ? "bg-[#1B4332] text-white shadow-sm"
-                      : "text-slate-500 hover:text-[#1B4332]"
-                      }`}
+                    className={`px-2 py-1 h-7 rounded transition-all ${detailView === "card" ? "bg-[#1B4332] text-white shadow-sm" : "text-slate-500 hover:text-[#1B4332]"}`}
                     title="Vista tarjeta"
                   >
                     <LayoutGrid className="w-4 h-4" />
@@ -513,10 +755,7 @@ const ComparablesPage = () => {
                     variant="ghost"
                     size="sm"
                     onClick={() => setDetailView("row")}
-                    className={`px-2 py-1 h-7 rounded transition-all ${detailView === "row"
-                      ? "bg-[#1B4332] text-white shadow-sm"
-                      : "text-slate-500 hover:text-[#1B4332]"
-                      }`}
+                    className={`px-2 py-1 h-7 rounded transition-all ${detailView === "row" ? "bg-[#1B4332] text-white shadow-sm" : "text-slate-500 hover:text-[#1B4332]"}`}
                     title="Vista lista"
                   >
                     <LayoutList className="w-4 h-4" />
@@ -545,6 +784,11 @@ const ComparablesPage = () => {
                             {comp.street_address && (
                               <p className="text-[10px] text-slate-400 leading-tight">{comp.street_address}</p>
                             )}
+                            <div className="text-[10px] text-sky-600 font-medium mt-1 inline-flex gap-2">
+                              {comp.bedrooms ? <span>{comp.bedrooms} 🛌</span> : null}
+                              {comp.bathrooms ? <span>{comp.bathrooms} 🚿</span> : null}
+                              {comp.parking ? <span>{comp.parking} 🚗</span> : null}
+                            </div>
                           </div>
                           <div className="text-right">
                             <p className="text-[10px] text-slate-400">$/m² Aj.</p>
@@ -552,12 +796,10 @@ const ComparablesPage = () => {
                           </div>
                         </div>
                         <div className="space-y-1 text-sm">
-                          {comp.age != null && (
-                            <div className="flex justify-between items-center py-0.5 text-xs text-slate-400">
-                              <span>📅 Edad comp.:</span>
-                              <span className="font-semibold">{comp.age} años</span>
-                            </div>
-                          )}
+                          <div className="flex justify-between items-center py-0.5 text-xs text-slate-400">
+                            <span>📅 Edad comp.:</span>
+                            <span className="font-semibold">{comp.age != null ? `${comp.age} años${comp.age === 0 ? " (nuevo)" : ""}` : 'N/D'}</span>
+                          </div>
                           {comp.condition && (
                             <div className="flex justify-between items-center py-0.5 text-xs text-slate-400">
                               <span>🏠 Conservación:</span>
@@ -579,7 +821,7 @@ const ComparablesPage = () => {
                                 <span className="text-slate-500 text-xs">{label}:</span>
                                 <span className={`text-xs font-semibold ${val > 0 ? 'text-green-600' : val < 0 ? 'text-red-600' : 'text-slate-400'
                                   }`}>
-                                  {val > 0 ? '+' : ''}{typeof val === 'number' ? val.toFixed(1) : val}%
+                                  {toFactor(val)}
                                 </span>
                               </div>
                             ))}
@@ -587,7 +829,7 @@ const ComparablesPage = () => {
                           <div className="flex justify-between items-center pt-2 border-t-2 border-[#D9ED92] font-bold">
                             <span className="text-slate-700">Total Aj.:</span>
                             <span className={adjusted.totalAdjustment < 0 ? "text-red-600" : "text-green-600"}>
-                              {adjusted.totalAdjustment > 0 ? "+" : ""}{adjusted.totalAdjustment.toFixed(1)}%
+                              {toFactor(adjusted.totalAdjustment)}
                             </span>
                           </div>
                           <div className="flex justify-between items-center pt-1 bg-[#D9ED92]/20 rounded px-2 py-1">
@@ -607,7 +849,10 @@ const ComparablesPage = () => {
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="bg-[#1B4332]/10 text-[#1B4332]">
-                        <th className="text-left px-3 py-2 font-semibold">Colonia</th>
+                        <th className="text-left px-3 py-2 font-semibold">Ubicación</th>
+                        <th className="text-center px-1 py-2 font-semibold text-base" title="Recámaras">🛏️</th>
+                        <th className="text-center px-1 py-2 font-semibold text-base" title="Baños">🚿</th>
+                        <th className="text-center px-1 py-2 font-semibold text-base" title="Estacionamientos">🚗</th>
                         <th className="text-center px-2 py-2 font-semibold text-xs">Edad</th>
                         <th className="text-center px-2 py-2 font-semibold text-xs">Neg.</th>
                         <th className="text-center px-2 py-2 font-semibold text-xs">Sup.</th>
@@ -624,29 +869,32 @@ const ComparablesPage = () => {
                         const adjusted = getAdjustedPrice(comp);
                         return (
                           <tr key={comp.comparable_id} className={index % 2 === 0 ? "bg-white" : "bg-[#D9ED92]/10"}>
-                            <td className="px-3 py-1.5">
-                              <div className="font-semibold text-[#1B4332] text-sm">{comp.neighborhood.slice(0, 20)}</div>
-                              {comp.street_address && <div className="text-[10px] text-slate-400">{comp.street_address}</div>}
+                            <td className="px-3 py-1.5 min-w-[200px]">
+                              <div className="font-semibold text-[#1B4332] text-sm break-words">{comp.neighborhood}</div>
+                              {comp.street_address && <div className="text-xs font-medium text-slate-500 mt-0.5">{comp.street_address}</div>}
                             </td>
-                            <td className="px-2 py-1.5 text-center text-slate-500 text-xs font-semibold">{comp.age != null ? comp.age + 'a' : '—'}</td>
-                            <td className="px-2 py-1.5 text-center text-red-600 font-semibold text-xs">{negotiation}%</td>
-                            <td className={`px-2 py-1.5 text-center font-semibold text-xs ${(comp.area_adjustment ?? 0) > 0 ? 'text-green-600' : (comp.area_adjustment ?? 0) < 0 ? 'text-red-600' : 'text-slate-500'}`}>
-                              {(comp.area_adjustment ?? 0) > 0 ? '+' : ''}{(comp.area_adjustment ?? 0).toFixed(1)}%
+                            <td className="px-1 py-1.5 text-center text-slate-600 text-[11px] font-semibold">{comp.bedrooms || '-'}</td>
+                            <td className="px-1 py-1.5 text-center text-slate-600 text-[11px] font-semibold">{comp.bathrooms || '-'}</td>
+                            <td className="px-1 py-1.5 text-center text-slate-600 text-[11px] font-semibold">{comp.parking || '-'}</td>
+                            <td className="px-2 py-1.5 text-center text-slate-500 text-xs font-semibold">{comp.age != null ? comp.age + ' años' + (comp.age === 0 ? ' (nuevo)' : '') : 'N/D'}</td>
+                            <td className="px-2 py-1.5 text-center text-red-600 font-semibold text-xs">{toFactor(negotiation)}</td>
+                            <td className="px-2 py-1.5 text-center">
+                              {renderFactorCell(comp, 'area_adjustment', comp.area_adjustment)}
                             </td>
-                            <td className={`px-2 py-1.5 text-center font-semibold text-xs ${(comp.condition_adjustment ?? 0) > 0 ? 'text-green-600' : (comp.condition_adjustment ?? 0) < 0 ? 'text-red-600' : 'text-slate-500'}`}>
-                              {(comp.condition_adjustment ?? 0) > 0 ? '+' : ''}{(comp.condition_adjustment ?? 0).toFixed(1)}%
+                            <td className="px-2 py-1.5 text-center">
+                              {renderFactorCell(comp, 'condition_adjustment', comp.condition_adjustment)}
                             </td>
-                            <td className={`px-2 py-1.5 text-center font-semibold text-xs ${(comp.age_adjustment ?? 0) > 0 ? 'text-green-600' : (comp.age_adjustment ?? 0) < 0 ? 'text-red-600' : 'text-slate-500'}`}>
-                              {(comp.age_adjustment ?? 0) > 0 ? '+' : ''}{(comp.age_adjustment ?? 0).toFixed(1)}%
+                            <td className="px-2 py-1.5 text-center">
+                              {renderFactorCell(comp, 'age_adjustment', comp.age_adjustment)}
                             </td>
-                            <td className={`px-2 py-1.5 text-center font-semibold text-xs ${(comp.quality_adjustment ?? 0) > 0 ? 'text-green-600' : (comp.quality_adjustment ?? 0) < 0 ? 'text-red-600' : 'text-slate-500'}`}>
-                              {(comp.quality_adjustment ?? 0) > 0 ? '+' : ''}{(comp.quality_adjustment ?? 0).toFixed(1)}%
+                            <td className="px-2 py-1.5 text-center">
+                              {renderFactorCell(comp, 'quality_adjustment', comp.quality_adjustment)}
                             </td>
-                            <td className={`px-2 py-1.5 text-center font-semibold text-xs ${(comp.location_adjustment ?? 0) > 0 ? 'text-green-600' : (comp.location_adjustment ?? 0) < 0 ? 'text-red-600' : 'text-slate-500'}`}>
-                              {(comp.location_adjustment ?? 0) > 0 ? '+' : ''}{(comp.location_adjustment ?? 0).toFixed(1)}%
+                            <td className="px-2 py-1.5 text-center">
+                              {renderFactorCell(comp, 'location_adjustment', comp.location_adjustment)}
                             </td>
                             <td className={`px-3 py-2 text-center font-bold ${adjusted.totalAdjustment < 0 ? 'text-red-600' : 'text-green-600'}`}>
-                              {adjusted.totalAdjustment > 0 ? '+' : ''}{adjusted.totalAdjustment.toFixed(1)}%
+                              {toFactor(adjusted.totalAdjustment)}
                             </td>
                             <td className="px-3 py-2 text-right font-bold text-[#1B4332]">
                               {formatCurrency(adjusted.adjustedPrice)}
