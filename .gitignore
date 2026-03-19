@@ -93,3 +93,36 @@ frontend/node_modules/.cache/default-development/5.pack
 
 # Private memory files (API keys backup — NEVER commit)
 memory/api_keys_backup.md
+
+# Archivos temporales de prueba y herramientas de dev
+.agent/
+AI_GEM.json
+AI_OUTPUT.json
+error_out.txt
+excel_formulas.txt
+excel_formulas_utf8.txt
+extract-excel.mjs
+extract_pdf.cjs
+extract_pdf.mjs
+formulas.json
+output.txt
+pdf_actual.txt
+pdf_extracted.txt
+pdf_v172.txt
+read_excel.js
+read_excel.py
+reporte_actual.pdf
+reporte_ref.pdf
+reporte_v172.pdf
+simulador_completo.js
+simulador_cus.js
+simulador_mercado.js
+simulador_mercado_utf8.js
+simulador_resultado.txt
+simulador_resultado_utf8.txt
+test_ai.js
+test_gemini.js
+tools/
+frontend/public/pdf-viewer.html
+frontend/public/reporte_referencia.pdf
+nul
