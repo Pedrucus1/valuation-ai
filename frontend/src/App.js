@@ -10,6 +10,11 @@ import ComparablesPage from "@/pages/ComparablesPage";
 import ReportPage from "@/pages/ReportPage";
 import DashboardPage from "@/pages/DashboardPage";
 import AuthCallback from "@/pages/AuthCallback";
+import BenefitsPage from "@/pages/BenefitsPage";
+import ValuadorPage from "@/pages/ValuadorPage";
+import PricingPage from "@/pages/PricingPage";
+import InmobiliariaPage from "@/pages/InmobiliariaPage";
+import ThankYouPage from "@/pages/ThankYouPage";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 export const API = `${BACKEND_URL}/api`;
@@ -76,6 +81,10 @@ function AppRouter() {
       <Route path="/valuar" element={<ValuationForm />} />
       <Route path="/comparables/:valuationId" element={<ComparablesPage />} />
       <Route path="/reporte/:valuationId" element={<ReportPage />} />
+      <Route path="/comprar" element={<PricingPage />} />
+      <Route path="/gracias/:valuationId" element={<ThankYouPage />} />
+      <Route path="/para-valuadores" element={<ValuadorPage />} />
+      <Route path="/para-inmobiliarias" element={<InmobiliariaPage />} />
       <Route path="/dashboard" element={
         <ProtectedRoute>
           <DashboardPage />

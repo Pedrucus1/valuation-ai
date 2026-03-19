@@ -36,10 +36,31 @@ const AuthCallback = () => {
           throw new Error("Failed to authenticate");
         }
 
-        const userData = await response.json();
-        
+        let userData = await response.json();
+
+        // Si hay un rol pendiente de asignar (desde BenefitsPage), aplicarlo ahora
+        const intendedRole = localStorage.getItem('propvalu_intended_role');
+        if (intendedRole && ['appraiser', 'realtor'].includes(intendedRole)) {
+          try {
+            const roleRes = await fetch(`${API}/auth/set-role`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              credentials: 'include',
+              body: JSON.stringify({ role: intendedRole, user_id: userData.user_id })
+            });
+            if (roleRes.ok) {
+              const roleData = await roleRes.json();
+              userData = { ...userData, role: roleData.role };
+            }
+          } catch (e) {
+            console.warn('No se pudo asignar rol:', e);
+          } finally {
+            localStorage.removeItem('propvalu_intended_role');
+          }
+        }
+
         // Navigate to dashboard with user data
-        navigate("/dashboard", { 
+        navigate("/dashboard", {
           replace: true,
           state: { user: userData }
         });
