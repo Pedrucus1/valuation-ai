@@ -80,11 +80,13 @@ const PROPERTY_TYPES = [
 ];
 
 const CONSTRUCTION_QUALITIES = [
-  { value: "Interés social", label: "Interés Social" },
-  { value: "Media", label: "Media" },
-  { value: "Media-alta", label: "Media-Alta" },
-  { value: "Residencial", label: "Residencial" },
-  { value: "Residencial plus", label: "Residencial Plus / Lujo" }
+  { value: "Lujo", label: "Lujo" },
+  { value: "Superior", label: "Superior" },
+  { value: "Medio Alto", label: "Medio Alto" },
+  { value: "Medio Medio", label: "Medio Medio" },
+  { value: "Medio Bajo", label: "Medio Bajo" },
+  { value: "Económico", label: "Económico" },
+  { value: "Interés Social", label: "Interés Social" }
 ];
 
 const CONSERVATION_STATES = [
@@ -150,6 +152,22 @@ const SURFACE_SOURCES = [
   { value: "Plano", label: "Plano" },
   { value: "Predial", label: "Predial" },
   { value: "Medidas Físicas", label: "Medidas Físicas" }
+];
+
+const STREET_TYPES = [
+  { value: "peatonal", label: "Peatonal / Senda" },
+  { value: "local", label: "Local (Calle común)" },
+  { value: "barrial", label: "Barrial (Conexión entre colonias)" },
+  { value: "distrital", label: "Distrital (Avenida)" },
+  { value: "regional", label: "Regional (Carretera o Periférico)" }
+];
+
+const PAVEMENT_TYPES = [
+  { value: "terraceria", label: "Terracería" },
+  { value: "empedrado", label: "Empedrado" },
+  { value: "adoquin", label: "Adoquín" },
+  { value: "pavimento", label: "Pavimento (Asfalto)" },
+  { value: "concreto", label: "Concreto Hidráulico" }
 ];
 
 const GOOGLE_MAPS_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
@@ -429,10 +447,14 @@ const PhotoUploader = ({ photos, onPhotosChange, facadeIndex, onFacadeChange, ph
 const ValuationForm = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
+  const [infoDismissed, setInfoDismissed] = useState(() =>
+    !!localStorage.getItem("propvalu_info_dismissed")
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [includePhotos, setIncludePhotos] = useState(false);
   const [photoOrientations, setPhotoOrientations] = useState([]); // track vertical photos
+  const [resetKey, setResetKey] = useState(0); // For forcing UI reset
 
   const [formData, setFormData] = useState({
     // Step 1 - Location
@@ -464,13 +486,17 @@ const ValuationForm = () => {
     estimated_age: "",
     conservation_state: "",
     construction_quality: "",
-    frontage_type: "medianero", // NEW: tipo de frente
+    frontage_type: "", // NEW: tipo de frente
     special_features: [],
     other_features: "",
 
     // Photos (optional)
     photos: [],
-    facade_photo_index: null
+    facade_photo_index: null,
+
+    // NEW: Contexto de calle y vialidad
+    street_type: "",
+    pavement_type: ""
   });
 
   // Persistencia: Cargar desde localStorage al iniciar
@@ -526,10 +552,10 @@ const ValuationForm = () => {
         longitude: -99.1332,
         land_area: "",
         construction_area: "",
-        land_regime: "URBANO",
+        land_regime: "",
         property_type: "Casa",
-        land_use: "desconocido",
-        surface_source: "Escrituras",
+        land_use: "",
+        surface_source: "",
         bedrooms: "",
         bathrooms: "",
         parking_spots: "2",
@@ -540,17 +566,20 @@ const ValuationForm = () => {
         estimated_age: "",
         conservation_state: "",
         construction_quality: "",
-        frontage_type: "medianero",
+        frontage_type: "",
         special_features: [],
         other_features: "",
         photos: [],
-        facade_photo_index: null
+        facade_photo_index: null,
+        street_type: "",
+        pavement_type: ""
       };
       setFormData(emptyState);
       setIncludePhotos(false);
       setPhotoOrientations([]);
       setCurrentStep(1);
       localStorage.removeItem("propvalu_draft");
+      setResetKey(prev => prev + 1); // FORCE REACT TO UNMOUNT & REMOUNT THE FORM
       toast.success("Formulario reiniciado");
     }
   };
@@ -572,7 +601,34 @@ const ValuationForm = () => {
   };
 
   const handleInputChange = (field, value) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData(prev => {
+      const newData = { ...prev, [field]: value };
+      
+      // Lógica de auto-sugerencia de Uso de Suelo
+      if (field === "property_type" || field === "construction_quality") {
+        const type = newData.property_type;
+        const quality = newData.construction_quality;
+        
+        let suggestedUse = prev.land_use;
+        
+        if (type === "Comercio" || type === "Local comercial") {
+          suggestedUse = "comercial";
+        } else if (type === "Oficina") {
+          suggestedUse = "oficinas";
+        } else if (type === "Departamento") {
+          suggestedUse = "h_vertical";
+        } else if (type === "Casa" || type === "Casa en condominio") {
+          if (quality === "Interés Social" || quality === "Económico") {
+            suggestedUse = "h_popular";
+          } else {
+            suggestedUse = "h_habitacional";
+          }
+        }
+        newData.land_use = suggestedUse;
+      }
+      
+      return newData;
+    });
   };
 
   const handleLocationChange = (lat, lng) => {
@@ -596,16 +652,22 @@ const ValuationForm = () => {
           return false;
         }
         return true;
-      case 2:
-        if (!formData.land_area || !formData.construction_area) {
-          toast.error("Por favor ingrese las superficies del inmueble");
+      case 2: {
+        const noTerreno = ["Departamento", "Oficina", "Local comercial"].includes(formData.property_type);
+        if (!formData.construction_area) {
+          toast.error("Por favor ingrese la superficie de construcción");
           return false;
         }
-        if (parseFloat(formData.land_area) <= 0 || parseFloat(formData.construction_area) <= 0) {
-          toast.error("Las superficies deben ser mayores a 0");
+        if (!noTerreno && !formData.land_area) {
+          toast.error("Por favor ingrese la superficie de terreno");
+          return false;
+        }
+        if (parseFloat(formData.construction_area) <= 0) {
+          toast.error("La superficie de construcción debe ser mayor a 0");
           return false;
         }
         return true;
+      }
       case 3:
         return true;
       default:
@@ -656,8 +718,8 @@ const ValuationForm = () => {
         postal_code: formData.postal_code || null,
         latitude: formData.latitude,
         longitude: formData.longitude,
-        land_area: parseFloat(formData.land_area),
         construction_area: parseFloat(formData.construction_area),
+        land_area: parseFloat(formData.land_area) || parseFloat(formData.construction_area),
         land_regime: formData.land_regime,
         property_type: formData.property_type,
         land_use: formData.land_use || null,
@@ -736,75 +798,112 @@ const ValuationForm = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#F8F9FA] py-8 px-4 sm:px-6 lg:px-8">
-      {/* Header */}
-      <div className="max-w-4xl mx-auto mb-8">
-        <Button
-          variant="ghost"
-          onClick={() => navigate("/")}
-          className="mb-4 text-[#1B4332] hover:bg-[#D9ED92]/30"
-          data-testid="back-home-btn"
-        >
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Volver al inicio
-        </Button>
-
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2">
-          <div className="flex items-center gap-3">
-            <Building2 className="w-8 h-8 text-[#1B4332]" />
-            <h1 className="font-['Outfit'] text-2xl md:text-3xl font-bold text-[#1B4332]">
-              Nueva Valuación
-            </h1>
+    <div className="min-h-screen bg-[#F8F9FA]">
+      {/* Sticky header: título + stepper */}
+      <div className="sticky top-0 z-40 bg-[#1B4332] shadow-md">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center gap-3">
+          <button
+            onClick={() => navigate("/")}
+            className="text-white/70 hover:text-white transition-colors flex-shrink-0 p-1 rounded hover:bg-white/10"
+            data-testid="back-home-btn"
+            title="Volver al inicio"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </button>
+          <div className="flex items-center gap-2 flex-shrink-0 min-w-0">
+            <Building2 className="w-5 h-5 text-white flex-shrink-0" />
+            <h1 className="font-['Outfit'] text-base font-bold text-white hidden sm:block">Nueva Valuación</h1>
             {isAppraiserMode && (
-              <Badge className="bg-[#1B4332] text-white">Modo Valuador</Badge>
+              <Badge className="bg-white/20 text-white text-xs border-0 px-2 hidden sm:inline-flex">Modo Valuador</Badge>
             )}
           </div>
+          <div className="flex-1 flex justify-end items-center">
+            {steps.map((step, index) => (
+              <div key={step.number} className="flex items-center">
+                <div className="flex flex-col items-center mx-1.5 sm:mx-3">
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
+                    currentStep > step.number
+                      ? "bg-[#52B788] text-white"
+                      : currentStep === step.number
+                        ? "bg-white text-[#1B4332] ring-2 ring-[#D9ED92] shadow-md"
+                        : "bg-white/20 text-white/60"
+                  }`}>
+                    {currentStep > step.number ? <CheckCircle2 className="w-4 h-4" /> : step.icon}
+                  </div>
+                  <span className={`mt-1 text-xs hidden sm:block ${
+                    currentStep > step.number ? "text-white/80 font-medium" :
+                    currentStep === step.number ? "text-white font-bold" :
+                    "text-white/50 font-medium"
+                  }`}>
+                    {step.title}
+                  </span>
+                </div>
+                {index < steps.length - 1 && (
+                  <div className={`w-4 sm:w-10 h-0.5 ${currentStep > step.number ? "bg-[#52B788]" : "bg-white/25"}`} />
+                )}
+              </div>
+            ))}
+          </div>
         </div>
-        <p className="text-slate-600">
-          {isAppraiserMode
-            ? "Complete los datos para seleccionar comparables manualmente"
-            : "Complete los datos de su inmueble para obtener una estimación de valor"
-          }
-        </p>
       </div>
 
-      {/* Stepper */}
-      <div className="max-w-4xl mx-auto mb-8">
-        <div className="flex justify-between items-center">
-          {steps.map((step, index) => (
-            <div key={step.number} className="flex items-center flex-1">
-              <div className="flex flex-col items-center">
-                <div
-                  className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${currentStep >= step.number
-                    ? "bg-[#1B4332] text-white"
-                    : "bg-slate-200 text-slate-500"
-                    }`}
-                >
-                  {currentStep > step.number ? (
-                    <CheckCircle2 className="w-5 h-5" />
-                  ) : (
-                    step.icon
-                  )}
+      {/* Banner informativo para Público General — oculto para valuadores e inmobiliarias */}
+      {!infoDismissed && !isAppraiserMode && localStorage.getItem("propvalu_intended_role") !== "realtor" && (
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+          <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
+            <div className="flex items-start justify-between gap-3">
+              <div className="flex items-start gap-3">
+                <div className="w-9 h-9 rounded-lg bg-amber-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <Info className="w-5 h-5 text-amber-600" />
                 </div>
-                <span className={`mt-2 text-sm font-medium ${currentStep >= step.number ? "text-[#1B4332]" : "text-slate-500"
-                  }`}>
-                  {step.title}
-                </span>
+                <div>
+                  <h3 className="font-['Outfit'] font-bold text-amber-800 text-sm mb-2">
+                    Antes de comenzar — ¿Qué datos vas a necesitar?
+                  </h3>
+                  <div className="grid sm:grid-cols-2 gap-x-6 gap-y-1.5 text-xs text-amber-700">
+                    <div className="flex items-start gap-1.5">
+                      <span className="text-amber-500 font-bold mt-0.5">📍</span>
+                      <span><strong>Dirección completa</strong>: colonia, alcaldía/municipio y estado.</span>
+                    </div>
+                    <div className="flex items-start gap-1.5">
+                      <span className="text-amber-500 font-bold mt-0.5">📐</span>
+                      <span><strong>Superficie de terreno y construcción</strong>: idealmente del escritura o planos. El predial puede tener errores — verifica con un valuador si tienes dudas.</span>
+                    </div>
+                    <div className="flex items-start gap-1.5">
+                      <span className="text-amber-500 font-bold mt-0.5">🏠</span>
+                      <span><strong>Tipo de propiedad</strong>: casa, departamento, terreno, local, etc.</span>
+                    </div>
+                    <div className="flex items-start gap-1.5">
+                      <span className="text-amber-500 font-bold mt-0.5">📋</span>
+                      <span><strong>Características</strong>: recámaras, baños, cajones de estacionamiento, nivel y antigüedad aproximada.</span>
+                    </div>
+                    <div className="flex items-start gap-1.5 sm:col-span-2">
+                      <span className="text-amber-500 font-bold mt-0.5">⚠️</span>
+                      <span><strong>Nota importante:</strong> Esta valuación es una <em>estimación orientativa</em> basada en comparables de mercado. No sustituye un avalúo oficial. Si necesitas un documento con validez legal (para crédito hipotecario, sucesión o trámite), solicita un valuador profesional certificado.</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-              {index < steps.length - 1 && (
-                <div className={`flex-1 h-0.5 mx-4 ${currentStep > step.number ? "bg-[#52B788]" : "bg-slate-200"
-                  }`} />
-              )}
+              <button
+                onClick={() => {
+                  setInfoDismissed(true);
+                  localStorage.setItem("propvalu_info_dismissed", "1");
+                }}
+                className="flex-shrink-0 text-amber-400 hover:text-amber-700 transition-colors p-1"
+              >
+                <X className="w-4 h-4" />
+              </button>
             </div>
-          ))}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Form Card */}
-      <Card className="max-w-4xl mx-auto bg-white shadow-lg border-0">
-        <CardHeader className="border-b border-slate-100">
+      <div className="px-4 sm:px-6 lg:px-8 py-4">
+      <Card className="max-w-4xl mx-auto bg-white shadow-lg border-0 overflow-hidden">
+        <CardHeader className="bg-[#1B4332] py-3 px-6">
           <div className="flex items-center justify-between">
-            <CardTitle className="font-['Outfit'] text-xl text-[#1B4332] flex items-center gap-2">
+            <CardTitle className="font-['Outfit'] text-base text-white flex items-center gap-2">
               {steps[currentStep - 1].icon}
               {steps[currentStep - 1].title}
             </CardTitle>
@@ -812,14 +911,14 @@ const ValuationForm = () => {
               onClick={resetForm}
               variant="ghost"
               size="sm"
-              className="text-orange-600 hover:bg-orange-50 hover:text-orange-700 border border-orange-200"
+              className="text-white/70 hover:bg-white/10 hover:text-white border border-white/30"
             >
               <RefreshCw className="w-3.5 h-3.5 mr-1.5" />
               Limpiar Datos
             </Button>
           </div>
         </CardHeader>
-        <CardContent className="p-6">
+        <CardContent key={resetKey} className="p-6">
           {/* Step 1 - Location */}
           {currentStep === 1 && (
             <div className="space-y-6 animate-fade-in">
@@ -906,6 +1005,42 @@ const ValuationForm = () => {
                 </div>
               </div>
 
+              {/* NEW: Contexto de Calle */}
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label className="text-sm font-semibold text-[#1B4332]">Tipo de Calle / Vialidad</Label>
+                  <Select
+                    value={formData.street_type || undefined}
+                    onValueChange={(value) => handleInputChange("street_type", value)}
+                  >
+                    <SelectTrigger className="h-12">
+                      <SelectValue placeholder="Seleccione tipo de calle" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {STREET_TYPES.map(type => (
+                        <SelectItem key={type.value} value={type.value}>{type.label}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-sm font-semibold text-[#1B4332]">Tipo de Pavimento</Label>
+                  <Select
+                    value={formData.pavement_type || undefined}
+                    onValueChange={(value) => handleInputChange("pavement_type", value)}
+                  >
+                    <SelectTrigger className="h-12">
+                      <SelectValue placeholder="Seleccione tipo de pavimento" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {PAVEMENT_TYPES.map(type => (
+                        <SelectItem key={type.value} value={type.value}>{type.label}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
               {/* Map with auto-search */}
               <div className="space-y-2">
                 <Label className="text-sm font-semibold text-[#1B4332] flex items-center gap-2">
@@ -937,15 +1072,15 @@ const ValuationForm = () => {
                         key={type.value}
                         type="button"
                         onClick={() => handleInputChange("property_type", type.value)}
-                        className={`p-4 rounded-lg border-2 transition-all flex flex-col items-center gap-2 ${formData.property_type === type.value
+                        className={`py-2 px-2 rounded-lg border-2 transition-all flex flex-col items-center gap-1 ${formData.property_type === type.value
                           ? "border-[#52B788] bg-[#D9ED92]/20"
                           : "border-slate-200 hover:border-[#52B788]/50"
                           }`}
                         data-testid={`type-${type.value}`}
                       >
-                        <Icon className={`w-6 h-6 ${formData.property_type === type.value ? "text-[#1B4332]" : "text-slate-400"
+                        <Icon className={`w-5 h-5 ${formData.property_type === type.value ? "text-[#1B4332]" : "text-slate-400"
                           }`} />
-                        <span className={`text-sm font-medium ${formData.property_type === type.value ? "text-[#1B4332]" : "text-slate-600"
+                        <span className={`text-xs font-medium ${formData.property_type === type.value ? "text-[#1B4332]" : "text-slate-600"
                           }`}>
                           {type.label}
                         </span>
@@ -958,17 +1093,23 @@ const ValuationForm = () => {
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label className="text-sm font-semibold text-[#1B4332] flex items-center gap-2">
-                    <Ruler className="w-4 h-4" /> Superficie de Terreno (m²) *
+                    <Ruler className="w-4 h-4" /> Superficie de Terreno (m²)
+                    {["Departamento", "Oficina", "Local comercial"].includes(formData.property_type) && (
+                      <span className="text-xs font-normal text-slate-400">(opcional)</span>
+                    )}
                   </Label>
                   <Input
                     data-testid="land-area-input"
                     type="number"
                     value={formData.land_area}
                     onChange={(e) => handleInputChange("land_area", e.target.value)}
-                    placeholder="Ej: 150"
+                    placeholder={["Departamento", "Oficina", "Local comercial"].includes(formData.property_type) ? `Igual a construcción (${formData.construction_area || "m²"})` : "Ej: 150"}
                     className="h-12"
                     min="1"
                   />
+                  {["Departamento", "Oficina", "Local comercial"].includes(formData.property_type) && !formData.land_area && formData.construction_area && (
+                    <p className="text-xs text-slate-400">Si se omite, se usará {formData.construction_area} m² (igual a construcción)</p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -992,7 +1133,7 @@ const ValuationForm = () => {
                   <FileText className="w-4 h-4" /> Fuente de información de superficies *
                 </Label>
                 <Select
-                  value={formData.surface_source}
+                  value={formData.surface_source || undefined}
                   onValueChange={(value) => handleInputChange("surface_source", value)}
                 >
                   <SelectTrigger className="h-12">
@@ -1023,11 +1164,11 @@ const ValuationForm = () => {
                     <FileText className="w-4 h-4" /> Régimen de Suelo *
                   </Label>
                   <Select
-                    value={formData.land_regime}
+                    value={formData.land_regime || undefined}
                     onValueChange={(value) => handleInputChange("land_regime", value)}
                   >
                     <SelectTrigger data-testid="land-regime-select" className="h-12">
-                      <SelectValue />
+                      <SelectValue placeholder="Seleccione régimen" />
                     </SelectTrigger>
                     <SelectContent>
                       {LAND_REGIMES.map(regime => (
@@ -1046,7 +1187,7 @@ const ValuationForm = () => {
                       <FileText className="w-4 h-4" /> Uso de Suelo
                     </Label>
                     <Select
-                      value={formData.land_use}
+                      value={formData.land_use || undefined}
                       onValueChange={(value) => handleInputChange("land_use", value)}
                     >
                       <SelectTrigger data-testid="land-use-select" className="h-12">
@@ -1081,13 +1222,17 @@ const ValuationForm = () => {
 
           {/* Step 3 - Details */}
           {currentStep === 3 && (
-            <div className="space-y-6 animate-fade-in">
-              <p className="text-sm text-slate-500">
+            <div className="animate-fade-in">
+              <p className="text-sm text-slate-500 mb-4">
                 Estos datos mejoran la precisión de la estimación
               </p>
 
+              <div className="grid md:grid-cols-2 gap-x-8 gap-y-0 items-end">
+              {/* ── COLUMNA IZQUIERDA ── */}
+              <div className="flex flex-col gap-4">
+
               {/* Main details with icons */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-2">
                   <Label className="text-sm font-semibold text-[#1B4332] flex items-center gap-2">
                     <BedDouble className="w-4 h-4 text-[#52B788]" /> Recámaras
@@ -1148,7 +1293,7 @@ const ValuationForm = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-3 gap-3">
                 <div className="space-y-2">
                   <Label className="text-sm font-semibold text-[#1B4332] flex items-center gap-2">
                     <Building className="w-4 h-4 text-[#52B788]" /> Antigüedad (años)
@@ -1202,7 +1347,7 @@ const ValuationForm = () => {
               </div>
 
               {/* Quality and Conservation */}
-              <div className="grid md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-2">
                   <Label className="text-sm font-semibold text-[#1B4332]">Estado de Conservación</Label>
                   <Select
@@ -1242,13 +1387,13 @@ const ValuationForm = () => {
                 </div>
               </div>
 
-              {/* Tipo de frente — campo INDAABIN con Select */}
+              {/* Tipo de frente — al final de columna izquierda */}
               <div className="space-y-2">
                 <Label className="text-sm font-semibold text-[#1B4332] flex items-center gap-2">
                   <MapPin className="w-4 h-4 text-[#52B788]" /> Tipo de Frente del Inmueble
                 </Label>
                 <Select
-                  value={formData.frontage_type}
+                  value={formData.frontage_type || undefined}
                   onValueChange={(value) => handleInputChange('frontage_type', value)}
                 >
                   <SelectTrigger className="h-12">
@@ -1264,29 +1409,35 @@ const ValuationForm = () => {
                 <p className="text-xs text-slate-400">Afecta el factor de ubicación en la homologación INDAABIN</p>
               </div>
 
+              </div>{/* fin columna izquierda */}
+
+              {/* ── COLUMNA DERECHA ── */}
+              <div className="flex flex-col gap-4">
+
               {/* Special Features - including service/laundry rooms */}
               <div className="space-y-3">
                 <Label className="text-sm font-semibold text-[#1B4332]">Características Especiales</Label>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-2.5">
                   {SPECIAL_FEATURES.map(feature => {
                     const Icon = feature.icon;
                     return (
-                      <div key={feature.id} className="flex items-center space-x-2">
+                      <div key={feature.id} className="flex items-center gap-2 min-w-0 py-0.5">
                         <Checkbox
                           id={feature.id}
                           data-testid={`feature-${feature.id}`}
                           checked={formData.special_features.includes(feature.id)}
                           onCheckedChange={() => handleFeatureToggle(feature.id)}
+                          className="flex-shrink-0"
                         />
                         <label
                           htmlFor={feature.id}
-                          className={`text-sm flex items-center gap-1 cursor-pointer transition-all ${formData.special_features.includes(feature.id)
+                          className={`text-sm flex items-center gap-1.5 cursor-pointer transition-all min-w-0 ${formData.special_features.includes(feature.id)
                             ? "font-bold text-[#1B4332]"
                             : "text-slate-600"
                             }`}
                         >
-                          <Icon className={`w-4 h-4 ${formData.special_features.includes(feature.id) ? "text-[#52B788]" : "text-slate-400"}`} />
-                          {feature.label}
+                          <Icon className={`w-4 h-4 flex-shrink-0 ${formData.special_features.includes(feature.id) ? "text-[#52B788]" : "text-slate-400"}`} />
+                          <span className="truncate">{feature.label}</span>
                         </label>
                       </div>
                     );
@@ -1303,16 +1454,16 @@ const ValuationForm = () => {
                   data-testid="other-features-input"
                   value={formData.other_features}
                   onChange={(e) => handleInputChange("other_features", e.target.value)}
-                  placeholder="Ej: Vista panorámica, áreas de recreación, cuarto de máquinas, acabados de mármol, ventanales térmicos, etc."
+                  placeholder="Ej: Vista panorámica, áreas de recreación, acabados de mármol, ventanales térmicos, etc."
                   className="min-h-[80px] resize-none"
                 />
-                <p className="text-xs text-slate-500">
-                  Mencione cualquier característica adicional relevante para la valuación
-                </p>
               </div>
 
-              {/* Photos Toggle */}
-              <div className="p-4 bg-[#D9ED92]/20 rounded-lg border border-[#D9ED92]">
+              </div>{/* fin columna derecha */}
+              </div>{/* fin grid 2 cols */}
+
+              {/* Photos Toggle — ancho completo */}
+              <div className="mt-4 p-4 bg-[#D9ED92]/20 rounded-lg border border-[#D9ED92]">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
                     <ImageIcon className="w-5 h-5 text-[#1B4332]" />
@@ -1393,8 +1544,11 @@ const ValuationForm = () => {
           </div>
         </CardContent>
       </Card>
+      </div>
     </div>
   );
 };
 
 export default ValuationForm;
+
+

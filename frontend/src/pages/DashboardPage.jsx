@@ -12,11 +12,11 @@ import {
   TableRow 
 } from "@/components/ui/table";
 import { toast } from "sonner";
-import { 
-  Building2, 
-  Plus, 
-  FileText, 
-  History, 
+import {
+  Building2,
+  Plus,
+  FileText,
+  History,
   LogOut,
   User,
   Crown,
@@ -26,7 +26,8 @@ import {
   DollarSign,
   TrendingUp,
   Home,
-  Percent
+  Percent,
+  Briefcase
 } from "lucide-react";
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import { API } from "@/App";
@@ -284,6 +285,12 @@ const DashboardPage = () => {
                         Valuador
                       </Badge>
                     )}
+                    {user.role === "realtor" && (
+                      <Badge className="bg-[#0D47A1] text-white">
+                        <Briefcase className="w-3 h-3 mr-1" />
+                        Inmobiliaria
+                      </Badge>
+                    )}
                   </div>
                   <Button
                     variant="ghost"
@@ -303,11 +310,26 @@ const DashboardPage = () => {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Welcome Section */}
         <div className="mb-8">
-          <h1 className="font-['Outfit'] text-2xl md:text-3xl font-bold text-[#1B4332] mb-2">
+          <div className="flex items-center gap-3 mb-1">
+            <h1 className="font-['Outfit'] text-2xl md:text-3xl font-bold text-[#1B4332]">
+              {user?.role === "realtor"
+                ? "Panel de Inmobiliaria"
+                : "Panel de Valuador"}
+            </h1>
+            {user?.role === "appraiser" && (
+              <Crown className="w-6 h-6 text-[#52B788]" />
+            )}
+            {user?.role === "realtor" && (
+              <Briefcase className="w-6 h-6 text-[#0D47A1]" />
+            )}
+          </div>
+          <p className="text-slate-500 text-sm mb-1">
             Bienvenido, {user?.name?.split(' ')[0]}
-          </h1>
+          </p>
           <p className="text-slate-600">
-            Gestiona tus valuaciones y analiza el rendimiento de tus propiedades
+            {user?.role === "realtor"
+              ? "Gestiona tu portafolio de propiedades y accede a reportes comerciales"
+              : "Realiza valuaciones profesionales con respaldo de datos de mercado en tiempo real"}
           </p>
         </div>
 
@@ -580,8 +602,8 @@ const DashboardPage = () => {
           </>
         )}
 
-        {/* Upgrade Card */}
-        {user?.role !== "appraiser" && (
+        {/* Upgrade Card — only for users without a professional role */}
+        {user?.role !== "appraiser" && user?.role !== "realtor" && (
           <Card className="mb-8 bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] border-0 text-white">
             <CardContent className="p-6">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -610,6 +632,27 @@ const DashboardPage = () => {
           </Card>
         )}
 
+        {/* Realtor welcome banner */}
+        {user?.role === "realtor" && (
+          <Card className="mb-8 bg-gradient-to-r from-[#0D47A1] to-[#1565C0] border-0 text-white">
+            <CardContent className="p-6">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-lg bg-white/20 flex items-center justify-center">
+                  <Briefcase className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className="font-['Outfit'] text-lg font-semibold">
+                    Cuenta Inmobiliaria Activa
+                  </h3>
+                  <p className="text-white/80 text-sm">
+                    Acceso a valuaciones masivas, reportes comerciales y gestión de portafolio
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         {/* Actions */}
         <div className="flex flex-col sm:flex-row gap-4 mb-8">
           <Button
@@ -618,7 +661,7 @@ const DashboardPage = () => {
             data-testid="new-valuation-btn"
           >
             <Plus className="w-4 h-4 mr-2" />
-            Nueva Valuación
+            {user?.role === "realtor" ? "Nueva Valuación de Propiedad" : "Nueva Valuación"}
           </Button>
         </div>
 
@@ -626,7 +669,7 @@ const DashboardPage = () => {
         <Card className="bg-white border-0 shadow-sm">
           <CardHeader className="border-b border-slate-100">
             <CardTitle className="font-['Outfit'] text-xl text-[#1B4332]">
-              Historial de Valuaciones
+              {user?.role === "realtor" ? "Portafolio de Propiedades" : "Historial de Valuaciones"}
             </CardTitle>
           </CardHeader>
           <CardContent className="p-0">
