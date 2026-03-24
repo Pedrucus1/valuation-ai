@@ -18,6 +18,8 @@ import ThankYouPage from "@/pages/ThankYouPage";
 import FichaPage from "@/pages/FichaPage";
 import KYCRegistroPage from "@/pages/KYCRegistroPage";
 import HistoricoPage from "@/pages/HistoricoPage";
+import AnunciantesConsolaPage from "@/pages/AnunciantesConsolaPage";
+import DevLoginPage from "@/pages/DevLoginPage";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 export const API = `${BACKEND_URL}/api`;
@@ -96,6 +98,8 @@ function AppRouter() {
       <Route path="/ficha/:valuationId" element={<FichaPage />} />
       <Route path="/registro-valuador" element={<KYCRegistroPage />} />
       <Route path="/historico" element={<HistoricoPage />} />
+      <Route path="/anunciantes/consola" element={<AnunciantesConsolaPage />} />
+      <Route path="/dev/login" element={<DevLoginPage />} />
     </Routes>
   );
 }

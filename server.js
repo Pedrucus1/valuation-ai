@@ -629,10 +629,10 @@ app.post('/api/auth/upgrade-role', (req, res) => {
   res.json({ role: 'appraiser' });
 });
 
-// Asignar rol al usuario autenticado (appraiser | realtor | public | admin)
+// Asignar rol al usuario autenticado (appraiser | realtor | public | admin | anunciante)
 app.post('/api/auth/set-role', (req, res) => {
   const { role, user_id } = req.body;
-  const validRoles = ['appraiser', 'realtor', 'public', 'admin'];
+  const validRoles = ['appraiser', 'realtor', 'public', 'admin', 'anunciante'];
   if (!role || !validRoles.includes(role)) {
     return res.status(400).json({ error: 'Rol inválido' });
   }
@@ -1066,7 +1066,7 @@ app.get('/api/admin/ads', (req, res) => {
   res.json(Object.values(adsStore));
 });
 
-// POST /api/admin/ads — crear anuncio
+// POST /api/admin/ads — crear anuncio (admin ve todos)
 app.post('/api/admin/ads', (req, res) => {
   const { tag, title, body, slots, geo, starts_at, ends_at, advertiser, media_url } = req.body;
   if (!title || !slots?.length) return res.status(400).json({ error: 'Faltan campos requeridos: title, slots' });
@@ -1077,7 +1077,8 @@ app.post('/api/admin/ads', (req, res) => {
     active: true, impressions: 0,
     starts_at: starts_at ? new Date(starts_at).getTime() : null,
     ends_at: ends_at ? new Date(ends_at).getTime() : null,
-    created_at: new Date().toISOString(), type: 'paid'
+    created_at: new Date().toISOString(), type: 'paid',
+    advertiser_id: req.headers['x-user-id'] || 'admin'
   };
   adsStore[id] = ad;
   res.status(201).json(ad);
@@ -1087,13 +1088,62 @@ app.post('/api/admin/ads', (req, res) => {
 app.put('/api/admin/ads/:id', (req, res) => {
   const ad = adsStore[req.params.id];
   if (!ad) return res.status(404).json({ error: 'Anuncio no encontrado' });
-  Object.assign(ad, req.body, { id: ad.id, type: 'paid' });
+  Object.assign(ad, req.body, { id: ad.id, type: 'paid', advertiser_id: ad.advertiser_id });
   res.json(ad);
 });
 
 // DELETE /api/admin/ads/:id — eliminar anuncio
 app.delete('/api/admin/ads/:id', (req, res) => {
   if (!adsStore[req.params.id]) return res.status(404).json({ error: 'Anuncio no encontrado' });
+  delete adsStore[req.params.id];
+  res.json({ ok: true });
+});
+
+// ─── Anunciante: CRUD de sus propios anuncios ────────────────────────────────
+// El anunciante solo ve y gestiona sus propios anuncios (filtrado por advertiser_id)
+
+// GET /api/anunciante/ads — listar mis anuncios
+app.get('/api/anunciante/ads', (req, res) => {
+  const uid = req.headers['x-user-id'] || 'user_local_dev';
+  const mine = Object.values(adsStore).filter(a => a.advertiser_id === uid);
+  res.json(mine);
+});
+
+// POST /api/anunciante/ads — crear anuncio propio
+app.post('/api/anunciante/ads', (req, res) => {
+  const uid = req.headers['x-user-id'] || 'user_local_dev';
+  const { tag, title, body, slots, geo, starts_at, ends_at, advertiser, media_url } = req.body;
+  if (!title || !slots?.length) return res.status(400).json({ error: 'Faltan campos requeridos: title, slots' });
+  const id = `ad_${adIdCounter++}`;
+  const ad = {
+    id, tag: tag || 'Publicidad', title, body: body || '', slots,
+    geo: geo || null, advertiser: advertiser || null, media_url: media_url || null,
+    active: true, impressions: 0,
+    starts_at: starts_at ? new Date(starts_at).getTime() : null,
+    ends_at: ends_at ? new Date(ends_at).getTime() : null,
+    created_at: new Date().toISOString(), type: 'paid',
+    advertiser_id: uid
+  };
+  adsStore[id] = ad;
+  res.status(201).json(ad);
+});
+
+// PUT /api/anunciante/ads/:id — actualizar solo si es mío
+app.put('/api/anunciante/ads/:id', (req, res) => {
+  const uid = req.headers['x-user-id'] || 'user_local_dev';
+  const ad = adsStore[req.params.id];
+  if (!ad) return res.status(404).json({ error: 'Anuncio no encontrado' });
+  if (ad.advertiser_id !== uid) return res.status(403).json({ error: 'No tienes permiso sobre este anuncio' });
+  Object.assign(ad, req.body, { id: ad.id, type: 'paid', advertiser_id: uid });
+  res.json(ad);
+});
+
+// DELETE /api/anunciante/ads/:id — eliminar solo si es mío
+app.delete('/api/anunciante/ads/:id', (req, res) => {
+  const uid = req.headers['x-user-id'] || 'user_local_dev';
+  const ad = adsStore[req.params.id];
+  if (!ad) return res.status(404).json({ error: 'Anuncio no encontrado' });
+  if (ad.advertiser_id !== uid) return res.status(403).json({ error: 'No tienes permiso sobre este anuncio' });
   delete adsStore[req.params.id];
   res.json({ ok: true });
 });

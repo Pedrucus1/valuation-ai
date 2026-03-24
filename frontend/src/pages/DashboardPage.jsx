@@ -28,7 +28,9 @@ import {
   Home,
   Percent,
   Briefcase,
-  Image
+  Image,
+  Monitor,
+  ExternalLink
 } from "lucide-react";
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import { API } from "@/App";
@@ -63,12 +65,15 @@ const DashboardPage = () => {
   // Valuador: earnings
   const [earnings, setEarnings] = useState(null);
 
+  // Admin: Ads
+  const [adminAds, setAdminAds] = useState([]);
+
   useEffect(() => {
     if (!user) {
       checkAuth();
     } else {
       fetchData();
-      if (user.role === "admin") { fetchKycApplications("pending"); fetchNewsletterData(); fetchPayouts(); }
+      if (user.role === "admin") { fetchKycApplications("pending"); fetchNewsletterData(); fetchPayouts(); fetchAdminAds(); }
     if (user.role === "appraiser") fetchEarnings(user.email || user.user_id);
     }
   }, [user]);
@@ -159,6 +164,24 @@ const DashboardPage = () => {
       });
       if (r.ok) { toast.success("Newsletter creado"); setNlForm({ subject: "", content: "", type: "weekly" }); fetchNewsletterData(); }
     } catch {} finally { setNlCreating(false); }
+  };
+
+  const fetchAdminAds = async () => {
+    try {
+      const r = await fetch(`${API}/admin/ads`, { credentials: "include" });
+      if (r.ok) setAdminAds(await r.json());
+    } catch {}
+  };
+
+  const handleToggleAdActive = async (ad) => {
+    try {
+      const r = await fetch(`${API}/admin/ads/${ad.id}`, {
+        method: "PUT", credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ active: !ad.active }),
+      });
+      if (r.ok) { toast.success(ad.active ? "Anuncio pausado" : "Anuncio activado"); fetchAdminAds(); }
+    } catch { toast.error("Error"); }
   };
 
   const fetchKycApplications = async (status = "pending") => {
@@ -1010,6 +1033,83 @@ const DashboardPage = () => {
                     </tbody>
                   </table>
                 </div>
+              )}
+            </CardContent>
+          </Card>
+        )}
+
+        {/* ── ADMIN PANEL: Anuncios ──────────────────────────────────── */}
+        {user?.role === "admin" && (
+          <Card className="mb-8 border-0 shadow-sm">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between mb-5">
+                <div className="flex items-center gap-2">
+                  <Monitor className="w-5 h-5 text-[#1B4332]" />
+                  <h3 className="font-['Outfit'] text-lg font-bold text-[#1B4332]">Anuncios — Creatividades activas</h3>
+                </div>
+                <button
+                  onClick={() => navigate("/anunciantes/consola")}
+                  className="flex items-center gap-1.5 text-xs font-semibold text-[#1B4332] hover:text-[#2D6A4F] border border-[#52B788] rounded-lg px-3 py-1.5 hover:bg-[#f0faf4] transition-all"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  Consola completa
+                </button>
+              </div>
+
+              {adminAds.length === 0 ? (
+                <p className="text-slate-400 text-sm text-center py-6">No hay anuncios creados aún.</p>
+              ) : (
+                <>
+                  {/* Stats */}
+                  <div className="grid grid-cols-3 gap-3 mb-4">
+                    {[
+                      { label: "Activos", value: adminAds.filter(a => a.active).length, color: "text-[#1B4332]" },
+                      { label: "Pausados", value: adminAds.filter(a => !a.active).length, color: "text-amber-600" },
+                      { label: "Impresiones totales", value: adminAds.reduce((s, a) => s + (a.impressions || 0), 0).toLocaleString("es-MX"), color: "text-blue-600" },
+                    ].map(s => (
+                      <div key={s.label} className="bg-slate-50 rounded-xl py-3 text-center">
+                        <p className={`font-['Outfit'] text-xl font-bold ${s.color}`}>{s.value}</p>
+                        <p className="text-xs text-slate-400 mt-0.5">{s.label}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Table */}
+                  <div className="divide-y divide-slate-100 border border-slate-100 rounded-xl overflow-hidden">
+                    {adminAds.map(ad => (
+                      <div key={ad.id} className="px-4 py-3 flex items-center gap-3 bg-white hover:bg-slate-50 transition-colors">
+                        <div className={`w-2 h-2 rounded-full shrink-0 ${ad.active ? "bg-[#52B788]" : "bg-slate-300"}`} />
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-semibold text-slate-700 truncate">{ad.title}</p>
+                          <div className="flex gap-1.5 mt-0.5 flex-wrap">
+                            {(ad.slots || []).map(s => (
+                              <span key={s} className="text-xs bg-[#f0faf4] text-[#1B4332] px-1.5 py-0.5 rounded border border-[#b7e4c7]">
+                                {s}
+                              </span>
+                            ))}
+                            {ad.advertiser && (
+                              <span className="text-xs text-slate-400">{ad.advertiser}</span>
+                            )}
+                          </div>
+                        </div>
+                        <div className="text-right shrink-0">
+                          <p className="text-sm font-bold text-[#1B4332]">{(ad.impressions || 0).toLocaleString("es-MX")}</p>
+                          <p className="text-xs text-slate-400">impresiones</p>
+                        </div>
+                        <button
+                          onClick={() => handleToggleAdActive(ad)}
+                          className={`text-xs px-2.5 py-1 rounded-lg font-semibold border transition-all ${
+                            ad.active
+                              ? "bg-amber-50 text-amber-600 border-amber-200 hover:bg-amber-100"
+                              : "bg-[#f0faf4] text-[#1B4332] border-[#b7e4c7] hover:bg-[#d9f0e4]"
+                          }`}
+                        >
+                          {ad.active ? "Pausar" : "Activar"}
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </>
               )}
             </CardContent>
           </Card>
