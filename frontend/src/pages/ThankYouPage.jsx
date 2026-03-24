@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Building2, Star, ArrowRight, Share2, Download } from "lucide-react";
 import { toast } from "sonner";
 import { API } from "@/App";
+import AdSlot from "@/components/AdSlot";
 
 const RATING_LABELS = {
   1: "Muy malo",
@@ -25,6 +26,10 @@ const ThankYouPage = () => {
   const [name, setName] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Slot de descarga: 10s de anuncio antes de habilitar el botón
+  const [showDownloadAd, setShowDownloadAd] = useState(true);
+  const [downloadReady, setDownloadReady] = useState(false);
 
   // Fetch report HTML if not passed via navigation state
   useEffect(() => {
@@ -128,31 +133,46 @@ const ThankYouPage = () => {
           </p>
         </div>
 
-        {/* Download card */}
-        <div className="bg-gradient-to-br from-[#1B4332] to-[#2D6A4F] rounded-2xl p-6 mb-6 text-white shadow-xl">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center">
-              <svg viewBox="0 0 24 24" className="w-5 h-5 text-[#D9ED92]" fill="none" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-            </div>
-            <div>
-              <p className="font-semibold text-sm">Reporte de Valuación</p>
-              <p className="text-white/60 text-xs">Metodología CNBV / SHF / INDAABIN · PDF</p>
-            </div>
+        {/* Slot de descarga: 10s de anuncio antes de habilitar el botón */}
+        {showDownloadAd ? (
+          <div className="bg-gradient-to-br from-[#1B4332] to-[#081C15] rounded-2xl p-6 mb-6 text-white shadow-xl">
+            <p className="text-xs text-white/40 uppercase tracking-widest mb-4 text-center">
+              Tu reporte estará listo en un momento
+            </p>
+            <AdSlot
+              slot="download"
+              countdown={10}
+              onComplete={() => { setShowDownloadAd(false); setDownloadReady(true); }}
+              className="mb-0"
+            />
           </div>
-          <Button
-            onClick={handleDownload}
-            className="w-full bg-[#D9ED92] text-[#1B4332] hover:bg-[#c8e070] font-bold text-base py-5 rounded-xl gap-2"
-            disabled={!reportHtml}
-          >
-            <Download className="w-5 h-5" />
-            {reportHtml ? "Descargar PDF" : "Cargando reporte…"}
-          </Button>
-          <p className="text-white/40 text-xs text-center mt-3">
-            Estimación realizada con inteligencia de PropValu
-          </p>
-        </div>
+        ) : (
+          /* Download card */
+          <div className="bg-gradient-to-br from-[#1B4332] to-[#2D6A4F] rounded-2xl p-6 mb-6 text-white shadow-xl">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center">
+                <svg viewBox="0 0 24 24" className="w-5 h-5 text-[#D9ED92]" fill="none" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+              <div>
+                <p className="font-semibold text-sm">Reporte de Valuación</p>
+                <p className="text-white/60 text-xs">Metodología CNBV / SHF / INDAABIN · PDF</p>
+              </div>
+            </div>
+            <Button
+              onClick={handleDownload}
+              className="w-full bg-[#D9ED92] text-[#1B4332] hover:bg-[#c8e070] font-bold text-base py-5 rounded-xl gap-2"
+              disabled={!reportHtml}
+            >
+              <Download className="w-5 h-5" />
+              {reportHtml ? "Descargar PDF" : "Cargando reporte…"}
+            </Button>
+            <p className="text-white/40 text-xs text-center mt-3">
+              Estimación realizada con inteligencia de PropValu
+            </p>
+          </div>
+        )}
 
         {/* Rating card */}
         <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 mb-5">

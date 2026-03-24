@@ -16,6 +16,7 @@ import {
   Share2
 } from "lucide-react";
 import { API } from "@/App";
+import AdSlot from "@/components/AdSlot";
 
 const ReportPage = () => {
   const { valuationId } = useParams();
@@ -306,13 +307,13 @@ const ReportPage = () => {
       {/* Report Content */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
         {isGenerating ? (
-          <Card className="bg-white shadow-lg border-0">
-            <CardContent className="p-12 text-center">
-              <div className="spinner mx-auto mb-4"></div>
-              <p className="text-lg text-[#1B4332] font-medium">Generando reporte con IA...</p>
-              <p className="text-slate-500 mt-2">Esto puede tomar unos segundos</p>
-            </CardContent>
-          </Card>
+          <div className="min-h-[60vh] bg-[#1B4332] rounded-2xl flex flex-col items-center justify-center px-6 py-12">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-5 h-5 border-2 border-[#52B788] border-t-transparent rounded-full animate-spin" />
+              <p className="text-white/70 text-sm">Generando reporte con inteligencia artificial...</p>
+            </div>
+            <AdSlot slot="generation" countdown={10} className="w-full" />
+          </div>
         ) : reportHtml ? (
           <div className="rounded-lg shadow-lg overflow-hidden rpt-wrap">
             <style>{`

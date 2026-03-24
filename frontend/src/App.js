@@ -15,6 +15,9 @@ import ValuadorPage from "@/pages/ValuadorPage";
 import PricingPage from "@/pages/PricingPage";
 import InmobiliariaPage from "@/pages/InmobiliariaPage";
 import ThankYouPage from "@/pages/ThankYouPage";
+import FichaPage from "@/pages/FichaPage";
+import KYCRegistroPage from "@/pages/KYCRegistroPage";
+import HistoricoPage from "@/pages/HistoricoPage";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 export const API = `${BACKEND_URL}/api`;
@@ -90,6 +93,9 @@ function AppRouter() {
           <DashboardPage />
         </ProtectedRoute>
       } />
+      <Route path="/ficha/:valuationId" element={<FichaPage />} />
+      <Route path="/registro-valuador" element={<KYCRegistroPage />} />
+      <Route path="/historico" element={<HistoricoPage />} />
     </Routes>
   );
 }

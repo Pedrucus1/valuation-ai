@@ -478,6 +478,12 @@ const ValuadorPage = () => {
                   >
                     Afiliarme <ChevronRight className="w-4 h-4" />
                   </button>
+                  <button
+                    onClick={() => navigate("/registro-valuador")}
+                    className="w-full text-xs text-white/50 hover:text-[#D9ED92] underline underline-offset-2 mt-1 transition-colors"
+                  >
+                    Completar KYC (INE + Cédula)
+                  </button>
                 </div>
               </div>
             ))}

@@ -7,6 +7,40 @@ const { enrichOneComparable, closeBrowser } = require('./services/browserEnriche
 const app = express();
 const port = process.env.PORT || 3000;
 
+// ── Stripe ─────────────────────────────────────────────────────────────────
+let stripe = null;
+try {
+  if (process.env.STRIPE_SECRET_KEY) {
+    stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+    console.log('✅ Stripe inicializado');
+  } else {
+    console.warn('⚠️  STRIPE_SECRET_KEY no configurada — pagos Stripe desactivados');
+  }
+} catch (e) {
+  console.warn('⚠️  stripe package no instalado. Ejecuta: npm install');
+}
+
+// ── Mercado Pago ───────────────────────────────────────────────────────────
+let MercadoPagoConfig = null;
+let MpPreference = null;
+let MpPayment = null;
+try {
+  if (process.env.MP_ACCESS_TOKEN) {
+    const mp = require('mercadopago');
+    MercadoPagoConfig = mp.MercadoPagoConfig;
+    MpPreference = mp.Preference;
+    MpPayment = mp.Payment;
+    const mpClient = new MercadoPagoConfig({ accessToken: process.env.MP_ACCESS_TOKEN });
+    MpPreference = new mp.Preference(mpClient);
+    MpPayment = new mp.Payment(mpClient);
+    console.log('✅ Mercado Pago inicializado');
+  } else {
+    console.warn('⚠️  MP_ACCESS_TOKEN no configurada — pagos Mercado Pago desactivados');
+  }
+} catch (e) {
+  console.warn('⚠️  mercadopago package no instalado. Ejecuta: npm install');
+}
+
 // Middleware
 app.use(cors({
   origin: true, // Allow any origin but specifically allow credentials
@@ -455,6 +489,138 @@ app.get('/api/valuations', (req, res) => {
   res.json(Object.values(valuations));
 });
 
+// ============================================================
+// BASE DE DATOS HISTÓRICA PÚBLICA
+// Consulta de avalúos con datos anonimizados para análisis de mercado
+// ============================================================
+
+// GET /api/historico — Consultar avalúos históricos (datos anonimizados)
+// Query params: state, municipality, neighborhood, property_type, from, to, page, limit
+app.get('/api/historico', (req, res) => {
+  const THREE_MONTHS_MS = 90 * 24 * 60 * 60 * 1000;
+  const now = Date.now();
+  const { state, municipality, neighborhood, property_type, from, to, page = 1, limit = 20 } = req.query;
+
+  let results = Object.values(valuations).filter(v => {
+    if (!v.result || !v.property_data) return false;
+    // Solo avalúos completados y públicos (estado "completed" o "report_ready")
+    if (!['completed', 'report_ready'].includes(v.status)) return false;
+    return true;
+  });
+
+  // Filtros
+  if (state) results = results.filter(v => v.property_data.state?.toLowerCase().includes(state.toLowerCase()));
+  if (municipality) results = results.filter(v => v.property_data.municipality?.toLowerCase().includes(municipality.toLowerCase()));
+  if (neighborhood) results = results.filter(v => v.property_data.neighborhood?.toLowerCase().includes(neighborhood.toLowerCase()));
+  if (property_type) results = results.filter(v => v.property_data.property_type === property_type);
+  if (from) results = results.filter(v => new Date(v.created_at) >= new Date(from));
+  if (to) results = results.filter(v => new Date(v.created_at) <= new Date(to));
+
+  // Ordenar por fecha descendente
+  results.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+  const total = results.length;
+  const pageNum = parseInt(page);
+  const limitNum = Math.min(parseInt(limit), 50);
+  const paginated = results.slice((pageNum - 1) * limitNum, pageNum * limitNum);
+
+  // Anonimizar datos — solo exportar campos de mercado, no datos del propietario
+  const anonimized = paginated.map(v => {
+    const ageMonths = Math.floor((now - new Date(v.created_at).getTime()) / (30 * 24 * 60 * 60 * 1000));
+    const isOld = (now - new Date(v.created_at).getTime()) > THREE_MONTHS_MS;
+    return {
+      id: v.valuation_id,
+      created_at: v.created_at,
+      age_months: ageMonths,
+      requires_recovery_fee: isOld,   // si tiene más de 3 meses → cuota $80 MXN
+      property_type: v.property_data.property_type,
+      state: v.property_data.state,
+      municipality: v.property_data.municipality,
+      neighborhood: v.property_data.neighborhood,
+      construction_area: v.property_data.construction_area,
+      land_area: v.property_data.land_area,
+      estimated_value: v.result.estimated_value,
+      value_range_min: v.result.value_range_min,
+      value_range_max: v.result.value_range_max,
+      price_per_sqm: v.result.price_per_sqm,
+      confidence_level: v.result.confidence_level,
+    };
+  });
+
+  res.json({
+    total,
+    page: pageNum,
+    limit: limitNum,
+    pages: Math.ceil(total / limitNum),
+    results: anonimized,
+  });
+});
+
+// GET /api/historico/stats — Estadísticas de mercado agregadas
+app.get('/api/historico/stats', (req, res) => {
+  const { state, municipality, property_type } = req.query;
+
+  let data = Object.values(valuations).filter(v =>
+    v.result && v.property_data &&
+    ['completed', 'report_ready'].includes(v.status)
+  );
+
+  if (state) data = data.filter(v => v.property_data.state?.toLowerCase().includes(state.toLowerCase()));
+  if (municipality) data = data.filter(v => v.property_data.municipality?.toLowerCase().includes(municipality.toLowerCase()));
+  if (property_type) data = data.filter(v => v.property_data.property_type === property_type);
+
+  if (data.length === 0) return res.json({ total: 0, message: 'Sin datos para los filtros seleccionados' });
+
+  const values = data.map(v => v.result.estimated_value).filter(Boolean);
+  const psqm = data.map(v => v.result.price_per_sqm).filter(Boolean);
+  const sorted = [...values].sort((a, b) => a - b);
+
+  const avg = v => v.reduce((a, b) => a + b, 0) / v.length;
+  const median = arr => arr.length % 2 === 0 ? (arr[arr.length/2-1] + arr[arr.length/2]) / 2 : arr[Math.floor(arr.length/2)];
+
+  // Agrupación por tipo de propiedad
+  const byType = {};
+  data.forEach(v => {
+    const t = v.property_data.property_type;
+    if (!byType[t]) byType[t] = [];
+    byType[t].push(v.result.estimated_value);
+  });
+  const byTypeSummary = Object.entries(byType).map(([type, vals]) => ({
+    type, count: vals.length,
+    avg_value: Math.round(avg(vals)),
+    median_value: Math.round(median([...vals].sort((a,b)=>a-b))),
+  }));
+
+  // Agrupación por municipio/colonia
+  const byNeighborhood = {};
+  data.forEach(v => {
+    const key = `${v.property_data.neighborhood}, ${v.property_data.municipality}`;
+    if (!byNeighborhood[key]) byNeighborhood[key] = { count: 0, total_psqm: 0 };
+    byNeighborhood[key].count++;
+    byNeighborhood[key].total_psqm += v.result.price_per_sqm || 0;
+  });
+  const topNeighborhoods = Object.entries(byNeighborhood)
+    .map(([name, d]) => ({ name, count: d.count, avg_psqm: Math.round(d.total_psqm / d.count) }))
+    .sort((a, b) => b.avg_psqm - a.avg_psqm)
+    .slice(0, 10);
+
+  res.json({
+    total: data.length,
+    value_stats: {
+      min: Math.round(sorted[0]),
+      max: Math.round(sorted[sorted.length - 1]),
+      avg: Math.round(avg(values)),
+      median: Math.round(median(sorted)),
+    },
+    psqm_stats: psqm.length > 0 ? {
+      avg: Math.round(avg(psqm)),
+      median: Math.round(median([...psqm].sort((a,b)=>a-b))),
+    } : null,
+    by_property_type: byTypeSummary,
+    top_neighborhoods: topNeighborhoods,
+  });
+});
+
 app.post('/api/auth/logout', (req, res) => {
   res.json({ message: 'Sesión cerrada' });
 });
@@ -463,16 +629,92 @@ app.post('/api/auth/upgrade-role', (req, res) => {
   res.json({ role: 'appraiser' });
 });
 
-// Asignar rol al usuario autenticado (appraiser | realtor | public)
+// Asignar rol al usuario autenticado (appraiser | realtor | public | admin)
 app.post('/api/auth/set-role', (req, res) => {
   const { role, user_id } = req.body;
-  const validRoles = ['appraiser', 'realtor', 'public'];
+  const validRoles = ['appraiser', 'realtor', 'public', 'admin'];
   if (!role || !validRoles.includes(role)) {
     return res.status(400).json({ error: 'Rol inválido' });
   }
   const uid = user_id || 'user_local_dev';
   userRoles[uid] = role;
   res.json({ role, user_id: uid });
+});
+
+// ============================================================
+// KYC — Registro y verificación de valuadores profesionales
+// ============================================================
+
+const appraiserApplications = {};
+let appIdCounter = 1;
+
+// POST /api/kyc/apply — Enviar solicitud de registro
+app.post('/api/kyc/apply', (req, res) => {
+  const {
+    full_name, email, phone, curp, cedula_number, cnbv_number,
+    despacho, states_coverage, city_coverage, bio,
+    ine_doc_url, cedula_doc_url, photo_url
+  } = req.body;
+
+  if (!full_name || !email || !cedula_number) {
+    return res.status(400).json({ error: 'Faltan campos requeridos: full_name, email, cedula_number' });
+  }
+
+  // Verificar si ya tiene una solicitud pendiente/activa
+  const existing = Object.values(appraiserApplications).find(a => a.email === email);
+  if (existing && existing.status !== 'rejected') {
+    return res.status(409).json({ error: 'Ya existe una solicitud con este correo', application: existing });
+  }
+
+  const id = `kyc_${appIdCounter++}`;
+  const application = {
+    id, status: 'pending', // pending | approved | rejected
+    full_name, email, phone: phone || null, curp: curp || null,
+    cedula_number, cnbv_number: cnbv_number || null,
+    despacho: despacho || null, states_coverage: states_coverage || [], city_coverage: city_coverage || null,
+    bio: bio || null, ine_doc_url: ine_doc_url || null, cedula_doc_url: cedula_doc_url || null,
+    photo_url: photo_url || null,
+    created_at: new Date().toISOString(), reviewed_at: null, reviewer_notes: null
+  };
+  appraiserApplications[id] = application;
+  res.status(201).json(application);
+});
+
+// GET /api/kyc/status/:email — Consultar estado de solicitud propia
+app.get('/api/kyc/status', (req, res) => {
+  const { email } = req.query;
+  if (!email) return res.status(400).json({ error: 'Falta email' });
+  const app = Object.values(appraiserApplications).find(a => a.email === email);
+  if (!app) return res.status(404).json({ error: 'No se encontró solicitud para este correo' });
+  res.json(app);
+});
+
+// --- Admin: gestión de solicitudes ---
+
+// GET /api/admin/kyc — Listar todas las solicitudes
+app.get('/api/admin/kyc', (req, res) => {
+  const { status } = req.query;
+  let apps = Object.values(appraiserApplications);
+  if (status) apps = apps.filter(a => a.status === status);
+  apps.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  res.json(apps);
+});
+
+// PUT /api/admin/kyc/:id — Aprobar o rechazar solicitud
+app.put('/api/admin/kyc/:id', (req, res) => {
+  const application = appraiserApplications[req.params.id];
+  if (!application) return res.status(404).json({ error: 'Solicitud no encontrada' });
+  const { status, reviewer_notes } = req.body;
+  if (!['approved', 'rejected'].includes(status)) return res.status(400).json({ error: 'Estado inválido. Usa approved o rejected' });
+  application.status = status;
+  application.reviewer_notes = reviewer_notes || null;
+  application.reviewed_at = new Date().toISOString();
+  // Si se aprueba, asignar rol appraiser al usuario (si existe por email en userRoles)
+  if (status === 'approved') {
+    const uid = Object.keys(userRoles).find(k => k.includes(application.email)) || application.email;
+    userRoles[uid] = 'appraiser';
+  }
+  res.json(application);
 });
 
 app.get('/api/stats', (req, res) => {
@@ -482,6 +724,378 @@ app.get('/api/stats', (req, res) => {
     cities_covered: 32,
     avg_accuracy: 94.5
   });
+});
+
+// ============================================================
+// NEWSLETTER / INTELIGENCIA DE MERCADO
+// Semanal: noticias, actualizaciones (todos los profesionales)
+// Mensual: Data Analysis por zona (Premier gratis | otros $380 MXN)
+// ============================================================
+
+const newsletterSubscribers = {};
+const newsletters = {};
+let nlIdCounter = 1;
+
+// POST /api/newsletter/subscribe — Suscribirse al newsletter
+app.post('/api/newsletter/subscribe', (req, res) => {
+  const { email, name, role = 'public', plan = 'free' } = req.body;
+  if (!email) return res.status(400).json({ error: 'Email requerido' });
+
+  // Si ya existe, actualizar
+  if (newsletterSubscribers[email]) {
+    Object.assign(newsletterSubscribers[email], { name: name || newsletterSubscribers[email].name, role, plan, updated_at: new Date().toISOString() });
+    return res.json({ ...newsletterSubscribers[email], already_subscribed: true });
+  }
+
+  const subscriber = {
+    email, name: name || null, role, plan,
+    // data_analysis_access: Premier (plan premier) gratis, otros pagan $380 MXN
+    data_analysis_access: plan === 'premier',
+    subscribed_at: new Date().toISOString(), active: true,
+    data_analysis_paid_until: null,
+  };
+  newsletterSubscribers[email] = subscriber;
+  res.status(201).json(subscriber);
+});
+
+// DELETE /api/newsletter/unsubscribe — Darse de baja
+app.delete('/api/newsletter/unsubscribe', (req, res) => {
+  const { email } = req.body;
+  if (newsletterSubscribers[email]) {
+    newsletterSubscribers[email].active = false;
+    newsletterSubscribers[email].unsubscribed_at = new Date().toISOString();
+  }
+  res.json({ ok: true });
+});
+
+// GET /api/newsletter/subscribers — Admin: listar suscriptores
+app.get('/api/admin/newsletter/subscribers', (req, res) => {
+  const { active, plan } = req.query;
+  let list = Object.values(newsletterSubscribers);
+  if (active !== undefined) list = list.filter(s => s.active === (active === 'true'));
+  if (plan) list = list.filter(s => s.plan === plan);
+  res.json({ total: list.length, subscribers: list });
+});
+
+// POST /api/admin/newsletter — Admin: crear newsletter
+app.post('/api/admin/newsletter', (req, res) => {
+  const { type = 'weekly', subject, content, target_plans } = req.body;
+  if (!subject || !content) return res.status(400).json({ error: 'Faltan subject y content' });
+  const id = `nl_${nlIdCounter++}`;
+  const nl = {
+    id, type, subject, content,
+    target_plans: target_plans || ['free', 'lite', 'pro', 'premier'],
+    status: 'draft', sent_at: null, sent_count: 0,
+    created_at: new Date().toISOString(),
+  };
+  newsletters[id] = nl;
+  res.status(201).json(nl);
+});
+
+// GET /api/admin/newsletter — Admin: listar newsletters
+app.get('/api/admin/newsletter', (req, res) => {
+  res.json(Object.values(newsletters).sort((a, b) => new Date(b.created_at) - new Date(a.created_at)));
+});
+
+// POST /api/admin/newsletter/:id/send — Admin: enviar newsletter (simulado)
+app.post('/api/admin/newsletter/:id/send', (req, res) => {
+  const nl = newsletters[req.params.id];
+  if (!nl) return res.status(404).json({ error: 'Newsletter no encontrado' });
+  if (nl.status === 'sent') return res.status(400).json({ error: 'Este newsletter ya fue enviado' });
+
+  // Filtrar suscriptores activos según target_plans
+  const targets = Object.values(newsletterSubscribers).filter(s =>
+    s.active && nl.target_plans.includes(s.plan)
+  );
+  nl.status = 'sent';
+  nl.sent_at = new Date().toISOString();
+  nl.sent_count = targets.length;
+
+  res.json({ ok: true, sent_to: targets.length, newsletter: nl });
+});
+
+// PUT /api/admin/newsletter/:id — Admin: actualizar newsletter
+app.put('/api/admin/newsletter/:id', (req, res) => {
+  const nl = newsletters[req.params.id];
+  if (!nl) return res.status(404).json({ error: 'No encontrado' });
+  if (nl.status === 'sent') return res.status(400).json({ error: 'No se puede editar un newsletter ya enviado' });
+  Object.assign(nl, req.body, { id: nl.id, status: nl.status });
+  res.json(nl);
+});
+
+// POST /api/newsletter/activate-data-analysis — Activar acceso mensual a Data Analysis ($380 MXN)
+// (Simula el pago — cuando se integre Stripe/MP se conectará al webhook)
+app.post('/api/newsletter/activate-data-analysis', (req, res) => {
+  const { email } = req.body;
+  const subscriber = newsletterSubscribers[email];
+  if (!subscriber) return res.status(404).json({ error: 'Suscriptor no encontrado' });
+  // Simular activación por 30 días
+  const until = new Date();
+  until.setDate(until.getDate() + 30);
+  subscriber.data_analysis_access = true;
+  subscriber.data_analysis_paid_until = until.toISOString();
+  res.json(subscriber);
+});
+
+// ============================================================
+// MÓDULO FINANCIERO / PAYOUTS — Comisiones y pagos a valuadores
+// PropValu retiene 20%, valuador recibe 80%
+// Liquidación mensual automática
+// ============================================================
+
+const serviceOrders = {};     // Órdenes de servicio (revisión remota o visita física)
+const payouts = {};           // Registros de pago a valuadores
+let orderIdCounter = 1;
+let payoutIdCounter = 1;
+
+const COMMISSION_RATE = 0.20;  // 20% PropValu
+const APPRAISER_RATE = 0.80;   // 80% valuador
+
+// POST /api/services/order — Crear orden de servicio (cuando cliente compra revisión/visita)
+app.post('/api/services/order', (req, res) => {
+  const { service_type, valuation_id, appraiser_email, client_email, base_price } = req.body;
+  if (!service_type || !appraiser_email || !base_price) {
+    return res.status(400).json({ error: 'Faltan: service_type, appraiser_email, base_price' });
+  }
+  const validTypes = ['remote_review', 'physical_visit'];
+  if (!validTypes.includes(service_type)) return res.status(400).json({ error: 'service_type debe ser remote_review o physical_visit' });
+
+  const id = `ord_${orderIdCounter++}`;
+  const order = {
+    id, service_type,
+    valuation_id: valuation_id || null,
+    appraiser_email, client_email: client_email || null,
+    base_price: parseFloat(base_price),
+    appraiser_amount: parseFloat((base_price * APPRAISER_RATE).toFixed(2)),
+    commission_amount: parseFloat((base_price * COMMISSION_RATE).toFixed(2)),
+    status: 'pending',         // pending | accepted | rejected | completed | paid
+    accepted_at: null, completed_at: null, paid_at: null,
+    created_at: new Date().toISOString(),
+    notes: null,
+  };
+  serviceOrders[id] = order;
+  res.status(201).json(order);
+});
+
+// GET /api/services/orders — Listar órdenes (admin: todas | valuador: las suyas)
+app.get('/api/services/orders', (req, res) => {
+  const { appraiser_email, status } = req.query;
+  let orders = Object.values(serviceOrders);
+  if (appraiser_email) orders = orders.filter(o => o.appraiser_email === appraiser_email);
+  if (status) orders = orders.filter(o => o.status === status);
+  orders.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  res.json(orders);
+});
+
+// PUT /api/services/orders/:id/accept — Valuador acepta la orden (dentro de 24h)
+app.put('/api/services/orders/:id/accept', (req, res) => {
+  const order = serviceOrders[req.params.id];
+  if (!order) return res.status(404).json({ error: 'Orden no encontrada' });
+  if (order.status !== 'pending') return res.status(400).json({ error: `La orden ya está en estado: ${order.status}` });
+  const hoursElapsed = (Date.now() - new Date(order.created_at).getTime()) / 3600000;
+  if (hoursElapsed > 24) {
+    order.status = 'rejected';
+    order.notes = 'Tiempo de respuesta excedido (24h). Reasignada automáticamente.';
+    return res.status(410).json({ error: 'Tiempo de respuesta excedido. La orden fue reasignada.', order });
+  }
+  order.status = 'accepted';
+  order.accepted_at = new Date().toISOString();
+  res.json(order);
+});
+
+// PUT /api/services/orders/:id/complete — Marcar orden como completada
+app.put('/api/services/orders/:id/complete', (req, res) => {
+  const order = serviceOrders[req.params.id];
+  if (!order) return res.status(404).json({ error: 'Orden no encontrada' });
+  if (order.status !== 'accepted') return res.status(400).json({ error: 'Solo se pueden completar órdenes aceptadas' });
+  order.status = 'completed';
+  order.completed_at = new Date().toISOString();
+  order.notes = req.body.notes || null;
+  res.json(order);
+});
+
+// POST /api/admin/payouts/generate — Generar liquidación mensual (admin)
+app.post('/api/admin/payouts/generate', (req, res) => {
+  const { month, year } = req.body; // e.g. month: 3, year: 2026
+  const now = new Date();
+  const targetMonth = month || (now.getMonth() + 1);
+  const targetYear = year || now.getFullYear();
+
+  // Órdenes completadas en el mes indicado, aún no pagadas
+  const unpaid = Object.values(serviceOrders).filter(o => {
+    if (o.status !== 'completed') return false;
+    const d = new Date(o.completed_at);
+    return d.getMonth() + 1 === parseInt(targetMonth) && d.getFullYear() === parseInt(targetYear);
+  });
+
+  // Agrupar por valuador
+  const byAppraiser = {};
+  unpaid.forEach(o => {
+    if (!byAppraiser[o.appraiser_email]) {
+      byAppraiser[o.appraiser_email] = { orders: [], total_appraiser: 0, total_commission: 0 };
+    }
+    byAppraiser[o.appraiser_email].orders.push(o.id);
+    byAppraiser[o.appraiser_email].total_appraiser += o.appraiser_amount;
+    byAppraiser[o.appraiser_email].total_commission += o.commission_amount;
+  });
+
+  // Crear payouts
+  const generated = [];
+  Object.entries(byAppraiser).forEach(([email, data]) => {
+    const id = `pay_${payoutIdCounter++}`;
+    const payout = {
+      id, appraiser_email: email,
+      month: targetMonth, year: targetYear,
+      order_count: data.orders.length,
+      order_ids: data.orders,
+      total_appraiser: parseFloat(data.total_appraiser.toFixed(2)),
+      total_commission: parseFloat(data.total_commission.toFixed(2)),
+      status: 'pending',  // pending | processing | paid | failed
+      created_at: new Date().toISOString(), paid_at: null,
+    };
+    payouts[id] = payout;
+    // Marcar órdenes como pagadas
+    data.orders.forEach(oid => { if (serviceOrders[oid]) serviceOrders[oid].status = 'paid'; serviceOrders[oid].paid_at = payout.created_at; });
+    generated.push(payout);
+  });
+
+  res.json({ generated_count: generated.length, payouts: generated,
+    period: `${targetMonth}/${targetYear}`, total_to_pay: generated.reduce((s, p) => s + p.total_appraiser, 0).toFixed(2) });
+});
+
+// GET /api/admin/payouts — Listar payouts
+app.get('/api/admin/payouts', (req, res) => {
+  const { status, appraiser_email } = req.query;
+  let list = Object.values(payouts);
+  if (status) list = list.filter(p => p.status === status);
+  if (appraiser_email) list = list.filter(p => p.appraiser_email === appraiser_email);
+  list.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  res.json(list);
+});
+
+// PUT /api/admin/payouts/:id/mark-paid — Marcar payout como pagado
+app.put('/api/admin/payouts/:id/mark-paid', (req, res) => {
+  const payout = payouts[req.params.id];
+  if (!payout) return res.status(404).json({ error: 'Payout no encontrado' });
+  payout.status = 'paid';
+  payout.paid_at = new Date().toISOString();
+  payout.payment_reference = req.body.reference || null;
+  res.json(payout);
+});
+
+// GET /api/appraiser/earnings — Dashboard de ganancias del valuador
+app.get('/api/appraiser/earnings', (req, res) => {
+  const { email } = req.query;
+  if (!email) return res.status(400).json({ error: 'Falta email' });
+
+  const myOrders = Object.values(serviceOrders).filter(o => o.appraiser_email === email);
+  const myPayouts = Object.values(payouts).filter(p => p.appraiser_email === email);
+
+  const totalEarned = myPayouts.filter(p => p.status === 'paid').reduce((s, p) => s + p.total_appraiser, 0);
+  const pendingAmount = myPayouts.filter(p => p.status !== 'paid').reduce((s, p) => s + p.total_appraiser, 0);
+  const completedOrders = myOrders.filter(o => o.status === 'completed' || o.status === 'paid').length;
+
+  res.json({
+    email, total_earned: totalEarned, pending_amount: pendingAmount,
+    total_orders: myOrders.length, completed_orders: completedOrders,
+    recent_payouts: myPayouts.slice(0, 5),
+    recent_orders: myOrders.slice(0, 10),
+  });
+});
+
+// ============================================================
+// AD-ENGINE — Gestión de anuncios publicitarios
+// Slots: "comparables" (60s) | "generation" (10s) | "download" (10s)
+// ============================================================
+
+// In-memory ads store
+const adsStore = {};
+let adIdCounter = 1;
+
+// House ads backfill (siempre disponibles cuando no hay anuncios pagados)
+const HOUSE_ADS = [
+  { tag: "Consejo PropValu", title: "El valor lo define la oferta y la demanda", body: "No existe un precio único para una propiedad. El valor real es el que un comprador informado está dispuesto a pagar en el mercado actual.", type: "house" },
+  { tag: "¿Sabías que?", title: "El predial puede engañarte", body: "Las medidas del predial a menudo no coinciden con las escrituras. Siempre usa la superficie real de construcción para una valuación más precisa.", type: "house" },
+  { tag: "Dato de mercado", title: "La ubicación vale más que los metros", body: "Una propiedad 30% más pequeña en una zona premium puede superar en valor a una grande en zona periférica. La plusvalía de la colonia es clave.", type: "house" },
+  { tag: "Consejo PropValu", title: "Negocia con datos, no con intuición", body: "Conocer el precio por m² de los comparables activos en la zona te da ventaja real en cualquier negociación, ya seas comprador o vendedor.", type: "house" },
+  { tag: "¿Sabías que?", title: "La antigüedad deprecia el valor físico", body: "Una construcción pierde en promedio 2% de valor físico por año. Por eso las remodelaciones recientes son uno de los factores que más incrementan el avalúo.", type: "house" },
+];
+
+// Helper: obtener anuncio activo para un slot (pagado o backfill)
+function getAdForSlot(slot, geo = null) {
+  const now = Date.now();
+  const paid = Object.values(adsStore).filter(a =>
+    a.active &&
+    a.slots.includes(slot) &&
+    (!a.starts_at || a.starts_at <= now) &&
+    (!a.ends_at || a.ends_at >= now) &&
+    (!geo || !a.geo || a.geo === geo)
+  );
+  if (paid.length > 0) {
+    // Round-robin simple: usar el menos visto
+    paid.sort((a, b) => a.impressions - b.impressions);
+    return paid[0];
+  }
+  // Backfill: casa ad aleatoria
+  return HOUSE_ADS[Math.floor(Math.random() * HOUSE_ADS.length)];
+}
+
+// GET /api/ads/slot/:slot — obtener anuncio para slot público
+app.get('/api/ads/slot/:slot', (req, res) => {
+  const { slot } = req.params;
+  const { geo } = req.query;
+  const validSlots = ['comparables', 'generation', 'download'];
+  if (!validSlots.includes(slot)) return res.status(400).json({ error: 'Slot inválido' });
+  res.json(getAdForSlot(slot, geo));
+});
+
+// POST /api/ads/:id/impression — registrar impresión
+app.post('/api/ads/:id/impression', (req, res) => {
+  const ad = adsStore[req.params.id];
+  if (ad) {
+    ad.impressions = (ad.impressions || 0) + 1;
+    ad.last_impression = new Date().toISOString();
+  }
+  res.json({ ok: true });
+});
+
+// --- Admin: CRUD de anuncios ---
+
+// GET /api/admin/ads — listar todos los anuncios
+app.get('/api/admin/ads', (req, res) => {
+  res.json(Object.values(adsStore));
+});
+
+// POST /api/admin/ads — crear anuncio
+app.post('/api/admin/ads', (req, res) => {
+  const { tag, title, body, slots, geo, starts_at, ends_at, advertiser, media_url } = req.body;
+  if (!title || !slots?.length) return res.status(400).json({ error: 'Faltan campos requeridos: title, slots' });
+  const id = `ad_${adIdCounter++}`;
+  const ad = {
+    id, tag: tag || 'Publicidad', title, body: body || '', slots,
+    geo: geo || null, advertiser: advertiser || null, media_url: media_url || null,
+    active: true, impressions: 0,
+    starts_at: starts_at ? new Date(starts_at).getTime() : null,
+    ends_at: ends_at ? new Date(ends_at).getTime() : null,
+    created_at: new Date().toISOString(), type: 'paid'
+  };
+  adsStore[id] = ad;
+  res.status(201).json(ad);
+});
+
+// PUT /api/admin/ads/:id — actualizar anuncio
+app.put('/api/admin/ads/:id', (req, res) => {
+  const ad = adsStore[req.params.id];
+  if (!ad) return res.status(404).json({ error: 'Anuncio no encontrado' });
+  Object.assign(ad, req.body, { id: ad.id, type: 'paid' });
+  res.json(ad);
+});
+
+// DELETE /api/admin/ads/:id — eliminar anuncio
+app.delete('/api/admin/ads/:id', (req, res) => {
+  if (!adsStore[req.params.id]) return res.status(404).json({ error: 'Anuncio no encontrado' });
+  delete adsStore[req.params.id];
+  res.json({ ok: true });
 });
 
 // ============================================================
@@ -1617,6 +2231,195 @@ app.post('/api/valuations/:id/generate-report', (req, res) => {
 });
 
 // ---------------------------------------------------------------------------
+// FICHAS DE PROMOCIÓN — Generador de ficha comercial 1 hoja (para inmobiliarias)
+// POST /api/valuations/:id/generate-ficha
+// Body: { price_point: "min"|"mid"|"max", broker: { name, agency, phone, email, logo_url, photo_url, social } }
+// ---------------------------------------------------------------------------
+app.post('/api/valuations/:id/generate-ficha', (req, res) => {
+  const valuation = valuations[req.params.id];
+  if (!valuation) return res.status(404).json({ error: 'Valuación no encontrada' });
+  if (!valuation.result) return res.status(400).json({ error: 'La valuación aún no tiene resultados. Genera el reporte primero.' });
+
+  const { price_point = 'mid', broker = {} } = req.body;
+  const prop = valuation.property_data;
+  const result = valuation.result;
+
+  // Precio según punto elegido
+  const priceMap = { min: result.value_range_min, mid: result.estimated_value, max: result.value_range_max };
+  const selectedPrice = priceMap[price_point] || result.estimated_value;
+  const fmt = (v) => new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 0 }).format(v);
+
+  const coverPhoto = prop.photos?.[0] || null;
+  const galleryPhotos = prop.photos?.slice(1, 5) || [];
+
+  const mapUrl = process.env.GOOGLE_MAPS_API_KEY?.startsWith('AIza') && prop.latitude && prop.longitude
+    ? `https://maps.googleapis.com/maps/api/staticmap?center=${prop.latitude},${prop.longitude}&zoom=15&size=600x200&scale=2&markers=color:red|${prop.latitude},${prop.longitude}&key=${process.env.GOOGLE_MAPS_API_KEY}`
+    : null;
+
+  const amenities = valuation.amenities || [];
+  const amenityIcons = { restaurant: '🍽️', school: '🏫', hospital: '🏥', pharmacy: '💊', gym: '🏋️', park: '🌳', supermarket: '🛒', bank: '🏦', transport: '🚌' };
+
+  const html = `<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ficha Comercial — ${prop.property_type} en ${prop.neighborhood}</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Outfit', sans-serif; background: #f8f9fa; }
+  .page { width: 210mm; min-height: 297mm; background: white; margin: 0 auto; display: flex; flex-direction: column; }
+  @media print { body { background: white; } .page { box-shadow: none; margin: 0; } @page { margin: 0; size: A4; } }
+
+  /* Header broker */
+  .broker-bar { background: #1B4332; color: white; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; }
+  .broker-info { display: flex; align-items: center; gap: 12px; }
+  .broker-photo { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid #52B788; }
+  .broker-photo-placeholder { width: 44px; height: 44px; border-radius: 50%; background: #2D6A4F; border: 2px solid #52B788; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .broker-name { font-size: 15px; font-weight: 700; }
+  .broker-agency { font-size: 11px; color: #D9ED92; }
+  .broker-contact { text-align: right; font-size: 11px; color: rgba(255,255,255,0.8); line-height: 1.6; }
+  .propvalu-badge { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.1); border-radius: 20px; padding: 4px 10px; font-size: 10px; color: #D9ED92; font-weight: 700; letter-spacing: 0.5px; }
+
+  /* Cover */
+  .cover { position: relative; height: 220px; overflow: hidden; background: #1B4332; flex-shrink: 0; }
+  .cover img { width: 100%; height: 100%; object-fit: cover; }
+  .cover-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.75)); padding: 20px; }
+  .price-tag { font-size: 32px; font-weight: 900; color: #D9ED92; }
+  .price-sub { font-size: 12px; color: rgba(255,255,255,0.8); margin-top: 2px; }
+  .property-badge { display: inline-block; background: #52B788; color: white; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-bottom: 6px; }
+
+  /* Body */
+  .body { padding: 16px 20px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
+
+  /* Datos generales */
+  .data-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { background: #f0faf4; border: 1px solid #b7e4c7; border-radius: 20px; padding: 5px 14px; font-size: 12px; color: #1B4332; font-weight: 600; display: flex; align-items: center; gap: 5px; }
+
+  /* Ubicación */
+  .location-row { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #374151; }
+  .location-row strong { color: #1B4332; }
+  .map-img { width: 100%; height: 100px; object-fit: cover; border-radius: 10px; border: 1px solid #e2e8f0; margin-top: 8px; }
+  .map-placeholder { width: 100%; height: 80px; background: #e9f5ee; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #52B788; font-size: 12px; border: 1px dashed #52B788; }
+
+  /* Galería */
+  .gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .gallery img { width: 100%; height: 70px; object-fit: cover; border-radius: 8px; border: 1px solid #e2e8f0; }
+
+  /* Amenidades */
+  .amenities-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .amenity-pill { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 6px 10px; font-size: 11px; color: #374151; display: flex; align-items: center; gap: 6px; }
+
+  /* Footer */
+  .footer { background: #f8f9fa; border-top: 2px solid #1B4332; padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; font-size: 10px; color: #6b7280; }
+  .footer-brand { font-size: 11px; font-weight: 700; color: #1B4332; }
+
+  /* Sección título */
+  .section-title { font-size: 11px; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Broker bar -->
+  <div class="broker-bar">
+    <div class="broker-info">
+      ${broker.photo_url
+        ? `<img src="${broker.photo_url}" class="broker-photo" alt="Broker">`
+        : `<div class="broker-photo-placeholder">👤</div>`}
+      <div>
+        <div class="broker-name">${broker.name || 'Agente Inmobiliario'}</div>
+        <div class="broker-agency">${broker.agency || ''}</div>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px;">
+      <div class="propvalu-badge">✦ PropValu</div>
+      <div class="broker-contact">
+        ${broker.phone ? `📞 ${broker.phone}` : ''}
+        ${broker.phone && broker.email ? ' · ' : ''}
+        ${broker.email ? `✉ ${broker.email}` : ''}
+        ${broker.social ? `<br>${broker.social}` : ''}
+      </div>
+    </div>
+  </div>
+
+  <!-- Cover photo -->
+  <div class="cover">
+    ${coverPhoto ? `<img src="${coverPhoto}" alt="Inmueble">` : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:48px;">🏠</div>`}
+    <div class="cover-overlay">
+      <span class="property-badge">${prop.property_type}</span>
+      <div class="price-tag">${fmt(selectedPrice)}</div>
+      <div class="price-sub">${prop.neighborhood} · ${prop.municipality}, ${prop.state}</div>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="body">
+
+    <!-- Datos generales -->
+    <div>
+      <div class="section-title">Características</div>
+      <div class="data-chips">
+        <span class="chip">📐 ${prop.construction_area} m² Construcción</span>
+        ${prop.land_area && prop.land_area !== prop.construction_area ? `<span class="chip">🌿 ${prop.land_area} m² Terreno</span>` : ''}
+        ${prop.bedrooms ? `<span class="chip">🛏️ ${prop.bedrooms} Rec.</span>` : ''}
+        ${prop.bathrooms ? `<span class="chip">🚿 ${prop.bathrooms} Baños</span>` : ''}
+        ${prop.parking_spaces ? `<span class="chip">🚗 ${prop.parking_spaces} Caj.</span>` : ''}
+        ${prop.floor_number ? `<span class="chip">🏢 Piso ${prop.floor_number}/${prop.total_floors || '?'}</span>` : ''}
+        ${prop.estimated_age ? `<span class="chip">🏗️ ${prop.estimated_age} años</span>` : ''}
+        ${prop.conservation_state ? `<span class="chip">✅ ${prop.conservation_state}</span>` : ''}
+      </div>
+    </div>
+
+    <!-- Ubicación + mapa -->
+    <div>
+      <div class="section-title">Ubicación</div>
+      <div class="location-row">
+        📍 <strong>${prop.neighborhood}</strong>, ${prop.municipality}, ${prop.state}
+        ${prop.street_address ? ` · ${prop.street_address}` : ''}
+      </div>
+      ${mapUrl
+        ? `<img src="${mapUrl}" class="map-img" alt="Mapa">`
+        : `<div class="map-placeholder">🗺️ ${prop.neighborhood}, ${prop.municipality}</div>`}
+    </div>
+
+    <!-- Galería adicional -->
+    ${galleryPhotos.length > 0 ? `
+    <div>
+      <div class="section-title">Galería</div>
+      <div class="gallery">
+        ${galleryPhotos.map(p => `<img src="${p}" alt="Foto">`).join('')}
+      </div>
+    </div>` : ''}
+
+    <!-- Amenidades de la zona -->
+    ${amenities.length > 0 ? `
+    <div>
+      <div class="section-title">Beneficios de la Zona</div>
+      <div class="amenities-grid">
+        ${amenities.slice(0, 6).map(a => `<div class="amenity-pill">${amenityIcons[a.type] || '📍'} ${a.label || a.name}</div>`).join('')}
+      </div>
+    </div>` : ''}
+
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <span class="footer-brand">Tecnología Inmobiliaria PropValu</span>
+    <span>Estimación generada el ${new Date().toLocaleDateString('es-MX')} · Precio ${price_point === 'min' ? 'Mínimo' : price_point === 'max' ? 'Máximo' : 'Justo de Mercado'}</span>
+    ${broker.logo_url ? `<img src="${broker.logo_url}" style="height: 28px; object-fit: contain;" alt="Logo">` : ''}
+  </div>
+
+</div>
+</body>
+</html>`;
+
+  valuation.ficha_html = html;
+  res.json({ ficha_html: html });
+});
+
+// ---------------------------------------------------------------------------
 // SSE: enriquecimiento de comparables con Puppeteer
 // GET /api/valuations/:id/enrich-stream
 // Emite eventos: { type: 'enriched', comparable_id, updates } | { type: 'done' } | { type: 'error' }
@@ -1669,6 +2472,233 @@ app.get('/api/valuations/:id/enrich-stream', async (req, res) => {
   send({ type: 'done', enriched: enrichedCount });
   res.end();
 });
+
+// ============================================================
+// INFRAESTRUCTURA DE PAGOS — Stripe + Mercado Pago
+// Modelos: avalúo individual, paquetes, suscripciones, add-ons
+// ============================================================
+
+// Catálogo de productos
+const PAYMENT_PRODUCTS = {
+  // Público general
+  avaluo_1:    { name: 'Avalúo Individual',    price: 280,   currency: 'MXN', type: 'one_time' },
+  avaluo_3:    { name: 'Paquete Bronce (3)',   price: 814.8, currency: 'MXN', type: 'one_time' },
+  avaluo_5:    { name: 'Paquete Plata (5)',    price: 1317.25, currency: 'MXN', type: 'one_time' },
+  avaluo_10:   { name: 'Paquete Oro (10)',     price: 2555,  currency: 'MXN', type: 'one_time' },
+  // Add-ons
+  addon_perito:    { name: 'Revisión por Perito (remota)', price: 350,  currency: 'MXN', type: 'one_time' },
+  addon_visita:    { name: 'Verificación m² (visita física)', price: 600, currency: 'MXN', type: 'one_time' },
+  // Inmobiliaria Lite
+  inmob_lite_5:  { name: 'Inmobiliaria Lite 5/mes',  price: 1358, currency: 'MXN', type: 'subscription', interval: 'month' },
+  inmob_lite_10: { name: 'Inmobiliaria Lite 10/mes', price: 2688, currency: 'MXN', type: 'subscription', interval: 'month' },
+  inmob_pro_20:  { name: 'Inmobiliaria Pro 20/mes',  price: 5320, currency: 'MXN', type: 'subscription', interval: 'month' },
+  // Data Analysis mensual
+  data_analysis: { name: 'Data Analysis Mensual',    price: 380,  currency: 'MXN', type: 'one_time' },
+};
+
+// In-memory orders de pago
+const paymentOrders = {};
+let pmtOrderCounter = 1;
+
+// GET /api/payments/products — Catálogo de productos
+app.get('/api/payments/products', (req, res) => {
+  res.json(PAYMENT_PRODUCTS);
+});
+
+// ── STRIPE ─────────────────────────────────────────────────────────────────
+
+// POST /api/payments/stripe/create-payment-intent — Crear intento de pago
+app.post('/api/payments/stripe/create-payment-intent', async (req, res) => {
+  if (!stripe) return res.status(503).json({ error: 'Stripe no está configurado. Agrega STRIPE_SECRET_KEY al .env' });
+
+  const { product_id, customer_email, metadata = {} } = req.body;
+  const product = PAYMENT_PRODUCTS[product_id];
+  if (!product) return res.status(400).json({ error: `Producto desconocido: ${product_id}` });
+
+  try {
+    const amountCents = Math.round(product.price * 100); // Stripe usa centavos
+    const intent = await stripe.paymentIntents.create({
+      amount: amountCents,
+      currency: 'mxn',
+      automatic_payment_methods: { enabled: true },
+      description: product.name,
+      receipt_email: customer_email || undefined,
+      metadata: { product_id, ...metadata },
+    });
+
+    // Registrar orden interna
+    const orderId = `pmt_${pmtOrderCounter++}`;
+    paymentOrders[orderId] = {
+      id: orderId, provider: 'stripe', product_id, product_name: product.name,
+      amount: product.price, currency: 'MXN', status: 'pending',
+      stripe_payment_intent_id: intent.id, customer_email: customer_email || null,
+      created_at: new Date().toISOString(),
+    };
+
+    res.json({ client_secret: intent.client_secret, order_id: orderId, amount: product.price, product });
+  } catch (e) {
+    console.error('Stripe error:', e.message);
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// POST /api/payments/stripe/webhook — Webhook de Stripe (confirmar pagos)
+// IMPORTANTE: debe recibir el body RAW (sin parsear) para verificar firma
+app.post('/api/payments/stripe/webhook',
+  express.raw({ type: 'application/json' }),
+  (req, res) => {
+    if (!stripe) return res.status(503).json({ error: 'Stripe no configurado' });
+    const sig = req.headers['stripe-signature'];
+    const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+
+    let event;
+    try {
+      if (webhookSecret) {
+        event = stripe.webhooks.constructEvent(req.body, sig, webhookSecret);
+      } else {
+        event = JSON.parse(req.body.toString());
+        console.warn('⚠️  STRIPE_WEBHOOK_SECRET no configurado — saltando verificación de firma');
+      }
+    } catch (e) {
+      return res.status(400).json({ error: `Webhook inválido: ${e.message}` });
+    }
+
+    // Manejar eventos
+    switch (event.type) {
+      case 'payment_intent.succeeded': {
+        const pi = event.data.object;
+        // Buscar orden por payment_intent_id y marcarla como pagada
+        const order = Object.values(paymentOrders).find(o => o.stripe_payment_intent_id === pi.id);
+        if (order) {
+          order.status = 'paid';
+          order.paid_at = new Date().toISOString();
+          console.log(`✅ Stripe pago confirmado: ${order.id} — ${order.product_name} — $${order.amount} MXN`);
+          // TODO: aquí se activan créditos del usuario, plan, etc.
+        }
+        break;
+      }
+      case 'payment_intent.payment_failed': {
+        const pi = event.data.object;
+        const order = Object.values(paymentOrders).find(o => o.stripe_payment_intent_id === pi.id);
+        if (order) { order.status = 'failed'; order.failed_at = new Date().toISOString(); }
+        break;
+      }
+      default:
+        // Evento no manejado
+    }
+    res.json({ received: true });
+  }
+);
+
+// ── MERCADO PAGO ───────────────────────────────────────────────────────────
+
+// POST /api/payments/mp/create-preference — Crear preferencia de MP
+app.post('/api/payments/mp/create-preference', async (req, res) => {
+  if (!MpPreference) return res.status(503).json({ error: 'Mercado Pago no está configurado. Agrega MP_ACCESS_TOKEN al .env' });
+
+  const { product_id, customer_email, back_urls = {}, metadata = {} } = req.body;
+  const product = PAYMENT_PRODUCTS[product_id];
+  if (!product) return res.status(400).json({ error: `Producto desconocido: ${product_id}` });
+
+  try {
+    const preference = await MpPreference.create({
+      body: {
+        items: [{
+          id: product_id,
+          title: product.name,
+          quantity: 1,
+          unit_price: product.price,
+          currency_id: 'MXN',
+        }],
+        payer: customer_email ? { email: customer_email } : undefined,
+        back_urls: {
+          success: back_urls.success || `${process.env.FRONTEND_URL || 'http://localhost:3001'}/gracias`,
+          failure: back_urls.failure || `${process.env.FRONTEND_URL || 'http://localhost:3001'}/comprar`,
+          pending: back_urls.pending || `${process.env.FRONTEND_URL || 'http://localhost:3001'}/comprar`,
+        },
+        auto_return: 'approved',
+        external_reference: JSON.stringify({ product_id, ...metadata }),
+        notification_url: process.env.MP_WEBHOOK_URL || undefined,
+      }
+    });
+
+    const orderId = `pmt_${pmtOrderCounter++}`;
+    paymentOrders[orderId] = {
+      id: orderId, provider: 'mercadopago', product_id, product_name: product.name,
+      amount: product.price, currency: 'MXN', status: 'pending',
+      mp_preference_id: preference.id, mp_init_point: preference.init_point,
+      customer_email: customer_email || null, created_at: new Date().toISOString(),
+    };
+
+    res.json({ init_point: preference.init_point, preference_id: preference.id, order_id: orderId, product });
+  } catch (e) {
+    console.error('MercadoPago error:', e.message);
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// POST /api/payments/mp/webhook — Webhook de Mercado Pago (IPN)
+app.post('/api/payments/mp/webhook', async (req, res) => {
+  const { type, data } = req.body;
+
+  if (type === 'payment' && data?.id) {
+    try {
+      if (MpPayment) {
+        const payment = await MpPayment.get({ id: data.id });
+        const ref = payment.external_reference ? JSON.parse(payment.external_reference) : {};
+        const order = Object.values(paymentOrders).find(o => o.mp_preference_id && ref.product_id === o.product_id);
+
+        if (order) {
+          if (payment.status === 'approved') {
+            order.status = 'paid';
+            order.paid_at = new Date().toISOString();
+            order.mp_payment_id = data.id;
+            console.log(`✅ MP pago confirmado: ${order.id} — ${order.product_name} — $${order.amount} MXN`);
+            // TODO: activar créditos/plan del usuario
+          } else if (['rejected', 'cancelled', 'refunded'].includes(payment.status)) {
+            order.status = 'failed';
+          }
+        }
+      }
+    } catch (e) {
+      console.error('MP webhook error:', e.message);
+    }
+  }
+  res.status(200).json({ received: true });
+});
+
+// ── Admin: gestión de órdenes de pago ─────────────────────────────────────
+
+// GET /api/admin/payments — Listar todas las órdenes de pago
+app.get('/api/admin/payments', (req, res) => {
+  const { status, provider } = req.query;
+  let list = Object.values(paymentOrders);
+  if (status) list = list.filter(o => o.status === status);
+  if (provider) list = list.filter(o => o.provider === provider);
+  list.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  const totalRevenue = list.filter(o => o.status === 'paid').reduce((s, o) => s + o.amount, 0);
+  res.json({ total: list.length, total_revenue: totalRevenue, orders: list });
+});
+
+// GET /api/payments/status/:orderId — Consultar estado de orden
+app.get('/api/payments/status/:orderId', (req, res) => {
+  const order = paymentOrders[req.params.orderId];
+  if (!order) return res.status(404).json({ error: 'Orden no encontrada' });
+  res.json(order);
+});
+
+// ─────────────────────────────────────────────────────────────────────────
+// Variables de entorno requeridas para pagos (agregar al .env):
+//
+// STRIPE_SECRET_KEY=sk_live_... (o sk_test_... para pruebas)
+// STRIPE_PUBLISHABLE_KEY=pk_live_... (o pk_test_...)
+// STRIPE_WEBHOOK_SECRET=whsec_... (desde Stripe Dashboard > Webhooks)
+//
+// MP_ACCESS_TOKEN=APP_USR-... (desde Mercado Pago > Credenciales)
+// MP_WEBHOOK_URL=https://tu-dominio.com/api/payments/mp/webhook
+//
+// FRONTEND_URL=https://propvalu.mx (para back_urls de MP)
+// ─────────────────────────────────────────────────────────────────────────
 
 // The "catchall" handler
 app.get('*', (req, res) => {
