@@ -93,6 +93,7 @@ frontend/node_modules/.cache/default-development/5.pack
 
 # Private memory files (API keys backup — NEVER commit)
 memory/api_keys_backup.md
+memory/api_keys.md
 
 # Archivos temporales de prueba y herramientas de dev
 .agent/
