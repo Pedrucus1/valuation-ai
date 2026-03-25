@@ -706,12 +706,10 @@ const AnunciantesConsolaPage = () => {
       toast.success(editingCampaignId ? "Campana actualizada" : "Campana creada");
       setShowCampaignForm(false); setEditingCampaignId(null); setCampaignForm(EMPTY_CAMPAIGN);
 
-      // Si es nueva, preguntar si quiere crear creatividad
+      // Si es nueva, ir directo a crear creatividad para esta campana
       if (!editingCampaignId) {
         await fetchAll();
-        if (window.confirm("Campana creada. Quieres agregar una creatividad ahora?")) {
-          handleAddCreativeToCampaign(saved.id);
-        }
+        handleAddCreativeToCampaign(saved.id);
       } else {
         fetchAll();
       }
