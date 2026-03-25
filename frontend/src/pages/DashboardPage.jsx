@@ -30,10 +30,161 @@ import {
   Briefcase,
   Image,
   Monitor,
-  ExternalLink
+  ExternalLink,
+  MousePointerClick,
+  Layers,
+  Activity,
+  Megaphone,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import { API } from "@/App";
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+const fmtN = (n) => (n || 0).toLocaleString("es-MX");
+const fmtD = (d) => d ? new Date(d).toLocaleDateString("es-MX", { day: "2-digit", month: "short", year: "numeric" }) : "—";
+const ctrPct = (imp, clk) => imp > 0 ? ((clk / imp) * 100).toFixed(1) + "%" : "—";
+
+const SLOT_LABELS = { comparables: "Comparables", generation: "Reporte", download: "Descarga" };
+
+// ── AdminAdsPanel ─────────────────────────────────────────────────────────────
+const AdminAdsPanel = ({ ads, onToggle, onDelete }) => {
+  const [expandedGroup, setExpandedGroup] = useState(null);
+
+  const totalImp = ads.reduce((s, a) => s + (a.impressions || 0), 0);
+  const totalClk = ads.reduce((s, a) => s + (a.clicks || 0), 0);
+  const active   = ads.filter(a => a.active).length;
+
+  // Agrupar por advertiser_id
+  const grouped = ads.reduce((acc, ad) => {
+    const key = ad.advertiser_id || "sin_id";
+    const label = ad.advertiser || ad.advertiser_id || "Anunciante desconocido";
+    if (!acc[key]) acc[key] = { label, ads: [] };
+    acc[key].ads.push(ad);
+    return acc;
+  }, {});
+
+  return (
+    <Card className="mb-8 border-0 shadow-sm">
+      <CardContent className="p-6">
+        <div className="flex items-center gap-2 mb-5">
+          <Megaphone className="w-5 h-5 text-[#1B4332]" />
+          <h3 className="font-['Outfit'] text-lg font-bold text-[#1B4332]">Panel de Anuncios — Todos los anunciantes</h3>
+        </div>
+
+        {/* KPIs globales */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+          {[
+            { label: "Anunciantes",        value: Object.keys(grouped).length, icon: Megaphone,         color: "text-[#1B4332]" },
+            { label: "Activos",            value: active,                      icon: Eye,               color: "text-[#52B788]" },
+            { label: "Impresiones totales",value: fmtN(totalImp),              icon: Layers,            color: "text-blue-600" },
+            { label: "Clicks totales",     value: fmtN(totalClk),              icon: MousePointerClick, color: "text-purple-600" },
+          ].map(k => (
+            <div key={k.label} className="bg-slate-50 rounded-xl p-3 text-center">
+              <k.icon className={`w-4 h-4 ${k.color} mx-auto mb-1`} />
+              <p className={`font-['Outfit'] text-xl font-bold ${k.color}`}>{k.value}</p>
+              <p className="text-xs text-slate-400 mt-0.5">{k.label}</p>
+            </div>
+          ))}
+        </div>
+
+        {ads.length === 0 ? (
+          <p className="text-slate-400 text-sm text-center py-6">No hay anuncios creados aún.</p>
+        ) : (
+          <div className="flex flex-col gap-3">
+            {Object.entries(grouped).map(([uid, group]) => {
+              const gImp  = group.ads.reduce((s,a)=>s+(a.impressions||0),0);
+              const gClk  = group.ads.reduce((s,a)=>s+(a.clicks||0),0);
+              const gAct  = group.ads.filter(a=>a.active).length;
+              const open  = expandedGroup === uid;
+              return (
+                <div key={uid} className="border border-slate-100 rounded-xl overflow-hidden">
+                  {/* Fila resumen del anunciante */}
+                  <button
+                    onClick={() => setExpandedGroup(open ? null : uid)}
+                    className="w-full px-4 py-3 flex items-center gap-3 bg-white hover:bg-slate-50 transition-colors text-left"
+                  >
+                    <div className="w-8 h-8 rounded-full bg-[#f0faf4] border border-[#b7e4c7] flex items-center justify-center shrink-0">
+                      <Megaphone className="w-4 h-4 text-[#1B4332]" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-semibold text-slate-800 text-sm">{group.label}</p>
+                      <p className="text-xs text-slate-400">{uid} · {group.ads.length} creatividad{group.ads.length!==1?"es":""} · {gAct} activa{gAct!==1?"s":""}</p>
+                    </div>
+                    {/* Métricas del anunciante */}
+                    <div className="flex gap-5 text-right shrink-0 mr-2">
+                      <div><p className="text-sm font-bold text-[#1B4332]">{fmtN(gImp)}</p><p className="text-xs text-slate-400">imp.</p></div>
+                      <div><p className="text-sm font-bold text-blue-600">{fmtN(gClk)}</p><p className="text-xs text-slate-400">clicks</p></div>
+                      <div><p className="text-sm font-bold text-purple-600">{ctrPct(gImp,gClk)}</p><p className="text-xs text-slate-400">CTR</p></div>
+                    </div>
+                    {open ? <ChevronUp className="w-4 h-4 text-slate-400 shrink-0" /> : <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" />}
+                  </button>
+
+                  {/* Tabla de anuncios de este anunciante */}
+                  {open && (
+                    <div className="border-t border-slate-100 divide-y divide-slate-50 bg-slate-50/50">
+                      {/* Encabezado columnas */}
+                      <div className="grid grid-cols-[1fr_80px_80px_64px_110px_110px_120px] gap-2 px-4 py-2 text-xs text-slate-400 uppercase tracking-wide font-semibold bg-slate-50">
+                        <span>Anuncio</span>
+                        <span className="text-right">Imp.</span>
+                        <span className="text-right">Clicks</span>
+                        <span className="text-right">CTR</span>
+                        <span className="text-center">Primera imp.</span>
+                        <span className="text-center">Último click</span>
+                        <span className="text-center">Acciones</span>
+                      </div>
+                      {group.ads.map(ad => (
+                        <div key={ad.id} className="grid grid-cols-[1fr_80px_80px_64px_110px_110px_120px] gap-2 px-4 py-3 items-center hover:bg-white transition-colors">
+                          <div className="min-w-0">
+                            <div className="flex items-center gap-2 mb-0.5">
+                              <div className={`w-2 h-2 rounded-full shrink-0 ${ad.active?"bg-[#52B788]":"bg-slate-300"}`} />
+                              <p className="text-sm font-semibold text-slate-700 truncate">{ad.title}</p>
+                            </div>
+                            <div className="flex flex-wrap gap-1 ml-4">
+                              {(ad.slots||[]).map(s=>(
+                                <span key={s} className="text-xs bg-[#f0faf4] border border-[#b7e4c7] text-[#1B4332] px-1.5 py-0.5 rounded-full">
+                                  {SLOT_LABELS[s]||s}
+                                </span>
+                              ))}
+                              {ad.geo && <span className="text-xs text-slate-400">{ad.geo}</span>}
+                            </div>
+                          </div>
+                          <p className="text-sm font-bold text-[#1B4332] text-right">{fmtN(ad.impressions)}</p>
+                          <p className="text-sm font-bold text-blue-600 text-right">{fmtN(ad.clicks)}</p>
+                          <p className="text-sm font-semibold text-purple-600 text-right">{ctrPct(ad.impressions,ad.clicks)}</p>
+                          <p className="text-xs text-slate-500 text-center">{fmtD(ad.first_impression||ad.created_at)}</p>
+                          <p className="text-xs text-slate-500 text-center">{fmtD(ad.last_click)}</p>
+                          <div className="flex items-center justify-center gap-1.5">
+                            <button
+                              onClick={() => onToggle(ad)}
+                              className={`text-xs px-2 py-1 rounded-lg font-semibold border transition-all ${
+                                ad.active ? "bg-amber-50 text-amber-600 border-amber-200 hover:bg-amber-100" : "bg-[#f0faf4] text-[#1B4332] border-[#b7e4c7] hover:bg-[#d9f0e4]"
+                              }`}
+                            >
+                              {ad.active ? "Pausar" : "Activar"}
+                            </button>
+                            <button
+                              onClick={() => { if (window.confirm(`¿Eliminar "${ad.title}"?`)) onDelete(ad.id); }}
+                              className="p-1 rounded-lg text-slate-300 hover:text-red-500 hover:bg-red-50 transition-colors"
+                              title="Eliminar"
+                            >
+                              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
+};
 
 const DashboardPage = () => {
   const navigate = useNavigate();
@@ -1048,79 +1199,14 @@ const DashboardPage = () => {
 
         {/* ── ADMIN PANEL: Anuncios ──────────────────────────────────── */}
         {user?.role === "admin" && (
-          <Card className="mb-8 border-0 shadow-sm">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-5">
-                <div className="flex items-center gap-2">
-                  <Monitor className="w-5 h-5 text-[#1B4332]" />
-                  <h3 className="font-['Outfit'] text-lg font-bold text-[#1B4332]">Anuncios — Creatividades activas</h3>
-                </div>
-                <button
-                  onClick={() => navigate("/anunciantes/consola")}
-                  className="flex items-center gap-1.5 text-xs font-semibold text-[#1B4332] hover:text-[#2D6A4F] border border-[#52B788] rounded-lg px-3 py-1.5 hover:bg-[#f0faf4] transition-all"
-                >
-                  <ExternalLink className="w-3.5 h-3.5" />
-                  Consola completa
-                </button>
-              </div>
-
-              {adminAds.length === 0 ? (
-                <p className="text-slate-400 text-sm text-center py-6">No hay anuncios creados aún.</p>
-              ) : (
-                <>
-                  {/* Stats */}
-                  <div className="grid grid-cols-3 gap-3 mb-4">
-                    {[
-                      { label: "Activos", value: adminAds.filter(a => a.active).length, color: "text-[#1B4332]" },
-                      { label: "Pausados", value: adminAds.filter(a => !a.active).length, color: "text-amber-600" },
-                      { label: "Impresiones totales", value: adminAds.reduce((s, a) => s + (a.impressions || 0), 0).toLocaleString("es-MX"), color: "text-blue-600" },
-                    ].map(s => (
-                      <div key={s.label} className="bg-slate-50 rounded-xl py-3 text-center">
-                        <p className={`font-['Outfit'] text-xl font-bold ${s.color}`}>{s.value}</p>
-                        <p className="text-xs text-slate-400 mt-0.5">{s.label}</p>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Table */}
-                  <div className="divide-y divide-slate-100 border border-slate-100 rounded-xl overflow-hidden">
-                    {adminAds.map(ad => (
-                      <div key={ad.id} className="px-4 py-3 flex items-center gap-3 bg-white hover:bg-slate-50 transition-colors">
-                        <div className={`w-2 h-2 rounded-full shrink-0 ${ad.active ? "bg-[#52B788]" : "bg-slate-300"}`} />
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-semibold text-slate-700 truncate">{ad.title}</p>
-                          <div className="flex gap-1.5 mt-0.5 flex-wrap">
-                            {(ad.slots || []).map(s => (
-                              <span key={s} className="text-xs bg-[#f0faf4] text-[#1B4332] px-1.5 py-0.5 rounded border border-[#b7e4c7]">
-                                {s}
-                              </span>
-                            ))}
-                            {ad.advertiser && (
-                              <span className="text-xs text-slate-400">{ad.advertiser}</span>
-                            )}
-                          </div>
-                        </div>
-                        <div className="text-right shrink-0">
-                          <p className="text-sm font-bold text-[#1B4332]">{(ad.impressions || 0).toLocaleString("es-MX")}</p>
-                          <p className="text-xs text-slate-400">impresiones</p>
-                        </div>
-                        <button
-                          onClick={() => handleToggleAdActive(ad)}
-                          className={`text-xs px-2.5 py-1 rounded-lg font-semibold border transition-all ${
-                            ad.active
-                              ? "bg-amber-50 text-amber-600 border-amber-200 hover:bg-amber-100"
-                              : "bg-[#f0faf4] text-[#1B4332] border-[#b7e4c7] hover:bg-[#d9f0e4]"
-                          }`}
-                        >
-                          {ad.active ? "Pausar" : "Activar"}
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                </>
-              )}
-            </CardContent>
-          </Card>
+          <AdminAdsPanel ads={adminAds} onToggle={handleToggleAdActive} onDelete={async (id) => {
+            try {
+              const uid = localStorage.getItem("propvalu_user_id") || "user_local_dev";
+              const r = await fetch(`${API}/admin/ads/${id}`, { method: "DELETE", credentials: "include", headers: { "X-User-Id": uid } });
+              if (r.ok) { toast.success("Anuncio eliminado"); fetchAdminAds(); }
+              else toast.error("Error al eliminar");
+            } catch { toast.error("Error de conexión"); }
+          }} />
         )}
 
         {/* Upgrade Card — only for users without a professional role */}

@@ -1057,6 +1057,18 @@ app.post('/api/ads/:id/impression', (req, res) => {
   if (ad) {
     ad.impressions = (ad.impressions || 0) + 1;
     ad.last_impression = new Date().toISOString();
+    if (!ad.first_impression) ad.first_impression = ad.last_impression;
+  }
+  res.json({ ok: true });
+});
+
+// POST /api/ads/:id/click — registrar click
+app.post('/api/ads/:id/click', (req, res) => {
+  const ad = adsStore[req.params.id];
+  if (ad) {
+    ad.clicks = (ad.clicks || 0) + 1;
+    ad.last_click = new Date().toISOString();
+    if (!ad.first_click) ad.first_click = ad.last_click;
   }
   res.json({ ok: true });
 });
@@ -1076,7 +1088,9 @@ app.post('/api/admin/ads', (req, res) => {
   const ad = {
     id, tag: tag || 'Publicidad', title, body: body || '', slots,
     geo: geo || null, advertiser: advertiser || null, media_url: media_url || null,
-    active: true, impressions: 0,
+    active: true, impressions: 0, clicks: 0,
+    first_impression: null, last_impression: null,
+    first_click: null, last_click: null,
     starts_at: starts_at ? new Date(starts_at).getTime() : null,
     ends_at: ends_at ? new Date(ends_at).getTime() : null,
     created_at: new Date().toISOString(), type: 'paid',
@@ -1120,7 +1134,9 @@ app.post('/api/anunciante/ads', (req, res) => {
   const ad = {
     id, tag: tag || 'Publicidad', title, body: body || '', slots,
     geo: geo || null, advertiser: advertiser || null, media_url: media_url || null,
-    active: true, impressions: 0,
+    active: true, impressions: 0, clicks: 0,
+    first_impression: null, last_impression: null,
+    first_click: null, last_click: null,
     starts_at: starts_at ? new Date(starts_at).getTime() : null,
     ends_at: ends_at ? new Date(ends_at).getTime() : null,
     created_at: new Date().toISOString(), type: 'paid',
