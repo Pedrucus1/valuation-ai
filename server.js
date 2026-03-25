@@ -1014,6 +1014,10 @@ app.get('/api/appraiser/earnings', (req, res) => {
 const adsStore = {};
 let adIdCounter = 1;
 
+// ─── Campañas store ────────────────────────────────────────────────────────
+const campaignsStore = {};
+let campaignIdCounter = 1;
+
 // House ads backfill (siempre disponibles cuando no hay anuncios pagados)
 const HOUSE_ADS = [
   { tag: "Consejo PropValu", title: "El valor lo define la oferta y la demanda", body: "No existe un precio único para una propiedad. El valor real es el que un comprador informado está dispuesto a pagar en el mercado actual.", type: "house" },
@@ -1128,7 +1132,7 @@ app.get('/api/anunciante/ads', (req, res) => {
 // POST /api/anunciante/ads — crear anuncio propio
 app.post('/api/anunciante/ads', (req, res) => {
   const uid = req.headers['x-user-id'] || 'user_local_dev';
-  const { tag, title, body, slots, geo, starts_at, ends_at, advertiser, media_url } = req.body;
+  const { tag, title, body, slots, geo, starts_at, ends_at, advertiser, media_url, campaign_id } = req.body;
   if (!title || !slots?.length) return res.status(400).json({ error: 'Faltan campos requeridos: title, slots' });
   const id = `ad_${adIdCounter++}`;
   const ad = {
@@ -1140,7 +1144,8 @@ app.post('/api/anunciante/ads', (req, res) => {
     starts_at: starts_at ? new Date(starts_at).getTime() : null,
     ends_at: ends_at ? new Date(ends_at).getTime() : null,
     created_at: new Date().toISOString(), type: 'paid',
-    advertiser_id: uid
+    advertiser_id: uid,
+    campaign_id: campaign_id || null
   };
   adsStore[id] = ad;
   res.status(201).json(ad);
@@ -1164,6 +1169,97 @@ app.delete('/api/anunciante/ads/:id', (req, res) => {
   if (ad.advertiser_id !== uid) return res.status(403).json({ error: 'No tienes permiso sobre este anuncio' });
   delete adsStore[req.params.id];
   res.json({ ok: true });
+});
+
+// ─── Anunciante: CRUD de campañas ──────────────────────────────────────────
+
+// GET /api/anunciante/campaigns — listar mis campañas (con conteo de creatividades)
+app.get('/api/anunciante/campaigns', (req, res) => {
+  const uid = req.headers['x-user-id'] || 'user_local_dev';
+  const mine = Object.values(campaignsStore).filter(c => c.advertiser_id === uid);
+  // Enriquecer con creatividades
+  const enriched = mine.map(c => {
+    const ads = Object.values(adsStore).filter(a => a.campaign_id === c.id);
+    const totalImp = ads.reduce((s, a) => s + (a.impressions || 0), 0);
+    const totalClk = ads.reduce((s, a) => s + (a.clicks || 0), 0);
+    return { ...c, ads_count: ads.length, impressions: totalImp, clicks: totalClk, ads };
+  });
+  res.json(enriched);
+});
+
+// POST /api/anunciante/campaigns — crear campaña
+app.post('/api/anunciante/campaigns', (req, res) => {
+  const uid = req.headers['x-user-id'] || 'user_local_dev';
+  const { name, budget, starts_at, ends_at, geo, objective } = req.body;
+  if (!name) return res.status(400).json({ error: 'El nombre de campaña es obligatorio' });
+  const id = `camp_${campaignIdCounter++}`;
+  const campaign = {
+    id, name, budget: budget || 0,
+    starts_at: starts_at ? new Date(starts_at).getTime() : null,
+    ends_at: ends_at ? new Date(ends_at).getTime() : null,
+    geo: geo || null, objective: objective || 'awareness',
+    status: 'draft', advertiser_id: uid,
+    created_at: new Date().toISOString(),
+  };
+  campaignsStore[id] = campaign;
+  res.status(201).json(campaign);
+});
+
+// PUT /api/anunciante/campaigns/:id — actualizar campaña propia
+app.put('/api/anunciante/campaigns/:id', (req, res) => {
+  const uid = req.headers['x-user-id'] || 'user_local_dev';
+  const camp = campaignsStore[req.params.id];
+  if (!camp) return res.status(404).json({ error: 'Campaña no encontrada' });
+  if (camp.advertiser_id !== uid) return res.status(403).json({ error: 'No tienes permiso' });
+  const { name, budget, starts_at, ends_at, geo, objective, status } = req.body;
+  if (name !== undefined) camp.name = name;
+  if (budget !== undefined) camp.budget = budget;
+  if (starts_at !== undefined) camp.starts_at = starts_at ? new Date(starts_at).getTime() : null;
+  if (ends_at !== undefined) camp.ends_at = ends_at ? new Date(ends_at).getTime() : null;
+  if (geo !== undefined) camp.geo = geo;
+  if (objective !== undefined) camp.objective = objective;
+  if (status !== undefined) {
+    const validStatuses = ['draft', 'review', 'approved', 'paused'];
+    if (validStatuses.includes(status)) camp.status = status;
+  }
+  res.json(camp);
+});
+
+// DELETE /api/anunciante/campaigns/:id — eliminar campaña propia
+app.delete('/api/anunciante/campaigns/:id', (req, res) => {
+  const uid = req.headers['x-user-id'] || 'user_local_dev';
+  const camp = campaignsStore[req.params.id];
+  if (!camp) return res.status(404).json({ error: 'Campaña no encontrada' });
+  if (camp.advertiser_id !== uid) return res.status(403).json({ error: 'No tienes permiso' });
+  // También eliminar creatividades de esta campaña
+  Object.values(adsStore).forEach(ad => {
+    if (ad.campaign_id === camp.id && ad.advertiser_id === uid) delete adsStore[ad.id];
+  });
+  delete campaignsStore[req.params.id];
+  res.json({ ok: true });
+});
+
+// GET /api/admin/campaigns — listar todas las campañas (admin)
+app.get('/api/admin/campaigns', (req, res) => {
+  const all = Object.values(campaignsStore).map(c => {
+    const ads = Object.values(adsStore).filter(a => a.campaign_id === c.id);
+    const totalImp = ads.reduce((s, a) => s + (a.impressions || 0), 0);
+    const totalClk = ads.reduce((s, a) => s + (a.clicks || 0), 0);
+    return { ...c, ads_count: ads.length, impressions: totalImp, clicks: totalClk, ads };
+  });
+  res.json(all);
+});
+
+// PUT /api/admin/campaigns/:id — admin puede cambiar status de cualquier campaña
+app.put('/api/admin/campaigns/:id', (req, res) => {
+  const camp = campaignsStore[req.params.id];
+  if (!camp) return res.status(404).json({ error: 'Campaña no encontrada' });
+  const { status } = req.body;
+  if (status) {
+    const validStatuses = ['draft', 'review', 'approved', 'paused'];
+    if (validStatuses.includes(status)) camp.status = status;
+  }
+  res.json(camp);
 });
 
 // ============================================================
