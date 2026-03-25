@@ -267,7 +267,7 @@ const TabMetricas = ({ ads, isLoading }) => {
             </tbody>
           </table>
         </div>
-      </Card>
+      </CardContent></Card>
 
       {/* Top 5 */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
