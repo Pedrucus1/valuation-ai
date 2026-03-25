@@ -80,7 +80,11 @@ const DashboardPage = () => {
 
   const checkAuth = async () => {
     try {
-      const response = await fetch(`${API}/auth/me`, { credentials: "include" });
+      const userId = localStorage.getItem("propvalu_user_id") || "user_local_dev";
+      const response = await fetch(`${API}/auth/me`, {
+        credentials: "include",
+        headers: { "X-User-Id": userId },
+      });
       if (!response.ok) {
         navigate("/", { replace: true });
         return;
@@ -168,7 +172,11 @@ const DashboardPage = () => {
 
   const fetchAdminAds = async () => {
     try {
-      const r = await fetch(`${API}/admin/ads`, { credentials: "include" });
+      const userId = localStorage.getItem("propvalu_user_id") || "user_local_dev";
+      const r = await fetch(`${API}/admin/ads`, {
+        credentials: "include",
+        headers: { "X-User-Id": userId },
+      });
       if (r.ok) setAdminAds(await r.json());
     } catch {}
   };

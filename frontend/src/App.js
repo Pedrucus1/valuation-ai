@@ -47,8 +47,10 @@ const ProtectedRoute = ({ children }) => {
 
     const checkAuth = async () => {
       try {
+        const userId = localStorage.getItem("propvalu_user_id") || "user_local_dev";
         const response = await fetch(`${API}/auth/me`, {
           credentials: "include",
+          headers: { "X-User-Id": userId },
         });
         if (!response.ok) throw new Error("Not authenticated");
         const userData = await response.json();

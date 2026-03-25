@@ -255,23 +255,25 @@ app.get('/api/geocode', async (req, res) => {
 
 // Stub de sesión para desarrollo local
 app.post('/api/auth/session', (req, res) => {
-  const userId = 'user_local_dev';
+  // Lee el user_id desde header (enviado por DevLogin/frontend) o usa fallback
+  const userId = req.headers['x-user-id'] || req.body?.user_id || 'user_local_dev';
   res.json({
     user_id: userId,
-    email: 'dev@example.com',
-    name: 'Local Developer',
-    role: userRoles[userId] || 'appraiser',
+    email: userId === 'user_local_dev' ? 'dev@example.com' : `${userId}@dev.local`,
+    name: userId === 'user_local_dev' ? 'Local Developer' : userId.replace('dev_', '').replace('_', ' '),
+    role: userRoles[userId] || 'public',
     created_at: new Date().toISOString()
   });
 });
 
 app.get('/api/auth/me', (req, res) => {
-  const userId = 'user_local_dev';
+  // Lee el user_id desde header (enviado por DevLogin/frontend) o usa fallback
+  const userId = req.headers['x-user-id'] || 'user_local_dev';
   res.json({
     user_id: userId,
-    email: 'dev@example.com',
-    name: 'Local Developer',
-    role: userRoles[userId] || 'appraiser',
+    email: userId === 'user_local_dev' ? 'dev@example.com' : `${userId}@dev.local`,
+    name: userId === 'user_local_dev' ? 'Local Developer' : userId.replace('dev_', '').replace(/_/g, ' '),
+    role: userRoles[userId] || 'public',
     created_at: new Date().toISOString()
   });
 });
