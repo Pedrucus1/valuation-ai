@@ -1,17 +1,15 @@
 """
-Enhanced HTML Report Generator for PropValu v2.6
-- 3-page letter format optimized for print
-- Larger, more legible fonts
-- Static map image (no iframe issues)
-- Thermometer with conservation/demand/comparables logic
-- Optional sections for PDF export
+HTML Report Generator for PropValu v3.0
+- 5 páginas: Datos | Valor | Comparables | Entorno/Recomendaciones | Fotos
+- CSS exacto del template reporte-preview-TEMPLATE.html
+- Diseño fiel al PDF de referencia Emergent 19.1
 """
 
 from datetime import datetime, timezone
 from typing import Dict, List, Optional
 from static_map import get_map_for_report
 
-# Catálogo de uso de suelo actualizado basado en Jalisco
+# Catálogo de uso de suelo
 LAND_USE_INFO = {
     "H1-U": {"name": "Habitacional Unifamiliar", "description": "Una vivienda por lote, baja densidad", "icon": "🏠", "color": "#22c55e"},
     "H2-U": {"name": "Habitacional Dúplex", "description": "Dos viviendas por lote", "icon": "🏠", "color": "#22c55e"},
@@ -20,79 +18,362 @@ LAND_USE_INFO = {
     "H2-V": {"name": "Plurifamiliar Vertical Baja", "description": "Edificios de hasta 4 niveles", "icon": "🏢", "color": "#eab308"},
     "H3-V": {"name": "Plurifamiliar Vertical Media", "description": "Edificios de 5-8 niveles", "icon": "🏢", "color": "#f97316"},
     "H4-V": {"name": "Plurifamiliar Vertical Alta", "description": "Torres de más de 8 niveles", "icon": "🏙", "color": "#ef4444"},
-    "HM": {"name": "Habitacional Mixto", "description": "Vivienda con otros usos compatibles", "icon": "🏬", "color": "#06b6d4"},
-    "HC": {"name": "Habitacional con Comercio Vecinal", "description": "Comercio en planta baja, vivienda arriba", "icon": "🏪", "color": "#06b6d4"},
-    "HO": {"name": "Habitacional con Oficinas", "description": "Oficinas y vivienda en mismo predio", "icon": "🏢", "color": "#8b5cf6"},
-    "CU": {"name": "Comercio Uniforme", "description": "Comercio de pequeña escala", "icon": "🛒", "color": "#8b5cf6"},
-    "CB": {"name": "Centro de Barrio", "description": "Servicios y comercio local", "icon": "🏬", "color": "#ec4899"},
-    "CD": {"name": "Centro de Distrito", "description": "Comercio y servicios a nivel distrito", "icon": "🏬", "color": "#f43f5e"},
-    "CS": {"name": "Corredor de Servicios", "description": "Comercio en vías principales", "icon": "🛣", "color": "#f43f5e"},
-    "CC": {"name": "Centro Comercial", "description": "Plazas y centros comerciales", "icon": "🏬", "color": "#dc2626"},
-    "CR": {"name": "Corredor Regional", "description": "Comercio de alto impacto regional", "icon": "🏪", "color": "#dc2626"},
-    "I-L": {"name": "Industrial Ligera", "description": "Manufactura ligera, talleres", "icon": "🏭", "color": "#64748b"},
-    "I-M": {"name": "Industrial Media", "description": "Industria de mediano impacto", "icon": "🏭", "color": "#475569"},
-    "I-P": {"name": "Industrial Pesada", "description": "Industria de alto impacto", "icon": "🏭", "color": "#334155"},
-    "IP": {"name": "Industria Parque", "description": "Parques industriales planificados", "icon": "🏭", "color": "#1e293b"},
-    "EA": {"name": "Espacios Abiertos", "description": "Parques, jardines, áreas verdes", "icon": "🌳", "color": "#22c55e"},
-    "EI": {"name": "Equipamiento Institucional", "description": "Escuelas, hospitales, gobierno", "icon": "🏛", "color": "#3b82f6"},
-    "PE": {"name": "Preservación Ecológica", "description": "Áreas naturales protegidas", "icon": "🌲", "color": "#16a34a"},
-    "AG": {"name": "Agrícola", "description": "Uso agrícola y ganadero", "icon": "🌾", "color": "#a3e635"},
+    "HM":   {"name": "Habitacional Mixto", "description": "Vivienda con otros usos compatibles", "icon": "🏬", "color": "#06b6d4"},
+    "HC":   {"name": "Habitacional con Comercio Vecinal", "description": "Comercio en planta baja, vivienda arriba", "icon": "🏪", "color": "#06b6d4"},
+    "HO":   {"name": "Habitacional con Oficinas", "description": "Oficinas y vivienda en mismo predio", "icon": "🏢", "color": "#8b5cf6"},
+    "CU":   {"name": "Comercio Uniforme", "description": "Comercio de pequeña escala", "icon": "🛒", "color": "#8b5cf6"},
+    "CB":   {"name": "Centro de Barrio", "description": "Servicios y comercio local", "icon": "🏬", "color": "#ec4899"},
+    "CD":   {"name": "Centro de Distrito", "description": "Comercio y servicios a nivel distrito", "icon": "🏬", "color": "#f43f5e"},
+    "CS":   {"name": "Corredor de Servicios", "description": "Comercio en vías principales", "icon": "🛣", "color": "#f43f5e"},
+    "CC":   {"name": "Centro Comercial", "description": "Plazas y centros comerciales", "icon": "🏬", "color": "#dc2626"},
+    "CR":   {"name": "Corredor Regional", "description": "Comercio de alto impacto regional", "icon": "🏪", "color": "#dc2626"},
+    "I-L":  {"name": "Industrial Ligera", "description": "Manufactura ligera, talleres", "icon": "🏭", "color": "#64748b"},
+    "I-M":  {"name": "Industrial Media", "description": "Industria de mediano impacto", "icon": "🏭", "color": "#475569"},
+    "I-P":  {"name": "Industrial Pesada", "description": "Industria de alto impacto", "icon": "🏭", "color": "#334155"},
+    "IP":   {"name": "Industria Parque", "description": "Parques industriales planificados", "icon": "🏭", "color": "#1e293b"},
+    "EA":   {"name": "Espacios Abiertos", "description": "Parques, jardines, áreas verdes", "icon": "🌳", "color": "#22c55e"},
+    "EI":   {"name": "Equipamiento Institucional", "description": "Escuelas, hospitales, gobierno", "icon": "🏛", "color": "#3b82f6"},
+    "PE":   {"name": "Preservación Ecológica", "description": "Áreas naturales protegidas", "icon": "🌲", "color": "#16a34a"},
+    "AG":   {"name": "Agrícola", "description": "Uso agrícola y ganadero", "icon": "🌾", "color": "#a3e635"},
     "desconocido": {"name": "Por Verificar", "description": "Consulte el visor urbano municipal", "icon": "❓", "color": "#94a3b8"},
 }
 
-# Mapa de características especiales a iconos coherentes
 FEATURE_ICONS = {
-    "parking": "🅿️",
-    "pool": "🏊",
-    "garden": "🌳",
-    "terrace": "🌅",
-    "gym": "🏋",
-    "security": "🛡",
-    "elevator": "🛗",
-    "rooftop": "🌿",
-    "service_room": "🚪",
-    "laundry_room": "🧺",
-    "storage": "📦",
-    "kitchen_integral": "🍳",
+    "parking": "🅿️", "pool": "🏊", "garden": "🌳", "terrace": "🌅",
+    "gym": "🏋", "security": "🛡", "elevator": "🛗", "rooftop": "🌿",
+    "service_room": "🚪", "laundry_room": "🧺", "storage": "📦", "kitchen_integral": "🍳",
 }
-
 FEATURE_NAMES = {
-    "parking": "Estacionamiento",
-    "pool": "Alberca",
-    "garden": "Jardín",
-    "terrace": "Terraza",
-    "gym": "Gimnasio",
-    "security": "Seguridad 24/7",
-    "elevator": "Elevador",
-    "rooftop": "Roof Garden",
-    "service_room": "Cuarto de Servicio",
-    "laundry_room": "Cuarto de Lavado",
-    "storage": "Bodega/Almacén",
-    "kitchen_integral": "Cocina Integral",
+    "parking": "Estacionamiento", "pool": "Alberca", "garden": "Jardín", "terrace": "Terraza",
+    "gym": "Gimnasio", "security": "Seguridad 24/7", "elevator": "Elevador", "rooftop": "Roof Garden",
+    "service_room": "Cuarto de Servicio", "laundry_room": "Cuarto de Lavado",
+    "storage": "Bodega/Almacén", "kitchen_integral": "Cocina Integral",
 }
 
 
 def get_land_use_info(land_use: str) -> Dict:
-    """Get detailed description for land use codes"""
     return LAND_USE_INFO.get(land_use, LAND_USE_INFO["desconocido"])
 
 
 def generate_folio(valuation_id: str) -> str:
-    """Genera folio formato EST-AA-MM-DD-NN"""
     now = datetime.now(timezone.utc)
     num = ''.join(filter(str.isdigit, valuation_id[-4:])) or '01'
-    return f"EST-{now.strftime('%y-%m-%d')}-{num[:2].zfill(2)}"
+    return f"EST-{now.strftime('%y%m%d')}-{num[:2].zfill(2)}"
+
+
+# ── CSS exacto del template reporte-preview-TEMPLATE.html ─────────────────────
+_REPORT_CSS = """
+  :root {
+    --green-900: #1B4231;
+    --green-700: #2D6A4F;
+    --green-500: #51B687;
+    --green-100: #f0faf4;
+    --lime:      #D9ED91;
+    --text-main: #0F162A;
+    --text-sec:  #63738A;
+    --text-comp: #1A2E22;
+    --text-blue: #0183C7;
+    --text-mkt:  #1E3A89;
+    --text-disc: #913F0D;
+    --red:       #DC2525;
+    --gray-50:   #f8fafc;
+    --gray-100:  #f1f5f9;
+    --gray-200:  #e2e8f0;
+    --gray-400:  #94a3b8;
+    --gray-500:  #64748b;
+    --box-bg:    #fcfcfc;
+    --white:     #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #d0d8e4;
+    color: var(--text-main);
+    font-size: 12px;
+    line-height: 1.5;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 24px auto;
+    padding: 18px 28px 30px;
+    background: white;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+    border-radius: 4px;
+    position: relative;
+    page-break-after: always;
+  }
+  .page:last-child { page-break-after: avoid; }
+  h1, h2, h3 { font-family: 'Outfit', sans-serif; }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--green-900);
+    margin-bottom: 14px;
+  }
+  .logo { display: flex; align-items: center; gap: 7px; }
+  .logo-icon {
+    width: 28px; height: 28px;
+    background: var(--green-900);
+    border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 13px;
+  }
+  .logo-text { font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 800; color: var(--green-900); }
+  .logo-text span { color: var(--green-500); }
+  .folio-box { text-align: right; font-size: 10px; color: var(--text-sec); line-height: 1.7; }
+  .folio-box strong { color: var(--text-main); }
+
+  .title-banner {
+    background: var(--green-900);
+    color: white;
+    text-align: center;
+    padding: 9px 20px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+
+  .section-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px; font-weight: 700;
+    color: var(--green-900);
+    margin-bottom: 9px;
+    display: flex; align-items: center; gap: 5px;
+  }
+
+  .inmueble-card { border: 1px solid var(--gray-200); border-radius: 10px; overflow: hidden; margin-bottom: 10px; }
+  .inmueble-top {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    border-bottom: 1px solid var(--gray-200); background: var(--gray-50);
+  }
+  .inmueble-addr { padding: 10px 14px; border-right: 1px solid var(--gray-200); }
+  .prop-address { font-size: 12px; font-weight: 700; color: var(--text-main); }
+  .prop-city    { font-size: 11px; color: var(--text-sec); margin-top: 2px; }
+  .tech-note { padding: 10px 14px; font-size: 10px; color: #92400e; background: #fffbeb; }
+  .tech-note strong { color: #b45309; display: block; margin-bottom: 2px; }
+
+  .data-grid { width: 100%; border-collapse: collapse; margin-bottom: 0; }
+  .data-grid td {
+    border-top: 1px solid var(--gray-200);
+    border-right: 1px solid var(--gray-200);
+    padding: 8px 12px; width: 33.33%;
+    vertical-align: top; background: white;
+  }
+  .data-grid td:last-child { border-right: none; }
+  .data-grid .dg-label {
+    font-size: 9px; color: var(--text-sec);
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 3px; font-weight: 500;
+    display: flex; align-items: center; gap: 4px;
+  }
+  .data-grid .dg-value { font-size: 13px; font-weight: 700; color: var(--text-main); }
+
+  .badges { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 5px 12px; border-radius: 20px;
+    font-size: 10px; font-weight: 600; color: white;
+    background: var(--green-700);
+  }
+
+  .map-container {
+    width: 100%; height: 220px; overflow: hidden;
+    border: 1px solid var(--gray-200); border-radius: 10px;
+    margin-bottom: 5px; background: var(--gray-100);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gray-400); font-size: 13px;
+  }
+  .coords { text-align: right; font-size: 10px; color: var(--text-sec); margin-bottom: 12px; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .plusvalia-card { border: 1px solid var(--gray-200); border-radius: 10px; padding: 12px 14px; }
+  .chart-bars {
+    display: flex; align-items: flex-end; gap: 8px;
+    height: 110px; margin: 10px 0 6px;
+    border-bottom: 2px solid var(--gray-200); padding-bottom: 0;
+  }
+  .chart-bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; }
+  .chart-bar { width: 100%; border-radius: 4px 4px 0 0; }
+  .cb-1 { background: #76C893; } .cb-2 { background: var(--green-500); }
+  .cb-3 { background: #3d9970; } .cb-4 { background: #2D6A4F; }
+  .cb-5 { background: var(--green-900); }
+  .chart-pct    { font-size: 9px; font-weight: 700; color: var(--green-900); }
+  .chart-year   { font-size: 9px; color: var(--text-sec); }
+  .chart-amount { font-size: 8px; color: var(--text-sec); }
+  .chart-footnote { font-size: 8px; color: var(--gray-400); font-style: italic; margin-top: 4px; }
+
+  .entorno-card { border: 1px solid var(--gray-200); border-radius: 10px; padding: 12px 14px; }
+  .entorno-item {
+    display: flex; align-items: center; gap: 6px;
+    padding: 3px 0; font-size: 11px;
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .entorno-item:last-child { border-bottom: none; }
+  .entorno-item .elabel { color: var(--text-sec); min-width: 72px; }
+  .entorno-item .evalue { font-weight: 600; color: var(--text-main); }
+
+  /* Perfil del Entorno con scores */
+  .pe-scores-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
+  .pe-score-card { border: 1px solid var(--gray-200); border-radius: 10px; padding: 10px 12px; }
+  .pe-score-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+  .pe-score-name { display: flex; align-items: center; gap: 5px; font-weight: 700; font-size: 10px; color: var(--text-main); }
+  .pe-score-val  { font-weight: 800; color: var(--green-700); font-size: 11px; }
+  .pe-score-bar-bg { height: 5px; background: var(--gray-200); border-radius: 3px; margin-bottom: 5px; }
+  .pe-score-bar    { height: 5px; background: var(--green-500); border-radius: 3px; }
+  .pe-score-text   { font-size: 9px; color: var(--text-sec); line-height: 1.4; }
+
+  .page-footer {
+    position: absolute; bottom: 10px; left: 28px; right: 28px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 8px; color: var(--gray-400); font-style: italic;
+    border-top: 1px solid var(--gray-100); padding-top: 4px;
+  }
+  .page-footer .pf-center { text-align: center; flex: 1; }
+  .page-footer .pf-page {
+    font-style: normal; font-weight: 600; color: var(--gray-500);
+    font-size: 8px; background: var(--gray-100); padding: 2px 7px; border-radius: 10px;
+  }
+
+  /* PÁGINA 2 */
+  .valor-hero {
+    background: linear-gradient(150deg, #162f24 0%, var(--green-900) 40%, var(--green-700) 100%);
+    color: white; padding: 20px 24px 14px; border-radius: 14px; margin-bottom: 14px;
+  }
+  .vh-row { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .vh-side-col { display: flex; flex-direction: column; }
+  .vh-side-col.right { align-items: flex-end; text-align: right; }
+  .vh-side-label { font-size: 8px; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.5); margin-bottom: 3px; font-weight: 600; }
+  .vh-side-val   { font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 800; }
+  .vh-val-lime { color: var(--lime); }
+  .vh-val-red  { color: #fca5a5; }
+  .vh-center-col { text-align: center; }
+  .valor-subtitle { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--lime); font-weight: 700; margin-bottom: 4px; }
+  .valor-main     { font-family: 'Outfit', sans-serif; font-size: 52px; font-weight: 800; line-height: 1; letter-spacing: -2px; }
+  .valor-currency { font-size: 10px; color: rgba(255,255,255,0.55); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 3px; }
+  .vh-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 10px; margin-top: 2px; }
+  .vh-footer .vh-m2 { font-size: 12px; font-weight: 600; color: white; }
+  .vh-footer .vh-m2 span { color: var(--lime); font-weight: 800; }
+  .vh-confianza { display: inline-flex; align-items: center; gap: 4px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); border-radius: 6px; padding: 4px 12px; font-size: 10px; font-weight: 700; color: white; }
+
+  .competitiva-bar-bg { height: 12px; background: linear-gradient(to right, #ef4444 0%, #f59e0b 35%, #22c55e 65%, var(--green-500) 100%); border-radius: 6px; position: relative; margin: 8px 0; }
+  .competitiva-marker { position: absolute; top: -5px; width: 4px; height: 22px; background: var(--text-main); border-radius: 2px; box-shadow: 0 0 0 2px white, 0 0 0 3px var(--text-main); }
+  .competitiva-labels { display: flex; justify-content: space-between; font-size: 10px; font-weight: 700; margin-bottom: 10px; }
+  .clabel-red   { color: var(--red); }
+  .clabel-gray  { color: var(--gray-500); }
+  .clabel-green { color: var(--green-500); }
+
+  .metric-card-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+  .metric-card { border: 1px solid var(--gray-200); border-radius: 8px; padding: 9px 12px; text-align: center; background: white; }
+  .metric-card .mc-label { font-size: 8px; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
+  .metric-card .mc-value { font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; color: var(--text-main); }
+
+  .resumen-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 8px; }
+  .resumen-box { border: 1px solid var(--gray-200); border-radius: 10px; padding: 12px 8px; text-align: center; background: white; }
+  .resumen-box.highlight { border: 2px solid var(--green-500); background: #f0faf4; }
+  .resumen-box.highlight .rb-value { color: var(--green-700); }
+  .resumen-box .rb-value { font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 800; color: var(--green-900); }
+  .resumen-box .rb-label { font-size: 8px; color: var(--text-sec); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 3px; }
+
+  .min-max-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; font-size: 11px; margin-bottom: 12px; border-bottom: 1px solid var(--gray-100); }
+  .mm-label { color: var(--text-sec); }
+  .mm-lime  { font-weight: 700; color: #2D6A4F; }
+  .mm-pink  { font-weight: 700; color: var(--red); }
+
+  .indicadores-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 7px; margin-bottom: 12px; }
+  .ind-card { border: 1px solid var(--gray-200); border-radius: 8px; padding: 10px 6px; text-align: center; background: var(--green-100); }
+  .ind-card .ind-label { font-size: 7px; color: var(--green-700); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 4px; font-weight: 700; }
+  .ind-card .ind-value { font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 800; color: var(--green-900); }
+  .ind-card .ind-sub   { font-size: 8px; color: var(--gray-500); margin-top: 2px; }
+  .ind-card.negative { border-color: #fecaca; background: #fff5f5; }
+  .ind-card.negative .ind-label { color: #b91c1c; }
+  .ind-card.negative .ind-value { color: var(--red); }
+
+  .fisico-grid { display: grid; grid-template-columns: 110px 1fr 1fr; gap: 12px; align-items: center; }
+  .donut-legend { font-size: 10px; margin-top: 6px; }
+  .donut-legend .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; margin-right: 3px; vertical-align: middle; }
+  .fisico-values { font-size: 12px; }
+  .fisico-values .fv-row { display: flex; justify-content: space-between; padding: 3px 0; border-bottom: 1px solid var(--gray-100); }
+  .fisico-values .fv-total { font-weight: 800; font-size: 14px; color: var(--green-900); border-top: 2px solid var(--green-900); padding-top: 3px; margin-top: 3px; display: flex; justify-content: space-between; }
+
+  .warning-box { background: #fffbeb; border: 1px solid #fde68a; border-left: 3px solid #f59e0b; border-radius: 10px; padding: 10px 14px; font-size: 10px; color: #78350f; line-height: 1.6; }
+  .warning-box .wb-title { font-weight: 700; color: #b45309; margin-bottom: 5px; }
+  .warning-box strong { color: var(--text-main); }
+
+  /* PÁGINA 3 */
+  .comp-table { width: 100%; border-collapse: collapse; font-size: 10px; margin-bottom: 12px; border-radius: 10px; overflow: hidden; border: 1px solid var(--gray-200); }
+  .comp-table thead th { background: var(--gray-50); color: var(--text-sec); padding: 8px 7px; text-align: left; font-weight: 600; font-size: 9px; text-transform: uppercase; letter-spacing: 0.4px; border-bottom: 2px solid var(--gray-200); }
+  .comp-table tbody td { padding: 8px 7px; border-bottom: 1px solid var(--gray-100); vertical-align: top; color: var(--text-main); }
+  .comp-table tbody tr:nth-child(even) { background: #fafafa; }
+  .comp-colonia { font-weight: 700; color: var(--text-comp); }
+  .comp-rooms   { display: flex; gap: 8px; margin-top: 2px; font-size: 9px; color: var(--text-sec); }
+  .comp-tag     { display: inline-block; padding: 1px 6px; border-radius: 4px; background: rgba(81,182,135,0.12); color: var(--green-500); font-size: 8px; font-weight: 600; }
+  .comp-neg     { font-weight: 700; color: var(--red); }
+  .comp-pos     { font-weight: 700; color: var(--green-500); }
+  .comp-fuente  { color: var(--text-blue); font-size: 9px; }
+
+  .va-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .va-card { border: 1px solid var(--gray-200); border-radius: 10px; padding: 12px 14px; background: white; }
+  .va-card .va-title { font-family: 'Outfit', sans-serif; font-size: 11px; font-weight: 700; margin-bottom: 7px; }
+  .va-title-green { color: var(--green-500); }
+  .va-title-amber { color: #d97706; }
+  .va-card ul { list-style: disc; padding-left: 14px; font-size: 10px; color: var(--text-sec); line-height: 1.6; }
+
+  .analisis-box { border: 1px solid var(--gray-200); border-radius: 10px; padding: 12px 14px; margin-bottom: 12px; background: var(--box-bg); }
+  .analisis-box p { font-size: 10px; color: var(--text-sec); line-height: 1.7; text-align: justify; }
+
+  .metodo-box { background: var(--box-bg); border: 1px solid var(--gray-200); border-left: 3px solid var(--green-500); border-radius: 10px; padding: 12px 14px; font-size: 10px; color: var(--text-sec); line-height: 1.6; }
+  .metodo-box .mb-title { font-weight: 700; color: var(--green-900); margin-bottom: 4px; font-size: 11px; }
+  .metodo-box strong { color: var(--text-main); }
+
+  /* PÁGINA 4 */
+  .servicios-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-bottom: 12px; }
+  .servicio-card { border: 1px solid var(--gray-200); border-radius: 10px; padding: 10px 12px; }
+  .servicio-card .sc-header { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+  .servicio-card .sc-icon { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; background: var(--green-100); border-radius: 8px; flex-shrink: 0; }
+  .servicio-card .sc-title    { font-weight: 700; font-size: 12px; color: var(--text-main); }
+  .servicio-card .sc-subtitle { font-size: 9px; color: var(--text-sec); }
+  .servicio-card .sc-list     { font-size: 9px; color: var(--text-sec); line-height: 1.6; }
+
+  .recom-box { border: 1px solid #c7d7f5; border-left: 3px solid var(--text-mkt); border-radius: 10px; padding: 12px 14px; margin-bottom: 12px; background: #f0f4fd; }
+  .recom-box .recom-head { font-weight: 700; color: var(--text-mkt); margin-bottom: 7px; font-size: 11px; }
+  .recom-item { display: flex; gap: 8px; margin-bottom: 7px; font-size: 10px; color: var(--text-mkt); line-height: 1.6; align-items: flex-start; }
+  .recom-item span { font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+  .recom-item strong { color: var(--text-mkt); font-weight: 700; }
+
+  .tips-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+  .tip-card { display: flex; gap: 9px; padding: 9px 11px; border: 1px solid var(--gray-200); border-radius: 8px; font-size: 10px; }
+  .tip-card .tip-icon  { font-size: 16px; flex-shrink: 0; }
+  .tip-card .tip-title { font-weight: 700; color: var(--text-main); margin-bottom: 2px; }
+  .tip-card .tip-text  { color: var(--text-sec); font-size: 9px; line-height: 1.5; }
+
+  .legal-box { background: #fdf8f3; border: 1px solid #e8d5b0; border-left: 3px solid var(--text-disc); border-radius: 10px; padding: 10px 14px; font-size: 9px; color: var(--text-disc); line-height: 1.7; }
+  .legal-box .lb-title { font-weight: 700; color: var(--text-disc); font-size: 10px; margin-bottom: 4px; }
+
+  /* PÁGINA 5 — FOTOS */
+  .photos-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .photo-item img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; border: 1px solid var(--gray-200); }
+  .no-photos { text-align: center; padding: 60px 20px; color: var(--gray-400); border: 2px dashed var(--gray-200); border-radius: 10px; margin-top: 20px; }
+  .no-photos .np-icon { font-size: 48px; margin-bottom: 12px; }
+
+  @media print {
+    body { background: white; }
+    .page { margin: 0; padding: 12mm 18mm 14mm; box-shadow: none; }
+  }
+"""
 
 
 def generate_html_report(valuation: dict, analysis: str, include_analysis: bool = True, ai_sections: dict = None) -> str:
-    """
-    Generate comprehensive HTML report optimized for 3-page letter print.
-
-    Args:
-        valuation: Full valuation data
-        analysis: AI-generated analysis text
-        include_analysis: Whether to include the analysis section in PDF (user option)
-    """
     prop = valuation["property_data"]
     result = valuation["result"]
     comparables = valuation.get("comparables", [])
@@ -100,1457 +381,751 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
     consultation_date = valuation.get("consultation_date", datetime.now(timezone.utc).isoformat())
     photos = prop.get("photos", [])
     is_valuer_mode = valuation.get("mode") == "private"
-    
+
     if is_valuer_mode and selected_ids:
         active_comparables = [c for c in comparables if c["comparable_id"] in selected_ids]
     else:
         active_comparables = comparables[:6]
-    
+
+    # Date
     if isinstance(consultation_date, str):
         date_str = consultation_date[:10]
     else:
         date_str = consultation_date.strftime("%Y-%m-%d")
-    
-    # Generate folio
+    try:
+        d = datetime.strptime(date_str, "%Y-%m-%d")
+        date_display = d.strftime("%d/%m/%Y")
+    except Exception:
+        date_display = date_str
+
     folio = generate_folio(valuation.get('valuation_id', '001'))
-    
+
     # Market metrics
     market_metrics = result.get('market_metrics', {})
     monthly_rent = market_metrics.get('monthly_rent_estimate', 0)
-    annual_rent = market_metrics.get('annual_rent_estimate', 0)
-    cap_rate = market_metrics.get('cap_rate', 0)
-    appreciation = market_metrics.get('annual_appreciation', 5)
+    cap_rate = float(market_metrics.get('cap_rate', 0))
+    appreciation = float(market_metrics.get('annual_appreciation', 5))
     similar_count = market_metrics.get('similar_properties_count', len(comparables))
-    
-    app_low = max(0, appreciation - 1)
-    app_high = appreciation + 1
-    appreciation_range = f"{app_low:.0f}% - {app_high:.0f}%"
-    
-    # Comparables table
-    comp_rows = ""
-    for i, comp in enumerate(active_comparables, 1):
-        source_name = comp["source"].replace(".com.mx", "").replace(".com", "").replace("www.", "").capitalize()
-        source_link = f'<a href="{comp.get("source_url", "#")}" target="_blank" class="source-link">{source_name}</a>'
-        adj_color = '#b91c1c' if comp['total_adjustment'] < 0 else '#15803d'
-        comp_rows += f"""
-        <tr>
-            <td class="text-center">{i}</td>
-            <td>{comp['neighborhood'][:25]}</td>
-            <td class="text-right">{comp.get('land_area', '-')}</td>
-            <td class="text-right">{comp.get('construction_area', '-')}</td>
-            <td class="text-right">${comp['price']:,.0f}</td>
-            <td class="text-right">${comp['price_per_sqm']:,.0f}</td>
-            <td class="text-center" style="color: {adj_color}; font-weight: 600;">{comp['total_adjustment']:+.1f}%</td>
-            <td class="text-right" style="font-weight: 700;">${comp['adjusted_price_per_sqm']:,.0f}</td>
-            <td>{source_link}</td>
-        </tr>
-        """
-    
-    # Photos section (compact, max 8)
-    photos_html = ""
-    if photos and len(photos) > 0:
-        photos_html = '<div class="photos-section"><h2>📸 FOTOGRAFÍAS DEL INMUEBLE</h2><div class="photos-grid">'
-        for i, photo in enumerate(photos[:8]):
-            photos_html += f'<div class="photo-item"><img src="{photo}" alt="Foto {i+1}"></div>'
-        photos_html += '</div></div>'
-    
-    # Map - generate static image
-    lat = prop.get('latitude') or 19.4326
-    lng = prop.get('longitude') or -99.1332
-    
-    # Get static map data
-    map_data = get_map_for_report(lat, lng)
-    static_map_src = map_data.get('static_image') or map_data['iframe_url']
-    has_static_map = map_data.get('has_static', False)
-    embed_map_url = map_data['iframe_url']
-    
-    # Property features
-    features_html = ""
-    if prop.get('bedrooms'):
-        features_html += f'<span class="feature-tag">🛏 {prop["bedrooms"]} Recámaras</span>'
-    if prop.get('bathrooms'):
-        features_html += f'<span class="feature-tag">🚿 {prop["bathrooms"]} Baños</span>'
-    if prop.get('parking_spaces'):
-        features_html += f'<span class="feature-tag">🅿️ {prop["parking_spaces"]} Estac.</span>'
-    if prop.get('floor_number'):
-        floor_text = f'Piso {prop["floor_number"]}'
-        if prop.get('total_floors'):
-            floor_text += f'/{prop["total_floors"]}'
-        features_html += f'<span class="feature-tag">🏢 {floor_text}</span>'
-    if prop.get('estimated_age'):
-        features_html += f'<span class="feature-tag">📅 {prop["estimated_age"]} años</span>'
-    
-    # Special features
-    special_features = prop.get('special_features', [])
-    for feat in special_features[:6]:
-        icon = FEATURE_ICONS.get(feat, "✓")
-        name = FEATURE_NAMES.get(feat, feat)
-        features_html += f'<span class="feature-tag">{icon} {name}</span>'
-    
-    # Other features (free text)
-    other_features_html = ""
-    if prop.get('other_features'):
-        other_features_html = f"""
-        <div class="other-features">
-            <strong>Otros elementos:</strong> {prop['other_features']}
-        </div>
-        """
-    
-    # Land use section - only show in valuer mode if specified
-    land_use = prop.get('land_use', 'desconocido')
-    land_info = get_land_use_info(land_use)
-    
-    # In public mode, hide land use section completely if not specified
-    land_use_html = ""
-    if is_valuer_mode:
-        if land_use != 'desconocido':
-            land_use_html = f"""
-            <div class="land-use-box" style="border-left-color: {land_info['color']}">
-                <div class="land-use-header">
-                    <span class="land-use-icon">{land_info['icon']}</span>
-                    <div>
-                        <span class="land-use-code">{land_use}</span>
-                        <strong>{land_info['name']}</strong>
-                    </div>
-                </div>
-                <p class="land-use-desc">{land_info['description']}</p>
-                <p class="land-use-note" style="font-size: 9pt; color: #64748b; margin-top: 6pt;">
-                    Verificado por valuador profesional
-                </p>
-            </div>
-            """
-        else:
-            land_use_html = """
-            <div class="land-use-unknown">
-                <span class="warning-icon">⚠️</span>
-                <div>
-                    <strong>Uso de suelo pendiente</strong>
-                    <p>Consulte el visor urbano de su municipio para verificar.</p>
-                </div>
-            </div>
-            """
-    
-    # Value breakdown
+
+    # Values
     total_value = result['estimated_value']
-    land_percent = (result['land_value'] / total_value * 100) if total_value > 0 else 0
-    construction_percent = 100 - land_percent
-    
-    # Values for thermometer display
     value_min = result['value_range_min']
     value_max = result['value_range_max']
-    value_estimated = result['estimated_value']
-    
-    # ============== THERMOMETER LOGIC ==============
-    # Based on: Conservation state, Price/m² vs comparables, Supply (number of similar properties)
-    
-    # 1. Conservation state factor (40% weight)
+    price_sqm = result['price_per_sqm']
+    land_value = result.get('land_value', total_value * 0.40)
+    physical_value = result.get('physical_value', land_value * 1.4)
+    construction_phys = max(0, physical_value - land_value)
+    land_percent_donut = (land_value / physical_value * 100) if physical_value > 0 else 50
+    const_percent_donut = 100 - land_percent_donut
+
+    # Conservation & thermometer
     conservation = prop.get('conservation_state', 'Bueno')
-    conservation_scores = {
-        'Excelente': 100,  # Maximum position
-        'Bueno': 70,       # Above average
-        'Regular': 40,     # Below average
-        'Malo': 15         # Near minimum
-    }
-    conservation_score = conservation_scores.get(conservation, 60)
-    
-    # 2. Price/m² comparison vs comparables (40% weight)
-    subject_price_sqm = result['price_per_sqm']
+    conservation_scores_map = {'Excelente': 100, 'Bueno': 70, 'Regular': 40, 'Malo': 15}
+    c_score = conservation_scores_map.get(conservation, 60)
+
     if active_comparables:
-        avg_comp_price_sqm = sum(c['price_per_sqm'] for c in active_comparables) / len(active_comparables)
-        # If subject is cheaper than comparables = advantage = higher score
-        price_ratio = subject_price_sqm / avg_comp_price_sqm if avg_comp_price_sqm > 0 else 1
-        if price_ratio < 0.9:  # 10%+ cheaper = big advantage
-            price_score = 90
-        elif price_ratio < 0.95:  # 5-10% cheaper = advantage
-            price_score = 75
-        elif price_ratio < 1.05:  # Within 5% = average
-            price_score = 55
-        elif price_ratio < 1.1:  # 5-10% more expensive = disadvantage
-            price_score = 35
-        else:  # 10%+ more expensive = big disadvantage
-            price_score = 20
+        avg_comp_sqm = sum(c['price_per_sqm'] for c in active_comparables) / len(active_comparables)
+        ratio = price_sqm / avg_comp_sqm if avg_comp_sqm > 0 else 1
+        p_score = 90 if ratio < 0.9 else (75 if ratio < 0.95 else (55 if ratio < 1.05 else (35 if ratio < 1.1 else 20)))
     else:
-        price_score = 50
-        avg_comp_price_sqm = subject_price_sqm
-    
-    # 3. Supply factor - fewer similar properties = higher demand = higher score (20% weight)
-    similar_count = market_metrics.get('similar_properties_count', len(comparables))
-    if similar_count <= 3:
-        supply_score = 90  # Low supply = high demand
-    elif similar_count <= 6:
-        supply_score = 70  # Moderate supply
-    elif similar_count <= 10:
-        supply_score = 50  # Average
-    elif similar_count <= 15:
-        supply_score = 35  # High supply
-    else:
-        supply_score = 20  # Saturated market
-    
-    # Combined thermometer position (weighted average)
-    thermo_score = (conservation_score * 0.40) + (price_score * 0.40) + (supply_score * 0.20)
-    
-    # Map score (0-100) to position (10-90% to avoid edges)
-    thermo_position = 10 + (thermo_score * 0.80)
-    
-    # Determine position label
+        avg_comp_sqm = price_sqm
+        p_score = 50
+
+    s_count = int(similar_count)
+    s_score = 90 if s_count <= 3 else (70 if s_count <= 6 else (50 if s_count <= 10 else (35 if s_count <= 15 else 20)))
+
+    thermo_score = c_score * 0.40 + p_score * 0.40 + s_score * 0.20
+    thermo_pos = min(90, max(10, 10 + thermo_score * 0.80))
+
     if thermo_score >= 75:
-        position_label = "Ventaja competitiva"
+        pos_label = "Alta probabilidad de desplazamiento. Las condiciones físicas y de ubicación superan significativamente la oferta promedio."
     elif thermo_score >= 55:
-        position_label = "Precio justo"
+        pos_label = "Precio competitivo. El inmueble se encuentra bien posicionado respecto a la oferta de mercado."
     elif thermo_score >= 35:
-        position_label = "Precio a negociar"
+        pos_label = "Precio a negociar. Se recomienda revisar condiciones para mejorar posición competitiva."
     else:
-        position_label = "Requiere ajuste"
-    
-    # Selling tips - More robust and useful in Spanish
-    tips = [
-        ("🎨", "Presentación", "Aplique pintura fresca en fachada e interiores con colores neutros (blanco, beige, gris claro) que amplían visualmente los espacios"),
-        ("✨", "Limpieza Profunda", "Realice limpieza profesional incluyendo ventanas, azulejos, alfombras. Elimine olores con ventilación y aromatizantes suaves"),
-        ("📷", "Fotografía Profesional", "Las propiedades con fotos profesionales reciben hasta 3 veces más visitas. Considere video y tour virtual 360°"),
-        ("🏠", "Preparación del Inmueble", "Despersonalice retirando fotos familiares. Ordene closets, reduzca muebles. Los espacios vacíos se ven más amplios"),
-        ("🔧", "Reparaciones Menores", "Arregle fugas, grietas, cerraduras, apagadores. Los detalles visibles restan valor percibido al comprador"),
-        ("💰", "Estrategia de Precio", "Precio justo de mercado vende 30% más rápido. Un precio alto ahuyenta compradores y alarga el tiempo de venta"),
-        ("📋", "Documentación Legal", "Tenga al corriente escrituras, predial, agua, CFE. Certifique libertad de gravamen y agilice el proceso"),
-        ("🏢", "Inmobiliaria Profesional", "Un agente inmobiliario profesional logra ventas 30% más rápidas con mejor precio gracias a su red de contactos y experiencia"),
-    ]
-    
-    tips_html = ""
-    for icon, title, desc in tips:
-        tips_html += f"""
-        <div class="tip-item">
-            <span class="tip-icon">{icon}</span>
-            <div>
-                <strong>{title}:</strong> {desc}
-            </div>
-        </div>
-        """
-    
-    # Amenities section - removed clinics, added radius note in title
-    amenities = [
-        ("🏫", "Escuelas", "Instituciones educativas"),
-        ("🏥", "Hospitales", "Centros de salud"),
-        ("🛒", "Supermercados", "Autoservicios y tiendas"),
-        ("🏪", "Mercados", "Comercio local"),
-        ("🌳", "Parques", "Parques y espacios deportivos"),
-        ("🚗", "Vías de Acceso", "Conectividad vial"),
-    ]
-    
-    amenities_html = ""
-    for i, (icon, name, desc) in enumerate(amenities, 1):
-        amenities_html += f"""
-        <div class="amenity-item">
-            <span class="amenity-num">{i}</span>
-            <span class="amenity-icon">{icon}</span>
-            <div>
-                <strong>{name}</strong>
-                <span class="amenity-desc">{desc}</span>
-            </div>
-        </div>
-        """
-    
-    # Search radius note removed as it's now in the title
-    amenities_radius_note = ""
+        pos_label = "Requiere ajuste. El precio o condiciones del inmueble presentan desventaja respecto al mercado."
 
-    # ============== AI SECTIONS HTML ==============
+    confidence_level = result.get('confidence_level', 'ALTO').upper()
+
+    # Investment indicators
+    cetes = 10.0
+    payback = (1 / (cap_rate / 100)) if cap_rate > 0 else 0
+    roi_10 = (cap_rate * 10) + (appreciation * 10) if cap_rate > 0 else appreciation * 10
+    cap_vs_cetes = cap_rate - cetes
+
+    # Donut
+    circumference = 251.2
+    land_dash = (land_percent_donut / 100) * circumference
+    const_dash = (const_percent_donut / 100) * circumference
+    depr_pct = round(result.get('depreciation_factor', 0.55) * 100)
+
+    # Map
+    lat = prop.get('latitude') or 20.6597
+    lng = prop.get('longitude') or -103.3496
+    map_data = get_map_for_report(lat, lng)
+    has_static = map_data.get('has_static', False)
+    static_src = map_data.get('static_image') or ''
+    if has_static and static_src:
+        map_html = f'<img src="{static_src}" alt="Mapa" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display=\'none\';this.parentElement.innerHTML=\'&#x1F4CD; {lat:.6f}, {lng:.6f}\'">'
+    else:
+        map_html = f'<span>&#x1F4CD; {lat:.6f}, {lng:.6f}</span>'
+
+    # Property fields
+    address = prop.get('address', 'Dirección no especificada')
+    neighborhood = prop.get('neighborhood', '')
+    city = prop.get('city', '')
+    state_name = prop.get('state', '')
+    location_parts = [p for p in [city, state_name] if p]
+    location_str = ', '.join(location_parts)
+    addr_full = f"{address}{', ' + neighborhood if neighborhood else ''}"
+
+    land_area = prop.get('land_area', '-')
+    construction_area = prop.get('construction_area', '-')
+    property_type = prop.get('property_type', 'Casa')
+    tenure = prop.get('tenure_type', '-')
+    floor_number = prop.get('floor_number', '')
+    total_floors = prop.get('total_floors', '')
+    land_use = prop.get('land_use', 'desconocido')
+    age = prop.get('estimated_age', '-')
+
+    if floor_number and total_floors:
+        niveles_str = f"Piso {floor_number} de {total_floors}"
+    elif floor_number:
+        niveles_str = f"Piso {floor_number}"
+    elif total_floors:
+        niveles_str = f"{total_floors} niveles"
+    else:
+        niveles_str = "PB"
+
+    # Badges
+    badges = []
+    if prop.get('bedrooms'):
+        badges.append(f'<span class="badge">&#x1F6CF; {prop["bedrooms"]} Recámaras</span>')
+    if prop.get('bathrooms'):
+        badges.append(f'<span class="badge">&#x1F6BF; {prop["bathrooms"]} Baños</span>')
+    if prop.get('parking_spaces'):
+        badges.append(f'<span class="badge">&#x1F697; {prop["parking_spaces"]} Cocheras</span>')
+    if prop.get('estimated_age'):
+        badges.append(f'<span class="badge">&#x1F4C5; {prop["estimated_age"]} Años</span>')
+    for feat in prop.get('special_features', [])[:4]:
+        icon = FEATURE_ICONS.get(feat, '&#x2713;')
+        name = FEATURE_NAMES.get(feat, feat)
+        badges.append(f'<span class="badge">{icon} {name}</span>')
+    badges_html = '\n    '.join(badges)
+
+    # AI sections
     ai_sections = ai_sections or {}
-    plusvalia_entorno_html = ""
-    vo_html = ""
-    estrategia_html = ""
-    equipamiento_ai_html = ""
+    pv = ai_sections.get('plusvalia', {})
+    pe = ai_sections.get('perfil_entorno', {})
+    ventajas = ai_sections.get('ventajas', [])
+    oportunidades = ai_sections.get('oportunidades', [])
+    est = ai_sections.get('estrategia', {})
+    analisis_mercado = ai_sections.get('analisis_mercado', '') or analysis or 'Análisis de mercado no disponible.'
 
-    if ai_sections:
-        pv = ai_sections.get("plusvalia", {})
-        pe = ai_sections.get("perfil_entorno", {})
+    # Plusvalía bars
+    tasa = float(pv.get('tasa_anual', appreciation)) if pv else float(appreciation)
+    cur_year = datetime.now(timezone.utc).year
+    bar_heights = [34, 52, 68, 85, 103]
+    bar_classes = ['cb-1', 'cb-2', 'cb-3', 'cb-4', 'cb-5']
+    bars_html = ''
+    for i in range(5):
+        pct_proj = round(((1 + tasa / 100) ** (i + 1) - 1) * 100, 1)
+        if pv and pv.get(f'anio{i+1}'):
+            val = float(pv[f'anio{i+1}'])
+        else:
+            val = total_value * (1 + tasa / 100) ** (i + 1)
+        amt_str = f'${val:,.0f}'
+        bars_html += f"""
+        <div class="chart-bar-col">
+          <div class="chart-pct">+{pct_proj:.1f}%</div>
+          <div class="chart-bar {bar_classes[i]}" style="height:{bar_heights[i]}px;"></div>
+          <div class="chart-year">{cur_year + i + 1}</div>
+          <div class="chart-amount">{amt_str}</div>
+        </div>"""
 
-        # Plusvalía + Perfil del Entorno — grid 50/50 lado a lado (igual que server.js original)
-        if pv or pe:
-            tasa = float(pv.get("tasa_anual", appreciation)) if pv else float(appreciation)
-            cur_year = datetime.now(timezone.utc).year
-            bar_heights = [8, 17, 29, 41, 55]
-            bar_colors = ['#a7f3d0', '#6ee7b7', '#34d399', '#10b981', '#059669']
-
-            if pv:
-                bars_html = ""
-                vals_row = ""
-                for i in range(5):
-                    val = float(pv.get(f"anio{i+1}", 0) or 0)
-                    pct_proj = round(((1 + tasa / 100) ** (i + 1) - 1) * 100, 1)
-                    px_h = bar_heights[i]
-                    color = bar_colors[i]
-                    year_lbl = cur_year + i + 1
-                    bars_html += (
-                        f'<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:80px;">'
-                        f'<div style="font-size:7.5px;font-weight:800;color:#15803d;margin-bottom:2px;">+{pct_proj:.1f}%</div>'
-                        f'<div style="width:100%;background:{color};border-radius:3px 3px 0 0;height:{px_h}px;-webkit-print-color-adjust:exact;print-color-adjust:exact;"></div>'
-                        f'<div style="font-size:7px;color:#6b7280;font-weight:600;margin-top:2px;text-align:center;">{year_lbl}</div>'
-                        f'</div>'
-                    )
-                    if val > 0:
-                        vals_row += f'<span style="font-size:7px;color:#374151;font-weight:700;">${val:,.0f}</span>'
-                _vals_div = (
-                    '<div style="display:flex;justify-content:space-between;font-size:7px;font-weight:700;color:#374151;margin-top:4px;padding:0 4px;">'
-                    + vals_row + '</div>'
-                ) if vals_row else ""
-                plusvalia_col = (
-                    f'<div style="background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:10px;padding:12px;">'
-                    f'<div style="font-size:10px;font-weight:800;color:#1B4332;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">📈 PLUSVALÍA PROYECTADA (5 AÑOS)</div>'
-                    f'<div style="display:flex;align-items:flex-end;gap:5px;height:80px;overflow:visible;">{bars_html}</div>'
-                    f'{_vals_div}'
-                    f'<div style="font-size:9px;color:#6b7280;font-weight:500;margin-top:6px;font-style:italic;line-height:1.2;">* Tasa anual est.: ~{tasa:.1f}% (Fuente: SHF / BBVA).</div>'
-                    f'</div>'
-                )
-            else:
-                plusvalia_col = '<div style="background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:10px;padding:12px;font-size:10px;color:#6b7280;">Datos de plusvalía no disponibles.</div>'
-
-            _ent_icon = {
-                "seguridad": "🛡", "movilidad": "🚗", "educacion": "🎓",
-                "salud": "🏥", "comercio": "🛒", "recreacion": "🌳", "plazas": "🏪"
-            }
-            _ent_names = {
-                "seguridad": "Seguridad", "movilidad": "Movilidad",
-                "educacion": "Educación", "salud": "Salud",
-                "comercio": "Comercio", "recreacion": "Recreación", "plazas": "Plazas"
-            }
-            if pe:
-                entorno_items = ""
-                for key in ["seguridad", "movilidad", "educacion", "salud", "comercio", "recreacion", "plazas"]:
-                    cat = pe.get(key, {})
-                    if not cat:
-                        continue
-                    texto = cat.get("texto", "") if isinstance(cat, dict) else str(cat)
-                    count = cat.get("count", "") if isinstance(cat, dict) else ""
-                    icon = _ent_icon.get(key, "📍")
-                    name = _ent_names.get(key, key)
-                    label = f"{count} {name}" if count else name
-                    entorno_items += (
-                        f'<div style="display:flex;align-items:center;gap:5px;padding:4px 0;border-bottom:1px solid #f3f4f6;">'
-                        f'<span style="font-size:12px;flex-shrink:0;">{icon}</span>'
-                        f'<span style="font-size:9px;color:#6b7280;white-space:nowrap;">{label}:</span>'
-                        f'<span style="font-size:9px;font-weight:700;color:#1a2e23;line-height:1.3;">{texto}</span>'
-                        f'</div>'
-                    )
-                entorno_col = (
-                    f'<div style="background:white;border:1.5px solid #e5e7eb;border-radius:10px;padding:12px;">'
-                    f'<div style="font-size:10px;font-weight:800;color:#1B4332;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">📍 PERFIL DEL ENTORNO</div>'
-                    f'<div style="display:flex;flex-direction:column;gap:1px;">{entorno_items}</div>'
-                    f'</div>'
-                )
-            else:
-                entorno_col = '<div style="background:white;border:1.5px solid #e5e7eb;border-radius:10px;padding:12px;font-size:10px;color:#6b7280;">Datos del entorno no disponibles.</div>'
-
-            plusvalia_entorno_html = (
-                f'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;">'
-                f'{plusvalia_col}'
-                f'{entorno_col}'
-                f'</div>'
-            )
-
-        # Ventajas y áreas de oportunidad — grid verde/naranja (igual que server.js)
-        ventajas = ai_sections.get("ventajas", [])
-        oportunidades = ai_sections.get("oportunidades", [])
-        if ventajas or oportunidades:
-            v_items = "".join(f'<li style="margin-bottom:4px;">{v}</li>' for v in ventajas) or '<li>Ubicación estratégica</li><li>Superficie competitiva</li>'
-            o_items = "".join(f'<li style="margin-bottom:4px;">{o}</li>' for o in oportunidades) or '<li>Antigüedad perceptible</li><li>Necesita actualizaciones menores</li>'
-            vo_html = (
-                f'<div class="section">'
-                f'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">'
-                f'<div style="background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:8px;padding:12px;">'
-                f'<div style="font-size:11px;font-weight:800;color:#15803d;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">✅ VENTAJAS COMPETITIVAS</div>'
-                f'<ul style="margin:0;padding-left:15px;font-size:11px;color:#1a2e23;line-height:1.4;">{v_items}</ul>'
-                f'</div>'
-                f'<div style="background:#fff7ed;border:1.5px solid #ffedd5;border-radius:8px;padding:12px;">'
-                f'<div style="font-size:11px;font-weight:800;color:#9a3412;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">⚠️ ÁREAS DE OPORTUNIDAD</div>'
-                f'<ul style="margin:0;padding-left:15px;font-size:11px;color:#431407;line-height:1.4;">{o_items}</ul>'
-                f'</div>'
-                f'</div>'
-                f'</div>'
-            )
-
-        # Estrategia de comercialización — box azul (igual que server.js)
-        est = ai_sections.get("estrategia", {})
-        if est:
-            canales = est.get("canales", [])
-            tips_e = est.get("tips", [])
-            perfil = est.get("perfil_comprador", "")
-            precio_entrada = est.get("precio_entrada", "")
-            all_recs = []
-            if perfil:
-                all_recs.append(f"Perfil del Comprador: {perfil}")
-            if precio_entrada:
-                all_recs.append(f"Precio Sugerido: {precio_entrada}")
-            all_recs.extend([f"Canal: {c}" for c in canales])
-            all_recs.extend(list(tips_e))
-            tips_items_html = ""
-            for tip in all_recs:
-                colon_idx = tip.find(':')
-                has_title = 0 < colon_idx < 55
-                if has_title:
-                    title_part = tip[:colon_idx].strip()
-                    desc_part = tip[colon_idx + 1:].strip()
-                    tips_items_html += (
-                        f'<div style="display:flex;gap:8px;align-items:flex-start;">'
-                        f'<span style="font-size:15px;">🎯</span>'
-                        f'<div style="font-size:11px;color:#1e3a8a;line-height:1.4;"><strong style="font-weight:800;color:#1e40af;">{title_part}:</strong> {desc_part}</div>'
-                        f'</div>'
-                    )
-                else:
-                    tips_items_html += (
-                        f'<div style="display:flex;gap:8px;align-items:flex-start;">'
-                        f'<span style="font-size:15px;">🎯</span>'
-                        f'<div style="font-size:11px;color:#1e3a8a;line-height:1.4;">{tip}</div>'
-                        f'</div>'
-                    )
-            estrategia_html = (
-                f'<div class="section">'
-                f'<h2>📣 ESTRATEGIA DE COMERCIALIZACIÓN Y PROMOCIÓN</h2>'
-                f'<div style="background:#eff6ff;border:1.5px solid #bfdbfe;border-radius:8px;padding:15px;margin-bottom:12px;">'
-                f'<div style="font-size:11px;font-weight:800;color:#1e40af;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;">💼 RECOMENDACIONES PARA INMOBILIARIAS Y PROPIETARIOS</div>'
-                f'<div style="display:flex;flex-direction:column;gap:8px;">{tips_items_html}</div>'
-                f'</div>'
-                f'</div>'
-            )
-
-        # Equipamiento y Servicios — tarjetas con datos de Gemini (página 4, igual que PDF)
-        pe_equip = ai_sections.get("perfil_entorno", {})
-        _equip_cfg = [
-            ("educacion", "🏫", "Escuelas", "Educación"),
-            ("salud",     "🏥", "Hospitales", "Salud"),
-            ("comercio",  "🛒", "Súper / Tiendas", "Comercio"),
-            ("recreacion","🌳", "Parques", "Recreación"),
-            ("plazas",    "🏪", "Plazas", "Plazas"),
-        ]
-        cards = ""
-        for key, icon, label, cat_name in _equip_cfg:
-            cat = pe_equip.get(key, {}) if pe_equip else {}
+    # Entorno simple list
+    _ent_names = {
+        'seguridad': 'Seguridad', 'movilidad': 'Movilidad', 'educacion': 'Educación',
+        'salud': 'Salud', 'comercio': 'Comercio', 'recreacion': 'Recreación', 'plazas': 'Plazas'
+    }
+    entorno_items = ''
+    if pe:
+        for key in ['seguridad', 'movilidad', 'educacion', 'salud', 'comercio', 'recreacion', 'plazas']:
+            cat = pe.get(key, {})
             if not cat:
                 continue
-            count = cat.get("count", "") if isinstance(cat, dict) else ""
-            nombres = cat.get("nombres", "") if isinstance(cat, dict) else ""
-            texto = cat.get("texto", "") if isinstance(cat, dict) else ""
-            title = f"{count} {label}" if count else label
-            cards += (
-                f'<div style="display:flex;gap:10px;align-items:flex-start;background:white;border:1px solid #e5e7eb;border-radius:10px;padding:12px;">'
-                f'<div style="font-size:28px;flex-shrink:0;">{icon}</div>'
-                f'<div style="flex:1;">'
-                f'<strong style="display:block;font-size:13px;color:#1B4332;">{title}</strong>'
-                f'<div style="font-size:9.5px;color:#6b7280;margin-bottom:3px;">{cat_name}</div>'
-                f'<div style="font-size:10.5px;font-weight:600;color:#1B4332;line-height:1.3;">{nombres or texto}</div>'
-                f'</div>'
-                f'</div>'
-            )
-        if cards:
-            equipamiento_ai_html = (
-                f'<div class="section">'
-                f'<h2>🏘️ EQUIPAMIENTO Y SERVICIOS RELEVANTES EN EL ENTORNO (RADIO 1.5 KM)</h2>'
-                f'<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">{cards}</div>'
-                f'</div>'
-            )
+            texto = cat.get('texto', '') if isinstance(cat, dict) else str(cat)
+            count = cat.get('count', '') if isinstance(cat, dict) else ''
+            name = _ent_names.get(key, key)
+            val_disp = f"{count} cercanos" if count and key not in ['seguridad', 'movilidad'] else texto
+            entorno_items += f"""
+      <div class="entorno-item">
+        <span class="elabel">{name}:</span>
+        <span class="evalue">{val_disp}</span>
+      </div>"""
 
-    html = f"""<!DOCTYPE html>
+    # Perfil del entorno con scores
+    _pe_icons = {
+        'seguridad': '&#x1F512;', 'movilidad': '&#x1F68C;', 'educacion': '&#x1F3EB;',
+        'salud': '&#x1F3E5;', 'comercio': '&#x1F6D2;', 'recreacion': '&#x1F333;'
+    }
+    pe_scores_cards = ''
+    if pe:
+        for key in ['seguridad', 'movilidad', 'educacion', 'salud', 'comercio', 'recreacion']:
+            cat = pe.get(key, {})
+            if not cat or not isinstance(cat, dict):
+                continue
+            score = int(cat.get('score', 0) or 0)
+            texto = cat.get('texto', '')
+            name = _ent_names.get(key, key)
+            icon = _pe_icons.get(key, '&#x1F4CD;')
+            bar_w = score * 10
+            pe_scores_cards += f"""
+    <div class="pe-score-card">
+      <div class="pe-score-head">
+        <div class="pe-score-name"><span>{icon}</span> {name}</div>
+        <div class="pe-score-val">{score}/10</div>
+      </div>
+      <div class="pe-score-bar-bg">
+        <div class="pe-score-bar" style="width:{bar_w}%;"></div>
+      </div>
+      <div class="pe-score-text">{texto}</div>
+    </div>"""
+
+    pe_scores_section = ''
+    if pe_scores_cards:
+        pe_scores_section = f"""
+  <div class="section-title" style="margin-top:12px;">&#x2B50; CALIFICACIÓN DEL ENTORNO</div>
+  <div class="pe-scores-grid">
+{pe_scores_cards}
+  </div>"""
+
+    # Comparables table
+    comp_rows = ''
+    for i, comp in enumerate(active_comparables, 1):
+        source_name = comp['source'].replace('.com.mx', '').replace('.com', '').replace('www.', '').capitalize()
+        adj = comp.get('total_adjustment', 0)
+        adj_cls = 'comp-neg' if adj < 0 else 'comp-pos'
+        beds = comp.get('bedrooms', '')
+        baths = comp.get('bathrooms', '')
+        rooms_parts = []
+        if beds:
+            rooms_parts.append(f'{beds}&#x1F6CF;')
+        if baths:
+            rooms_parts.append(f'{baths}&#x1F6BF;')
+        rooms_str = ' '.join(rooms_parts)
+        adj_sqm = comp.get('adjusted_price_per_sqm', comp['price_per_sqm'])
+        tenure_tag = comp.get('tenure_type', 'N/A')
+        comp_rows += f"""
+      <tr>
+        <td>{i}</td>
+        <td>
+          <div class="comp-colonia">{comp['neighborhood'][:28]}</div>
+          <div class="comp-rooms">{rooms_str}</div>
+          <span class="comp-tag">{tenure_tag}</span>
+        </td>
+        <td>{comp.get('land_area', '-')}</td>
+        <td>{comp.get('construction_area', '-')}</td>
+        <td>${comp['price']:,.0f}</td>
+        <td>${comp['price_per_sqm']:,.0f}</td>
+        <td class="{adj_cls}">{adj:+.1f}%</td>
+        <td style="font-weight:700">${adj_sqm:,.0f}</td>
+        <td class="comp-fuente">{source_name}</td>
+      </tr>"""
+
+    # Comparables stats
+    n_comp = len(active_comparables)
+    if n_comp > 0:
+        avg_raw = sum(c['price_per_sqm'] for c in active_comparables) / n_comp
+        avg_adj_pct = sum(c.get('total_adjustment', 0) for c in active_comparables) / n_comp
+        avg_adj_sqm = sum(c.get('adjusted_price_per_sqm', c['price_per_sqm']) for c in active_comparables) / n_comp
+    else:
+        avg_raw = avg_adj_pct = avg_adj_sqm = 0
+    adj_color_css = 'var(--red)' if avg_adj_pct < 0 else 'var(--green-500)'
+
+    # Ventajas / Oportunidades
+    v_items_html = ''.join(f'<li>{v}</li>' for v in ventajas) if ventajas else '<li>Ubicación estratégica</li><li>Superficie competitiva</li>'
+    o_items_html = ''.join(f'<li>{o}</li>' for o in oportunidades) if oportunidades else '<li>Revisar acabados interiores</li><li>Antigüedad perceptible</li>'
+
+    # Recom items (page 4)
+    recom_items = ''
+    if est:
+        perfil_comp = est.get('perfil_comprador', '')
+        precio_ent = est.get('precio_entrada', '')
+        canales = est.get('canales', [])
+        tips_e = est.get('tips', [])
+        if perfil_comp:
+            recom_items += f'\n    <div class="recom-item"><span>&#x1F3AF;</span><div><strong>Perfil del Comprador:</strong> {perfil_comp}</div></div>'
+        if precio_ent:
+            recom_items += f'\n    <div class="recom-item"><span>&#x1F3AF;</span><div><strong>Precio de Entrada:</strong> {precio_ent}</div></div>'
+        for canal in canales[:3]:
+            recom_items += f'\n    <div class="recom-item"><span>&#x1F3AF;</span><div><strong>Canal:</strong> {canal}</div></div>'
+        for tip in list(tips_e)[:3]:
+            ci = tip.find(':')
+            if 0 < ci < 50:
+                recom_items += f'\n    <div class="recom-item"><span>&#x1F3AF;</span><div><strong>{tip[:ci].strip()}:</strong> {tip[ci+1:].strip()}</div></div>'
+            else:
+                recom_items += f'\n    <div class="recom-item"><span>&#x1F3AF;</span><div>{tip}</div></div>'
+    if not recom_items:
+        recom_items = """
+    <div class="recom-item"><span>&#x1F3AF;</span><div><strong>Canales de Venta:</strong> Portales inmobiliarios líderes (Inmuebles24, Propiedades.com, Lamudi) y redes sociales enfocadas en la zona.</div></div>
+    <div class="recom-item"><span>&#x1F3AF;</span><div><strong>Perfil del Comprador:</strong> Jóvenes profesionales o parejas buscando primera propiedad en zona consolidada; inversionistas de renta.</div></div>
+    <div class="recom-item"><span>&#x1F3AF;</span><div><strong>Tips de Marketing:</strong> Fotografías profesionales, tour virtual 360° y descripción detallada de amenidades.</div></div>"""
+
+    # Equipamiento cards (page 4)
+    _equip_cfg = [
+        ('educacion', '&#x1F4DA;', 'Escuelas',     'Educación'),
+        ('salud',     '&#x1F3E5;', 'Hospitales',    'Salud'),
+        ('comercio',  '&#x1F6D2;', 'Supermercados', 'Tiendas'),
+        ('recreacion','&#x1F333;', 'Parques',        'Recreación'),
+    ]
+    equip_cards = ''
+    for key, icon, label, cat_name in _equip_cfg:
+        cat = pe.get(key, {}) if pe else {}
+        if not cat:
+            continue
+        count   = cat.get('count', '') if isinstance(cat, dict) else ''
+        nombres = cat.get('nombres', '') if isinstance(cat, dict) else ''
+        texto   = cat.get('texto', '') if isinstance(cat, dict) else ''
+        title   = f"{count} {label}" if count else label
+        equip_cards += f"""
+    <div class="servicio-card">
+      <div class="sc-header">
+        <div class="sc-icon">{icon}</div>
+        <div>
+          <div class="sc-title">{title}</div>
+          <div class="sc-subtitle">{cat_name}</div>
+        </div>
+      </div>
+      <div class="sc-list">{nombres or texto}</div>
+    </div>"""
+
+    plazas_cat = pe.get('plazas', {}) if pe else {}
+    plazas_card = ''
+    if plazas_cat and isinstance(plazas_cat, dict):
+        pl_count  = plazas_cat.get('count', '')
+        pl_nombres = plazas_cat.get('nombres', '')
+        pl_title  = f"{pl_count} Plazas" if pl_count else "Plazas"
+        plazas_card = f"""
+  <div class="servicio-card" style="margin-bottom:12px;">
+    <div class="sc-header">
+      <div class="sc-icon">&#x1F3EC;</div>
+      <div>
+        <div class="sc-title">{pl_title}</div>
+        <div class="sc-subtitle">Comercio</div>
+      </div>
+    </div>
+    <div class="sc-list">{pl_nombres}</div>
+  </div>"""
+
+    # Photos (page 5)
+    if photos and len(photos) > 0:
+        photos_content = '<div class="photos-grid">'
+        for i, photo in enumerate(photos[:8]):
+            photos_content += f'<div class="photo-item"><img src="{photo}" alt="Foto {i+1}"></div>'
+        photos_content += '</div>'
+    else:
+        photos_content = """
+  <div class="no-photos">
+    <div class="np-icon">&#x1F4F7;</div>
+    <div style="font-size:14px;font-weight:700;color:var(--text-sec);margin-bottom:6px;">Sin fotografías cargadas</div>
+    <div style="font-size:11px;color:var(--gray-400);">No se han cargado fotografías del inmueble.<br>Agregue imágenes para enriquecer el reporte.</div>
+  </div>"""
+
+    # ── Helper functions ────────────────────────────────────────────────────────
+
+    def _header():
+        return f"""  <div class="header">
+    <div class="logo">
+      <div class="logo-icon">&#x1F3D8;</div>
+      <div class="logo-text">Prop<span>Valu</span></div>
+    </div>
+    <div class="folio-box">
+      Folio: <strong>{folio}</strong><br>
+      Fecha: {date_display}
+    </div>
+  </div>"""
+
+    def _footer(page, total=5):
+        return f"""  <div class="page-footer">
+    <span class="pf-page">{page} / {total}</span>
+    <span class="pf-center">Estimación realizada con inteligencia de PropValu &mdash; propvalu.mx</span>
+    <span style="font-size:8px;color:var(--gray-400);">{folio}</span>
+  </div>"""
+
+    # ── Build HTML ──────────────────────────────────────────────────────────────
+
+    return f"""<!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reporte de Valuación - PropValu</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap');
-        
-        * {{ margin: 0; padding: 0; box-sizing: border-box; }}
-        
-        :root {{
-            --primary: #1B4332;
-            --secondary: #52B788;
-            --accent: #D9ED92;
-            --danger: #b91c1c;
-            --success: #15803d;
-            --gray-50: #f8fafc;
-            --gray-100: #f1f5f9;
-            --gray-200: #e2e8f0;
-            --gray-500: #64748b;
-            --gray-700: #334155;
-            --gray-900: #0f172a;
-        }}
-        
-        @page {{
-            size: letter;
-            margin: 0.5in;
-        }}
-        
-        body {{
-            font-family: 'Inter', -apple-system, sans-serif;
-            color: var(--gray-900);
-            line-height: 1.5;
-            background: white;
-            font-size: 12pt;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-        }}
-        
-        .report {{
-            max-width: 8.5in;
-            margin: 0 auto;
-            padding: 0.25in;
-        }}
-        
-        /* Header */
-        .header {{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 3px solid var(--primary);
-            padding-bottom: 10pt;
-            margin-bottom: 12pt;
-        }}
-        
-        .logo {{
-            font-family: 'Outfit', sans-serif;
-            font-size: 24pt;
-            font-weight: 700;
-            color: var(--primary);
-        }}
-        
-        .logo span {{ color: var(--secondary); }}
-        
-        .report-meta {{
-            text-align: right;
-            font-size: 11pt;
-            color: var(--gray-500);
-        }}
-        
-        /* Typography */
-        h1, h2, h3 {{
-            font-family: 'Outfit', sans-serif;
-            color: var(--primary);
-        }}
-        
-        h1 {{
-            font-size: 18pt;
-            text-align: center;
-            background: linear-gradient(135deg, var(--primary), #2D6A4F);
-            color: white;
-            padding: 12pt;
-            border-radius: 6pt;
-            margin-bottom: 14pt;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-        }}
-        
-        h2 {{
-            font-size: 14pt;
-            margin: 12pt 0 8pt;
-            padding-bottom: 4pt;
-            border-bottom: 2pt solid var(--accent);
-        }}
-        
-        /* Section */
-        .section {{ margin-bottom: 10pt; }}
-        
-        /* Data Grid */
-        .data-grid {{
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 5pt;
-        }}
-        
-        .data-item {{
-            display: flex;
-            justify-content: space-between;
-            padding: 6pt 10pt;
-            background: var(--gray-50);
-            border-radius: 4pt;
-            font-size: 11pt;
-        }}
-        
-        .data-label {{ color: var(--gray-500); font-size: 10pt; }}
-        .data-value {{ font-weight: 600; color: var(--primary); font-size: 11pt; }}
-        
-        /* Features */
-        .features-row {{
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6pt;
-            margin: 8pt 0;
-        }}
-        
-        .feature-tag {{
-            background: var(--accent);
-            color: var(--primary);
-            padding: 5pt 12pt;
-            border-radius: 12pt;
-            font-size: 11pt;
-            font-weight: 500;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-        }}
-        
-        .other-features {{
-            background: var(--gray-50);
-            padding: 10pt 14pt;
-            border-radius: 4pt;
-            font-size: 11pt;
-            margin-top: 8pt;
-        }}
-        
-        /* Land Use */
-        .land-use-box {{
-            background: var(--gray-50);
-            padding: 10pt;
-            border-radius: 6pt;
-            border-left: 4pt solid var(--secondary);
-            margin: 8pt 0;
-        }}
-        
-        .land-use-header {{
-            display: flex;
-            align-items: center;
-            gap: 8pt;
-            margin-bottom: 4pt;
-        }}
-        
-        .land-use-icon {{ font-size: 28pt; }}
-        
-        .land-use-code {{
-            background: var(--primary);
-            color: white;
-            padding: 3pt 8pt;
-            border-radius: 3pt;
-            font-size: 11pt;
-            margin-right: 6pt;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-        }}
-        
-        .land-use-desc {{
-            font-size: 11pt;
-            color: var(--gray-500);
-        }}
-        
-        .land-use-unknown {{
-            display: flex;
-            align-items: center;
-            gap: 10pt;
-            padding: 12pt;
-            background: #fef3c7;
-            border-radius: 6pt;
-            margin: 8pt 0;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-        }}
-        
-        .warning-icon {{ font-size: 32pt; }}
-        
-        /* Map */
-        .map-container {{
-            border-radius: 6pt;
-            overflow: hidden;
-            border: 1pt solid var(--gray-200);
-            aspect-ratio: 4/3;
-            margin: 8pt 0;
-            background: var(--gray-100);
-        }}
-        
-        .map-container iframe {{
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }}
-        
-        .map-address {{
-            font-size: 11pt;
-            color: var(--gray-700);
-            text-align: center;
-            margin-top: 6pt;
-            font-weight: 500;
-        }}
-        
-        .map-coords {{
-            font-size: 10pt;
-            color: var(--gray-500);
-            text-align: center;
-            margin-top: 2pt;
-        }}
-        
-        /* Result Box */
-        .result-box {{
-            background: linear-gradient(135deg, var(--primary), #2D6A4F);
-            color: white;
-            padding: 12pt;
-            border-radius: 8pt;
-            text-align: center;
-            margin: 10pt 0;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-        }}
-        
-        .result-label {{ font-size: 11pt; opacity: 0.9; }}
-        
-        .result-value {{
-            font-family: 'Outfit', sans-serif;
-            font-size: 28pt;
-            font-weight: 700;
-            margin: 6pt 0;
-        }}
-        
-        .result-range {{ font-size: 11pt; opacity: 0.85; }}
-        
-        .result-sqm {{
-            font-size: 13pt;
-            margin-top: 6pt;
-        }}
-        
-        .confidence {{
-            display: inline-block;
-            padding: 4pt 12pt;
-            border-radius: 10pt;
-            font-size: 11pt;
-            font-weight: 600;
-            margin-top: 8pt;
-        }}
-        
-        .confidence.alto {{ background: var(--accent); color: var(--primary); }}
-        .confidence.medio {{ background: #fef3c7; color: #92400e; }}
-        .confidence.bajo {{ background: #fee2e2; color: #991b1b; }}
-        
-        /* Thermometer */
-        .thermo-container {{
-            margin: 10pt 0;
-            padding: 10pt;
-            background: var(--gray-50);
-            border-radius: 6pt;
-        }}
-        
-        .thermo-title {{
-            font-size: 12pt;
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 8pt;
-            text-align: center;
-        }}
-        
-        .thermometer {{
-            position: relative;
-            height: 24pt;
-            background: linear-gradient(to right, #dc2626, #f59e0b, #22c55e);
-            border-radius: 12pt;
-            margin: 8pt 0;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-        }}
-        
-        .thermo-marker {{
-            position: absolute;
-            top: -3pt;
-            width: 14pt;
-            height: 30pt;
-            background: var(--primary);
-            border: 2pt solid white;
-            border-radius: 7pt;
-            transform: translateX(-50%);
-            box-shadow: 0 2pt 4pt rgba(0,0,0,0.2);
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-        }}
-        
-        .thermo-explanation {{
-            font-size: 9pt;
-            color: var(--gray-500);
-            text-align: center;
-            margin-bottom: 6pt;
-        }}
-        
-        .thermo-labels {{
-            display: flex;
-            justify-content: space-between;
-            margin-top: 8pt;
-            padding: 0 4pt;
-        }}
-        
-        .thermo-label-group {{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2pt;
-        }}
-        
-        .thermo-value {{
-            font-weight: 700;
-            font-size: 10pt;
-        }}
-        
-        .thermo-text {{
-            font-size: 9pt;
-            font-weight: 500;
-        }}
-        
-        .thermo-min {{ color: #dc2626; }}
-        .thermo-mid {{ color: var(--primary); }}
-        .thermo-max {{ color: #22c55e; }}
-        
-        /* Executive Summary */
-        .exec-grid {{
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10pt;
-            margin: 12pt 0;
-        }}
-        
-        .exec-card {{
-            text-align: center;
-            padding: 12pt;
-            border-radius: 6pt;
-            background: var(--gray-50);
-            border: 1pt solid var(--gray-200);
-        }}
-        
-        .exec-card.highlight {{
-            background: linear-gradient(135deg, var(--accent), #B5E48C);
-            border: none;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-        }}
-        
-        .exec-icon {{ font-size: 28pt; margin-bottom: 4pt; }}
-        .exec-value {{ font-size: 16pt; font-weight: 700; color: var(--primary); }}
-        .exec-label {{ font-size: 10pt; color: var(--gray-500); margin-top: 3pt; }}
-        
-        /* Breakdown */
-        .breakdown-row {{
-            display: flex;
-            align-items: center;
-            gap: 16pt;
-            padding: 12pt;
-            background: var(--gray-50);
-            border-radius: 6pt;
-            margin: 10pt 0;
-        }}
-        
-        .breakdown-chart {{
-            width: 70pt;
-            height: 70pt;
-            border-radius: 50%;
-            background: conic-gradient(
-                var(--primary) 0deg {land_percent * 3.6}deg,
-                var(--secondary) {land_percent * 3.6}deg 360deg
-            );
-            position: relative;
-            flex-shrink: 0;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-        }}
-        
-        .breakdown-chart::after {{
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 35pt;
-            height: 35pt;
-            background: white;
-            border-radius: 50%;
-        }}
-        
-        .breakdown-legend {{
-            flex: 1;
-        }}
-        
-        .legend-item {{
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin: 5pt 0;
-            font-size: 12pt;
-        }}
-        
-        .legend-color {{
-            width: 12pt;
-            height: 12pt;
-            border-radius: 2pt;
-            margin-right: 8pt;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-        }}
-        
-        /* Amenities */
-        .amenities-grid {{
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8pt;
-            margin: 10pt 0;
-        }}
-        
-        .amenity-item {{
-            display: flex;
-            align-items: center;
-            gap: 8pt;
-            padding: 10pt;
-            background: var(--gray-50);
-            border-radius: 4pt;
-            font-size: 12pt;
-        }}
-        
-        .amenity-num {{
-            background: var(--primary);
-            color: white;
-            width: 20pt;
-            height: 20pt;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11pt;
-            font-weight: 600;
-            flex-shrink: 0;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-        }}
-        
-        .amenity-icon {{ font-size: 24pt; }}
-        .amenity-desc {{ font-size: 10pt; color: var(--gray-500); display: block; }}
-        
-        /* Table */
-        table {{
-            width: 100%;
-            border-collapse: collapse;
-            margin: 10pt 0;
-            font-size: 10pt;
-        }}
-        
-        th {{
-            background: var(--primary);
-            color: white;
-            padding: 8pt 5pt;
-            text-align: left;
-            font-weight: 600;
-            font-size: 10pt;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-        }}
-        
-        td {{
-            padding: 6pt 5pt;
-            border-bottom: 1pt solid var(--gray-200);
-            font-size: 10pt;
-        }}
-        
-        tr:nth-child(even) {{
-            background: var(--gray-50);
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-        }}
-        
-        .text-center {{ text-align: center; }}
-        .text-right {{ text-align: right; }}
-        
-        .source-link {{
-            color: var(--secondary);
-            text-decoration: none;
-            font-weight: 500;
-        }}
-        
-        /* Analysis */
-        .analysis {{
-            background: var(--gray-50);
-            padding: 12pt;
-            border-radius: 6pt;
-            border-left: 4pt solid var(--secondary);
-            white-space: pre-wrap;
-            font-size: 11pt;
-            line-height: 1.7;
-        }}
-        
-        /* Photos */
-        .photos-section {{ margin: 14pt 0; }}
-        
-        .photos-grid {{
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 5pt;
-        }}
-        
-        .photo-item {{
-            height: 110pt;
-            border-radius: 4pt;
-            overflow: hidden;
-            background: var(--gray-100);
-            border: 1pt solid var(--gray-200);
-        }}
-        
-        .photo-item img {{
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }}
-        
-        /* Tips */
-        .tips-grid {{
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8pt;
-            margin: 10pt 0;
-        }}
-        
-        .tip-item {{
-            display: flex;
-            align-items: flex-start;
-            gap: 8pt;
-            padding: 8pt 10pt;
-            background: var(--gray-50);
-            border-radius: 4pt;
-            font-size: 10pt;
-            line-height: 1.4;
-        }}
-        
-        .tip-icon {{ font-size: 24pt; flex-shrink: 0; }}
-        
-        /* Disclaimer */
-        .disclaimer {{
-            background: #fef3c7;
-            border: 1pt solid #fcd34d;
-            padding: 10pt 12pt;
-            border-radius: 6pt;
-            font-size: 10pt;
-            margin-top: 14pt;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-        }}
-        
-        .disclaimer ul {{
-            margin: 8pt 0 0 18pt;
-            line-height: 1.6;
-        }}
-        
-        /* Footer */
-        .footer {{
-            margin-top: 14pt;
-            padding-top: 10pt;
-            border-top: 2pt solid var(--gray-200);
-            text-align: center;
-            font-size: 11pt;
-            color: var(--gray-500);
-        }}
-        
-        /* Page breaks */
-        .page-break {{
-            page-break-after: always;
-        }}
-
-        .page-break-before {{
-            page-break-before: always;
-        }}
-
-        /* Plusvalía proyectada */
-        .plusvalia-bars {{
-            display: flex;
-            align-items: flex-end;
-            gap: 8pt;
-            height: 80pt;
-            padding: 0 4pt;
-            margin: 10pt 0 4pt;
-        }}
-        .plusvalia-bar-wrap {{
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-end;
-            height: 100%;
-            gap: 3pt;
-        }}
-        .plusvalia-bar {{
-            width: 100%;
-            border-radius: 4pt 4pt 0 0;
-            background: linear-gradient(to top, var(--primary), var(--secondary));
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-        }}
-        .plusvalia-label {{
-            font-size: 8pt;
-            color: var(--gray-500);
-            text-align: center;
-        }}
-        .plusvalia-value {{
-            font-size: 8pt;
-            font-weight: 700;
-            color: var(--primary);
-            text-align: center;
-        }}
-        .plusvalia-comment {{
-            font-size: 10pt;
-            color: var(--gray-500);
-            font-style: italic;
-            margin-top: 6pt;
-            text-align: center;
-        }}
-
-        /* Perfil del entorno */
-        .entorno-grid {{
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8pt;
-            margin: 10pt 0;
-        }}
-        .entorno-item {{
-            padding: 10pt;
-            background: var(--gray-50);
-            border-radius: 6pt;
-            border: 1pt solid var(--gray-200);
-        }}
-        .entorno-header {{
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 5pt;
-        }}
-        .entorno-name {{
-            font-size: 10pt;
-            font-weight: 600;
-            color: var(--gray-700);
-        }}
-        .entorno-score {{
-            font-size: 11pt;
-            font-weight: 700;
-            color: var(--primary);
-        }}
-        .entorno-bar-bg {{
-            height: 5pt;
-            background: var(--gray-200);
-            border-radius: 3pt;
-            overflow: hidden;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-        }}
-        .entorno-bar-fill {{
-            height: 100%;
-            border-radius: 3pt;
-            background: linear-gradient(to right, var(--secondary), var(--primary));
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-        }}
-        .entorno-desc {{
-            font-size: 9pt;
-            color: var(--gray-500);
-            margin-top: 5pt;
-            line-height: 1.4;
-        }}
-
-        /* Ventajas / Oportunidades */
-        .vo-grid {{
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10pt;
-            margin: 10pt 0;
-        }}
-        .vo-col {{
-            padding: 10pt;
-            border-radius: 6pt;
-        }}
-        .vo-col.ventajas {{
-            background: #f0fdf4;
-            border: 1pt solid #bbf7d0;
-        }}
-        .vo-col.oportunidades {{
-            background: #fffbeb;
-            border: 1pt solid #fde68a;
-        }}
-        .vo-title {{
-            font-size: 11pt;
-            font-weight: 700;
-            margin-bottom: 8pt;
-        }}
-        .vo-title.ventajas {{ color: #15803d; }}
-        .vo-title.oportunidades {{ color: #92400e; }}
-        .vo-item {{
-            display: flex;
-            align-items: flex-start;
-            gap: 5pt;
-            margin: 5pt 0;
-            font-size: 10pt;
-            line-height: 1.4;
-        }}
-        .vo-dot {{
-            font-size: 8pt;
-            margin-top: 2pt;
-            flex-shrink: 0;
-        }}
-
-        /* Estrategia de comercialización */
-        .estrategia-grid {{
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10pt;
-            margin: 10pt 0;
-        }}
-        .estrategia-box {{
-            padding: 10pt;
-            background: var(--gray-50);
-            border-radius: 6pt;
-            border: 1pt solid var(--gray-200);
-        }}
-        .estrategia-box-title {{
-            font-size: 10pt;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 6pt;
-        }}
-        .estrategia-list {{
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }}
-        .estrategia-list li {{
-            font-size: 10pt;
-            line-height: 1.5;
-            padding: 2pt 0;
-            color: var(--gray-700);
-        }}
-        .estrategia-list li::before {{
-            content: "▶ ";
-            color: var(--secondary);
-            font-size: 8pt;
-        }}
-        
-        @media print {{
-            body {{ background: white; margin: 0; }}
-            .report {{ padding: 12pt; box-shadow: none; }}
-            .no-print {{ display: none; }}
-            .section {{ page-break-inside: avoid; margin-bottom: 8pt; }}
-            table {{ page-break-inside: avoid; }}
-            .result-box {{ page-break-inside: avoid; }}
-            .thermo-container {{ page-break-inside: avoid; }}
-            .page-break-before {{ page-break-before: always; }}
-        }}
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reporte PropValu - {folio}</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+{_REPORT_CSS}
+</style>
 </head>
 <body>
-    <div class="report">
-        <!-- PÁGINA 1 -->
-        <div class="header">
-            <div class="logo">Prop<span>Valu</span></div>
-            <div class="report-meta">
-                <div>Reporte de Valuación</div>
-                <div>Folio: {folio}</div>
-                <div>Fecha: {date_str}</div>
-            </div>
-        </div>
-        
-        <h1>📊 ESTIMACIÓN DE VALOR DE MERCADO</h1>
-        
-        <div class="section">
-            <h2>🏠 DATOS DEL INMUEBLE</h2>
-            <div class="data-grid">
-                <div class="data-item">
-                    <span class="data-label">📍 Ubicación</span>
-                    <span class="data-value">{prop['neighborhood']}, {prop['municipality']}</span>
-                </div>
-                <div class="data-item">
-                    <span class="data-label">🗺 Estado</span>
-                    <span class="data-value">{prop['state']}</span>
-                </div>
-                <div class="data-item">
-                    <span class="data-label">📐 Terreno</span>
-                    <span class="data-value">{prop['land_area']} m²</span>
-                </div>
-                <div class="data-item">
-                    <span class="data-label">🏗 Construcción</span>
-                    <span class="data-value">{prop['construction_area']} m²</span>
-                </div>
-                <div class="data-item">
-                    <span class="data-label">🏷 Tipo</span>
-                    <span class="data-value">{prop.get('property_type', 'Casa')}</span>
-                </div>
-                <div class="data-item">
-                    <span class="data-label">📋 Régimen</span>
-                    <span class="data-value">{prop['land_regime']}</span>
-                </div>
-            </div>
-            
-            {f'<div class="features-row">{features_html}</div>' if features_html else ''}
-            {other_features_html}
-        </div>
-        
-        {'<div class="section"><h2>📋 USO DE SUELO</h2>' + land_use_html + '</div>' if is_valuer_mode else ''}
-        
-        <div class="section">
-            <h2>📍 UBICACIÓN</h2>
-            <div class="map-container">
-                {'<img src="' + static_map_src + '" alt="Mapa de ubicación" style="width: 100%; height: 100%; object-fit: cover;"/>' if has_static_map else '<iframe width="100%" height="100%" frameborder="0" scrolling="no" src="' + embed_map_url + '" style="border: 0;"></iframe>'}
-            </div>
-            <p class="map-address">📍 {prop.get('street_address', '')} {prop['neighborhood']}, {prop['municipality']}, {prop['state']}</p>
-            <p class="map-coords">Coordenadas: {lat:.6f}, {lng:.6f}</p>
-        </div>
 
-        {plusvalia_entorno_html}
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PÁGINA 1: DATOS DEL INMUEBLE                         -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="page">
+{_header()}
 
-        <div class="result-box">
-            <div class="result-label">💰 VALOR DE MERCADO ESTIMADO</div>
-            <div class="result-value">${result['estimated_value']:,.0f} MXN</div>
-            <div class="result-range">Rango: ${result['value_range_min']:,.0f} - ${result['value_range_max']:,.0f} MXN</div>
-            <div class="result-sqm">Precio por m²: <strong>${result['price_per_sqm']:,.0f}/m²</strong></div>
-            <span class="confidence {result['confidence_level'].lower()}">📈 Confianza: {result['confidence_level']}</span>
-        </div>
-        
-        <div class="thermo-container">
-            <div class="thermo-title">🌡 Posición Competitiva en el Mercado: <strong>{position_label}</strong></div>
-            <p class="thermo-explanation">
-                Basado en: conservación ({conservation}), precio/m² vs mercado (${subject_price_sqm:,.0f} vs ${avg_comp_price_sqm:,.0f}), oferta ({similar_count} propiedades)
-            </p>
-            <div class="thermometer">
-                <div class="thermo-marker" style="left: {thermo_position:.0f}%;"></div>
-            </div>
-            <div class="thermo-labels">
-                <div class="thermo-label-group">
-                    <span class="thermo-value thermo-min">${value_min:,.0f}</span>
-                    <span class="thermo-text thermo-min">Desventaja</span>
-                </div>
-                <div class="thermo-label-group">
-                    <span class="thermo-value thermo-mid">${value_estimated:,.0f}</span>
-                    <span class="thermo-text thermo-mid">Equilibrio</span>
-                </div>
-                <div class="thermo-label-group">
-                    <span class="thermo-value thermo-max">${value_max:,.0f}</span>
-                    <span class="thermo-text thermo-max">Ventaja</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2>📈 RESUMEN EJECUTIVO</h2>
-            <div class="exec-grid">
-                <div class="exec-card highlight">
-                    <div class="exec-icon">💵</div>
-                    <div class="exec-value">${result['estimated_value']:,.0f}</div>
-                    <div class="exec-label">Valor Venta</div>
-                </div>
-                <div class="exec-card">
-                    <div class="exec-icon">🏠</div>
-                    <div class="exec-value">${monthly_rent:,.0f}</div>
-                    <div class="exec-label">Renta/Mes</div>
-                </div>
-                <div class="exec-card">
-                    <div class="exec-icon">📊</div>
-                    <div class="exec-value">{cap_rate:.1f}%</div>
-                    <div class="exec-label">Cap Rate</div>
-                </div>
-                <div class="exec-card">
-                    <div class="exec-icon">📈</div>
-                    <div class="exec-value">{appreciation_range}</div>
-                    <div class="exec-label">Plusvalía</div>
-                </div>
-            </div>
-            
-            <div class="data-grid">
-                <div class="data-item">
-                    <span class="data-label">📉 Valor Mínimo</span>
-                    <span class="data-value" style="color: var(--danger);">${result['value_range_min']:,.0f}</span>
-                </div>
-                <div class="data-item">
-                    <span class="data-label">📈 Valor Máximo</span>
-                    <span class="data-value" style="color: var(--success);">${result['value_range_max']:,.0f}</span>
-                </div>
-                <div class="data-item">
-                    <span class="data-label">💰 Renta Anual</span>
-                    <span class="data-value">${annual_rent:,.0f}</span>
-                </div>
-                <div class="data-item">
-                    <span class="data-label">🏘 Props. Similares</span>
-                    <span class="data-value">{similar_count} en venta</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2>⚖ DESGLOSE DE VALOR FÍSICO</h2>
-            <div class="breakdown-row">
-                <div class="breakdown-chart"></div>
-                <div class="breakdown-legend">
-                    <div class="legend-item">
-                        <div style="display: flex; align-items: center;">
-                            <div class="legend-color" style="background: var(--primary);"></div>
-                            <span>🌍 Terreno</span>
-                        </div>
-                        <strong>${result['land_value']:,.0f} ({land_percent:.0f}%)</strong>
-                    </div>
-                    <div class="legend-item">
-                        <div style="display: flex; align-items: center;">
-                            <div class="legend-color" style="background: var(--secondary);"></div>
-                            <span>🏗 Construcción</span>
-                        </div>
-                        <strong>${result['construction_depreciated']:,.0f} ({construction_percent:.0f}%)</strong>
-                    </div>
-                    <div class="legend-item" style="margin-top: 6pt; padding-top: 6pt; border-top: 1pt solid var(--gray-200);">
-                        <span style="color: var(--gray-500);">📉 Depreciación (Ross-Heidecke):</span>
-                        <span>{result['depreciation_percent']}%</span>
-                    </div>
-                    <p style="font-size: 8pt; color: var(--gray-500); margin-top: 4pt;">
-                        Método Ross-Heidecke: depreciación por edad ({prop.get('estimated_age', 10)} años) y estado de conservación ({prop.get('conservation_state', 'Bueno')})
-                    </p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2>🔍 COMPARABLES ({len(active_comparables)})</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Colonia</th>
-                        <th class="text-right">Terr.</th>
-                        <th class="text-right">Const.</th>
-                        <th class="text-right">Precio</th>
-                        <th class="text-right">$/m²</th>
-                        <th class="text-center">Ajuste</th>
-                        <th class="text-right">$/m² Aj.</th>
-                        <th>Fuente</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {comp_rows}
-                </tbody>
-            </table>
-        </div>
-        
-        {vo_html}
-        {estrategia_html}
+  <div class="title-banner">&#x1F4CA; Estimación de Valor de Mercado</div>
 
-        {equipamiento_ai_html}
+  <div class="section-title">&#x1F3E0; DATOS DEL INMUEBLE</div>
 
-        {f'''<div class="section">
-            <h2>📝 ANÁLISIS Y OBSERVACIONES</h2>
-            <div class="analysis">{analysis}</div>
-        </div>''' if include_analysis else ''}
-
-        {photos_html}
-
-        <div class="section">
-            <h2>💡 TIPS GENERALES DE PRESENTACIÓN (HOME STAGING)</h2>
-            <div class="tips-grid">
-                {tips_html}
-            </div>
-        </div>
-        
-        <div class="disclaimer">
-            <strong>⚠️ AVISO LEGAL Y LIMITACIONES:</strong>
-            <ul>
-                <li>Los comparables fueron obtenidos mediante búsqueda en internet en tiempo real y pueden variar.</li>
-                <li>Los valores paramétricos de construcción fueron obtenidos de fuentes web con fecha de consulta: {date_str}.</li>
-                <li>El resultado es una <strong>estimación orientativa</strong>, no un avalúo oficial con validez legal.</li>
-                {'<li><strong>Este reporte contó con la revisión y apoyo de un valuador profesional</strong> quien verificó los comparables y la información capturada.</li>' if is_valuer_mode else '<li>Esta estimación fue generada automáticamente sin verificación de un valuador profesional.</li>'}
-            </ul>
-            <p style="margin-top: 10pt; color: var(--gray-700);">
-                📅 Estimación generada el {date_str} · Metodología CNBV / SHF / INDAABIN · 
-                <strong>No sustituye avalúo oficial de perito certificado con validez legal.</strong>
-            </p>
-        </div>
-        
-        <div class="footer">
-            <p style="font-size: 14pt;">🏠 PropValu México - Plataforma de Estimación Inmobiliaria con IA</p>
-            {'<p style="color: var(--primary); font-weight: 600; font-size: 12pt;">✓ Reporte verificado por valuador profesional</p>' if is_valuer_mode else '<p style="color: var(--gray-500); font-size: 11pt;">Reporte generado automáticamente sin verificación de perito valuador</p>'}
-            <p style="font-size: 10pt; color: var(--gray-400);">www.propvalu.mx</p>
-        </div>
+  <div class="inmueble-card">
+    <div class="inmueble-top">
+      <div class="inmueble-addr">
+        <div class="prop-address">&#x1F4CD; {addr_full}</div>
+        <div class="prop-city">{location_str}</div>
+      </div>
+      <div class="tech-note">
+        <strong>&#x26A0; Nota Técnica:</strong>
+        Las superficies de Predial no están validadas físicamente. Discrepancias impactarán la precisión del valor.
+      </div>
     </div>
+    <table class="data-grid">
+      <tr>
+        <td><div class="dg-label">&#x1F4D0; Terreno</div><div class="dg-value">{land_area} m&#xB2;</div></td>
+        <td><div class="dg-label">&#x1F3D7; Construcción</div><div class="dg-value">{construction_area} m&#xB2;</div></td>
+        <td><div class="dg-label">&#x1F3E0; Tipo</div><div class="dg-value">{property_type}</div></td>
+      </tr>
+      <tr>
+        <td><div class="dg-label">&#x1F3E2; Régimen</div><div class="dg-value">{tenure}</div></td>
+        <td><div class="dg-label">&#x1F3D8; Niveles</div><div class="dg-value">{niveles_str}</div></td>
+        <td><div class="dg-label">&#x1F4CB; Uso de Suelo</div><div class="dg-value">{land_use}</div></td>
+      </tr>
+      <tr>
+        <td><div class="dg-label">&#x1F4C4; Fuente Info.</div><div class="dg-value">Predial / Escrituras</div></td>
+        <td><div class="dg-label">&#x25B6; Conservación</div><div class="dg-value">{conservation}</div></td>
+        <td><div class="dg-label">&#x1F3DB; Antigüedad</div><div class="dg-value">{age} años</div></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="badges">
+    {badges_html}
+  </div>
+
+  <div class="section-title">&#x1F4CD; UBICACIÓN Y FACHADA</div>
+  <div class="map-container">
+    {map_html}
+  </div>
+  <div class="coords">&#x2B50; Coordenadas: {lat:.6f}, {lng:.6f}</div>
+
+  <div class="grid-2">
+    <div class="plusvalia-card">
+      <div class="section-title" style="font-size:11px;margin-bottom:4px;">&#x1F4C8; PLUSVALÍA PROYECTADA (5 AÑOS)</div>
+      <div class="chart-bars">
+        {bars_html}
+      </div>
+      <div class="chart-footnote">* Supuesto basado en apreciación histórica. Tasa est.: ~{tasa:.1f}% (SHF/BBVA).</div>
+    </div>
+
+    <div class="entorno-card">
+      <div class="section-title" style="font-size:11px;margin-bottom:6px;">&#x1F4CD; PERFIL DEL ENTORNO</div>
+      {entorno_items}
+    </div>
+  </div>
+  {pe_scores_section}
+
+{_footer(1)}
+</div>
+
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PÁGINA 2: VALOR                                      -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="page">
+{_header()}
+
+  <div class="valor-hero">
+    <div class="vh-row">
+      <div class="vh-side-col">
+        <div class="vh-side-label">VALOR MÁXIMO</div>
+        <div class="vh-side-val vh-val-lime">${value_max:,.0f}</div>
+      </div>
+      <div class="vh-center-col">
+        <div class="valor-subtitle">&#x1F4B0; VALOR MEDIO O JUSTO</div>
+        <div class="valor-main">${total_value:,.0f}</div>
+        <div class="valor-currency">M.N. (VALOR ANALIZADO)</div>
+      </div>
+      <div class="vh-side-col right">
+        <div class="vh-side-label">VALOR MÍNIMO</div>
+        <div class="vh-side-val vh-val-red">${value_min:,.0f}</div>
+      </div>
+    </div>
+    <div class="vh-footer">
+      <div class="vh-m2">Precio por m&#xB2;: <span>${price_sqm:,.0f}/m&#xB2;</span></div>
+      <div class="vh-confianza">&#x2713; Confianza: {confidence_level}</div>
+    </div>
+  </div>
+
+  <div class="section-title">&#x1F3C1; POSICIÓN COMPETITIVA EN EL MERCADO</div>
+  <p style="font-size:10px;color:var(--text-sec);margin-bottom:6px;">{pos_label}</p>
+  <div class="competitiva-bar-bg">
+    <div class="competitiva-marker" style="left:{thermo_pos:.0f}%;"></div>
+  </div>
+  <div class="competitiva-labels">
+    <span class="clabel-red">Desventaja</span>
+    <span class="clabel-gray">&#x2696; Equilibrio</span>
+    <span class="clabel-green">Ventaja</span>
+  </div>
+  <div class="metric-card-row">
+    <div class="metric-card">
+      <div class="mc-label">Conservación</div>
+      <div class="mc-value">{conservation}</div>
+    </div>
+    <div class="metric-card">
+      <div class="mc-label">$/M&#xB2; vs Mercado</div>
+      <div class="mc-value">${price_sqm:,.0f} vs ${avg_comp_sqm:,.0f}</div>
+    </div>
+    <div class="metric-card">
+      <div class="mc-label">Oferta Similar</div>
+      <div class="mc-value">{similar_count}+ Propiedades</div>
+    </div>
+  </div>
+
+  <div class="section-title">&#x1F4CA; RESUMEN EJECUTIVO</div>
+  <div class="resumen-grid">
+    <div class="resumen-box highlight">
+      <div class="rb-value">${total_value:,.0f}</div>
+      <div class="rb-label">Valor Venta</div>
+    </div>
+    <div class="resumen-box">
+      <div class="rb-value">${monthly_rent:,.0f}</div>
+      <div class="rb-label">Renta / Mes</div>
+    </div>
+    <div class="resumen-box">
+      <div class="rb-value">${physical_value:,.0f}</div>
+      <div class="rb-label">Valor Físico</div>
+    </div>
+    <div class="resumen-box">
+      <div class="rb-value">{construction_area} m&#xB2;</div>
+      <div class="rb-label">Construcción</div>
+    </div>
+  </div>
+  <div class="min-max-row">
+    <span class="mm-label">&#x1F4C9; Valor Mínimo</span>
+    <span class="mm-pink">${value_min:,.0f}</span>
+    <span class="mm-label">&#x1F4C8; Valor Máximo</span>
+    <span class="mm-lime">${value_max:,.0f}</span>
+  </div>
+
+  <div class="section-title">&#x1F4CA; INDICADORES DE INVERSIÓN</div>
+  <div class="indicadores-grid">
+    <div class="ind-card">
+      <div class="ind-label">Cap Rate</div>
+      <div class="ind-value">{cap_rate:.1f}%</div>
+      <div class="ind-sub">vs CETES {cetes:.0f}%</div>
+    </div>
+    <div class="ind-card">
+      <div class="ind-label">Plusvalía Anual</div>
+      <div class="ind-value">{appreciation:.1f}%</div>
+      <div class="ind-sub">Estimada</div>
+    </div>
+    <div class="ind-card">
+      <div class="ind-label">Payback</div>
+      <div class="ind-value">{payback:.1f}</div>
+      <div class="ind-sub">años (recup. renta)</div>
+    </div>
+    <div class="ind-card">
+      <div class="ind-label">ROI 10 Años</div>
+      <div class="ind-value">{roi_10:.0f}%</div>
+      <div class="ind-sub">Renta + Plusvalía</div>
+    </div>
+    <div class="ind-card {'negative' if cap_vs_cetes < 0 else ''}">
+      <div class="ind-label">Dif. Cap-CETES</div>
+      <div class="ind-value">{cap_vs_cetes:+.1f}%</div>
+      <div class="ind-sub">{'&#x25BC; Abajo CETES' if cap_vs_cetes < 0 else '&#x25B2; Sobre CETES'}</div>
+    </div>
+  </div>
+
+  <div class="section-title">&#x2696; DESGLOSE DE VALOR FÍSICO</div>
+  <div style="border:1px solid var(--gray-200);border-radius:10px;padding:12px 14px;margin-bottom:12px;">
+    <div class="fisico-grid">
+      <div>
+        <svg viewBox="0 0 100 100" style="width:100px;height:100px;">
+          <circle cx="50" cy="50" r="40" fill="none" stroke="var(--gray-200)" stroke-width="18"/>
+          <circle cx="50" cy="50" r="40" fill="none" stroke="#1B4231" stroke-width="18"
+            stroke-dasharray="{land_dash:.1f} {circumference}" stroke-dashoffset="0" transform="rotate(-90 50 50)"/>
+          <circle cx="50" cy="50" r="40" fill="none" stroke="#51B687" stroke-width="18"
+            stroke-dasharray="{const_dash:.1f} {circumference}" stroke-dashoffset="-{land_dash:.1f}" transform="rotate(-90 50 50)"/>
+        </svg>
+        <div class="donut-legend">
+          <div><span class="dot" style="background:#1B4231"></span> Terreno</div>
+          <div><span class="dot" style="background:#51B687"></span> Construcción</div>
+        </div>
+      </div>
+      <div>
+        <div style="margin-bottom:6px;">
+          <div style="font-size:9px;color:var(--text-sec);text-transform:uppercase;margin-bottom:2px;">Valor Ref. M&#xB2;</div>
+          <div style="font-size:18px;font-weight:700;color:var(--text-main);">${price_sqm:,.0f}</div>
+        </div>
+        <div style="font-size:10px;color:var(--gray-400);">Depreciación: {depr_pct}%</div>
+      </div>
+      <div class="fisico-values">
+        <div class="fv-row"><span>Terreno</span><span style="font-weight:700">${land_value:,.0f}</span></div>
+        <div class="fv-row"><span>Construcción</span><span style="font-weight:700">${construction_phys:,.0f}</span></div>
+        <div class="fv-total"><span>Total Físico</span><span>${physical_value:,.0f}</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="warning-box">
+    <div class="wb-title">&#x26A0; CONSIDERACIONES DEL CÁLCULO FÍSICO</div>
+    <p><strong>Referencia Técnica:</strong> El valor físico (Costo de Reposición) es un parámetro técnico-estructural y no constituye el valor de oferta comercial.</p>
+    <p style="margin-top:5px;"><strong>Validación de Superficies:</strong> Los datos de m&#xB2; de fuentes administrativas no sustituyen una medición física pericial.</p>
+  </div>
+
+{_footer(2)}
+</div>
+
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PÁGINA 3: COMPARABLES                                -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="page">
+{_header()}
+
+  <div class="section-title">&#x1F50D; COMPARABLES SELECCIONADOS ({n_comp})</div>
+
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th>#</th><th>Colonia</th><th>Terr.</th><th>Const.</th>
+        <th>Precio</th><th>$/M&#xB2;</th><th>Aj.</th><th>$/M&#xB2; Aj.</th><th>Fuente</th>
+      </tr>
+    </thead>
+    <tbody>
+      {comp_rows}
+    </tbody>
+  </table>
+
+  <div class="va-grid">
+    <div class="va-card">
+      <div class="va-title va-title-green">&#x2705; VENTAJAS COMPETITIVAS</div>
+      <ul>{v_items_html}</ul>
+    </div>
+    <div class="va-card">
+      <div class="va-title va-title-amber">&#x26A0; ÁREAS DE OPORTUNIDAD</div>
+      <ul>{o_items_html}</ul>
+    </div>
+  </div>
+
+  <div class="section-title">&#x1F4DD; ANÁLISIS ESTRATÉGICO DE MERCADO</div>
+  <div class="analisis-box">
+    <p>{analisis_mercado}</p>
+  </div>
+
+  <div class="metodo-box">
+    <div class="mb-title">&#x1F3E0; METODOLOGÍA DE VALUACIÓN</div>
+    <p>Se aplicó el <strong>Método de Comparación de Mercado con Homologación Técnica</strong>. A cada comparable se aplicaron factores de ajuste por: <strong>Edad (Ross-Heidecke)</strong>, <strong>Estado de Conservación</strong> y <strong>Margen de Negociación</strong>. El valor final es un promedio ponderado que prioriza la <strong>mediana estadística</strong> para eliminar valores atípicos.</p>
+    <p style="margin-top:4px;font-size:9px;color:var(--gray-400);">Norma: INDAABIN &middot; Manual de Valuación Bancaria SHF &middot; Circular CNBV 1/2009</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px;">
+    <div style="border:1px solid var(--gray-200);border-radius:8px;padding:9px 10px;text-align:center;background:var(--box-bg);">
+      <div style="font-size:8px;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:2px;">Muestra</div>
+      <div style="font-family:'Outfit',sans-serif;font-size:16px;font-weight:800;color:#1B4231;">{n_comp}</div>
+      <div style="font-size:8px;color:var(--text-sec);">comparables</div>
+    </div>
+    <div style="border:1px solid var(--gray-200);border-radius:8px;padding:9px 10px;text-align:center;background:var(--box-bg);">
+      <div style="font-size:8px;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:2px;">$/m&#xB2; Medio</div>
+      <div style="font-family:'Outfit',sans-serif;font-size:16px;font-weight:800;color:#1B4231;">${avg_raw:,.0f}</div>
+      <div style="font-size:8px;color:var(--text-sec);">mercado zona</div>
+    </div>
+    <div style="border:1px solid var(--gray-200);border-radius:8px;padding:9px 10px;text-align:center;background:var(--box-bg);">
+      <div style="font-size:8px;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:2px;">Aj. Promedio</div>
+      <div style="font-family:'Outfit',sans-serif;font-size:16px;font-weight:800;color:{adj_color_css};">{avg_adj_pct:+.1f}%</div>
+      <div style="font-size:8px;color:var(--text-sec);">homologación</div>
+    </div>
+    <div style="border:1px solid var(--gray-200);border-radius:8px;padding:9px 10px;text-align:center;background:var(--box-bg);">
+      <div style="font-size:8px;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:2px;">$/m&#xB2; Ajustado</div>
+      <div style="font-family:'Outfit',sans-serif;font-size:16px;font-weight:800;color:#1B4231;">${avg_adj_sqm:,.0f}</div>
+      <div style="font-size:8px;color:var(--text-sec);">valor analizado</div>
+    </div>
+  </div>
+
+{_footer(3)}
+</div>
+
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PÁGINA 4: ENTORNO Y RECOMENDACIONES                  -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="page">
+{_header()}
+
+  <div class="section-title">&#x1F3D8; EQUIPAMIENTO Y SERVICIOS RELEVANTES (RADIO 1.5 KM)</div>
+
+  <div class="servicios-grid">
+    {equip_cards}
+  </div>
+  {plazas_card}
+
+  <div class="section-title">&#x1F525; ESTRATEGIA DE COMERCIALIZACIÓN Y PROMOCIÓN</div>
+  <div class="recom-box">
+    <div class="recom-head">&#x1F3E0; RECOMENDACIONES PARA INMOBILIARIAS Y PROPIETARIOS</div>
+    {recom_items}
+  </div>
+
+  <div class="section-title">&#x1F4A1; TIPS GENERALES DE PRESENTACIÓN (HOME STAGING)</div>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <div class="tip-icon">&#x1F3A8;</div>
+      <div><div class="tip-title">Presentación:</div><div class="tip-text">Pintura fresca con colores neutros (blanco, beige, gris claro) que amplían visualmente los espacios</div></div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">&#x2728;</div>
+      <div><div class="tip-title">Limpieza Profunda:</div><div class="tip-text">Limpieza profesional de ventanas, azulejos, alfombras. Ventilación y aromatizantes suaves</div></div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">&#x1F4F7;</div>
+      <div><div class="tip-title">Fotografía Profesional:</div><div class="tip-text">Propiedades con fotos profesionales reciben 3x más visitas. Considerar video y tour virtual 360°</div></div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">&#x1F4E6;</div>
+      <div><div class="tip-title">Despersonalización:</div><div class="tip-text">Retirar fotos familiares, ordenar closets, reducir muebles. Espacios vacíos se perciben más amplios</div></div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">&#x1F527;</div>
+      <div><div class="tip-title">Reparaciones Menores:</div><div class="tip-text">Fugas, grietas, cerraduras, apagadores. Los detalles visibles restan valor percibido al comprador</div></div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">&#x1F4B0;</div>
+      <div><div class="tip-title">Estrategia de Precio:</div><div class="tip-text">Precio justo de mercado vende 30% más rápido. Precio alto ahuyenta compradores y alarga tiempos</div></div>
+    </div>
+  </div>
+
+  <div class="legal-box">
+    <div class="lb-title">&#x26A0; AVISO LEGAL Y LIMITACIONES</div>
+    <p>Este documento es una opinión de valor generada mediante algoritmos de inteligencia artificial y análisis de datos de mercado. No constituye un avalúo reglamentado por la SHF o normativas locales para fines hipotecarios. El valor es una estimación estadística; la precisión depende de los datos proporcionados y la disponibilidad de comparables en la zona. Para fines legales, hipotecarios o litigiosos se requiere un perito valuador certificado con cédula profesional vigente y registro ante las instituciones correspondientes.</p>
+  </div>
+
+{_footer(4)}
+</div>
+
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PÁGINA 5: FOTOGRAFÍAS                                -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="page">
+{_header()}
+
+  <div class="title-banner">&#x1F4F7; Fotografías del Inmueble</div>
+  <div class="section-title">&#x1F4F8; REGISTRO FOTOGRÁFICO</div>
+
+  {photos_content}
+
+{_footer(5)}
+</div>
+
 </body>
 </html>"""
-    
-    return html

@@ -7,7 +7,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import {
-  Building2,
   ArrowLeft,
   Download,
   Printer,
@@ -200,7 +199,6 @@ const ReportPage = () => {
                 Volver al inicio
               </Button>
               <div className="flex items-center gap-3">
-                <Building2 className="w-8 h-8 text-[#1B4332]" />
                 <h1 className="font-['Outfit'] text-xl md:text-2xl font-bold text-[#1B4332]">
                   Reporte de Valuación
                 </h1>
