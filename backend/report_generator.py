@@ -939,7 +939,7 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
       <div class="ind-sub">Estimada</div>
     </div>
     <div class="ind-card">
-      <div class="ind-label">Recuperación</div>
+      <div class="ind-label">Recup. Inversión</div>
       <div class="ind-value">{payback:.1f}</div>
       <div class="ind-sub">años (renta)</div>
     </div>
