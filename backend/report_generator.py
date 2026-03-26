@@ -152,7 +152,7 @@ _REPORT_CSS = """
     display: flex; align-items: center; gap: 5px;
   }
 
-  .inmueble-card { border: 1px solid var(--gray-200); border-radius: 10px; overflow: hidden; margin-bottom: 10px; }
+  .inmueble-card { border: 1px solid var(--gray-200); border-radius: 12px; overflow: hidden; margin-bottom: 10px; }
   .inmueble-top {
     display: grid; grid-template-columns: 1fr 1fr; gap: 0;
     border-bottom: 1px solid var(--gray-200); background: var(--gray-50);
@@ -188,16 +188,17 @@ _REPORT_CSS = """
   }
 
   .map-container {
-    width: 100%; height: 220px; overflow: hidden;
-    border: 1px solid var(--gray-200); border-radius: 10px;
+    width: 100%; overflow: hidden;
+    border: 1px solid var(--gray-200); border-radius: 12px;
     margin-bottom: 5px; background: var(--gray-100);
     display: flex; align-items: center; justify-content: center;
     color: var(--gray-400); font-size: 13px;
   }
+  .map-container img { width: 100%; height: 100%; object-fit: cover; }
   .coords { text-align: right; font-size: 10px; color: var(--text-sec); margin-bottom: 12px; }
 
   .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .plusvalia-card { border: 1px solid var(--gray-200); border-radius: 10px; padding: 12px 14px; }
+  .plusvalia-card { border: 1px solid var(--gray-200); border-radius: 12px; padding: 12px 14px; }
   .chart-bars {
     display: flex; align-items: flex-end; gap: 8px;
     height: 110px; margin: 10px 0 6px;
@@ -213,7 +214,7 @@ _REPORT_CSS = """
   .chart-amount { font-size: 8px; color: var(--text-sec); }
   .chart-footnote { font-size: 8px; color: var(--gray-400); font-style: italic; margin-top: 4px; }
 
-  .entorno-card { border: 1px solid var(--gray-200); border-radius: 10px; padding: 12px 14px; }
+  .entorno-card { border: 1px solid var(--gray-200); border-radius: 12px; padding: 12px 14px; }
   .entorno-item {
     display: flex; align-items: center; gap: 6px;
     padding: 3px 0; font-size: 11px;
@@ -225,7 +226,7 @@ _REPORT_CSS = """
 
   /* Perfil del Entorno con scores */
   .pe-scores-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
-  .pe-score-card { border: 1px solid var(--gray-200); border-radius: 10px; padding: 10px 12px; }
+  .pe-score-card { border: 1px solid var(--gray-200); border-radius: 12px; padding: 10px 12px; }
   .pe-score-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
   .pe-score-name { display: flex; align-items: center; gap: 5px; font-weight: 700; font-size: 10px; color: var(--text-main); }
   .pe-score-val  { font-weight: 800; color: var(--green-700); font-size: 11px; }
@@ -248,7 +249,7 @@ _REPORT_CSS = """
   /* PÁGINA 2 */
   .valor-hero {
     background: linear-gradient(150deg, #162f24 0%, var(--green-900) 40%, var(--green-700) 100%);
-    color: white; padding: 20px 24px 14px; border-radius: 14px; margin-bottom: 14px;
+    color: white; padding: 20px 24px 14px; border-radius: 16px; margin-bottom: 14px;
   }
   .vh-row { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; margin-bottom: 12px; }
   .vh-side-col { display: flex; flex-direction: column; }
@@ -275,26 +276,26 @@ _REPORT_CSS = """
 
   .metric-card-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
   .metric-card { border: 1px solid var(--gray-200); border-radius: 8px; padding: 9px 12px; text-align: center; background: white; }
-  .metric-card .mc-label { font-size: 8px; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
-  .metric-card .mc-value { font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; color: var(--text-main); }
+  .metric-card .mc-label { font-size: 9px; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
+  .metric-card .mc-value { font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 700; color: var(--text-main); }
 
   .resumen-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 8px; }
   .resumen-box { border: 1px solid var(--gray-200); border-radius: 10px; padding: 12px 8px; text-align: center; background: white; }
   .resumen-box.highlight { border: 2px solid var(--green-500); background: #f0faf4; }
   .resumen-box.highlight .rb-value { color: var(--green-700); }
-  .resumen-box .rb-value { font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 800; color: var(--green-900); }
-  .resumen-box .rb-label { font-size: 8px; color: var(--text-sec); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 3px; }
+  .resumen-box .rb-value { font-family: 'Outfit', sans-serif; font-size: 17px; font-weight: 800; color: var(--green-900); }
+  .resumen-box .rb-label { font-size: 9px; color: var(--text-sec); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 3px; }
 
   .min-max-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; font-size: 11px; margin-bottom: 12px; border-bottom: 1px solid var(--gray-100); }
   .mm-label { color: var(--text-sec); }
   .mm-lime  { font-weight: 700; color: #2D6A4F; }
-  .mm-pink  { font-weight: 700; color: var(--red); }
+  .mm-pink  { font-weight: 700; color: #2D6A4F; }
 
   .indicadores-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 7px; margin-bottom: 12px; }
   .ind-card { border: 1px solid var(--gray-200); border-radius: 8px; padding: 10px 6px; text-align: center; background: var(--green-100); }
-  .ind-card .ind-label { font-size: 7px; color: var(--green-700); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 4px; font-weight: 700; }
+  .ind-card .ind-label { font-size: 8px; color: var(--green-700); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 4px; font-weight: 700; }
   .ind-card .ind-value { font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 800; color: var(--green-900); }
-  .ind-card .ind-sub   { font-size: 8px; color: var(--gray-500); margin-top: 2px; }
+  .ind-card .ind-sub   { font-size: 9px; color: var(--gray-500); margin-top: 2px; }
   .ind-card.negative { border-color: #fecaca; background: #fff5f5; }
   .ind-card.negative .ind-label { color: #b91c1c; }
   .ind-card.negative .ind-value { color: var(--red); }
@@ -323,7 +324,9 @@ _REPORT_CSS = """
   .comp-fuente  { color: var(--text-blue); font-size: 9px; }
 
   .va-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
-  .va-card { border: 1px solid var(--gray-200); border-radius: 10px; padding: 12px 14px; background: white; }
+  .va-card { border: 1px solid var(--gray-200); border-radius: 12px; padding: 12px 14px; background: white; }
+  .va-card.green-bg { background: var(--green-100); border-color: #b7e4c7; }
+  .va-card.red-bg   { background: #fff5f5; border-color: #fecaca; }
   .va-card .va-title { font-family: 'Outfit', sans-serif; font-size: 11px; font-weight: 700; margin-bottom: 7px; }
   .va-title-green { color: var(--green-500); }
   .va-title-amber { color: #d97706; }
@@ -332,7 +335,7 @@ _REPORT_CSS = """
   .analisis-box { border: 1px solid var(--gray-200); border-radius: 10px; padding: 12px 14px; margin-bottom: 12px; background: var(--box-bg); }
   .analisis-box p { font-size: 10px; color: var(--text-sec); line-height: 1.7; text-align: justify; }
 
-  .metodo-box { background: var(--box-bg); border: 1px solid var(--gray-200); border-left: 3px solid var(--green-500); border-radius: 10px; padding: 12px 14px; font-size: 10px; color: var(--text-sec); line-height: 1.6; }
+  .metodo-box { background: var(--gray-50); border: 1px solid var(--gray-200); border-left: 3px solid var(--green-500); border-radius: 12px; padding: 12px 14px; font-size: 10px; color: var(--text-sec); line-height: 1.6; }
   .metodo-box .mb-title { font-weight: 700; color: var(--green-900); margin-bottom: 4px; font-size: 11px; }
   .metodo-box strong { color: var(--text-main); }
 
@@ -544,21 +547,20 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
           <div class="chart-amount">{amt_str}</div>
         </div>"""
 
-    # Entorno simple list
+    # Entorno simple list (seguridad/movilidad se omiten aquí porque aparecen en la cuadrícula de scores)
     _ent_names = {
         'seguridad': 'Seguridad', 'movilidad': 'Movilidad', 'educacion': 'Educación',
         'salud': 'Salud', 'comercio': 'Comercio', 'recreacion': 'Recreación', 'plazas': 'Plazas'
     }
     entorno_items = ''
     if pe:
-        for key in ['seguridad', 'movilidad', 'educacion', 'salud', 'comercio', 'recreacion', 'plazas']:
+        for key in ['educacion', 'salud', 'comercio', 'recreacion', 'plazas']:
             cat = pe.get(key, {})
             if not cat:
                 continue
-            texto = cat.get('texto', '') if isinstance(cat, dict) else str(cat)
             count = cat.get('count', '') if isinstance(cat, dict) else ''
             name = _ent_names.get(key, key)
-            val_disp = f"{count} cercanos" if count and key not in ['seguridad', 'movilidad'] else texto
+            val_disp = f"{count} cercanos" if count else (cat.get('texto', '') if isinstance(cat, dict) else str(cat))
             entorno_items += f"""
       <div class="entorno-item">
         <span class="elabel">{name}:</span>
@@ -719,19 +721,22 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
     <div class="sc-list">{pl_nombres}</div>
   </div>"""
 
-    # Photos (page 5)
+    # Facade photo for mapa section
+    facade_idx = prop.get('facade_photo_index')
+    facade_photo_url = photos[facade_idx] if (facade_idx is not None and photos and facade_idx < len(photos)) else None
+
+    # Photos (page 5) — only if photos exist, 3-col grid
     if photos and len(photos) > 0:
-        photos_content = '<div class="photos-grid">'
-        for i, photo in enumerate(photos[:8]):
-            photos_content += f'<div class="photo-item"><img src="{photo}" alt="Foto {i+1}"></div>'
-        photos_content += '</div>'
+        photo_items = ''.join(
+            f'<div style="border-radius:12px;overflow:hidden;border:1px solid var(--gray-200);background:#fdfdfd;">'
+            f'<img src="{p}" style="width:100%;height:auto;display:block;" alt="Foto {i+1}"></div>'
+            for i, p in enumerate(photos[:12])
+        )
+        photos_content = f'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px;">{photo_items}</div>'
+        show_photos_page = True
     else:
-        photos_content = """
-  <div class="no-photos">
-    <div class="np-icon">&#x1F4F7;</div>
-    <div style="font-size:14px;font-weight:700;color:var(--text-sec);margin-bottom:6px;">Sin fotografías cargadas</div>
-    <div style="font-size:11px;color:var(--gray-400);">No se han cargado fotografías del inmueble.<br>Agregue imágenes para enriquecer el reporte.</div>
-  </div>"""
+        photos_content = ''
+        show_photos_page = False
 
     # ── Helper functions ────────────────────────────────────────────────────────
 
@@ -814,8 +819,11 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
   </div>
 
   <div class="section-title">&#x1F4CD; UBICACIÓN Y FACHADA</div>
-  <div class="map-container">
-    {map_html}
+  <div style="display:flex;gap:10px;align-items:stretch;">
+    <div class="map-container" style="flex:1;height:240px;">
+      {map_html}
+    </div>
+    {f'<div style="flex:1;height:240px;border-radius:12px;overflow:hidden;border:1px solid var(--gray-200);"><img src="{facade_photo_url}" style="width:100%;height:100%;object-fit:cover;" alt="Fachada"></div>' if facade_photo_url else ''}
   </div>
   <div class="coords">&#x2B50; Coordenadas: {lat:.6f}, {lng:.6f}</div>
 
@@ -858,7 +866,7 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
       </div>
       <div class="vh-side-col right">
         <div class="vh-side-label">VALOR MÍNIMO</div>
-        <div class="vh-side-val vh-val-red">${value_min:,.0f}</div>
+        <div class="vh-side-val vh-val-lime">${value_min:,.0f}</div>
       </div>
     </div>
     <div class="vh-footer">
@@ -931,9 +939,9 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
       <div class="ind-sub">Estimada</div>
     </div>
     <div class="ind-card">
-      <div class="ind-label">Payback</div>
+      <div class="ind-label">Recuperación</div>
       <div class="ind-value">{payback:.1f}</div>
-      <div class="ind-sub">años (recup. renta)</div>
+      <div class="ind-sub">años (renta)</div>
     </div>
     <div class="ind-card">
       <div class="ind-label">ROI 10 Años</div>
@@ -1009,11 +1017,11 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
   </table>
 
   <div class="va-grid">
-    <div class="va-card">
+    <div class="va-card green-bg">
       <div class="va-title va-title-green">&#x2705; VENTAJAS COMPETITIVAS</div>
       <ul>{v_items_html}</ul>
     </div>
-    <div class="va-card">
+    <div class="va-card red-bg">
       <div class="va-title va-title-amber">&#x26A0; ÁREAS DE OPORTUNIDAD</div>
       <ul>{o_items_html}</ul>
     </div>
@@ -1113,6 +1121,7 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
 </div>
 
 
+{f'''
 <!-- ════════════════════════════════════════════════════ -->
 <!-- PÁGINA 5: FOTOGRAFÍAS                                -->
 <!-- ════════════════════════════════════════════════════ -->
@@ -1126,6 +1135,7 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
 
 {_footer(5)}
 </div>
+''' if show_photos_page else ''}
 
 </body>
 </html>"""
