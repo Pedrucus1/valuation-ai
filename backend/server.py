@@ -1285,10 +1285,11 @@ Responde con este JSON (usa valores realistas para la zona, no inventes datos ab
   "perfil_entorno": {{
     "seguridad": {{"score": 7, "texto": "Descripción breve de seguridad en la zona"}},
     "movilidad": {{"score": 7, "texto": "Descripción breve de transporte y acceso"}},
-    "educacion": {{"score": 8, "texto": "Descripción breve de oferta educativa cercana"}},
-    "salud": {{"score": 7, "texto": "Descripción breve de servicios de salud"}},
-    "comercio": {{"score": 8, "texto": "Descripción breve de comercio y servicios"}},
-    "recreacion": {{"score": 7, "texto": "Descripción breve de parques y áreas recreativas"}}
+    "educacion": {{"score": 8, "texto": "Descripción breve de oferta educativa cercana", "count": "12+", "nombres": "Nombre escuela 1, Nombre escuela 2, Nombre escuela 3"}},
+    "salud": {{"score": 7, "texto": "Descripción breve de servicios de salud", "count": "8+", "nombres": "Nombre hospital 1, Nombre clínica 2"}},
+    "comercio": {{"score": 8, "texto": "Descripción breve de comercio y servicios", "count": "15+", "nombres": "Supermercado 1, Tienda 2, Plaza 3"}},
+    "recreacion": {{"score": 7, "texto": "Descripción breve de parques y áreas recreativas", "count": "10+", "nombres": "Parque 1, Parque 2, Área deportiva"}},
+    "plazas": {{"score": 7, "texto": "Descripción breve de plazas comerciales", "count": "5+", "nombres": "Plaza 1, Centro comercial 2"}}
   }},
   "ventajas": [
     "Ventaja competitiva 1 específica de esta propiedad",
@@ -1309,7 +1310,7 @@ Responde con este JSON (usa valores realistas para la zona, no inventes datos ab
   }}
 }}
 
-IMPORTANTE: Devuelve SOLO el JSON. Los scores de perfil_entorno deben ser enteros del 1 al 10 basados en la zona real. Los valores de plusvalía son proyecciones, ya los calculé tú solo ajusta el comentario."""
+IMPORTANTE: Devuelve SOLO el JSON. Los scores de perfil_entorno deben ser enteros del 1 al 10 basados en la zona real. Para educacion/salud/comercio/recreacion/plazas incluye count (ej: "13+") y nombres reales de establecimientos conocidos en la zona. Los valores de plusvalía son proyecciones, ya los calculé tú solo ajusta el comentario."""
 
             _genai.configure(api_key=gemini_key)
             _sys = "Valuador inmobiliario certificado en México. Responde SOLO con JSON válido, sin markdown."

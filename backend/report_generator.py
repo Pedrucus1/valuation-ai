@@ -356,6 +356,7 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
     plusvalia_entorno_html = ""
     vo_html = ""
     estrategia_html = ""
+    equipamiento_ai_html = ""
 
     if ai_sections:
         pv = ai_sections.get("plusvalia", {})
@@ -401,29 +402,44 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
             else:
                 plusvalia_col = '<div style="background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:10px;padding:12px;font-size:10px;color:#6b7280;">Datos de plusvalía no disponibles.</div>'
 
-            _ent_icons = {"seguridad": "🛡", "movilidad": "🚗", "educacion": "📚",
-                          "salud": "🏥", "comercio": "🛒", "recreacion": "🌳"}
-            _ent_names = {"seguridad": "Seguridad", "movilidad": "Movilidad",
-                          "educacion": "Educación", "salud": "Salud",
-                          "comercio": "Comercio", "recreacion": "Recreación"}
+            _ent_dot_color = {
+                "seguridad": "#ef4444", "movilidad": "#f59e0b",
+                "educacion": "#22c55e", "salud": "#22c55e",
+                "comercio": "#22c55e", "recreacion": "#22c55e", "plazas": "#22c55e"
+            }
+            _ent_emoji = {
+                "seguridad": "🛡", "movilidad": "🚗", "educacion": "🎓",
+                "salud": "🏥", "comercio": "🛒", "recreacion": "🌳", "plazas": "🏪"
+            }
+            _ent_names = {
+                "seguridad": "Seguridad", "movilidad": "Movilidad",
+                "educacion": "Educación", "salud": "Salud",
+                "comercio": "Comercio", "recreacion": "Recreación", "plazas": "Plazas"
+            }
             if pe:
                 entorno_items = ""
-                for key in ["seguridad", "movilidad", "educacion", "salud", "comercio", "recreacion"]:
+                for key in ["seguridad", "movilidad", "educacion", "salud", "comercio", "recreacion", "plazas"]:
                     cat = pe.get(key, {})
+                    if not cat:
+                        continue
                     texto = cat.get("texto", "") if isinstance(cat, dict) else str(cat)
-                    icon = _ent_icons.get(key, "📍")
+                    count = cat.get("count", "") if isinstance(cat, dict) else ""
+                    dot_color = _ent_dot_color.get(key, "#22c55e")
                     name = _ent_names.get(key, key)
+                    label = f"{count} {name}" if count else name
                     entorno_items += (
-                        f'<div style="display:flex;align-items:flex-start;gap:5px;padding:3px 0;border-bottom:1px solid #f3f4f6;">'
-                        f'<span style="font-size:11px;">{icon}</span>'
-                        f'<span style="font-size:9.5px;color:#6b7280;min-width:62px;">{name}:</span>'
-                        f'<span style="font-size:9.5px;font-weight:700;color:#1a2e23;line-height:1.3;">{texto}</span>'
+                        f'<div style="display:flex;align-items:flex-start;gap:6px;padding:4px 0;border-bottom:1px solid #f3f4f6;">'
+                        f'<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:{dot_color};margin-top:3px;flex-shrink:0;"></span>'
+                        f'<div style="line-height:1.3;">'
+                        f'<span style="font-size:9px;color:#6b7280;">{label}:</span> '
+                        f'<span style="font-size:9px;font-weight:700;color:#1a2e23;">{texto}</span>'
+                        f'</div>'
                         f'</div>'
                     )
                 entorno_col = (
                     f'<div style="background:white;border:1.5px solid #e5e7eb;border-radius:10px;padding:12px;">'
                     f'<div style="font-size:10px;font-weight:800;color:#1B4332;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">📍 PERFIL DEL ENTORNO</div>'
-                    f'<div style="display:flex;flex-direction:column;gap:2px;">{entorno_items}</div>'
+                    f'<div style="display:flex;flex-direction:column;gap:1px;">{entorno_items}</div>'
                     f'</div>'
                 )
             else:
@@ -498,6 +514,42 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
                 f'<div style="font-size:11px;font-weight:800;color:#1e40af;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;">💼 RECOMENDACIONES PARA INMOBILIARIAS Y PROPIETARIOS</div>'
                 f'<div style="display:flex;flex-direction:column;gap:8px;">{tips_items_html}</div>'
                 f'</div>'
+                f'</div>'
+            )
+
+        # Equipamiento y Servicios — tarjetas con datos de Gemini (página 4, igual que PDF)
+        pe_equip = ai_sections.get("perfil_entorno", {})
+        _equip_cfg = [
+            ("educacion", "🏫", "Escuelas", "Educación"),
+            ("salud",     "🏥", "Hospitales", "Salud"),
+            ("comercio",  "🛒", "Súper / Tiendas", "Comercio"),
+            ("recreacion","🌳", "Parques", "Recreación"),
+            ("plazas",    "🏪", "Plazas", "Plazas"),
+        ]
+        cards = ""
+        for key, icon, label, cat_name in _equip_cfg:
+            cat = pe_equip.get(key, {}) if pe_equip else {}
+            if not cat:
+                continue
+            count = cat.get("count", "") if isinstance(cat, dict) else ""
+            nombres = cat.get("nombres", "") if isinstance(cat, dict) else ""
+            texto = cat.get("texto", "") if isinstance(cat, dict) else ""
+            title = f"{count} {label}" if count else label
+            cards += (
+                f'<div style="display:flex;gap:10px;align-items:flex-start;background:white;border:1px solid #e5e7eb;border-radius:10px;padding:12px;">'
+                f'<div style="font-size:28px;flex-shrink:0;">{icon}</div>'
+                f'<div style="flex:1;">'
+                f'<strong style="display:block;font-size:13px;color:#1B4332;">{title}</strong>'
+                f'<div style="font-size:9.5px;color:#6b7280;margin-bottom:3px;">{cat_name}</div>'
+                f'<div style="font-size:10.5px;font-weight:600;color:#1B4332;line-height:1.3;">{nombres or texto}</div>'
+                f'</div>'
+                f'</div>'
+            )
+        if cards:
+            equipamiento_ai_html = (
+                f'<div class="section">'
+                f'<h2>🏘️ EQUIPAMIENTO Y SERVICIOS RELEVANTES EN EL ENTORNO (RADIO 1.5 KM)</h2>'
+                f'<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">{cards}</div>'
                 f'</div>'
             )
 
@@ -1445,14 +1497,6 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
         </div>
         
         <div class="section">
-            <h2>🏙 EQUIPAMIENTO Y SERVICIOS CERCANOS (Radio 2 km)</h2>
-            <div class="amenities-grid">
-                {amenities_html}
-            </div>
-            {amenities_radius_note}
-        </div>
-        
-        <div class="section">
             <h2>🔍 COMPARABLES ({len(active_comparables)})</h2>
             <table>
                 <thead>
@@ -1477,15 +1521,17 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
         {vo_html}
         {estrategia_html}
 
+        {equipamiento_ai_html}
+
         {f'''<div class="section">
             <h2>📝 ANÁLISIS Y OBSERVACIONES</h2>
             <div class="analysis">{analysis}</div>
         </div>''' if include_analysis else ''}
 
         {photos_html}
-        
+
         <div class="section">
-            <h2>💡 CONSEJOS PARA VENDER</h2>
+            <h2>💡 TIPS GENERALES DE PRESENTACIÓN (HOME STAGING)</h2>
             <div class="tips-grid">
                 {tips_html}
             </div>
