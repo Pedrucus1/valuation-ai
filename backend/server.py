@@ -1312,34 +1312,41 @@ Responde con este JSON (usa valores realistas para la zona, no inventes datos ab
 IMPORTANTE: Devuelve SOLO el JSON. Los scores de perfil_entorno deben ser enteros del 1 al 10 basados en la zona real. Los valores de plusvalía son proyecciones, ya los calculé tú solo ajusta el comentario."""
 
             _genai.configure(api_key=gemini_key)
-            _gmodel = _genai.GenerativeModel(
-                "gemini-2.0-flash",
-                system_instruction="Valuador inmobiliario certificado en México. Responde SOLO con JSON válido, sin markdown."
-            )
+            _sys = "Valuador inmobiliario certificado en México. Responde SOLO con JSON válido, sin markdown."
 
-            try:
-                import asyncio
-                _gresult = await asyncio.wait_for(
-                    asyncio.get_event_loop().run_in_executor(
-                        None,
-                        lambda: _gmodel.generate_content(prompt)
-                    ),
-                    timeout=30.0
-                )
-                raw = _gresult.text.strip()
-                # Strip markdown code fences if present
+            import json as _json
+
+            def _call_gemini(model_name: str):
+                _m = _genai.GenerativeModel(model_name, system_instruction=_sys)
+                return _m.generate_content(prompt)
+
+            def _parse_raw(raw: str):
+                raw = raw.strip()
                 if raw.startswith("```"):
-                    raw = raw.split("```")[1]
+                    parts = raw.split("```")
+                    raw = parts[1] if len(parts) > 1 else raw
                     if raw.startswith("json"):
                         raw = raw[4:]
-                import json as _json
-                ai_sections = _json.loads(raw)
-                analysis = ai_sections.get("analisis_mercado", analysis)
-                logger.info("Gemini AI sections generated successfully")
+                return _json.loads(raw.strip())
+
+            try:
+                _loop = asyncio.get_running_loop()
+                # Try models in order, fallback on rate limit
+                for _model_name in ("gemini-2.5-flash", "gemini-2.0-flash", "gemini-2.0-flash-lite"):
+                    try:
+                        _gresult = await asyncio.wait_for(
+                            _loop.run_in_executor(None, lambda m=_model_name: _call_gemini(m)),
+                            timeout=30.0
+                        )
+                        ai_sections = _parse_raw(_gresult.text)
+                        analysis = ai_sections.get("analisis_mercado", analysis)
+                        logger.info(f"Gemini AI sections generated ({_model_name})")
+                        break
+                    except Exception as _me:
+                        logger.warning(f"{_model_name} failed: {_me}")
+                        continue
             except asyncio.TimeoutError:
                 logger.warning("Gemini timeout, using template analysis")
-            except Exception as _ge:
-                logger.warning(f"Gemini parse error: {_ge}, using template")
 
     except Exception as e:
         logger.error(f"LLM error (using template): {e}")

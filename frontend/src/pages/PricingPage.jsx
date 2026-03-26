@@ -259,27 +259,27 @@ export default function PricingPage() {
             {/* Plan selector */}
             <div className="mb-3">
               <p className="text-white/75 text-sm font-medium mb-2">Elige tu plan</p>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-4 gap-1.5">
                 {PLANS.map(plan => (
                   <button
                     key={plan.id}
                     onClick={() => setSelectedPlan(plan)}
-                    className={`relative rounded-xl py-3 px-3 text-left border-2 transition-all ${
+                    className={`relative rounded-xl py-2.5 px-2 text-left border-2 transition-all ${
                       selectedPlan.id === plan.id
                         ? "border-[#D9ED92] bg-[#D9ED92]/10"
                         : "border-white/20 hover:border-[#D9ED92]/50 bg-white/5"
                     }`}
                   >
                     {plan.tag && (
-                      <span className={`absolute -top-2.5 left-1/2 -translate-x-1/2 text-[10px] font-extrabold px-2 py-0.5 rounded-full whitespace-nowrap ${
+                      <span className={`absolute -top-2.5 left-1/2 -translate-x-1/2 text-[9px] font-extrabold px-1.5 py-0.5 rounded-full whitespace-nowrap ${
                         plan.popular ? "bg-[#D9ED92] text-[#1B4332]" : "bg-white/20 text-white"
                       }`}>
                         {plan.tag}
                       </span>
                     )}
-                    <p className="text-[10px] font-semibold text-white/50 uppercase tracking-wider leading-none">{plan.label}</p>
-                    <p className="font-black text-white text-xl leading-tight mt-0.5">{plan.qty} valuación{plan.qty > 1 ? "es" : ""}</p>
-                    <p className="text-sm font-bold text-[#D9ED92] mt-1">{fmt(plan.price)}</p>
+                    <p className="text-[9px] font-semibold text-white/50 uppercase tracking-wider leading-none">{plan.label}</p>
+                    <p className="font-black text-white text-base leading-tight mt-0.5">{plan.qty}<span className="text-xs font-semibold"> val.</span></p>
+                    <p className="text-xs font-bold text-[#D9ED92] mt-1">{fmt(plan.price)}</p>
                   </button>
                 ))}
               </div>

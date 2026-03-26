@@ -353,124 +353,150 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
 
     # ============== AI SECTIONS HTML ==============
     ai_sections = ai_sections or {}
-    plusvalia_html = ""
-    entorno_html = ""
+    plusvalia_entorno_html = ""
     vo_html = ""
     estrategia_html = ""
 
     if ai_sections:
-        # Plusvalía proyectada
         pv = ai_sections.get("plusvalia", {})
-        if pv:
-            valores = [
-                ("Actual", result['estimated_value']),
-                ("Año 1", pv.get("anio1", 0)),
-                ("Año 2", pv.get("anio2", 0)),
-                ("Año 3", pv.get("anio3", 0)),
-                ("Año 4", pv.get("anio4", 0)),
-                ("Año 5", pv.get("anio5", 0)),
-            ]
-            max_val = max(v for _, v in valores) or 1
-            bars = ""
-            for label, val in valores:
-                pct = max(10, (val / max_val) * 100)
-                bars += (
-                    f'<div class="plusvalia-bar-wrap">'
-                    f'<div class="plusvalia-value">${val:,.0f}</div>'
-                    f'<div class="plusvalia-bar" style="height: {pct:.0f}%;"></div>'
-                    f'<div class="plusvalia-label">{label}</div>'
+        pe = ai_sections.get("perfil_entorno", {})
+
+        # Plusvalía + Perfil del Entorno — grid 50/50 lado a lado (igual que server.js original)
+        if pv or pe:
+            tasa = float(pv.get("tasa_anual", appreciation)) if pv else float(appreciation)
+            cur_year = datetime.now(timezone.utc).year
+            bar_heights = [8, 17, 29, 41, 55]
+            bar_colors = ['#a7f3d0', '#6ee7b7', '#34d399', '#10b981', '#059669']
+
+            if pv:
+                bars_html = ""
+                vals_row = ""
+                for i in range(5):
+                    val = float(pv.get(f"anio{i+1}", 0) or 0)
+                    pct_proj = round(((1 + tasa / 100) ** (i + 1) - 1) * 100, 1)
+                    px_h = bar_heights[i]
+                    color = bar_colors[i]
+                    year_lbl = cur_year + i + 1
+                    bars_html += (
+                        f'<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:80px;">'
+                        f'<div style="font-size:7.5px;font-weight:800;color:#15803d;margin-bottom:2px;">+{pct_proj:.1f}%</div>'
+                        f'<div style="width:100%;background:{color};border-radius:3px 3px 0 0;height:{px_h}px;-webkit-print-color-adjust:exact;print-color-adjust:exact;"></div>'
+                        f'<div style="font-size:7px;color:#6b7280;font-weight:600;margin-top:2px;text-align:center;">{year_lbl}</div>'
+                        f'</div>'
+                    )
+                    if val > 0:
+                        vals_row += f'<span style="font-size:7px;color:#374151;font-weight:700;">${val:,.0f}</span>'
+                _vals_div = (
+                    '<div style="display:flex;justify-content:space-between;font-size:7px;font-weight:700;color:#374151;margin-top:4px;padding:0 4px;">'
+                    + vals_row + '</div>'
+                ) if vals_row else ""
+                plusvalia_col = (
+                    f'<div style="background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:10px;padding:12px;">'
+                    f'<div style="font-size:10px;font-weight:800;color:#1B4332;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">📈 PLUSVALÍA PROYECTADA (5 AÑOS)</div>'
+                    f'<div style="display:flex;align-items:flex-end;gap:5px;height:80px;overflow:visible;">{bars_html}</div>'
+                    f'{_vals_div}'
+                    f'<div style="font-size:9px;color:#6b7280;font-weight:500;margin-top:6px;font-style:italic;line-height:1.2;">* Tasa anual est.: ~{tasa:.1f}% (Fuente: SHF / BBVA).</div>'
                     f'</div>'
                 )
-            plusvalia_html = (
-                f'<div class="section">'
-                f'<h2>📈 PLUSVALÍA PROYECTADA ({pv.get("tasa_anual", appreciation):.1f}% anual)</h2>'
-                f'<div class="plusvalia-bars">{bars}</div>'
-                f'<p class="plusvalia-comment">{pv.get("comentario", "")}</p>'
-                f'</div>'
-            )
+            else:
+                plusvalia_col = '<div style="background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:10px;padding:12px;font-size:10px;color:#6b7280;">Datos de plusvalía no disponibles.</div>'
 
-        # Perfil del entorno
-        pe = ai_sections.get("perfil_entorno", {})
-        if pe:
-            _ent_icons = {"seguridad": "🔒", "movilidad": "🚌", "educacion": "🏫",
+            _ent_icons = {"seguridad": "🛡", "movilidad": "🚗", "educacion": "📚",
                           "salud": "🏥", "comercio": "🛒", "recreacion": "🌳"}
             _ent_names = {"seguridad": "Seguridad", "movilidad": "Movilidad",
                           "educacion": "Educación", "salud": "Salud",
                           "comercio": "Comercio", "recreacion": "Recreación"}
-            items = ""
-            for key in ["seguridad", "movilidad", "educacion", "salud", "comercio", "recreacion"]:
-                cat = pe.get(key, {})
-                score = int(cat.get("score", 7))
-                texto = cat.get("texto", "")
-                pct = (score / 10) * 100
-                items += (
-                    f'<div class="entorno-item">'
-                    f'<div class="entorno-header">'
-                    f'<span class="entorno-name">{_ent_icons.get(key, "")} {_ent_names.get(key, key)}</span>'
-                    f'<span class="entorno-score">{score}/10</span>'
-                    f'</div>'
-                    f'<div class="entorno-bar-bg">'
-                    f'<div class="entorno-bar-fill" style="width: {pct:.0f}%;"></div>'
-                    f'</div>'
-                    f'<p class="entorno-desc">{texto}</p>'
+            if pe:
+                entorno_items = ""
+                for key in ["seguridad", "movilidad", "educacion", "salud", "comercio", "recreacion"]:
+                    cat = pe.get(key, {})
+                    texto = cat.get("texto", "") if isinstance(cat, dict) else str(cat)
+                    icon = _ent_icons.get(key, "📍")
+                    name = _ent_names.get(key, key)
+                    entorno_items += (
+                        f'<div style="display:flex;align-items:flex-start;gap:5px;padding:3px 0;border-bottom:1px solid #f3f4f6;">'
+                        f'<span style="font-size:11px;">{icon}</span>'
+                        f'<span style="font-size:9.5px;color:#6b7280;min-width:62px;">{name}:</span>'
+                        f'<span style="font-size:9.5px;font-weight:700;color:#1a2e23;line-height:1.3;">{texto}</span>'
+                        f'</div>'
+                    )
+                entorno_col = (
+                    f'<div style="background:white;border:1.5px solid #e5e7eb;border-radius:10px;padding:12px;">'
+                    f'<div style="font-size:10px;font-weight:800;color:#1B4332;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">📍 PERFIL DEL ENTORNO</div>'
+                    f'<div style="display:flex;flex-direction:column;gap:2px;">{entorno_items}</div>'
                     f'</div>'
                 )
-            entorno_html = (
-                f'<div class="section">'
-                f'<h2>\U0001f3d9\ufe0f PERFIL DEL ENTORNO</h2>'
-                f'<div class="entorno-grid">{items}</div>'
+            else:
+                entorno_col = '<div style="background:white;border:1.5px solid #e5e7eb;border-radius:10px;padding:12px;font-size:10px;color:#6b7280;">Datos del entorno no disponibles.</div>'
+
+            plusvalia_entorno_html = (
+                f'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;">'
+                f'{plusvalia_col}'
+                f'{entorno_col}'
                 f'</div>'
             )
 
-        # Ventajas y oportunidades
+        # Ventajas y áreas de oportunidad — grid verde/naranja (igual que server.js)
         ventajas = ai_sections.get("ventajas", [])
         oportunidades = ai_sections.get("oportunidades", [])
         if ventajas or oportunidades:
-            v_items = "".join(
-                f'<div class="vo-item"><span class="vo-dot">\u2705</span><span>{v}</span></div>'
-                for v in ventajas
-            )
-            o_items = "".join(
-                f'<div class="vo-item"><span class="vo-dot">\U0001f4a1</span><span>{o}</span></div>'
-                for o in oportunidades
-            )
+            v_items = "".join(f'<li style="margin-bottom:4px;">{v}</li>' for v in ventajas) or '<li>Ubicación estratégica</li><li>Superficie competitiva</li>'
+            o_items = "".join(f'<li style="margin-bottom:4px;">{o}</li>' for o in oportunidades) or '<li>Antigüedad perceptible</li><li>Necesita actualizaciones menores</li>'
             vo_html = (
                 f'<div class="section">'
-                f'<h2>\u26a1 VENTAJAS COMPETITIVAS Y \xc1REAS DE OPORTUNIDAD</h2>'
-                f'<div class="vo-grid">'
-                f'<div class="vo-col ventajas">'
-                f'<div class="vo-title ventajas">\u2705 Ventajas Competitivas</div>{v_items}'
+                f'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">'
+                f'<div style="background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:8px;padding:12px;">'
+                f'<div style="font-size:11px;font-weight:800;color:#15803d;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">✅ VENTAJAS COMPETITIVAS</div>'
+                f'<ul style="margin:0;padding-left:15px;font-size:11px;color:#1a2e23;line-height:1.4;">{v_items}</ul>'
                 f'</div>'
-                f'<div class="vo-col oportunidades">'
-                f'<div class="vo-title oportunidades">\U0001f4a1 \xc1reas de Oportunidad</div>{o_items}'
+                f'<div style="background:#fff7ed;border:1.5px solid #ffedd5;border-radius:8px;padding:12px;">'
+                f'<div style="font-size:11px;font-weight:800;color:#9a3412;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">⚠️ ÁREAS DE OPORTUNIDAD</div>'
+                f'<ul style="margin:0;padding-left:15px;font-size:11px;color:#431407;line-height:1.4;">{o_items}</ul>'
                 f'</div>'
                 f'</div>'
                 f'</div>'
             )
 
-        # Estrategia de comercialización
+        # Estrategia de comercialización — box azul (igual que server.js)
         est = ai_sections.get("estrategia", {})
         if est:
             canales = est.get("canales", [])
             tips_e = est.get("tips", [])
-            canales_items = "".join(f'<li>{c}</li>' for c in canales)
-            tips_items = "".join(f'<li>{t}</li>' for t in tips_e)
+            perfil = est.get("perfil_comprador", "")
+            precio_entrada = est.get("precio_entrada", "")
+            all_recs = []
+            if perfil:
+                all_recs.append(f"Perfil del Comprador: {perfil}")
+            if precio_entrada:
+                all_recs.append(f"Precio Sugerido: {precio_entrada}")
+            all_recs.extend([f"Canal: {c}" for c in canales])
+            all_recs.extend(list(tips_e))
+            tips_items_html = ""
+            for tip in all_recs:
+                colon_idx = tip.find(':')
+                has_title = 0 < colon_idx < 55
+                if has_title:
+                    title_part = tip[:colon_idx].strip()
+                    desc_part = tip[colon_idx + 1:].strip()
+                    tips_items_html += (
+                        f'<div style="display:flex;gap:8px;align-items:flex-start;">'
+                        f'<span style="font-size:15px;">🎯</span>'
+                        f'<div style="font-size:11px;color:#1e3a8a;line-height:1.4;"><strong style="font-weight:800;color:#1e40af;">{title_part}:</strong> {desc_part}</div>'
+                        f'</div>'
+                    )
+                else:
+                    tips_items_html += (
+                        f'<div style="display:flex;gap:8px;align-items:flex-start;">'
+                        f'<span style="font-size:15px;">🎯</span>'
+                        f'<div style="font-size:11px;color:#1e3a8a;line-height:1.4;">{tip}</div>'
+                        f'</div>'
+                    )
             estrategia_html = (
                 f'<div class="section">'
-                f'<h2>\U0001f3af ESTRATEGIA DE COMERCIALIZACI\xd3N</h2>'
-                f'<div class="estrategia-grid">'
-                f'<div class="estrategia-box">'
-                f'<div class="estrategia-box-title">\U0001f464 Perfil del Comprador Ideal</div>'
-                f'<p style="font-size:10pt; color: var(--gray-700);">{est.get("perfil_comprador", "")}</p>'
-                f'<div class="estrategia-box-title" style="margin-top:8pt;">\U0001f4b0 Precio de Entrada Sugerido</div>'
-                f'<p style="font-size:10pt; color: var(--gray-700);">{est.get("precio_entrada", "")}</p>'
-                f'</div>'
-                f'<div class="estrategia-box">'
-                f'<div class="estrategia-box-title">\U0001f4e3 Canales Recomendados</div>'
-                f'<ul class="estrategia-list">{canales_items}</ul>'
-                f'<div class="estrategia-box-title" style="margin-top:8pt;">\U0001f4a1 Tips de Marketing</div>'
-                f'<ul class="estrategia-list">{tips_items}</ul>'
-                f'</div>'
+                f'<h2>📣 ESTRATEGIA DE COMERCIALIZACIÓN Y PROMOCIÓN</h2>'
+                f'<div style="background:#eff6ff;border:1.5px solid #bfdbfe;border-radius:8px;padding:15px;margin-bottom:12px;">'
+                f'<div style="font-size:11px;font-weight:800;color:#1e40af;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;">💼 RECOMENDACIONES PARA INMOBILIARIAS Y PROPIETARIOS</div>'
+                f'<div style="display:flex;flex-direction:column;gap:8px;">{tips_items_html}</div>'
                 f'</div>'
                 f'</div>'
             )
@@ -1308,7 +1334,9 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
             <p class="map-address">📍 {prop.get('street_address', '')} {prop['neighborhood']}, {prop['municipality']}, {prop['state']}</p>
             <p class="map-coords">Coordenadas: {lat:.6f}, {lng:.6f}</p>
         </div>
-        
+
+        {plusvalia_entorno_html}
+
         <div class="result-box">
             <div class="result-label">💰 VALOR DE MERCADO ESTIMADO</div>
             <div class="result-value">${result['estimated_value']:,.0f} MXN</div>
@@ -1446,8 +1474,6 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
             </table>
         </div>
         
-        {plusvalia_html}
-        {entorno_html}
         {vo_html}
         {estrategia_html}
 
