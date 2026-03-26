@@ -402,12 +402,7 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
             else:
                 plusvalia_col = '<div style="background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:10px;padding:12px;font-size:10px;color:#6b7280;">Datos de plusvalía no disponibles.</div>'
 
-            _ent_dot_color = {
-                "seguridad": "#ef4444", "movilidad": "#f59e0b",
-                "educacion": "#22c55e", "salud": "#22c55e",
-                "comercio": "#22c55e", "recreacion": "#22c55e", "plazas": "#22c55e"
-            }
-            _ent_emoji = {
+            _ent_icon = {
                 "seguridad": "🛡", "movilidad": "🚗", "educacion": "🎓",
                 "salud": "🏥", "comercio": "🛒", "recreacion": "🌳", "plazas": "🏪"
             }
@@ -424,16 +419,14 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
                         continue
                     texto = cat.get("texto", "") if isinstance(cat, dict) else str(cat)
                     count = cat.get("count", "") if isinstance(cat, dict) else ""
-                    dot_color = _ent_dot_color.get(key, "#22c55e")
+                    icon = _ent_icon.get(key, "📍")
                     name = _ent_names.get(key, key)
                     label = f"{count} {name}" if count else name
                     entorno_items += (
-                        f'<div style="display:flex;align-items:flex-start;gap:6px;padding:4px 0;border-bottom:1px solid #f3f4f6;">'
-                        f'<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:{dot_color};margin-top:3px;flex-shrink:0;"></span>'
-                        f'<div style="line-height:1.3;">'
-                        f'<span style="font-size:9px;color:#6b7280;">{label}:</span> '
-                        f'<span style="font-size:9px;font-weight:700;color:#1a2e23;">{texto}</span>'
-                        f'</div>'
+                        f'<div style="display:flex;align-items:center;gap:5px;padding:4px 0;border-bottom:1px solid #f3f4f6;">'
+                        f'<span style="font-size:12px;flex-shrink:0;">{icon}</span>'
+                        f'<span style="font-size:9px;color:#6b7280;white-space:nowrap;">{label}:</span>'
+                        f'<span style="font-size:9px;font-weight:700;color:#1a2e23;line-height:1.3;">{texto}</span>'
                         f'</div>'
                     )
                 entorno_col = (
