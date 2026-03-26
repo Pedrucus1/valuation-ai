@@ -84,10 +84,10 @@ def generate_folio(valuation_id: str) -> str:
     return f"EST-{now.strftime('%y-%m-%d')}-{num[:2].zfill(2)}"
 
 
-def generate_html_report(valuation: dict, analysis: str, include_analysis: bool = True) -> str:
+def generate_html_report(valuation: dict, analysis: str, include_analysis: bool = True, ai_sections: dict = None) -> str:
     """
     Generate comprehensive HTML report optimized for 3-page letter print.
-    
+
     Args:
         valuation: Full valuation data
         analysis: AI-generated analysis text
@@ -351,6 +351,130 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
     # Search radius note removed as it's now in the title
     amenities_radius_note = ""
 
+    # ============== AI SECTIONS HTML ==============
+    ai_sections = ai_sections or {}
+    plusvalia_html = ""
+    entorno_html = ""
+    vo_html = ""
+    estrategia_html = ""
+
+    if ai_sections:
+        # Plusvalía proyectada
+        pv = ai_sections.get("plusvalia", {})
+        if pv:
+            valores = [
+                ("Actual", result['estimated_value']),
+                ("Año 1", pv.get("anio1", 0)),
+                ("Año 2", pv.get("anio2", 0)),
+                ("Año 3", pv.get("anio3", 0)),
+                ("Año 4", pv.get("anio4", 0)),
+                ("Año 5", pv.get("anio5", 0)),
+            ]
+            max_val = max(v for _, v in valores) or 1
+            bars = ""
+            for label, val in valores:
+                pct = max(10, (val / max_val) * 100)
+                bars += (
+                    f'<div class="plusvalia-bar-wrap">'
+                    f'<div class="plusvalia-value">${val:,.0f}</div>'
+                    f'<div class="plusvalia-bar" style="height: {pct:.0f}%;"></div>'
+                    f'<div class="plusvalia-label">{label}</div>'
+                    f'</div>'
+                )
+            plusvalia_html = (
+                f'<div class="section">'
+                f'<h2>📈 PLUSVALÍA PROYECTADA ({pv.get("tasa_anual", appreciation):.1f}% anual)</h2>'
+                f'<div class="plusvalia-bars">{bars}</div>'
+                f'<p class="plusvalia-comment">{pv.get("comentario", "")}</p>'
+                f'</div>'
+            )
+
+        # Perfil del entorno
+        pe = ai_sections.get("perfil_entorno", {})
+        if pe:
+            _ent_icons = {"seguridad": "🔒", "movilidad": "🚌", "educacion": "🏫",
+                          "salud": "🏥", "comercio": "🛒", "recreacion": "🌳"}
+            _ent_names = {"seguridad": "Seguridad", "movilidad": "Movilidad",
+                          "educacion": "Educación", "salud": "Salud",
+                          "comercio": "Comercio", "recreacion": "Recreación"}
+            items = ""
+            for key in ["seguridad", "movilidad", "educacion", "salud", "comercio", "recreacion"]:
+                cat = pe.get(key, {})
+                score = int(cat.get("score", 7))
+                texto = cat.get("texto", "")
+                pct = (score / 10) * 100
+                items += (
+                    f'<div class="entorno-item">'
+                    f'<div class="entorno-header">'
+                    f'<span class="entorno-name">{_ent_icons.get(key, "")} {_ent_names.get(key, key)}</span>'
+                    f'<span class="entorno-score">{score}/10</span>'
+                    f'</div>'
+                    f'<div class="entorno-bar-bg">'
+                    f'<div class="entorno-bar-fill" style="width: {pct:.0f}%;"></div>'
+                    f'</div>'
+                    f'<p class="entorno-desc">{texto}</p>'
+                    f'</div>'
+                )
+            entorno_html = (
+                f'<div class="section">'
+                f'<h2>\U0001f3d9\ufe0f PERFIL DEL ENTORNO</h2>'
+                f'<div class="entorno-grid">{items}</div>'
+                f'</div>'
+            )
+
+        # Ventajas y oportunidades
+        ventajas = ai_sections.get("ventajas", [])
+        oportunidades = ai_sections.get("oportunidades", [])
+        if ventajas or oportunidades:
+            v_items = "".join(
+                f'<div class="vo-item"><span class="vo-dot">\u2705</span><span>{v}</span></div>'
+                for v in ventajas
+            )
+            o_items = "".join(
+                f'<div class="vo-item"><span class="vo-dot">\U0001f4a1</span><span>{o}</span></div>'
+                for o in oportunidades
+            )
+            vo_html = (
+                f'<div class="section">'
+                f'<h2>\u26a1 VENTAJAS COMPETITIVAS Y \xc1REAS DE OPORTUNIDAD</h2>'
+                f'<div class="vo-grid">'
+                f'<div class="vo-col ventajas">'
+                f'<div class="vo-title ventajas">\u2705 Ventajas Competitivas</div>{v_items}'
+                f'</div>'
+                f'<div class="vo-col oportunidades">'
+                f'<div class="vo-title oportunidades">\U0001f4a1 \xc1reas de Oportunidad</div>{o_items}'
+                f'</div>'
+                f'</div>'
+                f'</div>'
+            )
+
+        # Estrategia de comercialización
+        est = ai_sections.get("estrategia", {})
+        if est:
+            canales = est.get("canales", [])
+            tips_e = est.get("tips", [])
+            canales_items = "".join(f'<li>{c}</li>' for c in canales)
+            tips_items = "".join(f'<li>{t}</li>' for t in tips_e)
+            estrategia_html = (
+                f'<div class="section">'
+                f'<h2>\U0001f3af ESTRATEGIA DE COMERCIALIZACI\xd3N</h2>'
+                f'<div class="estrategia-grid">'
+                f'<div class="estrategia-box">'
+                f'<div class="estrategia-box-title">\U0001f464 Perfil del Comprador Ideal</div>'
+                f'<p style="font-size:10pt; color: var(--gray-700);">{est.get("perfil_comprador", "")}</p>'
+                f'<div class="estrategia-box-title" style="margin-top:8pt;">\U0001f4b0 Precio de Entrada Sugerido</div>'
+                f'<p style="font-size:10pt; color: var(--gray-700);">{est.get("precio_entrada", "")}</p>'
+                f'</div>'
+                f'<div class="estrategia-box">'
+                f'<div class="estrategia-box-title">\U0001f4e3 Canales Recomendados</div>'
+                f'<ul class="estrategia-list">{canales_items}</ul>'
+                f'<div class="estrategia-box-title" style="margin-top:8pt;">\U0001f4a1 Tips de Marketing</div>'
+                f'<ul class="estrategia-list">{tips_items}</ul>'
+                f'</div>'
+                f'</div>'
+                f'</div>'
+            )
+
     html = f"""<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -549,7 +673,7 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
             border-radius: 6pt;
             overflow: hidden;
             border: 1pt solid var(--gray-200);
-            height: 160pt;
+            aspect-ratio: 4/3;
             margin: 8pt 0;
             background: var(--gray-100);
         }}
@@ -874,7 +998,7 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
         }}
         
         .photo-item {{
-            aspect-ratio: 4/3;
+            height: 110pt;
             border-radius: 4pt;
             overflow: hidden;
             background: var(--gray-100);
@@ -939,9 +1063,180 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
         .page-break {{
             page-break-after: always;
         }}
-        
+
         .page-break-before {{
             page-break-before: always;
+        }}
+
+        /* Plusvalía proyectada */
+        .plusvalia-bars {{
+            display: flex;
+            align-items: flex-end;
+            gap: 8pt;
+            height: 80pt;
+            padding: 0 4pt;
+            margin: 10pt 0 4pt;
+        }}
+        .plusvalia-bar-wrap {{
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            height: 100%;
+            gap: 3pt;
+        }}
+        .plusvalia-bar {{
+            width: 100%;
+            border-radius: 4pt 4pt 0 0;
+            background: linear-gradient(to top, var(--primary), var(--secondary));
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }}
+        .plusvalia-label {{
+            font-size: 8pt;
+            color: var(--gray-500);
+            text-align: center;
+        }}
+        .plusvalia-value {{
+            font-size: 8pt;
+            font-weight: 700;
+            color: var(--primary);
+            text-align: center;
+        }}
+        .plusvalia-comment {{
+            font-size: 10pt;
+            color: var(--gray-500);
+            font-style: italic;
+            margin-top: 6pt;
+            text-align: center;
+        }}
+
+        /* Perfil del entorno */
+        .entorno-grid {{
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8pt;
+            margin: 10pt 0;
+        }}
+        .entorno-item {{
+            padding: 10pt;
+            background: var(--gray-50);
+            border-radius: 6pt;
+            border: 1pt solid var(--gray-200);
+        }}
+        .entorno-header {{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 5pt;
+        }}
+        .entorno-name {{
+            font-size: 10pt;
+            font-weight: 600;
+            color: var(--gray-700);
+        }}
+        .entorno-score {{
+            font-size: 11pt;
+            font-weight: 700;
+            color: var(--primary);
+        }}
+        .entorno-bar-bg {{
+            height: 5pt;
+            background: var(--gray-200);
+            border-radius: 3pt;
+            overflow: hidden;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }}
+        .entorno-bar-fill {{
+            height: 100%;
+            border-radius: 3pt;
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }}
+        .entorno-desc {{
+            font-size: 9pt;
+            color: var(--gray-500);
+            margin-top: 5pt;
+            line-height: 1.4;
+        }}
+
+        /* Ventajas / Oportunidades */
+        .vo-grid {{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10pt;
+            margin: 10pt 0;
+        }}
+        .vo-col {{
+            padding: 10pt;
+            border-radius: 6pt;
+        }}
+        .vo-col.ventajas {{
+            background: #f0fdf4;
+            border: 1pt solid #bbf7d0;
+        }}
+        .vo-col.oportunidades {{
+            background: #fffbeb;
+            border: 1pt solid #fde68a;
+        }}
+        .vo-title {{
+            font-size: 11pt;
+            font-weight: 700;
+            margin-bottom: 8pt;
+        }}
+        .vo-title.ventajas {{ color: #15803d; }}
+        .vo-title.oportunidades {{ color: #92400e; }}
+        .vo-item {{
+            display: flex;
+            align-items: flex-start;
+            gap: 5pt;
+            margin: 5pt 0;
+            font-size: 10pt;
+            line-height: 1.4;
+        }}
+        .vo-dot {{
+            font-size: 8pt;
+            margin-top: 2pt;
+            flex-shrink: 0;
+        }}
+
+        /* Estrategia de comercialización */
+        .estrategia-grid {{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10pt;
+            margin: 10pt 0;
+        }}
+        .estrategia-box {{
+            padding: 10pt;
+            background: var(--gray-50);
+            border-radius: 6pt;
+            border: 1pt solid var(--gray-200);
+        }}
+        .estrategia-box-title {{
+            font-size: 10pt;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 6pt;
+        }}
+        .estrategia-list {{
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }}
+        .estrategia-list li {{
+            font-size: 10pt;
+            line-height: 1.5;
+            padding: 2pt 0;
+            color: var(--gray-700);
+        }}
+        .estrategia-list li::before {{
+            content: "▶ ";
+            color: var(--secondary);
+            font-size: 8pt;
         }}
         
         @media print {{
@@ -1046,7 +1341,6 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
             </div>
         </div>
         
-        <!-- Contenido continuo sin page break forzado -->
         <div class="section">
             <h2>📈 RESUMEN EJECUTIVO</h2>
             <div class="exec-grid">
@@ -1152,11 +1446,16 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
             </table>
         </div>
         
+        {plusvalia_html}
+        {entorno_html}
+        {vo_html}
+        {estrategia_html}
+
         {f'''<div class="section">
             <h2>📝 ANÁLISIS Y OBSERVACIONES</h2>
             <div class="analysis">{analysis}</div>
         </div>''' if include_analysis else ''}
-        
+
         {photos_html}
         
         <div class="section">

@@ -30,6 +30,7 @@ import {
   LayoutGrid
 } from "lucide-react";
 import { API } from "@/App";
+import AdOverlay from "@/components/AdOverlay";
 
 // Negotiation options
 const NEGOTIATION_OPTIONS = [
@@ -60,6 +61,7 @@ const ComparablesPage = () => {
   const [enrichProgress, setEnrichProgress] = useState({ done: 0, total: 0 });
   const [adIndex, setAdIndex] = useState(0);
   const [adProgress, setAdProgress] = useState(0); // 0-100 per slide
+  const [showSlot1Ad, setShowSlot1Ad] = useState(true); // slot1 al iniciar carga
 
   const ADS = [
     { tag: "Consejo PropValu", title: "El valor lo define la oferta y la demanda", body: "No existe un precio único para una propiedad. El valor real es el que un comprador informado está dispuesto a pagar en el mercado actual." },
@@ -72,6 +74,16 @@ const ComparablesPage = () => {
     { tag: "¿Sabías que?", title: "La antigüedad deprecia el valor físico", body: "Una construcción pierde en promedio 2% de valor físico por año. Por eso las remodelaciones recientes son uno de los factores que más incrementan el avalúo." },
     { tag: "Dato de mercado", title: "El cap rate revela la rentabilidad real", body: "Un cap rate del 5-7% anual es saludable en México. Propiedades con cap rate menor al 4% suelen estar sobrevaloradas para inversión de renta." },
     { tag: "Consejo PropValu", title: "Comparables: calidad sobre cantidad", body: "5 comparables bien seleccionados (mismo tipo, misma zona, mismos m²) son más precisos que 20 mal filtrados. La homologación hace la diferencia." },
+    { tag: "Dato de mercado", title: "La escrituración protege tu inversión", body: "En México, más del 30% de las transacciones inmobiliarias tienen problemas legales por falta de escrituras actualizadas. Escriturar a tiempo evita litigios costosos." },
+    { tag: "Consejo PropValu", title: "El tiempo en el mercado sube el riesgo", body: "Una propiedad con más de 90 días publicada sin venderse pierde poder de negociación. El precio correcto desde el inicio reduce el tiempo de venta a la mitad." },
+    { tag: "¿Sabías que?", title: "El estacionamiento puede valer más de lo que crees", body: "En zonas urbanas densas de Guadalajara o CDMX, un cajón de estacionamiento adicional puede incrementar el valor de un departamento entre 8% y 15%." },
+    { tag: "Dato de mercado", title: "La inflación y el ladrillo van de la mano", body: "Históricamente, el sector inmobiliario mexicano ha superado la inflación en un 2-3% anual en zonas consolidadas. Es uno de los activos más estables a largo plazo." },
+    { tag: "Consejo PropValu", title: "Superficie vendible vs superficie total", body: "En condominios, la superficie privativa (la tuya) es la que se valúa. Las áreas comunes no se suman al precio del m² — un error frecuente al comparar propiedades." },
+    { tag: "¿Sabías que?", title: "Las amenidades tienen rendimiento decreciente", body: "La primera alberca en un desarrollo suma valor. La segunda no. Pagar extra por amenidades que ya existen en el edificio de enfrente no se recupera al vender." },
+    { tag: "Dato de mercado", title: "Plusvalía esperada vs plusvalía real", body: "No toda zona 'en crecimiento' genera plusvalía automática. La infraestructura vial, escuelas, comercio y seguridad son los indicadores reales que mueven los precios." },
+    { tag: "Consejo PropValu", title: "El CUS: clave para terrenos y desarrollos", body: "El Coeficiente de Utilización del Suelo determina cuánto puedes construir legalmente. Un terreno con CUS alto en zona de demanda puede triplicar su valor potencial." },
+    { tag: "¿Sabías que?", title: "Remodelar no siempre recupera la inversión", body: "Una remodelación premium en una colonia de nivel medio raramente se recupera al vender. El valor máximo de una propiedad lo pone el techo de su zona, no sus acabados." },
+    { tag: "Dato de mercado", title: "El mercado de usados mueve más que el nuevo", body: "En México, el 70% de las transacciones inmobiliarias son de vivienda usada. Conocer el precio real del mercado secundario es más útil que compararse con desarrollos nuevos." },
   ];
 
   // Active top selection tracker
@@ -84,10 +96,17 @@ const ComparablesPage = () => {
 
   useEffect(() => {
     fetch(`${API}/auth/me`, { credentials: "include" })
-      .then(r => r.json())
-      .then(data => setUser(data))
+      .then(r => r.ok ? r.json() : null)
+      .then(data => { if (data?.user_id && data.user_id !== 'user_local_dev') setUser(data); })
       .catch(() => {});
   }, []);
+
+  // Publicidad: público general, inmobiliaria Lite/Pro → sí. Valuador, Premier, super_admin → no.
+  const showAds = !user || (
+    user.role !== "appraiser" &&
+    user.role !== "super_admin" &&
+    !(user.role === "realtor" && user.plan === "premier")
+  );
 
   // Negotiation adjustment (combo, -1 to -10%, max 10%)
   const [negotiation, setNegotiation] = useState(-5);
@@ -96,10 +115,10 @@ const ComparablesPage = () => {
     fetchValuation();
   }, [valuationId]);
 
-  // Slide timer for loading ads (6s per slide = 60s total for 10 slides)
+  // Slide timer for loading ads (10s per slide)
   useEffect(() => {
     if (!isLoading) return;
-    const SLIDE_MS = 6000;
+    const SLIDE_MS = 12000;
     const TICK_MS = 100;
     let elapsed = 0;
     const timer = setInterval(() => {
@@ -124,7 +143,10 @@ const ComparablesPage = () => {
     setEnrichProgress({ done: 0, total: valuation.comparables.length });
 
     const es = new EventSource(`${API}/valuations/${valuationId}/enrich-stream`);
-    const adTimer = setInterval(() => setAdIndex(i => (i + 1) % ADS.length), 6000);
+    const adTimer = setInterval(() => setAdIndex(i => (i + 1) % ADS.length), 12000);
+    const safetyTimer = setTimeout(() => { setIsEnriching(false); es.close(); clearInterval(adTimer); }, 90000);
+
+    const cleanup = () => { es.close(); clearInterval(adTimer); clearTimeout(safetyTimer); };
 
     es.onmessage = (e) => {
       const msg = JSON.parse(e.data);
@@ -139,19 +161,14 @@ const ComparablesPage = () => {
         setEnrichProgress(p => ({ ...p, done: p.done + 1 }));
       }
       if (msg.type === "done") {
-        clearInterval(adTimer);
+        cleanup();
         setIsEnriching(false);
-        es.close();
         if (msg.enriched > 0) toast.success(`Datos actualizados en ${msg.enriched} comparables`);
       }
     };
-    es.onerror = () => {
-      clearInterval(adTimer);
-      setIsEnriching(false);
-      es.close();
-    };
+    es.onerror = () => { cleanup(); setIsEnriching(false); };
 
-    return () => { es.close(); clearInterval(adTimer); };
+    return cleanup;
   }, [valuation?.comparables?.length]);
 
   const fetchValuation = async () => {
@@ -236,11 +253,12 @@ const ComparablesPage = () => {
 
   const getAdjustedPrice = (comp) => {
     const custom = customFactors[comp.comparable_id] || {};
-    const areaAdj = custom.area_adjustment ?? comp.area_adjustment ?? 0;
-    const conditionAdj = custom.condition_adjustment ?? comp.condition_adjustment ?? 0;
-    const ageAdj = custom.age_adjustment ?? comp.age_adjustment ?? 0;
-    const qualityAdj = custom.quality_adjustment ?? comp.quality_adjustment ?? 0;
-    const locationAdj = custom.location_adjustment ?? comp.location_adjustment ?? 0;
+    const safeN = (v) => { const n = Number(v); return isNaN(n) ? 0 : n; };
+    const areaAdj = safeN(custom.area_adjustment ?? comp.area_adjustment ?? 0);
+    const conditionAdj = safeN(custom.condition_adjustment ?? comp.condition_adjustment ?? 0);
+    const ageAdj = safeN(custom.age_adjustment ?? comp.age_adjustment ?? 0);
+    const qualityAdj = safeN(custom.quality_adjustment ?? comp.quality_adjustment ?? 0);
+    const locationAdj = safeN(custom.location_adjustment ?? comp.location_adjustment ?? 0);
 
     const otherAdjustments = areaAdj + conditionAdj + ageAdj + qualityAdj + locationAdj;
     const newTotalAdj = negotiation + otherAdjustments;
@@ -350,64 +368,72 @@ const ComparablesPage = () => {
     }).format(num);
   };
 
-  if (isLoading) {
+  // ─── Popup de anuncio bloqueante (carga inicial + enriquecimiento) ───
+  const AdPopup = ({ label }) => {
     const ad = ADS[adIndex];
     return (
-      <div className="min-h-screen bg-[#1B4332] flex flex-col items-center justify-center px-4">
-        {/* Logo */}
-        <div className="flex items-center gap-2 mb-10">
-          <Building2 className="w-8 h-8 text-[#D9ED92]" />
-          <span className="font-['Outfit'] text-2xl font-bold text-white">
-            Prop<span className="text-[#52B788]">Valu</span>
-          </span>
-        </div>
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4"
+           style={{ backgroundColor: "rgba(0,0,0,0.65)", backdropFilter: "blur(4px)" }}>
+        {/* Cuadrado ~mitad de pantalla */}
+        <div className="bg-[#1B4332] rounded-2xl shadow-2xl border border-white/20 flex flex-col items-center justify-between p-8"
+             style={{ width: "min(90vw, 520px)", height: "min(90vw, 520px)" }}>
 
-        {/* Searching message */}
-        <div className="flex items-center gap-3 mb-10">
-          <div className="w-5 h-5 border-2 border-[#52B788] border-t-transparent rounded-full animate-spin" />
-          <p className="text-white/70 text-sm">Buscando comparables en el mercado...</p>
-        </div>
+          {/* Logo + spinner */}
+          <div className="flex flex-col items-center gap-3 w-full">
+            <div className="flex items-center gap-2">
+              <Building2 className="w-6 h-6 text-[#D9ED92]" />
+              <span className="font-['Outfit'] text-lg font-bold text-white">
+                Prop<span className="text-[#52B788]">Valu</span>
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-3.5 h-3.5 border-2 border-[#52B788] border-t-transparent rounded-full animate-spin" />
+              <p className="text-white/60 text-xs">{label}</p>
+            </div>
+          </div>
 
-        {/* Ad card */}
-        <div className="w-full max-w-lg bg-white/10 backdrop-blur rounded-2xl p-8 border border-white/20">
-          <p className="text-xs font-bold text-[#D9ED92] uppercase tracking-widest mb-2">
-            {ad.tag}
-          </p>
-          <h2 className="font-['Outfit'] text-xl font-bold text-white mb-3 leading-snug">
-            {ad.title}
-          </h2>
-          <p className="text-white/80 text-sm leading-relaxed">
-            {ad.body}
-          </p>
-        </div>
+          {/* Contenido del anuncio */}
+          <div className="flex-1 flex flex-col items-center justify-center text-center px-2 py-4">
+            <p className="text-[10px] font-bold text-[#D9ED92] uppercase tracking-widest mb-3">
+              {ad.tag}
+            </p>
+            <h2 className="font-['Outfit'] text-2xl sm:text-3xl font-bold text-white mb-4 leading-snug">
+              {ad.title}
+            </h2>
+            <p className="text-white/80 text-base leading-relaxed max-w-xs">
+              {ad.body}
+            </p>
+          </div>
 
-        {/* Slide progress dots */}
-        <div className="flex gap-1.5 mt-8 mb-3">
-          {ADS.map((_, i) => (
-            <div
-              key={i}
-              className={`rounded-full transition-all duration-300 ${
-                i === adIndex
-                  ? "w-6 h-2 bg-[#D9ED92]"
-                  : i < adIndex
-                  ? "w-2 h-2 bg-[#52B788]"
-                  : "w-2 h-2 bg-white/20"
-              }`}
-            />
-          ))}
+          {/* Dots + barra */}
+          <div className="w-full flex flex-col items-center gap-2">
+            <div className="flex gap-1.5">
+              {ADS.map((_, i) => (
+                <div key={i} className={`rounded-full transition-all duration-300 ${
+                  i === adIndex ? "w-5 h-2 bg-[#D9ED92]" : i < adIndex ? "w-2 h-2 bg-[#52B788]" : "w-2 h-2 bg-white/20"
+                }`} />
+              ))}
+            </div>
+            <p className="text-white/25 text-[10px] mt-1">
+              {Math.max(1, Math.ceil((100 - adProgress) / 100 * 12))}s · Estimación con inteligencia de PropValu
+            </p>
+          </div>
         </div>
+      </div>
+    );
+  };
 
-        {/* Slide timer bar */}
-        <div className="w-full max-w-lg h-0.5 bg-white/10 rounded-full overflow-hidden">
-          <div
-            className="h-0.5 bg-[#52B788] transition-none"
-            style={{ width: `${adProgress}%` }}
-          />
+  if (isLoading) {
+    const zone = valuation?.property_data?.municipio || "";
+    return (
+      <div className="min-h-screen bg-[#F8F9FA] flex items-center justify-center">
+        {showAds && showSlot1Ad && (
+          <AdOverlay slot="slot1" zone={zone} onDone={() => setShowSlot1Ad(false)} />
+        )}
+        <div className="flex flex-col items-center gap-4 text-[#1B4332]">
+          <div className="w-10 h-10 border-4 border-[#52B788] border-t-transparent rounded-full animate-spin" />
+          <p className="text-sm font-medium">Buscando comparables de mercado...</p>
         </div>
-
-        <p className="text-white/30 text-xs mt-4">
-          Estimación realizada con inteligencia de PropValu
-        </p>
       </div>
     );
   }
@@ -425,38 +451,11 @@ const ComparablesPage = () => {
   const selectedComps = comparables.filter(c => selectedIds.includes(c.comparable_id));
 
   return (
-    <div className={`min-h-screen bg-[#F8F9FA] py-8 px-4 sm:px-6 lg:px-8 ${isEnriching ? 'pb-24' : ''}`}>
+    <div className="min-h-screen bg-[#F8F9FA] py-8 px-4 sm:px-6 lg:px-8">
 
-      {/* Banner de enriquecimiento con Puppeteer */}
-      {isEnriching && (
-        <div className="fixed bottom-0 left-0 right-0 z-50 bg-[#1B4332] text-white shadow-2xl border-t-4 border-[#52B788]">
-          <div className="max-w-6xl mx-auto px-4 py-3 flex items-center gap-6">
-            {/* Anuncio rotativo */}
-            <div className="flex-1 min-w-0">
-              <p className="text-xs font-semibold text-[#D9ED92] uppercase tracking-wide mb-0.5">
-                {ADS[adIndex].title}
-              </p>
-              <p className="text-sm text-white/90 truncate">{ADS[adIndex].body}</p>
-            </div>
-            {/* Progreso */}
-            <div className="flex items-center gap-3 shrink-0">
-              <div className="text-right">
-                <p className="text-xs text-white/60">Completando datos...</p>
-                <p className="text-sm font-semibold text-[#D9ED92]">
-                  {enrichProgress.done} / {enrichProgress.total}
-                </p>
-              </div>
-              <div className="w-8 h-8 border-2 border-[#52B788] border-t-transparent rounded-full animate-spin" />
-            </div>
-          </div>
-          {/* Barra de progreso */}
-          <div className="h-1 bg-white/10">
-            <div
-              className="h-1 bg-[#52B788] transition-all duration-500"
-              style={{ width: `${enrichProgress.total > 0 ? (enrichProgress.done / enrichProgress.total) * 100 : 0}%` }}
-            />
-          </div>
-        </div>
+      {/* Popup bloqueante durante enriquecimiento con Puppeteer (solo usuarios con ads) */}
+      {isEnriching && showAds && (
+        <AdPopup label={`Completando datos... ${enrichProgress.done}/${enrichProgress.total}`} />
       )}
 
       {/* Header */}
@@ -703,11 +702,11 @@ const ComparablesPage = () => {
                       </TableCell>
                       <TableCell>
                         <a
-                          href={comp.source_url}
+                          href={comp.source_url?.startsWith('http') ? comp.source_url : undefined}
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={(e) => e.stopPropagation()}
-                          className="text-[#52B788] hover:underline flex items-center gap-1 text-sm"
+                          className={`flex items-center gap-1 text-sm ${comp.source_url?.startsWith('http') ? 'text-[#52B788] hover:underline cursor-pointer' : 'text-slate-400 cursor-default'}`}
                         >
                           {comp.source?.split('.')[0] || comp.source}
                           <ExternalLink className="w-3 h-3" />

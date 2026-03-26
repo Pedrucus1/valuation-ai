@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "statusMessage": "Verificando responsividad mobile...",
+            "command": "node -e \"const d=require('fs').readFileSync(0,'utf8'); const inp=JSON.parse(d); const f=(inp.tool_input&&inp.tool_input.file_path)||''; if(/pages.*\\.(jsx|js)$/.test(f)){console.log(JSON.stringify({hookSpecificOutput:{hookEventName:'PostToolUse',additionalContext:'RECORDATORIO MOBILE: Revisa que la pagina editada sea responsiva en movil (320px-430px). Verifica: (1) ningun elemento desborda su contenedor (overflow-hidden donde aplique), (2) texto legible sin hacer zoom, (3) grids/flex hacen stack en pantallas pequenas, (4) botones y formularios tienen tamano tactil adecuado (min 44px), (5) imagenes no se salen del margen.'}}))}}\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
+  }
+}

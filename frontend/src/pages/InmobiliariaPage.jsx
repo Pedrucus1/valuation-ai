@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AfiliadosCarousel from "@/components/AfiliadosCarousel";
 import { Button } from "@/components/ui/button";
 import {
   Building2, ChevronRight, ChevronDown, ChevronUp,
@@ -551,6 +552,8 @@ export default function InmobiliariaPage() {
         </div>
 
       </main>
+
+      <AfiliadosCarousel tipo="inmobiliaria" />
 
       <footer className="relative text-center py-5 text-xs text-white/18 border-t border-white/5 mt-4">
         © 2026 PropValu México · Para Inmobiliarias

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+﻿import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -47,7 +47,8 @@ import {
   Droplets,
   Zap,
   Wind,
-  Info
+  Info,
+  CreditCard,
 } from "lucide-react";
 import { API } from "@/App";
 
@@ -444,6 +445,51 @@ const PhotoUploader = ({ photos, onPhotosChange, facadeIndex, onFacadeChange, ph
   );
 };
 
+const ADS = [
+  { tag: "Consejo PropValu", title: "El valor lo define la oferta y la demanda", body: "No existe un precio único para una propiedad. El valor real es el que un comprador informado está dispuesto a pagar en el mercado actual." },
+  { tag: "¿Sabías que?", title: "El predial puede engañarte", body: "Las medidas del predial a menudo no coinciden con las escrituras. Siempre usa la superficie real de construcción de tus escrituras para una valuación más precisa." },
+  { tag: "Dato de mercado", title: "La ubicación vale más que los metros", body: "Una propiedad 30% más pequeña en una zona premium puede superar en valor a una grande en zona periférica. La plusvalía de la colonia es clave." },
+  { tag: "Consejo PropValu", title: "Las fotos importan al vender", body: "Las propiedades con fotografías profesionales reciben hasta 3 veces más contactos en portales. La primera impresión es digital." },
+  { tag: "¿Sabías que?", title: "Nivel y orientación afectan el precio", body: "En edificios, los pisos altos con buena vista tienen un premium del 5-12%. La orientación al sur maximiza la iluminación natural." },
+  { tag: "Dato de mercado", title: "Renta vs compra: cuándo conviene cada uno", body: "Si el precio de venta dividido entre la renta anual da más de 25 años, comprar puede ser menos eficiente que rentar e invertir la diferencia." },
+  { tag: "Consejo PropValu", title: "Negocia con datos, no con intuición", body: "Conocer el precio por m² de los comparables activos en la zona te da ventaja real en cualquier negociación, ya seas comprador o vendedor." },
+  { tag: "¿Sabías que?", title: "La antigüedad deprecia el valor físico", body: "Una construcción pierde en promedio 2% de valor físico por año. Por eso las remodelaciones recientes son uno de los factores que más incrementan el avalúo." },
+  { tag: "Dato de mercado", title: "El cap rate revela la rentabilidad real", body: "Un cap rate del 5-7% anual es saludable en México. Propiedades con cap rate menor al 4% suelen estar sobrevaloradas para inversión de renta." },
+  { tag: "Consejo PropValu", title: "Comparables: calidad sobre cantidad", body: "5 comparables bien seleccionados (mismo tipo, misma zona, mismos m²) son más precisos que 20 mal filtrados. La homologación hace la diferencia." },
+  { tag: "Dato de mercado", title: "La escrituración protege tu inversión", body: "En México, más del 30% de las transacciones inmobiliarias tienen problemas legales por falta de escrituras actualizadas. Escriturar a tiempo evita litigios costosos." },
+  { tag: "Consejo PropValu", title: "El tiempo en el mercado sube el riesgo", body: "Una propiedad con más de 90 días publicada sin venderse pierde poder de negociación. El precio correcto desde el inicio reduce el tiempo de venta a la mitad." },
+  { tag: "¿Sabías que?", title: "El estacionamiento puede valer más de lo que crees", body: "En zonas urbanas densas de Guadalajara o CDMX, un cajón de estacionamiento adicional puede incrementar el valor de un departamento entre 8% y 15%." },
+  { tag: "Dato de mercado", title: "La inflación y el ladrillo van de la mano", body: "Históricamente, el sector inmobiliario mexicano ha superado la inflación en un 2-3% anual en zonas consolidadas. Es uno de los activos más estables a largo plazo." },
+  { tag: "Consejo PropValu", title: "Superficie vendible vs superficie total", body: "En condominios, la superficie privativa (la tuya) es la que se valúa. Las áreas comunes no se suman al precio del m² — un error frecuente al comparar propiedades." },
+  { tag: "¿Sabías que?", title: "Las amenidades tienen rendimiento decreciente", body: "La primera alberca en un desarrollo suma valor. La segunda no. Pagar extra por amenidades que ya existen en el edificio de enfrente no se recupera al vender." },
+  { tag: "Dato de mercado", title: "Plusvalía esperada vs plusvalía real", body: "No toda zona 'en crecimiento' genera plusvalía automática. La infraestructura vial, escuelas, comercio y seguridad son los indicadores reales que mueven los precios." },
+  { tag: "Consejo PropValu", title: "El CUS: clave para terrenos y desarrollos", body: "El Coeficiente de Utilización del Suelo determina cuánto puedes construir legalmente. Un terreno con CUS alto en zona de demanda puede triplicar su valor potencial." },
+  { tag: "¿Sabías que?", title: "Remodelar no siempre recupera la inversión", body: "Una remodelación premium en una colonia de nivel medio raramente se recupera al vender. El valor máximo de una propiedad lo pone el techo de su zona, no sus acabados." },
+  { tag: "Dato de mercado", title: "El mercado de usados mueve más que el nuevo", body: "En México, el 70% de las transacciones inmobiliarias son de vivienda usada. Conocer el precio real del mercado secundario es más útil que compararse con desarrollos nuevos." },
+];
+
+/* ─── Checkout constants ──────────────────────────────── */
+
+const CHECKOUT_PLANS = [
+  { id: "individual", label: "Individual", qty: 1,  price: 280,  tag: null,           popular: false },
+  { id: "bronce",     label: "Bronce",     qty: 3,  price: 815,  tag: "-3%",          popular: false },
+  { id: "plata",      label: "Plata",      qty: 5,  price: 1317, tag: "Más popular",  popular: true  },
+  { id: "oro",        label: "Oro",        qty: 10, price: 2555, tag: "Mejor precio", popular: false },
+];
+
+const CHECKOUT_ADDONS = [
+  { id: "valuador", emoji: "🏅", title: "Revisión por Valuador Certificado", desc: "Valuador CNBV/INDAABIN revisa y firma. Entrega 48h.", price: 350 },
+  { id: "visita",   emoji: "📐", title: "Verificación de m² en sitio",        desc: "Visita física para confirmar metros reales.",       price: 600 },
+];
+
+const fmtMXN = (v) =>
+  new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 }).format(v);
+
+const fmtCardNum = (v) => v.replace(/\D/g, "").slice(0, 16).replace(/(.{4})/g, "$1 ").trim();
+const fmtExpiry  = (v) => v.replace(/\D/g, "").slice(0, 4).replace(/^(\d{2})(\d)/, "$1/$2");
+
+/* ──────────────────────────────────────────────────────── */
+
 const ValuationForm = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
@@ -451,8 +497,16 @@ const ValuationForm = () => {
     !!localStorage.getItem("propvalu_info_dismissed")
   );
   const [isLoading, setIsLoading] = useState(false);
+  const [adIndex, setAdIndex] = useState(0);
+  const [adProgress, setAdProgress] = useState(0);
   const [user, setUser] = useState(null);
   const [includePhotos, setIncludePhotos] = useState(false);
+
+  // Checkout step state (step 4, only for public users)
+  const [checkoutPlan, setCheckoutPlan] = useState(CHECKOUT_PLANS[0]);
+  const [checkoutAddons, setCheckoutAddons] = useState([]);
+  const [checkoutCard, setCheckoutCard] = useState({ number: "", expiry: "", cvv: "", name: "" });
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [photoOrientations, setPhotoOrientations] = useState([]); // track vertical photos
   const [resetKey, setResetKey] = useState(0); // For forcing UI reset
 
@@ -498,6 +552,20 @@ const ValuationForm = () => {
     street_type: "",
     pavement_type: ""
   });
+
+  // Pre-seleccionar plan si viene de PricingPage (plan individual)
+  useEffect(() => {
+    const pre = sessionStorage.getItem("propvalu_preselected_plan");
+    if (pre) {
+      try {
+        const { planId, addons: preAddons } = JSON.parse(pre);
+        const found = CHECKOUT_PLANS.find(p => p.id === planId);
+        if (found) setCheckoutPlan(found);
+        if (preAddons?.length) setCheckoutAddons(preAddons);
+      } catch {}
+      sessionStorage.removeItem("propvalu_preselected_plan");
+    }
+  }, []);
 
   // Persistencia: Cargar desde localStorage al iniciar
   useEffect(() => {
@@ -593,10 +661,13 @@ const ValuationForm = () => {
       const response = await fetch(`${API}/auth/me`, { credentials: "include" });
       if (response.ok) {
         const userData = await response.json();
-        setUser(userData);
+        // Ignorar respuestas del stub viejo (sin user_id real)
+        if (userData?.user_id && userData.user_id !== 'user_local_dev') {
+          setUser(userData);
+        }
       }
     } catch (error) {
-      console.log("Not authenticated");
+      // No autenticado — usuario público
     }
   };
 
@@ -677,7 +748,14 @@ const ValuationForm = () => {
 
   const nextStep = () => {
     if (validateStep(currentStep)) {
-      setCurrentStep(prev => Math.min(prev + 1, 3));
+      const maxStep = skipCheckout ? 3 : 4;
+      const next = Math.min(currentStep + 1, maxStep);
+      // If going to checkout step but user already has a paid cart, skip to analysis
+      if (next === 4 && sessionStorage.getItem("propvalu_cart")) {
+        handleSubmit();
+        return;
+      }
+      setCurrentStep(next);
     }
   };
 
@@ -687,6 +765,28 @@ const ValuationForm = () => {
 
   const showFloorFields = ["Departamento", "Oficina", "Local comercial"].includes(formData.property_type);
   const isAppraiserMode = user && user.role === "appraiser";
+  // Usuarios con plan comprado (valuador, inmobiliaria, admin) no ven el paso de pago
+  const skipCheckout = !!(user && ["appraiser", "realtor", "super_admin"].includes(user.role));
+  const showAds = !user || (
+    user.role !== "appraiser" &&
+    user.role !== "super_admin" &&
+    !(user.role === "realtor" && user.plan === "premier")
+  );
+
+  // Slide timer for ad popup during submission (6s per slide = 60s total)
+  useEffect(() => {
+    if (!isLoading || !showAds) return;
+    const SLIDE_MS = 12000;
+    const TICK_MS = 100;
+    let elapsed = 0;
+    const timer = setInterval(() => {
+      elapsed += TICK_MS;
+      const withinSlide = elapsed % SLIDE_MS;
+      setAdProgress(Math.round((withinSlide / SLIDE_MS) * 100));
+      if (withinSlide === 0) setAdIndex(i => (i + 1) % ADS.length);
+    }, TICK_MS);
+    return () => clearInterval(timer);
+  }, [isLoading, showAds]);
 
   // Build address string for map auto-search (EXCLUDE internal_number to avoid geocoding errors)
   const buildAddressString = () => {
@@ -704,6 +804,9 @@ const ValuationForm = () => {
     if (!validateStep(currentStep)) return;
 
     setIsLoading(true);
+    const submitStart = Date.now();
+    // Mínimo de tiempo que el popup de ads debe mostrarse (45-60s aleatorio)
+    const MIN_AD_MS = 45000 + Math.random() * 15000;
 
     try {
       // Extract service_room and laundry_room from special_features for backward compatibility
@@ -767,21 +870,12 @@ const ValuationForm = () => {
       const compData = await comparablesResponse.json();
       toast.success(`Se encontraron ${compData.count} comparables`);
 
-      // En modo valuador, ir a selección de comparables
-      // En modo normal, calcular y mostrar reporte directamente
-      if (isAppraiserMode) {
-        navigate(`/comparables/${valuation.valuation_id}`);
-      } else {
-        const calcResponse = await fetch(`${API}/valuations/${valuation.valuation_id}/calculate`, {
-          method: "POST",
-          credentials: "include"
-        });
+      // Esperar el tiempo mínimo de ads antes de navegar
+      const elapsed = Date.now() - submitStart;
+      const remaining = MIN_AD_MS - elapsed;
+      if (remaining > 0) await new Promise(r => setTimeout(r, remaining));
 
-        if (calcResponse.ok) {
-          localStorage.removeItem("propvalu_draft"); // Limpiar borrador al éxito
-          navigate(`/reporte/${valuation.valuation_id}`);
-        }
-      }
+      navigate(`/comparables/${valuation.valuation_id}`);
 
     } catch (error) {
       console.error("Error:", error);
@@ -793,12 +887,55 @@ const ValuationForm = () => {
 
   const steps = [
     { number: 1, title: "Ubicación", icon: <MapPin className="w-5 h-5" /> },
-    { number: 2, title: "Inmueble", icon: <Ruler className="w-5 h-5" /> },
-    { number: 3, title: "Detalles", icon: <Home className="w-5 h-5" /> }
+    { number: 2, title: "Inmueble",  icon: <Ruler className="w-5 h-5" /> },
+    { number: 3, title: "Detalles",  icon: <Home className="w-5 h-5" /> },
+    ...(!skipCheckout ? [{ number: 4, title: "Pago", icon: <CreditCard className="w-5 h-5" /> }] : []),
   ];
+
+  const ad = ADS[adIndex];
 
   return (
     <div className="min-h-screen bg-[#F8F9FA]">
+
+      {/* Ad popup bloqueante durante la generación de valuación (solo público/inmobiliaria no-Premier) */}
+      {isLoading && showAds && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4"
+             style={{ backgroundColor: "rgba(0,0,0,0.65)", backdropFilter: "blur(4px)" }}>
+          <div className="bg-[#1B4332] rounded-2xl shadow-2xl border border-white/20 flex flex-col items-center justify-between p-8"
+               style={{ width: "min(90vw, 520px)", height: "min(90vw, 520px)" }}>
+            <div className="flex flex-col items-center gap-3 w-full">
+              <div className="flex items-center gap-2">
+                <Building2 className="w-6 h-6 text-[#D9ED92]" />
+                <span className="font-['Outfit'] text-lg font-bold text-white">
+                  Prop<span className="text-[#52B788]">Valu</span>
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3.5 h-3.5 border-2 border-[#52B788] border-t-transparent rounded-full animate-spin" />
+                <p className="text-white/60 text-xs">Generando tu valuación...</p>
+              </div>
+            </div>
+            <div className="flex-1 flex flex-col items-center justify-center text-center px-2 py-4">
+              <p className="text-[10px] font-bold text-[#D9ED92] uppercase tracking-widest mb-3">{ad.tag}</p>
+              <h2 className="font-['Outfit'] text-2xl sm:text-3xl font-bold text-white mb-4 leading-snug">{ad.title}</h2>
+              <p className="text-white/80 text-base leading-relaxed max-w-xs">{ad.body}</p>
+            </div>
+            <div className="w-full flex flex-col items-center gap-2">
+              <div className="flex gap-1.5">
+                {ADS.map((_, i) => (
+                  <div key={i} className={`rounded-full transition-all duration-300 ${
+                    i === adIndex ? "w-5 h-2 bg-[#D9ED92]" : i < adIndex ? "w-2 h-2 bg-[#52B788]" : "w-2 h-2 bg-white/20"
+                  }`} />
+                ))}
+              </div>
+              <p className="text-white/25 text-[10px] mt-1">
+                {Math.max(1, Math.ceil((100 - adProgress) / 100 * 12))}s · Estimación con inteligencia de PropValu
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Sticky header: título + stepper */}
       <div className="sticky top-0 z-40 bg-[#1B4332] shadow-md">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center gap-3">
@@ -847,53 +984,55 @@ const ValuationForm = () => {
         </div>
       </div>
 
-      {/* Banner informativo para Público General — oculto para valuadores e inmobiliarias */}
-      {!infoDismissed && !isAppraiserMode && localStorage.getItem("propvalu_intended_role") !== "realtor" && (
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
-          <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
-            <div className="flex items-start justify-between gap-3">
-              <div className="flex items-start gap-3">
-                <div className="w-9 h-9 rounded-lg bg-amber-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <Info className="w-5 h-5 text-amber-600" />
-                </div>
-                <div>
-                  <h3 className="font-['Outfit'] font-bold text-amber-800 text-sm mb-2">
-                    Antes de comenzar — ¿Qué datos vas a necesitar?
-                  </h3>
-                  <div className="grid sm:grid-cols-2 gap-x-6 gap-y-1.5 text-xs text-amber-700">
-                    <div className="flex items-start gap-1.5">
-                      <span className="text-amber-500 font-bold mt-0.5">📍</span>
-                      <span><strong>Dirección completa</strong>: colonia, alcaldía/municipio y estado.</span>
-                    </div>
-                    <div className="flex items-start gap-1.5">
-                      <span className="text-amber-500 font-bold mt-0.5">📐</span>
-                      <span><strong>Superficie de terreno y construcción</strong>: idealmente del escritura o planos. El predial puede tener errores — verifica con un valuador si tienes dudas.</span>
-                    </div>
-                    <div className="flex items-start gap-1.5">
-                      <span className="text-amber-500 font-bold mt-0.5">🏠</span>
-                      <span><strong>Tipo de propiedad</strong>: casa, departamento, terreno, local, etc.</span>
-                    </div>
-                    <div className="flex items-start gap-1.5">
-                      <span className="text-amber-500 font-bold mt-0.5">📋</span>
-                      <span><strong>Características</strong>: recámaras, baños, cajones de estacionamiento, nivel y antigüedad aproximada.</span>
-                    </div>
-                    <div className="flex items-start gap-1.5 sm:col-span-2">
-                      <span className="text-amber-500 font-bold mt-0.5">⚠️</span>
-                      <span><strong>Nota importante:</strong> Esta valuación es una <em>estimación orientativa</em> basada en comparables de mercado. No sustituye un avalúo oficial. Si necesitas un documento con validez legal (para crédito hipotecario, sucesión o trámite), solicita un valuador profesional certificado.</span>
-                    </div>
-                  </div>
-                </div>
+      {/* Modal informativo para Público General */}
+      {!infoDismissed && !user && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4"
+             style={{ backgroundColor: "rgba(0,0,0,0.6)", backdropFilter: "blur(3px)" }}>
+          <div className="bg-[#1B4332] rounded-2xl shadow-2xl w-full max-w-lg p-7">
+            {/* Encabezado */}
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-11 h-11 rounded-xl bg-[#D9ED92] flex items-center justify-center flex-shrink-0">
+                <Info className="w-6 h-6 text-[#1B4332]" />
               </div>
-              <button
-                onClick={() => {
-                  setInfoDismissed(true);
-                  localStorage.setItem("propvalu_info_dismissed", "1");
-                }}
-                className="flex-shrink-0 text-amber-400 hover:text-amber-700 transition-colors p-1"
-              >
-                <X className="w-4 h-4" />
-              </button>
+              <h3 className="font-['Outfit'] font-bold text-white text-xl leading-snug">
+                Antes de comenzar —<br className="hidden sm:block" /> ¿Qué datos vas a necesitar?
+              </h3>
             </div>
+
+            {/* Lista */}
+            <div className="grid sm:grid-cols-2 gap-x-6 gap-y-3 text-sm text-white/90 mb-6">
+              <div className="flex items-start gap-2.5">
+                <span className="text-[#D9ED92] text-base mt-0.5">📍</span>
+                <span><strong className="text-white">Dirección completa</strong>: calle, número exterior e interior (si tiene), colonia, municipio y estado.</span>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <span className="text-[#D9ED92] text-base mt-0.5">📐</span>
+                <span><strong className="text-white">Superficie de terreno y construcción</strong>: idealmente de escritura o planos.</span>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <span className="text-[#D9ED92] text-base mt-0.5">🏠</span>
+                <span><strong className="text-white">Tipo de propiedad</strong>: casa, departamento, terreno, local, etc.</span>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <span className="text-[#D9ED92] text-base mt-0.5">📋</span>
+                <span><strong className="text-white">Características</strong>: recámaras, baños, estacionamiento, nivel y antigüedad.</span>
+              </div>
+              <div className="flex items-start gap-2.5 sm:col-span-2 pt-3 border-t border-white/20">
+                <span className="text-[#D9ED92] text-base mt-0.5">⚠️</span>
+                <span><strong className="text-white">Nota:</strong> Esta es una <em>estimación orientativa</em> basada en comparables. No sustituye un avalúo oficial con validez legal.</span>
+              </div>
+            </div>
+
+            {/* Botón OK */}
+            <button
+              onClick={() => {
+                setInfoDismissed(true);
+                localStorage.setItem("propvalu_info_dismissed", "1");
+              }}
+              className="w-full bg-[#D9ED92] hover:bg-[#c8e070] text-[#1B4332] font-bold text-base py-3 rounded-xl transition-colors"
+            >
+              Entendido, comenzar
+            </button>
           </div>
         </div>
       )}
@@ -907,15 +1046,17 @@ const ValuationForm = () => {
               {steps[currentStep - 1].icon}
               {steps[currentStep - 1].title}
             </CardTitle>
-            <Button
-              onClick={resetForm}
-              variant="ghost"
-              size="sm"
-              className="text-white/70 hover:bg-white/10 hover:text-white border border-white/30"
-            >
-              <RefreshCw className="w-3.5 h-3.5 mr-1.5" />
-              Limpiar Datos
-            </Button>
+            {currentStep < 4 && (
+              <Button
+                onClick={resetForm}
+                variant="ghost"
+                size="sm"
+                className="text-white/70 hover:bg-white/10 hover:text-white border border-white/30"
+              >
+                <RefreshCw className="w-3.5 h-3.5 mr-1.5" />
+                Limpiar Datos
+              </Button>
+            )}
           </div>
         </CardHeader>
         <CardContent key={resetKey} className="p-6">
@@ -1046,6 +1187,10 @@ const ValuationForm = () => {
                 <Label className="text-sm font-semibold text-[#1B4332] flex items-center gap-2">
                   <Map className="w-4 h-4" /> Ubicación en Mapa
                 </Label>
+                <p className="text-xs text-slate-500 flex items-center gap-1">
+                  <MapPin className="w-3 h-3 text-[#52B788]" />
+                  Verifica que el pin esté sobre tu propiedad. Si no, escribe la dirección en el buscador o arrástralo manualmente.
+                </p>
                 <LocationMap
                   latitude={formData.latitude}
                   longitude={formData.longitude}
@@ -1180,7 +1325,7 @@ const ValuationForm = () => {
                   </Select>
                 </div>
 
-                {/* Uso de suelo - Solo visible en modo valuador */}
+                {/* Uso de suelo - Solo visible para valuadores (público no lo conoce) */}
                 {isAppraiserMode && (
                   <div className="space-y-2">
                     <Label className="text-sm font-semibold text-[#1B4332] flex items-center gap-2">
@@ -1293,7 +1438,7 @@ const ValuationForm = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-3 gap-3 items-end">
                 <div className="space-y-2">
                   <Label className="text-sm font-semibold text-[#1B4332] flex items-center gap-2">
                     <Building className="w-4 h-4 text-[#52B788]" /> Antigüedad (años)
@@ -1499,49 +1644,245 @@ const ValuationForm = () => {
             </div>
           )}
 
-          {/* Navigation Buttons */}
-          <div className="flex justify-between mt-8 pt-6 border-t border-slate-100">
-            <Button
-              variant="outline"
-              onClick={prevStep}
-              disabled={currentStep === 1}
-              className="border-[#1B4332] text-[#1B4332] hover:bg-[#1B4332] hover:text-white"
-              data-testid="prev-step-btn"
-            >
-              <ChevronLeft className="w-4 h-4 mr-2" />
-              Anterior
-            </Button>
+          {/* Step 4 — Checkout (public users only) */}
+          {currentStep === 4 && !skipCheckout && (() => {
+            const addonsTotal = checkoutAddons.reduce((s, id) => {
+              const a = CHECKOUT_ADDONS.find(x => x.id === id);
+              return s + (a ? a.price * checkoutPlan.qty : 0);
+            }, 0);
+            const subtotal = checkoutPlan.price + addonsTotal;
+            const total = subtotal * 1.16;
+            const cardOk = checkoutCard.number.replace(/\s/g, "").length === 16
+              && checkoutCard.expiry.length === 5
+              && checkoutCard.cvv.length >= 3
+              && checkoutCard.name.trim().length >= 3;
 
-            {currentStep < 3 ? (
+            const handlePayAndAnalyze = async () => {
+              setCheckoutLoading(true);
+              await new Promise(r => setTimeout(r, 2000));
+              setCheckoutLoading(false);
+              sessionStorage.setItem("propvalu_cart", JSON.stringify({
+                qty: checkoutPlan.qty, addons: checkoutAddons, total: subtotal,
+              }));
+              handleSubmit();
+            };
+
+            return (
+              <div className="space-y-6 animate-fade-in">
+                <p className="text-sm text-slate-500 -mt-2">
+                  Selecciona tu plan y completa el pago para iniciar el análisis con IA.
+                </p>
+
+                {/* Plan selector */}
+                <div>
+                  <p className="text-sm font-semibold text-[#1B4332] mb-3">Plan</p>
+                  <div className="grid grid-cols-2 gap-3">
+                    {CHECKOUT_PLANS.map(plan => {
+                      const active = checkoutPlan.id === plan.id;
+                      return (
+                        <button
+                          key={plan.id}
+                          type="button"
+                          onClick={() => setCheckoutPlan(plan)}
+                          className={`relative rounded-xl border-2 p-3.5 text-left transition-all ${
+                            active ? "border-[#52B788] bg-[#D9ED92]/10" : "border-slate-200 hover:border-slate-300"
+                          }`}
+                        >
+                          {plan.tag && (
+                            <span className={`absolute -top-2.5 left-1/2 -translate-x-1/2 text-[9px] font-extrabold px-2 py-0.5 rounded-full whitespace-nowrap ${
+                              plan.popular ? "bg-[#D9ED92] text-[#1B4332]" : "bg-slate-200 text-slate-500"
+                            }`}>
+                              {plan.tag}
+                            </span>
+                          )}
+                          <p className={`font-bold text-sm ${active ? "text-[#1B4332]" : "text-slate-700"}`}>{plan.label}</p>
+                          <p className="text-xs text-slate-400">{plan.qty} valuación{plan.qty > 1 ? "es" : ""}</p>
+                          <p className={`text-base font-bold mt-1 ${active ? "text-[#1B4332]" : "text-slate-600"}`}>{fmtMXN(plan.price)}</p>
+                          <p className="text-[10px] text-slate-400">+ IVA</p>
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {checkoutPlan.qty > 1 && (
+                    <p className="text-xs text-[#52B788] font-medium mt-2">
+                      Valuaciones no usadas vigentes 3 meses
+                    </p>
+                  )}
+                </div>
+
+                {/* Add-ons */}
+                <div>
+                  <p className="text-sm font-semibold text-[#1B4332] mb-2">¿Mayor precisión? <span className="font-normal text-slate-400">(opcional)</span></p>
+                  <div className="space-y-2">
+                    {CHECKOUT_ADDONS.map(addon => {
+                      const active = checkoutAddons.includes(addon.id);
+                      return (
+                        <button
+                          key={addon.id}
+                          type="button"
+                          onClick={() => setCheckoutAddons(p =>
+                            p.includes(addon.id) ? p.filter(x => x !== addon.id) : [...p, addon.id]
+                          )}
+                          className={`w-full rounded-xl border-2 p-3 text-left flex items-center gap-3 transition-all ${
+                            active ? "border-[#52B788] bg-[#D9ED92]/10" : "border-slate-200 hover:border-slate-300"
+                          }`}
+                        >
+                          <span className="text-xl shrink-0">{addon.emoji}</span>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-semibold text-[#1B4332]">{addon.title}</p>
+                            <p className="text-xs text-slate-400">{addon.desc}</p>
+                          </div>
+                          <span className="text-sm font-bold text-[#1B4332] shrink-0">
+                            +{fmtMXN(addon.price * checkoutPlan.qty)}
+                          </span>
+                          <div className={`w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 transition-all ${
+                            active ? "bg-[#52B788] border-[#52B788]" : "border-slate-300"
+                          }`}>
+                            {active && (
+                              <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                              </svg>
+                            )}
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Price summary */}
+                <div className="bg-[#F8F9FA] rounded-xl p-4 space-y-1.5 text-sm">
+                  <div className="flex justify-between text-slate-500">
+                    <span>Plan {checkoutPlan.label} ({checkoutPlan.qty} valuación{checkoutPlan.qty > 1 ? "es" : ""})</span>
+                    <span>{fmtMXN(checkoutPlan.price)}</span>
+                  </div>
+                  {checkoutAddons.map(id => {
+                    const a = CHECKOUT_ADDONS.find(x => x.id === id);
+                    return a ? (
+                      <div key={id} className="flex justify-between text-slate-400 text-xs">
+                        <span>{a.emoji} {a.title}</span>
+                        <span>+{fmtMXN(a.price * checkoutPlan.qty)}</span>
+                      </div>
+                    ) : null;
+                  })}
+                  <div className="flex justify-between text-slate-400 text-xs pt-1 border-t border-slate-200">
+                    <span>IVA (16%)</span>
+                    <span>{fmtMXN(subtotal * 0.16)}</span>
+                  </div>
+                  <div className="flex justify-between font-bold text-[#1B4332] text-base pt-1">
+                    <span>Total</span>
+                    <span>{fmtMXN(total)}</span>
+                  </div>
+                </div>
+
+                {/* Card fields */}
+                <div className="space-y-3">
+                  <p className="text-sm font-semibold text-[#1B4332]">Datos de pago <span className="text-xs text-slate-400 font-normal">(simulado)</span></p>
+                  <input
+                    className="w-full border border-[#B7E4C7] rounded-lg bg-[#F0FAF5] px-3 py-2.5 text-sm focus:outline-none focus:border-[#52B788] font-mono tracking-wider"
+                    placeholder="Número de tarjeta   4242 4242 4242 4242"
+                    value={checkoutCard.number}
+                    maxLength={19}
+                    onChange={e => setCheckoutCard(p => ({ ...p, number: fmtCardNum(e.target.value) }))}
+                  />
+                  <div className="grid grid-cols-2 gap-3">
+                    <input
+                      className="w-full border border-[#B7E4C7] rounded-lg bg-[#F0FAF5] px-3 py-2.5 text-sm focus:outline-none focus:border-[#52B788]"
+                      placeholder="MM/AA"
+                      value={checkoutCard.expiry}
+                      maxLength={5}
+                      onChange={e => setCheckoutCard(p => ({ ...p, expiry: fmtExpiry(e.target.value) }))}
+                    />
+                    <input
+                      className="w-full border border-[#B7E4C7] rounded-lg bg-[#F0FAF5] px-3 py-2.5 text-sm focus:outline-none focus:border-[#52B788]"
+                      placeholder="CVV"
+                      value={checkoutCard.cvv}
+                      maxLength={4}
+                      onChange={e => setCheckoutCard(p => ({ ...p, cvv: e.target.value.replace(/\D/g, "").slice(0, 4) }))}
+                    />
+                  </div>
+                  <input
+                    className="w-full border border-[#B7E4C7] rounded-lg bg-[#F0FAF5] px-3 py-2.5 text-sm focus:outline-none focus:border-[#52B788] uppercase"
+                    placeholder="NOMBRE EN LA TARJETA"
+                    value={checkoutCard.name}
+                    onChange={e => setCheckoutCard(p => ({ ...p, name: e.target.value.toUpperCase() }))}
+                  />
+                </div>
+
+                <div className="flex gap-3 pt-2 border-t border-slate-100">
+                  <Button
+                    variant="outline"
+                    onClick={prevStep}
+                    className="border-[#1B4332] text-[#1B4332] hover:bg-[#1B4332] hover:text-white"
+                  >
+                    <ChevronLeft className="w-4 h-4 mr-1" />
+                    Atrás
+                  </Button>
+                  <Button
+                    onClick={handlePayAndAnalyze}
+                    disabled={checkoutLoading || isLoading || !cardOk}
+                    className="flex-1 bg-[#52B788] hover:bg-[#40916C] text-white font-bold"
+                    data-testid="submit-valuation-btn"
+                  >
+                    {checkoutLoading || isLoading ? (
+                      <><div className="spinner w-4 h-4 mr-2" />{checkoutLoading ? "Procesando pago…" : "Generando valuación…"}</>
+                    ) : (
+                      <><CreditCard className="w-4 h-4 mr-2" />Pagar {fmtMXN(total)} e iniciar análisis</>
+                    )}
+                  </Button>
+                </div>
+              </div>
+            );
+          })()}
+
+          {/* Navigation Buttons */}
+          {currentStep < 4 && (
+            <div className="flex justify-between mt-8 pt-6 border-t border-slate-100">
               <Button
-                onClick={nextStep}
-                className="bg-[#1B4332] hover:bg-[#2D6A4F] text-white"
-                data-testid="next-step-btn"
+                variant="outline"
+                onClick={prevStep}
+                disabled={currentStep === 1}
+                className="border-[#1B4332] text-[#1B4332] hover:bg-[#1B4332] hover:text-white"
+                data-testid="prev-step-btn"
               >
-                Siguiente
-                <ChevronRight className="w-4 h-4 ml-2" />
+                <ChevronLeft className="w-4 h-4 mr-2" />
+                Anterior
               </Button>
-            ) : (
-              <Button
-                onClick={handleSubmit}
-                disabled={isLoading}
-                className="bg-[#52B788] hover:bg-[#40916C] text-white px-8"
-                data-testid="submit-valuation-btn"
-              >
-                {isLoading ? (
-                  <>
-                    <div className="spinner w-4 h-4 mr-2" />
-                    Buscando comparables...
-                  </>
-                ) : (
-                  <>
-                    {isAppraiserMode ? "Buscar Comparables" : "Generar Valuación"}
-                    <ChevronRight className="w-4 h-4 ml-2" />
-                  </>
-                )}
-              </Button>
-            )}
-          </div>
+
+              {currentStep < 3 ? (
+                <Button
+                  onClick={nextStep}
+                  className="bg-[#1B4332] hover:bg-[#2D6A4F] text-white"
+                  data-testid="next-step-btn"
+                >
+                  Siguiente
+                  <ChevronRight className="w-4 h-4 ml-2" />
+                </Button>
+              ) : skipCheckout ? (
+                <Button
+                  onClick={handleSubmit}
+                  disabled={isLoading}
+                  className="bg-[#52B788] hover:bg-[#40916C] text-white px-8"
+                  data-testid="submit-valuation-btn"
+                >
+                  {isLoading ? (
+                    <><div className="spinner w-4 h-4 mr-2" />Buscando comparables...</>
+                  ) : (
+                    <>Iniciar Análisis<ChevronRight className="w-4 h-4 ml-2" /></>
+                  )}
+                </Button>
+              ) : (
+                <Button
+                  onClick={nextStep}
+                  className="bg-[#1B4332] hover:bg-[#2D6A4F] text-white px-8"
+                  data-testid="next-step-btn"
+                >
+                  Continuar al pago
+                  <ChevronRight className="w-4 h-4 ml-2" />
+                </Button>
+              )}
+            </div>
+          )}
         </CardContent>
       </Card>
       </div>
@@ -1550,5 +1891,6 @@ const ValuationForm = () => {
 };
 
 export default ValuationForm;
+
 
 

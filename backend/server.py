@@ -2,7 +2,9 @@ from fastapi import FastAPI, APIRouter, HTTPException, Request, Response, Upload
 from fastapi.responses import JSONResponse
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
+from starlette.staticfiles import StaticFiles
 from motor.motor_asyncio import AsyncIOMotorClient
+import certifi
 import os
 import logging
 from pathlib import Path
@@ -13,13 +15,16 @@ from datetime import datetime, timezone, timedelta
 import httpx
 import base64
 import asyncio
+from passlib.context import CryptContext
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
 # MongoDB connection
 mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url)
+client = AsyncIOMotorClient(mongo_url, tlsCAFile=certifi.where())
 db = client[os.environ['DB_NAME']]
 
 # Import scraper (fallback)
@@ -27,17 +32,37 @@ from scraper import scrape_all_sources, get_rental_factor, calculate_market_metr
 
 # Import AI comparables search (primary)
 from ai_comparables import (
-    search_comparables_with_ai, 
-    search_rental_comparables, 
+    search_comparables_with_ai,
+    search_rental_comparables,
     calculate_rental_factor_from_ai,
     AIComparable
 )
+from sheets_comparables import search_comparables_from_sheets
 
 # Import report generator
 from report_generator import generate_html_report
 
 # Create the main app
 app = FastAPI(title="PropValu Mexico API")
+
+import re as _re
+
+def _is_localhost(origin: str) -> bool:
+    return bool(_re.match(r"^https?://localhost(:\d+)?$", origin))
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    origin = request.headers.get("origin", "")
+    headers = {}
+    if _is_localhost(origin):
+        headers["Access-Control-Allow-Origin"] = origin
+        headers["Access-Control-Allow-Credentials"] = "true"
+    logging.error(f"Unhandled exception on {request.method} {request.url}: {exc}", exc_info=True)
+    return JSONResponse(
+        status_code=500,
+        content={"detail": f"Error interno: {str(exc)}"},
+        headers=headers,
+    )
 
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
@@ -68,7 +93,35 @@ class User(BaseModel):
     name: str
     picture: Optional[str] = None
     role: str = "public"
-    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime
+    kyc_status: Optional[str] = "pending"
+    credits: Optional[int] = 0
+    plan: Optional[str] = None
+    phone: Optional[str] = None
+    company_name: Optional[str] = None
+    estado: Optional[str] = None
+    municipio: Optional[str] = None
+    inmobiliaria_tipo: Optional[str] = None
+
+class RegisterRequest(BaseModel):
+    name: str
+    email: str
+    password: str
+    role: str  # "appraiser" | "realtor"
+    phone: Optional[str] = None
+    company_name: Optional[str] = None
+    estado: Optional[str] = None
+    municipio: Optional[str] = None
+    services: Optional[Dict[str, Any]] = None
+    inmobiliaria_tipo: Optional[str] = None
+    asociacion: Optional[str] = None
+    cursos: Optional[str] = None
+    num_asesores: Optional[str] = None
+    empresa_afiliada: Optional[str] = None
+
+class LoginRequest(BaseModel):
+    email: str
+    password: str = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 class UserSession(BaseModel):
     model_config = ConfigDict(extra="ignore")
@@ -337,6 +390,89 @@ async def upgrade_role(request: Request):
     )
     return {"message": "Rol actualizado a valuador", "role": "appraiser"}
 
+@api_router.post("/auth/register")
+async def register_email(data: RegisterRequest, response: Response):
+    existing = await db.users.find_one({"email": data.email})
+    if existing:
+        raise HTTPException(status_code=400, detail="El correo ya está registrado")
+
+    if data.role not in ("appraiser", "realtor"):
+        raise HTTPException(status_code=400, detail="Rol inválido")
+
+    user_id = f"user_{uuid.uuid4().hex[:12]}"
+    hashed_pw = pwd_context.hash(data.password)
+
+    new_user = {
+        "user_id": user_id,
+        "email": data.email,
+        "name": data.name,
+        "picture": None,
+        "role": data.role,
+        "phone": data.phone,
+        "company_name": data.company_name,
+        "estado": data.estado,
+        "municipio": data.municipio,
+        "services": data.services,
+        "inmobiliaria_tipo": data.inmobiliaria_tipo,
+        "asociacion": data.asociacion,
+        "cursos": data.cursos,
+        "num_asesores": data.num_asesores,
+        "empresa_afiliada": data.empresa_afiliada,
+        "hashed_password": hashed_pw,
+        "kyc_status": "pending",
+        "credits": 0,
+        "plan": None,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    }
+    await db.users.insert_one(new_user)
+
+    session_token = f"sess_{uuid.uuid4().hex}"
+    expires_at = datetime.now(timezone.utc) + timedelta(days=7)
+    await db.user_sessions.delete_many({"user_id": user_id})
+    await db.user_sessions.insert_one({
+        "session_id": str(uuid.uuid4()),
+        "user_id": user_id,
+        "session_token": session_token,
+        "expires_at": expires_at.isoformat(),
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    })
+    response.set_cookie(
+        key="session_token", value=session_token,
+        httponly=True, secure=True, samesite="none",
+        path="/", max_age=7 * 24 * 60 * 60,
+    )
+    user_out = {k: v for k, v in new_user.items() if k not in ("hashed_password", "_id")}
+    return user_out
+
+@api_router.post("/auth/login")
+async def login_email(data: LoginRequest, response: Response):
+    user_doc = await db.users.find_one({"email": data.email}, {"_id": 0})
+    if not user_doc:
+        raise HTTPException(status_code=401, detail="Correo o contraseña incorrectos")
+
+    hashed = user_doc.get("hashed_password", "")
+    if not hashed or not pwd_context.verify(data.password, hashed):
+        raise HTTPException(status_code=401, detail="Correo o contraseña incorrectos")
+
+    user_id = user_doc["user_id"]
+    session_token = f"sess_{uuid.uuid4().hex}"
+    expires_at = datetime.now(timezone.utc) + timedelta(days=7)
+    await db.user_sessions.delete_many({"user_id": user_id})
+    await db.user_sessions.insert_one({
+        "session_id": str(uuid.uuid4()),
+        "user_id": user_id,
+        "session_token": session_token,
+        "expires_at": expires_at.isoformat(),
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    })
+    response.set_cookie(
+        key="session_token", value=session_token,
+        httponly=True, secure=True, samesite="none",
+        path="/", max_age=7 * 24 * 60 * 60,
+    )
+    user_out = {k: v for k, v in user_doc.items() if k not in ("hashed_password",)}
+    return user_out
+
 # ============== VALUATION ENDPOINTS ==============
 
 @api_router.post("/valuations", response_model=dict)
@@ -597,6 +733,62 @@ async def generate_comparables(valuation_id: str, request: Request, append: bool
     except Exception as e:
         logger.error(f"AI search error: {e}, falling back to scraping")
     
+    # ============== 1.5. GOOGLE SHEETS COMPARABLES (complementary) ==============
+    try:
+        sheets_results = await asyncio.wait_for(
+            search_comparables_from_sheets(
+                location=f"{prop['municipality']}, {prop['state']}",
+                property_type=search_type,
+                construction_area=prop["construction_area"],
+                land_area=prop.get("land_area") or prop["construction_area"],
+                listing_type="venta",
+                max_results=8,
+            ),
+            timeout=15.0,
+        )
+        if sheets_results:
+            logger.info(f"Google Sheets provided {len(sheets_results)} comparables")
+            search_method = search_method if comparables else "sheets"
+            for sc in sheets_results:
+                area = sc.get("construction_area") or sc.get("land_area") or prop["construction_area"]
+                price = sc.get("price") or 0
+                if not price or price < 100000:
+                    continue
+                price_per_sqm = price / area if area else 0
+                area_adj = 0
+                if area and prop["construction_area"]:
+                    diff = (area - prop["construction_area"]) / prop["construction_area"] * 100
+                    area_adj = max(-5, min(5, -diff * 0.1))
+                total_adj = base_negotiation + area_adj
+                adjusted_ppsm = price_per_sqm * (1 + total_adj / 100)
+                comparables.append(Comparable(
+                    source=sc.get("source", "google_sheets"),
+                    source_url=sc.get("source_url", ""),
+                    title=sc.get("title", "Comparable de mercado"),
+                    neighborhood=sc.get("neighborhood", prop["neighborhood"]),
+                    municipality=sc.get("municipality", prop["municipality"]),
+                    state=sc.get("state", prop["state"]),
+                    land_area=sc.get("land_area"),
+                    construction_area=area,
+                    price=price,
+                    price_per_sqm=round(price_per_sqm, 2),
+                    property_type=search_type,
+                    land_regime=prop["land_regime"],
+                    listing_type="venta",
+                    image_url=None,
+                    negotiation_adjustment=base_negotiation,
+                    area_adjustment=round(area_adj, 2),
+                    condition_adjustment=0,
+                    location_adjustment=0,
+                    regime_adjustment=0,
+                    total_adjustment=round(total_adj, 2),
+                    adjusted_price_per_sqm=round(adjusted_ppsm, 2),
+                ).model_dump())
+    except asyncio.TimeoutError:
+        logger.warning("Google Sheets search timeout")
+    except Exception as e:
+        logger.warning(f"Google Sheets search error: {e}")
+
     # ============== 2. FALLBACK: WEB SCRAPING ==============
     if len(comparables) < 5:
         logger.info("AI didn't find enough, trying web scraping...")
@@ -1042,52 +1234,118 @@ async def generate_report(valuation_id: str, request: Request, include_analysis:
     # Generate analysis
     analysis = generate_analysis_text(prop, result, active_comparables)
     
-    # Try LLM enhancement
+    # Try LLM enhancement with Gemini
+    ai_sections = {}
     try:
-        from emergentintegrations.llm.chat import LlmChat, UserMessage
-        
-        api_key = os.environ.get("EMERGENT_LLM_KEY")
-        if api_key:
+        import google.generativeai as _genai
+
+        gemini_key = os.environ.get("GEMINI_API_KEY")
+        if gemini_key:
             comparables_text = ""
-            for i, comp in enumerate(active_comparables[:3], 1):
-                comparables_text += f"Comp {i}: {comp['neighborhood']}, ${comp['price']:,.0f}, {comp.get('construction_area', 0)}m²\n"
-            
-            prompt = f"""Analiza brevemente esta valuación inmobiliaria en México:
-Ubicación: {prop['neighborhood']}, {prop['municipality']}, {prop['state']}
-Terreno: {prop['land_area']}m², Construcción: {prop['construction_area']}m²
-Régimen: {prop['land_regime']}, Tipo: {prop.get('property_type', 'Casa')}
-Valor estimado: ${result['estimated_value']:,.0f} MXN
-Renta mensual estimada: ${result.get('market_metrics', {}).get('monthly_rent_estimate', 0):,.0f} MXN
-Cap Rate: {result.get('market_metrics', {}).get('cap_rate', 0)}%
-Comparables usados: {comparables_text}
+            for i, comp in enumerate(active_comparables[:5], 1):
+                comparables_text += f"Comp {i}: {comp['neighborhood']}, ${comp['price']:,.0f}, terreno {comp.get('land_area', 0)}m², const {comp.get('construction_area', 0)}m²\n"
 
-Genera SOLO 2 párrafos breves (NO incluyas resumen ejecutivo, eso ya está en otra sección):
-1. Análisis del mercado local y potencial de rentabilidad basado en los comparables
-2. Conclusión con recomendaciones específicas de negociación y estrategia de venta
+            annual_appreciation = result.get('market_metrics', {}).get('annual_appreciation', 5.0)
+            monthly_rent = result.get('market_metrics', {}).get('monthly_rent_estimate', 0)
+            cap_rate = result.get('market_metrics', {}).get('cap_rate', 0)
+            base_value = result['estimated_value']
+            # Precompute projected values so f-string stays valid
+            yr1 = base_value * (1 + annual_appreciation / 100) ** 1
+            yr2 = base_value * (1 + annual_appreciation / 100) ** 2
+            yr3 = base_value * (1 + annual_appreciation / 100) ** 3
+            yr4 = base_value * (1 + annual_appreciation / 100) ** 4
+            yr5 = base_value * (1 + annual_appreciation / 100) ** 5
 
-Numera los párrafos como "1." y "2." Sé conciso y directo."""
+            prompt = f"""Eres un valuador inmobiliario profesional certificado en México. Analiza la siguiente propiedad y responde ÚNICAMENTE con un objeto JSON válido, sin texto adicional, sin bloques de código markdown.
 
-            chat = LlmChat(
-                api_key=api_key,
-                session_id=f"val_{valuation_id}",
-                system_message="Valuador inmobiliario certificado. Respuestas concisas y profesionales."
-            ).with_model("openai", "gpt-4.1-mini")
-            
-            user_message = UserMessage(text=prompt)
-            
+DATOS DE LA PROPIEDAD:
+- Ubicación: {prop['neighborhood']}, {prop['municipality']}, {prop['state']}
+- Terreno: {prop['land_area']} m², Construcción: {prop['construction_area']} m²
+- Habitaciones: {prop.get('bedrooms', 3)}, Baños: {prop.get('bathrooms', 2)}
+- Régimen: {prop['land_regime']}, Tipo: {prop.get('property_type', 'Casa')}
+- Conservación: {prop.get('conservation_state', 'Bueno')}, Edad: {prop.get('estimated_age', 10)} años
+- Valor estimado: ${base_value:,.0f} MXN
+- Renta mensual estimada: ${monthly_rent:,.0f} MXN
+- Cap Rate: {cap_rate:.1f}%
+- Plusvalía histórica zona: {annual_appreciation:.1f}% anual
+- Comparables: {comparables_text}
+
+Responde con este JSON (usa valores realistas para la zona, no inventes datos absurdos):
+{{
+  "analisis_mercado": "Párrafo 1: análisis del mercado local y comparables. Párrafo 2: conclusión con recomendaciones de negociación y estrategia de venta. Sé conciso y profesional.",
+  "plusvalia": {{
+    "tasa_anual": {annual_appreciation:.1f},
+    "anio1": {yr1:.0f},
+    "anio2": {yr2:.0f},
+    "anio3": {yr3:.0f},
+    "anio4": {yr4:.0f},
+    "anio5": {yr5:.0f},
+    "comentario": "Una oración sobre perspectiva de plusvalía en la zona."
+  }},
+  "perfil_entorno": {{
+    "seguridad": {{"score": 7, "texto": "Descripción breve de seguridad en la zona"}},
+    "movilidad": {{"score": 7, "texto": "Descripción breve de transporte y acceso"}},
+    "educacion": {{"score": 8, "texto": "Descripción breve de oferta educativa cercana"}},
+    "salud": {{"score": 7, "texto": "Descripción breve de servicios de salud"}},
+    "comercio": {{"score": 8, "texto": "Descripción breve de comercio y servicios"}},
+    "recreacion": {{"score": 7, "texto": "Descripción breve de parques y áreas recreativas"}}
+  }},
+  "ventajas": [
+    "Ventaja competitiva 1 específica de esta propiedad",
+    "Ventaja competitiva 2",
+    "Ventaja competitiva 3",
+    "Ventaja competitiva 4"
+  ],
+  "oportunidades": [
+    "Área de oportunidad o mejora 1 realista",
+    "Área de oportunidad 2",
+    "Área de oportunidad 3"
+  ],
+  "estrategia": {{
+    "perfil_comprador": "Descripción del comprador ideal para esta propiedad",
+    "precio_entrada": "Recomendación de precio de publicación",
+    "canales": ["Canal 1", "Canal 2", "Canal 3"],
+    "tips": ["Tip de marketing 1", "Tip 2", "Tip 3", "Tip 4"]
+  }}
+}}
+
+IMPORTANTE: Devuelve SOLO el JSON. Los scores de perfil_entorno deben ser enteros del 1 al 10 basados en la zona real. Los valores de plusvalía son proyecciones, ya los calculé tú solo ajusta el comentario."""
+
+            _genai.configure(api_key=gemini_key)
+            _gmodel = _genai.GenerativeModel(
+                "gemini-2.0-flash",
+                system_instruction="Valuador inmobiliario certificado en México. Responde SOLO con JSON válido, sin markdown."
+            )
+
             try:
-                analysis = await asyncio.wait_for(
-                    chat.send_message(user_message),
-                    timeout=15.0
+                import asyncio
+                _gresult = await asyncio.wait_for(
+                    asyncio.get_event_loop().run_in_executor(
+                        None,
+                        lambda: _gmodel.generate_content(prompt)
+                    ),
+                    timeout=30.0
                 )
+                raw = _gresult.text.strip()
+                # Strip markdown code fences if present
+                if raw.startswith("```"):
+                    raw = raw.split("```")[1]
+                    if raw.startswith("json"):
+                        raw = raw[4:]
+                import json as _json
+                ai_sections = _json.loads(raw)
+                analysis = ai_sections.get("analisis_mercado", analysis)
+                logger.info("Gemini AI sections generated successfully")
             except asyncio.TimeoutError:
-                logger.warning("LLM timeout, using template analysis")
-                
+                logger.warning("Gemini timeout, using template analysis")
+            except Exception as _ge:
+                logger.warning(f"Gemini parse error: {_ge}, using template")
+
     except Exception as e:
         logger.error(f"LLM error (using template): {e}")
-    
+
     # Generate HTML report with optional analysis section
-    report_html = generate_html_report(valuation, analysis, include_analysis=include_analysis)
+    report_html = generate_html_report(valuation, analysis, include_analysis=include_analysis, ai_sections=ai_sections)
     
     await db.valuations.update_one(
         {"valuation_id": valuation_id},
@@ -1177,13 +1435,989 @@ async def root():
 async def health():
     return {"status": "healthy"}
 
+# ============== ADMIN AUTH ==============
+
+ADMIN_SECRET = os.environ.get("ADMIN_SECRET", "PropValu2026!")
+UPLOADS_DIR = ROOT_DIR / "uploads"
+KYC_DIR = UPLOADS_DIR / "kyc"
+KYC_DIR.mkdir(parents=True, exist_ok=True)
+ADS_DIR = UPLOADS_DIR / "ads"
+ADS_DIR.mkdir(parents=True, exist_ok=True)
+
+class AdminLoginRequest(BaseModel):
+    email: str
+    password: str
+
+async def require_admin(request: Request):
+    token = request.headers.get("X-Admin-Token", "")
+    if not token:
+        raise HTTPException(status_code=401, detail="Token de administrador requerido")
+    admin = await db.admins.find_one({"token": token, "activo": True}, {"_id": 0})
+    if not admin:
+        raise HTTPException(status_code=401, detail="Token inválido o expirado")
+    return admin
+
+@api_router.post("/admin/auth/login")
+async def admin_login(data: AdminLoginRequest):
+    admin = await db.admins.find_one({"email": data.email}, {"_id": 0})
+    if not admin:
+        # Seed superadmin from env on first login
+        if data.email == os.environ.get("ADMIN_EMAIL", "admin@propvalu.mx") and data.password == ADMIN_SECRET:
+            token = f"adm_{uuid.uuid4().hex}"
+            doc = {
+                "admin_id": f"adm_{uuid.uuid4().hex[:8]}",
+                "email": data.email,
+                "nombre": "Super Admin",
+                "rol": "superadmin",
+                "token": token,
+                "activo": True,
+                "created_at": datetime.now(timezone.utc).isoformat(),
+            }
+            await db.admins.insert_one(doc)
+            return {k: v for k, v in doc.items() if k != "_id"}
+        raise HTTPException(status_code=401, detail="Credenciales incorrectas")
+
+    stored_hash = admin.get("hashed_password")
+    if stored_hash:
+        if not pwd_context.verify(data.password, stored_hash):
+            raise HTTPException(status_code=401, detail="Credenciales incorrectas")
+    else:
+        if data.password != ADMIN_SECRET:
+            raise HTTPException(status_code=401, detail="Credenciales incorrectas")
+
+    token = f"adm_{uuid.uuid4().hex}"
+    await db.admins.update_one({"email": data.email}, {"$set": {"token": token}})
+    return {**{k: v for k, v in admin.items() if k not in ("_id", "hashed_password")}, "token": token}
+
+@api_router.get("/admin/auth/me")
+async def admin_me(request: Request):
+    admin = await require_admin(request)
+    return admin
+
+# ============== ADMIN — USUARIOS ==============
+
+@api_router.get("/admin/usuarios")
+async def admin_usuarios(request: Request, skip: int = 0, limit: int = 50, q: str = "", tipo: str = "", estado: str = ""):
+    await require_admin(request)
+    filtro: Dict[str, Any] = {}
+    if q:
+        filtro["$or"] = [
+            {"name": {"$regex": q, "$options": "i"}},
+            {"email": {"$regex": q, "$options": "i"}},
+        ]
+    if tipo:
+        filtro["role"] = tipo
+    if estado:
+        filtro["cuenta_estado"] = estado
+    usuarios = await db.users.find(filtro, {"_id": 0, "hashed_password": 0}).skip(skip).limit(limit).to_list(limit)
+    total = await db.users.count_documents(filtro)
+    return {"usuarios": usuarios, "total": total}
+
+@api_router.patch("/admin/usuarios/{user_id}/estado")
+async def admin_usuario_estado(user_id: str, request: Request):
+    await require_admin(request)
+    body = await request.json()
+    nuevo_estado = body.get("estado")
+    if nuevo_estado not in ("activo", "suspendido"):
+        raise HTTPException(status_code=400, detail="Estado inválido")
+    await db.users.update_one({"user_id": user_id}, {"$set": {"cuenta_estado": nuevo_estado}})
+    return {"ok": True}
+
+# ============== ADMIN — KYC ==============
+
+@api_router.get("/admin/kyc")
+async def admin_kyc_list(request: Request, tipo: str = ""):
+    await require_admin(request)
+    filtro: Dict[str, Any] = {"kyc_status": {"$in": ["pending", "under_review", "approved", "rejected"]}}
+    if tipo:
+        filtro["role"] = tipo
+    usuarios = await db.users.find(filtro, {"_id": 0, "hashed_password": 0}).to_list(200)
+    # Adjuntar documentos subidos
+    for u in usuarios:
+        docs = await db.kyc_docs.find({"user_id": u["user_id"]}, {"_id": 0}).to_list(20)
+        u["documentos"] = docs
+    return {"usuarios": usuarios}
+
+@api_router.post("/admin/kyc/{user_id}/aprobar")
+async def admin_kyc_aprobar(user_id: str, request: Request):
+    await require_admin(request)
+    await db.users.update_one(
+        {"user_id": user_id},
+        {"$set": {"kyc_status": "approved", "kyc_aprobado_at": datetime.now(timezone.utc).isoformat()}}
+    )
+    return {"ok": True}
+
+@api_router.post("/admin/kyc/{user_id}/rechazar")
+async def admin_kyc_rechazar(user_id: str, request: Request):
+    await require_admin(request)
+    body = await request.json()
+    motivo = body.get("motivo", "")
+    await db.users.update_one(
+        {"user_id": user_id},
+        {"$set": {"kyc_status": "rejected", "kyc_motivo_rechazo": motivo, "kyc_rechazado_at": datetime.now(timezone.utc).isoformat()}}
+    )
+    return {"ok": True}
+
+@api_router.post("/admin/kyc/{user_id}/solicitar-info")
+async def admin_kyc_solicitar(user_id: str, request: Request):
+    await require_admin(request)
+    body = await request.json()
+    mensaje = body.get("mensaje", "")
+    await db.users.update_one(
+        {"user_id": user_id},
+        {"$set": {"kyc_status": "under_review", "kyc_solicitud_info": mensaje}}
+    )
+    return {"ok": True}
+
+# ============== KYC UPLOAD (usuario) ==============
+
+ALLOWED_MIME = {"application/pdf", "image/jpeg", "image/png", "image/webp"}
+MAX_FILE_MB = 5
+
+@api_router.post("/kyc/upload")
+async def kyc_upload(
+    request: Request,
+    doc_tipo: str = Form(...),
+    file: UploadFile = File(...),
+):
+    user = await require_auth(request)
+    if file.content_type not in ALLOWED_MIME:
+        raise HTTPException(status_code=400, detail="Tipo de archivo no permitido. Solo PDF, JPG, PNG.")
+    contents = await file.read()
+    if len(contents) > MAX_FILE_MB * 1024 * 1024:
+        raise HTTPException(status_code=400, detail=f"El archivo supera {MAX_FILE_MB} MB.")
+
+    user_dir = KYC_DIR / user.user_id
+    user_dir.mkdir(parents=True, exist_ok=True)
+
+    ext = Path(file.filename).suffix or ".bin"
+    filename = f"{doc_tipo}_{uuid.uuid4().hex[:8]}{ext}"
+    dest = user_dir / filename
+    dest.write_bytes(contents)
+
+    doc_record = {
+        "doc_id": uuid.uuid4().hex,
+        "user_id": user.user_id,
+        "doc_tipo": doc_tipo,
+        "filename": filename,
+        "path": str(dest),
+        "size_bytes": len(contents),
+        "content_type": file.content_type,
+        "subido_at": datetime.now(timezone.utc).isoformat(),
+        "estado": "subido",
+    }
+    await db.kyc_docs.replace_one(
+        {"user_id": user.user_id, "doc_tipo": doc_tipo},
+        doc_record,
+        upsert=True,
+    )
+    return {"ok": True, "doc_id": doc_record["doc_id"], "filename": filename}
+
+@api_router.get("/kyc/mis-documentos")
+async def kyc_mis_docs(request: Request):
+    user = await require_auth(request)
+    docs = await db.kyc_docs.find({"user_id": user.user_id}, {"_id": 0, "path": 0}).to_list(20)
+    return {"documentos": docs}
+
+# ============== ADMIN — FEEDBACK ==============
+
+@api_router.get("/admin/feedback")
+async def admin_feedback_list(request: Request, estado: str = ""):
+    await require_admin(request)
+    filtro: Dict[str, Any] = {}
+    if estado:
+        filtro["estado"] = estado
+    items = await db.feedback.find(filtro, {"_id": 0}).sort("created_at", -1).to_list(200)
+    return {"items": items, "total": len(items)}
+
+@api_router.patch("/admin/feedback/{feedback_id}")
+async def admin_feedback_update(feedback_id: str, request: Request):
+    await require_admin(request)
+    body = await request.json()
+    allowed = {"estado", "asignado_a", "notas_internas"}
+    update = {k: v for k, v in body.items() if k in allowed}
+    update["updated_at"] = datetime.now(timezone.utc).isoformat()
+    await db.feedback.update_one({"feedback_id": feedback_id}, {"$set": update})
+    return {"ok": True}
+
+@api_router.post("/feedback")
+async def submit_feedback(request: Request):
+    body = await request.json()
+    doc = {
+        "feedback_id": f"PV-FB-{uuid.uuid4().hex[:8].upper()}",
+        "tipo": body.get("tipo", "general"),
+        "descripcion": body.get("descripcion", ""),
+        "email": body.get("email", ""),
+        "valuador_id": body.get("valuador_id"),
+        "calificacion": body.get("calificacion"),
+        "estado": "recibido",
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    }
+    await db.feedback.insert_one(doc)
+    return {"ok": True, "folio": doc["feedback_id"]}
+
+# ============== ADMIN — PRECIOS ==============
+
+PRECIOS_DEFAULT = {
+    "reporte_publico":       {"precio": 241.38, "precio_con_iva": 280,    "iva": True,  "moneda": "MXN", "grupo": "Público",       "label": "Reporte público"},
+    "valuador_basico":       {"precio": 400,    "precio_con_iva": 464,    "iva": True,  "moneda": "MXN", "grupo": "Valuadores",     "label": "Plan Básico — Valuador"},
+    "valuador_pro":          {"precio": 689.66, "precio_con_iva": 800,    "iva": True,  "moneda": "MXN", "grupo": "Valuadores",     "label": "Plan Pro — Valuador"},
+    "valuador_enterprise":   {"precio": 1293.10,"precio_con_iva": 1500,   "iva": True,  "moneda": "MXN", "grupo": "Valuadores",     "label": "Plan Enterprise — Valuador"},
+    "inmobiliaria_starter":  {"precio": 517.24, "precio_con_iva": 600,    "iva": True,  "moneda": "MXN", "grupo": "Inmobiliarias",  "label": "Plan Starter — Inmobiliaria"},
+    "inmobiliaria_pro":      {"precio": 1034.48,"precio_con_iva": 1200,   "iva": True,  "moneda": "MXN", "grupo": "Inmobiliarias",  "label": "Plan Pro — Inmobiliaria"},
+    "anuncio_basico":        {"precio": 1000,   "precio_con_iva": 1160,   "iva": True,  "moneda": "MXN", "grupo": "Anunciantes",    "label": "Anuncio Básico (30 días)"},
+    "anuncio_premium":       {"precio": 2155.17,"precio_con_iva": 2500,   "iva": True,  "moneda": "MXN", "grupo": "Anunciantes",    "label": "Anuncio Premium (30 días)"},
+}
+
+@api_router.get("/admin/precios")
+async def admin_precios_get(request: Request):
+    await require_admin(request)
+    doc = await db.config.find_one({"_id": "precios"})
+    if doc:
+        return {k: v for k, v in doc.items() if k != "_id"}
+    return PRECIOS_DEFAULT
+
+@api_router.put("/admin/precios")
+async def admin_precios_put(request: Request):
+    await require_admin(request)
+    body = await request.json()
+    body["updated_at"] = datetime.now(timezone.utc).isoformat()
+    await db.config.replace_one({"_id": "precios"}, {"_id": "precios", **body}, upsert=True)
+    return {"ok": True}
+
+@api_router.get("/precios")
+async def precios_publicos():
+    doc = await db.config.find_one({"_id": "precios"})
+    if doc:
+        return {k: v for k, v in doc.items() if k not in ("_id", "updated_at")}
+    return PRECIOS_DEFAULT
+
+# ============== ADMIN — MANTENIMIENTO ==============
+
+@api_router.get("/admin/mantenimiento")
+async def admin_mant_get(request: Request):
+    await require_admin(request)
+    doc = await db.config.find_one({"_id": "mantenimiento"})
+    if doc:
+        return {k: v for k, v in doc.items() if k != "_id"}
+    return {"activo": False}
+
+@api_router.put("/admin/mantenimiento")
+async def admin_mant_put(request: Request):
+    await require_admin(request)
+    body = await request.json()
+    body["updated_at"] = datetime.now(timezone.utc).isoformat()
+    await db.config.replace_one({"_id": "mantenimiento"}, {"_id": "mantenimiento", **body}, upsert=True)
+    return {"ok": True}
+
+@api_router.get("/mantenimiento")
+async def mantenimiento_publico():
+    doc = await db.config.find_one({"_id": "mantenimiento"})
+    if doc and doc.get("activo"):
+        return {k: v for k, v in doc.items() if k != "_id"}
+    return {"activo": False}
+
+# ============== ADMIN — BLACKLIST ==============
+
+@api_router.get("/admin/blacklist")
+async def admin_blacklist_get(request: Request):
+    await require_admin(request)
+    doc = await db.config.find_one({"_id": "blacklist"})
+    if doc:
+        return {k: v for k, v in doc.items() if k != "_id"}
+    return {"palabras": [], "dominios": []}
+
+@api_router.put("/admin/blacklist")
+async def admin_blacklist_put(request: Request):
+    await require_admin(request)
+    body = await request.json()
+    body["updated_at"] = datetime.now(timezone.utc).isoformat()
+    await db.config.replace_one({"_id": "blacklist"}, {"_id": "blacklist", **body}, upsert=True)
+    return {"ok": True}
+
+# ============== ADMIN — COBERTURA ==============
+
+ZONAS_DEFAULT = [
+    {"municipio": "Guadalajara",    "estado": "Jalisco", "scraper_activo": True,  "valuadores_activos": True,  "ads_disponible": True},
+    {"municipio": "Zapopan",        "estado": "Jalisco", "scraper_activo": True,  "valuadores_activos": True,  "ads_disponible": True},
+    {"municipio": "Tlaquepaque",    "estado": "Jalisco", "scraper_activo": True,  "valuadores_activos": True,  "ads_disponible": True},
+    {"municipio": "Tonalá",         "estado": "Jalisco", "scraper_activo": True,  "valuadores_activos": False, "ads_disponible": False},
+    {"municipio": "Tlajomulco",     "estado": "Jalisco", "scraper_activo": True,  "valuadores_activos": False, "ads_disponible": False},
+    {"municipio": "El Salto",       "estado": "Jalisco", "scraper_activo": False, "valuadores_activos": False, "ads_disponible": False},
+    {"municipio": "Juanacatlán",    "estado": "Jalisco", "scraper_activo": False, "valuadores_activos": False, "ads_disponible": False},
+    {"municipio": "Ixtlahuacán",    "estado": "Jalisco", "scraper_activo": False, "valuadores_activos": False, "ads_disponible": False},
+]
+
+@api_router.get("/admin/zonas-cobertura")
+async def admin_zonas_get(request: Request):
+    await require_admin(request)
+    doc = await db.config.find_one({"_id": "zonas_cobertura"})
+    if doc:
+        return {"zonas": doc.get("zonas", [])}
+    return {"zonas": ZONAS_DEFAULT}
+
+@api_router.put("/admin/zonas-cobertura")
+async def admin_zonas_put(request: Request):
+    await require_admin(request)
+    body = await request.json()
+    await db.config.replace_one(
+        {"_id": "zonas_cobertura"},
+        {"_id": "zonas_cobertura", "zonas": body.get("zonas", []), "updated_at": datetime.now(timezone.utc).isoformat()},
+        upsert=True
+    )
+    return {"ok": True}
+
+# ============== ADMIN — CMS ==============
+
+CMS_SLUGS = ["terminos_generales", "privacidad", "politica_anuncios", "codigo_etica"]
+
+@api_router.get("/admin/cms/{slug}")
+async def admin_cms_get(request: Request, slug: str):
+    await require_admin(request)
+    if slug not in CMS_SLUGS:
+        raise HTTPException(status_code=404, detail="Documento no encontrado")
+    doc = await db.cms.find_one({"slug": slug}, {"_id": 0})
+    if doc:
+        return doc
+    return {"slug": slug, "contenido": "", "editado_por": "", "editado_at": ""}
+
+@api_router.put("/admin/cms/{slug}")
+async def admin_cms_put(slug: str, request: Request):
+    admin = await require_admin(request)
+    if slug not in CMS_SLUGS:
+        raise HTTPException(status_code=404, detail="Documento no encontrado")
+    body = await request.json()
+    doc = {
+        "slug": slug,
+        "contenido": body.get("contenido", ""),
+        "editado_por": admin.get("nombre", "Admin"),
+        "editado_at": datetime.now(timezone.utc).isoformat(),
+    }
+    await db.cms.replace_one({"slug": slug}, doc, upsert=True)
+    return {"ok": True}
+
+# ============== ADMIN — SCRAPER ==============
+
+SCRAPER_DIR = os.environ.get("SCRAPER_DIR", str(Path(__file__).parent.parent.parent / "scraper-inmuebles"))
+
+@api_router.get("/admin/scraper/status")
+async def admin_scraper_status(request: Request):
+    await require_admin(request)
+    doc = await db.scraper_status.find_one({"_id": "status"}, {"_id": 0})
+    logs = await db.scraper_logs.find({}, {"_id": 0}).sort("_id", -1).to_list(20)
+    logs.reverse()
+    if not doc:
+        return {
+            "ultima_ejecucion": None,
+            "duracion_min": 0,
+            "estado_global": "sin_datos",
+            "portales": [],
+            "total_propiedades": 0,
+            "nuevas_hoy": 0,
+            "log_reciente": logs,
+        }
+    doc["log_reciente"] = logs
+    return doc
+
+PORTALES_SCRAPER = ["INMUEBLES24", "PINCALI", "VIVANUNCIOS", "MITULA", "CASAS_Y_TERRENOS"]
+
+@api_router.post("/admin/scraper/run")
+async def admin_scraper_run(request: Request):
+    await require_admin(request)
+    try:
+        body = await request.json()
+    except Exception:
+        body = {}
+    portal = body.get("portal")  # None = todos los portales
+
+    doc = await db.scraper_status.find_one({"_id": "status"}, {"estado_global": 1})
+    if doc and doc.get("estado_global") == "corriendo":
+        raise HTTPException(status_code=409, detail="El scraper ya está en ejecución")
+
+    scraper_path = Path(SCRAPER_DIR)
+    if not scraper_path.exists():
+        raise HTTPException(status_code=500, detail=f"Directorio del scraper no encontrado: {SCRAPER_DIR}")
+
+    await db.scraper_status.update_one(
+        {"_id": "status"},
+        {"$set": {"estado_global": "corriendo"}},
+        upsert=True,
+    )
+
+    portales = [portal] if portal else PORTALES_SCRAPER
+    for p in portales:
+        asyncio.create_task(asyncio.create_subprocess_exec(
+            "python", "scheduler.py", "--portal", p,
+            cwd=str(scraper_path),
+        ))
+
+    msg = f"Portal {portal} iniciado" if portal else f"{len(portales)} portales iniciados en paralelo"
+    return {"ok": True, "mensaje": msg, "portales": portales}
+
+@api_router.post("/admin/scraper/portales/{portal_id}/reset")
+async def admin_scraper_reset_portal(portal_id: str, request: Request):
+    await require_admin(request)
+    await db.scraper_status.update_one(
+        {"_id": "status", "portales.id": portal_id},
+        {"$set": {"portales.$.errores": 0, "portales.$.estado": "ok"}},
+    )
+    await db.scraper_logs.insert_one({
+        "ts": datetime.now(timezone.utc).strftime("%H:%M:%S"),
+        "msg": f"Portal {portal_id}: errores reseteados manualmente desde el panel admin",
+        "nivel": "info",
+    })
+    return {"ok": True}
+
+# ============== ADMIN — ALERTAS ==============
+
+ALERTAS_DEFAULT = [
+    {"id": "pago_fallido",     "nombre": "Pagos fallidos",             "activa": True,  "canales": ["email", "inapp"], "umbral": 3,  "umbral_label": "pagos fallidos/día",      "ultima_activacion": None, "veces_hoy": 0},
+    {"id": "valuador_inactivo","nombre": "Valuador inactivo",          "activa": True,  "canales": ["email"],          "umbral": 30, "umbral_label": "días sin actividad",       "ultima_activacion": None, "veces_hoy": 0},
+    {"id": "scraper_caido",    "nombre": "Scraper caído",              "activa": True,  "canales": ["email", "inapp"], "umbral": 24, "umbral_label": "horas sin ejecutar",       "ultima_activacion": None, "veces_hoy": 0},
+    {"id": "kyc_nuevo",        "nombre": "Nuevo KYC pendiente",        "activa": True,  "canales": ["inapp"],          "umbral": None,"umbral_label": None,                     "ultima_activacion": None, "veces_hoy": 0},
+    {"id": "campana_vencida",  "nombre": "Campaña de anuncio vencida", "activa": True,  "canales": ["email"],          "umbral": None,"umbral_label": None,                     "ultima_activacion": None, "veces_hoy": 0},
+    {"id": "queja_grave",      "nombre": "Acumulación de quejas graves","activa": True, "canales": ["email", "inapp"], "umbral": 3,  "umbral_label": "quejas en 30 días",        "ultima_activacion": None, "veces_hoy": 0},
+    {"id": "registro_nuevo",   "nombre": "Nuevo usuario premium",      "activa": False, "canales": ["inapp"],          "umbral": None,"umbral_label": None,                     "ultima_activacion": None, "veces_hoy": 0},
+]
+
+@api_router.get("/admin/alertas")
+async def admin_alertas_get(request: Request):
+    await require_admin(request)
+    doc = await db.alertas_config.find_one({"_id": "config"}, {"_id": 0})
+    if not doc:
+        doc = {"alertas": ALERTAS_DEFAULT, "email_destino": "admin@propvalu.mx"}
+        await db.alertas_config.insert_one({"_id": "config", **doc})
+    return doc
+
+@api_router.put("/admin/alertas")
+async def admin_alertas_put(request: Request):
+    await require_admin(request)
+    body = await request.json()
+    alertas = body.get("alertas", [])
+    email_destino = body.get("email_destino", "admin@propvalu.mx")
+    await db.alertas_config.update_one(
+        {"_id": "config"},
+        {"$set": {"alertas": alertas, "email_destino": email_destino}},
+        upsert=True,
+    )
+    return {"ok": True}
+
+# ============== ADMIN — DASHBOARD STATS ==============
+
+@api_router.get("/admin/stats")
+async def admin_stats(request: Request):
+    await require_admin(request)
+    total_usuarios = await db.users.count_documents({})
+    kyc_pendiente = await db.users.count_documents({"kyc_status": "pending"})
+    total_valuaciones = await db.valuations.count_documents({})
+    completadas = await db.valuations.count_documents({"status": "completed"})
+    feedback_abierto = await db.feedback.count_documents({"estado": {"$in": ["recibido", "en_revision"]}})
+    return {
+        "total_usuarios": total_usuarios,
+        "kyc_pendiente": kyc_pendiente,
+        "total_valuaciones": total_valuaciones,
+        "valuaciones_completadas": completadas,
+        "feedback_abierto": feedback_abierto,
+    }
+
+# ============== ANUNCIOS (Anunciantes → Moderación) ==============
+
+@api_router.post("/advertisers/anuncios")
+async def crear_anuncio(request: Request):
+    """Anunciante sube un anuncio nuevo, queda en estado 'pendiente'."""
+    user = await require_auth(request)
+    body = await request.json()
+    doc = {
+        "ad_id": uuid.uuid4().hex,
+        "user_id": user["user_id"],
+        "anunciante": user.get("name") or user.get("email"),
+        "email": user.get("email"),
+        "tipo": body.get("tipo", "comparables_banner"),
+        "titulo": body.get("titulo", ""),
+        "descripcion": body.get("descripcion", ""),
+        "imagen_url": body.get("imagen_url"),
+        "link_web": body.get("link_web"),
+        "link_wa": body.get("link_wa"),
+        "zona": body.get("zona"),
+        "estado": "pendiente",
+        "flags": [],
+        "motivo_rechazo": None,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "updated_at": datetime.now(timezone.utc).isoformat(),
+    }
+    # Auto-flag de contenido sospechoso
+    texto = f"{doc['titulo']} {doc['descripcion']}".upper()
+    if sum(1 for c in texto if c.isupper()) / max(len(texto), 1) > 0.5:
+        doc["flags"].append("mayusculas_exceso")
+    for palabra in ["GARANTIZADO", "GARANTIZAMOS", "100% SEGURO", "SIN RIESGO"]:
+        if palabra in texto:
+            doc["flags"].append("garantias_absolutas")
+            break
+    await db.anuncios.insert_one(doc)
+    return {"ok": True, "ad_id": doc["ad_id"]}
+
+@api_router.get("/advertisers/mis-anuncios")
+async def mis_anuncios(request: Request):
+    user = await require_auth(request)
+    items = await db.anuncios.find(
+        {"user_id": user["user_id"]}, {"_id": 0}
+    ).sort("created_at", -1).to_list(50)
+    return {"anuncios": items}
+
+@api_router.get("/admin/anuncios")
+async def admin_anuncios_list(request: Request, estado: str = ""):
+    await require_admin(request)
+    filtro: Dict[str, Any] = {}
+    if estado:
+        filtro["estado"] = estado
+    items = await db.anuncios.find(filtro, {"_id": 0}).sort("created_at", -1).to_list(200)
+    return {"anuncios": items, "total": len(items)}
+
+@api_router.post("/admin/anuncios/{ad_id}/aprobar")
+async def admin_anuncio_aprobar(ad_id: str, request: Request):
+    await require_admin(request)
+    result = await db.anuncios.update_one(
+        {"ad_id": ad_id},
+        {"$set": {"estado": "aprobado", "updated_at": datetime.now(timezone.utc).isoformat()}}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Anuncio no encontrado")
+    return {"ok": True}
+
+@api_router.post("/admin/anuncios/{ad_id}/rechazar")
+async def admin_anuncio_rechazar(ad_id: str, request: Request):
+    await require_admin(request)
+    body = await request.json()
+    motivo = body.get("motivo", "")
+    result = await db.anuncios.update_one(
+        {"ad_id": ad_id},
+        {"$set": {
+            "estado": "rechazado",
+            "motivo_rechazo": motivo,
+            "updated_at": datetime.now(timezone.utc).isoformat(),
+        }}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Anuncio no encontrado")
+    return {"ok": True}
+
+# ============== ANUNCIANTES — AUTH, CAMPAÑAS, CREATIVIDADES ==============
+
+async def require_advertiser(request: Request):
+    token = request.headers.get("X-Advertiser-Token", "")
+    if not token:
+        raise HTTPException(status_code=401, detail="Token de anunciante requerido")
+    advertiser = await db.advertisers.find_one({"session_token": token, "activo": True}, {"_id": 0})
+    if not advertiser:
+        raise HTTPException(status_code=401, detail="Sesión inválida o expirada")
+    return advertiser
+
+@api_router.post("/advertisers/register")
+async def advertiser_register(request: Request):
+    try:
+        body = await request.json()
+        email = body.get("email", "").lower().strip()
+        if not email:
+            raise HTTPException(status_code=400, detail="Email requerido")
+        if await db.advertisers.find_one({"email": email}):
+            raise HTTPException(status_code=409, detail="Ya existe una cuenta con ese correo")
+        token = uuid.uuid4().hex
+        doc = {
+            "advertiser_id": uuid.uuid4().hex,
+            "company_name": body.get("company_name", ""),
+            "contact_name": body.get("contact_name", ""),
+            "email": email,
+            "phone": body.get("phone", ""),
+            "rfc": body.get("rfc", ""),
+            "giro": body.get("giro", ""),
+            "regimen_fiscal": body.get("regimen_fiscal", ""),
+            "uso_cfdi": body.get("uso_cfdi", ""),
+            "password_hash": pwd_context.hash(body.get("password", "")),
+            "session_token": token,
+            "activo": True,
+            "created_at": datetime.now(timezone.utc).isoformat(),
+        }
+        await db.advertisers.insert_one(doc)
+        return {"ok": True, "session_token": token, "company_name": doc["company_name"],
+                "contact_name": doc["contact_name"], "email": doc["email"],
+                "rfc": doc["rfc"], "giro": doc["giro"]}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logging.error(f"Error en /advertisers/register: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Error al crear cuenta: {str(e)}")
+
+@api_router.post("/advertisers/login")
+async def advertiser_login(request: Request):
+    body = await request.json()
+    email = body.get("email", "").lower().strip()
+    advertiser = await db.advertisers.find_one({"email": email})
+    if not advertiser or not pwd_context.verify(body.get("password", ""), advertiser.get("password_hash", "")):
+        raise HTTPException(status_code=401, detail="Correo o contraseña incorrectos")
+    token = uuid.uuid4().hex
+    await db.advertisers.update_one({"email": email}, {"$set": {"session_token": token}})
+    return {"ok": True, "session_token": token, "company_name": advertiser["company_name"],
+            "contact_name": advertiser["contact_name"], "email": advertiser["email"],
+            "rfc": advertiser["rfc"], "giro": advertiser["giro"]}
+
+@api_router.post("/advertisers/campaigns")
+async def create_campaign(request: Request):
+    advertiser = await require_advertiser(request)
+    body = await request.json()
+    budget = float(body.get("budget", 0))
+    campaign = {
+        "campaign_id": uuid.uuid4().hex,
+        "advertiser_id": advertiser["advertiser_id"],
+        "company_name": advertiser["company_name"],
+        "name": body.get("name", ""),
+        "slot": body.get("slot", "slot1"),
+        "targeting": body.get("targeting", "Municipal"),
+        "zone": body.get("zone", ""),
+        "budget": budget,
+        "budget_remaining": budget,
+        "duration_type": body.get("duration_type", "agotar"),
+        "start": body.get("start", ""),
+        "end": body.get("end") or None,
+        "link_type": body.get("link_type", "web"),
+        "link_url": body.get("link_url", ""),
+        "status": "pending",
+        "impressions": 0,
+        "spend": 0,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    }
+    await db.ad_campaigns.insert_one(campaign)
+    out = {k: v for k, v in campaign.items() if k != "_id"}
+    out["id"] = out["campaign_id"]
+    return {"ok": True, "campaign": out}
+
+@api_router.get("/advertisers/campaigns")
+async def get_campaigns(request: Request):
+    advertiser = await require_advertiser(request)
+    items = await db.ad_campaigns.find(
+        {"advertiser_id": advertiser["advertiser_id"]}, {"_id": 0}
+    ).sort("created_at", -1).to_list(100)
+    for c in items:
+        c["id"] = c.get("campaign_id", "")
+    return {"campaigns": items}
+
+@api_router.post("/advertisers/creatives/upload")
+async def upload_creative(
+    request: Request,
+    campaign_id: str = Form(...),
+    name: str = Form(...),
+    file: UploadFile = File(...),
+):
+    token = request.headers.get("X-Advertiser-Token", "")
+    advertiser = await db.advertisers.find_one({"session_token": token, "activo": True}, {"_id": 0})
+    if not advertiser:
+        raise HTTPException(status_code=401, detail="Token inválido")
+    allowed = ["image/jpeg", "image/png", "image/webp", "video/mp4"]
+    if file.content_type not in allowed:
+        raise HTTPException(status_code=400, detail="Formato no permitido")
+    ext = file.filename.rsplit(".", 1)[-1].lower() if "." in file.filename else "bin"
+    filename = f"{uuid.uuid4().hex}.{ext}"
+    content = await file.read()
+    with open(ADS_DIR / filename, "wb") as f:
+        f.write(content)
+    creative = {
+        "creative_id": uuid.uuid4().hex,
+        "advertiser_id": advertiser["advertiser_id"],
+        "campaign_id": campaign_id,
+        "name": name,
+        "file_url": f"/uploads/ads/{filename}",
+        "file_type": "video" if file.content_type == "video/mp4" else "image",
+        "size_bytes": len(content),
+        "status": "pendiente_revision",
+        "uploaded_at": datetime.now(timezone.utc).isoformat(),
+    }
+    await db.ad_creatives.insert_one(creative)
+    out = {k: v for k, v in creative.items() if k != "_id"}
+    out["id"] = out["creative_id"]
+    return {"ok": True, "creative": out}
+
+@api_router.get("/advertisers/creatives")
+async def get_creatives(request: Request):
+    advertiser = await require_advertiser(request)
+    items = await db.ad_creatives.find(
+        {"advertiser_id": advertiser["advertiser_id"]}, {"_id": 0}
+    ).sort("uploaded_at", -1).to_list(200)
+    for c in items:
+        c["id"] = c.get("creative_id", "")
+    return {"creatives": items}
+
+@api_router.get("/advertisers/transactions")
+async def get_transactions(request: Request):
+    advertiser = await require_advertiser(request)
+    items = await db.ad_transactions.find(
+        {"advertiser_id": advertiser["advertiser_id"]}, {"_id": 0}
+    ).sort("created_at", -1).to_list(100)
+    for t in items:
+        t["id"] = t.get("transaction_id", "")
+    return {"transactions": items}
+
+@api_router.post("/advertisers/campaigns/{campaign_id}/pausar")
+async def pausar_campaign(campaign_id: str, request: Request):
+    advertiser = await require_advertiser(request)
+    result = await db.ad_campaigns.update_one(
+        {"campaign_id": campaign_id, "advertiser_id": advertiser["advertiser_id"]},
+        {"$set": {"status": "paused", "updated_at": datetime.now(timezone.utc).isoformat()}}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Campaña no encontrada")
+    return {"ok": True}
+
+@api_router.post("/advertisers/campaigns/{campaign_id}/reactivar")
+async def reactivar_campaign(campaign_id: str, request: Request):
+    advertiser = await require_advertiser(request)
+    result = await db.ad_campaigns.update_one(
+        {"campaign_id": campaign_id, "advertiser_id": advertiser["advertiser_id"]},
+        {"$set": {"status": "active", "updated_at": datetime.now(timezone.utc).isoformat()}}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Campaña no encontrada")
+    return {"ok": True}
+
+@api_router.get("/admin/creatives")
+async def admin_list_creatives(request: Request, status: str = "pendiente_revision"):
+    await require_admin(request)
+    query: Dict[str, Any] = {} if status == "todos" else {"status": status}
+    items = await db.ad_creatives.find(query, {"_id": 0}).sort("uploaded_at", -1).to_list(100)
+    for cr in items:
+        cr["id"] = cr.get("creative_id", "")
+        adv = await db.advertisers.find_one({"advertiser_id": cr["advertiser_id"]}, {"_id": 0})
+        cr["company_name"] = adv.get("company_name", "") if adv else ""
+        camp = await db.ad_campaigns.find_one({"campaign_id": cr["campaign_id"]}, {"_id": 0})
+        cr["campaign_name"] = camp.get("name", "") if camp else ""
+    return {"creatives": items}
+
+@api_router.post("/admin/creatives/{creative_id}/aprobar")
+async def admin_creative_aprobar(creative_id: str, request: Request):
+    await require_admin(request)
+    result = await db.ad_creatives.update_one(
+        {"creative_id": creative_id},
+        {"$set": {"status": "aprobado"}}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Creatividad no encontrada")
+    return {"ok": True}
+
+@api_router.post("/admin/creatives/{creative_id}/rechazar")
+async def admin_creative_rechazar(creative_id: str, request: Request):
+    await require_admin(request)
+    body = await request.json()
+    await db.ad_creatives.update_one(
+        {"creative_id": creative_id},
+        {"$set": {"status": "rechazado", "motivo_rechazo": body.get("motivo", "")}}
+    )
+    return {"ok": True}
+
+@api_router.post("/admin/campaigns/{campaign_id}/activar")
+async def admin_campaign_activar(campaign_id: str, request: Request):
+    await require_admin(request)
+    result = await db.ad_campaigns.update_one(
+        {"campaign_id": campaign_id},
+        {"$set": {"status": "active", "updated_at": datetime.now(timezone.utc).isoformat()}}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Campaña no encontrada")
+    return {"ok": True}
+
+@api_router.get("/ads/active")
+async def get_active_ad(slot: str = "slot1", zone: str = ""):
+    """Devuelve un anuncio activo aprobado para el slot/zona. Endpoint público."""
+    query: Dict[str, Any] = {"slot": slot, "status": "active"}
+    if zone:
+        query["$or"] = [{"zone": zone}, {"targeting": "Federal"}, {"targeting": "Estatal"}]
+    campaigns = await db.ad_campaigns.find(query, {"_id": 0}).to_list(50)
+    if not campaigns:
+        return {"ad": None}
+    campaign = sorted(campaigns, key=lambda c: c.get("impressions", 0))[0]
+    creative = await db.ad_creatives.find_one(
+        {"campaign_id": campaign["campaign_id"], "status": "aprobado"}, {"_id": 0}
+    )
+    if not creative:
+        return {"ad": None}
+    durations = {"slot1": 60, "slot2": 30, "slot3": 15}
+    backend_url = os.environ.get("BACKEND_URL", "")
+    file_url = creative["file_url"]
+    if not file_url.startswith("http"):
+        file_url = f"{backend_url}{file_url}"
+    return {"ad": {
+        "ad_id": campaign["campaign_id"],
+        "creative_id": creative["creative_id"],
+        "file_url": file_url,
+        "file_type": creative["file_type"],
+        "duration": durations.get(slot, 15),
+        "link_type": campaign.get("link_type", "web"),
+        "link_url": campaign.get("link_url", ""),
+        "company_name": campaign.get("company_name", ""),
+    }}
+
+# ============== ADS — TRACKING & ANALYTICS ==============
+
+@api_router.post("/ads/track")
+async def ads_track(request: Request):
+    """Registra una impresión o click. Endpoint público, sin auth."""
+    body = await request.json()
+    ad_id = body.get("ad_id")
+    tipo = body.get("tipo")  # "impresion" | "click"
+    if not ad_id or tipo not in ("impresion", "click"):
+        raise HTTPException(status_code=400, detail="ad_id y tipo requeridos")
+    now = datetime.now(timezone.utc)
+    await db.ad_events.insert_one({
+        "ad_id": ad_id,
+        "tipo": tipo,
+        "fecha": now.strftime("%Y-%m-%d"),
+        "ts": now.isoformat(),
+    })
+    # Incrementar en anuncios (sistema legado) y en ad_campaigns (nuevo sistema)
+    field = "impresiones" if tipo == "impresion" else "clicks"
+    await db.anuncios.update_one({"ad_id": ad_id}, {"$inc": {field: 1}})
+    field_new = "impressions" if tipo == "impresion" else "clicks"
+    spend_inc = {}
+    if tipo == "impresion":
+        campaign = await db.ad_campaigns.find_one({"campaign_id": ad_id}, {"_id": 0, "slot": 1})
+        if campaign:
+            prices = {"slot1": 30, "slot2": 20, "slot3": 5}
+            price = prices.get(campaign.get("slot", "slot3"), 5)
+            spend_inc = {"spend": price, "budget_remaining": -price}
+    await db.ad_campaigns.update_one(
+        {"campaign_id": ad_id},
+        {"$inc": {field_new: 1, **spend_inc}}
+    )
+    return {"ok": True}
+
+@api_router.get("/admin/ads/analytics")
+async def admin_ads_analytics(request: Request):
+    await require_admin(request)
+    anuncios = await db.anuncios.find(
+        {"estado": {"$nin": ["rechazado"]}}, {"_id": 0}
+    ).sort("created_at", -1).to_list(200)
+
+    # Últimos 7 días para mini gráficas
+    from datetime import timedelta
+    today = datetime.now(timezone.utc).date()
+    last7 = [(today - timedelta(days=6 - i)).strftime("%Y-%m-%d") for i in range(7)]
+
+    result = []
+    for ad in anuncios:
+        ad_id = ad["ad_id"]
+        imp_total = ad.get("impresiones", 0)
+        clk_total = ad.get("clicks", 0)
+        ctr = round((clk_total / imp_total * 100), 1) if imp_total > 0 else 0.0
+
+        # Agregado por día últimos 7 días
+        events = await db.ad_events.find(
+            {"ad_id": ad_id, "fecha": {"$in": last7}}, {"_id": 0, "tipo": 1, "fecha": 1}
+        ).to_list(10000)
+
+        imp_by_day = {d: 0 for d in last7}
+        clk_by_day = {d: 0 for d in last7}
+        for ev in events:
+            if ev["tipo"] == "impresion":
+                imp_by_day[ev["fecha"]] = imp_by_day.get(ev["fecha"], 0) + 1
+            else:
+                clk_by_day[ev["fecha"]] = clk_by_day.get(ev["fecha"], 0) + 1
+
+        result.append({
+            "id": ad_id,
+            "anunciante": ad.get("anunciante", ""),
+            "slot": ad.get("tipo", "comparables_banner"),
+            "impresiones": imp_total,
+            "clicks": clk_total,
+            "ctr": ctr,
+            "impresiones_semana": [imp_by_day[d] for d in last7],
+            "clicks_semana": [clk_by_day[d] for d in last7],
+            "estado": ad.get("estado", "pendiente"),
+            "inicio": ad.get("created_at", "")[:10],
+            "fin": ad.get("fin", ""),
+            "presupuesto": ad.get("presupuesto", 0),
+        })
+
+    return {"anuncios": result}
+
+# ============== ADMIN — VALUADORES ==============
+
+@api_router.get("/admin/valuadores")
+async def admin_valuadores_list(request: Request, q: str = "", kyc: str = "", plan: str = ""):
+    await require_admin(request)
+    filtro: Dict[str, Any] = {"role": "appraiser"}
+    if q:
+        filtro["$or"] = [
+            {"name": {"$regex": q, "$options": "i"}},
+            {"email": {"$regex": q, "$options": "i"}},
+            {"municipio": {"$regex": q, "$options": "i"}},
+        ]
+    if kyc:
+        filtro["kyc_status"] = kyc
+    if plan:
+        filtro["plan"] = plan
+    usuarios = await db.users.find(filtro, {"_id": 0, "hashed_password": 0}).to_list(200)
+    # Agregar conteo de valuaciones y quejas por valuador
+    for u in usuarios:
+        u["total_valuaciones"] = await db.valuations.count_documents({"user_id": u["user_id"]})
+        u["total_quejas"] = await db.feedback.count_documents({
+            "valuador_id": u["user_id"],
+            "tipo": "queja_valuador"
+        })
+    return {"valuadores": usuarios, "total": len(usuarios)}
+
+# ============== ADMIN — REPORTES ==============
+
+@api_router.get("/admin/reportes")
+async def admin_reportes(request: Request):
+    await require_admin(request)
+
+    # Transacciones de pagos (colección payments, puede estar vacía)
+    pagos = await db.payments.find({}, {"_id": 0}).sort("created_at", -1).to_list(100)
+
+    # Resumen de valuaciones completadas por mes (últimos 6 meses)
+    hoy = datetime.now(timezone.utc)
+    meses = []
+    for i in range(5, -1, -1):
+        # Inicio y fin del mes i meses atrás
+        mes_dt = datetime(hoy.year, hoy.month, 1, tzinfo=timezone.utc) - timedelta(days=30 * i)
+        mes_inicio = datetime(mes_dt.year, mes_dt.month, 1, tzinfo=timezone.utc)
+        if mes_dt.month == 12:
+            mes_fin = datetime(mes_dt.year + 1, 1, 1, tzinfo=timezone.utc)
+        else:
+            mes_fin = datetime(mes_dt.year, mes_dt.month + 1, 1, tzinfo=timezone.utc)
+
+        label = mes_inicio.strftime("%b %Y")
+        count = await db.valuations.count_documents({
+            "status": "completed",
+            "created_at": {
+                "$gte": mes_inicio.isoformat(),
+                "$lt": mes_fin.isoformat(),
+            }
+        })
+        meses.append({"mes": label, "valuaciones": count})
+
+    # Totales generales
+    total_valuaciones = await db.valuations.count_documents({"status": "completed"})
+    total_usuarios = await db.users.count_documents({})
+    total_valuadores = await db.users.count_documents({"role": "appraiser", "kyc_status": "approved"})
+
+    return {
+        "resumen_meses": meses,
+        "transacciones": pagos,
+        "totales": {
+            "valuaciones_completadas": total_valuaciones,
+            "usuarios": total_usuarios,
+            "valuadores_activos": total_valuadores,
+        }
+    }
+
 # Include router
 app.include_router(api_router)
+
+# Serve uploaded files (ads, kyc)
+app.mount("/uploads", StaticFiles(directory=str(UPLOADS_DIR)), name="uploads")
 
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
-    allow_origins=["*"],
+    allow_origin_regex=r"^https?://localhost(:\d+)?$",
     allow_methods=["*"],
     allow_headers=["*"],
 )

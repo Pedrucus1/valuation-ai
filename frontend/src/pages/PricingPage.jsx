@@ -9,12 +9,11 @@ import {
   DollarSign, Shield, Download, Landmark, Map,
 } from "lucide-react";
 
-const BASE_PRICE = 280;
-
-const QTY_OPTIONS = [
-  { n: 1, discount: 0 },
-  { n: 2, discount: 6 },
-  { n: 3, discount: 10 },
+const PLANS = [
+  { id: "individual", label: "Individual", qty: 1,  price: 280,   tag: null,           popular: false },
+  { id: "bronce",     label: "Bronce",     qty: 3,  price: 815,   tag: "-3%",          popular: false },
+  { id: "plata",      label: "Plata",      qty: 5,  price: 1317,  tag: "Más popular",  popular: true  },
+  { id: "oro",        label: "Oro",        qty: 10, price: 2555,  tag: "Mejor precio", popular: false },
 ];
 
 const ADDONS = [
@@ -146,21 +145,30 @@ function SectionTitle({ children }) {
 
 export default function PricingPage() {
   const navigate = useNavigate();
-  const [qty, setQty] = useState(1);
+  const [selectedPlan, setSelectedPlan] = useState(PLANS[0]);
   const [addons, setAddons] = useState([]);
   const [openFaq, setOpenFaq] = useState(null);
+  const [showPayModal, setShowPayModal] = useState(false);
 
-  const discount = qty === 2 ? 6 : qty === 3 ? 10 : 0;
-  const unitPrice = BASE_PRICE * (1 - discount / 100);
-  const subtotal = unitPrice * qty;
-  const addonsTotal = addons.reduce((s, id) => s + (ADDONS.find(a => a.id === id)?.price ?? 0), 0) * qty;
-  const total = subtotal + addonsTotal;
+  const addonsTotal = addons.reduce((s, id) => s + (ADDONS.find(a => a.id === id)?.price ?? 0), 0) * selectedPlan.qty;
+  const subtotal = selectedPlan.price + addonsTotal;
+  const totalWithIva = subtotal * 1.16;
 
   const toggle = (id) => setAddons(p => p.includes(id) ? p.filter(x => x !== id) : [...p, id]);
 
   const handleStart = () => {
-    sessionStorage.setItem("propvalu_cart", JSON.stringify({ qty, addons, total }));
-    navigate("/valuar");
+    if (selectedPlan.qty === 1) {
+      // Plan individual: no cobrar aquí — el checkout aparece en el paso 4 del formulario
+      sessionStorage.setItem("propvalu_preselected_plan", JSON.stringify({
+        planId: selectedPlan.id,
+        addons,
+      }));
+      navigate("/valuar");
+      window.scrollTo(0, 0);
+    } else {
+      // Packs (3, 5, 10): pagar aquí para obtener créditos
+      setShowPayModal(true);
+    }
   };
 
   return (
@@ -248,38 +256,38 @@ export default function PricingPage() {
           <div className="flex flex-col">
             <SectionTitle>Tu valuación</SectionTitle>
 
-            {/* Compact qty toggle */}
+            {/* Plan selector */}
             <div className="mb-3">
-              <p className="text-white/75 text-sm font-medium mb-2">¿Cuántos estimacións necesitas?</p>
-              <div className="flex gap-2">
-                {QTY_OPTIONS.map(({ n, discount: d }) => (
+              <p className="text-white/75 text-sm font-medium mb-2">Elige tu plan</p>
+              <div className="grid grid-cols-2 gap-2">
+                {PLANS.map(plan => (
                   <button
-                    key={n}
-                    onClick={() => setQty(n)}
-                    className={`relative flex-1 rounded-xl py-2 text-center border-2 transition-all ${
-                      qty === n
+                    key={plan.id}
+                    onClick={() => setSelectedPlan(plan)}
+                    className={`relative rounded-xl py-3 px-3 text-left border-2 transition-all ${
+                      selectedPlan.id === plan.id
                         ? "border-[#D9ED92] bg-[#D9ED92]/10"
-                        : "border-white/20 hover:border-[#D9ED92] hover:bg-[#D9ED92]/25 hover:text-[#D9ED92] bg-white/5 transition-all duration-150"
+                        : "border-white/20 hover:border-[#D9ED92]/50 bg-white/5"
                     }`}
                   >
-                    {d > 0 && (
-                      <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 text-[9px] font-extrabold bg-[#D9ED92] text-[#1B4332] px-1.5 py-0.5 rounded-full whitespace-nowrap">
-                        -{d}%
+                    {plan.tag && (
+                      <span className={`absolute -top-2.5 left-1/2 -translate-x-1/2 text-[10px] font-extrabold px-2 py-0.5 rounded-full whitespace-nowrap ${
+                        plan.popular ? "bg-[#D9ED92] text-[#1B4332]" : "bg-white/20 text-white"
+                      }`}>
+                        {plan.tag}
                       </span>
                     )}
-                    <p className="font-black text-white text-xl leading-none">{n}</p>
-                    <p className="text-[10px] text-white/40 mt-0.5">{n === 1 ? "estimación" : "estimaciones"}</p>
-                    <p className="text-xs font-bold text-[#D9ED92] mt-1">
-                      {fmt(BASE_PRICE * (1 - d / 100))}{n > 1 ? "/u" : ""}
-                    </p>
+                    <p className="text-[10px] font-semibold text-white/50 uppercase tracking-wider leading-none">{plan.label}</p>
+                    <p className="font-black text-white text-xl leading-tight mt-0.5">{plan.qty} valuación{plan.qty > 1 ? "es" : ""}</p>
+                    <p className="text-sm font-bold text-[#D9ED92] mt-1">{fmt(plan.price)}</p>
                   </button>
                 ))}
               </div>
               <p
                 className="text-[11px] mt-2 text-center font-medium text-[#52B788]"
-                style={{ visibility: qty > 1 ? "visible" : "hidden" }}
+                style={{ visibility: selectedPlan.qty > 1 ? "visible" : "hidden" }}
               >
-                Avalúos no usados tienen vigencia de 3 meses
+                Valuaciones no usadas vigentes 3 meses
               </p>
             </div>
 
@@ -291,30 +299,30 @@ export default function PricingPage() {
               <div className="px-5 py-4 border-b border-white/10 flex-1">
                 <div className="space-y-1.5 text-sm mb-3">
                   <div className="flex justify-between">
-                    <span className="text-white/55">{qty} estimación{qty > 1 ? "es" : ""} × {fmt(unitPrice)}</span>
-                    <span className="font-semibold text-white">{fmt(subtotal)}</span>
+                    <span className="text-white/55">
+                      Plan {selectedPlan.label} · {selectedPlan.qty} valuación{selectedPlan.qty > 1 ? "es" : ""}
+                    </span>
+                    <span className="font-semibold text-white">{fmt(selectedPlan.price)}</span>
                   </div>
                   {addons.map(id => {
                     const a = ADDONS.find(x => x.id === id);
                     return (
                       <div key={id} className="flex justify-between text-white/45 text-xs">
                         <span className="truncate pr-2">{a.emoji} {a.title.split(" ").slice(0, 3).join(" ")}…</span>
-                        <span className="font-semibold text-white/80 flex-shrink-0">{fmt(a.price * qty)}</span>
+                        <span className="font-semibold text-white/80 flex-shrink-0">{fmt(a.price * selectedPlan.qty)}</span>
                       </div>
                     );
                   })}
+                  <div className="flex justify-between text-white/35 text-xs pt-1 border-t border-white/10">
+                    <span>IVA (16%)</span>
+                    <span>{fmt(subtotal * 0.16)}</span>
+                  </div>
                 </div>
 
                 <div className="pt-3 border-t border-white/10 text-center">
-                  <p className="text-white/40 text-[10px] mb-1 uppercase tracking-widest">Total</p>
-                  <p className="font-['Outfit'] text-5xl font-black text-[#D9ED92] leading-none mb-1">{fmt(total)}</p>
-                  <p className="text-white/30 text-[11px]">+ IVA (16%)</p>
-                  <span
-                    style={{ visibility: discount > 0 ? "visible" : "hidden" }}
-                    className="inline-block mt-1.5 bg-[#D9ED92]/15 text-[#D9ED92] text-xs font-bold px-3 py-0.5 rounded-full border border-[#D9ED92]/25"
-                  >
-                    Ahorraste {discount}% · {fmt(BASE_PRICE * qty - subtotal)}
-                  </span>
+                  <p className="text-white/40 text-[10px] mb-1 uppercase tracking-widest">Total con IVA</p>
+                  <p className="font-['Outfit'] text-5xl font-black text-[#D9ED92] leading-none mb-1">{fmt(totalWithIva)}</p>
+                  <p className="text-white/30 text-[11px]">IVA incluido</p>
                 </div>
               </div>
 
@@ -481,6 +489,21 @@ export default function PricingPage() {
       <footer className="relative text-center py-5 text-xs text-white/18">
         © 2026 PropValu México · Estimación realizada con inteligencia de PropValu
       </footer>
+
+      {showPayModal && (
+        <SimulatedPaymentModal
+          plan={selectedPlan}
+          addons={addons.map(id => ADDONS.find(a => a.id === id))}
+          total={totalWithIva}
+          onClose={() => setShowPayModal(false)}
+          onSuccess={() => {
+            sessionStorage.setItem("propvalu_cart", JSON.stringify({
+              qty: selectedPlan.qty, addons, total: subtotal,
+            }));
+            navigate("/valuar");
+          }}
+        />
+      )}
     </div>
   );
 }
@@ -546,6 +569,154 @@ function ReviewsMarquee() {
           100% { transform: translateX(-50%); }
         }
       `}</style>
+    </div>
+  );
+}
+
+/* ─── Simulated Payment Modal ──────────────────────────── */
+
+function SimulatedPaymentModal({ plan, addons, total, onClose, onSuccess }) {
+  const [card, setCard] = useState({ number: "", expiry: "", cvv: "", name: "" });
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  const fmtCard = (v) =>
+    v.replace(/\D/g, "").slice(0, 16).replace(/(.{4})/g, "$1 ").trim();
+  const fmtExpiry = (v) =>
+    v.replace(/\D/g, "").slice(0, 4).replace(/^(\d{2})(\d)/, "$1/$2");
+
+  const handlePay = async () => {
+    if (!card.number || !card.expiry || !card.cvv || !card.name) return;
+    setLoading(true);
+    await new Promise(r => setTimeout(r, 2200));
+    setLoading(false);
+    setSuccess(true);
+    await new Promise(r => setTimeout(r, 1400));
+    onSuccess();
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
+        {/* Header */}
+        <div className="bg-[#1B4332] px-6 py-4 flex items-center justify-between">
+          <div>
+            <p className="font-['Outfit'] font-bold text-white text-base">Pago seguro simulado</p>
+            <p className="text-xs text-white/60 mt-0.5">Entorno de prueba — no se realiza cobro real</p>
+          </div>
+          {!loading && !success && (
+            <button onClick={onClose} className="text-white/50 hover:text-white">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          )}
+        </div>
+
+        {success ? (
+          <div className="px-6 py-12 text-center">
+            <div className="w-16 h-16 bg-[#D9ED92] rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-[#1B4332]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <p className="font-['Outfit'] text-xl font-bold text-[#1B4332]">¡Pago confirmado!</p>
+            <p className="text-sm text-slate-500 mt-1">Redirigiendo al formulario de valuación…</p>
+          </div>
+        ) : (
+          <div className="p-6 space-y-5">
+            {/* Order summary */}
+            <div className="bg-[#F8F9FA] rounded-xl p-4 space-y-1.5 text-sm">
+              <div className="flex justify-between">
+                <span className="text-slate-500">Plan {plan.label} ({plan.qty} valuación{plan.qty > 1 ? "es" : ""})</span>
+                <span className="font-semibold text-[#1B4332]">
+                  {new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 }).format(plan.price)}
+                </span>
+              </div>
+              {addons.map(a => a && (
+                <div key={a.id} className="flex justify-between text-slate-400 text-xs">
+                  <span>{a.emoji} {a.title}</span>
+                  <span>+{new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 }).format(a.price * plan.qty)}</span>
+                </div>
+              ))}
+              <div className="flex justify-between font-bold text-[#1B4332] border-t border-slate-200 pt-2 mt-2">
+                <span>Total con IVA</span>
+                <span>{new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 }).format(total)}</span>
+              </div>
+            </div>
+
+            {/* Card fields */}
+            <div className="space-y-3">
+              <div>
+                <label className="text-xs font-semibold text-slate-600 block mb-1">Número de tarjeta</label>
+                <input
+                  className="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#52B788] font-mono tracking-wider"
+                  placeholder="4242 4242 4242 4242"
+                  value={card.number}
+                  maxLength={19}
+                  onChange={e => setCard(p => ({ ...p, number: fmtCard(e.target.value) }))}
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-xs font-semibold text-slate-600 block mb-1">Vencimiento</label>
+                  <input
+                    className="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#52B788]"
+                    placeholder="MM/AA"
+                    value={card.expiry}
+                    maxLength={5}
+                    onChange={e => setCard(p => ({ ...p, expiry: fmtExpiry(e.target.value) }))}
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-semibold text-slate-600 block mb-1">CVV</label>
+                  <input
+                    className="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#52B788]"
+                    placeholder="123"
+                    value={card.cvv}
+                    maxLength={4}
+                    onChange={e => setCard(p => ({ ...p, cvv: e.target.value.replace(/\D/g, "").slice(0, 4) }))}
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="text-xs font-semibold text-slate-600 block mb-1">Nombre en la tarjeta</label>
+                <input
+                  className="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-[#52B788] uppercase"
+                  placeholder="NOMBRE APELLIDO"
+                  value={card.name}
+                  onChange={e => setCard(p => ({ ...p, name: e.target.value.toUpperCase() }))}
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 text-xs text-slate-400">
+              <svg className="w-4 h-4 text-[#52B788] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+              Pago simulado · Datos de prueba no se procesan
+            </div>
+
+            <button
+              onClick={handlePay}
+              disabled={loading || !card.number || !card.expiry || !card.cvv || !card.name}
+              className="w-full py-3 rounded-xl bg-[#1B4332] hover:bg-[#2D6A4F] disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold text-sm transition-colors flex items-center justify-center gap-2"
+            >
+              {loading ? (
+                <>
+                  <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+                  </svg>
+                  Procesando…
+                </>
+              ) : (
+                <>Pagar {new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 }).format(total)}</>
+              )}
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

@@ -11,6 +11,7 @@ import {
   MapPin, Percent, Zap, Users, Lock,
 } from "lucide-react";
 import { API } from "@/App";
+import AfiliadosCarousel from "@/components/AfiliadosCarousel";
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -26,7 +27,10 @@ const LandingPage = () => {
   const checkAuth = async () => {
     try {
       const response = await fetch(`${API}/auth/me`, { credentials: "include" });
-      if (response.ok) setUser(await response.json());
+      if (response.ok) {
+        const data = await response.json();
+        if (data?.user_id && data.user_id !== 'user_local_dev') setUser(data);
+      }
     } catch (e) {}
     finally { setIsLoading(false); }
   };
@@ -39,9 +43,7 @@ const LandingPage = () => {
   };
 
   const handleLogin = () => {
-    // REMINDER: DO NOT HARDCODE THE URL, OR ADD ANY FALLBACKS OR REDIRECT URLS, THIS BREAKS THE AUTH
-    const redirectUrl = window.location.origin + '/dashboard';
-    window.location.href = `https://auth.emergentagent.com/?redirect=${encodeURIComponent(redirectUrl)}`;
+    navigate("/login");
   };
 
   const handleLogout = async () => {
@@ -366,10 +368,10 @@ const LandingPage = () => {
 
           <div className="text-center">
             <button
-              onClick={() => navigate("/comprar")}
+              onClick={() => { navigate("/comprar"); window.scrollTo(0, 0); }}
               className="bg-[#D9ED92] text-[#1B4332] hover:bg-[#c8e070] font-bold text-base px-10 py-4 rounded-xl transition-all shadow-lg shadow-[#D9ED92]/20 inline-flex items-center gap-2"
             >
-              Ver mi reporte ahora <ChevronRight className="w-5 h-5" />
+              Generar mi reporte ahora <ChevronRight className="w-5 h-5" />
             </button>
             <p className="text-white/30 text-xs mt-3">Sin registro · Listo en minutos · PDF descargable</p>
           </div>
@@ -495,6 +497,9 @@ const LandingPage = () => {
         </div>
       </section>
 
+      {/* ── CAROUSEL AFILIADOS ── */}
+      <AfiliadosCarousel tipo="inmobiliaria" />
+
       {/* ── FOOTER ── */}
       <footer className="bg-white border-t border-slate-200 py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
@@ -507,6 +512,7 @@ const LandingPage = () => {
           <div className="flex items-center gap-6 text-sm text-slate-400">
             <button onClick={() => { window.scrollTo(0, 0); navigate("/para-valuadores"); }} className="hover:text-[#1B4332] transition-colors">Valuadores</button>
             <button onClick={() => { window.scrollTo(0, 0); navigate("/para-inmobiliarias"); }} className="hover:text-[#1B4332] transition-colors">Inmobiliarias</button>
+            <button onClick={() => { window.scrollTo(0, 0); navigate("/anunciantes"); }} className="hover:text-[#1B4332] transition-colors">Anunciantes</button>
             <button onClick={() => { window.scrollTo(0, 0); navigate("/privacidad"); }} className="hover:text-[#1B4332] transition-colors">Política de Privacidad</button>
             <button onClick={() => { window.scrollTo(0, 0); navigate("/terminos"); }} className="hover:text-[#1B4332] transition-colors">Términos de Uso</button>
             <button onClick={() => { window.scrollTo(0, 0); navigate("/contacto"); }} className="hover:text-[#1B4332] transition-colors">Contacto</button>

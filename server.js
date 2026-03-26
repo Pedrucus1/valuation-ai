@@ -2,17 +2,60 @@ const express = require('express');
 require('dotenv').config();
 const cors = require('cors');
 const path = require('path');
+const fs = require('fs');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
 const { searchComparablesWithAI, generateValuationInsights } = require('./services/aiSearch');
 const { enrichOneComparable, closeBrowser } = require('./services/browserEnricher');
 const app = express();
 const port = process.env.PORT || 3000;
 
+const JWT_SECRET = process.env.JWT_SECRET || 'propvalu_fallback_secret';
+const USERS_FILE = path.join(__dirname, 'data', 'users.json');
+const COMP_CACHE_FILE = path.join(__dirname, 'data', 'comparables_cache.json');
+const THREE_MONTHS_MS = 90 * 24 * 60 * 60 * 1000;
+
+// ── Helpers JSON "BD" ──────────────────────────────────────────────────────
+function readUsers() {
+  try { return JSON.parse(fs.readFileSync(USERS_FILE, 'utf8')); }
+  catch { return []; }
+}
+function writeUsers(users) {
+  fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2), 'utf8');
+}
+
+// ── Caché de comparables por zona/tipo ─────────────────────────────────────
+function readCompCache() {
+  try { return JSON.parse(fs.readFileSync(COMP_CACHE_FILE, 'utf8')); }
+  catch { return {}; }
+}
+function writeCompCache(cache) {
+  try { fs.writeFileSync(COMP_CACHE_FILE, JSON.stringify(cache, null, 2), 'utf8'); }
+  catch (e) { console.error('Error guardando caché de comparables:', e.message); }
+}
+function getCacheKey(propertyData) {
+  const { property_type = '', neighborhood = '', municipality = '', state = '' } = propertyData;
+  return `${property_type}|${neighborhood}|${municipality}|${state}`.toLowerCase().replace(/\s+/g, '_');
+}
+function authMiddleware(req, res, next) {
+  const token = req.cookies?.propvalu_token;
+  if (!token) return res.status(401).json({ error: 'No autenticado' });
+  try {
+    req.user = jwt.verify(token, JWT_SECRET);
+    next();
+  } catch {
+    res.status(401).json({ error: 'Sesión inválida' });
+  }
+}
+
 // Middleware
 app.use(cors({
-  origin: true, // Allow any origin but specifically allow credentials
+  origin: true,
   credentials: true
 }));
 app.use(express.json({ limit: '50mb' }));
+app.use(cookieParser());
 
 // Logging middleware
 app.use((req, res, next) => {
@@ -22,9 +65,6 @@ app.use((req, res, next) => {
 
 // In-memory storage for valuations
 const valuations = {};
-
-// In-memory role storage per user (persiste mientras el servidor corra)
-const userRoles = {};
 
 // --------------------------------------------------------------------------
 // Helper Functions (Original Logic from Portfolio)
@@ -219,27 +259,88 @@ app.get('/api/geocode', async (req, res) => {
   }
 });
 
-// Stub de sesión para desarrollo local
-app.post('/api/auth/session', (req, res) => {
-  const userId = 'user_local_dev';
-  res.json({
-    user_id: userId,
-    email: 'dev@example.com',
-    name: 'Local Developer',
-    role: userRoles[userId] || 'appraiser',
-    created_at: new Date().toISOString()
+// ── AUTH ───────────────────────────────────────────────────────────────────
+
+// Registro
+app.post('/api/auth/register', async (req, res) => {
+  const { name, email, password, role, company_name, phone } = req.body;
+  if (!name || !email || !password || !role)
+    return res.status(400).json({ error: 'Faltan campos obligatorios' });
+  const validRoles = ['appraiser', 'realtor'];
+  if (!validRoles.includes(role))
+    return res.status(400).json({ error: 'Rol inválido' });
+
+  const users = readUsers();
+  if (users.find(u => u.email === email.toLowerCase()))
+    return res.status(409).json({ error: 'El correo ya está registrado' });
+
+  const hash = await bcrypt.hash(password, 10);
+  const newUser = {
+    user_id: 'u_' + Date.now(),
+    name,
+    email: email.toLowerCase(),
+    password_hash: hash,
+    role,                          // 'appraiser' | 'realtor'
+    plan: role === 'realtor' ? 'lite' : null,
+    company_name: company_name || null,
+    phone: phone || null,
+    kyc_status: role === 'appraiser' ? 'pending' : 'approved',
+    created_at: new Date().toISOString(),
+  };
+  users.push(newUser);
+  writeUsers(users);
+
+  const token = jwt.sign(
+    { user_id: newUser.user_id, role: newUser.role, email: newUser.email },
+    JWT_SECRET,
+    { expiresIn: '30d' }
+  );
+  res.cookie('propvalu_token', token, {
+    httpOnly: true, sameSite: 'lax', maxAge: 30 * 24 * 60 * 60 * 1000
   });
+  const { password_hash, ...safe } = newUser;
+  res.json(safe);
 });
 
-app.get('/api/auth/me', (req, res) => {
-  const userId = 'user_local_dev';
-  res.json({
-    user_id: userId,
-    email: 'dev@example.com',
-    name: 'Local Developer',
-    role: userRoles[userId] || 'appraiser',
-    created_at: new Date().toISOString()
+// Login
+app.post('/api/auth/login', async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password)
+    return res.status(400).json({ error: 'Correo y contraseña requeridos' });
+
+  const users = readUsers();
+  const user = users.find(u => u.email === email.toLowerCase());
+  if (!user) return res.status(401).json({ error: 'Correo o contraseña incorrectos' });
+
+  const valid = await bcrypt.compare(password, user.password_hash);
+  if (!valid) return res.status(401).json({ error: 'Correo o contraseña incorrectos' });
+
+  const token = jwt.sign(
+    { user_id: user.user_id, role: user.role, email: user.email },
+    JWT_SECRET,
+    { expiresIn: '30d' }
+  );
+  res.cookie('propvalu_token', token, {
+    httpOnly: true, sameSite: 'lax', maxAge: 30 * 24 * 60 * 60 * 1000
   });
+  const { password_hash, ...safe } = user;
+  res.json(safe);
+});
+
+// Usuario actual
+app.get('/api/auth/me', (req, res) => {
+  const token = req.cookies?.propvalu_token;
+  if (!token) return res.status(401).json({ error: 'No autenticado' });
+  try {
+    const payload = jwt.verify(token, JWT_SECRET);
+    const users = readUsers();
+    const user = users.find(u => u.user_id === payload.user_id);
+    if (!user) return res.status(401).json({ error: 'Usuario no encontrado' });
+    const { password_hash, ...safe } = user;
+    res.json(safe);
+  } catch {
+    res.status(401).json({ error: 'Sesión inválida' });
+  }
 });
 
 app.get('/health', (req, res) => {
@@ -377,13 +478,58 @@ app.post('/api/valuations/:id/generate-comparables', async (req, res) => {
   if (!valuation) return res.status(404).json({ error: 'Valuación no encontrada' });
 
   const append = req.query.append === 'true';
-  const count = append ? 5 : 10;
+  const MIN_COMPARABLES = 10;
 
   try {
-    const rawComps = await searchComparablesWithAI(valuation.property_data, count);
+    // ── 1. Consultar caché ────────────────────────────────────────────────
+    const cache = readCompCache();
+    const cacheKey = getCacheKey(valuation.property_data);
+    const now = Date.now();
+    let cachedComps = [];
 
-    // Apply INDAABIN adjustment factors to each comparable
-    const comps = rawComps.map(comp => {
+    if (cache[cacheKey]) {
+      const age = now - new Date(cache[cacheKey].cached_at).getTime();
+      if (age < THREE_MONTHS_MS) {
+        cachedComps = cache[cacheKey].comparables || [];
+        console.log(`Caché válida para "${cacheKey}": ${cachedComps.length} comparables (${Math.round(age / 86400000)} días de antigüedad)`);
+      } else {
+        console.log(`Caché expirada para "${cacheKey}" (${Math.round(age / 86400000)} días), se buscará de nuevo.`);
+      }
+    }
+
+    // ── 2. Búsqueda en internet ───────────────────────────────────────────
+    const rawComps = await searchComparablesWithAI(valuation.property_data, MIN_COMPARABLES);
+
+    // ── 3. Filtro duro: solo comparables con precio válido ───────────────
+    const validRaw = rawComps.filter(c => { const p = parseFloat(c.price); return !isNaN(p) && p > 0; });
+    if (validRaw.length < rawComps.length) {
+      console.log(`Filtro precio: ${rawComps.length - validRaw.length} descartados sin precio válido, quedan ${validRaw.length}`);
+    }
+
+    // ── 4. Guardar en caché SOLO comparables válidos ──────────────────────
+    const updatedCache = readCompCache();
+    const existingUrls = new Set((updatedCache[cacheKey]?.comparables || []).map(c => (c.source_url || '').replace(/\/$/, '').toLowerCase()));
+    const newForCache = validRaw.filter(c => !existingUrls.has((c.source_url || '').replace(/\/$/, '').toLowerCase()));
+    if (newForCache.length > 0) {
+      updatedCache[cacheKey] = {
+        cached_at: new Date().toISOString(),
+        comparables: [...(updatedCache[cacheKey]?.comparables || []), ...newForCache]
+      };
+      writeCompCache(updatedCache);
+      console.log(`Caché: +${newForCache.length} comparables válidos guardados para "${cacheKey}"`);
+    }
+
+    // ── 5. Complementar con caché si faltan comparables ──────────────────
+    const freshUrls = new Set(validRaw.map(c => (c.source_url || '').replace(/\/$/, '').toLowerCase()));
+    const fromCache = cachedComps.filter(c => {
+      const p = parseFloat(c.price);
+      return !isNaN(p) && p > 0 && !freshUrls.has((c.source_url || '').replace(/\/$/, '').toLowerCase());
+    });
+    const validMerged = [...validRaw, ...fromCache];
+    console.log(`Total: ${validRaw.length} frescos + ${fromCache.length} de caché = ${validMerged.length}`);
+
+    // ── 6. Aplicar factores INDAABIN y asignar IDs ────────────────────────
+    const comps = validMerged.map(comp => {
       const adjustments = calcularAjustesHomologacion(comp, valuation.property_data);
       return {
         ...comp,
@@ -394,7 +540,10 @@ app.post('/api/valuations/:id/generate-comparables', async (req, res) => {
     });
 
     if (append) {
-      valuation.comparables = [...(valuation.comparables || []), ...comps];
+      // Evitar duplicados al agregar más
+      const existingIds = new Set((valuation.comparables || []).map(c => (c.source_url || '').toLowerCase()));
+      const newComps = comps.filter(c => !existingIds.has((c.source_url || '').toLowerCase()));
+      valuation.comparables = [...(valuation.comparables || []), ...newComps];
     } else {
       valuation.comparables = comps;
     }
@@ -455,24 +604,10 @@ app.get('/api/valuations', (req, res) => {
   res.json(Object.values(valuations));
 });
 
+// Logout
 app.post('/api/auth/logout', (req, res) => {
+  res.clearCookie('propvalu_token');
   res.json({ message: 'Sesión cerrada' });
-});
-
-app.post('/api/auth/upgrade-role', (req, res) => {
-  res.json({ role: 'appraiser' });
-});
-
-// Asignar rol al usuario autenticado (appraiser | realtor | public)
-app.post('/api/auth/set-role', (req, res) => {
-  const { role, user_id } = req.body;
-  const validRoles = ['appraiser', 'realtor', 'public'];
-  if (!role || !validRoles.includes(role)) {
-    return res.status(400).json({ error: 'Rol inválido' });
-  }
-  const uid = user_id || 'user_local_dev';
-  userRoles[uid] = role;
-  res.json({ role, user_id: uid });
 });
 
 app.get('/api/stats', (req, res) => {

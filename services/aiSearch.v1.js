@@ -1,3 +1,28 @@
+/**
+ * aiSearch.v1.js — RESPALDO VERSIÓN 1
+ * Fecha: 2026-03-19
+ *
+ * Estado de esta versión:
+ * - Flujo principal: Serper (CSE) → snippets → Gemini 2.5 Flash estructura comparables
+ * - Fallback 1: búsqueda ampliada al municipio completo si hay < 10 comparables en colonia
+ * - Fallback 2 ELIMINADO (causaba alucinaciones: búsqueda abierta sin site:)
+ * - Enriquecimiento desde páginas de detalle (fetchPageText + Gemini)
+ * - Filtro IQR: descarta comparables fuera de 0.4x–2.5x mediana de $/m²
+ * - Filtro de categoría: descarta URLs de listado (no anuncios individuales)
+ * - Filtro de nivel socioeconómico en prompt de Gemini
+ * - land_area para departamentos/oficinas/locales = construction_area si no hay dato
+ * - Normalización de precios (strings como "$3,500,000" → número)
+ * - Respaldo A: Gemini grounding (Google Search nativo)
+ * - Respaldo B: OpenAI GPT-4o
+ * - generateValuationInsights: análisis de mercado con Gemini/OpenAI
+ *
+ * Pendientes / cosas a mejorar en v2+:
+ * - Afinar filtro socioeconómico (actualmente solo en prompt, no en código)
+ * - Evaluar si fetchPageText mejora resultados lo suficiente para justificar latencia
+ * - Considerar cachear resultados Serper por zona+tipo para reducir costos
+ * - Mejorar detección de precio_per_sqm cuando Gemini no lo calcula
+ */
+
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const { OpenAI } = require("openai");
 const https = require("https");
@@ -80,7 +105,6 @@ function extractRelevantText(html) {
     // 3. Primeros 4000 chars del body (donde suele estar el precio y m²)
     const bodyMatch = html.match(/<body[^>]*>([\s\S]{0,4000})/i);
     if (bodyMatch) {
-        // Quitar tags HTML, dejar solo texto
         const text = bodyMatch[1].replace(/<[^>]+>/g, " ").replace(/\s{2,}/g, " ").trim();
         parts.push(text.substring(0, 3000));
     }
@@ -149,7 +173,6 @@ Devuelve ÚNICAMENTE este JSON (sin markdown):
     const enrichMap = {};
     for (const r of enrichResults) {
         if (r.status === "fulfilled" && r.value?.data) {
-            // Solo sobreescribir campos que antes eran null/undefined
             const data = {};
             for (const [k, v] of Object.entries(r.value.data)) {
                 if (v !== null && v !== undefined) data[k] = v;
@@ -161,9 +184,7 @@ Devuelve ÚNICAMENTE este JSON (sin markdown):
     const enriched = comparables.map(c => {
         const extra = enrichMap[c.comparable_id];
         if (!extra) return c;
-        // No pisar datos que ya venían del snippet
         const merged = { ...extra, ...c };
-        // Para campos que venían null, sí usar los del detalle
         for (const [k, v] of Object.entries(extra)) {
             if (c[k] === null || c[k] === undefined) merged[k] = v;
         }
@@ -283,7 +304,6 @@ async function searchComparablesWithAI(propertyData, count = 10) {
         throw new Error("No se configuró API_KEY de Gemini u OpenAI.");
     }
 
-    // ¿Tenemos Serper configurado?
     const cseDisponible = !!process.env.SERPER_API_KEY;
 
     try {
@@ -298,7 +318,6 @@ async function searchComparablesWithAI(propertyData, count = 10) {
     } catch (error) {
         console.error("Error en búsqueda principal:", error.message);
 
-        // Fallback: Gemini grounding si CSE falló
         if (cseDisponible && process.env.GEMINI_API_KEY) {
             console.log("CSE falló, intentando Gemini grounding...");
             try { return await searchWithGeminiGrounding(propertyData, count); } catch (e2) {
@@ -306,7 +325,6 @@ async function searchComparablesWithAI(propertyData, count = 10) {
             }
         }
 
-        // Fallback final: OpenAI
         if (process.env.OPENAI_API_KEY) {
             console.log("Intentando respaldo con OpenAI...");
             return await searchWithOpenAI(propertyData, count);
@@ -322,10 +340,8 @@ async function searchComparablesWithAI(propertyData, count = 10) {
 async function searchWithCSEAndGemini(propertyData, count) {
     const queries = buildQueries(propertyData);
 
-    // Lanzar las 3 queries en paralelo
     const results = await Promise.allSettled(queries.map(q => serperSearch(q)));
 
-    // Consolidar resultados únicos por URL (normalizada) — pre-filtrar categorías en JS
     const seen = new Set();
     const items = [];
     for (const r of results) {
@@ -346,7 +362,6 @@ async function searchWithCSEAndGemini(propertyData, count) {
         throw new Error("Serper no devolvió resultados. Verifica SERPER_API_KEY en .env.");
     }
 
-    // Pasar snippets a Gemini para estructurar como comparables
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
     const model = genAI.getGenerativeModel({
         model: "gemini-2.5-flash",
@@ -427,7 +442,7 @@ Devuelve ÚNICAMENTE un JSON array con este formato exacto:
         throw new Error("Gemini no pudo extraer comparables de los snippets de CSE.");
     }
 
-    // Normalizar precios a número (Gemini a veces devuelve strings como "$3,500,000")
+    // Normalizar precios a número
     for (const c of (parsed || [])) {
         if (typeof c.price === 'string') {
             c.price = parseFloat(c.price.replace(/[$,\s]/g, '')) || null;
@@ -444,8 +459,7 @@ Devuelve ÚNICAMENTE un JSON array con este formato exacto:
     const conDatos  = conPrecio.filter(c => c.construction_area && c.construction_area > 0);
     const final = conDatos.length >= 3 ? conDatos : conPrecio;
 
-    // Filtro estadístico por precio/m²: eliminar outliers por nivel socioeconómico
-    // Calcula mediana de price_per_sqm y descarta los que están fuera de 0.4x–2.5x la mediana
+    // Filtro estadístico IQR: eliminar outliers por $/m²
     const withPsqm = final.filter(c => c.price_per_sqm && c.price_per_sqm > 0);
     let filteredByLocation = final;
     if (withPsqm.length >= 4) {
@@ -475,8 +489,7 @@ Devuelve ÚNICAMENTE un JSON array con este formato exacto:
         }
     }
 
-    // ── Post-proceso: land_area para departamentos/oficinas/locales ──
-    // Solo rellenar land_area cuando ya existe construction_area real (no inventar datos)
+    // Post-proceso: land_area para departamentos/oficinas/locales
     const esDep = ["Departamento", "Oficina", "Local comercial"].includes(propertyData.property_type);
     for (const c of deduped) {
         if (!c.land_area && c.construction_area) {
@@ -486,7 +499,7 @@ Devuelve ÚNICAMENTE un JSON array con este formato exacto:
 
     console.log(`CSE+Gemini: ${parsed.length} raw → ${deduped.length} únicos con datos.`);
 
-    // ── Fallback 1: si hay menos de 10, ampliar búsqueda al municipio completo ──
+    // ── Fallback 1: ampliar búsqueda al municipio si hay < 10 comparables ──
     if (deduped.length < 10) {
         console.log(`Solo ${deduped.length} comparables en colonia — ampliando búsqueda a ${propertyData.municipality}...`);
         const esFallbackDep = ["Departamento", "Oficina", "Local comercial"].includes(propertyData.property_type);
@@ -535,7 +548,6 @@ Devuelve ÚNICAMENTE un JSON array con este formato exacto:
                 catch (e) { const m = fbText.match(/\[[\s\S]*\]/); fbParsed = m ? JSON.parse(m[0]) : []; }
                 const fbValid = (fbParsed || []).filter(c => c.price && c.price > 0);
                 for (const c of fbValid) {
-                    // Mismo post-proceso de land_area para los del fallback
                     if (!c.land_area && c.construction_area) {
                         c.land_area = esFallbackDep ? c.construction_area : c.construction_area;
                     }
@@ -558,7 +570,7 @@ Devuelve ÚNICAMENTE un JSON array con este formato exacto:
 }
 
 // ---------------------------------------------------------------------------
-// Respaldo A: Gemini con grounding (comportamiento anterior)
+// Respaldo A: Gemini con grounding
 // ---------------------------------------------------------------------------
 async function searchWithGeminiGrounding(propertyData, count) {
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -617,7 +629,7 @@ async function searchWithOpenAI(propertyData, count) {
 }
 
 // ---------------------------------------------------------------------------
-// Insights de valuación (sin cambios)
+// Insights de valuación
 // ---------------------------------------------------------------------------
 async function generateValuationInsights(propertyData, comparables) {
     const apiKey = process.env.GEMINI_API_KEY || process.env.OPENAI_API_KEY;

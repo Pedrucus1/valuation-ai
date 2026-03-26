@@ -57,11 +57,11 @@ async def search_comparables_openai(
     """
     Search for property comparables using OpenAI GPT with web search
     """
-    from emergentintegrations.llm.chat import LlmChat, UserMessage
-    
+    import openai as _openai
+
     try:
         api_key = get_api_key()
-        
+
         # Build improved search prompt for more useful/measurable data
         search_prompt = f"""Busca propiedades EN VENTA en portales inmobiliarios de México que sean comparables para valuación.
 
@@ -105,18 +105,18 @@ REQUISITOS:
 - Solo propiedades EN VENTA, NO rentas
 - Responde ÚNICAMENTE con el JSON, sin explicaciones"""
 
-        chat = LlmChat(
-            api_key=api_key,
-            session_id=f"search_{datetime.now(timezone.utc).timestamp()}",
-            system_message="Eres un experto en bienes raíces en México. Buscas propiedades reales en portales inmobiliarios y devuelves datos estructurados en JSON."
-        ).with_model("openai", "gpt-4o")
-        
-        user_message = UserMessage(text=search_prompt)
-        
-        response = await asyncio.wait_for(
-            chat.send_message(user_message),
+        _client = _openai.AsyncOpenAI(api_key=api_key)
+        _result = await asyncio.wait_for(
+            _client.chat.completions.create(
+                model="gpt-4o",
+                messages=[
+                    {"role": "system", "content": "Eres un experto en bienes raíces en México. Buscas propiedades reales en portales inmobiliarios y devuelves datos estructurados en JSON."},
+                    {"role": "user", "content": search_prompt}
+                ]
+            ),
             timeout=30.0
         )
+        response = _result.choices[0].message.content
         
         # Parse JSON response
         comparables = parse_ai_response(response, "openai")
@@ -141,11 +141,11 @@ async def search_comparables_gemini(
     """
     Search for property comparables using Gemini with web grounding
     """
-    from emergentintegrations.llm.chat import LlmChat, UserMessage
-    
+    import google.generativeai as _genai
+
     try:
-        api_key = get_api_key()
-        
+        gemini_key = os.environ.get("GEMINI_API_KEY") or get_api_key()
+
         search_prompt = f"""Busca propiedades inmobiliarias en venta en México similares a estas características:
 
 Ubicación: {location}
@@ -174,18 +174,17 @@ Busca en portales como inmuebles24, lamudi, propiedades.com y devuelve {max_resu
 
 Responde únicamente con el array JSON."""
 
-        chat = LlmChat(
-            api_key=api_key,
-            session_id=f"gemini_search_{datetime.now(timezone.utc).timestamp()}",
-            system_message="Eres un buscador de propiedades inmobiliarias en México. Devuelves resultados en JSON."
-        ).with_model("gemini", "gemini-2.5-flash")
-        
-        user_message = UserMessage(text=search_prompt)
-        
-        response = await asyncio.wait_for(
-            chat.send_message(user_message),
+        _genai.configure(api_key=gemini_key)
+        _model = _genai.GenerativeModel(
+            "gemini-2.0-flash",
+            system_instruction="Eres un buscador de propiedades inmobiliarias en México. Devuelves resultados en JSON."
+        )
+        loop = asyncio.get_event_loop()
+        _result = await asyncio.wait_for(
+            loop.run_in_executor(None, lambda: _model.generate_content(search_prompt)),
             timeout=30.0
         )
+        response = _result.text
         
         comparables = parse_ai_response(response, "gemini")
         logger.info(f"Gemini found {len(comparables)} comparables")
@@ -360,11 +359,11 @@ async def search_rental_comparables(
     max_results: int = 6
 ) -> List[AIComparable]:
     """Search for rental comparables to calculate rental factor"""
-    from emergentintegrations.llm.chat import LlmChat, UserMessage
-    
+    import openai as _openai
+
     try:
         api_key = get_api_key()
-        
+
         prompt = f"""Busca propiedades EN RENTA en {location}, México:
 - Tipo: {property_type}
 - Superficie: ~{construction_area} m²
@@ -384,16 +383,18 @@ Devuelve {max_results} propiedades en renta en formato JSON:
 
 Solo el JSON, sin texto."""
 
-        chat = LlmChat(
-            api_key=api_key,
-            session_id=f"rental_{datetime.now(timezone.utc).timestamp()}",
-            system_message="Buscador de rentas inmobiliarias en México."
-        ).with_model("openai", "gpt-4o")
-        
-        response = await asyncio.wait_for(
-            chat.send_message(UserMessage(text=prompt)),
+        _client = _openai.AsyncOpenAI(api_key=api_key)
+        _result = await asyncio.wait_for(
+            _client.chat.completions.create(
+                model="gpt-4o",
+                messages=[
+                    {"role": "system", "content": "Buscador de rentas inmobiliarias en México."},
+                    {"role": "user", "content": prompt}
+                ]
+            ),
             timeout=25.0
         )
+        response = _result.choices[0].message.content
         
         return parse_ai_response(response, "openai")
         

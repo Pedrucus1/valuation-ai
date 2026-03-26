@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import AfiliadosCarousel from "@/components/AfiliadosCarousel";
 import {
   Building2, ChevronRight, Check, Minus, Crown,
   Zap, Users, FileText, Award,
@@ -625,6 +626,9 @@ const ValuadorPage = () => {
           </p>
         </div>
       </section>
+
+      {/* ── CAROUSEL AFILIADOS ── */}
+      <AfiliadosCarousel tipo="valuador" />
 
       {/* ── FOOTER ── */}
       <footer className="border-t border-white/[0.08] py-6 px-4">
