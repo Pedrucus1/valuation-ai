@@ -104,7 +104,7 @@ _REPORT_CSS = """
     padding: 18px 28px 30px;
     background: white;
     box-shadow: 0 4px 24px rgba(0,0,0,0.18);
-    border-radius: 4px;
+    border-radius: 16px;
     position: relative;
     page-break-after: always;
   }
@@ -565,6 +565,12 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
         <span class="elabel">{name}:</span>
         <span class="evalue">{val_disp}</span>
       </div>"""
+    if not entorno_items:
+        entorno_items = """
+      <div class="entorno-item"><span class="elabel">Educación:</span><span class="evalue" style="color:var(--gray-400);font-style:italic;">Regenerar con análisis IA</span></div>
+      <div class="entorno-item"><span class="elabel">Salud:</span><span class="evalue" style="color:var(--gray-400);font-style:italic;">Regenerar con análisis IA</span></div>
+      <div class="entorno-item"><span class="elabel">Comercio:</span><span class="evalue" style="color:var(--gray-400);font-style:italic;">Regenerar con análisis IA</span></div>
+      <div class="entorno-item"><span class="elabel">Recreación:</span><span class="evalue" style="color:var(--gray-400);font-style:italic;">Regenerar con análisis IA</span></div>"""
 
     # Perfil del entorno con scores
     _pe_icons = {
@@ -594,9 +600,22 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
       <div class="pe-score-text">{texto}</div>
     </div>"""
 
-    pe_scores_section = ''
-    if pe_scores_cards:
-        pe_scores_section = f"""
+    if not pe_scores_cards:
+        for key, icon, name in [
+            ('seguridad', '&#x1F512;', 'Seguridad'), ('movilidad', '&#x1F68C;', 'Movilidad'),
+            ('educacion', '&#x1F3EB;', 'Educación'), ('salud',     '&#x1F3E5;', 'Salud'),
+            ('comercio',  '&#x1F6D2;', 'Comercio'), ('recreacion','&#x1F333;', 'Recreación'),
+        ]:
+            pe_scores_cards += f"""
+    <div class="pe-score-card">
+      <div class="pe-score-head">
+        <div class="pe-score-name"><span>{icon}</span> {name}</div>
+        <div class="pe-score-val" style="color:var(--gray-400);">N/D</div>
+      </div>
+      <div class="pe-score-bar-bg"><div class="pe-score-bar" style="width:0%;"></div></div>
+      <div class="pe-score-text" style="color:var(--gray-400);font-style:italic;">Activar análisis IA</div>
+    </div>"""
+    pe_scores_section = f"""
   <div class="section-title" style="margin-top:12px;">&#x2B50; CALIFICACIÓN DEL ENTORNO</div>
   <div class="pe-scores-grid">
 {pe_scores_cards}
@@ -700,6 +719,24 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
         </div>
       </div>
       <div class="sc-list">{nombres or texto}</div>
+    </div>"""
+    if not equip_cards:
+        for icon, label, cat_name in [
+            ('&#x1F4DA;', 'Escuelas',     'Educación'),
+            ('&#x1F3E5;', 'Hospitales',   'Salud'),
+            ('&#x1F6D2;', 'Supermercados','Tiendas'),
+            ('&#x1F333;', 'Parques',      'Recreación'),
+        ]:
+            equip_cards += f"""
+    <div class="servicio-card">
+      <div class="sc-header">
+        <div class="sc-icon">{icon}</div>
+        <div>
+          <div class="sc-title">{label}</div>
+          <div class="sc-subtitle">{cat_name}</div>
+        </div>
+      </div>
+      <div class="sc-list" style="color:var(--gray-400);font-style:italic;">Activar análisis IA para detalle</div>
     </div>"""
 
     plazas_cat = pe.get('plazas', {}) if pe else {}
