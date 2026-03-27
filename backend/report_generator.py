@@ -119,16 +119,15 @@ _REPORT_CSS = """
     border-bottom: 2px solid var(--green-900);
     margin-bottom: 14px;
   }
-  .logo { display: flex; align-items: center; gap: 7px; }
+  .logo { display: flex; align-items: center; gap: 8px; }
   .logo-icon {
-    width: 28px; height: 28px;
-    background: var(--green-900);
-    border-radius: 7px;
+    width: 32px; height: 32px;
     display: flex; align-items: center; justify-content: center;
-    color: white; font-size: 13px;
+    color: var(--green-900);
   }
-  .logo-text { font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 800; color: var(--green-900); }
-  .logo-text span { color: var(--green-500); }
+  .logo-icon svg { width: 32px; height: 32px; }
+  .logo-text { font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 800; color: var(--green-900); }
+  .logo-text span { color: #51B687; }
   .folio-box { text-align: right; font-size: 10px; color: var(--text-sec); line-height: 1.7; }
   .folio-box strong { color: var(--text-main); }
 
@@ -743,7 +742,12 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
     def _header():
         return f"""  <div class="header">
     <div class="logo">
-      <div class="logo-icon">&#x1F3D8;</div>
+      <div class="logo-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1B4231" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 22V12H2l10-10 10 10h-4v10H6z"/>
+          <path d="M14 22v-4a2 2 0 0 0-4 0v4"/>
+        </svg>
+      </div>
       <div class="logo-text">Prop<span>Valu</span></div>
     </div>
     <div class="folio-box">
