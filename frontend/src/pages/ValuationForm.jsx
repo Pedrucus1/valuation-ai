@@ -553,6 +553,11 @@ const ValuationForm = () => {
     pavement_type: ""
   });
 
+  // Limpiar carrito anterior para que checkout siempre aparezca en cada nueva valuación
+  useEffect(() => {
+    sessionStorage.removeItem("propvalu_cart");
+  }, []);
+
   // Pre-seleccionar plan si viene de PricingPage (plan individual)
   useEffect(() => {
     const pre = sessionStorage.getItem("propvalu_preselected_plan");

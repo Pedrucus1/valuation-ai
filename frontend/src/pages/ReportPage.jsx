@@ -15,6 +15,7 @@ import {
   Share2
 } from "lucide-react";
 import { API } from "@/App";
+import AdOverlay from "@/components/AdOverlay";
 
 const ReportPage = () => {
   const { valuationId } = useParams();
@@ -24,6 +25,8 @@ const ReportPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isGenerating, setIsGenerating] = useState(false);
   const [includeAnalysis, setIncludeAnalysis] = useState(true);
+  const [showSlot2Ad, setShowSlot2Ad] = useState(false);
+  const [showSlot3Ad, setShowSlot3Ad] = useState(false);
   const reportRef = useRef(null);
 
   useEffect(() => {
@@ -86,6 +89,8 @@ const ReportPage = () => {
 
   const generateReport = async (withAnalysis = true) => {
     setIsGenerating(true);
+    // Show slot2 ad "durante la generación con IA" (only for non-private mode)
+    if (valuation?.mode !== "private") setShowSlot2Ad(true);
     try {
       const response = await fetch(`${API}/valuations/${valuationId}/generate-report?include_analysis=${withAnalysis}`, {
         method: "POST",
@@ -127,8 +132,12 @@ const ReportPage = () => {
   };
 
   const handleDownloadPDF = () => {
-    // Navigate to thank-you page, passing the HTML so it can trigger the print dialog
-    navigate(`/gracias/${valuationId}`, { state: { reportHtml } });
+    if (valuation?.mode !== "private") {
+      // Show slot3 ad "antes de la descarga" for public/realtor users
+      setShowSlot3Ad(true);
+    } else {
+      navigate(`/gracias/${valuationId}`, { state: { reportHtml } });
+    }
   };
 
   const handleShare = async () => {
@@ -403,6 +412,27 @@ const ReportPage = () => {
           </Card>
         )}
       </div>
+
+      {/* Slot 2 — durante generación con IA */}
+      {showSlot2Ad && (
+        <AdOverlay
+          slot="slot2"
+          zone={property?.municipality || property?.city || ""}
+          onDone={() => setShowSlot2Ad(false)}
+        />
+      )}
+
+      {/* Slot 3 — antes de la descarga */}
+      {showSlot3Ad && (
+        <AdOverlay
+          slot="slot3"
+          zone={property?.municipality || property?.city || ""}
+          onDone={() => {
+            setShowSlot3Ad(false);
+            navigate(`/gracias/${valuationId}`, { state: { reportHtml } });
+          }}
+        />
+      )}
 
       {/* Footer Actions */}
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-3 no-print">

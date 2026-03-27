@@ -423,7 +423,7 @@ const LandingPage = () => {
                 ))}
               </div>
               <button
-                onClick={() => navigate("/comprar")}
+                onClick={() => { window.scrollTo(0, 0); navigate("/comprar"); }}
                 className="mt-10 bg-[#1B4332] hover:bg-[#2D6A4F] text-white font-semibold text-base px-8 py-4 rounded-xl transition-colors inline-flex items-center gap-2"
                 data-testid="steps-cta-btn"
               >
