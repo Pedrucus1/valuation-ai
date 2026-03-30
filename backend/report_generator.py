@@ -761,14 +761,14 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
     facade_idx = prop.get('facade_photo_index')
     facade_photo_url = photos[facade_idx] if (facade_idx is not None and photos and facade_idx < len(photos)) else None
 
-    # Photos (page 5) — only if photos exist, 3-col grid
+    # Photos (page 5) — only if photos exist, 3-col × 4-row = 12 fotos
     if photos and len(photos) > 0:
         photo_items = ''.join(
-            f'<div style="border-radius:12px;overflow:hidden;border:1px solid var(--gray-200);background:#fdfdfd;">'
-            f'<img src="{p}" style="width:100%;height:auto;display:block;" alt="Foto {i+1}"></div>'
+            f'<div style="border-radius:10px;overflow:hidden;border:1px solid var(--gray-200);background:#fdfdfd;">'
+            f'<img src="{p}" style="width:100%;height:178px;object-fit:cover;display:block;" alt="Foto {i+1}"></div>'
             for i, p in enumerate(photos[:12])
         )
-        photos_content = f'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px;">{photo_items}</div>'
+        photos_content = f'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px;">{photo_items}</div>'
         show_photos_page = True
     else:
         photos_content = ''
@@ -861,7 +861,7 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
 
   <div class="section-title">&#x1F4CD; UBICACIÓN Y FACHADA</div>
   <div style="display:flex;gap:10px;align-items:stretch;">
-    <div class="map-container" style="flex:1;height:240px;">
+    <div class="map-container" style="{'flex:1' if facade_photo_url else 'width:100%'};height:240px;">
       {map_html}
     </div>
     {f'<div style="flex:1;height:240px;border-radius:12px;overflow:hidden;border:1px solid var(--gray-200);"><img src="{facade_photo_url}" style="width:100%;height:100%;object-fit:cover;" alt="Fachada"></div>' if facade_photo_url else ''}
@@ -1169,12 +1169,20 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
 <div class="page">
 {_header()}
 
-  <div class="title-banner">&#x1F4F7; Fotografías del Inmueble</div>
-  <div class="section-title">&#x1F4F8; REGISTRO FOTOGRÁFICO</div>
+  <div class="section-title">&#x1F4F7; EVIDENCIA FOTOGRÁFICA</div>
 
   {photos_content}
 
-{_footer(5)}
+  <div style="position:absolute;bottom:18px;left:0;right:0;text-align:center;border-top:1px solid var(--gray-100);padding-top:12px;">
+    <div style="display:inline-flex;align-items:center;gap:8px;justify-content:center;">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1B4231" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;">
+        <path d="M6 22V12H2l10-10 10 10h-4v10H6z"/>
+        <path d="M14 22v-4a2 2 0 0 0-4 0v4"/>
+      </svg>
+      <span style="font-family:'Outfit',sans-serif;font-size:16px;font-weight:800;color:#1B4231;">Prop<span style="color:#51B687;">Valu</span></span>
+    </div>
+    <div style="font-size:9px;color:var(--gray-400);margin-top:3px;">PropValu México &middot; Reporte Inteligente</div>
+  </div>
 </div>
 ''' if show_photos_page else ''}
 
