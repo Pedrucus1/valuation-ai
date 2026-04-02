@@ -1445,7 +1445,9 @@ async def health():
 
 # ============== ADMIN AUTH ==============
 
-ADMIN_SECRET = os.environ.get("ADMIN_SECRET", "PropValu2026!")
+ADMIN_SECRET = os.environ.get("ADMIN_SECRET")
+if not ADMIN_SECRET:
+    raise RuntimeError("ADMIN_SECRET no está definida en las variables de entorno")
 UPLOADS_DIR = ROOT_DIR / "uploads"
 KYC_DIR = UPLOADS_DIR / "kyc"
 KYC_DIR.mkdir(parents=True, exist_ok=True)
