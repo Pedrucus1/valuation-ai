@@ -113,50 +113,54 @@ const compressToWebP = async (file) => {
 
 const SLOT_SPECS = {
   slot1: {
-    name: "Premium — Durante la Investigación",
-    label: "Premium",
+    name: "Slot 1 — Página de Comparables",
+    label: "Slot 1",
     tag: "Máxima exposición",
-    desc: "Tu anuncio ocupa la pantalla completa durante 60 segundos mientras el sistema busca y analiza comparables del mercado. El usuario no puede avanzar — atención total garantizada.",
-    duration: "60 segundos",
-    adDuration: 60,
-    maxDuration: 60,
+    where: "Página de Comparables · aparece mientras el sistema busca avalúos similares",
+    desc: "Tu anuncio ocupa la pantalla completa mientras el sistema busca y analiza comparables del mercado. El usuario no puede avanzar — atención total garantizada.",
     maxSizeMB: 50,
     acceptVideo: true,
     accept: "image/jpeg,image/png,video/mp4",
     dims: "1920×1080 px",
-    pricePerImpression: 30,
     maxPhotos: 20,
   },
   slot2: {
-    name: "Estándar — Durante la Generación con IA",
-    label: "Estándar",
+    name: "Slot 2 — Generación con IA",
+    label: "Slot 2",
     tag: "Alta atención",
+    where: "Página de Reporte · aparece mientras la IA genera el avalúo",
     desc: "Tu anuncio se muestra mientras la inteligencia artificial redacta el reporte personalizado. El usuario está en espera activa, con la pantalla frente a él.",
-    duration: "30 segundos",
-    adDuration: 30,
-    maxDuration: 30,
     maxSizeMB: 20,
     acceptVideo: true,
     accept: "image/jpeg,image/png,video/mp4",
     dims: "1920×1080 px",
-    pricePerImpression: 20,
     maxPhotos: 10,
   },
   slot3: {
-    name: "Básico — Antes de la Descarga del Reporte",
-    label: "Básico",
+    name: "Slot 3 — Antes de la Descarga",
+    label: "Slot 3",
     tag: "Entrada accesible",
+    where: "Página de Reporte · aparece justo antes de descargar el PDF",
     desc: "Tu anuncio aparece en pantalla completa justo antes de que el usuario descargue su reporte de valuación. Momento de alto interés e intención inmobiliaria.",
-    duration: "15 segundos",
-    adDuration: 15,
-    maxDuration: null,
-    maxSizeMB: 5,
+    maxSizeMB: 10,
     acceptVideo: false,
     accept: "image/jpeg,image/png",
     dims: "1200×628 px",
-    pricePerImpression: 5,
     maxPhotos: 5,
   },
+};
+
+// Duraciones disponibles por slot y precio por impresión
+const DURATION_OPTIONS = [
+  { seconds: 15, label: "15 segundos", slots: ["slot1", "slot2", "slot3"] },
+  { seconds: 30, label: "30 segundos", slots: ["slot1", "slot2"] },
+  { seconds: 60, label: "60 segundos", slots: ["slot1"] },
+];
+
+const AD_PRICES = {
+  slot1: { 15: 15, 30: 25, 60: 38 },
+  slot2: { 15: 10, 30: 18 },
+  slot3: { 15: 5 },
 };
 
 // Zonas estáticas para segmentación estatal/federal
@@ -404,7 +408,7 @@ const AdvertiserConsolePage = () => {
   const [campaigns, setCampaigns] = useState([]);
   const [showNewCampaign, setShowNewCampaign] = useState(false);
   const [newCamp, setNewCamp] = useState({
-    name: "", slot: "slot1", targeting: "Municipal", zone: "", budget: "",
+    name: "", slot: "slot1", ad_duration: 15, targeting: "Municipal", zone: "", budget: "",
     duration_type: "agotar", start: "", end: "", link_type: "web", link_url: "",
   });
 
@@ -500,9 +504,11 @@ const AdvertiserConsolePage = () => {
 
   const VALUACIONES_MES = 850; // promedio mensual de valuaciones en la plataforma
 
+  const currentPrice = AD_PRICES[newCamp.slot]?.[newCamp.ad_duration] ?? 5;
+
   const estimatedImpressions =
     newCamp.budget && Number(newCamp.budget) > 0
-      ? Math.floor(Number(newCamp.budget) / SLOT_SPECS[newCamp.slot].pricePerImpression)
+      ? Math.floor(Number(newCamp.budget) / currentPrice)
       : null;
 
   // Frecuencia: de cada N valuaciones, cuántas verán el anuncio
@@ -525,8 +531,8 @@ const AdvertiserConsolePage = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: newCamp.name, slot: newCamp.slot, targeting: newCamp.targeting,
-          zone: newCamp.zone, budget: Number(newCamp.budget),
+          name: newCamp.name, slot: newCamp.slot, ad_duration: newCamp.ad_duration,
+          targeting: newCamp.targeting, zone: newCamp.zone, budget: Number(newCamp.budget),
           duration_type: newCamp.duration_type, start: newCamp.start,
           end: newCamp.end || null, link_type: newCamp.link_type,
           link_url: newCamp.link_url.trim(),
@@ -534,7 +540,7 @@ const AdvertiserConsolePage = () => {
       });
       const campaign = data.campaign;
       setCampaigns(p => [campaign, ...p]);
-      setNewCamp({ name: "", slot: "slot1", targeting: "Municipal", zone: "", budget: "", duration_type: "agotar", start: "", end: "", link_type: "web", link_url: "" });
+      setNewCamp({ name: "", slot: "slot1", ad_duration: 15, targeting: "Municipal", zone: "", budget: "", duration_type: "agotar", start: "", end: "", link_type: "web", link_url: "" });
       setShowNewCampaign(false);
       setSelectedCampaignId(campaign.id);
       setExpandedCampaignId(campaign.id);
@@ -763,7 +769,7 @@ const AdvertiserConsolePage = () => {
                 <div key={c.id} className="px-5 py-3.5 flex items-center justify-between gap-4 hover:bg-[#F0FAF5] transition-colors">
                   <div>
                     <p className="text-sm font-semibold text-[#1B4332]">{c.name}</p>
-                    <p className="text-xs text-slate-400 mt-0.5">{SLOT_SPECS[c.slot]?.label} · {c.targeting}: {c.zone}</p>
+                    <p className="text-xs text-slate-400 mt-0.5">{SLOT_SPECS[c.slot]?.label} · {c.ad_duration ?? "—"}s · {SLOT_SPECS[c.slot]?.where} · {c.targeting}: {c.zone}</p>
                   </div>
                   <div className="flex items-center gap-4 shrink-0">
                     <div className="text-right">
@@ -836,7 +842,8 @@ const AdvertiserConsolePage = () => {
                         </p>
                       </td>
                       <td className="px-5 py-4">
-                        <p className="text-slate-600">{SLOT_SPECS[c.slot].name}</p>
+                        <p className="text-slate-600">{SLOT_SPECS[c.slot]?.name}</p>
+                        <p className="text-xs text-slate-400 mt-0.5">{c.ad_duration ?? "—"}s · ${AD_PRICES[c.slot]?.[c.ad_duration] ?? "—"} MXN/imp</p>
                       </td>
                       <td className="px-5 py-4">
                         <p className="text-slate-600">{c.targeting}</p>
@@ -916,6 +923,7 @@ const AdvertiserConsolePage = () => {
                                         : ` · ${imageCreatives.length} de ${spec.maxPhotos} imágenes · ${secsPer}seg c/u`
                                     }
                                   </p>
+                                  <p className="text-xs text-[#2D6A4F] font-medium mt-0.5">📍 {spec.where}</p>
                                   <p className="text-xs font-medium mt-1 flex flex-wrap gap-x-2 gap-y-0.5">
                                     <span className="text-[#2D6A4F]">📷 JPG/PNG hasta {MAX_IMAGE_ORIGINAL_MB} MB</span>
                                     <span className="text-slate-400">→ se comprime a WebP automáticamente</span>
@@ -1205,50 +1213,86 @@ const AdvertiserConsolePage = () => {
             {/* Body — 2 columnas en PC */}
             <div className="flex-1 overflow-y-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
 
-              {/* ── Columna izquierda: formato ── */}
-              <div className="space-y-3">
+              {/* ── Columna izquierda: placement + duración ── */}
+              <div className="space-y-5">
+
+                {/* Paso 1 — Dónde aparece */}
                 <div>
-                  <Label className="text-sm font-bold text-[#1B4332]">Formato publicitario *</Label>
-                  <p className="text-xs text-slate-600 mt-0.5">
-                    Tus anuncios se muestran en pantalla completa — el usuario no puede cerrarlos ni saltarlos.
-                  </p>
-                </div>
-                <div className="space-y-2">
-                  {Object.entries(SLOT_SPECS).map(([key, spec]) => (
-                    <button
-                      key={key}
-                      type="button"
-                      onClick={() => setNewCampField("slot", key)}
-                      className={`w-full p-3.5 rounded-xl border-2 text-left transition-all ${
-                        newCamp.slot === key
-                          ? "border-[#52B788] bg-[#D9ED92]/20"
-                          : "border-slate-200 hover:border-slate-300"
-                      }`}
-                    >
-                      <div className="flex items-start justify-between gap-2">
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 mb-1">
-                            <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
-                              newCamp.slot === key ? "bg-[#1B4332] text-[#D9ED92]" : "bg-slate-100 text-slate-600"
-                            }`}>
-                              {spec.label}
-                            </span>
-                            <span className="text-xs font-semibold text-slate-600">{spec.duration}</span>
+                  <Label className="text-sm font-bold text-[#1B4332]">1. ¿Dónde aparece tu anuncio? *</Label>
+                  <p className="text-xs text-slate-500 mt-0.5 mb-2">Tus anuncios ocupan la pantalla completa — el usuario no puede cerrarlos.</p>
+                  <div className="space-y-2">
+                    {Object.entries(SLOT_SPECS).map(([key, spec]) => (
+                      <button
+                        key={key}
+                        type="button"
+                        onClick={() => {
+                          const availableDurations = DURATION_OPTIONS.filter(d => d.slots.includes(key));
+                          const currentOk = availableDurations.some(d => d.seconds === newCamp.ad_duration);
+                          setNewCampField("slot", key);
+                          if (!currentOk) setNewCampField("ad_duration", availableDurations[0].seconds);
+                        }}
+                        className={`w-full p-3 rounded-xl border-2 text-left transition-all ${
+                          newCamp.slot === key
+                            ? "border-[#52B788] bg-[#D9ED92]/20"
+                            : "border-slate-200 hover:border-slate-300"
+                        }`}
+                      >
+                        <div className="flex items-start gap-3">
+                          <div className={`mt-0.5 w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center ${
+                            newCamp.slot === key ? "border-[#52B788] bg-[#52B788]" : "border-slate-300"
+                          }`}>
+                            {newCamp.slot === key && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
                           </div>
-                          <p className={`text-sm font-bold ${newCamp.slot === key ? "text-[#1B4332]" : "text-slate-800"}`}>
-                            {spec.tag}
-                          </p>
-                          <p className="text-xs text-slate-700 mt-1 leading-relaxed">{spec.desc}</p>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2">
+                              <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
+                                newCamp.slot === key ? "bg-[#1B4332] text-[#D9ED92]" : "bg-slate-100 text-slate-600"
+                              }`}>{spec.label}</span>
+                              <span className={`text-xs font-semibold ${newCamp.slot === key ? "text-[#1B4332]" : "text-slate-700"}`}>{spec.tag}</span>
+                            </div>
+                            <p className={`text-xs mt-1 ${newCamp.slot === key ? "text-[#2D6A4F]" : "text-slate-500"}`}>
+                              📍 {spec.where}
+                            </p>
+                          </div>
                         </div>
-                        <div className="text-right flex-shrink-0 pl-2">
-                          <p className={`text-base font-bold ${newCamp.slot === key ? "text-[#1B4332]" : "text-slate-800"}`}>
-                            ${spec.pricePerImpression} MXN
-                          </p>
-                          <p className="text-xs text-slate-600">/ impresión</p>
-                        </div>
-                      </div>
-                    </button>
-                  ))}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Paso 2 — Duración */}
+                <div>
+                  <Label className="text-sm font-bold text-[#1B4332]">2. ¿Cuánto tiempo dura tu anuncio? *</Label>
+                  <p className="text-xs text-slate-500 mt-0.5 mb-2">Las opciones disponibles dependen del slot seleccionado.</p>
+                  <div className="space-y-2">
+                    {DURATION_OPTIONS.filter(d => d.slots.includes(newCamp.slot)).map(d => {
+                      const price = AD_PRICES[newCamp.slot]?.[d.seconds] ?? 0;
+                      const selected = newCamp.ad_duration === d.seconds;
+                      return (
+                        <button
+                          key={d.seconds}
+                          type="button"
+                          onClick={() => setNewCampField("ad_duration", d.seconds)}
+                          className={`w-full p-3 rounded-xl border-2 text-left transition-all flex items-center justify-between gap-3 ${
+                            selected ? "border-[#52B788] bg-[#D9ED92]/20" : "border-slate-200 hover:border-slate-300"
+                          }`}
+                        >
+                          <div className="flex items-center gap-3">
+                            <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center ${
+                              selected ? "border-[#52B788] bg-[#52B788]" : "border-slate-300"
+                            }`}>
+                              {selected && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+                            </div>
+                            <span className={`text-sm font-semibold ${selected ? "text-[#1B4332]" : "text-slate-700"}`}>{d.label}</span>
+                          </div>
+                          <div className="text-right">
+                            <span className={`text-sm font-bold ${selected ? "text-[#1B4332]" : "text-slate-600"}`}>${price} MXN</span>
+                            <span className="text-xs text-slate-400"> / impresión</span>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
 
                 <FormatWarning />

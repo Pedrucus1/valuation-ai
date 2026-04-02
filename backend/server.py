@@ -2081,6 +2081,7 @@ async def create_campaign(request: Request):
         "company_name": advertiser["company_name"],
         "name": body.get("name", ""),
         "slot": body.get("slot", "slot1"),
+        "ad_duration": int(body.get("ad_duration", 15)),
         "targeting": body.get("targeting", "Municipal"),
         "zone": body.get("zone", ""),
         "budget": budget,
@@ -2247,7 +2248,7 @@ async def get_active_ad(slot: str = "slot1", zone: str = ""):
     )
     if not creative:
         return {"ad": None}
-    durations = {"slot1": 60, "slot2": 30, "slot3": 15}
+    default_durations = {"slot1": 60, "slot2": 30, "slot3": 15}
     backend_url = os.environ.get("BACKEND_URL", "")
     file_url = creative["file_url"]
     if not file_url.startswith("http"):
@@ -2257,7 +2258,7 @@ async def get_active_ad(slot: str = "slot1", zone: str = ""):
         "creative_id": creative["creative_id"],
         "file_url": file_url,
         "file_type": creative["file_type"],
-        "duration": durations.get(slot, 15),
+        "duration": campaign.get("ad_duration") or default_durations.get(slot, 15),
         "link_type": campaign.get("link_type", "web"),
         "link_url": campaign.get("link_url", ""),
         "company_name": campaign.get("company_name", ""),
@@ -2286,10 +2287,15 @@ async def ads_track(request: Request):
     field_new = "impressions" if tipo == "impresion" else "clicks"
     spend_inc = {}
     if tipo == "impresion":
-        campaign = await db.ad_campaigns.find_one({"campaign_id": ad_id}, {"_id": 0, "slot": 1})
+        campaign = await db.ad_campaigns.find_one({"campaign_id": ad_id}, {"_id": 0, "slot": 1, "ad_duration": 1})
         if campaign:
-            prices = {"slot1": 30, "slot2": 20, "slot3": 5}
-            price = prices.get(campaign.get("slot", "slot3"), 5)
+            ad_prices = {
+                "slot1": {15: 15, 30: 25, 60: 38},
+                "slot2": {15: 10, 30: 18},
+                "slot3": {15: 5},
+            }
+            slot_prices = ad_prices.get(campaign.get("slot", "slot3"), {})
+            price = slot_prices.get(campaign.get("ad_duration", 15), 5)
             spend_inc = {"spend": price, "budget_remaining": -price}
     await db.ad_campaigns.update_one(
         {"campaign_id": ad_id},
