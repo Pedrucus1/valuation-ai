@@ -761,14 +761,26 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
     facade_idx = prop.get('facade_photo_index')
     facade_photo_url = photos[facade_idx] if (facade_idx is not None and photos and facade_idx < len(photos)) else None
 
-    # Photos (page 5) — only if photos exist, 3-col × 4-row = 12 fotos
+    # Photos (page 5) — hasta 15 fotos, columnas y altura según cantidad
     if photos and len(photos) > 0:
+        n = min(len(photos), 15)
+        display_photos = photos[:n]
+        # Decidir columnas: 1 col si solo hay 1 foto, 2 cols para conteos pares ≤8, 3 cols resto
+        if n == 1:
+            cols = 1
+            height = "420px"
+        elif n in (2, 4, 6, 8):
+            cols = 2
+            height = "260px"
+        else:
+            cols = 3
+            height = "178px"
         photo_items = ''.join(
             f'<div style="border-radius:10px;overflow:hidden;border:1px solid var(--gray-200);background:#fdfdfd;">'
-            f'<img src="{p}" style="width:100%;height:178px;object-fit:cover;display:block;" alt="Foto {i+1}"></div>'
-            for i, p in enumerate(photos[:12])
+            f'<img src="{p}" style="width:100%;height:{height};object-fit:cover;display:block;" alt="Foto {i+1}"></div>'
+            for i, p in enumerate(display_photos)
         )
-        photos_content = f'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px;">{photo_items}</div>'
+        photos_content = f'<div style="display:grid;grid-template-columns:repeat({cols},1fr);gap:8px;margin-top:10px;">{photo_items}</div>'
         show_photos_page = True
     else:
         photos_content = ''
@@ -781,8 +793,13 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
     <div class="logo">
       <div class="logo-icon">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1B4231" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M6 22V12H2l10-10 10 10h-4v10H6z"/>
-          <path d="M14 22v-4a2 2 0 0 0-4 0v4"/>
+          <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/>
+          <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/>
+          <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/>
+          <path d="M10 6h4"/>
+          <path d="M10 10h4"/>
+          <path d="M10 14h4"/>
+          <path d="M10 18h4"/>
         </svg>
       </div>
       <div class="logo-text">Prop<span>Valu</span></div>
@@ -1176,8 +1193,13 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
   <div style="position:absolute;bottom:18px;left:0;right:0;text-align:center;border-top:1px solid var(--gray-100);padding-top:12px;">
     <div style="display:inline-flex;align-items:center;gap:8px;justify-content:center;">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1B4231" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;">
-        <path d="M6 22V12H2l10-10 10 10h-4v10H6z"/>
-        <path d="M14 22v-4a2 2 0 0 0-4 0v4"/>
+        <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/>
+        <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/>
+        <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/>
+        <path d="M10 6h4"/>
+        <path d="M10 10h4"/>
+        <path d="M10 14h4"/>
+        <path d="M10 18h4"/>
       </svg>
       <span style="font-family:'Outfit',sans-serif;font-size:16px;font-weight:800;color:#1B4231;">Prop<span style="color:#51B687;">Valu</span></span>
     </div>
