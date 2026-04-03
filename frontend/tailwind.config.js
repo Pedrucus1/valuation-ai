@@ -55,6 +55,11 @@ module.exports = {
   			}
   		},
   		keyframes: {
+  			'slide': {
+  				'0%':   { transform: 'translateX(-100%)' },
+  				'60%':  { transform: 'translateX(250%)' },
+  				'100%': { transform: 'translateX(250%)' },
+  			},
   			'accordion-down': {
   				from: {
   					height: '0'
@@ -74,7 +79,8 @@ module.exports = {
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
+  			'accordion-up': 'accordion-up 0.2s ease-out',
+  			'slide': 'slide 2.8s ease-in-out infinite',
   		}
   	}
   },

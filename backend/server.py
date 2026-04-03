@@ -2188,6 +2188,51 @@ async def reactivar_campaign(campaign_id: str, request: Request):
         raise HTTPException(status_code=404, detail="Campaña no encontrada")
     return {"ok": True}
 
+@api_router.delete("/advertisers/campaigns/{campaign_id}")
+async def delete_campaign(campaign_id: str, request: Request):
+    advertiser = await require_advertiser(request)
+    campaign = await db.ad_campaigns.find_one(
+        {"campaign_id": campaign_id, "advertiser_id": advertiser["advertiser_id"]}, {"_id": 0, "status": 1}
+    )
+    if not campaign:
+        raise HTTPException(status_code=404, detail="Campaña no encontrada")
+    if campaign["status"] not in ("pending",):
+        raise HTTPException(status_code=400, detail="Solo se pueden eliminar campañas pendientes de aprobación")
+    await db.ad_campaigns.delete_one({"campaign_id": campaign_id})
+    await db.ad_creatives.delete_many({"campaign_id": campaign_id})
+    return {"ok": True}
+
+@api_router.put("/advertisers/campaigns/{campaign_id}")
+async def edit_campaign(campaign_id: str, request: Request):
+    advertiser = await require_advertiser(request)
+    campaign = await db.ad_campaigns.find_one(
+        {"campaign_id": campaign_id, "advertiser_id": advertiser["advertiser_id"]}, {"_id": 0, "status": 1}
+    )
+    if not campaign:
+        raise HTTPException(status_code=404, detail="Campaña no encontrada")
+    if campaign["status"] not in ("pending",):
+        raise HTTPException(status_code=400, detail="Solo se pueden editar campañas pendientes de aprobación")
+    body = await request.json()
+    update = {
+        "name": body.get("name"),
+        "slot": body.get("slot"),
+        "ad_duration": int(body.get("ad_duration", 15)),
+        "targeting": body.get("targeting"),
+        "zone": body.get("zone"),
+        "budget": float(body.get("budget", 0)),
+        "duration_type": body.get("duration_type"),
+        "start": body.get("start"),
+        "end": body.get("end") or None,
+        "link_type": body.get("link_type"),
+        "link_url": body.get("link_url", "").strip(),
+        "updated_at": datetime.now(timezone.utc).isoformat(),
+    }
+    update = {k: v for k, v in update.items() if v is not None}
+    await db.ad_campaigns.update_one({"campaign_id": campaign_id}, {"$set": update})
+    updated = await db.ad_campaigns.find_one({"campaign_id": campaign_id}, {"_id": 0})
+    updated["id"] = updated["campaign_id"]
+    return {"ok": True, "campaign": updated}
+
 @api_router.get("/admin/creatives")
 async def admin_list_creatives(request: Request, status: str = "pendiente_revision"):
     await require_admin(request)

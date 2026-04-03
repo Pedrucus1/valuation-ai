@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import {
   Building2, LogOut, BarChart3, Megaphone, Image, FileText,
   Plus, Upload, X, Eye, CheckCircle, Clock, AlertCircle,
-  Trash2, Download, ChevronDown, ChevronUp, Play, TrendingUp, Monitor, Pause,
+  Trash2, Pencil, Download, ChevronDown, ChevronUp, Play, TrendingUp, Monitor, Pause,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -275,9 +275,9 @@ const CountdownRing = ({ total, current, size = 44, stroke = 3 }) => {
 };
 
 /* ─── AdCardMock — carrusel de imágenes como se ve en pantalla ─── */
-const AdCardMock = ({ images, slot, campaignName }) => {
+const AdCardMock = ({ images, slot, campaignName, adDuration }) => {
   const ctx = SLOT_CONTEXT[slot] || SLOT_CONTEXT.slot3;
-  const total = ctx.countdown;
+  const total = adDuration ?? ctx.countdown;
   const secsPerImage = images.length > 1 ? Math.floor(total / images.length) : total;
   const [count, setCount] = useState(total);
   const [imgIdx, setImgIdx] = useState(0);
@@ -431,6 +431,22 @@ const AdvertiserConsolePage = () => {
   const [previewItem, setPreviewItem] = useState(null); // { images, slot, campaignName }
   const [previewMode, setPreviewMode] = useState("mobile"); // "mobile" | "desktop"
 
+  // Edit modal
+  const [editCamp, setEditCamp] = useState(null); // null = cerrado, objeto = campaña a editar
+
+  // Preview countdown (sincronizado con AdCardMock)
+  const [previewCount, setPreviewCount] = useState(0);
+  useEffect(() => {
+    if (!previewItem) return;
+    const total = previewItem.adDuration ?? SLOT_CONTEXT[previewItem.slot]?.countdown ?? 15;
+    setPreviewCount(total);
+    const t = setInterval(() => setPreviewCount(c => {
+      if (c <= 1) { clearInterval(t); return 0; }
+      return c - 1;
+    }), 1000);
+    return () => clearInterval(t);
+  }, [previewItem]);
+
   /* ── Auth + carga desde backend ── */
   useEffect(() => {
     const stored = localStorage.getItem("advertiser_session");
@@ -487,6 +503,41 @@ const AdvertiserConsolePage = () => {
       await advertiserFetch(`/advertisers/campaigns/${campaignId}/reactivar`, { method: "POST" });
       setCampaigns(prev => prev.map(c => c.id === campaignId ? { ...c, status: "active" } : c));
       toast.success("Campaña reactivada");
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+
+  const handleDeleteCampaign = async (campaignId, e) => {
+    e.stopPropagation();
+    if (!window.confirm("¿Eliminar esta campaña? Esta acción no se puede deshacer.")) return;
+    try {
+      await advertiserFetch(`/advertisers/campaigns/${campaignId}`, { method: "DELETE" });
+      setCampaigns(prev => prev.filter(c => c.id !== campaignId));
+      if (expandedCampaignId === campaignId) setExpandedCampaignId(null);
+      toast.success("Campaña eliminada");
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+
+  const handleSaveEdit = async () => {
+    if (!editCamp) return;
+    try {
+      const data = await advertiserFetch(`/advertisers/campaigns/${editCamp.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: editCamp.name, slot: editCamp.slot, ad_duration: editCamp.ad_duration,
+          targeting: editCamp.targeting, zone: editCamp.zone, budget: Number(editCamp.budget),
+          duration_type: editCamp.duration_type, start: editCamp.start,
+          end: editCamp.end || null, link_type: editCamp.link_type,
+          link_url: editCamp.link_url,
+        }),
+      });
+      setCampaigns(prev => prev.map(c => c.id === editCamp.id ? data.campaign : c));
+      setEditCamp(null);
+      toast.success("Campaña actualizada");
     } catch (err) {
       toast.error(err.message);
     }
@@ -859,7 +910,25 @@ const AdvertiserConsolePage = () => {
                         {statusBadge(c.status)}
                       </td>
                       <td className="px-5 py-4">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1.5">
+                          {c.status === "pending" && (
+                            <>
+                              <button
+                                title="Editar campaña"
+                                onClick={(e) => { e.stopPropagation(); setEditCamp({ ...c, budget: c.budget ?? "", ad_duration: c.ad_duration ?? 15 }); }}
+                                className="p-1.5 rounded-lg text-blue-500 hover:bg-blue-50 transition-colors"
+                              >
+                                <Pencil className="w-3.5 h-3.5" />
+                              </button>
+                              <button
+                                title="Eliminar campaña"
+                                onClick={(e) => handleDeleteCampaign(c.id, e)}
+                                className="p-1.5 rounded-lg text-red-400 hover:bg-red-50 transition-colors"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </button>
+                            </>
+                          )}
                           {c.status === "active" && (
                             <button
                               title="Pausar campaña"
@@ -894,9 +963,10 @@ const AdvertiserConsolePage = () => {
                       const campImages = creatives.filter(cr => cr.campaign_id === c.id);
                       const videoCreative = campImages.find(cr => (cr.file_type || cr.type) === "video");
                       const imageCreatives = campImages.filter(cr => (cr.file_type || cr.type) === "image").slice(0, spec.maxPhotos);
+                      const adDuration = c.ad_duration ?? 15;
                       const secsPer = imageCreatives.length > 0
-                        ? Math.max(1, Math.floor(spec.adDuration / imageCreatives.length))
-                        : spec.adDuration;
+                        ? Math.max(1, Math.floor(adDuration / imageCreatives.length))
+                        : adDuration;
                       const canAddMore = !videoCreative && imageCreatives.length < spec.maxPhotos;
 
                       // Upload form state for this campaign
@@ -915,7 +985,7 @@ const AdvertiserConsolePage = () => {
                               <div className="px-5 py-3 bg-[#E8F5EE] border-b border-[#B7E4C7] flex items-center justify-between gap-3">
                                 <div>
                                   <p className="text-sm font-semibold text-[#1B4332]">
-                                    {spec.label} · duración {spec.duration}
+                                    {spec.label} · {adDuration}s
                                     {videoCreative
                                       ? " · 1 video"
                                       : spec.acceptVideo
@@ -937,7 +1007,7 @@ const AdvertiserConsolePage = () => {
                                 </div>
                                 {campImages.length > 0 && (
                                   <button
-                                    onClick={() => setPreviewItem({ images: imageCreatives, slot: c.slot, campaignName: c.name })}
+                                    onClick={() => setPreviewItem({ images: imageCreatives, slot: c.slot, campaignName: c.name, adDuration: c.ad_duration ?? 15 })}
                                     className="flex items-center gap-1.5 bg-[#1B4332] hover:bg-[#2D6A4F] text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors shrink-0"
                                   >
                                     <Eye className="w-3.5 h-3.5" />
@@ -1307,23 +1377,23 @@ const AdvertiserConsolePage = () => {
               {/* ── Columna derecha: campos ── */}
               <div className="space-y-4">
 
-                {/* Nombre */}
+                {/* 3. Nombre */}
                 <div className="space-y-1">
-                  <Label className="text-sm font-bold text-[#1B4332]">Nombre de la campaña *</Label>
+                  <Label className="text-sm font-bold text-[#1B4332]">3. Nombre de la campaña *</Label>
                   <Input
                     placeholder="ej. Primavera GDL 2026"
-                    className="bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
+                    className={`border focus:border-[#52B788] bg-[#F0FAF5] transition-colors ${newCamp.name ? "border-[#52B788]" : "border-slate-300"}`}
                     value={newCamp.name}
                     onChange={e => setNewCampField("name", e.target.value)}
                   />
                 </div>
 
-                {/* Targeting */}
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="space-y-1">
-                    <Label className="text-sm font-bold text-[#1B4332]">Segmentación *</Label>
+                {/* 4. Segmentación + Zona */}
+                <div>
+                  <Label className="text-sm font-bold text-[#1B4332] block mb-1">4. Segmentación y zona *</Label>
+                  <div className="grid grid-cols-2 gap-3">
                     <select
-                      className="w-full h-10 px-3 text-sm border border-[#B7E4C7] rounded-lg bg-[#F0FAF5] focus:border-[#52B788] focus:bg-white focus:outline-none text-[#1B4332] appearance-none"
+                      className="w-full h-10 px-3 text-sm border rounded-lg focus:border-[#52B788] focus:bg-[#F0FAF5] focus:outline-none text-[#1B4332] appearance-none transition-colors bg-[#F0FAF5] border-[#52B788]"
                       value={newCamp.targeting}
                       onChange={e => { setNewCampField("targeting", e.target.value); setNewCampField("zone", ""); }}
                     >
@@ -1331,15 +1401,12 @@ const AdvertiserConsolePage = () => {
                         <option key={t} value={t}>{t}</option>
                       ))}
                     </select>
-                  </div>
-                  <div className="space-y-1">
-                    <Label className="text-sm font-bold text-[#1B4332]">Zona *</Label>
                     <select
-                      className="w-full h-10 px-3 text-sm border border-[#B7E4C7] rounded-lg bg-[#F0FAF5] focus:border-[#52B788] focus:bg-white focus:outline-none text-[#1B4332] appearance-none"
+                      className={`w-full h-10 px-3 text-sm border rounded-lg focus:border-[#52B788] focus:outline-none text-[#1B4332] appearance-none transition-colors !bg-[#F0FAF5] ${newCamp.zone ? "border-[#52B788]" : "border-slate-300"}`}
                       value={newCamp.zone}
                       onChange={e => setNewCampField("zone", e.target.value)}
                     >
-                      <option value="">Seleccionar...</option>
+                      <option value="">Seleccionar zona...</option>
                       {(targetingZones[newCamp.targeting] || []).map(z => (
                         <option key={z} value={z}>{z}</option>
                       ))}
@@ -1347,17 +1414,17 @@ const AdvertiserConsolePage = () => {
                   </div>
                 </div>
 
-                {/* Presupuesto */}
+                {/* 5. Presupuesto */}
                 <div className="space-y-1.5">
-                  <Label className="text-sm font-bold text-[#1B4332]">Presupuesto (MXN) *</Label>
+                  <Label className="text-sm font-bold text-[#1B4332]">5. Presupuesto (MXN) *</Label>
                   <Input
                     type="number" min={0} placeholder="ej. 5000"
-                    className="bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
+                    className={`border focus:border-[#52B788] bg-[#F0FAF5] transition-colors ${newCamp.budget ? "border-[#52B788]" : "border-slate-300"}`}
                     value={newCamp.budget}
                     onChange={e => setNewCampField("budget", e.target.value)}
                   />
                   {estimatedImpressions !== null && (
-                    <div className="rounded-lg border border-[#B7E4C7] bg-[#F0FAF5] p-3 space-y-2 mt-3">
+                    <div className="rounded-lg border border-[#B7E4C7] bg-[#F0FAF5] p-3 space-y-2 mt-1">
                       <div className="flex justify-between items-center text-sm">
                         <span className="text-slate-700">Impresiones estimadas</span>
                         <span className="font-bold text-[#1B4332]">≈ {estimatedImpressions.toLocaleString("es-MX")} veces</span>
@@ -1378,16 +1445,16 @@ const AdvertiserConsolePage = () => {
                         <div className="h-full bg-[#52B788] rounded-full transition-all duration-300" style={{ width: `${Math.min(coveragePct, 100)}%` }} />
                       </div>
                       <p className="text-xs text-slate-600">
-                        Precio por impresión: <strong>${SLOT_SPECS[newCamp.slot].pricePerImpression} MXN</strong>.
+                        Precio por impresión: <strong>${currentPrice} MXN</strong>.
                         Tu anuncio se activa automáticamente según la segmentación y el formato elegidos.
                       </p>
                     </div>
                   )}
                 </div>
 
-                {/* Duración */}
+                {/* 6. Vigencia */}
                 <div className="space-y-2">
-                  <Label className="text-sm font-bold text-[#1B4332]">Duración de la campaña *</Label>
+                  <Label className="text-sm font-bold text-[#1B4332]">6. Vigencia de la campaña *</Label>
                   <div className="grid grid-cols-2 gap-3">
                     {[
                       {
@@ -1427,27 +1494,27 @@ const AdvertiserConsolePage = () => {
                   </div>
                 </div>
 
-                {/* Fechas */}
+                {/* 7. Fechas */}
                 <div className={`grid gap-3 ${newCamp.duration_type === "fechas" ? "grid-cols-2" : "grid-cols-1"}`}>
                   <div className="space-y-1">
-                    <Label className="text-sm font-bold text-[#1B4332]">Fecha de inicio *</Label>
+                    <Label className="text-sm font-bold text-[#1B4332]">7. Fecha de inicio *</Label>
                     <Input type="date"
-                      className="bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
+                      className={`border focus:border-[#52B788] !bg-[#F0FAF5] transition-colors ${newCamp.start ? "border-[#52B788]" : "border-slate-300"}`}
                       value={newCamp.start} onChange={e => setNewCampField("start", e.target.value)} />
                   </div>
                   {newCamp.duration_type === "fechas" && (
                     <div className="space-y-1">
                       <Label className="text-sm font-bold text-[#1B4332]">Fecha de fin *</Label>
                       <Input type="date"
-                        className="bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
+                        className={`border focus:border-[#52B788] !bg-[#F0FAF5] transition-colors ${newCamp.end ? "border-[#52B788]" : "border-slate-300"}`}
                         value={newCamp.end} onChange={e => setNewCampField("end", e.target.value)} />
                     </div>
                   )}
                 </div>
 
-                {/* Enlace */}
+                {/* 8. Enlace */}
                 <div className="space-y-1.5">
-                  <Label className="text-sm font-bold text-[#1B4332]">Enlace de destino</Label>
+                  <Label className="text-sm font-bold text-[#1B4332]">8. Enlace de destino</Label>
                   <div className="grid grid-cols-2 gap-2">
                     {[{ key: "web", label: "🌐 Sitio web" }, { key: "whatsapp", label: "💬 WhatsApp" }].map(({ key, label }) => (
                       <button key={key} type="button"
@@ -1463,7 +1530,7 @@ const AdvertiserConsolePage = () => {
                   </div>
                   <Input
                     placeholder={newCamp.link_type === "whatsapp" ? "3312345678 (sin +52)" : "https://tuempresa.com/promo"}
-                    className="bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
+                    className={`border focus:border-[#52B788] bg-[#F0FAF5] transition-colors ${newCamp.link_url ? "border-[#52B788]" : "border-slate-300"}`}
                     value={newCamp.link_url} onChange={e => setNewCampField("link_url", e.target.value)}
                   />
                   {newCamp.link_type === "whatsapp" && newCamp.link_url
@@ -1613,6 +1680,90 @@ const AdvertiserConsolePage = () => {
         </a>
       </footer>
 
+      {/* ── Edit Campaign Modal ── */}
+      {editCamp && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md flex flex-col max-h-[90vh]">
+            <div className="flex items-center justify-between px-6 py-4 bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] rounded-t-2xl shrink-0">
+              <h3 className="font-['Outfit'] text-lg font-bold text-white">Editar campaña</h3>
+              <button onClick={() => setEditCamp(null)} className="text-white/70 hover:text-white"><X className="w-5 h-5" /></button>
+            </div>
+            <div className="flex-1 overflow-y-auto p-6 space-y-4">
+              <p className="text-xs text-amber-600 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
+                Solo puedes editar campañas que aún no han iniciado.
+              </p>
+
+              <div className="space-y-1">
+                <Label className="text-sm font-bold text-[#1B4332]">Nombre *</Label>
+                <Input value={editCamp.name} onChange={e => setEditCamp(p => ({ ...p, name: e.target.value }))}
+                  className="border !bg-[#F0FAF5] border-[#52B788] focus:border-[#52B788]" />
+              </div>
+
+              <div className="space-y-1">
+                <Label className="text-sm font-bold text-[#1B4332]">Dónde aparece *</Label>
+                <div className="space-y-1.5">
+                  {Object.entries(SLOT_SPECS).map(([key, spec]) => (
+                    <button key={key} type="button"
+                      onClick={() => {
+                        const avail = DURATION_OPTIONS.filter(d => d.slots.includes(key));
+                        const ok = avail.some(d => d.seconds === editCamp.ad_duration);
+                        setEditCamp(p => ({ ...p, slot: key, ad_duration: ok ? p.ad_duration : avail[0].seconds }));
+                      }}
+                      className={`w-full p-2.5 rounded-xl border-2 text-left text-sm transition-all ${editCamp.slot === key ? "border-[#52B788] bg-[#D9ED92]/20 text-[#1B4332] font-semibold" : "border-slate-200 text-slate-600 hover:border-slate-300"}`}>
+                      📍 {spec.where}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <Label className="text-sm font-bold text-[#1B4332]">Duración *</Label>
+                <div className="flex gap-2">
+                  {DURATION_OPTIONS.filter(d => d.slots.includes(editCamp.slot)).map(d => {
+                    const price = AD_PRICES[editCamp.slot]?.[d.seconds] ?? 0;
+                    const sel = editCamp.ad_duration === d.seconds;
+                    return (
+                      <button key={d.seconds} type="button"
+                        onClick={() => setEditCamp(p => ({ ...p, ad_duration: d.seconds }))}
+                        className={`flex-1 py-2 rounded-lg border-2 text-xs font-semibold transition-all ${sel ? "border-[#52B788] bg-[#D9ED92]/20 text-[#1B4332]" : "border-slate-200 text-slate-600"}`}>
+                        {d.label}<br /><span className="font-normal">${price}/imp</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <Label className="text-sm font-bold text-[#1B4332]">Presupuesto (MXN) *</Label>
+                  <Input type="number" value={editCamp.budget}
+                    onChange={e => setEditCamp(p => ({ ...p, budget: e.target.value }))}
+                    className="border !bg-[#F0FAF5] border-[#52B788] focus:border-[#52B788]" />
+                </div>
+                <div className="space-y-1">
+                  <Label className="text-sm font-bold text-[#1B4332]">Fecha de inicio *</Label>
+                  <Input type="date" value={editCamp.start}
+                    onChange={e => setEditCamp(p => ({ ...p, start: e.target.value }))}
+                    className="border !bg-[#F0FAF5] border-[#52B788] focus:border-[#52B788]" />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <Label className="text-sm font-bold text-[#1B4332]">Enlace de destino</Label>
+                <Input value={editCamp.link_url}
+                  onChange={e => setEditCamp(p => ({ ...p, link_url: e.target.value }))}
+                  placeholder={editCamp.link_type === "whatsapp" ? "3312345678" : "https://..."}
+                  className="border !bg-[#F0FAF5] border-[#52B788] focus:border-[#52B788]" />
+              </div>
+            </div>
+            <div className="flex gap-3 px-6 pb-5 pt-4 border-t border-slate-100 shrink-0">
+              <Button variant="outline" onClick={() => setEditCamp(null)} className="border-slate-200 text-slate-700">Cancelar</Button>
+              <Button onClick={handleSaveEdit} className="flex-1 bg-[#1B4332] hover:bg-[#2D6A4F] text-white font-semibold">Guardar cambios</Button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* ── Preview modal ── */}
       {previewItem && (
         <div className="fixed inset-0 bg-black/80 z-50 flex flex-col items-center justify-start pt-4 pb-4 gap-3" onClick={() => setPreviewItem(null)}>
@@ -1665,21 +1816,25 @@ const AdvertiserConsolePage = () => {
             {/* Contenido — sin scroll, todo ajustado al alto disponible */}
             <div className="flex-1 overflow-hidden px-4 py-3 flex flex-col gap-2">
 
-              {/* Contexto — spinner + texto compacto */}
-              <div className="flex flex-col items-center shrink-0">
-                {SLOT_CONTEXT[previewItem.slot]?.spinner
-                  ? <div className="w-7 h-7 rounded-full border-[3px] border-[#52B788] border-t-transparent animate-spin mb-1.5" />
-                  : <div className="w-7 h-7 rounded-full bg-[#52B788] flex items-center justify-center mb-1.5">
-                      <CheckCircle className="w-4 h-4 text-white" />
-                    </div>}
-                <p className="font-['Outfit'] text-sm font-bold text-[#1B4332] text-center leading-tight">{SLOT_CONTEXT[previewItem.slot]?.contextLabel}</p>
+              {/* Contexto — línea + texto compacto */}
+              <div className="flex flex-col items-center shrink-0 gap-1">
+                <div className="flex items-center justify-center gap-2 w-full">
+                  <p className="font-['Outfit'] text-sm font-bold text-[#1B4332] text-center leading-tight">{SLOT_CONTEXT[previewItem.slot]?.contextLabel}</p>
+                  <span className="text-xs font-bold text-[#52B788] tabular-nums shrink-0">{previewCount}s</span>
+                </div>
                 <p className="text-[11px] text-slate-500 text-center leading-tight">{SLOT_CONTEXT[previewItem.slot]?.contextSub}</p>
+                {SLOT_CONTEXT[previewItem.slot]?.spinner
+                  ? <div className="w-full h-0.5 bg-slate-100 rounded-full overflow-hidden mt-0.5">
+                      <div className="h-full bg-[#52B788] rounded-full animate-[slide_1.4s_ease-in-out_infinite]" style={{ width: "40%" }} />
+                    </div>
+                  : <div className="w-full h-0.5 bg-[#52B788] rounded-full mt-0.5" />
+                }
               </div>
 
               {/* El anuncio — ocupa todo el espacio restante en 1:1 */}
               <div className="flex-1 flex items-center justify-center min-h-0">
                 <div className="w-full h-full" style={{ maxWidth: previewMode === "desktop" ? 380 : "100%" }}>
-                  <AdCardMock images={previewItem.images} slot={previewItem.slot} campaignName={previewItem.campaignName} />
+                  <AdCardMock images={previewItem.images} slot={previewItem.slot} campaignName={previewItem.campaignName} adDuration={previewItem.adDuration} />
                 </div>
               </div>
             </div>
@@ -1688,7 +1843,7 @@ const AdvertiserConsolePage = () => {
             <div className="shrink-0 bg-white border-t border-slate-100 px-4 py-1.5 text-center">
               <span className="text-[11px] text-slate-400">
                 Slot <span className="font-semibold text-[#1B4332]">{SLOT_SPECS[previewItem.slot]?.label}</span>
-                {" · "}{SLOT_SPECS[previewItem.slot]?.duration}
+                {" · "}{previewItem.adDuration ?? "—"}s
                 {previewItem.images.length > 1 && ` · ${previewItem.images.length} imgs en carrusel`}
               </span>
             </div>
