@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import AdminLayout from "@/components/AdminLayout";
 import { adminFetch } from "@/lib/adminFetch";
-import { CheckCircle2, XCircle, ExternalLink, MessageSquare, Clock, Eye, X, AlertTriangle, Image, Play } from "lucide-react";
+import { CheckCircle2, XCircle, ExternalLink, MessageSquare, Clock, Eye, X, AlertTriangle, Image, Play, Megaphone } from "lucide-react";
 import { API } from "@/App";
 
 function normalizeAnuncio(a) {
@@ -173,6 +173,10 @@ const AdminModeracion = () => {
   const [modalCreative, setModalCreative] = useState(null);
   const [motivoCreative, setMotivoCreative] = useState("");
 
+  // Campañas listas para activar (creatives aprobadas, status pending)
+  const [campanasListas, setCampanasListas] = useState([]);
+  const [activando, setActivando] = useState(null);
+
   const cargar = () => {
     adminFetch("/api/admin/anuncios?estado=pendiente")
       .then((d) => setPendientes((d.anuncios || []).map(normalizeAnuncio)))
@@ -186,6 +190,14 @@ const AdminModeracion = () => {
       .catch(() => {});
     adminFetch("/api/admin/creatives?status=pendiente_revision")
       .then((d) => setCreatividades(d.creatives || []))
+      .catch(() => {});
+    adminFetch("/api/admin/campaigns?status=pending")
+      .then((d) => {
+        const listas = (d.campaigns || []).filter(
+          (c) => c.creatives_aprobadas > 0 && c.creatives_pendientes === 0
+        );
+        setCampanasListas(listas);
+      })
       .catch(() => {});
   };
 
@@ -239,7 +251,18 @@ const AdminModeracion = () => {
     setMotivoCreative("");
   };
 
-  const badges = { ads: pendientes.length + creatividades.length };
+  const activarCampana = async (id) => {
+    setActivando(id);
+    try {
+      await adminFetch(`/api/admin/campaigns/${id}/activar`, { method: "POST", body: JSON.stringify({}) });
+      cargar();
+    } catch (e) {
+      alert("Error: " + e.message);
+    }
+    setActivando(null);
+  };
+
+  const badges = { ads: pendientes.length + creatividades.length + campanasListas.length };
 
   return (
     <AdminLayout badges={badges}>
@@ -285,6 +308,37 @@ const AdminModeracion = () => {
             </div>
           )}
         </div>
+
+        {/* Campañas listas para activar */}
+        {campanasListas.length > 0 && (
+          <div>
+            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-3 flex items-center gap-1.5">
+              <Play className="w-3.5 h-3.5 text-green-500" />
+              Campañas listas para activar — {campanasListas.length}
+            </p>
+            <div className="space-y-3">
+              {campanasListas.map((c) => (
+                <div key={c.id} className="bg-white rounded-2xl border border-green-100 shadow-sm p-4 flex items-center gap-4">
+                  <div className="flex-1 min-w-0">
+                    <p className="font-semibold text-[#1B4332] text-sm truncate">{c.name}</p>
+                    <p className="text-xs text-slate-400">{c.advertiser?.company_name || "—"} · {c.slot} · {c.ad_duration}s</p>
+                    <p className="text-[11px] text-green-600 font-semibold mt-0.5">
+                      ✓ {c.creatives_aprobadas} creatividad{c.creatives_aprobadas !== 1 ? "es" : ""} aprobada{c.creatives_aprobadas !== 1 ? "s" : ""}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => activarCampana(c.id)}
+                    disabled={activando === c.id}
+                    className="flex items-center gap-1.5 bg-green-600 hover:bg-green-700 disabled:opacity-50 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-colors whitespace-nowrap"
+                  >
+                    <Play className="w-3.5 h-3.5" />
+                    {activando === c.id ? "Activando…" : "Activar campaña"}
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Historial */}
         {historial.length > 0 && (

@@ -2294,6 +2294,65 @@ async def admin_campaign_activar(campaign_id: str, request: Request):
         raise HTTPException(status_code=404, detail="Campaña no encontrada")
     return {"ok": True}
 
+@api_router.post("/admin/campaigns/{campaign_id}/pausar")
+async def admin_campaign_pausar(campaign_id: str, request: Request):
+    await require_admin(request)
+    result = await db.ad_campaigns.update_one(
+        {"campaign_id": campaign_id},
+        {"$set": {"status": "paused", "updated_at": datetime.now(timezone.utc).isoformat()}}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Campaña no encontrada")
+    return {"ok": True}
+
+@api_router.get("/admin/campaigns")
+async def admin_campaigns_list(request: Request, status: str = "", advertiser_id: str = ""):
+    await require_admin(request)
+    query: Dict[str, Any] = {}
+    if status:
+        query["status"] = status
+    if advertiser_id:
+        query["advertiser_id"] = advertiser_id
+    campaigns = await db.ad_campaigns.find(query, {"_id": 0}).sort("created_at", -1).to_list(200)
+    for c in campaigns:
+        c["id"] = c.get("campaign_id", "")
+        # Join advertiser info
+        adv = await db.advertisers.find_one({"advertiser_id": c.get("advertiser_id")}, {"_id": 0, "company_name": 1, "email": 1, "contact_name": 1})
+        c["advertiser"] = adv or {}
+        # Creative counts
+        total_cr = await db.ad_creatives.count_documents({"campaign_id": c.get("campaign_id")})
+        aprobadas = await db.ad_creatives.count_documents({"campaign_id": c.get("campaign_id"), "status": "aprobado"})
+        pendientes_cr = await db.ad_creatives.count_documents({"campaign_id": c.get("campaign_id"), "status": "pendiente_revision"})
+        c["creatives_total"] = total_cr
+        c["creatives_aprobadas"] = aprobadas
+        c["creatives_pendientes"] = pendientes_cr
+    return {"campaigns": campaigns}
+
+@api_router.get("/admin/anunciantes")
+async def admin_anunciantes_list(request: Request, q: str = ""):
+    await require_admin(request)
+    filtro: Dict[str, Any] = {}
+    if q:
+        filtro["$or"] = [
+            {"company_name": {"$regex": q, "$options": "i"}},
+            {"email": {"$regex": q, "$options": "i"}},
+            {"contact_name": {"$regex": q, "$options": "i"}},
+        ]
+    advertisers = await db.advertisers.find(filtro, {"_id": 0, "password_hash": 0, "session_token": 0}).sort("created_at", -1).to_list(200)
+    for adv in advertisers:
+        adv["id"] = adv.get("advertiser_id", "")
+        camp_total = await db.ad_campaigns.count_documents({"advertiser_id": adv.get("advertiser_id")})
+        camp_activas = await db.ad_campaigns.count_documents({"advertiser_id": adv.get("advertiser_id"), "status": "active"})
+        total_spend = 0
+        camps = await db.ad_campaigns.find({"advertiser_id": adv.get("advertiser_id")}, {"_id": 0, "spend": 1, "budget": 1}).to_list(100)
+        total_budget = sum(c.get("budget", 0) for c in camps)
+        total_spend = sum(c.get("spend", 0) for c in camps)
+        adv["campaigns_total"] = camp_total
+        adv["campaigns_activas"] = camp_activas
+        adv["total_budget"] = total_budget
+        adv["total_spend"] = total_spend
+    return {"anunciantes": advertisers}
+
 @api_router.get("/ads/active")
 async def get_active_ad(slot: str = "slot1", zone: str = ""):
     """Devuelve un anuncio activo aprobado para el slot/zona. Endpoint público."""
