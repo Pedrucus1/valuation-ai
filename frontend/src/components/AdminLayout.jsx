@@ -15,7 +15,8 @@ const NAV_GRUPOS = [
       { label: "Usuarios",     icon: Users,           href: "/admin/usuarios" },
       { label: "KYC",          icon: ShieldCheck,     href: "/admin/kyc",     badge: "kyc" },
       { label: "Quejas",       icon: MessageSquare,   href: "/admin/feedback",badge: "quejas" },
-      { label: "Valuadores",   icon: ClipboardList,   href: "/admin/valuadores" },
+      { label: "Valuadores",     icon: ClipboardList,   href: "/admin/valuadores" },
+      { label: "Inmobiliarias",  icon: Building2,       href: "/admin/inmobiliarias", badge: "inmobiliarias" },
     ],
   },
   {
@@ -196,7 +197,7 @@ const AdminLayout = ({ children, badges = {} }) => {
           <div className="flex items-center gap-3">
             <button className="relative text-slate-400 hover:text-[#1B4332] transition-colors">
               <Bell className="w-5 h-5" />
-              {(badges.kyc || 0) + (badges.ads || 0) > 0 && (
+              {(badges.kyc || 0) + (badges.ads || 0) + (badges.inmobiliarias || 0) > 0 && (
                 <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full" />
               )}
             </button>

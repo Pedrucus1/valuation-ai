@@ -50,6 +50,7 @@ const AdminDashboard = () => {
     quejas_abiertas: 0,
     valuadores_activos: 0,
     valuaciones_hoy: 0,
+    inmobiliarias_pendientes: 0,
   });
   const [cargando, setCargando] = useState(true);
 
@@ -65,6 +66,7 @@ const AdminDashboard = () => {
           quejas_abiertas: data.feedback_abierto || 0,
           valuadores_activos: 0,
           valuaciones_hoy: data.valuaciones_completadas || 0,
+          inmobiliarias_pendientes: data.inmobiliarias_pendientes || 0,
         });
       })
       .catch(() => {})
@@ -76,6 +78,7 @@ const AdminDashboard = () => {
   const badges = {
     kyc: stats.kyc_pendientes,
     ads: stats.anuncios_revision,
+    inmobiliarias: stats.inmobiliarias_pendientes,
   };
 
   if (cargando) {
@@ -97,7 +100,7 @@ const AdminDashboard = () => {
         </div>
 
         {/* Alertas activas */}
-        {(stats.kyc_pendientes > 0 || stats.anuncios_revision > 0 || stats.quejas_abiertas > 0) && (
+        {(stats.kyc_pendientes > 0 || stats.anuncios_revision > 0 || stats.quejas_abiertas > 0 || stats.inmobiliarias_pendientes > 0) && (
           <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 flex flex-wrap gap-4">
             <div className="flex items-center gap-2 text-amber-700">
               <AlertCircle className="w-4 h-4 flex-shrink-0" />
@@ -117,6 +120,11 @@ const AdminDashboard = () => {
               {stats.quejas_abiertas > 0 && (
                 <a href="/admin/feedback" className="text-amber-700 underline">
                   {stats.quejas_abiertas} queja{stats.quejas_abiertas > 1 ? "s" : ""} abiertas
+                </a>
+              )}
+              {stats.inmobiliarias_pendientes > 0 && (
+                <a href="/admin/inmobiliarias" className="text-amber-700 underline">
+                  {stats.inmobiliarias_pendientes} inmobiliaria{stats.inmobiliarias_pendientes > 1 ? "s" : ""} pendiente{stats.inmobiliarias_pendientes > 1 ? "s" : ""} de KYC
                 </a>
               )}
             </div>

@@ -54,6 +54,7 @@ import AdminAlertas from "@/pages/admin/AdminAlertas";
 import AdminPrecios from "@/pages/admin/AdminPrecios";
 import AdminMantenimiento from "@/pages/admin/AdminMantenimiento";
 import AdminAdsAnalytics from "@/pages/admin/AdminAdsAnalytics";
+import AdminInmobiliarias from "@/pages/admin/AdminInmobiliarias";
 import AdminProtectedRoute from "@/components/AdminProtectedRoute";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -163,6 +164,7 @@ function AppRouter() {
       <Route path="/admin/precios" element={<AdminProtectedRoute rolesPermitidos={["superadmin","finanzas"]}><AdminPrecios /></AdminProtectedRoute>} />
       <Route path="/admin/mantenimiento" element={<AdminProtectedRoute rolesPermitidos={["superadmin"]}><AdminMantenimiento /></AdminProtectedRoute>} />
       <Route path="/admin/ads-analytics" element={<AdminProtectedRoute><AdminAdsAnalytics /></AdminProtectedRoute>} />
+      <Route path="/admin/inmobiliarias" element={<AdminProtectedRoute><AdminInmobiliarias /></AdminProtectedRoute>} />
     </Routes>
   );
 }
