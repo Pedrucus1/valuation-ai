@@ -65,7 +65,9 @@ const AdminLogin = () => {
                 required
                 autoFocus
                 placeholder="admin@propvalu.mx"
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-[#52B788]/50 focus:border-[#52B788]/60"
+                autoComplete="off"
+                className="w-full border border-white/10 rounded-xl px-4 py-2.5 text-sm placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-[#52B788]/50 focus:border-[#52B788]/60"
+                style={{ backgroundColor: "#1a2e23", color: "#fff", caretColor: "#52B788", WebkitBoxShadow: "0 0 0px 1000px #1a2e23 inset", WebkitTextFillColor: "#fff" }}
               />
             </div>
 
@@ -78,7 +80,9 @@ const AdminLogin = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   placeholder="••••••••••"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-[#52B788]/50 focus:border-[#52B788]/60 pr-10"
+                  autoComplete="current-password"
+                  className="w-full border border-white/10 rounded-xl px-4 py-2.5 text-sm placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-[#52B788]/50 focus:border-[#52B788]/60 pr-10"
+                  style={{ backgroundColor: "#1a2e23", color: "#fff", caretColor: "#52B788", WebkitBoxShadow: "0 0 0px 1000px #1a2e23 inset", WebkitTextFillColor: "#fff" }}
                 />
                 <button
                   type="button"

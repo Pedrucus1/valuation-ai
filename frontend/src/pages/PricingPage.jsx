@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { usePrices } from "@/hooks/usePrices";
 import { Button } from "@/components/ui/button";
 import {
   Building2, FileText, Search, BarChart2,
@@ -9,20 +10,20 @@ import {
   DollarSign, Shield, Download, Landmark, Map,
 } from "lucide-react";
 
-const PLANS = [
-  { id: "individual", label: "Individual", qty: 1,  price: 280,   tag: null,           popular: false },
-  { id: "bronce",     label: "Bronce",     qty: 3,  price: 815,   tag: "-3%",          popular: false },
-  { id: "plata",      label: "Plata",      qty: 5,  price: 1317,  tag: "Más popular",  popular: true  },
-  { id: "oro",        label: "Oro",        qty: 10, price: 2555,  tag: "Mejor precio", popular: false },
+const PLANS_BASE = [
+  { id: "individual", label: "Individual", qty: 1,  priceKey: "publico_individual", tag: null,           popular: false },
+  { id: "bronce",     label: "Bronce",     qty: 3,  priceKey: "publico_bronce",     tag: "-3%",          popular: false },
+  { id: "plata",      label: "Plata",      qty: 5,  priceKey: "publico_plata",      tag: "Más popular",  popular: true  },
+  { id: "oro",        label: "Oro",        qty: 10, priceKey: "publico_oro",        tag: "Mejor precio", popular: false },
 ];
 
-const ADDONS = [
+const ADDONS_BASE = [
   {
     id: "valuador",
     emoji: "🏅",
     title: "Revisión por Valuador Certificado",
     desc: "Valuador CNBV/INDAABIN revisa, valida comparables y firma el reporte. Entrega en 48h.",
-    price: 350,
+    priceKey: "addon_valuador",
     badge: "⭐ Recomendado",
     activeBorder: "border-[#D9ED92]",
     activeBg: "bg-[#D9ED92]/8",
@@ -34,7 +35,7 @@ const ADDONS = [
     emoji: "📐",
     title: "Verificación de m² en sitio",
     desc: "Visita física para medir y confirmar metros reales. Ideal si tienes dudas sobre los m².",
-    price: 600,
+    priceKey: "addon_visita",
     badge: "Visita física",
     activeBorder: "border-[#52B788]",
     activeBg: "bg-[#52B788]/8",
@@ -145,22 +146,28 @@ function SectionTitle({ children }) {
 
 export default function PricingPage() {
   const navigate = useNavigate();
-  const [selectedPlan, setSelectedPlan] = useState(PLANS[0]);
+  const { prices } = usePrices();
+
+  const PLANS = PLANS_BASE.map((p) => ({ ...p, price: prices[p.priceKey] ?? p.price }));
+  const ADDONS = ADDONS_BASE.map((a) => ({ ...a, price: prices[a.priceKey] ?? a.price }));
+
+  const [selectedPlan, setSelectedPlan] = useState(null);
+  const activePlan = selectedPlan ?? PLANS[0];
   const [addons, setAddons] = useState([]);
   const [openFaq, setOpenFaq] = useState(null);
   const [showPayModal, setShowPayModal] = useState(false);
 
-  const addonsTotal = addons.reduce((s, id) => s + (ADDONS.find(a => a.id === id)?.price ?? 0), 0) * selectedPlan.qty;
-  const subtotal = selectedPlan.price + addonsTotal;
+  const addonsTotal = addons.reduce((s, id) => s + (ADDONS.find(a => a.id === id)?.price ?? 0), 0) * activePlan.qty;
+  const subtotal = activePlan.price + addonsTotal;
   const totalWithIva = subtotal * 1.16;
 
   const toggle = (id) => setAddons(p => p.includes(id) ? p.filter(x => x !== id) : [...p, id]);
 
   const handleStart = () => {
-    if (selectedPlan.qty === 1) {
+    if (activePlan.qty === 1) {
       // Plan individual: no cobrar aquí — el checkout aparece en el paso 4 del formulario
       sessionStorage.setItem("propvalu_preselected_plan", JSON.stringify({
-        planId: selectedPlan.id,
+        planId: activePlan.id,
         addons,
       }));
       navigate("/valuar");
@@ -265,7 +272,7 @@ export default function PricingPage() {
                     key={plan.id}
                     onClick={() => setSelectedPlan(plan)}
                     className={`relative rounded-xl py-2.5 px-2 text-left border-2 transition-all ${
-                      selectedPlan.id === plan.id
+                      activePlan.id === plan.id
                         ? "border-[#D9ED92] bg-[#D9ED92]/10"
                         : "border-white/20 hover:border-[#D9ED92]/50 bg-white/5"
                     }`}
@@ -285,7 +292,7 @@ export default function PricingPage() {
               </div>
               <p
                 className="text-[11px] mt-2 text-center font-medium text-[#52B788]"
-                style={{ visibility: selectedPlan.qty > 1 ? "visible" : "hidden" }}
+                style={{ visibility: activePlan.qty > 1 ? "visible" : "hidden" }}
               >
                 Valuaciones no usadas vigentes 3 meses
               </p>
@@ -300,16 +307,16 @@ export default function PricingPage() {
                 <div className="space-y-1.5 text-sm mb-3">
                   <div className="flex justify-between">
                     <span className="text-white/55">
-                      Plan {selectedPlan.label} · {selectedPlan.qty} valuación{selectedPlan.qty > 1 ? "es" : ""}
+                      Plan {activePlan.label} · {activePlan.qty} valuación{activePlan.qty > 1 ? "es" : ""}
                     </span>
-                    <span className="font-semibold text-white">{fmt(selectedPlan.price)}</span>
+                    <span className="font-semibold text-white">{fmt(activePlan.price)}</span>
                   </div>
                   {addons.map(id => {
                     const a = ADDONS.find(x => x.id === id);
                     return (
                       <div key={id} className="flex justify-between text-white/45 text-xs">
                         <span className="truncate pr-2">{a.emoji} {a.title.split(" ").slice(0, 3).join(" ")}…</span>
-                        <span className="font-semibold text-white/80 flex-shrink-0">{fmt(a.price * selectedPlan.qty)}</span>
+                        <span className="font-semibold text-white/80 flex-shrink-0">{fmt(a.price * activePlan.qty)}</span>
                       </div>
                     );
                   })}
@@ -492,13 +499,13 @@ export default function PricingPage() {
 
       {showPayModal && (
         <SimulatedPaymentModal
-          plan={selectedPlan}
+          plan={activePlan}
           addons={addons.map(id => ADDONS.find(a => a.id === id))}
           total={totalWithIva}
           onClose={() => setShowPayModal(false)}
           onSuccess={() => {
             sessionStorage.setItem("propvalu_cart", JSON.stringify({
-              qty: selectedPlan.qty, addons, total: subtotal,
+              qty: activePlan.qty, addons, total: subtotal,
             }));
             navigate("/valuar");
           }}

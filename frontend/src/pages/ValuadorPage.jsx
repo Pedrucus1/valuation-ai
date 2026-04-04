@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { usePrices } from "@/hooks/usePrices";
 import AfiliadosCarousel from "@/components/AfiliadosCarousel";
 import {
   Building2, ChevronRight, Check, Minus, Crown,
@@ -52,10 +53,10 @@ const FEATURES = [
   { key: "prioridad",    label: "Prioridad en encargos" },
 ];
 
-const PLANS = [
+const PLANS_BASE = [
   {
     id: "independiente", name: "Independiente",
-    price: 840,  unit: 168, discount: 0,  avaluos: 5,  peritos: 1,
+    priceKey: "valuador_independiente", avaluos: 5,  peritos: 1,
     features: {
       dashboard: true,  folio: true,  analisis_ia: true,
       red_encargos: true, alianzas: true,
@@ -65,7 +66,7 @@ const PLANS = [
   },
   {
     id: "despacho", name: "Despacho",
-    price: 1600, unit: 160, discount: 5,  avaluos: 10, peritos: 3,
+    priceKey: "valuador_despacho", avaluos: 10, peritos: 3,
     features: {
       dashboard: true,  folio: true,  analisis_ia: true,
       red_encargos: true, alianzas: true,
@@ -75,7 +76,7 @@ const PLANS = [
   },
   {
     id: "pro", name: "Pro",
-    price: 3100, unit: 155, discount: 8,  avaluos: 20, peritos: 5,
+    priceKey: "valuador_pro", avaluos: 20, peritos: 5,
     popular: true,
     features: {
       dashboard: true,  folio: true,  analisis_ia: true,
@@ -86,7 +87,7 @@ const PLANS = [
   },
   {
     id: "corporativo", name: "Corporativo",
-    price: 4500, unit: 150, discount: 11, avaluos: "40+", peritos: 10,
+    priceKey: "valuador_corporativo", avaluos: "40+", peritos: 10,
     premier: true,
     features: {
       dashboard: true,  folio: true,  analisis_ia: true,
@@ -138,8 +139,18 @@ const HERO_SLIDES = [
 // ── component ─────────────────────────────────────────────────────────────
 const ValuadorPage = () => {
   const navigate = useNavigate();
+  const { prices } = usePrices();
   const [openFaq, setOpenFaq] = useState(null);
   const [activeSlide, setActiveSlide] = useState(0);
+
+  const PLANS = PLANS_BASE.map((p) => {
+    const price = prices[p.priceKey] ?? p.price ?? 0;
+    const avaluosNum = typeof p.avaluos === "number" ? p.avaluos : null;
+    const unit = avaluosNum ? Math.round(price / avaluosNum) : null;
+    const basePrice = prices[PLANS_BASE[0].priceKey] ?? 840;
+    const discount = unit && avaluosNum ? Math.round((1 - unit / (basePrice / 5)) * 100) : 0;
+    return { ...p, price, unit: unit ?? Math.round(price / 5), discount: Math.max(0, discount) };
+  });
 
   useEffect(() => {
     const timer = setInterval(() => {

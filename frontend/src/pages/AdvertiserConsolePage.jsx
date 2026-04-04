@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
+import { usePrices } from "@/hooks/usePrices";
 import { useNavigate } from "react-router-dom";
 import {
   Building2, LogOut, BarChart3, Megaphone, Image, FileText,
@@ -157,11 +158,7 @@ const DURATION_OPTIONS = [
   { seconds: 60, label: "60 segundos", slots: ["slot1"] },
 ];
 
-const AD_PRICES = {
-  slot1: { 15: 15, 30: 25, 60: 38 },
-  slot2: { 15: 10, 30: 18 },
-  slot3: { 15: 5 },
-};
+// AD_PRICES se construye dinámicamente desde usePrices() dentro del componente
 
 // Zonas estáticas para segmentación estatal/federal
 const ESTATAL_ZONES  = ["Jalisco", "CDMX", "Nuevo León", "Puebla", "Querétaro", "Estado de México"];
@@ -398,6 +395,14 @@ const LS_CREATIVES = "advertiser_creatives";
 
 const AdvertiserConsolePage = () => {
   const navigate = useNavigate();
+  const { prices } = usePrices();
+
+  const AD_PRICES = useMemo(() => ({
+    slot1: { 15: prices.ad_slot1_15s, 30: prices.ad_slot1_30s, 60: prices.ad_slot1_60s },
+    slot2: { 15: prices.ad_slot2_15s, 30: prices.ad_slot2_30s },
+    slot3: { 15: prices.ad_slot3_15s },
+  }), [prices]);
+
   const [session, setSession] = useState(null);
   const [activeTab, setActiveTab] = useState("resumen");
 

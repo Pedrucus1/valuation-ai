@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { usePrices } from "@/hooks/usePrices";
 import AfiliadosCarousel from "@/components/AfiliadosCarousel";
 import { Button } from "@/components/ui/button";
 import {
@@ -22,13 +23,11 @@ const FEATURES = [
   { key: "no_ads",         label: "Sin publicidad en reportes" },
 ];
 
-const PLANS = [
+const PLANS_BASE = [
   {
     id: "lite5",
     name: "Lite 5",
-    price: 1400,
-    unit: 280,
-    discount: 0,
+    priceKey: "inmobiliaria_lite5",
     avaluos: 5,
     features: {
       dashboard: true, historial: true, logo_empresa: true, ficha: "Básica",
@@ -39,9 +38,7 @@ const PLANS = [
   {
     id: "lite10",
     name: "Lite 10",
-    price: 2700,
-    unit: 270,
-    discount: 4,
+    priceKey: "inmobiliaria_lite10",
     avaluos: 10,
     features: {
       dashboard: true, historial: true, logo_empresa: true, ficha: "Básica",
@@ -52,9 +49,7 @@ const PLANS = [
   {
     id: "pro20",
     name: "Pro 20",
-    price: 5200,
-    unit: 260,
-    discount: 7,
+    priceKey: "inmobiliaria_pro20",
     avaluos: 20,
     popular: true,
     features: {
@@ -66,9 +61,7 @@ const PLANS = [
   {
     id: "premier",
     name: "Premier",
-    price: 7500,
-    unit: 250,
-    discount: 11,
+    priceKey: "inmobiliaria_premier",
     avaluos: "30–50+",
     premier: true,
     features: {
@@ -165,7 +158,17 @@ function Bullet() {
 
 export default function InmobiliariaPage() {
   const navigate = useNavigate();
+  const { prices } = usePrices();
   const [openFaq, setOpenFaq] = useState(null);
+
+  const PLANS = PLANS_BASE.map((p) => {
+    const price = prices[p.priceKey] ?? p.price ?? 0;
+    const avaluosNum = typeof p.avaluos === "number" ? p.avaluos : null;
+    const unit = avaluosNum ? Math.round(price / avaluosNum) : null;
+    const baseUnit = Math.round((prices["inmobiliaria_lite5"] ?? 1400) / 5);
+    const discount = unit ? Math.max(0, Math.round((1 - unit / baseUnit) * 100)) : 0;
+    return { ...p, price, unit: unit ?? Math.round(price / 5), discount };
+  });
 
   const handleLogin = (planId) => {
     localStorage.setItem("propvalu_intended_role", "realtor");
