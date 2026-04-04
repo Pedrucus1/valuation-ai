@@ -6,6 +6,7 @@ import {
   TrendingUp, TrendingDown, Eye, MousePointer, BarChart2, DollarSign,
   Play, Pause, Users, Megaphone, ChevronDown, Download, Search,
   CheckCircle2, Clock, XCircle, RefreshCw, ShieldAlert, Image, AlertTriangle, X, MessageSquare,
+  Ban, Plus, Save, Globe, Type,
 } from "lucide-react";
 
 const fmt = (n) =>
@@ -521,6 +522,148 @@ const TabModeracion = ({ campaigns, onActivar, activando, onReload }) => {
   );
 };
 
+/* ─── Tab Blacklist ───────────────────────────────────────── */
+const PALABRAS_DEFAULT = [
+  "garantizado","garantizamos","100% seguro","sin riesgo","gana dinero fácil",
+  "inversión garantizada","rendimiento asegurado","paga cero impuestos",
+  "lavado de dinero","prestamista particular","dinero urgente","sin buró",
+  "COMPRA YA","LLAMA AHORA","GRATIS GRATIS","¡¡¡","???",
+];
+const DOMINIOS_DEFAULT = ["bit.ly","tinyurl.com","ow.ly","t.co","goo.gl","scam-inmuebles.mx","fraude-realty.com"];
+
+const TabBlacklist = () => {
+  const [palabras, setPalabras] = useState(PALABRAS_DEFAULT);
+  const [dominios, setDominios] = useState(DOMINIOS_DEFAULT);
+  const [nuevaPalabra, setNuevaPalabra] = useState("");
+  const [nuevoDominio, setNuevoDominio] = useState("");
+  const [guardado, setGuardado] = useState(false);
+  const [cambios, setCambios] = useState(false);
+  const [testTexto, setTestTexto] = useState("");
+
+  useEffect(() => {
+    adminFetch("/api/admin/blacklist")
+      .then((d) => {
+        if (d.palabras?.length) setPalabras(d.palabras);
+        if (d.dominios?.length) setDominios(d.dominios);
+      }).catch(() => {});
+  }, []);
+
+  const addPalabra = () => {
+    const v = nuevaPalabra.trim().toLowerCase();
+    if (!v || palabras.includes(v)) return;
+    setPalabras((p) => [...p, v]); setNuevaPalabra(""); setCambios(true);
+  };
+  const addDominio = () => {
+    const v = nuevoDominio.trim().toLowerCase().replace(/^https?:\/\//, "").replace(/\/$/, "");
+    if (!v || dominios.includes(v)) return;
+    setDominios((p) => [...p, v]); setNuevoDominio(""); setCambios(true);
+  };
+  const guardar = async () => {
+    try {
+      await adminFetch("/api/admin/blacklist", { method: "PUT", body: JSON.stringify({ palabras, dominios }) });
+      setGuardado(true); setCambios(false); setTimeout(() => setGuardado(false), 3000);
+    } catch (e) { alert("Error: " + e.message); }
+  };
+
+  const matchesPalabra = testTexto ? palabras.filter((p) => testTexto.toLowerCase().includes(p.toLowerCase())) : [];
+  const matchesDominio = testTexto ? dominios.filter((d) => testTexto.toLowerCase().includes(d.toLowerCase())) : [];
+  const testOk = testTexto && matchesPalabra.length === 0 && matchesDominio.length === 0;
+
+  return (
+    <div className="max-w-3xl space-y-5">
+      <div className="flex items-center justify-between">
+        <p className="text-xs text-slate-400">Palabras y dominios que activan revisión manual en moderación. No bloquean el anuncio directamente.</p>
+        <button onClick={guardar} disabled={!cambios}
+          className="flex items-center gap-2 bg-[#1B4332] hover:bg-[#163828] disabled:opacity-40 text-white text-sm font-bold px-4 py-2 rounded-xl transition-colors">
+          <Save className="w-4 h-4" /> {cambios ? "Guardar" : "Sin cambios"}
+        </button>
+      </div>
+      {guardado && (
+        <div className="flex items-center gap-2 bg-green-50 border border-green-200 rounded-2xl px-4 py-3">
+          <CheckCircle2 className="w-4 h-4 text-green-600" />
+          <span className="text-sm text-green-700 font-semibold">Blacklist actualizada</span>
+        </div>
+      )}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        {/* Palabras */}
+        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
+          <div className="flex items-center gap-2 mb-4">
+            <Type className="w-4 h-4 text-[#1B4332]" />
+            <h2 className="font-semibold text-[#1B4332] text-sm">Palabras y frases ({palabras.length})</h2>
+          </div>
+          <div className="flex gap-2 mb-4">
+            <input value={nuevaPalabra} onChange={(e) => setNuevaPalabra(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && addPalabra()} placeholder="Agregar frase..."
+              className="flex-1 border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#52B788]/40" />
+            <button onClick={addPalabra} className="bg-[#1B4332] text-white text-sm font-bold px-3 py-2 rounded-xl hover:bg-[#163828] transition-colors">
+              <Plus className="w-4 h-4" />
+            </button>
+          </div>
+          <div className="flex flex-wrap gap-1.5 max-h-56 overflow-y-auto">
+            {palabras.map((p) => (
+              <span key={p} className="flex items-center gap-1.5 bg-red-50 border border-red-100 text-red-600 text-xs font-semibold px-2.5 py-1 rounded-full">
+                {p}
+                <button onClick={() => { setPalabras((x) => x.filter((y) => y !== p)); setCambios(true); }}>
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            ))}
+          </div>
+        </div>
+        {/* Dominios */}
+        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
+          <div className="flex items-center gap-2 mb-4">
+            <Globe className="w-4 h-4 text-[#1B4332]" />
+            <h2 className="font-semibold text-[#1B4332] text-sm">Dominios bloqueados ({dominios.length})</h2>
+          </div>
+          <div className="flex gap-2 mb-4">
+            <input value={nuevoDominio} onChange={(e) => setNuevoDominio(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && addDominio()} placeholder="ej: bit.ly"
+              className="flex-1 border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#52B788]/40" />
+            <button onClick={addDominio} className="bg-[#1B4332] text-white text-sm font-bold px-3 py-2 rounded-xl hover:bg-[#163828] transition-colors">
+              <Plus className="w-4 h-4" />
+            </button>
+          </div>
+          <div className="space-y-1.5 max-h-56 overflow-y-auto">
+            {dominios.map((d) => (
+              <div key={d} className="flex items-center justify-between bg-orange-50 border border-orange-100 rounded-xl px-3 py-2">
+                <div className="flex items-center gap-2">
+                  <Globe className="w-3.5 h-3.5 text-orange-400" />
+                  <span className="text-sm font-mono text-orange-700">{d}</span>
+                </div>
+                <button onClick={() => { setDominios((x) => x.filter((y) => y !== d)); setCambios(true); }}>
+                  <X className="w-4 h-4 text-orange-300 hover:text-orange-600" />
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      {/* Tester */}
+      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
+        <h2 className="font-semibold text-[#1B4332] text-sm mb-3">Probador — verifica si un texto sería marcado</h2>
+        <textarea value={testTexto} onChange={(e) => setTestTexto(e.target.value)} rows={3}
+          placeholder="Pega aquí el texto de un anuncio para verificar..."
+          className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-700 resize-none focus:outline-none focus:ring-2 focus:ring-[#52B788]/40" />
+        {testTexto && (
+          <div className={`mt-3 flex items-start gap-2 px-4 py-3 rounded-xl border text-sm ${testOk ? "bg-green-50 border-green-200 text-green-700" : "bg-red-50 border-red-200 text-red-700"}`}>
+            {testOk ? <><CheckCircle2 className="w-4 h-4 mt-0.5" /> Pasaría la revisión sin flags.</> : (
+              <div className="flex items-start gap-2">
+                <AlertTriangle className="w-4 h-4 mt-0.5 shrink-0" />
+                <div>
+                  <p className="font-semibold">Sería marcado para revisión:</p>
+                  {matchesPalabra.length > 0 && <p className="text-xs mt-1"><strong>Palabras:</strong> {matchesPalabra.map((p) => <span key={p} className="bg-red-200 px-1 rounded mr-1">{p}</span>)}</p>}
+                  {matchesDominio.length > 0 && <p className="text-xs mt-1"><strong>Dominios:</strong> {matchesDominio.map((d) => <span key={d} className="bg-orange-200 px-1 rounded mr-1 font-mono">{d}</span>)}</p>}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 /* ─── Componente principal ────────────────────────────────── */
 const AdminAdsAnalytics = () => {
   const [tab, setTab] = useState("resumen");
@@ -578,10 +721,11 @@ const AdminAdsAnalytics = () => {
   };
 
   const TABS = [
-    { id: "resumen",      label: "Resumen",                          icon: BarChart2 },
-    { id: "campanas",     label: `Campañas (${campaigns.length})`,   icon: Megaphone },
-    { id: "anunciantes",  label: `Anunciantes (${anunciantes.length})`, icon: Users },
-    { id: "moderacion",   label: pendingMod > 0 ? `Moderación (${pendingMod})` : "Moderación", icon: ShieldAlert, badge: pendingMod },
+    { id: "resumen",      label: "Resumen",                                                        icon: BarChart2  },
+    { id: "campanas",     label: `Campañas (${campaigns.length})`,                                 icon: Megaphone  },
+    { id: "anunciantes",  label: `Anunciantes (${anunciantes.length})`,                            icon: Users      },
+    { id: "moderacion",   label: pendingMod > 0 ? `Moderación (${pendingMod})` : "Moderación",    icon: ShieldAlert },
+    { id: "blacklist",    label: "Blacklist",                                                       icon: Ban        },
   ];
 
   return (
@@ -624,6 +768,7 @@ const AdminAdsAnalytics = () => {
         {tab === "campanas"    && <TabCampanas campaigns={campaigns} onActivar={activar} onPausar={pausar} cargando={cargando} />}
         {tab === "anunciantes" && <TabAnunciantes anunciantes={anunciantes} onVerCampanas={verCampanasDeAnunciante} cargando={cargando} />}
         {tab === "moderacion"  && <TabModeracion campaigns={campaigns} onActivar={activar} activando={activando} onReload={cargar} />}
+        {tab === "blacklist"   && <TabBlacklist />}
       </div>
     </AdminLayout>
   );

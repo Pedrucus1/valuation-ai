@@ -22,7 +22,6 @@ const NAV_GRUPOS = [
     grupo: "Publicidad",
     items: [
       { label: "Publicidad",   icon: Megaphone,       href: "/admin/ads-analytics", badge: "ads" },
-      { label: "Blacklist Ads",icon: Ban,             href: "/admin/blacklist" },
     ],
   },
   {
