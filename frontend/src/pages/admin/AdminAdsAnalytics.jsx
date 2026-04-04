@@ -1,10 +1,11 @@
 import { useState, useEffect, useCallback } from "react";
 import AdminLayout from "@/components/AdminLayout";
 import { adminFetch } from "@/lib/adminFetch";
+import { API } from "@/App";
 import {
   TrendingUp, TrendingDown, Eye, MousePointer, BarChart2, DollarSign,
   Play, Pause, Users, Megaphone, ChevronDown, Download, Search,
-  CheckCircle2, Clock, XCircle, RefreshCw,
+  CheckCircle2, Clock, XCircle, RefreshCw, ShieldAlert, Image, AlertTriangle, X, MessageSquare,
 } from "lucide-react";
 
 const fmt = (n) =>
@@ -359,12 +360,174 @@ const TabAnunciantes = ({ anunciantes, onVerCampanas, cargando }) => {
   );
 };
 
+/* ─── Tab Moderación ──────────────────────────────────────── */
+const FLAG_LABELS = {
+  mayusculas_exceso:   { label: "Muchas mayúsculas",   cls: "bg-yellow-100 text-yellow-700" },
+  garantias_absolutas: { label: "Garantías absolutas", cls: "bg-orange-100 text-orange-700" },
+  contenido_adulto:    { label: "Contenido adulto",    cls: "bg-red-100 text-red-600" },
+  spam:                { label: "Posible spam",         cls: "bg-red-100 text-red-600" },
+};
+
+const CreativeCard = ({ cr, onAccion }) => {
+  const backendBase = (API || "").replace("/api", "");
+  const src = cr.file_url ? `${backendBase}${cr.file_url}` : null;
+  return (
+    <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+      <div className="p-5">
+        <div className="flex items-start justify-between gap-4 mb-3">
+          <div>
+            <p className="font-semibold text-[#1B4332] text-sm">{cr.company_name || cr.advertiser_id}</p>
+            <p className="text-xs text-slate-400">{cr.campaign_name} · {cr.name}</p>
+            <p className="text-xs text-slate-300 mt-0.5">{cr.uploaded_at ? cr.uploaded_at.split("T")[0] : "-"}</p>
+          </div>
+          <span className="text-[11px] font-semibold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full shrink-0">
+            {cr.file_type === "video" ? "Video" : "Imagen"}
+          </span>
+        </div>
+        <div className="border border-slate-200 rounded-xl overflow-hidden mb-4 bg-slate-50">
+          {src ? (
+            cr.file_type === "video"
+              ? <video src={src} className="w-full max-h-40 object-contain" muted controls />
+              : <img src={src} alt={cr.name} className="w-full max-h-40 object-contain" />
+          ) : (
+            <div className="w-full h-24 flex items-center justify-center text-slate-300">
+              {cr.file_type === "video" ? <Play className="w-8 h-8" /> : <Image className="w-8 h-8" />}
+            </div>
+          )}
+        </div>
+        <div className="flex gap-2">
+          <button onClick={() => onAccion(cr.id, "aprobar")}
+            className="flex-1 flex items-center justify-center gap-1.5 bg-green-600 hover:bg-green-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-colors">
+            <CheckCircle2 className="w-4 h-4" /> Aprobar
+          </button>
+          <button onClick={() => onAccion(cr.id, "rechazar")}
+            className="flex-1 flex items-center justify-center gap-1.5 bg-red-500 hover:bg-red-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-colors">
+            <XCircle className="w-4 h-4" /> Rechazar
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const TabModeracion = ({ campaigns, onActivar, activando, onReload }) => {
+  const [creatividades, setCreatividades] = useState([]);
+  const [modalCreative, setModalCreative] = useState(null);
+  const [motivoCreative, setMotivoCreative] = useState("");
+
+  const campanasListas = campaigns.filter(
+    (c) => c.status === "pending" && c.creatives_aprobadas > 0 && c.creatives_pendientes === 0
+  );
+
+  const cargarCreatives = useCallback(() => {
+    adminFetch("/api/admin/creatives?status=pendiente_revision")
+      .then((d) => setCreatividades(d.creatives || []))
+      .catch(() => {});
+  }, []);
+
+  useEffect(() => { cargarCreatives(); }, [cargarCreatives]);
+
+  const accionCreative = (id, tipo) => {
+    if (tipo === "rechazar") { setMotivoCreative(""); setModalCreative({ id }); }
+    else aplicarAccion(id, "aprobar", "");
+  };
+
+  const aplicarAccion = async (id, tipo, motivo) => {
+    try {
+      if (tipo === "aprobar")
+        await adminFetch(`/api/admin/creatives/${id}/aprobar`, { method: "POST", body: JSON.stringify({}) });
+      else
+        await adminFetch(`/api/admin/creatives/${id}/rechazar`, { method: "POST", body: JSON.stringify({ motivo }) });
+      cargarCreatives();
+      onReload();
+    } catch (e) { alert("Error: " + e.message); }
+    setModalCreative(null);
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* Campañas listas para activar */}
+      {campanasListas.length > 0 && (
+        <div>
+          <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-3 flex items-center gap-1.5">
+            <Play className="w-3.5 h-3.5 text-green-500" />
+            Campañas listas para activar — {campanasListas.length}
+          </p>
+          <div className="space-y-3">
+            {campanasListas.map((c) => (
+              <div key={c.id} className="bg-white rounded-2xl border border-green-100 shadow-sm p-4 flex items-center gap-4">
+                <div className="flex-1 min-w-0">
+                  <p className="font-semibold text-[#1B4332] text-sm truncate">{c.name}</p>
+                  <p className="text-xs text-slate-400">{c.advertiser?.company_name || "—"} · {c.slot} · {c.ad_duration}s</p>
+                  <p className="text-[11px] text-green-600 font-semibold mt-0.5">
+                    ✓ {c.creatives_aprobadas} creatividad{c.creatives_aprobadas !== 1 ? "es" : ""} aprobada{c.creatives_aprobadas !== 1 ? "s" : ""}
+                  </p>
+                </div>
+                <button onClick={() => onActivar(c.id)} disabled={activando === c.id}
+                  className="flex items-center gap-1.5 bg-green-600 hover:bg-green-700 disabled:opacity-50 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-colors whitespace-nowrap">
+                  <Play className="w-3.5 h-3.5" />
+                  {activando === c.id ? "Activando…" : "Activar campaña"}
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Creatividades pendientes */}
+      <div>
+        <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-3">
+          Creatividades pendientes — {creatividades.length}
+        </p>
+        {creatividades.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {creatividades.map((cr) => (
+              <CreativeCard key={cr.id} cr={cr} onAccion={accionCreative} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-10 bg-white rounded-2xl border border-slate-100 text-slate-400">
+            <CheckCircle2 className="w-8 h-8 mx-auto mb-2 text-green-300" />
+            <p className="text-sm">Sin creatividades pendientes</p>
+          </div>
+        )}
+      </div>
+
+      {/* Modal rechazo */}
+      {modalCreative && (
+        <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm p-6">
+            <div className="flex justify-between items-start mb-4">
+              <h2 className="font-bold text-[#1B4332]">Motivo de rechazo</h2>
+              <button onClick={() => setModalCreative(null)}><X className="w-5 h-5 text-slate-300" /></button>
+            </div>
+            <textarea value={motivoCreative} onChange={(e) => setMotivoCreative(e.target.value)}
+              rows={3} placeholder="Ej: El contenido no cumple con la política de anuncios..."
+              className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-700 resize-none focus:outline-none focus:ring-2 focus:ring-red-300" />
+            <div className="flex gap-2 mt-4">
+              <button onClick={() => aplicarAccion(modalCreative.id, "rechazar", motivoCreative)}
+                className="flex-1 bg-red-500 text-white rounded-xl py-2.5 text-sm font-bold hover:bg-red-600 transition-colors">
+                Confirmar rechazo
+              </button>
+              <button onClick={() => setModalCreative(null)}
+                className="flex-1 border border-slate-200 text-slate-500 rounded-xl py-2.5 text-sm font-semibold hover:bg-slate-50 transition-colors">
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
 /* ─── Componente principal ────────────────────────────────── */
 const AdminAdsAnalytics = () => {
   const [tab, setTab] = useState("resumen");
   const [campaigns, setCampaigns] = useState([]);
   const [anunciantes, setAnunciantes] = useState([]);
   const [cargando, setCargando] = useState(true);
+  const [activando, setActivando] = useState(null);
 
   const cargar = useCallback(() => {
     setCargando(true);
@@ -379,10 +542,12 @@ const AdminAdsAnalytics = () => {
   useEffect(() => { cargar(); }, [cargar]);
 
   const activar = async (id) => {
+    setActivando(id);
     try {
       await adminFetch(`/api/admin/campaigns/${id}/activar`, { method: "POST", body: JSON.stringify({}) });
       cargar();
     } catch (e) { alert("Error: " + e.message); }
+    setActivando(null);
   };
 
   const pausar = async (id) => {
@@ -392,9 +557,11 @@ const AdminAdsAnalytics = () => {
     } catch (e) { alert("Error: " + e.message); }
   };
 
-  const verCampanasDeAnunciante = (advertiser_id) => {
-    setTab("campanas");
-  };
+  const verCampanasDeAnunciante = () => { setTab("campanas"); };
+
+  const pendingMod = campaigns.filter(
+    (c) => c.status === "pending" && c.creatives_aprobadas > 0 && c.creatives_pendientes === 0
+  ).length;
 
   const descargarCSV = () => {
     const cols = ["ID", "Campaña", "Anunciante", "Slot", "Duración", "Status", "Impresiones", "Clicks", "Gastado", "Presupuesto", "Inicio", "Fin"];
@@ -411,9 +578,10 @@ const AdminAdsAnalytics = () => {
   };
 
   const TABS = [
-    { id: "resumen",     label: "Resumen",      icon: BarChart2 },
-    { id: "campanas",    label: `Campañas (${campaigns.length})`, icon: Megaphone },
-    { id: "anunciantes", label: `Anunciantes (${anunciantes.length})`, icon: Users },
+    { id: "resumen",      label: "Resumen",                          icon: BarChart2 },
+    { id: "campanas",     label: `Campañas (${campaigns.length})`,   icon: Megaphone },
+    { id: "anunciantes",  label: `Anunciantes (${anunciantes.length})`, icon: Users },
+    { id: "moderacion",   label: pendingMod > 0 ? `Moderación (${pendingMod})` : "Moderación", icon: ShieldAlert, badge: pendingMod },
   ];
 
   return (
@@ -455,6 +623,7 @@ const AdminAdsAnalytics = () => {
         {tab === "resumen"     && <TabResumen campaigns={campaigns} anunciantes={anunciantes} />}
         {tab === "campanas"    && <TabCampanas campaigns={campaigns} onActivar={activar} onPausar={pausar} cargando={cargando} />}
         {tab === "anunciantes" && <TabAnunciantes anunciantes={anunciantes} onVerCampanas={verCampanasDeAnunciante} cargando={cargando} />}
+        {tab === "moderacion"  && <TabModeracion campaigns={campaigns} onActivar={activar} activando={activando} onReload={cargar} />}
       </div>
     </AdminLayout>
   );

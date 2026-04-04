@@ -11,44 +11,48 @@ const NAV_GRUPOS = [
   {
     grupo: "Operaciones",
     items: [
-      { label: "Dashboard",       icon: LayoutDashboard, href: "/admin" },
-      { label: "Usuarios",        icon: Users,           href: "/admin/usuarios" },
-      { label: "KYC",             icon: ShieldCheck,     href: "/admin/kyc",        badge: "kyc" },
-      { label: "Moderación Ads",  icon: Megaphone,       href: "/admin/moderacion", badge: "ads" },
-      { label: "Quejas",          icon: MessageSquare,   href: "/admin/feedback",   badge: "quejas" },
-      { label: "Valuadores",      icon: ClipboardList,   href: "/admin/valuadores" },
+      { label: "Dashboard",    icon: LayoutDashboard, href: "/admin" },
+      { label: "Usuarios",     icon: Users,           href: "/admin/usuarios" },
+      { label: "KYC",          icon: ShieldCheck,     href: "/admin/kyc",     badge: "kyc" },
+      { label: "Quejas",       icon: MessageSquare,   href: "/admin/feedback",badge: "quejas" },
+      { label: "Valuadores",   icon: ClipboardList,   href: "/admin/valuadores" },
+    ],
+  },
+  {
+    grupo: "Publicidad",
+    items: [
+      { label: "Publicidad",   icon: Megaphone,       href: "/admin/ads-analytics", badge: "ads" },
+      { label: "Blacklist Ads",icon: Ban,             href: "/admin/blacklist" },
     ],
   },
   {
     grupo: "Comunicación",
     items: [
-      { label: "Broadcast",       icon: Send,            href: "/admin/broadcast" },
-      { label: "Scraper",         icon: Activity,        href: "/admin/scraper" },
-      { label: "CMS Legal",       icon: FileText,        href: "/admin/cms" },
+      { label: "Broadcast",    icon: Send,            href: "/admin/broadcast" },
+      { label: "Scraper",      icon: Activity,        href: "/admin/scraper" },
+      { label: "CMS Legal",    icon: FileText,        href: "/admin/cms" },
     ],
   },
   {
     grupo: "Finanzas y datos",
     items: [
-      { label: "CFDI",            icon: DollarSign,      href: "/admin/cfdi" },
-      { label: "Ingresos",        icon: BarChart2,       href: "/admin/reportes" },
-      { label: "Cobertura",       icon: MapPin,          href: "/admin/cobertura" },
-      { label: "Blacklist Ads",   icon: Ban,             href: "/admin/blacklist" },
+      { label: "CFDI",         icon: DollarSign,      href: "/admin/cfdi" },
+      { label: "Ingresos",     icon: BarChart2,       href: "/admin/reportes" },
+      { label: "Cobertura",    icon: MapPin,          href: "/admin/cobertura" },
     ],
   },
   {
     grupo: "Control avanzado",
     items: [
-      { label: "Alertas",         icon: Bell,            href: "/admin/alertas" },
-      { label: "Precios",         icon: DollarSign,      href: "/admin/precios" },
-      { label: "Mantenimiento",   icon: Activity,        href: "/admin/mantenimiento" },
-      { label: "Analytics Ads",   icon: BarChart2,       href: "/admin/ads-analytics" },
+      { label: "Alertas",      icon: Bell,            href: "/admin/alertas" },
+      { label: "Precios",      icon: DollarSign,      href: "/admin/precios" },
+      { label: "Mantenimiento",icon: Activity,        href: "/admin/mantenimiento" },
     ],
   },
   {
     grupo: "Sistema",
     items: [
-      { label: "Roles Admin",     icon: UserCog,         href: "/admin/roles" },
+      { label: "Roles Admin",  icon: UserCog,         href: "/admin/roles" },
     ],
   },
 ];
