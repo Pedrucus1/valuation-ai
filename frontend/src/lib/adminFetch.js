@@ -16,7 +16,9 @@ export function getAdminToken() {
 
 export async function adminFetch(path, options = {}) {
   const token = getAdminToken();
-  const res = await fetch(`${API}${path}`, {
+  // API ya termina en /api — evitar doble /api si el path lo incluye
+  const cleanPath = path.startsWith("/api/") ? path.slice(4) : path;
+  const res = await fetch(`${API}${cleanPath}`, {
     ...options,
     headers: {
       "Content-Type": "application/json",
