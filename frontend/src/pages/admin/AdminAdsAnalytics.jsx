@@ -194,12 +194,6 @@ const CampanaFila = ({ c, onActivar, onPausar, onReload }) => {
     rechazado:          "border-2 border-red-400 opacity-60",
   };
 
-  const statusBorderCls = {
-    aprobado:           "border-2 border-green-400",
-    pendiente_revision: "border-2 border-amber-400",
-    rechazado:          "border-2 border-red-400 opacity-60",
-  };
-
   return (
     <>
       {lightbox && <Lightbox items={lightbox.items} startIndex={lightbox.startIndex} onClose={() => setLightbox(null)} />}
