@@ -13,7 +13,7 @@ const NAV_GRUPOS = [
     items: [
       { label: "Dashboard",    icon: LayoutDashboard, href: "/admin" },
       { label: "Usuarios",     icon: Users,           href: "/admin/usuarios" },
-      { label: "KYC",          icon: ShieldCheck,     href: "/admin/kyc",     badge: "kyc" },
+      { label: "Verificación", icon: ShieldCheck,     href: "/admin/kyc",     badge: "kyc" },
       { label: "Quejas",       icon: MessageSquare,   href: "/admin/feedback",badge: "quejas" },
       { label: "Valuadores",     icon: ClipboardList,   href: "/admin/valuadores" },
       { label: "Inmobiliarias",  icon: Building2,       href: "/admin/inmobiliarias", badge: "inmobiliarias" },

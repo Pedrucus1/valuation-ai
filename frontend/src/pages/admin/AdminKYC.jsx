@@ -201,7 +201,7 @@ const AdminKYC = () => {
       <div className="max-w-3xl mx-auto space-y-5">
 
         <div>
-          <h1 className="font-['Outfit'] text-2xl font-bold text-[#1B4332]">Cola KYC</h1>
+          <h1 className="font-['Outfit'] text-2xl font-bold text-[#1B4332]">Verificación de cuentas</h1>
           <p className="text-slate-400 text-sm mt-0.5">Verificación de credenciales antes de activar cuentas</p>
         </div>
 
