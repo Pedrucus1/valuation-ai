@@ -6,7 +6,7 @@ import {
   TrendingUp, TrendingDown, Eye, MousePointer, BarChart2, DollarSign,
   Play, Pause, Users, Megaphone, ChevronDown, Download, Search,
   CheckCircle2, Clock, XCircle, RefreshCw, ShieldAlert, Image, AlertTriangle, X, MessageSquare,
-  Ban, Plus, Save, Globe, Type,
+  Ban, Plus, Save, Globe, Type, ZoomIn, ChevronLeft, ChevronRight,
 } from "lucide-react";
 
 const fmt = (n) =>
@@ -165,7 +165,8 @@ const TabResumen = ({ campaigns, anunciantes }) => {
 /* ─── Tarjeta de campaña con moderación inline ──────────────── */
 const CampanaCard = ({ c, onActivar, onPausar, onReload }) => {
   const [expandido, setExpandido]     = useState(false);
-  const [modalRechazo, setModalRechazo] = useState(null); // { creative_id }
+  const [lightbox, setLightbox]       = useState(null); // { items, startIndex }
+  const [modalRechazo, setModalRechazo] = useState(null);
   const [motivo, setMotivo]           = useState("");
   const [procesando, setProcesando]   = useState(null);
 
@@ -195,6 +196,7 @@ const CampanaCard = ({ c, onActivar, onPausar, onReload }) => {
 
   return (
     <div className={`bg-white rounded-2xl border shadow-sm overflow-hidden ${hayFlags ? "border-red-200" : "border-slate-100"}`}>
+      {lightbox && <Lightbox items={lightbox.items} startIndex={lightbox.startIndex} onClose={() => setLightbox(null)} />}
       <div className="p-5">
 
         {/* Alerta blacklist */}
@@ -228,33 +230,37 @@ const CampanaCard = ({ c, onActivar, onPausar, onReload }) => {
               {c.creatives_pendientes > 0 && <span className="text-amber-500 ml-2">· {c.creatives_pendientes} pendientes</span>}
             </p>
             <div className="flex gap-2 overflow-x-auto pb-1">
-              {creatives.map((cr) => {
+              {creatives.map((cr, crIdx) => {
                 const src = cr.file_url ? `${backendBase}${cr.file_url}` : null;
                 const borderCls = statusBorderCls[cr.status] || "border border-slate-200";
                 return (
-                  <div key={cr.id} className={`relative flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden bg-slate-50 ${borderCls}`}>
+                  <button
+                    key={cr.id}
+                    onClick={() => setLightbox({ items: creatives, startIndex: crIdx })}
+                    className={`relative flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden bg-slate-50 group ${borderCls}`}
+                  >
                     {src ? (
                       cr.file_type === "video"
-                        ? <video src={src} className="w-full h-full object-cover" muted />
+                        ? <video src={src} className="w-full h-full object-cover pointer-events-none" muted />
                         : <img src={src} alt={cr.name} className="w-full h-full object-cover" />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-slate-300">
                         <Image className="w-6 h-6" />
                       </div>
                     )}
-                    {/* Badge de estado sobre la miniatura */}
-                    <div className="absolute bottom-0 left-0 right-0 text-center">
-                      {cr.status === "aprobado" && (
-                        <span className="bg-green-500 text-white text-[9px] font-bold px-1 block">✓</span>
-                      )}
-                      {cr.status === "pendiente_revision" && (
-                        <span className="bg-amber-500 text-white text-[9px] font-bold px-1 block">?</span>
-                      )}
-                      {cr.status === "rechazado" && (
-                        <span className="bg-red-500 text-white text-[9px] font-bold px-1 block">✗</span>
-                      )}
+                    {/* Overlay ojo al hacer hover */}
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all flex items-center justify-center">
+                      <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+                        {cr.file_type === "video" ? <Play className="w-5 h-5 text-white drop-shadow" /> : <ZoomIn className="w-5 h-5 text-white drop-shadow" />}
+                      </div>
                     </div>
-                  </div>
+                    {/* Badge de estado */}
+                    <div className="absolute bottom-0 left-0 right-0 text-center">
+                      {cr.status === "aprobado"           && <span className="bg-green-500 text-white text-[9px] font-bold px-1 block">✓</span>}
+                      {cr.status === "pendiente_revision" && <span className="bg-amber-500 text-white text-[9px] font-bold px-1 block">?</span>}
+                      {cr.status === "rechazado"          && <span className="bg-red-500   text-white text-[9px] font-bold px-1 block">✗</span>}
+                    </div>
+                  </button>
                 );
               })}
             </div>
@@ -331,24 +337,32 @@ const CampanaCard = ({ c, onActivar, onPausar, onReload }) => {
       {/* Panel de moderación inline expandible */}
       {expandido && (
         <div className="border-t border-slate-100 bg-slate-50 p-5">
-          <p className="text-sm font-semibold text-slate-500 mb-3">Todas las creatividades — haz clic para aprobar o rechazar</p>
+          <p className="text-sm font-semibold text-slate-500 mb-3">Todas las creatividades</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {creatives.map((cr) => {
+            {creatives.map((cr, crIdx) => {
               const src = cr.file_url ? `${backendBase}${cr.file_url}` : null;
               const isPending = cr.status === "pendiente_revision";
               return (
                 <div key={cr.id} className={`bg-white rounded-xl border overflow-hidden ${isPending ? "border-amber-200" : "border-slate-100"}`}>
-                  {/* Imagen/video */}
-                  <div className="bg-slate-50 border-b border-slate-100">
+                  {/* Imagen/video — click abre lightbox */}
+                  <div
+                    className="relative bg-slate-50 border-b border-slate-100 group cursor-pointer"
+                    onClick={() => setLightbox({ items: creatives, startIndex: crIdx })}
+                  >
                     {src ? (
                       cr.file_type === "video"
-                        ? <video src={src} className="w-full max-h-48 object-contain" muted controls />
+                        ? <video src={src} className="w-full max-h-48 object-contain pointer-events-none" muted />
                         : <img src={src} alt={cr.name} className="w-full max-h-48 object-contain" />
                     ) : (
                       <div className="w-full h-32 flex items-center justify-center text-slate-300">
                         <Image className="w-10 h-10" />
                       </div>
                     )}
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all flex items-center justify-center">
+                      <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/20 backdrop-blur-sm rounded-full p-3">
+                        {cr.file_type === "video" ? <Play className="w-6 h-6 text-white" /> : <ZoomIn className="w-6 h-6 text-white" />}
+                      </div>
+                    </div>
                   </div>
                   <div className="p-3">
                     <div className="flex items-center justify-between mb-2">
@@ -560,11 +574,143 @@ const FLAG_LABELS = {
   spam:                { label: "Posible spam",         cls: "bg-red-100 text-red-600" },
 };
 
-const CreativeCard = ({ cr, onAccion }) => {
+/* ─── Lightbox ───────────────────────────────────────────── */
+const Lightbox = ({ items, startIndex, onClose }) => {
+  const [idx, setIdx] = useState(startIndex ?? 0);
+  const backendBase = (API || "").replace("/api", "");
+  const cr = items[idx];
+  const src = cr?.file_url ? `${backendBase}${cr.file_url}` : null;
+  const total = items.length;
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (e.key === "Escape")     onClose();
+      if (e.key === "ArrowRight") setIdx((i) => (i + 1) % total);
+      if (e.key === "ArrowLeft")  setIdx((i) => (i - 1 + total) % total);
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [total]);
+
+  if (!cr) return null;
+
+  const STATUS_CLS = {
+    aprobado:           "bg-green-100 text-green-700",
+    pendiente_revision: "bg-amber-100 text-amber-700",
+    rechazado:          "bg-red-100 text-red-600",
+  };
+  const STATUS_LABEL = {
+    aprobado: "Aprobada", pendiente_revision: "Pendiente", rechazado: "Rechazada",
+  };
+
+  return (
+    <div
+      className="fixed inset-0 z-[60] bg-black/85 flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      {/* Cerrar */}
+      <button
+        onClick={onClose}
+        className="absolute top-4 right-4 text-white/60 hover:text-white bg-white/10 rounded-full p-2 transition-colors"
+      >
+        <X className="w-5 h-5" />
+      </button>
+
+      {/* Prev */}
+      {total > 1 && (
+        <button
+          onClick={(e) => { e.stopPropagation(); setIdx((i) => (i - 1 + total) % total); }}
+          className="absolute left-4 text-white/60 hover:text-white bg-white/10 rounded-full p-2 transition-colors"
+        >
+          <ChevronLeft className="w-6 h-6" />
+        </button>
+      )}
+
+      {/* Media */}
+      <div
+        className="max-w-3xl w-full max-h-[80vh] flex flex-col items-center gap-4"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="w-full flex-1 flex items-center justify-center bg-black/40 rounded-2xl overflow-hidden">
+          {src ? (
+            cr.file_type === "video"
+              ? <video src={src} className="max-h-[60vh] max-w-full rounded-xl" controls autoPlay />
+              : <img src={src} alt={cr.name} className="max-h-[60vh] max-w-full object-contain rounded-xl" />
+          ) : (
+            <div className="text-white/30 flex flex-col items-center gap-2 py-16">
+              <Image className="w-12 h-12" />
+              <p className="text-sm">Sin archivo</p>
+            </div>
+          )}
+        </div>
+
+        {/* Info barra inferior */}
+        <div className="flex items-center justify-between w-full text-white/80 text-sm px-2">
+          <div className="flex items-center gap-3">
+            <span className="font-semibold text-white">{cr.name || "Sin nombre"}</span>
+            <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${STATUS_CLS[cr.status] || "bg-slate-100 text-slate-500"}`}>
+              {STATUS_LABEL[cr.status] || cr.status}
+            </span>
+            {cr.motivo_rechazo && (
+              <span className="text-red-300 text-xs">Motivo: {cr.motivo_rechazo}</span>
+            )}
+          </div>
+          {total > 1 && (
+            <span className="text-white/40">{idx + 1} / {total}</span>
+          )}
+        </div>
+
+        {/* Strip de miniaturas */}
+        {total > 1 && (
+          <div className="flex gap-2 overflow-x-auto pb-1">
+            {items.map((item, i) => {
+              const thumbSrc = item.file_url ? `${backendBase}${item.file_url}` : null;
+              return (
+                <button
+                  key={item.id || i}
+                  onClick={() => setIdx(i)}
+                  className={`flex-shrink-0 w-14 h-14 rounded-lg overflow-hidden border-2 transition-all ${
+                    i === idx ? "border-[#52B788]" : "border-white/20 opacity-60 hover:opacity-100"
+                  }`}
+                >
+                  {thumbSrc ? (
+                    item.file_type === "video"
+                      ? <video src={thumbSrc} className="w-full h-full object-cover" muted />
+                      : <img src={thumbSrc} className="w-full h-full object-cover" alt="" />
+                  ) : (
+                    <div className="w-full h-full bg-white/10 flex items-center justify-center">
+                      <Image className="w-4 h-4 text-white/40" />
+                    </div>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      {/* Next */}
+      {total > 1 && (
+        <button
+          onClick={(e) => { e.stopPropagation(); setIdx((i) => (i + 1) % total); }}
+          className="absolute right-4 text-white/60 hover:text-white bg-white/10 rounded-full p-2 transition-colors"
+        >
+          <ChevronRight className="w-6 h-6" />
+        </button>
+      )}
+    </div>
+  );
+};
+
+const CreativeCard = ({ cr, onAccion, allCreatives, startIndex }) => {
+  const [lightbox, setLightbox] = useState(false);
   const backendBase = (API || "").replace("/api", "");
   const src = cr.file_url ? `${backendBase}${cr.file_url}` : null;
+  const lbItems = allCreatives || [cr];
+  const lbStart = startIndex ?? 0;
   return (
     <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+      {lightbox && <Lightbox items={lbItems} startIndex={lbStart} onClose={() => setLightbox(false)} />}
       <div className="p-5">
         <div className="flex items-start justify-between gap-4 mb-3">
           <div>
@@ -576,16 +722,25 @@ const CreativeCard = ({ cr, onAccion }) => {
             {cr.file_type === "video" ? "Video" : "Imagen"}
           </span>
         </div>
-        <div className="border border-slate-200 rounded-xl overflow-hidden mb-4 bg-slate-50">
+        <div
+          className="relative border border-slate-200 rounded-xl overflow-hidden mb-4 bg-slate-50 group cursor-pointer"
+          onClick={() => setLightbox(true)}
+        >
           {src ? (
             cr.file_type === "video"
-              ? <video src={src} className="w-full max-h-40 object-contain" muted controls />
+              ? <video src={src} className="w-full max-h-40 object-contain pointer-events-none" muted />
               : <img src={src} alt={cr.name} className="w-full max-h-40 object-contain" />
           ) : (
             <div className="w-full h-24 flex items-center justify-center text-slate-300">
               {cr.file_type === "video" ? <Play className="w-8 h-8" /> : <Image className="w-8 h-8" />}
             </div>
           )}
+          {/* Overlay ojo */}
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all flex items-center justify-center">
+            <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/20 backdrop-blur-sm rounded-full p-3">
+              {cr.file_type === "video" ? <Play className="w-6 h-6 text-white" /> : <ZoomIn className="w-6 h-6 text-white" />}
+            </div>
+          </div>
         </div>
         <div className="flex gap-2">
           <button onClick={() => onAccion(cr.id, "aprobar")}
@@ -674,7 +829,7 @@ const TabModeracion = ({ campaigns, onActivar, activando, onReload }) => {
         {creatividades.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {creatividades.map((cr) => (
-              <CreativeCard key={cr.id} cr={cr} onAccion={accionCreative} />
+              <CreativeCard key={cr.id} cr={cr} onAccion={accionCreative} allCreatives={creatividades} startIndex={creatividades.indexOf(cr)} />
             ))}
           </div>
         ) : (
