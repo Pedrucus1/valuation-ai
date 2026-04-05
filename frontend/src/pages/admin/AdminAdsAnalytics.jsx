@@ -162,8 +162,273 @@ const TabResumen = ({ campaigns, anunciantes }) => {
   );
 };
 
+/* ─── Tarjeta de campaña con moderación inline ──────────────── */
+const CampanaCard = ({ c, onActivar, onPausar, onReload }) => {
+  const [expandido, setExpandido]     = useState(false);
+  const [modalRechazo, setModalRechazo] = useState(null); // { creative_id }
+  const [motivo, setMotivo]           = useState("");
+  const [procesando, setProcesando]   = useState(null);
+
+  const backendBase = (API || "").replace("/api", "");
+  const st  = STATUS_CFG[c.status] || STATUS_CFG.pending;
+  const adv = c.advertiser || {};
+  const ctr = c.impressions > 0 ? ((c.clicks / c.impressions) * 100).toFixed(1) : "0.0";
+  const creatives = c.creatives || [];
+  const hayFlags  = c.flags && c.flags.length > 0;
+
+  const accionCreative = async (creativeId, tipo, mot = "") => {
+    setProcesando(creativeId);
+    try {
+      const path = `/api/admin/campaigns/${c.id}/creatives/${creativeId}/${tipo}`;
+      await adminFetch(path, { method: "POST", body: JSON.stringify({ motivo: mot }) });
+      onReload();
+    } catch (e) { alert("Error: " + e.message); }
+    setProcesando(null);
+    setModalRechazo(null);
+  };
+
+  const statusBorderCls = {
+    aprobado:           "border-2 border-green-400",
+    pendiente_revision: "border-2 border-amber-400",
+    rechazado:          "border-2 border-red-400 opacity-60",
+  };
+
+  return (
+    <div className={`bg-white rounded-2xl border shadow-sm overflow-hidden ${hayFlags ? "border-red-200" : "border-slate-100"}`}>
+      <div className="p-5">
+
+        {/* Alerta blacklist */}
+        {hayFlags && (
+          <div className="flex items-start gap-2 bg-red-50 border border-red-100 rounded-xl px-3 py-2 mb-4">
+            <AlertTriangle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
+            <div className="text-xs text-red-700">
+              <span className="font-bold">Alerta blacklist: </span>
+              {c.flags.map((f) => f.replace("dominio_bl:", "dominio: ").replace("palabra_bl:", "palabra: ")).join(" · ")}
+            </div>
+          </div>
+        )}
+
+        {/* Header */}
+        <div className="flex items-start justify-between gap-3 mb-4">
+          <div className="min-w-0">
+            <p className="font-bold text-[#1B4332] text-base leading-snug">{c.name}</p>
+            <p className="text-sm text-slate-500 mt-0.5">{adv.company_name || "—"} · {adv.email || ""}</p>
+            <p className="text-sm text-slate-400 mt-0.5">{SLOT_LABELS[c.slot] || c.slot} · {c.ad_duration}s</p>
+          </div>
+          <span className={`text-xs font-bold px-3 py-1 rounded-full shrink-0 ${st.cls}`}>
+            {st.label}
+          </span>
+        </div>
+
+        {/* Tira de miniaturas */}
+        {creatives.length > 0 && (
+          <div className="mb-4">
+            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">
+              Creatividades · {c.creatives_aprobadas} aprobadas
+              {c.creatives_pendientes > 0 && <span className="text-amber-500 ml-2">· {c.creatives_pendientes} pendientes</span>}
+            </p>
+            <div className="flex gap-2 overflow-x-auto pb-1">
+              {creatives.map((cr) => {
+                const src = cr.file_url ? `${backendBase}${cr.file_url}` : null;
+                const borderCls = statusBorderCls[cr.status] || "border border-slate-200";
+                return (
+                  <div key={cr.id} className={`relative flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden bg-slate-50 ${borderCls}`}>
+                    {src ? (
+                      cr.file_type === "video"
+                        ? <video src={src} className="w-full h-full object-cover" muted />
+                        : <img src={src} alt={cr.name} className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-slate-300">
+                        <Image className="w-6 h-6" />
+                      </div>
+                    )}
+                    {/* Badge de estado sobre la miniatura */}
+                    <div className="absolute bottom-0 left-0 right-0 text-center">
+                      {cr.status === "aprobado" && (
+                        <span className="bg-green-500 text-white text-[9px] font-bold px-1 block">✓</span>
+                      )}
+                      {cr.status === "pendiente_revision" && (
+                        <span className="bg-amber-500 text-white text-[9px] font-bold px-1 block">?</span>
+                      )}
+                      {cr.status === "rechazado" && (
+                        <span className="bg-red-500 text-white text-[9px] font-bold px-1 block">✗</span>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* Métricas */}
+        <div className="grid grid-cols-4 gap-3 mb-4 text-center bg-slate-50 rounded-xl p-3">
+          <div>
+            <p className="font-bold text-base text-[#1B4332]">{(c.impressions || 0).toLocaleString()}</p>
+            <p className="text-xs text-slate-400 mt-0.5">Impresiones</p>
+          </div>
+          <div>
+            <p className="font-bold text-base text-[#1B4332]">{c.clicks || 0}</p>
+            <p className="text-xs text-slate-400 mt-0.5">Clicks</p>
+          </div>
+          <div>
+            <p className={`font-bold text-base ${parseFloat(ctr) >= 3 ? "text-green-600" : "text-amber-500"}`}>{ctr}%</p>
+            <p className="text-xs text-slate-400 mt-0.5">CTR</p>
+          </div>
+          <div>
+            <p className="font-bold text-base text-[#1B4332]">{fmt(c.spend || 0)}</p>
+            <p className="text-xs text-slate-400 mt-0.5">Gastado</p>
+          </div>
+        </div>
+
+        {/* Budget bar */}
+        <BudgetBar spend={c.spend || 0} budget={c.budget || 0} />
+
+        {/* Fechas + enlace */}
+        <div className="mt-3 text-xs text-slate-400 space-y-0.5">
+          <p>Inicio: <span className="text-slate-600">{c.start || "—"}</span>{c.end ? <> · Fin: <span className="text-slate-600">{c.end}</span></> : " · Sin fecha fin"}</p>
+          {c.link_url && (
+            <p>Enlace: <span className="text-blue-500 truncate">{c.link_url}</span></p>
+          )}
+        </div>
+
+        {/* Acciones principales */}
+        <div className="flex flex-wrap gap-2 mt-4 pt-3 border-t border-slate-100">
+          {c.status === "pending" && c.creatives_aprobadas > 0 && (
+            <button onClick={() => onActivar(c.id)}
+              className="flex items-center gap-1.5 bg-green-600 hover:bg-green-700 text-white text-sm font-bold px-4 py-2 rounded-xl transition-colors">
+              <Play className="w-4 h-4" /> Activar campaña
+            </button>
+          )}
+          {c.status === "pending" && c.creatives_aprobadas === 0 && (
+            <p className="text-sm text-amber-600 self-center">Aprueba al menos una creatividad para activar</p>
+          )}
+          {c.status === "active" && (
+            <button onClick={() => onPausar(c.id)}
+              className="flex items-center gap-1.5 border border-amber-200 text-amber-700 hover:bg-amber-50 text-sm font-bold px-4 py-2 rounded-xl transition-colors">
+              <Pause className="w-4 h-4" /> Pausar
+            </button>
+          )}
+          {c.status === "paused" && (
+            <button onClick={() => onActivar(c.id)}
+              className="flex items-center gap-1.5 border border-green-200 text-green-700 hover:bg-green-50 text-sm font-bold px-4 py-2 rounded-xl transition-colors">
+              <Play className="w-4 h-4" /> Reactivar
+            </button>
+          )}
+          {creatives.length > 0 && (
+            <button onClick={() => setExpandido((v) => !v)}
+              className="flex items-center gap-1.5 border border-slate-200 text-slate-600 hover:bg-slate-50 text-sm font-semibold px-4 py-2 rounded-xl transition-colors ml-auto">
+              <Eye className="w-4 h-4" />
+              {expandido ? "Ocultar" : "Moderar creatividades"}
+              {c.creatives_pendientes > 0 && (
+                <span className="bg-amber-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">{c.creatives_pendientes}</span>
+              )}
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Panel de moderación inline expandible */}
+      {expandido && (
+        <div className="border-t border-slate-100 bg-slate-50 p-5">
+          <p className="text-sm font-semibold text-slate-500 mb-3">Todas las creatividades — haz clic para aprobar o rechazar</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {creatives.map((cr) => {
+              const src = cr.file_url ? `${backendBase}${cr.file_url}` : null;
+              const isPending = cr.status === "pendiente_revision";
+              return (
+                <div key={cr.id} className={`bg-white rounded-xl border overflow-hidden ${isPending ? "border-amber-200" : "border-slate-100"}`}>
+                  {/* Imagen/video */}
+                  <div className="bg-slate-50 border-b border-slate-100">
+                    {src ? (
+                      cr.file_type === "video"
+                        ? <video src={src} className="w-full max-h-48 object-contain" muted controls />
+                        : <img src={src} alt={cr.name} className="w-full max-h-48 object-contain" />
+                    ) : (
+                      <div className="w-full h-32 flex items-center justify-center text-slate-300">
+                        <Image className="w-10 h-10" />
+                      </div>
+                    )}
+                  </div>
+                  <div className="p-3">
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-sm font-semibold text-[#1B4332] truncate">{cr.name || "Sin nombre"}</p>
+                      <span className={`text-xs font-bold px-2 py-0.5 rounded-full ml-2 flex-shrink-0 ${
+                        cr.status === "aprobado"           ? "bg-green-100 text-green-700" :
+                        cr.status === "pendiente_revision" ? "bg-amber-100 text-amber-700" :
+                        "bg-red-100 text-red-600"
+                      }`}>
+                        {cr.status === "aprobado" ? "Aprobada" : cr.status === "pendiente_revision" ? "Pendiente" : "Rechazada"}
+                      </span>
+                    </div>
+                    {cr.motivo_rechazo && (
+                      <p className="text-xs text-red-500 mb-2">Motivo: {cr.motivo_rechazo}</p>
+                    )}
+                    <p className="text-xs text-slate-400 mb-3">{cr.file_type === "video" ? "Video" : "Imagen"} · {cr.uploaded_at?.split("T")[0] || "—"}</p>
+                    {(isPending || cr.status === "rechazado") && (
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => accionCreative(cr.id, "aprobar")}
+                          disabled={procesando === cr.id}
+                          className="flex-1 flex items-center justify-center gap-1 bg-green-600 hover:bg-green-700 disabled:opacity-50 text-white text-xs font-bold py-2 rounded-lg transition-colors"
+                        >
+                          <CheckCircle2 className="w-3.5 h-3.5" /> Aprobar
+                        </button>
+                        <button
+                          onClick={() => { setMotivo(""); setModalRechazo({ id: cr.id }); }}
+                          disabled={procesando === cr.id}
+                          className="flex-1 flex items-center justify-center gap-1 bg-red-500 hover:bg-red-600 disabled:opacity-50 text-white text-xs font-bold py-2 rounded-lg transition-colors"
+                        >
+                          <XCircle className="w-3.5 h-3.5" /> Rechazar
+                        </button>
+                      </div>
+                    )}
+                    {cr.status === "aprobado" && (
+                      <button
+                        onClick={() => { setMotivo(""); setModalRechazo({ id: cr.id }); }}
+                        className="w-full text-xs text-red-500 hover:text-red-700 border border-red-100 hover:border-red-200 rounded-lg py-1.5 transition-colors"
+                      >
+                        Revocar aprobación
+                      </button>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Modal motivo de rechazo */}
+      {modalRechazo && (
+        <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4" onClick={() => setModalRechazo(null)}>
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm p-6" onClick={(e) => e.stopPropagation()}>
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="font-bold text-[#1B4332] text-base">Motivo de rechazo</h2>
+              <button onClick={() => setModalRechazo(null)}><X className="w-5 h-5 text-slate-300" /></button>
+            </div>
+            <textarea value={motivo} onChange={(e) => setMotivo(e.target.value)}
+              rows={3} placeholder="Ej: El contenido no cumple con la política de anuncios…"
+              className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-700 resize-none focus:outline-none focus:border-red-300" />
+            <div className="flex gap-2 mt-4">
+              <button onClick={() => accionCreative(modalRechazo.id, "rechazar", motivo)}
+                className="flex-1 bg-red-500 text-white rounded-xl py-2.5 text-sm font-bold hover:bg-red-600 transition-colors">
+                Confirmar rechazo
+              </button>
+              <button onClick={() => setModalRechazo(null)}
+                className="flex-1 border border-slate-200 text-slate-500 rounded-xl py-2.5 text-sm font-semibold hover:bg-slate-50 transition-colors">
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
 /* ─── Tab Campañas ────────────────────────────────────────── */
-const TabCampanas = ({ campaigns, onActivar, onPausar, cargando }) => {
+const TabCampanas = ({ campaigns, onActivar, onPausar, onReload, cargando }) => {
   const [filtroStatus, setFiltroStatus] = useState("todos");
   const [filtroSlot, setFiltroSlot]     = useState("todos");
 
@@ -173,10 +438,12 @@ const TabCampanas = ({ campaigns, onActivar, onPausar, cargando }) => {
     return matchS && matchSl;
   });
 
+  const conFlags = filtrados.filter((c) => c.flags?.length > 0).length;
+
   return (
     <div className="space-y-4">
       {/* Filtros */}
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-3 items-center">
         {[
           { val: filtroStatus, set: setFiltroStatus, opts: [["todos","Todos los estados"],["active","Activas"],["pending","Pendientes"],["paused","Pausadas"]] },
           { val: filtroSlot,   set: setFiltroSlot,   opts: [["todos","Todos los slots"],["slot1","Slot 1"],["slot2","Slot 2"],["slot3","Slot 3"]] },
@@ -189,7 +456,12 @@ const TabCampanas = ({ campaigns, onActivar, onPausar, cargando }) => {
             <ChevronDown className="absolute right-2 top-2.5 w-4 h-4 text-slate-400 pointer-events-none" />
           </div>
         ))}
-        <span className="text-xs text-slate-400 self-center">{filtrados.length} campaña{filtrados.length !== 1 ? "s" : ""}</span>
+        <span className="text-sm text-slate-400">{filtrados.length} campaña{filtrados.length !== 1 ? "s" : ""}</span>
+        {conFlags > 0 && (
+          <span className="flex items-center gap-1.5 text-sm text-red-600 bg-red-50 border border-red-100 px-3 py-1.5 rounded-xl">
+            <AlertTriangle className="w-4 h-4" /> {conFlags} con alerta de blacklist
+          </span>
+        )}
       </div>
 
       {filtrados.length === 0 ? (
@@ -198,91 +470,10 @@ const TabCampanas = ({ campaigns, onActivar, onPausar, cargando }) => {
           <p className="text-sm">{cargando ? "Cargando…" : "Sin campañas con esos filtros"}</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {filtrados.map((c) => {
-            const st = STATUS_CFG[c.status] || STATUS_CFG.pending;
-            const ctr = c.impressions > 0 ? ((c.clicks / c.impressions) * 100).toFixed(1) : "0.0";
-            const adv = c.advertiser || {};
-            return (
-              <div key={c.id} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
-                {/* Header */}
-                <div className="flex items-start justify-between mb-3">
-                  <div>
-                    <p className="font-semibold text-[#1B4332] text-sm">{c.name}</p>
-                    <p className="text-xs text-slate-400">{adv.company_name || "—"} · {adv.email || ""}</p>
-                    <p className="text-[11px] text-slate-300 mt-0.5">{SLOT_LABELS[c.slot] || c.slot} · {c.ad_duration}s</p>
-                  </div>
-                  <span className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full shrink-0 ${st.cls}`}>
-                    {st.label}
-                  </span>
-                </div>
-
-                {/* Creatividades */}
-                {c.creatives_total > 0 && (
-                  <div className="flex gap-3 mb-3 text-[11px]">
-                    <span className="text-green-600 font-semibold">✓ {c.creatives_aprobadas} aprobadas</span>
-                    {c.creatives_pendientes > 0 && (
-                      <span className="text-amber-600 font-semibold">⏳ {c.creatives_pendientes} pendientes</span>
-                    )}
-                    <span className="text-slate-400">{c.creatives_total} total</span>
-                  </div>
-                )}
-
-                {/* Métricas */}
-                <div className="grid grid-cols-4 gap-2 mb-3 text-center">
-                  <div>
-                    <p className="font-bold text-sm text-[#1B4332]">{(c.impressions || 0).toLocaleString()}</p>
-                    <p className="text-[10px] text-slate-400">Impresiones</p>
-                  </div>
-                  <div>
-                    <p className="font-bold text-sm text-[#1B4332]">{c.clicks || 0}</p>
-                    <p className="text-[10px] text-slate-400">Clicks</p>
-                  </div>
-                  <div>
-                    <p className={`font-bold text-sm ${parseFloat(ctr) >= 3 ? "text-green-600" : "text-amber-500"}`}>{ctr}%</p>
-                    <p className="text-[10px] text-slate-400">CTR</p>
-                  </div>
-                  <div>
-                    <p className="font-bold text-sm text-[#1B4332]">{fmt(c.spend || 0)}</p>
-                    <p className="text-[10px] text-slate-400">Gastado</p>
-                  </div>
-                </div>
-
-                {/* Budget bar */}
-                <BudgetBar spend={c.spend || 0} budget={c.budget || 0} />
-
-                {/* Fechas */}
-                <p className="text-[10px] text-slate-400 mt-2">
-                  Inicio: {c.start || "—"} {c.end ? `· Fin: ${c.end}` : "· Sin fecha fin"}
-                </p>
-
-                {/* Acciones */}
-                <div className="flex gap-2 mt-3 pt-3 border-t border-slate-50">
-                  {c.status === "pending" && c.creatives_aprobadas > 0 && (
-                    <button onClick={() => onActivar(c.id)}
-                      className="flex-1 flex items-center justify-center gap-1.5 bg-green-600 hover:bg-green-700 text-white text-xs font-bold px-3 py-2 rounded-xl transition-colors">
-                      <Play className="w-3.5 h-3.5" /> Activar campaña
-                    </button>
-                  )}
-                  {c.status === "pending" && c.creatives_aprobadas === 0 && (
-                    <p className="text-[11px] text-amber-600 self-center">Aprobar creatividades primero en Moderación</p>
-                  )}
-                  {c.status === "active" && (
-                    <button onClick={() => onPausar(c.id)}
-                      className="flex items-center gap-1.5 border border-amber-200 text-amber-700 hover:bg-amber-50 text-xs font-bold px-3 py-2 rounded-xl transition-colors">
-                      <Pause className="w-3.5 h-3.5" /> Pausar
-                    </button>
-                  )}
-                  {c.status === "paused" && (
-                    <button onClick={() => onActivar(c.id)}
-                      className="flex items-center gap-1.5 border border-green-200 text-green-700 hover:bg-green-50 text-xs font-bold px-3 py-2 rounded-xl transition-colors">
-                      <Play className="w-3.5 h-3.5" /> Reactivar
-                    </button>
-                  )}
-                </div>
-              </div>
-            );
-          })}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          {filtrados.map((c) => (
+            <CampanaCard key={c.id} c={c} onActivar={onActivar} onPausar={onPausar} onReload={onReload} />
+          ))}
         </div>
       )}
     </div>
@@ -765,7 +956,7 @@ const AdminAdsAnalytics = () => {
 
         {/* Content */}
         {tab === "resumen"     && <TabResumen campaigns={campaigns} anunciantes={anunciantes} />}
-        {tab === "campanas"    && <TabCampanas campaigns={campaigns} onActivar={activar} onPausar={pausar} cargando={cargando} />}
+        {tab === "campanas"    && <TabCampanas campaigns={campaigns} onActivar={activar} onPausar={pausar} onReload={cargar} cargando={cargando} />}
         {tab === "anunciantes" && <TabAnunciantes anunciantes={anunciantes} onVerCampanas={verCampanasDeAnunciante} cargando={cargando} />}
         {tab === "moderacion"  && <TabModeracion campaigns={campaigns} onActivar={activar} activando={activando} onReload={cargar} />}
         {tab === "blacklist"   && <TabBlacklist />}

@@ -2389,19 +2389,53 @@ async def admin_campaigns_list(request: Request, status: str = "", advertiser_id
     if advertiser_id:
         query["advertiser_id"] = advertiser_id
     campaigns = await db.ad_campaigns.find(query, {"_id": 0}).sort("created_at", -1).to_list(200)
+    # Cargar blacklist para detectar flags en URLs
+    bl_cfg = await db.config.find_one({"key": "blacklist"}) or {}
+    dominios_bl = [d.lower() for d in bl_cfg.get("dominios", [])]
+    palabras_bl = [p.lower() for p in bl_cfg.get("palabras", [])]
     for c in campaigns:
         c["id"] = c.get("campaign_id", "")
         # Join advertiser info
         adv = await db.advertisers.find_one({"advertiser_id": c.get("advertiser_id")}, {"_id": 0, "company_name": 1, "email": 1, "contact_name": 1})
         c["advertiser"] = adv or {}
-        # Creative counts
-        total_cr = await db.ad_creatives.count_documents({"campaign_id": c.get("campaign_id")})
-        aprobadas = await db.ad_creatives.count_documents({"campaign_id": c.get("campaign_id"), "status": "aprobado"})
-        pendientes_cr = await db.ad_creatives.count_documents({"campaign_id": c.get("campaign_id"), "status": "pendiente_revision"})
-        c["creatives_total"] = total_cr
-        c["creatives_aprobadas"] = aprobadas
-        c["creatives_pendientes"] = pendientes_cr
+        # Creatives — incluir lista completa para previsualización y moderación inline
+        creatives = await db.ad_creatives.find(
+            {"campaign_id": c.get("campaign_id")}, {"_id": 0}
+        ).sort("uploaded_at", 1).to_list(50)
+        for cr in creatives:
+            cr["id"] = cr.get("creative_id", "")
+        c["creatives"] = creatives
+        c["creatives_total"] = len(creatives)
+        c["creatives_aprobadas"] = sum(1 for cr in creatives if cr.get("status") == "aprobado")
+        c["creatives_pendientes"] = sum(1 for cr in creatives if cr.get("status") == "pendiente_revision")
+        # Detección de flags de blacklist en URL y nombre
+        flags = []
+        link = (c.get("link_url") or "").lower()
+        nombre = (c.get("name") or "").lower()
+        for dom in dominios_bl:
+            if dom and dom in link:
+                flags.append(f"dominio_bl:{dom}")
+        for pal in palabras_bl:
+            if pal and pal in nombre:
+                flags.append(f"palabra_bl:{pal}")
+        c["flags"] = flags
     return {"campaigns": campaigns}
+
+@api_router.post("/admin/campaigns/{campaign_id}/creatives/{creative_id}/aprobar")
+async def admin_inline_creative_aprobar(campaign_id: str, creative_id: str, request: Request):
+    await require_admin(request)
+    await db.ad_creatives.update_one({"creative_id": creative_id}, {"$set": {"status": "aprobado"}})
+    return {"ok": True}
+
+@api_router.post("/admin/campaigns/{campaign_id}/creatives/{creative_id}/rechazar")
+async def admin_inline_creative_rechazar(campaign_id: str, creative_id: str, request: Request):
+    await require_admin(request)
+    body = await request.json()
+    await db.ad_creatives.update_one(
+        {"creative_id": creative_id},
+        {"$set": {"status": "rechazado", "motivo_rechazo": body.get("motivo", "")}}
+    )
+    return {"ok": True}
 
 @api_router.get("/admin/anunciantes")
 async def admin_anunciantes_list(request: Request, q: str = ""):
