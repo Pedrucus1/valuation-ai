@@ -6,7 +6,7 @@ import {
   TrendingUp, TrendingDown, Eye, MousePointer, BarChart2, DollarSign,
   Play, Pause, Users, Megaphone, ChevronDown, Download, Search,
   CheckCircle2, Clock, XCircle, RefreshCw, ShieldAlert, Image, AlertTriangle, X, MessageSquare,
-  Ban, Plus, Save, Globe, Type, ZoomIn, ChevronLeft, ChevronRight,
+  Ban, Plus, Save, Globe, Type, ZoomIn, ChevronLeft, ChevronRight, ChevronUp,
 } from "lucide-react";
 
 const fmt = (n) =>
@@ -163,17 +163,17 @@ const TabResumen = ({ campaigns, anunciantes }) => {
 };
 
 /* ─── Tarjeta de campaña con moderación inline ──────────────── */
-const CampanaCard = ({ c, onActivar, onPausar, onReload }) => {
-  const [expandido, setExpandido]     = useState(false);
-  const [lightbox, setLightbox]       = useState(null); // { items, startIndex }
+const CampanaFila = ({ c, onActivar, onPausar, onReload }) => {
+  const [expandido, setExpandido]       = useState(false);
+  const [lightbox, setLightbox]         = useState(null);
   const [modalRechazo, setModalRechazo] = useState(null);
-  const [motivo, setMotivo]           = useState("");
-  const [procesando, setProcesando]   = useState(null);
+  const [motivo, setMotivo]             = useState("");
+  const [procesando, setProcesando]     = useState(null);
 
   const backendBase = (API || "").replace("/api", "");
-  const st  = STATUS_CFG[c.status] || STATUS_CFG.pending;
-  const adv = c.advertiser || {};
-  const ctr = c.impressions > 0 ? ((c.clicks / c.impressions) * 100).toFixed(1) : "0.0";
+  const st       = STATUS_CFG[c.status] || STATUS_CFG.pending;
+  const adv      = c.advertiser || {};
+  const ctr      = c.impressions > 0 ? ((c.clicks / c.impressions) * 100).toFixed(1) : "0.0";
   const creatives = c.creatives || [];
   const hayFlags  = c.flags && c.flags.length > 0;
 
@@ -194,250 +194,279 @@ const CampanaCard = ({ c, onActivar, onPausar, onReload }) => {
     rechazado:          "border-2 border-red-400 opacity-60",
   };
 
+  const statusBorderCls = {
+    aprobado:           "border-2 border-green-400",
+    pendiente_revision: "border-2 border-amber-400",
+    rechazado:          "border-2 border-red-400 opacity-60",
+  };
+
   return (
-    <div className={`bg-white rounded-2xl border shadow-sm overflow-hidden ${hayFlags ? "border-red-200" : "border-slate-100"}`}>
+    <>
       {lightbox && <Lightbox items={lightbox.items} startIndex={lightbox.startIndex} onClose={() => setLightbox(null)} />}
-      <div className="p-5">
 
-        {/* Alerta blacklist */}
-        {hayFlags && (
-          <div className="flex items-start gap-2 bg-red-50 border border-red-100 rounded-xl px-3 py-2 mb-4">
-            <AlertTriangle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
-            <div className="text-xs text-red-700">
-              <span className="font-bold">Alerta blacklist: </span>
-              {c.flags.map((f) => f.replace("dominio_bl:", "dominio: ").replace("palabra_bl:", "palabra: ")).join(" · ")}
-            </div>
-          </div>
-        )}
-
-        {/* Header */}
-        <div className="flex items-start justify-between gap-3 mb-4">
-          <div className="min-w-0">
-            <p className="font-bold text-[#1B4332] text-base leading-snug">{c.name}</p>
-            <p className="text-sm text-slate-500 mt-0.5">{adv.company_name || "—"} · {adv.email || ""}</p>
-            <p className="text-sm text-slate-400 mt-0.5">{SLOT_LABELS[c.slot] || c.slot} · {c.ad_duration}s</p>
-          </div>
-          <span className={`text-xs font-bold px-3 py-1 rounded-full shrink-0 ${st.cls}`}>
-            {st.label}
-          </span>
-        </div>
-
-        {/* Tira de miniaturas */}
-        {creatives.length > 0 && (
-          <div className="mb-4">
-            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">
-              Creatividades · {c.creatives_aprobadas} aprobadas
-              {c.creatives_pendientes > 0 && <span className="text-amber-500 ml-2">· {c.creatives_pendientes} pendientes</span>}
-            </p>
-            <div className="flex gap-2 overflow-x-auto pb-1">
-              {creatives.map((cr, crIdx) => {
-                const src = cr.file_url ? `${backendBase}${cr.file_url}` : null;
-                const borderCls = statusBorderCls[cr.status] || "border border-slate-200";
-                return (
-                  <button
-                    key={cr.id}
-                    onClick={() => setLightbox({ items: creatives, startIndex: crIdx })}
-                    className={`relative flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden bg-slate-50 group ${borderCls}`}
-                  >
-                    {src ? (
-                      cr.file_type === "video"
-                        ? <video src={src} className="w-full h-full object-cover pointer-events-none" muted />
-                        : <img src={src} alt={cr.name} className="w-full h-full object-cover" />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-slate-300">
-                        <Image className="w-6 h-6" />
-                      </div>
-                    )}
-                    {/* Overlay ojo al hacer hover */}
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all flex items-center justify-center">
-                      <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                        {cr.file_type === "video" ? <Play className="w-5 h-5 text-white drop-shadow" /> : <ZoomIn className="w-5 h-5 text-white drop-shadow" />}
-                      </div>
-                    </div>
-                    {/* Badge de estado */}
-                    <div className="absolute bottom-0 left-0 right-0 text-center">
-                      {cr.status === "aprobado"           && <span className="bg-green-500 text-white text-[9px] font-bold px-1 block">✓</span>}
-                      {cr.status === "pendiente_revision" && <span className="bg-amber-500 text-white text-[9px] font-bold px-1 block">?</span>}
-                      {cr.status === "rechazado"          && <span className="bg-red-500   text-white text-[9px] font-bold px-1 block">✗</span>}
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        {/* Métricas */}
-        <div className="grid grid-cols-4 gap-3 mb-4 text-center bg-slate-50 rounded-xl p-3">
-          <div>
-            <p className="font-bold text-base text-[#1B4332]">{(c.impressions || 0).toLocaleString()}</p>
-            <p className="text-xs text-slate-400 mt-0.5">Impresiones</p>
-          </div>
-          <div>
-            <p className="font-bold text-base text-[#1B4332]">{c.clicks || 0}</p>
-            <p className="text-xs text-slate-400 mt-0.5">Clicks</p>
-          </div>
-          <div>
-            <p className={`font-bold text-base ${parseFloat(ctr) >= 3 ? "text-green-600" : "text-amber-500"}`}>{ctr}%</p>
-            <p className="text-xs text-slate-400 mt-0.5">CTR</p>
-          </div>
-          <div>
-            <p className="font-bold text-base text-[#1B4332]">{fmt(c.spend || 0)}</p>
-            <p className="text-xs text-slate-400 mt-0.5">Gastado</p>
-          </div>
-        </div>
-
-        {/* Budget bar */}
-        <BudgetBar spend={c.spend || 0} budget={c.budget || 0} />
-
-        {/* Fechas + enlace */}
-        <div className="mt-3 text-xs text-slate-400 space-y-0.5">
-          <p>Inicio: <span className="text-slate-600">{c.start || "—"}</span>{c.end ? <> · Fin: <span className="text-slate-600">{c.end}</span></> : " · Sin fecha fin"}</p>
-          {c.link_url && (
-            <p>Enlace: <span className="text-blue-500 truncate">{c.link_url}</span></p>
-          )}
-        </div>
-
-        {/* Acciones principales */}
-        <div className="flex flex-wrap gap-2 mt-4 pt-3 border-t border-slate-100">
-          {c.status === "pending" && c.creatives_aprobadas > 0 && (
-            <button onClick={() => onActivar(c.id)}
-              className="flex items-center gap-1.5 bg-green-600 hover:bg-green-700 text-white text-sm font-bold px-4 py-2 rounded-xl transition-colors">
-              <Play className="w-4 h-4" /> Activar campaña
-            </button>
-          )}
-          {c.status === "pending" && c.creatives_aprobadas === 0 && (
-            <p className="text-sm text-amber-600 self-center">Aprueba al menos una creatividad para activar</p>
-          )}
-          {c.status === "active" && (
-            <button onClick={() => onPausar(c.id)}
-              className="flex items-center gap-1.5 border border-amber-200 text-amber-700 hover:bg-amber-50 text-sm font-bold px-4 py-2 rounded-xl transition-colors">
-              <Pause className="w-4 h-4" /> Pausar
-            </button>
-          )}
-          {c.status === "paused" && (
-            <button onClick={() => onActivar(c.id)}
-              className="flex items-center gap-1.5 border border-green-200 text-green-700 hover:bg-green-50 text-sm font-bold px-4 py-2 rounded-xl transition-colors">
-              <Play className="w-4 h-4" /> Reactivar
-            </button>
-          )}
-          {creatives.length > 0 && (
-            <button onClick={() => setExpandido((v) => !v)}
-              className="flex items-center gap-1.5 border border-slate-200 text-slate-600 hover:bg-slate-50 text-sm font-semibold px-4 py-2 rounded-xl transition-colors ml-auto">
-              <Eye className="w-4 h-4" />
-              {expandido ? "Ocultar" : "Moderar creatividades"}
-              {c.creatives_pendientes > 0 && (
-                <span className="bg-amber-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">{c.creatives_pendientes}</span>
-              )}
-            </button>
-          )}
-        </div>
-      </div>
-
-      {/* Panel de moderación inline expandible */}
-      {expandido && (
-        <div className="border-t border-slate-100 bg-slate-50 p-5">
-          <p className="text-sm font-semibold text-slate-500 mb-3">Todas las creatividades</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {creatives.map((cr, crIdx) => {
+      {/* ── Fila compacta ── */}
+      <tr
+        className={`hover:bg-slate-50 cursor-pointer transition-colors border-b border-slate-100 ${hayFlags ? "bg-red-50/30" : ""}`}
+        onClick={() => setExpandido((v) => !v)}
+      >
+        {/* Miniaturas (hasta 3) */}
+        <td className="px-3 py-2.5 w-28">
+          <div className="flex gap-1">
+            {creatives.slice(0, 3).map((cr, crIdx) => {
               const src = cr.file_url ? `${backendBase}${cr.file_url}` : null;
-              const isPending = cr.status === "pendiente_revision";
               return (
-                <div key={cr.id} className={`bg-white rounded-xl border overflow-hidden ${isPending ? "border-amber-200" : "border-slate-100"}`}>
-                  {/* Imagen/video — click abre lightbox */}
-                  <div
-                    className="relative bg-slate-50 border-b border-slate-100 group cursor-pointer"
-                    onClick={() => setLightbox({ items: creatives, startIndex: crIdx })}
-                  >
-                    {src ? (
-                      cr.file_type === "video"
-                        ? <video src={src} className="w-full max-h-48 object-contain pointer-events-none" muted />
-                        : <img src={src} alt={cr.name} className="w-full max-h-48 object-contain" />
-                    ) : (
-                      <div className="w-full h-32 flex items-center justify-center text-slate-300">
-                        <Image className="w-10 h-10" />
-                      </div>
-                    )}
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all flex items-center justify-center">
-                      <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/20 backdrop-blur-sm rounded-full p-3">
-                        {cr.file_type === "video" ? <Play className="w-6 h-6 text-white" /> : <ZoomIn className="w-6 h-6 text-white" />}
-                      </div>
-                    </div>
+                <button
+                  key={cr.id}
+                  onClick={(e) => { e.stopPropagation(); setLightbox({ items: creatives, startIndex: crIdx }); }}
+                  className={`relative flex-shrink-0 w-10 h-10 rounded-lg overflow-hidden bg-slate-100 group ${statusBorderCls[cr.status] || "border border-slate-200"}`}
+                >
+                  {src ? (
+                    cr.file_type === "video"
+                      ? <video src={src} className="w-full h-full object-cover pointer-events-none" muted />
+                      : <img src={src} className="w-full h-full object-cover" alt="" />
+                  ) : <Image className="w-4 h-4 text-slate-300 m-auto mt-3" />}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all flex items-center justify-center">
+                    <ZoomIn className="w-3 h-3 text-white opacity-0 group-hover:opacity-100" />
                   </div>
-                  <div className="p-3">
-                    <div className="flex items-center justify-between mb-2">
-                      <p className="text-sm font-semibold text-[#1B4332] truncate">{cr.name || "Sin nombre"}</p>
-                      <span className={`text-xs font-bold px-2 py-0.5 rounded-full ml-2 flex-shrink-0 ${
-                        cr.status === "aprobado"           ? "bg-green-100 text-green-700" :
-                        cr.status === "pendiente_revision" ? "bg-amber-100 text-amber-700" :
-                        "bg-red-100 text-red-600"
-                      }`}>
-                        {cr.status === "aprobado" ? "Aprobada" : cr.status === "pendiente_revision" ? "Pendiente" : "Rechazada"}
-                      </span>
-                    </div>
-                    {cr.motivo_rechazo && (
-                      <p className="text-xs text-red-500 mb-2">Motivo: {cr.motivo_rechazo}</p>
-                    )}
-                    <p className="text-xs text-slate-400 mb-3">{cr.file_type === "video" ? "Video" : "Imagen"} · {cr.uploaded_at?.split("T")[0] || "—"}</p>
-                    {(isPending || cr.status === "rechazado") && (
-                      <div className="flex gap-2">
-                        <button
-                          onClick={() => accionCreative(cr.id, "aprobar")}
-                          disabled={procesando === cr.id}
-                          className="flex-1 flex items-center justify-center gap-1 bg-green-600 hover:bg-green-700 disabled:opacity-50 text-white text-xs font-bold py-2 rounded-lg transition-colors"
-                        >
-                          <CheckCircle2 className="w-3.5 h-3.5" /> Aprobar
-                        </button>
-                        <button
-                          onClick={() => { setMotivo(""); setModalRechazo({ id: cr.id }); }}
-                          disabled={procesando === cr.id}
-                          className="flex-1 flex items-center justify-center gap-1 bg-red-500 hover:bg-red-600 disabled:opacity-50 text-white text-xs font-bold py-2 rounded-lg transition-colors"
-                        >
-                          <XCircle className="w-3.5 h-3.5" /> Rechazar
-                        </button>
-                      </div>
-                    )}
-                    {cr.status === "aprobado" && (
-                      <button
-                        onClick={() => { setMotivo(""); setModalRechazo({ id: cr.id }); }}
-                        className="w-full text-xs text-red-500 hover:text-red-700 border border-red-100 hover:border-red-200 rounded-lg py-1.5 transition-colors"
-                      >
-                        Revocar aprobación
-                      </button>
-                    )}
-                  </div>
-                </div>
+                </button>
               );
             })}
+            {creatives.length > 3 && (
+              <div className="w-10 h-10 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center text-xs font-bold text-slate-400">
+                +{creatives.length - 3}
+              </div>
+            )}
+            {creatives.length === 0 && (
+              <div className="w-10 h-10 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center">
+                <Image className="w-4 h-4 text-slate-300" />
+              </div>
+            )}
           </div>
-        </div>
+        </td>
+
+        {/* Nombre + anunciante */}
+        <td className="px-3 py-2.5 min-w-0">
+          <div className="flex items-center gap-2">
+            {hayFlags && <AlertTriangle className="w-3.5 h-3.5 text-red-500 flex-shrink-0" />}
+            <div className="min-w-0">
+              <p className="font-semibold text-[#1B4332] text-sm truncate">{c.name}</p>
+              <p className="text-xs text-slate-400 truncate">{adv.company_name || "—"}</p>
+            </div>
+          </div>
+        </td>
+
+        {/* Slot */}
+        <td className="px-3 py-2.5 whitespace-nowrap">
+          <span className="text-xs bg-slate-100 text-slate-600 font-semibold px-2 py-1 rounded-lg">
+            {c.slot} · {c.ad_duration}s
+          </span>
+        </td>
+
+        {/* Status */}
+        <td className="px-3 py-2.5">
+          <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${st.cls}`}>{st.label}</span>
+        </td>
+
+        {/* Creatividades */}
+        <td className="px-3 py-2.5 whitespace-nowrap text-xs">
+          <span className="text-green-600 font-semibold">✓{c.creatives_aprobadas}</span>
+          {c.creatives_pendientes > 0 && <span className="text-amber-500 font-semibold ml-1.5">?{c.creatives_pendientes}</span>}
+          <span className="text-slate-300 ml-1.5">/{c.creatives_total}</span>
+        </td>
+
+        {/* Presupuesto (barra slim) */}
+        <td className="px-3 py-2.5 w-32">
+          <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden w-full">
+            <div
+              className="h-full rounded-full"
+              style={{
+                width: `${c.budget > 0 ? Math.min(100, Math.round(((c.spend || 0) / c.budget) * 100)) : 0}%`,
+                backgroundColor: "#52B788",
+              }}
+            />
+          </div>
+          <p className="text-[10px] text-slate-400 mt-0.5">{fmt(c.spend || 0)} / {fmt(c.budget || 0)}</p>
+        </td>
+
+        {/* Acciones rápidas */}
+        <td className="px-3 py-2.5" onClick={(e) => e.stopPropagation()}>
+          <div className="flex items-center gap-1.5">
+            {c.status === "pending" && c.creatives_aprobadas > 0 && (
+              <button onClick={() => onActivar(c.id)}
+                className="flex items-center gap-1 bg-green-600 hover:bg-green-700 text-white text-xs font-bold px-2.5 py-1.5 rounded-lg transition-colors whitespace-nowrap">
+                <Play className="w-3 h-3" /> Activar
+              </button>
+            )}
+            {c.status === "active" && (
+              <button onClick={() => onPausar(c.id)}
+                className="flex items-center gap-1 border border-amber-200 text-amber-700 hover:bg-amber-50 text-xs font-bold px-2.5 py-1.5 rounded-lg transition-colors">
+                <Pause className="w-3 h-3" /> Pausar
+              </button>
+            )}
+            {c.status === "paused" && (
+              <button onClick={() => onActivar(c.id)}
+                className="flex items-center gap-1 border border-green-200 text-green-700 hover:bg-green-50 text-xs font-bold px-2.5 py-1.5 rounded-lg transition-colors">
+                <Play className="w-3 h-3" /> Reactivar
+              </button>
+            )}
+          </div>
+        </td>
+
+        {/* Chevron */}
+        <td className="px-3 py-2.5 text-right">
+          {expandido
+            ? <ChevronUp className="w-4 h-4 text-slate-400 ml-auto" />
+            : <ChevronDown className="w-4 h-4 text-slate-400 ml-auto" />}
+        </td>
+      </tr>
+
+      {/* ── Panel expandido ── */}
+      {expandido && (
+        <tr>
+          <td colSpan={8} className="bg-slate-50 border-b border-slate-200 p-5">
+
+            {/* Alerta blacklist */}
+            {hayFlags && (
+              <div className="flex items-start gap-2 bg-red-50 border border-red-200 rounded-xl px-3 py-2 mb-4 text-sm text-red-700">
+                <AlertTriangle className="w-4 h-4 flex-shrink-0 mt-0.5 text-red-500" />
+                <span><strong>Blacklist:</strong> {c.flags.map((f) => f.replace("dominio_bl:", "dominio: ").replace("palabra_bl:", "palabra: ")).join(" · ")}</span>
+              </div>
+            )}
+
+            {/* Info + métricas en una línea */}
+            <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-5 text-sm">
+              <div>
+                <p className="text-xs text-slate-400 mb-0.5">Inicio</p>
+                <p className="font-semibold text-[#1B4332]">{c.start || "—"}</p>
+              </div>
+              <div>
+                <p className="text-xs text-slate-400 mb-0.5">Fin</p>
+                <p className="font-semibold text-[#1B4332]">{c.end || "Sin fecha"}</p>
+              </div>
+              <div>
+                <p className="text-xs text-slate-400 mb-0.5">Impresiones</p>
+                <p className="font-bold text-[#1B4332]">{(c.impressions || 0).toLocaleString()}</p>
+              </div>
+              <div>
+                <p className="text-xs text-slate-400 mb-0.5">CTR</p>
+                <p className={`font-bold ${parseFloat(ctr) >= 3 ? "text-green-600" : "text-amber-500"}`}>{ctr}%</p>
+              </div>
+              <div>
+                <p className="text-xs text-slate-400 mb-0.5">Enlace</p>
+                <p className="text-blue-500 text-xs truncate">{c.link_url || "—"}</p>
+              </div>
+            </div>
+
+            {/* Presupuesto */}
+            <div className="mb-5">
+              <BudgetBar spend={c.spend || 0} budget={c.budget || 0} />
+            </div>
+
+            {/* Creatividades */}
+            {creatives.length > 0 && (
+              <>
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">
+                  Creatividades — aprobar o rechazar
+                </p>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                  {creatives.map((cr, crIdx) => {
+                    const src = cr.file_url ? `${backendBase}${cr.file_url}` : null;
+                    const isPending = cr.status === "pendiente_revision";
+                    return (
+                      <div key={cr.id} className={`bg-white rounded-xl border overflow-hidden ${isPending ? "border-amber-200" : "border-slate-100"}`}>
+                        <div
+                          className="relative bg-slate-50 group cursor-pointer"
+                          style={{ height: 120 }}
+                          onClick={() => setLightbox({ items: creatives, startIndex: crIdx })}
+                        >
+                          {src ? (
+                            cr.file_type === "video"
+                              ? <video src={src} className="w-full h-full object-contain pointer-events-none" muted />
+                              : <img src={src} alt={cr.name} className="w-full h-full object-contain" />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center text-slate-200">
+                              <Image className="w-8 h-8" />
+                            </div>
+                          )}
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all flex items-center justify-center">
+                            <div className="opacity-0 group-hover:opacity-100 bg-white/20 backdrop-blur-sm rounded-full p-2">
+                              {cr.file_type === "video" ? <Play className="w-5 h-5 text-white" /> : <ZoomIn className="w-5 h-5 text-white" />}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="p-2">
+                          <div className="flex items-center justify-between gap-1 mb-1.5">
+                            <p className="text-xs font-semibold text-[#1B4332] truncate">{cr.name || "Sin nombre"}</p>
+                            <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full flex-shrink-0 ${
+                              cr.status === "aprobado" ? "bg-green-100 text-green-700" :
+                              cr.status === "pendiente_revision" ? "bg-amber-100 text-amber-700" :
+                              "bg-red-100 text-red-600"
+                            }`}>
+                              {cr.status === "aprobado" ? "OK" : cr.status === "pendiente_revision" ? "Pend." : "Rech."}
+                            </span>
+                          </div>
+                          {cr.motivo_rechazo && <p className="text-[10px] text-red-500 mb-1.5 truncate">{cr.motivo_rechazo}</p>}
+                          {(isPending || cr.status === "rechazado") && (
+                            <div className="flex gap-1">
+                              <button onClick={() => accionCreative(cr.id, "aprobar")} disabled={procesando === cr.id}
+                                className="flex-1 flex items-center justify-center gap-0.5 bg-green-600 hover:bg-green-700 disabled:opacity-50 text-white text-[10px] font-bold py-1.5 rounded-lg">
+                                <CheckCircle2 className="w-3 h-3" /> OK
+                              </button>
+                              <button onClick={() => { setMotivo(""); setModalRechazo({ id: cr.id }); }} disabled={procesando === cr.id}
+                                className="flex-1 flex items-center justify-center gap-0.5 bg-red-500 hover:bg-red-600 disabled:opacity-50 text-white text-[10px] font-bold py-1.5 rounded-lg">
+                                <XCircle className="w-3 h-3" /> No
+                              </button>
+                            </div>
+                          )}
+                          {cr.status === "aprobado" && (
+                            <button onClick={() => { setMotivo(""); setModalRechazo({ id: cr.id }); }}
+                              className="w-full text-[10px] text-red-500 hover:text-red-700 border border-red-100 rounded-lg py-1 transition-colors">
+                              Revocar
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </>
+            )}
+            {c.status === "pending" && c.creatives_aprobadas === 0 && (
+              <p className="text-sm text-amber-600 mt-3">Aprueba al menos una creatividad para poder activar la campaña.</p>
+            )}
+          </td>
+        </tr>
       )}
 
-      {/* Modal motivo de rechazo */}
+      {/* Modal motivo rechazo */}
       {modalRechazo && (
-        <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4" onClick={() => setModalRechazo(null)}>
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm p-6" onClick={(e) => e.stopPropagation()}>
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="font-bold text-[#1B4332] text-base">Motivo de rechazo</h2>
-              <button onClick={() => setModalRechazo(null)}><X className="w-5 h-5 text-slate-300" /></button>
+        <tr>
+          <td colSpan={8}>
+            <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4" onClick={() => setModalRechazo(null)}>
+              <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm p-6" onClick={(e) => e.stopPropagation()}>
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="font-bold text-[#1B4332] text-base">Motivo de rechazo</h2>
+                  <button onClick={() => setModalRechazo(null)}><X className="w-5 h-5 text-slate-300" /></button>
+                </div>
+                <textarea value={motivo} onChange={(e) => setMotivo(e.target.value)} rows={3}
+                  placeholder="Ej: No cumple con la política de anuncios…"
+                  className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm resize-none focus:outline-none focus:border-red-300" />
+                <div className="flex gap-2 mt-4">
+                  <button onClick={() => accionCreative(modalRechazo.id, "rechazar", motivo)}
+                    className="flex-1 bg-red-500 text-white rounded-xl py-2.5 text-sm font-bold hover:bg-red-600 transition-colors">
+                    Confirmar rechazo
+                  </button>
+                  <button onClick={() => setModalRechazo(null)}
+                    className="flex-1 border border-slate-200 text-slate-500 rounded-xl py-2.5 text-sm font-semibold hover:bg-slate-50 transition-colors">
+                    Cancelar
+                  </button>
+                </div>
+              </div>
             </div>
-            <textarea value={motivo} onChange={(e) => setMotivo(e.target.value)}
-              rows={3} placeholder="Ej: El contenido no cumple con la política de anuncios…"
-              className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-700 resize-none focus:outline-none focus:border-red-300" />
-            <div className="flex gap-2 mt-4">
-              <button onClick={() => accionCreative(modalRechazo.id, "rechazar", motivo)}
-                className="flex-1 bg-red-500 text-white rounded-xl py-2.5 text-sm font-bold hover:bg-red-600 transition-colors">
-                Confirmar rechazo
-              </button>
-              <button onClick={() => setModalRechazo(null)}
-                className="flex-1 border border-slate-200 text-slate-500 rounded-xl py-2.5 text-sm font-semibold hover:bg-slate-50 transition-colors">
-                Cancelar
-              </button>
-            </div>
-          </div>
-        </div>
+          </td>
+        </tr>
       )}
-    </div>
+    </>
   );
 };
 
@@ -484,10 +513,28 @@ const TabCampanas = ({ campaigns, onActivar, onPausar, onReload, cargando }) => 
           <p className="text-sm">{cargando ? "Cargando…" : "Sin campañas con esos filtros"}</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-          {filtrados.map((c) => (
-            <CampanaCard key={c.id} c={c} onActivar={onActivar} onPausar={onPausar} onReload={onReload} />
-          ))}
+        <div className="bg-white rounded-2xl border border-slate-100 overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="bg-slate-50 border-b border-slate-100">
+                  <th className="px-3 py-2.5 text-left text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Fotos</th>
+                  <th className="px-3 py-2.5 text-left text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Campaña</th>
+                  <th className="px-3 py-2.5 text-left text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Slot</th>
+                  <th className="px-3 py-2.5 text-left text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Estado</th>
+                  <th className="px-3 py-2.5 text-left text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Creatividades</th>
+                  <th className="px-3 py-2.5 text-left text-[11px] font-semibold text-slate-400 uppercase tracking-wide w-36">Presupuesto</th>
+                  <th className="px-3 py-2.5 text-left text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Acciones</th>
+                  <th className="px-3 py-2.5 w-8"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {filtrados.map((c) => (
+                  <CampanaFila key={c.id} c={c} onActivar={onActivar} onPausar={onPausar} onReload={onReload} />
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
     </div>
