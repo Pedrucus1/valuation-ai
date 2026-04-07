@@ -401,32 +401,36 @@ const ValuadorDashboardPage = () => {
     return (
       <div className="space-y-4">
 
-        {/* ── Hero card: estado + progreso ── */}
-        <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] rounded-2xl p-5">
-          <div className="flex items-start justify-between gap-4">
-            <div className="flex-1">
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-2xl">{cfg.icon}</span>
-                <p className="font-['Outfit'] font-bold text-white text-base">{cfg.label}</p>
-              </div>
-              <p className="text-sm text-[#D9ED92]/80 mb-3">
-                {etapa === "pendiente" && `Faltan ${docsRequeridos.length - subidos} documento${docsRequeridos.length - subidos !== 1 ? "s" : ""} para completar tu expediente.`}
-                {etapa === "listo" && "Expediente completo. Solicita tu entrevista de verificación por videollamada."}
-                {etapa === "revision" && "Tus documentos están en revisión. Te avisamos por correo y WhatsApp."}
-                {etapa === "aprobado" && "Perfil activo y verificado. Bienvenido a la red PropValu."}
-              </p>
-              {/* Barra de progreso */}
-              <div className="space-y-1">
-                <div className="flex justify-between text-xs text-[#D9ED92]/70">
-                  <span>Progreso</span>
-                  <span className="font-bold text-[#D9ED92]">{subidos} / {docsRequeridos.length} documentos</span>
-                </div>
-                <div className="w-full bg-white/20 rounded-full h-2.5">
-                  <div className={`h-2.5 rounded-full transition-all duration-500 ${docsCompletos ? "bg-[#D9ED92]" : "bg-[#52B788]"}`}
-                    style={{ width: `${pct}%` }} />
-                </div>
+        {/* ── Hero card: estado + progreso en una sola fila ── */}
+        <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] rounded-2xl px-5 py-4">
+          <div className="flex items-center gap-4">
+            {/* Ícono + estado */}
+            <div className="flex items-center gap-2 flex-shrink-0">
+              <span className="text-2xl">{cfg.icon}</span>
+              <div>
+                <p className="font-['Outfit'] font-bold text-white text-sm leading-tight">{cfg.label}</p>
+                <p className="text-xs text-[#D9ED92]/80 mt-0.5">
+                  {etapa === "pendiente" && `Faltan ${docsRequeridos.length - subidos} doc${docsRequeridos.length - subidos !== 1 ? "s" : ""}`}
+                  {etapa === "listo" && "Listo para entrevista"}
+                  {etapa === "revision" && "En revisión por PropValu"}
+                  {etapa === "aprobado" && "Verificado ✅"}
+                </p>
               </div>
             </div>
+
+            {/* Barra de progreso — ocupa el espacio restante */}
+            <div className="flex-1 min-w-0">
+              <div className="flex justify-between text-xs text-[#D9ED92]/70 mb-1">
+                <span>Progreso del expediente</span>
+                <span className="font-bold text-[#D9ED92]">{subidos} / {docsRequeridos.length}</span>
+              </div>
+              <div className="w-full bg-white/20 rounded-full h-2.5">
+                <div className={`h-2.5 rounded-full transition-all duration-500 ${docsCompletos ? "bg-[#D9ED92]" : "bg-[#52B788]"}`}
+                  style={{ width: `${pct}%` }} />
+              </div>
+            </div>
+
+            {/* Botón entrevista */}
             {etapa === "listo" && (
               <button
                 onClick={async () => {
@@ -711,12 +715,10 @@ const ValuadorDashboardPage = () => {
   );
 
   const ValuacionesTable = ({ titulo = "Valuaciones recientes" }) => (
-    <Card className="bg-white border-0 shadow-sm">
-      <CardHeader className="border-b border-slate-100">
-        <CardTitle className="font-['Outfit'] text-lg text-[#1B4332]">
-          {titulo}
-        </CardTitle>
-      </CardHeader>
+    <Card className="bg-white border-0 shadow-sm overflow-hidden">
+      <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] px-5 py-4">
+        <p className="font-['Outfit'] font-bold text-white text-base">{titulo}</p>
+      </div>
       <CardContent className="p-0">
         {valuaciones.length === 0 ? (
           <div className="text-center py-10 text-slate-400 text-sm">
