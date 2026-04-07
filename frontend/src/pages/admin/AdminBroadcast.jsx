@@ -7,7 +7,7 @@ const SEGMENTOS = [
   { value: "plan_basico",        label: "Valuadores plan Básico",                    count: 12 },
   { value: "plan_pro",           label: "Valuadores plan Pro",                       count: 21 },
   { value: "plan_enterprise",    label: "Valuadores Enterprise",                     count: 5  },
-  { value: "kyc_pendiente",      label: "Con KYC pendiente de completar",            count: 2  },
+  { value: "kyc_pendiente",      label: "Con verificación pendiente de completar",    count: 2  },
   { value: "sin_actividad_30d",  label: "Sin actividad en 30+ días",                 count: 7  },
   { value: "guadalajara",        label: "Valuadores en Guadalajara / ZMG",           count: 24 },
   { value: "todos_inmobiliarias",label: "Todas las inmobiliarias activas",           count: 15 },
@@ -23,7 +23,7 @@ const PLANTILLAS = [
   {
     id: "actualiza_documentos",
     nombre: "Recordatorio: actualiza tu documentación",
-    asunto: "Tu seguro RC está por vencer — actualiza tu KYC",
+    asunto: "Tu seguro RC está por vencer — actualiza tu verificación",
     cuerpo: "Hola {{nombre}},\n\nDetectamos que tu seguro de responsabilidad civil vence en los próximos 15 días.\n\nPara mantener tu cuenta activa y seguir recibiendo encargos, sube el documento renovado en tu perfil antes del {{fecha_vencimiento}}.\n\nIngresa a: propvalu.mx/dashboard/valuador\n\nEquipo PropValu",
   },
   {
@@ -35,7 +35,7 @@ const PLANTILLAS = [
 ];
 
 const HISTORIAL = [
-  { id: "b1", asunto: "Recuerda completar tu KYC", segmento: "kyc_pendiente", enviados: 2, abiertos: 2, fecha: "2026-03-18" },
+  { id: "b1", asunto: "Recuerda completar tu verificación", segmento: "kyc_pendiente", enviados: 2, abiertos: 2, fecha: "2026-03-18" },
   { id: "b2", asunto: "¡Aumentó la demanda en Tlaquepaque!", segmento: "guadalajara", enviados: 24, abiertos: 18, fecha: "2026-03-15" },
 ];
 

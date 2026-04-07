@@ -158,7 +158,7 @@ const FilaEmpresa = ({ r, onNotificar, onKYC }) => {
           {[r.municipio, r.estado].filter(Boolean).join(", ") || "—"}
         </td>
         <td className="px-4 py-3">
-          <Chip cfg={KYC_CFG[r.kyc_status] || { label: "Sin KYC", cls: "bg-slate-100 text-slate-400" }} />
+          <Chip cfg={KYC_CFG[r.kyc_status] || { label: "Sin verificación", cls: "bg-slate-100 text-slate-400" }} />
         </td>
         <td className="px-4 py-3">
           <Chip cfg={ESTADO_CFG[r.cuenta_estado] || ESTADO_CFG.activo} />
@@ -255,13 +255,13 @@ const FilaEmpresa = ({ r, onNotificar, onKYC }) => {
                         onClick={(e) => { e.stopPropagation(); onKYC(r.user_id, "aprobar"); }}
                         className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg border border-green-200 text-green-700 hover:bg-green-50 transition-colors"
                       >
-                        <CheckCircle2 className="w-3.5 h-3.5" /> Aprobar KYC
+                        <CheckCircle2 className="w-3.5 h-3.5" /> Aprobar verificación
                       </button>
                       <button
                         onClick={(e) => { e.stopPropagation(); onKYC(r.user_id, "rechazar"); }}
                         className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg border border-red-200 text-red-600 hover:bg-red-50 transition-colors"
                       >
-                        <XCircle className="w-3.5 h-3.5" /> Rechazar KYC
+                        <XCircle className="w-3.5 h-3.5" /> Rechazar verificación
                       </button>
                     </>
                   )}
@@ -342,7 +342,7 @@ const TabEmpresas = ({ inmobiliarias, onReload }) => {
           onChange={(e) => setFiltroKyc(e.target.value)}
           className="bg-white border border-slate-200 rounded-xl px-3 py-2 text-sm text-slate-600 outline-none"
         >
-          <option value="todos">Todos los KYC</option>
+          <option value="todos">Todas las verificaciones</option>
           <option value="pending">Pendiente</option>
           <option value="approved">Aprobado</option>
           <option value="rejected">Rechazado</option>
@@ -357,7 +357,7 @@ const TabEmpresas = ({ inmobiliarias, onReload }) => {
               <tr className="border-b border-slate-100 bg-slate-50">
                 <th className="text-left px-4 py-3 text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Empresa</th>
                 <th className="text-left px-4 py-3 text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Ubicación</th>
-                <th className="text-left px-4 py-3 text-[11px] font-semibold text-slate-400 uppercase tracking-wide">KYC</th>
+                <th className="text-left px-4 py-3 text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Verificación</th>
                 <th className="text-left px-4 py-3 text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Estado</th>
                 <th className="text-center px-4 py-3 text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Créditos</th>
                 <th className="text-center px-4 py-3 text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Avalúos/mes</th>
@@ -408,7 +408,7 @@ const TabNuevasAltas = ({ inmobiliarias, onReload }) => {
 
   return (
     <div className="space-y-3">
-      <p className="text-sm text-slate-500">{pendientes.length} empresa{pendientes.length !== 1 ? "s" : ""} esperando revisión KYC</p>
+      <p className="text-sm text-slate-500">{pendientes.length} empresa{pendientes.length !== 1 ? "s" : ""} esperando verificación</p>
       {pendientes.map((r) => (
         <div key={r.user_id} className="bg-white rounded-2xl border border-amber-100 p-5">
           <div className="flex items-start justify-between gap-4 flex-wrap">
@@ -553,7 +553,7 @@ const AdminInmobiliarias = () => {
   ];
 
   const descargarCSV = () => {
-    const cols = ["Empresa", "Email", "KYC", "Estado", "Créditos", "Avalúos/mes", "Total avalúos", "Alta"];
+    const cols = ["Empresa", "Email", "Verificación", "Estado", "Créditos", "Avalúos/mes", "Total avalúos", "Alta"];
     const rows = inmobiliarias.map((r) =>
       [r.company_name || r.name || "", r.email, r.kyc_status || "", r.cuenta_estado || "",
        r.credits ?? 0, r.avaluos_mes ?? 0, r.total_avaluos ?? 0, r.created_at || ""].join(",")

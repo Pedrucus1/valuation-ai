@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 
 const ACTIVIDAD_RECIENTE = [
-  { id: 1, tipo: "kyc",        mensaje: "Nuevo KYC pendiente de revisión",                hora: "reciente",  nivel: "info" },
+  { id: 1, tipo: "kyc",        mensaje: "Nueva verificación pendiente de revisión",       hora: "reciente",  nivel: "info" },
   { id: 2, tipo: "valuacion",  mensaje: "Reporte generado en la plataforma",              hora: "reciente",  nivel: "ok" },
   { id: 3, tipo: "queja",      mensaje: "Queja o sugerencia recibida",                    hora: "reciente",  nivel: "warn" },
 ];
@@ -109,7 +109,7 @@ const AdminDashboard = () => {
             <div className="flex flex-wrap gap-3 text-sm">
               {stats.kyc_pendientes > 0 && (
                 <a href="/admin/kyc" className="text-amber-700 underline">
-                  {stats.kyc_pendientes} KYC pendiente{stats.kyc_pendientes > 1 ? "s" : ""}
+                  {stats.kyc_pendientes} verificación{stats.kyc_pendientes > 1 ? "es" : ""} pendiente{stats.kyc_pendientes > 1 ? "s" : ""}
                 </a>
               )}
               {stats.anuncios_revision > 0 && (
@@ -124,7 +124,7 @@ const AdminDashboard = () => {
               )}
               {stats.inmobiliarias_pendientes > 0 && (
                 <a href="/admin/inmobiliarias" className="text-amber-700 underline">
-                  {stats.inmobiliarias_pendientes} inmobiliaria{stats.inmobiliarias_pendientes > 1 ? "s" : ""} pendiente{stats.inmobiliarias_pendientes > 1 ? "s" : ""} de KYC
+                  {stats.inmobiliarias_pendientes} inmobiliaria{stats.inmobiliarias_pendientes > 1 ? "s" : ""} pendiente{stats.inmobiliarias_pendientes > 1 ? "s" : ""} de verificación
                 </a>
               )}
             </div>
@@ -164,7 +164,7 @@ const AdminDashboard = () => {
         <div className="grid grid-cols-2 lg:grid-cols-2 gap-4">
           <KpiCard
             icon={ShieldCheck}
-            label="KYC pendientes"
+            label="Verificaciones pendientes"
             valor={stats.kyc_pendientes}
             color="bg-yellow-100 text-yellow-600"
             alerta={stats.kyc_pendientes > 0}

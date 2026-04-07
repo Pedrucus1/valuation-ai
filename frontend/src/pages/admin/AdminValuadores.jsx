@@ -106,7 +106,7 @@ const AdminValuadores = () => {
           </div>
           {[
             { val: planFiltro, set: (v) => { setPlanFiltro(v); setPagina(1); }, opts: [["todos","Todos los planes"],["enterprise","Enterprise"],["pro","Pro"],["basico","Básico"]] },
-            { val: kycFiltro, set: (v) => { setKycFiltro(v); setPagina(1); }, opts: [["todos","KYC: Todos"],["aprobado","Aprobado"],["pendiente","Pendiente"],["info_solicitada","Info solicitada"],["rechazado","Rechazado"]] },
+            { val: kycFiltro, set: (v) => { setKycFiltro(v); setPagina(1); }, opts: [["todos","Verificación: Todos"],["aprobado","Aprobado"],["pendiente","Pendiente"],["info_solicitada","Info solicitada"],["rechazado","Rechazado"]] },
           ].map(({ val, set, opts }, i) => (
             <div key={i} className="relative">
               <select value={val} onChange={(e) => set(e.target.value)}
@@ -124,7 +124,7 @@ const AdminValuadores = () => {
             <table className="w-full">
               <thead>
                 <tr className="bg-[#F8F9FA] border-b border-slate-100">
-                  {["Valuador","Plan","KYC","Estado","Reportes","Ingresos","Quejas","Registro",""].map((h) => (
+                  {["Valuador","Plan","Verificación","Estado","Reportes","Ingresos","Quejas","Registro",""].map((h) => (
                     <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide whitespace-nowrap">{h}</th>
                   ))}
                 </tr>
@@ -147,7 +147,7 @@ const AdminValuadores = () => {
                     </td>
                     <td className="px-4 py-3">
                       <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${ESTADO_BADGE[v.estado]}`}>
-                        {v.estado === "kyc_pendiente" ? "KYC Pend." : v.estado.charAt(0).toUpperCase() + v.estado.slice(1)}
+                        {v.estado === "kyc_pendiente" ? "Verif. pend." : v.estado.charAt(0).toUpperCase() + v.estado.slice(1)}
                       </span>
                     </td>
                     <td className="px-4 py-3 text-sm text-slate-600 font-semibold">{v.totalReportes}</td>
@@ -180,7 +180,7 @@ const AdminValuadores = () => {
                           {v.kyc === "pendiente" && (
                             <a href="/admin/kyc"
                               className="w-full flex items-center gap-2 px-4 py-2 text-sm text-yellow-700 hover:bg-yellow-50">
-                              <ShieldCheck className="w-4 h-4" /> Revisar KYC
+                              <ShieldCheck className="w-4 h-4" /> Revisar verificación
                             </a>
                           )}
                           <button onClick={() => suspender(v.id)}
@@ -237,7 +237,7 @@ const AdminValuadores = () => {
                 ["Cédula", modal.cedula], ["Plan", modal.plan], ["Experiencia", `${modal.experiencia} años`],
                 ["Reportes", modal.totalReportes], ["Ingresos generados", `$${modal.ingresos.toLocaleString()}`],
                 ["Calificación", modal.calificacion > 0 ? `${modal.calificacion} ⭐` : "Sin calificaciones"],
-                ["Quejas", modal.quejas], ["KYC", KYC_LABEL[modal.kyc]],
+                ["Quejas", modal.quejas], ["Verificación", KYC_LABEL[modal.kyc]],
               ].map(([k, v]) => (
                 <div key={k} className="bg-[#F8F9FA] rounded-xl p-3">
                   <p className="text-[11px] text-slate-400 font-semibold uppercase tracking-wide">{k}</p>

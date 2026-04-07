@@ -254,7 +254,7 @@ const AdminKYC = () => {
         {pendientes.length === 0 && procesados.length === 0 && (
           <div className="text-center py-16 text-slate-400">
             <ShieldCheck className="w-10 h-10 mx-auto mb-3 opacity-30" />
-            <p className="text-sm">No hay solicitudes KYC en este momento.</p>
+            <p className="text-sm">No hay solicitudes de verificación en este momento.</p>
           </div>
         )}
       </div>

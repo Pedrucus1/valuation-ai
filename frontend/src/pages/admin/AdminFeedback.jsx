@@ -195,7 +195,7 @@ const AdminFeedback = () => {
                           <ExternalLink className="w-3 h-3" /> Ver expediente valuador
                         </a>
                         <a href="/admin/kyc" className="flex items-center gap-1.5 text-xs text-blue-600 border border-blue-200 px-3 py-1.5 rounded-xl hover:bg-blue-50 transition-colors">
-                          Ver KYC
+                          Ver verificación
                         </a>
                       </div>
                     )}

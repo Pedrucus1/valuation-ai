@@ -15,13 +15,13 @@ const ROL_PERMISOS = {
   moderador: {
     label: "Moderador",
     color: "bg-blue-600 text-white",
-    descripcion: "Puede revisar y aprobar/rechazar anuncios y KYC. Sin acceso a finanzas ni roles.",
+    descripcion: "Puede revisar y aprobar/rechazar anuncios y verificaciones. Sin acceso a finanzas ni roles.",
     permisos: ["dashboard", "kyc", "moderacion", "feedback"],
   },
   finanzas: {
     label: "Finanzas",
     color: "bg-purple-600 text-white",
-    descripcion: "Acceso a reportes de ingresos, CFDI y planes de usuarios. Sin acceso a KYC ni moderación.",
+    descripcion: "Acceso a reportes de ingresos, CFDI y planes de usuarios. Sin acceso a verificaciones ni moderación.",
     permisos: ["dashboard", "usuarios", "cfdi"],
   },
   soporte: {
@@ -48,7 +48,7 @@ const ADMINS_MOCK = [
 const PERMISOS_LABELS = {
   dashboard:   "Dashboard",
   usuarios:    "Usuarios",
-  kyc:         "KYC",
+  kyc:         "Verificación",
   moderacion:  "Moderación",
   feedback:    "Quejas",
   roles:       "Roles",

@@ -43,7 +43,7 @@ const ESTADO_COLORS = {
 const ESTADO_LABELS = {
   activo:        "Activo",
   suspendido:    "Suspendido",
-  kyc_pendiente: "KYC Pendiente",
+  kyc_pendiente: "Verificación pendiente",
 };
 
 const PAGE_SIZE = 6;
@@ -140,7 +140,7 @@ const AdminUsuarios = () => {
             >
               <option value="todos">Todos los estados</option>
               <option value="activo">Activo</option>
-              <option value="kyc_pendiente">KYC Pendiente</option>
+              <option value="kyc_pendiente">Verificación pendiente</option>
               <option value="suspendido">Suspendido</option>
             </select>
             <ChevronDown className="absolute right-2 top-2.5 w-4 h-4 text-slate-400 pointer-events-none" />
@@ -227,7 +227,7 @@ const AdminUsuarios = () => {
                                 onClick={() => { window.location.href = "/admin/kyc"; }}
                                 className="w-full flex items-center gap-2 px-4 py-2 text-sm text-yellow-700 hover:bg-yellow-50"
                               >
-                                <ShieldCheck className="w-4 h-4" /> Revisar KYC
+                                <ShieldCheck className="w-4 h-4" /> Revisar verificación
                               </button>
                             )}
                           </div>
