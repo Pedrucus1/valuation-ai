@@ -163,7 +163,7 @@ function PaymentModal({ plan, role, total, onClose, onSuccess }) {
               <div>
                 <label className="text-xs font-semibold text-slate-600 block mb-1">Número de tarjeta</label>
                 <input
-                  className="w-full border border-[#B7E4C7] rounded-lg px-3 py-2.5 text-sm focus:outline-none bg-[#F0FAF5] focus:border-[#52B788] focus:bg-white font-mono tracking-wider"
+                  className="w-full border border-[#B7E4C7] rounded-lg px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none bg-[#F0FAF5] focus:border-[#52B788] focus:bg-white font-mono tracking-wider"
                   placeholder="4242 4242 4242 4242"
                   value={card.number}
                   maxLength={19}
@@ -174,7 +174,7 @@ function PaymentModal({ plan, role, total, onClose, onSuccess }) {
                 <div>
                   <label className="text-xs font-semibold text-slate-600 block mb-1">Vencimiento</label>
                   <input
-                    className="w-full border border-[#B7E4C7] rounded-lg px-3 py-2.5 text-sm focus:outline-none bg-[#F0FAF5] focus:border-[#52B788] focus:bg-white"
+                    className="w-full border border-[#B7E4C7] rounded-lg px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none bg-[#F0FAF5] focus:border-[#52B788] focus:bg-white"
                     placeholder="MM/AA"
                     value={card.expiry}
                     maxLength={5}
@@ -184,7 +184,7 @@ function PaymentModal({ plan, role, total, onClose, onSuccess }) {
                 <div>
                   <label className="text-xs font-semibold text-slate-600 block mb-1">CVV</label>
                   <input
-                    className="w-full border border-[#B7E4C7] rounded-lg px-3 py-2.5 text-sm focus:outline-none bg-[#F0FAF5] focus:border-[#52B788] focus:bg-white"
+                    className="w-full border border-[#B7E4C7] rounded-lg px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none bg-[#F0FAF5] focus:border-[#52B788] focus:bg-white"
                     placeholder="123"
                     value={card.cvv}
                     maxLength={4}
@@ -195,7 +195,7 @@ function PaymentModal({ plan, role, total, onClose, onSuccess }) {
               <div>
                 <label className="text-xs font-semibold text-slate-600 block mb-1">Nombre en la tarjeta</label>
                 <input
-                  className="w-full border border-[#B7E4C7] rounded-lg px-3 py-2.5 text-sm focus:outline-none bg-[#F0FAF5] focus:border-[#52B788] focus:bg-white uppercase"
+                  className="w-full border border-[#B7E4C7] rounded-lg px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none bg-[#F0FAF5] focus:border-[#52B788] focus:bg-white uppercase"
                   placeholder="NOMBRE APELLIDO"
                   value={card.name}
                   onChange={e => setCard(p => ({ ...p, name: e.target.value.toUpperCase() }))}
