@@ -1611,6 +1611,17 @@ async def admin_kyc_solicitar(user_id: str, request: Request):
     )
     return {"ok": True}
 
+@api_router.post("/admin/kyc/ratificar/{doc_id}")
+async def admin_kyc_ratificar(doc_id: str, request: Request):
+    await require_admin(request)
+    result = await db.kyc_docs.update_one(
+        {"doc_id": doc_id},
+        {"$set": {"estado": "ratificado", "ratificado_at": datetime.now(timezone.utc).isoformat()}}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Documento no encontrado")
+    return {"ok": True}
+
 @api_router.get("/admin/kyc/doc/{doc_id}")
 async def admin_kyc_ver_documento(doc_id: str, request: Request):
     await require_admin(request)

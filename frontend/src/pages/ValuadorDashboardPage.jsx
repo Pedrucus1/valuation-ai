@@ -212,6 +212,40 @@ const ValuadorDashboardPage = () => {
     avaluo_muestra_3:     "Avalúo de muestra 3",
   };
 
+  // Medallitas — cada doc_tipo → credencial que acredita
+  const BADGE_DEFS = {
+    ine_pasaporte:        { key: "identidad",  emoji: "🪪", label: "Identidad",       cls: "bg-blue-100 text-blue-700 border-blue-200" },
+    ine_frente:           { key: "identidad",  emoji: "🪪", label: "Identidad",       cls: "bg-blue-100 text-blue-700 border-blue-200" },
+    cedula:               { key: "cedula",     emoji: "🎓", label: "Cédula SEP",      cls: "bg-purple-100 text-purple-700 border-purple-200" },
+    cedula_profesional:   { key: "cedula",     emoji: "🎓", label: "Cédula SEP",      cls: "bg-purple-100 text-purple-700 border-purple-200" },
+    firma_electronica:    { key: "efirma",     emoji: "✍️", label: "e.firma SAT",     cls: "bg-indigo-100 text-indigo-700 border-indigo-200" },
+    rfc_sat:              { key: "rfc",        emoji: "📋", label: "RFC activo",      cls: "bg-slate-100 text-slate-600 border-slate-200" },
+    seguro_rc:            { key: "seguro_rc",  emoji: "🛡️", label: "Seguro RC",       cls: "bg-orange-100 text-orange-700 border-orange-200" },
+    foto_profesional:     { key: "foto",       emoji: "👤", label: "Foto profesional",cls: "bg-slate-100 text-slate-600 border-slate-200" },
+    comprobante_domicilio:{ key: "domicilio",  emoji: "🏠", label: "Domicilio",       cls: "bg-teal-100 text-teal-700 border-teal-200" },
+    carta_recomendacion:  { key: "recomendado",emoji: "⭐", label: "Recomendado",     cls: "bg-amber-100 text-amber-700 border-amber-200" },
+    curriculum:           { key: "curriculum", emoji: "📄", label: "CV verificado",   cls: "bg-green-100 text-green-700 border-green-200" },
+    avaluo_muestra_1:     { key: "avaluos",    emoji: "📊", label: "Avalúos",         cls: "bg-emerald-100 text-emerald-700 border-emerald-200" },
+    avaluo_muestra_2:     { key: "avaluos",    emoji: "📊", label: "Avalúos",         cls: "bg-emerald-100 text-emerald-700 border-emerald-200" },
+    avaluo_muestra_3:     { key: "avaluos",    emoji: "📊", label: "Avalúos",         cls: "bg-emerald-100 text-emerald-700 border-emerald-200" },
+  };
+
+  // Badges únicos ganados (docs con estado "ratificado")
+  const badgesGanados = (() => {
+    const seen = new Set();
+    const result = [];
+    for (const doc of kycDocs) {
+      if (doc.estado === "ratificado") {
+        const def = BADGE_DEFS[doc.doc_tipo];
+        if (def && !seen.has(def.key)) {
+          seen.add(def.key);
+          result.push(def);
+        }
+      }
+    }
+    return result;
+  })();
+
   const docSubido = (key) => kycDocs.find((d) => d.doc_tipo === key);
 
   const etapaExpediente = () => {
@@ -272,6 +306,22 @@ const ValuadorDashboardPage = () => {
           )}
         </div>
 
+        {/* Medallitas ganadas */}
+        {badgesGanados.length > 0 && (
+          <div>
+            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">Credenciales verificadas</p>
+            <div className="flex flex-wrap gap-2">
+              {badgesGanados.map((b) => (
+                <span key={b.key} className={`inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full border ${b.cls}`}>
+                  <span>{b.emoji}</span>
+                  {b.label}
+                  <ShieldCheck className="w-3 h-3" />
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Barra de progreso */}
         <div>
           <div className="flex justify-between text-xs text-slate-400 mb-1.5">
@@ -307,11 +357,20 @@ const ValuadorDashboardPage = () => {
                 return (
                   <div key={key} className="flex items-center justify-between gap-4 px-5 py-3">
                     <div className="flex items-center gap-3 flex-1 min-w-0">
-                      {doc
-                        ? <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
-                        : <Clock className="w-5 h-5 text-slate-300 flex-shrink-0" />}
-                      <div className="min-w-0">
-                        <p className="text-sm font-medium text-[#1B4332]">{label}</p>
+                      {doc?.estado === "ratificado"
+                        ? <ShieldCheck className="w-5 h-5 text-indigo-500 flex-shrink-0" />
+                        : doc
+                          ? <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
+                          : <Clock className="w-5 h-5 text-slate-300 flex-shrink-0" />}
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-2">
+                          <p className="text-sm font-medium text-[#1B4332]">{label}</p>
+                          {doc?.estado === "ratificado" && (
+                            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${BADGE_DEFS[key]?.cls || "bg-indigo-100 text-indigo-700 border-indigo-200"}`}>
+                              {BADGE_DEFS[key]?.emoji} Ratificado
+                            </span>
+                          )}
+                        </div>
                         {doc && (
                           <p className="text-xs text-slate-400 truncate">
                             {doc.filename} · {new Date(doc.subido_at).toLocaleDateString("es-MX")}

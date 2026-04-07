@@ -22,6 +22,7 @@ const VALUADORES = [
     email: "roberto.sanchez@email.com",
     cedula: "0987654",
     plan: "pro",
+    badges: ["identidad", "cedula", "efirma", "avaluos", "curriculum"],
   },
   {
     id: "v2",
@@ -38,6 +39,7 @@ const VALUADORES = [
     email: "mf.lopez@email.com",
     cedula: "1234567",
     plan: "basico",
+    badges: ["identidad", "cedula"],
   },
   {
     id: "v3",
@@ -54,6 +56,7 @@ const VALUADORES = [
     email: "cmendoza@email.com",
     cedula: "3456789",
     plan: "pro",
+    badges: ["identidad", "cedula", "efirma", "seguro_rc", "avaluos", "curriculum", "domicilio"],
   },
   {
     id: "v4",
@@ -70,6 +73,7 @@ const VALUADORES = [
     email: "sofia.torres@email.com",
     cedula: "5678901",
     plan: "basico",
+    badges: ["identidad", "cedula"],
   },
   {
     id: "v5",
@@ -86,6 +90,7 @@ const VALUADORES = [
     email: "jorge.ramirez@email.com",
     cedula: "6789012",
     plan: "enterprise",
+    badges: ["identidad", "cedula", "efirma", "rfc", "seguro_rc", "domicilio", "recomendado", "curriculum", "avaluos"],
   },
   {
     id: "v6",
@@ -102,6 +107,7 @@ const VALUADORES = [
     email: "claudia.vega@email.com",
     cedula: "7890123",
     plan: "pro",
+    badges: ["identidad", "cedula", "efirma", "avaluos"],
   },
 ];
 
@@ -113,6 +119,19 @@ const CERT_COLORS = {
   INDAABIN: "bg-blue-100 text-blue-700",
   IMC: "bg-purple-100 text-purple-700",
   CNBV: "bg-orange-100 text-orange-700",
+};
+
+// Definición de medallitas de credenciales
+const CREDENTIAL_BADGES = {
+  identidad:  { emoji: "🪪", label: "Identidad",        cls: "bg-blue-50 text-blue-700 border-blue-200" },
+  cedula:     { emoji: "🎓", label: "Cédula SEP",       cls: "bg-purple-50 text-purple-700 border-purple-200" },
+  efirma:     { emoji: "✍️", label: "e.firma SAT",      cls: "bg-indigo-50 text-indigo-700 border-indigo-200" },
+  rfc:        { emoji: "📋", label: "RFC activo",       cls: "bg-slate-50 text-slate-600 border-slate-200" },
+  seguro_rc:  { emoji: "🛡️", label: "Seguro RC",        cls: "bg-orange-50 text-orange-700 border-orange-200" },
+  domicilio:  { emoji: "🏠", label: "Domicilio",        cls: "bg-teal-50 text-teal-700 border-teal-200" },
+  recomendado:{ emoji: "⭐", label: "Recomendado",      cls: "bg-amber-50 text-amber-700 border-amber-200" },
+  curriculum: { emoji: "📄", label: "CV verificado",    cls: "bg-green-50 text-green-700 border-green-200" },
+  avaluos:    { emoji: "📊", label: "Avalúos",          cls: "bg-emerald-50 text-emerald-700 border-emerald-200" },
 };
 
 const PLAN_BADGE = {
@@ -183,6 +202,22 @@ const TarjetaValuador = ({ v }) => {
           {v.experiencia} años exp.
         </span>
       </div>
+
+      {/* Medallitas de credenciales */}
+      {v.badges?.length > 0 && (
+        <div className="flex flex-wrap gap-1.5">
+          {v.badges.map((bKey) => {
+            const b = CREDENTIAL_BADGES[bKey];
+            if (!b) return null;
+            return (
+              <span key={bKey} title={b.label}
+                className={`inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full border ${b.cls}`}>
+                {b.emoji} {b.label}
+              </span>
+            );
+          })}
+        </div>
+      )}
 
       {/* Especialidades */}
       <div className="flex flex-wrap gap-1">

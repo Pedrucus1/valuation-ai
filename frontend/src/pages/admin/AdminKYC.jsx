@@ -44,15 +44,26 @@ const ESTADO_KYC = {
 };
 
 const DOC_ESTADO = {
-  subido:    { label: "Subido",   cls: "text-green-600",  icon: <CheckCircle2 className="w-3.5 h-3.5" /> },
-  pendiente: { label: "Faltante", cls: "text-yellow-600", icon: <Clock className="w-3.5 h-3.5" /> },
-  rechazado: { label: "Rechazado",cls: "text-red-500",    icon: <XCircle className="w-3.5 h-3.5" /> },
+  subido:     { label: "Subido",     cls: "text-green-600",  icon: <CheckCircle2 className="w-3.5 h-3.5" /> },
+  ratificado: { label: "Ratificado", cls: "text-indigo-600", icon: <ShieldCheck className="w-3.5 h-3.5" /> },
+  pendiente:  { label: "Faltante",   cls: "text-yellow-600", icon: <Clock className="w-3.5 h-3.5" /> },
+  rechazado:  { label: "Rechazado",  cls: "text-red-500",    icon: <XCircle className="w-3.5 h-3.5" /> },
 };
 
 const KYCCard = ({ solicitud, onAccion }) => {
   const [expandida, setExpandida] = useState(false);
-  const docsOk = solicitud.docs.filter((d) => d.estado === "subido").length;
-  const pct = Math.round((docsOk / solicitud.docs.length) * 100);
+  const [docs, setDocs] = useState(solicitud.docs);
+  const docsOk = docs.filter((d) => d.estado === "subido" || d.estado === "ratificado").length;
+  const pct = Math.round((docsOk / Math.max(docs.length, 1)) * 100);
+
+  const ratificarDoc = async (doc_id) => {
+    const res = await fetch(`${API}/admin/kyc/ratificar/${doc_id}`, {
+      method: "POST",
+      headers: { "X-Admin-Token": getAdminToken() },
+    });
+    if (!res.ok) return alert("No se pudo ratificar el documento");
+    setDocs((prev) => prev.map((d) => d.doc_id === doc_id ? { ...d, estado: "ratificado" } : d));
+  };
 
   return (
     <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
@@ -97,26 +108,41 @@ const KYCCard = ({ solicitud, onAccion }) => {
           <div>
             <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">Documentos</p>
             <div className="space-y-1.5">
-              {solicitud.docs.map((doc) => {
-                const est = DOC_ESTADO[doc.estado];
+              {docs.map((doc) => {
+                const est = DOC_ESTADO[doc.estado] || DOC_ESTADO.pendiente;
                 return (
                   <div key={doc.nombre} className="flex items-center gap-2">
                     <span className={est.cls}>{est.icon}</span>
                     <span className="text-sm text-slate-600 flex-1">{doc.nombre}</span>
                     {doc.doc_id ? (
-                      <button
-                        onClick={async () => {
-                          const res = await fetch(`${API}/admin/kyc/doc/${doc.doc_id}`, {
-                            headers: { "X-Admin-Token": getAdminToken() },
-                          });
-                          if (!res.ok) return alert("No se pudo abrir el documento");
-                          const blob = await res.blob();
-                          window.open(URL.createObjectURL(blob), "_blank");
-                        }}
-                        className="text-[11px] text-[#52B788] hover:underline flex items-center gap-0.5"
-                      >
-                        Ver <ExternalLink className="w-3 h-3" />
-                      </button>
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={async () => {
+                            const res = await fetch(`${API}/admin/kyc/doc/${doc.doc_id}`, {
+                              headers: { "X-Admin-Token": getAdminToken() },
+                            });
+                            if (!res.ok) return alert("No se pudo abrir el documento");
+                            const blob = await res.blob();
+                            window.open(URL.createObjectURL(blob), "_blank");
+                          }}
+                          className="text-[11px] text-[#52B788] hover:underline flex items-center gap-0.5"
+                        >
+                          Ver <ExternalLink className="w-3 h-3" />
+                        </button>
+                        {doc.estado !== "ratificado" && (
+                          <button
+                            onClick={() => ratificarDoc(doc.doc_id)}
+                            className="text-[11px] font-bold text-indigo-600 hover:text-indigo-800 flex items-center gap-0.5 border border-indigo-200 rounded-md px-1.5 py-0.5 hover:bg-indigo-50"
+                          >
+                            <ShieldCheck className="w-3 h-3" /> Ratificar
+                          </button>
+                        )}
+                        {doc.estado === "ratificado" && (
+                          <span className="text-[11px] font-bold text-indigo-600 flex items-center gap-0.5">
+                            <ShieldCheck className="w-3 h-3" /> Ratificado
+                          </span>
+                        )}
+                      </div>
                     ) : (
                       <span className={`text-[11px] ${est.cls}`}>{est.label}</span>
                     )}
