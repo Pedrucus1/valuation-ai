@@ -325,158 +325,176 @@ const ValuadorDashboardPage = () => {
     const etapa = etapaExpediente();
     const cfg = ETAPA_CFG[etapa];
     const subidos = docsRequeridos.filter(k => docSubido(k)).length;
+    const pct = Math.round((subidos / Math.max(docsRequeridos.length, 1)) * 100);
+
+    // Grupos de documentos
+    const GRUPOS = [
+      { id: "id",         label: "Identificación",           emoji: "🪪", keys: ["ine_frente","ine_vuelta"] },
+      { id: "cedulas",    label: "Cédulas profesionales",     emoji: "🎓", keys: ["cedula","cedula_valuador"] },
+      { id: "foto",       label: "Fotografía y firma",        emoji: "👤", keys: ["foto_profesional","firma_autografa"] },
+      { id: "exp",        label: "Experiencia",               emoji: "📅", keys: ["comprobante_experiencia","comprobante_adicional"] },
+      { id: "serv",       label: "Servicios especializados",  emoji: "🏦", keys: ["carta_unidad","comprobante_catastro"], conditional: true },
+      { id: "completo",   label: "Perfil completo",           emoji: "📋", keys: ["comprobante_domicilio","carta_recomendacion","curriculum","avaluo_muestra_1","avaluo_muestra_2","avaluo_muestra_3"], conditional: true },
+    ];
+
+    const DocRow = ({ docKey }) => {
+      const doc = docSubido(docKey);
+      const subiendo = kycSubiendo[docKey];
+      const label = DOC_LABELS[docKey] || docKey;
+      const hint = DOC_HINTS[docKey];
+      const isImg = doc && (doc.content_type?.startsWith("image/") || /\.(jpg|jpeg|png|webp)$/i.test(doc.filename || ""));
+      const docUrl = doc ? `${API}/kyc/documento/${doc.doc_id}` : null;
+      const isInList = docsRequeridos.includes(docKey);
+
+      return (
+        <div className={`flex items-center gap-3 p-3 rounded-xl transition-colors ${doc ? "bg-[#F0FAF5] border border-[#B7E4C7]" : "bg-white border border-slate-100"}`}>
+          {/* Thumbnail / status */}
+          {doc ? (
+            <button onClick={() => setPreviewDoc({ url: docUrl, type: doc.content_type, filename: doc.filename })}
+              className="group relative w-12 h-12 rounded-lg overflow-hidden border-2 border-[#52B788] bg-white flex-shrink-0 flex items-center justify-center hover:border-[#1B4332] transition-colors">
+              {isImg
+                ? <img src={docUrl} alt={label} className="w-full h-full object-cover" onError={e => { e.target.style.display="none"; }} />
+                : <FileText className="w-5 h-5 text-[#52B788]" />}
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 flex items-center justify-center transition-colors">
+                <span className="text-white text-[10px] font-bold opacity-0 group-hover:opacity-100">Ver</span>
+              </div>
+              {doc.estado === "ratificado" && <ShieldCheck className="absolute -top-0.5 -right-0.5 w-4 h-4 text-indigo-500 bg-white rounded-full p-px" />}
+            </button>
+          ) : (
+            <div className="w-12 h-12 rounded-lg border-2 border-dashed border-slate-200 flex-shrink-0 flex items-center justify-center bg-slate-50">
+              <Clock className="w-4 h-4 text-slate-300" />
+            </div>
+          )}
+
+          {/* Info */}
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <p className={`text-xs font-semibold ${doc ? "text-[#1B4332]" : "text-slate-500"}`}>{label}</p>
+              {!isInList && <span className="text-[10px] text-slate-400 italic">(opcional)</span>}
+              {doc?.estado === "ratificado" && (
+                <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full border ${BADGE_DEFS[docKey]?.cls || "bg-indigo-100 text-indigo-700 border-indigo-200"}`}>
+                  {BADGE_DEFS[docKey]?.emoji} Verificado
+                </span>
+              )}
+            </div>
+            {doc
+              ? <p className="text-[10px] text-[#52B788] font-medium mt-0.5">
+                  ✓ {new Date(doc.subido_at).toLocaleDateString("es-MX")} {doc.size_bytes ? `· ${(doc.size_bytes/1024).toFixed(0)} KB` : ""}
+                </p>
+              : hint && <p className="text-[10px] text-slate-400 mt-0.5 line-clamp-1">{hint}</p>
+            }
+          </div>
+
+          {/* Upload */}
+          <label className={`flex items-center gap-1 text-[10px] font-bold px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors flex-shrink-0 ${
+            doc ? "border border-[#52B788] text-[#1B4332] hover:bg-[#52B788]/10" : "bg-[#1B4332] text-white hover:bg-[#2D6A4F]"
+          } ${subiendo ? "opacity-50 cursor-not-allowed" : ""}`}>
+            <Upload className="w-3 h-3" />
+            {subiendo ? "…" : doc ? "Cambiar" : "Subir"}
+            <input type="file" accept=".pdf,.jpg,.jpeg,.png,.webp" className="hidden"
+              disabled={subiendo} onChange={e => subirDocumento(docKey, e.target.files[0])} />
+          </label>
+        </div>
+      );
+    };
 
     return (
-      <div className="space-y-5">
+      <div className="space-y-4">
 
-        {/* Estado actual */}
-        <div className={`rounded-2xl border p-4 flex items-start gap-3 ${cfg.cls}`}>
-          <span className="text-2xl">{cfg.icon}</span>
-          <div className="flex-1">
-            <p className="font-semibold text-sm">{cfg.label}</p>
-            {etapa === "pendiente" && (
-              <p className="text-xs mt-0.5">
-                Sube todos los documentos requeridos para poder agendar tu entrevista de verificación.
-                Faltan <strong>{docsRequeridos.length - subidos}</strong> documento{docsRequeridos.length - subidos !== 1 ? "s" : ""}.
+        {/* ── Hero card: estado + progreso ── */}
+        <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] rounded-2xl p-5">
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-2xl">{cfg.icon}</span>
+                <p className="font-['Outfit'] font-bold text-white text-base">{cfg.label}</p>
+              </div>
+              <p className="text-sm text-[#D9ED92]/80 mb-3">
+                {etapa === "pendiente" && `Faltan ${docsRequeridos.length - subidos} documento${docsRequeridos.length - subidos !== 1 ? "s" : ""} para completar tu expediente.`}
+                {etapa === "listo" && "Expediente completo. Solicita tu entrevista de verificación por videollamada."}
+                {etapa === "revision" && "Tus documentos están en revisión. Te avisamos por correo y WhatsApp."}
+                {etapa === "aprobado" && "Perfil activo y verificado. Bienvenido a la red PropValu."}
               </p>
-            )}
+              {/* Barra de progreso */}
+              <div className="space-y-1">
+                <div className="flex justify-between text-xs text-[#D9ED92]/70">
+                  <span>Progreso</span>
+                  <span className="font-bold text-[#D9ED92]">{subidos} / {docsRequeridos.length} documentos</span>
+                </div>
+                <div className="w-full bg-white/20 rounded-full h-2.5">
+                  <div className={`h-2.5 rounded-full transition-all duration-500 ${docsCompletos ? "bg-[#D9ED92]" : "bg-[#52B788]"}`}
+                    style={{ width: `${pct}%` }} />
+                </div>
+              </div>
+            </div>
             {etapa === "listo" && (
-              <p className="text-xs mt-0.5">
-                Tu expediente está completo. El equipo PropValu te contactará para agendar la entrevista por videollamada.
-              </p>
-            )}
-            {etapa === "revision" && (
-              <p className="text-xs mt-0.5">Tus documentos están siendo revisados. Te notificaremos por correo y WhatsApp con el resultado.</p>
-            )}
-            {etapa === "aprobado" && (
-              <p className="text-xs mt-0.5">Tu perfil está activo. Bienvenido a la red de valuadores PropValu.</p>
+              <button
+                onClick={async () => {
+                  await fetch(`${API}/kyc/solicitar-entrevista`, { method: "POST", credentials: "include" });
+                  toast.success("Solicitud enviada — te contactaremos para agendar la videollamada.");
+                }}
+                className="flex-shrink-0 flex items-center gap-1.5 bg-[#D9ED92] hover:bg-white text-[#1B4332] text-xs font-bold px-4 py-2.5 rounded-xl transition-colors">
+                🎯 Solicitar entrevista
+              </button>
             )}
           </div>
-          {etapa === "listo" && (
-            <button
-              onClick={async () => {
-                await fetch(`${API}/kyc/solicitar-entrevista`, { method: "POST", credentials: "include" });
-                toast.success("Solicitud enviada — te contactaremos pronto para agendar la videollamada.");
-              }}
-              className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition-colors shrink-0"
-            >
-              Solicitar entrevista
-            </button>
-          )}
         </div>
 
-        {/* Medallitas ganadas */}
+        {/* ── Credenciales verificadas ── */}
         {badgesGanados.length > 0 && (
-          <div>
-            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">Credenciales verificadas</p>
+          <div className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm p-4">
+            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2.5">Credenciales verificadas por PropValu</p>
             <div className="flex flex-wrap gap-2">
-              {badgesGanados.map((b) => (
+              {badgesGanados.map(b => (
                 <span key={b.key} className={`inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full border ${b.cls}`}>
-                  <span>{b.emoji}</span>
-                  {b.label}
-                  <ShieldCheck className="w-3 h-3" />
+                  {b.emoji} {b.label} <ShieldCheck className="w-3 h-3" />
                 </span>
               ))}
             </div>
           </div>
         )}
 
-        {/* Barra de progreso */}
-        <div>
-          <div className="flex justify-between text-xs text-slate-400 mb-1.5">
-            <span>Progreso del expediente</span>
-            <span>{subidos}/{docsRequeridos.length}</span>
+        {/* Error */}
+        {kycError && (
+          <div className="flex items-center gap-2 bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-sm text-red-700">
+            <XCircle className="w-4 h-4 flex-shrink-0" />{kycError}
           </div>
-          <div className="w-full bg-slate-100 rounded-full h-2">
-            <div
-              className={`h-2 rounded-full transition-all ${docsCompletos ? "bg-green-400" : "bg-[#52B788]"}`}
-              style={{ width: `${Math.round((subidos / docsRequeridos.length) * 100)}%` }}
-            />
-          </div>
-        </div>
+        )}
 
-        {/* Lista de documentos */}
-        <Card className="bg-white border-0 shadow-sm">
-          <CardHeader className="border-b border-slate-100 py-4">
-            <CardTitle className="font-['Outfit'] text-base text-[#1B4332] flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4" /> Documentos requeridos
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-0">
-            {kycError && (
-              <div className="mx-4 mt-4 flex items-center gap-2 bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-sm text-red-700">
-                <XCircle className="w-4 h-4 flex-shrink-0" />{kycError}
+        {/* ── Grupos de documentos ── */}
+        {GRUPOS.map(grupo => {
+          const keysVisibles = grupo.keys.filter(k => docsRequeridos.includes(k) || docSubido(k));
+          if (keysVisibles.length === 0) return null;
+          const grupoSubidos = keysVisibles.filter(k => docSubido(k)).length;
+          const grupoCompleto = grupoSubidos === keysVisibles.length;
+          return (
+            <div key={grupo.id} className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden">
+              {/* Header del grupo */}
+              <div className={`px-4 py-3 flex items-center justify-between ${grupoCompleto ? "bg-gradient-to-r from-[#1B4332] to-[#2D6A4F]" : "bg-gradient-to-r from-slate-700 to-slate-600"}`}>
+                <div className="flex items-center gap-2">
+                  <span className="text-base">{grupo.emoji}</span>
+                  <span className="font-['Outfit'] font-semibold text-white text-sm">{grupo.label}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-white/70">{grupoSubidos}/{keysVisibles.length}</span>
+                  {grupoCompleto
+                    ? <span className="text-[10px] font-bold bg-[#D9ED92] text-[#1B4332] px-2 py-0.5 rounded-full">✓ Completo</span>
+                    : <span className="text-[10px] font-bold bg-white/20 text-white px-2 py-0.5 rounded-full">Pendiente</span>
+                  }
+                </div>
               </div>
-            )}
-            <div className="divide-y divide-[#F8F9FA]">
-              {docsRequeridos.map((key) => {
-                const doc = docSubido(key);
-                const subiendo = kycSubiendo[key];
-                const label = DOC_LABELS[key] || key;
-                const hint = DOC_HINTS[key];
-                const isImg = doc && (doc.content_type?.startsWith("image/") || /\.(jpg|jpeg|png|webp)$/i.test(doc.filename || ""));
-                const docUrl = doc ? `${API}/kyc/documento/${doc.doc_id}` : null;
-                return (
-                  <div key={key} className="px-5 py-4 space-y-3">
-                    <div className="flex items-start gap-3">
-                      {/* Miniatura o ícono de estado */}
-                      <div className="flex-shrink-0 mt-0.5">
-                        {doc ? (
-                          <button onClick={() => setPreviewDoc({ url: docUrl, type: doc.content_type, filename: doc.filename })}
-                            className="group relative w-14 h-14 rounded-lg overflow-hidden border-2 border-[#52B788] bg-[#F0FAF5] flex items-center justify-center hover:border-[#1B4332] transition-colors"
-                            title="Ver documento">
-                            {isImg
-                              ? <img src={docUrl} alt={label} className="w-full h-full object-cover" onError={e => { e.target.style.display="none"; }} />
-                              : <FileText className="w-6 h-6 text-[#52B788] group-hover:text-[#1B4332]" />
-                            }
-                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
-                              <span className="text-white text-xs font-bold opacity-0 group-hover:opacity-100">Ver</span>
-                            </div>
-                            {doc.estado === "ratificado" && <ShieldCheck className="absolute top-0.5 right-0.5 w-3.5 h-3.5 text-indigo-500 bg-white rounded-full" />}
-                          </button>
-                        ) : (
-                          <div className="w-14 h-14 rounded-lg border-2 border-dashed border-slate-200 flex items-center justify-center bg-slate-50">
-                            <Clock className="w-5 h-5 text-slate-300" />
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Info del doc */}
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <p className="text-sm font-semibold text-[#1B4332]">{label}</p>
-                          {doc?.estado === "ratificado" && (
-                            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${BADGE_DEFS[key]?.cls || "bg-indigo-100 text-indigo-700 border-indigo-200"}`}>
-                              {BADGE_DEFS[key]?.emoji} Ratificado
-                            </span>
-                          )}
-                        </div>
-                        {hint && <p className="text-xs text-slate-400 mt-0.5 leading-relaxed line-clamp-2">{hint}</p>}
-                        {doc && (
-                          <p className="text-xs text-slate-400 mt-1">
-                            {doc.filename} · {new Date(doc.subido_at).toLocaleDateString("es-MX")} · {doc.size_bytes ? `${(doc.size_bytes/1024).toFixed(0)} KB` : ""}
-                          </p>
-                        )}
-                      </div>
-
-                      {/* Botón subir */}
-                      <label className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl cursor-pointer transition-colors flex-shrink-0 ${
-                        doc ? "border border-[#52B788] text-[#1B4332] hover:bg-[#52B788]/10" : "bg-[#1B4332] text-white hover:bg-[#2D6A4F]"
-                      } ${subiendo ? "opacity-50 cursor-not-allowed" : ""}`}>
-                        <Upload className="w-3.5 h-3.5" />
-                        {subiendo ? "Subiendo…" : doc ? "Reemplazar" : "Subir"}
-                        <input type="file" accept=".pdf,.jpg,.jpeg,.png,.webp" className="hidden"
-                          disabled={subiendo} onChange={(e) => subirDocumento(key, e.target.files[0])} />
-                      </label>
-                    </div>
-                  </div>
-                );
-              })}
+              {/* Docs del grupo */}
+              <div className="p-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {grupo.keys.map(k => {
+                  if (!docsRequeridos.includes(k) && !docSubido(k)) return null;
+                  return <DocRow key={k} docKey={k} />;
+                })}
+              </div>
             </div>
-          </CardContent>
-        </Card>
+          );
+        })}
 
-        <p className="text-[11px] text-slate-400">Formatos aceptados: PDF, JPG, PNG · Imágenes comprimidas automáticamente a &lt;200 KB · PDFs máx. 1 MB</p>
+        <p className="text-[10px] text-slate-400 text-center">Imágenes: comprimidas automáticamente a menos de 200 KB · PDFs: máx. 1 MB</p>
 
       {/* Lightbox */}
       {previewDoc && (
