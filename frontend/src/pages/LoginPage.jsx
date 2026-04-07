@@ -126,6 +126,9 @@ const LoginPage = () => {
     confirmPassword: "",
     company_name: "",
 
+    // Modo de participación (aplica a valuador e inmobiliaria)
+    modo_perfil: "",  // "basico" | "completo"
+
     // Paso 2 Valuador
     services: {
       infonavit: false, fovissste: false, comerciales: false,
@@ -139,6 +142,17 @@ const LoginPage = () => {
     estado: "",
     municipios: [""],
 
+    // Cuestionario perfil completo
+    q_experiencia: "",
+    q_equipo: "",           // "solo" | "1-3" | "4-10" | "10+"
+    q_oficina: false,
+    q_dir_oficina: "",
+    q_maps_url: "",
+    q_tiempo_entrega: "",
+    q_seguro_rc: false,
+    q_software: "",
+    q_idiomas: "",
+
     // Paso 2 Inmobiliaria
     inmobiliaria_tipo: "",   // "titular" | "asesor"
     asociacion: "",
@@ -151,6 +165,14 @@ const LoginPage = () => {
     ine_frente: null,
     ine_vuelta: null,
     cedula: null,
+    // Perfil completo
+    comprobante_domicilio: null,
+    carta_recomendacion: null,
+    curriculum: null,
+    avaluo_muestra_1: null,
+    avaluo_muestra_2: null,
+    avaluo_muestra_3: null,
+    // Inmobiliaria
     cert_asociacion: null,
     credencial_empresa: null,
     cert_curso_inmobiliario: null,
@@ -172,8 +194,8 @@ const LoginPage = () => {
 
   /* ── Step counts ── */
   const STEPS = regData.role === "appraiser"
-    ? ["Datos básicos", "Servicios y cobertura", "Documentos"]
-    : ["Datos básicos", "Perfil profesional", "Documentos"];
+    ? ["Datos básicos", "Modo y servicios", "Documentos"]
+    : ["Datos básicos", "Modo y perfil", "Documentos"];
 
   /* ── Validations per step ── */
   const validateStep = (step) => {
@@ -188,6 +210,7 @@ const LoginPage = () => {
       return true;
     }
     if (step === 2) {
+      if (!regData.modo_perfil) { toast.error("Selecciona cómo quieres participar en PropValu"); return false; }
       if (!regData.estado)    { toast.error("Selecciona el estado donde darás el servicio"); return false; }
       if (!regData.municipios[0]?.trim()) { toast.error("Ingresa al menos un municipio o población"); return false; }
       if (regData.role === "appraiser") {
@@ -278,8 +301,23 @@ const LoginPage = () => {
           estado:       regData.estado,
           municipio:    regData.municipios.filter(m => m.trim()).join(", "),
           municipios:   regData.municipios.filter(m => m.trim()),
+          modo_perfil:  regData.modo_perfil,
           services:     regData.role === "appraiser" ? regData.services : undefined,
           servicios_otros: regData.servicios_otros_lista.filter(s => s.trim()),
+          peritajes_tipos: regData.peritajes_tipos,
+          peritajes_otros: regData.peritajes_otros || undefined,
+          // Cuestionario perfil completo
+          ...(regData.modo_perfil === "completo" ? {
+            q_experiencia:    regData.q_experiencia || undefined,
+            q_equipo:         regData.q_equipo || undefined,
+            q_oficina:        regData.q_oficina,
+            q_dir_oficina:    regData.q_dir_oficina || undefined,
+            q_maps_url:       regData.q_maps_url || undefined,
+            q_tiempo_entrega: regData.q_tiempo_entrega || undefined,
+            q_seguro_rc:      regData.q_seguro_rc,
+            q_software:       regData.q_software || undefined,
+            q_idiomas:        regData.q_idiomas || undefined,
+          } : {}),
           inmobiliaria_tipo: regData.role === "realtor" ? regData.inmobiliaria_tipo : undefined,
           asociacion:   regData.asociacion || undefined,
           cursos:       regData.cursos_inmobiliarios || undefined,
@@ -429,8 +467,60 @@ const LoginPage = () => {
     </div>
   );
 
+  const ModoSelector = ({ rol }) => (
+    <div>
+      <Label className="text-sm font-semibold text-[#1B4332] mb-3 block">¿Cómo quieres participar en PropValu? *</Label>
+      <div className="grid grid-cols-1 gap-3">
+        {[
+          {
+            val: "basico",
+            title: "Solo valuaciones en plataforma",
+            desc: rol === "appraiser"
+              ? "Realiza avalúos directamente en PropValu. Requiere INE y cédula profesional."
+              : "Solicita valuaciones para tus propiedades. Requiere documentos básicos de empresa.",
+            icon: "🖥️",
+          },
+          {
+            val: "completo",
+            title: "Perfil completo — recibir encargos",
+            desc: rol === "appraiser"
+              ? "Además de valuar en la plataforma, PropValu puede mandarte trabajo. Requiere documentación adicional y cuestionario de perfil."
+              : "Además de solicitar valuaciones, entra al directorio y recibe encargos de clientes. Requiere documentación adicional.",
+            icon: "🏆",
+          },
+        ].map(({ val, title, desc, icon }) => (
+          <button
+            key={val}
+            type="button"
+            onClick={() => setReg("modo_perfil", val)}
+            className={`text-left p-4 rounded-xl border-2 transition-all ${
+              regData.modo_perfil === val
+                ? "border-[#52B788] bg-[#F0FAF5]"
+                : "border-slate-200 hover:border-slate-300 bg-white"
+            }`}
+          >
+            <div className="flex items-start gap-3">
+              <span className="text-xl shrink-0">{icon}</span>
+              <div>
+                <p className={`text-sm font-bold ${regData.modo_perfil === val ? "text-[#1B4332]" : "text-slate-700"}`}>{title}</p>
+                <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">{desc}</p>
+              </div>
+              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ml-auto mt-0.5 ${
+                regData.modo_perfil === val ? "border-[#52B788] bg-[#52B788]" : "border-slate-300"
+              }`}>
+                {regData.modo_perfil === val && <div className="w-2 h-2 rounded-full bg-white" />}
+              </div>
+            </div>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+
   const renderStep2Appraiser = () => (
     <div className="space-y-5">
+
+      <ModoSelector rol="appraiser" />
 
       {/* Servicios */}
       <div>
@@ -557,6 +647,8 @@ const LoginPage = () => {
 
   const renderStep2Realtor = () => (
     <div className="space-y-5">
+
+      <ModoSelector rol="realtor" />
 
       {/* Tipo de cuenta */}
       <div>
@@ -694,43 +786,157 @@ const LoginPage = () => {
   );
 
   const renderStep3Appraiser = () => (
-    <div className="space-y-5">
+    <div className="space-y-6">
+
+      {/* Documentos básicos */}
       <div>
-        <p className="text-sm font-semibold text-[#1B4332] mb-1">Documentos requeridos</p>
-        <p className="text-xs text-slate-500 mb-4">
-          Sube los siguientes documentos para que el equipo PropValu pueda validar tu cédula profesional.
-        </p>
+        <p className="text-sm font-semibold text-[#1B4332] mb-1">Documentos de identificación</p>
+        <p className="text-xs text-slate-500 mb-4">Requeridos para todos los valuadores.</p>
+        <div className="space-y-4">
+          <FileUploadField label="INE — Frente" hint="Identificación oficial vigente, cara frontal"
+            value={files.ine_frente} onChange={v => setFile("ine_frente", v)} required />
+          <FileUploadField label="INE — Vuelta" hint="Identificación oficial vigente, cara trasera"
+            value={files.ine_vuelta} onChange={v => setFile("ine_vuelta", v)} />
+          <FileUploadField label="Cédula Profesional" hint="Cédula de perito valuador emitida por la SEP o INDAABIN"
+            value={files.cedula} onChange={v => setFile("cedula", v)} required />
+        </div>
       </div>
 
-      <FileUploadField
-        label="INE — Frente"
-        hint="Identificación oficial vigente, cara frontal"
-        value={files.ine_frente}
-        onChange={v => setFile("ine_frente", v)}
-        required
-      />
-      <FileUploadField
-        label="INE — Vuelta"
-        hint="Identificación oficial vigente, cara trasera"
-        value={files.ine_vuelta}
-        onChange={v => setFile("ine_vuelta", v)}
-      />
-      <FileUploadField
-        label="Cédula Profesional"
-        hint="Cédula de perito valuador emitida por la SEP o INDAABIN"
-        value={files.cedula}
-        onChange={v => setFile("cedula", v)}
-        required
-      />
+      {/* Documentos y cuestionario para perfil completo */}
+      {regData.modo_perfil === "completo" && (
+        <>
+          {/* Documentos adicionales */}
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-sm font-semibold text-[#1B4332]">Documentos adicionales</span>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#1B4332] text-white">Perfil completo</span>
+            </div>
+            <p className="text-xs text-slate-500 mb-4">Necesarios para que PropValu te asigne encargos externos.</p>
+            <div className="space-y-4">
+              <FileUploadField label="Comprobante de domicilio"
+                hint="Recibo de luz, agua o teléfono (no mayor a 3 meses)"
+                value={files.comprobante_domicilio} onChange={v => setFile("comprobante_domicilio", v)} required />
+              <FileUploadField label="Carta de recomendación"
+                hint="De un cliente, empresa o colegio de valuadores"
+                value={files.carta_recomendacion} onChange={v => setFile("carta_recomendacion", v)} />
+              <FileUploadField label="Currículum vitae"
+                hint="PDF con tu experiencia profesional"
+                value={files.curriculum} onChange={v => setFile("curriculum", v)} required />
+              <div>
+                <p className="text-sm font-semibold text-[#1B4332] mb-1">3 avalúos de muestra</p>
+                <p className="text-xs text-slate-500 mb-3">Pueden ser opinión de valor, comercial, catastral u otro. Omite los datos del cliente.</p>
+                <div className="space-y-3">
+                  <FileUploadField label="Avalúo muestra 1" value={files.avaluo_muestra_1} onChange={v => setFile("avaluo_muestra_1", v)} required />
+                  <FileUploadField label="Avalúo muestra 2" value={files.avaluo_muestra_2} onChange={v => setFile("avaluo_muestra_2", v)} />
+                  <FileUploadField label="Avalúo muestra 3" value={files.avaluo_muestra_3} onChange={v => setFile("avaluo_muestra_3", v)} />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Cuestionario de perfil */}
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-sm font-semibold text-[#1B4332]">Cuestionario de perfil</span>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#1B4332] text-white">Perfil completo</span>
+            </div>
+            <p className="text-xs text-slate-500 mb-4">Nos ayuda a asignarte los encargos más adecuados a tu perfil.</p>
+            <div className="space-y-4">
+
+              <div className="space-y-1.5">
+                <Label className="text-xs font-semibold text-slate-600">Años de experiencia valuando *</Label>
+                <select className="w-full h-9 px-3 text-sm border border-[#B7E4C7] rounded-lg bg-[#F0FAF5] focus:border-[#52B788] focus:outline-none text-[#1B4332] appearance-none"
+                  value={regData.q_experiencia} onChange={e => setReg("q_experiencia", e.target.value)}>
+                  <option value="">Seleccionar...</option>
+                  {["Menos de 1 año","1-3 años","3-5 años","5-10 años","Más de 10 años"].map(o => <option key={o} value={o}>{o}</option>)}
+                </select>
+              </div>
+
+              <div className="space-y-1.5">
+                <Label className="text-xs font-semibold text-slate-600">Personas en tu equipo de trabajo *</Label>
+                <div className="grid grid-cols-2 gap-2">
+                  {[["solo","Solo yo"],["1-3","1 a 3"],["4-10","4 a 10"],["10+","Más de 10"]].map(([val, label]) => (
+                    <button key={val} type="button" onClick={() => setReg("q_equipo", val)}
+                      className={`py-2 px-3 rounded-lg border text-sm font-medium transition-all ${
+                        regData.q_equipo === val ? "border-[#52B788] bg-[#F0FAF5] text-[#1B4332]" : "border-slate-200 text-slate-600 hover:border-slate-300"
+                      }`}>{label}</button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <Label className="text-xs font-semibold text-slate-600">Tiempo promedio de entrega de un avalúo</Label>
+                <select className="w-full h-9 px-3 text-sm border border-[#B7E4C7] rounded-lg bg-[#F0FAF5] focus:border-[#52B788] focus:outline-none text-[#1B4332] appearance-none"
+                  value={regData.q_tiempo_entrega} onChange={e => setReg("q_tiempo_entrega", e.target.value)}>
+                  <option value="">Seleccionar...</option>
+                  {["24 horas","2-3 días","3-5 días","1 semana","Más de 1 semana"].map(o => <option key={o} value={o}>{o}</option>)}
+                </select>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <button type="button" onClick={() => setReg("q_oficina", !regData.q_oficina)}
+                  className={`w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 transition-all ${regData.q_oficina ? "bg-[#52B788] border-[#52B788]" : "border-slate-300"}`}>
+                  {regData.q_oficina && <Check className="w-3 h-3 text-white" />}
+                </button>
+                <Label className="text-sm text-slate-600 cursor-pointer" onClick={() => setReg("q_oficina", !regData.q_oficina)}>
+                  Tengo oficina física
+                </Label>
+              </div>
+
+              {regData.q_oficina && (
+                <div className="ml-8 space-y-3">
+                  <div className="space-y-1.5">
+                    <Label className="text-xs font-semibold text-slate-600">Dirección de oficina</Label>
+                    <Input placeholder="Calle, número, colonia, municipio"
+                      className="h-9 text-sm bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
+                      value={regData.q_dir_oficina} onChange={e => setReg("q_dir_oficina", e.target.value)} />
+                  </div>
+                  <div className="space-y-1.5">
+                    <Label className="text-xs font-semibold text-slate-600">Ubicación en Google Maps (liga)</Label>
+                    <Input placeholder="https://maps.google.com/..."
+                      className="h-9 text-sm bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
+                      value={regData.q_maps_url} onChange={e => setReg("q_maps_url", e.target.value)} />
+                  </div>
+                </div>
+              )}
+
+              <div className="flex items-center gap-3">
+                <button type="button" onClick={() => setReg("q_seguro_rc", !regData.q_seguro_rc)}
+                  className={`w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 transition-all ${regData.q_seguro_rc ? "bg-[#52B788] border-[#52B788]" : "border-slate-300"}`}>
+                  {regData.q_seguro_rc && <Check className="w-3 h-3 text-white" />}
+                </button>
+                <Label className="text-sm text-slate-600 cursor-pointer" onClick={() => setReg("q_seguro_rc", !regData.q_seguro_rc)}>
+                  Cuento con seguro de responsabilidad civil
+                </Label>
+              </div>
+
+              <div className="space-y-1.5">
+                <Label className="text-xs font-semibold text-slate-600">Software que utilizas</Label>
+                <Input placeholder="ej. SIAP, Excel, AutoCAD, OPUS..."
+                  className="h-9 text-sm bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
+                  value={regData.q_software} onChange={e => setReg("q_software", e.target.value)} />
+              </div>
+
+              <div className="space-y-1.5">
+                <Label className="text-xs font-semibold text-slate-600">Idiomas (además del español)</Label>
+                <Input placeholder="ej. Inglés, Francés..."
+                  className="h-9 text-sm bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
+                  value={regData.q_idiomas} onChange={e => setReg("q_idiomas", e.target.value)} />
+              </div>
+
+            </div>
+          </div>
+        </>
+      )}
 
       <div className="rounded-xl bg-[#D9ED92]/30 border border-[#52B788]/30 p-4 flex gap-3">
         <Info className="w-5 h-5 text-[#1B4332] shrink-0 mt-0.5" />
         <div>
           <p className="text-sm font-semibold text-[#1B4332] mb-1">¿Qué sigue?</p>
           <p className="text-xs text-slate-600 leading-relaxed">
-            Una vez enviado tu registro, el equipo PropValu revisará tus documentos y se pondrá en
-            contacto contigo <strong>vía telefónica o entrevista virtual</strong> para completar la
-            verificación. Te notificaremos por correo cuando tu cuenta sea aprobada.
+            El equipo PropValu revisará tus documentos y se pondrá en contacto contigo
+            <strong> vía telefónica o entrevista virtual</strong> para completar la verificación.
+            Te notificaremos por correo cuando tu cuenta sea aprobada.
           </p>
         </div>
       </div>
