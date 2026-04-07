@@ -153,6 +153,11 @@ const ValuadorDashboardPage = () => {
   const [kycSubiendo, setKycSubiendo] = useState({});
   const [kycError, setKycError] = useState("");
 
+  /* ── Perfil edit state ── */
+  const [editSection, setEditSection] = useState(null);
+  const [editData, setEditData] = useState({});
+  const [savingSection, setSavingSection] = useState(false);
+
   useEffect(() => {
     if (!session) return;
     fetch(`${API}/kyc/mis-documentos`, { credentials: "include" })
@@ -667,10 +672,6 @@ const ValuadorDashboardPage = () => {
     if (e === "1-3 años")  return { emoji:"🥉", nivel:"Bronce", title:"1-3 años — Nivel Bronce" };
     return null;
   })();
-
-  const [editSection, setEditSection] = useState(null); // null | "contacto" | "cedulas" | "ubicacion" | "servicios" | "profesional"
-  const [editData, setEditData] = useState({});
-  const [savingSection, setSavingSection] = useState(false);
 
   const openEdit = (section) => {
     const d = {};
