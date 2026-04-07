@@ -162,8 +162,7 @@ const ValuadorPage = () => {
   const handleLogin = (planId) => {
     localStorage.setItem("propvalu_intended_role", "appraiser");
     if (planId) localStorage.setItem("propvalu_intended_plan", planId);
-    const redirectUrl = window.location.origin + "/dashboard";
-    window.location.href = `https://auth.emergentagent.com/?redirect=${encodeURIComponent(redirectUrl)}`;
+    window.location.href = '/login';
   };
 
   return (

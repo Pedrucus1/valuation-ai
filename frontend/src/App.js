@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import "@/App.css";
-import { BrowserRouter, Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
 import { Toaster } from "@/components/ui/sonner";
 
 // Pages
@@ -138,11 +138,7 @@ function AppRouter() {
       <Route path="/valuadores" element={<ValuadoresDirectorioPage />} />
       <Route path="/politica-anuncios" element={<PoliticaAnunciosPage />} />
       <Route path="/valuador/red" element={<ValuadorRedPage />} />
-      <Route path="/dashboard" element={
-        <ProtectedRoute>
-          <DashboardPage />
-        </ProtectedRoute>
-      } />
+      <Route path="/dashboard" element={<Navigate to="/login" replace />} />
 
       {/* Admin */}
       <Route path="/admin/login" element={<AdminLogin />} />

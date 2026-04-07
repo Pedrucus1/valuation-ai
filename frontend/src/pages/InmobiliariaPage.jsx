@@ -173,8 +173,7 @@ export default function InmobiliariaPage() {
   const handleLogin = (planId) => {
     localStorage.setItem("propvalu_intended_role", "realtor");
     if (planId) localStorage.setItem("propvalu_selected_plan", planId);
-    const redirectUrl = window.location.origin + "/dashboard";
-    window.location.href = `https://auth.emergentagent.com/?redirect=${encodeURIComponent(redirectUrl)}`;
+    window.location.href = '/login';
   };
 
   return (
