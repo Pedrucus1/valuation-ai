@@ -41,6 +41,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { API } from "@/App";
+import { compressFile } from "@/lib/compressFile";
 
 /* ─── Helpers ──────────────────────────────────────────── */
 
@@ -158,6 +159,9 @@ const ValuadorDashboardPage = () => {
   const [editData, setEditData] = useState({});
   const [savingSection, setSavingSection] = useState(false);
 
+  /* ── Doc preview lightbox ── */
+  const [previewDoc, setPreviewDoc] = useState(null); // { url, type, filename }
+
   useEffect(() => {
     if (!session) return;
     fetch(`${API}/kyc/mis-documentos`, { credentials: "include" })
@@ -183,10 +187,18 @@ const ValuadorDashboardPage = () => {
     { id: "expediente",  label: "Mi expediente", badge: !docsCompletos && session?.kyc_status !== "approved" },
   ];
 
-  const subirDocumento = async (docTipo, file) => {
-    if (!file) return;
+  const subirDocumento = async (docTipo, rawFile) => {
+    if (!rawFile) return;
     setKycSubiendo((p) => ({ ...p, [docTipo]: true }));
     setKycError("");
+    let file;
+    try {
+      file = await compressFile(rawFile);
+    } catch (err) {
+      toast.error(err.message);
+      setKycSubiendo((p) => ({ ...p, [docTipo]: false }));
+      return;
+    }
     const fd = new FormData();
     fd.append("doc_tipo", docTipo);
     fd.append("file", file);
@@ -393,47 +405,67 @@ const ValuadorDashboardPage = () => {
                 <XCircle className="w-4 h-4 flex-shrink-0" />{kycError}
               </div>
             )}
-            <div className="divide-y divide-slate-50">
+            <div className="divide-y divide-[#F8F9FA]">
               {docsRequeridos.map((key) => {
                 const doc = docSubido(key);
                 const subiendo = kycSubiendo[key];
                 const label = DOC_LABELS[key] || key;
                 const hint = DOC_HINTS[key];
+                const isImg = doc && (doc.content_type?.startsWith("image/") || /\.(jpg|jpeg|png|webp)$/i.test(doc.filename || ""));
+                const docUrl = doc ? `${API}/kyc/documento/${doc.doc_id}` : null;
                 return (
-                  <div key={key} className="flex items-start justify-between gap-4 px-5 py-4">
-                    <div className="flex items-start gap-3 flex-1 min-w-0">
-                      <div className="mt-0.5 flex-shrink-0">
-                        {doc?.estado === "ratificado"
-                          ? <ShieldCheck className="w-5 h-5 text-indigo-500" />
-                          : doc
-                            ? <CheckCircle2 className="w-5 h-5 text-green-500" />
-                            : <Clock className="w-5 h-5 text-slate-300" />}
+                  <div key={key} className="px-5 py-4 space-y-3">
+                    <div className="flex items-start gap-3">
+                      {/* Miniatura o ícono de estado */}
+                      <div className="flex-shrink-0 mt-0.5">
+                        {doc ? (
+                          <button onClick={() => setPreviewDoc({ url: docUrl, type: doc.content_type, filename: doc.filename })}
+                            className="group relative w-14 h-14 rounded-lg overflow-hidden border-2 border-[#52B788] bg-[#F0FAF5] flex items-center justify-center hover:border-[#1B4332] transition-colors"
+                            title="Ver documento">
+                            {isImg
+                              ? <img src={docUrl} alt={label} className="w-full h-full object-cover" onError={e => { e.target.style.display="none"; }} />
+                              : <FileText className="w-6 h-6 text-[#52B788] group-hover:text-[#1B4332]" />
+                            }
+                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                              <span className="text-white text-xs font-bold opacity-0 group-hover:opacity-100">Ver</span>
+                            </div>
+                            {doc.estado === "ratificado" && <ShieldCheck className="absolute top-0.5 right-0.5 w-3.5 h-3.5 text-indigo-500 bg-white rounded-full" />}
+                          </button>
+                        ) : (
+                          <div className="w-14 h-14 rounded-lg border-2 border-dashed border-slate-200 flex items-center justify-center bg-slate-50">
+                            <Clock className="w-5 h-5 text-slate-300" />
+                          </div>
+                        )}
                       </div>
+
+                      {/* Info del doc */}
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <p className="text-sm font-medium text-[#1B4332]">{label}</p>
+                          <p className="text-sm font-semibold text-[#1B4332]">{label}</p>
                           {doc?.estado === "ratificado" && (
                             <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${BADGE_DEFS[key]?.cls || "bg-indigo-100 text-indigo-700 border-indigo-200"}`}>
                               {BADGE_DEFS[key]?.emoji} Ratificado
                             </span>
                           )}
                         </div>
-                        {hint && <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">{hint}</p>}
+                        {hint && <p className="text-xs text-slate-400 mt-0.5 leading-relaxed line-clamp-2">{hint}</p>}
                         {doc && (
-                          <p className="text-xs text-slate-400 mt-1 truncate">
-                            {doc.filename} · {new Date(doc.subido_at).toLocaleDateString("es-MX")}
+                          <p className="text-xs text-slate-400 mt-1">
+                            {doc.filename} · {new Date(doc.subido_at).toLocaleDateString("es-MX")} · {doc.size_bytes ? `${(doc.size_bytes/1024).toFixed(0)} KB` : ""}
                           </p>
                         )}
                       </div>
+
+                      {/* Botón subir */}
+                      <label className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl cursor-pointer transition-colors flex-shrink-0 ${
+                        doc ? "border border-[#52B788] text-[#1B4332] hover:bg-[#52B788]/10" : "bg-[#1B4332] text-white hover:bg-[#2D6A4F]"
+                      } ${subiendo ? "opacity-50 cursor-not-allowed" : ""}`}>
+                        <Upload className="w-3.5 h-3.5" />
+                        {subiendo ? "Subiendo…" : doc ? "Reemplazar" : "Subir"}
+                        <input type="file" accept=".pdf,.jpg,.jpeg,.png,.webp" className="hidden"
+                          disabled={subiendo} onChange={(e) => subirDocumento(key, e.target.files[0])} />
+                      </label>
                     </div>
-                    <label className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl cursor-pointer transition-colors flex-shrink-0 ${
-                      doc ? "border border-[#52B788] text-[#1B4332] hover:bg-[#52B788]/10" : "bg-[#1B4332] text-white hover:bg-[#163828]"
-                    } ${subiendo ? "opacity-50 cursor-not-allowed" : ""}`}>
-                      <Upload className="w-3.5 h-3.5" />
-                      {subiendo ? "Subiendo…" : doc ? "Reemplazar" : "Subir"}
-                      <input type="file" accept=".pdf,.jpg,.jpeg,.png,.webp" className="hidden"
-                        disabled={subiendo} onChange={(e) => subirDocumento(key, e.target.files[0])} />
-                    </label>
                   </div>
                 );
               })}
@@ -441,7 +473,25 @@ const ValuadorDashboardPage = () => {
           </CardContent>
         </Card>
 
-        <p className="text-[11px] text-slate-400">Formatos aceptados: PDF, JPG, PNG · Máx. 5 MB por archivo</p>
+        <p className="text-[11px] text-slate-400">Formatos aceptados: PDF, JPG, PNG · Imágenes comprimidas automáticamente a &lt;200 KB · PDFs máx. 1 MB</p>
+
+      {/* Lightbox */}
+      {previewDoc && (
+        <div className="fixed inset-0 z-[9999] bg-black/80 flex items-center justify-center p-4" onClick={() => setPreviewDoc(null)}>
+          <div className="relative max-w-4xl w-full max-h-[90vh] flex flex-col" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-2">
+              <p className="text-white text-sm font-medium truncate">{previewDoc.filename}</p>
+              <button onClick={() => setPreviewDoc(null)} className="text-white/70 hover:text-white ml-4 flex-shrink-0">
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+            {previewDoc.type?.startsWith("image/") || /\.(jpg|jpeg|png|webp)$/i.test(previewDoc.filename || "")
+              ? <img src={previewDoc.url} alt={previewDoc.filename} className="max-h-[80vh] object-contain rounded-lg mx-auto" />
+              : <iframe src={previewDoc.url} title={previewDoc.filename} className="w-full h-[80vh] rounded-lg bg-white" />
+            }
+          </div>
+        </div>
+      )}
       </div>
     );
   };
@@ -663,7 +713,8 @@ const ValuadorDashboardPage = () => {
   );
 
   // ── Perfil: helpers y estado de edición ──────────────────────────────────
-  const PROFESION_LABELS = { arquitecto:"Arquitecto", ing_civil:"Ing. Civil", ing_estructural:"Ing. Estructural", otro:"Otra carrera afín" };
+  const PROFESION_LABELS = { arquitecto:"Arquitecto", ing_civil:"Ing. Civil", ing_estructural:"Ing. Estructural" };
+  const getProfesionLabel = (base, otro) => PROFESION_LABELS[base] || (base === "otro" && otro ? otro : base === "otro" ? "Otra carrera afín" : base) || null;
   const medallaExp = (() => {
     const e = session?.q_experiencia;
     if (!e) return null;
@@ -755,7 +806,7 @@ const ValuadorDashboardPage = () => {
             {medallaExp && <span title={medallaExp.title} className="text-xl">{medallaExp.emoji}</span>}
           </div>
           <p className="text-sm text-[#D9ED92]/80 mt-0.5">
-            {PROFESION_LABELS[session.profesion_base] || "Valuador"} · {session.q_experiencia || "Experiencia no indicada"}
+            {getProfesionLabel(session.profesion_base, session.profesion_base_otro) || "Valuador"} · {session.q_experiencia || "Experiencia no indicada"}
           </p>
           <div className="flex flex-wrap gap-1.5 mt-2">
             {badgesGanados.map(b => (
@@ -807,7 +858,7 @@ const ValuadorDashboardPage = () => {
           <div className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden">
             <SectionHeader emoji="🎓" title="Cédulas profesionales" section="cedulas" />
             <div className="p-5 grid grid-cols-2 gap-4">
-              <Dato label="Profesión" value={PROFESION_LABELS[session.profesion_base] || session.profesion_base} />
+              <Dato label="Profesión" value={getProfesionLabel(session.profesion_base, session.profesion_base_otro)} />
               <Dato label="Núm. cédula (arq./ing.)" value={session.num_cedula_base} />
               <div className="col-span-2"><Dato label="Núm. cédula Perito Valuador" value={session.num_cedula_valuador} empty="No registrada (opcional)" /></div>
             </div>
@@ -816,11 +867,17 @@ const ValuadorDashboardPage = () => {
                 <div className="space-y-1">
                   <Label className="text-xs">Profesión de base</Label>
                   <div className="grid grid-cols-2 gap-2">
-                    {[["arquitecto","Arquitecto"],["ing_civil","Ing. Civil"],["ing_estructural","Ing. Estructural"],["otro","Otra"]].map(([v,l])=>(
+                    {[["arquitecto","Arquitecto"],["ing_civil","Ing. Civil"],["ing_estructural","Ing. Estructural"],["otro","Otra carrera"]].map(([v,l])=>(
                       <button key={v} type="button" onClick={()=>setEditData(p=>({...p,profesion_base:v}))}
                         className={`py-1.5 px-2 rounded-lg border text-xs font-medium transition-all ${ef.profesion_base===v?"border-[#52B788] bg-[#F0FAF5] text-[#1B4332]":"border-slate-200 text-slate-600"}`}>{l}</button>
                     ))}
                   </div>
+                  {ef.profesion_base === "otro" && (
+                    <div className="mt-2 space-y-1">
+                      <Label className="text-xs">Especifica tu profesión</Label>
+                      <Input value={ef.profesion_base_otro||""} onChange={e=>setEditData(p=>({...p,profesion_base_otro:e.target.value}))} placeholder="ej. Ing. Topógrafo, Lic. Derecho..." className="h-8 text-sm" />
+                    </div>
+                  )}
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-1"><Label className="text-xs">Núm. cédula base</Label><Input value={ef.num_cedula_base} onChange={e=>setEditData(p=>({...p,num_cedula_base:e.target.value.replace(/\D/g,"")}))} className="h-8 text-sm" /></div>

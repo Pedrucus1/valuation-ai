@@ -131,6 +131,7 @@ class RegisterRequest(BaseModel):
     q_idiomas: Optional[str] = None
     # Cédulas
     profesion_base: Optional[str] = None
+    profesion_base_otro: Optional[str] = None
     num_cedula_base: Optional[str] = None
     num_cedula_valuador: Optional[str] = None
     # Inmobiliaria
@@ -400,7 +401,7 @@ async def update_profile(request: Request):
     body = await request.json()
     allowed = {
         "name", "phone", "estado", "municipio", "municipios",
-        "profesion_base", "num_cedula_base", "num_cedula_valuador",
+        "profesion_base", "profesion_base_otro", "num_cedula_base", "num_cedula_valuador",
         "q_experiencia", "q_equipo", "q_oficina", "q_dir_oficina", "q_maps_url",
         "q_tiempo_entrega", "q_seguro_rc", "q_unidad_valuacion",
         "q_software", "q_idiomas",
@@ -470,6 +471,7 @@ async def register_email(data: RegisterRequest, response: Response):
         "q_software": data.q_software,
         "q_idiomas": data.q_idiomas,
         "profesion_base": data.profesion_base,
+        "profesion_base_otro": data.profesion_base_otro,
         "num_cedula_base": data.num_cedula_base,
         "num_cedula_valuador": data.num_cedula_valuador,
         # Inmobiliaria
@@ -1715,6 +1717,18 @@ async def kyc_mis_docs(request: Request):
     user = await require_auth(request)
     docs = await db.kyc_docs.find({"user_id": user.user_id}, {"_id": 0, "path": 0}).to_list(20)
     return {"documentos": docs}
+
+@api_router.get("/kyc/documento/{doc_id}")
+async def kyc_ver_propio_doc(doc_id: str, request: Request):
+    user = await require_auth(request)
+    doc = await db.kyc_docs.find_one({"doc_id": doc_id, "user_id": user.user_id}, {"_id": 0})
+    if not doc:
+        raise HTTPException(status_code=404, detail="Documento no encontrado")
+    path = Path(doc["path"])
+    if not path.exists():
+        raise HTTPException(status_code=404, detail="Archivo no disponible")
+    from fastapi.responses import FileResponse
+    return FileResponse(path=str(path), media_type=doc.get("content_type", "application/octet-stream"), filename=doc.get("filename", "documento"))
 
 @api_router.post("/kyc/solicitar-entrevista")
 async def kyc_solicitar_entrevista(request: Request):

@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { API } from "@/App";
+import { compressFile } from "@/lib/compressFile";
 
 /* ─── Static data ───────────────────────────────────────── */
 
@@ -131,6 +132,7 @@ const LoginPage = () => {
 
     // Cédulas
     profesion_base: "",     // "arquitecto" | "ing_civil" | "ing_estructural" | "otro"
+    profesion_base_otro: "",
     num_cedula_base: "",
     num_cedula_valuador: "",
 
@@ -331,6 +333,7 @@ const LoginPage = () => {
           peritajes_tipos: regData.peritajes_tipos,
           peritajes_otros: regData.peritajes_otros || undefined,
           profesion_base:     regData.profesion_base || undefined,
+          profesion_base_otro: regData.profesion_base_otro || undefined,
           num_cedula_base:    regData.num_cedula_base || undefined,
           num_cedula_valuador: regData.num_cedula_valuador || undefined,
           q_experiencia:     regData.q_experiencia || undefined,
@@ -359,7 +362,10 @@ const LoginPage = () => {
       const archivosASubir = Object.entries(files).filter(([, f]) => f !== null);
       if (archivosASubir.length > 0) {
         const errores = [];
-        for (const [doc_tipo, file] of archivosASubir) {
+        for (const [doc_tipo, rawFile] of archivosASubir) {
+          let file;
+          try { file = await compressFile(rawFile); }
+          catch (compErr) { errores.push(`${doc_tipo}: ${compErr.message}`); continue; }
           const fd = new FormData();
           fd.append("doc_tipo", doc_tipo);
           fd.append("file", file);
@@ -948,6 +954,17 @@ const LoginPage = () => {
                   }`}>{lbl}</button>
               ))}
             </div>
+            {regData.profesion_base === "otro" && (
+              <div className="space-y-1">
+                <Label className="text-xs font-semibold text-slate-600">Especifica tu profesión *</Label>
+                <Input
+                  placeholder="ej. Ing. Topógrafo, Lic. Valuación, Técnico en Construcción..."
+                  className="h-9 text-sm bg-white border-[#B7E4C7] focus:border-[#52B788] focus:outline-none"
+                  value={regData.profesion_base_otro}
+                  onChange={e => setReg("profesion_base_otro", e.target.value)}
+                />
+              </div>
+            )}
             <div className="space-y-1">
               <Label className="text-xs font-semibold text-slate-600">Número de cédula *</Label>
               <Input
