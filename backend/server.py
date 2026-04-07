@@ -402,6 +402,7 @@ async def update_profile(request: Request):
     allowed = {
         "name", "phone", "estado", "municipio", "municipios",
         "profesion_base", "profesion_base_otro", "num_cedula_base", "num_cedula_valuador",
+        "q_web_perfil",
         "q_experiencia", "q_equipo", "q_oficina", "q_dir_oficina", "q_maps_url",
         "q_tiempo_entrega", "q_seguro_rc", "q_unidad_valuacion",
         "q_software", "q_idiomas",

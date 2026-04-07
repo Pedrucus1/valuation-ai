@@ -235,7 +235,7 @@ const ValuadorDashboardPage = () => {
     foto_profesional:        "Foto profesional",
     comprobante_experiencia: "Comprobante de experiencia",
     firma_autografa:         "Firma autógrafa digital",
-    comprobante_adicional:   "Comprobante adicional (tarjeta, web, etc.)",
+    comprobante_adicional:   "Comprobante adicional (tarjeta de presentación, membresía, etc.)",
     carta_unidad:            "Carta SHF / Unidad de Valuación",
     comprobante_catastro:    "Comprobante catastral",
     seguro_rc:               "Seguro de responsabilidad civil (opcional)",
@@ -369,28 +369,28 @@ const ValuadorDashboardPage = () => {
           {/* Info */}
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-1.5 flex-wrap">
-              <p className={`text-xs font-semibold ${doc ? "text-[#1B4332]" : "text-slate-500"}`}>{label}</p>
-              {!isInList && <span className="text-[10px] text-slate-400 italic">(opcional)</span>}
+              <p className={`text-sm font-semibold ${doc ? "text-[#1B4332]" : "text-slate-600"}`}>{label}</p>
+              {!isInList && <span className="text-xs text-slate-400 italic">(opcional)</span>}
               {doc?.estado === "ratificado" && (
-                <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full border ${BADGE_DEFS[docKey]?.cls || "bg-indigo-100 text-indigo-700 border-indigo-200"}`}>
+                <span className={`text-xs font-bold px-2 py-0.5 rounded-full border ${BADGE_DEFS[docKey]?.cls || "bg-indigo-100 text-indigo-700 border-indigo-200"}`}>
                   {BADGE_DEFS[docKey]?.emoji} Verificado
                 </span>
               )}
             </div>
             {doc
-              ? <p className="text-[10px] text-[#52B788] font-medium mt-0.5">
+              ? <p className="text-xs text-[#52B788] font-medium mt-0.5">
                   ✓ {new Date(doc.subido_at).toLocaleDateString("es-MX")} {doc.size_bytes ? `· ${(doc.size_bytes/1024).toFixed(0)} KB` : ""}
                 </p>
-              : hint && <p className="text-[10px] text-slate-400 mt-0.5 line-clamp-1">{hint}</p>
+              : hint && <p className="text-xs text-slate-400 mt-0.5 line-clamp-2">{hint}</p>
             }
           </div>
 
           {/* Upload */}
-          <label className={`flex items-center gap-1 text-[10px] font-bold px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors flex-shrink-0 ${
+          <label className={`flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-lg cursor-pointer transition-colors flex-shrink-0 ${
             doc ? "border border-[#52B788] text-[#1B4332] hover:bg-[#52B788]/10" : "bg-[#1B4332] text-white hover:bg-[#2D6A4F]"
           } ${subiendo ? "opacity-50 cursor-not-allowed" : ""}`}>
-            <Upload className="w-3 h-3" />
-            {subiendo ? "…" : doc ? "Cambiar" : "Subir"}
+            <Upload className="w-3.5 h-3.5" />
+            {subiendo ? "Subiendo…" : doc ? "Cambiar" : "Subir"}
             <input type="file" accept=".pdf,.jpg,.jpeg,.png,.webp" className="hidden"
               disabled={subiendo} onChange={e => subirDocumento(docKey, e.target.files[0])} />
           </label>
@@ -443,11 +443,11 @@ const ValuadorDashboardPage = () => {
         {/* ── Credenciales verificadas ── */}
         {badgesGanados.length > 0 && (
           <div className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm p-4">
-            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2.5">Credenciales verificadas por PropValu</p>
+            <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Credenciales verificadas por PropValu</p>
             <div className="flex flex-wrap gap-2">
               {badgesGanados.map(b => (
-                <span key={b.key} className={`inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full border ${b.cls}`}>
-                  {b.emoji} {b.label} <ShieldCheck className="w-3 h-3" />
+                <span key={b.key} className={`inline-flex items-center gap-1.5 text-sm font-bold px-3 py-1.5 rounded-full border ${b.cls}`}>
+                  {b.emoji} {b.label} <ShieldCheck className="w-3.5 h-3.5" />
                 </span>
               ))}
             </div>
@@ -470,25 +470,61 @@ const ValuadorDashboardPage = () => {
           return (
             <div key={grupo.id} className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden">
               {/* Header del grupo */}
-              <div className={`px-4 py-3 flex items-center justify-between ${grupoCompleto ? "bg-gradient-to-r from-[#1B4332] to-[#2D6A4F]" : "bg-gradient-to-r from-slate-700 to-slate-600"}`}>
+              <div className={`px-4 py-3.5 flex items-center justify-between ${grupoCompleto ? "bg-gradient-to-r from-[#1B4332] to-[#2D6A4F]" : "bg-gradient-to-r from-[#52B788] to-[#40916C]"}`}>
                 <div className="flex items-center gap-2">
-                  <span className="text-base">{grupo.emoji}</span>
-                  <span className="font-['Outfit'] font-semibold text-white text-sm">{grupo.label}</span>
+                  <span className="text-lg">{grupo.emoji}</span>
+                  <span className="font-['Outfit'] font-bold text-white text-base">{grupo.label}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-white/70">{grupoSubidos}/{keysVisibles.length}</span>
+                  <span className="text-sm font-semibold text-white/80">{grupoSubidos}/{keysVisibles.length}</span>
                   {grupoCompleto
-                    ? <span className="text-[10px] font-bold bg-[#D9ED92] text-[#1B4332] px-2 py-0.5 rounded-full">✓ Completo</span>
-                    : <span className="text-[10px] font-bold bg-white/20 text-white px-2 py-0.5 rounded-full">Pendiente</span>
+                    ? <span className="text-xs font-bold bg-[#D9ED92] text-[#1B4332] px-2.5 py-0.5 rounded-full">✓ Completo</span>
+                    : <span className="text-xs font-bold bg-white/25 text-white px-2.5 py-0.5 rounded-full">Pendiente</span>
                   }
                 </div>
               </div>
               {/* Docs del grupo */}
-              <div className="p-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {grupo.keys.map(k => {
-                  if (!docsRequeridos.includes(k) && !docSubido(k)) return null;
-                  return <DocRow key={k} docKey={k} />;
-                })}
+              <div className="p-3 space-y-2">
+                {/* Campo URL para comprobante_adicional */}
+                {grupo.keys.includes("comprobante_adicional") && (
+                  <div className="bg-[#F0FAF5] border border-[#B7E4C7] rounded-xl px-4 py-3 space-y-2">
+                    <p className="text-sm font-semibold text-[#1B4332]">🌐 Perfil web o enlace de referencia</p>
+                    <p className="text-xs text-slate-500">Sitio web profesional, perfil de LinkedIn, directorio de colegio, o cualquier enlace que ratifique tu trayectoria.</p>
+                    <div className="flex gap-2">
+                      <Input
+                        placeholder="https://www.tusitioweb.com o https://linkedin.com/in/..."
+                        className="h-9 text-sm bg-white border-[#B7E4C7] focus:border-[#52B788]"
+                        value={session.q_web_perfil || ""}
+                        onChange={e => {
+                          const val = e.target.value;
+                          setSession(p => ({ ...p, q_web_perfil: val }));
+                        }}
+                        onBlur={async e => {
+                          const val = e.target.value;
+                          if (!val && !session.q_web_perfil) return;
+                          await fetch(`${API}/auth/profile`, {
+                            method: "PUT", credentials: "include",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ q_web_perfil: val }),
+                          });
+                          localStorage.setItem("valuador_session", JSON.stringify({ ...session, q_web_perfil: val }));
+                        }}
+                      />
+                      {session.q_web_perfil && (
+                        <a href={session.q_web_perfil} target="_blank" rel="noopener noreferrer"
+                          className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg border border-[#52B788] text-[#1B4332] hover:bg-[#52B788]/10 whitespace-nowrap flex-shrink-0">
+                          <Globe className="w-3.5 h-3.5" /> Ver
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                )}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {grupo.keys.map(k => {
+                    if (!docsRequeridos.includes(k) && !docSubido(k)) return null;
+                    return <DocRow key={k} docKey={k} />;
+                  })}
+                </div>
               </div>
             </div>
           );
