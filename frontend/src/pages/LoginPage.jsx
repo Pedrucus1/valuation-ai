@@ -22,17 +22,22 @@ const ESTADOS_MX = [
 ];
 
 const SERVICIOS_VALUADOR = [
-  { key: "infonavit",   label: "Infonavit" },
-  { key: "fovissste",   label: "Fovissste" },
-  { key: "comerciales", label: "Comerciales" },
-  { key: "catastrales", label: "Catastrales" },
-  { key: "inspeccion",  label: "Inspección de vivienda" },
-  { key: "peritajes",   label: "Peritajes" },
-  { key: "otros",       label: "Otros" },
+  { key: "infonavit",       label: "Infonavit" },
+  { key: "fovissste",       label: "Fovissste" },
+  { key: "comerciales",     label: "Comerciales" },
+  { key: "catastrales",     label: "Catastrales" },
+  { key: "opinion_valor",   label: "Opinión de valor" },
+  { key: "avaluo_mejora",   label: "Avalúo de mejora" },
+  { key: "inspeccion",      label: "Inspección de vivienda" },
+  { key: "peritajes",       label: "Peritajes" },
+  { key: "tramites",        label: "Trámites estatales o municipales" },
+  { key: "obras_publicas",  label: "Obras públicas y catastro" },
+  { key: "otros",           label: "Otros" },
 ];
 
 const PERITAJES_TIPOS = [
   "Estructural",
+  "Peritaje de obra",
   "Daños (incendio, inundación, sismo)",
   "Remate hipotecario",
   "Legal / Judicial",
@@ -124,13 +129,15 @@ const LoginPage = () => {
     // Paso 2 Valuador
     services: {
       infonavit: false, fovissste: false, comerciales: false,
-      catastrales: false, inspeccion: false, peritajes: false, otros: false,
+      catastrales: false, opinion_valor: false, avaluo_mejora: false,
+      inspeccion: false, peritajes: false, tramites: false,
+      obras_publicas: false, otros: false,
     },
     peritajes_tipos: [],
     peritajes_otros: "",
-    servicios_otros_texto: "",
+    servicios_otros_lista: [""],
     estado: "",
-    municipio: "",
+    municipios: [""],
 
     // Paso 2 Inmobiliaria
     inmobiliaria_tipo: "",   // "titular" | "asesor"
@@ -182,7 +189,7 @@ const LoginPage = () => {
     }
     if (step === 2) {
       if (!regData.estado)    { toast.error("Selecciona el estado donde darás el servicio"); return false; }
-      if (!regData.municipio.trim()) { toast.error("Ingresa el municipio o población"); return false; }
+      if (!regData.municipios[0]?.trim()) { toast.error("Ingresa al menos un municipio o población"); return false; }
       if (regData.role === "appraiser") {
         const anyService = Object.values(regData.services).some(Boolean);
         if (!anyService) { toast.error("Selecciona al menos un tipo de servicio"); return false; }
@@ -269,8 +276,10 @@ const LoginPage = () => {
           company_name: regData.company_name || undefined,
           // Campos adicionales
           estado:       regData.estado,
-          municipio:    regData.municipio,
+          municipio:    regData.municipios.filter(m => m.trim()).join(", "),
+          municipios:   regData.municipios.filter(m => m.trim()),
           services:     regData.role === "appraiser" ? regData.services : undefined,
+          servicios_otros: regData.servicios_otros_lista.filter(s => s.trim()),
           inmobiliaria_tipo: regData.role === "realtor" ? regData.inmobiliaria_tipo : undefined,
           asociacion:   regData.asociacion || undefined,
           cursos:       regData.cursos_inmobiliarios || undefined,
@@ -481,15 +490,32 @@ const LoginPage = () => {
                 </div>
               )}
 
-              {/* Otros: campo libre */}
+              {/* Otros: múltiples líneas */}
               {s.key === "otros" && regData.services.otros && (
-                <div className="ml-7 mt-2">
-                  <Input
-                    placeholder="Describe el tipo de servicio..."
-                    className="h-8 text-xs bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
-                    value={regData.servicios_otros_texto}
-                    onChange={e => setReg("servicios_otros_texto", e.target.value)}
-                  />
+                <div className="ml-7 mt-2 space-y-2">
+                  {regData.servicios_otros_lista.map((val, idx) => (
+                    <div key={idx} className="flex gap-2 items-center">
+                      <Input
+                        placeholder={`Servicio ${idx + 1}...`}
+                        className="h-8 text-xs bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
+                        value={val}
+                        onChange={e => {
+                          const list = [...regData.servicios_otros_lista];
+                          list[idx] = e.target.value;
+                          setReg("servicios_otros_lista", list);
+                        }}
+                      />
+                      {regData.servicios_otros_lista.length > 1 && (
+                        <button type="button" onClick={() => setReg("servicios_otros_lista", regData.servicios_otros_lista.filter((_, i) => i !== idx))}
+                          className="text-slate-300 hover:text-red-400 text-lg leading-none">×</button>
+                      )}
+                    </div>
+                  ))}
+                  <button type="button"
+                    onClick={() => setReg("servicios_otros_lista", [...regData.servicios_otros_lista, ""])}
+                    className="flex items-center gap-1 text-xs text-[#52B788] font-semibold hover:underline">
+                    <span className="text-base leading-none">+</span> Agregar otro servicio
+                  </button>
                 </div>
               )}
             </div>
@@ -621,7 +647,7 @@ const LoginPage = () => {
           <MapPin className="w-4 h-4 text-[#52B788]" />
           Zona de cobertura *
         </Label>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="space-y-3">
           <div className="space-y-1.5">
             <Label className="text-xs font-medium text-slate-500">Estado</Label>
             <select
@@ -634,13 +660,33 @@ const LoginPage = () => {
             </select>
           </div>
           <div className="space-y-1.5">
-            <Label className="text-xs font-medium text-slate-500">Municipio / Población</Label>
-            <Input
-              placeholder="ej. Zapopan"
-              className="h-9 text-sm bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
-              value={regData.municipio}
-              onChange={e => setReg("municipio", e.target.value)}
-            />
+            <Label className="text-xs font-medium text-slate-500">Municipios / Poblaciones</Label>
+            <div className="space-y-2">
+              {regData.municipios.map((m, idx) => (
+                <div key={idx} className="flex gap-2 items-center">
+                  <Input
+                    placeholder={`ej. ${["Zapopan","Guadalajara","Tlaquepaque","Tonalá"][idx] || "Municipio"}`}
+                    className="h-9 text-sm bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
+                    value={m}
+                    onChange={e => {
+                      const list = [...regData.municipios];
+                      list[idx] = e.target.value;
+                      setReg("municipios", list);
+                    }}
+                  />
+                  {regData.municipios.length > 1 && (
+                    <button type="button"
+                      onClick={() => setReg("municipios", regData.municipios.filter((_, i) => i !== idx))}
+                      className="text-slate-300 hover:text-red-400 text-lg leading-none shrink-0">×</button>
+                  )}
+                </div>
+              ))}
+              <button type="button"
+                onClick={() => setReg("municipios", [...regData.municipios, ""])}
+                className="flex items-center gap-1 text-xs text-[#52B788] font-semibold hover:underline">
+                <span className="text-base leading-none">+</span> Agregar municipio
+              </button>
+            </div>
           </div>
         </div>
       </div>
