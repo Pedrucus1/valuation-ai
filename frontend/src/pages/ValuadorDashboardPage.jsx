@@ -156,11 +156,18 @@ const ValuadorDashboardPage = () => {
   if (!session) return null;
 
   /* ── Tabs ── */
+  const docsRequeridos = session?.modo_perfil === "completo"
+    ? ["ine_pasaporte","cedula_profesional","firma_electronica","rfc_sat","seguro_rc","foto_profesional",
+       "comprobante_domicilio","carta_recomendacion","curriculum","avaluo_muestra_1","avaluo_muestra_2","avaluo_muestra_3"]
+    : ["ine_pasaporte","cedula_profesional","firma_electronica","rfc_sat","seguro_rc","foto_profesional"];
+
+  const docsCompletos = docsRequeridos.every(k => kycDocs.find(d => d.doc_tipo === k));
+
   const TABS = [
-    { id: "resumen", label: "Resumen" },
+    { id: "resumen",     label: "Resumen" },
     { id: "valuaciones", label: "Valuaciones" },
-    { id: "perfil", label: "Perfil" },
-    { id: "kyc", label: "Documentos KYC" },
+    { id: "perfil",      label: "Perfil" },
+    { id: "expediente",  label: "Mi expediente", badge: !docsCompletos && session?.kyc_status !== "approved" },
   ];
 
   const subirDocumento = async (docTipo, file) => {
@@ -190,85 +197,147 @@ const ValuadorDashboardPage = () => {
     }
   };
 
-  const DOC_TIPOS = [
-    { key: "ine_pasaporte",      label: "INE / Pasaporte" },
-    { key: "cedula_profesional", label: "Cédula profesional SEP" },
-    { key: "cert_indaabin",      label: "Certificación INDAABIN" },
-    { key: "rfc_sat",            label: "RFC activo SAT" },
-    { key: "seguro_rc",          label: "Seguro RC vigente" },
-    { key: "foto_profesional",   label: "Foto profesional" },
-  ];
+  const DOC_LABELS = {
+    ine_pasaporte:        "INE / Pasaporte",
+    cedula_profesional:   "Cédula profesional SEP",
+    firma_electronica:    "Firma electrónica (e.firma SAT)",
+    rfc_sat:              "RFC activo SAT",
+    seguro_rc:            "Seguro de responsabilidad civil vigente",
+    foto_profesional:     "Foto profesional",
+    comprobante_domicilio:"Comprobante de domicilio",
+    carta_recomendacion:  "Carta de recomendación",
+    curriculum:           "Currículum vitae",
+    avaluo_muestra_1:     "Avalúo de muestra 1",
+    avaluo_muestra_2:     "Avalúo de muestra 2",
+    avaluo_muestra_3:     "Avalúo de muestra 3",
+  };
 
   const docSubido = (key) => kycDocs.find((d) => d.doc_tipo === key);
 
-  const KYCTab = () => (
-    <Card className="bg-white border-0 shadow-sm">
-      <CardHeader className="border-b border-slate-100">
-        <CardTitle className="font-['Outfit'] text-lg text-[#1B4332] flex items-center gap-2">
-          <ShieldCheck className="w-5 h-5" />
-          Documentos de verificación (KYC)
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="p-6 space-y-4">
-        <p className="text-sm text-slate-500">
-          Sube tus documentos para que el equipo PropValu verifique tu perfil y puedas operar como valuador verificado.
-          Los archivos deben ser PDF, JPG o PNG, máximo 5 MB.
-        </p>
-        {kycError && (
-          <div className="flex items-center gap-2 bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-sm text-red-700">
-            <XCircle className="w-4 h-4 flex-shrink-0" />
-            {kycError}
+  const etapaExpediente = () => {
+    if (session?.kyc_status === "approved") return "aprobado";
+    if (session?.kyc_status === "under_review") return "revision";
+    if (docsCompletos) return "listo";
+    return "pendiente";
+  };
+
+  const ETAPA_CFG = {
+    pendiente: { label: "Expediente incompleto",       cls: "bg-amber-50 border-amber-200 text-amber-800",   icon: "📋" },
+    listo:     { label: "Listo para entrevista",        cls: "bg-blue-50 border-blue-200 text-blue-800",      icon: "🎯" },
+    revision:  { label: "En revisión por PropValu",     cls: "bg-purple-50 border-purple-200 text-purple-800",icon: "🔍" },
+    aprobado:  { label: "Cuenta verificada ✅",          cls: "bg-green-50 border-green-200 text-green-800",   icon: "✅" },
+  };
+
+  const ExpedienteTab = () => {
+    const etapa = etapaExpediente();
+    const cfg = ETAPA_CFG[etapa];
+    const subidos = docsRequeridos.filter(k => docSubido(k)).length;
+
+    return (
+      <div className="space-y-5">
+
+        {/* Estado actual */}
+        <div className={`rounded-2xl border p-4 flex items-start gap-3 ${cfg.cls}`}>
+          <span className="text-2xl">{cfg.icon}</span>
+          <div className="flex-1">
+            <p className="font-semibold text-sm">{cfg.label}</p>
+            {etapa === "pendiente" && (
+              <p className="text-xs mt-0.5">
+                Sube todos los documentos requeridos para poder agendar tu entrevista de verificación.
+                Faltan <strong>{docsRequeridos.length - subidos}</strong> documento{docsRequeridos.length - subidos !== 1 ? "s" : ""}.
+              </p>
+            )}
+            {etapa === "listo" && (
+              <p className="text-xs mt-0.5">
+                Tu expediente está completo. El equipo PropValu te contactará para agendar la entrevista por videollamada.
+              </p>
+            )}
+            {etapa === "revision" && (
+              <p className="text-xs mt-0.5">Tus documentos están siendo revisados. Te notificaremos por correo y WhatsApp con el resultado.</p>
+            )}
+            {etapa === "aprobado" && (
+              <p className="text-xs mt-0.5">Tu perfil está activo. Bienvenido a la red de valuadores PropValu.</p>
+            )}
           </div>
-        )}
-        <div className="space-y-3">
-          {DOC_TIPOS.map(({ key, label }) => {
-            const doc = docSubido(key);
-            const subiendo = kycSubiendo[key];
-            return (
-              <div key={key} className="flex items-center justify-between gap-4 py-3 border-b border-slate-50 last:border-0">
-                <div className="flex items-center gap-3 flex-1 min-w-0">
-                  {doc ? (
-                    <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  ) : (
-                    <Clock className="w-5 h-5 text-slate-300 flex-shrink-0" />
-                  )}
-                  <div className="min-w-0">
-                    <p className="text-sm font-medium text-[#1B4332]">{label}</p>
-                    {doc && (
-                      <p className="text-xs text-slate-400 truncate">
-                        {doc.filename} · {new Date(doc.subido_at).toLocaleDateString("es-MX")}
-                      </p>
-                    )}
-                  </div>
-                </div>
-                <label className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl cursor-pointer transition-colors flex-shrink-0 ${
-                  doc
-                    ? "border border-[#52B788] text-[#1B4332] hover:bg-[#52B788]/10"
-                    : "bg-[#1B4332] text-white hover:bg-[#163828]"
-                } ${subiendo ? "opacity-50 cursor-not-allowed" : ""}`}>
-                  <Upload className="w-3.5 h-3.5" />
-                  {subiendo ? "Subiendo…" : doc ? "Reemplazar" : "Subir"}
-                  <input
-                    type="file"
-                    accept=".pdf,.jpg,.jpeg,.png,.webp"
-                    className="hidden"
-                    disabled={subiendo}
-                    onChange={(e) => subirDocumento(key, e.target.files[0])}
-                  />
-                </label>
+          {etapa === "listo" && (
+            <button
+              onClick={async () => {
+                await fetch(`${API}/kyc/solicitar-entrevista`, { method: "POST", credentials: "include" });
+                toast.success("Solicitud enviada — te contactaremos pronto para agendar la videollamada.");
+              }}
+              className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition-colors shrink-0"
+            >
+              Solicitar entrevista
+            </button>
+          )}
+        </div>
+
+        {/* Barra de progreso */}
+        <div>
+          <div className="flex justify-between text-xs text-slate-400 mb-1.5">
+            <span>Progreso del expediente</span>
+            <span>{subidos}/{docsRequeridos.length}</span>
+          </div>
+          <div className="w-full bg-slate-100 rounded-full h-2">
+            <div
+              className={`h-2 rounded-full transition-all ${docsCompletos ? "bg-green-400" : "bg-[#52B788]"}`}
+              style={{ width: `${Math.round((subidos / docsRequeridos.length) * 100)}%` }}
+            />
+          </div>
+        </div>
+
+        {/* Lista de documentos */}
+        <Card className="bg-white border-0 shadow-sm">
+          <CardHeader className="border-b border-slate-100 py-4">
+            <CardTitle className="font-['Outfit'] text-base text-[#1B4332] flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4" /> Documentos requeridos
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-0">
+            {kycError && (
+              <div className="mx-4 mt-4 flex items-center gap-2 bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-sm text-red-700">
+                <XCircle className="w-4 h-4 flex-shrink-0" />{kycError}
               </div>
-            );
-          })}
-        </div>
-        <div className="mt-2 text-xs text-slate-400 bg-slate-50 rounded-xl px-4 py-3">
-          {kycDocs.length}/{DOC_TIPOS.length} documentos subidos.
-          {kycDocs.length === DOC_TIPOS.length
-            ? " ✅ Documentación completa — en revisión por el equipo PropValu."
-            : " Completa todos los documentos para acelerar tu verificación."}
-        </div>
-      </CardContent>
-    </Card>
-  );
+            )}
+            <div className="divide-y divide-slate-50">
+              {docsRequeridos.map((key) => {
+                const doc = docSubido(key);
+                const subiendo = kycSubiendo[key];
+                const label = DOC_LABELS[key] || key;
+                return (
+                  <div key={key} className="flex items-center justify-between gap-4 px-5 py-3">
+                    <div className="flex items-center gap-3 flex-1 min-w-0">
+                      {doc
+                        ? <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
+                        : <Clock className="w-5 h-5 text-slate-300 flex-shrink-0" />}
+                      <div className="min-w-0">
+                        <p className="text-sm font-medium text-[#1B4332]">{label}</p>
+                        {doc && (
+                          <p className="text-xs text-slate-400 truncate">
+                            {doc.filename} · {new Date(doc.subido_at).toLocaleDateString("es-MX")}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                    <label className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl cursor-pointer transition-colors flex-shrink-0 ${
+                      doc ? "border border-[#52B788] text-[#1B4332] hover:bg-[#52B788]/10" : "bg-[#1B4332] text-white hover:bg-[#163828]"
+                    } ${subiendo ? "opacity-50 cursor-not-allowed" : ""}`}>
+                      <Upload className="w-3.5 h-3.5" />
+                      {subiendo ? "Subiendo…" : doc ? "Reemplazar" : "Subir"}
+                      <input type="file" accept=".pdf,.jpg,.jpeg,.png,.webp" className="hidden"
+                        disabled={subiendo} onChange={(e) => subirDocumento(key, e.target.files[0])} />
+                    </label>
+                  </div>
+                );
+              })}
+            </div>
+          </CardContent>
+        </Card>
+
+        <p className="text-[11px] text-slate-400">Formatos aceptados: PDF, JPG, PNG · Máx. 5 MB por archivo</p>
+      </div>
+    );
+  };
 
   /* ── Sub-sections ── */
 
@@ -536,14 +605,22 @@ const ValuadorDashboardPage = () => {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* KYC Banner */}
+        {/* Banner expediente */}
         {showKycBanner && (
-          <div className="mb-6 flex items-start gap-3 bg-amber-50 border border-amber-200 rounded-lg px-4 py-3">
-            <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
-            <p className="text-sm text-amber-800">
-              <span className="font-semibold">Tu cuenta está en revisión</span> — te
-              contactaremos para una entrevista de verificación.
-            </p>
+          <div className="mb-6 flex items-start justify-between gap-3 bg-amber-50 border border-amber-200 rounded-lg px-4 py-3">
+            <div className="flex items-start gap-3">
+              <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+              <p className="text-sm text-amber-800">
+                <span className="font-semibold">Verificación pendiente</span> —
+                {docsCompletos
+                  ? " tu expediente está completo. Te contactaremos para agendar la entrevista."
+                  : " completa tu expediente para poder agendar la entrevista de verificación."}
+              </p>
+            </div>
+            <button onClick={() => setActiveTab("expediente")}
+              className="text-xs font-semibold text-amber-700 border border-amber-300 px-3 py-1.5 rounded-lg hover:bg-amber-100 whitespace-nowrap shrink-0">
+              Ver expediente
+            </button>
           </div>
         )}
 
@@ -553,13 +630,16 @@ const ValuadorDashboardPage = () => {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+              className={`relative px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                 activeTab === tab.id
                   ? "bg-[#1B4332] text-white shadow-sm"
                   : "text-slate-500 hover:text-[#1B4332]"
               }`}
             >
               {tab.label}
+              {tab.badge && (
+                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-red-500" />
+              )}
             </button>
           ))}
         </div>
@@ -592,8 +672,8 @@ const ValuadorDashboardPage = () => {
         {/* Tab: Perfil */}
         {activeTab === "perfil" && <PerfilCard />}
 
-        {/* Tab: KYC */}
-        {activeTab === "kyc" && <KYCTab />}
+        {/* Tab: Expediente */}
+        {activeTab === "expediente" && <ExpedienteTab />}
       </main>
     </div>
   );

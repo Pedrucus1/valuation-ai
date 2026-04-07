@@ -165,6 +165,8 @@ const LoginPage = () => {
     ine_frente: null,
     ine_vuelta: null,
     cedula: null,
+    // Básico adicional
+    firma_electronica: null,
     // Perfil completo
     comprobante_domicilio: null,
     carta_recomendacion: null,
@@ -799,6 +801,8 @@ const LoginPage = () => {
             value={files.ine_vuelta} onChange={v => setFile("ine_vuelta", v)} />
           <FileUploadField label="Cédula Profesional" hint="Cédula de perito valuador emitida por la SEP o INDAABIN"
             value={files.cedula} onChange={v => setFile("cedula", v)} required />
+          <FileUploadField label="Firma electrónica (e.firma SAT)" hint="Archivo .cer o captura del certificado vigente"
+            value={files.firma_electronica} onChange={v => setFile("firma_electronica", v)} />
         </div>
       </div>
 

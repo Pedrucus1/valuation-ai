@@ -1645,6 +1645,20 @@ async def kyc_mis_docs(request: Request):
     docs = await db.kyc_docs.find({"user_id": user.user_id}, {"_id": 0, "path": 0}).to_list(20)
     return {"documentos": docs}
 
+@api_router.post("/kyc/solicitar-entrevista")
+async def kyc_solicitar_entrevista(request: Request):
+    user = await require_auth(request)
+    await db.users.update_one(
+        {"user_id": user.user_id},
+        {"$set": {
+            "kyc_status": "under_review",
+            "entrevista_solicitada_at": datetime.now(timezone.utc).isoformat(),
+        }}
+    )
+    # TODO: enviar email de confirmación vía SendGrid
+    # TODO: enviar WhatsApp de confirmación vía Twilio
+    return {"ok": True, "mensaje": "Solicitud recibida. Te contactaremos para agendar la videollamada."}
+
 # ============== ADMIN — FEEDBACK ==============
 
 @api_router.get("/admin/feedback")
