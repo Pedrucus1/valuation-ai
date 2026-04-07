@@ -135,6 +135,13 @@ const PLAN_BADGE = {
   basico: { label: "Verificado", cls: "bg-slate-100 text-slate-600" },
 };
 
+const medallaExperiencia = (años) => {
+  if (años >= 10) return { emoji: "🥇", label: "Oro",   cls: "bg-amber-50 text-amber-700 ring-1 ring-amber-300",   title: `${años} años — Nivel Oro` };
+  if (años >= 3)  return { emoji: "🥈", label: "Plata", cls: "bg-slate-100 text-slate-600 ring-1 ring-slate-300",  title: `${años} años — Nivel Plata` };
+  if (años >= 1)  return { emoji: "🥉", label: "Bronce",cls: "bg-orange-50 text-orange-700 ring-1 ring-orange-300",title: `${años} años — Nivel Bronce` };
+  return null;
+};
+
 const Estrellas = ({ valor }) => (
   <span className="text-yellow-400 text-sm">
     {"★".repeat(Math.floor(valor))}
@@ -193,9 +200,19 @@ const TarjetaValuador = ({ v }) => {
             {c}
           </span>
         ))}
-        <span className="text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-500">
-          {v.experiencia} años exp.
-        </span>
+        {(() => {
+          const m = medallaExperiencia(v.experiencia);
+          return m ? (
+            <span title={m.title}
+              className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full ${m.cls}`}>
+              {m.emoji} {v.experiencia} años
+            </span>
+          ) : (
+            <span className="text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-500">
+              {v.experiencia} año{v.experiencia !== 1 ? "s" : ""}
+            </span>
+          );
+        })()}
       </div>
 
       {/* Medallitas — burbujas emoji de credenciales ratificadas */}

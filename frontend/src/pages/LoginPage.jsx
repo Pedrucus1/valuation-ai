@@ -312,8 +312,8 @@ const LoginPage = () => {
           servicios_otros: regData.servicios_otros_lista.filter(s => s.trim()),
           peritajes_tipos: regData.peritajes_tipos,
           peritajes_otros: regData.peritajes_otros || undefined,
+          q_experiencia: regData.q_experiencia || undefined,
           ...(regData.modo_perfil === "completo" ? {
-            q_experiencia:    regData.q_experiencia || undefined,
             q_equipo:         regData.q_equipo || undefined,
             q_oficina:        regData.q_oficina,
             q_dir_oficina:    regData.q_dir_oficina || undefined,
@@ -638,6 +638,31 @@ const LoginPage = () => {
         </div>
       </div>
 
+      {/* Experiencia */}
+      <div className="space-y-1.5">
+        <Label className="text-sm font-semibold text-[#1B4332]">Años de experiencia valuando *</Label>
+        <p className="text-xs text-slate-400">Aparecerá como medalla en tu perfil público.</p>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mt-1">
+          {[
+            { val: "Menos de 1 año", medal: null,  label: "Menos de 1 año" },
+            { val: "1-3 años",       medal: "🥉",  label: "1 – 3 años" },
+            { val: "3-5 años",       medal: "🥈",  label: "3 – 5 años" },
+            { val: "5-10 años",      medal: "🥈",  label: "5 – 10 años" },
+            { val: "Más de 10 años", medal: "🥇",  label: "Más de 10 años" },
+          ].map(({ val, medal, label }) => (
+            <button key={val} type="button" onClick={() => setReg("q_experiencia", val)}
+              className={`flex items-center gap-2 py-2 px-3 rounded-xl border text-sm font-medium transition-all text-left ${
+                regData.q_experiencia === val
+                  ? "border-[#52B788] bg-[#F0FAF5] text-[#1B4332]"
+                  : "border-slate-200 text-slate-500 hover:border-slate-300"
+              }`}>
+              {medal && <span className="text-base">{medal}</span>}
+              <span>{label}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* Cobertura */}
       <div>
         <Label className="text-sm font-semibold text-[#1B4332] mb-3 block flex items-center gap-1.5">
@@ -869,15 +894,6 @@ const LoginPage = () => {
             </div>
             <p className="text-xs text-slate-500 mb-4">Nos ayuda a asignarte los encargos más adecuados a tu perfil.</p>
             <div className="space-y-4">
-
-              <div className="space-y-1.5">
-                <Label className="text-xs font-semibold text-slate-600">Años de experiencia valuando *</Label>
-                <select className="w-full h-9 px-3 text-sm border border-[#B7E4C7] rounded-lg bg-[#F0FAF5] focus:border-[#52B788] focus:outline-none text-[#1B4332] appearance-none"
-                  value={regData.q_experiencia} onChange={e => setReg("q_experiencia", e.target.value)}>
-                  <option value="">Seleccionar...</option>
-                  {["Menos de 1 año","1-3 años","3-5 años","5-10 años","Más de 10 años"].map(o => <option key={o} value={o}>{o}</option>)}
-                </select>
-              </div>
 
               <div className="space-y-1.5">
                 <Label className="text-xs font-semibold text-slate-600">Personas en tu equipo de trabajo *</Label>

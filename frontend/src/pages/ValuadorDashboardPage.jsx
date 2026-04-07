@@ -626,7 +626,17 @@ const ValuadorDashboardPage = () => {
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
             <p className="text-xs text-slate-400 mb-1">Nombre</p>
-            <p className="font-semibold text-[#1B4332]">{session.name || "—"}</p>
+            <div className="flex items-center gap-2">
+              <p className="font-semibold text-[#1B4332]">{session.name || "—"}</p>
+              {(() => {
+                const exp = session.q_experiencia;
+                if (!exp) return null;
+                if (exp === "Más de 10 años") return <span title="Más de 10 años — Nivel Oro" className="text-lg">🥇</span>;
+                if (exp === "5-10 años" || exp === "3-5 años") return <span title={`${exp} — Nivel Plata`} className="text-lg">🥈</span>;
+                if (exp === "1-3 años") return <span title="1-3 años — Nivel Bronce" className="text-lg">🥉</span>;
+                return null;
+              })()}
+            </div>
           </div>
           <div>
             <p className="text-xs text-slate-400 mb-1">Correo electrónico</p>
@@ -710,6 +720,9 @@ const ValuadorDashboardPage = () => {
               <span className="text-sm font-medium text-[#1B4332]">
                 {session.name?.split(" ")[0] || session.email}
               </span>
+              {session.q_experiencia === "Más de 10 años" && <span className="text-sm">🥇</span>}
+              {(session.q_experiencia === "5-10 años" || session.q_experiencia === "3-5 años") && <span className="text-sm">🥈</span>}
+              {session.q_experiencia === "1-3 años" && <span className="text-sm">🥉</span>}
             </div>
             <Button
               variant="ghost"
