@@ -292,7 +292,7 @@ const LoginPage = () => {
 
     setIsLoading(true);
     try {
-      // TODO: usar FormData para subir archivos junto con los datos
+      // 1. Crear cuenta
       const res = await fetch(`${API}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -304,7 +304,6 @@ const LoginPage = () => {
           role:         regData.role,
           phone:        regData.phone,
           company_name: regData.company_name || undefined,
-          // Campos adicionales
           estado:       regData.estado,
           municipio:    regData.municipios.filter(m => m.trim()).join(", "),
           municipios:   regData.municipios.filter(m => m.trim()),
@@ -313,7 +312,6 @@ const LoginPage = () => {
           servicios_otros: regData.servicios_otros_lista.filter(s => s.trim()),
           peritajes_tipos: regData.peritajes_tipos,
           peritajes_otros: regData.peritajes_otros || undefined,
-          // Cuestionario perfil completo
           ...(regData.modo_perfil === "completo" ? {
             q_experiencia:    regData.q_experiencia || undefined,
             q_equipo:         regData.q_equipo || undefined,
@@ -333,12 +331,32 @@ const LoginPage = () => {
         }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error);
+      if (!res.ok) throw new Error(data.error || data.detail);
+
+      // 2. Subir archivos usando la cookie de sesión que acaba de crearse
+      const archivosASubir = Object.entries(files).filter(([, f]) => f !== null);
+      if (archivosASubir.length > 0) {
+        const errores = [];
+        for (const [doc_tipo, file] of archivosASubir) {
+          const fd = new FormData();
+          fd.append("doc_tipo", doc_tipo);
+          fd.append("file", file);
+          const upRes = await fetch(`${API}/kyc/upload`, {
+            method: "POST",
+            credentials: "include",
+            body: fd,
+          });
+          if (!upRes.ok) errores.push(doc_tipo);
+        }
+        if (errores.length > 0) {
+          toast.warning(`Cuenta creada, pero algunos documentos no se pudieron subir: ${errores.join(", ")}. Súbelos desde tu expediente.`);
+        }
+      }
 
       toast.success(
         regData.role === "appraiser"
-          ? "Registro enviado. Te contactaremos para una entrevista de verificación."
-          : "Registro enviado. Tu cuenta está en revisión — te avisaremos por correo."
+          ? "Registro completado. Te contactaremos para una entrevista de verificación."
+          : "Registro completado. Tu cuenta está en revisión — te avisaremos por correo."
       );
       navigateByRole(data);
     } catch (err) {

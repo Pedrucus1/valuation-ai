@@ -112,7 +112,23 @@ class RegisterRequest(BaseModel):
     company_name: Optional[str] = None
     estado: Optional[str] = None
     municipio: Optional[str] = None
+    municipios: Optional[List[str]] = None
+    modo_perfil: Optional[str] = None  # "basico" | "completo"
     services: Optional[Dict[str, Any]] = None
+    servicios_otros: Optional[List[str]] = None
+    peritajes_tipos: Optional[List[str]] = None
+    peritajes_otros: Optional[str] = None
+    # Cuestionario perfil completo
+    q_experiencia: Optional[str] = None
+    q_equipo: Optional[str] = None
+    q_oficina: Optional[bool] = None
+    q_dir_oficina: Optional[str] = None
+    q_maps_url: Optional[str] = None
+    q_tiempo_entrega: Optional[str] = None
+    q_seguro_rc: Optional[bool] = None
+    q_software: Optional[str] = None
+    q_idiomas: Optional[str] = None
+    # Inmobiliaria
     inmobiliaria_tipo: Optional[str] = None
     asociacion: Optional[str] = None
     cursos: Optional[str] = None
@@ -412,7 +428,23 @@ async def register_email(data: RegisterRequest, response: Response):
         "company_name": data.company_name,
         "estado": data.estado,
         "municipio": data.municipio,
+        "municipios": data.municipios,
+        "modo_perfil": data.modo_perfil,
         "services": data.services,
+        "servicios_otros": data.servicios_otros,
+        "peritajes_tipos": data.peritajes_tipos,
+        "peritajes_otros": data.peritajes_otros,
+        # Cuestionario perfil completo
+        "q_experiencia": data.q_experiencia,
+        "q_equipo": data.q_equipo,
+        "q_oficina": data.q_oficina,
+        "q_dir_oficina": data.q_dir_oficina,
+        "q_maps_url": data.q_maps_url,
+        "q_tiempo_entrega": data.q_tiempo_entrega,
+        "q_seguro_rc": data.q_seguro_rc,
+        "q_software": data.q_software,
+        "q_idiomas": data.q_idiomas,
+        # Inmobiliaria
         "inmobiliaria_tipo": data.inmobiliaria_tipo,
         "asociacion": data.asociacion,
         "cursos": data.cursos,
