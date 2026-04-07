@@ -175,6 +175,8 @@ const LoginPage = () => {
     avaluo_muestra_1: null,
     avaluo_muestra_2: null,
     avaluo_muestra_3: null,
+    // Experiencia comprobada (todos los valuadores)
+    comprobante_experiencia: null,
     // Inmobiliaria
     cert_asociacion: null,
     credencial_empresa: null,
@@ -276,8 +278,9 @@ const LoginPage = () => {
 
     // Validate required docs
     if (regData.role === "appraiser") {
-      if (!files.ine_frente) { toast.error("Sube el frente de tu INE"); return; }
-      if (!files.cedula)     { toast.error("Sube tu Cédula Profesional"); return; }
+      if (!files.ine_frente)              { toast.error("Sube el frente de tu INE"); return; }
+      if (!files.cedula)                  { toast.error("Sube tu Cédula Profesional"); return; }
+      if (!files.comprobante_experiencia) { toast.error("Sube el comprobante de años de experiencia"); return; }
     }
     if (regData.role === "realtor" && regData.inmobiliaria_tipo === "titular") {
       if (!files.cert_asociacion) { toast.error("Sube el certificado de la asociación"); return; }
@@ -908,8 +911,14 @@ const LoginPage = () => {
             value={files.ine_frente} onChange={v => setFile("ine_frente", v)} required />
           <FileUploadField label="INE — Vuelta" hint="Identificación oficial vigente, cara trasera"
             value={files.ine_vuelta} onChange={v => setFile("ine_vuelta", v)} />
-          <FileUploadField label="Cédula Profesional" hint="Cédula de perito valuador emitida por la SEP o INDAABIN"
+          <FileUploadField
+            label="Cédula Profesional (arquitecto o ingeniero)"
+            hint="Cédula de Arquitecto, Ing. Civil, Ing. Estructural u otra carrera afín, verificable en el Registro Nacional de Profesionistas (SEP). Si eres perito valuador habilitado, sube esa cédula."
             value={files.cedula} onChange={v => setFile("cedula", v)} required />
+          <FileUploadField
+            label="Comprobante de años de experiencia"
+            hint={`Documenta los ${regData.q_experiencia || "años"} que indicaste. Acepta cualquiera de: cédula o título de maestría en valuación, avalúo firmado con fecha que acredite antigüedad, o carta de un Colegio de Valuadores (CIEP, COVAC, AMPI, etc.).`}
+            value={files.comprobante_experiencia} onChange={v => setFile("comprobante_experiencia", v)} required />
           <FileUploadField label="Firma electrónica (e.firma SAT)" hint="Archivo .cer o captura del certificado vigente"
             value={files.firma_electronica} onChange={v => setFile("firma_electronica", v)} />
         </div>

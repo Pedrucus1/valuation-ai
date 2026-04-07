@@ -157,9 +157,9 @@ const ValuadorDashboardPage = () => {
 
   /* ── Tabs ── */
   const docsRequeridos = session?.modo_perfil === "completo"
-    ? ["ine_pasaporte","cedula_profesional","firma_electronica","rfc_sat","seguro_rc","foto_profesional",
+    ? ["ine_pasaporte","cedula_profesional","comprobante_experiencia","firma_electronica","rfc_sat","seguro_rc","foto_profesional",
        "comprobante_domicilio","carta_recomendacion","curriculum","avaluo_muestra_1","avaluo_muestra_2","avaluo_muestra_3"]
-    : ["ine_pasaporte","cedula_profesional","firma_electronica","rfc_sat","seguro_rc","foto_profesional"];
+    : ["ine_pasaporte","cedula_profesional","comprobante_experiencia","firma_electronica","rfc_sat","seguro_rc","foto_profesional"];
 
   const docsCompletos = docsRequeridos.every(k => kycDocs.find(d => d.doc_tipo === k));
 
@@ -198,8 +198,9 @@ const ValuadorDashboardPage = () => {
   };
 
   const DOC_LABELS = {
-    ine_pasaporte:        "INE / Pasaporte",
-    cedula_profesional:   "Cédula profesional SEP",
+    ine_pasaporte:           "INE / Pasaporte",
+    cedula_profesional:      "Cédula profesional SEP (arquitecto/ingeniero)",
+    comprobante_experiencia: "Comprobante de experiencia",
     firma_electronica:    "Firma electrónica (e.firma SAT)",
     rfc_sat:              "RFC activo SAT",
     seguro_rc:            "Seguro de responsabilidad civil vigente",
@@ -225,9 +226,10 @@ const ValuadorDashboardPage = () => {
     comprobante_domicilio:{ key: "domicilio",  emoji: "🏠", label: "Domicilio",       cls: "bg-teal-100 text-teal-700 border-teal-200" },
     carta_recomendacion:  { key: "recomendado",emoji: "⭐", label: "Recomendado",     cls: "bg-amber-100 text-amber-700 border-amber-200" },
     curriculum:           { key: "curriculum", emoji: "📄", label: "CV verificado",   cls: "bg-green-100 text-green-700 border-green-200" },
-    avaluo_muestra_1:     { key: "avaluos",    emoji: "📊", label: "Avalúos",         cls: "bg-emerald-100 text-emerald-700 border-emerald-200" },
-    avaluo_muestra_2:     { key: "avaluos",    emoji: "📊", label: "Avalúos",         cls: "bg-emerald-100 text-emerald-700 border-emerald-200" },
-    avaluo_muestra_3:     { key: "avaluos",    emoji: "📊", label: "Avalúos",         cls: "bg-emerald-100 text-emerald-700 border-emerald-200" },
+    avaluo_muestra_1:         { key: "avaluos",    emoji: "📊", label: "Avalúos",              cls: "bg-emerald-100 text-emerald-700 border-emerald-200" },
+    avaluo_muestra_2:         { key: "avaluos",    emoji: "📊", label: "Avalúos",              cls: "bg-emerald-100 text-emerald-700 border-emerald-200" },
+    avaluo_muestra_3:         { key: "avaluos",    emoji: "📊", label: "Avalúos",              cls: "bg-emerald-100 text-emerald-700 border-emerald-200" },
+    comprobante_experiencia:  { key: "exp",        emoji: "📅", label: "Experiencia verificada",cls: "bg-rose-100 text-rose-700 border-rose-200" },
   };
 
   // Badges únicos ganados (docs con estado "ratificado")

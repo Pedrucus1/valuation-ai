@@ -22,7 +22,7 @@ const VALUADORES = [
     email: "roberto.sanchez@email.com",
     cedula: "0987654",
     plan: "pro",
-    badges: ["identidad", "cedula", "efirma", "avaluos", "curriculum"],
+    badges: ["identidad", "cedula", "exp", "efirma", "avaluos", "curriculum"],
   },
   {
     id: "v2",
@@ -56,7 +56,7 @@ const VALUADORES = [
     email: "cmendoza@email.com",
     cedula: "3456789",
     plan: "pro",
-    badges: ["identidad", "cedula", "efirma", "seguro_rc", "avaluos", "curriculum", "domicilio"],
+    badges: ["identidad", "cedula", "exp", "efirma", "seguro_rc", "avaluos", "curriculum", "domicilio"],
   },
   {
     id: "v4",
@@ -90,7 +90,7 @@ const VALUADORES = [
     email: "jorge.ramirez@email.com",
     cedula: "6789012",
     plan: "enterprise",
-    badges: ["identidad", "cedula", "efirma", "rfc", "seguro_rc", "domicilio", "recomendado", "curriculum", "avaluos"],
+    badges: ["identidad", "cedula", "exp", "efirma", "rfc", "seguro_rc", "domicilio", "recomendado", "curriculum", "avaluos"],
   },
   {
     id: "v6",
@@ -107,7 +107,7 @@ const VALUADORES = [
     email: "claudia.vega@email.com",
     cedula: "7890123",
     plan: "pro",
-    badges: ["identidad", "cedula", "efirma", "avaluos"],
+    badges: ["identidad", "cedula", "exp", "efirma", "avaluos"],
   },
 ];
 
@@ -121,11 +121,12 @@ const CERT_COLORS = {
   CNBV: "bg-orange-100 text-orange-700",
 };
 
-// Las 4 medallitas más relevantes para el perfil público (en orden de prioridad)
+// Medallitas para el perfil público — en orden de prioridad visual
 const CREDENTIAL_BADGES = {
-  cedula:     { emoji: "🎓", label: "Cédula SEP verificada",        bg: "bg-purple-100",  ring: "ring-purple-300" },
-  efirma:     { emoji: "✍️", label: "e.firma SAT vigente",          bg: "bg-indigo-100",  ring: "ring-indigo-300" },
-  seguro_rc:  { emoji: "🛡️", label: "Seguro de responsabilidad civil", bg: "bg-orange-100", ring: "ring-orange-300" },
+  cedula:     { emoji: "🎓", label: "Cédula SEP verificada",         bg: "bg-purple-100",  ring: "ring-purple-300" },
+  exp:        { emoji: "📅", label: "Experiencia comprobada",         bg: "bg-rose-100",    ring: "ring-rose-300" },
+  efirma:     { emoji: "✍️", label: "e.firma SAT vigente",           bg: "bg-indigo-100",  ring: "ring-indigo-300" },
+  seguro_rc:  { emoji: "🛡️", label: "Seguro de responsabilidad civil", bg: "bg-orange-100",  ring: "ring-orange-300" },
   avaluos:    { emoji: "📊", label: "Avalúos de muestra verificados", bg: "bg-emerald-100", ring: "ring-emerald-300" },
 };
 
