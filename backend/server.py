@@ -126,8 +126,13 @@ class RegisterRequest(BaseModel):
     q_maps_url: Optional[str] = None
     q_tiempo_entrega: Optional[str] = None
     q_seguro_rc: Optional[bool] = None
+    q_unidad_valuacion: Optional[str] = None
     q_software: Optional[str] = None
     q_idiomas: Optional[str] = None
+    # Cédulas
+    profesion_base: Optional[str] = None
+    num_cedula_base: Optional[str] = None
+    num_cedula_valuador: Optional[str] = None
     # Inmobiliaria
     inmobiliaria_tipo: Optional[str] = None
     asociacion: Optional[str] = None
@@ -442,8 +447,12 @@ async def register_email(data: RegisterRequest, response: Response):
         "q_maps_url": data.q_maps_url,
         "q_tiempo_entrega": data.q_tiempo_entrega,
         "q_seguro_rc": data.q_seguro_rc,
+        "q_unidad_valuacion": data.q_unidad_valuacion,
         "q_software": data.q_software,
         "q_idiomas": data.q_idiomas,
+        "profesion_base": data.profesion_base,
+        "num_cedula_base": data.num_cedula_base,
+        "num_cedula_valuador": data.num_cedula_valuador,
         # Inmobiliaria
         "inmobiliaria_tipo": data.inmobiliaria_tipo,
         "asociacion": data.asociacion,

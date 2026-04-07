@@ -649,86 +649,197 @@ const ValuadorDashboardPage = () => {
     </Card>
   );
 
+  const Pendiente = () => (
+    <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 border border-amber-200 ml-1">
+      Pendiente
+    </span>
+  );
+
+  const Campo = ({ label, value, icon: Icon }) => (
+    <div>
+      <p className="text-xs text-slate-400 mb-1">{label}</p>
+      <div className="flex items-center gap-2">
+        {Icon && <Icon className="w-4 h-4 text-slate-400 flex-shrink-0" />}
+        {value
+          ? <p className="text-sm text-slate-700">{value}</p>
+          : <p className="text-sm text-slate-400 italic">No registrado <Pendiente /></p>
+        }
+      </div>
+    </div>
+  );
+
+  const medallaExp = (() => {
+    const exp = session?.q_experiencia;
+    if (!exp) return null;
+    if (exp === "Más de 10 años") return { emoji: "🥇", nivel: "Oro", title: "Más de 10 años — Nivel Oro" };
+    if (exp === "5-10 años" || exp === "3-5 años") return { emoji: "🥈", nivel: "Plata", title: `${exp} — Nivel Plata` };
+    if (exp === "1-3 años") return { emoji: "🥉", nivel: "Bronce", title: "1-3 años — Nivel Bronce" };
+    return null;
+  })();
+
+  const PROFESION_LABELS = {
+    arquitecto: "Arquitecto",
+    ing_civil: "Ing. Civil",
+    ing_estructural: "Ing. Estructural",
+    otro: "Otra carrera afín",
+  };
+
   const PerfilCard = () => (
-    <Card className="bg-white border-0 shadow-sm">
-      <CardHeader className="border-b border-slate-100">
-        <CardTitle className="font-['Outfit'] text-lg text-[#1B4332] flex items-center gap-2">
-          <User className="w-5 h-5" />
-          Perfil profesional
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="p-6 space-y-5">
-        <div className="grid sm:grid-cols-2 gap-4">
-          <div>
-            <p className="text-xs text-slate-400 mb-1">Nombre</p>
-            <div className="flex items-center gap-2">
-              <p className="font-semibold text-[#1B4332]">{session.name || "—"}</p>
-              {(() => {
-                const exp = session.q_experiencia;
-                if (!exp) return null;
-                if (exp === "Más de 10 años") return <span title="Más de 10 años — Nivel Oro" className="text-lg">🥇</span>;
-                if (exp === "5-10 años" || exp === "3-5 años") return <span title={`${exp} — Nivel Plata`} className="text-lg">🥈</span>;
-                if (exp === "1-3 años") return <span title="1-3 años — Nivel Bronce" className="text-lg">🥉</span>;
-                return null;
-              })()}
+    <div className="space-y-4">
+
+      {/* Información personal */}
+      <Card className="bg-white border-0 shadow-sm">
+        <CardHeader className="border-b border-slate-100 py-4">
+          <CardTitle className="font-['Outfit'] text-base text-[#1B4332] flex items-center gap-2">
+            <User className="w-4 h-4" /> Información personal
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="p-5">
+          <div className="grid sm:grid-cols-2 gap-4">
+            <div>
+              <p className="text-xs text-slate-400 mb-1">Nombre</p>
+              <div className="flex items-center gap-2">
+                <p className="font-semibold text-[#1B4332]">{session.name || "—"}</p>
+                {medallaExp && <span title={medallaExp.title} className="text-lg">{medallaExp.emoji}</span>}
+              </div>
+            </div>
+            <Campo label="Correo electrónico" value={session.email} icon={Mail} />
+            <Campo label="Teléfono de contacto" value={session.phone} icon={Phone} />
+            <Campo label="Años de experiencia" value={session.q_experiencia
+              ? `${session.q_experiencia}${medallaExp ? ` ${medallaExp.emoji} Nivel ${medallaExp.nivel}` : ""}`
+              : null} />
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Cédulas */}
+      <Card className="bg-white border-0 shadow-sm">
+        <CardHeader className="border-b border-slate-100 py-4">
+          <CardTitle className="font-['Outfit'] text-base text-[#1B4332] flex items-center gap-2">
+            🎓 Cédulas profesionales
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="p-5">
+          <div className="grid sm:grid-cols-2 gap-4">
+            <Campo label="Profesión de base" value={PROFESION_LABELS[session.profesion_base] || session.profesion_base} />
+            <Campo label="Núm. cédula (arq./ing.)" value={session.num_cedula_base} />
+            <Campo label="Núm. cédula Perito Valuador" value={session.num_cedula_valuador} />
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Ubicación y oficina */}
+      <Card className="bg-white border-0 shadow-sm">
+        <CardHeader className="border-b border-slate-100 py-4">
+          <CardTitle className="font-['Outfit'] text-base text-[#1B4332] flex items-center gap-2">
+            <MapPin className="w-4 h-4" /> Ubicación y oficina
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="p-5 space-y-4">
+          <div className="grid sm:grid-cols-2 gap-4">
+            <Campo label="Estado" value={session.estado} />
+            <div>
+              <p className="text-xs text-slate-400 mb-1">Municipios donde trabaja</p>
+              {session.municipios?.filter(Boolean).length > 0
+                ? <div className="flex flex-wrap gap-1.5">
+                    {session.municipios.filter(Boolean).map((m, i) => (
+                      <span key={i} className="text-xs bg-[#F0FAF5] border border-[#B7E4C7] text-[#1B4332] px-2 py-0.5 rounded-full">{m}</span>
+                    ))}
+                  </div>
+                : <p className="text-sm text-slate-400 italic">No registrado <Pendiente /></p>
+              }
             </div>
           </div>
-          <div>
-            <p className="text-xs text-slate-400 mb-1">Correo electrónico</p>
-            <div className="flex items-center gap-2">
-              <Mail className="w-4 h-4 text-slate-400" />
-              <p className="text-sm text-slate-700">{session.email || "—"}</p>
-            </div>
+          <div className="grid sm:grid-cols-2 gap-4">
+            <Campo label="Dirección de oficina" value={session.q_dir_oficina} icon={MapPin} />
+            <Campo label="Google Maps" value={session.q_maps_url} />
           </div>
-          <div>
-            <p className="text-xs text-slate-400 mb-1">Teléfono</p>
-            <div className="flex items-center gap-2">
-              <Phone className="w-4 h-4 text-slate-400" />
-              <p className="text-sm text-slate-700">{session.phone || "—"}</p>
+          {!session.q_oficina && !session.q_dir_oficina && (
+            <p className="text-xs text-slate-400 italic">No indicó dirección de oficina física. <Pendiente /></p>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Tipos de avalúo y servicios */}
+      <Card className="bg-white border-0 shadow-sm">
+        <CardHeader className="border-b border-slate-100 py-4">
+          <CardTitle className="font-['Outfit'] text-base text-[#1B4332] flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4" /> Tipos de avalúo y servicios
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="p-5 space-y-4">
+          {checkedServices.length > 0
+            ? <div>
+                <p className="text-xs text-slate-400 mb-2">Servicios registrados</p>
+                <div className="flex flex-wrap gap-2">
+                  {checkedServices.map(svc => (
+                    <Badge key={svc} className="bg-[#52B788]/15 text-[#1B4332] flex items-center gap-1">
+                      <CheckCircle2 className="w-3 h-3" />{serviceLabel(svc)}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            : <p className="text-sm text-slate-400 italic">Sin servicios registrados <Pendiente /></p>
+          }
+          {session.peritajes_tipos?.length > 0 && (
+            <div>
+              <p className="text-xs text-slate-400 mb-2">Tipos de peritaje</p>
+              <div className="flex flex-wrap gap-2">
+                {session.peritajes_tipos.map(p => (
+                  <Badge key={p} variant="outline" className="text-xs">{p}</Badge>
+                ))}
+              </div>
             </div>
-          </div>
-          <div>
-            <p className="text-xs text-slate-400 mb-1">Ubicación</p>
-            <div className="flex items-center gap-2">
-              <MapPin className="w-4 h-4 text-slate-400" />
+          )}
+          {session.servicios_otros?.filter(Boolean).length > 0 && (
+            <div>
+              <p className="text-xs text-slate-400 mb-2">Otros servicios</p>
+              <div className="flex flex-wrap gap-2">
+                {session.servicios_otros.filter(Boolean).map((s, i) => (
+                  <Badge key={i} variant="outline" className="text-xs">{s}</Badge>
+                ))}
+              </div>
+            </div>
+          )}
+          {(session.services?.infonavit || session.services?.fovissste) && (
+            <Campo label="Unidad de Valuación (Infonavit/Fovissste)" value={session.q_unidad_valuacion} />
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Perfil profesional */}
+      <Card className="bg-white border-0 shadow-sm">
+        <CardHeader className="border-b border-slate-100 py-4">
+          <CardTitle className="font-['Outfit'] text-base text-[#1B4332] flex items-center gap-2">
+            📋 Perfil profesional
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="p-5">
+          <div className="grid sm:grid-cols-2 gap-4">
+            <Campo label="Equipo de trabajo" value={
+              { solo: "Solo yo", "1-3": "1 a 3 personas", "4-10": "4 a 10 personas", "10+": "Más de 10" }[session.q_equipo]
+              || session.q_equipo
+            } />
+            <Campo label="Tiempo promedio de entrega" value={session.q_tiempo_entrega} />
+            <Campo label="Software que utiliza" value={session.q_software} />
+            <Campo label="Idiomas (además del español)" value={session.q_idiomas} />
+            <div>
+              <p className="text-xs text-slate-400 mb-1">Seguro de responsabilidad civil</p>
               <p className="text-sm text-slate-700">
-                {[session.municipio, session.estado].filter(Boolean).join(", ") || "—"}
+                {session.q_seguro_rc === true ? "✅ Sí cuenta con seguro RC" : session.q_seguro_rc === false ? "No cuenta con seguro RC" : <span className="text-slate-400 italic">No indicado</span>}
+              </p>
+            </div>
+            <div>
+              <p className="text-xs text-slate-400 mb-1">Modo de participación</p>
+              <p className="text-sm text-slate-700">
+                {session.modo_perfil === "completo" ? "Perfil completo (encargos externos)" : session.modo_perfil === "basico" ? "Perfil básico" : "—"}
               </p>
             </div>
           </div>
-        </div>
+        </CardContent>
+      </Card>
 
-        {checkedServices.length > 0 && (
-          <div>
-            <p className="text-xs text-slate-400 mb-2">Servicios</p>
-            <div className="flex flex-wrap gap-2">
-              {checkedServices.map((svc) => (
-                <Badge
-                  key={svc}
-                  className="bg-[#52B788]/15 text-[#1B4332] flex items-center gap-1"
-                >
-                  <CheckCircle2 className="w-3 h-3" />
-                  {serviceLabel(svc)}
-                </Badge>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {session.peritajes && session.peritajes.length > 0 && (
-          <div>
-            <p className="text-xs text-slate-400 mb-2">Peritajes</p>
-            <div className="flex flex-wrap gap-2">
-              {session.peritajes.map((p) => (
-                <Badge key={p} variant="outline" className="text-xs">
-                  {p}
-                </Badge>
-              ))}
-            </div>
-          </div>
-        )}
-      </CardContent>
-    </Card>
+    </div>
   );
 
   return (
