@@ -24,6 +24,17 @@ Tipos: `feat`, `fix`, `style`, `refactor`, `docs`
 - Archivos `.env` o con API keys
 - Archivos temporales
 
+## Bitácora — actualizar BACKLOG.md al final de cada sesión
+
+Al terminar una sesión de trabajo (cuando el usuario pida clear, o al cerrar un bloque importante), actualizar `memory/BACKLOG.md` con:
+- Tareas completadas en esta sesión → marcar ✅
+- Tareas nuevas descubiertas → agregar como ⏳
+- Fecha de última actualización en el encabezado
+
+También actualizar `project_propvalu.md` en la memoria de Claude (`C:\Users\pedru\.claude\projects\C--Users-pedru\memory\`) con una sección de la sesión actual.
+
+**Esto es obligatorio antes de cualquier /clear o al final de sesión larga.**
+
 ## Python correcto en Windows
 
 Siempre usar: `C:\Users\pedru\AppData\Local\Python\pythoncore-3.14-64\python.exe`
