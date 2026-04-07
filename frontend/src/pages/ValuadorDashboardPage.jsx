@@ -149,7 +149,7 @@ const ValuadorDashboardPage = () => {
       .catch(() => {});
   }, [session]);
 
-  /* ── KYC state ── */
+  /* ── Docs state ── */
   const [kycDocs, setKycDocs] = useState([]);
   const [kycSubiendo, setKycSubiendo] = useState({});
   const [kycError, setKycError] = useState("");
@@ -173,10 +173,13 @@ const ValuadorDashboardPage = () => {
   if (!session) return null;
 
   /* ── Tabs ── */
-  const docsRequeridos = session?.modo_perfil === "completo"
-    ? ["ine_frente","cedula","foto_profesional","comprobante_experiencia","firma_autografa",
-       "comprobante_domicilio","carta_recomendacion","curriculum","avaluo_muestra_1","avaluo_muestra_2","avaluo_muestra_3"]
-    : ["ine_frente","cedula","foto_profesional","comprobante_experiencia","firma_autografa"];
+  const docsBase = ["ine_frente","cedula","cedula_valuador","foto_profesional","comprobante_experiencia","firma_autografa","comprobante_adicional"];
+  const docsInfonav = (session?.services?.infonavit || session?.services?.fovissste) ? ["carta_unidad"] : [];
+  const docsCapta = (session?.services?.catastrales || session?.services?.obras_publicas) ? ["comprobante_catastro"] : [];
+  const docsCompleto = session?.modo_perfil === "completo"
+    ? ["comprobante_domicilio","carta_recomendacion","curriculum","avaluo_muestra_1","avaluo_muestra_2","avaluo_muestra_3"]
+    : [];
+  const docsRequeridos = [...docsBase, ...docsInfonav, ...docsCapta, ...docsCompleto];
 
   const docsCompletos = docsRequeridos.every(k => kycDocs.find(d => d.doc_tipo === k));
 
@@ -226,7 +229,7 @@ const ValuadorDashboardPage = () => {
     ine_frente:              "INE — Frente",
     ine_vuelta:              "INE — Vuelta",
     ine_pasaporte:           "INE / Pasaporte",
-    cedula:                  "Cédula Profesional (arquitecto/ingeniero)",
+    cedula:                  "Cédula de carrera (arquitecto/ingeniero)",
     cedula_profesional:      "Cédula profesional SEP",
     cedula_valuador:         "Cédula de Perito Valuador",
     foto_profesional:        "Foto profesional",
@@ -792,6 +795,35 @@ const ValuadorDashboardPage = () => {
 
   const ef = editData; // shorthand
 
+  const DocUploadInline = ({ docKey, label }) => {
+    const doc = docSubido(docKey);
+    const subiendo = kycSubiendo[docKey];
+    const isImg = doc && (doc.content_type?.startsWith("image/") || /\.(jpg|jpeg|png|webp)$/i.test(doc.filename || ""));
+    const docUrl = doc ? `${API}/kyc/documento/${doc.doc_id}` : null;
+    return (
+      <div className="space-y-1">
+        <p className="text-[11px] text-slate-400 font-medium uppercase tracking-wide">{label}</p>
+        <div className="flex items-center gap-2">
+          {doc ? (
+            <button onClick={() => setPreviewDoc({ url: docUrl, type: doc.content_type, filename: doc.filename })}
+              className="w-10 h-10 rounded-lg overflow-hidden border border-[#52B788] bg-[#F0FAF5] flex-shrink-0 flex items-center justify-center">
+              {isImg ? <img src={docUrl} alt={label} className="w-full h-full object-cover" /> : <FileText className="w-4 h-4 text-[#52B788]" />}
+            </button>
+          ) : (
+            <div className="w-10 h-10 rounded-lg border-2 border-dashed border-slate-200 flex-shrink-0 flex items-center justify-center bg-slate-50">
+              <Upload className="w-4 h-4 text-slate-300" />
+            </div>
+          )}
+          <label className={`flex items-center gap-1 text-xs font-semibold px-2 py-1.5 rounded-lg cursor-pointer transition-colors ${doc ? "border border-[#52B788] text-[#1B4332]" : "bg-[#1B4332] text-white"} ${subiendo ? "opacity-50" : ""}`}>
+            <Upload className="w-3 h-3" />
+            {subiendo ? "Subiendo…" : doc ? "Cambiar" : "Subir"}
+            <input type="file" accept=".pdf,.jpg,.jpeg,.png,.webp" className="hidden" disabled={subiendo} onChange={e => subirDocumento(docKey, e.target.files[0])} />
+          </label>
+        </div>
+      </div>
+    );
+  };
+
   const PerfilCard = () => (
     <div className="space-y-4">
 
@@ -818,7 +850,7 @@ const ValuadorDashboardPage = () => {
         <div className="text-right hidden sm:block flex-shrink-0">
           <p className="text-xs text-[#D9ED92]/60 uppercase tracking-wide">Modo</p>
           <p className="text-sm font-semibold text-white">{session.modo_perfil === "completo" ? "Completo" : "Básico"}</p>
-          <p className="text-xs text-[#D9ED92]/60 mt-1 uppercase tracking-wide">KYC</p>
+          <p className="text-xs text-[#D9ED92]/60 mt-1 uppercase tracking-wide">Verificación</p>
           <p className="text-xs font-semibold text-white">{session.kyc_status === "approved" ? "✅ Verificado" : session.kyc_status === "under_review" ? "🔍 En revisión" : "⏳ Pendiente"}</p>
         </div>
       </div>
@@ -838,16 +870,16 @@ const ValuadorDashboardPage = () => {
               <Dato label="Teléfono" value={session.phone} />
               <Dato label="Experiencia" value={session.q_experiencia ? `${session.q_experiencia}${medallaExp ? ` ${medallaExp.emoji}` : ""}` : null} />
             </div>
+            <div className="border-t border-[#F0FAF5] px-5 py-3">
+              <DocUploadInline docKey="comprobante_experiencia" label="Documento que avala la experiencia" />
+            </div>
             {editSection === "contacto" && (
               <div className="border-t border-[#F0FAF5] px-5 pt-4 pb-1 grid grid-cols-2 gap-3">
                 <div className="col-span-2 space-y-1"><Label className="text-xs">Nombre</Label><Input value={ef.name} onChange={e=>setEditData(p=>({...p,name:e.target.value}))} className="h-8 text-sm" /></div>
                 <div className="space-y-1"><Label className="text-xs">Teléfono</Label><Input value={ef.phone} onChange={e=>setEditData(p=>({...p,phone:e.target.value}))} className="h-8 text-sm" /></div>
                 <div className="space-y-1">
                   <Label className="text-xs">Años de experiencia</Label>
-                  <select value={ef.q_experiencia} onChange={e=>setEditData(p=>({...p,q_experiencia:e.target.value}))} className="w-full h-8 px-2 text-sm border border-[#B7E4C7] rounded-md bg-[#F0FAF5] focus:outline-none">
-                    <option value="">Seleccionar...</option>
-                    {["1-3 años","3-5 años","5-10 años","Más de 10 años"].map(o=><option key={o} value={o}>{o}</option>)}
-                  </select>
+                  <Input value={ef.q_experiencia} onChange={e=>setEditData(p=>({...p,q_experiencia:e.target.value}))} placeholder="ej. 8 años, 15 años..." className="h-8 text-sm" />
                 </div>
               </div>
             )}
@@ -861,6 +893,10 @@ const ValuadorDashboardPage = () => {
               <Dato label="Profesión" value={getProfesionLabel(session.profesion_base, session.profesion_base_otro)} />
               <Dato label="Núm. cédula (arq./ing.)" value={session.num_cedula_base} />
               <div className="col-span-2"><Dato label="Núm. cédula Perito Valuador" value={session.num_cedula_valuador} empty="No registrada (opcional)" /></div>
+            </div>
+            <div className="border-t border-[#F0FAF5] px-5 py-3 grid grid-cols-2 gap-3">
+              <DocUploadInline docKey="cedula" label="Foto cédula de carrera" />
+              <DocUploadInline docKey="cedula_valuador" label="Foto cédula valuador" />
             </div>
             {editSection === "cedulas" && (
               <div className="border-t border-[#F0FAF5] px-5 pt-4 pb-1 space-y-3">
@@ -899,7 +935,7 @@ const ValuadorDashboardPage = () => {
             <div className="p-5 grid grid-cols-2 gap-4">
               <Dato label="Estado" value={session.estado} />
               <div>
-                <p className="text-[11px] text-slate-400 font-medium uppercase tracking-wide mb-1">Municipios</p>
+                <p className="text-[11px] text-slate-400 font-medium uppercase tracking-wide mb-1">Municipios de servicio / Área de cobertura</p>
                 {session.municipios?.filter(Boolean).length > 0
                   ? <div className="flex flex-wrap gap-1">{session.municipios.filter(Boolean).map((m,i)=><span key={i} className="text-xs bg-[#F0FAF5] border border-[#B7E4C7] text-[#1B4332] px-2 py-0.5 rounded-full">{m}</span>)}</div>
                   : <p className="text-sm text-slate-300 italic">Sin registrar <span className="not-italic text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-600 border border-amber-200">pendiente</span></p>
@@ -911,7 +947,7 @@ const ValuadorDashboardPage = () => {
             {editSection === "ubicacion" && (
               <div className="border-t border-[#F0FAF5] px-5 pt-4 pb-1 grid grid-cols-2 gap-3">
                 <div className="space-y-1"><Label className="text-xs">Estado</Label><Input value={ef.estado} onChange={e=>setEditData(p=>({...p,estado:e.target.value}))} className="h-8 text-sm" /></div>
-                <div className="space-y-1"><Label className="text-xs">Municipios (separados por coma)</Label><Input value={ef.municipios} onChange={e=>setEditData(p=>({...p,municipios:e.target.value}))} className="h-8 text-sm" placeholder="Zapopan, Guadalajara..." /></div>
+                <div className="space-y-1"><Label className="text-xs">Municipios de servicio (separados por coma)</Label><Input value={ef.municipios} onChange={e=>setEditData(p=>({...p,municipios:e.target.value}))} className="h-8 text-sm" placeholder="Zapopan, Guadalajara..." /></div>
                 <div className="col-span-2 space-y-1"><Label className="text-xs">Dirección de oficina</Label><Input value={ef.q_dir_oficina} onChange={e=>setEditData(p=>({...p,q_dir_oficina:e.target.value}))} className="h-8 text-sm" /></div>
                 <div className="col-span-2 space-y-1"><Label className="text-xs">Link Google Maps</Label><Input value={ef.q_maps_url} onChange={e=>setEditData(p=>({...p,q_maps_url:e.target.value}))} className="h-8 text-sm" /></div>
               </div>
@@ -930,6 +966,11 @@ const ValuadorDashboardPage = () => {
               <Dato label="Seguro RC" value={session.q_seguro_rc===true?"✅ Sí":session.q_seguro_rc===false?"No":null} empty="No indicado" />
               {(session.services?.infonavit||session.services?.fovissste) && <Dato label="Unidad de Valuación" value={session.q_unidad_valuacion} />}
             </div>
+            {(session.services?.infonavit||session.services?.fovissste) && (
+              <div className="border-t border-[#F0FAF5] px-5 py-3">
+                <DocUploadInline docKey="carta_unidad" label="Documento: Unidad de Valuación / SHF" />
+              </div>
+            )}
             {editSection === "profesional" && (
               <div className="border-t border-[#F0FAF5] px-5 pt-4 pb-1 grid grid-cols-2 gap-3">
                 <div className="space-y-1">
