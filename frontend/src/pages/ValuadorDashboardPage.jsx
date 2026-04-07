@@ -464,6 +464,67 @@ const ValuadorDashboardPage = () => {
     </div>
   );
 
+  const PLAN_INFO = {
+    starter: {
+      label: "Starter", precio: "$1,200", periodo: "mes",
+      color: "border-slate-200 bg-slate-50", badge: "bg-slate-200 text-slate-700",
+      incluye: ["Valuaciones ilimitadas en la plataforma", "Reporte PDF PropValu", "Comparables en tiempo real"],
+    },
+    pro: {
+      label: "Pro", precio: "$3,000", periodo: "mes",
+      color: "border-[#52B788]/40 bg-[#F0FAF5]", badge: "bg-[#52B788] text-white",
+      incluye: ["Todo Starter", "Encargos externos de PropValu", "Prioridad sobre Starter", "Perfil en directorio público"],
+    },
+    premium: {
+      label: "Premium", precio: "$6,500", periodo: "mes",
+      color: "border-[#1B4332]/30 bg-[#1B4332]/5", badge: "bg-[#1B4332] text-white",
+      incluye: ["Todo Pro", "Máxima prioridad en asignación", "Soporte dedicado", "Reporte mensual de mercado"],
+    },
+  };
+
+  const PlanCard = () => {
+    const plan = session?.plan ? PLAN_INFO[session.plan] : null;
+    if (!plan) return (
+      <div className="mb-6 rounded-2xl border border-dashed border-slate-200 bg-white p-5 flex items-center justify-between gap-4">
+        <div>
+          <p className="text-sm font-semibold text-slate-700">Sin plan activo</p>
+          <p className="text-xs text-slate-400 mt-0.5">Activa un plan para hacer valuaciones en la plataforma y recibir encargos.</p>
+        </div>
+        <button onClick={() => navigate("/checkout/pro")}
+          className="shrink-0 bg-[#1B4332] text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-[#163828] transition-colors">
+          Ver planes
+        </button>
+      </div>
+    );
+    return (
+      <div className={`mb-6 rounded-2xl border p-5 ${plan.color}`}>
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-2">
+              <span className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full ${plan.badge}`}>Plan {plan.label}</span>
+              <span className="text-xs text-slate-500">{plan.precio} MXN + IVA / {plan.periodo}</span>
+            </div>
+            <div className="flex flex-wrap gap-x-4 gap-y-1">
+              {plan.incluye.map((item) => (
+                <span key={item} className="text-xs text-slate-600 flex items-center gap-1">
+                  <CheckCircle2 className="w-3 h-3 text-[#52B788] shrink-0" />{item}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div className="text-right shrink-0">
+            <p className="text-[10px] text-slate-400">Créditos disponibles</p>
+            <p className="text-2xl font-bold text-[#1B4332] font-['Outfit']">{session.credits ?? 0}</p>
+            <button onClick={() => navigate("/checkout/pro")}
+              className="mt-1 text-[10px] text-[#52B788] hover:underline">
+              Renovar / cambiar plan
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   const CtaCard = () => (
     <Card
       className="border-0 shadow-sm mb-6 text-white"
@@ -706,6 +767,7 @@ const ValuadorDashboardPage = () => {
         {/* Tab: Resumen */}
         {activeTab === "resumen" && (
           <>
+            <PlanCard />
             <StatCards />
             <CtaCard />
             <ValuacionesTable />

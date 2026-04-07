@@ -121,17 +121,12 @@ const CERT_COLORS = {
   CNBV: "bg-orange-100 text-orange-700",
 };
 
-// Definición de medallitas de credenciales
+// Las 4 medallitas más relevantes para el perfil público (en orden de prioridad)
 const CREDENTIAL_BADGES = {
-  identidad:  { emoji: "🪪", label: "Identidad",        cls: "bg-blue-50 text-blue-700 border-blue-200" },
-  cedula:     { emoji: "🎓", label: "Cédula SEP",       cls: "bg-purple-50 text-purple-700 border-purple-200" },
-  efirma:     { emoji: "✍️", label: "e.firma SAT",      cls: "bg-indigo-50 text-indigo-700 border-indigo-200" },
-  rfc:        { emoji: "📋", label: "RFC activo",       cls: "bg-slate-50 text-slate-600 border-slate-200" },
-  seguro_rc:  { emoji: "🛡️", label: "Seguro RC",        cls: "bg-orange-50 text-orange-700 border-orange-200" },
-  domicilio:  { emoji: "🏠", label: "Domicilio",        cls: "bg-teal-50 text-teal-700 border-teal-200" },
-  recomendado:{ emoji: "⭐", label: "Recomendado",      cls: "bg-amber-50 text-amber-700 border-amber-200" },
-  curriculum: { emoji: "📄", label: "CV verificado",    cls: "bg-green-50 text-green-700 border-green-200" },
-  avaluos:    { emoji: "📊", label: "Avalúos",          cls: "bg-emerald-50 text-emerald-700 border-emerald-200" },
+  cedula:     { emoji: "🎓", label: "Cédula SEP verificada",        bg: "bg-purple-100",  ring: "ring-purple-300" },
+  efirma:     { emoji: "✍️", label: "e.firma SAT vigente",          bg: "bg-indigo-100",  ring: "ring-indigo-300" },
+  seguro_rc:  { emoji: "🛡️", label: "Seguro de responsabilidad civil", bg: "bg-orange-100", ring: "ring-orange-300" },
+  avaluos:    { emoji: "📊", label: "Avalúos de muestra verificados", bg: "bg-emerald-100", ring: "ring-emerald-300" },
 };
 
 const PLAN_BADGE = {
@@ -203,19 +198,18 @@ const TarjetaValuador = ({ v }) => {
         </span>
       </div>
 
-      {/* Medallitas de credenciales */}
+      {/* Medallitas — burbujas emoji de credenciales ratificadas */}
       {v.badges?.length > 0 && (
-        <div className="flex flex-wrap gap-1.5">
-          {v.badges.map((bKey) => {
-            const b = CREDENTIAL_BADGES[bKey];
-            if (!b) return null;
-            return (
-              <span key={bKey} title={b.label}
-                className={`inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full border ${b.cls}`}>
-                {b.emoji} {b.label}
+        <div className="flex items-center gap-1.5">
+          {Object.entries(CREDENTIAL_BADGES)
+            .filter(([key]) => v.badges.includes(key))
+            .map(([key, b]) => (
+              <span key={key} title={b.label}
+                className={`w-7 h-7 rounded-full ${b.bg} ring-1 ${b.ring} flex items-center justify-center text-sm cursor-default`}>
+                {b.emoji}
               </span>
-            );
-          })}
+            ))
+          }
         </div>
       )}
 
