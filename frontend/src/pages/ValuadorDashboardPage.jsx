@@ -219,6 +219,26 @@ const ValuadorDashboardPage = () => {
     avaluo_muestra_3:        "Avalúo de muestra 3",
   };
 
+  const DOC_HINTS = {
+    ine_frente:              "Identificación oficial vigente, cara frontal.",
+    ine_vuelta:              "Identificación oficial vigente, cara trasera.",
+    cedula:                  "Foto o escaneo de tu cédula de Arquitecto, Ing. Civil, Ing. Estructural u otra carrera afín. Debe mostrar el número de cédula verificable en el Registro Nacional de Profesionistas (SEP-DGP).",
+    cedula_valuador:         "Cédula expedida específicamente como Perito Valuador, independiente de la cédula de carrera base.",
+    foto_profesional:        "Fotografía reciente de frente, fondo neutro, vestimenta formal. Aparecerá en los reportes y opiniones que generes en PropValu.",
+    comprobante_experiencia: "Documenta los años de experiencia que declaraste. Acepta: título o cédula de maestría en valuación, avalúo o dictamen firmado con fecha de antigüedad, constancia o carta de un Colegio de Valuadores (CIEP, COVAC, AMPI, SVM, COPEVI u otro), o credencial de agremiado activo.",
+    firma_autografa:         "Escaneo o fotografía de tu firma manuscrita sobre papel blanco, o imagen de tu firma digital personalizada. Aparecerá en los reportes y opiniones de valor que generes. (No es la e.firma del SAT.)",
+    comprobante_adicional:   "Cualquier documento que refuerce tu trayectoria: tarjeta de presentación profesional, captura de tu sitio web o perfil en LinkedIn, directorio de colegio, membresía activa, etc.",
+    carta_unidad:            "Carta de la SHF, de la Unidad de Valuación con la que colaboras, u oficio que acredite tu habilitación para realizar avalúos Infonavit / Fovissste.",
+    comprobante_catastro:    "Credencial de perito valuador catastral, oficio de habilitación municipal o estatal, o un avalúo catastral previo con tu nombre y firma.",
+    seguro_rc:               "Póliza de seguro de responsabilidad civil profesional vigente. No es indispensable para el registro, pero suma a tu perfil.",
+    comprobante_domicilio:   "Recibo de luz, agua, internet o renta con la dirección de tu oficina o lugar de trabajo (no mayor a 3 meses). También se acepta recibo de celular a tu nombre.",
+    carta_recomendacion:     "Carta de un cliente, empresa o colegio de valuadores que avale tu trabajo profesional.",
+    curriculum:              "PDF con tu experiencia profesional: estudios, empresas donde has trabajado y avalúos o proyectos relevantes.",
+    avaluo_muestra_1:        "Avalúo o dictamen con tu nombre y firma. Omite o tapa los datos del cliente. Puede ser comercial, catastral, opinión de valor u otro tipo.",
+    avaluo_muestra_2:        "Segundo avalúo de muestra (mismo criterio que el anterior).",
+    avaluo_muestra_3:        "Tercer avalúo de muestra (mismo criterio que los anteriores).",
+  };
+
   // Medallitas — cada doc_tipo → credencial que acredita
   const BADGE_DEFS = {
     ine_pasaporte:           { key: "identidad",   emoji: "🪪", label: "Identidad",           cls: "bg-blue-100 text-blue-700 border-blue-200" },
@@ -365,16 +385,19 @@ const ValuadorDashboardPage = () => {
                 const doc = docSubido(key);
                 const subiendo = kycSubiendo[key];
                 const label = DOC_LABELS[key] || key;
+                const hint = DOC_HINTS[key];
                 return (
-                  <div key={key} className="flex items-center justify-between gap-4 px-5 py-3">
-                    <div className="flex items-center gap-3 flex-1 min-w-0">
-                      {doc?.estado === "ratificado"
-                        ? <ShieldCheck className="w-5 h-5 text-indigo-500 flex-shrink-0" />
-                        : doc
-                          ? <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
-                          : <Clock className="w-5 h-5 text-slate-300 flex-shrink-0" />}
+                  <div key={key} className="flex items-start justify-between gap-4 px-5 py-4">
+                    <div className="flex items-start gap-3 flex-1 min-w-0">
+                      <div className="mt-0.5 flex-shrink-0">
+                        {doc?.estado === "ratificado"
+                          ? <ShieldCheck className="w-5 h-5 text-indigo-500" />
+                          : doc
+                            ? <CheckCircle2 className="w-5 h-5 text-green-500" />
+                            : <Clock className="w-5 h-5 text-slate-300" />}
+                      </div>
                       <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 flex-wrap">
                           <p className="text-sm font-medium text-[#1B4332]">{label}</p>
                           {doc?.estado === "ratificado" && (
                             <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${BADGE_DEFS[key]?.cls || "bg-indigo-100 text-indigo-700 border-indigo-200"}`}>
@@ -382,8 +405,9 @@ const ValuadorDashboardPage = () => {
                             </span>
                           )}
                         </div>
+                        {hint && <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">{hint}</p>}
                         {doc && (
-                          <p className="text-xs text-slate-400 truncate">
+                          <p className="text-xs text-slate-400 mt-1 truncate">
                             {doc.filename} · {new Date(doc.subido_at).toLocaleDateString("es-MX")}
                           </p>
                         )}
