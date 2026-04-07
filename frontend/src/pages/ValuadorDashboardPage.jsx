@@ -157,9 +157,9 @@ const ValuadorDashboardPage = () => {
 
   /* ── Tabs ── */
   const docsRequeridos = session?.modo_perfil === "completo"
-    ? ["ine_pasaporte","cedula_profesional","comprobante_experiencia","firma_electronica","rfc_sat","seguro_rc","foto_profesional",
+    ? ["ine_frente","cedula","foto_profesional","comprobante_experiencia","firma_autografa",
        "comprobante_domicilio","carta_recomendacion","curriculum","avaluo_muestra_1","avaluo_muestra_2","avaluo_muestra_3"]
-    : ["ine_pasaporte","cedula_profesional","comprobante_experiencia","firma_electronica","rfc_sat","seguro_rc","foto_profesional"];
+    : ["ine_frente","cedula","foto_profesional","comprobante_experiencia","firma_autografa"];
 
   const docsCompletos = docsRequeridos.every(k => kycDocs.find(d => d.doc_tipo === k));
 
@@ -198,38 +198,45 @@ const ValuadorDashboardPage = () => {
   };
 
   const DOC_LABELS = {
+    ine_frente:              "INE — Frente",
+    ine_vuelta:              "INE — Vuelta",
     ine_pasaporte:           "INE / Pasaporte",
-    cedula_profesional:      "Cédula profesional SEP (arquitecto/ingeniero)",
+    cedula:                  "Cédula Profesional",
+    cedula_profesional:      "Cédula profesional SEP",
+    foto_profesional:        "Foto profesional",
     comprobante_experiencia: "Comprobante de experiencia",
-    firma_electronica:    "Firma electrónica (e.firma SAT)",
-    rfc_sat:              "RFC activo SAT",
-    seguro_rc:            "Seguro de responsabilidad civil vigente",
-    foto_profesional:     "Foto profesional",
-    comprobante_domicilio:"Comprobante de domicilio",
-    carta_recomendacion:  "Carta de recomendación",
-    curriculum:           "Currículum vitae",
-    avaluo_muestra_1:     "Avalúo de muestra 1",
-    avaluo_muestra_2:     "Avalúo de muestra 2",
-    avaluo_muestra_3:     "Avalúo de muestra 3",
+    firma_autografa:         "Firma autógrafa digital",
+    comprobante_adicional:   "Comprobante adicional (tarjeta, web, etc.)",
+    carta_unidad:            "Carta SHF / Unidad de Valuación",
+    comprobante_catastro:    "Comprobante catastral",
+    seguro_rc:               "Seguro de responsabilidad civil (opcional)",
+    comprobante_domicilio:   "Comprobante de domicilio de oficina o trabajo",
+    carta_recomendacion:     "Carta de recomendación",
+    curriculum:              "Currículum vitae",
+    avaluo_muestra_1:        "Avalúo de muestra 1",
+    avaluo_muestra_2:        "Avalúo de muestra 2",
+    avaluo_muestra_3:        "Avalúo de muestra 3",
   };
 
   // Medallitas — cada doc_tipo → credencial que acredita
   const BADGE_DEFS = {
-    ine_pasaporte:        { key: "identidad",  emoji: "🪪", label: "Identidad",       cls: "bg-blue-100 text-blue-700 border-blue-200" },
-    ine_frente:           { key: "identidad",  emoji: "🪪", label: "Identidad",       cls: "bg-blue-100 text-blue-700 border-blue-200" },
-    cedula:               { key: "cedula",     emoji: "🎓", label: "Cédula SEP",      cls: "bg-purple-100 text-purple-700 border-purple-200" },
-    cedula_profesional:   { key: "cedula",     emoji: "🎓", label: "Cédula SEP",      cls: "bg-purple-100 text-purple-700 border-purple-200" },
-    firma_electronica:    { key: "efirma",     emoji: "✍️", label: "e.firma SAT",     cls: "bg-indigo-100 text-indigo-700 border-indigo-200" },
-    rfc_sat:              { key: "rfc",        emoji: "📋", label: "RFC activo",      cls: "bg-slate-100 text-slate-600 border-slate-200" },
-    seguro_rc:            { key: "seguro_rc",  emoji: "🛡️", label: "Seguro RC",       cls: "bg-orange-100 text-orange-700 border-orange-200" },
-    foto_profesional:     { key: "foto",       emoji: "👤", label: "Foto profesional",cls: "bg-slate-100 text-slate-600 border-slate-200" },
-    comprobante_domicilio:{ key: "domicilio",  emoji: "🏠", label: "Domicilio",       cls: "bg-teal-100 text-teal-700 border-teal-200" },
-    carta_recomendacion:  { key: "recomendado",emoji: "⭐", label: "Recomendado",     cls: "bg-amber-100 text-amber-700 border-amber-200" },
-    curriculum:           { key: "curriculum", emoji: "📄", label: "CV verificado",   cls: "bg-green-100 text-green-700 border-green-200" },
-    avaluo_muestra_1:         { key: "avaluos",    emoji: "📊", label: "Avalúos",              cls: "bg-emerald-100 text-emerald-700 border-emerald-200" },
-    avaluo_muestra_2:         { key: "avaluos",    emoji: "📊", label: "Avalúos",              cls: "bg-emerald-100 text-emerald-700 border-emerald-200" },
-    avaluo_muestra_3:         { key: "avaluos",    emoji: "📊", label: "Avalúos",              cls: "bg-emerald-100 text-emerald-700 border-emerald-200" },
-    comprobante_experiencia:  { key: "exp",        emoji: "📅", label: "Experiencia verificada",cls: "bg-rose-100 text-rose-700 border-rose-200" },
+    ine_pasaporte:           { key: "identidad",   emoji: "🪪", label: "Identidad",           cls: "bg-blue-100 text-blue-700 border-blue-200" },
+    ine_frente:              { key: "identidad",   emoji: "🪪", label: "Identidad",           cls: "bg-blue-100 text-blue-700 border-blue-200" },
+    cedula:                  { key: "cedula",      emoji: "🎓", label: "Cédula SEP",          cls: "bg-purple-100 text-purple-700 border-purple-200" },
+    cedula_profesional:      { key: "cedula",      emoji: "🎓", label: "Cédula SEP",          cls: "bg-purple-100 text-purple-700 border-purple-200" },
+    foto_profesional:        { key: "foto",        emoji: "👤", label: "Foto profesional",    cls: "bg-slate-100 text-slate-600 border-slate-200" },
+    firma_autografa:         { key: "firma",       emoji: "✍️", label: "Firma digital",       cls: "bg-indigo-100 text-indigo-700 border-indigo-200" },
+    comprobante_adicional:   { key: "trayectoria", emoji: "🏅", label: "Trayectoria",         cls: "bg-yellow-100 text-yellow-700 border-yellow-200" },
+    carta_unidad:            { key: "hab_infonavit",emoji: "🏦",label: "Hab. Infonavit/SHF",  cls: "bg-cyan-100 text-cyan-700 border-cyan-200" },
+    comprobante_catastro:    { key: "hab_catastro", emoji: "🗺️",label: "Hab. Catastral",      cls: "bg-lime-100 text-lime-700 border-lime-200" },
+    seguro_rc:               { key: "seguro_rc",   emoji: "🛡️", label: "Seguro RC",           cls: "bg-orange-100 text-orange-700 border-orange-200" },
+    comprobante_domicilio:   { key: "domicilio",   emoji: "🏢", label: "Domicilio trabajo",   cls: "bg-teal-100 text-teal-700 border-teal-200" },
+    carta_recomendacion:     { key: "recomendado", emoji: "⭐", label: "Recomendado",         cls: "bg-amber-100 text-amber-700 border-amber-200" },
+    curriculum:              { key: "curriculum",  emoji: "📄", label: "CV verificado",       cls: "bg-green-100 text-green-700 border-green-200" },
+    avaluo_muestra_1:        { key: "avaluos",     emoji: "📊", label: "Avalúos",             cls: "bg-emerald-100 text-emerald-700 border-emerald-200" },
+    avaluo_muestra_2:        { key: "avaluos",     emoji: "📊", label: "Avalúos",             cls: "bg-emerald-100 text-emerald-700 border-emerald-200" },
+    avaluo_muestra_3:        { key: "avaluos",     emoji: "📊", label: "Avalúos",             cls: "bg-emerald-100 text-emerald-700 border-emerald-200" },
+    comprobante_experiencia: { key: "exp",         emoji: "📅", label: "Experiencia verificada",cls: "bg-rose-100 text-rose-700 border-rose-200" },
   };
 
   // Badges únicos ganados (docs con estado "ratificado")

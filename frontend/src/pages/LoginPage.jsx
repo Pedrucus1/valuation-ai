@@ -150,6 +150,7 @@ const LoginPage = () => {
     q_maps_url: "",
     q_tiempo_entrega: "",
     q_seguro_rc: false,
+    q_unidad_valuacion: "",
     q_software: "",
     q_idiomas: "",
 
@@ -166,8 +167,14 @@ const LoginPage = () => {
     ine_frente: null,
     ine_vuelta: null,
     cedula: null,
+    foto_profesional: null,
     // Básico adicional
-    firma_electronica: null,
+    firma_autografa: null,
+    comprobante_experiencia: null,
+    comprobante_adicional: null,
+    // Condicionales por servicio
+    carta_unidad: null,
+    comprobante_catastro: null,
     // Perfil completo
     comprobante_domicilio: null,
     carta_recomendacion: null,
@@ -175,8 +182,6 @@ const LoginPage = () => {
     avaluo_muestra_1: null,
     avaluo_muestra_2: null,
     avaluo_muestra_3: null,
-    // Experiencia comprobada (todos los valuadores)
-    comprobante_experiencia: null,
     // Inmobiliaria
     cert_asociacion: null,
     credencial_empresa: null,
@@ -280,7 +285,8 @@ const LoginPage = () => {
     if (regData.role === "appraiser") {
       if (!files.ine_frente)              { toast.error("Sube el frente de tu INE"); return; }
       if (!files.cedula)                  { toast.error("Sube tu Cédula Profesional"); return; }
-      if (!files.comprobante_experiencia) { toast.error("Sube el comprobante de años de experiencia"); return; }
+      if (!files.foto_profesional)        { toast.error("Sube tu foto profesional"); return; }
+      if (!files.comprobante_experiencia) { toast.error("Sube el comprobante de experiencia"); return; }
     }
     if (regData.role === "realtor" && regData.inmobiliaria_tipo === "titular") {
       if (!files.cert_asociacion) { toast.error("Sube el certificado de la asociación"); return; }
@@ -316,7 +322,8 @@ const LoginPage = () => {
           servicios_otros: regData.servicios_otros_lista.filter(s => s.trim()),
           peritajes_tipos: regData.peritajes_tipos,
           peritajes_otros: regData.peritajes_otros || undefined,
-          q_experiencia: regData.q_experiencia || undefined,
+          q_experiencia:     regData.q_experiencia || undefined,
+          q_unidad_valuacion: regData.q_unidad_valuacion || undefined,
           ...(regData.modo_perfil === "completo" ? {
             q_equipo:         regData.q_equipo || undefined,
             q_oficina:        regData.q_oficina,
@@ -912,17 +919,62 @@ const LoginPage = () => {
           <FileUploadField label="INE — Vuelta" hint="Identificación oficial vigente, cara trasera"
             value={files.ine_vuelta} onChange={v => setFile("ine_vuelta", v)} />
           <FileUploadField
-            label="Cédula Profesional (arquitecto o ingeniero)"
-            hint="Cédula de Arquitecto, Ing. Civil, Ing. Estructural u otra carrera afín, verificable en el Registro Nacional de Profesionistas (SEP). Si eres perito valuador habilitado, sube esa cédula."
+            label="Cédula Profesional"
+            hint="Cédula de Arquitecto, Ing. Civil, Ing. Estructural, Perito Valuador u otra carrera afín, verificable en el Registro Nacional de Profesionistas (SEP-DGP)."
             value={files.cedula} onChange={v => setFile("cedula", v)} required />
           <FileUploadField
-            label="Comprobante de años de experiencia"
-            hint={`Documenta los ${regData.q_experiencia || "años"} que indicaste. Acepta cualquiera de: cédula o título de maestría en valuación, avalúo firmado con fecha que acredite antigüedad, o carta de un Colegio de Valuadores (CIEP, COVAC, AMPI, etc.).`}
+            label="Foto profesional *"
+            hint="Fotografía reciente de frente, fondo neutro, con vestimenta formal. Aparecerá en los reportes y opiniones que generes en PropValu."
+            value={files.foto_profesional} onChange={v => setFile("foto_profesional", v)} required />
+          <FileUploadField
+            label="Comprobante de experiencia"
+            hint={`Documenta los ${regData.q_experiencia || "años de trabajo"} que indicaste. Acepta cualquiera de: título o cédula de maestría en valuación, avalúo o dictamen firmado con fecha que acredite antigüedad, constancia o carta de un Colegio de Valuadores (CIEP, COVAC, AMPI, SVM, COPEVI u otro), o credencial de agremiado activo.`}
             value={files.comprobante_experiencia} onChange={v => setFile("comprobante_experiencia", v)} required />
-          <FileUploadField label="Firma electrónica (e.firma SAT)" hint="Archivo .cer o captura del certificado vigente"
-            value={files.firma_electronica} onChange={v => setFile("firma_electronica", v)} />
+          <FileUploadField
+            label="Firma autógrafa digital"
+            hint="Escanea o fotografía tu firma manuscrita sobre papel blanco, o sube una imagen de tu firma digital personalizada. Se usará en las opiniones y reportes que generes en PropValu. (No es la e.firma del SAT.)"
+            value={files.firma_autografa} onChange={v => setFile("firma_autografa", v)} />
+          <FileUploadField
+            label="Comprobante adicional (opcional)"
+            hint="Cualquier documento que refuerce tu trayectoria como valuador: tarjeta de presentación profesional, captura de tu sitio web o perfil en LinkedIn, directorio de colegio, membresía activa, etc."
+            value={files.comprobante_adicional} onChange={v => setFile("comprobante_adicional", v)} />
         </div>
       </div>
+
+      {/* Documentos condicionales por tipo de servicio */}
+      {(regData.services.infonavit || regData.services.fovissste) && (
+        <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 space-y-4">
+          <div>
+            <p className="text-sm font-semibold text-amber-800 mb-0.5">Documentos — Infonavit / Fovissste</p>
+            <p className="text-xs text-amber-700">Necesarios porque indicaste que realizas avalúos para Infonavit o Fovissste.</p>
+          </div>
+          <div className="space-y-1.5">
+            <Label className="text-xs font-semibold text-slate-600">Unidad de Valuación con la que trabajas *</Label>
+            <Input
+              placeholder="ej. Valuarte, Itevu, Ceval, nombre de la UV..."
+              className="h-9 text-sm bg-white border-amber-300 focus:border-amber-500 focus:outline-none"
+              value={regData.q_unidad_valuacion} onChange={e => setReg("q_unidad_valuacion", e.target.value)} />
+            <p className="text-xs text-slate-500">Si trabajas de forma independiente escribe "Independiente".</p>
+          </div>
+          <FileUploadField
+            label="Carta de SHF o de la Unidad de Valuación"
+            hint="Carta de la SHF, de la UV con la que colaboras, o cualquier oficio que acredite tu habilitación para realizar avalúos Infonavit/Fovissste."
+            value={files.carta_unidad} onChange={v => setFile("carta_unidad", v)} />
+        </div>
+      )}
+
+      {(regData.services.catastrales || regData.services.obras_publicas) && (
+        <div className="rounded-xl border border-sky-200 bg-sky-50 p-4 space-y-4">
+          <div>
+            <p className="text-sm font-semibold text-sky-800 mb-0.5">Documentos — Catastro / Obras públicas</p>
+            <p className="text-xs text-sky-700">Necesarios porque indicaste que realizas avalúos catastrales u obras públicas.</p>
+          </div>
+          <FileUploadField
+            label="Comprobante catastral"
+            hint="Cualquiera de: credencial de perito valuador catastral, oficio de habilitación municipal o estatal, o un avalúo catastral previo con tu nombre y firma."
+            value={files.comprobante_catastro} onChange={v => setFile("comprobante_catastro", v)} />
+        </div>
+      )}
 
       {/* Documentos y cuestionario para perfil completo */}
       {regData.modo_perfil === "completo" && (
@@ -935,8 +987,8 @@ const LoginPage = () => {
             </div>
             <p className="text-xs text-slate-500 mb-4">Necesarios para que PropValu te asigne encargos externos.</p>
             <div className="space-y-4">
-              <FileUploadField label="Comprobante de domicilio"
-                hint="Recibo de luz, agua o teléfono (no mayor a 3 meses)"
+              <FileUploadField label="Comprobante de domicilio de oficina o trabajo"
+                hint="Recibo de luz, agua, internet o renta a nombre del valuador o de la empresa, con la dirección de trabajo (no mayor a 3 meses). También se acepta recibo de celular a tu nombre."
                 value={files.comprobante_domicilio} onChange={v => setFile("comprobante_domicilio", v)} required />
               <FileUploadField label="Carta de recomendación"
                 hint="De un cliente, empresa o colegio de valuadores"
@@ -1019,7 +1071,7 @@ const LoginPage = () => {
                   {regData.q_seguro_rc && <Check className="w-3 h-3 text-white" />}
                 </button>
                 <Label className="text-sm text-slate-600 cursor-pointer" onClick={() => setReg("q_seguro_rc", !regData.q_seguro_rc)}>
-                  Cuento con seguro de responsabilidad civil
+                  Cuento con seguro de responsabilidad civil <span className="text-slate-400 font-normal">(no indispensable)</span>
                 </Label>
               </div>
 

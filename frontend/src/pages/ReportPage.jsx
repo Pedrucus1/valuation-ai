@@ -26,7 +26,16 @@ const ReportPage = () => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [includeAnalysis, setIncludeAnalysis] = useState(true);
   const [showSlot2Ad, setShowSlot2Ad] = useState(false);
+  const [slot2AdDone, setSlot2AdDone] = useState(false);
   const [showSlot3Ad, setShowSlot3Ad] = useState(false);
+
+  // Cerrar slot2 solo cuando AMBOS terminaron: countdown del ad Y generación IA
+  useEffect(() => {
+    if (slot2AdDone && !isGenerating) {
+      setShowSlot2Ad(false);
+      setSlot2AdDone(false);
+    }
+  }, [slot2AdDone, isGenerating]);
   const reportRef = useRef(null);
 
   useEffect(() => {
@@ -418,7 +427,7 @@ const ReportPage = () => {
         <AdOverlay
           slot="slot2"
           zone={property?.municipality || property?.city || ""}
-          onDone={() => setShowSlot2Ad(false)}
+          onDone={() => setSlot2AdDone(true)}
         />
       )}
 
