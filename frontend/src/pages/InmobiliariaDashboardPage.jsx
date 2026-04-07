@@ -352,6 +352,64 @@ const InmobiliariaDashboardPage = () => {
     </div>
   );
 
+  const PLAN_INFO_INMO = {
+    basico:    { label: "Básico",    precio: "$950",   periodo: "mes", badge: "bg-slate-200 text-slate-700",    border: "border-slate-200 bg-slate-50",    valuaciones: 5,  usuarios: "1 titular",    extras: [] },
+    estandar:  { label: "Estándar", precio: "$2,800", periodo: "mes", badge: "bg-[#52B788] text-white",       border: "border-[#52B788]/30 bg-[#F0FAF5]", valuaciones: 20, usuarios: "Hasta 5 asesores", extras: ["Reporte de mercado mensual"] },
+    premier:   { label: "Premier",  precio: "$7,200", periodo: "mes", badge: "bg-[#1B4332] text-white",       border: "border-[#1B4332]/20 bg-[#1B4332]/5", valuaciones: 50, usuarios: "Ilimitados",  extras: ["Reporte de mercado mensual", "Soporte dedicado", "Sin publicidad"] },
+  };
+
+  const PlanCard = () => {
+    const plan = session?.plan ? PLAN_INFO_INMO[session.plan] : null;
+    if (!plan) return (
+      <div className="mb-6 rounded-2xl border border-dashed border-slate-200 bg-white p-5 flex items-center justify-between gap-4">
+        <div>
+          <p className="text-sm font-semibold text-slate-700">Sin plan activo</p>
+          <p className="text-xs text-slate-400 mt-0.5">Activa un plan para solicitar valuaciones y acceder a todos los beneficios.</p>
+        </div>
+        <button onClick={handleComprarCreditos}
+          className="shrink-0 bg-[#1B4332] text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-[#163828] transition-colors">
+          Ver planes
+        </button>
+      </div>
+    );
+    return (
+      <div className={`mb-6 rounded-2xl border p-5 ${plan.border}`}>
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-2">
+              <span className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full ${plan.badge}`}>Plan {plan.label}</span>
+              <span className="text-xs text-slate-500">{plan.precio} MXN + IVA / {plan.periodo}</span>
+            </div>
+            <div className="flex flex-wrap gap-x-4 gap-y-1">
+              <span className="text-xs text-slate-600 flex items-center gap-1">
+                <CheckCircle2 className="w-3 h-3 text-[#52B788] shrink-0" />{plan.valuaciones} valuaciones/mes
+              </span>
+              <span className="text-xs text-slate-600 flex items-center gap-1">
+                <CheckCircle2 className="w-3 h-3 text-[#52B788] shrink-0" />Usuarios: {plan.usuarios}
+              </span>
+              <span className="text-xs text-slate-600 flex items-center gap-1">
+                <CheckCircle2 className="w-3 h-3 text-[#52B788] shrink-0" />Reporte PDF PropValu
+              </span>
+              {plan.extras.map(e => (
+                <span key={e} className="text-xs text-slate-600 flex items-center gap-1">
+                  <CheckCircle2 className="w-3 h-3 text-[#52B788] shrink-0" />{e}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div className="text-right shrink-0">
+            <p className="text-[10px] text-slate-400">Créditos disponibles</p>
+            <p className="text-2xl font-bold text-[#1B4332] font-['Outfit']">{credits}</p>
+            <button onClick={handleComprarCreditos}
+              className="mt-1 text-[10px] text-[#52B788] hover:underline">
+              Renovar / cambiar plan
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   const CreditsCta = () => (
     <Card className="bg-white border-0 shadow-sm mb-6">
       <CardContent className="p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -634,6 +692,7 @@ const InmobiliariaDashboardPage = () => {
         {/* Tab: Resumen */}
         {activeTab === "resumen" && (
           <>
+            <PlanCard />
             <StatCards />
             <CreditsCta />
             <ValuacionesTable />

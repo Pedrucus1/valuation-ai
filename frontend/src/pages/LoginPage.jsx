@@ -219,6 +219,7 @@ const LoginPage = () => {
       if (regData.role === "appraiser") {
         const anyService = Object.values(regData.services).some(Boolean);
         if (!anyService) { toast.error("Selecciona al menos un tipo de servicio"); return false; }
+        if (!regData.q_experiencia) { toast.error("Indica tus años de experiencia"); return false; }
       }
       if (regData.role === "realtor") {
         if (!regData.inmobiliaria_tipo) { toast.error("Selecciona si eres Titular o Asesor"); return false; }
@@ -496,48 +497,108 @@ const LoginPage = () => {
     <div>
       <Label className="text-sm font-semibold text-[#1B4332] mb-3 block">¿Cómo quieres participar en PropValu? *</Label>
       <div className="grid grid-cols-1 gap-3">
-        {[
-          {
-            val: "basico",
-            title: "Solo valuaciones en plataforma",
-            desc: rol === "appraiser"
-              ? "Realiza avalúos directamente en PropValu. Requiere INE y cédula profesional."
-              : "Solicita valuaciones para tus propiedades. Requiere documentos básicos de empresa.",
-            icon: "🖥️",
-          },
-          {
-            val: "completo",
-            title: "Perfil completo — recibir encargos",
-            desc: rol === "appraiser"
-              ? "Además de valuar en la plataforma, PropValu puede mandarte trabajo. Requiere documentación adicional y cuestionario de perfil."
-              : "Además de solicitar valuaciones, entra al directorio y recibe encargos de clientes. Requiere documentación adicional.",
-            icon: "🏆",
-          },
-        ].map(({ val, title, desc, icon }) => (
-          <button
-            key={val}
-            type="button"
-            onClick={() => setReg("modo_perfil", val)}
-            className={`text-left p-4 rounded-xl border-2 transition-all ${
-              regData.modo_perfil === val
-                ? "border-[#52B788] bg-[#F0FAF5]"
-                : "border-slate-200 hover:border-slate-300 bg-white"
-            }`}
-          >
-            <div className="flex items-start gap-3">
-              <span className="text-xl shrink-0">{icon}</span>
-              <div>
-                <p className={`text-sm font-bold ${regData.modo_perfil === val ? "text-[#1B4332]" : "text-slate-700"}`}>{title}</p>
-                <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">{desc}</p>
-              </div>
-              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ml-auto mt-0.5 ${
-                regData.modo_perfil === val ? "border-[#52B788] bg-[#52B788]" : "border-slate-300"
-              }`}>
-                {regData.modo_perfil === val && <div className="w-2 h-2 rounded-full bg-white" />}
-              </div>
+
+        {/* Opción básica */}
+        <button type="button" onClick={() => setReg("modo_perfil", "basico")}
+          className={`text-left p-4 rounded-xl border-2 transition-all ${
+            regData.modo_perfil === "basico" ? "border-[#52B788] bg-[#F0FAF5]" : "border-slate-200 hover:border-slate-300 bg-white"
+          }`}>
+          <div className="flex items-start gap-3">
+            <span className="text-xl shrink-0">🖥️</span>
+            <div className="flex-1">
+              <p className={`text-sm font-bold ${regData.modo_perfil === "basico" ? "text-[#1B4332]" : "text-slate-700"}`}>
+                Solo valuaciones en plataforma
+              </p>
+              <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">
+                {rol === "appraiser"
+                  ? "Usa PropValu para hacer tus propios avalúos. Requiere INE y cédula profesional."
+                  : "Solicita valuaciones para tu portafolio. Requiere documentos básicos de empresa."}
+              </p>
             </div>
-          </button>
-        ))}
+            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 mt-0.5 ${
+              regData.modo_perfil === "basico" ? "border-[#52B788] bg-[#52B788]" : "border-slate-300"
+            }`}>
+              {regData.modo_perfil === "basico" && <div className="w-2 h-2 rounded-full bg-white" />}
+            </div>
+          </div>
+        </button>
+
+        {/* Opción afiliado */}
+        <button type="button" onClick={() => setReg("modo_perfil", "completo")}
+          className={`text-left p-4 rounded-xl border-2 transition-all ${
+            regData.modo_perfil === "completo" ? "border-[#1B4332] bg-[#1B4332]/5" : "border-slate-200 hover:border-slate-300 bg-white"
+          }`}>
+          <div className="flex items-start gap-3">
+            <span className="text-xl shrink-0">🏆</span>
+            <div className="flex-1">
+              <div className="flex items-center gap-2">
+                <p className={`text-sm font-bold ${regData.modo_perfil === "completo" ? "text-[#1B4332]" : "text-slate-700"}`}>
+                  {rol === "appraiser" ? "Valuador Afiliado PropValu" : "Inmobiliaria Afiliada PropValu"}
+                </p>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#D9ED92] text-[#1B4332]">Recomendado</span>
+              </div>
+              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                {rol === "appraiser"
+                  ? "Además de usar la plataforma, PropValu te manda encargos de clientes e inmobiliarias en tu zona."
+                  : "Además de solicitar valuaciones, tu empresa aparece en el directorio y recibes servicios prioritarios."}
+              </p>
+              {/* Pitch expandido cuando está seleccionado */}
+              {regData.modo_perfil === "completo" && (
+                <div className="mt-3 space-y-2.5 border-t border-[#1B4332]/10 pt-3">
+                  <div>
+                    <p className="text-[11px] font-bold text-[#1B4332] mb-1">Lo que obtienes</p>
+                    <div className="space-y-1">
+                      {(rol === "appraiser" ? [
+                        "Encargos directos de clientes e inmobiliarias en tu zona",
+                        "80% de comisión — PropValu retiene solo el 20%",
+                        "Perfil verificado con medallitas en el directorio público",
+                        "Prioridad en la asignación según calificación y cercanía",
+                        "Notificación por WhatsApp y correo de cada encargo",
+                      ] : [
+                        "Perfil verificado en el directorio de inmobiliarias PropValu",
+                        "Valuadores certificados asignados a tus propiedades",
+                        "Reporte mensual de mercado por zona",
+                        "Soporte dedicado en planes Estándar y Premier",
+                      ]).map(item => (
+                        <p key={item} className="text-xs text-slate-600 flex items-start gap-1.5">
+                          <CheckCircle2 className="w-3 h-3 text-[#52B788] shrink-0 mt-0.5" />{item}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-[11px] font-bold text-slate-500 mb-1">Tus compromisos</p>
+                    <div className="space-y-1">
+                      {(rol === "appraiser" ? [
+                        "Responder cada encargo en menos de 24 horas",
+                        "Cumplir con los estándares de calidad PropValu",
+                        "Mantener tu expediente completo y vigente",
+                      ] : [
+                        "Documentación de empresa completa y vigente",
+                        "Pago mensual o anual del plan contratado",
+                      ]).map(item => (
+                        <p key={item} className="text-xs text-slate-500 flex items-start gap-1.5">
+                          <span className="shrink-0 mt-0.5">•</span>{item}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+                  <p className="text-[11px] text-slate-400 italic">
+                    {rol === "appraiser"
+                      ? "Requiere expediente completo (CV, domicilio, avalúos de muestra) + entrevista de verificación por videollamada."
+                      : "Requiere documentación adicional de la empresa + entrevista de verificación."}
+                  </p>
+                </div>
+              )}
+            </div>
+            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 mt-0.5 ${
+              regData.modo_perfil === "completo" ? "border-[#1B4332] bg-[#1B4332]" : "border-slate-300"
+            }`}>
+              {regData.modo_perfil === "completo" && <div className="w-2 h-2 rounded-full bg-white" />}
+            </div>
+          </div>
+        </button>
+
       </div>
     </div>
   );
