@@ -129,6 +129,11 @@ const LoginPage = () => {
     // Modo de participación (aplica a valuador e inmobiliaria)
     modo_perfil: "",  // "basico" | "completo"
 
+    // Cédulas
+    profesion_base: "",     // "arquitecto" | "ing_civil" | "ing_estructural" | "otro"
+    num_cedula_base: "",
+    num_cedula_valuador: "",
+
     // Paso 2 Valuador
     services: {
       infonavit: false, fovissste: false, comerciales: false,
@@ -167,6 +172,7 @@ const LoginPage = () => {
     ine_frente: null,
     ine_vuelta: null,
     cedula: null,
+    cedula_valuador: null,
     foto_profesional: null,
     // Básico adicional
     firma_autografa: null,
@@ -284,7 +290,9 @@ const LoginPage = () => {
     // Validate required docs
     if (regData.role === "appraiser") {
       if (!files.ine_frente)              { toast.error("Sube el frente de tu INE"); return; }
-      if (!files.cedula)                  { toast.error("Sube tu Cédula Profesional"); return; }
+      if (!regData.profesion_base)        { toast.error("Selecciona tu profesión de base"); return; }
+      if (!regData.num_cedula_base.trim()){ toast.error("Escribe tu número de cédula profesional"); return; }
+      if (!files.cedula)                  { toast.error("Sube la foto de tu Cédula Profesional"); return; }
       if (!files.foto_profesional)        { toast.error("Sube tu foto profesional"); return; }
       if (!files.comprobante_experiencia) { toast.error("Sube el comprobante de experiencia"); return; }
     }
@@ -322,6 +330,9 @@ const LoginPage = () => {
           servicios_otros: regData.servicios_otros_lista.filter(s => s.trim()),
           peritajes_tipos: regData.peritajes_tipos,
           peritajes_otros: regData.peritajes_otros || undefined,
+          profesion_base:     regData.profesion_base || undefined,
+          num_cedula_base:    regData.num_cedula_base || undefined,
+          num_cedula_valuador: regData.num_cedula_valuador || undefined,
           q_experiencia:     regData.q_experiencia || undefined,
           q_unidad_valuacion: regData.q_unidad_valuacion || undefined,
           ...(regData.modo_perfil === "completo" ? {
@@ -918,10 +929,59 @@ const LoginPage = () => {
             value={files.ine_frente} onChange={v => setFile("ine_frente", v)} required />
           <FileUploadField label="INE — Vuelta" hint="Identificación oficial vigente, cara trasera"
             value={files.ine_vuelta} onChange={v => setFile("ine_vuelta", v)} />
-          <FileUploadField
-            label="Cédula Profesional"
-            hint="Cédula de Arquitecto, Ing. Civil, Ing. Estructural, Perito Valuador u otra carrera afín, verificable en el Registro Nacional de Profesionistas (SEP-DGP)."
-            value={files.cedula} onChange={v => setFile("cedula", v)} required />
+          {/* Cédula base — selector de profesión + número + foto */}
+          <div className="rounded-xl border border-[#B7E4C7] bg-[#F0FAF5] p-4 space-y-3">
+            <p className="text-sm font-semibold text-[#1B4332]">Cédula Profesional de base *</p>
+            <p className="text-xs text-slate-500">Selecciona tu carrera y escribe el número de cédula tal como aparece en el documento.</p>
+            <div className="grid grid-cols-2 gap-2">
+              {[
+                ["arquitecto",      "Arquitecto"],
+                ["ing_civil",       "Ing. Civil"],
+                ["ing_estructural", "Ing. Estructural"],
+                ["otro",            "Otra afín"],
+              ].map(([val, lbl]) => (
+                <button key={val} type="button" onClick={() => setReg("profesion_base", val)}
+                  className={`py-2 px-3 rounded-lg border text-sm font-medium transition-all ${
+                    regData.profesion_base === val
+                      ? "border-[#52B788] bg-white text-[#1B4332] shadow-sm"
+                      : "border-slate-200 text-slate-600 hover:border-slate-300 bg-white"
+                  }`}>{lbl}</button>
+              ))}
+            </div>
+            <div className="space-y-1">
+              <Label className="text-xs font-semibold text-slate-600">Número de cédula *</Label>
+              <Input
+                placeholder="ej. 12345678"
+                className="h-9 text-sm bg-white border-[#B7E4C7] focus:border-[#52B788] focus:outline-none"
+                value={regData.num_cedula_base}
+                onChange={e => setReg("num_cedula_base", e.target.value.replace(/\D/g, ""))}
+              />
+              <p className="text-xs text-slate-400">Verificable en el Registro Nacional de Profesionistas (SEP-DGP).</p>
+            </div>
+            <FileUploadField
+              label="Foto o escaneo de la cédula *"
+              hint="Ambas caras si es tarjeta, o el PDF/imagen del documento impreso."
+              value={files.cedula} onChange={v => setFile("cedula", v)} required />
+          </div>
+
+          {/* Cédula de Perito Valuador (opcional) */}
+          <div className="rounded-xl border border-slate-200 bg-white p-4 space-y-3">
+            <p className="text-sm font-semibold text-[#1B4332]">Cédula de Perito Valuador <span className="text-slate-400 font-normal">(si la tienes)</span></p>
+            <p className="text-xs text-slate-500">Cédula expedida específicamente como Perito Valuador, independiente de la de arquitecto o ingeniero.</p>
+            <div className="space-y-1">
+              <Label className="text-xs font-semibold text-slate-600">Número de cédula de valuador</Label>
+              <Input
+                placeholder="ej. 87654321"
+                className="h-9 text-sm bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:outline-none"
+                value={regData.num_cedula_valuador}
+                onChange={e => setReg("num_cedula_valuador", e.target.value.replace(/\D/g, ""))}
+              />
+            </div>
+            <FileUploadField
+              label="Foto o escaneo de la cédula de valuador"
+              hint="Adjunta la cédula de Perito Valuador si es diferente a la de tu carrera base."
+              value={files.cedula_valuador} onChange={v => setFile("cedula_valuador", v)} />
+          </div>
           <FileUploadField
             label="Foto profesional *"
             hint="Fotografía reciente de frente, fondo neutro, con vestimenta formal. Aparecerá en los reportes y opiniones que generes en PropValu."
