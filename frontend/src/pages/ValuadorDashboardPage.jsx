@@ -31,7 +31,15 @@ import {
   ShieldCheck,
   Clock,
   XCircle,
+  Pencil,
+  X,
+  Save,
+  Globe,
+  Briefcase,
+  Award,
 } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { API } from "@/App";
 
 /* ─── Helpers ──────────────────────────────────────────── */
@@ -649,195 +657,281 @@ const ValuadorDashboardPage = () => {
     </Card>
   );
 
-  const Pendiente = () => (
-    <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 border border-amber-200 ml-1">
-      Pendiente
-    </span>
-  );
-
-  const Campo = ({ label, value, icon: Icon }) => (
-    <div>
-      <p className="text-xs text-slate-400 mb-1">{label}</p>
-      <div className="flex items-center gap-2">
-        {Icon && <Icon className="w-4 h-4 text-slate-400 flex-shrink-0" />}
-        {value
-          ? <p className="text-sm text-slate-700">{value}</p>
-          : <p className="text-sm text-slate-400 italic">No registrado <Pendiente /></p>
-        }
-      </div>
-    </div>
-  );
-
+  // ── Perfil: helpers y estado de edición ──────────────────────────────────
+  const PROFESION_LABELS = { arquitecto:"Arquitecto", ing_civil:"Ing. Civil", ing_estructural:"Ing. Estructural", otro:"Otra carrera afín" };
   const medallaExp = (() => {
-    const exp = session?.q_experiencia;
-    if (!exp) return null;
-    if (exp === "Más de 10 años") return { emoji: "🥇", nivel: "Oro", title: "Más de 10 años — Nivel Oro" };
-    if (exp === "5-10 años" || exp === "3-5 años") return { emoji: "🥈", nivel: "Plata", title: `${exp} — Nivel Plata` };
-    if (exp === "1-3 años") return { emoji: "🥉", nivel: "Bronce", title: "1-3 años — Nivel Bronce" };
+    const e = session?.q_experiencia;
+    if (!e) return null;
+    if (e === "Más de 10 años") return { emoji:"🥇", nivel:"Oro",    title:"Más de 10 años — Nivel Oro" };
+    if (e === "5-10 años" || e === "3-5 años") return { emoji:"🥈", nivel:"Plata",  title:`${e} — Nivel Plata` };
+    if (e === "1-3 años")  return { emoji:"🥉", nivel:"Bronce", title:"1-3 años — Nivel Bronce" };
     return null;
   })();
 
-  const PROFESION_LABELS = {
-    arquitecto: "Arquitecto",
-    ing_civil: "Ing. Civil",
-    ing_estructural: "Ing. Estructural",
-    otro: "Otra carrera afín",
+  const [editSection, setEditSection] = useState(null); // null | "contacto" | "cedulas" | "ubicacion" | "servicios" | "profesional"
+  const [editData, setEditData] = useState({});
+  const [savingSection, setSavingSection] = useState(false);
+
+  const openEdit = (section) => {
+    const d = {};
+    if (section === "contacto")   Object.assign(d, { name: session.name||"", phone: session.phone||"", q_experiencia: session.q_experiencia||"" });
+    if (section === "cedulas")    Object.assign(d, { profesion_base: session.profesion_base||"", num_cedula_base: session.num_cedula_base||"", num_cedula_valuador: session.num_cedula_valuador||"" });
+    if (section === "ubicacion")  Object.assign(d, { estado: session.estado||"", q_dir_oficina: session.q_dir_oficina||"", q_maps_url: session.q_maps_url||"", municipios: session.municipios?.join(", ")||"" });
+    if (section === "profesional") Object.assign(d, { q_equipo: session.q_equipo||"", q_tiempo_entrega: session.q_tiempo_entrega||"", q_software: session.q_software||"", q_idiomas: session.q_idiomas||"", q_unidad_valuacion: session.q_unidad_valuacion||"" });
+    setEditData(d);
+    setEditSection(section);
   };
+
+  const saveEdit = async () => {
+    setSavingSection(true);
+    try {
+      const payload = { ...editData };
+      if (editSection === "ubicacion" && editData.municipios) {
+        payload.municipios = editData.municipios.split(",").map(m => m.trim()).filter(Boolean);
+        delete payload.municipios_raw;
+      }
+      const res = await fetch(`${API}/auth/profile`, {
+        method: "PUT", credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error("Error al guardar");
+      const updated = await res.json();
+      setSession(prev => ({ ...prev, ...updated }));
+      localStorage.setItem("valuador_session", JSON.stringify({ ...session, ...updated }));
+      setEditSection(null);
+      toast.success("Perfil actualizado");
+    } catch { toast.error("No se pudo guardar"); }
+    finally { setSavingSection(false); }
+  };
+
+  const SectionHeader = ({ icon: Icon, emoji, title, section }) => (
+    <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] px-5 py-3.5 flex items-center justify-between rounded-t-xl">
+      <div className="flex items-center gap-2">
+        {Icon ? <Icon className="w-4 h-4 text-[#D9ED92]" /> : <span className="text-base">{emoji}</span>}
+        <span className="font-['Outfit'] font-semibold text-white text-sm">{title}</span>
+      </div>
+      <button onClick={() => editSection === section ? setEditSection(null) : openEdit(section)}
+        className="flex items-center gap-1 text-[#D9ED92] hover:text-white text-xs font-semibold transition-colors">
+        {editSection === section ? <><X className="w-3.5 h-3.5" /> Cancelar</> : <><Pencil className="w-3.5 h-3.5" /> Editar</>}
+      </button>
+    </div>
+  );
+
+  const Dato = ({ label, value, empty = "Sin registrar" }) => (
+    <div className="min-w-0">
+      <p className="text-[11px] text-slate-400 font-medium uppercase tracking-wide mb-0.5">{label}</p>
+      {value
+        ? <p className="text-sm font-medium text-[#1B4332] break-words">{value}</p>
+        : <p className="text-sm text-slate-300 italic">{empty} <span className="not-italic text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-600 border border-amber-200">pendiente</span></p>
+      }
+    </div>
+  );
+
+  const SaveBar = () => (
+    <div className="px-5 pb-4 pt-1 flex justify-end">
+      <button onClick={saveEdit} disabled={savingSection}
+        className="flex items-center gap-1.5 bg-[#52B788] hover:bg-[#40916C] text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors disabled:opacity-50">
+        <Save className="w-3.5 h-3.5" />
+        {savingSection ? "Guardando…" : "Guardar cambios"}
+      </button>
+    </div>
+  );
+
+  const ef = editData; // shorthand
 
   const PerfilCard = () => (
     <div className="space-y-4">
 
-      {/* Información personal */}
-      <Card className="bg-white border-0 shadow-sm">
-        <CardHeader className="border-b border-slate-100 py-4">
-          <CardTitle className="font-['Outfit'] text-base text-[#1B4332] flex items-center gap-2">
-            <User className="w-4 h-4" /> Información personal
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="p-5">
-          <div className="grid sm:grid-cols-2 gap-4">
-            <div>
-              <p className="text-xs text-slate-400 mb-1">Nombre</p>
-              <div className="flex items-center gap-2">
-                <p className="font-semibold text-[#1B4332]">{session.name || "—"}</p>
-                {medallaExp && <span title={medallaExp.title} className="text-lg">{medallaExp.emoji}</span>}
-              </div>
+      {/* ── Header de perfil ── */}
+      <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] rounded-2xl p-5 flex items-center gap-4">
+        <div className="w-14 h-14 rounded-full bg-[#52B788]/30 border-2 border-[#52B788] flex items-center justify-center flex-shrink-0">
+          <User className="w-7 h-7 text-[#D9ED92]" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 flex-wrap">
+            <p className="font-['Outfit'] text-lg font-bold text-white">{session.name || "—"}</p>
+            {medallaExp && <span title={medallaExp.title} className="text-xl">{medallaExp.emoji}</span>}
+          </div>
+          <p className="text-sm text-[#D9ED92]/80 mt-0.5">
+            {PROFESION_LABELS[session.profesion_base] || "Valuador"} · {session.q_experiencia || "Experiencia no indicada"}
+          </p>
+          <div className="flex flex-wrap gap-1.5 mt-2">
+            {badgesGanados.map(b => (
+              <span key={b.key} title={b.label} className="text-base">{b.emoji}</span>
+            ))}
+            <span className="text-xs text-[#D9ED92]/60 self-center">{badgesGanados.length > 0 ? "credenciales verificadas" : "Sin credenciales verificadas aún"}</span>
+          </div>
+        </div>
+        <div className="text-right hidden sm:block flex-shrink-0">
+          <p className="text-xs text-[#D9ED92]/60 uppercase tracking-wide">Modo</p>
+          <p className="text-sm font-semibold text-white">{session.modo_perfil === "completo" ? "Completo" : "Básico"}</p>
+          <p className="text-xs text-[#D9ED92]/60 mt-1 uppercase tracking-wide">KYC</p>
+          <p className="text-xs font-semibold text-white">{session.kyc_status === "approved" ? "✅ Verificado" : session.kyc_status === "under_review" ? "🔍 En revisión" : "⏳ Pendiente"}</p>
+        </div>
+      </div>
+
+      {/* ── Grid 2 columnas ── */}
+      <div className="grid md:grid-cols-2 gap-4">
+
+        {/* Columna izquierda */}
+        <div className="space-y-4">
+
+          {/* Contacto */}
+          <div className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden">
+            <SectionHeader icon={User} title="Contacto" section="contacto" />
+            <div className="p-5 grid grid-cols-2 gap-4">
+              <Dato label="Nombre completo" value={session.name} />
+              <Dato label="Correo" value={session.email} />
+              <Dato label="Teléfono" value={session.phone} />
+              <Dato label="Experiencia" value={session.q_experiencia ? `${session.q_experiencia}${medallaExp ? ` ${medallaExp.emoji}` : ""}` : null} />
             </div>
-            <Campo label="Correo electrónico" value={session.email} icon={Mail} />
-            <Campo label="Teléfono de contacto" value={session.phone} icon={Phone} />
-            <Campo label="Años de experiencia" value={session.q_experiencia
-              ? `${session.q_experiencia}${medallaExp ? ` ${medallaExp.emoji} Nivel ${medallaExp.nivel}` : ""}`
-              : null} />
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Cédulas */}
-      <Card className="bg-white border-0 shadow-sm">
-        <CardHeader className="border-b border-slate-100 py-4">
-          <CardTitle className="font-['Outfit'] text-base text-[#1B4332] flex items-center gap-2">
-            🎓 Cédulas profesionales
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="p-5">
-          <div className="grid sm:grid-cols-2 gap-4">
-            <Campo label="Profesión de base" value={PROFESION_LABELS[session.profesion_base] || session.profesion_base} />
-            <Campo label="Núm. cédula (arq./ing.)" value={session.num_cedula_base} />
-            <Campo label="Núm. cédula Perito Valuador" value={session.num_cedula_valuador} />
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Ubicación y oficina */}
-      <Card className="bg-white border-0 shadow-sm">
-        <CardHeader className="border-b border-slate-100 py-4">
-          <CardTitle className="font-['Outfit'] text-base text-[#1B4332] flex items-center gap-2">
-            <MapPin className="w-4 h-4" /> Ubicación y oficina
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="p-5 space-y-4">
-          <div className="grid sm:grid-cols-2 gap-4">
-            <Campo label="Estado" value={session.estado} />
-            <div>
-              <p className="text-xs text-slate-400 mb-1">Municipios donde trabaja</p>
-              {session.municipios?.filter(Boolean).length > 0
-                ? <div className="flex flex-wrap gap-1.5">
-                    {session.municipios.filter(Boolean).map((m, i) => (
-                      <span key={i} className="text-xs bg-[#F0FAF5] border border-[#B7E4C7] text-[#1B4332] px-2 py-0.5 rounded-full">{m}</span>
-                    ))}
-                  </div>
-                : <p className="text-sm text-slate-400 italic">No registrado <Pendiente /></p>
-              }
-            </div>
-          </div>
-          <div className="grid sm:grid-cols-2 gap-4">
-            <Campo label="Dirección de oficina" value={session.q_dir_oficina} icon={MapPin} />
-            <Campo label="Google Maps" value={session.q_maps_url} />
-          </div>
-          {!session.q_oficina && !session.q_dir_oficina && (
-            <p className="text-xs text-slate-400 italic">No indicó dirección de oficina física. <Pendiente /></p>
-          )}
-        </CardContent>
-      </Card>
-
-      {/* Tipos de avalúo y servicios */}
-      <Card className="bg-white border-0 shadow-sm">
-        <CardHeader className="border-b border-slate-100 py-4">
-          <CardTitle className="font-['Outfit'] text-base text-[#1B4332] flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4" /> Tipos de avalúo y servicios
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="p-5 space-y-4">
-          {checkedServices.length > 0
-            ? <div>
-                <p className="text-xs text-slate-400 mb-2">Servicios registrados</p>
-                <div className="flex flex-wrap gap-2">
-                  {checkedServices.map(svc => (
-                    <Badge key={svc} className="bg-[#52B788]/15 text-[#1B4332] flex items-center gap-1">
-                      <CheckCircle2 className="w-3 h-3" />{serviceLabel(svc)}
-                    </Badge>
-                  ))}
+            {editSection === "contacto" && (
+              <div className="border-t border-[#F0FAF5] px-5 pt-4 pb-1 grid grid-cols-2 gap-3">
+                <div className="col-span-2 space-y-1"><Label className="text-xs">Nombre</Label><Input value={ef.name} onChange={e=>setEditData(p=>({...p,name:e.target.value}))} className="h-8 text-sm" /></div>
+                <div className="space-y-1"><Label className="text-xs">Teléfono</Label><Input value={ef.phone} onChange={e=>setEditData(p=>({...p,phone:e.target.value}))} className="h-8 text-sm" /></div>
+                <div className="space-y-1">
+                  <Label className="text-xs">Años de experiencia</Label>
+                  <select value={ef.q_experiencia} onChange={e=>setEditData(p=>({...p,q_experiencia:e.target.value}))} className="w-full h-8 px-2 text-sm border border-[#B7E4C7] rounded-md bg-[#F0FAF5] focus:outline-none">
+                    <option value="">Seleccionar...</option>
+                    {["1-3 años","3-5 años","5-10 años","Más de 10 años"].map(o=><option key={o} value={o}>{o}</option>)}
+                  </select>
                 </div>
               </div>
-            : <p className="text-sm text-slate-400 italic">Sin servicios registrados <Pendiente /></p>
-          }
-          {session.peritajes_tipos?.length > 0 && (
-            <div>
-              <p className="text-xs text-slate-400 mb-2">Tipos de peritaje</p>
-              <div className="flex flex-wrap gap-2">
-                {session.peritajes_tipos.map(p => (
-                  <Badge key={p} variant="outline" className="text-xs">{p}</Badge>
+            )}
+            {editSection === "contacto" && <SaveBar />}
+          </div>
+
+          {/* Cédulas */}
+          <div className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden">
+            <SectionHeader emoji="🎓" title="Cédulas profesionales" section="cedulas" />
+            <div className="p-5 grid grid-cols-2 gap-4">
+              <Dato label="Profesión" value={PROFESION_LABELS[session.profesion_base] || session.profesion_base} />
+              <Dato label="Núm. cédula (arq./ing.)" value={session.num_cedula_base} />
+              <div className="col-span-2"><Dato label="Núm. cédula Perito Valuador" value={session.num_cedula_valuador} empty="No registrada (opcional)" /></div>
+            </div>
+            {editSection === "cedulas" && (
+              <div className="border-t border-[#F0FAF5] px-5 pt-4 pb-1 space-y-3">
+                <div className="space-y-1">
+                  <Label className="text-xs">Profesión de base</Label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {[["arquitecto","Arquitecto"],["ing_civil","Ing. Civil"],["ing_estructural","Ing. Estructural"],["otro","Otra"]].map(([v,l])=>(
+                      <button key={v} type="button" onClick={()=>setEditData(p=>({...p,profesion_base:v}))}
+                        className={`py-1.5 px-2 rounded-lg border text-xs font-medium transition-all ${ef.profesion_base===v?"border-[#52B788] bg-[#F0FAF5] text-[#1B4332]":"border-slate-200 text-slate-600"}`}>{l}</button>
+                    ))}
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-1"><Label className="text-xs">Núm. cédula base</Label><Input value={ef.num_cedula_base} onChange={e=>setEditData(p=>({...p,num_cedula_base:e.target.value.replace(/\D/g,"")}))} className="h-8 text-sm" /></div>
+                  <div className="space-y-1"><Label className="text-xs">Núm. cédula valuador</Label><Input value={ef.num_cedula_valuador} onChange={e=>setEditData(p=>({...p,num_cedula_valuador:e.target.value.replace(/\D/g,"")}))} className="h-8 text-sm" /></div>
+                </div>
+              </div>
+            )}
+            {editSection === "cedulas" && <SaveBar />}
+          </div>
+
+        </div>
+
+        {/* Columna derecha */}
+        <div className="space-y-4">
+
+          {/* Ubicación */}
+          <div className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden">
+            <SectionHeader icon={MapPin} title="Ubicación y oficina" section="ubicacion" />
+            <div className="p-5 grid grid-cols-2 gap-4">
+              <Dato label="Estado" value={session.estado} />
+              <div>
+                <p className="text-[11px] text-slate-400 font-medium uppercase tracking-wide mb-1">Municipios</p>
+                {session.municipios?.filter(Boolean).length > 0
+                  ? <div className="flex flex-wrap gap-1">{session.municipios.filter(Boolean).map((m,i)=><span key={i} className="text-xs bg-[#F0FAF5] border border-[#B7E4C7] text-[#1B4332] px-2 py-0.5 rounded-full">{m}</span>)}</div>
+                  : <p className="text-sm text-slate-300 italic">Sin registrar <span className="not-italic text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-600 border border-amber-200">pendiente</span></p>
+                }
+              </div>
+              <div className="col-span-2"><Dato label="Dirección de oficina" value={session.q_dir_oficina} /></div>
+              {session.q_maps_url && <div className="col-span-2"><a href={session.q_maps_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-xs text-[#52B788] font-semibold hover:underline"><Globe className="w-3.5 h-3.5" />Ver en Google Maps</a></div>}
+            </div>
+            {editSection === "ubicacion" && (
+              <div className="border-t border-[#F0FAF5] px-5 pt-4 pb-1 grid grid-cols-2 gap-3">
+                <div className="space-y-1"><Label className="text-xs">Estado</Label><Input value={ef.estado} onChange={e=>setEditData(p=>({...p,estado:e.target.value}))} className="h-8 text-sm" /></div>
+                <div className="space-y-1"><Label className="text-xs">Municipios (separados por coma)</Label><Input value={ef.municipios} onChange={e=>setEditData(p=>({...p,municipios:e.target.value}))} className="h-8 text-sm" placeholder="Zapopan, Guadalajara..." /></div>
+                <div className="col-span-2 space-y-1"><Label className="text-xs">Dirección de oficina</Label><Input value={ef.q_dir_oficina} onChange={e=>setEditData(p=>({...p,q_dir_oficina:e.target.value}))} className="h-8 text-sm" /></div>
+                <div className="col-span-2 space-y-1"><Label className="text-xs">Link Google Maps</Label><Input value={ef.q_maps_url} onChange={e=>setEditData(p=>({...p,q_maps_url:e.target.value}))} className="h-8 text-sm" /></div>
+              </div>
+            )}
+            {editSection === "ubicacion" && <SaveBar />}
+          </div>
+
+          {/* Perfil profesional */}
+          <div className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden">
+            <SectionHeader icon={Briefcase} title="Perfil profesional" section="profesional" />
+            <div className="p-5 grid grid-cols-2 gap-4">
+              <Dato label="Equipo" value={{solo:"Solo yo","1-3":"1-3 personas","4-10":"4-10 personas","10+":"Más de 10"}[session.q_equipo]||session.q_equipo} />
+              <Dato label="Tiempo de entrega" value={session.q_tiempo_entrega} />
+              <Dato label="Software" value={session.q_software} />
+              <Dato label="Idiomas" value={session.q_idiomas} />
+              <Dato label="Seguro RC" value={session.q_seguro_rc===true?"✅ Sí":session.q_seguro_rc===false?"No":null} empty="No indicado" />
+              {(session.services?.infonavit||session.services?.fovissste) && <Dato label="Unidad de Valuación" value={session.q_unidad_valuacion} />}
+            </div>
+            {editSection === "profesional" && (
+              <div className="border-t border-[#F0FAF5] px-5 pt-4 pb-1 grid grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <Label className="text-xs">Equipo</Label>
+                  <select value={ef.q_equipo} onChange={e=>setEditData(p=>({...p,q_equipo:e.target.value}))} className="w-full h-8 px-2 text-sm border border-[#B7E4C7] rounded-md bg-[#F0FAF5] focus:outline-none">
+                    <option value="">Seleccionar...</option>
+                    {[["solo","Solo yo"],["1-3","1-3 personas"],["4-10","4-10 personas"],["10+","Más de 10"]].map(([v,l])=><option key={v} value={v}>{l}</option>)}
+                  </select>
+                </div>
+                <div className="space-y-1">
+                  <Label className="text-xs">Tiempo de entrega</Label>
+                  <select value={ef.q_tiempo_entrega} onChange={e=>setEditData(p=>({...p,q_tiempo_entrega:e.target.value}))} className="w-full h-8 px-2 text-sm border border-[#B7E4C7] rounded-md bg-[#F0FAF5] focus:outline-none">
+                    <option value="">Seleccionar...</option>
+                    {["24 horas","2-3 días","3-5 días","1 semana","Más de 1 semana"].map(o=><option key={o} value={o}>{o}</option>)}
+                  </select>
+                </div>
+                <div className="space-y-1"><Label className="text-xs">Software</Label><Input value={ef.q_software} onChange={e=>setEditData(p=>({...p,q_software:e.target.value}))} className="h-8 text-sm" /></div>
+                <div className="space-y-1"><Label className="text-xs">Idiomas</Label><Input value={ef.q_idiomas} onChange={e=>setEditData(p=>({...p,q_idiomas:e.target.value}))} className="h-8 text-sm" /></div>
+                {(session.services?.infonavit||session.services?.fovissste) && (
+                  <div className="col-span-2 space-y-1"><Label className="text-xs">Unidad de Valuación</Label><Input value={ef.q_unidad_valuacion} onChange={e=>setEditData(p=>({...p,q_unidad_valuacion:e.target.value}))} className="h-8 text-sm" /></div>
+                )}
+              </div>
+            )}
+            {editSection === "profesional" && <SaveBar />}
+          </div>
+
+        </div>
+      </div>
+
+      {/* Servicios — ancho completo */}
+      <div className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden">
+        <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] px-5 py-3.5 flex items-center gap-2 rounded-t-xl">
+          <Award className="w-4 h-4 text-[#D9ED92]" />
+          <span className="font-['Outfit'] font-semibold text-white text-sm">Tipos de avalúo y servicios</span>
+        </div>
+        <div className="p-5 space-y-3">
+          {checkedServices.length > 0
+            ? <div className="flex flex-wrap gap-2">
+                {checkedServices.map(svc=>(
+                  <span key={svc} className="inline-flex items-center gap-1 text-xs font-medium bg-[#52B788]/15 text-[#1B4332] border border-[#52B788]/30 px-2.5 py-1 rounded-full">
+                    <CheckCircle2 className="w-3 h-3 text-[#52B788]" />{serviceLabel(svc)}
+                  </span>
                 ))}
               </div>
+            : <p className="text-sm text-slate-400 italic">Sin servicios registrados — <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-600 border border-amber-200">pendiente</span></p>
+          }
+          {session.peritajes_tipos?.length > 0 && (
+            <div className="flex flex-wrap gap-2 pt-1">
+              <span className="text-xs text-slate-400 w-full">Peritajes:</span>
+              {session.peritajes_tipos.map(p=><Badge key={p} variant="outline" className="text-xs">{p}</Badge>)}
             </div>
           )}
           {session.servicios_otros?.filter(Boolean).length > 0 && (
-            <div>
-              <p className="text-xs text-slate-400 mb-2">Otros servicios</p>
-              <div className="flex flex-wrap gap-2">
-                {session.servicios_otros.filter(Boolean).map((s, i) => (
-                  <Badge key={i} variant="outline" className="text-xs">{s}</Badge>
-                ))}
-              </div>
+            <div className="flex flex-wrap gap-2 pt-1">
+              <span className="text-xs text-slate-400 w-full">Otros:</span>
+              {session.servicios_otros.filter(Boolean).map((s,i)=><Badge key={i} variant="outline" className="text-xs">{s}</Badge>)}
             </div>
           )}
-          {(session.services?.infonavit || session.services?.fovissste) && (
-            <Campo label="Unidad de Valuación (Infonavit/Fovissste)" value={session.q_unidad_valuacion} />
-          )}
-        </CardContent>
-      </Card>
-
-      {/* Perfil profesional */}
-      <Card className="bg-white border-0 shadow-sm">
-        <CardHeader className="border-b border-slate-100 py-4">
-          <CardTitle className="font-['Outfit'] text-base text-[#1B4332] flex items-center gap-2">
-            📋 Perfil profesional
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="p-5">
-          <div className="grid sm:grid-cols-2 gap-4">
-            <Campo label="Equipo de trabajo" value={
-              { solo: "Solo yo", "1-3": "1 a 3 personas", "4-10": "4 a 10 personas", "10+": "Más de 10" }[session.q_equipo]
-              || session.q_equipo
-            } />
-            <Campo label="Tiempo promedio de entrega" value={session.q_tiempo_entrega} />
-            <Campo label="Software que utiliza" value={session.q_software} />
-            <Campo label="Idiomas (además del español)" value={session.q_idiomas} />
-            <div>
-              <p className="text-xs text-slate-400 mb-1">Seguro de responsabilidad civil</p>
-              <p className="text-sm text-slate-700">
-                {session.q_seguro_rc === true ? "✅ Sí cuenta con seguro RC" : session.q_seguro_rc === false ? "No cuenta con seguro RC" : <span className="text-slate-400 italic">No indicado</span>}
-              </p>
-            </div>
-            <div>
-              <p className="text-xs text-slate-400 mb-1">Modo de participación</p>
-              <p className="text-sm text-slate-700">
-                {session.modo_perfil === "completo" ? "Perfil completo (encargos externos)" : session.modo_perfil === "basico" ? "Perfil básico" : "—"}
-              </p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
     </div>
   );

@@ -394,6 +394,25 @@ async def get_me(request: Request):
         raise HTTPException(status_code=401, detail="No autenticado")
     return user.model_dump()
 
+@api_router.put("/auth/profile")
+async def update_profile(request: Request):
+    user = await require_auth(request)
+    body = await request.json()
+    allowed = {
+        "name", "phone", "estado", "municipio", "municipios",
+        "profesion_base", "num_cedula_base", "num_cedula_valuador",
+        "q_experiencia", "q_equipo", "q_oficina", "q_dir_oficina", "q_maps_url",
+        "q_tiempo_entrega", "q_seguro_rc", "q_unidad_valuacion",
+        "q_software", "q_idiomas",
+        "services", "servicios_otros", "peritajes_tipos", "peritajes_otros",
+    }
+    update = {k: v for k, v in body.items() if k in allowed}
+    if not update:
+        raise HTTPException(status_code=400, detail="Sin campos válidos para actualizar")
+    await db.users.update_one({"user_id": user.user_id}, {"$set": update})
+    updated = await db.users.find_one({"user_id": user.user_id}, {"_id": 0, "hashed_password": 0})
+    return updated
+
 @api_router.post("/auth/logout")
 async def logout(request: Request, response: Response):
     session_token = request.cookies.get("session_token")
