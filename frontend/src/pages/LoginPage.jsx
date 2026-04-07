@@ -159,6 +159,7 @@ const LoginPage = () => {
     cursos_inmobiliarios: "",
     num_asesores: "",
     empresa_afiliada: "",
+    aceptaTerminos: false,
   });
 
   const [files, setFiles] = useState({
@@ -283,6 +284,10 @@ const LoginPage = () => {
     if (regData.role === "realtor" && regData.inmobiliaria_tipo === "asesor") {
       if (!files.credencial_empresa)       { toast.error("Sube tu credencial de empresa"); return; }
       if (!files.cert_curso_inmobiliario)  { toast.error("Sube tu certificación de curso inmobiliario"); return; }
+    }
+    if (!regData.aceptaTerminos) {
+      toast.error("Debes aceptar los Términos del Servicio y la Política de Privacidad para continuar");
+      return;
     }
 
     setIsLoading(true);
@@ -933,6 +938,38 @@ const LoginPage = () => {
         </>
       )}
 
+      {/* Términos y privacidad */}
+      <div className="rounded-xl border border-slate-200 p-4 space-y-3">
+        <p className="text-sm font-semibold text-[#1B4332]">Términos y Política de Privacidad</p>
+        <p className="text-xs text-slate-500 leading-relaxed">
+          Antes de continuar, lee y descarga los siguientes documentos:
+        </p>
+        <div className="flex flex-col gap-2">
+          <a href="/terminos-valuadores" target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-xs text-[#1B4332] font-medium underline underline-offset-2 hover:text-[#52B788]">
+            <FileText className="w-3.5 h-3.5 shrink-0" />
+            Términos del Servicio para Valuadores (descargar / leer)
+          </a>
+          <a href="/privacidad" target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-xs text-[#1B4332] font-medium underline underline-offset-2 hover:text-[#52B788]">
+            <FileText className="w-3.5 h-3.5 shrink-0" />
+            Política de Privacidad y Tratamiento de Datos Personales
+          </a>
+        </div>
+        <button type="button"
+          onClick={() => setReg("aceptaTerminos", !regData.aceptaTerminos)}
+          className="flex items-center gap-3 mt-1">
+          <div className={`w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 transition-all ${
+            regData.aceptaTerminos ? "bg-[#52B788] border-[#52B788]" : "border-slate-300"
+          }`}>
+            {regData.aceptaTerminos && <Check className="w-3 h-3 text-white" />}
+          </div>
+          <span className="text-xs text-slate-600 text-left">
+            He leído y acepto los <strong>Términos del Servicio</strong> y la <strong>Política de Privacidad</strong>, incluyendo el tratamiento de mis datos personales conforme a la LFPDPPP.
+          </span>
+        </button>
+      </div>
+
       <div className="rounded-xl bg-[#D9ED92]/30 border border-[#52B788]/30 p-4 flex gap-3">
         <Info className="w-5 h-5 text-[#1B4332] shrink-0 mt-0.5" />
         <div>
@@ -986,6 +1023,38 @@ const LoginPage = () => {
           />
         </>
       )}
+
+      {/* Términos y privacidad */}
+      <div className="rounded-xl border border-slate-200 p-4 space-y-3">
+        <p className="text-sm font-semibold text-[#1B4332]">Términos y Política de Privacidad</p>
+        <p className="text-xs text-slate-500 leading-relaxed">
+          Antes de continuar, lee y descarga los siguientes documentos:
+        </p>
+        <div className="flex flex-col gap-2">
+          <a href="/terminos-inmobiliarias" target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-xs text-[#1B4332] font-medium underline underline-offset-2 hover:text-[#52B788]">
+            <FileText className="w-3.5 h-3.5 shrink-0" />
+            Términos del Servicio para Inmobiliarias (descargar / leer)
+          </a>
+          <a href="/privacidad" target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-xs text-[#1B4332] font-medium underline underline-offset-2 hover:text-[#52B788]">
+            <FileText className="w-3.5 h-3.5 shrink-0" />
+            Política de Privacidad y Tratamiento de Datos Personales
+          </a>
+        </div>
+        <button type="button"
+          onClick={() => setReg("aceptaTerminos", !regData.aceptaTerminos)}
+          className="flex items-center gap-3 mt-1">
+          <div className={`w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 transition-all ${
+            regData.aceptaTerminos ? "bg-[#52B788] border-[#52B788]" : "border-slate-300"
+          }`}>
+            {regData.aceptaTerminos && <Check className="w-3 h-3 text-white" />}
+          </div>
+          <span className="text-xs text-slate-600 text-left">
+            He leído y acepto los <strong>Términos del Servicio</strong> y la <strong>Política de Privacidad</strong>, incluyendo el tratamiento de mis datos personales conforme a la LFPDPPP.
+          </span>
+        </button>
+      </div>
 
       <div className="rounded-xl bg-[#D9ED92]/30 border border-[#52B788]/30 p-4 flex gap-3">
         <Info className="w-5 h-5 text-[#1B4332] shrink-0 mt-0.5" />
