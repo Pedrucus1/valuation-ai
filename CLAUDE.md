@@ -24,6 +24,26 @@ Tipos: `feat`, `fix`, `style`, `refactor`, `docs`
 - Archivos `.env` o con API keys
 - Archivos temporales
 
+## Skills disponibles — sugerirlos proactivamente
+
+Claude debe sugerir el skill correcto en el momento correcto, sin que el usuario lo pida:
+
+| Momento | Sugerir |
+|---|---|
+| Al iniciar sesión / primera interacción | `/ctx` — cargar contexto del proyecto |
+| El usuario dice "vamos a trabajar en X" sin contexto | `/ctx` primero |
+| Antes de editar server.py o archivos grandes | `/backup` |
+| El usuario dice "el backend no responde" / "reinicia" | `/restart-backend` |
+| Al crear una página nueva | `/new-page` |
+| Al crear un endpoint nuevo | `/new-endpoint` |
+| El usuario dice "prueba el endpoint" / "prueba la API" | `/test-api` |
+| El usuario dice "hay errores" / "algo está roto" | `/check-errors` |
+| Al terminar sesión / el usuario dice "ya terminamos" / "clear" | `/end-session` |
+| La memoria parece desactualizada respecto al código | `/sync-memory` |
+| El usuario no recuerda qué skills hay | `/ayuda` |
+
+**Formato de sugerencia:** Una línea al final de la respuesta, ej: `→ ¿Corremos /ctx primero?`
+
 ## Bitácora — actualizar BACKLOG.md al final de cada sesión
 
 Al terminar una sesión de trabajo (cuando el usuario pida clear, o al cerrar un bloque importante), actualizar `memory/BACKLOG.md` con:

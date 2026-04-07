@@ -32,6 +32,7 @@
 |---|---|---|
 | 3 | ✅ | **Páginas legales** — `/privacidad`, `/terminos`, `/contacto`, `/terminos-anunciantes`, `/terminos-valuadores`, `/terminos-inmobiliarias`. |
 | 4 | ✅ | **Registro y login** — email+password, bcrypt, cookie sesión, redirect por rol. |
+| 39 | ✅ | **Fix auth propio** — reemplazar `auth.emergentagent.com` por el sistema de login propio de PropValu. Google OAuth desacoplado del proveedor externo. |
 | 25 | ✅ | **Registro valuador — paso 2** — ModoSelector (básico/afiliado), servicios, cobertura multi-municipio, años de experiencia con medalla preview (🥉🥈🥇). |
 | 26 | ✅ | **Registro valuador — paso 3** — docs con hints explicativos, `comprobante_experiencia` obligatorio (título maestría / avalúo fechado / carta colegio), cédula profesional (arq/ing verificable en DGP-SEP), términos y privacidad con checkbox. |
 | 27 | ✅ | **Subida de docs al registrarse** — `handleRegister` sube cada archivo a `/kyc/upload` tras crear cuenta usando la cookie recién generada. |
@@ -47,6 +48,8 @@
 | 5 | ✅ | **Dashboard Valuador** — tabs: Resumen, Valuaciones, Perfil, Mi expediente. PlanCard al entrar muestra plan/precio/créditos. Medalla de experiencia en header y perfil. |
 | 6 | ✅ | **Dashboard Inmobiliaria** — tabs: Resumen, Valuaciones, Equipo, Documentos, Perfil. PlanCard con planes Básico/Estándar/Premier. |
 | 20 | ✅ | **Panel Admin** — 17 módulos. Verificación (AdminKYC) con botón "Ratificar" por documento. |
+| 40 | ✅ | **Admin Inmobiliarias** — módulo con 4 tabs: Resumen, Activas, Pendientes, Historial. Endpoints `GET /admin/inmobiliarias` + detalles por ID. |
+| 41 | ✅ | **Admin Ads mejorado** — tabla de campañas compacta con filas expandibles, lightbox para navegar creatividades a pantalla completa, moderación y aprobación inline en tab Campañas. |
 
 ---
 
@@ -83,6 +86,7 @@
 | 36 | ✅ | **Skills globales** — `/backup` (commit seguridad), `/recordar` (guardar aprendizaje a memoria). |
 | 37 | ✅ | **Skills PropValu** — `/status` (backend/frontend/git en <15 líneas). |
 | 38 | ✅ | **Skills Scraper** — `/logs` (log de hoy + buffer), `/reset-scraper PORTAL`. |
+| 42 | ✅ | **Script seed/datos demo** — `seed_demo.py` (o similar) que inserta valuadores e inmobiliarias de prueba con documentos y estados variados para QA visual en admin. |
 
 ---
 
@@ -91,7 +95,7 @@
 | # | Estado | Tarea |
 |---|---|---|
 | 17 | ⏳ | **Marca de agua PropValu en PDF** |
-| 18 | ⏳ | **Pruebas y ajustes finales del PDF** |
+| 18 | 🔄 | **Pruebas y ajustes finales del PDF** — reescritura completa del HTML con CSS fiel al template (Mar 2026). Fixes: logo Building2 SVG, Payback→Recup. Inversión, 12 fotos altura fija, footer pg5, mapa full-width, Perfil del Entorno con íconos emoji, fallbacks entorno/equipamiento, border-radius páginas. Pendiente: verificar `facade_photo_index` como foto de portada. |
 
 ---
 
