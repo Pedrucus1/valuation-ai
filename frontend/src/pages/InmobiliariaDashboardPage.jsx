@@ -28,6 +28,11 @@ import {
   Mail,
   Briefcase,
   ShoppingCart,
+  ShieldCheck,
+  Upload,
+  CheckCircle2,
+  Clock,
+  FileText,
 } from "lucide-react";
 import { API } from "@/App";
 
@@ -111,17 +116,56 @@ const InmobiliariaDashboardPage = () => {
 
   const [session, setSession] = useState(null);
   const [activeTab, setActiveTab] = useState("resumen");
+  const [kycDocs, setKycDocs] = useState([]);
+  const [kycSubiendo, setKycSubiendo] = useState({});
+  const [kycError, setKycError] = useState("");
+
+  const DOCS_REQUERIDOS = [
+    { key: "rfc_constancia",      label: "RFC / Constancia de situación fiscal" },
+    { key: "acta_constitutiva",   label: "Acta constitutiva o poder notarial" },
+    { key: "ine_representante",   label: "INE del representante legal" },
+    { key: "licencia_inmobiliaria", label: "Licencia inmobiliaria (AMPI / SHF)" },
+  ];
+
+  const cargarDocs = () => {
+    fetch(`${API}/kyc/mis-documentos`, { credentials: "include" })
+      .then((r) => r.json())
+      .then((d) => setKycDocs(d.documentos || []))
+      .catch(() => {});
+  };
+
+  const subirDocumento = async (docTipo, file) => {
+    if (!file) return;
+    setKycSubiendo((p) => ({ ...p, [docTipo]: true }));
+    setKycError("");
+    const fd = new FormData();
+    fd.append("doc_tipo", docTipo);
+    fd.append("file", file);
+    try {
+      const res = await fetch(`${API}/kyc/upload`, { method: "POST", credentials: "include", body: fd });
+      if (!res.ok) { const err = await res.json(); throw new Error(err.detail || "Error al subir"); }
+      cargarDocs();
+    } catch (e) {
+      setKycError(e.message);
+    } finally {
+      setKycSubiendo((p) => ({ ...p, [docTipo]: false }));
+    }
+  };
+
+  const docSubido = (key) => kycDocs.find((d) => d.doc_tipo === key);
 
   useEffect(() => {
     const fromState = location.state?.user;
     if (fromState) {
       setSession(fromState);
+      cargarDocs();
       return;
     }
     try {
       const stored = JSON.parse(localStorage.getItem("inmobiliaria_session") || "{}");
       if (stored && stored.email) {
         setSession(stored);
+        cargarDocs();
       } else {
         navigate("/login", { state: { role: "realtor" } });
       }
@@ -158,12 +202,79 @@ const InmobiliariaDashboardPage = () => {
   const displayName = session.company_name || session.name || session.email;
 
   /* ── Tabs ── */
+  const docsSubidos = DOCS_REQUERIDOS.filter((d) => docSubido(d.key)).length;
+
   const TABS = [
     { id: "resumen",      label: "Resumen" },
     { id: "valuaciones",  label: "Valuaciones" },
     { id: "equipo",       label: "Equipo" },
+    { id: "documentos",   label: "Documentos", badge: docsSubidos < DOCS_REQUERIDOS.length ? DOCS_REQUERIDOS.length - docsSubidos : null },
     { id: "perfil",       label: "Perfil" },
   ];
+
+  const DocumentosTab = () => (
+    <Card className="bg-white border-0 shadow-sm">
+      <CardHeader className="border-b border-slate-100">
+        <CardTitle className="font-['Outfit'] text-lg text-[#1B4332] flex items-center gap-2">
+          <ShieldCheck className="w-5 h-5" />
+          Documentos de verificación
+        </CardTitle>
+        <p className="text-xs text-slate-500 mt-1">
+          Sube los documentos requeridos para que el equipo PropValu verifique tu empresa y puedas operar con tu plan completo.
+        </p>
+      </CardHeader>
+      <CardContent className="p-6 space-y-4">
+        {kycError && (
+          <div className="bg-red-50 border border-red-100 rounded-xl px-4 py-3 text-sm text-red-700">{kycError}</div>
+        )}
+        <div className="grid sm:grid-cols-2 gap-4">
+          {DOCS_REQUERIDOS.map(({ key, label }) => {
+            const doc = docSubido(key);
+            const subiendo = kycSubiendo[key];
+            return (
+              <div key={key} className={`rounded-xl border p-4 ${doc ? "border-[#52B788]/40 bg-[#F0FAF5]" : "border-slate-200 bg-white"}`}>
+                <div className="flex items-start justify-between gap-2 mb-3">
+                  <div className="flex items-center gap-2">
+                    <FileText className={`w-4 h-4 ${doc ? "text-[#52B788]" : "text-slate-400"}`} />
+                    <span className="text-sm font-medium text-[#1B4332]">{label}</span>
+                  </div>
+                  {doc
+                    ? <span className="flex items-center gap-1 text-[11px] font-semibold text-green-600"><CheckCircle2 className="w-3.5 h-3.5" /> Subido</span>
+                    : <span className="flex items-center gap-1 text-[11px] font-semibold text-yellow-600"><Clock className="w-3.5 h-3.5" /> Pendiente</span>
+                  }
+                </div>
+                {doc && (
+                  <p className="text-[11px] text-slate-400 mb-3 truncate">{doc.filename}</p>
+                )}
+                <label className={`flex items-center justify-center gap-2 w-full py-2 rounded-lg text-xs font-semibold cursor-pointer transition-colors ${
+                  subiendo ? "bg-slate-100 text-slate-400" :
+                  doc ? "bg-white border border-[#52B788]/40 text-[#52B788] hover:bg-[#52B788]/10" :
+                  "bg-[#1B4332] text-white hover:bg-[#163828]"
+                }`}>
+                  <Upload className="w-3.5 h-3.5" />
+                  {subiendo ? "Subiendo..." : doc ? "Reemplazar" : "Subir archivo"}
+                  <input
+                    type="file"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                    className="hidden"
+                    disabled={subiendo}
+                    onChange={(e) => subirDocumento(key, e.target.files?.[0])}
+                  />
+                </label>
+              </div>
+            );
+          })}
+        </div>
+        <p className="text-[11px] text-slate-400">Formatos aceptados: PDF, JPG, PNG · Máximo 5 MB por archivo</p>
+        {docsSubidos === DOCS_REQUERIDOS.length && (
+          <div className="bg-green-50 border border-green-100 rounded-xl px-4 py-3 text-sm text-green-700 flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4" />
+            Todos los documentos subidos — el equipo PropValu los revisará pronto.
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
 
   /* ── Sub-sections ── */
 
@@ -482,12 +593,19 @@ const InmobiliariaDashboardPage = () => {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* KYC Banner */}
         {showKycBanner && (
-          <div className="mb-6 flex items-start gap-3 bg-amber-50 border border-amber-200 rounded-lg px-4 py-3">
-            <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
-            <p className="text-sm text-amber-800">
-              <span className="font-semibold">Tu cuenta está en revisión</span> — te
-              contactaremos para una entrevista de verificación.
-            </p>
+          <div className="mb-6 flex items-start justify-between gap-3 bg-amber-50 border border-amber-200 rounded-lg px-4 py-3">
+            <div className="flex items-start gap-3">
+              <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+              <p className="text-sm text-amber-800">
+                <span className="font-semibold">Verificación pendiente</span> — sube tus documentos para activar tu cuenta completa.
+              </p>
+            </div>
+            <button
+              onClick={() => setActiveTab("documentos")}
+              className="text-xs font-semibold text-amber-700 border border-amber-300 px-3 py-1.5 rounded-lg hover:bg-amber-100 whitespace-nowrap shrink-0"
+            >
+              Subir documentos
+            </button>
           </div>
         )}
 
@@ -497,13 +615,18 @@ const InmobiliariaDashboardPage = () => {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+              className={`relative px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                 activeTab === tab.id
                   ? "bg-[#1B4332] text-white shadow-sm"
                   : "text-slate-500 hover:text-[#1B4332]"
               }`}
             >
               {tab.label}
+              {tab.badge && (
+                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center">
+                  {tab.badge}
+                </span>
+              )}
             </button>
           ))}
         </div>
@@ -547,6 +670,9 @@ const InmobiliariaDashboardPage = () => {
             <EquipoTable />
           </>
         )}
+
+        {/* Tab: Documentos */}
+        {activeTab === "documentos" && <DocumentosTab />}
 
         {/* Tab: Perfil */}
         {activeTab === "perfil" && <PerfilCard />}

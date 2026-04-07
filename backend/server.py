@@ -1579,6 +1579,22 @@ async def admin_kyc_solicitar(user_id: str, request: Request):
     )
     return {"ok": True}
 
+@api_router.get("/admin/kyc/doc/{doc_id}")
+async def admin_kyc_ver_documento(doc_id: str, request: Request):
+    await require_admin(request)
+    doc = await db.kyc_docs.find_one({"doc_id": doc_id}, {"_id": 0})
+    if not doc:
+        raise HTTPException(status_code=404, detail="Documento no encontrado")
+    path = Path(doc["path"])
+    if not path.exists():
+        raise HTTPException(status_code=404, detail="Archivo no disponible en disco")
+    from fastapi.responses import FileResponse
+    return FileResponse(
+        path=str(path),
+        media_type=doc.get("content_type", "application/octet-stream"),
+        filename=doc.get("filename", "documento"),
+    )
+
 # ============== KYC UPLOAD (usuario) ==============
 
 ALLOWED_MIME = {"application/pdf", "image/jpeg", "image/png", "image/webp"}

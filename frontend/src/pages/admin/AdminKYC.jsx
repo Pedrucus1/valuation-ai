@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import AdminLayout from "@/components/AdminLayout";
-import { adminFetch } from "@/lib/adminFetch";
+import { adminFetch, getAdminToken } from "@/lib/adminFetch";
+import { API } from "@/App";
 import {
   ShieldCheck, FileText, User, CheckCircle2, XCircle,
   MessageSquare, Clock, ChevronDown, ExternalLink, X,
@@ -27,7 +28,7 @@ function normalizeKYC(u) {
     docs: (u.documentos || []).map((d) => ({
       nombre: d.doc_tipo,
       estado: d.estado || "subido",
-      url: null, // archivos locales del servidor — no expuestos vía URL pública aún
+      doc_id: d.doc_id || null,
     })),
     plan_solicitado: u.plan || "-",
     notas: u.kyc_solicitud_info || "",
@@ -102,11 +103,20 @@ const KYCCard = ({ solicitud, onAccion }) => {
                   <div key={doc.nombre} className="flex items-center gap-2">
                     <span className={est.cls}>{est.icon}</span>
                     <span className="text-sm text-slate-600 flex-1">{doc.nombre}</span>
-                    {doc.url ? (
-                      <a href={doc.url} target="_blank" rel="noopener noreferrer"
-                         className="text-[11px] text-[#52B788] hover:underline flex items-center gap-0.5">
+                    {doc.doc_id ? (
+                      <button
+                        onClick={async () => {
+                          const res = await fetch(`${API}/admin/kyc/doc/${doc.doc_id}`, {
+                            headers: { "X-Admin-Token": getAdminToken() },
+                          });
+                          if (!res.ok) return alert("No se pudo abrir el documento");
+                          const blob = await res.blob();
+                          window.open(URL.createObjectURL(blob), "_blank");
+                        }}
+                        className="text-[11px] text-[#52B788] hover:underline flex items-center gap-0.5"
+                      >
                         Ver <ExternalLink className="w-3 h-3" />
-                      </a>
+                      </button>
                     ) : (
                       <span className={`text-[11px] ${est.cls}`}>{est.label}</span>
                     )}
