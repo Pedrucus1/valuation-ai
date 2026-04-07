@@ -92,6 +92,7 @@ const ValuadorDashboardPage = () => {
     const fromState = location.state?.user;
     if (fromState) {
       setSession(fromState);
+      localStorage.setItem("valuador_session", JSON.stringify(fromState));
       return;
     }
     try {
@@ -649,7 +650,7 @@ const ValuadorDashboardPage = () => {
           <p className="text-sm font-semibold text-slate-700">Sin plan activo</p>
           <p className="text-xs text-slate-400 mt-0.5">Activa un plan para hacer valuaciones en la plataforma y recibir encargos.</p>
         </div>
-        <button onClick={() => navigate("/checkout/pro")}
+        <button onClick={() => navigate("/checkout/pro", { state: { role: "valuador" } })}
           className="shrink-0 bg-[#1B4332] text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-[#163828] transition-colors">
           Ver planes
         </button>
@@ -674,7 +675,7 @@ const ValuadorDashboardPage = () => {
           <div className="text-right shrink-0">
             <p className="text-[10px] text-slate-400">Créditos disponibles</p>
             <p className="text-2xl font-bold text-[#1B4332] font-['Outfit']">{session.credits ?? 0}</p>
-            <button onClick={() => navigate("/checkout/pro")}
+            <button onClick={() => navigate("/checkout/pro", { state: { role: "valuador" } })}
               className="mt-1 text-[10px] text-[#52B788] hover:underline">
               Renovar / cambiar plan
             </button>

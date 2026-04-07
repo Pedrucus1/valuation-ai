@@ -263,7 +263,8 @@ export default function ProCheckoutPage() {
       credits: selectedPlan.valuations ?? 999,
       planLabel: selectedPlan.label,
     }));
-    navigate("/dashboard", { state: { user: location.state?.user } });
+    const dashRoute = role === "inmobiliaria" ? "/dashboard/inmobiliaria" : "/dashboard/valuador";
+    navigate(dashRoute, { replace: true });
   };
 
   const roleLabel = role === "inmobiliaria" ? "Inmobiliaria" : "Valuador";
