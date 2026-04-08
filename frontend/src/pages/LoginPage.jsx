@@ -22,6 +22,41 @@ const ESTADOS_MX = [
   "Sinaloa","Sonora","Tabasco","Tamaulipas","Tlaxcala","Veracruz","Yucatán","Zacatecas",
 ];
 
+const MUNICIPIOS_POR_ESTADO = {
+  "Aguascalientes":     ["Aguascalientes","Jesús María","San Francisco de los Romo","Pabellón de Arteaga","Rincón de Romos","Calvillo","El Llano","Tepezalá","Asientos","Cosío"],
+  "Baja California":    ["Tijuana","Mexicali","Ensenada","Tecate","Playas de Rosarito","San Felipe","Valle de Guadalupe","Rosarito","La Mesa","El Centro"],
+  "Baja California Sur":["La Paz","Los Cabos","Comondú","Mulegé","Loreto","San José del Cabo","Cabo San Lucas","Todos Santos","Ciudad Constitución","Santa Rosalía"],
+  "Campeche":           ["Campeche","Carmen","Champotón","Calkiní","Hecelchakán","Hopelchén","Palizada","Tenabo","Escárcega","Calakmul"],
+  "Chiapas":            ["Tuxtla Gutiérrez","San Cristóbal de las Casas","Tapachula","Comitán","Palenque","Ocosingo","Tonalá","Chiapa de Corzo","Villaflores","Pichucalco"],
+  "Chihuahua":          ["Chihuahua","Ciudad Juárez","Delicias","Cuauhtémoc","Parral","Nuevo Casas Grandes","Camargo","Jiménez","Guachochi","Bocoyna"],
+  "Ciudad de México":   ["Benito Juárez","Coyoacán","Miguel Hidalgo","Cuauhtémoc","Álvaro Obregón","Tlalpan","Xochimilco","Iztapalapa","Azcapotzalco","Gustavo A. Madero","Venustiano Carranza","Magdalena Contreras","Milpa Alta","Tláhuac","Iztacalco","Cuajimalpa"],
+  "Coahuila":           ["Saltillo","Torreón","Monclova","Piedras Negras","Acuña","Ramos Arizpe","San Pedro","Frontera","Sabinas","Múzquiz"],
+  "Colima":             ["Colima","Manzanillo","Tecomán","Villa de Álvarez","Armería","Cuauhtémoc","Coquimatlán","Ixtlahuacán","Minatitlán","Comala"],
+  "Durango":            ["Durango","Gómez Palacio","Lerdo","Hidalgo del Parral","Santiago Papasquiaro","Guanaceví","Mezquital","Tlahualilo","Pueblo Nuevo","El Salto"],
+  "Estado de México":   ["Toluca","Ecatepec","Nezahualcóyotl","Naucalpan","Tlalnepantla","Chimalhuacán","Tultitlán","Valle de Chalco","Ixtapaluca","Atizapán de Zaragoza","Cuautitlán Izcalli","Metepec","Texcoco","Zinacantepec","Nicolás Romero"],
+  "Guanajuato":         ["Guanajuato","León","San Miguel de Allende","Irapuato","Celaya","Salamanca","Silao","Dolores Hidalgo","Pénjamo","Acámbaro","Moroleón","Uriangato"],
+  "Guerrero":           ["Acapulco","Chilpancingo","Zihuatanejo","Iguala","Taxco","Zihuatanejo de Azueta","Petatlán","La Unión","Arcelia","Tlapa de Comonfort"],
+  "Hidalgo":            ["Pachuca","Tulancingo","Tula de Allende","Ixmiquilpan","Actopan","Huejutla","Apan","Tepeji del Río","Zimapán","Ciudad Sahagún"],
+  "Jalisco":            ["Guadalajara","Zapopan","Tlaquepaque","Tonalá","Puerto Vallarta","Tlajomulco de Zúñiga","San Juan de los Lagos","Lagos de Moreno","Tepatitlán de Morelos","El Salto","Ocotlán","Autlán de Navarro","La Barca","Ameca","Zacoalco de Torres"],
+  "Michoacán":          ["Morelia","Uruapan","Zamora","Lázaro Cárdenas","Los Reyes","Apatzingán","Pátzcuaro","Zitácuaro","Sahuayo","Hidalgo"],
+  "Morelos":            ["Cuernavaca","Jiutepec","Cuautla","Temixco","Ayala","Emiliano Zapata","Yautepec","Jojutla","Tlaltizapán","Puente de Ixtla"],
+  "Nayarit":            ["Tepic","Bahía de Banderas","Xalisco","Compostela","Santiago Ixcuintla","Tuxpan","Ixtlán del Río","Ruiz","Acaponeta","Tecuala"],
+  "Nuevo León":         ["Monterrey","San Pedro Garza García","San Nicolás de los Garza","Guadalupe","Apodaca","Santa Catarina","Juárez","García","General Escobedo","Linares","Cadereyta Jiménez","Montemorelos","Sabinas Hidalgo","Allende"],
+  "Oaxaca":             ["Oaxaca de Juárez","Salina Cruz","Juchitán","Puerto Escondido","Huatulco","Tuxtepec","Miahuatlán","Tlaxiaco","Loma Bonita","Pinotepa Nacional"],
+  "Puebla":             ["Puebla","Tehuacán","San Martín Texmelucan","Atlixco","Cholula","Huauchinango","Izúcar de Matamoros","Acatzingo","Amozoc","Cuetzalan"],
+  "Querétaro":          ["Querétaro","San Juan del Río","Corregidora","El Marqués","Tequisquiapan","Pedro Escobedo","Cadereyta de Montes","Amealco de Bonfil","Jalpan de Serra","Colón"],
+  "Quintana Roo":       ["Cancún","Playa del Carmen","Cozumel","Chetumal","Tulum","Isla Mujeres","Cobá","Bacalar","Mahahual","Holbox"],
+  "San Luis Potosí":    ["San Luis Potosí","Ciudad Valles","Matehuala","Soledad de Graciano Sánchez","Rioverde","Tamazunchale","Ébano","Cd. del Maíz","Cárdenas","Xilitla"],
+  "Sinaloa":            ["Culiacán","Mazatlán","Los Mochis","Guasave","Guamúchil","Navolato","Salvador Alvarado","Escuinapa","El Rosario","Concordia"],
+  "Sonora":             ["Hermosillo","Ciudad Obregón","Nogales","Guaymas","San Luis Río Colorado","Navojoa","Caborca","Agua Prieta","Huatabampo","Puerto Peñasco"],
+  "Tabasco":            ["Villahermosa","Cárdenas","Comalcalco","Paraíso","Huimanguillo","Macuspana","Balancán","Tenosique","Emiliano Zapata","Centla"],
+  "Tamaulipas":         ["Reynosa","Matamoros","Nuevo Laredo","Tampico","Victoria","Altamira","Madero","Laredo","Mante","Río Bravo"],
+  "Tlaxcala":           ["Tlaxcala","Apizaco","Huamantla","Chiautempan","Calpulalpan","Zacatelco","Contla","Tlaxco","Nanacamilpa","Amaxac de Guerrero"],
+  "Veracruz":           ["Veracruz","Xalapa","Coatzacoalcos","Córdoba","Orizaba","Poza Rica","Tuxpan","Minatitlán","Martínez de la Torre","Boca del Río","Papantla","Tierra Blanca"],
+  "Yucatán":            ["Mérida","Valladolid","Tizimín","Progreso","Ticul","Motul","Izamal","Tekax","Oxkutzcab","Hunucmá"],
+  "Zacatecas":          ["Zacatecas","Fresnillo","Guadalupe","Jerez","Calera","Loreto","Sombrerete","Tlaltenango","Villanueva","Ojocaliente"],
+};
+
 const SERVICIOS_VALUADOR = [
   { key: "infonavit",       label: "Infonavit" },
   { key: "fovissste",       label: "Fovissste" },
@@ -967,48 +1002,49 @@ const LoginPage = () => {
 
           {/* Estados seleccionados con sus municipios */}
           {regData.estados.length > 0 && (
-            <div className="space-y-3">
-              {regData.estados.map(est => (
-                <div key={est} className="rounded-xl border border-[#B7E4C7] bg-[#F0FAF5] p-3 space-y-2">
-                  <div className="flex items-center justify-between">
-                    <p className="text-sm font-semibold text-[#1B4332] flex items-center gap-1.5">
-                      <MapPin className="w-3.5 h-3.5 text-[#52B788]" />{est}
-                    </p>
-                    <button type="button" onClick={() => quitarEstado(est)}
-                      className="text-xs text-slate-400 hover:text-red-400 font-medium">✕ quitar</button>
-                  </div>
-                  {(regData.cobertura_municipios[est] || [""]).map((m, idx) => (
-                    <div key={idx} className="flex gap-2 items-center">
-                      <Input
-                        placeholder={`ej. ${["Guadalajara","Zapopan","Tlaquepaque"][idx] || "Municipio o ciudad"}`}
-                        className="h-8 text-sm bg-white border-[#B7E4C7] focus:border-[#52B788]"
-                        value={m}
-                        onChange={e => {
-                          const lista = [...(regData.cobertura_municipios[est] || [""])];
-                          lista[idx] = e.target.value;
-                          setReg("cobertura_municipios", { ...regData.cobertura_municipios, [est]: lista });
-                        }}
-                      />
-                      {(regData.cobertura_municipios[est] || []).length > 1 && (
-                        <button type="button"
-                          onClick={() => {
-                            const lista = (regData.cobertura_municipios[est] || []).filter((_, i) => i !== idx);
-                            setReg("cobertura_municipios", { ...regData.cobertura_municipios, [est]: lista });
-                          }}
-                          className="text-slate-300 hover:text-red-400 text-lg leading-none shrink-0">×</button>
-                      )}
+            <div className="space-y-2">
+              {regData.estados.map(est => {
+                const listId = `muns-${est.replace(/\s/g, "-")}`;
+                const valor = (regData.cobertura_municipios[est] || []).join(", ");
+                const sugerencias = MUNICIPIOS_POR_ESTADO[est] || [];
+                // Construye sugerencias contextuales: prefijo actual + municipio sugerido
+                const partes = valor.split(",");
+                const prefijo = partes.slice(0, -1).map(s => s.trim()).filter(Boolean);
+                const prefijoStr = prefijo.length ? prefijo.join(", ") + ", " : "";
+                return (
+                  <div key={est} className="rounded-xl border border-[#B7E4C7] bg-[#F0FAF5] p-2.5 space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <p className="text-xs font-semibold text-[#1B4332] flex items-center gap-1">
+                        <MapPin className="w-3 h-3 text-[#52B788]" />{est}
+                      </p>
+                      <button type="button" onClick={() => quitarEstado(est)}
+                        className="text-[10px] text-slate-400 hover:text-red-400 font-medium">✕ quitar</button>
                     </div>
-                  ))}
-                  <button type="button"
-                    onClick={() => {
-                      const lista = [...(regData.cobertura_municipios[est] || [""]), ""];
-                      setReg("cobertura_municipios", { ...regData.cobertura_municipios, [est]: lista });
-                    }}
-                    className="flex items-center gap-1 text-xs text-[#52B788] font-semibold hover:underline">
-                    + Agregar municipio en {est}
-                  </button>
-                </div>
-              ))}
+                    <input
+                      list={listId}
+                      placeholder={`ej. ${(sugerencias.slice(0,3)).join(", ")}…`}
+                      className="w-full h-8 px-3 text-sm border border-[#B7E4C7] rounded-lg bg-white focus:border-[#52B788] focus:outline-none text-[#1B4332]"
+                      value={valor}
+                      onChange={e => {
+                        const nuevas = e.target.value
+                          .split(",")
+                          .map(s => s.trim())
+                          .filter(Boolean);
+                        setReg("cobertura_municipios", {
+                          ...regData.cobertura_municipios,
+                          [est]: nuevas.length ? nuevas : [""],
+                        });
+                      }}
+                    />
+                    <datalist id={listId}>
+                      {sugerencias.map(m => (
+                        <option key={m} value={prefijoStr + m} />
+                      ))}
+                    </datalist>
+                    <p className="text-[10px] text-slate-400">Separa con comas: Guadalajara, Zapopan, Tlaquepaque</p>
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>
