@@ -122,10 +122,13 @@ const InmobiliariaDashboardPage = () => {
   const [showDocsModal, setShowDocsModal] = useState(false);
 
   const DOCS_REQUERIDOS = [
-    { key: "rfc_constancia",      label: "RFC / Constancia de situación fiscal" },
-    { key: "acta_constitutiva",   label: "Acta constitutiva o poder notarial" },
-    { key: "ine_representante",   label: "INE del representante legal" },
-    { key: "licencia_inmobiliaria", label: "Licencia inmobiliaria (AMPI / SHF)" },
+    { key: "ine_frente",            label: "INE del representante (frente y vuelta)" },
+    { key: "foto_profesional",      label: "Foto profesional" },
+    { key: "comprobante_domicilio", label: "Comprobante de domicilio del negocio" },
+    { key: "cert_asociacion",       label: "Certificado de asociación inmobiliaria (AMPI/CANACO/CIPS)" },
+    { key: "opinion_fiscal",        label: "Opinión de cumplimiento fiscal (SAT)" },
+    { key: "constancia_rfc",        label: "Constancia de situación fiscal (RFC)" },
+    { key: "logo_empresa",          label: "Logo de empresa (opcional)" },
   ];
 
   const cargarDocs = () => {
