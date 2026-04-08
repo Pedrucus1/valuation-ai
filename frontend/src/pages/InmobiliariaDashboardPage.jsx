@@ -554,156 +554,154 @@ const InmobiliariaDashboardPage = () => {
     </Card>
   );
 
-  const PerfilCard = () => (
-    <Card className="bg-white border-0 shadow-sm">
-      <CardHeader className="border-b border-slate-100">
-        <CardTitle className="font-['Outfit'] text-lg text-[#1B4332] flex items-center gap-2">
-          <Briefcase className="w-5 h-5" />
-          Perfil de empresa
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="p-6 space-y-5">
-        <div className="grid sm:grid-cols-2 gap-4">
-          {session.company_name && (
-            <div>
-              <p className="text-xs text-slate-400 mb-1">Empresa</p>
-              <p className="font-semibold text-[#1B4332]">{session.company_name}</p>
-            </div>
-          )}
-          <div>
-            <p className="text-xs text-slate-400 mb-1">Nombre del contacto</p>
-            <p className="font-semibold text-[#1B4332]">{session.name || "—"}</p>
-          </div>
-          <div>
-            <p className="text-xs text-slate-400 mb-1">Correo electrónico</p>
-            <div className="flex items-center gap-2">
-              <Mail className="w-4 h-4 text-slate-400" />
-              <p className="text-sm text-slate-700">{session.email || "—"}</p>
-            </div>
-          </div>
-          <div>
-            <p className="text-xs text-slate-400 mb-1">Teléfono</p>
-            <div className="flex items-center gap-2">
-              <Phone className="w-4 h-4 text-slate-400" />
-              <p className="text-sm text-slate-700">{session.phone || "—"}</p>
-            </div>
-          </div>
-          <div>
-            <p className="text-xs text-slate-400 mb-1">Tipo de cuenta</p>
-            {session.inmobiliaria_tipo === "titular" ? (
-              <Badge className="bg-[#1B4332] text-white">Titular</Badge>
-            ) : session.inmobiliaria_tipo === "asesor" ? (
-              <Badge variant="outline">Asesor</Badge>
-            ) : (
-              <Badge variant="outline">{session.inmobiliaria_tipo || "—"}</Badge>
-            )}
-          </div>
-          {session.asociacion && (
-            <div>
-              <p className="text-xs text-slate-400 mb-1">Asociación</p>
-              <p className="text-sm text-slate-700">{session.asociacion}</p>
-            </div>
-          )}
-          <div>
-            <p className="text-xs text-slate-400 mb-1">Ubicación</p>
-            <div className="flex items-center gap-2">
-              <MapPin className="w-4 h-4 text-slate-400" />
-              <p className="text-sm text-slate-700">
-                {[session.municipio, session.estado].filter(Boolean).join(", ") || "—"}
-              </p>
-            </div>
-          </div>
-        </div>
+  const PerfilCard = () => {
+    const fotoDoc = kycDocs.find(d => d.doc_tipo === "foto_profesional");
+    const logoDoc = kycDocs.find(d => d.doc_tipo === "logo_empresa");
+    return (
+      <Card className="bg-white border-0 shadow-sm overflow-hidden">
+        <CardHeader className="border-b border-slate-100">
+          <CardTitle className="font-['Outfit'] text-lg text-[#1B4332] flex items-center gap-2">
+            <Briefcase className="w-5 h-5" />
+            Perfil de empresa
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="p-0">
+          <div className="grid grid-cols-[100px_1fr_120px] sm:grid-cols-[130px_1fr_148px] divide-x divide-slate-100">
 
-        {/* Fotos: representante + logo */}
-        <div className="flex gap-4 flex-wrap">
-          {/* Foto representante */}
-          {(() => {
-            const fotoDoc = kycDocs.find(d => d.doc_tipo === "foto_profesional");
-            return (
-              <div className="flex flex-col items-center gap-1.5">
-                <p className="text-xs text-slate-400 self-start">Foto del representante</p>
-                {fotoDoc ? (
-                  <img
-                    src={`${API}/kyc/documento/${fotoDoc.doc_id}`}
-                    alt="Foto representante"
-                    className="w-16 h-16 rounded-full object-cover border-2 border-[#52B788]"
-                  />
-                ) : (
-                  <div className="w-16 h-16 rounded-full bg-slate-100 border-2 border-dashed border-slate-300 flex flex-col items-center justify-center" title="Foto pendiente de subir">
-                    <User className="w-6 h-6 text-slate-300" />
-                    <span className="text-[9px] text-slate-300 mt-0.5">foto</span>
+            {/* Col 1 — Foto del representante */}
+            <div className="flex flex-col items-center gap-2 p-4 bg-slate-50">
+              <p className="text-[10px] text-slate-400 uppercase tracking-wide font-medium text-center">Representante</p>
+              {fotoDoc ? (
+                <img
+                  src={`${API}/kyc/documento/${fotoDoc.doc_id}`}
+                  alt="Foto representante"
+                  className="w-[72px] h-[88px] sm:w-24 sm:h-28 rounded-xl object-cover border-2 border-[#52B788] shadow-sm"
+                />
+              ) : (
+                <div className="w-[72px] h-[88px] sm:w-24 sm:h-28 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 flex flex-col items-center justify-center gap-1" title="Foto pendiente de subir">
+                  <User className="w-7 h-7 text-slate-300" />
+                  <span className="text-[9px] text-slate-300 text-center leading-tight">foto<br/>pendiente</span>
+                </div>
+              )}
+              <div className="mt-0.5">
+                {session.inmobiliaria_tipo === "titular" ? (
+                  <Badge className="bg-[#1B4332] text-white text-[10px] px-2 py-0">Titular</Badge>
+                ) : session.inmobiliaria_tipo === "asesor" ? (
+                  <Badge variant="outline" className="text-[10px] px-2 py-0">Asesor</Badge>
+                ) : null}
+              </div>
+            </div>
+
+            {/* Col 2 — Datos de empresa y contacto */}
+            <div className="p-5 space-y-3">
+              {session.company_name && (
+                <div>
+                  <p className="font-['Outfit'] text-xl font-bold text-[#1B4332] leading-tight">{session.company_name}</p>
+                  {session.asociacion && <p className="text-xs text-slate-400 mt-0.5">{session.asociacion}</p>}
+                </div>
+              )}
+              <div className="grid grid-cols-2 gap-x-4 gap-y-2.5 text-sm">
+                <div>
+                  <p className="text-[10px] text-slate-400 mb-0.5">Nombre del contacto</p>
+                  <p className="font-medium text-slate-700">{session.name || "—"}</p>
+                </div>
+                <div>
+                  <p className="text-[10px] text-slate-400 mb-0.5">Teléfono</p>
+                  <div className="flex items-center gap-1.5">
+                    <Phone className="w-3 h-3 text-slate-400 flex-shrink-0" />
+                    <p className="text-slate-700">{session.phone || "—"}</p>
                   </div>
+                </div>
+                <div className="col-span-2">
+                  <p className="text-[10px] text-slate-400 mb-0.5">Correo electrónico</p>
+                  <div className="flex items-center gap-1.5">
+                    <Mail className="w-3 h-3 text-slate-400 flex-shrink-0" />
+                    <p className="text-slate-700">{session.email || "—"}</p>
+                  </div>
+                </div>
+                <div>
+                  <p className="text-[10px] text-slate-400 mb-0.5">Ubicación</p>
+                  <div className="flex items-center gap-1.5">
+                    <MapPin className="w-3 h-3 text-slate-400 flex-shrink-0" />
+                    <p className="text-slate-700">{[session.municipio, session.estado].filter(Boolean).join(", ") || "—"}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Cuestionario */}
+              {(session.q_anos_mercado || session.q_cartera_propiedades || session.q_tipo_operaciones || session.q_crm) && (
+                <div className="border-t border-slate-100 pt-3">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Perfil de operaciones</p>
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+                    {session.q_anos_mercado && (
+                      <div>
+                        <p className="text-[10px] text-slate-400">Años en mercado</p>
+                        <p className="text-sm text-slate-700">{session.q_anos_mercado}</p>
+                      </div>
+                    )}
+                    {session.q_cartera_propiedades && (
+                      <div>
+                        <p className="text-[10px] text-slate-400">Cartera (promedio)</p>
+                        <p className="text-sm text-slate-700">{session.q_cartera_propiedades}</p>
+                      </div>
+                    )}
+                    {session.q_crm && (
+                      <div className="col-span-2">
+                        <p className="text-[10px] text-slate-400">CRM / Herramientas</p>
+                        <p className="text-sm text-slate-700">{session.q_crm}</p>
+                      </div>
+                    )}
+                    {session.q_tipo_operaciones && Object.values(session.q_tipo_operaciones).some(Boolean) && (
+                      <div className="col-span-2">
+                        <p className="text-[10px] text-slate-400 mb-1">Tipo de operaciones</p>
+                        <div className="flex flex-wrap gap-1">
+                          {Object.entries(session.q_tipo_operaciones)
+                            .filter(([, v]) => v)
+                            .map(([k]) => (
+                              <span key={k} className="text-[10px] px-1.5 py-0.5 rounded-full bg-[#D9ED92] text-[#1B4332] font-medium">
+                                {k.replace(/_/g, " ")}
+                              </span>
+                            ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Col 3 — Logo + verificación */}
+            <div className="flex flex-col items-center gap-3 p-4 bg-slate-50">
+              <p className="text-[10px] text-slate-400 uppercase tracking-wide font-medium text-center">Logo</p>
+              {logoDoc ? (
+                <img
+                  src={`${API}/kyc/documento/${logoDoc.doc_id}`}
+                  alt="Logo"
+                  className="h-16 w-auto max-w-[100px] object-contain rounded-lg border border-slate-200 bg-white p-2 shadow-sm"
+                />
+              ) : (
+                <div className="h-16 w-20 sm:w-24 rounded-lg bg-slate-100 border-2 border-dashed border-slate-300 flex flex-col items-center justify-center gap-1" title="Logo pendiente de subir">
+                  <Briefcase className="w-5 h-5 text-slate-300" />
+                  <span className="text-[9px] text-slate-300 text-center leading-tight">logo<br/>pendiente</span>
+                </div>
+              )}
+              <div className="border-t border-slate-200 w-full pt-2.5 text-center">
+                <p className="text-[10px] text-slate-400 uppercase tracking-wide mb-1.5">Verificación</p>
+                {session.kyc_status === "approved" ? (
+                  <span className="text-[10px] font-semibold text-green-700 bg-green-50 px-2 py-0.5 rounded-full">✅ Verificado</span>
+                ) : session.kyc_status === "under_review" ? (
+                  <span className="text-[10px] font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full">🔍 En revisión</span>
+                ) : (
+                  <span className="text-[10px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full">⏳ Pendiente</span>
                 )}
               </div>
-            );
-          })()}
-          {/* Logo empresa */}
-          {(() => {
-            const logoDoc = kycDocs.find(d => d.doc_tipo === "logo_empresa");
-            return (
-              <div className="flex flex-col gap-1.5">
-                <p className="text-xs text-slate-400">Logo de empresa</p>
-                {logoDoc ? (
-                  <img
-                    src={`${API}/kyc/documento/${logoDoc.doc_id}`}
-                    alt="Logo"
-                    className="h-16 w-auto max-w-[160px] object-contain rounded-lg border border-slate-200 bg-slate-50 p-2"
-                  />
-                ) : (
-                  <div className="h-16 w-36 rounded-lg bg-slate-100 border-2 border-dashed border-slate-300 flex flex-col items-center justify-center gap-1" title="Logo pendiente de subir">
-                    <Briefcase className="w-5 h-5 text-slate-300" />
-                    <span className="text-[9px] text-slate-300">logo</span>
-                  </div>
-                )}
-              </div>
-            );
-          })()}
-        </div>
-
-        {/* Cuestionario */}
-        {(session.q_anos_mercado || session.q_cartera_propiedades || session.q_tipo_operaciones || session.q_crm) && (
-          <div className="border-t border-slate-100 pt-4">
-            <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Perfil de operaciones</p>
-            <div className="grid sm:grid-cols-2 gap-3">
-              {session.q_anos_mercado && (
-                <div>
-                  <p className="text-xs text-slate-400 mb-0.5">Años en el mercado</p>
-                  <p className="text-sm text-slate-700">{session.q_anos_mercado}</p>
-                </div>
-              )}
-              {session.q_cartera_propiedades && (
-                <div>
-                  <p className="text-xs text-slate-400 mb-0.5">Promedio de propiedades en cartera</p>
-                  <p className="text-sm text-slate-700">{session.q_cartera_propiedades}</p>
-                </div>
-              )}
-              {session.q_tipo_operaciones && Object.values(session.q_tipo_operaciones).some(Boolean) && (
-                <div className="sm:col-span-2">
-                  <p className="text-xs text-slate-400 mb-1">Tipo de operaciones</p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {Object.entries(session.q_tipo_operaciones)
-                      .filter(([, v]) => v)
-                      .map(([k]) => (
-                        <span key={k} className="text-xs px-2 py-0.5 rounded-full bg-[#D9ED92] text-[#1B4332] font-medium">
-                          {k.replace(/_/g, " ")}
-                        </span>
-                      ))}
-                  </div>
-                </div>
-              )}
-              {session.q_crm && (
-                <div className="sm:col-span-2">
-                  <p className="text-xs text-slate-400 mb-0.5">CRM / Herramientas</p>
-                  <p className="text-sm text-slate-700">{session.q_crm}</p>
-                </div>
-              )}
             </div>
+
           </div>
-        )}
-      </CardContent>
-    </Card>
-  );
+        </CardContent>
+      </Card>
+    );
+  };
 
   const docsReminderList = session?.inmobiliaria_tipo === "titular"
     ? [

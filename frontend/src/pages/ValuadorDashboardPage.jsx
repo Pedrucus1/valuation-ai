@@ -902,43 +902,76 @@ const ValuadorDashboardPage = () => {
   const PerfilCard = () => (
     <div className="space-y-4">
 
-      {/* ── Header de perfil ── */}
-      <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] rounded-2xl p-5 flex items-center gap-4">
-        {(() => {
-          const fotoDoc = kycDocs.find(d => d.doc_tipo === "foto_profesional");
-          return fotoDoc ? (
-            <img
-              src={`${API}/kyc/documento/${fotoDoc.doc_id}`}
-              alt="Foto de perfil"
-              className="w-14 h-14 rounded-full object-cover border-2 border-[#52B788] flex-shrink-0"
-            />
-          ) : (
-            <div className="w-14 h-14 rounded-full bg-slate-300/40 border-2 border-dashed border-[#52B788]/60 flex flex-col items-center justify-center flex-shrink-0" title="Foto de perfil pendiente">
-              <User className="w-6 h-6 text-[#D9ED92]/50" />
-              <span className="text-[8px] text-[#D9ED92]/50 leading-tight text-center mt-0.5">foto</span>
+      {/* ── Header de perfil — credencial 3 columnas ── */}
+      <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] rounded-2xl overflow-hidden">
+        <div className="grid grid-cols-[100px_1fr_120px] sm:grid-cols-[130px_1fr_148px] divide-x divide-[#2D6A4F]/50">
+
+          {/* Col 1 — Foto */}
+          <div className="flex flex-col items-center justify-center gap-2 p-4 bg-black/10">
+            {(() => {
+              const fotoDoc = kycDocs.find(d => d.doc_tipo === "foto_profesional");
+              return fotoDoc ? (
+                <img
+                  src={`${API}/kyc/documento/${fotoDoc.doc_id}`}
+                  alt="Foto de perfil"
+                  className="w-[72px] h-[88px] sm:w-24 sm:h-28 rounded-xl object-cover border-2 border-[#52B788] shadow-lg"
+                />
+              ) : (
+                <div className="w-[72px] h-[88px] sm:w-24 sm:h-28 rounded-xl bg-white/10 border-2 border-dashed border-[#52B788]/60 flex flex-col items-center justify-center" title="Foto de perfil pendiente">
+                  <User className="w-8 h-8 text-[#D9ED92]/50" />
+                  <span className="text-[9px] text-[#D9ED92]/50 leading-tight text-center mt-1">foto<br/>pendiente</span>
+                </div>
+              );
+            })()}
+          </div>
+
+          {/* Col 2 — Datos */}
+          <div className="p-5">
+            <div className="flex items-center gap-2 flex-wrap">
+              <p className="font-['Outfit'] text-lg font-bold text-white">{session.name || "—"}</p>
+              {medallaExp && <span title={medallaExp.title} className="text-xl">{medallaExp.emoji}</span>}
             </div>
-          );
-        })()}
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 flex-wrap">
-            <p className="font-['Outfit'] text-lg font-bold text-white">{session.name || "—"}</p>
-            {medallaExp && <span title={medallaExp.title} className="text-xl">{medallaExp.emoji}</span>}
+            <p className="text-sm text-[#D9ED92]/80 mt-0.5">
+              {getProfesionLabel(session.profesion_base, session.profesion_base_otro) || "Valuador"} · {session.q_experiencia || "Experiencia no indicada"}
+            </p>
+            <div className="flex items-center gap-1.5 mt-2">
+              <Mail className="w-3.5 h-3.5 text-[#D9ED92]/60 flex-shrink-0" />
+              <p className="text-xs text-[#D9ED92]/70">{session.email || "—"}</p>
+            </div>
+            {session.phone && (
+              <div className="flex items-center gap-1.5 mt-1">
+                <Phone className="w-3.5 h-3.5 text-[#D9ED92]/60 flex-shrink-0" />
+                <p className="text-xs text-[#D9ED92]/70">{session.phone}</p>
+              </div>
+            )}
           </div>
-          <p className="text-sm text-[#D9ED92]/80 mt-0.5">
-            {getProfesionLabel(session.profesion_base, session.profesion_base_otro) || "Valuador"} · {session.q_experiencia || "Experiencia no indicada"}
-          </p>
-          <div className="flex flex-wrap gap-1.5 mt-2">
-            {badgesGanados.map(b => (
-              <span key={b.key} title={b.label} className="text-base">{b.emoji}</span>
-            ))}
-            <span className="text-xs text-[#D9ED92]/60 self-center">{badgesGanados.length > 0 ? "credenciales verificadas" : "Sin credenciales verificadas aún"}</span>
+
+          {/* Col 3 — Verificación + credenciales */}
+          <div className="flex flex-col items-center justify-center gap-2.5 p-4 bg-black/10 text-center">
+            <div>
+              <p className="text-[10px] text-[#D9ED92]/60 uppercase tracking-wide">Verificación</p>
+              <p className="text-xs font-semibold text-white mt-0.5">
+                {session.kyc_status === "approved" ? "✅ Verificado" : session.kyc_status === "under_review" ? "🔍 En revisión" : "⏳ Pendiente"}
+              </p>
+            </div>
+            <div className="border-t border-white/10 w-full pt-2">
+              <p className="text-[10px] text-[#D9ED92]/60 uppercase tracking-wide mb-1.5">Credenciales</p>
+              {badgesGanados.length > 0 ? (
+                <div className="flex flex-wrap justify-center gap-1">
+                  {badgesGanados.map(b => (
+                    <span key={b.key} title={b.label} className="text-base">{b.emoji}</span>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-[10px] text-[#D9ED92]/50">Sin credenciales aún</p>
+              )}
+            </div>
+            <div className="border-t border-white/10 w-full pt-2">
+              <p className="text-[10px] text-[#D9ED92]/60 uppercase tracking-wide">Modo</p>
+              <p className="text-xs font-semibold text-white mt-0.5">{session.modo_perfil === "completo" ? "Completo" : "Básico"}</p>
+            </div>
           </div>
-        </div>
-        <div className="text-right hidden sm:block flex-shrink-0">
-          <p className="text-xs text-[#D9ED92]/60 uppercase tracking-wide">Modo</p>
-          <p className="text-sm font-semibold text-white">{session.modo_perfil === "completo" ? "Completo" : "Básico"}</p>
-          <p className="text-xs text-[#D9ED92]/60 mt-1 uppercase tracking-wide">Verificación</p>
-          <p className="text-xs font-semibold text-white">{session.kyc_status === "approved" ? "✅ Verificado" : session.kyc_status === "under_review" ? "🔍 En revisión" : "⏳ Pendiente"}</p>
+
         </div>
       </div>
 
