@@ -293,6 +293,12 @@ const LoginPage = () => {
     q_oficina_inm: false,
     q_dir_oficina_inm: "",
     q_maps_url_inm: "",
+    // Redes sociales
+    redes_ig: "",
+    redes_fb: "",
+    redes_wa: "",
+    redes_web: "",
+    galardones: "",
   });
 
   const [files, setFiles] = useState({
@@ -500,6 +506,13 @@ const LoginPage = () => {
             q_oficina:              regData.q_oficina_inm,
             q_dir_oficina:          regData.q_dir_oficina_inm || undefined,
             q_maps_url:             regData.q_maps_url_inm || undefined,
+            redes_sociales: (regData.redes_ig || regData.redes_fb || regData.redes_wa || regData.redes_web) ? {
+              instagram: regData.redes_ig || undefined,
+              facebook:  regData.redes_fb || undefined,
+              whatsapp:  regData.redes_wa || undefined,
+              website:   regData.redes_web || undefined,
+            } : undefined,
+            galardones: regData.galardones || undefined,
           } : {}),
         }),
       });
@@ -1032,6 +1045,29 @@ const LoginPage = () => {
                 : "Los asesores adicionales están disponibles en los planes Pro 20 y Premier."}
             </div>
           )}
+          {/* Redes sociales */}
+          <div className="space-y-2">
+            <Label className="text-sm font-medium text-slate-700">Redes sociales <span className="text-slate-400 font-normal">(opcionales)</span></Label>
+            <div className="grid grid-cols-2 gap-2">
+              <Input placeholder="🌐 Sitio web  https://..." className="bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white text-sm"
+                value={regData.redes_web} onChange={e => setReg("redes_web", e.target.value)} />
+              <Input placeholder="📸 Instagram  @usuario" className="bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white text-sm"
+                value={regData.redes_ig} onChange={e => setReg("redes_ig", e.target.value)} />
+              <Input placeholder="💬 WhatsApp  55 1234 5678" className="bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white text-sm"
+                value={regData.redes_wa} onChange={e => setReg("redes_wa", e.target.value)} />
+              <Input placeholder="🔵 Facebook  /página o URL" className="bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white text-sm"
+                value={regData.redes_fb} onChange={e => setReg("redes_fb", e.target.value)} />
+            </div>
+          </div>
+
+          {/* Galardones */}
+          <div className="space-y-1.5">
+            <Label className="text-sm font-medium text-slate-700">Galardones o reconocimientos <span className="text-slate-400 font-normal">(opcional)</span></Label>
+            <Input placeholder="ej. Premio AMPI 2023, Mejor Agente del Año Jalisco…"
+              className="bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
+              value={regData.galardones} onChange={e => setReg("galardones", e.target.value)} />
+          </div>
+
         </>
       )}
 

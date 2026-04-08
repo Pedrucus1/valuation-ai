@@ -109,6 +109,16 @@ class User(BaseModel):
     q_cartera_propiedades: Optional[str] = None
     q_crm: Optional[str] = None
     verificacion_pendiente: Optional[bool] = None
+    cursos: Optional[str] = None
+    empresa_afiliada: Optional[str] = None
+    municipios: Optional[List[str]] = None
+    estados: Optional[List[str]] = None
+    cobertura_municipios: Optional[Dict[str, Any]] = None
+    q_oficina: Optional[bool] = None
+    q_dir_oficina: Optional[str] = None
+    q_maps_url: Optional[str] = None
+    redes_sociales: Optional[Dict[str, Any]] = None
+    galardones: Optional[str] = None
 
 class RegisterRequest(BaseModel):
     name: str
@@ -153,6 +163,12 @@ class RegisterRequest(BaseModel):
     q_cartera_propiedades: Optional[str] = None
     q_crm: Optional[str] = None
     verificacion_pendiente: Optional[bool] = None
+    # Cobertura inmobiliaria
+    estados: Optional[List[str]] = None
+    cobertura_municipios: Optional[Dict[str, Any]] = None
+    # Redes sociales y galardones
+    redes_sociales: Optional[Dict[str, Any]] = None
+    galardones: Optional[str] = None
 
 class LoginRequest(BaseModel):
     email: str
@@ -499,6 +515,10 @@ async def register_email(data: RegisterRequest, response: Response):
         "q_cartera_propiedades": data.q_cartera_propiedades,
         "q_crm": data.q_crm,
         "verificacion_pendiente": data.verificacion_pendiente,
+        "estados": data.estados,
+        "cobertura_municipios": data.cobertura_municipios,
+        "redes_sociales": data.redes_sociales,
+        "galardones": data.galardones,
         "hashed_password": hashed_pw,
         "kyc_status": "pending",
         "credits": 0,
