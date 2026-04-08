@@ -169,6 +169,25 @@ class RegisterRequest(BaseModel):
     # Redes sociales y galardones
     redes_sociales: Optional[Dict[str, Any]] = None
     galardones: Optional[str] = None
+    # Campos adicionales (no en model_dump estricto, pero sí en MongoDB)
+    num_asesores: Optional[str] = None
+    empresa_afiliada: Optional[str] = None
+    services: Optional[Dict[str, Any]] = None
+    servicios_otros: Optional[List[str]] = None
+    peritajes_tipos: Optional[List[str]] = None
+    peritajes_otros: Optional[str] = None
+    q_experiencia: Optional[str] = None
+    q_equipo: Optional[str] = None
+    q_tiempo_entrega: Optional[str] = None
+    q_seguro_rc: Optional[bool] = None
+    q_unidad_valuacion: Optional[str] = None
+    q_software: Optional[str] = None
+    q_idiomas: Optional[str] = None
+    profesion_base: Optional[str] = None
+    profesion_base_otro: Optional[str] = None
+    num_cedula_base: Optional[str] = None
+    num_cedula_valuador: Optional[str] = None
+    modo_perfil: Optional[str] = None
 
 class LoginRequest(BaseModel):
     email: str

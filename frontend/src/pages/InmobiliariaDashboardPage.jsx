@@ -172,6 +172,17 @@ const InmobiliariaDashboardPage = () => {
       localStorage.setItem("inmobiliaria_session", JSON.stringify(fromState));
       cargarDocs();
       if (location.state?.showDocsReminder) setShowDocsModal(true);
+      // Refresh from backend to get all fields (async, non-blocking)
+      fetch(`${API}/auth/me`, { credentials: "include" })
+        .then(r => r.ok ? r.json() : null)
+        .then(fresh => {
+          if (fresh?.email) {
+            const merged = { ...fromState, ...fresh };
+            setSession(merged);
+            localStorage.setItem("inmobiliaria_session", JSON.stringify(merged));
+          }
+        })
+        .catch(() => {});
       return;
     }
     try {
@@ -179,6 +190,17 @@ const InmobiliariaDashboardPage = () => {
       if (stored && stored.email) {
         setSession(stored);
         cargarDocs();
+        // Refresh from backend in background
+        fetch(`${API}/auth/me`, { credentials: "include" })
+          .then(r => r.ok ? r.json() : null)
+          .then(fresh => {
+            if (fresh?.email) {
+              const merged = { ...stored, ...fresh };
+              setSession(merged);
+              localStorage.setItem("inmobiliaria_session", JSON.stringify(merged));
+            }
+          })
+          .catch(() => {});
       } else {
         navigate("/login", { state: { role: "realtor" } });
       }
@@ -567,202 +589,193 @@ const InmobiliariaDashboardPage = () => {
     const logoDoc = kycDocs.find(d => d.doc_tipo === "logo_empresa");
     const rs = session.redes_sociales || {};
 
-    // Medalla por experiencia
     const medallaExp = {
-      "Menos de 1 año": { emoji: "🌱", title: "Nueva en el mercado" },
-      "1-3 años":       { emoji: "⭐", title: "En consolidación" },
-      "3-5 años":       { emoji: "🌟", title: "Establecida" },
-      "5-10 años":      { emoji: "💫", title: "Experimentada" },
-      "Más de 10 años": { emoji: "🏆", title: "Experta del mercado" },
+      "Menos de 1 año": { emoji: "🌱", label: "Nueva en el mercado" },
+      "1-3 años":       { emoji: "⭐", label: "En consolidación" },
+      "3-5 años":       { emoji: "🌟", label: "Establecida" },
+      "5-10 años":      { emoji: "💫", label: "Experimentada" },
+      "Más de 10 años": { emoji: "🏆", label: "Experta del mercado" },
     }[session.q_anos_mercado] || null;
 
-    // Badge por cartera
     const badgeCartera = {
-      "1-5":       { emoji: "🏡", title: "Cartera pequeña (1–5)" },
-      "6-15":      { emoji: "🏘️", title: "Cartera media (6–15)" },
-      "16-30":     { emoji: "🏙️", title: "Cartera grande (16–30)" },
-      "Más de 30": { emoji: "🌆", title: "Cartera premium (30+)" },
+      "1-5":       { emoji: "🏡", label: "1–5 propiedades" },
+      "6-15":      { emoji: "🏘️", label: "6–15 propiedades" },
+      "16-30":     { emoji: "🏙️", label: "16–30 propiedades" },
+      "Más de 30": { emoji: "🌆", label: "30+ propiedades" },
     }[session.q_cartera_propiedades] || null;
 
-    // Badges adicionales
-    const badgesExtras = [
-      session.asociacion         ? { emoji: "🏛️", label: `Asociado: ${session.asociacion}` } : null,
-      session.cursos             ? { emoji: "🎓", label: `Cert.: ${session.cursos}` } : null,
-      session.q_oficina          ? { emoji: "🏢", label: "Oficina física" } : null,
-      session.kyc_status === "approved" ? { emoji: "✅", label: "Verificado" } : null,
+    const allMedals = [
+      medallaExp ? { ...medallaExp, color: "bg-amber-50 text-amber-800 border-amber-200" } : null,
+      badgeCartera ? { ...badgeCartera, color: "bg-blue-50 text-blue-800 border-blue-200" } : null,
+      session.asociacion ? { emoji: "🏛️", label: session.asociacion, color: "bg-[#F0FAF4] text-[#1B4332] border-[#52B788]/30" } : null,
+      session.cursos ? { emoji: "🎓", label: session.cursos, color: "bg-purple-50 text-purple-800 border-purple-200" } : null,
+      session.galardones ? { emoji: "🏅", label: session.galardones, color: "bg-yellow-50 text-yellow-800 border-yellow-200" } : null,
+      session.q_oficina ? { emoji: "🏢", label: "Oficina física", color: "bg-slate-50 text-slate-700 border-slate-200" } : null,
+      session.q_seguro_rc ? { emoji: "🛡️", label: "Seguro RC", color: "bg-green-50 text-green-700 border-green-200" } : null,
+      session.kyc_status === "approved" ? { emoji: "✅", label: "Verificado PropValu", color: "bg-[#1B4332] text-white border-transparent" } : null,
     ].filter(Boolean);
+
+    const DataRow = ({ icon: Icon, label, value }) => value ? (
+      <div className="flex items-start gap-2.5">
+        <Icon className="w-4 h-4 text-[#52B788] flex-shrink-0 mt-0.5" />
+        <div className="min-w-0">
+          <p className="text-[10px] text-slate-400 uppercase tracking-wide leading-none mb-0.5">{label}</p>
+          <p className="text-sm text-slate-700 leading-snug">{value}</p>
+        </div>
+      </div>
+    ) : null;
 
     return (
       <Card className="bg-white border-0 shadow-sm overflow-hidden">
-        <CardHeader className="border-b border-slate-100">
-          <CardTitle className="font-['Outfit'] text-lg text-[#1B4332] flex items-center gap-2">
-            <Briefcase className="w-5 h-5" />
-            Perfil de empresa
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="p-0">
-          <div className="grid grid-cols-[150px_1fr_140px] divide-x divide-slate-100">
 
-            {/* ── Col 1: Logo + verificación ── */}
-            <div className="flex flex-col items-center gap-4 p-6 bg-slate-50/70">
-              {logoDoc ? (
-                <img
-                  src={`${API}/kyc/documento/${logoDoc.doc_id}`}
-                  alt="Logo"
-                  className="w-28 h-28 object-contain rounded-2xl border border-slate-200 bg-white p-2 shadow-sm"
-                />
-              ) : (
-                <div className="w-28 h-28 rounded-2xl bg-slate-100 border-2 border-dashed border-slate-300 flex flex-col items-center justify-center gap-1.5" title="Logo pendiente de subir">
-                  <Briefcase className="w-8 h-8 text-slate-300" />
-                  <span className="text-[10px] text-slate-300 text-center leading-tight">logo<br/>pendiente</span>
-                </div>
+        {/* ── HEADER: Logo + Nombre empresa + estado kyc ── */}
+        <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] px-6 py-5 flex items-center gap-5">
+          {/* Logo */}
+          <div className="flex-shrink-0">
+            {logoDoc ? (
+              <img
+                src={`${API}/kyc/documento/${logoDoc.doc_id}`}
+                alt="Logo"
+                className="w-16 h-16 object-contain rounded-xl bg-white p-1.5 shadow"
+              />
+            ) : (
+              <div className="w-16 h-16 rounded-xl bg-white/10 border-2 border-dashed border-white/30 flex items-center justify-center">
+                <Briefcase className="w-7 h-7 text-white/40" />
+              </div>
+            )}
+          </div>
+
+          {/* Nombre + info */}
+          <div className="flex-1 min-w-0">
+            <h2 className="font-['Outfit'] text-2xl font-bold text-white leading-tight truncate">
+              {session.company_name || session.name || "Mi empresa"}
+            </h2>
+            <div className="flex items-center flex-wrap gap-2 mt-1.5">
+              {session.inmobiliaria_tipo === "titular" && (
+                <span className="text-xs font-semibold bg-white/20 text-white px-2.5 py-0.5 rounded-full">Titular</span>
               )}
-              <p className="text-[10px] text-slate-400 uppercase tracking-wide text-center font-medium">Logo empresa</p>
-
-              {/* Tipo */}
-              {session.inmobiliaria_tipo === "titular" ? (
-                <Badge className="bg-[#1B4332] text-white">Titular</Badge>
-              ) : session.inmobiliaria_tipo === "asesor" ? (
-                <Badge variant="outline">Asesor</Badge>
-              ) : null}
-
-              {/* Verificación */}
-              <div className="text-center">
-                <p className="text-[10px] text-slate-400 uppercase tracking-wide mb-1.5">Verificación</p>
-                {session.kyc_status === "approved" ? (
-                  <span className="text-xs font-semibold text-green-700 bg-green-50 px-2.5 py-1 rounded-full">✅ Verificado</span>
-                ) : session.kyc_status === "under_review" ? (
-                  <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-full">🔍 En revisión</span>
-                ) : (
-                  <span className="text-xs font-semibold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full">⏳ Pendiente</span>
-                )}
-              </div>
+              {session.inmobiliaria_tipo === "asesor" && (
+                <span className="text-xs font-semibold bg-white/20 text-white px-2.5 py-0.5 rounded-full">Asesor</span>
+              )}
+              {session.kyc_status === "approved" ? (
+                <span className="text-xs font-semibold bg-[#52B788] text-white px-2.5 py-0.5 rounded-full">✅ Verificado</span>
+              ) : session.kyc_status === "under_review" ? (
+                <span className="text-xs font-semibold bg-blue-400/80 text-white px-2.5 py-0.5 rounded-full">🔍 En revisión</span>
+              ) : (
+                <span className="text-xs font-semibold bg-amber-400/80 text-white px-2.5 py-0.5 rounded-full">⏳ Verificación pendiente</span>
+              )}
+              {[session.municipio, session.estado].filter(Boolean).length > 0 && (
+                <span className="text-xs text-white/70 flex items-center gap-1">
+                  <MapPin className="w-3 h-3" />
+                  {[session.municipio, session.estado].filter(Boolean).join(", ")}
+                </span>
+              )}
             </div>
+          </div>
+        </div>
 
-            {/* ── Col 2: Datos ── */}
-            <div className="p-6 space-y-5">
+        <CardContent className="p-0">
+          {/* ── BODY: Datos (izq) + Foto representante (der) ── */}
+          <div className="flex gap-0 divide-x divide-slate-100">
 
-              {/* Nombre empresa + medallas */}
-              <div className="flex items-start gap-3">
-                <div className="flex-1 min-w-0">
-                  <p className="font-['Outfit'] text-2xl font-bold text-[#1B4332] leading-tight">
-                    {session.company_name || session.name || "—"}
-                  </p>
-                  {session.asociacion && (
-                    <p className="text-sm text-slate-500 mt-0.5 flex items-center gap-1">
-                      <span>🏛️</span> {session.asociacion}
-                    </p>
-                  )}
-                </div>
-                <div className="flex gap-1 flex-shrink-0">
-                  {medallaExp && <span title={medallaExp.title} className="text-2xl">{medallaExp.emoji}</span>}
-                  {badgeCartera && <span title={badgeCartera.title} className="text-2xl">{badgeCartera.emoji}</span>}
-                </div>
-              </div>
+            {/* ── Datos ── */}
+            <div className="flex-1 p-6 space-y-5">
 
               {/* Contacto */}
-              <div className="grid grid-cols-2 gap-x-6 gap-y-3">
-                <div>
-                  <p className="text-[10px] text-slate-400 uppercase tracking-wide mb-1">Contacto</p>
-                  <p className="text-sm font-semibold text-slate-700">{session.name || "—"}</p>
+              <div>
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3">Contacto</p>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3">
+                  <DataRow icon={User} label="Representante" value={session.name} />
+                  <DataRow icon={Phone} label="Teléfono" value={session.phone} />
+                  <div className="col-span-2">
+                    <DataRow icon={Mail} label="Correo electrónico" value={session.email} />
+                  </div>
+                  {session.q_dir_oficina && (
+                    <div className="col-span-2">
+                      <DataRow icon={MapPin} label="Dirección de oficina" value={session.q_dir_oficina} />
+                    </div>
+                  )}
+                  {session.num_asesores && (
+                    <DataRow icon={Users} label="Número de asesores" value={session.num_asesores} />
+                  )}
+                  {session.empresa_afiliada && (
+                    <DataRow icon={Briefcase} label="Empresa afiliada" value={session.empresa_afiliada} />
+                  )}
                 </div>
-                <div>
-                  <p className="text-[10px] text-slate-400 uppercase tracking-wide mb-1">Teléfono</p>
-                  <div className="flex items-center gap-1.5">
-                    <Phone className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
-                    <p className="text-sm text-slate-700">{session.phone || "—"}</p>
-                  </div>
-                </div>
-                <div className="col-span-2">
-                  <p className="text-[10px] text-slate-400 uppercase tracking-wide mb-1">Correo electrónico</p>
-                  <div className="flex items-center gap-1.5">
-                    <Mail className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
-                    <p className="text-sm text-slate-700">{session.email || "—"}</p>
-                  </div>
-                </div>
-                <div>
-                  <p className="text-[10px] text-slate-400 uppercase tracking-wide mb-1">Ubicación</p>
-                  <div className="flex items-center gap-1.5">
-                    <MapPin className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
-                    <p className="text-sm text-slate-700">{[session.municipio, session.estado].filter(Boolean).join(", ") || "—"}</p>
-                  </div>
-                </div>
-                {session.q_dir_oficina && (
-                  <div>
-                    <p className="text-[10px] text-slate-400 uppercase tracking-wide mb-1">Dirección de oficina</p>
-                    <p className="text-sm text-slate-700">{session.q_dir_oficina}</p>
-                  </div>
-                )}
-                {session.cursos && (
-                  <div>
-                    <p className="text-[10px] text-slate-400 uppercase tracking-wide mb-1">Curso acreditado</p>
-                    <p className="text-sm text-slate-700">{session.cursos}</p>
-                  </div>
-                )}
               </div>
 
               {/* Redes sociales */}
-              {(rs.instagram || rs.facebook || rs.whatsapp || rs.website) && (
-                <div className="flex flex-wrap gap-3">
-                  {rs.website && (
-                    <a href={rs.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-[#1B4332] transition-colors">
-                      <Globe className="w-3.5 h-3.5" />
-                      <span>{rs.website.replace(/^https?:\/\/(www\.)?/, "")}</span>
-                    </a>
-                  )}
-                  {rs.instagram && (
-                    <span className="flex items-center gap-1.5 text-sm text-slate-500">
-                      <span>📸</span>
-                      <span>{rs.instagram}</span>
-                    </span>
-                  )}
-                  {rs.whatsapp && (
-                    <span className="flex items-center gap-1.5 text-sm text-slate-500">
-                      <MessageCircle className="w-3.5 h-3.5" />
-                      <span>{rs.whatsapp}</span>
-                    </span>
-                  )}
-                  {rs.facebook && (
-                    <span className="flex items-center gap-1.5 text-sm text-slate-500">
-                      <span>🔵</span>
-                      <span>{rs.facebook.replace(/^https?:\/\/(www\.)?facebook\.com\//, "")}</span>
-                    </span>
-                  )}
+              {(rs.instagram || rs.facebook || rs.whatsapp || rs.website || session.q_maps_url) && (
+                <div className="border-t border-slate-100 pt-4">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3">Redes y contacto digital</p>
+                  <div className="flex flex-wrap gap-3">
+                    {rs.website && (
+                      <a href={rs.website} target="_blank" rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 text-sm text-[#1B4332] hover:text-[#52B788] font-medium transition-colors">
+                        <Globe className="w-4 h-4" />
+                        {rs.website.replace(/^https?:\/\/(www\.)?/, "")}
+                      </a>
+                    )}
+                    {rs.instagram && (
+                      <a href={`https://instagram.com/${rs.instagram.replace("@","")}`} target="_blank" rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 text-sm text-pink-600 hover:text-pink-700 font-medium transition-colors">
+                        <span>📸</span> {rs.instagram}
+                      </a>
+                    )}
+                    {rs.facebook && (
+                      <a href={rs.facebook.startsWith("http") ? rs.facebook : `https://facebook.com/${rs.facebook}`}
+                        target="_blank" rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors">
+                        <span>🔵</span> {rs.facebook.replace(/^https?:\/\/(www\.)?facebook\.com\//, "")}
+                      </a>
+                    )}
+                    {rs.whatsapp && (
+                      <a href={`https://wa.me/${rs.whatsapp.replace(/\D/g,"")}`} target="_blank" rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 text-sm text-green-600 hover:text-green-700 font-medium transition-colors">
+                        <MessageCircle className="w-4 h-4" /> {rs.whatsapp}
+                      </a>
+                    )}
+                    {session.q_maps_url && (
+                      <a href={session.q_maps_url} target="_blank" rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 text-sm text-[#1B4332] hover:text-[#52B788] font-medium transition-colors">
+                        <MapPin className="w-4 h-4" /> Ver en Google Maps
+                      </a>
+                    )}
+                  </div>
                 </div>
               )}
 
               {/* Perfil de operaciones */}
-              {(session.q_anos_mercado || session.q_cartera_propiedades || session.q_tipo_operaciones || session.q_crm) && (
+              {(session.q_anos_mercado || session.q_cartera_propiedades || session.q_tipo_operaciones || session.q_crm || session.q_idiomas || session.q_software) && (
                 <div className="border-t border-slate-100 pt-4">
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3">Perfil de operaciones</p>
-                  <div className="grid grid-cols-2 gap-x-6 gap-y-2.5">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3">Perfil operativo</p>
+                  <div className="grid grid-cols-2 gap-x-8 gap-y-3">
                     {session.q_anos_mercado && (
-                      <div>
-                        <p className="text-[10px] text-slate-400">Años en mercado</p>
-                        <p className="text-sm font-medium text-slate-700">{session.q_anos_mercado}</p>
-                      </div>
+                      <DataRow icon={TrendingUp} label="Años en el mercado" value={session.q_anos_mercado} />
                     )}
                     {session.q_cartera_propiedades && (
-                      <div>
-                        <p className="text-[10px] text-slate-400">Cartera (promedio)</p>
-                        <p className="text-sm font-medium text-slate-700">{session.q_cartera_propiedades}</p>
-                      </div>
+                      <DataRow icon={BarChart2} label="Cartera activa" value={session.q_cartera_propiedades} />
                     )}
                     {session.q_crm && (
                       <div className="col-span-2">
-                        <p className="text-[10px] text-slate-400">CRM / Herramientas</p>
-                        <p className="text-sm text-slate-700">{session.q_crm}</p>
+                        <DataRow icon={CheckCircle2} label="CRM / Herramientas" value={session.q_crm} />
                       </div>
+                    )}
+                    {session.q_idiomas && (
+                      <DataRow icon={Globe} label="Idiomas" value={session.q_idiomas} />
+                    )}
+                    {session.q_software && (
+                      <DataRow icon={BarChart2} label="Software especializado" value={session.q_software} />
                     )}
                   </div>
                   {session.q_tipo_operaciones && Object.values(session.q_tipo_operaciones).some(Boolean) && (
-                    <div className="mt-2.5">
-                      <p className="text-[10px] text-slate-400 mb-1.5">Tipo de operaciones</p>
+                    <div className="mt-3">
+                      <p className="text-[10px] text-slate-400 uppercase tracking-wide mb-2">Tipo de operaciones</p>
                       <div className="flex flex-wrap gap-1.5">
                         {Object.entries(session.q_tipo_operaciones)
                           .filter(([, v]) => v)
                           .map(([k]) => (
-                            <span key={k} className="text-xs px-2.5 py-0.5 rounded-full bg-[#D9ED92] text-[#1B4332] font-medium">
+                            <span key={k} className="text-xs px-2.5 py-1 rounded-full bg-[#D9ED92] text-[#1B4332] font-medium">
                               {k.replace(/_/g, " ")}
                             </span>
                           ))}
@@ -772,65 +785,53 @@ const InmobiliariaDashboardPage = () => {
                 </div>
               )}
 
-              {/* Galardones */}
-              {session.galardones && (
-                <div className="border-t border-slate-100 pt-3">
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Galardones</p>
-                  <p className="text-sm text-slate-700">🏅 {session.galardones}</p>
+              {/* Cursos y formación */}
+              {session.cursos && (
+                <div className="border-t border-slate-100 pt-4">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Cursos y certificaciones</p>
+                  <p className="text-sm text-slate-700 leading-relaxed">{session.cursos}</p>
                 </div>
               )}
 
-              {/* Badges strip */}
-              {(medallaExp || badgeCartera || badgesExtras.length > 0) && (
-                <div className="border-t border-slate-100 pt-3 flex flex-wrap gap-1.5">
-                  {medallaExp && (
-                    <span title={medallaExp.title} className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full bg-[#D9ED92] text-[#1B4332] font-semibold">
-                      {medallaExp.emoji} {medallaExp.title}
-                    </span>
-                  )}
-                  {badgeCartera && (
-                    <span title={badgeCartera.title} className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full bg-[#D9ED92] text-[#1B4332] font-semibold">
-                      {badgeCartera.emoji} {badgeCartera.title}
-                    </span>
-                  )}
-                  {badgesExtras.map((b, i) => (
-                    <span key={i} title={b.label} className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 font-medium">
-                      {b.emoji} {b.label}
-                    </span>
-                  ))}
-                </div>
-              )}
             </div>
 
-            {/* ── Col 3: Foto representante ── */}
-            <div className="flex flex-col items-center gap-4 p-6 bg-slate-50/70">
-              <p className="text-[10px] text-slate-400 uppercase tracking-wide font-medium text-center">Representante</p>
+            {/* ── Foto representante ── */}
+            <div className="w-52 flex-shrink-0 flex flex-col items-center justify-center gap-4 p-6 bg-slate-50/60">
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider text-center">Representante</p>
               {fotoDoc ? (
                 <img
                   src={`${API}/kyc/documento/${fotoDoc.doc_id}`}
                   alt="Foto representante"
-                  className="w-28 h-32 rounded-2xl object-cover border-2 border-[#52B788] shadow-sm"
+                  className="w-36 h-44 rounded-2xl object-cover border-2 border-[#52B788] shadow-md"
                 />
               ) : (
-                <div className="w-28 h-32 rounded-2xl bg-slate-100 border-2 border-dashed border-slate-300 flex flex-col items-center justify-center gap-1.5" title="Foto pendiente de subir">
-                  <User className="w-9 h-9 text-slate-300" />
+                <div className="w-36 h-44 rounded-2xl bg-white border-2 border-dashed border-slate-300 flex flex-col items-center justify-center gap-2">
+                  <User className="w-12 h-12 text-slate-300" />
                   <span className="text-[10px] text-slate-300 text-center leading-tight">foto<br/>pendiente</span>
                 </div>
               )}
-              {session.q_maps_url && (
-                <a
-                  href={session.q_maps_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 text-xs text-[#1B4332] hover:text-[#52B788] transition-colors font-medium"
-                >
-                  <ExternalLink className="w-3 h-3" />
-                  Ver en Maps
-                </a>
-              )}
+              <div className="text-center">
+                <p className="text-sm font-semibold text-slate-700">{session.name || "—"}</p>
+                {session.inmobiliaria_tipo && (
+                  <p className="text-xs text-slate-400 capitalize">{session.inmobiliaria_tipo}</p>
+                )}
+              </div>
             </div>
 
           </div>
+
+          {/* ── MEDALLAS footer ── */}
+          {allMedals.length > 0 && (
+            <div className="border-t border-slate-100 px-6 py-4 bg-slate-50/40 flex flex-wrap gap-2">
+              {allMedals.map((m, i) => (
+                <span key={i} className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full border ${m.color}`}>
+                  <span className="text-base leading-none">{m.emoji}</span>
+                  {m.label}
+                </span>
+              ))}
+            </div>
+          )}
+
         </CardContent>
       </Card>
     );
