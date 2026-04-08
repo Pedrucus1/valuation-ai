@@ -31,6 +31,7 @@ import TerminosInmobiliariasPage from "@/pages/TerminosInmobiliariasPage";
 import CodigoEticaPage from "@/pages/CodigoEticaPage";
 import FeedbackPage from "@/pages/FeedbackPage";
 import ValuadoresDirectorioPage from "@/pages/ValuadoresDirectorioPage";
+import InmobiliariasDirectorioPage from "@/pages/InmobiliariasDirectorioPage";
 import PoliticaAnunciosPage from "@/pages/PoliticaAnunciosPage";
 import ValuadorRedPage from "@/pages/ValuadorRedPage";
 
@@ -136,6 +137,7 @@ function AppRouter() {
       <Route path="/codigo-etica-valuadores" element={<CodigoEticaPage />} />
       <Route path="/feedback" element={<FeedbackPage />} />
       <Route path="/valuadores" element={<ValuadoresDirectorioPage />} />
+      <Route path="/inmobiliarias" element={<InmobiliariasDirectorioPage />} />
       <Route path="/politica-anuncios" element={<PoliticaAnunciosPage />} />
       <Route path="/valuador/red" element={<ValuadorRedPage />} />
       <Route path="/dashboard" element={<Navigate to="/login" replace />} />

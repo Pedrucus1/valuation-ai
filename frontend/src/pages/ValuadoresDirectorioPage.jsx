@@ -2,8 +2,11 @@ import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Building2, Search, MapPin, Star, ShieldCheck, Phone, Mail,
-  ChevronDown, ArrowLeft, ExternalLink, Filter, X
+  ChevronDown, ChevronUp, ArrowLeft, ExternalLink, Filter, X,
+  MessageSquare, Send,
 } from "lucide-react";
+import { toast } from "sonner";
+import { API } from "@/App";
 
 // Mock data — reemplazar con fetch a /api/valuadores cuando exista el endpoint
 const VALUADORES = [
@@ -143,16 +146,108 @@ const medallaExperiencia = (años) => {
   return null;
 };
 
-const Estrellas = ({ valor }) => (
-  <span className="text-yellow-400 text-sm">
-    {"★".repeat(Math.floor(valor))}
-    {valor % 1 >= 0.5 ? "½" : ""}
-    <span className="text-slate-200">{"★".repeat(5 - Math.ceil(valor))}</span>
-  </span>
-);
+const Estrellas = ({ valor, interactive = false, onSelect }) => {
+  const [hover, setHover] = useState(0);
+  if (!interactive) return (
+    <span className="text-yellow-400 text-sm">
+      {"★".repeat(Math.floor(valor))}
+      {valor % 1 >= 0.5 ? "½" : ""}
+      <span className="text-slate-200">{"★".repeat(5 - Math.ceil(valor))}</span>
+    </span>
+  );
+  return (
+    <div className="flex gap-1">
+      {[1,2,3,4,5].map(n => (
+        <button key={n} type="button"
+          onMouseEnter={() => setHover(n)} onMouseLeave={() => setHover(0)}
+          onClick={() => onSelect(n)} className="text-2xl transition-transform hover:scale-110">
+          <span className={(hover || valor) >= n ? "text-yellow-400" : "text-slate-200"}>★</span>
+        </button>
+      ))}
+    </div>
+  );
+};
 
-const TarjetaValuador = ({ v }) => {
-  const iniciales = v.nombre
+const ModalResenaValuador = ({ perfil, onClose, onEnviada }) => {
+  const [cal, setCal] = useState(0);
+  const [comentario, setComentario] = useState("");
+  const [nombre, setNombre] = useState("");
+  const [loading, setLoading] = useState(false);
+  const handleEnviar = async () => {
+    if (!cal) { toast.error("Selecciona una calificación"); return; }
+    if (!comentario.trim()) { toast.error("Escribe un comentario"); return; }
+    setLoading(true);
+    try {
+      const res = await fetch(`${API}/directorio/valuadores/${perfil.id || perfil.email}/resena`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ calificacion: cal, comentario: comentario.trim(), nombre_cliente: nombre.trim() || "Anónimo" }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "Error");
+      toast.success("¡Gracias por tu reseña!");
+      onEnviada();
+      onClose();
+    } catch (err) { toast.error(err.message); }
+    finally { setLoading(false); }
+  };
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
+      <div className="relative bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 z-10">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h3 className="text-base font-bold text-[#1B4332]">Calificar valuador</h3>
+            <p className="text-sm text-slate-500">{perfil.nombre || perfil.name}</p>
+          </div>
+          <button onClick={onClose} className="text-slate-400 hover:text-slate-600"><X className="w-5 h-5" /></button>
+        </div>
+        <div className="space-y-4">
+          <div>
+            <p className="text-sm font-semibold text-slate-700 mb-2">¿Cómo calificarías el servicio? *</p>
+            <Estrellas valor={cal} interactive onSelect={setCal} />
+            <p className="text-sm text-slate-400 mt-1">{["","Malo","Regular","Bueno","Muy bueno","Excelente"][cal]}</p>
+          </div>
+          <div className="space-y-1.5">
+            <label className="text-sm font-semibold text-slate-700">Tu comentario *</label>
+            <textarea rows={3} placeholder="Cuenta tu experiencia — puntualidad, calidad del reporte, trato..."
+              className="w-full text-sm border border-slate-200 rounded-xl px-3 py-2 focus:border-[#52B788] focus:outline-none resize-none bg-[#F0FAF5]"
+              value={comentario} onChange={e => setComentario(e.target.value)} />
+          </div>
+          <div className="space-y-1.5">
+            <label className="text-sm font-semibold text-slate-700">Tu nombre <span className="font-normal text-slate-400">(opcional)</span></label>
+            <input type="text" placeholder="ej. Juan Pérez (o déjalo en blanco para Anónimo)"
+              className="w-full h-9 text-sm border border-slate-200 rounded-xl px-3 focus:border-[#52B788] focus:outline-none bg-[#F0FAF5]"
+              value={nombre} onChange={e => setNombre(e.target.value)} />
+          </div>
+          <button onClick={handleEnviar} disabled={loading}
+            className="w-full py-3 rounded-xl bg-[#1B4332] text-white text-sm font-bold hover:bg-[#2D6A4F] transition-colors disabled:opacity-50 flex items-center justify-center gap-2">
+            <Send className="w-4 h-4" />{loading ? "Enviando..." : "Publicar reseña"}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const TarjetaValuador = ({ v, onCalificar }) => {
+  const [expandida, setExpandida] = useState(false);
+  const [resenas, setResenas] = useState([]);
+  const [cargandoResenas, setCargandoResenas] = useState(false);
+
+  const cargarResenas = async () => {
+    if (resenas.length > 0) { setExpandida(e => !e); return; }
+    setCargandoResenas(true);
+    try {
+      const res = await fetch(`${API}/directorio/valuadores/${v.id || v.email}/resenas`);
+      const data = await res.json();
+      setResenas(data);
+      setExpandida(true);
+    } catch { setExpandida(e => !e); }
+    finally { setCargandoResenas(false); }
+  };
+
+  const iniciales = (v.nombre || v.name || "")
     .split(" ")
     .slice(1, 3)
     .map((p) => p[0])
@@ -242,22 +337,46 @@ const TarjetaValuador = ({ v }) => {
 
       {/* Acciones */}
       <div className="flex gap-2 mt-auto pt-2 border-t border-slate-50">
-        <a
-          href={`https://wa.me/52${v.whatsapp}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex-1 flex items-center justify-center gap-1.5 text-xs font-semibold text-white bg-[#25D366] hover:bg-[#1ebe5d] rounded-xl py-2.5 transition-colors"
-        >
-          <Phone className="w-3.5 h-3.5" />
-          WhatsApp
+        <a href={`https://wa.me/52${v.whatsapp}`} target="_blank" rel="noopener noreferrer"
+          className="flex-1 flex items-center justify-center gap-1.5 text-xs font-semibold text-white bg-[#25D366] hover:bg-[#1ebe5d] rounded-xl py-2.5 transition-colors">
+          <Phone className="w-3.5 h-3.5" /> WhatsApp
         </a>
-        <a
-          href={`mailto:${v.email}`}
-          className="flex-1 flex items-center justify-center gap-1.5 text-xs font-semibold text-[#1B4332] border border-[#52B788]/40 hover:bg-[#52B788]/10 rounded-xl py-2.5 transition-colors"
-        >
-          <Mail className="w-3.5 h-3.5" />
-          Email
+        <a href={`mailto:${v.email}`}
+          className="flex-1 flex items-center justify-center gap-1.5 text-xs font-semibold text-[#1B4332] border border-[#52B788]/40 hover:bg-[#52B788]/10 rounded-xl py-2.5 transition-colors">
+          <Mail className="w-3.5 h-3.5" /> Email
         </a>
+        <button onClick={() => onCalificar(v)}
+          className="flex items-center justify-center gap-1 text-xs font-semibold text-yellow-600 border border-yellow-200 hover:bg-yellow-50 rounded-xl px-3 py-2.5 transition-colors">
+          <Star className="w-3.5 h-3.5" /> Calificar
+        </button>
+      </div>
+
+      {/* Reseñas expandibles */}
+      <div className="border-t border-slate-50 mt-2">
+        <button onClick={cargarResenas}
+          className="w-full flex items-center justify-between px-2 py-2.5 text-xs text-slate-500 hover:text-[#1B4332] hover:bg-[#F0FAF5] transition-colors rounded-b-2xl">
+          <span className="flex items-center gap-1.5">
+            <MessageSquare className="w-3.5 h-3.5" />
+            {cargandoResenas ? "Cargando..." : `Ver reseñas (${v.totalReportes || 0})`}
+          </span>
+          {expandida ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+        </button>
+        {expandida && (
+          <div className="px-2 pb-3 space-y-2">
+            {resenas.length === 0 ? (
+              <p className="text-xs text-slate-400 text-center py-2">Aún no hay reseñas en línea.</p>
+            ) : resenas.map((r, i) => (
+              <div key={i} className="bg-[#F8F9FA] rounded-xl p-3 space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-semibold text-[#1B4332]">{r.nombre_cliente}</span>
+                  <Estrellas valor={r.calificacion} />
+                </div>
+                <p className="text-sm text-slate-600 leading-snug">{r.comentario}</p>
+                <p className="text-xs text-slate-400">{new Date(r.created_at).toLocaleDateString("es-MX", { day: "numeric", month: "long", year: "numeric" })}</p>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -266,6 +385,8 @@ const TarjetaValuador = ({ v }) => {
 const ValuadoresDirectorioPage = () => {
   const navigate = useNavigate();
   const [busqueda, setBusqueda] = useState("");
+  const [modalPerfil, setModalPerfil] = useState(null);
+  const [reloadKey, setReloadKey] = useState(0);
   const [ciudad, setCiudad] = useState("Todas");
   const [cert, setCert] = useState("Todas");
   const [especialidad, setEspecialidad] = useState("Todas");
@@ -418,7 +539,7 @@ const ValuadoresDirectorioPage = () => {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {filtrados.map((v) => (
-              <TarjetaValuador key={v.id} v={v} />
+              <TarjetaValuador key={v.id} v={v} onCalificar={setModalPerfil} />
             ))}
           </div>
         )}
@@ -447,6 +568,14 @@ const ValuadoresDirectorioPage = () => {
           </div>
         </div>
       </main>
+
+      {modalPerfil && (
+        <ModalResenaValuador
+          perfil={modalPerfil}
+          onClose={() => setModalPerfil(null)}
+          onEnviada={() => setReloadKey(k => k + 1)}
+        />
+      )}
     </div>
   );
 };

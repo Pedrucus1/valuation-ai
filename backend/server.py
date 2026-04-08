@@ -2769,6 +2769,107 @@ async def admin_reportes(request: Request):
         }
     }
 
+# ─── Directorio público ─────────────────────────────────────────────────────
+
+@api_router.get("/directorio/valuadores")
+async def directorio_valuadores(
+    estado: str = None,
+    busqueda: str = None,
+    especialidad: str = None,
+):
+    query = {"role": "appraiser", "kyc_status": "approved"}
+    if estado:
+        query["estado"] = estado
+    if especialidad:
+        query["services." + especialidad] = True
+
+    usuarios = await db.users.find(query, {
+        "_id": 0, "password": 0, "session_token": 0,
+    }).sort("plan", -1).to_list(200)
+
+    resultado = []
+    for u in usuarios:
+        uid = u.get("id") or u.get("email", "")
+        # Calcular promedio de calificaciones
+        resenas = await db.resenas.find({"perfil_id": uid}).to_list(500)
+        avg = round(sum(r["calificacion"] for r in resenas) / len(resenas), 1) if resenas else 0.0
+        u["calificacion_promedio"] = avg
+        u["total_resenas"] = len(resenas)
+        if busqueda:
+            texto = (u.get("name","") + " " + u.get("ciudad","") + " " + u.get("estado","")).lower()
+            if busqueda.lower() not in texto:
+                continue
+        resultado.append(u)
+
+    return resultado
+
+
+@api_router.get("/directorio/inmobiliarias")
+async def directorio_inmobiliarias(
+    estado: str = None,
+    busqueda: str = None,
+    tipo: str = None,
+):
+    query = {"role": "realtor", "kyc_status": "approved"}
+    if tipo:
+        query["inmobiliaria_tipo"] = tipo
+    if estado:
+        query["$or"] = [{"estado": estado}, {"estados": estado}]
+
+    usuarios = await db.users.find(query, {
+        "_id": 0, "password": 0, "session_token": 0,
+    }).sort("plan", -1).to_list(200)
+
+    resultado = []
+    for u in usuarios:
+        uid = u.get("id") or u.get("email", "")
+        resenas = await db.resenas.find({"perfil_id": uid}).to_list(500)
+        avg = round(sum(r["calificacion"] for r in resenas) / len(resenas), 1) if resenas else 0.0
+        u["calificacion_promedio"] = avg
+        u["total_resenas"] = len(resenas)
+        if busqueda:
+            texto = (u.get("name","") + " " + u.get("company_name","") + " " + u.get("estado","")).lower()
+            if busqueda.lower() not in texto:
+                continue
+        resultado.append(u)
+
+    return resultado
+
+
+@api_router.post("/directorio/{tipo}/{perfil_id}/resena")
+async def enviar_resena(tipo: str, perfil_id: str, request: Request):
+    if tipo not in ("valuadores", "inmobiliarias"):
+        raise HTTPException(400, "Tipo debe ser 'valuadores' o 'inmobiliarias'")
+    body = await request.json()
+    calificacion = int(body.get("calificacion", 0))
+    if not (1 <= calificacion <= 5):
+        raise HTTPException(400, "Calificación debe ser entre 1 y 5")
+    comentario = body.get("comentario", "").strip()
+    nombre_cliente = body.get("nombre_cliente", "Anónimo").strip() or "Anónimo"
+    if not comentario:
+        raise HTTPException(400, "El comentario no puede estar vacío")
+
+    doc = {
+        "perfil_id": perfil_id,
+        "tipo": tipo,
+        "calificacion": calificacion,
+        "comentario": comentario,
+        "nombre_cliente": nombre_cliente,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    }
+    await db.resenas.insert_one(doc)
+    return {"ok": True, "message": "Reseña enviada correctamente"}
+
+
+@api_router.get("/directorio/{tipo}/{perfil_id}/resenas")
+async def obtener_resenas(tipo: str, perfil_id: str):
+    docs = await db.resenas.find(
+        {"perfil_id": perfil_id, "tipo": tipo},
+        {"_id": 0}
+    ).sort("created_at", -1).to_list(50)
+    return docs
+
+
 # Include router
 app.include_router(api_router)
 
