@@ -119,6 +119,7 @@ const InmobiliariaDashboardPage = () => {
   const [kycDocs, setKycDocs] = useState([]);
   const [kycSubiendo, setKycSubiendo] = useState({});
   const [kycError, setKycError] = useState("");
+  const [showDocsModal, setShowDocsModal] = useState(false);
 
   const DOCS_REQUERIDOS = [
     { key: "rfc_constancia",      label: "RFC / Constancia de situación fiscal" },
@@ -158,7 +159,9 @@ const InmobiliariaDashboardPage = () => {
     const fromState = location.state?.user;
     if (fromState) {
       setSession(fromState);
+      localStorage.setItem("inmobiliaria_session", JSON.stringify(fromState));
       cargarDocs();
+      if (location.state?.showDocsReminder) setShowDocsModal(true);
       return;
     }
     try {
@@ -584,10 +587,12 @@ const InmobiliariaDashboardPage = () => {
           </div>
           <div>
             <p className="text-xs text-slate-400 mb-1">Tipo de cuenta</p>
-            {session.inmobiliaria_tipo === "Titular" ? (
+            {session.inmobiliaria_tipo === "titular" ? (
               <Badge className="bg-[#1B4332] text-white">Titular</Badge>
-            ) : (
+            ) : session.inmobiliaria_tipo === "asesor" ? (
               <Badge variant="outline">Asesor</Badge>
+            ) : (
+              <Badge variant="outline">{session.inmobiliaria_tipo || "—"}</Badge>
             )}
           </div>
           {session.asociacion && (
@@ -606,12 +611,124 @@ const InmobiliariaDashboardPage = () => {
             </div>
           </div>
         </div>
+
+        {/* Logo */}
+        {(() => {
+          const logoDoc = kycDocs.find(d => d.doc_tipo === "logo_empresa");
+          return (
+            <div>
+              <p className="text-xs text-slate-400 mb-2">Logo de empresa</p>
+              {logoDoc ? (
+                <img
+                  src={`${API}/kyc/documento/${logoDoc.doc_id}`}
+                  alt="Logo"
+                  className="h-14 w-auto object-contain rounded-lg border border-slate-100 bg-slate-50 p-1"
+                />
+              ) : (
+                <p className="text-xs text-slate-400 italic">Sin logo — puedes subirlo desde Documentos</p>
+              )}
+            </div>
+          );
+        })()}
+
+        {/* Cuestionario */}
+        {(session.q_anos_mercado || session.q_cartera_propiedades || session.q_tipo_operaciones || session.q_crm) && (
+          <div className="border-t border-slate-100 pt-4">
+            <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Perfil de operaciones</p>
+            <div className="grid sm:grid-cols-2 gap-3">
+              {session.q_anos_mercado && (
+                <div>
+                  <p className="text-xs text-slate-400 mb-0.5">Años en el mercado</p>
+                  <p className="text-sm text-slate-700">{session.q_anos_mercado}</p>
+                </div>
+              )}
+              {session.q_cartera_propiedades && (
+                <div>
+                  <p className="text-xs text-slate-400 mb-0.5">Promedio de propiedades en cartera</p>
+                  <p className="text-sm text-slate-700">{session.q_cartera_propiedades}</p>
+                </div>
+              )}
+              {session.q_tipo_operaciones && Object.values(session.q_tipo_operaciones).some(Boolean) && (
+                <div className="sm:col-span-2">
+                  <p className="text-xs text-slate-400 mb-1">Tipo de operaciones</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {Object.entries(session.q_tipo_operaciones)
+                      .filter(([, v]) => v)
+                      .map(([k]) => (
+                        <span key={k} className="text-xs px-2 py-0.5 rounded-full bg-[#D9ED92] text-[#1B4332] font-medium">
+                          {k.replace(/_/g, " ")}
+                        </span>
+                      ))}
+                  </div>
+                </div>
+              )}
+              {session.q_crm && (
+                <div className="sm:col-span-2">
+                  <p className="text-xs text-slate-400 mb-0.5">CRM / Herramientas</p>
+                  <p className="text-sm text-slate-700">{session.q_crm}</p>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </CardContent>
     </Card>
   );
 
+  const docsReminderList = session?.inmobiliaria_tipo === "titular"
+    ? [
+        { icon: "🪪", doc: "INE vigente (frente y vuelta)" },
+        { icon: "📷", doc: "Foto profesional (fondo neutro, vestimenta formal)" },
+        { icon: "🏢", doc: "Comprobante de domicilio del negocio (máx 3 meses)" },
+        { icon: "🏛️", doc: "Certificado de asociación inmobiliaria (AMPI/CANACO/CIPS)" },
+        { icon: "📋", doc: "Opinión de cumplimiento fiscal (SAT)" },
+        { icon: "📄", doc: "Constancia de situación fiscal / RFC" },
+        { icon: "🖼️", doc: "Logo de empresa (opcional)" },
+      ]
+    : [
+        { icon: "🪪", doc: "INE vigente (frente y vuelta)" },
+        { icon: "📷", doc: "Foto profesional (fondo neutro, vestimenta formal)" },
+        { icon: "🏢", doc: "Comprobante de domicilio del negocio (máx 3 meses)" },
+        { icon: "🪪", doc: "Credencial de empresa (gafete o carta de asesor activo)" },
+        { icon: "🎓", doc: "Certificación de curso (AMPI/CANACO/CIPS/INFONAVIT)" },
+      ];
+
   return (
     <div className="min-h-screen bg-[#F8F9FA] font-['Manrope']">
+      {/* Modal — documentos pendientes */}
+      {showDocsModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowDocsModal(false)} />
+          <div className="relative bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 z-10 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-start gap-4 mb-4">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#1B4332] to-[#52B788] flex items-center justify-center shrink-0">
+                <FileText className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h2 className="text-base font-bold text-[#1B4332]">¡Registro completado! 🎉</h2>
+                <p className="text-sm text-slate-500 mt-0.5">Ve preparando estos documentos para verificar tu cuenta</p>
+              </div>
+            </div>
+            <p className="text-xs text-slate-500 mb-4 leading-relaxed bg-[#F0FAF5] rounded-lg p-3">
+              Tu cuenta ya está activa. Cuando tengas los documentos listos, súbelos desde la pestaña <strong>Documentos</strong> de tu panel para activar la verificación completa.
+            </p>
+            <div className="space-y-2 mb-5">
+              {docsReminderList.map(({ icon, doc }) => (
+                <div key={doc} className="flex gap-3 items-start bg-slate-50 rounded-xl p-2.5">
+                  <span className="text-lg shrink-0">{icon}</span>
+                  <p className="text-sm text-[#1B4332] font-medium leading-snug">{doc}</p>
+                </div>
+              ))}
+            </div>
+            <button
+              onClick={() => setShowDocsModal(false)}
+              className="w-full py-3 rounded-xl bg-[#1B4332] text-white text-sm font-bold hover:bg-[#2D6A4F] transition-colors"
+            >
+              Entendido, iré preparando mis documentos
+            </button>
+          </div>
+        </div>
+      )}
       {/* Sticky Nav */}
       <header className="sticky top-0 z-30 bg-white border-b border-slate-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">

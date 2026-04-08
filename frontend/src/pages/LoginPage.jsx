@@ -539,7 +539,11 @@ const LoginPage = () => {
             : "Registro completado. Tu cuenta está en revisión — te avisaremos por correo."
         );
       }
-      navigateByRole(data);
+      if (data.role === "realtor") {
+        navigate("/dashboard/inmobiliaria", { state: { user: data, showDocsReminder: true } });
+      } else {
+        navigateByRole(data);
+      }
     } catch (err) {
       toast.error(err.message || "Error al registrarse");
     } finally {

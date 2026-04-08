@@ -102,6 +102,13 @@ class User(BaseModel):
     estado: Optional[str] = None
     municipio: Optional[str] = None
     inmobiliaria_tipo: Optional[str] = None
+    asociacion: Optional[str] = None
+    modo_perfil: Optional[str] = None
+    q_anos_mercado: Optional[str] = None
+    q_tipo_operaciones: Optional[Dict[str, Any]] = None
+    q_cartera_propiedades: Optional[str] = None
+    q_crm: Optional[str] = None
+    verificacion_pendiente: Optional[bool] = None
 
 class RegisterRequest(BaseModel):
     name: str
@@ -140,6 +147,12 @@ class RegisterRequest(BaseModel):
     cursos: Optional[str] = None
     num_asesores: Optional[str] = None
     empresa_afiliada: Optional[str] = None
+    # Cuestionario inmobiliaria
+    q_anos_mercado: Optional[str] = None
+    q_tipo_operaciones: Optional[Dict[str, Any]] = None
+    q_cartera_propiedades: Optional[str] = None
+    q_crm: Optional[str] = None
+    verificacion_pendiente: Optional[bool] = None
 
 class LoginRequest(BaseModel):
     email: str
@@ -481,6 +494,11 @@ async def register_email(data: RegisterRequest, response: Response):
         "cursos": data.cursos,
         "num_asesores": data.num_asesores,
         "empresa_afiliada": data.empresa_afiliada,
+        "q_anos_mercado": data.q_anos_mercado,
+        "q_tipo_operaciones": data.q_tipo_operaciones,
+        "q_cartera_propiedades": data.q_cartera_propiedades,
+        "q_crm": data.q_crm,
+        "verificacion_pendiente": data.verificacion_pendiente,
         "hashed_password": hashed_pw,
         "kyc_status": "pending",
         "credits": 0,
