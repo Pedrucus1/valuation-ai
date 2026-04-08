@@ -57,54 +57,73 @@ const MUNICIPIOS_POR_ESTADO = {
   "Zacatecas":          ["Zacatecas","Fresnillo","Guadalupe","Jerez","Calera","Loreto","Sombrerete","Tlaltenango","Villanueva","Ojocaliente"],
 };
 
-// Input de municipios: estado local para no perder la coma mientras se escribe
+// Tag input: cada municipio es un chip; coma o Enter confirma; datalist solo sugiere el texto actual
 const MunicipioInput = ({ estado, valores, sugerencias, onChange }) => {
-  const [texto, setTexto] = useState((valores || []).filter(Boolean).join(", "));
-
-  useEffect(() => {
-    const externo = (valores || []).filter(Boolean).join(", ");
-    // Solo sincronizar si el cambio viene de afuera (p.ej. al limpiar el estado)
-    if (externo === "" && texto !== "") return; // no pisar si el usuario está escribiendo
-    if (externo !== texto.split(",").map(s => s.trim()).filter(Boolean).join(", ")) {
-      setTexto(externo);
-    }
-  }, [valores]); // eslint-disable-line
-
+  const [actual, setActual] = useState("");
+  const inputRef = useRef(null);
   const listId = `muns-${estado.replace(/\s/g, "-")}`;
-  // Prefijo = todo lo que ya está escrito antes de la última coma
-  const partes = texto.split(",");
-  const prefijo = partes.slice(0, -1).map(s => s.trim()).filter(Boolean);
-  const prefijoStr = prefijo.length ? prefijo.join(", ") + ", " : "";
+  const tags = (valores || []).filter(Boolean);
 
-  const commit = (val) => {
-    const nuevas = val.split(",").map(s => s.trim()).filter(Boolean);
-    onChange(nuevas.length ? nuevas : [""]);
+  const agregarTag = (texto) => {
+    const limpio = texto.trim();
+    if (!limpio || tags.includes(limpio)) { setActual(""); return; }
+    onChange([...tags, limpio]);
+    setActual("");
+  };
+
+  const quitarTag = (idx) => onChange(tags.filter((_, i) => i !== idx));
+
+  const handleKeyDown = (e) => {
+    if (e.key === "," || e.key === "Enter") {
+      e.preventDefault();
+      agregarTag(actual);
+    } else if (e.key === "Backspace" && actual === "" && tags.length > 0) {
+      quitarTag(tags.length - 1);
+    }
+  };
+
+  const handleChange = (e) => {
+    const val = e.target.value;
+    // Si viene del datalist (sin coma al final) lo confirma directo
+    if (val.endsWith(",")) {
+      agregarTag(val.slice(0, -1));
+    } else {
+      setActual(val);
+      // Si el valor coincide exactamente con una sugerencia, confirmar
+      if ((sugerencias || []).includes(val.trim())) {
+        agregarTag(val);
+      }
+    }
   };
 
   return (
-    <>
+    <div
+      className="flex flex-wrap gap-1.5 min-h-[36px] px-2 py-1.5 border border-[#B7E4C7] rounded-lg bg-white focus-within:border-[#52B788] cursor-text"
+      onClick={() => inputRef.current?.focus()}
+    >
+      {tags.map((t, i) => (
+        <span key={i} className="flex items-center gap-1 bg-[#D9ED92] text-[#1B4332] text-xs font-semibold px-2 py-0.5 rounded-full">
+          {t}
+          <button type="button" onClick={() => quitarTag(i)}
+            className="text-[#1B4332]/50 hover:text-[#1B4332] leading-none">×</button>
+        </span>
+      ))}
       <input
+        ref={inputRef}
         list={listId}
-        value={texto}
-        placeholder={`ej. ${(sugerencias || []).slice(0, 3).join(", ")}…`}
-        className="w-full h-8 px-3 text-sm border border-[#B7E4C7] rounded-lg bg-white focus:border-[#52B788] focus:outline-none text-[#1B4332]"
-        onChange={e => setTexto(e.target.value)}
-        onBlur={e => commit(e.target.value)}
-        // Al seleccionar del datalist también hace commit
-        onInput={e => {
-          const val = e.target.value;
-          const esOpcionCompleta = (sugerencias || []).some(m =>
-            val === prefijoStr + m || val.endsWith(", " + m)
-          );
-          if (esOpcionCompleta) commit(val);
-        }}
+        value={actual}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+        onBlur={() => actual.trim() && agregarTag(actual)}
+        placeholder={tags.length === 0 ? `ej. ${(sugerencias || []).slice(0, 2).join(", ")}…` : ""}
+        className="flex-1 min-w-[120px] text-sm outline-none bg-transparent text-[#1B4332] placeholder:text-slate-400"
       />
       <datalist id={listId}>
-        {(sugerencias || []).map(m => (
-          <option key={m} value={prefijoStr + m} />
+        {(sugerencias || []).filter(m => !tags.includes(m)).map(m => (
+          <option key={m} value={m} />
         ))}
       </datalist>
-    </>
+    </div>
   );
 };
 
@@ -1071,7 +1090,7 @@ const LoginPage = () => {
                       ...regData.cobertura_municipios, [est]: nuevas,
                     })}
                   />
-                  <p className="text-[10px] text-slate-400">Separa con comas: Guadalajara, Zapopan, Tlaquepaque</p>
+                  <p className="text-[10px] text-slate-400">Escribe y presiona coma o Enter para agregar · Backspace para borrar el último</p>
                 </div>
               ))}
             </div>
