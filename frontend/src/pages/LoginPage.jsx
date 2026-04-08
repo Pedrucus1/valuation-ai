@@ -479,7 +479,7 @@ const LoginPage = () => {
       {/* Nombre */}
       <div className="space-y-1.5">
         <Label className="text-sm font-medium text-slate-700">
-          {regData.role === "realtor" ? "Nombre del representante" : "Nombre completo"} *
+          Nombre completo *
         </Label>
         <div className="relative">
           <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -1687,7 +1687,7 @@ const LoginPage = () => {
                 onClick={() => { setTab(t.key); setRegStep(1); }}
                 className={`flex-1 py-4 text-sm font-semibold transition-colors ${
                   tab === t.key
-                    ? "text-[#1B4332] border-b-2 border-[#52B788] bg-[#D9ED92]/10"
+                    ? "text-white bg-[#1B4332] border-b-2 border-[#1B4332]"
                     : "text-slate-400 hover:text-slate-600"
                 }`}
               >
