@@ -1141,9 +1141,18 @@ const ValuadorDashboardPage = () => {
 
           {/* Right: user chip + logout */}
           <div className="flex items-center gap-3">
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-[#D9ED92]/40 rounded-full max-w-xs">
-              <User className="w-4 h-4 text-[#1B4332] shrink-0" />
-              <span className="text-sm font-medium text-[#1B4332] truncate">
+            <div className="hidden sm:flex items-center gap-2 px-2 py-1 bg-[#D9ED92]/40 rounded-full max-w-xs">
+              {(() => {
+                const fotoDoc = kycDocs.find(d => d.doc_tipo === "foto_profesional");
+                return fotoDoc ? (
+                  <img src={`${API}/kyc/documento/${fotoDoc.doc_id}`} alt="" className="w-7 h-7 rounded-full object-cover shrink-0 border border-[#52B788]" />
+                ) : (
+                  <div className="w-7 h-7 rounded-full bg-slate-300/60 border border-dashed border-slate-400/50 flex items-center justify-center shrink-0">
+                    <User className="w-3.5 h-3.5 text-slate-400" />
+                  </div>
+                );
+              })()}
+              <span className="text-sm font-medium text-[#1B4332] truncate pr-1">
                 {session.name || session.email}
               </span>
               {session.q_experiencia === "Más de 10 años" && <span className="text-sm">🥇</span>}
