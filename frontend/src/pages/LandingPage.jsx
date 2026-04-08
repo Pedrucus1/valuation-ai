@@ -154,7 +154,11 @@ const LandingPage = () => {
                 Prop<span className="text-[#52B788]">Valu</span>
               </span>
             </div>
-            <div className="hidden md:flex items-center gap-3">
+            <div className="hidden md:flex items-center gap-6">
+              <div className="flex items-center gap-4 text-sm text-slate-500">
+                <button onClick={() => navigate("/valuadores")} className="hover:text-[#1B4332] transition-colors">Directorio valuadores</button>
+                <button onClick={() => navigate("/inmobiliarias")} className="hover:text-[#1B4332] transition-colors">Directorio inmobiliarias</button>
+              </div>
               {!isLoading && (
                 user ? (
                   <>
@@ -178,7 +182,12 @@ const LandingPage = () => {
           </div>
         </div>
         {mobileMenuOpen && (
-          <div className="md:hidden bg-white border-b border-slate-200 px-4 py-4">
+          <div className="md:hidden bg-white border-b border-slate-200 px-4 py-4 space-y-2">
+            <button onClick={() => { navigate("/valuadores"); setMobileMenuOpen(false); }}
+              className="w-full text-left text-sm text-slate-600 py-2 hover:text-[#1B4332]">Directorio de Valuadores</button>
+            <button onClick={() => { navigate("/inmobiliarias"); setMobileMenuOpen(false); }}
+              className="w-full text-left text-sm text-slate-600 py-2 hover:text-[#1B4332]">Directorio de Inmobiliarias</button>
+            <div className="border-t border-slate-100 pt-2">
             {!isLoading && (user ? (
               <div className="space-y-2">
                 <Button variant="ghost" onClick={() => { navigate("/dashboard"); setMobileMenuOpen(false); }} className="w-full justify-start text-[#1B4332]">
@@ -193,6 +202,7 @@ const LandingPage = () => {
                 <User className="w-4 h-4 mr-2" /> Acceso Clientes
               </Button>
             ))}
+            </div>
           </div>
         )}
       </nav>
@@ -510,8 +520,10 @@ const LandingPage = () => {
             </span>
           </div>
           <div className="flex items-center gap-6 text-sm text-slate-400">
-            <button onClick={() => { window.scrollTo(0, 0); navigate("/para-valuadores"); }} className="hover:text-[#1B4332] transition-colors">Valuadores</button>
-            <button onClick={() => { window.scrollTo(0, 0); navigate("/para-inmobiliarias"); }} className="hover:text-[#1B4332] transition-colors">Inmobiliarias</button>
+            <button onClick={() => { window.scrollTo(0, 0); navigate("/valuadores"); }} className="hover:text-[#1B4332] transition-colors">Directorio valuadores</button>
+            <button onClick={() => { window.scrollTo(0, 0); navigate("/inmobiliarias"); }} className="hover:text-[#1B4332] transition-colors">Directorio inmobiliarias</button>
+            <button onClick={() => { window.scrollTo(0, 0); navigate("/para-valuadores"); }} className="hover:text-[#1B4332] transition-colors">Para valuadores</button>
+            <button onClick={() => { window.scrollTo(0, 0); navigate("/para-inmobiliarias"); }} className="hover:text-[#1B4332] transition-colors">Para inmobiliarias</button>
             <button onClick={() => { window.scrollTo(0, 0); navigate("/anunciantes"); }} className="hover:text-[#1B4332] transition-colors">Anunciantes</button>
             <button onClick={() => { window.scrollTo(0, 0); navigate("/privacidad"); }} className="hover:text-[#1B4332] transition-colors">Política de Privacidad</button>
             <button onClick={() => { window.scrollTo(0, 0); navigate("/terminos"); }} className="hover:text-[#1B4332] transition-colors">Términos de Uso</button>
