@@ -57,6 +57,57 @@ const MUNICIPIOS_POR_ESTADO = {
   "Zacatecas":          ["Zacatecas","Fresnillo","Guadalupe","Jerez","Calera","Loreto","Sombrerete","Tlaltenango","Villanueva","Ojocaliente"],
 };
 
+// Input de municipios: estado local para no perder la coma mientras se escribe
+const MunicipioInput = ({ estado, valores, sugerencias, onChange }) => {
+  const [texto, setTexto] = React.useState((valores || []).filter(Boolean).join(", "));
+
+  React.useEffect(() => {
+    const externo = (valores || []).filter(Boolean).join(", ");
+    // Solo sincronizar si el cambio viene de afuera (p.ej. al limpiar el estado)
+    if (externo === "" && texto !== "") return; // no pisar si el usuario está escribiendo
+    if (externo !== texto.split(",").map(s => s.trim()).filter(Boolean).join(", ")) {
+      setTexto(externo);
+    }
+  }, [valores]); // eslint-disable-line
+
+  const listId = `muns-${estado.replace(/\s/g, "-")}`;
+  // Prefijo = todo lo que ya está escrito antes de la última coma
+  const partes = texto.split(",");
+  const prefijo = partes.slice(0, -1).map(s => s.trim()).filter(Boolean);
+  const prefijoStr = prefijo.length ? prefijo.join(", ") + ", " : "";
+
+  const commit = (val) => {
+    const nuevas = val.split(",").map(s => s.trim()).filter(Boolean);
+    onChange(nuevas.length ? nuevas : [""]);
+  };
+
+  return (
+    <>
+      <input
+        list={listId}
+        value={texto}
+        placeholder={`ej. ${(sugerencias || []).slice(0, 3).join(", ")}…`}
+        className="w-full h-8 px-3 text-sm border border-[#B7E4C7] rounded-lg bg-white focus:border-[#52B788] focus:outline-none text-[#1B4332]"
+        onChange={e => setTexto(e.target.value)}
+        onBlur={e => commit(e.target.value)}
+        // Al seleccionar del datalist también hace commit
+        onInput={e => {
+          const val = e.target.value;
+          const esOpcionCompleta = (sugerencias || []).some(m =>
+            val === prefijoStr + m || val.endsWith(", " + m)
+          );
+          if (esOpcionCompleta) commit(val);
+        }}
+      />
+      <datalist id={listId}>
+        {(sugerencias || []).map(m => (
+          <option key={m} value={prefijoStr + m} />
+        ))}
+      </datalist>
+    </>
+  );
+};
+
 const SERVICIOS_VALUADOR = [
   { key: "infonavit",       label: "Infonavit" },
   { key: "fovissste",       label: "Fovissste" },
@@ -1003,48 +1054,26 @@ const LoginPage = () => {
           {/* Estados seleccionados con sus municipios */}
           {regData.estados.length > 0 && (
             <div className="space-y-2">
-              {regData.estados.map(est => {
-                const listId = `muns-${est.replace(/\s/g, "-")}`;
-                const valor = (regData.cobertura_municipios[est] || []).join(", ");
-                const sugerencias = MUNICIPIOS_POR_ESTADO[est] || [];
-                // Construye sugerencias contextuales: prefijo actual + municipio sugerido
-                const partes = valor.split(",");
-                const prefijo = partes.slice(0, -1).map(s => s.trim()).filter(Boolean);
-                const prefijoStr = prefijo.length ? prefijo.join(", ") + ", " : "";
-                return (
-                  <div key={est} className="rounded-xl border border-[#B7E4C7] bg-[#F0FAF5] p-2.5 space-y-1.5">
-                    <div className="flex items-center justify-between">
-                      <p className="text-xs font-semibold text-[#1B4332] flex items-center gap-1">
-                        <MapPin className="w-3 h-3 text-[#52B788]" />{est}
-                      </p>
-                      <button type="button" onClick={() => quitarEstado(est)}
-                        className="text-[10px] text-slate-400 hover:text-red-400 font-medium">✕ quitar</button>
-                    </div>
-                    <input
-                      list={listId}
-                      placeholder={`ej. ${(sugerencias.slice(0,3)).join(", ")}…`}
-                      className="w-full h-8 px-3 text-sm border border-[#B7E4C7] rounded-lg bg-white focus:border-[#52B788] focus:outline-none text-[#1B4332]"
-                      value={valor}
-                      onChange={e => {
-                        const nuevas = e.target.value
-                          .split(",")
-                          .map(s => s.trim())
-                          .filter(Boolean);
-                        setReg("cobertura_municipios", {
-                          ...regData.cobertura_municipios,
-                          [est]: nuevas.length ? nuevas : [""],
-                        });
-                      }}
-                    />
-                    <datalist id={listId}>
-                      {sugerencias.map(m => (
-                        <option key={m} value={prefijoStr + m} />
-                      ))}
-                    </datalist>
-                    <p className="text-[10px] text-slate-400">Separa con comas: Guadalajara, Zapopan, Tlaquepaque</p>
+              {regData.estados.map(est => (
+                <div key={est} className="rounded-xl border border-[#B7E4C7] bg-[#F0FAF5] p-2.5 space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <p className="text-xs font-semibold text-[#1B4332] flex items-center gap-1">
+                      <MapPin className="w-3 h-3 text-[#52B788]" />{est}
+                    </p>
+                    <button type="button" onClick={() => quitarEstado(est)}
+                      className="text-[10px] text-slate-400 hover:text-red-400 font-medium">✕ quitar</button>
                   </div>
-                );
-              })}
+                  <MunicipioInput
+                    estado={est}
+                    valores={regData.cobertura_municipios[est]}
+                    sugerencias={MUNICIPIOS_POR_ESTADO[est]}
+                    onChange={nuevas => setReg("cobertura_municipios", {
+                      ...regData.cobertura_municipios, [est]: nuevas,
+                    })}
+                  />
+                  <p className="text-[10px] text-slate-400">Separa con comas: Guadalajara, Zapopan, Tlaquepaque</p>
+                </div>
+              ))}
             </div>
           )}
         </div>
