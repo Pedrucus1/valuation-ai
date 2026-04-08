@@ -1,4 +1,4 @@
-﻿import { useState, useRef } from "react";
+﻿import { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
   Building2, Eye, EyeOff, User, Mail, Lock, Phone, Briefcase,
@@ -59,9 +59,9 @@ const MUNICIPIOS_POR_ESTADO = {
 
 // Input de municipios: estado local para no perder la coma mientras se escribe
 const MunicipioInput = ({ estado, valores, sugerencias, onChange }) => {
-  const [texto, setTexto] = React.useState((valores || []).filter(Boolean).join(", "));
+  const [texto, setTexto] = useState((valores || []).filter(Boolean).join(", "));
 
-  React.useEffect(() => {
+  useEffect(() => {
     const externo = (valores || []).filter(Boolean).join(", ");
     // Solo sincronizar si el cambio viene de afuera (p.ej. al limpiar el estado)
     if (externo === "" && texto !== "") return; // no pisar si el usuario está escribiendo
