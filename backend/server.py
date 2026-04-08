@@ -2931,9 +2931,44 @@ async def enviar_resena(tipo: str, perfil_id: str, request: Request):
 async def obtener_resenas(tipo: str, perfil_id: str):
     docs = await db.resenas.find(
         {"perfil_id": perfil_id, "tipo": tipo},
-        {"_id": 0}
     ).sort("created_at", -1).to_list(50)
+    for d in docs:
+        d["id"] = str(d.pop("_id"))
     return docs
+
+
+@api_router.post("/directorio/{tipo}/{perfil_id}/resenas/{resena_id}/respuesta")
+async def responder_resena(tipo: str, perfil_id: str, resena_id: str, request: Request):
+    """La empresa dueña del perfil responde a una reseña."""
+    token = request.cookies.get("session_token")
+    if not token:
+        raise HTTPException(401, "No autenticado")
+    user = await db.users.find_one({"session_token": token})
+    if not user:
+        raise HTTPException(401, "Sesión inválida")
+    # Verificar que el usuario autenticado ES el dueño del perfil
+    uid = user.get("id") or user.get("email", "")
+    if uid != perfil_id:
+        raise HTTPException(403, "Solo puedes responder reseñas de tu propio perfil")
+
+    body = await request.json()
+    respuesta = body.get("respuesta", "").strip()
+    if not respuesta:
+        raise HTTPException(400, "La respuesta no puede estar vacía")
+
+    from bson import ObjectId
+    try:
+        oid = ObjectId(resena_id)
+    except Exception:
+        raise HTTPException(400, "ID de reseña inválido")
+
+    result = await db.resenas.update_one(
+        {"_id": oid, "perfil_id": perfil_id},
+        {"$set": {"respuesta": respuesta, "respuesta_at": datetime.now(timezone.utc).isoformat()}}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(404, "Reseña no encontrada")
+    return {"ok": True}
 
 
 # Include router

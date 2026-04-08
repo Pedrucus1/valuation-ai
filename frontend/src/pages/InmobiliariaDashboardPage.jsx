@@ -36,6 +36,10 @@ import {
   Globe,
   MessageCircle,
   ExternalLink,
+  Star,
+  Send,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 import { API } from "@/App";
 
@@ -219,6 +223,7 @@ const InmobiliariaDashboardPage = () => {
     { id: "equipo",       label: "Equipo" },
     { id: "documentos",   label: "Documentos", badge: docsSubidos < DOCS_REQUERIDOS.length ? DOCS_REQUERIDOS.length - docsSubidos : null },
     { id: "perfil",       label: "Perfil" },
+    { id: "resenas",      label: "Reseñas" },
   ];
 
   const DocumentosTab = () => (
@@ -849,6 +854,214 @@ const InmobiliariaDashboardPage = () => {
         { icon: "🎓", doc: "Certificación de curso (AMPI/CANACO/CIPS/INFONAVIT)" },
       ];
 
+  /* ────────────────────────────────────────────────────────
+     ReseñasTab — reseñas de clientes + respuestas + Google Maps
+  ──────────────────────────────────────────────────────── */
+  const ReseñasTab = () => {
+    const [resenas, setResenas] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [replyOpen, setReplyOpen] = useState({});   // { [id]: bool }
+    const [replyText, setReplyText] = useState({});   // { [id]: string }
+    const [sending, setSending] = useState({});       // { [id]: bool }
+
+    const perfilId = session.id || session.email;
+
+    useEffect(() => {
+      fetch(`${API}/directorio/inmobiliarias/${perfilId}/resenas`)
+        .then(r => r.json())
+        .then(data => { setResenas(Array.isArray(data) ? data : []); setLoading(false); })
+        .catch(() => setLoading(false));
+    }, [perfilId]);
+
+    const avg = resenas.length
+      ? (resenas.reduce((s, r) => s + r.calificacion, 0) / resenas.length).toFixed(1)
+      : null;
+
+    const dist = [5, 4, 3, 2, 1].map(n => ({
+      n,
+      count: resenas.filter(r => r.calificacion === n).length,
+    }));
+
+    const Stars = ({ value, size = "w-4 h-4" }) => (
+      <div className="flex gap-0.5">
+        {[1, 2, 3, 4, 5].map(i => (
+          <Star
+            key={i}
+            className={`${size} ${i <= value ? "fill-amber-400 text-amber-400" : "text-slate-200"}`}
+          />
+        ))}
+      </div>
+    );
+
+    const handleReply = async (resenaId) => {
+      const text = (replyText[resenaId] || "").trim();
+      if (!text) return;
+      setSending(s => ({ ...s, [resenaId]: true }));
+      try {
+        const res = await fetch(
+          `${API}/directorio/inmobiliarias/${perfilId}/resenas/${resenaId}/respuesta`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({ respuesta: text }),
+          }
+        );
+        if (!res.ok) throw new Error("error");
+        setResenas(prev =>
+          prev.map(r => r.id === resenaId ? { ...r, respuesta: text } : r)
+        );
+        setReplyOpen(s => ({ ...s, [resenaId]: false }));
+        setReplyText(s => ({ ...s, [resenaId]: "" }));
+        toast.success("Respuesta publicada");
+      } catch {
+        toast.error("No se pudo publicar la respuesta");
+      } finally {
+        setSending(s => ({ ...s, [resenaId]: false }));
+      }
+    };
+
+    return (
+      <div className="space-y-4">
+
+        {/* Google Maps CTA */}
+        <Card className="bg-white border-0 shadow-sm">
+          <CardContent className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+              <p className="font-['Outfit'] font-semibold text-[#1B4332] text-base">
+                Perfil en Google Maps
+              </p>
+              <p className="text-sm text-slate-500 mt-0.5">
+                Comparte tu perfil de Google para que clientes dejen reseñas ahí también.
+              </p>
+            </div>
+            {session.q_maps_url ? (
+              <a
+                href={session.q_maps_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-shrink-0 inline-flex items-center gap-2 bg-[#1B4332] text-white text-sm font-semibold px-4 py-2.5 rounded-xl hover:bg-[#2D6A4F] transition-colors"
+              >
+                <ExternalLink className="w-4 h-4" />
+                Ver mi perfil en Maps
+              </a>
+            ) : (
+              <span className="text-xs text-slate-400 italic">
+                Agrega tu URL de Google Maps en el formulario de perfil
+              </span>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Resumen de calificaciones */}
+        <Card className="bg-white border-0 shadow-sm">
+          <CardHeader className="border-b border-slate-100 pb-4">
+            <CardTitle className="font-['Outfit'] text-lg text-[#1B4332] flex items-center gap-2">
+              <Star className="w-5 h-5 fill-amber-400 text-amber-400" />
+              Reseñas de clientes
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-5">
+            {loading ? (
+              <p className="text-sm text-slate-400 text-center py-8">Cargando reseñas…</p>
+            ) : resenas.length === 0 ? (
+              <div className="text-center py-10">
+                <Star className="w-10 h-10 text-slate-200 mx-auto mb-3" />
+                <p className="text-slate-500 font-medium">Aún no tienes reseñas</p>
+                <p className="text-sm text-slate-400 mt-1">
+                  Comparte tu perfil de PropValu con tus clientes para recibir las primeras.
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-6">
+                {/* Promedio + distribución */}
+                <div className="flex items-center gap-8 pb-5 border-b border-slate-100">
+                  <div className="text-center">
+                    <p className="text-5xl font-bold text-[#1B4332] font-['Outfit']">{avg}</p>
+                    <Stars value={Math.round(avg)} size="w-5 h-5" />
+                    <p className="text-xs text-slate-400 mt-1">{resenas.length} reseña{resenas.length !== 1 ? "s" : ""}</p>
+                  </div>
+                  <div className="flex-1 space-y-1.5">
+                    {dist.map(({ n, count }) => (
+                      <div key={n} className="flex items-center gap-2">
+                        <span className="text-xs text-slate-500 w-3">{n}</span>
+                        <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+                        <div className="flex-1 bg-slate-100 rounded-full h-1.5 overflow-hidden">
+                          <div
+                            className="bg-amber-400 h-full rounded-full"
+                            style={{ width: resenas.length ? `${(count / resenas.length) * 100}%` : "0%" }}
+                          />
+                        </div>
+                        <span className="text-xs text-slate-400 w-4 text-right">{count}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Lista de reseñas */}
+                <div className="space-y-4">
+                  {resenas.map((r) => (
+                    <div key={r.id} className="border border-slate-100 rounded-xl p-4 space-y-2">
+                      <div className="flex items-start justify-between gap-2">
+                        <div>
+                          <p className="font-semibold text-slate-800 text-sm">{r.nombre_cliente}</p>
+                          <p className="text-[11px] text-slate-400">
+                            {new Date(r.created_at).toLocaleDateString("es-MX", { year: "numeric", month: "long", day: "numeric" })}
+                          </p>
+                        </div>
+                        <Stars value={r.calificacion} />
+                      </div>
+                      <p className="text-sm text-slate-700 leading-relaxed">{r.comentario}</p>
+
+                      {/* Respuesta existente */}
+                      {r.respuesta && (
+                        <div className="bg-[#F0FAF4] border border-[#52B788]/30 rounded-lg p-3 mt-2">
+                          <p className="text-[11px] font-semibold text-[#1B4332] mb-1">Tu respuesta</p>
+                          <p className="text-sm text-[#2D6A4F]">{r.respuesta}</p>
+                        </div>
+                      )}
+
+                      {/* Botón responder (solo si no hay respuesta aún) */}
+                      {!r.respuesta && (
+                        <div className="pt-1">
+                          <button
+                            onClick={() => setReplyOpen(s => ({ ...s, [r.id]: !s[r.id] }))}
+                            className="flex items-center gap-1.5 text-xs text-[#1B4332] hover:text-[#52B788] font-medium transition-colors"
+                          >
+                            {replyOpen[r.id] ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                            {replyOpen[r.id] ? "Cancelar" : "Responder"}
+                          </button>
+                          {replyOpen[r.id] && (
+                            <div className="mt-2 flex gap-2">
+                              <textarea
+                                rows={2}
+                                placeholder="Escribe tu respuesta…"
+                                value={replyText[r.id] || ""}
+                                onChange={e => setReplyText(s => ({ ...s, [r.id]: e.target.value }))}
+                                className="flex-1 text-sm border border-slate-200 rounded-lg px-3 py-2 resize-none focus:outline-none focus:ring-1 focus:ring-[#52B788]"
+                              />
+                              <button
+                                onClick={() => handleReply(r.id)}
+                                disabled={sending[r.id] || !replyText[r.id]?.trim()}
+                                className="flex-shrink-0 self-end bg-[#1B4332] text-white px-3 py-2 rounded-lg hover:bg-[#2D6A4F] disabled:opacity-40 transition-colors"
+                              >
+                                <Send className="w-4 h-4" />
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-[#F8F9FA] font-['Manrope']">
       {/* Modal — documentos pendientes */}
@@ -1019,6 +1232,9 @@ const InmobiliariaDashboardPage = () => {
 
         {/* Tab: Perfil */}
         {activeTab === "perfil" && <PerfilCard />}
+
+        {/* Tab: Reseñas */}
+        {activeTab === "resenas" && <ReseñasTab />}
       </main>
     </div>
   );
