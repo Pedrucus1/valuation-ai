@@ -2010,6 +2010,34 @@ async def admin_scraper_reset_portal(portal_id: str, request: Request):
     })
     return {"ok": True}
 
+@api_router.get("/admin/scraper/propiedades")
+async def admin_scraper_propiedades(
+    request: Request,
+    tab: str = "CONSOLIDADO",
+    page: int = 1,
+    limite: int = 50,
+    busqueda: str = "",
+):
+    await require_admin(request)
+    from sheets_comparables import fetch_sheet_tab, parse_sheet_row, SHEET_TABS, SHEET_ID_DEFAULT
+    api_key = os.environ.get("GOOGLE_SHEETS_API_KEY", "")
+    sheet_id = os.environ.get("GOOGLE_SHEETS_ID", SHEET_ID_DEFAULT)
+    if not api_key:
+        return {"ok": False, "error": "GOOGLE_SHEETS_API_KEY no configurada", "items": [], "total": 0, "tabs": SHEET_TABS}
+    tab = tab if tab in SHEET_TABS else "CONSOLIDADO"
+    rows = await fetch_sheet_tab(tab, api_key, sheet_id)
+    parsed = [parse_sheet_row(r, tab) for r in rows]
+    if busqueda:
+        q = busqueda.lower()
+        parsed = [p for p in parsed if q in (p.get("title") or "").lower()
+                  or q in (p.get("municipality") or "").lower()
+                  or q in (p.get("state") or "").lower()
+                  or q in (p.get("neighborhood") or "").lower()]
+    total = len(parsed)
+    offset = (page - 1) * limite
+    items = parsed[offset: offset + limite]
+    return {"ok": True, "tab": tab, "total": total, "page": page, "items": items, "tabs": SHEET_TABS}
+
 # ============== ADMIN — ALERTAS ==============
 
 ALERTAS_DEFAULT = [

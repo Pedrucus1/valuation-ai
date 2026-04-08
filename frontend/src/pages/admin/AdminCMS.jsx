@@ -106,6 +106,138 @@ No realizar avalúos de propiedades propias, de familiares directos, ni cuando e
 - Firmar reportes de inmuebles no analizados
 - Compartir credenciales de la plataforma`,
   },
+  terminos_valuadores: {
+    slug: "terminos_valuadores",
+    titulo: "Términos para Valuadores",
+    ruta: "/terminos-valuadores",
+    ultima_edicion: "2026-03-20",
+    editor: "Admin PropValu",
+    contenido: `# Términos y Condiciones para Valuadores
+
+**Versión:** 1.0 — Marzo 2026
+
+## 1. Naturaleza del servicio y rol del valuador
+PropValu es una plataforma tecnológica de apoyo para la elaboración de estimaciones de valor inmobiliario. El valuador actúa como profesional independiente y es el único responsable de las conclusiones de valor que emita.
+
+## 2. Requisitos de registro y verificación de identidad
+Para operar como valuador deberás presentar y mantener vigentes:
+- Identificación oficial vigente (INE o pasaporte)
+- Cédula profesional SEP en arquitectura, ingeniería civil o carrera afín
+- Certificación de INDAABIN, IMC, CNBV o equivalente
+- RFC activo y verificable ante el SAT
+- Seguro de responsabilidad civil profesional vigente
+
+## 3. Obligaciones del valuador
+- Emitir reportes con base en criterio profesional independiente
+- No emitir avalúos en propiedades con conflicto de interés
+- Mantener confidencialidad sobre la información de sus clientes
+- Cumplir el Código de Ética publicado en /codigo-etica-valuadores
+
+## 4. Responsabilidad civil y profesional
+El valuador asume plena responsabilidad civil, profesional y penal por los informes que emita. PropValu queda expresamente exonerada de cualquier reclamación derivada de errores u omisiones.
+
+## 5. Encargos y comisión
+La comisión de PropValu por encargos canalizados es del **15% del honorario pactado**.
+
+## 6. Planes y facturación
+Los planes se cobran mensual o anual anticipada. Los pagos no son reembolsables salvo falla imputable a PropValu. Cancelación disponible en cualquier momento; acceso hasta fin del período pagado.
+
+## 7. Suspensión de cuenta
+PropValu podrá suspender por: documentos vencidos, tres o más quejas fundamentadas, sanción de organismos reguladores, incumplimiento del Código de Ética.
+
+## 8. Ley aplicable
+Leyes de los Estados Unidos Mexicanos. Tribunales de Guadalajara, Jalisco.`,
+  },
+  terminos_inmobiliarias: {
+    slug: "terminos_inmobiliarias",
+    titulo: "Términos para Inmobiliarias",
+    ruta: "/terminos-inmobiliarias",
+    ultima_edicion: "2026-03-20",
+    editor: "Admin PropValu",
+    contenido: `# Términos y Condiciones para Inmobiliarias
+
+**Versión:** 1.0 — Marzo 2026
+
+## 1. Descripción del servicio para inmobiliarias
+PropValu ofrece a inmobiliarias y agentes verificados acceso a herramientas de estimación de valor, base de datos de comparables, reportes de mercado y red de peritos valuadores.
+
+## 2. Requisitos de registro y verificación de identidad
+Para operar como inmobiliaria deberás presentar:
+- INE o pasaporte del representante legal
+- RFC activo ante el SAT
+- Acta constitutiva vigente (personas morales)
+- Constancia de afiliación activa a AMPI, CIPS, CANACO u organismo reconocido
+- Certificado de curso de intermediación CONOCER EC0461 o equivalente SEP
+- Comprobante de domicilio del negocio (no mayor a 3 meses)
+
+La cuenta permanece en estado **"Verificación Pendiente"** hasta la aprobación de documentos (hasta 3 días hábiles).
+
+## 3. Obligaciones de la inmobiliaria
+- Utilizar los reportes únicamente como referencia orientativa
+- No presentar estimaciones como avalúos legales ante notarías, bancos o autoridades
+- Mantener vigentes membresías y certificaciones
+- No compartir credenciales con personas no autorizadas
+
+## 4. Uso de los reportes y limitaciones
+Los reportes son **estimaciones orientativas de mercado**. No constituyen avalúo oficial ni tienen validez ante el SAT, instituciones financieras ni notarías.
+
+## 5. Planes, créditos y facturación
+Los créditos no utilizados no se acumulan ni son reembolsables. Las facturas (CFDI) deben solicitarse dentro de los 5 días naturales siguientes al pago.
+
+## 6. Directorio y visibilidad
+Las inmobiliarias verificadas aparecen en el directorio público. PropValu no garantiza número mínimo de leads ni exclusividad de zona.
+
+## 7. Suspensión y baja
+Por: documentos vencidos, membresía cancelada, tres o más quejas fundadas, actividades contrarias a la ley, falta de pago mayor a 15 días.
+
+## 8. Ley aplicable
+Leyes de los Estados Unidos Mexicanos. Tribunales de Guadalajara, Jalisco.`,
+  },
+  terminos_anunciantes: {
+    slug: "terminos_anunciantes",
+    titulo: "Términos para Anunciantes",
+    ruta: "/terminos-anunciantes",
+    ultima_edicion: "2026-03-20",
+    editor: "Admin PropValu",
+    contenido: `# Términos y Condiciones para Anunciantes
+
+**Versión:** 1.0 — Marzo 2026
+
+## 1. Descripción del servicio publicitario
+PropValu ofrece espacios publicitarios dentro de la plataforma para empresas del sector inmobiliario, financiero y de servicios relacionados con el hogar.
+
+## 2. Tipos de anuncios disponibles
+- **Slot sidebar** — banner lateral en resultados de valuación (300×250 px)
+- **Slot cabecera** — banner superior en página principal (728×90 px)
+- **Slot directorio** — destacado en directorio de valuadores o inmobiliarias
+- **Slot reporte** — banner en reportes PDF descargables
+
+## 3. Proceso de publicación
+Todos los anuncios son revisados manualmente antes de publicarse. El proceso toma hasta 24 horas hábiles. El anunciante recibirá confirmación por email.
+
+## 4. Contenido permitido
+- Servicios inmobiliarios legítimos (compraventa, arrendamiento, valuación)
+- Productos financieros regulados (hipotecas, seguros, créditos)
+- Servicios relacionados con el hogar (remodelación, mudanzas, seguros del hogar)
+
+## 5. Contenido prohibido
+- Promesas de rendimiento garantizado o tasas sin especificar condiciones
+- Contenido engañoso, fraudulento o para adultos
+- Más del 30% del texto en mayúsculas
+- Información de contacto de terceros no autorizados
+
+## 6. Facturación y reembolsos
+Los pagos se realizan anticipadamente por el período contratado (7, 15 o 30 días). No se realizan reembolsos por anuncios ya publicados. En caso de rechazo del anuncio, se emite crédito para un nuevo anuncio o reembolso total.
+
+## 7. Métricas y reportes
+El anunciante tiene acceso a métricas básicas: impresiones, clics y CTR durante el período activo, desde su consola de anunciante.
+
+## 8. Suspensión de cuenta
+Tres rechazos consecutivos de anuncios resultan en suspensión de la cuenta de anunciante. PropValu se reserva el derecho de rechazar cualquier anuncio sin expresión de causa.
+
+## 9. Ley aplicable
+Leyes de los Estados Unidos Mexicanos. Tribunales de Guadalajara, Jalisco.`,
+  },
 };
 
 const AdminCMS = () => {

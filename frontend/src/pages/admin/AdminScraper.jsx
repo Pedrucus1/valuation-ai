@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import AdminLayout from "@/components/AdminLayout";
 import { adminFetch } from "@/lib/adminFetch";
 import {
   Activity, CheckCircle2, AlertCircle, XCircle, RefreshCw,
-  Clock, Database, AlertTriangle, Play,
+  Clock, Database, AlertTriangle, Play, List, Search, ChevronLeft, ChevronRight, ExternalLink,
 } from "lucide-react";
 
 const ESTADO_CFG = {
@@ -30,7 +30,161 @@ const ESTADO_INICIAL = {
   log_reciente: [],
 };
 
+const TABS = [
+  { id: "monitor", label: "Monitor" },
+  { id: "propiedades", label: "Propiedades escrapeadas" },
+];
+
+const PropiedadesViewer = () => {
+  const [tabSheet, setTabSheet] = useState("CONSOLIDADO");
+  const [tabs, setTabs] = useState(["CONSOLIDADO"]);
+  const [items, setItems] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
+  const [busqueda, setBusqueda] = useState("");
+  const [cargando, setCargando] = useState(false);
+  const [error, setError] = useState(null);
+  const limite = 50;
+
+  const cargar = useCallback(async () => {
+    setCargando(true);
+    setError(null);
+    try {
+      const params = new URLSearchParams({ tab: tabSheet, page, limite, busqueda });
+      const data = await adminFetch(`/api/admin/scraper/propiedades?${params}`);
+      if (!data.ok) { setError(data.error || "Error desconocido"); setItems([]); return; }
+      setItems(data.items || []);
+      setTotal(data.total || 0);
+      if (data.tabs) setTabs(data.tabs);
+    } catch (e) {
+      setError(e.message);
+    } finally {
+      setCargando(false);
+    }
+  }, [tabSheet, page, busqueda]);
+
+  useEffect(() => { cargar(); }, [cargar]);
+  useEffect(() => { setPage(1); }, [tabSheet, busqueda]);
+
+  const totalPages = Math.max(1, Math.ceil(total / limite));
+
+  return (
+    <div className="space-y-4">
+      {/* Controles */}
+      <div className="flex flex-wrap gap-3 items-center">
+        <div className="flex gap-1 flex-wrap">
+          {tabs.map((t) => (
+            <button key={t} onClick={() => setTabSheet(t)}
+              className={`text-xs font-semibold px-3 py-1.5 rounded-xl border transition-colors ${
+                tabSheet === t ? "bg-[#1B4332] text-white border-[#1B4332]" : "border-slate-200 text-slate-600 hover:bg-slate-50"
+              }`}>{t}</button>
+          ))}
+        </div>
+        <div className="flex items-center gap-2 ml-auto">
+          <div className="relative">
+            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
+            <input
+              value={busqueda}
+              onChange={(e) => setBusqueda(e.target.value)}
+              placeholder="Buscar por ciudad, colonia…"
+              className="pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-[#52B788] w-52"
+            />
+          </div>
+        </div>
+      </div>
+
+      {error && (
+        <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-sm text-red-600">
+          {error === "GOOGLE_SHEETS_API_KEY no configurada"
+            ? "La variable GOOGLE_SHEETS_API_KEY no está configurada en el backend."
+            : `Error: ${error}`}
+        </div>
+      )}
+
+      {/* Tabla */}
+      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+        <div className="flex items-center justify-between px-5 py-3.5 border-b border-slate-100 bg-[#F8F9FA]">
+          <span className="text-sm font-semibold text-[#1B4332]">
+            {cargando ? "Cargando…" : `${total.toLocaleString()} propiedades`}
+          </span>
+          <span className="text-xs text-slate-400">Página {page} de {totalPages}</span>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-xs">
+            <thead>
+              <tr className="bg-slate-50 border-b border-slate-100">
+                {["Título", "Precio", "Tipo", "Colonia", "Municipio", "Estado", "M² const.", "M² terr.", "Rec.", "Baños", "Operación", "Fuente"].map((h) => (
+                  <th key={h} className="text-left px-3 py-2 font-semibold text-slate-400 uppercase tracking-wide whitespace-nowrap">{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-50">
+              {cargando && Array.from({ length: 8 }).map((_, i) => (
+                <tr key={i}><td colSpan={12} className="px-3 py-2.5">
+                  <div className="h-3 bg-slate-100 rounded animate-pulse w-full" />
+                </td></tr>
+              ))}
+              {!cargando && items.length === 0 && (
+                <tr><td colSpan={12} className="text-center py-10 text-slate-400">
+                  {error ? "—" : "Sin datos en este tab / filtro"}
+                </td></tr>
+              )}
+              {!cargando && items.map((item, i) => (
+                <tr key={i} className="hover:bg-slate-50/60 transition-colors">
+                  <td className="px-3 py-2 max-w-[180px] truncate font-medium text-slate-700" title={item.title}>{item.title || "—"}</td>
+                  <td className="px-3 py-2 text-[#1B4332] font-semibold whitespace-nowrap">
+                    {item.price ? `$${item.price.toLocaleString("es-MX")}` : "—"}
+                  </td>
+                  <td className="px-3 py-2 text-slate-500">{item.property_type || "—"}</td>
+                  <td className="px-3 py-2 text-slate-500 max-w-[120px] truncate">{item.neighborhood || "—"}</td>
+                  <td className="px-3 py-2 text-slate-500">{item.municipality || "—"}</td>
+                  <td className="px-3 py-2 text-slate-500">{item.state || "—"}</td>
+                  <td className="px-3 py-2 text-slate-400">{item.construction_area || "—"}</td>
+                  <td className="px-3 py-2 text-slate-400">{item.land_area || "—"}</td>
+                  <td className="px-3 py-2 text-slate-400">{item.bedrooms ?? "—"}</td>
+                  <td className="px-3 py-2 text-slate-400">{item.bathrooms ?? "—"}</td>
+                  <td className="px-3 py-2">
+                    <span className={`px-2 py-0.5 rounded-full font-semibold ${
+                      item.listing_type === "renta" ? "bg-blue-100 text-blue-700" : "bg-green-100 text-green-700"
+                    }`}>{item.listing_type || "venta"}</span>
+                  </td>
+                  <td className="px-3 py-2">
+                    {item.source_url ? (
+                      <a href={item.source_url} target="_blank" rel="noreferrer"
+                        className="text-[#52B788] hover:underline flex items-center gap-1">
+                        <ExternalLink className="w-3 h-3" />
+                        {item.source || tabSheet}
+                      </a>
+                    ) : (
+                      <span className="text-slate-300">{item.source || "—"}</span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {/* Paginación */}
+        {totalPages > 1 && (
+          <div className="flex items-center justify-between px-5 py-3 border-t border-slate-100">
+            <button onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1}
+              className="flex items-center gap-1 text-xs font-semibold text-slate-500 hover:text-[#1B4332] disabled:opacity-30">
+              <ChevronLeft className="w-4 h-4" /> Anterior
+            </button>
+            <span className="text-xs text-slate-400">{page} / {totalPages}</span>
+            <button onClick={() => setPage((p) => Math.min(totalPages, p + 1))} disabled={page === totalPages}
+              className="flex items-center gap-1 text-xs font-semibold text-slate-500 hover:text-[#1B4332] disabled:opacity-30">
+              Siguiente <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 const AdminScraper = () => {
+  const [activeTab, setActiveTab] = useState("monitor");
   const [status, setStatus] = useState(ESTADO_INICIAL);
   const [cargando, setCargando] = useState(true);
   const [corriendo, setCorriendo] = useState(false);
@@ -109,15 +263,33 @@ const AdminScraper = () => {
             <h1 className="font-['Outfit'] text-2xl font-bold text-[#1B4332]">Monitor del Scraper</h1>
             <p className="text-slate-400 text-sm mt-0.5">Estado de los portales de comparables</p>
           </div>
-          <button
-            onClick={ejecutarScraper}
-            disabled={corriendo}
-            className="flex items-center gap-2 bg-[#1B4332] hover:bg-[#163828] disabled:opacity-50 text-white text-sm font-bold px-4 py-2.5 rounded-xl transition-colors"
-          >
-            {corriendo ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Play className="w-4 h-4" />}
-            {corriendo ? "Ejecutando..." : "Ejecutar ahora"}
-          </button>
+          {activeTab === "monitor" && (
+            <button
+              onClick={ejecutarScraper}
+              disabled={corriendo}
+              className="flex items-center gap-2 bg-[#1B4332] hover:bg-[#163828] disabled:opacity-50 text-white text-sm font-bold px-4 py-2.5 rounded-xl transition-colors"
+            >
+              {corriendo ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Play className="w-4 h-4" />}
+              {corriendo ? "Ejecutando..." : "Ejecutar ahora"}
+            </button>
+          )}
         </div>
+
+        {/* Tabs */}
+        <div className="flex gap-1 border-b border-slate-200">
+          {TABS.map((t) => (
+            <button key={t.id} onClick={() => setActiveTab(t.id)}
+              className={`px-4 py-2 text-sm font-semibold border-b-2 transition-colors -mb-px ${
+                activeTab === t.id
+                  ? "border-[#52B788] text-[#1B4332]"
+                  : "border-transparent text-slate-400 hover:text-slate-600"
+              }`}>{t.label}</button>
+          ))}
+        </div>
+
+        {activeTab === "propiedades" && <PropiedadesViewer />}
+
+        {activeTab === "monitor" && <>
 
         {/* Alerta si llevan +24h sin correr */}
         {horas > 24 && (
@@ -238,6 +410,8 @@ const AdminScraper = () => {
             ))}
           </div>
         </div>
+
+        </>}
       </div>
     </AdminLayout>
   );
