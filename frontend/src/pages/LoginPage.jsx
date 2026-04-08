@@ -149,6 +149,9 @@ const LoginPage = () => {
     servicios_otros_lista: [""],
     estado: "",
     municipios: [""],
+    // Inmobiliaria: cobertura multi-estado
+    estados: [],            // array de strings para realtor
+    cobertura_municipios: {}, // { "Jalisco": ["Guadalajara","Zapopan"], ... }
 
     // Cuestionario perfil completo
     q_experiencia: "",
@@ -252,8 +255,13 @@ const LoginPage = () => {
     }
     if (step === 2) {
       if (!regData.modo_perfil) { toast.error("Selecciona cómo quieres participar en PropValu"); return false; }
-      if (!regData.estado)    { toast.error("Selecciona el estado donde darás el servicio"); return false; }
-      if (!regData.municipios[0]?.trim()) { toast.error("Ingresa al menos un municipio o población"); return false; }
+      if (regData.role === "appraiser") {
+        if (!regData.estado) { toast.error("Selecciona el estado donde darás el servicio"); return false; }
+        if (!regData.municipios[0]?.trim()) { toast.error("Ingresa al menos un municipio o población"); return false; }
+      }
+      if (regData.role === "realtor") {
+        if (regData.estados.length === 0) { toast.error("Selecciona al menos un estado de cobertura"); return false; }
+      }
       if (regData.role === "appraiser") {
         const anyService = Object.values(regData.services).some(Boolean);
         if (!anyService) { toast.error("Selecciona al menos un tipo de servicio"); return false; }
@@ -356,9 +364,11 @@ const LoginPage = () => {
           role:         regData.role,
           phone:        regData.phone,
           company_name: regData.company_name || undefined,
-          estado:       regData.estado,
-          municipio:    regData.municipios.filter(m => m.trim()).join(", "),
-          municipios:   regData.municipios.filter(m => m.trim()),
+          estado:       regData.role === "appraiser" ? regData.estado : (regData.estados[0] || ""),
+          municipio:    regData.role === "appraiser" ? regData.municipios.filter(m => m.trim()).join(", ") : Object.values(regData.cobertura_municipios).flat().join(", "),
+          municipios:   regData.role === "appraiser" ? regData.municipios.filter(m => m.trim()) : Object.values(regData.cobertura_municipios).flat(),
+          estados:      regData.role === "realtor" ? regData.estados : undefined,
+          cobertura_municipios: regData.role === "realtor" ? regData.cobertura_municipios : undefined,
           modo_perfil:  regData.modo_perfil,
           services:     regData.role === "appraiser" ? regData.services : undefined,
           servicios_otros: regData.servicios_otros_lista.filter(s => s.trim()),
@@ -912,54 +922,88 @@ const LoginPage = () => {
         </div>
       )}
 
-      {/* Cobertura */}
+      {/* Cobertura multi-estado para inmobiliaria */}
       <div>
-        <Label className="text-sm font-semibold text-[#1B4332] mb-3 block flex items-center gap-1.5">
+        <div className="flex items-center gap-1.5 mb-3">
           <MapPin className="w-4 h-4 text-[#52B788]" />
-          Zona de cobertura *
-        </Label>
-        <div className="space-y-3">
-          <div className="space-y-1.5">
-            <Label className="text-xs font-medium text-slate-500">Estado</Label>
-            <select
-              className="w-full h-9 px-3 text-sm border border-[#B7E4C7] rounded-lg bg-[#F0FAF5] focus:border-[#52B788] focus:bg-white focus:outline-none text-[#1B4332] appearance-none"
-              value={regData.estado}
-              onChange={e => setReg("estado", e.target.value)}
-            >
-              <option value="">Seleccionar...</option>
-              {ESTADOS_MX.map(e => <option key={e} value={e}>{e}</option>)}
-            </select>
-          </div>
-          <div className="space-y-1.5">
-            <Label className="text-xs font-medium text-slate-500">Municipios / Poblaciones</Label>
-            <div className="space-y-2">
-              {regData.municipios.map((m, idx) => (
-                <div key={idx} className="flex gap-2 items-center">
-                  <Input
-                    placeholder={`ej. ${["Zapopan","Guadalajara","Tlaquepaque","Tonalá"][idx] || "Municipio"}`}
-                    className="h-9 text-sm bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
-                    value={m}
-                    onChange={e => {
-                      const list = [...regData.municipios];
-                      list[idx] = e.target.value;
-                      setReg("municipios", list);
-                    }}
-                  />
-                  {regData.municipios.length > 1 && (
-                    <button type="button"
-                      onClick={() => setReg("municipios", regData.municipios.filter((_, i) => i !== idx))}
-                      className="text-slate-300 hover:text-red-400 text-lg leading-none shrink-0">×</button>
-                  )}
-                </div>
-              ))}
-              <button type="button"
-                onClick={() => setReg("municipios", [...regData.municipios, ""])}
-                className="flex items-center gap-1 text-xs text-[#52B788] font-semibold hover:underline">
-                <span className="text-base leading-none">+</span> Agregar municipio
-              </button>
-            </div>
-          </div>
+          <Label className="text-sm font-semibold text-[#1B4332]">Zona de cobertura *</Label>
         </div>
+        <p className="text-sm text-slate-500 mb-3">Selecciona todos los estados donde operas. Luego agrega las ciudades o municipios por estado.</p>
+
+        {/* Pills de estados */}
+        <div className="flex flex-wrap gap-2 mb-4">
+          {ESTADOS_MX.map(est => {
+            const selected = regData.estados.includes(est);
+            return (
+              <button
+                key={est}
+                type="button"
+                onClick={() => {
+                  if (selected) {
+                    setReg("estados", regData.estados.filter(e => e !== est));
+                    const nuevos = { ...regData.cobertura_municipios };
+                    delete nuevos[est];
+                    setReg("cobertura_municipios", nuevos);
+                  } else {
+                    setReg("estados", [...regData.estados, est]);
+                    setReg("cobertura_municipios", { ...regData.cobertura_municipios, [est]: [""] });
+                  }
+                }}
+                className={`px-3 py-1.5 rounded-full text-sm font-medium border transition-all ${
+                  selected
+                    ? "bg-[#1B4332] border-[#1B4332] text-white"
+                    : "bg-white border-slate-200 text-slate-600 hover:border-[#52B788] hover:text-[#1B4332]"
+                }`}
+              >
+                {est}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Municipios por estado seleccionado */}
+        {regData.estados.length > 0 && (
+          <div className="space-y-4">
+            {regData.estados.map(est => (
+              <div key={est} className="rounded-xl border border-[#B7E4C7] bg-[#F0FAF5] p-3 space-y-2">
+                <p className="text-sm font-semibold text-[#1B4332] flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5 text-[#52B788]" />
+                  {est}
+                </p>
+                {(regData.cobertura_municipios[est] || [""]).map((m, idx) => (
+                  <div key={idx} className="flex gap-2 items-center">
+                    <Input
+                      placeholder={`ej. ${["Guadalajara","Zapopan","Tlaquepaque"][idx] || "Municipio o ciudad"}`}
+                      className="h-8 text-sm bg-white border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
+                      value={m}
+                      onChange={e => {
+                        const lista = [...(regData.cobertura_municipios[est] || [""])];
+                        lista[idx] = e.target.value;
+                        setReg("cobertura_municipios", { ...regData.cobertura_municipios, [est]: lista });
+                      }}
+                    />
+                    {(regData.cobertura_municipios[est] || []).length > 1 && (
+                      <button type="button"
+                        onClick={() => {
+                          const lista = (regData.cobertura_municipios[est] || []).filter((_, i) => i !== idx);
+                          setReg("cobertura_municipios", { ...regData.cobertura_municipios, [est]: lista });
+                        }}
+                        className="text-slate-300 hover:text-red-400 text-lg leading-none shrink-0">×</button>
+                    )}
+                  </div>
+                ))}
+                <button type="button"
+                  onClick={() => {
+                    const lista = [...(regData.cobertura_municipios[est] || [""]), ""];
+                    setReg("cobertura_municipios", { ...regData.cobertura_municipios, [est]: lista });
+                  }}
+                  className="flex items-center gap-1 text-sm text-[#52B788] font-semibold hover:underline">
+                  <span className="text-base leading-none">+</span> Agregar municipio en {est}
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -1565,9 +1609,9 @@ const LoginPage = () => {
             <div className="space-y-3 mb-6">
               {[
                 { icon: "🤝", title: "Aliados verificados", desc: "PropValu solo recomienda a profesionales cuya identidad y credenciales han sido verificadas. Tu perfil aprobado garantiza a los clientes que estás respaldado por nosotros." },
-                { icon: "🛡️", title: "Protección contra fraudes", desc: "La verificación de documentos protege a los clientes de fraudes y malas prácticas. Como aliado, también te protege a ti frente a clientes que puedan cuestionar tu legitimidad." },
-                { icon: "🔒", title: "Tus datos están seguros", desc: "La información que subas se cifra y solo la revisa el equipo de verificación de PropValu. No se comparte con terceros ni aparece en tu perfil público." },
-                { icon: "⭐", title: "Más visibilidad para ti", desc: "Los perfiles verificados aparecen primero en el directorio y reciben más encargos. Es tu sello de calidad ante los clientes." },
+                { icon: "🛡️", title: "Cero fraudes, máxima confianza", desc: "La verificación de documentos protege a los clientes de fraudes y malas prácticas. Como aliado verificado, también te protege a ti frente a cualquier cuestionamiento sobre tu legitimidad." },
+                { icon: "👁️", title: "Qué se publica y qué es privado", desc: "Tu nombre, empresa, foto, zona de cobertura y datos de contacto aparecerán en el directorio público de PropValu. Los documentos de identidad y verificación son privados: solo los revisa nuestro equipo de verificación y no se comparten con nadie más." },
+                { icon: "⭐", title: "Más visibilidad y más encargos", desc: "Los perfiles verificados aparecen primero en el directorio, generan más confianza en los clientes y reciben más solicitudes de servicio. Es tu sello de calidad PropValu." },
               ].map(({ icon, title, desc }) => (
                 <div key={title} className="flex gap-3">
                   <span className="text-xl shrink-0 mt-0.5">{icon}</span>
