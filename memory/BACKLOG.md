@@ -1,5 +1,5 @@
 # PropValu — Backlog de Tareas
-> **Última actualización:** 7 Abr 2026
+> **Última actualización:** 7 Abr 2026 (sesión noche)
 > Actualizar este archivo conforme se completen tareas. Marcar con ✅ cuando esté lista, con 🔄 cuando esté en progreso.
 
 ---
@@ -83,10 +83,12 @@
 
 | # | Estado | Tarea |
 |---|---|---|
-| 36 | ✅ | **Skills globales** — `/backup` (commit seguridad), `/recordar` (guardar aprendizaje a memoria). |
-| 37 | ✅ | **Skills PropValu** — `/status` (backend/frontend/git en <15 líneas). |
-| 38 | ✅ | **Skills Scraper** — `/logs` (log de hoy + buffer), `/reset-scraper PORTAL`. |
-| 42 | ✅ | **Script seed/datos demo** — `seed_demo.py` (o similar) que inserta valuadores e inmobiliarias de prueba con documentos y estados variados para QA visual en admin. |
+| 36 | ✅ | **Skills globales** — `/backup`, `/recordar`, `/ayuda`. |
+| 37 | ✅ | **Skills PropValu** — `/ctx`, `/status`, `/restart-backend`, `/check-errors`, `/end-session`, `/sync-memory`, `/new-page`, `/new-endpoint`, `/test-api`, `/new-hook`. |
+| 38 | ✅ | **Skills Scraper** — `/logs`, `/reset-scraper PORTAL`. |
+| 42 | ✅ | **Script seed/datos demo** — inserta valuadores e inmobiliarias de prueba para QA visual en admin. |
+| 43 | ✅ | **Permisos automáticos Claude Code** — `settings.json` con allow para Read/Glob/Grep/git/netstat. Sin prompt de autorización para lectura. |
+| 44 | ✅ | **Statusline con barras visuales** — ctx/5h/7d con bloques █░ y porcentaje. |
 
 ---
 

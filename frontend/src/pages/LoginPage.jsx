@@ -168,6 +168,19 @@ const LoginPage = () => {
     num_asesores: "",
     empresa_afiliada: "",
     aceptaTerminos: false,
+
+    // Cuestionario inmobiliaria (perfil completo)
+    q_anos_mercado: "",
+    q_tipo_operaciones: {
+      venta_residencial: false, renta_residencial: false,
+      comercial: false, industrial: false,
+      terrenos: false, oficinas: false,
+    },
+    q_cartera_propiedades: "",
+    q_crm: "",
+    q_oficina_inm: false,
+    q_dir_oficina_inm: "",
+    q_maps_url_inm: "",
   });
 
   const [files, setFiles] = useState({
@@ -194,6 +207,9 @@ const LoginPage = () => {
     cert_asociacion: null,
     credencial_empresa: null,
     cert_curso_inmobiliario: null,
+    acta_constitutiva: null,
+    constancia_sat: null,
+    logo_empresa: null,
   });
 
   const setReg = (k, v) => setRegData(p => ({ ...p, [k]: v }));
@@ -201,6 +217,12 @@ const LoginPage = () => {
 
   const toggleService = (key) =>
     setRegData(p => ({ ...p, services: { ...p.services, [key]: !p.services[key] } }));
+
+  const toggleTipoOperacion = (key) =>
+    setRegData(p => ({
+      ...p,
+      q_tipo_operaciones: { ...p.q_tipo_operaciones, [key]: !p.q_tipo_operaciones[key] },
+    }));
 
   const togglePeritajeTipo = (tipo) =>
     setRegData(p => ({
@@ -298,12 +320,17 @@ const LoginPage = () => {
       if (!files.foto_profesional)        { toast.error("Sube tu foto profesional"); return; }
       if (!files.comprobante_experiencia) { toast.error("Sube el comprobante de experiencia"); return; }
     }
-    if (regData.role === "realtor" && regData.inmobiliaria_tipo === "titular") {
-      if (!files.cert_asociacion) { toast.error("Sube el certificado de la asociación"); return; }
-    }
-    if (regData.role === "realtor" && regData.inmobiliaria_tipo === "asesor") {
-      if (!files.credencial_empresa)       { toast.error("Sube tu credencial de empresa"); return; }
-      if (!files.cert_curso_inmobiliario)  { toast.error("Sube tu certificación de curso inmobiliario"); return; }
+    if (regData.role === "realtor") {
+      if (!files.ine_frente)           { toast.error("Sube el frente de tu INE"); return; }
+      if (!files.foto_profesional)     { toast.error("Sube tu foto profesional"); return; }
+      if (!files.comprobante_domicilio){ toast.error("Sube el comprobante de domicilio de la empresa"); return; }
+      if (regData.inmobiliaria_tipo === "titular" && !files.cert_asociacion) {
+        toast.error("Sube el certificado de la asociación inmobiliaria"); return;
+      }
+      if (regData.inmobiliaria_tipo === "asesor") {
+        if (!files.credencial_empresa)       { toast.error("Sube tu credencial de empresa"); return; }
+        if (!files.cert_curso_inmobiliario)  { toast.error("Sube tu certificación de curso inmobiliario"); return; }
+      }
     }
     if (!regData.aceptaTerminos) {
       toast.error("Debes aceptar los Términos del Servicio y la Política de Privacidad para continuar");
@@ -353,6 +380,15 @@ const LoginPage = () => {
           cursos:       regData.cursos_inmobiliarios || undefined,
           num_asesores: regData.num_asesores || undefined,
           empresa_afiliada: regData.empresa_afiliada || undefined,
+          ...(regData.role === "realtor" && regData.modo_perfil === "completo" ? {
+            q_anos_mercado:         regData.q_anos_mercado || undefined,
+            q_tipo_operaciones:     regData.q_tipo_operaciones,
+            q_cartera_propiedades:  regData.q_cartera_propiedades || undefined,
+            q_crm:                  regData.q_crm || undefined,
+            q_oficina:              regData.q_oficina_inm,
+            q_dir_oficina:          regData.q_dir_oficina_inm || undefined,
+            q_maps_url:             regData.q_maps_url_inm || undefined,
+          } : {}),
         }),
       });
       const data = await res.json();
@@ -1218,46 +1254,214 @@ const LoginPage = () => {
   );
 
   const renderStep3Realtor = () => (
-    <div className="space-y-5">
+    <div className="space-y-6">
+
+      {/* ── Identificación del representante ── */}
       <div>
-        <p className="text-sm font-semibold text-[#1B4332] mb-1">Documentos requeridos</p>
-        <p className="text-xs text-slate-500 mb-4">
-          {regData.inmobiliaria_tipo === "titular"
-            ? "Como titular, sube el certificado que acredita a tu empresa ante una asociación inmobiliaria."
-            : "Como asesor, sube tu credencial de empresa y tu certificación de curso inmobiliario."}
-        </p>
+        <p className="text-sm font-semibold text-[#1B4332] mb-1">Identificación del representante</p>
+        <p className="text-xs text-slate-500 mb-4">Requeridos para todos los registros de inmobiliaria.</p>
+        <div className="space-y-4">
+          <FileUploadField
+            label="INE — Frente *"
+            hint="Identificación oficial vigente del representante o asesor, cara frontal"
+            value={files.ine_frente} onChange={v => setFile("ine_frente", v)} required
+          />
+          <FileUploadField
+            label="INE — Vuelta"
+            hint="Cara trasera de la identificación oficial"
+            value={files.ine_vuelta} onChange={v => setFile("ine_vuelta", v)}
+          />
+          <FileUploadField
+            label="Foto profesional *"
+            hint="Fotografía reciente de frente, fondo neutro, vestimenta formal. Aparecerá en tu perfil de empresa en PropValu."
+            value={files.foto_profesional} onChange={v => setFile("foto_profesional", v)} required
+          />
+          <FileUploadField
+            label="Comprobante de domicilio de la empresa *"
+            hint="Recibo de luz, agua, internet o renta con la dirección del negocio (no mayor a 3 meses). También se acepta estado de cuenta bancario empresarial."
+            value={files.comprobante_domicilio} onChange={v => setFile("comprobante_domicilio", v)} required
+          />
+        </div>
       </div>
 
+      {/* ── Documentos por tipo de cuenta ── */}
       {regData.inmobiliaria_tipo === "titular" && (
-        <FileUploadField
-          label="Certificado de asociación inmobiliaria"
-          hint="Documento que acredita tu membresía en AMPI, CANACO u otra asociación"
-          value={files.cert_asociacion}
-          onChange={v => setFile("cert_asociacion", v)}
-          required
-        />
+        <div>
+          <div className="flex items-center gap-2 mb-1">
+            <p className="text-sm font-semibold text-[#1B4332]">Documentos — Titular de empresa</p>
+          </div>
+          <p className="text-xs text-slate-500 mb-4">
+            Documentación que acredita a tu empresa ante PropValu y ante asociaciones del sector.
+          </p>
+          <div className="space-y-4">
+            <FileUploadField
+              label="Certificado de asociación inmobiliaria *"
+              hint="Constancia o membresía vigente en AMPI, CANACO, CIPS, ACIMEX u otra asociación reconocida. Si aún no perteneces a ninguna, puedes subir tu cédula de agente autorizado estatal."
+              value={files.cert_asociacion} onChange={v => setFile("cert_asociacion", v)} required
+            />
+            <FileUploadField
+              label="Acta constitutiva de la empresa"
+              hint="Sube el Acta Constitutiva si tu empresa está registrada como S.A., S.R.L., S.A.S. u otra figura jurídica. No aplica para personas físicas con actividad empresarial."
+              value={files.acta_constitutiva} onChange={v => setFile("acta_constitutiva", v)}
+            />
+            <FileUploadField
+              label="Constancia de Situación Fiscal (SAT)"
+              hint="Constancia actualizada con tu RFC y régimen fiscal. Requerida si deseas facturación desde la plataforma."
+              value={files.constancia_sat} onChange={v => setFile("constancia_sat", v)}
+            />
+            <FileUploadField
+              label="Logo de tu empresa"
+              hint="PNG o JPG con fondo blanco o transparente. Aparecerá en tu perfil público y en los reportes generados para tus clientes."
+              accept=".png,.jpg,.jpeg,.svg"
+              value={files.logo_empresa} onChange={v => setFile("logo_empresa", v)}
+            />
+          </div>
+        </div>
       )}
 
       {regData.inmobiliaria_tipo === "asesor" && (
+        <div>
+          <p className="text-sm font-semibold text-[#1B4332] mb-1">Documentos — Asesor inmobiliario</p>
+          <p className="text-xs text-slate-500 mb-4">
+            Documentos que acreditan tu relación con la empresa y tu formación profesional.
+          </p>
+          <div className="space-y-4">
+            <FileUploadField
+              label="Credencial de empresa *"
+              hint="Identificación, gafete o carta emitida por tu empresa afiliada que te acredita como asesor activo."
+              value={files.credencial_empresa} onChange={v => setFile("credencial_empresa", v)} required
+            />
+            <FileUploadField
+              label="Certificación de curso inmobiliario *"
+              hint="Diploma o certificado de un curso profesional reconocido: AMPI, CANACO, CIPS, INFONAVIT para asesores, o equivalente estatal."
+              value={files.cert_curso_inmobiliario} onChange={v => setFile("cert_curso_inmobiliario", v)} required
+            />
+          </div>
+        </div>
+      )}
+
+      {/* ── Cuestionario para perfil completo ── */}
+      {regData.modo_perfil === "completo" && (
         <>
-          <FileUploadField
-            label="Credencial de empresa"
-            hint="Identificación o credencial emitida por tu empresa afiliada"
-            value={files.credencial_empresa}
-            onChange={v => setFile("credencial_empresa", v)}
-            required
-          />
-          <FileUploadField
-            label="Certificación de curso inmobiliario profesional"
-            hint="Diploma o certificado de curso autorizado (AMPI, CANACO, CIPS, etc.)"
-            value={files.cert_curso_inmobiliario}
-            onChange={v => setFile("cert_curso_inmobiliario", v)}
-            required
-          />
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-sm font-semibold text-[#1B4332]">Cuestionario de perfil</span>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#1B4332] text-white">Perfil afiliado</span>
+            </div>
+            <p className="text-xs text-slate-500 mb-4">Nos ayuda a conectarte con los valuadores y servicios más adecuados para tu cartera.</p>
+            <div className="space-y-4">
+
+              {/* Años en el mercado */}
+              <div className="space-y-1.5">
+                <Label className="text-xs font-semibold text-slate-600">Años operando en el mercado inmobiliario *</Label>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  {[
+                    { val: "Menos de 1 año", label: "Menos de 1 año" },
+                    { val: "1-3 años",       label: "1 – 3 años" },
+                    { val: "3-5 años",       label: "3 – 5 años" },
+                    { val: "5-10 años",      label: "5 – 10 años" },
+                    { val: "Más de 10 años", label: "Más de 10 años" },
+                  ].map(({ val, label }) => (
+                    <button key={val} type="button" onClick={() => setReg("q_anos_mercado", val)}
+                      className={`py-2 px-3 rounded-xl border text-sm font-medium transition-all text-left ${
+                        regData.q_anos_mercado === val
+                          ? "border-[#52B788] bg-[#F0FAF5] text-[#1B4332]"
+                          : "border-slate-200 text-slate-500 hover:border-slate-300"
+                      }`}>
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Tipo de operaciones */}
+              <div className="space-y-2">
+                <Label className="text-xs font-semibold text-slate-600">Tipo de operaciones que manejas</Label>
+                <div className="grid grid-cols-2 gap-2">
+                  {[
+                    { key: "venta_residencial",  label: "Venta residencial" },
+                    { key: "renta_residencial",  label: "Renta residencial" },
+                    { key: "comercial",           label: "Comercial" },
+                    { key: "industrial",          label: "Industrial" },
+                    { key: "terrenos",            label: "Terrenos" },
+                    { key: "oficinas",            label: "Oficinas" },
+                  ].map(({ key, label }) => (
+                    <button key={key} type="button" onClick={() => toggleTipoOperacion(key)}
+                      className="flex items-center gap-2 text-left group">
+                      <div className={`w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 transition-all ${
+                        regData.q_tipo_operaciones[key]
+                          ? "bg-[#52B788] border-[#52B788]"
+                          : "border-slate-300 group-hover:border-[#52B788]"
+                      }`}>
+                        {regData.q_tipo_operaciones[key] && <Check className="w-3 h-3 text-white" />}
+                      </div>
+                      <span className={`text-sm font-medium ${regData.q_tipo_operaciones[key] ? "text-[#1B4332]" : "text-slate-600"}`}>
+                        {label}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Cartera de propiedades */}
+              <div className="space-y-1.5">
+                <Label className="text-xs font-semibold text-slate-600">Propiedades activas en cartera actualmente</Label>
+                <div className="grid grid-cols-2 gap-2">
+                  {["1-5","6-15","16-30","Más de 30"].map(val => (
+                    <button key={val} type="button" onClick={() => setReg("q_cartera_propiedades", val)}
+                      className={`py-2 px-3 rounded-lg border text-sm font-medium transition-all ${
+                        regData.q_cartera_propiedades === val
+                          ? "border-[#52B788] bg-[#F0FAF5] text-[#1B4332]"
+                          : "border-slate-200 text-slate-600 hover:border-slate-300"
+                      }`}>{val}</button>
+                  ))}
+                </div>
+              </div>
+
+              {/* CRM */}
+              <div className="space-y-1.5">
+                <Label className="text-xs font-semibold text-slate-600">CRM o herramientas que utilizas <span className="text-slate-400 font-normal">(opcional)</span></Label>
+                <Input
+                  placeholder="ej. Inmuebles24 CRM, Bitrix24, Excel, WhatsApp Business..."
+                  className="h-9 text-sm bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
+                  value={regData.q_crm} onChange={e => setReg("q_crm", e.target.value)}
+                />
+              </div>
+
+              {/* Oficina */}
+              <div className="flex items-center gap-3">
+                <button type="button" onClick={() => setReg("q_oficina_inm", !regData.q_oficina_inm)}
+                  className={`w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 transition-all ${regData.q_oficina_inm ? "bg-[#52B788] border-[#52B788]" : "border-slate-300"}`}>
+                  {regData.q_oficina_inm && <Check className="w-3 h-3 text-white" />}
+                </button>
+                <Label className="text-sm text-slate-600 cursor-pointer" onClick={() => setReg("q_oficina_inm", !regData.q_oficina_inm)}>
+                  Tenemos oficina física
+                </Label>
+              </div>
+
+              {regData.q_oficina_inm && (
+                <div className="ml-8 space-y-3">
+                  <div className="space-y-1.5">
+                    <Label className="text-xs font-semibold text-slate-600">Dirección de oficina</Label>
+                    <Input placeholder="Calle, número, colonia, municipio"
+                      className="h-9 text-sm bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
+                      value={regData.q_dir_oficina_inm} onChange={e => setReg("q_dir_oficina_inm", e.target.value)} />
+                  </div>
+                  <div className="space-y-1.5">
+                    <Label className="text-xs font-semibold text-slate-600">Ubicación en Google Maps (liga)</Label>
+                    <Input placeholder="https://maps.google.com/..."
+                      className="h-9 text-sm bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
+                      value={regData.q_maps_url_inm} onChange={e => setReg("q_maps_url_inm", e.target.value)} />
+                  </div>
+                </div>
+              )}
+
+            </div>
+          </div>
         </>
       )}
 
-      {/* Términos y privacidad */}
+      {/* ── Términos y privacidad ── */}
       <div className="rounded-xl border border-slate-200 p-4 space-y-3">
         <p className="text-sm font-semibold text-[#1B4332]">Términos y Política de Privacidad</p>
         <p className="text-xs text-slate-500 leading-relaxed">
@@ -1295,8 +1499,8 @@ const LoginPage = () => {
           <p className="text-sm font-semibold text-[#1B4332] mb-1">¿Qué sigue?</p>
           <p className="text-xs text-slate-600 leading-relaxed">
             El equipo PropValu revisará tus documentos y se pondrá en contacto contigo
-            <strong> vía telefónica o entrevista virtual</strong>. Recibirás un correo cuando
-            tu cuenta sea activada.
+            <strong> vía telefónica o videollamada</strong> para completar la verificación.
+            Recibirás un correo cuando tu cuenta sea activada y puedas solicitar valuaciones.
           </p>
         </div>
       </div>

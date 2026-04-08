@@ -171,9 +171,8 @@ export default function InmobiliariaPage() {
   });
 
   const handleLogin = (planId) => {
-    localStorage.setItem("propvalu_intended_role", "realtor");
     if (planId) localStorage.setItem("propvalu_selected_plan", planId);
-    window.location.href = '/login';
+    navigate('/login', { state: { role: 'realtor' } });
   };
 
   return (
