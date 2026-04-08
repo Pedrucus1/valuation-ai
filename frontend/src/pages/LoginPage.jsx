@@ -246,7 +246,11 @@ const LoginPage = () => {
     if (step === 1) {
       if (!regData.role)            { toast.error("Selecciona si eres Valuador o Inmobiliaria"); return false; }
       if (!regData.name.trim())     { toast.error("Ingresa tu nombre completo"); return false; }
-      if (regData.role === "realtor" && !regData.company_name.trim()) { toast.error("Ingresa el nombre de la empresa"); return false; }
+      if (regData.role === "realtor") {
+        if (!regData.inmobiliaria_tipo) { toast.error("Selecciona si eres Titular o Asesor"); return false; }
+        if (regData.inmobiliaria_tipo === "titular" && !regData.company_name.trim()) { toast.error("Ingresa el nombre de la empresa"); return false; }
+        if (regData.inmobiliaria_tipo === "asesor" && !regData.empresa_afiliada) { toast.error("Selecciona la empresa a la que perteneces"); return false; }
+      }
       if (!regData.email.trim())    { toast.error("Ingresa tu correo electrónico"); return false; }
       if (!regData.phone.trim())    { toast.error("Ingresa tu teléfono"); return false; }
       if (regData.password.length < 6) { toast.error("La contraseña debe tener al menos 6 caracteres"); return false; }
@@ -259,7 +263,7 @@ const LoginPage = () => {
         if (!regData.estado) { toast.error("Selecciona el estado donde darás el servicio"); return false; }
         if (!regData.municipios[0]?.trim()) { toast.error("Ingresa al menos un municipio o población"); return false; }
       }
-      if (regData.role === "realtor") {
+      if (regData.role === "realtor" && regData.inmobiliaria_tipo === "titular") {
         if (regData.estados.length === 0) { toast.error("Selecciona al menos un estado de cobertura"); return false; }
       }
       if (regData.role === "appraiser") {
@@ -268,12 +272,8 @@ const LoginPage = () => {
         if (!regData.q_experiencia) { toast.error("Indica tus años de experiencia"); return false; }
       }
       if (regData.role === "realtor") {
-        if (!regData.inmobiliaria_tipo) { toast.error("Selecciona si eres Titular o Asesor"); return false; }
         if (regData.inmobiliaria_tipo === "titular" && !regData.asociacion.trim()) {
           toast.error("Ingresa la asociación inmobiliaria a la que perteneces"); return false;
-        }
-        if (regData.inmobiliaria_tipo === "asesor" && !regData.empresa_afiliada) {
-          toast.error("Selecciona la empresa afiliada"); return false;
         }
       }
       return true;
@@ -492,19 +492,61 @@ const LoginPage = () => {
         </div>
       </div>
 
-      {/* Empresa (realtor) */}
+      {/* Titular / Asesor (realtor) */}
       {regData.role === "realtor" && (
-        <div className="space-y-1.5">
-          <Label className="text-sm font-medium text-slate-700">Nombre de la empresa *</Label>
-          <div className="relative">
-            <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-            <Input
-              required placeholder="Inmobiliaria XYZ S.A."
-              className="pl-10 bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
-              value={regData.company_name}
-              onChange={e => setReg("company_name", e.target.value)}
-            />
+        <div className="space-y-3">
+          <Label className="text-sm font-semibold text-[#1B4332] block">Tipo de cuenta *</Label>
+          <div className="grid grid-cols-2 gap-3">
+            {[
+              { value: "titular", label: "Titular", desc: "Dueño o gerente de la empresa" },
+              { value: "asesor",  label: "Asesor",  desc: "Agente afiliado a una empresa" },
+            ].map(opt => (
+              <button key={opt.value} type="button"
+                onClick={() => setReg("inmobiliaria_tipo", opt.value)}
+                className={`p-3 rounded-xl border-2 text-left transition-all ${
+                  regData.inmobiliaria_tipo === opt.value
+                    ? "border-[#52B788] bg-[#D9ED92]/20"
+                    : "border-slate-200 hover:border-slate-300"
+                }`}>
+                <p className={`text-sm font-semibold ${regData.inmobiliaria_tipo === opt.value ? "text-[#1B4332]" : "text-slate-600"}`}>{opt.label}</p>
+                <p className="text-xs text-slate-400 mt-0.5">{opt.desc}</p>
+              </button>
+            ))}
           </div>
+
+          {/* Titular → nombre de empresa */}
+          {regData.inmobiliaria_tipo === "titular" && (
+            <div className="space-y-1.5">
+              <Label className="text-sm font-medium text-slate-700">Nombre de la empresa *</Label>
+              <div className="relative">
+                <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <Input
+                  placeholder="Inmobiliaria XYZ S.A."
+                  className="pl-10 bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
+                  value={regData.company_name}
+                  onChange={e => setReg("company_name", e.target.value)}
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Asesor → combo de empresas registradas */}
+          {regData.inmobiliaria_tipo === "asesor" && (
+            <div className="space-y-1.5">
+              <Label className="text-sm font-medium text-slate-700">Empresa a la que perteneces *</Label>
+              <select
+                className="w-full h-10 px-3 text-sm border border-[#B7E4C7] rounded-lg bg-[#F0FAF5] focus:border-[#52B788] focus:bg-white focus:outline-none text-[#1B4332] appearance-none"
+                value={regData.empresa_afiliada}
+                onChange={e => setReg("empresa_afiliada", e.target.value)}
+              >
+                <option value="">Seleccionar empresa...</option>
+                {EMPRESAS_AFILIADAS.map(e => <option key={e} value={e}>{e}</option>)}
+              </select>
+              <p className="text-xs text-slate-400">
+                Si tu empresa no aparece, pide al titular que se registre primero.
+              </p>
+            </div>
+          )}
         </div>
       )}
 
@@ -839,35 +881,6 @@ const LoginPage = () => {
 
       <ModoSelector rol="realtor" />
 
-      {/* Tipo de cuenta */}
-      <div>
-        <Label className="text-sm font-semibold text-[#1B4332] mb-3 block">
-          Tipo de cuenta *
-        </Label>
-        <div className="grid grid-cols-2 gap-3">
-          {[
-            { value: "titular", label: "Titular", desc: "Dueño o gerente de la empresa" },
-            { value: "asesor",  label: "Asesor",  desc: "Agente afiliado a una empresa" },
-          ].map(opt => (
-            <button
-              key={opt.value}
-              type="button"
-              onClick={() => setReg("inmobiliaria_tipo", opt.value)}
-              className={`p-3 rounded-xl border-2 text-left transition-all ${
-                regData.inmobiliaria_tipo === opt.value
-                  ? "border-[#52B788] bg-[#D9ED92]/20"
-                  : "border-slate-200 hover:border-slate-300"
-              }`}
-            >
-              <p className={`text-sm font-semibold ${regData.inmobiliaria_tipo === opt.value ? "text-[#1B4332]" : "text-slate-600"}`}>
-                {opt.label}
-              </p>
-              <p className="text-xs text-slate-400 mt-0.5">{opt.desc}</p>
-            </button>
-          ))}
-        </div>
-      </div>
-
       {/* Titular: asociación, cursos, num_asesores */}
       {regData.inmobiliaria_tipo === "titular" && (
         <>
@@ -904,26 +917,8 @@ const LoginPage = () => {
         </>
       )}
 
-      {/* Asesor: empresa afiliada */}
-      {regData.inmobiliaria_tipo === "asesor" && (
-        <div className="space-y-1.5">
-          <Label className="text-sm font-medium text-slate-700">Empresa afiliada *</Label>
-          <select
-            className="w-full h-10 px-3 text-sm border border-[#B7E4C7] rounded-lg bg-[#F0FAF5] focus:border-[#52B788] focus:bg-white focus:outline-none text-[#1B4332] appearance-none"
-            value={regData.empresa_afiliada}
-            onChange={e => setReg("empresa_afiliada", e.target.value)}
-          >
-            <option value="">Seleccionar empresa...</option>
-            {EMPRESAS_AFILIADAS.map(e => <option key={e} value={e}>{e}</option>)}
-          </select>
-          <p className="text-xs text-slate-400">
-            Si tu empresa no aparece en la lista, pide al titular que se registre primero.
-          </p>
-        </div>
-      )}
-
-      {/* Cobertura multi-estado para inmobiliaria */}
-      <div>
+      {/* Cobertura multi-estado — solo titular */}
+      {regData.inmobiliaria_tipo === "titular" && <div>
         <div className="flex items-center gap-1.5 mb-3">
           <MapPin className="w-4 h-4 text-[#52B788]" />
           <Label className="text-sm font-semibold text-[#1B4332]">Zona de cobertura *</Label>
@@ -1004,7 +999,18 @@ const LoginPage = () => {
             ))}
           </div>
         )}
-      </div>
+      </div>}
+
+      {/* Asesor: info de su cuenta */}
+      {regData.inmobiliaria_tipo === "asesor" && (
+        <div className="rounded-xl border border-[#B7E4C7] bg-[#F0FAF5] p-4 text-sm text-[#1B4332]">
+          <p className="font-semibold mb-1">Cuenta de asesor afiliado</p>
+          <p className="text-slate-500 leading-relaxed">
+            Tu zona de cobertura y plan están gestionados por la empresa titular a la que perteneces.
+            En el siguiente paso podrás subir tus documentos de identificación para completar el registro.
+          </p>
+        </div>
+      )}
     </div>
   );
 
