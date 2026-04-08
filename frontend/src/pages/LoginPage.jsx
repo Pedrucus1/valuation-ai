@@ -316,8 +316,8 @@ const LoginPage = () => {
     cert_asociacion: null,
     credencial_empresa: null,
     cert_curso_inmobiliario: null,
-    acta_constitutiva: null,
-    constancia_sat: null,
+    opinion_fiscal: null,
+    constancia_rfc: null,
     logo_empresa: null,
   });
 
@@ -1448,8 +1448,8 @@ const LoginPage = () => {
             value={files.foto_profesional} onChange={v => setFile("foto_profesional", v)} required
           />
           <FileUploadField
-            label="Comprobante de domicilio *"
-            hint="Recibo de servicio o estado de cuenta con dirección del negocio (máx. 3 meses)."
+            label="Comprobante de domicilio del negocio *"
+            hint="Recibo de luz, agua, teléfono o estado de cuenta con la dirección de tu oficina o negocio. No mayor a 3 meses."
             value={files.comprobante_domicilio} onChange={v => setFile("comprobante_domicilio", v)} required
           />
         </div>
@@ -1476,19 +1476,19 @@ const LoginPage = () => {
               />
             </div>
             <FileUploadField
-              label="Acta constitutiva"
-              hint="Si tu empresa es S.A., S.R.L. o S.A.S. Opcional para personas físicas."
-              value={files.acta_constitutiva} onChange={v => setFile("acta_constitutiva", v)}
+              label="Opinión de cumplimiento fiscal"
+              hint="Constancia del SAT que acredita que estás al corriente en tus obligaciones fiscales. Descárgala en sat.gob.mx con tu RFC."
+              value={files.opinion_fiscal} onChange={v => setFile("opinion_fiscal", v)}
             />
             <FileUploadField
-              label="Constancia SAT"
-              hint="RFC y régimen fiscal actualizados. Requerida para facturación."
-              value={files.constancia_sat} onChange={v => setFile("constancia_sat", v)}
+              label="Constancia de situación fiscal (RFC)"
+              hint="Documento del SAT con tu RFC, nombre o razón social y régimen fiscal. Necesaria para emitir facturas a tus clientes."
+              value={files.constancia_rfc} onChange={v => setFile("constancia_rfc", v)}
             />
             <div className="col-span-2">
               <FileUploadField
                 label="Logo de tu empresa"
-                hint="PNG o JPG con fondo blanco o transparente. Aparece en tu perfil público y en reportes para clientes."
+                hint="PNG con fondo transparente o blanco · mínimo 400×400 px (cuadrado) o 600×200 px (horizontal) · máx 2 MB. Se muestra en tu perfil público y en el encabezado de los reportes PDF."
                 accept=".png,.jpg,.jpeg,.svg"
                 value={files.logo_empresa} onChange={v => setFile("logo_empresa", v)}
               />
