@@ -1,5 +1,5 @@
 # PropValu — Backlog de Tareas
-> **Última actualización:** 7 Abr 2026 (sesión noche)
+> **Última actualización:** 8 Abr 2026 (sesión tarde)
 > Actualizar este archivo conforme se completen tareas. Marcar con ✅ cuando esté lista, con 🔄 cuando esté en progreso.
 
 ---
@@ -36,8 +36,10 @@
 | 25 | ✅ | **Registro valuador — paso 2** — ModoSelector (básico/afiliado), servicios, cobertura multi-municipio, años de experiencia con medalla preview (🥉🥈🥇). |
 | 26 | ✅ | **Registro valuador — paso 3** — docs con hints explicativos, `comprobante_experiencia` obligatorio (título maestría / avalúo fechado / carta colegio), cédula profesional (arq/ing verificable en DGP-SEP), términos y privacidad con checkbox. |
 | 27 | ✅ | **Subida de docs al registrarse** — `handleRegister` sube cada archivo a `/kyc/upload` tras crear cuenta usando la cookie recién generada. |
+| 46 | ✅ | **Registro sin fricción** — docs opcionales (no bloquean submit), `regData` persiste en localStorage, `verificacion_pendiente` enviado al backend si no hay docs. |
+| 47 | ✅ | **CTA inmobiliarias en ReportPage** — card verde tras resultado OPI con link al directorio `/inmobiliarias`. |
 | 28 | ✅ | **Programa afiliado en ModoSelector** — opción "completo" se expande mostrando beneficios (80% comisión, encargos, medallitas), compromisos (SLA 24h) y requisitos (docs + entrevista). |
-| 9 | 🔄 | **KYC valuadores** — expediente por etapas (pendiente→listo→revision→aprobado), botón solicitar entrevista. Admin puede Ver y Ratificar cada documento. |
+| 9 | ✅ | **KYC valuadores** — expediente por etapas (pendiente→listo→revision→aprobado), botón solicitar entrevista. Admin puede Ver y Ratificar cada documento. Fixes: label `under_review`→en_revision en AdminKYC, sesión se refresca con /auth/me al cargar dashboard, botón entrevista actualiza localStorage. |
 
 ---
 
@@ -89,6 +91,7 @@
 | 42 | ✅ | **Script seed/datos demo** — inserta valuadores e inmobiliarias de prueba para QA visual en admin. |
 | 43 | ✅ | **Permisos automáticos Claude Code** — `settings.json` con allow para Read/Glob/Grep/git/netstat. Sin prompt de autorización para lectura. |
 | 44 | ✅ | **Statusline con barras visuales** — ctx/5h/7d con bloques █░ y porcentaje. |
+| 45 | ✅ | **Statusline placeholders** — barras 5h/7d siempre visibles aunque no haya datos de rate limit (plan OAuth). |
 
 ---
 
@@ -97,7 +100,7 @@
 | # | Estado | Tarea |
 |---|---|---|
 | 17 | ⏳ | **Marca de agua PropValu en PDF** |
-| 18 | 🔄 | **Pruebas y ajustes finales del PDF** — reescritura completa del HTML con CSS fiel al template (Mar 2026). Fixes: logo Building2 SVG, Payback→Recup. Inversión, 12 fotos altura fija, footer pg5, mapa full-width, Perfil del Entorno con íconos emoji, fallbacks entorno/equipamiento, border-radius páginas. Pendiente: verificar `facade_photo_index` como foto de portada. |
+| 18 | ✅ | **Pruebas y ajustes finales del PDF** — reescritura completa del HTML con CSS fiel al template (Mar 2026). Fixes: logo Building2 SVG, Payback→Recup. Inversión, 12 fotos altura fija, footer pg5, mapa full-width, Perfil del Entorno con íconos emoji, fallbacks entorno/equipamiento, border-radius páginas. `facade_photo_index` verificado: ya no aplica (campo renombrado en ReportPage). |
 
 ---
 

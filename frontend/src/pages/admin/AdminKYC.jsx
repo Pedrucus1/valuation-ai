@@ -12,7 +12,7 @@ import {
 
 const KYC_STATUS_MAP = {
   pending:      "pendiente",
-  under_review: "info_solicitada",
+  under_review: "en_revision",
   approved:     "aprobado",
   rejected:     "rechazado",
 };
@@ -227,7 +227,7 @@ const AdminKYC = () => {
   };
 
   const cola = tab === "valuadores" ? vKyc : iKyc;
-  const pendientes = cola.filter((k) => k.estado === "pendiente" || k.estado === "info_solicitada");
+  const pendientes = cola.filter((k) => k.estado === "pendiente" || k.estado === "en_revision" || k.estado === "info_solicitada");
   const procesados = cola.filter((k) => k.estado === "aprobado" || k.estado === "rechazado");
 
   const badges = { kyc: vKyc.filter((k) => k.estado === "pendiente").length + iKyc.filter((k) => k.estado === "pendiente").length };

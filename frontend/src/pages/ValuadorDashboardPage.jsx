@@ -99,6 +99,17 @@ const ValuadorDashboardPage = () => {
       const stored = JSON.parse(localStorage.getItem("valuador_session") || "{}");
       if (stored && stored.email) {
         setSession(stored);
+        // Refrescar kyc_status desde el servidor para reflejar cambios del admin
+        fetch(`${API}/auth/me`, { credentials: "include" })
+          .then(r => r.ok ? r.json() : null)
+          .then(me => {
+            if (me && me.kyc_status !== stored.kyc_status) {
+              const updated = { ...stored, kyc_status: me.kyc_status };
+              setSession(updated);
+              localStorage.setItem("valuador_session", JSON.stringify(updated));
+            }
+          })
+          .catch(() => {});
       } else {
         navigate("/login", { state: { role: "appraiser" } });
       }
@@ -435,8 +446,15 @@ const ValuadorDashboardPage = () => {
             {etapa === "listo" && (
               <button
                 onClick={async () => {
-                  await fetch(`${API}/kyc/solicitar-entrevista`, { method: "POST", credentials: "include" });
-                  toast.success("Solicitud enviada — te contactaremos para agendar la videollamada.");
+                  const res = await fetch(`${API}/kyc/solicitar-entrevista`, { method: "POST", credentials: "include" });
+                  if (res.ok) {
+                    const updated = { ...session, kyc_status: "under_review" };
+                    setSession(updated);
+                    localStorage.setItem("valuador_session", JSON.stringify(updated));
+                    toast.success("Solicitud enviada — te contactaremos para agendar la videollamada.");
+                  } else {
+                    toast.error("No se pudo enviar la solicitud, intenta de nuevo.");
+                  }
                 }}
                 className="flex-shrink-0 flex items-center gap-1.5 bg-[#D9ED92] hover:bg-white text-[#1B4332] text-xs font-bold px-4 py-2.5 rounded-xl transition-colors">
                 🎯 Solicitar entrevista
