@@ -448,15 +448,15 @@ const LoginPage = () => {
   /* ────────────────────────────────────────────────────── */
 
   const renderStep1 = () => (
-    <div className="space-y-2.5">
+    <div className="space-y-3">
       {/* Rol */}
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-2 gap-3">
         {[
           { value: "appraiser", label: "Soy Valuador",     desc: "Perito certificado",       icon: <User className="w-4 h-4" /> },
           { value: "realtor",   label: "Soy Inmobiliaria", desc: "Agencia, broker o asesor",  icon: <Briefcase className="w-4 h-4" /> },
         ].map(opt => (
           <button key={opt.value} type="button" onClick={() => setReg("role", opt.value)}
-            className={`px-3 py-2 rounded-xl border-2 text-left transition-all flex items-center gap-2 ${
+            className={`px-3 py-2.5 rounded-xl border-2 text-left transition-all flex items-center gap-2 ${
               regData.role === opt.value ? "border-[#52B788] bg-[#D9ED92]/20" : "border-slate-200 hover:border-slate-300"
             }`}>
             <span className={regData.role === opt.value ? "text-[#1B4332]" : "text-slate-400"}>{opt.icon}</span>
@@ -469,7 +469,7 @@ const LoginPage = () => {
       </div>
 
       {/* Nombre */}
-      <div className="space-y-1">
+      <div className="space-y-1.5">
         <Label className="text-xs font-medium text-slate-700">Nombre completo *</Label>
         <div className="relative">
           <User className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
@@ -481,15 +481,15 @@ const LoginPage = () => {
 
       {/* Titular / Asesor (realtor) */}
       {regData.role === "realtor" && (
-        <div className="space-y-2">
+        <div className="space-y-2.5">
           <Label className="text-xs font-semibold text-[#1B4332] block">Tipo de cuenta *</Label>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 gap-3">
             {[
               { value: "titular", label: "Titular", desc: "Dueño o gerente" },
               { value: "asesor",  label: "Asesor",  desc: "Agente afiliado" },
             ].map(opt => (
               <button key={opt.value} type="button" onClick={() => setReg("inmobiliaria_tipo", opt.value)}
-                className={`px-3 py-2 rounded-xl border-2 text-left transition-all ${
+                className={`px-3 py-2.5 rounded-xl border-2 text-left transition-all ${
                   regData.inmobiliaria_tipo === opt.value ? "border-[#52B788] bg-[#D9ED92]/20" : "border-slate-200 hover:border-slate-300"
                 }`}>
                 <p className={`text-xs font-semibold leading-tight ${regData.inmobiliaria_tipo === opt.value ? "text-[#1B4332]" : "text-slate-600"}`}>{opt.label}</p>
@@ -499,7 +499,7 @@ const LoginPage = () => {
           </div>
 
           {regData.inmobiliaria_tipo === "titular" && (
-            <div className="space-y-1">
+            <div className="space-y-1.5">
               <Label className="text-xs font-medium text-slate-700">Nombre de la empresa *</Label>
               <div className="relative">
                 <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
@@ -511,7 +511,7 @@ const LoginPage = () => {
           )}
 
           {regData.inmobiliaria_tipo === "asesor" && (
-            <div className="space-y-1">
+            <div className="space-y-1.5">
               <Label className="text-xs font-medium text-slate-700">Empresa a la que perteneces *</Label>
               <select
                 className="w-full h-9 px-3 text-sm border border-[#B7E4C7] rounded-lg bg-[#F0FAF5] focus:border-[#52B788] focus:bg-white focus:outline-none text-[#1B4332] appearance-none"
@@ -526,8 +526,8 @@ const LoginPage = () => {
       )}
 
       {/* Correo + Teléfono en fila */}
-      <div className="grid grid-cols-2 gap-2">
-        <div className="space-y-1">
+      <div className="grid grid-cols-2 gap-3">
+        <div className="space-y-1.5">
           <Label className="text-xs font-medium text-slate-700">Correo *</Label>
           <div className="relative">
             <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
@@ -536,7 +536,7 @@ const LoginPage = () => {
               value={regData.email} onChange={e => setReg("email", e.target.value)} />
           </div>
         </div>
-        <div className="space-y-1">
+        <div className="space-y-1.5">
           <Label className="text-xs font-medium text-slate-700">Teléfono *</Label>
           <div className="relative">
             <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
@@ -548,8 +548,8 @@ const LoginPage = () => {
       </div>
 
       {/* Contraseñas */}
-      <div className="grid grid-cols-2 gap-2">
-        <div className="space-y-1">
+      <div className="grid grid-cols-2 gap-3">
+        <div className="space-y-1.5">
           <Label className="text-xs font-medium text-slate-700">Contraseña *</Label>
           <div className="relative">
             <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
@@ -558,7 +558,7 @@ const LoginPage = () => {
               value={regData.password} onChange={e => setReg("password", e.target.value)} />
           </div>
         </div>
-        <div className="space-y-1">
+        <div className="space-y-1.5">
           <Label className="text-xs font-medium text-slate-700">Confirmar *</Label>
           <div className="relative">
             <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
@@ -1603,7 +1603,7 @@ const LoginPage = () => {
       <div className={`w-full transition-all ${tab === "register" && regStep > 1 ? "max-w-lg" : "max-w-md"}`}>
 
         {/* Logo */}
-        <div className="flex items-center justify-center gap-2 mb-4 cursor-pointer" onClick={() => navigate("/")}>
+        <div className="flex items-center justify-center gap-2 mb-5 cursor-pointer" onClick={() => navigate("/")}>
           <Building2 className="w-7 h-7 text-[#1B4332]" />
           <span className="font-['Outfit'] text-xl font-bold text-[#1B4332]">
             Prop<span className="text-[#52B788]">Valu</span>
@@ -1612,7 +1612,7 @@ const LoginPage = () => {
 
         {/* Step indicator — solo en registro */}
         {tab === "register" && (
-          <div className="flex items-center justify-center gap-1 mb-3">
+          <div className="flex items-center justify-center gap-1 mb-4">
             {STEPS.map((label, i) => {
               const n = i + 1;
               const done    = regStep > n;
@@ -1648,7 +1648,7 @@ const LoginPage = () => {
               <button
                 key={t.key}
                 onClick={() => { setTab(t.key); setRegStep(1); }}
-                className={`flex-1 py-2.5 text-sm font-semibold transition-colors ${
+                className={`flex-1 py-3 text-sm font-semibold transition-colors ${
                   tab === t.key
                     ? "text-white bg-[#1B4332] border-b-2 border-[#1B4332]"
                     : "text-slate-400 hover:text-slate-600"
@@ -1659,11 +1659,11 @@ const LoginPage = () => {
             ))}
           </div>
 
-          <div className="p-4">
+          <div className="p-5">
 
             {/* ── LOGIN ── */}
             {tab === "login" && (
-              <form onSubmit={handleLogin} className="space-y-3">
+              <form onSubmit={handleLogin} className="space-y-4">
                 <div className="space-y-1.5">
                   <Label className="text-sm font-medium text-slate-700">Correo electrónico</Label>
                   <div className="relative">
@@ -1717,7 +1717,7 @@ const LoginPage = () => {
                 {regStep === 3 && regData.role === "realtor"   && renderStep3Realtor()}
 
                 {/* Navigation buttons */}
-                <div className={`flex gap-3 mt-4 ${regStep > 1 ? "justify-between" : ""}`}>
+                <div className={`flex gap-3 mt-5 ${regStep > 1 ? "justify-between" : ""}`}>
                   {regStep > 1 && (
                     <Button type="button" variant="outline"
                       onClick={() => setRegStep(s => s - 1)}
