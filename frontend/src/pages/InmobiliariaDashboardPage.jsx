@@ -615,24 +615,51 @@ const InmobiliariaDashboardPage = () => {
           </div>
         </div>
 
-        {/* Logo */}
-        {(() => {
-          const logoDoc = kycDocs.find(d => d.doc_tipo === "logo_empresa");
-          return (
-            <div>
-              <p className="text-xs text-slate-400 mb-2">Logo de empresa</p>
-              {logoDoc ? (
-                <img
-                  src={`${API}/kyc/documento/${logoDoc.doc_id}`}
-                  alt="Logo"
-                  className="h-14 w-auto object-contain rounded-lg border border-slate-100 bg-slate-50 p-1"
-                />
-              ) : (
-                <p className="text-xs text-slate-400 italic">Sin logo — puedes subirlo desde Documentos</p>
-              )}
-            </div>
-          );
-        })()}
+        {/* Fotos: representante + logo */}
+        <div className="flex gap-4 flex-wrap">
+          {/* Foto representante */}
+          {(() => {
+            const fotoDoc = kycDocs.find(d => d.doc_tipo === "foto_profesional");
+            return (
+              <div className="flex flex-col items-center gap-1.5">
+                <p className="text-xs text-slate-400 self-start">Foto del representante</p>
+                {fotoDoc ? (
+                  <img
+                    src={`${API}/kyc/documento/${fotoDoc.doc_id}`}
+                    alt="Foto representante"
+                    className="w-16 h-16 rounded-full object-cover border-2 border-[#52B788]"
+                  />
+                ) : (
+                  <div className="w-16 h-16 rounded-full bg-slate-100 border-2 border-dashed border-slate-300 flex flex-col items-center justify-center" title="Foto pendiente de subir">
+                    <User className="w-6 h-6 text-slate-300" />
+                    <span className="text-[9px] text-slate-300 mt-0.5">foto</span>
+                  </div>
+                )}
+              </div>
+            );
+          })()}
+          {/* Logo empresa */}
+          {(() => {
+            const logoDoc = kycDocs.find(d => d.doc_tipo === "logo_empresa");
+            return (
+              <div className="flex flex-col gap-1.5">
+                <p className="text-xs text-slate-400">Logo de empresa</p>
+                {logoDoc ? (
+                  <img
+                    src={`${API}/kyc/documento/${logoDoc.doc_id}`}
+                    alt="Logo"
+                    className="h-16 w-auto max-w-[160px] object-contain rounded-lg border border-slate-200 bg-slate-50 p-2"
+                  />
+                ) : (
+                  <div className="h-16 w-36 rounded-lg bg-slate-100 border-2 border-dashed border-slate-300 flex flex-col items-center justify-center gap-1" title="Logo pendiente de subir">
+                    <Briefcase className="w-5 h-5 text-slate-300" />
+                    <span className="text-[9px] text-slate-300">logo</span>
+                  </div>
+                )}
+              </div>
+            );
+          })()}
+        </div>
 
         {/* Cuestionario */}
         {(session.q_anos_mercado || session.q_cartera_propiedades || session.q_tipo_operaciones || session.q_crm) && (

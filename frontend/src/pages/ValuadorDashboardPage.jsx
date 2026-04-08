@@ -904,9 +904,21 @@ const ValuadorDashboardPage = () => {
 
       {/* ── Header de perfil ── */}
       <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] rounded-2xl p-5 flex items-center gap-4">
-        <div className="w-14 h-14 rounded-full bg-[#52B788]/30 border-2 border-[#52B788] flex items-center justify-center flex-shrink-0">
-          <User className="w-7 h-7 text-[#D9ED92]" />
-        </div>
+        {(() => {
+          const fotoDoc = kycDocs.find(d => d.doc_tipo === "foto_profesional");
+          return fotoDoc ? (
+            <img
+              src={`${API}/kyc/documento/${fotoDoc.doc_id}`}
+              alt="Foto de perfil"
+              className="w-14 h-14 rounded-full object-cover border-2 border-[#52B788] flex-shrink-0"
+            />
+          ) : (
+            <div className="w-14 h-14 rounded-full bg-slate-300/40 border-2 border-dashed border-[#52B788]/60 flex flex-col items-center justify-center flex-shrink-0" title="Foto de perfil pendiente">
+              <User className="w-6 h-6 text-[#D9ED92]/50" />
+              <span className="text-[8px] text-[#D9ED92]/50 leading-tight text-center mt-0.5">foto</span>
+            </div>
+          );
+        })()}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
             <p className="font-['Outfit'] text-lg font-bold text-white">{session.name || "—"}</p>
