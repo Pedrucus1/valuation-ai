@@ -1129,10 +1129,10 @@ const ValuadorDashboardPage = () => {
 
           {/* Right: user chip + logout */}
           <div className="flex items-center gap-3">
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-[#D9ED92]/40 rounded-full">
-              <User className="w-4 h-4 text-[#1B4332]" />
-              <span className="text-sm font-medium text-[#1B4332]">
-                {session.name?.split(" ")[0] || session.email}
+            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-[#D9ED92]/40 rounded-full max-w-xs">
+              <User className="w-4 h-4 text-[#1B4332] shrink-0" />
+              <span className="text-sm font-medium text-[#1B4332] truncate">
+                {session.name || session.email}
               </span>
               {session.q_experiencia === "Más de 10 años" && <span className="text-sm">🥇</span>}
               {(session.q_experiencia === "5-10 años" || session.q_experiencia === "3-5 años") && <span className="text-sm">🥈</span>}

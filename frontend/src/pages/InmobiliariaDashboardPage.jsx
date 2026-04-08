@@ -749,10 +749,10 @@ const InmobiliariaDashboardPage = () => {
 
           {/* Right: company chip + logout */}
           <div className="flex items-center gap-3">
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-[#D9ED92]/40 rounded-full">
-              <Briefcase className="w-4 h-4 text-[#1B4332]" />
-              <span className="text-sm font-medium text-[#1B4332]">
-                {displayName?.split(" ").slice(0, 2).join(" ")}
+            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-[#D9ED92]/40 rounded-full max-w-xs">
+              <Briefcase className="w-4 h-4 text-[#1B4332] shrink-0" />
+              <span className="text-sm font-medium text-[#1B4332] truncate">
+                {displayName}
               </span>
             </div>
             <Button
