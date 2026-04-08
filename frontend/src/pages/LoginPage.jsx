@@ -113,6 +113,7 @@ const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading]   = useState(false);
   const [showDocsModal, setShowDocsModal] = useState(false);
+  const [showEstadosDropdown, setShowEstadosDropdown] = useState(false);
 
   /* ── Login state ── */
   const [loginData, setLoginData] = useState({ email: "", password: "" });
@@ -937,18 +938,43 @@ const LoginPage = () => {
             <Label className="text-sm font-semibold text-[#1B4332]">Zona de cobertura *</Label>
           </div>
 
-          {/* Combo para agregar estados */}
-          <div className="flex gap-2">
-            <select
-              className="flex-1 h-9 px-3 text-sm border border-[#B7E4C7] rounded-lg bg-[#F0FAF5] focus:border-[#52B788] focus:outline-none text-[#1B4332] appearance-none"
-              defaultValue=""
-              onChange={e => { agregarEstado(e.target.value); e.target.value = ""; }}
+          {/* Multi-select con checkboxes */}
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setShowEstadosDropdown(s => !s)}
+              className="w-full h-9 px-3 text-sm border border-[#B7E4C7] rounded-lg bg-[#F0FAF5] focus:border-[#52B788] focus:outline-none text-left flex items-center justify-between text-[#1B4332]"
             >
-              <option value="">Agregar estado…</option>
-              {ESTADOS_MX.filter(e => !regData.estados.includes(e)).map(est => (
-                <option key={est} value={est}>{est}</option>
-              ))}
-            </select>
+              <span className={regData.estados.length ? "font-medium" : "text-slate-400"}>
+                {regData.estados.length
+                  ? `${regData.estados.length} estado${regData.estados.length > 1 ? "s" : ""} seleccionado${regData.estados.length > 1 ? "s" : ""}`
+                  : "Seleccionar estados…"}
+              </span>
+              <svg className={`w-4 h-4 text-slate-400 transition-transform ${showEstadosDropdown ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+            </button>
+
+            {showEstadosDropdown && (
+              <div className="absolute z-20 mt-1 w-full bg-white border border-slate-200 rounded-xl shadow-lg max-h-52 overflow-y-auto">
+                {ESTADOS_MX.map(est => {
+                  const checked = regData.estados.includes(est);
+                  return (
+                    <label key={est}
+                      className="flex items-center gap-2.5 px-3 py-1.5 hover:bg-[#F0FAF5] cursor-pointer text-sm text-slate-700">
+                      <input
+                        type="checkbox"
+                        checked={checked}
+                        onChange={() => {
+                          if (checked) quitarEstado(est);
+                          else agregarEstado(est);
+                        }}
+                        className="w-4 h-4 rounded border-slate-300 accent-[#1B4332] cursor-pointer"
+                      />
+                      {est}
+                    </label>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
           {/* Estados seleccionados con sus municipios */}
