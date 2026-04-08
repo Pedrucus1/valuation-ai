@@ -1417,42 +1417,25 @@ const LoginPage = () => {
   const renderStep3Realtor = () => (
     <div className="space-y-6">
 
-      {/* ── Identificación del representante ── */}
-      <div>
-        <div className="rounded-xl bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] p-4 mb-4 flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-white/15 flex items-center justify-center shrink-0">
-            <User className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <p className="text-sm font-bold text-white">Identificación del representante</p>
-            <p className="text-sm text-white/70">Requeridos para todos los registros de inmobiliaria.</p>
-          </div>
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <FileUploadField
-            label="INE — Frente *"
-            hint="Cara frontal de tu identificación oficial vigente"
-            value={files.ine_frente} onChange={v => setFile("ine_frente", v)} required
-          />
-          <FileUploadField
-            label="INE — Vuelta"
-            hint="Cara trasera de la identificación oficial"
-            value={files.ine_vuelta} onChange={v => setFile("ine_vuelta", v)}
-          />
-          <FileUploadField
-            label="Foto profesional *"
-            hint="Frente, fondo neutro, vestimenta formal. Aparece en tu perfil."
-            value={files.foto_profesional} onChange={v => setFile("foto_profesional", v)} required
-          />
-          <FileUploadField
-            label="Comprobante de domicilio del negocio *"
-            hint="Recibo de luz, agua, teléfono o estado de cuenta con la dirección de tu oficina o negocio. No mayor a 3 meses."
-            value={files.comprobante_domicilio} onChange={v => setFile("comprobante_domicilio", v)} required
-          />
+      {/* ── Aviso documentos pendientes ── */}
+      <div className="rounded-xl bg-[#F0FAF5] border border-[#B7E4C7] p-4 flex gap-3">
+        <span className="text-2xl shrink-0">📋</span>
+        <div>
+          <p className="text-sm font-bold text-[#1B4332] mb-0.5">Documentos pendientes de subir</p>
+          <p className="text-xs text-slate-600 leading-relaxed">
+            Tu cuenta queda registrada ahora. Los documentos de verificación los subes desde tu panel cuando los tengas listos.
+          </p>
+          <button
+            type="button"
+            onClick={() => setShowDocsModal(true)}
+            className="mt-2 text-xs font-bold text-[#52B788] underline underline-offset-2 hover:text-[#1B4332] transition-colors"
+          >
+            Ver qué documentos necesitaré →
+          </button>
         </div>
       </div>
 
-      {/* ── Documentos por tipo de cuenta ── */}
+      {/* ── Logo (opcional, solo titular) ── */}
       {regData.inmobiliaria_tipo === "titular" && (
         <div>
           <div className="rounded-xl bg-gradient-to-r from-[#2D6A4F] to-[#40916C] p-4 mb-4 flex items-center gap-3">
@@ -1460,63 +1443,16 @@ const LoginPage = () => {
               <Briefcase className="w-5 h-5 text-white" />
             </div>
             <div>
-              <p className="text-sm font-bold text-white">Documentos — Titular de empresa</p>
-              <p className="text-sm text-white/70">Acreditan a tu empresa ante PropValu y el sector.</p>
+              <p className="text-sm font-bold text-white">Logo de tu empresa <span className="font-normal text-white/70">(opcional)</span></p>
+              <p className="text-sm text-white/70">Aparece en tu perfil público y en reportes PDF. Lo puedes subir después.</p>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="col-span-2">
-              <FileUploadField
-                label="Certificado de asociación inmobiliaria *"
-                hint="Membresía vigente en AMPI, CANACO, CIPS u otra asociación reconocida. Sin asociación, sube tu cédula de agente autorizado estatal."
-                value={files.cert_asociacion} onChange={v => setFile("cert_asociacion", v)} required
-              />
-            </div>
-            <FileUploadField
-              label="Opinión de cumplimiento fiscal"
-              hint="Constancia del SAT que acredita que estás al corriente en tus obligaciones fiscales. Descárgala en sat.gob.mx con tu RFC."
-              value={files.opinion_fiscal} onChange={v => setFile("opinion_fiscal", v)}
-            />
-            <FileUploadField
-              label="Constancia de situación fiscal (RFC)"
-              hint="Documento del SAT con tu RFC, nombre o razón social y régimen fiscal. Necesaria para emitir facturas a tus clientes."
-              value={files.constancia_rfc} onChange={v => setFile("constancia_rfc", v)}
-            />
-            <div className="col-span-2">
-              <FileUploadField
-                label="Logo de tu empresa"
-                hint="PNG con fondo transparente o blanco · mínimo 400×400 px (cuadrado) o 600×200 px (horizontal) · máx 2 MB. Se muestra en tu perfil público y en el encabezado de los reportes PDF."
-                accept=".png,.jpg,.jpeg,.svg"
-                value={files.logo_empresa} onChange={v => setFile("logo_empresa", v)}
-              />
-            </div>
-          </div>
-        </div>
-      )}
-
-      {regData.inmobiliaria_tipo === "asesor" && (
-        <div>
-          <div className="rounded-xl bg-gradient-to-r from-[#2D6A4F] to-[#40916C] p-4 mb-4 flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-white/15 flex items-center justify-center shrink-0">
-              <Briefcase className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <p className="text-sm font-bold text-white">Documentos — Asesor inmobiliario</p>
-              <p className="text-sm text-white/70">Acreditan tu relación con la empresa y tu formación.</p>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <FileUploadField
-              label="Credencial de empresa *"
-              hint="Gafete o carta de tu empresa que te acredita como asesor activo."
-              value={files.credencial_empresa} onChange={v => setFile("credencial_empresa", v)} required
-            />
-            <FileUploadField
-              label="Certificación de curso *"
-              hint="Diploma de curso reconocido: AMPI, CANACO, CIPS, INFONAVIT o equivalente."
-              value={files.cert_curso_inmobiliario} onChange={v => setFile("cert_curso_inmobiliario", v)} required
-            />
-          </div>
+          <FileUploadField
+            label="Logo de tu empresa"
+            hint="PNG con fondo transparente o blanco · mínimo 400×400 px · máx 2 MB."
+            accept=".png,.jpg,.jpeg,.svg"
+            value={files.logo_empresa} onChange={v => setFile("logo_empresa", v)}
+          />
         </div>
       )}
 
@@ -1585,7 +1521,7 @@ const LoginPage = () => {
 
               {/* Cartera de propiedades */}
               <div className="space-y-1.5">
-                <Label className="text-xs font-semibold text-slate-600">Propiedades activas en cartera actualmente</Label>
+                <Label className="text-xs font-semibold text-slate-600">Promedio de propiedades activas en cartera</Label>
                 <div className="grid grid-cols-2 gap-2">
                   {["1-5","6-15","16-30","Más de 30"].map(val => (
                     <button key={val} type="button" onClick={() => setReg("q_cartera_propiedades", val)}
@@ -1596,6 +1532,12 @@ const LoginPage = () => {
                       }`}>{val}</button>
                   ))}
                 </div>
+                <Input
+                  placeholder="O escribe un número específico, ej. 45"
+                  className="h-9 text-sm bg-[#F0FAF5] border-slate-200 focus:border-[#52B788] focus:bg-white mt-1"
+                  value={["1-5","6-15","16-30","Más de 30"].includes(regData.q_cartera_propiedades) ? "" : regData.q_cartera_propiedades}
+                  onChange={e => setReg("q_cartera_propiedades", e.target.value)}
+                />
               </div>
 
               {/* CRM */}
@@ -1695,40 +1637,115 @@ const LoginPage = () => {
       {showDocsModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
           <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowDocsModal(false)} />
-          <div className="relative bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 z-10">
-            {/* Header */}
-            <div className="flex items-start gap-4 mb-5">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#1B4332] to-[#52B788] flex items-center justify-center shrink-0">
-                <Shield className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h2 className="text-base font-bold text-[#1B4332]">¿Por qué te pedimos documentos?</h2>
-                <p className="text-sm text-slate-500 mt-0.5">Transparencia y confianza para tus clientes</p>
-              </div>
-            </div>
-            {/* Body */}
-            <div className="space-y-3 mb-6">
-              {[
-                { icon: "🤝", title: "Aliados verificados", desc: "PropValu solo recomienda a profesionales cuya identidad y credenciales han sido verificadas. Tu perfil aprobado garantiza a los clientes que estás respaldado por nosotros." },
-                { icon: "🛡️", title: "Cero fraudes, máxima confianza", desc: "La verificación de documentos protege a los clientes de fraudes y malas prácticas. Como aliado verificado, también te protege a ti frente a cualquier cuestionamiento sobre tu legitimidad." },
-                { icon: "👁️", title: "Qué se publica y qué es privado", desc: "Tu nombre, empresa, foto, zona de cobertura y datos de contacto aparecerán en el directorio público de PropValu. Los documentos de identidad y verificación son privados: solo los revisa nuestro equipo de verificación y no se comparten con nadie más." },
-                { icon: "⭐", title: "Más visibilidad y más encargos", desc: "Los perfiles verificados aparecen primero en el directorio, generan más confianza en los clientes y reciben más solicitudes de servicio. Es tu sello de calidad PropValu." },
-              ].map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-3">
-                  <span className="text-xl shrink-0 mt-0.5">{icon}</span>
+          <div className="relative bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 z-10 max-h-[90vh] overflow-y-auto">
+            {regData.role === "realtor" ? (
+              <>
+                <div className="flex items-start gap-4 mb-5">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#1B4332] to-[#52B788] flex items-center justify-center shrink-0">
+                    <FileText className="w-6 h-6 text-white" />
+                  </div>
                   <div>
-                    <p className="text-sm font-semibold text-[#1B4332]">{title}</p>
-                    <p className="text-sm text-slate-500 leading-snug">{desc}</p>
+                    <h2 className="text-base font-bold text-[#1B4332]">Documentos que necesitarás</h2>
+                    <p className="text-sm text-slate-500 mt-0.5">Prepáralos para subirlos después desde tu perfil</p>
                   </div>
                 </div>
-              ))}
-            </div>
-            <button
-              onClick={() => setShowDocsModal(false)}
-              className="w-full py-3 rounded-xl bg-[#1B4332] text-white text-sm font-bold hover:bg-[#2D6A4F] transition-colors"
-            >
-              Entendido, continuar con mis documentos
-            </button>
+                <p className="text-xs text-slate-500 mb-4 leading-relaxed">
+                  Puedes completar tu registro ahora. Los documentos los subes después desde tu panel — tu cuenta queda activa mientras los preparas.
+                </p>
+                <div className="space-y-2 mb-5">
+                  <p className="text-xs font-bold text-slate-600 uppercase tracking-wide mb-2">Para todos los registros</p>
+                  {[
+                    { icon: "🪪", doc: "INE vigente (frente y vuelta)", desc: "Identificación oficial del representante" },
+                    { icon: "📷", doc: "Foto profesional", desc: "Frente, fondo neutro, vestimenta formal" },
+                    { icon: "🏢", doc: "Comprobante de domicilio del negocio", desc: "Recibo de luz/agua/teléfono, no mayor a 3 meses" },
+                  ].map(({ icon, doc, desc }) => (
+                    <div key={doc} className="flex gap-3 bg-slate-50 rounded-xl p-3">
+                      <span className="text-lg shrink-0">{icon}</span>
+                      <div>
+                        <p className="text-sm font-semibold text-[#1B4332]">{doc}</p>
+                        <p className="text-xs text-slate-500">{desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                  {regData.inmobiliaria_tipo === "titular" && (
+                    <>
+                      <p className="text-xs font-bold text-slate-600 uppercase tracking-wide mb-2 mt-4">Adicionales para Titular de empresa</p>
+                      {[
+                        { icon: "🏛️", doc: "Certificado de asociación inmobiliaria", desc: "AMPI, CANACO, CIPS u otra asociación reconocida" },
+                        { icon: "📋", doc: "Opinión de cumplimiento fiscal (SAT)", desc: "Descárgala en sat.gob.mx con tu RFC" },
+                        { icon: "📄", doc: "Constancia de situación fiscal (RFC)", desc: "Razón social y régimen fiscal para facturación" },
+                        { icon: "🖼️", doc: "Logo de tu empresa (opcional)", desc: "PNG/JPG, mínimo 400×400 px — aparece en tu perfil" },
+                      ].map(({ icon, doc, desc }) => (
+                        <div key={doc} className="flex gap-3 bg-slate-50 rounded-xl p-3">
+                          <span className="text-lg shrink-0">{icon}</span>
+                          <div>
+                            <p className="text-sm font-semibold text-[#1B4332]">{doc}</p>
+                            <p className="text-xs text-slate-500">{desc}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </>
+                  )}
+                  {regData.inmobiliaria_tipo === "asesor" && (
+                    <>
+                      <p className="text-xs font-bold text-slate-600 uppercase tracking-wide mb-2 mt-4">Adicionales para Asesor</p>
+                      {[
+                        { icon: "🪪", doc: "Credencial de empresa", desc: "Gafete o carta que te acredita como asesor activo" },
+                        { icon: "🎓", doc: "Certificación de curso", desc: "AMPI, CANACO, CIPS, INFONAVIT o equivalente" },
+                      ].map(({ icon, doc, desc }) => (
+                        <div key={doc} className="flex gap-3 bg-slate-50 rounded-xl p-3">
+                          <span className="text-lg shrink-0">{icon}</span>
+                          <div>
+                            <p className="text-sm font-semibold text-[#1B4332]">{doc}</p>
+                            <p className="text-xs text-slate-500">{desc}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </>
+                  )}
+                </div>
+                <button
+                  onClick={() => setShowDocsModal(false)}
+                  className="w-full py-3 rounded-xl bg-[#1B4332] text-white text-sm font-bold hover:bg-[#2D6A4F] transition-colors"
+                >
+                  Entendido, seguir con el registro
+                </button>
+              </>
+            ) : (
+              <>
+                <div className="flex items-start gap-4 mb-5">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#1B4332] to-[#52B788] flex items-center justify-center shrink-0">
+                    <Shield className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h2 className="text-base font-bold text-[#1B4332]">¿Por qué te pedimos documentos?</h2>
+                    <p className="text-sm text-slate-500 mt-0.5">Transparencia y confianza para tus clientes</p>
+                  </div>
+                </div>
+                <div className="space-y-3 mb-6">
+                  {[
+                    { icon: "🤝", title: "Aliados verificados", desc: "PropValu solo recomienda a profesionales cuya identidad y credenciales han sido verificadas. Tu perfil aprobado garantiza a los clientes que estás respaldado por nosotros." },
+                    { icon: "🛡️", title: "Cero fraudes, máxima confianza", desc: "La verificación de documentos protege a los clientes de fraudes y malas prácticas. Como aliado verificado, también te protege a ti frente a cualquier cuestionamiento sobre tu legitimidad." },
+                    { icon: "👁️", title: "Qué se publica y qué es privado", desc: "Tu nombre, empresa, foto, zona de cobertura y datos de contacto aparecerán en el directorio público de PropValu. Los documentos de identidad y verificación son privados: solo los revisa nuestro equipo de verificación y no se comparten con nadie más." },
+                    { icon: "⭐", title: "Más visibilidad y más encargos", desc: "Los perfiles verificados aparecen primero en el directorio, generan más confianza en los clientes y reciben más solicitudes de servicio. Es tu sello de calidad PropValu." },
+                  ].map(({ icon, title, desc }) => (
+                    <div key={title} className="flex gap-3">
+                      <span className="text-xl shrink-0 mt-0.5">{icon}</span>
+                      <div>
+                        <p className="text-sm font-semibold text-[#1B4332]">{title}</p>
+                        <p className="text-sm text-slate-500 leading-snug">{desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <button
+                  onClick={() => setShowDocsModal(false)}
+                  className="w-full py-3 rounded-xl bg-[#1B4332] text-white text-sm font-bold hover:bg-[#2D6A4F] transition-colors"
+                >
+                  Entendido, continuar con mis documentos
+                </button>
+              </>
+            )}
           </div>
         </div>
       )}
