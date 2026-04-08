@@ -160,9 +160,8 @@ const ValuadorPage = () => {
   }, []);
 
   const handleLogin = (planId) => {
-    localStorage.setItem("propvalu_intended_role", "appraiser");
     if (planId) localStorage.setItem("propvalu_intended_plan", planId);
-    window.location.href = '/login';
+    navigate('/login', { state: { role: 'appraiser' } });
   };
 
   return (

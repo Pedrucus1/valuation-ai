@@ -127,8 +127,7 @@ const BenefitsPage = ({ type }) => {
   const roleKey = type === 'valuador' ? 'appraiser' : 'realtor';
 
   const handleLogin = () => {
-    localStorage.setItem('propvalu_intended_role', roleKey);
-    window.location.href = '/login';
+    navigate('/login', { state: { role: roleKey } });
   };
 
   return (
