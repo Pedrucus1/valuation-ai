@@ -223,7 +223,10 @@ const LoginPage = () => {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
 
   /* ── Register state ── */
-  const [regData, setRegData] = useState({
+  const REG_STORAGE_KEY = "propvalu_reg_draft";
+  const regDraft = (() => { try { const s = localStorage.getItem(REG_STORAGE_KEY); return s ? JSON.parse(s) : null; } catch { return null; } })();
+
+  const [regData, setRegData] = useState(regDraft || {
     // Paso 1
     role: defaultRole,
     name: "",
@@ -323,6 +326,11 @@ const LoginPage = () => {
 
   const setReg = (k, v) => setRegData(p => ({ ...p, [k]: v }));
   const setFile = (k, v) => setFiles(p => ({ ...p, [k]: v }));
+
+  // Persist form draft to localStorage (no files, only serializable data)
+  useEffect(() => {
+    try { localStorage.setItem(REG_STORAGE_KEY, JSON.stringify(regData)); } catch {}
+  }, [regData]);
 
   const toggleService = (key) =>
     setRegData(p => ({ ...p, services: { ...p.services, [key]: !p.services[key] } }));
@@ -429,27 +437,10 @@ const LoginPage = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    // Validate required docs
-    if (regData.role === "appraiser") {
-      if (!files.ine_frente)              { toast.error("Sube el frente de tu INE"); return; }
-      if (!regData.profesion_base)        { toast.error("Selecciona tu profesión de base"); return; }
-      if (!regData.num_cedula_base.trim()){ toast.error("Escribe tu número de cédula profesional"); return; }
-      if (!files.cedula)                  { toast.error("Sube la foto de tu Cédula Profesional"); return; }
-      if (!files.foto_profesional)        { toast.error("Sube tu foto profesional"); return; }
-      if (!files.comprobante_experiencia) { toast.error("Sube el comprobante de experiencia"); return; }
-    }
-    if (regData.role === "realtor") {
-      if (!files.ine_frente)           { toast.error("Sube el frente de tu INE"); return; }
-      if (!files.foto_profesional)     { toast.error("Sube tu foto profesional"); return; }
-      if (!files.comprobante_domicilio){ toast.error("Sube el comprobante de domicilio de la empresa"); return; }
-      if (regData.inmobiliaria_tipo === "titular" && !files.cert_asociacion) {
-        toast.error("Sube el certificado de la asociación inmobiliaria"); return;
-      }
-      if (regData.inmobiliaria_tipo === "asesor") {
-        if (!files.credencial_empresa)       { toast.error("Sube tu credencial de empresa"); return; }
-        if (!files.cert_curso_inmobiliario)  { toast.error("Sube tu certificación de curso inmobiliario"); return; }
-      }
-    }
+    // Docs are optional — warn but don't block
+    const hasAnyDocs = Object.values(files).some(f => f !== null);
+    const verificacion_pendiente = !hasAnyDocs;
+
     if (!regData.aceptaTerminos) {
       toast.error("Debes aceptar los Términos del Servicio y la Política de Privacidad para continuar");
       return;
@@ -467,6 +458,7 @@ const LoginPage = () => {
           email:        regData.email,
           password:     regData.password,
           role:         regData.role,
+          verificacion_pendiente,
           phone:        regData.phone,
           company_name: regData.company_name || undefined,
           estado:       regData.role === "appraiser" ? regData.estado : (regData.estados[0] || ""),
@@ -537,11 +529,16 @@ const LoginPage = () => {
         }
       }
 
-      toast.success(
-        regData.role === "appraiser"
-          ? "Registro completado. Te contactaremos para una entrevista de verificación."
-          : "Registro completado. Tu cuenta está en revisión — te avisaremos por correo."
-      );
+      try { localStorage.removeItem(REG_STORAGE_KEY); } catch {}
+      if (verificacion_pendiente) {
+        toast.info("Registro completado. Puedes subir tus documentos desde tu perfil para activar la verificación.", { duration: 6000 });
+      } else {
+        toast.success(
+          regData.role === "appraiser"
+            ? "Registro completado. Te contactaremos para una entrevista de verificación."
+            : "Registro completado. Tu cuenta está en revisión — te avisaremos por correo."
+        );
+      }
       navigateByRole(data);
     } catch (err) {
       toast.error(err.message || "Error al registrarse");

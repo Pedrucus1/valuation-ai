@@ -12,7 +12,9 @@ import {
   Printer,
   RefreshCw,
   FileText,
-  Share2
+  Share2,
+  Building2,
+  ArrowRight
 } from "lucide-react";
 import { API } from "@/App";
 import AdOverlay from "@/components/AdOverlay";
@@ -421,6 +423,30 @@ const ReportPage = () => {
           </Card>
         )}
       </div>
+
+      {/* CTA — directorio de inmobiliarias */}
+      {result && (
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-6 no-print">
+          <div className="rounded-xl border border-[#B7E4C7] bg-[#F0FDF4] p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="flex items-start gap-3">
+              <div className="w-10 h-10 rounded-lg bg-[#D9ED92] flex items-center justify-center shrink-0">
+                <Building2 className="w-5 h-5 text-[#1B4332]" />
+              </div>
+              <div>
+                <p className="font-semibold text-[#1B4332] text-sm">¿Quieres comprar, vender o rentar esta propiedad?</p>
+                <p className="text-slate-600 text-xs mt-0.5">Encuentra inmobiliarias verificadas en tu zona que pueden acompañarte en el proceso.</p>
+              </div>
+            </div>
+            <Button
+              onClick={() => navigate("/inmobiliarias")}
+              className="bg-[#1B4332] hover:bg-[#2D6A4F] text-white text-sm shrink-0"
+            >
+              Ver directorio
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </div>
+        </div>
+      )}
 
       {/* Slot 2 — durante generación con IA */}
       {showSlot2Ad && (
