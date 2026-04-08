@@ -839,143 +839,180 @@ const LoginPage = () => {
     </div>
   );
 
-  const renderStep2Realtor = () => (
-    <div className="space-y-5">
+  const renderStep2Realtor = () => {
+    // Límite de asesores según plan elegido (guardado en localStorage desde la landing)
+    const planElegido = typeof window !== "undefined"
+      ? localStorage.getItem("propvalu_selected_plan") || ""
+      : "";
+    const maxAsesoresPorPlan = {
+      lite5: 0, lite10: 0, pro20: 4, premier: 49,
+    };
+    const maxAsesores = planElegido in maxAsesoresPorPlan
+      ? maxAsesoresPorPlan[planElegido]
+      : regData.modo_perfil === "basico" ? 0 : 49;
+    const planLabel = { lite5: "Lite 5", lite10: "Lite 10", pro20: "Pro 20", premier: "Premier" }[planElegido] || "";
+
+    const agregarEstado = (est) => {
+      if (!est || regData.estados.includes(est)) return;
+      setReg("estados", [...regData.estados, est]);
+      setReg("cobertura_municipios", { ...regData.cobertura_municipios, [est]: [""] });
+    };
+    const quitarEstado = (est) => {
+      setReg("estados", regData.estados.filter(e => e !== est));
+      const nuevos = { ...regData.cobertura_municipios };
+      delete nuevos[est];
+      setReg("cobertura_municipios", nuevos);
+    };
+
+    return (
+    <div className="space-y-4">
 
       <ModoSelector rol="realtor" />
 
       {/* Titular: asociación, cursos, num_asesores */}
       {regData.inmobiliaria_tipo === "titular" && (
         <>
-          <div className="space-y-1.5">
-            <Label className="text-sm font-medium text-slate-700">Asociación inmobiliaria a la que perteneces *</Label>
-            <Input
-              placeholder="ej. AMPI Jalisco, CANACO, etc."
-              className="bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
-              value={regData.asociacion}
-              onChange={e => setReg("asociacion", e.target.value)}
-            />
+          <div className="grid grid-cols-2 gap-3">
+            <div className="space-y-1.5">
+              <Label className="text-sm font-medium text-slate-700">Asociación inmobiliaria *</Label>
+              <Input
+                placeholder="ej. AMPI Jalisco, CANACO…"
+                className="bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
+                value={regData.asociacion}
+                onChange={e => setReg("asociacion", e.target.value)}
+              />
+            </div>
+            <div className="space-y-1.5">
+              <Label className="text-sm font-medium text-slate-700">Curso acreditado <span className="text-slate-400 font-normal">(opcional)</span></Label>
+              <Input
+                placeholder="ej. AMPI, CANACO 2024…"
+                className="bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
+                value={regData.cursos_inmobiliarios}
+                onChange={e => setReg("cursos_inmobiliarios", e.target.value)}
+              />
+            </div>
           </div>
-          <div className="space-y-1.5">
-            <Label className="text-sm font-medium text-slate-700">Cursos de inmobiliario autorizado <span className="text-slate-400 font-normal">(opcional)</span></Label>
-            <Input
-              placeholder="ej. Certificación AMPI, Curso CANACO 2024..."
-              className="bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
-              value={regData.cursos_inmobiliarios}
-              onChange={e => setReg("cursos_inmobiliarios", e.target.value)}
-            />
-          </div>
-          <div className="space-y-1.5">
-            <Label className="text-sm font-medium text-slate-700">¿Cuántos asesores vas a inscribir? <span className="text-slate-400 font-normal">(opcional)</span></Label>
-            <Input
-              type="number" min={0} placeholder="ej. 5"
-              className="bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
-              value={regData.num_asesores}
-              onChange={e => setReg("num_asesores", e.target.value)}
-            />
-            <p className="text-xs text-slate-400">
-              Los asesores recibirán un enlace para registrarse y seleccionar tu empresa.
-            </p>
-          </div>
+
+          {/* Num asesores — solo si el plan lo permite */}
+          {maxAsesores > 0 ? (
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between">
+                <Label className="text-sm font-medium text-slate-700">
+                  ¿Cuántos asesores vas a inscribir? <span className="text-slate-400 font-normal">(opcional)</span>
+                </Label>
+                <span className="text-xs font-semibold text-[#52B788] bg-[#D9ED92]/40 px-2 py-0.5 rounded-full">
+                  máx {maxAsesores}{planLabel ? ` · ${planLabel}` : ""}
+                </span>
+              </div>
+              <Input
+                type="number" min={0} max={maxAsesores}
+                placeholder={`0 – ${maxAsesores}`}
+                className="bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
+                value={regData.num_asesores}
+                onChange={e => {
+                  const v = Math.min(Number(e.target.value), maxAsesores);
+                  setReg("num_asesores", v >= 0 ? String(v) : "");
+                }}
+              />
+              <p className="text-xs text-slate-400">
+                Los asesores recibirán un enlace para registrarse y seleccionar tu empresa.
+              </p>
+            </div>
+          ) : (
+            <div className="flex items-center gap-2 rounded-lg bg-slate-50 border border-slate-200 px-3 py-2.5 text-xs text-slate-500">
+              <span className="text-slate-400">ℹ️</span>
+              {planLabel
+                ? `El plan ${planLabel} no incluye asesores adicionales. Actualiza a Pro 20 o Premier para inscribir asesores.`
+                : "Los asesores adicionales están disponibles en los planes Pro 20 y Premier."}
+            </div>
+          )}
         </>
       )}
 
-      {/* Cobertura multi-estado — solo titular */}
-      {regData.inmobiliaria_tipo === "titular" && <div>
-        <div className="flex items-center gap-1.5 mb-3">
-          <MapPin className="w-4 h-4 text-[#52B788]" />
-          <Label className="text-sm font-semibold text-[#1B4332]">Zona de cobertura *</Label>
-        </div>
-        <p className="text-sm text-slate-500 mb-3">Selecciona todos los estados donde operas. Luego agrega las ciudades o municipios por estado.</p>
+      {/* Cobertura — solo titular */}
+      {regData.inmobiliaria_tipo === "titular" && (
+        <div className="space-y-3">
+          <div className="flex items-center gap-1.5">
+            <MapPin className="w-4 h-4 text-[#52B788]" />
+            <Label className="text-sm font-semibold text-[#1B4332]">Zona de cobertura *</Label>
+          </div>
 
-        {/* Pills de estados */}
-        <div className="flex flex-wrap gap-2 mb-4">
-          {ESTADOS_MX.map(est => {
-            const selected = regData.estados.includes(est);
-            return (
-              <button
-                key={est}
-                type="button"
-                onClick={() => {
-                  if (selected) {
-                    setReg("estados", regData.estados.filter(e => e !== est));
-                    const nuevos = { ...regData.cobertura_municipios };
-                    delete nuevos[est];
-                    setReg("cobertura_municipios", nuevos);
-                  } else {
-                    setReg("estados", [...regData.estados, est]);
-                    setReg("cobertura_municipios", { ...regData.cobertura_municipios, [est]: [""] });
-                  }
-                }}
-                className={`px-3 py-1.5 rounded-full text-sm font-medium border transition-all ${
-                  selected
-                    ? "bg-[#1B4332] border-[#1B4332] text-white"
-                    : "bg-white border-slate-200 text-slate-600 hover:border-[#52B788] hover:text-[#1B4332]"
-                }`}
-              >
-                {est}
-              </button>
-            );
-          })}
-        </div>
+          {/* Combo para agregar estados */}
+          <div className="flex gap-2">
+            <select
+              className="flex-1 h-9 px-3 text-sm border border-[#B7E4C7] rounded-lg bg-[#F0FAF5] focus:border-[#52B788] focus:outline-none text-[#1B4332] appearance-none"
+              defaultValue=""
+              onChange={e => { agregarEstado(e.target.value); e.target.value = ""; }}
+            >
+              <option value="">Agregar estado…</option>
+              {ESTADOS_MX.filter(e => !regData.estados.includes(e)).map(est => (
+                <option key={est} value={est}>{est}</option>
+              ))}
+            </select>
+          </div>
 
-        {/* Municipios por estado seleccionado */}
-        {regData.estados.length > 0 && (
-          <div className="space-y-4">
-            {regData.estados.map(est => (
-              <div key={est} className="rounded-xl border border-[#B7E4C7] bg-[#F0FAF5] p-3 space-y-2">
-                <p className="text-sm font-semibold text-[#1B4332] flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-[#52B788]" />
-                  {est}
-                </p>
-                {(regData.cobertura_municipios[est] || [""]).map((m, idx) => (
-                  <div key={idx} className="flex gap-2 items-center">
-                    <Input
-                      placeholder={`ej. ${["Guadalajara","Zapopan","Tlaquepaque"][idx] || "Municipio o ciudad"}`}
-                      className="h-8 text-sm bg-white border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
-                      value={m}
-                      onChange={e => {
-                        const lista = [...(regData.cobertura_municipios[est] || [""])];
-                        lista[idx] = e.target.value;
-                        setReg("cobertura_municipios", { ...regData.cobertura_municipios, [est]: lista });
-                      }}
-                    />
-                    {(regData.cobertura_municipios[est] || []).length > 1 && (
-                      <button type="button"
-                        onClick={() => {
-                          const lista = (regData.cobertura_municipios[est] || []).filter((_, i) => i !== idx);
+          {/* Estados seleccionados con sus municipios */}
+          {regData.estados.length > 0 && (
+            <div className="space-y-3">
+              {regData.estados.map(est => (
+                <div key={est} className="rounded-xl border border-[#B7E4C7] bg-[#F0FAF5] p-3 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm font-semibold text-[#1B4332] flex items-center gap-1.5">
+                      <MapPin className="w-3.5 h-3.5 text-[#52B788]" />{est}
+                    </p>
+                    <button type="button" onClick={() => quitarEstado(est)}
+                      className="text-xs text-slate-400 hover:text-red-400 font-medium">✕ quitar</button>
+                  </div>
+                  {(regData.cobertura_municipios[est] || [""]).map((m, idx) => (
+                    <div key={idx} className="flex gap-2 items-center">
+                      <Input
+                        placeholder={`ej. ${["Guadalajara","Zapopan","Tlaquepaque"][idx] || "Municipio o ciudad"}`}
+                        className="h-8 text-sm bg-white border-[#B7E4C7] focus:border-[#52B788]"
+                        value={m}
+                        onChange={e => {
+                          const lista = [...(regData.cobertura_municipios[est] || [""])];
+                          lista[idx] = e.target.value;
                           setReg("cobertura_municipios", { ...regData.cobertura_municipios, [est]: lista });
                         }}
-                        className="text-slate-300 hover:text-red-400 text-lg leading-none shrink-0">×</button>
-                    )}
-                  </div>
-                ))}
-                <button type="button"
-                  onClick={() => {
-                    const lista = [...(regData.cobertura_municipios[est] || [""]), ""];
-                    setReg("cobertura_municipios", { ...regData.cobertura_municipios, [est]: lista });
-                  }}
-                  className="flex items-center gap-1 text-sm text-[#52B788] font-semibold hover:underline">
-                  <span className="text-base leading-none">+</span> Agregar municipio en {est}
-                </button>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>}
+                      />
+                      {(regData.cobertura_municipios[est] || []).length > 1 && (
+                        <button type="button"
+                          onClick={() => {
+                            const lista = (regData.cobertura_municipios[est] || []).filter((_, i) => i !== idx);
+                            setReg("cobertura_municipios", { ...regData.cobertura_municipios, [est]: lista });
+                          }}
+                          className="text-slate-300 hover:text-red-400 text-lg leading-none shrink-0">×</button>
+                      )}
+                    </div>
+                  ))}
+                  <button type="button"
+                    onClick={() => {
+                      const lista = [...(regData.cobertura_municipios[est] || [""]), ""];
+                      setReg("cobertura_municipios", { ...regData.cobertura_municipios, [est]: lista });
+                    }}
+                    className="flex items-center gap-1 text-xs text-[#52B788] font-semibold hover:underline">
+                    + Agregar municipio en {est}
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
-      {/* Asesor: info de su cuenta */}
+      {/* Asesor: info */}
       {regData.inmobiliaria_tipo === "asesor" && (
         <div className="rounded-xl border border-[#B7E4C7] bg-[#F0FAF5] p-4 text-sm text-[#1B4332]">
           <p className="font-semibold mb-1">Cuenta de asesor afiliado</p>
-          <p className="text-slate-500 leading-relaxed">
-            Tu zona de cobertura y plan están gestionados por la empresa titular a la que perteneces.
-            En el siguiente paso podrás subir tus documentos de identificación para completar el registro.
+          <p className="text-slate-500 leading-relaxed text-xs">
+            Tu zona de cobertura y plan están gestionados por la empresa titular.
+            En el siguiente paso sube tus documentos para completar el registro.
           </p>
         </div>
       )}
     </div>
-  );
+    );
+  };
 
   const renderStep3Appraiser = () => (
     <div className="space-y-6">
