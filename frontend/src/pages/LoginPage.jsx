@@ -448,165 +448,128 @@ const LoginPage = () => {
   /* ────────────────────────────────────────────────────── */
 
   const renderStep1 = () => (
-    <div className="space-y-4">
+    <div className="space-y-2.5">
       {/* Rol */}
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-2">
         {[
-          { value: "appraiser", label: "Soy Valuador",     desc: "Perito certificado",  icon: <User className="w-5 h-5" /> },
-          { value: "realtor",   label: "Soy Inmobiliaria", desc: "Agencia, broker o asesor", icon: <Briefcase className="w-5 h-5" /> },
+          { value: "appraiser", label: "Soy Valuador",     desc: "Perito certificado",       icon: <User className="w-4 h-4" /> },
+          { value: "realtor",   label: "Soy Inmobiliaria", desc: "Agencia, broker o asesor",  icon: <Briefcase className="w-4 h-4" /> },
         ].map(opt => (
-          <button
-            key={opt.value}
-            type="button"
-            onClick={() => setReg("role", opt.value)}
-            className={`p-3 rounded-xl border-2 text-left transition-all ${
-              regData.role === opt.value
-                ? "border-[#52B788] bg-[#D9ED92]/20"
-                : "border-slate-200 hover:border-slate-300"
-            }`}
-          >
-            <div className={`mb-1 ${regData.role === opt.value ? "text-[#1B4332]" : "text-slate-400"}`}>
-              {opt.icon}
+          <button key={opt.value} type="button" onClick={() => setReg("role", opt.value)}
+            className={`px-3 py-2 rounded-xl border-2 text-left transition-all flex items-center gap-2 ${
+              regData.role === opt.value ? "border-[#52B788] bg-[#D9ED92]/20" : "border-slate-200 hover:border-slate-300"
+            }`}>
+            <span className={regData.role === opt.value ? "text-[#1B4332]" : "text-slate-400"}>{opt.icon}</span>
+            <div>
+              <p className={`text-xs font-semibold leading-tight ${regData.role === opt.value ? "text-[#1B4332]" : "text-slate-600"}`}>{opt.label}</p>
+              <p className="text-[10px] text-slate-400 leading-tight">{opt.desc}</p>
             </div>
-            <p className={`text-sm font-semibold ${regData.role === opt.value ? "text-[#1B4332]" : "text-slate-600"}`}>
-              {opt.label}
-            </p>
-            <p className="text-xs text-slate-400">{opt.desc}</p>
           </button>
         ))}
       </div>
 
       {/* Nombre */}
-      <div className="space-y-1.5">
-        <Label className="text-sm font-medium text-slate-700">
-          Nombre completo *
-        </Label>
+      <div className="space-y-1">
+        <Label className="text-xs font-medium text-slate-700">Nombre completo *</Label>
         <div className="relative">
-          <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-          <Input
-            required placeholder="Nombre completo"
-            className="pl-10 bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
-            value={regData.name}
-            onChange={e => setReg("name", e.target.value)}
-          />
+          <User className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
+          <Input placeholder="Tu nombre completo"
+            className="pl-9 h-9 text-sm bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
+            value={regData.name} onChange={e => setReg("name", e.target.value)} />
         </div>
       </div>
 
       {/* Titular / Asesor (realtor) */}
       {regData.role === "realtor" && (
-        <div className="space-y-3">
-          <Label className="text-sm font-semibold text-[#1B4332] block">Tipo de cuenta *</Label>
-          <div className="grid grid-cols-2 gap-3">
+        <div className="space-y-2">
+          <Label className="text-xs font-semibold text-[#1B4332] block">Tipo de cuenta *</Label>
+          <div className="grid grid-cols-2 gap-2">
             {[
-              { value: "titular", label: "Titular", desc: "Dueño o gerente de la empresa" },
-              { value: "asesor",  label: "Asesor",  desc: "Agente afiliado a una empresa" },
+              { value: "titular", label: "Titular", desc: "Dueño o gerente" },
+              { value: "asesor",  label: "Asesor",  desc: "Agente afiliado" },
             ].map(opt => (
-              <button key={opt.value} type="button"
-                onClick={() => setReg("inmobiliaria_tipo", opt.value)}
-                className={`p-3 rounded-xl border-2 text-left transition-all ${
-                  regData.inmobiliaria_tipo === opt.value
-                    ? "border-[#52B788] bg-[#D9ED92]/20"
-                    : "border-slate-200 hover:border-slate-300"
+              <button key={opt.value} type="button" onClick={() => setReg("inmobiliaria_tipo", opt.value)}
+                className={`px-3 py-2 rounded-xl border-2 text-left transition-all ${
+                  regData.inmobiliaria_tipo === opt.value ? "border-[#52B788] bg-[#D9ED92]/20" : "border-slate-200 hover:border-slate-300"
                 }`}>
-                <p className={`text-sm font-semibold ${regData.inmobiliaria_tipo === opt.value ? "text-[#1B4332]" : "text-slate-600"}`}>{opt.label}</p>
-                <p className="text-xs text-slate-400 mt-0.5">{opt.desc}</p>
+                <p className={`text-xs font-semibold leading-tight ${regData.inmobiliaria_tipo === opt.value ? "text-[#1B4332]" : "text-slate-600"}`}>{opt.label}</p>
+                <p className="text-[10px] text-slate-400 leading-tight">{opt.desc}</p>
               </button>
             ))}
           </div>
 
-          {/* Titular → nombre de empresa */}
           {regData.inmobiliaria_tipo === "titular" && (
-            <div className="space-y-1.5">
-              <Label className="text-sm font-medium text-slate-700">Nombre de la empresa *</Label>
+            <div className="space-y-1">
+              <Label className="text-xs font-medium text-slate-700">Nombre de la empresa *</Label>
               <div className="relative">
-                <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                <Input
-                  placeholder="Inmobiliaria XYZ S.A."
-                  className="pl-10 bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
-                  value={regData.company_name}
-                  onChange={e => setReg("company_name", e.target.value)}
-                />
+                <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
+                <Input placeholder="Inmobiliaria XYZ S.A."
+                  className="pl-9 h-9 text-sm bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
+                  value={regData.company_name} onChange={e => setReg("company_name", e.target.value)} />
               </div>
             </div>
           )}
 
-          {/* Asesor → combo de empresas registradas */}
           {regData.inmobiliaria_tipo === "asesor" && (
-            <div className="space-y-1.5">
-              <Label className="text-sm font-medium text-slate-700">Empresa a la que perteneces *</Label>
+            <div className="space-y-1">
+              <Label className="text-xs font-medium text-slate-700">Empresa a la que perteneces *</Label>
               <select
-                className="w-full h-10 px-3 text-sm border border-[#B7E4C7] rounded-lg bg-[#F0FAF5] focus:border-[#52B788] focus:bg-white focus:outline-none text-[#1B4332] appearance-none"
-                value={regData.empresa_afiliada}
-                onChange={e => setReg("empresa_afiliada", e.target.value)}
-              >
+                className="w-full h-9 px-3 text-sm border border-[#B7E4C7] rounded-lg bg-[#F0FAF5] focus:border-[#52B788] focus:bg-white focus:outline-none text-[#1B4332] appearance-none"
+                value={regData.empresa_afiliada} onChange={e => setReg("empresa_afiliada", e.target.value)}>
                 <option value="">Seleccionar empresa...</option>
                 {EMPRESAS_AFILIADAS.map(e => <option key={e} value={e}>{e}</option>)}
               </select>
-              <p className="text-xs text-slate-400">
-                Si tu empresa no aparece, pide al titular que se registre primero.
-              </p>
+              <p className="text-[10px] text-slate-400">Si tu empresa no aparece, pide al titular que se registre primero.</p>
             </div>
           )}
         </div>
       )}
 
-      {/* Correo */}
-      <div className="space-y-1.5">
-        <Label className="text-sm font-medium text-slate-700">Correo electrónico *</Label>
-        <div className="relative">
-          <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-          <Input
-            type="email" required placeholder="tu@correo.com"
-            className="pl-10 bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
-            value={regData.email}
-            onChange={e => setReg("email", e.target.value)}
-          />
+      {/* Correo + Teléfono en fila */}
+      <div className="grid grid-cols-2 gap-2">
+        <div className="space-y-1">
+          <Label className="text-xs font-medium text-slate-700">Correo *</Label>
+          <div className="relative">
+            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
+            <Input type="email" placeholder="tu@correo.com"
+              className="pl-9 h-9 text-sm bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
+              value={regData.email} onChange={e => setReg("email", e.target.value)} />
+          </div>
         </div>
-      </div>
-
-      {/* Teléfono */}
-      <div className="space-y-1.5">
-        <Label className="text-sm font-medium text-slate-700">Teléfono *</Label>
-        <div className="relative">
-          <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-          <Input
-            type="tel" required placeholder="33 1234 5678"
-            className="pl-10 bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
-            value={regData.phone}
-            onChange={e => setReg("phone", e.target.value)}
-          />
+        <div className="space-y-1">
+          <Label className="text-xs font-medium text-slate-700">Teléfono *</Label>
+          <div className="relative">
+            <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
+            <Input type="tel" placeholder="33 1234 5678"
+              className="pl-9 h-9 text-sm bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
+              value={regData.phone} onChange={e => setReg("phone", e.target.value)} />
+          </div>
         </div>
       </div>
 
       {/* Contraseñas */}
-      <div className="grid grid-cols-2 gap-3">
-        <div className="space-y-1.5">
-          <Label className="text-sm font-medium text-slate-700">Contraseña *</Label>
+      <div className="grid grid-cols-2 gap-2">
+        <div className="space-y-1">
+          <Label className="text-xs font-medium text-slate-700">Contraseña *</Label>
           <div className="relative">
-            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-            <Input
-              type={showPassword ? "text" : "password"} required placeholder="••••••"
-              className="pl-10 bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
-              value={regData.password}
-              onChange={e => setReg("password", e.target.value)}
-            />
+            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
+            <Input type={showPassword ? "text" : "password"} placeholder="••••••"
+              className="pl-9 h-9 text-sm bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
+              value={regData.password} onChange={e => setReg("password", e.target.value)} />
           </div>
         </div>
-        <div className="space-y-1.5">
-          <Label className="text-sm font-medium text-slate-700">Confirmar *</Label>
+        <div className="space-y-1">
+          <Label className="text-xs font-medium text-slate-700">Confirmar *</Label>
           <div className="relative">
-            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-            <Input
-              type={showPassword ? "text" : "password"} required placeholder="••••••"
-              className="pl-10 bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
-              value={regData.confirmPassword}
-              onChange={e => setReg("confirmPassword", e.target.value)}
-            />
+            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
+            <Input type={showPassword ? "text" : "password"} placeholder="••••••"
+              className="pl-9 h-9 text-sm bg-[#F0FAF5] border-[#B7E4C7] focus:border-[#52B788] focus:bg-white"
+              value={regData.confirmPassword} onChange={e => setReg("confirmPassword", e.target.value)} />
           </div>
         </div>
       </div>
       <button type="button" onClick={() => setShowPassword(s => !s)}
-        className="text-xs text-slate-400 hover:text-slate-600 flex items-center gap-1">
+        className="text-[10px] text-slate-400 hover:text-slate-600 flex items-center gap-1">
         {showPassword ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
         {showPassword ? "Ocultar" : "Mostrar"} contraseña
       </button>
@@ -1640,16 +1603,16 @@ const LoginPage = () => {
       <div className={`w-full transition-all ${tab === "register" && regStep > 1 ? "max-w-lg" : "max-w-md"}`}>
 
         {/* Logo */}
-        <div className="flex items-center justify-center gap-2 mb-8 cursor-pointer" onClick={() => navigate("/")}>
-          <Building2 className="w-8 h-8 text-[#1B4332]" />
-          <span className="font-['Outfit'] text-2xl font-bold text-[#1B4332]">
+        <div className="flex items-center justify-center gap-2 mb-4 cursor-pointer" onClick={() => navigate("/")}>
+          <Building2 className="w-7 h-7 text-[#1B4332]" />
+          <span className="font-['Outfit'] text-xl font-bold text-[#1B4332]">
             Prop<span className="text-[#52B788]">Valu</span>
           </span>
         </div>
 
         {/* Step indicator — solo en registro */}
         {tab === "register" && (
-          <div className="flex items-center justify-center gap-1 mb-6">
+          <div className="flex items-center justify-center gap-1 mb-3">
             {STEPS.map((label, i) => {
               const n = i + 1;
               const done    = regStep > n;
@@ -1685,7 +1648,7 @@ const LoginPage = () => {
               <button
                 key={t.key}
                 onClick={() => { setTab(t.key); setRegStep(1); }}
-                className={`flex-1 py-4 text-sm font-semibold transition-colors ${
+                className={`flex-1 py-2.5 text-sm font-semibold transition-colors ${
                   tab === t.key
                     ? "text-white bg-[#1B4332] border-b-2 border-[#1B4332]"
                     : "text-slate-400 hover:text-slate-600"
@@ -1696,11 +1659,11 @@ const LoginPage = () => {
             ))}
           </div>
 
-          <div className="p-6">
+          <div className="p-4">
 
             {/* ── LOGIN ── */}
             {tab === "login" && (
-              <form onSubmit={handleLogin} className="space-y-4">
+              <form onSubmit={handleLogin} className="space-y-3">
                 <div className="space-y-1.5">
                   <Label className="text-sm font-medium text-slate-700">Correo electrónico</Label>
                   <div className="relative">
@@ -1754,7 +1717,7 @@ const LoginPage = () => {
                 {regStep === 3 && regData.role === "realtor"   && renderStep3Realtor()}
 
                 {/* Navigation buttons */}
-                <div className={`flex gap-3 mt-6 ${regStep > 1 ? "justify-between" : ""}`}>
+                <div className={`flex gap-3 mt-4 ${regStep > 1 ? "justify-between" : ""}`}>
                   {regStep > 1 && (
                     <Button type="button" variant="outline"
                       onClick={() => setRegStep(s => s - 1)}
@@ -1777,7 +1740,7 @@ const LoginPage = () => {
                 </div>
 
                 {regStep === 1 && (
-                  <p className="text-center text-sm text-slate-500 mt-4">
+                  <p className="text-center text-xs text-slate-500 mt-3">
                     ¿Ya tienes cuenta?{" "}
                     <button type="button" onClick={() => setTab("login")}
                       className="text-[#52B788] font-semibold hover:underline">
@@ -1790,7 +1753,7 @@ const LoginPage = () => {
           </div>
         </div>
 
-        <p className="text-center text-xs text-slate-400 mt-6">
+        <p className="text-center text-xs text-slate-400 mt-3">
           ¿Eres público general?{" "}
           <button onClick={() => navigate("/comprar")} className="text-[#1B4332] font-semibold hover:underline">
             Obtén tu valuación aquí
