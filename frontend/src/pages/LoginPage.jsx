@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import {
   Building2, Eye, EyeOff, User, Mail, Lock, Phone, Briefcase,
   ArrowLeft, ArrowRight, Check, Upload, X, MapPin, FileText,
-  CheckSquare, Square, Info,
+  CheckSquare, Square, Info, CheckCircle2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
