@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import {
   Building2, Eye, EyeOff, User, Mail, Lock, Phone, Briefcase,
   ArrowLeft, ArrowRight, Check, Upload, X, MapPin, FileText,
-  CheckSquare, Square, Info, CheckCircle2,
+  CheckSquare, Square, Info, CheckCircle2, Shield,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -62,10 +62,10 @@ const FileUploadField = ({ label, hint, accept = ".pdf,.jpg,.jpeg,.png", value, 
       <Label className="text-sm font-semibold text-[#1B4332]">
         {label}{required && " *"}
       </Label>
-      {hint && <p className="text-xs text-slate-400">{hint}</p>}
+      {hint && <p className="text-sm text-slate-500 leading-snug">{hint}</p>}
       <div
         className={`flex items-center gap-3 border-2 border-dashed rounded-xl px-4 py-3 cursor-pointer transition-all ${
-          value ? "border-[#52B788] bg-[#D9ED92]/10" : "border-slate-200 hover:border-slate-300"
+          value ? "border-[#52B788] bg-[#D9ED92]/10" : "border-slate-200 hover:border-[#52B788]/40 hover:bg-[#F0FAF5]"
         }`}
         onClick={() => inputRef.current?.click()}
       >
@@ -88,7 +88,7 @@ const FileUploadField = ({ label, hint, accept = ".pdf,.jpg,.jpeg,.png", value, 
           </>
         )}
       </div>
-      <p className="text-xs text-slate-300">PDF, JPG o PNG · máx. 10 MB</p>
+      <p className="text-sm text-slate-400">PDF, JPG o PNG · máx. 10 MB</p>
       <input
         ref={inputRef}
         type="file"
@@ -112,6 +112,7 @@ const LoginPage = () => {
   const [regStep, setRegStep]       = useState(1);
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading]   = useState(false);
+  const [showDocsModal, setShowDocsModal] = useState(false);
 
   /* ── Login state ── */
   const [loginData, setLoginData] = useState({ email: "", password: "" });
@@ -273,7 +274,11 @@ const LoginPage = () => {
   };
 
   const handleNext = () => {
-    if (validateStep(regStep)) setRegStep(s => s + 1);
+    if (validateStep(regStep)) {
+      const next = regStep + 1;
+      setRegStep(next);
+      if (next === 3) setShowDocsModal(true);
+    }
   };
 
   const navigateByRole = (user) => {
@@ -964,13 +969,22 @@ const LoginPage = () => {
 
       {/* Documentos básicos */}
       <div>
-        <p className="text-sm font-semibold text-[#1B4332] mb-1">Documentos de identificación</p>
-        <p className="text-xs text-slate-500 mb-4">Requeridos para todos los valuadores.</p>
+        <div className="rounded-xl bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] p-4 mb-4 flex items-center gap-3">
+          <div className="w-9 h-9 rounded-lg bg-white/15 flex items-center justify-center shrink-0">
+            <User className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <p className="text-sm font-bold text-white">Documentos de identificación</p>
+            <p className="text-sm text-white/70">Requeridos para todos los valuadores.</p>
+          </div>
+        </div>
         <div className="space-y-4">
-          <FileUploadField label="INE — Frente" hint="Identificación oficial vigente, cara frontal"
-            value={files.ine_frente} onChange={v => setFile("ine_frente", v)} required />
-          <FileUploadField label="INE — Vuelta" hint="Identificación oficial vigente, cara trasera"
-            value={files.ine_vuelta} onChange={v => setFile("ine_vuelta", v)} />
+          <div className="grid grid-cols-2 gap-4">
+            <FileUploadField label="INE — Frente *" hint="Identificación oficial vigente, cara frontal"
+              value={files.ine_frente} onChange={v => setFile("ine_frente", v)} required />
+            <FileUploadField label="INE — Vuelta" hint="Identificación oficial vigente, cara trasera"
+              value={files.ine_vuelta} onChange={v => setFile("ine_vuelta", v)} />
+          </div>
           {/* Cédula base — selector de profesión + número + foto */}
           <div className="rounded-xl border border-[#B7E4C7] bg-[#F0FAF5] p-4 space-y-3">
             <p className="text-sm font-semibold text-[#1B4332]">Cédula Profesional de base *</p>
@@ -1036,21 +1050,23 @@ const LoginPage = () => {
               value={files.cedula_valuador} onChange={v => setFile("cedula_valuador", v)} />
           </div>
           <FileUploadField
-            label="Foto profesional *"
-            hint="Fotografía reciente de frente, fondo neutro, con vestimenta formal. Aparecerá en los reportes y opiniones que generes en PropValu."
-            value={files.foto_profesional} onChange={v => setFile("foto_profesional", v)} required />
-          <FileUploadField
-            label="Comprobante de experiencia"
-            hint={`Documenta los ${regData.q_experiencia || "años de trabajo"} que indicaste. Acepta cualquiera de: título o cédula de maestría en valuación, avalúo o dictamen firmado con fecha que acredite antigüedad, constancia o carta de un Colegio de Valuadores (CIEP, COVAC, AMPI, SVM, COPEVI u otro), o credencial de agremiado activo.`}
+            label="Comprobante de experiencia *"
+            hint={`Documenta los ${regData.q_experiencia || "años de trabajo"} que indicaste: título/cédula de maestría en valuación, avalúo firmado con fecha, constancia de Colegio de Valuadores (CIEP, COVAC, AMPI, SVM, COPEVI) o credencial de agremiado activo.`}
             value={files.comprobante_experiencia} onChange={v => setFile("comprobante_experiencia", v)} required />
-          <FileUploadField
-            label="Firma autógrafa digital"
-            hint="Escanea o fotografía tu firma manuscrita sobre papel blanco, o sube una imagen de tu firma digital personalizada. Se usará en las opiniones y reportes que generes en PropValu. (No es la e.firma del SAT.)"
-            value={files.firma_autografa} onChange={v => setFile("firma_autografa", v)} />
-          <FileUploadField
-            label="Comprobante adicional (opcional)"
-            hint="Cualquier documento que refuerce tu trayectoria como valuador: tarjeta de presentación profesional, captura de tu sitio web o perfil en LinkedIn, directorio de colegio, membresía activa, etc."
-            value={files.comprobante_adicional} onChange={v => setFile("comprobante_adicional", v)} />
+          <div className="grid grid-cols-2 gap-4">
+            <FileUploadField
+              label="Foto profesional *"
+              hint="Frente, fondo neutro, vestimenta formal. Aparece en tus reportes."
+              value={files.foto_profesional} onChange={v => setFile("foto_profesional", v)} required />
+            <FileUploadField
+              label="Firma autógrafa digital"
+              hint="Firma manuscrita escaneada o imagen de firma digital. (No es la e.firma del SAT.)"
+              value={files.firma_autografa} onChange={v => setFile("firma_autografa", v)} />
+            <FileUploadField
+              label="Comprobante adicional"
+              hint="Tarjeta, LinkedIn, membresía de colegio u otro doc que respalde tu trayectoria."
+              value={files.comprobante_adicional} onChange={v => setFile("comprobante_adicional", v)} />
+          </div>
         </div>
       </div>
 
@@ -1258,12 +1274,19 @@ const LoginPage = () => {
 
       {/* ── Identificación del representante ── */}
       <div>
-        <p className="text-sm font-semibold text-[#1B4332] mb-1">Identificación del representante</p>
-        <p className="text-xs text-slate-500 mb-4">Requeridos para todos los registros de inmobiliaria.</p>
-        <div className="space-y-4">
+        <div className="rounded-xl bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] p-4 mb-4 flex items-center gap-3">
+          <div className="w-9 h-9 rounded-lg bg-white/15 flex items-center justify-center shrink-0">
+            <User className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <p className="text-sm font-bold text-white">Identificación del representante</p>
+            <p className="text-sm text-white/70">Requeridos para todos los registros de inmobiliaria.</p>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-4">
           <FileUploadField
             label="INE — Frente *"
-            hint="Identificación oficial vigente del representante o asesor, cara frontal"
+            hint="Cara frontal de tu identificación oficial vigente"
             value={files.ine_frente} onChange={v => setFile("ine_frente", v)} required
           />
           <FileUploadField
@@ -1273,12 +1296,12 @@ const LoginPage = () => {
           />
           <FileUploadField
             label="Foto profesional *"
-            hint="Fotografía reciente de frente, fondo neutro, vestimenta formal. Aparecerá en tu perfil de empresa en PropValu."
+            hint="Frente, fondo neutro, vestimenta formal. Aparece en tu perfil."
             value={files.foto_profesional} onChange={v => setFile("foto_profesional", v)} required
           />
           <FileUploadField
-            label="Comprobante de domicilio de la empresa *"
-            hint="Recibo de luz, agua, internet o renta con la dirección del negocio (no mayor a 3 meses). También se acepta estado de cuenta bancario empresarial."
+            label="Comprobante de domicilio *"
+            hint="Recibo de servicio o estado de cuenta con dirección del negocio (máx. 3 meses)."
             value={files.comprobante_domicilio} onChange={v => setFile("comprobante_domicilio", v)} required
           />
         </div>
@@ -1287,53 +1310,65 @@ const LoginPage = () => {
       {/* ── Documentos por tipo de cuenta ── */}
       {regData.inmobiliaria_tipo === "titular" && (
         <div>
-          <div className="flex items-center gap-2 mb-1">
-            <p className="text-sm font-semibold text-[#1B4332]">Documentos — Titular de empresa</p>
+          <div className="rounded-xl bg-gradient-to-r from-[#2D6A4F] to-[#40916C] p-4 mb-4 flex items-center gap-3">
+            <div className="w-9 h-9 rounded-lg bg-white/15 flex items-center justify-center shrink-0">
+              <Briefcase className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <p className="text-sm font-bold text-white">Documentos — Titular de empresa</p>
+              <p className="text-sm text-white/70">Acreditan a tu empresa ante PropValu y el sector.</p>
+            </div>
           </div>
-          <p className="text-xs text-slate-500 mb-4">
-            Documentación que acredita a tu empresa ante PropValu y ante asociaciones del sector.
-          </p>
-          <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="col-span-2">
+              <FileUploadField
+                label="Certificado de asociación inmobiliaria *"
+                hint="Membresía vigente en AMPI, CANACO, CIPS u otra asociación reconocida. Sin asociación, sube tu cédula de agente autorizado estatal."
+                value={files.cert_asociacion} onChange={v => setFile("cert_asociacion", v)} required
+              />
+            </div>
             <FileUploadField
-              label="Certificado de asociación inmobiliaria *"
-              hint="Constancia o membresía vigente en AMPI, CANACO, CIPS, ACIMEX u otra asociación reconocida. Si aún no perteneces a ninguna, puedes subir tu cédula de agente autorizado estatal."
-              value={files.cert_asociacion} onChange={v => setFile("cert_asociacion", v)} required
-            />
-            <FileUploadField
-              label="Acta constitutiva de la empresa"
-              hint="Sube el Acta Constitutiva si tu empresa está registrada como S.A., S.R.L., S.A.S. u otra figura jurídica. No aplica para personas físicas con actividad empresarial."
+              label="Acta constitutiva"
+              hint="Si tu empresa es S.A., S.R.L. o S.A.S. Opcional para personas físicas."
               value={files.acta_constitutiva} onChange={v => setFile("acta_constitutiva", v)}
             />
             <FileUploadField
-              label="Constancia de Situación Fiscal (SAT)"
-              hint="Constancia actualizada con tu RFC y régimen fiscal. Requerida si deseas facturación desde la plataforma."
+              label="Constancia SAT"
+              hint="RFC y régimen fiscal actualizados. Requerida para facturación."
               value={files.constancia_sat} onChange={v => setFile("constancia_sat", v)}
             />
-            <FileUploadField
-              label="Logo de tu empresa"
-              hint="PNG o JPG con fondo blanco o transparente. Aparecerá en tu perfil público y en los reportes generados para tus clientes."
-              accept=".png,.jpg,.jpeg,.svg"
-              value={files.logo_empresa} onChange={v => setFile("logo_empresa", v)}
-            />
+            <div className="col-span-2">
+              <FileUploadField
+                label="Logo de tu empresa"
+                hint="PNG o JPG con fondo blanco o transparente. Aparece en tu perfil público y en reportes para clientes."
+                accept=".png,.jpg,.jpeg,.svg"
+                value={files.logo_empresa} onChange={v => setFile("logo_empresa", v)}
+              />
+            </div>
           </div>
         </div>
       )}
 
       {regData.inmobiliaria_tipo === "asesor" && (
         <div>
-          <p className="text-sm font-semibold text-[#1B4332] mb-1">Documentos — Asesor inmobiliario</p>
-          <p className="text-xs text-slate-500 mb-4">
-            Documentos que acreditan tu relación con la empresa y tu formación profesional.
-          </p>
-          <div className="space-y-4">
+          <div className="rounded-xl bg-gradient-to-r from-[#2D6A4F] to-[#40916C] p-4 mb-4 flex items-center gap-3">
+            <div className="w-9 h-9 rounded-lg bg-white/15 flex items-center justify-center shrink-0">
+              <Briefcase className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <p className="text-sm font-bold text-white">Documentos — Asesor inmobiliario</p>
+              <p className="text-sm text-white/70">Acreditan tu relación con la empresa y tu formación.</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
             <FileUploadField
               label="Credencial de empresa *"
-              hint="Identificación, gafete o carta emitida por tu empresa afiliada que te acredita como asesor activo."
+              hint="Gafete o carta de tu empresa que te acredita como asesor activo."
               value={files.credencial_empresa} onChange={v => setFile("credencial_empresa", v)} required
             />
             <FileUploadField
-              label="Certificación de curso inmobiliario *"
-              hint="Diploma o certificado de un curso profesional reconocido: AMPI, CANACO, CIPS, INFONAVIT para asesores, o equivalente estatal."
+              label="Certificación de curso *"
+              hint="Diploma de curso reconocido: AMPI, CANACO, CIPS, INFONAVIT o equivalente."
               value={files.cert_curso_inmobiliario} onChange={v => setFile("cert_curso_inmobiliario", v)} required
             />
           </div>
@@ -1510,6 +1545,48 @@ const LoginPage = () => {
   /* ── Main render ── */
   return (
     <div className="min-h-screen bg-[#F8F9FA] flex items-center justify-center px-4 py-10">
+
+      {/* ── Modal: por qué pedimos documentos ── */}
+      {showDocsModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowDocsModal(false)} />
+          <div className="relative bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 z-10">
+            {/* Header */}
+            <div className="flex items-start gap-4 mb-5">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#1B4332] to-[#52B788] flex items-center justify-center shrink-0">
+                <Shield className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h2 className="text-base font-bold text-[#1B4332]">¿Por qué te pedimos documentos?</h2>
+                <p className="text-sm text-slate-500 mt-0.5">Transparencia y confianza para tus clientes</p>
+              </div>
+            </div>
+            {/* Body */}
+            <div className="space-y-3 mb-6">
+              {[
+                { icon: "🤝", title: "Aliados verificados", desc: "PropValu solo recomienda a profesionales cuya identidad y credenciales han sido verificadas. Tu perfil aprobado garantiza a los clientes que estás respaldado por nosotros." },
+                { icon: "🛡️", title: "Protección contra fraudes", desc: "La verificación de documentos protege a los clientes de fraudes y malas prácticas. Como aliado, también te protege a ti frente a clientes que puedan cuestionar tu legitimidad." },
+                { icon: "🔒", title: "Tus datos están seguros", desc: "La información que subas se cifra y solo la revisa el equipo de verificación de PropValu. No se comparte con terceros ni aparece en tu perfil público." },
+                { icon: "⭐", title: "Más visibilidad para ti", desc: "Los perfiles verificados aparecen primero en el directorio y reciben más encargos. Es tu sello de calidad ante los clientes." },
+              ].map(({ icon, title, desc }) => (
+                <div key={title} className="flex gap-3">
+                  <span className="text-xl shrink-0 mt-0.5">{icon}</span>
+                  <div>
+                    <p className="text-sm font-semibold text-[#1B4332]">{title}</p>
+                    <p className="text-sm text-slate-500 leading-snug">{desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <button
+              onClick={() => setShowDocsModal(false)}
+              className="w-full py-3 rounded-xl bg-[#1B4332] text-white text-sm font-bold hover:bg-[#2D6A4F] transition-colors"
+            >
+              Entendido, continuar con mis documentos
+            </button>
+          </div>
+        </div>
+      )}
       <div className={`w-full transition-all ${tab === "register" && regStep > 1 ? "max-w-lg" : "max-w-md"}`}>
 
         {/* Logo */}
