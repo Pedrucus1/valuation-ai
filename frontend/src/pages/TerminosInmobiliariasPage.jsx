@@ -136,7 +136,7 @@ const TerminosInmobiliariasPage = () => {
             </p>
           </Section>
 
-          <Section title="2. Requisitos de registro y verificación (KYC)">
+          <Section title="2. Requisitos de registro y verificación de identidad">
             <p>Para operar como inmobiliaria en PropValu deberás presentar:</p>
             <ul className="list-disc pl-5 space-y-1">
               <li>INE o pasaporte del representante legal (persona física) o apoderado (persona moral)</li>
@@ -154,7 +154,7 @@ const TerminosInmobiliariasPage = () => {
               <li>Seguro de responsabilidad civil profesional (recomendado, requerido para Plan Pro)</li>
             </ul>
             <p>
-              La cuenta permanece en estado <strong>"KYC Pendiente"</strong> hasta la revisión y
+              La cuenta permanece en estado <strong>"Verificación Pendiente"</strong> hasta la revisión y
               aprobación de los documentos por parte del equipo PropValu, lo cual puede tomar hasta
               3 días hábiles.
             </p>
@@ -180,7 +180,7 @@ const TerminosInmobiliariasPage = () => {
             <ul className="list-disc pl-5 space-y-1">
               <li>Utilizar los reportes de PropValu únicamente como referencia orientativa, explicando a sus clientes que no constituyen avalúo oficial</li>
               <li>No presentar estimaciones de PropValu como avalúos legales ante notarías, bancos o autoridades</li>
-              <li>Mantener vigentes membresías, certificaciones y documentos presentados en el KYC</li>
+              <li>Mantener vigentes membresías, certificaciones y documentos presentados en su expediente de verificación</li>
               <li>No compartir sus credenciales de acceso con personas no autorizadas</li>
               <li>No utilizar la plataforma para operaciones con recursos de procedencia ilícita</li>
               <li>Reportar de inmediato cualquier acceso no autorizado a su cuenta</li>
@@ -225,7 +225,7 @@ const TerminosInmobiliariasPage = () => {
 
           <Section title="8. Directorio y visibilidad">
             <p>
-              Las inmobiliarias con KYC aprobado aparecen en el directorio público de PropValu,
+              Las inmobiliarias con verificación aprobada aparecen en el directorio público de PropValu,
               pudiendo recibir leads de clientes de la plataforma. PropValu no garantiza un número
               mínimo de leads ni exclusividad de zona.
             </p>

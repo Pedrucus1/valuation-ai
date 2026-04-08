@@ -170,7 +170,7 @@ const CodigoEticaPage = () => {
                   {[
                     ["Leve", "Error metodológico sin dolo, falta de actualización de documentos", "Advertencia por escrito + plazo de corrección de 15 días"],
                     ["Moderada", "Conflicto de interés no declarado, datos incorrectos en reporte", "Suspensión temporal 30 días + revisión de expediente"],
-                    ["Grave", "Avalúo 'a modo' demostrable, falsedad en documentos KYC", "Cancelación definitiva + reporte a INDAABIN / autoridades"],
+                    ["Grave", "Avalúo 'a modo' demostrable, falsedad en documentos de verificación", "Cancelación definitiva + reporte a INDAABIN / autoridades"],
                   ].map(([grav, ej, cons], i) => (
                     <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-slate-50"}>
                       <td className="p-3 font-semibold text-[#1B4332]">{grav}</td>

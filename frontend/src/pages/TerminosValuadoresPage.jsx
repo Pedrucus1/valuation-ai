@@ -40,7 +40,7 @@ function downloadDeclaracion() {
   <span class="badge">✓ Aceptación electrónica registrada</span>
   <p>El valuador profesional que se registra en la plataforma PropValu declara bajo protesta de decir verdad que:</p>
   <h2>1. Credenciales profesionales</h2>
-  <p>Cuenta con cédula profesional vigente expedida por la SEP y/o certificación de organismos reconocidos (INDAABIN, IMC, CNBV), y que los documentos presentados en el proceso KYC son auténticos y vigentes.</p>
+  <p>Cuenta con cédula profesional vigente expedida por la SEP y/o certificación de organismos reconocidos (INDAABIN, IMC, CNBV), y que los documentos presentados en el proceso de verificación de identidad son auténticos y vigentes.</p>
   <h2>2. Responsabilidad profesional</h2>
   <p>Asume plena responsabilidad civil, profesional y legal por los avalúos y reportes que emita a través de la plataforma. PropValu actúa únicamente como canal tecnológico y no es responsable de las conclusiones de valor emitidas.</p>
   <h2>3. Código de ética</h2>
@@ -146,7 +146,7 @@ const TerminosValuadoresPage = () => {
             </p>
           </Section>
 
-          <Section title="2. Requisitos de registro (KYC)">
+          <Section title="2. Requisitos de registro y verificación de identidad">
             <p>Para operar como valuador en PropValu deberás presentar y mantener vigentes:</p>
             <ul className="list-disc pl-5 space-y-1">
               <li>Identificación oficial vigente (INE o pasaporte)</li>
