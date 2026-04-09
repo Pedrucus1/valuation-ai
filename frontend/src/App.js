@@ -10,6 +10,19 @@ import ComparablesPage from "@/pages/ComparablesPage";
 import ReportPage from "@/pages/ReportPage";
 import DashboardPage from "@/pages/DashboardPage";
 import AuthCallback from "@/pages/AuthCallback";
+import BenefitsPage from "@/pages/BenefitsPage";
+import ValuadorPage from "@/pages/ValuadorPage";
+import PricingPage from "@/pages/PricingPage";
+import InmobiliariaPage from "@/pages/InmobiliariaPage";
+import ThankYouPage from "@/pages/ThankYouPage";
+import FichaPage from "@/pages/FichaPage";
+import KYCRegistroPage from "@/pages/KYCRegistroPage";
+import HistoricoPage from "@/pages/HistoricoPage";
+import AnunciantesConsolaPage from "@/pages/AnunciantesConsolaPage";
+import DevLoginPage from "@/pages/DevLoginPage";
+import PrivacidadPage from "@/pages/PrivacidadPage";
+import TerminosPage from "@/pages/TerminosPage";
+import ContactoPage from "@/pages/ContactoPage";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 export const API = `${BACKEND_URL}/api`;
@@ -34,8 +47,10 @@ const ProtectedRoute = ({ children }) => {
 
     const checkAuth = async () => {
       try {
+        const userId = localStorage.getItem("propvalu_user_id") || "user_local_dev";
         const response = await fetch(`${API}/auth/me`, {
           credentials: "include",
+          headers: { "X-User-Id": userId },
         });
         if (!response.ok) throw new Error("Not authenticated");
         const userData = await response.json();
@@ -76,11 +91,23 @@ function AppRouter() {
       <Route path="/valuar" element={<ValuationForm />} />
       <Route path="/comparables/:valuationId" element={<ComparablesPage />} />
       <Route path="/reporte/:valuationId" element={<ReportPage />} />
+      <Route path="/comprar" element={<PricingPage />} />
+      <Route path="/gracias/:valuationId" element={<ThankYouPage />} />
+      <Route path="/para-valuadores" element={<ValuadorPage />} />
+      <Route path="/para-inmobiliarias" element={<InmobiliariaPage />} />
       <Route path="/dashboard" element={
         <ProtectedRoute>
           <DashboardPage />
         </ProtectedRoute>
       } />
+      <Route path="/ficha/:valuationId" element={<FichaPage />} />
+      <Route path="/registro-valuador" element={<KYCRegistroPage />} />
+      <Route path="/historico" element={<HistoricoPage />} />
+      <Route path="/anunciantes/consola" element={<AnunciantesConsolaPage />} />
+      <Route path="/dev/login" element={<DevLoginPage />} />
+      <Route path="/privacidad" element={<PrivacidadPage />} />
+      <Route path="/terminos" element={<TerminosPage />} />
+      <Route path="/contacto" element={<ContactoPage />} />
     </Routes>
   );
 }

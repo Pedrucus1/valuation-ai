@@ -4,32 +4,46 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import { Slider } from "@/components/ui/slider";
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
 } from "@/components/ui/table";
 import { toast } from "sonner";
-import { 
-  Building2, 
-  ArrowLeft, 
-  ChevronRight, 
+import {
+  Building2,
+  ArrowLeft,
+  ChevronRight,
   ExternalLink,
   MapPin,
   Ruler,
   DollarSign,
   Check,
   RefreshCw,
-  Settings2,
-  Search
+  Search,
+  LayoutList,
+  LayoutGrid
 } from "lucide-react";
 import { API } from "@/App";
+
+// Negotiation options
+const NEGOTIATION_OPTIONS = [
+  { value: -1, label: "-1% (Mercado muy activo)" },
+  { value: -2, label: "-2%" },
+  { value: -3, label: "-3% (Competitivo)" },
+  { value: -4, label: "-4%" },
+  { value: -5, label: "-5% (Estándar)" },
+  { value: -6, label: "-6%" },
+  { value: -7, label: "-7% (Lento)" },
+  { value: -8, label: "-8% (Terreno / Lento)" },
+  { value: -9, label: "-9%" },
+  { value: -10, label: "-10% (Alta influencia)" },
+];
 
 const ComparablesPage = () => {
   const { valuationId } = useParams();
@@ -39,41 +53,150 @@ const ComparablesPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSearchingMore, setIsSearchingMore] = useState(false);
-  const [showAdjustments, setShowAdjustments] = useState(false);
-  
-  // Editable negotiation adjustments
-  const [adjustments, setAdjustments] = useState({
-    negotiation: -5,
-    minNegotiation: -10,
-    maxNegotiation: 0
-  });
+  const [detailView, setDetailView] = useState("row"); // "card" | "row"
+
+  // Enriquecimiento con Puppeteer via SSE
+  const [isEnriching, setIsEnriching] = useState(false);
+  const [enrichProgress, setEnrichProgress] = useState({ done: 0, total: 0 });
+  const [adIndex, setAdIndex] = useState(0);
+  const [adProgress, setAdProgress] = useState(0); // 0-100 per slide
+
+  // House ads backfill (se fusionan con pagados si los hay)
+  const HOUSE_ADS = [
+    { tag: "Consejo PropValu", title: "El valor lo define la oferta y la demanda", body: "No existe un precio único para una propiedad. El valor real es el que un comprador informado está dispuesto a pagar en el mercado actual.", type: "house" },
+    { tag: "¿Sabías que?", title: "El predial puede engañarte", body: "Las medidas del predial a menudo no coinciden con las escrituras. Siempre usa la superficie real de construcción de tus escrituras para una valuación más precisa.", type: "house" },
+    { tag: "Dato de mercado", title: "La ubicación vale más que los metros", body: "Una propiedad 30% más pequeña en una zona premium puede superar en valor a una grande en zona periférica. La plusvalía de la colonia es clave.", type: "house" },
+    { tag: "Consejo PropValu", title: "Las fotos importan al vender", body: "Las propiedades con fotografías profesionales reciben hasta 3 veces más contactos en portales. La primera impresión es digital.", type: "house" },
+    { tag: "¿Sabías que?", title: "Nivel y orientación afectan el precio", body: "En edificios, los pisos altos con buena vista tienen un premium del 5-12%. La orientación al sur maximiza la iluminación natural.", type: "house" },
+    { tag: "Dato de mercado", title: "Renta vs compra: cuándo conviene cada uno", body: "Si el precio de venta dividido entre la renta anual da más de 25 años, comprar puede ser menos eficiente que rentar e invertir la diferencia.", type: "house" },
+    { tag: "Consejo PropValu", title: "Negocia con datos, no con intuición", body: "Conocer el precio por m² de los comparables activos en la zona te da ventaja real en cualquier negociación, ya seas comprador o vendedor.", type: "house" },
+    { tag: "¿Sabías que?", title: "La antigüedad deprecia el valor físico", body: "Una construcción pierde en promedio 2% de valor físico por año. Por eso las remodelaciones recientes son uno de los factores que más incrementan el avalúo.", type: "house" },
+    { tag: "Dato de mercado", title: "El cap rate revela la rentabilidad real", body: "Un cap rate del 5-7% anual es saludable en México. Propiedades con cap rate menor al 4% suelen estar sobrevaloradas para inversión de renta.", type: "house" },
+    { tag: "Consejo PropValu", title: "Comparables: calidad sobre cantidad", body: "5 comparables bien seleccionados (mismo tipo, misma zona, mismos m²) son más precisos que 20 mal filtrados. La homologación hace la diferencia.", type: "house" },
+  ];
+  const [ADS, setADS] = useState(HOUSE_ADS);
+
+  // Cargar anuncios pagados del slot "comparables" y mezclar con house ads
+  useEffect(() => {
+    fetch(`${API}/ads/slot/comparables`)
+      .then(r => r.ok ? r.json() : null)
+      .then(paid => {
+        if (paid && paid.type === 'paid') {
+          // Insertar el anuncio pagado en posición 0 y cada 4 slides
+          setADS(prev => {
+            const merged = [...prev];
+            merged.splice(0, 0, paid);
+            merged.splice(4, 0, paid);
+            return merged.slice(0, 10);
+          });
+          // Registrar impresión
+          if (paid.id) fetch(`${API}/ads/${paid.id}/impression`, { method: 'POST' }).catch(() => {});
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  // Active top selection tracker
+  const [activeTopFilter, setActiveTopFilter] = useState(null); // null | 6 | 10 | "all"
+
+  // Appraiser factor editing
+  const [user, setUser] = useState(null);
+  const [isEditable, setIsEditable] = useState(false);
+  const [customFactors, setCustomFactors] = useState({});
+
+  useEffect(() => {
+    fetch(`${API}/auth/me`, { credentials: "include" })
+      .then(r => r.json())
+      .then(data => setUser(data))
+      .catch(() => {});
+  }, []);
+
+  // Negotiation adjustment (combo, -1 to -10%, max 10%)
+  const [negotiation, setNegotiation] = useState(-5);
 
   useEffect(() => {
     fetchValuation();
   }, [valuationId]);
+
+  // Slide timer for loading ads (6s per slide = 60s total for 10 slides)
+  useEffect(() => {
+    if (!isLoading) return;
+    const SLIDE_MS = 6000;
+    const TICK_MS = 100;
+    let elapsed = 0;
+    const timer = setInterval(() => {
+      elapsed += TICK_MS;
+      const withinSlide = elapsed % SLIDE_MS;
+      setAdProgress(Math.round((withinSlide / SLIDE_MS) * 100));
+      if (withinSlide === 0) {
+        setAdIndex(i => (i + 1) % ADS.length);
+      }
+    }, TICK_MS);
+    return () => clearInterval(timer);
+  }, [isLoading]);
+
+  // Iniciar enriquecimiento SSE cuando los comparables estén listos
+  useEffect(() => {
+    if (!valuation || !valuation.comparables?.length || isEnriching) return;
+    // Solo enriquecer si hay comparables sin datos completos
+    const needsEnrich = valuation.comparables.some(c => !c.construction_area || !c.land_area || c.age === null || c.age === undefined);
+    if (!needsEnrich) return;
+
+    setIsEnriching(true);
+    setEnrichProgress({ done: 0, total: valuation.comparables.length });
+
+    const es = new EventSource(`${API}/valuations/${valuationId}/enrich-stream`);
+    const adTimer = setInterval(() => setAdIndex(i => (i + 1) % ADS.length), 6000);
+
+    es.onmessage = (e) => {
+      const msg = JSON.parse(e.data);
+      if (msg.type === "enriched") {
+        setValuation(prev => {
+          if (!prev) return prev;
+          const updatedComps = prev.comparables.map(c =>
+            c.comparable_id === msg.comparable_id ? { ...c, ...msg.updates } : c
+          );
+          return { ...prev, comparables: updatedComps };
+        });
+        setEnrichProgress(p => ({ ...p, done: p.done + 1 }));
+      }
+      if (msg.type === "done") {
+        clearInterval(adTimer);
+        setIsEnriching(false);
+        es.close();
+        if (msg.enriched > 0) toast.success(`Datos actualizados en ${msg.enriched} comparables`);
+      }
+    };
+    es.onerror = () => {
+      clearInterval(adTimer);
+      setIsEnriching(false);
+      es.close();
+    };
+
+    return () => { es.close(); clearInterval(adTimer); };
+  }, [valuation?.comparables?.length]);
 
   const fetchValuation = async () => {
     try {
       const response = await fetch(`${API}/valuations/${valuationId}`, {
         credentials: "include"
       });
-      
+
       if (!response.ok) {
         throw new Error("Valuación no encontrada");
       }
-      
+
       const data = await response.json();
       setValuation(data);
-      
-      // Pre-select if already selected
+
       if (data.selected_comparables && data.selected_comparables.length > 0) {
         setSelectedIds(data.selected_comparables);
       }
-      
-      // Set default negotiation based on property type
+
+      // Default negotiation by property type
       const propType = data.property_data?.property_type || "Casa";
       if (propType === "Terreno") {
-        setAdjustments(prev => ({ ...prev, negotiation: -8 }));
+        setNegotiation(-8);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -91,18 +214,13 @@ const ComparablesPage = () => {
         method: "POST",
         credentials: "include"
       });
-      
-      if (!response.ok) {
-        throw new Error("Error al buscar más comparables");
-      }
-      
+
+      if (!response.ok) throw new Error("Error al buscar más comparables");
+
       const data = await response.json();
       toast.success(`Se encontraron ${data.count} comparables en total`);
-      
-      // Refresh valuation data
       await fetchValuation();
     } catch (error) {
-      console.error("Error:", error);
       toast.error(error.message || "Error al buscar comparables");
     } finally {
       setIsSearchingMore(false);
@@ -111,40 +229,94 @@ const ComparablesPage = () => {
 
   const toggleComparable = (comparableId) => {
     setSelectedIds(prev => {
-      if (prev.includes(comparableId)) {
-        return prev.filter(id => id !== comparableId);
-      } else {
-        return [...prev, comparableId];
-      }
+      const next = prev.includes(comparableId)
+        ? prev.filter(id => id !== comparableId)
+        : [...prev, comparableId];
+      setActiveTopFilter(null); // Clear active filter on manual change
+      return next;
     });
+  };
+
+  const selectTop = (count) => {
+    if (valuation?.comparables) {
+      setSelectedIds(valuation.comparables.slice(0, count).map(c => c.comparable_id));
+      setActiveTopFilter(count);
+    }
   };
 
   const selectAll = () => {
     if (valuation?.comparables) {
       if (selectedIds.length === valuation.comparables.length) {
         setSelectedIds([]);
+        setActiveTopFilter(null);
       } else {
         setSelectedIds(valuation.comparables.map(c => c.comparable_id));
+        setActiveTopFilter("all");
       }
     }
   };
 
-  const selectTop = (count) => {
-    if (valuation?.comparables) {
-      setSelectedIds(valuation.comparables.slice(0, count).map(c => c.comparable_id));
-    }
-  };
-
-  // Recalculate adjusted prices with custom negotiation
   const getAdjustedPrice = (comp) => {
-    const customNegotiation = adjustments.negotiation;
-    const otherAdjustments = comp.total_adjustment - comp.negotiation_adjustment;
-    const newTotalAdj = customNegotiation + otherAdjustments;
-    const newAdjustedPrice = comp.price_per_sqm * (1 + newTotalAdj / 100);
+    const custom = customFactors[comp.comparable_id] || {};
+    const areaAdj = custom.area_adjustment ?? comp.area_adjustment ?? 0;
+    const conditionAdj = custom.condition_adjustment ?? comp.condition_adjustment ?? 0;
+    const ageAdj = custom.age_adjustment ?? comp.age_adjustment ?? 0;
+    const qualityAdj = custom.quality_adjustment ?? comp.quality_adjustment ?? 0;
+    const locationAdj = custom.location_adjustment ?? comp.location_adjustment ?? 0;
+
+    const otherAdjustments = areaAdj + conditionAdj + ageAdj + qualityAdj + locationAdj;
+    const newTotalAdj = negotiation + otherAdjustments;
+    
+    // Fix NaN: if priceSqM or price is string from AI, parse it correctly
+    const parseNum = (val) => typeof val === 'string' ? parseFloat(val.replace(/[$,]/g, '')) : Number(val);
+    let baseSqm = parseNum(comp.price_per_sqm);
+    if (!baseSqm || isNaN(baseSqm)) {
+      const p = parseNum(comp.price);
+      const a = parseNum(comp.construction_area);
+      baseSqm = (p > 0 && a > 0) ? p / a : 0;
+    }
+
+    const newAdjustedPrice = baseSqm * (1 + newTotalAdj / 100);
     return {
       totalAdjustment: newTotalAdj,
-      adjustedPrice: newAdjustedPrice
+      adjustedPrice: newAdjustedPrice,
+      baseSqm: baseSqm
     };
+  };
+
+  const toFactor = (val) => {
+    const num = Number(val);
+    if (isNaN(num)) return "1.00";
+    return (1 + num / 100).toFixed(2);
+  };
+
+  const renderFactorCell = (comp, fieldKey, originalValue) => {
+    const val = customFactors[comp.comparable_id]?.[fieldKey] ?? originalValue ?? 0;
+    if (!isEditable) {
+      return (
+        <span className={`text-xs font-semibold ${val > 0 ? 'text-green-600' : val < 0 ? 'text-red-600' : 'text-slate-500'}`}>
+          {toFactor(val)}
+        </span>
+      );
+    }
+    return (
+      <input 
+        type="number" 
+        step="0.1" 
+        className="w-16 text-center text-xs border border-[#52B788] rounded px-1 py-0.5 bg-white shadow-sm"
+        value={val}
+        onChange={(e) => {
+          const v = parseFloat(e.target.value) || 0;
+          setCustomFactors(prev => ({
+            ...prev,
+            [comp.comparable_id]: {
+              ...(prev[comp.comparable_id] || {}),
+              [fieldKey]: v
+            }
+          }));
+        }}
+      />
+    );
   };
 
   const handleSubmit = async () => {
@@ -152,45 +324,37 @@ const ComparablesPage = () => {
       toast.error("Seleccione al menos 3 comparables");
       return;
     }
-
     if (selectedIds.length > 10) {
       toast.error("Seleccione máximo 10 comparables");
       return;
     }
 
     setIsSubmitting(true);
-
     try {
-      // Save selection with custom adjustments
       const selectResponse = await fetch(`${API}/valuations/${valuationId}/select-comparables`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           comparable_ids: selectedIds,
-          custom_negotiation: adjustments.negotiation
+          custom_negotiation: negotiation,
+          custom_factors: customFactors
         })
       });
 
-      if (!selectResponse.ok) {
-        throw new Error("Error al guardar selección");
-      }
+      if (!selectResponse.ok) throw new Error("Error al guardar selección");
 
-      // Calculate valuation
       const calcResponse = await fetch(`${API}/valuations/${valuationId}/calculate`, {
         method: "POST",
         credentials: "include"
       });
 
-      if (!calcResponse.ok) {
-        throw new Error("Error al calcular valuación");
-      }
+      if (!calcResponse.ok) throw new Error("Error al calcular valuación");
 
       toast.success("Comparables seleccionados correctamente");
       navigate(`/reporte/${valuationId}`);
-      
+
     } catch (error) {
-      console.error("Error:", error);
       toast.error(error.message || "Error al procesar");
     } finally {
       setIsSubmitting(false);
@@ -198,18 +362,74 @@ const ComparablesPage = () => {
   };
 
   const formatCurrency = (value) => {
+    const num = Number(value);
+    if (isNaN(num)) return "$0";
     return new Intl.NumberFormat('es-MX', {
       style: 'currency',
       currency: 'MXN',
       minimumFractionDigits: 0,
       maximumFractionDigits: 0
-    }).format(value);
+    }).format(num);
   };
 
   if (isLoading) {
+    const ad = ADS[adIndex];
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#F8F9FA]">
-        <div className="spinner"></div>
+      <div className="min-h-screen bg-[#1B4332] flex flex-col items-center justify-center px-4">
+        {/* Logo */}
+        <div className="flex items-center gap-2 mb-10">
+          <Building2 className="w-8 h-8 text-[#D9ED92]" />
+          <span className="font-['Outfit'] text-2xl font-bold text-white">
+            Prop<span className="text-[#52B788]">Valu</span>
+          </span>
+        </div>
+
+        {/* Searching message */}
+        <div className="flex items-center gap-3 mb-10">
+          <div className="w-5 h-5 border-2 border-[#52B788] border-t-transparent rounded-full animate-spin" />
+          <p className="text-white/70 text-sm">Buscando comparables en el mercado...</p>
+        </div>
+
+        {/* Ad card */}
+        <div className="w-full max-w-lg bg-white/10 backdrop-blur rounded-2xl p-8 border border-white/20">
+          <p className="text-xs font-bold text-[#D9ED92] uppercase tracking-widest mb-2">
+            {ad.tag}
+          </p>
+          <h2 className="font-['Outfit'] text-xl font-bold text-white mb-3 leading-snug">
+            {ad.title}
+          </h2>
+          <p className="text-white/80 text-sm leading-relaxed">
+            {ad.body}
+          </p>
+        </div>
+
+        {/* Slide progress dots */}
+        <div className="flex gap-1.5 mt-8 mb-3">
+          {ADS.map((_, i) => (
+            <div
+              key={i}
+              className={`rounded-full transition-all duration-300 ${
+                i === adIndex
+                  ? "w-6 h-2 bg-[#D9ED92]"
+                  : i < adIndex
+                  ? "w-2 h-2 bg-[#52B788]"
+                  : "w-2 h-2 bg-white/20"
+              }`}
+            />
+          ))}
+        </div>
+
+        {/* Slide timer bar */}
+        <div className="w-full max-w-lg h-0.5 bg-white/10 rounded-full overflow-hidden">
+          <div
+            className="h-0.5 bg-[#52B788] transition-none"
+            style={{ width: `${adProgress}%` }}
+          />
+        </div>
+
+        <p className="text-white/30 text-xs mt-4">
+          Estimación realizada con inteligencia de PropValu
+        </p>
       </div>
     );
   }
@@ -224,9 +444,43 @@ const ComparablesPage = () => {
 
   const property = valuation.property_data;
   const comparables = valuation.comparables || [];
+  const selectedComps = comparables.filter(c => selectedIds.includes(c.comparable_id));
 
   return (
-    <div className="min-h-screen bg-[#F8F9FA] py-8 px-4 sm:px-6 lg:px-8">
+    <div className={`min-h-screen bg-[#F8F9FA] py-8 px-4 sm:px-6 lg:px-8 ${isEnriching ? 'pb-24' : ''}`}>
+
+      {/* Banner de enriquecimiento con Puppeteer */}
+      {isEnriching && (
+        <div className="fixed bottom-0 left-0 right-0 z-50 bg-[#1B4332] text-white shadow-2xl border-t-4 border-[#52B788]">
+          <div className="max-w-6xl mx-auto px-4 py-3 flex items-center gap-6">
+            {/* Anuncio rotativo */}
+            <div className="flex-1 min-w-0">
+              <p className="text-xs font-semibold text-[#D9ED92] uppercase tracking-wide mb-0.5">
+                {ADS[adIndex].title}
+              </p>
+              <p className="text-sm text-white/90 truncate">{ADS[adIndex].body}</p>
+            </div>
+            {/* Progreso */}
+            <div className="flex items-center gap-3 shrink-0">
+              <div className="text-right">
+                <p className="text-xs text-white/60">Completando datos...</p>
+                <p className="text-sm font-semibold text-[#D9ED92]">
+                  {enrichProgress.done} / {enrichProgress.total}
+                </p>
+              </div>
+              <div className="w-8 h-8 border-2 border-[#52B788] border-t-transparent rounded-full animate-spin" />
+            </div>
+          </div>
+          {/* Barra de progreso */}
+          <div className="h-1 bg-white/10">
+            <div
+              className="h-1 bg-[#52B788] transition-all duration-500"
+              style={{ width: `${enrichProgress.total > 0 ? (enrichProgress.done / enrichProgress.total) * 100 : 0}%` }}
+            />
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <div className="max-w-6xl mx-auto mb-8">
         <Button
@@ -238,7 +492,7 @@ const ComparablesPage = () => {
           <ArrowLeft className="w-4 h-4 mr-2" />
           Nueva valuación
         </Button>
-        
+
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div>
             <div className="flex items-center gap-3 mb-2">
@@ -253,7 +507,12 @@ const ComparablesPage = () => {
             </p>
           </div>
           <div className="flex items-center gap-3">
-            <Badge variant="outline" className="text-lg px-4 py-2 border-[#52B788] text-[#1B4332]">
+            <Badge variant="outline" className={`text-lg px-4 py-2 border-2 transition-colors ${selectedIds.length >= 3 && selectedIds.length <= 10
+              ? 'border-[#52B788] text-[#1B4332] bg-[#D9ED92]/20'
+              : selectedIds.length === 0
+                ? 'border-slate-300 text-slate-500'
+                : 'border-orange-400 text-orange-600 bg-orange-50'
+              }`}>
               {selectedIds.length} / {comparables.length} seleccionados
             </Badge>
             <Button
@@ -318,94 +577,68 @@ const ComparablesPage = () => {
         </CardContent>
       </Card>
 
-      {/* Adjustment Controls */}
-      <Card className="max-w-6xl mx-auto mb-6 bg-white shadow-sm border-0">
-        <CardHeader className="border-b border-slate-100 py-4">
-          <div className="flex items-center justify-between">
-            <CardTitle className="font-['Outfit'] text-lg text-[#1B4332] flex items-center gap-2">
-              <Settings2 className="w-5 h-5" />
-              Ajustes de Negociación
-            </CardTitle>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setShowAdjustments(!showAdjustments)}
-              className="text-[#52B788]"
-              data-testid="toggle-adjustments-btn"
-            >
-              {showAdjustments ? "Ocultar" : "Personalizar"}
-            </Button>
-          </div>
-        </CardHeader>
-        {showAdjustments && (
-          <CardContent className="p-6">
-            <div className="space-y-4">
-              <div>
-                <Label className="text-sm font-medium text-[#1B4332]">
-                  Factor de Negociación: <span className="text-[#52B788] font-bold">{adjustments.negotiation}%</span>
-                </Label>
-                <p className="text-xs text-slate-500 mb-3">
-                  Porcentaje estándar: {property.property_type === "Terreno" ? "-8%" : "-5%"} para {property.property_type}
-                </p>
-                <Slider
-                  value={[adjustments.negotiation]}
-                  onValueChange={(value) => setAdjustments(prev => ({ ...prev, negotiation: value[0] }))}
-                  min={-15}
-                  max={0}
-                  step={1}
-                  className="w-full max-w-md"
-                  data-testid="negotiation-slider"
-                />
-                <div className="flex justify-between text-xs text-slate-400 max-w-md mt-1">
-                  <span>-15%</span>
-                  <span>-10%</span>
-                  <span>-5%</span>
-                  <span>0%</span>
-                </div>
-              </div>
-              <p className="text-sm text-slate-600 bg-slate-50 p-3 rounded-lg">
-                <strong>Nota:</strong> El ajuste de negociación refleja el margen típico entre precio de lista 
-                y precio de cierre. En mercados competitivos puede ser menor (-3%), en mercados lentos mayor (-10%).
-              </p>
-            </div>
-          </CardContent>
-        )}
-      </Card>
-
       {/* Comparables Table */}
       <Card className="max-w-6xl mx-auto bg-white shadow-lg border-0">
         <CardHeader className="border-b border-slate-100">
           <div className="flex items-center justify-between flex-wrap gap-3">
-            <CardTitle className="font-['Outfit'] text-xl text-[#1B4332]">
-              Comparables de Mercado ({comparables.length})
-            </CardTitle>
+            {/* Title + Negotiation combo INLINE */}
+            <div className="flex items-center gap-4 flex-wrap">
+              <CardTitle className="font-['Outfit'] text-xl text-[#1B4332]">
+                Comparables de Mercado ({comparables.length})
+              </CardTitle>
+              {/* Negotiation inline combo */}
+              <div className="flex items-center gap-2">
+                <Label className="text-xs font-semibold text-slate-500 whitespace-nowrap">Negociación:</Label>
+                <Select
+                  value={String(negotiation)}
+                  onValueChange={(v) => setNegotiation(Number(v))}
+                >
+                  <SelectTrigger className="h-8 w-44 text-sm border-[#52B788] text-[#1B4332] font-semibold" data-testid="negotiation-select">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {NEGOTIATION_OPTIONS.map(opt => (
+                      <SelectItem key={opt.value} value={String(opt.value)}>
+                        <span className="font-semibold text-red-600">{opt.value}%</span>
+                        <span className="text-slate-500 ml-1 text-xs">{opt.label.split('%')[1]}</span>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            {/* Top filter buttons */}
             <div className="flex gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => selectTop(6)}
-                className="border-slate-300 text-slate-600"
-                data-testid="select-top-6-btn"
-              >
-                Top 6
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => selectTop(10)}
-                className="border-slate-300 text-slate-600"
-                data-testid="select-top-10-btn"
-              >
-                Top 10
-              </Button>
+              {[
+                { label: "Top 6", count: 6, testId: "select-top-6-btn" },
+                { label: "Top 10", count: 10, testId: "select-top-10-btn" },
+              ].map(({ label, count, testId }) => (
+                <Button
+                  key={count}
+                  variant="outline"
+                  size="sm"
+                  onClick={() => selectTop(count)}
+                  className={activeTopFilter === count
+                    ? "bg-[#1B4332] !text-white border-[#1B4332] hover:bg-[#1B4332] hover:!text-white shadow-md"
+                    : "border-slate-300 text-slate-600 hover:border-[#1B4332] hover:text-[#1B4332]"
+                  }
+                  data-testid={testId}
+                >
+                  {label}
+                </Button>
+              ))}
               <Button
                 variant="outline"
                 size="sm"
                 onClick={selectAll}
-                className="border-[#1B4332] text-[#1B4332]"
+                className={activeTopFilter === "all"
+                  ? "bg-[#1B4332] !text-white border-[#1B4332] hover:bg-[#1B4332] hover:!text-white shadow-md"
+                  : "border-[#1B4332] text-[#1B4332] hover:bg-[#1B4332] hover:!text-white"
+                }
                 data-testid="select-all-btn"
               >
-                {selectedIds.length === comparables.length ? "Ninguno" : "Todos"}
+                {selectedIds.length === comparables.length && comparables.length > 0 ? "Ninguno" : "Todos"}
               </Button>
             </div>
           </div>
@@ -414,18 +647,19 @@ const ComparablesPage = () => {
           <div className="overflow-x-auto">
             <Table>
               <TableHeader>
-                <TableRow className="bg-[#1B4332]">
+                <TableRow className="bg-[#1B4332] hover:bg-[#1B4332]">
                   <TableHead className="text-white w-12">
                     <Check className="w-4 h-4" />
                   </TableHead>
                   <TableHead className="text-white">#</TableHead>
-                  <TableHead className="text-white">Colonia</TableHead>
+                  <TableHead className="text-white">Colonia / Domicilio</TableHead>
+                  <TableHead className="text-white text-center">Edad</TableHead>
                   <TableHead className="text-white text-right">Terreno</TableHead>
                   <TableHead className="text-white text-right">Const.</TableHead>
                   <TableHead className="text-white text-right">Precio</TableHead>
                   <TableHead className="text-white text-right">$/m²</TableHead>
-                  <TableHead className="text-white text-center">Ajuste</TableHead>
-                  <TableHead className="text-white text-right">$/m² Aj</TableHead>
+                  <TableHead className="text-white text-center">Aj.%</TableHead>
+                  <TableHead className="text-white text-right">$/m² Aj.</TableHead>
                   <TableHead className="text-white">Fuente</TableHead>
                 </TableRow>
               </TableHeader>
@@ -434,13 +668,12 @@ const ComparablesPage = () => {
                   const isSelected = selectedIds.includes(comp.comparable_id);
                   const adjusted = getAdjustedPrice(comp);
                   return (
-                    <TableRow 
+                    <TableRow
                       key={comp.comparable_id}
-                      className={`cursor-pointer transition-colors ${
-                        isSelected 
-                          ? "bg-[#D9ED92]/20 hover:bg-[#D9ED92]/30" 
-                          : "hover:bg-slate-50"
-                      }`}
+                      className={`cursor-pointer transition-all duration-150 ${isSelected
+                        ? "bg-[#D9ED92]/30 border-l-4 border-l-[#52B788] hover:bg-[#D9ED92]/40"
+                        : "hover:bg-slate-50 border-l-4 border-l-transparent"
+                        }`}
                       onClick={() => toggleComparable(comp.comparable_id)}
                       data-testid={`comparable-row-${index}`}
                     >
@@ -448,36 +681,46 @@ const ComparablesPage = () => {
                         <Checkbox
                           checked={isSelected}
                           onCheckedChange={() => toggleComparable(comp.comparable_id)}
+                          className={isSelected ? "border-[#52B788] data-[state=checked]:bg-[#52B788]" : ""}
                           data-testid={`comparable-checkbox-${index}`}
                         />
                       </TableCell>
-                      <TableCell className="font-medium">{index + 1}</TableCell>
-                      <TableCell className="font-medium text-[#1B4332]">
-                        {comp.neighborhood}
+                      <TableCell className={`font-bold ${isSelected ? "text-[#1B4332]" : "text-slate-500"}`}>
+                        {index + 1}
                       </TableCell>
-                      <TableCell className="text-right">{comp.land_area} m²</TableCell>
-                      <TableCell className="text-right">{comp.construction_area} m²</TableCell>
-                      <TableCell className="text-right font-medium">
+                      <TableCell className={`font-medium ${isSelected ? "text-[#1B4332] font-semibold" : "text-slate-700"}`}>
+                        <div>{comp.neighborhood}</div>
+                        {comp.street_address && (
+                          <div className="text-xs text-slate-400 font-normal mt-0.5">{comp.street_address}</div>
+                        )}
+                      </TableCell>
+                      <TableCell className="text-center">
+                        {comp.age != null ? (
+                          <span className="text-xs font-semibold text-slate-500">{comp.age} años{comp.age === 0 ? " (nuevo)" : ""}</span>
+                        ) : <span className="text-slate-300 text-xs">—</span>}
+                      </TableCell>
+                      <TableCell className="text-right text-slate-600">{comp.land_area} m²</TableCell>
+                      <TableCell className="text-right text-slate-600">{comp.construction_area} m²</TableCell>
+                      <TableCell className={`text-right font-medium ${isSelected ? "text-[#1B4332] font-bold" : ""}`}>
                         {formatCurrency(comp.price)}
                       </TableCell>
                       <TableCell className="text-right">
-                        {formatCurrency(comp.price_per_sqm)}
+                        {formatCurrency(adjusted.baseSqm)}
                       </TableCell>
                       <TableCell className="text-center">
-                        <Badge 
+                        <Badge
                           variant="outline"
-                          className={`${
-                            adjusted.totalAdjustment < 0 
-                              ? "border-red-300 text-red-600 bg-red-50" 
-                              : adjusted.totalAdjustment > 0 
-                                ? "border-green-300 text-green-600 bg-green-50"
-                                : "border-slate-300"
-                          }`}
+                          className={`font-bold ${adjusted.totalAdjustment < 0
+                            ? "border-red-300 text-red-600 bg-red-50"
+                            : adjusted.totalAdjustment > 0
+                              ? "border-green-300 text-green-600 bg-green-50"
+                              : "border-slate-300"
+                            }`}
                         >
-                          {adjusted.totalAdjustment > 0 ? "+" : ""}{adjusted.totalAdjustment.toFixed(1)}%
+                          {toFactor(adjusted.totalAdjustment)}
                         </Badge>
                       </TableCell>
-                      <TableCell className="text-right font-semibold text-[#1B4332]">
+                      <TableCell className={`text-right font-semibold ${isSelected ? "text-[#1B4332]" : "text-slate-700"}`}>
                         {formatCurrency(adjusted.adjustedPrice)}
                       </TableCell>
                       <TableCell>
@@ -488,7 +731,7 @@ const ComparablesPage = () => {
                           onClick={(e) => e.stopPropagation()}
                           className="text-[#52B788] hover:underline flex items-center gap-1 text-sm"
                         >
-                          {comp.source.split('.')[0]}
+                          {comp.source?.split('.')[0] || comp.source}
                           <ExternalLink className="w-3 h-3" />
                         </a>
                       </TableCell>
@@ -499,67 +742,192 @@ const ComparablesPage = () => {
             </Table>
           </div>
 
-          {/* Adjustment Details - Show only selected */}
+          {/* Detail of selected comparables */}
           {selectedIds.length > 0 && (
-            <div className="p-6 border-t border-slate-100">
-              <h3 className="font-['Outfit'] font-semibold text-[#1B4332] mb-4">
-                Detalle de Comparables Seleccionados ({selectedIds.length})
-              </h3>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {comparables
-                  .filter(comp => selectedIds.includes(comp.comparable_id))
-                  .slice(0, 6)
-                  .map((comp, index) => {
+            <div className="p-6 border-t border-slate-100 bg-slate-50/50">
+              <div className="flex flex-wrap items-center gap-2 mb-4">
+                <h3 className="font-['Outfit'] font-semibold text-[#1B4332] text-lg w-full sm:w-auto sm:flex-1">
+                  Detalle de Comparables Seleccionados ({selectedComps.length})
+                </h3>
+                {user?.role === "appraiser" && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      setIsEditable(!isEditable);
+                      if (!isEditable) setDetailView("row");
+                    }}
+                    className={`h-7 px-2 text-xs transition-colors ${isEditable ? 'bg-amber-100 text-amber-700 border-amber-300 hover:bg-amber-200' : 'text-[#1B4332] border-[#52B788]/50 hover:bg-[#52B788]/10'}`}
+                  >
+                    {isEditable ? '💾 Guardar Cambios (Modo Edición)' : '✏️ Editar Factores (Valuador)'}
+                  </Button>
+                )}
+                {/* Toggle view — mismo renglón que Editar Factores */}
+                <div className="flex items-center gap-1 bg-white border border-slate-200 rounded-lg p-1">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setDetailView("card")}
+                    className={`px-2 py-1 h-7 rounded transition-all ${detailView === "card" ? "bg-[#1B4332] text-white shadow-sm" : "text-slate-500 hover:text-[#1B4332]"}`}
+                    title="Vista tarjeta"
+                  >
+                    <LayoutGrid className="w-4 h-4" />
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setDetailView("row")}
+                    className={`px-2 py-1 h-7 rounded transition-all ${detailView === "row" ? "bg-[#1B4332] text-white shadow-sm" : "text-slate-500 hover:text-[#1B4332]"}`}
+                    title="Vista lista"
+                  >
+                    <LayoutList className="w-4 h-4" />
+                  </Button>
+                </div>
+              </div>
+
+              {/* Card view */}
+              {detailView === "card" && (
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {selectedComps.slice(0, 10).map((comp, index) => {
                     const adjusted = getAdjustedPrice(comp);
                     return (
-                      <div 
+                      <div
                         key={comp.comparable_id}
-                        className="p-4 rounded-lg border border-[#52B788] bg-[#D9ED92]/10"
+                        className="p-4 rounded-xl border-2 border-[#52B788] bg-white shadow-sm"
                       >
                         <div className="flex items-center justify-between mb-3">
-                          <span className="font-semibold text-[#1B4332]">
-                            {comp.neighborhood.slice(0, 20)}
-                          </span>
-                          <Check className="w-4 h-4 text-[#52B788]" />
+                          <div>
+                            <span className="text-[10px] font-bold text-[#52B788] uppercase tracking-wider">
+                              Comp. {index + 1}
+                            </span>
+                            <p className="font-semibold text-[#1B4332] leading-tight text-sm">
+                              {comp.neighborhood}
+                            </p>
+                            {comp.street_address && (
+                              <p className="text-[10px] text-slate-400 leading-tight">{comp.street_address}</p>
+                            )}
+                            <div className="text-[10px] text-sky-600 font-medium mt-1 inline-flex gap-2">
+                              {comp.bedrooms ? <span>{comp.bedrooms} 🛌</span> : null}
+                              {comp.bathrooms ? <span>{comp.bathrooms} 🚿</span> : null}
+                              {comp.parking ? <span>{comp.parking} 🚗</span> : null}
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-[10px] text-slate-400">$/m² Aj.</p>
+                            <p className="font-bold text-[#1B4332] text-sm">{formatCurrency(adjusted.adjustedPrice)}</p>
+                          </div>
                         </div>
                         <div className="space-y-1 text-sm">
-                          <div className="flex justify-between">
-                            <span className="text-slate-500">Negociación:</span>
-                            <span className="text-red-600">{adjustments.negotiation}%</span>
+                          <div className="flex justify-between items-center py-0.5 text-xs text-slate-400">
+                            <span>📅 Edad comp.:</span>
+                            <span className="font-semibold">{comp.age != null ? `${comp.age} años${comp.age === 0 ? " (nuevo)" : ""}` : 'N/D'}</span>
                           </div>
-                          <div className="flex justify-between">
-                            <span className="text-slate-500">Superficie:</span>
-                            <span>{comp.area_adjustment > 0 ? "+" : ""}{comp.area_adjustment}%</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span className="text-slate-500">Condición:</span>
-                            <span>{comp.condition_adjustment > 0 ? "+" : ""}{comp.condition_adjustment.toFixed(1)}%</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span className="text-slate-500">Ubicación:</span>
-                            <span>{comp.location_adjustment > 0 ? "+" : ""}{comp.location_adjustment.toFixed(1)}%</span>
-                          </div>
-                          {comp.regime_adjustment !== 0 && (
-                            <div className="flex justify-between">
-                              <span className="text-slate-500">Régimen:</span>
-                              <span className="text-red-600">{comp.regime_adjustment}%</span>
+                          {comp.condition && (
+                            <div className="flex justify-between items-center py-0.5 text-xs text-slate-400">
+                              <span>🏠 Conservación:</span>
+                              <span className="font-semibold">{comp.condition}</span>
                             </div>
                           )}
-                          <div className="flex justify-between pt-2 border-t border-slate-200 font-semibold">
-                            <span>Total:</span>
+                          <div className="border-t border-dashed border-slate-100 pt-1.5">
+                            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Factores INDAABIN</div>
+                            {[
+                              { label: 'Neg.', val: negotiation },
+                              { label: 'Superficie', val: comp.area_adjustment ?? 0 },
+                              { label: 'Condición', val: comp.condition_adjustment ?? 0 },
+                              { label: 'Edad', val: comp.age_adjustment ?? 0 },
+                              { label: 'Acabados', val: comp.quality_adjustment ?? 0 },
+                              { label: 'Ubicación/Frentes', val: comp.location_adjustment ?? 0 },
+                              { label: 'Régimen', val: comp.regime_adjustment ?? 0 },
+                            ].map(({ label, val }) => (
+                              <div key={label} className="flex justify-between items-center py-0.5">
+                                <span className="text-slate-500 text-xs">{label}:</span>
+                                <span className={`text-xs font-semibold ${val > 0 ? 'text-green-600' : val < 0 ? 'text-red-600' : 'text-slate-400'
+                                  }`}>
+                                  {toFactor(val)}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                          <div className="flex justify-between items-center pt-2 border-t-2 border-[#D9ED92] font-bold">
+                            <span className="text-slate-700">Total Aj.:</span>
                             <span className={adjusted.totalAdjustment < 0 ? "text-red-600" : "text-green-600"}>
-                              {adjusted.totalAdjustment > 0 ? "+" : ""}{adjusted.totalAdjustment.toFixed(1)}%
+                              {toFactor(adjusted.totalAdjustment)}
                             </span>
                           </div>
-                          <div className="flex justify-between pt-1 font-bold text-[#1B4332]">
-                            <span>$/m² Ajustado:</span>
-                            <span>{formatCurrency(adjusted.adjustedPrice)}</span>
+                          <div className="flex justify-between items-center pt-1 bg-[#D9ED92]/20 rounded px-2 py-1">
+                            <span className="text-[#1B4332] font-semibold text-xs">$/m² Ajustado:</span>
+                            <span className="font-bold text-[#1B4332]">{formatCurrency(adjusted.adjustedPrice)}</span>
                           </div>
                         </div>
                       </div>
                     );
                   })}
-              </div>
+                </div>
+              )}
+
+              {/* Row / list view */}
+              {detailView === "row" && (
+                <div className="overflow-x-auto rounded-xl border border-[#52B788]/30">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="bg-[#1B4332]/10 text-[#1B4332]">
+                        <th className="text-left px-3 py-2 font-semibold">Ubicación</th>
+                        <th className="text-center px-1 py-2 font-semibold text-base" title="Recámaras">🛏️</th>
+                        <th className="text-center px-1 py-2 font-semibold text-base" title="Baños">🚿</th>
+                        <th className="text-center px-1 py-2 font-semibold text-base" title="Estacionamientos">🚗</th>
+                        <th className="text-center px-2 py-2 font-semibold text-xs">Edad</th>
+                        <th className="text-center px-2 py-2 font-semibold text-xs">Neg.</th>
+                        <th className="text-center px-2 py-2 font-semibold text-xs">Sup.</th>
+                        <th className="text-center px-2 py-2 font-semibold text-xs">Cond.</th>
+                        <th className="text-center px-2 py-2 font-semibold text-xs">Edad Aj.</th>
+                        <th className="text-center px-2 py-2 font-semibold text-xs">Acab.</th>
+                        <th className="text-center px-2 py-2 font-semibold text-xs">Ubic.</th>
+                        <th className="text-center px-2 py-2 font-bold text-xs">Total Aj.</th>
+                        <th className="text-right px-3 py-2 font-bold text-xs">$/m² Aj.</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {selectedComps.map((comp, index) => {
+                        const adjusted = getAdjustedPrice(comp);
+                        return (
+                          <tr key={comp.comparable_id} className={index % 2 === 0 ? "bg-white" : "bg-[#D9ED92]/10"}>
+                            <td className="px-3 py-1.5 min-w-[200px]">
+                              <div className="font-semibold text-[#1B4332] text-sm break-words">{comp.neighborhood}</div>
+                              {comp.street_address && <div className="text-xs font-medium text-slate-500 mt-0.5">{comp.street_address}</div>}
+                            </td>
+                            <td className="px-1 py-1.5 text-center text-slate-600 text-[11px] font-semibold">{comp.bedrooms || '-'}</td>
+                            <td className="px-1 py-1.5 text-center text-slate-600 text-[11px] font-semibold">{comp.bathrooms || '-'}</td>
+                            <td className="px-1 py-1.5 text-center text-slate-600 text-[11px] font-semibold">{comp.parking || '-'}</td>
+                            <td className="px-2 py-1.5 text-center text-slate-500 text-xs font-semibold">{comp.age != null ? comp.age + ' años' + (comp.age === 0 ? ' (nuevo)' : '') : 'N/D'}</td>
+                            <td className="px-2 py-1.5 text-center text-red-600 font-semibold text-xs">{toFactor(negotiation)}</td>
+                            <td className="px-2 py-1.5 text-center">
+                              {renderFactorCell(comp, 'area_adjustment', comp.area_adjustment)}
+                            </td>
+                            <td className="px-2 py-1.5 text-center">
+                              {renderFactorCell(comp, 'condition_adjustment', comp.condition_adjustment)}
+                            </td>
+                            <td className="px-2 py-1.5 text-center">
+                              {renderFactorCell(comp, 'age_adjustment', comp.age_adjustment)}
+                            </td>
+                            <td className="px-2 py-1.5 text-center">
+                              {renderFactorCell(comp, 'quality_adjustment', comp.quality_adjustment)}
+                            </td>
+                            <td className="px-2 py-1.5 text-center">
+                              {renderFactorCell(comp, 'location_adjustment', comp.location_adjustment)}
+                            </td>
+                            <td className={`px-3 py-2 text-center font-bold ${adjusted.totalAdjustment < 0 ? 'text-red-600' : 'text-green-600'}`}>
+                              {toFactor(adjusted.totalAdjustment)}
+                            </td>
+                            <td className="px-3 py-2 text-right font-bold text-[#1B4332]">
+                              {formatCurrency(adjusted.adjustedPrice)}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </div>
           )}
         </CardContent>
@@ -570,13 +938,13 @@ const ComparablesPage = () => {
         <div className="text-sm text-slate-500">
           <p>Seleccione entre <strong>3 y 10</strong> comparables para el análisis</p>
           <p className="text-xs mt-1">
-            Ajuste de negociación aplicado: <strong>{adjustments.negotiation}%</strong>
+            Factor de negociación activo: <strong className="text-red-600">{negotiation}%</strong>
           </p>
         </div>
         <Button
           onClick={handleSubmit}
           disabled={isSubmitting || selectedIds.length < 3 || selectedIds.length > 10}
-          className="bg-[#52B788] hover:bg-[#40916C] text-white px-8"
+          className="bg-[#52B788] hover:bg-[#40916C] text-white px-8 shadow-md"
           data-testid="continue-btn"
         >
           {isSubmitting ? (

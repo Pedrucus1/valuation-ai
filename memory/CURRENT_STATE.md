@@ -1,73 +1,45 @@
-# CURRENT STATE — PropValu México (Handoff para nuevo chat)
-
-## Proyecto
-- **Ruta:** `c:\Users\pedru\Notebook LM\valuation-ai\Pagina-Valuacion-con-Ai--main\`
-- **Archivo principal:** `server.js` (1118 líneas aprox.)
-- **Puerto:** `3000` → `http://localhost:3000`
-- **Stack:** Node.js + Express.js, HTML/CSS en string template dentro de `server.js`
-- **Inicio del servidor:** `node server.js` (desde PowerShell en la carpeta del proyecto)
+# CURRENT STATE — PropValu México
+> **Última actualización:** 10 Mar 2026  
+> **Instrucción para nuevo chat:** Lee este archivo exhaustivamente. Contiene el estado más reciente del aplicativo. Vamos a comenzar a trabajar en integrar SerpAPI.
 
 ---
 
-## Arquitectura del Reporte PDF (5 páginas)
+## 📍 Estado Actual y Últimos Avances (10 Mar 2026)
 
-| Página | Contenido |
-|--------|-----------|
-| 1 | Portada: Header, Mapa Yandex, Datos del Inmueble |
-| 2 | Resumen Ejecutivo + Valor estimado |
-| 3 | Comparables en tabla + Equipamiento y Servicios (iconos emoji) |
-| 4 | Análisis AI / Análisis Estratégico |
-| 5 | Consejos de venta + Aviso Legal + Footer |
+Hemos logrado estabilizar y mejorar considerablemente tanto el **Reporte PDF** como el **Dashboard Web**. Los últimos features implementados exitosamente son:
+
+### 1. Sistema de Edición Manual de Factores INDAABIN (Exclusivo Valuadores)
+- **Frontend (`ComparablesPage.jsx`)**: Se introdujo el estado `isEditable` y `customFactors`. Si el usuario tiene rol `appraiser`, aparece un botón que convierte las celdas de factores de homologación de la tabla en *inputs* numéricos en vivo.
+- **Backend (`server.js`)**: El endpoint `/api/valuations/:id/select-comparables` ahora recibe y procesa el objeto `custom_factors`, sobreescribiendo permanentemente los valores estadísticos generados inicialmente por la IA (Superficie, Antigüedad, Calidad, etc.).
+
+### 2. Mejoras Estéticas e Informativas en Plantilla PDF y UI
+- **Desglose de Amenidades (Recámaras/Baños/Auto)**: `aiSearch.js` ahora extrae estos atributos. Se muestran debajo de la colonia usando emojis dedicados (🛏️ 🚿 🚗) a tamaño aumentado (`text-base`).
+- **Diseño de 3 Columnas de Inmueble**: El cuadro azul superior del PDF renderiza la ubicación ocupando todo el ancho superior y debajo 3 columnas simétricas con variables físicas para ahorrar espacio.
+- **Advertencias Técnicas (Predial y Supuestos de Mercado)**: 
+  - La advertencia topográfica del "Predial" es central, visible solo cuando aplica.
+  - La leyenda "supuestos basados en apreciación histórica..." creció 2 puntos de legibilidad.
+- **Claridad de Mercado**: El cuadro "Oferta Similar" del termómetro comercial ya no engaña mostrando 6 propiedades evaluadas; ahora muestra fielmente la densidad estadística del ecosistema (ej. `121+ Propiedades`).
+- **Control de Paginación**: La caja de texto de "Análisis de Mercado AI" tiene un clamp estricto de máximo 5 líneas (vía CSS grid truncamiento multilínea avanzado).
+
+### 3. Filtros Estrictos en Extracción Web (`aiSearch.js`)
+- Mayor firmeza en el prompt de Gemini: *"VIGENCIA EXTREMA: NO INVENTES PROPIEDADES. Obligatorio enlaces vivos y no 404"*. 
+- **Problema Detectado**: Vertex Grounding tiende a jalar páginas de búsqueda ("search") o links muertos porque no raspa activamente; es un generador de lenguaje.
+- **Próximo Paso (Pendiente)**: Migrar el recolector de comparables a una API de búsqueda real estructural (SerpAPI / Google Custom Search) para inyectarle links exactos vivos 100% de antemano a Gemini.
 
 ---
 
-## Cambios Recientes Completados
+## 🏗️ Arquitectura Actual (Node.js)
 
-### 1. Motor de Análisis Estratégico (`generateAnalysisText` — línea ~47)
-La función ahora genera análisis dinámico con:
-- **Ventajas de ubicación** según colonia/municipio/estado
-- **Dinámica oferta/demanda:** absorción estimada (Alta/Media/Baja) según número de comparables
-- **Impacto del estado de conservación** en velocidad de venta
-- **Comparación de superficie** vs promedio del mercado (espacioso/compacto/estándar)
-
-### 2. Iconos de Equipamiento (línea ~989)
-Sección "Equipamiento y Servicios Cercanos" usa emojis descriptivos:
-- 🎓 Escuelas, 🏥 Hospitales, 🛒 Supermercados, 🏪 Mercados, 🌳 Parques, 🛣️ Vías de Acceso
-- CSS: `.service-icon-circle` → 44px, border-radius: 12px, fondo gris claro, emoji 24px
-
-### 3. Márgenes de Impresión PDF
-Se añadió bloque `@media print` (línea ~422):
-```css
-@media print {
-  @page { size: A4; margin: 0; }
-  .page { width: 210mm; height: 297mm; padding: 15mm; page-break-after: always; }
-}
+```
+[React Frontend :3001]  →  proxy  →  [Express Backend :3000]
+                                              ↓
+                                    Google Maps API
+                                    Gemini API
+                                    {Próximamente: SerpAPI}
 ```
 
-### 4. Tamaño de Fuente en Datos del Inmueble
-- Datos del inmueble en Página 1: `font-size: 14px`
-- `.card-value`: 12px, `.card-label`: 10px
+## 📋 Próxima Sesión y Tareas de Trabajo
 
-### 5. Análisis en Páginas 2 y 4
-- Página 2 muestra el resumen ejecutivo del `templateAnalysis`
-- Página 4 muestra el análisis más detallado o el de IA si está disponible
-
----
-
-## Estado del Servidor
-- El servidor YA estaba corriendo en puerto 3000 (error `EADDRINUSE` al intentar iniciar otro)
-- No hay `npm run dev`; el script de inicio es simplemente: `node server.js`
-
----
-
-## Pendientes / Próximas Mejoras Sugeridas
-- [ ] Verificar visualmente el PDF en el navegador y confirmar que los márgenes A4 se apliquen correctamente al imprimir
-- [ ] Mejorar el diseño del mapa (Página 1) para mejor integración visual
-- [ ] Revisar si el análisis estratégico aparece correctamente en Página 2 con el HTML actual
-- [ ] Considerar separar el CSS a un archivo externo para reducir el tamaño de `server.js`
-- [ ] Agregar validación de formulario en el frontend antes de enviar datos al backend
-
----
-
-## Cómo Iniciar en Nuevo Chat
-En el nuevo chat, di: **"Lee el archivo `memory/CURRENT_STATE.md` del proyecto PropValu y dime dónde nos quedamos"**
+1. Implementar la conexión de extracción limpia usando SerpAPI o Google Custom Search JSON API dentro de `aiSearch.js`.
+2. Mantener la lógica donde Gemini extrae e infiere metros/años, pero forzando a que las URL provengan estricta y únicamente de Google Search.
+3. Continuar probando estéticas del PDF PDF `puppeteer`/html en `server.js`.
