@@ -109,10 +109,10 @@ const MOCK_VALUACIONES = [
 ];
 
 const MOCK_ASESORES = [
-  { id: 1, nombre: "Sofía Ramírez Torres",   email: "sofia.ramirez@inmobiliaria.mx",    valuaciones: 4, activo: true },
-  { id: 2, nombre: "Carlos Mendoza Ibarra",  email: "carlos.mendoza@inmobiliaria.mx",   valuaciones: 2, activo: true },
-  { id: 3, nombre: "Daniela Herrera López",  email: "daniela.herrera@inmobiliaria.mx",  valuaciones: 2, activo: true },
-  { id: 4, nombre: "Jorge Navarro Castillo", email: "jorge.navarro@inmobiliaria.mx",    valuaciones: 0, activo: false },
+  { id: 1, nombre: "Sofía Ramírez Torres",   email: "sofia.ramirez@inmobiliaria.mx",   phone: "33 1234 5678", valuaciones: 7,  _mock_kyc: "approved" },
+  { id: 2, nombre: "Carlos Mendoza Ibarra",  email: "carlos.mendoza@inmobiliaria.mx",  phone: "33 8765 4321", valuaciones: 4,  _mock_kyc: "approved" },
+  { id: 3, nombre: "Daniela Herrera López",  email: "daniela.herrera@inmobiliaria.mx", phone: "33 5555 1212", valuaciones: 3,  _mock_kyc: "under_review" },
+  { id: 4, nombre: "Jorge Navarro Castillo", email: "jorge.navarro@inmobiliaria.mx",   phone: "",             valuaciones: 0,  _mock_kyc: "pending" },
 ];
 
 /* ─── Component ─────────────────────────────────────────── */
@@ -577,51 +577,67 @@ const InmobiliariaDashboardPage = () => {
         <CardContent className="p-0">
           {equipo === null ? (
             <p className="text-sm text-slate-400 text-center py-10">Cargando equipo…</p>
-          ) : equipo.length === 0 ? (
-            <div className="text-center py-12 px-6">
-              <Users className="w-10 h-10 text-slate-200 mx-auto mb-3" />
-              <p className="text-slate-500 font-medium">Ningún asesor vinculado aún</p>
-              <p className="text-sm text-slate-400 mt-1.5 max-w-sm mx-auto">
-                Los asesores que se registren con el nombre de tu empresa en el campo "Empresa afiliada" aparecerán aquí automáticamente.
-              </p>
-            </div>
           ) : (
-            <div className="overflow-x-auto">
-              <Table>
-                <TableHeader>
-                  <TableRow className="bg-slate-50">
-                    <TableHead className="font-semibold text-[#1B4332]">Nombre</TableHead>
-                    <TableHead className="font-semibold text-[#1B4332]">Contacto</TableHead>
-                    <TableHead className="font-semibold text-[#1B4332] text-center">Val. este mes</TableHead>
-                    <TableHead className="font-semibold text-[#1B4332] text-center">Total</TableHead>
-                    <TableHead className="font-semibold text-[#1B4332]">Estado KYC</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {equipo.map((a) => {
-                    const kyc = kycLabel(a.kyc_status);
-                    return (
-                      <TableRow key={a.user_id} className="hover:bg-slate-50">
-                        <TableCell className="font-medium text-[#1B4332] text-sm">{a.nombre}</TableCell>
-                        <TableCell>
-                          <p className="text-sm text-slate-500">{a.email}</p>
-                          {a.phone && <p className="text-xs text-slate-400">{a.phone}</p>}
-                        </TableCell>
-                        <TableCell className="text-center">
-                          <span className="text-sm font-semibold text-[#1B4332]">{a.valuaciones_mes}</span>
-                        </TableCell>
-                        <TableCell className="text-center">
-                          <span className="text-sm text-slate-500">{a.valuaciones_total}</span>
-                        </TableCell>
-                        <TableCell>
-                          <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${kyc.cls}`}>{kyc.label}</span>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-                </TableBody>
-              </Table>
-            </div>
+            <>
+              {equipo.length === 0 && (
+                <div className="mx-6 mt-4 mb-2 flex items-start gap-2.5 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3">
+                  <AlertCircle className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                  <p className="text-xs text-amber-800">
+                    Ningún asesor vinculado aún. Los asesores que se registren poniendo <strong>"{session.company_name || "tu empresa"}"</strong> en el campo "Empresa afiliada" aparecerán aquí. <span className="text-amber-600 italic">Vista previa con datos de ejemplo:</span>
+                  </p>
+                </div>
+              )}
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="bg-slate-50">
+                      <TableHead className="font-semibold text-[#1B4332]">Asesor</TableHead>
+                      <TableHead className="font-semibold text-[#1B4332]">Contacto</TableHead>
+                      <TableHead className="font-semibold text-[#1B4332] text-center">OPIs este mes</TableHead>
+                      <TableHead className="font-semibold text-[#1B4332] text-center">Total histórico</TableHead>
+                      <TableHead className="font-semibold text-[#1B4332]">Estado</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {(equipo.length > 0 ? equipo : MOCK_ASESORES).map((a, i) => {
+                      const kyc = kycLabel(equipo.length > 0 ? a.kyc_status : a._mock_kyc);
+                      const isMock = equipo.length === 0;
+                      return (
+                        <TableRow key={isMock ? i : a.user_id} className={`hover:bg-slate-50 ${isMock ? "opacity-50" : ""}`}>
+                          <TableCell>
+                            <div className="flex items-center gap-2.5">
+                              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#52B788] to-[#1B4332] flex items-center justify-center flex-shrink-0">
+                                <span className="text-white text-xs font-bold">
+                                  {(isMock ? a.nombre : a.nombre).split(" ").map(n => n[0]).slice(0,2).join("")}
+                                </span>
+                              </div>
+                              <span className="font-medium text-[#1B4332] text-sm">{isMock ? a.nombre : a.nombre}</span>
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            <p className="text-sm text-slate-500">{isMock ? a.email : a.email}</p>
+                            {!isMock && a.phone && <p className="text-xs text-slate-400">{a.phone}</p>}
+                          </TableCell>
+                          <TableCell className="text-center">
+                            <span className="text-base font-bold text-[#1B4332]">
+                              {isMock ? a.valuaciones : a.valuaciones_mes}
+                            </span>
+                          </TableCell>
+                          <TableCell className="text-center">
+                            <span className="text-sm text-slate-500">
+                              {isMock ? a.valuaciones * 3 : a.valuaciones_total}
+                            </span>
+                          </TableCell>
+                          <TableCell>
+                            <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${kyc.cls}`}>{kyc.label}</span>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </div>
+            </>
           )}
         </CardContent>
       </Card>
