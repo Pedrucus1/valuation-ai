@@ -743,151 +743,135 @@ const InmobiliariaDashboardPage = () => {
         </div>
 
         <CardContent className="p-0">
-          {/* ── BODY: Datos (izq) + Foto representante (der) ── */}
-          <div className="flex gap-0 divide-x divide-slate-100">
+          {/* ── BODY: grid 4 col + foto sidebar ── */}
+          <div className="flex divide-x divide-slate-100">
 
-            {/* ── Datos — siempre visibles ── */}
-            <div className="flex-1 p-6 space-y-6">
+            {/* ── Grid de datos ── */}
+            <div className="flex-1 p-5">
 
-              {/* Contacto */}
-              <div>
-                <p className="text-sm font-bold text-[#1B4332] mb-3 flex items-center gap-2">
-                  <User className="w-4 h-4 text-[#52B788]" /> Contacto
-                </p>
-                <div className="grid grid-cols-2 gap-x-8 gap-y-4">
-                  <DataRow icon={User}     label="Representante"       value={session.name} />
-                  <DataRow icon={Phone}    label="Teléfono"            value={session.phone} />
-                  <div className="col-span-2">
-                    <DataRow icon={Mail}   label="Correo electrónico"  value={session.email} />
-                  </div>
-                  <div className="col-span-2">
-                    <DataRow icon={MapPin} label="Dirección de oficina" value={session.q_dir_oficina} />
-                  </div>
-                  {esTitular
-                    ? <DataRow icon={Users}    label="Número de asesores" value={session.num_asesores} />
-                    : <DataRow icon={Briefcase} label="Empresa afiliada"  value={session.empresa_afiliada} />
-                  }
-                  <DataRow icon={MapPin} label="Google Maps"           value={session.q_maps_url ? "Configurado ✓" : null} />
-                </div>
-              </div>
-
-              {/* Cobertura */}
-              <div className="border-t border-slate-100 pt-5">
-                <p className="text-sm font-bold text-[#1B4332] mb-3 flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-[#52B788]" /> Zona de cobertura
-                </p>
-                {(session.estados?.length > 0 || session.municipios?.filter(Boolean).length > 0) ? (
-                  <div className="space-y-2">
-                    {session.estados?.length > 0 && (
-                      <div>
-                        <p className="text-xs font-bold text-slate-500 mb-1.5">Estados</p>
-                        <div className="flex flex-wrap gap-1.5">
-                          {session.estados.map(e => (
-                            <span key={e} className="text-xs px-2.5 py-1 rounded-full bg-[#D9ED92] text-[#1B4332] font-medium">{e}</span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                    {session.municipios?.filter(Boolean).length > 0 && (
-                      <div>
-                        <p className="text-xs font-bold text-slate-500 mb-1.5">Municipios</p>
-                        <div className="flex flex-wrap gap-1.5">
-                          {session.municipios.filter(Boolean).map((m, i) => (
-                            <span key={i} className="text-xs px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 font-medium">{m}</span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                ) : (
+              {/* Campo reutilizable sin icono — optimizado para grilla */}
+              {/* F = field cell */}
+              {(() => {
+                const Pending = () => (
                   <button onClick={abrirEdicion}
-                    className="inline-flex items-center gap-1 text-xs text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full hover:bg-amber-100 transition-colors font-medium">
-                    ✏️ Pendiente — completar
+                    className="inline-flex items-center gap-1 text-[11px] text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full hover:bg-amber-100 transition-colors font-semibold mt-0.5">
+                    ✏️ Pendiente
                   </button>
-                )}
-              </div>
-
-              {/* Redes sociales */}
-              <div className="border-t border-slate-100 pt-5">
-                <p className="text-sm font-bold text-[#1B4332] mb-3 flex items-center gap-2">
-                  <Globe className="w-4 h-4 text-[#52B788]" /> Redes y contacto digital
-                </p>
-                {(rs.website || rs.instagram || rs.facebook || rs.whatsapp || session.q_maps_url) ? (
-                  <div className="flex flex-wrap gap-3">
-                    {rs.website && <a href={rs.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-[#1B4332] hover:text-[#52B788] font-medium transition-colors"><Globe className="w-4 h-4" />{rs.website.replace(/^https?:\/\/(www\.)?/, "")}</a>}
-                    {rs.instagram && <a href={`https://instagram.com/${rs.instagram.replace("@","")}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-pink-600 hover:text-pink-700 font-medium transition-colors"><span>📸</span>{rs.instagram}</a>}
-                    {rs.facebook && <a href={rs.facebook.startsWith("http") ? rs.facebook : `https://facebook.com/${rs.facebook}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors"><span>🔵</span>{rs.facebook.replace(/^https?:\/\/(www\.)?facebook\.com\//, "")}</a>}
-                    {rs.whatsapp && <a href={`https://wa.me/${rs.whatsapp.replace(/\D/g,"")}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-green-600 hover:text-green-700 font-medium transition-colors"><MessageCircle className="w-4 h-4" />{rs.whatsapp}</a>}
-                    {session.q_maps_url && <a href={session.q_maps_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-[#1B4332] hover:text-[#52B788] font-medium transition-colors"><MapPin className="w-4 h-4" />Ver en Google Maps</a>}
+                );
+                const F = ({ label, value, span = 1 }) => (
+                  <div className={span === 2 ? "col-span-2" : span === 4 ? "col-span-4" : ""}>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-0.5">{label}</p>
+                    {value
+                      ? <p className="text-sm text-slate-800 font-medium leading-snug">{value}</p>
+                      : <Pending />}
                   </div>
-                ) : (
-                  <button onClick={abrirEdicion}
-                    className="inline-flex items-center gap-1 text-xs text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full hover:bg-amber-100 transition-colors font-medium">
-                    ✏️ Pendiente — agregar redes sociales
-                  </button>
-                )}
-              </div>
+                );
 
-              {/* Perfil operativo */}
-              <div className="border-t border-slate-100 pt-5">
-                <p className="text-sm font-bold text-[#1B4332] mb-3 flex items-center gap-2">
-                  <TrendingUp className="w-4 h-4 text-[#52B788]" /> Perfil operativo
-                </p>
-                <div className="grid grid-cols-2 gap-x-8 gap-y-4">
-                  <DataRow icon={TrendingUp}   label="Años en el mercado"  value={session.q_anos_mercado} />
-                  <DataRow icon={BarChart2}     label="Cartera activa"      value={session.q_cartera_propiedades} />
-                  <div className="col-span-2">
-                    <DataRow icon={CheckCircle2} label="CRM / Herramientas" value={session.q_crm} />
-                  </div>
-                  <DataRow icon={Globe}         label="Idiomas"             value={session.q_idiomas} />
-                  <DataRow icon={BarChart2}      label="Software"            value={session.q_software} />
-                </div>
-                {session.q_tipo_operaciones && Object.values(session.q_tipo_operaciones).some(Boolean) && (
-                  <div className="mt-3">
-                    <p className="text-xs font-bold text-slate-500 mb-2">Tipo de operaciones</p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {Object.entries(session.q_tipo_operaciones).filter(([,v]) => v).map(([k]) => (
-                        <span key={k} className="text-xs px-2.5 py-1 rounded-full bg-[#D9ED92] text-[#1B4332] font-medium">{k.replace(/_/g," ")}</span>
-                      ))}
+                return (
+                  <div className="grid grid-cols-4 gap-x-6 gap-y-4">
+
+                    {/* ── Contacto ── */}
+                    <div className="col-span-4 flex items-center gap-2 pb-1 border-b border-slate-100">
+                      <User className="w-3.5 h-3.5 text-[#52B788]" />
+                      <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide">Contacto</p>
                     </div>
+
+                    <F label="Representante"     value={session.name} />
+                    <F label="Teléfono"          value={session.phone} />
+                    <F label="Email"             value={session.email} span={2} />
+                    <F label="Dirección oficina" value={session.q_dir_oficina} span={2} />
+                    {esTitular
+                      ? <F label="Nº de asesores"  value={session.num_asesores} />
+                      : <F label="Empresa afiliada" value={session.empresa_afiliada} />
+                    }
+                    <F label="Google Maps"
+                       value={session.q_maps_url
+                         ? <a href={session.q_maps_url} target="_blank" rel="noopener noreferrer" className="text-[#1B4332] hover:underline">Ver perfil ↗</a>
+                         : null} />
+
+                    {/* ── Redes sociales ── */}
+                    <div className="col-span-4 flex items-center gap-2 pt-3 pb-1 border-b border-slate-100">
+                      <Globe className="w-3.5 h-3.5 text-[#52B788]" />
+                      <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide">Redes y contacto digital</p>
+                    </div>
+
+                    {(rs.website || rs.instagram || rs.facebook || rs.whatsapp) ? (
+                      <div className="col-span-4 flex flex-wrap gap-3">
+                        {rs.website   && <a href={rs.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-[#1B4332] hover:text-[#52B788] font-medium"><Globe className="w-3.5 h-3.5"/>{rs.website.replace(/^https?:\/\/(www\.)?/,"")}</a>}
+                        {rs.instagram && <a href={`https://instagram.com/${rs.instagram.replace("@","")}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-pink-600 hover:text-pink-700 font-medium"><span>📸</span>{rs.instagram}</a>}
+                        {rs.facebook  && <a href={rs.facebook.startsWith("http") ? rs.facebook : `https://facebook.com/${rs.facebook}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-blue-600 hover:text-blue-700 font-medium"><span>🔵</span>{rs.facebook.replace(/^https?:\/\/(www\.)?facebook\.com\//,"")}</a>}
+                        {rs.whatsapp  && <a href={`https://wa.me/${rs.whatsapp.replace(/\D/g,"")}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-green-600 hover:text-green-700 font-medium"><MessageCircle className="w-3.5 h-3.5"/>{rs.whatsapp}</a>}
+                      </div>
+                    ) : (
+                      <div className="col-span-4"><button onClick={abrirEdicion} className="inline-flex items-center gap-1 text-[11px] text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full hover:bg-amber-100 font-semibold">✏️ Pendiente — agregar redes</button></div>
+                    )}
+
+                    {/* ── Perfil operativo ── */}
+                    <div className="col-span-4 flex items-center gap-2 pt-3 pb-1 border-b border-slate-100">
+                      <TrendingUp className="w-3.5 h-3.5 text-[#52B788]" />
+                      <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide">Perfil operativo</p>
+                    </div>
+
+                    <F label="Años en el mercado"  value={session.q_anos_mercado} />
+                    <F label="Cartera activa"       value={session.q_cartera_propiedades} />
+                    <F label="CRM / Herramientas"  value={session.q_crm} />
+                    <F label="Idiomas"              value={session.q_idiomas} />
+                    <F label="Software"             value={session.q_software} />
+                    <F label="Asociación"           value={session.asociacion} />
+                    <F label="Cursos y certs."      value={session.cursos} span={2} />
+
+                    {session.q_tipo_operaciones && Object.values(session.q_tipo_operaciones).some(Boolean) && (
+                      <div className="col-span-4 flex flex-wrap gap-1.5 pt-1">
+                        <p className="w-full text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1">Tipo de operaciones</p>
+                        {Object.entries(session.q_tipo_operaciones).filter(([,v]) => v).map(([k]) => (
+                          <span key={k} className="text-xs px-2.5 py-0.5 rounded-full bg-[#D9ED92] text-[#1B4332] font-medium">{k.replace(/_/g," ")}</span>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* ── Galardones + cobertura ── */}
+                    <div className="col-span-4 flex items-center gap-2 pt-3 pb-1 border-b border-slate-100">
+                      <Star className="w-3.5 h-3.5 text-[#52B788]" />
+                      <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide">Trayectoria y cobertura</p>
+                    </div>
+
+                    <F label="Galardones" value={session.galardones} span={2} />
+
+                    {(session.estados?.length > 0 || session.municipios?.filter(Boolean).length > 0) ? (
+                      <div className="col-span-2">
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1">Zona de cobertura</p>
+                        <div className="flex flex-wrap gap-1">
+                          {session.estados?.map(e => <span key={e} className="text-xs px-2 py-0.5 rounded-full bg-[#D9ED92] text-[#1B4332] font-medium">{e}</span>)}
+                          {session.municipios?.filter(Boolean).map((m,i) => <span key={i} className="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 font-medium">{m}</span>)}
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="col-span-2">
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1">Zona de cobertura</p>
+                        <button onClick={abrirEdicion} className="inline-flex items-center gap-1 text-[11px] text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full hover:bg-amber-100 font-semibold">✏️ Pendiente</button>
+                      </div>
+                    )}
+
                   </div>
-                )}
-              </div>
-
-              {/* Asociación, cursos, galardones */}
-              <div className="border-t border-slate-100 pt-5">
-                <p className="text-sm font-bold text-[#1B4332] mb-3 flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#52B788]" /> Trayectoria y reconocimientos
-                </p>
-                <div className="space-y-4">
-                  <DataRow icon={Briefcase}    label="Asociación (AMPI / CANACO / CIPS)"  value={session.asociacion} />
-                  <DataRow icon={CheckCircle2} label="Cursos y certificaciones"            value={session.cursos} />
-                  <DataRow icon={Star}         label="Galardones y reconocimientos"        value={session.galardones} />
-                </div>
-              </div>
-
+                );
+              })()}
             </div>
 
-            {/* ── Foto representante ── */}
-            <div className="w-52 flex-shrink-0 flex flex-col items-center justify-center gap-4 p-6 bg-slate-50/60">
-              <p className="text-sm font-bold text-[#1B4332] text-center">Representante</p>
+            {/* ── Foto representante (sidebar compacto) ── */}
+            <div className="w-44 flex-shrink-0 flex flex-col items-center justify-start gap-3 p-5 bg-slate-50/60">
+              <p className="text-xs font-bold text-[#1B4332] text-center uppercase tracking-wide">Representante</p>
               {fotoDoc ? (
-                <img
-                  src={`${API}/kyc/documento/${fotoDoc.doc_id}`}
-                  alt="Foto representante"
-                  className="w-36 h-44 rounded-2xl object-cover border-2 border-[#52B788] shadow-md"
-                />
+                <img src={`${API}/kyc/documento/${fotoDoc.doc_id}`} alt="Foto"
+                  className="w-32 h-40 rounded-xl object-cover border-2 border-[#52B788] shadow" />
               ) : (
-                <div className="w-36 h-44 rounded-2xl bg-white border-2 border-dashed border-slate-300 flex flex-col items-center justify-center gap-2">
-                  <User className="w-12 h-12 text-slate-300" />
+                <div className="w-32 h-40 rounded-xl bg-white border-2 border-dashed border-slate-300 flex flex-col items-center justify-center gap-2">
+                  <User className="w-10 h-10 text-slate-200" />
                   <span className="text-[10px] text-slate-300 text-center leading-tight">foto<br/>pendiente</span>
                 </div>
               )}
               <div className="text-center">
-                <p className="text-sm font-semibold text-slate-700">{session.name || "—"}</p>
-                {session.inmobiliaria_tipo && (
-                  <p className="text-xs text-slate-400 capitalize">{session.inmobiliaria_tipo}</p>
-                )}
+                <p className="text-sm font-semibold text-slate-700 leading-tight">{session.name || "—"}</p>
+                {session.inmobiliaria_tipo && <p className="text-xs text-slate-400 capitalize mt-0.5">{session.inmobiliaria_tipo}</p>}
               </div>
             </div>
 
