@@ -707,9 +707,12 @@ const InmobiliariaDashboardPage = () => {
                 className="w-16 h-16 object-contain rounded-xl bg-white p-1.5 shadow"
               />
             ) : (
-              <div className="w-16 h-16 rounded-xl bg-white/10 border-2 border-dashed border-white/30 flex items-center justify-center">
-                <Briefcase className="w-7 h-7 text-white/40" />
-              </div>
+              <button onClick={() => setActiveTab("documentos")}
+                title="Ir a Documentos para subir tu logo"
+                className="w-16 h-16 rounded-xl bg-white/10 border-2 border-dashed border-white/40 flex flex-col items-center justify-center gap-0.5 hover:bg-white/20 transition-colors">
+                <Upload className="w-5 h-5 text-white/60" />
+                <span className="text-[9px] text-white/60 font-semibold leading-tight text-center">Subir<br/>logo</span>
+              </button>
             )}
           </div>
 
