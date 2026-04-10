@@ -675,15 +675,23 @@ const InmobiliariaDashboardPage = () => {
       session.kyc_status === "approved" ? { emoji: "✅", label: "Verificado PropValu", color: "bg-[#1B4332] text-white border-transparent" } : null,
     ].filter(Boolean);
 
-    const DataRow = ({ icon: Icon, label, value }) => value ? (
+    // Siempre visible — muestra "Pendiente" con botón editar si no hay valor
+    const DataRow = ({ icon: Icon, label, value }) => (
       <div className="flex items-start gap-2.5">
         <Icon className="w-4 h-4 text-[#52B788] flex-shrink-0 mt-0.5" />
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1">
           <p className="text-xs font-bold text-slate-500 mb-0.5">{label}</p>
-          <p className="text-sm text-slate-800 leading-snug">{value}</p>
+          {value ? (
+            <p className="text-sm text-slate-800 leading-snug">{value}</p>
+          ) : (
+            <button onClick={abrirEdicion}
+              className="inline-flex items-center gap-1 text-xs text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full hover:bg-amber-100 transition-colors font-medium">
+              ✏️ Pendiente — completar
+            </button>
+          )}
         </div>
       </div>
-    ) : null;
+    );
 
     return (
       <Card className="bg-white border-0 shadow-sm overflow-hidden">
@@ -738,7 +746,7 @@ const InmobiliariaDashboardPage = () => {
           {/* ── BODY: Datos (izq) + Foto representante (der) ── */}
           <div className="flex gap-0 divide-x divide-slate-100">
 
-            {/* ── Datos ── */}
+            {/* ── Datos — siempre visibles ── */}
             <div className="flex-1 p-6 space-y-6">
 
               {/* Contacto */}
@@ -747,148 +755,116 @@ const InmobiliariaDashboardPage = () => {
                   <User className="w-4 h-4 text-[#52B788]" /> Contacto
                 </p>
                 <div className="grid grid-cols-2 gap-x-8 gap-y-4">
-                  <DataRow icon={User} label="Representante" value={session.name} />
-                  <DataRow icon={Phone} label="Teléfono" value={session.phone} />
+                  <DataRow icon={User}     label="Representante"       value={session.name} />
+                  <DataRow icon={Phone}    label="Teléfono"            value={session.phone} />
                   <div className="col-span-2">
-                    <DataRow icon={Mail} label="Correo electrónico" value={session.email} />
+                    <DataRow icon={Mail}   label="Correo electrónico"  value={session.email} />
                   </div>
-                  {session.q_dir_oficina && (
-                    <div className="col-span-2">
-                      <DataRow icon={MapPin} label="Dirección de oficina" value={session.q_dir_oficina} />
-                    </div>
-                  )}
-                  {session.num_asesores && (
-                    <DataRow icon={Users} label="Número de asesores" value={session.num_asesores} />
-                  )}
-                  {session.empresa_afiliada && (
-                    <DataRow icon={Briefcase} label="Empresa afiliada" value={session.empresa_afiliada} />
-                  )}
+                  <div className="col-span-2">
+                    <DataRow icon={MapPin} label="Dirección de oficina" value={session.q_dir_oficina} />
+                  </div>
+                  {esTitular
+                    ? <DataRow icon={Users}    label="Número de asesores" value={session.num_asesores} />
+                    : <DataRow icon={Briefcase} label="Empresa afiliada"  value={session.empresa_afiliada} />
+                  }
+                  <DataRow icon={MapPin} label="Google Maps"           value={session.q_maps_url ? "Configurado ✓" : null} />
                 </div>
               </div>
 
               {/* Cobertura */}
-              {((session.municipios && session.municipios.length > 0) || (session.estados && session.estados.length > 0)) && (
-                <div className="border-t border-slate-100 pt-4">
-                  <p className="text-sm font-bold text-[#1B4332] mb-3 flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-[#52B788]" /> Zona de cobertura
-                  </p>
-                  {session.estados && session.estados.length > 0 && (
-                    <div className="mb-2">
-                      <p className="text-xs font-bold text-slate-500 mb-1.5">Estados</p>
-                      <div className="flex flex-wrap gap-1.5">
-                        {session.estados.map(e => (
-                          <span key={e} className="text-xs px-2.5 py-1 rounded-full bg-[#D9ED92] text-[#1B4332] font-medium">{e}</span>
-                        ))}
+              <div className="border-t border-slate-100 pt-5">
+                <p className="text-sm font-bold text-[#1B4332] mb-3 flex items-center gap-2">
+                  <MapPin className="w-4 h-4 text-[#52B788]" /> Zona de cobertura
+                </p>
+                {(session.estados?.length > 0 || session.municipios?.filter(Boolean).length > 0) ? (
+                  <div className="space-y-2">
+                    {session.estados?.length > 0 && (
+                      <div>
+                        <p className="text-xs font-bold text-slate-500 mb-1.5">Estados</p>
+                        <div className="flex flex-wrap gap-1.5">
+                          {session.estados.map(e => (
+                            <span key={e} className="text-xs px-2.5 py-1 rounded-full bg-[#D9ED92] text-[#1B4332] font-medium">{e}</span>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  )}
-                  {session.municipios && session.municipios.filter(Boolean).length > 0 && (
-                    <div>
-                      <p className="text-xs font-bold text-slate-500 mb-1.5">Municipios</p>
-                      <div className="flex flex-wrap gap-1.5">
-                        {session.municipios.filter(Boolean).map((m, i) => (
-                          <span key={i} className="text-xs px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 font-medium">{m}</span>
-                        ))}
+                    )}
+                    {session.municipios?.filter(Boolean).length > 0 && (
+                      <div>
+                        <p className="text-xs font-bold text-slate-500 mb-1.5">Municipios</p>
+                        <div className="flex flex-wrap gap-1.5">
+                          {session.municipios.filter(Boolean).map((m, i) => (
+                            <span key={i} className="text-xs px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 font-medium">{m}</span>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </div>
-              )}
+                    )}
+                  </div>
+                ) : (
+                  <button onClick={abrirEdicion}
+                    className="inline-flex items-center gap-1 text-xs text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full hover:bg-amber-100 transition-colors font-medium">
+                    ✏️ Pendiente — completar
+                  </button>
+                )}
+              </div>
 
               {/* Redes sociales */}
-              {(rs.instagram || rs.facebook || rs.whatsapp || rs.website || session.q_maps_url) && (
-                <div className="border-t border-slate-100 pt-4">
-                  <p className="text-sm font-bold text-[#1B4332] mb-3 flex items-center gap-2">
-                    <Globe className="w-4 h-4 text-[#52B788]" /> Redes y contacto digital
-                  </p>
+              <div className="border-t border-slate-100 pt-5">
+                <p className="text-sm font-bold text-[#1B4332] mb-3 flex items-center gap-2">
+                  <Globe className="w-4 h-4 text-[#52B788]" /> Redes y contacto digital
+                </p>
+                {(rs.website || rs.instagram || rs.facebook || rs.whatsapp || session.q_maps_url) ? (
                   <div className="flex flex-wrap gap-3">
-                    {rs.website && (
-                      <a href={rs.website} target="_blank" rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 text-sm text-[#1B4332] hover:text-[#52B788] font-medium transition-colors">
-                        <Globe className="w-4 h-4" />
-                        {rs.website.replace(/^https?:\/\/(www\.)?/, "")}
-                      </a>
-                    )}
-                    {rs.instagram && (
-                      <a href={`https://instagram.com/${rs.instagram.replace("@","")}`} target="_blank" rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 text-sm text-pink-600 hover:text-pink-700 font-medium transition-colors">
-                        <span>📸</span> {rs.instagram}
-                      </a>
-                    )}
-                    {rs.facebook && (
-                      <a href={rs.facebook.startsWith("http") ? rs.facebook : `https://facebook.com/${rs.facebook}`}
-                        target="_blank" rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors">
-                        <span>🔵</span> {rs.facebook.replace(/^https?:\/\/(www\.)?facebook\.com\//, "")}
-                      </a>
-                    )}
-                    {rs.whatsapp && (
-                      <a href={`https://wa.me/${rs.whatsapp.replace(/\D/g,"")}`} target="_blank" rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 text-sm text-green-600 hover:text-green-700 font-medium transition-colors">
-                        <MessageCircle className="w-4 h-4" /> {rs.whatsapp}
-                      </a>
-                    )}
-                    {session.q_maps_url && (
-                      <a href={session.q_maps_url} target="_blank" rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 text-sm text-[#1B4332] hover:text-[#52B788] font-medium transition-colors">
-                        <MapPin className="w-4 h-4" /> Ver en Google Maps
-                      </a>
-                    )}
+                    {rs.website && <a href={rs.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-[#1B4332] hover:text-[#52B788] font-medium transition-colors"><Globe className="w-4 h-4" />{rs.website.replace(/^https?:\/\/(www\.)?/, "")}</a>}
+                    {rs.instagram && <a href={`https://instagram.com/${rs.instagram.replace("@","")}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-pink-600 hover:text-pink-700 font-medium transition-colors"><span>📸</span>{rs.instagram}</a>}
+                    {rs.facebook && <a href={rs.facebook.startsWith("http") ? rs.facebook : `https://facebook.com/${rs.facebook}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors"><span>🔵</span>{rs.facebook.replace(/^https?:\/\/(www\.)?facebook\.com\//, "")}</a>}
+                    {rs.whatsapp && <a href={`https://wa.me/${rs.whatsapp.replace(/\D/g,"")}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-green-600 hover:text-green-700 font-medium transition-colors"><MessageCircle className="w-4 h-4" />{rs.whatsapp}</a>}
+                    {session.q_maps_url && <a href={session.q_maps_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-[#1B4332] hover:text-[#52B788] font-medium transition-colors"><MapPin className="w-4 h-4" />Ver en Google Maps</a>}
                   </div>
-                </div>
-              )}
+                ) : (
+                  <button onClick={abrirEdicion}
+                    className="inline-flex items-center gap-1 text-xs text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full hover:bg-amber-100 transition-colors font-medium">
+                    ✏️ Pendiente — agregar redes sociales
+                  </button>
+                )}
+              </div>
 
-              {/* Perfil de operaciones */}
-              {(session.q_anos_mercado || session.q_cartera_propiedades || session.q_tipo_operaciones || session.q_crm || session.q_idiomas || session.q_software) && (
-                <div className="border-t border-slate-100 pt-4">
-                  <p className="text-sm font-bold text-[#1B4332] mb-3 flex items-center gap-2">
-                    <TrendingUp className="w-4 h-4 text-[#52B788]" /> Perfil operativo
-                  </p>
-                  <div className="grid grid-cols-2 gap-x-8 gap-y-4">
-                    {session.q_anos_mercado && (
-                      <DataRow icon={TrendingUp} label="Años en el mercado" value={session.q_anos_mercado} />
-                    )}
-                    {session.q_cartera_propiedades && (
-                      <DataRow icon={BarChart2} label="Cartera activa" value={session.q_cartera_propiedades} />
-                    )}
-                    {session.q_crm && (
-                      <div className="col-span-2">
-                        <DataRow icon={CheckCircle2} label="CRM / Herramientas" value={session.q_crm} />
-                      </div>
-                    )}
-                    {session.q_idiomas && (
-                      <DataRow icon={Globe} label="Idiomas" value={session.q_idiomas} />
-                    )}
-                    {session.q_software && (
-                      <DataRow icon={BarChart2} label="Software especializado" value={session.q_software} />
-                    )}
+              {/* Perfil operativo */}
+              <div className="border-t border-slate-100 pt-5">
+                <p className="text-sm font-bold text-[#1B4332] mb-3 flex items-center gap-2">
+                  <TrendingUp className="w-4 h-4 text-[#52B788]" /> Perfil operativo
+                </p>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-4">
+                  <DataRow icon={TrendingUp}   label="Años en el mercado"  value={session.q_anos_mercado} />
+                  <DataRow icon={BarChart2}     label="Cartera activa"      value={session.q_cartera_propiedades} />
+                  <div className="col-span-2">
+                    <DataRow icon={CheckCircle2} label="CRM / Herramientas" value={session.q_crm} />
                   </div>
-                  {session.q_tipo_operaciones && Object.values(session.q_tipo_operaciones).some(Boolean) && (
-                    <div className="mt-3">
-                      <p className="text-xs font-bold text-slate-500 mb-2">Tipo de operaciones</p>
-                      <div className="flex flex-wrap gap-1.5">
-                        {Object.entries(session.q_tipo_operaciones)
-                          .filter(([, v]) => v)
-                          .map(([k]) => (
-                            <span key={k} className="text-xs px-2.5 py-1 rounded-full bg-[#D9ED92] text-[#1B4332] font-medium">
-                              {k.replace(/_/g, " ")}
-                            </span>
-                          ))}
-                      </div>
+                  <DataRow icon={Globe}         label="Idiomas"             value={session.q_idiomas} />
+                  <DataRow icon={BarChart2}      label="Software"            value={session.q_software} />
+                </div>
+                {session.q_tipo_operaciones && Object.values(session.q_tipo_operaciones).some(Boolean) && (
+                  <div className="mt-3">
+                    <p className="text-xs font-bold text-slate-500 mb-2">Tipo de operaciones</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {Object.entries(session.q_tipo_operaciones).filter(([,v]) => v).map(([k]) => (
+                        <span key={k} className="text-xs px-2.5 py-1 rounded-full bg-[#D9ED92] text-[#1B4332] font-medium">{k.replace(/_/g," ")}</span>
+                      ))}
                     </div>
-                  )}
-                </div>
-              )}
+                  </div>
+                )}
+              </div>
 
-              {/* Cursos y formación */}
-              {session.cursos && (
-                <div className="border-t border-slate-100 pt-4">
-                  <p className="text-sm font-bold text-[#1B4332] mb-2 flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#52B788]" /> Cursos y certificaciones
-                  </p>
-                  <p className="text-sm text-slate-700 leading-relaxed">{session.cursos}</p>
+              {/* Asociación, cursos, galardones */}
+              <div className="border-t border-slate-100 pt-5">
+                <p className="text-sm font-bold text-[#1B4332] mb-3 flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-[#52B788]" /> Trayectoria y reconocimientos
+                </p>
+                <div className="space-y-4">
+                  <DataRow icon={Briefcase}    label="Asociación (AMPI / CANACO / CIPS)"  value={session.asociacion} />
+                  <DataRow icon={CheckCircle2} label="Cursos y certificaciones"            value={session.cursos} />
+                  <DataRow icon={Star}         label="Galardones y reconocimientos"        value={session.galardones} />
                 </div>
-              )}
+              </div>
 
             </div>
 
