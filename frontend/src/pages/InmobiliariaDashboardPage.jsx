@@ -127,6 +127,10 @@ const InmobiliariaDashboardPage = () => {
   const [kycSubiendo, setKycSubiendo] = useState({});
   const [kycError, setKycError] = useState("");
   const [showDocsModal, setShowDocsModal] = useState(false);
+  const [equipo, setEquipo] = useState(null); // null = no cargado, [] = sin asesores
+  const [editandoPerfil, setEditandoPerfil] = useState(false);
+  const [editForm, setEditForm] = useState({});
+  const [guardando, setGuardando] = useState(false);
 
   const DOCS_REQUERIDOS = [
     { key: "ine_frente",            label: "INE del representante (frente y vuelta)" },
@@ -539,50 +543,88 @@ const InmobiliariaDashboardPage = () => {
     </Card>
   );
 
-  const EquipoTable = () => (
-    <Card className="bg-white border-0 shadow-sm">
-      <CardHeader className="border-b border-slate-100">
-        <CardTitle className="font-['Outfit'] text-lg text-[#1B4332] flex items-center gap-2">
-          <Users className="w-5 h-5" />
-          Equipo de asesores
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="p-0">
-        <div className="overflow-x-auto">
-          <Table>
-            <TableHeader>
-              <TableRow className="bg-slate-50">
-                <TableHead className="font-semibold text-[#1B4332]">Nombre</TableHead>
-                <TableHead className="font-semibold text-[#1B4332]">Email</TableHead>
-                <TableHead className="font-semibold text-[#1B4332]">
-                  Valuaciones del mes
-                </TableHead>
-                <TableHead className="font-semibold text-[#1B4332]">Estado</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {MOCK_ASESORES.map((a) => (
-                <TableRow key={a.id} className="hover:bg-slate-50">
-                  <TableCell className="font-medium text-[#1B4332] text-sm">
-                    {a.nombre}
-                  </TableCell>
-                  <TableCell className="text-sm text-slate-500">{a.email}</TableCell>
-                  <TableCell className="text-sm text-slate-700">{a.valuaciones}</TableCell>
-                  <TableCell>
-                    {a.activo ? (
-                      <Badge className="bg-green-100 text-green-700">Activo</Badge>
-                    ) : (
-                      <Badge className="bg-slate-100 text-slate-500">Inactivo</Badge>
-                    )}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-      </CardContent>
-    </Card>
-  );
+  const EquipoTable = () => {
+    useEffect(() => {
+      if (equipo !== null) return; // ya cargado
+      fetch(`${API}/inmobiliaria/equipo`, { credentials: "include" })
+        .then(r => r.ok ? r.json() : [])
+        .then(data => setEquipo(Array.isArray(data) ? data : []))
+        .catch(() => setEquipo([]));
+    }, []);
+
+    const kycLabel = (s) => ({
+      approved:     { label: "Verificado", cls: "bg-green-100 text-green-700" },
+      under_review: { label: "En revisión", cls: "bg-blue-100 text-blue-700" },
+      pending:      { label: "Pendiente",   cls: "bg-amber-100 text-amber-700" },
+      rejected:     { label: "Rechazado",   cls: "bg-red-100 text-red-700" },
+    }[s] || { label: s || "—", cls: "bg-slate-100 text-slate-500" });
+
+    return (
+      <Card className="bg-white border-0 shadow-sm">
+        <CardHeader className="border-b border-slate-100">
+          <div className="flex items-center justify-between">
+            <CardTitle className="font-['Outfit'] text-lg text-[#1B4332] flex items-center gap-2">
+              <Users className="w-5 h-5" />
+              Equipo de asesores
+              {equipo && equipo.length > 0 && (
+                <span className="text-sm font-normal text-slate-400">({equipo.length})</span>
+              )}
+            </CardTitle>
+          </div>
+        </CardHeader>
+        <CardContent className="p-0">
+          {equipo === null ? (
+            <p className="text-sm text-slate-400 text-center py-10">Cargando equipo…</p>
+          ) : equipo.length === 0 ? (
+            <div className="text-center py-12 px-6">
+              <Users className="w-10 h-10 text-slate-200 mx-auto mb-3" />
+              <p className="text-slate-500 font-medium">Ningún asesor vinculado aún</p>
+              <p className="text-sm text-slate-400 mt-1.5 max-w-sm mx-auto">
+                Los asesores que se registren con el nombre de tu empresa en el campo "Empresa afiliada" aparecerán aquí automáticamente.
+              </p>
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow className="bg-slate-50">
+                    <TableHead className="font-semibold text-[#1B4332]">Nombre</TableHead>
+                    <TableHead className="font-semibold text-[#1B4332]">Contacto</TableHead>
+                    <TableHead className="font-semibold text-[#1B4332] text-center">Val. este mes</TableHead>
+                    <TableHead className="font-semibold text-[#1B4332] text-center">Total</TableHead>
+                    <TableHead className="font-semibold text-[#1B4332]">Estado KYC</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {equipo.map((a) => {
+                    const kyc = kycLabel(a.kyc_status);
+                    return (
+                      <TableRow key={a.user_id} className="hover:bg-slate-50">
+                        <TableCell className="font-medium text-[#1B4332] text-sm">{a.nombre}</TableCell>
+                        <TableCell>
+                          <p className="text-sm text-slate-500">{a.email}</p>
+                          {a.phone && <p className="text-xs text-slate-400">{a.phone}</p>}
+                        </TableCell>
+                        <TableCell className="text-center">
+                          <span className="text-sm font-semibold text-[#1B4332]">{a.valuaciones_mes}</span>
+                        </TableCell>
+                        <TableCell className="text-center">
+                          <span className="text-sm text-slate-500">{a.valuaciones_total}</span>
+                        </TableCell>
+                        <TableCell>
+                          <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${kyc.cls}`}>{kyc.label}</span>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+    );
+  };
 
   const PerfilCard = () => {
     const fotoDoc = kycDocs.find(d => d.doc_tipo === "foto_profesional");
@@ -854,6 +896,75 @@ const InmobiliariaDashboardPage = () => {
         { icon: "🪪", doc: "Credencial de empresa (gafete o carta de asesor activo)" },
         { icon: "🎓", doc: "Certificación de curso (AMPI/CANACO/CIPS/INFONAVIT)" },
       ];
+
+  /* ────────────────────────────────────────────────────────
+     EditarPerfilForm — editar redes sociales y datos de contacto
+  ──────────────────────────────────────────────────────── */
+  const abrirEdicion = () => {
+    const rs = session.redes_sociales || {};
+    setEditForm({
+      phone:       session.phone       || "",
+      q_dir_oficina: session.q_dir_oficina || "",
+      q_maps_url:  session.q_maps_url  || "",
+      asociacion:  session.asociacion  || "",
+      cursos:      session.cursos      || "",
+      galardones:  session.galardones  || "",
+      redes_web:   rs.website    || "",
+      redes_ig:    rs.instagram  || "",
+      redes_wa:    rs.whatsapp   || "",
+      redes_fb:    rs.facebook   || "",
+    });
+    setEditandoPerfil(true);
+  };
+
+  const guardarPerfil = async () => {
+    setGuardando(true);
+    try {
+      const payload = {
+        phone:        editForm.phone,
+        q_dir_oficina: editForm.q_dir_oficina,
+        q_maps_url:   editForm.q_maps_url,
+        asociacion:   editForm.asociacion,
+        cursos:       editForm.cursos,
+        galardones:   editForm.galardones,
+        redes_sociales: {
+          website:   editForm.redes_web   || undefined,
+          instagram: editForm.redes_ig    || undefined,
+          whatsapp:  editForm.redes_wa    || undefined,
+          facebook:  editForm.redes_fb    || undefined,
+        },
+      };
+      const res = await fetch(`${API}/auth/profile`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error("error");
+      const updated = { ...session, ...payload };
+      setSession(updated);
+      localStorage.setItem("inmobiliaria_session", JSON.stringify(updated));
+      setEditandoPerfil(false);
+      toast.success("Perfil actualizado");
+    } catch {
+      toast.error("No se pudo guardar");
+    } finally {
+      setGuardando(false);
+    }
+  };
+
+  const EF = ({ label, field, placeholder, type = "text" }) => (
+    <div>
+      <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{label}</label>
+      <input
+        type={type}
+        value={editForm[field] || ""}
+        onChange={e => setEditForm(f => ({ ...f, [field]: e.target.value }))}
+        placeholder={placeholder}
+        className="mt-1 w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-[#52B788] bg-[#F8FAF9]"
+      />
+    </div>
+  );
 
   /* ────────────────────────────────────────────────────────
      ReseñasTab — reseñas de clientes + respuestas + Google Maps
@@ -1232,7 +1343,65 @@ const InmobiliariaDashboardPage = () => {
         {activeTab === "documentos" && <DocumentosTab />}
 
         {/* Tab: Perfil */}
-        {activeTab === "perfil" && <PerfilCard />}
+        {activeTab === "perfil" && (
+          <div className="space-y-4">
+            <div className="flex justify-end">
+              <button
+                onClick={editandoPerfil ? () => setEditandoPerfil(false) : abrirEdicion}
+                className="text-sm font-semibold text-[#1B4332] hover:text-[#52B788] transition-colors flex items-center gap-1.5"
+              >
+                {editandoPerfil ? "✕ Cancelar" : "✏️ Editar perfil"}
+              </button>
+            </div>
+
+            {editandoPerfil && (
+              <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-5">
+                <p className="font-['Outfit'] font-semibold text-[#1B4332] text-base">Editar datos de perfil</p>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <EF label="Teléfono" field="phone" placeholder="55 1234 5678" />
+                  <EF label="Dirección de oficina" field="q_dir_oficina" placeholder="Av. López Mateos 123, Zapopan" />
+                  <EF label="Google Maps URL" field="q_maps_url" placeholder="https://maps.google.com/..." />
+                  <EF label="Asociación (AMPI, CANACO...)" field="asociacion" placeholder="AMPI Jalisco" />
+                  <div className="col-span-2">
+                    <EF label="Cursos y certificaciones" field="cursos" placeholder="Certificado AMPI 2023, Curso INFONAVIT..." />
+                  </div>
+                  <div className="col-span-2">
+                    <EF label="Galardones y reconocimientos" field="galardones" placeholder="Premio AMPI 2023, Mejor Agente del Año..." />
+                  </div>
+                </div>
+
+                <div>
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3">Redes sociales</p>
+                  <div className="grid grid-cols-2 gap-3">
+                    <EF label="Sitio web" field="redes_web" placeholder="https://miinmobiliaria.mx" />
+                    <EF label="Instagram" field="redes_ig" placeholder="@miinmobiliaria" />
+                    <EF label="WhatsApp" field="redes_wa" placeholder="33 1234 5678" />
+                    <EF label="Facebook" field="redes_fb" placeholder="/miinmobiliaria o URL" />
+                  </div>
+                </div>
+
+                <div className="flex justify-end gap-3 pt-2">
+                  <button
+                    onClick={() => setEditandoPerfil(false)}
+                    className="text-sm text-slate-500 hover:text-slate-700 px-4 py-2 rounded-lg transition-colors"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    onClick={guardarPerfil}
+                    disabled={guardando}
+                    className="bg-[#1B4332] text-white text-sm font-semibold px-5 py-2 rounded-xl hover:bg-[#2D6A4F] disabled:opacity-50 transition-colors"
+                  >
+                    {guardando ? "Guardando…" : "Guardar cambios"}
+                  </button>
+                </div>
+              </div>
+            )}
+
+            <PerfilCard />
+          </div>
+        )}
 
         {/* Tab: Reseñas */}
         {activeTab === "resenas" && <ReseñasTab />}

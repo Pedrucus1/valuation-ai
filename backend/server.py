@@ -455,6 +455,8 @@ async def update_profile(request: Request):
         "q_tiempo_entrega", "q_seguro_rc", "q_unidad_valuacion",
         "q_software", "q_idiomas",
         "services", "servicios_otros", "peritajes_tipos", "peritajes_otros",
+        "redes_sociales", "galardones", "asociacion", "cursos",
+        "q_anos_mercado", "q_tipo_operaciones", "q_cartera_propiedades", "q_crm",
     }
     update = {k: v for k, v in body.items() if k in allowed}
     if not update:
@@ -2988,6 +2990,47 @@ async def responder_resena(tipo: str, perfil_id: str, resena_id: str, request: R
     if result.matched_count == 0:
         raise HTTPException(404, "Reseña no encontrada")
     return {"ok": True}
+
+
+@api_router.get("/inmobiliaria/equipo")
+async def get_equipo_inmobiliaria(request: Request):
+    """Asesores vinculados al titular autenticado por empresa_afiliada o company_name."""
+    user = await require_auth(request)
+    if user.role != "realtor":
+        raise HTTPException(403, "Solo para inmobiliarias")
+
+    company = user.company_name or user.name or ""
+    if not company:
+        return []
+
+    # Buscar asesores que pusieron esta empresa en empresa_afiliada
+    asesores = await db.users.find(
+        {"role": "realtor", "inmobiliaria_tipo": "asesor", "empresa_afiliada": company},
+        {"_id": 0, "hashed_password": 0, "session_token": 0}
+    ).to_list(100)
+
+    resultado = []
+    for a in asesores:
+        uid = a.get("user_id") or a.get("email", "")
+        total_val = await db.valuations.count_documents({"user_id": uid})
+        mes_actual = datetime.now(timezone.utc).strftime("%Y-%m")
+        val_mes = await db.valuations.count_documents({
+            "user_id": uid,
+            "created_at": {"$regex": f"^{mes_actual}"}
+        })
+        resultado.append({
+            "user_id": uid,
+            "nombre": a.get("name", ""),
+            "email": a.get("email", ""),
+            "phone": a.get("phone", ""),
+            "kyc_status": a.get("kyc_status", "pending"),
+            "plan": a.get("plan"),
+            "valuaciones_total": total_val,
+            "valuaciones_mes": val_mes,
+            "activo": a.get("kyc_status") in ("approved", "under_review"),
+        })
+
+    return resultado
 
 
 # Include router
