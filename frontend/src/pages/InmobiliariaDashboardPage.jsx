@@ -243,10 +243,12 @@ const InmobiliariaDashboardPage = () => {
   /* ── Tabs ── */
   const docsSubidos = DOCS_REQUERIDOS.filter((d) => docSubido(d.key)).length;
 
+  const esTitular = session.inmobiliaria_tipo === "titular" || !session.inmobiliaria_tipo;
+
   const TABS = [
     { id: "resumen",      label: "Resumen" },
     { id: "valuaciones",  label: "Valuaciones" },
-    { id: "equipo",       label: "Equipo" },
+    ...(esTitular ? [{ id: "equipo", label: "👥 Equipo" }] : []),
     { id: "documentos",   label: "Documentos", badge: docsSubidos < DOCS_REQUERIDOS.length ? DOCS_REQUERIDOS.length - docsSubidos : null },
     { id: "perfil",       label: "Perfil" },
     { id: "resenas",      label: "Reseñas" },
@@ -661,8 +663,8 @@ const InmobiliariaDashboardPage = () => {
       <div className="flex items-start gap-2.5">
         <Icon className="w-4 h-4 text-[#52B788] flex-shrink-0 mt-0.5" />
         <div className="min-w-0">
-          <p className="text-[10px] text-slate-400 uppercase tracking-wide leading-none mb-0.5">{label}</p>
-          <p className="text-sm text-slate-700 leading-snug">{value}</p>
+          <p className="text-xs font-bold text-slate-500 mb-0.5">{label}</p>
+          <p className="text-sm text-slate-800 leading-snug">{value}</p>
         </div>
       </div>
     ) : null;
@@ -721,12 +723,14 @@ const InmobiliariaDashboardPage = () => {
           <div className="flex gap-0 divide-x divide-slate-100">
 
             {/* ── Datos ── */}
-            <div className="flex-1 p-6 space-y-5">
+            <div className="flex-1 p-6 space-y-6">
 
               {/* Contacto */}
               <div>
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3">Contacto</p>
-                <div className="grid grid-cols-2 gap-x-8 gap-y-3">
+                <p className="text-sm font-bold text-[#1B4332] mb-3 flex items-center gap-2">
+                  <User className="w-4 h-4 text-[#52B788]" /> Contacto
+                </p>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-4">
                   <DataRow icon={User} label="Representante" value={session.name} />
                   <DataRow icon={Phone} label="Teléfono" value={session.phone} />
                   <div className="col-span-2">
@@ -746,10 +750,41 @@ const InmobiliariaDashboardPage = () => {
                 </div>
               </div>
 
+              {/* Cobertura */}
+              {((session.municipios && session.municipios.length > 0) || (session.estados && session.estados.length > 0)) && (
+                <div className="border-t border-slate-100 pt-4">
+                  <p className="text-sm font-bold text-[#1B4332] mb-3 flex items-center gap-2">
+                    <MapPin className="w-4 h-4 text-[#52B788]" /> Zona de cobertura
+                  </p>
+                  {session.estados && session.estados.length > 0 && (
+                    <div className="mb-2">
+                      <p className="text-xs font-bold text-slate-500 mb-1.5">Estados</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {session.estados.map(e => (
+                          <span key={e} className="text-xs px-2.5 py-1 rounded-full bg-[#D9ED92] text-[#1B4332] font-medium">{e}</span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {session.municipios && session.municipios.filter(Boolean).length > 0 && (
+                    <div>
+                      <p className="text-xs font-bold text-slate-500 mb-1.5">Municipios</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {session.municipios.filter(Boolean).map((m, i) => (
+                          <span key={i} className="text-xs px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 font-medium">{m}</span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
               {/* Redes sociales */}
               {(rs.instagram || rs.facebook || rs.whatsapp || rs.website || session.q_maps_url) && (
                 <div className="border-t border-slate-100 pt-4">
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3">Redes y contacto digital</p>
+                  <p className="text-sm font-bold text-[#1B4332] mb-3 flex items-center gap-2">
+                    <Globe className="w-4 h-4 text-[#52B788]" /> Redes y contacto digital
+                  </p>
                   <div className="flex flex-wrap gap-3">
                     {rs.website && (
                       <a href={rs.website} target="_blank" rel="noopener noreferrer"
@@ -790,8 +825,10 @@ const InmobiliariaDashboardPage = () => {
               {/* Perfil de operaciones */}
               {(session.q_anos_mercado || session.q_cartera_propiedades || session.q_tipo_operaciones || session.q_crm || session.q_idiomas || session.q_software) && (
                 <div className="border-t border-slate-100 pt-4">
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3">Perfil operativo</p>
-                  <div className="grid grid-cols-2 gap-x-8 gap-y-3">
+                  <p className="text-sm font-bold text-[#1B4332] mb-3 flex items-center gap-2">
+                    <TrendingUp className="w-4 h-4 text-[#52B788]" /> Perfil operativo
+                  </p>
+                  <div className="grid grid-cols-2 gap-x-8 gap-y-4">
                     {session.q_anos_mercado && (
                       <DataRow icon={TrendingUp} label="Años en el mercado" value={session.q_anos_mercado} />
                     )}
@@ -812,7 +849,7 @@ const InmobiliariaDashboardPage = () => {
                   </div>
                   {session.q_tipo_operaciones && Object.values(session.q_tipo_operaciones).some(Boolean) && (
                     <div className="mt-3">
-                      <p className="text-[10px] text-slate-400 uppercase tracking-wide mb-2">Tipo de operaciones</p>
+                      <p className="text-xs font-bold text-slate-500 mb-2">Tipo de operaciones</p>
                       <div className="flex flex-wrap gap-1.5">
                         {Object.entries(session.q_tipo_operaciones)
                           .filter(([, v]) => v)
@@ -830,7 +867,9 @@ const InmobiliariaDashboardPage = () => {
               {/* Cursos y formación */}
               {session.cursos && (
                 <div className="border-t border-slate-100 pt-4">
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Cursos y certificaciones</p>
+                  <p className="text-sm font-bold text-[#1B4332] mb-2 flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#52B788]" /> Cursos y certificaciones
+                  </p>
                   <p className="text-sm text-slate-700 leading-relaxed">{session.cursos}</p>
                 </div>
               )}
@@ -839,7 +878,7 @@ const InmobiliariaDashboardPage = () => {
 
             {/* ── Foto representante ── */}
             <div className="w-52 flex-shrink-0 flex flex-col items-center justify-center gap-4 p-6 bg-slate-50/60">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider text-center">Representante</p>
+              <p className="text-sm font-bold text-[#1B4332] text-center">Representante</p>
               {fotoDoc ? (
                 <img
                   src={`${API}/kyc/documento/${fotoDoc.doc_id}`}
