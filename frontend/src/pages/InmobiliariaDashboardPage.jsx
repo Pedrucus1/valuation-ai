@@ -255,16 +255,16 @@ const InmobiliariaDashboardPage = () => {
   ];
 
   const DocumentosTab = () => (
-    <Card className="bg-white border-0 shadow-sm">
-      <CardHeader className="border-b border-slate-100">
-        <CardTitle className="font-['Outfit'] text-lg text-[#1B4332] flex items-center gap-2">
-          <ShieldCheck className="w-5 h-5" />
-          Documentos de verificación
-        </CardTitle>
-        <p className="text-xs text-slate-500 mt-1">
-          Sube los documentos requeridos para que el equipo PropValu verifique tu empresa y puedas operar con tu plan completo.
-        </p>
-      </CardHeader>
+    <Card className="bg-white border-0 shadow-sm overflow-hidden">
+      <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] px-5 py-4 flex items-center gap-2">
+        <ShieldCheck className="w-4 h-4 text-[#D9ED92]" />
+        <div>
+          <p className="font-['Outfit'] font-bold text-white text-base">Documentos de verificación</p>
+          <p className="text-xs text-[#D9ED92]/70 mt-0.5">
+            Sube los documentos requeridos para verificar tu empresa.
+          </p>
+        </div>
+      </div>
       <CardContent className="p-6 space-y-4">
         {kycError && (
           <div className="bg-red-50 border border-red-100 rounded-xl px-4 py-3 text-sm text-red-700">{kycError}</div>
@@ -453,32 +453,24 @@ const InmobiliariaDashboardPage = () => {
   };
 
   const CreditsCta = () => (
-    <Card className="bg-white border-0 shadow-sm mb-6">
-      <CardContent className="p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div className="flex items-center gap-3">
-          {creditsLow ? (
-            <div className="w-10 h-10 rounded-lg bg-red-50 flex items-center justify-center shrink-0">
-              <AlertCircle className="w-5 h-5 text-red-500" />
-            </div>
-          ) : (
-            <div className="w-10 h-10 rounded-lg bg-[#D9ED92]/40 flex items-center justify-center shrink-0">
-              <CreditCard className="w-5 h-5 text-[#1B4332]" />
-            </div>
-          )}
+    <Card
+      className="border-0 shadow-sm mb-6 text-white overflow-hidden"
+      style={{ background: creditsLow ? "linear-gradient(135deg, #7f1d1d, #b91c1c)" : "linear-gradient(135deg, #1B4332, #2D6A4F)" }}
+    >
+      <CardContent className="p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 rounded-lg bg-white/20 flex items-center justify-center">
+            {creditsLow
+              ? <AlertCircle className="w-6 h-6" />
+              : <CreditCard className="w-6 h-6" />}
+          </div>
           <div>
-            {creditsLow ? (
-              <p className="text-sm font-semibold text-red-700">
-                Créditos bajos — recarga tu plan
-              </p>
-            ) : (
-              <p className="text-sm font-semibold text-[#1B4332]">
-                Tienes {credits} crédito{credits !== 1 ? "s" : ""} disponible
-                {credits !== 1 ? "s" : ""}
-              </p>
-            )}
-            <p className="text-xs text-slate-500">
-              Cada valuación consume 1 crédito
-            </p>
+            <h3 className="font-['Outfit'] text-lg font-semibold">
+              {creditsLow
+                ? "Créditos bajos — recarga tu plan"
+                : `Tienes ${credits} crédito${credits !== 1 ? "s" : ""} disponible${credits !== 1 ? "s" : ""}`}
+            </h3>
+            <p className="text-white/75 text-sm">Cada valuación consume 1 crédito</p>
           </div>
         </div>
         <Button
@@ -493,12 +485,10 @@ const InmobiliariaDashboardPage = () => {
   );
 
   const ValuacionesTable = () => (
-    <Card className="bg-white border-0 shadow-sm">
-      <CardHeader className="border-b border-slate-100">
-        <CardTitle className="font-['Outfit'] text-lg text-[#1B4332]">
-          Valuaciones recientes
-        </CardTitle>
-      </CardHeader>
+    <Card className="bg-white border-0 shadow-sm overflow-hidden">
+      <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] px-5 py-4">
+        <p className="font-['Outfit'] font-bold text-white text-base">Valuaciones recientes</p>
+      </div>
       <CardContent className="p-0">
         <div className="overflow-x-auto">
           <Table>
@@ -562,18 +552,16 @@ const InmobiliariaDashboardPage = () => {
     }[s] || { label: s || "—", cls: "bg-slate-100 text-slate-500" });
 
     return (
-      <Card className="bg-white border-0 shadow-sm">
-        <CardHeader className="border-b border-slate-100">
-          <div className="flex items-center justify-between">
-            <CardTitle className="font-['Outfit'] text-lg text-[#1B4332] flex items-center gap-2">
-              <Users className="w-5 h-5" />
-              Equipo de asesores
-              {equipo && equipo.length > 0 && (
-                <span className="text-sm font-normal text-slate-400">({equipo.length})</span>
-              )}
-            </CardTitle>
-          </div>
-        </CardHeader>
+      <Card className="bg-white border-0 shadow-sm overflow-hidden">
+        <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] px-5 py-4 flex items-center gap-2">
+          <Users className="w-4 h-4 text-[#D9ED92]" />
+          <p className="font-['Outfit'] font-bold text-white text-base">
+            Equipo de asesores
+            {equipo && equipo.length > 0 && (
+              <span className="text-sm font-normal text-[#D9ED92]/70 ml-1.5">({equipo.length})</span>
+            )}
+          </p>
+        </div>
         <CardContent className="p-0">
           {equipo === null ? (
             <p className="text-sm text-slate-400 text-center py-10">Cargando equipo…</p>
@@ -1084,13 +1072,11 @@ const InmobiliariaDashboardPage = () => {
         </Card>
 
         {/* Resumen de calificaciones */}
-        <Card className="bg-white border-0 shadow-sm">
-          <CardHeader className="border-b border-slate-100 pb-4">
-            <CardTitle className="font-['Outfit'] text-lg text-[#1B4332] flex items-center gap-2">
-              <Star className="w-5 h-5 fill-amber-400 text-amber-400" />
-              Reseñas de clientes
-            </CardTitle>
-          </CardHeader>
+        <Card className="bg-white border-0 shadow-sm overflow-hidden">
+          <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] px-5 py-4 flex items-center gap-2">
+            <Star className="w-4 h-4 text-amber-300 fill-amber-300" />
+            <p className="font-['Outfit'] font-bold text-white text-base">Reseñas de clientes</p>
+          </div>
           <CardContent className="p-5">
             {loading ? (
               <p className="text-sm text-slate-400 text-center py-8">Cargando reseñas…</p>
@@ -1329,10 +1315,7 @@ const InmobiliariaDashboardPage = () => {
         {/* Tab: Valuaciones */}
         {activeTab === "valuaciones" && (
           <>
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="font-['Outfit'] text-xl font-semibold text-[#1B4332]">
-                Valuaciones del portafolio
-              </h2>
+            <div className="flex items-center justify-end mb-4">
               <Button
                 onClick={() => navigate("/valuar")}
                 className="bg-[#52B788] hover:bg-[#40916C] text-white"
@@ -1346,16 +1329,7 @@ const InmobiliariaDashboardPage = () => {
         )}
 
         {/* Tab: Equipo */}
-        {activeTab === "equipo" && (
-          <>
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="font-['Outfit'] text-xl font-semibold text-[#1B4332]">
-                Equipo
-              </h2>
-            </div>
-            <EquipoTable />
-          </>
-        )}
+        {activeTab === "equipo" && <EquipoTable />}
 
         {/* Tab: Documentos */}
         {activeTab === "documentos" && <DocumentosTab />}
