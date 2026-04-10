@@ -131,16 +131,40 @@ const InmobiliariaDashboardPage = () => {
   const [editandoPerfil, setEditandoPerfil] = useState(false);
   const [editForm, setEditForm] = useState({});
   const [guardando, setGuardando] = useState(false);
+  const [previewDoc, setPreviewDoc] = useState(null); // { url, type, filename }
 
   const DOCS_REQUERIDOS = [
     { key: "ine_frente",            label: "INE del representante (frente y vuelta)" },
-    { key: "foto_profesional",      label: "Foto profesional" },
+    { key: "foto_profesional",      label: "Foto profesional del representante" },
     { key: "comprobante_domicilio", label: "Comprobante de domicilio del negocio" },
-    { key: "cert_asociacion",       label: "Certificado de asociación inmobiliaria (AMPI/CANACO/CIPS)" },
+    { key: "cert_asociacion",       label: "Certificado de asociación inmobiliaria" },
     { key: "opinion_fiscal",        label: "Opinión de cumplimiento fiscal (SAT)" },
     { key: "constancia_rfc",        label: "Constancia de situación fiscal (RFC)" },
-    { key: "logo_empresa",          label: "Logo de empresa (opcional)" },
+    { key: "firma_representante",   label: "Firma autógrafa del representante legal" },
+    { key: "logo_empresa",          label: "Logo de empresa" },
   ];
+
+  const DOC_HINTS = {
+    ine_frente:            "Identificación oficial vigente del representante legal. Si incluye ambas caras en un solo archivo, súbelo aquí.",
+    foto_profesional:      "Fotografía reciente de frente, fondo neutro, vestimenta formal. Aparecerá en tu perfil público del directorio.",
+    comprobante_domicilio: "Recibo de luz, agua, internet o renta con la dirección del negocio (no mayor a 3 meses). También se acepta recibo de celular a nombre de la empresa.",
+    cert_asociacion:       "Credencial o carta de membresía activa en AMPI, CANACO, CIPS u otra asociación inmobiliaria reconocida.",
+    opinion_fiscal:        "Documento descargable desde el portal del SAT que acredita que tu empresa está al corriente en sus obligaciones fiscales.",
+    constancia_rfc:        "Constancia de situación fiscal actualizada del SAT (formato PDF o imagen). Incluye el RFC y régimen fiscal.",
+    firma_representante:   "Escaneo o fotografía de la firma manuscrita del representante legal sobre papel blanco. Aparecerá en documentos y reportes.",
+    logo_empresa:          "Logotipo de la empresa en formato PNG o JPG, fondo transparente o blanco. Aparecerá en tu perfil del directorio.",
+  };
+
+  const DOC_LABELS = {
+    ine_frente:            "INE del representante (frente y vuelta)",
+    foto_profesional:      "Foto profesional del representante",
+    comprobante_domicilio: "Comprobante de domicilio del negocio",
+    cert_asociacion:       "Certificado de asociación inmobiliaria (AMPI/CANACO/CIPS)",
+    opinion_fiscal:        "Opinión de cumplimiento fiscal (SAT)",
+    constancia_rfc:        "Constancia de situación fiscal (RFC)",
+    firma_representante:   "Firma autógrafa del representante legal",
+    logo_empresa:          "Logo de empresa (opcional)",
+  };
 
   const cargarDocs = () => {
     fetch(`${API}/kyc/mis-documentos`, { credentials: "include" })
@@ -254,69 +278,123 @@ const InmobiliariaDashboardPage = () => {
     { id: "resenas",      label: "Reseñas" },
   ];
 
-  const DocumentosTab = () => (
-    <Card className="bg-white border-0 shadow-sm overflow-hidden">
-      <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] px-5 py-4 flex items-center gap-2">
-        <ShieldCheck className="w-4 h-4 text-[#D9ED92]" />
-        <div>
-          <p className="font-['Outfit'] font-bold text-white text-base">Documentos de verificación</p>
-          <p className="text-xs text-[#D9ED92]/70 mt-0.5">
-            Sube los documentos requeridos para verificar tu empresa.
-          </p>
-        </div>
-      </div>
-      <CardContent className="p-6 space-y-4">
-        {kycError && (
-          <div className="bg-red-50 border border-red-100 rounded-xl px-4 py-3 text-sm text-red-700">{kycError}</div>
-        )}
-        <div className="grid sm:grid-cols-2 gap-4">
-          {DOCS_REQUERIDOS.map(({ key, label }) => {
-            const doc = docSubido(key);
-            const subiendo = kycSubiendo[key];
-            return (
-              <div key={key} className={`rounded-xl border p-4 ${doc ? "border-[#52B788]/40 bg-[#F0FAF5]" : "border-slate-200 bg-white"}`}>
-                <div className="flex items-start justify-between gap-2 mb-3">
-                  <div className="flex items-center gap-2">
-                    <FileText className={`w-4 h-4 ${doc ? "text-[#52B788]" : "text-slate-400"}`} />
-                    <span className="text-sm font-medium text-[#1B4332]">{label}</span>
-                  </div>
-                  {doc
-                    ? <span className="flex items-center gap-1 text-[11px] font-semibold text-green-600"><CheckCircle2 className="w-3.5 h-3.5" /> Subido</span>
-                    : <span className="flex items-center gap-1 text-[11px] font-semibold text-yellow-600"><Clock className="w-3.5 h-3.5" /> Pendiente</span>
-                  }
-                </div>
-                {doc && (
-                  <p className="text-[11px] text-slate-400 mb-3 truncate">{doc.filename}</p>
-                )}
-                <label className={`flex items-center justify-center gap-2 w-full py-2 rounded-lg text-xs font-semibold cursor-pointer transition-colors ${
-                  subiendo ? "bg-slate-100 text-slate-400" :
-                  doc ? "bg-white border border-[#52B788]/40 text-[#52B788] hover:bg-[#52B788]/10" :
-                  "bg-[#1B4332] text-white hover:bg-[#163828]"
-                }`}>
-                  <Upload className="w-3.5 h-3.5" />
-                  {subiendo ? "Subiendo..." : doc ? "Reemplazar" : "Subir archivo"}
-                  <input
-                    type="file"
-                    accept=".pdf,.jpg,.jpeg,.png"
-                    className="hidden"
-                    disabled={subiendo}
-                    onChange={(e) => subirDocumento(key, e.target.files?.[0])}
-                  />
-                </label>
+  const DocumentosTab = () => {
+    const docsSubidosCount = DOCS_REQUERIDOS.filter(({ key }) => docSubido(key)).length;
+    const pct = Math.round((docsSubidosCount / DOCS_REQUERIDOS.length) * 100);
+    return (
+      <div className="space-y-4">
+
+        {/* Hero: progreso */}
+        <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] rounded-2xl px-5 py-4">
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 flex-shrink-0">
+              <ShieldCheck className="w-6 h-6 text-[#D9ED92]" />
+              <div>
+                <p className="font-['Outfit'] font-bold text-white text-sm leading-tight">
+                  {docsSubidosCount === DOCS_REQUERIDOS.length ? "Expediente completo ✅" : "Documentos de verificación"}
+                </p>
+                <p className="text-xs text-[#D9ED92]/80 mt-0.5">
+                  {docsSubidosCount === DOCS_REQUERIDOS.length
+                    ? "El equipo PropValu revisará tu expediente"
+                    : `Faltan ${DOCS_REQUERIDOS.length - docsSubidosCount} documento${DOCS_REQUERIDOS.length - docsSubidosCount !== 1 ? "s" : ""}`}
+                </p>
               </div>
-            );
-          })}
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex justify-between text-xs text-[#D9ED92]/70 mb-1">
+                <span>Progreso</span>
+                <span className="font-bold text-[#D9ED92]">{docsSubidosCount} / {DOCS_REQUERIDOS.length}</span>
+              </div>
+              <div className="w-full bg-white/20 rounded-full h-2.5">
+                <div className={`h-2.5 rounded-full transition-all duration-500 ${docsSubidosCount === DOCS_REQUERIDOS.length ? "bg-[#D9ED92]" : "bg-[#52B788]"}`}
+                  style={{ width: `${pct}%` }} />
+              </div>
+            </div>
+          </div>
         </div>
-        <p className="text-[11px] text-slate-400">Formatos aceptados: PDF, JPG, PNG · Máximo 5 MB por archivo</p>
-        {docsSubidos === DOCS_REQUERIDOS.length && (
-          <div className="bg-green-50 border border-green-100 rounded-xl px-4 py-3 text-sm text-green-700 flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4" />
-            Todos los documentos subidos — el equipo PropValu los revisará pronto.
+
+        {/* Lista de documentos */}
+        <Card className="bg-white border-0 shadow-sm overflow-hidden">
+          <CardContent className="p-4 space-y-2">
+            {kycError && (
+              <div className="bg-red-50 border border-red-100 rounded-xl px-4 py-3 text-sm text-red-700 mb-2">{kycError}</div>
+            )}
+            {DOCS_REQUERIDOS.map(({ key, label }) => {
+              const doc = docSubido(key);
+              const subiendo = kycSubiendo[key];
+              const hint = DOC_HINTS[key];
+              const isOptional = key === "logo_empresa";
+              const isImg = doc && (doc.content_type?.startsWith("image/") || /\.(jpg|jpeg|png|webp)$/i.test(doc.filename || ""));
+              const docUrl = doc ? `${API}/kyc/documento/${doc.doc_id}` : null;
+
+              return (
+                <div key={key} className={`flex items-center gap-3 p-3 rounded-xl transition-colors ${doc ? "bg-[#F0FAF5] border border-[#B7E4C7]" : "bg-white border border-slate-100"}`}>
+                  {/* Thumbnail / status */}
+                  {doc ? (
+                    <button onClick={() => setPreviewDoc({ url: docUrl, type: doc.content_type, filename: doc.filename })}
+                      className="group relative w-12 h-12 rounded-lg overflow-hidden border-2 border-[#52B788] bg-white flex-shrink-0 flex items-center justify-center hover:border-[#1B4332] transition-colors">
+                      {isImg
+                        ? <img src={docUrl} alt={label} className="w-full h-full object-cover" onError={e => { e.target.style.display = "none"; }} />
+                        : <FileText className="w-5 h-5 text-[#52B788]" />}
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 flex items-center justify-center transition-colors">
+                        <span className="text-white text-[10px] font-bold opacity-0 group-hover:opacity-100">Ver</span>
+                      </div>
+                    </button>
+                  ) : (
+                    <div className="w-12 h-12 rounded-lg border-2 border-dashed border-slate-200 flex-shrink-0 flex items-center justify-center bg-slate-50">
+                      <Clock className="w-4 h-4 text-slate-300" />
+                    </div>
+                  )}
+
+                  {/* Info */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <p className={`text-sm font-semibold ${doc ? "text-[#1B4332]" : "text-slate-600"}`}>{label}</p>
+                      {isOptional && <span className="text-xs text-slate-400 italic">(opcional)</span>}
+                    </div>
+                    {doc
+                      ? <p className="text-xs text-[#52B788] font-medium mt-0.5">
+                          ✓ {new Date(doc.subido_at).toLocaleDateString("es-MX")} {doc.size_bytes ? `· ${(doc.size_bytes / 1024).toFixed(0)} KB` : ""}
+                        </p>
+                      : hint && <p className="text-xs text-slate-400 mt-0.5 line-clamp-2">{hint}</p>
+                    }
+                  </div>
+
+                  {/* Upload */}
+                  <label className={`flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-lg cursor-pointer transition-colors flex-shrink-0 ${
+                    doc ? "border border-[#52B788] text-[#1B4332] hover:bg-[#52B788]/10" : "bg-[#1B4332] text-white hover:bg-[#2D6A4F]"
+                  } ${subiendo ? "opacity-50 cursor-not-allowed" : ""}`}>
+                    <Upload className="w-3.5 h-3.5" />
+                    {subiendo ? "Subiendo…" : doc ? "Cambiar" : "Subir"}
+                    <input type="file" accept=".pdf,.jpg,.jpeg,.png,.webp" className="hidden"
+                      disabled={subiendo} onChange={e => subirDocumento(key, e.target.files?.[0])} />
+                  </label>
+                </div>
+              );
+            })}
+            <p className="text-[11px] text-slate-400 pt-1">Formatos aceptados: PDF, JPG, PNG, WEBP · Máximo 10 MB por archivo</p>
+          </CardContent>
+        </Card>
+
+        {/* Lightbox */}
+        {previewDoc && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
+            onClick={() => setPreviewDoc(null)}>
+            <div className="relative max-w-3xl w-full" onClick={e => e.stopPropagation()}>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-white text-sm font-medium truncate">{previewDoc.filename}</span>
+                <button onClick={() => setPreviewDoc(null)} className="text-white/70 hover:text-white ml-4 flex-shrink-0">✕</button>
+              </div>
+              {previewDoc.type?.startsWith("image/") || /\.(jpg|jpeg|png|webp)$/i.test(previewDoc.filename || "")
+                ? <img src={previewDoc.url} alt={previewDoc.filename} className="max-h-[80vh] object-contain rounded-lg mx-auto" />
+                : <iframe src={previewDoc.url} title={previewDoc.filename} className="w-full h-[80vh] rounded-lg bg-white" />
+              }
+            </div>
           </div>
         )}
-      </CardContent>
-    </Card>
-  );
+      </div>
+    );
+  };
 
   /* ── Sub-sections ── */
 

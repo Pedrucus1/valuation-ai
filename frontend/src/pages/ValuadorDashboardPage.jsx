@@ -37,6 +37,8 @@ import {
   Globe,
   Briefcase,
   Award,
+  MessageCircle,
+  ExternalLink,
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -199,7 +201,7 @@ const ValuadorDashboardPage = () => {
     { id: "resumen",     label: "Resumen" },
     { id: "valuaciones", label: "Valuaciones" },
     { id: "perfil",      label: "Perfil" },
-    { id: "expediente",  label: "Mi expediente", badge: !docsCompletos && session?.kyc_status !== "approved" },
+    { id: "expediente",  label: "Documentos", badge: !docsCompletos && session?.kyc_status !== "approved" },
   ];
 
   const subirDocumento = async (docTipo, rawFile) => {
@@ -804,10 +806,12 @@ const ValuadorDashboardPage = () => {
 
   const openEdit = (section) => {
     const d = {};
+    const rs = session.redes_sociales || {};
     if (section === "contacto")   Object.assign(d, { name: session.name||"", phone: session.phone||"", q_experiencia: session.q_experiencia||"" });
     if (section === "cedulas")    Object.assign(d, { profesion_base: session.profesion_base||"", num_cedula_base: session.num_cedula_base||"", num_cedula_valuador: session.num_cedula_valuador||"" });
     if (section === "ubicacion")  Object.assign(d, { estado: session.estado||"", q_dir_oficina: session.q_dir_oficina||"", q_maps_url: session.q_maps_url||"", municipios: session.municipios?.join(", ")||"" });
     if (section === "profesional") Object.assign(d, { q_equipo: session.q_equipo||"", q_tiempo_entrega: session.q_tiempo_entrega||"", q_software: session.q_software||"", q_idiomas: session.q_idiomas||"", q_unidad_valuacion: session.q_unidad_valuacion||"" });
+    if (section === "redes")      Object.assign(d, { redes_web: rs.website||"", redes_ig: rs.instagram||"", redes_wa: rs.whatsapp||"", redes_fb: rs.facebook||"" });
     setEditData(d);
     setEditSection(section);
   };
@@ -819,6 +823,18 @@ const ValuadorDashboardPage = () => {
       if (editSection === "ubicacion" && editData.municipios) {
         payload.municipios = editData.municipios.split(",").map(m => m.trim()).filter(Boolean);
         delete payload.municipios_raw;
+      }
+      if (editSection === "redes") {
+        payload.redes_sociales = {
+          website:   editData.redes_web  || undefined,
+          instagram: editData.redes_ig   || undefined,
+          whatsapp:  editData.redes_wa   || undefined,
+          facebook:  editData.redes_fb   || undefined,
+        };
+        delete payload.redes_web;
+        delete payload.redes_ig;
+        delete payload.redes_wa;
+        delete payload.redes_fb;
       }
       const res = await fetch(`${API}/auth/profile`, {
         method: "PUT", credentials: "include",
@@ -1118,6 +1134,40 @@ const ValuadorDashboardPage = () => {
           </div>
 
         </div>
+      </div>
+
+      {/* Redes y contacto digital — ancho completo */}
+      <div className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden">
+        <SectionHeader icon={Globe} title="Redes y contacto digital" section="redes" />
+        <div className="p-5">
+          {(() => {
+            const rs = session.redes_sociales || {};
+            const hayRedes = rs.website || rs.instagram || rs.facebook || rs.whatsapp;
+            if (hayRedes) return (
+              <div className="flex flex-wrap gap-4">
+                {rs.website   && <a href={rs.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-[#1B4332] hover:text-[#52B788] font-medium"><Globe className="w-3.5 h-3.5"/>{rs.website.replace(/^https?:\/\/(www\.)?/,"")}</a>}
+                {rs.instagram && <a href={`https://instagram.com/${rs.instagram.replace("@","")}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-pink-600 hover:text-pink-700 font-medium"><span>📸</span>{rs.instagram}</a>}
+                {rs.facebook  && <a href={rs.facebook.startsWith("http") ? rs.facebook : `https://facebook.com/${rs.facebook}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-blue-600 hover:text-blue-700 font-medium"><span>🔵</span>{rs.facebook.replace(/^https?:\/\/(www\.)?facebook\.com\//,"")}</a>}
+                {rs.whatsapp  && <a href={`https://wa.me/${rs.whatsapp.replace(/\D/g,"")}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-green-600 hover:text-green-700 font-medium"><MessageCircle className="w-3.5 h-3.5"/>{rs.whatsapp}</a>}
+              </div>
+            );
+            return (
+              <button onClick={() => openEdit("redes")}
+                className="inline-flex items-center gap-1 text-[11px] text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full hover:bg-amber-100 transition-colors font-semibold">
+                ✏️ Pendiente — agregar redes
+              </button>
+            );
+          })()}
+        </div>
+        {editSection === "redes" && (
+          <div className="border-t border-[#F0FAF5] px-5 pt-4 pb-1 grid grid-cols-2 gap-3">
+            <div className="space-y-1"><Label className="text-xs">Sitio web</Label><Input value={ef.redes_web} onChange={e=>setEditData(p=>({...p,redes_web:e.target.value}))} placeholder="https://mipagina.mx" className="h-8 text-sm" /></div>
+            <div className="space-y-1"><Label className="text-xs">Instagram</Label><Input value={ef.redes_ig} onChange={e=>setEditData(p=>({...p,redes_ig:e.target.value}))} placeholder="@miperfil" className="h-8 text-sm" /></div>
+            <div className="space-y-1"><Label className="text-xs">WhatsApp</Label><Input value={ef.redes_wa} onChange={e=>setEditData(p=>({...p,redes_wa:e.target.value}))} placeholder="33 1234 5678" className="h-8 text-sm" /></div>
+            <div className="space-y-1"><Label className="text-xs">Facebook</Label><Input value={ef.redes_fb} onChange={e=>setEditData(p=>({...p,redes_fb:e.target.value}))} placeholder="/mipagina o URL completa" className="h-8 text-sm" /></div>
+          </div>
+        )}
+        {editSection === "redes" && <SaveBar />}
       </div>
 
       {/* Servicios — ancho completo */}
