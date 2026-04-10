@@ -69,6 +69,68 @@ cd "C:\Users\pedru\valuation-ai\Pagina-Valuacion-con-Ai--main\backend"
 "C:\Users\pedru\AppData\Local\Python\pythoncore-3.14-64\python.exe" -m uvicorn server:app --reload --port 8000
 ```
 
+## Diseño de perfiles / dashboards — reglas aprendidas
+
+### Campos siempre visibles
+Nunca ocultar campos con `{session.campo && <Componente>}`. Si el campo está vacío, mostrar
+chip ámbar **"✏️ Pendiente"** clickeable que abra el form de edición. El usuario llena datos en
+el registro y espera verlos en el perfil — si no aparecen, piensa que se perdieron.
+
+```jsx
+// MALO
+{session.phone && <DataRow label="Teléfono" value={session.phone} />}
+
+// BUENO
+<DataRow label="Teléfono" value={session.phone} />
+// DataRow internamente muestra chip Pendiente si value es falsy
+```
+
+### Layout — horizontal sobre vertical
+Preferir `grid grid-cols-4` para perfiles con muchos campos. Menos scroll = mejor UX.
+- Campos cortos (nombre, tel, años): 1 columna
+- Campos medios (email, dirección): `col-span-2`
+- Chips/tags (operaciones, cobertura, redes): `col-span-4` en fila fluida
+- Separadores de sección: línea fina + título inline con ícono, NO sección con padding enorme
+
+### Jerarquía visual de textos
+| Elemento | Clase |
+|---|---|
+| Título de sección | `text-xs font-bold text-[#1B4332] uppercase tracking-wide` |
+| Label de campo | `text-[10px] font-bold text-slate-400 uppercase tracking-wide` |
+| Valor del campo | `text-sm text-slate-800 font-medium` |
+| Chip pendiente | `text-[11px] text-amber-600 bg-amber-50 border border-amber-200 rounded-full` |
+
+### Modelo Pydantic — incluir TODOS los campos de registro
+Cuando se agrega un campo al formulario de registro, agregarlo TAMBIÉN al modelo `User` en
+`server.py`. Si no está en el modelo, `extra="ignore"` lo descarta en `/auth/me` y el usuario
+no lo ve en el perfil. Verificar con:
+```
+grep "campo_nuevo" backend/server.py | grep "class User"
+```
+
+### Refresh de sesión al montar dashboards
+Los dashboards leen de `localStorage` que puede estar desactualizado. Siempre hacer fetch
+silencioso a `/auth/me` al montar y mergear con lo que hay:
+```js
+fetch(`${API}/auth/me`, { credentials: "include" })
+  .then(r => r.ok ? r.json() : null)
+  .then(fresh => { if (fresh?.email) { const merged = { ...stored, ...fresh }; setSession(merged); localStorage.setItem("...", JSON.stringify(merged)); }});
+```
+
+### Tabs filtrados por rol
+Mostrar tabs según `inmobiliaria_tipo` o `role`. Ejemplo: "Equipo" solo para titulares.
+```js
+...(esTitular ? [{ id: "equipo", label: "👥 Equipo" }] : [])
+```
+
+### Estados vacíos con preview
+Cuando una tabla/lista no tiene datos reales, mostrar datos mock con `opacity-50` + banner
+explicativo. NO mostrar pantalla vacía. El usuario necesita ver cómo va a quedar.
+
+### Acceso directo desde estados vacíos
+Si falta una imagen (logo, foto), el placeholder debe ser un botón que navegue directamente
+a donde se sube. No dejar estados vacíos sin acción.
+
 ## Gemini API
 
 - Rate limit: solo UNA llamada por vez. Segunda llamada consecutiva = 429
