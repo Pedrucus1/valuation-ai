@@ -40,6 +40,7 @@ import {
   Send,
   ChevronDown,
   ChevronUp,
+  Pencil,
 } from "lucide-react";
 import { API } from "@/App";
 
@@ -313,68 +314,85 @@ const InmobiliariaDashboardPage = () => {
           </div>
         </div>
 
-        {/* Lista de documentos */}
-        <Card className="bg-white border-0 shadow-sm overflow-hidden">
-          <CardContent className="p-4 space-y-2">
-            {kycError && (
-              <div className="bg-red-50 border border-red-100 rounded-xl px-4 py-3 text-sm text-red-700 mb-2">{kycError}</div>
-            )}
-            {DOCS_REQUERIDOS.map(({ key, label }) => {
-              const doc = docSubido(key);
-              const subiendo = kycSubiendo[key];
-              const hint = DOC_HINTS[key];
-              const isOptional = key === "logo_empresa";
-              const isImg = doc && (doc.content_type?.startsWith("image/") || /\.(jpg|jpeg|png|webp)$/i.test(doc.filename || ""));
-              const docUrl = doc ? `${API}/kyc/documento/${doc.doc_id}` : null;
-
-              return (
-                <div key={key} className={`flex items-center gap-3 p-3 rounded-xl transition-colors ${doc ? "bg-[#F0FAF5] border border-[#B7E4C7]" : "bg-white border border-slate-100"}`}>
-                  {/* Thumbnail / status */}
-                  {doc ? (
-                    <button onClick={() => setPreviewDoc({ url: docUrl, type: doc.content_type, filename: doc.filename })}
-                      className="group relative w-12 h-12 rounded-lg overflow-hidden border-2 border-[#52B788] bg-white flex-shrink-0 flex items-center justify-center hover:border-[#1B4332] transition-colors">
-                      {isImg
-                        ? <img src={docUrl} alt={label} className="w-full h-full object-cover" onError={e => { e.target.style.display = "none"; }} />
-                        : <FileText className="w-5 h-5 text-[#52B788]" />}
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 flex items-center justify-center transition-colors">
-                        <span className="text-white text-[10px] font-bold opacity-0 group-hover:opacity-100">Ver</span>
-                      </div>
-                    </button>
-                  ) : (
-                    <div className="w-12 h-12 rounded-lg border-2 border-dashed border-slate-200 flex-shrink-0 flex items-center justify-center bg-slate-50">
-                      <Clock className="w-4 h-4 text-slate-300" />
-                    </div>
-                  )}
-
-                  {/* Info */}
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-1.5 flex-wrap">
-                      <p className={`text-sm font-semibold ${doc ? "text-[#1B4332]" : "text-slate-600"}`}>{label}</p>
-                      {isOptional && <span className="text-xs text-slate-400 italic">(opcional)</span>}
-                    </div>
-                    {doc
-                      ? <p className="text-xs text-[#52B788] font-medium mt-0.5">
-                          ✓ {new Date(doc.subido_at).toLocaleDateString("es-MX")} {doc.size_bytes ? `· ${(doc.size_bytes / 1024).toFixed(0)} KB` : ""}
-                        </p>
-                      : hint && <p className="text-xs text-slate-400 mt-0.5 line-clamp-2">{hint}</p>
-                    }
-                  </div>
-
-                  {/* Upload */}
-                  <label className={`flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-lg cursor-pointer transition-colors flex-shrink-0 ${
-                    doc ? "border border-[#52B788] text-[#1B4332] hover:bg-[#52B788]/10" : "bg-[#1B4332] text-white hover:bg-[#2D6A4F]"
-                  } ${subiendo ? "opacity-50 cursor-not-allowed" : ""}`}>
-                    <Upload className="w-3.5 h-3.5" />
-                    {subiendo ? "Subiendo…" : doc ? "Cambiar" : "Subir"}
-                    <input type="file" accept=".pdf,.jpg,.jpeg,.png,.webp" className="hidden"
-                      disabled={subiendo} onChange={e => subirDocumento(key, e.target.files?.[0])} />
-                  </label>
+        {/* Grupos de documentos */}
+        {kycError && (
+          <div className="bg-red-50 border border-red-100 rounded-xl px-4 py-3 text-sm text-red-700">{kycError}</div>
+        )}
+        {[
+          { label: "Identificación", emoji: "🪪", keys: ["ine_frente"] },
+          { label: "Fotografía y firma", emoji: "📷", keys: ["foto_profesional", "firma_representante"] },
+          { label: "Domicilio y fiscales", emoji: "🏢", keys: ["comprobante_domicilio", "opinion_fiscal", "constancia_rfc"] },
+          { label: "Asociación y marca", emoji: "🏛️", keys: ["cert_asociacion", "logo_empresa"] },
+        ].map(grupo => {
+          const grupoSubidos = grupo.keys.filter(k => docSubido(k)).length;
+          const grupoCompleto = grupoSubidos === grupo.keys.length;
+          return (
+            <div key={grupo.label} className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden">
+              <div className={`px-4 py-3 flex items-center justify-between ${grupoCompleto ? "bg-gradient-to-r from-[#1B4332] to-[#2D6A4F]" : "bg-gradient-to-r from-[#52B788] to-[#40916C]"}`}>
+                <div className="flex items-center gap-2">
+                  <span className="text-lg">{grupo.emoji}</span>
+                  <span className="font-['Outfit'] font-bold text-white text-sm">{grupo.label}</span>
                 </div>
-              );
-            })}
-            <p className="text-[11px] text-slate-400 pt-1">Formatos aceptados: PDF, JPG, PNG, WEBP · Máximo 10 MB por archivo</p>
-          </CardContent>
-        </Card>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-semibold text-white/80">{grupoSubidos}/{grupo.keys.length}</span>
+                  {grupoCompleto
+                    ? <span className="text-xs font-bold bg-[#D9ED92] text-[#1B4332] px-2.5 py-0.5 rounded-full">✓ Completo</span>
+                    : <span className="text-xs font-bold bg-white/25 text-white px-2.5 py-0.5 rounded-full">Pendiente</span>
+                  }
+                </div>
+              </div>
+              <div className="p-3 space-y-2">
+                {grupo.keys.map(key => {
+                  const doc = docSubido(key);
+                  const subiendo = kycSubiendo[key];
+                  const hint = DOC_HINTS[key];
+                  const label = DOC_LABELS[key] || key;
+                  const isOptional = key === "logo_empresa";
+                  const isImg = doc && (doc.content_type?.startsWith("image/") || /\.(jpg|jpeg|png|webp)$/i.test(doc.filename || ""));
+                  const docUrl = doc ? `${API}/kyc/documento/${doc.doc_id}` : null;
+                  return (
+                    <div key={key} className={`flex items-center gap-3 p-3 rounded-xl ${doc ? "bg-[#F0FAF5] border border-[#B7E4C7]" : "bg-white border border-slate-100"}`}>
+                      {doc ? (
+                        <button onClick={() => setPreviewDoc({ url: docUrl, type: doc.content_type, filename: doc.filename })}
+                          className="group relative w-12 h-12 rounded-lg overflow-hidden border-2 border-[#52B788] bg-white flex-shrink-0 flex items-center justify-center hover:border-[#1B4332] transition-colors">
+                          {isImg
+                            ? <img src={docUrl} alt={label} className="w-full h-full object-cover" onError={e => { e.target.style.display = "none"; }} />
+                            : <FileText className="w-5 h-5 text-[#52B788]" />}
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 flex items-center justify-center transition-colors">
+                            <span className="text-white text-[10px] font-bold opacity-0 group-hover:opacity-100">Ver</span>
+                          </div>
+                        </button>
+                      ) : (
+                        <div className="w-12 h-12 rounded-lg border-2 border-dashed border-slate-200 flex-shrink-0 flex items-center justify-center bg-slate-50">
+                          <Clock className="w-4 h-4 text-slate-300" />
+                        </div>
+                      )}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <p className={`text-sm font-semibold ${doc ? "text-[#1B4332]" : "text-slate-600"}`}>{label}</p>
+                          {isOptional && <span className="text-xs text-slate-400 italic">(opcional)</span>}
+                        </div>
+                        {doc
+                          ? <p className="text-xs text-[#52B788] font-medium mt-0.5">✓ {new Date(doc.subido_at).toLocaleDateString("es-MX")} {doc.size_bytes ? `· ${(doc.size_bytes / 1024).toFixed(0)} KB` : ""}</p>
+                          : hint && <p className="text-xs text-slate-400 mt-0.5 line-clamp-2">{hint}</p>
+                        }
+                      </div>
+                      <label className={`flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-lg cursor-pointer transition-colors flex-shrink-0 ${
+                        doc ? "border border-[#52B788] text-[#1B4332] hover:bg-[#52B788]/10" : "bg-[#1B4332] text-white hover:bg-[#2D6A4F]"
+                      } ${subiendo ? "opacity-50 cursor-not-allowed" : ""}`}>
+                        <Upload className="w-3.5 h-3.5" />
+                        {subiendo ? "Subiendo…" : doc ? "Cambiar" : "Subir"}
+                        <input type="file" accept=".pdf,.jpg,.jpeg,.png,.webp" className="hidden"
+                          disabled={subiendo} onChange={e => subirDocumento(key, e.target.files?.[0])} />
+                      </label>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
+        <p className="text-[11px] text-slate-400">Formatos aceptados: PDF, JPG, PNG, WEBP · Máximo 10 MB por archivo</p>
 
         {/* Lightbox */}
         {previewDoc && (
@@ -759,207 +777,166 @@ const InmobiliariaDashboardPage = () => {
       </div>
     );
 
-    return (
-      <Card className="bg-white border-0 shadow-sm overflow-hidden">
-
-        {/* ── HEADER: Logo + Nombre empresa + estado kyc ── */}
-        <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] px-6 py-5 flex items-center gap-5">
-          {/* Logo */}
-          <div className="flex-shrink-0">
-            {logoDoc ? (
-              <img
-                src={`${API}/kyc/documento/${logoDoc.doc_id}`}
-                alt="Logo"
-                className="w-16 h-16 object-contain rounded-xl bg-white p-1.5 shadow"
-              />
-            ) : (
-              <button onClick={() => setActiveTab("documentos")}
-                title="Ir a Documentos para subir tu logo"
-                className="w-16 h-16 rounded-xl bg-white/10 border-2 border-dashed border-white/40 flex flex-col items-center justify-center gap-0.5 hover:bg-white/20 transition-colors">
-                <Upload className="w-5 h-5 text-white/60" />
-                <span className="text-[9px] text-white/60 font-semibold leading-tight text-center">Subir<br/>logo</span>
-              </button>
-            )}
-          </div>
-
-          {/* Nombre + info */}
-          <div className="flex-1 min-w-0">
-            <h2 className="font-['Outfit'] text-2xl font-bold text-white leading-tight truncate">
-              {session.company_name || session.name || "Mi empresa"}
-            </h2>
-            <div className="flex items-center flex-wrap gap-2 mt-1.5">
-              {session.inmobiliaria_tipo === "titular" && (
-                <span className="text-xs font-semibold bg-white/20 text-white px-2.5 py-0.5 rounded-full">Titular</span>
-              )}
-              {session.inmobiliaria_tipo === "asesor" && (
-                <span className="text-xs font-semibold bg-white/20 text-white px-2.5 py-0.5 rounded-full">Asesor</span>
-              )}
-              {session.kyc_status === "approved" ? (
-                <span className="text-xs font-semibold bg-[#52B788] text-white px-2.5 py-0.5 rounded-full">✅ Verificado</span>
-              ) : session.kyc_status === "under_review" ? (
-                <span className="text-xs font-semibold bg-blue-400/80 text-white px-2.5 py-0.5 rounded-full">🔍 En revisión</span>
-              ) : (
-                <span className="text-xs font-semibold bg-amber-400/80 text-white px-2.5 py-0.5 rounded-full">⏳ Verificación pendiente</span>
-              )}
-              {[session.municipio, session.estado].filter(Boolean).length > 0 && (
-                <span className="text-xs text-white/70 flex items-center gap-1">
-                  <MapPin className="w-3 h-3" />
-                  {[session.municipio, session.estado].filter(Boolean).join(", ")}
-                </span>
-              )}
-            </div>
-          </div>
+    // Helpers locales
+    const Pending = () => (
+      <button onClick={abrirEdicion}
+        className="inline-flex items-center gap-1 text-[11px] text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full hover:bg-amber-100 transition-colors font-semibold mt-0.5">
+        ✏️ Pendiente
+      </button>
+    );
+    const F = ({ label, value, span = 1 }) => (
+      <div className={span === 2 ? "col-span-2" : span === 4 ? "col-span-4" : ""}>
+        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-0.5">{label}</p>
+        {value ? <p className="text-sm text-slate-800 font-medium leading-snug">{value}</p> : <Pending />}
+      </div>
+    );
+    const SH = ({ icon: Icon, title }) => (
+      <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] px-5 py-3.5 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Icon className="w-4 h-4 text-[#D9ED92]" />
+          <span className="font-['Outfit'] font-semibold text-white text-sm">{title}</span>
         </div>
+        <button onClick={abrirEdicion}
+          className="flex items-center gap-1 text-[#D9ED92] hover:text-white text-xs font-semibold transition-colors">
+          <Pencil className="w-3.5 h-3.5" /> Editar
+        </button>
+      </div>
+    );
 
-        <CardContent className="p-0">
-          {/* ── BODY: grid 4 col + foto sidebar ── */}
-          <div className="flex divide-x divide-slate-100">
+    return (
+      <div className="space-y-4">
 
-            {/* ── Grid de datos ── */}
-            <div className="flex-1 p-5">
-
-              {/* Campo reutilizable sin icono — optimizado para grilla */}
-              {/* F = field cell */}
-              {(() => {
-                const Pending = () => (
-                  <button onClick={abrirEdicion}
-                    className="inline-flex items-center gap-1 text-[11px] text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full hover:bg-amber-100 transition-colors font-semibold mt-0.5">
-                    ✏️ Pendiente
-                  </button>
-                );
-                const F = ({ label, value, span = 1 }) => (
-                  <div className={span === 2 ? "col-span-2" : span === 4 ? "col-span-4" : ""}>
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-0.5">{label}</p>
-                    {value
-                      ? <p className="text-sm text-slate-800 font-medium leading-snug">{value}</p>
-                      : <Pending />}
-                  </div>
-                );
-
-                return (
-                  <div className="grid grid-cols-4 gap-x-6 gap-y-4">
-
-                    {/* ── Contacto ── */}
-                    <div className="col-span-4 flex items-center gap-2 pb-1 border-b border-slate-100">
-                      <User className="w-3.5 h-3.5 text-[#52B788]" />
-                      <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide">Contacto</p>
-                    </div>
-
-                    <F label="Representante"     value={session.name} />
-                    <F label="Teléfono"          value={session.phone} />
-                    <F label="Email"             value={session.email} span={2} />
-                    <F label="Dirección oficina" value={session.q_dir_oficina} span={2} />
-                    {esTitular
-                      ? <F label="Nº de asesores"  value={session.num_asesores} />
-                      : <F label="Empresa afiliada" value={session.empresa_afiliada} />
-                    }
-                    <F label="Google Maps"
-                       value={session.q_maps_url
-                         ? <a href={session.q_maps_url} target="_blank" rel="noopener noreferrer" className="text-[#1B4332] hover:underline">Ver perfil ↗</a>
-                         : null} />
-
-                    {/* ── Redes sociales ── */}
-                    <div className="col-span-4 flex items-center gap-2 pt-3 pb-1 border-b border-slate-100">
-                      <Globe className="w-3.5 h-3.5 text-[#52B788]" />
-                      <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide">Redes y contacto digital</p>
-                    </div>
-
-                    {(rs.website || rs.instagram || rs.facebook || rs.whatsapp) ? (
-                      <div className="col-span-4 flex flex-wrap gap-3">
-                        {rs.website   && <a href={rs.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-[#1B4332] hover:text-[#52B788] font-medium"><Globe className="w-3.5 h-3.5"/>{rs.website.replace(/^https?:\/\/(www\.)?/,"")}</a>}
-                        {rs.instagram && <a href={`https://instagram.com/${rs.instagram.replace("@","")}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-pink-600 hover:text-pink-700 font-medium"><span>📸</span>{rs.instagram}</a>}
-                        {rs.facebook  && <a href={rs.facebook.startsWith("http") ? rs.facebook : `https://facebook.com/${rs.facebook}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-blue-600 hover:text-blue-700 font-medium"><span>🔵</span>{rs.facebook.replace(/^https?:\/\/(www\.)?facebook\.com\//,"")}</a>}
-                        {rs.whatsapp  && <a href={`https://wa.me/${rs.whatsapp.replace(/\D/g,"")}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-green-600 hover:text-green-700 font-medium"><MessageCircle className="w-3.5 h-3.5"/>{rs.whatsapp}</a>}
-                      </div>
-                    ) : (
-                      <div className="col-span-4"><button onClick={abrirEdicion} className="inline-flex items-center gap-1 text-[11px] text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full hover:bg-amber-100 font-semibold">✏️ Pendiente — agregar redes</button></div>
-                    )}
-
-                    {/* ── Perfil operativo ── */}
-                    <div className="col-span-4 flex items-center gap-2 pt-3 pb-1 border-b border-slate-100">
-                      <TrendingUp className="w-3.5 h-3.5 text-[#52B788]" />
-                      <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide">Perfil operativo</p>
-                    </div>
-
-                    <F label="Años en el mercado"  value={session.q_anos_mercado} />
-                    <F label="Cartera activa"       value={session.q_cartera_propiedades} />
-                    <F label="CRM / Herramientas"  value={session.q_crm} />
-                    <F label="Idiomas"              value={session.q_idiomas} />
-                    <F label="Software"             value={session.q_software} />
-                    <F label="Asociación"           value={session.asociacion} />
-                    <F label="Cursos y certs."      value={session.cursos} span={2} />
-
-                    {session.q_tipo_operaciones && Object.values(session.q_tipo_operaciones).some(Boolean) && (
-                      <div className="col-span-4 flex flex-wrap gap-1.5 pt-1">
-                        <p className="w-full text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1">Tipo de operaciones</p>
-                        {Object.entries(session.q_tipo_operaciones).filter(([,v]) => v).map(([k]) => (
-                          <span key={k} className="text-xs px-2.5 py-0.5 rounded-full bg-[#D9ED92] text-[#1B4332] font-medium">{k.replace(/_/g," ")}</span>
-                        ))}
-                      </div>
-                    )}
-
-                    {/* ── Galardones + cobertura ── */}
-                    <div className="col-span-4 flex items-center gap-2 pt-3 pb-1 border-b border-slate-100">
-                      <Star className="w-3.5 h-3.5 text-[#52B788]" />
-                      <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide">Trayectoria y cobertura</p>
-                    </div>
-
-                    <F label="Galardones" value={session.galardones} span={2} />
-
-                    {(session.estados?.length > 0 || session.municipios?.filter(Boolean).length > 0) ? (
-                      <div className="col-span-2">
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1">Zona de cobertura</p>
-                        <div className="flex flex-wrap gap-1">
-                          {session.estados?.map(e => <span key={e} className="text-xs px-2 py-0.5 rounded-full bg-[#D9ED92] text-[#1B4332] font-medium">{e}</span>)}
-                          {session.municipios?.filter(Boolean).map((m,i) => <span key={i} className="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 font-medium">{m}</span>)}
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="col-span-2">
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1">Zona de cobertura</p>
-                        <button onClick={abrirEdicion} className="inline-flex items-center gap-1 text-[11px] text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full hover:bg-amber-100 font-semibold">✏️ Pendiente</button>
-                      </div>
-                    )}
-
-                  </div>
-                );
-              })()}
-            </div>
-
-            {/* ── Foto representante (sidebar compacto) ── */}
-            <div className="w-44 flex-shrink-0 flex flex-col items-center justify-start gap-3 p-5 bg-slate-50/60">
-              <p className="text-xs font-bold text-[#1B4332] text-center uppercase tracking-wide">Representante</p>
-              {fotoDoc ? (
-                <img src={`${API}/kyc/documento/${fotoDoc.doc_id}`} alt="Foto"
-                  className="w-32 h-40 rounded-xl object-cover border-2 border-[#52B788] shadow" />
+        {/* ── Header: empresa + foto ── */}
+        <Card className="bg-white border-0 shadow-sm overflow-hidden">
+          <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] px-6 py-5 flex items-center gap-5">
+            {/* Logo */}
+            <div className="flex-shrink-0">
+              {logoDoc ? (
+                <img src={`${API}/kyc/documento/${logoDoc.doc_id}`} alt="Logo"
+                  className="w-16 h-16 object-contain rounded-xl bg-white p-1.5 shadow" />
               ) : (
-                <div className="w-32 h-40 rounded-xl bg-white border-2 border-dashed border-slate-300 flex flex-col items-center justify-center gap-2">
-                  <User className="w-10 h-10 text-slate-200" />
-                  <span className="text-[10px] text-slate-300 text-center leading-tight">foto<br/>pendiente</span>
-                </div>
+                <button onClick={() => setActiveTab("documentos")} title="Subir logo en Documentos"
+                  className="w-16 h-16 rounded-xl bg-white/10 border-2 border-dashed border-white/40 flex flex-col items-center justify-center gap-0.5 hover:bg-white/20 transition-colors">
+                  <Upload className="w-5 h-5 text-white/60" />
+                  <span className="text-[9px] text-white/60 font-semibold leading-tight text-center">Subir<br/>logo</span>
+                </button>
               )}
-              <div className="text-center">
-                <p className="text-sm font-semibold text-slate-700 leading-tight">{session.name || "—"}</p>
-                {session.inmobiliaria_tipo && <p className="text-xs text-slate-400 capitalize mt-0.5">{session.inmobiliaria_tipo}</p>}
+            </div>
+            {/* Nombre + info */}
+            <div className="flex-1 min-w-0">
+              <h2 className="font-['Outfit'] text-2xl font-bold text-white leading-tight truncate">
+                {session.company_name || session.name || "Mi empresa"}
+              </h2>
+              <div className="flex items-center flex-wrap gap-2 mt-1.5">
+                {session.inmobiliaria_tipo === "titular" && <span className="text-xs font-semibold bg-white/20 text-white px-2.5 py-0.5 rounded-full">Titular</span>}
+                {session.inmobiliaria_tipo === "asesor"  && <span className="text-xs font-semibold bg-white/20 text-white px-2.5 py-0.5 rounded-full">Asesor</span>}
+                {session.kyc_status === "approved"      ? <span className="text-xs font-semibold bg-[#52B788] text-white px-2.5 py-0.5 rounded-full">✅ Verificado</span>
+                : session.kyc_status === "under_review"  ? <span className="text-xs font-semibold bg-blue-400/80 text-white px-2.5 py-0.5 rounded-full">🔍 En revisión</span>
+                :                                          <span className="text-xs font-semibold bg-amber-400/80 text-white px-2.5 py-0.5 rounded-full">⏳ Verificación pendiente</span>}
+                {[session.municipio, session.estado].filter(Boolean).length > 0 && (
+                  <span className="text-xs text-white/70 flex items-center gap-1">
+                    <MapPin className="w-3 h-3" />{[session.municipio, session.estado].filter(Boolean).join(", ")}
+                  </span>
+                )}
               </div>
             </div>
-
+            {/* Foto representante */}
+            {fotoDoc ? (
+              <img src={`${API}/kyc/documento/${fotoDoc.doc_id}`} alt="Foto"
+                className="w-14 h-14 rounded-xl object-cover border-2 border-[#52B788]/60 shadow flex-shrink-0" />
+            ) : (
+              <div className="w-14 h-14 rounded-xl bg-white/10 border-2 border-dashed border-white/30 flex items-center justify-center flex-shrink-0">
+                <User className="w-6 h-6 text-white/40" />
+              </div>
+            )}
           </div>
+        {/* Medallas */}
+        {allMedals.length > 0 && (
+          <div className="px-6 py-3 bg-slate-50/60 flex flex-wrap gap-2">
+            {allMedals.map((m, i) => (
+              <span key={i} className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full border ${m.color}`}>
+                <span className="text-base leading-none">{m.emoji}</span>{m.label}
+              </span>
+            ))}
+          </div>
+        )}
+      </Card>
 
-          {/* ── MEDALLAS footer ── */}
-          {allMedals.length > 0 && (
-            <div className="border-t border-slate-100 px-6 py-4 bg-slate-50/40 flex flex-wrap gap-2">
-              {allMedals.map((m, i) => (
-                <span key={i} className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full border ${m.color}`}>
-                  <span className="text-base leading-none">{m.emoji}</span>
-                  {m.label}
-                </span>
+      {/* ── Contacto ── */}
+      <div className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden">
+        <SH icon={User} title="Contacto" />
+        <div className="p-5 grid grid-cols-4 gap-x-6 gap-y-4">
+          <F label="Representante"     value={session.name} />
+          <F label="Teléfono"          value={session.phone} />
+          <F label="Email"             value={session.email} span={2} />
+          <F label="Dirección oficina" value={session.q_dir_oficina} span={2} />
+          {esTitular
+            ? <F label="Nº de asesores"   value={session.num_asesores} />
+            : <F label="Empresa afiliada" value={session.empresa_afiliada} />}
+          <F label="Google Maps"
+             value={session.q_maps_url
+               ? <a href={session.q_maps_url} target="_blank" rel="noopener noreferrer" className="text-[#1B4332] hover:underline">Ver perfil ↗</a>
+               : null} />
+        </div>
+      </div>
+
+      {/* ── Redes y contacto digital ── */}
+      <div className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden">
+        <SH icon={Globe} title="Redes y contacto digital" />
+        <div className="p-5">
+          {(rs.website || rs.instagram || rs.facebook || rs.whatsapp) ? (
+            <div className="flex flex-wrap gap-4">
+              {rs.website   && <a href={rs.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-[#1B4332] hover:text-[#52B788] font-medium"><Globe className="w-3.5 h-3.5"/>{rs.website.replace(/^https?:\/\/(www\.)?/,"")}</a>}
+              {rs.instagram && <a href={`https://instagram.com/${rs.instagram.replace("@","")}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-pink-600 hover:text-pink-700 font-medium"><span>📸</span>{rs.instagram}</a>}
+              {rs.facebook  && <a href={rs.facebook.startsWith("http") ? rs.facebook : `https://facebook.com/${rs.facebook}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-blue-600 hover:text-blue-700 font-medium"><span>🔵</span>{rs.facebook.replace(/^https?:\/\/(www\.)?facebook\.com\//,"")}</a>}
+              {rs.whatsapp  && <a href={`https://wa.me/${rs.whatsapp.replace(/\D/g,"")}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-green-600 hover:text-green-700 font-medium"><MessageCircle className="w-3.5 h-3.5"/>{rs.whatsapp}</a>}
+            </div>
+          ) : (
+            <button onClick={abrirEdicion} className="inline-flex items-center gap-1 text-[11px] text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full hover:bg-amber-100 font-semibold">✏️ Pendiente — agregar redes</button>
+          )}
+        </div>
+      </div>
+
+      {/* ── Perfil operativo ── */}
+      <div className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden">
+        <SH icon={TrendingUp} title="Perfil operativo" />
+        <div className="p-5 grid grid-cols-4 gap-x-6 gap-y-4">
+          <F label="Años en el mercado" value={session.q_anos_mercado} />
+          <F label="Cartera activa"      value={session.q_cartera_propiedades} />
+          <F label="CRM / Herramientas" value={session.q_crm} />
+          <F label="Idiomas"             value={session.q_idiomas} />
+          <F label="Software"            value={session.q_software} />
+          <F label="Asociación"          value={session.asociacion} />
+          <F label="Cursos y certs."     value={session.cursos} span={2} />
+          {session.q_tipo_operaciones && Object.values(session.q_tipo_operaciones).some(Boolean) && (
+            <div className="col-span-4 flex flex-wrap gap-1.5 pt-1">
+              <p className="w-full text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1">Tipo de operaciones</p>
+              {Object.entries(session.q_tipo_operaciones).filter(([,v]) => v).map(([k]) => (
+                <span key={k} className="text-xs px-2.5 py-0.5 rounded-full bg-[#D9ED92] text-[#1B4332] font-medium">{k.replace(/_/g," ")}</span>
               ))}
             </div>
           )}
+        </div>
+      </div>
 
-        </CardContent>
-      </Card>
+      {/* ── Trayectoria y cobertura ── */}
+      <div className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden">
+        <SH icon={Star} title="Trayectoria y cobertura" />
+        <div className="p-5 grid grid-cols-4 gap-x-6 gap-y-4">
+          <F label="Galardones" value={session.galardones} span={2} />
+          <div className="col-span-2">
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1">Zona de cobertura</p>
+            {(session.estados?.length > 0 || session.municipios?.filter(Boolean).length > 0) ? (
+              <div className="flex flex-wrap gap-1">
+                {session.estados?.map(e => <span key={e} className="text-xs px-2 py-0.5 rounded-full bg-[#D9ED92] text-[#1B4332] font-medium">{e}</span>)}
+                {session.municipios?.filter(Boolean).map((m,i) => <span key={i} className="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 font-medium">{m}</span>)}
+              </div>
+            ) : <Pending />}
+          </div>
+        </div>
+      </div>
+
+    </div>
     );
   };
 
