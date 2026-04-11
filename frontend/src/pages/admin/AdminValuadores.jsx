@@ -54,7 +54,6 @@ const ESTADO_BADGE= { activo: "bg-green-100 text-green-700", suspendido: "bg-red
 
 const TABS = [
   { id: "resumen",        label: "Resumen",         icon: BarChart2   },
-  { id: "directorio",     label: "Directorio",      icon: ClipboardList },
   { id: "verificaciones", label: "Verificaciones",  icon: ShieldCheck },
   { id: "actividad",      label: "Actividad",       icon: Activity    },
 ];
@@ -181,162 +180,65 @@ const TabResumen = ({ valuadores }) => {
   );
 };
 
-/* ─── Tab Directorio ─── */
-const TabDirectorio = ({ valuadores, onToggle }) => {
-  const [busqueda, setBusqueda] = useState("");
-  const [filtroVisible, setFiltroVisible] = useState("todos");
-  const [pagina, setPagina] = useState(1);
-  const [guardando, setGuardando] = useState(null);
 
-  const filtrados = useMemo(() => valuadores.filter((v) => {
-    const q = busqueda.toLowerCase();
-    const matchQ = !busqueda || v.nombre.toLowerCase().includes(q) || v.ciudad.toLowerCase().includes(q);
-    const matchV = filtroVisible === "todos"
-      || (filtroVisible === "visibles"   && v.directorio_visible)
-      || (filtroVisible === "ocultos"    && !v.directorio_visible)
-      || (filtroVisible === "destacados" && v.destacado);
-    return matchQ && matchV;
-  }), [valuadores, busqueda, filtroVisible]);
-
-  const totalPags = Math.ceil(filtrados.length / PAGE_SIZE);
-  const paginados = filtrados.slice((pagina - 1) * PAGE_SIZE, pagina * PAGE_SIZE);
-
-  const toggle = async (id, campo) => {
-    setGuardando(`${id}-${campo}`);
-    await onToggle(id, campo);
-    setGuardando(null);
-  };
+/* ─── Visor de documentos valuador ─── */
+const DocViewerValuador = ({ valuador, onClose }) => {
+  const DOCS_REQ = ["INE/Pasaporte", "Cédula Prof.", "Certificación INDAABIN/IVS", "RFC", "Seguro RC"];
 
   return (
-    <div className="space-y-4">
-      <div className="bg-[#1B4332]/5 border border-[#52B788]/20 rounded-2xl px-4 py-3 text-xs text-slate-600 flex items-center gap-2">
-        <Eye className="w-4 h-4 text-[#52B788] flex-shrink-0" />
-        <span>
-          <strong className="text-[#1B4332]">Directorio público:</strong> Los valuadores con perfil visible aparecen en <code className="bg-slate-100 px-1 rounded">/valuadores</code>.
-          Los <strong>Destacados</strong> aparecen al inicio con badge especial. Los cambios son inmediatos.
-        </span>
-      </div>
-
-      <div className="flex flex-wrap gap-3 items-center">
-        <div className="relative flex-1 min-w-[180px]">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-          <input type="text" value={busqueda} onChange={(e) => { setBusqueda(e.target.value); setPagina(1); }}
-            placeholder="Buscar por nombre o ciudad..."
-            className="w-full pl-9 pr-4 py-2 text-sm border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#52B788]/40" />
+    <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4" onClick={onClose}>
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden" onClick={(e) => e.stopPropagation()}>
+        <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] px-5 py-4 flex items-center justify-between">
+          <div>
+            <h3 className="font-bold text-white">Documentos KYC</h3>
+            <p className="text-[#D9ED92]/70 text-xs mt-0.5">{valuador.nombre} · {valuador.email}</p>
+          </div>
+          <button onClick={onClose}><X className="w-5 h-5 text-white/60 hover:text-white" /></button>
         </div>
-        <div className="relative">
-          <select value={filtroVisible} onChange={(e) => { setFiltroVisible(e.target.value); setPagina(1); }}
-            className="appearance-none border border-slate-200 rounded-xl px-3 py-2 text-sm text-slate-600 bg-white focus:outline-none pr-8">
-            <option value="todos">Todos</option>
-            <option value="visibles">Visibles en directorio</option>
-            <option value="ocultos">Ocultos</option>
-            <option value="destacados">Destacados</option>
-          </select>
-          <ChevronDown className="absolute right-2 top-2.5 w-4 h-4 text-slate-400 pointer-events-none" />
-        </div>
-        <div className="text-xs text-slate-400 ml-auto">
-          {filtrados.filter((v) => v.directorio_visible).length} visibles · {filtrados.filter((v) => v.destacado).length} destacados
-        </div>
-      </div>
-
-      <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <GradThead cols={["Valuador", "Ciudad", "Plan", "Perfil %", "Rating", "Verificación", "Visible", "Destacado", ""]} />
-            <tbody className="divide-y divide-slate-50">
-              {paginados.length === 0 && (
-                <tr><td colSpan={9} className="text-center py-10 text-slate-400 text-sm">Sin resultados</td></tr>
-              )}
-              {paginados.map((v) => (
-                <tr key={v.id} className={`hover:bg-[#F0FAF5]/50 transition-colors ${!v.directorio_visible ? "opacity-50" : ""}`}>
-                  <td className="px-4 py-3">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-full bg-[#1B4332] flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
-                        {v.nombre.charAt(0).toUpperCase()}
-                      </div>
-                      <div>
-                        <p className="text-sm font-semibold text-[#1B4332] leading-snug">{v.nombre}</p>
-                        <p className="text-xs text-slate-400">{v.email}</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-4 py-3 text-sm text-slate-500 flex items-center gap-1 mt-3">
-                    <MapPin className="w-3 h-3 text-slate-300" />{v.ciudad}
-                  </td>
-                  <td className="px-4 py-3">
-                    <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${PLAN_BADGE[v.plan] || "bg-slate-100 text-slate-600"}`}>{v.plan}</span>
-                  </td>
-                  <td className="px-4 py-3">
-                    <div className="flex items-center gap-2">
-                      <div className="w-16 h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                        <div className={`h-full rounded-full ${v.perfil_pct >= 80 ? "bg-[#52B788]" : v.perfil_pct >= 50 ? "bg-amber-400" : "bg-red-300"}`}
-                          style={{ width: `${v.perfil_pct}%` }} />
-                      </div>
-                      <span className="text-xs text-slate-400">{v.perfil_pct}%</span>
-                    </div>
-                  </td>
-                  <td className="px-4 py-3">
-                    {v.calificacion > 0 ? (
-                      <span className="text-xs font-semibold text-amber-600 flex items-center gap-0.5">
-                        <Star className="w-3 h-3 fill-amber-400 text-amber-400" /> {v.calificacion.toFixed(1)}
-                      </span>
-                    ) : <span className="text-xs text-slate-300">—</span>}
-                  </td>
-                  <td className="px-4 py-3">
-                    <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${KYC_BADGE[v.kyc]}`}>{KYC_LABEL[v.kyc]}</span>
-                  </td>
-                  <td className="px-4 py-3">
-                    <button
-                      onClick={() => toggle(v.id, "directorio_visible")}
-                      disabled={guardando === `${v.id}-directorio_visible`}
-                      title={v.directorio_visible ? "Ocultar del directorio" : "Mostrar en directorio"}
-                      className={`relative w-10 h-5 rounded-full transition-colors flex-shrink-0 ${v.directorio_visible ? "bg-[#52B788]" : "bg-slate-200"}`}>
-                      <span className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${v.directorio_visible ? "translate-x-5" : "translate-x-0.5"}`} />
-                    </button>
-                  </td>
-                  <td className="px-4 py-3">
-                    <button
-                      onClick={() => toggle(v.id, "destacado")}
-                      disabled={guardando === `${v.id}-destacado`}
-                      title={v.destacado ? "Quitar destacado" : "Marcar como destacado"}
-                      className={`p-1.5 rounded-lg transition-colors ${v.destacado ? "text-amber-400 bg-amber-50" : "text-slate-300 hover:text-amber-400 hover:bg-amber-50"}`}>
-                      <Star className={`w-4 h-4 ${v.destacado ? "fill-amber-400" : ""}`} />
-                    </button>
-                  </td>
-                  <td className="px-4 py-3">
-                    <div className="flex gap-1">
-                      <a href={`mailto:${v.email}`}
-                        className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
-                        <Mail className="w-3.5 h-3.5" />
-                      </a>
-                      {v.telefono && (
-                        <a href={`https://wa.me/52${v.telefono}`} target="_blank" rel="noopener noreferrer"
-                          className="p-1.5 text-slate-400 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors">
-                          <Phone className="w-3.5 h-3.5" />
-                        </a>
-                      )}
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        {totalPags > 1 && (
-          <div className="flex items-center justify-between px-5 py-3 border-t border-[#B7E4C7]">
-            <span className="text-xs text-slate-400">{(pagina - 1) * PAGE_SIZE + 1}–{Math.min(pagina * PAGE_SIZE, filtrados.length)} de {filtrados.length}</span>
-            <div className="flex gap-1">
-              <button onClick={() => setPagina((p) => Math.max(1, p - 1))} disabled={pagina === 1}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-[#1B4332] disabled:opacity-30"><ChevronLeft className="w-4 h-4" /></button>
-              {Array.from({ length: totalPags }, (_, i) => (
-                <button key={i} onClick={() => setPagina(i + 1)}
-                  className={`w-7 h-7 rounded-lg text-xs font-semibold ${pagina === i + 1 ? "bg-[#1B4332] text-white" : "text-slate-500 hover:bg-slate-100"}`}>{i + 1}</button>
-              ))}
-              <button onClick={() => setPagina((p) => Math.min(totalPags, p + 1))} disabled={pagina === totalPags}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-[#1B4332] disabled:opacity-30"><ChevronRight className="w-4 h-4" /></button>
+        <div className="p-5 space-y-4">
+          {/* Datos registrados */}
+          <div className="grid grid-cols-2 gap-3">
+            {[
+              ["Cédula profesional", valuador.cedula],
+              ["Experiencia",        `${valuador.experiencia} año${valuador.experiencia !== 1 ? "s" : ""}`],
+              ["Plan",               valuador.plan],
+              ["Registro",           valuador.fecha_registro],
+              ["Especialidades",     valuador.especialidades?.join(", ") || "—"],
+              ["Certificaciones",    valuador.certs?.join(", ") || "—"],
+            ].map(([k, val]) => (
+              <div key={k} className={`bg-[#F0FAF5] border rounded-xl p-3 ${val && val !== "—" ? "border-[#B7E4C7]" : "border-slate-100 opacity-60"}`}>
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">{k}</p>
+                <p className="text-sm text-[#1B4332] font-semibold mt-0.5 truncate">{val || "—"}</p>
+              </div>
+            ))}
+          </div>
+          {/* Archivos */}
+          <div>
+            <p className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-2">Archivos requeridos</p>
+            <div className="flex flex-wrap gap-2">
+              {DOCS_REQ.map((doc) => {
+                const subido = valuador.certs?.length > 0 && ["INE/Pasaporte","Cédula Prof.","Certificación INDAABIN/IVS"].includes(doc);
+                return (
+                  <span key={doc} className={`flex items-center gap-1 text-xs px-2.5 py-1 rounded-full font-semibold ${subido ? "bg-green-100 text-green-700" : "bg-slate-100 text-slate-400"}`}>
+                    {subido ? <CheckCircle2 className="w-3 h-3" /> : <AlertTriangle className="w-3 h-3" />}
+                    {doc}
+                  </span>
+                );
+              })}
             </div>
           </div>
-        )}
+          {valuador.bio && (
+            <div className="bg-slate-50 rounded-xl p-3">
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1">Bio</p>
+              <p className="text-xs text-slate-600 leading-relaxed">{valuador.bio}</p>
+            </div>
+          )}
+        </div>
+        <div className="px-5 pb-5 flex justify-end">
+          <button onClick={onClose} className="text-sm font-semibold px-4 py-2 bg-slate-100 text-slate-600 rounded-xl hover:bg-slate-200 transition-colors">
+            Cerrar
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -345,6 +247,7 @@ const TabDirectorio = ({ valuadores, onToggle }) => {
 /* ─── Tab Verificaciones ─── */
 const TabVerificaciones = ({ valuadores, onApprobar, onRechazar, onSolicitarInfo }) => {
   const [modal, setModal] = useState(null);
+  const [docViewer, setDocViewer] = useState(null);
   const [motivo, setMotivo] = useState("");
   const pendientes = valuadores.filter((v) => v.kyc === "pendiente" || v.kyc === "info_solicitada");
 
@@ -368,7 +271,15 @@ const TabVerificaciones = ({ valuadores, onApprobar, onRechazar, onSolicitarInfo
                 <p className="font-bold text-white text-sm">{v.nombre}</p>
                 <p className="text-[#D9ED92]/70 text-xs">{v.email} · {v.ciudad}</p>
               </div>
-              <span className={`text-[11px] font-bold px-2.5 py-1 rounded-full ${KYC_BADGE[v.kyc]}`}>{KYC_LABEL[v.kyc]}</span>
+              <div className="flex items-center gap-2">
+                <span className={`text-[11px] font-bold px-2.5 py-1 rounded-full ${KYC_BADGE[v.kyc]}`}>{KYC_LABEL[v.kyc]}</span>
+                <button
+                  onClick={() => setDocViewer(v)}
+                  className="flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-lg bg-white/20 hover:bg-white/30 text-white transition-colors"
+                >
+                  <Eye className="w-3.5 h-3.5" /> Ver docs
+                </button>
+              </div>
             </div>
             <div className="p-5">
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
@@ -383,22 +294,6 @@ const TabVerificaciones = ({ valuadores, onApprobar, onRechazar, onSolicitarInfo
                     <p className="text-sm text-[#1B4332] font-semibold mt-0.5">{val}</p>
                   </div>
                 ))}
-              </div>
-
-              {/* Docs status (placeholder — conectar con API de docs) */}
-              <div className="mb-4">
-                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">Documentos requeridos</p>
-                <div className="flex flex-wrap gap-2">
-                  {["INE/Pasaporte","Cédula Prof.","Certificación","RFC","Seguro RC"].map((doc) => {
-                    const subido = v.certs?.length > 0 && ["INE/Pasaporte","Cédula Prof.","Certificación"].includes(doc);
-                    return (
-                      <span key={doc} className={`flex items-center gap-1 text-xs px-2.5 py-1 rounded-full font-semibold ${subido ? "bg-green-100 text-green-700" : "bg-slate-100 text-slate-400"}`}>
-                        {subido ? <CheckCircle2 className="w-3 h-3" /> : <AlertTriangle className="w-3 h-3" />}
-                        {doc}
-                      </span>
-                    );
-                  })}
-                </div>
               </div>
 
               <div className="flex gap-2">
@@ -444,6 +339,8 @@ const TabVerificaciones = ({ valuadores, onApprobar, onRechazar, onSolicitarInfo
           </div>
         </div>
       )}
+
+      {docViewer && <DocViewerValuador valuador={docViewer} onClose={() => setDocViewer(null)} />}
     </>
   );
 };
@@ -635,10 +532,6 @@ const AdminValuadores = () => {
         {/* Contenido por tab */}
         {activeTab === "resumen" && <TabResumen valuadores={valuadores} />}
 
-        {activeTab === "directorio" && (
-          <TabDirectorio valuadores={valuadores} onToggle={onToggle} />
-        )}
-
         {activeTab === "verificaciones" && (
           <TabVerificaciones valuadores={valuadores}
             onApprobar={onApprobar} onRechazar={onRechazar} onSolicitarInfo={onSolicitarInfo} />
@@ -650,12 +543,7 @@ const AdminValuadores = () => {
         {activeTab === "resumen" && valuadores.length > 0 && (
           <AdminCard icon={ClipboardList}
             title={`Lista completa (${filtrados.length})`}
-            action={
-              <button onClick={() => setActiveTab("directorio")}
-                className="text-xs font-semibold text-[#D9ED92]/80 hover:text-white transition-colors">
-                Ver directorio →
-              </button>
-            }>
+            action={null}>
             <div className="p-4 flex flex-wrap gap-3">
               <div className="relative flex-1 min-w-[180px]">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -678,7 +566,7 @@ const AdminValuadores = () => {
             </div>
             <div className="overflow-x-auto">
               <table className="w-full">
-                <GradThead cols={["Valuador","Plan","Verificación","Estado","Reportes","Quejas","Registro",""]} />
+                <GradThead cols={["Valuador","Plan","Verificación","Estado","Directorio","Reportes","Quejas","Registro",""]} />
                 <tbody className="divide-y divide-slate-50">
                   {paginados.map((v) => (
                     <tr key={v.id} className="hover:bg-[#F0FAF5]/50 transition-colors">
@@ -697,6 +585,14 @@ const AdminValuadores = () => {
                         <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${ESTADO_BADGE[v.estado]}`}>
                           {v.estado === "kyc_pendiente" ? "Verif. pend." : v.estado.charAt(0).toUpperCase() + v.estado.slice(1)}
                         </span>
+                      </td>
+                      <td className="px-4 py-3">
+                        <button
+                          onClick={() => onToggle(v.id, "directorio_visible")}
+                          title={v.directorio_visible ? "Ocultar del directorio" : "Mostrar en directorio"}
+                          className={`relative w-9 h-5 rounded-full transition-colors flex-shrink-0 ${v.directorio_visible ? "bg-[#52B788]" : "bg-slate-200"}`}>
+                          <span className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${v.directorio_visible ? "translate-x-4" : "translate-x-0.5"}`} />
+                        </button>
                       </td>
                       <td className="px-4 py-3 text-sm text-slate-600 font-semibold">{v.totalReportes}</td>
                       <td className="px-4 py-3">

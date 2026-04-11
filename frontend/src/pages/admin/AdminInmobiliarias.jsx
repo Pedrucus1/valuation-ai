@@ -5,7 +5,7 @@ import {
   Building2, Users, ShieldCheck, BarChart2, CreditCard,
   Search, RefreshCw, CheckCircle2, XCircle, ChevronDown, ChevronUp,
   Clock, MapPin, Mail, Phone, AlertTriangle, Activity,
-  Eye, FileText, Send, Download, Star, Ban, X,
+  FileText, Send, Download, Star, Ban, X,
 } from "lucide-react";
 import { PageHeader } from "@/components/AdminUI";
 
@@ -415,8 +415,85 @@ const TabEmpresas = ({ inmobiliarias, onReload, onToggle, onBloquear }) => {
   );
 };
 
+/* ─── Visor de documentos KYC ─── */
+const DocViewer = ({ userId, onClose }) => {
+  const [detalle, setDetalle] = useState(null);
+  const [cargando, setCargando] = useState(true);
+
+  useEffect(() => {
+    setCargando(true);
+    adminFetch(`/api/admin/inmobiliarias/${userId}`)
+      .then((d) => setDetalle(d))
+      .catch(() => setDetalle(null))
+      .finally(() => setCargando(false));
+  }, [userId]);
+
+  const DOCS = [
+    { label: "RFC",                  campo: "rfc"            },
+    { label: "Razón social",         campo: "razon_social"   },
+    { label: "Cédula / Matrícula",   campo: "cedula"         },
+    { label: "Asociación",           campo: "asociacion"     },
+    { label: "Sitio web",            campo: "website"        },
+    { label: "Años de operación",    campo: "anos_operacion" },
+    { label: "No. agentes",          campo: "num_agentes"    },
+  ];
+
+  return (
+    <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4" onClick={onClose}>
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden" onClick={(e) => e.stopPropagation()}>
+        <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] px-5 py-4 flex items-center justify-between">
+          <div>
+            <h3 className="font-bold text-white">Documentos KYC</h3>
+            <p className="text-[#D9ED92]/70 text-xs mt-0.5">{detalle?.company_name || detalle?.email || userId}</p>
+          </div>
+          <button onClick={onClose}><X className="w-5 h-5 text-white/60 hover:text-white" /></button>
+        </div>
+        <div className="p-5">
+          {cargando ? (
+            <p className="text-center text-sm text-slate-400 py-8">Cargando documentos…</p>
+          ) : !detalle ? (
+            <p className="text-center text-sm text-slate-400 py-8">No se pudieron cargar los documentos.</p>
+          ) : (
+            <>
+              <div className="grid grid-cols-2 gap-3 mb-4">
+                {DOCS.map(({ label, campo }) => (
+                  <div key={campo} className={`bg-[#F0FAF5] border rounded-xl p-3 ${detalle[campo] ? "border-[#B7E4C7]" : "border-slate-100 opacity-50"}`}>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">{label}</p>
+                    <p className="text-sm text-[#1B4332] font-semibold mt-0.5 truncate">{detalle[campo] || "—"}</p>
+                  </div>
+                ))}
+              </div>
+              {/* Documentos subidos */}
+              <div>
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-2">Archivos requeridos</p>
+                <div className="flex flex-wrap gap-2">
+                  {["Constancia SAT", "Acta constitutiva", "Identificación titular", "Comprobante domicilio"].map((doc) => {
+                    const subido = detalle.documentos_kyc?.includes(doc) || false;
+                    return (
+                      <span key={doc} className={`flex items-center gap-1 text-xs px-2.5 py-1 rounded-full font-semibold ${subido ? "bg-green-100 text-green-700" : "bg-slate-100 text-slate-400"}`}>
+                        {subido ? <CheckCircle2 className="w-3 h-3" /> : <AlertTriangle className="w-3 h-3" />}
+                        {doc}
+                      </span>
+                    );
+                  })}
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+        <div className="px-5 pb-5 flex justify-end">
+          <button onClick={onClose} className="text-sm font-semibold px-4 py-2 bg-slate-100 text-slate-600 rounded-xl hover:bg-slate-200 transition-colors">
+            Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 /* ─── Tab Nuevas Altas ─── */
 const TabNuevasAltas = ({ inmobiliarias, onReload }) => {
+  const [docViewer, setDocViewer] = useState(null);
   const pendientes = inmobiliarias
     .filter((r) => r.kyc_status === "pending")
     .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
@@ -439,51 +516,60 @@ const TabNuevasAltas = ({ inmobiliarias, onReload }) => {
   }
 
   return (
-    <div className="space-y-3">
-      <p className="text-sm text-slate-500">{pendientes.length} empresa{pendientes.length !== 1 ? "s" : ""} esperando verificación</p>
-      {pendientes.map((r) => (
-        <div key={r.user_id} className="bg-white rounded-2xl border border-amber-100 p-5">
-          <div className="flex items-start justify-between gap-4 flex-wrap">
-            <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center flex-shrink-0">
-                <AlertTriangle className="w-5 h-5 text-amber-600" />
-              </div>
-              <div>
-                <p className="font-semibold text-[#1B4332]">{r.company_name || r.name || "Sin nombre"}</p>
-                <div className="flex flex-wrap gap-3 mt-1 text-xs text-slate-500">
-                  <span className="flex items-center gap-1"><Mail className="w-3 h-3" />{r.email}</span>
-                  {r.phone && <span className="flex items-center gap-1"><Phone className="w-3 h-3" />{r.phone}</span>}
-                  {(r.municipio || r.estado) && (
-                    <span className="flex items-center gap-1">
-                      <MapPin className="w-3 h-3" />
-                      {[r.municipio, r.estado].filter(Boolean).join(", ")}
-                    </span>
-                  )}
-                  <span className="flex items-center gap-1"><Clock className="w-3 h-3" />Alta: {fmtFecha(r.created_at)}</span>
+    <>
+      <div className="space-y-3">
+        <p className="text-sm text-slate-500">{pendientes.length} empresa{pendientes.length !== 1 ? "s" : ""} esperando verificación</p>
+        {pendientes.map((r) => (
+          <div key={r.user_id} className="bg-white rounded-2xl border border-amber-100 p-5">
+            <div className="flex items-start justify-between gap-4 flex-wrap">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center flex-shrink-0">
+                  <AlertTriangle className="w-5 h-5 text-amber-600" />
                 </div>
-                {r.asociacion && (
-                  <p className="text-xs text-slate-400 mt-1">Asociación: {r.asociacion}</p>
-                )}
+                <div>
+                  <p className="font-semibold text-[#1B4332]">{r.company_name || r.name || "Sin nombre"}</p>
+                  <div className="flex flex-wrap gap-3 mt-1 text-xs text-slate-500">
+                    <span className="flex items-center gap-1"><Mail className="w-3 h-3" />{r.email}</span>
+                    {r.phone && <span className="flex items-center gap-1"><Phone className="w-3 h-3" />{r.phone}</span>}
+                    {(r.municipio || r.estado) && (
+                      <span className="flex items-center gap-1">
+                        <MapPin className="w-3 h-3" />
+                        {[r.municipio, r.estado].filter(Boolean).join(", ")}
+                      </span>
+                    )}
+                    <span className="flex items-center gap-1"><Clock className="w-3 h-3" />Alta: {fmtFecha(r.created_at)}</span>
+                  </div>
+                  {r.asociacion && (
+                    <p className="text-xs text-slate-400 mt-1">Asociación: {r.asociacion}</p>
+                  )}
+                </div>
               </div>
-            </div>
-            <div className="flex gap-2 flex-shrink-0">
-              <button
-                onClick={() => handleKYC(r.user_id, "aprobar")}
-                className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl bg-green-50 border border-green-200 text-green-700 hover:bg-green-100 transition-colors"
-              >
-                <CheckCircle2 className="w-4 h-4" /> Aprobar
-              </button>
-              <button
-                onClick={() => handleKYC(r.user_id, "rechazar")}
-                className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl bg-red-50 border border-red-200 text-red-600 hover:bg-red-100 transition-colors"
-              >
-                <XCircle className="w-4 h-4" /> Rechazar
-              </button>
+              <div className="flex gap-2 flex-shrink-0 flex-wrap">
+                <button
+                  onClick={() => setDocViewer(r.user_id)}
+                  className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 hover:bg-slate-100 transition-colors"
+                >
+                  <FileText className="w-4 h-4" /> Ver documentos
+                </button>
+                <button
+                  onClick={() => handleKYC(r.user_id, "aprobar")}
+                  className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl bg-green-50 border border-green-200 text-green-700 hover:bg-green-100 transition-colors"
+                >
+                  <CheckCircle2 className="w-4 h-4" /> Aprobar
+                </button>
+                <button
+                  onClick={() => handleKYC(r.user_id, "rechazar")}
+                  className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl bg-red-50 border border-red-200 text-red-600 hover:bg-red-100 transition-colors"
+                >
+                  <XCircle className="w-4 h-4" /> Rechazar
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+      {docViewer && <DocViewer userId={docViewer} onClose={() => setDocViewer(null)} />}
+    </>
   );
 };
 
@@ -545,139 +631,6 @@ const TabActividad = ({ cargandoAct, actividad }) => {
   );
 };
 
-/* ─── Tab Directorio ─── */
-const TabDirectorio = ({ inmobiliarias, onToggle }) => {
-  const [busqueda, setBusqueda] = useState("");
-  const [filtro, setFiltro] = useState("todos");
-  const [guardando, setGuardando] = useState(null);
-
-  const datos = inmobiliarias.map((r) => ({
-    ...r,
-    directorio_visible: r.directorio_visible !== false,
-    destacado: r.destacado || false,
-    perfil_pct: Math.min(100,
-      (r.company_name ? 20 : 0) + (r.phone ? 15 : 0) +
-      (r.municipio ? 15 : 0) + (r.kyc_status === "approved" ? 30 : 0) +
-      (r.asociacion ? 20 : 0)
-    ),
-  }));
-
-  const filtrados = datos.filter((r) => {
-    const q = busqueda.toLowerCase();
-    const matchQ = !busqueda || (r.company_name || r.email).toLowerCase().includes(q) || (r.municipio || "").toLowerCase().includes(q);
-    const matchF = filtro === "todos"
-      || (filtro === "visibles"   && r.directorio_visible)
-      || (filtro === "ocultas"    && !r.directorio_visible)
-      || (filtro === "destacadas" && r.destacado);
-    return matchQ && matchF;
-  });
-
-  const toggle = async (id, campo) => {
-    setGuardando(`${id}-${campo}`);
-    await onToggle(id, campo);
-    setGuardando(null);
-  };
-
-  return (
-    <div className="space-y-4">
-      <div className="bg-[#1B4332]/5 border border-[#52B788]/20 rounded-2xl px-4 py-3 text-xs text-slate-600 flex items-center gap-2">
-        <Eye className="w-4 h-4 text-[#52B788] flex-shrink-0" />
-        <span>
-          <strong className="text-[#1B4332]">Directorio público:</strong> Las empresas visibles aparecen en <code className="bg-slate-100 px-1 rounded">/inmobiliarias</code>.
-          Las <strong>Destacadas</strong> aparecen primero con badge especial. Solo empresas verificadas deberían ser visibles.
-        </span>
-      </div>
-
-      <div className="flex flex-wrap gap-3 items-center">
-        <div className="relative flex-1 min-w-[180px]">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-          <input type="text" value={busqueda} onChange={(e) => setBusqueda(e.target.value)}
-            placeholder="Buscar por empresa o ciudad..."
-            className="w-full pl-9 pr-4 py-2 text-sm border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#52B788]/40" />
-        </div>
-        <select value={filtro} onChange={(e) => setFiltro(e.target.value)}
-          className="appearance-none border border-slate-200 rounded-xl px-3 py-2 text-sm text-slate-600 bg-white focus:outline-none pr-8">
-          <option value="todos">Todas</option>
-          <option value="visibles">Visibles en directorio</option>
-          <option value="ocultas">Ocultas</option>
-          <option value="destacadas">Destacadas</option>
-        </select>
-        <ChevronDown className="w-0 h-0 overflow-hidden" />
-        <div className="text-xs text-slate-400 ml-auto">
-          {datos.filter((r) => r.directorio_visible).length} visibles · {datos.filter((r) => r.destacado).length} destacadas
-        </div>
-      </div>
-
-      <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F]">
-                {["Empresa","Ciudad","Verificación","Plan","Perfil %","Visible","Destacada"].map((h) => (
-                  <th key={h} className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide whitespace-nowrap">{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-50">
-              {filtrados.length === 0 && (
-                <tr><td colSpan={7} className="text-center py-10 text-slate-400 text-sm">Sin resultados</td></tr>
-              )}
-              {filtrados.map((r) => (
-                <tr key={r.user_id} className={`hover:bg-[#F0FAF5]/50 transition-colors ${!r.directorio_visible ? "opacity-50" : ""}`}>
-                  <td className="px-4 py-3">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-lg bg-[#D9ED92]/50 flex items-center justify-center flex-shrink-0">
-                        <Building2 className="w-4 h-4 text-[#1B4332]" />
-                      </div>
-                      <div>
-                        <p className="text-sm font-semibold text-[#1B4332]">{r.company_name || r.name || "—"}</p>
-                        <p className="text-xs text-slate-400">{r.email}</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-4 py-3 text-sm text-slate-500">
-                    {[r.municipio, r.estado].filter(Boolean).join(", ") || "—"}
-                  </td>
-                  <td className="px-4 py-3">
-                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${KYC_CFG[r.kyc_status]?.cls || "bg-slate-100 text-slate-400"}`}>
-                      {KYC_CFG[r.kyc_status]?.label || "—"}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3 text-xs text-slate-500">{r.plan_tipo || "—"}</td>
-                  <td className="px-4 py-3">
-                    <div className="flex items-center gap-2">
-                      <div className="w-16 h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                        <div className={`h-full rounded-full ${r.perfil_pct >= 80 ? "bg-[#52B788]" : r.perfil_pct >= 50 ? "bg-amber-400" : "bg-red-300"}`}
-                          style={{ width: `${r.perfil_pct}%` }} />
-                      </div>
-                      <span className="text-xs text-slate-400">{r.perfil_pct}%</span>
-                    </div>
-                  </td>
-                  <td className="px-4 py-3">
-                    <button
-                      onClick={() => toggle(r.user_id, "directorio_visible")}
-                      disabled={guardando === `${r.user_id}-directorio_visible`}
-                      className={`relative w-10 h-5 rounded-full transition-colors flex-shrink-0 ${r.directorio_visible ? "bg-[#52B788]" : "bg-slate-200"}`}>
-                      <span className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${r.directorio_visible ? "translate-x-5" : "translate-x-0.5"}`} />
-                    </button>
-                  </td>
-                  <td className="px-4 py-3">
-                    <button
-                      onClick={() => toggle(r.user_id, "destacado")}
-                      disabled={guardando === `${r.user_id}-destacado`}
-                      className={`p-1.5 rounded-lg transition-colors ${r.destacado ? "text-amber-400 bg-amber-50" : "text-slate-300 hover:text-amber-400 hover:bg-amber-50"}`}>
-                      <Star className={`w-4 h-4 ${r.destacado ? "fill-amber-400" : ""}`} />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 /* ─── Componente principal ─── */
 const AdminInmobiliarias = () => {
@@ -724,12 +677,19 @@ const AdminInmobiliarias = () => {
     } catch { /* actualización local ya hecha */ }
   };
 
+  const onBloquear = async (userId, estadoActual) => {
+    const nuevoEstado = estadoActual === "suspendido" ? "activo" : "suspendido";
+    try {
+      await adminFetch(`/api/admin/usuarios/${userId}/estado`, { method: "PATCH", body: JSON.stringify({ estado: nuevoEstado }) });
+      setInmobiliarias((prev) => prev.map((r) => r.user_id === userId ? { ...r, cuenta_estado: nuevoEstado } : r));
+    } catch (e) { alert("Error: " + e.message); }
+  };
+
   const TABS = [
-    { id: "resumen",    label: "Resumen",                                                               icon: BarChart2    },
-    { id: "empresas",   label: `Empresas (${inmobiliarias.length})`,                                    icon: Building2    },
-    { id: "directorio", label: "Directorio",                                                            icon: Eye          },
-    { id: "nuevas",     label: pendientesKyc > 0 ? `Nuevas altas (${pendientesKyc})` : "Nuevas altas", icon: ShieldCheck  },
-    { id: "actividad",  label: "Actividad",                                                             icon: Activity     },
+    { id: "resumen",   label: "Resumen",                                                               icon: BarChart2    },
+    { id: "empresas",  label: `Empresas (${inmobiliarias.length})`,                                    icon: Building2    },
+    { id: "nuevas",    label: pendientesKyc > 0 ? `Nuevas altas (${pendientesKyc})` : "Nuevas altas", icon: ShieldCheck  },
+    { id: "actividad", label: "Actividad",                                                             icon: Activity     },
   ];
 
   const descargarCSV = () => {
@@ -787,11 +747,10 @@ const AdminInmobiliarias = () => {
           <div className="flex items-center justify-center h-48 text-slate-400 text-sm">Cargando…</div>
         ) : (
           <>
-            {tab === "resumen"    && <TabResumen     inmobiliarias={inmobiliarias} />}
-            {tab === "empresas"   && <TabEmpresas    inmobiliarias={inmobiliarias} onReload={cargar} />}
-            {tab === "directorio" && <TabDirectorio  inmobiliarias={inmobiliarias} onToggle={onToggleDirectorio} />}
-            {tab === "nuevas"     && <TabNuevasAltas inmobiliarias={inmobiliarias} onReload={cargar} />}
-            {tab === "actividad"  && <TabActividad   cargandoAct={cargandoAct} actividad={actividad} />}
+            {tab === "resumen"   && <TabResumen     inmobiliarias={inmobiliarias} />}
+            {tab === "empresas"  && <TabEmpresas    inmobiliarias={inmobiliarias} onReload={cargar} onToggle={onToggleDirectorio} onBloquear={onBloquear} />}
+            {tab === "nuevas"    && <TabNuevasAltas inmobiliarias={inmobiliarias} onReload={cargar} />}
+            {tab === "actividad" && <TabActividad   cargandoAct={cargandoAct} actividad={actividad} />}
           </>
         )}
 
