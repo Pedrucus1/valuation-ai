@@ -5,6 +5,7 @@ import {
   Activity, CheckCircle2, AlertCircle, XCircle, RefreshCw,
   Clock, Database, AlertTriangle, Play, List, Search, ChevronLeft, ChevronRight, ExternalLink,
 } from "lucide-react";
+import { PageHeader } from "@/components/AdminUI";
 
 const ESTADO_CFG = {
   ok:       { label: "OK",         cls: "bg-green-100 text-green-700",  icon: <CheckCircle2 className="w-4 h-4 text-green-600" /> },
@@ -102,19 +103,19 @@ const PropiedadesViewer = () => {
       )}
 
       {/* Tabla */}
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-        <div className="flex items-center justify-between px-5 py-3.5 border-b border-slate-100 bg-[#F8F9FA]">
-          <span className="text-sm font-semibold text-[#1B4332]">
+      <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm overflow-hidden">
+        <div className="flex items-center justify-between px-5 py-3.5 border-b border-[#B7E4C7] bg-gradient-to-r from-[#1B4332] to-[#2D6A4F]">
+          <span className="text-sm font-semibold text-white">
             {cargando ? "Cargando…" : `${total.toLocaleString()} propiedades`}
           </span>
-          <span className="text-xs text-slate-400">Página {page} de {totalPages}</span>
+          <span className="text-xs text-white/60">Página {page} de {totalPages}</span>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-xs">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-100">
+              <tr className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F]">
                 {["Título", "Precio", "Tipo", "Colonia", "Municipio", "Estado", "M² const.", "M² terr.", "Rec.", "Baños", "Operación", "Fuente"].map((h) => (
-                  <th key={h} className="text-left px-3 py-2 font-semibold text-slate-400 uppercase tracking-wide whitespace-nowrap">{h}</th>
+                  <th key={h} className="text-left px-3 py-2 font-semibold text-white/80 uppercase tracking-wide whitespace-nowrap">{h}</th>
                 ))}
               </tr>
             </thead>
@@ -166,7 +167,7 @@ const PropiedadesViewer = () => {
         </div>
         {/* Paginación */}
         {totalPages > 1 && (
-          <div className="flex items-center justify-between px-5 py-3 border-t border-slate-100">
+          <div className="flex items-center justify-between px-5 py-3 border-t border-[#B7E4C7]">
             <button onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1}
               className="flex items-center gap-1 text-xs font-semibold text-slate-500 hover:text-[#1B4332] disabled:opacity-30">
               <ChevronLeft className="w-4 h-4" /> Anterior
@@ -258,22 +259,16 @@ const AdminScraper = () => {
     <AdminLayout>
       <div className="max-w-5xl mx-auto space-y-6">
 
-        <div className="flex items-start justify-between">
-          <div>
-            <h1 className="font-['Outfit'] text-2xl font-bold text-[#1B4332]">Monitor del Scraper</h1>
-            <p className="text-slate-400 text-sm mt-0.5">Estado de los portales de comparables</p>
-          </div>
+        <PageHeader icon={Activity} title="Monitor del Scraper"
+          subtitle="Estado de los portales de comparables">
           {activeTab === "monitor" && (
-            <button
-              onClick={ejecutarScraper}
-              disabled={corriendo}
-              className="flex items-center gap-2 bg-[#1B4332] hover:bg-[#163828] disabled:opacity-50 text-white text-sm font-bold px-4 py-2.5 rounded-xl transition-colors"
-            >
+            <button onClick={ejecutarScraper} disabled={corriendo}
+              className="flex items-center gap-2 bg-white/20 hover:bg-white/30 border border-white/30 disabled:opacity-50 text-white text-sm font-bold px-4 py-2.5 rounded-xl transition-colors">
               {corriendo ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Play className="w-4 h-4" />}
               {corriendo ? "Ejecutando..." : "Ejecutar ahora"}
             </button>
           )}
-        </div>
+        </PageHeader>
 
         {/* Tabs */}
         <div className="flex gap-1 border-b border-slate-200">
@@ -310,7 +305,7 @@ const AdminScraper = () => {
             { icon: CheckCircle2, label: "URLs procesadas", valor: totalCompletadas.toLocaleString(), cls: "bg-[#D9ED92] text-[#1B4332]" },
             { icon: XCircle, label: "Errores",    valor: totalErrores, cls: totalErrores > 0 ? "bg-red-100 text-red-500" : "bg-slate-100 text-slate-400" },
           ].map(({ icon: Icon, label, valor, cls }) => (
-            <div key={label} className="bg-white rounded-2xl border border-slate-100 p-4 flex flex-col gap-2">
+            <div key={label} className="bg-white rounded-2xl border border-[#B7E4C7] p-4 flex flex-col gap-2">
               <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${cls}`}>
                 <Icon className="w-4 h-4" />
               </div>
@@ -321,8 +316,8 @@ const AdminScraper = () => {
         </div>
 
         {/* Estado por portal */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-          <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
+        <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm overflow-hidden">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-[#B7E4C7]">
             <h2 className="font-semibold text-[#1B4332] text-sm">Estado por portal</h2>
             <div className="flex items-center gap-2 text-xs text-slate-400">
               <Clock className="w-3.5 h-3.5" />
@@ -334,9 +329,9 @@ const AdminScraper = () => {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="bg-[#F8F9FA] border-b border-slate-100">
+                <tr className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F]">
                   {["Portal", "Estado", "Completadas", "Errores", "Pendientes", "Última act.", ""].map((h) => (
-                    <th key={h} className="text-left px-4 py-2.5 text-xs font-semibold text-slate-400 uppercase tracking-wide whitespace-nowrap">{h}</th>
+                    <th key={h} className="text-left px-4 py-2.5 text-xs font-semibold text-white/80 uppercase tracking-wide whitespace-nowrap">{h}</th>
                   ))}
                 </tr>
               </thead>
@@ -397,8 +392,8 @@ const AdminScraper = () => {
         </div>
 
         {/* Log reciente */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm">
-          <div className="px-5 py-4 border-b border-slate-100">
+        <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm">
+          <div className="px-5 py-4 border-b border-[#B7E4C7]">
             <h2 className="font-semibold text-[#1B4332] text-sm">Log de ejecución reciente</h2>
           </div>
           <div className="p-4 space-y-1.5 font-mono text-xs max-h-60 overflow-y-auto">

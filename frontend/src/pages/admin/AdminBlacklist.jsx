@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import AdminLayout from "@/components/AdminLayout";
 import { adminFetch } from "@/lib/adminFetch";
 import { Plus, X, Save, CheckCircle2, AlertTriangle, Globe, Type } from "lucide-react";
+import { PageHeader } from "@/components/AdminUI";
 
 // En producción: GET/PUT /api/admin/blacklist
 const PALABRAS_INICIALES = [
@@ -87,17 +88,14 @@ const AdminBlacklist = () => {
     <AdminLayout>
       <div className="max-w-3xl mx-auto space-y-6">
 
-        <div className="flex items-start justify-between">
-          <div>
-            <h1 className="font-['Outfit'] text-2xl font-bold text-[#1B4332]">Blacklist de Anuncios</h1>
-            <p className="text-slate-400 text-sm mt-0.5">Palabras y dominios que activan revisión manual automática</p>
-          </div>
+        <PageHeader icon={Type} title="Blacklist de Anuncios"
+          subtitle="Palabras y dominios que activan revisión manual automática">
           <button onClick={guardar} disabled={!cambios}
-            className="flex items-center gap-2 bg-[#1B4332] hover:bg-[#163828] disabled:opacity-40 text-white text-sm font-bold px-4 py-2.5 rounded-xl transition-colors">
+            className="flex items-center gap-2 bg-white/20 hover:bg-white/30 border border-white/30 disabled:opacity-40 text-white text-sm font-bold px-4 py-2.5 rounded-xl transition-colors">
             <Save className="w-4 h-4" />
             {cambios ? "Guardar cambios" : "Sin cambios"}
           </button>
-        </div>
+        </PageHeader>
 
         {guardado && (
           <div className="flex items-center gap-2 bg-green-50 border border-green-200 rounded-2xl px-4 py-3">
@@ -119,7 +117,7 @@ const AdminBlacklist = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
 
           {/* Palabras */}
-          <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
+          <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm p-5">
             <div className="flex items-center gap-2 mb-4">
               <Type className="w-4 h-4 text-[#1B4332]" />
               <h2 className="font-semibold text-[#1B4332] text-sm">Palabras y frases ({palabras.length})</h2>
@@ -156,7 +154,7 @@ const AdminBlacklist = () => {
           </div>
 
           {/* Dominios */}
-          <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
+          <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm p-5">
             <div className="flex items-center gap-2 mb-4">
               <Globe className="w-4 h-4 text-[#1B4332]" />
               <h2 className="font-semibold text-[#1B4332] text-sm">Dominios bloqueados ({dominios.length})</h2>
@@ -197,7 +195,7 @@ const AdminBlacklist = () => {
         </div>
 
         {/* Tester */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
+        <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm p-5">
           <h2 className="font-semibold text-[#1B4332] text-sm mb-3">
             Probador — verifica si un texto sería marcado
           </h2>

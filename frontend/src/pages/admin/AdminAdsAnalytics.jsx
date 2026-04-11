@@ -8,6 +8,7 @@ import {
   CheckCircle2, Clock, XCircle, RefreshCw, ShieldAlert, Image, AlertTriangle, X, MessageSquare,
   Ban, Plus, Save, Globe, Type, ZoomIn, ChevronLeft, ChevronRight, ChevronUp,
 } from "lucide-react";
+import { PageHeader } from "@/components/AdminUI";
 
 const fmt = (n) =>
   new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 }).format(n ?? 0);
@@ -1119,23 +1120,17 @@ const AdminAdsAnalytics = () => {
     <AdminLayout>
       <div className="max-w-6xl mx-auto space-y-5">
 
-        {/* Header */}
-        <div className="flex items-start justify-between">
-          <div>
-            <h1 className="font-['Outfit'] text-2xl font-bold text-[#1B4332]">Panel de Publicidad</h1>
-            <p className="text-slate-400 text-sm mt-0.5">Campañas, anunciantes y métricas en tiempo real</p>
-          </div>
-          <div className="flex gap-2">
-            <button onClick={cargar} disabled={cargando}
-              className="flex items-center gap-2 border border-slate-200 text-slate-500 hover:bg-slate-50 text-sm px-3 py-2 rounded-xl transition-colors">
-              <RefreshCw className={`w-4 h-4 ${cargando ? "animate-spin" : ""}`} />
-            </button>
-            <button onClick={descargarCSV}
-              className="flex items-center gap-2 border border-[#52B788] text-[#1B4332] hover:bg-[#52B788]/10 text-sm font-bold px-4 py-2 rounded-xl transition-colors">
-              <Download className="w-4 h-4" /> CSV
-            </button>
-          </div>
-        </div>
+        <PageHeader icon={Megaphone} title="Panel de Publicidad"
+          subtitle="Campañas, anunciantes y métricas en tiempo real">
+          <button onClick={cargar} disabled={cargando}
+            className="flex items-center gap-2 bg-white/20 hover:bg-white/30 border border-white/30 text-white text-sm px-3 py-2.5 rounded-xl transition-colors">
+            <RefreshCw className={`w-4 h-4 ${cargando ? "animate-spin" : ""}`} />
+          </button>
+          <button onClick={descargarCSV}
+            className="flex items-center gap-2 bg-white/20 hover:bg-white/30 border border-white/30 text-white text-sm font-bold px-4 py-2.5 rounded-xl transition-colors">
+            <Download className="w-4 h-4" /> CSV
+          </button>
+        </PageHeader>
 
         {/* Tabs */}
         <div className="flex gap-1 bg-slate-100 rounded-xl p-1 w-fit">

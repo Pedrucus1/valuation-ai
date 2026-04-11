@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import AdminLayout from "@/components/AdminLayout";
 import { adminFetch } from "@/lib/adminFetch";
 import { FileText, Save, CheckCircle2, AlertCircle, Eye, Edit2, Clock } from "lucide-react";
+import { PageHeader } from "@/components/AdminUI";
 
 // Textos iniciales — en producción, cargar desde /api/admin/cms/:slug
 const DOCUMENTOS_INICIALES = {
@@ -304,10 +305,8 @@ const AdminCMS = () => {
     <AdminLayout>
       <div className="max-w-5xl mx-auto space-y-5">
 
-        <div>
-          <h1 className="font-['Outfit'] text-2xl font-bold text-[#1B4332]">Editor CMS Legal</h1>
-          <p className="text-slate-400 text-sm mt-0.5">Edita los textos legales sin necesidad de deploy</p>
-        </div>
+        <PageHeader icon={FileText} title="Editor CMS Legal"
+          subtitle="Edita los textos legales sin necesidad de deploy" />
 
         {guardado && (
           <div className="flex items-center gap-2 bg-green-50 border border-green-200 rounded-2xl px-4 py-3">
@@ -343,12 +342,12 @@ const AdminCMS = () => {
 
           {/* Editor principal */}
           <div className="lg:col-span-3 space-y-4">
-            <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+            <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm overflow-hidden">
               {/* Topbar */}
-              <div className="flex items-center justify-between px-5 py-3.5 border-b border-slate-100 bg-[#F8F9FA]">
+              <div className="flex items-center justify-between px-5 py-3.5 border-b border-[#B7E4C7] bg-gradient-to-r from-[#1B4332] to-[#2D6A4F]">
                 <div>
-                  <h2 className="font-semibold text-[#1B4332] text-sm">{doc.titulo}</h2>
-                  <p className="text-xs text-slate-400 flex items-center gap-1 mt-0.5">
+                  <h2 className="font-semibold text-white text-sm">{doc.titulo}</h2>
+                  <p className="text-xs text-white/60 flex items-center gap-1 mt-0.5">
                     <Clock className="w-3 h-3" />
                     Última edición: {doc.ultima_edicion} por {doc.editor}
                   </p>
@@ -356,7 +355,7 @@ const AdminCMS = () => {
                 <div className="flex gap-2">
                   <button
                     onClick={() => setPreview((p) => !p)}
-                    className="flex items-center gap-1.5 text-xs font-semibold border border-slate-200 text-slate-600 hover:bg-slate-100 px-3 py-1.5 rounded-xl transition-colors"
+                    className="flex items-center gap-1.5 text-xs font-semibold border border-white/30 text-white hover:bg-white/20 px-3 py-1.5 rounded-xl transition-colors"
                   >
                     <Eye className="w-3.5 h-3.5" />
                     {preview ? "Código" : "Preview"}
@@ -364,7 +363,7 @@ const AdminCMS = () => {
                   {!editando ? (
                     <button
                       onClick={iniciarEdicion}
-                      className="flex items-center gap-1.5 text-xs font-semibold bg-[#1B4332] text-white hover:bg-[#163828] px-3 py-1.5 rounded-xl transition-colors"
+                      className="flex items-center gap-1.5 text-xs font-semibold bg-white/20 hover:bg-white/30 border border-white/30 text-white px-3 py-1.5 rounded-xl transition-colors"
                     >
                       <Edit2 className="w-3.5 h-3.5" /> Editar
                     </button>
@@ -372,13 +371,13 @@ const AdminCMS = () => {
                     <>
                       <button
                         onClick={() => setEditando(false)}
-                        className="text-xs font-semibold border border-slate-200 text-slate-500 hover:bg-slate-50 px-3 py-1.5 rounded-xl transition-colors"
+                        className="text-xs font-semibold border border-white/30 text-white hover:bg-white/20 px-3 py-1.5 rounded-xl transition-colors"
                       >
                         Cancelar
                       </button>
                       <button
                         onClick={guardar}
-                        className="flex items-center gap-1.5 text-xs font-semibold bg-[#52B788] text-white hover:bg-[#3fa070] px-3 py-1.5 rounded-xl transition-colors"
+                        className="flex items-center gap-1.5 text-xs font-semibold bg-[#D9ED92] text-[#1B4332] hover:bg-white px-3 py-1.5 rounded-xl transition-colors font-bold"
                       >
                         <Save className="w-3.5 h-3.5" /> Guardar
                       </button>

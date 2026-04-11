@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import AdminLayout from "@/components/AdminLayout";
 import { adminFetch } from "@/lib/adminFetch";
 import { CheckCircle2, XCircle, ExternalLink, MessageSquare, Clock, Eye, X, AlertTriangle, Image, Play, Megaphone } from "lucide-react";
+import { PageHeader } from "@/components/AdminUI";
 import { API } from "@/App";
 
 function normalizeAnuncio(a) {
@@ -33,7 +34,7 @@ const PreviewCard = ({ anuncio, onAccion }) => {
   const [expandido, setExpandido] = useState(false);
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+    <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm overflow-hidden">
       <div className="p-5">
         {/* Header */}
         <div className="flex items-start justify-between gap-4 mb-4">
@@ -118,7 +119,7 @@ const CreativeCard = ({ cr, onAccion }) => {
   const src = cr.file_url ? `${backendBase}${cr.file_url}` : null;
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+    <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm overflow-hidden">
       <div className="p-5">
         <div className="flex items-start justify-between gap-4 mb-3">
           <div>
@@ -268,12 +269,8 @@ const AdminModeracion = () => {
     <AdminLayout badges={badges}>
       <div className="max-w-3xl mx-auto space-y-5">
 
-        <div>
-          <h1 className="font-['Outfit'] text-2xl font-bold text-[#1B4332]">Moderación de Anuncios</h1>
-          <p className="text-slate-400 text-sm mt-0.5">
-            Revisa el contenido antes de publicarlo. {pendientes.length} pendiente{pendientes.length !== 1 ? "s" : ""}
-          </p>
-        </div>
+        <PageHeader icon={Megaphone} title="Moderación de Anuncios"
+          subtitle={`Revisa el contenido antes de publicarlo · ${pendientes.length} pendiente${pendientes.length !== 1 ? "s" : ""}`} />
 
         {/* Pendientes */}
         {pendientes.length > 0 ? (
@@ -283,7 +280,7 @@ const AdminModeracion = () => {
             ))}
           </div>
         ) : (
-          <div className="text-center py-16 text-slate-400 bg-white rounded-2xl border border-slate-100">
+          <div className="text-center py-16 text-slate-400 bg-white rounded-2xl border border-[#B7E4C7]">
             <CheckCircle2 className="w-10 h-10 mx-auto mb-3 text-green-300" />
             <p className="text-sm font-semibold">No hay anuncios pendientes de moderación</p>
             <p className="text-xs text-slate-300 mt-1">Excelente — todo al día</p>
@@ -302,7 +299,7 @@ const AdminModeracion = () => {
               ))}
             </div>
           ) : (
-            <div className="text-center py-10 text-slate-400 bg-white rounded-2xl border border-slate-100">
+            <div className="text-center py-10 text-slate-400 bg-white rounded-2xl border border-[#B7E4C7]">
               <CheckCircle2 className="w-8 h-8 mx-auto mb-2 text-green-300" />
               <p className="text-sm">Sin creatividades pendientes</p>
             </div>
@@ -344,7 +341,7 @@ const AdminModeracion = () => {
         {historial.length > 0 && (
           <div>
             <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-3">Historial reciente</p>
-            <div className="bg-white rounded-2xl border border-slate-100 shadow-sm divide-y divide-slate-50">
+            <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm divide-y divide-slate-50">
               {historial.map((h) => (
                 <div key={h.id} className="flex items-center gap-4 px-5 py-3">
                   <span className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 ${h.estado === "aprobado" ? "bg-green-100" : "bg-red-100"}`}>

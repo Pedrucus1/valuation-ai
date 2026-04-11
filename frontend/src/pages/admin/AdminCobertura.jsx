@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect } from "react";
 import AdminLayout from "@/components/AdminLayout";
 import { adminFetch } from "@/lib/adminFetch";
 import { MapPin, Search, Save, CheckCircle2, ChevronDown, Info } from "lucide-react";
+import { PageHeader } from "@/components/AdminUI";
 
 // Schema backend: { municipio, estado, scraper_activo, valuadores_activos, ads_disponible }
 const MUNICIPIOS_INICIALES = [
@@ -86,20 +87,14 @@ const AdminCobertura = () => {
     <AdminLayout>
       <div className="max-w-5xl mx-auto space-y-5">
 
-        <div className="flex items-start justify-between">
-          <div>
-            <h1 className="font-['Outfit'] text-2xl font-bold text-[#1B4332]">Cobertura Geográfica</h1>
-            <p className="text-slate-400 text-sm mt-0.5">Controla qué ciudades tienen scraper, valuadores y publicidad activos</p>
-          </div>
-          <button
-            onClick={guardar}
-            disabled={!cambiosPendientes}
-            className="flex items-center gap-2 bg-[#1B4332] hover:bg-[#163828] disabled:opacity-40 text-white text-sm font-bold px-4 py-2.5 rounded-xl transition-colors"
-          >
+        <PageHeader icon={MapPin} title="Cobertura Geográfica"
+          subtitle="Controla qué ciudades tienen scraper, valuadores y publicidad activos">
+          <button onClick={guardar} disabled={!cambiosPendientes}
+            className="flex items-center gap-2 bg-white/20 hover:bg-white/30 border border-white/30 disabled:opacity-40 text-white text-sm font-bold px-4 py-2.5 rounded-xl transition-colors">
             <Save className="w-4 h-4" />
             {cambiosPendientes ? "Guardar cambios" : "Sin cambios"}
           </button>
-        </div>
+        </PageHeader>
 
         {guardado && (
           <div className="flex items-center gap-2 bg-green-50 border border-green-200 rounded-2xl px-4 py-3">
@@ -115,7 +110,7 @@ const AdminCobertura = () => {
             { label: "Con valuadores", val: stats.conValuadores, total: municipios.length, color: "text-green-600" },
             { label: "Con publicidad", val: stats.conAds,        total: municipios.length, color: "text-purple-600" },
           ].map(({ label, val, total, color }) => (
-            <div key={label} className="bg-white rounded-2xl border border-slate-100 p-4">
+            <div key={label} className="bg-white rounded-2xl border border-[#B7E4C7] p-4">
               <p className="text-xs text-slate-400 font-semibold uppercase tracking-wide">{label}</p>
               <p className={`font-['Outfit'] text-2xl font-bold mt-1 ${color}`}>
                 {val}{total ? <span className="text-slate-300 text-base font-normal">/{total}</span> : ""}
@@ -125,7 +120,7 @@ const AdminCobertura = () => {
         </div>
 
         {/* Leyenda de capas */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-4">
+        <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm p-4">
           <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-3">Capas de cobertura</p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {CAPAS.map((c) => (
@@ -141,7 +136,7 @@ const AdminCobertura = () => {
         </div>
 
         {/* Filtros */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 flex flex-wrap gap-3 items-center">
+        <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm p-4 flex flex-wrap gap-3 items-center">
           <div className="relative flex-1 min-w-[180px]">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <input type="text" value={busqueda} onChange={(e) => setBusqueda(e.target.value)}
@@ -170,16 +165,16 @@ const AdminCobertura = () => {
         </div>
 
         {/* Tabla de municipios */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+        <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="bg-[#F8F9FA] border-b border-slate-100">
-                  <th className="text-left px-5 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide">Municipio</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide">Estado</th>
-                  <th className="text-center px-4 py-3 text-xs font-semibold text-blue-500 uppercase tracking-wide">Scraper</th>
-                  <th className="text-center px-4 py-3 text-xs font-semibold text-green-600 uppercase tracking-wide">Valuadores</th>
-                  <th className="text-center px-4 py-3 text-xs font-semibold text-purple-600 uppercase tracking-wide">Ads</th>
+                <tr className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F]">
+                  <th className="text-left px-5 py-3 text-xs font-semibold text-white/80 uppercase tracking-wide">Municipio</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-white/80 uppercase tracking-wide">Estado</th>
+                  <th className="text-center px-4 py-3 text-xs font-semibold text-white/80 uppercase tracking-wide">Scraper</th>
+                  <th className="text-center px-4 py-3 text-xs font-semibold text-white/80 uppercase tracking-wide">Valuadores</th>
+                  <th className="text-center px-4 py-3 text-xs font-semibold text-white/80 uppercase tracking-wide">Ads</th>
                     </tr>
               </thead>
               <tbody className="divide-y divide-slate-50">

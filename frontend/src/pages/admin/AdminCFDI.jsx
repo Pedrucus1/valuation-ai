@@ -4,6 +4,7 @@ import {
   FileText, Download, Search, ChevronDown, CheckCircle2,
   XCircle, Clock, AlertCircle, RefreshCw, X, Send,
 } from "lucide-react";
+import { PageHeader } from "@/components/AdminUI";
 
 // Mock — en producción conectar con Facturama API (api.facturama.mx)
 const CFDI_MOCK = [
@@ -78,20 +79,17 @@ const AdminCFDI = () => {
     <AdminLayout>
       <div className="max-w-6xl mx-auto space-y-5">
 
-        <div className="flex items-start justify-between">
-          <div>
-            <h1 className="font-['Outfit'] text-2xl font-bold text-[#1B4332]">CFDI / Facturación</h1>
-            <p className="text-slate-400 text-sm mt-0.5">Gestión de facturas CFDI 4.0 · PAC: Facturama</p>
-          </div>
+        <PageHeader icon={FileText} title="CFDI / Facturación"
+          subtitle="Gestión de facturas CFDI 4.0 · PAC: Facturama">
           <button onClick={descargarCSV}
-            className="flex items-center gap-2 border border-[#52B788] text-[#1B4332] hover:bg-[#52B788]/10 text-sm font-bold px-4 py-2.5 rounded-xl transition-colors">
+            className="flex items-center gap-2 bg-white/20 hover:bg-white/30 border border-white/30 text-white text-sm font-bold px-4 py-2.5 rounded-xl transition-colors">
             <Download className="w-4 h-4" /> Exportar CSV
           </button>
-        </div>
+        </PageHeader>
 
         {/* KPI cards */}
         <div className="grid grid-cols-3 gap-4">
-          <div className="bg-white rounded-2xl border border-slate-100 p-4">
+          <div className="bg-white rounded-2xl border border-[#B7E4C7] p-4">
             <p className="text-xs text-slate-400 font-semibold uppercase tracking-wide">Ingresos timbrados</p>
             <p className="font-['Outfit'] text-2xl font-bold text-[#1B4332] mt-1">${totales.timbrado.toLocaleString("es-MX", { minimumFractionDigits: 2 })}</p>
           </div>
@@ -99,7 +97,7 @@ const AdminCFDI = () => {
             <p className="text-xs text-slate-400 font-semibold uppercase tracking-wide">Facturas pendientes</p>
             <p className="font-['Outfit'] text-2xl font-bold text-yellow-600 mt-1">{totales.pendiente}</p>
           </div>
-          <div className="bg-white rounded-2xl border border-slate-100 p-4">
+          <div className="bg-white rounded-2xl border border-[#B7E4C7] p-4">
             <p className="text-xs text-slate-400 font-semibold uppercase tracking-wide">Canceladas</p>
             <p className="font-['Outfit'] text-2xl font-bold text-red-500 mt-1">{totales.cancelado}</p>
           </div>
@@ -116,7 +114,7 @@ const AdminCFDI = () => {
         </div>
 
         {/* Filtros */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 flex flex-wrap gap-3">
+        <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm p-4 flex flex-wrap gap-3">
           <div className="relative flex-1 min-w-[180px]">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <input type="text" value={busqueda} onChange={(e) => { setBusqueda(e.target.value); setPagina(1); }}
@@ -136,13 +134,13 @@ const AdminCFDI = () => {
         </div>
 
         {/* Tabla */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+        <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="bg-[#F8F9FA] border-b border-slate-100">
+                <tr className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F]">
                   {["Folio","Cliente / RFC","Concepto","Subtotal","IVA","Total","Estado","Fecha",""].map((h) => (
-                    <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide whitespace-nowrap">{h}</th>
+                    <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-white/80 uppercase tracking-wide whitespace-nowrap">{h}</th>
                   ))}
                 </tr>
               </thead>

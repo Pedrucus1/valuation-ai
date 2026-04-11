@@ -4,6 +4,7 @@ import {
   UserCog, Plus, Edit2, Ban, CheckCircle2, ShieldCheck,
   X, Eye, EyeOff,
 } from "lucide-react";
+import { PageHeader } from "@/components/AdminUI";
 
 const ROL_PERMISOS = {
   superadmin: {
@@ -100,24 +101,19 @@ const AdminRoles = () => {
     <AdminLayout>
       <div className="max-w-4xl mx-auto space-y-6">
 
-        <div className="flex items-start justify-between">
-          <div>
-            <h1 className="font-['Outfit'] text-2xl font-bold text-[#1B4332]">Roles de Administrador</h1>
-            <p className="text-slate-400 text-sm mt-0.5">Gestiona quién puede acceder al panel y con qué permisos</p>
-          </div>
+        <PageHeader icon={UserCog} title="Roles de Administrador"
+          subtitle="Gestiona quién puede acceder al panel y con qué permisos">
           {esSuperAdmin && (
-            <button
-              onClick={() => setModalNuevo(true)}
-              className="flex items-center gap-2 bg-[#1B4332] hover:bg-[#163828] text-white text-sm font-bold px-4 py-2.5 rounded-xl transition-colors"
-            >
+            <button onClick={() => setModalNuevo(true)}
+              className="flex items-center gap-2 bg-white/20 hover:bg-white/30 border border-white/30 text-white text-sm font-bold px-4 py-2.5 rounded-xl transition-colors">
               <Plus className="w-4 h-4" /> Nuevo admin
             </button>
           )}
-        </div>
+        </PageHeader>
 
         {/* Tabla admins */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-          <div className="px-5 py-4 border-b border-slate-100">
+        <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm overflow-hidden">
+          <div className="px-5 py-4 border-b border-[#B7E4C7]">
             <h2 className="font-semibold text-[#1B4332] text-sm">Administradores activos</h2>
           </div>
           <div className="divide-y divide-slate-50">
@@ -125,7 +121,7 @@ const AdminRoles = () => {
               const rolInfo = ROL_PERMISOS[admin.rol];
               return (
                 <div key={admin.id} className="flex items-center gap-4 px-5 py-3.5">
-                  <div className="w-9 h-9 rounded-full bg-[#F8F9FA] border border-slate-100 flex items-center justify-center text-[#1B4332] font-bold text-sm flex-shrink-0">
+                  <div className="w-9 h-9 rounded-full bg-[#F8F9FA] border border-[#B7E4C7] flex items-center justify-center text-[#1B4332] font-bold text-sm flex-shrink-0">
                     {admin.nombre.charAt(0)}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -177,7 +173,7 @@ const AdminRoles = () => {
           <h2 className="font-semibold text-[#1B4332] text-sm mb-3">Descripción de roles</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {Object.entries(ROL_PERMISOS).map(([key, rol]) => (
-              <div key={key} className="bg-white rounded-2xl border border-slate-100 p-4">
+              <div key={key} className="bg-white rounded-2xl border border-[#B7E4C7] p-4">
                 <div className="flex items-center gap-2 mb-2">
                   <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full ${rol.color}`}>{rol.label}</span>
                 </div>
