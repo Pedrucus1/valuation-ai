@@ -439,12 +439,10 @@ const FilaEmpresa = ({ r, onNotificar, onKYC, onToggle, onBloquear }) => {
                 {/* Fila única: métricas + servicios + acciones */}
                 <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
                   {[
-                    ["Contacto",   r.name || "—"],
-                    ["Tel.",       r.phone || "—"],
-                    ["Asoc.",      r.asociacion || "—"],
-                    ["Avalúos",    r.total_avaluos ?? 0],
-                    ["Créditos",   r.credits ?? 0],
-                    ["Alta",       fmtFecha(r.created_at)],
+                    ["Contacto",     r.name || "—"],
+                    ["Tel.",         r.phone || "—"],
+                    ["Asoc.",        r.asociacion || "—"],
+                    ["Total aval.",  r.total_avaluos ?? 0],
                   ].map(([k, val]) => (
                     <div key={k} className="flex items-baseline gap-1">
                       <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">{k}</span>
@@ -511,7 +509,7 @@ const FilaEmpresa = ({ r, onNotificar, onKYC, onToggle, onBloquear }) => {
                     title={r.cuenta_estado === "suspendido" ? "Reactivar empresa" : "Suspender empresa"}
                     className={`p-1.5 rounded-lg transition-colors ${r.cuenta_estado === "suspendido" ? "bg-green-100 text-green-700 hover:bg-green-200" : "bg-red-100 text-red-600 hover:bg-red-200"}`}
                   >
-                    <Ban className="w-3.5 h-3.5" />
+                    {r.cuenta_estado === "suspendido" ? <CheckCircle2 className="w-3.5 h-3.5" /> : <Ban className="w-3.5 h-3.5" />}
                   </button>
                 </div>
 
