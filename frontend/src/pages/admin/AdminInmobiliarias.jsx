@@ -388,6 +388,9 @@ const FilaEmpresa = ({ r, onNotificar, onKYC, onToggle, onBloquear }) => {
             <div>
               <p className="font-semibold text-[#1B4332] text-sm">{r.company_name || r.name || "—"}</p>
               <p className="text-[11px] text-slate-500">{r.email}</p>
+              {r.name && r.company_name && (
+                <p className="text-[11px] text-slate-500 mt-0.5">{r.name}{r.phone ? <span className="text-slate-400"> · {r.phone}</span> : ""}</p>
+              )}
               <p className="text-[11px] text-slate-500 flex items-center gap-0.5 mt-0.5">
                 <MapPin className="w-2.5 h-2.5 shrink-0" />{r.municipio || r.estado || "—"}
               </p>
@@ -436,8 +439,6 @@ const FilaEmpresa = ({ r, onNotificar, onKYC, onToggle, onBloquear }) => {
                 {/* Fila única: métricas + servicios + acciones */}
                 <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
                   {[
-                    ["Contacto",     r.name || "—"],
-                    ["Tel.",         r.phone || "—"],
                     ["Asoc.",        r.asociacion || "—"],
                     ["Total aval.",  r.total_avaluos ?? 0],
                   ].map(([k, val]) => (
