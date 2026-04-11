@@ -41,10 +41,10 @@ const PLAN_CFG = {
 };
 
 const SERVICIOS_INMO = [
-  { key: "visitas_presenciales",  label: "Visita presencial",   Icon: MapPin,     color: "bg-blue-50 text-blue-700 border-blue-200"    },
-  { key: "verificacion_valuador", label: "Verif. valuador",     Icon: ShieldCheck,color: "bg-green-50 text-green-700 border-green-200"  },
-  { key: "reportes_comparativos", label: "Comparativo",         Icon: BarChart2,  color: "bg-purple-50 text-purple-700 border-purple-200"},
-  { key: "avaluos_urgentes",      label: "Urgente",             Icon: Zap,        color: "bg-amber-50 text-amber-700 border-amber-200"  },
+  { key: "visitas_presenciales",  label: "Visita",  Icon: MapPin,     color: "bg-blue-50 text-blue-700 border-blue-200"    },
+  { key: "verificacion_valuador", label: "Verif.",  Icon: ShieldCheck,color: "bg-green-50 text-green-700 border-green-200"  },
+  { key: "reportes_comparativos", label: "Comp.",   Icon: BarChart2,  color: "bg-purple-50 text-purple-700 border-purple-200"},
+  { key: "avaluos_urgentes",      label: "Urg.",    Icon: Zap,        color: "bg-amber-50 text-amber-700 border-amber-200"  },
 ];
 
 const Chip = ({ cfg }) => (
@@ -432,25 +432,84 @@ const FilaEmpresa = ({ r, onNotificar, onKYC, onToggle, onBloquear }) => {
             {cargandoDet ? (
               <p className="text-sm text-slate-400 py-4 text-center">Cargando detalle…</p>
             ) : (
-              <div className="space-y-4">
-                {/* Info básica */}
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
-                  <div>
-                    <p className="text-[11px] text-slate-400 mb-0.5">Contacto</p>
-                    <p className="font-medium text-[#1B4332]">{r.name || "—"}</p>
-                  </div>
-                  <div>
-                    <p className="text-[11px] text-slate-400 mb-0.5">Teléfono</p>
-                    <p className="font-medium text-[#1B4332]">{r.phone || "—"}</p>
-                  </div>
-                  <div>
-                    <p className="text-[11px] text-slate-400 mb-0.5">Asociación</p>
-                    <p className="font-medium text-[#1B4332]">{r.asociacion || "—"}</p>
-                  </div>
-                  <div>
-                    <p className="text-[11px] text-slate-400 mb-0.5">Total avalúos</p>
-                    <p className="font-medium text-[#1B4332]">{r.total_avaluos ?? 0}</p>
-                  </div>
+              <div className="space-y-3">
+                {/* Fila única: métricas + servicios + acciones */}
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                  {[
+                    ["Contacto",   r.name || "—"],
+                    ["Tel.",       r.phone || "—"],
+                    ["Asoc.",      r.asociacion || "—"],
+                    ["Avalúos",    r.total_avaluos ?? 0],
+                    ["Créditos",   r.credits ?? 0],
+                    ["Alta",       fmtFecha(r.created_at)],
+                  ].map(([k, val]) => (
+                    <div key={k} className="flex items-baseline gap-1">
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">{k}</span>
+                      <span className="text-sm font-semibold text-[#1B4332]">{val}</span>
+                    </div>
+                  ))}
+                  <span className="text-slate-200 select-none">|</span>
+                  {SERVICIOS_INMO.map(({ key, label, Icon, color }) => {
+                    const n = r[key] ?? detalle?.[key] ?? 0;
+                    const colorText = color.split(" ").find((c) => c.startsWith("text-")) || "text-slate-400";
+                    return (
+                      <div key={key} className={`flex items-center gap-1 text-[11px] font-semibold ${n > 0 ? colorText : "text-slate-300"}`}>
+                        <Icon className="w-3 h-3 shrink-0" /><span>{label}</span><span className="font-bold">{n}</span>
+                      </div>
+                    );
+                  })}
+                  <span className="text-slate-200 select-none">|</span>
+                  {/* Directorio toggle */}
+                  <button
+                    onClick={(e) => { e.stopPropagation(); onToggle?.(r.user_id, "directorio_visible"); }}
+                    title={r.directorio_visible !== false ? "Quitar del directorio" : "Mostrar en directorio"}
+                    className={`relative w-9 h-5 rounded-full transition-colors flex-shrink-0 ${r.directorio_visible !== false ? "bg-[#52B788]" : "bg-slate-200"}`}
+                  >
+                    <span className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${r.directorio_visible !== false ? "translate-x-[18px]" : "translate-x-0"}`} />
+                  </button>
+                  {/* Destacada */}
+                  <button
+                    onClick={(e) => { e.stopPropagation(); onToggle?.(r.user_id, "destacado"); }}
+                    title={r.destacado ? "Quitar destacado" : "Marcar como destacada"}
+                    className={`p-1.5 rounded-lg transition-colors ${r.destacado ? "text-amber-400 bg-amber-50" : "text-slate-300 hover:text-amber-400 hover:bg-amber-50"}`}
+                  >
+                    <Star className={`w-3.5 h-3.5 ${r.destacado ? "fill-amber-400" : ""}`} />
+                  </button>
+                  {/* Nota interna */}
+                  <button
+                    onClick={(e) => { e.stopPropagation(); setNotaModal(true); }}
+                    title="Enviar nota interna"
+                    className="p-1.5 rounded-lg bg-blue-100 text-blue-600 hover:bg-blue-200 transition-colors"
+                  >
+                    <Send className="w-3.5 h-3.5" />
+                  </button>
+                  {/* KYC pendiente */}
+                  {r.kyc_status === "pending" && (
+                    <>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); onKYC(r.user_id, "aprobar"); }}
+                        title="Aprobar verificación"
+                        className="p-1.5 rounded-lg bg-green-100 text-green-700 hover:bg-green-200 transition-colors"
+                      >
+                        <CheckCircle2 className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); onKYC(r.user_id, "rechazar"); }}
+                        title="Rechazar verificación"
+                        className="p-1.5 rounded-lg bg-red-100 text-red-600 hover:bg-red-200 transition-colors"
+                      >
+                        <XCircle className="w-3.5 h-3.5" />
+                      </button>
+                    </>
+                  )}
+                  {/* Suspender / Reactivar */}
+                  <button
+                    onClick={(e) => { e.stopPropagation(); onBloquear?.(r.user_id, r.cuenta_estado); }}
+                    title={r.cuenta_estado === "suspendido" ? "Reactivar empresa" : "Suspender empresa"}
+                    className={`p-1.5 rounded-lg transition-colors ${r.cuenta_estado === "suspendido" ? "bg-green-100 text-green-700 hover:bg-green-200" : "bg-red-100 text-red-600 hover:bg-red-200"}`}
+                  >
+                    <Ban className="w-3.5 h-3.5" />
+                  </button>
                 </div>
 
                 {/* Cobertura geográfica */}
@@ -477,23 +536,6 @@ const FilaEmpresa = ({ r, onNotificar, onKYC, onToggle, onBloquear }) => {
                     )}
                   </div>
                 )}
-
-                {/* Servicios contratados */}
-                <div>
-                  <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Servicios adicionales contratados</p>
-                  <div className="flex flex-wrap gap-2">
-                    {SERVICIOS_INMO.map(({ key, label, Icon, color }) => {
-                      const n = r[key] ?? detalle?.[key] ?? 0;
-                      return (
-                        <div key={key} className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-xl border transition-opacity ${n > 0 ? color : "bg-slate-50 text-slate-300 border-slate-100 opacity-60"}`}>
-                          <Icon className="w-3.5 h-3.5" />
-                          {label}
-                          <span className={`text-[10px] font-bold min-w-[18px] text-center px-1 py-0.5 rounded-full ${n > 0 ? "bg-white/70" : "bg-slate-100 text-slate-300"}`}>{n}</span>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
 
                 {/* Últimas valuaciones */}
                 {detalle?.valuaciones?.length > 0 && (
@@ -536,62 +578,6 @@ const FilaEmpresa = ({ r, onNotificar, onKYC, onToggle, onBloquear }) => {
                   </div>
                 )}
 
-                {/* Acciones */}
-                <div className="flex flex-wrap gap-2 pt-1 items-center">
-                  <button
-                    onClick={(e) => { e.stopPropagation(); setNotaModal(true); }}
-                    className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg border border-blue-200 text-blue-600 hover:bg-blue-50 transition-colors"
-                  >
-                    <Send className="w-3.5 h-3.5" /> Enviar nota interna
-                  </button>
-                  {r.kyc_status === "pending" && (
-                    <>
-                      <button
-                        onClick={(e) => { e.stopPropagation(); onKYC(r.user_id, "aprobar"); }}
-                        className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg border border-green-200 text-green-700 hover:bg-green-50 transition-colors"
-                      >
-                        <CheckCircle2 className="w-3.5 h-3.5" /> Aprobar verificación
-                      </button>
-                      <button
-                        onClick={(e) => { e.stopPropagation(); onKYC(r.user_id, "rechazar"); }}
-                        className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg border border-red-200 text-red-600 hover:bg-red-50 transition-colors"
-                      >
-                        <XCircle className="w-3.5 h-3.5" /> Rechazar verificación
-                      </button>
-                    </>
-                  )}
-                  {/* Directorio toggle */}
-                  <div className="flex items-center gap-1.5 ml-auto">
-                    <span className="text-[11px] text-slate-400">En directorio</span>
-                    <button
-                      onClick={(e) => { e.stopPropagation(); onToggle?.(r.user_id, "directorio_visible"); }}
-                      title={r.directorio_visible !== false ? "Quitar del directorio" : "Mostrar en directorio"}
-                      className={`relative w-9 h-5 rounded-full transition-colors flex-shrink-0 ${r.directorio_visible !== false ? "bg-[#52B788]" : "bg-slate-200"}`}
-                    >
-                      <span className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${r.directorio_visible !== false ? "translate-x-4" : "translate-x-0.5"}`} />
-                    </button>
-                    <span className="text-[11px] text-slate-400 ml-2">Destacada</span>
-                    <button
-                      onClick={(e) => { e.stopPropagation(); onToggle?.(r.user_id, "destacado"); }}
-                      title={r.destacado ? "Quitar destacado" : "Marcar como destacada"}
-                      className={`p-1 rounded-lg transition-colors ${r.destacado ? "text-amber-400 bg-amber-50" : "text-slate-300 hover:text-amber-400 hover:bg-amber-50"}`}
-                    >
-                      <Star className={`w-3.5 h-3.5 ${r.destacado ? "fill-amber-400" : ""}`} />
-                    </button>
-                    <button
-                      onClick={(e) => { e.stopPropagation(); onBloquear?.(r.user_id, r.cuenta_estado); }}
-                      title={r.cuenta_estado === "suspendido" ? "Reactivar empresa" : "Suspender empresa"}
-                      className={`flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1 rounded-lg border transition-colors ${
-                        r.cuenta_estado === "suspendido"
-                          ? "border-green-200 text-green-700 hover:bg-green-50"
-                          : "border-red-200 text-red-600 hover:bg-red-50"
-                      }`}
-                    >
-                      <Ban className="w-3 h-3" />
-                      {r.cuenta_estado === "suspendido" ? "Reactivar" : "Suspender"}
-                    </button>
-                  </div>
-                </div>
               </div>
             )}
           </td>
