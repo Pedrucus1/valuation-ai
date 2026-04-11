@@ -46,6 +46,9 @@ function normalizeValuador(u) {
     servicios_verificacion:  u.servicios_verificacion  ?? u.verificaciones_completadas ?? 0,
     servicios_urgente:       u.servicios_urgente        ?? u.avaluos_urgentes     ?? 0,
     servicios_comparativo:   u.servicios_comparativo    ?? u.reportes_comparativos ?? 0,
+    // Anuncios
+    ads_activos:   u.ads_activos   ?? 0,
+    ads_pendientes: u.ads_pendientes ?? 0,
     // campos directorio (podrían venir del backend o inicializarse aquí)
     directorio_visible: u.directorio_visible !== false,
     destacado: u.destacado || false,
@@ -71,6 +74,7 @@ const SERVICIOS_VAL = [
 
 const TABS = [
   { id: "resumen",        label: "Resumen",         icon: BarChart2   },
+  { id: "valuadores",     label: "Valuadores",      icon: Users       },
   { id: "verificaciones", label: "Nuevas altas",    icon: ShieldCheck },
   { id: "actividad",      label: "Actividad",       icon: Activity    },
 ];
@@ -855,8 +859,7 @@ const AdminValuadores = () => {
 
         {activeTab === "actividad" && <TabActividad valuadores={valuadores} />}
 
-        {/* Lista completa — tab "gestión" inline (fuera de tabs, accesible desde menú) */}
-        {activeTab === "resumen" && valuadores.length > 0 && (
+        {activeTab === "valuadores" && (
           <AdminCard icon={ClipboardList}
             title={`Lista completa (${filtrados.length})`}
             action={null}>
@@ -882,7 +885,7 @@ const AdminValuadores = () => {
             </div>
             <div className="overflow-x-auto">
               <table className="w-full">
-                <GradThead cols={["Valuador","Plan","Verificación","Estado","Directorio","Servicios contratados","Reportes","Quejas","Registro",""]} />
+                <GradThead cols={["Valuador","Plan","Verificación","Estado","Directorio","Servicios contratados","Anuncios","Reportes","Quejas","Registro",""]} />
                 <tbody className="divide-y divide-slate-50">
                   {paginados.map((v) => (
                     <tr key={v.id} className="hover:bg-[#F0FAF5]/50 transition-colors">
@@ -907,7 +910,7 @@ const AdminValuadores = () => {
                           onClick={() => onToggle(v.id, "directorio_visible")}
                           title={v.directorio_visible ? "Ocultar del directorio" : "Mostrar en directorio"}
                           className={`relative w-9 h-5 rounded-full transition-colors flex-shrink-0 ${v.directorio_visible ? "bg-[#52B788]" : "bg-slate-200"}`}>
-                          <span className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${v.directorio_visible ? "translate-x-4" : "translate-x-0.5"}`} />
+                          <span className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${v.directorio_visible ? "translate-x-[18px]" : "translate-x-0"}`} />
                         </button>
                       </td>
                       <td className="px-4 py-3">
@@ -919,6 +922,19 @@ const AdminValuadores = () => {
                           ))}
                           {SERVICIOS_VAL.every((s) => !v[s.key]) && <span className="text-xs text-slate-300">—</span>}
                         </div>
+                      </td>
+                      <td className="px-4 py-3">
+                        {v.ads_activos > 0 ? (
+                          <span className="flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-purple-100 text-purple-700">
+                            <TrendingUp className="w-3 h-3" />{v.ads_activos} activo{v.ads_activos !== 1 ? "s" : ""}
+                          </span>
+                        ) : v.ads_pendientes > 0 ? (
+                          <span className="flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700">
+                            <TrendingUp className="w-3 h-3" />{v.ads_pendientes} pendiente{v.ads_pendientes !== 1 ? "s" : ""}
+                          </span>
+                        ) : (
+                          <span className="text-xs text-slate-300">—</span>
+                        )}
                       </td>
                       <td className="px-4 py-3 text-sm text-slate-600 font-semibold">{v.totalReportes}</td>
                       <td className="px-4 py-3">

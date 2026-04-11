@@ -2175,6 +2175,8 @@ async def admin_inmobiliarias_list(request: Request, q: str = "", estado: str = 
         uid = r.get("user_id")
         r["total_avaluos"] = await db.valuations.count_documents({"user_id": uid}) if uid else 0
         r["avaluos_mes"]   = await db.valuations.count_documents({"user_id": uid, "created_at": {"$gte": mes_inicio}}) if uid else 0
+        r["ads_activos"]   = await db.anuncios.count_documents({"user_id": uid, "estado": "aprobado"}) if uid else 0
+        r["ads_pendientes"] = await db.anuncios.count_documents({"user_id": uid, "estado": "pendiente"}) if uid else 0
     total = await db.users.count_documents(filtro)
     return {"inmobiliarias": realtors, "total": total}
 
@@ -2808,6 +2810,8 @@ async def admin_valuadores_list(request: Request, q: str = "", kyc: str = "", pl
             "valuador_id": u["user_id"],
             "tipo": "queja_valuador"
         })
+        u["ads_activos"]   = await db.anuncios.count_documents({"user_id": u["user_id"], "estado": "aprobado"})
+        u["ads_pendientes"] = await db.anuncios.count_documents({"user_id": u["user_id"], "estado": "pendiente"})
     return {"valuadores": usuarios, "total": len(usuarios)}
 
 # ============== ADMIN — REPORTES ==============

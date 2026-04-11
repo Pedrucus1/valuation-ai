@@ -84,6 +84,113 @@ function normalizeValuacion(v) {
   };
 }
 
+/* ─── Modal Nuevo Anuncio ─────────────────────────────── */
+const SLOTS_LIST = [
+  { id: "reporte_pdf",      label: "Página de Reporte",        desc: "Aparece antes de descargar el PDF",    precio: 990  },
+  { id: "directorio_top",   label: "Directorio · Destacado",   desc: "Posición top en el directorio",        precio: 690  },
+  { id: "landing_banner",   label: "Banner Landing",           desc: "Banner en la página principal",        precio: 590  },
+  { id: "dashboard_banner", label: "Banner Dashboard",         desc: "Banner en dashboards de usuarios",     precio: 490  },
+];
+const DURACIONES = [{ d: 7, label: "7 días" }, { d: 15, label: "15 días" }, { d: 30, label: "30 días" }];
+
+const ModalNuevoAnuncio = ({ session, onClose, onCreado }) => {
+  const [slot, setSlot] = useState(SLOTS_LIST[0].id);
+  const [dias, setDias] = useState(30);
+  const [titulo, setTitulo] = useState("");
+  const [url, setUrl] = useState("");
+  const [enviando, setEnviando] = useState(false);
+
+  const slotCfg = SLOTS_LIST.find((s) => s.id === slot) || SLOTS_LIST[0];
+  const precio = slotCfg.precio * (dias / 30);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!titulo.trim()) return;
+    setEnviando(true);
+    try {
+      const token = session?.session_token || "";
+      const res = await fetch(`${API}/advertisers/anuncios`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        credentials: "include",
+        body: JSON.stringify({ slot, duracion_dias: dias, titulo: titulo.trim(), url_destino: url.trim() }),
+      });
+      if (res.ok) {
+        toast.success("Anuncio enviado — quedará activo al ser aprobado.");
+        onCreado();
+      } else {
+        toast.error("No se pudo crear el anuncio. Intenta de nuevo.");
+      }
+    } catch {
+      toast.error("Error de conexión.");
+    } finally {
+      setEnviando(false);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4" onClick={onClose}>
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden" onClick={(e) => e.stopPropagation()}>
+        <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] px-5 py-4 flex items-center justify-between">
+          <div>
+            <h3 className="font-bold text-white">Crear anuncio</h3>
+            <p className="text-[#D9ED92]/70 text-xs mt-0.5">Tu anuncio será revisado antes de publicarse</p>
+          </div>
+          <button onClick={onClose}><X className="w-5 h-5 text-white/60 hover:text-white" /></button>
+        </div>
+        <form onSubmit={handleSubmit} className="p-5 space-y-4">
+          <div>
+            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1.5">Posición del anuncio</label>
+            <div className="grid grid-cols-2 gap-2">
+              {SLOTS_LIST.map((s) => (
+                <button type="button" key={s.id} onClick={() => setSlot(s.id)}
+                  className={`text-left p-3 rounded-xl border text-sm transition-colors ${slot === s.id ? "border-[#52B788] bg-[#F0FAF5]" : "border-slate-200 hover:border-slate-300"}`}>
+                  <p className="font-semibold text-[#1B4332] text-xs">{s.label}</p>
+                  <p className="text-slate-400 text-[11px] mt-0.5">{s.desc}</p>
+                </button>
+              ))}
+            </div>
+          </div>
+          <div>
+            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1.5">Duración</label>
+            <div className="flex gap-2">
+              {DURACIONES.map(({ d, label }) => (
+                <button type="button" key={d} onClick={() => setDias(d)}
+                  className={`flex-1 py-2 rounded-xl border text-sm font-semibold transition-colors ${dias === d ? "bg-[#1B4332] text-white border-[#1B4332]" : "border-slate-200 text-slate-600 hover:border-slate-300"}`}>
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div>
+            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">Título del anuncio</label>
+            <input value={titulo} onChange={(e) => setTitulo(e.target.value)} required maxLength={80}
+              placeholder="Ej. Valuaciones comerciales en Guadalajara"
+              className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#52B788]/40" />
+          </div>
+          <div>
+            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-1">URL de destino (opcional)</label>
+            <input value={url} onChange={(e) => setUrl(e.target.value)} type="url"
+              placeholder="https://tu-sitio.com"
+              className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#52B788]/40" />
+          </div>
+          <div className="bg-[#F0FAF5] rounded-xl p-3 flex items-center justify-between">
+            <span className="text-sm text-slate-600">Precio estimado</span>
+            <span className="font-bold text-[#1B4332]">${precio.toLocaleString("es-MX")} MXN</span>
+          </div>
+          <button type="submit" disabled={enviando}
+            className="w-full bg-[#1B4332] text-white font-bold py-3 rounded-xl hover:bg-[#2D6A4F] transition-colors disabled:opacity-60">
+            {enviando ? "Enviando…" : "Enviar para revisión"}
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};
+
 /* ─── Component ─────────────────────────────────────────── */
 
 const ValuadorDashboardPage = () => {
@@ -206,7 +313,96 @@ const ValuadorDashboardPage = () => {
     { id: "perfil",      label: "Perfil" },
     { id: "expediente",  label: "Documentos", badge: !docsCompletos && session?.kyc_status !== "approved" },
     { id: "resenas",     label: "Reseñas" },
+    { id: "publicidad",  label: "Publicidad" },
   ];
+
+  /* ── Publicidad Tab ── */
+  const PublicidadTab = () => {
+    const [anuncios, setAnuncios] = useState([]);
+    const [cargando, setCargando] = useState(true);
+    const [modalNuevo, setModalNuevo] = useState(false);
+
+    useEffect(() => {
+      const token = session?.session_token || "";
+      fetch(`${API}/advertisers/mis-anuncios`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+        credentials: "include",
+      })
+        .then((r) => r.ok ? r.json() : { anuncios: [] })
+        .then((d) => setAnuncios(d.anuncios || []))
+        .catch(() => setAnuncios([]))
+        .finally(() => setCargando(false));
+    }, []);
+
+    const ESTADO_AD = {
+      aprobado:  { label: "Activo",     cls: "bg-green-100 text-green-700" },
+      pendiente: { label: "En revisión",cls: "bg-amber-100 text-amber-700" },
+      rechazado: { label: "Rechazado",  cls: "bg-red-100 text-red-600"     },
+      pausado:   { label: "Pausado",    cls: "bg-slate-100 text-slate-500"  },
+    };
+
+    const SLOTS = {
+      reporte_pdf:      "Página de Reporte (PDF)",
+      directorio_top:   "Directorio · posición destacada",
+      landing_banner:   "Banner landing",
+      dashboard_banner: "Banner dashboard",
+    };
+
+    return (
+      <div className="space-y-5">
+        {/* Header CTA */}
+        <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] rounded-2xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <p className="font-bold text-white text-lg">Mis anuncios en PropValu</p>
+            <p className="text-[#D9ED92]/80 text-sm mt-1">
+              Llega a cientos de propietarios que solicitan valuaciones cada mes. Sin verificación adicional — ya estás dado de alta.
+            </p>
+          </div>
+          <button
+            onClick={() => setModalNuevo(true)}
+            className="flex items-center gap-2 bg-[#D9ED92] text-[#1B4332] font-bold text-sm px-5 py-2.5 rounded-xl hover:bg-[#B7E4C7] transition-colors shrink-0">
+            <Plus className="w-4 h-4" /> Crear anuncio
+          </button>
+        </div>
+
+        {/* Lista de anuncios */}
+        {cargando ? (
+          <div className="bg-white rounded-2xl border border-[#B7E4C7] p-8 text-center text-sm text-slate-400">Cargando anuncios…</div>
+        ) : anuncios.length === 0 ? (
+          <div className="bg-white rounded-2xl border border-[#B7E4C7] p-10 text-center">
+            <TrendingUp className="w-10 h-10 mx-auto text-slate-200 mb-3" />
+            <p className="font-semibold text-slate-600 mb-1">Aún no tienes anuncios</p>
+            <p className="text-sm text-slate-400 mb-4">Crea tu primer anuncio y empieza a captar clientes directamente en la plataforma.</p>
+            <button onClick={() => setModalNuevo(true)}
+              className="inline-flex items-center gap-2 bg-[#1B4332] text-white font-semibold px-5 py-2.5 rounded-xl text-sm hover:bg-[#2D6A4F] transition-colors">
+              <Plus className="w-4 h-4" /> Crear mi primer anuncio
+            </button>
+          </div>
+        ) : (
+          <div className="space-y-3">
+            {anuncios.map((ad) => {
+              const est = ESTADO_AD[ad.estado] || ESTADO_AD.pendiente;
+              return (
+                <div key={ad.ad_id} className="bg-white rounded-2xl border border-[#B7E4C7] p-4 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                  {ad.imagen_url && (
+                    <img src={ad.imagen_url} alt="banner" className="w-24 h-14 rounded-lg object-cover shrink-0 border border-slate-100" />
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <p className="font-semibold text-[#1B4332] truncate">{ad.titulo || "Sin título"}</p>
+                    <p className="text-xs text-slate-400 mt-0.5">{SLOTS[ad.slot] || ad.slot || "—"} · {ad.duracion_dias ? `${ad.duracion_dias} días` : "—"}</p>
+                  </div>
+                  <span className={`text-[11px] font-bold px-2.5 py-1 rounded-full shrink-0 ${est.cls}`}>{est.label}</span>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Modal nuevo anuncio */}
+        {modalNuevo && <ModalNuevoAnuncio session={session} onClose={() => setModalNuevo(false)} onCreado={() => { setModalNuevo(false); setCargando(true); }} />}
+      </div>
+    );
+  };
 
   const subirDocumento = async (docTipo, rawFile) => {
     if (!rawFile) return;
@@ -1510,6 +1706,9 @@ const ValuadorDashboardPage = () => {
 
         {/* Tab: Reseñas */}
         {activeTab === "resenas" && <ReseñasTab />}
+
+        {/* Tab: Publicidad */}
+        {activeTab === "publicidad" && <PublicidadTab />}
       </main>
     </div>
   );

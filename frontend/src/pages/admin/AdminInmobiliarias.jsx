@@ -402,6 +402,19 @@ const FilaEmpresa = ({ r, onNotificar, onKYC, onToggle, onBloquear }) => {
           <span className={creditsLow ? "text-red-600 font-bold" : ""}>{r.credits ?? 0}</span>
         </td>
         <td className="px-4 py-3 text-sm text-slate-600 text-center">{r.avaluos_mes ?? 0}</td>
+        <td className="px-4 py-3">
+          {(r.ads_activos ?? 0) > 0 ? (
+            <span className="flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-purple-100 text-purple-700 w-fit">
+              <TrendingUp className="w-3 h-3" />{r.ads_activos} activo{r.ads_activos !== 1 ? "s" : ""}
+            </span>
+          ) : (r.ads_pendientes ?? 0) > 0 ? (
+            <span className="flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 w-fit">
+              <TrendingUp className="w-3 h-3" />{r.ads_pendientes} pendiente{r.ads_pendientes !== 1 ? "s" : ""}
+            </span>
+          ) : (
+            <span className="text-xs text-slate-300">—</span>
+          )}
+        </td>
         <td className="px-4 py-3 text-sm text-slate-400">{fmtFecha(r.created_at)}</td>
         <td className="px-4 py-3 text-right">
           {abierto ? <ChevronUp className="w-4 h-4 text-slate-400 ml-auto" /> : <ChevronDown className="w-4 h-4 text-slate-400 ml-auto" />}
@@ -410,7 +423,7 @@ const FilaEmpresa = ({ r, onNotificar, onKYC, onToggle, onBloquear }) => {
 
       {abierto && (
         <tr>
-          <td colSpan={9} className="bg-slate-50 border-t border-slate-100 px-4 py-4">
+          <td colSpan={10} className="bg-slate-50 border-t border-slate-100 px-4 py-4">
             {cargandoDet ? (
               <p className="text-sm text-slate-400 py-4 text-center">Cargando detalle…</p>
             ) : (
@@ -645,6 +658,7 @@ const TabEmpresas = ({ inmobiliarias, onReload, onToggle, onBloquear }) => {
                 <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Plan</th>
                 <th className="text-center px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Créditos</th>
                 <th className="text-center px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Avalúos/mes</th>
+                <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Anuncios</th>
                 <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Alta</th>
                 <th className="px-4 py-3"></th>
               </tr>
@@ -652,7 +666,7 @@ const TabEmpresas = ({ inmobiliarias, onReload, onToggle, onBloquear }) => {
             <tbody className="divide-y divide-slate-50">
               {filtradas.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="text-center py-12 text-slate-400 text-sm">Sin resultados</td>
+                  <td colSpan={10} className="text-center py-12 text-slate-400 text-sm">Sin resultados</td>
                 </tr>
               ) : (
                 filtradas.map((r) => (
