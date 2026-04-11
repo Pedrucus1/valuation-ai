@@ -740,6 +740,135 @@ const TabActividad = ({ valuadores }) => {
   );
 };
 
+/* ─── Fila expandible de valuador ─── */
+const FilaValuador = ({ v, onToggle, suspender }) => {
+  const [abierto, setAbierto] = useState(false);
+
+  return (
+    <>
+      <tr
+        className="hover:bg-[#F0FAF5]/50 cursor-pointer transition-colors"
+        onClick={() => setAbierto((x) => !x)}
+      >
+        {/* Valuador */}
+        <td className="px-4 py-3 align-top">
+          <p className="text-sm font-semibold text-[#1B4332] leading-snug">{v.nombre}</p>
+          <p className="text-xs text-slate-400">{v.email}</p>
+          <p className="text-xs text-slate-300 flex items-center gap-1 mt-0.5">
+            <MapPin className="w-2.5 h-2.5 shrink-0" />{v.ciudad}
+          </p>
+        </td>
+        {/* Plan */}
+        <td className="px-4 py-3 align-top">
+          <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${PLAN_BADGE[v.plan] || "bg-slate-100 text-slate-600"}`}>{v.plan}</span>
+        </td>
+        {/* Verificación */}
+        <td className="px-4 py-3 align-top">
+          <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${KYC_BADGE[v.kyc]}`}>{KYC_LABEL[v.kyc]}</span>
+        </td>
+        {/* Estado */}
+        <td className="px-4 py-3 align-top">
+          <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${ESTADO_BADGE[v.estado]}`}>
+            {v.estado === "kyc_pendiente" ? "Verif. pend." : v.estado.charAt(0).toUpperCase() + v.estado.slice(1)}
+          </span>
+        </td>
+        {/* Directorio */}
+        <td className="px-4 py-3 align-top" onClick={(e) => e.stopPropagation()}>
+          <button
+            onClick={() => onToggle(v.id, "directorio_visible")}
+            title={v.directorio_visible ? "Ocultar del directorio" : "Mostrar en directorio"}
+            className={`relative w-9 h-5 rounded-full transition-colors flex-shrink-0 ${v.directorio_visible ? "bg-[#52B788]" : "bg-slate-200"}`}>
+            <span className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${v.directorio_visible ? "translate-x-[18px]" : "translate-x-0"}`} />
+          </button>
+        </td>
+        {/* Anuncios */}
+        <td className="px-4 py-3 align-top">
+          {v.ads_activos > 0 ? (
+            <span className="flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-purple-100 text-purple-700 w-fit">
+              <TrendingUp className="w-3 h-3" />{v.ads_activos}
+            </span>
+          ) : v.ads_pendientes > 0 ? (
+            <span className="flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 w-fit">
+              <TrendingUp className="w-3 h-3" />{v.ads_pendientes} pend.
+            </span>
+          ) : (
+            <span className="text-xs text-slate-300">—</span>
+          )}
+        </td>
+        {/* Quejas */}
+        <td className="px-4 py-3 align-top">
+          {v.quejas > 0 ? <span className="text-sm font-bold text-red-500">{v.quejas}</span> : <span className="text-sm text-slate-300">—</span>}
+        </td>
+        {/* Expand */}
+        <td className="px-4 py-3 align-top text-right">
+          {abierto ? <ChevronUp className="w-4 h-4 text-slate-400 ml-auto" /> : <ChevronDown className="w-4 h-4 text-slate-400 ml-auto" />}
+        </td>
+      </tr>
+
+      {abierto && (
+        <tr>
+          <td colSpan={8} className="bg-[#F8FDF9] border-t border-[#B7E4C7] px-5 py-4">
+            <div className="space-y-4">
+              {/* Métricas rápidas */}
+              <div className="flex flex-wrap gap-4 text-sm">
+                <div><p className="text-[10px] text-slate-400 uppercase tracking-wide mb-0.5">Reportes</p><p className="font-semibold text-[#1B4332]">{v.totalReportes}</p></div>
+                <div><p className="text-[10px] text-slate-400 uppercase tracking-wide mb-0.5">Calificación</p><p className="font-semibold text-[#1B4332]">{v.calificacion > 0 ? `${v.calificacion.toFixed(1)} ★` : "—"}</p></div>
+                <div><p className="text-[10px] text-slate-400 uppercase tracking-wide mb-0.5">Cédula</p><p className="font-semibold text-[#1B4332]">{v.cedula}</p></div>
+                <div><p className="text-[10px] text-slate-400 uppercase tracking-wide mb-0.5">Experiencia</p><p className="font-semibold text-[#1B4332]">{v.experiencia} años</p></div>
+                <div><p className="text-[10px] text-slate-400 uppercase tracking-wide mb-0.5">Registro</p><p className="font-semibold text-[#1B4332]">{v.fecha_registro}</p></div>
+              </div>
+
+              {/* Especialidades y certs */}
+              {(v.especialidades?.length > 0 || v.certs?.length > 0) && (
+                <div className="flex flex-wrap gap-1.5">
+                  {v.especialidades?.map((e) => (
+                    <span key={e} className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-[#D9ED92]/60 text-[#1B4332] border border-[#B7E4C7]">{e}</span>
+                  ))}
+                  {v.certs?.map((c) => (
+                    <span key={c} className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-100">{c}</span>
+                  ))}
+                </div>
+              )}
+
+              {/* Servicios contratados */}
+              <div>
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">Servicios contratados</p>
+                <div className="flex flex-wrap gap-2">
+                  {SERVICIOS_VAL.map(({ key, label, Icon, color }) => {
+                    const n = v[key] ?? 0;
+                    return (
+                      <div key={key} className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-xl border transition-opacity ${n > 0 ? `bg-slate-50 border-slate-200 ${color}` : "bg-slate-50 text-slate-300 border-slate-100 opacity-50"}`}>
+                        <Icon className="w-3.5 h-3.5" />{label}
+                        <span className="text-[10px] font-bold min-w-[18px] text-center px-1 py-0.5 rounded-full bg-white/80">{n}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Acciones */}
+              <div className="flex flex-wrap gap-2 pt-1 border-t border-[#B7E4C7]">
+                <a href={`https://wa.me/52${v.telefono}`} target="_blank" rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-[#25D366] text-white rounded-lg">
+                  <Phone className="w-3.5 h-3.5" /> WhatsApp
+                </a>
+                <a href={`mailto:${v.email}`}
+                  className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-blue-500 text-white rounded-lg">
+                  <Mail className="w-3.5 h-3.5" /> Email
+                </a>
+                <button onClick={() => suspender(v.id)}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg ${v.estado === "activo" ? "bg-red-100 text-red-600 hover:bg-red-200" : "bg-green-100 text-green-700 hover:bg-green-200"}`}>
+                  {v.estado === "activo" ? <><Ban className="w-3.5 h-3.5" /> Suspender</> : <><CheckCircle2 className="w-3.5 h-3.5" /> Reactivar</>}
+                </button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      )}
+    </>
+  );
+};
+
 /* ─── Main ─── */
 const AdminValuadores = () => {
   const [activeTab, setActiveTab] = useState("resumen");
@@ -885,95 +1014,10 @@ const AdminValuadores = () => {
             </div>
             <div className="overflow-x-auto">
               <table className="w-full">
-                <GradThead cols={["Valuador","Plan","Verificación","Estado","Directorio","Servicios contratados","Anuncios","Reportes","Quejas","Registro",""]} />
+                <GradThead cols={["Valuador","Plan","Verificación","Estado","Directorio","Anuncios","Quejas",""]} />
                 <tbody className="divide-y divide-slate-50">
                   {paginados.map((v) => (
-                    <tr key={v.id} className="hover:bg-[#F0FAF5]/50 transition-colors">
-                      <td className="px-4 py-3">
-                        <p className="text-sm font-semibold text-[#1B4332] leading-snug">{v.nombre}</p>
-                        <p className="text-xs text-slate-400">{v.email}</p>
-                        <p className="text-xs text-slate-300 flex items-center gap-1"><MapPin className="w-2.5 h-2.5" />{v.ciudad}</p>
-                      </td>
-                      <td className="px-4 py-3">
-                        <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${PLAN_BADGE[v.plan] || "bg-slate-100 text-slate-600"}`}>{v.plan}</span>
-                      </td>
-                      <td className="px-4 py-3">
-                        <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${KYC_BADGE[v.kyc]}`}>{KYC_LABEL[v.kyc]}</span>
-                      </td>
-                      <td className="px-4 py-3">
-                        <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${ESTADO_BADGE[v.estado]}`}>
-                          {v.estado === "kyc_pendiente" ? "Verif. pend." : v.estado.charAt(0).toUpperCase() + v.estado.slice(1)}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3">
-                        <button
-                          onClick={() => onToggle(v.id, "directorio_visible")}
-                          title={v.directorio_visible ? "Ocultar del directorio" : "Mostrar en directorio"}
-                          className={`relative w-9 h-5 rounded-full transition-colors flex-shrink-0 ${v.directorio_visible ? "bg-[#52B788]" : "bg-slate-200"}`}>
-                          <span className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${v.directorio_visible ? "translate-x-[18px]" : "translate-x-0"}`} />
-                        </button>
-                      </td>
-                      <td className="px-4 py-3">
-                        <div className="flex flex-wrap gap-1">
-                          {SERVICIOS_VAL.filter((s) => v[s.key] > 0).map(({ key, label, Icon, color }) => (
-                            <span key={key} className={`flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-slate-50 border border-slate-100 ${color}`}>
-                              <Icon className="w-2.5 h-2.5" />{v[key]} {label}
-                            </span>
-                          ))}
-                          {SERVICIOS_VAL.every((s) => !v[s.key]) && <span className="text-xs text-slate-300">—</span>}
-                        </div>
-                      </td>
-                      <td className="px-4 py-3">
-                        {v.ads_activos > 0 ? (
-                          <span className="flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-purple-100 text-purple-700">
-                            <TrendingUp className="w-3 h-3" />{v.ads_activos} activo{v.ads_activos !== 1 ? "s" : ""}
-                          </span>
-                        ) : v.ads_pendientes > 0 ? (
-                          <span className="flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700">
-                            <TrendingUp className="w-3 h-3" />{v.ads_pendientes} pendiente{v.ads_pendientes !== 1 ? "s" : ""}
-                          </span>
-                        ) : (
-                          <span className="text-xs text-slate-300">—</span>
-                        )}
-                      </td>
-                      <td className="px-4 py-3 text-sm text-slate-600 font-semibold">{v.totalReportes}</td>
-                      <td className="px-4 py-3">
-                        {v.quejas > 0 ? <span className="text-sm font-bold text-red-500">{v.quejas}</span> : <span className="text-sm text-slate-300">—</span>}
-                      </td>
-                      <td className="px-4 py-3 text-xs text-slate-400 whitespace-nowrap">{v.fecha_registro}</td>
-                      <td className="px-4 py-3 relative">
-                        <button onClick={() => setMenu(menu === v.id ? null : v.id)}
-                          className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors">
-                          <MoreVertical className="w-4 h-4" />
-                        </button>
-                        {menu === v.id && (
-                          <div className="absolute right-4 top-10 z-20 bg-white border border-[#B7E4C7] rounded-xl shadow-lg py-1 w-44">
-                            <button onClick={() => { setModal(v); setMenu(null); }}
-                              className="w-full flex items-center gap-2 px-4 py-2 text-sm text-slate-600 hover:bg-slate-50">
-                              <ExternalLink className="w-4 h-4" /> Ver detalle
-                            </button>
-                            <a href={`https://wa.me/52${v.telefono}`} target="_blank" rel="noopener noreferrer"
-                              className="flex items-center gap-2 px-4 py-2 text-sm text-green-600 hover:bg-green-50">
-                              <Phone className="w-4 h-4" /> WhatsApp
-                            </a>
-                            <a href={`mailto:${v.email}`}
-                              className="flex items-center gap-2 px-4 py-2 text-sm text-blue-600 hover:bg-blue-50">
-                              <Mail className="w-4 h-4" /> Email
-                            </a>
-                            {v.kyc === "pendiente" && (
-                              <a href="/admin/kyc"
-                                className="flex items-center gap-2 px-4 py-2 text-sm text-amber-700 hover:bg-amber-50">
-                                <ShieldCheck className="w-4 h-4" /> Revisar verificación
-                              </a>
-                            )}
-                            <button onClick={() => suspender(v.id)}
-                              className={`w-full flex items-center gap-2 px-4 py-2 text-sm hover:bg-red-50 ${v.estado === "activo" ? "text-red-600" : "text-green-600"}`}>
-                              {v.estado === "activo" ? <><Ban className="w-4 h-4" /> Suspender</> : <><CheckCircle2 className="w-4 h-4" /> Reactivar</>}
-                            </button>
-                          </div>
-                        )}
-                      </td>
-                    </tr>
+                    <FilaValuador key={v.id} v={v} onToggle={onToggle} suspender={suspender} />
                   ))}
                 </tbody>
               </table>

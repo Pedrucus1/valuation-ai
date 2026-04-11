@@ -386,23 +386,28 @@ const FilaEmpresa = ({ r, onNotificar, onKYC, onToggle, onBloquear }) => {
             </div>
           </div>
         </td>
-        <td className="px-4 py-3 text-sm text-slate-500">
-          {[r.municipio, r.estado].filter(Boolean).join(", ") || "—"}
+        <td className="px-4 py-3 align-top">
+          <p className="text-sm text-slate-600 leading-snug">{r.municipio || r.estado || "—"}</p>
+          {(r.municipios?.length > 1) && (
+            <span className="text-[10px] font-semibold text-slate-400 bg-slate-100 rounded-full px-1.5 py-0.5 mt-0.5 inline-block">
+              +{r.municipios.length - 1} zona{r.municipios.length - 1 !== 1 ? "s" : ""}
+            </span>
+          )}
         </td>
-        <td className="px-4 py-3">
+        <td className="px-4 py-3 align-top">
           <Chip cfg={KYC_CFG[r.kyc_status] || { label: "Sin verificación", cls: "bg-slate-100 text-slate-400" }} />
         </td>
-        <td className="px-4 py-3">
+        <td className="px-4 py-3 align-top">
           <Chip cfg={ESTADO_CFG[r.cuenta_estado] || ESTADO_CFG.activo} />
         </td>
-        <td className="px-4 py-3">
+        <td className="px-4 py-3 align-top">
           <Chip cfg={PLAN_CFG[r.plan_tipo || r.plan] || PLAN_CFG.sin_plan} />
         </td>
-        <td className="px-4 py-3 text-sm text-slate-700 text-center">
+        <td className="px-4 py-3 align-top text-sm text-slate-700 text-center">
           <span className={creditsLow ? "text-red-600 font-bold" : ""}>{r.credits ?? 0}</span>
         </td>
-        <td className="px-4 py-3 text-sm text-slate-600 text-center">{r.avaluos_mes ?? 0}</td>
-        <td className="px-4 py-3">
+        <td className="px-4 py-3 align-top text-sm text-slate-600 text-center">{r.avaluos_mes ?? 0}</td>
+        <td className="px-4 py-3 align-top">
           {(r.ads_activos ?? 0) > 0 ? (
             <span className="flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-purple-100 text-purple-700 w-fit">
               <TrendingUp className="w-3 h-3" />{r.ads_activos} activo{r.ads_activos !== 1 ? "s" : ""}
@@ -415,8 +420,8 @@ const FilaEmpresa = ({ r, onNotificar, onKYC, onToggle, onBloquear }) => {
             <span className="text-xs text-slate-300">—</span>
           )}
         </td>
-        <td className="px-4 py-3 text-sm text-slate-400">{fmtFecha(r.created_at)}</td>
-        <td className="px-4 py-3 text-right">
+        <td className="px-4 py-3 align-top text-sm text-slate-400 whitespace-nowrap">{fmtFecha(r.created_at)}</td>
+        <td className="px-4 py-3 align-top text-right">
           {abierto ? <ChevronUp className="w-4 h-4 text-slate-400 ml-auto" /> : <ChevronDown className="w-4 h-4 text-slate-400 ml-auto" />}
         </td>
       </tr>
@@ -447,6 +452,31 @@ const FilaEmpresa = ({ r, onNotificar, onKYC, onToggle, onBloquear }) => {
                     <p className="font-medium text-[#1B4332]">{r.total_avaluos ?? 0}</p>
                   </div>
                 </div>
+
+                {/* Cobertura geográfica */}
+                {(r.municipios?.length > 0 || r.cobertura_municipios) && (
+                  <div>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Zonas de cobertura</p>
+                    {r.cobertura_municipios && Object.keys(r.cobertura_municipios).length > 0 ? (
+                      <div className="space-y-1.5">
+                        {Object.entries(r.cobertura_municipios).map(([estado, munis]) => (
+                          <div key={estado} className="flex flex-wrap items-center gap-1.5">
+                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wide w-20 shrink-0">{estado}</span>
+                            {(Array.isArray(munis) ? munis : [munis]).map((m) => (
+                              <span key={m} className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#D9ED92]/60 text-[#1B4332] border border-[#B7E4C7]">{m}</span>
+                            ))}
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="flex flex-wrap gap-1.5">
+                        {r.municipios.map((m) => (
+                          <span key={m} className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#D9ED92]/60 text-[#1B4332] border border-[#B7E4C7]">{m}</span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
 
                 {/* Servicios contratados */}
                 <div>
