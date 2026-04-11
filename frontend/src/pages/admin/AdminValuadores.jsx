@@ -6,8 +6,12 @@ import {
   Search, ChevronDown, ShieldCheck, Phone, Mail, Ban, CheckCircle2, X,
   ChevronLeft, ChevronRight, ExternalLink, ClipboardList, BarChart2,
   Activity, Star, Eye, EyeOff, Users, TrendingUp, MapPin, Award,
-  RefreshCw, AlertTriangle, MoreVertical, MessageSquare,
+  RefreshCw, AlertTriangle, MoreVertical, MessageSquare, Zap,
 } from "lucide-react";
+import {
+  ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Cell,
+  PieChart, Pie, Legend, RadialBarChart, RadialBar,
+} from "recharts";
 
 const KYC_STATUS_MAP = {
   pending:      "pendiente",
@@ -76,105 +80,230 @@ const KpiCard = ({ icon: Icon, label, val, sub, color, alerta, stripe }) => (
   </div>
 );
 
+const CHART_COLORS = ["#1B4332", "#52B788", "#D9ED92", "#40916C", "#74C69D", "#B7E4C7"];
+
+const TooltipCustom = ({ active, payload, label }) => {
+  if (!active || !payload?.length) return null;
+  return (
+    <div className="bg-white border border-[#B7E4C7] rounded-xl shadow-lg px-3 py-2 text-xs">
+      {label && <p className="font-semibold text-[#1B4332] mb-1">{label}</p>}
+      {payload.map((p) => (
+        <p key={p.name} style={{ color: p.color || "#1B4332" }}>{p.name}: <strong>{p.value}</strong></p>
+      ))}
+    </div>
+  );
+};
+
 /* ─── Tab Resumen ─── */
 const TabResumen = ({ valuadores }) => {
-  const stats = {
-    total:      valuadores.length,
-    verificados:valuadores.filter((v) => v.kyc === "aprobado").length,
-    pendientes: valuadores.filter((v) => v.kyc === "pendiente").length,
-    activos:    valuadores.filter((v) => v.estado === "activo").length,
-    quejas:     valuadores.reduce((s, v) => s + v.quejas, 0),
-    reportes:   valuadores.reduce((s, v) => s + v.totalReportes, 0),
-    ciudades:   [...new Set(valuadores.map((v) => v.ciudad).filter((c) => c !== "—"))].length,
-  };
+  const stats = useMemo(() => {
+    const total       = valuadores.length;
+    const verificados = valuadores.filter((v) => v.kyc === "aprobado").length;
+    const pendientes  = valuadores.filter((v) => v.kyc === "pendiente").length;
+    const rechazados  = valuadores.filter((v) => v.kyc === "rechazado").length;
+    const activos     = valuadores.filter((v) => v.estado === "activo").length;
+    const quejas      = valuadores.reduce((s, v) => s + v.quejas, 0);
+    const reportes    = valuadores.reduce((s, v) => s + v.totalReportes, 0);
+    const ciudades    = [...new Set(valuadores.map((v) => v.ciudad).filter((c) => c !== "—"))].length;
+    const proPlusMas  = valuadores.filter((v) => ["enterprise","corporativo","pro","despacho"].includes(v.plan)).length;
+    const tasaVerif   = total > 0 ? Math.round((verificados / total) * 100) : 0;
+    return { total, verificados, pendientes, rechazados, activos, quejas, reportes, ciudades, proPlusMas, tasaVerif };
+  }, [valuadores]);
 
-  const top5 = [...valuadores].sort((a, b) => b.totalReportes - a.totalReportes).slice(0, 5);
-  const maxReportes = top5[0]?.totalReportes || 1;
+  // Top 8 por reportes
+  const top8 = useMemo(() =>
+    [...valuadores]
+      .sort((a, b) => b.totalReportes - a.totalReportes)
+      .slice(0, 8)
+      .map((v) => ({
+        name: v.nombre.split(" ")[0] + (v.nombre.split(" ")[1] ? " " + v.nombre.split(" ")[1][0] + "." : ""),
+        reportes: v.totalReportes,
+        quejas: v.quejas,
+      })),
+    [valuadores]
+  );
 
-  const byPlan = [
-    { label: "Enterprise/Corporativo", val: valuadores.filter((v) => v.plan === "enterprise" || v.plan === "corporativo").length, color: "bg-[#1B4332]" },
-    { label: "Pro/Despacho",           val: valuadores.filter((v) => v.plan === "pro" || v.plan === "despacho").length,           color: "bg-[#52B788]" },
-    { label: "Básico/Independiente",   val: valuadores.filter((v) => v.plan === "basico" || v.plan === "independiente" || !v.plan).length, color: "bg-slate-300" },
+  // KYC donut
+  const pieKyc = [
+    { name: "Verificados",  value: stats.verificados, fill: "#52B788" },
+    { name: "Pendientes",   value: stats.pendientes,  fill: "#F59E0B" },
+    { name: "Rechazados",   value: stats.rechazados,  fill: "#EF4444" },
+  ].filter((d) => d.value > 0);
+
+  // Distribución plan
+  const byPlan = useMemo(() => {
+    const grupos = {};
+    valuadores.forEach((v) => {
+      const p = v.plan || "sin plan";
+      grupos[p] = (grupos[p] || 0) + 1;
+    });
+    return Object.entries(grupos).map(([name, value]) => ({ name, value })).sort((a, b) => b.value - a.value);
+  }, [valuadores]);
+
+  // Ciudades top
+  const ciudadesTop = useMemo(() =>
+    Object.entries(
+      valuadores.reduce((acc, v) => {
+        if (v.ciudad && v.ciudad !== "—") acc[v.ciudad] = (acc[v.ciudad] || 0) + 1;
+        return acc;
+      }, {})
+    ).sort((a, b) => b[1] - a[1]).slice(0, 8),
+    [valuadores]
+  );
+
+  // Radar de salud: porcentajes
+  const saludData = [
+    { metric: "Verificados",   pct: stats.tasaVerif,                                                                 fill: "#52B788" },
+    { metric: "Activos",       pct: stats.total ? Math.round((stats.activos / stats.total) * 100) : 0,              fill: "#1B4332" },
+    { metric: "Sin quejas",    pct: stats.total ? Math.round(((stats.total - (valuadores.filter(v=>v.quejas>0).length)) / stats.total) * 100) : 100, fill: "#D9ED92" },
+    { metric: "Plan Pro+",     pct: stats.total ? Math.round((stats.proPlusMas / stats.total) * 100) : 0,           fill: "#40916C" },
   ];
-
-  const ciudadesTop = Object.entries(
-    valuadores.reduce((acc, v) => {
-      if (v.ciudad && v.ciudad !== "—") acc[v.ciudad] = (acc[v.ciudad] || 0) + 1;
-      return acc;
-    }, {})
-  ).sort((a, b) => b[1] - a[1]).slice(0, 6);
 
   return (
     <div className="space-y-5">
+      {/* KPIs */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <KpiCard icon={Users}       label="Valuadores registrados"  val={stats.total}      color="bg-blue-100 text-blue-600"       stripe="bg-blue-400" />
-        <KpiCard icon={ShieldCheck} label="Verificados activos"     val={stats.verificados} color="bg-green-100 text-green-600"     stripe="bg-[#52B788]" />
-        <KpiCard icon={AlertTriangle} label="Verificaciones pendientes" val={stats.pendientes} color="bg-amber-100 text-amber-600" stripe="bg-amber-400" alerta={stats.pendientes > 0} />
-        <KpiCard icon={TrendingUp}  label="Reportes generados"      val={stats.reportes}   color="bg-purple-100 text-purple-600"   stripe="bg-purple-400" />
-        <KpiCard icon={MapPin}      label="Ciudades con cobertura"  val={stats.ciudades}   color="bg-[#B7E4C7] text-[#1B4332]"    stripe="bg-[#2D6A4F]" />
-        <KpiCard icon={Activity}    label="Valuadores activos"      val={stats.activos}    color="bg-green-50 text-green-700"      stripe="bg-green-300" />
-        <KpiCard icon={MessageSquare} label="Quejas activas"         val={stats.quejas}    color={stats.quejas > 0 ? "bg-red-100 text-red-600" : "bg-slate-100 text-slate-400"} stripe={stats.quejas > 0 ? "bg-red-400" : "bg-slate-200"} alerta={stats.quejas > 0} />
-        <KpiCard icon={Award}       label="Con plan Pro+"           val={valuadores.filter((v) => v.plan !== "basico" && v.plan !== "independiente").length} color="bg-[#D9ED92]/60 text-[#1B4332]" stripe="bg-[#D9ED92]" />
+        <KpiCard icon={Users}         label="Valuadores registrados"     val={stats.total}       color="bg-blue-100 text-blue-600"     stripe="bg-blue-400" />
+        <KpiCard icon={ShieldCheck}   label="Verificados y activos"      val={stats.verificados} color="bg-green-100 text-green-600"   stripe="bg-[#52B788]" />
+        <KpiCard icon={AlertTriangle} label="Pendientes de verificación" val={stats.pendientes}  color="bg-amber-100 text-amber-600"   stripe="bg-amber-400" alerta={stats.pendientes > 0} />
+        <KpiCard icon={TrendingUp}    label="Avalúos generados (total)"  val={stats.reportes}    color="bg-purple-100 text-purple-600" stripe="bg-purple-400" />
+        <KpiCard icon={MapPin}        label="Ciudades con cobertura"     val={stats.ciudades}    color="bg-[#B7E4C7] text-[#1B4332]"  stripe="bg-[#2D6A4F]" />
+        <KpiCard icon={Activity}      label="Valuadores activos"         val={stats.activos}     color="bg-green-50 text-green-700"    stripe="bg-green-300" />
+        <KpiCard icon={MessageSquare} label="Quejas activas"             val={stats.quejas}      color={stats.quejas > 0 ? "bg-red-100 text-red-600" : "bg-slate-100 text-slate-400"} stripe={stats.quejas > 0 ? "bg-red-400" : "bg-slate-200"} alerta={stats.quejas > 0} />
+        <KpiCard icon={Award}         label="Tasa de verificación"       val={`${stats.tasaVerif}%`} color="bg-[#D9ED92]/60 text-[#1B4332]" stripe="bg-[#D9ED92]" />
       </div>
 
+      {/* Fila 1: Donut KYC + Top valuadores */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        {/* Top por reportes */}
+        {/* Donut KYC */}
         <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm p-5">
-          <p className="font-semibold text-[#1B4332] text-sm mb-4">Top valuadores por reportes</p>
-          {top5.length === 0 ? (
-            <p className="text-sm text-slate-400">Sin datos aún.</p>
-          ) : (
-            <div className="space-y-3">
-              {top5.map((v, i) => (
-                <div key={v.id}>
-                  <div className="flex justify-between text-xs mb-1">
-                    <span className="font-medium text-[#1B4332] flex items-center gap-1.5">
-                      <span className={`w-4 h-4 rounded-full text-[9px] font-bold flex items-center justify-center flex-shrink-0 ${i === 0 ? "bg-[#D9ED92] text-[#1B4332]" : "bg-slate-100 text-slate-400"}`}>{i + 1}</span>
-                      {v.nombre}
+          <p className="font-semibold text-[#1B4332] text-sm mb-1">Estado de verificación (KYC)</p>
+          <p className="text-xs text-slate-400 mb-4">Absorción del proceso de alta: qué porcentaje está activo y verificado</p>
+          {pieKyc.length === 0 ? <p className="text-sm text-slate-400 py-8 text-center">Sin datos</p> : (
+            <div className="flex items-center gap-4">
+              <ResponsiveContainer width="55%" height={180}>
+                <PieChart>
+                  <Pie data={pieKyc} cx="50%" cy="50%" innerRadius={50} outerRadius={80} paddingAngle={3} dataKey="value">
+                    {pieKyc.map((entry, i) => <Cell key={i} fill={entry.fill} />)}
+                  </Pie>
+                  <Tooltip content={<TooltipCustom />} />
+                </PieChart>
+              </ResponsiveContainer>
+              <div className="space-y-2 flex-1">
+                {pieKyc.map((d) => (
+                  <div key={d.name} className="flex items-center justify-between text-xs">
+                    <span className="flex items-center gap-1.5">
+                      <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: d.fill }} />
+                      <span className="text-slate-600">{d.name}</span>
                     </span>
-                    <span className="text-slate-400">{v.totalReportes} reportes</span>
+                    <span className="font-bold text-[#1B4332]">{d.value}</span>
                   </div>
-                  <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                    <div className="h-full bg-[#52B788] rounded-full" style={{ width: `${Math.round((v.totalReportes / maxReportes) * 100)}%` }} />
+                ))}
+                <div className="mt-3 pt-3 border-t border-slate-100">
+                  <div className="flex justify-between text-xs">
+                    <span className="text-slate-400">Tasa de verificación</span>
+                    <span className="font-bold text-[#52B788]">{stats.tasaVerif}%</span>
                   </div>
                 </div>
-              ))}
+              </div>
             </div>
           )}
         </div>
 
+        {/* Top valuadores por avalúos */}
+        <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm p-5">
+          <p className="font-semibold text-[#1B4332] text-sm mb-1">Top valuadores por avalúos generados</p>
+          <p className="text-xs text-slate-400 mb-4">Producción individual · rojo indica quejas activas</p>
+          {top8.every((d) => d.reportes === 0) ? <p className="text-sm text-slate-400 py-8 text-center">Sin datos</p> : (
+            <ResponsiveContainer width="100%" height={220}>
+              <BarChart data={top8} layout="vertical" margin={{ left: 4, right: 16, top: 0, bottom: 0 }}>
+                <XAxis type="number" tick={{ fontSize: 10, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
+                <YAxis type="category" dataKey="name" tick={{ fontSize: 10, fill: "#1B4332" }} width={80} axisLine={false} tickLine={false} />
+                <Tooltip content={<TooltipCustom />} />
+                <Bar dataKey="reportes" name="Avalúos" radius={[0, 4, 4, 0]} barSize={11}>
+                  {top8.map((d, i) => <Cell key={i} fill={d.quejas > 0 ? "#EF4444" : "#52B788"} />)}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          )}
+        </div>
+      </div>
+
+      {/* Fila 2: Plan + Ciudades + Salud */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {/* Distribución por plan */}
-        <div className="space-y-3">
-          <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm p-5">
-            <p className="font-semibold text-[#1B4332] text-sm mb-4">Distribución por plan</p>
-            <div className="space-y-3">
-              {byPlan.map(({ label, val, color }) => (
-                <div key={label}>
-                  <div className="flex justify-between text-xs mb-1">
-                    <span className="text-slate-600">{label}</span>
-                    <span className="font-semibold text-[#1B4332]">{val}</span>
+        <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm p-5">
+          <p className="font-semibold text-[#1B4332] text-sm mb-1">Distribución por plan</p>
+          <p className="text-xs text-slate-400 mb-4">Tipo de suscripción activa</p>
+          {byPlan.length === 0 ? <p className="text-sm text-slate-400 py-4 text-center">Sin datos</p> : (
+            <>
+              <ResponsiveContainer width="100%" height={130}>
+                <PieChart>
+                  <Pie data={byPlan} cx="50%" cy="50%" outerRadius={60} paddingAngle={2} dataKey="value">
+                    {byPlan.map((_, i) => <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />)}
+                  </Pie>
+                  <Tooltip content={<TooltipCustom />} />
+                </PieChart>
+              </ResponsiveContainer>
+              <div className="mt-3 space-y-1.5">
+                {byPlan.map((d, i) => (
+                  <div key={d.name} className="flex items-center justify-between text-xs">
+                    <span className="flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: CHART_COLORS[i % CHART_COLORS.length] }} />
+                      <span className="text-slate-600 capitalize">{d.name}</span>
+                    </span>
+                    <span className="font-bold text-[#1B4332]">{d.value}</span>
                   </div>
-                  <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
-                    <div className={`h-full ${color} rounded-full`} style={{ width: `${stats.total ? Math.round((val / stats.total) * 100) : 0}%` }} />
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+
+        {/* Salud del equipo */}
+        <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm p-5">
+          <p className="font-semibold text-[#1B4332] text-sm mb-1">Salud del equipo</p>
+          <p className="text-xs text-slate-400 mb-4">Indicadores clave de comportamiento</p>
+          <ResponsiveContainer width="100%" height={140}>
+            <RadialBarChart cx="50%" cy="50%" innerRadius={15} outerRadius={65} data={saludData} startAngle={90} endAngle={-270}>
+              <RadialBar dataKey="pct" cornerRadius={4} label={false}>
+                {saludData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+              </RadialBar>
+              <Tooltip content={({ active, payload }) => active && payload?.length
+                ? <div className="bg-white border border-[#B7E4C7] rounded-xl shadow px-3 py-1.5 text-xs"><p className="font-bold text-[#1B4332]">{payload[0].payload.metric}: {payload[0].value}%</p></div>
+                : null} />
+            </RadialBarChart>
+          </ResponsiveContainer>
+          <div className="mt-2 grid grid-cols-2 gap-1.5">
+            {saludData.map((d) => (
+              <div key={d.metric} className="flex items-center gap-1.5 text-xs">
+                <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: d.fill }} />
+                <span className="text-slate-600">{d.metric}</span>
+                <span className="ml-auto font-bold text-[#1B4332]">{d.pct}%</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Ciudades principales */}
+        <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm p-5">
+          <p className="font-semibold text-[#1B4332] text-sm mb-1">Ciudades con cobertura</p>
+          <p className="text-xs text-slate-400 mb-4">Absorción geográfica del producto</p>
+          {ciudadesTop.length === 0 ? <p className="text-xs text-slate-400">Sin datos.</p> : (
+            <div className="space-y-2">
+              {ciudadesTop.map(([ciudad, n], i) => (
+                <div key={ciudad} className="flex items-center gap-2">
+                  <span className="text-[10px] font-bold text-slate-300 w-4">{i + 1}</span>
+                  <div className="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
+                    <div className="h-full rounded-full bg-[#52B788]"
+                      style={{ width: `${Math.round((n / (ciudadesTop[0][1] || 1)) * 100)}%` }} />
                   </div>
+                  <span className="text-xs text-slate-600 font-medium min-w-[80px] truncate">{ciudad}</span>
+                  <span className="text-xs font-bold text-[#1B4332] w-5 text-right">{n}</span>
                 </div>
               ))}
             </div>
-          </div>
-
-          {/* Ciudades con más valuadores */}
-          <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm p-5">
-            <p className="font-semibold text-[#1B4332] text-sm mb-3">Ciudades principales</p>
-            <div className="flex flex-wrap gap-1.5">
-              {ciudadesTop.length === 0 ? (
-                <p className="text-xs text-slate-400">Sin datos.</p>
-              ) : ciudadesTop.map(([ciudad, n]) => (
-                <span key={ciudad} className="flex items-center gap-1 text-xs bg-[#F0FAF5] border border-[#B7E4C7] text-[#1B4332] px-2.5 py-1 rounded-full">
-                  <MapPin className="w-2.5 h-2.5" />{ciudad} <span className="text-slate-400 font-semibold">{n}</span>
-                </span>
-              ))}
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

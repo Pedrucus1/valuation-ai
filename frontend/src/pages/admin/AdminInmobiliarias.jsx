@@ -1,13 +1,17 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import AdminLayout from "@/components/AdminLayout";
 import { adminFetch } from "@/lib/adminFetch";
 import {
   Building2, Users, ShieldCheck, BarChart2, CreditCard,
   Search, RefreshCw, CheckCircle2, XCircle, ChevronDown, ChevronUp,
   Clock, MapPin, Mail, Phone, AlertTriangle, Activity,
-  FileText, Send, Download, Star, Ban, X,
+  FileText, Send, Download, Star, Ban, X, TrendingUp, Zap,
 } from "lucide-react";
 import { PageHeader } from "@/components/AdminUI";
+import {
+  ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Cell,
+  PieChart, Pie, Legend,
+} from "recharts";
 
 const fmt = (n) =>
   new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 }).format(n ?? 0);
@@ -44,54 +48,195 @@ const KpiCard = ({ icon: Icon, label, val, color, alerta }) => (
   </div>
 );
 
+const CHART_COLORS = ["#1B4332", "#52B788", "#D9ED92", "#B7E4C7", "#40916C", "#74C69D"];
+
+const TooltipCustom = ({ active, payload, label }) => {
+  if (!active || !payload?.length) return null;
+  return (
+    <div className="bg-white border border-[#B7E4C7] rounded-xl shadow-lg px-3 py-2 text-xs">
+      {label && <p className="font-semibold text-[#1B4332] mb-1">{label}</p>}
+      {payload.map((p) => (
+        <p key={p.name} style={{ color: p.color || "#1B4332" }}>{p.name}: <strong>{p.value}</strong></p>
+      ))}
+    </div>
+  );
+};
+
 /* ─── Tab Resumen ─── */
 const TabResumen = ({ inmobiliarias }) => {
-  const total      = inmobiliarias.length;
-  const aprobadas  = inmobiliarias.filter((r) => r.kyc_status === "approved").length;
-  const pendientes = inmobiliarias.filter((r) => r.kyc_status === "pending").length;
-  const creditos   = inmobiliarias.reduce((s, r) => s + (r.credits || 0), 0);
-  const avaluosMes = inmobiliarias.reduce((s, r) => s + (r.avaluos_mes || 0), 0);
-  const avaluosTotal = inmobiliarias.reduce((s, r) => s + (r.total_avaluos || 0), 0);
+  const stats = useMemo(() => {
+    const total       = inmobiliarias.length;
+    const aprobadas   = inmobiliarias.filter((r) => r.kyc_status === "approved").length;
+    const pendientes  = inmobiliarias.filter((r) => r.kyc_status === "pending").length;
+    const rechazadas  = inmobiliarias.filter((r) => r.kyc_status === "rejected").length;
+    const creditos    = inmobiliarias.reduce((s, r) => s + (r.credits || 0), 0);
+    const avaluosMes  = inmobiliarias.reduce((s, r) => s + (r.avaluos_mes || 0), 0);
+    const avaluosTotal= inmobiliarias.reduce((s, r) => s + (r.total_avaluos || 0), 0);
+    const conCreditosBajos = inmobiliarias.filter((r) => (r.credits ?? 0) <= 2 && r.kyc_status === "approved").length;
+    const tasaAprobacion = total > 0 ? Math.round((aprobadas / total) * 100) : 0;
+    return { total, aprobadas, pendientes, rechazadas, creditos, avaluosMes, avaluosTotal, conCreditosBajos, tasaAprobacion };
+  }, [inmobiliarias]);
 
-  const top5 = [...inmobiliarias]
-    .sort((a, b) => (b.total_avaluos || 0) - (a.total_avaluos || 0))
-    .slice(0, 5);
+  // Datos para gráficas
+  const pieKyc = [
+    { name: "Aprobadas",  value: stats.aprobadas,  fill: "#52B788" },
+    { name: "Pendientes", value: stats.pendientes, fill: "#F59E0B" },
+    { name: "Rechazadas", value: stats.rechazadas, fill: "#EF4444" },
+  ].filter((d) => d.value > 0);
+
+  const top8Avaluos = useMemo(() =>
+    [...inmobiliarias]
+      .sort((a, b) => (b.total_avaluos || 0) - (a.total_avaluos || 0))
+      .slice(0, 8)
+      .map((r) => ({ name: (r.company_name || r.email || "—").slice(0, 18), avaluos: r.total_avaluos || 0, mes: r.avaluos_mes || 0 })),
+    [inmobiliarias]
+  );
+
+  const top8Creditos = useMemo(() =>
+    [...inmobiliarias]
+      .filter((r) => r.kyc_status === "approved")
+      .sort((a, b) => (b.credits || 0) - (a.credits || 0))
+      .slice(0, 8)
+      .map((r) => ({ name: (r.company_name || r.email || "—").slice(0, 18), creditos: r.credits || 0 })),
+    [inmobiliarias]
+  );
+
+  const byPlan = useMemo(() => {
+    const grupos = {};
+    inmobiliarias.forEach((r) => {
+      const p = r.plan_tipo || r.plan || "Sin plan";
+      grupos[p] = (grupos[p] || 0) + 1;
+    });
+    return Object.entries(grupos).map(([name, value]) => ({ name, value })).sort((a, b) => b.value - a.value);
+  }, [inmobiliarias]);
 
   return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-        <KpiCard icon={Building2}   label="Empresas registradas" val={total}            color="bg-blue-100 text-blue-600" />
-        <KpiCard icon={ShieldCheck} label="Empresas aprobadas"   val={aprobadas}        color="bg-green-100 text-green-600" />
-        <KpiCard icon={Clock}       label="Pendientes de revisión" val={pendientes}     color="bg-amber-100 text-amber-600" alerta={pendientes > 0} />
-        <KpiCard icon={CreditCard}  label="Créditos en circulación" val={creditos}      color="bg-purple-100 text-purple-600" />
-        <KpiCard icon={BarChart2}   label="Avalúos este mes"     val={avaluosMes}       color="bg-[#52B788]/20 text-[#1B4332]" />
-        <KpiCard icon={FileText}    label="Avalúos histórico"    val={avaluosTotal}     color="bg-slate-100 text-slate-600" />
+    <div className="space-y-5">
+      {/* KPIs */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <KpiCard icon={Building2}   label="Empresas registradas"     val={stats.total}              color="bg-blue-100 text-blue-600" />
+        <KpiCard icon={ShieldCheck} label="Verificadas y activas"    val={stats.aprobadas}          color="bg-green-100 text-green-600" />
+        <KpiCard icon={Clock}       label="Pendientes de revisión"   val={stats.pendientes}         color="bg-amber-100 text-amber-600" alerta={stats.pendientes > 0} />
+        <KpiCard icon={BarChart2}   label="Avalúos este mes"         val={stats.avaluosMes}         color="bg-[#52B788]/20 text-[#1B4332]" />
+        <KpiCard icon={FileText}    label="Avalúos histórico total"  val={stats.avaluosTotal}       color="bg-slate-100 text-slate-600" />
+        <KpiCard icon={CreditCard}  label="Créditos en circulación"  val={stats.creditos}           color="bg-purple-100 text-purple-600" />
+        <KpiCard icon={AlertTriangle} label="Con créditos ≤ 2"      val={stats.conCreditosBajos}   color={stats.conCreditosBajos > 0 ? "bg-red-100 text-red-600" : "bg-slate-100 text-slate-400"} alerta={stats.conCreditosBajos > 0} />
+        <KpiCard icon={TrendingUp}  label="Tasa de aprobación"       val={`${stats.tasaAprobacion}%`} color="bg-[#D9ED92]/60 text-[#1B4332]" />
       </div>
 
-      {/* Top empresas por actividad */}
-      <div className="bg-white rounded-2xl border border-slate-100 p-5">
-        <p className="font-semibold text-[#1B4332] text-sm mb-4">Top empresas por avalúos</p>
-        {top5.length === 0 ? (
-          <p className="text-sm text-slate-400">Sin datos aún.</p>
-        ) : (
-          <div className="space-y-3">
-            {top5.map((r) => {
-              const max = top5[0]?.total_avaluos || 1;
-              const pct = Math.round(((r.total_avaluos || 0) / max) * 100);
-              return (
-                <div key={r.user_id}>
-                  <div className="flex justify-between text-xs mb-1">
-                    <span className="font-medium text-[#1B4332]">{r.company_name || r.email}</span>
-                    <span className="text-slate-400">{r.total_avaluos || 0} avalúos</span>
+      {/* Fila 1: Donut KYC + Top avalúos */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        {/* Donut estado verificación */}
+        <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm p-5">
+          <p className="font-semibold text-[#1B4332] text-sm mb-1">Estado de verificación (KYC)</p>
+          <p className="text-xs text-slate-400 mb-4">Distribución de empresas por estado de verificación</p>
+          {pieKyc.length === 0 ? (
+            <p className="text-sm text-slate-400 py-8 text-center">Sin datos</p>
+          ) : (
+            <div className="flex items-center gap-4">
+              <ResponsiveContainer width="55%" height={180}>
+                <PieChart>
+                  <Pie data={pieKyc} cx="50%" cy="50%" innerRadius={50} outerRadius={80} paddingAngle={3} dataKey="value">
+                    {pieKyc.map((entry, i) => <Cell key={i} fill={entry.fill} />)}
+                  </Pie>
+                  <Tooltip content={<TooltipCustom />} />
+                </PieChart>
+              </ResponsiveContainer>
+              <div className="space-y-2 flex-1">
+                {pieKyc.map((d) => (
+                  <div key={d.name} className="flex items-center justify-between text-xs">
+                    <span className="flex items-center gap-1.5">
+                      <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: d.fill }} />
+                      <span className="text-slate-600">{d.name}</span>
+                    </span>
+                    <span className="font-bold text-[#1B4332]">{d.value}</span>
                   </div>
-                  <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                    <div className="h-full bg-[#52B788] rounded-full" style={{ width: `${pct}%` }} />
+                ))}
+                <div className="mt-3 pt-3 border-t border-slate-100">
+                  <div className="flex justify-between text-xs">
+                    <span className="text-slate-400">Tasa de aprobación</span>
+                    <span className="font-bold text-[#52B788]">{stats.tasaAprobacion}%</span>
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        )}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Top empresas — barras horizontales */}
+        <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm p-5">
+          <p className="font-semibold text-[#1B4332] text-sm mb-1">Top empresas por avalúos</p>
+          <p className="text-xs text-slate-400 mb-4">Histórico total · color más claro = mes actual</p>
+          {top8Avaluos.every((d) => d.avaluos === 0) ? (
+            <p className="text-sm text-slate-400 py-8 text-center">Sin datos</p>
+          ) : (
+            <ResponsiveContainer width="100%" height={220}>
+              <BarChart data={top8Avaluos} layout="vertical" margin={{ left: 4, right: 16, top: 0, bottom: 0 }}>
+                <XAxis type="number" tick={{ fontSize: 10, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
+                <YAxis type="category" dataKey="name" tick={{ fontSize: 10, fill: "#1B4332" }} width={110} axisLine={false} tickLine={false} />
+                <Tooltip content={<TooltipCustom />} />
+                <Bar dataKey="avaluos" name="Total" fill="#1B4332" radius={[0, 4, 4, 0]} barSize={10} />
+                <Bar dataKey="mes"     name="Este mes" fill="#B7E4C7" radius={[0, 4, 4, 0]} barSize={10} />
+              </BarChart>
+            </ResponsiveContainer>
+          )}
+        </div>
+      </div>
+
+      {/* Fila 2: Créditos + Distribución plan */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        {/* Créditos disponibles por empresa */}
+        <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm p-5">
+          <p className="font-semibold text-[#1B4332] text-sm mb-1">Créditos disponibles por empresa</p>
+          <p className="text-xs text-slate-400 mb-4">Solo empresas verificadas · rojo = crítico (≤ 2)</p>
+          {top8Creditos.length === 0 ? (
+            <p className="text-sm text-slate-400 py-8 text-center">Sin datos</p>
+          ) : (
+            <ResponsiveContainer width="100%" height={220}>
+              <BarChart data={top8Creditos} layout="vertical" margin={{ left: 4, right: 16, top: 0, bottom: 0 }}>
+                <XAxis type="number" tick={{ fontSize: 10, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
+                <YAxis type="category" dataKey="name" tick={{ fontSize: 10, fill: "#1B4332" }} width={110} axisLine={false} tickLine={false} />
+                <Tooltip content={<TooltipCustom />} />
+                <Bar dataKey="creditos" name="Créditos" radius={[0, 4, 4, 0]} barSize={12}>
+                  {top8Creditos.map((d, i) => (
+                    <Cell key={i} fill={d.creditos <= 2 ? "#EF4444" : d.creditos <= 5 ? "#F59E0B" : "#52B788"} />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          )}
+        </div>
+
+        {/* Distribución por plan */}
+        <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm p-5">
+          <p className="font-semibold text-[#1B4332] text-sm mb-1">Distribución por plan</p>
+          <p className="text-xs text-slate-400 mb-4">Tipo de suscripción de cada empresa</p>
+          {byPlan.length === 0 ? (
+            <p className="text-sm text-slate-400 py-8 text-center">Sin datos</p>
+          ) : (
+            <div className="flex items-center gap-4">
+              <ResponsiveContainer width="55%" height={180}>
+                <PieChart>
+                  <Pie data={byPlan} cx="50%" cy="50%" outerRadius={80} paddingAngle={2} dataKey="value">
+                    {byPlan.map((_, i) => <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />)}
+                  </Pie>
+                  <Tooltip content={<TooltipCustom />} />
+                </PieChart>
+              </ResponsiveContainer>
+              <div className="space-y-2 flex-1">
+                {byPlan.map((d, i) => (
+                  <div key={d.name} className="flex items-center justify-between text-xs">
+                    <span className="flex items-center gap-1.5">
+                      <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: CHART_COLORS[i % CHART_COLORS.length] }} />
+                      <span className="text-slate-600">{d.name}</span>
+                    </span>
+                    <span className="font-bold text-[#1B4332]">{d.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -633,6 +778,81 @@ const TabNuevasAltas = ({ inmobiliarias, onReload }) => {
   );
 };
 
+/* ─── Alerta de créditos bajos ─── */
+const AlertaCreditosBajos = ({ inmobiliarias }) => {
+  const [enviando, setEnviando] = useState({});
+  const criticos = (inmobiliarias || [])
+    .filter((r) => r.kyc_status === "approved" && (r.credits ?? 0) <= 2)
+    .sort((a, b) => (a.credits ?? 0) - (b.credits ?? 0));
+
+  if (criticos.length === 0) return null;
+
+  const enviarRecordatorio = async (userId, canal) => {
+    setEnviando((p) => ({ ...p, [`${userId}-${canal}`]: true }));
+    try {
+      await adminFetch(`/api/admin/inmobiliarias/${userId}/notificar`, {
+        method: "POST",
+        body: JSON.stringify({
+          tipo: "creditos_bajos",
+          canal,
+          mensaje: "Tus créditos de avalúo están por agotarse. Recarga ahora para seguir solicitando avalúos sin interrupciones.",
+        }),
+      });
+    } catch { /* silencioso */ }
+    setEnviando((p) => ({ ...p, [`${userId}-${canal}`]: false }));
+  };
+
+  return (
+    <div className="bg-red-50 border border-red-200 rounded-2xl p-4 space-y-3">
+      <div className="flex items-center gap-2">
+        <Zap className="w-4 h-4 text-red-500 flex-shrink-0" />
+        <p className="text-sm font-bold text-red-700">{criticos.length} empresa{criticos.length !== 1 ? "s" : ""} con créditos críticos (≤ 2)</p>
+      </div>
+      {criticos.map((r) => (
+        <div key={r.user_id} className="bg-white rounded-xl border border-red-100 px-4 py-3 flex items-center justify-between gap-4 flex-wrap">
+          <div className="flex items-center gap-3">
+            <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${(r.credits ?? 0) === 0 ? "bg-red-500 text-white" : "bg-amber-100 text-amber-700"}`}>
+              {r.credits ?? 0}
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-[#1B4332]">{r.company_name || r.name || r.email}</p>
+              <p className="text-xs text-slate-400">{r.email}{r.phone ? ` · ${r.phone}` : ""}</p>
+            </div>
+            <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${(r.credits ?? 0) === 0 ? "bg-red-100 text-red-700" : "bg-amber-100 text-amber-700"}`}>
+              {(r.credits ?? 0) === 0 ? "Sin créditos" : `${r.credits} crédito${r.credits !== 1 ? "s" : ""}`}
+            </span>
+          </div>
+          <div className="flex gap-2 flex-wrap">
+            <button
+              onClick={() => enviarRecordatorio(r.user_id, "email")}
+              disabled={enviando[`${r.user_id}-email`]}
+              className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg border border-blue-200 text-blue-600 hover:bg-blue-50 disabled:opacity-50 transition-colors"
+            >
+              <Mail className="w-3.5 h-3.5" />
+              {enviando[`${r.user_id}-email`] ? "Enviando…" : "Recordatorio email"}
+            </button>
+            {r.phone && (
+              <a
+                href={`https://wa.me/52${r.phone}?text=${encodeURIComponent("Hola, te recordamos que tus créditos de avalúo están por agotarse en PropValu. Recarga ahora para continuar sin interrupciones: https://propvalu.mx/creditos")}`}
+                target="_blank" rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg border border-green-200 text-green-700 hover:bg-green-50 transition-colors"
+              >
+                <Phone className="w-3.5 h-3.5" /> WhatsApp
+              </a>
+            )}
+            <a
+              href="/admin/inmobiliarias/creditos"
+              className="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-lg bg-[#1B4332] text-white hover:bg-[#2D6A4F] transition-colors"
+            >
+              <CreditCard className="w-3.5 h-3.5" /> Enviar a recargar
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
 /* ─── Tab Actividad ─── */
 const TabActividad = ({ cargandoAct, actividad, inmobiliarias }) => {
   // Mapa rápido empresa → plan + créditos
@@ -664,6 +884,8 @@ const TabActividad = ({ cargandoAct, actividad, inmobiliarias }) => {
 
   return (
     <div className="space-y-3">
+      <AlertaCreditosBajos inmobiliarias={inmobiliarias} />
+
       {/* Nota explicativa */}
       <div className="bg-[#1B4332]/5 border border-[#52B788]/20 rounded-xl px-4 py-2.5 text-xs text-slate-600 flex items-center gap-2">
         <Activity className="w-3.5 h-3.5 text-[#52B788] flex-shrink-0" />
