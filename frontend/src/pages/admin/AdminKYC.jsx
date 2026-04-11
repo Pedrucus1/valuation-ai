@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
 import AdminLayout from "@/components/AdminLayout";
+import { PageHeader, AdminCard, SectionLabel } from "@/components/AdminUI";
 import { adminFetch, getAdminToken } from "@/lib/adminFetch";
 import { API } from "@/App";
 import {
-  ShieldCheck, FileText, User, CheckCircle2, XCircle,
+  ShieldCheck, FileText, CheckCircle2, XCircle,
   MessageSquare, Clock, ChevronDown, ExternalLink, X,
 } from "lucide-react";
-
-// Backend user fields: user_id, name, email, role, kyc_status, kyc_solicitud_info, created_at, documentos[]
-// kyc_status: "pending" | "under_review" | "approved" | "rejected"
 
 const KYC_STATUS_MAP = {
   pending:      "pendiente",
@@ -36,7 +34,7 @@ function normalizeKYC(u) {
 }
 
 const ESTADO_KYC = {
-  pendiente:       { label: "Nuevo",            cls: "bg-yellow-100 text-yellow-700" },
+  pendiente:       { label: "Nuevo",            cls: "bg-amber-100 text-amber-700" },
   en_revision:     { label: "En revisión",      cls: "bg-blue-100 text-blue-700" },
   aprobado:        { label: "Aprobado ✅",       cls: "bg-green-100 text-green-700" },
   rechazado:       { label: "Rechazado",        cls: "bg-red-100 text-red-600" },
@@ -46,7 +44,7 @@ const ESTADO_KYC = {
 const DOC_ESTADO = {
   subido:     { label: "Subido",     cls: "text-green-600",  icon: <CheckCircle2 className="w-3.5 h-3.5" /> },
   ratificado: { label: "Ratificado", cls: "text-indigo-600", icon: <ShieldCheck className="w-3.5 h-3.5" /> },
-  pendiente:  { label: "Faltante",   cls: "text-yellow-600", icon: <Clock className="w-3.5 h-3.5" /> },
+  pendiente:  { label: "Faltante",   cls: "text-amber-600",  icon: <Clock className="w-3.5 h-3.5" /> },
   rechazado:  { label: "Rechazado",  cls: "text-red-500",    icon: <XCircle className="w-3.5 h-3.5" /> },
 };
 
@@ -66,7 +64,7 @@ const KYCCard = ({ solicitud, onAccion }) => {
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+    <div className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden">
       <div
         className="flex items-start gap-4 p-5 cursor-pointer hover:bg-slate-50/50 transition-colors"
         onClick={() => setExpandida((p) => !p)}
@@ -93,7 +91,7 @@ const KYCCard = ({ solicitud, onAccion }) => {
           <div className="flex items-center gap-3 mt-2">
             <div className="flex-1 bg-slate-100 rounded-full h-1.5">
               <div
-                className={`h-1.5 rounded-full ${pct === 100 ? "bg-green-400" : "bg-[#52B788]"}`}
+                className={`h-1.5 rounded-full ${pct === 100 ? "bg-[#52B788]" : "bg-amber-400"}`}
                 style={{ width: `${pct}%` }}
               />
             </div>
@@ -103,15 +101,15 @@ const KYCCard = ({ solicitud, onAccion }) => {
       </div>
 
       {expandida && (
-        <div className="border-t border-slate-100 p-5 space-y-4">
+        <div className="border-t border-[#B7E4C7] p-5 space-y-4 bg-[#F8FDF9]">
           {/* Documentos */}
           <div>
-            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">Documentos</p>
+            <SectionLabel>Documentos</SectionLabel>
             <div className="space-y-1.5">
               {docs.map((doc) => {
                 const est = DOC_ESTADO[doc.estado] || DOC_ESTADO.pendiente;
                 return (
-                  <div key={doc.nombre} className="flex items-center gap-2">
+                  <div key={doc.nombre} className="flex items-center gap-2 bg-white rounded-lg border border-slate-100 px-3 py-2">
                     <span className={est.cls}>{est.icon}</span>
                     <span className="text-sm text-slate-600 flex-1">{doc.nombre}</span>
                     {doc.doc_id ? (
@@ -152,14 +150,12 @@ const KYCCard = ({ solicitud, onAccion }) => {
             </div>
           </div>
 
-          {/* Notas */}
           {solicitud.notas && (
             <div className="bg-orange-50 border border-orange-100 rounded-xl p-3 text-xs text-orange-700">
               <strong>Nota al valuador:</strong> {solicitud.notas}
             </div>
           )}
 
-          {/* Acciones */}
           <div className="flex flex-wrap gap-2 pt-1">
             <button
               onClick={() => onAccion(solicitud.id, "aprobado")}
@@ -191,7 +187,7 @@ const AdminKYC = () => {
   const [tab, setTab] = useState("valuadores");
   const [vKyc, setVKyc] = useState([]);
   const [iKyc, setIKyc] = useState([]);
-  const [confirmacion, setConfirmacion] = useState(null); // { id, accion }
+  const [confirmacion, setConfirmacion] = useState(null);
 
   const cargarKYC = () => {
     adminFetch("/api/admin/kyc?tipo=appraiser")
@@ -204,9 +200,7 @@ const AdminKYC = () => {
 
   useEffect(() => { cargarKYC(); }, []);
 
-  const accionKYC = (id, accion) => {
-    setConfirmacion({ id, accion });
-  };
+  const accionKYC = (id, accion) => setConfirmacion({ id, accion });
 
   const confirmarAccion = async () => {
     const { id, accion } = confirmacion;
@@ -219,7 +213,6 @@ const AdminKYC = () => {
       } else if (accion === "info_solicitada") {
         await adminFetch(`/api/admin/kyc/${id}/solicitar-info`, { method: "POST", body: JSON.stringify({ mensaje: "" }) });
       }
-      // Recargar datos
       cargarKYC();
     } catch (e) {
       alert("Error: " + e.message);
@@ -229,33 +222,25 @@ const AdminKYC = () => {
   const cola = tab === "valuadores" ? vKyc : iKyc;
   const pendientes = cola.filter((k) => k.estado === "pendiente" || k.estado === "en_revision" || k.estado === "info_solicitada");
   const procesados = cola.filter((k) => k.estado === "aprobado" || k.estado === "rechazado");
-
   const badges = { kyc: vKyc.filter((k) => k.estado === "pendiente").length + iKyc.filter((k) => k.estado === "pendiente").length };
 
   return (
     <AdminLayout badges={badges}>
       <div className="max-w-3xl mx-auto space-y-5">
 
-        <div>
-          <h1 className="font-['Outfit'] text-2xl font-bold text-[#1B4332]">Verificación de cuentas</h1>
-          <p className="text-slate-400 text-sm mt-0.5">Verificación de credenciales antes de activar cuentas</p>
-        </div>
+        <PageHeader icon={ShieldCheck} title="Verificación de cuentas"
+          subtitle={`${pendientes.length} solicitudes activas · ${procesados.length} procesadas`} />
 
         {/* Tabs */}
         <div className="flex gap-2">
           {[
-            { key: "valuadores", label: "Valuadores", count: vKyc.filter((k) => k.estado === "pendiente").length },
+            { key: "valuadores",    label: "Valuadores",    count: vKyc.filter((k) => k.estado === "pendiente").length },
             { key: "inmobiliarias", label: "Inmobiliarias", count: iKyc.filter((k) => k.estado === "pendiente").length },
           ].map(({ key, label, count }) => (
-            <button
-              key={key}
-              onClick={() => setTab(key)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-colors ${
-                tab === key
-                  ? "bg-[#1B4332] text-white"
-                  : "bg-white border border-slate-200 text-slate-600 hover:border-slate-300"
-              }`}
-            >
+            <button key={key} onClick={() => setTab(key)}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
+                tab === key ? "bg-[#1B4332] text-white" : "bg-white border border-[#B7E4C7] text-slate-600 hover:border-[#52B788]"
+              }`}>
               <ShieldCheck className="w-4 h-4" />
               {label}
               {count > 0 && (
@@ -269,27 +254,25 @@ const AdminKYC = () => {
 
         {/* Pendientes */}
         {pendientes.length > 0 && (
-          <div className="space-y-3">
-            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Pendientes de revisión</p>
-            {pendientes.map((k) => (
-              <KYCCard key={k.id} solicitud={k} onAccion={accionKYC} />
-            ))}
-          </div>
+          <AdminCard icon={ShieldCheck} title={`Pendientes de revisión (${pendientes.length})`}>
+            <div className="p-4 space-y-3">
+              {pendientes.map((k) => <KYCCard key={k.id} solicitud={k} onAccion={accionKYC} />)}
+            </div>
+          </AdminCard>
         )}
 
         {/* Procesados */}
         {procesados.length > 0 && (
-          <div className="space-y-3 mt-4">
-            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Procesados recientemente</p>
-            {procesados.map((k) => (
-              <KYCCard key={k.id} solicitud={k} onAccion={accionKYC} />
-            ))}
-          </div>
+          <AdminCard icon={CheckCircle2} title={`Procesados recientemente (${procesados.length})`}>
+            <div className="p-4 space-y-3">
+              {procesados.map((k) => <KYCCard key={k.id} solicitud={k} onAccion={accionKYC} />)}
+            </div>
+          </AdminCard>
         )}
 
         {pendientes.length === 0 && procesados.length === 0 && (
-          <div className="text-center py-16 text-slate-400">
-            <ShieldCheck className="w-10 h-10 mx-auto mb-3 opacity-30" />
+          <div className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm text-center py-16 text-slate-400">
+            <ShieldCheck className="w-10 h-10 mx-auto mb-3 opacity-20" />
             <p className="text-sm">No hay solicitudes de verificación en este momento.</p>
           </div>
         )}
@@ -298,29 +281,31 @@ const AdminKYC = () => {
       {/* Modal confirmación */}
       {confirmacion && (
         <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm p-6">
-            <div className="flex justify-between items-start mb-4">
-              <h2 className="font-bold text-[#1B4332]">Confirmar acción</h2>
-              <button onClick={() => setConfirmacion(null)}><X className="w-5 h-5 text-slate-300" /></button>
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm overflow-hidden">
+            <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] px-5 py-4 flex items-center justify-between">
+              <h2 className="font-['Outfit'] font-bold text-white">Confirmar acción</h2>
+              <button onClick={() => setConfirmacion(null)}><X className="w-5 h-5 text-white/60 hover:text-white" /></button>
             </div>
-            <p className="text-sm text-slate-600 mb-6">
-              ¿Confirmas cambiar el estado a{" "}
-              <strong className={confirmacion.accion === "aprobado" ? "text-green-600" : confirmacion.accion === "rechazado" ? "text-red-600" : "text-orange-600"}>
-                {ESTADO_KYC[confirmacion.accion]?.label}
-              </strong>?
-              {confirmacion.accion === "aprobado" && " El usuario recibirá email de confirmación y podrá operar en la plataforma."}
-              {confirmacion.accion === "rechazado" && " El usuario recibirá email indicando el motivo del rechazo."}
-              {confirmacion.accion === "info_solicitada" && " Se enviará email al usuario solicitando los documentos faltantes."}
-            </p>
-            <div className="flex gap-2">
-              <button onClick={confirmarAccion}
-                className="flex-1 bg-[#1B4332] text-white rounded-xl py-2.5 text-sm font-bold hover:bg-[#163828] transition-colors">
-                Confirmar
-              </button>
-              <button onClick={() => setConfirmacion(null)}
-                className="flex-1 border border-slate-200 text-slate-500 rounded-xl py-2.5 text-sm font-semibold hover:bg-slate-50 transition-colors">
-                Cancelar
-              </button>
+            <div className="p-6">
+              <p className="text-sm text-slate-600 mb-6">
+                ¿Confirmas cambiar el estado a{" "}
+                <strong className={confirmacion.accion === "aprobado" ? "text-green-600" : confirmacion.accion === "rechazado" ? "text-red-600" : "text-orange-600"}>
+                  {ESTADO_KYC[confirmacion.accion]?.label}
+                </strong>?
+                {confirmacion.accion === "aprobado" && " El usuario recibirá email de confirmación y podrá operar en la plataforma."}
+                {confirmacion.accion === "rechazado" && " El usuario recibirá email indicando el motivo del rechazo."}
+                {confirmacion.accion === "info_solicitada" && " Se enviará email al usuario solicitando los documentos faltantes."}
+              </p>
+              <div className="flex gap-2">
+                <button onClick={confirmarAccion}
+                  className="flex-1 bg-[#1B4332] text-white rounded-xl py-2.5 text-sm font-bold hover:bg-[#163828] transition-colors">
+                  Confirmar
+                </button>
+                <button onClick={() => setConfirmacion(null)}
+                  className="flex-1 border border-slate-200 text-slate-500 rounded-xl py-2.5 text-sm font-semibold hover:bg-slate-50 transition-colors">
+                  Cancelar
+                </button>
+              </div>
             </div>
           </div>
         </div>

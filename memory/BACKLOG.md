@@ -1,5 +1,5 @@
 # PropValu — Backlog de Tareas
-> **Última actualización:** 8 Abr 2026 (sesión tarde)
+> **Última actualización:** 10 Abr 2026 (sesión perfil inmobiliaria + reseñas + equipo)
 > Actualizar este archivo conforme se completen tareas. Marcar con ✅ cuando esté lista, con 🔄 cuando esté en progreso.
 
 ---
@@ -48,7 +48,13 @@
 | # | Estado | Tarea |
 |---|---|---|
 | 5 | ✅ | **Dashboard Valuador** — tabs: Resumen, Valuaciones, Perfil, Mi expediente. PlanCard al entrar muestra plan/precio/créditos. Medalla de experiencia en header y perfil. |
-| 6 | ✅ | **Dashboard Inmobiliaria** — tabs: Resumen, Valuaciones, Equipo, Documentos, Perfil. PlanCard con planes Básico/Estándar/Premier. |
+| 6 | ✅ | **Dashboard Inmobiliaria** — tabs: Resumen, Valuaciones, Equipo (solo titular), Documentos, Perfil, Reseñas. PlanCard con planes Básico/Estándar/Premier. |
+| 48 | ✅ | **Perfil inmobiliaria rediseñado** — header verde con logo+KYC, grid 4 col, foto sidebar, todos los campos siempre visibles con chip Pendiente, editar inline desde el tab. |
+| 49 | ✅ | **Reseñas de clientes** — tab Reseñas: promedio, distribución, lista con respuesta del titular. Backend: GET/POST reseñas + POST respuesta autenticada. |
+| 50 | ✅ | **Equipo real de asesores** — GET /inmobiliaria/equipo por empresa_afiliada. Tabla con OPIs mes/total/KYC. Mock preview cuando no hay asesores reales. |
+| 51 | ✅ | **Editar perfil desde dashboard** — botón ✏️ en tab Perfil abre form inline: redes, dirección, asociación, galardones, cursos, Maps. PUT /auth/profile acepta nuevos campos. |
+| 52 | ✅ | **Refresh sesión al montar** — ambos dashboards hacen fetch /auth/me al cargar y mergean con localStorage. Pydantic User model completado con todos los campos de registro. |
+| 53 | ✅ | **Reglas UX en CLAUDE.md** — campos siempre visibles, grid 4 col, jerarquía de textos, mock preview, placeholder=botón. feedback_ux_perfiles.md en memoria. |
 | 20 | ✅ | **Panel Admin** — 17 módulos. Verificación (AdminKYC) con botón "Ratificar" por documento. |
 | 40 | ✅ | **Admin Inmobiliarias** — módulo con 4 tabs: Resumen, Activas, Pendientes, Historial. Endpoints `GET /admin/inmobiliarias` + detalles por ID. |
 | 41 | ✅ | **Admin Ads mejorado** — tabla de campañas compacta con filas expandibles, lightbox para navegar creatividades a pantalla completa, moderación y aprobación inline en tab Campañas. |

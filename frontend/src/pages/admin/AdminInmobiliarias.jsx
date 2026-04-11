@@ -5,7 +5,7 @@ import {
   Building2, Users, ShieldCheck, BarChart2, CreditCard,
   Search, RefreshCw, CheckCircle2, XCircle, ChevronDown, ChevronUp,
   Clock, MapPin, Mail, Phone, AlertTriangle, Activity,
-  Eye, FileText, Send, Download, Star,
+  Eye, FileText, Send, Download, Star, Ban, X,
 } from "lucide-react";
 import { PageHeader } from "@/components/AdminUI";
 
@@ -98,7 +98,7 @@ const TabResumen = ({ inmobiliarias }) => {
 };
 
 /* ─── Fila expandible de empresa ─── */
-const FilaEmpresa = ({ r, onNotificar, onKYC }) => {
+const FilaEmpresa = ({ r, onNotificar, onKYC, onToggle, onBloquear }) => {
   const [abierto, setAbierto] = useState(false);
   const [detalle, setDetalle] = useState(null);
   const [cargandoDet, setCargandoDet] = useState(false);
@@ -243,7 +243,7 @@ const FilaEmpresa = ({ r, onNotificar, onKYC }) => {
                 )}
 
                 {/* Acciones */}
-                <div className="flex flex-wrap gap-2 pt-1">
+                <div className="flex flex-wrap gap-2 pt-1 items-center">
                   <button
                     onClick={(e) => { e.stopPropagation(); setNotaModal(true); }}
                     className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg border border-blue-200 text-blue-600 hover:bg-blue-50 transition-colors"
@@ -266,6 +266,37 @@ const FilaEmpresa = ({ r, onNotificar, onKYC }) => {
                       </button>
                     </>
                   )}
+                  {/* Directorio toggle */}
+                  <div className="flex items-center gap-1.5 ml-auto">
+                    <span className="text-[11px] text-slate-400">En directorio</span>
+                    <button
+                      onClick={(e) => { e.stopPropagation(); onToggle?.(r.user_id, "directorio_visible"); }}
+                      title={r.directorio_visible !== false ? "Quitar del directorio" : "Mostrar en directorio"}
+                      className={`relative w-9 h-5 rounded-full transition-colors flex-shrink-0 ${r.directorio_visible !== false ? "bg-[#52B788]" : "bg-slate-200"}`}
+                    >
+                      <span className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${r.directorio_visible !== false ? "translate-x-4" : "translate-x-0.5"}`} />
+                    </button>
+                    <span className="text-[11px] text-slate-400 ml-2">Destacada</span>
+                    <button
+                      onClick={(e) => { e.stopPropagation(); onToggle?.(r.user_id, "destacado"); }}
+                      title={r.destacado ? "Quitar destacado" : "Marcar como destacada"}
+                      className={`p-1 rounded-lg transition-colors ${r.destacado ? "text-amber-400 bg-amber-50" : "text-slate-300 hover:text-amber-400 hover:bg-amber-50"}`}
+                    >
+                      <Star className={`w-3.5 h-3.5 ${r.destacado ? "fill-amber-400" : ""}`} />
+                    </button>
+                    <button
+                      onClick={(e) => { e.stopPropagation(); onBloquear?.(r.user_id, r.cuenta_estado); }}
+                      title={r.cuenta_estado === "suspendido" ? "Reactivar empresa" : "Suspender empresa"}
+                      className={`flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1 rounded-lg border transition-colors ${
+                        r.cuenta_estado === "suspendido"
+                          ? "border-green-200 text-green-700 hover:bg-green-50"
+                          : "border-red-200 text-red-600 hover:bg-red-50"
+                      }`}
+                    >
+                      <Ban className="w-3 h-3" />
+                      {r.cuenta_estado === "suspendido" ? "Reactivar" : "Suspender"}
+                    </button>
+                  </div>
                 </div>
               </div>
             )}
@@ -308,7 +339,7 @@ const FilaEmpresa = ({ r, onNotificar, onKYC }) => {
 };
 
 /* ─── Tab Empresas ─── */
-const TabEmpresas = ({ inmobiliarias, onReload }) => {
+const TabEmpresas = ({ inmobiliarias, onReload, onToggle, onBloquear }) => {
   const [q, setQ]           = useState("");
   const [filtroKyc, setFiltroKyc] = useState("todos");
 
@@ -373,7 +404,7 @@ const TabEmpresas = ({ inmobiliarias, onReload }) => {
                 </tr>
               ) : (
                 filtradas.map((r) => (
-                  <FilaEmpresa key={r.user_id} r={r} onNotificar={onReload} onKYC={handleKYC} />
+                  <FilaEmpresa key={r.user_id} r={r} onNotificar={onReload} onKYC={handleKYC} onToggle={onToggle} onBloquear={onBloquear} />
                 ))
               )}
             </tbody>

@@ -1,12 +1,14 @@
 """
 Google Sheets Comparables Fetcher for PropValu
-Reads real estate listings scraped into a Google Sheet and returns
-AIComparable-compatible dicts for use in the valuation pipeline.
+Reads real estate listings scraped into a Google Sheet.
+Uses service account credentials (same as scraper) — no API key needed.
 """
 
+import asyncio
 import logging
 import os
 import re
+from pathlib import Path
 from typing import List, Dict, Optional
 
 import httpx
@@ -25,37 +27,46 @@ SHEET_TABS = [
     "CONSOLIDADO",
 ]
 
-# Column order expected from the scraper output
+# Column order as written by scraper (config.py HEADERS_PROPIEDADES)
+# index: name → mapped_field
 SHEET_COLUMNS = [
-    "title",
-    "price",
-    "neighborhood",
-    "municipality",
-    "state",
-    "construction_area",
-    "land_area",
-    "bedrooms",
-    "bathrooms",
-    "property_type",
-    "listing_type",
-    "source_url",
+    "id_unico",           # 0
+    "titulo",             # 1  → title
+    "precio",             # 2  → price
+    "moneda",             # 3
+    "tipo_operacion",     # 4  → listing_type
+    "tipo_propiedad",     # 5  → property_type
+    "colonia",            # 6  → neighborhood
+    "municipio",          # 7  → municipality
+    "estado",             # 8  → state
+    "recamaras",          # 9  → bedrooms
+    "banos",              # 10 → bathrooms
+    "m2_construccion",    # 11 → construction_area
+    "m2_terreno",         # 12 → land_area
+    "estacionamientos",   # 13
+    "anio_construccion",  # 14
+    "descripcion",        # 15
+    "url_original",       # 16 → source_url
+    "nombre_agente",      # 17
+    "fecha_publicacion",  # 18
+    "portal_origen",      # 19 → source
+    "fecha_scraping",     # 20
+    "activo",             # 21
 ]
 
-# Property type synonym groups (lowercase)
 PROPERTY_TYPE_SYNONYMS: Dict[str, List[str]] = {
-    "casa": ["casa", "casa en condominio", "casa condominio", "casa habitacion",
-             "casa habitación", "residencia"],
-    "departamento": ["departamento", "depto", "dept", "apartamento", "apto"],
-    "terreno": ["terreno", "lote", "predio", "solar"],
+    "casa":            ["casa", "casa en condominio", "casa condominio", "casa habitacion",
+                        "casa habitación", "residencia"],
+    "departamento":    ["departamento", "depto", "dept", "apartamento", "apto"],
+    "terreno":         ["terreno", "lote", "predio", "solar"],
     "local comercial": ["local comercial", "local", "comercial"],
-    "oficina": ["oficina", "despacho"],
-    "bodega": ["bodega", "almacén", "almacen"],
+    "oficina":         ["oficina", "despacho"],
+    "bodega":          ["bodega", "almacén", "almacen"],
     "nave industrial": ["nave industrial", "nave", "industrial"],
 }
 
 
 def _normalize_property_type(raw: str) -> str:
-    """Return the canonical property type key for a raw string, or the original."""
     raw_lower = raw.strip().lower()
     for canonical, synonyms in PROPERTY_TYPE_SYNONYMS.items():
         if any(raw_lower == s or raw_lower.startswith(s) for s in synonyms):
@@ -64,12 +75,10 @@ def _normalize_property_type(raw: str) -> str:
 
 
 def _property_types_match(search_type: str, row_type: str) -> bool:
-    """Return True when search_type and row_type resolve to the same canonical type."""
     return _normalize_property_type(search_type) == _normalize_property_type(row_type)
 
 
 def _parse_price(raw) -> float:
-    """Parse a price value to float, stripping currency symbols and separators."""
     if raw is None:
         return 0.0
     if isinstance(raw, (int, float)):
@@ -83,7 +92,6 @@ def _parse_price(raw) -> float:
 
 
 def _parse_area(raw) -> Optional[float]:
-    """Parse an area value to float."""
     if raw is None or str(raw).strip() == "":
         return None
     if isinstance(raw, (int, float)):
@@ -114,7 +122,6 @@ def _parse_float(raw) -> Optional[float]:
 
 
 def _cell(row: list, index: int):
-    """Safe cell accessor — returns None when column is absent."""
     try:
         val = row[index]
         return val if val != "" else None
@@ -123,27 +130,74 @@ def _cell(row: list, index: int):
 
 
 # ---------------------------------------------------------------------------
+# Auth helpers
+# ---------------------------------------------------------------------------
+
+def _get_bearer_token() -> Optional[str]:
+    """
+    Returns a Bearer token using the service account credentials.json.
+    Falls back to None if credentials are not available.
+    Sync function — call via run_in_executor in async context.
+    """
+    # Look for credentials path: env var first, then relative to this file's location,
+    # then the scraper directory next to the project root.
+    candidates = [
+        os.environ.get("GOOGLE_SHEETS_CREDENTIALS", ""),
+        str(Path(__file__).parent / "credentials.json"),
+        str(Path(__file__).parent.parent.parent / "scraper-inmuebles" / "credentials.json"),
+    ]
+    creds_path = next((p for p in candidates if p and Path(p).exists()), None)
+    if not creds_path:
+        logger.warning("No service account credentials found for Google Sheets.")
+        return None
+    try:
+        from google.oauth2 import service_account
+        import google.auth.transport.requests
+        scopes = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
+        creds = service_account.Credentials.from_service_account_file(creds_path, scopes=scopes)
+        creds.refresh(google.auth.transport.requests.Request())
+        return creds.token
+    except Exception as exc:
+        logger.error("Failed to get service account token: %s", exc)
+        return None
+
+
+async def _get_token_async() -> Optional[str]:
+    loop = asyncio.get_event_loop()
+    return await loop.run_in_executor(None, _get_bearer_token)
+
+
+# ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
 
 async def fetch_sheet_tab(
     tab_name: str,
-    api_key: str,
+    api_key: str = "",          # kept for backwards compat, ignored if service account works
     sheet_id: str = SHEET_ID_DEFAULT,
 ) -> List[list]:
     """
-    Fetch all rows from a single Google Sheet tab via Sheets API v4.
-
-    Returns a list of rows (list of lists), with the header row removed.
-    Returns [] on any error.
+    Fetch all rows from a single Google Sheet tab.
+    Prefers service account auth; falls back to API key if provided.
+    Returns rows with header row removed.
     """
+    token = await _get_token_async()
+
     url = (
         f"https://sheets.googleapis.com/v4/spreadsheets/{sheet_id}"
-        f"/values/{tab_name}?key={api_key}"
+        f"/values/{tab_name}"
     )
+
     try:
         async with httpx.AsyncClient(timeout=15.0) as client:
-            response = await client.get(url)
+            if token:
+                response = await client.get(url, headers={"Authorization": f"Bearer {token}"})
+            elif api_key:
+                response = await client.get(url + f"?key={api_key}")
+            else:
+                logger.warning("No auth available for Google Sheets.")
+                return []
+
             response.raise_for_status()
             data = response.json()
 
@@ -161,7 +215,7 @@ async def fetch_sheet_tab(
             tab_name, exc.response.status_code, exc.response.text[:200],
         )
         return []
-    except Exception as exc:  # noqa: BLE001
+    except Exception as exc:
         logger.error("Error fetching tab '%s': %s", tab_name, exc)
         return []
 
@@ -169,29 +223,26 @@ async def fetch_sheet_tab(
 def parse_sheet_row(row: list, source_name: str) -> Dict:
     """
     Parse a raw sheet row into a dict compatible with AIComparable fields.
-
-    Expected column order: title, price, neighborhood, municipality, state,
-    construction_area, land_area, bedrooms, bathrooms, property_type,
-    listing_type, source_url
+    Column order matches scraper config.py HEADERS_PROPIEDADES.
     """
     col = {name: _cell(row, i) for i, name in enumerate(SHEET_COLUMNS)}
 
     return {
-        "source": source_name,
-        "source_url": col["source_url"] or "",
-        "title": col["title"] or "",
-        "neighborhood": col["neighborhood"] or "",
-        "municipality": col["municipality"] or "",
-        "state": col["state"] or "",
-        "price": _parse_price(col["price"]),
-        "construction_area": _parse_area(col["construction_area"]),
-        "land_area": _parse_area(col["land_area"]),
-        "bedrooms": _parse_int(col["bedrooms"]),
-        "bathrooms": _parse_float(col["bathrooms"]),
-        "property_type": col["property_type"] or "",
-        "listing_type": col["listing_type"] or "venta",
-        "image_url": None,
-        "ai_provider": "google_sheets",
+        "source":             col.get("portal_origen") or source_name,
+        "source_url":         col.get("url_original") or "",
+        "title":              col.get("titulo") or "",
+        "neighborhood":       col.get("colonia") or "",
+        "municipality":       col.get("municipio") or "",
+        "state":              col.get("estado") or "",
+        "price":              _parse_price(col.get("precio")),
+        "construction_area":  _parse_area(col.get("m2_construccion")),
+        "land_area":          _parse_area(col.get("m2_terreno")),
+        "bedrooms":           _parse_int(col.get("recamaras")),
+        "bathrooms":          _parse_float(col.get("banos")),
+        "property_type":      col.get("tipo_propiedad") or "",
+        "listing_type":       col.get("tipo_operacion") or "venta",
+        "image_url":          None,
+        "ai_provider":        "google_sheets",
     }
 
 
@@ -204,30 +255,19 @@ async def search_comparables_from_sheets(
     max_results: int = 10,
 ) -> List[Dict]:
     """
-    Main entry point: fetch comparables from Google Sheets and filter/rank them.
-
-    Reads GOOGLE_SHEETS_API_KEY and GOOGLE_SHEETS_ID from the environment.
-    Returns a list of dicts compatible with AIComparable fields.
+    Fetch comparables from Google Sheets and filter/rank by location and area.
     """
-    api_key = os.environ.get("GOOGLE_SHEETS_API_KEY", "").strip()
-    if not api_key:
-        logger.warning(
-            "GOOGLE_SHEETS_API_KEY not set — skipping Google Sheets comparables."
-        )
-        return []
-
     sheet_id = os.environ.get("GOOGLE_SHEETS_ID", SHEET_ID_DEFAULT).strip()
+    api_key  = os.environ.get("GOOGLE_SHEETS_API_KEY", "").strip()
 
     try:
-        # Try CONSOLIDADO first; fall back to all individual tabs
+        consolidado_rows = await fetch_sheet_tab("CONSOLIDADO", api_key, sheet_id)
         rows_by_source: Dict[str, List[list]] = {}
 
-        consolidado_rows = await fetch_sheet_tab("CONSOLIDADO", api_key, sheet_id)
         if consolidado_rows:
             rows_by_source["CONSOLIDADO"] = consolidado_rows
         else:
-            logger.info("CONSOLIDADO empty or unavailable — fetching individual tabs.")
-            import asyncio
+            logger.info("CONSOLIDADO empty — fetching individual tabs.")
             individual_tabs = [t for t in SHEET_TABS if t != "CONSOLIDADO"]
             results = await asyncio.gather(
                 *[fetch_sheet_tab(tab, api_key, sheet_id) for tab in individual_tabs],
@@ -239,31 +279,24 @@ async def search_comparables_from_sheets(
                 else:
                     logger.error("Error fetching tab '%s': %s", tab, result)
 
-        # Parse every row
         all_parsed: List[Dict] = []
         for source_name, rows in rows_by_source.items():
             for row in rows:
                 try:
-                    parsed = parse_sheet_row(row, source_name)
-                    all_parsed.append(parsed)
-                except Exception as exc:  # noqa: BLE001
+                    all_parsed.append(parse_sheet_row(row, source_name))
+                except Exception as exc:
                     logger.debug("Skipping unparseable row in '%s': %s", source_name, exc)
 
         if not all_parsed:
-            logger.info("No rows parsed from sheets.")
             return []
 
-        # Filter
         location_lower = location.strip().lower()
         listing_type_lower = listing_type.strip().lower()
 
         filtered: List[Dict] = []
         for row in all_parsed:
-            # Price must be positive
             if row["price"] <= 0:
                 continue
-
-            # Location match: municipality or state (partial, case-insensitive)
             municipality_lower = (row["municipality"] or "").lower()
             state_lower = (row["state"] or "").lower()
             if (
@@ -273,29 +306,16 @@ async def search_comparables_from_sheets(
                 and state_lower not in location_lower
             ):
                 continue
-
-            # Property type match
-            if property_type and not _property_types_match(
-                property_type, row["property_type"]
-            ):
+            if property_type and not _property_types_match(property_type, row["property_type"]):
                 continue
-
-            # Listing type match (lenient: if row has no listing_type, accept it)
             row_listing = (row["listing_type"] or "").lower()
             if row_listing and listing_type_lower and row_listing != listing_type_lower:
                 continue
-
             filtered.append(row)
 
         if not filtered:
-            logger.info(
-                "No comparables matched location='%s', property_type='%s'.",
-                location,
-                property_type,
-            )
             return []
 
-        # Score by construction_area proximity
         reference_area = construction_area if construction_area and construction_area > 0 else land_area
 
         def area_score(row: Dict) -> float:
@@ -306,9 +326,8 @@ async def search_comparables_from_sheets(
             return 1.0 - abs(row_area - reference_area) / denom
 
         filtered.sort(key=area_score, reverse=True)
-
         return filtered[:max_results]
 
-    except Exception as exc:  # noqa: BLE001
+    except Exception as exc:
         logger.error("Unexpected error in search_comparables_from_sheets: %s", exc)
         return []

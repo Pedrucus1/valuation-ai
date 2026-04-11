@@ -1,10 +1,11 @@
 import { useState, useMemo, useEffect } from "react";
 import AdminLayout from "@/components/AdminLayout";
+import { PageHeader, AdminCard, GradThead } from "@/components/AdminUI";
 import { adminFetch } from "@/lib/adminFetch";
-import { Download, TrendingUp, FileText, Users, ChevronDown } from "lucide-react";
+import { Download, TrendingUp, FileText, Users, ChevronDown, BarChart2 } from "lucide-react";
 
 const TIPO_COLORS = {
-  public:       "bg-slate-100 text-slate-500",
+  público:      "bg-slate-100 text-slate-500",
   valuador:     "bg-blue-100 text-blue-700",
   inmobiliaria: "bg-purple-100 text-purple-700",
   anunciante:   "bg-orange-100 text-orange-700",
@@ -30,7 +31,7 @@ const AdminReportes = () => {
   const totalFiltrado = filtradas.reduce((s, t) => s + (t.monto || 0), 0);
 
   const descargarCSV = () => {
-    const cols = ["ID","Fecha","Cliente","Tipo","Concepto","Monto","Método de pago"];
+    const cols = ["ID","Fecha","Cliente","Tipo","Concepto","Monto","Método"];
     const rows = filtradas.map((t) =>
       [t.payment_id || t.id, t.created_at?.split("T")[0] || t.fecha, t.cliente, t.tipo, t.concepto, t.monto, t.metodo].join(",")
     );
@@ -49,75 +50,71 @@ const AdminReportes = () => {
     <AdminLayout>
       <div className="max-w-5xl mx-auto space-y-6">
 
-        <div className="flex items-start justify-between">
-          <div>
-            <h1 className="font-['Outfit'] text-2xl font-bold text-[#1B4332]">Reportes de Ingresos</h1>
-            <p className="text-slate-400 text-sm mt-0.5">Resumen financiero exportable</p>
-          </div>
+        <PageHeader icon={BarChart2} title="Reportes de Ingresos"
+          subtitle="Resumen financiero exportable">
           <button onClick={descargarCSV}
-            className="flex items-center gap-2 border border-[#52B788] text-[#1B4332] hover:bg-[#52B788]/10 text-sm font-bold px-4 py-2.5 rounded-xl transition-colors">
+            className="flex items-center gap-2 bg-white/20 hover:bg-white/30 text-white text-sm font-bold px-4 py-2.5 rounded-xl transition-colors border border-white/30">
             <Download className="w-4 h-4" /> Exportar CSV
           </button>
-        </div>
+        </PageHeader>
 
         {/* KPIs */}
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
           {[
-            { label: "Valuaciones completadas", val: datos.totales.valuaciones_completadas ?? "—", icon: FileText, color: "bg-[#D9ED92] text-[#1B4332]" },
-            { label: "Usuarios registrados",    val: datos.totales.usuarios ?? "—",                icon: Users,    color: "bg-blue-100 text-blue-600" },
-            { label: "Valuadores verificados",  val: datos.totales.valuadores_activos ?? "—",      icon: TrendingUp, color: "bg-purple-100 text-purple-600" },
-          ].map(({ label, val, icon: Icon, color }) => (
-            <div key={label} className="bg-white rounded-2xl border border-slate-100 p-4">
-              <div className={`w-8 h-8 rounded-xl flex items-center justify-center mb-2 ${color}`}>
-                <Icon className="w-4 h-4" />
+            { label: "Valuaciones completadas", val: datos.totales.valuaciones_completadas ?? "—", icon: FileText,    stripe: "bg-[#52B788]",   iconBg: "bg-[#F0FAF5]",   iconColor: "text-[#1B4332]" },
+            { label: "Usuarios registrados",    val: datos.totales.usuarios ?? "—",                icon: Users,       stripe: "bg-blue-400",    iconBg: "bg-blue-50",    iconColor: "text-blue-600" },
+            { label: "Valuadores verificados",  val: datos.totales.valuadores_activos ?? "—",      icon: TrendingUp,  stripe: "bg-purple-400",  iconBg: "bg-purple-50",  iconColor: "text-purple-600" },
+          ].map(({ label, val, icon: Icon, stripe, iconBg, iconColor }) => (
+            <div key={label} className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden">
+              <div className={`h-1 ${stripe}`} />
+              <div className="p-4">
+                <div className={`w-9 h-9 rounded-xl flex items-center justify-center mb-2 ${iconBg}`}>
+                  <Icon className={`w-4 h-4 ${iconColor}`} />
+                </div>
+                <p className="font-['Outfit'] text-2xl font-bold text-[#1B4332]">{cargando ? "…" : val}</p>
+                <p className="text-xs text-slate-400 mt-0.5">{label}</p>
               </div>
-              <p className="font-['Outfit'] text-xl font-bold text-[#1B4332]">{cargando ? "…" : val}</p>
-              <p className="text-xs text-slate-400 mt-0.5">{label}</p>
             </div>
           ))}
         </div>
 
-        {/* Gráfica de barras por mes */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
-          <h2 className="font-semibold text-[#1B4332] text-sm mb-5">Valuaciones completadas por mes</h2>
-          {meses.length === 0 ? (
-            <p className="text-sm text-slate-400 text-center py-8">{cargando ? "Cargando…" : "Sin datos disponibles"}</p>
-          ) : (
-            <div className="flex items-end gap-3 h-40">
-              {meses.map((m) => {
-                const h = (m.valuaciones / maxVal) * 100;
-                return (
-                  <div key={m.mes} className="flex-1 flex flex-col items-center gap-1">
-                    <p className="text-[10px] text-slate-500 font-semibold">{m.valuaciones}</p>
-                    <div className="w-full bg-[#52B788] rounded-t-lg" style={{ height: `${Math.max(h, 2)}%`, minHeight: 4 }} />
-                    <p className="text-[9px] text-slate-400 text-center leading-tight whitespace-nowrap">{m.mes}</p>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
+        {/* Gráfica */}
+        <AdminCard icon={BarChart2} title="Valuaciones completadas por mes">
+          <div className="p-6">
+            {meses.length === 0 ? (
+              <p className="text-sm text-slate-400 text-center py-8">{cargando ? "Cargando…" : "Sin datos disponibles"}</p>
+            ) : (
+              <div className="flex items-end gap-3 h-40">
+                {meses.map((m) => {
+                  const h = (m.valuaciones / maxVal) * 100;
+                  return (
+                    <div key={m.mes} className="flex-1 flex flex-col items-center gap-1">
+                      <p className="text-[10px] text-slate-500 font-semibold">{m.valuaciones}</p>
+                      <div className="w-full bg-[#52B788] rounded-t-lg" style={{ height: `${Math.max(h, 2)}%`, minHeight: 4 }} />
+                      <p className="text-[9px] text-slate-400 text-center leading-tight whitespace-nowrap">{m.mes}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </AdminCard>
 
         {/* Tabla transacciones */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-          <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
-            <h2 className="font-semibold text-[#1B4332] text-sm">
-              Transacciones recientes — <span className="text-[#52B788]">${totalFiltrado.toLocaleString()} MXN</span>
-            </h2>
-            <div className="flex gap-3">
-              <div className="relative">
-                <select value={tipoFiltro} onChange={(e) => setTipoFiltro(e.target.value)}
-                  className="appearance-none border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-600 bg-white focus:outline-none pr-7">
-                  <option value="todos">Todos</option>
-                  <option value="public">Público</option>
-                  <option value="valuador">Valuador</option>
-                  <option value="inmobiliaria">Inmobiliaria</option>
-                  <option value="anunciante">Anunciante</option>
-                </select>
-                <ChevronDown className="absolute right-2 top-2 w-3 h-3 text-slate-400 pointer-events-none" />
-              </div>
+        <AdminCard icon={FileText}
+          title={`Transacciones recientes — $${totalFiltrado.toLocaleString()} MXN`}
+          action={
+            <div className="relative">
+              <select value={tipoFiltro} onChange={(e) => setTipoFiltro(e.target.value)}
+                className="appearance-none bg-white/20 border border-white/30 text-white rounded-lg px-3 py-1 text-xs focus:outline-none pr-6">
+                <option value="todos" className="text-slate-700">Todos</option>
+                {["público","valuador","inmobiliaria","anunciante"].map(t => (
+                  <option key={t} value={t} className="text-slate-700">{t}</option>
+                ))}
+              </select>
+              <ChevronDown className="absolute right-1.5 top-1.5 w-3 h-3 text-white/70 pointer-events-none" />
             </div>
-          </div>
+          }>
           <div className="overflow-x-auto">
             {filtradas.length === 0 ? (
               <div className="text-center py-10 text-slate-400 text-sm">
@@ -125,16 +122,10 @@ const AdminReportes = () => {
               </div>
             ) : (
               <table className="w-full">
-                <thead>
-                  <tr className="bg-[#F8F9FA] border-b border-slate-100">
-                    {["Fecha","Cliente","Tipo","Concepto","Monto","Método"].map((h) => (
-                      <th key={h} className="text-left px-4 py-2.5 text-xs font-semibold text-slate-400 uppercase tracking-wide">{h}</th>
-                    ))}
-                  </tr>
-                </thead>
+                <GradThead cols={["Fecha","Cliente","Tipo","Concepto","Monto","Método"]} />
                 <tbody className="divide-y divide-slate-50">
                   {filtradas.map((t, i) => (
-                    <tr key={t.payment_id || i} className="hover:bg-slate-50/50 transition-colors">
+                    <tr key={t.payment_id || i} className="hover:bg-[#F0FAF5]/50 transition-colors">
                       <td className="px-4 py-3 text-xs text-slate-400 whitespace-nowrap">{t.created_at?.split("T")[0] || t.fecha}</td>
                       <td className="px-4 py-3 text-sm font-semibold text-[#1B4332]">{t.cliente}</td>
                       <td className="px-4 py-3">
@@ -149,7 +140,7 @@ const AdminReportes = () => {
               </table>
             )}
           </div>
-        </div>
+        </AdminCard>
 
       </div>
     </AdminLayout>

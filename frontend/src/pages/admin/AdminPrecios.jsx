@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import AdminLayout from "@/components/AdminLayout";
+import { PageHeader, AdminCard, SH } from "@/components/AdminUI";
 import { adminFetch } from "@/lib/adminFetch";
 import { DollarSign, Save, CheckCircle2, AlertTriangle, RefreshCw, RotateCcw } from "lucide-react";
 
@@ -183,17 +184,14 @@ const AdminPrecios = () => {
     <AdminLayout>
       <div className="max-w-4xl mx-auto space-y-6">
 
-        <div className="flex items-start justify-between">
-          <div>
-            <h1 className="font-['Outfit'] text-2xl font-bold text-[#1B4332]">Gestión de Precios</h1>
-            <p className="text-slate-400 text-sm mt-0.5">Cambios se reflejan en tiempo real en todas las páginas del sitio</p>
-          </div>
+        <PageHeader icon={DollarSign} title="Gestión de Precios"
+          subtitle="Cambios se reflejan en tiempo real en todas las páginas del sitio">
           <button onClick={guardar} disabled={totalCambios === 0 || guardando}
-            className="flex items-center gap-2 bg-[#1B4332] hover:bg-[#163828] disabled:opacity-40 text-white text-sm font-bold px-4 py-2.5 rounded-xl transition-colors">
+            className="flex items-center gap-2 bg-white/20 hover:bg-white/30 border border-white/30 disabled:opacity-40 text-white text-sm font-bold px-4 py-2.5 rounded-xl transition-colors">
             {guardando ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
             {totalCambios > 0 ? `Guardar ${totalCambios} cambio${totalCambios > 1 ? "s" : ""}` : "Sin cambios"}
           </button>
-        </div>
+        </PageHeader>
 
         {guardado && (
           <div className="flex items-center gap-2 bg-green-50 border border-green-200 rounded-2xl px-4 py-3">
@@ -210,14 +208,13 @@ const AdminPrecios = () => {
         )}
 
         {grupos.map(({ grupo, items }) => (
-          <div key={grupo}>
-            <div className="mb-3">
-              <h2 className="font-['Outfit'] font-bold text-[#1B4332] text-base">{grupo}</h2>
-              <p className="text-xs text-slate-400 mt-0.5">{GRUPO_INFO[grupo]}</p>
-            </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div key={grupo} className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden">
+            <SH icon={DollarSign} title={grupo}>
+              <span className="text-[11px] text-[#D9ED92]/70">{GRUPO_INFO[grupo]}</span>
+            </SH>
+            <div className="p-4 grid grid-cols-1 lg:grid-cols-2 gap-4">
               {items.map(([key, p]) => (
-                <div key={key} className={`bg-white rounded-2xl border shadow-sm p-5 transition-all ${editados[key] ? "border-[#52B788]" : "border-slate-100"}`}>
+                <div key={key} className={`bg-white rounded-xl border shadow-sm p-5 transition-all ${editados[key] ? "border-[#52B788]" : "border-[#B7E4C7]"}`}>
                   <div className="flex items-start justify-between gap-2 mb-3">
                     <div>
                       <p className="font-semibold text-[#1B4332] text-sm">{p.label}</p>

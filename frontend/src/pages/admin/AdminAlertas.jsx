@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import AdminLayout from "@/components/AdminLayout";
+import { PageHeader, AdminCard } from "@/components/AdminUI";
 import { adminFetch } from "@/lib/adminFetch";
 import {
   Bell, BellOff, CheckCircle2, AlertTriangle, XCircle,
@@ -79,16 +80,13 @@ const AdminAlertas = () => {
     <AdminLayout>
       <div className="max-w-5xl mx-auto space-y-6">
 
-        <div className="flex items-start justify-between">
-          <div>
-            <h1 className="font-['Outfit'] text-2xl font-bold text-[#1B4332]">Alertas Automáticas</h1>
-            <p className="text-slate-400 text-sm mt-0.5">Configura cuándo y cómo recibes notificaciones del sistema</p>
-          </div>
+        <PageHeader icon={Bell} title="Alertas Automáticas"
+          subtitle="Configura cuándo y cómo recibes notificaciones del sistema">
           <button onClick={guardar} disabled={!cambios}
-            className="flex items-center gap-2 bg-[#1B4332] hover:bg-[#163828] disabled:opacity-40 text-white text-sm font-bold px-4 py-2.5 rounded-xl transition-colors">
+            className="flex items-center gap-2 bg-white/20 hover:bg-white/30 border border-white/30 disabled:opacity-40 text-white text-sm font-bold px-4 py-2.5 rounded-xl transition-colors">
             <Save className="w-4 h-4" />{cambios ? "Guardar cambios" : "Sin cambios"}
           </button>
-        </div>
+        </PageHeader>
 
         {guardado && (
           <div className="flex items-center gap-2 bg-green-50 border border-green-200 rounded-2xl px-4 py-3">
@@ -102,7 +100,7 @@ const AdminAlertas = () => {
           <div className="lg:col-span-2 space-y-3">
 
             {/* Email destino */}
-            <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 flex items-center gap-3">
+            <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm p-4 flex items-center gap-3">
               <Mail className="w-4 h-4 text-slate-400 flex-shrink-0" />
               <div className="flex-1">
                 <p className="text-xs text-slate-400 font-semibold mb-1">Email de destino para alertas</p>
@@ -176,17 +174,17 @@ const AdminAlertas = () => {
 
           {/* Panel notificaciones recientes */}
           <div className="space-y-3">
-            <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-              <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
+            <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm overflow-hidden">
+              <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] px-4 py-3 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Bell className="w-4 h-4 text-[#1B4332]" />
-                  <h2 className="font-semibold text-[#1B4332] text-sm">Notificaciones</h2>
+                  <Bell className="w-4 h-4 text-[#D9ED92]" />
+                  <span className="font-['Outfit'] font-semibold text-white text-sm">Notificaciones</span>
                   {noLeidas > 0 && (
                     <span className="bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">{noLeidas}</span>
                   )}
                 </div>
                 {noLeidas > 0 && (
-                  <button onClick={marcarTodasLeidas} className="text-xs text-slate-400 hover:text-[#1B4332]">
+                  <button onClick={marcarTodasLeidas} className="text-xs text-[#D9ED92]/80 hover:text-white">
                     Marcar leídas
                   </button>
                 )}
