@@ -2820,6 +2820,10 @@ async def admin_valuadores_list(request: Request, q: str = "", kyc: str = "", pl
         })
         u["ads_activos"]   = await db.anuncios.count_documents({"user_id": u["user_id"], "estado": "aprobado"})
         u["ads_pendientes"] = await db.anuncios.count_documents({"user_id": u["user_id"], "estado": "pendiente"})
+        # Calificación promedio de reseñas del directorio (perfil_id = email)
+        resenas_v = await db.resenas.find({"perfil_id": u["email"]}).to_list(500)
+        u["calificacion_promedio"] = round(sum(r["calificacion"] for r in resenas_v) / len(resenas_v), 1) if resenas_v else 0.0
+        u["total_resenas"] = len(resenas_v)
     return {"valuadores": usuarios, "total": len(usuarios)}
 
 # ============== ADMIN — REPORTES ==============

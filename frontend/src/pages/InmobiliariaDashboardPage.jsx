@@ -74,6 +74,9 @@ const MOCK_VALUACIONES = [
     fecha: "15 mar 2026",
     valor: 6200000,
     estado: "completada",
+    valuador_nombre: "Arq. Carlos Ruiz",
+    valuador_id: "user_carlos_ruiz",
+    calificada: false,
   },
   {
     id: 2,
@@ -82,6 +85,10 @@ const MOCK_VALUACIONES = [
     fecha: "13 mar 2026",
     valor: 2850000,
     estado: "completada",
+    valuador_nombre: "Ing. Patricia Soto",
+    valuador_id: "user_patricia_soto",
+    calificada: true,
+    calificacion_dada: 5,
   },
   {
     id: 3,
@@ -90,6 +97,9 @@ const MOCK_VALUACIONES = [
     fecha: "11 mar 2026",
     valor: 3900000,
     estado: "en_proceso",
+    valuador_nombre: "Arq. Miguel Torres",
+    valuador_id: null,
+    calificada: false,
   },
   {
     id: 4,
@@ -98,6 +108,9 @@ const MOCK_VALUACIONES = [
     fecha: "08 mar 2026",
     valor: 1750000,
     estado: "completada",
+    valuador_nombre: "Arq. Carlos Ruiz",
+    valuador_id: "user_carlos_ruiz",
+    calificada: false,
   },
   {
     id: 5,
@@ -106,8 +119,97 @@ const MOCK_VALUACIONES = [
     fecha: "04 mar 2026",
     valor: 2200000,
     estado: "pendiente",
+    valuador_nombre: null,
+    valuador_id: null,
+    calificada: false,
   },
 ];
+
+/* ─── Modal calificación valuador ────────────────────────── */
+const ModalCalificarValuador = ({ valuacion, onClose, onCalificado }) => {
+  const [estrellas, setEstrellas] = useState(0);
+  const [hover, setHover] = useState(0);
+  const [comentario, setComentario] = useState("");
+  const [enviando, setEnviando] = useState(false);
+
+  const etiquetas = ["", "Deficiente", "Regular", "Bueno", "Muy bueno", "Excelente"];
+
+  const enviar = async () => {
+    if (estrellas === 0) { toast.error("Selecciona una calificación"); return; }
+    if (!comentario.trim()) { toast.error("Escribe un comentario breve"); return; }
+    setEnviando(true);
+    try {
+      await fetch(`${API}/directorio/valuador/${valuacion.valuador_id}/resenas`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({
+          calificacion: estrellas,
+          comentario: comentario.trim(),
+          nombre_cliente: "Inmobiliaria",
+        }),
+      });
+      toast.success("¡Gracias por tu calificación!");
+      onCalificado(valuacion.id, estrellas);
+      onClose();
+    } catch {
+      toast.error("Error al enviar. Intenta de nuevo.");
+    } finally {
+      setEnviando(false);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6">
+        <p className="font-['Outfit'] text-base font-bold text-[#1B4332] mb-1">Calificar valuador</p>
+        <p className="text-xs text-slate-500 mb-4">{valuacion.valuador_nombre} · {valuacion.direccion.split(",")[0]}</p>
+
+        {/* Stars */}
+        <div className="flex justify-center gap-2 mb-2">
+          {[1, 2, 3, 4, 5].map((n) => (
+            <button
+              key={n}
+              onMouseEnter={() => setHover(n)}
+              onMouseLeave={() => setHover(0)}
+              onClick={() => setEstrellas(n)}
+              className="transition-transform hover:scale-110"
+            >
+              <Star
+                className={`w-8 h-8 ${(hover || estrellas) >= n ? "text-amber-400 fill-amber-400" : "text-slate-200"}`}
+              />
+            </button>
+          ))}
+        </div>
+        {(hover || estrellas) > 0 && (
+          <p className="text-center text-sm font-semibold text-amber-600 mb-3">{etiquetas[hover || estrellas]}</p>
+        )}
+
+        {/* Comentario */}
+        <textarea
+          value={comentario}
+          onChange={(e) => setComentario(e.target.value)}
+          placeholder="¿Cómo fue tu experiencia? (requerido)"
+          rows={3}
+          className="w-full text-sm border border-slate-200 rounded-xl px-3 py-2 resize-none outline-none focus:border-[#52B788] bg-[#F0FAF5] mb-4"
+        />
+
+        <div className="flex gap-2">
+          <button onClick={onClose} className="flex-1 text-sm text-slate-500 hover:text-slate-700 py-2 rounded-xl border border-slate-200 transition-colors">
+            Cancelar
+          </button>
+          <button
+            onClick={enviar}
+            disabled={enviando || estrellas === 0}
+            className="flex-1 bg-[#1B4332] text-white text-sm font-semibold py-2 rounded-xl hover:bg-[#2D6A4F] disabled:opacity-50 transition-colors"
+          >
+            {enviando ? "Enviando…" : "Enviar calificación"}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const MOCK_ASESORES = [
   { id: 1, nombre: "Sofía Ramírez Torres",   email: "sofia.ramirez@inmobiliaria.mx",   phone: "33 1234 5678", valuaciones: 7,  _mock_kyc: "approved" },
@@ -236,6 +338,8 @@ const InmobiliariaDashboardPage = () => {
   const [editForm, setEditForm] = useState({});
   const [guardando, setGuardando] = useState(false);
   const [previewDoc, setPreviewDoc] = useState(null); // { url, type, filename }
+  const [calificarModal, setCalificarModal] = useState(null); // valuacion a calificar
+  const [valuacionesList, setValuacionesList] = useState(MOCK_VALUACIONES);
 
   const DOCS_REQUERIDOS = [
     { key: "ine_frente",            label: "INE del representante (frente y vuelta)" },
@@ -801,13 +905,15 @@ const InmobiliariaDashboardPage = () => {
               <TableRow className="bg-slate-50">
                 <TableHead className="font-semibold text-[#1B4332]">Dirección</TableHead>
                 <TableHead className="font-semibold text-[#1B4332]">Tipo</TableHead>
+                <TableHead className="font-semibold text-[#1B4332]">Valuador</TableHead>
                 <TableHead className="font-semibold text-[#1B4332]">Fecha</TableHead>
                 <TableHead className="font-semibold text-[#1B4332]">Valor estimado</TableHead>
                 <TableHead className="font-semibold text-[#1B4332]">Estado</TableHead>
+                <TableHead className="font-semibold text-[#1B4332]"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {MOCK_VALUACIONES.map((v) => (
+              {valuacionesList.map((v) => (
                 <TableRow key={v.id} className="hover:bg-slate-50">
                   <TableCell>
                     <div className="flex items-center gap-2">
@@ -820,6 +926,9 @@ const InmobiliariaDashboardPage = () => {
                       {v.tipo}
                     </Badge>
                   </TableCell>
+                  <TableCell className="text-sm text-slate-500">
+                    {v.valuador_nombre || <span className="text-slate-300">—</span>}
+                  </TableCell>
                   <TableCell className="text-sm text-slate-500">{v.fecha}</TableCell>
                   <TableCell className="font-semibold text-[#1B4332] text-sm">
                     {v.estado === "pendiente" ? (
@@ -830,6 +939,23 @@ const InmobiliariaDashboardPage = () => {
                   </TableCell>
                   <TableCell>
                     <StatusBadge status={v.estado} />
+                  </TableCell>
+                  <TableCell>
+                    {v.estado === "completada" && v.valuador_id && !v.calificada && (
+                      <button
+                        onClick={() => setCalificarModal(v)}
+                        className="flex items-center gap-1 text-xs font-semibold text-amber-600 hover:text-amber-700 bg-amber-50 hover:bg-amber-100 border border-amber-200 px-2 py-1 rounded-lg transition-colors whitespace-nowrap"
+                      >
+                        <Star className="w-3 h-3" />
+                        Calificar
+                      </button>
+                    )}
+                    {v.calificada && (
+                      <span className="flex items-center gap-1 text-xs text-slate-400">
+                        <Star className="w-3 h-3 fill-amber-300 text-amber-300" />
+                        {v.calificacion_dada ?? "★"}
+                      </span>
+                    )}
                   </TableCell>
                 </TableRow>
               ))}
@@ -1674,6 +1800,19 @@ const InmobiliariaDashboardPage = () => {
         {/* Tab: Publicidad */}
         {activeTab === "publicidad" && <PublicidadTab />}
       </main>
+
+      {/* Modal calificar valuador */}
+      {calificarModal && (
+        <ModalCalificarValuador
+          valuacion={calificarModal}
+          onClose={() => setCalificarModal(null)}
+          onCalificado={(id, stars) => {
+            setValuacionesList((prev) =>
+              prev.map((v) => v.id === id ? { ...v, calificada: true, calificacion_dada: stars } : v)
+            );
+          }}
+        />
+      )}
     </div>
   );
 };

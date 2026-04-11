@@ -33,7 +33,8 @@ function normalizeValuador(u) {
     certs: u.certificaciones || [],
     especialidades: u.especialidades || [],
     experiencia: u.experiencia || 0,
-    calificacion: u.calificacion || 0,
+    calificacion: u.calificacion_promedio ?? u.calificacion ?? 0,
+    totalResenas: u.total_resenas ?? 0,
     totalReportes: u.total_valuaciones || 0,
     avaluosMes: u.avaluos_mes ?? null,
     ingresos: 0,
@@ -825,7 +826,6 @@ const FilaValuador = ({ v, onToggle, suspender }) => {
               <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
                 {[
                   ["Reportes", v.totalReportes],
-                  ["Calif.",   v.calificacion > 0 ? `${v.calificacion.toFixed(1)} ★` : "—"],
                   ["Exp.",     `${v.experiencia} años`],
                   ["Alta",     v.fecha_registro],
                 ].map(([k, val]) => (
@@ -834,6 +834,18 @@ const FilaValuador = ({ v, onToggle, suspender }) => {
                     <span className="text-sm font-semibold text-[#1B4332]">{val}</span>
                   </div>
                 ))}
+                {/* Calificación con estrellas */}
+                <div className="flex items-baseline gap-1">
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Calif.</span>
+                  {v.calificacion > 0 ? (
+                    <span className={`text-sm font-bold ${v.calificacion >= 4 ? "text-green-600" : v.calificacion >= 3 ? "text-amber-500" : "text-red-500"}`}>
+                      {v.calificacion.toFixed(1)} ★
+                      {v.totalResenas > 0 && <span className="text-[10px] font-normal text-slate-400 ml-0.5">({v.totalResenas})</span>}
+                    </span>
+                  ) : (
+                    <span className="text-sm text-slate-300">—</span>
+                  )}
+                </div>
                 <span className="text-slate-200 select-none">|</span>
                 {SERVICIOS_VAL.map(({ key, label, Icon, color }) => {
                   const n = v[key] ?? 0;
