@@ -183,13 +183,28 @@ const AdminLayout = ({ children, badges = {} }) => {
       <div className="flex-1 lg:ml-60 flex flex-col min-h-screen">
         {/* Topbar */}
         <header className="bg-white border-b border-slate-200 px-4 py-3 flex items-center justify-between sticky top-0 z-20">
-          <button
-            onClick={() => setSidebarOpen(true)}
-            className="lg:hidden text-slate-500 hover:text-[#1B4332]"
-          >
-            <Menu className="w-5 h-5" />
-          </button>
-          <div className="flex-1 lg:flex-none">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setSidebarOpen(true)}
+              className="lg:hidden text-slate-500 hover:text-[#1B4332]"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+            {/* Breadcrumb / sección activa */}
+            <div className="hidden lg:flex items-center gap-2">
+              {(() => {
+                const active = NAV.find(n => n.href === location.pathname);
+                return active ? (
+                  <>
+                    <span className="text-slate-300 text-xs">PropValu Admin</span>
+                    <ChevronRight className="w-3 h-3 text-slate-300" />
+                    <span className="font-['Outfit'] font-semibold text-[#1B4332] text-sm">{active.label}</span>
+                  </>
+                ) : (
+                  <span className="font-['Outfit'] font-bold text-[#1B4332] text-sm">PropValu Admin</span>
+                );
+              })()}
+            </div>
             <h1 className="font-['Outfit'] font-bold text-[#1B4332] text-sm lg:hidden">
               PropValu Admin
             </h1>
@@ -197,13 +212,20 @@ const AdminLayout = ({ children, badges = {} }) => {
           <div className="flex items-center gap-3">
             <button className="relative text-slate-400 hover:text-[#1B4332] transition-colors">
               <Bell className="w-5 h-5" />
-              {(badges.kyc || 0) + (badges.ads || 0) + (badges.inmobiliarias || 0) > 0 && (
+              {(badges.kyc || 0) + (badges.ads || 0) + (badges.inmobiliarias || 0) + (badges.quejas || 0) > 0 && (
                 <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full" />
               )}
             </button>
-            <Link to="/" target="_blank" className="text-xs text-slate-400 hover:text-[#1B4332] transition-colors">
+            <Link to="/" target="_blank" className="text-xs text-slate-400 hover:text-[#1B4332] transition-colors hidden sm:block">
               Ver sitio ↗
             </Link>
+            {/* Admin chip */}
+            <div className="hidden sm:flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-full px-3 py-1">
+              <div className="w-5 h-5 rounded-full bg-[#1B4332] flex items-center justify-center text-white text-[10px] font-bold">
+                {(admin.nombre || "A").charAt(0)}
+              </div>
+              <span className="text-xs font-medium text-slate-600">{admin.nombre || "Admin"}</span>
+            </div>
           </div>
         </header>
 

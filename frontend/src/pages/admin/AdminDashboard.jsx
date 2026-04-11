@@ -1,55 +1,86 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import AdminLayout from "@/components/AdminLayout";
 import { adminFetch } from "@/lib/adminFetch";
 import {
-  FileText, Users, ShieldCheck,
-  MessageSquare, AlertCircle, Activity, Clock,
+  FileText, Users, ShieldCheck, MessageSquare, Activity,
+  Clock, Building2, ClipboardList, AlertCircle, TrendingUp,
+  ArrowRight, CheckCircle2, XCircle, BarChart2, Star,
 } from "lucide-react";
 
-const ACTIVIDAD_RECIENTE = [
-  { id: 1, tipo: "kyc",        mensaje: "Nueva verificación pendiente de revisión",       hora: "reciente",  nivel: "info" },
-  { id: 2, tipo: "valuacion",  mensaje: "Reporte generado en la plataforma",              hora: "reciente",  nivel: "ok" },
-  { id: 3, tipo: "queja",      mensaje: "Queja o sugerencia recibida",                    hora: "reciente",  nivel: "warn" },
+/* ── Actividad mock (hasta que haya endpoint real) ── */
+const ACTIVIDAD_MOCK = [
+  { id: 1, tipo: "kyc",       mensaje: "Nueva solicitud de verificación recibida",  nivel: "info" },
+  { id: 2, tipo: "valuacion", mensaje: "Reporte de valuación completado",            nivel: "ok"   },
+  { id: 3, tipo: "queja",     mensaje: "Queja o sugerencia recibida sin responder",  nivel: "warn" },
 ];
 
 const NIVEL_COLOR = {
-  ok:    "text-green-600 bg-green-50",
-  info:  "text-blue-600 bg-blue-50",
-  warn:  "text-yellow-700 bg-yellow-50",
-  error: "text-red-600 bg-red-50",
+  ok:    "text-[#1B4332] bg-[#D9ED92]",
+  info:  "text-blue-700 bg-blue-100",
+  warn:  "text-amber-700 bg-amber-100",
+  error: "text-red-700 bg-red-100",
 };
 
-
-const KpiCard = ({ icon: Icon, label, valor, sub, color, alerta }) => (
-  <div className={`bg-white rounded-2xl border p-5 flex flex-col gap-2 ${alerta ? "border-red-200" : "border-slate-100"}`}>
-    <div className="flex items-start justify-between">
-      <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${color}`}>
-        <Icon className="w-4 h-4" />
+/* ── KPI card ── */
+const KpiCard = ({ icon: Icon, label, valor, sub, stripe, iconBg, iconColor, href, alerta }) => {
+  const content = (
+    <div className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden hover:shadow-md transition-shadow h-full">
+      <div className={`h-1 ${stripe}`} />
+      <div className="p-4">
+        <div className="flex items-start justify-between mb-2">
+          <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${iconBg}`}>
+            <Icon className={`w-4 h-4 ${iconColor}`} />
+          </div>
+          {alerta && (
+            <span className="text-[10px] font-bold text-red-600 bg-red-50 border border-red-100 px-2 py-0.5 rounded-full">
+              Atención
+            </span>
+          )}
+        </div>
+        <p className="font-['Outfit'] text-3xl font-bold text-[#1B4332] leading-none">{valor}</p>
+        <p className="text-xs text-slate-500 font-medium mt-1">{label}</p>
+        {sub && <p className="text-[11px] text-slate-400 mt-1">{sub}</p>}
+        {href && (
+          <div className="flex items-center gap-1 mt-2 text-[11px] font-semibold text-[#52B788]">
+            Ver detalle <ArrowRight className="w-3 h-3" />
+          </div>
+        )}
       </div>
-      {alerta && (
-        <span className="text-[10px] font-bold text-red-600 bg-red-50 border border-red-100 px-2 py-0.5 rounded-full">
-          Atención
-        </span>
+    </div>
+  );
+  return href ? <Link to={href}>{content}</Link> : <div>{content}</div>;
+};
+
+/* ── Acceso rápido card ── */
+const QuickCard = ({ icon: Icon, title, desc, href, badge }) => (
+  <Link to={href}
+    className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden hover:shadow-md transition-shadow group">
+    <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] px-4 py-3 flex items-center justify-between">
+      <div className="flex items-center gap-2">
+        <Icon className="w-4 h-4 text-[#D9ED92]" />
+        <span className="font-['Outfit'] font-semibold text-white text-sm">{title}</span>
+      </div>
+      {badge > 0 && (
+        <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">{badge}</span>
       )}
     </div>
-    <div>
-      <p className="font-['Outfit'] text-2xl font-bold text-[#1B4332]">{valor}</p>
-      <p className="text-xs text-slate-400 font-medium">{label}</p>
+    <div className="px-4 py-3 flex items-center justify-between">
+      <p className="text-xs text-slate-500">{desc}</p>
+      <ArrowRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-[#52B788] transition-colors" />
     </div>
-    {sub && <p className="text-[11px] text-slate-400">{sub}</p>}
-  </div>
+  </Link>
 );
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({
-    valuaciones_mes: 0,
-    valuaciones_mes_anterior: 0,
+    valuaciones_total: 0,
+    valuaciones_completadas: 0,
     usuarios_activos: 0,
     kyc_pendientes: 0,
     anuncios_revision: 0,
     quejas_abiertas: 0,
     valuadores_activos: 0,
-    valuaciones_hoy: 0,
     inmobiliarias_pendientes: 0,
   });
   const [cargando, setCargando] = useState(true);
@@ -58,14 +89,13 @@ const AdminDashboard = () => {
     adminFetch("/api/admin/stats")
       .then((data) => {
         setStats({
-          valuaciones_mes: data.total_valuaciones || 0,
-          valuaciones_mes_anterior: 0,
-          usuarios_activos: data.total_usuarios || 0,
-          kyc_pendientes: data.kyc_pendiente || 0,
-          anuncios_revision: 0,
-          quejas_abiertas: data.feedback_abierto || 0,
-          valuadores_activos: 0,
-          valuaciones_hoy: data.valuaciones_completadas || 0,
+          valuaciones_total:        data.total_valuaciones || 0,
+          valuaciones_completadas:  data.valuaciones_completadas || 0,
+          usuarios_activos:         data.total_usuarios || 0,
+          kyc_pendientes:           data.kyc_pendiente || 0,
+          anuncios_revision:        data.anuncios_revision || 0,
+          quejas_abiertas:          data.feedback_abierto || 0,
+          valuadores_activos:       data.valuadores_activos || 0,
           inmobiliarias_pendientes: data.inmobiliarias_pendientes || 0,
         });
       })
@@ -73,18 +103,24 @@ const AdminDashboard = () => {
       .finally(() => setCargando(false));
   }, []);
 
-
+  const admin = JSON.parse(localStorage.getItem("pv_admin") || "{}");
 
   const badges = {
     kyc: stats.kyc_pendientes,
     ads: stats.anuncios_revision,
     inmobiliarias: stats.inmobiliarias_pendientes,
+    quejas: stats.quejas_abiertas,
   };
+
+  const hayAlertas = stats.kyc_pendientes > 0 || stats.anuncios_revision > 0
+    || stats.quejas_abiertas > 0 || stats.inmobiliarias_pendientes > 0;
 
   if (cargando) {
     return (
       <AdminLayout badges={badges}>
-        <div className="flex items-center justify-center h-64 text-slate-400 text-sm">Cargando estadísticas…</div>
+        <div className="flex items-center justify-center h-64 text-slate-400 text-sm gap-2">
+          <Activity className="w-4 h-4 animate-pulse" /> Cargando estadísticas…
+        </div>
       </AdminLayout>
     );
   }
@@ -93,111 +129,201 @@ const AdminDashboard = () => {
     <AdminLayout badges={badges}>
       <div className="max-w-6xl mx-auto space-y-6">
 
-        {/* Título */}
-        <div>
-          <h1 className="font-['Outfit'] text-2xl font-bold text-[#1B4332]">Dashboard</h1>
-          <p className="text-slate-400 text-sm mt-0.5">Resumen operativo · {new Date().toLocaleDateString("es-MX", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}</p>
-        </div>
-
-        {/* Alertas activas */}
-        {(stats.kyc_pendientes > 0 || stats.anuncios_revision > 0 || stats.quejas_abiertas > 0 || stats.inmobiliarias_pendientes > 0) && (
-          <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 flex flex-wrap gap-4">
-            <div className="flex items-center gap-2 text-amber-700">
-              <AlertCircle className="w-4 h-4 flex-shrink-0" />
-              <span className="text-sm font-semibold">Elementos que requieren atención:</span>
+        {/* ── Hero ── */}
+        <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] rounded-2xl px-6 py-5">
+          <div className="flex items-start justify-between flex-wrap gap-4">
+            <div>
+              <p className="text-[#D9ED92]/60 text-[11px] uppercase tracking-widest font-semibold">
+                Panel de control
+              </p>
+              <h1 className="font-['Outfit'] text-2xl font-bold text-white mt-0.5">
+                Bienvenido, {admin.nombre || "Admin"}
+              </h1>
+              <p className="text-[#D9ED92]/70 text-xs mt-1">
+                {new Date().toLocaleDateString("es-MX", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
+              </p>
             </div>
-            <div className="flex flex-wrap gap-3 text-sm">
+            {/* Chips de alerta rápida */}
+            <div className="flex flex-wrap gap-2 items-start">
               {stats.kyc_pendientes > 0 && (
-                <a href="/admin/kyc" className="text-amber-700 underline">
-                  {stats.kyc_pendientes} verificación{stats.kyc_pendientes > 1 ? "es" : ""} pendiente{stats.kyc_pendientes > 1 ? "s" : ""}
-                </a>
-              )}
-              {stats.anuncios_revision > 0 && (
-                <a href="/admin/moderacion" className="text-amber-700 underline">
-                  {stats.anuncios_revision} anuncio{stats.anuncios_revision > 1 ? "s" : ""} en revisión
-                </a>
-              )}
-              {stats.quejas_abiertas > 0 && (
-                <a href="/admin/feedback" className="text-amber-700 underline">
-                  {stats.quejas_abiertas} queja{stats.quejas_abiertas > 1 ? "s" : ""} abiertas
-                </a>
+                <Link to="/admin/kyc"
+                  className="flex items-center gap-1.5 bg-amber-400/90 hover:bg-amber-300 text-[#1B4332] text-xs font-bold px-3 py-1.5 rounded-full transition-colors">
+                  <ShieldCheck className="w-3.5 h-3.5" />
+                  {stats.kyc_pendientes} KYC pendiente{stats.kyc_pendientes > 1 ? "s" : ""}
+                </Link>
               )}
               {stats.inmobiliarias_pendientes > 0 && (
-                <a href="/admin/inmobiliarias" className="text-amber-700 underline">
-                  {stats.inmobiliarias_pendientes} inmobiliaria{stats.inmobiliarias_pendientes > 1 ? "s" : ""} pendiente{stats.inmobiliarias_pendientes > 1 ? "s" : ""} de verificación
-                </a>
+                <Link to="/admin/inmobiliarias"
+                  className="flex items-center gap-1.5 bg-amber-400/90 hover:bg-amber-300 text-[#1B4332] text-xs font-bold px-3 py-1.5 rounded-full transition-colors">
+                  <Building2 className="w-3.5 h-3.5" />
+                  {stats.inmobiliarias_pendientes} inmobiliaria{stats.inmobiliarias_pendientes > 1 ? "s" : ""}
+                </Link>
+              )}
+              {stats.quejas_abiertas > 0 && (
+                <Link to="/admin/feedback"
+                  className="flex items-center gap-1.5 bg-red-400/90 hover:bg-red-300 text-white text-xs font-bold px-3 py-1.5 rounded-full transition-colors">
+                  <MessageSquare className="w-3.5 h-3.5" />
+                  {stats.quejas_abiertas} queja{stats.quejas_abiertas > 1 ? "s" : ""}
+                </Link>
               )}
             </div>
           </div>
-        )}
-
-        {/* KPI Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <KpiCard
-            icon={FileText}
-            label="Valuaciones totales"
-            valor={stats.valuaciones_mes.toLocaleString()}
-            color="bg-blue-100 text-blue-600"
-          />
-          <KpiCard
-            icon={FileText}
-            label="Valuaciones completadas"
-            valor={stats.valuaciones_hoy.toLocaleString()}
-            color="bg-blue-50 text-blue-500"
-          />
-          <KpiCard
-            icon={Users}
-            label="Usuarios registrados"
-            valor={stats.usuarios_activos.toLocaleString()}
-            color="bg-purple-100 text-purple-600"
-          />
-          <KpiCard
-            icon={MessageSquare}
-            label="Feedback abierto"
-            valor={stats.quejas_abiertas}
-            color="bg-red-100 text-red-500"
-            alerta={stats.quejas_abiertas > 0}
-          />
         </div>
 
-        {/* Segunda fila KPIs */}
-        <div className="grid grid-cols-2 lg:grid-cols-2 gap-4">
-          <KpiCard
-            icon={ShieldCheck}
-            label="Verificaciones pendientes"
-            valor={stats.kyc_pendientes}
-            color="bg-yellow-100 text-yellow-600"
-            alerta={stats.kyc_pendientes > 0}
-          />
-          <KpiCard
-            icon={MessageSquare}
-            label="Quejas / feedback sin resolver"
-            valor={stats.quejas_abiertas}
-            color="bg-red-100 text-red-500"
-            alerta={stats.quejas_abiertas > 0}
-          />
-        </div>
-
-        {/* Actividad reciente */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm">
-          <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
-            <h2 className="font-['Outfit'] font-bold text-[#1B4332] text-sm">Actividad reciente</h2>
-            <span className="text-xs text-slate-400">Últimas 24 horas</span>
+        {/* ── KPIs fila 1 — Actividad ── */}
+        <div>
+          <div className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden mb-0">
+            <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] px-5 py-3 flex items-center gap-2">
+              <TrendingUp className="w-4 h-4 text-[#D9ED92]" />
+              <span className="font-['Outfit'] font-semibold text-white text-sm">Actividad de la plataforma</span>
+            </div>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-slate-100">
+              {[
+                {
+                  icon: FileText, label: "Valuaciones totales", valor: stats.valuaciones_total.toLocaleString(),
+                  sub: "Desde el inicio", stripe: "bg-blue-400", iconBg: "bg-blue-50", iconColor: "text-blue-600",
+                  href: "/admin/usuarios",
+                },
+                {
+                  icon: CheckCircle2, label: "Valuaciones completadas", valor: stats.valuaciones_completadas.toLocaleString(),
+                  sub: "Estado: completada", stripe: "bg-[#52B788]", iconBg: "bg-[#F0FAF5]", iconColor: "text-[#1B4332]",
+                },
+                {
+                  icon: Users, label: "Usuarios registrados", valor: stats.usuarios_activos.toLocaleString(),
+                  sub: "Total en la plataforma", stripe: "bg-purple-400", iconBg: "bg-purple-50", iconColor: "text-purple-600",
+                  href: "/admin/usuarios",
+                },
+                {
+                  icon: ClipboardList, label: "Valuadores activos", valor: stats.valuadores_activos.toLocaleString() || "—",
+                  sub: "Con cuenta verificada", stripe: "bg-indigo-400", iconBg: "bg-indigo-50", iconColor: "text-indigo-600",
+                  href: "/admin/valuadores",
+                },
+              ].map((k, i) => (
+                <div key={i} className="bg-white">
+                  <KpiCard {...k} />
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="divide-y divide-slate-50">
-            {ACTIVIDAD_RECIENTE.map((a) => (
-              <div key={a.id} className="flex items-start gap-3 px-6 py-3">
-                <span className={`text-[10px] font-bold px-2 py-1 rounded-lg uppercase tracking-wide flex-shrink-0 ${NIVEL_COLOR[a.nivel]}`}>
-                  {a.tipo}
-                </span>
-                <p className="text-sm text-slate-600 flex-1 leading-snug">{a.mensaje}</p>
-                <span className="text-xs text-slate-300 whitespace-nowrap flex items-center gap-1 flex-shrink-0">
-                  <Clock className="w-3 h-3" />
-                  {a.hora}
-                </span>
+        </div>
+
+        {/* ── KPIs fila 2 — Pendientes ── */}
+        <div>
+          <div className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden">
+            <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] px-5 py-3 flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 text-[#D9ED92]" />
+              <span className="font-['Outfit'] font-semibold text-white text-sm">Pendientes de atención</span>
+            </div>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-slate-100">
+              {[
+                {
+                  icon: ShieldCheck, label: "Verificaciones KYC", valor: stats.kyc_pendientes,
+                  sub: "Solicitudes de verificación", stripe: stats.kyc_pendientes > 0 ? "bg-amber-400" : "bg-slate-200",
+                  iconBg: stats.kyc_pendientes > 0 ? "bg-amber-50" : "bg-slate-50",
+                  iconColor: stats.kyc_pendientes > 0 ? "text-amber-600" : "text-slate-400",
+                  alerta: stats.kyc_pendientes > 0, href: "/admin/kyc",
+                },
+                {
+                  icon: Building2, label: "Inmobiliarias pendientes", valor: stats.inmobiliarias_pendientes,
+                  sub: "Esperando aprobación", stripe: stats.inmobiliarias_pendientes > 0 ? "bg-orange-400" : "bg-slate-200",
+                  iconBg: stats.inmobiliarias_pendientes > 0 ? "bg-orange-50" : "bg-slate-50",
+                  iconColor: stats.inmobiliarias_pendientes > 0 ? "text-orange-600" : "text-slate-400",
+                  alerta: stats.inmobiliarias_pendientes > 0, href: "/admin/inmobiliarias",
+                },
+                {
+                  icon: MessageSquare, label: "Feedback sin resolver", valor: stats.quejas_abiertas,
+                  sub: "Quejas y sugerencias", stripe: stats.quejas_abiertas > 0 ? "bg-red-400" : "bg-slate-200",
+                  iconBg: stats.quejas_abiertas > 0 ? "bg-red-50" : "bg-slate-50",
+                  iconColor: stats.quejas_abiertas > 0 ? "text-red-500" : "text-slate-400",
+                  alerta: stats.quejas_abiertas > 0, href: "/admin/feedback",
+                },
+                {
+                  icon: BarChart2, label: "Anuncios en revisión", valor: stats.anuncios_revision,
+                  sub: "Publicidad pendiente", stripe: stats.anuncios_revision > 0 ? "bg-yellow-400" : "bg-slate-200",
+                  iconBg: stats.anuncios_revision > 0 ? "bg-yellow-50" : "bg-slate-50",
+                  iconColor: stats.anuncios_revision > 0 ? "text-yellow-600" : "text-slate-400",
+                  href: "/admin/ads-analytics",
+                },
+              ].map((k, i) => (
+                <div key={i} className="bg-white">
+                  <KpiCard {...k} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* ── Dos columnas: Accesos rápidos + Actividad ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+          {/* Accesos rápidos */}
+          <div className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden">
+            <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] px-5 py-3.5 flex items-center gap-2">
+              <ArrowRight className="w-4 h-4 text-[#D9ED92]" />
+              <span className="font-['Outfit'] font-semibold text-white text-sm">Accesos rápidos</span>
+            </div>
+            <div className="p-3 grid grid-cols-1 gap-2">
+              <QuickCard icon={ShieldCheck} title="Verificaciones KYC"
+                desc={stats.kyc_pendientes > 0 ? `${stats.kyc_pendientes} solicitudes esperando revisión` : "Sin solicitudes pendientes"}
+                href="/admin/kyc" badge={stats.kyc_pendientes} />
+              <QuickCard icon={Building2} title="Inmobiliarias"
+                desc={stats.inmobiliarias_pendientes > 0 ? `${stats.inmobiliarias_pendientes} pendientes de aprobación` : "Gestiona cuentas de inmobiliarias"}
+                href="/admin/inmobiliarias" badge={stats.inmobiliarias_pendientes} />
+              <QuickCard icon={ClipboardList} title="Valuadores"
+                desc="Ver expedientes y estados de cuenta"
+                href="/admin/valuadores" />
+              <QuickCard icon={MessageSquare} title="Feedback y quejas"
+                desc={stats.quejas_abiertas > 0 ? `${stats.quejas_abiertas} sin resolver` : "Sin quejas pendientes"}
+                href="/admin/feedback" badge={stats.quejas_abiertas} />
+              <QuickCard icon={BarChart2} title="Ingresos"
+                desc="Reportes financieros y facturación"
+                href="/admin/reportes" />
+            </div>
+          </div>
+
+          {/* Actividad reciente */}
+          <div className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden">
+            <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] px-5 py-3.5 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Activity className="w-4 h-4 text-[#D9ED92]" />
+                <span className="font-['Outfit'] font-semibold text-white text-sm">Actividad reciente</span>
               </div>
-            ))}
+              <span className="text-[11px] text-[#D9ED92]/60">Últimas 24 h</span>
+            </div>
+            <div className="divide-y divide-slate-50">
+              {ACTIVIDAD_MOCK.map((a) => (
+                <div key={a.id} className="flex items-start gap-3 px-5 py-3.5">
+                  <span className={`text-[10px] font-bold px-2 py-1 rounded-lg uppercase tracking-wide flex-shrink-0 ${NIVEL_COLOR[a.nivel]}`}>
+                    {a.tipo}
+                  </span>
+                  <p className="text-sm text-slate-600 flex-1 leading-snug">{a.mensaje}</p>
+                  <Clock className="w-3.5 h-3.5 text-slate-300 flex-shrink-0 mt-0.5" />
+                </div>
+              ))}
+            </div>
+
+            {/* Estado del sistema */}
+            <div className="border-t border-slate-100 px-5 py-4">
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3">Estado del sistema</p>
+              <div className="space-y-2">
+                {[
+                  { label: "API Backend",    ok: true },
+                  { label: "Base de datos",  ok: true },
+                  { label: "Almacenamiento", ok: true },
+                ].map(s => (
+                  <div key={s.label} className="flex items-center justify-between text-xs">
+                    <span className="text-slate-500">{s.label}</span>
+                    <span className={`flex items-center gap-1 font-semibold ${s.ok ? "text-[#1B4332]" : "text-red-500"}`}>
+                      {s.ok
+                        ? <><CheckCircle2 className="w-3.5 h-3.5" /> Operativo</>
+                        : <><XCircle className="w-3.5 h-3.5" /> Error</>}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
+
         </div>
 
       </div>
