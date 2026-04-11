@@ -54,7 +54,7 @@ const ESTADO_BADGE= { activo: "bg-green-100 text-green-700", suspendido: "bg-red
 
 const TABS = [
   { id: "resumen",        label: "Resumen",         icon: BarChart2   },
-  { id: "verificaciones", label: "Verificaciones",  icon: ShieldCheck },
+  { id: "verificaciones", label: "Nuevas altas",    icon: ShieldCheck },
   { id: "actividad",      label: "Actividad",       icon: Activity    },
 ];
 
@@ -266,18 +266,28 @@ const TabVerificaciones = ({ valuadores, onApprobar, onRechazar, onSolicitarInfo
       <div className="space-y-4">
         {pendientes.map((v) => (
           <div key={v.id} className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm overflow-hidden">
-            <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] px-5 py-3 flex items-center justify-between">
-              <div>
-                <p className="font-bold text-white text-sm">{v.nombre}</p>
-                <p className="text-[#D9ED92]/70 text-xs">{v.email} · {v.ciudad}</p>
+            <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] px-5 py-3 flex items-center justify-between gap-3">
+              <div className="min-w-0">
+                <p className="font-bold text-white text-sm truncate">{v.nombre}</p>
+                <p className="text-[#D9ED92]/70 text-xs truncate">{v.email} · {v.ciudad}</p>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 flex-shrink-0">
                 <span className={`text-[11px] font-bold px-2.5 py-1 rounded-full ${KYC_BADGE[v.kyc]}`}>{KYC_LABEL[v.kyc]}</span>
-                <button
-                  onClick={() => setDocViewer(v)}
-                  className="flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-lg bg-white/20 hover:bg-white/30 text-white transition-colors"
-                >
-                  <Eye className="w-3.5 h-3.5" /> Ver docs
+                <button onClick={() => setDocViewer(v)}
+                  className="flex items-center gap-1 text-xs font-semibold px-2 py-1 rounded-lg bg-white/20 hover:bg-white/30 text-white transition-colors">
+                  <Eye className="w-3.5 h-3.5" /> Docs
+                </button>
+                <button onClick={() => onApprobar(v.id)}
+                  className="flex items-center gap-1 text-xs font-bold px-2.5 py-1 rounded-lg bg-[#D9ED92] text-[#1B4332] hover:bg-white transition-colors">
+                  <ShieldCheck className="w-3.5 h-3.5" /> Aprobar
+                </button>
+                <button onClick={() => { setModal(v); setMotivo(""); }}
+                  className="flex items-center gap-1 text-xs font-bold px-2.5 py-1 rounded-lg bg-red-500 hover:bg-red-400 text-white transition-colors">
+                  <X className="w-3.5 h-3.5" /> Rechazar
+                </button>
+                <button onClick={() => onSolicitarInfo(v.id)}
+                  className="flex items-center gap-1 text-xs font-semibold px-2 py-1 rounded-lg bg-amber-400 hover:bg-amber-300 text-[#1B4332] transition-colors">
+                  <MessageSquare className="w-3.5 h-3.5" />
                 </button>
               </div>
             </div>
@@ -313,7 +323,7 @@ const TabVerificaciones = ({ valuadores, onApprobar, onRechazar, onSolicitarInfo
               )}
 
               {/* Contacto */}
-              <div className="flex flex-wrap gap-2 mb-4">
+              <div className="flex flex-wrap gap-2">
                 <a href={`mailto:${v.email}`}
                   className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-50 transition-colors">
                   <Mail className="w-3.5 h-3.5" /> {v.email}
@@ -324,21 +334,6 @@ const TabVerificaciones = ({ valuadores, onApprobar, onRechazar, onSolicitarInfo
                     <Phone className="w-3.5 h-3.5" /> WhatsApp
                   </a>
                 )}
-              </div>
-
-              <div className="flex gap-2">
-                <button onClick={() => onApprobar(v.id)}
-                  className="flex-1 flex items-center justify-center gap-1.5 bg-[#1B4332] hover:bg-[#163828] text-white text-sm font-bold py-2.5 rounded-xl transition-colors">
-                  <ShieldCheck className="w-4 h-4" /> Aprobar
-                </button>
-                <button onClick={() => { setModal(v); setMotivo(""); }}
-                  className="flex-1 flex items-center justify-center gap-1.5 bg-red-500 hover:bg-red-600 text-white text-sm font-bold py-2.5 rounded-xl transition-colors">
-                  <X className="w-4 h-4" /> Rechazar
-                </button>
-                <button onClick={() => onSolicitarInfo(v.id)}
-                  className="flex items-center gap-1.5 border border-amber-200 text-amber-700 hover:bg-amber-50 text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors">
-                  <MessageSquare className="w-4 h-4" /> Solicitar info
-                </button>
               </div>
             </div>
           </div>

@@ -534,15 +534,25 @@ const TabNuevasAltas = ({ inmobiliarias, onReload }) => {
                   {(r.municipio || r.estado) && ` · ${[r.municipio, r.estado].filter(Boolean).join(", ")}`}
                 </p>
               </div>
-              <div className="flex items-center gap-2 flex-shrink-0">
+              <div className="flex items-center gap-1.5 flex-shrink-0">
                 <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-amber-100 text-amber-700">
                   Pendiente
                 </span>
-                <button
-                  onClick={() => setDocViewer(r.user_id)}
-                  className="flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-lg bg-white/20 hover:bg-white/30 text-white transition-colors"
-                >
-                  <FileText className="w-3.5 h-3.5" /> Ver docs
+                <button onClick={() => setDocViewer(r.user_id)}
+                  className="flex items-center gap-1 text-xs font-semibold px-2 py-1 rounded-lg bg-white/20 hover:bg-white/30 text-white transition-colors">
+                  <FileText className="w-3.5 h-3.5" /> Docs
+                </button>
+                <button onClick={() => handleKYC(r.user_id, "aprobar")}
+                  className="flex items-center gap-1 text-xs font-bold px-2.5 py-1 rounded-lg bg-[#D9ED92] text-[#1B4332] hover:bg-white transition-colors">
+                  <CheckCircle2 className="w-3.5 h-3.5" /> Aprobar
+                </button>
+                <button onClick={() => { setModalRechazo(r); setMotivo(""); }}
+                  className="flex items-center gap-1 text-xs font-bold px-2.5 py-1 rounded-lg bg-red-500 hover:bg-red-400 text-white transition-colors">
+                  <XCircle className="w-3.5 h-3.5" /> Rechazar
+                </button>
+                <button onClick={() => handleKYC(r.user_id, "solicitar-info")}
+                  className="flex items-center gap-1 text-xs font-semibold px-2 py-1 rounded-lg bg-amber-400 hover:bg-amber-300 text-[#1B4332] transition-colors">
+                  <Send className="w-3.5 h-3.5" />
                 </button>
               </div>
             </div>
@@ -587,21 +597,6 @@ const TabNuevasAltas = ({ inmobiliarias, onReload }) => {
                 )}
               </div>
 
-              {/* Acciones */}
-              <div className="flex gap-2">
-                <button onClick={() => handleKYC(r.user_id, "aprobar")}
-                  className="flex-1 flex items-center justify-center gap-1.5 bg-[#1B4332] hover:bg-[#163828] text-white text-sm font-bold py-2.5 rounded-xl transition-colors">
-                  <CheckCircle2 className="w-4 h-4" /> Aprobar
-                </button>
-                <button onClick={() => { setModalRechazo(r); setMotivo(""); }}
-                  className="flex-1 flex items-center justify-center gap-1.5 bg-red-500 hover:bg-red-600 text-white text-sm font-bold py-2.5 rounded-xl transition-colors">
-                  <XCircle className="w-4 h-4" /> Rechazar
-                </button>
-                <button onClick={() => handleKYC(r.user_id, "solicitar-info")}
-                  className="flex items-center gap-1.5 border border-amber-200 text-amber-700 hover:bg-amber-50 text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors">
-                  <Send className="w-4 h-4" /> Solicitar info
-                </button>
-              </div>
             </div>
           </div>
         ))}
