@@ -4,6 +4,7 @@ import { adminFetch } from "@/lib/adminFetch";
 import {
   Activity, CheckCircle2, AlertCircle, XCircle, RefreshCw,
   Clock, Database, AlertTriangle, Play, List, Search, ChevronLeft, ChevronRight, ExternalLink,
+  MapPin, Plus, X, Globe, Trash2,
 } from "lucide-react";
 import { PageHeader } from "@/components/AdminUI";
 
@@ -32,9 +33,265 @@ const ESTADO_INICIAL = {
 };
 
 const TABS = [
-  { id: "monitor", label: "Monitor" },
+  { id: "monitor",     label: "Monitor" },
   { id: "propiedades", label: "Propiedades escrapeadas" },
+  { id: "zonas",       label: "Zonas objetivo" },
 ];
+
+const PORTALES_DISPONIBLES = ["Inmuebles24", "Vivanuncios", "Lamudi", "Propiedades.com", "MercadoLibre", "Encuentra24"];
+
+const ESTADOS_MX = [
+  "Aguascalientes","Baja California","Baja California Sur","Campeche","Chiapas","Chihuahua",
+  "Ciudad de México","Coahuila","Colima","Durango","Estado de México","Guanajuato","Guerrero",
+  "Hidalgo","Jalisco","Michoacán","Morelos","Nayarit","Nuevo León","Oaxaca","Puebla",
+  "Querétaro","Quintana Roo","San Luis Potosí","Sinaloa","Sonora","Tabasco","Tamaulipas",
+  "Tlaxcala","Veracruz","Yucatán","Zacatecas",
+];
+
+const ZONAS_INICIALES = [
+  { id: "gdl",   municipio: "Guadalajara",     estado: "Jalisco",          portales: ["Inmuebles24","Vivanuncios","Lamudi","Propiedades.com"], status: "activa",   prioridad: "alta",  propiedades: 4820 },
+  { id: "zap",   municipio: "Zapopan",         estado: "Jalisco",          portales: ["Inmuebles24","Vivanuncios","Lamudi"],                  status: "activa",   prioridad: "alta",  propiedades: 3210 },
+  { id: "tlaq",  municipio: "Tlaquepaque",     estado: "Jalisco",          portales: ["Inmuebles24","Vivanuncios"],                          status: "activa",   prioridad: "media", propiedades: 1540 },
+  { id: "pvall", municipio: "Puerto Vallarta", estado: "Jalisco",          portales: ["Inmuebles24","Lamudi"],                               status: "activa",   prioridad: "media", propiedades: 980  },
+  { id: "ags",   municipio: "Aguascalientes",  estado: "Aguascalientes",   portales: ["Inmuebles24"],                                        status: "activa",   prioridad: "baja",  propiedades: 620  },
+  { id: "leon",  municipio: "León",            estado: "Guanajuato",       portales: ["Inmuebles24","Vivanuncios"],                          status: "activa",   prioridad: "baja",  propiedades: 740  },
+  { id: "mty",   municipio: "Monterrey",       estado: "Nuevo León",       portales: [],                                                     status: "pendiente",prioridad: "alta",  propiedades: 0    },
+  { id: "cdmx",  municipio: "Ciudad de México",estado: "Ciudad de México",  portales: [],                                                     status: "pendiente",prioridad: "alta",  propiedades: 0    },
+];
+
+const STATUS_CFG = {
+  activa:     { label: "Activa",       cls: "bg-green-100 text-green-700"  },
+  pendiente:  { label: "Pendiente",    cls: "bg-amber-100 text-amber-700"  },
+  prueba:     { label: "En prueba",    cls: "bg-blue-100 text-blue-700"    },
+  pausada:    { label: "Pausada",      cls: "bg-slate-100 text-slate-500"  },
+};
+
+const PRIORIDAD_CFG = {
+  alta:  { cls: "bg-red-100 text-red-600",    dot: "bg-red-400"    },
+  media: { cls: "bg-amber-100 text-amber-700",dot: "bg-amber-400"  },
+  baja:  { cls: "bg-slate-100 text-slate-500",dot: "bg-slate-300"  },
+};
+
+/* ─── Tab Zonas objetivo ─── */
+const ZonasObjetivo = () => {
+  const [zonas, setZonas] = useState(ZONAS_INICIALES);
+  const [form, setForm] = useState({ municipio: "", estado: "Jalisco", portales: [], prioridad: "media" });
+  const [guardando, setGuardando] = useState(false);
+  const [guardado, setGuardado] = useState(false);
+  const [testando, setTestando] = useState(null);
+
+  const togglePortal = (p) => setForm((f) => ({
+    ...f,
+    portales: f.portales.includes(p) ? f.portales.filter((x) => x !== p) : [...f.portales, p],
+  }));
+
+  const agregar = () => {
+    if (!form.municipio.trim()) return;
+    const nueva = {
+      id: `z-${Date.now()}`,
+      municipio: form.municipio.trim(),
+      estado: form.estado,
+      portales: form.portales,
+      status: "pendiente",
+      prioridad: form.prioridad,
+      propiedades: 0,
+    };
+    setZonas((z) => [...z, nueva]);
+    setForm({ municipio: "", estado: "Jalisco", portales: [], prioridad: "media" });
+  };
+
+  const cambiarStatus = (id, status) => {
+    setZonas((z) => z.map((zona) => zona.id === id ? { ...zona, status } : zona));
+  };
+
+  const eliminar = (id) => {
+    if (!confirm("¿Eliminar esta zona del plan de scraping?")) return;
+    setZonas((z) => z.filter((zona) => zona.id !== id));
+  };
+
+  const testScrape = async (id) => {
+    setTestando(id);
+    await new Promise((r) => setTimeout(r, 1800));
+    setZonas((z) => z.map((zona) => zona.id === id ? { ...zona, status: "prueba" } : zona));
+    setTestando(null);
+  };
+
+  const guardar = async () => {
+    setGuardando(true);
+    try {
+      await adminFetch("/api/admin/scraper/zonas", { method: "PUT", body: JSON.stringify({ zonas }) });
+      setGuardado(true);
+      setTimeout(() => setGuardado(false), 3000);
+    } catch { /* silencioso */ }
+    setGuardando(false);
+  };
+
+  const activas  = zonas.filter((z) => z.status === "activa").length;
+  const pendientes = zonas.filter((z) => z.status === "pendiente").length;
+  const totalProp  = zonas.reduce((s, z) => s + (z.propiedades || 0), 0);
+
+  return (
+    <div className="space-y-5">
+
+      <div className="bg-[#1B4332]/5 border border-[#52B788]/20 rounded-2xl px-4 py-3 text-xs text-slate-600 flex items-start gap-2">
+        <Globe className="w-4 h-4 text-[#52B788] flex-shrink-0 mt-0.5" />
+        <div>
+          <strong className="text-[#1B4332]">Zonas objetivo</strong> — Aquí se define qué municipios y portales incluirá el scraper.
+          Agrega ciudades en <em>Pendiente</em>, configura sus portales, pruébalas y actívalas cuando estés listo.
+          Los cambios afectan los próximos ciclos de scraping, no el actual.
+        </div>
+      </div>
+
+      {/* KPIs */}
+      <div className="grid grid-cols-3 gap-4">
+        {[
+          { label: "Zonas activas",    val: activas,   color: "text-green-600" },
+          { label: "Pendientes de activar", val: pendientes, color: "text-amber-600" },
+          { label: "Propiedades indexadas",  val: totalProp.toLocaleString(), color: "text-[#1B4332]" },
+        ].map(({ label, val, color }) => (
+          <div key={label} className="bg-white rounded-2xl border border-[#B7E4C7] p-4 shadow-sm">
+            <p className={`font-['Outfit'] text-2xl font-bold ${color}`}>{val}</p>
+            <p className="text-xs text-slate-400 mt-0.5">{label}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Tabla de zonas */}
+      <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm overflow-hidden">
+        <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] px-5 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <MapPin className="w-4 h-4 text-[#D9ED92]" />
+            <span className="font-['Outfit'] font-semibold text-white text-sm">Zonas configuradas ({zonas.length})</span>
+          </div>
+          <button onClick={guardar} disabled={guardando}
+            className="flex items-center gap-1.5 text-xs font-semibold bg-[#D9ED92] text-[#1B4332] hover:bg-white px-3 py-1.5 rounded-xl transition-colors">
+            {guardando ? <RefreshCw className="w-3 h-3 animate-spin" /> : null}
+            {guardado ? "✓ Guardado" : "Guardar cambios"}
+          </button>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F]">
+                {["Municipio","Estado","Portales","Propiedades","Prioridad","Estado","Acciones"].map((h) => (
+                  <th key={h} className="text-left px-4 py-2.5 text-xs font-semibold text-white/80 uppercase tracking-wide whitespace-nowrap">{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-50">
+              {zonas.map((z) => {
+                const stCfg = STATUS_CFG[z.status] || STATUS_CFG.pendiente;
+                const prCfg = PRIORIDAD_CFG[z.prioridad] || PRIORIDAD_CFG.media;
+                return (
+                  <tr key={z.id} className="hover:bg-[#F0FAF5]/50 transition-colors">
+                    <td className="px-4 py-3 font-semibold text-sm text-[#1B4332] flex items-center gap-1.5 mt-1">
+                      <MapPin className="w-3.5 h-3.5 text-[#52B788] flex-shrink-0" />{z.municipio}
+                    </td>
+                    <td className="px-4 py-3 text-sm text-slate-500">{z.estado}</td>
+                    <td className="px-4 py-3">
+                      {z.portales.length > 0 ? (
+                        <div className="flex flex-wrap gap-1">
+                          {z.portales.map((p) => (
+                            <span key={p} className="text-[10px] font-semibold bg-[#F0FAF5] border border-[#B7E4C7] text-[#1B4332] px-1.5 py-0.5 rounded-full">{p.split(".")[0]}</span>
+                          ))}
+                        </div>
+                      ) : <span className="text-xs text-slate-300">Sin configurar</span>}
+                    </td>
+                    <td className="px-4 py-3 text-sm font-semibold text-slate-600">
+                      {z.propiedades > 0 ? z.propiedades.toLocaleString() : <span className="text-slate-300">—</span>}
+                    </td>
+                    <td className="px-4 py-3">
+                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 w-fit ${prCfg.cls}`}>
+                        <span className={`w-1.5 h-1.5 rounded-full ${prCfg.dot}`} />{z.prioridad}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3">
+                      <select value={z.status} onChange={(e) => cambiarStatus(z.id, e.target.value)}
+                        className={`text-[11px] font-bold px-2 py-0.5 rounded-full border-0 focus:outline-none cursor-pointer ${stCfg.cls}`}>
+                        {Object.entries(STATUS_CFG).map(([k, v]) => (
+                          <option key={k} value={k} className="bg-white text-slate-700">{v.label}</option>
+                        ))}
+                      </select>
+                    </td>
+                    <td className="px-4 py-3">
+                      <div className="flex items-center gap-1.5">
+                        {z.status === "pendiente" && (
+                          <button onClick={() => testScrape(z.id)} disabled={testando === z.id}
+                            className="flex items-center gap-1 text-[11px] font-semibold text-blue-600 border border-blue-200 hover:bg-blue-50 px-2 py-1 rounded-lg transition-colors disabled:opacity-50">
+                            {testando === z.id ? <RefreshCw className="w-3 h-3 animate-spin" /> : <Play className="w-3 h-3" />}
+                            Probar
+                          </button>
+                        )}
+                        <button onClick={() => eliminar(z.id)}
+                          className="p-1.5 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors">
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Formulario agregar zona */}
+      <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm overflow-hidden">
+        <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] px-5 py-3 flex items-center gap-2">
+          <Plus className="w-4 h-4 text-[#D9ED92]" />
+          <span className="font-['Outfit'] font-semibold text-white text-sm">Agregar nueva zona objetivo</span>
+        </div>
+        <div className="p-5 space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wide mb-1.5">Municipio</label>
+              <input type="text" value={form.municipio} onChange={(e) => setForm((f) => ({ ...f, municipio: e.target.value }))}
+                placeholder="Ej: Querétaro"
+                className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#52B788]/40" />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wide mb-1.5">Estado</label>
+              <select value={form.estado} onChange={(e) => setForm((f) => ({ ...f, estado: e.target.value }))}
+                className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#52B788]/40">
+                {ESTADOS_MX.map((e) => <option key={e} value={e}>{e}</option>)}
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wide mb-1.5">Prioridad</label>
+              <select value={form.prioridad} onChange={(e) => setForm((f) => ({ ...f, prioridad: e.target.value }))}
+                className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#52B788]/40">
+                <option value="alta">Alta — ciudad principal</option>
+                <option value="media">Media — ciudad secundaria</option>
+                <option value="baja">Baja — exploración</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">Portales a activar</label>
+            <div className="flex flex-wrap gap-2">
+              {PORTALES_DISPONIBLES.map((p) => (
+                <button key={p} type="button" onClick={() => togglePortal(p)}
+                  className={`text-xs font-semibold px-3 py-1.5 rounded-xl border transition-colors ${
+                    form.portales.includes(p)
+                      ? "bg-[#1B4332] text-white border-[#1B4332]"
+                      : "border-slate-200 text-slate-600 hover:border-[#52B788]"
+                  }`}>{p}</button>
+              ))}
+            </div>
+            <p className="text-[10px] text-slate-400 mt-1.5">Puedes dejar sin portales y configurar después — la zona quedará en estado Pendiente</p>
+          </div>
+
+          <button onClick={agregar} disabled={!form.municipio.trim()}
+            className="flex items-center gap-2 bg-[#1B4332] hover:bg-[#163828] disabled:opacity-40 text-white text-sm font-bold px-5 py-2.5 rounded-xl transition-colors">
+            <Plus className="w-4 h-4" /> Agregar zona
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const PropiedadesViewer = () => {
   const [tabSheet, setTabSheet] = useState("CONSOLIDADO");
@@ -283,6 +540,8 @@ const AdminScraper = () => {
         </div>
 
         {activeTab === "propiedades" && <PropiedadesViewer />}
+
+        {activeTab === "zonas" && <ZonasObjetivo />}
 
         {activeTab === "monitor" && <>
 

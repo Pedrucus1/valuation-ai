@@ -5,7 +5,7 @@ import {
   Building2, Users, ShieldCheck, BarChart2, CreditCard,
   Search, RefreshCw, CheckCircle2, XCircle, ChevronDown, ChevronUp,
   Clock, MapPin, Mail, Phone, AlertTriangle, Activity,
-  Eye, FileText, Send, Download,
+  Eye, FileText, Send, Download, Star,
 } from "lucide-react";
 import { PageHeader } from "@/components/AdminUI";
 
@@ -351,18 +351,18 @@ const TabEmpresas = ({ inmobiliarias, onReload }) => {
       </div>
 
       {/* Tabla */}
-      <div className="bg-white rounded-2xl border border-slate-100 overflow-hidden">
+      <div className="bg-white rounded-2xl border border-[#B7E4C7] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-slate-100 bg-slate-50">
-                <th className="text-left px-4 py-3 text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Empresa</th>
-                <th className="text-left px-4 py-3 text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Ubicación</th>
-                <th className="text-left px-4 py-3 text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Verificación</th>
-                <th className="text-left px-4 py-3 text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Estado</th>
-                <th className="text-center px-4 py-3 text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Créditos</th>
-                <th className="text-center px-4 py-3 text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Avalúos/mes</th>
-                <th className="text-left px-4 py-3 text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Alta</th>
+              <tr className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F]">
+                <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Empresa</th>
+                <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Ubicación</th>
+                <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Verificación</th>
+                <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Estado</th>
+                <th className="text-center px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Créditos</th>
+                <th className="text-center px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Avalúos/mes</th>
+                <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Alta</th>
                 <th className="px-4 py-3"></th>
               </tr>
             </thead>
@@ -471,16 +471,16 @@ const TabActividad = ({ cargandoAct, actividad }) => {
   }
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-100 overflow-hidden">
+    <div className="bg-white rounded-2xl border border-[#B7E4C7] overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-slate-100 bg-slate-50">
-              <th className="text-left px-4 py-3 text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Empresa</th>
-              <th className="text-left px-4 py-3 text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Propiedad</th>
-              <th className="text-left px-4 py-3 text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Estado</th>
-              <th className="text-left px-4 py-3 text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Valor</th>
-              <th className="text-left px-4 py-3 text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Fecha</th>
+            <tr className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F]">
+              <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Empresa</th>
+              <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Propiedad</th>
+              <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Estado</th>
+              <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Valor</th>
+              <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Fecha</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-50">
@@ -509,6 +509,140 @@ const TabActividad = ({ cargandoAct, actividad }) => {
             ))}
           </tbody>
         </table>
+      </div>
+    </div>
+  );
+};
+
+/* ─── Tab Directorio ─── */
+const TabDirectorio = ({ inmobiliarias, onToggle }) => {
+  const [busqueda, setBusqueda] = useState("");
+  const [filtro, setFiltro] = useState("todos");
+  const [guardando, setGuardando] = useState(null);
+
+  const datos = inmobiliarias.map((r) => ({
+    ...r,
+    directorio_visible: r.directorio_visible !== false,
+    destacado: r.destacado || false,
+    perfil_pct: Math.min(100,
+      (r.company_name ? 20 : 0) + (r.phone ? 15 : 0) +
+      (r.municipio ? 15 : 0) + (r.kyc_status === "approved" ? 30 : 0) +
+      (r.asociacion ? 20 : 0)
+    ),
+  }));
+
+  const filtrados = datos.filter((r) => {
+    const q = busqueda.toLowerCase();
+    const matchQ = !busqueda || (r.company_name || r.email).toLowerCase().includes(q) || (r.municipio || "").toLowerCase().includes(q);
+    const matchF = filtro === "todos"
+      || (filtro === "visibles"   && r.directorio_visible)
+      || (filtro === "ocultas"    && !r.directorio_visible)
+      || (filtro === "destacadas" && r.destacado);
+    return matchQ && matchF;
+  });
+
+  const toggle = async (id, campo) => {
+    setGuardando(`${id}-${campo}`);
+    await onToggle(id, campo);
+    setGuardando(null);
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="bg-[#1B4332]/5 border border-[#52B788]/20 rounded-2xl px-4 py-3 text-xs text-slate-600 flex items-center gap-2">
+        <Eye className="w-4 h-4 text-[#52B788] flex-shrink-0" />
+        <span>
+          <strong className="text-[#1B4332]">Directorio público:</strong> Las empresas visibles aparecen en <code className="bg-slate-100 px-1 rounded">/inmobiliarias</code>.
+          Las <strong>Destacadas</strong> aparecen primero con badge especial. Solo empresas verificadas deberían ser visibles.
+        </span>
+      </div>
+
+      <div className="flex flex-wrap gap-3 items-center">
+        <div className="relative flex-1 min-w-[180px]">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <input type="text" value={busqueda} onChange={(e) => setBusqueda(e.target.value)}
+            placeholder="Buscar por empresa o ciudad..."
+            className="w-full pl-9 pr-4 py-2 text-sm border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#52B788]/40" />
+        </div>
+        <select value={filtro} onChange={(e) => setFiltro(e.target.value)}
+          className="appearance-none border border-slate-200 rounded-xl px-3 py-2 text-sm text-slate-600 bg-white focus:outline-none pr-8">
+          <option value="todos">Todas</option>
+          <option value="visibles">Visibles en directorio</option>
+          <option value="ocultas">Ocultas</option>
+          <option value="destacadas">Destacadas</option>
+        </select>
+        <ChevronDown className="w-0 h-0 overflow-hidden" />
+        <div className="text-xs text-slate-400 ml-auto">
+          {datos.filter((r) => r.directorio_visible).length} visibles · {datos.filter((r) => r.destacado).length} destacadas
+        </div>
+      </div>
+
+      <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F]">
+                {["Empresa","Ciudad","Verificación","Plan","Perfil %","Visible","Destacada"].map((h) => (
+                  <th key={h} className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide whitespace-nowrap">{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-50">
+              {filtrados.length === 0 && (
+                <tr><td colSpan={7} className="text-center py-10 text-slate-400 text-sm">Sin resultados</td></tr>
+              )}
+              {filtrados.map((r) => (
+                <tr key={r.user_id} className={`hover:bg-[#F0FAF5]/50 transition-colors ${!r.directorio_visible ? "opacity-50" : ""}`}>
+                  <td className="px-4 py-3">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-8 h-8 rounded-lg bg-[#D9ED92]/50 flex items-center justify-center flex-shrink-0">
+                        <Building2 className="w-4 h-4 text-[#1B4332]" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-[#1B4332]">{r.company_name || r.name || "—"}</p>
+                        <p className="text-xs text-slate-400">{r.email}</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="px-4 py-3 text-sm text-slate-500">
+                    {[r.municipio, r.estado].filter(Boolean).join(", ") || "—"}
+                  </td>
+                  <td className="px-4 py-3">
+                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${KYC_CFG[r.kyc_status]?.cls || "bg-slate-100 text-slate-400"}`}>
+                      {KYC_CFG[r.kyc_status]?.label || "—"}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3 text-xs text-slate-500">{r.plan_tipo || "—"}</td>
+                  <td className="px-4 py-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-16 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                        <div className={`h-full rounded-full ${r.perfil_pct >= 80 ? "bg-[#52B788]" : r.perfil_pct >= 50 ? "bg-amber-400" : "bg-red-300"}`}
+                          style={{ width: `${r.perfil_pct}%` }} />
+                      </div>
+                      <span className="text-xs text-slate-400">{r.perfil_pct}%</span>
+                    </div>
+                  </td>
+                  <td className="px-4 py-3">
+                    <button
+                      onClick={() => toggle(r.user_id, "directorio_visible")}
+                      disabled={guardando === `${r.user_id}-directorio_visible`}
+                      className={`relative w-10 h-5 rounded-full transition-colors flex-shrink-0 ${r.directorio_visible ? "bg-[#52B788]" : "bg-slate-200"}`}>
+                      <span className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${r.directorio_visible ? "translate-x-5" : "translate-x-0.5"}`} />
+                    </button>
+                  </td>
+                  <td className="px-4 py-3">
+                    <button
+                      onClick={() => toggle(r.user_id, "destacado")}
+                      disabled={guardando === `${r.user_id}-destacado`}
+                      className={`p-1.5 rounded-lg transition-colors ${r.destacado ? "text-amber-400 bg-amber-50" : "text-slate-300 hover:text-amber-400 hover:bg-amber-50"}`}>
+                      <Star className={`w-4 h-4 ${r.destacado ? "fill-amber-400" : ""}`} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
@@ -546,11 +680,25 @@ const AdminInmobiliarias = () => {
 
   const pendientesKyc = inmobiliarias.filter((r) => r.kyc_status === "pending").length;
 
+  // Toggle directorio_visible / destacado
+  const onToggleDirectorio = async (userId, campo) => {
+    setInmobiliarias((prev) => prev.map((r) =>
+      r.user_id === userId ? { ...r, [campo]: !r[campo] } : r
+    ));
+    try {
+      await adminFetch(`/api/admin/inmobiliarias/${userId}/directorio`, {
+        method: "PATCH",
+        body: JSON.stringify({ [campo]: !inmobiliarias.find((r) => r.user_id === userId)?.[campo] }),
+      });
+    } catch { /* actualización local ya hecha */ }
+  };
+
   const TABS = [
-    { id: "resumen",    label: "Resumen",                                                          icon: BarChart2    },
-    { id: "empresas",   label: `Empresas (${inmobiliarias.length})`,                               icon: Building2    },
+    { id: "resumen",    label: "Resumen",                                                               icon: BarChart2    },
+    { id: "empresas",   label: `Empresas (${inmobiliarias.length})`,                                    icon: Building2    },
+    { id: "directorio", label: "Directorio",                                                            icon: Eye          },
     { id: "nuevas",     label: pendientesKyc > 0 ? `Nuevas altas (${pendientesKyc})` : "Nuevas altas", icon: ShieldCheck  },
-    { id: "actividad",  label: "Actividad",                                                        icon: Activity     },
+    { id: "actividad",  label: "Actividad",                                                             icon: Activity     },
   ];
 
   const descargarCSV = () => {
@@ -608,10 +756,11 @@ const AdminInmobiliarias = () => {
           <div className="flex items-center justify-center h-48 text-slate-400 text-sm">Cargando…</div>
         ) : (
           <>
-            {tab === "resumen"   && <TabResumen    inmobiliarias={inmobiliarias} />}
-            {tab === "empresas"  && <TabEmpresas   inmobiliarias={inmobiliarias} onReload={cargar} />}
-            {tab === "nuevas"    && <TabNuevasAltas inmobiliarias={inmobiliarias} onReload={cargar} />}
-            {tab === "actividad" && <TabActividad  cargandoAct={cargandoAct} actividad={actividad} />}
+            {tab === "resumen"    && <TabResumen     inmobiliarias={inmobiliarias} />}
+            {tab === "empresas"   && <TabEmpresas    inmobiliarias={inmobiliarias} onReload={cargar} />}
+            {tab === "directorio" && <TabDirectorio  inmobiliarias={inmobiliarias} onToggle={onToggleDirectorio} />}
+            {tab === "nuevas"     && <TabNuevasAltas inmobiliarias={inmobiliarias} onReload={cargar} />}
+            {tab === "actividad"  && <TabActividad   cargandoAct={cargandoAct} actividad={actividad} />}
           </>
         )}
 
