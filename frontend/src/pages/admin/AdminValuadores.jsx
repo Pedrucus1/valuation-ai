@@ -809,14 +809,14 @@ const FilaValuador = ({ v, onToggle, suspender }) => {
         <tr>
           <td colSpan={8} className="bg-[#F8FDF9] border-t border-[#B7E4C7] px-5 py-4">
             <div className="space-y-3">
-              {/* Una sola fila: métricas + servicios */}
-              <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+              {/* Fila única: métricas + servicios + acciones */}
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
                 {[
-                  ["Reportes",    v.totalReportes],
-                  ["Calif.",      v.calificacion > 0 ? `${v.calificacion.toFixed(1)} ★` : "—"],
-                  ["Cédula",      v.cedula],
-                  ["Exp.",        `${v.experiencia} años`],
-                  ["Alta",        v.fecha_registro],
+                  ["Reportes", v.totalReportes],
+                  ["Calif.",   v.calificacion > 0 ? `${v.calificacion.toFixed(1)} ★` : "—"],
+                  ["Cédula",   v.cedula],
+                  ["Exp.",     `${v.experiencia} años`],
+                  ["Alta",     v.fecha_registro],
                 ].map(([k, val]) => (
                   <div key={k} className="flex items-baseline gap-1">
                     <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">{k}</span>
@@ -828,12 +828,23 @@ const FilaValuador = ({ v, onToggle, suspender }) => {
                   const n = v[key] ?? 0;
                   return (
                     <div key={key} className={`flex items-center gap-1 text-[11px] font-semibold ${n > 0 ? color : "text-slate-300"}`}>
-                      <Icon className="w-3 h-3 shrink-0" />
-                      <span>{label}</span>
-                      <span className={`font-bold ${n > 0 ? "" : "opacity-50"}`}>{n}</span>
+                      <Icon className="w-3 h-3 shrink-0" /><span>{label}</span><span className="font-bold">{n}</span>
                     </div>
                   );
                 })}
+                <span className="text-slate-200 select-none">|</span>
+                <a href={`https://wa.me/52${v.telefono}`} target="_blank" rel="noopener noreferrer" title="WhatsApp"
+                  className="p-1.5 rounded-lg bg-[#25D366] text-white hover:opacity-90 transition-opacity" onClick={(e) => e.stopPropagation()}>
+                  <Phone className="w-3.5 h-3.5" />
+                </a>
+                <a href={`mailto:${v.email}`} title="Email"
+                  className="p-1.5 rounded-lg bg-blue-500 text-white hover:opacity-90 transition-opacity" onClick={(e) => e.stopPropagation()}>
+                  <Mail className="w-3.5 h-3.5" />
+                </a>
+                <button onClick={(e) => { e.stopPropagation(); suspender(v.id); }} title={v.estado === "activo" ? "Suspender" : "Reactivar"}
+                  className={`p-1.5 rounded-lg transition-colors ${v.estado === "activo" ? "bg-red-100 text-red-600 hover:bg-red-200" : "bg-green-100 text-green-700 hover:bg-green-200"}`}>
+                  {v.estado === "activo" ? <Ban className="w-3.5 h-3.5" /> : <CheckCircle2 className="w-3.5 h-3.5" />}
+                </button>
               </div>
 
               {/* Especialidades y certs */}
@@ -847,22 +858,6 @@ const FilaValuador = ({ v, onToggle, suspender }) => {
                   ))}
                 </div>
               )}
-
-              {/* Acciones */}
-              <div className="flex gap-1.5 pt-1 border-t border-[#B7E4C7]">
-                <a href={`https://wa.me/52${v.telefono}`} target="_blank" rel="noopener noreferrer" title="WhatsApp"
-                  className="p-2 rounded-lg bg-[#25D366] text-white hover:opacity-90 transition-opacity">
-                  <Phone className="w-3.5 h-3.5" />
-                </a>
-                <a href={`mailto:${v.email}`} title="Email"
-                  className="p-2 rounded-lg bg-blue-500 text-white hover:opacity-90 transition-opacity">
-                  <Mail className="w-3.5 h-3.5" />
-                </a>
-                <button onClick={() => suspender(v.id)} title={v.estado === "activo" ? "Suspender" : "Reactivar"}
-                  className={`p-2 rounded-lg transition-colors ${v.estado === "activo" ? "bg-red-100 text-red-600 hover:bg-red-200" : "bg-green-100 text-green-700 hover:bg-green-200"}`}>
-                  {v.estado === "activo" ? <Ban className="w-3.5 h-3.5" /> : <CheckCircle2 className="w-3.5 h-3.5" />}
-                </button>
-              </div>
             </div>
           </td>
         </tr>
