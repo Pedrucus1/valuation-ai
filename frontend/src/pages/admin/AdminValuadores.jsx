@@ -41,6 +41,11 @@ function normalizeValuador(u) {
     fecha_registro: u.created_at ? u.created_at.split("T")[0] : "-",
     cedula: u.cedula || "—",
     bio: u.bio || "",
+    // Servicios prestados
+    servicios_visita:        u.servicios_visita        ?? u.visitas_realizadas   ?? 0,
+    servicios_verificacion:  u.servicios_verificacion  ?? u.verificaciones_completadas ?? 0,
+    servicios_urgente:       u.servicios_urgente        ?? u.avaluos_urgentes     ?? 0,
+    servicios_comparativo:   u.servicios_comparativo    ?? u.reportes_comparativos ?? 0,
     // campos directorio (podrían venir del backend o inicializarse aquí)
     directorio_visible: u.directorio_visible !== false,
     destacado: u.destacado || false,
@@ -56,6 +61,13 @@ const PLAN_BADGE  = { enterprise: "bg-[#1B4332] text-white", pro: "bg-[#52B788] 
 const KYC_BADGE   = { aprobado: "bg-green-100 text-green-700", pendiente: "bg-amber-100 text-amber-700", info_solicitada: "bg-orange-100 text-orange-700", rechazado: "bg-red-100 text-red-600" };
 const KYC_LABEL   = { aprobado: "Verificado", pendiente: "Pendiente", info_solicitada: "Info solicitada", rechazado: "Rechazado" };
 const ESTADO_BADGE= { activo: "bg-green-100 text-green-700", suspendido: "bg-red-100 text-red-600", kyc_pendiente: "bg-amber-100 text-amber-700" };
+
+const SERVICIOS_VAL = [
+  { key: "servicios_visita",       label: "Visitas",       Icon: MapPin,     color: "text-blue-600"   },
+  { key: "servicios_verificacion", label: "Verificaciones",Icon: ShieldCheck,color: "text-green-600"  },
+  { key: "servicios_urgente",      label: "Urgentes",      Icon: Zap,        color: "text-amber-600"  },
+  { key: "servicios_comparativo",  label: "Comparativos",  Icon: BarChart2,  color: "text-purple-600" },
+];
 
 const TABS = [
   { id: "resumen",        label: "Resumen",         icon: BarChart2   },
@@ -139,6 +151,46 @@ const TabResumen = ({ valuadores }) => {
     });
     return Object.entries(grupos).map(([name, value]) => ({ name, value })).sort((a, b) => b.value - a.value);
   }, [valuadores]);
+
+  // Nuevos por mes (últimos 6)
+  const nuevosPorMes = useMemo(() => {
+    const meses = {};
+    const ahora = new Date();
+    for (let i = 5; i >= 0; i--) {
+      const d = new Date(ahora.getFullYear(), ahora.getMonth() - i, 1);
+      const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+      meses[key] = { mes: d.toLocaleDateString("es-MX", { month: "short", year: "2-digit" }), nuevos: 0 };
+    }
+    valuadores.forEach((v) => {
+      if (!v.fecha_registro || v.fecha_registro === "-") return;
+      const key = v.fecha_registro.slice(0, 7);
+      if (meses[key]) meses[key].nuevos++;
+    });
+    return Object.values(meses);
+  }, [valuadores]);
+
+  // Top calificación
+  const topCalif = useMemo(() =>
+    [...valuadores]
+      .filter((v) => v.calificacion > 0)
+      .sort((a, b) => b.calificacion - a.calificacion)
+      .slice(0, 8)
+      .map((v) => ({
+        name: v.nombre.split(" ")[0] + (v.nombre.split(" ")[1] ? " " + v.nombre.split(" ")[1][0] + "." : ""),
+        calif: parseFloat(v.calificacion.toFixed(1)),
+        quejas: v.quejas,
+      })),
+    [valuadores]
+  );
+
+  // Servicios totales
+  const serviciosTotalesVal = useMemo(() =>
+    SERVICIOS_VAL.map(({ key, label }) => ({
+      name: label,
+      total: valuadores.reduce((s, v) => s + (v[key] ?? 0), 0),
+    })),
+    [valuadores]
+  );
 
   // Ciudades top
   const ciudadesTop = useMemo(() =>
@@ -303,6 +355,75 @@ const TabResumen = ({ valuadores }) => {
                 </div>
               ))}
             </div>
+          )}
+        </div>
+      </div>
+
+      {/* Fila 3: Nuevos por mes + Top calificación + Servicios totales */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        {/* Valuadores nuevos por mes */}
+        <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm p-5">
+          <p className="font-semibold text-[#1B4332] text-sm mb-1">Valuadores nuevos por mes</p>
+          <p className="text-xs text-slate-400 mb-4">Incorporaciones en los últimos 6 meses</p>
+          {nuevosPorMes.every((m) => m.total === 0) ? (
+            <p className="text-xs text-slate-400">Sin datos históricos.</p>
+          ) : (
+            <ResponsiveContainer width="100%" height={160}>
+              <BarChart data={nuevosPorMes} barSize={20}>
+                <XAxis dataKey="mes" tick={{ fontSize: 10, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 10, fill: "#94a3b8" }} axisLine={false} tickLine={false} allowDecimals={false} />
+                <Tooltip content={<TooltipCustom />} />
+                <Bar dataKey="total" radius={[4, 4, 0, 0]}>
+                  {nuevosPorMes.map((_, i) => (
+                    <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          )}
+        </div>
+
+        {/* Top por calificación */}
+        <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm p-5">
+          <p className="font-semibold text-[#1B4332] text-sm mb-1">Top por calificación</p>
+          <p className="text-xs text-slate-400 mb-4">Los mejor evaluados · rojo = tiene quejas</p>
+          {topCalif.length === 0 ? (
+            <p className="text-xs text-slate-400">Sin calificaciones aún.</p>
+          ) : (
+            <ResponsiveContainer width="100%" height={160}>
+              <BarChart data={topCalif} layout="vertical" barSize={12} margin={{ left: 4 }}>
+                <XAxis type="number" domain={[0, 5]} tick={{ fontSize: 10, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
+                <YAxis type="category" dataKey="nombre" tick={{ fontSize: 10, fill: "#475569" }} axisLine={false} tickLine={false} width={80} />
+                <Tooltip content={<TooltipCustom />} />
+                <Bar dataKey="calificacion" radius={[0, 4, 4, 0]}>
+                  {topCalif.map((v, i) => (
+                    <Cell key={i} fill={v.quejas > 0 ? "#ef4444" : "#52B788"} />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          )}
+        </div>
+
+        {/* Servicios contratados totales */}
+        <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm p-5">
+          <p className="font-semibold text-[#1B4332] text-sm mb-1">Servicios contratados (totales)</p>
+          <p className="text-xs text-slate-400 mb-4">Suma de todos los servicios por tipo</p>
+          {serviciosTotalesVal.every((s) => s.total === 0) ? (
+            <p className="text-xs text-slate-400">Sin servicios registrados aún.</p>
+          ) : (
+            <ResponsiveContainer width="100%" height={160}>
+              <BarChart data={serviciosTotalesVal} barSize={28}>
+                <XAxis dataKey="name" tick={{ fontSize: 10, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 10, fill: "#94a3b8" }} axisLine={false} tickLine={false} allowDecimals={false} />
+                <Tooltip content={<TooltipCustom />} />
+                <Bar dataKey="total" radius={[4, 4, 0, 0]}>
+                  {serviciosTotalesVal.map((_, i) => (
+                    <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
           )}
         </div>
       </div>
@@ -761,7 +882,7 @@ const AdminValuadores = () => {
             </div>
             <div className="overflow-x-auto">
               <table className="w-full">
-                <GradThead cols={["Valuador","Plan","Verificación","Estado","Directorio","Reportes","Quejas","Registro",""]} />
+                <GradThead cols={["Valuador","Plan","Verificación","Estado","Directorio","Servicios contratados","Reportes","Quejas","Registro",""]} />
                 <tbody className="divide-y divide-slate-50">
                   {paginados.map((v) => (
                     <tr key={v.id} className="hover:bg-[#F0FAF5]/50 transition-colors">
@@ -788,6 +909,16 @@ const AdminValuadores = () => {
                           className={`relative w-9 h-5 rounded-full transition-colors flex-shrink-0 ${v.directorio_visible ? "bg-[#52B788]" : "bg-slate-200"}`}>
                           <span className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${v.directorio_visible ? "translate-x-4" : "translate-x-0.5"}`} />
                         </button>
+                      </td>
+                      <td className="px-4 py-3">
+                        <div className="flex flex-wrap gap-1">
+                          {SERVICIOS_VAL.filter((s) => v[s.key] > 0).map(({ key, label, Icon, color }) => (
+                            <span key={key} className={`flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-slate-50 border border-slate-100 ${color}`}>
+                              <Icon className="w-2.5 h-2.5" />{v[key]} {label}
+                            </span>
+                          ))}
+                          {SERVICIOS_VAL.every((s) => !v[s.key]) && <span className="text-xs text-slate-300">—</span>}
+                        </div>
                       </td>
                       <td className="px-4 py-3 text-sm text-slate-600 font-semibold">{v.totalReportes}</td>
                       <td className="px-4 py-3">

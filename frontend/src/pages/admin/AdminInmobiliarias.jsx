@@ -31,6 +31,22 @@ const ESTADO_CFG = {
   suspendido: { label: "Suspendida", cls: "bg-red-100 text-red-600"   },
 };
 
+const PLAN_CFG = {
+  enterprise:   { label: "Enterprise",   cls: "bg-[#1B4332] text-white" },
+  corporativo:  { label: "Corporativo",  cls: "bg-purple-100 text-purple-700" },
+  pro:          { label: "Pro",          cls: "bg-[#52B788] text-white" },
+  despacho:     { label: "Despacho",     cls: "bg-blue-100 text-blue-700" },
+  basico:       { label: "Básico",       cls: "bg-slate-100 text-slate-600" },
+  sin_plan:     { label: "Sin plan",     cls: "bg-slate-50 text-slate-400" },
+};
+
+const SERVICIOS_INMO = [
+  { key: "visitas_presenciales",  label: "Visita presencial",   Icon: MapPin,     color: "bg-blue-50 text-blue-700 border-blue-200"    },
+  { key: "verificacion_valuador", label: "Verif. valuador",     Icon: ShieldCheck,color: "bg-green-50 text-green-700 border-green-200"  },
+  { key: "reportes_comparativos", label: "Comparativo",         Icon: BarChart2,  color: "bg-purple-50 text-purple-700 border-purple-200"},
+  { key: "avaluos_urgentes",      label: "Urgente",             Icon: Zap,        color: "bg-amber-50 text-amber-700 border-amber-200"  },
+];
+
 const Chip = ({ cfg }) => (
   <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${cfg?.cls || "bg-slate-100 text-slate-500"}`}>
     {cfg?.label || "—"}
@@ -98,6 +114,32 @@ const TabResumen = ({ inmobiliarias }) => {
       .sort((a, b) => (b.credits || 0) - (a.credits || 0))
       .slice(0, 8)
       .map((r) => ({ name: (r.company_name || r.email || "—").slice(0, 18), creditos: r.credits || 0 })),
+    [inmobiliarias]
+  );
+
+  // Empresas nuevas por mes (últimos 6 meses)
+  const nuevasPorMes = useMemo(() => {
+    const meses = {};
+    const ahora = new Date();
+    for (let i = 5; i >= 0; i--) {
+      const d = new Date(ahora.getFullYear(), ahora.getMonth() - i, 1);
+      const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+      meses[key] = { mes: d.toLocaleDateString("es-MX", { month: "short", year: "2-digit" }), nuevas: 0 };
+    }
+    inmobiliarias.forEach((r) => {
+      if (!r.created_at) return;
+      const key = r.created_at.slice(0, 7);
+      if (meses[key]) meses[key].nuevas++;
+    });
+    return Object.values(meses);
+  }, [inmobiliarias]);
+
+  // Servicios adicionales totales
+  const serviciosTotales = useMemo(() =>
+    SERVICIOS_INMO.map(({ key, label }) => ({
+      name: label,
+      total: inmobiliarias.reduce((s, r) => s + (r[key] ?? 0), 0),
+    })),
     [inmobiliarias]
   );
 
@@ -238,6 +280,50 @@ const TabResumen = ({ inmobiliarias }) => {
           )}
         </div>
       </div>
+
+      {/* Fila 3: Nuevas por mes + Servicios adicionales */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm p-5">
+          <p className="font-semibold text-[#1B4332] text-sm mb-1">Empresas nuevas por mes</p>
+          <p className="text-xs text-slate-400 mb-4">Ritmo de captación de nuevas inmobiliarias</p>
+          <ResponsiveContainer width="100%" height={160}>
+            <BarChart data={nuevasPorMes} margin={{ left: 0, right: 8, top: 0, bottom: 0 }}>
+              <XAxis dataKey="mes" tick={{ fontSize: 10, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
+              <YAxis tick={{ fontSize: 10, fill: "#94a3b8" }} axisLine={false} tickLine={false} allowDecimals={false} />
+              <Tooltip content={<TooltipCustom />} />
+              <Bar dataKey="nuevas" name="Nuevas" radius={[4, 4, 0, 0]} barSize={28}>
+                {nuevasPorMes.map((_, i) => (
+                  <Cell key={i} fill={i === nuevasPorMes.length - 1 ? "#1B4332" : "#52B788"} />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm p-5">
+          <p className="font-semibold text-[#1B4332] text-sm mb-1">Servicios adicionales contratados</p>
+          <p className="text-xs text-slate-400 mb-4">Usos totales acumulados por tipo de servicio</p>
+          {serviciosTotales.every((s) => s.total === 0) ? (
+            <div className="flex flex-col items-center justify-center h-32 gap-1.5">
+              <BarChart2 className="w-8 h-8 text-slate-200" />
+              <p className="text-xs text-slate-300 text-center">Se registrarán aquí cuando<br />las empresas contraten servicios adicionales</p>
+            </div>
+          ) : (
+            <ResponsiveContainer width="100%" height={160}>
+              <BarChart data={serviciosTotales} margin={{ left: 0, right: 8, top: 0, bottom: 0 }}>
+                <XAxis dataKey="name" tick={{ fontSize: 9, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 10, fill: "#94a3b8" }} axisLine={false} tickLine={false} allowDecimals={false} />
+                <Tooltip content={<TooltipCustom />} />
+                <Bar dataKey="total" name="Contrataciones" radius={[4, 4, 0, 0]} barSize={36}>
+                  {serviciosTotales.map((_, i) => (
+                    <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
@@ -309,6 +395,9 @@ const FilaEmpresa = ({ r, onNotificar, onKYC, onToggle, onBloquear }) => {
         <td className="px-4 py-3">
           <Chip cfg={ESTADO_CFG[r.cuenta_estado] || ESTADO_CFG.activo} />
         </td>
+        <td className="px-4 py-3">
+          <Chip cfg={PLAN_CFG[r.plan_tipo || r.plan] || PLAN_CFG.sin_plan} />
+        </td>
         <td className="px-4 py-3 text-sm text-slate-700 text-center">
           <span className={creditsLow ? "text-red-600 font-bold" : ""}>{r.credits ?? 0}</span>
         </td>
@@ -321,7 +410,7 @@ const FilaEmpresa = ({ r, onNotificar, onKYC, onToggle, onBloquear }) => {
 
       {abierto && (
         <tr>
-          <td colSpan={8} className="bg-slate-50 border-t border-slate-100 px-4 py-4">
+          <td colSpan={9} className="bg-slate-50 border-t border-slate-100 px-4 py-4">
             {cargandoDet ? (
               <p className="text-sm text-slate-400 py-4 text-center">Cargando detalle…</p>
             ) : (
@@ -343,6 +432,23 @@ const FilaEmpresa = ({ r, onNotificar, onKYC, onToggle, onBloquear }) => {
                   <div>
                     <p className="text-[11px] text-slate-400 mb-0.5">Total avalúos</p>
                     <p className="font-medium text-[#1B4332]">{r.total_avaluos ?? 0}</p>
+                  </div>
+                </div>
+
+                {/* Servicios contratados */}
+                <div>
+                  <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Servicios adicionales contratados</p>
+                  <div className="flex flex-wrap gap-2">
+                    {SERVICIOS_INMO.map(({ key, label, Icon, color }) => {
+                      const n = r[key] ?? detalle?.[key] ?? 0;
+                      return (
+                        <div key={key} className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-xl border transition-opacity ${n > 0 ? color : "bg-slate-50 text-slate-300 border-slate-100 opacity-60"}`}>
+                          <Icon className="w-3.5 h-3.5" />
+                          {label}
+                          <span className={`text-[10px] font-bold min-w-[18px] text-center px-1 py-0.5 rounded-full ${n > 0 ? "bg-white/70" : "bg-slate-100 text-slate-300"}`}>{n}</span>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
 
@@ -536,6 +642,7 @@ const TabEmpresas = ({ inmobiliarias, onReload, onToggle, onBloquear }) => {
                 <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Ubicación</th>
                 <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Verificación</th>
                 <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Estado</th>
+                <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Plan</th>
                 <th className="text-center px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Créditos</th>
                 <th className="text-center px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Avalúos/mes</th>
                 <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Alta</th>
@@ -545,7 +652,7 @@ const TabEmpresas = ({ inmobiliarias, onReload, onToggle, onBloquear }) => {
             <tbody className="divide-y divide-slate-50">
               {filtradas.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="text-center py-12 text-slate-400 text-sm">Sin resultados</td>
+                  <td colSpan={9} className="text-center py-12 text-slate-400 text-sm">Sin resultados</td>
                 </tr>
               ) : (
                 filtradas.map((r) => (
