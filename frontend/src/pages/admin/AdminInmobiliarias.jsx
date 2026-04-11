@@ -382,7 +382,7 @@ const FilaEmpresa = ({ r, onNotificar, onKYC, onToggle, onBloquear }) => {
             </div>
             <div>
               <p className="font-semibold text-[#1B4332] text-sm">{r.company_name || r.name || "—"}</p>
-              <p className="text-[11px] text-slate-400">{r.email}</p>
+              <p className="text-[11px] text-slate-500">{r.email}</p>
             </div>
           </div>
         </td>
