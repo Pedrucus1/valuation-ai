@@ -383,6 +383,9 @@ const FilaEmpresa = ({ r, onNotificar, onKYC, onToggle, onBloquear }) => {
             <div>
               <p className="font-semibold text-[#1B4332] text-sm">{r.company_name || r.name || "—"}</p>
               <p className="text-[11px] text-slate-500">{r.email}</p>
+              <p className="text-[11px] text-slate-500 flex items-center gap-0.5 mt-0.5">
+                <MapPin className="w-2.5 h-2.5 shrink-0" />{r.municipio || r.estado || "—"}
+              </p>
             </div>
           </div>
         </td>
