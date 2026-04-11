@@ -267,6 +267,17 @@ const InmobiliariaDashboardPage = () => {
 
   /* ── Tabs ── */
   const docsSubidos = DOCS_REQUERIDOS.filter((d) => docSubido(d.key)).length;
+  const docsCompletos = docsSubidos === DOCS_REQUERIDOS.length;
+
+  const solicitarVerificacion = async () => {
+    const res = await fetch(`${API}/kyc/solicitar-entrevista`, { method: "POST", credentials: "include" });
+    if (res.ok) {
+      const updated = { ...session, kyc_status: "under_review" };
+      setSession(updated);
+      localStorage.setItem("inmobiliaria_session", JSON.stringify(updated));
+      toast.success("Solicitud enviada — te contactaremos para activar tu verificación.");
+    } else { toast.error("No se pudo enviar la solicitud, intenta de nuevo."); }
+  };
 
   const esTitular = session.inmobiliaria_tipo === "titular" || !session.inmobiliaria_tipo;
 
@@ -292,11 +303,16 @@ const InmobiliariaDashboardPage = () => {
               <ShieldCheck className="w-6 h-6 text-[#D9ED92]" />
               <div>
                 <p className="font-['Outfit'] font-bold text-white text-sm leading-tight">
-                  {docsSubidosCount === DOCS_REQUERIDOS.length ? "Expediente completo ✅" : "Documentos de verificación"}
+                  {session?.kyc_status === "approved" ? "Cuenta verificada ✅"
+                  : session?.kyc_status === "under_review" ? "Verificación pendiente"
+                  : docsSubidosCount === DOCS_REQUERIDOS.length ? "Listo para verificar 🎯"
+                  : "Falta de documentos"}
                 </p>
                 <p className="text-xs text-[#D9ED92]/80 mt-0.5">
-                  {docsSubidosCount === DOCS_REQUERIDOS.length
-                    ? "El equipo PropValu revisará tu expediente"
+                  {session?.kyc_status === "approved" ? "Tu cuenta está completamente activa"
+                  : session?.kyc_status === "under_review" ? "PropValu está revisando tu expediente"
+                  : docsSubidosCount === DOCS_REQUERIDOS.length
+                    ? "Todos los documentos subidos — solicita la verificación"
                     : `Faltan ${DOCS_REQUERIDOS.length - docsSubidosCount} documento${DOCS_REQUERIDOS.length - docsSubidosCount !== 1 ? "s" : ""}`}
                 </p>
               </div>
@@ -311,6 +327,12 @@ const InmobiliariaDashboardPage = () => {
                   style={{ width: `${pct}%` }} />
               </div>
             </div>
+            {(docsSubidosCount === DOCS_REQUERIDOS.length && (!session?.kyc_status || session?.kyc_status === "pending")) ? (
+              <button onClick={solicitarVerificacion}
+                className="flex-shrink-0 flex items-center gap-1.5 bg-[#D9ED92] hover:bg-white text-[#1B4332] text-xs font-bold px-4 py-2.5 rounded-xl transition-colors">
+                🎯 Solicitar verificación
+              </button>
+            ) : null}
           </div>
         </div>
 
@@ -831,8 +853,9 @@ const InmobiliariaDashboardPage = () => {
                 {session.inmobiliaria_tipo === "titular" && <span className="text-xs font-semibold bg-white/20 text-white px-2.5 py-0.5 rounded-full">Titular</span>}
                 {session.inmobiliaria_tipo === "asesor"  && <span className="text-xs font-semibold bg-white/20 text-white px-2.5 py-0.5 rounded-full">Asesor</span>}
                 {session.kyc_status === "approved"      ? <span className="text-xs font-semibold bg-[#52B788] text-white px-2.5 py-0.5 rounded-full">✅ Verificado</span>
-                : session.kyc_status === "under_review"  ? <span className="text-xs font-semibold bg-blue-400/80 text-white px-2.5 py-0.5 rounded-full">🔍 En revisión</span>
-                :                                          <span className="text-xs font-semibold bg-amber-400/80 text-white px-2.5 py-0.5 rounded-full">⏳ Verificación pendiente</span>}
+                : session.kyc_status === "under_review"  ? <span className="text-xs font-semibold bg-blue-400/80 text-white px-2.5 py-0.5 rounded-full">🔍 Verificación pendiente</span>
+                : docsCompletos                           ? <span className="text-xs font-semibold bg-blue-400/80 text-white px-2.5 py-0.5 rounded-full">🎯 Listo — verificar</span>
+                :                                          <span className="text-xs font-semibold bg-amber-400/80 text-white px-2.5 py-0.5 rounded-full">⚠️ Falta documentos</span>}
                 {[session.municipio, session.estado].filter(Boolean).length > 0 && (
                   <span className="text-xs text-white/70 flex items-center gap-1">
                     <MapPin className="w-3 h-3" />{[session.municipio, session.estado].filter(Boolean).join(", ")}
@@ -1319,19 +1342,27 @@ const InmobiliariaDashboardPage = () => {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* KYC Banner */}
         {showKycBanner && (
-          <div className="mb-6 flex items-start justify-between gap-3 bg-amber-50 border border-amber-200 rounded-lg px-4 py-3">
+          <div className={`mb-6 flex items-start justify-between gap-3 rounded-lg px-4 py-3 border ${docsCompletos ? "bg-blue-50 border-blue-200" : "bg-amber-50 border-amber-200"}`}>
             <div className="flex items-start gap-3">
-              <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
-              <p className="text-sm text-amber-800">
-                <span className="font-semibold">Verificación pendiente</span> — sube tus documentos para activar tu cuenta completa.
+              <AlertTriangle className={`w-5 h-5 shrink-0 mt-0.5 ${docsCompletos ? "text-blue-500" : "text-amber-600"}`} />
+              <p className={`text-sm ${docsCompletos ? "text-blue-800" : "text-amber-800"}`}>
+                <span className="font-semibold">{docsCompletos ? "Documentos completos" : "Falta de documentos"}</span> —
+                {docsCompletos
+                  ? " ya puedes solicitar tu verificación PropValu."
+                  : " sube los documentos requeridos para solicitar la verificación."}
               </p>
             </div>
-            <button
-              onClick={() => setActiveTab("documentos")}
-              className="text-xs font-semibold text-amber-700 border border-amber-300 px-3 py-1.5 rounded-lg hover:bg-amber-100 whitespace-nowrap shrink-0"
-            >
-              Subir documentos
-            </button>
+            {docsCompletos ? (
+              <button onClick={solicitarVerificacion}
+                className="text-xs font-semibold text-blue-700 border border-blue-300 bg-blue-100 px-3 py-1.5 rounded-lg hover:bg-blue-200 whitespace-nowrap shrink-0">
+                🎯 Solicitar verificación
+              </button>
+            ) : (
+              <button onClick={() => setActiveTab("documentos")}
+                className="text-xs font-semibold text-amber-700 border border-amber-300 px-3 py-1.5 rounded-lg hover:bg-amber-100 whitespace-nowrap shrink-0">
+                Ver documentos
+              </button>
+            )}
           </div>
         )}
 

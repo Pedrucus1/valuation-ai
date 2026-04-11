@@ -333,9 +333,9 @@ const ValuadorDashboardPage = () => {
   };
 
   const ETAPA_CFG = {
-    pendiente: { label: "Expediente incompleto",       cls: "bg-amber-50 border-amber-200 text-amber-800",   icon: "📋" },
-    listo:     { label: "Listo para entrevista",        cls: "bg-blue-50 border-blue-200 text-blue-800",      icon: "🎯" },
-    revision:  { label: "En revisión por PropValu",     cls: "bg-purple-50 border-purple-200 text-purple-800",icon: "🔍" },
+    pendiente: { label: "Falta de documentos",          cls: "bg-amber-50 border-amber-200 text-amber-800",   icon: "📋" },
+    listo:     { label: "Listo para verificar",         cls: "bg-blue-50 border-blue-200 text-blue-800",      icon: "🎯" },
+    revision:  { label: "Verificación pendiente",       cls: "bg-purple-50 border-purple-200 text-purple-800",icon: "🔍" },
     aprobado:  { label: "Cuenta verificada ✅",          cls: "bg-green-50 border-green-200 text-green-800",   icon: "✅" },
   };
 
@@ -429,8 +429,8 @@ const ValuadorDashboardPage = () => {
                 <p className="font-['Outfit'] font-bold text-white text-sm leading-tight">{cfg.label}</p>
                 <p className="text-xs text-[#D9ED92]/80 mt-0.5">
                   {etapa === "pendiente" && `Faltan ${docsRequeridos.length - subidos} doc${docsRequeridos.length - subidos !== 1 ? "s" : ""}`}
-                  {etapa === "listo" && "Listo para entrevista"}
-                  {etapa === "revision" && "En revisión por PropValu"}
+                  {etapa === "listo" && "Todos los docs subidos — solicita la verificación"}
+                  {etapa === "revision" && "PropValu está revisando tu expediente"}
                   {etapa === "aprobado" && "Verificado ✅"}
                 </p>
               </div>
@@ -463,7 +463,7 @@ const ValuadorDashboardPage = () => {
                   }
                 }}
                 className="flex-shrink-0 flex items-center gap-1.5 bg-[#D9ED92] hover:bg-white text-[#1B4332] text-xs font-bold px-4 py-2.5 rounded-xl transition-colors">
-                🎯 Solicitar entrevista
+                🎯 Solicitar verificación
               </button>
             )}
           </div>
@@ -971,7 +971,7 @@ const ValuadorDashboardPage = () => {
             <div>
               <p className="text-[10px] text-[#D9ED92]/60 uppercase tracking-wide">Verificación</p>
               <p className="text-xs font-semibold text-white mt-0.5">
-                {session.kyc_status === "approved" ? "✅ Verificado" : session.kyc_status === "under_review" ? "🔍 En revisión" : "⏳ Pendiente"}
+                {session.kyc_status === "approved" ? "✅ Verificado" : session.kyc_status === "under_review" ? "🔍 Verificación pendiente" : docsCompletos ? "🎯 Listo — verificar" : "⚠️ Falta documentos"}
               </p>
             </div>
             <div className="border-t border-white/10 w-full pt-2">
@@ -1423,20 +1423,36 @@ const ValuadorDashboardPage = () => {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Banner expediente */}
         {showKycBanner && (
-          <div className="mb-6 flex items-start justify-between gap-3 bg-amber-50 border border-amber-200 rounded-lg px-4 py-3">
+          <div className={`mb-6 flex items-start justify-between gap-3 rounded-lg px-4 py-3 border ${docsCompletos ? "bg-blue-50 border-blue-200" : "bg-amber-50 border-amber-200"}`}>
             <div className="flex items-start gap-3">
-              <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
-              <p className="text-sm text-amber-800">
-                <span className="font-semibold">Verificación pendiente</span> —
+              <AlertTriangle className={`w-5 h-5 shrink-0 mt-0.5 ${docsCompletos ? "text-blue-500" : "text-amber-600"}`} />
+              <p className={`text-sm ${docsCompletos ? "text-blue-800" : "text-amber-800"}`}>
+                <span className="font-semibold">{docsCompletos ? "Documentos completos" : "Falta de documentos"}</span> —
                 {docsCompletos
-                  ? " tu expediente está completo. Te contactaremos para agendar la entrevista."
-                  : " completa tu expediente para poder agendar la entrevista de verificación."}
+                  ? " ya puedes solicitar tu verificación PropValu."
+                  : " sube los documentos requeridos para solicitar la verificación."}
               </p>
             </div>
-            <button onClick={() => setActiveTab("expediente")}
-              className="text-xs font-semibold text-amber-700 border border-amber-300 px-3 py-1.5 rounded-lg hover:bg-amber-100 whitespace-nowrap shrink-0">
-              Ver expediente
-            </button>
+            {docsCompletos ? (
+              <button
+                onClick={async () => {
+                  const res = await fetch(`${API}/kyc/solicitar-entrevista`, { method: "POST", credentials: "include" });
+                  if (res.ok) {
+                    const updated = { ...session, kyc_status: "under_review" };
+                    setSession(updated);
+                    localStorage.setItem("valuador_session", JSON.stringify(updated));
+                    toast.success("Solicitud enviada — te contactaremos pronto.");
+                  } else { toast.error("No se pudo enviar la solicitud, intenta de nuevo."); }
+                }}
+                className="text-xs font-semibold text-blue-700 border border-blue-300 bg-blue-100 px-3 py-1.5 rounded-lg hover:bg-blue-200 whitespace-nowrap shrink-0">
+                🎯 Solicitar verificación
+              </button>
+            ) : (
+              <button onClick={() => setActiveTab("expediente")}
+                className="text-xs font-semibold text-amber-700 border border-amber-300 px-3 py-1.5 rounded-lg hover:bg-amber-100 whitespace-nowrap shrink-0">
+                Ver documentos
+              </button>
+            )}
           </div>
         )}
 
