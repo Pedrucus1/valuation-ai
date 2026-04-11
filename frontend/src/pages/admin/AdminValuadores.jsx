@@ -31,6 +31,7 @@ function normalizeValuador(u) {
     experiencia: u.experiencia || 0,
     calificacion: u.calificacion || 0,
     totalReportes: u.total_valuaciones || 0,
+    avaluosMes: u.avaluos_mes ?? null,
     ingresos: 0,
     quejas: u.total_quejas || 0,
     fecha_registro: u.created_at ? u.created_at.split("T")[0] : "-",
@@ -372,75 +373,115 @@ const TabVerificaciones = ({ valuadores, onApprobar, onRechazar, onSolicitarInfo
 
 /* ─── Tab Actividad ─── */
 const TabActividad = ({ valuadores }) => {
-  // Construir feed de actividad a partir de datos reales + mock
-  const eventos = useMemo(() => {
-    const feed = [];
-    // Registros recientes
+  const [busqueda, setBusqueda] = useState("");
+  const [planFiltro, setPlanFiltro] = useState("todos");
+
+  const datos = useMemo(() =>
     [...valuadores]
-      .filter((v) => v.fecha_registro && v.fecha_registro !== "-")
-      .sort((a, b) => b.fecha_registro.localeCompare(a.fecha_registro))
-      .slice(0, 5)
-      .forEach((v) => {
-        feed.push({
-          id: `reg-${v.id}`, tipo: "registro",
-          texto: `${v.nombre} se registró como valuador`,
-          sub: `Plan ${v.plan} · ${v.ciudad}`,
-          fecha: v.fecha_registro,
-          color: "bg-blue-100 text-blue-600",
-        });
-      });
-    // Valuadores verificados
-    valuadores.filter((v) => v.kyc === "aprobado").slice(0, 3).forEach((v) => {
-      feed.push({
-        id: `kyc-${v.id}`, tipo: "verificacion",
-        texto: `${v.nombre} fue verificado`,
-        sub: `Cédula: ${v.cedula}`,
-        fecha: v.fecha_registro,
-        color: "bg-green-100 text-green-600",
-      });
-    });
-    // Quejas
-    valuadores.filter((v) => v.quejas > 0).forEach((v) => {
-      feed.push({
-        id: `queja-${v.id}`, tipo: "queja",
-        texto: `${v.nombre} tiene ${v.quejas} queja(s) activa(s)`,
-        sub: v.email,
-        fecha: v.fecha_registro,
-        color: "bg-red-100 text-red-600",
-      });
-    });
-    return feed.sort((a, b) => b.fecha.localeCompare(a.fecha)).slice(0, 20);
-  }, [valuadores]);
+      .sort((a, b) => b.totalReportes - a.totalReportes)
+      .filter((v) => {
+        const q = busqueda.toLowerCase();
+        const matchQ = !busqueda || v.nombre.toLowerCase().includes(q) || v.email.toLowerCase().includes(q) || v.ciudad.toLowerCase().includes(q);
+        const matchP = planFiltro === "todos" || v.plan === planFiltro;
+        return matchQ && matchP;
+      }),
+    [valuadores, busqueda, planFiltro]
+  );
 
-  const TIPO_ICON = {
-    registro:      <Users className="w-3.5 h-3.5" />,
-    verificacion:  <ShieldCheck className="w-3.5 h-3.5" />,
-    queja:         <AlertTriangle className="w-3.5 h-3.5" />,
-  };
-
-  if (eventos.length === 0) {
+  if (valuadores.length === 0) {
     return (
       <div className="text-center py-16 bg-white rounded-2xl border border-[#B7E4C7]">
         <Activity className="w-10 h-10 mx-auto mb-3 text-slate-300" />
-        <p className="text-sm text-slate-400">Sin actividad registrada aún</p>
+        <p className="text-sm text-slate-400">Sin valuadores registrados aún</p>
       </div>
     );
   }
 
   return (
-    <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm divide-y divide-slate-50">
-      {eventos.map((e) => (
-        <div key={e.id} className="flex items-start gap-3 px-5 py-3.5">
-          <div className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${e.color}`}>
-            {TIPO_ICON[e.tipo]}
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-sm text-slate-700">{e.texto}</p>
-            <p className="text-xs text-slate-400 mt-0.5">{e.sub}</p>
-          </div>
-          <span className="text-xs text-slate-300 flex-shrink-0">{e.fecha}</span>
+    <div className="space-y-3">
+      {/* Nota explicativa */}
+      <div className="bg-[#1B4332]/5 border border-[#52B788]/20 rounded-xl px-4 py-2.5 text-xs text-slate-600 flex items-center gap-2">
+        <Activity className="w-3.5 h-3.5 text-[#52B788] flex-shrink-0" />
+        <span><strong className="text-[#1B4332]">Actividad de valuadores:</strong> resumen de producción por valuador — cuántos avalúos han generado, su plan activo, créditos disponibles y alertas de quejas.</span>
+      </div>
+
+      {/* Filtros */}
+      <div className="flex flex-wrap gap-3">
+        <div className="flex items-center gap-2 bg-white border border-slate-200 rounded-xl px-3 py-2 flex-1 min-w-48">
+          <Search className="w-4 h-4 text-slate-400 flex-shrink-0" />
+          <input value={busqueda} onChange={(e) => setBusqueda(e.target.value)}
+            placeholder="Nombre, email o ciudad…" className="text-sm flex-1 outline-none bg-transparent" />
         </div>
-      ))}
+        <select value={planFiltro} onChange={(e) => setPlanFiltro(e.target.value)}
+          className="bg-white border border-slate-200 rounded-xl px-3 py-2 text-sm text-slate-600 outline-none">
+          <option value="todos">Todos los planes</option>
+          {["enterprise","corporativo","pro","despacho","basico","independiente"].map((p) => (
+            <option key={p} value={p}>{p.charAt(0).toUpperCase() + p.slice(1)}</option>
+          ))}
+        </select>
+      </div>
+
+      <div className="bg-white rounded-2xl border border-[#B7E4C7] overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F]">
+                <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Valuador</th>
+                <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Plan activo</th>
+                <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Verificación</th>
+                <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Estado</th>
+                <th className="text-center px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Avalúos totales</th>
+                <th className="text-center px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Avalúos este mes</th>
+                <th className="text-center px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Calificación</th>
+                <th className="text-center px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Quejas</th>
+                <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Registro</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-50">
+              {datos.length === 0 && (
+                <tr><td colSpan={9} className="text-center py-10 text-slate-400 text-sm">Sin resultados</td></tr>
+              )}
+              {datos.map((v) => (
+                <tr key={v.id} className="hover:bg-[#F0FAF5]/50 transition-colors">
+                  <td className="px-4 py-3">
+                    <p className="text-sm font-semibold text-[#1B4332] leading-snug">{v.nombre}</p>
+                    <p className="text-xs text-slate-400">{v.email}</p>
+                    <p className="text-xs text-slate-300 flex items-center gap-0.5 mt-0.5">
+                      <MapPin className="w-2.5 h-2.5" />{v.ciudad}
+                    </p>
+                  </td>
+                  <td className="px-4 py-3">
+                    <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${PLAN_BADGE[v.plan] || "bg-slate-100 text-slate-600"}`}>
+                      {v.plan || "—"}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3">
+                    <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${KYC_BADGE[v.kyc]}`}>{KYC_LABEL[v.kyc]}</span>
+                  </td>
+                  <td className="px-4 py-3">
+                    <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${ESTADO_BADGE[v.estado]}`}>
+                      {v.estado === "kyc_pendiente" ? "Verif. pend." : v.estado.charAt(0).toUpperCase() + v.estado.slice(1)}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3 text-center font-semibold text-[#1B4332]">{v.totalReportes}</td>
+                  <td className="px-4 py-3 text-center text-slate-500">{v.avaluosMes ?? "—"}</td>
+                  <td className="px-4 py-3 text-center">
+                    {v.calificacion > 0
+                      ? <span className="text-xs font-semibold text-amber-600">{v.calificacion.toFixed(1)} ★</span>
+                      : <span className="text-xs text-slate-300">—</span>}
+                  </td>
+                  <td className="px-4 py-3 text-center">
+                    {v.quejas > 0
+                      ? <span className="text-xs font-bold text-red-500 bg-red-50 px-2 py-0.5 rounded-full">{v.quejas}</span>
+                      : <span className="text-xs text-slate-300">—</span>}
+                  </td>
+                  <td className="px-4 py-3 text-xs text-slate-400 whitespace-nowrap">{v.fecha_registro}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 };

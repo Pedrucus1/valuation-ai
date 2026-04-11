@@ -634,58 +634,91 @@ const TabNuevasAltas = ({ inmobiliarias, onReload }) => {
 };
 
 /* ─── Tab Actividad ─── */
-const TabActividad = ({ cargandoAct, actividad }) => {
+const TabActividad = ({ cargandoAct, actividad, inmobiliarias }) => {
+  // Mapa rápido empresa → plan + créditos
+  const inmoMap = Object.fromEntries(
+    (inmobiliarias || []).map((r) => [
+      r.company_name || r.name || r.email,
+      { plan: r.plan_tipo || r.plan || "—", credits: r.credits ?? 0, total_avaluos: r.total_avaluos ?? 0 },
+    ])
+  );
+
   if (cargandoAct) {
-    return <div className="text-center py-12 text-slate-400 text-sm">Cargando actividad…</div>;
+    return <div className="text-center py-12 text-slate-400 text-sm">Cargando…</div>;
   }
   if (!actividad.length) {
     return (
-      <div className="bg-white rounded-2xl border border-slate-100 p-12 text-center">
+      <div className="bg-white rounded-2xl border border-[#B7E4C7] p-12 text-center">
         <Activity className="w-10 h-10 text-slate-300 mx-auto mb-3" />
-        <p className="text-slate-400 text-sm">Aún no hay valuaciones de inmobiliarias.</p>
+        <p className="text-slate-400 text-sm font-semibold">Sin avalúos registrados aún</p>
+        <p className="text-xs text-slate-300 mt-1">Aquí aparecerán los avalúos solicitados por cada empresa</p>
       </div>
     );
   }
 
+  const STATUS_CFG = {
+    completed: { label: "Completado", cls: "bg-green-100 text-green-700" },
+    draft:     { label: "Borrador",   cls: "bg-slate-100 text-slate-500" },
+    pending:   { label: "Pendiente",  cls: "bg-amber-100 text-amber-600" },
+  };
+
   return (
-    <div className="bg-white rounded-2xl border border-[#B7E4C7] overflow-hidden">
-      <div className="overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F]">
-              <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Empresa</th>
-              <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Propiedad</th>
-              <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Estado</th>
-              <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Valor</th>
-              <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Fecha</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-slate-50">
-            {actividad.map((v) => (
-              <tr key={v.valuation_id} className="hover:bg-slate-50">
-                <td className="px-4 py-3">
-                  <span className="font-semibold text-[#1B4332] text-xs">{v.empresa}</span>
-                </td>
-                <td className="px-4 py-3 text-slate-600">
-                  {v.property_data?.street
-                    ? `${v.property_data.street}${v.property_data.municipio ? ", " + v.property_data.municipio : ""}`
-                    : v.valuation_id?.slice(-10)}
-                </td>
-                <td className="px-4 py-3">
-                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                    v.status === "completed" ? "bg-green-100 text-green-700" :
-                    v.status === "draft"     ? "bg-slate-100 text-slate-500" :
-                    "bg-amber-100 text-amber-600"
-                  }`}>{v.status}</span>
-                </td>
-                <td className="px-4 py-3 font-semibold text-[#1B4332]">
-                  {v.final_value ? fmt(v.final_value) : "—"}
-                </td>
-                <td className="px-4 py-3 text-slate-400">{fmtFecha(v.created_at)}</td>
+    <div className="space-y-3">
+      {/* Nota explicativa */}
+      <div className="bg-[#1B4332]/5 border border-[#52B788]/20 rounded-xl px-4 py-2.5 text-xs text-slate-600 flex items-center gap-2">
+        <Activity className="w-3.5 h-3.5 text-[#52B788] flex-shrink-0" />
+        <span><strong className="text-[#1B4332]">Historial de avalúos:</strong> cada fila es un avalúo de propiedad solicitado por una empresa. El <strong>valor del avalúo</strong> es el precio estimado de esa propiedad según el reporte.</span>
+      </div>
+
+      <div className="bg-white rounded-2xl border border-[#B7E4C7] overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F]">
+                <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Empresa</th>
+                <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Plan</th>
+                <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Propiedad valuada</th>
+                <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Estado del reporte</th>
+                <th className="text-right px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Valor del avalúo</th>
+                <th className="text-center px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Crédito usado</th>
+                <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Fecha</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-slate-50">
+              {actividad.map((v) => {
+                const info = inmoMap[v.empresa] || {};
+                const sc = STATUS_CFG[v.status] || STATUS_CFG.pending;
+                return (
+                  <tr key={v.valuation_id} className="hover:bg-[#F0FAF5]/50 transition-colors">
+                    <td className="px-4 py-3">
+                      <p className="font-semibold text-[#1B4332] text-xs">{v.empresa || "—"}</p>
+                    </td>
+                    <td className="px-4 py-3">
+                      <span className="text-[11px] font-semibold bg-[#1B4332]/10 text-[#1B4332] px-2 py-0.5 rounded-full">
+                        {info.plan || "—"}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-slate-600 text-xs max-w-[200px] truncate">
+                      {v.property_data?.street
+                        ? `${v.property_data.street}${v.property_data.municipio ? ", " + v.property_data.municipio : ""}`
+                        : `ID …${v.valuation_id?.slice(-8)}`}
+                    </td>
+                    <td className="px-4 py-3">
+                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${sc.cls}`}>{sc.label}</span>
+                    </td>
+                    <td className="px-4 py-3 text-right font-semibold text-[#1B4332]">
+                      {v.final_value ? fmt(v.final_value) : <span className="text-slate-300 font-normal">—</span>}
+                    </td>
+                    <td className="px-4 py-3 text-center">
+                      <span className="text-xs text-slate-500">−1</span>
+                    </td>
+                    <td className="px-4 py-3 text-xs text-slate-400 whitespace-nowrap">{fmtFecha(v.created_at)}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
@@ -810,7 +843,7 @@ const AdminInmobiliarias = () => {
             {tab === "resumen"   && <TabResumen     inmobiliarias={inmobiliarias} />}
             {tab === "empresas"  && <TabEmpresas    inmobiliarias={inmobiliarias} onReload={cargar} onToggle={onToggleDirectorio} onBloquear={onBloquear} />}
             {tab === "nuevas"    && <TabNuevasAltas inmobiliarias={inmobiliarias} onReload={cargar} />}
-            {tab === "actividad" && <TabActividad   cargandoAct={cargandoAct} actividad={actividad} />}
+            {tab === "actividad" && <TabActividad   cargandoAct={cargandoAct} actividad={actividad} inmobiliarias={inmobiliarias} />}
           </>
         )}
 
