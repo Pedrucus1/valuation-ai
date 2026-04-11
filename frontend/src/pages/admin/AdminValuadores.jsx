@@ -66,10 +66,10 @@ const KYC_LABEL   = { aprobado: "Verificado", pendiente: "Pendiente", info_solic
 const ESTADO_BADGE= { activo: "bg-green-100 text-green-700", suspendido: "bg-red-100 text-red-600", kyc_pendiente: "bg-amber-100 text-amber-700" };
 
 const SERVICIOS_VAL = [
-  { key: "servicios_visita",       label: "Visitas",       Icon: MapPin,     color: "text-blue-600"   },
-  { key: "servicios_verificacion", label: "Verificaciones",Icon: ShieldCheck,color: "text-green-600"  },
-  { key: "servicios_urgente",      label: "Urgentes",      Icon: Zap,        color: "text-amber-600"  },
-  { key: "servicios_comparativo",  label: "Comparativos",  Icon: BarChart2,  color: "text-purple-600" },
+  { key: "servicios_visita",       label: "Visita",  Icon: MapPin,     color: "text-blue-600"   },
+  { key: "servicios_verificacion", label: "Verif.",  Icon: ShieldCheck,color: "text-green-600"  },
+  { key: "servicios_urgente",      label: "Urg.",    Icon: Zap,        color: "text-amber-600"  },
+  { key: "servicios_comparativo",  label: "Comp.",   Icon: BarChart2,  color: "text-purple-600" },
 ];
 
 const TABS = [
@@ -808,14 +808,32 @@ const FilaValuador = ({ v, onToggle, suspender }) => {
       {abierto && (
         <tr>
           <td colSpan={8} className="bg-[#F8FDF9] border-t border-[#B7E4C7] px-5 py-4">
-            <div className="space-y-4">
-              {/* Métricas rápidas */}
-              <div className="flex flex-wrap gap-4 text-sm">
-                <div><p className="text-[10px] text-slate-400 uppercase tracking-wide mb-0.5">Reportes</p><p className="font-semibold text-[#1B4332]">{v.totalReportes}</p></div>
-                <div><p className="text-[10px] text-slate-400 uppercase tracking-wide mb-0.5">Calificación</p><p className="font-semibold text-[#1B4332]">{v.calificacion > 0 ? `${v.calificacion.toFixed(1)} ★` : "—"}</p></div>
-                <div><p className="text-[10px] text-slate-400 uppercase tracking-wide mb-0.5">Cédula</p><p className="font-semibold text-[#1B4332]">{v.cedula}</p></div>
-                <div><p className="text-[10px] text-slate-400 uppercase tracking-wide mb-0.5">Experiencia</p><p className="font-semibold text-[#1B4332]">{v.experiencia} años</p></div>
-                <div><p className="text-[10px] text-slate-400 uppercase tracking-wide mb-0.5">Registro</p><p className="font-semibold text-[#1B4332]">{v.fecha_registro}</p></div>
+            <div className="space-y-3">
+              {/* Una sola fila: métricas + servicios */}
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+                {[
+                  ["Reportes",    v.totalReportes],
+                  ["Calif.",      v.calificacion > 0 ? `${v.calificacion.toFixed(1)} ★` : "—"],
+                  ["Cédula",      v.cedula],
+                  ["Exp.",        `${v.experiencia} años`],
+                  ["Alta",        v.fecha_registro],
+                ].map(([k, val]) => (
+                  <div key={k} className="flex items-baseline gap-1">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">{k}</span>
+                    <span className="text-sm font-semibold text-[#1B4332]">{val}</span>
+                  </div>
+                ))}
+                <span className="text-slate-200 select-none">|</span>
+                {SERVICIOS_VAL.map(({ key, label, Icon, color }) => {
+                  const n = v[key] ?? 0;
+                  return (
+                    <div key={key} className={`flex items-center gap-1 text-[11px] font-semibold ${n > 0 ? color : "text-slate-300"}`}>
+                      <Icon className="w-3 h-3 shrink-0" />
+                      <span>{label}</span>
+                      <span className={`font-bold ${n > 0 ? "" : "opacity-50"}`}>{n}</span>
+                    </div>
+                  );
+                })}
               </div>
 
               {/* Especialidades y certs */}
@@ -829,22 +847,6 @@ const FilaValuador = ({ v, onToggle, suspender }) => {
                   ))}
                 </div>
               )}
-
-              {/* Servicios contratados */}
-              <div>
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">Servicios contratados</p>
-                <div className="flex flex-wrap gap-2">
-                  {SERVICIOS_VAL.map(({ key, label, Icon, color }) => {
-                    const n = v[key] ?? 0;
-                    return (
-                      <div key={key} className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-xl border transition-opacity ${n > 0 ? `bg-slate-50 border-slate-200 ${color}` : "bg-slate-50 text-slate-300 border-slate-100 opacity-50"}`}>
-                        <Icon className="w-3.5 h-3.5" />{label}
-                        <span className="text-[10px] font-bold min-w-[18px] text-center px-1 py-0.5 rounded-full bg-white/80">{n}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
 
               {/* Acciones */}
               <div className="flex flex-wrap gap-2 pt-1 border-t border-[#B7E4C7]">
