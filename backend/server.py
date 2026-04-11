@@ -2226,6 +2226,14 @@ async def admin_inmobiliaria_notificar(user_id: str, request: Request):
     nota.pop("_id", None)
     return {"ok": True, "nota": nota}
 
+@api_router.get("/admin/inmobiliarias/{user_id}/notas")
+async def admin_inmobiliaria_notas(user_id: str, request: Request):
+    await require_admin(request)
+    notas = await db.notas_internas.find(
+        {"user_id": user_id}, {"_id": 0}
+    ).sort("created_at", -1).to_list(50)
+    return {"notas": notas}
+
 # ============== ANUNCIOS (Anunciantes → Moderación) ==============
 
 @api_router.post("/advertisers/anuncios")

@@ -336,13 +336,18 @@ const FilaEmpresa = ({ r, onNotificar, onKYC, onToggle, onBloquear }) => {
   const [notaModal, setNotaModal] = useState(false);
   const [notaMsj, setNotaMsj] = useState("");
   const [enviando, setEnviando] = useState(false);
+  const [notas, setNotas] = useState(null); // null = no cargado
 
   const cargarDetalle = async () => {
     if (detalle) return;
     setCargandoDet(true);
     try {
-      const d = await adminFetch(`/api/admin/inmobiliarias/${r.user_id}`);
+      const [d, n] = await Promise.all([
+        adminFetch(`/api/admin/inmobiliarias/${r.user_id}`),
+        adminFetch(`/api/admin/inmobiliarias/${r.user_id}/notas`),
+      ]);
       setDetalle(d);
+      setNotas(n.notas || []);
     } catch { /* silencioso */ }
     setCargandoDet(false);
   };
@@ -356,13 +361,13 @@ const FilaEmpresa = ({ r, onNotificar, onKYC, onToggle, onBloquear }) => {
     if (!notaMsj.trim()) return;
     setEnviando(true);
     try {
-      await adminFetch(`/api/admin/inmobiliarias/${r.user_id}/notificar`, {
+      const res = await adminFetch(`/api/admin/inmobiliarias/${r.user_id}/notificar`, {
         method: "POST",
         body: JSON.stringify({ mensaje: notaMsj, tipo: "info" }),
       });
+      setNotas((prev) => [res.nota, ...(prev || [])]);
       setNotaModal(false);
       setNotaMsj("");
-      onNotificar?.();
     } catch (e) { alert("Error: " + e.message); }
     setEnviando(false);
   };
@@ -481,14 +486,6 @@ const FilaEmpresa = ({ r, onNotificar, onKYC, onToggle, onBloquear }) => {
                   >
                     <span className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${r.directorio_visible !== false ? "translate-x-[18px]" : "translate-x-0"}`} />
                   </button>
-                  {/* Destacada */}
-                  <button
-                    onClick={(e) => { e.stopPropagation(); onToggle?.(r.user_id, "destacado"); }}
-                    title={r.destacado ? "Quitar destacado" : "Marcar como destacada"}
-                    className={`p-1.5 rounded-lg transition-colors ${r.destacado ? "text-amber-400 bg-amber-50" : "text-slate-300 hover:text-amber-400 hover:bg-amber-50"}`}
-                  >
-                    <Star className={`w-3.5 h-3.5 ${r.destacado ? "fill-amber-400" : ""}`} />
-                  </button>
                   {/* KYC pendiente */}
                   {r.kyc_status === "pending" && (
                     <>
@@ -581,6 +578,25 @@ const FilaEmpresa = ({ r, onNotificar, onKYC, onToggle, onBloquear }) => {
                         </tbody>
                       </table>
                     </div>
+                  </div>
+                )}
+
+                {/* Log de notas internas */}
+                {notas !== null && (
+                  <div>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Notas internas</p>
+                    {notas.length === 0 ? (
+                      <p className="text-xs text-slate-300 italic">Sin notas aún.</p>
+                    ) : (
+                      <div className="space-y-1.5 max-h-40 overflow-y-auto pr-1">
+                        {notas.map((n) => (
+                          <div key={n.nota_id} className="flex gap-2 text-xs">
+                            <span className="text-slate-300 whitespace-nowrap shrink-0">{fmtFecha(n.created_at)}</span>
+                            <span className="text-slate-600">{n.mensaje}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 )}
 
