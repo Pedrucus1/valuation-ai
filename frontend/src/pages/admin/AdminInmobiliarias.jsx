@@ -487,25 +487,6 @@ const FilaEmpresa = ({ r, onNotificar, onKYC, onToggle, onBloquear }) => {
                   >
                     <span className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${r.directorio_visible !== false ? "translate-x-[18px]" : "translate-x-0"}`} />
                   </button>
-                  {/* KYC pendiente */}
-                  {r.kyc_status === "pending" && (
-                    <>
-                      <button
-                        onClick={(e) => { e.stopPropagation(); onKYC(r.user_id, "aprobar"); }}
-                        title="Aprobar verificación"
-                        className="p-1.5 rounded-lg bg-green-100 text-green-700 hover:bg-green-200 transition-colors"
-                      >
-                        <CheckCircle2 className="w-3.5 h-3.5" />
-                      </button>
-                      <button
-                        onClick={(e) => { e.stopPropagation(); onKYC(r.user_id, "rechazar"); }}
-                        title="Rechazar verificación"
-                        className="p-1.5 rounded-lg bg-red-100 text-red-600 hover:bg-red-200 transition-colors"
-                      >
-                        <XCircle className="w-3.5 h-3.5" />
-                      </button>
-                    </>
-                  )}
                   {/* Suspender / Reactivar */}
                   <button
                     onClick={(e) => { e.stopPropagation(); onBloquear?.(r.user_id, r.cuenta_estado); }}
