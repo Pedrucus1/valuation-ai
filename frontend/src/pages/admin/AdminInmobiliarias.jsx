@@ -390,14 +390,6 @@ const FilaEmpresa = ({ r, onNotificar, onKYC, onToggle, onBloquear }) => {
           </div>
         </td>
         <td className="px-4 py-3 align-top">
-          <p className="text-sm text-slate-600 leading-snug">{r.municipio || r.estado || "—"}</p>
-          {(r.municipios?.length > 1) && (
-            <span className="text-[10px] font-semibold text-slate-400 bg-slate-100 rounded-full px-1.5 py-0.5 mt-0.5 inline-block">
-              +{r.municipios.length - 1} zona{r.municipios.length - 1 !== 1 ? "s" : ""}
-            </span>
-          )}
-        </td>
-        <td className="px-4 py-3 align-top">
           <Chip cfg={KYC_CFG[r.kyc_status] || { label: "Sin verificación", cls: "bg-slate-100 text-slate-400" }} />
         </td>
         <td className="px-4 py-3 align-top">
@@ -431,7 +423,7 @@ const FilaEmpresa = ({ r, onNotificar, onKYC, onToggle, onBloquear }) => {
 
       {abierto && (
         <tr>
-          <td colSpan={10} className="bg-slate-50 border-t border-slate-100 px-4 py-4">
+          <td colSpan={9} className="bg-slate-50 border-t border-slate-100 px-4 py-4">
             {cargandoDet ? (
               <p className="text-sm text-slate-400 py-4 text-center">Cargando detalle…</p>
             ) : (
@@ -669,7 +661,6 @@ const TabEmpresas = ({ inmobiliarias, onReload, onToggle, onBloquear }) => {
             <thead>
               <tr className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F]">
                 <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Empresa</th>
-                <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Ubicación</th>
                 <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Verificación</th>
                 <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Estado</th>
                 <th className="text-left px-4 py-3 text-[11px] font-semibold text-white/80 uppercase tracking-wide">Plan</th>
@@ -683,7 +674,7 @@ const TabEmpresas = ({ inmobiliarias, onReload, onToggle, onBloquear }) => {
             <tbody className="divide-y divide-slate-50">
               {filtradas.length === 0 ? (
                 <tr>
-                  <td colSpan={10} className="text-center py-12 text-slate-400 text-sm">Sin resultados</td>
+                  <td colSpan={9} className="text-center py-12 text-slate-400 text-sm">Sin resultados</td>
                 </tr>
               ) : (
                 filtradas.map((r) => (
