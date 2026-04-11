@@ -284,16 +284,46 @@ const TabVerificaciones = ({ valuadores, onApprobar, onRechazar, onSolicitarInfo
             <div className="p-5">
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
                 {[
-                  ["Cédula prof.", v.cedula],
-                  ["Experiencia", `${v.experiencia} años`],
-                  ["Plan", v.plan],
-                  ["Registro", v.fecha_registro],
+                  ["Registro",        v.fecha_registro],
+                  ["Cédula prof.",    v.cedula],
+                  ["Experiencia",     `${v.experiencia} año${v.experiencia !== 1 ? "s" : ""}`],
+                  ["Plan",            v.plan],
+                  ["Ciudad",          v.ciudad],
+                  ["Calificación",    v.calificacion > 0 ? `${v.calificacion.toFixed(1)} ★` : "Sin calif."],
+                  ["Valuaciones",     v.totalReportes],
+                  ["Quejas",          v.quejas || "—"],
                 ].map(([k, val]) => (
                   <div key={k} className="bg-[#F0FAF5] border border-[#B7E4C7] rounded-xl p-3">
                     <p className="text-[10px] text-slate-400 font-semibold uppercase tracking-wide">{k}</p>
                     <p className="text-sm text-[#1B4332] font-semibold mt-0.5">{val}</p>
                   </div>
                 ))}
+              </div>
+
+              {/* Especialidades y certificaciones */}
+              {(v.especialidades?.length > 0 || v.certs?.length > 0) && (
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {v.especialidades?.map((e) => (
+                    <span key={e} className="text-[11px] bg-blue-50 border border-blue-100 text-blue-700 px-2.5 py-1 rounded-full font-semibold">{e}</span>
+                  ))}
+                  {v.certs?.map((c) => (
+                    <span key={c} className="text-[11px] bg-[#F0FAF5] border border-[#B7E4C7] text-[#1B4332] px-2.5 py-1 rounded-full font-semibold">{c}</span>
+                  ))}
+                </div>
+              )}
+
+              {/* Contacto */}
+              <div className="flex flex-wrap gap-2 mb-4">
+                <a href={`mailto:${v.email}`}
+                  className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-50 transition-colors">
+                  <Mail className="w-3.5 h-3.5" /> {v.email}
+                </a>
+                {v.telefono && (
+                  <a href={`https://wa.me/52${v.telefono}`} target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg border border-green-200 text-green-700 hover:bg-green-50 transition-colors">
+                    <Phone className="w-3.5 h-3.5" /> WhatsApp
+                  </a>
+                )}
               </div>
 
               <div className="flex gap-2">

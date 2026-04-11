@@ -494,20 +494,23 @@ const DocViewer = ({ userId, onClose }) => {
 /* ─── Tab Nuevas Altas ─── */
 const TabNuevasAltas = ({ inmobiliarias, onReload }) => {
   const [docViewer, setDocViewer] = useState(null);
+  const [modalRechazo, setModalRechazo] = useState(null);
+  const [motivo, setMotivo] = useState("");
+
   const pendientes = inmobiliarias
     .filter((r) => r.kyc_status === "pending")
     .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
-  const handleKYC = async (userId, accion) => {
+  const handleKYC = async (userId, accion, motivoTexto = "") => {
     try {
-      await adminFetch(`/api/admin/kyc/${userId}/${accion}`, { method: "POST", body: JSON.stringify({}) });
+      await adminFetch(`/api/admin/kyc/${userId}/${accion}`, { method: "POST", body: JSON.stringify({ motivo: motivoTexto }) });
       onReload();
     } catch (e) { alert("Error: " + e.message); }
   };
 
   if (pendientes.length === 0) {
     return (
-      <div className="bg-white rounded-2xl border border-slate-100 p-12 text-center">
+      <div className="bg-white rounded-2xl border border-[#B7E4C7] p-12 text-center">
         <CheckCircle2 className="w-10 h-10 text-green-400 mx-auto mb-3" />
         <p className="font-semibold text-[#1B4332]">Todo al día</p>
         <p className="text-sm text-slate-400 mt-1">No hay empresas pendientes de revisión.</p>
@@ -517,57 +520,119 @@ const TabNuevasAltas = ({ inmobiliarias, onReload }) => {
 
   return (
     <>
-      <div className="space-y-3">
+      <div className="space-y-4">
         <p className="text-sm text-slate-500">{pendientes.length} empresa{pendientes.length !== 1 ? "s" : ""} esperando verificación</p>
         {pendientes.map((r) => (
-          <div key={r.user_id} className="bg-white rounded-2xl border border-amber-100 p-5">
-            <div className="flex items-start justify-between gap-4 flex-wrap">
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center flex-shrink-0">
-                  <AlertTriangle className="w-5 h-5 text-amber-600" />
-                </div>
-                <div>
-                  <p className="font-semibold text-[#1B4332]">{r.company_name || r.name || "Sin nombre"}</p>
-                  <div className="flex flex-wrap gap-3 mt-1 text-xs text-slate-500">
-                    <span className="flex items-center gap-1"><Mail className="w-3 h-3" />{r.email}</span>
-                    {r.phone && <span className="flex items-center gap-1"><Phone className="w-3 h-3" />{r.phone}</span>}
-                    {(r.municipio || r.estado) && (
-                      <span className="flex items-center gap-1">
-                        <MapPin className="w-3 h-3" />
-                        {[r.municipio, r.estado].filter(Boolean).join(", ")}
-                      </span>
-                    )}
-                    <span className="flex items-center gap-1"><Clock className="w-3 h-3" />Alta: {fmtFecha(r.created_at)}</span>
-                  </div>
-                  {r.asociacion && (
-                    <p className="text-xs text-slate-400 mt-1">Asociación: {r.asociacion}</p>
-                  )}
-                </div>
+          <div key={r.user_id} className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm overflow-hidden">
+            {/* Header degradado — igual que Verificaciones en Valuadores */}
+            <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] px-5 py-3 flex items-center justify-between gap-3">
+              <div className="min-w-0">
+                <p className="font-bold text-white text-sm truncate">{r.company_name || r.name || "Sin nombre"}</p>
+                <p className="text-[#D9ED92]/70 text-xs truncate">
+                  {r.email}
+                  {r.phone && ` · ${r.phone}`}
+                  {(r.municipio || r.estado) && ` · ${[r.municipio, r.estado].filter(Boolean).join(", ")}`}
+                </p>
               </div>
-              <div className="flex gap-2 flex-shrink-0 flex-wrap">
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-amber-100 text-amber-700">
+                  Pendiente
+                </span>
                 <button
                   onClick={() => setDocViewer(r.user_id)}
-                  className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 hover:bg-slate-100 transition-colors"
+                  className="flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-lg bg-white/20 hover:bg-white/30 text-white transition-colors"
                 >
-                  <FileText className="w-4 h-4" /> Ver documentos
+                  <FileText className="w-3.5 h-3.5" /> Ver docs
                 </button>
-                <button
-                  onClick={() => handleKYC(r.user_id, "aprobar")}
-                  className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl bg-green-50 border border-green-200 text-green-700 hover:bg-green-100 transition-colors"
-                >
+              </div>
+            </div>
+
+            {/* Datos */}
+            <div className="p-5">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+                {[
+                  ["Alta",            fmtFecha(r.created_at)],
+                  ["Asociación",      r.asociacion || "—"],
+                  ["Plan",            r.plan_tipo || r.plan || "—"],
+                  ["Créditos",        r.credits ?? 0],
+                  ["Municipio",       r.municipio || "—"],
+                  ["Estado",          r.estado || "—"],
+                  ["Avalúos/mes",     r.avaluos_mes ?? 0],
+                  ["Total avalúos",   r.total_avaluos ?? 0],
+                ].map(([k, val]) => (
+                  <div key={k} className="bg-[#F0FAF5] border border-[#B7E4C7] rounded-xl p-3">
+                    <p className="text-[10px] text-slate-400 font-semibold uppercase tracking-wide">{k}</p>
+                    <p className="text-sm text-[#1B4332] font-semibold mt-0.5">{val}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Contacto adicional */}
+              <div className="flex flex-wrap gap-2 mb-4">
+                <a href={`mailto:${r.email}`}
+                  className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-50 transition-colors">
+                  <Mail className="w-3.5 h-3.5" /> {r.email}
+                </a>
+                {r.phone && (
+                  <a href={`https://wa.me/52${r.phone}`} target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg border border-green-200 text-green-700 hover:bg-green-50 transition-colors">
+                    <Phone className="w-3.5 h-3.5" /> WhatsApp
+                  </a>
+                )}
+                {r.website && (
+                  <a href={r.website} target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg border border-blue-200 text-blue-600 hover:bg-blue-50 transition-colors">
+                    Sitio web ↗
+                  </a>
+                )}
+              </div>
+
+              {/* Acciones */}
+              <div className="flex gap-2">
+                <button onClick={() => handleKYC(r.user_id, "aprobar")}
+                  className="flex-1 flex items-center justify-center gap-1.5 bg-[#1B4332] hover:bg-[#163828] text-white text-sm font-bold py-2.5 rounded-xl transition-colors">
                   <CheckCircle2 className="w-4 h-4" /> Aprobar
                 </button>
-                <button
-                  onClick={() => handleKYC(r.user_id, "rechazar")}
-                  className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl bg-red-50 border border-red-200 text-red-600 hover:bg-red-100 transition-colors"
-                >
+                <button onClick={() => { setModalRechazo(r); setMotivo(""); }}
+                  className="flex-1 flex items-center justify-center gap-1.5 bg-red-500 hover:bg-red-600 text-white text-sm font-bold py-2.5 rounded-xl transition-colors">
                   <XCircle className="w-4 h-4" /> Rechazar
+                </button>
+                <button onClick={() => handleKYC(r.user_id, "solicitar-info")}
+                  className="flex items-center gap-1.5 border border-amber-200 text-amber-700 hover:bg-amber-50 text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors">
+                  <Send className="w-4 h-4" /> Solicitar info
                 </button>
               </div>
             </div>
           </div>
         ))}
       </div>
+
+      {/* Modal rechazo */}
+      {modalRechazo && (
+        <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm p-6">
+            <div className="flex justify-between items-start mb-4">
+              <h2 className="font-bold text-[#1B4332]">Motivo de rechazo</h2>
+              <button onClick={() => setModalRechazo(null)}><X className="w-5 h-5 text-slate-300" /></button>
+            </div>
+            <p className="text-xs text-slate-400 mb-3">Se notificará a {modalRechazo.company_name || modalRechazo.email}</p>
+            <textarea value={motivo} onChange={(e) => setMotivo(e.target.value)} rows={3}
+              placeholder="Ej: La documentación presentada está incompleta..."
+              className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-red-300" />
+            <div className="flex gap-2 mt-4">
+              <button onClick={() => { handleKYC(modalRechazo.user_id, "rechazar", motivo); setModalRechazo(null); }}
+                className="flex-1 bg-red-500 text-white rounded-xl py-2.5 text-sm font-bold hover:bg-red-600">
+                Confirmar rechazo
+              </button>
+              <button onClick={() => setModalRechazo(null)}
+                className="flex-1 border border-slate-200 text-slate-500 rounded-xl py-2.5 text-sm hover:bg-slate-50">
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {docViewer && <DocViewer userId={docViewer} onClose={() => setDocViewer(null)} />}
     </>
   );
