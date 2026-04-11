@@ -699,8 +699,14 @@ const TabActividad = ({ valuadores }) => {
                 <tr key={v.id} className="hover:bg-[#F0FAF5]/50 transition-colors">
                   <td className="px-4 py-3">
                     <p className="text-sm font-semibold text-[#1B4332] leading-snug">{v.nombre}</p>
-                    <p className="text-xs text-slate-400">{v.email}</p>
-                    <p className="text-xs text-slate-500 flex items-center gap-0.5 mt-0.5">
+                    <p className="text-xs text-slate-500">{v.email}</p>
+                    {(v.cedula !== "—" || v.telefono) && (
+                      <p className="text-[11px] text-slate-500 mt-0.5">
+                        {v.cedula !== "—" ? v.cedula : ""}
+                        {v.cedula !== "—" && v.telefono ? <span className="text-slate-400"> · {v.telefono}</span> : v.telefono || ""}
+                      </p>
+                    )}
+                    <p className="text-[11px] text-slate-500 flex items-center gap-0.5 mt-0.5">
                       <MapPin className="w-2.5 h-2.5" />{v.ciudad}
                     </p>
                   </td>
@@ -753,8 +759,14 @@ const FilaValuador = ({ v, onToggle, suspender }) => {
         {/* Valuador */}
         <td className="px-4 py-3 align-top">
           <p className="text-sm font-semibold text-[#1B4332] leading-snug">{v.nombre}</p>
-          <p className="text-xs text-slate-400">{v.email}</p>
-          <p className="text-xs text-slate-500 flex items-center gap-1 mt-0.5">
+          <p className="text-xs text-slate-500">{v.email}</p>
+          {(v.cedula !== "—" || v.telefono) && (
+            <p className="text-[11px] text-slate-500 mt-0.5">
+              {v.cedula !== "—" ? v.cedula : ""}
+              {v.cedula !== "—" && v.telefono ? <span className="text-slate-400"> · {v.telefono}</span> : v.telefono || ""}
+            </p>
+          )}
+          <p className="text-[11px] text-slate-500 flex items-center gap-0.5 mt-0.5">
             <MapPin className="w-2.5 h-2.5 shrink-0" />{v.ciudad}
           </p>
         </td>
@@ -814,7 +826,6 @@ const FilaValuador = ({ v, onToggle, suspender }) => {
                 {[
                   ["Reportes", v.totalReportes],
                   ["Calif.",   v.calificacion > 0 ? `${v.calificacion.toFixed(1)} ★` : "—"],
-                  ["Cédula",   v.cedula],
                   ["Exp.",     `${v.experiencia} años`],
                   ["Alta",     v.fecha_registro],
                 ].map(([k, val]) => (
