@@ -452,6 +452,27 @@ const FilaEmpresa = ({ r, onNotificar, onKYC, onToggle, onBloquear }) => {
                     );
                   })}
                   <span className="text-slate-200 select-none">|</span>
+                  {/* WhatsApp */}
+                  {r.phone && (
+                    <a href={`https://wa.me/52${r.phone}`} target="_blank" rel="noopener noreferrer"
+                      title="WhatsApp" onClick={(e) => e.stopPropagation()}
+                      className="p-1.5 rounded-lg bg-[#25D366] text-white hover:opacity-90 transition-opacity">
+                      <Phone className="w-3.5 h-3.5" />
+                    </a>
+                  )}
+                  {/* Email */}
+                  <a href={`mailto:${r.email}`} title="Email" onClick={(e) => e.stopPropagation()}
+                    className="p-1.5 rounded-lg bg-blue-500 text-white hover:opacity-90 transition-opacity">
+                    <Mail className="w-3.5 h-3.5" />
+                  </a>
+                  {/* Nota al equipo interno */}
+                  <button
+                    onClick={(e) => { e.stopPropagation(); setNotaModal(true); }}
+                    title="Nota al equipo interno (no se envía al cliente)"
+                    className="p-1.5 rounded-lg bg-slate-100 text-slate-500 hover:bg-slate-200 transition-colors"
+                  >
+                    <Send className="w-3.5 h-3.5" />
+                  </button>
                   {/* Directorio toggle */}
                   <button
                     onClick={(e) => { e.stopPropagation(); onToggle?.(r.user_id, "directorio_visible"); }}
@@ -467,14 +488,6 @@ const FilaEmpresa = ({ r, onNotificar, onKYC, onToggle, onBloquear }) => {
                     className={`p-1.5 rounded-lg transition-colors ${r.destacado ? "text-amber-400 bg-amber-50" : "text-slate-300 hover:text-amber-400 hover:bg-amber-50"}`}
                   >
                     <Star className={`w-3.5 h-3.5 ${r.destacado ? "fill-amber-400" : ""}`} />
-                  </button>
-                  {/* Nota interna */}
-                  <button
-                    onClick={(e) => { e.stopPropagation(); setNotaModal(true); }}
-                    title="Enviar nota interna"
-                    className="p-1.5 rounded-lg bg-blue-100 text-blue-600 hover:bg-blue-200 transition-colors"
-                  >
-                    <Send className="w-3.5 h-3.5" />
                   </button>
                   {/* KYC pendiente */}
                   {r.kyc_status === "pending" && (
