@@ -849,18 +849,18 @@ const FilaValuador = ({ v, onToggle, suspender }) => {
               )}
 
               {/* Acciones */}
-              <div className="flex flex-wrap gap-2 pt-1 border-t border-[#B7E4C7]">
-                <a href={`https://wa.me/52${v.telefono}`} target="_blank" rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-[#25D366] text-white rounded-lg">
-                  <Phone className="w-3.5 h-3.5" /> WhatsApp
+              <div className="flex gap-1.5 pt-1 border-t border-[#B7E4C7]">
+                <a href={`https://wa.me/52${v.telefono}`} target="_blank" rel="noopener noreferrer" title="WhatsApp"
+                  className="p-2 rounded-lg bg-[#25D366] text-white hover:opacity-90 transition-opacity">
+                  <Phone className="w-3.5 h-3.5" />
                 </a>
-                <a href={`mailto:${v.email}`}
-                  className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-blue-500 text-white rounded-lg">
-                  <Mail className="w-3.5 h-3.5" /> Email
+                <a href={`mailto:${v.email}`} title="Email"
+                  className="p-2 rounded-lg bg-blue-500 text-white hover:opacity-90 transition-opacity">
+                  <Mail className="w-3.5 h-3.5" />
                 </a>
-                <button onClick={() => suspender(v.id)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg ${v.estado === "activo" ? "bg-red-100 text-red-600 hover:bg-red-200" : "bg-green-100 text-green-700 hover:bg-green-200"}`}>
-                  {v.estado === "activo" ? <><Ban className="w-3.5 h-3.5" /> Suspender</> : <><CheckCircle2 className="w-3.5 h-3.5" /> Reactivar</>}
+                <button onClick={() => suspender(v.id)} title={v.estado === "activo" ? "Suspender" : "Reactivar"}
+                  className={`p-2 rounded-lg transition-colors ${v.estado === "activo" ? "bg-red-100 text-red-600 hover:bg-red-200" : "bg-green-100 text-green-700 hover:bg-green-200"}`}>
+                  {v.estado === "activo" ? <Ban className="w-3.5 h-3.5" /> : <CheckCircle2 className="w-3.5 h-3.5" />}
                 </button>
               </div>
             </div>
