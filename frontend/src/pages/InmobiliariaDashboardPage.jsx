@@ -1717,42 +1717,144 @@ const InmobiliariaDashboardPage = () => {
       const precios = stats.precio_m2_por_zona;
       const topTipo = tipos[0];
       const topZona = zonas[0];
-      const zonaBarata = [...(precios || [])].sort((a,b) => a.precio_m2_avg - b.precio_m2_avg)[0];
-      const topPrecio = precios?.[0];
+      const preciosOrdenados = [...(precios || [])].sort((a,b) => b.precio_m2_avg - a.precio_m2_avg);
+      const topPrecio = preciosOrdenados[0];
+      const zonaBarata = preciosOrdenados[preciosOrdenados.length - 1];
       const totalTipos = tipos.reduce((s,t) => s + t.total, 0);
       const pctTop = topTipo ? Math.round(topTipo.total / totalTipos * 100) : 0;
       const opLabel = tipoOp === "venta" ? "venta" : "renta";
+      const fmtM = v => v >= 1_000_000 ? `$${(v/1_000_000).toFixed(1)}M` : `$${(v/1000).toFixed(0)}k`;
 
-      // Dinámicos: calculados desde coloniaData (cambian con cada scraping)
+      // Dinámicos: calculados desde coloniaData
       const colonias = coloniaData?.colonias ?? [];
+      const TIPOS_LIST = ["Casa","Departamento","Terreno","Local","Bodega","Oficina"];
+
+      // Tipo predominante por municipio
+      const tiposPorMunicipio = {};
+      colonias.forEach(c => {
+        if (!c.municipio || c.municipio === "—") return;
+        const mun = c.municipio.replace(/\s+de\s+Zú?[ñn]iga/i,"").trim();
+        if (!tiposPorMunicipio[mun]) tiposPorMunicipio[mun] = {};
+        TIPOS_LIST.forEach(t => {
+          tiposPorMunicipio[mun][t] = (tiposPorMunicipio[mun][t] || 0) + (c[t] || 0);
+        });
+      });
+      const topTipoPorMunicipio = Object.entries(tiposPorMunicipio)
+        .map(([mun, counts]) => {
+          const sorted = Object.entries(counts).filter(([,v]) => v > 0).sort((a,b) => b[1]-a[1]);
+          if (!sorted.length) return null;
+          const [tipo, count] = sorted[0];
+          const pct = Math.round(count / Object.values(counts).reduce((s,v)=>s+v,0) * 100);
+          return { mun, tipo, count, pct, segundo: sorted[1] };
+        })
+        .filter(Boolean)
+        .sort((a,b) => b.count - a.count)
+        .slice(0, 5);
+
+      // Mediana precio/m² por colonia
       const medianaPrecioM2 = (() => {
-        const vals = colonias.map(c => c.precio_m2_avg).filter(Boolean).sort((a,b)=>a-b);
+        const vals = colonias.flatMap(c => TIPOS_LIST.map(t => c[`${t}_pm2`]).filter(Boolean)).sort((a,b)=>a-b);
         return vals.length ? vals[Math.floor(vals.length/2)] : 0;
       })();
+
+      // Distribución por segmento (desde colonias con precio_avg)
+      const conteoSegmentos = {};
+      colonias.forEach(c => {
+        if (!c.precio_avg) return;
+        const s = getSegmento(c.precio_avg);
+        conteoSegmentos[s] = (conteoSegmentos[s] || 0) + (c.total || 0);
+      });
+      const segOrden = ["Económico","Medio","Medio-Alto","Alto","Premium","Lujo","Super Lujo"];
+      const topSegmento = segOrden.reduce((top, s) => (!top || (conteoSegmentos[s]||0) > (conteoSegmentos[top]||0)) ? s : top, null);
+      const segPresentes = segOrden.filter(s => conteoSegmentos[s] > 0);
+      const hayLujo = (conteoSegmentos["Lujo"]||0) + (conteoSegmentos["Super Lujo"]||0) > 0;
+
+      // Oportunidades: colonias con alta oferta y precio/m² < 75% de mediana
       const oportunidades = colonias
-        .filter(c => c.total >= 10 && c.precio_m2_avg && c.precio_m2_avg < medianaPrecioM2 * 0.75)
+        .filter(c => {
+          const pm2s = TIPOS_LIST.map(t => c[`${t}_pm2`]).filter(Boolean);
+          const avgPm2 = pm2s.length ? pm2s.reduce((s,v)=>s+v,0)/pm2s.length : null;
+          return c.total >= 10 && avgPm2 && avgPm2 < medianaPrecioM2 * 0.75;
+        })
         .sort((a,b) => b.total - a.total)
         .slice(0, 3);
-      const topColoniaPct = colonias[0] ? (colonias[0].total / totalMercado * 100).toFixed(1) : 0;
+
+      // Colonia más cara por precio/m²
+      const coloniaTopPrecio = colonias
+        .map(c => {
+          const pm2s = TIPOS_LIST.map(t => c[`${t}_pm2`]).filter(Boolean);
+          return { ...c, avgPm2: pm2s.length ? Math.round(pm2s.reduce((s,v)=>s+v,0)/pm2s.length) : 0 };
+        })
+        .filter(c => c.avgPm2 > 0)
+        .sort((a,b) => b.avgPm2 - a.avgPm2)[0];
+
       const precioSpread = topPrecio && zonaBarata && zonaBarata.name !== topPrecio.name
         ? Math.round((topPrecio.precio_m2_avg - zonaBarata.precio_m2_avg) / zonaBarata.precio_m2_avg * 100)
         : 0;
       const tiposActivos = tipos.filter(t => t.total > 0).length;
-      const diversidad = tiposActivos >= 5 ? "alta" : tiposActivos >= 3 ? "media" : "baja";
 
-      // Tendencia de valuaciones empresa (últimos 2 meses)
+      // Tendencia empresa
       const ultimosMeses = tendencia.slice(-2);
       const tendDir = ultimosMeses.length === 2
         ? (ultimosMeses[1].empresa > ultimosMeses[0].empresa ? "al alza ↑" : ultimosMeses[1].empresa < ultimosMeses[0].empresa ? "a la baja ↓" : "estable →")
-        : "sin datos";
+        : "estable →";
+
+      // Textos por sección
+      const textoComposicion = topTipoPorMunicipio.length > 0
+        ? topTipoPorMunicipio.map(r =>
+            `${r.mun}: ${r.tipo.toLowerCase()} (${r.pct}%${r.segundo ? `, seguido de ${r.segundo[0].toLowerCase()}` : ""})`
+          ).join(" · ")
+        : "";
+
+      const textoSegmentos = (() => {
+        if (!topSegmento) return "";
+        const partes = [];
+        partes.push(`El segmento dominante es ${topSegmento} con ${(conteoSegmentos[topSegmento]||0).toLocaleString()} propiedades.`);
+        if (hayLujo) {
+          const totalLujo = (conteoSegmentos["Lujo"]||0) + (conteoSegmentos["Super Lujo"]||0);
+          const pctLujo = Math.round(totalLujo / totalMercado * 100);
+          partes.push(`Hay ${totalLujo.toLocaleString()} propiedades en segmento Lujo/Super Lujo (${pctLujo}% del mercado).`);
+        }
+        const econ = conteoSegmentos["Económico"] || 0;
+        if (econ > 0) {
+          const pctEcon = Math.round(econ / totalMercado * 100);
+          partes.push(`Segmento Económico: ${econ.toLocaleString()} unidades (${pctEcon}%).`);
+        }
+        partes.push(`Segmentos activos: ${segPresentes.join(", ")}.`);
+        return partes.join(" ");
+      })();
 
       return [
-        { titulo: "Panorama general", texto: `El mercado de ${opLabel} en GDL metro registra ${totalMercado.toLocaleString()} propiedades activas al ${new Date().toLocaleDateString("es-MX",{month:"long",year:"numeric"})}. La oferta se concentra en ${zonas.slice(0,3).map(z=>z.name).join(", ")}.` },
-        { titulo: "Tipo predominante", texto: topTipo ? `${topTipo.name} lidera con ${topTipo.total.toLocaleString()} unidades (${pctTop}% del total). ${tipos[1] ? `Le siguen ${tipos[1].name} (${tipos[1].total.toLocaleString()}) y ${tipos[2]?.name || ""} (${tipos[2]?.total.toLocaleString() || 0}).` : ""} Diversidad de oferta: ${diversidad} (${tiposActivos} tipos activos).` : "" },
-        { titulo: "Zona más activa", texto: topZona ? `${topZona.name} concentra ${topZona.total.toLocaleString()} propiedades${topZona.precio_m2_avg ? ` · $${Math.round(topZona.precio_m2_avg).toLocaleString()}/m²` : ""}. La colonia ${colonias[0]?.colonia || "—"} es la más activa con ${colonias[0]?.total || 0} propiedades (${topColoniaPct}% del mercado).` : "" },
-        { titulo: "Precio/m² y spread", texto: topPrecio ? `${topPrecio.name} tiene el precio más alto: $${Math.round(topPrecio.precio_m2_avg).toLocaleString()}/m²${zonaBarata && zonaBarata.name !== topPrecio.name ? `. La más accesible es ${zonaBarata.name} a $${Math.round(zonaBarata.precio_m2_avg).toLocaleString()}/m²` : ""}${precioSpread > 0 ? ` — diferencia del ${precioSpread}% entre zonas extremas.` : "."}` : "" },
-        { titulo: "Oportunidades detectadas", texto: oportunidades.length > 0 ? `Colonias con alta oferta y precio/m² por debajo de la mediana ($${medianaPrecioM2.toLocaleString()}/m²): ${oportunidades.map(c => `${c.colonia} (${c.total} props · $${c.precio_m2_avg?.toLocaleString()}/m²)`).join(", ")}.` : `Sin colonias con precio/m² significativamente por debajo de la mediana ($${medianaPrecioM2.toLocaleString()}/m²).` },
-        { titulo: "Pulso del mes", texto: `Tus valuaciones van ${tendDir} respecto al mes anterior. El segmento de mayor volumen en ${tipoOp} es ${topTipo?.name || "—"} con ${topTipo?.total.toLocaleString() || 0} unidades. La mediana de precio/m² en GDL metro es $${medianaPrecioM2.toLocaleString()}/m².` },
+        {
+          titulo: "Panorama general",
+          texto: `El mercado de ${opLabel} en GDL metro registra ${totalMercado.toLocaleString()} propiedades activas en ${new Date().toLocaleDateString("es-MX",{month:"long",year:"numeric"})}. La oferta se distribuye en ${tiposActivos} tipos de propiedad, concentrándose principalmente en ${zonas.slice(0,3).map(z=>z.name).join(", ")}.`
+        },
+        {
+          titulo: "Composición por municipio",
+          texto: textoComposicion || `${topZona?.name} concentra ${topZona?.total?.toLocaleString()} propiedades · tipo predominante: ${topTipo?.name}.`
+        },
+        {
+          titulo: "Precio/m² y spread",
+          texto: topPrecio ? `${topPrecio.name} lidera con ${fmtM(topPrecio.precio_m2_avg)}/m²${zonaBarata && zonaBarata.name !== topPrecio.name ? `; ${zonaBarata.name} es la zona más accesible con ${fmtM(zonaBarata.precio_m2_avg)}/m²` : ""}${precioSpread > 0 ? ` — brecha del ${precioSpread}% entre zonas.` : "."}${coloniaTopPrecio ? ` La colonia con mayor precio/m² es ${coloniaTopPrecio.colonia} ($${coloniaTopPrecio.avgPm2.toLocaleString()}/m²).` : ""}` : ""
+        },
+        {
+          titulo: "Segmentos de precio",
+          texto: textoSegmentos
+        },
+        {
+          titulo: "Oportunidades detectadas",
+          texto: oportunidades.length > 0
+            ? `Colonias con alta oferta y precio/m² por debajo de la mediana ($${medianaPrecioM2.toLocaleString()}/m²): ${oportunidades.map(c => {
+                const pm2s = TIPOS_LIST.map(t => c[`${t}_pm2`]).filter(Boolean);
+                const avgPm2 = pm2s.length ? Math.round(pm2s.reduce((s,v)=>s+v,0)/pm2s.length) : null;
+                return `${c.colonia} (${c.total} props · $${avgPm2?.toLocaleString()}/m²)`;
+              }).join(", ")}.`
+            : `Sin colonias con precio/m² significativamente por debajo de la mediana ($${medianaPrecioM2.toLocaleString()}/m²) — mercado equilibrado.`
+        },
+        {
+          titulo: "Pulso del mes",
+          texto: `Tus valuaciones van ${tendDir} respecto al mes anterior. Tipo más solicitado: ${topTipo?.name || "—"} (${topTipo?.total.toLocaleString() || 0} unidades · ${pctTop}% del mercado). La colonia más activa: ${colonias[0]?.colonia || "—"} con ${colonias[0]?.total || 0} propiedades.`
+        },
       ].filter(p => p.texto);
     })();
 
@@ -1832,16 +1934,20 @@ const InmobiliariaDashboardPage = () => {
         if (precio < 3_000_000) return "Medio";
         if (precio < 7_000_000) return "Medio-Alto";
         if (precio < 15_000_000) return "Alto";
-        return "Premium";
+        if (precio < 30_000_000) return "Premium";
+        if (precio < 60_000_000) return "Lujo";
+        return "Super Lujo";
       } else {
         if (precio < 5_000) return "Económico";
         if (precio < 12_000) return "Medio";
         if (precio < 25_000) return "Medio-Alto";
         if (precio < 50_000) return "Alto";
-        return "Premium";
+        if (precio < 100_000) return "Premium";
+        if (precio < 200_000) return "Lujo";
+        return "Super Lujo";
       }
     };
-    const SEGMENTO_COLORS = { "Económico": "#52B788", "Medio": "#1B4332", "Medio-Alto": "#F4A261", "Alto": "#9B5DE5", "Premium": "#E63946", "Sin dato": "#94a3b8" };
+    const SEGMENTO_COLORS = { "Económico": "#52B788", "Medio": "#1B4332", "Medio-Alto": "#F4A261", "Alto": "#9B5DE5", "Premium": "#E63946", "Lujo": "#C77DFF", "Super Lujo": "#FF6B6B", "Sin dato": "#94a3b8" };
 
     const municipiosUnicos = [...new Set((coloniaData?.colonias ?? []).map(r => r.municipio))].sort();
 
@@ -2190,7 +2296,7 @@ const InmobiliariaDashboardPage = () => {
                   <select value={coloniaFiltroSegmento} onChange={e => { setColoniaFiltroSegmento(e.target.value); setColoniaPagina(1); }}
                     className="py-1.5 px-2.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-[#52B788] text-slate-600">
                     <option value="">Todos segmentos</option>
-                    {["Económico","Medio","Medio-Alto","Alto","Premium"].map(s => <option key={s} value={s}>{s}</option>)}
+                    {["Económico","Medio","Medio-Alto","Alto","Premium","Lujo","Super Lujo"].map(s => <option key={s} value={s}>{s}</option>)}
                   </select>
                   <button onClick={() => setColoniaFiltrosExpanded(v => !v)}
                     className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border transition-colors ${coloniaFiltrosExpanded?"border-[#52B788] text-[#1B4332] bg-[#52B788]/10":"border-slate-200 text-slate-500 hover:bg-slate-50"}`}>
