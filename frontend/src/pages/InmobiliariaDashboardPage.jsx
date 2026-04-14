@@ -2293,13 +2293,13 @@ const InmobiliariaDashboardPage = () => {
                                   <td key={t} className="px-1.5 py-1.5 text-center border-r border-slate-100/80 text-slate-200">—</td>
                                 );
                                 return (
-                                  <td key={t} className="px-1.5 py-1.5 border-r border-slate-100/80 text-center" style={{minWidth:"90px"}}>
-                                    <div className="flex items-center justify-center gap-2">
-                                      {/* Count chip */}
-                                      <span className="px-1.5 py-0.5 rounded-md text-xs font-bold"
+                                  <td key={t} className="px-1.5 py-1.5 border-r border-slate-100/80" style={{minWidth:"90px"}}>
+                                    <div className="flex items-center justify-between gap-1">
+                                      {/* Count chip izquierda */}
+                                      <span className="px-1.5 py-0.5 rounded-md text-xs font-bold shrink-0"
                                         style={{backgroundColor: col+"22", color: col}}>{count}</span>
-                                      {/* Precio/m² al lado derecho */}
-                                      <span className="text-xs text-slate-600 font-medium">
+                                      {/* Precio/m² alineado derecha */}
+                                      <span className="text-xs text-slate-600 font-medium text-right tabular-nums">
                                         {pm2 ? `$${pm2.toLocaleString()}` : <span className="text-slate-300">—</span>}
                                       </span>
                                     </div>
