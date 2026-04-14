@@ -28,6 +28,13 @@ import {
   Plus,
   MapPin,
   AlertTriangle,
+  Maximize2,
+  X,
+  Download,
+  Search,
+  ChevronLeft,
+  ChevronRight,
+  ArrowUpDown,
   AlertCircle,
   User,
   Phone,
@@ -57,6 +64,89 @@ import {
   Building,
 } from "lucide-react";
 import { API } from "@/App";
+
+/* ─── PropValu Watermark ─────────────────────────────── */
+const PropValuWatermark = ({ empresa, tipoOp, fecha }) => (
+  <div className="flex items-center gap-2.5">
+    <div className="flex items-center gap-1.5">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <rect x="2" y="3" width="20" height="18" rx="2" stroke="#1B4332" strokeWidth="2"/>
+        <path d="M7 9h10M7 12h6M7 15h8" stroke="#1B4332" strokeWidth="1.5" strokeLinecap="round"/>
+        <rect x="14" y="11" width="6" height="8" rx="1" fill="#52B788"/>
+      </svg>
+      <span className="font-['Outfit'] font-bold text-[#1B4332] text-sm tracking-tight">PropValu</span>
+    </div>
+    <div className="w-px h-8 bg-slate-200" />
+    <div>
+      <p className="text-[10px] font-semibold text-slate-600">{empresa || "Análisis de mercado"}</p>
+      <p className="text-[9px] text-slate-400">{tipoOp ? `${tipoOp.charAt(0).toUpperCase()+tipoOp.slice(1)} · ` : ""}{fecha || new Date().toLocaleDateString("es-MX", { day:"2-digit", month:"short", year:"numeric" })} · GDL metro</p>
+    </div>
+  </div>
+);
+
+/* ─── ChartModal (fullscreen) ────────────────────────── */
+const ChartModal = ({ open, onClose, title, children, empresa, tipoOp }) => {
+  if (!open) return null;
+  return (
+    <div className="fixed inset-0 z-[9999] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4" onClick={onClose}>
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-6xl max-h-[95vh] flex flex-col overflow-hidden"
+        onClick={e => e.stopPropagation()}>
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
+          <p className="font-['Outfit'] font-bold text-[#1B4332] text-base">{title}</p>
+          <button onClick={onClose} className="w-8 h-8 rounded-lg hover:bg-slate-100 flex items-center justify-center transition-colors">
+            <X className="w-4 h-4 text-slate-500" />
+          </button>
+        </div>
+        {/* Content */}
+        <div className="flex-1 overflow-auto p-6">{children}</div>
+        {/* Footer watermark */}
+        <div className="px-6 py-3 border-t border-slate-100 flex justify-end">
+          <PropValuWatermark empresa={empresa} tipoOp={tipoOp} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* ─── ChartCard (card con botón expand) ──────────────── */
+const ChartCard = ({ title, subtitle, icon, tipoOp, empresa, children, modalChildren, className = "" }) => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Card className={`bg-white border-0 shadow-sm ${className}`}>
+        <CardContent className="p-4">
+          <div className="flex items-start justify-between gap-2 mb-3">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-xl bg-[#1B4332]/10 flex items-center justify-center shrink-0">
+                {icon}
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <p className="text-sm font-bold text-[#1B4332]">{title}</p>
+                  {tipoOp && (
+                    <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full uppercase tracking-wide ${tipoOp === "venta" ? "bg-[#1B4332] text-white" : "bg-blue-600 text-white"}`}>
+                      {tipoOp}
+                    </span>
+                  )}
+                </div>
+                {subtitle && <p className="text-[10px] text-slate-400 mt-0.5">{subtitle}</p>}
+              </div>
+            </div>
+            <button onClick={() => setOpen(true)} title="Ver pantalla completa"
+              className="w-7 h-7 rounded-lg hover:bg-slate-100 flex items-center justify-center transition-colors shrink-0">
+              <Maximize2 className="w-3.5 h-3.5 text-slate-400" />
+            </button>
+          </div>
+          {children}
+        </CardContent>
+      </Card>
+      <ChartModal open={open} onClose={() => setOpen(false)} title={title} empresa={empresa} tipoOp={tipoOp}>
+        {modalChildren || children}
+      </ChartModal>
+    </>
+  );
+};
 
 /* ─── Helpers ──────────────────────────────────────────── */
 
@@ -1303,7 +1393,7 @@ const InmobiliariaDashboardPage = () => {
   };
 
   /* ── Mapa de propiedades scrapeadas ── */
-  const MapaMercado = ({ tipoOp }) => {
+  const MapaMercado = ({ tipoOp, empresaNombre }) => {
     const TIPOS = ["Todos", "Casa", "Departamento", "Terreno", "Local", "Bodega", "Oficina"];
     const COLORES = {
       Casa: "#1B4332", Departamento: "#52B788", Terreno: "#95B849",
@@ -1312,6 +1402,7 @@ const InmobiliariaDashboardPage = () => {
     const [tipoProp, setTipoProp] = useState("Todos");
     const [puntos, setPuntos] = useState([]);
     const [cargando, setCargando] = useState(true);
+    const [modalOpen, setModalOpen] = useState(false);
 
     useEffect(() => {
       setCargando(true);
@@ -1327,80 +1418,88 @@ const InmobiliariaDashboardPage = () => {
       ? (COLORES[p.tipo_prop] || "#94a3b8")
       : (COLORES[tipoProp] || "#52B788");
 
-    return (
-      <Card className="bg-white border-0 shadow-sm">
-        <CardContent className="p-5">
-          <div className="flex items-start justify-between gap-4 mb-4">
-            <div>
-              <p className="text-sm font-bold text-[#1B4332]">Mapa de propiedades en {tipoOp}</p>
-              <p className="text-[11px] text-slate-400 mt-0.5">
-                {puntos.length.toLocaleString()} colonias · punto por colonia geocodificada
-              </p>
-            </div>
-            {/* Filtro tipo propiedad */}
-            <div className="flex flex-wrap gap-1 justify-end">
-              {TIPOS.map(t => (
-                <button key={t} onClick={() => setTipoProp(t)}
-                  className={`px-2.5 py-1 rounded-lg text-[10px] font-semibold transition-colors ${tipoProp === t ? "text-white" : "bg-slate-100 text-slate-500 hover:bg-slate-200"}`}
-                  style={tipoProp === t ? { backgroundColor: COLORES[t] } : {}}>
-                  {t}
-                </button>
+    const MapContent = ({ mapHeight = 380 }) => (
+      <>
+        {cargando ? (
+          <div className="flex items-center justify-center text-slate-300 gap-2" style={{ height: mapHeight }}>
+            <RefreshCw className="w-4 h-4 animate-spin" /><span className="text-sm">Cargando...</span>
+          </div>
+        ) : (
+          <div className="rounded-xl overflow-hidden" style={{ height: mapHeight }}>
+            <MapContainer center={[20.57, -103.38]} zoom={10} style={{ height: "100%", width: "100%" }} scrollWheelZoom={true}>
+              <TileLayer attribution='&copy; OpenStreetMap' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+              {puntos.map((p, i) => (
+                <CircleMarker key={`${p.colonia}-${i}`} center={[p.lat, p.lng]} radius={5}
+                  pathOptions={{ fillColor: getColor(p), color: "#fff", weight: 1, fillOpacity: 0.82 }}>
+                  <Popup>
+                    <div className="text-xs min-w-[150px]">
+                      <p className="font-bold text-[#1B4332] text-sm mb-1 capitalize">{p.colonia}</p>
+                      <p className="text-slate-400 text-[11px] mb-2">{p.municipio}</p>
+                      <p className="text-slate-600">{p.total.toLocaleString()} propiedades</p>
+                      {p.precio_avg && <p className="text-slate-500 mt-1">Precio avg: <span className="font-medium text-slate-700">{fmtMXN(p.precio_avg)}</span></p>}
+                      {p.precio_m2_avg && <p className="text-slate-500">Precio/m²: <span className="font-medium text-slate-700">{fmtMXN(p.precio_m2_avg)}</span></p>}
+                    </div>
+                  </Popup>
+                </CircleMarker>
               ))}
-            </div>
+            </MapContainer>
           </div>
+        )}
+        <div className="flex flex-wrap gap-3 mt-3">
+          {Object.entries(COLORES).filter(([k]) => k !== "Todos").map(([tipo, col]) => (
+            <span key={tipo} className="flex items-center gap-1.5 text-[11px] text-slate-500">
+              <span className="w-3 h-3 rounded-full inline-block" style={{ backgroundColor: col }} />{tipo}
+            </span>
+          ))}
+        </div>
+      </>
+    );
 
-          {cargando ? (
-            <div className="h-72 flex items-center justify-center text-slate-300 gap-2">
-              <RefreshCw className="w-4 h-4 animate-spin" /><span className="text-sm">Cargando...</span>
+    return (
+      <>
+        <Card className="bg-white border-0 shadow-sm">
+          <CardContent className="p-5">
+            <div className="flex items-start justify-between gap-4 mb-4">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-xl bg-[#1B4332]/10 flex items-center justify-center shrink-0">
+                  <Map className="w-4 h-4 text-[#1B4332]"/>
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <p className="text-sm font-bold text-[#1B4332]">Mapa de propiedades</p>
+                    <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full uppercase ${tipoOp==="venta"?"bg-[#1B4332] text-white":"bg-blue-600 text-white"}`}>{tipoOp}</span>
+                  </div>
+                  <p className="text-sm text-slate-400 font-medium">{puntos.length.toLocaleString()} colonias geocodificadas</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="flex flex-wrap gap-1 justify-end">
+                  {TIPOS.map(t => (
+                    <button key={t} onClick={() => setTipoProp(t)}
+                      className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-colors ${tipoProp === t ? "text-white" : "bg-slate-100 text-slate-500 hover:bg-slate-200"}`}
+                      style={tipoProp === t ? { backgroundColor: COLORES[t] } : {}}>{t}</button>
+                  ))}
+                </div>
+                <button onClick={() => setModalOpen(true)} className="w-7 h-7 rounded-lg hover:bg-slate-100 flex items-center justify-center shrink-0">
+                  <Maximize2 className="w-3.5 h-3.5 text-slate-400"/>
+                </button>
+              </div>
             </div>
-          ) : (
-            <div className="rounded-xl overflow-hidden" style={{ height: 380 }}>
-              <MapContainer center={[20.57, -103.38]} zoom={10} style={{ height: "100%", width: "100%" }} scrollWheelZoom={true}>
-                <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                {puntos.map((p, i) => {
-                  return (
-                    <CircleMarker key={`${p.colonia}-${i}`} center={[p.lat, p.lng]} radius={5}
-                      pathOptions={{ fillColor: getColor(p), color: "#fff", weight: 1, fillOpacity: 0.82 }}>
-                      <Popup>
-                        <div className="text-xs min-w-[150px]">
-                          <p className="font-bold text-[#1B4332] text-sm mb-1 capitalize">{p.colonia}</p>
-                          <p className="text-slate-400 text-[11px] mb-2">{p.municipio}</p>
-                          <p className="text-slate-600">{p.total.toLocaleString()} propiedades</p>
-                          {p.precio_avg && (
-                            <p className="text-slate-500 mt-1">Precio avg: <span className="font-medium text-slate-700">{fmtMXN(p.precio_avg)}</span></p>
-                          )}
-                          {p.precio_m2_avg && (
-                            <p className="text-slate-500">Precio/m²: <span className="font-medium text-slate-700">{fmtMXN(p.precio_m2_avg)}</span></p>
-                          )}
-                        </div>
-                      </Popup>
-                    </CircleMarker>
-                  );
-                })}
-              </MapContainer>
-            </div>
-          )}
-
-          {/* Leyenda */}
-          <div className="flex flex-wrap gap-3 mt-3">
-            {Object.entries(COLORES).filter(([k]) => k !== "Todos").map(([tipo, col]) => (
-              <span key={tipo} className="flex items-center gap-1.5 text-[11px] text-slate-500">
-                <span className="w-3 h-3 rounded-full inline-block" style={{ backgroundColor: col }} />{tipo}
-              </span>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+            <MapContent mapHeight={380} />
+          </CardContent>
+        </Card>
+        <ChartModal open={modalOpen} onClose={() => setModalOpen(false)} title={`Mapa de propiedades · ${tipoOp}`} empresa={empresaNombre} tipoOp={tipoOp}>
+          <MapContent mapHeight={560} />
+        </ChartModal>
+      </>
     );
   };
 
   /* ── Segmentos de precio por zona ── */
-  const SegmentosMercado = ({ tipoOp }) => {
+  const SegmentosMercado = ({ tipoOp, empresaNombre }) => {
     const TIPOS_PROP = ["Casa", "Departamento", "Local", "Bodega", "Terreno"];
     const [tipoProp, setTipoProp] = useState("Casa");
+    const [modalOpen, setModalOpen] = useState(false);
     const [data, setData] = useState(null);
     const [cargando, setCargando] = useState(true);
 
@@ -1439,51 +1538,78 @@ const InmobiliariaDashboardPage = () => {
       );
     };
 
-    return (
-      <Card className="bg-white border-0 shadow-sm">
-        <CardContent className="p-5">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <p className="text-sm font-bold text-[#1B4332]">Distribución por segmento de precio</p>
-              <p className="text-[11px] text-slate-400 mt-0.5">{tipoOp === "venta" ? "Bajo <$1.5M · Medio-bajo $1.5–3M · Medio $3–6M · Medio-alto $6–12M · Alto >$12M" : "Bajo <$8k · Medio-bajo $8–15k · Medio $15–30k · Medio-alto $30–60k · Alto >$60k"}</p>
-            </div>
-            <div className="flex gap-1">
-              {TIPOS_PROP.map(t => (
-                <button key={t} onClick={() => setTipoProp(t)}
-                  className={`px-2.5 py-1 rounded-lg text-[10px] font-semibold transition-colors ${tipoProp === t ? "bg-[#1B4332] text-white" : "bg-slate-100 text-slate-500 hover:bg-slate-200"}`}>
-                  {t}
-                </button>
-              ))}
-            </div>
-          </div>
+    const SegChart = ({ height = 300 }) => {
+      if (cargando) return (
+        <div className="flex items-center justify-center text-slate-300 gap-2" style={{ height }}>
+          <RefreshCw className="w-4 h-4 animate-spin"/><span className="text-sm">Calculando...</span>
+        </div>
+      );
+      if (!data?.segmentos?.length) return (
+        <div className="flex items-center justify-center text-slate-300 text-sm" style={{ height }}>Sin datos para este tipo</div>
+      );
+      // Calcular máximo apilado para que el eje Y cubra todas las barras
+      const maxStack = Math.max(...(data.segmentos || []).map(row =>
+        (data.labels || []).reduce((s, l) => s + (row[l] || 0), 0)
+      ));
+      const yMax = Math.ceil(maxStack * 1.12 / 100) * 100 || 100;
+      return (
+        <ResponsiveContainer width="100%" height={height}>
+          <BarChart data={data.segmentos} barSize={34} margin={{ top: 16, right: 16, left: 8, bottom: 4 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+            <XAxis dataKey="municipio" tick={{ fontSize: 11, fill: "#64748b" }} axisLine={false} tickLine={false}
+              tickFormatter={v => v.charAt(0).toUpperCase() + v.slice(1)} />
+            <YAxis domain={[0, yMax]} tick={{ fontSize: 10, fill: "#94a3b8" }} axisLine={false} tickLine={false}
+              tickFormatter={v => v >= 1000 ? `${(v/1000).toFixed(1)}k` : v}
+              label={{ value: "Propiedades", angle: -90, position: "insideLeft", offset: 8, style: { fontSize: 10, fill: "#94a3b8" } }} />
+            <Tooltip content={renderTooltipSeg} />
+            <Legend iconType="circle" iconSize={9} wrapperStyle={{ fontSize: 12 }} />
+            {(data.labels || []).map(label => (
+              <Bar key={label} dataKey={label} stackId="a" fill={COLORES_SEG[label]} name={label}
+                radius={label === data.labels[data.labels.length-1] ? [5,5,0,0] : [0,0,0,0]}>
+                <LabelList dataKey={label} position="center" formatter={v => v >= 80 ? (v >= 1000 ? `${(v/1000).toFixed(1)}k` : v) : ""} style={{ fontSize: 10, fill: "#fff", fontWeight: 700 }} />
+              </Bar>
+            ))}
+          </BarChart>
+        </ResponsiveContainer>
+      );
+    };
 
-          {cargando ? (
-            <div className="h-64 flex items-center justify-center text-slate-300 gap-2">
-              <RefreshCw className="w-4 h-4 animate-spin" /><span className="text-sm">Calculando segmentos...</span>
+    return (
+      <>
+        <Card className="bg-white border-0 shadow-sm">
+          <CardContent className="p-4">
+            <div className="flex items-start justify-between gap-2 mb-4">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-xl bg-[#1B4332]/10 flex items-center justify-center shrink-0">
+                  <BarChart2 className="w-4 h-4 text-[#1B4332]"/>
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <p className="text-sm font-bold text-[#1B4332]">Segmentos de precio</p>
+                    <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full uppercase ${tipoOp==="venta"?"bg-[#1B4332] text-white":"bg-blue-600 text-white"}`}>{tipoOp}</span>
+                  </div>
+                  <p className="text-[10px] text-slate-400">Nº de propiedades por rango de precio ({tipoOp==="venta"?"MXN: <$1.5M · $1.5–3M · $3–6M · $6–12M · >$12M":"MXN/mes: <$8k · $8–15k · $15–30k · $30–60k · >$60k"})</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <div className="flex gap-1 flex-wrap justify-end">
+                  {TIPOS_PROP.map(t => (
+                    <button key={t} onClick={() => setTipoProp(t)}
+                      className={`px-2 py-0.5 rounded-lg text-[9px] font-semibold transition-colors ${tipoProp===t?"bg-[#1B4332] text-white":"bg-slate-100 text-slate-500 hover:bg-slate-200"}`}>{t}</button>
+                  ))}
+                </div>
+                <button onClick={() => setModalOpen(true)} className="w-7 h-7 rounded-lg hover:bg-slate-100 flex items-center justify-center shrink-0">
+                  <Maximize2 className="w-3.5 h-3.5 text-slate-400"/>
+                </button>
+              </div>
             </div>
-          ) : data?.segmentos?.length > 0 ? (
-            <ResponsiveContainer width="100%" height={260}>
-              <BarChart data={data.segmentos} barSize={28} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
-                <XAxis dataKey="municipio" tick={{ fontSize: 11, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fontSize: 10, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
-                <Tooltip content={renderTooltipSeg} />
-                <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: 11 }} />
-                {(data.labels || []).map(label => (
-                  <Bar key={label} dataKey={label} stackId="a" fill={COLORES_SEG[label]} name={label}
-                    radius={label === (data.labels?.[data.labels.length - 1]) ? [4, 4, 0, 0] : [0, 0, 0, 0]}>
-                    <LabelList dataKey={label} position="center"
-                      formatter={v => v >= 3 ? v : ""}
-                      style={{ fontSize: 9, fill: "#fff", fontWeight: 700 }} />
-                  </Bar>
-                ))}
-              </BarChart>
-            </ResponsiveContainer>
-          ) : (
-            <div className="h-64 flex items-center justify-center text-slate-300 text-sm">Sin datos para este tipo</div>
-          )}
-        </CardContent>
-      </Card>
+            <SegChart height={300} />
+          </CardContent>
+        </Card>
+        <ChartModal open={modalOpen} onClose={() => setModalOpen(false)} title={`Segmentos de precio · ${tipoProp} · ${tipoOp}`} empresa={empresaNombre} tipoOp={tipoOp}>
+          <SegChart height={500} />
+        </ChartModal>
+      </>
     );
   };
 
@@ -1494,6 +1620,25 @@ const InmobiliariaDashboardPage = () => {
     const stats = mercadoStats;
     const cargando = stats === undefined;
     const [mesMapa, setMesMapa] = useState("Todos");
+    const [coloniaData, setColoniaData] = useState(null);
+    const [coloniaBusqueda, setColoniaBusqueda] = useState("");
+    const [coloniaPagina, setColoniaPagina] = useState(1);
+    const [coloniaOrden, setColoniaOrden] = useState({ col: "total", asc: false });
+    const [coloniaFiltroMunicipio, setColoniaFiltroMunicipio] = useState("");
+    const [coloniaFiltroSegmento, setColoniaFiltroSegmento] = useState("");
+    const [coloniaFiltrosRango, setColoniaFiltrosRango] = useState({ totalMin: "", totalMax: "", precioMin: "", precioMax: "", m2Min: "", m2Max: "", pctMin: "", pctMax: "" });
+    const [coloniaFiltrosExpanded, setColoniaFiltrosExpanded] = useState(false);
+    const COLONIAS_POR_PAG = 20;
+
+    const empresaNombre = session?.empresa || session?.name || "Inmobiliaria";
+
+    useEffect(() => {
+      setColoniaData(null);
+      fetch(`${API}/mercado/colonias?tipo_op=${tipoOp}`)
+        .then(r => r.ok ? r.json() : null)
+        .then(d => setColoniaData(d))
+        .catch(() => {});
+    }, [tipoOp]);
 
     const fmtMXN = (v) => new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 }).format(v);
 
@@ -1564,23 +1709,99 @@ const InmobiliariaDashboardPage = () => {
       ? [...new Set(tiposPorZona.flatMap(z => Object.keys(z).filter(k => k !== "municipio")))]
       : [];
 
-    // Análisis de texto generado desde los datos
+    // Análisis de texto generado desde los datos — elementos estáticos + dinámicos
     const analisisMercado = (() => {
       if (!mercadoDisponible) return null;
-      const top = stats.por_tipo.slice(0, 4);
-      const topZona = stats.por_municipio[0];
-      const precioTop = stats.precio_m2_por_zona[0];
-      const lines = [
-        `En GDL metro hay ${totalMercado.toLocaleString()} propiedades en ${tipoOp}.`,
-        top.map(t => `${t.name}: ${t.total.toLocaleString()}`).join(" · "),
-        topZona ? `La zona con más oferta es ${topZona.name} (${topZona.total.toLocaleString()} props).` : "",
-        precioTop ? `Precio/m² más alto: ${precioTop.name} a $${Math.round(precioTop.precio_m2_avg).toLocaleString()}/m².` : "",
-      ].filter(Boolean);
-      return lines;
+      const tipos = stats.por_tipo;
+      const zonas = stats.por_municipio;
+      const precios = stats.precio_m2_por_zona;
+      const topTipo = tipos[0];
+      const topZona = zonas[0];
+      const zonaBarata = [...(precios || [])].sort((a,b) => a.precio_m2_avg - b.precio_m2_avg)[0];
+      const topPrecio = precios?.[0];
+      const totalTipos = tipos.reduce((s,t) => s + t.total, 0);
+      const pctTop = topTipo ? Math.round(topTipo.total / totalTipos * 100) : 0;
+      const opLabel = tipoOp === "venta" ? "venta" : "renta";
+
+      // Dinámicos: calculados desde coloniaData (cambian con cada scraping)
+      const colonias = coloniaData?.colonias ?? [];
+      const medianaPrecioM2 = (() => {
+        const vals = colonias.map(c => c.precio_m2_avg).filter(Boolean).sort((a,b)=>a-b);
+        return vals.length ? vals[Math.floor(vals.length/2)] : 0;
+      })();
+      const oportunidades = colonias
+        .filter(c => c.total >= 10 && c.precio_m2_avg && c.precio_m2_avg < medianaPrecioM2 * 0.75)
+        .sort((a,b) => b.total - a.total)
+        .slice(0, 3);
+      const topColoniaPct = colonias[0] ? (colonias[0].total / totalMercado * 100).toFixed(1) : 0;
+      const precioSpread = topPrecio && zonaBarata && zonaBarata.name !== topPrecio.name
+        ? Math.round((topPrecio.precio_m2_avg - zonaBarata.precio_m2_avg) / zonaBarata.precio_m2_avg * 100)
+        : 0;
+      const tiposActivos = tipos.filter(t => t.total > 0).length;
+      const diversidad = tiposActivos >= 5 ? "alta" : tiposActivos >= 3 ? "media" : "baja";
+
+      // Tendencia de valuaciones empresa (últimos 2 meses)
+      const ultimosMeses = tendencia.slice(-2);
+      const tendDir = ultimosMeses.length === 2
+        ? (ultimosMeses[1].empresa > ultimosMeses[0].empresa ? "al alza ↑" : ultimosMeses[1].empresa < ultimosMeses[0].empresa ? "a la baja ↓" : "estable →")
+        : "sin datos";
+
+      return [
+        { titulo: "Panorama general", texto: `El mercado de ${opLabel} en GDL metro registra ${totalMercado.toLocaleString()} propiedades activas al ${new Date().toLocaleDateString("es-MX",{month:"long",year:"numeric"})}. La oferta se concentra en ${zonas.slice(0,3).map(z=>z.name).join(", ")}.` },
+        { titulo: "Tipo predominante", texto: topTipo ? `${topTipo.name} lidera con ${topTipo.total.toLocaleString()} unidades (${pctTop}% del total). ${tipos[1] ? `Le siguen ${tipos[1].name} (${tipos[1].total.toLocaleString()}) y ${tipos[2]?.name || ""} (${tipos[2]?.total.toLocaleString() || 0}).` : ""} Diversidad de oferta: ${diversidad} (${tiposActivos} tipos activos).` : "" },
+        { titulo: "Zona más activa", texto: topZona ? `${topZona.name} concentra ${topZona.total.toLocaleString()} propiedades${topZona.precio_m2_avg ? ` · $${Math.round(topZona.precio_m2_avg).toLocaleString()}/m²` : ""}. La colonia ${colonias[0]?.colonia || "—"} es la más activa con ${colonias[0]?.total || 0} propiedades (${topColoniaPct}% del mercado).` : "" },
+        { titulo: "Precio/m² y spread", texto: topPrecio ? `${topPrecio.name} tiene el precio más alto: $${Math.round(topPrecio.precio_m2_avg).toLocaleString()}/m²${zonaBarata && zonaBarata.name !== topPrecio.name ? `. La más accesible es ${zonaBarata.name} a $${Math.round(zonaBarata.precio_m2_avg).toLocaleString()}/m²` : ""}${precioSpread > 0 ? ` — diferencia del ${precioSpread}% entre zonas extremas.` : "."}` : "" },
+        { titulo: "Oportunidades detectadas", texto: oportunidades.length > 0 ? `Colonias con alta oferta y precio/m² por debajo de la mediana ($${medianaPrecioM2.toLocaleString()}/m²): ${oportunidades.map(c => `${c.colonia} (${c.total} props · $${c.precio_m2_avg?.toLocaleString()}/m²)`).join(", ")}.` : `Sin colonias con precio/m² significativamente por debajo de la mediana ($${medianaPrecioM2.toLocaleString()}/m²).` },
+        { titulo: "Pulso del mes", texto: `Tus valuaciones van ${tendDir} respecto al mes anterior. El segmento de mayor volumen en ${tipoOp} es ${topTipo?.name || "—"} con ${topTipo?.total.toLocaleString() || 0} unidades. La mediana de precio/m² en GDL metro es $${medianaPrecioM2.toLocaleString()}/m².` },
+      ].filter(p => p.texto);
     })();
 
     const COLORS = ["#1B4332", "#52B788", "#D9ED92", "#74C69D", "#40916C"];
     const TIPO_COLORS = { Casa: "#1B4332", Departamento: "#52B788", Terreno: "#95B849", Local: "#F4A261", Bodega: "#9B5DE5", Oficina: "#00BBF9", Otro: "#94a3b8" };
+
+    const exportarPDF = async (orientacion = "landscape") => {
+      const { default: jsPDF } = await import("jspdf");
+      const { default: html2canvas } = await import("html2canvas");
+      const doc = new jsPDF({ orientation, unit: "mm", format: "letter" });
+      const W = orientacion === "landscape" ? 279 : 216;
+      const H = orientacion === "landscape" ? 216 : 279;
+      let y = 0;
+
+      // Portada
+      doc.setFillColor(27, 67, 50);
+      doc.rect(0, 0, W, 40, "F");
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(22); doc.setFont("helvetica", "bold");
+      doc.text("PropValu — Análisis de Mercado", W/2, 18, { align: "center" });
+      doc.setFontSize(11); doc.setFont("helvetica", "normal");
+      doc.text(`${empresaNombre} · ${tipoOp.charAt(0).toUpperCase()+tipoOp.slice(1)} · GDL metro · ${new Date().toLocaleDateString("es-MX",{day:"2-digit",month:"long",year:"numeric"})}`, W/2, 30, { align: "center" });
+      y = 50;
+
+      const secciones = document.querySelectorAll("[data-pdf-section]");
+      for (const sec of secciones) {
+        try {
+          const canvas = await html2canvas(sec, { scale: 1.5, useCORS: true, backgroundColor: "#ffffff" });
+          const imgData = canvas.toDataURL("image/png");
+          const ratio = canvas.width / canvas.height;
+          const imgW = W - 20;
+          const imgH = imgW / ratio;
+          if (y + imgH > H - 15) { doc.addPage(); y = 10; }
+          doc.addImage(imgData, "PNG", 10, y, imgW, imgH);
+          y += imgH + 6;
+        } catch(e) { /* skip */ }
+      }
+
+      // Footer en cada página
+      const totalPages = doc.getNumberOfPages();
+      for (let i = 1; i <= totalPages; i++) {
+        doc.setPage(i);
+        doc.setFontSize(7); doc.setTextColor(150);
+        doc.text(`PropValu · ${empresaNombre} · Pág ${i}/${totalPages}`, W/2, H-5, { align: "center" });
+      }
+
+      doc.save(`mercado-gdl-${empresaNombre.toLowerCase().replace(/\s+/g,"-")}-${new Date().toISOString().slice(0,10)}.pdf`);
+    };
+
     const renderTooltip = ({ active, payload, label }) => {
       if (!active || !payload?.length) return null;
       return (
@@ -1595,27 +1816,188 @@ const InmobiliariaDashboardPage = () => {
       );
     };
 
-    const sectionTitle = (icon, title, subtitle) => (
-      <div className="flex items-center gap-3 mb-4">
-        <div className="w-9 h-9 rounded-xl bg-[#1B4332]/10 flex items-center justify-center shrink-0">
-          {icon}
-        </div>
-        <div>
-          <p className="text-sm font-bold text-[#1B4332]">{title}</p>
-          {subtitle && <p className="text-[11px] text-slate-400">{subtitle}</p>}
-        </div>
-      </div>
-    );
-
     if (cargando) return (
       <div className="flex items-center justify-center py-20 text-slate-400 text-sm gap-2">
         <RefreshCw className="w-4 h-4 animate-spin" /> Cargando datos de mercado…
       </div>
     );
 
+    // Tabla de colonias — filtrado + ordenamiento + paginación
+    const TIPOS_COL = coloniaData?.tipos ?? ["Casa","Departamento","Terreno","Local","Bodega","Oficina"];
+
+    const getSegmento = (precio) => {
+      if (!precio) return "Sin dato";
+      if (tipoOp === "venta") {
+        if (precio < 1_000_000) return "Económico";
+        if (precio < 3_000_000) return "Medio";
+        if (precio < 7_000_000) return "Medio-Alto";
+        if (precio < 15_000_000) return "Alto";
+        return "Premium";
+      } else {
+        if (precio < 5_000) return "Económico";
+        if (precio < 12_000) return "Medio";
+        if (precio < 25_000) return "Medio-Alto";
+        if (precio < 50_000) return "Alto";
+        return "Premium";
+      }
+    };
+    const SEGMENTO_COLORS = { "Económico": "#52B788", "Medio": "#1B4332", "Medio-Alto": "#F4A261", "Alto": "#9B5DE5", "Premium": "#E63946", "Sin dato": "#94a3b8" };
+
+    const municipiosUnicos = [...new Set((coloniaData?.colonias ?? []).map(r => r.municipio))].sort();
+
+    const coloniasFiltradas = (() => {
+      let rows = coloniaData?.colonias ?? [];
+      if (coloniaBusqueda) rows = rows.filter(r => r.colonia.includes(coloniaBusqueda.toLowerCase()) || r.municipio.toLowerCase().includes(coloniaBusqueda.toLowerCase()));
+      if (coloniaFiltroMunicipio) rows = rows.filter(r => r.municipio === coloniaFiltroMunicipio);
+      if (coloniaFiltroSegmento) rows = rows.filter(r => getSegmento(r.precio_avg) === coloniaFiltroSegmento);
+      const { totalMin, totalMax, precioMin, precioMax, m2Min, m2Max, pctMin, pctMax } = coloniaFiltrosRango;
+      if (totalMin !== "") rows = rows.filter(r => r.total >= Number(totalMin));
+      if (totalMax !== "") rows = rows.filter(r => r.total <= Number(totalMax));
+      if (precioMin !== "") rows = rows.filter(r => (r.precio_avg || 0) >= Number(precioMin) * 1000);
+      if (precioMax !== "") rows = rows.filter(r => (r.precio_avg || 0) <= Number(precioMax) * 1000);
+      if (m2Min !== "") rows = rows.filter(r => (r.precio_m2_avg || 0) >= Number(m2Min));
+      if (m2Max !== "") rows = rows.filter(r => (r.precio_m2_avg || 0) <= Number(m2Max));
+      if (pctMin !== "") rows = rows.filter(r => r.pct >= Number(pctMin));
+      if (pctMax !== "") rows = rows.filter(r => r.pct <= Number(pctMax));
+      const { col, asc } = coloniaOrden;
+      rows = [...rows].sort((a,b) => {
+        const av = col === "segmento" ? (a.precio_avg ?? 0) : (a[col] ?? 0);
+        const bv = col === "segmento" ? (b.precio_avg ?? 0) : (b[col] ?? 0);
+        return asc ? av - bv : bv - av;
+      });
+      return rows;
+    })();
+    const totalPaginas = Math.ceil(coloniasFiltradas.length / COLONIAS_POR_PAG);
+    const coloniasPagina = coloniasFiltradas.slice((coloniaPagina-1)*COLONIAS_POR_PAG, coloniaPagina*COLONIAS_POR_PAG);
+    const ordenar = (col) => { setColoniaOrden(o => ({ col, asc: o.col === col ? !o.asc : false })); setColoniaPagina(1); };
+
+    const GrafTiposMunicipio = ({ height = 280 }) => tiposPorZona.length > 0 ? (
+      <ResponsiveContainer width="100%" height={height}>
+        <BarChart data={tiposPorZona} barSize={32} margin={{ top: 14, right: 16, left: -4, bottom: 4 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+          <XAxis dataKey="municipio" tick={{ fontSize: 11, fill: "#64748b" }} axisLine={false} tickLine={false} tickFormatter={v => v.charAt(0).toUpperCase()+v.slice(1).split(" ")[0]} />
+          <YAxis tick={{ fontSize: 10, fill: "#94a3b8" }} axisLine={false} tickLine={false} tickFormatter={v => v >= 1000 ? `${(v/1000).toFixed(0)}k` : v} />
+          <Tooltip content={renderTooltip} />
+          <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: 12 }} />
+          {tiposUnicos.map(tipo => (
+            <Bar key={tipo} dataKey={tipo} stackId="a" fill={TIPO_COLORS[tipo] || "#94a3b8"} name={tipo}
+              radius={tipo === tiposUnicos[tiposUnicos.length-1] ? [5,5,0,0] : [0,0,0,0]}>
+              <LabelList dataKey={tipo} position="center" formatter={v => v >= 150 ? v.toLocaleString() : ""} style={{ fontSize: 10, fill: "#fff", fontWeight: 700 }} />
+            </Bar>
+          ))}
+        </BarChart>
+      </ResponsiveContainer>
+    ) : <div className="flex items-center justify-center text-slate-300 text-xs" style={{height}}>Sin datos de mercado</div>;
+
+    const GrafPie = ({ height = 220 }) => (
+      <ResponsiveContainer width="100%" height={height}>
+        <PieChart>
+          <Pie data={mercadoDisponible ? porZonaMercado : porZona} cx="50%" cy="50%" innerRadius={60} outerRadius={90} dataKey="value" nameKey="name" paddingAngle={3}>
+            {(mercadoDisponible ? porZonaMercado : porZona).map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
+          </Pie>
+          <Tooltip content={renderTooltip} />
+          <Legend iconType="circle" iconSize={9} wrapperStyle={{ fontSize: 12 }} />
+        </PieChart>
+      </ResponsiveContainer>
+    );
+
+    const GrafTendencia = ({ height = 200 }) => (
+      <ResponsiveContainer width="100%" height={height}>
+        <AreaChart data={tendencia} margin={{ top: 14, right: 16, left: -10, bottom: 0 }}>
+          <defs>
+            <linearGradient id="gradMercado" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#D9ED92" stopOpacity={0.6} /><stop offset="95%" stopColor="#D9ED92" stopOpacity={0} />
+            </linearGradient>
+            <linearGradient id="gradEmpresa" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#52B788" stopOpacity={0.7} /><stop offset="95%" stopColor="#52B788" stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+          <XAxis dataKey="mes" tick={{ fontSize: 11, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
+          <YAxis tick={{ fontSize: 10, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
+          <Tooltip content={renderTooltip} />
+          <Legend iconType="circle" iconSize={9} wrapperStyle={{ fontSize: 12 }} />
+          <Area type="monotone" dataKey="empresa" name="Valuaciones" stroke="#52B788" fill="url(#gradEmpresa)" strokeWidth={2.5} dot={{ r: 3, fill: "#52B788" }}>
+            <LabelList dataKey="empresa" position="top" formatter={v => v || ""} style={{ fontSize: 10, fill: "#1B4332", fontWeight: 700 }} />
+          </Area>
+        </AreaChart>
+      </ResponsiveContainer>
+    );
+
+    const GrafTipos = ({ height = 180 }) => (
+      <ResponsiveContainer width="100%" height={height}>
+        <BarChart data={mercadoDisponible ? porTipoMercado : porTipo} barSize={32} margin={{ top: 14, right: 8, left: -10, bottom: 0 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+          <XAxis dataKey="name" tick={{ fontSize: 10, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
+          <YAxis tick={{ fontSize: 10, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
+          <Tooltip content={renderTooltip} />
+          <Bar dataKey="value" name="Propiedades" radius={[5,5,0,0]}>
+            {(mercadoDisponible ? porTipoMercado : porTipo).map(d => <Cell key={d.name} fill={TIPO_COLORS[d.name] || "#74C69D"} />)}
+            <LabelList dataKey="value" position="top" style={{ fontSize: 10, fill: "#64748b", fontWeight: 600 }} />
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+    );
+
+    const GrafPrecioM2 = ({ height = 180 }) => (
+      <ResponsiveContainer width="100%" height={height}>
+        <BarChart data={precioM2Zonas} barSize={14} margin={{ top: 14, right: 8, left: -10, bottom: 0 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+          <XAxis dataKey="zona" tick={{ fontSize: 10, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
+          <YAxis tickFormatter={v => `$${(v/1000).toFixed(0)}k`} tick={{ fontSize: 10, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
+          <Tooltip content={renderTooltip} />
+          <Legend iconType="circle" iconSize={9} wrapperStyle={{ fontSize: 12 }} />
+          <Bar dataKey="empresa" name="Mi empresa" fill="#52B788" radius={[4,4,0,0]}>
+            <LabelList dataKey="empresa" position="top" formatter={v => v ? `$${(v/1000).toFixed(0)}k` : ""} style={{ fontSize: 9, fill: "#64748b", fontWeight: 600 }} />
+          </Bar>
+          <Bar dataKey="mercado" name={`Mercado GDL`} fill="#D9ED92" radius={[4,4,0,0]}>
+            <LabelList dataKey="mercado" position="top" formatter={v => v ? `$${(v/1000).toFixed(0)}k` : ""} style={{ fontSize: 9, fill: "#64748b", fontWeight: 600 }} />
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+    );
+
+    const MapaValuacionesContent = ({ height = 280 }) => {
+      const mesesDisponibles = ["Todos", ...Array.from(new Set(puntosEmpresa.map(p => p.fecha?.split(" ").slice(1).join(" ")).filter(Boolean)))];
+      const puntosFiltrados = mesMapa === "Todos" ? puntosEmpresa : puntosEmpresa.filter(p => p.fecha?.split(" ").slice(1).join(" ") === mesMapa);
+      return (
+        <>
+          <div className="flex flex-wrap gap-1 mb-3">
+            {mesesDisponibles.map(m => (
+              <button key={m} onClick={() => setMesMapa(m)}
+                className={`px-2.5 py-1 rounded-lg text-[10px] font-semibold transition-colors ${mesMapa === m ? "bg-[#1B4332] text-white" : "bg-slate-100 text-slate-500 hover:bg-slate-200"}`}>{m}</button>
+            ))}
+            <span className="ml-auto text-[10px] text-slate-400 self-center">{puntosFiltrados.length} valuaciones</span>
+          </div>
+          <div className="rounded-xl overflow-hidden" style={{ height }}>
+            <MapContainer center={[20.659, -103.349]} zoom={11} style={{ height: "100%", width: "100%" }} scrollWheelZoom={false}>
+              <TileLayer attribution='&copy; OpenStreetMap' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+              {puntosFiltrados.map(p => (
+                <CircleMarker key={p.id} center={[p.lat, p.lng]} radius={8}
+                  pathOptions={{ fillColor: p.estado === "completada" ? "#52B788" : "#D9ED92", color: "#1B4332", weight: 1.5, fillOpacity: 0.85 }}>
+                  <Popup>
+                    <div className="text-xs">
+                      <p className="font-bold">{p.tipo}</p>
+                      <p className="text-slate-500">{p.direccion.split(",")[0]}</p>
+                      <p className="text-slate-400">{p.fecha}</p>
+                      {p.valor > 0 && <p className="text-[#1B4332] font-semibold mt-1">{fmtMXN(p.valor)}</p>}
+                    </div>
+                  </Popup>
+                </CircleMarker>
+              ))}
+            </MapContainer>
+          </div>
+          <div className="flex items-center gap-4 mt-2">
+            <span className="flex items-center gap-1.5 text-[11px] text-slate-500"><span className="w-3 h-3 rounded-full bg-[#52B788] inline-block"/>Completada</span>
+            <span className="flex items-center gap-1.5 text-[11px] text-slate-500"><span className="w-3 h-3 rounded-full bg-[#D9ED92] border border-slate-300 inline-block"/>En proceso</span>
+          </div>
+        </>
+      );
+    };
+
     return (
-      <div className="space-y-6">
-        {/* Toggle venta/renta */}
+      <div className="space-y-5" id="mercado-pdf-root">
+        {/* Header con toggle + botón PDF */}
         <div className="flex items-center justify-between">
           <div>
             <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide">Inteligencia de mercado</p>
@@ -1623,27 +2005,34 @@ const InmobiliariaDashboardPage = () => {
               {mercadoDisponible ? `${totalMercado.toLocaleString()} propiedades · GDL metro` : "Datos de tus valuaciones · mercado en construcción"}
             </p>
           </div>
-          <div className="flex rounded-xl border border-slate-200 overflow-hidden">
-            {["venta", "renta"].map(op => (
-              <button key={op} onClick={() => setTipoOp(op)}
-                className={`px-4 py-1.5 text-xs font-semibold capitalize transition-colors ${tipoOp === op ? "bg-[#1B4332] text-white" : "bg-white text-slate-500 hover:bg-slate-50"}`}>
-                {op}
+          <div className="flex items-center gap-2">
+            <div className="flex rounded-xl border border-slate-200 overflow-hidden">
+              {["venta","renta"].map(op => (
+                <button key={op} onClick={() => setTipoOp(op)}
+                  className={`px-4 py-1.5 text-xs font-semibold capitalize transition-colors ${tipoOp === op ? "bg-[#1B4332] text-white" : "bg-white text-slate-500 hover:bg-slate-50"}`}>{op}</button>
+              ))}
+            </div>
+            <div className="flex gap-1">
+              <button onClick={() => exportarPDF("landscape")} title="PDF horizontal"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 text-[11px] font-semibold text-slate-600 hover:bg-slate-50 transition-colors">
+                <Download className="w-3.5 h-3.5"/> PDF H
               </button>
-            ))}
+              <button onClick={() => exportarPDF("portrait")} title="PDF vertical"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 text-[11px] font-semibold text-slate-600 hover:bg-slate-50 transition-colors">
+                <Download className="w-3.5 h-3.5"/> PDF V
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* KPIs resumen */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* KPIs */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4" data-pdf-section>
           {[
-            { label: "Mis valuaciones",  value: valuacionesList.length, suffix: "propiedades",  color: "text-[#1B4332]" },
-            { label: "Valor promedio",   value: fmtMXN(valorPromedio),  suffix: "por propiedad", color: "text-[#1B4332]" },
-            { label: "Zona más activa",  value: (mercadoDisponible ? porZonaMercado : porZona).sort((a,b)=>b.value-a.value)[0]?.name || "—", suffix: "más propiedades", color: "text-[#52B788]" },
-            { label: mercadoDisponible ? "Mercado GDL" : "Mercado",
-              value: mercadoDisponible ? totalMercado.toLocaleString() : "—",
-              suffix: mercadoDisponible ? `propiedades en ${tipoOp}` : "Datos de mercado pendientes",
-              color: "text-slate-600" },
-          ].map((k, i) => (
+            { label: "Mis valuaciones", value: valuacionesList.length, suffix: "propiedades", color: "text-[#1B4332]" },
+            { label: "Valor promedio", value: fmtMXN(valorPromedio), suffix: "por propiedad", color: "text-[#1B4332]" },
+            { label: "Zona más activa", value: (mercadoDisponible ? porZonaMercado : porZona).sort((a,b)=>b.value-a.value)[0]?.name || "—", suffix: "más propiedades", color: "text-[#52B788]" },
+            { label: "Mercado GDL", value: mercadoDisponible ? totalMercado.toLocaleString() : "—", suffix: mercadoDisponible ? `propiedades en ${tipoOp}` : "Datos pendientes", color: "text-slate-600" },
+          ].map((k,i) => (
             <Card key={i} className="bg-white border-0 shadow-sm">
               <CardContent className="p-5">
                 <p className="text-[10px] text-slate-400 uppercase tracking-wide mb-1">{k.label}</p>
@@ -1654,230 +2043,284 @@ const InmobiliariaDashboardPage = () => {
           ))}
         </div>
 
-        {/* Mapa + Zonas */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <Card className="bg-white border-0 shadow-sm lg:col-span-2">
-            <CardContent className="p-5">
-              {(() => {
-                const mesesDisponibles = ["Todos", ...Array.from(new Set(
-                  puntosEmpresa.map(p => p.fecha?.split(" ").slice(1).join(" ")).filter(Boolean)
-                ))];
-                const puntosFiltrados = mesMapa === "Todos"
-                  ? puntosEmpresa
-                  : puntosEmpresa.filter(p => p.fecha?.split(" ").slice(1).join(" ") === mesMapa);
-                return (
-                  <>
-                    <div className="flex items-start justify-between gap-3 mb-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-xl bg-[#1B4332]/10 flex items-center justify-center shrink-0">
-                          <Map className="w-4 h-4 text-[#1B4332]" />
-                        </div>
-                        <div>
-                          <p className="text-sm font-bold text-[#1B4332]">Mapa de valuaciones</p>
-                          <p className="text-[11px] text-slate-400">{puntosFiltrados.length} valuaciones · {mesMapa}</p>
-                        </div>
-                      </div>
-                      <div className="flex flex-wrap gap-1 justify-end">
-                        {mesesDisponibles.map(m => (
-                          <button key={m} onClick={() => setMesMapa(m)}
-                            className={`px-2.5 py-1 rounded-lg text-[10px] font-semibold transition-colors ${mesMapa === m ? "bg-[#1B4332] text-white" : "bg-slate-100 text-slate-500 hover:bg-slate-200"}`}>
-                            {m}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="rounded-xl overflow-hidden" style={{ height: 280 }}>
-                      <MapContainer center={[20.659, -103.349]} zoom={11} style={{ height: "100%", width: "100%" }} scrollWheelZoom={false}>
-                        <TileLayer
-                          attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>'
-                          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                        />
-                        {puntosFiltrados.map((p) => (
-                          <CircleMarker key={p.id} center={[p.lat, p.lng]} radius={8}
-                            pathOptions={{ fillColor: p.estado === "completada" ? "#52B788" : "#D9ED92", color: "#1B4332", weight: 1.5, fillOpacity: 0.85 }}>
-                            <Popup>
-                              <div className="text-xs">
-                                <p className="font-bold">{p.tipo}</p>
-                                <p className="text-slate-500">{p.direccion.split(",")[0]}</p>
-                                <p className="text-slate-400">{p.fecha}</p>
-                                {p.valor > 0 && <p className="text-[#1B4332] font-semibold mt-1">{fmtMXN(p.valor)}</p>}
-                              </div>
-                            </Popup>
-                          </CircleMarker>
-                        ))}
-                      </MapContainer>
-                    </div>
-                    <div className="flex items-center gap-4 mt-3">
-                      <span className="flex items-center gap-1.5 text-[11px] text-slate-500">
-                        <span className="w-3 h-3 rounded-full bg-[#52B788] inline-block" />Completada
-                      </span>
-                      <span className="flex items-center gap-1.5 text-[11px] text-slate-500">
-                        <span className="w-3 h-3 rounded-full bg-[#D9ED92] border border-[#1B4332]/20 inline-block" />En proceso
-                      </span>
-                    </div>
-                  </>
-                );
-              })()}
-            </CardContent>
-          </Card>
-
-          <Card className="bg-white border-0 shadow-sm">
-            <CardContent className="p-5">
-              {sectionTitle(<MapPin className="w-4 h-4 text-[#1B4332]" />, mercadoDisponible ? "Zonas de mercado" : "Zonas valuadas", mercadoDisponible ? `${tipoOp} — GDL metro` : "% de tus valuaciones")}
-              <ResponsiveContainer width="100%" height={220}>
-                <PieChart>
-                  <Pie data={mercadoDisponible ? porZonaMercado : porZona} cx="50%" cy="50%" innerRadius={55} outerRadius={85}
-                    dataKey="value" nameKey="name" paddingAngle={3}>
-                    {(mercadoDisponible ? porZonaMercado : porZona).map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
-                  </Pie>
-                  <Tooltip content={renderTooltip} />
-                  <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: 11 }} />
-                </PieChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
+        {/* Fila 1: Mapa (2/3) + Tendencia (1/3) */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4" data-pdf-section>
+          <ChartCard title="Mapa de valuaciones" subtitle={`Tus avalúos · ${mesMapa}`} icon={<Map className="w-4 h-4 text-[#1B4332]"/>} empresa={empresaNombre} className="lg:col-span-2"
+            modalChildren={<MapaValuacionesContent height={480} />}>
+            <MapaValuacionesContent height={280} />
+          </ChartCard>
+          <ChartCard title="Tendencia mensual" subtitle="Valuaciones · últimos 6 meses" icon={<Activity className="w-4 h-4 text-[#1B4332]"/>} empresa={empresaNombre}
+            modalChildren={<GrafTendencia height={480} />}>
+            <GrafTendencia height={280} />
+          </ChartCard>
         </div>
 
-        {/* Tendencia mensual */}
-        <Card className="bg-white border-0 shadow-sm">
-          <CardContent className="p-4">
-            {sectionTitle(<Activity className="w-4 h-4 text-[#1B4332]" />, "Tendencia mensual", "Valuaciones · últimos 6 meses")}
-            <ResponsiveContainer width="100%" height={180}>
-              <AreaChart data={tendencia} margin={{ top: 4, right: 16, left: 0, bottom: 0 }}>
-                <defs>
-                  <linearGradient id="gradMercado" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%"  stopColor="#D9ED92" stopOpacity={0.6} />
-                    <stop offset="95%" stopColor="#D9ED92" stopOpacity={0} />
-                  </linearGradient>
-                  <linearGradient id="gradEmpresa" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%"  stopColor="#52B788" stopOpacity={0.7} />
-                    <stop offset="95%" stopColor="#52B788" stopOpacity={0} />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                <XAxis dataKey="mes" tick={{ fontSize: 11, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
-                <YAxis yAxisId="mercado" orientation="right" tick={{ fontSize: 10, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
-                <YAxis yAxisId="empresa" orientation="left" tick={{ fontSize: 10, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
-                <Tooltip content={renderTooltip} />
-                <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: 11 }} />
-                <Area yAxisId="mercado" type="monotone" dataKey="mercado" name="Plataforma" stroke="#B7E4C7" fill="url(#gradMercado)" strokeWidth={2} dot={false}>
-                  <LabelList dataKey="mercado" position="top" formatter={v => v || ""} style={{ fontSize: 9, fill: "#94a3b8", fontWeight: 600 }} />
-                </Area>
-                <Area yAxisId="empresa" type="monotone" dataKey="empresa" name="Mi empresa" stroke="#52B788" fill="url(#gradEmpresa)" strokeWidth={2.5} dot={{ r: 3, fill: "#52B788" }}>
-                  <LabelList dataKey="empresa" position="top" formatter={v => v || ""} style={{ fontSize: 10, fill: "#1B4332", fontWeight: 700 }} />
-                </Area>
-              </AreaChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-
-        {/* Tipos + Precio/m² — compactos en 3 columnas */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        {/* Fila 2: Análisis de mercado — full width, multi-columna */}
+        <div data-pdf-section>
           <Card className="bg-white border-0 shadow-sm">
-            <CardContent className="p-4">
-              {sectionTitle(<Home className="w-4 h-4 text-[#1B4332]" />, "Tipos de propiedad", mercadoDisponible ? `${tipoOp}` : "Tus avalúos")}
-              <ResponsiveContainer width="100%" height={160}>
-                <BarChart data={mercadoDisponible ? porTipoMercado : porTipo} barSize={28} margin={{ top: 12, right: 8, left: -20, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
-                  <XAxis dataKey="name" tick={{ fontSize: 9, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
-                  <YAxis tick={{ fontSize: 9, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
-                  <Tooltip content={renderTooltip} />
-                  <Bar dataKey="value" name="Propiedades" radius={[4, 4, 0, 0]}>
-                    {(mercadoDisponible ? porTipoMercado : porTipo).map((d) => <Cell key={d.name} fill={TIPO_COLORS[d.name] || "#74C69D"} />)}
-                    <LabelList dataKey="value" position="top" style={{ fontSize: 9, fill: "#64748b", fontWeight: 600 }} />
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-white border-0 shadow-sm">
-            <CardContent className="p-4">
-              {sectionTitle(<Building className="w-4 h-4 text-[#1B4332]" />, "Precio/m² por zona", mercadoDisponible ? `${tipoOp} (MXN/m²)` : "Sin datos aún")}
-              <ResponsiveContainer width="100%" height={160}>
-                <BarChart data={precioM2Zonas} barSize={12} margin={{ top: 12, right: 8, left: -20, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
-                  <XAxis dataKey="zona" tick={{ fontSize: 9, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
-                  <YAxis tickFormatter={v => `$${(v/1000).toFixed(0)}k`} tick={{ fontSize: 9, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
-                  <Tooltip content={renderTooltip} />
-                  <Legend iconType="circle" iconSize={7} wrapperStyle={{ fontSize: 10 }} />
-                  <Bar dataKey="empresa" name="Mi empresa" fill="#52B788" radius={[3, 3, 0, 0]}>
-                    <LabelList dataKey="empresa" position="top" formatter={v => v ? `$${(v/1000).toFixed(0)}k` : ""} style={{ fontSize: 8, fill: "#64748b", fontWeight: 600 }} />
-                  </Bar>
-                  <Bar dataKey="mercado" name="Mercado" fill="#D9ED92" radius={[3, 3, 0, 0]}>
-                    <LabelList dataKey="mercado" position="top" formatter={v => v ? `$${(v/1000).toFixed(0)}k` : ""} style={{ fontSize: 8, fill: "#64748b", fontWeight: 600 }} />
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
-
-          {/* Análisis en texto */}
-          <Card className="bg-white border-0 shadow-sm">
-            <CardContent className="p-4">
-              {sectionTitle(<Activity className="w-4 h-4 text-[#1B4332]" />, "Análisis de mercado", tipoOp)}
+            <CardContent className="p-5">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-8 rounded-xl bg-[#1B4332]/10 flex items-center justify-center shrink-0">
+                  <Activity className="w-4 h-4 text-[#1B4332]"/>
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <p className="text-sm font-bold text-[#1B4332]">Análisis de mercado</p>
+                    {mercadoDisponible && <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full uppercase ${tipoOp==="venta"?"bg-[#1B4332] text-white":"bg-blue-600 text-white"}`}>{tipoOp}</span>}
+                  </div>
+                  <p className="text-[10px] text-slate-400">GDL metro · Jalisco · {new Date().toLocaleDateString("es-MX",{month:"long",year:"numeric"})}</p>
+                </div>
+              </div>
               {analisisMercado ? (
-                <div className="space-y-3">
-                  {analisisMercado.map((line, i) => (
-                    <p key={i} className={`text-[11px] leading-relaxed ${i === 0 ? "font-semibold text-slate-700" : "text-slate-500"}`}>{line}</p>
-                  ))}
-                  <div className="pt-2 border-t border-slate-100 flex flex-wrap gap-1.5">
+                <>
+                  {/* KPI chips row */}
+                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
+                    {[
+                      { label: "Propiedades activas", value: totalMercado.toLocaleString(), icon: "🏘️", color: "#1B4332" },
+                      { label: "Tipo líder", value: stats.por_tipo[0]?.name ?? "—", sub: `${Math.round((stats.por_tipo[0]?.total||0)/totalMercado*100)}% del mercado`, icon: "🏆", color: "#52B788" },
+                      { label: "Zona más activa", value: stats.por_municipio[0]?.name ?? "—", sub: `${stats.por_municipio[0]?.total?.toLocaleString()} props`, icon: "📍", color: "#9B5DE5" },
+                      { label: "Precio/m² top zona", value: stats.precio_m2_por_zona[0]?.precio_m2_avg ? `$${Math.round(stats.precio_m2_por_zona[0].precio_m2_avg).toLocaleString()}` : "—", sub: stats.precio_m2_por_zona[0]?.name, icon: "💰", color: "#F4A261" },
+                    ].map((k,i) => (
+                      <div key={i} className="rounded-xl p-3.5 border border-slate-100" style={{background: k.color+"0d"}}>
+                        <div className="flex items-center gap-2 mb-1.5">
+                          <span className="text-lg leading-none">{k.icon}</span>
+                          <p className="text-[10px] font-bold uppercase tracking-wide text-slate-500">{k.label}</p>
+                        </div>
+                        <p className="text-xl font-bold font-['Outfit']" style={{color: k.color}}>{k.value}</p>
+                        {k.sub && <p className="text-[10px] text-slate-400 mt-0.5">{k.sub}</p>}
+                      </div>
+                    ))}
+                  </div>
+                  {/* Texto en 3 columnas */}
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
+                    {analisisMercado.map((p, i) => (
+                      <div key={i} className="rounded-xl bg-slate-50 p-4">
+                        <p className="text-[10px] font-bold text-[#1B4332] uppercase tracking-wide mb-1.5">{p.titulo}</p>
+                        <p className="text-[12px] leading-relaxed text-slate-600">{p.texto}</p>
+                      </div>
+                    ))}
+                  </div>
+                  {/* Chips de tipos */}
+                  <div className="flex flex-wrap gap-2 pt-3 border-t border-slate-100">
                     {(stats?.por_tipo ?? []).map(t => (
-                      <span key={t.name} className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full font-medium"
-                        style={{ backgroundColor: (TIPO_COLORS[t.name] || "#74C69D") + "22", color: TIPO_COLORS[t.name] || "#74C69D" }}>
-                        <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ backgroundColor: TIPO_COLORS[t.name] || "#74C69D" }} />
+                      <span key={t.name} className="inline-flex items-center gap-1.5 text-[11px] px-3 py-1 rounded-full font-medium"
+                        style={{ backgroundColor: (TIPO_COLORS[t.name]||"#74C69D")+"1a", color: TIPO_COLORS[t.name]||"#74C69D", border: `1px solid ${TIPO_COLORS[t.name]||"#74C69D"}33` }}>
+                        <span className="w-2 h-2 rounded-full inline-block" style={{ backgroundColor: TIPO_COLORS[t.name]||"#74C69D" }}/>
                         {t.name} · {t.total.toLocaleString()}
                       </span>
                     ))}
                   </div>
-                </div>
+                </>
               ) : (
-                <p className="text-[11px] text-slate-400">Conecta datos de mercado para ver el análisis.</p>
+                <p className="text-sm text-slate-400 py-4">Conecta datos de mercado para ver el análisis.</p>
               )}
             </CardContent>
           </Card>
         </div>
 
-        {/* Tipos por zona + Segmentos — lado a lado */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        {/* Fila 3: Tipos + Precio/m² */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4" data-pdf-section>
+          <ChartCard title="Tipos de propiedad" subtitle={mercadoDisponible ? `Mercado · ${tipoOp}` : "Tus avalúos"} icon={<Home className="w-4 h-4 text-[#1B4332]"/>} tipoOp={mercadoDisponible ? tipoOp : null} empresa={empresaNombre}
+            modalChildren={<GrafTipos height={420} />}>
+            <GrafTipos height={220} />
+          </ChartCard>
+          <ChartCard title="Precio/m² por zona" subtitle={mercadoDisponible ? `Mercado · ${tipoOp} · MXN/m²` : "Sin datos aún"} icon={<Building className="w-4 h-4 text-[#1B4332]"/>} tipoOp={mercadoDisponible ? tipoOp : null} empresa={empresaNombre}
+            modalChildren={<GrafPrecioM2 height={420} />}>
+            <GrafPrecioM2 height={220} />
+          </ChartCard>
+        </div>
+
+        {/* Fila 4: Pie zonas (2/5) + Composición municipio (3/5) */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-4" data-pdf-section>
+          <div className="lg:col-span-2">
+            <ChartCard title={mercadoDisponible ? "Zonas de mercado" : "Zonas valuadas"} subtitle={mercadoDisponible ? `${tipoOp} · GDL metro` : "% de tus avalúos"} icon={<MapPin className="w-4 h-4 text-[#1B4332]"/>} tipoOp={mercadoDisponible ? tipoOp : null} empresa={empresaNombre}
+              modalChildren={<GrafPie height={480} />}>
+              <GrafPie height={280} />
+            </ChartCard>
+          </div>
+          <div className="lg:col-span-3">
+            <ChartCard title="Composición por municipio" subtitle={`Tipos de propiedad · ${tipoOp}`} icon={<MapPin className="w-4 h-4 text-[#1B4332]"/>} tipoOp={mercadoDisponible ? tipoOp : null} empresa={empresaNombre}
+              modalChildren={<GrafTiposMunicipio height={460} />}>
+              <GrafTiposMunicipio height={280} />
+            </ChartCard>
+          </div>
+        </div>
+
+        {/* Fila 5: Segmentos */}
+        <div data-pdf-section>
+          <SegmentosMercado tipoOp={tipoOp} empresaNombre={empresaNombre} />
+        </div>
+
+        {/* Mapa de mercado */}
+        <div data-pdf-section>
+          <MapaMercado tipoOp={tipoOp} empresaNombre={empresaNombre} />
+        </div>
+
+        {/* Tabla de colonias */}
+        <div data-pdf-section>
           <Card className="bg-white border-0 shadow-sm">
-            <CardContent className="p-4">
-              {sectionTitle(<MapPin className="w-4 h-4 text-[#1B4332]" />, "Tipos por municipio", `Desglose · ${tipoOp}`)}
-              {tiposPorZona.length > 0 ? (
-                <ResponsiveContainer width="100%" height={200}>
-                  <BarChart data={tiposPorZona} barSize={14} margin={{ top: 12, right: 8, left: -20, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
-                    <XAxis dataKey="municipio" tick={{ fontSize: 9, fill: "#94a3b8" }} axisLine={false} tickLine={false}
-                      tickFormatter={v => v.split(" ")[0]} />
-                    <YAxis tick={{ fontSize: 9, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
-                    <Tooltip content={renderTooltip} />
-                    <Legend iconType="circle" iconSize={7} wrapperStyle={{ fontSize: 10 }} />
-                    {tiposUnicos.map(tipo => (
-                      <Bar key={tipo} dataKey={tipo} stackId="a" fill={TIPO_COLORS[tipo] || "#94a3b8"}
-                        radius={tipo === tiposUnicos[tiposUnicos.length - 1] ? [3, 3, 0, 0] : [0, 0, 0, 0]}>
-                        <LabelList dataKey={tipo} position="center"
-                          formatter={v => v >= 200 ? v.toLocaleString() : ""}
-                          style={{ fontSize: 8, fill: "#fff", fontWeight: 700 }} />
-                      </Bar>
-                    ))}
-                  </BarChart>
-                </ResponsiveContainer>
+            <CardContent className="p-5">
+              {/* Header */}
+              <div className="flex items-start justify-between gap-4 mb-3 flex-wrap">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-xl bg-[#1B4332]/10 flex items-center justify-center shrink-0">
+                    <BarChart2 className="w-4 h-4 text-[#1B4332]"/>
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <p className="text-sm font-bold text-[#1B4332]">Colonias del mercado</p>
+                      {mercadoDisponible && <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full uppercase ${tipoOp==="venta"?"bg-[#1B4332] text-white":"bg-blue-600 text-white"}`}>{tipoOp}</span>}
+                    </div>
+                    <p className="text-xs text-slate-400">{coloniaData ? `${coloniasFiltradas.length} colonias · propiedades por tipo y precio` : "Cargando..."}</p>
+                  </div>
+                </div>
+                {/* Filtros rápidos */}
+                <div className="flex flex-wrap items-center gap-2">
+                  <div className="relative">
+                    <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2"/>
+                    <input value={coloniaBusqueda} onChange={e => { setColoniaBusqueda(e.target.value); setColoniaPagina(1); }}
+                      placeholder="Buscar colonia..." className="pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-lg w-40 focus:outline-none focus:ring-1 focus:ring-[#52B788]"/>
+                  </div>
+                  <select value={coloniaFiltroMunicipio} onChange={e => { setColoniaFiltroMunicipio(e.target.value); setColoniaPagina(1); }}
+                    className="py-1.5 px-2.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-[#52B788] text-slate-600">
+                    <option value="">Todos municipios</option>
+                    {municipiosUnicos.map(m => <option key={m} value={m}>{m.charAt(0).toUpperCase()+m.slice(1)}</option>)}
+                  </select>
+                  <select value={coloniaFiltroSegmento} onChange={e => { setColoniaFiltroSegmento(e.target.value); setColoniaPagina(1); }}
+                    className="py-1.5 px-2.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-[#52B788] text-slate-600">
+                    <option value="">Todos segmentos</option>
+                    {["Económico","Medio","Medio-Alto","Alto","Premium"].map(s => <option key={s} value={s}>{s}</option>)}
+                  </select>
+                  <button onClick={() => setColoniaFiltrosExpanded(v => !v)}
+                    className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border transition-colors ${coloniaFiltrosExpanded?"border-[#52B788] text-[#1B4332] bg-[#52B788]/10":"border-slate-200 text-slate-500 hover:bg-slate-50"}`}>
+                    <ArrowUpDown className="w-3 h-3"/> Rangos
+                  </button>
+                  {(coloniaFiltroMunicipio || coloniaFiltroSegmento || coloniaBusqueda ||
+                    Object.values(coloniaFiltrosRango).some(v => v !== "")) && (
+                    <button onClick={() => { setColoniaFiltroMunicipio(""); setColoniaFiltroSegmento(""); setColoniaBusqueda(""); setColoniaPagina(1); setColoniaFiltrosRango({ totalMin:"",totalMax:"",precioMin:"",precioMax:"",m2Min:"",m2Max:"",pctMin:"",pctMax:"" }); }}
+                      className="text-xs text-red-400 hover:text-red-600 px-2 py-1.5 rounded-lg border border-red-100 hover:bg-red-50 transition-colors">
+                      Limpiar todo
+                    </button>
+                  )}
+                </div>
+              </div>
+              {/* Panel de filtros por rango */}
+              {coloniaFiltrosExpanded && (
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
+                  {[
+                    { label: "Total props (min–max)", k1: "totalMin", k2: "totalMax", placeholder: "ej. 5" },
+                    { label: "Precio avg (miles MXN, min–max)", k1: "precioMin", k2: "precioMax", placeholder: "ej. 1500" },
+                    { label: "Precio/m² (MXN, min–max)", k1: "m2Min", k2: "m2Max", placeholder: "ej. 5000" },
+                    { label: "% mercado (min–max)", k1: "pctMin", k2: "pctMax", placeholder: "ej. 0.5" },
+                  ].map(({ label, k1, k2, placeholder }) => (
+                    <div key={k1}>
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1">{label}</p>
+                      <div className="flex gap-1">
+                        <input type="number" placeholder="Min" value={coloniaFiltrosRango[k1]}
+                          onChange={e => { setColoniaFiltrosRango(r => ({...r, [k1]: e.target.value})); setColoniaPagina(1); }}
+                          className="w-full py-1 px-2 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-[#52B788]"/>
+                        <input type="number" placeholder="Max" value={coloniaFiltrosRango[k2]}
+                          onChange={e => { setColoniaFiltrosRango(r => ({...r, [k2]: e.target.value})); setColoniaPagina(1); }}
+                          className="w-full py-1 px-2 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-[#52B788]"/>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {coloniaData ? (
+                <>
+                  {/* Tabla con scroll horizontal y primera columna sticky */}
+                  <div className="overflow-x-auto rounded-xl border border-slate-100">
+                    <table className="text-[11px]" style={{ minWidth: "900px", width: "100%" }}>
+                      <thead>
+                        <tr className="bg-[#1B4332] text-white">
+                          {/* Primera columna sticky */}
+                          <th className="sticky left-0 z-20 bg-[#1B4332] px-3 py-2.5 text-left font-semibold cursor-pointer hover:bg-[#2D6A4F] select-none whitespace-nowrap"
+                            onClick={() => ordenar("colonia")}>
+                            <span className="flex items-center gap-1">Colonia<ArrowUpDown className="w-3 h-3 opacity-60"/></span>
+                          </th>
+                          {[["municipio","Municipio"],["total","Total"],
+                            ...TIPOS_COL.map(t=>[t,t]),
+                            ["precio_avg","Precio avg MXN"],["precio_m2_avg","Precio/m² MXN"],["segmento","Segmento"],["pct","% mercado"]].map(([col,label]) => (
+                            <th key={col} className="px-3 py-2.5 text-left font-semibold cursor-pointer hover:bg-[#2D6A4F] select-none whitespace-nowrap"
+                              onClick={() => ordenar(col)}>
+                              <span className="flex items-center gap-1">{label}<ArrowUpDown className="w-3 h-3 opacity-60"/></span>
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {coloniasPagina.map((r, i) => {
+                          const seg = getSegmento(r.precio_avg);
+                          const segColor = SEGMENTO_COLORS[seg] || "#94a3b8";
+                          const rowBg = i%2===0 ? "bg-white" : "bg-slate-50/60";
+                          return (
+                            <tr key={`${r.colonia}-${r.municipio}`} className={rowBg}>
+                              {/* Primera columna sticky */}
+                              <td className={`sticky left-0 z-10 px-3 py-2 font-medium text-slate-700 capitalize whitespace-nowrap border-r border-slate-100 ${rowBg}`}>
+                                {r.colonia}
+                              </td>
+                              <td className="px-3 py-2 text-slate-500 capitalize whitespace-nowrap">{r.municipio}</td>
+                              <td className="px-3 py-2 font-bold text-[#1B4332]">{r.total.toLocaleString()}</td>
+                              {TIPOS_COL.map(t => (
+                                <td key={t} className="px-3 py-2 text-center">
+                                  {r[t] > 0 ? <span className="px-1.5 py-0.5 rounded-md font-semibold" style={{backgroundColor:(TIPO_COLORS[t]||"#94a3b8")+"22",color:TIPO_COLORS[t]||"#94a3b8"}}>{r[t]}</span> : <span className="text-slate-200">—</span>}
+                                </td>
+                              ))}
+                              <td className="px-3 py-2 text-slate-600 whitespace-nowrap">{r.precio_avg ? `$${(r.precio_avg/1000000).toFixed(2)}M` : "—"}</td>
+                              <td className="px-3 py-2 text-slate-600 whitespace-nowrap">{r.precio_m2_avg ? `$${r.precio_m2_avg.toLocaleString()}/m²` : "—"}</td>
+                              <td className="px-3 py-2">
+                                <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold whitespace-nowrap"
+                                  style={{backgroundColor: segColor+"22", color: segColor, border: `1px solid ${segColor}44`}}>
+                                  {seg}
+                                </span>
+                              </td>
+                              <td className="px-3 py-2 text-slate-500">{r.pct}%</td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                  {/* Paginación */}
+                  <div className="flex items-center justify-between mt-4">
+                    <p className="text-sm text-slate-500 font-medium">{coloniasFiltradas.length} colonias · página {coloniaPagina} de {totalPaginas}</p>
+                    <div className="flex items-center gap-2">
+                      <button onClick={() => setColoniaPagina(p => Math.max(1,p-1))} disabled={coloniaPagina===1}
+                        className="flex items-center gap-1.5 px-4 py-2 rounded-xl border border-slate-200 text-sm font-semibold text-slate-600 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-50 hover:border-slate-300 transition-colors">
+                        <ChevronLeft className="w-4 h-4"/> Anterior
+                      </button>
+                      <div className="flex gap-1">
+                        {Array.from({length: Math.min(5, totalPaginas)}, (_, k) => {
+                          const p = Math.max(1, Math.min(totalPaginas - 4, coloniaPagina - 2)) + k;
+                          return p <= totalPaginas ? (
+                            <button key={p} onClick={() => setColoniaPagina(p)}
+                              className={`w-9 h-9 rounded-xl text-sm font-semibold transition-colors ${p===coloniaPagina?"bg-[#1B4332] text-white":"border border-slate-200 text-slate-600 hover:bg-slate-50"}`}>
+                              {p}
+                            </button>
+                          ) : null;
+                        })}
+                      </div>
+                      <button onClick={() => setColoniaPagina(p => Math.min(totalPaginas,p+1))} disabled={coloniaPagina===totalPaginas}
+                        className="flex items-center gap-1.5 px-4 py-2 rounded-xl border border-slate-200 text-sm font-semibold text-slate-600 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-50 hover:border-slate-300 transition-colors">
+                        Siguiente <ChevronRight className="w-4 h-4"/>
+                      </button>
+                    </div>
+                  </div>
+                </>
               ) : (
-                <div className="h-48 flex items-center justify-center text-slate-300 text-xs">Sin datos</div>
+                <div className="flex items-center justify-center py-12 text-slate-300 gap-2">
+                  <RefreshCw className="w-4 h-4 animate-spin"/><span className="text-sm">Cargando colonias...</span>
+                </div>
               )}
             </CardContent>
           </Card>
-
-          <SegmentosMercado tipoOp={tipoOp} />
         </div>
 
-        {/* Mapa de propiedades */}
-        <MapaMercado tipoOp={tipoOp} />
-
-        <p className="text-[11px] text-slate-400 text-center pb-2">
+        <p className="text-[10px] text-slate-300 text-center pb-2">
           {mercadoDisponible
-            ? `Fuente: PropValu Market Data (${totalMercado.toLocaleString()} propiedades) · GDL metro · Jalisco`
-            : "Datos de mercado en actualización · próximamente disponibles"}
+            ? `Fuente: PropValu Market Data · ${totalMercado.toLocaleString()} propiedades · GDL metro · Jalisco`
+            : "Datos de mercado en actualización"}
         </p>
       </div>
     );

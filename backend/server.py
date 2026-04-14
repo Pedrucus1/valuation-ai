@@ -2583,6 +2583,73 @@ async def mercado_mapa(tipo_op: str = "venta", tipo_prop: str = ""):
     return {"puntos": puntos, "total": len(puntos)}
 
 
+@api_router.get("/mercado/colonias")
+async def mercado_colonias(tipo_op: str = "venta"):
+    """
+    Tabla de colonias con desglose por tipo de propiedad.
+    """
+    cached = _cache_get(f"colonias_{tipo_op}")
+    if cached:
+        return cached
+
+    col = db["mercado_props"]
+    TIPOS = ["Casa", "Departamento", "Terreno", "Local", "Bodega", "Oficina"]
+
+    pipeline = [
+        {"$match": {"activo": True, "tipo_operacion": tipo_op, "precio": {"$gt": 0}}},
+        {"$group": {
+            "_id": {"colonia": {"$toLower": "$colonia"}, "tipo": "$tipo_propiedad"},
+            "municipio": {"$first": "$municipio"},
+            "subtotal": {"$sum": 1},
+            "precio_avg": {"$avg": "$precio"},
+            # precio_m2: solo promedia donde precio_m2 > 0 y < 200000
+            "precio_m2_sum": {"$sum": {"$cond": [
+                {"$and": [{"$gt": ["$precio_m2", 0]}, {"$lt": ["$precio_m2", 200000]}]},
+                "$precio_m2", 0
+            ]}},
+            "precio_m2_cnt": {"$sum": {"$cond": [
+                {"$and": [{"$gt": ["$precio_m2", 0]}, {"$lt": ["$precio_m2", 200000]}]},
+                1, 0
+            ]}},
+        }},
+        {"$group": {
+            "_id": "$_id.colonia",
+            "municipio": {"$first": "$municipio"},
+            "total": {"$sum": "$subtotal"},
+            "precio_avg": {"$avg": "$precio_avg"},
+            "precio_m2_sum": {"$sum": "$precio_m2_sum"},
+            "precio_m2_cnt": {"$sum": "$precio_m2_cnt"},
+            "tipos": {"$push": {"tipo": "$_id.tipo", "count": "$subtotal"}},
+        }},
+        {"$match": {"total": {"$gte": 3}}},
+        {"$sort": {"total": -1}},
+        {"$limit": 300},
+    ]
+    rows = await col.aggregate(pipeline).to_list(300)
+    grand_total = sum(r["total"] for r in rows) or 1
+
+    colonias = []
+    for r in rows:
+        tipos_map = {t["tipo"]: t["count"] for t in r.get("tipos", [])}
+        # Limpiar nombre de colonia: quitar ", Municipio" si viene concatenado
+        nombre_col = (r["_id"] or "—").split(",")[0].strip()
+        pm2_cnt = r.get("precio_m2_cnt") or 0
+        pm2_avg = round(r["precio_m2_sum"] / pm2_cnt) if pm2_cnt > 0 else None
+        colonias.append({
+            "colonia": nombre_col,
+            "municipio": r["municipio"] or "—",
+            "total": r["total"],
+            "pct": round(r["total"] / grand_total * 100, 1),
+            "precio_avg": round(r["precio_avg"]) if r.get("precio_avg") else None,
+            "precio_m2_avg": pm2_avg,
+            **{t: tipos_map.get(t, 0) for t in TIPOS},
+        })
+
+    result = {"colonias": colonias, "total": len(colonias), "tipos": TIPOS}
+    _cache_set(f"colonias_{tipo_op}", result)
+    return result
+
+
 @api_router.get("/mercado/segmentos")
 async def mercado_segmentos(tipo_op: str = "venta", tipo_prop: str = "Casa"):
     """
