@@ -1,6 +1,7 @@
 ﻿import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Building2, CheckCircle2, Zap, Crown, Star, CreditCard, Users, Briefcase } from "lucide-react";
+import { API } from "@/App";
 
 /* ─── Plans ─────────────────────────────────────────────── */
 
@@ -253,14 +254,25 @@ export default function ProCheckoutPage() {
 
   const totalWithIva = selectedPlan.price * 1.16;
 
-  const handleSuccess = () => {
-    // Guardar créditos en localStorage (simulado)
+  const handleSuccess = async () => {
+    const credits = selectedPlan.valuations ?? 999;
+    // Persistir plan en el backend
+    try {
+      await fetch(`${API}/auth/plan`, {
+        method: "PUT",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ plan: selectedPlan.id, credits }),
+      });
+    } catch (_) { /* si falla, igual continuamos */ }
+
+    // Actualizar localStorage para reflejo inmediato
     const sessionKey = role === "inmobiliaria" ? "inmobiliaria_session" : "valuador_session";
     const existing = JSON.parse(localStorage.getItem(sessionKey) || "{}");
     localStorage.setItem(sessionKey, JSON.stringify({
       ...existing,
       plan: selectedPlan.id,
-      credits: selectedPlan.valuations ?? 999,
+      credits,
       planLabel: selectedPlan.label,
     }));
     const dashRoute = role === "inmobiliaria" ? "/dashboard/inmobiliaria" : "/dashboard/valuador";

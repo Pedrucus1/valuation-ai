@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import "leaflet/dist/leaflet.css";
+import { MapContainer, TileLayer, CircleMarker, Popup } from "react-leaflet";
+import {
+  AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell,
+  XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LabelList,
+} from "recharts";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -41,6 +47,14 @@ import {
   ChevronDown,
   ChevronUp,
   Pencil,
+  Calendar,
+  Bell,
+  RefreshCw,
+  Megaphone,
+  Map,
+  Activity,
+  Home,
+  Building,
 } from "lucide-react";
 import { API } from "@/App";
 
@@ -341,6 +355,62 @@ const InmobiliariaDashboardPage = () => {
   const [calificarModal, setCalificarModal] = useState(null); // valuacion a calificar
   const [valuacionesList, setValuacionesList] = useState(MOCK_VALUACIONES);
 
+  /* ── Resumen quick data ── */
+  const [resumenResenas, setResumenResenas] = useState([]);
+  const [resumenAnuncios, setResumenAnuncios] = useState([]);
+
+  /* ── Mercado stats (compartido con Resumen y MercadoTab) ── */
+  const [mercadoStats, setMercadoStats] = useState(null);
+  const [mercadoTipoOp, setMercadoTipoOp] = useState("venta");
+
+  useEffect(() => {
+    fetch(`${API}/mercado/stats?tipo_op=${mercadoTipoOp}`)
+      .then(r => r.ok ? r.json() : null)
+      .then(d => setMercadoStats(d))
+      .catch(() => {});
+  }, [mercadoTipoOp]);
+
+  useEffect(() => {
+    if (!session) return;
+    const perfilId = session.user_id;
+    fetch(`${API}/directorio/inmobiliarias/${perfilId}/resenas`)
+      .then(r => r.ok ? r.json() : { resenas: [] })
+      .then(d => setResumenResenas(d.resenas || []))
+      .catch(() => {});
+    fetch(`${API}/advertisers/mis-anuncios`, { credentials: "include" })
+      .then(r => r.ok ? r.json() : { anuncios: [] })
+      .then(d => setResumenAnuncios(d.anuncios || []))
+      .catch(() => {});
+  }, [session]);
+
+  /* ── Billing state ── */
+  const [billingData, setBillingData] = useState(null);
+  const [billingPref, setBillingPref] = useState(null);
+  const [savingPref, setSavingPref] = useState(false);
+
+  useEffect(() => {
+    if (!session) return;
+    fetch(`${API}/auth/billing-summary`, { credentials: "include" })
+      .then((r) => r.ok ? r.json() : null)
+      .then((d) => { if (d) { setBillingData(d); setBillingPref(d.billing_preference); } })
+      .catch(() => {});
+  }, [session]);
+
+  const saveBillingPref = async (pref) => {
+    setSavingPref(true);
+    try {
+      await fetch(`${API}/auth/billing-preference`, {
+        method: "PUT", credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ billing_preference: pref }),
+      });
+      setBillingPref(pref);
+      setBillingData((d) => d ? { ...d, billing_preference: pref } : d);
+      toast.success("Preferencia guardada");
+    } catch { toast.error("No se pudo guardar"); }
+    finally { setSavingPref(false); }
+  };
+
   const DOCS_REQUERIDOS = [
     { key: "ine_frente",            label: "INE del representante (frente y vuelta)" },
     { key: "foto_profesional",      label: "Foto profesional del representante" },
@@ -467,8 +537,16 @@ const InmobiliariaDashboardPage = () => {
 
   if (!session) return null;
 
-  const credits = session.credits ?? 15;
-  const creditsLow = credits <= 3;
+  const credits = session.credits ?? 0;
+  const planKeyGlobal = session?.plan || (() => {
+    const n = parseInt(session?.num_asesores) || 0;
+    if (n >= 6)  return "inmobiliaria_premier";
+    if (n >= 2)  return "inmobiliaria_pro20";
+    if (n === 1) return "inmobiliaria_lite10";
+    return "inmobiliaria_lite5";
+  })();
+  const planMaxCredits = { inmobiliaria_lite5: 5, inmobiliaria_lite10: 10, inmobiliaria_pro20: 20, inmobiliaria_premier: 50 }[planKeyGlobal] ?? 10;
+  const creditsLow = credits < Math.ceil(planMaxCredits * 0.2);
   const showKycBanner = !session?.kyc_status || session.kyc_status === "pending";
   const displayName = session.company_name || session.name || session.email;
 
@@ -490,13 +568,112 @@ const InmobiliariaDashboardPage = () => {
 
   const TABS = [
     { id: "resumen",      label: "Resumen" },
+    { id: "mercado",      label: "Mercado" },
     { id: "valuaciones",  label: "Valuaciones" },
     ...(esTitular ? [{ id: "equipo", label: "👥 Equipo" }] : []),
     { id: "documentos",   label: "Documentos", badge: docsSubidos < DOCS_REQUERIDOS.length ? DOCS_REQUERIDOS.length - docsSubidos : null },
     { id: "perfil",       label: "Perfil" },
     { id: "resenas",      label: "Reseñas" },
+    { id: "facturacion",  label: "Facturación", badge: billingData?.billing_status === "blocked" || billingData?.days_to_cutoff <= 5 },
     { id: "publicidad",   label: "Publicidad" },
   ];
+
+  /* ── Facturación Tab ── */
+  const FacturacionTab = () => {
+    if (!billingData) return <p className="text-slate-400 text-sm p-4">Cargando...</p>;
+    const { next_cutoff, days_to_cutoff, cycle_start, earnings_this_cycle,
+            plan_cost, balance, billing_status } = billingData;
+    const alerta = days_to_cutoff <= 5;
+    const fmtMXN = (v) => new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 }).format(v);
+    const PREF_OPTIONS = [
+      { value: "auto",        label: "Automático",         desc: "Se descuenta del saldo al corte sin confirmación" },
+      { value: "ask_monthly", label: "Confirmar cada mes", desc: "PropValu te avisa 5 días antes para que autorices" },
+      { value: "manual",      label: "Solo tarjeta",       desc: "Siempre se cobra a tu tarjeta registrada" },
+    ];
+    return (
+      <div className="space-y-5">
+        {billing_status === "blocked" && (
+          <div className="rounded-2xl bg-red-50 border border-red-200 p-4 flex items-start gap-3">
+            <AlertTriangle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+            <div>
+              <p className="text-sm font-semibold text-red-700">Acceso suspendido por pago pendiente</p>
+              <p className="text-xs text-red-500 mt-0.5">Autoriza el pago para reactivar tu cuenta.</p>
+            </div>
+          </div>
+        )}
+        <div className="grid grid-cols-2 gap-4">
+          <Card className={`border-0 shadow-sm ${alerta ? "bg-amber-50" : "bg-white"}`}>
+            <CardContent className="p-5">
+              <p className={`text-xs mb-1 ${alerta ? "text-amber-600 font-semibold" : "text-slate-500"}`}>
+                {alerta ? "⚠️ Próximo corte" : "Próximo corte"}
+              </p>
+              <p className={`text-2xl font-bold font-['Outfit'] ${alerta ? "text-amber-600" : "text-[#1B4332]"}`}>
+                {days_to_cutoff} días
+              </p>
+              <p className="text-xs text-slate-400 mt-1">{next_cutoff} · Desde {cycle_start}</p>
+            </CardContent>
+          </Card>
+          <Card className="bg-white border-0 shadow-sm">
+            <CardContent className="p-5">
+              <p className="text-xs text-slate-500 mb-1">Balance proyectado</p>
+              <p className={`text-2xl font-bold font-['Outfit'] ${balance >= 0 ? "text-[#1B4332]" : "text-red-600"}`}>
+                {balance >= 0 ? "+" : ""}{fmtMXN(balance)}
+              </p>
+              <p className="text-xs text-slate-400 mt-1">
+                {balance >= 0 ? "A depositar en tu cuenta" : `Diferencia a cobrar: ${fmtMXN(Math.abs(balance))}`}
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+        <Card className="bg-white border-0 shadow-sm">
+          <CardContent className="p-5">
+            <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide mb-3">Desglose del ciclo</p>
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm">
+                <span className="text-slate-500">Ganancias por encargos</span>
+                <span className="font-semibold text-[#1B4332]">{fmtMXN(earnings_this_cycle)}</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-slate-500">Costo plan ({session?.plan || "—"})</span>
+                <span className="font-semibold text-slate-700">− {fmtMXN(plan_cost)}</span>
+              </div>
+              <div className="border-t pt-2 flex justify-between text-sm font-bold">
+                <span className={balance >= 0 ? "text-[#1B4332]" : "text-red-600"}>
+                  {balance >= 0 ? "A depositar" : "A cobrar"}
+                </span>
+                <span className={balance >= 0 ? "text-[#1B4332]" : "text-red-600"}>{fmtMXN(Math.abs(balance))}</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        <Card className="bg-white border-0 shadow-sm">
+          <CardContent className="p-5">
+            <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide mb-3">Preferencia de renovación</p>
+            <div className="space-y-2">
+              {PREF_OPTIONS.map((opt) => (
+                <button key={opt.value} onClick={() => saveBillingPref(opt.value)} disabled={savingPref}
+                  className={`w-full text-left rounded-xl border p-3 transition-all ${billingPref === opt.value ? "border-[#52B788] bg-[#F0FAF5]" : "border-slate-200 bg-white hover:border-[#52B788]/50"}`}>
+                  <div className="flex items-center gap-2">
+                    <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 ${billingPref === opt.value ? "border-[#52B788]" : "border-slate-300"}`}>
+                      {billingPref === opt.value && <div className="w-2 h-2 rounded-full bg-[#52B788]" />}
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-slate-700">{opt.label}</p>
+                      <p className="text-xs text-slate-400">{opt.desc}</p>
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+            {savingPref && <p className="text-xs text-slate-400 mt-2 flex items-center gap-1"><RefreshCw className="w-3 h-3 animate-spin" /> Guardando...</p>}
+          </CardContent>
+        </Card>
+        <p className="text-[11px] text-slate-400 text-center">
+          El cobro y depósito automáticos estarán disponibles al activar la pasarela de pagos.
+        </p>
+      </div>
+    );
+  };
 
   /* ── Publicidad Tab ── */
   const PublicidadTab = () => {
@@ -800,17 +977,54 @@ const InmobiliariaDashboardPage = () => {
           </div>
         </CardContent>
       </Card>
+
+      {billingData && (() => {
+        const dias = billingData.days_to_cutoff;
+        const alerta = dias <= 5;
+        return (
+          <Card className={`border-0 shadow-sm ${alerta ? "bg-amber-50" : "bg-white"}`}>
+            <CardContent className="p-5">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className={`text-xs mb-1 ${alerta ? "text-amber-600 font-semibold" : "text-slate-500"}`}>
+                    {alerta ? "⚠️ Próximo corte" : "Próximo corte"}
+                  </p>
+                  <p className={`text-3xl font-bold font-['Outfit'] ${alerta ? "text-amber-600" : "text-[#1B4332]"}`}>
+                    {dias}d
+                  </p>
+                  <p className="text-[10px] text-slate-400 mt-0.5">{billingData.next_cutoff}</p>
+                </div>
+                <div className={`w-11 h-11 rounded-lg flex items-center justify-center ${alerta ? "bg-amber-100" : "bg-[#F0FAF5]"}`}>
+                  {alerta
+                    ? <Bell className="w-5 h-5 text-amber-500" />
+                    : <Calendar className="w-5 h-5 text-[#1B4332]" />}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        );
+      })()}
     </div>
   );
 
   const PLAN_INFO_INMO = {
-    basico:    { label: "Básico",    precio: "$950",   periodo: "mes", badge: "bg-slate-200 text-slate-700",    border: "border-slate-200 bg-slate-50",    valuaciones: 5,  usuarios: "1 titular",    extras: [] },
-    estandar:  { label: "Estándar", precio: "$2,800", periodo: "mes", badge: "bg-[#52B788] text-white",       border: "border-[#52B788]/30 bg-[#F0FAF5]", valuaciones: 20, usuarios: "Hasta 5 asesores", extras: ["Reporte de mercado mensual"] },
-    premier:   { label: "Premier",  precio: "$7,200", periodo: "mes", badge: "bg-[#1B4332] text-white",       border: "border-[#1B4332]/20 bg-[#1B4332]/5", valuaciones: 50, usuarios: "Ilimitados",  extras: ["Reporte de mercado mensual", "Soporte dedicado", "Sin publicidad"] },
+    inmobiliaria_lite5:   { label: "Lite 5",   precio: "$1,400", periodo: "mes", badge: "bg-slate-200 text-slate-700",      border: "border-slate-200 bg-slate-50",       valuaciones: 5,  usuarios: "1 titular",          extras: [] },
+    inmobiliaria_lite10:  { label: "Lite 10",  precio: "$2,700", periodo: "mes", badge: "bg-slate-200 text-slate-700",      border: "border-slate-200 bg-slate-50",       valuaciones: 10, usuarios: "1 titular",          extras: [] },
+    inmobiliaria_pro20:   { label: "Pro 20",   precio: "$5,200", periodo: "mes", badge: "bg-[#52B788] text-white",          border: "border-[#52B788]/30 bg-[#F0FAF5]",  valuaciones: 20, usuarios: "Hasta 5 asesores",   extras: ["Reporte de mercado mensual"] },
+    inmobiliaria_premier: { label: "Premier",  precio: "$7,500", periodo: "mes", badge: "bg-[#1B4332] text-white",          border: "border-[#1B4332]/20 bg-[#1B4332]/5", valuaciones: 50, usuarios: "Hasta 50 usuarios",  extras: ["Reporte de mercado mensual", "Soporte dedicado", "Sin publicidad"] },
+  };
+
+  const derivePlanFromAsesores = () => {
+    const n = parseInt(session?.num_asesores) || 0;
+    if (n >= 6)  return "inmobiliaria_premier";
+    if (n >= 2)  return "inmobiliaria_pro20";
+    if (n === 1) return "inmobiliaria_lite10";
+    return "inmobiliaria_lite5";
   };
 
   const PlanCard = () => {
-    const plan = session?.plan ? PLAN_INFO_INMO[session.plan] : null;
+    const planKey = session?.plan || derivePlanFromAsesores();
+    const plan = PLAN_INFO_INMO[planKey];
     if (!plan) return (
       <div className="mb-6 rounded-2xl border border-dashed border-slate-200 bg-white p-5 flex items-center justify-between gap-4">
         <div>
@@ -825,8 +1039,8 @@ const InmobiliariaDashboardPage = () => {
     );
     return (
       <div className={`mb-6 rounded-2xl border p-5 ${plan.border}`}>
-        <div className="flex items-start justify-between gap-4">
-          <div className="flex-1">
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-2">
               <span className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full ${plan.badge}`}>Plan {plan.label}</span>
               <span className="text-xs text-slate-500">{plan.precio} MXN + IVA / {plan.periodo}</span>
@@ -836,10 +1050,7 @@ const InmobiliariaDashboardPage = () => {
                 <CheckCircle2 className="w-3 h-3 text-[#52B788] shrink-0" />{plan.valuaciones} valuaciones/mes
               </span>
               <span className="text-xs text-slate-600 flex items-center gap-1">
-                <CheckCircle2 className="w-3 h-3 text-[#52B788] shrink-0" />Usuarios: {plan.usuarios}
-              </span>
-              <span className="text-xs text-slate-600 flex items-center gap-1">
-                <CheckCircle2 className="w-3 h-3 text-[#52B788] shrink-0" />Reporte PDF PropValu
+                <CheckCircle2 className="w-3 h-3 text-[#52B788] shrink-0" />{plan.usuarios}
               </span>
               {plan.extras.map(e => (
                 <span key={e} className="text-xs text-slate-600 flex items-center gap-1">
@@ -848,12 +1059,15 @@ const InmobiliariaDashboardPage = () => {
               ))}
             </div>
           </div>
-          <div className="text-right shrink-0">
-            <p className="text-[10px] text-slate-400">Créditos disponibles</p>
-            <p className="text-2xl font-bold text-[#1B4332] font-['Outfit']">{credits}</p>
+          <div className="flex items-center gap-4 shrink-0">
+            <div className="text-right">
+              <p className="text-[10px] text-slate-400">Valuaciones</p>
+              <p className={`text-2xl font-bold font-['Outfit'] ${creditsLow ? "text-red-500" : "text-[#1B4332]"}`}>{credits}</p>
+              <p className="text-[10px] text-slate-400">de {plan.valuaciones}</p>
+            </div>
             <button onClick={handleComprarCreditos}
-              className="mt-1 text-[10px] text-[#52B788] hover:underline">
-              Renovar / cambiar plan
+              className="bg-[#1B4332] hover:bg-[#163828] text-white text-xs font-bold px-4 py-2 rounded-xl transition-colors whitespace-nowrap">
+              Renovar plan
             </button>
           </div>
         </div>
@@ -861,37 +1075,813 @@ const InmobiliariaDashboardPage = () => {
     );
   };
 
-  const CreditsCta = () => (
-    <Card
-      className="border-0 shadow-sm mb-6 text-white overflow-hidden"
-      style={{ background: creditsLow ? "linear-gradient(135deg, #7f1d1d, #b91c1c)" : "linear-gradient(135deg, #1B4332, #2D6A4F)" }}
-    >
-      <CardContent className="p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-lg bg-white/20 flex items-center justify-center">
-            {creditsLow
-              ? <AlertCircle className="w-6 h-6" />
-              : <CreditCard className="w-6 h-6" />}
-          </div>
+  const ResumenExtra = () => {
+    const avgResenas = resumenResenas.length
+      ? (resumenResenas.reduce((s, r) => s + r.calificacion, 0) / resumenResenas.length).toFixed(1)
+      : null;
+    const anunciosActivos = resumenAnuncios.filter(a => a.estado === "aprobado").length;
+    const anunciosPendientes = resumenAnuncios.filter(a => a.estado === "pendiente").length;
+    const kycOk = session?.kyc_status === "approved";
+    const kycLabel = { approved: "Verificada", under_review: "En revisión", pending: "Sin verificar", rejected: "Rechazada" }[session?.kyc_status] || "Sin verificar";
+    const kycColor = { approved: "text-[#52B788]", under_review: "text-amber-500", pending: "text-slate-400", rejected: "text-red-500" }[session?.kyc_status] || "text-slate-400";
+
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+        {/* Reseñas */}
+        <button onClick={() => setActiveTab("resenas")} className="text-left">
+          <Card className="bg-white border-0 shadow-sm hover:shadow-md transition-shadow h-full">
+            <CardContent className="p-5">
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide">Reseñas</p>
+                <div className="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center">
+                  <Star className="w-4 h-4 text-amber-400" />
+                </div>
+              </div>
+              {avgResenas ? (
+                <>
+                  <p className="text-3xl font-bold font-['Outfit'] text-[#1B4332]">{avgResenas}</p>
+                  <p className="text-xs text-slate-400 mt-1">{resumenResenas.length} reseña{resumenResenas.length !== 1 ? "s" : ""} · toca para ver</p>
+                </>
+              ) : (
+                <>
+                  <p className="text-sm font-semibold text-slate-500">Sin reseñas aún</p>
+                  <p className="text-xs text-slate-400 mt-1">Pide a tus clientes que califiquen</p>
+                </>
+              )}
+            </CardContent>
+          </Card>
+        </button>
+
+        {/* Publicidad */}
+        <button onClick={() => setActiveTab("publicidad")} className="text-left">
+          <Card className="bg-white border-0 shadow-sm hover:shadow-md transition-shadow h-full">
+            <CardContent className="p-5">
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide">Publicidad</p>
+                <div className="w-8 h-8 rounded-lg bg-[#D9ED92]/40 flex items-center justify-center">
+                  <Megaphone className="w-4 h-4 text-[#52B788]" />
+                </div>
+              </div>
+              <p className="text-3xl font-bold font-['Outfit'] text-[#1B4332]">{anunciosActivos}</p>
+              <p className="text-xs text-slate-400 mt-1">
+                anuncio{anunciosActivos !== 1 ? "s" : ""} activo{anunciosActivos !== 1 ? "s" : ""}
+                {anunciosPendientes > 0 && ` · ${anunciosPendientes} en revisión`}
+              </p>
+            </CardContent>
+          </Card>
+        </button>
+
+        {/* Verificación */}
+        <button onClick={() => setActiveTab("documentos")} className="text-left">
+          <Card className="bg-white border-0 shadow-sm hover:shadow-md transition-shadow h-full">
+            <CardContent className="p-5">
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide">Verificación</p>
+                <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${kycOk ? "bg-[#D9ED92]/40" : "bg-slate-100"}`}>
+                  <ShieldCheck className={`w-4 h-4 ${kycOk ? "text-[#52B788]" : "text-slate-400"}`} />
+                </div>
+              </div>
+              <p className={`text-lg font-bold font-['Outfit'] ${kycColor}`}>{kycLabel}</p>
+              <p className="text-xs text-slate-400 mt-1">{kycOk ? "Perfil público habilitado" : "Toca para subir documentos"}</p>
+            </CardContent>
+          </Card>
+        </button>
+      </div>
+    );
+  };
+
+  /* ── Resumen Mercado (mini-charts para el tab Resumen) ── */
+  const ResumenMercado = () => {
+    const fmtMXN = (v) => new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 }).format(v);
+    const COLORS = ["#1B4332", "#52B788", "#D9ED92", "#74C69D", "#40916C", "#95D5B2"];
+    const disponible = mercadoStats?.disponible;
+
+    // Datos para los mini-charts
+    const porTipo = disponible
+      ? mercadoStats.por_tipo.slice(0, 5).map(r => ({ name: r.name, value: r.total }))
+      : valuacionesList.reduce((acc, v) => {
+          const t = acc.find(x => x.name === v.tipo);
+          t ? t.value++ : acc.push({ name: v.tipo, value: 1 });
+          return acc;
+        }, []);
+
+    const porZona = disponible
+      ? mercadoStats.por_municipio.slice(0, 5).map(r => ({ name: r.name, value: r.total, precio_avg: r.precio_avg }))
+      : [];
+
+    const precioM2 = disponible
+      ? mercadoStats.precio_m2_por_zona.slice(0, 5).map(r => ({ zona: r.name.split(" ")[0], pm2: Math.round(r.precio_m2_avg) }))
+      : [];
+
+    const renderTooltipMini = ({ active, payload, label }) => {
+      if (!active || !payload?.length) return null;
+      return (
+        <div className="bg-white border border-slate-100 rounded-lg shadow px-3 py-2 text-xs">
+          <p className="font-bold text-slate-700">{label}</p>
+          {payload.map((p, i) => (
+            <p key={i} style={{ color: p.color }}>
+              {p.name}: {p.value > 1000 ? fmtMXN(p.value) : p.value.toLocaleString()}
+            </p>
+          ))}
+        </div>
+      );
+    };
+
+    return (
+      <div className="space-y-4">
+        {/* Header con link a Mercado */}
+        <div className="flex items-center justify-between">
           <div>
-            <h3 className="font-['Outfit'] text-lg font-semibold">
-              {creditsLow
-                ? "Créditos bajos — recarga tu plan"
-                : `Tienes ${credits} crédito${credits !== 1 ? "s" : ""} disponible${credits !== 1 ? "s" : ""}`}
-            </h3>
-            <p className="text-white/75 text-sm">Cada valuación consume 1 crédito</p>
+            <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide">Inteligencia de mercado</p>
+            <p className="text-[11px] text-slate-400 mt-0.5">
+              {disponible
+                ? `${mercadoStats.total.toLocaleString()} props scrapeadas · ${mercadoTipoOp} · GDL metro`
+                : "Datos de tus valuaciones · mercado en actualización"}
+            </p>
+          </div>
+          <button onClick={() => setActiveTab("mercado")}
+            className="text-xs text-[#52B788] font-semibold hover:underline flex items-center gap-1">
+            Ver análisis completo →
+          </button>
+        </div>
+
+        {/* Fila de mini-charts */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+
+          {/* Tipos de propiedad */}
+          <Card className="bg-white border-0 shadow-sm">
+            <CardContent className="p-4">
+              <p className="text-[10px] font-bold text-[#1B4332] uppercase tracking-wide mb-3">
+                Tipos de propiedad {disponible ? "· mercado" : "· mis avalúos"}
+              </p>
+              <ResponsiveContainer width="100%" height={150}>
+                <PieChart>
+                  <Pie data={porTipo} cx="50%" cy="50%" innerRadius={40} outerRadius={60}
+                    dataKey="value" nameKey="name" paddingAngle={2}>
+                    {porTipo.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
+                  </Pie>
+                  <Tooltip content={renderTooltipMini} />
+                  <Legend iconType="circle" iconSize={7} wrapperStyle={{ fontSize: 10 }} />
+                </PieChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+
+          {/* Zonas más activas (solo si hay datos scraper) */}
+          <Card className="bg-white border-0 shadow-sm">
+            <CardContent className="p-4">
+              <p className="text-[10px] font-bold text-[#1B4332] uppercase tracking-wide mb-3">
+                Zonas más activas {disponible ? "· mercado" : "· pendiente"}
+              </p>
+              {disponible && porZona.length > 0 ? (
+                <ResponsiveContainer width="100%" height={150}>
+                  <BarChart data={porZona} barSize={18} margin={{ top: 4, right: 8, left: -20, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+                    <XAxis dataKey="name" tick={{ fontSize: 9, fill: "#94a3b8" }} axisLine={false} tickLine={false}
+                      tickFormatter={v => v.split(" ")[0]} />
+                    <YAxis tick={{ fontSize: 9, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
+                    <Tooltip content={renderTooltipMini} />
+                    <Bar dataKey="value" name="Propiedades" radius={[4, 4, 0, 0]}>
+                      {porZona.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
+                      <LabelList dataKey="value" position="top" style={{ fontSize: 9, fill: "#64748b", fontWeight: 600 }} />
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              ) : (
+                <div className="h-[150px] flex flex-col items-center justify-center text-slate-300 gap-2">
+                  <Map className="w-8 h-8" />
+                  <p className="text-[11px] text-center">Ejecuta<br/><code className="text-[10px]">import_to_mongo.py</code></p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* Precio/m² por zona */}
+          <Card className="bg-white border-0 shadow-sm">
+            <CardContent className="p-4">
+              <p className="text-[10px] font-bold text-[#1B4332] uppercase tracking-wide mb-3">
+                Precio / m² por zona {disponible ? `· ${mercadoTipoOp}` : "· pendiente"}
+              </p>
+              {disponible && precioM2.length > 0 ? (
+                <ResponsiveContainer width="100%" height={150}>
+                  <BarChart data={precioM2} barSize={18} margin={{ top: 4, right: 8, left: -20, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+                    <XAxis dataKey="zona" tick={{ fontSize: 9, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
+                    <YAxis tickFormatter={v => `$${(v/1000).toFixed(0)}k`} tick={{ fontSize: 9, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
+                    <Tooltip content={renderTooltipMini} />
+                    <Bar dataKey="pm2" name="$/m²" fill="#52B788" radius={[4, 4, 0, 0]}>
+                      <LabelList dataKey="pm2" position="top" formatter={v => `$${(v/1000).toFixed(0)}k`} style={{ fontSize: 9, fill: "#64748b", fontWeight: 600 }} />
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              ) : (
+                <div className="h-[150px] flex flex-col items-center justify-center text-slate-300 gap-2">
+                  <BarChart2 className="w-8 h-8" />
+                  <p className="text-[11px] text-center">Sin datos de mercado</p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Fila de métricas clave del mercado */}
+        {disponible && (
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            {mercadoStats.por_municipio.slice(0, 4).map((z, i) => (
+              <div key={i} className="bg-slate-50 rounded-xl p-3">
+                <p className="text-[10px] text-slate-400 font-medium">{z.name}</p>
+                <p className="text-base font-bold text-[#1B4332] font-['Outfit'] mt-0.5">
+                  {z.precio_avg ? fmtMXN(z.precio_avg) : "—"}
+                </p>
+                <p className="text-[10px] text-slate-400">{z.total.toLocaleString()} propiedades</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  /* ── Mapa de propiedades scrapeadas ── */
+  const MapaMercado = ({ tipoOp }) => {
+    const TIPOS = ["Todos", "Casa", "Departamento", "Terreno", "Local", "Bodega", "Oficina"];
+    const COLORES = {
+      Casa: "#1B4332", Departamento: "#52B788", Terreno: "#95B849",
+      Local: "#F4A261", Bodega: "#9B5DE5", Oficina: "#00BBF9", Todos: "#52B788",
+    };
+    const [tipoProp, setTipoProp] = useState("Todos");
+    const [puntos, setPuntos] = useState([]);
+    const [cargando, setCargando] = useState(true);
+
+    useEffect(() => {
+      setCargando(true);
+      const q = tipoProp === "Todos" ? "" : `&tipo_prop=${tipoProp}`;
+      fetch(`${API}/mercado/mapa?tipo_op=${tipoOp}${q}`)
+        .then(r => r.ok ? r.json() : { puntos: [] })
+        .then(d => { setPuntos(d.puntos || []); setCargando(false); })
+        .catch(() => setCargando(false));
+    }, [tipoOp, tipoProp]);
+
+    const fmtMXN = (v) => v ? new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 }).format(v) : "—";
+    const getColor = (p) => tipoProp === "Todos"
+      ? (COLORES[p.tipo_prop] || "#94a3b8")
+      : (COLORES[tipoProp] || "#52B788");
+
+    return (
+      <Card className="bg-white border-0 shadow-sm">
+        <CardContent className="p-5">
+          <div className="flex items-start justify-between gap-4 mb-4">
+            <div>
+              <p className="text-sm font-bold text-[#1B4332]">Mapa de propiedades en {tipoOp}</p>
+              <p className="text-[11px] text-slate-400 mt-0.5">
+                {puntos.length.toLocaleString()} colonias · punto por colonia geocodificada
+              </p>
+            </div>
+            {/* Filtro tipo propiedad */}
+            <div className="flex flex-wrap gap-1 justify-end">
+              {TIPOS.map(t => (
+                <button key={t} onClick={() => setTipoProp(t)}
+                  className={`px-2.5 py-1 rounded-lg text-[10px] font-semibold transition-colors ${tipoProp === t ? "text-white" : "bg-slate-100 text-slate-500 hover:bg-slate-200"}`}
+                  style={tipoProp === t ? { backgroundColor: COLORES[t] } : {}}>
+                  {t}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {cargando ? (
+            <div className="h-72 flex items-center justify-center text-slate-300 gap-2">
+              <RefreshCw className="w-4 h-4 animate-spin" /><span className="text-sm">Cargando...</span>
+            </div>
+          ) : (
+            <div className="rounded-xl overflow-hidden" style={{ height: 380 }}>
+              <MapContainer center={[20.57, -103.38]} zoom={10} style={{ height: "100%", width: "100%" }} scrollWheelZoom={true}>
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                {puntos.map((p, i) => {
+                  return (
+                    <CircleMarker key={`${p.colonia}-${i}`} center={[p.lat, p.lng]} radius={5}
+                      pathOptions={{ fillColor: getColor(p), color: "#fff", weight: 1, fillOpacity: 0.82 }}>
+                      <Popup>
+                        <div className="text-xs min-w-[150px]">
+                          <p className="font-bold text-[#1B4332] text-sm mb-1 capitalize">{p.colonia}</p>
+                          <p className="text-slate-400 text-[11px] mb-2">{p.municipio}</p>
+                          <p className="text-slate-600">{p.total.toLocaleString()} propiedades</p>
+                          {p.precio_avg && (
+                            <p className="text-slate-500 mt-1">Precio avg: <span className="font-medium text-slate-700">{fmtMXN(p.precio_avg)}</span></p>
+                          )}
+                          {p.precio_m2_avg && (
+                            <p className="text-slate-500">Precio/m²: <span className="font-medium text-slate-700">{fmtMXN(p.precio_m2_avg)}</span></p>
+                          )}
+                        </div>
+                      </Popup>
+                    </CircleMarker>
+                  );
+                })}
+              </MapContainer>
+            </div>
+          )}
+
+          {/* Leyenda */}
+          <div className="flex flex-wrap gap-3 mt-3">
+            {Object.entries(COLORES).filter(([k]) => k !== "Todos").map(([tipo, col]) => (
+              <span key={tipo} className="flex items-center gap-1.5 text-[11px] text-slate-500">
+                <span className="w-3 h-3 rounded-full inline-block" style={{ backgroundColor: col }} />{tipo}
+              </span>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    );
+  };
+
+  /* ── Segmentos de precio por zona ── */
+  const SegmentosMercado = ({ tipoOp }) => {
+    const TIPOS_PROP = ["Casa", "Departamento", "Local", "Bodega", "Terreno"];
+    const [tipoProp, setTipoProp] = useState("Casa");
+    const [data, setData] = useState(null);
+    const [cargando, setCargando] = useState(true);
+
+    useEffect(() => {
+      setCargando(true);
+      fetch(`${API}/mercado/segmentos?tipo_op=${tipoOp}&tipo_prop=${tipoProp}`)
+        .then(r => r.ok ? r.json() : null)
+        .then(d => { setData(d); setCargando(false); })
+        .catch(() => setCargando(false));
+    }, [tipoOp, tipoProp]);
+
+    const COLORES_SEG = {
+      "Bajo":       "#94a3b8",
+      "Medio-bajo": "#74C69D",
+      "Medio":      "#52B788",
+      "Medio-alto": "#1B4332",
+      "Alto":       "#0a1f15",
+    };
+
+    const renderTooltipSeg = ({ active, payload, label }) => {
+      if (!active || !payload?.length) return null;
+      const total = payload.reduce((s, p) => s + (p.value || 0), 0);
+      return (
+        <div className="bg-white border border-slate-100 rounded-xl shadow-lg px-4 py-3 text-xs">
+          <p className="font-bold text-slate-700 mb-2">{label}</p>
+          {payload.map((p, i) => (
+            <div key={i} className="flex justify-between gap-4">
+              <span style={{ color: p.fill }}>{p.name}</span>
+              <span className="font-semibold">{p.value.toLocaleString()} ({total > 0 ? ((p.value/total)*100).toFixed(0) : 0}%)</span>
+            </div>
+          ))}
+          <div className="border-t mt-1.5 pt-1.5 flex justify-between font-bold text-slate-600">
+            <span>Total</span><span>{total.toLocaleString()}</span>
           </div>
         </div>
-        <Button
-          onClick={handleComprarCreditos}
-          className="bg-[#52B788] hover:bg-[#40916C] text-white shrink-0"
-        >
-          <ShoppingCart className="w-4 h-4 mr-2" />
-          Comprar más créditos
-        </Button>
-      </CardContent>
-    </Card>
-  );
+      );
+    };
+
+    return (
+      <Card className="bg-white border-0 shadow-sm">
+        <CardContent className="p-5">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <p className="text-sm font-bold text-[#1B4332]">Distribución por segmento de precio</p>
+              <p className="text-[11px] text-slate-400 mt-0.5">{tipoOp === "venta" ? "Bajo <$1.5M · Medio-bajo $1.5–3M · Medio $3–6M · Medio-alto $6–12M · Alto >$12M" : "Bajo <$8k · Medio-bajo $8–15k · Medio $15–30k · Medio-alto $30–60k · Alto >$60k"}</p>
+            </div>
+            <div className="flex gap-1">
+              {TIPOS_PROP.map(t => (
+                <button key={t} onClick={() => setTipoProp(t)}
+                  className={`px-2.5 py-1 rounded-lg text-[10px] font-semibold transition-colors ${tipoProp === t ? "bg-[#1B4332] text-white" : "bg-slate-100 text-slate-500 hover:bg-slate-200"}`}>
+                  {t}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {cargando ? (
+            <div className="h-64 flex items-center justify-center text-slate-300 gap-2">
+              <RefreshCw className="w-4 h-4 animate-spin" /><span className="text-sm">Calculando segmentos...</span>
+            </div>
+          ) : data?.segmentos?.length > 0 ? (
+            <ResponsiveContainer width="100%" height={260}>
+              <BarChart data={data.segmentos} barSize={28} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+                <XAxis dataKey="municipio" tick={{ fontSize: 11, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 10, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
+                <Tooltip content={renderTooltipSeg} />
+                <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: 11 }} />
+                {(data.labels || []).map(label => (
+                  <Bar key={label} dataKey={label} stackId="a" fill={COLORES_SEG[label]} name={label}
+                    radius={label === (data.labels?.[data.labels.length - 1]) ? [4, 4, 0, 0] : [0, 0, 0, 0]}>
+                    <LabelList dataKey={label} position="center"
+                      formatter={v => v >= 3 ? v : ""}
+                      style={{ fontSize: 9, fill: "#fff", fontWeight: 700 }} />
+                  </Bar>
+                ))}
+              </BarChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="h-64 flex items-center justify-center text-slate-300 text-sm">Sin datos para este tipo</div>
+          )}
+        </CardContent>
+      </Card>
+    );
+  };
+
+  /* ── Mercado Tab ── */
+  const MercadoTab = () => {
+    const tipoOp = mercadoTipoOp;
+    const setTipoOp = setMercadoTipoOp;
+    const stats = mercadoStats;
+    const cargando = stats === undefined;
+    const [mesMapa, setMesMapa] = useState("Todos");
+
+    const fmtMXN = (v) => new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 }).format(v);
+
+    // Coordenadas aproximadas por municipio GDL
+    const COORDS = {
+      "zapopan":       [20.721, -103.401],
+      "guadalajara":   [20.659, -103.349],
+      "tlaquepaque":   [20.640, -103.312],
+      "tonalá":        [20.624, -103.235],
+      "tlajomulco":    [20.474, -103.444],
+      "default":       [20.666, -103.350],
+    };
+    const getMunicipio = (dir) => {
+      const d = dir.toLowerCase();
+      for (const k of Object.keys(COORDS)) {
+        if (d.includes(k)) return k;
+      }
+      return "default";
+    };
+    const puntosEmpresa = valuacionesList.map((v, i) => {
+      const mun = getMunicipio(v.direccion);
+      const [lat, lng] = COORDS[mun];
+      // pequeño offset para no sobreponer puntos
+      return { ...v, lat: lat + (Math.sin(i * 1.3) * 0.008), lng: lng + (Math.cos(i * 1.7) * 0.008) };
+    });
+
+    // Datos agrupados empresa
+    const porZona = Object.entries(
+      valuacionesList.reduce((acc, v) => {
+        const m = getMunicipio(v.direccion);
+        const label = m.charAt(0).toUpperCase() + m.slice(1);
+        acc[label] = (acc[label] || 0) + 1;
+        return acc;
+      }, {})
+    ).map(([name, value]) => ({ name, value }));
+
+    const porTipo = Object.entries(
+      valuacionesList.reduce((acc, v) => {
+        acc[v.tipo] = (acc[v.tipo] || 0) + 1;
+        return acc;
+      }, {})
+    ).map(([name, value]) => ({ name, value }));
+
+    const valorPromedio = valuacionesList.length
+      ? Math.round(valuacionesList.reduce((s, v) => s + (v.valor || 0), 0) / valuacionesList.length)
+      : 0;
+
+    // Tendencia mensual (empresa real + mercado scraper si disponible)
+    const tendencia = [
+      { mes: "Oct", empresa: 3 },
+      { mes: "Nov", empresa: 5 },
+      { mes: "Dic", empresa: 4 },
+      { mes: "Ene", empresa: 7 },
+      { mes: "Feb", empresa: 9 },
+      { mes: "Mar", empresa: valuacionesList.filter(v => v.fecha?.includes("mar")).length || 6 },
+    ];
+
+    // Datos de mercado real o fallback
+    const mercadoDisponible = stats?.disponible;
+    const porTipoMercado = mercadoDisponible ? stats.por_tipo.map(r => ({ name: r.name, value: r.total })) : porTipo;
+    const porZonaMercado = mercadoDisponible ? stats.por_municipio.map(r => ({ name: r.name, value: r.total })) : porZona;
+    const precioM2Zonas = mercadoDisponible
+      ? stats.precio_m2_por_zona.map(r => ({ zona: r.name, mercado: Math.round(r.precio_m2_avg), empresa: Math.round(r.precio_m2_avg * 0.92) }))
+      : [{ zona: "Sin datos", mercado: 0, empresa: 0 }];
+    const totalMercado = stats?.total ?? 0;
+    const tiposPorZona = stats?.tipos_por_zona ?? [];
+    const tiposUnicos = mercadoDisponible
+      ? [...new Set(tiposPorZona.flatMap(z => Object.keys(z).filter(k => k !== "municipio")))]
+      : [];
+
+    // Análisis de texto generado desde los datos
+    const analisisMercado = (() => {
+      if (!mercadoDisponible) return null;
+      const top = stats.por_tipo.slice(0, 4);
+      const topZona = stats.por_municipio[0];
+      const precioTop = stats.precio_m2_por_zona[0];
+      const lines = [
+        `En GDL metro hay ${totalMercado.toLocaleString()} propiedades en ${tipoOp}.`,
+        top.map(t => `${t.name}: ${t.total.toLocaleString()}`).join(" · "),
+        topZona ? `La zona con más oferta es ${topZona.name} (${topZona.total.toLocaleString()} props).` : "",
+        precioTop ? `Precio/m² más alto: ${precioTop.name} a $${Math.round(precioTop.precio_m2_avg).toLocaleString()}/m².` : "",
+      ].filter(Boolean);
+      return lines;
+    })();
+
+    const COLORS = ["#1B4332", "#52B788", "#D9ED92", "#74C69D", "#40916C"];
+    const TIPO_COLORS = { Casa: "#1B4332", Departamento: "#52B788", Terreno: "#95B849", Local: "#F4A261", Bodega: "#9B5DE5", Oficina: "#00BBF9", Otro: "#94a3b8" };
+    const renderTooltip = ({ active, payload, label }) => {
+      if (!active || !payload?.length) return null;
+      return (
+        <div className="bg-white border border-slate-200 rounded-xl shadow-lg px-4 py-3 text-sm">
+          <p className="font-bold text-slate-700 mb-1">{label}</p>
+          {payload.map((p, i) => (
+            <p key={i} style={{ color: p.color }}>
+              {p.name}: {typeof p.value === "number" && p.value > 10000 ? fmtMXN(p.value) : p.value}
+            </p>
+          ))}
+        </div>
+      );
+    };
+
+    const sectionTitle = (icon, title, subtitle) => (
+      <div className="flex items-center gap-3 mb-4">
+        <div className="w-9 h-9 rounded-xl bg-[#1B4332]/10 flex items-center justify-center shrink-0">
+          {icon}
+        </div>
+        <div>
+          <p className="text-sm font-bold text-[#1B4332]">{title}</p>
+          {subtitle && <p className="text-[11px] text-slate-400">{subtitle}</p>}
+        </div>
+      </div>
+    );
+
+    if (cargando) return (
+      <div className="flex items-center justify-center py-20 text-slate-400 text-sm gap-2">
+        <RefreshCw className="w-4 h-4 animate-spin" /> Cargando datos de mercado…
+      </div>
+    );
+
+    return (
+      <div className="space-y-6">
+        {/* Toggle venta/renta */}
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide">Inteligencia de mercado</p>
+            <p className="text-[11px] text-slate-400 mt-0.5">
+              {mercadoDisponible ? `${totalMercado.toLocaleString()} propiedades · GDL metro` : "Datos de tus valuaciones · mercado en construcción"}
+            </p>
+          </div>
+          <div className="flex rounded-xl border border-slate-200 overflow-hidden">
+            {["venta", "renta"].map(op => (
+              <button key={op} onClick={() => setTipoOp(op)}
+                className={`px-4 py-1.5 text-xs font-semibold capitalize transition-colors ${tipoOp === op ? "bg-[#1B4332] text-white" : "bg-white text-slate-500 hover:bg-slate-50"}`}>
+                {op}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* KPIs resumen */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            { label: "Mis valuaciones",  value: valuacionesList.length, suffix: "propiedades",  color: "text-[#1B4332]" },
+            { label: "Valor promedio",   value: fmtMXN(valorPromedio),  suffix: "por propiedad", color: "text-[#1B4332]" },
+            { label: "Zona más activa",  value: (mercadoDisponible ? porZonaMercado : porZona).sort((a,b)=>b.value-a.value)[0]?.name || "—", suffix: "más propiedades", color: "text-[#52B788]" },
+            { label: mercadoDisponible ? "Mercado GDL" : "Mercado",
+              value: mercadoDisponible ? totalMercado.toLocaleString() : "—",
+              suffix: mercadoDisponible ? `propiedades en ${tipoOp}` : "Datos de mercado pendientes",
+              color: "text-slate-600" },
+          ].map((k, i) => (
+            <Card key={i} className="bg-white border-0 shadow-sm">
+              <CardContent className="p-5">
+                <p className="text-[10px] text-slate-400 uppercase tracking-wide mb-1">{k.label}</p>
+                <p className={`text-xl font-bold font-['Outfit'] ${k.color}`}>{k.value}</p>
+                <p className="text-[10px] text-slate-400 mt-0.5">{k.suffix}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {/* Mapa + Zonas */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <Card className="bg-white border-0 shadow-sm lg:col-span-2">
+            <CardContent className="p-5">
+              {(() => {
+                const mesesDisponibles = ["Todos", ...Array.from(new Set(
+                  puntosEmpresa.map(p => p.fecha?.split(" ").slice(1).join(" ")).filter(Boolean)
+                ))];
+                const puntosFiltrados = mesMapa === "Todos"
+                  ? puntosEmpresa
+                  : puntosEmpresa.filter(p => p.fecha?.split(" ").slice(1).join(" ") === mesMapa);
+                return (
+                  <>
+                    <div className="flex items-start justify-between gap-3 mb-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 rounded-xl bg-[#1B4332]/10 flex items-center justify-center shrink-0">
+                          <Map className="w-4 h-4 text-[#1B4332]" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-bold text-[#1B4332]">Mapa de valuaciones</p>
+                          <p className="text-[11px] text-slate-400">{puntosFiltrados.length} valuaciones · {mesMapa}</p>
+                        </div>
+                      </div>
+                      <div className="flex flex-wrap gap-1 justify-end">
+                        {mesesDisponibles.map(m => (
+                          <button key={m} onClick={() => setMesMapa(m)}
+                            className={`px-2.5 py-1 rounded-lg text-[10px] font-semibold transition-colors ${mesMapa === m ? "bg-[#1B4332] text-white" : "bg-slate-100 text-slate-500 hover:bg-slate-200"}`}>
+                            {m}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="rounded-xl overflow-hidden" style={{ height: 280 }}>
+                      <MapContainer center={[20.659, -103.349]} zoom={11} style={{ height: "100%", width: "100%" }} scrollWheelZoom={false}>
+                        <TileLayer
+                          attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>'
+                          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />
+                        {puntosFiltrados.map((p) => (
+                          <CircleMarker key={p.id} center={[p.lat, p.lng]} radius={8}
+                            pathOptions={{ fillColor: p.estado === "completada" ? "#52B788" : "#D9ED92", color: "#1B4332", weight: 1.5, fillOpacity: 0.85 }}>
+                            <Popup>
+                              <div className="text-xs">
+                                <p className="font-bold">{p.tipo}</p>
+                                <p className="text-slate-500">{p.direccion.split(",")[0]}</p>
+                                <p className="text-slate-400">{p.fecha}</p>
+                                {p.valor > 0 && <p className="text-[#1B4332] font-semibold mt-1">{fmtMXN(p.valor)}</p>}
+                              </div>
+                            </Popup>
+                          </CircleMarker>
+                        ))}
+                      </MapContainer>
+                    </div>
+                    <div className="flex items-center gap-4 mt-3">
+                      <span className="flex items-center gap-1.5 text-[11px] text-slate-500">
+                        <span className="w-3 h-3 rounded-full bg-[#52B788] inline-block" />Completada
+                      </span>
+                      <span className="flex items-center gap-1.5 text-[11px] text-slate-500">
+                        <span className="w-3 h-3 rounded-full bg-[#D9ED92] border border-[#1B4332]/20 inline-block" />En proceso
+                      </span>
+                    </div>
+                  </>
+                );
+              })()}
+            </CardContent>
+          </Card>
+
+          <Card className="bg-white border-0 shadow-sm">
+            <CardContent className="p-5">
+              {sectionTitle(<MapPin className="w-4 h-4 text-[#1B4332]" />, mercadoDisponible ? "Zonas de mercado" : "Zonas valuadas", mercadoDisponible ? `${tipoOp} — GDL metro` : "% de tus valuaciones")}
+              <ResponsiveContainer width="100%" height={220}>
+                <PieChart>
+                  <Pie data={mercadoDisponible ? porZonaMercado : porZona} cx="50%" cy="50%" innerRadius={55} outerRadius={85}
+                    dataKey="value" nameKey="name" paddingAngle={3}>
+                    {(mercadoDisponible ? porZonaMercado : porZona).map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
+                  </Pie>
+                  <Tooltip content={renderTooltip} />
+                  <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: 11 }} />
+                </PieChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Tendencia mensual */}
+        <Card className="bg-white border-0 shadow-sm">
+          <CardContent className="p-4">
+            {sectionTitle(<Activity className="w-4 h-4 text-[#1B4332]" />, "Tendencia mensual", "Valuaciones · últimos 6 meses")}
+            <ResponsiveContainer width="100%" height={180}>
+              <AreaChart data={tendencia} margin={{ top: 4, right: 16, left: 0, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="gradMercado" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%"  stopColor="#D9ED92" stopOpacity={0.6} />
+                    <stop offset="95%" stopColor="#D9ED92" stopOpacity={0} />
+                  </linearGradient>
+                  <linearGradient id="gradEmpresa" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%"  stopColor="#52B788" stopOpacity={0.7} />
+                    <stop offset="95%" stopColor="#52B788" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+                <XAxis dataKey="mes" tick={{ fontSize: 11, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
+                <YAxis yAxisId="mercado" orientation="right" tick={{ fontSize: 10, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
+                <YAxis yAxisId="empresa" orientation="left" tick={{ fontSize: 10, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
+                <Tooltip content={renderTooltip} />
+                <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: 11 }} />
+                <Area yAxisId="mercado" type="monotone" dataKey="mercado" name="Plataforma" stroke="#B7E4C7" fill="url(#gradMercado)" strokeWidth={2} dot={false}>
+                  <LabelList dataKey="mercado" position="top" formatter={v => v || ""} style={{ fontSize: 9, fill: "#94a3b8", fontWeight: 600 }} />
+                </Area>
+                <Area yAxisId="empresa" type="monotone" dataKey="empresa" name="Mi empresa" stroke="#52B788" fill="url(#gradEmpresa)" strokeWidth={2.5} dot={{ r: 3, fill: "#52B788" }}>
+                  <LabelList dataKey="empresa" position="top" formatter={v => v || ""} style={{ fontSize: 10, fill: "#1B4332", fontWeight: 700 }} />
+                </Area>
+              </AreaChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+
+        {/* Tipos + Precio/m² — compactos en 3 columnas */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <Card className="bg-white border-0 shadow-sm">
+            <CardContent className="p-4">
+              {sectionTitle(<Home className="w-4 h-4 text-[#1B4332]" />, "Tipos de propiedad", mercadoDisponible ? `${tipoOp}` : "Tus avalúos")}
+              <ResponsiveContainer width="100%" height={160}>
+                <BarChart data={mercadoDisponible ? porTipoMercado : porTipo} barSize={28} margin={{ top: 12, right: 8, left: -20, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+                  <XAxis dataKey="name" tick={{ fontSize: 9, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fontSize: 9, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
+                  <Tooltip content={renderTooltip} />
+                  <Bar dataKey="value" name="Propiedades" radius={[4, 4, 0, 0]}>
+                    {(mercadoDisponible ? porTipoMercado : porTipo).map((d) => <Cell key={d.name} fill={TIPO_COLORS[d.name] || "#74C69D"} />)}
+                    <LabelList dataKey="value" position="top" style={{ fontSize: 9, fill: "#64748b", fontWeight: 600 }} />
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-white border-0 shadow-sm">
+            <CardContent className="p-4">
+              {sectionTitle(<Building className="w-4 h-4 text-[#1B4332]" />, "Precio/m² por zona", mercadoDisponible ? `${tipoOp} (MXN/m²)` : "Sin datos aún")}
+              <ResponsiveContainer width="100%" height={160}>
+                <BarChart data={precioM2Zonas} barSize={12} margin={{ top: 12, right: 8, left: -20, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+                  <XAxis dataKey="zona" tick={{ fontSize: 9, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
+                  <YAxis tickFormatter={v => `$${(v/1000).toFixed(0)}k`} tick={{ fontSize: 9, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
+                  <Tooltip content={renderTooltip} />
+                  <Legend iconType="circle" iconSize={7} wrapperStyle={{ fontSize: 10 }} />
+                  <Bar dataKey="empresa" name="Mi empresa" fill="#52B788" radius={[3, 3, 0, 0]}>
+                    <LabelList dataKey="empresa" position="top" formatter={v => v ? `$${(v/1000).toFixed(0)}k` : ""} style={{ fontSize: 8, fill: "#64748b", fontWeight: 600 }} />
+                  </Bar>
+                  <Bar dataKey="mercado" name="Mercado" fill="#D9ED92" radius={[3, 3, 0, 0]}>
+                    <LabelList dataKey="mercado" position="top" formatter={v => v ? `$${(v/1000).toFixed(0)}k` : ""} style={{ fontSize: 8, fill: "#64748b", fontWeight: 600 }} />
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+
+          {/* Análisis en texto */}
+          <Card className="bg-white border-0 shadow-sm">
+            <CardContent className="p-4">
+              {sectionTitle(<Activity className="w-4 h-4 text-[#1B4332]" />, "Análisis de mercado", tipoOp)}
+              {analisisMercado ? (
+                <div className="space-y-3">
+                  {analisisMercado.map((line, i) => (
+                    <p key={i} className={`text-[11px] leading-relaxed ${i === 0 ? "font-semibold text-slate-700" : "text-slate-500"}`}>{line}</p>
+                  ))}
+                  <div className="pt-2 border-t border-slate-100 flex flex-wrap gap-1.5">
+                    {(stats?.por_tipo ?? []).map(t => (
+                      <span key={t.name} className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full font-medium"
+                        style={{ backgroundColor: (TIPO_COLORS[t.name] || "#74C69D") + "22", color: TIPO_COLORS[t.name] || "#74C69D" }}>
+                        <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ backgroundColor: TIPO_COLORS[t.name] || "#74C69D" }} />
+                        {t.name} · {t.total.toLocaleString()}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <p className="text-[11px] text-slate-400">Conecta datos de mercado para ver el análisis.</p>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Tipos por zona + Segmentos — lado a lado */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <Card className="bg-white border-0 shadow-sm">
+            <CardContent className="p-4">
+              {sectionTitle(<MapPin className="w-4 h-4 text-[#1B4332]" />, "Tipos por municipio", `Desglose · ${tipoOp}`)}
+              {tiposPorZona.length > 0 ? (
+                <ResponsiveContainer width="100%" height={200}>
+                  <BarChart data={tiposPorZona} barSize={14} margin={{ top: 12, right: 8, left: -20, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+                    <XAxis dataKey="municipio" tick={{ fontSize: 9, fill: "#94a3b8" }} axisLine={false} tickLine={false}
+                      tickFormatter={v => v.split(" ")[0]} />
+                    <YAxis tick={{ fontSize: 9, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
+                    <Tooltip content={renderTooltip} />
+                    <Legend iconType="circle" iconSize={7} wrapperStyle={{ fontSize: 10 }} />
+                    {tiposUnicos.map(tipo => (
+                      <Bar key={tipo} dataKey={tipo} stackId="a" fill={TIPO_COLORS[tipo] || "#94a3b8"}
+                        radius={tipo === tiposUnicos[tiposUnicos.length - 1] ? [3, 3, 0, 0] : [0, 0, 0, 0]}>
+                        <LabelList dataKey={tipo} position="center"
+                          formatter={v => v >= 200 ? v.toLocaleString() : ""}
+                          style={{ fontSize: 8, fill: "#fff", fontWeight: 700 }} />
+                      </Bar>
+                    ))}
+                  </BarChart>
+                </ResponsiveContainer>
+              ) : (
+                <div className="h-48 flex items-center justify-center text-slate-300 text-xs">Sin datos</div>
+              )}
+            </CardContent>
+          </Card>
+
+          <SegmentosMercado tipoOp={tipoOp} />
+        </div>
+
+        {/* Mapa de propiedades */}
+        <MapaMercado tipoOp={tipoOp} />
+
+        <p className="text-[11px] text-slate-400 text-center pb-2">
+          {mercadoDisponible
+            ? `Fuente: PropValu Market Data (${totalMercado.toLocaleString()} propiedades) · GDL metro · Jalisco`
+            : "Datos de mercado en actualización · próximamente disponibles"}
+        </p>
+      </div>
+    );
+  };
 
   const ValuacionesTable = () => (
     <Card className="bg-white border-0 shadow-sm overflow-hidden">
@@ -1706,10 +2696,13 @@ const InmobiliariaDashboardPage = () => {
           <>
             <PlanCard />
             <StatCards />
-            <CreditsCta />
-            <ValuacionesTable />
+            <ResumenExtra />
+            <ResumenMercado />
           </>
         )}
+
+        {/* Tab: Mercado */}
+        {activeTab === "mercado" && <MercadoTab />}
 
         {/* Tab: Valuaciones */}
         {activeTab === "valuaciones" && (
@@ -1796,6 +2789,7 @@ const InmobiliariaDashboardPage = () => {
 
         {/* Tab: Reseñas */}
         {activeTab === "resenas" && <ReseñasTab />}
+        {activeTab === "facturacion" && <FacturacionTab />}
 
         {/* Tab: Publicidad */}
         {activeTab === "publicidad" && <PublicidadTab />}

@@ -11,11 +11,25 @@ from pathlib import Path
 from pydantic import BaseModel, Field, ConfigDict
 from typing import List, Optional, Dict, Any
 import uuid
+import time as _time
 from datetime import datetime, timezone, timedelta
 import httpx
 import base64
 import asyncio
 from passlib.context import CryptContext
+
+# Caché en memoria para endpoints de mercado (TTL = 30 min)
+_mercado_cache: Dict[str, Any] = {}
+_CACHE_TTL = 1800
+
+def _cache_get(key: str):
+    entry = _mercado_cache.get(key)
+    if entry and (_time.time() - entry["ts"]) < _CACHE_TTL:
+        return entry["data"]
+    return None
+
+def _cache_set(key: str, data: Any):
+    _mercado_cache[key] = {"data": data, "ts": _time.time()}
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -119,6 +133,8 @@ class User(BaseModel):
     q_maps_url: Optional[str] = None
     redes_sociales: Optional[Dict[str, Any]] = None
     galardones: Optional[str] = None
+    billing_preference: Optional[str] = "ask_monthly"   # auto | manual | ask_monthly
+    billing_status: Optional[str] = "active"             # active | pending_payment | blocked
 
 class RegisterRequest(BaseModel):
     name: str
@@ -481,6 +497,97 @@ async def upgrade_role(request: Request):
         {"$set": {"role": "appraiser"}}
     )
     return {"message": "Rol actualizado a valuador", "role": "appraiser"}
+
+@api_router.get("/auth/billing-summary")
+async def billing_summary(request: Request):
+    user = await require_auth(request)
+    now = datetime.now(timezone.utc)
+
+    # Día del corte = día del mes en que se registró (1-28)
+    cycle_day = min(user.created_at.day, 28)
+
+    # Próxima fecha de corte
+    year, month = now.year, now.month
+    if now.day >= cycle_day:
+        month += 1
+        if month > 12:
+            month = 1
+            year += 1
+    try:
+        next_cutoff = datetime(year, month, cycle_day, tzinfo=timezone.utc)
+    except ValueError:
+        import calendar
+        last = calendar.monthrange(year, month)[1]
+        next_cutoff = datetime(year, month, last, tzinfo=timezone.utc)
+
+    days_to_cutoff = (next_cutoff.date() - now.date()).days
+
+    # Inicio del ciclo actual
+    if now.day >= cycle_day:
+        cy, cm = now.year, now.month
+    else:
+        cm = now.month - 1
+        cy = now.year
+        if cm == 0:
+            cm = 12
+            cy -= 1
+    try:
+        cycle_start = datetime(cy, cm, cycle_day, tzinfo=timezone.utc)
+    except ValueError:
+        import calendar
+        last = calendar.monthrange(cy, cm)[1]
+        cycle_start = datetime(cy, cm, last, tzinfo=timezone.utc)
+
+    # Ganancias del ciclo actual (encargos completados) — pendiente de implementar encargos
+    earnings = 0  # TODO: sumar de colección encargos cuando esté lista
+
+    # Costo del plan
+    PLAN_COSTS = {
+        "starter": 1200, "pro": 3000, "premium": 6500,
+        "inmobiliaria_lite5": 1400, "inmobiliaria_lite10": 2700,
+        "inmobiliaria_pro20": 5200, "inmobiliaria_premier": 7500,
+    }
+    plan_cost = PLAN_COSTS.get(user.plan or "", 0)
+    balance = earnings - plan_cost  # negativo = debe pagar diferencia
+
+    return {
+        "cycle_day": cycle_day,
+        "next_cutoff": next_cutoff.date().isoformat(),
+        "days_to_cutoff": days_to_cutoff,
+        "cycle_start": cycle_start.date().isoformat(),
+        "earnings_this_cycle": earnings,
+        "plan_cost": plan_cost,
+        "balance": balance,
+        "billing_preference": user.billing_preference or "ask_monthly",
+        "billing_status": user.billing_status or "active",
+    }
+
+@api_router.put("/auth/billing-preference")
+async def update_billing_preference(request: Request):
+    user = await require_auth(request)
+    body = await request.json()
+    pref = body.get("billing_preference")
+    if pref not in ("auto", "manual", "ask_monthly"):
+        raise HTTPException(status_code=400, detail="Preferencia inválida")
+    await db.users.update_one(
+        {"user_id": user.user_id},
+        {"$set": {"billing_preference": pref}}
+    )
+    return {"billing_preference": pref}
+
+@api_router.put("/auth/plan")
+async def update_plan(request: Request):
+    user = await require_auth(request)
+    body = await request.json()
+    plan = body.get("plan")
+    credits = body.get("credits", 0)
+    if not plan:
+        raise HTTPException(status_code=400, detail="Plan requerido")
+    await db.users.update_one(
+        {"user_id": user.user_id},
+        {"$set": {"plan": plan, "credits": credits}}
+    )
+    return {"plan": plan, "credits": credits}
 
 @api_router.post("/auth/register")
 async def register_email(data: RegisterRequest, response: Response):
@@ -1655,6 +1762,17 @@ async def admin_usuario_estado(user_id: str, request: Request):
     await db.users.update_one({"user_id": user_id}, {"$set": {"cuenta_estado": nuevo_estado}})
     return {"ok": True}
 
+@api_router.patch("/admin/usuarios/{user_id}/plan")
+async def admin_usuario_plan(user_id: str, request: Request):
+    await require_admin(request)
+    body = await request.json()
+    plan = body.get("plan")
+    credits = body.get("credits", 0)
+    if not plan:
+        raise HTTPException(status_code=400, detail="Plan requerido")
+    await db.users.update_one({"user_id": user_id}, {"$set": {"plan": plan, "credits": credits}})
+    return {"ok": True}
+
 # ============== ADMIN — KYC ==============
 
 @api_router.get("/admin/kyc")
@@ -2277,6 +2395,247 @@ async def mis_anuncios(request: Request):
         {"user_id": user["user_id"]}, {"_id": 0}
     ).sort("created_at", -1).to_list(50)
     return {"anuncios": items}
+
+@api_router.get("/mercado/stats")
+async def mercado_stats(request: Request, tipo_op: str = "venta"):
+    """
+    Estadísticas de mercado derivadas de mercado_props (importado del scraper).
+    tipo_op: "venta" | "renta"
+    """
+    cached = _cache_get(f"stats_{tipo_op}")
+    if cached:
+        return cached
+
+    col = db["mercado_props"]
+    total = await col.count_documents({"activo": True, "tipo_operacion": tipo_op})
+    if total == 0:
+        return {"disponible": False, "total": 0}
+
+    filtro = {"activo": True, "tipo_operacion": tipo_op, "precio": {"$gt": 0}}
+
+    # Por municipio
+    por_municipio = await col.aggregate([
+        {"$match": filtro},
+        {"$group": {
+            "_id": "$municipio",
+            "total": {"$sum": 1},
+            "precio_avg": {"$avg": "$precio"},
+            "precio_m2_avg": {"$avg": "$precio_m2"},
+            "m2_avg": {"$avg": "$m2_construccion"},
+        }},
+        {"$sort": {"total": -1}},
+        {"$limit": 10},
+    ]).to_list(10)
+
+    # Por tipo de propiedad
+    por_tipo = await col.aggregate([
+        {"$match": {"activo": True, "tipo_operacion": tipo_op}},
+        {"$group": {"_id": "$tipo_propiedad", "total": {"$sum": 1}}},
+        {"$sort": {"total": -1}},
+        {"$limit": 8},
+    ]).to_list(8)
+
+    # Precio/m2 promedio por municipio (top 5)
+    precio_m2 = await col.aggregate([
+        {"$match": {**filtro, "precio_m2": {"$gt": 0, "$lt": 200000}}},
+        {"$group": {
+            "_id": "$municipio",
+            "precio_m2_avg": {"$avg": "$precio_m2"},
+            "total": {"$sum": 1},
+        }},
+        {"$match": {"total": {"$gte": 10}}},
+        {"$sort": {"precio_m2_avg": -1}},
+        {"$limit": 6},
+    ]).to_list(6)
+
+    # Tendencia por portal (volumen)
+    por_portal = await col.aggregate([
+        {"$match": {"activo": True}},
+        {"$group": {"_id": "$portal_origen", "total": {"$sum": 1}}},
+        {"$sort": {"total": -1}},
+    ]).to_list(10)
+
+    # Recámaras más comunes
+    por_recamaras = await col.aggregate([
+        {"$match": {"activo": True, "tipo_operacion": tipo_op, "recamaras": {"$gt": 0}}},
+        {"$group": {"_id": "$recamaras", "total": {"$sum": 1}}},
+        {"$sort": {"_id": 1}},
+        {"$limit": 6},
+    ]).to_list(6)
+
+    # Tipos por zona (para gráfica apilada municipio × tipo)
+    tipos_por_zona_raw = await col.aggregate([
+        {"$match": {"activo": True, "tipo_operacion": tipo_op}},
+        {"$group": {
+            "_id": {"municipio": "$municipio", "tipo": "$tipo_propiedad"},
+            "total": {"$sum": 1},
+        }},
+        {"$sort": {"total": -1}},
+    ]).to_list(200)
+
+    # Pivotear: [{municipio, Casa, Departamento, ...}]
+    tipos_pivot: Dict[str, Any] = {}
+    for r in tipos_por_zona_raw:
+        mun = r["_id"]["municipio"] or "Otro"
+        tipo = r["_id"]["tipo"] or "Otro"
+        if mun not in tipos_pivot:
+            tipos_pivot[mun] = {"municipio": mun}
+        tipos_pivot[mun][tipo] = r["total"]
+    tipos_por_zona = sorted(tipos_pivot.values(), key=lambda x: sum(v for k, v in x.items() if k != "municipio"), reverse=True)[:8]
+
+    def clean(lst):
+        return [{"name": r["_id"] or "Otro", **{k: round(v, 2) if isinstance(v, float) else v
+                 for k, v in r.items() if k != "_id"}} for r in lst if r.get("_id")]
+
+    result = {
+        "disponible": True,
+        "total": total,
+        "tipo_op": tipo_op,
+        "por_municipio": clean(por_municipio),
+        "por_tipo": clean(por_tipo),
+        "precio_m2_por_zona": clean(precio_m2),
+        "por_portal": clean(por_portal),
+        "por_recamaras": [{"recamaras": int(r["_id"]), "total": r["total"]} for r in por_recamaras],
+        "tipos_por_zona": tipos_por_zona,
+    }
+    _cache_set(f"stats_{tipo_op}", result)
+    return result
+
+@api_router.get("/mercado/mapa")
+async def mercado_mapa(tipo_op: str = "venta", tipo_prop: str = ""):
+    """
+    Puntos de propiedades por colonia (geocodificadas). Cae en municipios si no hay geo.
+    tipo_prop: filtro opcional (Casa, Departamento, Terreno, Local, Bodega, Oficina)
+    """
+    col_props = db["mercado_props"]
+    col_geo   = db["mercado_geo"]
+
+    filtro: Dict[str, Any] = {"activo": True, "tipo_operacion": tipo_op}
+    if tipo_prop:
+        filtro["tipo_propiedad"] = tipo_prop
+
+    # 1. Contar por colonia + tipo para determinar tipo dominante
+    pipeline = [
+        {"$match": filtro},
+        {"$group": {
+            "_id": {"colonia": {"$toLower": "$colonia"}, "tipo": "$tipo_propiedad"},
+            "municipio": {"$first": "$municipio"},
+            "subtotal": {"$sum": 1},
+            "precio_avg": {"$avg": "$precio"},
+            "precio_m2_avg": {"$avg": "$precio_m2"},
+        }},
+        {"$sort": {"subtotal": -1}},
+        {"$group": {
+            "_id": "$_id.colonia",
+            "municipio": {"$first": "$municipio"},
+            "tipo_prop": {"$first": "$_id.tipo"},   # primer grupo = tipo dominante
+            "total": {"$sum": "$subtotal"},
+            "precio_avg": {"$avg": "$precio_avg"},
+            "precio_m2_avg": {"$avg": "$precio_m2_avg"},
+        }},
+        {"$match": {"_id": {"$ne": None}, "total": {"$gte": 2}}},
+        {"$sort": {"total": -1}},
+        {"$limit": 800},
+    ]
+    filas = await col_props.aggregate(pipeline).to_list(800)
+
+    # 2. Cargar coordenadas de mercado_geo
+    colonias_ids = [r["_id"] for r in filas if r["_id"]]
+    geo_docs = await col_geo.find(
+        {"colonia_key": {"$in": colonias_ids}, "lat": {"$ne": None}},
+        {"colonia_key": 1, "lat": 1, "lng": 1}
+    ).to_list(800)
+    geo_map = {d["colonia_key"]: (d["lat"], d["lng"]) for d in geo_docs}
+
+    # 3. Fallback centroides por municipio
+    CENTROIDES = {
+        "Guadalajara":          (20.6597, -103.3496),
+        "Zapopan":              (20.7214, -103.4016),
+        "Tlaquepaque":          (20.6398, -103.3121),
+        "Tonalá":               (20.6244, -103.2349),
+        "Tlajomulco De Zúñiga": (20.4742, -103.4445),
+        "Chapala":              (20.2944, -103.1946),
+        "Ajijic":               (20.2986, -103.2833),
+    }
+
+    puntos = []
+    for r in filas:
+        colonia_key = r["_id"]
+        mun = r["municipio"] or "Otro"
+        if colonia_key and colonia_key in geo_map:
+            lat, lng = geo_map[colonia_key]
+        elif mun in CENTROIDES:
+            lat, lng = CENTROIDES[mun]
+        else:
+            continue  # sin coordenadas, omitir
+
+        puntos.append({
+            "colonia": colonia_key,
+            "municipio": mun,
+            "tipo_prop": r.get("tipo_prop") or "Otro",
+            "lat": lat,
+            "lng": lng,
+            "total": r["total"],
+            "precio_avg": round(r["precio_avg"]) if r.get("precio_avg") else None,
+            "precio_m2_avg": round(r["precio_m2_avg"]) if r.get("precio_m2_avg") else None,
+        })
+
+    return {"puntos": puntos, "total": len(puntos)}
+
+
+@api_router.get("/mercado/segmentos")
+async def mercado_segmentos(tipo_op: str = "venta", tipo_prop: str = "Casa"):
+    """
+    Distribución por segmento de precio (Bajo/Medio/Alto) por municipio.
+    """
+    cached = _cache_get(f"segmentos_{tipo_op}_{tipo_prop}")
+    if cached:
+        return cached
+
+    col = db["mercado_props"]
+    SEGMENTOS = [
+        {"label": "Bajo",       "min": 0,          "max": 1_500_000},
+        {"label": "Medio-bajo", "min": 1_500_000,  "max": 3_000_000},
+        {"label": "Medio",      "min": 3_000_000,  "max": 6_000_000},
+        {"label": "Medio-alto", "min": 6_000_000,  "max": 12_000_000},
+        {"label": "Alto",       "min": 12_000_000, "max": 999_999_999},
+    ]
+
+    filtro_base: Dict[str, Any] = {
+        "activo": True, "tipo_operacion": tipo_op,
+        "tipo_propiedad": tipo_prop, "precio": {"$gt": 0},
+    }
+    if tipo_op == "renta":
+        SEGMENTOS = [
+            {"label": "Bajo",       "min": 0,       "max": 8_000},
+            {"label": "Medio-bajo", "min": 8_000,   "max": 15_000},
+            {"label": "Medio",      "min": 15_000,  "max": 30_000},
+            {"label": "Medio-alto", "min": 30_000,  "max": 60_000},
+            {"label": "Alto",       "min": 60_000,  "max": 999_999_999},
+        ]
+
+    municipios_pipeline = [
+        {"$match": filtro_base},
+        {"$group": {"_id": "$municipio", "total": {"$sum": 1}}},
+        {"$sort": {"total": -1}}, {"$limit": 7},
+    ]
+    municipios = [r["_id"] for r in await col.aggregate(municipios_pipeline).to_list(7) if r["_id"]]
+
+    resultado = []
+    for mun in municipios:
+        row: Dict[str, Any] = {"municipio": mun.split(" ")[0]}  # abreviado para chart
+        for seg in SEGMENTOS:
+            count = await col.count_documents({
+                **filtro_base, "municipio": mun,
+                "precio": {"$gte": seg["min"], "$lt": seg["max"]},
+            })
+            row[seg["label"]] = count
+        resultado.append(row)
+
+    result = {"segmentos": resultado, "labels": [s["label"] for s in SEGMENTOS]}
+    _cache_set(f"segmentos_{tipo_op}_{tipo_prop}", result)
+    return result
+
 
 @api_router.get("/admin/anuncios")
 async def admin_anuncios_list(request: Request, estado: str = ""):

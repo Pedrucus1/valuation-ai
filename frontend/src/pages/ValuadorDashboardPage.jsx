@@ -28,6 +28,11 @@ import {
   Mail,
   CheckCircle2,
   Upload,
+  Calendar,
+  Bell,
+  RefreshCw,
+  ToggleLeft,
+  ToggleRight,
   ShieldCheck,
   Clock,
   XCircle,
@@ -273,6 +278,34 @@ const ValuadorDashboardPage = () => {
       .catch(() => {});
   }, [session]);
 
+  /* ── Billing state ── */
+  const [billingData, setBillingData] = useState(null);
+  const [billingPref, setBillingPref] = useState(null);
+  const [savingPref, setSavingPref] = useState(false);
+
+  useEffect(() => {
+    if (!session) return;
+    fetch(`${API}/auth/billing-summary`, { credentials: "include" })
+      .then((r) => r.ok ? r.json() : null)
+      .then((d) => { if (d) { setBillingData(d); setBillingPref(d.billing_preference); } })
+      .catch(() => {});
+  }, [session]);
+
+  const saveBillingPref = async (pref) => {
+    setSavingPref(true);
+    try {
+      await fetch(`${API}/auth/billing-preference`, {
+        method: "PUT", credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ billing_preference: pref }),
+      });
+      setBillingPref(pref);
+      setBillingData((d) => d ? { ...d, billing_preference: pref } : d);
+      toast.success("Preferencia guardada");
+    } catch { toast.error("No se pudo guardar"); }
+    finally { setSavingPref(false); }
+  };
+
   /* ── Docs state ── */
   const [kycDocs, setKycDocs] = useState([]);
   const [kycSubiendo, setKycSubiendo] = useState({});
@@ -308,13 +341,138 @@ const ValuadorDashboardPage = () => {
   const docsCompletos = docsRequeridos.every(k => kycDocs.find(d => d.doc_tipo === k));
 
   const TABS = [
-    { id: "resumen",     label: "Resumen" },
-    { id: "valuaciones", label: "Valuaciones" },
-    { id: "perfil",      label: "Perfil" },
-    { id: "expediente",  label: "Documentos", badge: !docsCompletos && session?.kyc_status !== "approved" },
-    { id: "resenas",     label: "Reseñas" },
-    { id: "publicidad",  label: "Publicidad" },
+    { id: "resumen",      label: "Resumen" },
+    { id: "valuaciones",  label: "Valuaciones" },
+    { id: "perfil",       label: "Perfil" },
+    { id: "expediente",   label: "Documentos", badge: !docsCompletos && session?.kyc_status !== "approved" },
+    { id: "resenas",      label: "Reseñas" },
+    { id: "facturacion",  label: "Facturación", badge: billingData?.billing_status === "blocked" || billingData?.days_to_cutoff <= 5 },
+    { id: "publicidad",   label: "Publicidad" },
   ];
+
+  /* ── Facturación Tab ── */
+  const FacturacionTab = () => {
+    if (!billingData) return <p className="text-slate-400 text-sm p-4">Cargando...</p>;
+
+    const { next_cutoff, days_to_cutoff, cycle_start, earnings_this_cycle,
+            plan_cost, balance, billing_status } = billingData;
+    const alerta = days_to_cutoff <= 5;
+    const PREF_OPTIONS = [
+      { value: "auto",        label: "Automático",      desc: "Se descuenta del saldo al corte sin confirmación" },
+      { value: "ask_monthly", label: "Confirmar cada mes", desc: "PropValu te avisa 5 días antes para que autorices" },
+      { value: "manual",      label: "Solo tarjeta",    desc: "Siempre se cobra a tu tarjeta registrada" },
+    ];
+
+    return (
+      <div className="space-y-5">
+        {billing_status === "blocked" && (
+          <div className="rounded-2xl bg-red-50 border border-red-200 p-4 flex items-start gap-3">
+            <AlertTriangle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+            <div>
+              <p className="text-sm font-semibold text-red-700">Acceso suspendido por pago pendiente</p>
+              <p className="text-xs text-red-500 mt-0.5">Autoriza el pago para reactivar tu cuenta.</p>
+            </div>
+          </div>
+        )}
+
+        {/* Ciclo actual */}
+        <div className="grid grid-cols-2 gap-4">
+          <Card className={`border-0 shadow-sm ${alerta ? "bg-amber-50" : "bg-white"}`}>
+            <CardContent className="p-5">
+              <p className={`text-xs mb-1 ${alerta ? "text-amber-600 font-semibold" : "text-slate-500"}`}>
+                {alerta ? "⚠️ Próximo corte" : "Próximo corte"}
+              </p>
+              <p className={`text-2xl font-bold font-['Outfit'] ${alerta ? "text-amber-600" : "text-[#1B4332]"}`}>
+                {days_to_cutoff} días
+              </p>
+              <p className="text-xs text-slate-400 mt-1">{next_cutoff} · Ciclo desde {cycle_start}</p>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-white border-0 shadow-sm">
+            <CardContent className="p-5">
+              <p className="text-xs text-slate-500 mb-1">Balance proyectado</p>
+              <p className={`text-2xl font-bold font-['Outfit'] ${balance >= 0 ? "text-[#1B4332]" : "text-red-600"}`}>
+                {balance >= 0 ? "+" : ""}{new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 }).format(balance)}
+              </p>
+              <p className="text-xs text-slate-400 mt-1">
+                {balance >= 0
+                  ? "A depositar en tu cuenta"
+                  : `Diferencia a cobrar: ${new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 }).format(Math.abs(balance))}`}
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Desglose */}
+        <Card className="bg-white border-0 shadow-sm">
+          <CardContent className="p-5">
+            <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide mb-3">Desglose del ciclo</p>
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm">
+                <span className="text-slate-500">Ganancias por encargos</span>
+                <span className="font-semibold text-[#1B4332]">
+                  {new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 }).format(earnings_this_cycle)}
+                </span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-slate-500">Costo plan ({session?.plan || "—"})</span>
+                <span className="font-semibold text-slate-700">
+                  − {new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 }).format(plan_cost)}
+                </span>
+              </div>
+              <div className="border-t pt-2 flex justify-between text-sm font-bold">
+                <span className={balance >= 0 ? "text-[#1B4332]" : "text-red-600"}>
+                  {balance >= 0 ? "A depositar" : "A cobrar"}
+                </span>
+                <span className={balance >= 0 ? "text-[#1B4332]" : "text-red-600"}>
+                  {new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 }).format(Math.abs(balance))}
+                </span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Preferencia de cobro */}
+        <Card className="bg-white border-0 shadow-sm">
+          <CardContent className="p-5">
+            <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide mb-3">Preferencia de renovación</p>
+            <div className="space-y-2">
+              {PREF_OPTIONS.map((opt) => (
+                <button
+                  key={opt.value}
+                  onClick={() => saveBillingPref(opt.value)}
+                  disabled={savingPref}
+                  className={`w-full text-left rounded-xl border p-3 transition-all ${
+                    billingPref === opt.value
+                      ? "border-[#52B788] bg-[#F0FAF5]"
+                      : "border-slate-200 bg-white hover:border-[#52B788]/50"
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 ${
+                      billingPref === opt.value ? "border-[#52B788]" : "border-slate-300"
+                    }`}>
+                      {billingPref === opt.value && <div className="w-2 h-2 rounded-full bg-[#52B788]" />}
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-slate-700">{opt.label}</p>
+                      <p className="text-xs text-slate-400">{opt.desc}</p>
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+            {savingPref && <p className="text-xs text-slate-400 mt-2 flex items-center gap-1"><RefreshCw className="w-3 h-3 animate-spin" /> Guardando...</p>}
+          </CardContent>
+        </Card>
+
+        <p className="text-[11px] text-slate-400 text-center">
+          El cobro y depósito automáticos estarán disponibles al activar la pasarela de pagos.
+        </p>
+      </div>
+    );
+  };
 
   /* ── Publicidad Tab ── */
   const PublicidadTab = () => {
@@ -833,7 +991,7 @@ const ValuadorDashboardPage = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-xs text-slate-500 mb-1">Créditos restantes</p>
-              <p className="text-3xl font-bold text-[#1B4332] font-['Outfit']">18</p>
+              <p className="text-3xl font-bold text-[#1B4332] font-['Outfit']">{session?.credits ?? 0}</p>
             </div>
             <div className="w-11 h-11 rounded-lg bg-[#D9ED92]/40 flex items-center justify-center">
               <CreditCard className="w-5 h-5 text-[#1B4332]" />
@@ -841,24 +999,51 @@ const ValuadorDashboardPage = () => {
           </div>
         </CardContent>
       </Card>
+
+      {billingData && (() => {
+        const dias = billingData.days_to_cutoff;
+        const alerta = dias <= 5;
+        return (
+          <Card className={`border-0 shadow-sm ${alerta ? "bg-amber-50" : "bg-white"}`}>
+            <CardContent className="p-5">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className={`text-xs mb-1 ${alerta ? "text-amber-600 font-semibold" : "text-slate-500"}`}>
+                    {alerta ? "⚠️ Próximo corte" : "Próximo corte"}
+                  </p>
+                  <p className={`text-3xl font-bold font-['Outfit'] ${alerta ? "text-amber-600" : "text-[#1B4332]"}`}>
+                    {dias}d
+                  </p>
+                  <p className="text-[10px] text-slate-400 mt-0.5">{billingData.next_cutoff}</p>
+                </div>
+                <div className={`w-11 h-11 rounded-lg flex items-center justify-center ${alerta ? "bg-amber-100" : "bg-[#F0FAF5]"}`}>
+                  {alerta
+                    ? <Bell className="w-5 h-5 text-amber-500" />
+                    : <Calendar className="w-5 h-5 text-[#1B4332]" />}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        );
+      })()}
     </div>
   );
 
   const PLAN_INFO = {
     starter: {
-      label: "Starter", precio: "$1,200", periodo: "mes",
+      label: "Starter", precio: "$1,200", periodo: "mes", creditos: 5,
       color: "border-slate-200 bg-slate-50", badge: "bg-slate-200 text-slate-700",
-      incluye: ["Valuaciones ilimitadas en la plataforma", "Reporte PDF PropValu", "Comparables en tiempo real"],
+      incluye: ["5 avalúos por mes", "Reporte PDF PropValu", "Comparables en tiempo real"],
     },
     pro: {
-      label: "Pro", precio: "$3,000", periodo: "mes",
+      label: "Pro", precio: "$3,000", periodo: "mes", creditos: 20,
       color: "border-[#52B788]/40 bg-[#F0FAF5]", badge: "bg-[#52B788] text-white",
-      incluye: ["Todo Starter", "Encargos externos de PropValu", "Prioridad sobre Starter", "Perfil en directorio público"],
+      incluye: ["20 avalúos por mes", "Encargos externos de PropValu", "Prioridad sobre Starter", "Perfil en directorio público"],
     },
     premium: {
-      label: "Premium", precio: "$6,500", periodo: "mes",
+      label: "Premium", precio: "$6,500", periodo: "mes", creditos: 40,
       color: "border-[#1B4332]/30 bg-[#1B4332]/5", badge: "bg-[#1B4332] text-white",
-      incluye: ["Todo Pro", "Máxima prioridad en asignación", "Soporte dedicado", "Reporte mensual de mercado"],
+      incluye: ["40+ avalúos por mes", "Máxima prioridad en asignación", "Soporte dedicado", "Reporte mensual de mercado"],
     },
   };
 
@@ -893,8 +1078,9 @@ const ValuadorDashboardPage = () => {
             </div>
           </div>
           <div className="text-right shrink-0">
-            <p className="text-[10px] text-slate-400">Créditos disponibles</p>
-            <p className="text-2xl font-bold text-[#1B4332] font-['Outfit']">{session.credits ?? 0}</p>
+            <p className="text-[10px] text-slate-400">Avalúos del plan</p>
+            <p className="text-2xl font-bold text-[#1B4332] font-['Outfit']">{plan.creditos}</p>
+            <p className="text-[10px] text-slate-400 mt-1">{session.credits ?? 0} restantes</p>
             <button onClick={() => navigate("/checkout/pro", { state: { role: "valuador" } })}
               className="mt-1 text-[10px] text-[#52B788] hover:underline">
               Renovar / cambiar plan
@@ -1706,6 +1892,7 @@ const ValuadorDashboardPage = () => {
 
         {/* Tab: Reseñas */}
         {activeTab === "resenas" && <ReseñasTab />}
+        {activeTab === "facturacion" && <FacturacionTab />}
 
         {/* Tab: Publicidad */}
         {activeTab === "publicidad" && <PublicidadTab />}
