@@ -997,7 +997,7 @@ const InmobiliariaDashboardPage = () => {
   /* ── Sub-sections ── */
 
   const StatCards = () => (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+    <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
       <Card className="bg-white border-0 shadow-sm">
         <CardContent className="p-5">
           <div className="flex items-center justify-between">
@@ -1068,9 +1068,9 @@ const InmobiliariaDashboardPage = () => {
         </CardContent>
       </Card>
 
-      {billingData && (() => {
-        const dias = billingData.days_to_cutoff;
-        const alerta = dias <= 5;
+      {(() => {
+        const dias = billingData?.days_to_cutoff;
+        const alerta = dias != null && dias <= 5;
         return (
           <Card className={`border-0 shadow-sm ${alerta ? "bg-amber-50" : "bg-white"}`}>
             <CardContent className="p-5">
@@ -1079,10 +1079,10 @@ const InmobiliariaDashboardPage = () => {
                   <p className={`text-xs mb-1 ${alerta ? "text-amber-600 font-semibold" : "text-slate-500"}`}>
                     {alerta ? "⚠️ Próximo corte" : "Próximo corte"}
                   </p>
-                  <p className={`text-3xl font-bold font-['Outfit'] ${alerta ? "text-amber-600" : "text-[#1B4332]"}`}>
-                    {dias}d
+                  <p className={`text-3xl font-bold font-['Outfit'] ${alerta ? "text-amber-600" : dias != null ? "text-[#1B4332]" : "text-slate-300"}`}>
+                    {dias != null ? `${dias}d` : "—"}
                   </p>
-                  <p className="text-[10px] text-slate-400 mt-0.5">{billingData.next_cutoff}</p>
+                  <p className="text-[10px] text-slate-400 mt-0.5">{billingData?.next_cutoff || "Sin plan activo"}</p>
                 </div>
                 <div className={`w-11 h-11 rounded-lg flex items-center justify-center ${alerta ? "bg-amber-100" : "bg-[#F0FAF5]"}`}>
                   {alerta
@@ -1883,47 +1883,55 @@ const InmobiliariaDashboardPage = () => {
     const COLORS = ["#1B4332", "#52B788", "#D9ED92", "#74C69D", "#40916C"];
     const TIPO_COLORS = { Casa: "#1B4332", Departamento: "#52B788", Terreno: "#95B849", Local: "#F4A261", Bodega: "#9B5DE5", Oficina: "#00BBF9", Otro: "#94a3b8" };
 
-    const exportarPDF = async (orientacion = "landscape") => {
-      const { default: jsPDF } = await import("jspdf");
-      const { default: html2canvas } = await import("html2canvas");
-      const doc = new jsPDF({ orientation, unit: "mm", format: "letter" });
-      const W = orientacion === "landscape" ? 279 : 216;
-      const H = orientacion === "landscape" ? 216 : 279;
-      let y = 0;
-
-      // Portada
-      doc.setFillColor(27, 67, 50);
-      doc.rect(0, 0, W, 40, "F");
-      doc.setTextColor(255, 255, 255);
-      doc.setFontSize(22); doc.setFont("helvetica", "bold");
-      doc.text("PropValu — Análisis de Mercado", W/2, 18, { align: "center" });
-      doc.setFontSize(11); doc.setFont("helvetica", "normal");
-      doc.text(`${empresaNombre} · ${tipoOp.charAt(0).toUpperCase()+tipoOp.slice(1)} · GDL metro · ${new Date().toLocaleDateString("es-MX",{day:"2-digit",month:"long",year:"numeric"})}`, W/2, 30, { align: "center" });
-      y = 50;
-
-      const secciones = document.querySelectorAll("[data-pdf-section]");
-      for (const sec of secciones) {
-        try {
-          const canvas = await html2canvas(sec, { scale: 1.5, useCORS: true, backgroundColor: "#ffffff" });
-          const imgData = canvas.toDataURL("image/png");
-          const ratio = canvas.width / canvas.height;
-          const imgW = W - 20;
-          const imgH = imgW / ratio;
-          if (y + imgH > H - 15) { doc.addPage(); y = 10; }
-          doc.addImage(imgData, "PNG", 10, y, imgW, imgH);
-          y += imgH + 6;
-        } catch(e) { /* skip */ }
+    const exportarPDF = (orientacion = "landscape") => {
+      // Inyectar estilos de impresión temporales
+      const styleId = "propvalu-print-style";
+      if (!document.getElementById(styleId)) {
+        const s = document.createElement("style");
+        s.id = styleId;
+        s.innerHTML = `
+          @media print {
+            @page { size: ${orientacion === "landscape" ? "letter landscape" : "letter portrait"}; margin: 10mm 8mm; }
+            body > * { display: none !important; }
+            #propvalu-print-root { display: block !important; }
+            #propvalu-print-root .no-print { display: none !important; }
+            #propvalu-print-root { font-family: sans-serif; color: #1e293b; }
+            .print-header { background: #1B4332; color: white; padding: 10px 16px; border-radius: 8px; margin-bottom: 12px; }
+            .print-header h1 { font-size: 16px; font-weight: bold; margin: 0 0 2px; }
+            .print-header p  { font-size: 10px; margin: 0; opacity: 0.85; }
+            .recharts-wrapper, .recharts-surface { overflow: visible !important; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+          }
+          @media screen { #propvalu-print-root { display: none; } }
+        `;
+        document.head.appendChild(s);
       }
 
-      // Footer en cada página
-      const totalPages = doc.getNumberOfPages();
-      for (let i = 1; i <= totalPages; i++) {
-        doc.setPage(i);
-        doc.setFontSize(7); doc.setTextColor(150);
-        doc.text(`PropValu · ${empresaNombre} · Pág ${i}/${totalPages}`, W/2, H-5, { align: "center" });
+      // Crear contenedor de impresión con encabezado
+      const existing = document.getElementById("propvalu-print-root");
+      if (existing) existing.remove();
+
+      const root = document.createElement("div");
+      root.id = "propvalu-print-root";
+
+      const header = document.createElement("div");
+      header.className = "print-header";
+      header.innerHTML = `<h1>PropValu — Análisis de Mercado</h1><p>${empresaNombre} · ${tipoOp.charAt(0).toUpperCase()+tipoOp.slice(1)} · GDL metro · ${new Date().toLocaleDateString("es-MX",{day:"2-digit",month:"long",year:"numeric"})}</p>`;
+      root.appendChild(header);
+
+      // Clonar el contenido del dashboard de mercado
+      const src = document.getElementById("mercado-pdf-root");
+      if (src) {
+        const clone = src.cloneNode(true);
+        // Ocultar botones de acción en el clon
+        clone.querySelectorAll("button, [data-no-print]").forEach(el => el.style.display = "none");
+        root.appendChild(clone);
       }
 
-      doc.save(`mercado-gdl-${empresaNombre.toLowerCase().replace(/\s+/g,"-")}-${new Date().toISOString().slice(0,10)}.pdf`);
+      document.body.appendChild(root);
+      window.print();
+      // Limpiar después de imprimir
+      setTimeout(() => { root.remove(); }, 500);
     };
 
     const renderTooltip = ({ active, payload, label }) => {
@@ -3253,32 +3261,55 @@ const InmobiliariaDashboardPage = () => {
           </div>
         )}
 
-        {/* Tab Nav */}
-        <div className="flex gap-1 mb-6 bg-white border border-slate-200 rounded-lg p-1 w-fit flex-wrap">
-          {TABS.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`relative px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                activeTab === tab.id
-                  ? "bg-[#1B4332] text-white shadow-sm"
-                  : "text-slate-500 hover:text-[#1B4332]"
-              }`}
-            >
-              {tab.label}
-              {tab.badge && (
-                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center">
-                  {tab.badge}
-                </span>
-              )}
-            </button>
-          ))}
+        {/* Tab Nav + Plan badge */}
+        <div className="flex items-center justify-between gap-3 mb-6 flex-wrap">
+          <div className="flex gap-1 bg-white border border-slate-200 rounded-lg p-1 flex-wrap">
+            {TABS.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`relative px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                  activeTab === tab.id
+                    ? "bg-[#1B4332] text-white shadow-sm"
+                    : "text-slate-500 hover:text-[#1B4332]"
+                }`}
+              >
+                {tab.label}
+                {tab.badge && (
+                  <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center">
+                    {tab.badge}
+                  </span>
+                )}
+              </button>
+            ))}
+          </div>
+          {/* Plan compacto */}
+          {(() => {
+            const planKey = session?.plan || derivePlanFromAsesores();
+            const plan = PLAN_INFO_INMO[planKey];
+            if (!plan) return (
+              <button onClick={handleComprarCreditos}
+                className="flex items-center gap-2 px-3 py-2 rounded-lg border border-dashed border-slate-300 text-xs text-slate-500 hover:bg-slate-50 transition-colors shrink-0">
+                <CreditCard className="w-3.5 h-3.5"/> Activar plan
+              </button>
+            );
+            return (
+              <div className={`flex items-center gap-3 px-3 py-2 rounded-lg border text-xs shrink-0 ${plan.border}`}>
+                <span className={`font-bold px-2 py-0.5 rounded-full text-[11px] ${plan.badge}`}>Plan {plan.label}</span>
+                <span className="text-slate-500">{plan.valuaciones} val/mes · {plan.precio}</span>
+                <span className={`font-bold ${creditsLow ? "text-red-500" : "text-[#1B4332]"}`}>{credits} créd.</span>
+                <button onClick={handleComprarCreditos}
+                  className="bg-[#1B4332] text-white text-[11px] font-bold px-2.5 py-1 rounded-lg hover:bg-[#163828] transition-colors whitespace-nowrap">
+                  Renovar
+                </button>
+              </div>
+            );
+          })()}
         </div>
 
         {/* Tab: Resumen */}
         {activeTab === "resumen" && (
           <>
-            <PlanCard />
             <StatCards />
             <ResumenExtra />
             <ResumenMercado />
