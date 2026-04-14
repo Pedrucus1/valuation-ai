@@ -1855,8 +1855,9 @@ const InmobiliariaDashboardPage = () => {
       if (totalMax !== "") rows = rows.filter(r => r.total <= Number(totalMax));
       if (precioMin !== "") rows = rows.filter(r => (r.precio_avg || 0) >= Number(precioMin) * 1000);
       if (precioMax !== "") rows = rows.filter(r => (r.precio_avg || 0) <= Number(precioMax) * 1000);
-      if (m2Min !== "") rows = rows.filter(r => (r.precio_m2_avg || 0) >= Number(m2Min));
-      if (m2Max !== "") rows = rows.filter(r => (r.precio_m2_avg || 0) <= Number(m2Max));
+      // precio/m² filtra si algún tipo activo cumple el rango
+      if (m2Min !== "") rows = rows.filter(r => TIPOS_COL.some(t => (r[`${t}_pm2`] || 0) >= Number(m2Min)));
+      if (m2Max !== "") rows = rows.filter(r => TIPOS_COL.some(t => r[`${t}_pm2`] && r[`${t}_pm2`] <= Number(m2Max)));
       if (pctMin !== "") rows = rows.filter(r => r.pct >= Number(pctMin));
       if (pctMax !== "") rows = rows.filter(r => r.pct <= Number(pctMax));
       const { col, asc } = coloniaOrden;
@@ -2239,9 +2240,32 @@ const InmobiliariaDashboardPage = () => {
                             onClick={() => ordenar("colonia")}>
                             <span className="flex items-center gap-1">Colonia<ArrowUpDown className="w-3 h-3 opacity-60"/></span>
                           </th>
-                          {[["municipio","Municipio"],["total","Total"],
-                            ...TIPOS_COL.map(t=>[t,t]),
-                            ["precio_avg","Precio avg MXN"],["precio_m2_avg","Precio/m² MXN"],["segmento","Segmento"],["pct","% mercado"]].map(([col,label]) => (
+                          {/* Columnas fijas */}
+                          {[["municipio","Municipio"],["total","Total"]].map(([col,label]) => (
+                            <th key={col} className="px-3 py-2.5 text-left font-semibold cursor-pointer hover:bg-[#2D6A4F] select-none whitespace-nowrap"
+                              onClick={() => ordenar(col)}>
+                              <span className="flex items-center gap-1">{label}<ArrowUpDown className="w-3 h-3 opacity-60"/></span>
+                            </th>
+                          ))}
+                          {/* Columnas por tipo: header con 2 sub-líneas */}
+                          {TIPOS_COL.map(t => (
+                            <th key={t} className="px-2 py-0 hover:bg-[#2D6A4F] select-none whitespace-nowrap" style={{minWidth:"110px"}}>
+                              <div className="flex flex-col">
+                                <span className="flex items-center gap-1 px-1 pt-2 pb-0.5 cursor-pointer font-semibold border-b border-[#2D6A4F]/40"
+                                  onClick={() => ordenar(t)}>
+                                  {t}<ArrowUpDown className="w-3 h-3 opacity-60"/>
+                                </span>
+                                <div className="flex text-[10px] font-normal opacity-75">
+                                  <span className="flex-1 px-1 py-1 cursor-pointer hover:bg-[#2D6A4F]/40 border-r border-[#2D6A4F]/40"
+                                    onClick={() => ordenar(`${t}_pm2`)}>$/m²↕</span>
+                                  <span className="flex-1 px-1 py-1 cursor-pointer hover:bg-[#2D6A4F]/40"
+                                    onClick={() => ordenar(`${t}_pavg`)}>Avg↕</span>
+                                </div>
+                              </div>
+                            </th>
+                          ))}
+                          {/* Columnas finales */}
+                          {[["segmento","Segmento"],["pct","% mdo"]].map(([col,label]) => (
                             <th key={col} className="px-3 py-2.5 text-left font-semibold cursor-pointer hover:bg-[#2D6A4F] select-none whitespace-nowrap"
                               onClick={() => ordenar(col)}>
                               <span className="flex items-center gap-1">{label}<ArrowUpDown className="w-3 h-3 opacity-60"/></span>
@@ -2262,13 +2286,33 @@ const InmobiliariaDashboardPage = () => {
                               </td>
                               <td className="px-3 py-2 text-slate-500 capitalize whitespace-nowrap">{r.municipio}</td>
                               <td className="px-3 py-2 font-bold text-[#1B4332]">{r.total.toLocaleString()}</td>
-                              {TIPOS_COL.map(t => (
-                                <td key={t} className="px-3 py-2 text-center">
-                                  {r[t] > 0 ? <span className="px-1.5 py-0.5 rounded-md font-semibold" style={{backgroundColor:(TIPO_COLORS[t]||"#94a3b8")+"22",color:TIPO_COLORS[t]||"#94a3b8"}}>{r[t]}</span> : <span className="text-slate-200">—</span>}
-                                </td>
-                              ))}
-                              <td className="px-3 py-2 text-slate-600 whitespace-nowrap">{r.precio_avg ? `$${(r.precio_avg/1000000).toFixed(2)}M` : "—"}</td>
-                              <td className="px-3 py-2 text-slate-600 whitespace-nowrap">{r.precio_m2_avg ? `$${r.precio_m2_avg.toLocaleString()}/m²` : "—"}</td>
+                              {/* Celdas por tipo: count + $/m² + precio avg */}
+                              {TIPOS_COL.map(t => {
+                                const count = r[t] || 0;
+                                const pm2 = r[`${t}_pm2`];
+                                const pavg = r[`${t}_pavg`];
+                                const col = TIPO_COLORS[t] || "#94a3b8";
+                                if (count === 0) return (
+                                  <td key={t} className="px-2 py-2 text-center border-r border-slate-100/80">
+                                    <span className="text-slate-200">—</span>
+                                  </td>
+                                );
+                                return (
+                                  <td key={t} className="px-2 py-1.5 border-r border-slate-100/80" style={{minWidth:"110px"}}>
+                                    {/* Count chip */}
+                                    <span className="inline-flex items-center px-1.5 py-0.5 rounded-md text-xs font-bold mb-0.5"
+                                      style={{backgroundColor: col+"22", color: col}}>{count} props</span>
+                                    {/* Precio/m² */}
+                                    <div className="text-[10px] text-slate-500 leading-tight">
+                                      {pm2 ? <span className="font-medium">${pm2.toLocaleString()}<span className="text-slate-400">/m²</span></span> : <span className="text-slate-300">sin m²</span>}
+                                    </div>
+                                    {/* Precio avg */}
+                                    <div className="text-[10px] text-slate-400 leading-tight">
+                                      {pavg ? `$${(pavg/1000000).toFixed(2)}M` : ""}
+                                    </div>
+                                  </td>
+                                );
+                              })}
                               <td className="px-3 py-2">
                                 <span className="px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap"
                                   style={{backgroundColor: segColor+"22", color: segColor, border: `1px solid ${segColor}44`}}>

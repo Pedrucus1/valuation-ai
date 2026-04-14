@@ -2616,10 +2616,14 @@ async def mercado_colonias(tipo_op: str = "venta"):
             "_id": "$_id.colonia",
             "municipio": {"$first": "$municipio"},
             "total": {"$sum": "$subtotal"},
-            "precio_avg": {"$avg": "$precio_avg"},
-            "precio_m2_sum": {"$sum": "$precio_m2_sum"},
-            "precio_m2_cnt": {"$sum": "$precio_m2_cnt"},
-            "tipos": {"$push": {"tipo": "$_id.tipo", "count": "$subtotal"}},
+            # Preservar precio_avg y precio_m2 por tipo para análisis granular
+            "tipos": {"$push": {
+                "tipo": "$_id.tipo",
+                "count": "$subtotal",
+                "precio_avg": "$precio_avg",
+                "precio_m2_sum": "$precio_m2_sum",
+                "precio_m2_cnt": "$precio_m2_cnt",
+            }},
         }},
         {"$match": {"total": {"$gte": 3}}},
         {"$sort": {"total": -1}},
@@ -2630,19 +2634,40 @@ async def mercado_colonias(tipo_op: str = "venta"):
 
     colonias = []
     for r in rows:
-        tipos_map = {t["tipo"]: t["count"] for t in r.get("tipos", [])}
         # Limpiar nombre de colonia: quitar ", Municipio" si viene concatenado
         nombre_col = (r["_id"] or "—").split(",")[0].strip()
-        pm2_cnt = r.get("precio_m2_cnt") or 0
-        pm2_avg = round(r["precio_m2_sum"] / pm2_cnt) if pm2_cnt > 0 else None
+
+        # Construir mapa por tipo con count + precio_avg + precio_m2_avg
+        tipos_data: Dict[str, Any] = {}
+        for t in r.get("tipos", []):
+            tipo = t.get("tipo")
+            if not tipo:
+                continue
+            pm2_cnt = t.get("precio_m2_cnt") or 0
+            pm2_avg = round(t["precio_m2_sum"] / pm2_cnt) if pm2_cnt > 0 else None
+            precio_a = round(t["precio_avg"]) if t.get("precio_avg") else None
+            tipos_data[tipo] = {"count": t["count"], "precio_avg": precio_a, "precio_m2_avg": pm2_avg}
+
+        # Precio avg global ponderado (para filtros y segmento, no se muestra como columna)
+        precio_sum = sum((d.get("precio_avg") or 0) * d.get("count", 0) for d in tipos_data.values())
+        count_sum = sum(d.get("count", 0) for d in tipos_data.values() if d.get("precio_avg"))
+        precio_avg_global = round(precio_sum / count_sum) if count_sum > 0 else None
+
+        # Campos planos de count + precio_avg y precio_m2_avg por tipo
+        flat: Dict[str, Any] = {}
+        for tipo in TIPOS:
+            d = tipos_data.get(tipo, {})
+            flat[tipo] = d.get("count", 0)
+            flat[f"{tipo}_pm2"] = d.get("precio_m2_avg")
+            flat[f"{tipo}_pavg"] = d.get("precio_avg")
+
         colonias.append({
             "colonia": nombre_col,
             "municipio": r["municipio"] or "—",
             "total": r["total"],
             "pct": round(r["total"] / grand_total * 100, 1),
-            "precio_avg": round(r["precio_avg"]) if r.get("precio_avg") else None,
-            "precio_m2_avg": pm2_avg,
-            **{t: tipos_map.get(t, 0) for t in TIPOS},
+            "precio_avg": precio_avg_global,   # para segmento/filtros
+            **flat,
         })
 
     result = {"colonias": colonias, "total": len(colonias), "tipos": TIPOS}
