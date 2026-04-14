@@ -1353,14 +1353,14 @@ const InmobiliariaDashboardPage = () => {
                 Precio / m² por zona {disponible ? `· ${mercadoTipoOp}` : "· pendiente"}
               </p>
               {disponible && precioM2.length > 0 ? (
-                <ResponsiveContainer width="100%" height={150}>
-                  <BarChart data={precioM2} barSize={18} margin={{ top: 4, right: 8, left: -20, bottom: 0 }}>
+                <ResponsiveContainer width="100%" height={160}>
+                  <BarChart data={precioM2} barSize={32} margin={{ top: 18, right: 8, left: -20, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
-                    <XAxis dataKey="zona" tick={{ fontSize: 9, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
+                    <XAxis dataKey="zona" tick={{ fontSize: 10, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
                     <YAxis tickFormatter={v => `$${(v/1000).toFixed(0)}k`} tick={{ fontSize: 9, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
                     <Tooltip content={renderTooltipMini} />
                     <Bar dataKey="pm2" name="$/m²" fill="#52B788" radius={[4, 4, 0, 0]}>
-                      <LabelList dataKey="pm2" position="top" formatter={v => `$${(v/1000).toFixed(0)}k`} style={{ fontSize: 9, fill: "#64748b", fontWeight: 600 }} />
+                      <LabelList dataKey="pm2" position="top" formatter={v => `$${(v/1000).toFixed(0)}k`} style={{ fontSize: 11, fill: "#1B4332", fontWeight: 700 }} />
                     </Bar>
                   </BarChart>
                 </ResponsiveContainer>
