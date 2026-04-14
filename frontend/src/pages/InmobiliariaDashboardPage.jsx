@@ -125,12 +125,12 @@ const ChartCard = ({ title, subtitle, icon, tipoOp, empresa, children, modalChil
                 <div className="flex items-center gap-2">
                   <p className="text-sm font-bold text-[#1B4332]">{title}</p>
                   {tipoOp && (
-                    <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full uppercase tracking-wide ${tipoOp === "venta" ? "bg-[#1B4332] text-white" : "bg-blue-600 text-white"}`}>
+                    <span className={`text-[11px] font-bold px-1.5 py-0.5 rounded-full uppercase tracking-wide ${tipoOp === "venta" ? "bg-[#1B4332] text-white" : "bg-blue-600 text-white"}`}>
                       {tipoOp}
                     </span>
                   )}
                 </div>
-                {subtitle && <p className="text-[10px] text-slate-400 mt-0.5">{subtitle}</p>}
+                {subtitle && <p className="text-xs text-slate-400 mt-0.5">{subtitle}</p>}
               </div>
             </div>
             <button onClick={() => setOpen(true)} title="Ver pantalla completa"
@@ -1283,7 +1283,7 @@ const InmobiliariaDashboardPage = () => {
         <div className="flex items-center justify-between">
           <div>
             <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide">Inteligencia de mercado</p>
-            <p className="text-[11px] text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-400 mt-0.5">
               {disponible
                 ? `${mercadoStats.total.toLocaleString()} props scrapeadas · ${mercadoTipoOp} · GDL metro`
                 : "Datos de tus valuaciones · mercado en actualización"}
@@ -1301,7 +1301,7 @@ const InmobiliariaDashboardPage = () => {
           {/* Tipos de propiedad */}
           <Card className="bg-white border-0 shadow-sm">
             <CardContent className="p-4">
-              <p className="text-[10px] font-bold text-[#1B4332] uppercase tracking-wide mb-3">
+              <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide mb-3">
                 Tipos de propiedad {disponible ? "· mercado" : "· mis avalúos"}
               </p>
               <ResponsiveContainer width="100%" height={150}>
@@ -1320,7 +1320,7 @@ const InmobiliariaDashboardPage = () => {
           {/* Zonas más activas (solo si hay datos scraper) */}
           <Card className="bg-white border-0 shadow-sm">
             <CardContent className="p-4">
-              <p className="text-[10px] font-bold text-[#1B4332] uppercase tracking-wide mb-3">
+              <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide mb-3">
                 Zonas más activas {disponible ? "· mercado" : "· pendiente"}
               </p>
               {disponible && porZona.length > 0 ? (
@@ -1340,7 +1340,7 @@ const InmobiliariaDashboardPage = () => {
               ) : (
                 <div className="h-[150px] flex flex-col items-center justify-center text-slate-300 gap-2">
                   <Map className="w-8 h-8" />
-                  <p className="text-[11px] text-center">Ejecuta<br/><code className="text-[10px]">import_to_mongo.py</code></p>
+                  <p className="text-xs text-center">Ejecuta<br/><code className="text-[11px]">import_to_mongo.py</code></p>
                 </div>
               )}
             </CardContent>
@@ -1349,7 +1349,7 @@ const InmobiliariaDashboardPage = () => {
           {/* Precio/m² por zona */}
           <Card className="bg-white border-0 shadow-sm">
             <CardContent className="p-4">
-              <p className="text-[10px] font-bold text-[#1B4332] uppercase tracking-wide mb-3">
+              <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide mb-3">
                 Precio / m² por zona {disponible ? `· ${mercadoTipoOp}` : "· pendiente"}
               </p>
               {disponible && precioM2.length > 0 ? (
@@ -1367,7 +1367,7 @@ const InmobiliariaDashboardPage = () => {
               ) : (
                 <div className="h-[150px] flex flex-col items-center justify-center text-slate-300 gap-2">
                   <BarChart2 className="w-8 h-8" />
-                  <p className="text-[11px] text-center">Sin datos de mercado</p>
+                  <p className="text-xs text-center">Sin datos de mercado</p>
                 </div>
               )}
             </CardContent>
@@ -1379,11 +1379,11 @@ const InmobiliariaDashboardPage = () => {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
             {mercadoStats.por_municipio.slice(0, 4).map((z, i) => (
               <div key={i} className="bg-slate-50 rounded-xl p-3">
-                <p className="text-[10px] text-slate-400 font-medium">{z.name}</p>
+                <p className="text-xs text-slate-400 font-medium">{z.name}</p>
                 <p className="text-base font-bold text-[#1B4332] font-['Outfit'] mt-0.5">
                   {z.precio_avg ? fmtMXN(z.precio_avg) : "—"}
                 </p>
-                <p className="text-[10px] text-slate-400">{z.total.toLocaleString()} propiedades</p>
+                <p className="text-xs text-slate-400">{z.total.toLocaleString()} propiedades</p>
               </div>
             ))}
           </div>
@@ -1434,7 +1434,7 @@ const InmobiliariaDashboardPage = () => {
                   <Popup>
                     <div className="text-xs min-w-[150px]">
                       <p className="font-bold text-[#1B4332] text-sm mb-1 capitalize">{p.colonia}</p>
-                      <p className="text-slate-400 text-[11px] mb-2">{p.municipio}</p>
+                      <p className="text-slate-400 text-xs mb-2">{p.municipio}</p>
                       <p className="text-slate-600">{p.total.toLocaleString()} propiedades</p>
                       {p.precio_avg && <p className="text-slate-500 mt-1">Precio avg: <span className="font-medium text-slate-700">{fmtMXN(p.precio_avg)}</span></p>}
                       {p.precio_m2_avg && <p className="text-slate-500">Precio/m²: <span className="font-medium text-slate-700">{fmtMXN(p.precio_m2_avg)}</span></p>}
@@ -1447,7 +1447,7 @@ const InmobiliariaDashboardPage = () => {
         )}
         <div className="flex flex-wrap gap-3 mt-3">
           {Object.entries(COLORES).filter(([k]) => k !== "Todos").map(([tipo, col]) => (
-            <span key={tipo} className="flex items-center gap-1.5 text-[11px] text-slate-500">
+            <span key={tipo} className="flex items-center gap-1.5 text-xs text-slate-500">
               <span className="w-3 h-3 rounded-full inline-block" style={{ backgroundColor: col }} />{tipo}
             </span>
           ))}
@@ -1467,7 +1467,7 @@ const InmobiliariaDashboardPage = () => {
                 <div>
                   <div className="flex items-center gap-2">
                     <p className="text-sm font-bold text-[#1B4332]">Mapa de propiedades</p>
-                    <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full uppercase ${tipoOp==="venta"?"bg-[#1B4332] text-white":"bg-blue-600 text-white"}`}>{tipoOp}</span>
+                    <span className={`text-[11px] font-bold px-1.5 py-0.5 rounded-full uppercase ${tipoOp==="venta"?"bg-[#1B4332] text-white":"bg-blue-600 text-white"}`}>{tipoOp}</span>
                   </div>
                   <p className="text-sm text-slate-400 font-medium">{puntos.length.toLocaleString()} colonias geocodificadas</p>
                 </div>
@@ -1586,16 +1586,16 @@ const InmobiliariaDashboardPage = () => {
                 <div>
                   <div className="flex items-center gap-2">
                     <p className="text-sm font-bold text-[#1B4332]">Segmentos de precio</p>
-                    <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full uppercase ${tipoOp==="venta"?"bg-[#1B4332] text-white":"bg-blue-600 text-white"}`}>{tipoOp}</span>
+                    <span className={`text-[11px] font-bold px-1.5 py-0.5 rounded-full uppercase ${tipoOp==="venta"?"bg-[#1B4332] text-white":"bg-blue-600 text-white"}`}>{tipoOp}</span>
                   </div>
-                  <p className="text-[10px] text-slate-400">Nº de propiedades por rango de precio ({tipoOp==="venta"?"MXN: <$1.5M · $1.5–3M · $3–6M · $6–12M · >$12M":"MXN/mes: <$8k · $8–15k · $15–30k · $30–60k · >$60k"})</p>
+                  <p className="text-xs text-slate-400">Nº de propiedades por rango de precio ({tipoOp==="venta"?"MXN: <$1.5M · $1.5–3M · $3–6M · $6–12M · >$12M":"MXN/mes: <$8k · $8–15k · $15–30k · $30–60k · >$60k"})</p>
                 </div>
               </div>
               <div className="flex items-center gap-1.5">
                 <div className="flex gap-1 flex-wrap justify-end">
                   {TIPOS_PROP.map(t => (
                     <button key={t} onClick={() => setTipoProp(t)}
-                      className={`px-2 py-0.5 rounded-lg text-[9px] font-semibold transition-colors ${tipoProp===t?"bg-[#1B4332] text-white":"bg-slate-100 text-slate-500 hover:bg-slate-200"}`}>{t}</button>
+                      className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-colors ${tipoProp===t?"bg-[#1B4332] text-white":"bg-slate-100 text-slate-500 hover:bg-slate-200"}`}>{t}</button>
                   ))}
                 </div>
                 <button onClick={() => setModalOpen(true)} className="w-7 h-7 rounded-lg hover:bg-slate-100 flex items-center justify-center shrink-0">
@@ -1965,9 +1965,9 @@ const InmobiliariaDashboardPage = () => {
           <div className="flex flex-wrap gap-1 mb-3">
             {mesesDisponibles.map(m => (
               <button key={m} onClick={() => setMesMapa(m)}
-                className={`px-2.5 py-1 rounded-lg text-[10px] font-semibold transition-colors ${mesMapa === m ? "bg-[#1B4332] text-white" : "bg-slate-100 text-slate-500 hover:bg-slate-200"}`}>{m}</button>
+                className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-colors ${mesMapa === m ? "bg-[#1B4332] text-white" : "bg-slate-100 text-slate-500 hover:bg-slate-200"}`}>{m}</button>
             ))}
-            <span className="ml-auto text-[10px] text-slate-400 self-center">{puntosFiltrados.length} valuaciones</span>
+            <span className="ml-auto text-xs text-slate-400 self-center">{puntosFiltrados.length} valuaciones</span>
           </div>
           <div className="rounded-xl overflow-hidden" style={{ height }}>
             <MapContainer center={[20.659, -103.349]} zoom={11} style={{ height: "100%", width: "100%" }} scrollWheelZoom={false}>
@@ -1988,8 +1988,8 @@ const InmobiliariaDashboardPage = () => {
             </MapContainer>
           </div>
           <div className="flex items-center gap-4 mt-2">
-            <span className="flex items-center gap-1.5 text-[11px] text-slate-500"><span className="w-3 h-3 rounded-full bg-[#52B788] inline-block"/>Completada</span>
-            <span className="flex items-center gap-1.5 text-[11px] text-slate-500"><span className="w-3 h-3 rounded-full bg-[#D9ED92] border border-slate-300 inline-block"/>En proceso</span>
+            <span className="flex items-center gap-1.5 text-xs text-slate-500"><span className="w-3 h-3 rounded-full bg-[#52B788] inline-block"/>Completada</span>
+            <span className="flex items-center gap-1.5 text-xs text-slate-500"><span className="w-3 h-3 rounded-full bg-[#D9ED92] border border-slate-300 inline-block"/>En proceso</span>
           </div>
         </>
       );
@@ -2001,7 +2001,7 @@ const InmobiliariaDashboardPage = () => {
         <div className="flex items-center justify-between">
           <div>
             <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide">Inteligencia de mercado</p>
-            <p className="text-[11px] text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-400 mt-0.5">
               {mercadoDisponible ? `${totalMercado.toLocaleString()} propiedades · GDL metro` : "Datos de tus valuaciones · mercado en construcción"}
             </p>
           </div>
@@ -2014,11 +2014,11 @@ const InmobiliariaDashboardPage = () => {
             </div>
             <div className="flex gap-1">
               <button onClick={() => exportarPDF("landscape")} title="PDF horizontal"
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 text-[11px] font-semibold text-slate-600 hover:bg-slate-50 transition-colors">
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition-colors">
                 <Download className="w-3.5 h-3.5"/> PDF H
               </button>
               <button onClick={() => exportarPDF("portrait")} title="PDF vertical"
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 text-[11px] font-semibold text-slate-600 hover:bg-slate-50 transition-colors">
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition-colors">
                 <Download className="w-3.5 h-3.5"/> PDF V
               </button>
             </div>
@@ -2035,9 +2035,9 @@ const InmobiliariaDashboardPage = () => {
           ].map((k,i) => (
             <Card key={i} className="bg-white border-0 shadow-sm">
               <CardContent className="p-5">
-                <p className="text-[10px] text-slate-400 uppercase tracking-wide mb-1">{k.label}</p>
+                <p className="text-xs text-slate-400 uppercase tracking-wide mb-1">{k.label}</p>
                 <p className={`text-xl font-bold font-['Outfit'] ${k.color}`}>{k.value}</p>
-                <p className="text-[10px] text-slate-400 mt-0.5">{k.suffix}</p>
+                <p className="text-xs text-slate-400 mt-0.5">{k.suffix}</p>
               </CardContent>
             </Card>
           ))}
@@ -2066,9 +2066,9 @@ const InmobiliariaDashboardPage = () => {
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
                     <p className="text-sm font-bold text-[#1B4332]">Análisis de mercado</p>
-                    {mercadoDisponible && <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full uppercase ${tipoOp==="venta"?"bg-[#1B4332] text-white":"bg-blue-600 text-white"}`}>{tipoOp}</span>}
+                    {mercadoDisponible && <span className={`text-[11px] font-bold px-1.5 py-0.5 rounded-full uppercase ${tipoOp==="venta"?"bg-[#1B4332] text-white":"bg-blue-600 text-white"}`}>{tipoOp}</span>}
                   </div>
-                  <p className="text-[10px] text-slate-400">GDL metro · Jalisco · {new Date().toLocaleDateString("es-MX",{month:"long",year:"numeric"})}</p>
+                  <p className="text-xs text-slate-400">GDL metro · Jalisco · {new Date().toLocaleDateString("es-MX",{month:"long",year:"numeric"})}</p>
                 </div>
               </div>
               {analisisMercado ? (
@@ -2084,10 +2084,10 @@ const InmobiliariaDashboardPage = () => {
                       <div key={i} className="rounded-xl p-3.5 border border-slate-100" style={{background: k.color+"0d"}}>
                         <div className="flex items-center gap-2 mb-1.5">
                           <span className="text-lg leading-none">{k.icon}</span>
-                          <p className="text-[10px] font-bold uppercase tracking-wide text-slate-500">{k.label}</p>
+                          <p className="text-xs font-bold uppercase tracking-wide text-slate-500">{k.label}</p>
                         </div>
                         <p className="text-xl font-bold font-['Outfit']" style={{color: k.color}}>{k.value}</p>
-                        {k.sub && <p className="text-[10px] text-slate-400 mt-0.5">{k.sub}</p>}
+                        {k.sub && <p className="text-xs text-slate-400 mt-0.5">{k.sub}</p>}
                       </div>
                     ))}
                   </div>
@@ -2095,7 +2095,7 @@ const InmobiliariaDashboardPage = () => {
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
                     {analisisMercado.map((p, i) => (
                       <div key={i} className="rounded-xl bg-slate-50 p-4">
-                        <p className="text-[10px] font-bold text-[#1B4332] uppercase tracking-wide mb-1.5">{p.titulo}</p>
+                        <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide mb-1.5">{p.titulo}</p>
                         <p className="text-[12px] leading-relaxed text-slate-600">{p.texto}</p>
                       </div>
                     ))}
@@ -2103,7 +2103,7 @@ const InmobiliariaDashboardPage = () => {
                   {/* Chips de tipos */}
                   <div className="flex flex-wrap gap-2 pt-3 border-t border-slate-100">
                     {(stats?.por_tipo ?? []).map(t => (
-                      <span key={t.name} className="inline-flex items-center gap-1.5 text-[11px] px-3 py-1 rounded-full font-medium"
+                      <span key={t.name} className="inline-flex items-center gap-1.5 text-xs px-3 py-1 rounded-full font-medium"
                         style={{ backgroundColor: (TIPO_COLORS[t.name]||"#74C69D")+"1a", color: TIPO_COLORS[t.name]||"#74C69D", border: `1px solid ${TIPO_COLORS[t.name]||"#74C69D"}33` }}>
                         <span className="w-2 h-2 rounded-full inline-block" style={{ backgroundColor: TIPO_COLORS[t.name]||"#74C69D" }}/>
                         {t.name} · {t.total.toLocaleString()}
@@ -2169,7 +2169,7 @@ const InmobiliariaDashboardPage = () => {
                   <div>
                     <div className="flex items-center gap-2">
                       <p className="text-sm font-bold text-[#1B4332]">Colonias del mercado</p>
-                      {mercadoDisponible && <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full uppercase ${tipoOp==="venta"?"bg-[#1B4332] text-white":"bg-blue-600 text-white"}`}>{tipoOp}</span>}
+                      {mercadoDisponible && <span className={`text-[11px] font-bold px-1.5 py-0.5 rounded-full uppercase ${tipoOp==="venta"?"bg-[#1B4332] text-white":"bg-blue-600 text-white"}`}>{tipoOp}</span>}
                     </div>
                     <p className="text-xs text-slate-400">{coloniaData ? `${coloniasFiltradas.length} colonias · propiedades por tipo y precio` : "Cargando..."}</p>
                   </div>
@@ -2214,7 +2214,7 @@ const InmobiliariaDashboardPage = () => {
                     { label: "% mercado (min–max)", k1: "pctMin", k2: "pctMax", placeholder: "ej. 0.5" },
                   ].map(({ label, k1, k2, placeholder }) => (
                     <div key={k1}>
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1">{label}</p>
+                      <p className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-1">{label}</p>
                       <div className="flex gap-1">
                         <input type="number" placeholder="Min" value={coloniaFiltrosRango[k1]}
                           onChange={e => { setColoniaFiltrosRango(r => ({...r, [k1]: e.target.value})); setColoniaPagina(1); }}
@@ -2231,7 +2231,7 @@ const InmobiliariaDashboardPage = () => {
                 <>
                   {/* Tabla con scroll horizontal y primera columna sticky */}
                   <div className="overflow-x-auto rounded-xl border border-slate-100">
-                    <table className="text-[11px]" style={{ minWidth: "900px", width: "100%" }}>
+                    <table className="text-xs" style={{ minWidth: "900px", width: "100%" }}>
                       <thead>
                         <tr className="bg-[#1B4332] text-white">
                           {/* Primera columna sticky */}
@@ -2270,7 +2270,7 @@ const InmobiliariaDashboardPage = () => {
                               <td className="px-3 py-2 text-slate-600 whitespace-nowrap">{r.precio_avg ? `$${(r.precio_avg/1000000).toFixed(2)}M` : "—"}</td>
                               <td className="px-3 py-2 text-slate-600 whitespace-nowrap">{r.precio_m2_avg ? `$${r.precio_m2_avg.toLocaleString()}/m²` : "—"}</td>
                               <td className="px-3 py-2">
-                                <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold whitespace-nowrap"
+                                <span className="px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap"
                                   style={{backgroundColor: segColor+"22", color: segColor, border: `1px solid ${segColor}44`}}>
                                   {seg}
                                 </span>
@@ -2317,7 +2317,7 @@ const InmobiliariaDashboardPage = () => {
           </Card>
         </div>
 
-        <p className="text-[10px] text-slate-300 text-center pb-2">
+        <p className="text-xs text-slate-300 text-center pb-2">
           {mercadoDisponible
             ? `Fuente: PropValu Market Data · ${totalMercado.toLocaleString()} propiedades · GDL metro · Jalisco`
             : "Datos de mercado en actualización"}
