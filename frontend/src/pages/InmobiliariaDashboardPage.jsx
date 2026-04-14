@@ -1709,6 +1709,28 @@ const InmobiliariaDashboardPage = () => {
       ? [...new Set(tiposPorZona.flatMap(z => Object.keys(z).filter(k => k !== "municipio")))]
       : [];
 
+    const getSegmento = (precio) => {
+      if (!precio) return "Sin dato";
+      if (tipoOp === "venta") {
+        if (precio < 1_000_000) return "Económico";
+        if (precio < 3_000_000) return "Medio";
+        if (precio < 7_000_000) return "Medio-Alto";
+        if (precio < 15_000_000) return "Alto";
+        if (precio < 30_000_000) return "Premium";
+        if (precio < 60_000_000) return "Lujo";
+        return "Super Lujo";
+      } else {
+        if (precio < 5_000) return "Económico";
+        if (precio < 12_000) return "Medio";
+        if (precio < 25_000) return "Medio-Alto";
+        if (precio < 50_000) return "Alto";
+        if (precio < 100_000) return "Premium";
+        if (precio < 200_000) return "Lujo";
+        return "Super Lujo";
+      }
+    };
+    const SEGMENTO_COLORS = { "Económico": "#52B788", "Medio": "#1B4332", "Medio-Alto": "#F4A261", "Alto": "#9B5DE5", "Premium": "#E63946", "Lujo": "#C77DFF", "Super Lujo": "#FF6B6B", "Sin dato": "#94a3b8" };
+
     // Análisis de texto generado desde los datos — elementos estáticos + dinámicos
     const analisisMercado = (() => {
       if (!mercadoDisponible) return null;
@@ -1926,28 +1948,6 @@ const InmobiliariaDashboardPage = () => {
 
     // Tabla de colonias — filtrado + ordenamiento + paginación
     const TIPOS_COL = coloniaData?.tipos ?? ["Casa","Departamento","Terreno","Local","Bodega","Oficina"];
-
-    const getSegmento = (precio) => {
-      if (!precio) return "Sin dato";
-      if (tipoOp === "venta") {
-        if (precio < 1_000_000) return "Económico";
-        if (precio < 3_000_000) return "Medio";
-        if (precio < 7_000_000) return "Medio-Alto";
-        if (precio < 15_000_000) return "Alto";
-        if (precio < 30_000_000) return "Premium";
-        if (precio < 60_000_000) return "Lujo";
-        return "Super Lujo";
-      } else {
-        if (precio < 5_000) return "Económico";
-        if (precio < 12_000) return "Medio";
-        if (precio < 25_000) return "Medio-Alto";
-        if (precio < 50_000) return "Alto";
-        if (precio < 100_000) return "Premium";
-        if (precio < 200_000) return "Lujo";
-        return "Super Lujo";
-      }
-    };
-    const SEGMENTO_COLORS = { "Económico": "#52B788", "Medio": "#1B4332", "Medio-Alto": "#F4A261", "Alto": "#9B5DE5", "Premium": "#E63946", "Lujo": "#C77DFF", "Super Lujo": "#FF6B6B", "Sin dato": "#94a3b8" };
 
     const municipiosUnicos = [...new Set((coloniaData?.colonias ?? []).map(r => r.municipio))].sort();
 
