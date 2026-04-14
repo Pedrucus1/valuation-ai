@@ -2255,9 +2255,8 @@ const InmobiliariaDashboardPage = () => {
                                   onClick={() => ordenar(t)}>
                                   {t}<ArrowUpDown className="w-3 h-3 opacity-60"/>
                                 </span>
-                                <div className="flex text-[10px] font-normal opacity-75">
-                                  <span className="flex-1 px-1 py-1 cursor-pointer hover:bg-[#2D6A4F]/40"
-                                    onClick={() => ordenar(`${t}_pm2`)}>$/m²↕</span>
+                                <div className="text-[10px] font-normal opacity-70 px-1 py-1 text-center">
+                                  # · $/m²
                                 </div>
                               </div>
                             </th>
@@ -2291,18 +2290,18 @@ const InmobiliariaDashboardPage = () => {
                                 const pavg = r[`${t}_pavg`];
                                 const col = TIPO_COLORS[t] || "#94a3b8";
                                 if (count === 0) return (
-                                  <td key={t} className="px-1.5 py-1.5 text-center border-r border-slate-100/80">
-                                    <span className="text-slate-200">—</span>
-                                  </td>
+                                  <td key={t} className="px-1.5 py-1.5 text-center border-r border-slate-100/80 text-slate-200">—</td>
                                 );
                                 return (
-                                  <td key={t} className="px-1.5 py-1.5 border-r border-slate-100/80" style={{minWidth:"90px"}}>
-                                    {/* Count chip */}
-                                    <span className="inline-flex items-center px-1.5 py-0.5 rounded-md text-xs font-bold"
-                                      style={{backgroundColor: col+"22", color: col}}>{count}</span>
-                                    {/* Precio/m² */}
-                                    <div className="text-xs text-slate-600 leading-tight mt-0.5">
-                                      {pm2 ? <span className="font-medium">${pm2.toLocaleString()}<span className="text-slate-400 font-normal">/m²</span></span> : <span className="text-slate-300 text-[10px]">—</span>}
+                                  <td key={t} className="px-1.5 py-1.5 border-r border-slate-100/80 text-center" style={{minWidth:"90px"}}>
+                                    <div className="flex items-center justify-center gap-2">
+                                      {/* Count chip */}
+                                      <span className="px-1.5 py-0.5 rounded-md text-xs font-bold"
+                                        style={{backgroundColor: col+"22", color: col}}>{count}</span>
+                                      {/* Precio/m² al lado derecho */}
+                                      <span className="text-xs text-slate-600 font-medium">
+                                        {pm2 ? `$${pm2.toLocaleString()}` : <span className="text-slate-300">—</span>}
+                                      </span>
                                     </div>
                                   </td>
                                 );
