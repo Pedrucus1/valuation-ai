@@ -3283,7 +3283,7 @@ const InmobiliariaDashboardPage = () => {
               </button>
             ))}
           </div>
-          {/* Plan compacto */}
+          {/* Plan — misma fila que tabs */}
           {(() => {
             const planKey = session?.plan || derivePlanFromAsesores();
             const plan = PLAN_INFO_INMO[planKey];
@@ -3294,13 +3294,40 @@ const InmobiliariaDashboardPage = () => {
               </button>
             );
             return (
-              <div className={`flex items-center gap-3 px-3 py-2 rounded-lg border text-xs shrink-0 ${plan.border}`}>
-                <span className={`font-bold px-2 py-0.5 rounded-full text-[11px] ${plan.badge}`}>Plan {plan.label}</span>
-                <span className="text-slate-500">{plan.valuaciones} val/mes · {plan.precio}</span>
-                <span className={`font-bold ${creditsLow ? "text-red-500" : "text-[#1B4332]"}`}>{credits} créd.</span>
+              <div className={`flex items-center gap-3 px-4 py-2 rounded-lg border shrink-0 ${plan.border}`}>
+                {/* Badge + precio */}
+                <div className="flex flex-col gap-0.5">
+                  <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full w-fit ${plan.badge}`}>Plan {plan.label}</span>
+                  <span className="text-[10px] text-slate-400">{plan.precio} MXN / {plan.periodo}</span>
+                </div>
+                {/* Separador */}
+                <div className="w-px h-8 bg-slate-200"/>
+                {/* Beneficios */}
+                <div className="flex flex-col gap-0.5">
+                  <span className="text-[11px] text-slate-600 flex items-center gap-1">
+                    <CheckCircle2 className="w-3 h-3 text-[#52B788] shrink-0"/>{plan.valuaciones} valuaciones/mes
+                  </span>
+                  <span className="text-[11px] text-slate-600 flex items-center gap-1">
+                    <CheckCircle2 className="w-3 h-3 text-[#52B788] shrink-0"/>{plan.usuarios}
+                  </span>
+                  {plan.extras.slice(0,1).map(e => (
+                    <span key={e} className="text-[11px] text-slate-600 flex items-center gap-1">
+                      <CheckCircle2 className="w-3 h-3 text-[#52B788] shrink-0"/>{e}
+                    </span>
+                  ))}
+                </div>
+                {/* Separador */}
+                <div className="w-px h-8 bg-slate-200"/>
+                {/* Créditos */}
+                <div className="flex flex-col items-center">
+                  <span className="text-[10px] text-slate-400">Créditos</span>
+                  <span className={`text-xl font-bold font-['Outfit'] leading-none ${creditsLow ? "text-red-500" : "text-[#1B4332]"}`}>{credits}</span>
+                  <span className="text-[10px] text-slate-400">de {plan.valuaciones}</span>
+                </div>
+                {/* Botón */}
                 <button onClick={handleComprarCreditos}
-                  className="bg-[#1B4332] text-white text-[11px] font-bold px-2.5 py-1 rounded-lg hover:bg-[#163828] transition-colors whitespace-nowrap">
-                  Renovar
+                  className="bg-[#1B4332] hover:bg-[#163828] text-white text-[11px] font-bold px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap">
+                  Renovar plan
                 </button>
               </div>
             );
