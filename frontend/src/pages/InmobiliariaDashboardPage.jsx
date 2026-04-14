@@ -2281,7 +2281,7 @@ const InmobiliariaDashboardPage = () => {
                               <td className={`sticky left-0 z-10 px-2 py-1.5 font-medium text-slate-700 capitalize whitespace-nowrap border-r border-slate-100 ${rowBg}`}>
                                 {r.colonia}
                               </td>
-                              <td className="px-2 py-1.5 text-slate-500 capitalize whitespace-nowrap">{r.municipio}</td>
+                              <td className="px-2 py-1.5 text-slate-500 capitalize whitespace-nowrap">{r.municipio.replace(/\s+de\s+Zú?[ñn]iga/i, "")}</td>
                               <td className="px-2 py-1.5 font-bold text-[#1B4332]">{r.total.toLocaleString()}</td>
                               {/* Celdas por tipo: count + $/m² + precio avg */}
                               {TIPOS_COL.map(t => {
@@ -2293,13 +2293,11 @@ const InmobiliariaDashboardPage = () => {
                                   <td key={t} className="px-1.5 py-1.5 text-center border-r border-slate-100/80 text-slate-200">—</td>
                                 );
                                 return (
-                                  <td key={t} className="px-1.5 py-1 border-r border-slate-100/80" style={{minWidth:"90px"}}>
-                                    <div className="flex flex-col items-center gap-0.5">
-                                      {/* Count chip centrado */}
-                                      <span className="px-1.5 py-0.5 rounded-md text-xs font-bold"
+                                  <td key={t} className="px-1.5 py-1.5 border-r border-slate-100/80" style={{minWidth:"90px"}}>
+                                    <div className="flex items-center justify-between gap-1">
+                                      <span className="px-1.5 py-0.5 rounded-md text-xs font-bold shrink-0"
                                         style={{backgroundColor: col+"22", color: col}}>{count}</span>
-                                      {/* Precio/m² alineado derecha */}
-                                      <span className="text-xs text-slate-500 tabular-nums self-end">
+                                      <span className="text-xs text-slate-500 text-right tabular-nums">
                                         {pm2 ? `$${pm2.toLocaleString()}` : <span className="text-slate-300">—</span>}
                                       </span>
                                     </div>
