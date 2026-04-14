@@ -2661,9 +2661,13 @@ async def mercado_colonias(tipo_op: str = "venta"):
             flat[f"{tipo}_pm2"] = d.get("precio_m2_avg")
             flat[f"{tipo}_pavg"] = d.get("precio_avg")
 
+        mun_raw = r["municipio"] or "—"
+        # Abreviar "Tlajomulco de Zuñiga" → "Tlajomulco"
+        mun_clean = _re.sub(r'\s+de\s+Zu[ñn]iga', '', mun_raw, flags=_re.IGNORECASE).strip() or mun_raw
+
         colonias.append({
             "colonia": nombre_col,
-            "municipio": r["municipio"] or "—",
+            "municipio": mun_clean,
             "total": r["total"],
             "pct": round(r["total"] / grand_total * 100, 1),
             "precio_avg": precio_avg_global,   # para segmento/filtros
