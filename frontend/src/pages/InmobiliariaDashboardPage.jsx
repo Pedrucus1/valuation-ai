@@ -2256,10 +2256,8 @@ const InmobiliariaDashboardPage = () => {
                                   {t}<ArrowUpDown className="w-3 h-3 opacity-60"/>
                                 </span>
                                 <div className="flex text-[10px] font-normal opacity-75">
-                                  <span className="flex-1 px-1 py-1 cursor-pointer hover:bg-[#2D6A4F]/40 border-r border-[#2D6A4F]/40"
-                                    onClick={() => ordenar(`${t}_pm2`)}>$/m²↕</span>
                                   <span className="flex-1 px-1 py-1 cursor-pointer hover:bg-[#2D6A4F]/40"
-                                    onClick={() => ordenar(`${t}_pavg`)}>Avg↕</span>
+                                    onClick={() => ordenar(`${t}_pm2`)}>$/m²↕</span>
                                 </div>
                               </div>
                             </th>
@@ -2305,10 +2303,6 @@ const InmobiliariaDashboardPage = () => {
                                     {/* Precio/m² */}
                                     <div className="text-xs text-slate-600 leading-tight mt-0.5">
                                       {pm2 ? <span className="font-medium">${pm2.toLocaleString()}<span className="text-slate-400 font-normal">/m²</span></span> : <span className="text-slate-300 text-[10px]">—</span>}
-                                    </div>
-                                    {/* Precio avg */}
-                                    <div className="text-xs text-slate-400 leading-tight">
-                                      {pavg ? `$${(pavg/1000000).toFixed(2)}M` : ""}
                                     </div>
                                   </td>
                                 );
