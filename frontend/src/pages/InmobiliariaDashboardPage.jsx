@@ -2232,7 +2232,7 @@ const InmobiliariaDashboardPage = () => {
                 <>
                   {/* Tabla con scroll horizontal y primera columna sticky */}
                   <div className="overflow-x-auto rounded-xl border border-slate-100">
-                    <table className="text-xs" style={{ minWidth: "900px", width: "100%" }}>
+                    <table className="text-xs" style={{ minWidth: "860px", width: "100%" }}>
                       <thead>
                         <tr className="bg-[#1B4332] text-white">
                           {/* Primera columna sticky */}
@@ -2249,7 +2249,7 @@ const InmobiliariaDashboardPage = () => {
                           ))}
                           {/* Columnas por tipo: header con 2 sub-líneas */}
                           {TIPOS_COL.map(t => (
-                            <th key={t} className="px-2 py-0 hover:bg-[#2D6A4F] select-none whitespace-nowrap" style={{minWidth:"110px"}}>
+                            <th key={t} className="px-1 py-0 hover:bg-[#2D6A4F] select-none whitespace-nowrap" style={{minWidth:"90px"}}>
                               <div className="flex flex-col">
                                 <span className="flex items-center gap-1 px-1 pt-2 pb-0.5 cursor-pointer font-semibold border-b border-[#2D6A4F]/40"
                                   onClick={() => ordenar(t)}>
@@ -2293,21 +2293,21 @@ const InmobiliariaDashboardPage = () => {
                                 const pavg = r[`${t}_pavg`];
                                 const col = TIPO_COLORS[t] || "#94a3b8";
                                 if (count === 0) return (
-                                  <td key={t} className="px-2 py-2 text-center border-r border-slate-100/80">
+                                  <td key={t} className="px-1.5 py-1.5 text-center border-r border-slate-100/80">
                                     <span className="text-slate-200">—</span>
                                   </td>
                                 );
                                 return (
-                                  <td key={t} className="px-2 py-1.5 border-r border-slate-100/80" style={{minWidth:"110px"}}>
+                                  <td key={t} className="px-1.5 py-1.5 border-r border-slate-100/80" style={{minWidth:"90px"}}>
                                     {/* Count chip */}
-                                    <span className="inline-flex items-center px-1.5 py-0.5 rounded-md text-xs font-bold mb-0.5"
-                                      style={{backgroundColor: col+"22", color: col}}>{count} props</span>
+                                    <span className="inline-flex items-center px-1.5 py-0.5 rounded-md text-xs font-bold"
+                                      style={{backgroundColor: col+"22", color: col}}>{count}</span>
                                     {/* Precio/m² */}
-                                    <div className="text-[10px] text-slate-500 leading-tight">
-                                      {pm2 ? <span className="font-medium">${pm2.toLocaleString()}<span className="text-slate-400">/m²</span></span> : <span className="text-slate-300">sin m²</span>}
+                                    <div className="text-xs text-slate-600 leading-tight mt-0.5">
+                                      {pm2 ? <span className="font-medium">${pm2.toLocaleString()}<span className="text-slate-400 font-normal">/m²</span></span> : <span className="text-slate-300 text-[10px]">—</span>}
                                     </div>
                                     {/* Precio avg */}
-                                    <div className="text-[10px] text-slate-400 leading-tight">
+                                    <div className="text-xs text-slate-400 leading-tight">
                                       {pavg ? `$${(pavg/1000000).toFixed(2)}M` : ""}
                                     </div>
                                   </td>
