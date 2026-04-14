@@ -2236,13 +2236,13 @@ const InmobiliariaDashboardPage = () => {
                       <thead>
                         <tr className="bg-[#1B4332] text-white">
                           {/* Primera columna sticky */}
-                          <th className="sticky left-0 z-20 bg-[#1B4332] px-3 py-2.5 text-left font-semibold cursor-pointer hover:bg-[#2D6A4F] select-none whitespace-nowrap"
+                          <th className="sticky left-0 z-20 bg-[#1B4332] px-2 py-2.5 text-left font-semibold cursor-pointer hover:bg-[#2D6A4F] select-none whitespace-nowrap"
                             onClick={() => ordenar("colonia")}>
                             <span className="flex items-center gap-1">Colonia<ArrowUpDown className="w-3 h-3 opacity-60"/></span>
                           </th>
                           {/* Columnas fijas */}
                           {[["municipio","Municipio"],["total","Total"]].map(([col,label]) => (
-                            <th key={col} className="px-3 py-2.5 text-left font-semibold cursor-pointer hover:bg-[#2D6A4F] select-none whitespace-nowrap"
+                            <th key={col} className="px-2 py-2.5 text-left font-semibold cursor-pointer hover:bg-[#2D6A4F] select-none whitespace-nowrap"
                               onClick={() => ordenar(col)}>
                               <span className="flex items-center gap-1">{label}<ArrowUpDown className="w-3 h-3 opacity-60"/></span>
                             </th>
@@ -2262,10 +2262,10 @@ const InmobiliariaDashboardPage = () => {
                             </th>
                           ))}
                           {/* Columnas finales */}
-                          {[["segmento","Segmento"],["pct","% mdo"]].map(([col,label]) => (
-                            <th key={col} className="px-3 py-2.5 text-left font-semibold cursor-pointer hover:bg-[#2D6A4F] select-none whitespace-nowrap"
+                          {[["segmento","Segmento"],["pct","% Mercado"]].map(([col,label]) => (
+                            <th key={col} className={`px-2 py-2.5 font-semibold cursor-pointer hover:bg-[#2D6A4F] select-none whitespace-nowrap ${col==="pct" ? "text-center" : "text-left"}`}
                               onClick={() => ordenar(col)}>
-                              <span className="flex items-center gap-1">{label}<ArrowUpDown className="w-3 h-3 opacity-60"/></span>
+                              <span className={`flex items-center gap-1 ${col==="pct" ? "justify-center" : ""}`}>{label}<ArrowUpDown className="w-3 h-3 opacity-60"/></span>
                             </th>
                           ))}
                         </tr>
@@ -2278,11 +2278,11 @@ const InmobiliariaDashboardPage = () => {
                           return (
                             <tr key={`${r.colonia}-${r.municipio}`} className={rowBg}>
                               {/* Primera columna sticky */}
-                              <td className={`sticky left-0 z-10 px-3 py-2 font-medium text-slate-700 capitalize whitespace-nowrap border-r border-slate-100 ${rowBg}`}>
+                              <td className={`sticky left-0 z-10 px-2 py-1.5 font-medium text-slate-700 capitalize whitespace-nowrap border-r border-slate-100 ${rowBg}`}>
                                 {r.colonia}
                               </td>
-                              <td className="px-3 py-2 text-slate-500 capitalize whitespace-nowrap">{r.municipio}</td>
-                              <td className="px-3 py-2 font-bold text-[#1B4332]">{r.total.toLocaleString()}</td>
+                              <td className="px-2 py-1.5 text-slate-500 capitalize whitespace-nowrap">{r.municipio}</td>
+                              <td className="px-2 py-1.5 font-bold text-[#1B4332]">{r.total.toLocaleString()}</td>
                               {/* Celdas por tipo: count + $/m² + precio avg */}
                               {TIPOS_COL.map(t => {
                                 const count = r[t] || 0;
@@ -2293,26 +2293,26 @@ const InmobiliariaDashboardPage = () => {
                                   <td key={t} className="px-1.5 py-1.5 text-center border-r border-slate-100/80 text-slate-200">—</td>
                                 );
                                 return (
-                                  <td key={t} className="px-1.5 py-1.5 border-r border-slate-100/80" style={{minWidth:"90px"}}>
-                                    <div className="flex items-center justify-between gap-1">
-                                      {/* Count chip izquierda */}
-                                      <span className="px-1.5 py-0.5 rounded-md text-xs font-bold shrink-0"
+                                  <td key={t} className="px-1.5 py-1 border-r border-slate-100/80" style={{minWidth:"90px"}}>
+                                    <div className="flex flex-col items-center gap-0.5">
+                                      {/* Count chip centrado */}
+                                      <span className="px-1.5 py-0.5 rounded-md text-xs font-bold"
                                         style={{backgroundColor: col+"22", color: col}}>{count}</span>
                                       {/* Precio/m² alineado derecha */}
-                                      <span className="text-xs text-slate-600 font-medium text-right tabular-nums">
+                                      <span className="text-xs text-slate-500 tabular-nums self-end">
                                         {pm2 ? `$${pm2.toLocaleString()}` : <span className="text-slate-300">—</span>}
                                       </span>
                                     </div>
                                   </td>
                                 );
                               })}
-                              <td className="px-3 py-2">
+                              <td className="px-2 py-1.5">
                                 <span className="px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap"
                                   style={{backgroundColor: segColor+"22", color: segColor, border: `1px solid ${segColor}44`}}>
                                   {seg}
                                 </span>
                               </td>
-                              <td className="px-3 py-2 text-slate-500">{r.pct}%</td>
+                              <td className="px-2 py-1.5 text-slate-500 text-center tabular-nums">{r.pct}%</td>
                             </tr>
                           );
                         })}

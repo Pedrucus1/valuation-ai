@@ -2663,7 +2663,7 @@ async def mercado_colonias(tipo_op: str = "venta"):
 
         mun_raw = r["municipio"] or "—"
         # Abreviar "Tlajomulco de Zuñiga" → "Tlajomulco"
-        mun_clean = _re.sub(r'\s+de\s+Zu[ñn]iga', '', mun_raw, flags=_re.IGNORECASE).strip() or mun_raw
+        mun_clean = _re.sub(r'\s+de\s+Zú?[ñn]iga', '', mun_raw, flags=_re.IGNORECASE).strip() or mun_raw
 
         colonias.append({
             "colonia": nombre_col,
