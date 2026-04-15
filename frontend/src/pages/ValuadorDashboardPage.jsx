@@ -410,6 +410,27 @@ const ValuadorDashboardPage = () => {
       .catch(() => {});
   }, [mercadoTipoOp]);
 
+  /* ── Resumen quick data ── */
+  const [resumenResenas, setResumenResenas] = useState([]);
+  const [resumenAnuncios, setResumenAnuncios] = useState([]);
+
+  useEffect(() => {
+    if (!session) return;
+    const id = session.user_id || session.id || session.email;
+    fetch(`${API}/directorio/valuadores/${id}/resenas`)
+      .then(r => r.ok ? r.json() : [])
+      .then(d => setResumenResenas(Array.isArray(d) ? d : []))
+      .catch(() => {});
+    const token = session?.session_token || "";
+    fetch(`${API}/advertisers/mis-anuncios`, {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+      credentials: "include",
+    })
+      .then(r => r.ok ? r.json() : { anuncios: [] })
+      .then(d => setResumenAnuncios(d.anuncios || []))
+      .catch(() => {});
+  }, [session]);
+
   /* ── Docs state ── */
   const [kycDocs, setKycDocs] = useState([]);
   const [kycSubiendo, setKycSubiendo] = useState({});
@@ -445,6 +466,8 @@ const ValuadorDashboardPage = () => {
   const docsCompletos = docsRequeridos.every(k => kycDocs.find(d => d.doc_tipo === k));
 
   const tienePlan = !!(session?.plan);
+  const credits = session?.credits ?? 0;
+  const creditsLow = tienePlan && credits <= 2;
 
   const TABS = [
     { id: "resumen",      label: "Resumen" },
@@ -1946,8 +1969,84 @@ const ValuadorDashboardPage = () => {
     </Card>
   );
 
-  /* ── Resumen: mapa de avalúos + gráficas ── */
-  const ResumenAvaluos = () => {
+  /* ── Resumen: tarjetas rápidas (reseñas, publicidad, verificación) ── */
+  const ResumenExtra = () => {
+    const avgResenas = resumenResenas.length
+      ? (resumenResenas.reduce((s, r) => s + (r.calificacion || r.rating || 0), 0) / resumenResenas.length).toFixed(1)
+      : null;
+    const anunciosActivos   = resumenAnuncios.filter(a => a.estado === "aprobado").length;
+    const anunciosPendientes = resumenAnuncios.filter(a => a.estado === "pendiente").length;
+    const kycOk    = session?.kyc_status === "approved";
+    const kycLabel = { approved:"Verificado", under_review:"En revisión", pending:"Sin verificar", rejected:"Rechazado" }[session?.kyc_status] || "Sin verificar";
+    const kycColor = { approved:"text-[#52B788]", under_review:"text-amber-500", pending:"text-slate-400", rejected:"text-red-500" }[session?.kyc_status] || "text-slate-400";
+
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+        {/* Reseñas */}
+        <button onClick={() => setActiveTab("resenas")} className="text-left">
+          <Card className="bg-white border-0 shadow-sm hover:shadow-md transition-shadow h-full">
+            <CardContent className="p-5">
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide">Reseñas</p>
+                <div className="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center">
+                  <Star className="w-4 h-4 text-amber-400" />
+                </div>
+              </div>
+              {avgResenas ? (
+                <>
+                  <p className="text-3xl font-bold font-['Outfit'] text-[#1B4332]">{avgResenas}</p>
+                  <p className="text-xs text-slate-400 mt-1">{resumenResenas.length} reseña{resumenResenas.length !== 1 ? "s" : ""} · toca para ver</p>
+                </>
+              ) : (
+                <>
+                  <p className="text-sm font-semibold text-slate-500">Sin reseñas aún</p>
+                  <p className="text-xs text-slate-400 mt-1">Pide a tus clientes que califiquen</p>
+                </>
+              )}
+            </CardContent>
+          </Card>
+        </button>
+
+        {/* Publicidad */}
+        <button onClick={() => setActiveTab("publicidad")} className="text-left">
+          <Card className="bg-white border-0 shadow-sm hover:shadow-md transition-shadow h-full">
+            <CardContent className="p-5">
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide">Publicidad</p>
+                <div className="w-8 h-8 rounded-lg bg-[#D9ED92]/40 flex items-center justify-center">
+                  <Megaphone className="w-4 h-4 text-[#52B788]" />
+                </div>
+              </div>
+              <p className="text-3xl font-bold font-['Outfit'] text-[#1B4332]">{anunciosActivos}</p>
+              <p className="text-xs text-slate-400 mt-1">
+                anuncio{anunciosActivos !== 1 ? "s" : ""} activo{anunciosActivos !== 1 ? "s" : ""}
+                {anunciosPendientes > 0 && ` · ${anunciosPendientes} en revisión`}
+              </p>
+            </CardContent>
+          </Card>
+        </button>
+
+        {/* Verificación */}
+        <button onClick={() => setActiveTab("expediente")} className="text-left">
+          <Card className="bg-white border-0 shadow-sm hover:shadow-md transition-shadow h-full">
+            <CardContent className="p-5">
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide">Verificación</p>
+                <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${kycOk ? "bg-[#D9ED92]/40" : "bg-slate-100"}`}>
+                  <ShieldCheck className={`w-4 h-4 ${kycOk ? "text-[#52B788]" : "text-slate-400"}`} />
+                </div>
+              </div>
+              <p className={`text-lg font-bold font-['Outfit'] ${kycColor}`}>{kycLabel}</p>
+              <p className="text-xs text-slate-400 mt-1">{kycOk ? "Perfil público habilitado" : "Toca para subir documentos"}</p>
+            </CardContent>
+          </Card>
+        </button>
+      </div>
+    );
+  };
+
+  /* ── Resumen: mapa de avalúos + mini-charts ── */
+  const ResumenActividad = () => {
     const COORDS = {
       "zapopan":    [20.721, -103.401],
       "guadalajara":[20.659, -103.349],
@@ -1958,16 +2057,11 @@ const ValuadorDashboardPage = () => {
     };
     const getMunicipio = (dir) => {
       const d = (dir || "").toLowerCase();
-      for (const k of Object.keys(COORDS)) {
-        if (d.includes(k)) return k;
-      }
+      for (const k of Object.keys(COORDS)) { if (d.includes(k)) return k; }
       return "default";
     };
-    const COLORES_TIPO = {
-      Casa: "#1B4332", Departamento: "#52B788", Terreno: "#95B849",
-      Local: "#F4A261", Bodega: "#9B5DE5", Oficina: "#00BBF9",
-    };
-    const COLORS_PIE = ["#1B4332", "#52B788", "#D9ED92", "#74C69D", "#40916C", "#95D5B2"];
+    const COLORES_TIPO = { Casa:"#1B4332", Departamento:"#52B788", Terreno:"#95B849", Local:"#F4A261", Bodega:"#9B5DE5", Oficina:"#00BBF9" };
+    const COLORS = ["#1B4332", "#52B788", "#D9ED92", "#74C69D", "#40916C", "#95D5B2"];
 
     const puntos = valuaciones.map((v, i) => {
       const mun = getMunicipio(v.direccion);
@@ -1975,22 +2069,22 @@ const ValuadorDashboardPage = () => {
       return { ...v, lat: lat + (Math.sin(i * 1.3) * 0.007), lng: lng + (Math.cos(i * 1.7) * 0.007) };
     });
 
-    const porMunicipio = Object.entries(
+    const porTipo = Object.entries(
+      valuaciones.reduce((acc, v) => { const t = v.tipo || "Otro"; acc[t] = (acc[t]||0)+1; return acc; }, {})
+    ).map(([name, value]) => ({ name, value }));
+
+    const porZona = Object.entries(
       valuaciones.reduce((acc, v) => {
         const m = getMunicipio(v.direccion);
-        const label = m === "default" ? "Otra zona" : m.charAt(0).toUpperCase() + m.slice(1);
-        acc[label] = (acc[label] || 0) + 1;
-        return acc;
+        const label = m === "default" ? "Otra zona" : m.charAt(0).toUpperCase()+m.slice(1);
+        acc[label] = (acc[label]||0)+1; return acc;
       }, {})
-    ).map(([name, value]) => ({ name, value })).sort((a, b) => b.value - a.value);
+    ).map(([name, value]) => ({ name, value })).sort((a,b)=>b.value-a.value);
 
-    const porTipo = Object.entries(
-      valuaciones.reduce((acc, v) => {
-        const t = v.tipo || "Otro";
-        acc[t] = (acc[t] || 0) + 1;
-        return acc;
-      }, {})
-    ).map(([name, value]) => ({ name, value }));
+    const disponible = mercadoStats?.disponible;
+    const porTipoDisplay = disponible ? mercadoStats.por_tipo.slice(0,5).map(r=>({name:r.name,value:r.total})) : porTipo;
+    const porZonaDisplay = disponible ? mercadoStats.por_municipio.slice(0,5).map(r=>({name:r.name,value:r.total})) : porZona;
+    const precioM2 = disponible ? mercadoStats.precio_m2_por_zona.slice(0,5).map(r=>({zona:r.name.split(" ")[0],pm2:Math.round(r.precio_m2_avg)})) : [];
 
     const renderTooltipMini = ({ active, payload, label }) => {
       if (!active || !payload?.length) return null;
@@ -1998,148 +2092,154 @@ const ValuadorDashboardPage = () => {
         <div className="bg-white border border-slate-100 rounded-lg shadow px-3 py-2 text-xs">
           <p className="font-bold text-slate-700">{label || payload[0].name}</p>
           {payload.map((p, i) => (
-            <p key={i} style={{ color: p.color }}>{p.name}: {p.value}</p>
+            <p key={i} style={{ color: p.color }}>{p.name}: {p.value > 1000 ? formatMXN(p.value) : p.value.toLocaleString()}</p>
           ))}
         </div>
       );
     };
 
-    if (valuaciones.length === 0) {
-      return (
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide">Mis avalúos</p>
-            <button onClick={() => navigate("/valuar")}
-              className="text-xs text-[#52B788] font-semibold hover:underline flex items-center gap-1">
-              + Nueva valuación
-            </button>
-          </div>
-          <div className="bg-white rounded-2xl border border-dashed border-slate-200 p-10 text-center">
-            <Map className="w-10 h-10 mx-auto text-slate-200 mb-3" />
-            <p className="font-semibold text-slate-500 mb-1">Sin avalúos registrados</p>
-            <p className="text-xs text-slate-400 mb-4">Completa tu primer avalúo para ver el mapa y estadísticas de tu actividad.</p>
-            <button onClick={() => navigate("/valuar")}
-              className="inline-flex items-center gap-2 bg-[#1B4332] text-white font-semibold px-5 py-2.5 rounded-xl text-sm hover:bg-[#2D6A4F] transition-colors">
-              <Plus className="w-4 h-4" /> Iniciar avalúo
-            </button>
-          </div>
-        </div>
-      );
-    }
-
     return (
       <div className="space-y-4">
-        {/* Header */}
+        {/* Header — igual que ResumenMercado de Inmobiliaria */}
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide">Mi actividad</p>
-            <p className="text-xs text-slate-400 mt-0.5">{valuaciones.length} avalúo{valuaciones.length !== 1 ? "s" : ""} registrado{valuaciones.length !== 1 ? "s" : ""}</p>
+            <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide">
+              {disponible ? "Inteligencia de mercado" : "Mi actividad valuadora"}
+            </p>
+            <p className="text-xs text-slate-400 mt-0.5">
+              {disponible
+                ? `${mercadoStats.total.toLocaleString()} props scrapeadas · ${mercadoTipoOp} · GDL metro`
+                : `${valuaciones.length} avalúo${valuaciones.length !== 1 ? "s" : ""} registrado${valuaciones.length !== 1 ? "s" : ""} · mis datos`}
+            </p>
           </div>
-          <button onClick={() => navigate("/valuar")}
-            className="text-xs text-[#52B788] font-semibold hover:underline flex items-center gap-1">
-            + Nueva valuación
-          </button>
+          {tienePlan && (
+            <button onClick={() => setActiveTab("mercado")}
+              className="text-xs text-[#52B788] font-semibold hover:underline flex items-center gap-1">
+              Ver análisis completo →
+            </button>
+          )}
         </div>
 
-        {/* Mapa de ubicaciones */}
-        <Card className="bg-white border-0 shadow-sm">
-          <CardContent className="p-5">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-7 h-7 rounded-lg bg-[#1B4332]/10 flex items-center justify-center">
-                <Map className="w-4 h-4 text-[#1B4332]" />
-              </div>
-              <div>
-                <p className="text-sm font-bold text-[#1B4332]">Mapa de mis avalúos</p>
-                <p className="text-xs text-slate-400">{puntos.length} ubicacion{puntos.length !== 1 ? "es" : ""} en GDL metro</p>
-              </div>
-            </div>
-            <div className="rounded-xl overflow-hidden" style={{ height: 320 }}>
-              <MapContainer center={[20.57, -103.38]} zoom={10} style={{ height: "100%", width: "100%" }} scrollWheelZoom={true}>
-                <TileLayer attribution='&copy; OpenStreetMap' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                {puntos.map((p, i) => (
-                  <CircleMarker key={i} center={[p.lat, p.lng]} radius={7}
-                    pathOptions={{ fillColor: COLORES_TIPO[p.tipo] || "#52B788", color: "#fff", weight: 1.5, fillOpacity: 0.88 }}>
-                    <Popup>
-                      <div className="text-xs min-w-[140px]">
-                        <p className="font-bold text-[#1B4332] text-sm mb-1">{p.tipo || "Propiedad"}</p>
-                        <p className="text-slate-500 text-xs mb-1 truncate">{p.direccion}</p>
-                        <p className="text-slate-400">{p.fecha}</p>
-                        {p.valor > 0 && <p className="text-[#1B4332] font-semibold mt-1">{formatMXN(p.valor)}</p>}
-                      </div>
-                    </Popup>
-                  </CircleMarker>
-                ))}
-              </MapContainer>
-            </div>
-            {/* Leyenda tipos */}
-            <div className="flex flex-wrap gap-3 mt-3">
-              {Object.entries(COLORES_TIPO).map(([tipo, col]) => (
-                <span key={tipo} className="flex items-center gap-1.5 text-xs text-slate-500">
-                  <span className="w-3 h-3 rounded-full inline-block" style={{ backgroundColor: col }} />{tipo}
-                </span>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        {/* Fila de 3 mini-charts */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
 
-        {/* Gráficas: municipios + tipos */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {/* Municipios */}
-          <ChartCard
-            title="Municipios donde he valuado"
-            subtitle={`${porMunicipio.length} zona${porMunicipio.length !== 1 ? "s" : ""} activa${porMunicipio.length !== 1 ? "s" : ""}`}
-            icon={<MapPin className="w-4 h-4 text-[#1B4332]" />}
-            nombre={session?.name}
-          >
-            <ResponsiveContainer width="100%" height={200}>
-              <BarChart data={porMunicipio} barSize={28} margin={{ top: 14, right: 8, left: -20, bottom: 4 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
-                <XAxis dataKey="name" tick={{ fontSize: 11, fill: "#64748b" }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fontSize: 9, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
-                <Tooltip content={renderTooltipMini} />
-                <Bar dataKey="value" name="Avalúos" radius={[5, 5, 0, 0]}>
-                  {porMunicipio.map((_, i) => <Cell key={i} fill={COLORS_PIE[i % COLORS_PIE.length]} />)}
-                  <LabelList dataKey="value" position="top" style={{ fontSize: 11, fill: "#1B4332", fontWeight: 700 }} />
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
-          </ChartCard>
+          {/* Mapa de mis avalúos */}
+          <Card className="bg-white border-0 shadow-sm">
+            <CardContent className="p-4">
+              <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide mb-3">
+                Mapa de mis avalúos
+              </p>
+              {valuaciones.length > 0 ? (
+                <div className="rounded-xl overflow-hidden" style={{ height: 150 }}>
+                  <MapContainer center={[20.57, -103.38]} zoom={10} style={{ height:"100%", width:"100%" }} scrollWheelZoom={false} zoomControl={false} dragging={false} attributionControl={false}>
+                    <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                    {puntos.map((p, i) => (
+                      <CircleMarker key={i} center={[p.lat, p.lng]} radius={6}
+                        pathOptions={{ fillColor: COLORES_TIPO[p.tipo] || "#52B788", color:"#fff", weight:1.5, fillOpacity:0.88 }}>
+                        <Popup>
+                          <div className="text-xs min-w-[130px]">
+                            <p className="font-bold text-[#1B4332]">{p.tipo || "Propiedad"}</p>
+                            <p className="text-slate-400 truncate">{p.direccion}</p>
+                            {p.valor > 0 && <p className="text-[#1B4332] font-semibold">{formatMXN(p.valor)}</p>}
+                          </div>
+                        </Popup>
+                      </CircleMarker>
+                    ))}
+                  </MapContainer>
+                </div>
+              ) : (
+                <div className="h-[150px] flex flex-col items-center justify-center text-slate-300 gap-2">
+                  <Map className="w-8 h-8" />
+                  <p className="text-xs text-center">Sin avalúos<br/>registrados</p>
+                </div>
+              )}
+              <div className="flex flex-wrap gap-2 mt-2">
+                {Object.entries(COLORES_TIPO).slice(0,4).map(([tipo,col]) => (
+                  <span key={tipo} className="flex items-center gap-1 text-[10px] text-slate-400">
+                    <span className="w-2.5 h-2.5 rounded-full" style={{backgroundColor:col}}/>{tipo}
+                  </span>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Municipios donde he valuado */}
+          <Card className="bg-white border-0 shadow-sm">
+            <CardContent className="p-4">
+              <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide mb-3">
+                Municipios · {disponible ? "mercado" : "mis avalúos"}
+              </p>
+              {porZonaDisplay.length > 0 ? (
+                <ResponsiveContainer width="100%" height={150}>
+                  <BarChart data={porZonaDisplay} barSize={18} margin={{ top: 4, right: 8, left: -20, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+                    <XAxis dataKey="name" tick={{ fontSize: 9, fill:"#94a3b8" }} axisLine={false} tickLine={false}
+                      tickFormatter={v => v.split(" ")[0]} />
+                    <YAxis tick={{ fontSize: 9, fill:"#94a3b8" }} axisLine={false} tickLine={false} />
+                    <Tooltip content={renderTooltipMini} />
+                    <Bar dataKey="value" name={disponible ? "Propiedades" : "Avalúos"} radius={[4,4,0,0]}>
+                      {porZonaDisplay.map((_,i) => <Cell key={i} fill={COLORS[i%COLORS.length]} />)}
+                      <LabelList dataKey="value" position="top" style={{fontSize:9,fill:"#64748b",fontWeight:600}} />
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              ) : (
+                <div className="h-[150px] flex flex-col items-center justify-center text-slate-300 gap-2">
+                  <MapPin className="w-8 h-8" />
+                  <p className="text-xs text-center">Sin datos de zona</p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
 
           {/* Tipos de propiedad */}
-          <ChartCard
-            title="Tipos de propiedad valuados"
-            subtitle="Distribución de mi portafolio"
-            icon={<Building className="w-4 h-4 text-[#1B4332]" />}
-            nombre={session?.name}
-          >
-            <ResponsiveContainer width="100%" height={200}>
-              <PieChart>
-                <Pie data={porTipo} cx="50%" cy="50%" innerRadius={45} outerRadius={70}
-                  dataKey="value" nameKey="name" paddingAngle={3}>
-                  {porTipo.map((entry, i) => (
-                    <Cell key={i} fill={COLORES_TIPO[entry.name] || COLORS_PIE[i % COLORS_PIE.length]} />
-                  ))}
-                </Pie>
-                <Tooltip content={renderTooltipMini} />
-                <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: 11 }} />
-              </PieChart>
-            </ResponsiveContainer>
-          </ChartCard>
+          <Card className="bg-white border-0 shadow-sm">
+            <CardContent className="p-4">
+              <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide mb-3">
+                Tipos de propiedad · {disponible ? "mercado" : "mis avalúos"}
+              </p>
+              <ResponsiveContainer width="100%" height={150}>
+                <PieChart>
+                  <Pie data={porTipoDisplay} cx="50%" cy="50%" innerRadius={40} outerRadius={60}
+                    dataKey="value" nameKey="name" paddingAngle={2}>
+                    {porTipoDisplay.map((entry, i) => (
+                      <Cell key={i} fill={COLORES_TIPO[entry.name] || COLORS[i%COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip content={renderTooltipMini} />
+                  <Legend iconType="circle" iconSize={7} wrapperStyle={{fontSize:10}} />
+                </PieChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
         </div>
 
-        {/* Servicios contratados si aplica */}
-        {tienePlan && mercadoStats?.disponible && (
-          <div className="bg-[#F0FAF5] rounded-2xl border border-[#52B788]/20 p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide">Inteligencia de mercado disponible</p>
-                <p className="text-xs text-slate-500 mt-0.5">{mercadoStats.total?.toLocaleString()} propiedades scrapeadas en GDL metro</p>
+        {/* Métricas clave (si hay datos de mercado o mis avalúos) */}
+        {disponible ? (
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            {mercadoStats.por_municipio.slice(0,4).map((z,i) => (
+              <div key={i} className="bg-slate-50 rounded-xl p-3">
+                <p className="text-xs text-slate-400 font-medium">{z.name}</p>
+                <p className="text-base font-bold text-[#1B4332] font-['Outfit'] mt-0.5">
+                  {z.precio_avg ? formatMXN(z.precio_avg) : "—"}
+                </p>
+                <p className="text-xs text-slate-400">{z.total.toLocaleString()} propiedades</p>
               </div>
-              <button onClick={() => setActiveTab("mercado")}
-                className="text-xs text-[#52B788] font-semibold hover:underline flex items-center gap-1">
-                Ver análisis completo →
-              </button>
-            </div>
+            ))}
+          </div>
+        ) : porZona.length > 0 && (
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            {porZona.slice(0,4).map((z,i) => (
+              <div key={i} className="bg-slate-50 rounded-xl p-3">
+                <p className="text-xs text-slate-400 font-medium">{z.name}</p>
+                <p className="text-base font-bold text-[#1B4332] font-['Outfit'] mt-0.5">
+                  {z.value} avalúo{z.value !== 1 ? "s" : ""}
+                </p>
+                <p className="text-xs text-slate-400">
+                  {Math.round(z.value / valuaciones.length * 100)}% del total
+                </p>
+              </div>
+            ))}
           </div>
         )}
       </div>
@@ -2806,32 +2906,74 @@ const ValuadorDashboardPage = () => {
           </div>
         )}
 
-        {/* Tab Nav */}
-        <div className="flex gap-1 mb-6 bg-white border border-slate-200 rounded-lg p-1 w-fit">
-          {TABS.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`relative px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                activeTab === tab.id
-                  ? "bg-[#1B4332] text-white shadow-sm"
-                  : "text-slate-500 hover:text-[#1B4332]"
-              }`}
-            >
-              {tab.label}
-              {tab.badge && (
-                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-red-500" />
-              )}
-            </button>
-          ))}
+        {/* Tab Nav + Plan card inline */}
+        <div className="flex items-center justify-between gap-3 mb-6 flex-wrap">
+          <div className="flex gap-1 bg-white border border-slate-200 rounded-lg p-1 flex-wrap">
+            {TABS.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`relative px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                  activeTab === tab.id
+                    ? "bg-[#1B4332] text-white shadow-sm"
+                    : "text-slate-500 hover:text-[#1B4332]"
+                }`}
+              >
+                {tab.label}
+                {tab.badge && (
+                  <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center">!</span>
+                )}
+              </button>
+            ))}
+          </div>
+
+          {/* Plan card inline */}
+          {(() => {
+            const plan = tienePlan ? PLAN_INFO[session.plan] : null;
+            if (!plan) return (
+              <button onClick={() => navigate("/checkout/pro", { state: { role: "valuador" } })}
+                className="flex items-center gap-2 px-3 py-2 rounded-lg border border-dashed border-slate-300 text-xs text-slate-500 hover:bg-slate-50 transition-colors shrink-0">
+                <CreditCard className="w-3.5 h-3.5"/> Activar plan
+              </button>
+            );
+            return (
+              <div className={`flex items-center gap-3 px-4 py-2 rounded-lg border shrink-0 ${plan.border}`}>
+                <div className="flex flex-col gap-0.5">
+                  <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full w-fit ${plan.badge}`}>Plan {plan.label}</span>
+                  <span className="text-[10px] text-slate-400">{plan.precio} MXN / {plan.periodo}</span>
+                </div>
+                <div className="w-px h-8 bg-slate-200"/>
+                <div className="flex flex-col gap-0.5">
+                  <span className="text-[11px] text-slate-600 flex items-center gap-1">
+                    <CheckCircle2 className="w-3 h-3 text-[#52B788] shrink-0"/>{plan.creditos} avalúos/mes
+                  </span>
+                  {plan.extras.slice(0,2).map(e => (
+                    <span key={e} className="text-[11px] text-slate-600 flex items-center gap-1">
+                      <CheckCircle2 className="w-3 h-3 text-[#52B788] shrink-0"/>{e}
+                    </span>
+                  ))}
+                </div>
+                <div className="w-px h-8 bg-slate-200"/>
+                <div className="flex flex-col items-center">
+                  <span className="text-[10px] text-slate-400">Créditos</span>
+                  <span className={`text-xl font-bold font-['Outfit'] leading-none ${creditsLow ? "text-red-500" : "text-[#1B4332]"}`}>{credits}</span>
+                  <span className="text-[10px] text-slate-400">de {plan.creditos}</span>
+                </div>
+                <button onClick={() => navigate("/checkout/pro", { state: { role: "valuador" } })}
+                  className="bg-[#1B4332] hover:bg-[#163828] text-white text-[11px] font-bold px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap">
+                  Renovar plan
+                </button>
+              </div>
+            );
+          })()}
         </div>
 
         {/* Tab: Resumen */}
         {activeTab === "resumen" && (
           <>
-            <PlanCard />
             <StatCards />
-            <ResumenAvaluos />
+            <ResumenExtra />
+            <ResumenActividad />
           </>
         )}
 
