@@ -68,6 +68,78 @@ const ROL_LABEL = {
   contenido:  { label: "Contenido",   cls: "bg-pink-100 text-pink-700" },
 };
 
+/* ── Sidebar content — definida FUERA de AdminLayout para evitar remount en cada render ── */
+const SidebarContent = ({ location, badges, admin, rolInfo, handleLogout, setSidebarOpen }) => (
+  <div className="flex flex-col h-full">
+    {/* Logo */}
+    <div className="flex items-center gap-2 px-6 py-5 border-b border-white/10">
+      <Building2 className="w-6 h-6 text-[#52B788]" />
+      <span className="font-['Outfit'] text-lg font-bold text-white">
+        Prop<span className="text-[#52B788]">Valu</span>
+        <span className="text-[#52B788] text-xs font-semibold ml-1 opacity-70">Admin</span>
+      </span>
+    </div>
+
+    {/* Nav */}
+    <nav className="flex-1 px-3 py-4 overflow-y-auto space-y-4">
+      {NAV_GRUPOS.map(({ grupo, items }) => (
+        <div key={grupo}>
+          <p className="text-[10px] font-bold text-white/25 uppercase tracking-widest px-3 mb-1">{grupo}</p>
+          <div className="space-y-0.5">
+            {items.map(({ label, icon: Icon, href, badge }) => {
+              const active = location.pathname === href;
+              const count = badge ? (badges[badge] || 0) : 0;
+              return (
+                <Link
+                  key={href}
+                  to={href}
+                  onClick={() => setSidebarOpen(false)}
+                  className={`flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-colors ${
+                    active
+                      ? "bg-[#52B788]/20 text-[#52B788]"
+                      : "text-white/60 hover:text-white hover:bg-white/5"
+                  }`}
+                >
+                  <Icon className="w-4 h-4 flex-shrink-0" />
+                  <span className="flex-1">{label}</span>
+                  {count > 0 && (
+                    <span className="bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
+                      {count}
+                    </span>
+                  )}
+                  {active && <ChevronRight className="w-3 h-3 opacity-60" />}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+    </nav>
+
+    {/* Admin info + logout */}
+    <div className="px-4 py-4 border-t border-white/10">
+      <div className="flex items-center gap-3 mb-3">
+        <div className="w-8 h-8 rounded-full bg-[#52B788]/20 flex items-center justify-center text-[#52B788] text-xs font-bold">
+          {(admin.nombre || "A").charAt(0)}
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-white text-xs font-semibold truncate">{admin.nombre || "Admin"}</p>
+          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${rolInfo.cls}`}>
+            {rolInfo.label}
+          </span>
+        </div>
+      </div>
+      <button
+        onClick={handleLogout}
+        className="w-full flex items-center gap-2 text-white/40 hover:text-red-400 text-xs py-2 transition-colors"
+      >
+        <LogOut className="w-4 h-4" />
+        Cerrar sesión
+      </button>
+    </div>
+  </div>
+);
+
 const AdminLayout = ({ children, badges = {} }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -81,82 +153,11 @@ const AdminLayout = ({ children, badges = {} }) => {
     navigate("/admin/login");
   };
 
-  const SidebarContent = () => (
-    <div className="flex flex-col h-full">
-      {/* Logo */}
-      <div className="flex items-center gap-2 px-6 py-5 border-b border-white/10">
-        <Building2 className="w-6 h-6 text-[#52B788]" />
-        <span className="font-['Outfit'] text-lg font-bold text-white">
-          Prop<span className="text-[#52B788]">Valu</span>
-          <span className="text-[#52B788] text-xs font-semibold ml-1 opacity-70">Admin</span>
-        </span>
-      </div>
-
-      {/* Nav */}
-      <nav className="flex-1 px-3 py-4 overflow-y-auto space-y-4">
-        {NAV_GRUPOS.map(({ grupo, items }) => (
-          <div key={grupo}>
-            <p className="text-[10px] font-bold text-white/25 uppercase tracking-widest px-3 mb-1">{grupo}</p>
-            <div className="space-y-0.5">
-              {items.map(({ label, icon: Icon, href, badge }) => {
-                const active = location.pathname === href;
-                const count = badge ? (badges[badge] || 0) : 0;
-                return (
-                  <Link
-                    key={href}
-                    to={href}
-                    onClick={() => setSidebarOpen(false)}
-                    className={`flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-colors ${
-                      active
-                        ? "bg-[#52B788]/20 text-[#52B788]"
-                        : "text-white/60 hover:text-white hover:bg-white/5"
-                    }`}
-                  >
-                    <Icon className="w-4 h-4 flex-shrink-0" />
-                    <span className="flex-1">{label}</span>
-                    {count > 0 && (
-                      <span className="bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
-                        {count}
-                      </span>
-                    )}
-                    {active && <ChevronRight className="w-3 h-3 opacity-60" />}
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        ))}
-      </nav>
-
-      {/* Admin info + logout */}
-      <div className="px-4 py-4 border-t border-white/10">
-        <div className="flex items-center gap-3 mb-3">
-          <div className="w-8 h-8 rounded-full bg-[#52B788]/20 flex items-center justify-center text-[#52B788] text-xs font-bold">
-            {(admin.nombre || "A").charAt(0)}
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-white text-xs font-semibold truncate">{admin.nombre || "Admin"}</p>
-            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${rolInfo.cls}`}>
-              {rolInfo.label}
-            </span>
-          </div>
-        </div>
-        <button
-          onClick={handleLogout}
-          className="w-full flex items-center gap-2 text-white/40 hover:text-red-400 text-xs py-2 transition-colors"
-        >
-          <LogOut className="w-4 h-4" />
-          Cerrar sesión
-        </button>
-      </div>
-    </div>
-  );
-
   return (
     <div className="min-h-screen bg-[#F8F9FA] flex">
       {/* Sidebar desktop */}
       <aside className="hidden lg:flex flex-col w-60 bg-[#0D1F18] border-r border-white/5 fixed inset-y-0 left-0 z-30">
-        <SidebarContent />
+        <SidebarContent location={location} badges={badges} admin={admin} rolInfo={rolInfo} handleLogout={handleLogout} setSidebarOpen={setSidebarOpen} />
       </aside>
 
       {/* Sidebar mobile overlay */}
@@ -176,7 +177,7 @@ const AdminLayout = ({ children, badges = {} }) => {
             <X className="w-5 h-5" />
           </button>
         </div>
-        <SidebarContent />
+        <SidebarContent location={location} badges={badges} admin={admin} rolInfo={rolInfo} handleLogout={handleLogout} setSidebarOpen={setSidebarOpen} />
       </aside>
 
       {/* Main */}

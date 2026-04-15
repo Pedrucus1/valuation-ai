@@ -255,7 +255,7 @@ const AdminKYC = () => {
         {/* Pendientes */}
         {pendientes.length > 0 && (
           <AdminCard icon={ShieldCheck} title={`Pendientes de revisión (${pendientes.length})`}>
-            <div className="p-4 space-y-3">
+            <div className="p-4 space-y-4">
               {pendientes.map((k) => <KYCCard key={k.id} solicitud={k} onAccion={accionKYC} />)}
             </div>
           </AdminCard>
@@ -264,7 +264,7 @@ const AdminKYC = () => {
         {/* Procesados */}
         {procesados.length > 0 && (
           <AdminCard icon={CheckCircle2} title={`Procesados recientemente (${procesados.length})`}>
-            <div className="p-4 space-y-3">
+            <div className="p-4 space-y-4">
               {procesados.map((k) => <KYCCard key={k.id} solicitud={k} onAccion={accionKYC} />)}
             </div>
           </AdminCard>

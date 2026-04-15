@@ -187,9 +187,9 @@ const AdminBroadcast = () => {
                 {HISTORIAL.length === 0 ? (
                   <p className="text-xs text-slate-400">Sin envíos aún.</p>
                 ) : (
-                  <div className="space-y-3">
+                  <div className="space-y-4">
                     {HISTORIAL.map((h) => (
-                      <div key={h.id} className="border border-[#B7E4C7] rounded-xl p-3">
+                      <div key={h.id} className="border border-[#B7E4C7] rounded-xl p-4">
                         <p className="text-xs font-semibold text-[#1B4332] leading-snug">{h.asunto}</p>
                         <p className="text-[11px] text-slate-400 mt-0.5">{h.segmento}</p>
                         <div className="flex justify-between mt-2 text-[11px]">

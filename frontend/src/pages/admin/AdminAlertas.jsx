@@ -97,7 +97,7 @@ const AdminAlertas = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
           {/* Config alertas */}
-          <div className="lg:col-span-2 space-y-3">
+          <div className="lg:col-span-2 space-y-4">
 
             {/* Email destino */}
             <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm p-4 flex items-center gap-3">
@@ -114,7 +114,7 @@ const AdminAlertas = () => {
               <div className="text-center py-10 text-slate-400 text-sm">Cargando configuración…</div>
             )}
             {!cargando && config.map((alerta) => (
-              <div key={alerta.id} className={`bg-white rounded-2xl border shadow-sm p-5 transition-opacity ${alerta.activa ? "border-slate-100 opacity-100" : "border-slate-100 opacity-60"}`}>
+              <div key={alerta.id} className={`bg-white rounded-xl border shadow-sm p-5 transition-opacity ${alerta.activa ? "border-[#B7E4C7] opacity-100" : "border-[#B7E4C7] opacity-60"}`}>
                 <div className="flex items-start justify-between gap-4 mb-3">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-0.5">
