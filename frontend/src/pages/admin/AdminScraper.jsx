@@ -4,13 +4,11 @@ import { adminFetch } from "@/lib/adminFetch";
 import {
   Activity, CheckCircle2, AlertCircle, XCircle, RefreshCw,
   Clock, Database, AlertTriangle, Play, Search, ChevronLeft, ChevronRight, ExternalLink,
-  BarChart2, TrendingUp, MapPin, Filter, ChevronDown, Globe,
+  Globe,
 } from "lucide-react";
 import { PageHeader } from "@/components/AdminUI";
-import {
-  BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid,
-  Tooltip, Legend, ResponsiveContainer, LabelList,
-} from "recharts";
+import { API } from "@/App";
+import MercadoView from "@/components/MercadoView";
 
 /* ─── Constantes ─────────────────────────────── */
 const ESTADO_CFG = {
@@ -285,248 +283,6 @@ const PropiedadesViewer = () => {
   );
 };
 
-/* ─── Componente: Vista Mercado ───────────────── */
-const MercadoViewer = () => {
-  const [tipoOp, setTipoOp] = useState("venta");
-  const [colonias, setColonias] = useState([]);
-  const [cargando, setCargando] = useState(false);
-  const [busqueda, setBusqueda] = useState("");
-  const [filtroMun, setFiltroMun] = useState("");
-  const [pagina, setPagina] = useState(1);
-  const POR_PAG = 20;
-
-  const cargar = useCallback(async () => {
-    setCargando(true);
-    try {
-      const data = await adminFetch(`/api/mercado/colonias?tipo_op=${tipoOp}`);
-      setColonias(Array.isArray(data) ? data : (data.colonias || []));
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setCargando(false);
-    }
-  }, [tipoOp]);
-
-  useEffect(() => { cargar(); }, [cargar]);
-  useEffect(() => { setPagina(1); }, [busqueda, filtroMun, tipoOp]);
-
-  // Datos para gráficas
-  const tiposTotales = TIPOS_PROP.map(t => ({
-    name: t,
-    value: colonias.reduce((s, c) => s + (c[t] || 0), 0),
-  })).filter(d => d.value > 0);
-
-  const municipioMap = {};
-  colonias.forEach(c => {
-    const mun = (c.municipio || "—").replace(/\s+de\s+Z[uú][ñn]iga/i, "");
-    if (!municipioMap[mun]) municipioMap[mun] = { name: mun, total: 0 };
-    municipioMap[mun].total += c.total || 0;
-  });
-  const municipioData = Object.values(municipioMap).sort((a, b) => b.total - a.total).slice(0, 10);
-
-  const precioData = colonias
-    .filter(c => c.Casa_pm2 || c.Departamento_pm2)
-    .sort((a, b) => (b.Casa_pm2 || b.Departamento_pm2 || 0) - (a.Casa_pm2 || a.Departamento_pm2 || 0))
-    .slice(0, 10)
-    .map(c => ({
-      name: (c.colonia || "—").replace(/^\w/, s => s.toUpperCase()).slice(0, 16),
-      Casa: c.Casa_pm2 || null,
-      Depto: c.Departamento_pm2 || null,
-    }));
-
-  const totalProps = colonias.reduce((s, c) => s + (c.total || 0), 0);
-  const municipios = [...new Set(colonias.map(c => (c.municipio || "").replace(/\s+de\s+Z[uú][ñn]iga/i, "")))].filter(Boolean).sort();
-
-  // Tabla filtrada
-  const coloniasFiltradas = colonias.filter(c => {
-    const mun = (c.municipio || "").replace(/\s+de\s+Z[uú][ñn]iga/i, "");
-    const matchBusq = !busqueda || (c.colonia || "").toLowerCase().includes(busqueda.toLowerCase()) || mun.toLowerCase().includes(busqueda.toLowerCase());
-    const matchMun  = !filtroMun || mun === filtroMun;
-    return matchBusq && matchMun;
-  });
-
-  const totalPag = Math.max(1, Math.ceil(coloniasFiltradas.length / POR_PAG));
-  const coloniasPag = coloniasFiltradas.slice((pagina - 1) * POR_PAG, pagina * POR_PAG);
-
-  return (
-    <div className="space-y-6">
-      {/* Header tipo operación */}
-      <div className="flex items-center justify-between flex-wrap gap-3">
-        <div className="flex gap-1 bg-white border border-slate-200 rounded-xl p-1">
-          {["venta","renta"].map(op => (
-            <button key={op} onClick={() => setTipoOp(op)}
-              className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
-                tipoOp === op ? "bg-[#1B4332] text-white shadow-sm" : "text-slate-500 hover:text-[#1B4332]"
-              }`}>{op.charAt(0).toUpperCase() + op.slice(1)}</button>
-          ))}
-        </div>
-        <button onClick={cargar} disabled={cargando}
-          className="flex items-center gap-2 text-xs font-semibold px-3 py-2 rounded-xl border border-[#52B788] text-[#1B4332] hover:bg-[#52B788]/10 transition-colors disabled:opacity-50">
-          <RefreshCw className={`w-3.5 h-3.5 ${cargando ? "animate-spin" : ""}`} />
-          Actualizar
-        </button>
-      </div>
-
-      {/* KPIs */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        {[
-          { label: "Total propiedades", valor: totalProps.toLocaleString(), icon: Database, cls: "bg-blue-100 text-blue-600" },
-          { label: "Colonias cubiertas", valor: colonias.length.toLocaleString(), icon: MapPin, cls: "bg-[#D9ED92] text-[#1B4332]" },
-          { label: "Municipios",         valor: municipios.length, icon: Activity, cls: "bg-[#52B788]/20 text-[#1B4332]" },
-          { label: "Tipo dominante",     valor: tiposTotales[0]?.name || "—", icon: BarChart2, cls: "bg-purple-100 text-purple-600" },
-        ].map(({ label, valor, icon: Icon, cls }) => (
-          <div key={label} className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm p-4 flex flex-col gap-2">
-            <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${cls}`}>
-              <Icon className="w-4 h-4" />
-            </div>
-            <p className="font-['Outfit'] text-xl font-bold text-[#1B4332]">{valor}</p>
-            <p className="text-xs text-slate-400">{label}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* Gráficas */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {/* Tipos */}
-        <div className="bg-white rounded-2xl border border-[#B7E4C7] p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-[#1B4332] mb-4">Distribución por tipo</h3>
-          <ResponsiveContainer width="100%" height={200}>
-            <PieChart>
-              <Pie data={tiposTotales} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} label={({ name, percent }) => `${name} ${(percent*100).toFixed(0)}%`} labelLine={false}>
-                {tiposTotales.map((entry) => (
-                  <Cell key={entry.name} fill={TIPO_COLORS[entry.name] || "#94a3b8"} />
-                ))}
-              </Pie>
-              <Tooltip formatter={(v) => v.toLocaleString()} />
-            </PieChart>
-          </ResponsiveContainer>
-        </div>
-
-        {/* Municipios */}
-        <div className="bg-white rounded-2xl border border-[#B7E4C7] p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-[#1B4332] mb-4">Top municipios</h3>
-          <ResponsiveContainer width="100%" height={200}>
-            <BarChart data={municipioData} layout="vertical" margin={{ left: 0, right: 20 }}>
-              <XAxis type="number" tick={{ fontSize: 10 }} tickFormatter={fmtK} />
-              <YAxis type="category" dataKey="name" tick={{ fontSize: 10 }} width={90} />
-              <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-              <Tooltip formatter={(v) => v.toLocaleString()} />
-              <Bar dataKey="total" fill="#52B788" radius={[0, 4, 4, 0]}>
-                <LabelList dataKey="total" position="right" style={{ fontSize: 10, fill: "#1B4332", fontWeight: 700 }} formatter={fmtK} />
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-
-        {/* Precio/m² top colonias */}
-        <div className="bg-white rounded-2xl border border-[#B7E4C7] p-5 shadow-sm lg:col-span-2">
-          <h3 className="text-sm font-semibold text-[#1B4332] mb-4">Precio/m² por colonia — top 10</h3>
-          <ResponsiveContainer width="100%" height={220}>
-            <BarChart data={precioData} margin={{ top: 18, right: 10, left: 0, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-              <XAxis dataKey="name" tick={{ fontSize: 10 }} />
-              <YAxis tick={{ fontSize: 10 }} tickFormatter={(v) => `$${(v/1000).toFixed(0)}k`} />
-              <Tooltip formatter={(v) => v ? `$${v.toLocaleString("es-MX")}/m²` : "—"} />
-              <Legend />
-              <Bar dataKey="Casa" fill="#1B4332" radius={[4,4,0,0]} barSize={20}>
-                <LabelList dataKey="Casa" position="top" style={{ fontSize: 9, fill: "#1B4332", fontWeight: 700 }} formatter={(v) => v ? `$${Math.round(v/1000)}k` : ""} />
-              </Bar>
-              <Bar dataKey="Depto" fill="#52B788" radius={[4,4,0,0]} barSize={20}>
-                <LabelList dataKey="Depto" position="top" style={{ fontSize: 9, fill: "#52B788", fontWeight: 700 }} formatter={(v) => v ? `$${Math.round(v/1000)}k` : ""} />
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-      </div>
-
-      {/* Tabla colonias */}
-      <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm overflow-hidden">
-        <div className="flex items-center justify-between gap-3 px-5 py-3.5 border-b border-[#B7E4C7] flex-wrap">
-          <h3 className="text-sm font-semibold text-[#1B4332]">
-            Colonias — {coloniasFiltradas.length.toLocaleString()} resultados
-          </h3>
-          <div className="flex items-center gap-2 flex-wrap">
-            <select value={filtroMun} onChange={e => setFiltroMun(e.target.value)}
-              className="text-xs border border-slate-200 rounded-xl px-3 py-1.5 focus:outline-none focus:border-[#52B788] text-slate-600">
-              <option value="">Todos los municipios</option>
-              {municipios.map(m => <option key={m} value={m}>{m}</option>)}
-            </select>
-            <div className="relative">
-              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
-              <input value={busqueda} onChange={e => setBusqueda(e.target.value)}
-                placeholder="Buscar colonia…"
-                className="pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-[#52B788] w-44" />
-            </div>
-          </div>
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full text-xs">
-            <thead>
-              <tr className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F]">
-                {["Colonia","Municipio","Total","Casa","Depto","Terreno","Local","Bodega","Oficina","Segmento","% Mercado"].map(h => (
-                  <th key={h} className="text-left px-3 py-2 font-semibold text-white/80 uppercase tracking-wide whitespace-nowrap first:sticky first:left-0 first:bg-[#1B4332]">{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-50">
-              {cargando && Array.from({ length: 8 }).map((_, i) => (
-                <tr key={i}><td colSpan={11} className="px-3 py-2.5">
-                  <div className="h-3 bg-slate-100 rounded animate-pulse w-full" />
-                </td></tr>
-              ))}
-              {!cargando && coloniasPag.length === 0 && (
-                <tr><td colSpan={11} className="text-center py-10 text-slate-400">Sin datos</td></tr>
-              )}
-              {!cargando && coloniasPag.map((c, i) => {
-                const mun = (c.municipio || "—").replace(/\s+de\s+Z[uú][ñn]iga/i, "");
-                const pct = ((c.total / totalProps) * 100).toFixed(1);
-                const seg = getSegmento(c.precio_avg, tipoOp);
-                return (
-                  <tr key={i} className="hover:bg-slate-50/60 transition-colors">
-                    <td className="px-3 py-2 sticky left-0 bg-white z-10 font-medium text-slate-700 max-w-[140px] truncate" title={c.colonia}>
-                      {(c.colonia || "—").replace(/^\w/, s => s.toUpperCase())}
-                    </td>
-                    <td className="px-3 py-2 text-slate-500">{mun}</td>
-                    <td className="px-3 py-2 font-bold text-[#1B4332]">{c.total}</td>
-                    {TIPOS_PROP.map(t => (
-                      <td key={t} className="px-3 py-2">
-                        {c[t] > 0 ? (
-                          <div className="flex flex-col gap-0.5">
-                            <span className="font-semibold" style={{ color: TIPO_COLORS[t] }}>{c[t]}</span>
-                            {c[`${t}_pm2`] && <span className="text-[10px] text-slate-400">{fmt(c[`${t}_pm2`])}/m²</span>}
-                          </div>
-                        ) : <span className="text-slate-200">—</span>}
-                      </td>
-                    ))}
-                    <td className="px-3 py-2">
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold" style={{ backgroundColor: `${seg.color}22`, color: seg.color }}>
-                        {seg.label}
-                      </span>
-                    </td>
-                    <td className="px-3 py-2 text-center font-semibold text-slate-500">{pct}%</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-        {totalPag > 1 && (
-          <div className="flex items-center justify-between px-5 py-3 border-t border-[#B7E4C7]">
-            <button onClick={() => setPagina(p => Math.max(1, p - 1))} disabled={pagina === 1}
-              className="flex items-center gap-1 text-xs font-semibold text-slate-500 hover:text-[#1B4332] disabled:opacity-30">
-              <ChevronLeft className="w-4 h-4" /> Anterior
-            </button>
-            <span className="text-xs text-slate-400">{pagina} / {totalPag} · {coloniasFiltradas.length} colonias</span>
-            <button onClick={() => setPagina(p => Math.min(totalPag, p + 1))} disabled={pagina === totalPag}
-              className="flex items-center gap-1 text-xs font-semibold text-slate-500 hover:text-[#1B4332] disabled:opacity-30">
-              Siguiente <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-};
 
 /* ─── Componente principal ────────────────────── */
 const AdminScraper = () => {
@@ -682,7 +438,16 @@ const AdminScraper = () => {
         {activeTab === "propiedades" && <PropiedadesViewer />}
 
         {/* ── Tab: Mercado ── */}
-        {activeTab === "mercado" && <MercadoViewer />}
+        {activeTab === "mercado" && (
+          <MercadoView
+            modo="admin"
+            nombreUsuario="Admin"
+            valuacionesPropias={[]}
+            planId=""
+            API={API}
+            esAdmin={true}
+          />
+        )}
 
         {/* ── Tab: Monitor ── */}
         {activeTab === "monitor" && (
