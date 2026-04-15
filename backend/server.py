@@ -2148,22 +2148,34 @@ async def admin_scraper_run(request: Request):
     except Exception:
         body = {}
     portal = body.get("portal")  # None = todos los portales
+    force = body.get("force", False)  # True = ignorar estado_global
 
-    doc = await db.scraper_status.find_one({"_id": "status"}, {"estado_global": 1})
-    if doc and doc.get("estado_global") == "corriendo":
-        raise HTTPException(status_code=409, detail="El scraper ya está en ejecución")
+    # Solo bloquear "todos" si ya hay un ciclo global corriendo (no bloquear portales individuales)
+    if not portal and not force:
+        doc = await db.scraper_status.find_one({"_id": "status"}, {"estado_global": 1})
+        if doc and doc.get("estado_global") == "corriendo":
+            raise HTTPException(status_code=409, detail="El scraper ya está en ejecución. Usa force=true para forzar.")
 
     scraper_path = Path(SCRAPER_DIR)
     if not scraper_path.exists():
         raise HTTPException(status_code=500, detail=f"Directorio del scraper no encontrado: {SCRAPER_DIR}")
 
-    await db.scraper_status.update_one(
-        {"_id": "status"},
-        {"$set": {"estado_global": "corriendo"}},
-        upsert=True,
-    )
-
     portales = [portal] if portal else PORTALES_SCRAPER
+
+    # Marcar portales en ejecución
+    now_str = datetime.now(timezone.utc).isoformat()
+    if portal:
+        await db.scraper_status.update_one(
+            {"_id": "status", "portales.id": portal},
+            {"$set": {"portales.$.estado": "corriendo", "portales.$.ultima": now_str}},
+        )
+    else:
+        await db.scraper_status.update_one(
+            {"_id": "status"},
+            {"$set": {"estado_global": "corriendo"}},
+            upsert=True,
+        )
+
     for p in portales:
         asyncio.create_task(asyncio.create_subprocess_exec(
             "python", "scheduler.py", "--portal", p,

@@ -1817,7 +1817,7 @@ const ValuadorDashboardPage = () => {
   const PLAN_INFO = {
     starter: {
       label: "Starter", precio: "$1,200", periodo: "mes", creditos: 5,
-      border: "border-slate-200 bg-slate-50", badge: "bg-slate-200 text-slate-700",
+      border: "border-[#B7E4C7] bg-[#F0FAF5]", badge: "bg-[#D9ED92] text-[#1B4332]",
       extras: [],
     },
     pro: {
@@ -2932,8 +2932,8 @@ const ValuadorDashboardPage = () => {
             const plan = tienePlan ? PLAN_INFO[session.plan] : null;
             if (!plan) return (
               <button onClick={() => navigate("/checkout/pro", { state: { role: "valuador" } })}
-                className="flex items-center gap-2 px-3 py-2 rounded-lg border border-dashed border-slate-300 text-xs text-slate-500 hover:bg-slate-50 transition-colors shrink-0">
-                <CreditCard className="w-3.5 h-3.5"/> Activar plan
+                className="flex items-center gap-2 px-3 py-2 rounded-lg border border-dashed border-[#52B788] text-xs text-[#1B4332] hover:bg-[#F0FAF5] transition-colors shrink-0 font-medium">
+                <CreditCard className="w-3.5 h-3.5 text-[#52B788]"/> Activar plan
               </button>
             );
             return (

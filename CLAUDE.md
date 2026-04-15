@@ -1,5 +1,48 @@
 # Reglas para Claude Code — PropValu
 
+## 🚀 Al iniciar sesión (AUTOMÁTICO — sin que el usuario lo pida)
+
+Al recibir el **primer mensaje** de una sesión nueva, leer inmediatamente:
+1. `memory/BACKLOG.md` — qué está pendiente
+2. `C:\Users\pedru\.claude\projects\C--Users-pedru\memory\project_propvalu.md` — estado del proyecto
+
+Luego responder al usuario con contexto ya cargado. No esperar a que pida `/ctx`.
+
+---
+
+## 🗺️ Planear antes de actuar
+
+**Actuar directo** (sin pedir aprobación):
+- Cambio en 1 archivo, petición explícita y clara
+- Bug fix obvio, ajuste de color/texto/margen
+- El usuario describió exactamente qué cambiar
+
+**EnterPlanMode primero** (mostrar plan, esperar aprobación):
+- Feature nueva que toca 2+ archivos
+- Rediseño de sección completa
+- Petición vaga ("mejora X", "arregla Y")
+- Cambio backend + frontend juntos
+- Cualquier cambio en server.py o archivos críticos
+
+**Por qué:** El usuario no es programador — ver el plan evita sorpresas y trabajo rehecho.
+
+---
+
+## ⚡ Token Efficiency (CRÍTICO)
+
+**Ver:** `~/.claude/EFFICIENCY.md` — guía universal para optimizar tokens en CUALQUIER edición.
+
+**TL;DR:**
+- Single-file edit → Read UNA VEZ → Edit UNA VEZ → Done
+- Multi-file → Glob + Read each once + Edit each once
+- Archivo > 50k líneas → Grep primero, luego Read esa sección
+- Código crítico (auth, payments) → Siempre verificar/testear
+- Respuesta: máximo 2-3 líneas, nunca explicaciones largas
+
+**Ahorro esperado:** 50% menos tokens por edición.
+
+---
+
 ## Commits automáticos al terminar trabajo funcional
 
 Después de completar cualquier bloque de trabajo que deje algo funcionando (nueva feature, corrección de bug, cambio de diseño verificado), hacer commit inmediatamente con mensaje descriptivo. No esperar a que el usuario lo pida.
@@ -34,7 +77,7 @@ Claude debe sugerir el skill correcto en el momento correcto, sin que el usuario
 | El usuario dice "vamos a trabajar en X" sin contexto | `/ctx` primero |
 | Antes de editar server.py o archivos grandes | `/backup` |
 | El usuario dice "el backend no responde" / "reinicia" | `/restart-backend` |
-| Al crear una página nueva | `/new-page` |
+| Al crear una página nueva o modificar layout de una existente | `/new-page` + revisar responsividad móvil (ver regla abajo) |
 | Al crear un endpoint nuevo | `/new-endpoint` |
 | El usuario dice "prueba el endpoint" / "prueba la API" | `/test-api` |
 | El usuario dice "hay errores" / "algo está roto" | `/check-errors` |
@@ -43,6 +86,21 @@ Claude debe sugerir el skill correcto en el momento correcto, sin que el usuario
 | El usuario no recuerda qué skills hay | `/ayuda` |
 
 **Formato de sugerencia:** Una línea al final de la respuesta, ej: `→ ¿Corremos /ctx primero?`
+
+## 📱 Responsividad móvil — regla obligatoria
+
+**Siempre que se cree una página nueva o se modifique el layout de una existente**, revisar mentalmente que funcione en móvil (360–414px de ancho):
+
+- Grids: `grid-cols-4` o más → deben colapsar con `grid-cols-2` o `grid-cols-1` en móvil
+- Tablas anchas → usar scroll horizontal (`overflow-x-auto`) o diseño apilado en móvil
+- Sidebars y menús → verificar que el overlay móvil funcione
+- Botones de acción → deben ser accesibles con el pulgar (min 44px de alto)
+- Texto truncado → verificar que `truncate` o `min-w-0` estén donde corresponde
+- Inputs y selects → ancho completo en móvil (`w-full`)
+
+Si algo claramente no va a funcionar en móvil, mencionarlo al usuario antes de dar la tarea por terminada.
+
+---
 
 ## Bitácora — actualizar BACKLOG.md al final de cada sesión
 

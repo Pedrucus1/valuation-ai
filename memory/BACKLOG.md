@@ -1,5 +1,5 @@
 # PropValu — Backlog de Tareas
-> **Última actualización:** 10 Abr 2026 (sesión perfil inmobiliaria + reseñas + equipo)
+> **Última actualización:** 14 Abr 2026 — sesión Valuador Dashboard + AdminScraper + sistema eficiencia tokens
 > Actualizar este archivo conforme se completen tareas. Marcar con ✅ cuando esté lista, con 🔄 cuando esté en progreso.
 
 ---
@@ -8,8 +8,8 @@
 
 | # | Estado | Tarea |
 |---|---|---|
-| 1 | ✅ | **Checkout público general** — flujo: formulario pasos 1-2-3 → paso 4 (pago integrado en ValuationForm) → ads → análisis. Paquetes Individual $280, Bronce $815, Plata $1,317, Oro $2,555 + IVA. También disponible en `/comprar` como entrada opcional previa. |
-| 8 | ✅ | **Checkout con upsells** — add-ons Revisión por Perito +$350 y Verificación de m² +$600 en `PricingPage`. |
+| 1 | ✅ | **Checkout público general** — flujo: formulario pasos 1-2-3 → paso 4 (pago integrado en ValuationForm) → ads → análisis. |
+| 8 | ✅ | **Checkout con upsells** — add-ons Revisión por Perito +$350 y Verificación de m² +$600. |
 | 19 | ✅ | **Checkout Valuador e Inmobiliaria** — `/checkout/pro` con planes por rol. Modal de pago simulado. |
 | 7 | ⏳ | **Integración pasarela de pagos** — Stripe (tarjeta), OXXO, SPEI, Mercado Pago. |
 
@@ -30,16 +30,16 @@
 
 | # | Estado | Tarea |
 |---|---|---|
-| 3 | ✅ | **Páginas legales** — `/privacidad`, `/terminos`, `/contacto`, `/terminos-anunciantes`, `/terminos-valuadores`, `/terminos-inmobiliarias`. |
+| 3 | ✅ | **Páginas legales** — `/privacidad`, `/terminos`, `/contacto`, etc. |
 | 4 | ✅ | **Registro y login** — email+password, bcrypt, cookie sesión, redirect por rol. |
-| 39 | ✅ | **Fix auth propio** — reemplazar `auth.emergentagent.com` por el sistema de login propio de PropValu. Google OAuth desacoplado del proveedor externo. |
-| 25 | ✅ | **Registro valuador — paso 2** — ModoSelector (básico/afiliado), servicios, cobertura multi-municipio, años de experiencia con medalla preview (🥉🥈🥇). |
-| 26 | ✅ | **Registro valuador — paso 3** — docs con hints explicativos, `comprobante_experiencia` obligatorio (título maestría / avalúo fechado / carta colegio), cédula profesional (arq/ing verificable en DGP-SEP), términos y privacidad con checkbox. |
-| 27 | ✅ | **Subida de docs al registrarse** — `handleRegister` sube cada archivo a `/kyc/upload` tras crear cuenta usando la cookie recién generada. |
-| 46 | ✅ | **Registro sin fricción** — docs opcionales (no bloquean submit), `regData` persiste en localStorage, `verificacion_pendiente` enviado al backend si no hay docs. |
-| 47 | ✅ | **CTA inmobiliarias en ReportPage** — card verde tras resultado OPI con link al directorio `/inmobiliarias`. |
-| 28 | ✅ | **Programa afiliado en ModoSelector** — opción "completo" se expande mostrando beneficios (80% comisión, encargos, medallitas), compromisos (SLA 24h) y requisitos (docs + entrevista). |
-| 9 | ✅ | **KYC valuadores** — expediente por etapas (pendiente→listo→revision→aprobado), botón solicitar entrevista. Admin puede Ver y Ratificar cada documento. Fixes: label `under_review`→en_revision en AdminKYC, sesión se refresca con /auth/me al cargar dashboard, botón entrevista actualiza localStorage. |
+| 39 | ✅ | **Fix auth propio** — reemplazar `auth.emergentagent.com` por sistema login propio. |
+| 25 | ✅ | **Registro valuador — paso 2** — ModoSelector, servicios, cobertura, experiencia con medalla. |
+| 26 | ✅ | **Registro valuador — paso 3** — docs con hints, comprobante_experiencia obligatorio, términos. |
+| 27 | ✅ | **Subida de docs al registrarse** — `/kyc/upload` tras crear cuenta. |
+| 46 | ✅ | **Registro sin fricción** — docs opcionales, draft en localStorage. |
+| 47 | ✅ | **CTA inmobiliarias en ReportPage** — card verde tras resultado OPI. |
+| 28 | ✅ | **Programa afiliado en ModoSelector** — beneficios, compromisos, requisitos. |
+| 9 | ✅ | **KYC valuadores** — expediente por etapas, botón entrevista, admin ratifica. |
 
 ---
 
@@ -47,17 +47,22 @@
 
 | # | Estado | Tarea |
 |---|---|---|
-| 5 | ✅ | **Dashboard Valuador** — tabs: Resumen, Valuaciones, Perfil, Mi expediente. PlanCard al entrar muestra plan/precio/créditos. Medalla de experiencia en header y perfil. |
-| 6 | ✅ | **Dashboard Inmobiliaria** — tabs: Resumen, Valuaciones, Equipo (solo titular), Documentos, Perfil, Reseñas. PlanCard con planes Básico/Estándar/Premier. |
-| 48 | ✅ | **Perfil inmobiliaria rediseñado** — header verde con logo+KYC, grid 4 col, foto sidebar, todos los campos siempre visibles con chip Pendiente, editar inline desde el tab. |
-| 49 | ✅ | **Reseñas de clientes** — tab Reseñas: promedio, distribución, lista con respuesta del titular. Backend: GET/POST reseñas + POST respuesta autenticada. |
-| 50 | ✅ | **Equipo real de asesores** — GET /inmobiliaria/equipo por empresa_afiliada. Tabla con OPIs mes/total/KYC. Mock preview cuando no hay asesores reales. |
-| 51 | ✅ | **Editar perfil desde dashboard** — botón ✏️ en tab Perfil abre form inline: redes, dirección, asociación, galardones, cursos, Maps. PUT /auth/profile acepta nuevos campos. |
-| 52 | ✅ | **Refresh sesión al montar** — ambos dashboards hacen fetch /auth/me al cargar y mergean con localStorage. Pydantic User model completado con todos los campos de registro. |
-| 53 | ✅ | **Reglas UX en CLAUDE.md** — campos siempre visibles, grid 4 col, jerarquía de textos, mock preview, placeholder=botón. feedback_ux_perfiles.md en memoria. |
-| 20 | ✅ | **Panel Admin** — 17 módulos. Verificación (AdminKYC) con botón "Ratificar" por documento. |
-| 40 | ✅ | **Admin Inmobiliarias** — módulo con 4 tabs: Resumen, Activas, Pendientes, Historial. Endpoints `GET /admin/inmobiliarias` + detalles por ID. |
-| 41 | ✅ | **Admin Ads mejorado** — tabla de campañas compacta con filas expandibles, lightbox para navegar creatividades a pantalla completa, moderación y aprobación inline en tab Campañas. |
+| 5 | ✅ | **Dashboard Valuador** — tabs: Resumen, Valuaciones, Perfil, Expediente, Facturación. |
+| 6 | ✅ | **Dashboard Inmobiliaria** — tabs: Resumen, Mercado, Valuaciones, Equipo, Documentos, Perfil, Reseñas, Facturación. |
+| 48 | ✅ | **Perfil inmobiliaria rediseñado** — header verde, grid 4 col, todos campos visibles. |
+| 49 | ✅ | **Reseñas de clientes** — tab Reseñas con promedio, distribución, respuesta del titular. |
+| 50 | ✅ | **Equipo real de asesores** — GET /inmobiliaria/equipo, tabla, mock preview. |
+| 51 | ✅ | **Editar perfil inline** — ✏️ abre form con redes, dirección, asociación, galardones. |
+| 52 | ✅ | **Refresh sesión al montar** — fetch /auth/me al cargar, merge con localStorage. |
+| 53 | ✅ | **Sistema de billing** — tab Facturación en ambos dashboards, tarjeta Próximo corte. |
+| 54 | ✅ | **MercadoTab inmobiliaria — rediseño completo** — tabla con colonias por tipo, sticky, filtros, análisis dinámico, segmentos 7 niveles, PDF vía window.print(). |
+| 55 | ✅ | **Plan card junto a tabs** — badge + precio + beneficios + créditos + botón en misma fila que nav. |
+| 56 | ✅ | **StatCards 5 fichas** — grid-cols-5, Próximo corte siempre visible. |
+| 57 | ✅ | **ValuadorDashboard: MercadoTab + ResumenActividad + plan card colores + tab order** — portado completo desde InmobiliariaDashboard. Starter plan verde, tabs ordenados igual. |
+| 59 | ✅ | **AdminScraper: tab Mercado + tarjetas por portal + botón Ejecutar todos + filtros** — portales como cards individuales con estado propio, ExecutarPanel modal eliminado, backend 409 fix para portales individuales. |
+| 20 | ✅ | **Panel Admin** — 17 módulos. |
+| 40 | ✅ | **Admin Inmobiliarias** — 4 tabs, endpoints detalles. |
+| 41 | ✅ | **Admin Ads mejorado** — campañas con lightbox, moderación inline. |
 
 ---
 
@@ -65,10 +70,10 @@
 
 | # | Estado | Tarea |
 |---|---|---|
-| 30 | ✅ | **BADGE_DEFS** — cada `doc_tipo` mapea a credencial (identidad 🪪, cédula 🎓, e.firma ✍️, experiencia 📅, seguro RC 🛡️, domicilio 🏠, recomendado ⭐, CV 📄, avalúos 📊). |
-| 31 | ✅ | **Ratificación por admin** — `POST /admin/kyc/ratificar/{doc_id}` cambia `estado:"ratificado"` en MongoDB. Botón en AdminKYC. |
-| 32 | ✅ | **Badges en dashboard** — sección "Credenciales verificadas" aparece cuando hay al menos una ratificada. Cada fila de doc muestra pill "Ratificado" si aplica. |
-| 33 | ✅ | **Medallitas en directorio público** — 5 burbujas circulares emoji (🎓📅✍️🛡️📊), sin texto, con tooltip. Medalla de experiencia 🥇🥈🥉 reemplaza chip de años. |
+| 30 | ✅ | **BADGE_DEFS** — mapeo doc_tipo → credencial. |
+| 31 | ✅ | **Ratificación por admin** — POST /admin/kyc/ratificar/{doc_id}. |
+| 32 | ✅ | **Badges en dashboard** — sección Credenciales verificadas. |
+| 33 | ✅ | **Medallitas en directorio público** — burbujas emoji con tooltip. |
 
 ---
 
@@ -77,13 +82,13 @@
 | # | Estado | Tarea |
 |---|---|---|
 | 10 | ⏳ | **Fichas de Promoción para Inmobiliarias (JPG/PDF)** |
-| 12 | ⏳ | **Módulo financiero / Payouts valuadores** — 80% valuador / 20% PropValu, asignación round-robin, SLA 24h. |
-| 13 | ⏳ | **Sistema de calificación de valuadores** — escala Buena/Regular/Mala, strikes. |
-| 14 | ⏳ | **Base de datos histórica de avalúos** — reutilización <3 meses $80 MXN. |
+| 12 | ⏳ | **Módulo financiero / Payouts valuadores** — 80/20, round-robin, SLA 24h. |
+| 13 | ⏳ | **Sistema de calificación de valuadores** |
+| 14 | ⏳ | **Base de datos histórica de avalúos** |
 | 15 | ⏳ | **Newsletter e Inteligencia de Mercado** |
 | 21 | ✅ | **Google Sheets como fuente de comparables** — scraper conectado. |
-| 34 | ⏳ | **Email notifications** — confirmación entrevista, resultado, bienvenida (SendGrid). |
-| 35 | ⏳ | **WhatsApp notifications** — mismos triggers (Twilio). |
+| 34 | ⏳ | **Email notifications** — SendGrid. |
+| 35 | ⏳ | **WhatsApp notifications** — Twilio. |
 
 ---
 
@@ -92,12 +97,12 @@
 | # | Estado | Tarea |
 |---|---|---|
 | 36 | ✅ | **Skills globales** — `/backup`, `/recordar`, `/ayuda`. |
-| 37 | ✅ | **Skills PropValu** — `/ctx`, `/status`, `/restart-backend`, `/check-errors`, `/end-session`, `/sync-memory`, `/new-page`, `/new-endpoint`, `/test-api`, `/new-hook`. |
+| 37 | ✅ | **Skills PropValu** — `/ctx`, `/status`, `/restart-backend`, `/check-errors`, `/end-session`, etc. |
 | 38 | ✅ | **Skills Scraper** — `/logs`, `/reset-scraper PORTAL`. |
-| 42 | ✅ | **Script seed/datos demo** — inserta valuadores e inmobiliarias de prueba para QA visual en admin. |
-| 43 | ✅ | **Permisos automáticos Claude Code** — `settings.json` con allow para Read/Glob/Grep/git/netstat. Sin prompt de autorización para lectura. |
-| 44 | ✅ | **Statusline con barras visuales** — ctx/5h/7d con bloques █░ y porcentaje. |
-| 45 | ✅ | **Statusline placeholders** — barras 5h/7d siempre visibles aunque no haya datos de rate limit (plan OAuth). |
+| 42 | ✅ | **Script seed/datos demo** |
+| 43 | ✅ | **Permisos automáticos Claude Code** |
+| 44 | ✅ | **Statusline con barras visuales** |
+| 45 | ✅ | **Statusline placeholders** |
 
 ---
 
@@ -106,7 +111,9 @@
 | # | Estado | Tarea |
 |---|---|---|
 | 17 | ⏳ | **Marca de agua PropValu en PDF** |
-| 18 | ✅ | **Pruebas y ajustes finales del PDF** — reescritura completa del HTML con CSS fiel al template (Mar 2026). Fixes: logo Building2 SVG, Payback→Recup. Inversión, 12 fotos altura fija, footer pg5, mapa full-width, Perfil del Entorno con íconos emoji, fallbacks entorno/equipamiento, border-radius páginas. `facade_photo_index` verificado: ya no aplica (campo renombrado en ReportPage). |
+| 18 | ✅ | **Pruebas y ajustes finales del PDF de valuación** |
+| 58 | ✅ | **PDF de Mercado** — reemplazado html2canvas por window.print() con @media print |
+| 60 | ⏳ | **Revisión de responsividad móvil — todas las páginas admin** — verificar que los 17 módulos del panel admin y los dashboards (valuador, inmobiliaria) se vean correctamente en pantallas pequeñas (360–414px). Prioridad: AdminDashboard, AdminKYC, AdminValuadores, AdminInmobiliarias, AdminScraper. |
 
 ---
 
