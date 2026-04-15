@@ -68,7 +68,7 @@ const AdminBroadcast = () => {
 
   return (
     <AdminLayout>
-      <div className="max-w-3xl mx-auto space-y-6">
+      <div className="max-w-3xl mx-auto flex flex-col gap-6">
 
         <PageHeader icon={Send} title="Broadcast Email"
           subtitle="Envía mensajes segmentados a valuadores e inmobiliarias" />

@@ -662,7 +662,7 @@ const AdminScraper = () => {
         </div>
       )}
 
-      <div className="max-w-5xl mx-auto space-y-6">
+      <div className="max-w-5xl mx-auto flex flex-col gap-6">
         <PageHeader icon={Activity} title="Scraper de Comparables"
           subtitle="Estado de los portales de comparables y datos de mercado" />
 

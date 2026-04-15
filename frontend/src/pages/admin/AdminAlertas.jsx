@@ -78,7 +78,7 @@ const AdminAlertas = () => {
 
   return (
     <AdminLayout>
-      <div className="max-w-5xl mx-auto space-y-6">
+      <div className="max-w-5xl mx-auto flex flex-col gap-6">
 
         <PageHeader icon={Bell} title="Alertas Automáticas"
           subtitle="Configura cuándo y cómo recibes notificaciones del sistema">

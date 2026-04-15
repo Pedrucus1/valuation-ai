@@ -303,7 +303,7 @@ const AdminCMS = () => {
 
   return (
     <AdminLayout>
-      <div className="max-w-5xl mx-auto space-y-5">
+      <div className="max-w-5xl mx-auto flex flex-col gap-5">
 
         <PageHeader icon={FileText} title="Editor CMS Legal"
           subtitle="Edita los textos legales sin necesidad de deploy" />
@@ -317,7 +317,7 @@ const AdminCMS = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-5">
           {/* Selector de documentos */}
-          <div className="lg:col-span-1 space-y-4">
+          <div className="lg:col-span-1 flex flex-col gap-3">
             <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">Documentos</p>
             {Object.values(docs).map((d) => (
               <button
