@@ -317,7 +317,7 @@ const AdminCMS = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-5">
           {/* Selector de documentos */}
-          <div className="lg:col-span-1 space-y-3">
+          <div className="lg:col-span-1 space-y-4">
             <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">Documentos</p>
             {Object.values(docs).map((d) => (
               <button

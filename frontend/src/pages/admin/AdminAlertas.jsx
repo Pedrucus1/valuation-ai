@@ -97,7 +97,7 @@ const AdminAlertas = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
           {/* Config alertas */}
-          <div className="lg:col-span-2 space-y-4">
+          <div className="lg:col-span-2 flex flex-col gap-4">
 
             {/* Email destino */}
             <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm p-4 flex items-center gap-3">

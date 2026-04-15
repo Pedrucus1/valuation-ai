@@ -62,8 +62,8 @@ const AdminReportes = () => {
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
           {[
             { label: "Valuaciones completadas", val: datos.totales.valuaciones_completadas ?? "—", icon: FileText,    stripe: "bg-[#52B788]",   iconBg: "bg-[#F0FAF5]",   iconColor: "text-[#1B4332]" },
-            { label: "Usuarios registrados",    val: datos.totales.usuarios ?? "—",                icon: Users,       stripe: "bg-blue-400",    iconBg: "bg-blue-50",    iconColor: "text-blue-600" },
-            { label: "Valuadores verificados",  val: datos.totales.valuadores_activos ?? "—",      icon: TrendingUp,  stripe: "bg-purple-400",  iconBg: "bg-purple-50",  iconColor: "text-purple-600" },
+            { label: "Usuarios registrados",    val: datos.totales.usuarios ?? "—",                icon: Users,       stripe: "bg-[#52B788]",   iconBg: "bg-[#F0FAF5]",  iconColor: "text-[#1B4332]" },
+            { label: "Valuadores verificados",  val: datos.totales.valuadores_activos ?? "—",      icon: TrendingUp,  stripe: "bg-[#52B788]",   iconBg: "bg-[#F0FAF5]",  iconColor: "text-[#1B4332]" },
           ].map(({ label, val, icon: Icon, stripe, iconBg, iconColor }) => (
             <div key={label} className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden">
               <div className={`h-1 ${stripe}`} />

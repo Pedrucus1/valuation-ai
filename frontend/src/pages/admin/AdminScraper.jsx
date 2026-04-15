@@ -686,7 +686,7 @@ const AdminScraper = () => {
 
         {/* ── Tab: Monitor ── */}
         {activeTab === "monitor" && (
-          <div className="space-y-6">
+          <div className="flex flex-col gap-6">
 
             {horas > 24 && (
               <div className="flex items-start gap-3 bg-red-50 border border-red-200 rounded-2xl p-4">

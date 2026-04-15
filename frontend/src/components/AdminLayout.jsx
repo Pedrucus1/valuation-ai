@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import {
   Building2, LayoutDashboard, Users, ShieldCheck, Megaphone,
@@ -69,7 +69,15 @@ const ROL_LABEL = {
 };
 
 /* ── Sidebar content — definida FUERA de AdminLayout para evitar remount en cada render ── */
-const SidebarContent = ({ location, badges, admin, rolInfo, handleLogout, setSidebarOpen }) => (
+const SidebarContent = ({ location, badges, admin, rolInfo, handleLogout, setSidebarOpen }) => {
+  const navRef = useRef(null);
+
+  useEffect(() => {
+    const saved = sessionStorage.getItem("pv-admin-nav-scroll");
+    if (saved && navRef.current) navRef.current.scrollTop = parseInt(saved, 10);
+  }, []);
+
+  return (
   <div className="flex flex-col h-full">
     {/* Logo */}
     <div className="flex items-center gap-2 px-6 py-5 border-b border-white/10">
@@ -81,7 +89,11 @@ const SidebarContent = ({ location, badges, admin, rolInfo, handleLogout, setSid
     </div>
 
     {/* Nav */}
-    <nav className="flex-1 px-3 py-4 overflow-y-auto space-y-4">
+    <nav
+      ref={navRef}
+      onScroll={(e) => sessionStorage.setItem("pv-admin-nav-scroll", e.target.scrollTop)}
+      className="flex-1 px-3 py-4 overflow-y-auto space-y-4"
+    >
       {NAV_GRUPOS.map(({ grupo, items }) => (
         <div key={grupo}>
           <p className="text-[10px] font-bold text-white/25 uppercase tracking-widest px-3 mb-1">{grupo}</p>
@@ -138,7 +150,8 @@ const SidebarContent = ({ location, badges, admin, rolInfo, handleLogout, setSid
       </button>
     </div>
   </div>
-);
+  );
+};
 
 const AdminLayout = ({ children, badges = {} }) => {
   const navigate = useNavigate();
