@@ -60,6 +60,11 @@ from report_generator import generate_html_report
 app = FastAPI(title="PropValu Mexico API")
 
 import re as _re
+import calendar
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from apscheduler.triggers.cron import CronTrigger
+
+_scheduler = AsyncIOScheduler()
 
 def _is_localhost(origin: str) -> bool:
     return bool(_re.match(r"^https?://localhost(:\d+)?$", origin))
@@ -2596,13 +2601,24 @@ async def mercado_mapa(tipo_op: str = "venta", tipo_prop: str = ""):
 
 
 @api_router.get("/mercado/colonias")
-async def mercado_colonias(tipo_op: str = "venta"):
+async def mercado_colonias(tipo_op: str = "venta", mes: str = ""):
     """
     Tabla de colonias con desglose por tipo de propiedad.
+    Si se pasa mes (ej. '2026-04') y existe snapshot, devuelve datos del snapshot.
     """
-    cached = _cache_get(f"colonias_{tipo_op}")
+    cache_key = f"colonias_{tipo_op}_{mes}" if mes else f"colonias_{tipo_op}"
+    cached = _cache_get(cache_key)
     if cached:
         return cached
+
+    # Si se pide un mes específico y hay snapshot, devolver resumen del snapshot
+    if mes:
+        snap = await db["mercado_snapshots"].find_one({"mes": mes})
+        if snap and snap.get("resumen", {}).get(tipo_op):
+            result = {"colonias": [], "total": 0, "tipos": [], "snapshot": True, "mes": mes,
+                      "resumen": snap["resumen"][tipo_op]}
+            _cache_set(cache_key, result)
+            return result
 
     col = db["mercado_props"]
     TIPOS = ["Casa", "Departamento", "Terreno", "Local", "Bodega", "Oficina"]
@@ -2687,7 +2703,7 @@ async def mercado_colonias(tipo_op: str = "venta"):
         })
 
     result = {"colonias": colonias, "total": len(colonias), "tipos": TIPOS}
-    _cache_set(f"colonias_{tipo_op}", result)
+    _cache_set(cache_key, result)
     return result
 
 
@@ -3515,6 +3531,174 @@ async def get_equipo_inmobiliaria(request: Request):
 
     return resultado
 
+
+# ─── Mercado: accesos por plan ───────────────────────────────────────────────
+
+PLANES_DEFAULT = [
+    {"plan_id": "valuador_independiente", "label": "Valuador Independiente", "activo": False},
+    {"plan_id": "valuador_despacho",      "label": "Valuador Despacho",      "activo": False},
+    {"plan_id": "valuador_pro",           "label": "Valuador Pro",           "activo": True},
+    {"plan_id": "valuador_corporativo",   "label": "Valuador Corporativo",   "activo": True},
+    {"plan_id": "inmobiliaria_lite5",     "label": "Inmobiliaria Lite 5",    "activo": False},
+    {"plan_id": "inmobiliaria_lite10",    "label": "Inmobiliaria Lite 10",   "activo": False},
+    {"plan_id": "inmobiliaria_pro20",     "label": "Inmobiliaria Pro 20",    "activo": False},
+    {"plan_id": "inmobiliaria_premier",   "label": "Inmobiliaria Premier",   "activo": True},
+]
+
+async def _seed_mercado_accesos():
+    col = db["mercado_accesos"]
+    for p in PLANES_DEFAULT:
+        existing = await col.find_one({"plan_id": p["plan_id"]})
+        if not existing:
+            await col.insert_one({**p, "fecha_inicio": None, "fecha_fin": None, "nota": ""})
+
+def _plan_tiene_acceso_hoy(doc: dict) -> bool:
+    if not doc.get("activo"):
+        return False
+    hoy = datetime.now(timezone.utc).date()
+    fi = doc.get("fecha_inicio")
+    ff = doc.get("fecha_fin")
+    if fi and hoy < datetime.fromisoformat(fi).date():
+        return False
+    if ff and hoy > datetime.fromisoformat(ff).date():
+        return False
+    return True
+
+@api_router.get("/mercado/acceso")
+async def mercado_acceso(plan_id: str = ""):
+    if not plan_id:
+        return {"acceso": False}
+    doc = await db["mercado_accesos"].find_one({"plan_id": plan_id})
+    if not doc:
+        return {"acceso": False}
+    acceso = _plan_tiene_acceso_hoy(doc)
+    promo = acceso and doc.get("fecha_fin") is not None
+    return {
+        "acceso": acceso,
+        "promo": promo,
+        "fecha_fin": doc.get("fecha_fin"),
+        "nota": doc.get("nota", ""),
+    }
+
+@api_router.get("/admin/mercado/accesos")
+async def admin_mercado_accesos_get(request: Request):
+    token = request.headers.get("x-admin-token", "")
+    if token != os.getenv("ADMIN_SECRET", ""):
+        raise HTTPException(status_code=403, detail="No autorizado")
+    docs = await db["mercado_accesos"].find({}, {"_id": 0}).to_list(20)
+    hoy = datetime.now(timezone.utc).date().isoformat()
+    for d in docs:
+        d["acceso_hoy"] = _plan_tiene_acceso_hoy(d)
+    return {"accesos": docs, "hoy": hoy}
+
+@api_router.put("/admin/mercado/accesos/{plan_id}")
+async def admin_mercado_accesos_put(plan_id: str, request: Request):
+    token = request.headers.get("x-admin-token", "")
+    if token != os.getenv("ADMIN_SECRET", ""):
+        raise HTTPException(status_code=403, detail="No autorizado")
+    body = await request.json()
+    update = {}
+    for k in ("activo", "fecha_inicio", "fecha_fin", "nota"):
+        if k in body:
+            update[k] = body[k] if body[k] != "" else None
+    if not update:
+        raise HTTPException(status_code=400, detail="Sin campos para actualizar")
+    await db["mercado_accesos"].update_one({"plan_id": plan_id}, {"$set": update}, upsert=True)
+    return {"ok": True}
+
+# ─── Mercado: snapshots mensuales ────────────────────────────────────────────
+
+async def _generar_snapshot_mes(mes: str | None = None):
+    """Genera o reemplaza el snapshot del mes indicado (default: mes actual)."""
+    if not mes:
+        mes = datetime.now(timezone.utc).strftime("%Y-%m")
+    col_props = db["mercado_props"]
+    col_snap  = db["mercado_snapshots"]
+
+    resumen = {}
+    for tipo_op in ("venta", "renta"):
+        total = await col_props.count_documents({"activo": True, "tipo_operacion": tipo_op})
+        por_tipo = await col_props.aggregate([
+            {"$match": {"activo": True, "tipo_operacion": tipo_op}},
+            {"$group": {"_id": "$tipo_propiedad", "total": {"$sum": 1}}},
+            {"$sort": {"total": -1}},
+        ]).to_list(10)
+        por_municipio = await col_props.aggregate([
+            {"$match": {"activo": True, "tipo_operacion": tipo_op, "precio": {"$gt": 0}}},
+            {"$group": {"_id": "$municipio", "total": {"$sum": 1}, "precio_m2_avg": {"$avg": "$precio_m2"}}},
+            {"$sort": {"total": -1}}, {"$limit": 10},
+        ]).to_list(10)
+        resumen[tipo_op] = {
+            "total": total,
+            "por_tipo": [{"name": r["_id"], "total": r["total"]} for r in por_tipo],
+            "por_municipio": [{"name": r["_id"], "total": r["total"], "precio_m2_avg": round(r.get("precio_m2_avg") or 0)} for r in por_municipio],
+        }
+
+    await col_snap.update_one(
+        {"mes": mes},
+        {"$set": {
+            "mes": mes,
+            "resumen": resumen,
+            "total_props": resumen["venta"]["total"] + resumen["renta"]["total"],
+            "generado_at": datetime.now(timezone.utc).isoformat(),
+        }},
+        upsert=True,
+    )
+    return mes
+
+@api_router.get("/mercado/snapshots")
+async def mercado_snapshots():
+    docs = await db["mercado_snapshots"].find(
+        {}, {"_id": 0, "mes": 1, "total_props": 1, "generado_at": 1}
+    ).sort("mes", -1).to_list(24)
+    return {"snapshots": docs}
+
+@api_router.post("/admin/mercado/generar-snapshot")
+async def admin_generar_snapshot(request: Request):
+    token = request.headers.get("x-admin-token", "")
+    if token != os.getenv("ADMIN_SECRET", ""):
+        raise HTTPException(status_code=403, detail="No autorizado")
+    body = await request.json() if request.headers.get("content-type", "").startswith("application/json") else {}
+    mes = body.get("mes") if isinstance(body, dict) else None
+    mes_generado = await _generar_snapshot_mes(mes)
+    return {"ok": True, "mes": mes_generado}
+
+# ─── Scheduler mensual ───────────────────────────────────────────────────────
+
+PORTALES_IDS_SCHED = ["INMUEBLES24", "PINCALI", "VIVANUNCIOS", "MITULA", "CASAS_Y_TERRENOS"]
+
+async def _job_scrape_mensual():
+    """Día 2 de cada mes: lanza 5 portales en paralelo, luego genera snapshot."""
+    logging.info("[scheduler] Iniciando scrape mensual automático")
+    scraper_path = Path(__file__).parent
+    tasks = []
+    for portal in PORTALES_IDS_SCHED:
+        tasks.append(asyncio.create_subprocess_exec(
+            "python", "scheduler.py", "--portal", portal,
+            cwd=str(scraper_path),
+        ))
+    procs = await asyncio.gather(*tasks, return_exceptions=True)
+    # Esperar a que terminen todos
+    for p in procs:
+        if hasattr(p, "wait"):
+            await p.wait()
+    logging.info("[scheduler] Scrape mensual terminado — generando snapshot")
+    mes = await _generar_snapshot_mes()
+    logging.info(f"[scheduler] Snapshot generado: {mes}")
+
+# ─── Startup / shutdown ───────────────────────────────────────────────────────
+
+@app.on_event("startup")
+async def startup():
+    await _seed_mercado_accesos()
+    _scheduler.add_job(
+        _job_scrape_mensual,
+        CronTrigger(day=2, hour=3, minute=0),  # Día 2 de cada mes a las 3am UTC
+        id="scrape_mensual",
+        replace_existing=True,
+    )
+    _scheduler.start()
+    logging.info("[scheduler] APScheduler iniciado — scrape mensual el día 2 de cada mes a las 3am UTC")
 
 # Include router
 app.include_router(api_router)
