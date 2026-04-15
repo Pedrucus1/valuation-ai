@@ -574,22 +574,33 @@ export default function MercadoView({ modo="inmobiliaria", nombreUsuario="", val
 
   /* ── Export PDF ── */
   const exportarPDF = (orientacion="landscape") => {
-    const sid = "mv-print-style";
-    if (!document.getElementById(sid)) {
-      const s=document.createElement("style"); s.id=sid;
-      s.innerHTML=`@media print{@page{size:${orientacion==="landscape"?"letter landscape":"letter portrait"};margin:10mm 8mm;}body>*{display:none!important;}#mv-print-root{display:block!important;}#mv-print-root .no-print{display:none!important;}#mv-print-root{font-family:sans-serif;color:#1e293b;}.pv-header{background:#1B4332;color:white;padding:10px 16px;border-radius:8px;margin-bottom:12px;}.pv-header h1{font-size:16px;font-weight:bold;margin:0 0 2px;}.pv-header p{font-size:10px;margin:0;opacity:.85;}.recharts-wrapper,.recharts-surface{overflow:visible!important;}*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}}@media screen{#mv-print-root{display:none;}}`;
-      document.head.appendChild(s);
-    }
-    const ex=document.getElementById("mv-print-root"); if(ex) ex.remove();
-    const root=document.createElement("div"); root.id="mv-print-root";
-    const hdr=document.createElement("div"); hdr.className="pv-header";
-    hdr.innerHTML=`<h1>PropValu — Análisis de Mercado</h1><p>${nombreUsuario} · ${tipoOp.charAt(0).toUpperCase()+tipoOp.slice(1)} · GDL metro${mesSel?` · ${mesSel}`:""} · ${new Date().toLocaleDateString("es-MX",{day:"2-digit",month:"long",year:"numeric"})}</p>`;
+    const src = document.getElementById("mv-pdf-root");
+    if (!src) return;
+
+    // Siempre actualizar el estilo (para que la orientación cambie en cada llamada)
+    let s = document.getElementById("mv-print-style");
+    if (!s) { s = document.createElement("style"); s.id = "mv-print-style"; document.head.appendChild(s); }
+    const pg = orientacion === "landscape" ? "letter landscape" : "letter portrait";
+    s.textContent = `@media print{@page{size:${pg};margin:10mm 8mm;}body>*{display:none!important;}#mv-print-root{display:block!important;}#mv-print-root{font-family:sans-serif;color:#1e293b;}.pv-header{background:#1B4332;color:white;padding:10px 16px;border-radius:8px;margin-bottom:12px;}.pv-header h1{font-size:16px;font-weight:bold;margin:0 0 2px;}.pv-header p{font-size:10px;margin:0;opacity:.85;}.recharts-wrapper,.recharts-surface{overflow:visible!important;}*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}}@media screen{#mv-print-root{display:none;}}`;
+
+    document.getElementById("mv-print-root")?.remove();
+    const root = document.createElement("div"); root.id = "mv-print-root";
+
+    const hdr = document.createElement("div"); hdr.className = "pv-header";
+    hdr.innerHTML = `<h1>PropValu \u2014 An\u00e1lisis de Mercado</h1><p>${nombreUsuario} \u00b7 ${tipoOp.charAt(0).toUpperCase()+tipoOp.slice(1)} \u00b7 GDL metro${mesSel ? ` \u00b7 ${mesSel}` : ""} \u00b7 ${new Date().toLocaleDateString("es-MX",{day:"2-digit",month:"long",year:"numeric"})}</p>`;
     root.appendChild(hdr);
-    const src=document.getElementById("mv-pdf-root");
-    if (src) { const cl=src.cloneNode(true); cl.querySelectorAll("button,[data-no-print]").forEach(el=>el.style.display="none"); root.appendChild(cl); }
+
+    // Clonar contenido excluyendo mapas Leaflet (no se pueden clonar sin errores)
+    const cl = src.cloneNode(true);
+    cl.querySelectorAll(".leaflet-container, button, [data-no-print]").forEach(el => el.remove());
+    root.appendChild(cl);
+
     document.body.appendChild(root);
-    window.print();
-    setTimeout(()=>root.remove(),500);
+    // Pequeño delay para que los estilos se apliquen antes de imprimir
+    setTimeout(() => {
+      window.print();
+      setTimeout(() => root.remove(), 800);
+    }, 80);
   };
 
   /* ─── RENDER ─────────────────────��───────────────────── */
