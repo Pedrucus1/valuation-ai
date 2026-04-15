@@ -84,7 +84,7 @@ const PAGE_SIZE = 8;
 
 /* ─── KPI card ─── */
 const KpiCard = ({ icon: Icon, label, val, sub, color, alerta, stripe }) => (
-  <div className={`bg-white rounded-2xl border overflow-hidden ${alerta ? "border-amber-200" : "border-[#B7E4C7]"}`}>
+  <div className={`bg-white rounded-xl border overflow-hidden shadow-sm ${alerta ? "border-amber-200" : "border-[#B7E4C7]"}`}>
     <div className={`h-1 ${stripe || "bg-[#52B788]"}`} />
     <div className="p-4">
       <div className={`w-8 h-8 rounded-xl flex items-center justify-center mb-2 ${color}`}>

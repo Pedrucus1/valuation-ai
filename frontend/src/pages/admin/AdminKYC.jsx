@@ -105,11 +105,11 @@ const KYCCard = ({ solicitud, onAccion }) => {
           {/* Documentos */}
           <div>
             <SectionLabel>Documentos</SectionLabel>
-            <div className="space-y-1.5">
+            <div className="space-y-2">
               {docs.map((doc) => {
                 const est = DOC_ESTADO[doc.estado] || DOC_ESTADO.pendiente;
                 return (
-                  <div key={doc.nombre} className="flex items-center gap-2 bg-white rounded-lg border border-slate-100 px-3 py-2">
+                  <div key={doc.nombre} className="flex items-center gap-2 bg-white rounded-lg border border-[#B7E4C7] px-3 py-2">
                     <span className={est.cls}>{est.icon}</span>
                     <span className="text-sm text-slate-600 flex-1">{doc.nombre}</span>
                     {doc.doc_id ? (

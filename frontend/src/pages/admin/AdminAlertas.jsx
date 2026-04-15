@@ -130,9 +130,9 @@ const AdminAlertas = () => {
                       <p className="text-xs text-slate-300 mt-0.5">Umbral: {alerta.umbral} {alerta.umbral_label}</p>
                     )}
                   </div>
-                  <button onClick={() => toggleAlerta(alerta.id)}
-                    className={`relative w-11 h-6 rounded-full flex-shrink-0 transition-colors ${alerta.activa ? "bg-[#52B788]" : "bg-slate-200"}`}>
-                    <span className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${alerta.activa ? "translate-x-6" : "translate-x-1"}`} />
+                  <button type="button" onClick={() => toggleAlerta(alerta.id)}
+                    className={`relative w-11 h-6 rounded-full flex-shrink-0 transition-colors p-0 ${alerta.activa ? "bg-[#52B788]" : "bg-slate-200"}`}>
+                    <span className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${alerta.activa ? "translate-x-5" : "translate-x-0"}`} />
                   </button>
                 </div>
 

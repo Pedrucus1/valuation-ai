@@ -54,13 +54,16 @@ const Chip = ({ cfg }) => (
 );
 
 /* ─── KPI card ─── */
-const KpiCard = ({ icon: Icon, label, val, color, alerta }) => (
-  <div className={`bg-white rounded-2xl border p-5 ${alerta ? "border-amber-200" : "border-slate-100"}`}>
-    <div className={`w-8 h-8 rounded-xl flex items-center justify-center mb-3 ${color}`}>
-      <Icon className="w-4 h-4" />
+const KpiCard = ({ icon: Icon, label, val, color, alerta, stripe }) => (
+  <div className={`bg-white rounded-xl border overflow-hidden shadow-sm ${alerta ? "border-amber-200" : "border-[#B7E4C7]"}`}>
+    <div className={`h-1 ${stripe || "bg-[#52B788]"}`} />
+    <div className="p-4">
+      <div className={`w-8 h-8 rounded-xl flex items-center justify-center mb-3 ${color}`}>
+        <Icon className="w-4 h-4" />
+      </div>
+      <p className="font-['Outfit'] text-2xl font-bold text-[#1B4332]">{val}</p>
+      <p className="text-xs text-slate-400 mt-0.5">{label}</p>
     </div>
-    <p className="font-['Outfit'] text-2xl font-bold text-[#1B4332]">{val}</p>
-    <p className="text-xs text-slate-400 mt-0.5">{label}</p>
   </div>
 );
 
@@ -156,14 +159,14 @@ const TabResumen = ({ inmobiliarias }) => {
     <div className="space-y-5">
       {/* KPIs */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <KpiCard icon={Building2}   label="Empresas registradas"     val={stats.total}              color="bg-blue-100 text-blue-600" />
-        <KpiCard icon={ShieldCheck} label="Verificadas y activas"    val={stats.aprobadas}          color="bg-green-100 text-green-600" />
-        <KpiCard icon={Clock}       label="Pendientes de revisión"   val={stats.pendientes}         color="bg-amber-100 text-amber-600" alerta={stats.pendientes > 0} />
-        <KpiCard icon={BarChart2}   label="Avalúos este mes"         val={stats.avaluosMes}         color="bg-[#52B788]/20 text-[#1B4332]" />
-        <KpiCard icon={FileText}    label="Avalúos histórico total"  val={stats.avaluosTotal}       color="bg-slate-100 text-slate-600" />
-        <KpiCard icon={CreditCard}  label="Créditos en circulación"  val={stats.creditos}           color="bg-purple-100 text-purple-600" />
-        <KpiCard icon={AlertTriangle} label="Con créditos ≤ 2"      val={stats.conCreditosBajos}   color={stats.conCreditosBajos > 0 ? "bg-red-100 text-red-600" : "bg-slate-100 text-slate-400"} alerta={stats.conCreditosBajos > 0} />
-        <KpiCard icon={TrendingUp}  label="Tasa de aprobación"       val={`${stats.tasaAprobacion}%`} color="bg-[#D9ED92]/60 text-[#1B4332]" />
+        <KpiCard icon={Building2}   label="Empresas registradas"     val={stats.total}              color="bg-blue-100 text-blue-600"   stripe="bg-blue-400" />
+        <KpiCard icon={ShieldCheck} label="Verificadas y activas"    val={stats.aprobadas}          color="bg-green-100 text-green-600" stripe="bg-[#52B788]" />
+        <KpiCard icon={Clock}       label="Pendientes de revisión"   val={stats.pendientes}         color="bg-amber-100 text-amber-600" stripe={stats.pendientes > 0 ? "bg-amber-400" : "bg-slate-200"} alerta={stats.pendientes > 0} />
+        <KpiCard icon={BarChart2}   label="Avalúos este mes"         val={stats.avaluosMes}         color="bg-[#52B788]/20 text-[#1B4332]" stripe="bg-[#1B4332]" />
+        <KpiCard icon={FileText}    label="Avalúos histórico total"  val={stats.avaluosTotal}       color="bg-slate-100 text-slate-600"   stripe="bg-slate-300" />
+        <KpiCard icon={CreditCard}  label="Créditos en circulación"  val={stats.creditos}           color="bg-purple-100 text-purple-600" stripe="bg-purple-400" />
+        <KpiCard icon={AlertTriangle} label="Con créditos ≤ 2"      val={stats.conCreditosBajos}   color={stats.conCreditosBajos > 0 ? "bg-red-100 text-red-600" : "bg-slate-100 text-slate-400"} stripe={stats.conCreditosBajos > 0 ? "bg-red-400" : "bg-slate-200"} alerta={stats.conCreditosBajos > 0} />
+        <KpiCard icon={TrendingUp}  label="Tasa de aprobación"       val={`${stats.tasaAprobacion}%`} color="bg-[#D9ED92]/60 text-[#1B4332]" stripe="bg-[#D9ED92]" />
       </div>
 
       {/* Fila 1: Donut KYC + Top avalúos */}

@@ -84,24 +84,27 @@ const TabResumen = ({ campaigns, anunciantes }) => {
       {/* KPIs */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {[
-          { label: "Campañas activas",    val: activas.length,           icon: Megaphone,    color: "bg-green-100 text-green-600" },
-          { label: "Campañas pendientes", val: pendientes.length,        icon: Clock,        color: "bg-amber-100 text-amber-600" },
-          { label: "Anunciantes",         val: anunciantes.length,       icon: Users,        color: "bg-blue-100 text-blue-600" },
-          { label: "Impresiones totales", val: totalImp.toLocaleString(),icon: Eye,          color: "bg-purple-100 text-purple-600" },
-        ].map(({ label, val, icon: Icon, color }) => (
-          <div key={label} className="bg-white rounded-2xl border border-slate-100 p-4">
-            <div className={`w-8 h-8 rounded-xl flex items-center justify-center mb-2 ${color}`}>
-              <Icon className="w-4 h-4" />
+          { label: "Campañas activas",    val: activas.length,           icon: Megaphone, color: "bg-green-100 text-green-600",  stripe: "bg-[#52B788]" },
+          { label: "Campañas pendientes", val: pendientes.length,        icon: Clock,     color: "bg-amber-100 text-amber-600",  stripe: pendientes.length > 0 ? "bg-amber-400" : "bg-slate-200" },
+          { label: "Anunciantes",         val: anunciantes.length,       icon: Users,     color: "bg-blue-100 text-blue-600",    stripe: "bg-blue-400" },
+          { label: "Impresiones totales", val: totalImp.toLocaleString(),icon: Eye,       color: "bg-purple-100 text-purple-600",stripe: "bg-purple-400" },
+        ].map(({ label, val, icon: Icon, color, stripe }) => (
+          <div key={label} className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden">
+            <div className={`h-1 ${stripe}`} />
+            <div className="p-4">
+              <div className={`w-8 h-8 rounded-xl flex items-center justify-center mb-2 ${color}`}>
+                <Icon className="w-4 h-4" />
+              </div>
+              <p className="font-['Outfit'] text-2xl font-bold text-[#1B4332]">{val}</p>
+              <p className="text-xs text-slate-400 mt-0.5">{label}</p>
             </div>
-            <p className="font-['Outfit'] text-2xl font-bold text-[#1B4332]">{val}</p>
-            <p className="text-xs text-slate-400 mt-0.5">{label}</p>
           </div>
         ))}
       </div>
 
       {/* Ingresos / CTR */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <div className="bg-white rounded-2xl border border-slate-100 p-5 col-span-2">
+        <div className="bg-white rounded-2xl border border-[#B7E4C7] p-5 col-span-2">
           <p className="font-semibold text-[#1B4332] text-sm mb-4">Presupuesto total</p>
           <BudgetBar spend={totalSpend} budget={totalBudget} />
           <div className="grid grid-cols-3 gap-3 mt-4 text-center">
@@ -119,7 +122,7 @@ const TabResumen = ({ campaigns, anunciantes }) => {
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-2xl border border-slate-100 p-5">
+        <div className="bg-white rounded-2xl border border-[#B7E4C7] p-5">
           <p className="font-semibold text-[#1B4332] text-sm mb-4">Engagement</p>
           <div className="space-y-3">
             <div>
@@ -135,11 +138,11 @@ const TabResumen = ({ campaigns, anunciantes }) => {
       </div>
 
       {/* Por slot */}
-      <div className="bg-white rounded-2xl border border-slate-100 p-5">
+      <div className="bg-white rounded-2xl border border-[#B7E4C7] p-5">
         <p className="font-semibold text-[#1B4332] text-sm mb-4">Rendimiento por slot</p>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           {bySlot.map(({ slot, campanas, impressions, spend }) => (
-            <div key={slot} className="border border-slate-100 rounded-xl p-4">
+            <div key={slot} className="border border-[#B7E4C7] rounded-xl p-4">
               <p className="font-semibold text-[#1B4332] text-xs mb-3">{SLOT_LABELS[slot]}</p>
               <div className="grid grid-cols-3 gap-2 text-center">
                 <div>
@@ -503,12 +506,12 @@ const TabCampanas = ({ campaigns, onActivar, onPausar, onReload, cargando }) => 
       </div>
 
       {filtrados.length === 0 ? (
-        <div className="text-center py-12 text-slate-400 bg-white rounded-2xl border border-slate-100">
+        <div className="text-center py-12 text-slate-400 bg-white rounded-2xl border border-[#B7E4C7]">
           <Megaphone className="w-8 h-8 mx-auto mb-2 opacity-30" />
           <p className="text-sm">{cargando ? "Cargando…" : "Sin campañas con esos filtros"}</p>
         </div>
       ) : (
-        <div className="bg-white rounded-2xl border border-slate-100 overflow-hidden">
+        <div className="bg-white rounded-2xl border border-[#B7E4C7] overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
@@ -552,12 +555,12 @@ const TabAnunciantes = ({ anunciantes, onVerCampanas, cargando }) => {
       </div>
 
       {filtrados.length === 0 ? (
-        <div className="text-center py-12 text-slate-400 bg-white rounded-2xl border border-slate-100">
+        <div className="text-center py-12 text-slate-400 bg-white rounded-2xl border border-[#B7E4C7]">
           <Users className="w-8 h-8 mx-auto mb-2 opacity-30" />
           <p className="text-sm">{cargando ? "Cargando…" : "Sin anunciantes registrados"}</p>
         </div>
       ) : (
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+        <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm overflow-hidden">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-slate-100 text-[11px] text-slate-400 uppercase tracking-wide">
@@ -751,7 +754,7 @@ const CreativeCard = ({ cr, onAccion, allCreatives, startIndex }) => {
   const lbItems = allCreatives || [cr];
   const lbStart = startIndex ?? 0;
   return (
-    <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+    <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm overflow-hidden">
       {lightbox && <Lightbox items={lbItems} startIndex={lbStart} onClose={() => setLightbox(false)} />}
       <div className="p-5">
         <div className="flex items-start justify-between gap-4 mb-3">
@@ -875,7 +878,7 @@ const TabModeracion = ({ campaigns, onActivar, activando, onReload }) => {
             ))}
           </div>
         ) : (
-          <div className="text-center py-10 bg-white rounded-2xl border border-slate-100 text-slate-400">
+          <div className="text-center py-10 bg-white rounded-2xl border border-[#B7E4C7] text-slate-400">
             <CheckCircle2 className="w-8 h-8 mx-auto mb-2 text-green-300" />
             <p className="text-sm">Sin creatividades pendientes</p>
           </div>
@@ -974,7 +977,7 @@ const TabBlacklist = () => {
       )}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         {/* Palabras */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
+        <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm p-5">
           <div className="flex items-center gap-2 mb-4">
             <Type className="w-4 h-4 text-[#1B4332]" />
             <h2 className="font-semibold text-[#1B4332] text-sm">Palabras y frases ({palabras.length})</h2>
@@ -999,7 +1002,7 @@ const TabBlacklist = () => {
           </div>
         </div>
         {/* Dominios */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
+        <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm p-5">
           <div className="flex items-center gap-2 mb-4">
             <Globe className="w-4 h-4 text-[#1B4332]" />
             <h2 className="font-semibold text-[#1B4332] text-sm">Dominios bloqueados ({dominios.length})</h2>
@@ -1028,7 +1031,7 @@ const TabBlacklist = () => {
         </div>
       </div>
       {/* Tester */}
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
+      <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm p-5">
         <h2 className="font-semibold text-[#1B4332] text-sm mb-3">Probador — verifica si un texto sería marcado</h2>
         <textarea value={testTexto} onChange={(e) => setTestTexto(e.target.value)} rows={3}
           placeholder="Pega aquí el texto de un anuncio para verificar..."

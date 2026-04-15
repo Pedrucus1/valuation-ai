@@ -89,17 +89,26 @@ const AdminCFDI = () => {
 
         {/* KPI cards */}
         <div className="grid grid-cols-3 gap-4">
-          <div className="bg-white rounded-2xl border border-[#B7E4C7] p-4">
-            <p className="text-xs text-slate-400 font-semibold uppercase tracking-wide">Ingresos timbrados</p>
-            <p className="font-['Outfit'] text-2xl font-bold text-[#1B4332] mt-1">${totales.timbrado.toLocaleString("es-MX", { minimumFractionDigits: 2 })}</p>
+          <div className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden">
+            <div className="h-1 bg-[#52B788]" />
+            <div className="p-4">
+              <p className="text-xs text-slate-400 font-semibold uppercase tracking-wide">Ingresos timbrados</p>
+              <p className="font-['Outfit'] text-2xl font-bold text-[#1B4332] mt-1">${totales.timbrado.toLocaleString("es-MX", { minimumFractionDigits: 2 })}</p>
+            </div>
           </div>
-          <div className="bg-white rounded-2xl border border-yellow-200 p-4">
-            <p className="text-xs text-slate-400 font-semibold uppercase tracking-wide">Facturas pendientes</p>
-            <p className="font-['Outfit'] text-2xl font-bold text-yellow-600 mt-1">{totales.pendiente}</p>
+          <div className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden">
+            <div className={`h-1 ${totales.pendiente > 0 ? "bg-amber-400" : "bg-slate-200"}`} />
+            <div className="p-4">
+              <p className="text-xs text-slate-400 font-semibold uppercase tracking-wide">Facturas pendientes</p>
+              <p className={`font-['Outfit'] text-2xl font-bold mt-1 ${totales.pendiente > 0 ? "text-amber-600" : "text-slate-400"}`}>{totales.pendiente}</p>
+            </div>
           </div>
-          <div className="bg-white rounded-2xl border border-[#B7E4C7] p-4">
-            <p className="text-xs text-slate-400 font-semibold uppercase tracking-wide">Canceladas</p>
-            <p className="font-['Outfit'] text-2xl font-bold text-red-500 mt-1">{totales.cancelado}</p>
+          <div className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden">
+            <div className={`h-1 ${totales.cancelado > 0 ? "bg-red-400" : "bg-slate-200"}`} />
+            <div className="p-4">
+              <p className="text-xs text-slate-400 font-semibold uppercase tracking-wide">Canceladas</p>
+              <p className={`font-['Outfit'] text-2xl font-bold mt-1 ${totales.cancelado > 0 ? "text-red-500" : "text-slate-400"}`}>{totales.cancelado}</p>
+            </div>
           </div>
         </div>
 

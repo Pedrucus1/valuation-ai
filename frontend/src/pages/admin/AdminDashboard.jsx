@@ -177,7 +177,7 @@ const AdminDashboard = () => {
               <TrendingUp className="w-4 h-4 text-[#D9ED92]" />
               <span className="font-['Outfit'] font-semibold text-white text-sm">Actividad de la plataforma</span>
             </div>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-slate-100">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 p-4">
               {[
                 {
                   icon: FileText, label: "Valuaciones totales", valor: stats.valuaciones_total.toLocaleString(),
@@ -199,9 +199,7 @@ const AdminDashboard = () => {
                   href: "/admin/valuadores",
                 },
               ].map((k, i) => (
-                <div key={i} className="bg-white">
-                  <KpiCard {...k} />
-                </div>
+                <KpiCard key={i} {...k} />
               ))}
             </div>
           </div>
@@ -214,7 +212,7 @@ const AdminDashboard = () => {
               <AlertCircle className="w-4 h-4 text-[#D9ED92]" />
               <span className="font-['Outfit'] font-semibold text-white text-sm">Pendientes de atención</span>
             </div>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-slate-100">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 p-4">
               {[
                 {
                   icon: ShieldCheck, label: "Verificaciones KYC", valor: stats.kyc_pendientes,
@@ -245,9 +243,7 @@ const AdminDashboard = () => {
                   href: "/admin/ads-analytics",
                 },
               ].map((k, i) => (
-                <div key={i} className="bg-white">
-                  <KpiCard {...k} />
-                </div>
+                <KpiCard key={i} {...k} />
               ))}
             </div>
           </div>

@@ -317,7 +317,7 @@ const AdminCMS = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-5">
           {/* Selector de documentos */}
-          <div className="lg:col-span-1 space-y-2">
+          <div className="lg:col-span-1 space-y-3">
             <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">Documentos</p>
             {Object.values(docs).map((d) => (
               <button
@@ -326,7 +326,7 @@ const AdminCMS = () => {
                 className={`w-full text-left px-4 py-3 rounded-xl border text-sm transition-all ${
                   seleccionado === d.slug
                     ? "border-[#52B788] bg-[#52B788]/10 text-[#1B4332] font-semibold"
-                    : "border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50"
+                    : "border-[#B7E4C7] text-slate-600 hover:border-[#52B788] hover:bg-slate-50"
                 }`}
               >
                 <div className="flex items-start gap-2">
