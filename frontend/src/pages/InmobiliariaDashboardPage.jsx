@@ -2783,7 +2783,7 @@ const InmobiliariaDashboardPage = () => {
       {/* ── Contacto ── */}
       <div className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden">
         <SH icon={User} title="Contacto" />
-        <div className="p-5 grid grid-cols-4 gap-x-6 gap-y-4">
+        <div className="p-5 grid grid-cols-2 md:grid-cols-4 gap-x-4 md:gap-x-6 gap-y-4">
           <F label="Representante"     value={session.name} />
           <F label="Teléfono"          value={session.phone} />
           <F label="Email"             value={session.email} span={2} />
@@ -2818,7 +2818,7 @@ const InmobiliariaDashboardPage = () => {
       {/* ── Perfil operativo ── */}
       <div className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden">
         <SH icon={TrendingUp} title="Perfil operativo" />
-        <div className="p-5 grid grid-cols-4 gap-x-6 gap-y-4">
+        <div className="p-5 grid grid-cols-2 md:grid-cols-4 gap-x-4 md:gap-x-6 gap-y-4">
           <F label="Años en el mercado" value={session.q_anos_mercado} />
           <F label="Cartera activa"      value={session.q_cartera_propiedades} />
           <F label="CRM / Herramientas" value={session.q_crm} />
@@ -2840,7 +2840,7 @@ const InmobiliariaDashboardPage = () => {
       {/* ── Trayectoria y cobertura ── */}
       <div className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden">
         <SH icon={Star} title="Trayectoria y cobertura" />
-        <div className="p-5 grid grid-cols-4 gap-x-6 gap-y-4">
+        <div className="p-5 grid grid-cols-2 md:grid-cols-4 gap-x-4 md:gap-x-6 gap-y-4">
           <F label="Galardones" value={session.galardones} span={2} />
           <div className="col-span-2">
             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1">Zona de cobertura</p>

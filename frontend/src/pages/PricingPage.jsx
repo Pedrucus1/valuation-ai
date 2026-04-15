@@ -266,7 +266,7 @@ export default function PricingPage() {
             {/* Plan selector */}
             <div className="mb-3">
               <p className="text-white/75 text-sm font-medium mb-2">Elige tu plan</p>
-              <div className="grid grid-cols-4 gap-1.5">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
                 {PLANS.map(plan => (
                   <button
                     key={plan.id}

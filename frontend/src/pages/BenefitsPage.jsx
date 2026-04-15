@@ -194,10 +194,10 @@ const BenefitsPage = ({ type }) => {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-4 mt-12 max-w-2xl">
+          <div className="grid grid-cols-3 gap-2 sm:gap-4 mt-12 max-w-2xl">
             {content.stats.map((s, i) => (
               <div key={i} className="text-center">
-                <p className="font-['Outfit'] text-3xl font-bold text-[#D9ED92]">{s.value}</p>
+                <p className="font-['Outfit'] text-2xl sm:text-3xl font-bold text-[#D9ED92]">{s.value}</p>
                 <p className="text-white/60 text-xs mt-1">{s.label}</p>
               </div>
             ))}
