@@ -471,13 +471,13 @@ const ValuadorDashboardPage = () => {
 
   const TABS = [
     { id: "resumen",      label: "Resumen" },
+    ...(tienePlan ? [{ id: "mercado", label: "Mercado" }] : []),
     { id: "valuaciones",  label: "Valuaciones" },
-    { id: "perfil",       label: "Perfil" },
     { id: "expediente",   label: "Documentos", badge: !docsCompletos && session?.kyc_status !== "approved" },
+    { id: "perfil",       label: "Perfil" },
     { id: "resenas",      label: "Reseñas" },
     { id: "facturacion",  label: "Facturación", badge: billingData?.billing_status === "blocked" || billingData?.days_to_cutoff <= 5 },
     { id: "publicidad",   label: "Publicidad" },
-    ...(tienePlan ? [{ id: "mercado", label: "Mercado" }] : []),
   ];
 
   /* ── Facturación Tab ── */
