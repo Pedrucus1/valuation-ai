@@ -153,7 +153,7 @@ const ZonasObjetivo = () => {
       </div>
 
       {/* KPIs */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {[
           { label: "Zonas activas",          val: activas,                  color: "text-green-600" },
           { label: "Pendientes de activar",   val: pendientes,               color: "text-amber-600" },

@@ -88,7 +88,7 @@ const AdminCFDI = () => {
         </PageHeader>
 
         {/* KPI cards */}
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden">
             <div className="h-1 bg-[#52B788]" />
             <div className="p-4">
