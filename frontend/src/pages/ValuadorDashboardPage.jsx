@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, CircleMarker, Popup } from "react-leaflet";
@@ -73,6 +73,7 @@ import { Label } from "@/components/ui/label";
 import { API } from "@/App";
 import { compressFile } from "@/lib/compressFile";
 import MercadoView from "@/components/MercadoView";
+const MercadoViewM = React.memo(MercadoView);
 
 /* ─── PropValu Watermark ─────────────────────────────── */
 const PropValuWatermark = ({ nombre, fecha }) => (
@@ -2343,7 +2344,7 @@ const ValuadorDashboardPage = () => {
 
         {/* Tab: Mercado */}
         {activeTab === "mercado" && (
-          <MercadoView
+          <MercadoViewM
             modo="valuador"
             nombreUsuario={session?.name || "Valuador"}
             valuacionesPropias={valuaciones}

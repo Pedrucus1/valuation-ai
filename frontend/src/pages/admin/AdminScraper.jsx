@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import AdminLayout from "@/components/AdminLayout";
 import { adminFetch } from "@/lib/adminFetch";
 import {
@@ -9,6 +9,7 @@ import {
 import { PageHeader } from "@/components/AdminUI";
 import { API } from "@/App";
 import MercadoView from "@/components/MercadoView";
+const MercadoViewM = React.memo(MercadoView);
 
 /* ─── Constantes ─────────────────────────────── */
 const ESTADO_CFG = {
@@ -439,7 +440,7 @@ const AdminScraper = () => {
 
         {/* ── Tab: Mercado ── */}
         {activeTab === "mercado" && (
-          <MercadoView
+          <MercadoViewM
             modo="admin"
             nombreUsuario="Admin"
             valuacionesPropias={[]}
