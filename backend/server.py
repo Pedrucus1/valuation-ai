@@ -3905,12 +3905,12 @@ async def startup():
     )
     _scheduler.add_job(
         _job_sync_sheets,
-        CronTrigger(hour=4, minute=30),  # Diario a las 4:30am UTC
-        id="sync_sheets_diario",
+        CronTrigger(day=3, hour=4, minute=30),  # Día 3 de cada mes a las 4:30am UTC (día después del scrape)
+        id="sync_sheets_mensual",
         replace_existing=True,
     )
     _scheduler.start()
-    logging.info("[scheduler] APScheduler iniciado — scrape mensual día 2, sync sheets diario 4:30am UTC")
+    logging.info("[scheduler] APScheduler iniciado — scrape mensual día 2, sync sheets día 3 a las 4:30am UTC")
 
 # Include router
 app.include_router(api_router)
