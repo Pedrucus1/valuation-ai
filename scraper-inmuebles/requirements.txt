@@ -1,0 +1,11 @@
+playwright==1.58.0
+pymongo>=4.6.0
+beautifulsoup4==4.12.3
+requests==2.31.0
+gspread==6.1.2
+google-auth==2.29.0
+python-dotenv>=1.1.0
+lxml==6.0.2
+fake-useragent==1.5.1
+tenacity==8.2.3
+loguru==0.7.2

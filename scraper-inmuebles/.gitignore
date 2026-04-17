@@ -1,0 +1,10 @@
+credentials.json
+.env
+progress.json
+progress_backup_*.json
+enricher_checkpoint.json
+buffer/
+logs/
+__pycache__/
+*.pyc
+*.pyo

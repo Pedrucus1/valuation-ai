@@ -1,0 +1,107 @@
+name: Scraper Mensual
+
+on:
+  # Día 2 de cada mes a las 3:00am UTC
+  schedule:
+    - cron: "0 3 2 * *"
+  # Ejecución manual desde GitHub Actions tab
+  workflow_dispatch:
+    inputs:
+      portal:
+        description: "Portal a ejecutar (dejar vacío = todos)"
+        required: false
+        default: ""
+
+jobs:
+  scrape:
+    name: Scrape portales inmobiliarios
+    runs-on: ubuntu-latest
+    timeout-minutes: 300  # 5 horas máximo
+
+    defaults:
+      run:
+        working-directory: scraper-inmuebles
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+          cache-dependency-path: scraper-inmuebles/requirements.txt
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Instalar Playwright + Chromium
+        run: |
+          playwright install chromium
+          playwright install-deps chromium
+
+      - name: Escribir credentials.json
+        env:
+          CREDENTIALS_JSON: ${{ secrets.SCRAPER_CREDENTIALS_JSON }}
+        run: echo "$CREDENTIALS_JSON" > credentials.json
+
+      - name: Escribir .env
+        run: |
+          echo "GOOGLE_SHEET_ID=${{ secrets.GOOGLE_SHEET_ID }}" > .env
+          echo "MONGO_URL=${{ secrets.MONGO_URL }}" >> .env
+          echo "DB_NAME=propvalu" >> .env
+          echo "SCRAPING_DELAY_MIN=5" >> .env
+          echo "SCRAPING_DELAY_MAX=12" >> .env
+          echo "MAX_RETRIES=3" >> .env
+          echo "LOG_LEVEL=INFO" >> .env
+
+      - name: Scrape INMUEBLES24
+        if: ${{ github.event.inputs.portal == '' || github.event.inputs.portal == 'INMUEBLES24' }}
+        run: python scheduler.py --portal INMUEBLES24
+        continue-on-error: true
+
+      - name: Scrape CASAS_Y_TERRENOS
+        if: ${{ github.event.inputs.portal == '' || github.event.inputs.portal == 'CASAS_Y_TERRENOS' }}
+        run: python scheduler.py --portal CASAS_Y_TERRENOS
+        continue-on-error: true
+
+      - name: Scrape MITULA
+        if: ${{ github.event.inputs.portal == '' || github.event.inputs.portal == 'MITULA' }}
+        run: python scheduler.py --portal MITULA
+        continue-on-error: true
+
+      - name: Scrape VIVANUNCIOS
+        if: ${{ github.event.inputs.portal == '' || github.event.inputs.portal == 'VIVANUNCIOS' }}
+        run: python scheduler.py --portal VIVANUNCIOS
+        continue-on-error: true
+
+      - name: Scrape PINCALI
+        if: ${{ github.event.inputs.portal == '' || github.event.inputs.portal == 'PINCALI' }}
+        run: python scheduler.py --portal PINCALI
+        continue-on-error: true
+
+      - name: Limpiar archivos sensibles
+        if: always()
+        run: |
+          rm -f credentials.json .env
+
+  sync-mongo:
+    name: Sync Sheets → MongoDB
+    needs: scrape
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    if: always()  # corre aunque algún portal haya fallado
+
+    steps:
+      - name: Trigger sync en backend PropValu
+        env:
+          BACKEND_URL: ${{ secrets.PROPVALU_BACKEND_URL }}
+          ADMIN_SECRET: ${{ secrets.ADMIN_SECRET }}
+        run: |
+          curl -s -X POST "$BACKEND_URL/api/admin/mercado/sync-sheets" \
+            -H "x-admin-token: $ADMIN_SECRET" \
+            -H "Content-Type: application/json" \
+            -d "{}" \
+            --max-time 300 \
+            -w "\nHTTP %{http_code}\n"
