@@ -3874,21 +3874,25 @@ async def _job_sync_sheets():
 PORTALES_IDS_SCHED = ["INMUEBLES24", "PINCALI", "VIVANUNCIOS", "MITULA", "CASAS_Y_TERRENOS"]
 
 async def _job_scrape_mensual():
-    """Día 2 de cada mes: lanza 5 portales en paralelo, luego genera snapshot."""
+    """Día 2 de cada mes: lanza 5 portales en paralelo desde SCRAPER_DIR, luego genera snapshot."""
     logging.info("[scheduler] Iniciando scrape mensual automático")
-    scraper_path = Path(__file__).parent
+    scraper_path = Path(SCRAPER_DIR)
+    if not scraper_path.exists():
+        logging.error(f"[scheduler] SCRAPER_DIR no existe: {scraper_path} — abortando scrape mensual")
+        return
+    python_exe = os.environ.get("SCRAPER_PYTHON", "python")
     tasks = []
     for portal in PORTALES_IDS_SCHED:
         tasks.append(asyncio.create_subprocess_exec(
-            "python", "scheduler.py", "--portal", portal,
+            python_exe, "scheduler.py", "--portal", portal,
             cwd=str(scraper_path),
         ))
     procs = await asyncio.gather(*tasks, return_exceptions=True)
-    # Esperar a que terminen todos
     for p in procs:
         if hasattr(p, "wait"):
             await p.wait()
-    logging.info("[scheduler] Scrape mensual terminado — generando snapshot")
+    logging.info("[scheduler] Scrape mensual terminado — sincronizando Sheets y generando snapshot")
+    await _sync_sheets_to_mercado_props()
     mes = await _generar_snapshot_mes()
     logging.info(f"[scheduler] Snapshot generado: {mes}")
 
