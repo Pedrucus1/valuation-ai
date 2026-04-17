@@ -883,10 +883,12 @@ async def generate_comparables(valuation_id: str, request: Request, append: bool
         area_min = subj_area * 0.6
         area_max = subj_area * 1.4
 
+        six_months_ago = (datetime.now(timezone.utc) - timedelta(days=180)).isoformat()
         cursor = db.valuations.find(
             {
                 "status": "calculated",
                 "valuation_id": {"$ne": valuation_id},
+                "updated_at": {"$gte": six_months_ago},
                 "property_data.municipality": {"$regex": prop["municipality"], "$options": "i"},
                 "property_data.state": {"$regex": prop["state"], "$options": "i"},
             },
