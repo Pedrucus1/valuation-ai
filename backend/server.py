@@ -876,7 +876,88 @@ async def generate_comparables(valuation_id: str, request: Request, append: bool
     rental_factor_data = {"factor": 0.005, "source": "default", "rental_listings_count": 0}
     search_method = "simulated"
     ai_providers_used = []
-    
+
+    # ============== 0. INTERNAL DB COMPARABLES (valuaciones previas de PropValu) ==============
+    try:
+        subj_area = prop.get("construction_area") or prop.get("land_area") or 100
+        area_min = subj_area * 0.6
+        area_max = subj_area * 1.4
+
+        cursor = db.valuations.find(
+            {
+                "status": "calculated",
+                "valuation_id": {"$ne": valuation_id},
+                "property_data.municipality": {"$regex": prop["municipality"], "$options": "i"},
+                "property_data.state": {"$regex": prop["state"], "$options": "i"},
+            },
+            {"_id": 0, "valuation_id": 1, "property_data": 1, "result": 1}
+        ).sort("updated_at", -1).limit(40)
+
+        internal_raw = await cursor.to_list(40)
+        internal_found = 0
+
+        for iv in internal_raw:
+            if internal_found >= 6:
+                break
+
+            iprop = iv.get("property_data", {})
+            iresult = iv.get("result", {})
+
+            if not iresult.get("estimated_value"):
+                continue
+
+            # Filtrar por tipo de propiedad
+            iprop_type = iprop.get("property_type") or property_type_map.get(iprop.get("property_use", ""), "")
+            if iprop_type and iprop_type != search_type:
+                continue
+
+            # Filtrar por área de construcción ±40%
+            iarea = iprop.get("construction_area") or iprop.get("land_area") or 0
+            if iarea and (iarea < area_min or iarea > area_max):
+                continue
+
+            est_value = iresult["estimated_value"]
+            est_ppsm = iresult.get("price_per_sqm") or (est_value / iarea if iarea else 0)
+
+            area_adj = 0
+            if iarea and subj_area:
+                diff = (iarea - subj_area) / subj_area * 100
+                area_adj = max(-5, min(5, -diff * 0.1))
+
+            total_adj = base_negotiation + area_adj
+            adjusted_ppsm = est_ppsm * (1 + total_adj / 100)
+
+            comparables.append(Comparable(
+                source="propvalu_db",
+                source_url="",
+                title=f"{search_type} valuado — {iprop.get('neighborhood', prop['neighborhood'])}",
+                neighborhood=iprop.get("neighborhood", prop["neighborhood"]),
+                municipality=iprop.get("municipality", prop["municipality"]),
+                state=iprop.get("state", prop["state"]),
+                land_area=iprop.get("land_area"),
+                construction_area=iarea or None,
+                price=round(est_value, 2),
+                price_per_sqm=round(est_ppsm, 2),
+                property_type=search_type,
+                land_regime=iprop.get("land_regime", "URBANO"),
+                listing_type="venta",
+                negotiation_adjustment=base_negotiation,
+                area_adjustment=round(area_adj, 2),
+                condition_adjustment=0,
+                location_adjustment=0,
+                regime_adjustment=0,
+                total_adjustment=round(total_adj, 2),
+                adjusted_price_per_sqm=round(adjusted_ppsm, 2),
+            ).model_dump())
+            internal_found += 1
+
+        if internal_found > 0:
+            logger.info(f"Internal DB: {internal_found} valuaciones previas encontradas como comparables")
+            search_method = "mixed"
+
+    except Exception as e:
+        logger.warning(f"Internal DB comparables error: {e}")
+
     # ============== 1. TRY AI SEARCH FIRST (OpenAI + Gemini) ==============
     try:
         logger.info("Starting AI-powered comparable search...")

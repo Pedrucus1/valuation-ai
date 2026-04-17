@@ -649,7 +649,9 @@ const ComparablesPage = () => {
                       key={comp.comparable_id}
                       className={`cursor-pointer transition-all duration-150 ${isSelected
                         ? "bg-[#D9ED92]/30 border-l-4 border-l-[#52B788] hover:bg-[#D9ED92]/40"
-                        : "hover:bg-slate-50 border-l-4 border-l-transparent"
+                        : comp.source === "propvalu_db"
+                          ? "hover:bg-blue-50/40 border-l-4 border-l-blue-400"
+                          : "hover:bg-slate-50 border-l-4 border-l-transparent"
                         }`}
                       onClick={() => toggleComparable(comp.comparable_id)}
                       data-testid={`comparable-row-${index}`}
@@ -701,16 +703,22 @@ const ComparablesPage = () => {
                         {formatCurrency(adjusted.adjustedPrice)}
                       </TableCell>
                       <TableCell>
-                        <a
-                          href={comp.source_url?.startsWith('http') ? comp.source_url : undefined}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className={`flex items-center gap-1 text-sm ${comp.source_url?.startsWith('http') ? 'text-[#52B788] hover:underline cursor-pointer' : 'text-slate-400 cursor-default'}`}
-                        >
-                          {comp.source?.split('.')[0] || comp.source}
-                          <ExternalLink className="w-3 h-3" />
-                        </a>
+                        {comp.source === "propvalu_db" ? (
+                          <span className="inline-flex items-center gap-1 text-xs font-semibold text-blue-700 bg-blue-50 border border-blue-200 rounded-full px-2 py-0.5">
+                            ★ PropValu
+                          </span>
+                        ) : (
+                          <a
+                            href={comp.source_url?.startsWith('http') ? comp.source_url : undefined}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className={`flex items-center gap-1 text-sm ${comp.source_url?.startsWith('http') ? 'text-[#52B788] hover:underline cursor-pointer' : 'text-slate-400 cursor-default'}`}
+                          >
+                            {comp.source?.split('.')[0] || comp.source}
+                            <ExternalLink className="w-3 h-3" />
+                          </a>
+                        )}
                       </TableCell>
                     </TableRow>
                   );
