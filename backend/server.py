@@ -3746,6 +3746,129 @@ async def admin_generar_snapshot(request: Request):
     mes_generado = await _generar_snapshot_mes(mes)
     return {"ok": True, "mes": mes_generado}
 
+# ─── Sync Google Sheets → mercado_props ──────────────────────────────────────
+
+async def _sync_sheets_to_mercado_props() -> dict:
+    """
+    Lee todas las tabs del Google Sheet del scraper y hace upsert en mercado_props.
+    Usa id_unico como clave para evitar duplicados.
+    Omite la tab CONSOLIDADO (es espejo de las demás).
+    """
+    from sheets_comparables import (
+        fetch_sheet_tab, SHEET_TABS, SHEET_COLUMNS, SHEET_ID_DEFAULT,
+        _cell, _parse_price, _parse_area, _parse_int, _parse_float,
+    )
+    from pymongo import UpdateOne as MongoUpdateOne
+
+    sheet_id = os.environ.get("GOOGLE_SHEETS_ID", SHEET_ID_DEFAULT).strip()
+    api_key  = os.environ.get("GOOGLE_SHEETS_API_KEY", "").strip()
+    col      = db["mercado_props"]
+    now      = datetime.now(timezone.utc).isoformat()
+
+    tabs = [t for t in SHEET_TABS if t != "CONSOLIDADO"]
+    total_new = total_updated = total_skipped = 0
+
+    for tab_name in tabs:
+        try:
+            rows = await fetch_sheet_tab(tab_name, api_key, sheet_id)
+        except Exception as exc:
+            logging.warning(f"[sync_sheets] Error leyendo tab {tab_name}: {exc}")
+            continue
+
+        if not rows:
+            logging.info(f"[sync_sheets] Tab {tab_name} vacía, omitida")
+            continue
+
+        ops = []
+        for row in rows:
+            raw = {name: _cell(row, i) for i, name in enumerate(SHEET_COLUMNS)}
+            id_unico = raw.get("id_unico")
+            if not id_unico:
+                total_skipped += 1
+                continue
+
+            precio    = _parse_price(raw.get("precio"))
+            m2_const  = _parse_area(raw.get("m2_construccion"))
+            m2_terr   = _parse_area(raw.get("m2_terreno"))
+            area_ref  = m2_const or m2_terr or 0
+            precio_m2 = round(precio / area_ref, 2) if area_ref and precio else 0
+            activo_raw = str(raw.get("activo") or "TRUE").strip().upper()
+            activo = activo_raw not in ("FALSE", "0", "")
+
+            doc = {
+                "id_unico":         id_unico,
+                "titulo":           raw.get("titulo") or "",
+                "precio":           precio,
+                "moneda":           raw.get("moneda") or "MXN",
+                "tipo_operacion":   (raw.get("tipo_operacion") or "venta").lower(),
+                "tipo_propiedad":   raw.get("tipo_propiedad") or "",
+                "colonia":          raw.get("colonia") or "",
+                "municipio":        raw.get("municipio") or "",
+                "estado":           raw.get("estado") or "",
+                "recamaras":        _parse_int(raw.get("recamaras")),
+                "banos":            _parse_float(raw.get("banos")),
+                "m2_construccion":  m2_const,
+                "m2_terreno":       m2_terr,
+                "precio_m2":        precio_m2,
+                "estacionamientos": _parse_int(raw.get("estacionamientos")),
+                "anio_construccion":raw.get("anio_construccion"),
+                "descripcion":      raw.get("descripcion") or "",
+                "url_original":     raw.get("url_original") or "",
+                "nombre_agente":    raw.get("nombre_agente") or "",
+                "fecha_publicacion":raw.get("fecha_publicacion") or "",
+                "portal_origen":    raw.get("portal_origen") or tab_name,
+                "portal_tab":       tab_name,
+                "fecha_scraping":   raw.get("fecha_scraping") or "",
+                "activo":           activo,
+                "importado_at":     now,
+            }
+            ops.append(MongoUpdateOne({"id_unico": id_unico}, {"$set": doc}, upsert=True))
+
+        if not ops:
+            continue
+
+        # Bulk upsert en lotes de 500
+        batch_size = 500
+        for i in range(0, len(ops), batch_size):
+            result = await col.bulk_write(ops[i:i+batch_size], ordered=False)
+            total_new     += result.upserted_count
+            total_updated += result.modified_count
+
+        logging.info(f"[sync_sheets] {tab_name}: {len(ops)} filas procesadas")
+
+    # Limpiar cache de mercado para que refleje los datos nuevos
+    for key in list(_mercado_cache.keys()):
+        if key.startswith("colonias_") or key.startswith("stats_") or key.startswith("segmentos_"):
+            _mercado_cache.pop(key, None)
+
+    summary = {
+        "nuevos": total_new,
+        "actualizados": total_updated,
+        "sin_id": total_skipped,
+        "tabs": len(tabs),
+        "ejecutado_at": now,
+    }
+    logging.info(f"[sync_sheets] Sync completo: {summary}")
+    return summary
+
+
+@api_router.post("/admin/mercado/sync-sheets")
+async def admin_sync_sheets(request: Request):
+    """Importa / actualiza mercado_props desde Google Sheets (upsert por id_unico)."""
+    await require_admin(request)
+    summary = await _sync_sheets_to_mercado_props()
+    return {"ok": True, **summary}
+
+
+async def _job_sync_sheets():
+    """Job diario: sync Google Sheets → mercado_props."""
+    logging.info("[scheduler] Iniciando sync diario Sheets → mercado_props")
+    try:
+        summary = await _sync_sheets_to_mercado_props()
+        logging.info(f"[scheduler] Sync diario completado: {summary}")
+    except Exception as exc:
+        logging.error(f"[scheduler] Error en sync diario: {exc}")
+
 # ─── Scheduler mensual ───────────────────────────────────────────────────────
 
 PORTALES_IDS_SCHED = ["INMUEBLES24", "PINCALI", "VIVANUNCIOS", "MITULA", "CASAS_Y_TERRENOS"]
@@ -3780,8 +3903,14 @@ async def startup():
         id="scrape_mensual",
         replace_existing=True,
     )
+    _scheduler.add_job(
+        _job_sync_sheets,
+        CronTrigger(hour=4, minute=30),  # Diario a las 4:30am UTC
+        id="sync_sheets_diario",
+        replace_existing=True,
+    )
     _scheduler.start()
-    logging.info("[scheduler] APScheduler iniciado — scrape mensual el día 2 de cada mes a las 3am UTC")
+    logging.info("[scheduler] APScheduler iniciado — scrape mensual día 2, sync sheets diario 4:30am UTC")
 
 # Include router
 app.include_router(api_router)

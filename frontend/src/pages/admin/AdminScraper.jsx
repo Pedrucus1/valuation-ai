@@ -295,6 +295,7 @@ const AdminScraper = () => {
   const [corriendoTodos, setCorriendoTodos] = useState(false);
   const [reseteando, setReseteando] = useState(null);
   const [toast, setToast] = useState(null);
+  const [syncState, setSyncState] = useState({ loading: false, result: null });
 
   const cargar = useCallback(() => {
     adminFetch("/api/admin/scraper/status")
@@ -390,6 +391,18 @@ const AdminScraper = () => {
       showToast("Error: " + e.message, "error");
     } finally {
       setReseteando(null);
+    }
+  };
+
+  const sincronizarSheets = async () => {
+    setSyncState({ loading: true, result: null });
+    try {
+      const data = await adminFetch("/api/admin/mercado/sync-sheets", { method: "POST", body: JSON.stringify({}) });
+      setSyncState({ loading: false, result: data });
+      showToast(`Sync completo: ${data.nuevos} nuevos, ${data.actualizados} actualizados`, "ok");
+    } catch (e) {
+      setSyncState({ loading: false, result: null });
+      showToast("Error en sync: " + e.message, "error");
     }
   };
 
@@ -498,6 +511,27 @@ const AdminScraper = () => {
                 </div>
               </div>
             )}
+
+            {/* ── Sync Sheets → MongoDB ── */}
+            <div className="bg-white rounded-2xl border border-blue-200 shadow-sm p-5 flex flex-col sm:flex-row sm:items-center gap-4">
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-[#1B4332]">Sincronizar Google Sheets → MongoDB</p>
+                <p className="text-xs text-slate-400 mt-0.5">Importa las propiedades escrapeadas a la base de datos para usarlas como comparables. El sistema lo hace automáticamente cada día a las 4:30am UTC.</p>
+                {syncState.result && (
+                  <p className="text-xs text-blue-600 font-medium mt-1">
+                    Último sync: {syncState.result.nuevos} nuevos · {syncState.result.actualizados} actualizados · {syncState.result.tabs} tabs
+                  </p>
+                )}
+              </div>
+              <button
+                onClick={sincronizarSheets}
+                disabled={syncState.loading}
+                className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white text-sm font-bold px-5 py-2.5 rounded-xl transition-colors shadow-sm whitespace-nowrap">
+                {syncState.loading
+                  ? <><RefreshCw className="w-4 h-4 animate-spin" /> Sincronizando…</>
+                  : <><Database className="w-4 h-4" /> Sync ahora</>}
+              </button>
+            </div>
 
             {/* ── Sección: Portales ── */}
             <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm overflow-hidden">
