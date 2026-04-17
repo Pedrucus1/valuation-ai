@@ -8,53 +8,51 @@ on:
   workflow_dispatch:
     inputs:
       portal:
-        description: "Portal a ejecutar (dejar vacío = todos)"
+        description: "Portal específico (vacío = todos)"
         required: false
         default: ""
+      solo_scrape:
+        description: "Solo scrape sin enricher (true/false)"
+        required: false
+        default: "false"
+
+# ─── Reutilizable: setup Python + Playwright + credenciales ───────────────────
+# (cada job lo repite porque cada uno corre en una VM fresca)
 
 jobs:
+
+  # ── 1. SCRAPE — portales secuenciales en una sola VM ─────────────────────────
   scrape:
-    name: Scrape portales inmobiliarios
+    name: "Scrape: ${{ github.event.inputs.portal || 'todos' }}"
     runs-on: ubuntu-latest
-    timeout-minutes: 300  # 5 horas máximo
+    timeout-minutes: 300
 
     defaults:
       run:
         working-directory: scraper-inmuebles
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Python 3.11
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-          cache: "pip"
+          cache: pip
           cache-dependency-path: scraper-inmuebles/requirements.txt
 
       - name: Instalar dependencias
         run: pip install -r requirements.txt
 
       - name: Instalar Playwright + Chromium
-        run: |
-          playwright install chromium
-          playwright install-deps chromium
+        run: playwright install chromium --with-deps
 
-      - name: Escribir credentials.json
+      - name: Credenciales y .env
         env:
           CREDENTIALS_JSON: ${{ secrets.SCRAPER_CREDENTIALS_JSON }}
-        run: echo "$CREDENTIALS_JSON" > credentials.json
-
-      - name: Escribir .env
         run: |
-          echo "GOOGLE_SHEET_ID=${{ secrets.GOOGLE_SHEET_ID }}" > .env
-          echo "MONGO_URL=${{ secrets.MONGO_URL }}" >> .env
-          echo "DB_NAME=propvalu" >> .env
-          echo "SCRAPING_DELAY_MIN=5" >> .env
-          echo "SCRAPING_DELAY_MAX=12" >> .env
-          echo "MAX_RETRIES=3" >> .env
-          echo "LOG_LEVEL=INFO" >> .env
+          echo "$CREDENTIALS_JSON" > credentials.json
+          printf "GOOGLE_SHEET_ID=%s\nMONGO_URL=%s\nDB_NAME=propvalu\nSCRAPING_DELAY_MIN=5\nSCRAPING_DELAY_MAX=12\nMAX_RETRIES=3\nLOG_LEVEL=INFO\n" \
+            "${{ secrets.GOOGLE_SHEET_ID }}" "${{ secrets.MONGO_URL }}" > .env
 
       - name: Scrape INMUEBLES24
         if: ${{ github.event.inputs.portal == '' || github.event.inputs.portal == 'INMUEBLES24' }}
@@ -83,15 +81,62 @@ jobs:
 
       - name: Limpiar archivos sensibles
         if: always()
-        run: |
-          rm -f credentials.json .env
+        run: rm -f credentials.json .env
 
+  # ── 2. ENRICH — 5 portales en paralelo, cada uno en su VM ────────────────────
+  enrich:
+    name: "Enrich: ${{ matrix.portal }}"
+    needs: scrape
+    if: ${{ github.event.inputs.solo_scrape != 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    strategy:
+      matrix:
+        portal: [INMUEBLES24, VIVANUNCIOS, MITULA, PINCALI, CASAS_Y_TERRENOS]
+      fail-fast: false   # si un portal falla, los demás siguen
+
+    defaults:
+      run:
+        working-directory: scraper-inmuebles
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: scraper-inmuebles/requirements.txt
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Instalar Playwright + Chromium
+        run: playwright install chromium --with-deps
+
+      - name: Credenciales y .env
+        env:
+          CREDENTIALS_JSON: ${{ secrets.SCRAPER_CREDENTIALS_JSON }}
+        run: |
+          echo "$CREDENTIALS_JSON" > credentials.json
+          printf "GOOGLE_SHEET_ID=%s\nMONGO_URL=%s\nDB_NAME=propvalu\nSCRAPING_DELAY_MIN=5\nSCRAPING_DELAY_MAX=12\nMAX_RETRIES=3\nLOG_LEVEL=INFO\n" \
+            "${{ secrets.GOOGLE_SHEET_ID }}" "${{ secrets.MONGO_URL }}" > .env
+
+      - name: Enrich ${{ matrix.portal }}
+        run: python enricher.py --tab ${{ matrix.portal }}
+        continue-on-error: true
+
+      - name: Limpiar archivos sensibles
+        if: always()
+        run: rm -f credentials.json .env
+
+  # ── 3. SYNC — Sheets → MongoDB al final ──────────────────────────────────────
   sync-mongo:
     name: Sync Sheets → MongoDB
-    needs: scrape
+    needs: enrich
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    if: always()  # corre aunque algún portal haya fallado
+    if: always()   # corre aunque algún enrich haya fallado
 
     steps:
       - name: Trigger sync en backend PropValu
