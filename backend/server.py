@@ -52,6 +52,7 @@ from ai_comparables import (
     AIComparable
 )
 from sheets_comparables import search_comparables_from_sheets
+from mongo_comparables import search_comparables_from_mongo
 
 # Import report generator
 from report_generator import generate_html_report
@@ -959,6 +960,67 @@ async def generate_comparables(valuation_id: str, request: Request, append: bool
 
     except Exception as e:
         logger.warning(f"Internal DB comparables error: {e}")
+
+    # ============== 0.5. MERCADO_PROPS (comparables reales del scraper) ==============
+    try:
+        mongo_candidates = await asyncio.wait_for(
+            search_comparables_from_mongo(
+                db=db,
+                municipio=prop["municipality"],
+                tipo_propiedad=search_type,
+                tipo_operacion="venta",
+                m2_construccion=prop.get("construction_area"),
+                precio_referencia=prop.get("value"),
+                max_results=50,
+            ),
+            timeout=10.0,
+        )
+        if mongo_candidates:
+            search_method = "mercado_props"
+            for mc in mongo_candidates:
+                area = mc.get("m2_construccion") or mc.get("m2_terreno") or prop["construction_area"]
+                precio = mc.get("precio") or 0
+                ppsm = precio / area if area and area > 0 else 0
+
+                area_adj = 0
+                if area and prop.get("construction_area"):
+                    diff = (area - prop["construction_area"]) / prop["construction_area"] * 100
+                    area_adj = max(-5, min(5, -diff * 0.1))
+
+                regime_adj = 0
+                if prop.get("land_regime") and prop["land_regime"] != "URBANO":
+                    regime_adj = {"EJIDAL": -20, "COMUNAL": -25, "RUSTICO": -30}.get(prop["land_regime"], 0)
+
+                total_adj = base_negotiation + area_adj + regime_adj
+                adj_ppsm  = ppsm * (1 + total_adj / 100)
+
+                comparables.append(Comparable(
+                    source=mc.get("portal_origen", "mercado_props"),
+                    source_url=mc.get("url_original", ""),
+                    title=mc.get("titulo", f"{search_type} en {mc.get('municipio', '')}"),
+                    neighborhood=mc.get("colonia") or prop["neighborhood"],
+                    municipality=mc.get("municipio", prop["municipality"]),
+                    state=mc.get("estado", prop["state"]),
+                    land_area=mc.get("m2_terreno"),
+                    construction_area=area,
+                    price=precio,
+                    price_per_sqm=round(ppsm, 2),
+                    property_type=search_type,
+                    land_regime=prop.get("land_regime", "URBANO"),
+                    listing_type="venta",
+                    negotiation_adjustment=base_negotiation,
+                    area_adjustment=round(area_adj, 2),
+                    condition_adjustment=0,
+                    location_adjustment=0,
+                    regime_adjustment=regime_adj,
+                    total_adjustment=round(total_adj, 2),
+                    adjusted_price_per_sqm=round(adj_ppsm, 2),
+                ).model_dump())
+            logger.info(f"mercado_props: {len(mongo_candidates)} comparables reales agregados")
+    except asyncio.TimeoutError:
+        logger.warning("mercado_props timeout")
+    except Exception as e:
+        logger.warning(f"mercado_props error: {e}")
 
     # ============== 1. TRY AI SEARCH FIRST (OpenAI + Gemini) ==============
     try:

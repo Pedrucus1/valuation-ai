@@ -21,19 +21,20 @@ from scrapers.base_scraper import BaseScraper, ErrorScraping
 from utils import antiblock
 
 # ─────────────────────────────────────────
-# Mapeo tipo interno → slug en URL pincali
+# Mapeo tipo interno → slug en URL pincali (español)
+# URL de listado: /propiedades/{tipo}-en-{operacion}-en-{ciudad}-{estado}
 # ─────────────────────────────────────────
 TIPOS_URL = {
-    "casas":               "houses",
-    "departamentos":       "apartments",
-    "terrenos":            "land",
-    "locales-comerciales": "commercial",
-    "oficinas":            "offices",
+    "casas":               "casas",
+    "departamentos":       "departamentos",
+    "terrenos":            "terrenos",
+    "locales-comerciales": "locales-comerciales",
+    "oficinas":            "oficinas",
 }
 
 OPERACION_URL = {
-    "venta": "sale",
-    "renta": "rent",
+    "venta": "venta",
+    "renta": "renta",
 }
 
 BASE_URL = "https://www.pincali.com"
@@ -70,14 +71,14 @@ class PincaliScraper(BaseScraper):
 
     def obtener_url_listado(self, zona: dict, operacion: str, pagina: int) -> str:
         """
-        Construye URL del listado.
-        Ej pág 1: /en/properties/houses-for-sale-in-guadalajara-jalisco
-        Ej pág 2: /en/properties/houses-for-sale-in-guadalajara-jalisco?page=2
+        Construye URL del listado en español.
+        Ej pág 1: /propiedades/casas-en-venta-en-guadalajara-jalisco
+        Ej pág 2: /propiedades/casas-en-venta-en-guadalajara-jalisco?page=2
         """
-        tipo_en  = TIPOS_URL.get(zona.get("_tipo_actual", "casas"), "houses")
-        op_en    = OPERACION_URL.get(operacion, "sale")
-        slug     = zona.get("slug_pincali", zona["municipio"].lower().replace(" ", "-"))
-        url = f"{BASE_URL}/en/properties/{tipo_en}-for-{op_en}-in-{slug}"
+        tipo  = TIPOS_URL.get(zona.get("_tipo_actual", "casas"), "casas")
+        op    = OPERACION_URL.get(operacion, "venta")
+        slug  = zona.get("slug_pincali", zona["municipio"].lower().replace(" ", "-"))
+        url = f"{BASE_URL}/propiedades/{tipo}-en-{op}-en-{slug}"
         if pagina > 1:
             url += f"?page={pagina}"
         return url
@@ -85,9 +86,8 @@ class PincaliScraper(BaseScraper):
     def obtener_total_paginas(self, html: str) -> int:
         """
         Extrae total de propiedades del título de la página y calcula páginas.
-        Títulos observados:
+        Títulos observados (versión española):
           "1,157 Casas en venta en Guadalajara, Jalisco"
-          "1157 Houses for sale in Guadalajara, Jalisco"
         """
         soup = BeautifulSoup(html, "lxml")
         titulo = soup.title.string if soup.title else ""
