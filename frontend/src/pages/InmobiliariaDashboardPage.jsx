@@ -831,7 +831,7 @@ const InmobiliariaDashboardPage = () => {
         {/* Ficha — Carta horizontal */}
         {template === "carta" && (
           <div id="pv-ficha-root" className="bg-white rounded-2xl shadow-lg overflow-hidden max-w-2xl mx-auto border border-slate-100">
-            <div className="bg-[#1B4332] px-8 py-6 flex items-center gap-5">
+            <div className="bg-[#1B4332] px-4 sm:px-8 py-6 flex items-center gap-5">
               {session.picture ? (
                 <img src={session.picture} alt="logo" className="w-16 h-16 rounded-xl object-cover border-2 border-[#D9ED92]" />
               ) : (
@@ -850,7 +850,7 @@ const InmobiliariaDashboardPage = () => {
                 )}
               </div>
             </div>
-            <div className="px-8 py-6 grid grid-cols-2 gap-5">
+            <div className="px-4 sm:px-8 py-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div className="space-y-3">
                 {session.phone && (
                   <div className="flex items-center gap-2 text-sm text-slate-700">
@@ -900,7 +900,7 @@ const InmobiliariaDashboardPage = () => {
                 )}
               </div>
             </div>
-            <div className="px-8 py-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+            <div className="px-4 sm:px-8 py-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
               <span className="text-[11px] text-slate-400">Verificado por PropValu México</span>
               <span className="text-[11px] font-bold text-[#1B4332]">propvalu.mx</span>
             </div>

@@ -46,7 +46,7 @@ export default function AdminNewsletter() {
         <PageHeader icon={Mail} title="Newsletter" subtitle="Suscriptores al boletín de inteligencia de mercado" />
 
         {/* KPIs */}
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {[
             { icon: Users,     label: "Total suscriptores", value: data.total,   iconBg: "bg-[#F0FAF5]", iconColor: "text-[#1B4332]" },
             { icon: UserCheck, label: "Activos",             value: data.activos, iconBg: "bg-green-50",  iconColor: "text-emerald-600" },

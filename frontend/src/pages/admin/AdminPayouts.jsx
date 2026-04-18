@@ -147,7 +147,7 @@ export default function AdminPayouts() {
         </PageHeader>
 
         {/* KPIs */}
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {[
             { icon: Clock,        label: "Pendientes de pago", value: pendienteCount,                             sub: fmtMXN(data.pendiente), iconBg: "bg-amber-50",  iconColor: "text-amber-600" },
             { icon: CheckCircle2, label: "Pagados (filtro)",   value: data.items.filter(e => e.pago_realizado).length, sub: fmtMXN(liquidado),      iconBg: "bg-green-50", iconColor: "text-emerald-600" },
