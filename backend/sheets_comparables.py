@@ -341,32 +341,68 @@ async def search_comparables_from_sheets(
         if not filtered:
             return []
 
-        reference_area = construction_area if construction_area and construction_area > 0 else land_area
+        # ── CUS del sujeto (Coeficiente de Utilización del Suelo) ─────────────
+        # CUS = m2_construccion / m2_terreno
+        # Se usa para seleccionar comparables con intensidad de uso similar.
+        subj_const  = construction_area if construction_area and construction_area > 0 else 0.0
+        subj_land   = land_area if land_area and land_area > 0 else 0.0
+        subj_cus    = subj_const / subj_land if subj_const > 0 and subj_land > 0 else None
 
-        # Hard area filter: drop rows whose area is outside ±65% of reference
-        # (only applied when both subject and comparable have area data)
-        if reference_area and reference_area > 0:
-            area_min = reference_area * 0.35
-            area_max = reference_area * 1.65
-            has_area, no_area = [], []
-            for row in filtered:
-                row_area = row.get("construction_area") or row.get("land_area") or 0.0
-                if row_area > 0:
-                    if area_min <= row_area <= area_max:
-                        has_area.append(row)
-                    # else: drop — area too different
-                else:
-                    no_area.append(row)  # keep but rank last
-            filtered = has_area + no_area
+        reference_area = subj_const if subj_const > 0 else subj_land
 
-        def area_score(row: Dict) -> float:
-            row_area = row.get("construction_area") or row.get("land_area") or 0.0
+        # ── Filtro duro de área y CUS ─────────────────────────────────────────
+        # Tolerancias: área ±50%, CUS ±35% (cuando ambos datos están disponibles)
+        AREA_TOL = 0.50
+        CUS_TOL  = 0.35
+
+        has_area, no_area = [], []
+        for row in filtered:
+            row_const = row.get("construction_area") or 0.0
+            row_land  = row.get("land_area") or 0.0
+            row_area  = row_const if row_const > 0 else row_land
+
+            if row_area <= 0:
+                no_area.append(row)   # sin área → rank last, no descartar
+                continue
+
+            # Filtro de área absoluta: ±50% del área de referencia del sujeto
+            if reference_area > 0:
+                if not (reference_area * (1 - AREA_TOL) <= row_area <= reference_area * (1 + AREA_TOL)):
+                    continue  # área muy diferente → descartar
+
+            # Filtro de CUS: solo cuando sujeto y comparable tienen ambas superficies
+            if subj_cus is not None and row_const > 0 and row_land > 0:
+                row_cus = row_const / row_land
+                if abs(row_cus - subj_cus) / max(subj_cus, 0.01) > CUS_TOL:
+                    continue  # CUS muy diferente → descartar
+
+            has_area.append(row)
+
+        filtered = has_area + no_area
+
+        # ── Score combinado: área + CUS ───────────────────────────────────────
+        def similarity_score(row: Dict) -> float:
+            row_const = row.get("construction_area") or 0.0
+            row_land  = row.get("land_area") or 0.0
+            row_area  = row_const if row_const > 0 else row_land
+
             if row_area <= 0 or reference_area <= 0:
                 return 0.0
-            denom = max(row_area, reference_area, 1.0)
-            return 1.0 - abs(row_area - reference_area) / denom
 
-        filtered.sort(key=area_score, reverse=True)
+            # Score de área (0–1)
+            denom      = max(row_area, reference_area, 1.0)
+            area_score = 1.0 - abs(row_area - reference_area) / denom
+
+            # Score de CUS (0–1), solo cuando calculable
+            if subj_cus is not None and row_const > 0 and row_land > 0:
+                row_cus   = row_const / row_land
+                cus_diff  = abs(row_cus - subj_cus) / max(subj_cus, 0.01)
+                cus_score = max(0.0, 1.0 - cus_diff)
+                return area_score * 0.55 + cus_score * 0.45
+
+            return area_score
+
+        filtered.sort(key=similarity_score, reverse=True)
         return filtered[:max_results]
 
     except Exception as exc:
