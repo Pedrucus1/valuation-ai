@@ -45,9 +45,11 @@ import AdminRoles from "@/pages/admin/AdminRoles";
 import AdminFeedback from "@/pages/admin/AdminFeedback";
 import AdminValuadores from "@/pages/admin/AdminValuadores";
 import AdminBroadcast from "@/pages/admin/AdminBroadcast";
+import AdminNewsletter from "@/pages/admin/AdminNewsletter";
 import AdminScraper from "@/pages/admin/AdminScraper";
 import AdminCMS from "@/pages/admin/AdminCMS";
 import AdminCFDI from "@/pages/admin/AdminCFDI";
+import AdminPayouts from "@/pages/admin/AdminPayouts";
 import AdminCobertura from "@/pages/admin/AdminCobertura";
 import AdminReportes from "@/pages/admin/AdminReportes";
 import AdminBlacklist from "@/pages/admin/AdminBlacklist";
@@ -152,9 +154,11 @@ function AppRouter() {
       <Route path="/admin/feedback" element={<AdminProtectedRoute><AdminFeedback /></AdminProtectedRoute>} />
       <Route path="/admin/valuadores" element={<AdminProtectedRoute><AdminValuadores /></AdminProtectedRoute>} />
       <Route path="/admin/broadcast" element={<AdminProtectedRoute rolesPermitidos={["superadmin","moderador","contenido"]}><AdminBroadcast /></AdminProtectedRoute>} />
+      <Route path="/admin/newsletter" element={<AdminProtectedRoute rolesPermitidos={["superadmin","moderador","contenido"]}><AdminNewsletter /></AdminProtectedRoute>} />
       <Route path="/admin/scraper" element={<AdminProtectedRoute rolesPermitidos={["superadmin","moderador"]}><AdminScraper /></AdminProtectedRoute>} />
       <Route path="/admin/cms" element={<AdminProtectedRoute rolesPermitidos={["superadmin","contenido"]}><AdminCMS /></AdminProtectedRoute>} />
       <Route path="/admin/cfdi" element={<AdminProtectedRoute rolesPermitidos={["superadmin","finanzas"]}><AdminCFDI /></AdminProtectedRoute>} />
+      <Route path="/admin/payouts" element={<AdminProtectedRoute rolesPermitidos={["superadmin","finanzas"]}><AdminPayouts /></AdminProtectedRoute>} />
       <Route path="/admin/reportes" element={<AdminProtectedRoute rolesPermitidos={["superadmin","finanzas"]}><AdminReportes /></AdminProtectedRoute>} />
       <Route path="/admin/cobertura" element={<AdminProtectedRoute rolesPermitidos={["superadmin","moderador"]}><AdminCobertura /></AdminProtectedRoute>} />
       <Route path="/admin/blacklist" element={<AdminProtectedRoute rolesPermitidos={["superadmin","moderador","contenido"]}><AdminBlacklist /></AdminProtectedRoute>} />

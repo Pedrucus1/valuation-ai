@@ -544,8 +544,13 @@ async def billing_summary(request: Request):
         last = calendar.monthrange(cy, cm)[1]
         cycle_start = datetime(cy, cm, last, tzinfo=timezone.utc)
 
-    # Ganancias del ciclo actual (encargos completados) — pendiente de implementar encargos
-    earnings = 0  # TODO: sumar de colección encargos cuando esté lista
+    # Ganancias del ciclo actual desde colección encargos
+    encargos_ciclo = await db["encargos"].find({
+        "valuador_id": user.user_id,
+        "fecha_completado": {"$gte": cycle_start.isoformat()},
+    }).to_list(500)
+    earnings = sum(e.get("comision_valuador", 0) for e in encargos_ciclo if e.get("pago_realizado"))
+    pending_earnings = sum(e.get("comision_valuador", 0) for e in encargos_ciclo if not e.get("pago_realizado"))
 
     # Costo del plan
     PLAN_COSTS = {
@@ -562,8 +567,9 @@ async def billing_summary(request: Request):
         "days_to_cutoff": days_to_cutoff,
         "cycle_start": cycle_start.date().isoformat(),
         "earnings_this_cycle": earnings,
+        "pending_earnings": pending_earnings,
         "plan_cost": plan_cost,
-        "balance": balance,
+        "balance": earnings - plan_cost,
         "billing_preference": user.billing_preference or "ask_monthly",
         "billing_status": user.billing_status or "active",
     }
@@ -3920,6 +3926,136 @@ async def admin_sync_sheets(request: Request):
     await require_admin(request)
     summary = await _sync_sheets_to_mercado_props()
     return {"ok": True, **summary}
+
+
+# ─── Encargos / Payouts ──────────────────────────────────────────────────────
+
+@api_router.post("/admin/encargos")
+async def admin_crear_encargo(request: Request):
+    await require_admin(request)
+    body = await request.json()
+    valuador_id = body.get("valuador_id")
+    descripcion = (body.get("descripcion") or "").strip()
+    precio_total = float(body.get("precio_total", 0))
+    if not valuador_id or not descripcion or precio_total <= 0:
+        raise HTTPException(400, "valuador_id, descripcion y precio_total son requeridos")
+    doc = {
+        "encargo_id": f"enc_{uuid.uuid4().hex[:12]}",
+        "valuador_id": valuador_id,
+        "descripcion": descripcion,
+        "precio_total": precio_total,
+        "comision_valuador": round(precio_total * 0.80, 2),
+        "comision_propvalu": round(precio_total * 0.20, 2),
+        "estado": "completado",
+        "fecha_completado": datetime.now(timezone.utc).isoformat(),
+        "pago_realizado": False,
+        "fecha_pago": None,
+        "notas_admin": (body.get("notas_admin") or "").strip() or None,
+    }
+    await db["encargos"].insert_one(doc)
+    doc.pop("_id", None)
+    return {"ok": True, "encargo": doc}
+
+
+@api_router.get("/admin/encargos")
+async def admin_listar_encargos(request: Request, skip: int = 0, limit: int = 50, valuador_id: str = "", pagado: str = ""):
+    await require_admin(request)
+    query = {}
+    if valuador_id:
+        query["valuador_id"] = valuador_id
+    if pagado == "true":
+        query["pago_realizado"] = True
+    elif pagado == "false":
+        query["pago_realizado"] = False
+    total = await db["encargos"].count_documents(query)
+    items = await db["encargos"].find(query, {"_id": 0}).sort("fecha_completado", -1).skip(skip).limit(limit).to_list(limit)
+    # Enriquecer con nombre del valuador
+    for enc in items:
+        u = await db.users.find_one({"user_id": enc["valuador_id"]}, {"name": 1, "email": 1, "_id": 0})
+        enc["valuador_nombre"] = u.get("name") if u else enc["valuador_id"]
+    pendiente_total = await db["encargos"].aggregate([
+        {"$match": {"pago_realizado": False}},
+        {"$group": {"_id": None, "total": {"$sum": "$comision_valuador"}}}
+    ]).to_list(1)
+    return {"total": total, "pendiente": pendiente_total[0]["total"] if pendiente_total else 0, "items": items}
+
+
+@api_router.put("/admin/encargos/{encargo_id}/pagar")
+async def admin_pagar_encargo(encargo_id: str, request: Request):
+    await require_admin(request)
+    enc = await db["encargos"].find_one({"encargo_id": encargo_id})
+    if not enc:
+        raise HTTPException(404, "Encargo no encontrado")
+    await db["encargos"].update_one(
+        {"encargo_id": encargo_id},
+        {"$set": {"pago_realizado": True, "fecha_pago": datetime.now(timezone.utc).isoformat()}}
+    )
+    return {"ok": True}
+
+
+@api_router.get("/encargos/mis-encargos")
+async def mis_encargos(request: Request):
+    user = await require_auth(request)
+    items = await db["encargos"].find({"valuador_id": user.user_id}, {"_id": 0}).sort("fecha_completado", -1).to_list(200)
+    return {"items": items}
+
+
+# ─── Newsletter ──────────────────────────────────────────────────────────────
+
+@api_router.post("/newsletter/subscribe")
+async def newsletter_subscribe(request: Request):
+    body = await request.json()
+    email = (body.get("email") or "").strip().lower()
+    if not email or "@" not in email:
+        raise HTTPException(400, "Email inválido")
+    existing = await db["newsletter_subscribers"].find_one({"email": email})
+    if existing:
+        if not existing.get("activo", True):
+            await db["newsletter_subscribers"].update_one({"email": email}, {"$set": {"activo": True}})
+        return {"ok": True, "message": "Ya estás suscrito"}
+    doc = {
+        "subscriber_id": uuid.uuid4().hex,
+        "email": email,
+        "nombre": (body.get("nombre") or "").strip() or None,
+        "rol": body.get("rol", "public"),
+        "activo": True,
+        "fecha_suscripcion": datetime.now(timezone.utc).isoformat(),
+    }
+    await db["newsletter_subscribers"].insert_one(doc)
+    return {"ok": True, "subscriber_id": doc["subscriber_id"]}
+
+
+@api_router.post("/newsletter/unsubscribe")
+async def newsletter_unsubscribe(request: Request):
+    body = await request.json()
+    email = (body.get("email") or "").strip().lower()
+    if not email:
+        raise HTTPException(400, "Email requerido")
+    await db["newsletter_subscribers"].update_one({"email": email}, {"$set": {"activo": False}})
+    return {"ok": True}
+
+
+@api_router.get("/admin/newsletter/subscribers")
+async def admin_newsletter_subscribers(request: Request, skip: int = 0, limit: int = 50, activo: str = "", rol: str = ""):
+    await require_admin(request)
+    query = {}
+    if activo == "true":
+        query["activo"] = True
+    elif activo == "false":
+        query["activo"] = False
+    if rol:
+        query["rol"] = rol
+    total = await db["newsletter_subscribers"].count_documents(query)
+    docs = await db["newsletter_subscribers"].find(query, {"_id": 0}).sort("fecha_suscripcion", -1).skip(skip).limit(limit).to_list(limit)
+    activos = await db["newsletter_subscribers"].count_documents({"activo": True})
+    return {"total": total, "activos": activos, "items": docs}
+
+
+@api_router.delete("/admin/newsletter/subscribers/{subscriber_id}")
+async def admin_newsletter_unsubscribe(subscriber_id: str, request: Request):
+    await require_admin(request)
+    await db["newsletter_subscribers"].update_one({"subscriber_id": subscriber_id}, {"$set": {"activo": False}})
+    return {"ok": True}
 
 
 async def _job_sync_sheets():

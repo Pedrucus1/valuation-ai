@@ -14,7 +14,8 @@ import {
   FileText,
   Share2,
   Building2,
-  ArrowRight
+  ArrowRight,
+  Star
 } from "lucide-react";
 import { API } from "@/App";
 import AdOverlay from "@/components/AdOverlay";
@@ -443,6 +444,30 @@ const ReportPage = () => {
             >
               Ver directorio
               <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {/* CTA — calificar valuador */}
+      {result && (
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-6 no-print">
+          <div className="rounded-xl border border-amber-200 bg-amber-50 p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="flex items-start gap-3">
+              <div className="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center shrink-0">
+                <Star className="w-5 h-5 text-amber-600" />
+              </div>
+              <div>
+                <p className="font-semibold text-amber-900 text-sm">¿Te atendió un valuador certificado?</p>
+                <p className="text-amber-700 text-xs mt-0.5">Tu opinión ayuda a otros usuarios a elegir al mejor profesional.</p>
+              </div>
+            </div>
+            <Button
+              onClick={() => navigate("/valuadores")}
+              className="bg-amber-500 hover:bg-amber-600 text-white text-sm shrink-0"
+            >
+              Calificar valuador
+              <Star className="w-4 h-4 ml-2" />
             </Button>
           </div>
         </div>

@@ -668,6 +668,7 @@ const InmobiliariaDashboardPage = () => {
     { id: "resenas",      label: "Reseñas" },
     { id: "facturacion",  label: "Facturación", badge: billingData?.billing_status === "blocked" || billingData?.days_to_cutoff <= 5 },
     { id: "publicidad",   label: "Publicidad" },
+    { id: "promociones",  label: "Promociones" },
   ];
 
   /* ── Facturación Tab ── */
@@ -763,6 +764,212 @@ const InmobiliariaDashboardPage = () => {
         <p className="text-[11px] text-slate-400 text-center">
           El cobro y depósito automáticos estarán disponibles al activar la pasarela de pagos.
         </p>
+      </div>
+    );
+  };
+
+  /* ── Promociones Tab ── */
+  const PromocionesTab = () => {
+    const [template, setTemplate] = useState("carta");
+
+    const ops = Object.entries(session.q_tipo_operaciones || {})
+      .filter(([, v]) => v)
+      .map(([k]) => k.charAt(0).toUpperCase() + k.slice(1));
+
+    const municipios = (session.cobertura_municipios
+      ? Object.values(session.cobertura_municipios).flat()
+      : session.municipios || []
+    ).slice(0, 4);
+
+    const exportarFicha = () => {
+      const el = document.getElementById("pv-ficha-root");
+      if (!el) return;
+      const clone = el.cloneNode(true);
+      const wrap = document.createElement("div");
+      wrap.id = "pv-ficha-print";
+      wrap.style.cssText = "position:fixed;inset:0;z-index:9999;background:#fff;overflow:auto;";
+      wrap.appendChild(clone);
+      document.body.appendChild(wrap);
+      const style = document.createElement("style");
+      style.textContent = `@media print { body > *:not(#pv-ficha-print) { display:none!important; } #pv-ficha-print { display:block!important; } @page { margin:0; } }`;
+      document.head.appendChild(style);
+      setTimeout(() => {
+        window.print();
+        setTimeout(() => { wrap.remove(); style.remove(); }, 800);
+      }, 80);
+    };
+
+    const PLAN_LABELS = { basico: "Básico", pro: "Pro", enterprise: "Enterprise" };
+
+    return (
+      <div className="space-y-5">
+        {/* Controles */}
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex gap-2">
+            {[{ id: "carta", label: "Carta horizontal" }, { id: "story", label: "Story vertical" }].map(t => (
+              <button
+                key={t.id}
+                onClick={() => setTemplate(t.id)}
+                className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-colors ${
+                  template === t.id
+                    ? "bg-[#1B4332] text-white border-[#1B4332]"
+                    : "bg-white text-slate-600 border-slate-200 hover:border-[#52B788]"
+                }`}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
+          <Button onClick={exportarFicha} className="bg-[#1B4332] hover:bg-[#2D6A4F] text-white">
+            <Download className="w-4 h-4 mr-2" />
+            Descargar PDF
+          </Button>
+        </div>
+
+        <p className="text-xs text-slate-400">Vista previa — usa "Descargar PDF" para guardar o compartir tu ficha de promoción.</p>
+
+        {/* Ficha — Carta horizontal */}
+        {template === "carta" && (
+          <div id="pv-ficha-root" className="bg-white rounded-2xl shadow-lg overflow-hidden max-w-2xl mx-auto border border-slate-100">
+            <div className="bg-[#1B4332] px-8 py-6 flex items-center gap-5">
+              {session.picture ? (
+                <img src={session.picture} alt="logo" className="w-16 h-16 rounded-xl object-cover border-2 border-[#D9ED92]" />
+              ) : (
+                <div className="w-16 h-16 rounded-xl bg-[#D9ED92] flex items-center justify-center shrink-0">
+                  <Building2 className="w-8 h-8 text-[#1B4332]" />
+                </div>
+              )}
+              <div className="flex-1 min-w-0">
+                <p className="text-[#D9ED92] font-bold text-xl font-['Outfit'] truncate">
+                  {session.company_name || session.name}
+                </p>
+                {session.plan && (
+                  <span className="inline-block mt-1 text-[11px] font-semibold bg-[#D9ED92] text-[#1B4332] rounded-full px-2.5 py-0.5">
+                    Plan {PLAN_LABELS[session.plan] || session.plan}
+                  </span>
+                )}
+              </div>
+            </div>
+            <div className="px-8 py-6 grid grid-cols-2 gap-5">
+              <div className="space-y-3">
+                {session.phone && (
+                  <div className="flex items-center gap-2 text-sm text-slate-700">
+                    <Phone className="w-4 h-4 text-[#52B788] shrink-0" />
+                    {session.phone}
+                  </div>
+                )}
+                {session.email && (
+                  <div className="flex items-center gap-2 text-sm text-slate-700">
+                    <Mail className="w-4 h-4 text-[#52B788] shrink-0" />
+                    <span className="truncate">{session.email}</span>
+                  </div>
+                )}
+                {session.redes_sociales?.whatsapp && (
+                  <div className="flex items-center gap-2 text-sm text-slate-700">
+                    <MessageCircle className="w-4 h-4 text-[#52B788] shrink-0" />
+                    {session.redes_sociales.whatsapp}
+                  </div>
+                )}
+                {(session.estado || session.municipio) && (
+                  <div className="flex items-center gap-2 text-sm text-slate-700">
+                    <MapPin className="w-4 h-4 text-[#52B788] shrink-0" />
+                    {[session.municipio, session.estado].filter(Boolean).join(", ")}
+                  </div>
+                )}
+              </div>
+              <div className="space-y-3">
+                {ops.length > 0 && (
+                  <div>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">Operaciones</p>
+                    <div className="flex flex-wrap gap-1">
+                      {ops.map(o => (
+                        <span key={o} className="text-[11px] bg-[#F0FAF5] text-[#1B4332] border border-[#B7E4C7] rounded-full px-2 py-0.5 font-medium">{o}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {municipios.length > 0 && (
+                  <div>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">Cobertura</p>
+                    <div className="flex flex-wrap gap-1">
+                      {municipios.map(m => (
+                        <span key={m} className="text-[11px] bg-slate-50 text-slate-600 border border-slate-200 rounded-full px-2 py-0.5">{m}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="px-8 py-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+              <span className="text-[11px] text-slate-400">Verificado por PropValu México</span>
+              <span className="text-[11px] font-bold text-[#1B4332]">propvalu.mx</span>
+            </div>
+          </div>
+        )}
+
+        {/* Ficha — Story vertical */}
+        {template === "story" && (
+          <div id="pv-ficha-root" className="bg-white rounded-2xl shadow-lg overflow-hidden mx-auto border border-slate-100" style={{ maxWidth: 380 }}>
+            <div className="bg-[#1B4332] px-6 pt-8 pb-6 flex flex-col items-center text-center gap-3">
+              {session.picture ? (
+                <img src={session.picture} alt="logo" className="w-20 h-20 rounded-2xl object-cover border-4 border-[#D9ED92]" />
+              ) : (
+                <div className="w-20 h-20 rounded-2xl bg-[#D9ED92] flex items-center justify-center">
+                  <Building2 className="w-10 h-10 text-[#1B4332]" />
+                </div>
+              )}
+              <div>
+                <p className="text-[#D9ED92] font-bold text-xl font-['Outfit']">{session.company_name || session.name}</p>
+                {session.plan && (
+                  <span className="inline-block mt-1 text-[11px] font-semibold bg-[#D9ED92] text-[#1B4332] rounded-full px-3 py-0.5">
+                    Plan {PLAN_LABELS[session.plan] || session.plan}
+                  </span>
+                )}
+              </div>
+            </div>
+            <div className="px-6 py-5 space-y-4">
+              {ops.length > 0 && (
+                <div className="text-center">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-2">Operaciones</p>
+                  <div className="flex flex-wrap justify-center gap-1">
+                    {ops.map(o => (
+                      <span key={o} className="text-[11px] bg-[#F0FAF5] text-[#1B4332] border border-[#B7E4C7] rounded-full px-2.5 py-0.5 font-medium">{o}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {municipios.length > 0 && (
+                <div className="text-center">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-2">Cobertura</p>
+                  <div className="flex flex-wrap justify-center gap-1">
+                    {municipios.map(m => (
+                      <span key={m} className="text-[11px] bg-slate-50 text-slate-600 border border-slate-200 rounded-full px-2 py-0.5">{m}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+              <div className="space-y-2 pt-1">
+                {session.phone && (
+                  <div className="flex items-center justify-center gap-2 text-sm text-slate-700">
+                    <Phone className="w-4 h-4 text-[#52B788]" />
+                    {session.phone}
+                  </div>
+                )}
+                {session.redes_sociales?.whatsapp && (
+                  <div className="flex items-center justify-center gap-2 text-sm text-slate-700">
+                    <MessageCircle className="w-4 h-4 text-[#52B788]" />
+                    {session.redes_sociales.whatsapp}
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="px-6 py-3 bg-slate-50 border-t border-slate-100 text-center">
+              <span className="text-[11px] font-bold text-[#1B4332]">propvalu.mx</span>
+              <span className="mx-2 text-slate-300">·</span>
+              <span className="text-[11px] text-slate-400">Verificado</span>
+            </div>
+          </div>
+        )}
       </div>
     );
   };
@@ -2362,6 +2569,9 @@ const InmobiliariaDashboardPage = () => {
 
         {/* Tab: Publicidad */}
         {activeTab === "publicidad" && <PublicidadTab />}
+
+        {/* Tab: Promociones */}
+        {activeTab === "promociones" && <PromocionesTab />}
       </main>
 
       {/* Modal calificar valuador */}

@@ -21,6 +21,23 @@ const LandingPage = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [hoveredCta, setHoveredCta] = useState(null);
   const [hoveredModo, setHoveredModo] = useState(null);
+  const [nlEmail, setNlEmail] = useState("");
+  const [nlStatus, setNlStatus] = useState(null); // null | "loading" | "ok" | "error"
+
+  const handleNewsletterSubmit = async (e) => {
+    e.preventDefault();
+    if (!nlEmail || !nlEmail.includes("@")) return;
+    setNlStatus("loading");
+    try {
+      const res = await fetch(`${API}/newsletter/subscribe`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: nlEmail, rol: "public" }),
+      });
+      if (res.ok) { setNlStatus("ok"); setNlEmail(""); }
+      else setNlStatus("error");
+    } catch { setNlStatus("error"); }
+  };
 
   useEffect(() => { checkAuth(); fetchStats(); }, []);
 
@@ -509,6 +526,46 @@ const LandingPage = () => {
 
       {/* ── CAROUSEL AFILIADOS ── */}
       <AfiliadosCarousel tipo="inmobiliaria" />
+
+      {/* ── NEWSLETTER ── */}
+      <section className="py-14 px-4 sm:px-6 lg:px-8 bg-[#1B4332]">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="font-['Outfit'] text-2xl md:text-3xl font-bold text-white mb-2">
+            Inteligencia de mercado en tu inbox
+          </h2>
+          <p className="text-white/60 text-sm mb-6">
+            Precios por m², tendencias por colonia y oportunidades del mercado inmobiliario de Jalisco — cada semana.
+          </p>
+          {nlStatus === "ok" ? (
+            <div className="inline-flex items-center gap-2 bg-[#D9ED92]/20 border border-[#D9ED92]/40 rounded-xl px-6 py-3">
+              <CheckCircle2 className="w-5 h-5 text-[#D9ED92]" />
+              <span className="text-[#D9ED92] font-medium text-sm">¡Listo! Te avisaremos cuando publiquemos el próximo análisis.</span>
+            </div>
+          ) : (
+            <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+              <input
+                type="email"
+                placeholder="tu@email.com"
+                value={nlEmail}
+                onChange={e => setNlEmail(e.target.value)}
+                required
+                className="flex-1 px-4 py-2.5 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-white/40 text-sm focus:outline-none focus:border-[#D9ED92]"
+              />
+              <button
+                type="submit"
+                disabled={nlStatus === "loading"}
+                className="bg-[#D9ED92] hover:bg-[#C7E07A] text-[#1B4332] font-bold px-6 py-2.5 rounded-lg text-sm transition-colors disabled:opacity-60"
+              >
+                {nlStatus === "loading" ? "..." : "Suscribirme"}
+              </button>
+            </form>
+          )}
+          {nlStatus === "error" && (
+            <p className="text-red-300 text-xs mt-2">Ocurrió un error. Intenta de nuevo.</p>
+          )}
+          <p className="text-white/30 text-xs mt-4">Sin spam. Cancela cuando quieras.</p>
+        </div>
+      </section>
 
       {/* ── FOOTER ── */}
       <footer className="bg-white border-t border-slate-200 py-8 px-4 sm:px-6 lg:px-8">

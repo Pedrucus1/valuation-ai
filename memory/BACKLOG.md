@@ -1,5 +1,5 @@
 # PropValu — Backlog de Tareas
-> **Última actualización:** 14 Abr 2026 — sesión Valuador Dashboard + AdminScraper + sistema eficiencia tokens
+> **Última actualización:** 17 Abr 2026 — sesión Scraper + Comparables desde MongoDB
 > Actualizar este archivo conforme se completen tareas. Marcar con ✅ cuando esté lista, con 🔄 cuando esté en progreso.
 
 ---
@@ -84,9 +84,12 @@
 | 10 | ⏳ | **Fichas de Promoción para Inmobiliarias (JPG/PDF)** |
 | 12 | ⏳ | **Módulo financiero / Payouts valuadores** — 80/20, round-robin, SLA 24h. |
 | 13 | ⏳ | **Sistema de calificación de valuadores** |
-| 14 | ⏳ | **Base de datos histórica de avalúos** |
+| 14 | ✅ | **Base de datos histórica de avalúos** — es `db.valuations` en MongoDB, se guarda automáticamente. Usada como comparables internos (Sección 0). |
 | 15 | ⏳ | **Newsletter e Inteligencia de Mercado** |
 | 21 | ✅ | **Google Sheets como fuente de comparables** — scraper conectado. |
+| 64 | ✅ | **MongoDB como fuente primaria de comparables** — `mongo_comparables.py` filtra `mercado_props` por municipio/tipo/m2 ±40%, integrado en server.py step 0.5. |
+| 65 | ⏳ | **Sync Sheets → MongoDB tras enricher** — correr `/admin/mercado/sync-sheets` cuando terminen los scrapers pendientes. |
+| 66 | ⏳ | **Correr scrapers pendientes** — 85 tareas: PINCALI 54, INMUEBLES24 20, MITULA 6, CASAS_Y_TERRENOS 5. Auto-enricher integrado al terminar cada portal. |
 | 34 | ⏳ | **Email notifications** — SendGrid. |
 | 35 | ⏳ | **WhatsApp notifications** — Twilio. |
 
@@ -110,10 +113,20 @@
 
 | # | Estado | Tarea |
 |---|---|---|
-| 17 | ⏳ | **Marca de agua PropValu en PDF** |
+| 17 | ❌ | **Marca de agua PropValu en PDF** — descartado, no necesario. |
 | 18 | ✅ | **Pruebas y ajustes finales del PDF de valuación** |
 | 58 | ✅ | **PDF de Mercado** — reemplazado html2canvas por window.print() con @media print |
-| 60 | ⏳ | **Revisión de responsividad móvil — todas las páginas admin** — verificar que los 17 módulos del panel admin y los dashboards (valuador, inmobiliaria) se vean correctamente en pantallas pequeñas (360–414px). Prioridad: AdminDashboard, AdminKYC, AdminValuadores, AdminInmobiliarias, AdminScraper. |
+| 60 | ⏳ | **Responsive móvil — ajustes menores pendientes** — AdminAdsAnalytics grid-cols-3 sin colapsar, AdvertiserConsolePage grid-cols-4 sin breakpoint. El resto del admin está OK. |
+
+---
+
+## Infraestructura / Deploy
+
+| # | Estado | Tarea |
+|---|---|---|
+| 61 | ⏳ | **Deploy backend en Render** — subir FastAPI a Render, obtener URL pública |
+| 62 | ⏳ | **Agregar secret `PROPVALU_BACKEND_URL` en GitHub** — URL de Render una vez desplegado, para que el workflow de scraper pueda hacer el sync final. Ir a github.com/Pedrucus1/valuation-ai → Settings → Secrets → Actions |
+| 63 | ⏳ | **Merge `feature/search-api` → `main`** — todos los cambios desde Mar 2026 están en esta branch |
 
 ---
 

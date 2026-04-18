@@ -484,10 +484,25 @@ const ValuadorDashboardPage = () => {
 
   /* ── Facturación Tab ── */
   const FacturacionTab = () => {
+    const [encargos, setEncargos] = useState([]);
+    const [loadingEnc, setLoadingEnc] = useState(true);
+
+    useEffect(() => {
+      const tok = session?.session_token || "";
+      fetch(`${API}/encargos/mis-encargos`, {
+        headers: tok ? { Authorization: `Bearer ${tok}` } : {},
+        credentials: "include",
+      })
+        .then(r => r.ok ? r.json() : { items: [] })
+        .then(d => setEncargos(d.items || []))
+        .catch(() => setEncargos([]))
+        .finally(() => setLoadingEnc(false));
+    }, []);
+
     if (!billingData) return <p className="text-slate-400 text-sm p-4">Cargando...</p>;
 
     const { next_cutoff, days_to_cutoff, cycle_start, earnings_this_cycle,
-            plan_cost, balance, billing_status } = billingData;
+            pending_earnings = 0, plan_cost, balance, billing_status } = billingData;
     const alerta = days_to_cutoff <= 5;
     const PREF_OPTIONS = [
       { value: "auto",        label: "Automático",      desc: "Se descuenta del saldo al corte sin confirmación" },
@@ -562,6 +577,65 @@ const ValuadorDashboardPage = () => {
                 </span>
               </div>
             </div>
+          </CardContent>
+        </Card>
+
+        {/* Por cobrar */}
+        {pending_earnings > 0 && (
+          <Card className="bg-amber-50 border border-amber-200 shadow-sm">
+            <CardContent className="p-5 flex items-center justify-between gap-3">
+              <div>
+                <p className="text-xs font-bold text-amber-700 uppercase tracking-wide mb-0.5">Ganancias por cobrar</p>
+                <p className="text-2xl font-bold text-amber-700 font-['Outfit']">
+                  {new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 }).format(pending_earnings)}
+                </p>
+                <p className="text-xs text-amber-600 mt-0.5">Se depositarán una vez que el admin procese el pago</p>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Tabla de encargos */}
+        <Card className="bg-white border-0 shadow-sm">
+          <CardContent className="p-5">
+            <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide mb-3">Encargos del ciclo</p>
+            {loadingEnc ? (
+              <p className="text-sm text-slate-400 text-center py-4">Cargando…</p>
+            ) : encargos.length === 0 ? (
+              <p className="text-sm text-slate-400 text-center py-4">Sin encargos registrados en este ciclo.</p>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-slate-100">
+                      <th className="text-left py-2 text-xs font-bold text-slate-400 uppercase tracking-wide">Descripción</th>
+                      <th className="text-right py-2 text-xs font-bold text-slate-400 uppercase tracking-wide">Tu comisión (80%)</th>
+                      <th className="text-center py-2 text-xs font-bold text-slate-400 uppercase tracking-wide">Fecha</th>
+                      <th className="text-center py-2 text-xs font-bold text-slate-400 uppercase tracking-wide">Estado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {encargos.map(e => (
+                      <tr key={e.encargo_id} className="border-b border-slate-50">
+                        <td className="py-2.5 text-slate-700">{e.descripcion}</td>
+                        <td className="py-2.5 text-right font-semibold text-[#1B4332]">
+                          {new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 }).format(e.comision_valuador)}
+                        </td>
+                        <td className="py-2.5 text-center text-slate-500 text-xs">
+                          {e.fecha_completado ? new Date(e.fecha_completado).toLocaleDateString("es-MX") : "—"}
+                        </td>
+                        <td className="py-2.5 text-center">
+                          {e.pago_realizado
+                            ? <span className="text-xs bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-full px-2 py-0.5">Pagado</span>
+                            : <span className="text-xs bg-amber-50 text-amber-700 border border-amber-200 rounded-full px-2 py-0.5">Pendiente</span>
+                          }
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </CardContent>
         </Card>
 
