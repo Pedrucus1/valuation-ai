@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import AdminLayout from "@/components/AdminLayout";
-import { PageHeader, AdminCard } from "@/components/AdminUI";
+import { PageHeader, AdminCard, GradThead, EmptyState, FilterBar, PrimaryBtn } from "@/components/AdminUI";
 import { DollarSign, Plus, CheckCircle2, Clock, RefreshCw, X } from "lucide-react";
 import { adminFetch } from "@/lib/adminFetch";
 
@@ -29,9 +29,9 @@ function ModalNuevoEncargo({ valuadores, onClose, onCreado }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
       <div className="bg-white rounded-2xl shadow-xl w-full max-w-md">
-        <div className="flex items-center justify-between p-5 border-b border-slate-100">
-          <h2 className="font-bold text-[#1B4332] font-['Outfit']">Registrar encargo</h2>
-          <button onClick={onClose}><X className="w-5 h-5 text-slate-400" /></button>
+        <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] rounded-t-2xl px-5 py-4 flex items-center justify-between">
+          <h2 className="font-['Outfit'] text-lg font-bold text-white">Registrar encargo</h2>
+          <button onClick={onClose}><X className="w-5 h-5 text-white/70 hover:text-white" /></button>
         </div>
         <form onSubmit={handleSubmit} className="p-5 space-y-4">
           <div>
@@ -40,7 +40,7 @@ function ModalNuevoEncargo({ valuadores, onClose, onCreado }) {
               value={form.valuador_id}
               onChange={e => setForm(f => ({ ...f, valuador_id: e.target.value }))}
               required
-              className="mt-1 w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-[#52B788]"
+              className="mt-1 w-full appearance-none border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-[#52B788]/40"
             >
               <option value="">Seleccionar valuador…</option>
               {valuadores.map(v => (
@@ -55,7 +55,7 @@ function ModalNuevoEncargo({ valuadores, onClose, onCreado }) {
               onChange={e => setForm(f => ({ ...f, descripcion: e.target.value }))}
               required
               placeholder="Ej: Valuación casa en Zapopan"
-              className="mt-1 w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-[#52B788]"
+              className="mt-1 w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#52B788]/40"
             />
           </div>
           <div>
@@ -67,11 +67,13 @@ function ModalNuevoEncargo({ valuadores, onClose, onCreado }) {
               required
               min="1"
               placeholder="2000"
-              className="mt-1 w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-[#52B788]"
+              className="mt-1 w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#52B788]/40"
             />
             {precio > 0 && (
-              <p className="text-xs text-slate-500 mt-1">
-                Valuador recibe: <strong className="text-[#1B4332]">{fmtMXN(precio * 0.8)}</strong> · PropValu: <strong>{fmtMXN(precio * 0.2)}</strong>
+              <p className="text-xs text-slate-500 mt-1.5 flex items-center gap-1">
+                <span className="text-[#1B4332] font-semibold">Valuador: {fmtMXN(precio * 0.8)}</span>
+                <span className="text-slate-300">·</span>
+                <span>PropValu: {fmtMXN(precio * 0.2)}</span>
               </p>
             )}
           </div>
@@ -82,16 +84,12 @@ function ModalNuevoEncargo({ valuadores, onClose, onCreado }) {
               onChange={e => setForm(f => ({ ...f, notas_admin: e.target.value }))}
               rows={2}
               placeholder="Referencia, número de expediente, etc."
-              className="mt-1 w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none resize-none"
+              className="mt-1 w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none resize-none"
             />
           </div>
-          <button
-            type="submit"
-            disabled={saving}
-            className="w-full bg-[#1B4332] hover:bg-[#2D6A4F] text-white font-semibold py-2.5 rounded-xl transition-colors disabled:opacity-60"
-          >
+          <PrimaryBtn type="submit" disabled={saving} className="w-full justify-center py-2.5">
             {saving ? "Registrando…" : "Registrar encargo"}
-          </button>
+          </PrimaryBtn>
         </form>
       </div>
     </div>
@@ -135,125 +133,115 @@ export default function AdminPayouts() {
   };
 
   const pendienteCount = data.items.filter(e => !e.pago_realizado).length;
-  const liquidadoMes = data.items
-    .filter(e => e.pago_realizado)
-    .reduce((s, e) => s + (e.comision_valuador || 0), 0);
+  const liquidado = data.items.filter(e => e.pago_realizado).reduce((s, e) => s + (e.comision_valuador || 0), 0);
 
   return (
     <AdminLayout>
-      <PageHeader title="Payouts Valuadores" subtitle="Gestión de encargos y liquidación de comisiones (80/20)" />
+      <div className="max-w-5xl mx-auto flex flex-col gap-6">
 
-      {/* KPIs */}
-      <div className="grid grid-cols-3 gap-4 mb-6">
-        {[
-          { icon: <Clock className="w-5 h-5" />, label: "Pendientes de pago", value: pendienteCount, sub: fmtMXN(data.pendiente), color: "text-amber-600" },
-          { icon: <CheckCircle2 className="w-5 h-5" />, label: "Liquidado (filtro)", value: data.items.filter(e => e.pago_realizado).length, sub: fmtMXN(liquidadoMes), color: "text-emerald-600" },
-          { icon: <DollarSign className="w-5 h-5" />, label: "Total encargos", value: data.total, sub: "", color: "text-[#1B4332]" },
-        ].map(k => (
-          <AdminCard key={k.label}>
-            <div className="flex items-center gap-3">
-              <div className={k.color}>{k.icon}</div>
-              <div>
-                <p className="text-2xl font-bold text-slate-800 font-['Outfit']">{k.value}</p>
-                <p className="text-xs text-slate-400">{k.label}</p>
-                {k.sub && <p className={`text-sm font-semibold ${k.color} mt-0.5`}>{k.sub}</p>}
+        <PageHeader icon={DollarSign} title="Payouts Valuadores"
+          subtitle="Gestión de encargos y liquidación de comisiones 80/20">
+          <PrimaryBtn icon={Plus} onClick={() => setModalNuevo(true)}>
+            Registrar encargo
+          </PrimaryBtn>
+        </PageHeader>
+
+        {/* KPIs */}
+        <div className="grid grid-cols-3 gap-4">
+          {[
+            { icon: Clock,        label: "Pendientes de pago", value: pendienteCount,                             sub: fmtMXN(data.pendiente), iconBg: "bg-amber-50",  iconColor: "text-amber-600" },
+            { icon: CheckCircle2, label: "Pagados (filtro)",   value: data.items.filter(e => e.pago_realizado).length, sub: fmtMXN(liquidado),      iconBg: "bg-green-50", iconColor: "text-emerald-600" },
+            { icon: DollarSign,   label: "Total encargos",     value: data.total,                                 sub: "",                     iconBg: "bg-[#F0FAF5]", iconColor: "text-[#1B4332]" },
+          ].map(k => (
+            <div key={k.label} className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden">
+              <div className="h-1 bg-[#52B788]" />
+              <div className="p-4">
+                <div className={`w-9 h-9 rounded-xl flex items-center justify-center mb-2 ${k.iconBg}`}>
+                  <k.icon className={`w-4 h-4 ${k.iconColor}`} />
+                </div>
+                <p className="font-['Outfit'] text-2xl font-bold text-[#1B4332]">{loading ? "…" : k.value}</p>
+                <p className="text-xs text-slate-400 mt-0.5">{k.label}</p>
+                {k.sub && <p className={`text-sm font-semibold mt-0.5 ${k.iconColor}`}>{k.sub}</p>}
               </div>
             </div>
-          </AdminCard>
-        ))}
-      </div>
-
-      {/* Acciones y filtros */}
-      <div className="flex flex-wrap gap-3 mb-4">
-        <button
-          onClick={() => setModalNuevo(true)}
-          className="flex items-center gap-2 bg-[#1B4332] hover:bg-[#2D6A4F] text-white text-sm font-semibold px-4 py-2 rounded-lg"
-        >
-          <Plus className="w-4 h-4" />
-          Registrar encargo
-        </button>
-        <select
-          value={filtroPagado}
-          onChange={e => setFiltroPagado(e.target.value)}
-          className="px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none"
-        >
-          <option value="">Todos los estados</option>
-          <option value="false">Pendientes</option>
-          <option value="true">Pagados</option>
-        </select>
-        <select
-          value={filtroValuador}
-          onChange={e => setFiltroValuador(e.target.value)}
-          className="px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none"
-        >
-          <option value="">Todos los valuadores</option>
-          {valuadores.map(v => (
-            <option key={v.user_id} value={v.user_id}>{v.name}</option>
           ))}
-        </select>
-        <button onClick={fetchData} className="px-3 py-2 border border-slate-200 rounded-lg hover:bg-slate-50">
-          <RefreshCw className="w-4 h-4 text-slate-500" />
-        </button>
-      </div>
+        </div>
 
-      {/* Tabla */}
-      <AdminCard>
-        {loading ? (
-          <p className="text-sm text-slate-400 text-center py-8">Cargando…</p>
-        ) : data.items.length === 0 ? (
-          <div className="text-center py-10">
-            <DollarSign className="w-10 h-10 text-slate-200 mx-auto mb-3" />
-            <p className="text-sm text-slate-400">No hay encargos con estos filtros.</p>
-            <button onClick={() => setModalNuevo(true)} className="mt-3 text-[#52B788] text-sm hover:underline">+ Registrar primer encargo</button>
+        {/* Filtros */}
+        <FilterBar title="Filtros">
+          <select
+            value={filtroPagado}
+            onChange={e => setFiltroPagado(e.target.value)}
+            className="appearance-none border border-slate-200 rounded-xl px-4 py-2 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-[#52B788]/40"
+          >
+            <option value="">Todos los estados</option>
+            <option value="false">Pendientes</option>
+            <option value="true">Pagados</option>
+          </select>
+          <select
+            value={filtroValuador}
+            onChange={e => setFiltroValuador(e.target.value)}
+            className="appearance-none border border-slate-200 rounded-xl px-4 py-2 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-[#52B788]/40"
+          >
+            <option value="">Todos los valuadores</option>
+            {valuadores.map(v => (
+              <option key={v.user_id} value={v.user_id}>{v.name}</option>
+            ))}
+          </select>
+          <button onClick={fetchData} className="flex items-center gap-2 bg-white border border-slate-200 rounded-xl px-3 py-2 text-sm text-slate-600 hover:bg-slate-50">
+            <RefreshCw className="w-4 h-4" />
+          </button>
+        </FilterBar>
+
+        {/* Tabla */}
+        <AdminCard icon={DollarSign} title="Encargos registrados">
+          <div className="p-0">
+            {loading ? (
+              <p className="text-sm text-slate-400 text-center py-8">Cargando…</p>
+            ) : data.items.length === 0 ? (
+              <EmptyState icon={DollarSign} title="No hay encargos con estos filtros"
+                sub="Registra el primer encargo con el botón de arriba" />
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <GradThead cols={["Valuador", "Descripción", { label: "Total", className: "text-right" }, { label: "Comisión (80%)", className: "text-right" }, "Fecha", "Estado", ""]} />
+                  <tbody>
+                    {data.items.map(e => (
+                      <tr key={e.encargo_id} className="border-b border-slate-50 hover:bg-slate-50/50">
+                        <td className="py-2.5 px-4 font-medium text-slate-800">{e.valuador_nombre || e.valuador_id}</td>
+                        <td className="py-2.5 px-4 text-slate-600 max-w-[200px] truncate">{e.descripcion}</td>
+                        <td className="py-2.5 px-4 text-right text-slate-600">{fmtMXN(e.precio_total)}</td>
+                        <td className="py-2.5 px-4 text-right font-semibold text-[#1B4332]">{fmtMXN(e.comision_valuador)}</td>
+                        <td className="py-2.5 px-4 text-xs text-slate-500">
+                          {e.fecha_completado ? new Date(e.fecha_completado).toLocaleDateString("es-MX") : "—"}
+                        </td>
+                        <td className="py-2.5 px-4">
+                          {e.pago_realizado
+                            ? <span className="text-xs bg-green-100 text-green-700 rounded-full px-2 py-0.5">Pagado</span>
+                            : <span className="text-xs bg-amber-100 text-amber-700 rounded-full px-2 py-0.5">Pendiente</span>
+                          }
+                        </td>
+                        <td className="py-2.5 px-4 text-right">
+                          {!e.pago_realizado && (
+                            <button
+                              onClick={() => marcarPagado(e.encargo_id)}
+                              disabled={pagando === e.encargo_id}
+                              className="text-xs bg-[#1B4332] hover:bg-[#163828] text-white rounded-lg px-3 py-1 disabled:opacity-60 font-semibold"
+                            >
+                              {pagando === e.encargo_id ? "…" : "Marcar pagado"}
+                            </button>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-slate-100">
-                  <th className="text-left py-2 px-3 text-xs font-bold text-slate-400 uppercase tracking-wide">Valuador</th>
-                  <th className="text-left py-2 px-3 text-xs font-bold text-slate-400 uppercase tracking-wide">Descripción</th>
-                  <th className="text-right py-2 px-3 text-xs font-bold text-slate-400 uppercase tracking-wide">Total</th>
-                  <th className="text-right py-2 px-3 text-xs font-bold text-slate-400 uppercase tracking-wide">Comisión (80%)</th>
-                  <th className="text-center py-2 px-3 text-xs font-bold text-slate-400 uppercase tracking-wide">Fecha</th>
-                  <th className="text-center py-2 px-3 text-xs font-bold text-slate-400 uppercase tracking-wide">Estado</th>
-                  <th className="py-2 px-3" />
-                </tr>
-              </thead>
-              <tbody>
-                {data.items.map(e => (
-                  <tr key={e.encargo_id} className="border-b border-slate-50 hover:bg-slate-50/50">
-                    <td className="py-2.5 px-3 font-medium text-slate-800">{e.valuador_nombre || e.valuador_id}</td>
-                    <td className="py-2.5 px-3 text-slate-600 max-w-[200px] truncate">{e.descripcion}</td>
-                    <td className="py-2.5 px-3 text-right text-slate-600">{fmtMXN(e.precio_total)}</td>
-                    <td className="py-2.5 px-3 text-right font-semibold text-[#1B4332]">{fmtMXN(e.comision_valuador)}</td>
-                    <td className="py-2.5 px-3 text-center text-xs text-slate-500">
-                      {e.fecha_completado ? new Date(e.fecha_completado).toLocaleDateString("es-MX") : "—"}
-                    </td>
-                    <td className="py-2.5 px-3 text-center">
-                      {e.pago_realizado
-                        ? <span className="text-xs bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-full px-2 py-0.5">Pagado</span>
-                        : <span className="text-xs bg-amber-50 text-amber-700 border border-amber-200 rounded-full px-2 py-0.5">Pendiente</span>
-                      }
-                    </td>
-                    <td className="py-2.5 px-3 text-right">
-                      {!e.pago_realizado && (
-                        <button
-                          onClick={() => marcarPagado(e.encargo_id)}
-                          disabled={pagando === e.encargo_id}
-                          className="text-xs bg-[#1B4332] hover:bg-[#2D6A4F] text-white rounded-lg px-3 py-1 disabled:opacity-60"
-                        >
-                          {pagando === e.encargo_id ? "…" : "Marcar pagado"}
-                        </button>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </AdminCard>
+        </AdminCard>
+
+      </div>
 
       {modalNuevo && (
         <ModalNuevoEncargo
