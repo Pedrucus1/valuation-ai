@@ -1,5 +1,5 @@
 # PropValu — Backlog de Tareas
-> **Última actualización:** 17 Abr 2026 — sesión Scraper + Comparables desde MongoDB
+> **Última actualización:** 17 Abr 2026 — Features #10 #12 #13 #15
 > Actualizar este archivo conforme se completen tareas. Marcar con ✅ cuando esté lista, con 🔄 cuando esté en progreso.
 
 ---
@@ -81,11 +81,11 @@
 
 | # | Estado | Tarea |
 |---|---|---|
-| 10 | ⏳ | **Fichas de Promoción para Inmobiliarias (JPG/PDF)** |
-| 12 | ⏳ | **Módulo financiero / Payouts valuadores** — 80/20, round-robin, SLA 24h. |
-| 13 | ⏳ | **Sistema de calificación de valuadores** |
+| 10 | 👁️ | **Fichas de Promoción para Inmobiliarias** — tab Promociones en InmobiliariaDashboard, 2 templates, exportable PDF vía window.print() — **pendiente revisión personal para afinar detalles** |
+| 12 | 👁️ | **Módulo financiero / Payouts valuadores** — colección encargos, split 80/20, admin AdminPayouts, FacturacionTab con tabla de encargos — **pendiente revisión personal para afinar detalles** |
+| 13 | 👁️ | **Sistema de calificación de valuadores** — CTA en ReportPage, ReseñasTab ya estaba en ValuadorDashboard — **pendiente revisión personal para afinar detalles** |
 | 14 | ✅ | **Base de datos histórica de avalúos** — es `db.valuations` en MongoDB, se guarda automáticamente. Usada como comparables internos (Sección 0). |
-| 15 | ⏳ | **Newsletter e Inteligencia de Mercado** |
+| 15 | 👁️ | **Newsletter fase 1** — suscriptores en MongoDB, sección en LandingPage, AdminNewsletter, endpoints subscribe/unsubscribe. Envío real pendiente (SendGrid) — **pendiente revisión personal para afinar detalles** |
 | 21 | ✅ | **Google Sheets como fuente de comparables** — scraper conectado. |
 | 64 | ✅ | **MongoDB como fuente primaria de comparables** — `mongo_comparables.py` filtra `mercado_props` por municipio/tipo/m2 ±40%, integrado en server.py step 0.5. |
 | 65 | ⏳ | **Sync Sheets → MongoDB tras enricher** — correr `/admin/mercado/sync-sheets` cuando terminen los scrapers pendientes. |
