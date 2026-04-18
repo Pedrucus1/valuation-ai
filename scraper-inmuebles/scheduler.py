@@ -567,6 +567,18 @@ def run(reset: bool = False, portal: str = None):
     log.info(f"Sesion terminada. Props totales en Sheets: {total_props:,}")
     _reportar_a_mongo(tareas)
 
+    # Auto-enricher: si se corrió un portal específico y terminó sin pendientes, enriquecer
+    if portal:
+        restantes_portal = [t for t in tareas if t["estado"] == "pendiente" and t["portal"] == portal]
+        if not restantes_portal:
+            import subprocess as _sp
+            python = sys.executable
+            log.info(f"Scraping de {portal} completo — lanzando enricher automáticamente...")
+            print(f"\n{'='*50}")
+            print(f"Scraping de {portal} terminado. Iniciando enricher...")
+            print(f"{'='*50}\n")
+            _sp.run([python, "enricher.py", "--tab", portal], check=False)
+
 
 # ─────────────────────────────────────────
 # Entrada
