@@ -172,9 +172,15 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
                 "img[alt*='cubierta'] ~ span",
             ],
             "PINCALI": [
+                # Español (página /inmueble/)
+                "li:contains('Construcción')",
+                "li:contains('Construidos')",
+                "li:contains('Construido')",
+                "span:contains('Construcción')",
+                "[class*='construcc']",
+                # Inglés (fallback si se carga en inglés)
                 "li:contains('Construction')",
                 "li:contains('Built')",
-                "li:contains('Construcc')",
             ],
             "MITULA": [
                 "li[class*='built']",
@@ -235,8 +241,15 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
                 "img[alt*='surface'] ~ span",
             ],
             "PINCALI": [
-                "li:contains('Land')",
+                # Español (página /inmueble/)
                 "li:contains('Terreno')",
+                "li:contains('Superficie de terreno')",
+                "li:contains('Lote')",
+                "span:contains('Terreno')",
+                "[class*='terreno']",
+                # Inglés (fallback)
+                "li:contains('Land')",
+                "li:contains('Lot')",
                 "span[class*='lot']",
             ],
             "PROPIEDADES_COM": [
@@ -294,9 +307,15 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
                 "[class*='year-built']",
             ],
             "PINCALI": [
+                # Español (página /inmueble/)
+                "li:contains('Antigüedad')",
+                "li:contains('Año de construcción')",
+                "li:contains('Año construcc')",
+                "span:contains('Antigüedad')",
+                # Inglés (fallback)
+                "li:contains('Year built')",
                 "li:contains('Year')",
                 "li:contains('Built')",
-                "li:contains('Construcc')",
             ],
             "PROPIEDADES_COM": [
                 "[data-feature='yearBuilt']",
@@ -528,6 +547,32 @@ def fetch_html_playwright(url: str, portal: str) -> Optional[str]:
         return None
 
 
+_UUID_RE = re.compile(
+    r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}", re.I
+)
+
+
+def _pincali_url_espanol(url: str) -> str:
+    """
+    Convierte una URL de detalle PINCALI en inglés a su versión en español.
+
+    Inglés:  https://www.pincali.com/en/property/house-for-sale-...-{uuid}
+    Español: https://www.pincali.com/inmueble/propiedad-{uuid}?locale_changed=true
+
+    PINCALI identifica la propiedad por UUID; el slug es decorativo.
+    La página española tiene etiquetas en español (Construcción, Terreno, Antigüedad)
+    que coinciden con los patrones regex del enricher.
+    Si ya es /inmueble/ se devuelve sin cambios.
+    """
+    if "/inmueble/" in url:
+        return url
+    m = _UUID_RE.search(url)
+    if not m:
+        return url
+    uuid = m.group(0)
+    return f"https://www.pincali.com/inmueble/propiedad-{uuid}?locale_changed=true"
+
+
 def inferir_portal_por_url(url: str) -> Optional[str]:
     """Detecta el portal a partir del dominio de la URL."""
     if "inmuebles24.com" in url:
@@ -547,9 +592,13 @@ def fetch_detalle(url: str, portal: str, session: requests.Session) -> Optional[
     """Selecciona el método de descarga adecuado según el portal."""
     # Si el portal guardado en Sheets está corrupto, inferirlo por URL
     portal_real = portal if portal in PORTALES_PLAYWRIGHT or portal == "CASAS_Y_TERRENOS" else inferir_portal_por_url(url) or portal
+
+    # PINCALI: convertir a URL española antes de fetchear para obtener etiquetas en español
+    fetch_url = _pincali_url_espanol(url) if portal_real == "PINCALI" else url
+
     if portal_real in PORTALES_PLAYWRIGHT:
-        return fetch_html_playwright(url, portal_real)
-    return fetch_html_requests(url, session)
+        return fetch_html_playwright(fetch_url, portal_real)
+    return fetch_html_requests(fetch_url, session)
 
 
 # ─────────────────────────────────────────
