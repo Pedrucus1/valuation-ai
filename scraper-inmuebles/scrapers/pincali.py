@@ -389,6 +389,7 @@ class PincaliScraper(BaseScraper):
                 window.chrome = {runtime: {}};
             """)
             page.goto(url, wait_until="domcontentloaded", timeout=30000)
+            url_final = page.url
             for sel in ["li[class*='property']", "article", "[class*='Card']", "[class*='listing']"]:
                 try:
                     page.wait_for_selector(sel, timeout=8000)
@@ -402,8 +403,18 @@ class PincaliScraper(BaseScraper):
             page.close()
             ctx.close()
 
-        # Detectar bloqueo
+        # Bloqueo duro: título con señales de bot-detection
         if any(k in titulo.lower() for k in ("cloudflare", "just a moment", "access denied", "403")):
-            raise ErrorScraping(f"Pincali bloqueó la solicitud: {url}")
+            raise ErrorScraping(f"[BLOQUEO] Cloudflare/403 en Pincali: {url}")
+
+        # Bloqueo suave: redirigió a home u otra URL
+        url_path   = url.split("pincali.com")[-1]
+        final_path = url_final.split("pincali.com")[-1]
+        if url_path and final_path and not final_path.startswith(url_path.split("?")[0]):
+            raise ErrorScraping(f"[BLOQUEO] Redirigido de {url_path} → {final_path}")
+
+        # Bloqueo suave: respuesta demasiado pequeña
+        if len(html) < 5000:
+            raise ErrorScraping(f"[BLOQUEO] Respuesta sospechosamente corta ({len(html)} bytes): {url}")
 
         return html

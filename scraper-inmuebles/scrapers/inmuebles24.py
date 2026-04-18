@@ -354,10 +354,11 @@ class Inmuebles24Scraper(BaseScraper):
                 window.chrome = {runtime: {}};
             """)
             page.goto(url, wait_until="domcontentloaded", timeout=30000)
+            url_final = page.url
             try:
                 page.wait_for_selector(SELECTORES["tarjeta"], timeout=12000)
             except PlaywrightTimeout:
-                pass  # Puede no haber resultados para ese tipo/zona
+                pass
             antiblock.simular_scroll_aleatorio(page)
             titulo = page.title()
             html = page.content()
@@ -365,8 +366,18 @@ class Inmuebles24Scraper(BaseScraper):
             page.close()
             ctx.close()
 
-        # Detectar bloqueo de Cloudflare
+        # Bloqueo duro: Cloudflare/bot detection en título
         if any(k in titulo for k in ("Just a moment", "Attention Required", "Cloudflare")):
-            raise ErrorScraping(f"Cloudflare bloqueó la solicitud: {url}")
+            raise ErrorScraping(f"[BLOQUEO] Cloudflare en Inmuebles24: {url}")
+
+        # Bloqueo suave: redirigió a home u otra URL inesperada
+        url_path   = url.split("inmuebles24.com")[-1]
+        final_path = url_final.split("inmuebles24.com")[-1]
+        if url_path and final_path and not final_path.startswith(url_path.split("?")[0]):
+            raise ErrorScraping(f"[BLOQUEO] Redirigido de {url_path} → {final_path}")
+
+        # Bloqueo suave: respuesta demasiado pequeña
+        if len(html) < 5000:
+            raise ErrorScraping(f"[BLOQUEO] Respuesta sospechosamente corta ({len(html)} bytes): {url}")
 
         return html

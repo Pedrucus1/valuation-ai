@@ -141,16 +141,35 @@ def guardar_progreso(tareas: list[dict]):
 def mostrar_status(tareas: list[dict], portal: str = None):
     if portal:
         tareas = [t for t in tareas if t["portal"] == portal.upper()]
-    completadas = [t for t in tareas if t["estado"] == "completada"]
-    pendientes  = [t for t in tareas if t["estado"] == "pendiente"]
-    errores     = [t for t in tareas if t["estado"] == "error"]
-    total_props = sum(t["props"] for t in completadas)
+    completadas  = [t for t in tareas if t["estado"] == "completada"]
+    pendientes   = [t for t in tareas if t["estado"] == "pendiente"]
+    errores      = [t for t in tareas if t["estado"] == "error"]
+    bloqueadas   = [t for t in tareas if t["estado"] == "bloqueado"]
+    sospechosas  = [t for t in completadas if t.get("props", 0) == 0]
+    total_props  = sum(t["props"] for t in completadas)
 
     print(f"\nProgreso: {len(completadas)}/{len(tareas)} tareas completadas")
     print(f"  Pendientes : {len(pendientes)}")
     print(f"  Completadas: {len(completadas)}")
+    print(f"  Bloqueadas : {len(bloqueadas)}")
     print(f"  Errores    : {len(errores)}")
     print(f"  Props total: {total_props:,}")
+
+    if bloqueadas:
+        print(f"\n⛔ Tareas BLOQUEADAS (portal rechazó la solicitud):")
+        for t in bloqueadas:
+            print(f"  - {t['id']}")
+            print(f"    {t.get('error','')[:100]}")
+
+    if errores:
+        print(f"\n❌ Tareas con error:")
+        for t in errores[:5]:
+            print(f"  - {t['id']}: {t['error'][:80]}")
+
+    if sospechosas:
+        print(f"\n⚠️  Completadas con 0 props ({len(sospechosas)}) — revisar si son zonas vacías o bloqueo suave:")
+        for t in sospechosas[:10]:
+            print(f"  - {t['id']}")
 
     if pendientes:
         print(f"\nPróximas tareas:")
@@ -158,11 +177,6 @@ def mostrar_status(tareas: list[dict], portal: str = None):
             print(f"  - {t['id']}")
         if len(pendientes) > 5:
             print(f"  ... y {len(pendientes)-5} más")
-
-    if errores:
-        print(f"\nTareas con error:")
-        for t in errores[:3]:
-            print(f"  - {t['id']}: {t['error'][:60]}")
 
 
 # ─────────────────────────────────────────
@@ -511,6 +525,10 @@ def run(reset: bool = False, portal: str = None):
                 tarea["estado"] = "scraped"
                 tarea["error"]  = f"Sheets pendiente: {err_str[:150]}"
                 log.warning(f"Datos en buffer, Sheets pendiente: {tarea['id']}")
+            elif err_str.startswith("[BLOQUEO]"):
+                tarea["estado"] = "bloqueado"
+                tarea["error"]  = err_str[:200]
+                log.error(f"BLOQUEO en tarea {tarea['id']}: {err_str}")
             else:
                 tarea["estado"] = "error"
                 tarea["error"]  = err_str[:200]
