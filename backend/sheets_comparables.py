@@ -55,13 +55,14 @@ SHEET_COLUMNS = [
 ]
 
 PROPERTY_TYPE_SYNONYMS: Dict[str, List[str]] = {
-    "casa":            ["casa", "casa en condominio", "casa condominio", "casa habitacion",
-                        "casa habitación", "residencia"],
-    "departamento":    ["departamento", "depto", "dept", "apartamento", "apto"],
-    "terreno":         ["terreno", "lote", "predio", "solar"],
-    "local comercial": ["local comercial", "local", "comercial"],
-    "oficina":         ["oficina", "despacho"],
-    "bodega":          ["bodega", "almacén", "almacen"],
+    "casa":            ["casa", "casas", "casa en condominio", "casa condominio", "casa habitacion",
+                        "casa habitación", "residencia", "house", "home", "single family", "chalet", "villa"],
+    "departamento":    ["departamento", "departamentos", "depto", "dept", "apartamento", "apto",
+                        "apartment", "flat", "loft", "penthouse", "studio", "suite"],
+    "terreno":         ["terreno", "terrenos", "lote", "predio", "solar", "land", "lot", "plot"],
+    "local comercial": ["local comercial", "locales-comerciales", "local", "comercial", "retail", "shop", "store"],
+    "oficina":         ["oficina", "oficinas", "despacho", "office", "coworking"],
+    "bodega":          ["bodega", "bodegas", "almacén", "almacen", "warehouse", "storage"],
     "nave industrial": ["nave industrial", "nave", "industrial"],
 }
 
@@ -220,6 +221,27 @@ async def fetch_sheet_tab(
         return []
 
 
+_TITLE_KEYWORDS = [
+    "for sale", "for rent", "en venta", "en renta", "warehouse", "bedroom",
+    "recámara", "recamara", "m2", "m²", "$", "house", "casa ", "apartment",
+    "departamento", "office", "oficina",
+]
+
+
+def _clean_neighborhood(colonia: str, municipio: str) -> str:
+    """
+    Detects when colonia is actually a listing title (PINCALI used to store title here).
+    Returns empty string so the UI falls back to municipio.
+    """
+    if not colonia:
+        return ""
+    col_lower = colonia.lower()
+    # If too long or contains listing-title keywords → it's not a neighborhood name
+    if len(colonia) > 80 or any(kw in col_lower for kw in _TITLE_KEYWORDS):
+        return ""
+    return colonia
+
+
 def parse_sheet_row(row: list, source_name: str) -> Dict:
     """
     Parse a raw sheet row into a dict compatible with AIComparable fields.
@@ -227,12 +249,15 @@ def parse_sheet_row(row: list, source_name: str) -> Dict:
     """
     col = {name: _cell(row, i) for i, name in enumerate(SHEET_COLUMNS)}
 
+    municipio = col.get("municipio") or ""
+    colonia_raw = col.get("colonia") or ""
+
     return {
         "source":             col.get("portal_origen") or source_name,
         "source_url":         col.get("url_original") or "",
         "title":              col.get("titulo") or "",
-        "neighborhood":       col.get("colonia") or "",
-        "municipality":       col.get("municipio") or "",
+        "neighborhood":       _clean_neighborhood(colonia_raw, municipio),
+        "municipality":       municipio,
         "state":              col.get("estado") or "",
         "price":              _parse_price(col.get("precio")),
         "construction_area":  _parse_area(col.get("m2_construccion")),
@@ -317,6 +342,22 @@ async def search_comparables_from_sheets(
             return []
 
         reference_area = construction_area if construction_area and construction_area > 0 else land_area
+
+        # Hard area filter: drop rows whose area is outside ±65% of reference
+        # (only applied when both subject and comparable have area data)
+        if reference_area and reference_area > 0:
+            area_min = reference_area * 0.35
+            area_max = reference_area * 1.65
+            has_area, no_area = [], []
+            for row in filtered:
+                row_area = row.get("construction_area") or row.get("land_area") or 0.0
+                if row_area > 0:
+                    if area_min <= row_area <= area_max:
+                        has_area.append(row)
+                    # else: drop — area too different
+                else:
+                    no_area.append(row)  # keep but rank last
+            filtered = has_area + no_area
 
         def area_score(row: Dict) -> float:
             row_area = row.get("construction_area") or row.get("land_area") or 0.0
