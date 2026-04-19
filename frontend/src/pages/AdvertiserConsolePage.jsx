@@ -166,62 +166,6 @@ const FEDERAL_ZONES  = ["Todo México"];
 // Fallback municipal mientras carga el backend
 const MUNICIPAL_FALLBACK = ["Guadalajara", "Zapopan", "Tlaquepaque", "Tonalá", "Tlajomulco", "El Salto", "Puerto Vallarta"];
 
-const MOCK_CAMPAIGNS = [
-  {
-    id: "c1",
-    name: "Primavera GDL 2026",
-    slot: "slot1",
-    targeting: "Municipal",
-    zone: "Zapopan",
-    status: "active",
-    impressions: 312,
-    spend: 9360,
-    start: "2026-03-01",
-    end: "2026-03-31",
-  },
-  {
-    id: "c2",
-    name: "Crédito Hipotecario Q1",
-    slot: "slot3",
-    targeting: "Estatal",
-    zone: "Jalisco",
-    status: "paused",
-    impressions: 88,
-    spend: 440,
-    start: "2026-02-15",
-    end: "2026-03-15",
-  },
-];
-
-const MOCK_CREATIVES = [
-  {
-    id: "cr1",
-    name: "banner_casas_v1.jpg",
-    slot: "slot1",
-    type: "image",
-    status: "aprobado",
-    sizeLabel: "2.3 MB",
-    uploaded: "2026-03-05",
-    preview: null,
-    campaign: "Primavera GDL 2026",
-  },
-  {
-    id: "cr2",
-    name: "hipoteca_30s.mp4",
-    slot: "slot2",
-    type: "video",
-    status: "pendiente_revision",
-    sizeLabel: "18.7 MB",
-    uploaded: "2026-03-18",
-    preview: null,
-    campaign: null,
-  },
-];
-
-const MOCK_TRANSACTIONS = [
-  { id: "t1", date: "2026-03-01", concept: "Campaña — Primavera GDL 2026 (Slot 1)", amount: 9360, status: "pagado" },
-  { id: "t2", date: "2026-02-15", concept: "Campaña — Crédito Hipotecario Q1 (Slot 3)", amount: 440, status: "pagado" },
-];
 
 const TABS = [
   { id: "resumen", label: "Resumen", icon: BarChart3 },
@@ -767,8 +711,12 @@ const AdvertiserConsolePage = () => {
   /* ────────────────────────────────────────────────────── */
 
   const renderResumen = () => {
-    const totalImpressions = campaigns.reduce((s, c) => s + c.impressions, 0);
-    const totalSpend = campaigns.reduce((s, c) => s + c.spend, 0);
+    const totalImpressions = campaigns.reduce((s, c) => s + (c.impressions || 0), 0);
+    const totalSpend = campaigns.reduce((s, c) => s + (c.spend || 0), 0);
+    const totalSaldo = campaigns.reduce((s, c) => {
+      const remaining = c.budget_remaining ?? Math.max(0, (c.budget || 0) - (c.spend || 0));
+      return s + Math.max(0, remaining);
+    }, 0);
     const activeCampaigns = campaigns.filter(c => c.status === "active").length;
     const approvedCreatives = creatives.filter(c => c.status === "aprobado").length;
 
@@ -781,7 +729,7 @@ const AdvertiserConsolePage = () => {
             { label: "Gasto total", value: formatMXN(totalSpend), icon: BarChart3, accent: false },
             { label: "Campañas activas", value: activeCampaigns, icon: Megaphone, accent: false },
             { label: "Creatividades aprobadas", value: approvedCreatives, icon: CheckCircle, accent: false },
-            { label: "Saldo a favor", value: formatMXN(0), icon: TrendingUp, accent: false },
+            { label: "Saldo a favor", value: formatMXN(totalSaldo), icon: TrendingUp, accent: false },
           ].map((s, i) => (
             <div key={i} className={`rounded-xl border p-4 shadow-sm ${s.accent ? "bg-[#1B4332] border-[#1B4332]" : "bg-white border-[#B7E4C7]"}`}>
               <s.icon className={`w-4 h-4 mb-2 ${s.accent ? "text-[#D9ED92]" : "text-[#52B788]"}`} />
