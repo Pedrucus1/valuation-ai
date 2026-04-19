@@ -2294,7 +2294,7 @@ async def admin_scraper_status(request: Request):
     doc["log_reciente"] = logs
     return doc
 
-PORTALES_SCRAPER = ["INMUEBLES24", "PINCALI", "VIVANUNCIOS", "MITULA", "CASAS_Y_TERRENOS"]
+PORTALES_SCRAPER = ["INMUEBLES24", "PINCALI", "VIVANUNCIOS", "MITULA", "CASAS_Y_TERRENOS", "PROPIEDADES_COM"]
 
 @api_router.post("/admin/scraper/run")
 async def admin_scraper_run(request: Request):
@@ -4069,7 +4069,7 @@ async def _job_sync_sheets():
 
 # ─── Scheduler mensual ───────────────────────────────────────────────────────
 
-PORTALES_IDS_SCHED = ["INMUEBLES24", "PINCALI", "VIVANUNCIOS", "MITULA", "CASAS_Y_TERRENOS"]
+PORTALES_IDS_SCHED = ["INMUEBLES24", "PINCALI", "VIVANUNCIOS", "MITULA", "CASAS_Y_TERRENOS", "PROPIEDADES_COM"]
 
 async def _job_scrape_mensual():
     """Día 2 de cada mes: lanza 5 portales en paralelo desde SCRAPER_DIR, luego genera snapshot."""

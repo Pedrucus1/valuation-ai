@@ -31,7 +31,7 @@ const ESTADO_INICIAL = {
   portales: [], total_propiedades: 0, nuevas_hoy: 0, log_reciente: [],
 };
 
-const PORTALES_IDS = ["INMUEBLES24", "PINCALI", "VIVANUNCIOS", "MITULA", "CASAS_Y_TERRENOS"];
+const PORTALES_IDS = ["INMUEBLES24", "PINCALI", "VIVANUNCIOS", "MITULA", "CASAS_Y_TERRENOS", "PROPIEDADES_COM"];
 
 const TABS = [
   { id: "monitor",     label: "Monitor" },

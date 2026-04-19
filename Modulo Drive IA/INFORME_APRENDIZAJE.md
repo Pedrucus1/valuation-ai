@@ -1,135 +1,52 @@
 # 🧠 Informe de Aprendizaje Masivo (PropValu)
 
-**Fecha:** 17/4/2026
+**Fecha:** 18/4/2026
 **Opiniones de Valor (OPI) procesadas:** 919
 
 | Folio | Ubicación | Terreno (m2) | Const (m2) | Valor Mercado | Edad |
 |-------|-----------|--------------|------------|---------------|------|
-| OPI-26-4-10-AV | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-4-09-AV | C. Paseo de Los Huejotes 5, Lomas de Tabachines, 45185 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-4-08-OF | J. M. Gordoa y Barrios 427, Villas Belenes, 45148 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-4-07-OF | Américo Vespucio 2703, Colon Industrial | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-4-06-OF | Cuarzo 2413, Mariano Otero, 45067 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-4-05-OF | Sierra 37, Mesa Quemada, 63734 Cruz de Huanacaxtle, Nay. | 421.20 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-4-04-OF | Santa Oliva s/n, Colinas de Cajititlan | 3,145.20 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-4-03-OF | C. Ejido 514, San Isidro Ejidal, 45147 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-4-02-OF | San Gaspar 1411, Santa María, 44350 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-4-01-OF | C. Pedro Moreno 110, Tateposco, 45630 San Pedro Tlaquepaque, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-4-01-OF | Pedro Moreno 110, Cantera Colorada, Tlaquepaque | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-4-01-OF | Pedro Moreno 110, Cantera Colorada, Tlaquepaque | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-4-01-OF | Pedro Moreno 110, Cantera Colorada, Tlaquepaque | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-3-24-OF | Blvrd Bosques de Sta Anita 200, Ebano 18 45645 Bosque Real, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| No hallado | PROPIETARIO: | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO FACTORIZADO | ED. REMANENTE |
-| OPI-26-3-17-OF | XRXR+PXQ, 49460 La Manzanilla de la Paz, Jal. | 300.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-3-16-OF | Lázaro Cárdenas 29, Marcelino García Barragán, 45134 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-3-14-OF | PROPIETARIO: | 349.65 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-3-15-OF | Felipe II 6, La Noria de los Reyes, 45670 Fraccionamiento Tres Reyes, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-3-13-OF | Av. Vista Ote. 1338, Residencial Vista Sur, 45640, Tlajomulco de Zúñiga, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-3-12-OF | PROPIETARIO: | 6,649.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-3-11-OF | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-3-10-OF | Del Límite 34-Límite # 32, El Verde, 45694 Guadalajara, Jal. | 4,084.23 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-3-09-OF | C. Plan de Guadalupe 2023, Atemajac del Valle, 45180 Zapopan, Jal. | 137.49 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-3-08-OF | PROPIETARIO: | 0.00 M2 | N/A | VALOR VENTA ESTIMADO PROMEDIO CON CONSTRUCCIONES | ED. REMANENTE |
-| OPI-26-3-07-OF | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-3-06-OF | PROPIETARIO: | 176.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-3-05-OF | Av Industria Textil 73-4, Altagracia, 45130 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-3-04-OF | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-3-03-OF | Av. Isla Raza 2039, Jardines de San José, 44950 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-3-02-OF | C. San Alberto 140, 45653 Hacienda Santa Fe, Jal | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| OPI-26-2-26-OF | Nuestra Señora de los Remedios Sur 01, Balcones de Santa Anita, Tlajomulco | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-2-25-OF | C. Volcan Paricutin 5041, Primera Sección, Colli Urbano, 45070 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-2-24-OF | José María Coss 1653, La Guadalupana, 44260 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-2-23-OF | Villa Juárez 1384-2, Francisco Sarabia, 45236 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-2-22-OF | El Carmen 715-3, Camino Real, 45040 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-2-21-OF | Aurora Boreal 678-65, Paseo los Agaves | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-2-20-OF | C. José Alcala 1067, Echeverría, 44970 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-2-19-OF | PROPIETARIO: | 0.00 M2 | N/A | VALOR VENTA ESTIMADO PROMEDIO CON CONSTRUCCIONES | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| OPI-26-2-15-OF | Silvano Pratt 1384, Echeverría, 44970 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-2-14-OF | P.º del Huerto 2114, Paseo del Prado, 45613 Paseo del Prado, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-2-13-OF | Enriqueta Basilio de Sotelo 760, 45638 San Pedro Tlaquepaque, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-2-12-OF | Bugambilias 140, Jardines, 48280 Ixtapa, Jal. | 81.03 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-2-11-OF | C. Juan José Castillo 46, Buenos Aires, 45606 San Pedro Tlaquepaque, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-2-10-OF | Luis E. Medina Santiago 2-2, El Cerrito, 45629 San Pedro Tlaquepaque, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| OPI-26-2-02-OF | C. Josue 4122, El Bethel, 44720 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-2-01-OF | C. Rafael Zayas Enriquez 3385, Miguel Hidalgo, 44760 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-1-19-OF | C. Nicolás Bravo 756, Las Conchas, 44460 Guadalajara, Jal. | 649.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-1-18-OF | Rio Lerma 16, Arenales Tapatíos | 167.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-1-17-OF | PROPIETARIO: | 2,832.45 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-1-16-OF | Circuito Metropolitano lote 20 y 21 mz 6,  s/n Cajititlán | 361.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| OPI-26-1-13-OF | Manuel Portillo 286, San Rafael, 44810 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| OPI-26-1-11-OF | Vista Selene 870, Vista Hermosa, 45189 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| OPI-26-1-09-OF | Río Tajo 2271, Bosques del Boulevard, 44899 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-1-08-OF | Isla Ustica 3059, Villa Guerrero, 44987 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-1-07-OF | C. Tratado de Campeche 4296, Parques del Auditorio, 45130 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-1-06-OF | C. Tratado de Campeche 4292, Parques del Auditorio, 45130 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-1-05-OF | C. Paseo de las Araucarias 2243, Tabachines, 45188 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-1-04-OF | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-26-1-03-OF | PROPIETARIO: | 118.24 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| OPI-25-12-11-OF | PROPIETARIO: | 0.00 M2 | N/A | VALOR VENTA ESTIMADO PROMEDIO CON CONSTRUCCIONES | ED. REMANENTE |
+| OPI-25-12-11-OF | C. los Cedros 41, 45650 Fraccionamiento San Antonio, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-12-10-OF | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-12-09-OF | C. Francisco I. Madero 94a, Jardines de la providencia, 45200 Zapopan, Jal. | 148.19 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-12-08-OF | Av. Revolucion 2286, local 6 zona C, Plaza Revolucion, Lomas del Paradero | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-12-07-OF | Av Paseo de las Aves 2220-22, Misión del Bosque, 45133 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| N/A | N/A | N/A | N/A | N/A | N/A |
+| N/A | N/A | N/A | N/A | N/A | N/A |
+| N/A | N/A | N/A | N/A | N/A | N/A |
 | No hallado | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-12-06-OF | Malinche 11, Cd Aztlán, 45402 Tonalá, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-25-12-02-OF | Fuente de Los Poetas 1132, Chapalita las Fuentes, 45030 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-12-04-OF  | C. Agustín Díaz 2611, El Fortín, 45066 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-12-03-OF | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | N/A | N/A | N/A | N/A | N/A | N/A |
 | N/A | N/A | N/A | N/A | N/A | N/A |
 | N/A | N/A | N/A | N/A | N/A | N/A |
 | N/A | N/A | N/A | N/A | N/A | N/A |
-| OPI-25-11-17-OF | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-11-16-LS | Carretera Tlajomulco Buenavista km4 #5020. C.P. 45640 | 742.89 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-11-15-OF | Rafael de La Vega 1311, Rancho Nuevo, 44240 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-11-14-OF | C. González Gallo 187, Auditorio, 45180 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| N/A | N/A | N/A | N/A | N/A | N/A |
 | OPI-25-11-13-OF | Campo Rey 1067, Campo Real, 45134 Campo Real, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-11-12-OF | Hacienda Zenzontla 3043, Balcones de Oblatos, Guadalajara, Jal. | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO FACTORIZADO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-25-11-12-OF | Hacienda Zenzontla 3043, Balcones de Oblatos, Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-11-11-OF | Cuarta privada san Cristóbal 9 Villas de la Hacienda 45654 , Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-11-10-OF | Cto. Sierra de Cabrera Este 302B, Hacienda Santa Fe,Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-25-11-09-OF | Zacatecas 365, El Batán, 45190 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-11-08-OF | Agua Azul 53, Agua Caliente, Tepatitlan | 1,871.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | N/A | N/A | N/A | N/A | N/A | N/A |
-| OPI-25-11-06-OF | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-11-05-OF | Calle de Lirio S/N, Fraccionamiento Bella Vista, en Zapotlanejo, Jalisco. | 200.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| N/A | N/A | N/A | N/A | N/A | N/A |
+| N/A | N/A | N/A | N/A | N/A | N/A |
 | OPI-25-11-04-OF | C Hacienda Tamandaro 2405, Colonia Oblatos, 44700 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-11-03-OF | Av Torremolinos 3500, Torre Urce 403, Cañadas de San Lorenzo, 45130 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-11-02-OF | Ignacio Zaragoza 18, Tinajitas, 45630 San Pedro Tlaquepaque, Jal. | 410.70 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-25-11-01-OF | Vicente Suarez 247, 20 de Noviembre Tonala | 96.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| No hallado | PROPIETARIO: | 210.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-10-17-OF | C. Jorge Bravo 2767, Paseos del Sol, 45079 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-10-18-OF | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-10-16-OF | PROPIETARIO: | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | N/A | N/A | N/A | N/A | N/A | N/A |
-| OPI-25-10-14-OF | P.º Pedro Castellanos 4563, Miravalle, 45594 San Pedro Tlaquepaque, Jal. | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| N/A | N/A | N/A | N/A | N/A | N/A |
 | OPI-25-10-13-OF | C. Eucalipto 99, 63735 Las Jarretaderas, Nay. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-10-12-LS | Carretera Guadalajara La Barca s/n, Atotojilquillo, Jalisco | 297.20 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-10-11-OF | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-10-10-OF | Manuel Portillo 289, San Rafael, 44810 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | No hallado | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-25-10-08-OF | Limon 214, La Estancia, Tala Jalisco | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-10-05-OF | Benito Juárez 4, Miguel de la Madrid, 45239 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-10-06-LS | Castillo de Belmonte 322-29, Parques del Castillo, 45685 San José del Castillo, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-10-05-LS | Castillo de Chapultepec 923-10, Parques del Castillo, 45685, El Salto, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-10-04-OF | Av. Juan Palomar y Arias 930-interior 5C, Puerta del Roble, 45110 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-10-03-OF | Cto. Ontario 33-7, Villas Terranova, Lomas del Sur, 45650, Tlajomulco de Zúñiga, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -142,78 +59,77 @@
 | OPI-25-9-14-OF | Calz. Revolución 360, Analco, Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-9-13-OF | C. Humboldt 403, Centro Barranquitas, 44200 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-9-12-OF | Olivo Mexicano 10  fraccionamiento Valle de los Olivos en Ixtlahuacán de los Membrillos | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-9-11-OF | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-9-11-OF | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| OPI-25-9-07-OF | Paseo las Orquídeas, Lomas de Tesistan | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO FACTORIZADO | ED. REMANENTE |
+| OPI-25-9-09-OF | La Rumorosa 21, Minerales, Baja California, 45693 Las Pintitas, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-9-08-OF | Av. Sendero De Los Robles 4218-76, Altaterra II, 45134, Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-9-07-OF | Paseo las Orquídeas, Lomas de Tesistan | 821.89 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-9-06-OF | San José 184, Las Juntas, 45590 San Pedro Tlaquepaque, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-9-05-LS | Calle Garzas s/n, col. Vinatera, Zapopan | 280.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-9-04-OF | Jesús Acal I. 2819, San Isidro, 44740 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-9-03-OF | Av San Jacinto 173, San Andrés, 44810 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-9-02-OF | Luis Aguirre 3916, Heliodoro Hernández Loza, 44720 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-9-02-OF | Luis Aguirre 3916, Heliodoro Hernández Loza, 44720 Guadalajara, Jal. | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-9-01-OF | Venustiano Carranza 81, Colonia Emiliano Zapata, Zapopan Jalisco | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | N/A | N/A | N/A | N/A | N/A | N/A |
-| OPI-25-8-18-OF | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-25-8-16-LS | Ignacio Ramirez 313, Santa Teresita | 1,462.38 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-8-16-LM | Isla Luzón 4092, Jardines del Sauz, 44987 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | No hallado | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | No hallado | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-8-14-LM | Av. Camino a Bosque de San Isidro 1143-142, Coto Los Robles, Villas de Zapopan, 45130 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-8-13-LM | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-8-10-LM | Priv. Mariano Otero 40, Mariano Otero, 45067 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | N/A | N/A | N/A | N/A | N/A | N/A |
-| OPI-25-8-09-OF | OTHON BLANCO 4903, COLONIA NUEVA SANTA MARIA | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO FACTORIZADO | ED. REMANENTE |
 | N/A | N/A | N/A | N/A | N/A | N/A |
+| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-25-8-09-OF | Othón Blanco 4903, Nueva Santa María, 45605 San Pedro Tlaquepaque, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-8-07-LM | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-8-07-LM | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-8-06-OF | Gorrión 82, La Periquera, 45134 Nuevo México, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-8-05-LM | Av. Petirrojo 51, Vista California, 45685, El Salto, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-8-04-LM | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-8-03-LM | Jardines de los jazmines #10 calzada del vergel 
-Jardines del vergel  | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-8-02-LM | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-7-25-LM | De Los Cedros 8, 45138 Nuevo México, Jal. | 120.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-8-04-LM | PROPIETARIO: | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| N/A | N/A | N/A | N/A | N/A | N/A |
+| N/A | N/A | N/A | N/A | N/A | N/A |
+| N/A | N/A | N/A | N/A | N/A | N/A |
 | OPI-25-7-24-LM | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-7-23-AV | PROPIETARIO: | 0.00 M2 | N/A | VALOR VENTA ESTIMADO PROMEDIO CON CONSTRUCCIONES | ED. REMANENTE |
+| OPI-25-7-23-AV | Hacienda de Los Tulipanes 94, Haciendas del Valle, 45133 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-7-22-LM | Cto. Mision del Bosque 390, Misión del Bosque, 45133 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-7-22-HY | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-7-21-LM | Guillermo Baca 4442, Lázaro Cárdenas, 44980 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | N/A | N/A | N/A | N/A | N/A | N/A |
 | N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| No hallado | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-7-17-LM | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-7-17-LM | PROPIETARIO: | 0.00 M2 | N/A | VALOR VENTA ESTIMADO PROMEDIO CON CONSTRUCCIONES | ED. REMANENTE |
 | OPI-25-7-18-LM | C. Priv. Englentinas 326, Villas de Zapotepec, 45640 San Sebastián el Grande, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-7-16-LM | Jacarandas 235, Lomas de La Primavera, Colinas de la Primavera, 45065 Zapopan, Jal. | 402.95 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-7-15-LM | Calle Obregón 58, Zalatitán, 45405 Tonalá, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-7-14-LM | C. Carpinteros 570, La Paz, 44860 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-7-13-LM | C. Bonampak 3396, Pinar de la Calma, Zapopan, Jal. | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-7-13-LM | C. Bonampak 3396, Pinar de la Calma, Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-7-12-LM | Av. Vuelo de Ias Grullas 100
 Coto 3, interior E 17
 Col. Las Grullas Residencial 
 San Agustín, Tlajomulco de Zúñiga, Jalisco 
-C.P. 45645 | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-7-11-LM | Sta. Ana 155, Int, 4183-3, Las Fuentes, 45070 Zapopan, Jal. | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+C.P. 45645 | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | N/A | N/A | N/A | N/A | N/A | N/A |
-| OPI-25-7-09-LM | Torremolinos 3535 int. 11, Colinas del Rey 45130, Zapopan Jalisco | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-7-08-OF | Av. San Luis Gonzaga 4720-21, Jardines de Guadalupe, 45030 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-7-10-LM | Privada 6 de Enero 38, Tlaquepaque | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO FACTORIZADO | ED. REMANENTE |
+| N/A | N/A | N/A | N/A | N/A | N/A |
+| N/A | N/A | N/A | N/A | N/A | N/A |
 | OPI-25-7-07-LM | PROPIETARIO: | 2,638.31 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-7-06-LM | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-7-05-OF | Carlota Ramírez 675, Insurgentes, 44820 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-25-7-04-OF | C. Axayácatl 218, Cd del Sol, 45050 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-7-03-OF | Alamo 4579, Loma Bonita Ejidal, 45085 Zapopan, Jal | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-7-02-OF | PROPIETARIO: | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO FACTORIZADO | ED. REMANENTE |
-| OPI-25-7-01-LM | Calle Lic. Manuel Aguirre Berlanga 124, Torre 9, departamento 16. Colonia, Constitución. | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-7-02-OF | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-25-6-21-LM | Av. del Pino Privada 2 428, Haciendas de San José, 45609 San Pedro Tlaquepaque, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-6-20-AV | Juan Escutia, C. Nanzal 10, 63734 Sayulita, Nay. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-6-19-LM | Casiopea 4225, La Calma, 45080 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | N/A | N/A | N/A | N/A | N/A | N/A |
-| OPI-25-6-19-LM | PROPIETARIO: | 0.00 M2 | N/A | VALOR VENTA ESTIMADO PROMEDIO CON CONSTRUCCIONES | ED. REMANENTE |
-| OPI-25-6-18-LM | Coyoacán 50, 45640 Santa Cruz de las Flores, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-6-17-LM | Josefa Ortiz de Domínguez 3324, Loma Bonita Ejidal, 45085 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-6-17-LM | Josefa Ortiz de Domínguez 3326, Loma Bonita Ejidal, 45085 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO FACTORIZADO | ED. REMANENTE |
 | OPI-25-6-16-LM | C. Niños Héroes 194 Loca El Zapote 45964 Poncitlan, Jalisco | 2,255.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-6-15-LM | Amado Nervo 322, Ladrón de Guevara, Ladron De Guevara, 44600 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-6-14-AV | Av. Tabachines 3669, Loma Bonita Ejidal, 45589 San Pedro Tlaquepaque, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-6-13-LM | C. Naranjos 107, Rancho El Centinela, 45133 Zapopan, Jal. | 412.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-25-6-12-LM | Av Paseo de la Arboleda 950, Jardines del Bosque, 44520 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-6-11-LM | C. Onix 2614, Victoria, 45089 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-6-10-OF | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-6-10-LM | Maravillas 203, Los Olivos II, Olivos Tlaquepaque, 45601 San Pedro Tlaquepaque, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-6-09-LM | Río de la Plata 2415-5B, Colomos Providencia, 44660 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -221,9 +137,9 @@ C.P. 45645 | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE
 | OPI-25-6-08-OF | Av. Mariano Otero 1592 Depto.4, Rinconada del Sol, 45050 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-6-07-LM | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-6-05-LM | F. J. Haydn 4082, Miravalle, 44990 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-6-04-LM | C. Gigantes 4182, Aldama Tetlán, 44820 Guadalajara, Jal. | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-6-02-OF | PROPIETARIO: | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| No hallado | Cto. Calz. Club Atlas Nte. 465, Club de Golf Atlas, 45693 Las Pintitas, Jal. | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO FACTORIZADO | ED. REMANENTE |
+| OPI-25-6-04-LM | C. Gigantes 4182, Aldama Tetlán, 44820 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-6-02-OF | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| No hallado | Cto. Calz. Club Atlas Nte. 465, Club de Golf Atlas, 45693 Las Pintitas, Jal. | 1,770.98 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | No hallado | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | No hallado | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | No hallado | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -231,9 +147,9 @@ C.P. 45645 | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE
 | OPI-25-5-24-LM | Pelicano 1397-B4, Morelos, 44919 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-5-23-LM | C. Isla Indias 2615, Jardines de La Cruz, 44950 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-5-22-OF | C. 6 de Enero 3485-16, Nuevo México, 45138 Nuevo México, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-5-21- | 12 de Diciembre 171, Chapalita Sur, 45046 Zapopan, Jal. | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-25-5-21- | 12 de Diciembre 171, Chapalita Sur, 45046 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-5-20-OF | Tormenta 758, Jardines del Bosque, 44520 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-5-19-LM | C. San Javier 178, El Campanario, 45234 Zapopan, Jal. | 255.12 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-5-19-LM | C. San Javier 178, El Campanario, 45234 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-5-18-OF | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-5-17-OF | Industria del Plástico 2234, Zapopan Industrial Nte., 45132 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -241,10 +157,10 @@ C.P. 45645 | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE
 | OPI-25-5-15-AV | Cto. Cerro Patiño 133-5B, Vista Reina, 45410, Tonalá, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | No hallado | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-5-14-OF | Lat. Juan Gil Preciado 1153, Arcos de Zapopan, 45130 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-25-5-13-OF | Allen W Lloyd 149, Limon 15, Condominio Del Parque, Chapala | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-5-12-LM | Prol. Av. Guadalupe 1901-Interior 4, Valle de San Nicolás, 45066 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | No hallado | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-5-11-OF | Prol.cuauhtemoc 243, Acatlán de Juárez | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO FACTORIZADO | ED. REMANENTE |
+| OPI-25-5-11-OF | Prol.cuauhtemoc 243, Acatlán de Juárez | 151.25 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-5-10-OF | Sebastián Allende 2237, Jardines Alcalde, 44298 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-5-09-OF | Maquinistas 5821, Col. Artesanos Tlaquepaque | 572.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-5-08-OF | Cerezo 1512, Del Fresno, 44909 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -253,8 +169,8 @@ C.P. 45645 | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE
 | OPI-25-5-05-AV | C. Fresno 181, Lomas del Camichin, 45417 Tonalá, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-5-04-AV | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-5-03-AV | C. Violeta 418-7, San Carlos, 44460 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-25-5-02-OF | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-5-01-LM | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-4-20-AV | Fuente Mayor vialidad condominial Abedul 55 , int 12, etapa 8 , col. Real del Valle | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-4-19-AV | Vialidad Condominial San Miguel 45, Int 298, Alta California, 45645, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-4-18-OF | Av Torremolinos 254-46, Francisco Villa, 45130 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -263,8 +179,8 @@ C.P. 45645 | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE
 | OPI-25-4-15-AV | C. Severo Díaz 218-A, Los Altos, 45520 San Pedro Tlaquepaque, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-4-14-AV | Hilo Amarillo 50, Agujas, Zapopan | 272.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-4-13-AV | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-4-12-AV | PROPIETARIO: | 0.00 M2 | N/A | VALOR VENTA ESTIMADO PROMEDIO CON CONSTRUCCIONES | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-25-4-12-AV | Av. Elementia 116-38, Fraccionamiento Element, 45640 Tlajomulco de Zúñiga, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-4-05-AV | Playa Yelapa Nte. 1075-11, Moctezuma, 45059 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-4-01-AV | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-4-01-AV | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-4-11-AV | Francisco I. Madero 9, Santa Rosa, Tonala | 241.18 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -273,10 +189,10 @@ C.P. 45645 | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE
 | OPI-25-4-08-AV | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-4-07-AV | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-4-06-OF | Cerro Montelargo 204, Fraccionamiento Colinas del Roble, 45650 Colinas del Roble, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-4-04-AV | Privada Agua Azul 77, Santa Anita | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO FACTORIZADO | ED. REMANENTE |
-| OPI-25-4-03-AV | Santo Tomás 1897, Talpita, 44719 Guadalajara, Jal. | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-4-02-AV | Dedal L- 18 M-04, Ahujas, Tesistán | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO FACTORIZADO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-25-4-04-AV | Priv. Agua Azul 77, Ojo de Agua,45600, San Pedro Tlaquepaque. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-4-03-AV | Santo Tomás 1897, Talpita, 44719 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-4-02-AV | Dedal L- 18 M-04, Ahujas, Tesistán | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-3-23-AV | Blvd. Vista Nte. 2507-2N, 45200 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-3-22-AV | PROPIETARIO: | 234.05 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-3-21-AV | Arturo Chaires 1574-302, Paseos del Sol, 45079 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-3-20-AV | C. José Luis Verdía 270, Analco, 44450 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -285,9 +201,9 @@ C.P. 45645 | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE
 | OPI-25-3-17-OF | Manuel Trillo 4441, 44980 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-3-16-AV | Mirasol 60, Arroyo Las Flores, 45530 San Pedro Tlaquepaque, Jal. | 90.23 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-3-15-AV | C. Prudencia 268, La Esperanza (La Federacha ), 44300 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| OPI-25-3-12-AV | PROPIETARIO: | 0.00 M2 | N/A | VALOR VENTA ESTIMADO PROMEDIO CON CONSTRUCCIONES | ED. REMANENTE |
+| OPI-25-3-14-AV | Av. Campo Príncipes 589-37, Campo Real, 45134 Campo Real, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-3-13-AV | Quililla s/n, Col. Sin nombre, Quililla, Jal. | 31,156.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-3-12-AV | Puerto Topolobampo 1072 D-6, Postes Cuates, 44350 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-3-11-AV | C. Liberación 60, La Experiencia, 45198 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-3-10-AV | Remanso de los Alerces 1315, 45188 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-3-09-AV | San Miguel 51, Minerales, Centro, 45693 Las Pintitas, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -299,7 +215,7 @@ C.P. 45645 | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE
 | OPI-25-3-03-AV | C. Primavera Amarilla 1024, Alamo Industrial, 45590 San Pedro Tlaquepaque, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-3-02-AV | PROPIETARIO: | 299.81 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-3-01-AV | Camino a, 4000 Cópala, Jal. | 575.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-25-2-22-AV | P.º de la Montaña 266, Lomas de Santa Anita, 45000 Lomas de Santa Anita, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-2-21-RM | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-2-20-OF | P.º de Los Encinos Pte. 497, Villas de Zapopan, 45133 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-2-19-RM | Sta. Monica 248, El Refugio, 45599 San Pedro Tlaquepaque, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -327,19 +243,18 @@ C.P. 45645 | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE
 | OPI-25-1-31-AV | Josefa Ortiz de Dominguez 365, San Juan de Dios,, Guadalajara | 601.13 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-1-27-AV | Camarena 25, Col. Americana, Guadalajara | 588.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-1-25-AV | Maestranza 5, Centro, Guadalajara | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-1-24-AV | PROPIETARIO: | 0.00 M2 | N/A | VALOR VENTA ESTIMADO PROMEDIO CON CONSTRUCCIONES | ED. REMANENTE |
+| OPI-25-1-24-AV | Maestranza 1, Centro, Guadalajara | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-1-23-AV | José María Morelos 237, Centro, Guadalajara | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-1-22-AV | José María Morelos 245, Centro, Guadalajara | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-1-21-AV | José María Morelos 243, Centro, Guadalajara | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-1-26-AV | C. Maestranza 7, Zona Centro, 44100 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-1-44-AV | Zinapecuaro 10, La Gloria del Colli, Zapopan | 96.96 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-1-43-AV | Fracción 4, Parcela 536 Z1 P1/2, Ejido San Isidro Mazatepec, Tala, Jalisco | 12,699.91 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-1-42-AV | Calle Cuarzo 2380, Bosques de La Victoria, 44540 Guadalajara, Jal., México | 194.51 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-1-41-AV | C. Carlos Arturo Carrillo 615, 5 de Mayo, 44970 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-1-40-AV | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-1-39-AV | Aztecas 112, Lomas del Centinela, Zapopan | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO FACTORIZADO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| OPI-25-1-37-AV | Atotonilco s/n, Int. F-2, Tlajomulco de Zuñiga | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-1-39-AV | Aztecas 112, Lomas del Centinela, 45187 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-1-38-AV | C. Lerdo de Tejada 20, Los Ocampo, 45640 Tlajomulco de Zúñiga, Jal. | 608.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-1-37-AV | Atotonilco s/n, Int. F-2, Tlajomulco de Zuñiga | 20,707.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-1-36-AV | Calle Palma s/n, Hogares de Nuevo México, Zapopan | 96.72 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-1-08-AV | Av. Camino Mozárabe 1342, Coyula, 45410 Coyula, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-1-35-AV | Monte Piscis 283, San Elías, 44240 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -349,7 +264,7 @@ C.P. 45645 | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE
 | OPI-25-1-28-AV | Herrera y Cairo 197, De Santiago, San Pedro Tlaquepaque | 4,559.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-1-20-AV | C. Francisco de Miranda 99, Centro, 45500 San Pedro Tlaquepaque, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-1-19-AV | Zaragoza 53, Centro, San Pedro Tlaquepaque | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-1-18-AV | Calle Matamoros 37, Centro, 45500 San Pedro Tlaquepaque, Jal. | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-25-1-18-AV | Calle Matamoros 37, Centro, 45500 San Pedro Tlaquepaque, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-1-17-AV | Matamoros 100, Centro, San Pedro Tlaquepaque | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-1-16-AV | Matamoros 74, Centro, San Pedro Tlaquepaque | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-1-15-AV | Calle Matamoros 80, Centro, 45500 San Pedro Tlaquepaque, Jal. | 2,501.83 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -357,7 +272,7 @@ C.P. 45645 | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE
 | OPI-25-1-13-AV | C. San Juan 3364, Las Bóvedas, Los Girasoles, Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-1-12-AV | Camino a la Loma 48, Fraccionamiento el Cortijo San Agustín, Tlajomulco de Zúñiga | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-1-11-OF | Valle San Fernando 139, Valle del Mar | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-25-1-10-AV | Privada Guadalajara S/N, Col. Colegio del Aire, Zapopan | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO FACTORIZADO | ED. REMANENTE |
+| OPI-25-1-10-AV | Privada Guadalajara S/N, Col. Jardines del Valle/Los Naranjos, Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-1-09-AV | Vicente Trigo 82, Santa Cruz de las Flores, Jal. | 147.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-1-07-AV | Loma Chica Ote. 320, Lomas de San Agustin, 45650 Nicolás R Casillas, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-25-1-06-OF | C. Adalberto Dumbo Lopez 464, Parques de la Victoria, 45638 San Pedro Tlaquepaque, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -369,7 +284,7 @@ C.P. 45645 | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE
 | OPI-24-12-07-AV | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-12-07-AV | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-12-15-AV | Bosque de Mazamitla 78-9, Los Olivos, 45601 San Pedro Tlaquepaque, Jal.                                                                                                           | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-24-12-19-OF | Av. los Pinos 750, La Venta del Astillero, Jal. | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-12-19-OF | Av. los Pinos 750, La Venta del Astillero, Jal. | 370.84 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-12-18-AV | PROPIETARIO: | 184.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-12-17-AV | Agua Zarca 61, Valle Esmeraldal, 45138 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-12-16-AV | Carretera Tlajomulco Buenavista km4 #5020. C.P. 45640 | 4,420.69 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -378,7 +293,7 @@ C.P. 45645 | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE
 | OPI-24-12-12- | Ahuehuete 1950, Paraísos del Colli, 45069 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-12-11-AV | Arcos 118, La Ladrillera, 45619 San Pedro Tlaquepaque, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-12-10-AV | C. Rio Tula 2665, Colinas de las Águilas, 45608 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-24-12-09-AV | Av Cerro Gordo 2096, Las Águilas, 45080 Zapopan, Jal. | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO FACTORIZADO | ED. REMANENTE |
+| OPI-24-12-09-AV | Av Cerro Gordo 2096, Las Águilas, 45080 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-12-08-AV | Juanacatlán, Tapalpa | 3,000.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-12-06-AV | Calle Gabriel Ramos Millán 646, Santa Teresita, 44200 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-12-05-AV | Carr. a Saltillo 1884, Benito Juárez, 45199 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -388,7 +303,7 @@ C.P. 45645 | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE
 | OPI-24-12-01-OF | Jericó, Lomas de La Soledad,  Tonalá | 210.46 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-11-39-AV | C. Juzgado S/N, Cerro de la Reyna, Tonalá, Jalisco. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-11-38-AV | Del Pájaro de Fuego 254, Chapala Haciendas, 45946 Chapala Haciendas, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-24-11-37-AV | Santa Catalina 39, Paseos de la Hacienda, 45654, Tlajomulco de Zúñiga, Jal. | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-11-37-AV | Santa Catalina 39, Paseos de la Hacienda, 45654, Tlajomulco de Zúñiga, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-11-36-AV | PROPIETARIO: | 497.76 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-11-34-AV | Av. Fidel Velazquez 1523, Fabrica de Atemajac, 44218 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-11-33-AV | La Giralda 2653-502, Victoria, 45089 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -396,9 +311,8 @@ C.P. 45645 | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE
 | OPI-24-11-31-AV | Cuervo 137, Pinar de Las Palomas, 45406 Tonalá, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-11-30-OF | Río Juchitlan 74, Atlas, 44870 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-11-29-OF | Guayabo 2040, Paseo del Prado, Paseos Del Prado, 45613 Paseo del Prado, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-24-11-28-OF | Juarez 92, Cuitzeo, Poncitlan | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO FACTORIZADO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| OPI-24-11-26-OF | C. Álvaro Obregón 930, Oblatos, 44380 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-11-28-OF | Juarez 92, Cuitzeo, Poncitlan | 458.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-11-27-OF | Morelos 165, Centro, 47800 Ocotlán, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-11-25-OF | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-11-24-AV | Circuito Valle del Crisantemo L-12 M03, Valle de Coyula, Tonalá | 179.81 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-11-23-AV | Circuito Valle del Crisantemo L-11 M03, Valle de Coyula, Tonalá | 282.57 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -408,11 +322,11 @@ C.P. 45645 | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE
 | OPI-24-11-20-OF | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-11-19-OF | C. Turquesa 3358-4B, Residencial Victoria, 44535 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-11-18-OF | Av. Patria 66-3D, Villas de Oriente I, 45403 San Pedro Tlaquepaque, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-24-11-17-OF | P.º Altanza 2132 int. 219, Soaré III, 45019, Zapopan, Jal. | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-24-11-17-OF | P.º Altanza 2132 int. 219, Soaré III, 45019, Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-11-16-OF | Priv. Emiliano Zapata, 45672 Zapote del Valle, Tlajomulco | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-11-15-OF | C. Virgen 5382-L1, Arboledas, 45070 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-11-14-AV | PROPIETARIO: | 490.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-24-11-13-AV | V. Dávalos 285, Villa Hermosa, 44948 Guadalajara, Jal. | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-11-13-AV | V. Dávalos 285, Villa Hermosa, 44948 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-11-12-AV | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-11-11-AV | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-11-10-OF | Rio Petén 445-78, Albaterra, 45200 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -429,10 +343,9 @@ C.P. 45645 | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE
 | OPI-24-10-29-AV | Cobalto 3042, El Rastro, 44940 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-10-28-AV | C. Loma Escondida 24, Lomas de La Soledad, 45403 Tonalá, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-10-27-AV | Carr. Guadalajara-La Barca lote 3 Manzana 52 Zona 0, San Jacinto, Poncitlán, Jalisco | 703.80 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-24-10-26-AV | C. José Enrique Rodó 2998, Prados Providencia, 44670 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-10-25-AV | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-24-10-25-AV | PROPIETARIO: | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO FACTORIZADO | ED. REMANENTE |
-| OPI-24-10-24-OF | Centauro 4343, Arboledas,  Zapopan | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO FACTORIZADO | ED. REMANENTE |
+| OPI-24-10-25-AV | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-10-24-OF | Centauro 4343-4, Arboledas, 45079 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-10-23-AV | Cto. Jardines del Vergel 120, El Vergel, 45595 San Pedro Tlaquepaque, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-10-22-AV | C. Valle 153, Campo Verde, 48290 Puerto Vallarta, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-10-21-AV | Fuente Ovejuna 100, Villa Fontana, 45615 San Pedro Tlaquepaque, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -447,8 +360,8 @@ C.P. 45645 | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE
 | OPI-24-10-14-AV | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-10-14-AV | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-10-13-AV | Las Flores 19, Lomas de Tabachines, 45185 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| No hallado | El Pandito, Mazamitla | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO FACTORIZADO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| No hallado | El Pandito, Mazamitla | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-10-11-AV | Av. San Blas 2544-3, Parques Santa Cruz del Valle, 45615, Tlaquepaque, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-10-10-AV | Valle de San Agustin 1717, Vistas de Valle, 45400, Tonalá, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-10-09-AV | Valle de los Zenzontles 2685, Jardines del Valle, 45138 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-10-08-AV | C.9 133, Seattle, 45150 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -458,12 +371,9 @@ C.P. 45645 | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE
 | OPI-24-10-04-AV | Manantial 18, Agua Fría, Zapopan | 146.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-10-03-AV | C. Puerto Chamela 2835, Miramar, 45060 Zapopan, Jal. | 235.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-10-02-AV | C. Río Blanco 1590-225, Parques Tesistán III 45200 Tesistán, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-24-10-01-AV | Av. Valentín Vidrio Arce 1207, Valle de los Molinos, 45200 Valle de los Molinos, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-9-28-AV | Av. Aguilillas 135, Ixtlahuacán de los Membrillos | 853.18 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-9-27-OF | Benito Juárez 2, Santa Paula, 45420 Tonalá, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-24-9-26-AV | Calle zenzontle # 20
-Colonia LA Graja
-Zapopan | 176.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-9-25-AV | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-9-24-AV | C. Esteban Alatorre 3347, Lagos de Oriente, 44770 Guadalajara, Jal. | 237.05 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-9-23-AV | C. Nueva Galicia 898, Zona Centro, 44100 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -474,8 +384,8 @@ Zapopan | 176.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANE
 | OPI-24-9-18-AV | Jardines Tapatíos 14, Lomas de La Primavera, Colinas de la Primavera, 45065 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-9-17-AV | C. Hermandad 46, La Huizachera, 45690 Las Pintas, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | No hallado | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| No hallado | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| No hallado | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-9-15-AV | Paseo de los Apeaderos156-3, Francisco Villa, 45132 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-9-14-AV | Av. Gobernador Curiel 2980, Zona Indutrial , Guadalajara | 7,317.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-9-13-AV | Morelos 7, El Tabardillo, Mazamitla, Jalisco | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -484,9 +394,9 @@ Zapopan | 176.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANE
 | OPI-24-9-10-AV | Sta. Margarita 1346, Belisario Domínguez, 44329 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-9-09-OF | Río de la Plata 2561-301, Colomos Providencia, 44660 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-9-08-OF | Prol. González Gallo 1300-67, Coto Arezzo 45601 San Pedro Tlaquepaque, Jal., México | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-24-9-07-OF | 2951 depto 6 col. Colomos  Providencia | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO FACTORIZADO | ED. REMANENTE |
+| OPI-24-9-07-OF | Brasilia 2951-302, Colomos Providencia, 44660 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-9-06-OF | C. Damián Carmona 1771, San Martin, 44719 Guadalajara, Jal. | 174.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-24-9-05-AV | PROPIETARIO: | 0.00 M2 | N/A | VALOR VENTA ESTIMADO PROMEDIO CON CONSTRUCCIONES | ED. REMANENTE |
+| OPI-24-9-05-AV | C. José María Canal 4871, Lomas del Paraíso II, 44250 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-9-04-OF | Plomo 3054, Zona Industrial Sur, 44940 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-9-03-AV | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-9-02-AV | Cvln. Sur 300 int. 12, Las Fuentes, 45070 Zapopan | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -505,10 +415,10 @@ Zapopan | 176.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANE
 | OPI-24-8-16-OF | Calzada Nte 33-L26B, Granja, 45010 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-8-15-AV | Santa María 17,  Coto 12 Coronado,  Alta California Residencial 45645 Tlajomulco de Zúñiga, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-8-14- | Jazmín 139, Fracc. Los Cerritos, El Fortín, Zapopan | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-24-8-13-AV | San Miguel 21-8, Marcelino García Barragán, 45134 Nuevo México, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-8-12-AV | Santo Domingo 1824, A3-D, Lomas del Bosque, Uag, 45140 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-24-8-11-AV | C. A las Montañas 111, Vallarta la Patria, 45020 Zapopan, Jal. | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-24-8-11-AV | C. A las Montañas 111, Vallarta la Patria, 45020 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-8-10-AV | Francisco Murguía 58, Centro, 47910 La Barca, Jal. | 225.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-8-09-AV | Loma Alta 76, Lomas de San Luis,  La Barca, Jal. | 192.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | No hallado | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-8-07-AV | Cálle Paloma 120 San José Residencial 45654 Tlajomulco de Zúñiga, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -518,10 +428,9 @@ Zapopan | 176.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANE
 | OPI-24-8-04-OF | Libertad 30A, De Los Camichines, 45750 Zacoalco de Torres, Jal. | 637.50 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-8-03-AV | C. Fuente de la Alianza 325, Villa Fontana, 45615 San Pedro Tlaquepaque, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-8-02-AV | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-24-8-01-OF | PROPIETARIO: | 353.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-7-28-AV | C. Hebron 4148, El Bethel, 44720 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-7-27-AV | Félix Palavicini 306, 27 de Septiembre, 45180 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-24-7-26-AV | Santa Clara Nte 45 L102, Misión San Francisco, San Pedro Tlaquepaque | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-7-25-AV | Nicolás Puga 38, Arcos Sur, 44130 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | No hallado | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-7-24-AV | Aldous Huxley 5439
@@ -531,9 +440,9 @@ Vallarta Universidad, Zapopan | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO P
 | OPI-24-7-22-AV | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-7-21-OF | Brasilia 2576, Colomos Providencia, Zapopan | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-7-20-AV | C. Rcda. de Cáceres 1412, La Alameda, 45079 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| OPI-24-7-19-AV | PROPIETARIO: | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO FACTORIZADO | ED. REMANENTE |
-| OPI-24-7-18-AV | San Rafael 160, 45134, Zapopan | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO FACTORIZADO | ED. REMANENTE |
+| OPI-24-7-19-AV | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-7-19-AV | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-7-18-AV | San Rafael 160, 45134, Zapopan | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-7-17-AV | Fosforita 20, San Andrés, 44810 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | No hallado | C. Catalina 4, Salvador Portillo López, 45580 San Pedro Tlaquepaque, Jal. | 151.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | No hallado | PROPIETARIO: | 200.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -542,9 +451,9 @@ Vallarta Universidad, Zapopan | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO P
 | OPI-24-7-12-AV | C. Francisco Zarco 351, Artesanos, 44200 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-7-11-AV | Tormenta 819, Jardines del Bosque, 44520 Guadalajara, Jal | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-7-10-AV | Blvd. Paseo del Origen 600 L-131, 45655 Bosque Real, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| OPI-24-7-07-OF | Calle Camino Real 1349-30, Rancho Blanco, 45560 Guadalajara, Jal. | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-7-09-OF | Av. Mexico 3525-C6, Juan Manuel Vallarta, interior C6 edificio, Argentina, 45120 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-7-08-OF | San Andrés 162, los Cajetes, Zapopan | 220.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-7-07-OF | Calle Camino Real 1349-30, Rancho Blanco, 45560 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | No hallado | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | No hallado | Sevilla 634, Nueva España, 45186 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-7-05-OF | Felipe Angeles 184, Santos Degollado, Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -556,11 +465,10 @@ Vallarta Universidad, Zapopan | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO P
 | OPI-24-6-33-OF | Paseo de los Cocoteros 172 int 405 y 406, Flamingos, 63735 Las Jarretaderas, Nay. | 500.00 M2 | No hallado | VALOR DE RENTA TRADICIONAL ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-6-32-OF | Sendero de las Laderas 43 Coto 5 L-43, Senderos de Monte Verde, 45646 Tlajomulco de Zúñiga, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-6-31-OF | Loma Cherán Pte. 354, Loma Dorada Delegación D, 45418 Tonalá, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| OPI-24-6-28-OF | PROPIETARIO: | 622.16 M2 | N/A | VALOR VENTA ESTIMADO PROMEDIO CON CONSTRUCCIONES | ED. REMANENTE |
+| OPI-24-6-30-OF | Av. San Blas 2545-20 Santa Cruz del Valle 45615 Tlaquepaque, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-6-29-OF | 5 de Mayo 1371, 45600 Santa Anita, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-6-28-OF | PROPIETARIO: | 622.16 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-6-27-OF | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-24-6-26-OF | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-6-25-OF | Etzatlán 233, Rancho de La Cruz, Coyula, 45405 Coyula, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-6-24-OF | Av. Isla Gomera 4050 y 4054, 44987 Guadalajara, Jal. | 222.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-6-23-OF | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -568,9 +476,9 @@ Vallarta Universidad, Zapopan | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO P
 | OPI-24-6-21-OF | Prolongación La Calma 127-1 Colonia Agrícola Zapopan Jalisco CP 45236 | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-6-20-OF | Lote 73,el Roble, zapopan | 5,000.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-6-19-OF | Ignacio Allende , Los Puestos, 45638 San Pedro Tlaquepaque, Jal. | 129.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-24-6-18-OF | Ignacio Allende , Los Puestos, 45638 San Pedro Tlaquepaque, Jal. | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO FACTORIZADO | ED. REMANENTE |
-| OPI-24-6-17-OF | Manuel R. Alatorre 3613-L09, Vistas del Nilo | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO FACTORIZADO | ED. REMANENTE |
-| OPI-24-6-16-OF | PROPIETARIO: | 500.00 M2 | N/A | VALOR VENTA ESTIMADO PROMEDIO CON CONSTRUCCIONES | ED. REMANENTE |
+| OPI-24-6-18-OF | Ignacio Allende , Los Puestos, 45638 San Pedro Tlaquepaque, Jal. | 129.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-6-17-OF | And. Manuel R. Alatorre 3613, Vistas del Nilo, 44820 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-6-16-OF | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-6-15-OF | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-6-14-OF | C. Puerto Yavaros 360, Monumental, 44320 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-6-13-OF | Privada San Isidro 5 Lomas del Centinela 45187 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -579,9 +487,9 @@ Vallarta Universidad, Zapopan | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO P
 | OPI-24-6-10-EK | Martin Luis Gzn. 109, Francisco Villa, 45402 Tonalá, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-6-09-EK | C. Valle De San José 1050-32, Fraccionamiento Real del Valle, 45653 Tlajomulco de Zúñiga, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-6-08-OF | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| OPI-24-6-06-OF | C. California 209, Mision Capistrano, Zapopan | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-24-6-05-OF | Isla Antigua 3490 int 12, Jardines del Sur | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO FACTORIZADO | ED. REMANENTE |
+| No hallado | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-6-06-OF | C. California 209, Mision Capistrano, Zapopan | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-6-05-OF | C. Isla Antigua 3490-12, Jardines de San José, 44956 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-6-04-OF | Av. Plutarco Elías Calles 846-int 12, Cuauhtémoc, 44750 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-6-03-OF | Presa Sanalona 975, Hermosa Provincia, 44770 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-6-02-EK | Circuito 1 poniente 14, Prados de Atequiza, Atequiza | 120.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -590,8 +498,7 @@ Vallarta Universidad, Zapopan | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO P
 | OPI-24-6-01-EK | Efraín González Luna 142, Atequiza | 343.11 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-6-01-EK | Efraín González Luna 142, Atequiza | 6,098.11 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-5-27-EK | Benigno Canto 4131, Rancho Nuevo, 44240 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-24-5-26-EK | 6 de Enero 6587, Centro, 45690 Las Pintas, Jal. | 114.10 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO FACTORIZADO | ED. REMANENTE |
-| No hallado | PROPIETARIO: | 500.00 M2 | N/A | VALOR VENTA ESTIMADO PROMEDIO CON CONSTRUCCIONES | ED. REMANENTE |
+| OPI-24-5-25-EK | Sor Juana Inés de la Cruz 47, 45600 Santa Anita, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-5-24-EK | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-5-23-EK | Calle Cto. San Isidro 106, 45130 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-5-22-EK | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -600,9 +507,9 @@ Vallarta Universidad, Zapopan | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO P
 | OPI-24-5-19-EK | P.º del Sabino 434, Centinela I, 45187 Zapopan, Jal. | 93.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-5-18-EK | C. Gabino Barreda 4903, Loma Bonita Ejidal, 45085 Zapopan, Jal. | 162.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-5-17-EK | C. Juan R. Zavala 561, San Juan Bosco, 44360 Guadalajara, Jal., México | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| OPI-24-5-14-EK | C. Ignacio Machain 867, Talpita, 44719 Guadalajara, Jal. | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-5-16-EK | C. Gigantes 1212, La Penal, 44380 Guadalajara, Jal. | 200.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-5-15-EK | Marina Vallarta 972, Santa Margarita1a Secc., 45140 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-5-14-EK | C. Ignacio Machain 867, Talpita, 44719 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | No hallado | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | No hallado | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-5-13-EK | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -612,8 +519,8 @@ Vallarta Universidad, Zapopan | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO P
 | OPI-24-5-10-EK | Aeromexico 2, Minerales, Lomas del Aeropuerto, 45692 Las Pintitas, Jal. | 92.87 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-5-09-EK | C. San Pablo 2162, Talpita, 44710 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-5-07-EK | Real de Los Limones 773, Camichines, 45525 San Pedro Tlaquepaque, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-24-5-06-EK | C. Cuauhtémoc 68, Centro, 45640 San Sebastián el Grande, Jal. Tlajomulco | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-5-05-OF | Jimador 200-130, Paseo de los Agaves, 45675 El Capulín, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-5-04-EK | Av. González Gallo 1826- 18  Los Olivos II, Olivos Tlaquepaque, 45601 San Pedro Tlaquepaque, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-5-03-OF | PROPIETARIO: | 1,050.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-5-02-EK | Antigua Carretera a Chapala 6637, Valle de La Misericordia, 45615 Las Pintas, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -623,9 +530,9 @@ Vallarta Universidad, Zapopan | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO P
 | OPI-24-4-20-EK | C. Puerto Melaque 131, Miramar, 45060 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-4-19-EK | La limonera 18 San Luis Soyatlan | 511.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-4-18-EK | PROPIETARIO: | 120.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-24-4-17-EK | De los bosques 1359-M1 Zimalta Fraccionamiento Tlaquepaque Jalisco | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-4-17-EK | De los bosques 1359-M1 Zimalta Fraccionamiento Tlaquepaque Jalisco | 127.99 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-4-16-EK | Blvd. Vista Nte. 2855 int 2-C 45200 Tesistán, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| No hallado | PROPIETARIO: | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO FACTORIZADO | ED. REMANENTE |
+| No hallado | PROPIETARIO: | 393.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-4-14-EK | Calz. Revolución 152, Analco, 44450 Guadalajara, Jal. | 62.71 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-4-13-EK | 
 Calz del Federalismo Nte 3495-103, La Palmita, 45190 Zapopan, Jal., México | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -636,8 +543,8 @@ Calz del Federalismo Nte 3495-103, La Palmita, 45190 Zapopan, Jal., México | 50
 | OPI-24-4-08-EK | PROPIETARIO: | 10,320.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-4-07-EK | Calle Antonio Bravo 416, Barragán Hernández, 44469 Guadalajara, Jal. | 280.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-4-06-EK | Av. Hacienda Juchipila 7, Villas de la Hacienda, 45654 Villas de la Hacienda, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| OPI-24-4-04-EK | Cerezo 42, La Coronilla, 45189 Zapopan, Jal. | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-4-05-EK | Ediificio 23 departamento 1 Col Fovissste Zapopan Jal | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-4-04-EK | Cerezo 42, La Coronilla, 45189 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-4-03-OF | Ocotlan 167, Jalisco I Secc, 45412 Tonalá, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-4-02-EK | Priv. Margaritas 16, Praderas de San Antonio, 45138 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-4-01-EK | Roberto Núñez 3338, López Portillo, 44970 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -647,7 +554,7 @@ Calz del Federalismo Nte 3495-103, La Palmita, 45190 Zapopan, Jal., México | 50
 | No hallado | PROPIETARIO: | 308.13 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-3-22-EK | Rubi 4509, Balcones de la Cantera, 45186 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-3-21-EK | Rubi 4511, Balcones de la Cantera, 45186 Zapopan, Jal. | 70.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-24-3-20-EK | PROPIETARIO: | 500.00 M2 | N/A | VALOR VENTA ESTIMADO PROMEDIO CON CONSTRUCCIONES | ED. REMANENTE |
+| OPI-24-3-20-EK | C. P.º de Las Limas 2700, Tabachines, 45188 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-3-18-EK | Sor Juana Ines de la Cruz S/N Col. Atotonilquillo Chapala Jalisco | 2,396.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-3-17-EK | Nopalera S/N Atotonilquillo Chapala jalisco | 1,628.30 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-3-16-EK | C. Rayón 406-A4, Americana, 44160 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -658,7 +565,7 @@ Calz del Federalismo Nte 3495-103, La Palmita, 45190 Zapopan, Jal., México | 50
 | OPI-24-3-11-EK | Independencia 144, A Santa María Tequepexpan, 45601 San Pedro Tlaquepaque, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-3-10-OF | Gabrielle D'annunzio 6182, Lomas Universidad, Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-3-09-EK | Salamanca 870, El Mirador, 45629 San Pedro Tlaquepaque, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-24-3-08-EK | Xicoténcatl 258, Cd del Sol, 45050 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-3-07-EK | Av Conchita 4609 Dpto. 10  Lomas de La Victoria, 45607 San Pedro Tlaquepaque, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-3-06-EK | PROPIETARIO: | 353.17 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-3-05-EK | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -668,8 +575,7 @@ Calz del Federalismo Nte 3495-103, La Palmita, 45190 Zapopan, Jal., México | 50
 | OPI-24-3-01-OF | PROPIETARIO: | 14,400.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-3-01-OF | PROPIETARIO: | 33,000.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-3-01-OF | PROPIETARIO: | 60,000.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-24-3-01-OF | PROPIETARIO: | 107,400.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-2-25-EK | Jesús Acal I. 2819, San Isidro, 44740 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-2-24-EK | Luis Aguirre 3916, Heliodoro Hernández Loza, 44720 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-2-23-EK | Andres Breton 158 Miravalle | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -681,8 +587,8 @@ Calz del Federalismo Nte 3495-103, La Palmita, 45190 Zapopan, Jal., México | 50
 | OPI-24-2-17-EK | Cedro Nte. 642-6, Tlaquepaque, 45610 San Pedro Tlaquepaque, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-2-16-EK | San Melchor 1322, Santa María, 44350 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-2-15-EK | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-24-2-14-EK | C. De las Gardenias 100, Tesistan, 45100 Tesistán, Jal. | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO FACTORIZADO | ED. REMANENTE |
-| OPI-24-2-13-OF | PROPIETARIO: | 500.00 M2 | N/A | VALOR VENTA ESTIMADO PROMEDIO CON CONSTRUCCIONES | ED. REMANENTE |
+| OPI-24-2-14-EK | C. De las Gardenias 100, Tesistan, 45100 Tesistán, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-2-13-OF | Av Valle de San Isidro 61, Villas de Zapopan, 45133 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-2-12-EK | República de Honduras 32, Colonial Tlaquepaque, 45570 San Pedro Tlaquepaque, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-2-11-EK | Prol. Pino Suárez 1127, Unidad Abastos, 45140 Zapopan, Jal. | 1,618.51 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-2-10-EK | Edgar Degas 4169, Miravalle, 44990 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -693,18 +599,17 @@ Calz del Federalismo Nte 3495-103, La Palmita, 45190 Zapopan, Jal., México | 50
 | OPI-24-2-06-EK | San Gabriel 2952-4, Jardines del Bosque, 44520 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-2-05-EK | Marcos Lara 41, Santa Paula, 45420 Tonalá, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-2-04-EK | Paseo San Juan de Aragon 154 Fracc. Tres Reyes Cajititlan | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-24-2-03-EK | Matamoros 110, San José del Quince, El Quince, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-2-02-EK | Río Tajo 2271, Bosques del Boulevard, 44899 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-2-01-OF | Alejandrina 2803, Residencial Victoria, 45060 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-1-05-OF | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-1-05-OF | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-1-28-OF | Marcos Castellanos 47, 45920 Ajijic, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-1-27-EK | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-1-27-EK | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-24-1-26-EK | Sor Juana Inés de La Cruz 1345, La Coronilla, 45189 Zapopan, Jal. | 375.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-24-1-25-OF | Arco Juliano 1498, Arcos de Zapopan, 45130 Zapopan, Jal. | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-1-25-OF | Arco Juliano 1498, Arcos de Zapopan, 45130 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-1-24-OF | Emiliano Zapata 245, 45200 Ejido Copalita, Jal. | 283.35 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-24-1-23-OF | PROPIETARIO: | 590.92 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-1-22-OF | C. Albatros 209, Área Militar de Vallarta, 48450 Puerto Vallarta, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-1-21-OF | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-1-20-OF | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -716,8 +621,8 @@ Calz del Federalismo Nte 3495-103, La Palmita, 45190 Zapopan, Jal., México | 50
 | OPI-24-1-15-OF | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-1-14-OF | Colinas de Foyedo 16, Colinas del Desarrollo, 45640, El Cortijo, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-1-13-OF | Sierra Alta 134, 45653 Hacienda Santa Fe, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| OPI-24-1-11-OF | Puerto Madero 37, Miramar, 45060 Zapopan, Jal. | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-1-12-OF | Anastacio Barajas Carrión 21, Lomas del Vergel, La Martinica,  Zapopan | 238.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-24-1-11-OF | Puerto Madero 37, Miramar, 45060 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-1-10-OF | C. Climene 361, Lomas de Independencia, 44240 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-1-09-OF | De Las Magnolias 191, Bugambilias, 45238 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-1-08-OF | C. Físicos 3411, Lagos de Oriente, 44770, Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -727,18 +632,17 @@ Calz del Federalismo Nte 3495-103, La Palmita, 45190 Zapopan, Jal., México | 50
 | OPI-24-1-03-OF | Calz. Lázaro Cárdenas 3071 Int 402 E, Chapalita, 44900 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-1-02-OF | Av. Aviación 4055 Int. 2 Condominio Salermo 45019 Zapopan, Jal | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-24-1-01-OF | Nacionalismo 200, 20 de Noviembre, 45416 Tonalá, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| No hallado | Limon 1418, Col. del Fresno | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| No hallado | Limon 1418, Col. del Fresno | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | No hallado | PROPIETARIO: | 120.39 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-12-29-OF | Marina Mazatlán 754-10, Santa Margarita 45140 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-12-28-OF | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-12-27-OF | C. Secoya 3136, Arboledas del Sur, Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-23-12-26-OF | Pirul 1932, Del Fresno, 44900 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-12-25-OF | Calz Federalistas 2078, Jardines del Valle, 45138 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-12-24-OF | Felipe López 3876, 44986 Guadalajara, Jal. | 117.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-12-23-OF | Rancho los Portales 3900, Torre F -203, Hacienda de Vidrio | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-12-22-OF | Av. Fray Angélico 4469, Miravalle, Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-23-12-21-OF | Av. Fray Angélico 4475, Miravalle, Guadalajara, Jal. | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-23-12-21-OF | Av. Fray Angélico 4475, Miravalle, Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-23-12-20-OF | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-12-19-OF | P.º de las Damas 29, Paseos del Briseño, 45236 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-12-18-OF | PROPIETARIO: | 1,830.62 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-12-17-OF | Felipe Lopez 6, Polanquito, Guadalajara | 121.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -747,10 +651,10 @@ Calz del Federalismo Nte 3495-103, La Palmita, 45190 Zapopan, Jal., México | 50
 | OPI-23-12-14-OF | C. Brillante 924, 926 y 928, El Retiro, 44270 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-12-13-OF | C. Francisco Martin del Campo 527, Jardines Alcalde, 44298 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-12-12-OF | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-23-12-11-OF | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-12-10-OF | Grulla 12, Las Arboledas, 52957 Cdad. López Mateos, Méx., México | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-23-12-09-OF | Calle Dia 2566, Jardines del Bosque, 44520 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-23-12-08-OF | Constituyentes 110 int 433, Constitución Zapopan | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-12-07-OF | Coyula 24, Coyula, 45410 Coyula, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-12-06-OF | Tabachines lote 15 mz 4, Jardines de la Paz, Ixtlahuacán del Río | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-12-05-OF | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -761,8 +665,8 @@ Calz del Federalismo Nte 3495-103, La Palmita, 45190 Zapopan, Jal., México | 50
 | OPI-23-11-14-OF | PROPIETARIO: | 986.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-11-13-OF | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-11-12-OF | Av Federalistas 1994-49, La Cima, 45134 Nuevo México, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-23-11-11-OF | Satélite Nte. 79-12, Real del Sol, 45654 Villas de la Hacienda, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-23-11-10-OF | C. del Jornalero 75, Emiliano Zapata, 45412 Tonalá, Jal. | 122.09 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-11-09-OF | Turmalina 2893, Victoria, 45089 Zapopan, Jal.                                                                                                                 | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-11-08- | PROPIETARIO: | 1,388.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-11-07-OF | Av. Nicolás Copérnico 943A local 2, Atlas Chapalita, Zapopan | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -774,7 +678,6 @@ San Pedro, Tlaquepaque, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO
 | OPI-23-11-02-OF | Cuarta Poniente Int. Circuito Virreinal 293, Altezza Residencial 45136 Nuevo Mexico, Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-11-01-OF | Blvd. Senderos de Monteverde 77-24 Senderos de Monteverde 45646 Tlajomulco de Zúñiga | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-10-27-OF | Orquidea 3159, Loma Bonita Ejidal, Tlaquepaque | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-23-10-26-OF | San Eugenio 32, 45654 Fraccionamiento Real del Valle, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-10-25-OF | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | . | Paseo del Anochecer 418- 99 Solares | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-10-23-OF | Av Torremolinos 3500 Torre Urce Int 903-U Cañadas San Lorenzo 45130 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -785,10 +688,10 @@ San Pedro, Tlaquepaque, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO
 | OPI-23-10-18-OF | Av. Bellas Artes 326, Miravalle, 44970 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-10-17-OF | Calle Cto. San Isidro 61, 45130 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-10-16-OF | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-23-10-15-OF | Lázaro Cárdenas 26, Santa Paula, 45420 Tonalá, Jal. | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-23-10-15-OF | Lázaro Cárdenas 26, Santa Paula, 45420 Tonalá, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-10-14-OF | Miguel Hernandez 32, Junta de los Ocotes | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-10-13-OF | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-23-10-12-OF | Sta. Barbara 1043, Margarita Maza de Juárez, 44300 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-10-11-OF | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-10-10-OF | Río Maruata 1437,  Paseos de Santiago, Tonalá | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-10-09-OF | Del Cocinero 1492, Artesanos, 45598 San Pedro Tlaquepaque, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -800,20 +703,19 @@ San Pedro, Tlaquepaque, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO
 | No hallado | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | No hallado | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-10-04-OF | Niño Artillero 188, Plan de Oriente Tlaquepaque | 1,495.89 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| OPI-23-10-02-OF | San Francisto 40, coto Villa Franca, La Moraleja,   Zapopan | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO FACTORIZADO | ED. REMANENTE |
+| OPI-23-10-03-OF | Gabriel Ruiz 1980, Santa Cecilia | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-23-10-02-OF | San Francisto 40, coto Villa Franca, La Moraleja,   Zapopan | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-10-01-OF | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-9-30-OF | Paseo de la Arboleda 04, Bosques de la Vicctoria | 250.02 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-9-29-OF | Av Mezquitan 74, Arroyo Hondo, 45130 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-9-28-OF | Pedro Parra Centeno 120, Tlajomulco Centro | 1,786.60 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-9-27-OF | Nuez 138 Int. 41, Infonavit Río Nilo, 45403 San Pedro Tlaquepaque, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-23-9-26-OF | Pintores 516, Artesanos, Tlaquepaque | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | No hallado | PROPIETARIO: | 78.85 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| OPI-23-9-23-OF | Pond 2939, 18 de Marzo, 44960 Guadalajara, Jal. | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-23-9-24-OF | C. La Paz 202, La Llave, 45615 San Pedro Tlaquepaque, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-23-9-23-OF | Pond 2939, 18 de Marzo, 44960 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-23-9-22-OF | PROPIETARIO: | 12,225.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-23-9-21-OF | PROPIETARIO: | 282.57 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-23-9-20-OF | Cuarta Poniente. Circuito Virreinal 287, Alteza Residencial 45136 Nuevo Mexico, Zapopan, Jal | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-9-19-OF | Plan de Guadalupe 3237, Revolución, 45580 San Pedro Tlaquepaque, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-9-18-OF | PROPIETARIO: | 482.72 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-9-17-OF | Agustín Rivera 229, 45600 Santa Anita, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -823,9 +725,9 @@ San Pedro, Tlaquepaque, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO
 | OPI-23-9-14-OF | Alameda 589, El Calvario, 48290 Puerto Vallarta, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-9-13-OF | Volcán Ajusco 1809, Colli Urbano, 45070 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-9-12-OF | Monte Everest 1237, Independiencia Oriente Guadalajara | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| OPI-23-9-09-OF | PROPIETARIO: | 500.00 M2 | N/A | VALOR VENTA ESTIMADO PROMEDIO CON CONSTRUCCIONES | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-23-9-10-OF | C. P.º de Los Almendros 2282, Tabachines, 45188 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-23-9-09-OF | Jardin del Sauz 93, Coto 2 Jardin Real, Zapopan, Jal | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-23-9-08-OF | C. Volcán Ajusco 1811, Colli Urbano, 45070 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-9-07-OF | PROPIETARIO: | 218.75 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-9-06-OF | Calz de los Fresnos 157, Granja, 45010 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-9-05-OF | Condominio Leylandi 38-A Int. 9 San José del Castillo, Jalisco | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -834,12 +736,11 @@ San Pedro, Tlaquepaque, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO
 | OPI-23-9-02-OF | Indígena 4225, Mesa Colorada Poniente | 524.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-9-01-OF | C. Colorín 200, Minerales, San José del Quince, 45694 Las Pintitas, Jal., México | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-8-32-OF | Ciruelos 4, La Arboleda, Zapopan | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-23-8-31-OF | Séptima Sur 5669, Nuevo Mexico, 45138 Nuevo México, Jal. | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO DEL EDIFICIO COMO 1 UNIDAD | ED. REMANENTE |
+| OPI-23-8-31-OF | Séptima Sur 5669, Nuevo Mexico, 45138 Nuevo México, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO DEL EDIFICIO COMO 1 UNIDAD | ED. REMANENTE |
 | OPI-23-8-30-OF | Arquitectos Nte. 905, Jardines del Tepeyac, 45030 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-8-29-OF | C. Agricultores 5275, Jardines de Guadalupe, 45030 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-23-8-28-OF | La Mezquitera | 30,000 m2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-8-27-OF | 15 de Enero 542, El Vergel, 45598 San Pedro Tlaquepaque, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-23-8-26-OF | PROPIETARIO: | 225.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-8-25-OF | Aquiles Serdan 318, Santa Anita | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-8-24-OF | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-8-23-OF | Gaspar Perez 3, Villas de Guadalupe, 45189 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -847,10 +748,10 @@ San Pedro, Tlaquepaque, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO
 | OPI-23-8-21- | C. Priv. la Giralda 2653, La Giralda, 45088 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-8-20-OF | Real De Magnolias 1732 86-2, Camichines Tonala | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-8-19-OF | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| No hallado | PROPIETARIO: | 500.00 M2 | N/A | VALOR VENTA ESTIMADO PROMEDIO CON CONSTRUCCIONES | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| OPI-23-8-15-OF | PROPIETARIO: | 500.00 M2 | N/A | VALOR VENTA ESTIMADO PROMEDIO CON CONSTRUCCIONES | ED. REMANENTE |
+| No hallado | C. Crisantemo G2, Flores del Valle, 45138 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-23-8-17-OF | Calz Juan Pablo II 2002, Colonia Oblatos, 44700 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-23-8-16-OF | Mariano Méndez 4841 Nueva Santa María 44980 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-23-8-15-OF | Josefa Ortiz de Domínguez 209, Lomas del Batán, 45190 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-8-14-OF | Privada Miguel Bravo Lote 4 Mzn 459 s/n,  Nueva Santa Maria | 83.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-8-13-OF | Hacienda de Los Nardos 25, Haciendas del Valle, 45133 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-8-12-OF | 16 de Septiembre 91, Tlachicilco Poncitlan | 2,786.56 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -859,22 +760,21 @@ San Pedro, Tlaquepaque, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO
 | OPI-23-8-09-OF | Cam. a Matatlán 1480-41, Coyula, 45410 Tonalá, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-8-08-OF | Alejandrita 500 Villa Esmeralda Aqua 45654 Tlajomulco de Zuñiga, Jal | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-8-07-OF | Sembradores 98, Nuevo Vergel, 45180 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-23-8-06-OF | Av. Paseo La Toscana 1111-77 La Toscana I 45136  Zapopan, Jal., México | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-23-8-06-OF | Av. Paseo La Toscana 1111-77 La Toscana I 45136  Zapopan, Jal., México | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-23-8-05-OF | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-23-8-04-OF | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-23-8-03-OF | Calle Sta Elena 329, El Refugio, 45599 San Pedro Tlaquepaque, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-8-02-OF | Proaza 36, Del Pilar Residencial, 45645 San Agustín, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-8-01-OF | Cerrada Gonzlez Gallo | 271.18 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-7-28-OF | C. Jesus 77, Zona Centro, 44200 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-7-27-OF | C. Almeja 110, Valle de La Misericordia, 45615 Santa Cruz del Valle, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-23-7-26-OF | Fuente Platino 1645, Villa Fontana, 45615 San Pedro Tlaquepaque, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-7-25-OF | C. Cándido Carlin 297, Cantarranas, 44829 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-7-24-OF | Segunda Privada Tequila 3, Villas de la Hacienda, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-7-23-OF | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-7-22-OF | PROPIETARIO: | 273.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-7-21-OF | C. Insurgentes 3047, Rancho Blanco, 44890 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-7-20-OF | Edgar Degas 4209 Miravalle 44990 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| OPI-23-7-19-OF | PROPIETARIO: | 500.00 M2 | N/A | VALOR VENTA ESTIMADO PROMEDIO CON CONSTRUCCIONES | ED. REMANENTE |
+| OPI-23-7-19-OF | Concordia 719 La Esperanza (La Federacha ) 44300 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-7-18-OF | Roberto Lua 1585-2 Paseos del Sol 45070 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-7-17-OF | Av. de la Mancha 1229, Lomas de Zapopan | 136.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-7-16-OF | C. Isla Zanzibar 3057-14 El Sauz 44987 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -884,10 +784,10 @@ San Pedro, Tlaquepaque, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO
 | OPI-23-7-13-OF | Eucalipto 2168, Col. del Fresno | 199.75 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-7-12-OF | Calle San Felipe 153 Villas de Guadalupe 45189 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | No hallado | Can Mayor 4295 Int 301 Arboledas 45070 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| OPI-23-7-08-OF | PROPIETARIO: | 500.00 M2 | N/A | VALOR VENTA ESTIMADO PROMEDIO CON CONSTRUCCIONES | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| No hallado | PROPIETARIO: | 0.00 M2 | N/A | VALOR VENTA ESTIMADO PROMEDIO CON CONSTRUCCIONES | ED. REMANENTE |
+| OPI-23-7-10-OF | Liberación 34 La Experiencia 45198 Zapopan, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-23-7-08-OF | M. de Carrara 60, Hacienda Los Jacales, 47470 Lagos de Moreno, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-23-7-07-OF | Volcán Acatenango 88-B Int. 32 Huentitán El Bajo 44259 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-23-7-06-OF | Jdn. del Roble 118, Coyula, 45410 Tonalá, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-7-05-OF | Chimalpopoca 4783-5, Mirador del Sol, 45054 Zapopan, Jal.
  | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-7-04-OF | Tula 572, colonia Monumental | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -901,9 +801,8 @@ San Pedro, Tlaquepaque, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO
 | OPI-22-5-20-P | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | N/A | N/A | N/A | N/A | N/A | N/A |
 | N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| No hallado | Av. Patria s/n, Lomas del Seminario, 45038 Zapopan, Jal. | No hallado | No hallado | No hallado | No hallado |
 | No hallado | PROPIETARIO: | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| No hallado | No hallado | No hallado | No hallado | No hallado | ED. REMANENTE |
 | No hallado | No hallado | No hallado | No hallado | No hallado | ED. REMANENTE |
 | No hallado | No hallado | No hallado | No hallado | No hallado | ED. REMANENTE |
 | No hallado | No hallado | No hallado | No hallado | No hallado | ED. REMANENTE |
@@ -915,9 +814,9 @@ el Colli
 Zapopan | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-6-24-OF | Manzano 8, Milpillas, Mesa de San Juan | 800.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-6-23-OF | Calzada Paraisos 63, Ciudad Granja | 525.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| No hallado | PROPIETARIO: | 199.00 M2 | N/A | VALOR VENTA ESTIMADO PROMEDIO CON CONSTRUCCIONES | ED. REMANENTE |
-| OPI-23-6-20-OF | Av. Francisco J. Múgica 365, El Paraíso, 45157 Zapopan, Jal. | N/A | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-23-6-22-OF | Lago Camecuaro 2487 Lagos del Country 44210 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-23-6-21-OF | C. Acacía lote 11 mza 3 , Rancho El Centinela, 45133 Nuevo México, Jal. | 199.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-23-6-20-OF | Av. Francisco J. Múgica 365, El Paraíso, 45157 Zapopan, Jal. | 2,719.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-6-19-OF | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-6-18-OF | Emiliano Zapata 5, Felipe ANgeles, El Salto | 434.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-6-17-OF | Escorpion 3580, La Calma | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -925,11 +824,11 @@ Zapopan | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENT
 | OPI-23-6-15-OF | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-6-14-OF | Av.Luis Pérez Verdia 161, Ladrón de Guevara | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-6-13-OF | Av. jalisco  22 Paseo de los agaves Tlajomulco zuñiga | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| OPI-23-6-12-OF | Manuel Carpio 3513, Jardines San Francisco | 140.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-6-11-OF | Retorno del Reno Sur 3306 Ciudad Bugambilias 45237 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-6-10-OF | Lago Patzcuaro 74, Cond. Hacienda del Lago 3, Lago Real | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
-| N/A | N/A | N/A | N/A | N/A | N/A |
-| N/A | N/A | N/A | N/A | N/A | N/A |
+| No hallado | Arrollo Oriente 54 colonia Ojo de Agua, Santa Anita | 143.40 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| No hallado | Aurora Boreal 660-174 Paseo de los Agaves 45675 Tlajomulco de Zúñiga, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | No hallado | coto olmo 190, Albereda residencial el Salto Jalisco | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | No hallado | Pemex 301-C Los Portales 45625 Tlaquepaque, Jal | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-6-05-OF | San Salvador 234 La Providencia 45400 Tonalá Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
@@ -937,6 +836,106 @@ Zapopan | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENT
 | OPI-23-6-03-OF | Compostela 1798, Mezquitan Country, 44260 Guadalajara, Jal. | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-6-02-OF | Tormenta 599-402, Jardines del Bosque, 44520 Guadalajara, Jal., México | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
 | OPI-23-6-01-OF | André Baudín 4190 Miravalle 44990 Guadalajara Jal. | No hallado | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | ED. REMANENTE |
+| OPI-26-4-10-AV | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | SOLICITANTE: |
+| OPI-26-4-09-AV | C. Paseo de Los Huejotes 5, Lomas de Tabachines, 45185 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | CASA HABITACIÓN |
+| OPI-26-4-08-OF | J. M. Gordoa y Barrios 427, Villas Belenes, 45148 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-4-07-OF | Américo Vespucio 2703, Colon Industrial | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-4-06-OF | Cuarzo 2413, Mariano Otero, 45067 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-4-05-OF | Sierra 37, Mesa Quemada, 63734 Cruz de Huanacaxtle, Nay. | 421.20 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-4-04-OF | Santa Oliva s/n, Colinas de Cajititlan | 3,145.20 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | SOLICITANTE: |
+| OPI-26-4-03-OF | C. Ejido 514, San Isidro Ejidal, 45147 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | CASA HABITACIÓN |
+| OPI-26-4-02-OF | San Gaspar 1411, Santa María, 44350 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-4-01-OF | C. Pedro Moreno 110, Tateposco, 45630 San Pedro Tlaquepaque, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | CASA HABITACIÓN |
+| OPI-26-4-01-OF | Pedro Moreno 110, Cantera Colorada, Tlaquepaque | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-4-01-OF | Pedro Moreno 110, Cantera Colorada, Tlaquepaque | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-4-01-OF | Pedro Moreno 110, Cantera Colorada, Tlaquepaque | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-3-24-OF | Blvrd Bosques de Sta Anita 200, Ebano 18 45645 Bosque Real, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación En Condominio |
+| OPI-26-3-23-OF | PROPIETARIO: | 115.29 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | SOLICITANTE: |
+| OPI-26-3-22-OF | PROPIETARIO: | 211.80 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | SOLICITANTE: |
+| No hallado | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | SOLICITANTE: |
+| OPI-26-3-20-OF | Aeromexico 18, Minerales, Los Gigantes, 45690 Las Pintitas, Jal. | 1,677.52 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | SOLICITANTE: |
+| OPI-26-3-19-OF | Santa Lucia 2887, EL Campanario | 164.88 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Terreno Urbano |
+| OPI-26-3-18-OF | C/ Paseo de Los Chopos 3245A, Tabachines, 45188 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | CASA HABITACIÓN |
+| OPI-26-3-17-OF | XRXR+PXQ, 49460 La Manzanilla de la Paz, Jal. | 300.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-3-16-OF | Lázaro Cárdenas 29, Marcelino García Barragán, 45134 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-3-14-OF | PROPIETARIO: | 349.65 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | SOLICITANTE: |
+| OPI-26-3-15-OF | Felipe II 6, La Noria de los Reyes, 45670 Fraccionamiento Tres Reyes, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | CASA HABITACIÓN EN CONDOMINIO |
+| OPI-26-3-13-OF | Av. Vista Ote. 1338, Residencial Vista Sur, 45640, Tlajomulco de Zúñiga, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | CASA HABITACIÓN |
+| OPI-26-3-12-OF | PROPIETARIO: | 6,649.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | SOLICITANTE: |
+| OPI-26-3-11-OF | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | SOLICITANTE: |
+| OPI-26-3-10-OF | Del Límite 34-Límite # 32, El Verde, 45694 Guadalajara, Jal. | 4,084.23 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | SOLICITANTE: |
+| OPI-26-3-09-OF | C. Plan de Guadalupe 2023, Atemajac del Valle, 45180 Zapopan, Jal. | 137.49 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | CASA HABITACIÓN EN CONDOMINIO |
+| OPI-26-3-08-OF | Paseo de las Vizcainas 110, Fracc, Colinas de Santa Anita, 45640 Tlajomulco de Zúñiga, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación En Condominio |
+| OPI-26-3-07-OF | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | SOLICITANTE: |
+| OPI-26-3-06-OF | PROPIETARIO: | 176.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | SOLICITANTE: |
+| OPI-26-3-05-OF | Av Industria Textil 73-4, Altagracia, 45130 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | DEPARTAMENTO EN CONDOMINIO |
+| OPI-26-3-04-OF | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | SOLICITANTE: |
+| OPI-26-3-03-OF | Av. Isla Raza 2039, Jardines de San José, 44950 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-3-02-OF | C. San Alberto 140, 45653 Hacienda Santa Fe, Jal | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-3-01-OF | C. San Alberto 142, 45653 Hacienda Santa Fe, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-2-27-OF | Juan XXIII 20, El Mirador Juan Arias, 45600 Santa Anita, Jal. | 163.77 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Terreno con construcciones |
+| OPI-26-2-26-OF | Nuestra Señora de los Remedios Sur 01, Balcones de Santa Anita, Tlajomulco | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-2-25-OF | C. Volcan Paricutin 5041, Primera Sección, Colli Urbano, 45070 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-2-24-OF | José María Coss 1653, La Guadalupana, 44260 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-2-23-OF | Villa Juárez 1384-2, Francisco Sarabia, 45236 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación En Condominio |
+| OPI-26-2-22-OF | El Carmen 715-3, Camino Real, 45040 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación En Condominio |
+| OPI-26-2-21-OF | Aurora Boreal 678-65, Paseo los Agaves | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación En Condominio |
+| OPI-26-2-20-OF | C. José Alcala 1067, Echeverría, 44970 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | CASA HABITACIÓN CON LOCAL  |
+| OPI-26-2-19-OF | Av. Colina Central 3137, 45422 Tonalá, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación En Condominio |
+| OPI-26-2-18-OF | Sta. Teresa 79, Santa Margarita1a Secc., 45140 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-2-17-OF | Josefa Ortiz de Domínguez 93, Lomas del Batán, 45190 Zapopan, Jal. | 120.30 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-2-16-OF | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | SOLICITANTE: |
+| OPI-26-2-15-OF | Silvano Pratt 1384, Echeverría, 44970 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | CASA HABITACIÓN |
+| OPI-26-2-14-OF | P.º del Huerto 2114, Paseo del Prado, 45613 Paseo del Prado, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | CASA HABITACIÓN |
+| OPI-26-2-13-OF | Enriqueta Basilio de Sotelo 760, 45638 San Pedro Tlaquepaque, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-2-12-OF | Bugambilias 140, Jardines, 48280 Ixtapa, Jal. | 81.03 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | CASA HABITACIÓN EN TERRENO EJIDAL |
+| OPI-26-2-11-OF | C. Juan José Castillo 46, Buenos Aires, 45606 San Pedro Tlaquepaque, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | CASA HABITACIÓN CON LOCAL  |
+| OPI-26-2-10-OF | Luis E. Medina Santiago 2-2, El Cerrito, 45629 San Pedro Tlaquepaque, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-2-08-OF | Francisco Márquez 38, El Castillo 1, 45686, El Salto, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-2-08-OF | Francisco Marques No. 38, El Castillo | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-2-07-OF | Margaritas 246, Secc 12122, 45640 Tlajomulco de Zúñiga, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-2-06-OF | Nogal 2061, Paseo del Prado, 45613, Tlaquepaque, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-2-05-OF | Seda 2662, Las Agujas, 45200 Tesistán, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-2-04-OF | San Luis Gonzaga 4502, J. de Guadalupe, Zapopan, 45030 | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-2-03-OF | C. Tulipán 592, Coyula, 45400 Coyula, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | CASA HABITACIÓN |
+| OPI-26-2-02-OF | C. Josue 4122, El Bethel, 44720 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | CASA HABITACIÓN |
+| OPI-26-2-01-OF | C. Rafael Zayas Enriquez 3385, Miguel Hidalgo, 44760 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | CASA HABITACIÓN |
+| OPI-26-1-19-OF | C. Nicolás Bravo 756, Las Conchas, 44460 Guadalajara, Jal. | 649.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-1-18-OF | Rio Lerma 16, Arenales Tapatíos | 167.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | SOLICITANTE: |
+| OPI-26-1-17-OF | PROPIETARIO: | 2,832.45 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | SOLICITANTE: |
+| OPI-26-1-16-OF | Circuito Metropolitano lote 20 y 21 mz 6,  s/n Cajititlán | 361.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Terreno Ejidal |
+| OPI-26-1-15-OF | Av. Las Torres 18, Hogares de Nuevo México, 45134 Zapopan, Jal. | 865.08 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Terreno con construcciones |
+| OPI-26-1-14-OF | Fray Juan de Tapia 421-18, San Francisco, 45417 Tonalá, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-1-13-OF | Manuel Portillo 286, San Rafael, 44810 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | DEPARTAMENTO EN CONDOMINIO |
+| OPI-26-1-12-OF | Av. Subcolectora 2 2953, Col Valle de San Nicolas | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-1-11-OF | Vista Selene 870, Vista Hermosa, 45189 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-1-10-OF | Río Agua Blanca 16, Minerales, Centro, 45690 Las Pintitas, Jal. | 271.92 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-1-09-OF | Río Tajo 2271, Bosques del Boulevard, 44899 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | CASA HABITACIÓN |
+| OPI-26-1-08-OF | Isla Ustica 3059, Villa Guerrero, 44987 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-1-07-OF | C. Tratado de Campeche 4296, Parques del Auditorio, 45130 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-1-06-OF | C. Tratado de Campeche 4292, Parques del Auditorio, 45130 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-1-05-OF | C. Paseo de las Araucarias 2243, Tabachines, 45188 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-26-1-04-OF | PROPIETARIO: | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | SOLICITANTE: |
+| OPI-26-1-03-OF | PROPIETARIO: | 118.24 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | SOLICITANTE: |
+| OPI-26-1-02-OF | Av. Jesús 1260-88, Santa Margarita1a Secc., 45138 Zapopan, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación En Condominio |
+| OPI-26-1-01-OF | Calle Dinar 831, Lagos de Oriente guadalaja Jalisco | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Casa Habitación |
+| OPI-25-1-26-AV | C. Maestranza 7, Zona Centro, 44100 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | Local Comercial |
+| OPI-24-11-26-OF | C. Álvaro Obregón 930, Oblatos, 44380 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | EDIFICIO COMERCIAL |
+| OPI-24-10-26-AV | C. José Enrique Rodó 2998, Prados Providencia, 44670 Guadalajara, Jal. | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | EDIFICIO OFICINAS |
+| OPI-24-9-26-AV | Calle zenzontle # 20
+Colonia LA Graja
+Zapopan | 176.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | SOLICITANTE: |
+| OPI-24-7-26-AV | Santa Clara Nte 45 L102, Misión San Francisco, San Pedro Tlaquepaque | 0.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | CASA HABITACIÓN EN CONDOMINIO |
+| OPI-24-6-26-OF | PROPIETARIO: | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | SOLICITANTE: |
+| OPI-24-5-26-EK | 6 de Enero 6587, Centro, 45690 Las Pintas, Jal. | 114.10 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | SOLICITANTE: |
+| OPI-24-2-26-EK | PROPIETARIO: | 199.85 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | SOLICITANTE: |
+| OPI-24-1-26-EK | Sor Juana Inés de La Cruz 1345, La Coronilla, 45189 Zapopan, Jal. | 375.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | SOLICITANTE: |
+| OPI-23-12-26-OF | Pirul 1932, Del Fresno, 44900 Guadalajara, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | CASA HABITACIÓN |
+| OPI-23-10-26-OF | San Eugenio 32, 45654 Fraccionamiento Real del Valle, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | CASA HABITACIÓN |
+| OPI-23-9-26-OF | Pintores 516, Artesanos, Tlaquepaque | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | SOLICITANTE: |
+| OPI-23-8-26-OF | PROPIETARIO: | 225.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | CASA HABITACIÓN |
+| OPI-23-7-26-OF | Fuente Platino 1645, Villa Fontana, 45615 San Pedro Tlaquepaque, Jal. | 500.00 M2 | No hallado | VALOR DE RENTA ESTIMADO PROMEDIO | CASA HABITACIÓN |
+| No hallado | No hallado | No hallado | No hallado | No hallado | VIDA ÚTIL  |
 
 ## 💡 Próximo Paso
 Ejecutar `node Modulo Drive IA/exportador_resumen.js` para generar el Google Sheet consolidado.

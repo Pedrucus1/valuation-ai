@@ -17,7 +17,7 @@ async function listFilesRecursive(drive, folderId, folderName = 'Raíz') {
         if (file.mimeType === 'application/vnd.google-apps.folder') {
             const subFolderFiles = await listFilesRecursive(drive, file.id, file.name);
             results = results.concat(subFolderFiles);
-        } else if (file.mimeType === 'application/vnd.google-apps.spreadsheet' && file.name.startsWith('OPI')) {
+        } else if (file.mimeType === 'application/vnd.google-apps.spreadsheet' && file.name.toUpperCase().startsWith('OPI')) {
             results.push(file);
         }
     }
