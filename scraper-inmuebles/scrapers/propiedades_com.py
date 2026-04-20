@@ -134,19 +134,29 @@ class PropiedadesComScraper(BaseScraper):
             return None
         url = href if href.startswith("http") else BASE_URL + href
 
-        # Título
+        # Título — h2 con texto completo de la dirección
         titulo_tag = tarjeta.select_one(SELECTORES["titulo"])
-        titulo = titulo_tag.get_text(strip=True) if titulo_tag else ""
+        titulo = titulo_tag.get_text(separator=" ", strip=True) if titulo_tag else ""
 
-        # Precio — el div padre del span.currency contiene el texto del precio
+        # Precio — div padre del span.currency
         currency_span = tarjeta.select_one("span.currency")
         precio_raw = ""
         if currency_span and currency_span.parent:
             precio_raw = currency_span.parent.get_text(separator="", strip=True).replace("MXN", "").strip()
 
-        # Colonia — del elemento de dirección (contiene "Col. X")
-        col_tag = tarjeta.select_one(SELECTORES["colonia"])
-        colonia = col_tag.get_text(strip=True) if col_tag else ""
+        # Colonia — usar itemprop="streetAddress" que tiene el campo exacto
+        # Ejemplo: "Av Circunvalación 870, Col. Jardines Alcalde"
+        street_tag = tarjeta.select_one('[itemprop="streetAddress"]')
+        colonia = ""
+        if street_tag:
+            street_text = street_tag.get("content", "") or street_tag.get_text(strip=True)
+            # Extraer "Col. X" del string de dirección
+            m_col = re.search(r'\bCol\.?\s+([^,\n]+)', street_text, re.I)
+            colonia = m_col.group(1).strip() if m_col else street_text.split(",")[-1].strip()
+        if not colonia:
+            # Fallback: itemprop="addressLocality" = municipio, buscar en texto completo de tarjeta
+            m_col = re.search(r'\bCol\.?\s+([^,\n]{3,40})', tarjeta.get_text(separator=" "), re.I)
+            colonia = m_col.group(1).strip() if m_col else ""
 
         # Amenities: recámaras, baños, m2, estacionamientos
         recamaras = banos = m2_const = m2_terreno = estac = None
