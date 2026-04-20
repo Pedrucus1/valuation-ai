@@ -1,59 +1,49 @@
 """
 scrapers/propiedades_com.py — Scraper para propiedades.com
-Usa Playwright (sitio Next.js/React con renderizado del lado del cliente).
 
-NOTAS DE ACCESO (confirmado 2026-03-16):
-- URL correcta: https://propiedades.com/{slug}/{tipo}-{operacion}
-  Ej: https://propiedades.com/guadalajara/casas-venta
-      https://propiedades.com/guadalajara/casas-renta
-      https://propiedades.com/zapopan/departamentos-venta
-- SIN el prefijo www ni la estructura /jalisco/{slug}/propiedades/en-venta
-- El sitio usa Akamai Bot Manager — puede bloquear IPs directas.
-  Requiere proxy residencial para acceso confiable (PROXY_URL en .env).
-- El www.propiedades.com redirige a propiedades.com (sin www).
-- ERR_HTTP2_PROTOCOL_ERROR: usar --disable-http2 en Playwright.
+ACCESO (verificado 2026-04-20):
+- URL: https://propiedades.com/{slug}/{tipo}-{operacion}
+- Usa Chrome CDP (cdp_fetch.js) en lugar de Playwright porque Akamai bloquea
+  browsers headless. El Chrome real en puerto 9222 ya tiene cookies válidas.
+- Selectores verificados con DevTools en Chrome CDP.
 
-TIPOS DE PROPIEDAD en URL:
-    casas, departamentos, terrenos, locales, oficinas, bodegas
-
-SELECTORES (verificar con DevTools si el sitio actualiza su frontend):
-- Site es Next.js App Router — las tarjetas cargan via hydration.
-- Selector de tarjeta probable: article, div[class*='PropertyCard'], a[href*='/propiedad']
+TIPOS DE PROPIEDAD: casas, departamentos, terrenos
 """
 
 import re
+import subprocess
+import time
+from pathlib import Path
 from typing import Optional
 
 from bs4 import BeautifulSoup
-from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeout
 
 import config
 from scrapers.base_scraper import BaseScraper, ErrorScraping
 from utils import antiblock
 
+# Ruta al helper Node.js que hace fetch via Chrome CDP
+_CDP_FETCH_JS = Path(__file__).parent / "cdp_fetch.js"
+CDP_PORT = getattr(config, "PROPIEDADES_CDP_PORT", 9222)
+
 # Tipos de propiedad que scrapear (genera URLs separadas por tipo)
 TIPOS_PROP_URL = ["casas", "departamentos", "terrenos"]
 
 SELECTORES = {
-    # PENDIENTE DE VERIFICACIÓN — actualizar con DevTools cuando sea accesible
-    # La estructura es Next.js; los cards son probablemente article o div con link
-    "tarjeta": (
-        "article[class*='property'], "
-        "div[class*='PropertyCard'], "
-        "div[class*='property-card'], "
-        "li[class*='property'], "
-        "a[href*='/propiedad/']"
-    ),
-    "titulo": "h2, h3, [class*='title'], [class*='Title']",
-    "precio": "[class*='price'], [class*='Price'], [class*='monto']",
-    "colonia": "[class*='location'], [class*='address'], [class*='colonia'], address",
-    "recamaras": "[class*='bedroom'], [class*='rec'], [data-feature='bedrooms']",
-    "banos": "[class*='bath'], [data-feature='bathrooms']",
-    "m2": "[class*='area'], [class*='m2'], [data-feature='area']",
-    "estac": "[class*='parking'], [class*='garage'], [data-feature='parking']",
-    "descripcion": "[class*='description'], [class*='desc'], p",
-    "paginacion": "a[aria-label*='iguiente'], button[class*='next'], a[class*='next']",
-    "total_resultados": "h1, [class*='results-count'], [class*='total']",
+    # Verificado 2026-04-20 con DevTools en Chrome CDP (propiedades.com Next.js)
+    "tarjeta": "section.pcom-property-card",
+    # precio: div padre del span.currency → extraído en _extraer_tarjeta por lógica BS4
+    "precio": "span.currency",  # marker — usado para localizar el div padre con el precio
+    "colonia": ".pcom-property-card-body-main-info-street",
+    "titulo": ".pcom-property-card-body-main-info-street h2",
+    # amenities ordenados: recámaras, baños, m2_const; context por amenities-label
+    "recamaras": "span.amenities-label",  # usado en _extraer_amenities
+    "banos": "span.amenities-label",
+    "m2": "span.amenities-count",  # usado en _extraer_amenities
+    "estac": "span.amenities-label",
+    "descripcion": "p",
+    "paginacion": "a[aria-label*='iguiente'], a[aria-label*='página'], a[rel='next']",
+    "total_resultados": "h1",
 }
 
 BASE_URL = "https://propiedades.com"
@@ -63,27 +53,7 @@ class PropiedadesComScraper(BaseScraper):
 
     nombre_portal = "PROPIEDADES_COM"
     tab_sheets = config.TAB_PROPIEDADES_COM
-    # Playwright: evitar browsers simultáneos con ThreadPoolExecutor
-    _usar_concurrencia = False
-
-    def ejecutar(self) -> dict:
-        """Override: salta el portal si no hay proxy configurado (Akamai bloquea IPs directas)."""
-        if not config.PROXY_URL:
-            self.log.warning(
-                "PROPIEDADES_COM saltado — PROXY_URL no configurado. "
-                "Akamai Bot Manager bloquea IPs directas. "
-                "Configura PROXY_URL en .env para activar este portal."
-            )
-            return {
-                "portal": self.nombre_portal,
-                "tab_sheets": self.tab_sheets,
-                "propiedades": [],
-                "total": 0,
-                "errores": 0,
-                "lista_errores": [],
-                "duracion_segundos": 0,
-            }
-        return super().ejecutar()
+    _usar_concurrencia = False  # CDP: un tab a la vez
 
     def obtener_url_listado(self, zona: dict, operacion: str, pagina: int) -> str:
         """
@@ -152,11 +122,16 @@ class PropiedadesComScraper(BaseScraper):
         return propiedades
 
     def _extraer_tarjeta(self, tarjeta, zona: dict, operacion: str) -> Optional[dict]:
-        # URL — la tarjeta puede ser el <a> o contener un <a>
-        href = tarjeta.get("href", "")
+        # URL — buscar <a> dentro de la tarjeta (link al detalle)
+        link = tarjeta.select_one("a.pcom-property-card-body-main-info-street, a[href*='/inmuebles/']")
+        href = link.get("href", "") if link else ""
         if not href:
-            link = tarjeta.select_one("a[href]")
-            href = link.get("href", "") if link else ""
+            # fallback: primer <a> con href a detalle
+            for a in tarjeta.select("a[href]"):
+                h = a.get("href", "")
+                if "/inmuebles/" in h or "/propiedad/" in h:
+                    href = h
+                    break
         if not href:
             return None
         url = href if href.startswith("http") else BASE_URL + href
@@ -165,59 +140,36 @@ class PropiedadesComScraper(BaseScraper):
         titulo_tag = tarjeta.select_one(SELECTORES["titulo"])
         titulo = titulo_tag.get_text(strip=True) if titulo_tag else ""
 
-        # Precio
-        precio_tag = tarjeta.select_one(SELECTORES["precio"])
-        precio_raw = precio_tag.get_text(strip=True) if precio_tag else ""
+        # Precio — el div padre del span.currency contiene el texto del precio
+        currency_span = tarjeta.select_one("span.currency")
+        precio_raw = ""
+        if currency_span and currency_span.parent:
+            precio_raw = currency_span.parent.get_text(separator="", strip=True).replace("MXN", "").strip()
 
-        # Colonia
+        # Colonia — del elemento de dirección (contiene "Col. X")
         col_tag = tarjeta.select_one(SELECTORES["colonia"])
         colonia = col_tag.get_text(strip=True) if col_tag else ""
 
-        # Atributos — intentar tags específicos, si no, regex sobre texto completo
-        texto_completo = tarjeta.get_text(separator=" ", strip=True).lower()
-
+        # Amenities: recámaras, baños, m2, estacionamientos
         recamaras = banos = m2_const = m2_terreno = estac = None
-
-        # Intentar selectores específicos primero
-        for sel, campo in [
-            (SELECTORES["recamaras"], "rec"),
-            (SELECTORES["banos"], "ban"),
-            (SELECTORES["m2"], "m2"),
-            (SELECTORES["estac"], "est"),
-        ]:
-            tag = tarjeta.select_one(sel)
-            if tag:
-                num = re.search(r"[\d.]+", tag.get_text())
-                if num:
-                    val = num.group()
-                    if campo == "rec":
-                        recamaras = val
-                    elif campo == "ban":
-                        banos = val
-                    elif campo == "m2":
-                        m2_const = val
-                    elif campo == "est":
-                        estac = val
+        recamaras, banos, m2_const, estac = self._extraer_amenities(tarjeta)
 
         # Fallback: regex sobre texto completo
+        texto_completo = tarjeta.get_text(separator=" ", strip=True).lower()
         if not recamaras:
-            m = re.search(r"(\d+)\s*(?:rec[aá]mara|dorm|hab|cuarto|bedroom)", texto_completo, re.I)
+            m = re.search(r"(\d+)\s*rec[aá]mara", texto_completo, re.I)
             if m:
                 recamaras = m.group(1)
         if not banos:
-            m = re.search(r"(\d+)\s*(?:baño|bano|bathroom|bath)", texto_completo, re.I)
+            m = re.search(r"(\d+)\s*ba[ñn]o", texto_completo, re.I)
             if m:
                 banos = m.group(1)
-        if not estac:
-            m = re.search(r"(\d+)\s*(?:estac|garage|parking)", texto_completo, re.I)
-            if m:
-                estac = m.group(1)
         if not m2_const:
-            m = re.search(r"([\d,]+)\s*m[²2]\s*(?:const|construc|build)", texto_completo)
+            m = re.search(r"([\d,]+)\s*m[²2]", texto_completo)
             if m:
                 m2_const = m.group(1).replace(",", "")
         if not m2_terreno:
-            m = re.search(r"([\d,]+)\s*m[²2]\s*(?:lote|terr|land|total)", texto_completo)
+            m = re.search(r"([\d,]+)\s*m[²2]\s*(?:lote|terr|total)", texto_completo)
             if m:
                 m2_terreno = m.group(1).replace(",", "")
 
@@ -234,6 +186,7 @@ class PropiedadesComScraper(BaseScraper):
             "tipo_operacion": operacion,
             "tipo_propiedad": tipo,
             "colonia": colonia,
+            "calle_numero": "",
             "municipio": zona["municipio"],
             "estado": zona["estado"],
             "recamaras": recamaras,
@@ -244,6 +197,25 @@ class PropiedadesComScraper(BaseScraper):
             "descripcion": descripcion,
             "url_original": url,
         }
+
+    def _extraer_amenities(self, tarjeta):
+        """Extrae recámaras, baños, m2_const, estac usando los data-id de ícono.
+        Verificado 2026-04-20: data-id estables en propiedades.com Next.js."""
+        def _count_for_icon(icon_id: str) -> Optional[str]:
+            icon = tarjeta.select_one(f'[data-id="{icon_id}"]')
+            if not icon:
+                return None
+            li = icon.find_parent("li")
+            if not li:
+                return None
+            count = li.select_one("span.amenities-count")
+            return count.get_text(strip=True) if count else None
+
+        recamaras = _count_for_icon("pcom-icon-rooms")
+        banos     = _count_for_icon("pcom-icon-bathroom")
+        m2_const  = _count_for_icon("pcom-icon-construction-size")
+        estac     = _count_for_icon("pcom-icon-parking")
+        return recamaras, banos, m2_const, estac
 
     def _inferir_tipo_url(self, href: str) -> str:
         href = href.lower()
@@ -260,80 +232,41 @@ class PropiedadesComScraper(BaseScraper):
         return "casa"
 
     # ─────────────────────────────────────────
-    # Playwright override (necesario para Next.js SSR)
+    # CDP override via Node.js (evita bloqueo Akamai)
     # ─────────────────────────────────────────
 
     def _fetch_html(self, url: str, referer: str = None) -> str:
-        """Override con Playwright. Fuerza HTTP/1.1 para evitar ERR_HTTP2_PROTOCOL_ERROR."""
+        """Obtiene HTML via Chrome CDP (Node.js). Requiere Chrome con --remote-debugging-port=9222."""
         for intento in range(1, config.MAX_RETRIES + 1):
             try:
-                with self._semaforo:
-                    antiblock.delay_aleatorio()
-                    return self._playwright_get(url, referer=referer)
-            except PlaywrightTimeout:
-                self.log.warning(f"Timeout propiedades.com intento {intento}: {url}")
-                antiblock.delay_aleatorio(min_seg=8, max_seg=20)
+                antiblock.delay_aleatorio()
+                return self._cdp_get(url)
             except ErrorScraping:
                 raise
             except Exception as e:
-                self.log.warning(f"Error propiedades.com intento {intento}: {e}")
-                antiblock.delay_aleatorio(min_seg=5, max_seg=15)
+                self.log.warning(f"CDP propiedades.com intento {intento}: {e}")
+                time.sleep(8)
 
-        raise ErrorScraping(f"PropiedadesCom falló {config.MAX_RETRIES} veces: {url}")
+        raise ErrorScraping(f"PropiedadesCom CDP falló {config.MAX_RETRIES} veces: {url}")
 
-    def _playwright_get(self, url: str, referer: str = None) -> str:
-        with sync_playwright() as p:
-            browser = p.chromium.launch(
-                headless=True,
-                args=["--no-sandbox", "--disable-http2"],
-                proxy={"server": config.PROXY_URL} if config.PROXY_URL else None,
+    def _cdp_get(self, url: str) -> str:
+        """Llama a cdp_fetch.js via subprocess para obtener HTML desde Chrome real."""
+        try:
+            result = subprocess.run(
+                ["node", str(_CDP_FETCH_JS), url, str(CDP_PORT)],
+                capture_output=True,
+                text=True,
+                encoding="utf-8",
+                timeout=45,
             )
-            ctx = browser.new_context(
-                user_agent=antiblock.get_user_agent(),
-                viewport=antiblock.get_viewport(),
-                locale="es-MX",
-                proxy={"server": config.PROXY_URL} if config.PROXY_URL else None,
-                extra_http_headers={
-                    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-                    "Accept-Language": "es-MX,es;q=0.9,en;q=0.8",
-                    **({"Referer": referer} if referer else {}),
-                },
-            )
-            page = ctx.new_page()
-            page.add_init_script(
-                "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
-            )
+        except subprocess.TimeoutExpired:
+            raise ErrorScraping(f"CDP timeout para {url}")
 
-            # Visitar homepage primero para obtener cookies de Akamai
-            try:
-                page.goto(BASE_URL, wait_until="domcontentloaded", timeout=20000)
-                page.wait_for_timeout(2000)
-            except PlaywrightTimeout:
-                pass
+        if result.returncode != 0:
+            raise ErrorScraping(f"CDP error: {result.stderr.strip()[:200]}")
 
-            # Ahora ir a la URL objetivo
-            try:
-                page.goto(url, wait_until="domcontentloaded", timeout=35000)
-            except PlaywrightTimeout:
-                pass
-
-            # Esperar que carguen las tarjetas (JS rendering)
-            try:
-                page.wait_for_selector(SELECTORES["tarjeta"], timeout=12000)
-            except PlaywrightTimeout:
-                pass
-
-            antiblock.simular_scroll_aleatorio(page)
-            titulo = page.title()
-            html = page.content()
-            browser.close()
-
-        # Detectar bloqueos
-        titulo_lower = titulo.lower()
-        if any(k in titulo_lower for k in ("cloudflare", "just a moment", "access denied", "403", "blocked")):
-            raise ErrorScraping(f"PropiedadesCom bloqueó la solicitud: {url}")
-
+        html = result.stdout
         if len(html) < 5000:
-            raise ErrorScraping(f"PropiedadesCom respuesta demasiado corta ({len(html)} bytes): {url}")
+            raise ErrorScraping(f"CDP respuesta muy corta ({len(html)} bytes): {url}")
 
         return html
