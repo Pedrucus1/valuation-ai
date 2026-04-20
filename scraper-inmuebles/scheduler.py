@@ -63,11 +63,13 @@ def generar_tareas() -> list[dict]:
     """
     from scrapers.inmuebles24 import TIPOS_URL as TIPOS_I24
     from scrapers.pincali import TIPOS_URL as TIPOS_PINCALI
+    from scrapers.propiedades_com import TIPOS_URL as TIPOS_PCOM
 
     # Portales con múltiples tipos de propiedad en URL separadas
     portales_con_tipos = [
-        ("INMUEBLES24", TIPOS_I24),
-        ("PINCALI",     TIPOS_PINCALI),
+        ("INMUEBLES24",      TIPOS_I24),
+        ("PINCALI",          TIPOS_PINCALI),
+        ("PROPIEDADES_COM",  TIPOS_PCOM),
     ]
 
     # Portales que no tienen URL por tipo — una tarea = zona × operacion
@@ -272,6 +274,7 @@ def ejecutar_tarea(tarea: dict, sheets: SheetsClient) -> int:
     from scrapers.vivanuncios import VivanunciosScraper
     from scrapers.mitula import MitulaScraper
     from scrapers.casas_y_terrenos import CasasYTerrenosScraper
+    from scrapers.propiedades_com import PropiedadesComScraper
 
     SCRAPERS_MAP = {
         "INMUEBLES24":      (Inmuebles24Scraper,      config.TAB_INMUEBLES24),
@@ -279,6 +282,7 @@ def ejecutar_tarea(tarea: dict, sheets: SheetsClient) -> int:
         "VIVANUNCIOS":      (VivanunciosScraper,      config.TAB_VIVANUNCIOS),
         "MITULA":           (MitulaScraper,           config.TAB_MITULA),
         "CASAS_Y_TERRENOS": (CasasYTerrenosScraper,   config.TAB_CASAS_Y_TERRENOS),
+        "PROPIEDADES_COM":  (PropiedadesComScraper,   config.TAB_PROPIEDADES_COM),
     }
 
     portal    = tarea.get("portal", "INMUEBLES24")

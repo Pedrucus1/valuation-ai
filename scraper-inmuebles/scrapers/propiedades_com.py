@@ -48,37 +48,35 @@ SELECTORES = {
 
 BASE_URL = "https://propiedades.com"
 
+# Tipos de propiedad scrapeados (clave = valor URL, valor = label normalizado)
+TIPOS_URL = {
+    "casas":          "casa",
+    "departamentos":  "departamento",
+    "terrenos":       "terreno",
+}
+
 
 class PropiedadesComScraper(BaseScraper):
 
     nombre_portal = "PROPIEDADES_COM"
     tab_sheets = config.TAB_PROPIEDADES_COM
     _usar_concurrencia = False  # CDP: un tab a la vez
+    tipos_propiedad = list(TIPOS_URL.keys())
 
     def obtener_url_listado(self, zona: dict, operacion: str, pagina: int) -> str:
         """
         URL formato: https://propiedades.com/{slug}/casas-venta
         Paginación:  https://propiedades.com/{slug}/casas-venta?page=2
 
-        Esta implementación itera solo sobre 'casas' como tipo base.
-        Para otros tipos (departamentos, terrenos) el orquestador puede
-        llamar con operacion='venta/departamentos' etc. (ver _scrapear_zona_operacion).
+        Usa _tipo_actual inyectado por el scheduler (mismo patrón que INMUEBLES24).
         """
+        tipo = zona.get("_tipo_actual", "casas")
         slug = zona.get("slug_propiedades", zona["municipio"].lower().replace(" ", "-"))
         op = "venta" if operacion == "venta" else "renta"
-        base = f"{BASE_URL}/{slug}/casas-{op}"
+        base = f"{BASE_URL}/{slug}/{tipo}-{op}"
         if pagina > 1:
             return f"{base}?page={pagina}"
         return base
-
-    def obtener_urls_por_tipo(self, zona: dict, operacion: str) -> list[str]:
-        """
-        Retorna una URL por cada tipo de propiedad para la zona+operación dada.
-        Útil para scraping exhaustivo.
-        """
-        slug = zona.get("slug_propiedades", zona["municipio"].lower().replace(" ", "-"))
-        op = "venta" if operacion == "venta" else "renta"
-        return [f"{BASE_URL}/{slug}/{tipo}-{op}" for tipo in TIPOS_PROP_URL]
 
     def obtener_total_paginas(self, html: str) -> int:
         soup = BeautifulSoup(html, "lxml")
