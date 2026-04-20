@@ -75,6 +75,7 @@ HEADERS_PROPIEDADES = [
     "portal_origen",
     "fecha_scraping",
     "activo",
+    "calle_numero",        # Calle y número de la propiedad (separado de colonia)
 ]
 
 # Encabezados de la pestaña LOG

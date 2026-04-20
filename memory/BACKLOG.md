@@ -1,5 +1,5 @@
 # PropValu — Backlog de Tareas
-> **Última actualización:** 17 Abr 2026 — Features #10 #12 #13 #15
+> **Última actualización:** 19 Abr 2026 — Motor de valuación: Romina-Scraper validado, pendientes motor IA
 > Actualizar este archivo conforme se completen tareas. Marcar con ✅ cuando esté lista, con 🔄 cuando esté en progreso.
 
 ---
@@ -22,7 +22,7 @@
 | 2 | ✅ | **Ads en investigación + generación** — Slot 1/2/3 con countdown, fallback a house ads PropValu. |
 | 22 | ✅ | **AdRenderer.jsx** — countdown, link web/WhatsApp, fallback. |
 | 23 | ✅ | **Carga de creatividades** — subir JPG/PNG/MP4, preview, estado pendiente de revisión. |
-| 11 | ✅ | **Consola de anunciantes** — `/anunciantes`, `/anunciantes/registro`, `/anunciantes/consola` (5 tabs). |
+| 11 | ✅ | **Consola de anunciantes** — `/anunciantes`, `/anunciantes/registro`, `/anunciantes/consola` (3 tabs). Métricas Resumen y Facturación conectadas a endpoints reales. Saldo a favor calculado desde budget-spend. Mocks eliminados. |
 
 ---
 
@@ -89,7 +89,7 @@
 | 21 | ✅ | **Google Sheets como fuente de comparables** — scraper conectado. |
 | 64 | ✅ | **MongoDB como fuente primaria de comparables** — `mongo_comparables.py` filtra `mercado_props` por municipio/tipo/m2 ±40%, integrado en server.py step 0.5. |
 | 65 | ⏳ | **Sync Sheets → MongoDB tras enricher** — correr `/admin/mercado/sync-sheets` cuando terminen los scrapers pendientes. |
-| 66 | ⏳ | **Correr scrapers pendientes** — 85 tareas: PINCALI 54, INMUEBLES24 20, MITULA 6, CASAS_Y_TERRENOS 5. Auto-enricher integrado al terminar cada portal. |
+| 66 | 🔄 | **Correr scrapers pendientes** — INMUEBLES24 ✅, PROPIEDADES_COM ✅ (2,444 props), PINCALI 6 pendientes, resto completo. Enrichers corriendo: INMUEBLES24 (500 props), PROPIEDADES_COM (auto-lanza). |
 | 34 | ⏳ | **Email notifications** — SendGrid. |
 | 35 | ⏳ | **WhatsApp notifications** — Twilio. |
 
@@ -127,6 +127,22 @@
 | 61 | ⏳ | **Deploy backend en Render** — subir FastAPI a Render, obtener URL pública |
 | 62 | ⏳ | **Agregar secret `PROPVALU_BACKEND_URL` en GitHub** — URL de Render una vez desplegado, para que el workflow de scraper pueda hacer el sync final. Ir a github.com/Pedrucus1/valuation-ai → Settings → Secrets → Actions |
 | 63 | ⏳ | **Merge `feature/search-api` → `main`** — todos los cambios desde Mar 2026 están en esta branch |
+
+---
+
+## Motor de Valuación IA (Modulo Drive IA)
+
+| # | Estado | Tarea |
+|---|---|---|
+| 70 | ✅ | **Romina-Scraper como motor principal** — Homologación Directa $/m²C con comps del scraper. 6/9 casos en Guadalajara dentro de ±20% error. Archivos: `comparar_metodologias.js`, `validador_masivo.js` |
+| 71 | ✅ | **Selección de comps corregida** — Sigue reglas de `sheets_comparables.py`: tipo coincidente, m²C exigido, área ±50%, CUS ±35%, top 10 por similitud. CONSOLIDADO tab como fuente única. |
+| 72 | ✅ | **Anti-remate bidireccional** — Filtro ±40% de mediana (antes solo filtraba abajo). Descarta remates Y colonias caras que distorsionan. |
+| 73 | ✅ | **Gemini como fallback** — `test_gemini_comps.js` implementado. Miguel Hidalgo: +19.7% con Gemini vs +47% con scraper. Las Conchas y Lagos de Oriente requieren más trabajo. |
+| 74 | ⏳ | **Base de datos de colonias similares** — Extraer de los ~800 avalúos en carpeta `avaluos/`: por cada avalúo leer dirección (sujeto) y pestaña MERCADO (colonias con las que el perito comparó). Construir grafo de similitud entre colonias. Usar para mejorar selección de comps cuando scraper no tiene cobertura en la colonia exacta. |
+| 75 | ⏳ | **Revisar enricher del scraper** — Solo 73% de listings tienen m²C (40% colonia válida). El enricher debería extraer m²C de páginas de detalle para todos. Revisar qué portales están fallando en el enrichment y por qué. Archivo: `scraper-inmuebles/enricher.py` |
+| 76 | ⏳ | **Afinar Romina para bajar error** — Analizar casos problemáticos (Miguel Hidalgo +47%, Lagos de Oriente +52%). Ideas: (a) ponderar comps por proximidad de precio, (b) factor de zona basado en colonia DB, (c) ajustar factorEdad con año construcción real del comp, (d) Fic (Factor Intensidad Construcción) de Romina original |
+| 77 | ⏳ | **Integrar Romina-Scraper en PropValu backend** — Reemplazar motor actual en `server.py` con la metodología validada. Usar `sheets_comparables.py` ya existente como fuente de comps. |
+| 78 | ⏳ | **Re-extraer cerebro_datos.json con m²C de comparables** — El extractor ahora captura `construccion: row[8]` pero los 98 archivos ya están marcados como procesados. Borrar cerebro_datos y re-correr `extractor_masivo.js` para tener m²C en comps OPI (necesario para Romina-OPI como benchmark ideal). |
 
 ---
 

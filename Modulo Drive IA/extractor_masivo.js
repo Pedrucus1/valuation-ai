@@ -20,9 +20,9 @@ async function extractData() {
         results = JSON.parse(fs.readFileSync(outputPath, 'utf8'));
     }
 
-    // REGLA DEL USUARIO: Escaneo escalonado. Empezamos con los primeros 20.
-    const archivos2026 = manifest.files.filter(f => f.name.includes('-26-')).slice(0, 20);
-    console.log(`Enfocándose estrictamente en el bloque de ${archivos2026.length} avalúos de 2026 para revisión escalonada...`);
+    // REGLA DEL USUARIO: Escaneo escalonado terminado. Ahora procesaremos TODO el año 2026.
+    const archivos2026 = manifest.files.filter(f => f.name.includes('-26-'));
+    console.log(`Enfocándose estrictamente en procesar la totalidad de los ${archivos2026.length} avalúos de 2026 con coordenadas de precisión...`);
 
     let count = 0;
     const totalFiles = archivos2026.length;
@@ -119,7 +119,8 @@ async function extractData() {
                     folio: {r: 5, c: 4}, tipo: {r: 7, c: 4}, dir: {r: 9, c: 3},
                     // Usaremos el de construccion + accesoria como maximo si existe, si no los demas
                     valPuro: {r: 38, c: 3}, valCon: {r: 38, c: 16}, valConAcc: {r: 38, c: 30},
-                    terr: {r: 50, c: 8}, const: {r: 52, c: 8}, valM2Terr: {r: 57, c: 8}
+                    terr: {r: 50, c: 8}, const: {r: 52, c: 8}, valM2Terr: {r: 57, c: 8},
+                    edad: {r: 87, c: 0}
                 },
                 'OPI LOC COM': {
                     folio: {r: 5, c: 4}, tipo: {r: 7, c: 4}, dir: {r: 9, c: 4},
@@ -186,7 +187,8 @@ async function extractData() {
                     valorMercado: finalValor,
                     m2Terreno: getCell(activeTab, c.terr.r, c.terr.c),
                     m2Construccion: getCell(activeTab, c.const.r, c.const.c),
-                    valorM2Terreno: getCell(activeTab, c.valM2Terr.r, c.valM2Terr.c)
+                    valorM2Terreno: getCell(activeTab, c.valM2Terr.r, c.valM2Terr.c),
+                    edad: getCell(activeTab, c.edad.r, c.edad.c)
                 });
             } else if (activeTab && activeTabName === 'OPI LOC COM') {
                 const c = coords['OPI LOC COM'];
@@ -262,6 +264,7 @@ function extractComparables(mercadoData) {
         if (row && (row[7] || row[9])) { 
             comparables.push({
                 terreno: row[7],
+                construccion: row[8],
                 precio: row[9],
                 link: row[13]
             });

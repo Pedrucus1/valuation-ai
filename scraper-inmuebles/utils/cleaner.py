@@ -226,6 +226,7 @@ def normalizar_propiedad(raw: dict) -> dict:
         "portal_origen": raw.get("portal_origen", ""),
         "fecha_scraping": raw.get("fecha_scraping", datetime.now().isoformat()),
         "activo": raw.get("activo", True),
+        "calle_numero": limpiar_texto(raw.get("calle_numero"), 150),
     }
 
 
@@ -254,4 +255,5 @@ def propiedad_a_fila(prop: dict) -> list:
         prop["portal_origen"],
         prop["fecha_scraping"],
         "TRUE" if prop["activo"] else "FALSE",
+        prop.get("calle_numero", ""),
     ]

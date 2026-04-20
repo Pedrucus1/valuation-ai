@@ -178,7 +178,7 @@ Devuelve ÚNICAMENTE este JSON (sin markdown):
 // ---------------------------------------------------------------------------
 // Serper.dev — Google Search API
 // ---------------------------------------------------------------------------
-function serperSearch(query) {
+function serperSearch(query, options = {}) {
     return new Promise((resolve, reject) => {
         const apiKey = process.env.SERPER_API_KEY;
 
@@ -186,7 +186,11 @@ function serperSearch(query) {
             return reject(new Error("Falta SERPER_API_KEY en .env"));
         }
 
-        const body = JSON.stringify({ q: query, num: 10, gl: "mx", hl: "es" });
+        const payload = { q: query, num: options.num || 10, gl: "mx", hl: "es" };
+        // Filtro de antigüedad: "qdr:m6" = últimos 6 meses en índice de Google
+        if (options.timeFilter) payload.tbs = options.timeFilter;
+
+        const body = JSON.stringify(payload);
 
         const options = {
             hostname: "google.serper.dev",
@@ -486,26 +490,39 @@ Devuelve ÚNICAMENTE un JSON array con este formato exacto:
 
     console.log(`CSE+Gemini: ${parsed.length} raw → ${deduped.length} únicos con datos.`);
 
-    // ── Fallback 1: si hay menos de 10, ampliar búsqueda al municipio completo ──
+    // ── Fallback 1: si hay menos de 10, ampliar búsqueda al municipio con filtro 6 meses ──
     if (deduped.length < 10) {
-        console.log(`Solo ${deduped.length} comparables en colonia — ampliando búsqueda a ${propertyData.municipality}...`);
+        console.log(`Solo ${deduped.length} comparables en colonia — buscando en ${propertyData.municipality} (últimos 6 meses)...`);
         const esFallbackDep = ["Departamento", "Oficina", "Local comercial"].includes(propertyData.property_type);
         const tipo = propertyData.property_type === "Casa" ? "casa"
                    : propertyData.property_type === "Departamento" ? "departamento"
                    : propertyData.property_type === "Local comercial" ? "local comercial"
                    : propertyData.property_type === "Oficina" ? "oficina" : "inmueble";
         const mun = propertyData.municipality;
+        const zona = `${propertyData.neighborhood} ${mun}`;
         const areaFb = propertyData.construction_area ? `${Math.round(propertyData.construction_area)} m²` : null;
+
+        // Queries primarias del mismo tipo, más queries cruzadas con terreno
+        // (cuando no hay comps del mismo tipo, terrenos de zona dan la base del suelo)
         const fallbackQueries = esFallbackDep ? [
             `${tipo} venta ${mun} "m²" "$ " site:inmuebles24.com`,
             `${tipo} venta ${mun} "m²" precio site:casasyterrenos.com`,
             ...(areaFb ? [`${tipo} venta ${mun} "${areaFb}" precio site:inmuebles24.com`] : [`${tipo} venta ${mun} "m²" site:propiedades.com`]),
         ] : [
-            `${tipo} venta ${mun} Jalisco "m²" "$ " recámaras site:inmuebles24.com`,
-            `${tipo} venta ${mun} Jalisco "m²" precio recámaras site:casasyterrenos.com`,
-            `${tipo} venta ${mun} Jalisco "m²" recámaras baños site:propiedades.com`,
+            // Mismo tipo — municipio completo
+            `${tipo} venta ${mun} Jalisco "m²" "$ " site:inmuebles24.com`,
+            `${tipo} venta ${mun} Jalisco "m²" precio site:casasyterrenos.com`,
+            `${tipo} venta ${mun} Jalisco "m²" site:propiedades.com`,
+            // Terrenos de la misma zona (base de suelo cuando no hay comps directos)
+            `terreno venta ${zona} "m²" precio site:inmuebles24.com`,
+            `terreno venta ${zona} "m²" precio site:casasyterrenos.com`,
+            `terreno venta ${zona} precio site:propiedades.com`,
         ];
-        const fbResults = await Promise.allSettled(fallbackQueries.map(q => serperSearch(q)));
+
+        // Filtro "qdr:m6" = indexado en Google en los últimos 6 meses
+        const fbResults = await Promise.allSettled(
+            fallbackQueries.map(q => serperSearch(q, { timeFilter: "qdr:m6" }))
+        );
         const fbItems = [];
         for (const r of fbResults) {
             if (r.status === "fulfilled") {
