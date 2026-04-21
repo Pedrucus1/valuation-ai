@@ -185,13 +185,21 @@ class PincaliScraper(BaseScraper):
             if m:
                 precio_raw = "$" + m.group(1) + (" " + m.group(2).upper() if m.group(2) else " MXN")
 
-        # ── Título / Dirección ────────────────────────
+        # ── Título ────────────────────────────────────
         titulo = ""
-        for pat in ["[class*='title']", "[class*='Title']", "[class*='address']",
-                    "[class*='location']", "h2", "h3", "h4"]:
+        for pat in ["[class*='title']", "[class*='Title']", "h2", "h3", "h4"]:
             tag = tarjeta.select_one(pat)
             if tag:
                 titulo = tag.get_text(strip=True)
+                break
+
+        # ── Colonia (separada del título) ─────────────
+        colonia = ""
+        for pat in ["[class*='location']", "[class*='Location']", "[class*='address']",
+                    "[class*='neighborhood']", "[class*='colonia']", "address"]:
+            tag = tarjeta.select_one(pat)
+            if tag and tag.get_text(strip=True) != titulo:
+                colonia = tag.get_text(strip=True)
                 break
 
         # ── Atributos ─────────────────────────────────
@@ -202,7 +210,8 @@ class PincaliScraper(BaseScraper):
             "precio_raw":       precio_raw,
             "tipo_operacion":   operacion,
             "tipo_propiedad":   tipo_prop,
-            "colonia":          titulo,
+            "colonia":          colonia or titulo,
+            "calle_numero":     "",
             "municipio":        zona["municipio"],
             "estado":           zona["estado"],
             "recamaras":        recamaras,
@@ -378,8 +387,7 @@ class PincaliScraper(BaseScraper):
             locale="es-MX",
             timezone_id="America/Mexico_City",
         )
-        if config.PROXY_URL:
-            ctx_kwargs["proxy"] = {"server": config.PROXY_URL}
+        # PINCALI: proxy IPRoyal cuelga con Cloudflare — usar IP directa
         ctx = self._pw_browser.new_context(**ctx_kwargs)
         page = ctx.new_page()
         try:

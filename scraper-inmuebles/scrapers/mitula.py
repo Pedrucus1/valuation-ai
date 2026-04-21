@@ -285,12 +285,20 @@ class MitulaScraper(BaseScraper):
         desc_tag = tarjeta.select_one(SELECTORES["descripcion"])
         descripcion = desc_tag.get_text(strip=True) if desc_tag else ""
 
+        # Mitula data-location puede traer "Colonia, Municipio" — limpiar
+        if colonia and "," in colonia:
+            municipio_lower = zona["municipio"].lower()
+            partes_col = [p.strip() for p in colonia.split(",")]
+            partes_col = [p for p in partes_col if p.lower() != municipio_lower]
+            colonia = partes_col[0] if partes_col else colonia
+
         return {
             "titulo": titulo,
             "precio_raw": precio_raw,
             "tipo_operacion": operacion,
             "tipo_propiedad": tipo or titulo,
             "colonia": colonia,
+            "calle_numero": "",
             "municipio": zona["municipio"],
             "estado": zona["estado"],
             "recamaras": recamaras,

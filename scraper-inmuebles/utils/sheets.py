@@ -150,7 +150,7 @@ class SheetsClient:
             if id_unico in ids_existentes:
                 num_fila = ids_existentes[id_unico]
                 updates_batch.append({
-                    "range": f"A{num_fila}:V{num_fila}",
+                    "range": f"A{num_fila}:W{num_fila}",
                     "values": [fila],
                 })
                 actualizadas += 1

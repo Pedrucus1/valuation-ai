@@ -16,7 +16,7 @@ load_dotenv(BASE_DIR / ".env")
 # Variables de entorno
 # ─────────────────────────────────────────
 GOOGLE_SHEET_ID = os.environ["GOOGLE_SHEET_ID"]
-CREDENTIALS_PATH = str(BASE_DIR / "credentials.json")
+CREDENTIALS_PATH = str(BASE_DIR / "credentials.json") if (BASE_DIR / "credentials.json").exists() else r"C:\Users\pedru\valuation-ai\scraper-inmuebles\credentials.json"
 
 SCRAPING_DELAY_MIN = float(os.getenv("SCRAPING_DELAY_MIN", 4))
 SCRAPING_DELAY_MAX = float(os.getenv("SCRAPING_DELAY_MAX", 9))

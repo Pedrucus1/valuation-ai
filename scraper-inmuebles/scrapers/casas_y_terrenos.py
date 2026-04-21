@@ -190,6 +190,7 @@ class CasasYTerrenosScraper(BaseScraper):
             "tipo_operacion": operacion,
             "tipo_propiedad": hit.get("type", "").lower() or "casa",
             "colonia": hit.get("neighborhood", ""),
+            "calle_numero": hit.get("address", hit.get("street", "")),
             "municipio": zona["municipio"],
             "estado": zona["estado"],
             "recamaras": str(hit["rooms"]) if hit.get("rooms") else None,

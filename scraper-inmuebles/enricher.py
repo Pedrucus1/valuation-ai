@@ -134,6 +134,52 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
                 logger.debug(f"CasasYTerrenos __NEXT_DATA__ parse error: {e}")
         # Si falla el JSON, continuar con extracción HTML normal
 
+    # ── PropiedadesCom: extraer de __NEXT_DATA__ (size_ground, parking_num, age) ──
+    if portal == "PROPIEDADES_COM":
+        nd = soup.find("script", id="__NEXT_DATA__")
+        if nd:
+            try:
+                data = json.loads(nd.string)
+                amenities = (
+                    data.get("props", {})
+                    .get("pageProps", {})
+                    .get("initialState", {})
+                    .get("Property", {})
+                    .get("property", {})
+                    .get("results", {})
+                    .get("amenities", {})
+                )
+                size_ground = amenities.get("size_ground")
+                if size_ground and float(size_ground) > 0:
+                    resultado["m2_terreno"] = float(size_ground)
+
+                parking = amenities.get("parking_num")
+                if parking and int(parking) >= 0:
+                    resultado["estacionamientos"] = int(parking)
+
+                age_val = amenities.get("age", "")
+                if age_val and str(age_val).strip().lower() not in ("", "nuevo", "none"):
+                    try:
+                        from datetime import date
+                        resultado["año_construccion"] = date.today().year - int(age_val)
+                    except ValueError:
+                        pass
+
+                # Agente: props.pageProps.results.profile
+                profile = (
+                    data.get("props", {})
+                    .get("pageProps", {})
+                    .get("results", {})
+                    .get("profile", {})
+                )
+                nombre = (profile.get("name", "") + " " + profile.get("lastname", "")).strip()
+                if nombre:
+                    resultado["nombre_agente"] = nombre[:150]
+
+                return resultado
+            except Exception as e:
+                logger.debug(f"PropiedadesCom __NEXT_DATA__ parse error: {e}")
+
     # ── m2_construccion ─────────────────────────────────────────────────────
     m2_const = None
 
@@ -283,6 +329,7 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
     patrones_ano = [
         r"(?:año\s+de\s+construcc|construido\s+en|año\s+construcc|built\s+in|year\s+built)[:\s]+(\d{4}|\d+\s*años?)",
         r"(?:antigüedad|antiguedad|age)[:\s]+(\d+\s*años?|\d{4})",
+        r"(\d+)\s*años?\s+de\s+(?:antigüedad|construcción|construido)",
         r"(\d{4})\s*(?:año\s+de\s+construcc|construcc\w*)",
     ]
     for pat in patrones_ano:
@@ -298,28 +345,43 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
     if ano_const is None:
         selectores_ano = {
             "INMUEBLES24": [
+                "[data-qa='postingKeyFeatures-feature-year_built']",
                 "[data-qa='year-built']",
                 "li[data-qa*='year']",
                 "span[class*='yearBuilt']",
+                "li:contains('Antigüedad')",
+                "li:contains('Año de construcción')",
             ],
             "CASAS_Y_TERRENOS": [
                 "img[alt*='year'] ~ span",
                 "[class*='year-built']",
+                "li:contains('Antigüedad')",
             ],
             "PINCALI": [
-                # Español (página /inmueble/)
                 "li:contains('Antigüedad')",
                 "li:contains('Año de construcción')",
                 "li:contains('Año construcc')",
+                "li:contains('Años de antigüedad')",
                 "span:contains('Antigüedad')",
-                # Inglés (fallback)
                 "li:contains('Year built')",
+                "li:contains('Age')",
+            ],
+            "VIVANUNCIOS": [
+                "li:contains('Antigüedad')",
+                "li:contains('Años de antigüedad')",
+                "span:contains('Antigüedad')",
+                "li:contains('Age')",
                 "li:contains('Year')",
-                "li:contains('Built')",
+                "[class*='age']",
+                "[class*='year']",
             ],
             "PROPIEDADES_COM": [
                 "[data-feature='yearBuilt']",
+                "[data-feature='age']",
+                "li:contains('Antigüedad')",
+                "li:contains('Año de construcción')",
                 "[class*='year']",
+                "[class*='age']",
             ],
         }
         for sel in selectores_ano.get(portal, []):
@@ -588,13 +650,33 @@ def inferir_portal_por_url(url: str) -> Optional[str]:
     return None
 
 
+def fetch_html_cdp(url: str) -> Optional[str]:
+    """Fetch via Chrome CDP (Node.js cdp_fetch.js). Para propiedades.com que bloquea Playwright."""
+    import subprocess
+    from pathlib import Path
+    cdp_js = Path(__file__).parent / "scrapers" / "cdp_fetch.js"
+    try:
+        result = subprocess.run(
+            ["node", str(cdp_js), url, "9222"],
+            capture_output=True, text=True, encoding="utf-8", timeout=50,
+        )
+        html = result.stdout
+        return html if len(html) > 5000 else None
+    except Exception as e:
+        logger.warning(f"CDP fetch error para {url}: {e}")
+        return None
+
+
 def fetch_detalle(url: str, portal: str, session: requests.Session) -> Optional[str]:
     """Selecciona el método de descarga adecuado según el portal."""
-    # Si el portal guardado en Sheets está corrupto, inferirlo por URL
     portal_real = portal if portal in PORTALES_PLAYWRIGHT or portal == "CASAS_Y_TERRENOS" else inferir_portal_por_url(url) or portal
 
-    # PINCALI: convertir a URL española antes de fetchear para obtener etiquetas en español
+    # PINCALI: convertir a URL española
     fetch_url = _pincali_url_espanol(url) if portal_real == "PINCALI" else url
+
+    # PROPIEDADES_COM: usar CDP (Playwright headless bloqueado por Akamai)
+    if portal_real == "PROPIEDADES_COM":
+        return fetch_html_cdp(fetch_url)
 
     if portal_real in PORTALES_PLAYWRIGHT:
         return fetch_html_playwright(fetch_url, portal_real)

@@ -10,6 +10,12 @@ inspeccionar el HTML con DevTools y actualizar SELECTORES.
 import re
 from typing import Optional
 
+_PREFIJOS_CALLE = re.compile(
+    r"^(av\.?|avenida|calle?|blvd\.?|boulevard|calz\.?|calzada|circuito|cto\.?|"
+    r"carr\.?|carretera|paseo|privad[ao]\.?|cerrada|andador|diagonal|"
+    r"prol\.?|prolongaci[oó]n|periferico|perif\.?)\b", re.I
+)
+
 from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeout
 
@@ -122,10 +128,23 @@ class VivanunciosScraper(BaseScraper):
         precio_tag = tarjeta.select_one(SELECTORES["precio"])
         precio_raw = precio_tag.get_text(strip=True) if precio_tag else ""
 
-        # Ubicación (colonia + municipio)
+        # Ubicación — parsear colonia y calle por separado
         ubicacion_tag = tarjeta.select_one(SELECTORES["ubicacion"])
         ubicacion_texto = ubicacion_tag.get_text(strip=True) if ubicacion_tag else ""
-        colonia = ubicacion_texto.split(",")[0].strip() if "," in ubicacion_texto else ubicacion_texto
+        colonia = ""
+        calle_numero = ""
+        if "," in ubicacion_texto:
+            partes = [p.strip() for p in ubicacion_texto.split(",")]
+            primera = partes[0]
+            tiene_num = bool(re.search(r'\b\d{2,}\b', primera))
+            es_calle = tiene_num or bool(_PREFIJOS_CALLE.match(primera))
+            if es_calle and len(partes) > 1:
+                calle_numero = primera
+                colonia = partes[1]
+            else:
+                colonia = primera
+        else:
+            colonia = ubicacion_texto
 
         # Atributos — el texto de la tarjeta es texto libre; se parsea con regex
         texto_completo = tarjeta.get_text(separator=" ", strip=True).lower()
@@ -165,6 +184,7 @@ class VivanunciosScraper(BaseScraper):
             "tipo_operacion": operacion,
             "tipo_propiedad": tipo,
             "colonia": colonia,
+            "calle_numero": calle_numero,
             "municipio": zona["municipio"],
             "estado": zona["estado"],
             "recamaras": recamaras,
@@ -253,8 +273,7 @@ class VivanunciosScraper(BaseScraper):
                 "Accept-Language": "es-MX,es;q=0.9,en;q=0.8",
             },
         )
-        if config.PROXY_URL:
-            ctx_kwargs["proxy"] = {"server": config.PROXY_URL}
+        # Proxy IPRoyal cuelga Cloudflare — usar IP directa
         ctx = self._pw_browser.new_context(**ctx_kwargs)
         page = ctx.new_page()
         try:

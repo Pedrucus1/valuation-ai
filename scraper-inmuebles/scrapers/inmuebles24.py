@@ -35,6 +35,35 @@ SELECTORES = {
 
 BASE_URL = "https://www.inmuebles24.com"
 
+_PREFIJOS_CALLE = re.compile(
+    r"^(av\.?|avenida|calle?|blvd\.?|boulevard|calz\.?|calzada|circuito|cto\.?|"
+    r"carr\.?|carretera|paseo|privad[ao]\.?|cerrada|andador|diagonal|"
+    r"prol\.?|prolongaci[oó]n|periferico|perif\.?)\b", re.I
+)
+_ESTADOS_MX = {"jalisco", "colima", "nayarit", "michoacán", "michoacan",
+               "aguascalientes", "guanajuato", "sinaloa", "sonora"}
+
+def _parsear_location(location: str) -> tuple[str, str]:
+    """
+    Separa 'Marsella 123, Chapalita, Guadalajara' en:
+      colonia      = 'Chapalita'
+      calle_numero = 'Marsella 123'
+    """
+    partes = [p.strip() for p in location.split(",")]
+    calle = ""
+    colonia = ""
+    for parte in partes:
+        if parte.lower() in _ESTADOS_MX:
+            continue
+        tiene_num = bool(re.search(r'\b\d{2,}\b', parte))
+        es_calle = tiene_num or bool(_PREFIJOS_CALLE.match(parte))
+        if es_calle and not calle:
+            calle = parte
+        elif not es_calle and not colonia:
+            colonia = parte
+    return colonia or (partes[0] if partes else ""), calle
+
+
 # Tipos de propiedad soportados y su slug en URL
 TIPOS_URL = {
     "casas":                    "casa",
@@ -125,7 +154,7 @@ class Inmuebles24Scraper(BaseScraper):
         precio_tag = tarjeta.select_one(SELECTORES["precio"])
         precio_raw = precio_tag.get_text(strip=True) if precio_tag else ""
 
-        # Título y colonia (mismo selector — es la dirección)
+        # Location string — contiene dirección y/o colonia
         titulo_tag = tarjeta.select_one(SELECTORES["titulo"])
         titulo     = titulo_tag.get_text(strip=True) if titulo_tag else ""
 
@@ -140,12 +169,15 @@ class Inmuebles24Scraper(BaseScraper):
         desc_tag    = tarjeta.select_one(SELECTORES["descripcion"])
         descripcion = desc_tag.get_text(strip=True) if desc_tag else ""
 
+        colonia, calle_numero = _parsear_location(titulo)
+
         return {
             "titulo":          titulo,
             "precio_raw":      precio_raw,
             "tipo_operacion":  operacion,
             "tipo_propiedad":  tipo_final,
-            "colonia":         titulo,   # en i24 el location es la dirección/colonia
+            "colonia":         colonia,
+            "calle_numero":    calle_numero,
             "municipio":       zona["municipio"],
             "estado":          zona["estado"],
             "recamaras":       recamaras,
@@ -343,8 +375,7 @@ class Inmuebles24Scraper(BaseScraper):
             locale="es-MX",
             timezone_id="America/Mexico_City",
         )
-        if config.PROXY_URL:
-            ctx_kwargs["proxy"] = {"server": config.PROXY_URL}
+        # INMUEBLES24: proxy IPRoyal cuelga con Cloudflare — usar IP directa
         ctx = self._pw_browser.new_context(**ctx_kwargs)
         page = ctx.new_page()
         try:
