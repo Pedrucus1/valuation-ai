@@ -16,12 +16,33 @@ const { google } = require('googleapis');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 
 const SCRAPER_SHEET_ID = '1rEyGTh4v-W3yfQ9BvFkznyuyCMKfVZDBlGhmGeMdkPE';
+
+// Mapa de colonias similares por NSE — construido de 917 avalúos del perito
+const COLONIAS_SIMILARES_PATH = require('path').join(__dirname, 'colonias_similares.json');
+const _coloniasSimilares = require('fs').existsSync(COLONIAS_SIMILARES_PATH)
+    ? JSON.parse(require('fs').readFileSync(COLONIAS_SIMILARES_PATH, 'utf8'))
+    : {};
+
+function normalizarColonia(s) {
+    if (!s) return '';
+    return s.toString().toLowerCase()
+        .normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .replace(/\b(col\.|colonia|fracc\.|fraccionamiento|residencial|secc?\.?|seccion)\b/g, '')
+        .replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+}
+
+// Devuelve las colonias NSE-similares según el perito, ordenadas por menciones
+function getColoniasSimilares(colonia, maxColonias = 5) {
+    const norm = normalizarColonia(colonia);
+    const similares = _coloniasSimilares[norm] || [];
+    return similares.slice(0, maxColonias).map(x => x.colonia);
+}
 const SALIDA_SHEET_ID  = '1du6IWWN1mKXPlzwENsLjHPD_1kWkBXvtPBsGjZ6evbM';
 
-// Límite de avalúos a procesar (5 = las 5 iniciales de Guadalajara)
+// Límite de avalúos a procesar
 const MAX_AVALUOS    = 50;
-// Municipio objetivo para este test
-const MUNICIPIO_TEST = 'guadalajara';
+// Municipios AMG incluidos en el análisis (vacío = todos)
+const MUNICIPIOS_AMG = ['guadalajara', 'zapopan', 'tlaquepaque', 'tlajomulco', 'tonalá', 'tonala', 'el salto'];
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
@@ -200,9 +221,15 @@ function cargarCacheLocal() {
 }
 
 async function buscarCompsEnScraper(_sheets, zona, prop) {
-    const tipoNorm = normalizaTipo(prop.tipo);
-    const datos    = cargarCacheLocal();
-    const todos    = [];
+    const tipoNorm  = normalizaTipo(prop.tipo);
+    const datos     = cargarCacheLocal();
+    const todos     = [];
+    const colNorm   = normalizarColonia(zona.colonia);
+    const similares = colNorm ? getColoniasSimilares(colNorm) : [];
+
+    if (similares.length > 0) {
+        console.log(`   [NSE] Colonias similares: ${similares.slice(0,3).join(', ')}${similares.length > 3 ? '...' : ''}`);
+    }
 
     for (const d of datos) {
         // Cache ya tiene: solo venta, activos, m2c>0, precio>=100k
@@ -221,10 +248,28 @@ async function buscarCompsEnScraper(_sheets, zona, prop) {
             if (Math.abs(cusComp - cusSubj) / Math.max(cusSubj, 0.01) > 0.35) continue;
         }
 
-        // Score compuesto: similitud de área + bonus de colonia
+        // Recámaras ±1 (solo si el sujeto y el comp tienen el dato)
+        if (prop.recamaras && d.re) {
+            if (Math.abs(d.re - prop.recamaras) > 1) continue;
+        }
+
+        // Baños ±1 (solo si ambos tienen el dato)
+        if (prop.banos && d.ba) {
+            if (Math.abs(d.ba - prop.banos) > 1) continue;
+        }
+
+        // Score compuesto: similitud de área + bonus de colonia (exacta o NSE-similar) + espacios
         let score = areaRef > 0 ? 1 - Math.abs(d.c - areaRef) / Math.max(d.c, areaRef) : 0;
-        if (zona.colonia && d.co && d.co.includes(zona.colonia)) score += 0.5;
-        else if (zona.colonia && d.co && zona.colonia.includes(d.co)) score += 0.3;
+        const dColNorm = normalizarColonia(d.co);
+        if (colNorm && dColNorm) {
+            if (dColNorm.includes(colNorm) || colNorm.includes(dColNorm)) {
+                score += 0.5; // colonia exacta
+            } else if (similares.some(s => dColNorm.includes(s) || s.includes(dColNorm))) {
+                score += 0.25; // colonia NSE-similar según el perito
+            }
+        }
+        if (prop.recamaras && d.re && d.re === prop.recamaras) score += 0.2;
+        if (prop.banos && d.ba && Math.abs(d.ba - prop.banos) <= 0.5) score += 0.1;
 
         todos.push({ precio: d.p, m2_const: d.c, m2_terreno: d.t, colonia: d.co, municipio: d.mu, score });
     }
@@ -248,20 +293,32 @@ async function buscarCompsEnScraper(_sheets, zona, prop) {
 async function buscarCompsGemini(prop, zona) {
     const MODELOS = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-2.0-flash-lite'];
 
+    const colNormG   = normalizarColonia(zona.colonia);
+    const similaresG = colNormG ? getColoniasSimilares(colNormG, 3) : [];
     const zonaStr = zona.colonia
         ? `colonia ${zona.colonia}, ${zona.municipio} Jalisco`
         : `${zona.municipio} Jalisco`;
+    const zonasAlt = similaresG.length > 0
+        ? `Colonias de nivel socioeconómico similar validadas: ${similaresG.join(', ')}.`
+        : '';
+
+    const recStr = prop.recamaras
+        ? `${prop.recamaras} recámaras (acepta entre ${Math.max(1, prop.recamaras - 1)} y ${prop.recamaras + 1})`
+        : 'sin restricción de recámaras';
+    const banosStr = prop.banos
+        ? `${prop.banos} baños (acepta entre ${Math.max(1, prop.banos - 1)} y ${prop.banos + 1})`
+        : '';
 
     const prompt = `Busca casas en venta en ${zonaStr} en sitios como inmuebles24.com, propiedades.com, casasyterrenos.com o vivanuncios.com.
 
-Propiedad sujeto: casa de ${prop.construccion} m² de construcción en ${zonaStr}.
+Propiedad sujeto: casa de ${prop.construccion} m² de construcción, ${recStr}${banosStr ? ', ' + banosStr : ''}, en ${zonaStr}.
 
-Encuentra entre 3 y 6 casas en venta en esa zona o colonias vecinas de nivel socioeconómico similar, con precio y m² de construcción confirmados.
+Encuentra entre 3 y 6 casas en venta en esa zona o colonias vecinas de nivel socioeconómico similar.
 
 Responde SOLO con este JSON, sin explicaciones ni markdown:
 {
   "comparables": [
-    {"colonia": "...", "precio": 0000000, "m2c": 000, "url": "..."},
+    {"colonia": "...", "precio": 0000000, "m2c": 000, "recamaras": 0, "url": "..."},
     ...
   ]
 }
@@ -269,8 +326,10 @@ Responde SOLO con este JSON, sin explicaciones ni markdown:
 Reglas:
 - precio: número entero en pesos MXN
 - m2c: metros cuadrados de construcción (obligatorio, mayor a 0)
+- recamaras: número de recámaras del comparable (0 si no se confirma)
 - Los comparables deben tener entre ${Math.round(prop.construccion * 0.6)} y ${Math.round(prop.construccion * 1.6)} m² de construcción
-- Si la colonia exacta no tiene oferta, usa colonias vecinas de nivel similar
+- ${prop.recamaras ? `Priorizar propiedades con ${recStr}` : 'Incluir propiedades de tamaño similar'}
+- ${zonasAlt || 'Si la colonia exacta no tiene oferta, usa colonias vecinas de nivel socioeconómico similar'}
 - Omite propiedades sin m2c confirmado
 - No repitas el mismo inmueble dos veces`;
 
@@ -325,21 +384,21 @@ Reglas:
 async function main() {
     const cerebro = JSON.parse(fs.readFileSync('cerebro_datos.json', 'utf8'));
 
-    // Filtrar: Guadalajara 2026, casas con valor y m²C
-    const validos = cerebro.filter(d =>
-        d.fileName &&
-        d.fileName.includes('-26-') &&
-        d.fileName.toLowerCase().includes(MUNICIPIO_TEST) &&
-        d.valorMercado && d.valorMercado !== 'No hallado' &&
-        cleanNum(d.valorMercado) > 0 &&
-        cleanNum(d.m2Construccion) > 0 &&
-        d.comparables && d.comparables.length >= 3 &&
-        !(d.tipo || '').toUpperCase().includes('EJIDAL') &&
-        (d.tipo || '').toUpperCase().includes('CASA')
-    ).slice(0, MAX_AVALUOS);
+    // Filtrar: AMG 2026, casas con valor y m²C (excluye ejidales y uso mixto)
+    const validos = cerebro.filter(d => {
+        if (!d.fileName || !d.fileName.includes('-26-')) return false;
+        if (!d.valorMercado || d.valorMercado === 'No hallado') return false;
+        if (cleanNum(d.valorMercado) <= 0 || cleanNum(d.m2Construccion) <= 0) return false;
+        if (!d.comparables || d.comparables.length < 3) return false;
+        const tipo = (d.tipo || '').toUpperCase();
+        if (tipo.includes('EJIDAL') || tipo.includes('LOCAL') || tipo.includes('TERRENO')) return false;
+        if (!tipo.includes('CASA')) return false;
+        const nombre = d.fileName.toLowerCase();
+        return MUNICIPIOS_AMG.some(m => nombre.includes(m) || (d.direccion||'').toLowerCase().includes(m));
+    }).slice(0, MAX_AVALUOS);
 
     console.log(`\n${'='.repeat(70)}`);
-    console.log(`  Romina con Fallback Gemini — ${validos.length} avalúos de ${MUNICIPIO_TEST}`);
+    console.log(`  Romina con Fallback Gemini — ${validos.length} avalúos AMG`);
     console.log(`${'='.repeat(70)}\n`);
 
     const auth   = await googleSheetsConnector.authenticate();
@@ -364,14 +423,17 @@ async function main() {
             construccion: cleanNum(d.m2Construccion),
             valorReal:    cleanNum(d.valorMercado),
             edad,
-            compsOPI:     d.comparables || []
+            compsOPI:     d.comparables || [],
+            recamaras:    d.recamaras || null,
+            banos:        d.banos     || null,
+            estacionamientos: d.estacionamientos || null,
         };
 
         console.log(`\n📍 ${d.fileName}`);
         console.log(`   ${prop.tipo} | m²C:${prop.construccion} | m²T:${prop.terreno} | Edad:${edad} | Perito:${MXN(prop.valorReal)}`);
 
         const zona = extraerZona(d.fileName);
-        console.log(`   Zona: municipio="${zona.municipio}" colonia="${zona.colonia}"`);
+        console.log(`   ${prop.recamaras||'?'}rec ${prop.banos||'?'}baños ${prop.estacionamientos||'?'}est | Zona: municipio="${zona.municipio}" colonia="${zona.colonia}"`);
 
         // ── 1. Buscar en scraper ──────────────────────────────────────────────
         const compsScraper = await buscarCompsEnScraper(sheets, zona, prop);

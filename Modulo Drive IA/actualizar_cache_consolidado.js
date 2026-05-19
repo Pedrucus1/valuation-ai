@@ -23,7 +23,7 @@ const SHEET_ID       = '1rEyGTh4v-W3yfQ9BvFkznyuyCMKfVZDBlGhmGeMdkPE';
 // colonia(6) municipio(7) estado(8) rec(9) ban(10)
 // m2c(11) m2t(12) estac(13) año(14) desc(15) url(16)
 // agente(17) fecha_pub(18) portal(19) fecha_scrap(20) activo(21)
-const COL = { precio:2, tipo_op:4, tipo_prop:5, colonia:6, municipio:7, m2c:11, m2t:12, activo:21 };
+const COL = { precio:2, tipo_op:4, tipo_prop:5, colonia:6, municipio:7, rec:9, ban:10, m2c:11, m2t:12, estac:13, activo:21 };
 
 async function main() {
     const creds = JSON.parse(readFileSync(CREDS_PATH, 'utf8'));
@@ -57,6 +57,9 @@ async function main() {
             tp: (r[COL.tipo_prop] || '').toLowerCase(),   // tipo_propiedad
             co: (r[COL.colonia]   || '').toLowerCase(),   // colonia
             mu: (r[COL.municipio] || '').toLowerCase(),   // municipio
+            re: cleanNum(r[COL.rec])  || null,            // recamaras
+            ba: cleanNum(r[COL.ban])  || null,            // baños
+            es: cleanNum(r[COL.estac]) || null,           // estacionamientos
         }));
 
     const meta = {
@@ -67,7 +70,9 @@ async function main() {
 
     writeFileSync(CACHE_PATH, JSON.stringify({ meta, datos: compacto }));
     console.log(`Cache guardada: ${compacto.length.toLocaleString()} comps válidos → cache_consolidado.json`);
-    console.log(`Reducción: ${rows.length.toLocaleString()} filas × 22 cols → ${compacto.length.toLocaleString()} × 7 campos`);
+    const conEspacios = compacto.filter(d => d.re || d.ba).length;
+    console.log(`Reducción: ${rows.length.toLocaleString()} filas × 22 cols → ${compacto.length.toLocaleString()} × 10 campos`);
+    console.log(`Con recámaras/baños: ${conEspacios.toLocaleString()} (${Math.round(conEspacios/compacto.length*100)}%)`);
     const kb = Math.round(Buffer.byteLength(JSON.stringify({ meta, datos: compacto })) / 1024);
     console.log(`Tamaño del cache: ~${kb} KB`);
 }

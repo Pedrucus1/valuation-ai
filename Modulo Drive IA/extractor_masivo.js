@@ -56,7 +56,7 @@ async function extractData() {
                 }
             }
 
-            const tabsToTry = allTabs.filter(t => t.toUpperCase().includes('MERCADO') || t.toUpperCase().startsWith('OPI')).slice(0, 8);
+            const tabsToTry = allTabs.filter(t => t.toUpperCase().includes('MERCADO') || t.toUpperCase().startsWith('OPI') || t.toUpperCase().includes('QUERY')).slice(0, 9);
             
             const tabData = {};
             for (const tab of tabsToTry) {
@@ -159,6 +159,8 @@ async function extractData() {
 
             if (activeTab && activeTabName === 'OPI CONSTR') {
                 const c = coords['OPI CONSTR'];
+                const queryTab = tabData[Object.keys(tabData).find(t => t.toUpperCase().includes('QUERY')) || ''] || null;
+                const espacios = extractEspacios(activeTab, queryTab);
                 Object.assign(finalData, {
                     folio: getCell(activeTab, c.folio.r, c.folio.c),
                     tipo: getCell(activeTab, c.tipo.r, c.tipo.c),
@@ -167,7 +169,10 @@ async function extractData() {
                     m2Terreno: getCell(activeTab, c.terr.r, c.terr.c),
                     m2Construccion: getCell(activeTab, c.const.r, c.const.c),
                     edad: getCell(activeTab, c.edad.r, c.edad.c),
-                    valorM2Aplicable: getCell(activeTab, c.valM2.r, c.valM2.c)
+                    valorM2Aplicable: getCell(activeTab, c.valM2.r, c.valM2.c),
+                    recamaras: espacios.recamaras,
+                    banos: espacios.banos,
+                    estacionamientos: espacios.estacionamientos
                 });
             } else if (activeTab && activeTabName === 'OPI TERRENO') {
                 const c = coords['OPI TERRENO'];
@@ -222,6 +227,51 @@ async function extractData() {
 
     fs.writeFileSync(outputPath, JSON.stringify(results, null, 2));
     console.log(`Extracción de 2026 completada. Datos guardados en ${outputPath}`);
+}
+
+// Extrae recámaras, baños y estacionamientos del sujeto usando dos estrategias:
+// 1. OPI Constr: col0=cantidad, col1=label (filas 56-70)
+// 2. Query_Formato: col0=label, col1=cantidad (filas 85-95) — fallback cuando OPI Constr no tiene número
+function extractEspacios(constrSheet, querySheet) {
+    const result = { recamaras: null, banos: null, estacionamientos: null };
+
+    // Estrategia 1: OPI Constr — cantidad en col0, label en col1
+    if (constrSheet) {
+        for (let r = 56; r <= 70; r++) {
+            const row = constrSheet[r];
+            if (!row) continue;
+            const label = (row[1] || '').toString().toUpperCase().trim();
+            const qty   = parseFloat((row[0] || '').toString().replace(/[^0-9.]/g, ''));
+            if (!isNaN(qty) && qty > 0) {
+                if (label.includes('RECAMARA') || label.includes('RECÁMARA') || label.includes('DORMITORIO'))
+                    result.recamaras = qty;
+                else if ((label.includes('BAÑO') || label.includes('BANO') || label.includes('WC')) && !label.includes('1/2') && !label.includes('MEDIO'))
+                    result.banos = qty;
+                else if (label.includes('ESTACIONAMIENTO') || label.includes('GARAGE') || label.includes('GARAJE'))
+                    result.estacionamientos = qty;
+            }
+        }
+    }
+
+    // Estrategia 2: Query_Formato — label en col0, cantidad en col1 (filas 85-95)
+    if (querySheet && (result.recamaras === null || result.banos === null)) {
+        for (let r = 84; r <= 95; r++) {
+            const row = querySheet[r];
+            if (!row) continue;
+            const label = (row[0] || '').toString().toUpperCase().trim();
+            const qty   = parseFloat((row[1] || '').toString().replace(/[^0-9.]/g, ''));
+            if (!isNaN(qty) && qty > 0) {
+                if ((label.includes('RECAMARA') || label.includes('RECÁMARA') || label.includes('DORMITORIO')) && result.recamaras === null)
+                    result.recamaras = qty;
+                else if ((label.includes('BAÑO') || label.includes('BANO') || label.includes('WC')) && !label.includes('1/2') && !label.includes('MEDIO') && result.banos === null)
+                    result.banos = qty;
+                else if ((label.includes('ESTACIONAMIENTO') || label.includes('GARAGE') || label.includes('GARAJE')) && result.estacionamientos === null)
+                    result.estacionamientos = qty;
+            }
+        }
+    }
+
+    return result;
 }
 
 function findValueByLabel(sheetData, labels, minOffset = 1, requireNumber = false) {

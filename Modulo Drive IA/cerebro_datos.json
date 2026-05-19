@@ -145,7 +145,10 @@
     "m2Terreno": "415.00 M2",
     "m2Construccion": "484.68 M2",
     "edad": "35 AÑOS.    ",
-    "valorM2Aplicable": " $ 10,780 "
+    "valorM2Aplicable": " $ 10,780 ",
+    "recamaras": null,
+    "banos": null,
+    "estacionamientos": null
   },
   {
     "fileId": "1kYOMqfLw1AL1hDcS2ypteb_Rqo-S5Az2I4U81s2mYVQ",
@@ -364,7 +367,10 @@
     "m2Terreno": "56.00 M2",
     "m2Construccion": "95.25 M2",
     "edad": "24 AÑOS.    ",
-    "valorM2Aplicable": " $ 18,262 "
+    "valorM2Aplicable": " $ 18,262 ",
+    "recamaras": 4,
+    "banos": 2,
+    "estacionamientos": null
   },
   {
     "fileId": "1T1WLqikqQyqTIATSMCEoujH7hs7WmrTD30qyne269Yc",
@@ -516,7 +522,10 @@
     "m2Terreno": "421.20 M2",
     "m2Construccion": "138.00 M2",
     "valorM2Terreno": " $ 11,898.79 ",
-    "edad": "25 AÑOS.    "
+    "edad": "25 AÑOS.    ",
+    "recamaras": 2,
+    "banos": 2,
+    "estacionamientos": null
   },
   {
     "fileId": "1e9DIS0HPAJdR3X_Lj7jJRZ10oBY5XxuVNrMDKEH5tJE",
@@ -613,7 +622,10 @@
     "m2Terreno": "3,145.20 M2",
     "m2Construccion": "338.87 M2",
     "valorM2Terreno": " $ 2,232.82 ",
-    "edad": "35 AÑOS.    "
+    "edad": "35 AÑOS.    ",
+    "recamaras": 3,
+    "banos": 3,
+    "estacionamientos": null
   },
   {
     "fileId": "1OYH3Gj9W9gtSLgTvgUTCps1RAmhwJnHA6pzVy8PTh1c",
@@ -740,7 +752,10 @@
     "m2Terreno": "100.00 M2",
     "m2Construccion": "64.07 M2",
     "edad": "20 AÑOS.    ",
-    "valorM2Aplicable": " $ 27,812 "
+    "valorM2Aplicable": " $ 27,812 ",
+    "recamaras": 1,
+    "banos": 1,
+    "estacionamientos": 1
   },
   {
     "fileId": "12ojjXDDgmClGqumUPl4ydHoNxd6I-DOwm-DlGv-tiMk",
@@ -852,7 +867,10 @@
     "m2Terreno": "90.00 M2",
     "m2Construccion": "99.80 M2",
     "edad": "60 AÑOS.    ",
-    "valorM2Aplicable": " $ 17,436 "
+    "valorM2Aplicable": " $ 17,436 ",
+    "recamaras": 3,
+    "banos": 1,
+    "estacionamientos": null
   },
   {
     "fileId": "1pHDhMoQEhLs5Q52rb6UU7XGjj5qS_miR2_g_HWA0zec",
@@ -984,7 +1002,10 @@
     "m2Terreno": "142.68 M2",
     "m2Construccion": "140.55 M2",
     "edad": "28 AÑOS.    ",
-    "valorM2Aplicable": " $ 18,582 "
+    "valorM2Aplicable": " $ 18,582 ",
+    "recamaras": 4,
+    "banos": 2,
+    "estacionamientos": 1
   },
   {
     "fileId": "1ZhDx6qkcaPhFK-JQX1EX-X8UsZ6zRIbxthyZDFRJmnY",
@@ -1204,7 +1225,10 @@
     "m2Terreno": "122.50 M2",
     "m2Construccion": "122.50 M2",
     "edad": "16 AÑOS.    ",
-    "valorM2Aplicable": " $ 26,367 "
+    "valorM2Aplicable": " $ 26,367 ",
+    "recamaras": 4,
+    "banos": 2.5,
+    "estacionamientos": 2
   },
   {
     "fileId": "1G4YqT6vvGXF7PozpMmhemYj3Clve-zNs4Dk2f5nNzc4",
@@ -1718,7 +1742,10 @@
     "m2Terreno": "133.70 M2",
     "m2Construccion": "102.46 M2",
     "edad": "30 AÑOS.    ",
-    "valorM2Aplicable": " $ 22,890 "
+    "valorM2Aplicable": " $ 22,890 ",
+    "recamaras": 3,
+    "banos": 1.5,
+    "estacionamientos": 1
   },
   {
     "fileId": "1vHQEu4UMXxSzpmkHK_WsL9epkhgQ0gTQp58j8jhX6go",
@@ -1815,7 +1842,10 @@
     "m2Terreno": "300.00 M2",
     "m2Construccion": "107.93 M2",
     "valorM2Terreno": " $ 2,041.57 ",
-    "edad": "10 AÑOS.    "
+    "edad": "10 AÑOS.    ",
+    "recamaras": 2,
+    "banos": 1,
+    "estacionamientos": 3
   },
   {
     "fileId": "1PWTUS9rcwTb5hyHSx561QoQlct7JSUpHmWu3oL9IRL0",
@@ -1952,7 +1982,10 @@
     "m2Terreno": "182.12 M2",
     "m2Construccion": "191.77 M2",
     "edad": "35 AÑOS.    ",
-    "valorM2Aplicable": " $ 16,643 "
+    "valorM2Aplicable": " $ 16,643 ",
+    "recamaras": 2,
+    "banos": 2.5,
+    "estacionamientos": 2
   },
   {
     "fileId": "1G_Wsg6UKnYJ-gz82aiNYHrnntTq8AKghSx5n-dtSQ3A",
@@ -2181,7 +2214,10 @@
     "m2Terreno": "300.00 M2",
     "m2Construccion": "173.25 M2",
     "edad": "19 AÑOS.    ",
-    "valorM2Aplicable": " $ 22,486 "
+    "valorM2Aplicable": " $ 22,486 ",
+    "recamaras": 3,
+    "banos": 2.5,
+    "estacionamientos": 2
   },
   {
     "fileId": "1-P9elWx4SzfdhRfbL0B8Kt4ph5-ZkxnmoB4HORVmxcw",
@@ -2318,7 +2354,10 @@
     "m2Terreno": "66.00 M2",
     "m2Construccion": "61.32 M2",
     "edad": "8 AÑOS.    ",
-    "valorM2Aplicable": " $ 20,842 "
+    "valorM2Aplicable": " $ 20,842 ",
+    "recamaras": 2,
+    "banos": 1.5,
+    "estacionamientos": 1
   },
   {
     "fileId": "1Tn2G5l1oRY4Y1fvdCRHbOiU3EAZYQdJ1avG-eUtPg-k",
@@ -2766,7 +2805,10 @@
     "m2Terreno": "300.00 M2",
     "m2Construccion": "253.80 M2",
     "edad": "20 AÑOS.    ",
-    "valorM2Aplicable": " $ 23,931 "
+    "valorM2Aplicable": " $ 23,931 ",
+    "recamaras": 3,
+    "banos": 3.5,
+    "estacionamientos": 2
   },
   {
     "fileId": "1GWQuUrA25kZ-xzVOdnOISlyJvpPcPZ45TAcObno_FHM",
@@ -2884,7 +2926,10 @@
     "m2Terreno": "176.00 M2",
     "m2Construccion": "229.17 M2",
     "valorM2Terreno": " $ 16,745.68 ",
-    "edad": "34 AÑOS.    "
+    "edad": "34 AÑOS.    ",
+    "recamaras": null,
+    "banos": null,
+    "estacionamientos": null
   },
   {
     "fileId": "1_ATbeaLaPbALmjpnY1G3wLsjZ6PTcMresDyvlHGywmI",
@@ -3189,7 +3234,10 @@
     "m2Terreno": "157.50 M2",
     "m2Construccion": "98.96 M2",
     "edad": "31 AÑOS.    ",
-    "valorM2Aplicable": " $ 31,253 "
+    "valorM2Aplicable": " $ 31,253 ",
+    "recamaras": 3,
+    "banos": 2,
+    "estacionamientos": 2
   },
   {
     "fileId": "1JzyGnNxLJX73RQwEkZoNRskBD-gFMlpowfsBdHmanWk",
@@ -3316,7 +3364,10 @@
     "m2Terreno": "96.00 M2",
     "m2Construccion": "43.89 M2",
     "edad": "24 AÑOS.    ",
-    "valorM2Aplicable": " $ 18,884 "
+    "valorM2Aplicable": " $ 18,884 ",
+    "recamaras": 2,
+    "banos": 1,
+    "estacionamientos": 1
   },
   {
     "fileId": "1Lx30znOphbeNgERUr-hMPWnbdiRdjVZjyxYUcOk6OQM",
@@ -3462,7 +3513,10 @@
     "m2Terreno": "96.00 M2",
     "m2Construccion": "98.03 M2",
     "edad": "24 AÑOS.    ",
-    "valorM2Aplicable": " $ 16,493 "
+    "valorM2Aplicable": " $ 16,493 ",
+    "recamaras": 2,
+    "banos": 2.5,
+    "estacionamientos": 1
   },
   {
     "fileId": "1ZR3PDyYeAjnxKoc7SdrYPcWsgYlxq3B6SSEr6MTMaEw",
@@ -3696,7 +3750,10 @@
     "m2Terreno": "82.31 M2",
     "m2Construccion": "49.45 M2",
     "edad": "24 AÑOS.    ",
-    "valorM2Aplicable": " $ 20,541 "
+    "valorM2Aplicable": " $ 20,541 ",
+    "recamaras": 3,
+    "banos": 1,
+    "estacionamientos": 1
   },
   {
     "fileId": "1vSKPCwDuFOlP8CobjShSFbdurfYuWZ83EM30WpTzJ2I",
@@ -3838,7 +3895,10 @@
     "m2Terreno": "90.30 M2",
     "m2Construccion": "142.68 M2",
     "edad": "25 AÑOS.    ",
-    "valorM2Aplicable": " $ 27,768 "
+    "valorM2Aplicable": " $ 27,768 ",
+    "recamaras": 2,
+    "banos": 2.5,
+    "estacionamientos": 2
   },
   {
     "fileId": "1z94Blnni9vtDwb2NtqwlqJ6EGroDlgOOidR2clRoP1o",
@@ -3950,7 +4010,10 @@
     "m2Terreno": "112.00 M2",
     "m2Construccion": "131.42 M2",
     "edad": "40 AÑOS.    ",
-    "valorM2Aplicable": " $ 19,304 "
+    "valorM2Aplicable": " $ 19,304 ",
+    "recamaras": 5,
+    "banos": 2.5,
+    "estacionamientos": 1
   },
   {
     "fileId": "1cKEED5DRO6yB0CJ7_2bGgxPn1CNrLjyTorIpzdvcaN4",
@@ -4072,7 +4135,10 @@
     "m2Terreno": "90.74 M2",
     "m2Construccion": "118.29 M2",
     "edad": "8 AÑOS.    ",
-    "valorM2Aplicable": " $ 27,155 "
+    "valorM2Aplicable": " $ 27,155 ",
+    "recamaras": 3,
+    "banos": 2.5,
+    "estacionamientos": 2
   },
   {
     "fileId": "1LLrSFxBtBjAvLpT-BP9xmGlzZzGS-q1WpF9oyrEeCCQ",
@@ -4204,7 +4270,10 @@
     "m2Terreno": "211.90 M2",
     "m2Construccion": "277.44 M2",
     "edad": "40 AÑOS.    ",
-    "valorM2Aplicable": " $ 32,204 "
+    "valorM2Aplicable": " $ 32,204 ",
+    "recamaras": 3,
+    "banos": 3.5,
+    "estacionamientos": 1
   },
   {
     "fileId": "1-bLHBE6bou4w60kjz3VQgjoRLsq6cIp8-ipWBeuPzvY",
@@ -4325,7 +4394,10 @@
     "m2Terreno": "81.30 M2",
     "m2Construccion": "74.14 M2",
     "edad": "14 AÑOS.    ",
-    "valorM2Aplicable": " $ 15,693 "
+    "valorM2Aplicable": " $ 15,693 ",
+    "recamaras": 3,
+    "banos": 1.5,
+    "estacionamientos": 2
   },
   {
     "fileId": "1ZukZ0cwLx-8q9HH2oIF2xlmbWcK588UvZj81ZrBi4qQ",
@@ -4447,7 +4519,10 @@
     "m2Terreno": "252.00 M2",
     "m2Construccion": "143.65 M2",
     "edad": "52 AÑOS.    ",
-    "valorM2Aplicable": " $ 17,566 "
+    "valorM2Aplicable": " $ 17,566 ",
+    "recamaras": 5,
+    "banos": 1.5,
+    "estacionamientos": 1
   },
   {
     "fileId": "1aJVL_S3zesRIHLwUQVikKmJrXxvP0tuw1lu43sI3maM",
@@ -4579,7 +4654,10 @@
     "m2Terreno": "80.00 M2",
     "m2Construccion": "111.63 M2",
     "edad": "6 AÑOS.    ",
-    "valorM2Aplicable": " $ 15,306 "
+    "valorM2Aplicable": " $ 15,306 ",
+    "recamaras": 3,
+    "banos": 3,
+    "estacionamientos": 2
   },
   {
     "fileId": "1SZ3v0quHSsTW6xKS7lH6mBaEfJe7cG8lOTU9EeJ68iY",
@@ -4691,7 +4769,10 @@
     "m2Terreno": "177.00 M2",
     "m2Construccion": "152.94 M2",
     "edad": "22 AÑOS.    ",
-    "valorM2Aplicable": " $ 23,271 "
+    "valorM2Aplicable": " $ 23,271 ",
+    "recamaras": 4,
+    "banos": 2,
+    "estacionamientos": 1
   },
   {
     "fileId": "1fktSBRriLpqhUMWoGNNNBzNzAxdoS1oIvh12wLThZzA",
@@ -4955,7 +5036,10 @@
     "m2Terreno": "160.00 M2",
     "m2Construccion": "200.88 M2",
     "edad": "45 AÑOS.    ",
-    "valorM2Aplicable": " $ 14,309 "
+    "valorM2Aplicable": " $ 14,309 ",
+    "recamaras": 3,
+    "banos": 2,
+    "estacionamientos": 1
   },
   {
     "fileId": "17XGDa3vyTCwWq0dB2cFED4r1Mbo6AgiGGIf-KjKSnRw",
@@ -5072,7 +5156,10 @@
     "m2Terreno": "80.00 M2",
     "m2Construccion": "67.30 M2",
     "edad": "22 AÑOS.    ",
-    "valorM2Aplicable": " $ 17,326 "
+    "valorM2Aplicable": " $ 17,326 ",
+    "recamaras": 2,
+    "banos": 1,
+    "estacionamientos": 1
   },
   {
     "fileId": "1RumFHNaKzcU5NGBhYuRcnvWTzBipTt5JOjtC1OIrRJ4",
@@ -5221,7 +5308,10 @@
     "m2Terreno": "81.03 M2",
     "m2Construccion": "132.00 M2",
     "valorM2Terreno": " $ 4,458.85 ",
-    "edad": "16 AÑOS.    "
+    "edad": "16 AÑOS.    ",
+    "recamaras": 5,
+    "banos": 4,
+    "estacionamientos": null
   },
   {
     "fileId": "19o8mLZDkesqMuNpXxsvBiolY-vhj4yha7qzZo-KMU8E",
@@ -5338,7 +5428,10 @@
     "m2Terreno": "278.00 M2",
     "m2Construccion": "124.07 M2",
     "edad": "40 AÑOS.    ",
-    "valorM2Aplicable": " $ 20,720 "
+    "valorM2Aplicable": " $ 20,720 ",
+    "recamaras": 2,
+    "banos": 2,
+    "estacionamientos": null
   },
   {
     "fileId": "13YiHrmlff2DbUI1fNOf6QCJHXlDMKiNZ0LSlcsjlRFc",
@@ -5455,7 +5548,10 @@
     "m2Terreno": "166.89 M2",
     "m2Construccion": "122.04 M2",
     "edad": "40 AÑOS.    ",
-    "valorM2Aplicable": " $ 12,594 "
+    "valorM2Aplicable": " $ 12,594 ",
+    "recamaras": 5,
+    "banos": 2,
+    "estacionamientos": 1
   },
   {
     "fileId": "1a-m7FSEzxtou0a4Uzs6pAkymxNuO5YTIYo1iNT_nHBA",
@@ -5582,7 +5678,10 @@
     "m2Terreno": "91.05 M2",
     "m2Construccion": "58.48 M2",
     "edad": "17 AÑOS.    ",
-    "valorM2Aplicable": " $ 15,818 "
+    "valorM2Aplicable": " $ 15,818 ",
+    "recamaras": 2,
+    "banos": 1,
+    "estacionamientos": 1
   },
   {
     "fileId": "1GUB5HBEHAoMp4EA5VS2wwo9mcQ6XQvQlgrzbG6huxBU",
@@ -5754,7 +5853,10 @@
     "m2Terreno": "80.00 M2",
     "m2Construccion": "48.22 M2",
     "edad": "15 AÑOS.    ",
-    "valorM2Aplicable": " $ 17,574 "
+    "valorM2Aplicable": " $ 17,574 ",
+    "recamaras": 2,
+    "banos": 1,
+    "estacionamientos": 1
   },
   {
     "fileId": "1JvyxipirGaDkBVpwzhHlqSbRp6gQam8Q5XYVl6CsthE",
@@ -5876,7 +5978,10 @@
     "m2Terreno": "75.00 M2",
     "m2Construccion": "42.38 M2",
     "edad": "21 AÑOS.    ",
-    "valorM2Aplicable": " $ 17,521 "
+    "valorM2Aplicable": " $ 17,521 ",
+    "recamaras": 2,
+    "banos": 1,
+    "estacionamientos": 1
   },
   {
     "fileId": "1UhfoYa01iXVpoX8OvDoT9A47St2mLi8twxLgaKmN-1k",
@@ -6008,7 +6113,10 @@
     "m2Terreno": "114.00 M2",
     "m2Construccion": "69.39 M2",
     "edad": "5 AÑOS.    ",
-    "valorM2Aplicable": " $ 25,170 "
+    "valorM2Aplicable": " $ 25,170 ",
+    "recamaras": 3,
+    "banos": 2,
+    "estacionamientos": 2
   },
   {
     "fileId": "1D5nwhTu-Z7ueQpDOKTwfYgyY4Oi_t0II8F_AXaJcZxk",
@@ -6120,7 +6228,10 @@
     "m2Terreno": "263.10 M2",
     "m2Construccion": "342.23 M2",
     "edad": "40 AÑOS.    ",
-    "valorM2Aplicable": " $ 31,741 "
+    "valorM2Aplicable": " $ 31,741 ",
+    "recamaras": 4,
+    "banos": 2.5,
+    "estacionamientos": 2
   },
   {
     "fileId": "1L5pZxnLZMIpVpXJLWkBPWNlTMAOUqgwmX4X46nee728",
@@ -6232,7 +6343,10 @@
     "m2Terreno": "71.50 M2",
     "m2Construccion": "41.47 M2",
     "edad": "20 AÑOS.    ",
-    "valorM2Aplicable": " $ 22,688 "
+    "valorM2Aplicable": " $ 22,688 ",
+    "recamaras": 2,
+    "banos": 1,
+    "estacionamientos": 1
   },
   {
     "fileId": "1wg5WpEQQGd7S06R9nlFHbG7rcBSRWAdR76hRQ1zBY3k",
@@ -6374,7 +6488,10 @@
     "m2Terreno": "142.00 M2",
     "m2Construccion": "101.71 M2",
     "edad": "24 AÑOS.    ",
-    "valorM2Aplicable": " $ 19,350 "
+    "valorM2Aplicable": " $ 19,350 ",
+    "recamaras": 3,
+    "banos": 1,
+    "estacionamientos": 1
   },
   {
     "fileId": "14NyBX8OmcoQEYZ5xoSvQczDl0x3SxGg2NSGHIRB0xAY",
@@ -6486,7 +6603,10 @@
     "m2Terreno": "120.41 M2",
     "m2Construccion": "206.00 M2",
     "edad": "30 AÑOS.    ",
-    "valorM2Aplicable": " $ 18,353 "
+    "valorM2Aplicable": " $ 18,353 ",
+    "recamaras": 4,
+    "banos": 3.5,
+    "estacionamientos": 2
   },
   {
     "fileId": "1E3EiNLz__LOtJcYyG34hqWxmnm1CgFXiXr80OCznLxQ",
@@ -6583,7 +6703,10 @@
     "m2Terreno": "649.00 M2",
     "m2Construccion": "209.21 M2",
     "valorM2Terreno": " $ 8,481.76 ",
-    "edad": "35 AÑOS.    "
+    "edad": "35 AÑOS.    ",
+    "recamaras": 5,
+    "banos": 2,
+    "estacionamientos": 1
   },
   {
     "fileId": "1G7p5-6QfPL7MKcdSI-Czj45Y9Ya4yffdy__wnVuC298",
@@ -6950,7 +7073,10 @@
     "m2Terreno": "865.08 M2",
     "m2Construccion": "162.65 M2",
     "valorM2Terreno": " $ 2,967.57 ",
-    "edad": "12 AÑOS.    "
+    "edad": "12 AÑOS.    ",
+    "recamaras": 1,
+    "banos": 1,
+    "estacionamientos": null
   },
   {
     "fileId": "1qdv1zmHIwq9zW9DOAk6wexDS_9Q3frCPwQGscSUvDyI",
@@ -7082,7 +7208,10 @@
     "m2Terreno": "60.00 M2",
     "m2Construccion": "80.00 M2",
     "edad": "31 AÑOS.    ",
-    "valorM2Aplicable": " $ 19,939 "
+    "valorM2Aplicable": " $ 19,939 ",
+    "recamaras": 2,
+    "banos": 1.5,
+    "estacionamientos": 1
   },
   {
     "fileId": "1t9gy0DjxpxZ3l93ewi1pa5wS83_Cbzq9klx9-4G6Ov0",
@@ -7326,7 +7455,10 @@
     "m2Terreno": "74.68 M2",
     "m2Construccion": "89.62 M2",
     "edad": "22 AÑOS.    ",
-    "valorM2Aplicable": " $ 24,415 "
+    "valorM2Aplicable": " $ 24,415 ",
+    "recamaras": 3,
+    "banos": 1.5,
+    "estacionamientos": 2
   },
   {
     "fileId": "1blvPDcBnO_XV4cRFQ5dmLgdzpzzpIXpUO9zRAju8_Fw",
@@ -7458,7 +7590,10 @@
     "m2Terreno": "173.00 M2",
     "m2Construccion": "191.66 M2",
     "edad": "21 AÑOS.    ",
-    "valorM2Aplicable": " $ 14,411 "
+    "valorM2Aplicable": " $ 14,411 ",
+    "recamaras": 5,
+    "banos": 4,
+    "estacionamientos": 1
   },
   {
     "fileId": "1lRWC29O-tXbK_4as5mbS06pOUrCyIs6bqc2ycqpywD0",
@@ -7550,7 +7685,10 @@
     "m2Terreno": "271.92 M2",
     "m2Construccion": "105.07 M2",
     "valorM2Terreno": " $ 2,146.38 ",
-    "edad": "31 AÑOS.    "
+    "edad": "31 AÑOS.    ",
+    "recamaras": 4,
+    "banos": 1,
+    "estacionamientos": 1
   },
   {
     "fileId": "1FkadeKEgCVKdt41GhFlg4H6cGuC4pHTtGVXS8Gi8buY",
@@ -7677,7 +7815,10 @@
     "m2Terreno": "106.50 M2",
     "m2Construccion": "165.81 M2",
     "edad": "54 AÑOS.    ",
-    "valorM2Aplicable": " $ 16,702 "
+    "valorM2Aplicable": " $ 16,702 ",
+    "recamaras": 5,
+    "banos": 2,
+    "estacionamientos": 1
   },
   {
     "fileId": "1jsTX1aVdqV1vZBUeVbR_QAlH_kEPslOawdAAgQSPJ4s",
@@ -7794,7 +7935,10 @@
     "m2Terreno": "233.00 M2",
     "m2Construccion": "181.89 M2",
     "edad": "40 AÑOS.    ",
-    "valorM2Aplicable": " $ 21,059 "
+    "valorM2Aplicable": " $ 21,059 ",
+    "recamaras": 8,
+    "banos": 2,
+    "estacionamientos": null
   },
   {
     "fileId": "1X2XPtU5ggXxIeoHLulfhPEV4q44y4wtbb_qb3pkC6HU",
@@ -7921,7 +8065,10 @@
     "m2Terreno": "61.50 M2",
     "m2Construccion": "73.56 M2",
     "edad": "26 AÑOS.    ",
-    "valorM2Aplicable": " $ 20,197 "
+    "valorM2Aplicable": " $ 20,197 ",
+    "recamaras": 2,
+    "banos": 2,
+    "estacionamientos": 1
   },
   {
     "fileId": "1zvRaG9MKfhbox1AMIBWV1qmVJ7QIzm2Gm1K7ewUmQg4",
@@ -8048,7 +8195,10 @@
     "m2Terreno": "61.50 M2",
     "m2Construccion": "73.56 M2",
     "edad": "26 AÑOS.    ",
-    "valorM2Aplicable": " $ 20,132 "
+    "valorM2Aplicable": " $ 20,132 ",
+    "recamaras": 2,
+    "banos": 2,
+    "estacionamientos": 1
   },
   {
     "fileId": "1Zwptl-c2hjDbuv0JSffB5jl32DsxM2-lKvc6RBy1cWY",
@@ -8169,7 +8319,10 @@
     "m2Terreno": "208.77 M2",
     "m2Construccion": "151.97 M2",
     "edad": "21 AÑOS.    ",
-    "valorM2Aplicable": " $ 25,919 "
+    "valorM2Aplicable": " $ 25,919 ",
+    "recamaras": 4,
+    "banos": 2.5,
+    "estacionamientos": 1
   },
   {
     "fileId": "1FL-Sil67X2pRzdyW-jZkSyo2aQ1HOiHmJPEmT1-3ZD4",
@@ -8409,7 +8562,10 @@
     "m2Terreno": "91.22 M2",
     "m2Construccion": "59.95 M2",
     "edad": "24 AÑOS.    ",
-    "valorM2Aplicable": " $ 29,617 "
+    "valorM2Aplicable": " $ 29,617 ",
+    "recamaras": 3,
+    "banos": 1,
+    "estacionamientos": 1
   },
   {
     "fileId": "1JwwcjcB_txamoGgUEAU1s2fs1dOM4n-d7FzTG1NKXOQ",
@@ -8531,7 +8687,10 @@
     "m2Terreno": "119.50 M2",
     "m2Construccion": "82.82 M2",
     "edad": "55 AÑOS.    ",
-    "valorM2Aplicable": " $ 14,638 "
+    "valorM2Aplicable": " $ 14,638 ",
+    "recamaras": 4,
+    "banos": 1,
+    "estacionamientos": null
   },
   {
     "fileId": "1dxMbZ5UNtTE1YcHa3fXnx-OwSnYQKIASX2zK97luLhQ",
@@ -9121,7 +9280,10 @@
     "m2Terreno": "75.00 M2",
     "m2Construccion": "71.00 M2",
     "edad": "23 AÑOS.    ",
-    "valorM2Aplicable": " $ 17,444 "
+    "valorM2Aplicable": " $ 17,444 ",
+    "recamaras": 2,
+    "banos": 2,
+    "estacionamientos": 1
   },
   {
     "fileId": "1N5NZUYYYVgm40SCgExpjWuINiFGQwbTbfuZm2gVZxdg",
@@ -10055,7 +10217,10 @@
     "m2Terreno": "72.00 M2",
     "m2Construccion": "70.89 M2",
     "edad": "10 AÑOS.    ",
-    "valorM2Aplicable": " $ 15,057 "
+    "valorM2Aplicable": " $ 15,057 ",
+    "recamaras": 3,
+    "banos": 3,
+    "estacionamientos": 1
   },
   {
     "fileId": "19_amyRIriB34RhOK47WG0s_gRhimkDwPgLaRyjRTCfM",
