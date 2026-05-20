@@ -1,0 +1,226 @@
+{
+  "mariano otero_100m2_4rec": {
+    "comps": [
+      {
+        "m2_const": 131,
+        "precio": 2950000,
+        "colonia": "El Fortín"
+      },
+      {
+        "m2_const": 111,
+        "precio": 2999900,
+        "colonia": "El Fortín"
+      },
+      {
+        "m2_const": 100,
+        "precio": 2450000,
+        "colonia": "El Fortín"
+      },
+      {
+        "m2_const": 145,
+        "precio": 4701000,
+        "colonia": "Mariano Otero"
+      },
+      {
+        "m2_const": 87,
+        "precio": 2500000,
+        "colonia": "Mariano Otero"
+      }
+    ],
+    "fecha": "2026-05-20T00:01:41.543Z",
+    "zona": "colonia mariano otero, zapopan Jalisco"
+  },
+  "santa maria_100m2_3rec": {
+    "comps": [
+      {
+        "m2_const": 120,
+        "precio": 2500000,
+        "colonia": "Talpita Poniente"
+      },
+      {
+        "m2_const": 150,
+        "precio": 3925700,
+        "colonia": "San Vicente"
+      }
+    ],
+    "fecha": "2026-05-20T00:03:01.853Z",
+    "zona": "colonia santa maria, guadalajara Jalisco"
+  },
+  "cantera colorada_140m2_4rec": {
+    "comps": [
+      {
+        "m2_const": 162,
+        "precio": 4180000,
+        "colonia": "Pedregal Del Bosque"
+      },
+      {
+        "m2_const": 135,
+        "precio": 3800000,
+        "colonia": "Pedregal Del Bosque"
+      },
+      {
+        "m2_const": 130,
+        "precio": 3180000,
+        "colonia": "Tateposco"
+      },
+      {
+        "m2_const": 109,
+        "precio": 1890000,
+        "colonia": "Cantera Colorada"
+      }
+    ],
+    "fecha": "2026-05-20T00:04:06.384Z",
+    "zona": "colonia cantera colorada, tlaquepaque Jalisco"
+  },
+  "zapopan_200m2_2rec": {
+    "comps": [
+      {
+        "m2_const": 124,
+        "precio": 3219000,
+        "colonia": "El Zapote"
+      },
+      {
+        "m2_const": 122,
+        "precio": 4500000,
+        "colonia": "Lomas de Zapopan"
+      },
+      {
+        "m2_const": 131,
+        "precio": 2950000,
+        "colonia": "El Fortín"
+      },
+      {
+        "m2_const": 160,
+        "precio": 3950000,
+        "colonia": "Canteras"
+      },
+      {
+        "m2_const": 278,
+        "precio": 9900000,
+        "colonia": "Jardín Real"
+      },
+      {
+        "m2_const": 269,
+        "precio": 10500000,
+        "colonia": "Chapalita Oriente"
+      }
+    ],
+    "fecha": "2026-05-20T00:05:14.101Z",
+    "zona": "zapopan Jalisco"
+  },
+  "el castillo_60m2_2rec": {
+    "comps": [
+      {
+        "m2_const": 43,
+        "precio": 750000,
+        "colonia": "El-Castillo, El-Salto"
+      },
+      {
+        "m2_const": 47,
+        "precio": 800000,
+        "colonia": "Parques del Castillo, El Salto"
+      },
+      {
+        "m2_const": 59,
+        "precio": 950000,
+        "colonia": "Parques del Castillo, El Salto"
+      },
+      {
+        "m2_const": 60,
+        "precio": 865000,
+        "colonia": "Parques del Castillo, El Salto"
+      },
+      {
+        "m2_const": 55,
+        "precio": 1447000,
+        "colonia": "Lomas de San Miguel, San Pedro Tlaquepaque"
+      }
+    ],
+    "fecha": "2026-05-20T00:09:23.210Z",
+    "zona": "colonia el castillo,  Jalisco"
+  },
+  "miguel hidalgo_200m2_4rec": {
+    "comps": [
+      {
+        "m2_const": 200,
+        "precio": 3500000,
+        "colonia": "Miguel Hidalgo, Zapopan"
+      },
+      {
+        "m2_const": 163,
+        "precio": 1175000,
+        "colonia": "Miguel Hidalgo, Guadalajara"
+      }
+    ],
+    "fecha": "2026-05-20T00:10:28.561Z",
+    "zona": "colonia miguel hidalgo, guadalajara Jalisco"
+  },
+  "vista hermosa_200m2_5rec": {
+    "comps": [
+      {
+        "m2_const": 250,
+        "precio": 2299000,
+        "colonia": "Mesa Colorada Poniente"
+      },
+      {
+        "m2_const": 282,
+        "precio": 3800000,
+        "colonia": "Mesa Colorada Oriente"
+      }
+    ],
+    "fecha": "2026-05-20T00:10:59.873Z",
+    "zona": "colonia vista hermosa, zapopan Jalisco"
+  },
+  "lagos de oriente_80m2_4rec": {
+    "comps": [
+      {
+        "m2_const": 73,
+        "precio": 650000,
+        "colonia": "Lagos de Oriente"
+      },
+      {
+        "m2_const": 132,
+        "precio": 1700000,
+        "colonia": "Lagos de Oriente"
+      },
+      {
+        "m2_const": 110,
+        "precio": 650000,
+        "colonia": "Lagos de Oriente"
+      }
+    ],
+    "fecha": "2026-05-20T00:12:38.401Z",
+    "zona": "colonia lagos de oriente, guadalajara Jalisco"
+  },
+  "villa fontana_80m2_3rec": {
+    "comps": [
+      {
+        "m2_const": 70,
+        "precio": 2004080,
+        "colonia": "Santa Cruz Del Valle"
+      },
+      {
+        "m2_const": 79,
+        "precio": 1905810,
+        "colonia": "Santa Cruz del Valle"
+      },
+      {
+        "m2_const": 76,
+        "precio": 1631710,
+        "colonia": "Santa Cruz del Valle"
+      },
+      {
+        "m2_const": 95,
+        "precio": 2350000,
+        "colonia": "Santa Cruz del Valle"
+      },
+      {
+        "m2_const": 75,
+        "precio": 1494000,
+        "colonia": "Villa Fontana"
+      }
+    ],
+    "fecha": "2026-05-20T00:13:47.217Z",
+    "zona": "colonia villa fontana,  Jalisco"
+  }
+}

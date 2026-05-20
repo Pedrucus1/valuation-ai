@@ -15,6 +15,20 @@ const googleSheetsConnector = require('../services/googleSheetsConnector');
 const { google } = require('googleapis');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 
+const GEMINI_CACHE_PATH = require('path').join(__dirname, 'gemini_cache.json');
+let _geminiCache = null;
+function cargarGeminiCache() {
+    if (_geminiCache) return _geminiCache;
+    _geminiCache = fs.existsSync(GEMINI_CACHE_PATH)
+        ? JSON.parse(fs.readFileSync(GEMINI_CACHE_PATH, 'utf8'))
+        : {};
+    console.log(`  [GeminiCache] ${Object.keys(_geminiCache).length} entradas cargadas`);
+    return _geminiCache;
+}
+function guardarGeminiCache() {
+    fs.writeFileSync(GEMINI_CACHE_PATH, JSON.stringify(_geminiCache, null, 2));
+}
+
 const SCRAPER_SHEET_ID = '1rEyGTh4v-W3yfQ9BvFkznyuyCMKfVZDBlGhmGeMdkPE';
 
 // Mapa de colonias similares por NSE — construido de 917 avalúos del perito
@@ -288,9 +302,24 @@ async function buscarCompsEnScraper(_sheets, zona, prop) {
     return dedup.slice(0, 10);
 }
 
-// ── buscar comparables vía Gemini + Google Search ────────────────────────────
+// ── buscar comparables vía Gemini + Google Search (con cache local) ──────────
+
+function geminiCacheKey(zona, prop) {
+    const col    = normalizarColonia(zona.colonia) || normalizarColonia(zona.municipio);
+    const bucket = Math.round(prop.construccion / 20) * 20; // agrupa en rangos de ±10m²
+    const rec    = prop.recamaras ? `_${prop.recamaras}rec` : '';
+    return `${col}_${bucket}m2${rec}`;
+}
 
 async function buscarCompsGemini(prop, zona) {
+    const cache = cargarGeminiCache();
+    const key   = geminiCacheKey(zona, prop);
+
+    if (cache[key]) {
+        console.log(`  [GeminiCache] HIT: "${key}" (${cache[key].comps.length} comps)`);
+        return cache[key].comps;
+    }
+
     const MODELOS = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-2.0-flash-lite'];
 
     const colNormG   = normalizarColonia(zona.colonia);
@@ -336,7 +365,7 @@ Reglas:
     let lastError = null;
     for (const modelName of MODELOS) {
         try {
-            const model = genAI.getGenerativeModel({ model: modelName, tools: [{ googleSearch: {} }] });
+            const model  = genAI.getGenerativeModel({ model: modelName, tools: [{ googleSearch: {} }] });
             const result = await model.generateContent(prompt);
             const text   = result.response.text();
             const match  = text.match(/\{[\s\S]*"comparables"[\s\S]*\}/);
@@ -354,24 +383,37 @@ Reglas:
                 .filter(c => c.m2_const > 0 && c.precio > 100000
                           && c.m2_const >= prop.construccion * 0.5
                           && c.m2_const <= prop.construccion * 1.6);
+
             // Anti-outlier ±40% de mediana en $/m²C
+            let final = raw;
             if (raw.length >= 3) {
                 const pm2s = raw.map(c => c.precio / c.m2_const).sort((a, b) => a - b);
                 const med  = pm2s[Math.floor(pm2s.length / 2)];
-                return raw.filter(c => {
+                final = raw.filter(c => {
                     const r = (c.precio / c.m2_const) / med;
                     return r >= 0.60 && r <= 1.60;
                 });
             }
-            return raw;
+
+            // Guardar en cache si se obtuvieron comps
+            if (final.length > 0) {
+                cache[key] = { comps: final, fecha: new Date().toISOString(), zona: zonaStr };
+                guardarGeminiCache();
+                console.log(`  [GeminiCache] MISS → guardado: "${key}"`);
+            }
+            return final;
+
         } catch(e) {
             lastError = e;
             const is503 = e.message && e.message.includes('503');
-            console.log(`  [Gemini/${modelName}] ${is503 ? '503 — probando modelo alternativo...' : 'Error: ' + e.message}`);
-            if (is503) {
-                await new Promise(r => setTimeout(r, 8000));
+            const is429 = e.message && (e.message.includes('429') || e.message.includes('quota') || e.message.includes('RESOURCE_EXHAUSTED'));
+            if (is429) {
+                console.log(`  [Gemini/${modelName}] Quota agotada — probando modelo alternativo...`);
+                await sleep(5000);
                 continue;
             }
+            console.log(`  [Gemini/${modelName}] ${is503 ? '503 — reintentando...' : 'Error: ' + e.message}`);
+            if (is503) { await sleep(8000); continue; }
             break;
         }
     }
@@ -450,7 +492,7 @@ async function main() {
 
         if (necesitaGemini) {
             console.log(`   [Gemini] Activando fallback (confianza=${rominaScraper.confianza}, n=${rominaScraper.nComps})...`);
-            if (geminiCalls > 0) await sleep(10000); // respetar rate limit y dar tiempo entre modelos
+            if (geminiCalls > 0) await sleep(10000);
             geminiCalls++;
             const compsGemini = await buscarCompsGemini(prop, zona);
             rominaGemini = metodoRomina(prop, compsGemini);
