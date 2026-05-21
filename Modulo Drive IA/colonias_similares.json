@@ -6771,28 +6771,36 @@
   ],
   "alcalde barranquitas": [
     {
-      "colonia": "mezquitan country",
-      "menciones": 6
+      "colonia": "centro barranquitas",
+      "menciones": 8
     },
     {
-      "colonia": "guadalajara centro",
+      "colonia": "guadalajara centro historico",
+      "menciones": 5
+    },
+    {
+      "colonia": "el retiro",
+      "menciones": 5
+    },
+    {
+      "colonia": "santa teresita",
       "menciones": 4
     },
     {
-      "colonia": "postes cuates",
-      "menciones": 2
+      "colonia": "artesanos",
+      "menciones": 3
     },
     {
-      "colonia": "guadalajara",
-      "menciones": 2
+      "colonia": "barranquitas oriente",
+      "menciones": 3
     },
     {
-      "colonia": "monumental",
-      "menciones": 2
+      "colonia": "barranquitas poniente",
+      "menciones": 3
     },
     {
-      "colonia": "ninos heroes",
-      "menciones": 2
+      "colonia": "centro historico",
+      "menciones": 4
     }
   ],
   "lomas altos": [
@@ -13129,6 +13137,158 @@
     {
       "colonia": "jal",
       "menciones": 2
+    }
+  ],
+  "el moral": [
+    {
+      "colonia": "colinas de tonala",
+      "menciones": 5
+    },
+    {
+      "colonia": "rancho de la cruz",
+      "menciones": 3
+    },
+    {
+      "colonia": "urbi quinta",
+      "menciones": 3
+    },
+    {
+      "colonia": "paseos de santiago",
+      "menciones": 2
+    }
+  ],
+  "real cantabria": [
+    {
+      "colonia": "jardines del valle",
+      "menciones": 7
+    },
+    {
+      "colonia": "santa ana tepetitlan",
+      "menciones": 4
+    },
+    {
+      "colonia": "nuevo mexico",
+      "menciones": 4
+    },
+    {
+      "colonia": "parques de tesistan",
+      "menciones": 4
+    },
+    {
+      "colonia": "haciendas del valle",
+      "menciones": 4
+    },
+    {
+      "colonia": "hogares de nuevo mexico",
+      "menciones": 4
+    },
+    {
+      "colonia": "villas del ixtepete",
+      "menciones": 3
+    }
+  ],
+  "balcones de santa maria": [
+    {
+      "colonia": "revolucion",
+      "menciones": 6
+    },
+    {
+      "colonia": "parques del bosque",
+      "menciones": 5
+    },
+    {
+      "colonia": "pedregal del bosque",
+      "menciones": 5
+    },
+    {
+      "colonia": "santa anita",
+      "menciones": 4
+    },
+    {
+      "colonia": "parques de santa maria",
+      "menciones": 4
+    },
+    {
+      "colonia": "los olivos de tlaquepaque",
+      "menciones": 4
+    },
+    {
+      "colonia": "arboledas del sur",
+      "menciones": 3
+    },
+    {
+      "colonia": "nueva espana",
+      "menciones": 3
+    },
+    {
+      "colonia": "villas colon",
+      "menciones": 3
+    },
+    {
+      "colonia": "parques de colon",
+      "menciones": 3
+    },
+    {
+      "colonia": "santa maria tequepexpan",
+      "menciones": 3
+    },
+    {
+      "colonia": "miravalle",
+      "menciones": 3
+    },
+    {
+      "colonia": "el vergel",
+      "menciones": 3
+    },
+    {
+      "colonia": "haciendas de san jose",
+      "menciones": 3
+    },
+    {
+      "colonia": "lomas de tlaquepaque",
+      "menciones": 2
+    },
+    {
+      "colonia": "el sauz",
+      "menciones": 2
+    },
+    {
+      "colonia": "cerro del tesoro",
+      "menciones": 2
+    }
+  ],
+  "centro barranquitas": [
+    {
+      "colonia": "alcalde barranquitas",
+      "menciones": 8
+    },
+    {
+      "colonia": "guadalajara centro historico",
+      "menciones": 5
+    },
+    {
+      "colonia": "el retiro",
+      "menciones": 5
+    },
+    {
+      "colonia": "santa teresita",
+      "menciones": 4
+    },
+    {
+      "colonia": "artesanos",
+      "menciones": 3
+    },
+    {
+      "colonia": "barranquitas oriente",
+      "menciones": 3
+    },
+    {
+      "colonia": "barranquitas poniente",
+      "menciones": 3
+    },
+    {
+      "colonia": "centro historico",
+      "menciones": 4
     }
   ]
 }

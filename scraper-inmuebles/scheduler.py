@@ -321,20 +321,110 @@ def ejecutar_tarea(tarea: dict, sheets: SheetsClient) -> int:
         propiedades = resultado["propiedades"]
 
         if propiedades:
-            # 1. Guardar en buffer local PRIMERO — los datos nunca se pierden
+            # 1. Buffer local — nunca se pierden datos
             _guardar_buffer(tarea["id"], propiedades)
 
-            # 2. Intentar subir a Sheets — si falla, quedan en buffer
+            # 2. MongoDB PRIMERO — sin rate limits, almacenamiento primario
+            _guardar_en_mongo(propiedades, portal)
+
+            # 3. Google Sheets — secundario, falla silenciosa si 429
             ok = _subir_buffer_a_sheets(tarea, sheets)
             if not ok:
-                # Marcar como 'scraped' para reintentar en próxima sesión
-                raise RuntimeError("Datos guardados en buffer local. Se subirán a Sheets en la próxima ejecución.")
+                # Datos seguros en MongoDB y buffer — no bloquear la tarea
+                log.warning(f"Sheets falló (datos en MongoDB y buffer): {tarea['id']}")
+                # NO raise — la tarea se marca completada igual (MongoDB tiene los datos)
 
         return len(propiedades)
 
     finally:
         config.ZONAS           = config_backup_zonas
         config.TIPOS_OPERACION = config_backup_ops
+
+
+# ─────────────────────────────────────────
+# MongoDB — almacenamiento primario de propiedades
+# ─────────────────────────────────────────
+
+def _get_mongo_col():
+    """Retorna la colección mercado_props. Lanza excepción si no conecta."""
+    import os
+    from pymongo import MongoClient
+    from dotenv import load_dotenv
+    load_dotenv()
+    client = MongoClient(os.getenv("MONGO_URL", "mongodb://localhost:27017"),
+                         serverSelectionTimeoutMS=5000)
+    return client[os.getenv("DB_NAME", "propvalu")]["mercado_props"]
+
+
+def _guardar_en_mongo(propiedades: list, portal: str) -> dict:
+    """
+    Upsert de propiedades en MongoDB (mercado_props).
+    Clave: id_unico (hash MD5 de URL). Sin rate limit.
+    Retorna {nuevas, actualizadas}.
+    """
+    if not propiedades:
+        return {"nuevas": 0, "actualizadas": 0}
+    try:
+        col = _get_mongo_col()
+        from datetime import datetime, timezone
+        nuevas = actualizadas = 0
+        for prop in propiedades:
+            uid = prop.get("id_unico") or prop.get("url_original", "")
+            if not uid:
+                continue
+            doc = {**prop, "portal": portal, "mongo_ts": datetime.now(timezone.utc).isoformat()}
+            result = col.update_one({"id_unico": uid}, {"$set": doc}, upsert=True)
+            if result.upserted_id:
+                nuevas += 1
+            elif result.modified_count:
+                actualizadas += 1
+        log.info(f"MongoDB mercado_props: {nuevas} nuevas, {actualizadas} actualizadas")
+        return {"nuevas": nuevas, "actualizadas": actualizadas}
+    except Exception as e:
+        log.warning(f"MongoDB fallo (no crítico): {e}")
+        return {"nuevas": 0, "actualizadas": 0}
+
+
+def sync_mongo_a_sheets(sheets: SheetsClient):
+    """
+    Sincroniza propiedades de MongoDB → Google Sheets.
+    Uso: python scheduler.py --sync-sheets
+    Útil cuando Sheets tuvo 429 y los datos quedaron solo en Mongo.
+    """
+    try:
+        col = _get_mongo_col()
+        # Propiedades pendientes de sync (sin sheets_ts o más recientes que última sync)
+        pending = list(col.find({"sheets_synced": {"$ne": True}}, {"_id": 0}).limit(500))
+        if not pending:
+            log.info("sync-sheets: todo ya sincronizado.")
+            return
+        log.info(f"sync-sheets: {len(pending)} propiedades pendientes...")
+        SCRAPERS_MAP_TABS = {
+            "INMUEBLES24":      config.TAB_INMUEBLES24,
+            "PINCALI":          config.TAB_PINCALI,
+            "VIVANUNCIOS":      config.TAB_VIVANUNCIOS,
+            "MITULA":           config.TAB_MITULA,
+            "CASAS_Y_TERRENOS": config.TAB_CASAS_Y_TERRENOS,
+            "PROPIEDADES_COM":  config.TAB_PROPIEDADES_COM,
+        }
+        # Agrupar por portal para un upsert por tab
+        from collections import defaultdict
+        por_portal = defaultdict(list)
+        for p in pending:
+            por_portal[p.get("portal", "INMUEBLES24")].append(p)
+
+        for portal, props in por_portal.items():
+            tab = SCRAPERS_MAP_TABS.get(portal, config.TAB_INMUEBLES24)
+            try:
+                sheets.upsert_propiedades(props, tab)
+                sheets.upsert_propiedades(props, config.TAB_CONSOLIDADO)
+                ids = [p["id_unico"] for p in props if p.get("id_unico")]
+                col.update_many({"id_unico": {"$in": ids}}, {"$set": {"sheets_synced": True}})
+                log.info(f"  {portal}: {len(props)} props sincronizadas a Sheets")
+            except Exception as e:
+                log.warning(f"  {portal}: Sheets falló ({e}) — datos seguros en MongoDB")
+    except Exception as e:
+        log.error(f"sync-sheets error: {e}")
 
 
 # ─────────────────────────────────────────
@@ -465,13 +555,19 @@ def run(reset: bool = False, portal: str = None):
         pendientes = [t for t in tareas if t["estado"] == "pendiente"]
     log.info(f"Tareas pendientes: {len(pendientes)}")
 
-    # Conectar a Sheets
+    # Conectar a Sheets (no-fatal — MongoDB es primario ahora)
     log.info("Conectando a Google Sheets...")
     try:
         sheets = SheetsClient()
     except Exception as e:
-        log.error(f"No se pudo conectar a Google Sheets: {e}")
-        sys.exit(1)
+        log.warning(f"Google Sheets no disponible ({e}) — continuando solo con MongoDB")
+        sheets = None
+
+    if sheets is None:
+        # Monkey-patch para que el resto del código no explote sin Sheets
+        class _FakeSheets:
+            def upsert_propiedades(self, *a, **kw): return {"nuevas":0,"actualizadas":0}
+        sheets = _FakeSheets()
 
     # Reintentar buffers pendientes de sesiones anteriores
     reintentar_buffers_pendientes(tareas, sheets)
@@ -590,8 +686,9 @@ def run(reset: bool = False, portal: str = None):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Scheduler de scraping espaciado")
-    parser.add_argument("--reset",  action="store_true", help="Borrar progreso y empezar de cero")
-    parser.add_argument("--status", action="store_true", help="Mostrar estado actual sin ejecutar")
+    parser.add_argument("--reset",       action="store_true", help="Borrar progreso y empezar de cero")
+    parser.add_argument("--status",      action="store_true", help="Mostrar estado actual sin ejecutar")
+    parser.add_argument("--sync-sheets", action="store_true", help="Sincronizar MongoDB → Sheets (propiedades pendientes)")
     parser.add_argument("--portal", type=str, default=None,
                         help="Filtrar solo un portal (ej: INMUEBLES24, PINCALI, VIVANUNCIOS, MITULA, CASAS_Y_TERRENOS)")
     args = parser.parse_args()
@@ -602,5 +699,12 @@ if __name__ == "__main__":
             mostrar_status(tareas, portal=args.portal)
         else:
             print("No hay progreso guardado. Corre sin --status para iniciar.")
+    elif args.sync_sheets:
+        print("Sincronizando MongoDB → Google Sheets...")
+        try:
+            sheets = SheetsClient()
+            sync_mongo_a_sheets(sheets)
+        except Exception as e:
+            print(f"Error: {e}")
     else:
         run(reset=args.reset, portal=args.portal)

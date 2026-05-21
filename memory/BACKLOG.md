@@ -1,5 +1,5 @@
 # PropValu — Backlog de Tareas
-> **Última actualización:** 19 Abr 2026 — Motor de valuación: Romina-Scraper validado, pendientes motor IA
+> **Última actualización:** 20 May 2026 — Scheduler mensual corregido (ruta + PROPIEDADES_COM), MongoDB-first en scheduler.py, fix m2_terreno Mitula, re-scrape Mitula en curso
 > Actualizar este archivo conforme se completen tareas. Marcar con ✅ cuando esté lista, con 🔄 cuando esté en progreso.
 
 ---
@@ -89,7 +89,7 @@
 | 21 | ✅ | **Google Sheets como fuente de comparables** — scraper conectado. |
 | 64 | ✅ | **MongoDB como fuente primaria de comparables** — `mongo_comparables.py` filtra `mercado_props` por municipio/tipo/m2 ±40%, integrado en server.py step 0.5. |
 | 65 | ⏳ | **Sync Sheets → MongoDB tras enricher** — correr `/admin/mercado/sync-sheets` cuando terminen los scrapers pendientes. |
-| 66 | 🔄 | **Correr scrapers pendientes** — INMUEBLES24 ✅, PROPIEDADES_COM ✅ (2,444 props), PINCALI 6 pendientes, resto completo. Enrichers corriendo: INMUEBLES24 (500 props), PROPIEDADES_COM (auto-lanza). |
+| 66 | ✅ | **Correr scrapers pendientes** — Todos completados: CYT ✅, MITULA ✅ (re-scrape 20-may con fix m2_terreno), INMUEBLES24 ✅, PINCALI ✅, PROPIEDADES_COM ✅, VIVANUNCIOS ✅. Total: 84,597 props en MongoDB. |
 | 34 | ⏳ | **Email notifications** — SendGrid. |
 | 35 | ⏳ | **WhatsApp notifications** — Twilio. |
 
@@ -138,11 +138,17 @@
 | 71 | ✅ | **Selección de comps corregida** — Sigue reglas de `sheets_comparables.py`: tipo coincidente, m²C exigido, área ±50%, CUS ±35%, top 10 por similitud. CONSOLIDADO tab como fuente única. |
 | 72 | ✅ | **Anti-remate bidireccional** — Filtro ±40% de mediana (antes solo filtraba abajo). Descarta remates Y colonias caras que distorsionan. |
 | 73 | ✅ | **Gemini como fallback** — `test_gemini_comps.js` implementado. Miguel Hidalgo: +19.7% con Gemini vs +47% con scraper. Las Conchas y Lagos de Oriente requieren más trabajo. |
-| 74 | ⏳ | **Base de datos de colonias similares** — Extraer de los ~800 avalúos en carpeta `avaluos/`: por cada avalúo leer dirección (sujeto) y pestaña MERCADO (colonias con las que el perito comparó). Construir grafo de similitud entre colonias. Usar para mejorar selección de comps cuando scraper no tiene cobertura en la colonia exacta. |
-| 75 | ⏳ | **Revisar enricher del scraper** — Solo 73% de listings tienen m²C (40% colonia válida). El enricher debería extraer m²C de páginas de detalle para todos. Revisar qué portales están fallando en el enrichment y por qué. Archivo: `scraper-inmuebles/enricher.py` |
-| 76 | ⏳ | **Afinar Romina para bajar error** — Analizar casos problemáticos (Miguel Hidalgo +47%, Lagos de Oriente +52%). Ideas: (a) ponderar comps por proximidad de precio, (b) factor de zona basado en colonia DB, (c) ajustar factorEdad con año construcción real del comp, (d) Fic (Factor Intensidad Construcción) de Romina original |
-| 77 | ⏳ | **Integrar Romina-Scraper en PropValu backend** — Reemplazar motor actual en `server.py` con la metodología validada. Usar `sheets_comparables.py` ya existente como fuente de comps. |
-| 78 | ⏳ | **Re-extraer cerebro_datos.json con m²C de comparables** — El extractor ahora captura `construccion: row[8]` pero los 98 archivos ya están marcados como procesados. Borrar cerebro_datos y re-correr `extractor_masivo.js` para tener m²C en comps OPI (necesario para Romina-OPI como benchmark ideal). |
+| 79 | ✅ | **Motor calibrado en 40 OPIs — 31/40 ±20%, error promedio 12.6%** — Mejoras: factorRH dinámico por conservación, prima vivienda pequeña (<65m²C), Beta-OPI preferido cuando colonia es vaga, factor obsolescencia urbana terreno (edad>30 + CUS<0.85). DeepSeek como agente primario de análisis. Script `deepseek_dev.js` creado. |
+| 80 | ✅ | **Comparar metodología perito vs motor propio vs precio real scraper** — `comparar_10_scraper.js`: 10/10 en ±20%, error 11.8%. Motor Romina gana al método perito en todos los casos. |
+| 74 | 🔄 | **Base de datos de colonias similares desde 800 OPIs** — Scripts listos. Faltaba: (1) extractor filtraba solo 2026→98 files, ahora procesa los 919. (2) extractComparables captaba encabezados, ahora filtra precio numérico + extrae colonia de URL. (3) `build_colonias_similares.js` creado. **Para completar: correr `node extractor_masivo.js --force` (necesita auth Drive, ~70 min), luego `node build_colonias_similares.js`.** |
+| 75 | 🔄 | **Revisar enricher del scraper** — Cobertura actual: PINCALI 98% ✅, CYT 81% ✅, MITULA 94% ✅, VIVANUNCIOS 56% ⚠️, INMUEBLES24 0% ❌, PROPIEDADES_COM 13% ❌. Pendiente: enriquecer INMUEBLES24 y PROPIEDADES_COM (Chrome CDP). |
+| 82 | ✅ | **Fix m2_terreno en scraper Mitula** — `data-landarea` no se leía (hardcodeado None). Corregido en `mitula.py` + selectores enricher actualizados. Re-scrape lanzado 20-may. |
+| 83 | ✅ | **Scheduler mensual corregido** — `run_mensual.ps1`: ruta apuntaba a carpeta antigua, Python incorrecto, faltaba PROPIEDADES_COM. Corregido + Fase 3 sync MongoDB→Sheets agregada. |
+| 84 | ✅ | **MongoDB-first en scheduler.py** — Scraper escribe a MongoDB primero (sin rate limit), Sheets es secundario y falla silencioso. Fix para el bloqueo 429 de abril. `--sync-sheets` CLI flag agregado. |
+| 76 | ✅ | **Afinar Romina para bajar error** — Resuelto en sesiones abr-may 2026: 33/40 en ±20%, error 11.8%. factorNeg=0.95, tiers m²C, cascada colonia exacta→similares→municipio, FACTORES_CONSERVACION calibrados. |
+| 77 | ✅ | **Integrar Romina-Scraper en PropValu backend** — `motor_romina_api.js` (wrapper stdin/stdout) + endpoint `POST /valuations/{id}/calculate-romina` en server.py. Probado OK con Chapalita Inn. |
+| 81 | ✅ | **Migrar comparar_*.js a cache_index.json** — Ambos scripts usan ahora cache_index (1.6MB) en vez de cache_consolidado (50MB). Acceso directo IDX[muni][tipo] sin scan de 59k registros. |
+| 78 | 🔄 | **Re-extraer cerebro_datos.json con m²C de comparables** — Fix aplicado: extractor ahora procesa los 919 OPIs (todos los años, no solo 2026), tiene flag `--force` para limpiar y re-extraer, y captura `sujetoColonia` + `colonia` en comparables. **Para completar: `node extractor_masivo.js --force`** (auth Drive requerida, ~70 min). |
 
 ---
 

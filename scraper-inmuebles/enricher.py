@@ -304,8 +304,10 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
                 "[data-feature='landArea']",
             ],
             "MITULA": [
-                "li[class*='feature']:contains('m²')",
-                "span[data-floorarea]",
+                "[data-landarea]",
+                "[class*='land-area']",
+                "[class*='landarea']",
+                "[class*='terreno']",
             ],
         }
         for sel in selectores_terreno.get(portal, []):

@@ -7,7 +7,12 @@ from motor.motor_asyncio import AsyncIOMotorClient
 import certifi
 import os
 import logging
+import json
+import subprocess
 from pathlib import Path
+
+MOTOR_DIR = Path(__file__).parent.parent / "Modulo Drive IA"
+MOTOR_SCRIPT = str(MOTOR_DIR / "motor_romina_api.js")
 from pydantic import BaseModel, Field, ConfigDict
 from typing import List, Optional, Dict, Any
 import uuid
@@ -1585,6 +1590,75 @@ async def calculate_valuation(valuation_id: str, request: Request):
     )
     
     return result.model_dump()
+
+
+@api_router.post("/valuations/{valuation_id}/calculate-romina")
+async def calculate_romina(valuation_id: str):
+    """
+    Calcula valor con motor Romina-Scraper (cache_index local, homologación directa $/m²C).
+    No requiere comparables manuales — los busca automáticamente por colonia/municipio.
+    """
+    valuation = await db.valuations.find_one({"valuation_id": valuation_id}, {"_id": 0})
+    if not valuation:
+        raise HTTPException(status_code=404, detail="Valuación no encontrada")
+
+    prop = valuation.get("property_data", {})
+
+    # Mapeo campos PropValu → motor Romina
+    motor_input = {
+        "tipo":              prop.get("property_type", "casa"),
+        "construccion":      prop.get("construction_area", 0),
+        "terreno":           prop.get("land_area", 0),
+        "edad":              prop.get("estimated_age", 10),
+        "estadoConservacion": {
+            "Excelente": "muy_bueno",
+            "Bueno":     "bueno",
+            "Regular":   "regular_medio",
+            "Malo":      "malo",
+        }.get(prop.get("conservation_state", "Bueno"), "bueno"),
+        "recamaras":         prop.get("bedrooms", 0),
+        "banos":             prop.get("bathrooms", 0),
+        "municipio":         prop.get("city", ""),
+        "colonia":           prop.get("neighborhood", ""),
+    }
+
+    try:
+        proc = await asyncio.wait_for(
+            asyncio.create_subprocess_exec(
+                "node", MOTOR_SCRIPT,
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                cwd=str(MOTOR_DIR),
+            ),
+            timeout=30,
+        )
+        stdout, stderr = await asyncio.wait_for(proc.communicate(input=json.dumps(motor_input).encode()), timeout=30)
+    except asyncio.TimeoutError:
+        raise HTTPException(status_code=503, detail="Motor timeout")
+    except Exception as e:
+        raise HTTPException(status_code=503, detail=f"Motor error: {str(e)}")
+
+    if proc.returncode != 0:
+        raise HTTPException(status_code=503, detail=f"Motor error: {stderr.decode()[:200]}")
+
+    try:
+        result = json.loads(stdout.decode())
+    except Exception:
+        raise HTTPException(status_code=503, detail="Motor respuesta inválida")
+
+    if result.get("error") and result.get("valor", 0) == 0:
+        raise HTTPException(status_code=422, detail=result["error"])
+
+    # Guardar resultado Romina en la valuación
+    await db.valuations.update_one(
+        {"valuation_id": valuation_id},
+        {"$set": {
+            "romina_result": result,
+            "updated_at": datetime.now(timezone.utc).isoformat()
+        }}
+    )
+    return result
 
 @api_router.post("/valuations/{valuation_id}/generate-report")
 async def generate_report(valuation_id: str, request: Request, include_analysis: bool = True):

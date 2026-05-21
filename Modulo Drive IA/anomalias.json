@@ -1,0 +1,19 @@
+[
+  {
+    "archivo": "OPI-26-2-06-OF Nogal 2061, Paseo del Prado",
+    "m2C": 42.382,
+    "m2T": 75.002,
+    "edad": 21,
+    "conservacion": "bueno",
+    "colonia": "paseo del prado",
+    "municipio": "tlaquepaque",
+    "valorPerito": 743000,
+    "valorModelo": 1012647,
+    "errorPct": 36,
+    "fuente": "BETA-OPI (terreno)",
+    "betaOPI": 1012647,
+    "pm2cScraper": 19089,
+    "nCompsScraper": 10,
+    "compsOPI": 23
+  }
+]

@@ -139,59 +139,6 @@
     "fecha": "2026-05-20T00:09:23.210Z",
     "zona": "colonia el castillo,  Jalisco"
   },
-  "miguel hidalgo_200m2_4rec": {
-    "comps": [
-      {
-        "m2_const": 200,
-        "precio": 3500000,
-        "colonia": "Miguel Hidalgo, Zapopan"
-      },
-      {
-        "m2_const": 163,
-        "precio": 1175000,
-        "colonia": "Miguel Hidalgo, Guadalajara"
-      }
-    ],
-    "fecha": "2026-05-20T00:10:28.561Z",
-    "zona": "colonia miguel hidalgo, guadalajara Jalisco"
-  },
-  "vista hermosa_200m2_5rec": {
-    "comps": [
-      {
-        "m2_const": 250,
-        "precio": 2299000,
-        "colonia": "Mesa Colorada Poniente"
-      },
-      {
-        "m2_const": 282,
-        "precio": 3800000,
-        "colonia": "Mesa Colorada Oriente"
-      }
-    ],
-    "fecha": "2026-05-20T00:10:59.873Z",
-    "zona": "colonia vista hermosa, zapopan Jalisco"
-  },
-  "lagos de oriente_80m2_4rec": {
-    "comps": [
-      {
-        "m2_const": 73,
-        "precio": 650000,
-        "colonia": "Lagos de Oriente"
-      },
-      {
-        "m2_const": 132,
-        "precio": 1700000,
-        "colonia": "Lagos de Oriente"
-      },
-      {
-        "m2_const": 110,
-        "precio": 650000,
-        "colonia": "Lagos de Oriente"
-      }
-    ],
-    "fecha": "2026-05-20T00:12:38.401Z",
-    "zona": "colonia lagos de oriente, guadalajara Jalisco"
-  },
   "villa fontana_80m2_3rec": {
     "comps": [
       {
@@ -222,5 +169,347 @@
     ],
     "fecha": "2026-05-20T00:13:47.217Z",
     "zona": "colonia villa fontana,  Jalisco"
+  },
+  "lomas de tabachines_480m2": {
+    "comps": [
+      {
+        "m2_const": 484,
+        "precio": 10875000,
+        "colonia": "Tabachines"
+      },
+      {
+        "m2_const": 409,
+        "precio": 7990000,
+        "colonia": "Tabachines"
+      },
+      {
+        "m2_const": 422,
+        "precio": 7990000,
+        "colonia": "Tabachines"
+      },
+      {
+        "m2_const": 422,
+        "precio": 7900000,
+        "colonia": "Tabachines"
+      }
+    ],
+    "fecha": "2026-05-20T18:18:22.178Z",
+    "zona": "colonia lomas de tabachines, zapopan Jalisco"
+  },
+  "tonala_120m2_3rec": {
+    "comps": [
+      {
+        "m2_const": 120,
+        "precio": 2290000,
+        "colonia": "Mirador del Sur"
+      },
+      {
+        "m2_const": 110,
+        "precio": 3100000,
+        "colonia": "Fraccionamiento Cañadas del Sol"
+      },
+      {
+        "m2_const": 153,
+        "precio": 2380000,
+        "colonia": "Bosques de Tonalá"
+      },
+      {
+        "m2_const": 98,
+        "precio": 1999000,
+        "colonia": "Vasconcelos"
+      }
+    ],
+    "fecha": "2026-05-20T18:19:50.166Z",
+    "zona": "tonalá Jalisco"
+  },
+  "echeverria_200m2_3rec": {
+    "comps": [
+      {
+        "m2_const": 260,
+        "precio": 2700000,
+        "colonia": "Echeverría"
+      },
+      {
+        "m2_const": 154,
+        "precio": 2100000,
+        "colonia": "Lomas de Polanco"
+      }
+    ],
+    "fecha": "2026-05-20T18:21:18.308Z",
+    "zona": "colonia echeverría, guadalajara Jalisco"
+  },
+  "paseos del prado_60m2_2rec": {
+    "comps": [
+      {
+        "m2_const": 93,
+        "precio": 2180000,
+        "colonia": "Paseos del Prado"
+      },
+      {
+        "m2_const": 86,
+        "precio": 2400000,
+        "colonia": "Paseos del Prado"
+      },
+      {
+        "m2_const": 51,
+        "precio": 799000,
+        "colonia": "Real del Sol"
+      },
+      {
+        "m2_const": 76,
+        "precio": 1250000,
+        "colonia": "Real del Sol"
+      },
+      {
+        "m2_const": 60,
+        "precio": 1250000,
+        "colonia": "San Jose Del Valle"
+      }
+    ],
+    "fecha": "2026-05-20T18:22:54.316Z",
+    "zona": "colonia paseos del prado., tlaquepaque Jalisco"
+  },
+  "_120m2_5rec": {
+    "comps": [
+      {
+        "m2_const": 144,
+        "precio": 5050000,
+        "colonia": "Jardines del Country"
+      },
+      {
+        "m2_const": 184,
+        "precio": 2470000,
+        "colonia": "Residencial San Elias"
+      }
+    ],
+    "fecha": "2026-05-20T18:23:51.356Z",
+    "zona": " Jalisco"
+  },
+  "tlajomulco_180m2_3rec": {
+    "comps": [
+      {
+        "m2_const": 162,
+        "precio": 3695000,
+        "colonia": "Punto Sur – Nueva Galicia"
+      },
+      {
+        "m2_const": 193,
+        "precio": 5900000,
+        "colonia": "San Agustín (Fraccionamiento Katania)"
+      },
+      {
+        "m2_const": 145,
+        "precio": 3990000,
+        "colonia": "Bosques Santa Anita"
+      },
+      {
+        "m2_const": 219,
+        "precio": 5390000,
+        "colonia": "Nueva Galicia Residencial"
+      },
+      {
+        "m2_const": 146,
+        "precio": 2990000,
+        "colonia": "Senderos de Monte Verde"
+      },
+      {
+        "m2_const": 104,
+        "precio": 2704840,
+        "colonia": "Residencial Alta California"
+      }
+    ],
+    "fecha": "2026-05-20T18:50:15.054Z",
+    "zona": "tlajomulco Jalisco"
+  },
+  "la guadalupana_140m2_5rec": {
+    "comps": [
+      {
+        "m2_const": 188,
+        "precio": 3950000,
+        "colonia": "Mezquitan"
+      }
+    ],
+    "fecha": "2026-05-20T18:52:26.721Z",
+    "zona": "colonia la guadalupana, guadalajara Jalisco"
+  },
+  "mision san francisco_80m2_2rec": {
+    "comps": [
+      {
+        "m2_const": 71,
+        "precio": 1570000,
+        "colonia": "Real Tulipanes (cerca de Ponciano Arriaga)"
+      },
+      {
+        "m2_const": 82,
+        "precio": 1600000,
+        "colonia": "Real Tulipanes (cerca de Ponciano Arriaga)"
+      },
+      {
+        "m2_const": 52,
+        "precio": 1149000,
+        "colonia": "Parques Santa Cruz Del Valle (cerca de Ojo de Agua)"
+      }
+    ],
+    "fecha": "2026-05-20T18:59:41.220Z",
+    "zona": "colonia misión san francisco, tlaquepaque Jalisco"
+  },
+  "vista hermosa_200m2_5rec": {
+    "comps": [
+      {
+        "m2_const": 250,
+        "precio": 2299000,
+        "colonia": "Mesa Colorada Poniente"
+      },
+      {
+        "m2_const": 205,
+        "precio": 1500000,
+        "colonia": "Vista Hermosa"
+      },
+      {
+        "m2_const": 282,
+        "precio": 3800000,
+        "colonia": "Mesa Colorada Oriente"
+      }
+    ],
+    "fecha": "2026-05-20T19:57:38.902Z",
+    "zona": "colonia vista hermosa, zapopan Jalisco"
+  },
+  "parques del auditorio_80m2_2rec": {
+    "comps": [
+      {
+        "m2_const": 97,
+        "precio": 2490000,
+        "colonia": "Tabachines"
+      }
+    ],
+    "fecha": "2026-05-20T19:58:51.018Z",
+    "zona": "colonia parques del auditorio, zapopan Jalisco"
+  },
+  "lagos de oriente_80m2_4rec": {
+    "comps": [
+      {
+        "m2_const": 110,
+        "precio": 490000,
+        "colonia": "Lagos de Oriente"
+      },
+      {
+        "m2_const": 130,
+        "precio": 590000,
+        "colonia": "Residencial San Andrés"
+      }
+    ],
+    "fecha": "2026-05-20T19:59:52.076Z",
+    "zona": "colonia lagos de oriente, guadalajara Jalisco"
+  },
+  "ds_lomas de tabachines_480m2": {
+    "comps": [
+      {
+        "m2_const": 350,
+        "precio": 4500000,
+        "colonia": "Lomas de Tabachines"
+      },
+      {
+        "m2_const": 420,
+        "precio": 5200000,
+        "colonia": "Lomas de Tabachines"
+      },
+      {
+        "m2_const": 380,
+        "precio": 4800000,
+        "colonia": "Arroyo Hondo"
+      },
+      {
+        "m2_const": 450,
+        "precio": 5500000,
+        "colonia": "Jardines del Vergel"
+      },
+      {
+        "m2_const": 320,
+        "precio": 4100000,
+        "colonia": "Tabachines"
+      },
+      {
+        "m2_const": 500,
+        "precio": 6000000,
+        "colonia": "Arroyo Hondo"
+      }
+    ],
+    "fecha": "2026-05-20T21:10:01.215Z",
+    "zona": "colonia lomas de tabachines, zapopan Jalisco",
+    "fuente": "deepseek"
+  },
+  "ds_mision san francisco_80m2_2rec": {
+    "comps": [
+      {
+        "m2_const": 72,
+        "precio": 2850000,
+        "colonia": "Misión San Francisco"
+      },
+      {
+        "m2_const": 85,
+        "precio": 3100000,
+        "colonia": "Misión San Francisco"
+      },
+      {
+        "m2_const": 65,
+        "precio": 2600000,
+        "colonia": "Ponciano Arriaga"
+      },
+      {
+        "m2_const": 70,
+        "precio": 2750000,
+        "colonia": "Ojo de Agua"
+      },
+      {
+        "m2_const": 78,
+        "precio": 2950000,
+        "colonia": "San Agustín"
+      },
+      {
+        "m2_const": 55,
+        "precio": 2400000,
+        "colonia": "Misión San Francisco"
+      }
+    ],
+    "fecha": "2026-05-20T21:10:05.915Z",
+    "zona": "colonia misión san francisco, tlaquepaque Jalisco",
+    "fuente": "deepseek"
+  },
+  "ds_miguel hidalgo_200m2_4rec": {
+    "comps": [
+      {
+        "m2_const": 200,
+        "precio": 4850000,
+        "colonia": "Miguel Hidalgo"
+      },
+      {
+        "m2_const": 220,
+        "precio": 5200000,
+        "colonia": "Miguel Hidalgo"
+      },
+      {
+        "m2_const": 180,
+        "precio": 4500000,
+        "colonia": "Lagos de Oriente"
+      },
+      {
+        "m2_const": 160,
+        "precio": 4100000,
+        "colonia": "La Coronilla"
+      },
+      {
+        "m2_const": 250,
+        "precio": 5600000,
+        "colonia": "Miguel Hidalgo"
+      },
+      {
+        "m2_const": 210,
+        "precio": 4900000,
+        "colonia": "Lagos de Oriente"
+      }
+    ],
+    "fecha": "2026-05-21T01:48:17.490Z",
+    "zona": "colonia miguel hidalgo, guadalajara Jalisco",
+    "fuente": "deepseek"
   }
 }

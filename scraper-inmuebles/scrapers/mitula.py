@@ -244,10 +244,15 @@ class MitulaScraper(BaseScraper):
 
         # m² — preferir data-floorarea (Mitula), luego texto
         m2_const = None
+        m2_terreno = None
         if tarjeta.get("data-floorarea"):
             num = re.search(r"[\d.]+", tarjeta["data-floorarea"])
             if num:
                 m2_const = num.group()
+        if tarjeta.get("data-landarea"):
+            num = re.search(r"[\d.]+", tarjeta["data-landarea"])
+            if num:
+                m2_terreno = num.group()
 
         # Tipo
         tipo_tag = tarjeta.select_one(sel["tipo_propiedad"])
@@ -304,7 +309,7 @@ class MitulaScraper(BaseScraper):
             "recamaras": recamaras,
             "banos": banos,
             "m2_construccion": m2_const,
-            "m2_terreno": None,   # No disponible en listado
+            "m2_terreno": m2_terreno,
             "estacionamientos": estac,
             "descripcion": descripcion,
             "url_original": url,

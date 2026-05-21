@@ -20,16 +20,19 @@ async function extractData() {
         results = JSON.parse(fs.readFileSync(outputPath, 'utf8'));
     }
 
-    // REGLA DEL USUARIO: Escaneo escalonado terminado. Ahora procesaremos TODO el año 2026.
-    const archivos2026 = manifest.files.filter(f => f.name.includes('-26-'));
-    console.log(`Enfocándose estrictamente en procesar la totalidad de los ${archivos2026.length} avalúos de 2026 con coordenadas de precisión...`);
+    // Procesar TODOS los años del manifiesto (2022-2026)
+    const todosLosArchivos = manifest.files;
+    console.log(`Procesando ${todosLosArchivos.length} avalúos de todos los años...`);
+    const force = process.argv.includes('--force');
+    if (force) { results = []; console.log('  --force: limpiando cerebro_datos.json'); }
 
+    const procesados = new Set(results.map(r => r.fileId));
     let count = 0;
-    const totalFiles = archivos2026.length;
-    
-    for (const file of archivos2026) {
+    const totalFiles = todosLosArchivos.length;
+
+    for (const file of todosLosArchivos) {
         count++;
-        if (results.some(r => r.fileId === file.id)) continue;
+        if (procesados.has(file.id)) continue;
 
         console.log(`[${count}/${totalFiles}] Procesando: ${file.name}...`);
         try {
@@ -99,6 +102,8 @@ async function extractData() {
                 fileId: file.id,
                 fileName: file.name,
                 fecha: findValueByLabel(mercado, ['Fecha'], 1),
+                sujetoColonia: extraerColoniaDeNombre(file.name),
+                municipio: extraerMunicipioDeNombre(file.name),
                 comparables: extractComparables(mercado)
             };
 
@@ -106,6 +111,7 @@ async function extractData() {
             let activeTab = null;
             let activeTabName = '';
             let maxValor = 0;
+            let firstOpiTab = null; // fallback: primer tab OPI que no sea MERCADO/QUERY
 
             // Mapeo de coordenadas según el experto
             // A=0, B=1, C=2, D=3, E=4, F=5, G=6, H=7, I=8, Q=16, W=22, Z=25, AE=30
@@ -132,10 +138,15 @@ async function extractData() {
             for (const tab of Object.keys(tabData)) {
                 const upperTab = tab.toUpperCase();
                 if (upperTab.includes('MERCADO')) continue;
-                
+
                 const sheet = tabData[tab];
                 let currentVal = 0;
-                
+
+                // Guardar primer tab OPI no-mercado como fallback
+                if (upperTab.startsWith('OPI') && !upperTab.includes('QUERY') && !firstOpiTab) {
+                    firstOpiTab = { sheet, name: tab };
+                }
+
                 if (upperTab.includes('CONSTR')) {
                     currentVal = getCleanNum(getCell(sheet, coords['OPI CONSTR'].valor.r, coords['OPI CONSTR'].valor.c));
                     if (currentVal > 1000 && currentVal > maxValor) {
@@ -207,11 +218,39 @@ async function extractData() {
                     edad: getCell(activeTab, c.edad.r, c.edad.c),
                     niveles: getCell(activeTab, c.niveles.r, c.niveles.c)
                 });
+            } else if (firstOpiTab) {
+                // Fallback: OPI con tab de nombre no estándar — tratar como CONSTR
+                const c = coords['OPI CONSTR'];
+                const sheet = firstOpiTab.sheet;
+                const queryTab = tabData[Object.keys(tabData).find(t => t.toUpperCase().includes('QUERY')) || ''] || null;
+                const espacios = extractEspacios(sheet, queryTab);
+                Object.assign(finalData, {
+                    folio:            getCell(sheet, c.folio.r, c.folio.c),
+                    tipo:             getCell(sheet, c.tipo.r, c.tipo.c),
+                    direccion:        getCell(sheet, c.dir.r, c.dir.c),
+                    valorMercado:     getCell(sheet, c.valor.r, c.valor.c),
+                    m2Terreno:        getCell(sheet, c.terr.r, c.terr.c),
+                    m2Construccion:   getCell(sheet, c.const.r, c.const.c),
+                    edad:             getCell(sheet, c.edad.r, c.edad.c),
+                    valorM2Aplicable: getCell(sheet, c.valM2.r, c.valM2.c),
+                    recamaras:        espacios.recamaras,
+                    banos:            espacios.banos,
+                    estacionamientos: espacios.estacionamientos,
+                    _tabFallback:     firstOpiTab.name,
+                });
             } else {
-                // Fallback si no fue ninguna de las 3 principales (ej. Bodega)
+                // Sin ningún tab OPI reconocible
                 finalData.folio = 'No hallado';
                 finalData.valorMercado = 'No hallado';
             }
+
+            // Normalizar tipo a mayúsculas para comparaciones consistentes
+            if (finalData.tipo && finalData.tipo !== 'No hallado') {
+                finalData.tipo = finalData.tipo.toString().toUpperCase().trim();
+            }
+
+            // Extraer estado de conservación inline (evita correr extraer_conservacion.js aparte)
+            finalData.estadoConservacion = extraerConservacionDeSheet(activeTab || (firstOpiTab?.sheet), finalData.tipo);
 
             results.push(finalData);
 
@@ -305,20 +344,115 @@ function findValueByLabel(sheetData, labels, minOffset = 1, requireNumber = fals
     return 'No hallado';
 }
 
+// Extrae municipio del nombre del archivo OPI
+// Formato: "OPI-26-4-09-AV Calle 5, Colonia, 45185 Municipio, Jal."  → "Municipio"
+function extraerMunicipioDeNombre(fileName) {
+    // Eliminar estado al final: ", Jal." / ", Jalisco" / ", Nayarit" etc.
+    const sinEstado = fileName.replace(/,\s*(?:Jal\.?|Jalisco|Nayarit|Colima|Michoacán?)\s*\.?\s*$/i, '').trim();
+    // Último segmento separado por coma, sin CP
+    const partes = sinEstado.split(',');
+    if (partes.length < 2) return '';
+    const raw = partes[partes.length - 1].trim().replace(/^\d{5}\s*/, '');
+    // Limpiar sufijos comunes de municipios largos
+    return raw.replace(/\s+de\s+Zu[nñ]iga/i, '')
+              .replace(/\s+de\s+Morelos/i, '')
+              .trim();
+}
+
+// Extrae estado de conservación directamente de la hoja activa
+// Celdas: OPI Constr X48:AA48, fallback W86:Z86
+function extraerConservacionDeSheet(sheet, tipo) {
+    if (!sheet) return null;
+    const tipoUp = (tipo || '').toUpperCase();
+    const isTerreno = tipoUp.includes('TERRENO') || tipoUp.includes('LOTE');
+
+    // Rangos de filas/cols a revisar (0-indexed)
+    const rangos = isTerreno
+        ? [[87, 21, 24], [47, 23, 27]]   // V88:X88 / X48:AA48
+        : [[47, 23, 27], [85, 22, 26]];  // X48:AA48 / W86:Z86
+
+    for (const [row, cStart, cEnd] of rangos) {
+        const r = sheet[row];
+        if (!r) continue;
+        for (let c = cStart; c <= cEnd; c++) {
+            const estado = normalizarEstadoConservacion(r[c]);
+            if (estado) return estado;
+        }
+    }
+    return null;
+}
+
+function normalizarEstadoConservacion(raw) {
+    if (!raw) return null;
+    const s = raw.toString().toLowerCase()
+        .normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .replace(/[^a-z\s]/g, '').trim();
+    if (s.includes('nuevo') || s.includes('excelente'))    return 'nuevo';
+    if (s.includes('muy bueno') || s.includes('muybueno')) return 'muy_bueno';
+    if (s.includes('regular') && s.includes('bueno'))      return 'regular_bueno';
+    if (s.includes('regular') && s.includes('malo'))       return 'regular_malo';
+    if (s.includes('regular'))                             return 'regular_medio';
+    if (s.includes('bueno'))                               return 'bueno';
+    if (s.includes('muy malo'))                            return 'muy_malo';
+    if (s.includes('malo') || s.includes('deteriorad'))    return 'malo';
+    return null;
+}
+
+// Extrae colonia del nombre del archivo OPI
+// Formato: "OPI-26-4-09-AV Calle 5, Colonia Nombre, 45185 Municipio, Jal."
+function extraerColoniaDeNombre(fileName) {
+    const partes = fileName.split(',');
+    if (partes.length < 2) return '';
+    const raw = partes[1].trim()
+        .replace(/^\d{5}\s*/, '')            // quitar CP si está primero
+        .replace(/^col\.\s*/i, '')           // quitar "Col." (con punto, no "Colon")
+        .replace(/^fracc\.\s*/i, '')         // quitar "Fracc."
+        .replace(/^residencial\s+/i, '');
+    return raw.trim();
+}
+
+// Extrae colonia de URL de portal inmobiliario
+function extraerColoniaDeURL(url) {
+    if (!url || !url.startsWith('http')) return '';
+    try {
+        // casasyterrenos.com: .../tipo-venta-calle-colonia-COLONIA-municipio-jal-id
+        const m1 = url.match(/colonia-([a-z0-9-]+?)-(?:[a-z]+-){0,2}jal/i);
+        if (m1) return m1[1].replace(/-/g, ' ').trim();
+        // inmuebles24: .../propiedades/tipo-en-COLONIA-municipio
+        const m2 = url.match(/propiedades\/[^/]+-en-([a-z0-9-]+?)(?:-zapopan|-guadalajara|-tlaquepaque|-tlajomulco|-tonala|-jalisco)/i);
+        if (m2) return m2[1].replace(/-/g, ' ').trim();
+        // vivanuncios/lamudi: /estado/municipio/colonia/
+        const m3 = url.match(/jalisco\/[^/]+\/([^/]+)\/(?:casas|departamentos|terrenos)/i);
+        if (m3) return m3[1].replace(/-/g, ' ').trim();
+    } catch(e) {}
+    return '';
+}
+
 function extractComparables(mercadoData) {
     const comparables = [];
     if (!mercadoData || mercadoData.length < 5) return [];
-    
+
     for (let i = 3; i < mercadoData.length; i++) {
         const row = mercadoData[i];
-        if (row && (row[7] || row[9])) { 
-            comparables.push({
-                terreno: row[7],
-                construccion: row[8],
-                precio: row[9],
-                link: row[13]
-            });
-        }
+        if (!row) continue;
+
+        // precio (col J = índice 9) debe ser número > 10,000
+        const precioRaw = String(row[9] || '').replace(/[^0-9.-]/g, '');
+        const precio = parseFloat(precioRaw);
+        if (!precio || precio < 10000) continue;
+
+        const terreno     = parseFloat(String(row[7] || '').replace(/[^0-9.-]/g, '')) || 0;
+        const construccion = parseFloat(String(row[8] || '').replace(/[^0-9.-]/g, '')) || 0;
+        const link        = String(row[13] || '').trim();
+
+        // Colonia: intentar columna G (índice 6), luego URL
+        const coloniaCol = String(row[6] || '').trim()
+            .replace(/^col\.?\s*/i, '').replace(/^fracc\.?\s*/i, '');
+        const colonia = (coloniaCol.length > 3 && !/^\d/.test(coloniaCol))
+            ? coloniaCol
+            : extraerColoniaDeURL(link);
+
+        comparables.push({ terreno, construccion, precio, colonia, link });
     }
     return comparables;
 }
