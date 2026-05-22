@@ -53,19 +53,16 @@ async function extractEstadoConservacion(sheets, fileId, tipo) {
     const isTerreno = tipoLow.includes('terreno') || tipoLow.includes('lote');
     const isLocal   = tipoLow.includes('local') || tipoLow.includes('comercial');
 
-    // Rangos a intentar en orden
-    const rangos = isTerreno
+    // Estrategia 1: celdas fijas conocidas (formato 2026)
+    const rangosFijos = isTerreno
         ? ["'OPI Terreno'!V88:X88", "'OPI Terreno'!X48:AA48"]
         : isLocal
         ? ["'OPI Loc Com'!V87:X87", "'OPI Loc Com'!X48:AA48"]
         : ["'OPI Constr'!X48:AA48", "'OPI Constr'!W86:Z86"];
 
-    for (const rango of rangos) {
+    for (const rango of rangosFijos) {
         try {
-            const res = await sheets.spreadsheets.values.get({
-                spreadsheetId: fileId,
-                range: rango,
-            });
+            const res = await sheets.spreadsheets.values.get({ spreadsheetId: fileId, range: rango });
             const rows = res.data.values || [];
             for (const row of rows) {
                 for (const cell of row) {
@@ -73,8 +70,43 @@ async function extractEstadoConservacion(sheets, fileId, tipo) {
                     if (estado) return estado;
                 }
             }
-        } catch (_) { /* tab no existe, intentar siguiente */ }
+        } catch (_) {}
     }
+
+    // Estrategia 2: búsqueda por contexto — leer área amplia y buscar label "conservaci"
+    // Cubre formatos 2022-2025 con celdas distintas
+    const tabsAProbar = isTerreno
+        ? ["'OPI Terreno'!A30:AM120"]
+        : isLocal
+        ? ["'OPI Loc Com'!A30:AM120"]
+        : ["'OPI Constr'!A30:AM120"];
+
+    for (const rango of tabsAProbar) {
+        try {
+            const res = await sheets.spreadsheets.values.get({ spreadsheetId: fileId, range: rango });
+            const sheet = res.data.values || [];
+            for (let r = 0; r < sheet.length; r++) {
+                const row = sheet[r];
+                if (!row) continue;
+                for (let c = 0; c < row.length; c++) {
+                    if (String(row[c] || '').toLowerCase().includes('conservaci')) {
+                        for (let dc = 1; dc <= 8; dc++) {
+                            const estado = normalizarEstado(row[c + dc]);
+                            if (estado) return estado;
+                        }
+                        const nextRow = sheet[r + 1];
+                        if (nextRow) {
+                            for (let dc = 0; dc <= 8; dc++) {
+                                const estado = normalizarEstado(nextRow[c + dc]);
+                                if (estado) return estado;
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (_) {}
+    }
+
     return null;
 }
 

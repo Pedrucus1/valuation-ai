@@ -4,9 +4,17 @@ const path = require('path');
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
+// Timeout wrapper — evita que llamadas de red cuelguen para siempre
+function withTimeout(promise, ms, label) {
+    return Promise.race([
+        promise,
+        new Promise((_, reject) => setTimeout(() => reject(new Error(`TIMEOUT:${label}`)), ms))
+    ]);
+}
+
 async function extractData() {
     console.log('--- Iniciando Extracción de Conocimiento Profunda (Modo Inteligente) ---');
-    
+
     const manifestPath = path.join(__dirname, 'manifiesto_avaluos.json');
     if (!fs.existsSync(manifestPath)) {
         console.error('No se encontró el manifiesto_avaluos.json.');
@@ -29,58 +37,59 @@ async function extractData() {
     const procesados = new Set(results.map(r => r.fileId));
     let count = 0;
     const totalFiles = todosLosArchivos.length;
+    const pendientes = todosLosArchivos.filter(f => !procesados.has(f.id)).length;
+    console.log(`Pendientes: ${pendientes} | Ya procesados: ${procesados.size}`);
+
+    // Auth una sola vez fuera del loop — se refresca automáticamente por el conector
+    let auth, sheets;
+    try {
+        auth  = await withTimeout(googleSheetsConnector.authenticate(), 15000, 'auth-inicial');
+        sheets = require('googleapis').google.sheets({ version: 'v4', auth });
+        console.log('Auth OK');
+    } catch(e) {
+        console.error('Error de autenticación inicial:', e.message);
+        process.exit(1);
+    }
 
     for (const file of todosLosArchivos) {
         count++;
         if (procesados.has(file.id)) continue;
 
-        console.log(`[${count}/${totalFiles}] Procesando: ${file.name}...`);
+        console.log(`[${count}/${totalFiles}] ${file.name.slice(0, 70)}...`);
         try {
-            await delay(4500); 
+            await delay(800);
 
-            // FETCH DYNAMIC TABS (OPTION B)
-            const auth = await googleSheetsConnector.authenticate();
-            const sheets = require('googleapis').google.sheets({ version: 'v4', auth });
-            
+            // Refrescar auth si es necesario (cada 50 archivos)
+            if (count % 50 === 0) {
+                try { auth = await withTimeout(googleSheetsConnector.authenticate(), 15000, 'auth-refresh'); sheets = require('googleapis').google.sheets({ version: 'v4', auth }); }
+                catch(e) { console.log('  Auth refresh falló, continuando con token actual'); }
+            }
+
             let allTabs = [];
-            let metaAttempts = 0;
-            while(metaAttempts < 2) {
-                try {
-                    const meta = await sheets.spreadsheets.get({ spreadsheetId: file.id });
-                    allTabs = meta.data.sheets.map(s => s.properties.title);
-                    break;
-                } catch(e) {
-                    if(e.message.includes('Quota')) {
-                        await delay(20000);
-                        metaAttempts++;
-                    } else {
-                        break;
-                    }
-                }
+            try {
+                const meta = await withTimeout(sheets.spreadsheets.get({ spreadsheetId: file.id }), 12000, 'meta');
+                allTabs = meta.data.sheets.map(s => s.properties.title);
+            } catch(e) {
+                if (e.message.includes('Quota')) { await delay(12000); }
+                else if (e.message.includes('TIMEOUT')) { console.log('  Timeout en meta, saltando'); }
+                // Continuar — tabData quedará vacío, se guardará sin datos de tabs
             }
 
             const tabsToTry = allTabs.filter(t => t.toUpperCase().includes('MERCADO') || t.toUpperCase().startsWith('OPI') || t.toUpperCase().includes('QUERY')).slice(0, 9);
-            
+
             const tabData = {};
             for (const tab of tabsToTry) {
-                const range = `'${tab}'!A1:AM250`; // Ampliado para cubrir Z212 y AE39
-                let success = false;
-                let attempts = 0;
-                
-                while (!success && attempts < 2) {
-                    try {
-                        const data = await googleSheetsConnector.getSpreadsheetData(file.id, range);
-                        if (data) tabData[tab] = data;
-                        success = true;
-                        await delay(1500); 
-                    } catch (err) {
-                        if (err.message.includes('Quota')) {
-                            await delay(20000); 
-                            attempts++;
-                        } else {
-                            success = true; 
-                        }
-                    }
+                const range = `'${tab}'!A1:AM250`;
+                try {
+                    const data = await withTimeout(
+                        googleSheetsConnector.getSpreadsheetData(file.id, range),
+                        10000, `tab:${tab}`
+                    );
+                    if (data) tabData[tab] = data;
+                    await delay(300);
+                } catch (err) {
+                    if (err.message.includes('Quota')) { await delay(12000); }
+                    // timeout o error de red: saltar tab
                 }
             }
 
@@ -254,18 +263,23 @@ async function extractData() {
 
             results.push(finalData);
 
-            if (count % 5 === 0) {
-                fs.writeFileSync(outputPath, JSON.stringify(results, null, 2));
-                console.log(`--- Progreso guardado ---`);
+            // Guardar en cada archivo para no perder progreso si se cuelga
+            fs.writeFileSync(outputPath, JSON.stringify(results, null, 2));
+            if (count % 10 === 0) {
+                const pct = Math.round(results.length / totalFiles * 100);
+                console.log(`--- [${results.length}/${totalFiles}] ${pct}% completado ---`);
             }
 
         } catch (error) {
-            console.error(`Error procesando ${file.name}:`, error.message);
+            console.error(`[ERROR] ${file.name.slice(0,60)}: ${error.message}`);
+            // Registrar el error en el JSON para no reprocesar y saber qué falló
+            results.push({ fileId: file.id, fileName: file.name, _error: error.message });
+            fs.writeFileSync(outputPath, JSON.stringify(results, null, 2));
         }
     }
 
     fs.writeFileSync(outputPath, JSON.stringify(results, null, 2));
-    console.log(`Extracción de 2026 completada. Datos guardados en ${outputPath}`);
+    console.log(`\n=== EXTRACCIÓN COMPLETA === ${results.length} OPIs en cerebro_datos.json`);
 }
 
 // Extrae recámaras, baños y estacionamientos del sujeto usando dos estrategias:
@@ -363,13 +377,13 @@ function extraerMunicipioDeNombre(fileName) {
 // Celdas: OPI Constr X48:AA48, fallback W86:Z86
 function extraerConservacionDeSheet(sheet, tipo) {
     if (!sheet) return null;
+
+    // Estrategia 1: celdas conocidas por formato 2026
     const tipoUp = (tipo || '').toUpperCase();
     const isTerreno = tipoUp.includes('TERRENO') || tipoUp.includes('LOTE');
-
-    // Rangos de filas/cols a revisar (0-indexed)
     const rangos = isTerreno
-        ? [[87, 21, 24], [47, 23, 27]]   // V88:X88 / X48:AA48
-        : [[47, 23, 27], [85, 22, 26]];  // X48:AA48 / W86:Z86
+        ? [[87, 21, 24], [47, 23, 27]]
+        : [[47, 23, 27], [85, 22, 26]];
 
     for (const [row, cStart, cEnd] of rangos) {
         const r = sheet[row];
@@ -379,6 +393,31 @@ function extraerConservacionDeSheet(sheet, tipo) {
             if (estado) return estado;
         }
     }
+
+    // Estrategia 2: buscar por contexto — para formatos 2022-2025 con celdas distintas
+    // Escanear filas 30-120, buscar label "conservaci" y leer celdas adyacentes
+    for (let r = 30; r < Math.min(120, sheet.length); r++) {
+        const row = sheet[r];
+        if (!row) continue;
+        for (let c = 0; c < Math.min(row.length, 35); c++) {
+            const cell = String(row[c] || '').toLowerCase();
+            if (cell.includes('conservaci')) {
+                // Buscar valor en la misma fila (a la derecha) o fila siguiente
+                for (let dc = 1; dc <= 8; dc++) {
+                    const estado = normalizarEstadoConservacion(row[c + dc]);
+                    if (estado) return estado;
+                }
+                const nextRow = sheet[r + 1];
+                if (nextRow) {
+                    for (let dc = 0; dc <= 8; dc++) {
+                        const estado = normalizarEstadoConservacion(nextRow[c + dc]);
+                        if (estado) return estado;
+                    }
+                }
+            }
+        }
+    }
+
     return null;
 }
 

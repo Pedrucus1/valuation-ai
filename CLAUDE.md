@@ -194,3 +194,20 @@ a donde se sube. No dejar estados vacíos sin acción.
 - Rate limit: solo UNA llamada por vez. Segunda llamada consecutiva = 429
 - Modelo principal: `gemini-2.5-flash`
 - Fallback: `gemini-2.0-flash` → `gemini-2.0-flash-lite`
+
+## 🚨 Monitoreo de procesos — regla obligatoria
+
+**El tiempo es oro. Todo proceso largo debe tener Monitor activo.**
+
+Después de cualquier `Bash run_in_background` (extractor, scraper, orquestador, build, etc.):
+1. Lanzar inmediatamente un `Monitor` con `persistent: true`
+2. El grep debe cubrir éxito Y fallas: errores, timeouts, auth, quota, crash, y mensaje de fin
+3. Si llega notificación de error → diagnosticar y actuar SIN esperar al usuario
+4. Si no hay output por >10 min → matar y relanzar con fix
+
+```bash
+# Patrón de monitor estándar
+tail -f proceso.log | grep --line-buffered -E "ERROR|TIMEOUT|Quota|ENOTFOUND|completado|==="
+```
+
+**Nunca dejar un proceso corriendo sin monitoreo.** Un proceso colgado sin aviso = horas perdidas.
