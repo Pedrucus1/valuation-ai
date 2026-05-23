@@ -29,6 +29,14 @@
     {
       "colonia": "jardines del vergel",
       "menciones": 2
+    },
+    {
+      "colonia": "lomas de",
+      "menciones": 1
+    },
+    {
+      "colonia": "ayala tabachines",
+      "menciones": 1
     }
   ],
   "tabachines": [
@@ -75,6 +83,18 @@
     {
       "colonia": "division del norte",
       "menciones": 2
+    },
+    {
+      "colonia": "tamarindos tabachines",
+      "menciones": 2
+    },
+    {
+      "colonia": "lomas de",
+      "menciones": 1
+    },
+    {
+      "colonia": "ayala tabachines",
+      "menciones": 1
     }
   ],
   "arroyo hondo": [
@@ -97,6 +117,18 @@
     {
       "colonia": "rancho nuevo",
       "menciones": 2
+    },
+    {
+      "colonia": "tamarindos tabachines",
+      "menciones": 1
+    },
+    {
+      "colonia": "la cantera",
+      "menciones": 1
+    },
+    {
+      "colonia": "agua fria",
+      "menciones": 1
     }
   ],
   "villas belenes": [
@@ -119,6 +151,14 @@
     {
       "colonia": "col seattle",
       "menciones": 2
+    },
+    {
+      "colonia": "seattle seattle",
+      "menciones": 1
+    },
+    {
+      "colonia": "constituyentes constitucion",
+      "menciones": 1
     }
   ],
   "villa de los belenes": [
@@ -189,6 +229,14 @@
     {
       "colonia": "col 18 de marzo",
       "menciones": 2
+    },
+    {
+      "colonia": "el carmen",
+      "menciones": 1
+    },
+    {
+      "colonia": "de polanco",
+      "menciones": 1
     }
   ],
   "zona industrial sur": [
@@ -265,6 +313,14 @@
     {
       "colonia": "arboledas del sur",
       "menciones": 2
+    },
+    {
+      "colonia": "de polanco",
+      "menciones": 3
+    },
+    {
+      "colonia": "el carmen",
+      "menciones": 1
     }
   ],
   "mariano otero": [
@@ -287,6 +343,10 @@
     {
       "colonia": "col lomas de la primavera",
       "menciones": 2
+    },
+    {
+      "colonia": "la primavera",
+      "menciones": 1
     }
   ],
   "el fortin": [
@@ -304,6 +364,10 @@
     },
     {
       "colonia": "miramar",
+      "menciones": 1
+    },
+    {
+      "colonia": "el tizate",
       "menciones": 1
     }
   ],
@@ -323,6 +387,26 @@
     {
       "colonia": "col lomas de la primavera",
       "menciones": 2
+    },
+    {
+      "colonia": "cuenta con 2 recamaras 1 bano 1 cochera",
+      "menciones": 4
+    },
+    {
+      "colonia": "con tres areas de oficina con 3 banos y dos areas de tapanco",
+      "menciones": 2
+    },
+    {
+      "colonia": "cuenta con terraza 3 recamaras 2 banos y 3 cocheras",
+      "menciones": 2
+    },
+    {
+      "colonia": "on bardas independientes con todos los servicios",
+      "menciones": 1
+    },
+    {
+      "colonia": "orientacion norte sur superficie plana listo para escriturar",
+      "menciones": 1
     }
   ],
   "colinas de cajititlan": [
@@ -387,6 +471,18 @@
     {
       "colonia": "belisario dominguez",
       "menciones": 2
+    },
+    {
+      "colonia": "cuenta con 4 habitaciones con bano cada una",
+      "menciones": 2
+    },
+    {
+      "colonia": "terreno venta",
+      "menciones": 1
+    },
+    {
+      "colonia": "de independencia",
+      "menciones": 1
     }
   ],
   "la perla": [
@@ -461,6 +557,10 @@
     {
       "colonia": "la perla",
       "menciones": 2
+    },
+    {
+      "colonia": "cuenta con 5 recamaras 1 estudio 2 banos 2 patios 2 cocheras",
+      "menciones": 1
     }
   ],
   "belisario dominguez": [
@@ -505,6 +605,18 @@
     {
       "colonia": "san martin de las flores de abajo",
       "menciones": 2
+    },
+    {
+      "colonia": "cuenta con 3 recamaras y 2 banos 1 estacionamiento",
+      "menciones": 2
+    },
+    {
+      "colonia": "sur cipreses",
+      "menciones": 1
+    },
+    {
+      "colonia": "lagunitas tonallan",
+      "menciones": 1
     }
   ],
   "tateposco": [
@@ -667,6 +779,42 @@
     {
       "colonia": "bosques de la victoria",
       "menciones": 2
+    },
+    {
+      "colonia": "remodelado 2 recamaras 1 bano 1 cochera",
+      "menciones": 2
+    },
+    {
+      "colonia": "medidas interiores 378 x 378 metros wc lavabo con mueble",
+      "menciones": 2
+    },
+    {
+      "colonia": "nuevo",
+      "menciones": 1
+    },
+    {
+      "colonia": "ayala tabachines",
+      "menciones": 1
+    },
+    {
+      "colonia": "francisco marquez",
+      "menciones": 1
+    },
+    {
+      "colonia": "copernico arboledas",
+      "menciones": 1
+    },
+    {
+      "colonia": "altas 409",
+      "menciones": 1
+    },
+    {
+      "colonia": "los ocotes",
+      "menciones": 1
+    },
+    {
+      "colonia": "colorada poniente",
+      "menciones": 1
     }
   ],
   "jardines de san gonzalo": [
@@ -719,6 +867,10 @@
     {
       "colonia": "copalita",
       "menciones": 2
+    },
+    {
+      "colonia": "francisco i madero nuevo mexico 120mt",
+      "menciones": 1
     }
   ],
   "lomas de san gonzalo": [
@@ -791,6 +943,22 @@
     {
       "colonia": "arvento",
       "menciones": 2
+    },
+    {
+      "colonia": "terreno habitacional dentro del poblado",
+      "menciones": 1
+    },
+    {
+      "colonia": "ideal para negocio restaurant estacionamiento etc",
+      "menciones": 1
+    },
+    {
+      "colonia": "completamente bardeado",
+      "menciones": 1
+    },
+    {
+      "colonia": "guadalupana sur",
+      "menciones": 1
     }
   ],
   "tres reyes": [
@@ -815,6 +983,14 @@
     {
       "colonia": "col colinas de santa anita",
       "menciones": 10
+    },
+    {
+      "colonia": "amplio jardin espacio para 5 autos 4 banos 4 recamaras",
+      "menciones": 2
+    },
+    {
+      "colonia": "colinas de santa anita tlajomulco",
+      "menciones": 1
     }
   ],
   "santa teresita": [
@@ -836,6 +1012,10 @@
     },
     {
       "colonia": "mezquitan country",
+      "menciones": 1
+    },
+    {
+      "colonia": "a cuadra y media de chapultepec libre de gravamen",
       "menciones": 1
     }
   ],
@@ -897,6 +1077,22 @@
     {
       "colonia": "centro guadalajara",
       "menciones": 2
+    },
+    {
+      "colonia": "brisas de",
+      "menciones": 3
+    },
+    {
+      "colonia": "medio bano 4 recamaras bano completo",
+      "menciones": 2
+    },
+    {
+      "colonia": "cochera y tres recamaras 1 bano 1 cochera",
+      "menciones": 2
+    },
+    {
+      "colonia": "del 4",
+      "menciones": 1
     }
   ],
   "altagracia": [
@@ -906,6 +1102,14 @@
     },
     {
       "colonia": "arcos de zapopan",
+      "menciones": 2
+    },
+    {
+      "colonia": "planta baja 2 recamaras 1 bano 1 estacionamiento",
+      "menciones": 2
+    },
+    {
+      "colonia": "planta baja para remodelar 2 recamaras y 1 bano",
       "menciones": 2
     }
   ],
@@ -929,6 +1133,22 @@
     {
       "colonia": "haciendas del valle",
       "menciones": 2
+    },
+    {
+      "colonia": "lomas de",
+      "menciones": 1
+    },
+    {
+      "colonia": "girasoles elite",
+      "menciones": 1
+    },
+    {
+      "colonia": "terreno se encuentra dentro de un privado",
+      "menciones": 1
+    },
+    {
+      "colonia": "terreno en venta en valdepenas francisco villa 3",
+      "menciones": 1
     }
   ],
   "arcos de zapopan": [
@@ -970,6 +1190,14 @@
     },
     {
       "colonia": "ref",
+      "menciones": 1
+    },
+    {
+      "colonia": "remodelada 2 recamaras 3 banos 1 cochera",
+      "menciones": 2
+    },
+    {
+      "colonia": "santa margarita",
       "menciones": 1
     }
   ],
@@ -1033,6 +1261,10 @@
     {
       "colonia": "el refugio tlaquepaque",
       "menciones": 2
+    },
+    {
+      "colonia": "sala comedor cocina 4 recamaras 2 banos y patio amplio",
+      "menciones": 4
     }
   ],
   "lomas de polanco": [
@@ -1111,6 +1343,34 @@
     {
       "colonia": "polanquito",
       "menciones": 2
+    },
+    {
+      "colonia": "sala comedor cocina 4 recamaras 2 banos y patio",
+      "menciones": 2
+    },
+    {
+      "colonia": "de 1 nivel 4 recamaras 2 banos",
+      "menciones": 2
+    },
+    {
+      "colonia": "consta de 4 recamaras 2 banos y 1 estacionamiento",
+      "menciones": 2
+    },
+    {
+      "colonia": "terreno en una esquina plano rodeado de servicios",
+      "menciones": 1
+    },
+    {
+      "colonia": "extension de 220 metros cuadrados",
+      "menciones": 1
+    },
+    {
+      "colonia": "cp 44980",
+      "menciones": 1
+    },
+    {
+      "colonia": "el carmen",
+      "menciones": 1
     }
   ],
   "jardines de la cruz": [
@@ -1137,6 +1397,18 @@
     {
       "colonia": "lopez de legaspi",
       "menciones": 2
+    },
+    {
+      "colonia": "del sur",
+      "menciones": 2
+    },
+    {
+      "colonia": "cuenta con 3 recamaras 3 banos completos sala cocina patio",
+      "menciones": 2
+    },
+    {
+      "colonia": "la victoria",
+      "menciones": 1
     }
   ],
   "villa guerrero": [
@@ -1249,6 +1521,18 @@
     {
       "colonia": "jal",
       "menciones": 2
+    },
+    {
+      "colonia": "uso de suelo cuenta con una vista de esquina",
+      "menciones": 2
+    },
+    {
+      "colonia": "frenta al parque con areas jardinadas",
+      "menciones": 2
+    },
+    {
+      "colonia": "en esquina terraza",
+      "menciones": 2
     }
   ],
   "las luces": [
@@ -1329,6 +1613,10 @@
     {
       "colonia": "valle dorado",
       "menciones": 2
+    },
+    {
+      "colonia": "en esquina dentro de 2 recamaras 1 bano 1 cochera",
+      "menciones": 2
     }
   ],
   "primera": [
@@ -1377,6 +1665,22 @@
     {
       "colonia": "las aguilas",
       "menciones": 2
+    },
+    {
+      "colonia": "colli urbano",
+      "menciones": 2
+    },
+    {
+      "colonia": "las fuentes",
+      "menciones": 2
+    },
+    {
+      "colonia": "casa u oficina cuenta con 3 niveles y una terraza",
+      "menciones": 2
+    },
+    {
+      "colonia": "casa en andador patio y jardin 2 recamaras 15 banos",
+      "menciones": 2
     }
   ],
   "la guadalupana": [
@@ -1387,6 +1691,10 @@
     {
       "colonia": "mezquitan country",
       "menciones": 2
+    },
+    {
+      "colonia": "guadalupana norte",
+      "menciones": 1
     }
   ],
   "mezquitan": [
@@ -1442,6 +1750,14 @@
     },
     {
       "colonia": "centro",
+      "menciones": 1
+    },
+    {
+      "colonia": "casa remodelada con 3 recamaras 1 bano sin estacionamiento",
+      "menciones": 2
+    },
+    {
+      "colonia": "galindo mezquitan",
       "menciones": 1
     }
   ],
@@ -1547,6 +1863,18 @@
     {
       "colonia": "infonavit rio nilo",
       "menciones": 2
+    },
+    {
+      "colonia": "colinas de",
+      "menciones": 2
+    },
+    {
+      "colonia": "remodelado 2 recamaras 1 bano y 1 cochera",
+      "menciones": 2
+    },
+    {
+      "colonia": "san pedro",
+      "menciones": 1
     }
   ],
   "colinas de tonala": [
@@ -1584,6 +1912,10 @@
     },
     {
       "colonia": "las arboledas",
+      "menciones": 2
+    },
+    {
+      "colonia": "remodelada 2 recamaras 1 cochera 3 banos",
       "menciones": 2
     }
   ],
@@ -1639,6 +1971,14 @@
     {
       "colonia": "altus bosques",
       "menciones": 2
+    },
+    {
+      "colonia": "san pedro",
+      "menciones": 2
+    },
+    {
+      "colonia": "del real",
+      "menciones": 1
     }
   ],
   "san jose del valle": [
@@ -1691,6 +2031,10 @@
     {
       "colonia": "hacienda del real",
       "menciones": 2
+    },
+    {
+      "colonia": "terreno en",
+      "menciones": 1
     }
   ],
   "parques de la victoria": [
@@ -1715,12 +2059,6 @@
       "menciones": 2
     }
   ],
-  "hacienda del real": [
-    {
-      "colonia": "parques de la victoria tonala",
-      "menciones": 2
-    }
-  ],
   "jardines ixtapa": [
     {
       "colonia": "ixtapa",
@@ -1736,6 +2074,10 @@
     },
     {
       "colonia": "campestre las canadas",
+      "menciones": 1
+    },
+    {
+      "colonia": "escritura",
       "menciones": 1
     }
   ],
@@ -1754,6 +2096,18 @@
   "paraiso": [
     {
       "colonia": "jardines ixtapa",
+      "menciones": 1
+    },
+    {
+      "colonia": "con escrituras urbanizado todos los servicios",
+      "menciones": 2
+    },
+    {
+      "colonia": "cuentan con escrituras",
+      "menciones": 2
+    },
+    {
+      "colonia": "de agua",
       "menciones": 1
     }
   ],
@@ -1787,6 +2141,14 @@
     {
       "colonia": "arroyo las flores",
       "menciones": 1
+    },
+    {
+      "colonia": "el carmen",
+      "menciones": 1
+    },
+    {
+      "colonia": "san pedro",
+      "menciones": 1
     }
   ],
   "nueva santa maria": [
@@ -1813,6 +2175,14 @@
     {
       "colonia": "5 de mayo",
       "menciones": 2
+    },
+    {
+      "colonia": "san pedro",
+      "menciones": 1
+    },
+    {
+      "colonia": "terreno en esquina plano con servicios",
+      "menciones": 1
     }
   ],
   "guayabitos": [
@@ -1849,20 +2219,36 @@
   ],
   "el castillo": [
     {
+      "colonia": "san jose del quince",
+      "menciones": 10
+    },
+    {
+      "colonia": "las pintitas",
+      "menciones": 10
+    },
+    {
+      "colonia": "los agaves",
+      "menciones": 9
+    },
+    {
+      "colonia": "jardines del castillo",
+      "menciones": 9
+    },
+    {
       "colonia": "parques del castillo",
-      "menciones": 4
+      "menciones": 8
     },
     {
-      "colonia": "muralista 253 int 147",
-      "menciones": 2
+      "colonia": "la alameda",
+      "menciones": 7
     },
     {
-      "colonia": "lomas de san miguel",
-      "menciones": 2
+      "colonia": "potrero nuevo",
+      "menciones": 6
     },
     {
-      "colonia": "los cantaros",
-      "menciones": 2
+      "colonia": "villas de guadalupe",
+      "menciones": 5
     }
   ],
   "muralista 253 int 147": [
@@ -1886,6 +2272,10 @@
     },
     {
       "colonia": "el salto",
+      "menciones": 2
+    },
+    {
+      "colonia": "espaciosa casa de 2 recamaras y 1 bano",
       "menciones": 2
     }
   ],
@@ -1941,6 +2331,14 @@
     {
       "colonia": "los olivos",
       "menciones": 2
+    },
+    {
+      "colonia": "san pedro",
+      "menciones": 2
+    },
+    {
+      "colonia": "del real",
+      "menciones": 1
     }
   ],
   "belcanto": [
@@ -1965,6 +2363,18 @@
     {
       "colonia": "parque de las aves",
       "menciones": 2
+    },
+    {
+      "colonia": "las palomas",
+      "menciones": 1
+    },
+    {
+      "colonia": "condor tesistan",
+      "menciones": 1
+    },
+    {
+      "colonia": "huerto tesistan",
+      "menciones": 1
     }
   ],
   "tesistan": [
@@ -1983,6 +2393,10 @@
     {
       "colonia": "los molinos",
       "menciones": 2
+    },
+    {
+      "colonia": "de tesistan",
+      "menciones": 1
     }
   ],
   "parques de tesistan": [
@@ -2035,6 +2449,10 @@
     {
       "colonia": "la estancia",
       "menciones": 2
+    },
+    {
+      "colonia": "prados",
+      "menciones": 1
     }
   ],
   "chapalita de occidente": [
@@ -2051,6 +2469,18 @@
     {
       "colonia": "jardines del tepeyac",
       "menciones": 2
+    },
+    {
+      "colonia": "del seminario",
+      "menciones": 1
+    },
+    {
+      "colonia": "del sol",
+      "menciones": 1
+    },
+    {
+      "colonia": "real",
+      "menciones": 1
     }
   ],
   "jardines de guadalupe": [
@@ -2084,6 +2514,10 @@
     },
     {
       "colonia": "ciudad granja",
+      "menciones": 2
+    },
+    {
+      "colonia": "cochera para 3 autos 3recamaras 3 banos",
       "menciones": 2
     }
   ],
@@ -2123,6 +2557,10 @@
     {
       "colonia": "col vallarta la patria",
       "menciones": 2
+    },
+    {
+      "colonia": "casa disponible en venta 1 bano 1 cochera",
+      "menciones": 1
     }
   ],
   "el campanario tonala": [
@@ -2141,6 +2579,14 @@
     {
       "colonia": "educadores jalisciense",
       "menciones": 2
+    },
+    {
+      "colonia": "oriente coyula",
+      "menciones": 1
+    },
+    {
+      "colonia": "el moral",
+      "menciones": 1
     }
   ],
   "mision del campanario": [
@@ -2231,6 +2677,18 @@
     {
       "colonia": "san jose rio verde",
       "menciones": 2
+    },
+    {
+      "colonia": "del sol",
+      "menciones": 1
+    },
+    {
+      "colonia": "joaquin aaron",
+      "menciones": 1
+    },
+    {
+      "colonia": "el zalate",
+      "menciones": 1
     }
   ],
   "balcones de oblatos": [
@@ -2257,6 +2715,14 @@
     {
       "colonia": "santa cecilia 2a",
       "menciones": 2
+    },
+    {
+      "colonia": "vicente guerrero",
+      "menciones": 1
+    },
+    {
+      "colonia": "el zalate",
+      "menciones": 1
     }
   ],
   "bethel": [
@@ -2305,6 +2771,10 @@
     {
       "colonia": "la coronilla",
       "menciones": 2
+    },
+    {
+      "colonia": "ubicado en la esquina",
+      "menciones": 1
     }
   ],
   "circunvalacion oblatos": [
@@ -2363,6 +2833,18 @@
     {
       "colonia": "loma dorada delegacion a",
       "menciones": 2
+    },
+    {
+      "colonia": "sur cipreses",
+      "menciones": 1
+    },
+    {
+      "colonia": "municipio de",
+      "menciones": 1
+    },
+    {
+      "colonia": "el rosario",
+      "menciones": 1
     }
   ],
   "rinconada san francisco": [
@@ -2479,6 +2961,10 @@
     {
       "colonia": "jardines de los historiadores",
       "menciones": 2
+    },
+    {
+      "colonia": "los historiadores",
+      "menciones": 1
     }
   ],
   "san andres": [
@@ -2595,6 +3081,14 @@
     {
       "colonia": "la coronilla",
       "menciones": 2
+    },
+    {
+      "colonia": "villas de",
+      "menciones": 1
+    },
+    {
+      "colonia": "colorada poniente",
+      "menciones": 1
     }
   ],
   "mesa colorada oriente": [
@@ -2671,6 +3165,38 @@
     {
       "colonia": "la purisima",
       "menciones": 1
+    },
+    {
+      "colonia": "uso comercial o habitacional en esquina",
+      "menciones": 4
+    },
+    {
+      "colonia": "terreno para contruir casa habitacion",
+      "menciones": 2
+    },
+    {
+      "colonia": "listo para escriturarse muro perimetral forma regular",
+      "menciones": 2
+    },
+    {
+      "colonia": "ejidal agua potable electricidad",
+      "menciones": 2
+    },
+    {
+      "colonia": "de agua",
+      "menciones": 1
+    },
+    {
+      "colonia": "pintitas centro",
+      "menciones": 1
+    },
+    {
+      "colonia": "es ejidal",
+      "menciones": 1
+    },
+    {
+      "colonia": "la guadalupana",
+      "menciones": 1
     }
   ],
   "la piedrera": [
@@ -2691,6 +3217,18 @@
     {
       "colonia": "artesanos",
       "menciones": 2
+    },
+    {
+      "colonia": "sobre antigua carretera a chapala uso de suelo mixto",
+      "menciones": 1
+    },
+    {
+      "colonia": "en una zona urbana con todos los servicios cercanos",
+      "menciones": 1
+    },
+    {
+      "colonia": "uso habitacional comercial y servicio",
+      "menciones": 1
     }
   ],
   "la purisima": [
@@ -2755,6 +3293,22 @@
     {
       "colonia": "jardines de la paz",
       "menciones": 2
+    },
+    {
+      "colonia": "remodelada 3 recamaras 2 banos 1 cochera",
+      "menciones": 2
+    },
+    {
+      "colonia": "mezquital atlas",
+      "menciones": 1
+    },
+    {
+      "colonia": "del paradero",
+      "menciones": 1
+    },
+    {
+      "colonia": "barca atlas",
+      "menciones": 1
     }
   ],
   "atlas": [
@@ -2893,6 +3447,30 @@
     {
       "colonia": "alcalde barranquitas",
       "menciones": 2
+    },
+    {
+      "colonia": "del tesoro",
+      "menciones": 3
+    },
+    {
+      "colonia": "de polanco",
+      "menciones": 2
+    },
+    {
+      "colonia": "villa guerrero",
+      "menciones": 1
+    },
+    {
+      "colonia": "san pedro",
+      "menciones": 1
+    },
+    {
+      "colonia": "suelo para comercios y servicios",
+      "menciones": 1
+    },
+    {
+      "colonia": "entre av patria y ocho de julio mixto",
+      "menciones": 1
     }
   ],
   "loma bonita ejidal": [
@@ -2942,6 +3520,18 @@
     },
     {
       "colonia": "nueva santa maria",
+      "menciones": 2
+    },
+    {
+      "colonia": "del tesoro",
+      "menciones": 9
+    },
+    {
+      "colonia": "san pedro",
+      "menciones": 6
+    },
+    {
+      "colonia": "planta baja 2 recamaras 2 banos 1 cochera",
       "menciones": 2
     }
   ],
@@ -3015,12 +3605,32 @@
     {
       "colonia": "tabachines",
       "menciones": 2
+    },
+    {
+      "colonia": "lomas de",
+      "menciones": 1
+    },
+    {
+      "colonia": "ayala tabachines",
+      "menciones": 1
+    },
+    {
+      "colonia": "remodelada 2 recaramas 15 banos 1 cochera",
+      "menciones": 1
     }
   ],
   "lomas del vergel": [
     {
       "colonia": "en tabachines",
       "menciones": 2
+    },
+    {
+      "colonia": "frente de 6 mts2 y fondo de 17 mts fondo",
+      "menciones": 1
+    },
+    {
+      "colonia": "en esquina todos los servicios cuenta con escrituras",
+      "menciones": 1
     }
   ],
   "zapopan jalisco": [
@@ -3039,6 +3649,18 @@
     {
       "colonia": "parques zapopan",
       "menciones": 2
+    },
+    {
+      "colonia": "planta baja dos recamaras cocina integral 1 bano",
+      "menciones": 2
+    },
+    {
+      "colonia": "tesistan tesistan",
+      "menciones": 1
+    },
+    {
+      "colonia": "valle imperial",
+      "menciones": 1
     }
   ],
   "la tuzania": [
@@ -3115,6 +3737,10 @@
     {
       "colonia": "flores del valle",
       "menciones": 2
+    },
+    {
+      "colonia": "rinconada vallarta",
+      "menciones": 1
     }
   ],
   "moctezuma poniente": [
@@ -3321,6 +3947,10 @@
     {
       "colonia": "lomas de zapopan",
       "menciones": 2
+    },
+    {
+      "colonia": "de valdepenas",
+      "menciones": 1
     }
   ],
   "cd aztlan": [
@@ -3347,6 +3977,14 @@
     {
       "colonia": "el mirador",
       "menciones": 2
+    },
+    {
+      "colonia": "sur cipreses",
+      "menciones": 1
+    },
+    {
+      "colonia": "lagunitas tonallan",
+      "menciones": 1
     }
   ],
   "pueblo tateposco": [
@@ -3401,6 +4039,10 @@
     {
       "colonia": "la primavera",
       "menciones": 2
+    },
+    {
+      "colonia": "colli urbano",
+      "menciones": 1
     }
   ],
   "plaza guadalupe": [
@@ -3438,6 +4080,14 @@
     },
     {
       "colonia": "boreales",
+      "menciones": 2
+    },
+    {
+      "colonia": "capital norte",
+      "menciones": 2
+    },
+    {
+      "colonia": "dos niveles 2 cocheras 3 banos",
       "menciones": 2
     }
   ],
@@ -3513,6 +4163,14 @@
     {
       "colonia": "la experiencia",
       "menciones": 2
+    },
+    {
+      "colonia": "orientacion norte sur uso de suelo habitacional escriturado",
+      "menciones": 1
+    },
+    {
+      "colonia": "ideal para salon de evento granja o para desarrollar",
+      "menciones": 1
     }
   ],
   "oblatos": [
@@ -3583,6 +4241,30 @@
     {
       "colonia": "belisario dominguez",
       "menciones": 2
+    },
+    {
+      "colonia": "vicente guerrero",
+      "menciones": 1
+    },
+    {
+      "colonia": "el zalate",
+      "menciones": 1
+    },
+    {
+      "colonia": "a 3 cuadras de javier mina con diferentes usos permitidos",
+      "menciones": 1
+    },
+    {
+      "colonia": "terreno tiene forma de cono mas amplio en la parte del fondo",
+      "menciones": 1
+    },
+    {
+      "colonia": "la federacha",
+      "menciones": 1
+    },
+    {
+      "colonia": "cuates federalismo",
+      "menciones": 1
     }
   ],
   "rio verde": [
@@ -3626,6 +4308,14 @@
     },
     {
       "colonia": "mesa colorada poniente",
+      "menciones": 1
+    },
+    {
+      "colonia": "villas de",
+      "menciones": 2
+    },
+    {
+      "colonia": "la higuera",
       "menciones": 1
     }
   ],
@@ -3757,6 +4447,26 @@
     {
       "colonia": "jardines los belenes",
       "menciones": 2
+    },
+    {
+      "colonia": "remodelada 4 recamaras 3 banos y 2 cocheras",
+      "menciones": 2
+    },
+    {
+      "colonia": "del batan",
+      "menciones": 1
+    },
+    {
+      "colonia": "olachea constitucion",
+      "menciones": 1
+    },
+    {
+      "colonia": "santa monica",
+      "menciones": 1
+    },
+    {
+      "colonia": "del valle",
+      "menciones": 1
     }
   ],
   "la pamita": [
@@ -3769,6 +4479,14 @@
     {
       "colonia": "el batan",
       "menciones": 4
+    },
+    {
+      "colonia": "fidel velazquez",
+      "menciones": 1
+    },
+    {
+      "colonia": "valle 45190",
+      "menciones": 1
     }
   ],
   "constitucion": [
@@ -3798,6 +4516,14 @@
     },
     {
       "colonia": "la arboleda",
+      "menciones": 2
+    },
+    {
+      "colonia": "salacomedor cocina 3 recamaras estudio patio bano completo",
+      "menciones": 2
+    },
+    {
+      "colonia": "sala comedor cocina bano y patio dos habitaciones",
       "menciones": 2
     }
   ],
@@ -3847,10 +4573,6 @@
       "menciones": 2
     },
     {
-      "colonia": "hacienda real",
-      "menciones": 2
-    },
-    {
       "colonia": "tinajitas",
       "menciones": 1
     },
@@ -3866,6 +4588,26 @@
   "la ladrillera": [
     {
       "colonia": "tinajitas",
+      "menciones": 1
+    },
+    {
+      "colonia": "area de oficinas de dos niveles con 2 banos",
+      "menciones": 2
+    },
+    {
+      "colonia": "de agua",
+      "menciones": 1
+    },
+    {
+      "colonia": "del quince",
+      "menciones": 1
+    },
+    {
+      "colonia": "san pedro",
+      "menciones": 1
+    },
+    {
+      "colonia": "del carmen",
       "menciones": 1
     }
   ],
@@ -3907,6 +4649,18 @@
     {
       "colonia": "las alamedas",
       "menciones": 2
+    },
+    {
+      "colonia": "el briceno",
+      "menciones": 2
+    },
+    {
+      "colonia": "paseos del",
+      "menciones": 1
+    },
+    {
+      "colonia": "mariano otero",
+      "menciones": 1
     }
   ],
   "blanco y cuellar": [
@@ -4027,6 +4781,26 @@
     {
       "colonia": "la nogalera",
       "menciones": 2
+    },
+    {
+      "colonia": "san pedro",
+      "menciones": 7
+    },
+    {
+      "colonia": "de chapala",
+      "menciones": 4
+    },
+    {
+      "colonia": "el cerrito",
+      "menciones": 3
+    },
+    {
+      "colonia": "las juntas",
+      "menciones": 2
+    },
+    {
+      "colonia": "las juntitas",
+      "menciones": 1
     }
   ],
   "balcones del 4": [
@@ -4165,6 +4939,66 @@
     {
       "colonia": "mezquitan country",
       "menciones": 1
+    },
+    {
+      "colonia": "centro gdl",
+      "menciones": 22
+    },
+    {
+      "colonia": "san juand de dios",
+      "menciones": 7
+    },
+    {
+      "colonia": "local comercial con 3 departamentos uso de suelo mixto",
+      "menciones": 6
+    },
+    {
+      "colonia": "de dios",
+      "menciones": 2
+    },
+    {
+      "colonia": "en esquina 4 locales comerciales en esquina",
+      "menciones": 2
+    },
+    {
+      "colonia": "oficina 12 bano area comun",
+      "menciones": 2
+    },
+    {
+      "colonia": "edificio en doble esquina en tres niveles",
+      "menciones": 2
+    },
+    {
+      "colonia": "tiene un segundo piso y un medio bano y bodega de 2 m2",
+      "menciones": 2
+    },
+    {
+      "colonia": "cuenta un mezzanine de mas de 50 mts2 2 medios banos",
+      "menciones": 2
+    },
+    {
+      "colonia": "bodega rampa de acceso cisterna zona industrial",
+      "menciones": 2
+    },
+    {
+      "colonia": "uso de bodega habitacional mixto barrial",
+      "menciones": 2
+    },
+    {
+      "colonia": "finca de 3 pisos cocina acondicionada",
+      "menciones": 2
+    },
+    {
+      "colonia": "vicente guerrero",
+      "menciones": 1
+    },
+    {
+      "colonia": "frente a av lazaro cardenas ideal para bodegas o comercios",
+      "menciones": 1
+    },
+    {
+      "colonia": "uso comercial o habitacional en esquina aljibe 9000 litros",
+      "menciones": 1
     }
   ],
   "los ruisenores": [
@@ -4189,6 +5023,10 @@
     {
       "colonia": "francisco sarabia poniente",
       "menciones": 2
+    },
+    {
+      "colonia": "el mante",
+      "menciones": 1
     }
   ],
   "el briseno": [
@@ -4212,6 +5050,10 @@
     },
     {
       "colonia": "la loma",
+      "menciones": 2
+    },
+    {
+      "colonia": "casa para remodelar 3 recamaras 2 banos 1 cochera",
       "menciones": 2
     }
   ],
@@ -4273,6 +5115,14 @@
     {
       "colonia": "san isidro",
       "menciones": 2
+    },
+    {
+      "colonia": "de arriba",
+      "menciones": 1
+    },
+    {
+      "colonia": "de abajo",
+      "menciones": 1
     }
   ],
   "vista california": [
@@ -4393,6 +5243,26 @@
     {
       "colonia": "lomas de san juan",
       "menciones": 1
+    },
+    {
+      "colonia": "esquina calle morelos y vicente guerrero",
+      "menciones": 1
+    },
+    {
+      "colonia": "cruce con medrano",
+      "menciones": 1
+    },
+    {
+      "colonia": "del quince",
+      "menciones": 1
+    },
+    {
+      "colonia": "frente 30 metros fondo 27 metros",
+      "menciones": 1
+    },
+    {
+      "colonia": "terreno plano servicio de agua y luz",
+      "menciones": 1
     }
   ],
   "san jose el verde": [
@@ -4441,6 +5311,14 @@
     {
       "colonia": "minerales",
       "menciones": 2
+    },
+    {
+      "colonia": "tterreno ejidal para casa habitacion o bodega c",
+      "menciones": 1
+    },
+    {
+      "colonia": "esquina calle morelos y vicente guerrero",
+      "menciones": 1
     }
   ],
   "el quince centro": [
@@ -4539,6 +5417,14 @@
     {
       "colonia": "puente viejo",
       "menciones": 1
+    },
+    {
+      "colonia": "entre calle juarez y ninos heroes",
+      "menciones": 1
+    },
+    {
+      "colonia": "venta de terreno en puente grande jalisco",
+      "menciones": 1
     }
   ],
   "puente grande": [
@@ -4589,6 +5475,14 @@
     {
       "colonia": "av belisario dominguez sn",
       "menciones": 2
+    },
+    {
+      "colonia": "la normal",
+      "menciones": 1
+    },
+    {
+      "colonia": "la federacha",
+      "menciones": 1
     }
   ],
   "independencia": [
@@ -4697,6 +5591,18 @@
     {
       "colonia": "las pintitas",
       "menciones": 2
+    },
+    {
+      "colonia": "recamaras 3 banos 1 estacionamiento cochera para 1 auto",
+      "menciones": 2
+    },
+    {
+      "colonia": "pintitas centro",
+      "menciones": 1
+    },
+    {
+      "colonia": "es ejidal",
+      "menciones": 1
     }
   ],
   "valle de la misericordia": [
@@ -4730,6 +5636,10 @@
     },
     {
       "colonia": "los fresnos",
+      "menciones": 2
+    },
+    {
+      "colonia": "cuenta con oficinas cocineta y 4 mini split",
       "menciones": 2
     }
   ],
@@ -4813,6 +5723,30 @@
     {
       "colonia": "el mirador",
       "menciones": 2
+    },
+    {
+      "colonia": "terreno venta",
+      "menciones": 2
+    },
+    {
+      "colonia": "cochera para 3 autos 4 recamaras 2 banos completos y 1 medio",
+      "menciones": 2
+    },
+    {
+      "colonia": "cochera para 2 autos 3 habitaciones 1 estudio 35 banos",
+      "menciones": 2
+    },
+    {
+      "colonia": "ubicado a unas cuadras de avenida juan pablo ii",
+      "menciones": 1
+    },
+    {
+      "colonia": "circunvalacion oblatos",
+      "menciones": 1
+    },
+    {
+      "colonia": "rio verde",
+      "menciones": 1
     }
   ],
   "san juan bosc": [
@@ -4889,6 +5823,22 @@
     {
       "colonia": "emiliano zapata",
       "menciones": 2
+    },
+    {
+      "colonia": "terreno venta",
+      "menciones": 4
+    },
+    {
+      "colonia": "para remodelar 2 cocheras 3 racamaras 2 banos",
+      "menciones": 2
+    },
+    {
+      "colonia": "del sol",
+      "menciones": 1
+    },
+    {
+      "colonia": "rio verde",
+      "menciones": 1
     }
   ],
   "jalisco ii": [
@@ -4975,6 +5925,10 @@
     {
       "colonia": "colli urbano",
       "menciones": 2
+    },
+    {
+      "colonia": "francisco marquez",
+      "menciones": 1
     }
   ],
   "la calma": [
@@ -5083,6 +6037,18 @@
     {
       "colonia": "villas de zapopan",
       "menciones": 2
+    },
+    {
+      "colonia": "capital norte",
+      "menciones": 2
+    },
+    {
+      "colonia": "lomas de",
+      "menciones": 2
+    },
+    {
+      "colonia": "en segundo nivel 2 banos 2 recamaras 1 cochera",
+      "menciones": 2
     }
   ],
   "canadas san lorenzo": [
@@ -5149,6 +6115,18 @@
     {
       "colonia": "col rancho blanco",
       "menciones": 2
+    },
+    {
+      "colonia": "sala comedor cocina 4 recamaras 2 banos y patio",
+      "menciones": 2
+    },
+    {
+      "colonia": "de 1 nivel 4 recamaras 2 banos",
+      "menciones": 2
+    },
+    {
+      "colonia": "echeverria",
+      "menciones": 1
     }
   ],
   "el carmen": [
@@ -5181,6 +6159,14 @@
     {
       "colonia": "el rosario",
       "menciones": 2
+    },
+    {
+      "colonia": "san pedro",
+      "menciones": 2
+    },
+    {
+      "colonia": "de tlaquepaque",
+      "menciones": 1
     }
   ],
   "colonial tlaquepaque": [
@@ -5353,6 +6339,10 @@
     {
       "colonia": "insurgentes",
       "menciones": 2
+    },
+    {
+      "colonia": "casa una planta 4 recamaras 2 banos sala comedor cocina",
+      "menciones": 2
     }
   ],
   "jardines de la paz": [
@@ -5402,6 +6392,10 @@
     },
     {
       "colonia": "ref",
+      "menciones": 1
+    },
+    {
+      "colonia": "san andres",
       "menciones": 1
     }
   ],
@@ -5455,6 +6449,22 @@
     {
       "colonia": "constitucion zapopan",
       "menciones": 2
+    },
+    {
+      "colonia": "cerca de la glorieta las fuentes",
+      "menciones": 1
+    },
+    {
+      "colonia": "casi en el cruce de lopez mateos y periferico",
+      "menciones": 1
+    },
+    {
+      "colonia": "terreno en esquina uso de suelo mixto plano",
+      "menciones": 1
+    },
+    {
+      "colonia": "copernico arboledas",
+      "menciones": 1
     }
   ],
   "tlaquepaque": [
@@ -5597,6 +6607,10 @@
     {
       "colonia": "jal",
       "menciones": 2
+    },
+    {
+      "colonia": "del sol",
+      "menciones": 2
     }
   ],
   "ciudad del sol": [
@@ -5667,6 +6681,22 @@
     {
       "colonia": "jardines del country",
       "menciones": 2
+    },
+    {
+      "colonia": "en dos niveles 4 recamaras 3 banos y cochera para 1 auto",
+      "menciones": 2
+    },
+    {
+      "colonia": "lomas de atemajac",
+      "menciones": 2
+    },
+    {
+      "colonia": "olachea constitucion",
+      "menciones": 1
+    },
+    {
+      "colonia": "del country",
+      "menciones": 1
     }
   ],
   "atemajac": [
@@ -5700,6 +6730,10 @@
     },
     {
       "colonia": "parques de santa maria",
+      "menciones": 2
+    },
+    {
+      "colonia": "san pedro",
       "menciones": 2
     }
   ],
@@ -5763,6 +6797,14 @@
     {
       "colonia": "santa cruz de la loma",
       "menciones": 2
+    },
+    {
+      "colonia": "plano y rectangular",
+      "menciones": 2
+    },
+    {
+      "colonia": "terreno con 700mts de frente 2000mts de fondo",
+      "menciones": 1
     }
   ],
   "mazatepec": [
@@ -5821,6 +6863,22 @@
     {
       "colonia": "villas de san miguel",
       "menciones": 2
+    },
+    {
+      "colonia": "en esquina terreno en venta medidas 1501m2",
+      "menciones": 1
+    },
+    {
+      "colonia": "terreno en venta medidas 1150m2",
+      "menciones": 1
+    },
+    {
+      "colonia": "de tlaquepaque",
+      "menciones": 1
+    },
+    {
+      "colonia": "san pedro",
+      "menciones": 1
     }
   ],
   "poncitlan": [
@@ -5841,6 +6899,30 @@
     {
       "colonia": "vista",
       "menciones": 1
+    },
+    {
+      "colonia": "las canadas",
+      "menciones": 2
+    },
+    {
+      "colonia": "en privado con seguridad",
+      "menciones": 1
+    },
+    {
+      "colonia": "el terreno cuenta con escrituras y se encuentra en",
+      "menciones": 1
+    },
+    {
+      "colonia": "en tiene seguridad 247",
+      "menciones": 1
+    },
+    {
+      "colonia": "terreno en desnive seguridad 24 horas",
+      "menciones": 1
+    },
+    {
+      "colonia": "el centinela",
+      "menciones": 1
     }
   ],
   "el acantilado": [
@@ -5857,6 +6939,22 @@
     {
       "colonia": "mirador san isidro zapopan",
       "menciones": 2
+    },
+    {
+      "colonia": "medidas frente 1 7 m2 frente 2 1570 m2 fondo 2575 m2",
+      "menciones": 1
+    },
+    {
+      "colonia": "frente de 857 m y profundidad de 2339 m",
+      "menciones": 1
+    },
+    {
+      "colonia": "frente x 2595 m de fondo de forma irregular",
+      "menciones": 1
+    },
+    {
+      "colonia": "san isidro",
+      "menciones": 1
     }
   ],
   "vista": [
@@ -5873,6 +6971,14 @@
     {
       "colonia": "olivos tlaquepaque",
       "menciones": 2
+    },
+    {
+      "colonia": "san pedro",
+      "menciones": 2
+    },
+    {
+      "colonia": "san sebastianito",
+      "menciones": 1
     }
   ],
   "los olivos": [
@@ -5899,6 +7005,10 @@
     {
       "colonia": "san pedro tlaquepaque",
       "menciones": 2
+    },
+    {
+      "colonia": "san pedro",
+      "menciones": 2
     }
   ],
   "colomos providencia": [
@@ -5913,6 +7023,10 @@
     {
       "colonia": "providencia 4a",
       "menciones": 2
+    },
+    {
+      "colonia": "remodelado en primer piso 3 recamaras 2 banos 1 cochera",
+      "menciones": 1
     }
   ],
   "colomos providenci": [
@@ -5949,11 +7063,19 @@
     {
       "colonia": "mezquitan country",
       "menciones": 1
+    },
+    {
+      "colonia": "country club",
+      "menciones": 1
     }
   ],
   "prados de santa maria": [
     {
       "colonia": "privada los olivos",
+      "menciones": 2
+    },
+    {
+      "colonia": "san pedro",
       "menciones": 2
     }
   ],
@@ -5974,6 +7096,14 @@
     },
     {
       "colonia": "victoria",
+      "menciones": 2
+    },
+    {
+      "colonia": "del sol",
+      "menciones": 2
+    },
+    {
+      "colonia": "chapalita sur",
       "menciones": 2
     }
   ],
@@ -5999,6 +7129,22 @@
     {
       "colonia": "zapopan",
       "menciones": 2
+    },
+    {
+      "colonia": "del sol",
+      "menciones": 3
+    },
+    {
+      "colonia": "res victoria",
+      "menciones": 2
+    },
+    {
+      "colonia": "chapalita sur",
+      "menciones": 1
+    },
+    {
+      "colonia": "la victoria",
+      "menciones": 1
     }
   ],
   "aldama tetlan": [
@@ -6137,6 +7283,18 @@
     {
       "colonia": "jardines del valle",
       "menciones": 2
+    },
+    {
+      "colonia": "uso de suelo habitacional",
+      "menciones": 2
+    },
+    {
+      "colonia": "junto a capital norte con servicios",
+      "menciones": 2
+    },
+    {
+      "colonia": "a dos cuadras de la avenida principal juan gil preciado",
+      "menciones": 1
     }
   ],
   "chapalita sur": [
@@ -6154,6 +7312,10 @@
     },
     {
       "colonia": "ciudad del sol",
+      "menciones": 2
+    },
+    {
+      "colonia": "del sol",
       "menciones": 2
     }
   ],
@@ -6191,6 +7353,22 @@
     {
       "colonia": "el rosario",
       "menciones": 2
+    },
+    {
+      "colonia": "cruz oriente",
+      "menciones": 3
+    },
+    {
+      "colonia": "planta baja 2 recamaras y 1 bano 1 estacionamiento",
+      "menciones": 2
+    },
+    {
+      "colonia": "coyula coyula",
+      "menciones": 1
+    },
+    {
+      "colonia": "seccion ii",
+      "menciones": 1
     }
   ],
   "el panoramico": [
@@ -6275,6 +7453,14 @@
     {
       "colonia": "la arboleda",
       "menciones": 2
+    },
+    {
+      "colonia": "tesistan tesistan",
+      "menciones": 1
+    },
+    {
+      "colonia": "valle imperial",
+      "menciones": 1
     }
   ],
   "fracc el parque": [
@@ -6337,6 +7523,18 @@
     {
       "colonia": "monumental",
       "menciones": 2
+    },
+    {
+      "colonia": "la normal",
+      "menciones": 2
+    },
+    {
+      "colonia": "sala comedor tres recamaras un bano y patio 1 cochera",
+      "menciones": 2
+    },
+    {
+      "colonia": "guadalupana norte",
+      "menciones": 1
     }
   ],
   "col del fresno": [
@@ -6375,6 +7573,10 @@
     {
       "colonia": "guacamayo 1054",
       "menciones": 1
+    },
+    {
+      "colonia": "para remodelar 2 recamaras 1 bano 1 cochera",
+      "menciones": 2
     }
   ],
   "jardines del bosque": [
@@ -6393,6 +7595,18 @@
     {
       "colonia": "jardines de los arcos",
       "menciones": 2
+    },
+    {
+      "colonia": "depto nuevo de 2 recamaras 2 banos y 2 estacionamientos",
+      "menciones": 4
+    },
+    {
+      "colonia": "bosque centro",
+      "menciones": 2
+    },
+    {
+      "colonia": "bosque norte",
+      "menciones": 1
     }
   ],
   "del fresno 1a": [
@@ -6409,6 +7623,22 @@
     {
       "colonia": "col del fresno",
       "menciones": 2
+    },
+    {
+      "colonia": "primer nivel local comercial en complejo",
+      "menciones": 2
+    },
+    {
+      "colonia": "seccion 1a",
+      "menciones": 2
+    },
+    {
+      "colonia": "dos locales a la venta dentro del mercado agustin de la rosa",
+      "menciones": 2
+    },
+    {
+      "colonia": "para remodelar 4 recamaras 2 banos 1 cochera",
+      "menciones": 2
     }
   ],
   "moderna": [
@@ -6422,6 +7652,10 @@
     },
     {
       "colonia": "americana",
+      "menciones": 2
+    },
+    {
+      "colonia": "del fresno",
       "menciones": 2
     }
   ],
@@ -6441,6 +7675,18 @@
     {
       "colonia": "diaz ordaz",
       "menciones": 2
+    },
+    {
+      "colonia": "cerca de la glorieta las fuentes",
+      "menciones": 1
+    },
+    {
+      "colonia": "casi en el cruce de lopez mateos y periferico",
+      "menciones": 1
+    },
+    {
+      "colonia": "terreno en esquina uso de suelo mixto plano",
+      "menciones": 1
     }
   ],
   "arboledas": [
@@ -6533,6 +7779,14 @@
     {
       "colonia": "insurgentes",
       "menciones": 2
+    },
+    {
+      "colonia": "terreno en esquina cesion de derechos",
+      "menciones": 1
+    },
+    {
+      "colonia": "terreno urbanizado a 10 minutos al centro de tonala",
+      "menciones": 1
     }
   ],
   "camichines": [
@@ -6559,6 +7813,14 @@
     {
       "colonia": "camichines tonala",
       "menciones": 2
+    },
+    {
+      "colonia": "de tlaquepaque",
+      "menciones": 1
+    },
+    {
+      "colonia": "san pedro",
+      "menciones": 1
     }
   ],
   "lomas de camichin ii": [
@@ -6627,6 +7889,14 @@
     {
       "colonia": "santos degollado",
       "menciones": 2
+    },
+    {
+      "colonia": "terreno tiene forma de cono mas amplio en la parte del fondo",
+      "menciones": 1
+    },
+    {
+      "colonia": "en venta terreno con dos locales sector libertad",
+      "menciones": 1
     }
   ],
   "int 12": [
@@ -6637,6 +7907,18 @@
     {
       "colonia": "santa cruz del valle",
       "menciones": 2
+    },
+    {
+      "colonia": "uso de suelo cuenta con una vista de esquina",
+      "menciones": 1
+    },
+    {
+      "colonia": "frenta al parque con areas jardinadas",
+      "menciones": 1
+    },
+    {
+      "colonia": "en esquina terraza",
+      "menciones": 1
     }
   ],
   "santa cruz del valle": [
@@ -6691,6 +7973,10 @@
     {
       "colonia": "del bosque",
       "menciones": 2
+    },
+    {
+      "colonia": "capital norte",
+      "menciones": 1
     }
   ],
   "villas de torremolinos": [
@@ -6761,6 +8047,10 @@
     {
       "colonia": "lopez portillo",
       "menciones": 2
+    },
+    {
+      "colonia": "capital norte",
+      "menciones": 2
     }
   ],
   "del bosque": [
@@ -6819,6 +8109,14 @@
     {
       "colonia": "camichines ii",
       "menciones": 2
+    },
+    {
+      "colonia": "cochera un auto salacomedor cocina 2 banos 3 recamaras patio",
+      "menciones": 2
+    },
+    {
+      "colonia": "san andres",
+      "menciones": 1
     }
   ],
   "lomas de tlaquepaque": [
@@ -6851,6 +8149,10 @@
     {
       "colonia": "altea",
       "menciones": 2
+    },
+    {
+      "colonia": "san agustin",
+      "menciones": 1
     }
   ],
   "element": [
@@ -6890,6 +8192,10 @@
     },
     {
       "colonia": "colinas del desarroyo",
+      "menciones": 2
+    },
+    {
+      "colonia": "remodelada 2 recamaras 1 bano 1 cochera",
       "menciones": 2
     }
   ],
@@ -6947,6 +8253,18 @@
     {
       "colonia": "santa fe",
       "menciones": 2
+    },
+    {
+      "colonia": "de agua",
+      "menciones": 3
+    },
+    {
+      "colonia": "con todos los servicios luz agua alcantarillado",
+      "menciones": 1
+    },
+    {
+      "colonia": "ionamiento cuenta con todos los servicios necesarios",
+      "menciones": 1
     }
   ],
   "ahujas": [
@@ -7033,6 +8351,14 @@
     {
       "colonia": "san juan de dios",
       "menciones": 2
+    },
+    {
+      "colonia": "para remodelar 11 recamaras 35 banos",
+      "menciones": 2
+    },
+    {
+      "colonia": "dos locales comerciales 15 banos",
+      "menciones": 2
     }
   ],
   "barragan hernandez": [
@@ -7045,6 +8371,22 @@
     {
       "colonia": "analco",
       "menciones": 2
+    },
+    {
+      "colonia": "terreno plano e iregular uso de suelo mixto",
+      "menciones": 1
+    },
+    {
+      "colonia": "guadalajara centro",
+      "menciones": 1
+    },
+    {
+      "colonia": "molina centro",
+      "menciones": 1
+    },
+    {
+      "colonia": "terreno venta",
+      "menciones": 1
     }
   ],
   "la loma": [
@@ -7071,6 +8413,10 @@
     {
       "colonia": "paseos del briseno",
       "menciones": 2
+    },
+    {
+      "colonia": "el rosario",
+      "menciones": 1
     }
   ],
   "la penal": [
@@ -7085,6 +8431,18 @@
     {
       "colonia": "talpita",
       "menciones": 2
+    },
+    {
+      "colonia": "a 3 cuadras de javier mina con diferentes usos permitidos",
+      "menciones": 1
+    },
+    {
+      "colonia": "terreno tiene forma de cono mas amplio en la parte del fondo",
+      "menciones": 1
+    },
+    {
+      "colonia": "terreno uso de suelo comercial",
+      "menciones": 1
     }
   ],
   "lomas del paradero": [
@@ -7123,6 +8481,18 @@
     {
       "colonia": "las pintitas",
       "menciones": 1
+    },
+    {
+      "colonia": "precio de oportunidad",
+      "menciones": 1
+    },
+    {
+      "colonia": "uso comercial o habitacional en esquina",
+      "menciones": 1
+    },
+    {
+      "colonia": "san pedro",
+      "menciones": 1
     }
   ],
   "nueva espana": [
@@ -7153,6 +8523,14 @@
     {
       "colonia": "arroyo las flores",
       "menciones": 1
+    },
+    {
+      "colonia": "cocina sala comedor bodega planta alta recamara terraza",
+      "menciones": 2
+    },
+    {
+      "colonia": "la coronilla",
+      "menciones": 1
     }
   ],
   "lomas del 4": [
@@ -7181,6 +8559,10 @@
     {
       "colonia": "margarita maza de juarez",
       "menciones": 2
+    },
+    {
+      "colonia": "santa isabel",
+      "menciones": 1
     }
   ],
   "jardines de santa isabel": [
@@ -7237,6 +8619,10 @@
     {
       "colonia": "la moraleja",
       "menciones": 2
+    },
+    {
+      "colonia": "valle imperial",
+      "menciones": 1
     }
   ],
   "la moraleja": [
@@ -7423,6 +8809,14 @@
     {
       "colonia": "francisco villa",
       "menciones": 2
+    },
+    {
+      "colonia": "san pedro",
+      "menciones": 2
+    },
+    {
+      "colonia": "cochera 1 autos patio y area de lavado 3 recamaras 1 bano",
+      "menciones": 2
     }
   ],
   "del sur": [
@@ -7445,6 +8839,10 @@
     {
       "colonia": "col del fresno",
       "menciones": 2
+    },
+    {
+      "colonia": "del bosque",
+      "menciones": 1
     }
   ],
   "alamo industrial": [
@@ -7497,6 +8895,26 @@
     {
       "colonia": "18 de marzo",
       "menciones": 2
+    },
+    {
+      "colonia": "cocina sala y comedor 2 recamaras 1 patio 1 bano",
+      "menciones": 2
+    },
+    {
+      "colonia": "cuenta con sala comedor cocina 4 recamaras 2 banos y patio",
+      "menciones": 2
+    },
+    {
+      "colonia": "de chapala",
+      "menciones": 1
+    },
+    {
+      "colonia": "san pedro",
+      "menciones": 1
+    },
+    {
+      "colonia": "el cerrito",
+      "menciones": 1
     }
   ],
   "el vergelito": [
@@ -7611,6 +9029,14 @@
     {
       "colonia": "san pedro tlaquepaque",
       "menciones": 2
+    },
+    {
+      "colonia": "planta baja remodelado dos recamaras alcoba 1 bano",
+      "menciones": 2
+    },
+    {
+      "colonia": "loma bonita",
+      "menciones": 1
     }
   ],
   "jardines el sauz": [
@@ -7721,6 +9147,10 @@
     {
       "colonia": "lomas del laurel",
       "menciones": 1
+    },
+    {
+      "colonia": "camichines i",
+      "menciones": 1
     }
   ],
   "los camichines i": [
@@ -7775,6 +9205,22 @@
     {
       "colonia": "los arrayanes",
       "menciones": 2
+    },
+    {
+      "colonia": "comercial y habitacional terreno es irregular",
+      "menciones": 1
+    },
+    {
+      "colonia": "para eventos con banos",
+      "menciones": 1
+    },
+    {
+      "colonia": "como terreno en hermosa provincia",
+      "menciones": 1
+    },
+    {
+      "colonia": "el zalate",
+      "menciones": 1
     }
   ],
   "los arrayanes": [
@@ -8005,6 +9451,10 @@
     {
       "colonia": "villas de guadalupe",
       "menciones": 2
+    },
+    {
+      "colonia": "casa con terraza es ejidal con papeles en regla",
+      "menciones": 2
     }
   ],
   "colinas de tabachines": [
@@ -8021,6 +9471,10 @@
     {
       "colonia": "heroes de nacozari",
       "menciones": 2
+    },
+    {
+      "colonia": "superficie plana excelente orientacion area",
+      "menciones": 1
     }
   ],
   "paseos de santiago": [
@@ -8035,6 +9489,10 @@
     {
       "colonia": "rancho de la cruz",
       "menciones": 2
+    },
+    {
+      "colonia": "haciendas tonala",
+      "menciones": 1
     }
   ],
   "urbi quinta": [
@@ -8065,6 +9523,10 @@
     {
       "colonia": "lomas de la soledad",
       "menciones": 2
+    },
+    {
+      "colonia": "rancho nuevo",
+      "menciones": 1
     }
   ],
   "santa elena estadio": [
@@ -8169,6 +9631,14 @@
     {
       "colonia": "zimalta",
       "menciones": 2
+    },
+    {
+      "colonia": "loma bonita",
+      "menciones": 1
+    },
+    {
+      "colonia": "san pedro",
+      "menciones": 1
     }
   ],
   "san juan": [
@@ -8325,6 +9795,26 @@
     {
       "colonia": "villas de guadalupe",
       "menciones": 2
+    },
+    {
+      "colonia": "sala comedor cocina 2 recamaras area de lavado",
+      "menciones": 2
+    },
+    {
+      "colonia": "todo el terreno cuenta con una plancha de concreto en piso",
+      "menciones": 1
+    },
+    {
+      "colonia": "los belenes",
+      "menciones": 1
+    },
+    {
+      "colonia": "del vergel",
+      "menciones": 1
+    },
+    {
+      "colonia": "servicios basicos como agua alumbrado y luz",
+      "menciones": 1
     }
   ],
   "el cerrito": [
@@ -8405,6 +9895,10 @@
     {
       "colonia": "soare ii",
       "menciones": 2
+    },
+    {
+      "colonia": "altanza",
+      "menciones": 1
     }
   ],
   "condominio sole": [
@@ -8483,6 +9977,14 @@
     {
       "colonia": "echeverria",
       "menciones": 2
+    },
+    {
+      "colonia": "con 3 recamaras y 15 banos 1 cochera",
+      "menciones": 2
+    },
+    {
+      "colonia": "san pedro",
+      "menciones": 1
     }
   ],
   "parques colon": [
@@ -8511,6 +10013,10 @@
     {
       "colonia": "terranova",
       "menciones": 2
+    },
+    {
+      "colonia": "de guevara",
+      "menciones": 1
     }
   ],
   "fresno": [
@@ -8544,6 +10050,14 @@
     },
     {
       "colonia": "loma dorada delegacion a",
+      "menciones": 2
+    },
+    {
+      "colonia": "cruz oriente",
+      "menciones": 2
+    },
+    {
+      "colonia": "remodelada 1 cochera 2 banos 2 recamaras",
       "menciones": 2
     }
   ],
@@ -8695,6 +10209,10 @@
     {
       "colonia": "jardines del nilo",
       "menciones": 2
+    },
+    {
+      "colonia": "san andres",
+      "menciones": 1
     }
   ],
   "jardines de los poetas": [
@@ -8732,6 +10250,10 @@
     },
     {
       "colonia": "camichines ii",
+      "menciones": 2
+    },
+    {
+      "colonia": "con porton tres recamaras 2 banos 1 cochera",
       "menciones": 2
     }
   ],
@@ -8773,6 +10295,14 @@
     {
       "colonia": "jardines del castillo",
       "menciones": 2
+    },
+    {
+      "colonia": "ejidal",
+      "menciones": 1
+    },
+    {
+      "colonia": "cuenta con escritura publica",
+      "menciones": 1
     }
   ],
   "jardines del castillo": [
@@ -8804,6 +10334,18 @@
     },
     {
       "colonia": "chiquilistlan",
+      "menciones": 1
+    },
+    {
+      "colonia": "terreno rustico bardeado",
+      "menciones": 1
+    },
+    {
+      "colonia": "con servicios dentro de la zona urbanizada",
+      "menciones": 1
+    },
+    {
+      "colonia": "urbano con todos los servicios cuenta con escritura",
       "menciones": 1
     }
   ],
@@ -8917,6 +10459,10 @@
     {
       "colonia": "jardines del eden",
       "menciones": 2
+    },
+    {
+      "colonia": "con 2 recamaras y 1 bano 1 cochera",
+      "menciones": 2
     }
   ],
   "valle de puebla 134": [
@@ -8947,6 +10493,22 @@
     {
       "colonia": "rancho alegre",
       "menciones": 2
+    },
+    {
+      "colonia": "remodelada 1 recamara 1 bano 1 estacionamiento protecciones",
+      "menciones": 2
+    },
+    {
+      "colonia": "terreno en esquina escriturable",
+      "menciones": 1
+    },
+    {
+      "colonia": "en esquina frente a la escuela primaria federal",
+      "menciones": 1
+    },
+    {
+      "colonia": "ejidal uso de suelo mixto en esquina",
+      "menciones": 1
     }
   ],
   "los silos": [
@@ -8971,6 +10533,14 @@
     {
       "colonia": "heliodoro hernandez loza",
       "menciones": 2
+    },
+    {
+      "colonia": "terreno venta",
+      "menciones": 1
+    },
+    {
+      "colonia": "rio verde",
+      "menciones": 1
     }
   ],
   "lomas de san eugenio": [
@@ -9071,6 +10641,10 @@
     {
       "colonia": "loma linda",
       "menciones": 2
+    },
+    {
+      "colonia": "san pedro",
+      "menciones": 2
     }
   ],
   "el vergel 1ra": [
@@ -9109,6 +10683,10 @@
     {
       "colonia": "real ixtapa",
       "menciones": 2
+    },
+    {
+      "colonia": "ii mojoneras",
+      "menciones": 1
     }
   ],
   "las mojoneras": [
@@ -9147,6 +10725,22 @@
     {
       "colonia": "coto arrezo",
       "menciones": 2
+    },
+    {
+      "colonia": "recien remodelada",
+      "menciones": 2
+    },
+    {
+      "colonia": "remodelada 3 recamaras 2 cocheras 3 banos",
+      "menciones": 2
+    },
+    {
+      "colonia": "del carmen",
+      "menciones": 1
+    },
+    {
+      "colonia": "del valle",
+      "menciones": 1
     }
   ],
   "la alameda": [
@@ -9173,6 +10767,10 @@
     {
       "colonia": "jardines de la calera",
       "menciones": 2
+    },
+    {
+      "colonia": "remodelada 1 recamara 1 bano 1 estacionamiento protecciones",
+      "menciones": 2
     }
   ],
   "sta margarita": [
@@ -9191,6 +10789,14 @@
     {
       "colonia": "parques de zapopan",
       "menciones": 2
+    },
+    {
+      "colonia": "tesistan tesistan",
+      "menciones": 1
+    },
+    {
+      "colonia": "valle imperial",
+      "menciones": 1
     }
   ],
   "los girasoles": [
@@ -9218,6 +10824,10 @@
     },
     {
       "colonia": "del carmen",
+      "menciones": 2
+    },
+    {
+      "colonia": "san pedro",
       "menciones": 2
     }
   ],
@@ -9259,6 +10869,10 @@
     {
       "colonia": "parques santa cruz del valle",
       "menciones": 10
+    },
+    {
+      "colonia": "del carmen",
+      "menciones": 1
     }
   ],
   "parques santa cruz del valle": [
@@ -9287,6 +10901,10 @@
     {
       "colonia": "basilio badillo",
       "menciones": 2
+    },
+    {
+      "colonia": "cruz oriente",
+      "menciones": 1
     }
   ],
   "vistas del pedregal": [
@@ -9373,6 +10991,22 @@
     {
       "colonia": "jardines de la primavera",
       "menciones": 1
+    },
+    {
+      "colonia": "remodelada 3 recamaras 1 bano cocina integral patio",
+      "menciones": 2
+    },
+    {
+      "colonia": "a 1o min de la salida mariano otero",
+      "menciones": 1
+    },
+    {
+      "colonia": "inversion en zona con alto crecimiento habitacional",
+      "menciones": 1
+    },
+    {
+      "colonia": "del colli",
+      "menciones": 1
     }
   ],
   "jardines de la primavera": [
@@ -9444,6 +11078,22 @@
     },
     {
       "colonia": "atotonilquillo",
+      "menciones": 1
+    },
+    {
+      "colonia": "escriturado libre de gravamen y sin adeudo",
+      "menciones": 1
+    },
+    {
+      "colonia": "listo para escriturar",
+      "menciones": 1
+    },
+    {
+      "colonia": "terreno escriturado y libre de gravamen",
+      "menciones": 1
+    },
+    {
+      "colonia": "con una orientacion hacia la carretera terreno en esquina",
       "menciones": 1
     }
   ],
@@ -9573,6 +11223,10 @@
     {
       "colonia": "jardines de los historiadores",
       "menciones": 2
+    },
+    {
+      "colonia": "tetlan ii",
+      "menciones": 1
     }
   ],
   "ninos heroes": [
@@ -9591,6 +11245,10 @@
     {
       "colonia": "centro",
       "menciones": 2
+    },
+    {
+      "colonia": "en esquina 3 recamaras 25 banos 2 cocheras",
+      "menciones": 2
     }
   ],
   "lomas de la primavera": [
@@ -9605,6 +11263,26 @@
     {
       "colonia": "fracc los cerritos",
       "menciones": 2
+    },
+    {
+      "colonia": "la primavera",
+      "menciones": 2
+    },
+    {
+      "colonia": "cuenta con 2 habitaciones cocina y bano completo y local",
+      "menciones": 2
+    },
+    {
+      "colonia": "banos y 3 recamaras 2 cocheras",
+      "menciones": 2
+    },
+    {
+      "colonia": "el fortin",
+      "menciones": 1
+    },
+    {
+      "colonia": "casa habitacion de dos niveles para remodelar",
+      "menciones": 1
     }
   ],
   "col la huizachera el salto jalisco": [
@@ -9643,6 +11321,10 @@
     {
       "colonia": "mariano otero",
       "menciones": 2
+    },
+    {
+      "colonia": "la primavera",
+      "menciones": 1
     }
   ],
   "margarita maza de juarez": [
@@ -9664,6 +11346,10 @@
     },
     {
       "colonia": "col margarita masa de juarez",
+      "menciones": 2
+    },
+    {
+      "colonia": "la federacha",
       "menciones": 2
     }
   ],
@@ -9729,6 +11415,10 @@
     {
       "colonia": "la federacha",
       "menciones": 2
+    },
+    {
+      "colonia": "los belenes",
+      "menciones": 1
     }
   ],
   "huentitan el bajo": [
@@ -9761,6 +11451,14 @@
     {
       "colonia": "arroyo hondo",
       "menciones": 2
+    },
+    {
+      "colonia": "de independencia",
+      "menciones": 1
+    },
+    {
+      "colonia": "san elias",
+      "menciones": 1
     }
   ],
   "la federacha": [
@@ -9771,6 +11469,14 @@
     {
       "colonia": "santa cecilia",
       "menciones": 2
+    },
+    {
+      "colonia": "remodelada 3 recamaras 35 banos 2 estacionamientos",
+      "menciones": 2
+    },
+    {
+      "colonia": "y hernandez",
+      "menciones": 1
     }
   ],
   "zona industrial": [
@@ -9811,6 +11517,10 @@
     {
       "colonia": "real vallarta",
       "menciones": 2
+    },
+    {
+      "colonia": "lomas altas",
+      "menciones": 1
     }
   ],
   "rinconada santa rita": [
@@ -9897,6 +11607,14 @@
     {
       "colonia": "camino real zapopan",
       "menciones": 2
+    },
+    {
+      "colonia": "prados vallarta",
+      "menciones": 1
+    },
+    {
+      "colonia": "jardines vallarta",
+      "menciones": 1
     }
   ],
   "vallarta universidad": [
@@ -9945,6 +11663,10 @@
     {
       "colonia": "olimpica",
       "menciones": 2
+    },
+    {
+      "colonia": "obregon medrano",
+      "menciones": 1
     }
   ],
   "revolucion": [
@@ -10007,6 +11729,14 @@
     {
       "colonia": "chapalita inn",
       "menciones": 2
+    },
+    {
+      "colonia": "nivel 1 1 recamara 1 bano 1 bodega 1 estacionamiento",
+      "menciones": 2
+    },
+    {
+      "colonia": "remodelada 3 recamaras 2 banos y 3 estacionamientos",
+      "menciones": 2
     }
   ],
   "coto 12 coronado": [
@@ -10049,6 +11779,22 @@
     {
       "colonia": "valle imperial",
       "menciones": 2
+    },
+    {
+      "colonia": "planta baja 2 recamaras 1 bano 1 cochera",
+      "menciones": 2
+    },
+    {
+      "colonia": "nivel 9 2 recamaras 2 cocheras 2 banos",
+      "menciones": 2
+    },
+    {
+      "colonia": "nuevo mexico",
+      "menciones": 1
+    },
+    {
+      "colonia": "garcia barragan",
+      "menciones": 1
     }
   ],
   "amaranto": [
@@ -10134,6 +11880,18 @@
     },
     {
       "colonia": "san antonio la estancia",
+      "menciones": 1
+    },
+    {
+      "colonia": "a 100 metros de la caseta de ocotlanterreno plano",
+      "menciones": 1
+    },
+    {
+      "colonia": "en terreno escriturado y libre de gravamen",
+      "menciones": 1
+    },
+    {
+      "colonia": "clasificacion del terreno plano y de forma regular",
       "menciones": 1
     }
   ],
@@ -10237,6 +11995,18 @@
     {
       "colonia": "27 de septiembre",
       "menciones": 2
+    },
+    {
+      "colonia": "excelente terreno a 5 minutos del cucea telmex periferico",
+      "menciones": 1
+    },
+    {
+      "colonia": "del valle",
+      "menciones": 1
+    },
+    {
+      "colonia": "el vigia",
+      "menciones": 1
     }
   ],
   "mision san francisco": [
@@ -10393,6 +12163,10 @@
     {
       "colonia": "el colli infonavit",
       "menciones": 2
+    },
+    {
+      "colonia": "paseos del",
+      "menciones": 1
     }
   ],
   "parques del tepeyac": [
@@ -10509,6 +12283,10 @@
     {
       "colonia": "san pedrito",
       "menciones": 2
+    },
+    {
+      "colonia": "esta en esquina existen postes de cfe de madera",
+      "menciones": 2
     }
   ],
   "brisas de chapala": [
@@ -10619,6 +12397,18 @@
     {
       "colonia": "reforma",
       "menciones": 2
+    },
+    {
+      "colonia": "la florida",
+      "menciones": 1
+    },
+    {
+      "colonia": "de dios",
+      "menciones": 1
+    },
+    {
+      "colonia": "sector libertad",
+      "menciones": 1
     }
   ],
   "san juan bosco": [
@@ -10641,6 +12431,10 @@
     {
       "colonia": "la perla",
       "menciones": 2
+    },
+    {
+      "colonia": "sector libertad",
+      "menciones": 1
     }
   ],
   "col lomas de la primavera": [
@@ -10689,6 +12483,10 @@
     {
       "colonia": "maritima playa flamingos",
       "menciones": 2
+    },
+    {
+      "colonia": "con 3 recamaras 2 banos 1 estacionamiento frente a playa",
+      "menciones": 2
     }
   ],
   "maritima playa flamingos": [
@@ -10711,6 +12509,14 @@
     {
       "colonia": "senderos de monteverde",
       "menciones": 10
+    },
+    {
+      "colonia": "casa en esquina 3 recamaras 35 banos 2 cocheras",
+      "menciones": 2
+    },
+    {
+      "colonia": "casa en esquina 3 recamaras 4 banos 2 cocheras",
+      "menciones": 2
     }
   ],
   "loma dorada delegacion d": [
@@ -10747,6 +12553,10 @@
     {
       "colonia": "loma bonita",
       "menciones": 2
+    },
+    {
+      "colonia": "cruz oriente",
+      "menciones": 1
     }
   ],
   "rancho de la cruz": [
@@ -10803,6 +12613,10 @@
     {
       "colonia": "puerta del llano",
       "menciones": 2
+    },
+    {
+      "colonia": "en tesistan",
+      "menciones": 1
     }
   ],
   "somos": [
@@ -10883,6 +12697,10 @@
     {
       "colonia": "prados atequiza",
       "menciones": 1
+    },
+    {
+      "colonia": "terreno de 616",
+      "menciones": 1
     }
   ],
   "hacienda atequiza estacion": [
@@ -10908,6 +12726,18 @@
     },
     {
       "colonia": "mesa colorada poniente",
+      "menciones": 1
+    },
+    {
+      "colonia": "remodelada 4 recamaras 2 banos",
+      "menciones": 2
+    },
+    {
+      "colonia": "del batan",
+      "menciones": 1
+    },
+    {
+      "colonia": "santa monica",
       "menciones": 1
     }
   ],
@@ -10945,6 +12775,18 @@
     {
       "colonia": "valdepenas",
       "menciones": 2
+    },
+    {
+      "colonia": "san isidro",
+      "menciones": 1
+    },
+    {
+      "colonia": "de valdepenas",
+      "menciones": 1
+    },
+    {
+      "colonia": "francisco villa",
+      "menciones": 1
     }
   ],
   "bosques del centinela": [
@@ -10973,6 +12815,22 @@
     {
       "colonia": "oblatos",
       "menciones": 2
+    },
+    {
+      "colonia": "cochera para 2 autos 4 recamaras 3 banos completos",
+      "menciones": 2
+    },
+    {
+      "colonia": "cocina sala comedor bano completo 3 habitaciones bodega",
+      "menciones": 2
+    },
+    {
+      "colonia": "terreno venta",
+      "menciones": 1
+    },
+    {
+      "colonia": "rio verde",
+      "menciones": 1
     }
   ],
   "huerta baeza": [
@@ -10993,6 +12851,14 @@
     {
       "colonia": "parques zapopan",
       "menciones": 2
+    },
+    {
+      "colonia": "tesistan tesistan",
+      "menciones": 1
+    },
+    {
+      "colonia": "valle imperial",
+      "menciones": 1
     }
   ],
   "independencia ote": [
@@ -11016,6 +12882,10 @@
     },
     {
       "colonia": "paseo de los agaves",
+      "menciones": 2
+    },
+    {
+      "colonia": "cuenta con cochera sala comedor recamara patio",
       "menciones": 2
     }
   ],
@@ -11059,6 +12929,14 @@
     {
       "colonia": "villas de san miguel",
       "menciones": 2
+    },
+    {
+      "colonia": "de tlaquepaque",
+      "menciones": 1
+    },
+    {
+      "colonia": "san pedro",
+      "menciones": 1
     }
   ],
   "paseos del valle": [
@@ -11104,6 +12982,14 @@
     },
     {
       "colonia": "jardines de miraflores",
+      "menciones": 2
+    },
+    {
+      "colonia": "san pedro",
+      "menciones": 2
+    },
+    {
+      "colonia": "casa de dos habitaciones 1 bano y 1 cochera",
       "menciones": 2
     }
   ],
@@ -11157,6 +13043,14 @@
     {
       "colonia": "conjunto patria",
       "menciones": 2
+    },
+    {
+      "colonia": "del valle",
+      "menciones": 1
+    },
+    {
+      "colonia": "olachea constitucion",
+      "menciones": 1
     }
   ],
   "conjunto patria": [
@@ -11209,6 +13103,10 @@
     {
       "colonia": "jardines tepeyac",
       "menciones": 2
+    },
+    {
+      "colonia": "de guadalupe",
+      "menciones": 1
     }
   ],
   "la palmira": [
@@ -11222,6 +13120,10 @@
     },
     {
       "colonia": "los cajetes",
+      "menciones": 2
+    },
+    {
+      "colonia": "remodelada bano completo y dos recamaras 2 cocheras",
       "menciones": 2
     }
   ],
@@ -11285,6 +13187,10 @@
     {
       "colonia": "villas de guadalupe",
       "menciones": 2
+    },
+    {
+      "colonia": "villas de",
+      "menciones": 1
     }
   ],
   "col jalisco tonala": [
@@ -11320,6 +13226,10 @@
     },
     {
       "colonia": "heroes nacionales",
+      "menciones": 2
+    },
+    {
+      "colonia": "cuenta con 2 banos 3 recamaras 2 estacionamientos y cancel",
       "menciones": 2
     }
   ],
@@ -11391,6 +13301,10 @@
     {
       "colonia": "lomas de rio verde",
       "menciones": 2
+    },
+    {
+      "colonia": "la federacha",
+      "menciones": 2
     }
   ],
   "belisario dominguez 3815": [
@@ -11443,6 +13357,18 @@
     {
       "colonia": "ciudad granja",
       "menciones": 2
+    },
+    {
+      "colonia": "para remodelacion 3 recamaras 2 banos y 2 estacionamientos",
+      "menciones": 2
+    },
+    {
+      "colonia": "a media cuadra del parque metropolitano 3 recamaras 2 banos",
+      "menciones": 2
+    },
+    {
+      "colonia": "sala cocina 2 recamaras 1 cochera y un bano completo",
+      "menciones": 2
     }
   ],
   "santa maria del pueblito": [
@@ -11467,6 +13393,10 @@
     {
       "colonia": "arboledas",
       "menciones": 2
+    },
+    {
+      "colonia": "las alamedas",
+      "menciones": 1
     }
   ],
   "hacienda del tepeyac": [
@@ -11487,6 +13417,18 @@
     {
       "colonia": "jardines de guadalupe",
       "menciones": 2
+    },
+    {
+      "colonia": "terreno con uso de suelo mixto",
+      "menciones": 2
+    },
+    {
+      "colonia": "casade lujo con 4 recamaras 4 banos y 4 cocheras",
+      "menciones": 2
+    },
+    {
+      "colonia": "terreno uso de suelo estatus juridico libre de gravamen",
+      "menciones": 1
     }
   ],
   "rinconada de la calma": [
@@ -11551,6 +13493,14 @@
     {
       "colonia": "villas de san juan",
       "menciones": 2
+    },
+    {
+      "colonia": "san elias",
+      "menciones": 1
+    },
+    {
+      "colonia": "rancho nuevo",
+      "menciones": 1
     }
   ],
   "lomas de san juan": [
@@ -11639,16 +13589,6 @@
       "menciones": 2
     }
   ],
-  "hacienda real": [
-    {
-      "colonia": "hacienda real tonala",
-      "menciones": 10
-    },
-    {
-      "colonia": "santa paula",
-      "menciones": 2
-    }
-  ],
   "altas": [
     {
       "colonia": "bosques del boulevard",
@@ -11683,6 +13623,14 @@
     {
       "colonia": "puerta del llano",
       "menciones": 2
+    },
+    {
+      "colonia": "en condominio 2 recamaras 1 cochera 15 banos",
+      "menciones": 2
+    },
+    {
+      "colonia": "terreno campestre en",
+      "menciones": 1
     }
   ],
   "marina vallarta": [
@@ -11693,6 +13641,10 @@
     {
       "colonia": "albatros",
       "menciones": 2
+    },
+    {
+      "colonia": "las flores",
+      "menciones": 1
     }
   ],
   "versalles": [
@@ -11785,6 +13737,10 @@
     {
       "colonia": "paisajes del tesoro",
       "menciones": 6
+    },
+    {
+      "colonia": "del tesoro",
+      "menciones": 1
     }
   ],
   "paisajes del tesoro": [
@@ -11819,6 +13775,14 @@
     {
       "colonia": "san juan de ocotan",
       "menciones": 4
+    },
+    {
+      "colonia": "cochera para 2 autos 3 recpamaras 4 banos",
+      "menciones": 2
+    },
+    {
+      "colonia": "valle real",
+      "menciones": 1
     }
   ],
   "san juan de ocotan": [
@@ -11857,6 +13821,10 @@
     {
       "colonia": "jardines del valle",
       "menciones": 4
+    },
+    {
+      "colonia": "tesistan tesistan",
+      "menciones": 1
     }
   ],
   "la casita": [
@@ -11915,6 +13883,14 @@
     {
       "colonia": "miravalle",
       "menciones": 2
+    },
+    {
+      "colonia": "terreno en venta entre av patria y ocho de julio mixto",
+      "menciones": 1
+    },
+    {
+      "colonia": "uso de suelo mixto terreno bardeado",
+      "menciones": 1
     }
   ],
   "torre f 203": [
@@ -11929,6 +13905,18 @@
     {
       "colonia": "los portales",
       "menciones": 2
+    },
+    {
+      "colonia": "cuarto nivel 2 recamaras 1 bano 1 cochera",
+      "menciones": 2
+    },
+    {
+      "colonia": "san pedro",
+      "menciones": 1
+    },
+    {
+      "colonia": "colonial tlaquepaque",
+      "menciones": 1
     }
   ],
   "arboledas sur": [
@@ -11973,12 +13961,6 @@
       "menciones": 2
     }
   ],
-  "hacienda real tonala": [
-    {
-      "colonia": "hacienda real",
-      "menciones": 10
-    }
-  ],
   "jardines independencia": [
     {
       "colonia": "jardines alcalde",
@@ -11987,6 +13969,26 @@
     {
       "colonia": "independencia",
       "menciones": 4
+    },
+    {
+      "colonia": "san elias",
+      "menciones": 2
+    },
+    {
+      "colonia": "casa de una planta 3 recamaras 2 banos 1 cochera",
+      "menciones": 2
+    },
+    {
+      "colonia": "guadalupana sur",
+      "menciones": 1
+    },
+    {
+      "colonia": "alcalde poniente",
+      "menciones": 1
+    },
+    {
+      "colonia": "elena alcalde",
+      "menciones": 1
     }
   ],
   "fracc mayorazgos del bosque": [
@@ -12031,6 +14033,10 @@
     {
       "colonia": "lagos del country",
       "menciones": 2
+    },
+    {
+      "colonia": "jardines seattle",
+      "menciones": 1
     }
   ],
   "los laureles": [
@@ -12091,12 +14097,20 @@
     {
       "colonia": "real de valdepenas",
       "menciones": 10
+    },
+    {
+      "colonia": "francisco villa",
+      "menciones": 1
     }
   ],
   "la cima zapopan": [
     {
       "colonia": "la cima",
       "menciones": 10
+    },
+    {
+      "colonia": "cochera para 2 autos 4 recamaras 4 banos",
+      "menciones": 2
     }
   ],
   "prados tonala": [
@@ -12130,6 +14144,10 @@
     },
     {
       "colonia": "tlajomulco centro",
+      "menciones": 2
+    },
+    {
+      "colonia": "dos recamaras 1 bano 1 cochera",
       "menciones": 2
     }
   ],
@@ -12180,6 +14198,10 @@
     },
     {
       "colonia": "haciendas san pedro",
+      "menciones": 2
+    },
+    {
+      "colonia": "remodelada con 3 recamaras 35 banos",
       "menciones": 2
     }
   ],
@@ -12271,6 +14293,18 @@
     {
       "colonia": "auditorio",
       "menciones": 2
+    },
+    {
+      "colonia": "villas de",
+      "menciones": 1
+    },
+    {
+      "colonia": "los ocotes",
+      "menciones": 1
+    },
+    {
+      "colonia": "emiliano zapata",
+      "menciones": 1
     }
   ],
   "mesa colorada pte": [
@@ -12345,6 +14379,10 @@
     {
       "colonia": "los altos",
       "menciones": 2
+    },
+    {
+      "colonia": "listo para escriturar no ejidal no cuenta con servicios",
+      "menciones": 1
     }
   ],
   "plan de oriente tlaquepaque": [
@@ -12425,6 +14463,26 @@
     {
       "colonia": "el vergel",
       "menciones": 2
+    },
+    {
+      "colonia": "remodelada cochera para dos autos 3 recamaras 2 banos",
+      "menciones": 2
+    },
+    {
+      "colonia": "de agua",
+      "menciones": 1
+    },
+    {
+      "colonia": "san pedro",
+      "menciones": 1
+    },
+    {
+      "colonia": "del carmen",
+      "menciones": 1
+    },
+    {
+      "colonia": "del quince",
+      "menciones": 1
     }
   ],
   "san sebastianito": [
@@ -12479,6 +14537,14 @@
     {
       "colonia": "hacienda concepcion del valle",
       "menciones": 2
+    },
+    {
+      "colonia": "casa con 2 cocheras 3 recamaras 2 banos",
+      "menciones": 2
+    },
+    {
+      "colonia": "hacienda santa",
+      "menciones": 1
     }
   ],
   "hacienda concepcion del valle": [
@@ -12515,12 +14581,20 @@
     {
       "colonia": "el colli urbano",
       "menciones": 4
+    },
+    {
+      "colonia": "terreno en esquina uso de suelo mixto plano",
+      "menciones": 1
     }
   ],
   "independiencia oriente guadalajara": [
     {
       "colonia": "independencia",
       "menciones": 10
+    },
+    {
+      "colonia": "remodelada totalmente3 recamaras 3 banos 2 cocheras",
+      "menciones": 2
     }
   ],
   "coto 2 jardin real": [
@@ -12550,6 +14624,14 @@
     },
     {
       "colonia": "los cantaros",
+      "menciones": 2
+    },
+    {
+      "colonia": "primer nivel 2 recamaras 1 bano 1 estacionamiento",
+      "menciones": 2
+    },
+    {
+      "colonia": "segundo piso 2 recamaras 1 bano",
       "menciones": 2
     }
   ],
@@ -12605,11 +14687,35 @@
     {
       "colonia": "santa elena de la cruz",
       "menciones": 1
+    },
+    {
+      "colonia": "colorada oriente",
+      "menciones": 1
+    },
+    {
+      "colonia": "el bajo",
+      "menciones": 1
     }
   ],
   "agua fria": [
     {
       "colonia": "mesa colorada poniente",
+      "menciones": 1
+    },
+    {
+      "colonia": "terreno escriturado con un uso habitacional",
+      "menciones": 1
+    },
+    {
+      "colonia": "con vista panoramica a unas cuadras de la comision de luz",
+      "menciones": 1
+    },
+    {
+      "colonia": "terreno plano con un uso mixto",
+      "menciones": 1
+    },
+    {
+      "colonia": "cuenta con servicios como agua luz y drenaje",
       "menciones": 1
     }
   ],
@@ -12635,6 +14741,18 @@
     {
       "colonia": "constitucion",
       "menciones": 2
+    },
+    {
+      "colonia": "remodelada 4 recamaras 2 banos y cochera para 2 autos",
+      "menciones": 2
+    },
+    {
+      "colonia": "santa margarita",
+      "menciones": 1
+    },
+    {
+      "colonia": "tesistan tesistan",
+      "menciones": 1
     }
   ],
   "la grana": [
@@ -12717,6 +14835,10 @@
     {
       "colonia": "loma bonita",
       "menciones": 2
+    },
+    {
+      "colonia": "planta baja con elevador 2 recamaras2 banos 2 cocheras nuevo",
+      "menciones": 2
     }
   ],
   "camichines tonala": [
@@ -12739,6 +14861,18 @@
     {
       "colonia": "villas de oriente",
       "menciones": 2
+    },
+    {
+      "colonia": "en 3 recamaras 2 estacionamientos y 1 bano",
+      "menciones": 2
+    },
+    {
+      "colonia": "camichines iii",
+      "menciones": 1
+    },
+    {
+      "colonia": "el rosario",
+      "menciones": 1
     }
   ],
   "villas de oriente": [
@@ -12759,6 +14893,14 @@
     {
       "colonia": "parque real",
       "menciones": 2
+    },
+    {
+      "colonia": "nuevo",
+      "menciones": 1
+    },
+    {
+      "colonia": "jardin real",
+      "menciones": 1
     }
   ],
   "parque real": [
@@ -12801,6 +14943,22 @@
     {
       "colonia": "nuevo santa maria",
       "menciones": 2
+    },
+    {
+      "colonia": "del 4",
+      "menciones": 2
+    },
+    {
+      "colonia": "curiel tepeyac",
+      "menciones": 1
+    },
+    {
+      "colonia": "las juntitas",
+      "menciones": 1
+    },
+    {
+      "colonia": "san pedro",
+      "menciones": 1
     }
   ],
   "centro guadalajara": [
@@ -12815,6 +14973,10 @@
     {
       "colonia": "barranquitas",
       "menciones": 2
+    },
+    {
+      "colonia": "guadalajara centro",
+      "menciones": 1
     }
   ],
   "agua cristalina": [
@@ -12911,6 +15073,14 @@
     {
       "colonia": "jal",
       "menciones": 2
+    },
+    {
+      "colonia": "tres recamaras con 2 banos completos sala comedor 2 cocheras",
+      "menciones": 2
+    },
+    {
+      "colonia": "remodelada 3 habitaciones 25 banos 2 estacionamiento",
+      "menciones": 2
     }
   ],
   "la patria universidad": [
@@ -12931,6 +15101,18 @@
     {
       "colonia": "patria nueva",
       "menciones": 2
+    },
+    {
+      "colonia": "las juntas",
+      "menciones": 2
+    },
+    {
+      "colonia": "cuenta con 1 bano 2 recamaras y 1 cajon de estacionamiento",
+      "menciones": 2
+    },
+    {
+      "colonia": "de chapala",
+      "menciones": 1
     }
   ],
   "jardines los belenes": [
@@ -12944,6 +15126,10 @@
     },
     {
       "colonia": "benito juarez auditorio",
+      "menciones": 2
+    },
+    {
+      "colonia": "el bajo",
       "menciones": 2
     }
   ],
@@ -12968,6 +15154,14 @@
     },
     {
       "colonia": "colinas de san javier",
+      "menciones": 2
+    },
+    {
+      "colonia": "cochera para 2 autos 3 recamaras 15 banos",
+      "menciones": 2
+    },
+    {
+      "colonia": "cochera techada para 1 auto 2 recamaras 1 bano",
       "menciones": 2
     }
   ],
@@ -13037,6 +15231,18 @@
     {
       "colonia": "rinconada de coyula",
       "menciones": 2
+    },
+    {
+      "colonia": "la cruz",
+      "menciones": 1
+    },
+    {
+      "colonia": "bellavista",
+      "menciones": 1
+    },
+    {
+      "colonia": "haciendas tonala",
+      "menciones": 1
     }
   ],
   "rinconada de coyula": [
@@ -13073,6 +15279,10 @@
     {
       "colonia": "palermo",
       "menciones": 2
+    },
+    {
+      "colonia": "casa de 4 recamaras y 3 banos completos",
+      "menciones": 2
     }
   ],
   "circunvalacion vallarta": [
@@ -13101,6 +15311,10 @@
     {
       "colonia": "parques de tesistan",
       "menciones": 4
+    },
+    {
+      "colonia": "en tesistan",
+      "menciones": 2
     }
   ],
   "pase los agaves": [
@@ -13124,6 +15338,10 @@
     },
     {
       "colonia": "infonavit del castillo",
+      "menciones": 2
+    },
+    {
+      "colonia": "casa con 3 recamaras 2 banos cochera para 1 auto",
       "menciones": 2
     }
   ],
@@ -13290,5 +15508,739 @@
       "colonia": "centro historico",
       "menciones": 4
     }
-  ]
+  ],
+  "valle del sol": [],
+  "cruz de huanacaxtle": [
+    {
+      "colonia": "remodelado 4 unidades en 1 propiedad",
+      "menciones": 2
+    },
+    {
+      "colonia": "proximidad a playas aeropuertos y centros turisticos",
+      "menciones": 1
+    },
+    {
+      "colonia": "terreno en venta en exclusivo lote 4",
+      "menciones": 1
+    }
+  ],
+  "el campanario": [
+    {
+      "colonia": "excelente terreno a un costado del bosques de santa anita",
+      "menciones": 2
+    },
+    {
+      "colonia": "villas de la tijera tlajomulco",
+      "menciones": 2
+    },
+    {
+      "colonia": "dentro de un con caseta de vigilancia 247",
+      "menciones": 1
+    },
+    {
+      "colonia": "pequeno con vigilancia y area de juegos",
+      "menciones": 1
+    },
+    {
+      "colonia": "en con seguridad 247 areas verdes y pista de jogging",
+      "menciones": 1
+    },
+    {
+      "colonia": "a un costado del bosques de santa anita",
+      "menciones": 1
+    },
+    {
+      "colonia": "bugambilias",
+      "menciones": 1
+    },
+    {
+      "colonia": "con uso de suelo mixto a tres cuadras de lopez mateos",
+      "menciones": 1
+    }
+  ],
+  "jardines de vallarta": [],
+  "vista sur": [],
+  "la lagunita mazamitla": [
+    {
+      "colonia": "a 4 minutos del pueblo cuenta con todos los servicios",
+      "menciones": 1
+    },
+    {
+      "colonia": "dentro de cuenta con servicio de agua potable y luz",
+      "menciones": 1
+    }
+  ],
+  "jardines de la esperanza": [
+    {
+      "colonia": "los belenes",
+      "menciones": 1
+    },
+    {
+      "colonia": "valle 45190",
+      "menciones": 1
+    },
+    {
+      "colonia": "ayala tabachines",
+      "menciones": 1
+    }
+  ],
+  "el mirador juan arias": [
+    {
+      "colonia": "pequeno con vigilancia y area de juegos",
+      "menciones": 1
+    },
+    {
+      "colonia": "dentro de un privado",
+      "menciones": 1
+    },
+    {
+      "colonia": "dentro del en esquina superficie plan",
+      "menciones": 1
+    },
+    {
+      "colonia": "todos los servicios tipo campestre",
+      "menciones": 1
+    },
+    {
+      "colonia": "san pedro",
+      "menciones": 1
+    }
+  ],
+  "primera seccion": [
+    {
+      "colonia": "colli urbano",
+      "menciones": 3
+    },
+    {
+      "colonia": "perote colli",
+      "menciones": 1
+    }
+  ],
+  "miguel hidalgo cp 44760 guadalajara": [],
+  "las conchas": [],
+  "santa isabel": [
+    {
+      "colonia": "se vende increible terreno panoramico en el palomar",
+      "menciones": 1
+    }
+  ],
+  "sn cajititlan": [],
+  "jardines de la providencia": [
+    {
+      "colonia": "terreno en venta en la providencia propiedad ejidal",
+      "menciones": 1
+    },
+    {
+      "colonia": "la providencia",
+      "menciones": 1
+    }
+  ],
+  "local 6 zona c": [
+    {
+      "colonia": "del paradero",
+      "menciones": 1
+    }
+  ],
+  "agua caliente": [],
+  "bella vista": [],
+  "atotojilquillo": [
+    {
+      "colonia": "ocotlan atotonilquillo",
+      "menciones": 1
+    }
+  ],
+  "calvario": [],
+  "lomas de tesistan": [
+    {
+      "colonia": "totalmente bardeado ideal para tu casa de campo",
+      "menciones": 1
+    }
+  ],
+  "las juntas": [
+    {
+      "colonia": "la duraznera san",
+      "menciones": 1
+    },
+    {
+      "colonia": "san pedro",
+      "menciones": 1
+    }
+  ],
+  "vinatera": [
+    {
+      "colonia": "los molinos",
+      "menciones": 1
+    },
+    {
+      "colonia": "hacienda copala",
+      "menciones": 1
+    }
+  ],
+  "la periquera": [
+    {
+      "colonia": "casa de dos recamaras cochera para 2 autos 1 bano",
+      "menciones": 2
+    }
+  ],
+  "tololotlan puente grande": [
+    {
+      "colonia": "venta de terreno en puente grande jalisco",
+      "menciones": 1
+    },
+    {
+      "colonia": "entre calle juarez y ninos heroes",
+      "menciones": 1
+    },
+    {
+      "colonia": "la punta",
+      "menciones": 1
+    }
+  ],
+  "club de golf atlas": [],
+  "industrial zapopan norte": [
+    {
+      "colonia": "industrial norte",
+      "menciones": 4
+    },
+    {
+      "colonia": "las canadas",
+      "menciones": 2
+    }
+  ],
+  "el parque": [],
+  "acatlan de juarez": [
+    {
+      "colonia": "terreno en san pedro valencia acatlan de juarez",
+      "menciones": 1
+    },
+    {
+      "colonia": "dentro del ribera del lago",
+      "menciones": 1
+    }
+  ],
+  "artesanos tlaquepaque": [
+    {
+      "colonia": "terreno en venta en la el vergelito de 1167 m2",
+      "menciones": 1
+    },
+    {
+      "colonia": "terreno en venta cerca de av prologacion gobernador curiel",
+      "menciones": 1
+    },
+    {
+      "colonia": "del 4",
+      "menciones": 1
+    }
+  ],
+  "agujas": [
+    {
+      "colonia": "cuenta con algibe y cimientos",
+      "menciones": 1
+    },
+    {
+      "colonia": "terreno ejidal plano en una ubicacion privilegiada",
+      "menciones": 1
+    },
+    {
+      "colonia": "ideales para la construccion de bodegas",
+      "menciones": 1
+    }
+  ],
+  "santa rosa": [
+    {
+      "colonia": "el terreno cuenta con una barda alta electricidad",
+      "menciones": 1
+    },
+    {
+      "colonia": "terreno ejidal con cimientos y medias bardas",
+      "menciones": 1
+    },
+    {
+      "colonia": "cercas del nuevo hospital civil y cut tonalaterreno ejidal",
+      "menciones": 1
+    }
+  ],
+  "la mojonera": [
+    {
+      "colonia": "frente 13 mts fondo 28 mts",
+      "menciones": 1
+    },
+    {
+      "colonia": "excedente de area verde al frente 5 metros",
+      "menciones": 1
+    },
+    {
+      "colonia": "alberca pista de jogging no tienes casas atras",
+      "menciones": 1
+    }
+  ],
+  "sin nombre": [],
+  "jalisco primera seccion": [
+    {
+      "colonia": "superficie aproximada de 7913 mts2",
+      "menciones": 1
+    },
+    {
+      "colonia": "cuenta con barda perimetral cisterna",
+      "menciones": 1
+    },
+    {
+      "colonia": "de tonala",
+      "menciones": 1
+    },
+    {
+      "colonia": "zalatitan centro",
+      "menciones": 1
+    }
+  ],
+  "lomas de santa anita": [],
+  "imperio inca": [],
+  "santa margarita 1 seccion": [
+    {
+      "colonia": "tesistan tesistan",
+      "menciones": 1
+    },
+    {
+      "colonia": "valle imperial",
+      "menciones": 1
+    }
+  ],
+  "playon de mismaloya": [],
+  "educacion jalisciense": [
+    {
+      "colonia": "terreno urbanizado a 10 minutos al centro de tonala",
+      "menciones": 1
+    }
+  ],
+  "la gloria del colli": [],
+  "parcela 536 z1 p12": [],
+  "guadalupe ejidal": [
+    {
+      "colonia": "comercial con metros de excedente",
+      "menciones": 1
+    },
+    {
+      "colonia": "terreno con dos frentes",
+      "menciones": 1
+    },
+    {
+      "colonia": "san pedro",
+      "menciones": 1
+    },
+    {
+      "colonia": "la duraznera san",
+      "menciones": 1
+    }
+  ],
+  "int f2": [],
+  "de santiago": [
+    {
+      "colonia": "frente a av lazaro cardenas ideal para bodegas o comercios",
+      "menciones": 1
+    }
+  ],
+  "valle del mar": [
+    {
+      "colonia": "preventa",
+      "menciones": 1
+    }
+  ],
+  "la venta del astillero": [
+    {
+      "colonia": "lote predominantemente plano",
+      "menciones": 1
+    },
+    {
+      "colonia": "terreno irregular tiene un desnivel",
+      "menciones": 1
+    },
+    {
+      "colonia": "es irregular zona de ranchos y cabanas",
+      "menciones": 1
+    },
+    {
+      "colonia": "listo para escriturar",
+      "menciones": 1
+    }
+  ],
+  "la manzanilla de la paz": [
+    {
+      "colonia": "terreno habitacional en desarrollo con areas verdes",
+      "menciones": 2
+    },
+    {
+      "colonia": "en condominio con amenidades",
+      "menciones": 1
+    },
+    {
+      "colonia": "oportunidad de inversion a corto y mediano plazo",
+      "menciones": 1
+    }
+  ],
+  "tapalpa": [
+    {
+      "colonia": "en medio del bosque escriturable",
+      "menciones": 1
+    },
+    {
+      "colonia": "escriturable rodeado de naturaleza",
+      "menciones": 1
+    }
+  ],
+  "haciendas de chapala": [],
+  "cuitzeo": [
+    {
+      "colonia": "terreno habitacional",
+      "menciones": 1
+    },
+    {
+      "colonia": "a pie de carretera",
+      "menciones": 1
+    },
+    {
+      "colonia": "para construir casa de descanso poca pendiente",
+      "menciones": 1
+    },
+    {
+      "colonia": "rodeado de servicios listo para escriturar",
+      "menciones": 1
+    }
+  ],
+  "valle de coyula": [
+    {
+      "colonia": "orquidea coyula",
+      "menciones": 2
+    },
+    {
+      "colonia": "plano y bardeado entre camino a matatlan y periferico nuevo",
+      "menciones": 2
+    }
+  ],
+  "barra de navidad": [],
+  "zapotlanejo": [
+    {
+      "colonia": "todos los servicios listo para escriturar",
+      "menciones": 1
+    }
+  ],
+  "segunda seccion zona industrial": [
+    {
+      "colonia": "colon industrial",
+      "menciones": 1
+    }
+  ],
+  "san jacinto": [
+    {
+      "colonia": "terreno urbanizado en esquina",
+      "menciones": 2
+    }
+  ],
+  "prados providencia": [
+    {
+      "colonia": "country club",
+      "menciones": 1
+    }
+  ],
+  "mazamitla": [
+    {
+      "colonia": "sala cocina terraza y recamara principal s",
+      "menciones": 2
+    }
+  ],
+  "jalisco cp 45138": [],
+  "zona indutrial": [
+    {
+      "colonia": "san pedro",
+      "menciones": 1
+    },
+    {
+      "colonia": "colon industrial",
+      "menciones": 1
+    }
+  ],
+  "el tabardillo": [],
+  "arrezo": [
+    {
+      "colonia": "estacionamiento para 1 auto 4 recamaras 25 banos",
+      "menciones": 2
+    }
+  ],
+  "los cerritos": [
+    {
+      "colonia": "cocina integral 2 recamaras patioterraza 3 banos",
+      "menciones": 2
+    },
+    {
+      "colonia": "la primavera",
+      "menciones": 1
+    }
+  ],
+  "lomas de san luis": [
+    {
+      "colonia": "a 100 metros de la caseta de ocotlanterreno plano",
+      "menciones": 1
+    },
+    {
+      "colonia": "en terreno escriturado y libre de gravamen",
+      "menciones": 1
+    },
+    {
+      "colonia": "clasificacion del terreno plano y de forma regular",
+      "menciones": 1
+    }
+  ],
+  "el plan": [],
+  "de los camichines": [],
+  "villafontana": [
+    {
+      "colonia": "del carmen",
+      "menciones": 1
+    }
+  ],
+  "america a": [
+    {
+      "colonia": "proyectos de desarrollo vertical",
+      "menciones": 1
+    }
+  ],
+  "tonla centro": [
+    {
+      "colonia": "en plaza cuenta con 5 bano",
+      "menciones": 2
+    },
+    {
+      "colonia": "bodega con local comercial",
+      "menciones": 2
+    },
+    {
+      "colonia": "plaza sangaspar",
+      "menciones": 1
+    }
+  ],
+  "esquina ignacio t lopez loma bonita": [
+    {
+      "colonia": "a tres cuadradas del centro y a 5 minutos caminando",
+      "menciones": 1
+    },
+    {
+      "colonia": "terreno urbano cuenta con escrituras",
+      "menciones": 1
+    }
+  ],
+  "propiedad 1 atequiza": [],
+  "propiedad 3 atequiza": [],
+  "propiedad 2 atequiza": [],
+  "mirador san isidro 45130 zapopan": [
+    {
+      "colonia": "san isidro",
+      "menciones": 1
+    },
+    {
+      "colonia": "villas de",
+      "menciones": 1
+    },
+    {
+      "colonia": "francisco villa",
+      "menciones": 1
+    }
+  ],
+  "colinas de la normal": [
+    {
+      "colonia": "el terreno ocupa la extension de tres lotes o predios",
+      "menciones": 1
+    },
+    {
+      "colonia": "el retiro",
+      "menciones": 1
+    },
+    {
+      "colonia": "centro barranquitas",
+      "menciones": 1
+    },
+    {
+      "colonia": "la normal",
+      "menciones": 1
+    }
+  ],
+  "jalisco tonala": [],
+  "jalisco i": [
+    {
+      "colonia": "terreno bien ubicado a unas cuadras de avenida juan pablo ii",
+      "menciones": 1
+    },
+    {
+      "colonia": "terreno en venta en guadalajara",
+      "menciones": 1
+    }
+  ],
+  "tapalpa jalisco": [],
+  "unidad abastos": [],
+  "la via": [
+    {
+      "colonia": "terreno plano cuenta con todos los servicios",
+      "menciones": 1
+    }
+  ],
+  "miramar zapopan": [
+    {
+      "colonia": "cochera para un auto 4 recamaras 3 banos",
+      "menciones": 2
+    },
+    {
+      "colonia": "recamaras 4 banos 2 estacionamientos 1 patio terraza",
+      "menciones": 2
+    },
+    {
+      "colonia": "del colli",
+      "menciones": 1
+    }
+  ],
+  "alfredo barba": [],
+  "hacienda real tonala": [
+    {
+      "colonia": "la gigantera",
+      "menciones": 2
+    },
+    {
+      "colonia": "santa paula",
+      "menciones": 1
+    },
+    {
+      "colonia": "san pedro",
+      "menciones": 1
+    },
+    {
+      "colonia": "zapotlanejo jauja",
+      "menciones": 1
+    }
+  ],
+  "rosalio tapia sn": [],
+  "villas guadalupe zapopan": [],
+  "atlas chapalita": [
+    {
+      "colonia": "ubicado en planta baja obra negra",
+      "menciones": 2
+    }
+  ],
+  "de santiago 45500 san pedro": [
+    {
+      "colonia": "primer nivel 3 recamaras 2 banos y 1 cochera",
+      "menciones": 2
+    }
+  ],
+  "el marquez": [],
+  "bodega": [
+    {
+      "colonia": "dos areas de oficinas comedor 2 banos area de almacen",
+      "menciones": 2
+    },
+    {
+      "colonia": "brisas de",
+      "menciones": 1
+    }
+  ],
+  "sta paula tonala": [
+    {
+      "colonia": "con todos los servicios ideal para bodega o terraza",
+      "menciones": 2
+    }
+  ],
+  "margarita masa de juarez": [
+    {
+      "colonia": "la federacha",
+      "menciones": 2
+    }
+  ],
+  "villa franca": [
+    {
+      "colonia": "la moraleja",
+      "menciones": 1
+    }
+  ],
+  "bosques de la vicctoria": [
+    {
+      "colonia": "se vende terreno cerca de la expo",
+      "menciones": 1
+    },
+    {
+      "colonia": "terreno en esquina",
+      "menciones": 1
+    },
+    {
+      "colonia": "uso de suelo mixto esta sobre avenida",
+      "menciones": 1
+    }
+  ],
+  "chapala centro": [
+    {
+      "colonia": "ionamiento los pinos en chapala jalisco",
+      "menciones": 1
+    },
+    {
+      "colonia": "dentro de con vista a la montana y a la laguna",
+      "menciones": 1
+    }
+  ],
+  "jerez huejucar": [],
+  "el nuevo resplandor": [
+    {
+      "colonia": "terreno de 6x20",
+      "menciones": 1
+    },
+    {
+      "colonia": "el portezuelo 8x18",
+      "menciones": 1
+    },
+    {
+      "colonia": "se encuentra de un con acceso libre lista para escriturar",
+      "menciones": 1
+    }
+  ],
+  "mesa de los ocotes": [],
+  "hacienda casa fuerte": [
+    {
+      "colonia": "blanca industrial",
+      "menciones": 1
+    }
+  ],
+  "tlachicilco poncitlan": [
+    {
+      "colonia": "terreno plano con vista a la laguna de chapala dentro de",
+      "menciones": 3
+    },
+    {
+      "colonia": "terreno en venta en los galapagos",
+      "menciones": 1
+    }
+  ],
+  "av los arcos": [],
+  "nuevo vergel": [
+    {
+      "colonia": "cerca de periferico y calzada independecia con bano",
+      "menciones": 2
+    },
+    {
+      "colonia": "con dos accesos cuenta con montacarga y 15 banos",
+      "menciones": 2
+    }
+  ],
+  "la toscana": [
+    {
+      "colonia": "valle real",
+      "menciones": 3
+    }
+  ],
+  "del pilar": [],
+  "lomas del aeropuerto": [
+    {
+      "colonia": "uso comercial o habitacional en esquina",
+      "menciones": 1
+    },
+    {
+      "colonia": "en privado dentro del municipio el salto frente 6m",
+      "menciones": 1
+    }
+  ],
+  "milpillas": [],
+  "bugambilias 2da": []
 }

@@ -256,7 +256,7 @@
     "fileName": "OPI-26-4-07-OF Américo Vespucio 2703, Colon Industrial",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Colon Industrial",
-    "municipio": "Guadalajara",
+    "municipio": "Colon Industrial",
     "comparables": [
       {
         "terreno": 382,
@@ -529,7 +529,7 @@
     "fileName": "OPI-26-4-05-OF Sierra 37, Cruz de Huanacaxtle",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Cruz de Huanacaxtle",
-    "municipio": "Bahía de Banderas",
+    "municipio": "Cruz de Huanacaxtle",
     "comparables": [
       {
         "terreno": 210,
@@ -694,7 +694,7 @@
     "fileName": "OPI-26-4-04-OF Santa Oliva s/n, Colinas de Cajititlan",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Colinas de Cajititlan",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Colinas de Cajititlan",
     "comparables": [
       {
         "terreno": 4449,
@@ -915,7 +915,7 @@
     "fileName": "OPI-26-4-02-OF San Gaspar 1411, Santa Maria Guadalajara",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Santa Maria Guadalajara",
-    "municipio": "Guadalajara",
+    "municipio": "Santa Maria Guadalajara",
     "comparables": [
       {
         "terreno": 96,
@@ -1167,7 +1167,7 @@
     "fileName": "OPI-26-3-24-OF Blvrd Bosques de Sta Anita 200, Ebano 18 Naturezza Bosque Real, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Ebano 18 Naturezza Bosque Real",
-    "municipio": "Zapopan",
+    "municipio": "Ebano 18 Naturezza Bosque Real",
     "comparables": [
       {
         "terreno": 123,
@@ -1258,7 +1258,7 @@
     "fileName": "OPI-26-3-23-OF C. San Onofre 162-200, Paraíso, 45690 Las Pintas, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Paraíso",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Las Pintas",
     "comparables": [
       {
         "terreno": 160,
@@ -1311,7 +1311,7 @@
     "fileName": "OPI-26-3-22-OF C. Nicolás Bravo, Paraíso, 45690 Las Pintas, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Paraíso",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Las Pintas",
     "comparables": [
       {
         "terreno": 160,
@@ -1392,7 +1392,7 @@
     "fileName": "OPI-26-3-20-OF Aeromexico 18, Minerales, Los Gigantes, 45690 Las Pintitas, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Minerales",
-    "municipio": "El Salto",
+    "municipio": "Las Pintitas",
     "comparables": [
       {
         "terreno": 140,
@@ -1473,7 +1473,7 @@
     "fileName": "OPI-26-3-19-OF Santa Lucia 2887, El Campanario",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "El Campanario",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "El Campanario",
     "comparables": [
       {
         "terreno": 148,
@@ -1554,7 +1554,7 @@
     "fileName": "OPI-26-3-18-OF Paseo Los Chopos 3245A, Tabachines",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Tabachines",
-    "municipio": "Zapopan",
+    "municipio": "Tabachines",
     "comparables": [
       {
         "terreno": 526,
@@ -1687,7 +1687,7 @@
     "fileName": "OPI-26-3-17-OF Calle Josefa Ortiz de Domínguez #134 la Manzanilla de la paz Jalisco",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "La Manzanilla de la Paz",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 329,
@@ -2297,7 +2297,7 @@
     "fileName": "OPI-26-3-12-OF Lote 1, La Lagunita Mazamitla",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "La Lagunita Mazamitla",
-    "municipio": "Mazamitla",
+    "municipio": "La Lagunita Mazamitla",
     "comparables": [
       {
         "terreno": 10000,
@@ -2452,7 +2452,7 @@
     "fileName": "OPI-26-3-09-OF Plan de Guadalupe #2023, Colonia Jardines de la Esperanza, Mpio. Zapopan Jalisco.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Colonia Jardines de la Esperanza",
-    "municipio": "Zapopan",
+    "municipio": "Mpio. Zapopan Jalisco.",
     "comparables": [
       {
         "terreno": 125,
@@ -2540,7 +2540,7 @@
     "fileName": "OPI-26-3-08-OF Las Vizcainas  107, Col. Colinas de Santa Anita",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Colinas de Santa Anita",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Col. Colinas de Santa Anita",
     "comparables": [
       {
         "terreno": 306,
@@ -2673,7 +2673,7 @@
     "fileName": "OPI-26-3-06-OF Ignacio Ramires 668, Santa Teresita",
     "fecha": "No hallado",
     "sujetoColonia": "Santa Teresita",
-    "municipio": "El Salto",
+    "municipio": "Santa Teresita",
     "comparables": [],
     "folio": "No hallado",
     "valorMercado": "No hallado",
@@ -2810,7 +2810,7 @@
     "fileName": "OPI-26-3-03-OF Isla Raza 2039, Jardines de San Jose",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Jardines de San Jose",
-    "municipio": "Guadalajara",
+    "municipio": "Jardines de San Jose",
     "comparables": [
       {
         "terreno": 290,
@@ -2964,7 +2964,7 @@
     "fileName": "OPI-26-3-02-OF C. San Alberto 140, 45653 Hacienda Santa Fe, Jal",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Hacienda Santa Fe",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Hacienda Santa Fe",
     "comparables": [
       {
         "terreno": 786,
@@ -3097,7 +3097,7 @@
     "fileName": "OPI-26-3-01-OF C. San Alberto 142, 45653 Hacienda Santa Fe, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Hacienda Santa Fe",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Hacienda Santa Fe",
     "comparables": [
       {
         "terreno": 786,
@@ -3258,7 +3258,7 @@
     "fileName": "OPI-26-2-27-OF Juan XXIII 20, El Mirador Juan Arias, Santa Anita, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "El Mirador Juan Arias",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Santa Anita",
     "comparables": [
       {
         "terreno": 447,
@@ -3759,7 +3759,7 @@
     "fileName": "OPI-26-2-23-OF Villa Juárez 1384 col Francisco Sarabia Santa Ana Tepetitlán Zapopan",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Zapopan",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 1066,
@@ -4025,7 +4025,7 @@
     "fileName": "OPI-26-2-21-OF Aurora Boreal 678-65, Paseo los Agaves",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Paseo los Agaves",
-    "municipio": "Zapopan",
+    "municipio": "Paseo los Agaves",
     "comparables": [
       {
         "terreno": 1200,
@@ -4417,7 +4417,7 @@
     "fileName": "OPI-26-2-18-OF Santa Teresa 79, Santa Margarita",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Santa Margarita",
-    "municipio": "Zapopan",
+    "municipio": "Santa Margarita",
     "comparables": [
       {
         "terreno": 854,
@@ -4869,7 +4869,7 @@
     "fileName": "OPI-26-2-13-OF Enrique Basilio de Sotelo 760, Parques de la Victoria Tonala",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Parques de la Victoria Tonala",
-    "municipio": "Tonalá",
+    "municipio": "Parques de la Victoria Tonala",
     "comparables": [
       {
         "terreno": 1442,
@@ -5146,7 +5146,7 @@
     "fileName": "OPI-26-2-11-OF Juan Jose Castillo 46, Buenos Aires",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Buenos Aires",
-    "municipio": "Guadalajara",
+    "municipio": "Buenos Aires",
     "comparables": [
       {
         "terreno": 382,
@@ -5265,7 +5265,7 @@
     "fileName": "OPI-26-2-10-OF Luis E. Medina Santiago 2-2 Col el Cerrito",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Tonalá",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 1324,
@@ -5384,7 +5384,7 @@
     "fileName": "OPI-26-2-08-OF Francisco Marques No. 38, El Castillo",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "El Castillo",
-    "municipio": "El Salto",
+    "municipio": "El Castillo",
     "comparables": [
       {
         "terreno": 469,
@@ -5657,7 +5657,7 @@
     "fileName": "OPI-26-2-06-OF Nogal 2061, Paseo del Prado",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Paseo del Prado",
-    "municipio": "Zapopan",
+    "municipio": "Paseo del Prado",
     "comparables": [
       {
         "terreno": 1000,
@@ -5923,7 +5923,7 @@
     "fileName": "OPI-26-2-04-OF San Luis Gonzaga 4502, J. de Guadalupe, Zapopan, 45030",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "J. de Guadalupe",
-    "municipio": "Zapopan",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 303,
@@ -6035,7 +6035,7 @@
     "fileName": "OPI-26-2-03-OF Tulipan 592, El Campanario Tonalá",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "El Campanario Tonalá",
-    "municipio": "Tonalá",
+    "municipio": "El Campanario Tonalá",
     "comparables": [
       {
         "terreno": 108,
@@ -6147,7 +6147,7 @@
     "fileName": "OPI-26-2-02-OF Josué 4122 ,El Bethel",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "El Bethel",
-    "municipio": "Guadalajara",
+    "municipio": "El Bethel",
     "comparables": [
       {
         "terreno": 575,
@@ -6301,7 +6301,7 @@
     "fileName": "OPI-26-2-01-OF Rafael Zayas Enriquez 3385, Col. Miguel Hidalgo. CP 44760. Guadalajara, Jalisco",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Miguel Hidalgo. CP 44760. Guadalajara",
-    "municipio": "Guadalajara",
+    "municipio": "Col. Miguel Hidalgo. CP 44760. Guadalajara",
     "comparables": [
       {
         "terreno": 120,
@@ -6501,7 +6501,7 @@
     "fileName": "OPI-26-1-18-OF Rio Abajo Arenales Tapatíos",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Tonalá",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 180,
@@ -6575,7 +6575,7 @@
     "fileName": "OPI-26-1-17-OF San José 278, Santa Isabel, El Palomar, 45645 Palomar, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Santa Isabel",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Palomar",
     "comparables": [
       {
         "terreno": 3510,
@@ -6642,7 +6642,7 @@
     "fileName": "OPI-26-1-16-OF Circuito Metropolitano lote 20 y 21 mz 6,  s/n Cajititlán",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "s/n Cajititlán",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "s/n Cajititlán",
     "comparables": [
       {
         "terreno": 140,
@@ -7105,7 +7105,7 @@
     "fileName": "OPI-26-1-12-OF Av. Subcolectora 2 2953, Col Valle de San Nicolas",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Col Valle de San Nicolas",
-    "municipio": "Tonalá",
+    "municipio": "Col Valle de San Nicolas",
     "comparables": [
       {
         "terreno": 637,
@@ -7357,7 +7357,7 @@
     "fileName": "OPI-26-1-10-OF Río Agua Blanca 16, Minerales, Centro, 45690 Las Pintitas, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Minerales",
-    "municipio": "El Salto",
+    "municipio": "Las Pintitas",
     "comparables": [
       {
         "terreno": 140,
@@ -7690,7 +7690,7 @@
     "fileName": "OPI-26-1-07-OF Tratado de Campeche 4296, Parques deo Auditorio",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Parques deo Auditorio",
-    "municipio": "Zapopan",
+    "municipio": "Parques deo Auditorio",
     "comparables": [
       {
         "terreno": 1784,
@@ -7823,7 +7823,7 @@
     "fileName": "OPI-26-1-06-OF  C. Tratado de Campeche 4292, Parques del Auditorio, Zapopan, ",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Parques del Auditorio",
-    "municipio": "Zapopan",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 1784,
@@ -7956,7 +7956,7 @@
     "fileName": "OPI-26-1-05-OF Paseo de las Araucarias #2243, en Tabachines",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "en Tabachines",
-    "municipio": "Zapopan",
+    "municipio": "en Tabachines",
     "comparables": [
       {
         "terreno": 526,
@@ -8082,7 +8082,7 @@
     "fileName": "OPI-26-1-03-OF San Isidro s/n, El Campanario",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "El Campanario",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "El Campanario",
     "comparables": [
       {
         "terreno": 148,
@@ -8149,7 +8149,7 @@
     "fileName": "OPI-26-1-02-OF Av. Jesus 1260 -88 de Paseo Marina ote. Barra de Navidad col. Sta margarita, Zapopan Jalisco",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Zapopan Jalisco",
-    "municipio": "Zapopan",
+    "municipio": "Zapopan Jalisco",
     "comparables": [
       {
         "terreno": 550,
@@ -8268,7 +8268,7 @@
     "fileName": "OPI-26-1-01-OF Calle Dinar 831, Lagos de Oriente Guadalajara Jalisco",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Lagos de Oriente Guadalajara Jalisco",
-    "municipio": "Guadalajara",
+    "municipio": "Lagos de Oriente Guadalajara Jalisco",
     "comparables": [
       {
         "terreno": 90,
@@ -8394,7 +8394,7 @@
     "fileName": "OPI-25-12-11-OF C. los Cedros 41, Fraccionamiento San Antonio, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Fraccionamiento San Antonio",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Fraccionamiento San Antonio",
     "comparables": [
       {
         "terreno": 14250,
@@ -8615,7 +8615,7 @@
     "fileName": "OPI-25-12-08-OF Av. Revolucion 2286, local 6 zona C, Plaza Revolucion, Lomas del Paradero",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "local 6 zona C",
-    "municipio": "Guadalajara",
+    "municipio": "Lomas del Paradero",
     "comparables": [
       {
         "terreno": 300,
@@ -9123,7 +9123,7 @@
     "fileName": "OPI-25-12-04-OF Agustín Diaz 2611, El Fortin",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "El Fortin",
-    "municipio": "Guadalajara",
+    "municipio": "El Fortin",
     "comparables": [
       {
         "terreno": 180,
@@ -9361,7 +9361,7 @@
     "fileName": "OPI-25-11-16-LS Carretera Tlajomulco Buenavista km4 #5020",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 540,
@@ -9673,7 +9673,7 @@
     "fileName": "OPI-25-11-13-OF Campo Rey 1067, Campo Real",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Campo Real",
-    "municipio": "Zapopan",
+    "municipio": "Campo Real",
     "comparables": [
       {
         "terreno": 160,
@@ -9925,7 +9925,7 @@
     "fileName": "OPI-25-11-11-OF Cuarta privada san Cristóbal 9, Villas de la Hacienda",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Villas de la Hacienda",
-    "municipio": "Zapopan",
+    "municipio": "Villas de la Hacienda",
     "comparables": [
       {
         "terreno": 624,
@@ -10044,7 +10044,7 @@
     "fileName": "OPI-25-11-10-OF Cto. Sierra de Cabrera Este 302B, Hacienda Santa Fe,Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Hacienda Santa Fe",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Hacienda Santa Fe",
     "comparables": [
       {
         "terreno": 2200,
@@ -10426,7 +10426,7 @@
     "fileName": "OPI-25-11-07-OF Pascal 2164 Colonia San Elias Guadalajara Jalisco ",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Guadalajara",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 365,
@@ -10545,7 +10545,7 @@
     "fileName": "OPI-25-11-05-OF Calle de Lirio S/N, Fraccionamiento Bella Vista, en Zapotlanejo, Jalisco.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Fraccionamiento Bella Vista",
-    "municipio": "Zapotlanejo",
+    "municipio": "en Zapotlanejo",
     "comparables": [
       {
         "terreno": 144,
@@ -10731,7 +10731,7 @@
     "fileName": "OPI-25-11-03-OF Sería Av Torremolinos 3500. Urce 403. Cañadas San Lorenzo",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Zapopan",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 242,
@@ -11011,7 +11011,7 @@
     "fileName": "OPI-25-11-01-OF Vicente Suarez 247, 20 de Noviembre Tonala",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "20 de Noviembre Tonala",
-    "municipio": "Tonalá",
+    "municipio": "20 de Noviembre Tonala",
     "comparables": [
       {
         "terreno": 120,
@@ -11159,7 +11159,7 @@
     "fileName": "OPI-25-10-17-OF Jorge Bravo 2767, Paseos del Sol",
     "fecha": "No hallado",
     "sujetoColonia": "Paseos del Sol",
-    "municipio": "El Salto",
+    "municipio": "Paseos del Sol",
     "comparables": [],
     "folio": "OPI-25-10-17-OF",
     "tipo": "CASA HABITACIÓN",
@@ -11190,7 +11190,7 @@
     "fileName": "OPI-25-10-14-OF Pedro castellanos 4563, Miravalle",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Miravalle",
-    "municipio": "Guadalajara",
+    "municipio": "Miravalle",
     "comparables": [
       {
         "terreno": 125,
@@ -11316,7 +11316,7 @@
     "fileName": "OPI-25-10-13-OF Eucalipto 99, Las Jarretaderas, Nay.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Las Jarretaderas",
-    "municipio": "Bahía de Banderas",
+    "municipio": "Nay.",
     "comparables": [
       {
         "terreno": 384,
@@ -11449,7 +11449,7 @@
     "fileName": "OPI-25-10-12-LS Carretera Guadalajara La Barca s/n, Atotojilquillo, Jalisco",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Atotojilquillo",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Atotojilquillo",
     "comparables": [
       {
         "terreno": 850,
@@ -11523,7 +11523,7 @@
     "fileName": "OPI-25-10-10-OF Manuel Portillo 289, San Rafael Tlaquepaque",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "San Rafael Tlaquepaque",
-    "municipio": "Tlaquepaque",
+    "municipio": "San Rafael Tlaquepaque",
     "comparables": [
       {
         "terreno": 308,
@@ -11670,7 +11670,7 @@
     "fileName": "OPI-25-10-08-OF Limon 214, La Estancia, Tala Jalisco",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "La Estancia",
-    "municipio": "Tala",
+    "municipio": "Tala Jalisco",
     "comparables": [
       {
         "terreno": 112,
@@ -11824,7 +11824,7 @@
     "fileName": "OPI-25-10-05-OF Benito Juárez 4, Miguel de la Madrid",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Miguel de la Madrid",
-    "municipio": "Guadalajara",
+    "municipio": "Miguel de la Madrid",
     "comparables": [
       {
         "terreno": 1066,
@@ -11943,7 +11943,7 @@
     "fileName": "OPI-25-10-06-LS Castillo de Belmonte 322-29, Fracc. Parques del Castillo",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Parques del Castillo",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Fracc. Parques del Castillo",
     "comparables": [
       {
         "terreno": 122610,
@@ -12055,7 +12055,7 @@
     "fileName": "OPI-25-10-05-LS Castillo de Chapultepec 923 10, \nFracc. Parques del Castillo",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Parques del Castillo",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Fracc. Parques del Castillo",
     "comparables": [
       {
         "terreno": 122610,
@@ -12181,7 +12181,7 @@
     "fileName": "OPI-25-10-04-OF Av. Juan Palomar y Arias # 930-interior  5C. Condominio Puerta del Roble",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Zapopan",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 900,
@@ -12454,7 +12454,7 @@
     "fileName": "OPI-25-10-02-OF Matamoros 110, San José del Quince, El Quince, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "San José del Quince",
-    "municipio": "Tonalá",
+    "municipio": "El Quince",
     "comparables": [
       {
         "terreno": 360,
@@ -12514,7 +12514,7 @@
     "fileName": "OPI-25-10-01-OF Orozco 5944 Jardines de los Belenes ",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Zapopan",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 196,
@@ -12581,7 +12581,7 @@
     "fileName": "OPI-25-9-18-OF Alameda 589, Col. Calvario, Pitillal Puerto Vallarta",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Calvario",
-    "municipio": "Puerto Vallarta",
+    "municipio": "Pitillal Puerto Vallarta",
     "comparables": [
       {
         "terreno": 206,
@@ -12714,7 +12714,7 @@
     "fileName": "OPI-25-9-17-LS Blvd. Bosques de Santa Anita 200, interior 6, Condominio Teka, lote 6, Naturezza Residencial",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "interior 6",
-    "municipio": "Tlaquepaque",
+    "municipio": "Naturezza Residencial",
     "comparables": [
       {
         "terreno": 145,
@@ -12826,7 +12826,7 @@
     "fileName": "OPI-25-9-16-OF Real 98, San Francisco de la Soledad",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "San Francisco de la Soledad",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "San Francisco de la Soledad",
     "comparables": [
       {
         "terreno": 899,
@@ -13205,7 +13205,7 @@
     "fileName": "OPI-25-9-13-OF Humbolt 403, Col. Centro",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Centro",
-    "municipio": "Guadalajara",
+    "municipio": "Col. Centro",
     "comparables": [
       {
         "terreno": 468,
@@ -13338,7 +13338,7 @@
     "fileName": "OPI-25-9-12-OF Olivo Mexicano 10 , Valle de los Olivos  Ixtlahuacán de los Membrillos",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Valle de los Olivos  Ixtlahuacán de los Membrillos",
-    "municipio": "Ixtlahuacán de los Membrillos",
+    "municipio": "Valle de los Olivos  Ixtlahuacán de los Membrillos",
     "comparables": [
       {
         "terreno": 1594,
@@ -13450,7 +13450,7 @@
     "fileName": "OPI-25-9-10-OF Galeana 16, Centro Guadalajara",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Centro Guadalajara",
-    "municipio": "Guadalajara",
+    "municipio": "Centro Guadalajara",
     "comparables": [
       {
         "terreno": 727,
@@ -13573,7 +13573,7 @@
     "fileName": "OPI-25-9-09-OF Rumorosa 21, Baja California Las Pintitas",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Baja California Las Pintitas",
-    "municipio": "El Salto",
+    "municipio": "Baja California Las Pintitas",
     "comparables": [
       {
         "terreno": 140,
@@ -13846,7 +13846,7 @@
     "fileName": "OPI-25-9-07-OF Paseo las Orquídeas s/n, Lomas de Tesistan",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Lomas de Tesistan",
-    "municipio": "Zapopan",
+    "municipio": "Lomas de Tesistan",
     "comparables": [
       {
         "terreno": 1090,
@@ -13906,7 +13906,7 @@
     "fileName": "OPI-25-9-06-OF San José 184, Las Juntas",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Las Juntas",
-    "municipio": "Puerto Vallarta",
+    "municipio": "Las Juntas",
     "comparables": [
       {
         "terreno": 125,
@@ -14246,7 +14246,7 @@
     "fileName": "OPI-25-9-03-OF Av. San Jacinto 173, col. San Andres, Guadalajara Jalisco.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "San Andres",
-    "municipio": "Guadalajara",
+    "municipio": "Guadalajara Jalisco.",
     "comparables": [
       {
         "terreno": 308,
@@ -14498,7 +14498,7 @@
     "fileName": "OPI-25-9-01-OF Venustiano Carranza 81, Colonia Emiliano Zapata, Zapopan Jalisco",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Colonia Emiliano Zapata",
-    "municipio": "Zapopan",
+    "municipio": "Zapopan Jalisco",
     "comparables": [
       {
         "terreno": 683,
@@ -14698,7 +14698,7 @@
     "fileName": "OPI-25-8-16-LS Ignacio Ramirez 313, Santa Teresita",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Santa Teresita",
-    "municipio": "Guadalajara",
+    "municipio": "Santa Teresita",
     "comparables": [
       {
         "terreno": 512,
@@ -15018,7 +15018,7 @@
     "fileName": "OPI-25-8-10-LM Priv. Mariano Otero 40, Mariano Otero, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Mariano Otero",
-    "municipio": "Tlaquepaque",
+    "municipio": "Mariano Otero",
     "comparables": [
       {
         "terreno": 228,
@@ -15291,7 +15291,7 @@
     "fileName": "OPI-25-8-09-OF OTHON BLANCO 4903, COLONIA NUEVA SANTA MARIA",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "COLONIA NUEVA SANTA MARIA",
-    "municipio": "Guadalajara",
+    "municipio": "COLONIA NUEVA SANTA MARIA",
     "comparables": [
       {
         "terreno": 760,
@@ -15403,7 +15403,7 @@
     "fileName": "OPI-25-8-06-OF Gorrión 82, La Periquera, 45134 Nuevo México, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "La Periquera",
-    "municipio": "Zapopan",
+    "municipio": "Nuevo México",
     "comparables": [
       {
         "terreno": 270,
@@ -15550,7 +15550,7 @@
     "fileName": "OPI-25-8-05-LM Av. Petirrojo 51 Fraccionamiento Vista California",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Zapopan",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 122610,
@@ -15662,7 +15662,7 @@
     "fileName": "OPI-25-8-03-LM Jardines de los Jazmines 10 Calzada del Vergel  Jardines del Vergel ",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 161,
@@ -15781,7 +15781,7 @@
     "fileName": "OPI-25-7-25-LM De Los Cedros 8, 45138 Nuevo México, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Nuevo México",
-    "municipio": "Zapopan",
+    "municipio": "Nuevo México",
     "comparables": [
       {
         "terreno": 122,
@@ -16338,7 +16338,7 @@
     "fileName": "OPI-25-7-18-LM Privada Englentinas 326  Villas de Zapoteoec San Sebastián el Grande Tlajomulco",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 195,
@@ -17322,7 +17322,7 @@
     "fileName": "OPI-25-7-09-LM Torremolinos 3535 int. 11, Colinas del Rey, Zapopan Jalisco",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Colinas del Rey",
-    "municipio": "Zapopan",
+    "municipio": "Zapopan Jalisco",
     "comparables": [
       {
         "terreno": 242,
@@ -17588,7 +17588,7 @@
     "fileName": "OPI-25-7-07-LM Juarez 142, Tololotlan Puente Grande",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Tololotlan Puente Grande",
-    "municipio": "Tonalá",
+    "municipio": "Tololotlan Puente Grande",
     "comparables": [
       {
         "terreno": 6795,
@@ -18075,7 +18075,7 @@
     "fileName": "OPI-25-7-01-LM Calle Lic. Manuel Aguirre Berlanga 124, Torre 9, departamento 16. Colonia, Constitución.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Torre 9",
-    "municipio": "Guadalajara",
+    "municipio": "Constitución.",
     "comparables": [
       {
         "terreno": 1750,
@@ -18292,7 +18292,7 @@
     "fileName": "OPI-25-6-20-AV Juan Escutia, C. Nanzal 10,  Sayulita, Nay.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "C. Nanzal 10",
-    "municipio": "Bahía de Banderas",
+    "municipio": "Nay.",
     "comparables": [
       {
         "terreno": 819,
@@ -18565,7 +18565,7 @@
     "fileName": "OPI-25-6-18-LM Coyoacán 50, Santa Cruz de las Flores, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Santa Cruz de las Flores",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Santa Cruz de las Flores",
     "comparables": [
       {
         "terreno": 570,
@@ -18831,7 +18831,7 @@
     "fileName": "OPI-25-6-16-LM C. Niños Héroes 194 Loca El Zapote Poncitlan, Jalisco",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Jalisco",
-    "municipio": "Poncitlán",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 1501,
@@ -20712,7 +20712,7 @@
     "fileName": "OPI-25-5-22-OF Calle 6 de Enero 3485, Hogares de Nuevo Mexico",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Hogares de Nuevo Mexico",
-    "municipio": "Zapopan",
+    "municipio": "Hogares de Nuevo Mexico",
     "comparables": [
       {
         "terreno": 394,
@@ -21206,7 +21206,7 @@
     "fileName": "OPI-25-5-17-OF Lote 25 M 3, Fracc. Industrial Zapopan Norte",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Industrial Zapopan Norte",
-    "municipio": "Zapopan",
+    "municipio": "Fracc. Industrial Zapopan Norte",
     "comparables": [
       {
         "terreno": 976.5,
@@ -21318,7 +21318,7 @@
     "fileName": "OPI-25-5-16-OF Lote 24 M 3, Fracc. Industrial Zapopan Norte",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Industrial Zapopan Norte",
-    "municipio": "Zapopan",
+    "municipio": "Fracc. Industrial Zapopan Norte",
     "comparables": [
       {
         "terreno": 976.5,
@@ -21682,7 +21682,7 @@
     "fileName": "OPI-25-5-13-OF Allen W Lloyd 149 int 14-15, Fracc. El Parque",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "El Parque",
-    "municipio": "Zapopan",
+    "municipio": "Fracc. El Parque",
     "comparables": [
       {
         "terreno": 2780,
@@ -22183,7 +22183,7 @@
     "fileName": "OPI-25-5-09-OF Maquinistas 5821, Col. Artesanos Tlaquepaque",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Artesanos Tlaquepaque",
-    "municipio": "Tlaquepaque",
+    "municipio": "Col. Artesanos Tlaquepaque",
     "comparables": [
       {
         "terreno": 1167,
@@ -22271,7 +22271,7 @@
     "fileName": "OPI-25-5-08-OF Cerezo 1512, col del Fresno",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "col del Fresno",
-    "municipio": "Guadalajara",
+    "municipio": "col del Fresno",
     "comparables": [
       {
         "terreno": 129,
@@ -22905,7 +22905,7 @@
     "fileName": "OPI-25-4-20-AV Fuente Mayor vialidad condominial Abedul 55 , int 12, etapa 8 , col. Real del Valle",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "int 12",
-    "municipio": "Zapopan",
+    "municipio": "col. Real del Valle",
     "comparables": [
       {
         "terreno": 116,
@@ -23031,7 +23031,7 @@
     "fileName": "OPI-25-4-19-AV Calle Blvd El Centro vialidad condominial San Miguel 45, Int 298 col Alta California",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Int 298 col Alta California",
-    "municipio": "Zapopan",
+    "municipio": "Int 298 col Alta California",
     "comparables": [
       {
         "terreno": 787,
@@ -23143,7 +23143,7 @@
     "fileName": "OPI-25-4-18-OF Torremolinos 254, Hacienda del Sur Francisco Villa",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Hacienda del Sur Francisco Villa",
-    "municipio": "Zapopan",
+    "municipio": "Hacienda del Sur Francisco Villa",
     "comparables": [
       {
         "terreno": 242,
@@ -23269,7 +23269,7 @@
     "fileName": "OPI-25-4-17-OF Virgen 3616, la Calma",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "la Calma",
-    "municipio": "Zapopan",
+    "municipio": "la Calma",
     "comparables": [
       {
         "terreno": 673,
@@ -24068,7 +24068,7 @@
     "fileName": "OPI-25-4-10-OF Volcán Cofre de Perote 1982, El Colli",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "El Colli",
-    "municipio": "Zapopan",
+    "municipio": "El Colli",
     "comparables": [
       {
         "terreno": 376,
@@ -24282,7 +24282,7 @@
     "fileName": "OPI-25-4-06-OF Cerro Montelargo 204, Fraccionamiento Colinas del Roble, 45650 Colinas del Roble, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Fraccionamiento Colinas del Roble",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Colinas del Roble",
     "comparables": [
       {
         "terreno": 330,
@@ -24422,7 +24422,7 @@
     "fileName": "OPI-25-4-04-AV Privada Agua Azul 77, Santa Anita",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Santa Anita",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Santa Anita",
     "comparables": [
       {
         "terreno": 122,
@@ -24765,7 +24765,7 @@
     "fileName": "OPI-25-3-22-AV C. José María Narváez 1135,\nSan Isidro, Guadalajara,",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "San Isidro",
-    "municipio": "Guadalajara",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 96,
@@ -25702,7 +25702,7 @@
     "fileName": "OPI-25-3-14-AV Av. Campo Príncipes 589, Campo Real, 37, Orense, L5, MZA 4",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Campo Real",
-    "municipio": "Zapopan",
+    "municipio": "MZA 4",
     "comparables": [
       {
         "terreno": 140,
@@ -25821,7 +25821,7 @@
     "fileName": "OPI-25-3-13-AV Quililla s/n, Col. Sin nombre, Quililla, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Sin nombre",
-    "municipio": "Tuxpan",
+    "municipio": "Quililla",
     "comparables": [
       {
         "terreno": 786885,
@@ -26273,7 +26273,7 @@
     "fileName": "OPI-25-3-09-AV San Miguel 51, Minerales, Centro,  Las Pintitas",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Minerales",
-    "municipio": "El Salto",
+    "municipio": "Las Pintitas",
     "comparables": [
       {
         "terreno": 140,
@@ -26413,7 +26413,7 @@
     "fileName": "OPI-25-3-08-AV Totatiche 58-A, Jalisco primera sección",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Jalisco primera sección",
-    "municipio": "Guadalajara",
+    "municipio": "Jalisco primera sección",
     "comparables": [
       {
         "terreno": 79,
@@ -26494,7 +26494,7 @@
     "fileName": "OPI-25-3-07-AV Valle de Lagos de Moreno 45, Jardines del Valle, Zapooan",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Jardines del Valle",
-    "municipio": "Zapopan",
+    "municipio": "Zapooan",
     "comparables": [
       {
         "terreno": 336,
@@ -26760,7 +26760,7 @@
     "fileName": "OPI-25-3-05-AV Priv. Juárez 29, El Refugio, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "El Refugio",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "El Refugio",
     "comparables": [
       {
         "terreno": 108,
@@ -27342,7 +27342,7 @@
     "fileName": "OPI-25-2-20-OF Paseo de los Encinos poniente 497-6 Valle de San Isidro Zapopan Jalisco 45132",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Zapopan",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 90,
@@ -27713,7 +27713,7 @@
     "fileName": "OPI-25-2-17-RM Independencia 279, Centro Tonalá, Jal",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Centro Tonalá",
-    "municipio": "Tonalá",
+    "municipio": "Centro Tonalá",
     "comparables": [
       {
         "terreno": 250,
@@ -29117,7 +29117,7 @@
     "fileName": "OPI-25-2-05-RM José Jerónimo  Hernández 3942 interior 2, Lomas del Gallo",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Lomas del Gallo",
-    "municipio": "Guadalajara",
+    "municipio": "Lomas del Gallo",
     "comparables": [
       {
         "terreno": 91,
@@ -29250,7 +29250,7 @@
     "fileName": "OPI-25-2-04-RM Rancho Cruzeto, Playon de Mismaloya, 48380 La Cruz de Loretto, Jal",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Playon de Mismaloya",
-    "municipio": "Puerto Vallarta",
+    "municipio": "La Cruz de Loretto",
     "comparables": [
       {
         "terreno": 5680000,
@@ -29471,7 +29471,7 @@
     "fileName": "OPI-25-1-29-AV Eucalipto S/N, Las Pintas",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Las Pintas",
-    "municipio": "El Salto",
+    "municipio": "Las Pintas",
     "comparables": [
       {
         "terreno": 18800,
@@ -32846,7 +32846,7 @@
     "fileName": "OPI-25-1-11-OF Valle San Fernando 139, Valle del Mar",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Valle del Mar",
-    "municipio": "Zapopan",
+    "municipio": "Valle del Mar",
     "comparables": [
       {
         "terreno": 142,
@@ -32951,7 +32951,7 @@
     "fileName": "OPI-25-1-09-AV Vicente Trigo 82, Santa Cruz de las Flores, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Santa Cruz de las Flores",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Santa Cruz de las Flores",
     "comparables": [
       {
         "terreno": 149,
@@ -33235,7 +33235,7 @@
     "fileName": "OPI-25-1-05-OF Santa Rosa 340B, Santa Margarita",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Santa Margarita",
-    "municipio": "Zapopan",
+    "municipio": "Santa Margarita",
     "comparables": [
       {
         "terreno": 200,
@@ -33823,7 +33823,7 @@
     "fileName": "OPI-24-12-19-OF Av. los Pinos 750, La Venta del Astillero, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "La Venta del Astillero",
-    "municipio": "Zapopan",
+    "municipio": "La Venta del Astillero",
     "comparables": [
       {
         "terreno": 2365,
@@ -34076,7 +34076,7 @@
     "fileName": "OPI-24-12-16-AV Carretera Tlajomulco Buenavista km4 #5020. C.P. 45640",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 16000,
@@ -36150,7 +36150,7 @@
     "fileName": "OPI-24-11-34-AV Av. Fidel Velazquez 1523, Fabrica de Atemajac, Zapooan",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Fabrica de Atemajac",
-    "municipio": "Zapopan",
+    "municipio": "Zapooan",
     "comparables": [
       {
         "terreno": 630,
@@ -36829,7 +36829,7 @@
     "fileName": "OPI-24-11-29-OF Guayabo 2040, Paseo del Prado, Paseos Del Prado",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Paseo del Prado",
-    "municipio": "Zapopan",
+    "municipio": "Paseos Del Prado",
     "comparables": [
       {
         "terreno": 195,
@@ -36969,7 +36969,7 @@
     "fileName": "OPI-24-11-28-OF Juarez 92, Cuitzeo, Poncitlan",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Cuitzeo",
-    "municipio": "Poncitlán",
+    "municipio": "Poncitlan",
     "comparables": [
       {
         "terreno": 360,
@@ -37555,7 +37555,7 @@
     "fileName": "OPI-24-11-21-AV MIlo 36, Infonavit Condor, La Alameda",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Infonavit Condor",
-    "municipio": "Zapopan",
+    "municipio": "La Alameda",
     "comparables": [
       {
         "terreno": 625,
@@ -37608,7 +37608,7 @@
     "fileName": "OPI-24-11-19-OF Turquesa 3358 Casa 4B, Residencial Victoria",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Victoria",
-    "municipio": "Zapopan",
+    "municipio": "Residencial Victoria",
     "comparables": [
       {
         "terreno": 496,
@@ -38294,7 +38294,7 @@
     "fileName": "OPI-24-11-14-AV Porvenir 11B, El Ranchito, Jalisco",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "El Ranchito",
-    "municipio": "El Salto",
+    "municipio": "El Ranchito",
     "comparables": [
       {
         "terreno": 2914,
@@ -38347,7 +38347,7 @@
     "fileName": "OPI-24-11-13-AV Viviano Dávalos 285, Villa Hermosa, Gudalajara",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Villa Hermosa",
-    "municipio": "Guadalajara",
+    "municipio": "Gudalajara",
     "comparables": [
       {
         "terreno": 1908,
@@ -38592,7 +38592,7 @@
     "fileName": "OPI-24-11-09-AV Mar Caspio 55,  Barra de Navidad",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Barra de Navidad",
-    "municipio": "Cihuatlán",
+    "municipio": "Barra de Navidad",
     "comparables": [
       {
         "terreno": 140,
@@ -38963,7 +38963,7 @@
     "fileName": "OPI-24-11-06-AV Del Sol 208, San José del Quince, El Quince",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "San José del Quince",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "El Quince",
     "comparables": [
       {
         "terreno": 133,
@@ -39349,7 +39349,7 @@
     "fileName": "OPI-24-11-02-AV Alberto Macías Gutiérrez 835, Vistas del Nilo, Guadalajara,",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Vistas del Nilo",
-    "municipio": "Guadalajara",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 138,
@@ -39482,7 +39482,7 @@
     "fileName": "OPI-24-11-01-AV Privada 6 de Enero 38, Las Pintas El Salto",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Las Pintas El Salto",
-    "municipio": "El Salto",
+    "municipio": "Las Pintas El Salto",
     "comparables": [
       {
         "terreno": 250,
@@ -40536,7 +40536,7 @@
     "fileName": "OPI-24-10-20- Gral. Pablo Quiroga 457Col. Constitución Zapopan",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Zapopan",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 1522,
@@ -41663,7 +41663,7 @@
     "fileName": "OPI-24-10-09-AV Valle de los Zenzontles 2665\nCol Jardines del Valle \nZapopan, Jalisco \nC.P 45138",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Jalisco \nC.P 45138",
-    "municipio": "Zapopan",
+    "municipio": "Jalisco \nC.P 45138",
     "comparables": [
       {
         "terreno": 140,
@@ -41887,7 +41887,7 @@
     "fileName": "OPI-24-10-07-AV Ronda 2286, Lomas de Zapopan",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Lomas de Zapopan",
-    "municipio": "Zapopan",
+    "municipio": "Lomas de Zapopan",
     "comparables": [
       {
         "terreno": 258,
@@ -42465,7 +42465,7 @@
     "fileName": "OPI-24-10-02-AV Río Blanco 1590, Parques de Tesistán III",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Parques de Tesistán III",
-    "municipio": "Zapopan",
+    "municipio": "Parques de Tesistán III",
     "comparables": [
       {
         "terreno": 1325,
@@ -42875,7 +42875,7 @@
     "fileName": "OPI-24-9-26-AV Calle zenzontle # 20\nColonia LA Graja\nZapopan",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Zapopan",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 921,
@@ -43394,7 +43394,7 @@
     "fileName": "OPI-24-9-20-AV Francisco huizar # 592, Colonia Insurgentes Guadalajara, Jalisco",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Colonia Insurgentes Guadalajara",
-    "municipio": "Guadalajara",
+    "municipio": "Colonia Insurgentes Guadalajara",
     "comparables": [
       {
         "terreno": 1367,
@@ -43786,7 +43786,7 @@
     "fileName": "OPI-24-9-17-AV Hermandad 46, Col la Huizachera. El salto Jalisco",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Col la Huizachera. El salto Jalisco",
-    "municipio": "El Salto",
+    "municipio": "Col la Huizachera. El salto Jalisco",
     "comparables": [
       {
         "terreno": 250,
@@ -43933,7 +43933,7 @@
     "fileName": "OPI-24-9-15-AV Torremolinos 474 Int Paseo apeaderos 156-3, Francisco Villa",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Francisco Villa",
-    "municipio": "Zapopan",
+    "municipio": "Francisco Villa",
     "comparables": [
       {
         "terreno": 193,
@@ -44519,7 +44519,7 @@
     "fileName": "OPI-24-9-10-AV Santa Margarita 1346, Santa Maria",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Santa Maria",
-    "municipio": "Zapopan",
+    "municipio": "Santa Maria",
     "comparables": [
       {
         "terreno": 403,
@@ -44792,7 +44792,7 @@
     "fileName": "OPI-24-9-08-OF Prolongación Gonzalez Gallo #1300 -67, Colonia  Coto Arrezo",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Colonia  Coto Arrezo",
-    "municipio": "Guadalajara",
+    "municipio": "Colonia  Coto Arrezo",
     "comparables": [
       {
         "terreno": 654,
@@ -44897,7 +44897,7 @@
     "fileName": "OPI-24-9-07-OF 2951 depto 6 col. Colomos  Providencia",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Guadalajara",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 511,
@@ -45044,7 +45044,7 @@
     "fileName": "OPI-24-9-06-OF Damian Carmona #1771 en la colonia Talpita Sec.Libertad",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Guadalajara",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 96,
@@ -45608,7 +45608,7 @@
     "fileName": "OPI-24-9-01-AV San Ramón 46 coto 6 San Bernardino fraccionamiento Alta California Residencial Tlajomulco de Zúñiga",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 503,
@@ -45832,7 +45832,7 @@
     "fileName": "OPI-24-8-21-AV Guacamaya 1478, col mirador de San isidro",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "col mirador de San isidro",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "col mirador de San isidro",
     "comparables": [
       {
         "terreno": 120,
@@ -46294,7 +46294,7 @@
     "fileName": "OPI-24-8-17-AV Artes 2355, \nEntre Rosa Navarro y Ejido \nCol. Lomas de Revolución",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Entre Rosa Navarro y Ejido \nCol. Lomas de Revolución",
-    "municipio": "Guadalajara",
+    "municipio": "Entre Rosa Navarro y Ejido \nCol. Lomas de Revolución",
     "comparables": [
       {
         "terreno": 952,
@@ -46686,7 +46686,7 @@
     "fileName": "OPI-24-8-15-AV Santa María 17, \nCoto 12 Coronado, \nAlta California Residencial \nTlajomulco de Zúñiga",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Coto 12 Coronado",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Alta California Residencial \nTlajomulco de Zúñiga",
     "comparables": [
       {
         "terreno": 503,
@@ -46910,7 +46910,7 @@
     "fileName": "OPI-24-8-13-AV San Miguel 21, Marcelino García Barragán,  Nuevo México,",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Marcelino García Barragán",
-    "municipio": "Marcelino García Barragán",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 155,
@@ -47671,7 +47671,7 @@
     "fileName": "OPI-24-8-03-AV Fuente de la Alianza #325, Col. Villafontana, Tlaquepaque Jalisco",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Villafontana",
-    "municipio": "Tlaquepaque",
+    "municipio": "Tlaquepaque Jalisco",
     "comparables": [
       {
         "terreno": 132,
@@ -48305,7 +48305,7 @@
     "fileName": "OPI-24-7-23-AV Sierra de Quila 2060. Las Aguilas Zapopan, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Jal.",
-    "municipio": "Zapopan",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 550,
@@ -48669,7 +48669,7 @@
     "fileName": "OPI-24-7-15-AV C. Independencia 62 (esquina) Los Puestos 45638 San Pedro Tlaquepaque, Jal",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Jal",
-    "municipio": "Tlaquepaque",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 109.4,
@@ -48722,7 +48722,7 @@
     "fileName": "OPI-24-7-14-AV C. Independencia 62 (Medianero) Los Puestos 45638 San Pedro Tlaquepaque, Jal",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Jal",
-    "municipio": "Tlaquepaque",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 109.4,
@@ -49468,7 +49468,7 @@
     "fileName": "OPI-24-7-04-OF Alcatraz #160, Col. Lomas de la primavera, Zapopan jalisco C.p 45065",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Lomas de la primavera",
-    "municipio": "Zapopan",
+    "municipio": "Zapopan jalisco C.p 45065",
     "comparables": [
       {
         "terreno": 2205,
@@ -49811,7 +49811,7 @@
     "fileName": "OPI-24-6-34-OF Alvaro Obregón 85, Tonla Centro",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Tonla Centro",
-    "municipio": "Tonalá",
+    "municipio": "Tonla Centro",
     "comparables": [
       {
         "terreno": 1175.85,
@@ -49937,7 +49937,7 @@
     "fileName": "OPI-24-6-33-OF Paseo de los Cocoteros 172 int 405 y 406, Flamingos, 63735 Las Jarretaderas, Nay.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Flamingos",
-    "municipio": "Bahía de Banderas",
+    "municipio": "Nay.",
     "comparables": [
       {
         "terreno": 532.46,
@@ -50070,7 +50070,7 @@
     "fileName": "OPI-24-6-32-OF Sendero de las Laderas 43, coto 5\nSenderos de monte verde \nTlajomulco",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "coto 5\nSenderos de monte verde \nTlajomulco",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "coto 5\nSenderos de monte verde \nTlajomulco",
     "comparables": [
       {
         "terreno": 220,
@@ -50196,7 +50196,7 @@
     "fileName": "OPI-24-6-29-OF 5 de Mayo 1371, 45600 Santa Anita, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Santa Anita",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Santa Anita",
     "comparables": [],
     "folio": "OPI-24-6-29-OF",
     "tipo": "CASA HABITACIÓN",
@@ -50522,7 +50522,7 @@
     "fileName": "OPI-24-6-21-OF Prolongación La Calma 127-1 Colonia Agrícola Zapopan Jalisco CP 45236",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Zapopan",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 163,
@@ -50905,7 +50905,7 @@
     "fileName": "OPI-24-6-14-OF Puerto Yabaros  360 Colonia Monumental. Guadalajara",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Guadalajara",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 403,
@@ -51409,7 +51409,7 @@
     "fileName": "OPI-24-6-06-OF California 209, Mision Capistrano Zapopan",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Mision Capistrano Zapopan",
-    "municipio": "Zapopan",
+    "municipio": "Mision Capistrano Zapopan",
     "comparables": [
       {
         "terreno": 257,
@@ -51647,7 +51647,7 @@
     "fileName": "OPI-24-6-02-EK Circuito 1 poniente 14, Prados de Atequiza, Atequiza",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Prados de Atequiza",
-    "municipio": "Ixtlahuacán de los Membrillos",
+    "municipio": "Atequiza",
     "comparables": [
       {
         "terreno": 153,
@@ -51728,7 +51728,7 @@
     "fileName": "OPI-24-6-01-EK Efraín González Luna 142, Propiedad 1 Atequiza",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Propiedad 1 Atequiza",
-    "municipio": "Ixtlahuacán de los Membrillos",
+    "municipio": "Propiedad 1 Atequiza",
     "comparables": [
       {
         "terreno": 1880,
@@ -52097,7 +52097,7 @@
     "fileName": "OPI-24-5-26-EK 6 de Enero 6587, Centro, 45690 Las Pintas, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Centro",
-    "municipio": "El Salto",
+    "municipio": "Las Pintas",
     "comparables": [
       {
         "terreno": 450,
@@ -52171,7 +52171,7 @@
     "fileName": "OPI-24-5-25-EK Sor Juana Inés de la Cruz 47, 45600 Santa Anita, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Santa Anita",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Santa Anita",
     "comparables": [
       {
         "terreno": 449,
@@ -52318,7 +52318,7 @@
     "fileName": "OPI-24-5-23-EK Cto. San Isidro 106, Mirador San Isidro 45130 Zapopan, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Mirador San Isidro 45130 Zapopan",
-    "municipio": "Zapopan",
+    "municipio": "Mirador San Isidro 45130 Zapopan",
     "comparables": [
       {
         "terreno": 291,
@@ -53157,7 +53157,7 @@
     "fileName": "OPI-24-5-11-EK Calle Alameda del Abeto 397, Villas de la Alameda, 45679 La Alameda, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Villas de la Alameda",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "La Alameda",
     "comparables": [
       {
         "terreno": 625,
@@ -53276,7 +53276,7 @@
     "fileName": "OPI-24-5-08-EK C. Miguel Arana 310-A 45800 Jocotepec Jalisco",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Jocotepec",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 528,
@@ -53329,7 +53329,7 @@
     "fileName": "OPI-24-5-10-EK Aeromexico 83, Minerales, Baja California, 44960 Las Pintitas, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Minerales",
-    "municipio": "El Salto",
+    "municipio": "Las Pintitas",
     "comparables": [
       {
         "terreno": 295,
@@ -53677,7 +53677,7 @@
     "fileName": "OPI-24-5-06-EK C. Cuauhtémoc 68, Centro, 45640 San Sebastián el Grande, Jal. Tlajomulco",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Centro",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Jal. Tlajomulco",
     "comparables": [
       {
         "terreno": 195,
@@ -53789,7 +53789,7 @@
     "fileName": "OPI-24-5-05-OF Jimador 200, int 130, Paseo los Agaves Tlajomulco",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "int 130",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Paseo los Agaves Tlajomulco",
     "comparables": [
       {
         "terreno": 296,
@@ -54287,7 +54287,7 @@
     "fileName": "OPI-24-5-02-EK Antigua Carretera a Chapala 6637, Valle de La Misericordia, 45615 Las Pintas, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Valle de La Misericordia",
-    "municipio": "El Salto",
+    "municipio": "Las Pintas",
     "comparables": [
       {
         "terreno": 250,
@@ -54406,7 +54406,7 @@
     "fileName": "OPI-24-2-24-EK Av Casa Fuerte 158  (coto Ciudadela interior 36) 45645 Tlajomulco",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 220,
@@ -54658,7 +54658,7 @@
     "fileName": "OPI-24-4-19-EK La limonera 18 San Luis Soyatlan",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "San Luis Soyatlán",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 1000,
@@ -54732,7 +54732,7 @@
     "fileName": "OPI-24-4-16-EK Blvd. Vista Nte. 2855 int 2-C 45200 Tesistán, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Jal.",
-    "municipio": "Zapopan",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 874,
@@ -55613,7 +55613,7 @@
     "fileName": "OPI-24-4-08-EK El Pedregal 19 En el Taray",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 10710,
@@ -55761,7 +55761,7 @@
     "fileName": "OPI-24-4-06-EK Av. Hacienda Juchipila 7, Villas de la Hacienda, 45654 Villas de la Hacienda, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Villas de la Hacienda",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Villas de la Hacienda",
     "comparables": [
       {
         "terreno": 166,
@@ -55877,7 +55877,7 @@
     "fileName": "OPI-24-4-05-EK Ediificio 23 departamento 1 Col Fovissste Zapopan Jal",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Zapopan",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 118,
@@ -56137,7 +56137,7 @@
     "fileName": "OPI-24-4-03-OF Ocotlán 167, Col. Jalisco Tonalá",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Jalisco Tonalá",
-    "municipio": "Tonalá",
+    "municipio": "Col. Jalisco Tonalá",
     "comparables": [
       {
         "terreno": 288,
@@ -56256,7 +56256,7 @@
     "fileName": "OPI-24-4-02-EK Priv. Margaritas 27, praderas de san antonio Zapopan jal",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "praderas de san antonio Zapopan jal",
-    "municipio": "Zapopan",
+    "municipio": "praderas de san antonio Zapopan jal",
     "comparables": [
       {
         "terreno": 75,
@@ -56477,7 +56477,7 @@
     "fileName": "OPI-24-3-25-OF Coyula Tonala",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Tonalá",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 4054,
@@ -56713,7 +56713,7 @@
     "fileName": "OPI-24-3-19-EK C. Independencia 150, Atotonilquillo, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Atotonilquillo",
-    "municipio": "Chapala",
+    "municipio": "Atotonilquillo",
     "comparables": [
       {
         "terreno": 850,
@@ -56928,7 +56928,7 @@
     "fileName": "OPI-24-3-17-EK Nopalera S/N Atotonilquillo Chapala jalisco",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Chapala",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 850,
@@ -56981,7 +56981,7 @@
     "fileName": "OPI-24-3-16-EK Rayon 406 int A4 Col. Americana",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Guadalajara",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 560,
@@ -57136,7 +57136,7 @@
     "fileName": "OPI-24-3-14-EK Cuquio 673 Loma Dorada Tonalá",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Tonalá",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 114,
@@ -57567,7 +57567,7 @@
     "fileName": "OPI-24-3-10-OF Gabrielle Dannunzio 6182, Lomas Universidad",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Lomas Universidad",
-    "municipio": "Zapopan",
+    "municipio": "Lomas Universidad",
     "comparables": [
       {
         "terreno": 715.98,
@@ -58307,7 +58307,7 @@
     "fileName": "OPI-24-3-01-OF Predio la Tuna, Tapalpa Jalisco",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Tapalpa Jalisco",
-    "municipio": "Tapalpa",
+    "municipio": "Tapalpa Jalisco",
     "comparables": [
       {
         "terreno": 60000,
@@ -58641,7 +58641,7 @@
     "fileName": "OPI-24-2-23-EK Andres Breton 158 Miravalle",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Guadalajara",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 1003,
@@ -58764,7 +58764,7 @@
     "fileName": "OPI-24-2-22-OF Galeana 54, El Verde, 45696 San José el Verde, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "El Verde",
-    "municipio": "El Salto",
+    "municipio": "San José el Verde",
     "comparables": [
       {
         "terreno": 118,
@@ -58873,7 +58873,7 @@
     "fileName": "OPI-24-2-21-EK Av. Hacienda Sta. Cruz 124 int. 13-A 45655 Santa Cruz del Valle, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Jal.",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 1060,
@@ -59118,7 +59118,7 @@
     "fileName": "OPI-24-2-19-EK Del Campesino 15, San José del Quince, 45681 El Quince, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "San José del Quince",
-    "municipio": "El Salto",
+    "municipio": "El Quince",
     "comparables": [
       {
         "terreno": 118,
@@ -59582,7 +59582,7 @@
     "fileName": "OPI-24-2-11-EK Pino Suarez 1127, Unidad Abastos",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Unidad Abastos",
-    "municipio": "Guadalajara",
+    "municipio": "Unidad Abastos",
     "comparables": [
       {
         "terreno": 3759,
@@ -59758,7 +59758,7 @@
     "fileName": "OPI-24-2-09-EK Perla, Minerales, La Piedrera, 45690 Las Pintitas, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Minerales",
-    "municipio": "El Salto",
+    "municipio": "Las Pintitas",
     "comparables": [
       {
         "terreno": 295,
@@ -59891,7 +59891,7 @@
     "fileName": "OPI-24-2-08-OF Robert Shuman 5694 A, la Estancia",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "la Estancia",
-    "municipio": "Zapopan",
+    "municipio": "la Estancia",
     "comparables": [
       {
         "terreno": 539,
@@ -60098,7 +60098,7 @@
     "fileName": "OPI-24-2-06-EK San Gabriel 2952 casa 4 Jardines del Bosque Guadalajara, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Jal.",
-    "municipio": "Guadalajara",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 429,
@@ -60232,7 +60232,7 @@
     "fileName": "OPI-24-2-04-EK Paseo San Juan de Aragon 154 Fracc. Tres Reyes Cajititlan",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 682,
@@ -60365,7 +60365,7 @@
     "fileName": "OPI-24-2-03-EK Matamoros 110, San José del Quince, El Quince, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "San José del Quince",
-    "municipio": "El Salto",
+    "municipio": "El Quince",
     "comparables": [
       {
         "terreno": 118,
@@ -60534,7 +60534,7 @@
     "fileName": "OPI-24-2-01-OF Alejandrina 2803 Residencial Victoria Zapopan",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Zapopan",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 302,
@@ -60667,7 +60667,7 @@
     "fileName": "OPI-24-1-28-OF Marcos Castellanos 47, 45920 Ajijic, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Ajijic",
-    "municipio": "Chapala",
+    "municipio": "Ajijic",
     "comparables": [
       {
         "terreno": 2076,
@@ -60850,7 +60850,7 @@
     "fileName": "OPI-24-1-24-OF Emiliano Zapata 245, 45200 Ejido Copalita, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Ejido Copalita",
-    "municipio": "Zapopan",
+    "municipio": "Ejido Copalita",
     "comparables": [
       {
         "terreno": 888,
@@ -61285,7 +61285,7 @@
     "fileName": "OPI-24-1-19-OF Tabachines 3750 Loma Bonita Ejidal",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Guadalajara",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 162,
@@ -61418,7 +61418,7 @@
     "fileName": "OPI-24-1-18-OF El Paso 71 Praderas de San Antonio Nuevo México Zapopan",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Zapopan",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 167,
@@ -61745,7 +61745,7 @@
     "fileName": "OPI-24-1-14-OF Folledo 16, Colinas del Desarroyo",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Colinas del Desarroyo",
-    "municipio": "Zapopan",
+    "municipio": "Colinas del Desarroyo",
     "comparables": [
       {
         "terreno": 5537,
@@ -61854,7 +61854,7 @@
     "fileName": "OPI-24-1-13-OF Sierra Alta 134,  Hacienda Santa Fe, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Hacienda Santa Fe",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Hacienda Santa Fe",
     "comparables": [
       {
         "terreno": 800,
@@ -62030,7 +62030,7 @@
     "fileName": "OPI-24-1-11-OF Puerto Madero # 37, Col. Miramar Zapopan",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Miramar Zapopan",
-    "municipio": "Zapopan",
+    "municipio": "Col. Miramar Zapopan",
     "comparables": [
       {
         "terreno": 795,
@@ -62482,7 +62482,7 @@
     "fileName": "OPI-24-1-07-OF Av las Torres 1216, Paraisos del Colli",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Paraisos del Colli",
-    "municipio": "Zapopan",
+    "municipio": "Paraisos del Colli",
     "comparables": [
       {
         "terreno": 283,
@@ -62591,7 +62591,7 @@
     "fileName": "OPI-24-1-06-OF C. Vista a la Catedral 3139, Mirador del Tesoro",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Mirador del Tesoro",
-    "municipio": "Zapopan",
+    "municipio": "Mirador del Tesoro",
     "comparables": [
       {
         "terreno": 162,
@@ -62717,7 +62717,7 @@
     "fileName": "OPI-24-1-04-OF Noruega 971, col.Moderna",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Moderna",
-    "municipio": "Guadalajara",
+    "municipio": "col.Moderna",
     "comparables": [
       {
         "terreno": 180,
@@ -62843,7 +62843,7 @@
     "fileName": "OPI-24-1-03-OF Lazaro Cárdenas 3071 int 402 E, Chapalita",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Chapalita",
-    "municipio": "Guadalajara",
+    "municipio": "Chapalita",
     "comparables": [
       {
         "terreno": 259,
@@ -62959,7 +62959,7 @@
     "fileName": "OPI-24-1-02-OF Aviacion 4055 int. 2 coto Salermo, Porta Real",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Porta Real",
-    "municipio": "Zapopan",
+    "municipio": "Porta Real",
     "comparables": [
       {
         "terreno": 151,
@@ -63110,7 +63110,7 @@
     "fileName": "OPI-24-1-01-OF El domicilio en Nacionalismo #200, Col. 20 de Noviembre. Tonala",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "20 de Noviembre. Tonala",
-    "municipio": "Tonalá",
+    "municipio": "Col. 20 de Noviembre. Tonala",
     "comparables": [
       {
         "terreno": 562,
@@ -63665,7 +63665,7 @@
     "fileName": "OPI-23-12-26-OF Pirul 1932, Col. del Fresno",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "del Fresno",
-    "municipio": "Guadalajara",
+    "municipio": "Col. del Fresno",
     "comparables": [
       {
         "terreno": 640,
@@ -63795,7 +63795,7 @@
     "fileName": "OPI-23-12-25-OF Av. Federalistas 2078, Jardines del Valle",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Jardines del Valle",
-    "municipio": "Zapopan",
+    "municipio": "Jardines del Valle",
     "comparables": [
       {
         "terreno": 124,
@@ -64030,7 +64030,7 @@
     "fileName": "OPI-23-12-23-OF Rancho los Portales 3900, Torre F -203, Hacienda de Vidrio",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Torre F -203",
-    "municipio": "Zapopan",
+    "municipio": "Hacienda de Vidrio",
     "comparables": [
       {
         "terreno": 1199,
@@ -64146,7 +64146,7 @@
     "fileName": "OPI-23-12-22-OF Av. Fray Angelico 4469, Miravalle",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Miravalle",
-    "municipio": "Guadalajara",
+    "municipio": "Miravalle",
     "comparables": [
       {
         "terreno": 1003,
@@ -64269,7 +64269,7 @@
     "fileName": "OPI-23-12-21-OF Av. Fray Angelico 4475, Miravalle",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Miravalle",
-    "municipio": "Guadalajara",
+    "municipio": "Miravalle",
     "comparables": [
       {
         "terreno": 1003,
@@ -64399,7 +64399,7 @@
     "fileName": "OPI-23-12-19-OF P.º de las Damas 29, Paseos del Briseño",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Paseos del Briseño",
-    "municipio": "Zapopan",
+    "municipio": "Paseos del Briseño",
     "comparables": [
       {
         "terreno": 362,
@@ -64600,7 +64600,7 @@
     "fileName": "OPI-23-12-16-OF Puerto Veracruz 323-22, Arvento",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Arvento",
-    "municipio": "Zapopan",
+    "municipio": "Arvento",
     "comparables": [
       {
         "terreno": 2210,
@@ -64723,7 +64723,7 @@
     "fileName": "OPI-23-12-15-OF Circuito Hacienda del Parian Norte 82-11, Hacienda Real Tonala",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Hacienda Real Tonala",
-    "municipio": "Tonalá",
+    "municipio": "Hacienda Real Tonala",
     "comparables": [
       {
         "terreno": 117,
@@ -64846,7 +64846,7 @@
     "fileName": "OPI-23-12-14-OF Brillante 924,926 y 928, Alcalde Barranquitas",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "926 y 928",
-    "municipio": "Guadalajara",
+    "municipio": "Alcalde Barranquitas",
     "comparables": [
       {
         "terreno": 493,
@@ -64965,7 +64965,7 @@
     "fileName": "OPI-23-12-13-OF Francisco Martin del Campo 527, Jardines Independencia",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Jardines Independencia",
-    "municipio": "Guadalajara",
+    "municipio": "Jardines Independencia",
     "comparables": [
       {
         "terreno": 491,
@@ -65480,7 +65480,7 @@
     "fileName": "OPI-23-12-08-OF Constituyentes 110 int 433, Constitución Zapopan",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Constitución Zapopan",
-    "municipio": "Zapopan",
+    "municipio": "Constitución Zapopan",
     "comparables": [
       {
         "terreno": 221.5,
@@ -65610,7 +65610,7 @@
     "fileName": "OPI-23-12-07-OF Coyula 24, Buena Mirada Tonala",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Buena Mirada Tonala",
-    "municipio": "Tonalá",
+    "municipio": "Buena Mirada Tonala",
     "comparables": [
       {
         "terreno": 140,
@@ -65866,7 +65866,7 @@
     "fileName": "OPI-23-12-04-OF Hotel Villas Sayulita, Rosalio Tapia s/n, Deportiva, Sayulita, Nay.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Rosalio Tapia s/n",
-    "municipio": "Bahía de Banderas",
+    "municipio": "Nay.",
     "comparables": [
       {
         "terreno": 150,
@@ -66070,7 +66070,7 @@
     "fileName": "OPI-23-12-02- Zaragoza 231coto Asturias, Real de Valdepeñas Zapopan",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Real de Valdepeñas Zapopan",
-    "municipio": "Zapopan",
+    "municipio": "Real de Valdepeñas Zapopan",
     "comparables": [
       {
         "terreno": 97,
@@ -66193,7 +66193,7 @@
     "fileName": "OPI-23-12-01- Avenida Miguel  Hidalgo 195 Ejido Copalita Zapopan",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Zapopan",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 888,
@@ -66274,7 +66274,7 @@
     "fileName": "OPI-23-11-14-OF Lucio Martinez  15, Villas Guadalupe Zapopan",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Villas Guadalupe Zapopan",
-    "municipio": "Zapopan",
+    "municipio": "Villas Guadalupe Zapopan",
     "comparables": [
       {
         "terreno": 140,
@@ -66327,7 +66327,7 @@
     "fileName": "OPI-23-11-12-OF Federalistas #49 coto b 1994, la Cima zapopan",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "la Cima zapopan",
-    "municipio": "Zapopan",
+    "municipio": "la Cima zapopan",
     "comparables": [
       {
         "terreno": 373,
@@ -66566,7 +66566,7 @@
     "fileName": "OPI-23-11-10-OF C. del Jornalero 75, Emiliano Zapata",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Emiliano Zapata",
-    "municipio": "Zapopan",
+    "municipio": "Emiliano Zapata",
     "comparables": [
       {
         "terreno": 162,
@@ -67251,7 +67251,7 @@
     "fileName": "OPI-23-11-04-OF Isla Bermudas 2920, Lopez de Legaspi",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Lopez de Legaspi",
-    "municipio": "Guadalajara",
+    "municipio": "Lopez de Legaspi",
     "comparables": [
       {
         "terreno": 140,
@@ -67570,7 +67570,7 @@
     "fileName": "OPI-23-11-02-OF Cuarta Poniente int. Circuito Virreinal 293, Alteza Residencial Nuevo Mexico",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Alteza Residencial Nuevo Mexico",
-    "municipio": "Zapopan",
+    "municipio": "Alteza Residencial Nuevo Mexico",
     "comparables": [
       {
         "terreno": 167,
@@ -67955,7 +67955,7 @@
     "fileName": "OPI-23-10-26-OF San Eugenio # 3, coto el Marquez, Real del Valle",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "coto el Marquez",
-    "municipio": "Zapopan",
+    "municipio": "Real del Valle",
     "comparables": [
       {
         "terreno": 824,
@@ -68204,7 +68204,7 @@
     "fileName": "OPI-23-10-23-OF Av.  Torremolinos 3500 \nTorre Urce int 903, cañadas de san Lorenzo",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "cañadas de san Lorenzo",
-    "municipio": "Zapopan",
+    "municipio": "cañadas de san Lorenzo",
     "comparables": [
       {
         "terreno": 258.01,
@@ -68569,7 +68569,7 @@
     "fileName": "OPI-23-10-20-OF Ignacio Mejia 4655, Lomas del Paraiso",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Lomas del Paraiso",
-    "municipio": "Guadalajara",
+    "municipio": "Lomas del Paraiso",
     "comparables": [
       {
         "terreno": 150,
@@ -68622,7 +68622,7 @@
     "fileName": "OPI-23-10-19-OF Pablo Quiroga 1508, Santa Elena de la Cruz",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Santa Elena de la Cruz",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Santa Elena de la Cruz",
     "comparables": [
       {
         "terreno": 4452,
@@ -68766,7 +68766,7 @@
     "fileName": "OPI-23-10-18-OF Av. Bellas Artes 326-22, Miravalle",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Miravalle",
-    "municipio": "Guadalajara",
+    "municipio": "Miravalle",
     "comparables": [
       {
         "terreno": 428,
@@ -68889,7 +68889,7 @@
     "fileName": "OPI-23-10-17-OF Industria Textil Circuito San Isidro 61, Mirador de San Isidro",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Mirador de San Isidro",
-    "municipio": "Zapopan",
+    "municipio": "Mirador de San Isidro",
     "comparables": [
       {
         "terreno": 291,
@@ -69005,7 +69005,7 @@
     "fileName": "OPI-23-10-15-OF Lazaro Cardenas 26, Sta. Paula Tonala",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Sta. Paula Tonala",
-    "municipio": "Tonalá",
+    "municipio": "Sta. Paula Tonala",
     "comparables": [
       {
         "terreno": 240,
@@ -69138,7 +69138,7 @@
     "fileName": "OPI-23-10-14-OF Miguel Hernandez 32, Junta de los Ocotes",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Junta de los Ocotes",
-    "municipio": "Tonalá",
+    "municipio": "Junta de los Ocotes",
     "comparables": [
       {
         "terreno": 140,
@@ -69903,7 +69903,7 @@
     "fileName": "OPI-23-10-04-OF Niño Artillero 188, Plan de Oriente Tlaquepaque",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Plan de Oriente Tlaquepaque",
-    "municipio": "Tlaquepaque",
+    "municipio": "Plan de Oriente Tlaquepaque",
     "comparables": [
       {
         "terreno": 831,
@@ -69963,7 +69963,7 @@
     "fileName": "OPI-23-10-03-OF Gabriel Ruiz 1980, Santa Cecilia",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Santa Cecilia",
-    "municipio": "Guadalajara",
+    "municipio": "Santa Cecilia",
     "comparables": [
       {
         "terreno": 894,
@@ -70244,7 +70244,7 @@
     "fileName": "OPI-23-9-30-OF Paseo de la Arboleda 04, Bosques de la Vicctoria",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Bosques de la Vicctoria",
-    "municipio": "Zapopan",
+    "municipio": "Bosques de la Vicctoria",
     "comparables": [
       {
         "terreno": 525,
@@ -70444,7 +70444,7 @@
     "fileName": "OPI-23-9-28-OF Pedro Parra Centeno 120, Tlajomulco Centro",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Tlajomulco Centro",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Tlajomulco Centro",
     "comparables": [
       {
         "terreno": 878,
@@ -70890,7 +70890,7 @@
     "fileName": "OPI-23-9-25-OF Privada moreno 8, Chapala Centro",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Chapala Centro",
-    "municipio": "Chapala",
+    "municipio": "Chapala Centro",
     "comparables": [
       {
         "terreno": 697,
@@ -70985,7 +70985,7 @@
     "fileName": "OPI-23-9-24-OF C. La Paz 202, La Llave",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "La Llave",
-    "municipio": "San Juan de los Lagos",
+    "municipio": "La Llave",
     "comparables": [
       {
         "terreno": 122.5,
@@ -71115,7 +71115,7 @@
     "fileName": "OPI-23-9-23-OF Pedro Pond 2939, Col. 18 de Marzo",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "18 de Marzo",
-    "municipio": "Guadalajara",
+    "municipio": "Col. 18 de Marzo",
     "comparables": [
       {
         "terreno": 320,
@@ -71238,7 +71238,7 @@
     "fileName": "OPI-23-9-22-OF Carretera 23 s/n, Jerez Huejucar, Jalisco",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Jerez Huejucar",
-    "municipio": "Huejúcar",
+    "municipio": "Jerez Huejucar",
     "comparables": [
       {
         "terreno": 13626,
@@ -71319,7 +71319,7 @@
     "fileName": "OPI-23-9-21-OF Av. Camino de los Parques 3363, Colinas de San Isidro",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Colinas de San Isidro",
-    "municipio": "Zapopan",
+    "municipio": "Colinas de San Isidro",
     "comparables": [
       {
         "terreno": 196.81,
@@ -71386,7 +71386,7 @@
     "fileName": "OPI-23-9-20-OF Cuarta Poniente int. Circuito Virreinal 287, Alteza Residencial Nuevo Mexico",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Alteza Residencial Nuevo Mexico",
-    "municipio": "Zapopan",
+    "municipio": "Alteza Residencial Nuevo Mexico",
     "comparables": [
       {
         "terreno": 167,
@@ -71505,7 +71505,7 @@
     "fileName": "OPI-23-9-19-OF Plan de Guadalupe 3237, Fracc. Revolución",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Revolución",
-    "municipio": "Guadalajara",
+    "municipio": "Fracc. Revolución",
     "comparables": [
       {
         "terreno": 496,
@@ -71684,7 +71684,7 @@
     "fileName": "OPI-23-9-17-OF Agustin Rivera 229, Santa Anita",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Santa Anita",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Santa Anita",
     "comparables": [
       {
         "terreno": 122.5,
@@ -71838,7 +71838,7 @@
     "fileName": "OPI-23-9-16-OF C. Juárez 90,  Santa Anita",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Santa Anita",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Santa Anita",
     "comparables": [
       {
         "terreno": 122.5,
@@ -72189,7 +72189,7 @@
     "fileName": "OPI-23-9-13-OF Volcán Ajusco 1809, el Colli Urbano",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "el Colli Urbano",
-    "municipio": "Zapopan",
+    "municipio": "el Colli Urbano",
     "comparables": [
       {
         "terreno": 327,
@@ -72312,7 +72312,7 @@
     "fileName": "OPI-23-9-12-OF Monte Everest 1237, Independiencia Oriente Guadalajara",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Independiencia Oriente Guadalajara",
-    "municipio": "Guadalajara",
+    "municipio": "Independiencia Oriente Guadalajara",
     "comparables": [
       {
         "terreno": 553,
@@ -72452,7 +72452,7 @@
     "fileName": "OPI-23-9-10-OF Paseo los Almendros 2282, Tabachines",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Tabachines",
-    "municipio": "Zapopan",
+    "municipio": "Tabachines",
     "comparables": [
       {
         "terreno": 179.3,
@@ -72557,7 +72557,7 @@
     "fileName": "OPI-23-9-09-OF Jardin del Sauz 93, coto 2 Jardin Real",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "coto 2 Jardin Real",
-    "municipio": "Zapopan",
+    "municipio": "coto 2 Jardin Real",
     "comparables": [
       {
         "terreno": 306.13,
@@ -72690,7 +72690,7 @@
     "fileName": "OPI-23-9-08-OF Volcán Ajusco 1811, el Colli Urbano",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "el Colli Urbano",
-    "municipio": "Zapopan",
+    "municipio": "el Colli Urbano",
     "comparables": [
       {
         "terreno": 327,
@@ -72820,7 +72820,7 @@
     "fileName": "OPI-23-9-07-OF Paseo de los Perones 3672, Mesa de los Ocotes",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Mesa de los Ocotes",
-    "municipio": "Zapopan",
+    "municipio": "Mesa de los Ocotes",
     "comparables": [
       {
         "terreno": 140,
@@ -72873,7 +72873,7 @@
     "fileName": "OPI-23-9-06-OF Calzada de los Fresnos 157, Cd. Granja",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Cd. Granja",
-    "municipio": "Zapopan",
+    "municipio": "Cd. Granja",
     "comparables": [
       {
         "terreno": 750,
@@ -72989,7 +72989,7 @@
     "fileName": "OPI-23-9-05-OF Condominio Leylandi 38a, int 59, San José del Castillo, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "int 59",
-    "municipio": "El Salto",
+    "municipio": "San José del Castillo",
     "comparables": [
       {
         "terreno": 625,
@@ -73228,7 +73228,7 @@
     "fileName": "OPI-23-9-03-OF Elias Villalpando 497, Insurgentes Guadalajara",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Insurgentes Guadalajara",
-    "municipio": "Guadalajara",
+    "municipio": "Insurgentes Guadalajara",
     "comparables": [
       {
         "terreno": 502,
@@ -73782,7 +73782,7 @@
     "fileName": "OPI-23-8-30-OF Arquitectos Nte. 905, Jardines del Tepeyac",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Jardines del Tepeyac",
-    "municipio": "Zapopan",
+    "municipio": "Jardines del Tepeyac",
     "comparables": [
       {
         "terreno": 300,
@@ -73905,7 +73905,7 @@
     "fileName": "OPI-23-8-29-OF Agricultores 5275, Jardines de Guadalupe",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Jardines de Guadalupe",
-    "municipio": "Zapopan",
+    "municipio": "Jardines de Guadalupe",
     "comparables": [
       {
         "terreno": 300,
@@ -74059,7 +74059,7 @@
     "fileName": "OPI-23-8-27-OF Calle 15 de Enero, # 542, la Romita Tlaquepaque",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "# 542",
-    "municipio": "Tlaquepaque",
+    "municipio": "la Romita Tlaquepaque",
     "comparables": [
       {
         "terreno": 1151,
@@ -74213,7 +74213,7 @@
     "fileName": "OPI-23-8-26-OF COto el Vigia 119, Hacienda Casa Fuerte",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Hacienda Casa Fuerte",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Hacienda Casa Fuerte",
     "comparables": [
       {
         "terreno": 250,
@@ -74266,7 +74266,7 @@
     "fileName": "OPI-23-8-25-OF Aquiles Serdan 318, Santa Anita",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Santa Anita",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Santa Anita",
     "comparables": [
       {
         "terreno": 122.5,
@@ -74389,7 +74389,7 @@
     "fileName": "OPI-23-8-24-OF Aquiles Serdan 266, Santa Anita",
     "fecha": "No hallado",
     "sujetoColonia": "Santa Anita",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Santa Anita",
     "comparables": [],
     "folio": "OPI-23-8-24-OF",
     "tipo": "CASA HABITACIÓN",
@@ -74409,7 +74409,7 @@
     "fileName": "OPI-23-8-23-OF Gaspar Pérez 3, Villas de Guadalupe",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Villas de Guadalupe",
-    "municipio": "Zapopan",
+    "municipio": "Villas de Guadalupe",
     "comparables": [
       {
         "terreno": 140,
@@ -74528,7 +74528,7 @@
     "fileName": "OPI-23-8-22-OF Joaquin Martinez Cheverria 2305, Lomas de Polanco",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Lomas de Polanco",
-    "municipio": "Zapopan",
+    "municipio": "Lomas de Polanco",
     "comparables": [
       {
         "terreno": 595,
@@ -74654,7 +74654,7 @@
     "fileName": "OPI-23-8-21- Privada Giralda 2653- Torre 1-105 , La Giralda",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "La Giralda",
-    "municipio": "Zapopan",
+    "municipio": "La Giralda",
     "comparables": [
       {
         "terreno": 525,
@@ -74808,7 +74808,7 @@
     "fileName": "OPI-23-8-20-OF Real de Magnolias 1732 86-2, camichines Tonala",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "camichines Tonala",
-    "municipio": "Tonalá",
+    "municipio": "camichines Tonala",
     "comparables": [
       {
         "terreno": 174,
@@ -75046,7 +75046,7 @@
     "fileName": "OPI-23-8-17-OF Calzada Juan Pablo II 2002, Oblatos",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Oblatos",
-    "municipio": "Guadalajara",
+    "municipio": "Oblatos",
     "comparables": [
       {
         "terreno": 350,
@@ -75172,7 +75172,7 @@
     "fileName": "OPI-23-8-16-OF Mariano Méndez  4841, Nueva Santa Maria",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Nueva Santa Maria",
-    "municipio": "Guadalajara",
+    "municipio": "Nueva Santa Maria",
     "comparables": [
       {
         "terreno": 170,
@@ -75333,7 +75333,7 @@
     "fileName": "OPI-23-8-15-OF Josefa Ortiz de Domínguez #209, El Batan",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "El Batan",
-    "municipio": "Tlaquepaque",
+    "municipio": "El Batan",
     "comparables": [
       {
         "terreno": 1750,
@@ -75501,7 +75501,7 @@
     "fileName": "OPI-23-8-13-OF Hacienda de los Nardos 25, Haciendas del Valle",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Haciendas del Valle",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Haciendas del Valle",
     "comparables": [
       {
         "terreno": 149,
@@ -75648,7 +75648,7 @@
     "fileName": "OPI-23-8-12-OF 16 de Septiembre 91, Tlachicilco Poncitlan",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Tlachicilco Poncitlan",
-    "municipio": "Poncitlán",
+    "municipio": "Tlachicilco Poncitlan",
     "comparables": [
       {
         "terreno": 1242,
@@ -75701,7 +75701,7 @@
     "fileName": "OPI-23-8-10-OF lote 16, Av. Los Arcos, Jardines de la Calera",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Av. Los Arcos",
-    "municipio": "Zapopan",
+    "municipio": "Jardines de la Calera",
     "comparables": [
       {
         "terreno": 1241,
@@ -76034,7 +76034,7 @@
     "fileName": "OPI-23-8-06-OF Paseo lde la Toscana 111 int. 77, la Toscana",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "la Toscana",
-    "municipio": "Zapopan",
+    "municipio": "la Toscana",
     "comparables": [
       {
         "terreno": 300,
@@ -76181,7 +76181,7 @@
     "fileName": "OPI-23-8-03-OF Santa Elena 329, El Refugio Tlaquepaque",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "El Refugio Tlaquepaque",
-    "municipio": "Tlaquepaque",
+    "municipio": "El Refugio Tlaquepaque",
     "comparables": [
       {
         "terreno": 929,
@@ -76342,7 +76342,7 @@
     "fileName": "OPI-23-8-02-OF Proaza 36, Del Pilar Residencial",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Del Pilar Residencial",
-    "municipio": "Zapopan",
+    "municipio": "Del Pilar Residencial",
     "comparables": [
       {
         "terreno": 174,
@@ -76454,7 +76454,7 @@
     "fileName": "OPI-23-8-01-OF Cerrada Gonzlez Gallo",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Guadalajara",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 2947,
@@ -76528,7 +76528,7 @@
     "fileName": "OPI-23-7-28-OF Jesus 77, Centro Guadalajara",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Centro Guadalajara",
-    "municipio": "Guadalajara",
+    "municipio": "Centro Guadalajara",
     "comparables": [
       {
         "terreno": 1214,
@@ -76661,7 +76661,7 @@
     "fileName": "OPI-23-7-26-OF Fuente Platino 1645, Villa Fontana",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Villa Fontana",
-    "municipio": "Zapopan",
+    "municipio": "Villa Fontana",
     "comparables": [
       {
         "terreno": 715,
@@ -76913,7 +76913,7 @@
     "fileName": "OPI-23-7-24-OF Segunda Privada Tequila 3, Villas de la Hacienda",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Villas de la Hacienda",
-    "municipio": "Zapopan",
+    "municipio": "Villas de la Hacienda",
     "comparables": [
       {
         "terreno": 800,
@@ -77046,7 +77046,7 @@
     "fileName": "OPI-23-7-22-OF Tamaulipas 1271 col guadalupana",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Guadalajara",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 340,
@@ -77134,7 +77134,7 @@
     "fileName": "OPI-23-7-21-OF Insurgentes 3047, Rancho Blanco",
     "fecha": "No hallado",
     "sujetoColonia": "Rancho Blanco",
-    "municipio": "Zapopan",
+    "municipio": "Rancho Blanco",
     "comparables": [],
     "folio": "OPI-23-7-21-OF",
     "tipo": "SOLICITANTE:",
@@ -77295,7 +77295,7 @@
     "fileName": "OPI-23-7-19-OF Concordia 719, La Federacha",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "La Federacha",
-    "municipio": "Guadalajara",
+    "municipio": "La Federacha",
     "comparables": [
       {
         "terreno": 350,
@@ -77597,7 +77597,7 @@
     "fileName": "OPI-23-7-17-OF Av. de la Mancha 1229, Lomas de Zapopan",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Lomas de Zapopan",
-    "municipio": "Zapopan",
+    "municipio": "Lomas de Zapopan",
     "comparables": [
       {
         "terreno": 258.01,
@@ -77797,7 +77797,7 @@
     "fileName": "OPI-23-7-15-OF Longinos Cadena 1274 Colonia Echeverría",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Guadalajara",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 270,
@@ -77948,7 +77948,7 @@
     "fileName": "OPI-23-7-14-OF Av. Arquitectura 116, Andador Grosellos 6, Miravalle",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Andador Grosellos 6",
-    "municipio": "Guadalajara",
+    "municipio": "Miravalle",
     "comparables": [
       {
         "terreno": 443,
@@ -78071,7 +78071,7 @@
     "fileName": "OPI-23-7-13-OF Eucalipto 2168, Col. del Fresno",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "del Fresno",
-    "municipio": "Guadalajara",
+    "municipio": "Col. del Fresno",
     "comparables": [
       {
         "terreno": 270,
@@ -78138,7 +78138,7 @@
     "fileName": "OPI-23-7-12-OF San Felipe 153 colonia Villas de Guadalupe Zapopan",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Zapopan",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 140,
@@ -78436,7 +78436,7 @@
     "fileName": "OPI-23-7-10-OF Liberación 34, Jardines los Belenes",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Jardines los Belenes",
-    "municipio": "Zapopan",
+    "municipio": "Jardines los Belenes",
     "comparables": [
       {
         "terreno": 764,
@@ -78720,7 +78720,7 @@
     "fileName": "OPI-23-7-06-OF Jardin del Roble 118, Rinconadas de Coyula",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Rinconadas de Coyula",
-    "municipio": "Tonalá",
+    "municipio": "Rinconadas de Coyula",
     "comparables": [
       {
         "terreno": 405,
@@ -79014,7 +79014,7 @@
     "fileName": "OPI-23-7-04-OF Tula 572, colonia Monumental",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "colonia Monumental",
-    "municipio": "Guadalajara",
+    "municipio": "colonia Monumental",
     "comparables": [
       {
         "terreno": 800,
@@ -79537,7 +79537,7 @@
     "fileName": "OPI-23-6-22-OF Lago Camecuaro 2487, Lagos del Country",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Lagos del Country",
-    "municipio": "Zapopan",
+    "municipio": "Lagos del Country",
     "comparables": [
       {
         "terreno": 116,
@@ -79839,7 +79839,7 @@
     "fileName": "OPI-23-6-16-OF Gardenia 1419 (5), La Magdalena Zapopan",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "La Magdalena Zapopan",
-    "municipio": "Zapopan",
+    "municipio": "La Magdalena Zapopan",
     "comparables": [
       {
         "terreno": 377,
@@ -79979,7 +79979,7 @@
     "fileName": "OPI-23-6-13-OF Av. jalisco  22 Paseo de los agaves Tlajomulco zuñiga",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 301,
@@ -80098,7 +80098,7 @@
     "fileName": "OPI-23-6-11-OF Retorno 42, Bugambilias 2da Secc.",
     "fecha": "No hallado",
     "sujetoColonia": "Bugambilias 2da Secc.",
-    "municipio": "Zapopan",
+    "municipio": "Bugambilias 2da Secc.",
     "comparables": [],
     "folio": "OPI-23-6-11-OF",
     "tipo": "CASA HABITACIÓN",
@@ -80118,7 +80118,7 @@
     "fileName": "OPI-23-6-10-OF Lago Patzcuaro 74, Cond. Hacienda del Lago 3, Lago Real",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Cond. Hacienda del Lago 3",
-    "municipio": "Zapopan",
+    "municipio": "Lago Real",
     "comparables": [
       {
         "terreno": 102,
@@ -80549,7 +80549,7 @@
     "fileName": "OPI-23-6-05-OF_San Salvador 234 La Providencia 45400 Tonalá Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "",
-    "municipio": "Tonalá",
+    "municipio": "",
     "comparables": [
       {
         "terreno": 105,
@@ -80682,7 +80682,7 @@
     "fileName": "OPI-23-6-03-OF Compostela 1798, Mezquitan Country",
     "fecha": "ESTATUS:",
     "sujetoColonia": "Mezquitan Country",
-    "municipio": "Guadalajara",
+    "municipio": "Mezquitan Country",
     "comparables": [
       {
         "terreno": 304,
@@ -80808,7 +80808,7 @@
     "fileName": "OPI-23-6-02-OF Tormenta 599-402, Jardines del Bosque",
     "fecha": "ESTATUS:",
     "sujetoColonia": "Jardines del Bosque",
-    "municipio": "Guadalajara",
+    "municipio": "Jardines del Bosque",
     "comparables": [
       {
         "terreno": 879,

@@ -21,16 +21,46 @@
 require('dotenv').config({ path: '../.env' });
 const fs   = require('fs');
 const path = require('path');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
+const OpenAI = require('openai');
+
+const _gemini = process.env.GEMINI_API_KEY
+    ? new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
+    : null;
+
+const _deepseek = new OpenAI({
+    apiKey: 'sk-002d18925d514fa7997b0b35718efd82',
+    baseURL: 'https://api.deepseek.com/v1'
+});
+
+const _openai = process.env.OPENAI_API_KEY
+    ? new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
+    : null;
+
+// Umbral: m²C sobre el cual la propiedad es atípica y requiere perito físico
+const M2C_ATIPICA = 400;
 
 // ── helpers copiados de comparar_metodologias.js ──────────────────────────────
 
 const INDEX_PATH        = path.join(__dirname, 'cache_index.json');
 const COLONIAS_NSE_PATH = path.join(__dirname, 'colonias_nse.json');
 const COLONIAS_SIM_PATH = path.join(__dirname, 'colonias_similares.json');
+const COLONIAS_IA_PATH  = path.join(__dirname, 'colonias_similares_enriquecido.json');
 
-const IDX  = JSON.parse(fs.readFileSync(INDEX_PATH, 'utf8'));
-const _nse = fs.existsSync(COLONIAS_NSE_PATH) ? JSON.parse(fs.readFileSync(COLONIAS_NSE_PATH, 'utf8')) : {};
-const _sim = fs.existsSync(COLONIAS_SIM_PATH) ? JSON.parse(fs.readFileSync(COLONIAS_SIM_PATH, 'utf8')) : {};
+const IDX    = JSON.parse(fs.readFileSync(INDEX_PATH, 'utf8'));
+const _nse   = fs.existsSync(COLONIAS_NSE_PATH) ? JSON.parse(fs.readFileSync(COLONIAS_NSE_PATH, 'utf8')) : {};
+const _sim   = fs.existsSync(COLONIAS_SIM_PATH) ? JSON.parse(fs.readFileSync(COLONIAS_SIM_PATH, 'utf8')) : {};
+const _simIA = fs.existsSync(COLONIAS_IA_PATH)  ? JSON.parse(fs.readFileSync(COLONIAS_IA_PATH,  'utf8')) : {};
+
+// Obtiene similares: primero base OPIs, fallback IA-Sepomex
+function getSimilares(colNorm) {
+    const base = _sim[colNorm];
+    if (base && base.length) return base;
+    const ia = _simIA[colNorm];
+    if (!ia || !ia.length) return [];
+    // Normalizar formato IA (puede ser {colonia,menciones} o string)
+    return ia.map(x => typeof x === 'string' ? { colonia: x, menciones: 1 } : x);
+}
 
 const FACTORES_CONSERVACION = {
     nuevo: 1.05, muy_bueno: 1.05, bueno: 1.00,
@@ -44,12 +74,32 @@ const NSE_NIVELES = [
     { idx: 4, nombre: 'medio-alto' }, { idx: 5, nombre: 'lujo' }, { idx: 6, nombre: 'super-lujo' },
 ];
 
+// Municipios que aparecen como nombre de colonia → colonia vaga
+const NOMBRES_MUNICIPIO = new Set([
+    'guadalajara','zapopan','tlaquepaque','tlajomulco','tonala','el salto',
+    'chapala','ocotlan','tepatitlan','lagos de moreno','autlan'
+]);
+
+// Sufijos de municipio/estado que aparecen pegados al nombre de colonia
+const SUFIJOS_GEO = [
+    'guadalajara','zapopan','tlaquepaque','san pedro tlaquepaque','tlajomulco',
+    'tlajomulco de zuniga','tonala','el salto','chapala','jalisco','jal',
+    'nayarit','nay','colima','col'
+];
+
 function normCol(s) {
     if (!s) return '';
-    return s.toString().toLowerCase()
+    let r = s.toString().toLowerCase()
         .normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .replace(/\bcp\s*\d{5}\b/g, '')          // quitar código postal
+        .replace(/,.*$/, '')                       // cortar desde la primera coma
         .replace(/\b(col\.|colonia|fracc\.|fraccionamiento|residencial|secc?\.?|seccion)\b/g, '')
         .replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+    // Quitar sufijos de municipio/estado al final de la cadena
+    for (const suf of SUFIJOS_GEO) {
+        if (r.endsWith(' ' + suf)) { r = r.slice(0, -(suf.length + 1)).trim(); break; }
+    }
+    return r;
 }
 
 function normMuni(s) {
@@ -100,6 +150,191 @@ function dedup(arr) {
     );
 }
 
+// ── Fallback Gemini + Google Search ──────────────────────────────────────────
+
+async function buscarCompsGemini(prop, similares) {
+    if (!_gemini) return [];
+    const model = _gemini.getGenerativeModel({
+        model: 'gemini-2.0-flash',
+        tools: [{ googleSearch: {} }]
+    });
+    const zona = [prop.colonia, prop.municipio, 'Jalisco'].filter(Boolean).join(', ');
+    const coloniasSim = similares && similares.length
+        ? `\nColonias cercanas de NSE similar donde también puedes buscar: ${similares.slice(0,6).join(', ')}.`
+        : '';
+    const prompt = `Busca casas en venta en ${zona} en portales como inmuebles24.com, casasyterrenos.com, vivanuncios.com o propiedades.com.
+
+Propiedad sujeto: ${prop.tipo || 'casa'} de ${prop.construccion} m² construcción, ${prop.terreno || 0} m² terreno, ${prop.edad || 0} años de antigüedad en ${zona}.${coloniasSim}
+
+Encuentra 3 a 6 propiedades similares en venta con precio y m² de construcción visibles. Prioriza colonias del mismo segmento socioeconómico.
+
+Responde SOLO con JSON sin explicaciones:
+{"comparables":[{"colonia":"...","precio":0000000,"m2c":000,"m2t":000},...]}`
+
+    try {
+        const result = await model.generateContent(prompt);
+        const text = result.response.text();
+        const m = text.match(/\{[\s\S]*"comparables"[\s\S]*\}/);
+        if (!m) return [];
+        const parsed = JSON.parse(m[0]);
+        return (parsed.comparables || [])
+            .map(c => ({ precio: parseFloat(String(c.precio).replace(/[^0-9.]/g,'')), m2c: parseFloat(String(c.m2c).replace(/[^0-9.]/g,'')), m2t: parseFloat(String(c.m2t||0).replace(/[^0-9.]/g,'')) }))
+            .filter(c => c.precio > 0 && c.m2c > 0);
+    } catch (e) {
+        return [];
+    }
+}
+
+// ── Búsqueda web: Serper (Google) → GPT-4o extrae comparables ────────────────
+
+async function buscarEnSerper(query) {
+    if (!process.env.SERPER_API_KEY) return [];
+    try {
+        const res = await fetch('https://google.serper.dev/search', {
+            method: 'POST',
+            headers: { 'X-API-KEY': process.env.SERPER_API_KEY, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ q: query, gl: 'mx', hl: 'es', num: 10 })
+        });
+        const data = await res.json();
+        return (data.organic || []).map(r => `${r.title}\n${r.snippet || ''}`).join('\n\n');
+    } catch (e) {
+        return '';
+    }
+}
+
+async function buscarCompsConWeb(prop, similares) {
+    if (!_openai || !process.env.SERPER_API_KEY) return [];
+
+    const zona = [prop.colonia, prop.municipio, 'Jalisco'].filter(Boolean).join(', ');
+    const coloniasSim = similares && similares.length
+        ? similares.slice(0, 4).join(', ')
+        : '';
+
+    // Construir query de búsqueda
+    const colBusq = prop.colonia || prop.municipio;
+    const query = `casas en venta ${colBusq} ${prop.municipio} Jalisco precio m2 inmuebles24 OR vivanuncios OR casasyterrenos OR propiedades`;
+
+    const snippets = await buscarEnSerper(query);
+    if (!snippets) return [];
+
+    const prompt = `Eres experto en mercado inmobiliario de Jalisco, México.
+
+Propiedad sujeto: ${prop.tipo || 'casa'} de ${prop.construccion} m² construcción, ${prop.terreno || 0} m² terreno, ${prop.edad || 0} años, en ${zona}.
+${coloniasSim ? `Colonias similares aceptables: ${coloniasSim}.` : ''}
+
+Resultados de portales inmobiliarios mexicanos encontrados en internet:
+---
+${snippets.slice(0, 3000)}
+---
+
+Extrae de esos resultados propiedades comparables con precio y m² visibles. Si los snippets no tienen precios exactos, estima con base en el rango mencionado.
+Devuelve SOLO JSON válido:
+{"comparables":[{"colonia":"...","precio":0000000,"m2c":000,"m2t":000},...]}`;
+
+    try {
+        const res = await _openai.chat.completions.create({
+            model: 'gpt-4o',
+            messages: [
+                { role: 'system', content: 'Extrae comparables inmobiliarios de Jalisco. Responde SOLO con JSON válido en pesos mexicanos.' },
+                { role: 'user', content: prompt }
+            ],
+            max_tokens: 1200,
+            temperature: 0.1
+        });
+        const text = res.choices[0].message.content.trim()
+            .replace(/^```json\n?/, '').replace(/\n?```$/, '');
+        const m = text.match(/\{[\s\S]*"comparables"[\s\S]*\}/);
+        if (!m) return [];
+        const parsed = JSON.parse(m[0]);
+        return (parsed.comparables || [])
+            .map(c => ({
+                precio: parseFloat(String(c.precio).replace(/[^0-9.]/g, '')),
+                m2c:    parseFloat(String(c.m2c).replace(/[^0-9.]/g, '')),
+                m2t:    parseFloat(String(c.m2t || 0).replace(/[^0-9.]/g, ''))
+            }))
+            .filter(c => c.precio > 500000 && c.m2c > 20); // sanity check
+    } catch (e) {
+        return [];
+    }
+}
+
+async function buscarCompsDeepSeek(prop, similares, idxCtx) {
+    const zona = [prop.colonia, prop.municipio, 'Jalisco'].filter(Boolean).join(', ');
+    const nseSubj = prop.colonia ? _nse[normCol(prop.colonia)] : null;
+    const nseDesc = nseSubj ? ` NSE ${nseSubj.nseIdx} (${nseSubj.nse})` : '';
+
+    // Contexto de precios de colonias similares conocidas del IDX
+    let anclajeStr = '';
+    if (idxCtx && idxCtx.length) {
+        anclajeStr = `\nDatos reales de portales inmobiliarios en colonias cercanas (2024-2025):\n` +
+            idxCtx.map(x => `  - ${x.col}: $${x.pm2c.toLocaleString()}/m² construcción (${x.n} listings)`).join('\n') +
+            '\nUsa estos precios como referencia de mercado real para calibrar tu respuesta.';
+    }
+
+    const coloniasSim = similares && similares.length
+        ? `Colonias de NSE similar donde buscar: ${similares.slice(0, 6).join(', ')}.`
+        : '';
+
+    const prompt = `Eres experto en mercado inmobiliario de Jalisco, México. Sólo usas pesos mexicanos (MXN).
+
+Propiedad sujeto: ${prop.tipo || 'casa'} de ${prop.construccion} m² construcción, ${prop.terreno || 0} m² terreno, ${prop.edad || 0} años de antigüedad.
+Ubicación: ${zona}${nseDesc}.
+${coloniasSim}
+${anclajeStr}
+
+Estima 4 a 6 propiedades comparables en venta en la misma zona/NSE con precios realistas en MXN (no subestimes, usa los datos de referencia arriba).
+
+Responde SOLO con JSON, sin texto adicional:
+{"comparables":[{"colonia":"...","precio":0000000,"m2c":000,"m2t":000},...]}`
+
+    try {
+        const res = await _deepseek.chat.completions.create({
+            model: 'deepseek-chat',
+            messages: [
+                { role: 'system', content: 'Eres valuador inmobiliario Jalisco. Responde SOLO con JSON válido en pesos mexicanos.' },
+                { role: 'user', content: prompt }
+            ],
+            max_tokens: 1500,
+            temperature: 0.2
+        });
+        const text = res.choices[0].message.content.trim()
+            .replace(/^```json\n?/, '').replace(/\n?```$/, '');
+        const m = text.match(/\{[\s\S]*"comparables"[\s\S]*\}/);
+        if (!m) return [];
+        const parsed = JSON.parse(m[0]);
+        return (parsed.comparables || [])
+            .map(c => ({
+                precio: parseFloat(String(c.precio).replace(/[^0-9.]/g, '')),
+                m2c: parseFloat(String(c.m2c).replace(/[^0-9.]/g, '')),
+                m2t: parseFloat(String(c.m2t || 0).replace(/[^0-9.]/g, ''))
+            }))
+            .filter(c => c.precio > 0 && c.m2c > 0);
+    } catch (e) {
+        return [];
+    }
+}
+
+function roминаSobreComps(comps, m2C, edad, conservacion, poolTipo) {
+    const pm2c = comps.map(c => c.precio / c.m2c);
+    const s = [...pm2c].sort((a,b)=>a-b);
+    const med = s[Math.floor(s.length/2)];
+    const pm2cFilt = pm2c.filter(p => p >= med*0.60 && p <= med*1.40);
+    const compsFilt = comps.filter((_,i) => pm2cFilt.includes(pm2c[i]));
+    if (!compsFilt.length) return null;
+    const factorEdad  = poolTipo === 'exacta' ? 1.0 : Math.max(0.70, 1 - (edad-10)*0.01);
+    const factorConserv = FACTORES_CONSERVACION[conservacion] || 1.00;
+    let suma = 0;
+    compsFilt.forEach(c => { suma += (c.precio/c.m2c) * Math.pow(c.m2c/m2C,1/6) * factorEdad * factorConserv; });
+    const pm2cAvg = suma / compsFilt.length;
+    const mean = compsFilt.reduce((a,b)=>a+b.precio/b.m2c,0)/compsFilt.length;
+    const cv = mean > 0 ? Math.sqrt(compsFilt.map(c=>Math.pow(c.precio/c.m2c-mean,2)).reduce((a,b)=>a+b,0)/compsFilt.length)/mean : 1;
+    return {
+        valor: Math.round(pm2cAvg * m2C * 0.95),
+        confianza: cv < 0.15 ? 'ALTA' : cv < 0.25 ? 'MEDIA' : 'BAJA',
+        cv: +cv.toFixed(3), nComps: compsFilt.length, pm2cAvg: Math.round(pm2cAvg)
+    };
+}
+
 function listingsEnMuni(muni, tipo) {
     const colonias = IDX[muni]?.[tipo] ?? {};
     const out = [];
@@ -117,13 +352,17 @@ function valuarPropiedad(prop) {
     const tipo     = normTipo(prop.tipo || 'casa');
     const m2C      = prop.construccion || 0;
 
+    // Detectar colonia vaga: si la colonia normalizada coincide con el municipio
+    // o está en la lista de municipios → no usar exacta, ir directamente a similares/general
+    const coloniaEsVaga = !colNorm || NOMBRES_MUNICIPIO.has(colNorm) || colNorm === muniNorm;
+
     // NSE
     const nseSubjeto = _nse[colNorm] || null;
-    const similaresBrutos = (_sim[colNorm] || []).slice(0, 8).map(x => normCol(x.colonia));
+    const similaresBrutos = getSimilares(colNorm).slice(0, 8).map(x => normCol(x.colonia));
     const similares = nseSubjeto
         ? similaresBrutos.filter(s => {
             const ns = _nse[s];
-            if (!ns) return true;
+            if (!ns) return true; // sin NSE: mantener (puede ser válido)
             return Math.abs(ns.nseIdx - nseSubjeto.nseIdx) <= 1;
           })
         : similaresBrutos;
@@ -131,21 +370,29 @@ function valuarPropiedad(prop) {
     // Pool base
     const todos = listingsEnMuni(muniNorm, tipo);
 
-    // Banda de precio zona
+    // Banda de precio zona — anclada en datos locales (colonia o similares)
     const enColoniaTodos = colNorm ? todos.filter(d => {
         const dc = normCol(d.co);
         return dc.includes(colNorm) || colNorm.includes(dc);
     }) : [];
-    const enNSETodos = similares.length ? todos.filter(d => {
+    const enNSEBrutos = similares.length ? todos.filter(d => {
         const dc = normCol(d.co);
         return similares.some(s => dc.includes(s) || s.includes(dc));
     }) : [];
+    // Anti-outlier: quitar similares cuyo pm2c sea >2× la mediana del grupo
+    const pm2sNSE = enNSEBrutos.map(d => d.p / d.c).filter(v => v > 0 && isFinite(v));
+    const medNSE  = pm2sNSE.length ? mediana(pm2sNSE) : 0;
+    const enNSETodos = medNSE > 0
+        ? enNSEBrutos.filter(d => { const pm2 = d.p / d.c; return pm2 >= medNSE * 0.40 && pm2 <= medNSE * 2.20; })
+        : enNSEBrutos;
     const fuenteBanda = enColoniaTodos.length >= 5 ? enColoniaTodos : [...enColoniaTodos, ...enNSETodos];
     const pm2sBanda = fuenteBanda.map(d => d.p / d.c).filter(v => v > 0 && isFinite(v));
-    const pm2sRef   = pm2sBanda.length >= 3 ? pm2sBanda : todos.map(d => d.p / d.c).filter(v => v > 0 && isFinite(v));
-    const medRef    = mediana(pm2sRef);
-    const bandaMin  = medRef * 0.40;
-    const bandaMax  = medRef * 1.60;
+    // Si hay datos locales (colonia o similares), usarlos para la banda
+    // Si no, NO aplicar banda de precio (solo filtro por m²C) — evitar sesgo del promedio municipal
+    const tieneAnclaje = pm2sBanda.length >= 3;
+    const medRef    = tieneAnclaje ? mediana(pm2sBanda) : 0;
+    const bandaMin  = tieneAnclaje ? medRef * 0.40 : 0;
+    const bandaMax  = tieneAnclaje ? medRef * 1.60 : Infinity;
 
     // Tiers de escalafón
     const tierLo = m2C <= 62 ? 30 : m2C <= 100 ? 52 : m2C <= 145 ? 88 : m2C <= 200 ? 125 : 170;
@@ -159,7 +406,7 @@ function valuarPropiedad(prop) {
     }));
 
     // Cascada
-    const enColonia = colNorm ? pool.filter(d => {
+    const enColonia = (!coloniaEsVaga && colNorm) ? pool.filter(d => {
         const dc = normCol(d.co);
         if (!dc || dc.length < 5) return false;
         const ratio = Math.min(dc.length, colNorm.length) / Math.max(dc.length, colNorm.length);
@@ -167,7 +414,7 @@ function valuarPropiedad(prop) {
     }) : [];
 
     let candidatos = enColonia;
-    let poolTipo = 'exacta';
+    let poolTipo = coloniaEsVaga ? 'general' : 'exacta';
 
     if (candidatos.length < 3 && similares.length > 0) {
         const enSim = pool.filter(d => {
@@ -185,6 +432,16 @@ function valuarPropiedad(prop) {
     if (candidatos.length < 3) {
         candidatos = pool;
         poolTipo = 'general';
+        // Si hay NSE del sujeto, restringir el pool general a colonias NSE ±1
+        // Evita mezclar NSE0 (económico) con NSE5 (lujo) en municipios heterogéneos
+        if (nseSubjeto) {
+            const generalNSE = candidatos.filter(d => {
+                const nsd = _nse[normCol(d.co)];
+                if (!nsd) return true;
+                return Math.abs(nsd.nseIdx - nseSubjeto.nseIdx) <= 1;
+            });
+            if (generalNSE.length >= 3) candidatos = generalNSE;
+        }
     }
 
     // Score + top-10
@@ -218,7 +475,19 @@ function valuarPropiedad(prop) {
         const pu = c.precio / c.m2_const;
         suma += pu * Math.pow(c.m2_const / m2C, 1/6) * factorEdad * factorConserv;
     });
-    const pm2cAvg = suma / compsFilt.length;
+    let pm2cAvg = suma / compsFilt.length;
+
+    // Cap: si exacta tiene datos sólidos (n≥10) y el pm2cAvg supera la mediana del IDX en >15%,
+    // usar la mediana como techo. Evita que el tier filter seleccione solo los listings caros
+    // ignorando los baratos de la misma colonia.
+    if (poolTipo === 'exacta') {
+        const exactaIDX = IDX[muniNorm]?.[tipo]?.[colNorm];
+        if (exactaIDX && exactaIDX.count >= 10 && exactaIDX.medianaPm2c > 0) {
+            const techo = exactaIDX.medianaPm2c * 1.15;
+            if (pm2cAvg > techo) pm2cAvg = techo;
+        }
+    }
+
     const valor   = Math.round(pm2cAvg * m2C * factorNeg);
 
     const mean   = avg(pm2cFilt);
@@ -235,18 +504,160 @@ function valuarPropiedad(prop) {
         pm2cAvg:   Math.round(pm2cAvg),
         poolTipo,
         medM2CZona: m2cZona.length >= 5 ? Math.round(mediana(m2cZona)) : 0,
-        medPm2Zona: Math.round(medRef),
+        medPm2Zona: tieneAnclaje ? Math.round(medRef) : Math.round(avg(pm2cFilt)),
     };
 }
 
+// ── versión async con fallback Gemini/DeepSeek (para validador y producción) ──
+async function valuarPropiedadCompleto(prop) {
+    const m2C = prop.construccion || 0;
+    if (m2C > M2C_ATIPICA) {
+        return { valor: 0, confianza: 'N/A', nComps: 0, poolTipo: 'atipica', error: 'atipica' };
+    }
+
+    const result = valuarPropiedad(prop);
+
+    const esUsoMixto = (prop.tipo || '').toLowerCase().includes('mixto');
+    if (esUsoMixto && result.valor > 0 && result.poolTipo !== 'general' && m2C <= M2C_ATIPICA) {
+        result.valor       = Math.round(result.valor * 1.15);
+        result.pm2cAvg     = Math.round((result.pm2cAvg || 0) * 1.15);
+        result.factorMixto = 1.15;
+    }
+
+    const necesitaFallback = result.error === 'sin_comps' || result.nComps === 0;
+
+    if (necesitaFallback) {
+        const colNormFb = normCol(prop.colonia || '');
+        const muniNormFb = normMuni(prop.municipio || '');
+        const tipoFb = normTipo(prop.tipo || 'casa');
+        const simFb = getSimilares(colNormFb).slice(0, 6).map(x => x.colonia);
+
+        // Construir contexto de anclaje desde IDX: colonias similares con datos reales
+        const tipoIDX = IDX[muniNormFb]?.[tipoFb] || {};
+        const idxCtx = [];
+        // Primero colonias similares con datos
+        for (const sc of simFb) {
+            const sn = normCol(sc);
+            const d = tipoIDX[sn];
+            if (d && d.medianaPm2c > 0 && d.count >= 3)
+                idxCtx.push({ col: sc, pm2c: d.medianaPm2c, n: d.count });
+        }
+        // Si no hay similares, tomar las 5 colonias más parecidas en precio del IDX
+        if (!idxCtx.length) {
+            const entries = Object.entries(tipoIDX)
+                .filter(([, d]) => d.medianaPm2c > 0 && d.count >= 5)
+                .sort((a, b) => b[1].count - a[1].count)
+                .slice(0, 5);
+            for (const [col, d] of entries)
+                idxCtx.push({ col, pm2c: d.medianaPm2c, n: d.count });
+        }
+
+        let compsIA = [];
+        let poolIA = 'gemini';
+        if (_gemini) compsIA = await buscarCompsGemini(prop, simFb);
+        if (compsIA.length < 3) {
+            compsIA = await buscarCompsConWeb(prop, simFb);
+            poolIA = 'web';
+        }
+        if (compsIA.length < 3) {
+            compsIA = await buscarCompsDeepSeek(prop, simFb, idxCtx);
+            poolIA = 'deepseek';
+        }
+
+        if (compsIA.length >= 3) {
+            const rg = roминаSobreComps(compsIA, m2C, prop.edad || 0, prop.estadoConservacion || prop.conservacion, 'general');
+            if (rg && rg.valor > 0) {
+                return {
+                    ...rg, poolTipo: poolIA,
+                    medM2CZona: result.medM2CZona || 0,
+                    medPm2Zona: result.medPm2Zona || 0
+                };
+            }
+        }
+    }
+
+    return result;
+}
+
+// ── export para uso inline (validador, tests) ─────────────────────────────────
+module.exports = { valuarPropiedad, valuarPropiedadCompleto, normCol, normMuni, normTipo, getSimilares, M2C_ATIPICA };
+
 // ── stdin/stdout ──────────────────────────────────────────────────────────────
+if (require.main !== module) return; // solo corre stdin/stdout cuando es el proceso principal
 let raw = '';
 process.stdin.setEncoding('utf8');
 process.stdin.on('data', d => raw += d);
-process.stdin.on('end', () => {
+process.stdin.on('end', async () => {
     try {
         const prop = JSON.parse(raw);
+        const m2C  = prop.construccion || 0;
+
+        // Propiedad atípica: requiere perito físico, no valuación automática
+        if (m2C > M2C_ATIPICA) {
+            process.stdout.write(JSON.stringify({
+                valor: 0, confianza: 'N/A', nComps: 0, poolTipo: 'n/a',
+                error: 'atipica',
+                mensaje: `Propiedad con ${m2C}m² de construcción requiere valuación por perito certificado (PropValu solo valúa automáticamente hasta ${M2C_ATIPICA}m²C).`
+            }) + '\n');
+            return;
+        }
+
         const result = valuarPropiedad(prop);
+
+        // Factor uso mixto: +15% si hay datos específicos de zona (no pool general)
+        const esUsoMixto = (prop.tipo || '').toLowerCase().includes('mixto');
+        if (esUsoMixto && result.valor > 0 && result.poolTipo !== 'general' && m2C <= M2C_ATIPICA) {
+            result.valor       = Math.round(result.valor * 1.15);
+            result.pm2cAvg     = Math.round((result.pm2cAvg || 0) * 1.15);
+            result.factorMixto = 1.15;
+        }
+
+        const necesitaFallback = result.error === 'sin_comps' || result.nComps === 0;
+
+        if (necesitaFallback) {
+            const colNormFallback = normCol(prop.colonia || '');
+            const muniNormFb = normMuni(prop.municipio || '');
+            const tipoFb = normTipo(prop.tipo || 'casa');
+            const similaresFallback = getSimilares(colNormFallback).slice(0, 6).map(x => x.colonia);
+
+            // Contexto IDX para anclar precios de DeepSeek
+            const tipoIDX = IDX[muniNormFb]?.[tipoFb] || {};
+            const idxCtx = [];
+            for (const sc of similaresFallback) {
+                const d = tipoIDX[normCol(sc)];
+                if (d && d.medianaPm2c > 0 && d.count >= 3)
+                    idxCtx.push({ col: sc, pm2c: d.medianaPm2c, n: d.count });
+            }
+            if (!idxCtx.length) {
+                for (const [col, d] of Object.entries(tipoIDX)
+                    .filter(([,d]) => d.medianaPm2c > 0 && d.count >= 5)
+                    .sort((a,b) => b[1].count - a[1].count).slice(0, 5))
+                    idxCtx.push({ col, pm2c: d.medianaPm2c, n: d.count });
+            }
+
+            let compsIA = [];
+            let poolIA = 'gemini';
+            if (_gemini) {
+                compsIA = await buscarCompsGemini(prop, similaresFallback);
+            }
+            if (compsIA.length < 3) {
+                compsIA = await buscarCompsDeepSeek(prop, similaresFallback, idxCtx);
+                poolIA = 'deepseek';
+            }
+
+            if (compsIA.length >= 3) {
+                const rg = roминаSobreComps(compsIA, m2C, prop.edad || 0, prop.estadoConservacion || prop.conservacion, 'general');
+                if (rg && rg.valor > 0) {
+                    process.stdout.write(JSON.stringify({
+                        ...rg, poolTipo: poolIA,
+                        medM2CZona: result.medM2CZona || 0,
+                        medPm2Zona: result.medPm2Zona || 0
+                    }) + '\n');
+                    return;
+                }
+            }
+        }
+
         process.stdout.write(JSON.stringify(result) + '\n');
     } catch (e) {
         process.stdout.write(JSON.stringify({ error: e.message, valor: 0 }) + '\n');

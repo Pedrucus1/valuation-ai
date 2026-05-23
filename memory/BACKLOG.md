@@ -1,5 +1,5 @@
 # PropValu — Backlog de Tareas
-> **Última actualización:** 20 May 2026 — Scheduler mensual corregido (ruta + PROPIEDADES_COM), MongoDB-first en scheduler.py, fix m2_terreno Mitula, re-scrape Mitula en curso
+> **Última actualización:** 22 May 2026 — Extractor recuperando colonias comparables (712 OPIs, ~2h), Sepomex descargado, actualizar_cerebro.js optimizado a 3 meses, skill DeepSeek umbral 50 líneas
 > Actualizar este archivo conforme se completen tareas. Marcar con ✅ cuando esté lista, con 🔄 cuando esté en progreso.
 
 ---
@@ -140,15 +140,17 @@
 | 73 | ✅ | **Gemini como fallback** — `test_gemini_comps.js` implementado. Miguel Hidalgo: +19.7% con Gemini vs +47% con scraper. Las Conchas y Lagos de Oriente requieren más trabajo. |
 | 79 | ✅ | **Motor calibrado en 40 OPIs — 31/40 ±20%, error promedio 12.6%** — Mejoras: factorRH dinámico por conservación, prima vivienda pequeña (<65m²C), Beta-OPI preferido cuando colonia es vaga, factor obsolescencia urbana terreno (edad>30 + CUS<0.85). DeepSeek como agente primario de análisis. Script `deepseek_dev.js` creado. |
 | 80 | ✅ | **Comparar metodología perito vs motor propio vs precio real scraper** — `comparar_10_scraper.js`: 10/10 en ±20%, error 11.8%. Motor Romina gana al método perito en todos los casos. |
-| 74 | 🔄 | **Base de datos de colonias similares desde 800 OPIs** — Scripts listos. Faltaba: (1) extractor filtraba solo 2026→98 files, ahora procesa los 919. (2) extractComparables captaba encabezados, ahora filtra precio numérico + extrae colonia de URL. (3) `build_colonias_similares.js` creado. **Para completar: correr `node extractor_masivo.js --force` (necesita auth Drive, ~70 min), luego `node build_colonias_similares.js`.** |
+| 74 | 🔄 | **Base de datos de colonias similares** — Esperando que termine el extractor (🔄 corriendo en background 22-may, ~2h). Luego: `node build_colonias_similares.js`. Sepomex descargado (`sepomex_jalisco.json`, 6645 colonias Jal/Nay/Col). |
 | 75 | 🔄 | **Revisar enricher del scraper** — Cobertura actual: PINCALI 98% ✅, CYT 81% ✅, MITULA 94% ✅, VIVANUNCIOS 56% ⚠️, INMUEBLES24 0% ❌, PROPIEDADES_COM 13% ❌. Pendiente: enriquecer INMUEBLES24 y PROPIEDADES_COM (Chrome CDP). |
-| 82 | ✅ | **Fix m2_terreno en scraper Mitula** — `data-landarea` no se leía (hardcodeado None). Corregido en `mitula.py` + selectores enricher actualizados. Re-scrape lanzado 20-may. |
-| 83 | ✅ | **Scheduler mensual corregido** — `run_mensual.ps1`: ruta apuntaba a carpeta antigua, Python incorrecto, faltaba PROPIEDADES_COM. Corregido + Fase 3 sync MongoDB→Sheets agregada. |
-| 84 | ✅ | **MongoDB-first en scheduler.py** — Scraper escribe a MongoDB primero (sin rate limit), Sheets es secundario y falla silencioso. Fix para el bloqueo 429 de abril. `--sync-sheets` CLI flag agregado. |
-| 76 | ✅ | **Afinar Romina para bajar error** — Resuelto en sesiones abr-may 2026: 33/40 en ±20%, error 11.8%. factorNeg=0.95, tiers m²C, cascada colonia exacta→similares→municipio, FACTORES_CONSERVACION calibrados. |
-| 77 | ✅ | **Integrar Romina-Scraper en PropValu backend** — `motor_romina_api.js` (wrapper stdin/stdout) + endpoint `POST /valuations/{id}/calculate-romina` en server.py. Probado OK con Chapalita Inn. |
-| 81 | ✅ | **Migrar comparar_*.js a cache_index.json** — Ambos scripts usan ahora cache_index (1.6MB) en vez de cache_consolidado (50MB). Acceso directo IDX[muni][tipo] sin scan de 59k registros. |
-| 78 | 🔄 | **Re-extraer cerebro_datos.json con m²C de comparables** — Fix aplicado: extractor ahora procesa los 919 OPIs (todos los años, no solo 2026), tiene flag `--force` para limpiar y re-extraer, y captura `sujetoColonia` + `colonia` en comparables. **Para completar: `node extractor_masivo.js --force`** (auth Drive requerida, ~70 min). |
+| 82 | ✅ | **Fix m2_terreno en scraper Mitula** — Corregido en `mitula.py`. |
+| 83 | ✅ | **Scheduler mensual corregido** — `run_mensual.ps1` con ruta, Python correcto y PROPIEDADES_COM. |
+| 84 | ✅ | **MongoDB-first en scheduler.py** — Escribe MongoDB primero, Sheets secundario. |
+| 76 | ✅ | **Afinar Romina** — 33/40 ±20%, error 11.8%. |
+| 77 | ✅ | **Integrar Romina al backend** — `motor_romina_api.js` + endpoint en server.py. NO integrar en producción hasta mejorar error (ver nota en project_motor_valuacion). |
+| 81 | ✅ | **Migrar a cache_index.json** — IDX[muni][tipo] 1.6MB vs 50MB anterior. |
+| 78 | 🔄 | **Re-extraer cerebro con colonias de comparables correctas** — CORRIENDO en background (22-may ~2h). Causa: colonias dañadas por limpieza regex sin backup. Manifiesto ya filtrado a 712 OPIs válidos. Después: `node build_colonias_similares.js`. |
+| 85 | ⏳ | **actualizar_cerebro.js optimizado** — Escanea solo últimos 3 meses en lugar de todo Drive. Soporte `--meses N`. Merge de manifiesto (no reemplaza). |
+| 86 | ⏳ | **avaluos_referencia.json** — 1164 OPIs con direccionMaps extraída del Cotizador (Sheets perito). Usar para enriquecer sujetoColonia del cerebro cuando el extractor no la encuentre. |
 
 ---
 

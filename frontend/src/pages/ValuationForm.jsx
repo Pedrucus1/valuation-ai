@@ -77,7 +77,16 @@ const PROPERTY_TYPES = [
   { value: "Local comercial", label: "Local Comercial", icon: Building2 },
   { value: "Oficina", label: "Oficina", icon: FileText },
   { value: "Bodega", label: "Bodega", icon: Warehouse },
-  { value: "Nave industrial", label: "Nave Industrial", icon: Building2 }
+  { value: "Nave industrial", label: "Nave Industrial", icon: Building2 },
+  { value: "Uso mixto", label: "Uso Mixto", icon: Layers }
+];
+
+const MIXED_USE_SUBTYPES = [
+  { value: "Casa habitación con local comercial", label: "Casa habitación con local comercial" },
+  { value: "Casa habitación con oficina", label: "Casa habitación con oficina" },
+  { value: "Local comercial con departamento", label: "Local comercial con departamento" },
+  { value: "Edificio mixto (comercio + vivienda)", label: "Edificio mixto (comercio + vivienda)" },
+  { value: "Otro uso mixto", label: "Otro uso mixto" },
 ];
 
 const CONSTRUCTION_QUALITIES = [
@@ -526,6 +535,7 @@ const ValuationForm = () => {
     construction_area: "",
     land_regime: "",
     property_type: "Casa",
+    mixed_use_subtype: "",
     land_use: "",
     surface_source: "",
 
@@ -1238,6 +1248,49 @@ const ValuationForm = () => {
                     );
                   })}
                 </div>
+
+                {/* Sub-tipo uso mixto */}
+                {formData.property_type === "Uso mixto" && (
+                  <div className="space-y-2 mt-3">
+                    <Label className="text-sm font-semibold text-[#1B4332]">
+                      Especifica el tipo de uso mixto *
+                    </Label>
+                    <Select
+                      value={formData.mixed_use_subtype}
+                      onValueChange={(v) => handleInputChange("mixed_use_subtype", v)}
+                    >
+                      <SelectTrigger className="h-12">
+                        <SelectValue placeholder="Selecciona el tipo de uso mixto" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {MIXED_USE_SUBTYPES.map(s => (
+                          <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+
+                    {/* Advertencia 1: naturaleza del uso mixto */}
+                    <div className="flex gap-2 p-3 bg-amber-50 border border-amber-200 rounded-lg mt-2">
+                      <Info className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                      <p className="text-xs text-amber-800">
+                        <span className="font-semibold">Propiedad de uso mixto:</span> Combina espacios habitacionales y comerciales.
+                        Su valuación considera ambos componentes; el área comercial puede agregar entre 15% y 20% de valor
+                        adicional respecto a una propiedad habitacional equivalente, según ubicación y tipo de comercio.
+                        {" "}Se recomienda la <span className="font-semibold">revisión por un valuador certificado</span> y una
+                        visita física para corroborar los m² destinados a cada uso, ya que la proporción comercial/habitacional
+                        impacta directamente el valor final.
+                      </p>
+                    </div>
+
+                    {/* Advertencia 2: sin crédito hipotecario */}
+                    <div className="flex gap-2 p-3 bg-red-50 border border-red-200 rounded-lg">
+                      <Info className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
+                      <p className="text-xs text-red-800">
+                        <span className="font-semibold">Importante:</span> Las propiedades de uso mixto <span className="font-semibold">no pueden adquirirse mediante crédito hipotecario</span> (INFONAVIT, FOVISSSTE, crédito bancario hipotecario), ya que estos instrumentos están destinados exclusivamente a vivienda. La transacción deberá realizarse con recursos propios, crédito comercial o financiamiento alternativo.
+                      </p>
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="grid md:grid-cols-2 gap-4">

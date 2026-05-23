@@ -1,0 +1,86 @@
+◇ injected env (11) from ..\.env // tip: ⌘ suppress logs { quiet: true }
+
+[Guadalajara] 370 colonias residenciales
+  Chunk 1/10 (CP 44100–44240)... DS:40 pares ✓
+  Chunk 2/10 (CP 44240–44300)... DS:40 pares G:40 pares ✓
+  Chunk 3/10 (CP 44300–44420)... DS:40 pares ✓
+  Chunk 4/10 (CP 44420–44619)... DS:40 pares G:40 pares ✓
+  Chunk 5/10 (CP 44620–44700)... DS:40 pares ✓
+  Chunk 6/10 (CP 44700–44750)... DS:40 pares G:40 pares ✓
+  Chunk 7/10 (CP 44755–44820)... DS:40 pares ✓
+  Chunk 8/10 (CP 44820–44897)... DS:40 pares G:40 pares ✓
+  Chunk 9/10 (CP 44899–44980)... DS:39 pares ✓
+  Chunk 10/10 (CP 44980–44989)... DS:9 pares G:10 pares ✓
+
+[Zapopan] 610 colonias residenciales
+  Chunk 1/16 (CP 45010–45019)... DS:40 pares ✓
+  Chunk 2/16 (CP 45020–45050)... DS:40 pares G:40 pares ✓
+  Chunk 3/16 (CP 45053–45066)... DS:40 pares ✓
+  Chunk 4/16 (CP 45066–45088)... DS:39 pares G:40 pares ✓
+  Chunk 5/16 (CP 45088–45118)... DS:40 pares ✓
+  Chunk 6/16 (CP 45119–45133)... DS:40 pares G:40 pares ✓
+  Chunk 7/16 (CP 45133–45134)... DS:40 pares ✓
+  Chunk 8/16 (CP 45134–45136)... DS:40 pares G:40 pares ✓
+  Chunk 9/16 (CP 45136–45138)... DS:39 pares ✓
+  Chunk 10/16 (CP 45138–45170)... DS:39 pares G:40 pares ✓
+  Chunk 11/16 (CP 45176–45186)... DS:39 pares ✓
+  Chunk 12/16 (CP 45186–45198)... DS:40 pares G:40 pares ✓
+  Chunk 13/16 (CP 45199–45200)... DS:39 pares ✓
+  Gemini error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/mod
+  Chunk 14/16 (CP 45200–45200)... DS:40 pares G:40 pares ✓
+  Chunk 15/16 (CP 45200–45239)... DS:40 pares ✓
+  Gemini error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/mod
+  Chunk 16/16 (CP 45239–45245)... DS:10 pares G:10 pares ✓
+
+[Tlaquepaque] 193 colonias residenciales
+  Chunk 1/5 (CP 45500–45580)... DS:40 pares ✓
+  Chunk 2/5 (CP 45580–45599)... DS:39 pares G:40 pares ✓
+  Chunk 3/5 (CP 45599–45602)... DS:40 pares ✓
+  Gemini error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/mod
+  Chunk 4/5 (CP 45605–45625)... DS:39 pares G:39 pares ✓
+  Chunk 5/5 (CP 45625–45638)... DS:33 pares ✓
+
+[San Pedro Tlaquepaque] 193 colonias residenciales
+  Chunk 1/5 (CP 45500–45580)... DS:40 pares ✓
+  Gemini error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/mod
+  Chunk 2/5 (CP 45580–45599)... DS:36 pares G:36 pares ✓
+  Chunk 3/5 (CP 45599–45602)... DS:40 pares ✓
+  Gemini error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/mod
+  Chunk 4/5 (CP 45605–45625)... DS:40 pares G:40 pares ✓
+  Chunk 5/5 (CP 45625–45638)... DS:33 pares ✓
+
+[Tlajomulco de Zúñiga] 228 colonias residenciales
+  Chunk 1/6 (CP 45640–45641)... DS:25 pares ✓
+  Gemini error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/mod
+  Chunk 2/6 (CP 45641–45645)... DS:40 pares G:40 pares ✓
+  Chunk 3/6 (CP 45645–45647)... DS:40 pares ✓
+  Gemini error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/mod
+  Chunk 4/6 (CP 45647–45653)... DS:39 pares G:39 pares ✓
+  Chunk 5/6 (CP 45653–45655)... DS:39 pares ✓
+  Gemini error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/mod
+  Chunk 6/6 (CP 45660–45679)... DS:28 pares G:28 pares ✓
+
+[Tonalá] 288 colonias residenciales
+  Chunk 1/8 (CP 45400–45400)... DS:40 pares ✓
+  Gemini error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/mod
+  Chunk 2/8 (CP 45400–45403)... DS:40 pares G:40 pares ✓
+  Chunk 3/8 (CP 45403–45404)... DS:39 pares ✓
+  Gemini error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/mod
+  Chunk 4/8 (CP 45404–45408)... DS:40 pares G:40 pares ✓
+  Chunk 5/8 (CP 45408–45410)... DS:40 pares ✓
+  Gemini error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/mod
+  Chunk 6/8 (CP 45410–45420)... DS:40 pares G:40 pares ✓
+  Chunk 7/8 (CP 45420–45429)... DS:40 pares ✓
+  Gemini error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/mod
+  Chunk 8/8 (CP 45429–45429)... DS:6 pares G:6 pares ✓
+
+[El Salto] 54 colonias residenciales
+  Chunk 1/2 (CP 45680–45693)... DS:40 pares ✓
+  Gemini error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/mod
+  Chunk 2/2 (CP 45693–45696)... DS:14 pares G:14 pares ✓
+
+✅ Guardado en colonias_similares_enriquecido.json
+   Colonias con similares: 2224
+   Pares nuevos agregados: 13286
+
+Para aplicar: rename colonias_similares.json → .bak y renombrar el _enriquecido

@@ -177,21 +177,77 @@ async function extractData() {
                 }
             }
 
+            // Helper: dirección desde celda del sheet, fallback al título del archivo
+            function getDireccion(sheet, coordDir) {
+                const raw = getCell(sheet, coordDir.r, coordDir.c);
+                if (raw && raw !== 'No hallado') {
+                    const v = raw.toString().trim();
+                    if (v.length > 5) return v;
+                }
+                return extraerDireccionDeNombre(file.name);
+            }
+
+            // Helper: extrae tipo con 3 estrategias en cascada
+            function getTipo(sheet, coordTipo, tabName) {
+                // 1. Celda fija (E8 en CONSTR/TERRENO/LOC COM)
+                const raw = getCell(sheet, coordTipo.r, coordTipo.c);
+                if (raw && raw !== 'No hallado') {
+                    const v = raw.toString().trim().toUpperCase();
+                    // Rechazar si es la etiqueta misma o valor muy corto
+                    if (v.length >= 3 && !v.startsWith('TIPO') && !v.startsWith('OPINIÓN')) return v;
+                }
+                // 2. Buscar por etiqueta en el sheet
+                const porEtiqueta = findValueByLabel(sheet,
+                    ['TIPO DE PROPIEDAD', 'TIPO DE INMUEBLE', 'OPINIÓN DE VALOR DE'],
+                    1
+                );
+                if (porEtiqueta && porEtiqueta !== 'No hallado') {
+                    const v = porEtiqueta.toString().trim().toUpperCase();
+                    if (v.length >= 3 && !v.startsWith('TIPO') && !v.startsWith('OPINIÓN')) return v;
+                }
+                // 3. Inferir del nombre de la tab (estructura del documento)
+                const tabU = (tabName || '').toUpperCase();
+                if (tabU.includes('LOC COM') || tabU.includes('LOCAL COM')) return 'LOCAL COMERCIAL';
+                if (tabU.includes('TERRENO') && !tabU.includes('CONSTR'))   return 'TERRENO';
+                return 'No hallado';
+            }
+
+            // Helper: extrae valor de mercado con fallback por etiqueta
+            function getValorConFallback(sheet, coordValor) {
+                const raw = getCell(sheet, coordValor.r, coordValor.c);
+                const rawStr = String(raw || '');
+                // Rechazar placeholders
+                if (raw && raw !== 'No hallado' && !rawStr.includes('DIV/0') && !rawStr.includes('REF')) {
+                    const n = getCleanNum(raw);
+                    if (n > 50000) return raw;
+                }
+                // Fallback: buscar por etiqueta "VALOR DE MERCADO" o "TOTAL"
+                const porEtiqueta = findValueByLabel(sheet,
+                    ['VALOR DE MERCADO', 'VALOR MERCADO', 'TOTAL'],
+                    1, true
+                );
+                if (porEtiqueta && porEtiqueta !== 'No hallado') {
+                    const n = getCleanNum(porEtiqueta);
+                    if (n > 50000) return porEtiqueta;
+                }
+                return 'No hallado';
+            }
+
             if (activeTab && activeTabName === 'OPI CONSTR') {
                 const c = coords['OPI CONSTR'];
                 const queryTab = tabData[Object.keys(tabData).find(t => t.toUpperCase().includes('QUERY')) || ''] || null;
                 const espacios = extractEspacios(activeTab, queryTab);
                 Object.assign(finalData, {
-                    folio: getCell(activeTab, c.folio.r, c.folio.c),
-                    tipo: getCell(activeTab, c.tipo.r, c.tipo.c),
-                    direccion: getCell(activeTab, c.dir.r, c.dir.c),
-                    valorMercado: getCell(activeTab, c.valor.r, c.valor.c),
-                    m2Terreno: getCell(activeTab, c.terr.r, c.terr.c),
-                    m2Construccion: getCell(activeTab, c.const.r, c.const.c),
-                    edad: getCell(activeTab, c.edad.r, c.edad.c),
+                    folio:            getCell(activeTab, c.folio.r, c.folio.c),
+                    tipo:             getTipo(activeTab, c.tipo, activeTabName),
+                    direccion:        getDireccion(activeTab, c.dir),
+                    valorMercado:     getValorConFallback(activeTab, c.valor),
+                    m2Terreno:        getCell(activeTab, c.terr.r, c.terr.c),
+                    m2Construccion:   getCell(activeTab, c.const.r, c.const.c),
+                    edad:             getCell(activeTab, c.edad.r, c.edad.c),
                     valorM2Aplicable: getCell(activeTab, c.valM2.r, c.valM2.c),
-                    recamaras: espacios.recamaras,
-                    banos: espacios.banos,
+                    recamaras:        espacios.recamaras,
+                    banos:            espacios.banos,
                     estacionamientos: espacios.estacionamientos
                 });
             } else if (activeTab && activeTabName === 'OPI TERRENO') {
@@ -199,45 +255,45 @@ async function extractData() {
                 const v1 = getCleanNum(getCell(activeTab, c.valPuro.r, c.valPuro.c));
                 const v2 = getCleanNum(getCell(activeTab, c.valCon.r, c.valCon.c));
                 const v3 = getCleanNum(getCell(activeTab, c.valConAcc.r, c.valConAcc.c));
-                
-                // Priorizar el valor más complejo si existe
-                let finalValor = getCell(activeTab, c.valPuro.r, c.valPuro.c);
-                if (v3 > 0) finalValor = getCell(activeTab, c.valConAcc.r, c.valConAcc.c);
+
+                let finalValor;
+                if (v3 > 0)      finalValor = getCell(activeTab, c.valConAcc.r, c.valConAcc.c);
                 else if (v2 > 0) finalValor = getCell(activeTab, c.valCon.r, c.valCon.c);
+                else if (v1 > 0) finalValor = getCell(activeTab, c.valPuro.r, c.valPuro.c);
+                else             finalValor = getValorConFallback(activeTab, c.valPuro);
 
                 Object.assign(finalData, {
-                    folio: getCell(activeTab, c.folio.r, c.folio.c),
-                    tipo: getCell(activeTab, c.tipo.r, c.tipo.c),
-                    direccion: getCell(activeTab, c.dir.r, c.dir.c),
-                    valorMercado: finalValor,
-                    m2Terreno: getCell(activeTab, c.terr.r, c.terr.c),
+                    folio:          getCell(activeTab, c.folio.r, c.folio.c),
+                    tipo:           getTipo(activeTab, c.tipo, activeTabName),
+                    direccion:      getDireccion(activeTab, c.dir),
+                    valorMercado:   finalValor,
+                    m2Terreno:      getCell(activeTab, c.terr.r, c.terr.c),
                     m2Construccion: getCell(activeTab, c.const.r, c.const.c),
                     valorM2Terreno: getCell(activeTab, c.valM2Terr.r, c.valM2Terr.c),
-                    edad: getCell(activeTab, c.edad.r, c.edad.c)
+                    edad:           getCell(activeTab, c.edad.r, c.edad.c)
                 });
             } else if (activeTab && activeTabName === 'OPI LOC COM') {
                 const c = coords['OPI LOC COM'];
                 Object.assign(finalData, {
-                    folio: getCell(activeTab, c.folio.r, c.folio.c),
-                    tipo: getCell(activeTab, c.tipo.r, c.tipo.c),
-                    direccion: getCell(activeTab, c.dir.r, c.dir.c),
-                    valorMercado: getCell(activeTab, c.valor.r, c.valor.c),
-                    m2Terreno: getCell(activeTab, c.terr.r, c.terr.c),
+                    folio:          getCell(activeTab, c.folio.r, c.folio.c),
+                    tipo:           getTipo(activeTab, c.tipo, activeTabName),
+                    direccion:      getDireccion(activeTab, c.dir),
+                    valorMercado:   getValorConFallback(activeTab, c.valor),
+                    m2Terreno:      getCell(activeTab, c.terr.r, c.terr.c),
                     m2Construccion: getCell(activeTab, c.const.r, c.const.c),
-                    edad: getCell(activeTab, c.edad.r, c.edad.c),
-                    niveles: getCell(activeTab, c.niveles.r, c.niveles.c)
+                    edad:           getCell(activeTab, c.edad.r, c.edad.c),
+                    niveles:        getCell(activeTab, c.niveles.r, c.niveles.c)
                 });
             } else if (firstOpiTab) {
-                // Fallback: OPI con tab de nombre no estándar — tratar como CONSTR
                 const c = coords['OPI CONSTR'];
                 const sheet = firstOpiTab.sheet;
                 const queryTab = tabData[Object.keys(tabData).find(t => t.toUpperCase().includes('QUERY')) || ''] || null;
                 const espacios = extractEspacios(sheet, queryTab);
                 Object.assign(finalData, {
                     folio:            getCell(sheet, c.folio.r, c.folio.c),
-                    tipo:             getCell(sheet, c.tipo.r, c.tipo.c),
-                    direccion:        getCell(sheet, c.dir.r, c.dir.c),
-                    valorMercado:     getCell(sheet, c.valor.r, c.valor.c),
+                    tipo:             getTipo(sheet, c.tipo, firstOpiTab.name),
+                    direccion:        getDireccion(sheet, c.dir),
+                    valorMercado:     getValorConFallback(sheet, c.valor),
                     m2Terreno:        getCell(sheet, c.terr.r, c.terr.c),
                     m2Construccion:   getCell(sheet, c.const.r, c.const.c),
                     edad:             getCell(sheet, c.edad.r, c.edad.c),
@@ -437,6 +493,14 @@ function normalizarEstadoConservacion(raw) {
     return null;
 }
 
+// Extrae dirección completa del nombre del archivo OPI
+// Formato: "OPI-26-4-09-AV Calle 5, Colonia, 45185 Municipio, Jal." → "Calle 5, Colonia, 45185 Municipio, Jal."
+function extraerDireccionDeNombre(fileName) {
+    if (!fileName) return '';
+    // Quitar el folio (OPI-XX-X-XX-XX o similar) del inicio
+    return fileName.replace(/^OPI(?:RT\d+)?-[\d]+-[\d]+-[\w]+-[\w]+\s*/i, '').trim();
+}
+
 // Extrae colonia del nombre del archivo OPI
 // Formato: "OPI-26-4-09-AV Calle 5, Colonia Nombre, 45185 Municipio, Jal."
 function extraerColoniaDeNombre(fileName) {
@@ -451,18 +515,35 @@ function extraerColoniaDeNombre(fileName) {
 }
 
 // Extrae colonia de URL de portal inmobiliario
+const MUNICIPIOS_JAL = 'zapopan|guadalajara|tlaquepaque|tlajomulco|tonala|tonalá|el-salto|chapala|puerto-vallarta|bahia-de-banderas';
 function extraerColoniaDeURL(url) {
     if (!url || !url.startsWith('http')) return '';
     try {
-        // casasyterrenos.com: .../tipo-venta-calle-colonia-COLONIA-municipio-jal-id
+        // casasyterrenos.com con "colonia-" explícito
         const m1 = url.match(/colonia-([a-z0-9-]+?)-(?:[a-z]+-){0,2}jal/i);
         if (m1) return m1[1].replace(/-/g, ' ').trim();
+
+        // casasyterrenos.com sin "colonia-": .../tipo-venta-CALLE-COLONIA-municipio-jal-ID
+        // Solo captura 1-2 palabras antes del municipio (colonias son cortas; la calle va antes)
+        const m1b = url.match(new RegExp(`-([a-z0-9]+(?:-[a-z0-9]+)?)-(${MUNICIPIOS_JAL})-jal`, 'i'));
+        if (m1b) {
+            const cand = m1b[1].replace(/-/g, ' ').trim();
+            // Rechazar si parece calle o es demasiado genérico
+            if (!/^(venta|calle|blvd|boulevard|avenida|av|priv|callejon|carretera)/.test(cand))
+                return cand;
+        }
+
         // inmuebles24: .../propiedades/tipo-en-COLONIA-municipio
         const m2 = url.match(/propiedades\/[^/]+-en-([a-z0-9-]+?)(?:-zapopan|-guadalajara|-tlaquepaque|-tlajomulco|-tonala|-jalisco)/i);
         if (m2) return m2[1].replace(/-/g, ' ').trim();
-        // vivanuncios/lamudi: /estado/municipio/colonia/
-        const m3 = url.match(/jalisco\/[^/]+\/([^/]+)\/(?:casas|departamentos|terrenos)/i);
+
+        // vivanuncios/lamudi: /jalisco/municipio/COLONIA/tipo
+        const m3 = url.match(/jalisco\/[^/]+\/([^/]+)\/(?:casas|departamentos|terrenos|locales|oficinas)/i);
         if (m3) return m3[1].replace(/-/g, ' ').trim();
+
+        // propiedades.com: /municipio/COLONIA/tipo
+        const m4 = url.match(/propiedades\.com\/[^/]+\/([^/]+)\/(?:casas|departamentos|terrenos)/i);
+        if (m4) return m4[1].replace(/-/g, ' ').trim();
     } catch(e) {}
     return '';
 }

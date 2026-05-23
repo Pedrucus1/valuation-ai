@@ -1,0 +1,16 @@
+cerebro_datos: 712 OPIs
+Mapeadas: 458 colonias sujeto
+Sin colonia sujeto válida: 73 | Sin comps: 221 | Total menciones: 1046
+
+Nuevas colonias en mapa: 104 | Actualizadas con más comps: 245
+Total colonias en colonias_similares: 1052
+
+OPIs con colonia en comparables: 698
+OPIs sin colonia en comparables (necesitan URL fix): 14
+Muestra sin colonia: [
+  'OPI-26-3-06-OF Ignacio Ramires 668, Santa Teresita',
+  'OPI-25-10-17-OF Jorge Bravo 2767, Paseos del Sol',
+  'OPI-25-10-15-OF San Melchor 1345, Santa María, Guadalajara, '
+]
+
+✓ colonias_similares.json actualizado.

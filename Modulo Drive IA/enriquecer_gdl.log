@@ -1,0 +1,20 @@
+◇ injected env (11) from ..\.env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+
+[Guadalajara] 370 colonias residenciales
+  Chunk 1/10 (CP 44100–44240)... DS:40 pares ✓
+  Gemini error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/mod
+  Chunk 2/10 (CP 44240–44300)... DS:40 pares G:40 pares ✓
+  Chunk 3/10 (CP 44300–44420)... DS:40 pares ✓
+  Chunk 4/10 (CP 44420–44619)... DS:40 pares G:40 pares ✓
+  Chunk 5/10 (CP 44620–44700)... DS:40 pares ✓
+  Chunk 6/10 (CP 44700–44750)... DS:40 pares G:40 pares ✓
+  Chunk 7/10 (CP 44755–44820)... DS:40 pares ✓
+  Chunk 8/10 (CP 44820–44897)... DS:40 pares G:40 pares ✓
+  Chunk 9/10 (CP 44899–44980)... DS:39 pares ✓
+  Chunk 10/10 (CP 44980–44989)... DS:10 pares G:10 pares ✓
+
+✅ Guardado en colonias_similares_enriquecido.json
+   Colonias con similares: 1203
+   Pares nuevos agregados: 2797
+
+Para aplicar: rename colonias_similares.json → .bak y renombrar el _enriquecido

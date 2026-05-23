@@ -1099,6 +1099,24 @@ async function main() {
             console.log(`   [Prima pequeña] m²C=${prop.construccion} → ×${factorPequena}`);
         }
 
+        // Prima uso mixto (casa + local comercial): el local agrega valor comercial
+        // sobre el valor habitacional base. Rango: 10–20% según ubicación.
+        // - Municipios de alta actividad comercial (GDL, Tlaquepaque, Tonalá): 20%
+        // - Zapopan, Tlajomulco, otros: 15%
+        // - Sin dato de municipio: 10% conservador
+        const tipoUpper = (prop.tipo || '').toUpperCase();
+        const esMixto = tipoUpper.includes('CON LOCAL') || tipoUpper.includes('LOCAL COMERCIAL CON');
+        if (rominaFinal.valor > 0 && esMixto) {
+            const muniNorm = (prop.municipio || '').toLowerCase()
+                .normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, ' ').trim();
+            const MUNIS_ALTA_ACTIVIDAD = ['guadalajara', 'tlaquepaque', 'san pedro tlaquepaque', 'tonala', 'tonalá'];
+            const factorMixto = MUNIS_ALTA_ACTIVIDAD.includes(muniNorm) ? 1.20
+                              : muniNorm ? 1.15
+                              : 1.10;
+            rominaFinal = { ...rominaFinal, valor: Math.round(rominaFinal.valor * factorMixto) };
+            console.log(`   [Prima mixto] ${prop.municipio} → ×${factorMixto} (${tipoUpper})`);
+        }
+
         console.log(`   Beta-OPI:     ${MXN(betaOPI)} (${dif(betaOPI, prop.valorReal)})`);
         console.log(`   Romina-FINAL: ${MXN(rominaFinal.valor)} (${dif(rominaFinal.valor, prop.valorReal)}) ← ${fuente}`);
 

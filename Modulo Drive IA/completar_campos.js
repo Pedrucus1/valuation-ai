@@ -72,11 +72,10 @@ function extraerMunicipioDeDir(dir) {
 async function main() {
     const cerebro = JSON.parse(fs.readFileSync(CEREBRO_PATH, 'utf8'));
 
-    // Solo procesar los que les falta tipo O municipio Y tienen valorMercado
+    // Procesar los que les falta tipo O municipio (con o sin valorMercado)
+    const sinTipo = t => !t || t === 'No hallado' || t === 'SIN_TIPO';
     const pendientes = cerebro.filter(x =>
-        x.fileId &&
-        x.valorMercado && x.valorMercado !== 'No hallado' &&
-        (!x.tipo || x.tipo === 'No hallado' || x.tipo === 'SIN_TIPO' || !x.municipio)
+        x.fileId && (sinTipo(x.tipo) || !x.municipio)
     );
 
     console.log(`Total cerebro: ${cerebro.length} | Pendientes completar: ${pendientes.length}`);
@@ -100,10 +99,13 @@ async function main() {
                 12000
             );
             const allTabs = meta.data.sheets.map(s => s.properties.title);
-            const mainTab = allTabs.find(t => {
-                const u = t.toUpperCase();
-                return u.includes('CONSTR') || u.includes('TERRENO') || u.includes('LOC COM') || u.includes('LOCAL');
-            }) || allTabs.find(t => t.toUpperCase().startsWith('OPI'));
+
+            // Selección con prioridad explícita: CONSTR > TERRENO > LOC COM > cualquier OPI
+            const mainTab =
+                allTabs.find(t => t.toUpperCase().includes('CONSTR')) ||
+                allTabs.find(t => t.toUpperCase().includes('TERRENO') && !t.toUpperCase().includes('RTA')) ||
+                allTabs.find(t => t.toUpperCase().includes('LOC COM') || t.toUpperCase().includes('LOCAL COM')) ||
+                allTabs.find(t => t.toUpperCase().startsWith('OPI'));
 
             if (!mainTab) { console.log('  Sin tab OPI'); continue; }
 
@@ -119,7 +121,33 @@ async function main() {
 
             // --- TIPO ---
             if (!d.tipo || d.tipo === 'No hallado' || d.tipo === 'SIN_TIPO') {
-                const tipo = normalizarTipo(buscarPorEtiqueta(sheet, ['tipo de propiedad', 'tipo inmueble', 'tipo de inmueble']));
+                let tipo = null;
+                const tabU = mainTab.toUpperCase();
+                // ¿El documento tiene tabs de tipo residencial/terreno además de LOC COM?
+                const hasConstr  = allTabs.some(t => t.toUpperCase().includes('CONSTR'));
+                const hasTerreno = allTabs.some(t => t.toUpperCase().includes('TERRENO'));
+                const onlyLocCom = !hasConstr && !hasTerreno;
+
+                // 1. Buscar en E8:S8 (row 7, cols 4-18) — aplica a todos los formatos
+                const row8 = sheet[7] || [];
+                for (let c = 4; c <= 18; c++) {
+                    tipo = normalizarTipo(row8[c]);
+                    if (tipo) break;
+                }
+
+                // 2. Fallback: buscar etiqueta "tipo" en el sheet
+                if (!tipo) {
+                    const tipoSheet = buscarPorEtiqueta(sheet, ['tipo de propiedad', 'tipo de inmueble', 'opinión de valor de']);
+                    tipo = normalizarTipo(tipoSheet);
+                }
+
+                // 3. Inferir del nombre de la tab SOLO si el documento es exclusivamente LOC COM
+                //    (evita asignar LOCAL COMERCIAL a plantillas con todos los tipos de tab)
+                if (!tipo && onlyLocCom) {
+                    if (tabU.includes('LOC COM') || tabU.includes('LOCAL COM')) tipo = 'LOCAL COMERCIAL';
+                    else if (tabU.includes('TERRENO')) tipo = 'TERRENO';
+                }
+
                 if (tipo) {
                     d.tipo = tipo;
                     tipoFixed++;
@@ -131,11 +159,19 @@ async function main() {
             if (!d.municipio) {
                 // 1. Intentar desde direccion ya guardada
                 let mun = extraerMunicipioDeDir(d.direccion || '');
-                // 2. Buscar dirección en el sheet si no la tenemos
+                // 2. Buscar en celda E10:S10 del sheet (confirmado como celda de dirección)
+                if (!mun) {
+                    const row10 = sheet[9] || [];
+                    const dirSheet10 = row10.slice(4, 19).find(c => c && String(c).trim().length > 5);
+                    if (dirSheet10) mun = extraerMunicipioDeDir(String(dirSheet10));
+                }
+                // 3. Buscar por etiqueta en el sheet
                 if (!mun) {
                     const dirSheet = buscarPorEtiqueta(sheet, ['dirección', 'direccion', 'domicilio', 'ubicación']);
                     if (dirSheet) mun = extraerMunicipioDeDir(dirSheet);
                 }
+                // 4. Fallback: extraer del título del archivo
+                if (!mun) mun = extraerMunicipioDeDir(d.fileName || '');
                 if (mun) {
                     d.municipio = mun;
                     munFixed++;
