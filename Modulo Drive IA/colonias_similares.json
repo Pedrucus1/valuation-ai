@@ -41,6 +41,14 @@
   ],
   "tabachines": [
     {
+      "colonia": "valle imperial",
+      "menciones": 20
+    },
+    {
+      "colonia": "nuevo mexico",
+      "menciones": 18
+    },
+    {
       "colonia": "lomas de tabachines",
       "menciones": 14
     },
@@ -133,24 +141,28 @@
   ],
   "villas belenes": [
     {
-      "colonia": "villa de los belenes",
+      "colonia": "jardin real",
+      "menciones": 8
+    },
+    {
+      "colonia": "solares",
+      "menciones": 7
+    },
+    {
+      "colonia": "las canadas",
+      "menciones": 6
+    },
+    {
+      "colonia": "jardines de guadalupe",
+      "menciones": 5
+    },
+    {
+      "colonia": "san juan de ocotan",
       "menciones": 4
     },
     {
-      "colonia": "colinas de atemajac",
-      "menciones": 2
-    },
-    {
       "colonia": "el vigia",
-      "menciones": 2
-    },
-    {
-      "colonia": "seattle",
-      "menciones": 2
-    },
-    {
-      "colonia": "col seattle",
-      "menciones": 2
+      "menciones": 1
     },
     {
       "colonia": "seattle seattle",
@@ -203,39 +215,23 @@
   ],
   "colon industrial": [
     {
-      "colonia": "zona industrial sur",
+      "colonia": "huentitan el alto",
+      "menciones": 5
+    },
+    {
+      "colonia": "aldama tetlan",
+      "menciones": 4
+    },
+    {
+      "colonia": "8 de julio",
+      "menciones": 3
+    },
+    {
+      "colonia": "margarita maza de juarez",
       "menciones": 2
     },
     {
-      "colonia": "18 de marzo",
-      "menciones": 2
-    },
-    {
-      "colonia": "las torres",
-      "menciones": 2
-    },
-    {
-      "colonia": "jardines de san jose",
-      "menciones": 2
-    },
-    {
-      "colonia": "zona industrial",
-      "menciones": 2
-    },
-    {
-      "colonia": "polanquito",
-      "menciones": 2
-    },
-    {
-      "colonia": "col 18 de marzo",
-      "menciones": 2
-    },
-    {
-      "colonia": "el carmen",
-      "menciones": 1
-    },
-    {
-      "colonia": "de polanco",
+      "colonia": "prados providencia",
       "menciones": 1
     }
   ],
@@ -350,6 +346,10 @@
     }
   ],
   "el fortin": [
+    {
+      "colonia": "guadalajara centro",
+      "menciones": 20
+    },
     {
       "colonia": "interior casa 19",
       "menciones": 8
@@ -1413,20 +1413,24 @@
   ],
   "villa guerrero": [
     {
-      "colonia": "arboledas del sur",
+      "colonia": "jardines del country",
+      "menciones": 5
+    },
+    {
+      "colonia": "bosques de la victoria",
       "menciones": 4
     },
     {
-      "colonia": "jardines de san jose",
+      "colonia": "jardines alcalde",
+      "menciones": 3
+    },
+    {
+      "colonia": "jardines del bosque",
       "menciones": 2
     },
     {
-      "colonia": "lopez de legaspi",
-      "menciones": 2
-    },
-    {
-      "colonia": "el colli urbano",
-      "menciones": 2
+      "colonia": "guadalajara centro",
+      "menciones": 1
     }
   ],
   "hacienda santa fe": [
@@ -1686,15 +1690,19 @@
   "la guadalupana": [
     {
       "colonia": "mezquitan",
+      "menciones": 5
+    },
+    {
+      "colonia": "onia jardines del sur",
       "menciones": 4
     },
     {
-      "colonia": "mezquitan country",
-      "menciones": 2
+      "colonia": "jardines de santa isabel",
+      "menciones": 3
     },
     {
       "colonia": "guadalupana norte",
-      "menciones": 1
+      "menciones": 2
     }
   ],
   "mezquitan": [
@@ -1833,47 +1841,27 @@
   ],
   "tonala": [
     {
-      "colonia": "colinas de tonala",
-      "menciones": 8
+      "colonia": "jardines de la reyna",
+      "menciones": 6
+    },
+    {
+      "colonia": "vistas del pedregal i",
+      "menciones": 5
     },
     {
       "colonia": "loma dorada",
-      "menciones": 8
-    },
-    {
-      "colonia": "santa paula",
       "menciones": 4
     },
     {
-      "colonia": "pedregal de santa marta",
+      "colonia": "santa rosa",
+      "menciones": 3
+    },
+    {
+      "colonia": "loma dorada a",
       "menciones": 2
     },
     {
-      "colonia": "francisco silva romero",
-      "menciones": 2
-    },
-    {
-      "colonia": "san pedrito",
-      "menciones": 2
-    },
-    {
-      "colonia": "santa isabel ii",
-      "menciones": 2
-    },
-    {
-      "colonia": "infonavit rio nilo",
-      "menciones": 2
-    },
-    {
-      "colonia": "colinas de",
-      "menciones": 2
-    },
-    {
-      "colonia": "remodelado 2 recamaras 1 bano y 1 cochera",
-      "menciones": 2
-    },
-    {
-      "colonia": "san pedro",
+      "colonia": "tonala centro",
       "menciones": 1
     }
   ],
@@ -1891,32 +1879,24 @@
   ],
   "santa margarita": [
     {
-      "colonia": "el vigia",
-      "menciones": 4
+      "colonia": "hogares de nuevo mexico",
+      "menciones": 20
     },
     {
-      "colonia": "san isidro ejidal",
-      "menciones": 4
+      "colonia": "haciendas del valle",
+      "menciones": 18
     },
     {
-      "colonia": "las bovedas",
-      "menciones": 4
+      "colonia": "ionamiento la moraleja",
+      "menciones": 16
     },
     {
-      "colonia": "unidad habitacional unidad fovissste",
-      "menciones": 2
+      "colonia": "nuevo mexico",
+      "menciones": 14
     },
     {
-      "colonia": "la tuzania",
-      "menciones": 2
-    },
-    {
-      "colonia": "las arboledas",
-      "menciones": 2
-    },
-    {
-      "colonia": "remodelada 2 recamaras 1 cochera 3 banos",
-      "menciones": 2
+      "colonia": "el fortin",
+      "menciones": 12
     }
   ],
   "lopez portillo": [
@@ -2039,24 +2019,24 @@
   ],
   "parques de la victoria": [
     {
-      "colonia": "parques de la victoria tonala",
+      "colonia": "villas de oriente",
+      "menciones": 8
+    },
+    {
+      "colonia": "urbi quinta montecarlo",
+      "menciones": 7
+    },
+    {
+      "colonia": "hacienda real",
       "menciones": 6
     },
     {
-      "colonia": "la providencia",
+      "colonia": "tonala centro",
+      "menciones": 5
+    },
+    {
+      "colonia": "el moral",
       "menciones": 4
-    },
-    {
-      "colonia": "francisco silva romero",
-      "menciones": 2
-    },
-    {
-      "colonia": "emiliano zapata",
-      "menciones": 2
-    },
-    {
-      "colonia": "el cerrito",
-      "menciones": 2
     }
   ],
   "jardines ixtapa": [
@@ -2219,36 +2199,20 @@
   ],
   "el castillo": [
     {
-      "colonia": "san jose del quince",
+      "colonia": "club de golf atlas",
       "menciones": 10
     },
     {
-      "colonia": "las pintitas",
-      "menciones": 10
-    },
-    {
-      "colonia": "los agaves",
-      "menciones": 9
-    },
-    {
-      "colonia": "jardines del castillo",
-      "menciones": 9
-    },
-    {
-      "colonia": "parques del castillo",
-      "menciones": 8
-    },
-    {
-      "colonia": "la alameda",
-      "menciones": 7
-    },
-    {
-      "colonia": "potrero nuevo",
+      "colonia": "santa rosa del valle",
       "menciones": 6
     },
     {
-      "colonia": "villas de guadalupe",
+      "colonia": "centro",
       "menciones": 5
+    },
+    {
+      "colonia": "la purisima",
+      "menciones": 3
     }
   ],
   "muralista 253 int 147": [
@@ -2435,23 +2399,27 @@
   ],
   "j de guadalupe": [
     {
-      "colonia": "chapalita de occidente",
-      "menciones": 4
-    },
-    {
-      "colonia": "camino real",
-      "menciones": 2
+      "colonia": "la estancia",
+      "menciones": 6
     },
     {
       "colonia": "jardines de guadalupe",
+      "menciones": 5
+    },
+    {
+      "colonia": "jardines vallarta",
+      "menciones": 4
+    },
+    {
+      "colonia": "olivos",
+      "menciones": 3
+    },
+    {
+      "colonia": "mitica",
       "menciones": 2
     },
     {
-      "colonia": "la estancia",
-      "menciones": 2
-    },
-    {
-      "colonia": "prados",
+      "colonia": "chapalita de occidente",
       "menciones": 1
     }
   ],
@@ -2655,28 +2623,28 @@
   ],
   "el bethel": [
     {
-      "colonia": "bethel",
+      "colonia": "revolucion",
       "menciones": 8
     },
     {
-      "colonia": "heliodoro hernandez",
+      "colonia": "mezquitan",
+      "menciones": 7
+    },
+    {
+      "colonia": "santa tere",
+      "menciones": 6
+    },
+    {
+      "colonia": "belisario dominguez",
+      "menciones": 5
+    },
+    {
+      "colonia": "jardines de la paz",
       "menciones": 4
     },
     {
-      "colonia": "balcones de oblatos",
-      "menciones": 2
-    },
-    {
-      "colonia": "san jose del rio verde",
-      "menciones": 2
-    },
-    {
-      "colonia": "jalisco ii",
-      "menciones": 2
-    },
-    {
-      "colonia": "san jose rio verde",
-      "menciones": 2
+      "colonia": "independencia",
+      "menciones": 3
     },
     {
       "colonia": "del sol",
@@ -2811,39 +2779,23 @@
   ],
   "san francisco": [
     {
-      "colonia": "ahujas",
+      "colonia": "tonala centro",
+      "menciones": 5
+    },
+    {
+      "colonia": "el moral",
       "menciones": 4
     },
     {
-      "colonia": "rinconada san francisco",
+      "colonia": "lomas de la soledad",
+      "menciones": 3
+    },
+    {
+      "colonia": "loma dorada c",
       "menciones": 2
     },
     {
-      "colonia": "camichines ii",
-      "menciones": 2
-    },
-    {
-      "colonia": "santa cruz de las huertas",
-      "menciones": 2
-    },
-    {
-      "colonia": "loma dorada ejidal",
-      "menciones": 2
-    },
-    {
-      "colonia": "loma dorada delegacion a",
-      "menciones": 2
-    },
-    {
-      "colonia": "sur cipreses",
-      "menciones": 1
-    },
-    {
-      "colonia": "municipio de",
-      "menciones": 1
-    },
-    {
-      "colonia": "el rosario",
+      "colonia": "urbi villa del rio",
       "menciones": 1
     }
   ],
@@ -2937,34 +2889,6 @@
     {
       "colonia": "vistas del nilo",
       "menciones": 4
-    },
-    {
-      "colonia": "jardines de guadalupe",
-      "menciones": 4
-    },
-    {
-      "colonia": "col san andres",
-      "menciones": 2
-    },
-    {
-      "colonia": "jardines de la paz",
-      "menciones": 2
-    },
-    {
-      "colonia": "entre rosa navarro y ejido col lomas de revolucion",
-      "menciones": 2
-    },
-    {
-      "colonia": "agustin yanez",
-      "menciones": 2
-    },
-    {
-      "colonia": "jardines de los historiadores",
-      "menciones": 2
-    },
-    {
-      "colonia": "los historiadores",
-      "menciones": 1
     }
   ],
   "san andres": [
@@ -3019,12 +2943,24 @@
   ],
   "col valle de san nicolas": [
     {
-      "colonia": "valle de san nicolas",
-      "menciones": 8
+      "colonia": "villas de oriente",
+      "menciones": 5
     },
     {
-      "colonia": "el fortin",
+      "colonia": "urbi quinta montecarlo",
+      "menciones": 4
+    },
+    {
+      "colonia": "colinas de tonala",
+      "menciones": 3
+    },
+    {
+      "colonia": "hacienda real",
       "menciones": 2
+    },
+    {
+      "colonia": "el moral",
+      "menciones": 1
     }
   ],
   "valle de san nicolas": [
@@ -3267,47 +3203,23 @@
   ],
   "bosques del boulevard": [
     {
-      "colonia": "atlas",
+      "colonia": "independencia",
+      "menciones": 5
+    },
+    {
+      "colonia": "mezquitan",
       "menciones": 4
     },
     {
-      "colonia": "olimpica",
-      "menciones": 4
-    },
-    {
-      "colonia": "altas",
-      "menciones": 4
-    },
-    {
-      "colonia": "el rosario",
-      "menciones": 2
-    },
-    {
-      "colonia": "sutaj",
-      "menciones": 2
-    },
-    {
-      "colonia": "lomas del paradero",
-      "menciones": 2
+      "colonia": "santa tere",
+      "menciones": 3
     },
     {
       "colonia": "jardines de la paz",
       "menciones": 2
     },
     {
-      "colonia": "remodelada 3 recamaras 2 banos 1 cochera",
-      "menciones": 2
-    },
-    {
-      "colonia": "mezquital atlas",
-      "menciones": 1
-    },
-    {
-      "colonia": "del paradero",
-      "menciones": 1
-    },
-    {
-      "colonia": "barca atlas",
+      "colonia": "olimpica",
       "menciones": 1
     }
   ],
@@ -4063,6 +3975,10 @@
   ],
   "colinas del rey": [
     {
+      "colonia": "bugambilias",
+      "menciones": 20
+    },
+    {
       "colonia": "real de valdepenas",
       "menciones": 6
     },
@@ -4535,32 +4451,20 @@
   ],
   "tinajitas": [
     {
-      "colonia": "loma dorada delegacion a",
+      "colonia": "santa maria tequepexpan",
+      "menciones": 5
+    },
+    {
+      "colonia": "parques del bosque",
+      "menciones": 4
+    },
+    {
+      "colonia": "parques santa cruz del valle",
+      "menciones": 3
+    },
+    {
+      "colonia": "prados de santa maria",
       "menciones": 2
-    },
-    {
-      "colonia": "barrio brunido",
-      "menciones": 2
-    },
-    {
-      "colonia": "santa paula",
-      "menciones": 1
-    },
-    {
-      "colonia": "santa cruz de las huertas",
-      "menciones": 1
-    },
-    {
-      "colonia": "tateposco",
-      "menciones": 1
-    },
-    {
-      "colonia": "la ladrillera",
-      "menciones": 1
-    },
-    {
-      "colonia": "haciendas tonala",
-      "menciones": 1
     }
   ],
   "santa paula": [
@@ -5441,47 +5345,23 @@
   ],
   "monumental": [
     {
-      "colonia": "independencia",
-      "menciones": 18
+      "colonia": "jardines el sauz",
+      "menciones": 5
     },
     {
-      "colonia": "jardines alcalde",
+      "colonia": "bugambilias",
+      "menciones": 4
+    },
+    {
+      "colonia": "jardines de los historiadores",
+      "menciones": 3
+    },
+    {
+      "colonia": "prados providencia",
       "menciones": 2
     },
     {
-      "colonia": "postes cuates",
-      "menciones": 2
-    },
-    {
-      "colonia": "alcalde barranquitas",
-      "menciones": 2
-    },
-    {
-      "colonia": "lomas de independencia",
-      "menciones": 2
-    },
-    {
-      "colonia": "col lomas independencia",
-      "menciones": 2
-    },
-    {
-      "colonia": "col margarita masa de juarez",
-      "menciones": 2
-    },
-    {
-      "colonia": "puerto yavaros sn",
-      "menciones": 2
-    },
-    {
-      "colonia": "av belisario dominguez sn",
-      "menciones": 2
-    },
-    {
-      "colonia": "la normal",
-      "menciones": 1
-    },
-    {
-      "colonia": "la federacha",
+      "colonia": "santa rita",
       "menciones": 1
     }
   ],
@@ -5773,72 +5653,20 @@
   ],
   "heliodoro hernandez loza": [
     {
+      "colonia": "vallarta norte",
+      "menciones": 5
+    },
+    {
+      "colonia": "providencia",
+      "menciones": 4
+    },
+    {
+      "colonia": "8 de julio",
+      "menciones": 3
+    },
+    {
       "colonia": "oblatos",
-      "menciones": 4
-    },
-    {
-      "colonia": "col jalisco tonala",
-      "menciones": 4
-    },
-    {
-      "colonia": "jalisco ii",
       "menciones": 2
-    },
-    {
-      "colonia": "tetlan rio verde",
-      "menciones": 2
-    },
-    {
-      "colonia": "villas de guadalupe",
-      "menciones": 2
-    },
-    {
-      "colonia": "jalisco 1a",
-      "menciones": 2
-    },
-    {
-      "colonia": "int 21 an2",
-      "menciones": 2
-    },
-    {
-      "colonia": "cuauhtemoc",
-      "menciones": 2
-    },
-    {
-      "colonia": "arandas",
-      "menciones": 2
-    },
-    {
-      "colonia": "los arrayanes",
-      "menciones": 2
-    },
-    {
-      "colonia": "heliodoro hndz loza",
-      "menciones": 2
-    },
-    {
-      "colonia": "constitucion",
-      "menciones": 2
-    },
-    {
-      "colonia": "emiliano zapata",
-      "menciones": 2
-    },
-    {
-      "colonia": "terreno venta",
-      "menciones": 4
-    },
-    {
-      "colonia": "para remodelar 2 cocheras 3 racamaras 2 banos",
-      "menciones": 2
-    },
-    {
-      "colonia": "del sol",
-      "menciones": 1
-    },
-    {
-      "colonia": "rio verde",
-      "menciones": 1
     }
   ],
   "jalisco ii": [
@@ -6099,34 +5927,6 @@
     {
       "colonia": "loma bonita ejidal",
       "menciones": 4
-    },
-    {
-      "colonia": "rancho blanco",
-      "menciones": 4
-    },
-    {
-      "colonia": "nueva santa maria",
-      "menciones": 2
-    },
-    {
-      "colonia": "alamo industrial",
-      "menciones": 2
-    },
-    {
-      "colonia": "col rancho blanco",
-      "menciones": 2
-    },
-    {
-      "colonia": "sala comedor cocina 4 recamaras 2 banos y patio",
-      "menciones": 2
-    },
-    {
-      "colonia": "de 1 nivel 4 recamaras 2 banos",
-      "menciones": 2
-    },
-    {
-      "colonia": "echeverria",
-      "menciones": 1
     }
   ],
   "el carmen": [
@@ -11437,6 +11237,10 @@
   ],
   "rancho nuevo": [
     {
+      "colonia": "bosques de la victoria",
+      "menciones": 20
+    },
+    {
       "colonia": "santa elena de la cruz",
       "menciones": 4
     },
@@ -15526,6 +15330,22 @@
   ],
   "el campanario": [
     {
+      "colonia": "hacienda real",
+      "menciones": 6
+    },
+    {
+      "colonia": "el moral",
+      "menciones": 5
+    },
+    {
+      "colonia": "tonala centro",
+      "menciones": 4
+    },
+    {
+      "colonia": "loma dorada c",
+      "menciones": 3
+    },
+    {
       "colonia": "excelente terreno a un costado del bosques de santa anita",
       "menciones": 2
     },
@@ -15617,7 +15437,28 @@
     }
   ],
   "miguel hidalgo cp 44760 guadalajara": [],
-  "las conchas": [],
+  "las conchas": [
+    {
+      "colonia": "prados providencia",
+      "menciones": 8
+    },
+    {
+      "colonia": "arcos vallarta",
+      "menciones": 7
+    },
+    {
+      "colonia": "italia providencia",
+      "menciones": 6
+    },
+    {
+      "colonia": "chapultepec country",
+      "menciones": 5
+    },
+    {
+      "colonia": "jardines de guadalupe",
+      "menciones": 4
+    }
+  ],
   "santa isabel": [
     {
       "colonia": "se vende increible terreno panoramico en el palomar",

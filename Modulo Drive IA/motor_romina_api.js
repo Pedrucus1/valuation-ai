@@ -37,8 +37,8 @@ const _openai = process.env.OPENAI_API_KEY
     ? new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
     : null;
 
-// Umbral: m²C sobre el cual la propiedad es atípica y requiere perito físico
-const M2C_ATIPICA = 400;
+// Sin umbral fijo de m²C — la atipicidad se determina por falta de comparables en el IDX
+// (el motor cae a sumaDePartes o IA fallback si no encuentra comps en el tier del sujeto)
 
 // ── helpers copiados de comparar_metodologias.js ──────────────────────────────
 
@@ -344,6 +344,75 @@ function listingsEnMuni(muni, tipo) {
     return out;
 }
 
+// ── Suma de Partes: terreno (IDX) + construcción depreciada INDAABIN ───────────
+const INDAABIN_COSTO = { residencial_plus: 26000, residencial: 18000, media: 12000, economica: 7500 };
+
+function getRH(edad, vida = 70) {
+    if (edad <= 0) return 1.0;
+    const x = Math.min(1, edad / vida);
+    return Math.max(0.20, 1 - 0.5 * (x + x * x));
+}
+
+// Límite superior de pm2T plausible para terrenos residenciales ($/m²T).
+// Valores mayores indican datos contaminados con departamentos/preventa en el IDX.
+const PM2T_MAX_PLAUSIBLE = 25000;
+
+function sumaDePartes(muniNorm, colNorm, m2T, m2C, edad, conservacion, esEjidal = false) {
+    // Buscar pm2T en IDX de terrenos: colonia exacta (n≥3) → zona padre → mediana municipal
+    let pm2t = 0, nTerrenos = 0;
+    const terrenosMuni = IDX[muniNorm]?.['terreno'] ?? {};
+
+    // 1. Colonia exacta con n≥3 (n<3 es demasiado volátil para anclar sumaDePartes)
+    const terrenosCol = terrenosMuni[colNorm];
+    if (terrenosCol && terrenosCol.count >= 3 && terrenosCol.medianaPm2c > 0
+        && terrenosCol.medianaPm2c <= PM2T_MAX_PLAUSIBLE) {
+        pm2t = terrenosCol.medianaPm2c;
+        nTerrenos = terrenosCol.count;
+    }
+
+    // 2. Zona padre: buscar colonia IDX cuyo nombre esté contenido en colNorm
+    //    Ej: 'cajititlan' ⊂ 'colinas de cajititlan' → usa cajititlan (n=36)
+    if (!pm2t && colNorm && colNorm.length >= 5) {
+        const match = Object.entries(terrenosMuni)
+            .filter(([k, d]) => k.length >= 5 && colNorm.includes(k)
+                && d.count >= 5 && d.medianaPm2c > 0 && d.medianaPm2c <= PM2T_MAX_PLAUSIBLE)
+            .sort((a, b) => b[1].count - a[1].count)[0]; // mayor n primero
+        if (match) { pm2t = match[1].medianaPm2c; nTerrenos = match[1].count; }
+    }
+
+    // 3. Mediana municipal filtrada por pm2T plausible
+    if (!pm2t) {
+        const pm2ts = Object.values(terrenosMuni)
+            .filter(d => d.count >= 3 && d.medianaPm2c > 100 && d.medianaPm2c <= PM2T_MAX_PLAUSIBLE)
+            .map(d => d.medianaPm2c);
+        if (pm2ts.length >= 3) {
+            pm2t = mediana(pm2ts);
+            nTerrenos = pm2ts.length;
+        }
+    }
+    if (!pm2t) return null;
+
+    // Factor ejidal: solo para el valor del terreno. Construcción no se descuenta.
+    // esEjidal se clasifica en la ingesta (IA), no con regex — para capturar casos
+    // donde "ejidal" aparece en el tipo del inmueble y no en el nombre de la colonia.
+    const pm2tTerreno = esEjidal ? pm2t * 0.50 : pm2t;
+    const valorTerreno = pm2tTerreno * m2T;
+    const pm2cRef = pm2t * 1.8;  // nseKey usa pm2t original (estándar constructivo)
+    const nseKey  = pm2cRef >= 25000 ? 'residencial_plus'
+                  : pm2cRef >= 15000 ? 'residencial'
+                  : pm2cRef >= 8000  ? 'media' : 'economica';
+    const costo   = INDAABIN_COSTO[nseKey];
+    const depre   = getRH(edad);
+    const fConserv = FACTORES_CONSERVACION[conservacion] || 1.00;
+    // +20% sobre costo INDAABIN para aproximar valor de mercado (costo reposición < valor mercado)
+    const valorConst = m2C > 0 ? costo * 1.20 * m2C * depre * fConserv * 0.95 : 0;
+    const valor = Math.round(valorTerreno + valorConst);
+
+    return { valor, pm2t: Math.round(pm2tTerreno), nTerrenos, nseKey,
+             valorTerreno: Math.round(valorTerreno), valorConst: Math.round(valorConst),
+             poolTipo: 'suma_partes', nComps: nTerrenos };
+}
+
 // ── motor principal ───────────────────────────────────────────────────────────
 
 function valuarPropiedad(prop) {
@@ -351,6 +420,17 @@ function valuarPropiedad(prop) {
     const colNorm  = normCol(prop.colonia || '');
     const tipo     = normTipo(prop.tipo || 'casa');
     const m2C      = prop.construccion || 0;
+    const m2T      = prop.terreno || 0;
+
+    // Suma de Partes: terreno domina (ratio > 4) y la colonia no es vaga
+    const ratioTerr = m2C > 0 && m2T > 0 ? m2T / m2C : 0;
+    if (ratioTerr > 4 && m2T > 200) {
+        const sp = sumaDePartes(muniNorm, colNorm, m2T, m2C, prop.edad || 0, prop.estadoConservacion, prop.esEjidal || false);
+        if (sp && sp.valor > 0) return { ...sp, confianza: 'MEDIA', cv: 0, pm2cAvg: Math.round(sp.valor / Math.max(m2C, 1)) };
+    }
+
+    // Suma de Partes alternativa: colonia sin datos exactos en scraper + terreno disponible
+    // Se activa DESPUÉS de correr el motor (ver abajo) — marcador para post-proceso
 
     // Detectar colonia vaga: si la colonia normalizada coincide con el municipio
     // o está en la lista de municipios → no usar exacta, ir directamente a similares/general
@@ -432,8 +512,6 @@ function valuarPropiedad(prop) {
     if (candidatos.length < 3) {
         candidatos = pool;
         poolTipo = 'general';
-        // Si hay NSE del sujeto, restringir el pool general a colonias NSE ±1
-        // Evita mezclar NSE0 (económico) con NSE5 (lujo) en municipios heterogéneos
         if (nseSubjeto) {
             const generalNSE = candidatos.filter(d => {
                 const nsd = _nse[normCol(d.co)];
@@ -483,8 +561,20 @@ function valuarPropiedad(prop) {
     if (poolTipo === 'exacta') {
         const exactaIDX = IDX[muniNorm]?.[tipo]?.[colNorm];
         if (exactaIDX && exactaIDX.count >= 10 && exactaIDX.medianaPm2c > 0) {
-            const techo = exactaIDX.medianaPm2c * 1.15;
+            const techo = exactaIDX.medianaPm2c * 1.05;
             if (pm2cAvg > techo) pm2cAvg = techo;
+        }
+    }
+
+    // Cap NSE: para similares/general, si el sujeto tiene NSE con medianaPm2 conocida,
+    // limitar pm2cAvg a medianaPm2 × 1.15. Evita que el pool general infle colonias sin IDX.
+    // También aplica a exacta cuando el IDX local tiene <10 listings (muestra pequeña poco confiable).
+    if (nseSubjeto && nseSubjeto.medianaPm2 > 0) {
+        const exactaIDX = IDX[muniNorm]?.[tipo]?.[colNorm];
+        const exactaSolida = poolTipo === 'exacta' && exactaIDX && exactaIDX.count >= 10;
+        if (!exactaSolida) {
+            const techoNSE = nseSubjeto.medianaPm2 * 1.15;
+            if (pm2cAvg > techoNSE) pm2cAvg = techoNSE;
         }
     }
 
@@ -496,7 +586,7 @@ function valuarPropiedad(prop) {
     const m2cZona = (enColoniaTodos.length >= 5 ? enColoniaTodos : [...enColoniaTodos, ...enNSETodos])
         .map(d => d.c).filter(v => v > 5 && v < 2000);
 
-    return {
+    const resultBase = {
         valor,
         confianza: cv < 0.15 ? 'ALTA' : cv < 0.25 ? 'MEDIA' : 'BAJA',
         cv:        +cv.toFixed(3),
@@ -506,19 +596,38 @@ function valuarPropiedad(prop) {
         medM2CZona: m2cZona.length >= 5 ? Math.round(mediana(m2cZona)) : 0,
         medPm2Zona: tieneAnclaje ? Math.round(medRef) : Math.round(avg(pm2cFilt)),
     };
+
+    // ── Suma de partes como fallback cuando no hay comps residenciales propios ──
+    // Condición: colonia sin datos exactos en IDX (<3 listings) Y pocos comps en pool
+    // Se prefiere sobre el pool cuando la colonia carece de mercado residencial formal.
+    const exactaCount = IDX[muniNorm]?.[tipo]?.[colNorm]?.count || 0;
+    const sinMercadoExacto = exactaCount < 3 && compsFilt.length < 5;
+    if (sinMercadoExacto && m2T > 0) {
+        const sp = sumaDePartes(muniNorm, colNorm, m2T, m2C, prop.edad || 0, prop.estadoConservacion, prop.esEjidal || false);
+        if (sp && sp.valor > 0) {
+            // Promedio ponderado 60% suma_partes / 40% pool — si pool tiene algo útil
+            // Si pool tiene nComps<3, usar 100% suma_partes
+            if (compsFilt.length < 3) {
+                return { ...sp, confianza: 'MEDIA', cv: 0, pm2cAvg: Math.round(sp.valor / Math.max(m2C, 1)) };
+            }
+            const valorMixto = Math.round(sp.valor * 0.6 + valor * 0.4);
+            return { ...resultBase, valor: valorMixto, pm2cAvg: Math.round(valorMixto / Math.max(m2C, 1)),
+                     poolTipo: 'suma_partes_mix', nComps: compsFilt.length,
+                     pm2tRef: sp.pm2t, valorTerreno: sp.valorTerreno, valorConst: sp.valorConst };
+        }
+    }
+
+    return resultBase;
 }
 
 // ── versión async con fallback Gemini/DeepSeek (para validador y producción) ──
 async function valuarPropiedadCompleto(prop) {
     const m2C = prop.construccion || 0;
-    if (m2C > M2C_ATIPICA) {
-        return { valor: 0, confianza: 'N/A', nComps: 0, poolTipo: 'atipica', error: 'atipica' };
-    }
 
     const result = valuarPropiedad(prop);
 
     const esUsoMixto = (prop.tipo || '').toLowerCase().includes('mixto');
-    if (esUsoMixto && result.valor > 0 && result.poolTipo !== 'general' && m2C <= M2C_ATIPICA) {
+    if (esUsoMixto && result.valor > 0 && result.poolTipo !== 'general') {
         result.valor       = Math.round(result.valor * 1.15);
         result.pm2cAvg     = Math.round((result.pm2cAvg || 0) * 1.15);
         result.factorMixto = 1.15;
@@ -580,7 +689,7 @@ async function valuarPropiedadCompleto(prop) {
 }
 
 // ── export para uso inline (validador, tests) ─────────────────────────────────
-module.exports = { valuarPropiedad, valuarPropiedadCompleto, normCol, normMuni, normTipo, getSimilares, M2C_ATIPICA };
+module.exports = { valuarPropiedad, valuarPropiedadCompleto, normCol, normMuni, normTipo, getSimilares };
 
 // ── stdin/stdout ──────────────────────────────────────────────────────────────
 if (require.main !== module) return; // solo corre stdin/stdout cuando es el proceso principal
@@ -591,16 +700,6 @@ process.stdin.on('end', async () => {
     try {
         const prop = JSON.parse(raw);
         const m2C  = prop.construccion || 0;
-
-        // Propiedad atípica: requiere perito físico, no valuación automática
-        if (m2C > M2C_ATIPICA) {
-            process.stdout.write(JSON.stringify({
-                valor: 0, confianza: 'N/A', nComps: 0, poolTipo: 'n/a',
-                error: 'atipica',
-                mensaje: `Propiedad con ${m2C}m² de construcción requiere valuación por perito certificado (PropValu solo valúa automáticamente hasta ${M2C_ATIPICA}m²C).`
-            }) + '\n');
-            return;
-        }
 
         const result = valuarPropiedad(prop);
 

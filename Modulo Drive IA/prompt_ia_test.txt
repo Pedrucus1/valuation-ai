@@ -1,0 +1,214 @@
+Eres experto en valuación inmobiliaria residencial en Jalisco, México (AMG: Guadalajara, Zapopan, Tlaquepaque, Tlajomulco, Tonalá, El Salto).
+
+NOTA TEMPORAL: Los OPIs son de 2025 (Nov-Dic). El IDX de comparables es de 2025-2026. Es normal que exista una brecha de ~5-10% por inflación de precios de lista vs cierre. Considera esto en tu diagnóstico antes de proponer fixes agresivos.
+
+=== METODOLOGÍA DEL MOTOR ===
+El motor calcula valor = pm2cAvg × m²C × 0.95 donde pm2cAvg viene de:
+1. Pool EXACTA: listings de la misma colonia en el IDX del scraper
+2. Pool SIMILARES: colonias definidas en colonias_similares.json (comparable por NSE y zona)
+3. Pool GENERAL: todos los listings del municipio filtrados por NSE ±1 (fallback amplio, poco preciso)
+4. SumaDePartes: terreno (IDX pm2T) + construcción depreciada INDAABIN × 1.20
+
+NSE cap: si la colonia tiene entry en colonias_nse.json con medianaPm2, el pm2cAvg se limita a medianaPm2 × 1.15.
+El pool GENERAL es el menos preciso — cuando falla indica que falta calibrar similares o NSE cap.
+
+=== CASOS A DIAGNOSTICAR ===
+
+CASO 1: OPI-25-12-07-OF
+  Colonia: Mision del Bosque | Municipio: Zapopan
+  Tipo: CASA HABITACIÓN EN CONDOMINIO | m²C: 66.16 | m²T: 74.11 | Edad: 21 años | Conservación: bueno
+  Valor perito: $2197k | pm2c objetivo: $34955/m²
+  Motor actual: $1931k | pool: similares | pm2cAvg: $30726/m² | diff: -12.1%
+  NSE actual en colonias_nse.json: "NO EXISTE"
+  Similares actuales en colonias_similares.json: [{"colonia":"haciendas del valle","menciones":6},{"colonia":"villas mirador","menciones":4},{"colonia":"centinela i","menciones":2}]
+  Colonias disponibles en IDX Zapopan (n≥3, ordenadas por volumen):
+                                         pm2c:$  34515/m²  n:968  NSE:?
+    valle imperial                       pm2c:$  27660/m²  n:165  NSE:3
+    solares                              pm2c:$  38487/m²  n:160  NSE:4
+    valle real                           pm2c:$  52228/m²  n:111  NSE:5
+    bosques vallarta                     pm2c:$  34199/m²  n:85  NSE:4
+    las canadas                          pm2c:$  37784/m²  n:59  NSE:3
+    puerta de hierro                     pm2c:$  55872/m²  n:56  NSE:5
+    virreyes                             pm2c:$  47658/m²  n:53  NSE:5
+    puerta las lomas                     pm2c:$  54860/m²  n:52  NSE:6
+    nuevo mexico                         pm2c:$  26743/m²  n:51  NSE:3
+    ionamiento solares                   pm2c:$  37719/m²  n:47  NSE:4
+    ionamiento valle imperial            pm2c:$  29148/m²  n:45  NSE:3
+    jardin real                          pm2c:$  38857/m²  n:43  NSE:4
+    ionamiento bugambilias               pm2c:$  28927/m²  n:40  NSE:3
+    ciudad del sol                       pm2c:$  35177/m²  n:39  NSE:4
+    vallarta universidad                 pm2c:$  56555/m²  n:35  NSE:5
+    inas de san javier                   pm2c:$  68385/m²  n:35  NSE:6
+    bugambilias                          pm2c:$  32838/m²  n:34  NSE:3
+    ciudad bugambilia                    pm2c:$  27873/m²  n:32  NSE:3
+    parques vallarta                     pm2c:$  37013/m²  n:31  NSE:4
+
+
+CASO 2: OPI-25-12-04-OF 
+  Colonia: El Fortin | Municipio: Guadalajara
+  Tipo: CASA HABITACIÓN | m²C: 130.9 | m²T: 105 | Edad: 7 años | Conservación: bueno
+  Valor perito: $2479k | pm2c objetivo: $19935/m²
+  Motor actual: $2769k | pool: general | pm2cAvg: $22263/m² | diff: 11.7%
+  NSE actual en colonias_nse.json: {"nse":"medio-medio","nseIdx":3,"medianaPm2":25397,"nListings":43}
+  Similares actuales en colonias_similares.json: [{"colonia":"interior casa 19","menciones":8},{"colonia":"mariano otero","menciones":2},{"colonia":"col valle de san nicolas","menciones":2},{"colonia":"miramar","menciones":1},{"colonia":"el tizate","menciones":1}]
+  Colonias disponibles en IDX Guadalajara (n≥3, ordenadas por volumen):
+                                         pm2c:$  27800/m²  n:661  NSE:?
+    ladron de guevara                    pm2c:$  33429/m²  n:41  NSE:5
+    americana                            pm2c:$  31633/m²  n:40  NSE:5
+    guadalajara                          pm2c:$  60961/m²  n:38  NSE:5
+    jardines del country                 pm2c:$  28881/m²  n:32  NSE:3
+    providencia                          pm2c:$  41294/m²  n:32  NSE:5
+    jardines del bosque                  pm2c:$  28403/m²  n:25  NSE:4
+    arcos vallarta                       pm2c:$  38462/m²  n:25  NSE:5
+    onia americana                       pm2c:$  26939/m²  n:23  NSE:5
+    inas de san javier                   pm2c:$  59775/m²  n:20  NSE:6
+    guadalajara centro                   pm2c:$  20594/m²  n:19  NSE:5
+    jardines del bosque norte            pm2c:$  31951/m²  n:18  NSE:4
+    chapalita                            pm2c:$  43169/m²  n:17  NSE:5
+    bosques de la victoria               pm2c:$  25871/m²  n:16  NSE:3
+    jardines alcalde                     pm2c:$  29231/m²  n:15  NSE:3
+    colinas de san javier                pm2c:$  48286/m²  n:14  NSE:5
+    vallarta poniente                    pm2c:$  30530/m²  n:14  NSE:4
+    omos providencia                     pm2c:$  45187/m²  n:14  NSE:5
+    prados providencia                   pm2c:$  38788/m²  n:13  NSE:4
+    country club                         pm2c:$  52201/m²  n:13  NSE:5
+
+
+CASO 3: OPI-25-12-01-OF
+  Colonia: Colinas del Rey | Municipio: Zapopan
+  Tipo: CASA HABITACIÓN EN CONDOMINIO | m²C: 195.64 | m²T: 189.14 | Edad: 15 años | Conservación: muy_bueno
+  Valor perito: $5877k | pm2c objetivo: $31621/m²
+  Motor actual: $5168k | pool: similares | pm2cAvg: $27809/m² | diff: -12.1%
+  NSE actual en colonias_nse.json: "NO EXISTE"
+  Similares actuales en colonias_similares.json: [{"colonia":"real de valdepenas","menciones":6},{"colonia":"lomas de zapopan","menciones":2},{"colonia":"arcos zapopan","menciones":2},{"colonia":"la cima","menciones":2},{"colonia":"boreales","menciones":2},{"colonia":"capital norte","menciones":2},{"colonia":"dos niveles 2 cocheras 3 banos","menciones":2}]
+  Colonias disponibles en IDX Zapopan (n≥3, ordenadas por volumen):
+                                         pm2c:$  34515/m²  n:968  NSE:?
+    valle imperial                       pm2c:$  27660/m²  n:165  NSE:3
+    solares                              pm2c:$  38487/m²  n:160  NSE:4
+    valle real                           pm2c:$  52228/m²  n:111  NSE:5
+    bosques vallarta                     pm2c:$  34199/m²  n:85  NSE:4
+    las canadas                          pm2c:$  37784/m²  n:59  NSE:3
+    puerta de hierro                     pm2c:$  55872/m²  n:56  NSE:5
+    virreyes                             pm2c:$  47658/m²  n:53  NSE:5
+    puerta las lomas                     pm2c:$  54860/m²  n:52  NSE:6
+    nuevo mexico                         pm2c:$  26743/m²  n:51  NSE:3
+    ionamiento solares                   pm2c:$  37719/m²  n:47  NSE:4
+    ionamiento valle imperial            pm2c:$  29148/m²  n:45  NSE:3
+    jardin real                          pm2c:$  38857/m²  n:43  NSE:4
+    ionamiento bugambilias               pm2c:$  28927/m²  n:40  NSE:3
+    ciudad del sol                       pm2c:$  35177/m²  n:39  NSE:4
+    vallarta universidad                 pm2c:$  56555/m²  n:35  NSE:5
+    inas de san javier                   pm2c:$  68385/m²  n:35  NSE:6
+    bugambilias                          pm2c:$  32838/m²  n:34  NSE:3
+    ciudad bugambilia                    pm2c:$  27873/m²  n:32  NSE:3
+    parques vallarta                     pm2c:$  37013/m²  n:31  NSE:4
+
+
+CASO 4: OPI-25-11-15-OF
+  Colonia: Rancho Nuevo | Municipio: Guadalajara
+  Tipo: CASA HABITACIÓN | m²C: 317.96 | m²T: 177.45 | Edad: 4 años | Conservación: bueno
+  Valor perito: $7044k | pm2c objetivo: $23320/m²
+  Motor actual: $5918k | pool: similares | pm2cAvg: $19591/m² | diff: -16.0%
+  NSE actual en colonias_nse.json: {"nse":"medio-medio","nseIdx":3,"medianaPm2":26622,"nListings":6}
+  Similares actuales en colonias_similares.json: [{"colonia":"santa elena de la cruz","menciones":4},{"colonia":"lomas del paraiso ii","menciones":2},{"colonia":"atemajac del valle","menciones":2},{"colonia":"arroyo hondo","menciones":2},{"colonia":"de independencia","menciones":1},{"colonia":"san elias","menciones":1}]
+  Colonias disponibles en IDX Guadalajara (n≥3, ordenadas por volumen):
+                                         pm2c:$  27800/m²  n:661  NSE:?
+    ladron de guevara                    pm2c:$  33429/m²  n:41  NSE:5
+    americana                            pm2c:$  31633/m²  n:40  NSE:5
+    guadalajara                          pm2c:$  60961/m²  n:38  NSE:5
+    jardines del country                 pm2c:$  28881/m²  n:32  NSE:3
+    providencia                          pm2c:$  41294/m²  n:32  NSE:5
+    jardines del bosque                  pm2c:$  28403/m²  n:25  NSE:4
+    arcos vallarta                       pm2c:$  38462/m²  n:25  NSE:5
+    onia americana                       pm2c:$  26939/m²  n:23  NSE:5
+    inas de san javier                   pm2c:$  59775/m²  n:20  NSE:6
+    guadalajara centro                   pm2c:$  20594/m²  n:19  NSE:5
+    jardines del bosque norte            pm2c:$  31951/m²  n:18  NSE:4
+    chapalita                            pm2c:$  43169/m²  n:17  NSE:5
+    bosques de la victoria               pm2c:$  25871/m²  n:16  NSE:3
+    jardines alcalde                     pm2c:$  29231/m²  n:15  NSE:3
+    colinas de san javier                pm2c:$  48286/m²  n:14  NSE:5
+    vallarta poniente                    pm2c:$  30530/m²  n:14  NSE:4
+    omos providencia                     pm2c:$  45187/m²  n:14  NSE:5
+    prados providencia                   pm2c:$  38788/m²  n:13  NSE:4
+    country club                         pm2c:$  52201/m²  n:13  NSE:5
+
+
+CASO 5: OPI-25-11-13-OF
+  Colonia: Campo Real | Municipio: Zapopan
+  Tipo: CASA HABITACIÓN EN CONDOMINIO | m²C: 78.68 | m²T: 74.22 | Edad: 13 años | Conservación: bueno
+  Valor perito: $1632k | pm2c objetivo: $21834/m²
+  Motor actual: $1935k | pool: exacta | pm2cAvg: $25892/m² | diff: 18.6%
+  NSE actual en colonias_nse.json: {"nse":"medio-medio","nseIdx":3,"medianaPm2":25000,"nListings":13}
+  Similares actuales en colonias_similares.json: [{"colonia":"cond hacienda del lago 3","menciones":6},{"colonia":"la moraleja","menciones":2},{"colonia":"valle imperial","menciones":1}]
+  Colonias disponibles en IDX Zapopan (n≥3, ordenadas por volumen):
+                                         pm2c:$  34515/m²  n:968  NSE:?
+    valle imperial                       pm2c:$  27660/m²  n:165  NSE:3
+    solares                              pm2c:$  38487/m²  n:160  NSE:4
+    valle real                           pm2c:$  52228/m²  n:111  NSE:5
+    bosques vallarta                     pm2c:$  34199/m²  n:85  NSE:4
+    las canadas                          pm2c:$  37784/m²  n:59  NSE:3
+    puerta de hierro                     pm2c:$  55872/m²  n:56  NSE:5
+    virreyes                             pm2c:$  47658/m²  n:53  NSE:5
+    puerta las lomas                     pm2c:$  54860/m²  n:52  NSE:6
+    nuevo mexico                         pm2c:$  26743/m²  n:51  NSE:3
+    ionamiento solares                   pm2c:$  37719/m²  n:47  NSE:4
+    ionamiento valle imperial            pm2c:$  29148/m²  n:45  NSE:3
+    jardin real                          pm2c:$  38857/m²  n:43  NSE:4
+    ionamiento bugambilias               pm2c:$  28927/m²  n:40  NSE:3
+    ciudad del sol                       pm2c:$  35177/m²  n:39  NSE:4
+    vallarta universidad                 pm2c:$  56555/m²  n:35  NSE:5
+    inas de san javier                   pm2c:$  68385/m²  n:35  NSE:6
+    bugambilias                          pm2c:$  32838/m²  n:34  NSE:3
+    ciudad bugambilia                    pm2c:$  27873/m²  n:32  NSE:3
+    parques vallarta                     pm2c:$  37013/m²  n:31  NSE:4
+
+
+CASO 6: OPI-25-11-12-OF
+  Colonia: Balcones de Oblatos | Municipio: Guadalajara
+  Tipo: CASA HABITACIÓN | m²C: 66.62 | m²T: 78.38 | Edad: 42 años | Conservación: malo
+  Valor perito: $1021k | pm2c objetivo: $16132/m²
+  Motor actual: $880k | pool: general | pm2cAvg: $13908/m² | diff: -13.8%
+  NSE actual en colonias_nse.json: {"nse":"medio-bajo","nseIdx":2,"medianaPm2":14790,"nListings":5}
+  Similares actuales en colonias_similares.json: [{"colonia":"oblatos","menciones":4},{"colonia":"el bethel","menciones":2},{"colonia":"lagos de oriente guadalajara jalisco","menciones":2},{"colonia":"rio verde","menciones":2},{"colonia":"villas de guadalupe","menciones":2},{"colonia":"santa cecilia 2a","menciones":2},{"colonia":"vicente guerrero","menciones":1},{"colonia":"el zalate","menciones":1}]
+  Colonias disponibles en IDX Guadalajara (n≥3, ordenadas por volumen):
+                                         pm2c:$  27800/m²  n:661  NSE:?
+    ladron de guevara                    pm2c:$  33429/m²  n:41  NSE:5
+    americana                            pm2c:$  31633/m²  n:40  NSE:5
+    guadalajara                          pm2c:$  60961/m²  n:38  NSE:5
+    jardines del country                 pm2c:$  28881/m²  n:32  NSE:3
+    providencia                          pm2c:$  41294/m²  n:32  NSE:5
+    jardines del bosque                  pm2c:$  28403/m²  n:25  NSE:4
+    arcos vallarta                       pm2c:$  38462/m²  n:25  NSE:5
+    onia americana                       pm2c:$  26939/m²  n:23  NSE:5
+    inas de san javier                   pm2c:$  59775/m²  n:20  NSE:6
+    guadalajara centro                   pm2c:$  20594/m²  n:19  NSE:5
+    jardines del bosque norte            pm2c:$  31951/m²  n:18  NSE:4
+    chapalita                            pm2c:$  43169/m²  n:17  NSE:5
+    bosques de la victoria               pm2c:$  25871/m²  n:16  NSE:3
+    jardines alcalde                     pm2c:$  29231/m²  n:15  NSE:3
+    colinas de san javier                pm2c:$  48286/m²  n:14  NSE:5
+    vallarta poniente                    pm2c:$  30530/m²  n:14  NSE:4
+    omos providencia                     pm2c:$  45187/m²  n:14  NSE:5
+    prados providencia                   pm2c:$  38788/m²  n:13  NSE:4
+    country club                         pm2c:$  52201/m²  n:13  NSE:5
+
+
+=== TU TAREA ===
+Para cada caso:
+1. Diagnostica por qué falla (pool incorrecto, similares incorrectas, NSE cap faltante o incorrecto, colonia vaga)
+2. Propón el fix: qué colonias similares del IDX disponible usar (nombre exacto como aparece en la lista), o qué NSE cap aplicar
+3. Estima el pm2c resultante con tu fix
+
+Responde SOLO con JSON válido, sin texto adicional:
+[
+  {
+    "folio": "OPI-...",
+    "diagnostico": "explicación corta",
+    "fix_tipo": "similares|nse_cap|ambos",
+    "similares_propuestas": ["colonia1","colonia2"],
+    "nse_cap_medianaPm2": 0,
+    "pm2c_estimado": 0,
+    "confianza": "alta|media|baja"
+  }
+]

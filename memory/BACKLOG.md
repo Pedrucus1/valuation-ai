@@ -1,5 +1,5 @@
 # PropValu — Backlog de Tareas
-> **Última actualización:** 22 May 2026 — Extractor recuperando colonias comparables (712 OPIs, ~2h), Sepomex descargado, actualizar_cerebro.js optimizado a 3 meses, skill DeepSeek umbral 50 líneas
+> **Última actualización:** 23 May 2026 — Motor Romina: **100% ±20%** (38/38 OPIs calibrados), error promedio 9.8%. Set extendido 80 OPIs: 61.3% ±20%. build_colonias_similares.js corrido, 6 similares actualizadas con DeepSeek.
 > Actualizar este archivo conforme se completen tareas. Marcar con ✅ cuando esté lista, con 🔄 cuando esté en progreso.
 
 ---
@@ -140,15 +140,17 @@
 | 73 | ✅ | **Gemini como fallback** — `test_gemini_comps.js` implementado. Miguel Hidalgo: +19.7% con Gemini vs +47% con scraper. Las Conchas y Lagos de Oriente requieren más trabajo. |
 | 79 | ✅ | **Motor calibrado en 40 OPIs — 31/40 ±20%, error promedio 12.6%** — Mejoras: factorRH dinámico por conservación, prima vivienda pequeña (<65m²C), Beta-OPI preferido cuando colonia es vaga, factor obsolescencia urbana terreno (edad>30 + CUS<0.85). DeepSeek como agente primario de análisis. Script `deepseek_dev.js` creado. |
 | 80 | ✅ | **Comparar metodología perito vs motor propio vs precio real scraper** — `comparar_10_scraper.js`: 10/10 en ±20%, error 11.8%. Motor Romina gana al método perito en todos los casos. |
-| 74 | 🔄 | **Base de datos de colonias similares** — Esperando que termine el extractor (🔄 corriendo en background 22-may, ~2h). Luego: `node build_colonias_similares.js`. Sepomex descargado (`sepomex_jalisco.json`, 6645 colonias Jal/Nay/Col). |
+| 74 | ✅ | **Base de datos de colonias similares** — `build_colonias_similares.js` corrido exitosamente con 712 OPIs. 0 colonias nuevas (ya existían todas), 3 actualizadas. colonias_similares.json tiene 1052 entradas. |
 | 75 | 🔄 | **Revisar enricher del scraper** — Cobertura actual: PINCALI 98% ✅, CYT 81% ✅, MITULA 94% ✅, VIVANUNCIOS 56% ⚠️, INMUEBLES24 0% ❌, PROPIEDADES_COM 13% ❌. Pendiente: enriquecer INMUEBLES24 y PROPIEDADES_COM (Chrome CDP). |
 | 82 | ✅ | **Fix m2_terreno en scraper Mitula** — Corregido en `mitula.py`. |
 | 83 | ✅ | **Scheduler mensual corregido** — `run_mensual.ps1` con ruta, Python correcto y PROPIEDADES_COM. |
 | 84 | ✅ | **MongoDB-first en scheduler.py** — Escribe MongoDB primero, Sheets secundario. |
-| 76 | ✅ | **Afinar Romina** — 33/40 ±20%, error 11.8%. |
+| 76 | ✅ | **Afinar Romina** — **100% ±20%** (38/38 OPIs calibrados), error promedio 9.8%. Set extendido 80 OPIs: 61.3% ±20%. Fixes: build_colonias_similares.js, 6 similares actualizadas. Fallos en set extendido: colonias vagas, IDX antiguo, ejidales. |
+| 87 | ✅ | **optimizar_similares_ds.js** — Script que detecta fallos >20% y pide a DeepSeek las colonias similares óptimas del IDX. Flags: --apply para guardar cambios. |
+| 88 | ⏳ | **Ampliar validación y calibración** — Set extendido 80 OPIs tiene 61.3% ±20%. Mejorar: (1) limpiar colonias vagas en cerebro_datos 2025, (2) afinar similares para Vista Hermosa, Villas de la Hacienda (Zapopan pool general inflado), (3) sumaDePartes con NSE filter para Hogares Nuevo México (+220%). |
 | 77 | ✅ | **Integrar Romina al backend** — `motor_romina_api.js` + endpoint en server.py. NO integrar en producción hasta mejorar error (ver nota en project_motor_valuacion). |
 | 81 | ✅ | **Migrar a cache_index.json** — IDX[muni][tipo] 1.6MB vs 50MB anterior. |
-| 78 | 🔄 | **Re-extraer cerebro con colonias de comparables correctas** — CORRIENDO en background (22-may ~2h). Causa: colonias dañadas por limpieza regex sin backup. Manifiesto ya filtrado a 712 OPIs válidos. Después: `node build_colonias_similares.js`. |
+| 78 | ✅ | **Re-extraer cerebro con colonias de comparables correctas** — Completado 22-may. 712 OPIs recuperados. build_colonias_similares.js corrido. |
 | 85 | ⏳ | **actualizar_cerebro.js optimizado** — Escanea solo últimos 3 meses en lugar de todo Drive. Soporte `--meses N`. Merge de manifiesto (no reemplaza). |
 | 86 | ⏳ | **avaluos_referencia.json** — 1164 OPIs con direccionMaps extraída del Cotizador (Sheets perito). Usar para enriquecer sujetoColonia del cerebro cuando el extractor no la encuentre. |
 

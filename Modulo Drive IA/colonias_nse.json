@@ -2,13 +2,19 @@
   "campo real": {
     "nse": "medio-medio",
     "nseIdx": 3,
-    "medianaPm2": 25000,
+    "medianaPm2": 18900,
     "nListings": 13
   },
+  "colinas del rey": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 27500,
+    "nListings": 3
+  },
   "el fortin": {
-    "nse": "medio-medio",
-    "nseIdx": 3,
-    "medianaPm2": 25397,
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17300,
     "nListings": 43
   },
   "puerta del bosque": {
@@ -380,7 +386,7 @@
   "tabachines": {
     "nse": "medio-bajo",
     "nseIdx": 2,
-    "medianaPm2": 19139,
+    "medianaPm2": 23725,
     "nListings": 4
   },
   "parques de tesistan": {
@@ -630,9 +636,9 @@
     "nListings": 65
   },
   "el campanario": {
-    "nse": "medio-alto",
-    "nseIdx": 4,
-    "medianaPm2": 39745,
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24000,
     "nListings": 67
   },
   "villas de guadalupe": {
@@ -1472,7 +1478,7 @@
   "tonala": {
     "nse": "medio-bajo",
     "nseIdx": 2,
-    "medianaPm2": 16074,
+    "medianaPm2": 14700,
     "nListings": 38
   },
   "del sur": {
@@ -2534,7 +2540,7 @@
   "rancho nuevo": {
     "nse": "medio-medio",
     "nseIdx": 3,
-    "medianaPm2": 26622,
+    "medianaPm2": 20300,
     "nListings": 6
   },
   "lomas de providencia": {
@@ -4142,7 +4148,7 @@
   "zapopan": {
     "nse": "medio-alto",
     "nseIdx": 4,
-    "medianaPm2": 33536,
+    "medianaPm2": 15236,
     "nListings": 21
   },
   "parque regency": {
@@ -4296,9 +4302,9 @@
     "nListings": 4
   },
   "altagracia": {
-    "nse": "medio-medio",
     "nseIdx": 3,
-    "medianaPm2": 25585,
+    "nse": "medio-medio",
+    "medianaPm2": 16654,
     "nListings": 4
   },
   "altaluz": {
@@ -4592,7 +4598,7 @@
   "santa margarita": {
     "nse": "medio-bajo",
     "nseIdx": 2,
-    "medianaPm2": 20519,
+    "medianaPm2": 27116,
     "nListings": 13
   },
   "ionamiento mirador del bosque": {
@@ -5214,9 +5220,9 @@
     "nListings": 5
   },
   "balcones de santa anita": {
-    "nse": "interes-social",
-    "nseIdx": 1,
-    "medianaPm2": 12342,
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20000,
     "nListings": 3
   },
   "onia el palomar": {
@@ -5988,10 +5994,9 @@
     "nListings": 30
   },
   "san rafael": {
-    "nse": "lujo",
-    "nseIdx": 5,
-    "medianaPm2": 72222,
-    "nListings": 37
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26077
   },
   "onia morelos": {
     "nse": "medio-medio",
@@ -6060,9 +6065,9 @@
     "nListings": 54
   },
   "lagos de oriente": {
-    "nse": "medio-alto",
-    "nseIdx": 4,
-    "medianaPm2": 33186,
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 13395,
     "nListings": 12
   },
   "talpita oriente": {
@@ -6246,9 +6251,9 @@
     "nListings": 10
   },
   "las conchas": {
-    "nse": "medio-bajo",
-    "nseIdx": 2,
-    "medianaPm2": 20905,
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 32000,
     "nListings": 9
   },
   "jardines de la cruz 1a": {
@@ -6350,8 +6355,7 @@
   "villa guerrero": {
     "nse": "medio-medio",
     "nseIdx": 3,
-    "medianaPm2": 23750,
-    "nListings": 3
+    "medianaPm2": 17970
   },
   "ionamiento colomos providencia": {
     "nse": "lujo",
@@ -7646,7 +7650,7 @@
   "parques de la victoria": {
     "nse": "medio-bajo",
     "nseIdx": 2,
-    "medianaPm2": 18571,
+    "medianaPm2": 17500,
     "nListings": 16
   },
   "el puente": {
@@ -8434,5 +8438,84 @@
     "nseIdx": 5,
     "medianaPm2": 84435,
     "nListings": 48
+  },
+  "paseo los agaves": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14800,
+    "nListings": 1
+  },
+  "paseo del prado": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16500,
+    "nListings": 1
+  },
+  "paseos del prado": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15500,
+    "nListings": 1
+  },
+  "villas belenes": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 30000,
+    "nListings": 1
+  },
+  "el bethel": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18700,
+    "nListings": 1
+  },
+  "el castillo": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16000,
+    "nListings": 1
+  },
+  "miguel hidalgo": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16800,
+    "nListings": 1
+  },
+  "santa maria": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16000,
+    "nListings": 1
+  },
+  "primera": {
+    "nse": "medio-alto",
+    "nseIdx": 3,
+    "medianaPm2": 25500,
+    "nListings": 1
+  },
+  "el cerrito": {
+    "nseIdx": 2,
+    "nse": "medio-bajo",
+    "medianaPm2": 11531
+  },
+  "vista hermosa": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 13190
+  },
+  "parques del auditorio": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 18435
+  },
+  "parques deo auditorio": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 18435
+  },
+  "bosques del boulevard": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 15286
   }
 }

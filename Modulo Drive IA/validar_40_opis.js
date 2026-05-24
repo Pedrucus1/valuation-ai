@@ -78,6 +78,7 @@ for (const opi of muestra) {
         banos:             parsePesos(opi.banos) || 2,
         municipio:         opi.municipio || '',
         colonia:           opi.sujetoColonia || '',
+        esEjidal:          opi.esEjidal || false,
     };
 
     let motorResult;

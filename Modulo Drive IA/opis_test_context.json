@@ -1,0 +1,475 @@
+◇ injected env (11) from ..\.env // tip: ⌘ suppress logs { quiet: true }
+◇ injected env (0) from ..\.env // tip: ⌁ auth for agents [www.vestauth.com]
+[
+  {
+    "folio": "OPI-26-1-05-OF",
+    "municipio": "Zapopan",
+    "colonia": "Tabachines",
+    "colNorm": "tabachines",
+    "tipo": "CASA HABITACIÓN",
+    "m2C": 151.97,
+    "m2T": 208.77,
+    "edad": 21,
+    "conserv": "bueno",
+    "valorPerito": 3939000,
+    "pm2cObjetivo": 27284,
+    "motorValor": 3177595,
+    "motorPool": "general",
+    "motorPm2c": 22010,
+    "motorN": 8,
+    "diff": "-19.3",
+    "nseEntry": {
+      "nse": "medio-bajo",
+      "nseIdx": 2,
+      "medianaPm2": 19139,
+      "nListings": 4
+    },
+    "similares": [
+      {
+        "colonia": "lomas de tabachines",
+        "menciones": 14
+      },
+      {
+        "colonia": "zapopan",
+        "menciones": 6
+      },
+      {
+        "colonia": "auditorio",
+        "menciones": 6
+      },
+      {
+        "colonia": "jardines los belenes",
+        "menciones": 6
+      },
+      {
+        "colonia": "jardines del vergel",
+        "menciones": 4
+      },
+      {
+        "colonia": "la martinica",
+        "menciones": 2
+      },
+      {
+        "colonia": "parques deo auditorio",
+        "menciones": 2
+      },
+      {
+        "colonia": "parques del auditorio",
+        "menciones": 2
+      },
+      {
+        "colonia": "en tabachines",
+        "menciones": 2
+      },
+      {
+        "colonia": "jardines de tabachines",
+        "menciones": 2
+      },
+      {
+        "colonia": "division del norte",
+        "menciones": 2
+      },
+      {
+        "colonia": "tamarindos tabachines",
+        "menciones": 2
+      },
+      {
+        "colonia": "lomas de",
+        "menciones": 1
+      },
+      {
+        "colonia": "ayala tabachines",
+        "menciones": 1
+      }
+    ],
+    "coloniasIDX": [
+      {
+        "col": "",
+        "pm2c": 34515,
+        "n": 968
+      },
+      {
+        "col": "valle imperial",
+        "pm2c": 27660,
+        "n": 165,
+        "nse": 3
+      },
+      {
+        "col": "solares",
+        "pm2c": 38487,
+        "n": 160,
+        "nse": 4
+      },
+      {
+        "col": "valle real",
+        "pm2c": 52228,
+        "n": 111,
+        "nse": 5
+      },
+      {
+        "col": "bosques vallarta",
+        "pm2c": 34199,
+        "n": 85,
+        "nse": 4
+      },
+      {
+        "col": "las canadas",
+        "pm2c": 37784,
+        "n": 59,
+        "nse": 3
+      },
+      {
+        "col": "puerta de hierro",
+        "pm2c": 55872,
+        "n": 56,
+        "nse": 5
+      },
+      {
+        "col": "virreyes",
+        "pm2c": 47658,
+        "n": 53,
+        "nse": 5
+      },
+      {
+        "col": "puerta las lomas",
+        "pm2c": 54860,
+        "n": 52,
+        "nse": 6
+      },
+      {
+        "col": "nuevo mexico",
+        "pm2c": 26743,
+        "n": 51,
+        "nse": 3
+      },
+      {
+        "col": "ionamiento solares",
+        "pm2c": 37719,
+        "n": 47,
+        "nse": 4
+      },
+      {
+        "col": "ionamiento valle imperial",
+        "pm2c": 29148,
+        "n": 45,
+        "nse": 3
+      },
+      {
+        "col": "jardin real",
+        "pm2c": 38857,
+        "n": 43,
+        "nse": 4
+      },
+      {
+        "col": "ionamiento bugambilias",
+        "pm2c": 28927,
+        "n": 40,
+        "nse": 3
+      },
+      {
+        "col": "ciudad del sol",
+        "pm2c": 35177,
+        "n": 39,
+        "nse": 4
+      }
+    ]
+  },
+  {
+    "folio": "OPI-26-1-02-OF",
+    "municipio": "Zapopan",
+    "colonia": "Santa Margarita",
+    "colNorm": "santa margarita",
+    "tipo": "CASA HABITACIÓN EN CONDOMINIO",
+    "m2C": 59.95,
+    "m2T": 91.22,
+    "edad": 24,
+    "conserv": "bueno",
+    "valorPerito": 1776000,
+    "pm2cObjetivo": 31184,
+    "motorValor": 1298785,
+    "motorPool": "general",
+    "motorPm2c": 22805,
+    "motorN": 8,
+    "diff": "-26.9",
+    "nseEntry": {
+      "nse": "medio-bajo",
+      "nseIdx": 2,
+      "medianaPm2": 20519,
+      "nListings": 13
+    },
+    "similares": [
+      {
+        "colonia": "el vigia",
+        "menciones": 4
+      },
+      {
+        "colonia": "san isidro ejidal",
+        "menciones": 4
+      },
+      {
+        "colonia": "las bovedas",
+        "menciones": 4
+      },
+      {
+        "colonia": "unidad habitacional unidad fovissste",
+        "menciones": 2
+      },
+      {
+        "colonia": "la tuzania",
+        "menciones": 2
+      },
+      {
+        "colonia": "las arboledas",
+        "menciones": 2
+      },
+      {
+        "colonia": "remodelada 2 recamaras 1 cochera 3 banos",
+        "menciones": 2
+      }
+    ],
+    "coloniasIDX": [
+      {
+        "col": "",
+        "pm2c": 34515,
+        "n": 968
+      },
+      {
+        "col": "valle imperial",
+        "pm2c": 27660,
+        "n": 165,
+        "nse": 3
+      },
+      {
+        "col": "solares",
+        "pm2c": 38487,
+        "n": 160,
+        "nse": 4
+      },
+      {
+        "col": "valle real",
+        "pm2c": 52228,
+        "n": 111,
+        "nse": 5
+      },
+      {
+        "col": "bosques vallarta",
+        "pm2c": 34199,
+        "n": 85,
+        "nse": 4
+      },
+      {
+        "col": "las canadas",
+        "pm2c": 37784,
+        "n": 59,
+        "nse": 3
+      },
+      {
+        "col": "puerta de hierro",
+        "pm2c": 55872,
+        "n": 56,
+        "nse": 5
+      },
+      {
+        "col": "virreyes",
+        "pm2c": 47658,
+        "n": 53,
+        "nse": 5
+      },
+      {
+        "col": "puerta las lomas",
+        "pm2c": 54860,
+        "n": 52,
+        "nse": 6
+      },
+      {
+        "col": "nuevo mexico",
+        "pm2c": 26743,
+        "n": 51,
+        "nse": 3
+      },
+      {
+        "col": "ionamiento solares",
+        "pm2c": 37719,
+        "n": 47,
+        "nse": 4
+      },
+      {
+        "col": "ionamiento valle imperial",
+        "pm2c": 29148,
+        "n": 45,
+        "nse": 3
+      },
+      {
+        "col": "jardin real",
+        "pm2c": 38857,
+        "n": 43,
+        "nse": 4
+      },
+      {
+        "col": "ionamiento bugambilias",
+        "pm2c": 28927,
+        "n": 40,
+        "nse": 3
+      },
+      {
+        "col": "ciudad del sol",
+        "pm2c": 35177,
+        "n": 39,
+        "nse": 4
+      }
+    ]
+  },
+  {
+    "folio": "OPI-26-1-01-OF",
+    "municipio": "Guadalajara",
+    "colonia": "Lagos de Oriente",
+    "colNorm": "lagos de oriente",
+    "tipo": "CASA HABITACIÓN",
+    "m2C": 82.82,
+    "m2T": 119.5,
+    "edad": 55,
+    "conserv": "regular_medio",
+    "valorPerito": 1212000,
+    "pm2cObjetivo": 15404,
+    "motorValor": 1851506,
+    "motorPool": "similares",
+    "motorPm2c": 23532,
+    "motorN": 2,
+    "diff": "52.8",
+    "nseEntry": {
+      "nse": "medio-alto",
+      "nseIdx": 4,
+      "medianaPm2": 33186,
+      "nListings": 12
+    },
+    "similares": [
+      {
+        "colonia": "hermosa provincia",
+        "menciones": 4
+      },
+      {
+        "colonia": "lomas del gallo",
+        "menciones": 2
+      },
+      {
+        "colonia": "san andres",
+        "menciones": 2
+      },
+      {
+        "colonia": "aldama tetlan",
+        "menciones": 2
+      },
+      {
+        "colonia": "los arrayanes",
+        "menciones": 2
+      },
+      {
+        "colonia": "comercial y habitacional terreno es irregular",
+        "menciones": 1
+      },
+      {
+        "colonia": "para eventos con banos",
+        "menciones": 1
+      },
+      {
+        "colonia": "como terreno en hermosa provincia",
+        "menciones": 1
+      },
+      {
+        "colonia": "el zalate",
+        "menciones": 1
+      }
+    ],
+    "coloniasIDX": [
+      {
+        "col": "",
+        "pm2c": 27800,
+        "n": 661
+      },
+      {
+        "col": "ladron de guevara",
+        "pm2c": 33429,
+        "n": 41,
+        "nse": 5
+      },
+      {
+        "col": "americana",
+        "pm2c": 31633,
+        "n": 40,
+        "nse": 5
+      },
+      {
+        "col": "guadalajara",
+        "pm2c": 60961,
+        "n": 38,
+        "nse": 5
+      },
+      {
+        "col": "jardines del country",
+        "pm2c": 28881,
+        "n": 32,
+        "nse": 3
+      },
+      {
+        "col": "providencia",
+        "pm2c": 41294,
+        "n": 32,
+        "nse": 5
+      },
+      {
+        "col": "jardines del bosque",
+        "pm2c": 28403,
+        "n": 25,
+        "nse": 4
+      },
+      {
+        "col": "arcos vallarta",
+        "pm2c": 38462,
+        "n": 25,
+        "nse": 5
+      },
+      {
+        "col": "onia americana",
+        "pm2c": 26939,
+        "n": 23,
+        "nse": 5
+      },
+      {
+        "col": "inas de san javier",
+        "pm2c": 59775,
+        "n": 20,
+        "nse": 6
+      },
+      {
+        "col": "guadalajara centro",
+        "pm2c": 20594,
+        "n": 19,
+        "nse": 5
+      },
+      {
+        "col": "jardines del bosque norte",
+        "pm2c": 31951,
+        "n": 18,
+        "nse": 4
+      },
+      {
+        "col": "chapalita",
+        "pm2c": 43169,
+        "n": 17,
+        "nse": 5
+      },
+      {
+        "col": "bosques de la victoria",
+        "pm2c": 25871,
+        "n": 16,
+        "nse": 3
+      },
+      {
+        "col": "jardines alcalde",
+        "pm2c": 29231,
+        "n": 15,
+        "nse": 3
+      }
+    ]
+  }
+]
