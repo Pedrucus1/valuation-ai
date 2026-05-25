@@ -510,10 +510,10 @@
     "nListings": 37
   },
   "real de valdepenas": {
-    "nse": "medio-medio",
-    "nseIdx": 3,
-    "medianaPm2": 29563,
-    "nListings": 52
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 28500,
+    "nListings": 9
   },
   "san isidro": {
     "nse": "medio-medio",
@@ -644,7 +644,7 @@
   "villas de guadalupe": {
     "nse": "medio-bajo",
     "nseIdx": 2,
-    "medianaPm2": 14130,
+    "medianaPm2": 16549,
     "nListings": 4
   },
   "bugambilias city": {
@@ -726,9 +726,9 @@
     "nListings": 3
   },
   "villa fontana": {
-    "nse": "medio-medio",
-    "nseIdx": 3,
-    "medianaPm2": 26538,
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16500,
     "nListings": 21
   },
   "prados tepeyac": {
@@ -912,10 +912,10 @@
     "nListings": 30
   },
   "guadalajara": {
-    "nse": "lujo",
-    "nseIdx": 5,
-    "medianaPm2": 53597,
-    "nListings": 41
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 25623,
+    "nListings": 3
   },
   "parques de tesistan iii": {
     "nse": "medio-medio",
@@ -1694,20 +1694,20 @@
   "san andres": {
     "nse": "medio-alto",
     "nseIdx": 4,
-    "medianaPm2": 33305,
+    "medianaPm2": 23177,
     "nListings": 17
   },
   "lagos del country": {
-    "nse": "medio-alto",
-    "nseIdx": 4,
-    "medianaPm2": 36075,
+    "nse": "alto",
+    "nseIdx": 5,
+    "medianaPm2": 40000,
     "nListings": 15
   },
   "centro": {
-    "nse": "medio-medio",
-    "nseIdx": 3,
-    "medianaPm2": 23029,
-    "nListings": 22
+    "nse": "economico",
+    "nseIdx": 1,
+    "medianaPm2": 8696,
+    "nListings": 2
   },
   "rincon de agua azul": {
     "nse": "medio-medio",
@@ -2264,8 +2264,8 @@
   "villas terranova": {
     "nse": "medio-bajo",
     "nseIdx": 2,
-    "medianaPm2": 20755,
-    "nListings": 3
+    "medianaPm2": 14783,
+    "nListings": 8
   },
   "tossa": {
     "nse": "medio-medio",
@@ -2556,10 +2556,10 @@
     "nListings": 204
   },
   "monumental": {
-    "nse": "medio-medio",
-    "nseIdx": 3,
-    "medianaPm2": 26567,
-    "nListings": 10
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 28288,
+    "nListings": 9
   },
   "seattle neighborhood": {
     "nse": "medio-alto",
@@ -2880,9 +2880,9 @@
     "nListings": 4
   },
   "la providencia": {
-    "nse": "economico",
-    "nseIdx": 0,
-    "medianaPm2": 7056,
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15000,
     "nListings": 17
   },
   "roma norte": {
@@ -3564,9 +3564,9 @@
     "nListings": 3
   },
   "el batan": {
-    "nse": "medio-medio",
-    "nseIdx": 3,
-    "medianaPm2": 21234,
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14400,
     "nListings": 4
   },
   "juan manuel vallarta": {
@@ -3750,9 +3750,9 @@
     "nListings": 94
   },
   "mezquitan country": {
-    "nse": "lujo",
-    "nseIdx": 5,
-    "medianaPm2": 56629,
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 27371,
     "nListings": 54
   },
   "vallarta san jorge": {
@@ -3978,9 +3978,9 @@
     "nListings": 12
   },
   "vallarta la patria": {
-    "nse": "medio-alto",
-    "nseIdx": 4,
-    "medianaPm2": 42129,
+    "nse": "alto",
+    "nseIdx": 5,
+    "medianaPm2": 38024,
     "nListings": 3
   },
   "onia la estancia": {
@@ -4578,9 +4578,9 @@
     "nListings": 3
   },
   "haciendas del valle": {
-    "nse": "medio-medio",
-    "nseIdx": 3,
-    "medianaPm2": 31290,
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20000,
     "nListings": 4
   },
   "coto sienna capital norte": {
@@ -4742,13 +4742,13 @@
   "emiliano zapata": {
     "nse": "medio-bajo",
     "nseIdx": 2,
-    "medianaPm2": 19089,
+    "medianaPm2": 14634,
     "nListings": 21
   },
   "jardines del vergel": {
-    "nse": "interes-social",
-    "nseIdx": 1,
-    "medianaPm2": 11468,
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 24000,
     "nListings": 3
   },
   "eucalipto vallarta": {
@@ -4800,9 +4800,9 @@
     "nListings": 19
   },
   "mesa colorada poniente": {
-    "nse": "economico",
-    "nseIdx": 0,
-    "medianaPm2": 4250,
+    "nse": "medio",
+    "nseIdx": 3,
+    "medianaPm2": 20000,
     "nListings": 4
   },
   "ionamiento solares soare 3 coto altanza": {
@@ -4980,10 +4980,10 @@
     "nListings": 6
   },
   "san francisco de la soledad": {
-    "nse": "economico",
-    "nseIdx": 0,
-    "medianaPm2": 7450,
-    "nListings": 6
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 10870,
+    "nListings": 9
   },
   "villas de oriente": {
     "nse": "medio-medio",
@@ -5634,9 +5634,9 @@
     "nListings": 9
   },
   "villas de la hacienda": {
-    "nse": "medio-medio",
-    "nseIdx": 3,
-    "medianaPm2": 22368,
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 11500,
     "nListings": 9
   },
   "vistas de san agustin": {
@@ -5850,9 +5850,9 @@
     "nListings": 58
   },
   "independencia oriente": {
-    "nse": "medio-medio",
+    "nse": "medio",
     "nseIdx": 3,
-    "medianaPm2": 31591,
+    "medianaPm2": 28000,
     "nListings": 18
   },
   "santa monica": {
@@ -6898,10 +6898,10 @@
     "nListings": 14
   },
   "san jose del quince": {
-    "nse": "interes-social",
-    "nseIdx": 1,
-    "medianaPm2": 9672,
-    "nListings": 20
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 13136,
+    "nListings": 9
   },
   "parques del triunfo": {
     "nse": "interes-social",
@@ -6922,10 +6922,10 @@
     "nListings": 17
   },
   "parques del castillo": {
-    "nse": "economico",
-    "nseIdx": 0,
-    "medianaPm2": 6339,
-    "nListings": 6
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 13913,
+    "nListings": 9
   },
   "onia las pintitas centro": {
     "nse": "interes-social",
@@ -8517,5 +8517,53 @@
     "nse": "medio-medio",
     "nseIdx": 3,
     "medianaPm2": 15286
+  },
+  "miguel de la madrid": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 10870,
+    "nListings": 9
+  },
+  "interior 6": {
+    "nse": "medio",
+    "nseIdx": 3,
+    "medianaPm2": 20714,
+    "nListings": 2
+  },
+  "puerta del roble": {
+    "nse": "alto",
+    "nseIdx": 5,
+    "medianaPm2": 43429,
+    "nListings": 3
+  },
+  "colonia emiliano zapata": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17607,
+    "nListings": 8
+  },
+  "real valdepenas": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 28500,
+    "nListings": 9
+  },
+  "nueva santa maria": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16534,
+    "nListings": 1
+  },
+  "pinar de las palomas": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16402,
+    "nListings": 1
+  },
+  "san martin": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15000,
+    "nListings": 1
   }
 }

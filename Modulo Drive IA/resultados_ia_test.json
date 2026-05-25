@@ -1,866 +1,60 @@
 {
-  "gemini": "[\n  {\n    \"folio\": \"OPI-25-12-07-OF\",\n    \"diagnostico\": \"El motor subestima el valor. La colonia no tiene NSE cap definido y las similares actuales (fuera del IDX proporcionado o poco relevantes) resultan en un pm2cAvg bajo. Se necesitan comparables con un pm2c más alto y representativo de la zona de Misión del Bosque, y un NSE cap para mayor precisión.\",\n    \"fix_tipo\": \"ambos\",\n    \"similares_propuestas\": [\"bosques vallarta\", \"ciudad del sol\"],\n    \"nse_cap_medianaPm2\": 30400,\n    \"pm2c_estimado\": 34688,\n    \"confianza\": \"alta\"\n  },\n  {\n    \"folio\": \"OPI-25-12-04-OF\",\n    \"diagnostico\": \"El motor sobreestima el valor al caer en el pool general. La medianaPm2 actual de la colonia es alta y su cap no es efectivo. Las similares actuales son inadecuadas. Se requiere ajustar el NSE cap a un nivel más bajo y representativo del objetivo, e incluir comparables relevantes para el sector.\",\n    \"fix_tipo\": \"ambos\",\n    \"similares_propuestas\": [\"guadalajara centro\"],\n    \"nse_cap_medianaPm2\": 17300,\n    \"pm2c_estimado\": 19895,\n    \"confianza\": \"alta\"\n  },\n  {\n    \"folio\": \"OPI-25-12-01-OF\",\n    \"diagnostico\": \"El motor subestima el valor. La colonia carece de un NSE cap y las similares actuales son poco representativas o de menor valor. Se necesita establecer un NSE cap que refleje el rango de precios objetivo y proponer similares con un pm2c más alineado.\",\n    \"fix_tipo\": \"ambos\",\n    \"similares_propuestas\": [\"bugambilias\"],\n    \"nse_cap_medianaPm2\": 27500,\n    \"pm2c_estimado\": 31625,\n    \"confianza\": \"alta\"\n  },\n  {\n    \"folio\": \"OPI-25-11-15-OF\",\n    \"diagnostico\": \"El motor subestima el valor significativamente. Las similares actuales son irrelevantes y de valor muy bajo para la propiedad. Aunque la colonia tiene un NSE cap, este es muy alto y no efectivo. Se deben seleccionar similares más apropiadas y ajustar el NSE cap para centrar el valor en el objetivo.\",\n    \"fix_tipo\": \"ambos\",\n    \"similares_propuestas\": [\"bosques de la victoria\"],\n    \"nse_cap_medianaPm2\": 20300,\n    \"pm2c_estimado\": 23345,\n    \"confianza\": \"alta\"\n  },\n  {\n    \"folio\": \"OPI-25-11-13-OF\",\n    \"diagnostico\": \"El motor sobreestima el valor a pesar de usar el pool EXACTA. El pm2cAvg de los listings de Campo Real es superior al objetivo del perito. El NSE cap actual de la colonia es muy alto y no limita el valor. La solución es ajustar el NSE cap para forzar el pm2cAvg a un valor más cercano al objetivo.\",\n    \"fix_tipo\": \"nse_cap\",\n    \"similares_propuestas\": [],\n    \"nse_cap_medianaPm2\": 18900,\n    \"pm2c_estimado\": 21735,\n    \"confianza\": \"alta\"\n  },\n  {\n    \"folio\": \"OPI-25-11-12-OF\",\n    \"diagnostico\": \"El motor subestima el valor al caer en el pool general. Las similares actuales son inadecuadas y tiran el pm2cAvg muy bajo. El NSE cap existente para Balcones de Oblatos es razonable pero no está siendo alcanzado. Se debe ajustar el NSE cap para que el valor motor se alinee con el objetivo del perito, asumiendo que el cap es el mejor predictor en ausencia de comparables específicos en el IDX para este NSE.\",\n    \"fix_tipo\": \"nse_cap\",\n    \"similares_propuestas\": [],\n    \"nse_cap_medianaPm2\": 14030,\n    \"pm2c_estimado\": 16135,\n    \"confianza\": \"media\"\n  }\n]",
-  "deepseek": "[\n  {\n    \"folio\": \"OPI-25-12-07-OF\",\n    \"diagnostico\": \"Colonia Mision del Bosque no tiene NSE cap ni similares adecuadas. Las similares actuales (haciendas del valle, villas mirador, centinela i) no están en el IDX de Zapopan con suficiente volumen. Se proponen colonias del IDX con NSE 3-4 como valle imperial, bugambilias y ciudad bugambilia, que son más representativas del perfil de la zona.\",\n    \"fix_tipo\": \"similares\",\n    \"similares_propuestas\": [\"valle imperial\", \"bugambilias\", \"ciudad bugambilia\"],\n    \"nse_cap_medianaPm2\": 0,\n    \"pm2c_estimado\": 30141,\n    \"confianza\": \"media\"\n  },\n  {\n    \"folio\": \"OPI-25-12-04-OF\",\n    \"diagnostico\": \"Pool general usado incorrectamente. El NSE cap está bien (medio-medio, medianaPm2 25397), pero las similares actuales son inválidas (interior casa 19, mariano otero, etc.). Se deben usar colonias del IDX de Guadalajara con NSE 3 como jardines del country, jardines del bosque y bosques de la victoria, que son comparables por NSE y cercanía.\",\n    \"fix_tipo\": \"similares\",\n    \"similares_propuestas\": [\"jardines del country\", \"jardines del bosque\", \"bosques de la victoria\"],\n    \"nse_cap_medianaPm2\": 0,\n    \"pm2c_estimado\": 27718,\n    \"confianza\": \"alta\"\n  },\n  {\n    \"folio\": \"OPI-25-12-01-OF\",\n    \"diagnostico\": \"Colonia Colinas del Rey sin NSE cap. Las similares actuales (real de valdepenas, lomas de zapopan, etc.) no están en el IDX de Zapopan con datos suficientes. Se proponen colonias del IDX con NSE 4-5 como solares, bosques vallarta y jardin real, que reflejan mejor el valor de la zona.\",\n    \"fix_tipo\": \"similares\",\n    \"similares_propuestas\": [\"solares\", \"bosques vallarta\", \"jardin real\"],\n    \"nse_cap_medianaPm2\": 0,\n    \"pm2c_estimado\": 37154,\n    \"confianza\": \"media\"\n  },\n  {\n    \"folio\": \"OPI-25-11-15-OF\",\n    \"diagnostico\": \"Colonia Rancho Nuevo tiene NSE cap correcto (medio-medio, medianaPm2 26622), pero las similares actuales (santa elena de la cruz, lomas del paraiso ii, etc.) no están en el IDX de Guadalajara. Se deben usar colonias del IDX con NSE 3 como jardines del country, jardines del bosque y bosques de la victoria, que son comparables.\",\n    \"fix_tipo\": \"similares\",\n    \"similares_propuestas\": [\"jardines del country\", \"jardines del bosque\", \"bosques de la victoria\"],\n    \"nse_cap_medianaPm2\": 0,\n    \"pm2c_estimado\": 27718,\n    \"confianza\": \"alta\"\n  },\n  {\n    \"folio\": \"OPI-25-11-13-OF\",\n    \"diagnostico\": \"Pool exacta usado correctamente, pero el pm2cAvg de $25892/m² está por encima del objetivo de $21834/m². El NSE cap (medio-medio, medianaPm2 25000) limita a $28750/m², pero no es suficiente. Se debe ajustar el NSE cap a un valor más restrictivo o usar similares de menor valor como valle imperial y nuevo mexico para corregir la sobrevaloración.\",\n    \"fix_tipo\": \"similares\",\n    \"similares_propuestas\": [\"valle imperial\", \"nuevo mexico\"],\n    \"nse_cap_medianaPm2\": 0,\n    \"pm2c_estimado\": 27186,\n    \"confianza\": \"media\"\n  },\n  {\n    \"folio\": \"OPI-25-11-12-OF\",\n    \"diagnostico\": \"Pool general usado incorrectamente. El NSE cap (medio-bajo, medianaPm2 14790) está bien, pero las similares actuales (oblatos, el bethel, etc.) no están en el IDX de Guadalajara. Se deben usar colonias del IDX con NSE 2-3 como jardines del country, jardines del bosque y bosques de la victoria, aunque estas tienen NSE 3, lo que podría sobreestimar ligeramente. Alternativamente, buscar colonias de NSE 2 en el IDX, pero no hay con n≥3.\",\n    \"fix_tipo\": \"similares\",\n    \"similares_propuestas\": [\"jardines del country\", \"jardines del bosque\", \"bosques de la victoria\"],\n    \"nse_cap_medianaPm2\": 0,\n    \"pm2c_estimado\": 27718,\n    \"confianza\": \"baja\"\n  }\n]",
+  "gemini": "[\n  {\n    \"folio\": \"OPI-25-9-01-OF\",\n    \"diagnostico\": \"El motor cae al `pool general` debido a que la lista de `similares` contiene entradas incorrectas (frases genéricas, no colonias). El `pm2cAvg` resultante ($15661/m²) es significativamente inferior al `pm2c objetivo` ($20248/m²). Aunque la colonia tiene un `NSE cap` definido (`medianaPm2`: $19089/m²), el bajo `pm2cAvg` del pool no permite que el cap se active para limitar o elevar el valor. La lista de IDX de Zapopan no ofrece colonias `medio-bajo` (NSE 2) para `similares` directas, por lo que se propone una colonia de `NSE 3` que, al ser ligeramente superior, permite que el `NSE cap` actual de la colonia actúe como un límite superior efectivo.\",\n    \"fix_tipo\": \"similares\",\n    \"similares_propuestas\": [\"nuevo mexico\"],\n    \"nse_cap_medianaPm2\": 0,\n    \"pm2c_estimado\": 21952,\n    \"confianza\": \"media\"\n  },\n  {\n    \"folio\": \"OPI-25-8-16-LM\",\n    \"diagnostico\": \"La colonia de entrada es 'Guadalajara', un nombre ambiguo. Parece que la propiedad está mal clasificada con un `NSE lujo` (`NSEIdx 5`) en `colonias_nse.json`, ya que el `pm2c objetivo` ($29467/m²) es mucho menor que la `medianaPm2` actual ($53597/m²). Además, los `similares` actuales son de NSE inferiores, lo que reduce el `pm2cAvg` del motor a $15744/m², generando una diferencia del -46.6%. La edad (3 años) y condición (bueno) de la propiedad sugieren un `NSE medio-alto` (NSE 4) o `medio` (NSE 3).\",\n    \"fix_tipo\": \"ambos\",\n    \"similares_propuestas\": [\"jardines del country\", \"jardines del bosque\", \"jardines alcalde\", \"vallarta poniente\"],\n    \"nse_cap_medianaPm2\": 25623,\n    \"pm2c_estimado\": 29261,\n    \"confianza\": \"alta\"\n  },\n  {\n    \"folio\": \"OPI-25-9-03-OF\",\n    \"diagnostico\": \"El motor sobrevalora en un 12.5%, con un `pm2cAvg` de $29992/m² que supera el `pm2c objetivo` de $26654/m². La `medianaPm2` actual para 'San Andres' en `colonias_nse.json` ($33305/m², NSE 4) es más alta de lo que corresponde al `pm2c objetivo` y la antigüedad de la propiedad (53 años), lo que sugiere que la `medianaPm2` actual es demasiado elevada para este inmueble o las `similares` actuales no son las más adecuadas. El `NSE cap` actual no logra limitar el valor. Es necesario ajustar tanto la `medianaPm2` como las colonias similares para un mejor anclaje del precio.\",\n    \"fix_tipo\": \"ambos\",\n    \"similares_propuestas\": [\"jardines del country\", \"bosques de la victoria\"],\n    \"nse_cap_medianaPm2\": 23177,\n    \"pm2c_estimado\": 26654,\n    \"confianza\": \"alta\"\n  },\n  {\n    \"folio\": \"OPI-25-8-17-LM\",\n    \"diagnostico\": \"El motor sobrevalora en un 13.5%. La razón principal es la ausencia de una entrada para 'Real Valdepeñas' en `colonias_nse.json`, lo que significa que no hay un `NSE cap` para limitar el `pm2cAvg`. El `pm2cAvg` actual de $37204/m² es significativamente mayor que el `pm2c objetivo` de $32768/m². La colonia 'real de valdepenas' listada en `similares` es probablemente una variante de la misma, pero sin el cap, el promedio es demasiado alto. La propiedad es nueva (7 años) y en muy buen estado, lo que justifica un NSE medio-alto (NSE 4).\",\n    \"fix_tipo\": \"ambos\",\n    \"similares_propuestas\": [\"bugambilias\"],\n    \"nse_cap_medianaPm2\": 28500,\n    \"pm2c_estimado\": 32775,\n    \"confianza\": \"alta\"\n  }\n]",
   "datos": [
     {
-      "folio": "OPI-25-12-07-OF",
+      "folio": "OPI-25-9-01-OF",
       "municipio": "Zapopan",
-      "colonia": "Mision del Bosque",
-      "colNorm": "mision del bosque",
-      "tipo": "CASA HABITACIÓN EN CONDOMINIO",
-      "m2C": 66.16,
-      "m2T": 74.11,
-      "edad": 21,
-      "conserv": "bueno",
-      "valorPerito": 2197000,
-      "pm2cObjetivo": 34955,
-      "motorValor": 1931169,
-      "motorPool": "similares",
-      "motorPm2c": 30726,
-      "motorN": 5,
-      "diff": "-12.1",
-      "nseEntry": null,
-      "similares": [
-        {
-          "colonia": "haciendas del valle",
-          "menciones": 6
-        },
-        {
-          "colonia": "villas mirador",
-          "menciones": 4
-        },
-        {
-          "colonia": "centinela i",
-          "menciones": 2
-        }
-      ],
-      "coloniasIDX": [
-        {
-          "col": "",
-          "pm2c": 34515,
-          "n": 968
-        },
-        {
-          "col": "valle imperial",
-          "pm2c": 27660,
-          "n": 165,
-          "nse": 3
-        },
-        {
-          "col": "solares",
-          "pm2c": 38487,
-          "n": 160,
-          "nse": 4
-        },
-        {
-          "col": "valle real",
-          "pm2c": 52228,
-          "n": 111,
-          "nse": 5
-        },
-        {
-          "col": "bosques vallarta",
-          "pm2c": 34199,
-          "n": 85,
-          "nse": 4
-        },
-        {
-          "col": "las canadas",
-          "pm2c": 37784,
-          "n": 59,
-          "nse": 3
-        },
-        {
-          "col": "puerta de hierro",
-          "pm2c": 55872,
-          "n": 56,
-          "nse": 5
-        },
-        {
-          "col": "virreyes",
-          "pm2c": 47658,
-          "n": 53,
-          "nse": 5
-        },
-        {
-          "col": "puerta las lomas",
-          "pm2c": 54860,
-          "n": 52,
-          "nse": 6
-        },
-        {
-          "col": "nuevo mexico",
-          "pm2c": 26743,
-          "n": 51,
-          "nse": 3
-        },
-        {
-          "col": "ionamiento solares",
-          "pm2c": 37719,
-          "n": 47,
-          "nse": 4
-        },
-        {
-          "col": "ionamiento valle imperial",
-          "pm2c": 29148,
-          "n": 45,
-          "nse": 3
-        },
-        {
-          "col": "jardin real",
-          "pm2c": 38857,
-          "n": 43,
-          "nse": 4
-        },
-        {
-          "col": "ionamiento bugambilias",
-          "pm2c": 28927,
-          "n": 40,
-          "nse": 3
-        },
-        {
-          "col": "ciudad del sol",
-          "pm2c": 35177,
-          "n": 39,
-          "nse": 4
-        },
-        {
-          "col": "vallarta universidad",
-          "pm2c": 56555,
-          "n": 35,
-          "nse": 5
-        },
-        {
-          "col": "inas de san javier",
-          "pm2c": 68385,
-          "n": 35,
-          "nse": 6
-        },
-        {
-          "col": "bugambilias",
-          "pm2c": 32838,
-          "n": 34,
-          "nse": 3
-        },
-        {
-          "col": "ciudad bugambilia",
-          "pm2c": 27873,
-          "n": 32,
-          "nse": 3
-        },
-        {
-          "col": "parques vallarta",
-          "pm2c": 37013,
-          "n": 31,
-          "nse": 4
-        }
-      ]
-    },
-    {
-      "folio": "OPI-25-12-04-OF ",
-      "municipio": "Guadalajara",
-      "colonia": "El Fortin",
-      "colNorm": "el fortin",
+      "colonia": "Colonia Emiliano Zapata",
+      "colNorm": "emiliano zapata",
       "tipo": "CASA HABITACIÓN",
-      "m2C": 130.9,
-      "m2T": 105,
-      "edad": 7,
-      "conserv": "bueno",
-      "valorPerito": 2479000,
-      "pm2cObjetivo": 19935,
-      "motorValor": 2768509,
+      "m2C": 100.49,
+      "m2T": 324,
+      "edad": 41,
+      "conserv": "regular_medio",
+      "valorPerito": 1933000,
+      "pm2cObjetivo": 20248,
+      "motorValor": 1495088,
       "motorPool": "general",
-      "motorPm2c": 22263,
+      "motorPm2c": 15661,
       "motorN": 8,
-      "diff": "11.7",
-      "nseEntry": {
-        "nse": "medio-medio",
-        "nseIdx": 3,
-        "medianaPm2": 25397,
-        "nListings": 43
-      },
-      "similares": [
-        {
-          "colonia": "interior casa 19",
-          "menciones": 8
-        },
-        {
-          "colonia": "mariano otero",
-          "menciones": 2
-        },
-        {
-          "colonia": "col valle de san nicolas",
-          "menciones": 2
-        },
-        {
-          "colonia": "miramar",
-          "menciones": 1
-        },
-        {
-          "colonia": "el tizate",
-          "menciones": 1
-        }
-      ],
-      "coloniasIDX": [
-        {
-          "col": "",
-          "pm2c": 27800,
-          "n": 661
-        },
-        {
-          "col": "ladron de guevara",
-          "pm2c": 33429,
-          "n": 41,
-          "nse": 5
-        },
-        {
-          "col": "americana",
-          "pm2c": 31633,
-          "n": 40,
-          "nse": 5
-        },
-        {
-          "col": "guadalajara",
-          "pm2c": 60961,
-          "n": 38,
-          "nse": 5
-        },
-        {
-          "col": "jardines del country",
-          "pm2c": 28881,
-          "n": 32,
-          "nse": 3
-        },
-        {
-          "col": "providencia",
-          "pm2c": 41294,
-          "n": 32,
-          "nse": 5
-        },
-        {
-          "col": "jardines del bosque",
-          "pm2c": 28403,
-          "n": 25,
-          "nse": 4
-        },
-        {
-          "col": "arcos vallarta",
-          "pm2c": 38462,
-          "n": 25,
-          "nse": 5
-        },
-        {
-          "col": "onia americana",
-          "pm2c": 26939,
-          "n": 23,
-          "nse": 5
-        },
-        {
-          "col": "inas de san javier",
-          "pm2c": 59775,
-          "n": 20,
-          "nse": 6
-        },
-        {
-          "col": "guadalajara centro",
-          "pm2c": 20594,
-          "n": 19,
-          "nse": 5
-        },
-        {
-          "col": "jardines del bosque norte",
-          "pm2c": 31951,
-          "n": 18,
-          "nse": 4
-        },
-        {
-          "col": "chapalita",
-          "pm2c": 43169,
-          "n": 17,
-          "nse": 5
-        },
-        {
-          "col": "bosques de la victoria",
-          "pm2c": 25871,
-          "n": 16,
-          "nse": 3
-        },
-        {
-          "col": "jardines alcalde",
-          "pm2c": 29231,
-          "n": 15,
-          "nse": 3
-        },
-        {
-          "col": "colinas de san javier",
-          "pm2c": 48286,
-          "n": 14,
-          "nse": 5
-        },
-        {
-          "col": "vallarta poniente",
-          "pm2c": 30530,
-          "n": 14,
-          "nse": 4
-        },
-        {
-          "col": "omos providencia",
-          "pm2c": 45187,
-          "n": 14,
-          "nse": 5
-        },
-        {
-          "col": "prados providencia",
-          "pm2c": 38788,
-          "n": 13,
-          "nse": 4
-        },
-        {
-          "col": "country club",
-          "pm2c": 52201,
-          "n": 13,
-          "nse": 5
-        }
-      ]
-    },
-    {
-      "folio": "OPI-25-12-01-OF",
-      "municipio": "Zapopan",
-      "colonia": "Colinas del Rey",
-      "colNorm": "colinas del rey",
-      "tipo": "CASA HABITACIÓN EN CONDOMINIO",
-      "m2C": 195.64,
-      "m2T": 189.14,
-      "edad": 15,
-      "conserv": "muy_bueno",
-      "valorPerito": 5877000,
-      "pm2cObjetivo": 31621,
-      "motorValor": 5168446,
-      "motorPool": "similares",
-      "motorPm2c": 27809,
-      "motorN": 8,
-      "diff": "-12.1",
-      "nseEntry": null,
-      "similares": [
-        {
-          "colonia": "real de valdepenas",
-          "menciones": 6
-        },
-        {
-          "colonia": "lomas de zapopan",
-          "menciones": 2
-        },
-        {
-          "colonia": "arcos zapopan",
-          "menciones": 2
-        },
-        {
-          "colonia": "la cima",
-          "menciones": 2
-        },
-        {
-          "colonia": "boreales",
-          "menciones": 2
-        },
-        {
-          "colonia": "capital norte",
-          "menciones": 2
-        },
-        {
-          "colonia": "dos niveles 2 cocheras 3 banos",
-          "menciones": 2
-        }
-      ],
-      "coloniasIDX": [
-        {
-          "col": "",
-          "pm2c": 34515,
-          "n": 968
-        },
-        {
-          "col": "valle imperial",
-          "pm2c": 27660,
-          "n": 165,
-          "nse": 3
-        },
-        {
-          "col": "solares",
-          "pm2c": 38487,
-          "n": 160,
-          "nse": 4
-        },
-        {
-          "col": "valle real",
-          "pm2c": 52228,
-          "n": 111,
-          "nse": 5
-        },
-        {
-          "col": "bosques vallarta",
-          "pm2c": 34199,
-          "n": 85,
-          "nse": 4
-        },
-        {
-          "col": "las canadas",
-          "pm2c": 37784,
-          "n": 59,
-          "nse": 3
-        },
-        {
-          "col": "puerta de hierro",
-          "pm2c": 55872,
-          "n": 56,
-          "nse": 5
-        },
-        {
-          "col": "virreyes",
-          "pm2c": 47658,
-          "n": 53,
-          "nse": 5
-        },
-        {
-          "col": "puerta las lomas",
-          "pm2c": 54860,
-          "n": 52,
-          "nse": 6
-        },
-        {
-          "col": "nuevo mexico",
-          "pm2c": 26743,
-          "n": 51,
-          "nse": 3
-        },
-        {
-          "col": "ionamiento solares",
-          "pm2c": 37719,
-          "n": 47,
-          "nse": 4
-        },
-        {
-          "col": "ionamiento valle imperial",
-          "pm2c": 29148,
-          "n": 45,
-          "nse": 3
-        },
-        {
-          "col": "jardin real",
-          "pm2c": 38857,
-          "n": 43,
-          "nse": 4
-        },
-        {
-          "col": "ionamiento bugambilias",
-          "pm2c": 28927,
-          "n": 40,
-          "nse": 3
-        },
-        {
-          "col": "ciudad del sol",
-          "pm2c": 35177,
-          "n": 39,
-          "nse": 4
-        },
-        {
-          "col": "vallarta universidad",
-          "pm2c": 56555,
-          "n": 35,
-          "nse": 5
-        },
-        {
-          "col": "inas de san javier",
-          "pm2c": 68385,
-          "n": 35,
-          "nse": 6
-        },
-        {
-          "col": "bugambilias",
-          "pm2c": 32838,
-          "n": 34,
-          "nse": 3
-        },
-        {
-          "col": "ciudad bugambilia",
-          "pm2c": 27873,
-          "n": 32,
-          "nse": 3
-        },
-        {
-          "col": "parques vallarta",
-          "pm2c": 37013,
-          "n": 31,
-          "nse": 4
-        }
-      ]
-    },
-    {
-      "folio": "OPI-25-11-15-OF",
-      "municipio": "Guadalajara",
-      "colonia": "Rancho Nuevo",
-      "colNorm": "rancho nuevo",
-      "tipo": "CASA HABITACIÓN",
-      "m2C": 317.96,
-      "m2T": 177.45,
-      "edad": 4,
-      "conserv": "bueno",
-      "valorPerito": 7044000,
-      "pm2cObjetivo": 23320,
-      "motorValor": 5917577,
-      "motorPool": "similares",
-      "motorPm2c": 19591,
-      "motorN": 5,
-      "diff": "-16.0",
-      "nseEntry": {
-        "nse": "medio-medio",
-        "nseIdx": 3,
-        "medianaPm2": 26622,
-        "nListings": 6
-      },
-      "similares": [
-        {
-          "colonia": "santa elena de la cruz",
-          "menciones": 4
-        },
-        {
-          "colonia": "lomas del paraiso ii",
-          "menciones": 2
-        },
-        {
-          "colonia": "atemajac del valle",
-          "menciones": 2
-        },
-        {
-          "colonia": "arroyo hondo",
-          "menciones": 2
-        },
-        {
-          "colonia": "de independencia",
-          "menciones": 1
-        },
-        {
-          "colonia": "san elias",
-          "menciones": 1
-        }
-      ],
-      "coloniasIDX": [
-        {
-          "col": "",
-          "pm2c": 27800,
-          "n": 661
-        },
-        {
-          "col": "ladron de guevara",
-          "pm2c": 33429,
-          "n": 41,
-          "nse": 5
-        },
-        {
-          "col": "americana",
-          "pm2c": 31633,
-          "n": 40,
-          "nse": 5
-        },
-        {
-          "col": "guadalajara",
-          "pm2c": 60961,
-          "n": 38,
-          "nse": 5
-        },
-        {
-          "col": "jardines del country",
-          "pm2c": 28881,
-          "n": 32,
-          "nse": 3
-        },
-        {
-          "col": "providencia",
-          "pm2c": 41294,
-          "n": 32,
-          "nse": 5
-        },
-        {
-          "col": "jardines del bosque",
-          "pm2c": 28403,
-          "n": 25,
-          "nse": 4
-        },
-        {
-          "col": "arcos vallarta",
-          "pm2c": 38462,
-          "n": 25,
-          "nse": 5
-        },
-        {
-          "col": "onia americana",
-          "pm2c": 26939,
-          "n": 23,
-          "nse": 5
-        },
-        {
-          "col": "inas de san javier",
-          "pm2c": 59775,
-          "n": 20,
-          "nse": 6
-        },
-        {
-          "col": "guadalajara centro",
-          "pm2c": 20594,
-          "n": 19,
-          "nse": 5
-        },
-        {
-          "col": "jardines del bosque norte",
-          "pm2c": 31951,
-          "n": 18,
-          "nse": 4
-        },
-        {
-          "col": "chapalita",
-          "pm2c": 43169,
-          "n": 17,
-          "nse": 5
-        },
-        {
-          "col": "bosques de la victoria",
-          "pm2c": 25871,
-          "n": 16,
-          "nse": 3
-        },
-        {
-          "col": "jardines alcalde",
-          "pm2c": 29231,
-          "n": 15,
-          "nse": 3
-        },
-        {
-          "col": "colinas de san javier",
-          "pm2c": 48286,
-          "n": 14,
-          "nse": 5
-        },
-        {
-          "col": "vallarta poniente",
-          "pm2c": 30530,
-          "n": 14,
-          "nse": 4
-        },
-        {
-          "col": "omos providencia",
-          "pm2c": 45187,
-          "n": 14,
-          "nse": 5
-        },
-        {
-          "col": "prados providencia",
-          "pm2c": 38788,
-          "n": 13,
-          "nse": 4
-        },
-        {
-          "col": "country club",
-          "pm2c": 52201,
-          "n": 13,
-          "nse": 5
-        }
-      ]
-    },
-    {
-      "folio": "OPI-25-11-13-OF",
-      "municipio": "Zapopan",
-      "colonia": "Campo Real",
-      "colNorm": "campo real",
-      "tipo": "CASA HABITACIÓN EN CONDOMINIO",
-      "m2C": 78.68,
-      "m2T": 74.22,
-      "edad": 13,
-      "conserv": "bueno",
-      "valorPerito": 1632000,
-      "pm2cObjetivo": 21834,
-      "motorValor": 1935309,
-      "motorPool": "exacta",
-      "motorPm2c": 25892,
-      "motorN": 6,
-      "diff": "18.6",
-      "nseEntry": {
-        "nse": "medio-medio",
-        "nseIdx": 3,
-        "medianaPm2": 25000,
-        "nListings": 13
-      },
-      "similares": [
-        {
-          "colonia": "cond hacienda del lago 3",
-          "menciones": 6
-        },
-        {
-          "colonia": "la moraleja",
-          "menciones": 2
-        },
-        {
-          "colonia": "valle imperial",
-          "menciones": 1
-        }
-      ],
-      "coloniasIDX": [
-        {
-          "col": "",
-          "pm2c": 34515,
-          "n": 968
-        },
-        {
-          "col": "valle imperial",
-          "pm2c": 27660,
-          "n": 165,
-          "nse": 3
-        },
-        {
-          "col": "solares",
-          "pm2c": 38487,
-          "n": 160,
-          "nse": 4
-        },
-        {
-          "col": "valle real",
-          "pm2c": 52228,
-          "n": 111,
-          "nse": 5
-        },
-        {
-          "col": "bosques vallarta",
-          "pm2c": 34199,
-          "n": 85,
-          "nse": 4
-        },
-        {
-          "col": "las canadas",
-          "pm2c": 37784,
-          "n": 59,
-          "nse": 3
-        },
-        {
-          "col": "puerta de hierro",
-          "pm2c": 55872,
-          "n": 56,
-          "nse": 5
-        },
-        {
-          "col": "virreyes",
-          "pm2c": 47658,
-          "n": 53,
-          "nse": 5
-        },
-        {
-          "col": "puerta las lomas",
-          "pm2c": 54860,
-          "n": 52,
-          "nse": 6
-        },
-        {
-          "col": "nuevo mexico",
-          "pm2c": 26743,
-          "n": 51,
-          "nse": 3
-        },
-        {
-          "col": "ionamiento solares",
-          "pm2c": 37719,
-          "n": 47,
-          "nse": 4
-        },
-        {
-          "col": "ionamiento valle imperial",
-          "pm2c": 29148,
-          "n": 45,
-          "nse": 3
-        },
-        {
-          "col": "jardin real",
-          "pm2c": 38857,
-          "n": 43,
-          "nse": 4
-        },
-        {
-          "col": "ionamiento bugambilias",
-          "pm2c": 28927,
-          "n": 40,
-          "nse": 3
-        },
-        {
-          "col": "ciudad del sol",
-          "pm2c": 35177,
-          "n": 39,
-          "nse": 4
-        },
-        {
-          "col": "vallarta universidad",
-          "pm2c": 56555,
-          "n": 35,
-          "nse": 5
-        },
-        {
-          "col": "inas de san javier",
-          "pm2c": 68385,
-          "n": 35,
-          "nse": 6
-        },
-        {
-          "col": "bugambilias",
-          "pm2c": 32838,
-          "n": 34,
-          "nse": 3
-        },
-        {
-          "col": "ciudad bugambilia",
-          "pm2c": 27873,
-          "n": 32,
-          "nse": 3
-        },
-        {
-          "col": "parques vallarta",
-          "pm2c": 37013,
-          "n": 31,
-          "nse": 4
-        }
-      ]
-    },
-    {
-      "folio": "OPI-25-11-12-OF",
-      "municipio": "Guadalajara",
-      "colonia": "Balcones de Oblatos",
-      "colNorm": "balcones de oblatos",
-      "tipo": "CASA HABITACIÓN",
-      "m2C": 66.62,
-      "m2T": 78.38,
-      "edad": 42,
-      "conserv": "malo",
-      "valorPerito": 1021000,
-      "pm2cObjetivo": 16132,
-      "motorValor": 880226,
-      "motorPool": "general",
-      "motorPm2c": 13908,
-      "motorN": 7,
-      "diff": "-13.8",
+      "diff": "-22.7",
       "nseEntry": {
         "nse": "medio-bajo",
         "nseIdx": 2,
-        "medianaPm2": 14790,
-        "nListings": 5
+        "medianaPm2": 19089,
+        "nListings": 21
       },
       "similares": [
         {
-          "colonia": "oblatos",
+          "colonia": "tetlan",
           "menciones": 4
         },
         {
-          "colonia": "el bethel",
+          "colonia": "parques de la victoria",
           "menciones": 2
         },
         {
-          "colonia": "lagos de oriente guadalajara jalisco",
+          "colonia": "nueva espana",
           "menciones": 2
         },
         {
-          "colonia": "rio verde",
+          "colonia": "la coronilla",
+          "menciones": 2
+        },
+        {
+          "colonia": "el mirador",
+          "menciones": 2
+        },
+        {
+          "colonia": "bethel",
+          "menciones": 2
+        },
+        {
+          "colonia": "heliodoro hernandez loza",
+          "menciones": 2
+        },
+        {
+          "colonia": "prados tonala",
           "menciones": 2
         },
         {
@@ -868,15 +62,258 @@
           "menciones": 2
         },
         {
-          "colonia": "santa cecilia 2a",
+          "colonia": "sala comedor cocina 2 recamaras area de lavado",
           "menciones": 2
         },
         {
-          "colonia": "vicente guerrero",
+          "colonia": "todo el terreno cuenta con una plancha de concreto en piso",
           "menciones": 1
         },
         {
-          "colonia": "el zalate",
+          "colonia": "los belenes",
+          "menciones": 1
+        },
+        {
+          "colonia": "del vergel",
+          "menciones": 1
+        },
+        {
+          "colonia": "servicios basicos como agua alumbrado y luz",
+          "menciones": 1
+        }
+      ],
+      "coloniasIDX": [
+        {
+          "col": "",
+          "pm2c": 34515,
+          "n": 968
+        },
+        {
+          "col": "valle imperial",
+          "pm2c": 27660,
+          "n": 165,
+          "nse": 3
+        },
+        {
+          "col": "solares",
+          "pm2c": 38487,
+          "n": 160,
+          "nse": 4
+        },
+        {
+          "col": "valle real",
+          "pm2c": 52228,
+          "n": 111,
+          "nse": 5
+        },
+        {
+          "col": "bosques vallarta",
+          "pm2c": 34199,
+          "n": 85,
+          "nse": 4
+        },
+        {
+          "col": "las canadas",
+          "pm2c": 37784,
+          "n": 59,
+          "nse": 3
+        },
+        {
+          "col": "puerta de hierro",
+          "pm2c": 55872,
+          "n": 56,
+          "nse": 5
+        },
+        {
+          "col": "virreyes",
+          "pm2c": 47658,
+          "n": 53,
+          "nse": 5
+        },
+        {
+          "col": "puerta las lomas",
+          "pm2c": 54860,
+          "n": 52,
+          "nse": 6
+        },
+        {
+          "col": "nuevo mexico",
+          "pm2c": 26743,
+          "n": 51,
+          "nse": 3
+        },
+        {
+          "col": "ionamiento solares",
+          "pm2c": 37719,
+          "n": 47,
+          "nse": 4
+        },
+        {
+          "col": "ionamiento valle imperial",
+          "pm2c": 29148,
+          "n": 45,
+          "nse": 3
+        },
+        {
+          "col": "jardin real",
+          "pm2c": 38857,
+          "n": 43,
+          "nse": 4
+        },
+        {
+          "col": "ionamiento bugambilias",
+          "pm2c": 28927,
+          "n": 40,
+          "nse": 3
+        },
+        {
+          "col": "ciudad del sol",
+          "pm2c": 35177,
+          "n": 39,
+          "nse": 4
+        },
+        {
+          "col": "vallarta universidad",
+          "pm2c": 56555,
+          "n": 35,
+          "nse": 5
+        },
+        {
+          "col": "inas de san javier",
+          "pm2c": 68385,
+          "n": 35,
+          "nse": 6
+        },
+        {
+          "col": "bugambilias",
+          "pm2c": 32838,
+          "n": 34,
+          "nse": 3
+        },
+        {
+          "col": "ciudad bugambilia",
+          "pm2c": 27873,
+          "n": 32,
+          "nse": 3
+        },
+        {
+          "col": "parques vallarta",
+          "pm2c": 37013,
+          "n": 31,
+          "nse": 4
+        }
+      ]
+    },
+    {
+      "folio": "OPI-25-8-16-LM",
+      "municipio": "Guadalajara",
+      "colonia": "Guadalajara",
+      "colNorm": "guadalajara",
+      "tipo": "CASA HABITACIÓN",
+      "m2C": 145.57,
+      "m2T": 111,
+      "edad": 3,
+      "conserv": "bueno",
+      "valorPerito": 4075000,
+      "pm2cObjetivo": 29467,
+      "motorValor": 2177293,
+      "motorPool": "similares",
+      "motorPm2c": 15744,
+      "motorN": 3,
+      "diff": "-46.6",
+      "nseEntry": {
+        "nse": "lujo",
+        "nseIdx": 5,
+        "medianaPm2": 53597,
+        "nListings": 41
+      },
+      "similares": [
+        {
+          "colonia": "vicente guerrero",
+          "menciones": 4
+        },
+        {
+          "colonia": "las aguilas",
+          "menciones": 4
+        },
+        {
+          "colonia": "polanco",
+          "menciones": 4
+        },
+        {
+          "colonia": "santa tere",
+          "menciones": 4
+        },
+        {
+          "colonia": "lomas de polanco",
+          "menciones": 2
+        },
+        {
+          "colonia": "jardines del sur",
+          "menciones": 2
+        },
+        {
+          "colonia": "loma bonita ejidal",
+          "menciones": 2
+        },
+        {
+          "colonia": "sta eduwiges",
+          "menciones": 2
+        },
+        {
+          "colonia": "jardines de la cruz",
+          "menciones": 2
+        },
+        {
+          "colonia": "la calma",
+          "menciones": 2
+        },
+        {
+          "colonia": "sn",
+          "menciones": 2
+        },
+        {
+          "colonia": "francisco villa",
+          "menciones": 2
+        },
+        {
+          "colonia": "18 de marzo",
+          "menciones": 2
+        },
+        {
+          "colonia": "mezquitan country",
+          "menciones": 2
+        },
+        {
+          "colonia": "artesanos",
+          "menciones": 2
+        },
+        {
+          "colonia": "alcalde barranquitas",
+          "menciones": 2
+        },
+        {
+          "colonia": "del tesoro",
+          "menciones": 3
+        },
+        {
+          "colonia": "de polanco",
+          "menciones": 2
+        },
+        {
+          "colonia": "villa guerrero",
+          "menciones": 1
+        },
+        {
+          "colonia": "san pedro",
+          "menciones": 1
+        },
+        {
+          "colonia": "suelo para comercios y servicios",
+          "menciones": 1
+        },
+        {
+          "colonia": "entre av patria y ocho de julio mixto",
           "menciones": 1
         }
       ],
@@ -999,6 +436,347 @@
           "pm2c": 52201,
           "n": 13,
           "nse": 5
+        }
+      ]
+    },
+    {
+      "folio": "OPI-25-9-03-OF",
+      "municipio": "Guadalajara",
+      "colonia": "San Andres",
+      "colNorm": "san andres",
+      "tipo": "CASA HABITACIÓN",
+      "m2C": 97.9,
+      "m2T": 141.75,
+      "edad": 53,
+      "conserv": "bueno",
+      "valorPerito": 2479000,
+      "pm2cObjetivo": 26654,
+      "motorValor": 2789443,
+      "motorPool": "similares",
+      "motorPm2c": 29992,
+      "motorN": 3,
+      "diff": "12.5",
+      "nseEntry": {
+        "nse": "medio-alto",
+        "nseIdx": 4,
+        "medianaPm2": 33305,
+        "nListings": 17
+      },
+      "similares": [
+        {
+          "colonia": "san rafael",
+          "menciones": 10
+        },
+        {
+          "colonia": "col san andres",
+          "menciones": 8
+        },
+        {
+          "colonia": "san rafael tlaquepaque",
+          "menciones": 6
+        },
+        {
+          "colonia": "san antonio",
+          "menciones": 4
+        },
+        {
+          "colonia": "aldama tetlan",
+          "menciones": 2
+        },
+        {
+          "colonia": "insurgentes",
+          "menciones": 2
+        },
+        {
+          "colonia": "insurgentes guadalajara",
+          "menciones": 2
+        },
+        {
+          "colonia": "oblatos",
+          "menciones": 2
+        },
+        {
+          "colonia": "jardines de guadalupe",
+          "menciones": 2
+        },
+        {
+          "colonia": "cuauhtemoc",
+          "menciones": 2
+        },
+        {
+          "colonia": "lagos de oriente",
+          "menciones": 2
+        },
+        {
+          "colonia": "cantarranas",
+          "menciones": 2
+        }
+      ],
+      "coloniasIDX": [
+        {
+          "col": "",
+          "pm2c": 27800,
+          "n": 661
+        },
+        {
+          "col": "ladron de guevara",
+          "pm2c": 33429,
+          "n": 41,
+          "nse": 5
+        },
+        {
+          "col": "americana",
+          "pm2c": 31633,
+          "n": 40,
+          "nse": 5
+        },
+        {
+          "col": "guadalajara",
+          "pm2c": 60961,
+          "n": 38,
+          "nse": 5
+        },
+        {
+          "col": "jardines del country",
+          "pm2c": 28881,
+          "n": 32,
+          "nse": 3
+        },
+        {
+          "col": "providencia",
+          "pm2c": 41294,
+          "n": 32,
+          "nse": 5
+        },
+        {
+          "col": "jardines del bosque",
+          "pm2c": 28403,
+          "n": 25,
+          "nse": 4
+        },
+        {
+          "col": "arcos vallarta",
+          "pm2c": 38462,
+          "n": 25,
+          "nse": 5
+        },
+        {
+          "col": "onia americana",
+          "pm2c": 26939,
+          "n": 23,
+          "nse": 5
+        },
+        {
+          "col": "inas de san javier",
+          "pm2c": 59775,
+          "n": 20,
+          "nse": 6
+        },
+        {
+          "col": "guadalajara centro",
+          "pm2c": 20594,
+          "n": 19,
+          "nse": 5
+        },
+        {
+          "col": "jardines del bosque norte",
+          "pm2c": 31951,
+          "n": 18,
+          "nse": 4
+        },
+        {
+          "col": "chapalita",
+          "pm2c": 43169,
+          "n": 17,
+          "nse": 5
+        },
+        {
+          "col": "bosques de la victoria",
+          "pm2c": 25871,
+          "n": 16,
+          "nse": 3
+        },
+        {
+          "col": "jardines alcalde",
+          "pm2c": 29231,
+          "n": 15,
+          "nse": 3
+        },
+        {
+          "col": "colinas de san javier",
+          "pm2c": 48286,
+          "n": 14,
+          "nse": 5
+        },
+        {
+          "col": "vallarta poniente",
+          "pm2c": 30530,
+          "n": 14,
+          "nse": 4
+        },
+        {
+          "col": "omos providencia",
+          "pm2c": 45187,
+          "n": 14,
+          "nse": 5
+        },
+        {
+          "col": "prados providencia",
+          "pm2c": 38788,
+          "n": 13,
+          "nse": 4
+        },
+        {
+          "col": "country club",
+          "pm2c": 52201,
+          "n": 13,
+          "nse": 5
+        }
+      ]
+    },
+    {
+      "folio": "OPI-25-8-17-LM",
+      "municipio": "Zapopan",
+      "colonia": "Real Valdepeñas",
+      "colNorm": "real valdepenas",
+      "tipo": "CASA HABITACIÓN EN CONDOMINIO",
+      "m2C": 126.02,
+      "m2T": 96.59,
+      "edad": 7,
+      "conserv": "muy_bueno",
+      "valorPerito": 3923000,
+      "pm2cObjetivo": 32768,
+      "motorValor": 4454006,
+      "motorPool": "similares",
+      "motorPm2c": 37204,
+      "motorN": 9,
+      "diff": "13.5",
+      "nseEntry": null,
+      "similares": [
+        {
+          "colonia": "real de valdepenas",
+          "menciones": 10
+        }
+      ],
+      "coloniasIDX": [
+        {
+          "col": "",
+          "pm2c": 34515,
+          "n": 968
+        },
+        {
+          "col": "valle imperial",
+          "pm2c": 27660,
+          "n": 165,
+          "nse": 3
+        },
+        {
+          "col": "solares",
+          "pm2c": 38487,
+          "n": 160,
+          "nse": 4
+        },
+        {
+          "col": "valle real",
+          "pm2c": 52228,
+          "n": 111,
+          "nse": 5
+        },
+        {
+          "col": "bosques vallarta",
+          "pm2c": 34199,
+          "n": 85,
+          "nse": 4
+        },
+        {
+          "col": "las canadas",
+          "pm2c": 37784,
+          "n": 59,
+          "nse": 3
+        },
+        {
+          "col": "puerta de hierro",
+          "pm2c": 55872,
+          "n": 56,
+          "nse": 5
+        },
+        {
+          "col": "virreyes",
+          "pm2c": 47658,
+          "n": 53,
+          "nse": 5
+        },
+        {
+          "col": "puerta las lomas",
+          "pm2c": 54860,
+          "n": 52,
+          "nse": 6
+        },
+        {
+          "col": "nuevo mexico",
+          "pm2c": 26743,
+          "n": 51,
+          "nse": 3
+        },
+        {
+          "col": "ionamiento solares",
+          "pm2c": 37719,
+          "n": 47,
+          "nse": 4
+        },
+        {
+          "col": "ionamiento valle imperial",
+          "pm2c": 29148,
+          "n": 45,
+          "nse": 3
+        },
+        {
+          "col": "jardin real",
+          "pm2c": 38857,
+          "n": 43,
+          "nse": 4
+        },
+        {
+          "col": "ionamiento bugambilias",
+          "pm2c": 28927,
+          "n": 40,
+          "nse": 3
+        },
+        {
+          "col": "ciudad del sol",
+          "pm2c": 35177,
+          "n": 39,
+          "nse": 4
+        },
+        {
+          "col": "vallarta universidad",
+          "pm2c": 56555,
+          "n": 35,
+          "nse": 5
+        },
+        {
+          "col": "inas de san javier",
+          "pm2c": 68385,
+          "n": 35,
+          "nse": 6
+        },
+        {
+          "col": "bugambilias",
+          "pm2c": 32838,
+          "n": 34,
+          "nse": 3
+        },
+        {
+          "col": "ciudad bugambilia",
+          "pm2c": 27873,
+          "n": 32,
+          "nse": 3
+        },
+        {
+          "col": "parques vallarta",
+          "pm2c": 37013,
+          "n": 31,
+          "nse": 4
         }
       ]
     }

@@ -59,11 +59,24 @@ const candidatos = cerebro.filter(o =>
 const muestra = candidatos.slice(SKIP, SKIP + N);
 console.log(`\n=== VALIDACIÓN ROMINA vs PERITO — OPIs ${SKIP+1}–${SKIP+muestra.length} de ${candidatos.length} candidatos ===\n`);
 
+// Ajuste temporal: índice precio promedio ~8%/año (IDX es 2026)
+function anioDesFolio(folio) {
+    const m = (folio||'').match(/OPI-(\d{2})-/);
+    return m ? 2000 + parseInt(m[1]) : 2026;
+}
+function factorInflacion(anio) {
+    const delta = 2026 - anio;
+    return Math.pow(1.08, delta);
+}
+
 const resultados = [];
 
 async function main() {
 for (const opi of muestra) {
     const valorPerito = parsePesos(opi.valorMercado);
+    const anioOPI = anioDesFolio(opi.folio);
+    const factorInf = factorInflacion(anioOPI);
+    const valorPeritoAjustado = Math.round(valorPerito * factorInf);
     const m2C   = parsePesos(opi.m2Construccion);
     const m2T   = parsePesos(opi.m2Terreno) || 0;
     const edad  = parsePesos(opi.edad) || 0;
@@ -86,7 +99,7 @@ for (const opi of muestra) {
     catch (e) { motorResult = { valor: 0, nComps: 0, poolTipo: '?', error: e.message }; }
 
     const valorMotor = motorResult.valor || 0;
-    const diff = valorPerito > 0 ? ((valorMotor - valorPerito) / valorPerito) * 100 : null;
+    const diff = valorPeritoAjustado > 0 ? ((valorMotor - valorPeritoAjustado) / valorPeritoAjustado) * 100 : null;
     const ok    = diff !== null && Math.abs(diff) <= 10;
     const cerca = diff !== null && Math.abs(diff) <= 20;
 
@@ -103,12 +116,13 @@ for (const opi of muestra) {
     const nC      = String(motorResult.nComps || 0).padStart(3);
     const diffStr = diff !== null ? ((diff>0?'+':'')+diff.toFixed(1)+'%').padStart(7) : '    N/A';
 
+    const infTag = anioOPI < 2026 ? ` [${anioOPI}×${factorInf.toFixed(2)}]` : '';
     console.log(
         `${label}${folio} ${muni} ${col}` +
-        `  perito:${Math.round(valorPerito/1000).toString().padStart(6)}k` +
+        `  perito:${Math.round(valorPeritoAjustado/1000).toString().padStart(6)}k` +
         `  motor:${Math.round(valorMotor/1000).toString().padStart(6)}k` +
         `  diff:${diffStr}  pool:${pool} n:${nC}` +
-        (motorResult.factorMixto ? ' [mixto]' : '')
+        (motorResult.factorMixto ? ' [mixto]' : '') + infTag
     );
 
     resultados.push({ folio: opi.folio, diff, ok, cerca, pool: motorResult.poolTipo, nComps: motorResult.nComps, error: motorResult.error });

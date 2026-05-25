@@ -1,0 +1,2765 @@
+{
+  "municipio_invalido": [
+    {
+      "folio": "OPI-26-4-05-OF",
+      "municipio": "Bahía de Banderas",
+      "colonia": "Cruz de Huanacaxtle"
+    },
+    {
+      "folio": "OPI-26-3-17-OF",
+      "municipio": "La Manzanilla de la Paz",
+      "colonia": ""
+    },
+    {
+      "folio": "OPI-26-3-12-OF",
+      "municipio": "Mazamitla",
+      "colonia": "La Lagunita Mazamitla"
+    },
+    {
+      "folio": "OPI-26-2-12-OF",
+      "municipio": "Puerto Vallarta",
+      "colonia": "Jardines Ixtapa"
+    },
+    {
+      "folio": "OPI-26-2-05-OF",
+      "municipio": "Tesistán",
+      "colonia": "Las Agujas"
+    },
+    {
+      "folio": "OPI-25-11-08-OF",
+      "municipio": "Tepatitlan",
+      "colonia": "Agua Caliente"
+    },
+    {
+      "folio": "OPI-25-11-05-OF",
+      "municipio": "Zapotlanejo",
+      "colonia": "Fraccionamiento Bella Vista"
+    },
+    {
+      "folio": "OPI-25-10-13-OF",
+      "municipio": "Bahía de Banderas",
+      "colonia": "Las Jarretaderas"
+    },
+    {
+      "folio": "OPI-25-10-08-OF",
+      "municipio": "Tala",
+      "colonia": "La Estancia"
+    },
+    {
+      "folio": "OPI-25-9-18-OF",
+      "municipio": "Puerto Vallarta",
+      "colonia": "Calvario"
+    },
+    {
+      "folio": "OPI-25-9-12-OF",
+      "municipio": "Ixtlahuacán de los Membrillos",
+      "colonia": "Valle de los Olivos  Ixtlahuacán de los Membrillos"
+    },
+    {
+      "folio": "OPI-25-9-06-OF",
+      "municipio": "Puerto Vallarta",
+      "colonia": "Las Juntas"
+    },
+    {
+      "folio": "No hallado",
+      "municipio": "Villas de Zapopan",
+      "colonia": "Atotonilquillo"
+    },
+    {
+      "folio": "OPI-25-6-20-AV",
+      "municipio": "Bahía de Banderas",
+      "colonia": "C. Nanzal 10"
+    },
+    {
+      "folio": "OPI-25-6-16-LM",
+      "municipio": "Poncitlán",
+      "colonia": "Jalisco"
+    },
+    {
+      "folio": "No hallado",
+      "municipio": "Las Pintitas",
+      "colonia": "Atotonilquillo"
+    },
+    {
+      "folio": "OPI-25-5-11-OF",
+      "municipio": "Acatlán de Juárez",
+      "colonia": "Acatlán de Juárez"
+    },
+    {
+      "folio": "OPI-25-4-02-AV",
+      "municipio": "Tesistán",
+      "colonia": "Ahujas"
+    },
+    {
+      "folio": "OPI-25-3-13-AV",
+      "municipio": "Tuxpan",
+      "colonia": "Sin nombre"
+    },
+    {
+      "folio": "No hallado",
+      "municipio": "4000 Cópala",
+      "colonia": "Atotonilquillo"
+    },
+    {
+      "folio": "OPI-25-2-04-RM",
+      "municipio": "Puerto Vallarta",
+      "colonia": "Playon de Mismaloya"
+    },
+    {
+      "folio": "OPI-25-1-43-AV",
+      "municipio": "Tala",
+      "colonia": "Parcela 536 Z1 P1/2"
+    },
+    {
+      "folio": "No hallado",
+      "municipio": "Coyula",
+      "colonia": "Atotonilquillo"
+    },
+    {
+      "folio": "No hallado",
+      "municipio": "Francisco Villa",
+      "colonia": "Atotonilquillo"
+    },
+    {
+      "folio": "OPI-24-12-18-AV",
+      "municipio": "La Manzanilla de la Paz",
+      "colonia": "La Manzanilla de la Paz"
+    },
+    {
+      "folio": "OPI-24-12-13-AV",
+      "municipio": "Jocotepec",
+      "colonia": "Coto 18"
+    },
+    {
+      "folio": "OPI-24-12-08-AV",
+      "municipio": "Tapalpa",
+      "colonia": "Tapalpa"
+    },
+    {
+      "folio": "OPI-24-11-38-AV",
+      "municipio": "Chapala",
+      "colonia": "Haciendas de Chapala"
+    },
+    {
+      "folio": "OPI-24-11-36-AV",
+      "municipio": "Puerto Vallarta",
+      "colonia": "5 de Diciembre"
+    },
+    {
+      "folio": "OPI-24-11-28-OF",
+      "municipio": "Poncitlán",
+      "colonia": "Cuitzeo"
+    },
+    {
+      "folio": "OPI-24-11-27-OF",
+      "municipio": "Ocotlán",
+      "colonia": "Centro"
+    },
+    {
+      "folio": "OPI-24-11-09-AV",
+      "municipio": "Cihuatlán",
+      "colonia": "Barra de Navidad"
+    },
+    {
+      "folio": "OPI-24-11-03-AV",
+      "municipio": "Zapotlanejo",
+      "colonia": "Zapotlanejo"
+    },
+    {
+      "folio": "OPI-24-10-27-AV",
+      "municipio": "Poncitlán",
+      "colonia": "San Jacinto"
+    },
+    {
+      "folio": "OPI-24-10-22-AV",
+      "municipio": "Puerto Vallarta",
+      "colonia": "Campo Verde"
+    },
+    {
+      "folio": "No hallado",
+      "municipio": "Mazamitla",
+      "colonia": "Atotonilquillo"
+    },
+    {
+      "folio": "OPI-24-9-28-AV",
+      "municipio": "Ixtlahuacán de los Membrillos",
+      "colonia": "Ixtlahuacán de los Membrillos"
+    },
+    {
+      "folio": "No hallado",
+      "municipio": "Mazamitla",
+      "colonia": "Atotonilquillo"
+    },
+    {
+      "folio": "OPI-24-8-13-AV",
+      "municipio": "Marcelino García Barragán",
+      "colonia": "Marcelino García Barragán"
+    },
+    {
+      "folio": "OPI-24-8-10-AV",
+      "municipio": "La Barca",
+      "colonia": "La Barca"
+    },
+    {
+      "folio": "OPI-24-8-09-AV",
+      "municipio": "La Barca",
+      "colonia": "Lomas de San Luis"
+    },
+    {
+      "folio": "OPI-24-8-05-OF",
+      "municipio": "El Plan",
+      "colonia": "El Plan"
+    },
+    {
+      "folio": "OPI-24-8-04-OF",
+      "municipio": "Zacoalco de Torres",
+      "colonia": "De Los Camichines"
+    },
+    {
+      "folio": "OPI-24-7-20-AV",
+      "municipio": "Fraccionamiento Las Alamedas",
+      "colonia": "Fraccionamiento Las Alamedas"
+    },
+    {
+      "folio": "OPI-24-7-13-AV",
+      "municipio": "Col. Salvador Portillo López.",
+      "colonia": "Salvador Portillo López."
+    },
+    {
+      "folio": "OPI-24-7-10-AV",
+      "municipio": "Bosque Real",
+      "colonia": "Torrenta 201"
+    },
+    {
+      "folio": "OPI-24-6-33-OF",
+      "municipio": "Bahía de Banderas",
+      "colonia": "Flamingos"
+    },
+    {
+      "folio": "OPI-24-6-28-OF",
+      "municipio": "Tapalpa",
+      "colonia": "esquina Ignacio T. López Loma Bonita"
+    },
+    {
+      "folio": "OPI-24-6-22-OF",
+      "municipio": "Lomas de Polanco",
+      "colonia": "Lomas de Polanco"
+    },
+    {
+      "folio": "OPI-24-6-17-OF",
+      "municipio": "Vistas del Nilo",
+      "colonia": "Vistas del Nilo"
+    },
+    {
+      "folio": "OPI-24-6-09-EK",
+      "municipio": "Real del Valle",
+      "colonia": "Real del Valle"
+    },
+    {
+      "folio": "OPI-24-6-05-OF",
+      "municipio": "Jardines del Sur",
+      "colonia": "Jardines del Sur"
+    },
+    {
+      "folio": "OPI-24-6-02-EK",
+      "municipio": "Ixtlahuacán de los Membrillos",
+      "colonia": "Prados de Atequiza"
+    },
+    {
+      "folio": "OPI-24-6-01-EK",
+      "municipio": "Ixtlahuacán de los Membrillos",
+      "colonia": "Propiedad 1 Atequiza"
+    },
+    {
+      "folio": "OPI-24-6-01-EK",
+      "municipio": "propiedad 3 Atequiza",
+      "colonia": "propiedad 3 Atequiza"
+    },
+    {
+      "folio": "OPI-24-6-01-EK",
+      "municipio": "Propiedad 2 Atequiza",
+      "colonia": "Propiedad 2 Atequiza"
+    },
+    {
+      "folio": "OPI-24-5-08-EK",
+      "municipio": "Jocotepec",
+      "colonia": "Centro"
+    },
+    {
+      "folio": "OPI-24-5-03-OF",
+      "municipio": "colinas de la Normal",
+      "colonia": "colinas de la Normal"
+    },
+    {
+      "folio": "OPI-24-4-19-EK",
+      "municipio": "San Luis Soyatlán",
+      "colonia": "La Limonera"
+    },
+    {
+      "folio": "OPI-24-3-19-EK",
+      "municipio": "Chapala",
+      "colonia": "Atotonilquillo"
+    },
+    {
+      "folio": "OPI-24-3-17-EK",
+      "municipio": "Chapala",
+      "colonia": ""
+    },
+    {
+      "folio": "No hallado",
+      "municipio": "Tapalpa Jalisco",
+      "colonia": "Atotonilquillo"
+    },
+    {
+      "folio": "OPI-24-3-01-OF",
+      "municipio": "Tapalpa",
+      "colonia": "Tapalpa Jalisco"
+    },
+    {
+      "folio": "OPI-24-2-14-EK",
+      "municipio": "Tesistán",
+      "colonia": "Tesistan"
+    },
+    {
+      "folio": "OPI-24-1-28-OF",
+      "municipio": "Chapala",
+      "colonia": "Ajijic"
+    },
+    {
+      "folio": "OPI-24-1-23-OF",
+      "municipio": "Puerto Vallarta",
+      "colonia": "La Vía"
+    },
+    {
+      "folio": "OPI-24-1-22-OF",
+      "municipio": "Puerto Vallarta",
+      "colonia": "Marina Vallarta"
+    },
+    {
+      "folio": "No hallado",
+      "municipio": "Col. del Fresno",
+      "colonia": "Atotonilquillo"
+    },
+    {
+      "folio": "No hallado",
+      "municipio": "San Miguel Cuyutlan",
+      "colonia": "Atotonilquillo"
+    },
+    {
+      "folio": "OPI-23-12-10-OF",
+      "municipio": "Atizapán de Zaragoza Estado de México",
+      "colonia": "Mayorazgos del Bosque"
+    },
+    {
+      "folio": "OPI-23-12-06-OF",
+      "municipio": "Ixtlahuacán del Río",
+      "colonia": "Jardines de la Paz"
+    },
+    {
+      "folio": "OPI-23-12-04-OF",
+      "municipio": "Bahía de Banderas",
+      "colonia": "Rosalio Tapia s/n"
+    },
+    {
+      "folio": "OPI-23-9-25-OF",
+      "municipio": "Chapala",
+      "colonia": "Chapala Centro"
+    },
+    {
+      "folio": "OPI-23-9-24-OF",
+      "municipio": "San Juan de los Lagos",
+      "colonia": "La Llave"
+    },
+    {
+      "folio": "OPI-23-9-22-OF",
+      "municipio": "Huejúcar",
+      "colonia": "Jerez Huejucar"
+    },
+    {
+      "folio": "No hallado",
+      "municipio": "Hacienda Santa Cruz",
+      "colonia": "Atotonilquillo"
+    },
+    {
+      "folio": "OPI-23-8-12-OF",
+      "municipio": "Poncitlán",
+      "colonia": "Tlachicilco Poncitlan"
+    },
+    {
+      "folio": "OPI-23-7-08-OF",
+      "municipio": "Lagos de Moreno",
+      "colonia": "Lagos de Moreno"
+    },
+    {
+      "folio": "No hallado",
+      "municipio": "Lomas del Aeropuerto",
+      "colonia": "Atotonilquillo"
+    },
+    {
+      "folio": "No hallado",
+      "municipio": "Mesa de San Juan",
+      "colonia": "Atotonilquillo"
+    },
+    {
+      "folio": "No hallado",
+      "municipio": "Ciudad Granja",
+      "colonia": "Atotonilquillo"
+    },
+    {
+      "folio": "No hallado",
+      "municipio": "Rancho El Centinela",
+      "colonia": "Atotonilquillo"
+    },
+    {
+      "folio": "No hallado",
+      "municipio": "Santa Anita",
+      "colonia": "Atotonilquillo"
+    },
+    {
+      "folio": "No hallado",
+      "municipio": "Pase los Agaves",
+      "colonia": "Atotonilquillo"
+    },
+    {
+      "folio": "No hallado",
+      "municipio": "Albereda residencial el Salto Jalisco",
+      "colonia": "Atotonilquillo"
+    }
+  ],
+  "colonia_basura": [
+    {
+      "folio": "OPI-26-2-07-OF",
+      "municipio": "Tlajomulco de Zúñiga",
+      "colonia": "Secc 12122"
+    },
+    {
+      "folio": "OPI-26-2-01-OF",
+      "municipio": "Guadalajara",
+      "colonia": "Miguel Hidalgo. CP 44760. Guadalajara"
+    },
+    {
+      "folio": "OPI-24-10-09-AV",
+      "municipio": "Zapopan",
+      "colonia": "Jalisco \nC.P 45138"
+    },
+    {
+      "folio": "OPI-24-8-15-AV",
+      "municipio": "Tlajomulco de Zúñiga",
+      "colonia": "Coto 12 Coronado"
+    },
+    {
+      "folio": "OPI-24-7-18-AV",
+      "municipio": "Zapopan",
+      "colonia": ""
+    },
+    {
+      "folio": "OPI-24-6-32-OF",
+      "municipio": "Tlajomulco de Zúñiga",
+      "colonia": "coto 5\nSenderos de monte verde \nTlajomulco"
+    },
+    {
+      "folio": "OPI-24-5-23-EK",
+      "municipio": "Zapopan",
+      "colonia": "Mirador San Isidro 45130 Zapopan"
+    },
+    {
+      "folio": ".",
+      "municipio": "",
+      "colonia": ""
+    },
+    {
+      "folio": "OPI-23-9-09-OF",
+      "municipio": "Zapopan",
+      "colonia": "coto 2 Jardin Real"
+    }
+  ],
+  "colonia_vaga": [
+    {
+      "folio": "OPI-26-3-16-OF",
+      "municipio": "Zapopan",
+      "colonia": "Zapopan"
+    },
+    {
+      "folio": "OPI-26-3-15-OF",
+      "municipio": "Tlajomulco.",
+      "colonia": "Tlajomulco."
+    },
+    {
+      "folio": "OPI-26-2-19-OF",
+      "municipio": "Tonalá",
+      "colonia": "Tonalá"
+    },
+    {
+      "folio": "OPI-25-8-16-LM",
+      "municipio": "Guadalajara",
+      "colonia": "Guadalajara"
+    },
+    {
+      "folio": "OPI-25-7-10-LM",
+      "municipio": "Tlaquepaque",
+      "colonia": "Tlaquepaque"
+    },
+    {
+      "folio": "OPI-25-3-23-AV",
+      "municipio": "Zapopan",
+      "colonia": "Zapopan"
+    },
+    {
+      "folio": "OPI-25-3-17-OF",
+      "municipio": "Guadalajara",
+      "colonia": "Guadalajara"
+    },
+    {
+      "folio": "OPI-25-3-10-AV",
+      "municipio": "Zapopan",
+      "colonia": "Zapopan"
+    },
+    {
+      "folio": "OPI-25-3-06-AV",
+      "municipio": "Zapopan",
+      "colonia": "Zapopan"
+    },
+    {
+      "folio": "OPI-25-2-18-RM",
+      "municipio": "Tlajomulco",
+      "colonia": "Tlajomulco"
+    },
+    {
+      "folio": "OPI-25-2-15-OF",
+      "municipio": "Guadalajara",
+      "colonia": "Guadalajara"
+    },
+    {
+      "folio": "OPI-25-1-38-AV",
+      "municipio": "Tlajomulco",
+      "colonia": "Tlajomulco"
+    },
+    {
+      "folio": "OPI-24-9-27-OF",
+      "municipio": "Tonalá",
+      "colonia": "Tonalá"
+    },
+    {
+      "folio": "OPI-24-9-21-AV",
+      "municipio": "el Salto",
+      "colonia": "el Salto"
+    },
+    {
+      "folio": "OPI-24-7-24-AV",
+      "municipio": "Zapopan",
+      "colonia": "Zapopan"
+    },
+    {
+      "folio": "OPI-24-7-18-AV",
+      "municipio": "Zapopan",
+      "colonia": ""
+    },
+    {
+      "folio": "OPI-24-2-17-EK",
+      "municipio": "San Pedro Tlaquepaque",
+      "colonia": "San Pedro Tlaquepaque"
+    },
+    {
+      "folio": ".",
+      "municipio": "",
+      "colonia": ""
+    }
+  ],
+  "sin_idx": [
+    {
+      "colonia": "Atotonilquillo",
+      "colNorm": "atotonilquillo",
+      "municipio": "San Pedro Tlaquepaque",
+      "opis": 5
+    },
+    {
+      "colonia": "Tabachines",
+      "colNorm": "tabachines",
+      "municipio": "Zapopan",
+      "opis": 4
+    },
+    {
+      "colonia": "Santa Anita",
+      "colNorm": "santa anita",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 4
+    },
+    {
+      "colonia": "Hacienda Santa Fe",
+      "colNorm": "hacienda santa fe",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 3
+    },
+    {
+      "colonia": "Colomos Providencia",
+      "colNorm": "colomos providencia",
+      "municipio": "Guadalajara",
+      "opis": 3
+    },
+    {
+      "colonia": "Lomas de Tabachines",
+      "colNorm": "lomas de tabachines",
+      "municipio": "Zapopan",
+      "opis": 2
+    },
+    {
+      "colonia": "Paseo del Prado",
+      "colNorm": "paseo del prado",
+      "municipio": "Zapopan",
+      "opis": 2
+    },
+    {
+      "colonia": "Colinas del Rey",
+      "colNorm": "colinas del rey",
+      "municipio": "Zapopan",
+      "opis": 2
+    },
+    {
+      "colonia": "Villas de la Hacienda",
+      "colNorm": "villas de la hacienda",
+      "municipio": "Zapopan",
+      "opis": 2
+    },
+    {
+      "colonia": "El Batán",
+      "colNorm": "el batan",
+      "municipio": "Zapopan",
+      "opis": 2
+    },
+    {
+      "colonia": "Parques del Castillo",
+      "colNorm": "parques del castillo",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 2
+    },
+    {
+      "colonia": "El Refugio",
+      "colNorm": "el refugio",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 2
+    },
+    {
+      "colonia": "Villa Hermosa",
+      "colNorm": "villa hermosa",
+      "municipio": "Guadalajara",
+      "opis": 2
+    },
+    {
+      "colonia": "Juan Manuel Vallarta",
+      "colNorm": "juan manuel vallarta",
+      "municipio": "Zapopan",
+      "opis": 2
+    },
+    {
+      "colonia": "Jal.",
+      "colNorm": "jal",
+      "municipio": "Zapopan",
+      "opis": 2
+    },
+    {
+      "colonia": "Alteza Residencial Nuevo Mexico",
+      "colNorm": "alteza residencial nuevo mexico",
+      "municipio": "Zapopan",
+      "opis": 2
+    },
+    {
+      "colonia": "# 542",
+      "colNorm": "542",
+      "municipio": "Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Colon Industrial",
+      "colNorm": "colon industrial",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Colinas de Cajititlan",
+      "colNorm": "colinas de cajititlan",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "San Isidro Ejidal",
+      "colNorm": "san isidro ejidal",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Santa Maria Guadalajara",
+      "colNorm": "santa maria guadalajara",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Cantera Colorada",
+      "colNorm": "cantera colorada",
+      "municipio": "Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Ebano 18 Naturezza Bosque Real",
+      "colNorm": "ebano 18 naturezza bosque real",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Colinas de Santa Anita",
+      "colNorm": "colinas de santa anita",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Altagracia",
+      "colNorm": "altagracia",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Primera Sección",
+      "colNorm": "primera seccion",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Paseo los Agaves",
+      "colNorm": "paseo los agaves",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Paseos del Prado.",
+      "colNorm": "paseos del prado",
+      "municipio": "Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Parques de la Victoria Tonala",
+      "colNorm": "parques de la victoria tonala",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "El Castillo",
+      "colNorm": "el castillo",
+      "municipio": "El Salto",
+      "opis": 1
+    },
+    {
+      "colonia": "Secc 12122",
+      "colNorm": "secc 12122",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "J. de Guadalupe",
+      "colNorm": "j de guadalupe",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "El Campanario Tonalá",
+      "colNorm": "el campanario tonala",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "Miguel Hidalgo. CP 44760. Guadalajara",
+      "colNorm": "miguel hidalgo cp 44760 guadalajara",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "San Francisco",
+      "colNorm": "san francisco",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "San Rafael",
+      "colNorm": "san rafael",
+      "municipio": "Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Col Valle de San Nicolas",
+      "colNorm": "col valle de san nicolas",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "Bosques del Boulevard",
+      "colNorm": "bosques del boulevard",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Parques deo Auditorio",
+      "colNorm": "parques deo auditorio",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Parques del Auditorio",
+      "colNorm": "parques del auditorio",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Fraccionamiento San Antonio",
+      "colNorm": "fraccionamiento san antonio",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Cd Aztlán",
+      "colNorm": "cd aztlan",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "El Fortin",
+      "colNorm": "el fortin",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Colonia Oblatos",
+      "colNorm": "colonia oblatos",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Tinajitas",
+      "colNorm": "tinajitas",
+      "municipio": "San Pedro Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "San Rafael Tlaquepaque",
+      "colNorm": "san rafael tlaquepaque",
+      "municipio": "Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Miguel de la Madrid",
+      "colNorm": "miguel de la madrid",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Puerta del Roble",
+      "colNorm": "puerta del roble",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "interior 6",
+      "colNorm": "interior 6",
+      "municipio": "Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "San Francisco de la Soledad",
+      "colNorm": "san francisco de la soledad",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Baja California Las Pintitas",
+      "colNorm": "baja california las pintitas",
+      "municipio": "El Salto",
+      "opis": 1
+    },
+    {
+      "colonia": "Cond. 2 Altaterra",
+      "colNorm": "cond 2 altaterra",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Colonia Emiliano Zapata",
+      "colNorm": "colonia emiliano zapata",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Real Valdepeñas",
+      "colNorm": "real valdepenas",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Vista California",
+      "colNorm": "vista california",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Jardines del Vergel",
+      "colNorm": "jardines del vergel",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "dpto. 8",
+      "colNorm": "dpto 8",
+      "municipio": "San Pedro Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Villas de Zapotepec",
+      "colNorm": "villas de zapotepec",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Zalatitán",
+      "colNorm": "zalatitan",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "La Paz",
+      "colNorm": "la paz",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "E 17Col. Las Grullas Residencial",
+      "colNorm": "e 17col las grullas residencial",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Int",
+      "colNorm": "int",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Tlaquepaque",
+      "colNorm": "tlaquepaque",
+      "municipio": "Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Torre 9",
+      "colNorm": "torre 9",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Haciendas de San José",
+      "colNorm": "haciendas de san jose",
+      "municipio": "San Pedro Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Santa Cruz de las Flores",
+      "colNorm": "santa cruz de las flores",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Los Olivos II",
+      "colNorm": "los olivos ii",
+      "municipio": "San Pedro Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Rinconada del Sol",
+      "colNorm": "rinconada del sol",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Morelos",
+      "colNorm": "morelos",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Vista Reina",
+      "colNorm": "vista reina",
+      "municipio": "Tonala",
+      "opis": 1
+    },
+    {
+      "colonia": "Arcos de Zapopan",
+      "colNorm": "arcos de zapopan",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "El Parque",
+      "colNorm": "el parque",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "col del Fresno",
+      "colNorm": "col del fresno",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Int 2",
+      "colNorm": "int 2",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Lomas del Camichin",
+      "colNorm": "lomas del camichin",
+      "municipio": "Tonala",
+      "opis": 1
+    },
+    {
+      "colonia": "Int. 7",
+      "colNorm": "int 7",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "int 12",
+      "colNorm": "int 12",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Int 298 col Alta California",
+      "colNorm": "int 298 col alta california",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Hacienda del Sur Francisco Villa",
+      "colNorm": "hacienda del sur francisco villa",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Lomas Altos",
+      "colNorm": "lomas altos",
+      "municipio": "Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Condominio Ignis",
+      "colNorm": "condominio ignis",
+      "municipio": "Tlajomulco",
+      "opis": 1
+    },
+    {
+      "colonia": "Moctezuma",
+      "colNorm": "moctezuma",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Fraccionamiento Colinas del Roble",
+      "colNorm": "fraccionamiento colinas del roble",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Arroyo Las Flores",
+      "colNorm": "arroyo las flores",
+      "municipio": "San Pedro Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "La Esperanza",
+      "colNorm": "la esperanza",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Postes Cuates",
+      "colNorm": "postes cuates",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "La Experiencia",
+      "colNorm": "la experiencia",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Alamo Industrial",
+      "colNorm": "alamo industrial",
+      "municipio": "San Pedro Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Centro Tonalá",
+      "colNorm": "centro tonala",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "Lomas de la Victoria",
+      "colNorm": "lomas de la victoria",
+      "municipio": "San Pedro Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Coto Imperio Inca",
+      "colNorm": "coto imperio inca",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Santa margarita 1 sección",
+      "colNorm": "santa margarita 1 seccion",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Santa Cruz de la Loma",
+      "colNorm": "santa cruz de la loma",
+      "municipio": "Tlajomulco",
+      "opis": 1
+    },
+    {
+      "colonia": "Educación Jalisciense",
+      "colNorm": "educacion jalisciense",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "Lomas del Centinela",
+      "colNorm": "lomas del centinela",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Las Bóvedas",
+      "colNorm": "las bovedas",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Fraccionamiento el Cortijo San Agustín",
+      "colNorm": "fraccionamiento el cortijo san agustin",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Valle del Mar",
+      "colNorm": "valle del mar",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Parques de la Victoria",
+      "colNorm": "parques de la victoria",
+      "municipio": "San Pedro Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Los Olivos",
+      "colNorm": "los olivos",
+      "municipio": "Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Valle Esmeralda",
+      "colNorm": "valle esmeralda",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Jardines de la Paz",
+      "colNorm": "jardines de la paz",
+      "municipio": "Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Benito Juárez",
+      "colNorm": "benito juarez",
+      "municipio": "",
+      "opis": 1
+    },
+    {
+      "colonia": "Cerro de la Reyna",
+      "colNorm": "cerro de la reyna",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "Paseos de la Hacienda",
+      "colNorm": "paseos de la hacienda",
+      "municipio": "Tlajomulco",
+      "opis": 1
+    },
+    {
+      "colonia": "Fabrica de Atemajac",
+      "colNorm": "fabrica de atemajac",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Real Vallarta",
+      "colNorm": "real vallarta",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Pinar de Las Palomas",
+      "colNorm": "pinar de las palomas",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "Int 201",
+      "colNorm": "int 201",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Villas de Oriente I",
+      "colNorm": "villas de oriente i",
+      "municipio": "San Pedro Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "El Ranchito",
+      "colNorm": "el ranchito",
+      "municipio": "El Salto",
+      "opis": 1
+    },
+    {
+      "colonia": "Colonia Colinas de la Cruz",
+      "colNorm": "colonia colinas de la cruz",
+      "municipio": "Tlajomulco",
+      "opis": 1
+    },
+    {
+      "colonia": "Infonavit Condor",
+      "colNorm": "infonavit condor",
+      "municipio": "El Salto",
+      "opis": 1
+    },
+    {
+      "colonia": "Int 21 AN2",
+      "colNorm": "int 21 an2",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Las Pintas El Salto",
+      "colNorm": "las pintas el salto",
+      "municipio": "El Salto",
+      "opis": 1
+    },
+    {
+      "colonia": "Segunda Sección Zona Industrial",
+      "colNorm": "segunda seccion zona industrial",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Condominio Jardines del Vergel",
+      "colNorm": "condominio jardines del vergel",
+      "municipio": "Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "La Alameda",
+      "colNorm": "la alameda",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Sta Margarita",
+      "colNorm": "sta margarita",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "El Vergel to",
+      "colNorm": "el vergel to",
+      "municipio": "Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Las Pintas de Arriba",
+      "colNorm": "las pintas de arriba",
+      "municipio": ". Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Fraccionamiento Vistas del Valle",
+      "colNorm": "fraccionamiento vistas del valle",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "Jalisco \nC.P 45138",
+      "colNorm": "jalisco \ncp 45138",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "La Granja",
+      "colNorm": "la granja",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Colonia Insurgentes Guadalajara",
+      "colNorm": "colonia insurgentes guadalajara",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Col la Huizachera. El salto Jalisco",
+      "colNorm": "col la huizachera el salto jalisco",
+      "municipio": "El Salto",
+      "opis": 1
+    },
+    {
+      "colonia": "interior casa 19",
+      "colNorm": "interior casa 19",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Santa Maria",
+      "colNorm": "santa maria",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Colonia  Coto Arrezo",
+      "colNorm": "colonia  coto arrezo",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Lomas del Paraíso II",
+      "colNorm": "lomas del paraiso ii",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Alta California Residencial",
+      "colNorm": "alta california residencial",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Sta Rita",
+      "colNorm": "sta rita",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "col mirador de San isidro",
+      "colNorm": "col mirador de san isidro",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Mezquitan",
+      "colNorm": "mezquitan",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Entre Rosa Navarro y Ejido \nCol. Lomas de Revolución",
+      "colNorm": "entre rosa navarro y ejido \ncol lomas de revolucion",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "L26B",
+      "colNorm": "l26b",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Coto 12 Coronado",
+      "colNorm": "coto 12 coronado",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Los Cerritos",
+      "colNorm": "los cerritos",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Edificio A3",
+      "colNorm": "edificio a3",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "San José Residencial",
+      "colNorm": "san jose residencial",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Villafontana",
+      "colNorm": "villafontana",
+      "municipio": "Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "27 de Septiembre",
+      "colNorm": "27 de septiembre",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Misión San Francisco",
+      "colNorm": "mision san francisco",
+      "municipio": "San Pedro Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Santos Degollado",
+      "colNorm": "santos degollado",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "coto 5\nSenderos de monte verde \nTlajomulco",
+      "colNorm": "coto 5\nsenderos de monte verde \ntlajomulco",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "El Roble",
+      "colNorm": "el roble",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "Colonia Agrícola",
+      "colNorm": "colonia agricola",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Mision Capistrano Zapopan",
+      "colNorm": "mision capistrano zapopan",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Mirador San Isidro 45130 Zapopan",
+      "colNorm": "mirador san isidro 45130 zapopan",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Villas de la Alameda",
+      "colNorm": "villas de la alameda",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "int 130",
+      "colNorm": "int 130",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Fraccionamiento Casa Fuerte (La Ciudadela)",
+      "colNorm": "fraccionamiento casa fuerte la ciudadela",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Jalisco Tonalá",
+      "colNorm": "jalisco tonala",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "praderas de san antonio Zapopan jal",
+      "colNorm": "praderas de san antonio zapopan jal",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "A Santa María Tequepexpan",
+      "colNorm": "a santa maria tequepexpan",
+      "municipio": "San Pedro Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "El Mirador",
+      "colNorm": "el mirador",
+      "municipio": "San Pedro Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Cd. Granja",
+      "colNorm": "cd granja",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "San Pedro Tlaquepaque",
+      "colNorm": "san pedro tlaquepaque",
+      "municipio": "San Pedro Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Tres Reyes",
+      "colNorm": "tres reyes",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Residencial Victoria",
+      "colNorm": "residencial victoria",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Miramar Zapopan",
+      "colNorm": "miramar zapopan",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Mirador del Tesoro",
+      "colNorm": "mirador del tesoro",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "20 de Noviembre. Tonala",
+      "colNorm": "20 de noviembre tonala",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "Polanquito",
+      "colNorm": "polanquito",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Senderos de Monte Verde",
+      "colNorm": "senderos de monte verde",
+      "municipio": "",
+      "opis": 1
+    },
+    {
+      "colonia": "Colonia San Antonio",
+      "colNorm": "colonia san antonio",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Junta de los Ocotes",
+      "colNorm": "junta de los ocotes",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "Paseos de Santiago",
+      "colNorm": "paseos de santiago",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "Plan de Oriente Tlaquepaque",
+      "colNorm": "plan de oriente tlaquepaque",
+      "municipio": "Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Independiencia Oriente Guadalajara",
+      "colNorm": "independiencia oriente guadalajara",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "coto 2 Jardin Real",
+      "colNorm": "coto 2 jardin real",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Mesa Colorada Poniente",
+      "colNorm": "mesa colorada poniente",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Villas de Guadalupe",
+      "colNorm": "villas de guadalupe",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "La Giralda",
+      "colNorm": "la giralda",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "camichines Tonala",
+      "colNorm": "camichines tonala",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "Villa Esmeralda Aqua",
+      "colNorm": "villa esmeralda aqua",
+      "municipio": "",
+      "opis": 1
+    },
+    {
+      "colonia": "El Refugio Tlaquepaque",
+      "colNorm": "el refugio tlaquepaque",
+      "municipio": "Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Del Pilar Residencial",
+      "colNorm": "del pilar residencial",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Centro Guadalajara",
+      "colNorm": "centro guadalajara",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Cantarranas",
+      "colNorm": "cantarranas",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Rinconadas de Coyula",
+      "colNorm": "rinconadas de coyula",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "Mirador del Sol",
+      "colNorm": "mirador del sol",
+      "municipio": "",
+      "opis": 1
+    },
+    {
+      "colonia": "colonia Monumental",
+      "colNorm": "colonia monumental",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Colli Urbano",
+      "colNorm": "colli urbano",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "La Magdalena Zapopan",
+      "colNorm": "la magdalena zapopan",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Paseo de los agaves",
+      "colNorm": "paseo de los agaves",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Bugambilias 2da Secc.",
+      "colNorm": "bugambilias 2da secc",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Cond. Hacienda del Lago 3",
+      "colNorm": "cond hacienda del lago 3",
+      "municipio": "Zapopan",
+      "opis": 1
+    }
+  ],
+  "sin_similares": [
+    {
+      "colonia": "",
+      "colNorm": "",
+      "municipio": "Zapopan",
+      "opis": 2
+    },
+    {
+      "colonia": "Alteza Residencial Nuevo Mexico",
+      "colNorm": "alteza residencial nuevo mexico",
+      "municipio": "Zapopan",
+      "opis": 2
+    },
+    {
+      "colonia": "Vista Sur",
+      "colNorm": "vista sur",
+      "municipio": "Tlajomulco",
+      "opis": 1
+    },
+    {
+      "colonia": "Secc 12122",
+      "colNorm": "secc 12122",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Miguel Hidalgo. CP 44760. Guadalajara",
+      "colNorm": "miguel hidalgo cp 44760 guadalajara",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Fraccionamiento San Antonio",
+      "colNorm": "fraccionamiento san antonio",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Colonia Oblatos",
+      "colNorm": "colonia oblatos",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "E 17Col. Las Grullas Residencial",
+      "colNorm": "e 17col las grullas residencial",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "El Parque",
+      "colNorm": "el parque",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Int 298 col Alta California",
+      "colNorm": "int 298 col alta california",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Fraccionamiento Colinas del Roble",
+      "colNorm": "fraccionamiento colinas del roble",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Fraccionamiento el Cortijo San Agustín",
+      "colNorm": "fraccionamiento el cortijo san agustin",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Colonia Colinas de la Cruz",
+      "colNorm": "colonia colinas de la cruz",
+      "municipio": "Tlajomulco",
+      "opis": 1
+    },
+    {
+      "colonia": "Fraccionamiento Vistas del Valle",
+      "colNorm": "fraccionamiento vistas del valle",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "Jalisco \nC.P 45138",
+      "colNorm": "jalisco \ncp 45138",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Colonia Insurgentes Guadalajara",
+      "colNorm": "colonia insurgentes guadalajara",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Colonia  Coto Arrezo",
+      "colNorm": "colonia  coto arrezo",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "San Martin",
+      "colNorm": "san martin",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Alta California Residencial",
+      "colNorm": "alta california residencial",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Entre Rosa Navarro y Ejido \nCol. Lomas de Revolución",
+      "colNorm": "entre rosa navarro y ejido \ncol lomas de revolucion",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "coto 5\nSenderos de monte verde \nTlajomulco",
+      "colNorm": "coto 5\nsenderos de monte verde \ntlajomulco",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Colonia Agrícola",
+      "colNorm": "colonia agricola",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Fraccionamiento Casa Fuerte (La Ciudadela)",
+      "colNorm": "fraccionamiento casa fuerte la ciudadela",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Jalisco Tonalá",
+      "colNorm": "jalisco tonala",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "Residencial Victoria",
+      "colNorm": "residencial victoria",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "20 de Noviembre. Tonala",
+      "colNorm": "20 de noviembre tonala",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "Colonia San Antonio",
+      "colNorm": "colonia san antonio",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Villas de Guadalupe",
+      "colNorm": "villas de guadalupe",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Villa Esmeralda Aqua",
+      "colNorm": "villa esmeralda aqua",
+      "municipio": "",
+      "opis": 1
+    },
+    {
+      "colonia": "colonia Monumental",
+      "colNorm": "colonia monumental",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Bugambilias 2da Secc.",
+      "colNorm": "bugambilias 2da secc",
+      "municipio": "Zapopan",
+      "opis": 1
+    }
+  ],
+  "sin_nse": [
+    {
+      "colonia": "Atotonilquillo",
+      "colNorm": "atotonilquillo",
+      "municipio": "San Pedro Tlaquepaque",
+      "opis": 5
+    },
+    {
+      "colonia": "Lomas de Tabachines",
+      "colNorm": "lomas de tabachines",
+      "municipio": "Zapopan",
+      "opis": 2
+    },
+    {
+      "colonia": "Mision del Bosque",
+      "colNorm": "mision del bosque",
+      "municipio": "Zapopan",
+      "opis": 2
+    },
+    {
+      "colonia": "Auditorio",
+      "colNorm": "auditorio",
+      "municipio": "Zapopan",
+      "opis": 2
+    },
+    {
+      "colonia": "San Elías",
+      "colNorm": "san elias",
+      "municipio": "Guadalajara",
+      "opis": 2
+    },
+    {
+      "colonia": "Cd del Sol",
+      "colNorm": "cd del sol",
+      "municipio": "Zapopan",
+      "opis": 2
+    },
+    {
+      "colonia": "Jal.",
+      "colNorm": "jal",
+      "municipio": "Zapopan",
+      "opis": 2
+    },
+    {
+      "colonia": "",
+      "colNorm": "",
+      "municipio": "Zapopan",
+      "opis": 2
+    },
+    {
+      "colonia": "Alteza Residencial Nuevo Mexico",
+      "colNorm": "alteza residencial nuevo mexico",
+      "municipio": "Zapopan",
+      "opis": 2
+    },
+    {
+      "colonia": "# 542",
+      "colNorm": "542",
+      "municipio": "Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Colon Industrial",
+      "colNorm": "colon industrial",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "San Isidro Ejidal",
+      "colNorm": "san isidro ejidal",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Santa Maria Guadalajara",
+      "colNorm": "santa maria guadalajara",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Cantera Colorada",
+      "colNorm": "cantera colorada",
+      "municipio": "Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Ebano 18 Naturezza Bosque Real",
+      "colNorm": "ebano 18 naturezza bosque real",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Primera Sección",
+      "colNorm": "primera seccion",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Parques de la Victoria Tonala",
+      "colNorm": "parques de la victoria tonala",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "Secc 12122",
+      "colNorm": "secc 12122",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "J. de Guadalupe",
+      "colNorm": "j de guadalupe",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "El Campanario Tonalá",
+      "colNorm": "el campanario tonala",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "Miguel Hidalgo. CP 44760. Guadalajara",
+      "colNorm": "miguel hidalgo cp 44760 guadalajara",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "San Francisco",
+      "colNorm": "san francisco",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "Col Valle de San Nicolas",
+      "colNorm": "col valle de san nicolas",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "Fraccionamiento San Antonio",
+      "colNorm": "fraccionamiento san antonio",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Cd Aztlán",
+      "colNorm": "cd aztlan",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "Colonia Oblatos",
+      "colNorm": "colonia oblatos",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Tinajitas",
+      "colNorm": "tinajitas",
+      "municipio": "San Pedro Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "San Rafael Tlaquepaque",
+      "colNorm": "san rafael tlaquepaque",
+      "municipio": "Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Baja California Las Pintitas",
+      "colNorm": "baja california las pintitas",
+      "municipio": "El Salto",
+      "opis": 1
+    },
+    {
+      "colonia": "Cond. 2 Altaterra",
+      "colNorm": "cond 2 altaterra",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Heliodoro Hernández Loza",
+      "colNorm": "heliodoro hernandez loza",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Vista California",
+      "colNorm": "vista california",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "dpto. 8",
+      "colNorm": "dpto 8",
+      "municipio": "San Pedro Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Villas de Zapotepec",
+      "colNorm": "villas de zapotepec",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "La Paz",
+      "colNorm": "la paz",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "E 17Col. Las Grullas Residencial",
+      "colNorm": "e 17col las grullas residencial",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Int",
+      "colNorm": "int",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Torre 9",
+      "colNorm": "torre 9",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Haciendas de San José",
+      "colNorm": "haciendas de san jose",
+      "municipio": "San Pedro Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Rancho El Centinela",
+      "colNorm": "rancho el centinela",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Los Olivos II",
+      "colNorm": "los olivos ii",
+      "municipio": "San Pedro Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Vista Reina",
+      "colNorm": "vista reina",
+      "municipio": "Tonala",
+      "opis": 1
+    },
+    {
+      "colonia": "El Parque",
+      "colNorm": "el parque",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Valle de San Nicolás",
+      "colNorm": "valle de san nicolas",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "col del Fresno",
+      "colNorm": "col del fresno",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Int 2",
+      "colNorm": "int 2",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Lomas del Camichin",
+      "colNorm": "lomas del camichin",
+      "municipio": "Tonala",
+      "opis": 1
+    },
+    {
+      "colonia": "Int. 7",
+      "colNorm": "int 7",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "int 12",
+      "colNorm": "int 12",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Int 298 col Alta California",
+      "colNorm": "int 298 col alta california",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Hacienda del Sur Francisco Villa",
+      "colNorm": "hacienda del sur francisco villa",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Lomas Altos",
+      "colNorm": "lomas altos",
+      "municipio": "Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Condominio Ignis",
+      "colNorm": "condominio ignis",
+      "municipio": "Tlajomulco",
+      "opis": 1
+    },
+    {
+      "colonia": "Moctezuma",
+      "colNorm": "moctezuma",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Fraccionamiento Colinas del Roble",
+      "colNorm": "fraccionamiento colinas del roble",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Arroyo Las Flores",
+      "colNorm": "arroyo las flores",
+      "municipio": "San Pedro Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "La Esperanza",
+      "colNorm": "la esperanza",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Postes Cuates",
+      "colNorm": "postes cuates",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "La Experiencia",
+      "colNorm": "la experiencia",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Alamo Industrial",
+      "colNorm": "alamo industrial",
+      "municipio": "San Pedro Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Centro Tonalá",
+      "colNorm": "centro tonala",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "Coto Imperio Inca",
+      "colNorm": "coto imperio inca",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Santa margarita 1 sección",
+      "colNorm": "santa margarita 1 seccion",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Santa Cruz de la Loma",
+      "colNorm": "santa cruz de la loma",
+      "municipio": "Tlajomulco",
+      "opis": 1
+    },
+    {
+      "colonia": "Educación Jalisciense",
+      "colNorm": "educacion jalisciense",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "Lomas del Centinela",
+      "colNorm": "lomas del centinela",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Las Bóvedas",
+      "colNorm": "las bovedas",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Fraccionamiento el Cortijo San Agustín",
+      "colNorm": "fraccionamiento el cortijo san agustin",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Valle del Mar",
+      "colNorm": "valle del mar",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Cerro de la Reyna",
+      "colNorm": "cerro de la reyna",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "Paseos de la Hacienda",
+      "colNorm": "paseos de la hacienda",
+      "municipio": "Tlajomulco",
+      "opis": 1
+    },
+    {
+      "colonia": "Fabrica de Atemajac",
+      "colNorm": "fabrica de atemajac",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Pinar de Las Palomas",
+      "colNorm": "pinar de las palomas",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "Int 201",
+      "colNorm": "int 201",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Villas de Oriente I",
+      "colNorm": "villas de oriente i",
+      "municipio": "San Pedro Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "El Ranchito",
+      "colNorm": "el ranchito",
+      "municipio": "El Salto",
+      "opis": 1
+    },
+    {
+      "colonia": "Colonia Colinas de la Cruz",
+      "colNorm": "colonia colinas de la cruz",
+      "municipio": "Tlajomulco",
+      "opis": 1
+    },
+    {
+      "colonia": "Infonavit Condor",
+      "colNorm": "infonavit condor",
+      "municipio": "El Salto",
+      "opis": 1
+    },
+    {
+      "colonia": "Int 21 AN2",
+      "colNorm": "int 21 an2",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Las Pintas El Salto",
+      "colNorm": "las pintas el salto",
+      "municipio": "El Salto",
+      "opis": 1
+    },
+    {
+      "colonia": "Segunda Sección Zona Industrial",
+      "colNorm": "segunda seccion zona industrial",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Condominio Jardines del Vergel",
+      "colNorm": "condominio jardines del vergel",
+      "municipio": "Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "La Alameda",
+      "colNorm": "la alameda",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Sta Margarita",
+      "colNorm": "sta margarita",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "El Vergel to",
+      "colNorm": "el vergel to",
+      "municipio": "Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Las Pintas de Arriba",
+      "colNorm": "las pintas de arriba",
+      "municipio": ". Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Fraccionamiento Vistas del Valle",
+      "colNorm": "fraccionamiento vistas del valle",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "Jalisco \nC.P 45138",
+      "colNorm": "jalisco \ncp 45138",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "La Granja",
+      "colNorm": "la granja",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "el Salto",
+      "colNorm": "el salto",
+      "municipio": "el Salto",
+      "opis": 1
+    },
+    {
+      "colonia": "Colonia Insurgentes Guadalajara",
+      "colNorm": "colonia insurgentes guadalajara",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Col la Huizachera. El salto Jalisco",
+      "colNorm": "col la huizachera el salto jalisco",
+      "municipio": "El Salto",
+      "opis": 1
+    },
+    {
+      "colonia": "interior casa 19",
+      "colNorm": "interior casa 19",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Colonia  Coto Arrezo",
+      "colNorm": "colonia  coto arrezo",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "San Martin",
+      "colNorm": "san martin",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Lomas del Paraíso II",
+      "colNorm": "lomas del paraiso ii",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Alta California Residencial",
+      "colNorm": "alta california residencial",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Sta Rita",
+      "colNorm": "sta rita",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "col mirador de San isidro",
+      "colNorm": "col mirador de san isidro",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Entre Rosa Navarro y Ejido \nCol. Lomas de Revolución",
+      "colNorm": "entre rosa navarro y ejido \ncol lomas de revolucion",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "L26B",
+      "colNorm": "l26b",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Coto 12 Coronado",
+      "colNorm": "coto 12 coronado",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Los Cerritos",
+      "colNorm": "los cerritos",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Edificio A3",
+      "colNorm": "edificio a3",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "San José Residencial",
+      "colNorm": "san jose residencial",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Villafontana",
+      "colNorm": "villafontana",
+      "municipio": "Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "27 de Septiembre",
+      "colNorm": "27 de septiembre",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Misión San Francisco",
+      "colNorm": "mision san francisco",
+      "municipio": "San Pedro Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Santos Degollado",
+      "colNorm": "santos degollado",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "coto 5\nSenderos de monte verde \nTlajomulco",
+      "colNorm": "coto 5\nsenderos de monte verde \ntlajomulco",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "El Roble",
+      "colNorm": "el roble",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "Colonia Agrícola",
+      "colNorm": "colonia agricola",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Mision Capistrano Zapopan",
+      "colNorm": "mision capistrano zapopan",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Mirador San Isidro 45130 Zapopan",
+      "colNorm": "mirador san isidro 45130 zapopan",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Villas de la Alameda",
+      "colNorm": "villas de la alameda",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "int 130",
+      "colNorm": "int 130",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Fraccionamiento Casa Fuerte (La Ciudadela)",
+      "colNorm": "fraccionamiento casa fuerte la ciudadela",
+      "municipio": "Tlajomulco de Zúñiga",
+      "opis": 1
+    },
+    {
+      "colonia": "Jalisco Tonalá",
+      "colNorm": "jalisco tonala",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "praderas de san antonio Zapopan jal",
+      "colNorm": "praderas de san antonio zapopan jal",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "A Santa María Tequepexpan",
+      "colNorm": "a santa maria tequepexpan",
+      "municipio": "San Pedro Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Residencial Victoria",
+      "colNorm": "residencial victoria",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Miramar Zapopan",
+      "colNorm": "miramar zapopan",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Mirador del Tesoro",
+      "colNorm": "mirador del tesoro",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "20 de Noviembre. Tonala",
+      "colNorm": "20 de noviembre tonala",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "Polanquito",
+      "colNorm": "polanquito",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Lopez de Legaspi",
+      "colNorm": "lopez de legaspi",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Colonia San Antonio",
+      "colNorm": "colonia san antonio",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Junta de los Ocotes",
+      "colNorm": "junta de los ocotes",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "Paseos de Santiago",
+      "colNorm": "paseos de santiago",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "Plan de Oriente Tlaquepaque",
+      "colNorm": "plan de oriente tlaquepaque",
+      "municipio": "Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Arroyo Hondo",
+      "colNorm": "arroyo hondo",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Independiencia Oriente Guadalajara",
+      "colNorm": "independiencia oriente guadalajara",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "coto 2 Jardin Real",
+      "colNorm": "coto 2 jardin real",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Villas de Guadalupe",
+      "colNorm": "villas de guadalupe",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "camichines Tonala",
+      "colNorm": "camichines tonala",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "Nueva Santa Maria",
+      "colNorm": "nueva santa maria",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Villa Esmeralda Aqua",
+      "colNorm": "villa esmeralda aqua",
+      "municipio": "",
+      "opis": 1
+    },
+    {
+      "colonia": "El Refugio Tlaquepaque",
+      "colNorm": "el refugio tlaquepaque",
+      "municipio": "Tlaquepaque",
+      "opis": 1
+    },
+    {
+      "colonia": "Del Pilar Residencial",
+      "colNorm": "del pilar residencial",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Centro Guadalajara",
+      "colNorm": "centro guadalajara",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Cantarranas",
+      "colNorm": "cantarranas",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "Rinconadas de Coyula",
+      "colNorm": "rinconadas de coyula",
+      "municipio": "Tonalá",
+      "opis": 1
+    },
+    {
+      "colonia": "colonia Monumental",
+      "colNorm": "colonia monumental",
+      "municipio": "Guadalajara",
+      "opis": 1
+    },
+    {
+      "colonia": "La Magdalena Zapopan",
+      "colNorm": "la magdalena zapopan",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Bugambilias 2da Secc.",
+      "colNorm": "bugambilias 2da secc",
+      "municipio": "Zapopan",
+      "opis": 1
+    },
+    {
+      "colonia": "Cond. Hacienda del Lago 3",
+      "colNorm": "cond hacienda del lago 3",
+      "municipio": "Zapopan",
+      "opis": 1
+    }
+  ],
+  "sin_valor_perito": []
+}

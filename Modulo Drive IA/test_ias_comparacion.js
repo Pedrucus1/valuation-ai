@@ -34,12 +34,10 @@ function normSimple(s) {
 
 // ── Datos de los 3 OPIs de prueba ──────────────────────────────────────────
 const FOLIOS = [
-    'OPI-25-12-07-OF', // Mision del Bosque Zapopan -12.1% similares
-    'OPI-25-12-04-OF ', // El Fortin Guadalajara +11.7% general
-    'OPI-25-12-01-OF', // Colinas del Rey Zapopan -12.1% similares
-    'OPI-25-11-15-OF', // Rancho Nuevo Guadalajara -16.0% similares
-    'OPI-25-11-13-OF', // Campo Real Zapopan +18.6% exacta
-    'OPI-25-11-12-OF', // Balcones de Oblatos Guadalajara -13.8% general
+    'OPI-25-9-01-OF',  // Emiliano Zapata Zapopan -22.7% general
+    'OPI-25-8-16-LM',  // "Guadalajara" colonia vaga -46.6% similares
+    'OPI-25-9-03-OF',  // San Andres GDL +12.5% similares
+    'OPI-25-8-17-LM',  // Real Valdepeñas Zapopan +13.5% similares
 ];
 
 async function getOPIDetail(folio) {
@@ -214,14 +212,10 @@ async function main() {
     console.log('\nLlamando a Gemini 2.5 Flash...');
     const gmResp = await callGemini(prompt);
 
-    console.log('Llamando a DeepSeek...');
-    const dsResp = await callDeepSeek(prompt);
-
     evaluarRespuesta('GEMINI 2.5 FLASH', gmResp, datos);
-    evaluarRespuesta('DEEPSEEK', dsResp, datos);
 
     fs.writeFileSync('resultados_ia_test.json', JSON.stringify({
-        gemini: gmResp, deepseek: dsResp, datos
+        gemini: gmResp, datos
     }, null, 2));
     console.log('\n\nResultados guardados en resultados_ia_test.json');
 }

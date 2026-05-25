@@ -66,7 +66,19 @@ const FACTORES_CONSERVACION = {
     nuevo: 1.05, muy_bueno: 1.05, bueno: 1.00,
     regular_bueno: 0.85, regular_medio: 0.75,
     regular_malo: 0.65, malo: 0.55, muy_malo: 0.45,
+    // Remodelación: mejora factorConserv Y reduce edad efectiva (INDAABIN: edad cuenta desde última remodelación)
+    remodelacion_menor:      0.85, // Acabados superficiales (pintura, pisos, baño/cocina)
+    remodelacion_intermedia: 1.00, // Instalaciones y acabados principales (eléctrico, hidráulico, fachada)
+    remodelacion_completa:   1.05, // Remodelación total — prácticamente nueva
 };
+
+// Edad efectiva: remodelación reduce el reloj de depreciación (INDAABIN cuenta desde última remodelación)
+function calcEdadEfectiva(edad, conservacion) {
+    if (conservacion === 'remodelacion_menor')      return edad - Math.min(8, edad * 0.15);
+    if (conservacion === 'remodelacion_intermedia') return Math.max(8, edad * 0.35);
+    if (conservacion === 'remodelacion_completa')   return 5;
+    return edad;
+}
 
 const NSE_NIVELES = [
     { idx: 0, nombre: 'economico' }, { idx: 1, nombre: 'interes-social' },
@@ -402,7 +414,7 @@ function sumaDePartes(muniNorm, colNorm, m2T, m2C, edad, conservacion, esEjidal 
                   : pm2cRef >= 15000 ? 'residencial'
                   : pm2cRef >= 8000  ? 'media' : 'economica';
     const costo   = INDAABIN_COSTO[nseKey];
-    const depre   = getRH(edad);
+    const depre   = getRH(calcEdadEfectiva(edad, conservacion));
     const fConserv = FACTORES_CONSERVACION[conservacion] || 1.00;
     // +20% sobre costo INDAABIN para aproximar valor de mercado (costo reposición < valor mercado)
     const valorConst = m2C > 0 ? costo * 1.20 * m2C * depre * fConserv * 0.95 : 0;
@@ -541,9 +553,10 @@ function valuarPropiedad(prop) {
     const pm2c     = comps.map(c => c.precio / c.m2_const);
     const pm2cFilt = antiRemate(pm2c);
     const edad     = prop.edad || 0;
+    const edadEfectiva = calcEdadEfectiva(edad, prop.estadoConservacion);
     const factorEdad = poolTipo === 'exacta'   ? 1.0
-                     : poolTipo === 'similares' ? Math.max(0.85, 1 - (edad - 10) * 0.005)
-                     :                            Math.max(0.70, 1 - (edad - 10) * 0.01);
+                     : poolTipo === 'similares' ? Math.max(0.85, 1 - (edadEfectiva - 10) * 0.005)
+                     :                            Math.max(0.70, 1 - (edadEfectiva - 10) * 0.01);
     const factorConserv = FACTORES_CONSERVACION[prop.estadoConservacion] || 1.00;
     const factorNeg     = 0.95;
 
@@ -568,11 +581,10 @@ function valuarPropiedad(prop) {
 
     // Cap NSE: para similares/general, si el sujeto tiene NSE con medianaPm2 conocida,
     // limitar pm2cAvg a medianaPm2 × 1.15. Evita que el pool general infle colonias sin IDX.
-    // También aplica a exacta cuando el IDX local tiene <10 listings (muestra pequeña poco confiable).
+    // También aplica a exacta con muy pocos comps (< 4) — muestra demasiado pequeña para ser confiable.
     if (nseSubjeto && nseSubjeto.medianaPm2 > 0) {
-        const exactaIDX = IDX[muniNorm]?.[tipo]?.[colNorm];
-        const exactaSolida = poolTipo === 'exacta' && exactaIDX && exactaIDX.count >= 10;
-        if (!exactaSolida) {
+        const aplicarCap = poolTipo !== 'exacta' || comps.length < 4;
+        if (aplicarCap) {
             const techoNSE = nseSubjeto.medianaPm2 * 1.15;
             if (pm2cAvg > techoNSE) pm2cAvg = techoNSE;
         }

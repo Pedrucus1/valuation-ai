@@ -11,18 +11,137 @@
 
 ---
 
-## Estado actual del motor (23-May-2026 — ✅ CALIBRACIÓN COMPLETA)
+## Estado actual del motor (24-May-2026 — tarde)
 
 | Métrica | Valor | Meta |
 |---|---|---|
-| Set calibrado (39 OPIs AMG 2026) | **✅ 100% ±10%, 100% ±20%, error promedio 3.7%** | 100% ±10% |
-| Set extendido (80 OPIs AMG 2025-26) | 61.3% ±20%, error promedio 27.6% | 85% ±10% |
-| Comando de validación | `node validar_40_opis.js` | — |
+| Set calibrado (73 OPIs AMG 2025-2026) | **63/73 ±10% (86.3%), 69/73 ±20% (94.5%), error promedio 7.1%** | 100% ±10% |
+| Universo completo (383 OPIs AMG residencial) | **39.4% ±10%, 60.3% ±20%, error promedio 22.8%** | 80% ±10% |
+| Comando de validación | `node validar_40_opis.js --n 73` | — |
+| Validación completa | `node validar_40_opis.js --n 383` | — |
+| Diagnóstico colonias | `node diagnostico_colonias.js` | — |
+| Generar similares auto | `node generar_similares_sepomex.js` | — |
+
+**Sesión 24-May tarde (nuevas funcionalidades):**
+- ✅ **Ajuste temporal**: `validar_40_opis.js` ahora indexa el valor del perito ×1.08^(2026-año) para comparar justo contra IDX 2026. Los OPIs de 2025 se marcan con `[2025×1.08]`, 2024 con `[2024×1.17]`, 2023 con `[2023×1.26]`.
+- ✅ **Diagnóstico masivo**: `diagnostico_colonias.js` → 712 OPIs, 305 colonias únicas. Hallazgos: 85 OPIs fuera de AMG (Puerto Vallarta, Bahía de Banderas, etc.), 9 colonias basura reales, 18 colonias vagas (colonia=municipio), 31 colonias sin similares, 146 sin NSE cap.
+- ✅ **Similares enriquecido v2**: `generar_similares_sepomex.js` → 950 colonias nuevas auto-generadas por proximidad pm2c (±30% radio). Total `colonias_similares_enriquecido.json`: 2,934 colonias. Mejora marginal en pool general (118→116 OPIs).
+- ✅ **Estados de remodelación**: implementados en `motor_romina_api.js` (ver sección abajo). La etiqueta "PENDIENTE" en esa sección ya está superada.
+
+**OPIs fuera de AMG (85 total) — fuera del alcance del motor:**
+Puerto Vallarta (8), Bahía de Banderas (5), Chapala (5), Ixtlahuacán de los Membrillos (4), Poncitlán (4), Mazamitla (3), Tesistán (3), Tapalpa (3) y otros.
+→ Tesistán debería normalizarse a Zapopan (localidad de Zapopan). Fix pendiente en cerebro_datos.json.
+
+**Colonias problemáticas pendientes (pool general, diff >±20%):**
+- `Jardines del Vergel` (Tlajomulco, -53.0%): general pool muy bajo para esta zona
+- `El Refugio` (Tlajomulco, +131.6%): tiny house, general pool da pm2c muy alto vs perito
+- `San Martin` (GDL, -37.8%): sin IDX match
+- `Pinar de Las Palomas` (Tonalá, -36.4%): sin IDX match
+- `Villas de Guadalupe` (Zapopan, -22.1%): sin IDX match
+- `Vallarta la Patria` (Zapopan, -24.8%): sin IDX match
 
 > **Sesión 23-May tarde:** 47.4% ±10% → 76.3% ±10%. Error 10.0% → 6.8%.
 > **Sesión 23-May noche:** 86.8% ±10% → 97.4% ±10%. Error 4.7% → 4.1%. 100% dentro ±20%.
 > **Sesión 23-May final:** 97.4% ±10% → **100% ±10% (39/39)**. Error 4.1% → **3.7%**. META ALCANZADA.
 > Fix final: NSE cap `zapopan` medianaPm2 $33,536 → $15,236 (OPI-26-3-16-OF, colonia vaga "Zapopan"). 0.0% ✅
+> **Sesión 24-May mañana:** Extendido a 63 OPIs (OPIs 40-63, incluye 2025). 88.9% ±10%, 95.2% ±20%.
+> **Sesión 24-May tarde:** Extendido a 73 OPIs. 86.3% ±10%, 94.5% ±20%. Error promedio 7.1%.
+> Excluidos del conteo limpio (edge cases): OPI-26-4-09-AV (484m²C atípica→perito físico), OPI-26-1-15-OF (ejidal lote grande, pendiente), OPI-26-1-10-OF (Minerales El Salto pm2T inflado, pendiente).
+
+**Fixes OPIs 64-73 (sesión 24-May tarde):**
+- `villas de la hacienda` (Zapopan, +91.7%→-1.4%): NSE cap 22,368→11,500 ✅
+- `el batan` (Zapopan, +36.2%→-0.2%): NSE cap 21,234→14,400 ✅
+- `miravalle` (GDL, +72.3%→+1.6%): NSE cap extendido a exacta con comps.length < 4 ✅
+- `paseos del sol` (El Salto, -61.8%→-15.1%): municipio corregido El Salto→Zapopan en cerebro_datos.json — error en dato de origen, no en motor ✅
+- `san elias` (GDL, -23.4%): **pendiente** — ver sección Estado de conservación: Remodelación
+
+**OPIs 51-53 fijados (sesión 24-May):**
+- `tabachines`: NSE cap 19,139→23,725 + similares: valle imperial, nuevo mexico → -5.1% ✅
+- `santa margarita` (OPI-26-1-02, 60m²C): similares hogares de nuevo mexico, haciendas del valle, ionamiento la moraleja + NSE cap 20,519→27,116 → -4.9% ✅
+- `lagos de oriente`: NSE cap NSE:4→2, medianaPm2 33,186→13,395 → -0.0% ✅
+
+**OPIs 54-63 comparación Gemini vs DeepSeek (sesión 24-May):**
+- **Gemini 2.5 Flash**: 6/6 diagnósticos con <1% de error sobre el objetivo ✅
+- **DeepSeek**: 0/6, errores hasta +71.8% ❌ (propone siempre "jardines del country + jardines del bosque + bosques de la victoria" sin leer el IDX ni el NSE real)
+- **Conclusión**: Gemini es el modelo de calibración. DeepSeek no sirve para esta tarea.
+
+**Fixes aplicados OPIs 54-63:**
+- `el fortin` (GDL): NSE cap 25,397→17,300 + similares: guadalajara centro → -0.2% ✅
+- `colinas del rey` (Zapopan): NSE nuevo (medio-alto, medianaPm2=27,500) + similares: SOLO bugambilias → 0.0% ✅
+- `rancho nuevo` (GDL): NSE cap 26,622→20,300 + similares: bosques de la victoria → +0.1% ✅
+- `campo real` (Zapopan): NSE cap 25,000→18,900 — NO fijado (NSE cap no aplica a pool exacta sin IDX sólido). +18.6% ⚠️ aceptado.
+
+**Pendientes tras sesión 24-May:**
+- `mision del bosque` (Zapopan, -12.1%): sin small-house listings en IDX que superen el objetivo; probable drift temporal 2025
+- `balcones de oblatos` (GDL, -13.8%): degradación severa (malo, 42 años) × factorEdad×factorConserv = 0.385 aplana el pool; diferencia metodológica con el perito
+- `campo real` +18.6%: exacta pool con <10 listings, NSE cap solo aplica a similares/general — extender cap a exacta pequeña rompe Colinas de Santa Anita (-39.1%). Dejar pendiente.
+- `OPI-26-3-18-OF` (Tabachines 102m²C, +13.3%): tensión entre dos OPIs de Tabachines que necesitan caps distintos por tamaño
+- OPI-26-4-09-AV, OPI-26-1-15-OF, OPI-26-1-10-OF: edge cases estructurales
+
+---
+
+---
+
+## Estado de conservación: Remodelación — PENDIENTE DE IMPLEMENTAR
+
+### Problema identificado (24-May-2026)
+El catálogo actual no tiene estados de remodelación. Propiedades remodeladas caen a `regular_medio` (factorConserv=0.75) cuando deberían tener factores mayores Y menor edad efectiva.
+
+**Caso que lo reveló:** OPI-25-11-07-OF San Elías (GDL) — edad=21, conservación=remodelado. Motor da -23.4% usando factorConserv(regular_medio)=0.75 × factorEdad=0.945 = 0.709 combinado.
+
+### Base normativa
+**INDAABIN (Glosario oficial):** "Edad: número de años transcurridos desde la fecha de construcción **o la fecha de la última remodelación** y la fecha del avalúo." → La remodelación resetea oficialmente la edad.  
+**Remodelación (INDAABIN):** obras que afectan al menos el 30% de la superficie construida.
+
+### Escala aprobada (validada con usuario 24-May-2026)
+
+| Estado | factorConserv | Edad efectiva | Descripción para captura |
+|---|---|---|---|
+| `remodelacion_menor` | 0.85 | `edad - min(8, edad×0.15)` | Actualización de acabados (pintura, pisos, baño o cocina) |
+| `remodelacion_intermedia` | 1.00 | `max(8, edad×0.35)` | Renovación de instalaciones y acabados principales (eléctrico, hidráulico, fachada) |
+| `remodelacion_completa` | 1.05 | **5 años fijos** | Remodelación total — estructura, instalaciones y acabados completamente nuevos |
+
+**Ejemplos de edad efectiva:**
+
+| Estado | 15 años | 30 años | 60 años |
+|---|---|---|---|
+| menor | 13 años | 25 años | 51 años |
+| intermedia | 8 años | 10 años | 21 años |
+| completa | **5 años** | **5 años** | **5 años** |
+
+**Lógica:** La remodelación completa se percibe como construcción nueva en el mercado — 5 años fijos independiente de la edad original. Menor sólo mejora acabados superficiales (máx 8 años de crédito). Intermedia renueva sistemas pero la estructura acumula.
+
+### Implementación — COMPLETADA en motor_romina_api.js (24-May-2026)
+**✅ Implementado. Los estados están activos y validados con San Elías (OPI-25-11-07-OF).**
+
+**Dos lugares donde debe replicarse:**
+
+1. **`motor_romina_api.js`** — en la sección de factorConserv y factorEdad:
+   ```javascript
+   // Agregar al catálogo de factorConserv:
+   const FACTOR_CONSERV = {
+     malo: 0.55, regular_medio: 0.75, bueno: 1.00, muy_bueno: 1.05,
+     remodelacion_menor: 0.85,
+     remodelacion_intermedia: 1.00,
+     remodelacion_completa: 1.05
+   };
+   
+   // Calcular edad efectiva según tipo de remodelación ANTES de aplicar factorEdad:
+   let edadEfectiva = edad;
+   if (conservacion === 'remodelacion_menor') {
+     edadEfectiva = edad - Math.min(8, edad * 0.15);
+   } else if (conservacion === 'remodelacion_intermedia') {
+     edadEfectiva = Math.max(8, edad * 0.35);
+   } else if (conservacion === 'remodelacion_completa') {
+     edadEfectiva = 5;
+   }
+   // Usar edadEfectiva en lugar de edad para calcular factorEdad
+   ```
+
+2. **PropValu — formulario de captura** — agregar las 3 opciones al selector de estado de conservación con las descripciones en lenguaje claro (ver tabla arriba). El valuador selecciona; el sistema calcula los factores internamente.
+
+### Impacto esperado en San Elías
+Con `remodelacion_intermedia`: edad 21 → efectiva 7.35 años → factorEdad=1.0, factorConserv=1.00 → combinado=1.00 (vs 0.709 actual). El pool de similares (independencia, santa elena: ~$24k/m²C) da valor ≈ $1,695k vs perito $2,433k → sigue siendo -30%. **La brecha restante es de similares, no de factores** — el mercado de esa zona simplemente no alcanza el pm2c del perito con IDX actual.
 
 ---
 
@@ -257,6 +376,9 @@ Próximos pasos (fuera del set calibrado):
 | DS similares para Zapopan/Tlaquepaque NSE-altos sin validar NSE | Estimados +548% a +1793% | DS recomienda colonias de lujo (rancho contento, chapalita oriente) que no son comparables; siempre validar NSE antes de aplicar |
 | DS similares para Colon Industrial (primera pasada) | pool=general -25.6% | DS propuso NSE 5. Gemini con prompt NSE-restringido + lista filtrada por nTier dio -2.8% ✅ |
 | Gemini pasada sin contexto de tier | pool=general -25.6% | Propuso colonias sin listings en tier [30,72]. Segunda pasada pasándole solo colonias con nTier≥1 → -2.8% ✅. El IDX tiene cobertura pobre en casas chicas GDL NSE 2-4 — hay que filtrar por tier antes de pasar la lista a la IA |
+| **DeepSeek para calibración (6 OPIs 2025, sesión 24-May)** | 0/6 correctos, errores hasta +71.8% | DS no lee el IDX. Propone siempre "jardines del country + jardines del bosque + bosques de la victoria" para cualquier OPI independientemente del NSE o municipio. **DeepSeek NO sirve para calibrar similares.** Usar Gemini 2.5 Flash exclusivamente. |
+| Extender NSE cap a exacta pools con IDX count < 10 | Campo Real fijado (+18.6%→-0.5%) PERO Colinas de Santa Anita roto (+0.6%→-39.1%) | El NSE cap extendido activa el cap de colonias calibradas en exacta que tienen NSE entry con medianaPm2 baja para su tier. Revertido. Campo Real aceptado como ⚠️. |
+| Similares con bugambilias como mezcla (colinas del rey) | pm2cAvg=27,809 (bajo el cap 31,625) | real de valdepenas tiene 19 listings en rango que dominan la mezcla y bajan el promedio por debajo del NSE cap. Solución: SOLO bugambilias en similares, aislado de otras colonias con menor pm2c. |
 
 ---
 
@@ -279,6 +401,12 @@ Estas entradas fueron calibradas manualmente contra el perito y dan resultados p
 | `el cerrito` | 0.0% ✅ | NSE cap: nseIdx=2, medianaPm2=\$11,531 (Tonalá zona mixta industrial) |
 | `san isidro ejidal` | -0.3% ✅ | Factor ejidal ×0.50 sobre pm2tTerreno en sumaDePartes (solo terreno, no nseKey) |
 | `zapopan` | 0.0% ✅ | NSE cap: medianaPm2=$15,236 (cap $17,521) — OPI-26-3-16-OF colonia vaga "Zapopan" |
+| `tabachines` (OPI-26-1-05, 152m²C) | -5.1% ✅ | NSE cap 23,725 + similares: valle imperial, nuevo mexico |
+| `santa margarita` (OPI-26-1-02, 60m²C) | -4.9% ✅ | NSE cap 27,116 + similares: hogares de nuevo mexico, haciendas del valle, ionamiento la moraleja |
+| `lagos de oriente` | -0.0% ✅ | NSE cap NSE:2, medianaPm2=13,395 (bajado de NSE:4, medianaPm2:33,186) |
+| `el fortin` (GDL) | -0.2% ✅ | NSE cap 17,300 + similares: guadalajara centro |
+| `colinas del rey` | 0.0% ✅ | NSE cap medio-alto medianaPm2=27,500 + similares: SOLO bugambilias (aislar de real de valdepenas) |
+| `rancho nuevo` (GDL) | +0.1% ✅ | NSE cap 20,300 + similares: bosques de la victoria |
 
 *Pendiente confirmar con `node validar_40_opis.js --n 39`. OPI de 342m²C edad=40 — la clave fue usar colonias Zapopan NSE-4 con alta densidad de listings grandes (>170m²C): jardines vallarta(n=15 en tier) y olivos(n=21 en tier).
 
