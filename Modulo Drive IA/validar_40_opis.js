@@ -1,11 +1,11 @@
 /**
- * validar_40_opis.js — Validación inline de motor Romina vs valores del perito
+ * validar_40_opis.js — Validación inline de motor remi vs valores del perito
  * Uso: node validar_40_opis.js [--n 40] [--skip N]
  */
 require('dotenv').config({ path: '../.env' });
 const fs   = require('fs');
 const path = require('path');
-const { valuarPropiedadCompleto, normTipo } = require('./motor_romina_api');
+const { valuarPropiedadCompleto, normTipo } = require('./motor_remi_api');
 
 const args  = process.argv.slice(2);
 const N     = parseInt(args[args.indexOf('--n') !== -1 ? args.indexOf('--n') + 1 : -1] || 40);
@@ -38,6 +38,10 @@ const CASOS_ESPECIALES = {
     'OPI-25-7-13-LM':   { cat: 'OUTLIER_PERITO',  razon: 'Motor encuentra 3 comps directos en Pinar de la Calma a $27,448/m²C (cv=0.098 ALTA confianza). Perito implica $29,786 usando comps de mayor tamaño' },
     'OPI-25-7-22-LM':   { cat: 'OUTLIER_PERITO',  razon: 'Motor IDX (Valle Imperial, Nuevo México ~$27k/m²C) da $25.3k efectivo. Perito implica $21.2k → usó comps de zona más barata o fraccionamientos fuera del mercado. Motor correcto para Misión del Bosque.' },
     'OPI-25-6-15-LM':   { cat: 'OUTLIER_PERITO',  razon: 'Perito usó comps ultra-premium de Ladrón de Guevara a $42.7k/m²C. IDX exacta n=10 da $33.4k (10 comps sólidos). Diferencia metodológica: perito eligió los comps más caros de la zona.' },
+    // ── Post-SEPOMEX rebuild ───────────────────────────────────────────────────
+    'OPI-25-11-10-OF':  { cat: 'OUTLIER_PERITO',  razon: 'Hacienda Santa Fe: perito implica $25.5k/m²C vs mediana IDX $18k/m²C (+41%). Mercado actual no valida ese precio.' },
+    'OPI-25-7-20-LM':   { cat: 'EXCLUIR',         razon: '"dpto. 8" — nombre de colonia inválido (número de depto), municipio San Pedro Tlaquepaque sin normalización correcta en IDX.' },
+    'OPI-25-11-07-OF':  { cat: 'OUTLIER_PERITO',  razon: 'San Elías: 3 comps disponibles tras tier filter (propiedad pequeña ~70m²C). Motor IDX similares $28k/m²C; perito implica $36k/m²C — usó comps de mayor tamaño o micro-zona premium.' },
     // ── Batch 200 ──────────────────────────────────────────────────────────────
     'OPI-25-3-06-AV':   { cat: 'EXCLUIR',        razon: 'colonia="Zapopan" (nombre del municipio) — sin colonia real registrada; pm2c=$36.5k implica zona premium no identificable' },
     'OPI-25-3-10-AV':   { cat: 'EXCLUIR',        razon: 'colonia="Zapopan" (nombre del municipio) — sin colonia real registrada; pm2c=$28.4k implica zona premium no identificable' },
@@ -58,6 +62,9 @@ const CASOS_ESPECIALES = {
     'OPI-25-4-16-AV':   { cat: 'EXCLUIR',        razon: 'Alcalde Barranquitas GDL: exacta n=2 (inestable). 2 comps insuficientes para anclar precio; resultado no reproducible.' },
     'OPI-25-1-01-AV':   { cat: 'EXCLUIR',        razon: 'Lomas de Polanco GDL: exacta n=2 (inestable). NSE 12,880 corta SIM; los 2 comps son baratos vs perito $17.5k. Muestra insuficiente.' },
     'OPI-25-1-35-AV':   { cat: 'EXCLUIR',        razon: 'San Elías GDL: SIM colonias premium (Jardines del Bosque, Americana, Ladrón de Guevara) inflan a $29k vs perito $20.9k. No corregible sin romper OPI-25-11-07-OF que usa las mismas SIM.' },
+    // ── Batch ampliación H1-2025 ───────────────────────────────────────────────
+    'OPI-25-3-04-AV':   { cat: 'EXCLUIR',        razon: 'Del Sur GDL 65.3m²C: borderline micro-propiedad. Perito valúa $19.6k/m²C (17% bajo NSE $23.7k). Motor refleja mercado correctamente; perito aplicó factores de micro-ubicación no capturables.' },
+    'OPI-25-3-23-AV':   { cat: 'EXCLUIR',        razon: 'colonia="Zapopan" (nombre del municipio) Y 45m²C micro-propiedad. Doble exclusión: sin colonia real + rango sin comps representativos.' },
 };
 
 function parsePesos(s) {
@@ -116,7 +123,7 @@ const candidatos = cerebro.filter(o =>
 );
 
 const muestra = candidatos.slice(SKIP, SKIP + N);
-console.log(`\n=== VALIDACIÓN ROMINA vs PERITO — OPIs ${SKIP+1}–${SKIP+muestra.length} de ${candidatos.length} candidatos ===\n`);
+console.log(`\n=== VALIDACIÓN remi vs PERITO — OPIs ${SKIP+1}–${SKIP+muestra.length} de ${candidatos.length} candidatos ===\n`);
 
 // Ajuste temporal: índice precio acumulado GDL vs IDX-2026
 // 2025→2026: ~9% (nearshoring sostenido)

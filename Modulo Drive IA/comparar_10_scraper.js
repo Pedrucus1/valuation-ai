@@ -3,7 +3,7 @@
  *
  * Compara 3 métodos sobre 10 propiedades del scraper:
  *   A) Metodología Perito (Suma de Partes: $/m²T × m²T + pm2C BIMSA × m²C × deprec × 1.20)
- *   B) Motor PropValu (Romina-Scraper con fallback Beta-OPI)
+ *   B) Motor PropValu (remi-Scraper con fallback Beta-OPI)
  *   C) Precio real de oferta en la BD del scraper
  *
  * Resultado: tabla comparativa → determina qué método se acerca más al precio de mercado real.
@@ -138,8 +138,8 @@ function metodoPeritoSumaPartes(prop, zona) {
     return { valor:total, pm2T:Math.round(pm2T), pm2CBimsa:Math.round(pm2CBimsa), factorRH:factorRH.toFixed(2), valorTerreno:Math.round(valorTerreno), valorConstruccion:Math.round(valorConstruccion) };
 }
 
-// ── MÉTODO B: Romina-Scraper (Motor PropValu) ─────────────────────────────────
-function metodoRominaScraper(prop, zona) {
+// ── MÉTODO B: remi-Scraper (Motor PropValu) ─────────────────────────────────
+function metodoremiScraper(prop, zona) {
     const colNorm  = normCol(zona.colonia);
     const muni     = (zona.municipio||'').toLowerCase();
     const similares = (_sim[colNorm]||[]).slice(0,5).map(x=>normCol(x.colonia));
@@ -260,7 +260,7 @@ const MUESTRA = [
 
 // ── Correr comparación ────────────────────────────────────────────────────────
 console.log('\n' + '='.repeat(90));
-console.log('COMPARACIÓN: Perito (Suma Partes) vs Motor PropValu (Romina) vs Precio Real Scraper');
+console.log('COMPARACIÓN: Perito (Suma Partes) vs Motor PropValu (remi) vs Precio Real Scraper');
 console.log('='.repeat(90));
 
 const resultados = [];
@@ -268,7 +268,7 @@ const resultados = [];
 for (const prop of MUESTRA) {
     const zona = { municipio: prop.municipio, colonia: prop.colonia };
     const a    = metodoPeritoSumaPartes(prop, zona);
-    const b    = metodoRominaScraper(prop, zona);
+    const b    = metodoremiScraper(prop, zona);
     const real = prop.precioReal;
 
     const errA = abspct(a.valor, real);
@@ -279,7 +279,7 @@ for (const prop of MUESTRA) {
     console.log(`\n${prop.id}. ${prop.colonia.toUpperCase()}, ${prop.municipio} | ${prop.m2C}m²C ${prop.m2T}m²T | ${prop.edad}a ${prop.conservacion}`);
     console.log(`   Precio real scraper : ${MXN(real)}`);
     console.log(`   A) Perito Suma Parts: ${MXN(a.valor)}  (${pct(a.valor,real)})  $/m²T=${a.pm2T?.toLocaleString()}  $/m²C-bimsa=${a.pm2CBimsa?.toLocaleString()}  factRH=${a.factorRH}`);
-    console.log(`   B) Motor Romina     : ${MXN(b.valor)}  (${pct(b.valor,real)})  $/m²C-comps=${b.pm2cAvg?.toLocaleString()}  n=${b.nComps}`);
+    console.log(`   B) Motor remi     : ${MXN(b.valor)}  (${pct(b.valor,real)})  $/m²C-comps=${b.pm2cAvg?.toLocaleString()}  n=${b.nComps}`);
     if (a.nota) console.log(`   ⚠️  A: ${a.nota}`);
 }
 
@@ -292,6 +292,6 @@ const avgB  = resultados.filter(r=>r.errB!==null).reduce((s,r)=>s+r.errB,0)/resu
 
 console.log(`RESUMEN vs Precio Real de Oferta:`);
 console.log(`  A) Perito Suma Partes : ${densA}/10 dentro de ±20%  |  error promedio ${avgA.toFixed(1)}%`);
-console.log(`  B) Motor Romina       : ${densB}/10 dentro de ±20%  |  error promedio ${avgB.toFixed(1)}%`);
+console.log(`  B) Motor remi       : ${densB}/10 dentro de ±20%  |  error promedio ${avgB.toFixed(1)}%`);
 console.log(`\n  Ganador vs mercado real: ${avgA < avgB ? 'A) Metodología Perito' : 'B) Motor PropValu'}`);
 console.log('='.repeat(90) + '\n');

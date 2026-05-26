@@ -87,7 +87,7 @@ function metodoBeta(prop) {
     return 0;
 }
 
-function metodoRomina(prop) {
+function metodoremi(prop) {
     if (!prop.comparables || prop.comparables.length === 0) return 0;
     if (!prop.construccion || prop.construccion === 0) return 0;
 
@@ -134,7 +134,7 @@ const validos = data.filter(d =>
 console.log(`\nTotal válidos: ${validos.length} — mostrando 5\n`);
 console.log('='.repeat(100));
 
-let betaErrors = [], rominaErrors = [];
+let betaErrors = [], remiErrors = [];
 
 validos.slice(0, 5).forEach((d, idx) => {
     let edad = 10;
@@ -150,7 +150,7 @@ validos.slice(0, 5).forEach((d, idx) => {
     };
 
     const beta = Math.round(metodoBeta(prop));
-    const romina = Math.round(metodoRomina(prop));
+    const remi = Math.round(metodoremi(prop));
 
     const compsConM2C = prop.comparables.filter(c => cleanNum(c.construccion) > 0).length;
 
@@ -167,12 +167,12 @@ validos.slice(0, 5).forEach((d, idx) => {
         console.log(`    Beta:    N/A`);
     }
 
-    if (romina > 0) {
-        const err = ((romina / prop.valorReal) - 1) * 100;
-        rominaErrors.push(Math.abs(err));
-        console.log(`    Romina:  ${MXN(romina)}  (${err > 0 ? '+' : ''}${err.toFixed(1)}%)`);
+    if (remi > 0) {
+        const err = ((remi / prop.valorReal) - 1) * 100;
+        remiErrors.push(Math.abs(err));
+        console.log(`    remi:  ${MXN(remi)}  (${err > 0 ? '+' : ''}${err.toFixed(1)}%)`);
     } else {
-        console.log(`    Romina:  N/A — necesita re-extracción (comparables sin m²C)`);
+        console.log(`    remi:  N/A — necesita re-extracción (comparables sin m²C)`);
     }
     console.log('='.repeat(100));
 });
@@ -180,6 +180,6 @@ validos.slice(0, 5).forEach((d, idx) => {
 if (betaErrors.length > 0) {
     console.log(`\nError promedio Beta (5 ejemplos): ${(betaErrors.reduce((a,b)=>a+b,0)/betaErrors.length).toFixed(1)}%`);
 }
-if (rominaErrors.length > 0) {
-    console.log(`Error promedio Romina (5 ejemplos): ${(rominaErrors.reduce((a,b)=>a+b,0)/rominaErrors.length).toFixed(1)}%`);
+if (remiErrors.length > 0) {
+    console.log(`Error promedio remi (5 ejemplos): ${(remiErrors.reduce((a,b)=>a+b,0)/remiErrors.length).toFixed(1)}%`);
 }

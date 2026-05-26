@@ -132,7 +132,7 @@ for (const muni of Object.keys(idx)) {
 }
 
 // ── Agregar colonias INEGI (si se pasa el CSV) ────────────────────────────────
-const inegiArg = process.argv.find(a => a.endsWith('.csv'));
+const inegiArg = process.argv.find(a => a.endsWith('.csv') || a.endsWith('.txt'));
 if (inegiArg && fs.existsSync(inegiArg)) {
     console.log(`\nAgregando colonias INEGI desde ${inegiArg}...`);
     const lines = fs.readFileSync(inegiArg, 'latin1').split('\n');

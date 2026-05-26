@@ -1,7 +1,7 @@
 /**
  * test_gemini_comps.js
  * Busca comparables via Gemini + Google Search para 3 propiedades problemáticas,
- * luego aplica Romina-Scraper y compara con el valor del perito.
+ * luego aplica remi-Scraper y compara con el valor del perito.
  */
 
 require('dotenv').config({ path: '../.env' });
@@ -25,7 +25,7 @@ function antiRemate(precios) {
 
 function avg(arr) { return arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : 0; }
 
-function metodoRomina(prop, comps) {
+function metodoremi(prop, comps) {
     if (!comps || !comps.length || !prop.construccion) return 0;
     const validos = comps.filter(c => c.m2c > 0 && c.precio > 0);
     if (!validos.length) return 0;
@@ -164,10 +164,10 @@ async function main() {
         });
 
         if (comps.length > 0) {
-            const valorRomina = Math.round(metodoRomina(caso, comps));
-            const diferencia  = dif(valorRomina, caso.valorReal);
+            const valorremi = Math.round(metodoremi(caso, comps));
+            const diferencia  = dif(valorremi, caso.valorReal);
             console.log(`\n   Perito:         ${MXN(caso.valorReal)}`);
-            console.log(`   Romina-Gemini:  ${MXN(valorRomina)}  (${diferencia})`);
+            console.log(`   remi-Gemini:  ${MXN(valorremi)}  (${diferencia})`);
         } else {
             console.log('   Sin comparables — no se puede calcular.');
         }

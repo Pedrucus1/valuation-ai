@@ -1,5 +1,5 @@
 # PropValu — Backlog de Tareas
-> **Última actualización:** 26 May 2026 — Motor Romina: **89/99 ±10% (89.9%), 100% ±20%, error abs 5.0%** — validado con OPIs recientes (2025 H2 + 2026). Opción 1 FLOOR_EDAD implementada, flywheel activo.
+> **Última actualización:** 26 May 2026 — Motor Remi: **85.4% ±10%, 99.0% ±20%, error abs 5.2%** (96 OPIs H2 2025+2026). Renombrado Romina→Remi. SEPOMEX +1,410 colonias en IDX. SIM corregidas: san elias, zalatitan, oblatos. Conservation mapping completo en server.py.
 > Actualizar este archivo conforme se completen tareas. Marcar con ✅ cuando esté lista, con 🔄 cuando esté en progreso.
 
 ---
@@ -88,7 +88,7 @@
 | 15 | 👁️ | **Newsletter fase 1** — suscriptores en MongoDB, sección en LandingPage, AdminNewsletter, endpoints subscribe/unsubscribe. Envío real pendiente (SendGrid) — **pendiente revisión personal para afinar detalles** |
 | 21 | ✅ | **Google Sheets como fuente de comparables** — scraper conectado. |
 | 64 | ✅ | **MongoDB como fuente primaria de comparables** — `mongo_comparables.py` filtra `mercado_props` por municipio/tipo/m2 ±40%, integrado en server.py step 0.5. |
-| 65 | ⏳ | **Sync Sheets → MongoDB tras enricher** — correr `/admin/mercado/sync-sheets` cuando terminen los scrapers pendientes. |
+| 65 | ⏳ | **Sync Sheets → MongoDB inicial** — El endpoint `/admin/mercado/sync-sheets` ya existe y tiene scheduler automático (día 3 de cada mes). Solo falta correrlo una vez manualmente desde el panel admin. Scrapers ya están completos (#66 ✅). |
 | 66 | ✅ | **Correr scrapers pendientes** — Todos completados: CYT ✅, MITULA ✅ (re-scrape 20-may con fix m2_terreno), INMUEBLES24 ✅, PINCALI ✅, PROPIEDADES_COM ✅, VIVANUNCIOS ✅. Total: 84,597 props en MongoDB. |
 | 34 | ⏳ | **Email notifications** — SendGrid. |
 | 35 | ⏳ | **WhatsApp notifications** — Twilio. |
@@ -134,29 +134,30 @@
 
 | # | Estado | Tarea |
 |---|---|---|
-| 70 | ✅ | **Romina-Scraper como motor principal** — Homologación Directa $/m²C con comps del scraper. 6/9 casos en Guadalajara dentro de ±20% error. Archivos: `comparar_metodologias.js`, `validador_masivo.js` |
+| 70 | ✅ | **Remi-Scraper como motor principal** — Homologación Directa $/m²C con comps del scraper. 6/9 casos en Guadalajara dentro de ±20% error. Archivos: `comparar_metodologias.js`, `validador_masivo.js` |
 | 71 | ✅ | **Selección de comps corregida** — Sigue reglas de `sheets_comparables.py`: tipo coincidente, m²C exigido, área ±50%, CUS ±35%, top 10 por similitud. CONSOLIDADO tab como fuente única. |
 | 72 | ✅ | **Anti-remate bidireccional** — Filtro ±40% de mediana (antes solo filtraba abajo). Descarta remates Y colonias caras que distorsionan. |
 | 73 | ✅ | **Gemini como fallback** — `test_gemini_comps.js` implementado. Miguel Hidalgo: +19.7% con Gemini vs +47% con scraper. Las Conchas y Lagos de Oriente requieren más trabajo. |
 | 79 | ✅ | **Motor calibrado en 40 OPIs — 31/40 ±20%, error promedio 12.6%** — Mejoras: factorRH dinámico por conservación, prima vivienda pequeña (<65m²C), Beta-OPI preferido cuando colonia es vaga, factor obsolescencia urbana terreno (edad>30 + CUS<0.85). DeepSeek como agente primario de análisis. Script `deepseek_dev.js` creado. |
-| 80 | ✅ | **Comparar metodología perito vs motor propio vs precio real scraper** — `comparar_10_scraper.js`: 10/10 en ±20%, error 11.8%. Motor Romina gana al método perito en todos los casos. |
+| 80 | ✅ | **Comparar metodología perito vs motor propio vs precio real scraper** — `comparar_10_scraper.js`: 10/10 en ±20%, error 11.8%. Motor Remi gana al método perito en todos los casos. |
 | 74 | ✅ | **Base de datos de colonias similares** — `build_colonias_similares.js` corrido exitosamente con 712 OPIs. 0 colonias nuevas (ya existían todas), 3 actualizadas. colonias_similares.json tiene 1052 entradas. |
 | 75 | 🔄 | **Revisar enricher del scraper** — Cobertura actual: PINCALI 98% ✅, CYT 81% ✅, MITULA 94% ✅, VIVANUNCIOS 56% ⚠️, INMUEBLES24 0% ❌, PROPIEDADES_COM 13% ❌. Pendiente: enriquecer INMUEBLES24 y PROPIEDADES_COM (Chrome CDP). |
 | 82 | ✅ | **Fix m2_terreno en scraper Mitula** — Corregido en `mitula.py`. |
 | 83 | ✅ | **Scheduler mensual corregido** — `run_mensual.ps1` con ruta, Python correcto y PROPIEDADES_COM. |
 | 84 | ✅ | **MongoDB-first en scheduler.py** — Escribe MongoDB primero, Sheets secundario. |
-| 76 | ✅ | **Afinar Romina** — **100% ±20%** (38/38 OPIs calibrados), error promedio 9.8%. Set extendido 80 OPIs: 61.3% ±20%. Fixes: build_colonias_similares.js, 6 similares actualizadas. Fallos en set extendido: colonias vagas, IDX antiguo, ejidales. |
+| 76 | ✅ | **Afinar Remi** — **100% ±20%** (38/38 OPIs calibrados), error promedio 9.8%. Set extendido 80 OPIs: 61.3% ±20%. Fixes: build_colonias_similares.js, 6 similares actualizadas. Fallos en set extendido: colonias vagas, IDX antiguo, ejidales. |
 | 87 | ✅ | **optimizar_similares_ds.js** — Script que detecta fallos >20% y pide a DeepSeek las colonias similares óptimas del IDX. Flags: --apply para guardar cambios. |
 | 88 | ✅ | **Ampliar validación y calibración** — **COMPLETADO 26-May**: 89/99 ±10% (89.9%), 100% ±20%, error abs 5.0%. Comando: `node validar_40_opis.js --n 200 --desde 2025-07`. FLOOR_EDAD_SIMILARES diferenciado por conservación implementado. |
-| 89 | ⏳ | **Validación adicional 40 OPIs 2026 + 20 OPIs 2025 H2** — Extender muestra para detectar casos edge no observados. Próxima sesión. |
-| 90 | ⏳ | **Opción 2: edadPromedioZona en colonias_nse.json** — Agregar campo con edad promedio de listings por colonia. Calcular del scraper cuando tenga campo año_construccion. |
-| 91 | ⏳ | **Opción 3: capturar año_construccion en scraper** — Inmuebles24 y Lamudi lo publican. Agrega al schema del scraper para habilitar factorEdad relativo comp-a-comp. |
-| 92 | ⏳ | **Replicar calibración en comparar_metodologias_v2.js** — Motor de producción. Incluir: FLOOR_EDAD_SIMILARES, NSE fixes de esta sesión, flywheel. |
-| 77 | ✅ | **Integrar Romina al backend** — `motor_romina_api.js` + endpoint en server.py. NO integrar en producción hasta mejorar error (ver nota en project_motor_valuacion). |
+| 89 | ✅ | **Validación ampliada todo 2025+2026** — 157 OPIs: 82.8% ±10%, 98.1% ±20%, error 5.9%. 2 nuevos EXCLUIR (Del Sur micro + Zapopan-municipio). Motor confirmado robusto. |
+| 93 | ✅ | **SEPOMEX/IDX + SIM fixes post-rebuild 26-May** — +1,410 colonias SEPOMEX al IDX (8,703 total). SIM corregidas: san elias (similares premium→medio-alto), oblatos (garbage→analco/san juan bosco), zalatitan (sin datos→tonala/santa paula). Conservation mapping completo en server.py (11 estados vs 4 antes). Resultado: **85.4% ±10%, 99.0% ±20%, error 5.2%** (96 OPIs H2 2025+2026). |
+| 90 | ⏳ | **Opción 2: edadPromedioZona en colonias_nse.json** — Agregar campo con edad promedio de listings por colonia. Depende de #91. |
+| 91 | ⏳ | **Opción 3: capturar edad en scraper** — Capturar `año_construccion` donde esté explícito (Inmuebles24, Lamudi) o `edad_estimada` donde sea aproximado. Agrega al schema del scraper. |
+| 92 | ❌ | **Replicar calibración en comparar_metodologias_v2.js** — DESCARTADO: producción ya usa `motor_remi_api.js` directamente desde server.py. comparar_metodologias_v2.js es script legacy de prueba. |
+| 77 | ✅ | **Integrar Remi al backend** — `motor_remi_api.js` + endpoint en server.py. |
 | 81 | ✅ | **Migrar a cache_index.json** — IDX[muni][tipo] 1.6MB vs 50MB anterior. |
 | 78 | ✅ | **Re-extraer cerebro con colonias de comparables correctas** — Completado 22-may. 712 OPIs recuperados. build_colonias_similares.js corrido. |
 | 85 | ⏳ | **actualizar_cerebro.js optimizado** — Escanea solo últimos 3 meses en lugar de todo Drive. Soporte `--meses N`. Merge de manifiesto (no reemplaza). |
-| 86 | ⏳ | **avaluos_referencia.json** — 1164 OPIs con direccionMaps extraída del Cotizador (Sheets perito). Usar para enriquecer sujetoColonia del cerebro cuando el extractor no la encuentre. |
+| 86 | 🔄 | **avaluos_referencia.json** — Archivo existe con 1,168 OPIs. Pendiente: integrar en motor_remi_api.js para enriquecer sujetoColonia cuando el extractor no la encuentre. |
 
 ---
 

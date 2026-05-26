@@ -4,7 +4,7 @@
  * Para cada avalúo:
  *  1. Busca comparables en CONSOLIDADO del scraper (filtro por municipio + colonia)
  *  2. Si confianza=BAJA o nComps<3 → fallback automático a Gemini+GoogleSearch
- *  3. Corre Romina con la mejor fuente disponible
+ *  3. Corre remi con la mejor fuente disponible
  *  4. Exporta a Google Sheets "Comparativa Metodologias"
  */
 
@@ -251,7 +251,7 @@ function metodoBetaOPI(prop, zona = {}) {
 }
 
 /**
- * Romina: Homologación Directa $/m²C con factorSup y factorEdad.
+ * remi: Homologación Directa $/m²C con factorSup y factorEdad.
  * comps = [{ m2_const, precio }]
  * Retorna { valor, confianza, cv, nComps, pm2cAvg }
  */
@@ -259,7 +259,7 @@ function metodoBetaOPI(prop, zona = {}) {
 // - exacta:   mismo fraccionamiento/era → factorEdad=1.0
 // - similares: zona similar → mitad del ajuste
 // - general:  municipio amplio → ajuste completo
-function metodoRomina(prop, comps, poolTipo = 'general') {
+function metodoremi(prop, comps, poolTipo = 'general') {
     if (!comps || !comps.length || !prop.construccion) {
         return { valor: 0, confianza: 'N/A', cv: 'N/A', nComps: 0, pm2cAvg: 0 };
     }
@@ -900,7 +900,7 @@ async function main() {
     }).slice(0, MAX_AVALUOS);
 
     console.log(`\n${'='.repeat(70)}`);
-    console.log(`  Romina con Fallback Gemini — ${validos.length} avalúos AMG`);
+    console.log(`  remi con Fallback Gemini — ${validos.length} avalúos AMG`);
     console.log(`${'='.repeat(70)}\n`);
 
     const auth   = await googleSheetsConnector.authenticate();
@@ -911,9 +911,9 @@ async function main() {
     const rows = [[
         'Archivo', 'M2C', 'M2T', 'Edad', 'Perito',
         'Beta-OPI', 'Dif%',
-        'Romina-Scraper', 'Dif%', 'Confianza', 'CV', 'N-Comps', '$/m²C scraper',
-        'Romina-Gemini',  'Dif%', 'N-Comps Gemini', '$/m²C gemini',
-        'Romina-FINAL',   'Dif% FINAL', 'Fuente FINAL',
+        'remi-Scraper', 'Dif%', 'Confianza', 'CV', 'N-Comps', '$/m²C scraper',
+        'remi-Gemini',  'Dif%', 'N-Comps Gemini', '$/m²C gemini',
+        'remi-FINAL',   'Dif% FINAL', 'Fuente FINAL',
         '#CompsOPI', 'Nota-Claude'
     ]];
 
@@ -959,9 +959,9 @@ async function main() {
             continue;
         }
 
-        const rominaScraper = metodoRomina(prop, compsScraper, scraperPoolTipo);
+        const remiScraper = metodoremi(prop, compsScraper, scraperPoolTipo);
 
-        console.log(`   [Scraper] ${compsScraper.length} comps | Romina:${MXN(rominaScraper.valor)} (${dif(rominaScraper.valor, prop.valorReal)}) | Confianza:${rominaScraper.confianza}`);
+        console.log(`   [Scraper] ${compsScraper.length} comps | remi:${MXN(remiScraper.valor)} (${dif(remiScraper.valor, prop.valorReal)}) | Confianza:${remiScraper.confianza}`);
         if (compsScraper.length > 0) {
             console.log(`   [Scraper] $/m²C comps: ${compsScraper.slice(0,5).map(c => Math.round(c.precio/c.m2_const).toLocaleString()).join(', ')}`);
         }
@@ -995,48 +995,48 @@ async function main() {
                 : `terreno puro (${compsURLCount} URL, 0 $/m²C)`;
             console.log(`   [Método] ${razon} → Beta-OPI preferido`);
         } else if (compsPm2Count > 0) {
-            console.log(`   [Método] mercado (pm2cMax=$${Math.round(pm2cMax).toLocaleString()} ≥ umbral=$${Math.round(umbralFisico).toLocaleString()}) → Romina/Gemini`);
+            console.log(`   [Método] mercado (pm2cMax=$${Math.round(pm2cMax).toLocaleString()} ≥ umbral=$${Math.round(umbralFisico).toLocaleString()}) → remi/Gemini`);
         }
 
         // ── 3. Fallback cascade: GoogleSearch → DeepSeek → Gemini
         //      GoogleSearch: listings reales en tiempo real (mejor calidad)
         //      DeepSeek: conocimiento de mercado sin web real-time (barato)
         //      Gemini: Google Search integrado (último recurso, rate-limited)
-        let rominaGoogleSearch = { valor: 0, confianza: 'N/A', cv: 'N/A', nComps: 0, pm2cAvg: 0 };
-        let rominaDeepSeek     = { valor: 0, confianza: 'N/A', cv: 'N/A', nComps: 0, pm2cAvg: 0 };
-        let rominaGemini       = { valor: 0, confianza: 'N/A', cv: 'N/A', nComps: 0, pm2cAvg: 0 };
+        let remiGoogleSearch = { valor: 0, confianza: 'N/A', cv: 'N/A', nComps: 0, pm2cAvg: 0 };
+        let remiDeepSeek     = { valor: 0, confianza: 'N/A', cv: 'N/A', nComps: 0, pm2cAvg: 0 };
+        let remiGemini       = { valor: 0, confianza: 'N/A', cv: 'N/A', nComps: 0, pm2cAvg: 0 };
         const esGrande         = prop.construccion > 300;
-        const necesitaAI       = (rominaScraper.confianza === 'BAJA' || rominaScraper.nComps < 3)
+        const necesitaAI       = (remiScraper.confianza === 'BAJA' || remiScraper.nComps < 3)
                                  && (!esMetodoTerreno || esGrande);
 
         if (necesitaAI) {
-            console.log(`   [AI] Activando fallback (confianza=${rominaScraper.confianza}, n=${rominaScraper.nComps})...`);
+            console.log(`   [AI] Activando fallback (confianza=${remiScraper.confianza}, n=${remiScraper.nComps})...`);
 
             // 1. Google Search API (listings reales en portales — mejor calidad)
             const compsGS = await buscarCompsGoogleSearch(prop, zona);
-            rominaGoogleSearch = metodoRomina(prop, compsGS);
-            if (rominaGoogleSearch.nComps > 0) {
-                console.log(`   [GoogleSearch] ${compsGS.length} comps | Romina:${MXN(rominaGoogleSearch.valor)} (${dif(rominaGoogleSearch.valor, prop.valorReal)})`);
+            remiGoogleSearch = metodoremi(prop, compsGS);
+            if (remiGoogleSearch.nComps > 0) {
+                console.log(`   [GoogleSearch] ${compsGS.length} comps | remi:${MXN(remiGoogleSearch.valor)} (${dif(remiGoogleSearch.valor, prop.valorReal)})`);
             }
 
             // 2. DeepSeek si Google Search retorna <3 comps
-            if (rominaGoogleSearch.nComps < 3 && deepseekClient) {
+            if (remiGoogleSearch.nComps < 3 && deepseekClient) {
                 const compsDS = await buscarCompsDeepSeek(prop, zona);
-                rominaDeepSeek = metodoRomina(prop, compsDS);
-                if (rominaDeepSeek.nComps > 0) {
-                    console.log(`   [DeepSeek] ${compsDS.length} comps | Romina:${MXN(rominaDeepSeek.valor)} (${dif(rominaDeepSeek.valor, prop.valorReal)})`);
+                remiDeepSeek = metodoremi(prop, compsDS);
+                if (remiDeepSeek.nComps > 0) {
+                    console.log(`   [DeepSeek] ${compsDS.length} comps | remi:${MXN(remiDeepSeek.valor)} (${dif(remiDeepSeek.valor, prop.valorReal)})`);
                     console.log(`   [DeepSeek] $/m²C: ${compsDS.map(c => Math.round(c.precio/c.m2_const).toLocaleString()).join(', ')}`);
                 }
             }
 
             // 3. Gemini si los anteriores retornan <3 comps (rate-limited)
-            if (rominaGoogleSearch.nComps < 3 && rominaDeepSeek.nComps < 3) {
+            if (remiGoogleSearch.nComps < 3 && remiDeepSeek.nComps < 3) {
                 if (geminiCalls > 0) await sleep(10000);
                 geminiCalls++;
                 const compsG = await buscarCompsGemini(prop, zona);
-                rominaGemini = metodoRomina(prop, compsG);
-                if (rominaGemini.nComps > 0) {
-                    console.log(`   [Gemini] ${compsG.length} comps | Romina:${MXN(rominaGemini.valor)} (${dif(rominaGemini.valor, prop.valorReal)})`);
+                remiGemini = metodoremi(prop, compsG);
+                if (remiGemini.nComps > 0) {
+                    console.log(`   [Gemini] ${compsG.length} comps | remi:${MXN(remiGemini.valor)} (${dif(remiGemini.valor, prop.valorReal)})`);
                     console.log(`   [Gemini] $/m²C: ${compsG.map(c => Math.round(c.precio/c.m2_const).toLocaleString()).join(', ')}`);
                 }
             }
@@ -1044,16 +1044,16 @@ async function main() {
 
         // Mejor AI: GoogleSearch > DeepSeek > Gemini (prioridad por calidad de datos)
         const candidatosAI = [
-            { r: rominaGoogleSearch, f: 'GOOGLE_SEARCH' },
-            { r: rominaDeepSeek,     f: 'DEEPSEEK' },
-            { r: rominaGemini,       f: 'GEMINI' },
+            { r: remiGoogleSearch, f: 'GOOGLE_SEARCH' },
+            { r: remiDeepSeek,     f: 'DEEPSEEK' },
+            { r: remiGemini,       f: 'GEMINI' },
         ].filter(x => x.r.nComps > 0);
-        const mejorAIEntry = candidatosAI[0] || { r: rominaDeepSeek, f: 'DEEPSEEK' };
+        const mejorAIEntry = candidatosAI[0] || { r: remiDeepSeek, f: 'DEEPSEEK' };
         const mejorAI      = mejorAIEntry.r;
         const fuenteAI     = mejorAIEntry.f;
 
         // ── 4. Elegir mejor fuente ────────────────────────────────────────────
-        let rominaFinal, fuente;
+        let remiFinal, fuente;
 
         // Cuando no se detectó una colonia específica (el fallback encontró el municipio),
         // el Scraper usa promedios demasiado amplios. Preferir Beta-OPI si está disponible.
@@ -1062,40 +1062,40 @@ async function main() {
 
         // Método terreno: Beta-OPI preferido. Para propiedades grandes, comparar con AI.
         if (esMetodoTerreno && betaOPI > 0 && !(esGrande && mejorAI.nComps >= 3)) {
-            rominaFinal = { valor: betaOPI, confianza: 'MEDIA', cv: 'N/A', nComps: compsURLCount, pm2cAvg: 0 };
+            remiFinal = { valor: betaOPI, confianza: 'MEDIA', cv: 'N/A', nComps: compsURLCount, pm2cAvg: 0 };
             fuente = 'BETA-OPI (terreno)';
         } else if (!necesitaAI && coloniaEsVaga && betaOPI > 0) {
             // Sin colonia específica: el Scraper tiene poca precisión zonal — usar Beta-OPI si existe
-            rominaFinal = { valor: betaOPI, confianza: 'MEDIA', cv: 'N/A', nComps: compsURLCount, pm2cAvg: 0 };
+            remiFinal = { valor: betaOPI, confianza: 'MEDIA', cv: 'N/A', nComps: compsURLCount, pm2cAvg: 0 };
             fuente = 'BETA-OPI (sin colonia)';
             console.log(`   [Colonia vaga] "${zona.colonia}" → prefiriendo Beta-OPI sobre Scraper`);
         } else if (!necesitaAI) {
-            rominaFinal = rominaScraper;
+            remiFinal = remiScraper;
             fuente = 'SCRAPER';
-        } else if (mejorAI.nComps >= 3 && (rominaScraper.nComps < 3 || rominaScraper.confianza === 'BAJA')) {
-            rominaFinal = mejorAI;
+        } else if (mejorAI.nComps >= 3 && (remiScraper.nComps < 3 || remiScraper.confianza === 'BAJA')) {
+            remiFinal = mejorAI;
             fuente = fuenteAI;
-        } else if (rominaScraper.confianza === 'BAJA' && mejorAI.nComps < 3) {
-            if (rominaScraper.nComps >= 3) {
-                rominaFinal = rominaScraper;
+        } else if (remiScraper.confianza === 'BAJA' && mejorAI.nComps < 3) {
+            if (remiScraper.nComps >= 3) {
+                remiFinal = remiScraper;
                 fuente = 'SCRAPER (BAJA)';
             } else {
-                rominaFinal = { valor: 0, confianza: 'BAJA', nComps: rominaScraper.nComps };
+                remiFinal = { valor: 0, confianza: 'BAJA', nComps: remiScraper.nComps };
                 fuente = 'REVISAR (sin datos)';
             }
-        } else if (rominaScraper.nComps >= mejorAI.nComps) {
-            rominaFinal = rominaScraper;
+        } else if (remiScraper.nComps >= mejorAI.nComps) {
+            remiFinal = remiScraper;
             fuente = 'SCRAPER';
         } else {
-            rominaFinal = mejorAI;
+            remiFinal = mejorAI;
             fuente = fuenteAI;
         }
 
-        // Prima por vivienda pequeña: aplica solo a Romina (Scraper/AI), no a Beta-OPI.
+        // Prima por vivienda pequeña: aplica solo a remi (Scraper/AI), no a Beta-OPI.
         // Beta-OPI ya tiene terreno + pm2C*m2C independientes; la prima lo desbalancearía.
-        if (rominaFinal.valor > 0 && prop.construccion < 65 && !fuente.startsWith('BETA-OPI')) {
+        if (remiFinal.valor > 0 && prop.construccion < 65 && !fuente.startsWith('BETA-OPI')) {
             const factorPequena = prop.construccion < 45 ? 1.22 : 1.12;
-            rominaFinal = { ...rominaFinal, valor: Math.round(rominaFinal.valor * factorPequena) };
+            remiFinal = { ...remiFinal, valor: Math.round(remiFinal.valor * factorPequena) };
             console.log(`   [Prima pequeña] m²C=${prop.construccion} → ×${factorPequena}`);
         }
 
@@ -1106,24 +1106,24 @@ async function main() {
         // - Sin dato de municipio: 10% conservador
         const tipoUpper = (prop.tipo || '').toUpperCase();
         const esMixto = tipoUpper.includes('CON LOCAL') || tipoUpper.includes('LOCAL COMERCIAL CON');
-        if (rominaFinal.valor > 0 && esMixto) {
+        if (remiFinal.valor > 0 && esMixto) {
             const muniNorm = (prop.municipio || '').toLowerCase()
                 .normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, ' ').trim();
             const MUNIS_ALTA_ACTIVIDAD = ['guadalajara', 'tlaquepaque', 'san pedro tlaquepaque', 'tonala', 'tonalá'];
             const factorMixto = MUNIS_ALTA_ACTIVIDAD.includes(muniNorm) ? 1.20
                               : muniNorm ? 1.15
                               : 1.10;
-            rominaFinal = { ...rominaFinal, valor: Math.round(rominaFinal.valor * factorMixto) };
+            remiFinal = { ...remiFinal, valor: Math.round(remiFinal.valor * factorMixto) };
             console.log(`   [Prima mixto] ${prop.municipio} → ×${factorMixto} (${tipoUpper})`);
         }
 
         console.log(`   Beta-OPI:     ${MXN(betaOPI)} (${dif(betaOPI, prop.valorReal)})`);
-        console.log(`   Romina-FINAL: ${MXN(rominaFinal.valor)} (${dif(rominaFinal.valor, prop.valorReal)}) ← ${fuente}`);
+        console.log(`   remi-FINAL: ${MXN(remiFinal.valor)} (${dif(remiFinal.valor, prop.valorReal)}) ← ${fuente}`);
 
         // ── 5. Registrar anomalías para auditoría posterior en Claude Code ──────
         let notaClaude = '';
-        const errorFinal = prop.valorReal > 0 && rominaFinal.valor > 0
-            ? Math.abs(rominaFinal.valor / prop.valorReal - 1)
+        const errorFinal = prop.valorReal > 0 && remiFinal.valor > 0
+            ? Math.abs(remiFinal.valor / prop.valorReal - 1)
             : 0;
         if (errorFinal > 0.30) {
             anomalias.push({
@@ -1132,12 +1132,12 @@ async function main() {
                 conservacion: prop.estadoConservacion,
                 colonia: zona.colonia, municipio: zona.municipio,
                 valorPerito:  prop.valorReal,
-                valorModelo:  rominaFinal.valor,
+                valorModelo:  remiFinal.valor,
                 errorPct:     Math.round(errorFinal * 100),
                 fuente,
                 betaOPI,
-                pm2cScraper:  rominaScraper.pm2cAvg || 0,
-                nCompsScraper: rominaScraper.nComps,
+                pm2cScraper:  remiScraper.pm2cAvg || 0,
+                nCompsScraper: remiScraper.nComps,
                 compsOPI:     prop.compsOPI.length,
             });
         }
@@ -1145,11 +1145,11 @@ async function main() {
         rows.push([
             d.fileName, prop.construccion, prop.terreno, edad, prop.valorReal,
             betaOPI || 'N/A', dif(betaOPI, prop.valorReal),
-            rominaScraper.valor || 'N/A', dif(rominaScraper.valor, prop.valorReal),
-            rominaScraper.confianza, rominaScraper.cv, rominaScraper.nComps, rominaScraper.pm2cAvg || '',
-            rominaGemini.valor  || 'N/A', dif(rominaGemini.valor, prop.valorReal),
-            rominaGemini.nComps || '', rominaGemini.pm2cAvg || '',
-            rominaFinal.valor  || 'N/A', dif(rominaFinal.valor, prop.valorReal), fuente,
+            remiScraper.valor || 'N/A', dif(remiScraper.valor, prop.valorReal),
+            remiScraper.confianza, remiScraper.cv, remiScraper.nComps, remiScraper.pm2cAvg || '',
+            remiGemini.valor  || 'N/A', dif(remiGemini.valor, prop.valorReal),
+            remiGemini.nComps || '', remiGemini.pm2cAvg || '',
+            remiFinal.valor  || 'N/A', dif(remiFinal.valor, prop.valorReal), fuente,
             prop.compsOPI.length,
             notaClaude || '',
         ]);

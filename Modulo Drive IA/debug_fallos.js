@@ -1,7 +1,7 @@
 require('dotenv').config({ path: '../.env' });
 const fs = require('fs');
 const path = require('path');
-const { valuarPropiedad, normTipo, normCol, normMuni, M2C_ATIPICA } = require('./motor_romina_api');
+const { valuarPropiedad, normTipo, normCol, normMuni, M2C_ATIPICA } = require('./motor_remi_api');
 
 const cerebro = JSON.parse(fs.readFileSync(path.join(__dirname, 'cerebro_datos.json'), 'utf8'));
 const IDX     = JSON.parse(fs.readFileSync(path.join(__dirname, 'cache_index.json'), 'utf8'));

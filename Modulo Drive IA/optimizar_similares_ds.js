@@ -13,7 +13,7 @@ require('dotenv').config({ path: '../.env' });
 const fs   = require('fs');
 const path = require('path');
 const OpenAI = require('openai');
-const { valuarPropiedadCompleto, normTipo, normCol, normMuni } = require('./motor_romina_api');
+const { valuarPropiedadCompleto, normTipo, normCol, normMuni } = require('./motor_remi_api');
 
 const APPLY = process.argv.includes('--apply');
 const args  = process.argv.slice(2);

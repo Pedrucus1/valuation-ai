@@ -1,7 +1,7 @@
 /**
  * buscar_comparables_browser.js
  * Busca comparables en portales inmobiliarios usando agent-browser.
- * Fallback entre Romina-Scraper y Gemini en comparar_metodologias.js
+ * Fallback entre remi-Scraper y Gemini en comparar_metodologias.js
  *
  * Uso: node buscar_comparables_browser.js --colonia "Tabachines" --municipio "Zapopan" --tipo "casa" --m2 120
  */

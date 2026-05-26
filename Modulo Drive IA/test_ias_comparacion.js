@@ -11,7 +11,7 @@ const path = require('path');
 const OpenAI = require('openai');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 
-const { valuarPropiedadCompleto, normTipo, normCol } = require('./motor_romina_api');
+const { valuarPropiedadCompleto, normTipo, normCol } = require('./motor_remi_api');
 const IDX     = require('./cache_index.json');
 const NSE     = require('./colonias_nse.json');
 const SIM     = require('./colonias_similares.json');

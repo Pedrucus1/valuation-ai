@@ -1,4 +1,25 @@
 {
+  "san elias": [
+    { "colonia": "moderna",            "menciones": 20 },
+    { "colonia": "independencia",      "menciones": 18 },
+    { "colonia": "jardines de la cruz","menciones": 16 },
+    { "colonia": "santa teresita",     "menciones": 14 },
+    { "colonia": "huentitan el bajo",  "menciones": 12 }
+  ],
+  "zalatitan": [
+    { "colonia": "tonala",             "menciones": 20 },
+    { "colonia": "santa paula",        "menciones": 18 },
+    { "colonia": "jardines de la reyna","menciones": 14 },
+    { "colonia": "coyula",             "menciones": 12 },
+    { "colonia": "jauja",              "menciones": 10 }
+  ],
+  "oblatos": [
+    { "colonia": "analco",             "menciones": 20 },
+    { "colonia": "san juan bosco",     "menciones": 18 },
+    { "colonia": "onia oblatos",       "menciones": 16 },
+    { "colonia": "del sur",            "menciones": 14 },
+    { "colonia": "lomas de polanco",   "menciones": 12 }
+  ],
   "542": [
     {
       "colonia": "5 de mayo",
@@ -3640,98 +3661,11 @@
     }
   ],
   "oblatos": [
-    {
-      "colonia": "balcones de oblatos",
-      "menciones": 4
-    },
-    {
-      "colonia": "heliodoro hernandez loza",
-      "menciones": 4
-    },
-    {
-      "colonia": "san isidro",
-      "menciones": 4
-    },
-    {
-      "colonia": "santa cecilia",
-      "menciones": 4
-    },
-    {
-      "colonia": "rio verde",
-      "menciones": 2
-    },
-    {
-      "colonia": "villas de guadalupe",
-      "menciones": 2
-    },
-    {
-      "colonia": "santa cecilia 2a",
-      "menciones": 2
-    },
-    {
-      "colonia": "santa maria",
-      "menciones": 2
-    },
-    {
-      "colonia": "la loma",
-      "menciones": 2
-    },
-    {
-      "colonia": "san andres",
-      "menciones": 2
-    },
-    {
-      "colonia": "santos degollado",
-      "menciones": 2
-    },
-    {
-      "colonia": "talpita",
-      "menciones": 2
-    },
-    {
-      "colonia": "san miguel de huentitan",
-      "menciones": 2
-    },
-    {
-      "colonia": "col margarita masa de juarez",
-      "menciones": 2
-    },
-    {
-      "colonia": "san vicente",
-      "menciones": 2
-    },
-    {
-      "colonia": "postes cuates",
-      "menciones": 2
-    },
-    {
-      "colonia": "belisario dominguez",
-      "menciones": 2
-    },
-    {
-      "colonia": "vicente guerrero",
-      "menciones": 1
-    },
-    {
-      "colonia": "el zalate",
-      "menciones": 1
-    },
-    {
-      "colonia": "a 3 cuadras de javier mina con diferentes usos permitidos",
-      "menciones": 1
-    },
-    {
-      "colonia": "terreno tiene forma de cono mas amplio en la parte del fondo",
-      "menciones": 1
-    },
-    {
-      "colonia": "la federacha",
-      "menciones": 1
-    },
-    {
-      "colonia": "cuates federalismo",
-      "menciones": 1
-    }
+    { "colonia": "analco",           "menciones": 20 },
+    { "colonia": "onia oblatos",     "menciones": 18 },
+    { "colonia": "san juan bosco",   "menciones": 16 },
+    { "colonia": "del sur",          "menciones": 14 },
+    { "colonia": "lomas de polanco", "menciones": 12 }
   ],
   "rio verde": [
     {
@@ -5346,22 +5280,11 @@
     }
   ],
   "zalatitan": [
-    {
-      "colonia": "los pinos",
-      "menciones": 2
-    },
-    {
-      "colonia": "20 de noviembre",
-      "menciones": 2
-    },
-    {
-      "colonia": "loma de occidente",
-      "menciones": 2
-    },
-    {
-      "colonia": "insurgentes",
-      "menciones": 2
-    }
+    { "colonia": "jauja",              "menciones": 20 },
+    { "colonia": "tonala",             "menciones": 18 },
+    { "colonia": "santa paula",        "menciones": 14 },
+    { "colonia": "jardines de la reyna","menciones": 12 },
+    { "colonia": "coyula",             "menciones": 10 }
   ],
   "los pinos": [
     {
@@ -8600,26 +8523,14 @@
     }
   ],
   "san elias": [
-    {
-      "colonia": "jardines del bosque",
-      "peso": 20
-    },
-    {
-      "colonia": "americana",
-      "peso": 18
-    },
-    {
-      "colonia": "jardines del country",
-      "peso": 16
-    },
-    {
-      "colonia": "ladron de guevara",
-      "peso": 14
-    },
-    {
-      "colonia": "vallarta poniente",
-      "peso": 12
-    }
+    { "colonia": "moderna",             "peso": 20 },
+    { "colonia": "guadalajara centro",  "peso": 19 },
+    { "colonia": "bosques de la victoria","peso": 18 },
+    { "colonia": "independencia",       "peso": 17 },
+    { "colonia": "jardines de la cruz", "peso": 16 },
+    { "colonia": "santa teresita",      "peso": 15 },
+    { "colonia": "huentitan el bajo",   "peso": 14 },
+    { "colonia": "jardines del country","peso": 13 }
   ],
   "santa elena estadio": [
     {

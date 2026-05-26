@@ -254,8 +254,8 @@ function buscarPm2TZona(zona) {
   return { pm2t: avg(antiRemate(vals)), n: vals.length };
 }
 
-// ── Metodo Romina (homologación $/m²C) ───────────────────────────────────────
-function metodoRomina(prop, comps) {
+// ── Metodo remi (homologación $/m²C) ───────────────────────────────────────
+function metodoremi(prop, comps) {
   if (!comps || !comps.length || !prop.construccion)
     return { valor: 0, confianza: 'N/A', cv: 'N/A', nComps: 0, pm2cAvg: 0 };
 
@@ -469,10 +469,10 @@ async function main() {
 
   const cabecera = [
     'Archivo', 'Tipo', 'Ruta', 'M2C', 'M2T', 'Ratio T/C', 'Edad', 'Perito',
-    // Casa: Romina Scraper
-    'Romina-Scraper', 'Dif%', 'Confianza', 'N', '$/m²C',
-    // Casa: Romina Gemini
-    'Romina-Gemini', 'Dif%', 'N Gemini',
+    // Casa: remi Scraper
+    'remi-Scraper', 'Dif%', 'Confianza', 'N', '$/m²C',
+    // Casa: remi Gemini
+    'remi-Gemini', 'Dif%', 'N Gemini',
     // Suma de Partes
     'SumaPartes', 'Dif%', 'NSE', '$/m²T', 'N-Terrenos', 'Depr',
     // Terreno puro / Comercial
@@ -505,8 +505,8 @@ async function main() {
     console.log(`   Zona: "${zona.municipio}" / "${zona.colonia}"`);
 
     // ── Valores por metodología ──────────────────────────────────────────────
-    let rominaScraper  = { valor: 0, confianza: 'N/A', cv: 'N/A', nComps: 0, pm2cAvg: 0 };
-    let rominaGemini   = { valor: 0, confianza: 'N/A', cv: 'N/A', nComps: 0, pm2cAvg: 0 };
+    let remiScraper  = { valor: 0, confianza: 'N/A', cv: 'N/A', nComps: 0, pm2cAvg: 0 };
+    let remiGemini   = { valor: 0, confianza: 'N/A', cv: 'N/A', nComps: 0, pm2cAvg: 0 };
     let sumaPartes     = { valor: 0, pm2t: 0, nse: 'N/A', nTerrenos: 0, depreciacion: 'N/A' };
     let alternativo    = { valor: 0, detalle: '' };
     let final          = { valor: 0, fuente: '' };
@@ -524,56 +524,56 @@ async function main() {
     } else if (ruta === 'suma_partes') {
       // ── Ruta: Suma de Partes ─────────────────────────────────────────────
       sumaPartes = metodoSumaDePartes(prop, pm2tInfo);
-      // También correr Romina como referencia si hay comps
+      // También correr remi como referencia si hay comps
       const compsR = buscarCompsResidencial(zona, prop);
-      rominaScraper = metodoRomina(prop, compsR);
+      remiScraper = metodoremi(prop, compsR);
       final = { valor: sumaPartes.valor, fuente: 'SUMA_PARTES' };
       console.log(`   [SumaPartes] Terreno:${MXN(sumaPartes.valorTerreno)} + Constr:${MXN(sumaPartes.valorConst)} = ${MXN(sumaPartes.valor)} (${dif(sumaPartes.valor, prop.valorReal)})`);
       console.log(`   [SumaPartes] $/m²T=${MXN(sumaPartes.pm2t)} | NSE:${sumaPartes.nse} | INDAABIN:$${(sumaPartes.costoIndaabin||0).toLocaleString()}/m²C | Depr:${sumaPartes.depreciacion}`);
-      if (rominaScraper.nComps > 0)
-        console.log(`   [Romina ref] ${rominaScraper.nComps} comps → ${MXN(rominaScraper.valor)} (${dif(rominaScraper.valor, prop.valorReal)})`);
+      if (remiScraper.nComps > 0)
+        console.log(`   [remi ref] ${remiScraper.nComps} comps → ${MXN(remiScraper.valor)} (${dif(remiScraper.valor, prop.valorReal)})`);
 
     } else if (ruta === 'comercial') {
       // ── Ruta: Comercial $/m²C ────────────────────────────────────────────
       const compsC = buscarCompsComercial(zona, prop);
-      rominaScraper = metodoRomina(prop, compsC);
+      remiScraper = metodoremi(prop, compsC);
       // Suma de Partes como referencia cruzada
       sumaPartes = metodoSumaDePartes(prop, pm2tInfo);
       alternativo = { valor: sumaPartes.valor, detalle: 'Suma de Partes ref' };
       final = {
-        valor:  rominaScraper.nComps >= 3 ? rominaScraper.valor : sumaPartes.valor,
-        fuente: rominaScraper.nComps >= 3 ? `ROMINA_COM (n=${rominaScraper.nComps})` : 'SUMA_PARTES_ref',
+        valor:  remiScraper.nComps >= 3 ? remiScraper.valor : sumaPartes.valor,
+        fuente: remiScraper.nComps >= 3 ? `remi_COM (n=${remiScraper.nComps})` : 'SUMA_PARTES_ref',
       };
-      console.log(`   [Comercial] ${rominaScraper.nComps} comps → Romina:${MXN(rominaScraper.valor)} (${dif(rominaScraper.valor, prop.valorReal)})`);
+      console.log(`   [Comercial] ${remiScraper.nComps} comps → remi:${MXN(remiScraper.valor)} (${dif(remiScraper.valor, prop.valorReal)})`);
       console.log(`   [SumaPartes ref] ${MXN(sumaPartes.valor)} (${dif(sumaPartes.valor, prop.valorReal)})`);
 
     } else {
-      // ── Ruta: Casa / Depto (Romina + Gemini fallback) ────────────────────
+      // ── Ruta: Casa / Depto (remi + Gemini fallback) ────────────────────
       const compsR = buscarCompsResidencial(zona, prop);
-      rominaScraper = metodoRomina(prop, compsR);
-      console.log(`   [Scraper] ${rominaScraper.nComps} comps | ${MXN(rominaScraper.valor)} (${dif(rominaScraper.valor, prop.valorReal)}) | ${rominaScraper.confianza}`);
+      remiScraper = metodoremi(prop, compsR);
+      console.log(`   [Scraper] ${remiScraper.nComps} comps | ${MXN(remiScraper.valor)} (${dif(remiScraper.valor, prop.valorReal)}) | ${remiScraper.confianza}`);
 
       // Suma de Partes siempre como referencia cruzada en casas
       sumaPartes = metodoSumaDePartes(prop, pm2tInfo);
       if (sumaPartes.valor > 0)
         console.log(`   [SumaPartes ref] ${MXN(sumaPartes.valor)} (${dif(sumaPartes.valor, prop.valorReal)}) | $/m²T=${MXN(sumaPartes.pm2t)}`);
 
-      const necesitaIA = rominaScraper.confianza === 'BAJA' || rominaScraper.nComps < 3;
+      const necesitaIA = remiScraper.confianza === 'BAJA' || remiScraper.nComps < 3;
       let fuenteIA = 'N/A';
       if (necesitaIA) {
         if (geminiCalls > 0) await sleep(8000);
         geminiCalls++;
         const { comps: compsG, fuente: fIA } = await buscarCompsIA(prop, zona);
         fuenteIA    = fIA;
-        rominaGemini = metodoRomina(prop, compsG);
-        console.log(`   [${fIA}] ${rominaGemini.nComps} comps | ${MXN(rominaGemini.valor)} (${dif(rominaGemini.valor, prop.valorReal)})`);
+        remiGemini = metodoremi(prop, compsG);
+        console.log(`   [${fIA}] ${remiGemini.nComps} comps | ${MXN(remiGemini.valor)} (${dif(remiGemini.valor, prop.valorReal)})`);
       }
 
       // Elegir mejor fuente para FINAL
       if (!necesitaIA) {
-        final = { valor: rominaScraper.valor, fuente: 'SCRAPER' };
-      } else if (rominaGemini.nComps >= 3) {
-        final = { valor: rominaGemini.valor, fuente: fuenteIA };
+        final = { valor: remiScraper.valor, fuente: 'SCRAPER' };
+      } else if (remiGemini.nComps >= 3) {
+        final = { valor: remiGemini.valor, fuente: fuenteIA };
       } else if (sumaPartes.valor > 0) {
         final = { valor: sumaPartes.valor, fuente: 'SUMA_PARTES_fallback' };
       } else {
@@ -592,16 +592,16 @@ async function main() {
       ratioTC,
       edad,
       prop.valorReal,
-      // Romina Scraper
-      rominaScraper.valor || '',
-      dif(rominaScraper.valor, prop.valorReal),
-      rominaScraper.confianza,
-      rominaScraper.nComps || '',
-      rominaScraper.pm2cAvg || '',
-      // Romina Gemini
-      rominaGemini.valor || '',
-      dif(rominaGemini.valor, prop.valorReal),
-      rominaGemini.nComps || '',
+      // remi Scraper
+      remiScraper.valor || '',
+      dif(remiScraper.valor, prop.valorReal),
+      remiScraper.confianza,
+      remiScraper.nComps || '',
+      remiScraper.pm2cAvg || '',
+      // remi Gemini
+      remiGemini.valor || '',
+      dif(remiGemini.valor, prop.valorReal),
+      remiGemini.nComps || '',
       // Suma de Partes
       sumaPartes.valor || '',
       dif(sumaPartes.valor, prop.valorReal),

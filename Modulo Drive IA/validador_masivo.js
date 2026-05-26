@@ -210,7 +210,7 @@ function metodoBetaPropValu(prop) {
     return 0;
 }
 
-function metodoRomina(prop) {
+function metodoremi(prop) {
     if (!prop.comparables || prop.comparables.length === 0) return 0;
     if (!prop.construccion || prop.construccion === 0) return 0;
 
@@ -270,7 +270,7 @@ async function runValidation() {
     console.log(`Generando reporte para ${validos.length} avalúos válidos...`);
     
     const rows = [
-        ['Archivo (Sujeto)', 'Tipo', 'M2 Const', 'M2 Terr', 'Valor Real Perito', 'Valor Motor Beta', 'Dif % Beta', 'Valor Romina', 'Dif % Romina', '# Comparables']
+        ['Archivo (Sujeto)', 'Tipo', 'M2 Const', 'M2 Terr', 'Valor Real Perito', 'Valor Motor Beta', 'Dif % Beta', 'Valor remi', 'Dif % remi', '# Comparables']
     ];
 
     validos.forEach(d => {
@@ -290,11 +290,11 @@ async function runValidation() {
         };
         
         const valorBeta = Math.round(metodoBetaPropValu(prop));
-        const valorRomina = Math.round(metodoRomina(prop));
+        const valorremi = Math.round(metodoremi(prop));
 
-        if (valorBeta > 0 || valorRomina > 0) {
+        if (valorBeta > 0 || valorremi > 0) {
             const diffBeta = valorBeta > 0 ? (((valorBeta / prop.valorReal) - 1) * 100).toFixed(2) + '%' : 'N/A';
-            const diffRomina = valorRomina > 0 ? (((valorRomina / prop.valorReal) - 1) * 100).toFixed(2) + '%' : 'N/A';
+            const diffremi = valorremi > 0 ? (((valorremi / prop.valorReal) - 1) * 100).toFixed(2) + '%' : 'N/A';
 
             rows.push([
                 d.fileName,
@@ -304,8 +304,8 @@ async function runValidation() {
                 prop.valorReal,
                 valorBeta || 'N/A',
                 diffBeta,
-                valorRomina || 'N/A',
-                diffRomina,
+                valorremi || 'N/A',
+                diffremi,
                 prop.comparables.length
             ]);
         }

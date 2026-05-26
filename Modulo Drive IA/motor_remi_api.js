@@ -1,5 +1,5 @@
 /**
- * motor_romina_api.js
+ * motor_remi_api.js
  *
  * Wrapper stdin→stdout para llamar desde Python via subprocess.
  *
@@ -13,7 +13,7 @@
  *
  * Uso desde Python:
  *   import subprocess, json
- *   r = subprocess.run(['node', 'motor_romina_api.js'],
+ *   r = subprocess.run(['node', 'motor_remi_api.js'],
  *       input=json.dumps(prop), capture_output=True, text=True, cwd=MOTOR_DIR)
  *   result = json.loads(r.stdout)
  */
@@ -596,7 +596,7 @@ function valuarPropiedad(prop) {
 
     if (!comps.length) return { valor: 0, confianza: 'N/A', nComps: 0, poolTipo, error: 'sin_comps' };
 
-    // Romina
+    // Remi
     const pm2c     = comps.map(c => c.precio / c.m2_const);
     const pm2cFilt = antiRemate(pm2c);
     const edad     = prop.edad || 0;

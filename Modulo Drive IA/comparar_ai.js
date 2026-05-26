@@ -39,7 +39,7 @@ const FACTORES_CONSERVACION = {
     nuevo: 1.00, muy_bueno: 1.00, bueno: 0.93, regular_bueno: 0.85,
     regular_medio: 0.78, regular_malo: 0.70, malo: 0.60, muy_malo: 0.48,
 };
-function metodoRomina(prop, comps) {
+function metodoremi(prop, comps) {
     if (!comps || !comps.length || !prop.construccion) return 0;
     const validos = comps.filter(c => c.m2_const > 0 && c.precio > 0);
     if (!validos.length) return 0;
@@ -201,13 +201,13 @@ async function main() {
         if (geminiCalls > 0) await sleep(12000);
         geminiCalls++;
         const compsG = await llamarGemini(prop, p.zona, similares);
-        const valorG = metodoRomina(prop, compsG);
+        const valorG = metodoremi(prop, compsG);
         const errG   = valorG ? ((valorG / p.valorPerito - 1) * 100).toFixed(1) + '%' : 'N/A';
         const pm2cG  = compsG.length ? Math.round(avg(compsG.map(c => c.precio / c.m2_const))).toLocaleString() : '-';
 
         // DeepSeek (sin rate limit)
         const compsDS = await llamarDeepSeek(prop, p.zona, similares);
-        const valorDS = metodoRomina(prop, compsDS);
+        const valorDS = metodoremi(prop, compsDS);
         const errDS   = valorDS ? ((valorDS / p.valorPerito - 1) * 100).toFixed(1) + '%' : 'N/A';
         const pm2cDS  = compsDS.length ? Math.round(avg(compsDS.map(c => c.precio / c.m2_const))).toLocaleString() : '-';
 

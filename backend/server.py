@@ -12,7 +12,7 @@ import subprocess
 from pathlib import Path
 
 MOTOR_DIR = Path(__file__).parent.parent / "Modulo Drive IA"
-MOTOR_SCRIPT = str(MOTOR_DIR / "motor_romina_api.js")
+MOTOR_SCRIPT = str(MOTOR_DIR / "motor_remi_api.js")
 from pydantic import BaseModel, Field, ConfigDict
 from typing import List, Optional, Dict, Any
 import uuid
@@ -1592,10 +1592,10 @@ async def calculate_valuation(valuation_id: str, request: Request):
     return result.model_dump()
 
 
-@api_router.post("/valuations/{valuation_id}/calculate-romina")
-async def calculate_romina(valuation_id: str):
+@api_router.post("/valuations/{valuation_id}/calculate-remi")
+async def calculate_remi(valuation_id: str):
     """
-    Calcula valor con motor Romina-Scraper (cache_index local, homologación directa $/m²C).
+    Calcula valor con motor Remi-Scraper (cache_index local, homologación directa $/m²C).
     No requiere comparables manuales — los busca automáticamente por colonia/municipio.
     """
     valuation = await db.valuations.find_one({"valuation_id": valuation_id}, {"_id": 0})
@@ -1604,17 +1604,24 @@ async def calculate_romina(valuation_id: str):
 
     prop = valuation.get("property_data", {})
 
-    # Mapeo campos PropValu → motor Romina
+    # Mapeo campos PropValu → motor Remi
     motor_input = {
         "tipo":              prop.get("property_type", "casa"),
         "construccion":      prop.get("construction_area", 0),
         "terreno":           prop.get("land_area", 0),
         "edad":              prop.get("estimated_age", 10),
         "estadoConservacion": {
-            "Excelente": "muy_bueno",
-            "Bueno":     "bueno",
-            "Regular":   "regular_medio",
-            "Malo":      "malo",
+            "Excelente":               "muy_bueno",
+            "Bueno":                   "bueno",
+            "Regular Bueno":           "regular_bueno",
+            "Regular":                 "regular_medio",
+            "Regular Malo":            "regular_malo",
+            "Malo":                    "malo",
+            "Muy Malo":                "muy_malo",
+            "Remodelación Menor":      "remodelacion_menor",
+            "Remodelación Intermedia": "remodelacion_intermedia",
+            "Remodelación Completa":   "remodelacion_completa",
+            "Nuevo":                   "nuevo",
         }.get(prop.get("conservation_state", "Bueno"), "bueno"),
         "recamaras":         prop.get("bedrooms", 0),
         "banos":             prop.get("bathrooms", 0),
@@ -1690,11 +1697,11 @@ async def calculate_romina(valuation_id: str):
                 logger.warning(f"Flywheel insert error: {fw_e}")
     # ──────────────────────────────────────────────────────────────────────────
 
-    # Guardar resultado Romina en la valuación
+    # Guardar resultado Remi en la valuación
     await db.valuations.update_one(
         {"valuation_id": valuation_id},
         {"$set": {
-            "romina_result": result,
+            "remi_result": result,
             "updated_at": datetime.now(timezone.utc).isoformat()
         }}
     )

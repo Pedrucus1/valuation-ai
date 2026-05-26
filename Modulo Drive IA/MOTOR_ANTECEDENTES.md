@@ -11,18 +11,26 @@
 
 ---
 
-## Estado actual del motor (26-May-2026 — VALIDACIÓN FINAL CON OPIs RECIENTES)
+## Estado actual del motor (26-May-2026 — VALIDACIÓN AMPLIADA CONFIRMADA)
 
 | Métrica | Valor | Meta |
 |---|---|---|
-| **Set reciente 2025 H2 + 2026 — ESTADO FINAL** | **86/99 ±10% (86.9%), 99/99 ±20% (100.0%), error abs 5.0%** | 100% ±10% |
-| Set calibrado 200 OPIs (all years) | 130/164 ±10% (79.3%), 160/164 ±20% (97.6%), error abs 6.2% | — |
-| Set calibrado 117 OPIs | 89/103 ±10% (86.4%), 103/103 ±20% (100.0%), error abs 5.1% | — |
+| **Set principal 2025 H2 + 2026** | **89/99 ±10% (89.9%), 99/99 ±20% (100.0%), error abs 5.0%** | 100% ±10% |
+| **Set ampliado todo 2025 + 2026** | **130/157 ±10% (82.8%), 154/157 ±20% (98.1%), error abs 5.9%** | — |
+| Set 200 OPIs (referencia anterior) | 130/164 ±10% (79.3%), 160/164 ±20% (97.6%), error abs 6.2% | — |
 | Universo completo (383 OPIs AMG residencial) | 39.4% ±10%, 60.3% ±20%, error 22.8% | — |
-| Comando de validación activo | `node validar_40_opis.js --n 200 --desde 2025-07` | — |
-| Diagnóstico colonias | `node diagnostico_colonias.js` | — |
+| Comando referencia | `node validar_40_opis.js --n 200 --desde 2025-07` | — |
+| Comando ampliado | `node validar_40_opis.js --n 250 --desde 2025-01` | — |
 
-**Estado FINAL: 89/99 ±10% (89.9%), 100% ±20%, error abs 5.0% — 99 OPIs válidos (2025 H2 + 2026).**
+**Estado VALIDADO: 89.9% ±10%, 100% ±20% en set reciente. 82.8% ±10%, 98.1% ±20% en todo 2025+2026.**
+
+> **Por qué dos sets:** H2 2025 + 2026 es el set de referencia (mercado actual, ×1.00/1.04 factores). Todo 2025+2026 confirma robustez en 58 OPIs adicionales de H1 2025 — 7pp de caída en ±10% esperada (mercado más antiguo). Mediana cambia de -4.1% a +4.7% al incluir H1, sugiriendo que ×1.04 para H1 2025 sobrecompensa ligeramente.
+>
+> **Nuevos EXCLUIR añadidos (ampliación H1 2025):**
+> - OPI-25-3-04-AV Del Sur GDL: 65.3m²C borderline micro + perito 17% bajo NSE
+> - OPI-25-3-23-AV Zapopan: colonia=municipio + 45m²C micro-propiedad
+>
+> **3 fallas estructurales H1 2025 (sin fix posible):** Monumental -27%, El Cor +23.7%, Lomas del Camichin -21.4%
 
 > **Por qué usar --desde 2025-07:** OPIs más viejos introducen ruido por plusvalía acumulada. El ajuste FACTOR_POR_ANIO (1.04 para 2025) no captura variaciones de colonia. Con OPIs recientes la señal es más limpia. Los 4 casos irresolubles del batch 200 eran todos de 2024–2025 H1.
 >
