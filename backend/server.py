@@ -1650,6 +1650,46 @@ async def calculate_romina(valuation_id: str):
     if result.get("error") and result.get("valor", 0) == 0:
         raise HTTPException(status_code=422, detail=result["error"])
 
+    # ── Flywheel: guardar comps Gemini en MongoDB ──────────────────────────────
+    gemini_comps = result.pop("geminiComps", None)
+    if gemini_comps:
+        zona_pm2c = result.get("medPm2Zona", 0)
+        seen_keys: set = set()
+        docs_flywheel = []
+        for c in gemini_comps:
+            precio = c.get("precio", 0)
+            m2c_v  = c.get("m2c", 0)
+            if not precio or not m2c_v:
+                continue
+            if zona_pm2c > 0:
+                pm2c_comp = precio / m2c_v
+                if pm2c_comp < zona_pm2c * 0.4 or pm2c_comp > zona_pm2c * 1.6:
+                    continue
+            key = f"{c.get('colonia','').lower()}|{round(m2c_v)}|{round(precio / 10000)}"
+            if key in seen_keys:
+                continue
+            seen_keys.add(key)
+            docs_flywheel.append({
+                "colonia":     c.get("colonia") or motor_input.get("colonia", ""),
+                "municipio":   motor_input.get("municipio", ""),
+                "precio":      precio,
+                "m2c":         m2c_v,
+                "m2t":         c.get("m2t", 0),
+                "portal":      c.get("portal", "gemini"),
+                "url":         c.get("url", ""),
+                "fuente":      "gemini",
+                "pool_tipo":   result.get("poolTipo", ""),
+                "valuation_id": valuation_id,
+                "fecha":       datetime.now(timezone.utc).isoformat(),
+            })
+        if docs_flywheel:
+            try:
+                await db.comps_gemini.insert_many(docs_flywheel)
+                logger.info(f"Flywheel: {len(docs_flywheel)} comps guardados — {motor_input.get('colonia')}/{motor_input.get('municipio')}")
+            except Exception as fw_e:
+                logger.warning(f"Flywheel insert error: {fw_e}")
+    # ──────────────────────────────────────────────────────────────────────────
+
     # Guardar resultado Romina en la valuación
     await db.valuations.update_one(
         {"valuation_id": valuation_id},

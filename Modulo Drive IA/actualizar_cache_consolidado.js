@@ -41,7 +41,9 @@ async function main() {
 
     const cleanNum = v => { const n = parseFloat((v||'').toString().replace(/[$,\s]/g,'')); return isNaN(n) ? 0 : n; };
 
-    const compacto = rows
+    const normStr = s => (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').trim();
+
+    const raw = rows
         .filter(r => {
             const activo = (r[COL.activo] || '').toLowerCase();
             if (activo === 'false' || activo === '0') return false;
@@ -51,16 +53,31 @@ async function main() {
             return m2c > 0 && precio >= 100000 && tipoOp.includes('venta');
         })
         .map(r => ({
-            p:  Math.round(cleanNum(r[COL.precio])),      // precio
-            c:  Math.round(cleanNum(r[COL.m2c])),         // m2_const
-            t:  Math.round(cleanNum(r[COL.m2t])) || 0,   // m2_terreno
-            tp: (r[COL.tipo_prop] || '').toLowerCase(),   // tipo_propiedad
-            co: (r[COL.colonia]   || '').toLowerCase(),   // colonia
-            mu: (r[COL.municipio] || '').toLowerCase(),   // municipio
-            re: cleanNum(r[COL.rec])  || null,            // recamaras
-            ba: cleanNum(r[COL.ban])  || null,            // baños
-            es: cleanNum(r[COL.estac]) || null,           // estacionamientos
+            p:  Math.round(cleanNum(r[COL.precio])),
+            c:  Math.round(cleanNum(r[COL.m2c])),
+            t:  Math.round(cleanNum(r[COL.m2t])) || 0,
+            tp: (r[COL.tipo_prop] || '').toLowerCase(),
+            co: (r[COL.colonia]   || '').toLowerCase(),
+            mu: (r[COL.municipio] || '').toLowerCase(),
+            re: cleanNum(r[COL.rec])  || null,
+            ba: cleanNum(r[COL.ban])  || null,
+            es: cleanNum(r[COL.estac]) || null,
         }));
+
+    // Dedup: eliminar registros con mismo m2c + precio (±2%) + colonia normalizada
+    // Evita que el mismo anuncio scrapeado múltiples veces infle el pool de comparables
+    const seen = new Set();
+    const compacto = raw.filter(d => {
+        const col = normStr(d.co);
+        // Agrupar precio en bloques de 1% para tolerancia de redondeo
+        const pKey = Math.round(d.p / (Math.max(d.p, 1) * 0.01));
+        const key = `${col}|${d.c}|${pKey}`;
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+    });
+    const nDups = raw.length - compacto.length;
+    if (nDups > 0) console.log(`Duplicados eliminados: ${nDups.toLocaleString()} (${Math.round(nDups/raw.length*100)}% del total)`);
 
     const meta = {
         fecha_actualizacion: new Date().toISOString(),

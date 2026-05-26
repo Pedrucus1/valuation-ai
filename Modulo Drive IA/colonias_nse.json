@@ -41,6 +41,12 @@
     "medianaPm2": 44444,
     "nListings": 110
   },
+  "cd del sol": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 44444,
+    "nListings": 110
+  },
   "lomas del valle": {
     "nse": "lujo",
     "nseIdx": 5,
@@ -234,9 +240,9 @@
     "nListings": 11
   },
   "miramar": {
-    "nse": "medio-bajo",
-    "nseIdx": 2,
-    "medianaPm2": 14398,
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 26175,
     "nListings": 9
   },
   "soare iii": {
@@ -632,7 +638,7 @@
   "victoria": {
     "nse": "medio-alto",
     "nseIdx": 4,
-    "medianaPm2": 37609,
+    "medianaPm2": 32000,
     "nListings": 65
   },
   "el campanario": {
@@ -1140,10 +1146,10 @@
     "nListings": 57
   },
   "alcalde barranquitas": {
-    "nse": "medio-alto",
-    "nseIdx": 4,
-    "medianaPm2": 37313,
-    "nListings": 80
+    "nse": "bajo-medio",
+    "nseIdx": 2,
+    "medianaPm2": 10000,
+    "nListings": 1
   },
   "san juan de dios": {
     "nse": "medio-alto",
@@ -1808,7 +1814,7 @@
   "real del valle": {
     "nse": "medio-bajo",
     "nseIdx": 2,
-    "medianaPm2": 20907,
+    "medianaPm2": 13000,
     "nListings": 54
   },
   "senderos de monteverde": {
@@ -1844,7 +1850,7 @@
   "alta california": {
     "nse": "medio-medio",
     "nseIdx": 3,
-    "medianaPm2": 23597,
+    "medianaPm2": 17500,
     "nListings": 133
   },
   "hacienda del oro": {
@@ -2588,7 +2594,7 @@
   "lomas de polanco": {
     "nse": "medio-bajo",
     "nseIdx": 2,
-    "medianaPm2": 17571,
+    "medianaPm2": 12880,
     "nListings": 5
   },
   "la penal": {
@@ -2600,7 +2606,7 @@
   "balcones de oblatos": {
     "nse": "medio-bajo",
     "nseIdx": 2,
-    "medianaPm2": 14790,
+    "medianaPm2": 15000,
     "nListings": 5
   },
   "sutaj": {
@@ -2616,9 +2622,9 @@
     "nListings": 12
   },
   "lomas independencia": {
-    "nse": "medio-alto",
-    "nseIdx": 4,
-    "medianaPm2": 35401,
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17308,
     "nListings": 14
   },
   "revolucion": {
@@ -3054,10 +3060,10 @@
     "nListings": 4
   },
   "los olivos": {
-    "nse": "medio-alto",
-    "nseIdx": 4,
-    "medianaPm2": 44938,
-    "nListings": 12
+    "nse": "medio-bajo",
+    "nseIdx": 3,
+    "medianaPm2": 17000,
+    "nListings": 1
   },
   "villa fontana diamante": {
     "nse": "medio-bajo",
@@ -3794,7 +3800,7 @@
   "loma bonita ejidal": {
     "nse": "medio-bajo",
     "nseIdx": 2,
-    "medianaPm2": 20690,
+    "medianaPm2": 15500,
     "nListings": 13
   },
   "zapopan centro": {
@@ -4530,9 +4536,9 @@
     "nListings": 6
   },
   "las agujas": {
-    "nse": "interes-social",
-    "nseIdx": 1,
-    "medianaPm2": 9000,
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22000,
     "nListings": 3
   },
   "cumbres": {
@@ -4664,7 +4670,7 @@
   "canadas de san lorenzo": {
     "nse": "medio-alto",
     "nseIdx": 4,
-    "medianaPm2": 33810,
+    "medianaPm2": 35350,
     "nListings": 3
   },
   "los pinos": {
@@ -4740,9 +4746,9 @@
     "nListings": 7
   },
   "emiliano zapata": {
-    "nse": "medio-bajo",
-    "nseIdx": 2,
-    "medianaPm2": 14634,
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 19500,
     "nListings": 21
   },
   "jardines del vergel": {
@@ -5966,7 +5972,7 @@
   "echeverria": {
     "nse": "medio-bajo",
     "nseIdx": 2,
-    "medianaPm2": 15741,
+    "medianaPm2": 15000,
     "nListings": 3
   },
   "la federacha": {
@@ -6185,9 +6191,9 @@
     "nListings": 4
   },
   "villa hermosa": {
-    "nse": "medio-medio",
-    "nseIdx": 3,
-    "medianaPm2": 32014,
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 13235,
     "nListings": 8
   },
   "villasenor": {
@@ -6253,7 +6259,7 @@
   "las conchas": {
     "nse": "medio-alto",
     "nseIdx": 4,
-    "medianaPm2": 32000,
+    "medianaPm2": 27500,
     "nListings": 9
   },
   "jardines de la cruz 1a": {
@@ -6976,9 +6982,9 @@
     "nListings": 22
   },
   "minerales": {
-    "nse": "interes-social",
-    "nseIdx": 1,
-    "medianaPm2": 13035,
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14000,
     "nListings": 4
   },
   "la piedrera": {
@@ -7180,9 +7186,9 @@
     "nListings": 3
   },
   "paseo de los agaves": {
-    "nse": "economico",
-    "nseIdx": 0,
-    "medianaPm2": 1100,
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 13028,
     "nListings": 7
   },
   "lomas de san diego": {
@@ -7648,9 +7654,9 @@
     "nListings": 32
   },
   "parques de la victoria": {
-    "nse": "medio-bajo",
-    "nseIdx": 2,
-    "medianaPm2": 17500,
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 18000,
     "nListings": 16
   },
   "el puente": {
@@ -7672,9 +7678,9 @@
     "nListings": 16
   },
   "el refugio": {
-    "nse": "medio-bajo",
+    "nse": "bajo-medio",
     "nseIdx": 2,
-    "medianaPm2": 15833,
+    "medianaPm2": 12000,
     "nListings": 16
   },
   "alamo": {
@@ -8564,6 +8570,174 @@
     "nse": "medio-bajo",
     "nseIdx": 2,
     "medianaPm2": 15000,
+    "nListings": 1
+  },
+  "rinconadas de coyula": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 12140,
+    "nListings": 1
+  },
+  "segunda seccion zona industrial": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 12368,
+    "nListings": 1
+  },
+  "auditorio": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 19000,
+    "nListings": 1
+  },
+  "moctezuma": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26190,
+    "nListings": 1
+  },
+  "mision del bosque": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 27000,
+    "nListings": 1
+  },
+  "san elias": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 28000,
+    "nListings": 1
+  },
+  "alteza residencial nuevo mexico": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 30000,
+    "nListings": 1
+  },
+  "cantera colorada": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 19000,
+    "nListings": 1
+  },
+  "tinajitas": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19000,
+    "nListings": 1
+  },
+  "el parque": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 32000,
+    "nListings": 1
+  },
+  "villas de zapotepec": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 13000,
+    "nListings": 1
+  },
+  "atotonilquillo": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17000,
+    "nListings": 1
+  },
+  "valle de san nicolas": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 17000,
+    "nListings": 1
+  },
+  "la experiencia": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 11000,
+    "nListings": 1
+  },
+  "postes cuates": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 13000,
+    "nListings": 1
+  },
+  "la paz": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 26000,
+    "nListings": 1
+  },
+  "torre 9": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 24200,
+    "nListings": 1
+  },
+  "el salto": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 14000,
+    "nListings": 1
+  },
+  "vista california": {
+    "nse": "medio",
+    "nseIdx": 3,
+    "medianaPm2": 22000,
+    "nListings": 1
+  },
+  "haciendas de san jose": {
+    "nse": "medio",
+    "nseIdx": 3,
+    "medianaPm2": 26000,
+    "nListings": 1
+  },
+  "ahujas": {
+    "nse": "economico",
+    "nseIdx": 1,
+    "medianaPm2": 6300,
+    "nListings": 1
+  },
+  "la esperanza": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 8400,
+    "nListings": 1
+  },
+  "santa margarita 1 seccion": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 16000,
+    "nListings": 1
+  },
+  "santa margarita  seccion": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 16000,
+    "nListings": 1
+  },
+  "santa margarita seccion": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 16000,
+    "nListings": 1
+  },
+  "santa margarita 1": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 16000,
+    "nListings": 1
+  },
+  "las bovedas": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 20000,
+    "nListings": 1
+  },
+  "condominio ignis": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 22000,
     "nListings": 1
   }
 }

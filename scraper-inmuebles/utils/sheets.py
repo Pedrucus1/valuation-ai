@@ -110,14 +110,47 @@ class SheetsClient:
         """Obtiene una pestaña por nombre."""
         return self.spreadsheet.worksheet(tab_name)
 
-    def _cargar_ids_existentes(self, ws: gspread.Worksheet) -> dict[str, int]:
+    def _cargar_ids_existentes(self, ws: gspread.Worksheet) -> tuple[dict, set]:
         """
-        Lee todos los id_unico existentes en la hoja y retorna
-        un dict {id_unico: numero_fila_1based}.
+        Lee id_unico (col A) + precio (col C) + m2c (col L) + municipio (col H).
+        Retorna (dict id_unico→fila, set de content_keys para dedup por contenido).
+        Content key: municipio|m2c|precio_redondeado — detecta misma propiedad con URL distinta.
         """
-        # Obtener toda la columna A (id_unico) de una sola llamada a la API
-        ids_col = _con_retry(lambda: ws.col_values(COL_ID_UNICO + 1))  # gspread usa índice 1-based
-        return {id_: idx + 1 for idx, id_ in enumerate(ids_col) if id_ and idx > 0}
+        # Una sola llamada: obtener columnas A, C, H, L (1,3,8,12) — evita Sheets quota
+        try:
+            data = _con_retry(lambda: ws.get_all_values())
+        except Exception:
+            return {}, set()
+
+        ids_map = {}
+        content_keys = set()
+        for idx, row in enumerate(data):
+            if idx == 0:  # header
+                continue
+            id_val = row[0] if len(row) > 0 else ''
+            if id_val:
+                ids_map[id_val] = idx + 1
+            # Content key: municipio(7) + m2c(11) + precio_bucket(2)
+            try:
+                muni  = (row[7] if len(row) > 7 else '').lower().strip()
+                m2c   = int(float((row[11] if len(row) > 11 else '') or 0))
+                precio = float((row[2] if len(row) > 2 else '').replace(',','').replace('$','') or 0)
+                # Precio en bucket de 2% para tolerancia de redondeo
+                p_bucket = round(precio / max(precio * 0.02, 1))
+                if muni and m2c > 0 and precio > 0:
+                    content_keys.add(f"{muni}|{m2c}|{p_bucket}")
+            except (ValueError, TypeError):
+                pass
+        return ids_map, content_keys
+
+    @staticmethod
+    def _content_key(prop: dict) -> str:
+        """Genera clave de contenido para dedup: municipio|m2c|precio_bucket."""
+        muni   = (prop.get('municipio') or '').lower().strip()
+        m2c    = int(float(prop.get('m2_construccion') or 0))
+        precio = float(prop.get('precio') or 0)
+        p_bucket = round(precio / max(precio * 0.02, 1))
+        return f"{muni}|{m2c}|{p_bucket}" if (muni and m2c > 0 and precio > 0) else ''
 
     def upsert_propiedades(
         self,
@@ -126,26 +159,27 @@ class SheetsClient:
     ) -> dict[str, int]:
         """
         Inserta propiedades nuevas y actualiza las existentes en la pestaña indicada.
-        Retorna estadísticas: {nuevas, actualizadas}.
-
-        Args:
-            propiedades: lista de dicts normalizados (salida de cleaner.normalizar_propiedad)
-            tab_name: nombre de la pestaña destino
+        Dedup doble: por id_unico (URL) y por contenido (municipio+m2c+precio ±2%).
+        Retorna estadísticas: {nuevas, actualizadas, duplicados_contenido}.
         """
         if not propiedades:
-            return {"nuevas": 0, "actualizadas": 0}
+            return {"nuevas": 0, "actualizadas": 0, "duplicados_contenido": 0}
 
         log = logger.bind(portal=tab_name)
         ws = self._get_ws(tab_name)
-        ids_existentes = self._cargar_ids_existentes(ws)
+        ids_existentes, content_keys_existentes = self._cargar_ids_existentes(ws)
 
         filas_nuevas = []
-        updates_batch = []  # Para batch_update — evita 429 de quota
+        updates_batch = []
         actualizadas = 0
+        dups_contenido = 0
+        # content keys de propiedades ya agregadas en ESTE batch (evita dupes entre sí)
+        batch_content_keys = set()
 
         for prop in propiedades:
             fila = propiedad_a_fila(prop)
             id_unico = prop["id_unico"]
+            ck = self._content_key(prop)
 
             if id_unico in ids_existentes:
                 num_fila = ids_existentes[id_unico]
@@ -154,8 +188,16 @@ class SheetsClient:
                     "values": [fila],
                 })
                 actualizadas += 1
+            elif ck and (ck in content_keys_existentes or ck in batch_content_keys):
+                # Misma propiedad con URL diferente (multi-agente, re-scraping)
+                dups_contenido += 1
             else:
                 filas_nuevas.append(fila)
+                if ck:
+                    batch_content_keys.add(ck)
+
+        if dups_contenido:
+            log.debug(f"{dups_contenido} propiedades omitidas por duplicado de contenido")
 
         # Batch update para filas existentes (1 sola llamada API vs N llamadas)
         if updates_batch:
@@ -170,7 +212,7 @@ class SheetsClient:
         if actualizadas:
             log.info(f"{actualizadas} propiedades actualizadas en '{tab_name}'")
 
-        return {"nuevas": len(filas_nuevas), "actualizadas": actualizadas}
+        return {"nuevas": len(filas_nuevas), "actualizadas": actualizadas, "duplicados_contenido": dups_contenido}
 
     def marcar_inactivas(self, ids_activos: set[str], tab_name: str) -> int:
         """

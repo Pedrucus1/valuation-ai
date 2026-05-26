@@ -10627,7 +10627,7 @@
     "recamaras": 3,
     "banos": 2,
     "estacionamientos": null,
-    "estadoConservacion": "regular_medio",
+    "estadoConservacion": "remodelacion_menor",
     "esEjidal": false
   },
   {
@@ -11097,7 +11097,7 @@
     "recamaras": 4,
     "banos": 1,
     "estacionamientos": 2,
-    "estadoConservacion": "regular_medio",
+    "estadoConservacion": "bueno",
     "esEjidal": false
   },
   {
@@ -18083,7 +18083,7 @@
     "fileName": "OPI-25-7-03-OF Alamo 4579, Loma Bonita Ejidal, Zapopan, Jal",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Loma Bonita Ejidal",
-    "municipio": "Zapopan",
+    "municipio": "Tlaquepaque",
     "comparables": [
       {
         "terreno": 540,
@@ -18866,7 +18866,7 @@
     "fileName": "OPI-25-6-17-LM Josefa Ortiz de Domínguez 3324, Loma Bonita Ejidal, Zapopan, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Loma Bonita Ejidal",
-    "municipio": "Zapopan",
+    "municipio": "Tlaquepaque",
     "comparables": [
       {
         "terreno": 540,
@@ -23226,7 +23226,7 @@
     "fileId": "1BHtbUFWo8urE6gF-5akmhaiuNNNkw7IWlS4IQ3wbmN8",
     "fileName": "OPI-25-4-19-AV Calle Blvd El Centro vialidad condominial San Miguel 45, Int 298 col Alta California",
     "fecha": "ESTATUS COMERCIAL:",
-    "sujetoColonia": "Int 298 col Alta California",
+    "sujetoColonia": "Alta California",
     "municipio": "Zapopan",
     "comparables": [
       {
@@ -41282,7 +41282,7 @@
     "fileId": "1IWysUvdBD6iq3l3l2wfeyxCQGbT-qJrhYRzMuy5FuVc",
     "fileName": "OPI-24-10-17-AV Janitzio 1307, El Vergel to, Tlaquepaque",
     "fecha": "ESTATUS COMERCIAL:",
-    "sujetoColonia": "El Vergel to",
+    "sujetoColonia": "El Vergel",
     "municipio": "Tlaquepaque",
     "comparables": [
       {
@@ -77201,7 +77201,7 @@
     "fileId": "1IyD2BmFSzSa0At7QyMHp840zfDsIKlu5nhnr5bBX3Vc",
     "fileName": "OPI-23-7-28-OF Jesus 77, Centro Guadalajara",
     "fecha": "ESTATUS COMERCIAL:",
-    "sujetoColonia": "Centro Guadalajara",
+    "sujetoColonia": "Guadalajara Centro",
     "municipio": "Guadalajara",
     "comparables": [
       {

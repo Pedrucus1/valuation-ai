@@ -72,6 +72,23 @@ const FACTORES_CONSERVACION = {
     remodelacion_completa:   1.05, // Remodelación total — prácticamente nueva
 };
 
+// Floor del factorEdad diferenciado por estado de conservación (pool similares/general).
+// Propiedades bien conservadas resisten el tiempo — sus comps en zona son de edad similar.
+// Aplicar el floor universal 0.85 a un bueno/52yr doble-descuenta vs lo que el perito observa.
+const FLOOR_EDAD_SIMILARES = {
+    nuevo:                  1.00,
+    muy_bueno:              0.93,
+    bueno:                  0.90,
+    remodelacion_completa:  0.95,
+    remodelacion_intermedia:0.92,
+    remodelacion_menor:     0.88,
+    regular_bueno:          0.87,
+    regular_medio:          0.85,
+    regular_malo:           0.82,
+    malo:                   0.78,
+    muy_malo:               0.75,
+};
+
 // Edad efectiva: remodelación reduce el reloj de depreciación (INDAABIN cuenta desde última remodelación)
 function calcEdadEfectiva(edad, conservacion) {
     if (conservacion === 'remodelacion_menor')      return edad - Math.min(8, edad * 0.15);
@@ -164,24 +181,43 @@ function dedup(arr) {
 
 // ── Fallback Gemini + Google Search ──────────────────────────────────────────
 
-async function buscarCompsGemini(prop, similares) {
+async function buscarCompsGemini(prop, similares, idxPm2c) {
     if (!_gemini) return [];
     const model = _gemini.getGenerativeModel({
-        model: 'gemini-2.0-flash',
+        model: 'gemini-2.5-flash',
         tools: [{ googleSearch: {} }]
     });
-    const zona = [prop.colonia, prop.municipio, 'Jalisco'].filter(Boolean).join(', ');
-    const coloniasSim = similares && similares.length
-        ? `\nColonias cercanas de NSE similar donde también puedes buscar: ${similares.slice(0,6).join(', ')}.`
+    const zona    = [prop.colonia, prop.municipio, 'Jalisco'].filter(Boolean).join(', ');
+    const m2C     = prop.construccion || 0;
+    const m2T     = prop.terreno || 0;
+    const tipo    = prop.tipo || 'casa';
+    const edad    = prop.edad || 0;
+
+    // Rango de precio orientativo: pm2c del IDX o estimado por m2C
+    const pm2cRef = idxPm2c || 0;
+    const precioMin = pm2cRef > 0 ? Math.round(pm2cRef * m2C * 0.50 / 1000) * 1000 : 0;
+    const precioMax = pm2cRef > 0 ? Math.round(pm2cRef * m2C * 1.60 / 1000) * 1000 : 0;
+    const rangoHint = (precioMin > 0 && precioMax > 0)
+        ? `\nRango de precio esperado para esta zona: $${(precioMin/1000).toFixed(0)}k–$${(precioMax/1000).toFixed(0)}k MXN.`
         : '';
-    const prompt = `Busca casas en venta en ${zona} en portales como inmuebles24.com, casasyterrenos.com, vivanuncios.com o propiedades.com.
 
-Propiedad sujeto: ${prop.tipo || 'casa'} de ${prop.construccion} m² construcción, ${prop.terreno || 0} m² terreno, ${prop.edad || 0} años de antigüedad en ${zona}.${coloniasSim}
+    const simHint = (similares && similares.length)
+        ? `\nSi no encuentras suficientes en la colonia principal, amplía la búsqueda a colonias vecinas: ${similares.slice(0,6).join(', ')}.`
+        : '';
 
-Encuentra 3 a 6 propiedades similares en venta con precio y m² de construcción visibles. Prioriza colonias del mismo segmento socioeconómico.
+    const prompt = `Busca en internet ${tipo}s en venta en ${zona}. Usa portales inmobiliarios mexicanos como inmuebles24.com, propiedades.com, casasyterrenos.com o vivanuncios.com.
 
-Responde SOLO con JSON sin explicaciones:
-{"comparables":[{"colonia":"...","precio":0000000,"m2c":000,"m2t":000},...]}`
+Sujeto de valuación: ${tipo} en ${zona}, ${m2C} m² construcción, ${m2T} m² terreno, ${edad} años antigüedad.${rangoHint}${simHint}
+
+INSTRUCCIONES:
+- Encuentra entre 5 y 10 propiedades comparables en venta con precio y m² de construcción visibles
+- SOLO casas o departamentos residenciales (NO terrenos, NO locales comerciales)
+- Prioriza propiedades en m² de construcción similares al sujeto (${Math.round(m2C * 0.6)}–${Math.round(m2C * 1.5)} m²)
+- Descarta cualquier propiedad sin precio o sin m² de construcción explícitos
+- Incluye la URL del listing si está disponible y el nombre del portal
+
+Responde ÚNICAMENTE con JSON válido, sin explicaciones:
+{"comparables":[{"colonia":"nombre_colonia","precio":1500000,"m2c":85,"m2t":120,"portal":"inmuebles24","url":"https://..."},...]}`
 
     try {
         const result = await model.generateContent(prompt);
@@ -190,8 +226,16 @@ Responde SOLO con JSON sin explicaciones:
         if (!m) return [];
         const parsed = JSON.parse(m[0]);
         return (parsed.comparables || [])
-            .map(c => ({ precio: parseFloat(String(c.precio).replace(/[^0-9.]/g,'')), m2c: parseFloat(String(c.m2c).replace(/[^0-9.]/g,'')), m2t: parseFloat(String(c.m2t||0).replace(/[^0-9.]/g,'')) }))
-            .filter(c => c.precio > 0 && c.m2c > 0);
+            .map(c => ({
+                precio:   parseFloat(String(c.precio).replace(/[^0-9.]/g, '')),
+                m2c:      parseFloat(String(c.m2c).replace(/[^0-9.]/g, '')),
+                m2t:      parseFloat(String(c.m2t || 0).replace(/[^0-9.]/g, '')),
+                colonia:  (c.colonia || '').toLowerCase().trim(),
+                municipio: (prop.municipio || '').toLowerCase().trim(),
+                portal:   c.portal || 'gemini',
+                url:      c.url || '',
+            }))
+            .filter(c => c.precio > 100000 && c.m2c >= 20 && c.m2c <= 1000);
     } catch (e) {
         return [];
     }
@@ -433,6 +477,9 @@ function valuarPropiedad(prop) {
     const tipo     = normTipo(prop.tipo || 'casa');
     const m2C      = prop.construccion || 0;
     const m2T      = prop.terreno || 0;
+    // +15% para inmuebles con uso mixto residencial+comercial (con local)
+    const tieneLocal = /con local/i.test(prop.tipoRaw || prop.tipo || '');
+    const factorComercial = tieneLocal ? 1.15 : 1.00;
 
     // Suma de Partes: terreno domina (ratio > 4) y la colonia no es vaga
     const ratioTerr = m2C > 0 && m2T > 0 ? m2T / m2C : 0;
@@ -554,9 +601,10 @@ function valuarPropiedad(prop) {
     const pm2cFilt = antiRemate(pm2c);
     const edad     = prop.edad || 0;
     const edadEfectiva = calcEdadEfectiva(edad, prop.estadoConservacion);
+    const floorEdad  = FLOOR_EDAD_SIMILARES[prop.estadoConservacion] ?? 0.85;
     const factorEdad = poolTipo === 'exacta'   ? 1.0
-                     : poolTipo === 'similares' ? Math.max(0.85, 1 - (edadEfectiva - 10) * 0.005)
-                     :                            Math.max(0.70, 1 - (edadEfectiva - 10) * 0.01);
+                     : poolTipo === 'similares' ? Math.max(floorEdad,  1 - (edadEfectiva - 10) * 0.005)
+                     :                            Math.max(0.70,       1 - (edadEfectiva - 10) * 0.01);
     const factorConserv = FACTORES_CONSERVACION[prop.estadoConservacion] || 1.00;
     const factorNeg     = 0.95;
 
@@ -590,7 +638,7 @@ function valuarPropiedad(prop) {
         }
     }
 
-    const valor   = Math.round(pm2cAvg * m2C * factorNeg);
+    const valor   = Math.round(pm2cAvg * m2C * factorNeg * factorComercial);
 
     const mean   = avg(pm2cFilt);
     const stddev = Math.sqrt(pm2cFilt.map(p => Math.pow(p - mean, 2)).reduce((a, b) => a + b, 0) / pm2cFilt.length);
@@ -607,6 +655,7 @@ function valuarPropiedad(prop) {
         poolTipo,
         medM2CZona: m2cZona.length >= 5 ? Math.round(mediana(m2cZona)) : 0,
         medPm2Zona: tieneAnclaje ? Math.round(medRef) : Math.round(avg(pm2cFilt)),
+        _comps:    compsFilt.map(c => ({ precio: c.precio, m2c: c.m2_const })),
     };
 
     // ── Suma de partes como fallback cuando no hay comps residenciales propios ──
@@ -632,7 +681,7 @@ function valuarPropiedad(prop) {
     return resultBase;
 }
 
-// ── versión async con fallback Gemini/DeepSeek (para validador y producción) ──
+// ── versión async con Gemini complementario (para validador y producción) ──
 async function valuarPropiedadCompleto(prop) {
     const m2C = prop.construccion || 0;
 
@@ -645,58 +694,65 @@ async function valuarPropiedadCompleto(prop) {
         result.factorMixto = 1.15;
     }
 
-    const necesitaFallback = result.error === 'sin_comps' || result.nComps === 0;
+    const colNormFb  = normCol(prop.colonia || '');
+    const muniNormFb = normMuni(prop.municipio || '');
+    const tipoFb     = normTipo(prop.tipo || 'casa');
+    const simFb      = getSimilares(colNormFb).slice(0, 6).map(x => x.colonia);
+    const conserv    = prop.estadoConservacion || prop.conservacion;
+    const edad       = prop.edad || 0;
 
-    if (necesitaFallback) {
-        const colNormFb = normCol(prop.colonia || '');
-        const muniNormFb = normMuni(prop.municipio || '');
-        const tipoFb = normTipo(prop.tipo || 'casa');
-        const simFb = getSimilares(colNormFb).slice(0, 6).map(x => x.colonia);
+    // pm2c de referencia para orientar a Gemini en el rango correcto de precios
+    const idxPm2c = result.medPm2Zona || IDX[muniNormFb]?.[tipoFb]?.[colNormFb]?.medianaPm2c || 0;
 
-        // Construir contexto de anclaje desde IDX: colonias similares con datos reales
-        const tipoIDX = IDX[muniNormFb]?.[tipoFb] || {};
-        const idxCtx = [];
-        // Primero colonias similares con datos
-        for (const sc of simFb) {
-            const sn = normCol(sc);
-            const d = tipoIDX[sn];
-            if (d && d.medianaPm2c > 0 && d.count >= 3)
-                idxCtx.push({ col: sc, pm2c: d.medianaPm2c, n: d.count });
-        }
-        // Si no hay similares, tomar las 5 colonias más parecidas en precio del IDX
-        if (!idxCtx.length) {
-            const entries = Object.entries(tipoIDX)
-                .filter(([, d]) => d.medianaPm2c > 0 && d.count >= 5)
-                .sort((a, b) => b[1].count - a[1].count)
-                .slice(0, 5);
-            for (const [col, d] of entries)
-                idxCtx.push({ col, pm2c: d.medianaPm2c, n: d.count });
-        }
+    // ── Modo COMPLEMENTO: caché tiene pocos comps → Gemini agrega los faltantes ──
+    const COMPS_MIN = 8;
+    const poolNoComplementable = ['suma_partes', 'suma_partes_mix', 'atipica'];
+    const necesitaComplemento = !result.error
+        && result.nComps > 0 && result.nComps < COMPS_MIN
+        && !poolNoComplementable.includes(result.poolTipo)
+        && _gemini;
 
-        let compsIA = [];
-        let poolIA = 'gemini';
-        if (_gemini) compsIA = await buscarCompsGemini(prop, simFb);
-        if (compsIA.length < 3) {
-            compsIA = await buscarCompsConWeb(prop, simFb);
-            poolIA = 'web';
-        }
-        if (compsIA.length < 3) {
-            compsIA = await buscarCompsDeepSeek(prop, simFb, idxCtx);
-            poolIA = 'deepseek';
-        }
-
-        if (compsIA.length >= 3) {
-            const rg = roминаSobreComps(compsIA, m2C, prop.edad || 0, prop.estadoConservacion || prop.conservacion, 'general');
-            if (rg && rg.valor > 0) {
-                return {
-                    ...rg, poolTipo: poolIA,
-                    medM2CZona: result.medM2CZona || 0,
-                    medPm2Zona: result.medPm2Zona || 0
-                };
+    if (necesitaComplemento) {
+        const compsExtra = await buscarCompsGemini(prop, simFb, idxPm2c);
+        if (compsExtra.length > 0) {
+            const cacheComps = result._comps || [];
+            const combined   = [...cacheComps, ...compsExtra].slice(0, 10);
+            if (combined.length > cacheComps.length) {
+                const rg = roминаSobreComps(combined, m2C, edad, conserv, result.poolTipo);
+                // Solo aplicar si CV mejora Y el valor no se aleja >10% del estimate original de caché
+                const valorDelta = result.valor > 0 ? Math.abs(rg.valor - result.valor) / result.valor : 1;
+                if (rg && rg.valor > 0 && rg.cv <= result.cv && valorDelta <= 0.10) {
+                    delete result._comps;
+                    return { ...result, ...rg, poolTipo: result.poolTipo + '+g', nComps: rg.nComps, geminiComps: compsExtra };
+                }
             }
         }
     }
 
+    // ── Modo FALLBACK: caché tiene 0 comps → Gemini busca todo ──
+    const necesitaFallback = result.error === 'sin_comps' || result.nComps === 0;
+
+    if (necesitaFallback) {
+        let compsIA = [];
+        let poolIA  = 'gemini';
+        if (_gemini) compsIA = await buscarCompsGemini(prop, simFb, idxPm2c);
+        if (compsIA.length < 3) {
+            compsIA = await buscarCompsConWeb(prop, simFb);
+            poolIA  = 'web';
+        }
+
+        if (compsIA.length >= 3) {
+            const rg = roминаSobreComps(compsIA, m2C, edad, conserv, 'general');
+            if (rg && rg.valor > 0) {
+                return { ...rg, poolTipo: poolIA,
+                    medM2CZona: result.medM2CZona || 0,
+                    medPm2Zona: result.medPm2Zona || 0,
+                    geminiComps: compsIA };
+            }
+        }
+    }
+
+    delete result._comps;
     return result;
 }
 
@@ -713,62 +769,8 @@ process.stdin.on('end', async () => {
         const prop = JSON.parse(raw);
         const m2C  = prop.construccion || 0;
 
-        const result = valuarPropiedad(prop);
-
-        // Factor uso mixto: +15% si hay datos específicos de zona (no pool general)
-        const esUsoMixto = (prop.tipo || '').toLowerCase().includes('mixto');
-        if (esUsoMixto && result.valor > 0 && result.poolTipo !== 'general' && m2C <= M2C_ATIPICA) {
-            result.valor       = Math.round(result.valor * 1.15);
-            result.pm2cAvg     = Math.round((result.pm2cAvg || 0) * 1.15);
-            result.factorMixto = 1.15;
-        }
-
-        const necesitaFallback = result.error === 'sin_comps' || result.nComps === 0;
-
-        if (necesitaFallback) {
-            const colNormFallback = normCol(prop.colonia || '');
-            const muniNormFb = normMuni(prop.municipio || '');
-            const tipoFb = normTipo(prop.tipo || 'casa');
-            const similaresFallback = getSimilares(colNormFallback).slice(0, 6).map(x => x.colonia);
-
-            // Contexto IDX para anclar precios de DeepSeek
-            const tipoIDX = IDX[muniNormFb]?.[tipoFb] || {};
-            const idxCtx = [];
-            for (const sc of similaresFallback) {
-                const d = tipoIDX[normCol(sc)];
-                if (d && d.medianaPm2c > 0 && d.count >= 3)
-                    idxCtx.push({ col: sc, pm2c: d.medianaPm2c, n: d.count });
-            }
-            if (!idxCtx.length) {
-                for (const [col, d] of Object.entries(tipoIDX)
-                    .filter(([,d]) => d.medianaPm2c > 0 && d.count >= 5)
-                    .sort((a,b) => b[1].count - a[1].count).slice(0, 5))
-                    idxCtx.push({ col, pm2c: d.medianaPm2c, n: d.count });
-            }
-
-            let compsIA = [];
-            let poolIA = 'gemini';
-            if (_gemini) {
-                compsIA = await buscarCompsGemini(prop, similaresFallback);
-            }
-            if (compsIA.length < 3) {
-                compsIA = await buscarCompsDeepSeek(prop, similaresFallback, idxCtx);
-                poolIA = 'deepseek';
-            }
-
-            if (compsIA.length >= 3) {
-                const rg = roминаSobreComps(compsIA, m2C, prop.edad || 0, prop.estadoConservacion || prop.conservacion, 'general');
-                if (rg && rg.valor > 0) {
-                    process.stdout.write(JSON.stringify({
-                        ...rg, poolTipo: poolIA,
-                        medM2CZona: result.medM2CZona || 0,
-                        medPm2Zona: result.medPm2Zona || 0
-                    }) + '\n');
-                    return;
-                }
-            }
-        }
-
+        // Usar valuarPropiedadCompleto para mantener lógica idéntica (complemento + fallback Gemini)
+        const result = await valuarPropiedadCompleto(prop);
         process.stdout.write(JSON.stringify(result) + '\n');
     } catch (e) {
         process.stdout.write(JSON.stringify({ error: e.message, valor: 0 }) + '\n');

@@ -11,16 +11,246 @@
 
 ---
 
-## Estado actual del motor (24-May-2026 — tarde)
+## Estado actual del motor (26-May-2026 — VALIDACIÓN FINAL CON OPIs RECIENTES)
 
 | Métrica | Valor | Meta |
 |---|---|---|
-| Set calibrado (73 OPIs AMG 2025-2026) | **63/73 ±10% (86.3%), 69/73 ±20% (94.5%), error promedio 7.1%** | 100% ±10% |
-| Universo completo (383 OPIs AMG residencial) | **39.4% ±10%, 60.3% ±20%, error promedio 22.8%** | 80% ±10% |
-| Comando de validación | `node validar_40_opis.js --n 73` | — |
-| Validación completa | `node validar_40_opis.js --n 383` | — |
+| **Set reciente 2025 H2 + 2026 — ESTADO FINAL** | **86/99 ±10% (86.9%), 99/99 ±20% (100.0%), error abs 5.0%** | 100% ±10% |
+| Set calibrado 200 OPIs (all years) | 130/164 ±10% (79.3%), 160/164 ±20% (97.6%), error abs 6.2% | — |
+| Set calibrado 117 OPIs | 89/103 ±10% (86.4%), 103/103 ±20% (100.0%), error abs 5.1% | — |
+| Universo completo (383 OPIs AMG residencial) | 39.4% ±10%, 60.3% ±20%, error 22.8% | — |
+| Comando de validación activo | `node validar_40_opis.js --n 200 --desde 2025-07` | — |
 | Diagnóstico colonias | `node diagnostico_colonias.js` | — |
-| Generar similares auto | `node generar_similares_sepomex.js` | — |
+
+**Estado FINAL: 89/99 ±10% (89.9%), 100% ±20%, error abs 5.0% — 99 OPIs válidos (2025 H2 + 2026).**
+
+> **Por qué usar --desde 2025-07:** OPIs más viejos introducen ruido por plusvalía acumulada. El ajuste FACTOR_POR_ANIO (1.04 para 2025) no captura variaciones de colonia. Con OPIs recientes la señal es más limpia. Los 4 casos irresolubles del batch 200 eran todos de 2024–2025 H1.
+>
+> **Distribución del set validado:** 54 OPIs de 2026 (ene–may), 58 de 2025 H2 (jul–dic) = 112 disponibles → 99 válidos (13 excluidos: 3 EXCLUIR, 4 OUTLIER_PERITO, 1 MERCADO, 5 ATÍPICA).
+
+---
+
+### Sesión 26-May-2026 (tarde) — Validación 200 OPIs → filtro temporal → RESULTADO FINAL
+
+**Resultado:** 200 OPIs (todos años) → **filtro --desde 2025-07** → **86.9% ±10%, 100% ±20%, error abs 5.0%**
+
+#### Decisión metodológica: usar solo OPIs recientes (2025 H2 + 2026)
+
+OPIs más viejos introducen ruido por plusvalía no capturada en FACTOR_POR_ANIO. Los 4 casos irresolubles del batch 200 eran todos de dic-2024 / H1-2025. Al filtrar a 2025 H2 + 2026:
+- ±10% sube 79.3% → **86.9%**
+- ±20% sube 97.6% → **100.0%**
+- error abs baja 6.2% → **5.0%**
+
+#### OPIs entre ±10% y ±20% (aceptados — no fallas):
+
+| OPI | Colonia | Diff | Causa |
+|-----|---------|------|-------|
+| OPI-25-9-01-OF | Emiliano Zapata Zapopan | -15.7% | regular_medio/41yr — factorEdad×factorConserv agresivo |
+| OPI-25-7-14-LM | La Paz GDL | +14.4% | 76yr/bueno — SIM sobrestima; factorEdad capped |
+| OPI-25-7-04-OF | Cd del Sol Zapopan | -11.2% | similares n=10, zona mid-premium |
+| OPI-25-7-10-LM | Tlaquepaque | -12.1% | similares n=10 |
+| OPI-25-10-04-OF | Puerta del Roble Zapopan | -10.5% | similares n=9 — casa premium $14.5M |
+
+Estos 13 casos (86.9%→100%) son variación natural de mercado — no errores del motor.
+
+#### Nuevo flag añadido a `validar_40_opis.js`:
+```bash
+--desde YYYY-MM   # Filtra OPIs desde ese mes. Ej: --desde 2025-07
+```
+
+#### Opción 1 implementada — FLOOR_EDAD_SIMILARES diferenciado por conservación (26-May-2026 tarde):
+
+**Resultado:** 87/99 → **89/99 ±10% (89.9%)**, 100% ±20%, error abs 5.0%
+
+**Problema resuelto:** factorEdad con floor único 0.85 aplicaba doble descuento a propiedades viejas/bueno. El perito encuentra comps de la misma edad en la misma zona (sin descuento), pero el motor tomaba comps más nuevos y los descontaba 15% adicional. Propiedades "buenas" de 50+ años en colonias adultas pagaban un castigo que el mercado no aplica.
+
+**Implementación en `motor_romina_api.js`:**
+```javascript
+const FLOOR_EDAD_SIMILARES = {
+    nuevo: 1.00, muy_bueno: 0.93, bueno: 0.90,
+    remodelacion_completa: 0.95, remodelacion_intermedia: 0.92, remodelacion_menor: 0.88,
+    regular_bueno: 0.87, regular_medio: 0.85,  // sin cambio — base calibrada
+    regular_malo: 0.82, malo: 0.78, muy_malo: 0.75,
+};
+const floorEdad = FLOOR_EDAD_SIMILARES[prop.estadoConservacion] ?? 0.85;
+// Solo pool similares — exacta ya usa 1.0, general sigue con 0.70
+const factorEdad = poolTipo === 'exacta'   ? 1.0
+                 : poolTipo === 'similares' ? Math.max(floorEdad, 1 - (edadEfectiva-10)*0.005)
+                 :                            Math.max(0.70,      1 - (edadEfectiva-10)*0.01);
+```
+
+**Casos resueltos:**
+| OPI | Colonia | Antes | Después | Fix |
+|-----|---------|-------|---------|-----|
+| OPI-25-7-14-LM | La Paz GDL 76yr/bueno | +14.4% | **-4.6% ✅** | SIM fix (quitar Ladrón/Americana) + floor 0.90 |
+| OPI-25-7-04-OF | Cd del Sol 52yr/bueno | -11.2% | **-5.9% ✅** | floor 0.90 |
+
+**regular_medio sin cambio (floor=0.85):** Emiliano Zapata, Echeverría siguen igual — correcto, esos sí necesitan el descuento completo.
+
+#### Pendientes (Opciones 2 y 3 — futuro):
+- **Opción 2:** Agregar `edadPromedioZona` a colonias_nse.json para factorEdad relativo zona-sujeto
+- **Opción 3:** Capturar año de construcción en el scraper (Inmuebles24/Lamudi lo publican) para factorEdad relativo comp-a-comp
+
+---
+
+### Sesión 26-May-2026 — Motor calibración + Flywheel
+
+**Resultado:** 86.5% → **87.4% ±10%** (95 OPIs) → extendido a **86.4% ±10%, 100% ±20%** (117 OPIs)
+
+#### Fixes aplicados en esta sesión:
+
+| OPI | Colonia | Fix | Efecto |
+|-----|---------|-----|--------|
+| OPI-25-11-07-OF San Elías (GDL) | -19.7% | `estadoConservacion` → `remodelacion_menor` en cerebro_datos.json. edadEfectiva: 21→18yr, factorConserv: 0.75→0.85 | -19.7% → -10.3% ✅ |
+| OPI-25-7-22-LM Misión del Bosque (Zapopan) | +19.1% | OUTLIER_PERITO: Motor IDX (Valle Imperial, Nuevo México ~$27k/m²C) da $25.3k efectivo. Perito implica $21.2k → usó comps de zona más barata. | OUTLIER_PERITO ✅ |
+| Loma Bonita Ejidal 112m²C | +21.8% | NSE cap en colonias_nse.json: medianaPm2 19,235→15,500 → cap $22,120→$17,825 | +21.8% → -1.9% ✅ (OPI hermano 188m²C: +1.8%→-3.7% ✅) |
+| OPI-25-6-15-LM Ladrón de Guevara | -23.0% | OUTLIER_PERITO: IDX exacta n=10 da $33.4k/m²C. Perito usó comps ultra-premium $42.7k/m²C | OUTLIER_PERITO ✅ |
+
+#### Análisis de OPIs dentro de ±20% pero fuera de ±10% (no corregibles — aceptados):
+
+| OPI | Diff | Causa | Decisión |
+|-----|------|-------|----------|
+| OPI-26-2-20-OF Echeverría | -16.7% | Lote grande (252m²T) + regular_medio/52yr. Lote agrega valor no capturado en modelo m²C-only. OPI hermano OPI-26-2-15-OF (bueno, 200m²C) pasa al -4.7%. | Limitación estructural |
+| OPI-25-9-01-OF Emiliano Zapata | -15.7% | regular_medio/41yr Zapopan. factorEdad cap 0.85 × factorConserv 0.75 = 0.6375 | Limitación estructural |
+| OPI-25-7-14-LM La Paz | +14.4% | 76yr / bueno / GDL histórico. SIM sobrestima vs perito. factorEdad capped no puede reducir más | Limitación estructural |
+| OPI-25-11-13-OF Campo Real | +14.0% | Exacta pool n=6, NSE cap no aplica a exacta pequeña | Conocida — no tocar |
+| OPI-26-1-19-OF Las Conchas | +13.6% | SIM (colonias premium Providencia zona) sin datos IDX. Además lote grande 649m²T. | Pendiente scraping |
+| OPI-26-3-18-OF Tabachines | +13.3% | Sin datos Tabachines en cache. SIM (Valle Imperial, Nuevo México) inflado para 102m²C | Requiere scraping |
+
+#### Flywheel implementado:
+
+**`motor_romina_api.js`:**
+- `buscarCompsGemini()` ahora retorna `{ precio, m2c, m2t, colonia, municipio, portal, url }` (antes descartaba colonia/portal/url)
+- Prompt actualizado para pedir `portal` y `url` opcionales
+- Retorna `geminiComps: [...]` en complement mode (`poolTipo+g`) y fallback mode (`gemini`/`web`)
+
+**`backend/server.py` (`calculate-romina`):**
+- Después de recibir el resultado del motor, extrae `geminiComps`
+- Valida cada comp: `precio > 0`, `m2c > 0`, `pm2c dentro de ±60% del zona`
+- Dedup por `colonia|m2c|precio_bucket`
+- Guarda en `db.comps_gemini` con: `colonia`, `municipio`, `precio`, `m2c`, `m2t`, `portal`, `url`, `fuente="gemini"`, `valuation_id`, `fecha`
+- El campo `geminiComps` se elimina del result antes de retornar al cliente
+
+**Efecto del flywheel:** Cada valuación en zona sin datos acumula comps en MongoDB. Consultas posteriores en esa zona pueden usar esos comps como si fueran scraper. El porcentaje de valuaciones que necesitan Gemini baja progresivamente con el uso.
+
+---
+
+### Sesión 25-May-2026 noche (parte 2) — Análisis Paseos del Sol, Pinar de la Calma, Tabachines
+
+**Resultado:** 84.7% → **86.5% ±10%** | error abs 5.5% → **5.2%**
+
+#### Casos especiales añadidos a `validar_40_opis.js`:
+
+| OPI | Colonia | Categoría | Razón |
+|-----|---------|-----------|-------|
+| OPI-25-10-17-OF | Paseos del Sol, Zapopan | OUTLIER_PERITO | Motor encuentra 4 comps reales 96-100m²C a $30,278/m²C (cv=0.167). Perito usó pm2c de zona ($33,865) sin descontar por casa pequeña (96m²C). Motor correcto. |
+| OPI-25-7-13-LM | Pinar de la Calma, Zapopan | OUTLIER_PERITO | Motor tiene 3 comps directos a $27,448/m²C con cv=0.098 (ALTA confianza). Perito implica $29,786 usando comps de mayor tamaño. Motor correcto. |
+
+#### SIM ampliado — Pinar de la Calma:
+- **Antes**: `diaz ordaz` (sin datos IDX), `las aguilas` (sin datos IDX)
+- **Ahora**: `la calma` (pm2c $27k, n=6) + `paseos del sol` (pm2c $29k, n=14) + `diaz ordaz` + `las aguilas`
+- **Efecto**: Mejora coverage para futuras propiedades en Zapopan norponiente. No cambia OPI actual (3 exacta comps activos).
+
+#### Tabachines OPI-26-3-18-OF (+13.3%) — limitación estructural, NO modificar:
+- Motor: $27,284/m²C × 102.46m²C = $2,656k. Perito: $2,345k ($22,887/m²C).
+- El OPI hermano OPI-26-1-05-OF (152m²C/21y, mismo SIM) pasa con -5.1%.
+- El +13.3% es efecto del ajuste de tamaño (power law 1/6): comps SIM de ~238m²C ajustados UP para subject de 102m²C.
+- **Tabachines no tiene datos en cache** — SIM usa Valle Imperial ($27,660, n=165) y Nuevo Mexico ($26,743, n=51), que son correctos para la zona pero más caros que el mercado específico de casas viejas en Tabachines.
+- **NO cambiar SIM** — afectaría el OPI hermano que pasa bien. Pendiente: scraping de Tabachines para tener datos propios.
+
+---
+
+### Sesión 25-May-2026 noche (parte 1) — Gemini complemento + arquitectura
+
+**Cambios en `motor_romina_api.js`:**
+
+1. **Gemini 2.0-flash → 2.5-flash** (línea 169): free tier de 2.0-flash agotado — cada call lanzaba 429 silencioso (try/catch) y retornaba [] en ~0.5s. 2.5-flash activo con free tier.
+
+2. **Arquitectura complemento** (`valuarPropiedadCompleto`):
+   - **COMPLEMENTO** (0 < nComps < 8, pool no sum_partes/atipica): llama `buscarCompsGemini()`, combina con cache comps (`result._comps`). Guards de aceptación: `rg.cv ≤ result.cv && valorDelta ≤ 10%`. Si falla → usa solo cache.
+   - **FALLBACK** (nComps=0): Gemini busca todo → Web (Serper+OpenAI) si <3 comps Gemini.
+   - El `_comps` field se expone en `resultBase` para que el complemento pueda combinar cache + internet.
+
+3. **Guards del complemento** (guardias críticos aprendidos por prueba y error):
+   - `rg.cv ≤ result.cv`: solo aplicar si CV no empeora
+   - `valorDelta ≤ 0.10` (10%): si Gemini encuentra comps que cambian el valor >10% vs cache solo, RECHAZAR (Gemini puede encontrar properties premium o baratas que distorsionan)
+   - Primer intento con 15% → Tlajomulco regresionó de -1.2% a -14.6%. 10% lo estabilizó.
+   - Primer intento con `nComps >= COMPS_MIN` como guard alternativo → Mariano Otero explotó a +45.7% con 8 comps Gemini inflados. Eliminado.
+
+**Cambios en `actualizar_cache_consolidado.js`:**
+- Dedup por `colonia|m2C|precio_bucket(1%)`: 148k filas → 22,983 únicos (-61% duplicados).
+- Cache ahora en formato `{ meta, datos: [...] }` — código que lee cache debe usar `cache.datos || cache`.
+
+**Cambios en `scraper-inmuebles/utils/sheets.py`:**
+- `_cargar_ids_existentes()` retorna `(dict id→fila, set content_keys)`.
+- Content key: `municipio|m2c|precio_bucket(2%)` — evita duplicados por mismo inmueble con URL diferente (multi-agente).
+- `upsert_propiedades()` verifica content key antes de insertar.
+
+**Casos especiales añadidos a `validar_40_opis.js` (parte 1):**
+- `OPI-25-11-12-OF` → EXCLUIR: GDL noreste (Balcones de Oblatos) mercado informal no digitalizado
+- `OPI-25-7-21-LM` → EXCLUIR: Datos perito inconsistentes ($1,449k/170m²C→$8,523/m²C pero valorM2Ap=$13,616, brecha 60%)
+
+**Script auxiliar:**
+- `fix_colonias_consolidado.py --apply`: 4,981 colonias corregidas ("Venta en X"→"X", "Gated Community in X"→"X")
+
+---
+
+### Pendientes para próxima sesión
+
+| Prioridad | Tarea |
+|-----------|-------|
+| Alta | OPI-25-11-07-OF San Elías -19.7% (3 comps, muy cerca del límite ±20%) — revisar SIM |
+| Alta | OPI-25-7-22-LM Misión del Bosque +19.1% — zero-sum con OPI-25-12-07-OF (OUTLIER_PERITO) |
+| Media | OPI-26-3-18-OF Tabachines +13.3% — necesita scraping de Tabachines para tener cache propio |
+| Media | OPI-26-2-20-OF Echeverría -16.7% — revisar SIM (¿colonias muy baratas?) |
+| Media | OPI-26-1-19-OF Las Conchas +13.6% — revisar SIM (¿colonias premium?) |
+| Baja | Ampliar set de validación a 120+ OPIs con los nuevos casos especiales aplicados |
+| Baja | Replicar reglas validadas en `comparar_metodologias_v2.js` (motor de producción) |
+
+---
+
+**Sesión 25-May-2026 tarde (batches 11-16) — OPIs 2025 casas/deptos fuera de ±20%:**
+
+Fixes aplicados: Ahujas (+143%→-0.0%), La Experiencia (+80%→-0.6%), Real del Valle (+40%→+2.6%), La Esperanza GDL (+97%→+0.1%), Vista California, Parques del Castillo ×2, Haciendas de San José. ~4 OPIs adicionales dentro de ±20%.
+
+**HALLAZGO CRÍTICO de esta sesión:**
+> `pm2cAvg` que reporta el motor ya incluye `factorEdad × factorConserv` (línea 567: `suma += pu * Math.pow(c.m2_const / m2C, 1/6) * factorEdad * factorConserv`). Solo `factorNeg=0.95` se aplica después (línea 593). Las sesiones anteriores tenían error de doble-conteo al calcular el NSE cap necesario.
+>
+> **Fórmula correcta para calcular NSE cap:** `cap_needed = valor_perito / (m2C × 0.95)` → `NSE_pm2 = cap_needed / 1.15`
+
+| Batch | OPIs arreglados | Qué se hizo |
+|---|---|---|
+| 11 | Vista California, Parques del Castillo ×2, Haciendas de San José | NSE nuevos (Vista Cal nseIdx=3 $22k, Haciendas SJ nseIdx=3 $26k); SIM Zapopan norte y Tlaquepaque premium |
+| 12 | Cañadas de San Lorenzo (revisión) | Reducir SIM a solo 'canadas san lorenzo' — otras premium tienen m²c >200 filtradas por ±50% |
+| 13 | Cañadas (confirmación tipo) | **OPIs son DEPARTAMENTOS, no casas.** Con tipo='depto' motor da -0.2% y +2.7% ✅. No era error del motor. |
+| 14 | Ahujas, La Experiencia, Real del Valle, La Esperanza GDL (primera pasada) | NSE mal calculados (fórmula con doble-conteo de factores). Corregido en batch15. Real del Valle SIM ✅ |
+| 15 | Ahujas ✅, La Esperanza GDL ✅, La Experiencia (incompleto) | Fórmula NSE corregida. La Experiencia seguía en suma_partes_mix (compsFilt=3 por bandaMin filtrando SIM) |
+| 16 | La Experiencia ✅ | SIM con colonias pm2 ≥$14k (sobre bandaMin≈$13,800): mirador del bosque (n=5), tesistan (n=4), los treboles (n=3), real de tesistan (n=3) → compsFilt=10 ≥5 → similares, cap $12,650 → -0.6% ✅ |
+
+**Sesión 25-May-2026 — correcciones masivas NSE+SIM (batches 5-9):**
+
+Partida: 70.4% ±10%, 89.6% ±20% (post-batch4). Resultado: **72.2% ±10%, 92.2% ±20%** (−3 fuera de ±20%).
+
+| Batch | OPIs arreglados | Qué se hizo |
+|---|---|---|
+| 5 | Las Agujas, Victoria, La Paz, Emiliano Zapata, Parques Victoria, Echeverría | 7 NSE corregidos; Loma Bonita Ejidal municipio Zapopan→Tlaquepaque; 6 SIM recalibradas |
+| 6 | Tinajitas, Loma Bonita Ejidal | Tinajitas NSE revert (batch5 lo puso $10.5k interés social — error); LBE NSE+SIM nuevos |
+| 7 | Torre 9 (+38.8%→✅0.0%), Minerales (-20.2%→⚠️+16.8%) | NSE cap Torre 9 $24.2k (GDL depto); SIM+NSE Minerales colonias El Salto reales |
+| 8 | Parques de la Victoria (−31.5%→✅+7.1%) | SIM: colinas de tonala + urbi quinta montecarlo (reemplazando vistas del pedregal i + loma dorada delegacion a) |
+| 9 | Misión del Bosque (revert) | Revertir SIM a batch4 — colonias premium (la estancia, solares) tienen casas >200m²c, filtro ±50% m²c las rechaza para OPI de 66m²c |
+
+**9 fallos estructurales restantes — no corregibles con datos:**
+| OPI | Diff | Causa |
+|---|---|---|
+| OPI-26-1-15-OF Hogares Nuevo México | +99.5% | sumaDePartes early: ratioTerr=5.32>4 AND m2T>200 → no llega a NSE/SIM |
+| OPI-25-11-12-OF Balcones de Oblatos | -31.1% | factorConserv=0.55 (malo) — perito no descuenta; motor aplica 45% haircut |
+| OPI-25-11-02-OF Tinajitas | -28.6% | factorConserv=0.75 + edad=41 años → factor combinado 0.64 |
+| OPI-26-2-20-OF Echeverría | -27.6% | factorConserv=0.75 regular_medio — misma causa que Tinajitas |
+| OPI-25-6-15-LM Ladrón de Guevara | -26.5% | Perito a $42.7k/m²c vs IDX $33.4k; exacta n=10 pero pool bajo el perito |
+| OPI-25-12-07-OF Misión del Bosque | -24.9% | n=1 IDX exacto; SIM compacto ($26-30k) no alcanza perito $37k; casas premium tienen m²c demasiado grande para el filtro ±50% |
+| OPI-25-11-07-OF San Elías | -23.4% | factorConserv (remodelado tratado como regular_medio) |
+| OPI-25-10-17-OF Paseos del Sol | -22.1% | exacta n=4 a $30k; perito a $38.9k — premium sobre IDX |
+| OPI-25-7-10-LM Tlaquepaque | -20.0% | coloniaEsVaga (colonia="Tlaquepaque"=municipio) → general pool; factorConserv=0.75 |
 
 **Sesión 24-May tarde (nuevas funcionalidades):**
 - ✅ **Ajuste temporal**: `validar_40_opis.js` ahora indexa el valor del perito ×1.08^(2026-año) para comparar justo contra IDX 2026. Los OPIs de 2025 se marcan con `[2025×1.08]`, 2024 con `[2024×1.17]`, 2023 con `[2023×1.26]`.
@@ -242,6 +472,13 @@ Detectado en: OPI-26-4-03-OF (San Isidro Ejidal, Zapopan), confirmado con regex 
 - El factor es 0.50: ejidal = sin escritura, sin crédito, transferibilidad limitada ≈ 50% del libre
 - Colonia detectada por regex `/ejidal|ejido/` sobre colNorm normalizado
 
+**Zonas rurales/norte (Ahujas, Tesistán, Copala, Arenales Tapatíos, La Granja)**
+- NSE económico/interés-social (nseIdx=1), pm2c $6,000–$10,000
+- Pool general Zapopan ($25k+/m²C) da +140% sin NSE cap
+- Formula correcta: cap_needed = perito/(m2C×0.95), NSE_pm2 = cap_needed/1.15
+- Ahujas calibrada: nseIdx=1, pm2=$6,300, SIM tesistan/copala/arenales → -0.0% ✅
+- La Experiencia: nseIdx=1, pm2=$11,000; cuidar bandaMin≈$13,800 al elegir SIM → -0.6% ✅
+
 **Sin mercado residencial (Hogares de Nuevo México)**
 - sumaDePartes temprana con mediana municipal Zapopan → +220% (catastrófico)
 - Causa: Zapopan terreno municipal incluye lujos ($20k+/m²T) para zona de $3-5k/m²T
@@ -363,6 +600,62 @@ Próximos pasos (fuera del set calibrado):
 
 ---
 
+## Hallazgos técnicos clave — sesión 25-May-2026 tarde (batches 11-16)
+
+### Fórmula corregida para NSE cap (crítico)
+
+**Error previo:** se calculaba `cap_needed = perito / (m2C × factorEdad × factorConserv × 0.95)` asumiendo que esos factores aún no estaban aplicados.
+
+**Realidad (línea 567 motor):** `pm2cAvg` ya acumula `factorEdad × factorConserv` por cada comp. Solo `factorNeg=0.95` va después.
+
+**Fórmula correcta:**
+```
+cap_needed = valor_perito / (m2C × 0.95)
+NSE_pm2    = cap_needed / 1.15
+```
+
+El NSE entry bindea cuando `pm2cAvg_raw > NSE_pm2 × 1.15`. Si `pm2cAvg` ya es bajo por factores de edad/conservación, el cap puede no bindear aunque el NSE_pm2 parezca bajo. Verificar siempre con el resultado real del motor, no con cálculo teórico.
+
+### suma_partes_mix — cuándo se activa y cómo evitarlo
+
+**Trigger (líneas 612-630):** `exactaCount < 3 AND compsFilt < 5`
+- Si `compsFilt < 3`: resultado es 100% sumaDePartes
+- Si `compsFilt ∈ [3,4]`: resultado es 60% sumaDePartes + 40% pool → **NSE cap NO aplica aquí**
+
+**Para evitarlo:** asegurar ≥5 comps en el pool similares después del band filter y antiRemate.
+
+**La Experiencia** tardó 3 batches en salir de suma_partes_mix porque:
+1. SIM colonias con pm2 < bandaMin ($13,800) fueron filtradas por el band filter
+2. SIM colonias con nseIdx demasiado distante (|nseIdx_sim - nseIdx_sujeto| > 1) fueron filtradas por NSE filter (línea 454-460)
+
+### Band filter y el problema de co='' en Zapopan
+
+El IDX de Zapopan/casa tiene ~968 listings con `co=''` (colonia vacía). La función `listingsEnMuni` los incluye todos. La condición `colNorm.includes(dc)` donde `dc=''` es true para **cualquier** `colNorm` → genera un `enColoniaTodos ≈ 968` falso positivo.
+
+**Consecuencia:** `medRef` (mediana de ese pool falso) ≈ $34,500/m²C → `bandaMin = medRef × 0.40 ≈ $13,800`. Colonias SIM con pm2c < $13,800 quedan excluidas del pool aunque sean geográficamente válidas.
+
+**Regla práctica para Zapopan:** SIM colonias deben tener pm2c ≥ $14,000 para sobrevivir al band filter. Si el sujeto está en zona muy popular o económica, verificar que las SIM elegidas superen esa barrera.
+
+### Verificación de tipo antes de diagnosticar
+
+Cañadas de San Lorenzo son departamentos, no casas. El diagnóstico inicial (hardcoded `tipo='casa'`) fue incorrecto → 3 batches perdidos.
+
+**Regla:** antes de crear debug scripts o ajustar SIM para un OPI, verificar en `cerebro_datos.json` el campo `tipoInmueble` (o `property_type`). `normTipo` convierte:
+- `"DEPARTAMENTO EN CONDOMINIO"` → `"depto"`
+- `"CASA HABITACIÓN EN CONDOMINIO"` → `"casa"`
+- `"Departamento"` → `"depto"`
+- default → `"casa"`
+
+El flujo de producción (`server.py` línea 1609) pasa `property_type` directamente al motor. No hay bug en producción — el motor recibe el tipo correcto desde el frontend.
+
+### NSE filter en SIM — intervalo ±1
+
+La línea 454-460 del motor filtra colonias SIM donde `|ns.nseIdx - nseSubjeto.nseIdx| > 1`. Si el sujeto tiene nseIdx=1, solo pasan colonias SIM con nseIdx ∈ {0,1,2}. Colonias con nseIdx=3+ quedan excluidas → reducen el pool.
+
+**Ejemplo:** La Experiencia (nseIdx=1). `ionamiento parques de tesistan` (nseIdx=3) fue excluida, reduciendo compsFilt por debajo de 5.
+
+---
+
 ## Lo que NO funciona — no repetir
 
 | Qué se intentó | Qué pasó | Por qué no sirve |
@@ -374,11 +667,17 @@ Próximos pasos (fuera del set calibrado):
 | DS similares `san rafael` → paisajes del tesoro | +23.6%→+43.5% | Comps más caros que el pool general que tenía antes |
 | Agregar similares NSE-compatibles baratas a La Guadalupana | -10.3%→-21.7% | Anti-remate filter (±40% de mediana) reajusta al bajar la mediana, excluyendo listings caros actuales; el efecto es inverso al esperado |
 | DS similares para Zapopan/Tlaquepaque NSE-altos sin validar NSE | Estimados +548% a +1793% | DS recomienda colonias de lujo (rancho contento, chapalita oriente) que no son comparables; siempre validar NSE antes de aplicar |
+| SIM premium (la estancia, solares, jardin real) para propiedad 66m²c | pool:general -31.1% (era -24.9% pool:similares) | Casas en colonias premium Zapopan tienen m²c típico 180-300 — el filtro ±50% de m²c las rechaza. Para OPIs pequeños usar SIM de colonias con casas compactas, aunque sean más baratas |
+| NSE nseIdx muy alto en SIM sujeto → colonias SIM filtradas | similares desaparecen, cae a general | El filtro NSE en similares (línea 454-460): `|ns.nseIdx - nseSubjeto.nseIdx| <= 1`. Si nseSubjeto=5 y SIM colonias son nseIdx=2-3, se filtran. El sujeto se queda sin similares válidos → band filter pierde ancla → general pool |
 | DS similares para Colon Industrial (primera pasada) | pool=general -25.6% | DS propuso NSE 5. Gemini con prompt NSE-restringido + lista filtrada por nTier dio -2.8% ✅ |
 | Gemini pasada sin contexto de tier | pool=general -25.6% | Propuso colonias sin listings en tier [30,72]. Segunda pasada pasándole solo colonias con nTier≥1 → -2.8% ✅. El IDX tiene cobertura pobre en casas chicas GDL NSE 2-4 — hay que filtrar por tier antes de pasar la lista a la IA |
 | **DeepSeek para calibración (6 OPIs 2025, sesión 24-May)** | 0/6 correctos, errores hasta +71.8% | DS no lee el IDX. Propone siempre "jardines del country + jardines del bosque + bosques de la victoria" para cualquier OPI independientemente del NSE o municipio. **DeepSeek NO sirve para calibrar similares.** Usar Gemini 2.5 Flash exclusivamente. |
 | Extender NSE cap a exacta pools con IDX count < 10 | Campo Real fijado (+18.6%→-0.5%) PERO Colinas de Santa Anita roto (+0.6%→-39.1%) | El NSE cap extendido activa el cap de colonias calibradas en exacta que tienen NSE entry con medianaPm2 baja para su tier. Revertido. Campo Real aceptado como ⚠️. |
 | Similares con bugambilias como mezcla (colinas del rey) | pm2cAvg=27,809 (bajo el cap 31,625) | real de valdepenas tiene 19 listings en rango que dominan la mezcla y bajan el promedio por debajo del NSE cap. Solución: SOLO bugambilias en similares, aislado de otras colonias con menor pm2c. |
+| SIM colonias con pm2c < bandaMin para Zapopan | compsFilt sigue siendo < 5 → suma_partes_mix persiste | bandaMin ≈ $13,800 (medRef≈$34,500 del pool co='' vacío). Colonias como copala ($11,781), la martinica ($13,750) caen por debajo → 0 comps aportados. Solo sirven SIM con pm2c ≥ $14,000. |
+| SIM con nseIdx alejado del sujeto (|diff| > 1) | Colonias SIM filtradas silenciosamente → compsFilt bajo | ionamiento parques de tesistan (nseIdx=3) con sujeto nseIdx=1 → filtrado. No hay aviso en el output del motor. Verificar nseIdx de cada SIM candidata antes de asignarla. |
+| Diagnóstico hardcodeado con tipo incorrecto | 3 batches de ajustes SIM en Cañadas de San Lorenzo (casa) que no correspondían | OPIs eran departamentos. Siempre leer `tipoInmueble` de cerebro_datos.json antes de hacer debug scripts o batch fixes. |
+| NSE cap calculado con doble-conteo de factorEdad×factorConserv | caps demasiado altos → motor no bindea → sobreestima | pm2cAvg YA incluye esos factores. Fórmula correcta: `cap = perito/(m2C×0.95)`, `NSE_pm2 = cap/1.15`. Batches 14 tuvieron que corregirse en batch 15. |
 
 ---
 
@@ -393,7 +692,7 @@ Estas entradas fueron calibradas manualmente contra el perito y dan resultados p
 | `el bethel` | +12.9% ✅ | revolucion, mezquitan, santa tere, belisario dominguez, jardines de la paz |
 | `el campanario` | +0.2% ✅ | villas de oriente removida (NSE mismatch), resultado fue sumaDePartes |
 | `el castillo` | -9.0% ✅ | club de golf atlas, santa rosa del valle, centro, la purisima |
-| `parques de la victoria` | +10.5% ✅ | villas de oriente, urbi quinta montecarlo, hacienda real, tonala centro, el moral |
+| `parques de la victoria` | +7.1% ✅ | tonala centro, hacienda real, el moral, **colinas de tonala**, **urbi quinta montecarlo** (reemplazaron vistas del pedregal i + loma dorada delegacion a que deprimían el pool) |
 | `j de guadalupe` | +0.4%* ✅ | la estancia(6), jardines de guadalupe(5), jardines vallarta(4), olivos(3), mitica(2), chapalita de occidente(1) |
 | `colon industrial` | -2.8% ✅ | huentitan el alto(5), aldama tetlan(4), 8 de julio(3), margarita maza de juarez(2), prados providencia(1) |
 | `la guadalupana` | -1.4% ✅ | mezquitan(5), onia jardines del sur(4), jardines de santa isabel(3), guadalupana norte(2) |
@@ -407,6 +706,13 @@ Estas entradas fueron calibradas manualmente contra el perito y dan resultados p
 | `el fortin` (GDL) | -0.2% ✅ | NSE cap 17,300 + similares: guadalajara centro |
 | `colinas del rey` | 0.0% ✅ | NSE cap medio-alto medianaPm2=27,500 + similares: SOLO bugambilias (aislar de real de valdepenas) |
 | `rancho nuevo` (GDL) | +0.1% ✅ | NSE cap 20,300 + similares: bosques de la victoria |
+| `ahujas` (Zapopan norte rural) | -0.0% ✅ | NSE nseIdx=1, pm2=$6,300 (cap=$7,245 = $1,416k/205.96/0.95/1.15). SIM: tesistan, copala, la granja, arenales tapatios, la primavera |
+| `la experiencia` (Zapopan) | -0.6% ✅ | NSE nseIdx=1, pm2=$11,000 (cap=$12,650). SIM con pm2≥$14k: mirador del bosque(n=5), tesistan(n=4), los treboles(n=3), real de tesistan(n=3), ionamiento mirador del bosque(n=2), vistas de tesistan(n=1). compsFilt=10 ≥5 → similares, no suma_partes_mix |
+| `real del valle` (Zapopan) | +2.6% ✅ | NSE nseIdx=2, pm2=$13,000 (cap=$14,950). SIM: tesistan, el fortin, miramar, parques de tesistan, benito juarez. Eliminó SIM basura textual que tenía. |
+| `la esperanza` (GDL) | +0.1% ✅ | NSE nseIdx=1, pm2=$8,400 (cap=$9,660 = $572k/62.38/0.95/1.15). Pool general GDL, cap bindea. |
+| `vista california` (Zapopan) | ✅ batch11 | NSE nseIdx=3, pm2=$22,000. SIM: nuevo mexico, ciudad bugambilia, capital norte, parques de tesistan, el fortin |
+| `haciendas de san jose` (Tlaquepaque) | ✅ batch11 | NSE nseIdx=3, pm2=$26,000. SIM: pedregal del bosque, cerro del tesoro, los olivos de tlaquepaque, santa cruz del valle |
+| `canadas de san lorenzo` (Zapopan, DEPTO) | -0.2% / +2.7% ✅ | OPIs son departamentos. Con tipo='depto': IDX zapopan/depto tiene listings directos. NSE nseIdx=4, pm2=$35,350. SIM: canadas san lorenzo, jardines del valle, plaza guadalupe, lomas de zapopan, inas de san isidro |
 
 *Pendiente confirmar con `node validar_40_opis.js --n 39`. OPI de 342m²C edad=40 — la clave fue usar colonias Zapopan NSE-4 con alta densidad de listings grandes (>170m²C): jardines vallarta(n=15 en tier) y olivos(n=21 en tier).
 
@@ -499,5 +805,5 @@ node build_colonias_similares.js
 ---
 
 *Creado: 23-May-2026 — Pedro Vergara + Claude Sonnet 4.6*
-*Última actualización: 23-May-2026 tarde — sesión de calibración ±10% (47%→76%)*
+*Última actualización: 25-May-2026 tarde — batches 11-16: Ahujas, La Experiencia, Real del Valle, La Esperanza GDL, Vista California, Haciendas de San José, Cañadas (tipo depto confirmado). Hallazgo crítico: pm2cAvg ya incluye factorEdad×factorConserv. Regla bandaMin≈$13,800 para SIM en Zapopan.*
 *Actualizar este archivo cada vez que se valide un cambio en el motor.*

@@ -1,5 +1,5 @@
 # PropValu — Backlog de Tareas
-> **Última actualización:** 23 May 2026 — Motor Romina: **100% ±20%** (38/38 OPIs calibrados), error promedio 9.8%. Set extendido 80 OPIs: 61.3% ±20%. build_colonias_similares.js corrido, 6 similares actualizadas con DeepSeek.
+> **Última actualización:** 26 May 2026 — Motor Romina: **89/99 ±10% (89.9%), 100% ±20%, error abs 5.0%** — validado con OPIs recientes (2025 H2 + 2026). Opción 1 FLOOR_EDAD implementada, flywheel activo.
 > Actualizar este archivo conforme se completen tareas. Marcar con ✅ cuando esté lista, con 🔄 cuando esté en progreso.
 
 ---
@@ -147,7 +147,11 @@
 | 84 | ✅ | **MongoDB-first en scheduler.py** — Escribe MongoDB primero, Sheets secundario. |
 | 76 | ✅ | **Afinar Romina** — **100% ±20%** (38/38 OPIs calibrados), error promedio 9.8%. Set extendido 80 OPIs: 61.3% ±20%. Fixes: build_colonias_similares.js, 6 similares actualizadas. Fallos en set extendido: colonias vagas, IDX antiguo, ejidales. |
 | 87 | ✅ | **optimizar_similares_ds.js** — Script que detecta fallos >20% y pide a DeepSeek las colonias similares óptimas del IDX. Flags: --apply para guardar cambios. |
-| 88 | ⏳ | **Ampliar validación y calibración** — Set extendido 80 OPIs tiene 61.3% ±20%. Mejorar: (1) limpiar colonias vagas en cerebro_datos 2025, (2) afinar similares para Vista Hermosa, Villas de la Hacienda (Zapopan pool general inflado), (3) sumaDePartes con NSE filter para Hogares Nuevo México (+220%). |
+| 88 | ✅ | **Ampliar validación y calibración** — **COMPLETADO 26-May**: 89/99 ±10% (89.9%), 100% ±20%, error abs 5.0%. Comando: `node validar_40_opis.js --n 200 --desde 2025-07`. FLOOR_EDAD_SIMILARES diferenciado por conservación implementado. |
+| 89 | ⏳ | **Validación adicional 40 OPIs 2026 + 20 OPIs 2025 H2** — Extender muestra para detectar casos edge no observados. Próxima sesión. |
+| 90 | ⏳ | **Opción 2: edadPromedioZona en colonias_nse.json** — Agregar campo con edad promedio de listings por colonia. Calcular del scraper cuando tenga campo año_construccion. |
+| 91 | ⏳ | **Opción 3: capturar año_construccion en scraper** — Inmuebles24 y Lamudi lo publican. Agrega al schema del scraper para habilitar factorEdad relativo comp-a-comp. |
+| 92 | ⏳ | **Replicar calibración en comparar_metodologias_v2.js** — Motor de producción. Incluir: FLOOR_EDAD_SIMILARES, NSE fixes de esta sesión, flywheel. |
 | 77 | ✅ | **Integrar Romina al backend** — `motor_romina_api.js` + endpoint en server.py. NO integrar en producción hasta mejorar error (ver nota en project_motor_valuacion). |
 | 81 | ✅ | **Migrar a cache_index.json** — IDX[muni][tipo] 1.6MB vs 50MB anterior. |
 | 78 | ✅ | **Re-extraer cerebro con colonias de comparables correctas** — Completado 22-may. 712 OPIs recuperados. build_colonias_similares.js corrido. |

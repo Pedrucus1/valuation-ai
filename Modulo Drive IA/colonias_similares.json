@@ -571,32 +571,24 @@
   ],
   "cantera colorada": [
     {
-      "colonia": "el pedregal",
-      "menciones": 4
+      "colonia": "revolucion",
+      "peso": 20
     },
     {
-      "colonia": "tateposco",
-      "menciones": 2
+      "colonia": "pedregal del bosque",
+      "peso": 18
     },
     {
-      "colonia": "fco silva romero",
-      "menciones": 2
+      "colonia": "loma bonita ejidal",
+      "peso": 16
     },
     {
-      "colonia": "san martin de las flores de abajo",
-      "menciones": 2
+      "colonia": "los olivos de tlaquepaque",
+      "peso": 14
     },
     {
-      "colonia": "cuenta con 3 recamaras y 2 banos 1 estacionamiento",
-      "menciones": 2
-    },
-    {
-      "colonia": "sur cipreses",
-      "menciones": 1
-    },
-    {
-      "colonia": "lagunitas tonallan",
-      "menciones": 1
+      "colonia": "santa cruz del valle",
+      "peso": 12
     }
   ],
   "tateposco": [
@@ -1179,174 +1171,42 @@
   ],
   "echeverria": [
     {
-      "colonia": "lomas de polanco",
-      "menciones": 14
+      "colonia": "analco",
+      "peso": 20
     },
     {
-      "colonia": "18 de marzo",
-      "menciones": 6
+      "colonia": "alcalde barranquitas",
+      "peso": 18
     },
     {
-      "colonia": "jardines de san jose",
-      "menciones": 2
+      "colonia": "belisario dominguez",
+      "peso": 16
     },
     {
-      "colonia": "lopez portillo",
-      "menciones": 2
+      "colonia": "huentitan el bajo",
+      "peso": 14
     },
     {
-      "colonia": "ferrocarril",
-      "menciones": 2
-    },
-    {
-      "colonia": "villa hermosa",
-      "menciones": 2
-    },
-    {
-      "colonia": "segunda zona industrial",
-      "menciones": 2
-    },
-    {
-      "colonia": "morelos",
-      "menciones": 2
-    },
-    {
-      "colonia": "francisco villa",
-      "menciones": 2
-    },
-    {
-      "colonia": "el manantial",
-      "menciones": 2
-    },
-    {
-      "colonia": "lomas de la victoria",
-      "menciones": 2
-    },
-    {
-      "colonia": "colinas de las aguilas",
-      "menciones": 2
-    },
-    {
-      "colonia": "nueva espana",
-      "menciones": 2
-    },
-    {
-      "colonia": "el colli urbano",
-      "menciones": 2
-    },
-    {
-      "colonia": "el refugio tlaquepaque",
-      "menciones": 2
-    },
-    {
-      "colonia": "sala comedor cocina 4 recamaras 2 banos y patio amplio",
-      "menciones": 4
+      "colonia": "san juan bosco",
+      "peso": 12
     }
   ],
   "lomas de polanco": [
     {
-      "colonia": "echeverria",
-      "menciones": 14
+      "colonia": "la primavera",
+      "peso": 20
     },
     {
-      "colonia": "lazaro cardenas",
-      "menciones": 6
+      "colonia": "los molinos",
+      "peso": 18
     },
     {
-      "colonia": "5 de mayo",
-      "menciones": 6
+      "colonia": "paraisos del colli",
+      "peso": 16
     },
     {
-      "colonia": "jardines de san jose",
-      "menciones": 4
-    },
-    {
-      "colonia": "zona industrial",
-      "menciones": 4
-    },
-    {
-      "colonia": "miravalle",
-      "menciones": 4
-    },
-    {
-      "colonia": "nuevo santa maria",
-      "menciones": 4
-    },
-    {
-      "colonia": "el refugio tlaquepaque",
-      "menciones": 4
-    },
-    {
-      "colonia": "guadalajara",
-      "menciones": 2
-    },
-    {
-      "colonia": "villa hermosa",
-      "menciones": 2
-    },
-    {
-      "colonia": "patria nueva",
-      "menciones": 2
-    },
-    {
-      "colonia": "polanco",
-      "menciones": 2
-    },
-    {
-      "colonia": "francisco villa",
-      "menciones": 2
-    },
-    {
-      "colonia": "polanquito poniente",
-      "menciones": 2
-    },
-    {
-      "colonia": "loma bonita ejidal",
-      "menciones": 2
-    },
-    {
-      "colonia": "lopez portillo",
-      "menciones": 2
-    },
-    {
-      "colonia": "el manantial",
-      "menciones": 2
-    },
-    {
-      "colonia": "col del fresno",
-      "menciones": 2
-    },
-    {
-      "colonia": "polanquito",
-      "menciones": 2
-    },
-    {
-      "colonia": "sala comedor cocina 4 recamaras 2 banos y patio",
-      "menciones": 2
-    },
-    {
-      "colonia": "de 1 nivel 4 recamaras 2 banos",
-      "menciones": 2
-    },
-    {
-      "colonia": "consta de 4 recamaras 2 banos y 1 estacionamiento",
-      "menciones": 2
-    },
-    {
-      "colonia": "terreno en una esquina plano rodeado de servicios",
-      "menciones": 1
-    },
-    {
-      "colonia": "extension de 220 metros cuadrados",
-      "menciones": 1
-    },
-    {
-      "colonia": "cp 44980",
-      "menciones": 1
-    },
-    {
-      "colonia": "el carmen",
-      "menciones": 1
+      "colonia": "el campanario",
+      "peso": 14
     }
   ],
   "jardines de la cruz": [
@@ -1471,48 +1331,24 @@
   ],
   "real del valle": [
     {
-      "colonia": "int 12",
-      "menciones": 8
+      "colonia": "tesistan",
+      "peso": 20
     },
     {
-      "colonia": "coto el marquez",
-      "menciones": 6
+      "colonia": "el fortin",
+      "peso": 18
     },
     {
-      "colonia": "hacienda santa cruz",
-      "menciones": 6
+      "colonia": "miramar",
+      "peso": 16
     },
     {
-      "colonia": "villas de la hacienda",
-      "menciones": 4
+      "colonia": "parques de tesistan",
+      "peso": 14
     },
     {
-      "colonia": "hacienda santa fe",
-      "menciones": 2
-    },
-    {
-      "colonia": "paseos de la hacienda",
-      "menciones": 2
-    },
-    {
-      "colonia": "san jose",
-      "menciones": 2
-    },
-    {
-      "colonia": "jal",
-      "menciones": 2
-    },
-    {
-      "colonia": "uso de suelo cuenta con una vista de esquina",
-      "menciones": 2
-    },
-    {
-      "colonia": "frenta al parque con areas jardinadas",
-      "menciones": 2
-    },
-    {
-      "colonia": "en esquina terraza",
-      "menciones": 2
+      "colonia": "benito juarez",
+      "peso": 12
     }
   ],
   "las luces": [
@@ -1555,16 +1391,24 @@
   ],
   "alta california": [
     {
-      "colonia": "int 298 col alta california",
-      "menciones": 10
+      "colonia": "nuevo mexico",
+      "peso": 20
     },
     {
-      "colonia": "coto 12 coronado",
-      "menciones": 10
+      "colonia": "ciudad bugambilia",
+      "peso": 18
     },
     {
-      "colonia": "balcones de santa anita",
-      "menciones": 2
+      "colonia": "el fortin",
+      "peso": 16
+    },
+    {
+      "colonia": "parques de tesistan",
+      "peso": 14
+    },
+    {
+      "colonia": "santa ana tepetitlan",
+      "peso": 12
     }
   ],
   "los abedules": [
@@ -1755,44 +1599,24 @@
   ],
   "paseo de los agaves": [
     {
-      "colonia": "pase los agaves",
-      "menciones": 8
+      "colonia": "cajititlan",
+      "peso": 20
     },
     {
-      "colonia": "paseo los agaves",
-      "menciones": 4
+      "colonia": "jardines de la calera",
+      "peso": 18
     },
     {
-      "colonia": "infonavit condor",
-      "menciones": 4
+      "colonia": "santa cruz de las flores",
+      "peso": 16
     },
     {
-      "colonia": "la alameda",
-      "menciones": 4
+      "colonia": "san diego",
+      "peso": 14
     },
     {
-      "colonia": "int 130",
-      "menciones": 4
-    },
-    {
-      "colonia": "albereda el salto jalisco",
-      "menciones": 4
-    },
-    {
-      "colonia": "el refugio",
-      "menciones": 2
-    },
-    {
-      "colonia": "tlajomulco",
-      "menciones": 2
-    },
-    {
-      "colonia": "villas de la alameda",
-      "menciones": 2
-    },
-    {
-      "colonia": "arvento",
-      "menciones": 2
+      "colonia": "valle de los encinos",
+      "peso": 12
     }
   ],
   "tonala": [
@@ -1975,24 +1799,24 @@
   ],
   "parques de la victoria": [
     {
-      "colonia": "villas de oriente",
-      "menciones": 8
-    },
-    {
-      "colonia": "urbi quinta montecarlo",
-      "menciones": 7
+      "colonia": "tonala centro",
+      "peso": 20
     },
     {
       "colonia": "hacienda real",
-      "menciones": 6
-    },
-    {
-      "colonia": "tonala centro",
-      "menciones": 5
+      "peso": 18
     },
     {
       "colonia": "el moral",
-      "menciones": 4
+      "peso": 16
+    },
+    {
+      "colonia": "colinas de tonala",
+      "peso": 14
+    },
+    {
+      "colonia": "urbi quinta montecarlo",
+      "peso": 12
     }
   ],
   "jardines ixtapa": [
@@ -2165,7 +1989,28 @@
       "menciones": 2
     }
   ],
-  "parques del castillo": [],
+  "parques del castillo": [
+    {
+      "colonia": "real del sol",
+      "peso": 20
+    },
+    {
+      "colonia": "banus",
+      "peso": 18
+    },
+    {
+      "colonia": "santa cruz de las flores",
+      "peso": 16
+    },
+    {
+      "colonia": "lomas de santa anita",
+      "peso": 14
+    },
+    {
+      "colonia": "hacienda santa fe",
+      "peso": 12
+    }
+  ],
   "lomas de san miguel": [
     {
       "colonia": "el castillo",
@@ -2236,32 +2081,24 @@
   ],
   "las agujas": [
     {
-      "colonia": "tesistan",
-      "menciones": 2
+      "colonia": "nuevo mexico",
+      "peso": 20
     },
     {
       "colonia": "parques de tesistan",
-      "menciones": 2
+      "peso": 18
     },
     {
-      "colonia": "condominio florencia",
-      "menciones": 2
+      "colonia": "capital norte",
+      "peso": 16
     },
     {
-      "colonia": "parque de las aves",
-      "menciones": 2
+      "colonia": "el fortin",
+      "peso": 14
     },
     {
-      "colonia": "las palomas",
-      "menciones": 1
-    },
-    {
-      "colonia": "condor tesistan",
-      "menciones": 1
-    },
-    {
-      "colonia": "huerto tesistan",
-      "menciones": 1
+      "colonia": "santa ana tepetitlan",
+      "peso": 12
     }
   ],
   "tesistan": [
@@ -2585,35 +2422,23 @@
   "balcones de oblatos": [
     {
       "colonia": "oblatos",
-      "menciones": 4
+      "peso": 20
     },
     {
-      "colonia": "el bethel",
-      "menciones": 2
+      "colonia": "analco",
+      "peso": 18
     },
     {
-      "colonia": "lagos de oriente guadalajara jalisco",
-      "menciones": 2
+      "colonia": "lomas de polanco",
+      "peso": 16
     },
     {
-      "colonia": "rio verde",
-      "menciones": 2
+      "colonia": "insurgentes",
+      "peso": 14
     },
     {
-      "colonia": "villas de guadalupe",
-      "menciones": 2
-    },
-    {
-      "colonia": "santa cecilia 2a",
-      "menciones": 2
-    },
-    {
-      "colonia": "vicente guerrero",
-      "menciones": 1
-    },
-    {
-      "colonia": "el zalate",
-      "menciones": 1
+      "colonia": "huentitan",
+      "peso": 12
     }
   ],
   "bethel": [
@@ -2848,12 +2673,20 @@
   ],
   "valle de san nicolas": [
     {
-      "colonia": "col valle de san nicolas",
-      "menciones": 8
+      "colonia": "mariano otero",
+      "peso": 20
     },
     {
-      "colonia": "mision la floresta",
-      "menciones": 4
+      "colonia": "nuevo mexico",
+      "peso": 18
+    },
+    {
+      "colonia": "paraisos del colli",
+      "peso": 16
+    },
+    {
+      "colonia": "el campanario",
+      "peso": 14
     }
   ],
   "vista hermosa": [
@@ -2946,76 +2779,24 @@
   ],
   "minerales": [
     {
-      "colonia": "baja california las pintitas",
-      "menciones": 4
+      "colonia": "club de golf atlas",
+      "peso": 20
+    },
+    {
+      "colonia": "el salto centro",
+      "peso": 18
+    },
+    {
+      "colonia": "centro",
+      "peso": 16
+    },
+    {
+      "colonia": "las pintitas centro",
+      "peso": 14
     },
     {
       "colonia": "las pintas",
-      "menciones": 3
-    },
-    {
-      "colonia": "tlaquepaque",
-      "menciones": 2
-    },
-    {
-      "colonia": "san jose el verde",
-      "menciones": 2
-    },
-    {
-      "colonia": "jardines del verde",
-      "menciones": 2
-    },
-    {
-      "colonia": "las liebres",
-      "menciones": 2
-    },
-    {
-      "colonia": "valle verde",
-      "menciones": 2
-    },
-    {
-      "colonia": "el verde",
-      "menciones": 2
-    },
-    {
-      "colonia": "la piedrera",
-      "menciones": 1
-    },
-    {
-      "colonia": "la purisima",
-      "menciones": 1
-    },
-    {
-      "colonia": "uso comercial o habitacional en esquina",
-      "menciones": 4
-    },
-    {
-      "colonia": "terreno para contruir casa habitacion",
-      "menciones": 2
-    },
-    {
-      "colonia": "listo para escriturarse muro perimetral forma regular",
-      "menciones": 2
-    },
-    {
-      "colonia": "ejidal agua potable electricidad",
-      "menciones": 2
-    },
-    {
-      "colonia": "de agua",
-      "menciones": 1
-    },
-    {
-      "colonia": "pintitas centro",
-      "menciones": 1
-    },
-    {
-      "colonia": "es ejidal",
-      "menciones": 1
-    },
-    {
-      "colonia": "la guadalupana",
-      "menciones": 1
+      "peso": 12
     }
   ],
   "la piedrera": [
@@ -3198,64 +2979,24 @@
   ],
   "loma bonita ejidal": [
     {
-      "colonia": "jardines de san jose",
-      "menciones": 8
+      "colonia": "revolucion",
+      "peso": 20
     },
     {
-      "colonia": "las aguilas",
-      "menciones": 6
+      "colonia": "pedregal del bosque",
+      "peso": 18
     },
     {
-      "colonia": "loma bonita",
-      "menciones": 6
+      "colonia": "los olivos de tlaquepaque",
+      "peso": 16
     },
     {
-      "colonia": "victoria",
-      "menciones": 6
+      "colonia": "cerro del tesoro",
+      "peso": 14
     },
     {
-      "colonia": "lazaro cardenas",
-      "menciones": 4
-    },
-    {
-      "colonia": "el colli urbano",
-      "menciones": 4
-    },
-    {
-      "colonia": "542",
-      "menciones": 2
-    },
-    {
-      "colonia": "guadalajara",
-      "menciones": 2
-    },
-    {
-      "colonia": "condominio topacio",
-      "menciones": 2
-    },
-    {
-      "colonia": "lomas de polanco",
-      "menciones": 2
-    },
-    {
-      "colonia": "arboledas del sur",
-      "menciones": 2
-    },
-    {
-      "colonia": "nueva santa maria",
-      "menciones": 2
-    },
-    {
-      "colonia": "del tesoro",
-      "menciones": 9
-    },
-    {
-      "colonia": "san pedro",
-      "menciones": 6
-    },
-    {
-      "colonia": "planta baja 2 recamaras 2 banos 1 cochera",
-      "menciones": 2
+      "colonia": "santa cruz del valle",
+      "peso": 12
     }
   ],
   "parques deo auditorio": [
@@ -3274,28 +3015,24 @@
   ],
   "auditorio": [
     {
-      "colonia": "parques del auditorio",
-      "menciones": 10
+      "colonia": "el colli urbano",
+      "peso": 20
     },
     {
-      "colonia": "parques deo auditorio",
-      "menciones": 6
+      "colonia": "ciudad granja",
+      "peso": 18
     },
     {
-      "colonia": "tabachines",
-      "menciones": 6
+      "colonia": "el bajio",
+      "peso": 16
     },
     {
-      "colonia": "la experiencia",
-      "menciones": 2
+      "colonia": "nueva galicia",
+      "peso": 14
     },
     {
-      "colonia": "division del norte",
-      "menciones": 2
-    },
-    {
-      "colonia": "junta de los ocotes",
-      "menciones": 2
+      "colonia": "parque de la castellana",
+      "peso": 12
     }
   ],
   "parques del auditorio": [
@@ -3628,16 +3365,24 @@
   ],
   "mision del bosque": [
     {
-      "colonia": "haciendas del valle",
-      "menciones": 6
+      "colonia": "valle imperial",
+      "peso": 20
     },
     {
-      "colonia": "villas mirador",
-      "menciones": 4
+      "colonia": "nuevo mexico",
+      "peso": 18
     },
     {
-      "colonia": "centinela i",
-      "menciones": 2
+      "colonia": "ionamiento bugambilias",
+      "peso": 16
+    },
+    {
+      "colonia": "ciudad bugambilia",
+      "peso": 14
+    },
+    {
+      "colonia": "capital norte",
+      "peso": 12
     }
   ],
   "villas mirador": [
@@ -4232,20 +3977,24 @@
   ],
   "tinajitas": [
     {
-      "colonia": "santa maria tequepexpan",
-      "menciones": 5
+      "colonia": "revolucion",
+      "peso": 20
     },
     {
-      "colonia": "parques del bosque",
-      "menciones": 4
+      "colonia": "pedregal del bosque",
+      "peso": 18
     },
     {
-      "colonia": "parques santa cruz del valle",
-      "menciones": 3
+      "colonia": "loma bonita ejidal",
+      "peso": 16
     },
     {
-      "colonia": "prados de santa maria",
-      "menciones": 2
+      "colonia": "los olivos de tlaquepaque",
+      "peso": 14
+    },
+    {
+      "colonia": "santa cruz del valle",
+      "peso": 12
     }
   ],
   "santa paula": [
@@ -4679,8 +4428,24 @@
   ],
   "vista california": [
     {
-      "colonia": "fracc parques del castillo",
-      "menciones": 4
+      "colonia": "nuevo mexico",
+      "peso": 20
+    },
+    {
+      "colonia": "ciudad bugambilia",
+      "peso": 18
+    },
+    {
+      "colonia": "capital norte",
+      "peso": 16
+    },
+    {
+      "colonia": "parques de tesistan",
+      "peso": 14
+    },
+    {
+      "colonia": "el fortin",
+      "peso": 12
     }
   ],
   "villas terranova": [
@@ -4942,32 +4707,20 @@
   ],
   "independencia": [
     {
-      "colonia": "monumental",
-      "menciones": 18
+      "colonia": "moderna",
+      "peso": 20
     },
     {
-      "colonia": "independiencia oriente guadalajara",
-      "menciones": 10
+      "colonia": "santa teresita",
+      "peso": 18
     },
     {
-      "colonia": "san elias",
-      "menciones": 4
+      "colonia": "guadalajara centro",
+      "peso": 16
     },
     {
-      "colonia": "jardines independencia",
-      "menciones": 4
-    },
-    {
-      "colonia": "jardines alcalde",
-      "menciones": 2
-    },
-    {
-      "colonia": "santa maria",
-      "menciones": 2
-    },
-    {
-      "colonia": "col lomas independencia",
-      "menciones": 2
+      "colonia": "jardines de la cruz",
+      "peso": 14
     }
   ],
   "col centro": [
@@ -5403,43 +5156,23 @@
   "canadas de san lorenzo": [
     {
       "colonia": "canadas san lorenzo",
-      "menciones": 14
+      "peso": 20
     },
     {
-      "colonia": "real del bosque",
-      "menciones": 4
+      "colonia": "jardines del valle",
+      "peso": 18
     },
     {
-      "colonia": "real de valdepenas",
-      "menciones": 2
+      "colonia": "plaza guadalupe",
+      "peso": 16
     },
     {
-      "colonia": "bosque valdepenas",
-      "menciones": 2
+      "colonia": "lomas de zapopan",
+      "peso": 14
     },
     {
-      "colonia": "col mirador de san isidro",
-      "menciones": 2
-    },
-    {
-      "colonia": "las palmas",
-      "menciones": 2
-    },
-    {
-      "colonia": "villas de zapopan",
-      "menciones": 2
-    },
-    {
-      "colonia": "capital norte",
-      "menciones": 2
-    },
-    {
-      "colonia": "lomas de",
-      "menciones": 2
-    },
-    {
-      "colonia": "en segundo nivel 2 banos 2 recamaras 1 cochera",
-      "menciones": 2
+      "colonia": "inas de san isidro",
+      "peso": 12
     }
   ],
   "canadas san lorenzo": [
@@ -5696,16 +5429,20 @@
   ],
   "la paz": [
     {
-      "colonia": "jardines de la paz",
-      "menciones": 8
+      "colonia": "jardines del country",
+      "peso": 20
     },
     {
-      "colonia": "insurgentes",
-      "menciones": 2
+      "colonia": "bosques de la victoria",
+      "peso": 18
     },
     {
-      "colonia": "casa una planta 4 recamaras 2 banos sala comedor cocina",
-      "menciones": 2
+      "colonia": "mezquitan country",
+      "peso": 16
+    },
+    {
+      "colonia": "huentitan el bajo",
+      "peso": 14
     }
   ],
   "jardines de la paz": [
@@ -5764,12 +5501,20 @@
   ],
   "pinar de la calma": [
     {
+      "colonia": "la calma",
+      "peso": 18
+    },
+    {
+      "colonia": "paseos del sol",
+      "peso": 16
+    },
+    {
       "colonia": "diaz ordaz",
-      "menciones": 4
+      "peso": 12
     },
     {
       "colonia": "las aguilas",
-      "menciones": 2
+      "peso": 10
     }
   ],
   "diaz ordaz": [
@@ -5832,24 +5577,24 @@
   ],
   "tlaquepaque": [
     {
-      "colonia": "el vergel",
-      "menciones": 2
+      "colonia": "pedregal del bosque",
+      "peso": 20
     },
     {
-      "colonia": "juan de la barrera",
-      "menciones": 2
+      "colonia": "revolucion",
+      "peso": 18
     },
     {
-      "colonia": "las pintitas ejidal",
-      "menciones": 2
+      "colonia": "cerro del tesoro",
+      "peso": 16
     },
     {
-      "colonia": "ladrillera",
-      "menciones": 2
+      "colonia": "los olivos de tlaquepaque",
+      "peso": 14
     },
     {
-      "colonia": "minerales",
-      "menciones": 2
+      "colonia": "santa cruz del valle",
+      "peso": 12
     }
   ],
   "el vergel": [
@@ -5968,10 +5713,6 @@
       "menciones": 2
     },
     {
-      "colonia": "jal",
-      "menciones": 2
-    },
-    {
       "colonia": "del sol",
       "menciones": 2
     }
@@ -6068,20 +5809,20 @@
   ],
   "haciendas de san jose": [
     {
-      "colonia": "a santa maria tequepexpan",
-      "menciones": 4
+      "colonia": "pedregal del bosque",
+      "peso": 20
     },
     {
-      "colonia": "valle del sur",
-      "menciones": 2
+      "colonia": "cerro del tesoro",
+      "peso": 18
     },
     {
-      "colonia": "parques de santa maria",
-      "menciones": 2
+      "colonia": "los olivos de tlaquepaque",
+      "peso": 16
     },
     {
-      "colonia": "san pedro",
-      "menciones": 2
+      "colonia": "santa cruz del valle",
+      "peso": 14
     }
   ],
   "valle del sur": [
@@ -6466,32 +6207,24 @@
   ],
   "victoria": [
     {
-      "colonia": "loma bonita ejidal",
-      "menciones": 6
+      "colonia": "la estancia",
+      "peso": 20
     },
     {
-      "colonia": "rinconada del sol",
-      "menciones": 2
+      "colonia": "jardin real",
+      "peso": 18
     },
     {
-      "colonia": "zapopan",
-      "menciones": 2
+      "colonia": "solares",
+      "peso": 16
     },
     {
-      "colonia": "del sol",
-      "menciones": 3
+      "colonia": "bosques vallarta",
+      "peso": 14
     },
     {
-      "colonia": "res victoria",
-      "menciones": 2
-    },
-    {
-      "colonia": "chapalita sur",
-      "menciones": 1
-    },
-    {
-      "colonia": "la victoria",
-      "menciones": 1
+      "colonia": "real de valdepenas",
+      "peso": 12
     }
   ],
   "aldama tetlan": [
@@ -7520,8 +7253,20 @@
   ],
   "moctezuma": [
     {
-      "colonia": "plaza guadalupe",
-      "menciones": 2
+      "colonia": "el campanario",
+      "peso": 20
+    },
+    {
+      "colonia": "la primavera",
+      "peso": 18
+    },
+    {
+      "colonia": "paraisos del colli",
+      "peso": 16
+    },
+    {
+      "colonia": "los robles",
+      "peso": 14
     }
   ],
   "colinas del roble": [
@@ -7616,20 +7361,24 @@
   ],
   "ahujas": [
     {
-      "colonia": "san francisco",
-      "menciones": 4
+      "colonia": "tesistan",
+      "peso": 20
     },
     {
-      "colonia": "la magdalena",
-      "menciones": 2
+      "colonia": "copala",
+      "peso": 18
     },
     {
-      "colonia": "prados santa lucia",
-      "menciones": 2
+      "colonia": "la granja",
+      "peso": 16
     },
     {
-      "colonia": "hacienda santa lucia",
-      "menciones": 2
+      "colonia": "arenales tapatios",
+      "peso": 14
+    },
+    {
+      "colonia": "la primavera",
+      "peso": 12
     }
   ],
   "la magdalena": [
@@ -7988,28 +7737,24 @@
   ],
   "postes cuates": [
     {
-      "colonia": "circunvalacion oblatos",
-      "menciones": 2
-    },
-    {
-      "colonia": "alcalde barranquitas",
-      "menciones": 2
-    },
-    {
-      "colonia": "miravalle fovissste",
-      "menciones": 2
-    },
-    {
-      "colonia": "monumental",
-      "menciones": 2
-    },
-    {
-      "colonia": "villas de san juan",
-      "menciones": 2
-    },
-    {
       "colonia": "oblatos",
-      "menciones": 2
+      "peso": 20
+    },
+    {
+      "colonia": "analco",
+      "peso": 18
+    },
+    {
+      "colonia": "la federacha",
+      "peso": 16
+    },
+    {
+      "colonia": "insurgentes",
+      "peso": 14
+    },
+    {
+      "colonia": "heliodoro hernandez loza 1a",
+      "peso": 12
     }
   ],
   "miravalle fovissste": [
@@ -8034,20 +7779,28 @@
   ],
   "la experiencia": [
     {
-      "colonia": "auditorio",
-      "menciones": 2
+      "colonia": "mirador del bosque",
+      "peso": 20
     },
     {
-      "colonia": "lomas del paraiso",
-      "menciones": 2
+      "colonia": "tesistan",
+      "peso": 18
     },
     {
-      "colonia": "benito juarez",
-      "menciones": 2
+      "colonia": "los treboles",
+      "peso": 16
     },
     {
-      "colonia": "jardines del vergel",
-      "menciones": 2
+      "colonia": "real de tesistan",
+      "peso": 14
+    },
+    {
+      "colonia": "ionamiento mirador del bosque",
+      "peso": 12
+    },
+    {
+      "colonia": "vistas de tesistan",
+      "peso": 10
     }
   ],
   "benito juarez": [
@@ -8126,44 +7879,24 @@
   ],
   "el refugio": [
     {
-      "colonia": "san jose del quince",
-      "menciones": 4
+      "colonia": "cajititlan",
+      "peso": 20
     },
     {
-      "colonia": "miravalle",
-      "menciones": 4
+      "colonia": "lomas de santa anita",
+      "peso": 18
     },
     {
-      "colonia": "el verde",
-      "menciones": 2
+      "colonia": "real del sol",
+      "peso": 16
     },
     {
-      "colonia": "paseo de los agaves",
-      "menciones": 2
+      "colonia": "jardines de la calera",
+      "peso": 14
     },
     {
-      "colonia": "parques del castillo",
-      "menciones": 2
-    },
-    {
-      "colonia": "el vergelito",
-      "menciones": 2
-    },
-    {
-      "colonia": "juan de la barrera",
-      "menciones": 2
-    },
-    {
-      "colonia": "francisco villa",
-      "menciones": 2
-    },
-    {
-      "colonia": "san pedro",
-      "menciones": 2
-    },
-    {
-      "colonia": "cochera 1 autos patio y area de lavado 3 recamaras 1 bano",
-      "menciones": 2
+      "colonia": "santa cruz de las flores",
+      "peso": 12
     }
   ],
   "del sur": [
@@ -8868,24 +8601,24 @@
   ],
   "san elias": [
     {
-      "colonia": "independencia",
-      "menciones": 4
+      "colonia": "jardines del bosque",
+      "peso": 20
     },
     {
-      "colonia": "santa elena alcalde",
-      "menciones": 4
+      "colonia": "americana",
+      "peso": 18
     },
     {
-      "colonia": "santa elena estadio",
-      "menciones": 2
+      "colonia": "jardines del country",
+      "peso": 16
     },
     {
-      "colonia": "lomas de la soledad",
-      "menciones": 2
+      "colonia": "ladron de guevara",
+      "peso": 14
     },
     {
-      "colonia": "rancho nuevo",
-      "menciones": 1
+      "colonia": "vallarta poniente",
+      "peso": 12
     }
   ],
   "santa elena estadio": [
@@ -8896,48 +8629,24 @@
   ],
   "villa hermosa": [
     {
-      "colonia": "polanco",
-      "menciones": 2
+      "colonia": "huentitan el bajo",
+      "peso": 20
     },
     {
-      "colonia": "lopez portillo",
-      "menciones": 2
+      "colonia": "alcalde barranquitas",
+      "peso": 18
     },
     {
-      "colonia": "patria nueva",
-      "menciones": 2
+      "colonia": "belisario dominguez",
+      "peso": 16
     },
     {
-      "colonia": "lomas de polanco",
-      "menciones": 2
+      "colonia": "san juan bosco",
+      "peso": 14
     },
     {
-      "colonia": "francisco villa",
-      "menciones": 2
-    },
-    {
-      "colonia": "el rastro",
-      "menciones": 2
-    },
-    {
-      "colonia": "echeverria",
-      "menciones": 2
-    },
-    {
-      "colonia": "5 de mayo",
-      "menciones": 2
-    },
-    {
-      "colonia": "la nogalera",
-      "menciones": 2
-    },
-    {
-      "colonia": "miravalle",
-      "menciones": 2
-    },
-    {
-      "colonia": "col 18 de marzo",
-      "menciones": 2
+      "colonia": "el retiro",
+      "peso": 12
     }
   ],
   "patria nueva": [
@@ -9120,20 +8829,24 @@
   ],
   "emiliano zapata": [
     {
-      "colonia": "la primavera",
+      "colonia": "nuevo mexico",
       "peso": 20
     },
     {
-      "colonia": "el campanario",
+      "colonia": "parques de tesistan",
       "peso": 18
     },
     {
-      "colonia": "miramar",
+      "colonia": "capital norte",
       "peso": 16
     },
     {
-      "colonia": "paraisos del colli",
+      "colonia": "el fortin",
       "peso": 14
+    },
+    {
+      "colonia": "madeiras",
+      "peso": 12
     }
   ],
   "el cerrito": [
@@ -10280,52 +9993,24 @@
   ],
   "miramar": [
     {
-      "colonia": "paraisos del colli",
-      "menciones": 8
+      "colonia": "valle imperial",
+      "peso": 20
     },
     {
-      "colonia": "col miramar zapopan",
-      "menciones": 8
+      "colonia": "nuevo mexico",
+      "peso": 18
     },
     {
-      "colonia": "lomas de la primavera",
-      "menciones": 4
+      "colonia": "ionamiento bugambilias",
+      "peso": 16
     },
     {
-      "colonia": "col lomas de la primavera",
-      "menciones": 4
+      "colonia": "ciudad bugambilia",
+      "peso": 14
     },
     {
-      "colonia": "arenales tapatios",
-      "menciones": 2
-    },
-    {
-      "colonia": "fracc los cerritos",
-      "menciones": 2
-    },
-    {
-      "colonia": "el fortin",
-      "menciones": 1
-    },
-    {
-      "colonia": "jardines de la primavera",
-      "menciones": 1
-    },
-    {
-      "colonia": "remodelada 3 recamaras 1 bano cocina integral patio",
-      "menciones": 2
-    },
-    {
-      "colonia": "a 1o min de la salida mariano otero",
-      "menciones": 1
-    },
-    {
-      "colonia": "inversion en zona con alto crecimiento habitacional",
-      "menciones": 1
-    },
-    {
-      "colonia": "del colli",
-      "menciones": 1
+      "colonia": "los robles",
+      "peso": 12
     }
   ],
   "jardines de la primavera": [
@@ -10484,24 +10169,24 @@
   ],
   "el salto": [
     {
-      "colonia": "parques del castillo",
-      "menciones": 2
+      "colonia": "el salto centro",
+      "peso": 20
     },
     {
-      "colonia": "la purisima",
-      "menciones": 2
+      "colonia": "las pintitas centro",
+      "peso": 18
     },
     {
-      "colonia": "santa cruz del valle",
-      "menciones": 2
+      "colonia": "las pintas",
+      "peso": 16
     },
     {
-      "colonia": "san jose del quince",
-      "menciones": 2
+      "colonia": "parques del triunfo",
+      "peso": 14
     },
     {
-      "colonia": "mision magnolia",
-      "menciones": 2
+      "colonia": "cima serena",
+      "peso": 12
     }
   ],
   "mision magnolia": [
@@ -12576,20 +12261,20 @@
   ],
   "atotonilquillo": [
     {
-      "colonia": "la floresta",
-      "menciones": 1
+      "colonia": "revolucion",
+      "peso": 20
     },
     {
-      "colonia": "la mora",
-      "menciones": 1
+      "colonia": "pedregal del bosque",
+      "peso": 18
     },
     {
-      "colonia": "atequiza",
-      "menciones": 1
+      "colonia": "loma bonita ejidal",
+      "peso": 16
     },
     {
-      "colonia": "ixtlahuacan de los membrillos",
-      "menciones": 1
+      "colonia": "santa cruz del valle",
+      "peso": 14
     }
   ],
   "la floresta": [
@@ -12802,24 +12487,20 @@
   ],
   "lomas independencia": [
     {
-      "colonia": "el retiro",
-      "menciones": 4
+      "colonia": "guadalajara centro",
+      "peso": 20
     },
     {
-      "colonia": "la perla",
-      "menciones": 2
+      "colonia": "modern",
+      "peso": 18
     },
     {
-      "colonia": "villas de san juan",
-      "menciones": 2
+      "colonia": "santa teresita",
+      "peso": 16
     },
     {
-      "colonia": "san elias",
-      "menciones": 1
-    },
-    {
-      "colonia": "rancho nuevo",
-      "menciones": 1
+      "colonia": "jardines de la cruz",
+      "peso": 14
     }
   ],
   "lomas de san juan": [
@@ -14523,28 +14204,20 @@
   ],
   "rinconadas de coyula": [
     {
-      "colonia": "coyula",
-      "menciones": 6
+      "colonia": "santa paula",
+      "peso": 20
     },
     {
-      "colonia": "valle verde",
-      "menciones": 2
+      "colonia": "bosques de tonala",
+      "peso": 18
     },
     {
-      "colonia": "rinconada de coyula",
-      "menciones": 2
+      "colonia": "jauja",
+      "peso": 16
     },
     {
-      "colonia": "la cruz",
-      "menciones": 1
-    },
-    {
-      "colonia": "bellavista",
-      "menciones": 1
-    },
-    {
-      "colonia": "haciendas tonala",
-      "menciones": 1
+      "colonia": "la providencia",
+      "peso": 14
     }
   ],
   "rinconada de coyula": [
@@ -15046,7 +14719,24 @@
       "menciones": 2
     }
   ],
-  "el parque": [],
+  "el parque": [
+    {
+      "colonia": "ciudad del sol",
+      "peso": 20
+    },
+    {
+      "colonia": "moctezuma",
+      "peso": 18
+    },
+    {
+      "colonia": "paraisos del colli",
+      "peso": 16
+    },
+    {
+      "colonia": "el campanario",
+      "peso": 14
+    }
+  ],
   "acatlan de juarez": [
     {
       "colonia": "terreno en san pedro valencia acatlan de juarez",
@@ -15640,15 +15330,15 @@
   ],
   "bugambilias 2da seccion": [
     {
-      "colonia": "colinas de san javier",
+      "colonia": "bugambilias",
       "peso": 20
     },
     {
-      "colonia": "bugambilias",
+      "colonia": "ciudad bugambilia",
       "peso": 18
     },
     {
-      "colonia": "jardines de santa izabel",
+      "colonia": "los robles",
       "peso": 16
     }
   ],
@@ -15664,6 +15354,42 @@
     {
       "colonia": "jardines alcalde",
       "peso": 16
+    }
+  ],
+  "alteza residencial nuevo mexico": [
+    {
+      "colonia": "nuevo mexico",
+      "peso": 20
+    },
+    {
+      "colonia": "puerta de hierro",
+      "peso": 18
+    },
+    {
+      "colonia": "ciudad granja",
+      "peso": 16
+    },
+    {
+      "colonia": "virreyes",
+      "peso": 14
+    }
+  ],
+  "villas de zapotepec": [
+    {
+      "colonia": "tlajomulco centro",
+      "peso": 20
+    },
+    {
+      "colonia": "hacienda real",
+      "peso": 18
+    },
+    {
+      "colonia": "santa cruz del valle",
+      "peso": 16
+    },
+    {
+      "colonia": "la tijera",
+      "peso": 14
     }
   ]
 }
