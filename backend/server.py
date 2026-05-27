@@ -4244,7 +4244,7 @@ app.mount("/uploads", StaticFiles(directory=str(UPLOADS_DIR)), name="uploads")
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
-    allow_origin_regex=r"^https?://localhost(:\d+)?$",
+    allow_origin_regex=r"^https?://(localhost(:\d+)?|.*\.vercel\.app|propvalu\.mx|.*\.propvalu\.mx)$",
     allow_methods=["*"],
     allow_headers=["*"],
 )
