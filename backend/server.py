@@ -4217,23 +4217,33 @@ async def _job_scrape_mensual():
 
 # ─── Startup / shutdown ───────────────────────────────────────────────────────
 
+@api_router.get("/health")
+async def health():
+    return {"status": "ok"}
+
 @app.on_event("startup")
 async def startup():
-    await _seed_mercado_accesos()
-    _scheduler.add_job(
-        _job_scrape_mensual,
-        CronTrigger(day=2, hour=3, minute=0),  # Día 2 de cada mes a las 3am UTC
-        id="scrape_mensual",
-        replace_existing=True,
-    )
-    _scheduler.add_job(
-        _job_sync_sheets,
-        CronTrigger(day=3, hour=4, minute=30),  # Día 3 de cada mes a las 4:30am UTC (día después del scrape)
-        id="sync_sheets_mensual",
-        replace_existing=True,
-    )
-    _scheduler.start()
-    logging.info("[scheduler] APScheduler iniciado — scrape mensual día 2, sync sheets día 3 a las 4:30am UTC")
+    try:
+        await _seed_mercado_accesos()
+    except Exception as e:
+        logging.error(f"[startup] seed_mercado_accesos falló (continuando): {e}")
+    try:
+        _scheduler.add_job(
+            _job_scrape_mensual,
+            CronTrigger(day=2, hour=3, minute=0),
+            id="scrape_mensual",
+            replace_existing=True,
+        )
+        _scheduler.add_job(
+            _job_sync_sheets,
+            CronTrigger(day=3, hour=4, minute=30),
+            id="sync_sheets_mensual",
+            replace_existing=True,
+        )
+        _scheduler.start()
+        logging.info("[scheduler] APScheduler iniciado")
+    except Exception as e:
+        logging.error(f"[startup] scheduler falló (continuando): {e}")
 
 # Include router
 app.include_router(api_router)
