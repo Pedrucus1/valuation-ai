@@ -12,9 +12,8 @@ WORKDIR /app
 COPY backend/requirements.txt ./backend/
 RUN pip install --no-cache-dir -r backend/requirements.txt
 
-# Install Node.js dependencies for motor Remi (uses root node_modules)
-COPY package.json package-lock.json* ./
-RUN npm install --omit=dev
+# Install only what motor Remi needs: openai + google-generative-ai
+RUN npm install openai @google/generative-ai
 
 # Copy all project files
 COPY . .
