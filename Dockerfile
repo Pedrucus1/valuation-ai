@@ -12,9 +12,9 @@ WORKDIR /app
 COPY backend/requirements.txt ./backend/
 RUN pip install --no-cache-dir -r backend/requirements.txt
 
-# Install Node.js dependencies for motor Remi
-COPY ["Modulo Drive IA/package.json", "Modulo Drive IA/package-lock.json*", "Modulo Drive IA/"]
-RUN cd "Modulo Drive IA" && npm install --omit=dev 2>/dev/null || true
+# Install Node.js dependencies for motor Remi (uses root node_modules)
+COPY package.json package-lock.json* ./
+RUN npm install --omit=dev
 
 # Copy all project files
 COPY . .
