@@ -673,24 +673,20 @@
   ],
   "bosques de santa anita": [
     {
-      "colonia": "club de golf santa anita",
-      "menciones": 2
-    },
-    {
-      "colonia": "la rioja",
-      "menciones": 2
-    },
-    {
-      "colonia": "el origen",
-      "menciones": 2
+      "colonia": "santa anita",
+      "menciones": 5
     },
     {
       "colonia": "san agustin",
-      "menciones": 2
+      "menciones": 5
     },
     {
-      "colonia": "la calera",
-      "menciones": 2
+      "colonia": "arbolada bosques de santa anita",
+      "menciones": 4
+    },
+    {
+      "colonia": "el origen",
+      "menciones": 3
     }
   ],
   "jardines del vergel": [
@@ -13690,10 +13686,6 @@
     {
       "colonia": "casa fuerte",
       "menciones": 2
-    },
-    {
-      "colonia": "lomas del mirador",
-      "menciones": 2
     }
   ],
   "la lagunita mazamitla": [],
@@ -13955,27 +13947,23 @@
   ],
   "lomas de santa anita": [
     {
-      "colonia": "la tijera",
+      "colonia": "colinas de santa anita",
+      "menciones": 4
+    },
+    {
+      "colonia": "hacienda santa fe",
+      "menciones": 3
+    },
+    {
+      "colonia": "la calera",
+      "menciones": 3
+    },
+    {
+      "colonia": "jardines de santa maria",
       "menciones": 2
     },
     {
-      "colonia": "santa anita",
-      "menciones": 2
-    },
-    {
-      "colonia": "san agustin",
-      "menciones": 2
-    },
-    {
-      "colonia": "el palomar",
-      "menciones": 2
-    },
-    {
-      "colonia": "club de golf santa anita",
-      "menciones": 2
-    },
-    {
-      "colonia": "arbolada bosques de santa anita",
+      "colonia": "san pedrito",
       "menciones": 2
     }
   ],
@@ -14444,10 +14432,6 @@
     {
       "colonia": "rinconada guadalupe",
       "menciones": 2
-    },
-    {
-      "colonia": "arcos de guadalupe",
-      "menciones": 2
     }
   ],
   "el marquez": [
@@ -14569,19 +14553,11 @@
       "menciones": 2
     },
     {
-      "colonia": "jardines de san ignacio",
-      "menciones": 2
-    },
-    {
       "colonia": "la calma",
       "menciones": 2
     },
     {
       "colonia": "santa rita",
-      "menciones": 2
-    },
-    {
-      "colonia": "chapalita",
       "menciones": 2
     },
     {
