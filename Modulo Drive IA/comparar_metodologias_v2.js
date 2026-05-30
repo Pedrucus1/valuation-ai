@@ -1,10 +1,9 @@
 /**
  * comparar_metodologias_v2.js — Árbol de decisión por tipo de propiedad
  *
- * Fixes v2b:
- *   1. Confidence flag: usa CV del cluster, no ratioZona vs perito
- *   2. ChatGPT fallback: enriquecido con snippets reales via Serper API
- *   3. Municipio padre: cajititlan→tlajomulco, santa anita→tlajomulco, etc.
+ * v2c: usa motor_remi_api.js directamente para ruta casa/depto
+ *   — fórmulas siempre sincronizadas con producción
+ *   — corre sobre todos los OPIs válidos (sin FILTRO hardcodeado)
  */
 
 require('dotenv').config({ path: '../.env' });
@@ -16,20 +15,12 @@ const gsc     = require('../services/googleSheetsConnector');
 const { google } = require('googleapis');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 const OpenAI  = require('openai');
+const motor   = require('./motor_remi_api');
 
 const SALIDA_SHEET_ID = '1du6IWWN1mKXPlzwENsLjHPD_1kWkBXvtPBsGjZ6evbM';
-const TAB_NOMBRE      = 'Metodologias V2b — 5 nuevos';
+const TAB_NOMBRE      = 'V2c — Motor Remi completo';
 const genAI           = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const openai          = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-
-// ── 5 nuevas propiedades ──────────────────────────────────────────────────────
-const FILTRO = [
-  'Paseo Los Chopos 3245A',     // casa Tabachines Tlaquepaque
-  'Lázaro Cárdenas 29 Vicente', // casa Zapopan edad 35
-  'Ignacio Ramires 668',        // casa Santa Teresita Guadalajara
-  'José María Coss 1653',       // casa La Guadalupana Guadalajara
-  'Juan XXIII 20',              // terreno urbano Santa Anita Tlajomulco
-];
 
 // ── helpers ───────────────────────────────────────────────────────────────────
 function cleanNum(s) {
@@ -303,25 +294,41 @@ function inferirNSE(pm2c) {
   return 'economica';
 }
 
+const FACTORES_CONSERVACION = {
+  nuevo: 1.05, muy_bueno: 1.05, bueno: 1.00,
+  regular_bueno: 0.85, regular_medio: 0.75,
+  regular_malo: 0.65, malo: 0.55, muy_malo: 0.45,
+  remodelacion_menor: 0.85, remodelacion_intermedia: 1.00, remodelacion_completa: 1.05,
+};
+
+function calcEdadEfectiva(edad, conservacion) {
+  if (conservacion === 'remodelacion_menor')      return edad - Math.min(8, edad * 0.15);
+  if (conservacion === 'remodelacion_intermedia') return Math.max(8, edad * 0.35);
+  if (conservacion === 'remodelacion_completa')   return 5;
+  return edad;
+}
+
 function metodoSumaDePartes(prop, pm2tInfo) {
   const { pm2t, n } = pm2tInfo;
   if (!pm2t || !prop.terreno) return { valor: 0, pm2t: 0, nse: 'N/A', nTerrenos: 0, detalle: 'sin $/m²T zona' };
 
-  const valorTerreno = pm2t * prop.terreno;
+  const conservacion = prop.estadoConservacion || 'bueno';
+  const pm2tEjidal   = prop.esEjidal ? pm2t * 0.50 : pm2t;
+  const valorTerreno = pm2tEjidal * prop.terreno;
 
-  // NSE: estimar desde valorReal si existe, si no desde pm2T como proxy
-  const pm2cRef = prop.valorReal > 0 && prop.construccion > 0
-    ? prop.valorReal / prop.construccion
-    : pm2t * 1.8; // heuristic: construcción ≈ 1.8× valor terreno por m²
-  const nse   = inferirNSE(pm2cRef);
-  const costo = INDAABIN[nse];
-  const depre = getRH(prop.edad);
+  const pm2cRef = pm2t * 1.8;
+  const nse     = inferirNSE(pm2cRef);
+  const costo   = INDAABIN[nse];
+  const edadEf  = calcEdadEfectiva(prop.edad || 0, conservacion);
+  const depre   = getRH(edadEf);
+  const fConserv = FACTORES_CONSERVACION[conservacion] || 1.00;
 
-  const valorConst = prop.construccion > 0 ? costo * prop.construccion * depre * 0.95 : 0;
+  // +20% factor utilidad (costo reposición → valor de mercado, igual que motor_remi_api)
+  const valorConst = prop.construccion > 0 ? costo * 1.20 * prop.construccion * depre * fConserv * 0.95 : 0;
 
   return {
     valor:         Math.round(valorTerreno + valorConst),
-    pm2t:          Math.round(pm2t),
+    pm2t:          Math.round(pm2tEjidal),
     nTerrenos:     n,
     nse,
     costoIndaabin: costo,
@@ -452,16 +459,15 @@ async function buscarCompsIA(prop, zona) {
 async function main() {
   const cerebro = JSON.parse(fs.readFileSync('cerebro_datos.json', 'utf8'));
 
-  // Filtrar las 10 propiedades (con valor y datos válidos, sin ejidales)
   const validos = cerebro.filter(d => {
     if (!d.fileName || !d.valorMercado || d.valorMercado === 'No hallado') return false;
     if (cleanNum(d.valorMercado) <= 0) return false;
-    if ((d.tipo || '').toUpperCase().includes('EJIDAL')) return false;
-    return FILTRO.some(k => (d.fileName || '').includes(k));
+    if (cleanNum(d.m2Construccion) <= 0) return false;
+    return true;
   });
 
   console.log(`\n${'═'.repeat(72)}`);
-  console.log(`  Metodologías V2 — Árbol de Decisión — ${validos.length} propiedades`);
+  console.log(`  Metodologías V2c — Motor Remi — ${validos.length} OPIs válidos`);
   console.log(`${'═'.repeat(72)}\n`);
 
   const auth   = await gsc.authenticate();
@@ -486,17 +492,25 @@ async function main() {
 
   for (const d of validos) {
     const edad = cleanNum(d.edad) || 10;
+    const zona = extraerZona(d.fileName);
+    // colonia: preferir sujetoColonia del cerebro (más precisa que la extraída del filename)
+    const coloniaFinal = d.sujetoColonia || zona.colonia || '';
+    const municipioFinal = d.municipio || zona.municipio || '';
+
     const prop = {
-      tipo:         d.tipo || 'CASA HABITACIÓN',
-      terreno:      cleanNum(d.m2Terreno),
-      construccion: cleanNum(d.m2Construccion),
-      valorReal:    cleanNum(d.valorMercado),
+      tipo:               d.tipo || 'CASA HABITACIÓN',
+      terreno:            cleanNum(d.m2Terreno),
+      construccion:       cleanNum(d.m2Construccion),
+      valorReal:          cleanNum(d.valorMercado),
       edad,
+      municipio:          municipioFinal,
+      colonia:            coloniaFinal,
+      estadoConservacion: d.estadoConservacion || 'bueno',
+      esEjidal:           d.esEjidal || false,
     };
     const ratioTC = prop.terreno > 0 && prop.construccion > 0
       ? (prop.terreno / prop.construccion).toFixed(1) : 'N/A';
 
-    const zona  = extraerZona(d.fileName);
     const ruta  = clasificar(prop, prop.tipo);
 
     console.log(`\n📍 ${d.fileName.slice(0, 65)}`);
@@ -548,30 +562,40 @@ async function main() {
       console.log(`   [SumaPartes ref] ${MXN(sumaPartes.valor)} (${dif(sumaPartes.valor, prop.valorReal)})`);
 
     } else {
-      // ── Ruta: Casa / Depto (remi + Gemini fallback) ────────────────────
-      const compsR = buscarCompsResidencial(zona, prop);
-      remiScraper = metodoremi(prop, compsR);
-      console.log(`   [Scraper] ${remiScraper.nComps} comps | ${MXN(remiScraper.valor)} (${dif(remiScraper.valor, prop.valorReal)}) | ${remiScraper.confianza}`);
+      // ── Ruta: Casa / Depto — motor_remi_api directamente ─────────────────
+      const motorResult = motor.valuarPropiedad(prop);
+      remiScraper = {
+        valor:     motorResult.valor,
+        confianza: motorResult.confianza,
+        cv:        motorResult.cv,
+        nComps:    motorResult.nComps,
+        pm2cAvg:   motorResult.pm2cAvg,
+        poolTipo:  motorResult.poolTipo,
+      };
+      console.log(`   [Motor] ${remiScraper.nComps} comps | pool:${motorResult.poolTipo} | ${MXN(remiScraper.valor)} (${dif(remiScraper.valor, prop.valorReal)}) | ${remiScraper.confianza}`);
 
       // Suma de Partes siempre como referencia cruzada en casas
       sumaPartes = metodoSumaDePartes(prop, pm2tInfo);
       if (sumaPartes.valor > 0)
         console.log(`   [SumaPartes ref] ${MXN(sumaPartes.valor)} (${dif(sumaPartes.valor, prop.valorReal)}) | $/m²T=${MXN(sumaPartes.pm2t)}`);
 
-      const necesitaIA = remiScraper.confianza === 'BAJA' || remiScraper.nComps < 3;
+      const necesitaIA = motorResult.error === 'sin_comps' || remiScraper.nComps < 3 || remiScraper.confianza === 'BAJA';
       let fuenteIA = 'N/A';
       if (necesitaIA) {
+        const zonaIA = { municipio: municipioFinal.toLowerCase(), colonia: coloniaFinal.toLowerCase() };
         if (geminiCalls > 0) await sleep(8000);
         geminiCalls++;
-        const { comps: compsG, fuente: fIA } = await buscarCompsIA(prop, zona);
-        fuenteIA    = fIA;
-        remiGemini = metodoremi(prop, compsG);
-        console.log(`   [${fIA}] ${remiGemini.nComps} comps | ${MXN(remiGemini.valor)} (${dif(remiGemini.valor, prop.valorReal)})`);
+        const { comps: compsG, fuente: fIA } = await buscarCompsIA(prop, zonaIA);
+        fuenteIA   = fIA;
+        if (compsG.length >= 2) {
+          remiGemini = metodoremi(prop, compsG);
+          console.log(`   [${fIA}] ${remiGemini.nComps} comps | ${MXN(remiGemini.valor)} (${dif(remiGemini.valor, prop.valorReal)})`);
+        }
       }
 
       // Elegir mejor fuente para FINAL
-      if (!necesitaIA) {
-        final = { valor: remiScraper.valor, fuente: 'SCRAPER' };
+      if (!necesitaIA && remiScraper.valor > 0) {
+        final = { valor: remiScraper.valor, fuente: `MOTOR_${motorResult.poolTipo?.toUpperCase() || 'SCRAPER'}` };
       } else if (remiGemini.nComps >= 3) {
         final = { valor: remiGemini.valor, fuente: fuenteIA };
       } else if (sumaPartes.valor > 0) {
