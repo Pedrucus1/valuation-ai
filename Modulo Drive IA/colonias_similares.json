@@ -71,7 +71,7 @@
       "menciones": 20
     },
     {
-      "colonia": "onia oblatos",
+      "colonia": "oblatos",
       "menciones": 18
     },
     {
@@ -81,10 +81,6 @@
     {
       "colonia": "del sur",
       "menciones": 14
-    },
-    {
-      "colonia": "lomas de polanco",
-      "menciones": 12
     }
   ],
   "lomas de tabachines": [
@@ -99,10 +95,6 @@
     {
       "colonia": "jardines del vergel",
       "menciones": 2
-    },
-    {
-      "colonia": "ayala tabachines",
-      "menciones": 1
     }
   ],
   "tabachines": [
@@ -131,24 +123,12 @@
       "menciones": 2
     },
     {
-      "colonia": "en tabachines",
-      "menciones": 2
-    },
-    {
       "colonia": "jardines de tabachines",
       "menciones": 2
     },
     {
       "colonia": "division del norte",
       "menciones": 2
-    },
-    {
-      "colonia": "tamarindos tabachines",
-      "menciones": 2
-    },
-    {
-      "colonia": "ayala tabachines",
-      "menciones": 1
     }
   ],
   "arroyo hondo": [
@@ -200,14 +180,6 @@
     },
     {
       "colonia": "el vigia",
-      "menciones": 1
-    },
-    {
-      "colonia": "seattle seattle",
-      "menciones": 1
-    },
-    {
-      "colonia": "constituyentes constitucion",
       "menciones": 1
     }
   ],
@@ -285,7 +257,7 @@
   ],
   "seattle": [
     {
-      "colonia": "col seattle",
+      "colonia": "seattle",
       "menciones": 6
     },
     {
@@ -374,10 +346,6 @@
       "menciones": 6
     },
     {
-      "colonia": "lomas de polanco",
-      "menciones": 4
-    },
-    {
       "colonia": "jardines de la cruz",
       "menciones": 4
     },
@@ -402,19 +370,11 @@
       "menciones": 2
     },
     {
-      "colonia": "de polanco",
-      "menciones": 3
-    },
-    {
       "colonia": "el carmen",
       "menciones": 1
     }
   ],
   "mariano otero": [
-    {
-      "colonia": "fracc los cerritos",
-      "menciones": 4
-    },
     {
       "colonia": "el fortin",
       "menciones": 2
@@ -425,10 +385,6 @@
     },
     {
       "colonia": "interior casa 19",
-      "menciones": 2
-    },
-    {
-      "colonia": "col lomas de la primavera",
       "menciones": 2
     }
   ],
@@ -466,14 +422,6 @@
     {
       "colonia": "lomas de la primavera",
       "menciones": 2
-    },
-    {
-      "colonia": "col lomas de la primavera",
-      "menciones": 2
-    },
-    {
-      "colonia": "on bardas independientes con todos los servicios",
-      "menciones": 1
     }
   ],
   "colinas de cajititlan": [
@@ -553,10 +501,6 @@
       "menciones": 4
     },
     {
-      "colonia": "unidad habitacional unidad fovissste",
-      "menciones": 2
-    },
-    {
       "colonia": "los laureles",
       "menciones": 1,
       "fuente": "ia-sepomex"
@@ -600,7 +544,7 @@
       "menciones": 2
     },
     {
-      "colonia": "de independencia",
+      "colonia": "lomas de independencia",
       "menciones": 1
     }
   ],
@@ -610,7 +554,7 @@
       "menciones": 4
     },
     {
-      "colonia": "col centro",
+      "colonia": "centro",
       "menciones": 4
     },
     {
@@ -632,7 +576,7 @@
   ],
   "lomas de independencia": [
     {
-      "colonia": "col lomas independencia",
+      "colonia": "lomas independencia",
       "menciones": 4
     },
     {
@@ -640,7 +584,7 @@
       "menciones": 2
     },
     {
-      "colonia": "col rancho nuevo",
+      "colonia": "rancho nuevo",
       "menciones": 2
     },
     {
@@ -825,10 +769,6 @@
       "menciones": 2
     },
     {
-      "colonia": "en tabachines",
-      "menciones": 2
-    },
-    {
       "colonia": "villas de guadalupe",
       "menciones": 2
     },
@@ -926,10 +866,6 @@
       "menciones": 1
     },
     {
-      "colonia": "ayala tabachines",
-      "menciones": 1
-    },
-    {
       "colonia": "francisco marquez",
       "menciones": 1
     },
@@ -946,7 +882,7 @@
       "menciones": 1
     },
     {
-      "colonia": "colorada poniente",
+      "colonia": "mesa colorada poniente",
       "menciones": 1
     }
   ],
@@ -996,7 +932,7 @@
       "menciones": 4
     },
     {
-      "colonia": "nvo mexico",
+      "colonia": "nuevo mexico",
       "menciones": 2
     },
     {
@@ -1004,7 +940,7 @@
       "menciones": 2
     },
     {
-      "colonia": "san fco tesistan",
+      "colonia": "san francisco tesistan",
       "menciones": 2
     },
     {
@@ -1177,10 +1113,6 @@
   ],
   "colinas de santa anita": [
     {
-      "colonia": "col colinas de santa anita",
-      "menciones": 10
-    },
-    {
       "colonia": "colinas de santa anita tlajomulco",
       "menciones": 1
     }
@@ -1235,7 +1167,7 @@
   ],
   "artesanos": [
     {
-      "colonia": "col artesanos",
+      "colonia": "artesanos",
       "menciones": 8
     },
     {
@@ -1499,7 +1431,7 @@
       "menciones": 2
     },
     {
-      "colonia": "hacienda sant fe",
+      "colonia": "hacienda santa fe",
       "menciones": 2
     }
   ],
@@ -1753,7 +1685,7 @@
       "menciones": 4
     },
     {
-      "colonia": "col artesanos",
+      "colonia": "artesanos",
       "menciones": 2
     },
     {
@@ -1947,10 +1879,6 @@
       "menciones": 2
     },
     {
-      "colonia": "lomas de polanco",
-      "menciones": 2
-    },
-    {
       "colonia": "francisco villa",
       "menciones": 2
     },
@@ -1985,10 +1913,6 @@
     {
       "colonia": "altus bosques",
       "menciones": 2
-    },
-    {
-      "colonia": "del real",
-      "menciones": 1
     }
   ],
   "san jose del valle": [
@@ -2026,7 +1950,7 @@
       "menciones": 2
     },
     {
-      "colonia": "col calvario",
+      "colonia": "calvario",
       "menciones": 2
     },
     {
@@ -2072,10 +1996,6 @@
     {
       "colonia": "san martin de las flores de abajo",
       "menciones": 2
-    },
-    {
-      "colonia": "hacienda del real",
-      "menciones": 2
     }
   ],
   "parques de la victoria": [
@@ -2102,15 +2022,7 @@
       "menciones": 2
     },
     {
-      "colonia": "campestre las canadas ii",
-      "menciones": 1
-    },
-    {
       "colonia": "paraiso",
-      "menciones": 1
-    },
-    {
-      "colonia": "campestre las canadas",
       "menciones": 1
     }
   ],
@@ -2130,10 +2042,6 @@
     {
       "colonia": "jardines ixtapa",
       "menciones": 1
-    },
-    {
-      "colonia": "de agua",
-      "menciones": 1
     }
   ],
   "campestre las canadas": [
@@ -2149,10 +2057,6 @@
     },
     {
       "colonia": "vicente guerrero",
-      "menciones": 2
-    },
-    {
-      "colonia": "guayabitos",
       "menciones": 2
     },
     {
@@ -2372,10 +2276,6 @@
     {
       "colonia": "los olivos",
       "menciones": 2
-    },
-    {
-      "colonia": "del real",
-      "menciones": 1
     }
   ],
   "belcanto": [
@@ -2492,11 +2392,6 @@
       "fuente": "ia-sepomex"
     },
     {
-      "colonia": "campestre las palomas",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
       "colonia": "alviento residencial",
       "menciones": 1,
       "fuente": "ia-sepomex"
@@ -2579,10 +2474,6 @@
       "menciones": 2
     },
     {
-      "colonia": "del seminario",
-      "menciones": 1
-    },
-    {
       "colonia": "real",
       "menciones": 1
     }
@@ -2651,7 +2542,7 @@
       "menciones": 2
     },
     {
-      "colonia": "col vallarta la patria",
+      "colonia": "vallarta la patria",
       "menciones": 2
     }
   ],
@@ -2773,7 +2664,7 @@
       "menciones": 2
     },
     {
-      "colonia": "col educacion jalisciense",
+      "colonia": "educacion jalisciense",
       "menciones": 2
     },
     {
@@ -2837,10 +2728,6 @@
     {
       "colonia": "analco",
       "peso": 18
-    },
-    {
-      "colonia": "lomas de polanco",
-      "peso": 16
     },
     {
       "colonia": "insurgentes",
@@ -3132,7 +3019,7 @@
       "menciones": 4
     },
     {
-      "colonia": "col san andres",
+      "colonia": "san andres",
       "menciones": 2
     },
     {
@@ -3154,7 +3041,7 @@
       "menciones": 10
     },
     {
-      "colonia": "col san andres",
+      "colonia": "san andres",
       "menciones": 8
     },
     {
@@ -3220,7 +3107,7 @@
       "menciones": 4
     },
     {
-      "colonia": "el vergel to",
+      "colonia": "el vergel",
       "menciones": 4
     },
     {
@@ -3248,7 +3135,7 @@
       "menciones": 2
     },
     {
-      "colonia": "colorada poniente",
+      "colonia": "mesa colorada poniente",
       "menciones": 1
     }
   ],
@@ -3368,15 +3255,11 @@
     {
       "colonia": "minerales",
       "menciones": 3
-    },
-    {
-      "colonia": "en una zona urbana con todos los servicios cercanos",
-      "menciones": 1
     }
   ],
   "la purisima": [
     {
-      "colonia": "fracc parques del castillo",
+      "colonia": "parques del castillo",
       "menciones": 6
     },
     {
@@ -3436,7 +3319,7 @@
       "menciones": 2
     },
     {
-      "colonia": "col rancho blanco",
+      "colonia": "rancho blanco",
       "menciones": 2
     },
     {
@@ -3643,17 +3526,9 @@
     {
       "colonia": "tabachines",
       "menciones": 2
-    },
-    {
-      "colonia": "ayala tabachines",
-      "menciones": 1
     }
   ],
   "lomas del vergel": [
-    {
-      "colonia": "en tabachines",
-      "menciones": 2
-    },
     {
       "colonia": "frente de 6 mts2 y fondo de 17 mts fondo",
       "menciones": 1
@@ -3729,7 +3604,7 @@
   ],
   "jardines del valle": [
     {
-      "colonia": "jardinesl del valle",
+      "colonia": "jardines del valle",
       "menciones": 10
     },
     {
@@ -4069,7 +3944,7 @@
       "menciones": 2
     },
     {
-      "colonia": "sur cipreses",
+      "colonia": "cipreses",
       "menciones": 1
     },
     {
@@ -4085,7 +3960,7 @@
   ],
   "francisco silva romero": [
     {
-      "colonia": "col salvador portillo lopez",
+      "colonia": "salvador portillo lopez",
       "menciones": 3
     },
     {
@@ -4236,7 +4111,7 @@
       "menciones": 6
     },
     {
-      "colonia": "col rancho nuevo",
+      "colonia": "rancho nuevo",
       "menciones": 4
     },
     {
@@ -4258,7 +4133,7 @@
   ],
   "gonzalez ortega": [
     {
-      "colonia": "col rancho nuevo",
+      "colonia": "rancho nuevo",
       "menciones": 2
     },
     {
@@ -4292,7 +4167,7 @@
       "menciones": 4
     },
     {
-      "colonia": "col rancho nuevo",
+      "colonia": "rancho nuevo",
       "menciones": 2
     },
     {
@@ -4348,7 +4223,7 @@
       "menciones": 4
     },
     {
-      "colonia": "frac real del sol",
+      "colonia": "real del sol",
       "menciones": 4
     },
     {
@@ -4364,11 +4239,11 @@
       "menciones": 2
     },
     {
-      "colonia": "frac las luces",
+      "colonia": "las luces",
       "menciones": 2
     },
     {
-      "colonia": "fracc la arboleda",
+      "colonia": "la arboleda",
       "menciones": 2
     }
   ],
@@ -4462,7 +4337,7 @@
       "menciones": 2
     },
     {
-      "colonia": "atemajac del vall",
+      "colonia": "atemajac del valle",
       "menciones": 2
     },
     {
@@ -4478,7 +4353,7 @@
       "menciones": 2
     },
     {
-      "colonia": "del batan",
+      "colonia": "el batan",
       "menciones": 1
     },
     {
@@ -4544,7 +4419,7 @@
       "menciones": 2
     },
     {
-      "colonia": "col seattle",
+      "colonia": "seattle",
       "menciones": 2
     },
     {
@@ -4619,10 +4494,6 @@
   "la ladrillera": [
     {
       "colonia": "tinajitas",
-      "menciones": 1
-    },
-    {
-      "colonia": "de agua",
       "menciones": 1
     },
     {
@@ -4706,10 +4577,6 @@
       "menciones": 4
     },
     {
-      "colonia": "lomas de polanco",
-      "menciones": 4
-    },
-    {
       "colonia": "jose clemente orozco",
       "menciones": 2
     },
@@ -4738,7 +4605,7 @@
       "menciones": 2
     },
     {
-      "colonia": "col artesanos",
+      "colonia": "artesanos",
       "menciones": 2
     },
     {
@@ -4872,7 +4739,7 @@
       "menciones": 2
     },
     {
-      "colonia": "col calvario",
+      "colonia": "calvario",
       "menciones": 2
     }
   ],
@@ -5029,7 +4896,7 @@
       "menciones": 6
     },
     {
-      "colonia": "fracc parques del castillo",
+      "colonia": "parques del castillo",
       "menciones": 4
     },
     {
@@ -5037,7 +4904,7 @@
       "menciones": 2
     },
     {
-      "colonia": "col salvador portillo lopez",
+      "colonia": "salvador portillo lopez",
       "menciones": 2
     },
     {
@@ -5292,27 +5159,23 @@
     {
       "colonia": "bahia de banderas",
       "menciones": 2
-    },
-    {
-      "colonia": "aeropuerto",
-      "menciones": 2
     }
   ],
   "pitillal centro": [
     {
-      "colonia": "col calvario",
+      "colonia": "calvario",
       "menciones": 2
     }
   ],
   "la playita": [
     {
-      "colonia": "col calvario",
+      "colonia": "calvario",
       "menciones": 2
     }
   ],
   "aralias ii": [
     {
-      "colonia": "col calvario",
+      "colonia": "calvario",
       "menciones": 2
     }
   ],
@@ -5493,7 +5356,7 @@
   ],
   "barrio san juan de dios": [
     {
-      "colonia": "col centro",
+      "colonia": "centro",
       "menciones": 4
     }
   ],
@@ -5503,7 +5366,7 @@
       "menciones": 4
     },
     {
-      "colonia": "col centro",
+      "colonia": "centro",
       "menciones": 2
     },
     {
@@ -5589,7 +5452,7 @@
       "menciones": 2
     },
     {
-      "colonia": "col villafontana",
+      "colonia": "villafontana",
       "menciones": 2
     },
     {
@@ -6120,10 +5983,6 @@
   ],
   "lazaro cardenas": [
     {
-      "colonia": "lomas de polanco",
-      "menciones": 6
-    },
-    {
       "colonia": "el carmen",
       "menciones": 4
     },
@@ -6196,7 +6055,7 @@
       "menciones": 2
     },
     {
-      "colonia": "col rancho blanco",
+      "colonia": "rancho blanco",
       "menciones": 2
     },
     {
@@ -6251,7 +6110,7 @@
   ],
   "los portales": [
     {
-      "colonia": "col salvador portillo lopez",
+      "colonia": "salvador portillo lopez",
       "menciones": 4
     },
     {
@@ -6540,7 +6399,7 @@
       "menciones": 2
     },
     {
-      "colonia": "col artesanos",
+      "colonia": "artesanos",
       "menciones": 2
     },
     {
@@ -6867,11 +6726,6 @@
       "fuente": "ia-sepomex"
     },
     {
-      "colonia": "la caridad",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
       "colonia": "santa anita",
       "menciones": 1,
       "fuente": "ia-sepomex"
@@ -6918,10 +6772,6 @@
     },
     {
       "colonia": "lo de marcos",
-      "menciones": 2
-    },
-    {
-      "colonia": "rincon de guayabitos",
       "menciones": 2
     }
   ],
@@ -7112,7 +6962,7 @@
   ],
   "colomos providencia": [
     {
-      "colonia": "colomos providenci",
+      "colonia": "colomos providencia",
       "menciones": 8
     },
     {
@@ -7360,10 +7210,6 @@
       "menciones": 2
     },
     {
-      "colonia": "lomas de polanco",
-      "menciones": 2
-    },
-    {
       "colonia": "lopez portillo",
       "menciones": 2
     },
@@ -7396,14 +7242,6 @@
     {
       "colonia": "jardines del valle",
       "menciones": 2
-    },
-    {
-      "colonia": "junto a capital norte con servicios",
-      "menciones": 2
-    },
-    {
-      "colonia": "a dos cuadras de la avenida principal juan gil preciado",
-      "menciones": 1
     }
   ],
   "chapalita sur": [
@@ -7430,7 +7268,7 @@
       "menciones": 2
     },
     {
-      "colonia": "col vallarta la patria",
+      "colonia": "vallarta la patria",
       "menciones": 2
     },
     {
@@ -7674,25 +7512,25 @@
   ],
   "ribera del pilar": [
     {
-      "colonia": "fracc el parque",
+      "colonia": "el parque",
       "menciones": 4
     }
   ],
   "san antonio tlayacapan": [
     {
-      "colonia": "fracc el parque",
+      "colonia": "el parque",
       "menciones": 2
     }
   ],
   "lourdes": [
     {
-      "colonia": "fracc el parque",
+      "colonia": "el parque",
       "menciones": 2
     }
   ],
   "vista alegre": [
     {
-      "colonia": "fracc el parque",
+      "colonia": "el parque",
       "menciones": 2
     }
   ],
@@ -7768,10 +7606,6 @@
     },
     {
       "colonia": "moderna",
-      "menciones": 2
-    },
-    {
-      "colonia": "lomas de polanco",
       "menciones": 2
     },
     {
@@ -8104,7 +7938,7 @@
       "menciones": 2
     },
     {
-      "colonia": "col villafontana",
+      "colonia": "villafontana",
       "menciones": 2
     },
     {
@@ -8200,10 +8034,6 @@
     },
     {
       "colonia": "rinconada del camichin",
-      "menciones": 2
-    },
-    {
-      "colonia": "lomas de polanco",
       "menciones": 2
     },
     {
@@ -8456,14 +8286,6 @@
     {
       "colonia": "santa fe",
       "menciones": 2
-    },
-    {
-      "colonia": "de agua",
-      "menciones": 3
-    },
-    {
-      "colonia": "con todos los servicios luz agua alcantarillado",
-      "menciones": 1
     }
   ],
   "ahujas": [
@@ -8938,7 +8760,7 @@
       "menciones": 2
     },
     {
-      "colonia": "col margarita masa de juarez",
+      "colonia": "margarita masa de juarez",
       "menciones": 2
     },
     {
@@ -9343,7 +9165,7 @@
       "menciones": 2
     },
     {
-      "colonia": "col artesanos",
+      "colonia": "artesanos",
       "menciones": 2
     },
     {
@@ -9370,10 +9192,6 @@
     },
     {
       "colonia": "miravalle",
-      "menciones": 2
-    },
-    {
-      "colonia": "lomas de polanco",
       "menciones": 2
     },
     {
@@ -9488,7 +9306,7 @@
       "menciones": 4
     },
     {
-      "colonia": "col educacion jalisciense",
+      "colonia": "educacion jalisciense",
       "menciones": 2
     },
     {
@@ -9850,7 +9668,7 @@
   ],
   "lomas de camichin": [
     {
-      "colonia": "col educacion jalisciense",
+      "colonia": "educacion jalisciense",
       "menciones": 2
     }
   ],
@@ -9864,10 +9682,6 @@
       "peso": 18
     },
     {
-      "colonia": "hacienda del real",
-      "peso": 16
-    },
-    {
       "colonia": "vistas del pedregal i",
       "peso": 14
     },
@@ -9878,7 +9692,7 @@
   ],
   "loma dorada a": [
     {
-      "colonia": "col educacion jalisciense",
+      "colonia": "educacion jalisciense",
       "menciones": 2
     }
   ],
@@ -9906,7 +9720,7 @@
   ],
   "atemajac del valle": [
     {
-      "colonia": "col seattle",
+      "colonia": "seattle",
       "menciones": 4
     },
     {
@@ -9962,10 +9776,6 @@
     {
       "colonia": "miravalle",
       "menciones": 8
-    },
-    {
-      "colonia": "lomas de polanco",
-      "menciones": 6
     },
     {
       "colonia": "polanco",
@@ -10205,10 +10015,6 @@
   "patria nueva": [
     {
       "colonia": "villa hermosa",
-      "menciones": 2
-    },
-    {
-      "colonia": "lomas de polanco",
       "menciones": 2
     },
     {
@@ -10478,10 +10284,6 @@
       "menciones": 2
     },
     {
-      "colonia": "ojo de agua",
-      "menciones": 2
-    },
-    {
       "colonia": "san antonio",
       "menciones": 2
     },
@@ -10564,7 +10366,7 @@
       "menciones": 2
     },
     {
-      "colonia": "col salvador portillo lopez",
+      "colonia": "salvador portillo lopez",
       "menciones": 1
     }
   ],
@@ -10574,7 +10376,7 @@
       "menciones": 2
     },
     {
-      "colonia": "fracc mayorazgos del bosque",
+      "colonia": "mayorazgos del bosque",
       "menciones": 2
     }
   ],
@@ -10584,12 +10386,7 @@
       "menciones": 2
     }
   ],
-  "polanquito poniente": [
-    {
-      "colonia": "lomas de polanco",
-      "menciones": 2
-    }
-  ],
+  "polanquito poniente": [],
   "geovillas los olivos": [
     {
       "colonia": "los olivos",
@@ -10875,13 +10672,13 @@
   ],
   "haciendas chapala": [
     {
-      "colonia": "fracc haciendas de chapala",
+      "colonia": "haciendas de",
       "menciones": 8
     }
   ],
   "nuevo chapala club": [
     {
-      "colonia": "fracc haciendas de chapala",
+      "colonia": "haciendas de",
       "menciones": 2
     }
   ],
@@ -10990,11 +10787,6 @@
     {
       "colonia": "real vallarta",
       "menciones": 2
-    },
-    {
-      "colonia": "lomas del seminario",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
     }
   ],
   "jardines vallarta": [
@@ -11007,7 +10799,7 @@
       "menciones": 2
     },
     {
-      "colonia": "col vallarta la patria",
+      "colonia": "vallarta la patria",
       "menciones": 2
     },
     {
@@ -11023,10 +10815,6 @@
     {
       "colonia": "coyula",
       "peso": 18
-    },
-    {
-      "colonia": "hacienda del real",
-      "peso": 16
     },
     {
       "colonia": "vistas del pedregal i",
@@ -11718,7 +11506,7 @@
       "menciones": 2
     },
     {
-      "colonia": "col artesanos",
+      "colonia": "artesanos",
       "menciones": 2
     },
     {
@@ -11911,7 +11699,7 @@
       "menciones": 4
     },
     {
-      "colonia": "el vergel to",
+      "colonia": "el vergel",
       "menciones": 2
     },
     {
@@ -11919,7 +11707,7 @@
       "menciones": 2
     },
     {
-      "colonia": "fracc revolucion",
+      "colonia": "revolucion",
       "menciones": 2
     },
     {
@@ -11929,7 +11717,7 @@
   ],
   "las pintas de abajo": [
     {
-      "colonia": "el vergel to",
+      "colonia": "el vergel",
       "menciones": 2
     },
     {
@@ -11950,7 +11738,7 @@
   ],
   "del carmen": [
     {
-      "colonia": "el vergel to",
+      "colonia": "el vergel",
       "menciones": 2
     },
     {
@@ -11960,11 +11748,6 @@
     },
     {
       "colonia": "baja california",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "lomas del aeropuerto",
       "menciones": 1,
       "fuente": "ia-sepomex"
     }
@@ -12071,7 +11854,7 @@
   ],
   "mezquitanl country": [
     {
-      "colonia": "col artesanos",
+      "colonia": "artesanos",
       "menciones": 2
     }
   ],
@@ -12128,20 +11911,7 @@
       "fuente": "ia-sepomex"
     }
   ],
-  "arenales tapatios": [
-    {
-      "colonia": "fracc los cerritos",
-      "menciones": 2
-    },
-    {
-      "colonia": "col lomas de la primavera",
-      "menciones": 2
-    },
-    {
-      "colonia": "col miramar zapopan",
-      "menciones": 2
-    }
-  ],
+  "arenales tapatios": [],
   "parques de tesistan iii": [
     {
       "colonia": "parques de tesistan",
@@ -12233,7 +12003,7 @@
       "menciones": 6
     },
     {
-      "colonia": "col salvador portillo lopez",
+      "colonia": "salvador portillo lopez",
       "menciones": 4
     },
     {
@@ -12365,10 +12135,6 @@
       "menciones": 2
     },
     {
-      "colonia": "fracc los cerritos",
-      "menciones": 2
-    },
-    {
       "colonia": "la primavera",
       "menciones": 2
     },
@@ -12449,7 +12215,7 @@
       "menciones": 2
     },
     {
-      "colonia": "col margarita masa de juarez",
+      "colonia": "margarita masa de juarez",
       "menciones": 2
     },
     {
@@ -12642,7 +12408,7 @@
       "menciones": 2
     },
     {
-      "colonia": "de independencia",
+      "colonia": "lomas de independencia",
       "menciones": 1
     },
     {
@@ -12675,10 +12441,6 @@
     }
   ],
   "zona industrial": [
-    {
-      "colonia": "lomas de polanco",
-      "menciones": 4
-    },
     {
       "colonia": "5 de mayo",
       "menciones": 2
@@ -12943,7 +12705,7 @@
   ],
   "revolucion": [
     {
-      "colonia": "fracc revolucion",
+      "colonia": "revolucion",
       "menciones": 8
     },
     {
@@ -12951,7 +12713,7 @@
       "menciones": 2
     },
     {
-      "colonia": "col rancho blanco",
+      "colonia": "rancho blanco",
       "menciones": 2
     },
     {
@@ -13110,7 +12872,7 @@
       "menciones": 2
     },
     {
-      "colonia": "ecucalipto vallarta",
+      "colonia": "eucalipto vallarta",
       "menciones": 2
     },
     {
@@ -13124,7 +12886,7 @@
   ],
   "eucalipto vallarta": [
     {
-      "colonia": "col vallarta la patria",
+      "colonia": "vallarta la patria",
       "menciones": 2
     },
     {
@@ -13150,7 +12912,7 @@
   ],
   "ecucalipto vallarta": [
     {
-      "colonia": "col vallarta la patria",
+      "colonia": "vallarta la patria",
       "menciones": 2
     }
   ],
@@ -13280,10 +13042,6 @@
   "mision san francisco": [
     {
       "colonia": "ponciano arriaga",
-      "menciones": 2
-    },
-    {
-      "colonia": "ojo de agua",
       "menciones": 2
     },
     {
@@ -13661,7 +13419,7 @@
       "menciones": 4
     },
     {
-      "colonia": "col salvador portillo lopez",
+      "colonia": "salvador portillo lopez",
       "menciones": 1
     },
     {
@@ -13687,13 +13445,13 @@
   ],
   "lagunitas tonallan": [
     {
-      "colonia": "col salvador portillo lopez",
+      "colonia": "salvador portillo lopez",
       "menciones": 1
     }
   ],
   "las juntitas": [
     {
-      "colonia": "col salvador portillo lopez",
+      "colonia": "salvador portillo lopez",
       "menciones": 1
     },
     {
@@ -13724,7 +13482,7 @@
   ],
   "los puestos": [
     {
-      "colonia": "col salvador portillo lopez",
+      "colonia": "salvador portillo lopez",
       "menciones": 2
     },
     {
@@ -13754,7 +13512,7 @@
   ],
   "brisas de chapala": [
     {
-      "colonia": "col salvador portillo lopez",
+      "colonia": "salvador portillo lopez",
       "menciones": 2
     },
     {
@@ -13783,7 +13541,7 @@
   ],
   "las huertas": [
     {
-      "colonia": "col salvador portillo lopez",
+      "colonia": "salvador portillo lopez",
       "menciones": 4
     }
   ],
@@ -13897,7 +13655,7 @@
   ],
   "hacienda de tlaquepaque": [
     {
-      "colonia": "col rancho blanco",
+      "colonia": "rancho blanco",
       "menciones": 2
     },
     {
@@ -14028,12 +13786,7 @@
       "menciones": 2
     }
   ],
-  "flamingos": [
-    {
-      "colonia": "maritima playa flamingos",
-      "menciones": 2
-    }
-  ],
+  "flamingos": [],
   "maritima playa flamingos": [
     {
       "colonia": "flamingos",
@@ -14356,7 +14109,7 @@
       "menciones": 4
     },
     {
-      "colonia": "col lomas independencia",
+      "colonia": "lomas independencia",
       "menciones": 2
     },
     {
@@ -14364,7 +14117,7 @@
       "menciones": 1
     },
     {
-      "colonia": "del batan",
+      "colonia": "el batan",
       "menciones": 1
     },
     {
@@ -14895,10 +14648,6 @@
       "menciones": 4
     },
     {
-      "colonia": "geovillas del real",
-      "menciones": 2
-    },
-    {
       "colonia": "los cajetes",
       "menciones": 2
     },
@@ -15173,7 +14922,7 @@
   ],
   "la floresta": [
     {
-      "colonia": "col calvario",
+      "colonia": "calvario",
       "menciones": 2
     },
     {
@@ -15656,11 +15405,6 @@
       "fuente": "ia-sepomex"
     },
     {
-      "colonia": "guayabitos",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
       "colonia": "lomas del tepeyac",
       "menciones": 1,
       "fuente": "ia-sepomex"
@@ -15713,11 +15457,6 @@
     },
     {
       "colonia": "los altos 3a secc",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "guayabitos",
       "menciones": 1,
       "fuente": "ia-sepomex"
     },
@@ -16208,10 +15947,6 @@
   ],
   "polanquito": [
     {
-      "colonia": "lomas de polanco",
-      "menciones": 2
-    },
-    {
       "colonia": "colon industrial",
       "menciones": 2
     },
@@ -16366,13 +16101,13 @@
   ],
   "mayorazgos del bosque": [
     {
-      "colonia": "fracc mayorazgos del bosque",
+      "colonia": "mayorazgos del bosque",
       "menciones": 6
     }
   ],
   "vergel de arboledas": [
     {
-      "colonia": "fracc mayorazgos del bosque",
+      "colonia": "mayorazgos del bosque",
       "menciones": 2
     }
   ],
@@ -16866,7 +16601,7 @@
   ],
   "la joyita": [
     {
-      "colonia": "col margarita masa de juarez",
+      "colonia": "margarita masa de juarez",
       "menciones": 2
     },
     {
@@ -17094,10 +16829,6 @@
       "menciones": 2
     },
     {
-      "colonia": "de agua",
-      "menciones": 1
-    },
-    {
       "colonia": "del carmen",
       "menciones": 1
     },
@@ -17113,11 +16844,6 @@
     },
     {
       "colonia": "espana",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "la caridad",
       "menciones": 1,
       "fuente": "ia-sepomex"
     },
@@ -17207,25 +16933,25 @@
   ],
   "el pitillal": [
     {
-      "colonia": "col calvario",
+      "colonia": "calvario",
       "menciones": 2
     }
   ],
   "fluvial vallarta": [
     {
-      "colonia": "col calvario",
+      "colonia": "calvario",
       "menciones": 2
     }
   ],
   "bahia de banderas": [
     {
-      "colonia": "col calvario",
+      "colonia": "calvario",
       "menciones": 2
     }
   ],
   "aeropuerto": [
     {
-      "colonia": "col calvario",
+      "colonia": "calvario",
       "menciones": 2
     }
   ],
@@ -17627,10 +17353,6 @@
   ],
   "nuevo santa maria": [
     {
-      "colonia": "lomas de polanco",
-      "menciones": 4
-    },
-    {
       "colonia": "el refugio tlaquepaque",
       "menciones": 2
     },
@@ -17640,11 +17362,6 @@
     },
     {
       "colonia": "los altos 3a secc",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "guayabitos",
       "menciones": 1,
       "fuente": "ia-sepomex"
     },
@@ -17751,7 +17468,7 @@
       "menciones": 2
     },
     {
-      "colonia": "nvo mexico",
+      "colonia": "nuevo mexico",
       "menciones": 2
     },
     {
@@ -17837,10 +17554,6 @@
     }
   ],
   "el refugio tlaquepaque": [
-    {
-      "colonia": "lomas de polanco",
-      "menciones": 4
-    },
     {
       "colonia": "5 de mayo",
       "menciones": 2
@@ -17985,7 +17698,7 @@
       "menciones": 4
     },
     {
-      "colonia": "loma bonit sur",
+      "colonia": "loma bonita sur",
       "menciones": 2
     }
   ],
@@ -18172,10 +17885,6 @@
     },
     {
       "colonia": "huentitan el bajo",
-      "menciones": 2
-    },
-    {
-      "colonia": "unidad habitacional zoologico planetario infonavit",
       "menciones": 2
     }
   ],
@@ -18628,16 +18337,7 @@
       "menciones": 2
     }
   ],
-  "cruz de huanacaxtle": [
-    {
-      "colonia": "remodelado 4 unidades en 1 propiedad",
-      "menciones": 2
-    },
-    {
-      "colonia": "proximidad a playas aeropuertos y centros turisticos",
-      "menciones": 1
-    }
-  ],
+  "cruz de huanacaxtle": [],
   "el campanario": [
     {
       "colonia": "hacienda real",
@@ -18654,22 +18354,6 @@
     {
       "colonia": "villas de la tijera tlajomulco",
       "menciones": 2
-    },
-    {
-      "colonia": "dentro de un con caseta de vigilancia 247",
-      "menciones": 1
-    },
-    {
-      "colonia": "pequeno con vigilancia y area de juegos",
-      "menciones": 1
-    },
-    {
-      "colonia": "en con seguridad 247 areas verdes y pista de jogging",
-      "menciones": 1
-    },
-    {
-      "colonia": "a un costado del bosques de santa anita",
-      "menciones": 1
     },
     {
       "colonia": "bugambilias",
@@ -18723,10 +18407,6 @@
       "menciones": 1
     },
     {
-      "colonia": "ayala tabachines",
-      "menciones": 1
-    },
-    {
       "colonia": "jardines seattle unidad",
       "menciones": 1,
       "fuente": "ia-sepomex"
@@ -18749,24 +18429,7 @@
   ],
   "el mirador juan arias": [
     {
-      "colonia": "pequeno con vigilancia y area de juegos",
-      "menciones": 1
-    },
-    {
-      "colonia": "dentro de un privado",
-      "menciones": 1
-    },
-    {
-      "colonia": "todos los servicios tipo campestre",
-      "menciones": 1
-    },
-    {
       "colonia": "espana",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "la caridad",
       "menciones": 1,
       "fuente": "ia-sepomex"
     },
@@ -18829,7 +18492,7 @@
   ],
   "local 6 zona c": [
     {
-      "colonia": "del paradero",
+      "colonia": "lomas del paradero",
       "menciones": 1
     }
   ],
@@ -19005,11 +18668,6 @@
       "colonia": "lomas de san miguel ii",
       "menciones": 1,
       "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "villas de agua blanca",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
     }
   ],
   "industrial zapopan norte": [
@@ -19088,14 +18746,6 @@
   "la mojonera": [
     {
       "colonia": "frente 13 mts fondo 28 mts",
-      "menciones": 1
-    },
-    {
-      "colonia": "excedente de area verde al frente 5 metros",
-      "menciones": 1
-    },
-    {
-      "colonia": "alberca pista de jogging no tienes casas atras",
       "menciones": 1
     }
   ],
@@ -19644,12 +19294,7 @@
       "menciones": 1
     }
   ],
-  "sta paula tonala": [
-    {
-      "colonia": "con todos los servicios ideal para bodega o terraza",
-      "menciones": 2
-    }
-  ],
+  "sta paula tonala": [],
   "margarita masa de juarez": [
     {
       "colonia": "la federacha",
