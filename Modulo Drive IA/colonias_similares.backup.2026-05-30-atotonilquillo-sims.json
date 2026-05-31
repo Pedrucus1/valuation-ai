@@ -14080,24 +14080,20 @@
   ],
   "atotonilquillo": [
     {
-      "colonia": "Riberas del Pilar",
-      "menciones": 5
+      "colonia": "revolucion",
+      "peso": 20
     },
     {
-      "colonia": "Ajijic Centro",
-      "menciones": 4
+      "colonia": "pedregal del bosque",
+      "peso": 18
     },
     {
-      "colonia": "San Nicolás de Ibarra",
-      "menciones": 3
+      "colonia": "loma bonita ejidal",
+      "peso": 16
     },
     {
-      "colonia": "San Antonio Tlayacapan",
-      "menciones": 2
-    },
-    {
-      "colonia": "Chapala Centro",
-      "menciones": 1
+      "colonia": "santa cruz del valle",
+      "peso": 14
     }
   ],
   "la floresta": [

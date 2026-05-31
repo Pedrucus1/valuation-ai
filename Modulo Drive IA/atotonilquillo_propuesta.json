@@ -1,0 +1,446 @@
+[
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-26-3-06-OF Ignacio Ramires 668, Santa Teresita",
+    "muniActual": "El Salto",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "Santa Teresita",
+      "municipio": null,
+      "cp": null
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-25-10-15-OF San Melchor 1345, Santa María, Guadalajara, Jal.",
+    "muniActual": "Guadalajara",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "Santa María",
+      "municipio": "Guadalajara",
+      "cp": null
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-25-8-14-LM Blvd. Bosques de San Isidro 951 Casa 142, Los Robles, Villas de Zapopan",
+    "muniActual": "Villas de Zapopan",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "Villas de Zapopan",
+      "municipio": "Zapopan",
+      "cp": null
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-25-6-06-LM Fresnos 219, Prados de Santa María, 45601 San Pedro Tlaquepaque, Jal.",
+    "muniActual": "San Pedro Tlaquepaque",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "Prados de Santa María",
+      "municipio": "San Pedro Tlaquepaque",
+      "cp": "45601"
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-25-6-01-LM Cto. Calz. Club Atlas Nte. 465, Club de Golf Atlas, 45693 Las Pintitas, Jal.",
+    "muniActual": "Las Pintitas",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "Club de Golf Atlas",
+      "municipio": "El Salto",
+      "cp": "45693"
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-25-3-20-AV C. José Luis Verdía 270, Analco, 44450 Guadalajara, Jal.",
+    "muniActual": "Guadalajara",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "Analco",
+      "municipio": "Guadalajara",
+      "cp": "44450"
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-25-3-01-AV Camino a, 4000 Cópala, Jal.",
+    "muniActual": "4000 Cópala",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "Camino a",
+      "municipio": null,
+      "cp": null
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-25-1-08-AV Av. Camino Mozárabe 1342, Coyula, Jal.",
+    "muniActual": "Coyula",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "Coyula",
+      "municipio": "Tonalá",
+      "cp": null
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-25-1-04-AV Torremolinos 474 Int Paseo apeaderos 156-3, Francisco Villa",
+    "muniActual": "Francisco Villa",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "Francisco Villa",
+      "municipio": null,
+      "cp": null
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-24-10-12-AV El Pandito, Mazamitla",
+    "muniActual": "Mazamitla",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "El Pandito",
+      "municipio": "Mazamitla",
+      "cp": null
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-24-10-05-AV Hospital 16 Int 8, Col. Artesanos, guadalajara",
+    "muniActual": "guadalajara",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "Artesanos",
+      "municipio": "Guadalajara",
+      "cp": null
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-24-9-13-AV Morelos 7, El Tabardillo, Mazamitla, Jalisco",
+    "muniActual": "Mazamitla",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "El Tabardillo",
+      "municipio": "Mazamitla",
+      "cp": null
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPIRT2-24-7-01-OF Zapote 116 col las huertas Tlaquepaque Jalisco",
+    "muniActual": "",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "Zapote 116 col las huertas Tlaquepaque",
+      "municipio": "San Pedro Tlaquepaque",
+      "cp": null
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-24-7-06-OF Sevilla 634, Nueva España, 45186 Zapopan, Jal.",
+    "muniActual": "Zapopan",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "Nueva España",
+      "municipio": "Zapopan",
+      "cp": "45186"
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "OPI-24-3-19-EK",
+    "fileName": "OPI-24-3-19-EK C. Independencia 150, Atotonilquillo, Jal.",
+    "muniActual": "Chapala",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "C. Independencia 150",
+      "municipio": "Atotonilquillo",
+      "cp": null
+    },
+    "esRealAtotonilquillo": true
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-24-3-18-EK Sor Juana Ines de la Cruz S/N Col. Atotonilquillo Chapala Jalisco",
+    "muniActual": "",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "Sor Juana Ines de la Cruz S/N Col. Atotonilquillo Chapala",
+      "municipio": "Chapala",
+      "cp": null
+    },
+    "esRealAtotonilquillo": true
+  },
+  {
+    "folio": "OPI-24-3-17-EK",
+    "fileName": "OPI-24-3-17-EK Nopalera S/N Atotonilquillo Chapala jalisco",
+    "muniActual": "Chapala",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "Nopalera S/N Atotonilquillo Chapala",
+      "municipio": "Chapala",
+      "cp": null
+    },
+    "esRealAtotonilquillo": true
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-24-3-01-OF Predio la Tuna (Fraccion 3)  6-00-00 HAS, Tapalpa Jalisco",
+    "muniActual": "Tapalpa Jalisco",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "Predio la Tuna (Fraccion 3)  6-00-00 HAS",
+      "municipio": "Tapalpa",
+      "cp": null
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-24-2-16-EK San Melchor 1322, Santa María, 44350 Guadalajara, Jal.",
+    "muniActual": "Guadalajara",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "Santa María",
+      "municipio": "Guadalajara",
+      "cp": "44350"
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-24-2-05-EK Marcos Lara 41, Santa Paula, 45420 Tonalá, Jal.",
+    "muniActual": "Tonalá",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "Santa Paula",
+      "municipio": "Tonalá",
+      "cp": "45420"
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-23-12-31-OF_Limon 1418, Col. del Fresno",
+    "muniActual": "Col. del Fresno",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "del Fresno",
+      "municipio": null,
+      "cp": null
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-23-12-30-OF Cruz del Sur s/n, Villas de San Miguel,  San Miguel Cuyutlan",
+    "muniActual": "San Miguel Cuyutlan",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "San Miguel Cuyutlan",
+      "municipio": "Tlajomulco de Zúñiga",
+      "cp": null
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-23-12-17-OF Felipe Lopez 6, Polanquito, Guadalajara",
+    "muniActual": "Guadalajara",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "Polanquito",
+      "municipio": "Guadalajara",
+      "cp": null
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-23-10-08-OF Guadalupe Victoria 28 Los Altos 45528 Tlaquepaque, Jalisco",
+    "muniActual": "",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "Guadalupe Victoria 28 Los Altos 45528 Tlaquepaque",
+      "municipio": "San Pedro Tlaquepaque",
+      "cp": "45528"
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-23-10-08-OF_Guadalupe Victoria 28, Los Altos, Tlaquepaque",
+    "muniActual": "San Pedro Tlaquepaque",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "Los Altos",
+      "municipio": "San Pedro Tlaquepaque",
+      "cp": null
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-23-9-11-OF Hacienda de los Olivos 50 Coto 1, Hacienda Santa Cruz",
+    "muniActual": "Hacienda Santa Cruz",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "Hacienda Santa Cruz",
+      "municipio": null,
+      "cp": null
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-23-8-18 Crisantemo G3, Flores del Valle, Zapopan",
+    "muniActual": "Zapopan",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "Flores del Valle",
+      "municipio": "Zapopan",
+      "cp": null
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-23-7-11-OF_ Aries 4058 Juan Manuel Vallarta 45120 Zapopan, Jal.",
+    "muniActual": "",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "Aries 4058 Juan Manuel Vallarta 45120 Zapopan",
+      "municipio": "Zapopan",
+      "cp": "45120"
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-23-7-09-OF Can Mayor 4295 -301 Arboledas Zapopan, Jalisco",
+    "muniActual": "",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "Can Mayor 4295 -301 Arboledas Zapopan",
+      "municipio": "Zapopan",
+      "cp": null
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-23-7-03-OF Emiliano Zapata 64, Lomas del Aeropuerto",
+    "muniActual": "Lomas del Aeropuerto",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "Lomas del Aeropuerto",
+      "municipio": null,
+      "cp": null
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-23-6-24-OF Manzano 8, Milpillas, Mesa de San Juan",
+    "muniActual": "Mesa de San Juan",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "Mesa de San Juan",
+      "municipio": null,
+      "cp": null
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-23-6-23-OF Calzada Paraisos 63, Ciudad Granja",
+    "muniActual": "Ciudad Granja",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "Ciudad Granja",
+      "municipio": null,
+      "cp": null
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-23-6-21-OF C. Acacía lote 11 mza 3 , Rancho El Centinela",
+    "muniActual": "Rancho El Centinela",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "Rancho El Centinela",
+      "municipio": null,
+      "cp": null
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-23-6-20-OF Av. Francisco J. Múgica 365, El Paraíso, 45157 Zapopan, Jal.",
+    "muniActual": "Zapopan",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "El Paraíso",
+      "municipio": "Zapopan",
+      "cp": "45157"
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-23-6-09-OF Arrollo Oriente 54 colonia Ojo de Agua, Santa Anita",
+    "muniActual": "Santa Anita",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "Santa Anita",
+      "municipio": null,
+      "cp": null
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-23-6-08-OF Aurora Boreal 660-174, Pase los Agaves",
+    "muniActual": "Pase los Agaves",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "Pase los Agaves",
+      "municipio": null,
+      "cp": null
+    },
+    "esRealAtotonilquillo": false
+  },
+  {
+    "folio": "No hallado",
+    "fileName": "OPI-23-6-07-OF coto olmo 190, Albereda residencial el Salto Jalisco",
+    "muniActual": "Albereda residencial el Salto Jalisco",
+    "coloniaActual": "Atotonilquillo",
+    "parsed": {
+      "colonia": "Albereda residencial el Salto",
+      "municipio": "El Salto",
+      "cp": null
+    },
+    "esRealAtotonilquillo": false
+  }
+]

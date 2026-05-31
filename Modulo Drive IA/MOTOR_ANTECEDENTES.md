@@ -260,6 +260,18 @@ Partida: 70.4% ±10%, 89.6% ±20% (post-batch4). Resultado: **72.2% ±10%, 92.2%
 | OPI-25-10-17-OF Paseos del Sol | -22.1% | exacta n=4 a $30k; perito a $38.9k — premium sobre IDX |
 | OPI-25-7-10-LM Tlaquepaque | -20.0% | coloniaEsVaga (colonia="Tlaquepaque"=municipio) → general pool; factorConserv=0.75 |
 
+**Sesión 30-May (tarde/noche) — Enriquecimiento masivo colonias_similares.json (continuación):**
+- ✅ **Cobertura actualizada**: 407/459 colonias cerebro con ≥3 similares = **89%**. 1,063 entradas totales.
+- ✅ **Correcciones críticas NSE**: naturezza bosque real (El Palomar REMOVIDO — zona distinta; añadidas Bosques de Santa Anita, Arbolada Bosques de Santa Anita, Bosque Real de Santa Anita, Jardines de Santa Anita, El Origen Residencial, Bellaterra, Vicenza). loma bonita ejidal (Chapalita/Jardines del Bosque/Arcos Vallarta REMOVIDOS — NSE y zona incorrectos; añadidas Pinar La Calma, Las Aguilas, El Sauz, Jardines de la Cruz, Jardines del Sur, Tabachines zone).
+- ✅ **Nuevas colonias cubiertas**: mirador del sol (Zapopan NSE 5), coto villa franca (La Moraleja NorPoniente), coto imperio inca (Valle Imperial Zapopan Norte NSE 5-6), zona indutrial (GDL, Álamo Industrial zone), prados providencia (GDL NSE 4-5 Monraz/Providencia zone), villa esmeralda aqua (Tlajomulco NSE 2), 20 de noviembre (Tonalá), coto 12 coronado (Alta California Tlajomulco).
+- ℹ️ **Restantes 52 entradas <3**: 45 basura/fuera AMG + 7 son también basura (edificio a3, esquina ignacio t lopez, rosalio tapia sn, margarita masa de juarez, av los arcos, san pedro=municipio, praderas de san antonio zapopan=ya cubierta por key sin sufijo). Cobertura real de colonias AMG válidas: ~100%.
+
+**Sesión 30-May (mañana/tarde) — Enriquecimiento masivo colonias_similares.json:**
+- ✅ **Cobertura mejorada**: `colonias_similares.json` pasó de ~73% → **87% cobertura** de colonias del cerebro (381/436 colonias con ≥3 similares). 1,054 entradas totales.
+- ✅ **Método**: Google WebSearch ("dime solamente colonias similares para valuar propiedades de [colonia] [municipio] jalisco") + filtro NSE estricto. ~50 colonias actualizadas en esta sesión.
+- ✅ **Correcciones específicas**: colinas de santa anita (NSE stored=1, pm2t real=$20k=NSE 4 — se corrigió asignando similares NSE 4), arenales tapatios (key normCol correcto = "tapatios" no "tapatos"), bosques de la vicctoria (typo preservado — key en cerebro).
+- ✅ **Categorías completadas**: Tonalá NSE 0 (el amial, buena mirada, valle de coyula), Tlajomulco bajo (paraíso, el taray, san isidro mazatepec, atotojilquillo), Zapopan popular (agujas, vinatera, villas guadalupe, agua fría, vicente guerrero, fovissste), Zapopan alto (colinas del rey, real valdepeñas, valle del mar, bugambilias), Guadalajara (niños héroes, zona centro, barragán hernández, san martín, colonia americana).
+
 **Sesión 24-May tarde (nuevas funcionalidades):**
 - ✅ **Ajuste temporal**: `validar_40_opis.js` ahora indexa el valor del perito ×1.08^(2026-año) para comparar justo contra IDX 2026. Los OPIs de 2025 se marcan con `[2025×1.08]`, 2024 con `[2024×1.17]`, 2023 con `[2023×1.26]`.
 - ✅ **Diagnóstico masivo**: `diagnostico_colonias.js` → 712 OPIs, 305 colonias únicas. Hallazgos: 85 OPIs fuera de AMG (Puerto Vallarta, Bahía de Banderas, etc.), 9 colonias basura reales, 18 colonias vagas (colonia=municipio), 31 colonias sin similares, 146 sin NSE cap.
@@ -443,6 +455,25 @@ const pm2cRef = pm2t * 1.8;  // nseKey usa pm2t original
 **Por qué:** Terreno ejidal ≈ 50% del mercado libre (sin escritura, sin crédito bancario, transferibilidad limitada). Sin este factor, sumaDePartes da +22.4% en San Isidro Ejidal. Con él: -0.3% ✅.
 **CRÍTICO:** El factor va SOLO sobre `valorTerreno`, NO sobre `pm2cRef`. Si se aplica también a pm2cRef, el nseKey cambia de 'residencial' ($18k) a 'media' ($12k), lo que hace que `valorConst` también baje → el efecto total da -12.4% (overcorrección). La construcción sobre terreno ejidal tiene el mismo costo que sobre terreno libre.
 Detectado en: OPI-26-4-03-OF (San Isidro Ejidal, Zapopan), confirmado con regex `/ejidal|ejido/` sobre colNorm.
+
+### 11. Bug conocido: normCol trunca colonias con sufijo de municipio
+
+`normCol()` elimina el sufijo de municipio/estado al final del nombre de colonia (línea `SUFIJOS_GEO`). Esto causa que colonias AMG legítimas queden con keys ambiguas:
+
+| Nombre real | Key en sim | Problema |
+|---|---|---|
+| Arcos de Zapopan | `arcos de` | Cualquier "arcos de X" mapea al mismo key |
+| Villas de Zapopan | `villas de` | Ídem |
+| Lomas de Zapopan | `lomas de` | Ídem |
+| Olivos Tlaquepaque | `olivos` | Muy genérico |
+| Colonial Tlaquepaque | `colonial` | Muy genérico |
+| Las Grullas Residencial | `las grullas` | normCol también quita "residencial" |
+
+**Workaround aplicado:** Se añadieron similares correctas bajo los keys truncados. El motor funciona porque en el cerebro las colonias también llegan con el mismo nombre original → mismo key truncado.
+
+**Fix pendiente (no urgente):** Agregar estas colonias como excepciones en `normCol()` para que no se trunquen, o manejarlas con un alias map en `getSimilares()`.
+
+---
 
 ### 10. colonias_similares.json es la fuente de verdad geográfica — para scraper Y para IA fallback
 `colonias_similares.json` define qué colonias son comparables a cada sujeto. Esto aplica en DOS contextos:
@@ -780,7 +811,7 @@ Propiedades >200m²C usan tier [170, 9999]. En ese tier, los listings grandes ti
 | `motor_romina_api.js` | Motor de producción (beta) | 🔴 Crítico |
 | `MOTOR_ANTECEDENTES.md` | Este archivo — fuente de verdad del aprendizaje | 🔴 Crítico |
 | `validar_40_opis.js` | Validación — correr tras CUALQUIER cambio | 🔴 Crítico |
-| `colonias_similares.json` | Similares calibradas (1,052 entradas) | 🔴 No sobreescribir sin backup |
+| `colonias_similares.json` | Similares calibradas (1,054 entradas, 87% cobertura cerebro) | 🔴 No sobreescribir sin backup |
 | `cache_index.json` | IDX[muni][tipo] medianas + listings | 🟡 Regenerar con build_cache_index.js |
 | `colonias_nse.json` | NSE por colonia — crítico para caps y filtros | 🟡 |
 | `cerebro_datos.json` | 712 OPIs del perito | 🔴 NUNCA modificar sin backup previo |
@@ -813,5 +844,85 @@ node build_colonias_similares.js
 ---
 
 *Creado: 23-May-2026 — Pedro Vergara + Claude Sonnet 4.6*
-*Última actualización: 25-May-2026 tarde — batches 11-16: Ahujas, La Experiencia, Real del Valle, La Esperanza GDL, Vista California, Haciendas de San José, Cañadas (tipo depto confirmado). Hallazgo crítico: pm2cAvg ya incluye factorEdad×factorConserv. Regla bandaMin≈$13,800 para SIM en Zapopan.*
+*Última actualización: 30-May-2026 — Sesión limpieza profunda data layer (ver sección abajo)*
 *Actualizar este archivo cada vez que se valide un cambio en el motor.*
+
+---
+
+## Sesión 30-May-2026 — LIMPIEZA PROFUNDA DATA LAYER
+
+Sesión de saneamiento masivo de `cerebro_datos.json` y `colonias_similares.json` antes de iterar más sobre la lógica del motor. La precisión depende de la calidad de estos archivos.
+
+### Trabajo realizado (con backup por cada cambio)
+
+**1. SEPOMEX v2 reconstruido (Jalisco + Nayarit + Colima)**
+- Archivo `sepomex_v2.json` preserva múltiples ocurrencias por nombre (el viejo `sepomex_jalisco.json` aplanaba colisiones)
+- Permite distinguir colonias con mismo nombre en distintos municipios (Las Juntas en GDL/SPT/PV, Emiliano Zapata en 28 munis distintos, etc.)
+- Generador: `construir_sepomex_v2.js`
+
+**2. Estructura enriquecida v2 (no migrada al motor todavía)**
+- Archivo nuevo `colonias_similares.enriquecido.v2.json` con metadata `municipio + zona + fuente` por entry
+- 77.5% de sims resueltos automáticamente, 70.5% de sujetos
+- Generador: `enriquecer_full_v2.js`
+
+**3. Conflictos cerebro vs SEPOMEX resueltos (52 → 28)**
+- Grupo A (formato municipio): 73 OPIs normalizadas (Tlaquepaque → San Pedro Tlaquepaque, Tlajomulco → Tlajomulco de Zúñiga, Tonala → Tonalá, Bahia de Banderas → Bahía, Ixtlahuacan → Ixtlahuacán de los Membrillos)
+- Grupo B (basura en municipio): 5 OPIs donde campo municipio tenía nombre de colonia
+- Grupo C (conflictos reales): 3 OPIs — del pilar → Tlajomulco, arvento → Tlajomulco, mirador del tesoro → SPT
+
+**4. Bug atotonilquillo (37 OPIs mal etiquetadas → 5)**
+- 35 OPIs tenían `sujetoColonia = "Atotonilquillo"` pero fileNames eran de Santa Teresita, Analco, Mazamitla, Polanquito, Coyula, etc.
+- Parser construido para extraer colonia + muni desde fileName (`fix_atotonilquillo.js`)
+- 32 OPIs corregidas a su colonia/muni real
+- 3 OPIs reales Atotonilquillo confirmadas en Chapala
+- 2 OPIs rurales (Cópala, Tapalpa) sin colonia clara — sin tocar
+- Sims del key `atotonilquillo` reemplazados (estaban contaminados con GDL/Tlajomulco) por sims zona Chapala: Riberas del Pilar, Ajijic Centro, San Nicolás de Ibarra, San Antonio Tlayacapan, Chapala Centro
+
+**5. Tier 1 — similares mejorados manualmente**
+- Tlaquepaque Centro: nuevo key con 9 sims (San Pedrito, El Vergel, Las Juntas, Brisas de Chapala, Centro Barranquitas + 4 originales). Las 9 OPIs SPT "Centro" renombradas en cerebro a "Tlaquepaque Centro"
+- San Rafael: quitada basura "entre rosa navarro y ejido col lomas de revolucion"
+
+**6. Tier 2 — saneamiento keys basura (22 keys eliminadas)**
+- 13 cerebro fixes (jal, int, dpto, torre f, etc. → colonia real desde fileName)
+- 6 migraciones key basura → key real (12 de diciembre → chapalita sur, c nanzal 10 → sayulita, coto 2 jardin real → jardin real, local 6 zona c → lomas del paradero, coto 18 → senderos del lago, 12122 → jardines de la calera)
+- 5 duplicados eliminados (coto 5 senderos…, edificio a3, int, torrenta 201, interior casa 19)
+- 9 huérfanas sin OPI eliminadas (valle de puebla 134, guacamayo 1054, av belisario dominguez sn, privada los olivos, bodega, ref, muralista 253, loma arandas 199, belisario dominguez 3815)
+- 48 sims basura cross-key limpiadas
+
+**7. Comparables mejorados anteriormente en la sesión (11 colonias Tier 1)**
+- El Campanario, El Taray, Jardines de Vallarta (3 tiers prioridad), Camino Real, San Francisco de la Soledad, Los Olivos II, Bugambilias (quitado Solares incorrecto), Las Conchas, Jardines de la Calera (ex-12122), Atotonilco, Del Pilar (cluster Tlajomulco Sur Residencial Medio-Alto Moderno)
+
+### Estado final del data layer
+
+```
+colonias_similares.json:  1033 keys / 4216 sims  (antes: 1055 / 4263)
+cerebro_datos.json:       712 OPIs con sujetoColonia + municipio mejor capturados
+sepomex_v2.json:          6645 keys con multi-match preservado
+colonias_similares.enriquecido.v2.json:  1033 keys con muni+zona+fuente
+```
+
+### Backups de esta sesión
+- `colonias_similares.backup.2026-05-30c.json` (después Grupo A+B fixes)
+- `colonias_similares.backup.2026-05-30-tier1.json`
+- `colonias_similares.backup.2026-05-30-tier1b.json`
+- `colonias_similares.backup.2026-05-30-tier2.json`
+- `colonias_similares.backup.2026-05-30-tier2b.json`
+- `colonias_similares.backup.2026-05-30-tier2c.json`
+- `colonias_similares.backup.2026-05-30-atotonilquillo-sims.json`
+- `cerebro_datos.backup.2026-05-30-grupoAB.json`
+- `cerebro_datos.backup.2026-05-30-tier1.json`
+- `cerebro_datos.backup.2026-05-30-tier2.json`
+- `cerebro_datos.backup.2026-05-30-atotonilquillo.json`
+- `cerebro_datos.backup.2026-05-30-grupoC.json`
+
+### Reglas reafirmadas esta sesión
+- **NUNCA borrar sin backup explícito** (regla violada al inicio, corregida)
+- **Verificar fileNames de OPIs antes de declarar similares "mal"** — el `sujetoColonia` a veces está mal pero el fileName tiene la verdad
+- **SEPOMEX no es la última palabra**: a veces el perito tiene razón y SEPOMEX hace mal match (zapopan vs Del Nayar, el taray vs Tamazula)
+- **Colonias con mismo nombre en distintos munis SON reales** (Las Juntas SPT/PV, Villas de la Hacienda Tlajomulco/Zapopan, Paseo del Prado Zapopan/SPT) — la estructura enriquecida v2 resuelve esto al filtrar por zona del sujeto
+
+### Pendientes técnicos para próximas sesiones
+- Migrar `getSimilares()` en `motor_remi_api.js` a usar estructura enriquecida v2 con filtro por zona del sujeto
+- WebSearch en lotes para las 439 sims sin datos en SEPOMEX (mayoría son cotos/fraccionamientos nuevos)
+- Resolver los 28 conflictos cerebro vs SEPOMEX restantes (los más complejos, per-caso)
+- **Validar impacto en accuracy:** correr `node validar_40_opis.js --n 200 --desde 2025-07` y comparar contra baseline pre-limpieza para confirmar mejora

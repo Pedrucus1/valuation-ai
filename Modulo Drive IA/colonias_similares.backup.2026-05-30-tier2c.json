@@ -2056,6 +2056,12 @@
       "menciones": 3
     }
   ],
+  "muralista 253 int 147": [
+    {
+      "colonia": "el castillo",
+      "menciones": 2
+    }
+  ],
   "parques del castillo": [
     {
       "colonia": "real del sol",
@@ -8762,6 +8768,10 @@
     {
       "colonia": "jardines de la hacienda",
       "menciones": 2
+    },
+    {
+      "colonia": "loma arandas 199",
+      "menciones": 2
     }
   ],
   "tonala centro": [
@@ -8808,6 +8818,12 @@
     }
   ],
   "jardines de la hacienda": [
+    {
+      "colonia": "centro tonala",
+      "menciones": 2
+    }
+  ],
+  "loma arandas 199": [
     {
       "colonia": "centro tonala",
       "menciones": 2
@@ -14080,24 +14096,20 @@
   ],
   "atotonilquillo": [
     {
-      "colonia": "Riberas del Pilar",
-      "menciones": 5
+      "colonia": "revolucion",
+      "peso": 20
     },
     {
-      "colonia": "Ajijic Centro",
-      "menciones": 4
+      "colonia": "pedregal del bosque",
+      "peso": 18
     },
     {
-      "colonia": "San Nicolás de Ibarra",
-      "menciones": 3
+      "colonia": "loma bonita ejidal",
+      "peso": 16
     },
     {
-      "colonia": "San Antonio Tlayacapan",
-      "menciones": 2
-    },
-    {
-      "colonia": "Chapala Centro",
-      "menciones": 1
+      "colonia": "santa cruz del valle",
+      "peso": 14
     }
   ],
   "la floresta": [
@@ -14156,6 +14168,12 @@
     },
     {
       "colonia": "la federacha",
+      "menciones": 2
+    }
+  ],
+  "belisario dominguez 3815": [
+    {
+      "colonia": "san miguel de huentitan",
       "menciones": 2
     }
   ],

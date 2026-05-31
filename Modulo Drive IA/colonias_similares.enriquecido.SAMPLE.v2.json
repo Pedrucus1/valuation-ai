@@ -1,0 +1,1142 @@
+{
+  "las juntas": {
+    "_sujeto": {
+      "municipio": "Puerto Vallarta",
+      "zona": "Costa-Sur",
+      "fuente": "cerebro"
+    },
+    "similares": [
+      {
+        "colonia": "la duraznera san",
+        "municipio": null,
+        "fuente": "sin_datos",
+        "menciones": 1
+      },
+      {
+        "colonia": "valentin gomez farias",
+        "municipio": "Puerto Vallarta",
+        "estado": "Jalisco",
+        "zona": "Costa-Sur",
+        "fuente": "sepomex+zona-sujeto",
+        "tipo": "Colonia",
+        "menciones": 1
+      },
+      {
+        "colonia": "gonzalez gallo",
+        "municipio": "Guadalajara",
+        "estado": "Jalisco",
+        "zona": "AMG-Centro",
+        "fuente": "sepomex",
+        "tipo": "Colonia",
+        "menciones": 1
+      },
+      {
+        "colonia": "olimpica",
+        "municipio": "Puerto Vallarta",
+        "estado": "Jalisco",
+        "zona": "Costa-Sur",
+        "fuente": "sepomex+zona-sujeto",
+        "tipo": "Colonia",
+        "menciones": 1
+      },
+      {
+        "colonia": "el periodista",
+        "municipio": "Guadalajara",
+        "estado": "Jalisco",
+        "zona": "AMG-Centro",
+        "fuente": "sepomex",
+        "tipo": "Colonia",
+        "menciones": 1
+      }
+    ]
+  },
+  "arcos de zapopan": {
+    "_sujeto": {
+      "municipio": null,
+      "zona": null,
+      "fuente": "sin_datos"
+    },
+    "similares": [
+      {
+        "colonia": "las bovedas",
+        "municipio": "Zapopan",
+        "estado": "Jalisco",
+        "zona": "AMG-NW",
+        "fuente": "sepomex",
+        "tipo": "Colonia",
+        "menciones": 4
+      },
+      {
+        "colonia": "la tuzania",
+        "municipio": "Zapopan",
+        "estado": "Jalisco",
+        "zona": "AMG-NW",
+        "fuente": "sepomex",
+        "tipo": "Colonia",
+        "menciones": 3
+      },
+      {
+        "colonia": "altagracia",
+        "municipio": "Zapopan",
+        "estado": "Jalisco",
+        "zona": "AMG-NW",
+        "fuente": "sepomex",
+        "tipo": "Fraccionamiento",
+        "menciones": 2
+      },
+      {
+        "colonia": "girasoles elite",
+        "municipio": "Zapopan",
+        "estado": "Jalisco",
+        "zona": "AMG-NW",
+        "fuente": "sepomex",
+        "tipo": "Colonia",
+        "menciones": 2
+      },
+      {
+        "colonia": "parques de zapopan",
+        "municipio": "Zapopan",
+        "estado": "Jalisco",
+        "zona": "AMG-NW",
+        "fuente": "sepomex",
+        "tipo": "Colonia",
+        "menciones": 2
+      },
+      {
+        "colonia": "santa margarita 1",
+        "municipio": "Zapopan",
+        "zona": "AMG-NW",
+        "fuente": "cerebro",
+        "menciones": 2
+      },
+      {
+        "colonia": "sta margarita",
+        "municipio": "Zapopan",
+        "zona": "AMG-NW",
+        "fuente": "cerebro",
+        "menciones": 2
+      },
+      {
+        "colonia": "lomas de zapopan",
+        "municipio": "Zapopan",
+        "zona": "AMG-NW",
+        "fuente": "cerebro",
+        "menciones": 2
+      },
+      {
+        "colonia": "edificio a3",
+        "municipio": null,
+        "fuente": "sin_datos",
+        "menciones": 2
+      },
+      {
+        "colonia": "santa margarita",
+        "municipio": "Zapopan",
+        "zona": "AMG-NW",
+        "fuente": "cerebro",
+        "menciones": 1
+      }
+    ]
+  },
+  "lomas de zapopan": {
+    "_sujeto": {
+      "municipio": null,
+      "zona": null,
+      "fuente": "sin_datos"
+    },
+    "similares": [
+      {
+        "colonia": "altagracia",
+        "municipio": "Zapopan",
+        "estado": "Jalisco",
+        "zona": "AMG-NW",
+        "fuente": "sepomex",
+        "tipo": "Fraccionamiento",
+        "menciones": 6
+      },
+      {
+        "colonia": "colinas del rey",
+        "municipio": "Zapopan",
+        "zona": "AMG-NW",
+        "fuente": "cerebro",
+        "menciones": 2
+      },
+      {
+        "colonia": "francisco villa",
+        "municipio": "Zapopan",
+        "zona": "AMG-NW",
+        "fuente": "cerebro",
+        "menciones": 2
+      },
+      {
+        "colonia": "arcos de zapopan",
+        "municipio": "Zapopan",
+        "zona": "AMG-NW",
+        "fuente": "cerebro",
+        "menciones": 2
+      },
+      {
+        "colonia": "haciendas del valle",
+        "municipio": "Zapopan",
+        "estado": "Jalisco",
+        "zona": "AMG-NW",
+        "fuente": "sepomex",
+        "tipo": "Fraccionamiento",
+        "menciones": 2
+      },
+      {
+        "colonia": "girasoles elite",
+        "municipio": "Zapopan",
+        "estado": "Jalisco",
+        "zona": "AMG-NW",
+        "fuente": "sepomex",
+        "tipo": "Colonia",
+        "menciones": 1
+      }
+    ]
+  },
+  "santa maria": {
+    "_sujeto": {
+      "municipio": "Guadalajara",
+      "zona": "AMG-Centro",
+      "fuente": "cerebro"
+    },
+    "similares": [
+      {
+        "colonia": "belisario dominguez",
+        "municipio": "Guadalajara",
+        "estado": "Jalisco",
+        "zona": "AMG-Centro",
+        "fuente": "sepomex+zona-sujeto-primero",
+        "tipo": "Colonia",
+        "total_en_zona": 2,
+        "menciones": 10
+      },
+      {
+        "colonia": "blanco y cuellar",
+        "municipio": null,
+        "fuente": "sin_datos",
+        "menciones": 4
+      },
+      {
+        "colonia": "circunvalacion oblatos",
+        "municipio": "Guadalajara",
+        "estado": "Jalisco",
+        "zona": "AMG-Centro",
+        "fuente": "sepomex",
+        "tipo": "Colonia",
+        "menciones": 4
+      },
+      {
+        "colonia": "oblatos",
+        "municipio": "Guadalajara",
+        "estado": "Jalisco",
+        "zona": "AMG-Centro",
+        "fuente": "sepomex",
+        "tipo": "Colonia",
+        "menciones": 2
+      },
+      {
+        "colonia": "independencia",
+        "municipio": "Guadalajara",
+        "estado": "Jalisco",
+        "zona": "AMG-Centro",
+        "fuente": "sepomex+zona-sujeto",
+        "tipo": "Colonia",
+        "menciones": 2
+      }
+    ]
+  },
+  "el campanario": {
+    "_sujeto": {
+      "municipio": "Zapopan",
+      "zona": "AMG-NW",
+      "fuente": "cerebro"
+    },
+    "similares": [
+      {
+        "colonia": "Villas de la Tijera",
+        "municipio": "Tlajomulco de Zúñiga",
+        "estado": "Jalisco",
+        "zona": "AMG-S",
+        "fuente": "sepomex",
+        "tipo": "Colonia",
+        "menciones": 5
+      },
+      {
+        "colonia": "La Rioja",
+        "municipio": "Tlajomulco de Zúñiga",
+        "estado": "Jalisco",
+        "zona": "AMG-S",
+        "fuente": "sepomex",
+        "tipo": "Fraccionamiento",
+        "menciones": 4
+      },
+      {
+        "colonia": "Punto Sur Residencial",
+        "municipio": "Tlajomulco de Zúñiga",
+        "estado": "Jalisco",
+        "zona": "AMG-S",
+        "fuente": "sepomex",
+        "tipo": "Fraccionamiento",
+        "menciones": 3
+      },
+      {
+        "colonia": "El Palomar",
+        "municipio": null,
+        "fuente": "sepomex-ambiguo",
+        "candidatos": [
+          "Tlajomulco de Zúñiga/Jalisco",
+          "Tepic/Nayarit"
+        ],
+        "menciones": 2
+      },
+      {
+        "colonia": "Cortijo San Agustín",
+        "municipio": null,
+        "fuente": "sin_datos",
+        "menciones": 1
+      }
+    ]
+  },
+  "del pilar": {
+    "_sujeto": {
+      "municipio": "Zapopan",
+      "zona": "AMG-NW",
+      "fuente": "cerebro"
+    },
+    "similares": [
+      {
+        "colonia": "La Rioja",
+        "municipio": "Tlajomulco de Zúñiga",
+        "estado": "Jalisco",
+        "zona": "AMG-S",
+        "fuente": "sepomex",
+        "tipo": "Fraccionamiento",
+        "menciones": 5
+      },
+      {
+        "colonia": "Nueva Galicia",
+        "municipio": null,
+        "fuente": "sepomex-ambiguo",
+        "candidatos": [
+          "Tlajomulco de Zúñiga/Jalisco",
+          "Compostela/Nayarit",
+          "Compostela/Nayarit",
+          "Xalisco/Nayarit"
+        ],
+        "menciones": 4
+      },
+      {
+        "colonia": "Bonanza Residencial",
+        "municipio": null,
+        "fuente": "sepomex-ambiguo",
+        "candidatos": [
+          "Tlajomulco de Zúñiga/Jalisco",
+          "Manzanillo/Colima"
+        ],
+        "menciones": 3
+      },
+      {
+        "colonia": "Bosques de Santa Anita",
+        "municipio": null,
+        "fuente": "sin_datos",
+        "menciones": 2
+      },
+      {
+        "colonia": "Cortijo San Agustín",
+        "municipio": null,
+        "fuente": "sin_datos",
+        "menciones": 2
+      },
+      {
+        "colonia": "Provenza",
+        "municipio": null,
+        "fuente": "sin_datos",
+        "menciones": 1
+      },
+      {
+        "colonia": "El Manantial",
+        "municipio": null,
+        "fuente": "sepomex-ambiguo",
+        "candidatos": [
+          "Guadalajara/Jalisco",
+          "San Pedro Tlaquepaque/Jalisco",
+          "Tlajomulco de Zúñiga/Jalisco",
+          "Ameca/Jalisco"
+        ],
+        "menciones": 1
+      },
+      {
+        "colonia": "Adamar",
+        "municipio": "Tlajomulco de Zúñiga",
+        "estado": "Jalisco",
+        "zona": "AMG-S",
+        "fuente": "sepomex",
+        "tipo": "Fraccionamiento",
+        "menciones": 1
+      },
+      {
+        "colonia": "Senderos de Monteverde",
+        "municipio": null,
+        "fuente": "sin_datos",
+        "menciones": 1
+      }
+    ]
+  },
+  "jardines de vallarta": {
+    "_sujeto": {
+      "municipio": "Zapopan",
+      "zona": "AMG-NW",
+      "fuente": "cerebro"
+    },
+    "similares": [
+      {
+        "colonia": "La Estancia",
+        "municipio": "Zapopan",
+        "estado": "Jalisco",
+        "zona": "AMG-NW",
+        "fuente": "sepomex+zona-sujeto",
+        "tipo": "Colonia",
+        "menciones": 5
+      },
+      {
+        "colonia": "Vallarta Universidad",
+        "municipio": "Zapopan",
+        "estado": "Jalisco",
+        "zona": "AMG-NW",
+        "fuente": "sepomex",
+        "tipo": "Colonia",
+        "menciones": 5
+      },
+      {
+        "colonia": "Rinconada del Parque",
+        "municipio": "Zapopan",
+        "estado": "Jalisco",
+        "zona": "AMG-NW",
+        "fuente": "sepomex+zona-sujeto",
+        "tipo": "Fraccionamiento",
+        "menciones": 5
+      },
+      {
+        "colonia": "Camichines Vallarta",
+        "municipio": "Zapopan",
+        "estado": "Jalisco",
+        "zona": "AMG-NW",
+        "fuente": "sepomex",
+        "tipo": "Colonia",
+        "menciones": 5
+      },
+      {
+        "colonia": "Ciudad Granja",
+        "municipio": "Zapopan",
+        "estado": "Jalisco",
+        "zona": "AMG-NW",
+        "fuente": "sepomex",
+        "tipo": "Colonia",
+        "menciones": 5
+      },
+      {
+        "colonia": "Jardines Universidad",
+        "municipio": "Zapopan",
+        "estado": "Jalisco",
+        "zona": "AMG-NW",
+        "fuente": "sepomex+zona-sujeto",
+        "tipo": "Colonia",
+        "menciones": 3
+      },
+      {
+        "colonia": "Chapalita Occidente",
+        "municipio": null,
+        "fuente": "sin_datos",
+        "menciones": 3
+      },
+      {
+        "colonia": "Prados Vallarta",
+        "municipio": "Zapopan",
+        "estado": "Jalisco",
+        "zona": "AMG-NW",
+        "fuente": "sepomex",
+        "tipo": "Fraccionamiento",
+        "menciones": 3
+      },
+      {
+        "colonia": "Arcos Vallarta",
+        "municipio": "Guadalajara",
+        "estado": "Jalisco",
+        "zona": "AMG-Centro",
+        "fuente": "sepomex",
+        "tipo": "Colonia",
+        "menciones": 3
+      },
+      {
+        "colonia": "Chapalita Sur",
+        "municipio": "Zapopan",
+        "estado": "Jalisco",
+        "zona": "AMG-NW",
+        "fuente": "sepomex",
+        "tipo": "Colonia",
+        "menciones": 3
+      },
+      {
+        "colonia": "Solares",
+        "municipio": "Zapopan",
+        "estado": "Jalisco",
+        "zona": "AMG-NW",
+        "fuente": "sepomex",
+        "tipo": "Fraccionamiento",
+        "menciones": 1
+      },
+      {
+        "colonia": "Virreyes Residencial",
+        "municipio": "Zapopan",
+        "estado": "Jalisco",
+        "zona": "AMG-NW",
+        "fuente": "sepomex+zona-sujeto",
+        "tipo": "Colonia",
+        "menciones": 1
+      },
+      {
+        "colonia": "Puerta del Bosque",
+        "municipio": "Zapopan",
+        "estado": "Jalisco",
+        "zona": "AMG-NW",
+        "fuente": "sepomex+zona-sujeto-primero",
+        "tipo": "Fraccionamiento",
+        "total_en_zona": 2,
+        "menciones": 1
+      }
+    ]
+  },
+  "chapalita": {
+    "_sujeto": {
+      "municipio": "Guadalajara",
+      "zona": "AMG-Centro",
+      "fuente": "cerebro"
+    },
+    "similares": [
+      {
+        "colonia": "las flores",
+        "municipio": null,
+        "fuente": "sepomex-ambiguo",
+        "candidatos": [
+          "Zapopan/Jalisco",
+          "San Pedro Tlaquepaque/Jalisco",
+          "Tlajomulco de Zúñiga/Jalisco",
+          "Teocaltiche/Jalisco",
+          "Encarnación de Díaz/Jalisco"
+        ],
+        "menciones": 2
+      },
+      {
+        "colonia": "jardines tepeyac",
+        "municipio": "Zapopan",
+        "estado": "Jalisco",
+        "zona": "AMG-NW",
+        "fuente": "sepomex",
+        "tipo": "Colonia",
+        "menciones": 2
+      },
+      {
+        "colonia": "de guadalupe",
+        "municipio": "Sayula",
+        "estado": "Jalisco",
+        "zona": "Otro",
+        "fuente": "sepomex",
+        "tipo": "Colonia",
+        "menciones": 1
+      }
+    ]
+  },
+  "providencia": {
+    "_sujeto": {
+      "municipio": "Guadalajara",
+      "zona": "AMG-Centro",
+      "fuente": "cerebro"
+    },
+    "similares": [
+      {
+        "colonia": "colomos providencia",
+        "municipio": "Guadalajara",
+        "estado": "Jalisco",
+        "zona": "AMG-Centro",
+        "fuente": "sepomex",
+        "tipo": "Fraccionamiento",
+        "menciones": 2
+      },
+      {
+        "colonia": "americana",
+        "municipio": "Guadalajara",
+        "estado": "Jalisco",
+        "zona": "AMG-Centro",
+        "fuente": "sepomex",
+        "tipo": "Colonia",
+        "menciones": 2
+      },
+      {
+        "colonia": "monraz",
+        "municipio": "Guadalajara",
+        "estado": "Jalisco",
+        "zona": "AMG-Centro",
+        "fuente": "sepomex",
+        "tipo": "Fraccionamiento",
+        "menciones": 2
+      },
+      {
+        "colonia": "prados de providencia",
+        "municipio": "Guadalajara",
+        "estado": "Jalisco",
+        "zona": "AMG-Centro",
+        "fuente": "sepomex",
+        "tipo": "Fraccionamiento",
+        "menciones": 2
+      },
+      {
+        "colonia": "jacarandas",
+        "municipio": null,
+        "fuente": "sepomex-ambiguo",
+        "candidatos": [
+          "Zapopan/Jalisco",
+          "Zapopan/Jalisco",
+          "Zapopan/Jalisco",
+          "Tala/Jalisco",
+          "Tonalá/Jalisco"
+        ],
+        "menciones": 2
+      },
+      {
+        "colonia": "moderna",
+        "municipio": "Guadalajara",
+        "estado": "Jalisco",
+        "zona": "AMG-Centro",
+        "fuente": "sepomex+zona-sujeto",
+        "tipo": "Colonia",
+        "menciones": 2
+      },
+      {
+        "colonia": "country club",
+        "municipio": "Guadalajara",
+        "estado": "Jalisco",
+        "zona": "AMG-Centro",
+        "fuente": "sepomex+zona-sujeto",
+        "tipo": "Fraccionamiento",
+        "menciones": 1
+      }
+    ]
+  },
+  "americana": {
+    "_sujeto": {
+      "municipio": "Guadalajara",
+      "zona": "AMG-Centro",
+      "fuente": "cerebro"
+    },
+    "similares": [
+      {
+        "colonia": "col americana",
+        "municipio": null,
+        "fuente": "sin_datos",
+        "menciones": 4
+      },
+      {
+        "colonia": "providencia",
+        "municipio": "Guadalajara",
+        "estado": "Jalisco",
+        "zona": "AMG-Centro",
+        "fuente": "sepomex+zona-sujeto",
+        "tipo": "Fraccionamiento",
+        "menciones": 2
+      },
+      {
+        "colonia": "arcos sur",
+        "municipio": "Guadalajara",
+        "estado": "Jalisco",
+        "zona": "AMG-Centro",
+        "fuente": "sepomex",
+        "tipo": "Colonia",
+        "menciones": 2
+      },
+      {
+        "colonia": "moderna",
+        "municipio": "Guadalajara",
+        "estado": "Jalisco",
+        "zona": "AMG-Centro",
+        "fuente": "sepomex+zona-sujeto",
+        "tipo": "Colonia",
+        "menciones": 2
+      },
+      {
+        "colonia": "ladron de guevara",
+        "municipio": "Guadalajara",
+        "estado": "Jalisco",
+        "zona": "AMG-Centro",
+        "fuente": "sepomex",
+        "tipo": "Fraccionamiento",
+        "menciones": 2
+      },
+      {
+        "colonia": "lafayette",
+        "municipio": "Guadalajara",
+        "estado": "Jalisco",
+        "zona": "AMG-Centro",
+        "fuente": "sepomex",
+        "tipo": "Colonia",
+        "menciones": 1
+      },
+      {
+        "colonia": "guadalajara centro",
+        "municipio": "Guadalajara",
+        "estado": "Jalisco",
+        "zona": "AMG-Centro",
+        "fuente": "sepomex",
+        "tipo": "Colonia",
+        "menciones": 1
+      },
+      {
+        "colonia": "vallarta poniente",
+        "municipio": "Guadalajara",
+        "estado": "Jalisco",
+        "zona": "AMG-Centro",
+        "fuente": "sepomex",
+        "tipo": "Fraccionamiento",
+        "menciones": 1
+      }
+    ]
+  },
+  "colomos providencia": {
+    "_sujeto": {
+      "municipio": "Guadalajara",
+      "zona": "AMG-Centro",
+      "fuente": "cerebro"
+    },
+    "similares": [
+      {
+        "colonia": "providencia",
+        "municipio": "Guadalajara",
+        "estado": "Jalisco",
+        "zona": "AMG-Centro",
+        "fuente": "sepomex+zona-sujeto",
+        "tipo": "Fraccionamiento",
+        "menciones": 2
+      },
+      {
+        "colonia": "providencia 4a",
+        "municipio": null,
+        "fuente": "sin_datos",
+        "menciones": 2
+      },
+      {
+        "colonia": "lomas de providencia",
+        "municipio": "Guadalajara",
+        "estado": "Jalisco",
+        "zona": "AMG-Centro",
+        "fuente": "sepomex",
+        "tipo": "Fraccionamiento",
+        "menciones": 1
+      },
+      {
+        "colonia": "italia providencia",
+        "municipio": "Guadalajara",
+        "estado": "Jalisco",
+        "zona": "AMG-Centro",
+        "fuente": "sepomex",
+        "tipo": "Fraccionamiento",
+        "menciones": 1
+      },
+      {
+        "colonia": "rojas ladron de guevara",
+        "municipio": "Guadalajara",
+        "estado": "Jalisco",
+        "zona": "AMG-Centro",
+        "fuente": "sepomex",
+        "tipo": "Fraccionamiento",
+        "menciones": 1
+      }
+    ]
+  },
+  "hacienda santa fe": {
+    "_sujeto": {
+      "municipio": "Tlajomulco de Zúñiga",
+      "zona": "AMG-S",
+      "fuente": "cerebro"
+    },
+    "similares": [
+      {
+        "colonia": "chulavista",
+        "municipio": "Tlajomulco de Zúñiga",
+        "estado": "Jalisco",
+        "zona": "AMG-S",
+        "fuente": "sepomex+zona-sujeto",
+        "tipo": "Fraccionamiento",
+        "menciones": 4
+      },
+      {
+        "colonia": "orquideas",
+        "municipio": null,
+        "fuente": "sepomex-ambiguo",
+        "candidatos": [
+          "Tepatitlán de Morelos/Jalisco",
+          "Manzanillo/Colima"
+        ],
+        "menciones": 4
+      },
+      {
+        "colonia": "paseo del prado",
+        "municipio": "San Pedro Tlaquepaque",
+        "estado": "Jalisco",
+        "zona": "AMG-SE",
+        "fuente": "sepomex",
+        "tipo": "Fraccionamiento",
+        "menciones": 4
+      },
+      {
+        "colonia": "real del valle",
+        "municipio": "Tlajomulco de Zúñiga",
+        "estado": "Jalisco",
+        "zona": "AMG-S",
+        "fuente": "sepomex+zona-sujeto",
+        "tipo": "Fraccionamiento",
+        "menciones": 2
+      },
+      {
+        "colonia": "las luces",
+        "municipio": "Tlajomulco de Zúñiga",
+        "estado": "Jalisco",
+        "zona": "AMG-S",
+        "fuente": "sepomex",
+        "tipo": "Fraccionamiento",
+        "menciones": 2
+      },
+      {
+        "colonia": "villas de la hacienda",
+        "municipio": "Tlajomulco de Zúñiga",
+        "estado": "Jalisco",
+        "zona": "AMG-S",
+        "fuente": "sepomex",
+        "tipo": "Fraccionamiento",
+        "menciones": 2
+      },
+      {
+        "colonia": "valle de tejeda",
+        "municipio": "Tlajomulco de Zúñiga",
+        "estado": "Jalisco",
+        "zona": "AMG-S",
+        "fuente": "sepomex",
+        "tipo": "Fraccionamiento",
+        "menciones": 2
+      },
+      {
+        "colonia": "valle de la peninsula",
+        "municipio": null,
+        "fuente": "sin_datos",
+        "menciones": 2
+      },
+      {
+        "colonia": "colinas del roble",
+        "municipio": "Tlajomulco de Zúñiga",
+        "estado": "Jalisco",
+        "zona": "AMG-S",
+        "fuente": "sepomex",
+        "tipo": "Fraccionamiento",
+        "menciones": 2
+      }
+    ]
+  },
+  "real del sol": {
+    "_sujeto": {
+      "municipio": "Tlajomulco",
+      "zona": "AMG-S",
+      "fuente": "cerebro"
+    },
+    "similares": [
+      {
+        "colonia": "villas de la hacienda",
+        "municipio": "Tlajomulco de Zúñiga",
+        "estado": "Jalisco",
+        "zona": "AMG-S",
+        "fuente": "sepomex",
+        "tipo": "Fraccionamiento",
+        "menciones": 8
+      },
+      {
+        "colonia": "paseos del prado",
+        "municipio": "Tlaquepaque",
+        "zona": "AMG-SE",
+        "fuente": "cerebro",
+        "menciones": 4
+      },
+      {
+        "colonia": "paseo del prado",
+        "municipio": "San Pedro Tlaquepaque",
+        "estado": "Jalisco",
+        "zona": "AMG-SE",
+        "fuente": "sepomex",
+        "tipo": "Fraccionamiento",
+        "menciones": 4
+      },
+      {
+        "colonia": "balcones de santa anita",
+        "municipio": "Tlajomulco de Zúñiga",
+        "estado": "Jalisco",
+        "zona": "AMG-S",
+        "fuente": "sepomex",
+        "tipo": "Fraccionamiento",
+        "menciones": 2
+      },
+      {
+        "colonia": "valle dorado",
+        "municipio": "Tlajomulco de Zúñiga",
+        "estado": "Jalisco",
+        "zona": "AMG-S",
+        "fuente": "sepomex+zona-sujeto",
+        "tipo": "Colonia",
+        "menciones": 2
+      },
+      {
+        "colonia": "jardines del eden",
+        "municipio": "Tlajomulco de Zúñiga",
+        "estado": "Jalisco",
+        "zona": "AMG-S",
+        "fuente": "sepomex",
+        "tipo": "Fraccionamiento",
+        "menciones": 1
+      },
+      {
+        "colonia": "san jose residencial",
+        "municipio": "Tlajomulco de Zúñiga",
+        "estado": "Jalisco",
+        "zona": "AMG-S",
+        "fuente": "sepomex+zona-sujeto",
+        "tipo": "Fraccionamiento",
+        "menciones": 1
+      },
+      {
+        "colonia": "la arbolada plus",
+        "municipio": "Tlajomulco de Zúñiga",
+        "estado": "Jalisco",
+        "zona": "AMG-S",
+        "fuente": "sepomex",
+        "tipo": "Fraccionamiento",
+        "menciones": 1
+      }
+    ]
+  },
+  "loma bonita ejidal": {
+    "_sujeto": {
+      "municipio": "Tlaquepaque",
+      "zona": "AMG-SE",
+      "fuente": "cerebro"
+    },
+    "similares": [
+      {
+        "colonia": "revolucion",
+        "municipio": "San Pedro Tlaquepaque",
+        "estado": "Jalisco",
+        "zona": "AMG-SE",
+        "fuente": "sepomex+zona-sujeto-primero",
+        "tipo": "Fraccionamiento",
+        "total_en_zona": 2
+      },
+      {
+        "colonia": "pedregal del bosque",
+        "municipio": "San Pedro Tlaquepaque",
+        "estado": "Jalisco",
+        "zona": "AMG-SE",
+        "fuente": "sepomex",
+        "tipo": "Fraccionamiento"
+      },
+      {
+        "colonia": "los olivos de tlaquepaque",
+        "municipio": "San Pedro Tlaquepaque",
+        "estado": "Jalisco",
+        "zona": "AMG-SE",
+        "fuente": "sepomex",
+        "tipo": "Fraccionamiento"
+      },
+      {
+        "colonia": "cerro del tesoro",
+        "municipio": "San Pedro Tlaquepaque",
+        "estado": "Jalisco",
+        "zona": "AMG-SE",
+        "fuente": "sepomex",
+        "tipo": "Colonia"
+      },
+      {
+        "colonia": "santa cruz del valle",
+        "municipio": "Tlajomulco de Zúñiga",
+        "estado": "Jalisco",
+        "zona": "AMG-S",
+        "fuente": "sepomex",
+        "tipo": "Colonia"
+      },
+      {
+        "colonia": "Jardines del Valle",
+        "municipio": null,
+        "fuente": "sepomex-ambiguo",
+        "candidatos": [
+          "Guadalajara/Jalisco",
+          "Zapopan/Jalisco",
+          "Tala/Jalisco",
+          "Tepatitlán de Morelos/Jalisco",
+          "Tepic/Nayarit"
+        ],
+        "menciones": 1
+      },
+      {
+        "colonia": "Loma Bonita Sur",
+        "municipio": "Zapopan",
+        "estado": "Jalisco",
+        "zona": "AMG-NW",
+        "fuente": "sepomex",
+        "tipo": "Colonia",
+        "menciones": 1
+      },
+      {
+        "colonia": "Lomas de Tabachines",
+        "municipio": "Zapopan",
+        "estado": "Jalisco",
+        "zona": "AMG-NW",
+        "fuente": "sepomex",
+        "tipo": "Colonia",
+        "menciones": 1
+      },
+      {
+        "colonia": "Tabachines",
+        "municipio": null,
+        "fuente": "sepomex-ambiguo",
+        "candidatos": [
+          "Zapopan/Jalisco",
+          "Zapopan/Jalisco",
+          "Puerto Vallarta/Jalisco",
+          "Villa de Álvarez/Colima"
+        ],
+        "menciones": 1
+      },
+      {
+        "colonia": "La Victoria",
+        "municipio": "Tlajomulco de Zúñiga",
+        "estado": "Jalisco",
+        "zona": "AMG-S",
+        "fuente": "sepomex",
+        "tipo": "Fraccionamiento",
+        "menciones": 1
+      },
+      {
+        "colonia": "Pinar La Calma",
+        "municipio": null,
+        "fuente": "sin_datos",
+        "menciones": 1
+      },
+      {
+        "colonia": "El Sauz",
+        "municipio": "San Pedro Tlaquepaque",
+        "estado": "Jalisco",
+        "zona": "AMG-SE",
+        "fuente": "sepomex+zona-sujeto-primero",
+        "tipo": "Colonia",
+        "total_en_zona": 2,
+        "menciones": 1
+      },
+      {
+        "colonia": "Jardines de la Cruz",
+        "municipio": null,
+        "fuente": "sepomex-ambiguo",
+        "candidatos": [
+          "Amatitán/Jalisco",
+          "Tepic/Nayarit"
+        ],
+        "menciones": 1
+      },
+      {
+        "colonia": "Jardines del Sur",
+        "municipio": "Guadalajara",
+        "estado": "Jalisco",
+        "zona": "AMG-Centro",
+        "fuente": "sepomex",
+        "tipo": "Colonia",
+        "menciones": 1
+      }
+    ]
+  },
+  "centro": {
+    "_sujeto": {
+      "municipio": "Guadalajara",
+      "zona": "AMG-Centro",
+      "fuente": "cerebro"
+    },
+    "similares": [
+      {
+        "colonia": "analco",
+        "municipio": "Guadalajara",
+        "estado": "Jalisco",
+        "zona": "AMG-Centro",
+        "fuente": "sepomex+zona-sujeto",
+        "tipo": "Barrio",
+        "menciones": 18
+      },
+      {
+        "colonia": "gdl centro",
+        "municipio": null,
+        "fuente": "sin_datos",
+        "menciones": 10
+      },
+      {
+        "colonia": "san vicente",
+        "municipio": "Guadalajara",
+        "estado": "Jalisco",
+        "zona": "AMG-Centro",
+        "fuente": "sepomex+zona-sujeto",
+        "tipo": "Colonia",
+        "menciones": 4
+      }
+    ]
+  },
+  "5 de diciembre": {
+    "_sujeto": {
+      "municipio": "Puerto Vallarta",
+      "zona": "Costa-Sur",
+      "fuente": "cerebro"
+    },
+    "similares": [
+      {
+        "colonia": "Emiliano Zapata",
+        "municipio": "Puerto Vallarta",
+        "estado": "Jalisco",
+        "zona": "Costa-Sur",
+        "fuente": "sepomex+zona-sujeto-primero",
+        "tipo": "Colonia",
+        "total_en_zona": 2,
+        "menciones": 1
+      },
+      {
+        "colonia": "El Cerro",
+        "municipio": "Puerto Vallarta",
+        "estado": "Jalisco",
+        "zona": "Costa-Sur",
+        "fuente": "sepomex+zona-sujeto",
+        "tipo": "Colonia",
+        "menciones": 1
+      },
+      {
+        "colonia": "Versalles Tradicional",
+        "municipio": null,
+        "fuente": "sin_datos",
+        "menciones": 1
+      },
+      {
+        "colonia": "Centro PV",
+        "municipio": null,
+        "fuente": "sin_datos",
+        "menciones": 1
+      },
+      {
+        "colonia": "Amapas",
+        "municipio": "Puerto Vallarta",
+        "estado": "Jalisco",
+        "zona": "Costa-Sur",
+        "fuente": "sepomex",
+        "tipo": "Colonia",
+        "menciones": 1
+      }
+    ]
+  }
+}

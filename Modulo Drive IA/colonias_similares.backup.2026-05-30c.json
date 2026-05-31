@@ -17,6 +17,28 @@
       "menciones": 2
     }
   ],
+  "12122": [
+    {
+      "colonia": "Hacienda Santa Fe",
+      "menciones": 5
+    },
+    {
+      "colonia": "Chulavista",
+      "menciones": 4
+    },
+    {
+      "colonia": "Real del Valle",
+      "menciones": 3
+    },
+    {
+      "colonia": "Valle de los Encinos",
+      "menciones": 2
+    },
+    {
+      "colonia": "Paseos de los Agaves",
+      "menciones": 1
+    }
+  ],
   "san elias": [
     {
       "colonia": "bosques de la victoria",
@@ -348,9 +370,17 @@
     {
       "colonia": "paraisos del colli",
       "menciones": 2
+    },
+    {
+      "colonia": "interior casa 19",
+      "menciones": 2
     }
   ],
   "el fortin": [
+    {
+      "colonia": "interior casa 19",
+      "menciones": 8
+    },
     {
       "colonia": "mariano otero",
       "menciones": 2
@@ -397,6 +427,11 @@
     },
     {
       "colonia": "la floresta del colli",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "12 de diciembre",
       "menciones": 1,
       "fuente": "ia-sepomex"
     }
@@ -1210,6 +1245,10 @@
     },
     {
       "colonia": "lomas de zapopan",
+      "menciones": 2
+    },
+    {
+      "colonia": "edificio a3",
       "menciones": 2
     },
     {
@@ -2056,6 +2095,12 @@
       "menciones": 3
     }
   ],
+  "muralista 253 int 147": [
+    {
+      "colonia": "el castillo",
+      "menciones": 2
+    }
+  ],
   "parques del castillo": [
     {
       "colonia": "real del sol",
@@ -2862,6 +2907,10 @@
       "menciones": 2
     },
     {
+      "colonia": "san rafael tlaquepaque",
+      "menciones": 4
+    },
+    {
       "colonia": "vistas del nilo",
       "menciones": 4
     },
@@ -2871,6 +2920,10 @@
     },
     {
       "colonia": "col san andres",
+      "menciones": 2
+    },
+    {
+      "colonia": "entre rosa navarro y ejido col lomas de revolucion",
       "menciones": 2
     },
     {
@@ -3157,6 +3210,10 @@
   "el rosario": [
     {
       "colonia": "bosques del boulevard",
+      "menciones": 2
+    },
+    {
+      "colonia": "dpto 8",
       "menciones": 2
     },
     {
@@ -3454,6 +3511,10 @@
     },
     {
       "colonia": "las bovedas",
+      "menciones": 2
+    },
+    {
+      "colonia": "12 de diciembre",
       "menciones": 2
     },
     {
@@ -4242,6 +4303,10 @@
       "menciones": 1
     },
     {
+      "colonia": "ref",
+      "menciones": 1
+    },
+    {
       "colonia": "unidad patria",
       "menciones": 1,
       "fuente": "ia-sepomex"
@@ -4898,6 +4963,10 @@
   ],
   "naturezza": [
     {
+      "colonia": "interior 6",
+      "menciones": 8
+    },
+    {
       "colonia": "las varitas",
       "menciones": 1,
       "fuente": "ia-sepomex"
@@ -5409,6 +5478,10 @@
       "menciones": 10
     },
     {
+      "colonia": "real de valdepenas zapopan",
+      "menciones": 10
+    },
+    {
       "colonia": "colinas del rey",
       "menciones": 6
     },
@@ -5731,6 +5804,10 @@
       "menciones": 4
     },
     {
+      "colonia": "dpto 8",
+      "menciones": 2
+    },
+    {
       "colonia": "rancho blanco",
       "menciones": 2
     },
@@ -5757,7 +5834,15 @@
   ],
   "tlaquepaque centro": [
     {
+      "colonia": "dpto 8",
+      "menciones": 2
+    },
+    {
       "colonia": "lomas altos",
+      "menciones": 2
+    },
+    {
+      "colonia": "centro",
       "menciones": 2
     },
     {
@@ -5774,32 +5859,16 @@
       "colonia": "residencial la soledad",
       "menciones": 1,
       "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "San Pedrito",
-      "menciones": 5
-    },
-    {
-      "colonia": "El Vergel",
-      "menciones": 4
-    },
-    {
-      "colonia": "Las Juntas",
-      "menciones": 3
-    },
-    {
-      "colonia": "Brisas de Chapala",
-      "menciones": 2
-    },
-    {
-      "colonia": "Centro Barranquitas",
-      "menciones": 2
     }
   ],
   "los portales": [
     {
       "colonia": "salvador portillo lopez",
       "menciones": 4
+    },
+    {
+      "colonia": "dpto 8",
+      "menciones": 2
     },
     {
       "colonia": "villas de oriente i",
@@ -5815,6 +5884,10 @@
     }
   ],
   "el alamo": [
+    {
+      "colonia": "dpto 8",
+      "menciones": 2
+    },
     {
       "colonia": "centro",
       "menciones": 2
@@ -5982,7 +6055,17 @@
       "menciones": 4
     }
   ],
+  "e 17col las grullas": [
+    {
+      "colonia": "las grullas",
+      "menciones": 10
+    }
+  ],
   "las grullas": [
+    {
+      "colonia": "e 17col las grullas",
+      "menciones": 10
+    },
     {
       "colonia": "san juan del rio",
       "menciones": 1,
@@ -6027,6 +6110,12 @@
     {
       "colonia": "San Agustín",
       "menciones": 1
+    }
+  ],
+  "int": [
+    {
+      "colonia": "las fuentes",
+      "menciones": 10
     }
   ],
   "las fuentes": [
@@ -6406,6 +6495,16 @@
       "fuente": "ia-sepomex"
     }
   ],
+  "c nanzal 10": [
+    {
+      "colonia": "sayulita",
+      "menciones": 6
+    },
+    {
+      "colonia": "lo de marcos",
+      "menciones": 2
+    }
+  ],
   "sayulita": [
     {
       "colonia": "San Pancho",
@@ -6413,7 +6512,7 @@
     },
     {
       "colonia": "Lo de Marcos",
-      "menciones": 2
+      "menciones": 1
     },
     {
       "colonia": "Punta de Mita Pueblo",
@@ -6428,8 +6527,18 @@
       "menciones": 1
     }
   ],
-  "lo de marcos": [],
-  "rincon de guayabitos": [],
+  "lo de marcos": [
+    {
+      "colonia": "c nanzal 10",
+      "menciones": 2
+    }
+  ],
+  "rincon de guayabitos": [
+    {
+      "colonia": "c nanzal 10",
+      "menciones": 2
+    }
+  ],
   "santa cruz de las flores": [
     {
       "colonia": "mazatepec",
@@ -6671,6 +6780,10 @@
   ],
   "prados de santa maria": [
     {
+      "colonia": "privada los olivos",
+      "menciones": 2
+    },
+    {
       "colonia": "amaneceres",
       "menciones": 1,
       "fuente": "ia-sepomex"
@@ -6694,6 +6807,12 @@
       "colonia": "jardines de miraflores",
       "menciones": 1,
       "fuente": "ia-sepomex"
+    }
+  ],
+  "privada los olivos": [
+    {
+      "colonia": "prados de santa maria",
+      "menciones": 2
     }
   ],
   "rinconada del sol": [
@@ -6872,39 +6991,18 @@
     },
     {
       "colonia": "jardines tepeyac",
-      "menciones": 1
+      "menciones": 1,
+      "fuente": "ia-sepomex"
     },
     {
       "colonia": "residencial cordilleras",
-      "menciones": 1
+      "menciones": 1,
+      "fuente": "ia-sepomex"
     },
     {
       "colonia": "ciudad de los ninos",
-      "menciones": 1
-    },
-    {
-      "colonia": "jardines del valle",
-      "menciones": 2
-    },
-    {
-      "colonia": "mariano otero",
-      "menciones": 1
-    },
-    {
-      "colonia": "el rehilete",
-      "menciones": 1
-    },
-    {
-      "colonia": "balcones del sol",
-      "menciones": 1
-    },
-    {
-      "colonia": "la floresta del colli",
-      "menciones": 1
-    },
-    {
-      "colonia": "paraisos del colli",
-      "menciones": 1
+      "menciones": 1,
+      "fuente": "ia-sepomex"
     }
   ],
   "jardines de san ignacio": [
@@ -7549,6 +7647,12 @@
       "menciones": 2
     }
   ],
+  "int 298 col alta california": [
+    {
+      "colonia": "alta california",
+      "menciones": 10
+    }
+  ],
   "hacienda del sur francisco villa": [
     {
       "colonia": "villas de torremolinos",
@@ -8174,19 +8278,23 @@
     },
     {
       "colonia": "ciudad universitaria",
-      "menciones": 1
+      "menciones": 1,
+      "fuente": "ia-sepomex"
     },
     {
       "colonia": "universitaria",
-      "menciones": 1
+      "menciones": 1,
+      "fuente": "ia-sepomex"
     },
     {
       "colonia": "prados del nilo",
-      "menciones": 1
+      "menciones": 1,
+      "fuente": "ia-sepomex"
     },
     {
       "colonia": "sutaj",
-      "menciones": 1
+      "menciones": 1,
+      "fuente": "ia-sepomex"
     }
   ],
   "arroyo las flores": [
@@ -8762,6 +8870,10 @@
     {
       "colonia": "jardines de la hacienda",
       "menciones": 2
+    },
+    {
+      "colonia": "loma arandas 199",
+      "menciones": 2
     }
   ],
   "tonala centro": [
@@ -8808,6 +8920,12 @@
     }
   ],
   "jardines de la hacienda": [
+    {
+      "colonia": "centro tonala",
+      "menciones": 2
+    }
+  ],
+  "loma arandas 199": [
     {
       "colonia": "centro tonala",
       "menciones": 2
@@ -9658,22 +9776,60 @@
       "fuente": "ia-sepomex"
     }
   ],
+  "12 de diciembre": [
+    {
+      "colonia": "jardines del valle",
+      "menciones": 2
+    },
+    {
+      "colonia": "mariano otero",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "el rehilete",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "balcones del sol",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "la floresta del colli",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "paraisos del colli",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    }
+  ],
   "jardin real": [
+    {
+      "colonia": "coto 2 jardin real",
+      "menciones": 10
+    },
     {
       "colonia": "valle esmeralda",
       "menciones": 2
     },
     {
       "colonia": "los nisperos",
-      "menciones": 1
+      "menciones": 1,
+      "fuente": "ia-sepomex"
     },
     {
       "colonia": "canteras",
-      "menciones": 1
+      "menciones": 1,
+      "fuente": "ia-sepomex"
     },
     {
       "colonia": "colinas de san miguel",
-      "menciones": 1
+      "menciones": 1,
+      "fuente": "ia-sepomex"
     }
   ],
   "lomas de san agustin": [
@@ -9911,6 +10067,20 @@
       "menciones": 2
     }
   ],
+  "ref": [
+    {
+      "colonia": "jardines de la paz",
+      "menciones": 1
+    },
+    {
+      "colonia": "santa paula",
+      "menciones": 1
+    },
+    {
+      "colonia": "arcos de zapopan",
+      "menciones": 1
+    }
+  ],
   "jardines de los historiadores": [
     {
       "colonia": "jardines de la paz",
@@ -9940,13 +10110,27 @@
       "fuente": "ia-sepomex"
     }
   ],
-  "senderos del lago": [
+  "coto 18": [
+    {
+      "colonia": "senderos del lago",
+      "menciones": 6
+    },
     {
       "colonia": "nextipac",
       "menciones": 4
     }
   ],
+  "senderos del lago": [
+    {
+      "colonia": "coto 18",
+      "menciones": 6
+    }
+  ],
   "nextipac": [
+    {
+      "colonia": "coto 18",
+      "menciones": 4
+    },
     {
       "colonia": "san esteban san miguel tateposco",
       "menciones": 1,
@@ -10623,11 +10807,21 @@
       "menciones": 4
     },
     {
+      "colonia": "valle de puebla 134",
+      "menciones": 2
+    },
+    {
       "colonia": "lomas del mirador",
       "menciones": 2
     },
     {
       "colonia": "jardines del eden",
+      "menciones": 2
+    }
+  ],
+  "valle de puebla 134": [
+    {
+      "colonia": "colinas de la cruz",
       "menciones": 2
     }
   ],
@@ -11642,6 +11836,16 @@
       "menciones": 2
     }
   ],
+  "interior casa 19": [
+    {
+      "colonia": "el fortin",
+      "menciones": 8
+    },
+    {
+      "colonia": "mariano otero",
+      "menciones": 2
+    }
+  ],
   "margarita maza de juarez": [
     {
       "colonia": "belisario dominguez",
@@ -12206,7 +12410,22 @@
       "menciones": 4
     }
   ],
-  "lomas del bosque uag": [],
+  "edificio a3": [
+    {
+      "colonia": "lomas del bosque uag",
+      "menciones": 8
+    },
+    {
+      "colonia": "arcos de zapopan",
+      "menciones": 2
+    }
+  ],
+  "lomas del bosque uag": [
+    {
+      "colonia": "edificio a3",
+      "menciones": 8
+    }
+  ],
   "col vallarta la patria": [
     {
       "colonia": "jardines de san ignacio",
@@ -12456,6 +12675,11 @@
     },
     {
       "colonia": "chapalita",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "residencial chapalita",
       "menciones": 1,
       "fuente": "ia-sepomex"
     },
@@ -12870,7 +13094,17 @@
       "fuente": "ia-sepomex"
     }
   ],
+  "torrenta 201": [
+    {
+      "colonia": "bosque real",
+      "menciones": 10
+    }
+  ],
   "bosque real": [
+    {
+      "colonia": "torrenta 201",
+      "menciones": 10
+    },
     {
       "colonia": "citala",
       "menciones": 1,
@@ -13086,6 +13320,12 @@
     {
       "colonia": "flamingos",
       "menciones": 2
+    }
+  ],
+  "coto 5 senderos de monte verde tlajomulco": [
+    {
+      "colonia": "senderos de monte verde",
+      "menciones": 10
     }
   ],
   "senderos de monte verde": [
@@ -14080,24 +14320,20 @@
   ],
   "atotonilquillo": [
     {
-      "colonia": "Riberas del Pilar",
-      "menciones": 5
+      "colonia": "revolucion",
+      "peso": 20
     },
     {
-      "colonia": "Ajijic Centro",
-      "menciones": 4
+      "colonia": "pedregal del bosque",
+      "peso": 18
     },
     {
-      "colonia": "San Nicolás de Ibarra",
-      "menciones": 3
+      "colonia": "loma bonita ejidal",
+      "peso": 16
     },
     {
-      "colonia": "San Antonio Tlayacapan",
-      "menciones": 2
-    },
-    {
-      "colonia": "Chapala Centro",
-      "menciones": 1
+      "colonia": "santa cruz del valle",
+      "peso": 14
     }
   ],
   "la floresta": [
@@ -14156,6 +14392,12 @@
     },
     {
       "colonia": "la federacha",
+      "menciones": 2
+    }
+  ],
+  "belisario dominguez 3815": [
+    {
+      "colonia": "san miguel de huentitan",
       "menciones": 2
     }
   ],
@@ -14361,26 +14603,6 @@
     {
       "colonia": "valle de los olivos",
       "menciones": 2
-    },
-    {
-      "colonia": "Hacienda Santa Fe",
-      "menciones": 5
-    },
-    {
-      "colonia": "Chulavista",
-      "menciones": 4
-    },
-    {
-      "colonia": "Real del Valle",
-      "menciones": 3
-    },
-    {
-      "colonia": "Valle de los Encinos",
-      "menciones": 2
-    },
-    {
-      "colonia": "Paseos de los Agaves",
-      "menciones": 1
     }
   ],
   "balcones de la calera": [
@@ -15149,6 +15371,12 @@
       "colonia": "jose clemente orozco",
       "menciones": 1,
       "fuente": "ia-sepomex"
+    }
+  ],
+  "guacamayo 1054": [
+    {
+      "colonia": "col del fresno",
+      "menciones": 1
     }
   ],
   "jardinesl del valle": [
@@ -16206,6 +16434,12 @@
       "menciones": 10
     }
   ],
+  "coto 2 jardin real": [
+    {
+      "colonia": "jardin real",
+      "menciones": 10
+    }
+  ],
   "chapalita inn": [
     {
       "colonia": "cd granja",
@@ -17200,6 +17434,12 @@
       "menciones": 2
     }
   ],
+  "av belisario dominguez sn": [
+    {
+      "colonia": "monumental",
+      "menciones": 2
+    }
+  ],
   "la magdalena zapopan": [
     {
       "colonia": "parques de tesistan",
@@ -17794,6 +18034,12 @@
     },
     {
       "colonia": "Nuevo México",
+      "menciones": 1
+    }
+  ],
+  "local 6 zona c": [
+    {
+      "colonia": "lomas del paradero",
       "menciones": 1
     }
   ],
@@ -18693,6 +18939,16 @@
       "menciones": 1
     }
   ],
+  "mirador san isidro 45130 zapopan": [
+    {
+      "colonia": "san isidro",
+      "menciones": 1
+    },
+    {
+      "colonia": "francisco villa",
+      "menciones": 1
+    }
+  ],
   "colinas de la normal": [
     {
       "colonia": "centro barranquitas",
@@ -18835,6 +19091,12 @@
     {
       "colonia": "san miguel cuyutlan",
       "menciones": 2
+    }
+  ],
+  "bodega": [
+    {
+      "colonia": "brisas de",
+      "menciones": 1
     }
   ],
   "margarita masa de juarez": [
@@ -20087,16 +20349,6 @@
     },
     {
       "colonia": "Buenavista",
-      "menciones": 1
-    }
-  ],
-  "mirador san isidro": [
-    {
-      "colonia": "san isidro",
-      "menciones": 1
-    },
-    {
-      "colonia": "francisco villa",
       "menciones": 1
     }
   ]

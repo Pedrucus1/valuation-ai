@@ -1,0 +1,962 @@
+{
+  "las juntas": {
+    "_meta": {
+      "municipio": "Puerto Vallarta",
+      "zona": "Costa",
+      "fuente": "cerebro_datos",
+      "opis_perito": 1
+    },
+    "similares": [
+      {
+        "colonia": "la duraznera san",
+        "municipio": null,
+        "zona": null,
+        "menciones": 1,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "valentin gomez farias",
+        "municipio": null,
+        "zona": null,
+        "menciones": 1,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "gonzalez gallo",
+        "municipio": null,
+        "zona": null,
+        "menciones": 1,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "olimpica",
+        "municipio": null,
+        "zona": null,
+        "menciones": 1,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "el periodista",
+        "municipio": null,
+        "zona": null,
+        "menciones": 1,
+        "fuente_municipio": "pendiente_revision"
+      }
+    ]
+  },
+  "arcos de zapopan": {
+    "_meta": {
+      "municipio": "Zapopan",
+      "zona": "AMG-NW",
+      "fuente": "cerebro_datos",
+      "opis_perito": 0
+    },
+    "similares": [
+      {
+        "colonia": "las bovedas",
+        "municipio": "Zapopan",
+        "zona": "AMG-NW",
+        "menciones": 4,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "la tuzania",
+        "municipio": null,
+        "zona": null,
+        "menciones": 3,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "altagracia",
+        "municipio": "Zapopan",
+        "zona": "AMG-NW",
+        "menciones": 2,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "girasoles elite",
+        "municipio": null,
+        "zona": null,
+        "menciones": 2,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "parques de zapopan",
+        "municipio": null,
+        "zona": null,
+        "menciones": 2,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "santa margarita 1",
+        "municipio": "Zapopan",
+        "zona": "AMG-NW",
+        "menciones": 2,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "sta margarita",
+        "municipio": "Zapopan",
+        "zona": "AMG-NW",
+        "menciones": 2,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "lomas de zapopan",
+        "municipio": "Zapopan",
+        "zona": "AMG-NW",
+        "menciones": 2,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "edificio a3",
+        "municipio": null,
+        "zona": null,
+        "menciones": 2,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "santa margarita",
+        "municipio": "Zapopan",
+        "zona": "AMG-NW",
+        "menciones": 1,
+        "fuente_municipio": "cerebro_datos"
+      }
+    ]
+  },
+  "lomas de zapopan": {
+    "_meta": {
+      "municipio": "Zapopan",
+      "zona": "AMG-NW",
+      "fuente": "cerebro_datos",
+      "opis_perito": 0
+    },
+    "similares": [
+      {
+        "colonia": "altagracia",
+        "municipio": "Zapopan",
+        "zona": "AMG-NW",
+        "menciones": 6,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "colinas del rey",
+        "municipio": "Zapopan",
+        "zona": "AMG-NW",
+        "menciones": 2,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "francisco villa",
+        "municipio": "Zapopan",
+        "zona": "AMG-NW",
+        "menciones": 2,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "arcos de zapopan",
+        "municipio": "Zapopan",
+        "zona": "AMG-NW",
+        "menciones": 2,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "haciendas del valle",
+        "municipio": "Zapopan",
+        "zona": "AMG-NW",
+        "menciones": 2,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "girasoles elite",
+        "municipio": null,
+        "zona": null,
+        "menciones": 1,
+        "fuente_municipio": "pendiente_revision"
+      }
+    ]
+  },
+  "santa maria": {
+    "_meta": {
+      "municipio": "Guadalajara",
+      "zona": "AMG-Centro",
+      "fuente": "cerebro_datos",
+      "opis_perito": 2
+    },
+    "similares": [
+      {
+        "colonia": "belisario dominguez",
+        "municipio": null,
+        "zona": null,
+        "menciones": 10,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "blanco y cuellar",
+        "municipio": null,
+        "zona": null,
+        "menciones": 4,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "circunvalacion oblatos",
+        "municipio": null,
+        "zona": null,
+        "menciones": 4,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "oblatos",
+        "municipio": "Guadalajara",
+        "zona": "AMG-Centro",
+        "menciones": 2,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "independencia",
+        "municipio": null,
+        "zona": null,
+        "menciones": 2,
+        "fuente_municipio": "pendiente_revision"
+      }
+    ]
+  },
+  "el campanario": {
+    "_meta": {
+      "municipio": "Zapopan",
+      "zona": "AMG-NW",
+      "fuente": "cerebro_datos",
+      "opis_perito": 6
+    },
+    "similares": [
+      {
+        "colonia": "Villas de la Tijera",
+        "municipio": null,
+        "zona": null,
+        "menciones": 5,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "La Rioja",
+        "municipio": null,
+        "zona": null,
+        "menciones": 4,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "Punto Sur Residencial",
+        "municipio": null,
+        "zona": null,
+        "menciones": 3,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "El Palomar",
+        "municipio": null,
+        "zona": null,
+        "menciones": 2,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "Cortijo San Agustín",
+        "municipio": null,
+        "zona": null,
+        "menciones": 1,
+        "fuente_municipio": "pendiente_revision"
+      }
+    ]
+  },
+  "del pilar": {
+    "_meta": {
+      "municipio": "Zapopan",
+      "zona": "AMG-NW",
+      "fuente": "cerebro_datos",
+      "opis_perito": 1
+    },
+    "similares": [
+      {
+        "colonia": "La Rioja",
+        "municipio": null,
+        "zona": null,
+        "menciones": 5,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "Nueva Galicia",
+        "municipio": null,
+        "zona": null,
+        "menciones": 4,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "Bonanza Residencial",
+        "municipio": null,
+        "zona": null,
+        "menciones": 3,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "Bosques de Santa Anita",
+        "municipio": null,
+        "zona": null,
+        "menciones": 2,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "Cortijo San Agustín",
+        "municipio": null,
+        "zona": null,
+        "menciones": 2,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "Provenza",
+        "municipio": null,
+        "zona": null,
+        "menciones": 1,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "El Manantial",
+        "municipio": "Guadalajara",
+        "zona": "AMG-Centro",
+        "menciones": 1,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "Adamar",
+        "municipio": null,
+        "zona": null,
+        "menciones": 1,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "Senderos de Monteverde",
+        "municipio": null,
+        "zona": null,
+        "menciones": 1,
+        "fuente_municipio": "pendiente_revision"
+      }
+    ]
+  },
+  "jardines de vallarta": {
+    "_meta": {
+      "municipio": "Zapopan",
+      "zona": "AMG-NW",
+      "fuente": "cerebro_datos",
+      "opis_perito": 1
+    },
+    "similares": [
+      {
+        "colonia": "La Estancia",
+        "municipio": "Tala",
+        "zona": "Otro",
+        "menciones": 5,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "Vallarta Universidad",
+        "municipio": null,
+        "zona": null,
+        "menciones": 5,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "Rinconada del Parque",
+        "municipio": null,
+        "zona": null,
+        "menciones": 5,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "Camichines Vallarta",
+        "municipio": null,
+        "zona": null,
+        "menciones": 5,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "Ciudad Granja",
+        "municipio": null,
+        "zona": null,
+        "menciones": 5,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "Jardines Universidad",
+        "municipio": null,
+        "zona": null,
+        "menciones": 3,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "Chapalita Occidente",
+        "municipio": null,
+        "zona": null,
+        "menciones": 3,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "Prados Vallarta",
+        "municipio": null,
+        "zona": null,
+        "menciones": 3,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "Arcos Vallarta",
+        "municipio": null,
+        "zona": null,
+        "menciones": 3,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "Chapalita Sur",
+        "municipio": "Zapopan",
+        "zona": "AMG-NW",
+        "menciones": 3,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "Solares",
+        "municipio": "Zapopan",
+        "zona": "AMG-NW",
+        "menciones": 1,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "Virreyes Residencial",
+        "municipio": null,
+        "zona": null,
+        "menciones": 1,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "Puerta del Bosque",
+        "municipio": null,
+        "zona": null,
+        "menciones": 1,
+        "fuente_municipio": "pendiente_revision"
+      }
+    ]
+  },
+  "chapalita": {
+    "_meta": {
+      "municipio": "Guadalajara",
+      "zona": "AMG-Centro",
+      "fuente": "cerebro_datos",
+      "opis_perito": 1
+    },
+    "similares": [
+      {
+        "colonia": "las flores",
+        "municipio": null,
+        "zona": null,
+        "menciones": 2,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "jardines tepeyac",
+        "municipio": null,
+        "zona": null,
+        "menciones": 2,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "de guadalupe",
+        "municipio": null,
+        "zona": null,
+        "menciones": 1,
+        "fuente_municipio": "pendiente_revision"
+      }
+    ]
+  },
+  "providencia": {
+    "_meta": {
+      "municipio": "Guadalajara",
+      "zona": "AMG-Centro",
+      "fuente": "cerebro_datos",
+      "opis_perito": 1
+    },
+    "similares": [
+      {
+        "colonia": "colomos providencia",
+        "municipio": "Guadalajara",
+        "zona": "AMG-Centro",
+        "menciones": 2,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "americana",
+        "municipio": "Guadalajara",
+        "zona": "AMG-Centro",
+        "menciones": 2,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "monraz",
+        "municipio": null,
+        "zona": null,
+        "menciones": 2,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "prados de providencia",
+        "municipio": null,
+        "zona": null,
+        "menciones": 2,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "jacarandas",
+        "municipio": null,
+        "zona": null,
+        "menciones": 2,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "moderna",
+        "municipio": "Guadalajara",
+        "zona": "AMG-Centro",
+        "menciones": 2,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "country club",
+        "municipio": null,
+        "zona": null,
+        "menciones": 1,
+        "fuente_municipio": "pendiente_revision"
+      }
+    ]
+  },
+  "americana": {
+    "_meta": {
+      "municipio": "Guadalajara",
+      "zona": "AMG-Centro",
+      "fuente": "cerebro_datos",
+      "opis_perito": 3
+    },
+    "similares": [
+      {
+        "colonia": "col americana",
+        "municipio": null,
+        "zona": null,
+        "menciones": 4,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "providencia",
+        "municipio": "Guadalajara",
+        "zona": "AMG-Centro",
+        "menciones": 2,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "arcos sur",
+        "municipio": "Guadalajara",
+        "zona": "AMG-Centro",
+        "menciones": 2,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "moderna",
+        "municipio": "Guadalajara",
+        "zona": "AMG-Centro",
+        "menciones": 2,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "ladron de guevara",
+        "municipio": "Guadalajara",
+        "zona": "AMG-Centro",
+        "menciones": 2,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "lafayette",
+        "municipio": null,
+        "zona": null,
+        "menciones": 1,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "guadalajara centro",
+        "municipio": "Guadalajara",
+        "zona": "AMG-Centro",
+        "menciones": 1,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "vallarta poniente",
+        "municipio": null,
+        "zona": null,
+        "menciones": 1,
+        "fuente_municipio": "pendiente_revision"
+      }
+    ]
+  },
+  "colomos providencia": {
+    "_meta": {
+      "municipio": "Guadalajara",
+      "zona": "AMG-Centro",
+      "fuente": "cerebro_datos",
+      "opis_perito": 3
+    },
+    "similares": [
+      {
+        "colonia": "providencia",
+        "municipio": "Guadalajara",
+        "zona": "AMG-Centro",
+        "menciones": 2,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "providencia 4a",
+        "municipio": null,
+        "zona": null,
+        "menciones": 2,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "lomas de providencia",
+        "municipio": null,
+        "zona": null,
+        "menciones": 1,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "italia providencia",
+        "municipio": null,
+        "zona": null,
+        "menciones": 1,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "rojas ladron de guevara",
+        "municipio": null,
+        "zona": null,
+        "menciones": 1,
+        "fuente_municipio": "pendiente_revision"
+      }
+    ]
+  },
+  "hacienda santa fe": {
+    "_meta": {
+      "municipio": "Tlajomulco de Zúñiga",
+      "zona": "AMG-S",
+      "fuente": "cerebro_datos",
+      "opis_perito": 4
+    },
+    "similares": [
+      {
+        "colonia": "chulavista",
+        "municipio": null,
+        "zona": null,
+        "menciones": 4,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "orquideas",
+        "municipio": null,
+        "zona": null,
+        "menciones": 4,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "paseo del prado",
+        "municipio": "Zapopan",
+        "zona": "AMG-NW",
+        "menciones": 4,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "real del valle",
+        "municipio": "Zapopan",
+        "zona": "AMG-NW",
+        "menciones": 2,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "las luces",
+        "municipio": null,
+        "zona": null,
+        "menciones": 2,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "villas de la hacienda",
+        "municipio": "Zapopan",
+        "zona": "AMG-NW",
+        "menciones": 2,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "valle de tejeda",
+        "municipio": null,
+        "zona": null,
+        "menciones": 2,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "valle de la peninsula",
+        "municipio": null,
+        "zona": null,
+        "menciones": 2,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "colinas del roble",
+        "municipio": "Tlajomulco de Zúñiga",
+        "zona": "AMG-S",
+        "menciones": 2,
+        "fuente_municipio": "cerebro_datos"
+      }
+    ]
+  },
+  "real del sol": {
+    "_meta": {
+      "municipio": "Tlajomulco",
+      "zona": "AMG-S",
+      "fuente": "cerebro_datos",
+      "opis_perito": 1
+    },
+    "similares": [
+      {
+        "colonia": "villas de la hacienda",
+        "municipio": "Zapopan",
+        "zona": "AMG-NW",
+        "menciones": 8,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "paseos del prado",
+        "municipio": "Tlaquepaque",
+        "zona": "AMG-SE",
+        "menciones": 4,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "paseo del prado",
+        "municipio": "Zapopan",
+        "zona": "AMG-NW",
+        "menciones": 4,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "balcones de santa anita",
+        "municipio": "Tlajomulco",
+        "zona": "AMG-S",
+        "menciones": 2,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "valle dorado",
+        "municipio": null,
+        "zona": null,
+        "menciones": 2,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "jardines del eden",
+        "municipio": null,
+        "zona": null,
+        "menciones": 1,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "san jose residencial",
+        "municipio": "Tlajomulco de Zúñiga",
+        "zona": "AMG-S",
+        "menciones": 1,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "la arbolada plus",
+        "municipio": null,
+        "zona": null,
+        "menciones": 1,
+        "fuente_municipio": "pendiente_revision"
+      }
+    ]
+  },
+  "loma bonita ejidal": {
+    "_meta": {
+      "municipio": "Tlaquepaque",
+      "zona": "AMG-SE",
+      "fuente": "cerebro_datos",
+      "opis_perito": 6
+    },
+    "similares": [
+      {
+        "colonia": "revolucion",
+        "municipio": "Guadalajara",
+        "zona": "AMG-Centro",
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "pedregal del bosque",
+        "municipio": null,
+        "zona": null,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "los olivos de tlaquepaque",
+        "municipio": null,
+        "zona": null,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "cerro del tesoro",
+        "municipio": null,
+        "zona": null,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "santa cruz del valle",
+        "municipio": null,
+        "zona": null,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "Jardines del Valle",
+        "municipio": "Zapopan",
+        "zona": "AMG-NW",
+        "menciones": 1,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "Loma Bonita Sur",
+        "municipio": null,
+        "zona": null,
+        "menciones": 1,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "Lomas de Tabachines",
+        "municipio": "Zapopan",
+        "zona": "AMG-NW",
+        "menciones": 1,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "Tabachines",
+        "municipio": "Zapopan",
+        "zona": "AMG-NW",
+        "menciones": 1,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "La Victoria",
+        "municipio": null,
+        "zona": null,
+        "menciones": 1,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "Pinar La Calma",
+        "municipio": null,
+        "zona": null,
+        "menciones": 1,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "El Sauz",
+        "municipio": null,
+        "zona": null,
+        "menciones": 1,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "Jardines de la Cruz",
+        "municipio": "Guadalajara",
+        "zona": "AMG-Centro",
+        "menciones": 1,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "Jardines del Sur",
+        "municipio": "Jardines del Sur",
+        "zona": "Otro",
+        "menciones": 1,
+        "fuente_municipio": "cerebro_datos"
+      }
+    ]
+  },
+  "centro": {
+    "_meta": {
+      "municipio": "Guadalajara",
+      "zona": "AMG-Centro",
+      "fuente": "cerebro_datos",
+      "opis_perito": 25
+    },
+    "similares": [
+      {
+        "colonia": "analco",
+        "municipio": "Guadalajara",
+        "zona": "AMG-Centro",
+        "menciones": 18,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "gdl centro",
+        "municipio": null,
+        "zona": null,
+        "menciones": 10,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "san vicente",
+        "municipio": null,
+        "zona": null,
+        "menciones": 4,
+        "fuente_municipio": "pendiente_revision"
+      }
+    ]
+  },
+  "5 de diciembre": {
+    "_meta": {
+      "municipio": "Puerto Vallarta",
+      "zona": "Costa",
+      "fuente": "cerebro_datos",
+      "opis_perito": 1
+    },
+    "similares": [
+      {
+        "colonia": "Emiliano Zapata",
+        "municipio": "Zapopan",
+        "zona": "AMG-NW",
+        "menciones": 1,
+        "fuente_municipio": "cerebro_datos"
+      },
+      {
+        "colonia": "El Cerro",
+        "municipio": null,
+        "zona": null,
+        "menciones": 1,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "Versalles Tradicional",
+        "municipio": null,
+        "zona": null,
+        "menciones": 1,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "Centro PV",
+        "municipio": null,
+        "zona": null,
+        "menciones": 1,
+        "fuente_municipio": "pendiente_revision"
+      },
+      {
+        "colonia": "Amapas",
+        "municipio": null,
+        "zona": null,
+        "menciones": 1,
+        "fuente_municipio": "pendiente_revision"
+      }
+    ]
+  }
+}
