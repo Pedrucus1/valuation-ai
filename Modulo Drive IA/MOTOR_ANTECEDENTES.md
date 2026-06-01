@@ -15,6 +15,29 @@
 
 ---
 
+## ⚠️ SESIÓN 01-Jun-2026 — Benchmark honesto: 2025-2026 (155 OPIs)
+
+**DECISIÓN: 2023-2024 NO se puntúan.** Validar contra avalúos de hace 2-3 años es adivinanza
+(el error real se confunde con la plusvalía del periodo; el factor de inflación es una conjetura).
+La precisión se mide solo en datos recientes con base temporal alineada.
+
+**Benchmark oficial = 2025-2026 completo** (`--desde 2025-01`, 155 OPIs scoreables tras 27 EXCLUIR),
+perito OFF + web OFF (determinista):
+| Set | ±10% | ±15% | ±20% | err abs |
+|---|---|---|---|---|
+| Curado 94 (2025-07+) | 75.5% | 80.9% | 93.6% | 8.3% |
+| **2025-2026 (155) ← oficial** | **69.0%** | **80.0%** | **89.7%** | 9.4% |
+| Historial 337 (descartado) | 47.8 | 60.2 | 71.5 | — |
+
+El 2025-H1 baja el score vs los 94 porque trae casos no afinados uno por uno (NO es desajuste
+temporal — 2025 está bien alineado). Meta >95% ±15%: faltan ~23 OPIs del set de 155.
+
+**Cazar = los 16 violadores ±20% DENTRO de 2025-2026** (no los de 2023-24). Cada uno: abrir,
+ver comps usados, hallar causa (caché contaminado / dato mal parseado / perito atípico→EXCLUIR),
+corregir raíz, re-medir. Trabajo quirúrgico, medible por OPI.
+
+---
+
 ## ⚠️ SESIÓN 01-Jun-2026 — Panorama amplio de validación (337 OPIs)
 
 Se amplió la validación de 94 (curado 2025-07+) a TODOS los OPIs, web OFF + perito OFF (limpio,
