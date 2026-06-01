@@ -21,7 +21,7 @@ const SKIP  = parseInt(args[args.indexOf('--skip') !== -1 ? args.indexOf('--skip
 const N     = parseInt(args[args.indexOf('--n') !== -1 ? args.indexOf('--n') + 1 : -1] || 40);
 
 const deepseek = new OpenAI({
-    apiKey: 'sk-002d18925d514fa7997b0b35718efd82',
+    apiKey: process.env.DEEPSEEK_API_KEY,
     baseURL: 'https://api.deepseek.com/v1'
 });
 

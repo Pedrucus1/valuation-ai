@@ -11,7 +11,7 @@ const { GoogleGenerativeAI } = require('@google/generative-ai');
 const OpenAI = require('openai');
 const cerebro = require('./cerebro_datos.json');
 
-const _deepseek = new OpenAI({ apiKey: 'sk-002d18925d514fa7997b0b35718efd82', baseURL: 'https://api.deepseek.com/v1' });
+const _deepseek = new OpenAI({ apiKey: process.env.DEEPSEEK_API_KEY, baseURL: 'https://api.deepseek.com/v1' });
 const _gemini   = process.env.GEMINI_API_KEY ? new GoogleGenerativeAI(process.env.GEMINI_API_KEY) : null;
 const _openai   = process.env.OPENAI_API_KEY ? new OpenAI({ apiKey: process.env.OPENAI_API_KEY }) : null;
 

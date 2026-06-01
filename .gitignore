@@ -126,3 +126,6 @@ tools/
 frontend/public/pdf-viewer.html
 frontend/public/reporte_referencia.pdf
 nul
+
+# Backups locales (NO al repo — pueden contener secretos)
+_backups/

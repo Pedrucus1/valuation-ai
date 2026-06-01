@@ -1,5 +1,5 @@
 # PropValu — Backlog de Tareas
-> **Última actualización:** 26 May 2026 — Motor Remi: **85.4% ±10%, 99.0% ±20%, error abs 5.2%** (96 OPIs H2 2025+2026). Renombrado Romina→Remi. SEPOMEX +1,410 colonias en IDX. SIM corregidas: san elias, zalatitan, oblatos. Conservation mapping completo en server.py.
+> **Última actualización:** 01 Jun 2026 — Motor Remi: consolidación en archivo maestro (6 fuentes→1), capas ganada/derivada + temporalidad, flywheel del perito, acumulación de comps web + score de confianza, cap por calidad de pool, y fixes de bugs reales (municipio mal capturado, gate suma_partes con clave exacta). Benchmark honesto **2025-2026 (153 OPIs): 69.9% ±10%, 81.7% ±15%, 91.5% ±20%**; curado 93: 76.3/81.7/94.6. (El 85.4% del 26-May era pre-rebuild de caché; el set 2025-2026 es más amplio y honesto.) Ver MOTOR_ANTECEDENTES.md.
 > Actualizar este archivo conforme se completen tareas. Marcar con ✅ cuando esté lista, con 🔄 cuando esté en progreso.
 
 ---
@@ -141,7 +141,7 @@
 | 79 | ✅ | **Motor calibrado en 40 OPIs — 31/40 ±20%, error promedio 12.6%** — Mejoras: factorRH dinámico por conservación, prima vivienda pequeña (<65m²C), Beta-OPI preferido cuando colonia es vaga, factor obsolescencia urbana terreno (edad>30 + CUS<0.85). DeepSeek como agente primario de análisis. Script `deepseek_dev.js` creado. |
 | 80 | ✅ | **Comparar metodología perito vs motor propio vs precio real scraper** — `comparar_10_scraper.js`: 10/10 en ±20%, error 11.8%. Motor Remi gana al método perito en todos los casos. |
 | 74 | ✅ | **Base de datos de colonias similares** — `build_colonias_similares.js` corrido exitosamente con 712 OPIs. 0 colonias nuevas (ya existían todas), 3 actualizadas. colonias_similares.json tiene 1052 entradas. |
-| 75 | 🔄 | **Revisar enricher del scraper** — Cobertura actual: PINCALI 98% ✅, CYT 81% ✅, MITULA 94% ✅, VIVANUNCIOS 56% ⚠️, INMUEBLES24 0% ❌, PROPIEDADES_COM 13% ❌. Pendiente: enriquecer INMUEBLES24 y PROPIEDADES_COM (Chrome CDP). |
+| 75 | 🔄 | **Revisar enricher del scraper** — Coberturas conocidas (PINCALI 98% etc.) son de `m2_terreno`. **HALLAZGO 01-Jun:** `año_construccion` está al **0% en las 148,151 filas** — los portales no lo publican y el enricher no lo extrae (INMUEBLES24: 0 años en 16 filas). Enricher INMUEBLES24 detenido por inútil para edad. propiedades.com NO por CDP (Akamai/IP, ya probado) — su cobertura entra por ruta Serper del motor. Pendiente real: fuente de año (parsear `descripcion` con IA donde aparezca). |
 | 82 | ✅ | **Fix m2_terreno en scraper Mitula** — Corregido en `mitula.py`. |
 | 83 | ✅ | **Scheduler mensual corregido** — `run_mensual.ps1` con ruta, Python correcto y PROPIEDADES_COM. |
 | 84 | ✅ | **MongoDB-first en scheduler.py** — Escribe MongoDB primero, Sheets secundario. |
@@ -150,14 +150,26 @@
 | 88 | ✅ | **Ampliar validación y calibración** — **COMPLETADO 26-May**: 89/99 ±10% (89.9%), 100% ±20%, error abs 5.0%. Comando: `node validar_40_opis.js --n 200 --desde 2025-07`. FLOOR_EDAD_SIMILARES diferenciado por conservación implementado. |
 | 89 | ✅ | **Validación ampliada todo 2025+2026** — 157 OPIs: 82.8% ±10%, 98.1% ±20%, error 5.9%. 2 nuevos EXCLUIR (Del Sur micro + Zapopan-municipio). Motor confirmado robusto. |
 | 93 | ✅ | **SEPOMEX/IDX + SIM fixes post-rebuild 26-May** — +1,410 colonias SEPOMEX al IDX (8,703 total). SIM corregidas: san elias (similares premium→medio-alto), oblatos (garbage→analco/san juan bosco), zalatitan (sin datos→tonala/santa paula). Conservation mapping completo en server.py (11 estados vs 4 antes). Resultado: **85.4% ±10%, 99.0% ±20%, error 5.2%** (96 OPIs H2 2025+2026). |
-| 90 | ⏳ | **Opción 2: edadPromedioZona en colonias_nse.json** — Agregar campo con edad promedio de listings por colonia. Depende de #91. |
-| 91 | ⏳ | **Opción 3: capturar edad en scraper** — Capturar `año_construccion` donde esté explícito (Inmuebles24, Lamudi) o `edad_estimada` donde sea aproximado. Agrega al schema del scraper. |
+| 90 | 🔄 | **Opción 2: edad relativa a la zona** — **Maquinaria LISTA y probada neutral (01-Jun):** `build_cache_index.js` calcula `edadMedianaZona` por colonia; `motor_remi_api.js` usa ancla relativa en `factorEdad` (fallback a 10 sin dato → idéntico). **Bloqueada por #91 (año 0%).** Se activa sola cuando entre data de edad. |
+| 91 | 🔄 | **Opción 3: capturar edad en scraper** — `actualizar_cache_consolidado.js` ya mapea col 14 → campo `an`; `an` cargado en comps para depreciación comp-a-comp. **BLOQUEO:** `año_construccion` 0% en CONSOLIDADO (ver #75). Falta fuente real de año (IA sobre `descripcion`). |
 | 92 | ❌ | **Replicar calibración en comparar_metodologias_v2.js** — DESCARTADO: producción ya usa `motor_remi_api.js` directamente desde server.py. comparar_metodologias_v2.js es script legacy de prueba. |
 | 77 | ✅ | **Integrar Remi al backend** — `motor_remi_api.js` + endpoint en server.py. |
 | 81 | ✅ | **Migrar a cache_index.json** — IDX[muni][tipo] 1.6MB vs 50MB anterior. |
 | 78 | ✅ | **Re-extraer cerebro con colonias de comparables correctas** — Completado 22-may. 712 OPIs recuperados. build_colonias_similares.js corrido. |
 | 85 | ⏳ | **actualizar_cerebro.js optimizado** — Escanea solo últimos 3 meses en lugar de todo Drive. Soporte `--meses N`. Merge de manifiesto (no reemplaza). |
 | 86 | 🔄 | **avaluos_referencia.json** — Archivo existe con 1,168 OPIs. Pendiente: integrar en motor_remi_api.js para enriquecer sujetoColonia cuando el extractor no la encuentre. |
+| 94 | ✅ | **Consolidación en archivo maestro** — `construir_maestro.js`: 6 fuentes por-colonia → `colonias_maestro.json` (1 archivo, ~33% menos bytes/avalúo). Motor lee solo de ahí, cascada idéntica + fallback legacy. `ARQUITECTURA_DATOS.md` documenta capas. |
+| 95 | ✅ | **Capas ganada/derivada + temporalidad + flywheel del perito** — cascada NSE v1→perito→v2→idx. `construir_calibraciones_perito.js` deriva NSE verificado de avalúos reales (split temporal para medir). Neutral pero +115 colonias de cobertura, cero regresión. |
+| 96 | ✅ | **Acumulación de comps web + score de confianza** — `acumularComps()` guarda comps web reales (con URL) en `comps_acumulados.ndjson`. `consolidar_comps_acumulados.js` dedup + clasifica verificado/por_verificar/sospechoso cruzando contra mediana de zona. |
+| 97 | ✅ | **Cap de comps por calidad de pool** — COMP_CAP 15 (exacta/similares) / 10 (general). +1 ±10%, cero regresión. |
+| 98 | ✅ | **Fix municipio mal capturado** — `corregir_municipios_cerebro.js` (guardrail pm2c-coincide-otro-muni). Real del Valle Zapopan→Tlajomulco: −27%→−6.6%. Detector reutilizable. |
+| 99 | ✅ | **Fix gate suma_partes (clave exacta→fuzzy)** — usaba IDX[col].count exacto, subcontaba comps fuzzy. Cortijo San Agustín usó sus 6 comps reales (+21%→−10%). |
+| 100 | ✅ | **Benchmark honesto 2025-2026 + descartar 2023-2024** — validar contra avalúos viejos = adivinanza (plusvalía). Factor inflación 2024 corregido 1.07→1.13. Colli/Alta California reclasificadas MERCADO (respaldadas por 9/42 listings). |
+| 101 | ⏳ | **Puente NSE de comps acumulados** — clasificar cada comp `verificado` por NSE (pm2c→nivel) y fusionar a cache_consolidado/cache_index para que el motor los use. Aditivo, medible. |
+| 102 | ⏳ | **Fórmula suma_partes sobrevalúa** — Emiliano Zapata +82%, La Experiencia +37% (con <3 comps reales, suma_partes correcto pero la fórmula infla). |
+| 103 | ⏳ | **Bucket colonia vacía en cache_index** — zapopan/casa key "" con n=399 $34,677 contamina ancla de zona vía `colNorm.includes("")`. Limpiar listings sin colonia del índice. |
+| 104 | ⏳ | **Similares premium/baratos + sobre-depreciación** — San Carlos (similares premium), Heliodoro (similares baratos + factor edad 0.82 en casa de 46a). |
+| 105 | ⏳ | **Aislar Chrome scraper propiedades.com** — `PROPIEDADES_CDP_PORT=9333` + `lanzar_chrome_scraper.bat` (perfil aislado). Alternativa mejor: ruta de búsqueda Serper (Google indexa propiedades.com, sin Akamai). IPRoyal lo bloquea. |
 
 ---
 

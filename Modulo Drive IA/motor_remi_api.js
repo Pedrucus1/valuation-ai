@@ -29,7 +29,7 @@ const _gemini = process.env.GEMINI_API_KEY
     : null;
 
 const _deepseek = new OpenAI({
-    apiKey: 'sk-002d18925d514fa7997b0b35718efd82',
+    apiKey: process.env.DEEPSEEK_API_KEY,
     baseURL: 'https://api.deepseek.com/v1'
 });
 
@@ -753,7 +753,7 @@ function valuarPropiedad(prop) {
         let s = m2C > 0 ? 1 - Math.abs(d.c - m2C) / Math.max(d.c, m2C) : 0;
         if (colNorm && dc.length >= 5 && (dc.includes(colNorm) || colNorm.includes(dc))) s += 0.50;
         else if (dc.length >= 4 && similares.some(x => dc.includes(x))) s += 0.25;
-        return { precio: d.p, m2_const: d.c, score: s };
+        return { precio: d.p, m2_const: d.c, score: s, an: d.an || null };
     }).sort((a, b) => b.score - a.score).slice(0, poolTipo === 'general' ? COMP_CAP_GENERAL : COMP_CAP);
 
     // Filtro post-scoring por escalafón
@@ -768,9 +768,14 @@ function valuarPropiedad(prop) {
     const edad     = prop.edad || 0;
     const edadEfectiva = calcEdadEfectiva(edad, prop.estadoConservacion);
     const floorEdad  = FLOOR_EDAD_SIMILARES[prop.estadoConservacion] ?? 0.85;
+    // #90 (opción 2) — ancla de edad relativa a la zona: si la colonia del sujeto tiene edadMedianaZona,
+    // el descuento se mide contra la edad típica de la zona (no contra un fijo 10). Un sujeto tan viejo
+    // como su zona ya no se sobre-deprecia. Fallback a 10 cuando no hay dato → comportamiento idéntico.
+    const _cellEdad = IDX[muniNorm]?.[tipo]?.[colNorm];
+    const anclaEdad = (_cellEdad && _cellEdad.edadMedianaZona != null) ? _cellEdad.edadMedianaZona : 10;
     const factorEdad = poolTipo === 'exacta'   ? 1.0
-                     : poolTipo === 'similares' ? Math.max(floorEdad,  1 - (edadEfectiva - 10) * 0.005)
-                     :                            Math.max(0.70,       1 - (edadEfectiva - 10) * 0.01);
+                     : poolTipo === 'similares' ? Math.max(floorEdad,  1 - (edadEfectiva - anclaEdad) * 0.005)
+                     :                            Math.max(0.70,       1 - (edadEfectiva - anclaEdad) * 0.01);
     const factorConserv = FACTORES_CONSERVACION[prop.estadoConservacion] || 1.00;
     const factorNeg     = 0.95;
 

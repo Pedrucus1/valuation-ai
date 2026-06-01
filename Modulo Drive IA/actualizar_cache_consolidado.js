@@ -23,7 +23,7 @@ const SHEET_ID       = '1rEyGTh4v-W3yfQ9BvFkznyuyCMKfVZDBlGhmGeMdkPE';
 // colonia(6) municipio(7) estado(8) rec(9) ban(10)
 // m2c(11) m2t(12) estac(13) año(14) desc(15) url(16)
 // agente(17) fecha_pub(18) portal(19) fecha_scrap(20) activo(21)
-const COL = { precio:2, tipo_op:4, tipo_prop:5, colonia:6, municipio:7, rec:9, ban:10, m2c:11, m2t:12, estac:13, fecha_scrap:20, activo:21 };
+const COL = { precio:2, tipo_op:4, tipo_prop:5, colonia:6, municipio:7, rec:9, ban:10, m2c:11, m2t:12, estac:13, ano:14, fecha_scrap:20, activo:21 };
 
 async function main() {
     const creds = JSON.parse(readFileSync(CREDS_PATH, 'utf8'));

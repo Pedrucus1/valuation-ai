@@ -87,6 +87,13 @@ console.log('Leyendo cache_consolidado.json...');
 const { datos: CACHE } = JSON.parse(fs.readFileSync(CACHE_PATH, 'utf8'));
 console.log(`  ${CACHE.length} registros cargados.`);
 
+// #101 — Puente: comps web verificados (archivo lateral, no muta el cache). Se inyectan DESPUÉS
+// de indexar el scraper, SOLO en celdas pobres (<3 listings del scraper), para llenar colonias
+// sin/con poca data sin distorsionar las bien cubiertas (los comps web son precios asking).
+const PUENTE_PATH = path.join(__dirname, 'comps_verificados.json');
+const PUENTE_GATE = 3;  // máximo de listings scraper para que entren comps web
+const _verificados = fs.existsSync(PUENTE_PATH) ? JSON.parse(fs.readFileSync(PUENTE_PATH, 'utf8')) : [];
+
 const _nse = fs.existsSync(NSE_PATH) ? JSON.parse(fs.readFileSync(NSE_PATH, 'utf8')) : {};
 const _sim = fs.existsSync(SIM_PATH) ? JSON.parse(fs.readFileSync(SIM_PATH, 'utf8')) : {};
 
@@ -108,9 +115,28 @@ for (const d of CACHE) {
     if (!idx[muni][tipo])  idx[muni][tipo] = {};
     if (!idx[muni][tipo][col]) idx[muni][tipo][col] = [];
 
-    // Solo guardar los campos que usan los motores: precio, m²C, m²T, fecha_scraping
-    idx[muni][tipo][col].push({ p: d.p, c: d.c, t: d.t || 0, fs: d.fs || null });
+    // Solo guardar los campos que usan los motores: precio, m²C, m²T, fecha_scraping, año (#90/#91)
+    idx[muni][tipo][col].push({ p: d.p, c: d.c, t: d.t || 0, fs: d.fs || null, an: d.an || null });
 }
+
+// #101 — Inyectar comps web verificados SOLO en celdas pobres (<PUENTE_GATE scraper).
+let puenteAdd = 0;
+for (const d of _verificados) {
+    if (!d.p || (!d.c && !d.t)) continue;
+    const muni = normMuni(d.mu || '');
+    const tipo = canonTipo(d.tp || '');
+    const colRaw = normCol(d.co || '');
+    const col = colRaw === muni ? muni + ' centro' : colRaw;
+    if (!muni || !col) continue;
+    const cell = idx[muni]?.[tipo]?.[col];
+    if (cell && cell.length >= PUENTE_GATE) continue;  // bien cubierta → no tocar
+    if (!idx[muni])       idx[muni] = {};
+    if (!idx[muni][tipo]) idx[muni][tipo] = {};
+    if (!idx[muni][tipo][col]) idx[muni][tipo][col] = [];
+    idx[muni][tipo][col].push({ p: d.p, c: d.c, t: d.t || 0, fs: d.fs || null, w: 1 });
+    puenteAdd++;
+}
+if (_verificados.length) console.log(`  Puente #101: ${puenteAdd}/${_verificados.length} comps web inyectados en celdas pobres (<${PUENTE_GATE}).`);
 
 // Post-procesar: dedup + calcular mediana por colonia
 let totalListings = 0;
@@ -126,10 +152,14 @@ for (const muni of Object.keys(idx)) {
             const pm2cs = esTerr
                 ? dd.filter(l => l.t > 0).map(l => l.p / l.t)
                 : dd.filter(l => l.c > 0).map(l => l.p / l.c);
+            // #90 — edad mediana de la zona (años) desde los `an` presentes. Solo si ≥3 listings con año.
+            const ANIO_ACTUAL = new Date().getFullYear();
+            const edades = dd.filter(l => l.an > 1900 && l.an <= ANIO_ACTUAL).map(l => ANIO_ACTUAL - l.an);
             idx[muni][tipo][col] = {
                 listings:    dd,
                 medianaPm2c: pm2cs.length ? Math.round(mediana(pm2cs)) : null,
                 count:       dd.length,
+                edadMedianaZona: edades.length >= 3 ? Math.round(mediana(edades)) : null,
             };
             totalListings += dd.length;
             totalColonias++;

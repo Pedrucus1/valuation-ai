@@ -15,6 +15,41 @@
 
 ---
 
+## ✅ #101 PUENTE NSE DE COMPS VERIFICADOS — RESUELTO (01-Jun-2026, tarde)
+
+El flywheel ahora rinde: los comps web `verificado` (de `comps_acumulados.json`) entran al pool del motor.
+- `construir_puente_comps.js` → `comps_verificados.json` (40 verificado mapeados al esquema p,c,t,tp,co,mu,fs).
+- `build_cache_index.js` los inyecta **SOLO en celdas pobres (<3 listings scraper)** — gate `PUENTE_GATE=3`.
+- **Por qué el gate:** primer intento (merge plano a todo el cache) REGRESÓ 76.3/81.7/94.6 → 75.3/80.6/93.5
+  (+1 fuera ±20%). Causa: los comps web son precios ASKING; en colonias bien cubiertas (Mariano Otero)
+  inflan la exacta. El propósito de #101 es llenar colonias SIN data, no competir donde ya hay scraper.
+- **Con gate: 76.3/81.7/94.6 — idéntico al baseline, CERO regresión.** 6/40 comps entraron a celdas pobres;
+  34 omitidos (colonias bien cubiertas). Neutral en el benchmark (colonias bien cubiertas, "sin comps: 0")
+  pero mecanismo vivo para colonias delgadas → rinde más conforme se acumulan comps web. Listings con `w:1`.
+- **Revertir** = borrar `comps_verificados.json` + rebuild. No toca scraper ni perito.
+
+---
+
+## ⚙️ #90/#91 EDAD RELATIVA A LA ZONA — MAQUINARIA LISTA, BLOQUEADA POR DATOS (01-Jun-2026, tarde)
+
+Se construyó el pipeline de edad relativa (opción 2 del 26-May) y se probó NEUTRAL/seguro:
+- `actualizar_cache_consolidado.js` ahora mapea la columna 14 `año_construccion` → campo `an`.
+- `build_cache_index.js` lleva `an` por listing y calcula `edadMedianaZona` por colonia (si ≥3 listings con año).
+- `motor_remi_api.js` `factorEdad`: ancla relativa = `edadMedianaZona` de la colonia (en vez del fijo 10);
+  un sujeto tan viejo como su zona deja de sobre-depreciarse. **Fallback a 10 sin dato → idéntico al actual.**
+  `an` también se carga en los comps scored para activar opción 3 (#91, depreciación comp-a-comp) cuando haya datos.
+- Validación: **76.3/81.7/94.6 idéntico al baseline** (anclaEdad=10 en todos lados porque no hay datos de edad).
+
+**🚧 BLOQUEO REAL (verificado, no supuesto):** la columna `año_construccion` está **VACÍA en las 148,151 filas
+del CONSOLIDADO (0%)**. Los portales casi nunca publican el año; el `enricher.py` tampoco lo extrae (corrida
+INMUEBLES24: 16 filas, 0 años, 15 "nada nuevo"). Las coberturas altas conocidas (PINCALI 98%, etc.) eran de
+`m2_terreno`, NO de año. → #90/#91 quedan **inertes hasta tener una fuente real de edad**. NO es problema de
+código (la maquinaria está lista y es segura). Enricher de INMUEBLES24 detenido por inútil para esto.
+**Para desbloquear:** necesitamos una fuente de año (ej. parsear de `descripcion` con IA donde aparezca,
+o un portal que lo publique). Hasta entonces, dejar la maquinaria como está (neutral).
+
+---
+
 ## 🔑 PALANCA REAL PARA LOS ESTRUCTURALES (01-Jun-2026)
 
 Verificación con lente de municipio de los 16 violadores 2025-2026: solo **Real del Valle** era

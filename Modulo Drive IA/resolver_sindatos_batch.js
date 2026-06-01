@@ -15,7 +15,7 @@ const MANUAL_PATH = path.join(__dirname, 'colonias_manual_municipios.json');
 const V2_PATH     = path.join(__dirname, 'colonias_similares.enriquecido.v2.json');
 
 const ds = new OpenAI({
-  apiKey: 'sk-002d18925d514fa7997b0b35718efd82',
+  apiKey: process.env.DEEPSEEK_API_KEY,
   baseURL: 'https://api.deepseek.com/v1',
 });
 
