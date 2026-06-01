@@ -669,6 +669,39 @@ def fetch_html_cdp(url: str) -> Optional[str]:
         return None
 
 
+def fetch_html_node(url: str) -> Optional[str]:
+    """Fetch HTTP simple via Node (plain_fetch.js) — pasa Akamai donde requests recibe tarpit TLS.
+    Sin Chrome/CDP. El HTML va por archivo temporal (evita assertion de libuv en Windows)."""
+    import subprocess, tempfile, os
+    from pathlib import Path
+    js = Path(__file__).parent / "scrapers" / "plain_fetch.js"
+    fd, tmp = tempfile.mkstemp(suffix=".html", prefix="enr_pcom_")
+    os.close(fd)
+    try:
+        r = subprocess.run(["node", str(js), url, tmp],
+                           capture_output=True, text=True, encoding="utf-8", timeout=60)
+        # El HTML se escribe (sync) ANTES del exit de Node; un assertion de libuv al salir no
+        # invalida el archivo → leerlo primero y validar por tamaño, no por returncode.
+        try:
+            with open(tmp, "r", encoding="utf-8") as f:
+                html = f.read()
+        except OSError:
+            html = ""
+        if len(html) > 5000:
+            return html
+        if r.returncode != 0:
+            logger.warning(f"plain_fetch error para {url}: {r.stderr.strip()[:150]}")
+        return None
+    except Exception as e:
+        logger.warning(f"plain_fetch excepción para {url}: {e}")
+        return None
+    finally:
+        try:
+            os.remove(tmp)
+        except OSError:
+            pass
+
+
 def fetch_detalle(url: str, portal: str, session: requests.Session) -> Optional[str]:
     """Selecciona el método de descarga adecuado según el portal."""
     portal_real = portal if portal in PORTALES_PLAYWRIGHT or portal == "CASAS_Y_TERRENOS" else inferir_portal_por_url(url) or portal
@@ -676,9 +709,9 @@ def fetch_detalle(url: str, portal: str, session: requests.Session) -> Optional[
     # PINCALI: convertir a URL española
     fetch_url = _pincali_url_espanol(url) if portal_real == "PINCALI" else url
 
-    # PROPIEDADES_COM: usar CDP (Playwright headless bloqueado por Akamai)
+    # PROPIEDADES_COM: HTTP simple via Node (Akamai deja pasar el GET; el __NEXT_DATA__ trae `age`)
     if portal_real == "PROPIEDADES_COM":
-        return fetch_html_cdp(fetch_url)
+        return fetch_html_node(fetch_url)
 
     if portal_real in PORTALES_PLAYWRIGHT:
         return fetch_html_playwright(fetch_url, portal_real)
