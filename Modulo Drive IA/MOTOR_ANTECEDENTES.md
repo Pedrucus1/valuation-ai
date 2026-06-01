@@ -15,6 +15,33 @@
 
 ---
 
+## 🔒 REGISTRO DE VIOLADORES ±20% — REVISADOS Y CERRADOS (01-Jun-2026)
+
+> **REGLA: NO re-investigar estos OPIs.** Fueron analizados (script `analizar_rescate.js`) y son
+> atípicos/estructurales. Causa de fondo de por qué "no se aprendía": estos 16 NUNCA se habían
+> registrado (0/16 estaban en CASOS_ESPECIALES pese a 10+ revisiones). Aquí queda el veredicto.
+> Solo reabrir si ENTRAN DATOS NUEVOS (más comps en la colonia). La mejora viene de datos
+> (flywheel/web/scraper), NO de re-analizar estos casos.
+
+**Falsos violadores (con motor en vivo están DENTRO de ±15%, eran ruido perito-off):**
+- OPI-25-5-08-OF (del Fresno) +11% · OPI-25-4-06-OF (Colinas del Roble) +11% → OK, ignorar.
+
+**Atípicos por SIM mal calibradas (whack-a-mole: arreglar uno rompe otro — NO tocar):**
+- OPI-25-9-02-OF (Heliodoro H. Loza) −49% · OPI-25-4-20-AV (Real del Valle) −29% · OPI-25-5-03-AV (San Carlos) +37%
+
+**Atípicos por caché vs perito en desacuerdo (1 listing, no dirimible):**
+- OPI-25-6-04-LM (Aldama Tetlán: caché $32k vs perito $16k) · OPI-26-2-25-OF (Colli Urbano: exacta premium)
+
+**Estructurales sin comps (suma_partes_mix/general — solo se arreglan con MÁS DATOS):**
+- OPI-25-9-01-OF · OPI-25-1-38-AV · OPI-25-3-11-AV · OPI-25-1-12-AV (suma_partes_mix)
+- OPI-26-1-19-OF · OPI-25-2-03-RM · OPI-25-4-15-AV · OPI-25-11-02-OF · OPI-25-7-03-OF (general)
+
+**Implicación de techo:** si ~16/155 son atípicos no-corregibles por método, el techo del benchmark
+honesto (sin más datos) es ~90% ±20% / ~85% ±15%. Llegar a >95% requiere DATOS (cobertura), no
+parchar casos. Fin de la cacería manual.
+
+---
+
 ## ⚠️ SESIÓN 01-Jun-2026 — Benchmark honesto: 2025-2026 (155 OPIs)
 
 **DECISIÓN: 2023-2024 NO se puntúan.** Validar contra avalúos de hace 2-3 años es adivinanza
