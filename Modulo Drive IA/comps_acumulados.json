@@ -9,7 +9,9 @@
   "municipio": "Zapopan",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "ratio 1.77 vs scraper-colonia"
  },
  {
   "url": "https://www.icasas.mx/venta/habitacionales-casas-jalisco-zapopan-mariano-otero-2_5_14_0_647_1337",
@@ -21,7 +23,9 @@
   "municipio": "Zapopan",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 1.26)"
  },
  {
   "url": "https://propiedades.com/mariano-otero-zapopan/casas-venta",
@@ -33,7 +37,9 @@
   "municipio": "Zapopan",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 1.46)"
  },
  {
   "url": "https://propiedades.com/santa-maria-guadalajara/",
@@ -45,7 +51,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "sin referencia de zona"
  },
  {
   "url": "https://www.inmuebles24.com/inmuebles-en-santa-maria-ciudad-de-guadalajara.html",
@@ -57,7 +65,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "sin referencia de zona"
  },
  {
   "url": "https://www.zmginmobiliaria.com/property/casa-en-venta-en-colonia-santa-maria-guadalajara",
@@ -69,7 +79,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "sin referencia de zona / portal dudoso"
  },
  {
   "url": "https://www.inmuebles24.com/casas-en-bosque-real-de-santa-anita.html",
@@ -81,7 +93,9 @@
   "municipio": "Tlajomulco de Zúñiga",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 1.00)"
  },
  {
   "url": "https://www.vivanuncios.com.mx/s-casas-en-venta/fraccionamiento-bosque-real_tlajomulco-de-zuniga_jalisco/v1c1293p1",
@@ -93,7 +107,9 @@
   "municipio": "Tlajomulco de Zúñiga",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 1.07)"
  },
  {
   "url": "https://www.facebook.com/RemaxVanguardiaGdl/videos/remax-vanguardia-guadalajara/956585313961183/",
@@ -105,7 +121,9 @@
   "municipio": "Tlajomulco de Zúñiga",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "ratio 0.92 vs scraper-colonia / portal dudoso"
  },
  {
   "url": "https://www.lamudi.com.mx/jalisco/tlajomulco-de-zuniga/colinas-de-santa-anita/casa/for-sale/",
@@ -117,7 +135,9 @@
   "municipio": "Tlajomulco de Zúñiga",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "sospechoso",
+  "motivo": "pm2c 11231 vs ref 26714 (scraper-colonia)"
  },
  {
   "url": "https://century21mexico.com/v/resultados/tipo_casa-en-condominio/operacion_venta/en-pais_mexico/en-estado_jalisco/en-municipio_jalisco-tlajomulco-de-zuniga/en-colonia_tlajomulco-de-zuniga-colinas-de-santa-anita",
@@ -129,7 +149,9 @@
   "municipio": "Tlajomulco de Zúñiga",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 0.75)"
  },
  {
   "url": "https://www.icasas.mx/venta/habitacionales-casas-jalisco-tlajomulco-zuniga-lomas-santa-anita-2_5_1",
@@ -141,7 +163,9 @@
   "municipio": "Tlajomulco de Zúñiga",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 0.74)"
  },
  {
   "url": "https://www.propiedadesmexico.com/Es/departamentos-en-venta-en-altagracia_zapopan_jalisco",
@@ -153,7 +177,9 @@
   "municipio": "Zapopan",
   "tipo": "depto",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 1.04)"
  },
  {
   "url": "https://www.inmuebles24.com/departamentos-en-venta-en-zapopan-mas-de-1-recamara-hasta-1500000-pesos.html",
@@ -165,7 +191,9 @@
   "municipio": "Zapopan",
   "tipo": "depto",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 0.93)"
  },
  {
   "url": "https://www.facebook.com/groups/760445167329568/posts/35987083777572259/",
@@ -177,7 +205,9 @@
   "municipio": "Zapopan",
   "tipo": "depto",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "ratio 1.26 vs scraper-colonia / portal dudoso"
  },
  {
   "url": "https://www.inmuebles24.com/inmuebles-en-jardines-de-san-jose.html",
@@ -189,7 +219,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 1.03)"
  },
  {
   "url": "https://www.vivanuncios.com.mx/s-venta-inmuebles/jardines-de-san-jose_guadalajara_jalisco/v1c1097p1",
@@ -201,7 +233,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 1.03)"
  },
  {
   "url": "https://www.inmuebles24.com/inmuebles-en-fraccionamiento-jardines-de-san-jose-hasta-5-anos.html",
@@ -213,7 +247,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 1.03)"
  },
  {
   "url": "https://www.pincali.com/inmuebles/propiedades-en-venta-en-jardines-de-san-jose-guadalajara-jalisco",
@@ -225,7 +261,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "sospechoso",
+  "motivo": "pm2c 10814 vs ref 30625 (scraper-colonia)"
  },
  {
   "url": "https://www.iadmexico.mx/casas/en-venta/hacienda-santa-fe--tlajomulco-de-zuniga--jalisco",
@@ -237,7 +275,9 @@
   "municipio": "Tlajomulco de Zúñiga",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 1.06)"
  },
  {
   "url": "https://inmuebles.mercadolibre.com.mx/casas/venta/jalisco/tlajomulco-de-zuniga/hacienda-santa-fe/",
@@ -249,7 +289,9 @@
   "municipio": "Tlajomulco de Zúñiga",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 1.48)"
  },
  {
   "url": "https://www.propiedadesmexico.com/Es/casas-en-venta-en-hacienda_santa_fe_tlajomulco_de_zuniga_jalisco",
@@ -261,7 +303,9 @@
   "municipio": "Tlajomulco de Zúñiga",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 1.28)"
  },
  {
   "url": "https://monopolio.com.mx/busqueda/casas-en-venta/jalisco/zapopan/francisco-sarabia/9ewmq225jxtn",
@@ -273,7 +317,9 @@
   "municipio": "Zapopan",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 1.20)"
  },
  {
   "url": "https://www.facebook.com/groups/1630386267092559/posts/3981653175299178/",
@@ -285,7 +331,9 @@
   "municipio": "Zapopan",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "ratio 0.99 vs scraper-colonia / portal dudoso"
  },
  {
   "url": "https://www.casasyterrenos.com/jalisco/zapopan/camino-real/casas/venta",
@@ -297,7 +345,9 @@
   "municipio": "Zapopan",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 0.86)"
  },
  {
   "url": "https://www.lamudi.com.mx/jalisco/zapopan/camino-real-16/for-sale/",
@@ -309,7 +359,9 @@
   "municipio": "Zapopan",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 1.02)"
  },
  {
   "url": "https://listado.mercadolibre.com.mx/casa-en-venta-en-camino-real-zapopan",
@@ -321,7 +373,9 @@
   "municipio": "Zapopan",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 1.27)"
  },
  {
   "url": "https://neojaus.com/propiedades/casa-en-venta-en-camino-real-zapopan-gran-potencial-habitacional-y-comercial-9942143409",
@@ -333,7 +387,9 @@
   "municipio": "Zapopan",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "ratio 1.01 vs scraper-colonia / portal dudoso"
  },
  {
   "url": "https://www.lamudi.com.mx/jalisco/guadalajara/echeverria-2/casa/for-sale/bedrooms:4/",
@@ -345,7 +401,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "ratio 1.73 vs scraper-colonia"
  },
  {
   "url": "https://www.pincali.com/inmuebles/casas-en-venta-en-echeverria-1a-seccion-guadalajara-jalisco",
@@ -357,7 +415,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 0.66)"
  },
  {
   "url": "https://www.orangehomeinmobiliaria.com.mx/5717/inmuebles/venta-casa-5-recamaras-echeverria-guadalajara-jc",
@@ -369,7 +429,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "ratio 1.08 vs scraper-colonia / portal dudoso"
  },
  {
   "url": "https://www.lamudi.com.mx/jalisco/guadalajara/echeverria-2/casa/casa-unifamiliar/for-sale/",
@@ -381,7 +443,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "ratio 0.64 vs scraper-colonia"
  },
  {
   "url": "https://www.facebook.com/groups/1189287287906693/posts/3158161001019302/",
@@ -393,7 +457,9 @@
   "municipio": "Zapopan",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "ratio 1.18 vs scraper-colonia / portal dudoso"
  },
  {
   "url": "https://www.inmuebles24.com/inmuebles-en-venta-en-santa-margarita-residencial.html",
@@ -405,7 +471,9 @@
   "municipio": "Zapopan",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 0.90)"
  },
  {
   "url": "https://www.casasyterrenos.com/jalisco/zapopan/santa-margarita/casas/venta",
@@ -417,7 +485,9 @@
   "municipio": "Zapopan",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "ratio 0.49 vs scraper-colonia"
  },
  {
   "url": "https://www.lamudi.com.mx/jalisco/zapopan/santa-margarita-residencial/casa/for-sale/price:0-2000000/",
@@ -429,7 +499,9 @@
   "municipio": "Zapopan",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "sospechoso",
+  "motivo": "pm2c 10147 vs ref 25518 (scraper-colonia)"
  },
  {
   "url": "https://www.vivanuncios.com.mx/s-venta-inmuebles/santa-margarita-residencial_zapopan_jalisco/v1c1097p1",
@@ -441,7 +513,9 @@
   "municipio": "Zapopan",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "ratio 1.98 vs scraper-colonia"
  },
  {
   "url": "https://www.casasyterrenos.com/jalisco/zapopan/hogares-de-nuevo-mexico/casas/venta",
@@ -453,7 +527,9 @@
   "municipio": "Zapopan",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "ratio 1.84 vs scraper-colonia"
  },
  {
   "url": "https://www.inmuebles24.com/inmuebles-en-venta-en-hogares-de-nuevo-mexico.html",
@@ -465,7 +541,9 @@
   "municipio": "Zapopan",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 1.09)"
  },
  {
   "url": "https://www.pincali.com/inmueble/venta-casa-en-remodelacion-en-hacienda-real-tonala",
@@ -477,7 +555,9 @@
   "municipio": "Tonalá",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "sin referencia de zona"
  },
  {
   "url": "https://www.lamudi.com.mx/jalisco/guadalajara/buenos-aires-40/casa/for-sale/",
@@ -489,7 +569,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "sospechoso",
+  "motivo": "pm2c 25080 vs ref 146739 (scraper-colonia)"
  },
  {
   "url": "https://www.casasyterrenos.com/jalisco/guadalajara/el-bethel/casas/venta",
@@ -501,7 +583,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 1.02)"
  },
  {
   "url": "https://www.facebook.com/groups/venta.renta.de.casas.en.guadalajara.gdl.zmg/posts/4318172661845997/",
@@ -513,7 +597,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "sospechoso",
+  "motivo": "pm2c 41071 vs ref 15748 (scraper-colonia)"
  },
  {
   "url": "https://www.facebook.com/groups/1174824387267246/posts/1728841675198845/",
@@ -525,7 +611,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "ratio 1.32 vs scraper-colonia / portal dudoso"
  },
  {
   "url": "https://www.lamudi.com.mx/jalisco/guadalajara/libertador-miguel-hidalgo/casa/for-sale/",
@@ -537,7 +625,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "sin referencia de zona"
  },
  {
   "url": "https://propiedades.com/miguel-hidalgo-guadalajara-jalisco/casas-venta",
@@ -549,7 +639,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "sin referencia de zona"
  },
  {
   "url": "https://www.lamudi.com.mx/jalisco/guadalajara/libertador-miguel-hidalgo/casa/for-sale/bedrooms:2/",
@@ -561,7 +653,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "sin referencia de zona"
  },
  {
   "url": "https://www.lamudi.com.mx/jalisco/tonala-1/mision-de-san-francisco/casa/for-sale/",
@@ -573,7 +667,9 @@
   "municipio": "Tonalá",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "sin referencia de zona"
  },
  {
   "url": "https://www.lamudi.com.mx/jalisco/tonala-1/lomas-de-la-soledad/casa/for-sale/",
@@ -585,7 +681,9 @@
   "municipio": "Tonalá",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "sin referencia de zona"
  },
  {
   "url": "https://www.guiacasasyterrenos.mx/property/casa-en-venta-en-parques-del-auditorio-zapopan-parques-del-auditorio",
@@ -597,7 +695,9 @@
   "municipio": "Zapopan",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "sin referencia de zona"
  },
  {
   "url": "https://www.iadmexico.mx/casas/en-venta/santa-margarita--zapopan--jalisco",
@@ -609,7 +709,9 @@
   "municipio": "Zapopan",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 1.00)"
  },
  {
   "url": "https://www.inmuebles24.com/casas-en-venta-en-el-fortin.html",
@@ -621,7 +723,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con idx_valoracion (ratio 0.78)"
  },
  {
   "url": "https://www.lamudi.com.mx/jalisco/zapopan/el-fortin-5/casa/casa-unifamiliar/for-sale/",
@@ -633,7 +737,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con idx_valoracion (ratio 0.87)"
  },
  {
   "url": "https://inmuebles.mercadolibre.com.mx/casas/venta/jalisco/zapopan/el-fortin/",
@@ -645,7 +751,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "ratio 0.65 vs idx_valoracion"
  },
  {
   "url": "https://www.propiedadesmexico.com/Es/casas-en-venta-en-el_fortin_zapopan_jalisco",
@@ -657,7 +765,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con idx_valoracion (ratio 0.87)"
  },
  {
   "url": "https://inmuebles.mercadolibre.com.mx/casas/venta/jalisco/zapopan/campo-real/",
@@ -669,7 +779,9 @@
   "municipio": "Zapopan",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 0.90)"
  },
  {
   "url": "https://www.vivanuncios.com.mx/s-casas-en-venta/campo-real/v1c1293l15777p1",
@@ -681,7 +793,9 @@
   "municipio": "Zapopan",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 0.90)"
  },
  {
   "url": "https://www.facebook.com/groups/788005828533033/posts/1851471345519804/",
@@ -693,7 +807,9 @@
   "municipio": "Zapopan",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "ratio 0.90 vs scraper-colonia / portal dudoso"
  },
  {
   "url": "https://www.casasyterrenos.com/jalisco/zapopan/campo-real/casas/venta",
@@ -705,7 +821,9 @@
   "municipio": "Zapopan",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 0.84)"
  },
  {
   "url": "https://www.casasyterrenos.com/jalisco/zapopan/residencial-la-moraleja/casas/venta",
@@ -717,7 +835,9 @@
   "municipio": "Zapopan",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 0.91)"
  },
  {
   "url": "https://www.facebook.com/groups/203826529766415/posts/3416598225155880/",
@@ -729,7 +849,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "ratio 1.02 vs scraper-colonia / portal dudoso"
  },
  {
   "url": "https://casas.trovit.com.mx/departamento-santa-fe-tlajomulco-zu%C3%B1iga",
@@ -741,7 +863,9 @@
   "municipio": "Tlajomulco de Zúñiga",
   "tipo": "depto",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 0.94)"
  },
  {
   "url": "https://century21mexico.com/en_us/propiedad/612546_departamento-en-en_usventa-en-chulavista-tlajomulco-de-zuniga-jalisco-mexico?h",
@@ -753,7 +877,9 @@
   "municipio": "Tlajomulco de Zúñiga",
   "tipo": "depto",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 1.48)"
  },
  {
   "url": "https://www.inmuebles24.com/departamentos-en-fraccionamiento-canadas-de-san-lorenzo.html",
@@ -765,7 +891,9 @@
   "municipio": "Zapopan",
   "tipo": "depto",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "sin referencia de zona"
  },
  {
   "url": "https://www.facebook.com/groups/2852555824989275/posts/4526085274302980/",
@@ -777,7 +905,9 @@
   "municipio": "Zapopan",
   "tipo": "depto",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "sin referencia de zona / portal dudoso"
  },
  {
   "url": "https://www.nestoria.mx/tinajitas_tlaquepaque/casa/comprar",
@@ -789,7 +919,9 @@
   "municipio": "San Pedro Tlaquepaque",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "sin referencia de zona"
  },
  {
   "url": "https://www.inmuebles24.com/inmuebles-en-miravalle-ciudad-de-guadalajara.html",
@@ -801,7 +933,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "sospechoso",
+  "motivo": "pm2c 5976 vs ref 25452 (scraper-colonia)"
  },
  {
   "url": "https://www.vivanuncios.com.mx/s-inmuebles/jalisco/miravalle/v1c30l1013q0p1",
@@ -813,7 +947,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "sospechoso",
+  "motivo": "pm2c 5976 vs ref 25452 (scraper-colonia)"
  },
  {
   "url": "https://propiedades.com/5-de-mayo-guadalajara/casas-venta",
@@ -825,7 +961,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "ratio 0.63 vs scraper-colonia"
  },
  {
   "url": "https://www.facebook.com/groups/1012922155867019/posts/2009283486230876/",
@@ -837,7 +975,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "ratio 0.74 vs scraper-colonia / portal dudoso"
  },
  {
   "url": "https://www.facebook.com/groups/967465776644878/posts/27238232309141533/",
@@ -849,7 +989,9 @@
   "municipio": "San Pedro Tlaquepaque",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "sin referencia de zona / portal dudoso"
  },
  {
   "url": "https://casas.waa2.com.mx/venta/casa-en-san-rafael-tlaquepaque-jalisco",
@@ -861,7 +1003,9 @@
   "municipio": "San Pedro Tlaquepaque",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "sin referencia de zona / portal dudoso"
  },
  {
   "url": "https://www.inmuebles24.com/casas-en-venta-en-guadalajara-centro.html",
@@ -873,7 +1017,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 1.36)"
  },
  {
   "url": "https://www.casasyterrenos.com/jalisco/guadalajara/zona-centro/casas/venta",
@@ -885,7 +1031,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 0.95)"
  },
  {
   "url": "https://inmuebles.mercadolibre.com.mx/venta-de-casas-en-el-centro-de-guadalajara-jalisco",
@@ -897,7 +1045,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 0.85)"
  },
  {
   "url": "https://century21mexico.com/v/resultados/tipo_casa/operacion_venta/en-pais_mexico/en-estado_jalisco/en-municipio_guadalajara/en-colonia_guadalajara-centro",
@@ -909,7 +1059,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "ratio 0.57 vs scraper-colonia"
  },
  {
   "url": "https://www.lamudi.com.mx/jalisco/guadalajara/san-vicente-29/casa/for-sale/",
@@ -921,7 +1073,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 0.85)"
  },
  {
   "url": "https://www.inmuebles24.com/inmuebles-en-venta-en-barrio-analco.html",
@@ -933,7 +1087,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "ratio 0.47 vs scraper-colonia"
  },
  {
   "url": "https://www.inmuebles24.com/inmuebles-en-fraccionamiento-canadas-de-san-lorenzo-hasta-5-anos.html",
@@ -945,7 +1101,9 @@
   "municipio": "Zapopan",
   "tipo": "depto",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "sin referencia de zona"
  },
  {
   "url": "https://www.pincali.com/inmuebles/departamentos-en-venta-en-canadas-de-san-lorenzo-zapopan-jalisco",
@@ -957,7 +1115,9 @@
   "municipio": "Zapopan",
   "tipo": "depto",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "sin referencia de zona"
  },
  {
   "url": "https://www.inmobiliariaguadalajaraenventa.com/property/departamento-en-venta-canadas-de-san-lorenzo-canadas-de-san-lorenzo-zapopan",
@@ -969,7 +1129,9 @@
   "municipio": "Zapopan",
   "tipo": "depto",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "sin referencia de zona / portal dudoso"
  },
  {
   "url": "https://www.lamudi.com.mx/jalisco/guadalajara/lazaro-cardenas-91/casa/for-sale/",
@@ -981,7 +1143,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 0.98)"
  },
  {
   "url": "https://www.lamudi.com.mx/jalisco/guadalajara/la-paz-16/casa/for-sale/",
@@ -993,7 +1157,9 @@
   "municipio": "Guadalajara",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "sin referencia de zona"
  },
  {
   "url": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-en-venta-en-las-grullas-residencial-tlajomulco-148767249.html",
@@ -1005,7 +1171,9 @@
   "municipio": "Tlajomulco de Zúñiga",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 1.03)"
  },
  {
   "url": "https://www.cornerstonerealproperty.com/property/casa-en-venta-en-paraje-las-grullas-residencial-precio-5-680-000",
@@ -1017,7 +1185,9 @@
   "municipio": "Tlajomulco de Zúñiga",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "ratio 0.99 vs scraper-colonia / portal dudoso"
  },
  {
   "url": "https://www.grupoemco.com.mx/property/casas-en-venta-paraje-las-grullas-en-tlajomulco-san-agustin",
@@ -1029,7 +1199,9 @@
   "municipio": "Tlajomulco de Zúñiga",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "ratio 1.08 vs scraper-colonia / portal dudoso"
  },
  {
   "url": "https://www.icasas.mx/venta/habitacionales-departamentos-jalisco-zapopan-jardines-guadalupe-2_3_14_0_647_687",
@@ -1041,7 +1213,9 @@
   "municipio": "Zapopan",
   "tipo": "depto",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 0.99)"
  },
  {
   "url": "https://www.lamudi.com.mx/jalisco/zapopan/jardines-de-guadalupe-3/departamento/for-sale/",
@@ -1053,7 +1227,9 @@
   "municipio": "Zapopan",
   "tipo": "depto",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "verificado",
+  "motivo": "coherente con scraper-colonia (ratio 0.99)"
  },
  {
   "url": "https://www.zmginmobiliaria.com/properties/mexico/jalisco/zapopan?ln=24953&min_bathroom=1&min_bedroom=1&sort_by=price-desc",
@@ -1065,7 +1241,9 @@
   "municipio": "Zapopan",
   "tipo": "depto",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "ratio 1.21 vs scraper-colonia / portal dudoso"
  },
  {
   "url": "https://www.facebook.com/groups/508987519221738/posts/26843625981997866/",
@@ -1077,7 +1255,9 @@
   "municipio": "Zapopan",
   "tipo": "depto",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "ratio 0.96 vs scraper-colonia / portal dudoso"
  },
  {
   "url": "https://pulppo.com/propiedades/casa-loma-bonita-ejidal-san-pedro-tlaquepaque-jalisco-5-215m2-venta-mxn-4200000-689610fc7be29f7b90adf6e3",
@@ -1089,6 +1269,8 @@
   "municipio": "San Pedro Tlaquepaque",
   "tipo": "casa",
   "fecha": "2026-06-01",
-  "origen": "complemento"
+  "origen": "complemento",
+  "confianza": "por_verificar",
+  "motivo": "sin referencia de zona"
  }
 ]
