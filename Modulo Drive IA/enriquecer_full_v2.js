@@ -9,6 +9,10 @@ const { normCol } = require('./motor_remi_api');
 const sim = JSON.parse(fs.readFileSync('colonias_similares.json', 'utf8'));
 const sepo = JSON.parse(fs.readFileSync('sepomex_v2.json', 'utf8'));
 const cerebro = JSON.parse(fs.readFileSync('cerebro_datos.json', 'utf8'));
+// Correcciones manuales de municipio (resueltas via AI para colonias sin match SEPOMEX)
+const manualMunis = fs.existsSync('colonias_manual_municipios.json')
+  ? JSON.parse(fs.readFileSync('colonias_manual_municipios.json', 'utf8'))
+  : {};
 
 const colMuni = {};
 cerebro.forEach(d => {

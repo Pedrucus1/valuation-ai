@@ -48,6 +48,7 @@ const COLONIAS_NSE2_PATH = path.join(__dirname, 'colonias_nse_v2.json');
 const IDX_VAL_PATH       = path.join(__dirname, 'idx_valoracion.json');
 const COLONIAS_SIM_PATH  = path.join(__dirname, 'colonias_similares.json');
 const COLONIAS_IA_PATH   = path.join(__dirname, 'colonias_similares_enriquecido.json');
+const COLONIAS_SIM_V2_PATH = path.join(__dirname, 'colonias_similares.enriquecido.v2.json');
 
 const IDX     = JSON.parse(fs.readFileSync(INDEX_PATH, 'utf8'));
 const _nse    = fs.existsSync(COLONIAS_NSE_PATH)  ? JSON.parse(fs.readFileSync(COLONIAS_NSE_PATH,  'utf8')) : {};
@@ -55,6 +56,21 @@ const _nse2   = fs.existsSync(COLONIAS_NSE2_PATH) ? JSON.parse(fs.readFileSync(C
 const _idxVal = fs.existsSync(IDX_VAL_PATH)       ? (() => { const { _meta, ...c } = JSON.parse(fs.readFileSync(IDX_VAL_PATH, 'utf8')); return c; })() : {};
 const _sim    = fs.existsSync(COLONIAS_SIM_PATH)  ? JSON.parse(fs.readFileSync(COLONIAS_SIM_PATH,  'utf8')) : {};
 const _simIA  = fs.existsSync(COLONIAS_IA_PATH)   ? JSON.parse(fs.readFileSync(COLONIAS_IA_PATH,   'utf8')) : {};
+const _simV2  = fs.existsSync(COLONIAS_SIM_V2_PATH) ? JSON.parse(fs.readFileSync(COLONIAS_SIM_V2_PATH, 'utf8')) : {};
+
+// Zonas geográficas — claves en formato normMuni (sin acentos, lowercase)
+const _ZONAS_MAP = {
+    'guadalajara': 'AMG-Centro', 'zapopan': 'AMG-NW',
+    'tlaquepaque': 'AMG-SE',     // normMuni ya convierte "san pedro tlaquepaque" → "tlaquepaque"
+    'tonala': 'AMG-E',
+    'tlajomulco': 'AMG-S',       // normMuni ya convierte "tlajomulco de zuniga" → "tlajomulco"
+    'el salto': 'AMG-S',         'juanacatlan': 'AMG-S',
+    'ixtlahuacan de los membrillos': 'AMG-S',
+    'chapala': 'Chapala',        'jocotepec': 'Chapala', 'poncitlan': 'Chapala',
+    'puerto vallarta': 'Costa-Sur', 'bahia de banderas': 'Costa-Sur', 'compostela': 'Costa-Sur',
+    'manzanillo': 'Costa-Colima', 'armeria': 'Costa-Colima',
+};
+function _zonaOf(muniNorm) { return muniNorm ? (_ZONAS_MAP[muniNorm] || 'Otro') : null; }
 
 // Cascada de fuentes NSE (sin sustituir caps de v1):
 //   1. v1 (calibraciones manuales validadas) — siempre gana
@@ -71,13 +87,27 @@ function getNSE(colNorm, tipo = 'casa') {
     return null;
 }
 
-// Obtiene similares: primero base OPIs, fallback IA-Sepomex
-function getSimilares(colNorm) {
+// Obtiene similares con filtro de zona (v2). Fallback: base OPIs → IA-Sepomex
+function getSimilares(colNorm, muniSujeto) {
+    const zonaSujeto = muniSujeto ? _zonaOf(muniSujeto) : null;
+
+    // v2: cada similar tiene zona resuelta — filtra cross-zona
+    const v2entry = _simV2[colNorm];
+    if (v2entry && v2entry.similares && v2entry.similares.length) {
+        const sims = v2entry.similares;
+        if (zonaSujeto) {
+            const filtradas = sims.filter(s => !s.zona || s.zona === zonaSujeto);
+            // Si filtrado eliminó todo → devolver lista completa (algo mejor que nada)
+            return filtradas.length ? filtradas : sims;
+        }
+        return sims;
+    }
+
+    // Fallback: _sim (base OPIs) → _simIA
     const base = _sim[colNorm];
     if (base && base.length) return base;
     const ia = _simIA[colNorm];
     if (!ia || !ia.length) return [];
-    // Normalizar formato IA (puede ser {colonia,menciones} o string)
     return ia.map(x => typeof x === 'string' ? { colonia: x, menciones: 1 } : x);
 }
 
@@ -567,7 +597,7 @@ function valuarPropiedad(prop) {
 
     // NSE — pasa tipo del sujeto para que idx_valoracion use la entrada correcta
     const nseSubjeto = getNSE(colNormEfectivo, tipo);
-    const similaresBrutos = getSimilares(colNorm).slice(0, 8).map(x => normCol(x.colonia));
+    const similaresBrutos = getSimilares(colNorm, muniNorm).slice(0, 8).map(x => normCol(x.colonia));
     const similares = nseSubjeto
         ? similaresBrutos.filter(s => {
             const ns = getNSE(s);
@@ -767,7 +797,7 @@ async function valuarPropiedadCompleto(prop) {
     const colNormFb  = normCol(prop.colonia || '');
     const muniNormFb = normMuni(prop.municipio || '');
     const tipoFb     = normTipo(prop.tipo || 'casa');
-    const simFb      = getSimilares(colNormFb).slice(0, 6).map(x => x.colonia);
+    const simFb      = getSimilares(colNormFb, muniNormFb).slice(0, 6).map(x => x.colonia);
     const conserv    = prop.estadoConservacion || prop.conservacion;
     const edad       = prop.edad || 0;
 

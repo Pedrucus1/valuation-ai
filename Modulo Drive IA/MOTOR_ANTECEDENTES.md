@@ -15,6 +15,37 @@
 
 ---
 
+## ⚠️ SESIÓN 31-May-2026 (tarde) — Migración similares v2
+
+### Migración getSimilares() → colonias_similares.enriquecido.v2.json (zona-aware):
+
+**Cambio:** `getSimilares(colNorm)` → `getSimilares(colNorm, muniSujeto)` con filtro de zona.
+- Carga `colonias_similares.enriquecido.v2.json` como fuente primaria
+- Filtra similares cuya zona resuelta no coincide con la zona del sujeto (evita cross-zona)
+- Si filtrado elimina todo → devuelve lista sin filtrar (safe fallback)
+- Si no hay entrada v2 → fallback a _sim → _simIA (comportamiento original)
+- Los call sites ya tenían `muniNorm`/`muniNormFb` disponibles — solo se pasan
+
+**Test comparativo (--n 200 --desde 2025-07, 94 OPIs activos):**
+| Estado | ±10% | ±15% | ±20% | error abs |
+|---|---|---|---|---|
+| Sin v2 (backup) | 73.4% (69/94) | 81.9% (77/94) | 93.6% (88/94) | 8.3% |
+| **Con v2 (nuevo)** | **75.5% (71/94)** | **81.9% (77/94)** | **93.6% (88/94)** | **8.3%** |
+
+**Conclusión: v2 MEJORA ±10% en +2pp sin regresión. Mantener.**
+
+**Baseline post 31-May (con cache rebuild + v2):** 75.5% ±10%, 81.9% ±15%, 93.6% ±20% en 94 OPIs (--desde 2025-07).
+El desplome vs ANTECEDENTES 26-May (89.9% ±10%) se debe a cache_consolidado rebuild del 31-May, NOT a v2.
+
+### Tarea 1 (cobertura similares) — RESULTADO:
+- Batch DeepSeek resolvió 318/338 colonias → 412/443 sim sin_datos ahora con zona
+- PERO: agregar manual-ai al v2 causó REGRESIÓN: ±10%: 75.5%→73.4%, ±15%: 81.9%→80.9%
+- Causa probable: DeepSeek asignó algunas zonas incorrectas → filtro de zona excluye comparables válidos
+- DECISIÓN: NO usar manual-ai en v2. `colonias_manual_municipios.json` guardado para análisis futuro.
+- **REGLA: manual-ai solo se incorpora al v2 después de validar cada asignación contra el set de OPIs**
+
+---
+
 ## ⚠️ SESIÓN 31-May-2026 — Cambios y estado
 
 ### Cambios al pipeline (ya aplicados):
