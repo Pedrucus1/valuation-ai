@@ -1,11 +1,12 @@
 """
 scrapers/propiedades_com.py — Scraper para propiedades.com
 
-ACCESO (verificado 2026-04-20):
+ACCESO (verificado 2026-06-01):
 - URL: https://propiedades.com/{slug}/{tipo}-{operacion}
-- Usa Chrome CDP (cdp_fetch.js) en lugar de Playwright porque Akamai bloquea
-  browsers headless. El Chrome real en puerto 9222 ya tiene cookies válidas.
-- Selectores verificados con DevTools en Chrome CDP.
+- HTTP simple vía Node (plain_fetch.js): un GET con fetch nativo de Node da 200 con el
+  __NEXT_DATA__ + tarjetas SSR. NO necesita Chrome/CDP ni proxy. El navegador headless era
+  lo que disparaba el reto de Akamai; el `requests` de Python recibe tarpit por TLS, Node no.
+- Selectores verificados con DevTools (propiedades.com Next.js).
 
 TIPOS DE PROPIEDAD: casas, departamentos, terrenos
 """
@@ -22,7 +23,9 @@ import config
 from scrapers.base_scraper import BaseScraper, ErrorScraping
 from utils import antiblock
 
-# Ruta al helper Node.js que hace fetch via Chrome CDP
+# Helper Node.js que hace fetch HTTP simple (sin Chrome) — pasa Akamai donde requests no.
+_PLAIN_FETCH_JS = Path(__file__).parent / "plain_fetch.js"
+# (Legacy) Ruta al helper CDP — ya no se usa por defecto, se conserva por compatibilidad.
 _CDP_FETCH_JS = Path(__file__).parent / "cdp_fetch.js"
 CDP_PORT = getattr(config, "PROPIEDADES_CDP_PORT", 9222)
 
@@ -60,7 +63,7 @@ class PropiedadesComScraper(BaseScraper):
 
     nombre_portal = "PROPIEDADES_COM"
     tab_sheets = config.TAB_PROPIEDADES_COM
-    _usar_concurrencia = False  # CDP: un tab a la vez
+    _usar_concurrencia = False  # secuencial: gentil con el sitio (HTTP simple vía Node)
     tipos_propiedad = list(TIPOS_URL.keys())
 
     def obtener_url_listado(self, zona: dict, operacion: str, pagina: int) -> str:
@@ -240,41 +243,51 @@ class PropiedadesComScraper(BaseScraper):
         return "casa"
 
     # ─────────────────────────────────────────
-    # CDP override via Node.js (evita bloqueo Akamai)
+    # Fetch via Node (plain_fetch.js) — HTTP simple, SIN Chrome/CDP
     # ─────────────────────────────────────────
+    # propiedades.com responde 200 con el __NEXT_DATA__ + tarjetas SSR a un GET simple, PERO
+    # el `requests` de Python recibe tarpit de Akamai por fingerprint TLS (read timeout). El fetch
+    # nativo de Node sí pasa → se delega a plain_fetch.js por subprocess. Verificado 01-Jun-2026.
+    # La antigüedad (`age`) vive en el __NEXT_DATA__ de cada página de DETALLE.
 
     def _fetch_html(self, url: str, referer: str = None) -> str:
-        """Obtiene HTML via Chrome CDP (Node.js). Requiere Chrome con --remote-debugging-port=9222."""
         for intento in range(1, config.MAX_RETRIES + 1):
             try:
                 antiblock.delay_aleatorio()
-                return self._cdp_get(url)
+                return self._node_get(url)
             except ErrorScraping:
                 raise
             except Exception as e:
-                self.log.warning(f"CDP propiedades.com intento {intento}: {e}")
+                self.log.warning(f"propiedades.com intento {intento}: {e}")
                 time.sleep(8)
 
-        raise ErrorScraping(f"PropiedadesCom CDP falló {config.MAX_RETRIES} veces: {url}")
+        raise ErrorScraping(f"PropiedadesCom falló {config.MAX_RETRIES} veces: {url}")
 
-    def _cdp_get(self, url: str) -> str:
-        """Llama a cdp_fetch.js via subprocess para obtener HTML desde Chrome real."""
+    def _node_get(self, url: str) -> str:
+        """Llama a plain_fetch.js (fetch nativo de Node) via subprocess. Sin Chrome ni CDP.
+        El HTML se pasa por archivo temporal (no stdout) para evitar el assertion de libuv en Windows."""
+        import tempfile, os
+        fd, tmp = tempfile.mkstemp(suffix=".html", prefix="pcom_")
+        os.close(fd)
         try:
             result = subprocess.run(
-                ["node", str(_CDP_FETCH_JS), url, str(CDP_PORT)],
+                ["node", str(_PLAIN_FETCH_JS), url, tmp],
                 capture_output=True,
                 text=True,
                 encoding="utf-8",
-                timeout=45,
+                timeout=60,
             )
+            if result.returncode != 0:
+                raise ErrorScraping(f"plain_fetch error: {result.stderr.strip()[:200]}")
+            with open(tmp, "r", encoding="utf-8") as f:
+                html = f.read()
+            if len(html) < 5000:
+                raise ErrorScraping(f"plain_fetch respuesta muy corta ({len(html)} bytes): {url}")
+            return html
         except subprocess.TimeoutExpired:
-            raise ErrorScraping(f"CDP timeout para {url}")
-
-        if result.returncode != 0:
-            raise ErrorScraping(f"CDP error: {result.stderr.strip()[:200]}")
-
-        html = result.stdout
-        if len(html) < 5000:
-            raise ErrorScraping(f"CDP respuesta muy corta ({len(html)} bytes): {url}")
-
-        return html
+            raise ErrorScraping(f"plain_fetch timeout para {url}")
+        finally:
+            try:
+                os.remove(tmp)
+            except OSError:
+                pass
