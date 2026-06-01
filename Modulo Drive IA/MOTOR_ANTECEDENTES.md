@@ -15,6 +15,36 @@
 
 ---
 
+## ⚠️ SESIÓN 31-May-2026 (noche) — Consolidación en archivo maestro (Fase 1)
+
+### colonias_maestro.json — fuente única que lee el motor
+Se fusionaron las 6 fuentes por-colonia en UN archivo, **por columnas (no destructivo)**:
+`{ municipio, zona, nse:{v1,v2}, idx, similares }`. Indexado por colonia → búsqueda O(1).
+- Script: `construir_maestro.js` (regenera el maestro desde las 6 fuentes; NO las modifica).
+- v2 NSE redundante omitida (346 dup; solo 8 únicas) → maestro 2.7 MB vs ~4.1 MB sueltos (~33% menos
+  por avalúo, que importa porque el motor reparsea TODO en cada avalúo: subproceso por llamada).
+- Motor: `getNSE`/`getSimilares` leen del maestro con cascada IDÉNTICA; ruta legacy se conserva si
+  el maestro no existe (red de seguridad).
+
+### Validación (--n 200 --desde 2025-07, 94 OPIs):
+| Config | ±10% | ±15% | ±20% |
+|---|---|---|---|
+| Legacy (v2 limpia + fix tlaquepaque, sin maestro) | 73.4% | 80.9% | 93.6% |
+| **Con maestro** | **74.5%** | **80.9%** | **93.6%** |
+
+**El maestro NO regresa: ±15%/±20% idénticos, ±10% +1 OPI. Baseline validado: 74.5/80.9/93.6.**
+Nota: el "75.5%" de la nota anterior era de un estado previo al fix de tlaquepaque sobre v2 limpia.
+
+### Limpieza de carpeta (Fase 0): 26 backups JSON + 3 .js de backup movidos a `_backups/`.
+
+### Arquitectura objetivo (roadmap, ver plan lexical-sleeping-thunder.md):
+Capa "ganada" (calibraciones perito, con fecha) separada de la "derivada" (scraper, con ventana
+temporal) → maestro las mezcla, lo ganado gana. Nacional = un maestro por estado (carga segmentada).
+Municipio = columna de referencia, NO parte de la llave (colonias colindantes siguen elegibles).
+Motor caliente (proceso persistente) + metodología por tipo (local/bodega) pendientes.
+
+---
+
 ## ⚠️ SESIÓN 31-May-2026 (tarde) — Migración similares v2
 
 ### Migración getSimilares() → colonias_similares.enriquecido.v2.json (zona-aware):

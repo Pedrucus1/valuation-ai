@@ -49,14 +49,22 @@ const IDX_VAL_PATH       = path.join(__dirname, 'idx_valoracion.json');
 const COLONIAS_SIM_PATH  = path.join(__dirname, 'colonias_similares.json');
 const COLONIAS_IA_PATH   = path.join(__dirname, 'colonias_similares_enriquecido.json');
 const COLONIAS_SIM_V2_PATH = path.join(__dirname, 'colonias_similares.enriquecido.v2.json');
+const MAESTRO_PATH       = path.join(__dirname, 'colonias_maestro.json');
 
 const IDX     = JSON.parse(fs.readFileSync(INDEX_PATH, 'utf8'));
-const _nse    = fs.existsSync(COLONIAS_NSE_PATH)  ? JSON.parse(fs.readFileSync(COLONIAS_NSE_PATH,  'utf8')) : {};
-const _nse2   = fs.existsSync(COLONIAS_NSE2_PATH) ? JSON.parse(fs.readFileSync(COLONIAS_NSE2_PATH, 'utf8')) : {};
-const _idxVal = fs.existsSync(IDX_VAL_PATH)       ? (() => { const { _meta, ...c } = JSON.parse(fs.readFileSync(IDX_VAL_PATH, 'utf8')); return c; })() : {};
-const _sim    = fs.existsSync(COLONIAS_SIM_PATH)  ? JSON.parse(fs.readFileSync(COLONIAS_SIM_PATH,  'utf8')) : {};
-const _simIA  = fs.existsSync(COLONIAS_IA_PATH)   ? JSON.parse(fs.readFileSync(COLONIAS_IA_PATH,   'utf8')) : {};
-const _simV2  = fs.existsSync(COLONIAS_SIM_V2_PATH) ? JSON.parse(fs.readFileSync(COLONIAS_SIM_V2_PATH, 'utf8')) : {};
+
+// Fuente única consolidada: cada colonia es un registro { municipio, zona, nse:{v1,v2}, idx, similares }.
+// Si existe, el motor lee SOLO de aquí (1 archivo, ~33% menos bytes que las 6 fuentes sueltas).
+// Se regenera con: node construir_maestro.js
+const _maestro = fs.existsSync(MAESTRO_PATH) ? JSON.parse(fs.readFileSync(MAESTRO_PATH, 'utf8')) : null;
+
+// Fuentes legacy: SOLO se cargan si no hay maestro (compatibilidad / red de seguridad).
+const _nse    = !_maestro && fs.existsSync(COLONIAS_NSE_PATH)  ? JSON.parse(fs.readFileSync(COLONIAS_NSE_PATH,  'utf8')) : {};
+const _nse2   = !_maestro && fs.existsSync(COLONIAS_NSE2_PATH) ? JSON.parse(fs.readFileSync(COLONIAS_NSE2_PATH, 'utf8')) : {};
+const _idxVal = !_maestro && fs.existsSync(IDX_VAL_PATH)       ? (() => { const { _meta, ...c } = JSON.parse(fs.readFileSync(IDX_VAL_PATH, 'utf8')); return c; })() : {};
+const _sim    = !_maestro && fs.existsSync(COLONIAS_SIM_PATH)  ? JSON.parse(fs.readFileSync(COLONIAS_SIM_PATH,  'utf8')) : {};
+const _simIA  = !_maestro && fs.existsSync(COLONIAS_IA_PATH)   ? JSON.parse(fs.readFileSync(COLONIAS_IA_PATH,   'utf8')) : {};
+const _simV2  = !_maestro && fs.existsSync(COLONIAS_SIM_V2_PATH) ? JSON.parse(fs.readFileSync(COLONIAS_SIM_V2_PATH, 'utf8')) : {};
 
 // Zonas geográficas — claves en formato normMuni (sin acentos, lowercase)
 // Quirk: normMuni("San Pedro Tlaquepaque") → "tlaquepaquetlaquepaque" (la regex "^san pedro " reemplaza
@@ -80,6 +88,19 @@ function _zonaOf(muniNorm) { return muniNorm ? (_ZONAS_MAP[muniNorm] || 'Otro') 
 //   3. idx_valoracion tipo-específico — para colonias sin v1/v2, con NSE correcto por tipo
 //   4. idx_valoracion casa como proxy — si el tipo no tiene entrada pero casa sí
 function getNSE(colNorm, tipo = 'casa') {
+    // Maestro: misma cascada v1 → v2 → idx[tipo] → idx[casa], leída de un solo registro
+    if (_maestro) {
+        const rec = _maestro[colNorm];
+        if (!rec) return null;
+        if (rec.nse?.v1) return rec.nse.v1;
+        if (rec.nse?.v2) return rec.nse.v2;
+        const t = rec.idx?.[tipo]?.global;
+        if (t) return { nse: t.nse, nseIdx: t.nseIdx, medianaPm2: t.medianaPm2, fuente: 'idx-val-' + tipo };
+        const c = rec.idx?.casa?.global;
+        if (c) return { nse: c.nse, nseIdx: c.nseIdx, medianaPm2: c.medianaPm2, fuente: 'idx-val-casa' };
+        return null;
+    }
+    // Legacy (sin maestro)
     if (_nse[colNorm])  return _nse[colNorm];
     if (_nse2[colNorm]) return _nse2[colNorm];
     const tipoEntry = _idxVal[colNorm]?.[tipo]?.global;
@@ -89,23 +110,32 @@ function getNSE(colNorm, tipo = 'casa') {
     return null;
 }
 
-// Obtiene similares con filtro de zona (v2). Fallback: base OPIs → IA-Sepomex
+// Obtiene similares con filtro de zona. El maestro ya guarda la lista priorizada (v2→sim→simIA);
+// los items de fallback no traen `.zona`, así que el filtro `!s.zona || ...` los deja pasar igual que antes.
 function getSimilares(colNorm, muniSujeto) {
     const zonaSujeto = muniSujeto ? _zonaOf(muniSujeto) : null;
 
-    // v2: cada similar tiene zona resuelta — filtra cross-zona
-    const v2entry = _simV2[colNorm];
-    if (v2entry && v2entry.similares && v2entry.similares.length) {
-        const sims = v2entry.similares;
+    if (_maestro) {
+        const rec = _maestro[colNorm];
+        const sims = rec && rec.similares;
+        if (!sims || !sims.length) return [];
         if (zonaSujeto) {
             const filtradas = sims.filter(s => !s.zona || s.zona === zonaSujeto);
-            // Si filtrado eliminó todo → devolver lista completa (algo mejor que nada)
             return filtradas.length ? filtradas : sims;
         }
         return sims;
     }
 
-    // Fallback: _sim (base OPIs) → _simIA
+    // Legacy (sin maestro): v2 → _sim → _simIA
+    const v2entry = _simV2[colNorm];
+    if (v2entry && v2entry.similares && v2entry.similares.length) {
+        const sims = v2entry.similares;
+        if (zonaSujeto) {
+            const filtradas = sims.filter(s => !s.zona || s.zona === zonaSujeto);
+            return filtradas.length ? filtradas : sims;
+        }
+        return sims;
+    }
     const base = _sim[colNorm];
     if (base && base.length) return base;
     const ia = _simIA[colNorm];
