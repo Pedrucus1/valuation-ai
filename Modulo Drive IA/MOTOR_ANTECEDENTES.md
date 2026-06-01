@@ -51,6 +51,23 @@ LECCIÓN: NO etiquetar "estructural/sin comps" por conteo exacto — verificar l
 
 ---
 
+## 📊 CASOS MERCADO-VALIDADO: muchas propiedades respaldan valor arriba del perito (01-Jun)
+
+Cuando una colonia tiene ABUNDANTES listings reales que validan un nivel por encima del perito,
+ese dato de mercado tiene PESO y es válido (info útil, anotada para tenerla en cuenta):
+| Colonia | Listings reales | Mediana asking | Perito | Gap | Nota |
+|---|---|---|---|---|---|
+| Alta California (Tlajomulco, OPI-25-4-19) | **42** | $23,750 | $20,160 | +18% | Municipio corregido a Tlajomulco (CP 45645). 42 listings = evidencia fuerte. |
+| Colli Urbano (Zapopan, OPI-26-2-25) | 9 | $33,518 | $27,768 | +21% | Rango ancho $18-44k (posible mezcla "El Colli"). |
+
+**Matiz honesto:** son precios ASKING; el avalúo es valor de VENTA (asking − negociación ~15%). El
+gap de 18-21% encaja con la negociación → ambos válidos en su punto (mercado=asking, perito=venta).
+Por eso NO es claramente "motor correcto / perito mal" — pero la profundidad de mercado es dato real.
+Decisión de si se reclasifican como MERCADO (cambia el rate) queda anotada como pendiente del usuario.
+Verificado, NO supuesto (corrección al error previo de suponer que Alta California "salió" sin abrir).
+
+---
+
 ## 🔬 DIAGNÓSTICO POR-CASO DE VIOLADORES (01-Jun-2026) — la mayoría NO son atípicos
 
 `diagnostico_violadores.js` abrió cada uno. Causas reales (validan: NO son atípicos):
