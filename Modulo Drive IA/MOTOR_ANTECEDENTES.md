@@ -27,7 +27,19 @@
 - OPI-25-5-08-OF (del Fresno) +11% · OPI-25-4-06-OF (Colinas del Roble) +11% → OK, ignorar.
 
 **Atípicos por SIM mal calibradas (whack-a-mole: arreglar uno rompe otro — NO tocar):**
-- OPI-25-9-02-OF (Heliodoro H. Loza) −49% · OPI-25-4-20-AV (Real del Valle) −29% · OPI-25-5-03-AV (San Carlos) +37%
+- OPI-25-9-02-OF (Heliodoro H. Loza) −49% · OPI-25-5-03-AV (San Carlos) +37%
+
+**⚠️ CORRECCIÓN 01-Jun (mi veredicto previo estaba MAL):**
+- OPI-25-4-20-AV (Real del Valle) NO es atípico — es **BUG DE MUNICIPIO**. El avalúo dice Zapopan
+  pero Real del Valle está en **Tlajomulco** (dirección lo confirma). Caché: Zapopan n=1, Tlajomulco
+  n=22 ($21,918). Con municipio correcto: pool exacta, $20,802 vs perito $20,345 = **+2% (PASA)**.
+  El municipio mal arrastra inventario Y similares (los similares eran colonias de Zapopan).
+- **CLASE de error:** ~27 colonias detectadas con municipio mal asignado (alta confianza ~10-15:
+  Real del Valle, Alta California n=41, El Fortín n=26, La Estancia n=18...). Detección: colonia con
+  <3 listings en muni del avalúo, ≥10 en otro, Y pm2c del perito coincide con la mediana del otro.
+  Falsos positivos a excluir: nombres genéricos (Centro, San Isidro). FIX = corregir municipio en
+  cerebro (data cleaning) → rescata clase entera. Pendiente, con backup + validación.
+  LECCIÓN: antes de marcar "atípico", verificar si la colonia existe en OTRO municipio.
 
 **Atípicos por caché vs perito en desacuerdo (1 listing, no dirimible):**
 - OPI-25-6-04-LM (Aldama Tetlán: caché $32k vs perito $16k) · OPI-26-2-25-OF (Colli Urbano: exacta premium)
