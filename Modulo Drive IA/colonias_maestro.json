@@ -155467,5 +155467,25 @@
     "fuente": "ia-sepomex"
    }
   ]
+ },
+ "_meta": {
+  "generado": "2026-06-01T05:37:49.715Z",
+  "capas": {
+   "ganada": {
+    "campo": "nse.v1",
+    "fuente": "colonias_nse.json (calibración perito)",
+    "temporal": "fecha_verificacion por entrada (opcional; flywheel mensual)",
+    "prioridad": 1
+   },
+   "derivada": {
+    "campos": "nse.v2 / idx",
+    "fuente": "scraper",
+    "ventanaMeses": 18,
+    "fechaCalculo": "2026-05-31T21:21:06.189Z",
+    "prioridad": 2
+   }
+  },
+  "cascada_nse": "nse.v1 → nse.v2 → idx[tipo].global → idx.casa.global",
+  "nota": "Regenerar con: node construir_maestro.js. Llave = colonia normalizada; municipio/zona son columnas de referencia."
  }
 }

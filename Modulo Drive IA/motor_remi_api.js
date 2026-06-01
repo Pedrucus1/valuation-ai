@@ -56,7 +56,9 @@ const IDX     = JSON.parse(fs.readFileSync(INDEX_PATH, 'utf8'));
 // Fuente única consolidada: cada colonia es un registro { municipio, zona, nse:{v1,v2}, idx, similares }.
 // Si existe, el motor lee SOLO de aquí (1 archivo, ~33% menos bytes que las 6 fuentes sueltas).
 // Se regenera con: node construir_maestro.js
-const _maestro = fs.existsSync(MAESTRO_PATH) ? JSON.parse(fs.readFileSync(MAESTRO_PATH, 'utf8')) : null;
+const _maestro = fs.existsSync(MAESTRO_PATH)
+    ? (() => { const { _meta, ...c } = JSON.parse(fs.readFileSync(MAESTRO_PATH, 'utf8')); return c; })()
+    : null;
 
 // Fuentes legacy: SOLO se cargan si no hay maestro (compatibilidad / red de seguridad).
 const _nse    = !_maestro && fs.existsSync(COLONIAS_NSE_PATH)  ? JSON.parse(fs.readFileSync(COLONIAS_NSE_PATH,  'utf8')) : {};

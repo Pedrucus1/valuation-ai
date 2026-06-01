@@ -22,7 +22,9 @@ const R = f => fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : {};
 
 const nse   = R(path.join(__dirname, 'colonias_nse.json'));
 const nse2  = R(path.join(__dirname, 'colonias_nse_v2.json'));
-const idxVal = (() => { const { _meta, ...c } = R(path.join(__dirname, 'idx_valoracion.json')); return c; })();
+const idxRaw = R(path.join(__dirname, 'idx_valoracion.json'));
+const idxMeta = idxRaw._meta || {};
+const idxVal = (() => { const { _meta, ...c } = idxRaw; return c; })();
 const simV2 = R(path.join(__dirname, 'colonias_similares.enriquecido.v2.json'));
 const sim   = R(path.join(__dirname, 'colonias_similares.json'));
 const simIA = R(path.join(__dirname, 'colonias_similares_enriquecido.json'));
@@ -44,10 +46,11 @@ const todas = new Set([
 ]);
 
 const maestro = {};
-const stats = { total: 0, con_v1: 0, con_v2: 0, con_idx: 0, con_sim: 0, con_geo: 0, v2_omitidas: 0 };
+const stats = { total: 0, con_v1: 0, con_v2: 0, con_idx: 0, con_sim: 0, con_geo: 0, v2_omitidas: 0, v1_con_fecha: 0 };
 
 for (const key of todas) {
   if (!key) continue;
+  if (key === '_meta') continue;   // nunca tratar metadatos como colonia
   stats.total++;
   const rec = {};
 
@@ -57,7 +60,7 @@ for (const key of todas) {
 
   // NSE — v1 siempre; v2 solo si NO hay v1 (la cascada nunca leería v2 con v1 presente)
   const nseObj = {};
-  if (nse[key])  { nseObj.v1 = nse[key]; stats.con_v1++; }
+  if (nse[key])  { nseObj.v1 = nse[key]; stats.con_v1++; if (nse[key].fecha_verificacion) stats.v1_con_fecha++; }
   if (nse2[key]) {
     if (nse[key]) stats.v2_omitidas++;         // redundante: v1 gana siempre
     else { nseObj.v2 = nse2[key]; stats.con_v2++; }
@@ -74,13 +77,24 @@ for (const key of todas) {
   maestro[key] = rec;
 }
 
+// _meta: capas (ganada vs derivada) + temporalidad. El motor ignora "_meta" (no es colonia).
+maestro._meta = {
+  generado: new Date().toISOString(),
+  capas: {
+    ganada:   { campo: 'nse.v1', fuente: 'colonias_nse.json (calibración perito)', temporal: 'fecha_verificacion por entrada (opcional; flywheel mensual)', prioridad: 1 },
+    derivada: { campos: 'nse.v2 / idx', fuente: 'scraper', ventanaMeses: idxMeta.ventanaMeses || null, fechaCalculo: idxMeta.fechaCalculo || null, prioridad: 2 },
+  },
+  cascada_nse: 'nse.v1 → nse.v2 → idx[tipo].global → idx.casa.global',
+  nota: 'Regenerar con: node construir_maestro.js. Llave = colonia normalizada; municipio/zona son columnas de referencia.',
+};
+
 const OUT = path.join(__dirname, 'colonias_maestro.json');
 fs.writeFileSync(OUT, JSON.stringify(maestro, null, 1));
 
 console.log('=== MAESTRO CONSTRUIDO ===');
 console.log('Archivo:', OUT);
 console.log('Colonias totales:   ', stats.total);
-console.log('  con NSE v1:       ', stats.con_v1);
+console.log('  con NSE v1 (ganada):', stats.con_v1, '— con fecha_verificacion:', stats.v1_con_fecha);
 console.log('  con NSE v2 (solo):', stats.con_v2, '(v2 redundantes omitidas:', stats.v2_omitidas + ')');
 console.log('  con idx:          ', stats.con_idx);
 console.log('  con similares:    ', stats.con_sim);
