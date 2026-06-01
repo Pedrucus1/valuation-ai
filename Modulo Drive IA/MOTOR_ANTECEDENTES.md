@@ -37,12 +37,13 @@
 **Baseline post 31-May (con cache rebuild + v2):** 75.5% ±10%, 81.9% ±15%, 93.6% ±20% en 94 OPIs (--desde 2025-07).
 El desplome vs ANTECEDENTES 26-May (89.9% ±10%) se debe a cache_consolidado rebuild del 31-May, NOT a v2.
 
-### Tarea 1 (cobertura similares) — RESULTADO:
-- Batch DeepSeek resolvió 318/338 colonias → 412/443 sim sin_datos ahora con zona
-- PERO: agregar manual-ai al v2 causó REGRESIÓN: ±10%: 75.5%→73.4%, ±15%: 81.9%→80.9%
-- Causa probable: DeepSeek asignó algunas zonas incorrectas → filtro de zona excluye comparables válidos
-- DECISIÓN: NO usar manual-ai en v2. `colonias_manual_municipios.json` guardado para análisis futuro.
-- **REGLA: manual-ai solo se incorpora al v2 después de validar cada asignación contra el set de OPIs**
+### Tarea 1 (cobertura similares) — RESULTADO FINAL:
+- Batch DeepSeek resolvió 318/338 colonias → 412/443 sim sin_datos con zona explícita
+- Bug encontrado en `_zonaOf`: normMuni("San Pedro Tlaquepaque") → "tlaquepaquetlaquepaque" (doble). Fix: `_ZONAS_MAP` tiene ambas claves. (motor_remi_api.js línea ~62)
+- PERO aun con fix: v2+manual-ai da ±15%: 79.8% (peor que v2 solo: 81.9%)
+- Causa raíz: colonia names con normalización rota (e.g. "de chapala" → normCol → "de") → manual["de"]=Tonalá incorrecto → filtra similares válidos de Chapala
+- DECISIÓN FINAL: v2 sin manual-ai. Baseline: **75.5% ±10%, 81.9% ±15%, 93.6% ±20%** (94 OPIs)
+- `colonias_manual_municipios.json` guardado para uso futuro con filtro de claves inválidas (len < 4)
 
 ---
 

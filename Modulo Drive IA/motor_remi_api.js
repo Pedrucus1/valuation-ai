@@ -59,11 +59,13 @@ const _simIA  = fs.existsSync(COLONIAS_IA_PATH)   ? JSON.parse(fs.readFileSync(C
 const _simV2  = fs.existsSync(COLONIAS_SIM_V2_PATH) ? JSON.parse(fs.readFileSync(COLONIAS_SIM_V2_PATH, 'utf8')) : {};
 
 // Zonas geográficas — claves en formato normMuni (sin acentos, lowercase)
+// Quirk: normMuni("San Pedro Tlaquepaque") → "tlaquepaquetlaquepaque" (la regex "^san pedro " reemplaza
+// el prefijo con "tlaquepaque" pero el sufijo ya contiene "tlaquepaque" → duplicación). Ambas formas apuntan a AMG-SE.
 const _ZONAS_MAP = {
     'guadalajara': 'AMG-Centro', 'zapopan': 'AMG-NW',
-    'tlaquepaque': 'AMG-SE',     // normMuni ya convierte "san pedro tlaquepaque" → "tlaquepaque"
+    'tlaquepaque': 'AMG-SE', 'tlaquepaquetlaquepaque': 'AMG-SE',
     'tonala': 'AMG-E',
-    'tlajomulco': 'AMG-S',       // normMuni ya convierte "tlajomulco de zuniga" → "tlajomulco"
+    'tlajomulco': 'AMG-S',       // normMuni convierte "tlajomulco de zuniga" → "tlajomulco"
     'el salto': 'AMG-S',         'juanacatlan': 'AMG-S',
     'ixtlahuacan de los membrillos': 'AMG-S',
     'chapala': 'Chapala',        'jocotepec': 'Chapala', 'poncitlan': 'Chapala',
