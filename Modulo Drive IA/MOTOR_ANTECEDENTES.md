@@ -15,6 +15,30 @@
 
 ---
 
+## 🔑 PALANCA REAL PARA LOS ESTRUCTURALES (01-Jun-2026)
+
+Verificación con lente de municipio de los 16 violadores 2025-2026: solo **Real del Valle** era
+municipio-afectado (rescatado). Los otros 15 NO tienen inventario en otro municipio → son
+estructurales (colonias sin comps en caché). `investigar_municipio_violadores.js` lo confirma.
+
+**⚠️ CORRECCIÓN: NO son "sin comps".** El conteo por llave EXACTA (investigar_municipio_violadores)
+subcuenta — no ve los matches difusos del motor. Ejemplo: Colli Urbano daba "n=0" exacto pero el
+motor halló **8 comps** (pool exacta). Los 15 "estructurales" en realidad tienen comps en pools
+general/similares/suma_partes (n=3-10). El problema es **SELECCIÓN/CALIBRACIÓN de pool, no falta de datos.**
+
+**Caso Colli Urbano (142m²C, perito $27,768):** sus propios listings van $27k-$41k (mediana ~$38k →
+motor +28%). Vecinos (Parques Tesistán $21.8k, Nuevo México $24.4k, Paseos Sol $29.6k) ≈$25k, MÁS
+cerca del perito. El motor usó su exacta dispersa y NO mezcló vecinos → sobrevalúa.
+
+**Palancas reales (medidas) para subir de ~90%:**
+1. Cuando la exacta tiene alta dispersión o pocos comps, BLEND con similares/vecinos en vez de
+   confiar solo en la exacta (Colli Urbano bajaría de $38k hacia ~$28-30k).
+2. Relajar gates de web SOLO donde el pool base es pobre (suma_partes_mix delgado; filtro de
+   aceptación línea ~858). + conectar comps acumulados (3a).
+LECCIÓN: NO etiquetar "estructural/sin comps" por conteo exacto — verificar lo que el motor realmente usó.
+
+---
+
 ## 🔒 REGISTRO DE VIOLADORES ±20% — REVISADOS Y CERRADOS (01-Jun-2026)
 
 > **REGLA: NO re-investigar estos OPIs.** Fueron analizados (script `analizar_rescate.js`) y son
