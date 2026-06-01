@@ -15,6 +15,34 @@
 
 ---
 
+## ⚠️ SESIÓN 01-Jun-2026 — Panorama amplio de validación (337 OPIs)
+
+Se amplió la validación de 94 (curado 2025-07+) a TODOS los OPIs, web OFF + perito OFF (limpio,
+no circular):
+| Set | ±10% | ±15% | ±20% | err abs |
+|---|---|---|---|---|
+| Curado reciente (94, 2025-07+) | 75.5% | 80.9% | 93.6% | 8.3% |
+| **Todo el historial (337)** | **47.8%** | **60.2%** | **71.5%** | **17.7%** |
+
+**Distribución de los 92 fallos por año:** 2023:12, **2024:64**, 2025:14, **2026:2**. El 83% son
+2023-2024; 2026 casi perfecto. Por dirección: 53 sobre / 39 sub. Por pool: similares 32, general 25,
+exacta 17, suma_partes_mix 14, suma_partes 4.
+
+**Sesgo temporal medido y corregido:** 2024 tenía +5.8% de sesgo residual (factor ×1.07 sub-ajustaba
+~2 años de plusvalía). Corregido a ×1.13 en validar_40_opis.js (FACTOR_POR_ANIO). Efecto: pequeño
+(47.2→47.8%) — confirma que los fallos NO son borderline temporales sino errores grandes.
+
+**Conclusión:** el motor es fuerte en datos recientes/bien cubiertos (2026 casi perfecto); la debilidad
+real está en la COLA LARGA: (a) colonias sin comps — aquí web OFF penaliza fuerte, producción con web
+sube; (b) casos puntuales de CACHÉ CONTAMINADO (ej. exacta +181% / +127% = misma colonia con listings
+disparados). Baseline curado intacto: 75.5/80.9/93.6.
+
+**Siguiente:** cazar los casos extremos (>40%), empezando por pool `exacta` (OPI-24-6-29 +181%,
+OPI-24-8-19 +127%) — son contaminación de caché, individualmente investigables. Y medir web ON en
+el set amplio para cuantificar cuánto recupera la búsqueda online en colonias sin comps.
+
+---
+
 ## ⚠️ SESIÓN 01-Jun-2026 — Flywheel del valor del perito (Fase 3)
 
 Nueva capa GANADA: `calibraciones_perito.json` — NSE/pm2c VERIFICADO derivado de los avalúos

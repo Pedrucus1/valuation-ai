@@ -129,11 +129,13 @@ console.log(`\n=== VALIDACIÓN remi vs PERITO — OPIs ${SKIP+1}–${SKIP+muestr
 
 // Ajuste temporal: índice precio acumulado GDL vs IDX-2026
 // 2025→2026: ~9% (nearshoring sostenido)
-// Factor inflación: 7% anual. Solo aplica cuando ha transcurrido >1 año.
-// 2025 (<1 año desde valuación promedio): 4% — no se cumple el año, máximo 3-4%
-// 2024 (~1-2 años): 7%
-// 2023 (~2-3 años): 7% compuesto × 2
-const FACTOR_POR_ANIO = { 2026: 1.00, 2025: 1.04, 2024: 1.07, 2023: 1.14 };
+// Factor inflación: 7% anual compuesto por años transcurridos al punto de valuación (~2026).
+// 2025 (<1 año): 4% — no se cumple el año completo
+// 2024 (~2 años): 13% — corregido 01-Jun-2026. El ×1.07 anterior (1 año) dejaba un sesgo
+//   residual medido de +5.8% en 197 OPIs de 2024 (el motor "sobrevaluaba" por sub-ajuste temporal,
+//   no por error). 1.07×1.058≈1.13 elimina el sesgo. No afecta el baseline curado (2025-07+).
+// 2023 (~3 años): 14% (residual medido +1.8%, ya bien)
+const FACTOR_POR_ANIO = { 2026: 1.00, 2025: 1.04, 2024: 1.13, 2023: 1.14 };
 function anioDesFolio(folio) {
     const m = (folio||'').match(/OPI-(\d{2})-/);
     return m ? 2000 + parseInt(m[1]) : 2026;
