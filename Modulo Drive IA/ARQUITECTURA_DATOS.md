@@ -51,11 +51,18 @@ descartaban; ahora **la base de comparables útiles crece sola con cada valuaci�
 - Pendiente (3b): que esta base alimente el pool de comparables (meta ~15 por avalúo, ponderado por
   calidad: exacta > similares > zona), medido contra el baseline para no diluir la precisión.
 
-## Flywheel mensual del valor del perito (Fase 3 — pendiente)
+## Flywheel del valor del perito (Fase 3 — ACTIVO)
 
-Cada avalúo nuevo del perito se vuelve una calibración verificada → se agrega/actualiza en
-`colonias_nse.json` con su `fecha_verificacion`. Así la capa ganada **crece sola cada mes** con
-datos reales. El maestro se regenera y el motor usa lo más reciente y confiable.
+Cada avalúo del perito (cerebro_datos: valorMercado/m²C → pm2c → NSE) se vuelve una calibración
+verificada en `calibraciones_perito.json`, con `fecha_verificacion`. Es una capa ganada nueva.
+
+**Cascada NSE: v1 → perito → v2 → idx.** v1 (histórica) gana; el perito mejora donde no hay v1
+(le gana al scraper). Así la capa ganada **crece** con cada avalúo real. Regenerar:
+`node construir_calibraciones_perito.js` (todos los avalúos) → `node construir_maestro.js`.
+
+- **Circularidad:** para VALIDAR usar `--antes-de <mes>` (no meter en NSE los avalúos que luego
+  validas). Para PRODUCCIÓN, sin flag (todos). Probado con split: neutral en validador, +115
+  colonias verificadas de cobertura nueva, cero regresión.
 
 ## A nivel nacional (Fase 4 — pendiente)
 

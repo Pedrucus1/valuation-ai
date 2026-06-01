@@ -1,0 +1,2972 @@
+{
+ "haciendas de san jose": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 26860,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "San Pedro Tlaquepaque",
+  "fecha_verificacion": "2025-06",
+  "fuente": "perito"
+ },
+ "sayulita": {
+  "nse": "medio-alto",
+  "nseIdx": 4,
+  "medianaPm2": 40601,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Bahía de Banderas",
+  "fecha_verificacion": "2025-06",
+  "fuente": "perito"
+ },
+ "la calma": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 30358,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-06",
+  "fuente": "perito"
+ },
+ "santa cruz de las flores": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 11027,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "Tlajomulco de Zúñiga",
+  "fecha_verificacion": "2025-06",
+  "fuente": "perito"
+ },
+ "loma bonita ejidal": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 17995,
+  "nListings": 5,
+  "n_avaluos": 5,
+  "municipio": "San Pedro Tlaquepaque",
+  "fecha_verificacion": "2025-06",
+  "fuente": "perito"
+ },
+ "el zapote": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 20814,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Poncitlan",
+  "fecha_verificacion": "2025-06",
+  "fuente": "perito"
+ },
+ "ladron de guevara": {
+  "nse": "medio-alto",
+  "nseIdx": 4,
+  "medianaPm2": 39163,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2025-06",
+  "fuente": "perito"
+ },
+ "rancho el centinela": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 25840,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-06",
+  "fuente": "perito"
+ },
+ "jardines del bosque": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 32045,
+  "nListings": 4,
+  "n_avaluos": 4,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2025-06",
+  "fuente": "perito"
+ },
+ "victoria": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 30295,
+  "nListings": 3,
+  "n_avaluos": 3,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-06",
+  "fuente": "perito"
+ },
+ "los olivos ii": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 20127,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "San Pedro Tlaquepaque",
+  "fecha_verificacion": "2025-06",
+  "fuente": "perito"
+ },
+ "colomos providencia": {
+  "nse": "medio-alto",
+  "nseIdx": 4,
+  "medianaPm2": 41422,
+  "nListings": 3,
+  "n_avaluos": 3,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2025-06",
+  "fuente": "perito"
+ },
+ "rinconada del sol": {
+  "nse": "medio-alto",
+  "nseIdx": 4,
+  "medianaPm2": 36495,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-06",
+  "fuente": "perito"
+ },
+ "miravalle": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 11949,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2025-06",
+  "fuente": "perito"
+ },
+ "aldama tetlan": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 14662,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2025-06",
+  "fuente": "perito"
+ },
+ "morelos": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 20122,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2025-05",
+  "fuente": "perito"
+ },
+ "jardines de la cruz": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 25603,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2025-05",
+  "fuente": "perito"
+ },
+ "hogares de nuevo mexico": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 25310,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-05",
+  "fuente": "perito"
+ },
+ "chapalita sur": {
+  "nse": "medio-alto",
+  "nseIdx": 4,
+  "medianaPm2": 38524,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-05",
+  "fuente": "perito"
+ },
+ "industrial zapopan norte": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 24049,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-05",
+  "fuente": "perito"
+ },
+ "vista reina": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 16700,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tonalá",
+  "fecha_verificacion": "2025-05",
+  "fuente": "perito"
+ },
+ "arcos de": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 23733,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-05",
+  "fuente": "perito"
+ },
+ "el parque": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 32661,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-05",
+  "fuente": "perito"
+ },
+ "valle de san nicolas": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 15809,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-05",
+  "fuente": "perito"
+ },
+ "acatlan de juarez": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 12170,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Acatlán de Juárez",
+  "fecha_verificacion": "2025-05",
+  "fuente": "perito"
+ },
+ "jardines alcalde": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 26495,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2025-05",
+  "fuente": "perito"
+ },
+ "artesanos": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 26488,
+  "nListings": 3,
+  "n_avaluos": 3,
+  "municipio": "San Pedro Tlaquepaque",
+  "fecha_verificacion": "2025-05",
+  "fuente": "perito"
+ },
+ "col del fresno": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 23149,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2025-05",
+  "fuente": "perito"
+ },
+ "centro": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 20770,
+  "nListings": 14,
+  "n_avaluos": 14,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2025-05",
+  "fuente": "perito"
+ },
+ "arboledas": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 30554,
+  "nListings": 4,
+  "n_avaluos": 4,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-05",
+  "fuente": "perito"
+ },
+ "lomas del camichin": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 12137,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tonalá",
+  "fecha_verificacion": "2025-05",
+  "fuente": "perito"
+ },
+ "san carlos": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 19203,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2025-05",
+  "fuente": "perito"
+ },
+ "real del valle": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 18104,
+  "nListings": 4,
+  "n_avaluos": 4,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-04",
+  "fuente": "perito"
+ },
+ "alta california": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 24380,
+  "nListings": 3,
+  "n_avaluos": 3,
+  "municipio": "Tlajomulco de Zúñiga",
+  "fecha_verificacion": "2025-04",
+  "fuente": "perito"
+ },
+ "hacienda del sur francisco villa": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 29977,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-04",
+  "fuente": "perito"
+ },
+ "alcalde barranquitas": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 10606,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2025-04",
+  "fuente": "perito"
+ },
+ "lomas altos": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 13792,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "San Pedro Tlaquepaque",
+  "fecha_verificacion": "2025-04",
+  "fuente": "perito"
+ },
+ "agujas": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 24073,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-04",
+  "fuente": "perito"
+ },
+ "condominio ignis": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 23090,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tlajomulco de Zúñiga",
+  "fecha_verificacion": "2025-04",
+  "fuente": "perito"
+ },
+ "moctezuma": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 26230,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-04",
+  "fuente": "perito"
+ },
+ "santa rosa": {
+  "nse": "economico",
+  "nseIdx": 0,
+  "medianaPm2": 7502,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tonalá",
+  "fecha_verificacion": "2025-04",
+  "fuente": "perito"
+ },
+ "colinas del roble": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 13654,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tlajomulco de Zúñiga",
+  "fecha_verificacion": "2025-04",
+  "fuente": "perito"
+ },
+ "santa anita": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 14396,
+  "nListings": 6,
+  "n_avaluos": 6,
+  "municipio": "Tlajomulco de Zúñiga",
+  "fecha_verificacion": "2025-04",
+  "fuente": "perito"
+ },
+ "ahujas": {
+  "nse": "economico",
+  "nseIdx": 0,
+  "medianaPm2": 6885,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-04",
+  "fuente": "perito"
+ },
+ "zapopan": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 28383,
+  "nListings": 5,
+  "n_avaluos": 5,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-03",
+  "fuente": "perito"
+ },
+ "san isidro": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 13802,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2025-03",
+  "fuente": "perito"
+ },
+ "paseos del sol": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 27551,
+  "nListings": 4,
+  "n_avaluos": 4,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-03",
+  "fuente": "perito"
+ },
+ "la loma": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 13443,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2025-03",
+  "fuente": "perito"
+ },
+ "guadalajara": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 21309,
+  "nListings": 3,
+  "n_avaluos": 3,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2025-03",
+  "fuente": "perito"
+ },
+ "arroyo las flores": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 18284,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "San Pedro Tlaquepaque",
+  "fecha_verificacion": "2025-03",
+  "fuente": "perito"
+ },
+ "la esperanza": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 9169,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2025-03",
+  "fuente": "perito"
+ },
+ "campo real": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 25733,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-03",
+  "fuente": "perito"
+ },
+ "postes cuates": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 21684,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2025-03",
+  "fuente": "perito"
+ },
+ "la experiencia": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 12093,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-03",
+  "fuente": "perito"
+ },
+ "minerales": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 11241,
+  "nListings": 3,
+  "n_avaluos": 3,
+  "municipio": "El Salto",
+  "fecha_verificacion": "2025-03",
+  "fuente": "perito"
+ },
+ "jardines del valle": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 27371,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-03",
+  "fuente": "perito"
+ },
+ "el refugio": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 12628,
+  "nListings": 3,
+  "n_avaluos": 3,
+  "municipio": "San Pedro Tlaquepaque",
+  "fecha_verificacion": "2025-03",
+  "fuente": "perito"
+ },
+ "del sur": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 18836,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2025-03",
+  "fuente": "perito"
+ },
+ "alamo industrial": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 21981,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "San Pedro Tlaquepaque",
+  "fecha_verificacion": "2025-03",
+  "fuente": "perito"
+ },
+ "lomas de santa anita": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 25946,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tlajomulco de Zúñiga",
+  "fecha_verificacion": "2025-02",
+  "fuente": "perito"
+ },
+ "villas de": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 22254,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-02",
+  "fuente": "perito"
+ },
+ "tlajomulco": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 18947,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "Tlajomulco de Zúñiga",
+  "fecha_verificacion": "2025-02",
+  "fuente": "perito"
+ },
+ "parques de tesistan": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 17765,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-02",
+  "fuente": "perito"
+ },
+ "lomas de la victoria": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 21533,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "San Pedro Tlaquepaque",
+  "fecha_verificacion": "2025-02",
+  "fuente": "perito"
+ },
+ "coto imperio inca": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 26279,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-02",
+  "fuente": "perito"
+ },
+ "santa margarita 1": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 16144,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-02",
+  "fuente": "perito"
+ },
+ "monumental": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 18269,
+  "nListings": 3,
+  "n_avaluos": 3,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2025-02",
+  "fuente": "perito"
+ },
+ "santa cruz de la loma": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 10921,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tlajomulco de Zúñiga",
+  "fecha_verificacion": "2025-02",
+  "fuente": "perito"
+ },
+ "constitucion": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 16717,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-02",
+  "fuente": "perito"
+ },
+ "auditorio": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 22400,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-02",
+  "fuente": "perito"
+ },
+ "lomas del gallo": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 20876,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2025-02",
+  "fuente": "perito"
+ },
+ "educacion jalisciense": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 17844,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tonalá",
+  "fecha_verificacion": "2025-02",
+  "fuente": "perito"
+ },
+ "san juan de dios": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 23489,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2025-01",
+  "fuente": "perito"
+ },
+ "americana": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 14798,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2025-01",
+  "fuente": "perito"
+ },
+ "la gloria del colli": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 15755,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-01",
+  "fuente": "perito"
+ },
+ "san isidro mazatepec": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 14147,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "Tala",
+  "fecha_verificacion": "2025-01",
+  "fuente": "perito"
+ },
+ "guadalupe ejidal": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 15489,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "San Pedro Tlaquepaque",
+  "fecha_verificacion": "2025-01",
+  "fuente": "perito"
+ },
+ "5 de mayo": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 20210,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2025-01",
+  "fuente": "perito"
+ },
+ "lomas del centinela": {
+  "nse": "economico",
+  "nseIdx": 0,
+  "medianaPm2": 8034,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-01",
+  "fuente": "perito"
+ },
+ "san elias": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 20077,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2025-01",
+  "fuente": "perito"
+ },
+ "villa hermosa": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 13507,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2025-01",
+  "fuente": "perito"
+ },
+ "tlaquepaque centro": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 18782,
+  "nListings": 8,
+  "n_avaluos": 8,
+  "municipio": "San Pedro Tlaquepaque",
+  "fecha_verificacion": "2025-01",
+  "fuente": "perito"
+ },
+ "de santiago": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 17436,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "San Pedro Tlaquepaque",
+  "fecha_verificacion": "2025-01",
+  "fuente": "perito"
+ },
+ "las bovedas": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 20074,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-01",
+  "fuente": "perito"
+ },
+ "el cortijo san agustin": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 19402,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tlajomulco de Zúñiga",
+  "fecha_verificacion": "2025-01",
+  "fuente": "perito"
+ },
+ "valle del mar": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 30866,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-01",
+  "fuente": "perito"
+ },
+ "lomas de san agustin": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 16262,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tlajomulco de Zúñiga",
+  "fecha_verificacion": "2025-01",
+  "fuente": "perito"
+ },
+ "parques de la victoria": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 19286,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "San Pedro Tlaquepaque",
+  "fecha_verificacion": "2025-01",
+  "fuente": "perito"
+ },
+ "santa margarita": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 18633,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2025-01",
+  "fuente": "perito"
+ },
+ "el moral": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 21296,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tonalá",
+  "fecha_verificacion": "2025-01",
+  "fuente": "perito"
+ },
+ "lomas de polanco": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 16810,
+  "nListings": 3,
+  "n_avaluos": 3,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2025-01",
+  "fuente": "perito"
+ },
+ "los olivos": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 17688,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "San Pedro Tlaquepaque",
+  "fecha_verificacion": "2024-12",
+  "fuente": "perito"
+ },
+ "la venta del astillero": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 11073,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-12",
+  "fuente": "perito"
+ },
+ "valle esmeralda": {
+  "nse": "medio-alto",
+  "nseIdx": 4,
+  "medianaPm2": 37616,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-12",
+  "fuente": "perito"
+ },
+ "jardines de la paz": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 14685,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "San Pedro Tlaquepaque",
+  "fecha_verificacion": "2024-12",
+  "fuente": "perito"
+ },
+ "senderos del lago 4ta": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 26484,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Jocotepec",
+  "fecha_verificacion": "2024-12",
+  "fuente": "perito"
+ },
+ "paraisos del colli": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 16489,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-12",
+  "fuente": "perito"
+ },
+ "la ladrillera": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 10541,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "San Pedro Tlaquepaque",
+  "fecha_verificacion": "2024-12",
+  "fuente": "perito"
+ },
+ "colinas de las aguilas": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 25341,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-12",
+  "fuente": "perito"
+ },
+ "las aguilas": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 20670,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-12",
+  "fuente": "perito"
+ },
+ "tapalpa": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 22616,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tapalpa",
+  "fecha_verificacion": "2024-12",
+  "fuente": "perito"
+ },
+ "santa teresita": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 24490,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-12",
+  "fuente": "perito"
+ },
+ "benito juarez": {
+  "nse": "economico",
+  "nseIdx": 0,
+  "medianaPm2": 7129,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "",
+  "fecha_verificacion": "2024-12",
+  "fuente": "perito"
+ },
+ "cerro de la reyna": {
+  "nse": "economico",
+  "nseIdx": 0,
+  "medianaPm2": 6913,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tonalá",
+  "fecha_verificacion": "2024-11",
+  "fuente": "perito"
+ },
+ "haciendas de": {
+  "nse": "medio-alto",
+  "nseIdx": 4,
+  "medianaPm2": 37497,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Chapala",
+  "fecha_verificacion": "2024-11",
+  "fuente": "perito"
+ },
+ "paseos de la hacienda": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 12534,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tlajomulco de Zúñiga",
+  "fecha_verificacion": "2024-11",
+  "fuente": "perito"
+ },
+ "fabrica de atemajac": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 14933,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-11",
+  "fuente": "perito"
+ },
+ "real vallarta": {
+  "nse": "medio-alto",
+  "nseIdx": 4,
+  "medianaPm2": 34290,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-11",
+  "fuente": "perito"
+ },
+ "pinar de las palomas": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 15581,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tonalá",
+  "fecha_verificacion": "2024-11",
+  "fuente": "perito"
+ },
+ "atlas": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 22427,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-11",
+  "fuente": "perito"
+ },
+ "paseo del prado": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 15387,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-11",
+  "fuente": "perito"
+ },
+ "cuitzeo": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 16393,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Poncitlán",
+  "fecha_verificacion": "2024-11",
+  "fuente": "perito"
+ },
+ "oblatos": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 18368,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-11",
+  "fuente": "perito"
+ },
+ "valle de coyula": {
+  "nse": "economico",
+  "nseIdx": 0,
+  "medianaPm2": 6333,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tonalá",
+  "fecha_verificacion": "2024-11",
+  "fuente": "perito"
+ },
+ "jardines de los poetas": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 18999,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-11",
+  "fuente": "perito"
+ },
+ "villas de oriente i": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 17571,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "San Pedro Tlaquepaque",
+  "fecha_verificacion": "2024-11",
+  "fuente": "perito"
+ },
+ "solares": {
+  "nse": "medio-alto",
+  "nseIdx": 4,
+  "medianaPm2": 40937,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-11",
+  "fuente": "perito"
+ },
+ "zapote del valle": {
+  "nse": "economico",
+  "nseIdx": 0,
+  "medianaPm2": 8814,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tlajomulco de Zúñiga",
+  "fecha_verificacion": "2024-11",
+  "fuente": "perito"
+ },
+ "el ranchito": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 11515,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "El Salto",
+  "fecha_verificacion": "2024-11",
+  "fuente": "perito"
+ },
+ "albaterra": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 14914,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-11",
+  "fuente": "perito"
+ },
+ "barra de navidad": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 15941,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Cihuatlán",
+  "fecha_verificacion": "2024-11",
+  "fuente": "perito"
+ },
+ "colinas de la cruz": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 10695,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tlajomulco de Zúñiga",
+  "fecha_verificacion": "2024-11",
+  "fuente": "perito"
+ },
+ "infonavit condor": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 11786,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "El Salto",
+  "fecha_verificacion": "2024-11",
+  "fuente": "perito"
+ },
+ "insurgentes": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 13783,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-11",
+  "fuente": "perito"
+ },
+ "lomas de san eugenio": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 17050,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-11",
+  "fuente": "perito"
+ },
+ "vistas del nilo": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 17026,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-11",
+  "fuente": "perito"
+ },
+ "las pintas": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 11711,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "El Salto",
+  "fecha_verificacion": "2024-11",
+  "fuente": "perito"
+ },
+ "segunda zona industrial": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 11750,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-10",
+  "fuente": "perito"
+ },
+ "lomas de la soledad": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 14247,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tonalá",
+  "fecha_verificacion": "2024-10",
+  "fuente": "perito"
+ },
+ "san jacinto": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 24104,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Poncitlán",
+  "fecha_verificacion": "2024-10",
+  "fuente": "perito"
+ },
+ "prados providencia": {
+  "nse": "medio-alto",
+  "nseIdx": 4,
+  "medianaPm2": 33058,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-10",
+  "fuente": "perito"
+ },
+ "condominio jardines del vergel": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 17462,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "San Pedro Tlaquepaque",
+  "fecha_verificacion": "2024-10",
+  "fuente": "perito"
+ },
+ "campo verde": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 15764,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Puerto Vallarta",
+  "fecha_verificacion": "2024-10",
+  "fuente": "perito"
+ },
+ "villa fontana": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 16967,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "San Pedro Tlaquepaque",
+  "fecha_verificacion": "2024-10",
+  "fuente": "perito"
+ },
+ "la alameda": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 13264,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tlajomulco de Zúñiga",
+  "fecha_verificacion": "2024-10",
+  "fuente": "perito"
+ },
+ "sta margarita": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 16212,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-10",
+  "fuente": "perito"
+ },
+ "el vergel": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 11732,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "San Pedro Tlaquepaque",
+  "fecha_verificacion": "2024-10",
+  "fuente": "perito"
+ },
+ "del fresno": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 14765,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-10",
+  "fuente": "perito"
+ },
+ "lomas de tabachines": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 14886,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-10",
+  "fuente": "perito"
+ },
+ "las pintas de arriba": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 20685,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": ". Tlaquepaque",
+  "fecha_verificacion": "2024-10",
+  "fuente": "perito"
+ },
+ "vistas del valle": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 15898,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tonalá",
+  "fecha_verificacion": "2024-10",
+  "fuente": "perito"
+ },
+ "nuevo mexico": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 20110,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-10",
+  "fuente": "perito"
+ },
+ "seattle": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 30472,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-10",
+  "fuente": "perito"
+ },
+ "lomas de": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 20235,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-10",
+  "fuente": "perito"
+ },
+ "echeverria": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 20534,
+  "nListings": 3,
+  "n_avaluos": 3,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-10",
+  "fuente": "perito"
+ },
+ "miramar": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 20890,
+  "nListings": 3,
+  "n_avaluos": 3,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-10",
+  "fuente": "perito"
+ },
+ "parques de tesistan iii": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 19050,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-10",
+  "fuente": "perito"
+ },
+ "valle de los molinos": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 16803,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-10",
+  "fuente": "perito"
+ },
+ "ixtlahuacan de los membrillos": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 16338,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Ixtlahuacán de los Membrillos",
+  "fecha_verificacion": "2024-09",
+  "fuente": "perito"
+ },
+ "tonala": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 15460,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tonalá",
+  "fecha_verificacion": "2024-09",
+  "fuente": "perito"
+ },
+ "la granja": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 16298,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-09",
+  "fuente": "perito"
+ },
+ "lagos de oriente": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 19187,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-09",
+  "fuente": "perito"
+ },
+ "zona centro": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 12234,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-09",
+  "fuente": "perito"
+ },
+ "el salto": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 12763,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "el Salto",
+  "fecha_verificacion": "2024-09",
+  "fuente": "perito"
+ },
+ "ninos heroes": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 19401,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-09",
+  "fuente": "perito"
+ },
+ "lomas de la primavera": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 12833,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-09",
+  "fuente": "perito"
+ },
+ "col la huizachera el salto": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 13173,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "El Salto",
+  "fecha_verificacion": "2024-09",
+  "fuente": "perito"
+ },
+ "francisco villa": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 16479,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-09",
+  "fuente": "perito"
+ },
+ "zona indutrial": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 26942,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-09",
+  "fuente": "perito"
+ },
+ "el fortin": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 21025,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-09",
+  "fuente": "perito"
+ },
+ "margarita maza de juarez": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 17602,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-09",
+  "fuente": "perito"
+ },
+ "santa maria": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 11293,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-09",
+  "fuente": "perito"
+ },
+ "coto arrezo": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 24496,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-09",
+  "fuente": "perito"
+ },
+ "san martin": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 20844,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-09",
+  "fuente": "perito"
+ },
+ "lomas del paraiso ii": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 14098,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-09",
+  "fuente": "perito"
+ },
+ "zona industrial": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 13769,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-09",
+  "fuente": "perito"
+ },
+ "las fuentes": {
+  "nse": "medio-alto",
+  "nseIdx": 4,
+  "medianaPm2": 34970,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-09",
+  "fuente": "perito"
+ },
+ "sta rita": {
+  "nse": "medio-alto",
+  "nseIdx": 4,
+  "medianaPm2": 37315,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-08",
+  "fuente": "perito"
+ },
+ "col mirador de san isidro": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 31450,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tlajomulco de Zúñiga",
+  "fecha_verificacion": "2024-08",
+  "fuente": "perito"
+ },
+ "canadas de san lorenzo": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 26200,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-08",
+  "fuente": "perito"
+ },
+ "mezquitan": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 21385,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-08",
+  "fuente": "perito"
+ },
+ "juan manuel vallarta": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 32185,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-08",
+  "fuente": "perito"
+ },
+ "entre rosa navarro y ejido col lomas de revolucion": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 10412,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-08",
+  "fuente": "perito"
+ },
+ "providencia": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 31899,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-08",
+  "fuente": "perito"
+ },
+ "granja": {
+  "nse": "medio-alto",
+  "nseIdx": 4,
+  "medianaPm2": 36910,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-08",
+  "fuente": "perito"
+ },
+ "los cerritos": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 14790,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-08",
+  "fuente": "perito"
+ },
+ "marcelino garcia barragan": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 19676,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-08",
+  "fuente": "perito"
+ },
+ "lomas del bosque": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 19243,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-08",
+  "fuente": "perito"
+ },
+ "vallarta la patria": {
+  "nse": "medio-alto",
+  "nseIdx": 4,
+  "medianaPm2": 36122,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-08",
+  "fuente": "perito"
+ },
+ "la barca": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 9753,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "La Barca",
+  "fecha_verificacion": "2024-08",
+  "fuente": "perito"
+ },
+ "san jose": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 14532,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tlajomulco de Zúñiga",
+  "fecha_verificacion": "2024-08",
+  "fuente": "perito"
+ },
+ "el plan": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 11244,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "El Plan",
+  "fecha_verificacion": "2024-08",
+  "fuente": "perito"
+ },
+ "de los camichines": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 12467,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zacoalco de Torres",
+  "fecha_verificacion": "2024-08",
+  "fuente": "perito"
+ },
+ "villafontana": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 16498,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "San Pedro Tlaquepaque",
+  "fecha_verificacion": "2024-08",
+  "fuente": "perito"
+ },
+ "27 de septiembre": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 18082,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-07",
+  "fuente": "perito"
+ },
+ "mision san francisco": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 17443,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "San Pedro Tlaquepaque",
+  "fecha_verificacion": "2024-07",
+  "fuente": "perito"
+ },
+ "arcos sur": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 19815,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-07",
+  "fuente": "perito"
+ },
+ "las alamedas": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 25046,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-07",
+  "fuente": "perito"
+ },
+ "salvador portillo lopez": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 12637,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "San Pedro Tlaquepaque",
+  "fecha_verificacion": "2024-07",
+  "fuente": "perito"
+ },
+ "bosque real": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 31304,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tlajomulco de Zúñiga",
+  "fecha_verificacion": "2024-07",
+  "fuente": "perito"
+ },
+ "los cajetes": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 10963,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-07",
+  "fuente": "perito"
+ },
+ "santos degollado": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 15597,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-07",
+  "fuente": "perito"
+ },
+ "tonla centro": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 22271,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tonalá",
+  "fecha_verificacion": "2024-06",
+  "fuente": "perito"
+ },
+ "flamingos": {
+  "nse": "lujo",
+  "nseIdx": 5,
+  "medianaPm2": 72853,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Bahía de Banderas",
+  "fecha_verificacion": "2024-06",
+  "fuente": "perito"
+ },
+ "senderos de monte verde": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 23289,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "Tlajomulco de Zúñiga",
+  "fecha_verificacion": "2024-06",
+  "fuente": "perito"
+ },
+ "loma bonita": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 19951,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tapalpa",
+  "fecha_verificacion": "2024-06",
+  "fuente": "perito"
+ },
+ "el roble": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 29663,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "Tonalá",
+  "fecha_verificacion": "2024-06",
+  "fuente": "perito"
+ },
+ "agricola": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 15160,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-06",
+  "fuente": "perito"
+ },
+ "mision capistrano": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 15330,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-06",
+  "fuente": "perito"
+ },
+ "jardines del sur": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 22050,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-06",
+  "fuente": "perito"
+ },
+ "prados de atequiza": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 11718,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Ixtlahuacán de los Membrillos",
+  "fecha_verificacion": "2024-06",
+  "fuente": "perito"
+ },
+ "atequiza": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 21701,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Ixtlahuacán de los Membrillos",
+  "fecha_verificacion": "2024-06",
+  "fuente": "perito"
+ },
+ "rancho nuevo": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 15632,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-05",
+  "fuente": "perito"
+ },
+ "mirador de san isidro": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 31165,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-05",
+  "fuente": "perito"
+ },
+ "lazaro cardenas": {
+  "nse": "medio-alto",
+  "nseIdx": 4,
+  "medianaPm2": 39241,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-05",
+  "fuente": "perito"
+ },
+ "villas de la alameda": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 13407,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tlajomulco de Zúñiga",
+  "fecha_verificacion": "2024-05",
+  "fuente": "perito"
+ },
+ "paseo los agaves": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 12849,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tlajomulco de Zúñiga",
+  "fecha_verificacion": "2024-05",
+  "fuente": "perito"
+ },
+ "colinas de la normal": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 21634,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-05",
+  "fuente": "perito"
+ },
+ "valle de la misericordia": {
+  "nse": "economico",
+  "nseIdx": 0,
+  "medianaPm2": 7865,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "El Salto",
+  "fecha_verificacion": "2024-05",
+  "fuente": "perito"
+ },
+ "casa fuerte la ciudadela": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 22362,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tlajomulco de Zúñiga",
+  "fecha_verificacion": "2024-02",
+  "fuente": "perito"
+ },
+ "la limonera": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 18598,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "San Luis Soyatlán",
+  "fecha_verificacion": "2024-04",
+  "fuente": "perito"
+ },
+ "el campanario": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 19332,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-04",
+  "fuente": "perito"
+ },
+ "analco": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 14999,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-04",
+  "fuente": "perito"
+ },
+ "chapalita oriente": {
+  "nse": "medio-alto",
+  "nseIdx": 4,
+  "medianaPm2": 40804,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-04",
+  "fuente": "perito"
+ },
+ "barragan hernandez": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 15401,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-04",
+  "fuente": "perito"
+ },
+ "jalisco i": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 14103,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "Tonalá",
+  "fecha_verificacion": "2024-04",
+  "fuente": "perito"
+ },
+ "praderas de san antonio": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 14358,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-04",
+  "fuente": "perito"
+ },
+ "atotonilquillo": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 14387,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Chapala",
+  "fecha_verificacion": "2024-03",
+  "fuente": "perito"
+ },
+ "tabachines": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 24261,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-03",
+  "fuente": "perito"
+ },
+ "san miguel de huentitan": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 17667,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-03",
+  "fuente": "perito"
+ },
+ "a santa maria tequepexpan": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 20154,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "San Pedro Tlaquepaque",
+  "fecha_verificacion": "2024-03",
+  "fuente": "perito"
+ },
+ "lomas universidad": {
+  "nse": "medio-alto",
+  "nseIdx": 4,
+  "medianaPm2": 48481,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-03",
+  "fuente": "perito"
+ },
+ "el mirador": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 13663,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "San Pedro Tlaquepaque",
+  "fecha_verificacion": "2024-03",
+  "fuente": "perito"
+ },
+ "cd del sol": {
+  "nse": "medio-alto",
+  "nseIdx": 4,
+  "medianaPm2": 43845,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-03",
+  "fuente": "perito"
+ },
+ "jardines de la calera": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 19258,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tlajomulco de Zúñiga",
+  "fecha_verificacion": "2024-03",
+  "fuente": "perito"
+ },
+ "cd granja": {
+  "nse": "lujo",
+  "nseIdx": 5,
+  "medianaPm2": 53144,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-03",
+  "fuente": "perito"
+ },
+ "el verde": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 10374,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "El Salto",
+  "fecha_verificacion": "2024-02",
+  "fuente": "perito"
+ },
+ "santa cruz del valle": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 19175,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tlajomulco de Zúñiga",
+  "fecha_verificacion": "2024-02",
+  "fuente": "perito"
+ },
+ "lomas independencia": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 21929,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-02",
+  "fuente": "perito"
+ },
+ "san jose del quince": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 12491,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "El Salto",
+  "fecha_verificacion": "2024-02",
+  "fuente": "perito"
+ },
+ "tesistan": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 15507,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-02",
+  "fuente": "perito"
+ },
+ "unidad abastos": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 31523,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-02",
+  "fuente": "perito"
+ },
+ "la estancia": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 21989,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-02",
+  "fuente": "perito"
+ },
+ "tres reyes": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 22506,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tlajomulco de Zúñiga",
+  "fecha_verificacion": "2024-02",
+  "fuente": "perito"
+ },
+ "la coronilla": {
+  "nse": "economico",
+  "nseIdx": 0,
+  "medianaPm2": 6755,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-01",
+  "fuente": "perito"
+ },
+ "ejido copalita": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 15908,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-01",
+  "fuente": "perito"
+ },
+ "la via": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 13122,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Puerto Vallarta",
+  "fecha_verificacion": "2024-01",
+  "fuente": "perito"
+ },
+ "marina vallarta": {
+  "nse": "medio-alto",
+  "nseIdx": 4,
+  "medianaPm2": 40680,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Puerto Vallarta",
+  "fecha_verificacion": "2024-01",
+  "fuente": "perito"
+ },
+ "bugambilias": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 25972,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2024-01",
+  "fuente": "perito"
+ },
+ "mirador del tesoro": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 24400,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "San Pedro Tlaquepaque",
+  "fecha_verificacion": "2024-01",
+  "fuente": "perito"
+ },
+ "moderna": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 16305,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2024-01",
+  "fuente": "perito"
+ },
+ "20 de noviembre": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 14449,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tonalá",
+  "fecha_verificacion": "2024-01",
+  "fuente": "perito"
+ },
+ "polanquito": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 25856,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2023-12",
+  "fuente": "perito"
+ },
+ "el retiro": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 22452,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2023-12",
+  "fuente": "perito"
+ },
+ "mayorazgos del bosque": {
+  "nse": "medio-alto",
+  "nseIdx": 4,
+  "medianaPm2": 33696,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Atizapán de Zaragoza Estado de México",
+  "fecha_verificacion": "2023-12",
+  "fuente": "perito"
+ },
+ "deportiva": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 26697,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Bahía de Banderas",
+  "fecha_verificacion": "2023-12",
+  "fuente": "perito"
+ },
+ "villas guadalupe": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 14909,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2023-11",
+  "fuente": "perito"
+ },
+ "emiliano zapata": {
+  "nse": "economico",
+  "nseIdx": 0,
+  "medianaPm2": 4391,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2023-11",
+  "fuente": "perito"
+ },
+ "lopez de legaspi": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 24078,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2023-11",
+  "fuente": "perito"
+ },
+ "alteza nuevo mexico": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 26469,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2023-11",
+  "fuente": "perito"
+ },
+ "san antonio": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 22464,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2023-10",
+  "fuente": "perito"
+ },
+ "lomas del paraiso": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 23336,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2023-10",
+  "fuente": "perito"
+ },
+ "sta paula": {
+  "nse": "economico",
+  "nseIdx": 0,
+  "medianaPm2": 8107,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tonalá",
+  "fecha_verificacion": "2023-10",
+  "fuente": "perito"
+ },
+ "junta de los ocotes": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 11217,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tonalá",
+  "fecha_verificacion": "2023-10",
+  "fuente": "perito"
+ },
+ "paseos de santiago": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 16008,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tonalá",
+  "fecha_verificacion": "2023-10",
+  "fuente": "perito"
+ },
+ "plan de oriente": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 15115,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "San Pedro Tlaquepaque",
+  "fecha_verificacion": "2023-10",
+  "fuente": "perito"
+ },
+ "arroyo hondo": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 15503,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2023-09",
+  "fuente": "perito"
+ },
+ "tlajomulco centro": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 12652,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tlajomulco de Zúñiga",
+  "fecha_verificacion": "2023-09",
+  "fuente": "perito"
+ },
+ "chapala centro": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 11218,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Chapala",
+  "fecha_verificacion": "2023-09",
+  "fuente": "perito"
+ },
+ "revolucion": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 15798,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2023-09",
+  "fuente": "perito"
+ },
+ "la penal": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 18908,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2023-09",
+  "fuente": "perito"
+ },
+ "independencia oriente": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 24884,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2023-09",
+  "fuente": "perito"
+ },
+ "jardin real": {
+  "nse": "medio-alto",
+  "nseIdx": 4,
+  "medianaPm2": 34413,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2023-09",
+  "fuente": "perito"
+ },
+ "mesa de los ocotes": {
+  "nse": "super-lujo",
+  "nseIdx": 6,
+  "medianaPm2": 100660,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2023-09",
+  "fuente": "perito"
+ },
+ "mesa colorada poniente": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 15116,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2023-09",
+  "fuente": "perito"
+ },
+ "jardines de guadalupe": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 25101,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2023-08",
+  "fuente": "perito"
+ },
+ "la romita": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 12204,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "San Pedro Tlaquepaque",
+  "fecha_verificacion": "2023-08",
+  "fuente": "perito"
+ },
+ "villas de guadalupe": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 14969,
+  "nListings": 2,
+  "n_avaluos": 2,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2023-08",
+  "fuente": "perito"
+ },
+ "la giralda": {
+  "nse": "medio-alto",
+  "nseIdx": 4,
+  "medianaPm2": 35510,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2023-08",
+  "fuente": "perito"
+ },
+ "camichines": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 14017,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tonalá",
+  "fecha_verificacion": "2023-08",
+  "fuente": "perito"
+ },
+ "nueva santa maria": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 15707,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2023-08",
+  "fuente": "perito"
+ },
+ "el batan": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 17455,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "San Pedro Tlaquepaque",
+  "fecha_verificacion": "2023-08",
+  "fuente": "perito"
+ },
+ "haciendas del valle": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 23041,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tlajomulco de Zúñiga",
+  "fecha_verificacion": "2023-08",
+  "fuente": "perito"
+ },
+ "tlachicilco poncitlan": {
+  "nse": "economico",
+  "nseIdx": 0,
+  "medianaPm2": 2995,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Poncitlán",
+  "fecha_verificacion": "2023-08",
+  "fuente": "perito"
+ },
+ "villa esmeralda aqua": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 14361,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "",
+  "fecha_verificacion": "2023-08",
+  "fuente": "perito"
+ },
+ "nuevo vergel": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 11058,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2023-08",
+  "fuente": "perito"
+ },
+ "la toscana": {
+  "nse": "medio-alto",
+  "nseIdx": 4,
+  "medianaPm2": 41452,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2023-08",
+  "fuente": "perito"
+ },
+ "del pilar": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 23493,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tlajomulco de Zúñiga",
+  "fecha_verificacion": "2023-08",
+  "fuente": "perito"
+ },
+ "guadalajara centro": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 19927,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2023-07",
+  "fuente": "perito"
+ },
+ "cantarranas": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 15288,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2023-07",
+  "fuente": "perito"
+ },
+ "villas de la hacienda": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 12557,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2023-07",
+  "fuente": "perito"
+ },
+ "san miguel de mezquitan": {
+  "nse": "medio-alto",
+  "nseIdx": 4,
+  "medianaPm2": 37232,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2023-07",
+  "fuente": "perito"
+ },
+ "rancho blanco": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 9159,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2023-07",
+  "fuente": "perito"
+ },
+ "la federacha": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 21482,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2023-07",
+  "fuente": "perito"
+ },
+ "andador grosellos 6": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 9336,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2023-07",
+  "fuente": "perito"
+ },
+ "jardines los belenes": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 10568,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2023-07",
+  "fuente": "perito"
+ },
+ "lagos de moreno": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 12787,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Lagos de Moreno",
+  "fecha_verificacion": "2023-07",
+  "fuente": "perito"
+ },
+ "rinconadas de coyula": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 11533,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tonalá",
+  "fecha_verificacion": "2023-07",
+  "fuente": "perito"
+ },
+ "mirador del sol": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 30105,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "",
+  "fecha_verificacion": "2023-07",
+  "fuente": "perito"
+ },
+ "colli urbano": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 15865,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2023-06",
+  "fuente": "perito"
+ },
+ "lagos del country": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 24589,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2023-06",
+  "fuente": "perito"
+ },
+ "la magdalena": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 12860,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2023-06",
+  "fuente": "perito"
+ },
+ "paseo de los agaves": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 12376,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tlajomulco de Zúñiga",
+  "fecha_verificacion": "2023-06",
+  "fuente": "perito"
+ },
+ "bugambilias 2da": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 23490,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2023-06",
+  "fuente": "perito"
+ },
+ "cond hacienda del lago 3": {
+  "nse": "medio-bajo",
+  "nseIdx": 2,
+  "medianaPm2": 19853,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Zapopan",
+  "fecha_verificacion": "2023-06",
+  "fuente": "perito"
+ },
+ "la providencia": {
+  "nse": "interes-social",
+  "nseIdx": 1,
+  "medianaPm2": 13312,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Tonalá",
+  "fecha_verificacion": "2023-06",
+  "fuente": "perito"
+ },
+ "mezquitan country": {
+  "nse": "medio-medio",
+  "nseIdx": 3,
+  "medianaPm2": 26002,
+  "nListings": 1,
+  "n_avaluos": 1,
+  "municipio": "Guadalajara",
+  "fecha_verificacion": "2023-06",
+  "fuente": "perito"
+ }
+}

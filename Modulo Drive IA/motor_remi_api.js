@@ -94,8 +94,9 @@ function getNSE(colNorm, tipo = 'casa') {
     if (_maestro) {
         const rec = _maestro[colNorm];
         if (!rec) return null;
-        if (rec.nse?.v1) return rec.nse.v1;
-        if (rec.nse?.v2) return rec.nse.v2;
+        if (rec.nse?.v1)     return rec.nse.v1;       // calibración histórica (gana siempre)
+        if (rec.nse?.perito) return rec.nse.perito;   // flywheel: avalúo real verificado (llena huecos sobre scraper)
+        if (rec.nse?.v2)     return rec.nse.v2;
         const t = rec.idx?.[tipo]?.global;
         if (t) return { nse: t.nse, nseIdx: t.nseIdx, medianaPm2: t.medianaPm2, fuente: 'idx-val-' + tipo };
         const c = rec.idx?.casa?.global;

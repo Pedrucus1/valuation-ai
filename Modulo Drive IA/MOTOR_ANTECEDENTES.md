@@ -15,6 +15,28 @@
 
 ---
 
+## ⚠️ SESIÓN 01-Jun-2026 — Flywheel del valor del perito (Fase 3)
+
+Nueva capa GANADA: `calibraciones_perito.json` — NSE/pm2c VERIFICADO derivado de los avalúos
+reales del perito (cerebro_datos: valorMercado/m2Construccion → pm2c → NSE con el mapeo de
+construir_nse_v2). Script: `construir_calibraciones_perito.js`.
+
+**Cascada NSE nueva: v1 → perito → v2 → idx.** v1 sigue ganando (regla irrompible respetada);
+el perito solo MEJORA donde no hay v1 (le gana a las estimaciones del scraper). Integrado en
+maestro como `nse.perito` + motor getNSE.
+
+**Medición honesta con split temporal** (sembrado con avalúos ANTES de 2025-07, validado en
+2025-07+, web off): **75.5/80.9/93.6 — IDÉNTICO al baseline.** Neutral en el validador porque
+los OPIs de prueba están casi todos en colonias con v1 (perito no se consulta). PERO: agrega
+115 colonias verificadas que antes caían a scraper → ayuda avalúos FUTUROS en esas colonias.
+Valor del flywheel = cobertura que crece + mecanismo, no brinco de score. CERO regresión.
+
+**IMPORTANTE — circularidad:** el artefacto commiteado usa el SPLIT (antes 2025-07) para no
+contaminar la validación. Para PRODUCCIÓN regenerar sin flag (`node construir_calibraciones_perito.js`
+= todos los avalúos) ANTES de ir en vivo. Para VALIDAR siempre regenerar con `--antes-de <corte>`.
+
+---
+
 ## ⚠️ SESIÓN 01-Jun-2026 — Cap de comparables por calidad de pool (Fase 3b-A)
 
 Experimento medido (web OFF = determinista, --n 200 --desde 2025-07, 94 OPIs):
