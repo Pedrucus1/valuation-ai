@@ -1,0 +1,2834 @@
+{
+  "campo real": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24890,
+    "nListings": 7,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "el fortin": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27429,
+    "nListings": 25,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "north capital": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26303,
+    "nListings": 14,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "valle imperial": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27580,
+    "nListings": 78,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "virreyes": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 44655,
+    "nListings": 7,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "capital norte": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26648,
+    "nListings": 22,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "jardines vallarta": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 37961,
+    "nListings": 6,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "jardines del valle": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30737,
+    "nListings": 14,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "bugambilias": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33258,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "paseos del sol": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29458,
+    "nListings": 11,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "santa ana tepetitlan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31636,
+    "nListings": 20,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "argenta mirador residential": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31579,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "jardines de la patria": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 43655,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "valle real": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 51667,
+    "nListings": 10,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "solares": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 39387,
+    "nListings": 68,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "seattle": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 51095,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "casa en venta": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25641,
+    "nListings": 6,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "imperial valley": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28784,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "parques vallarta": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35461,
+    "nListings": 23,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "soare iii": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 38476,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "valdepenas": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33043,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "la cima": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35000,
+    "nListings": 15,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "loma bonita": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33925,
+    "nListings": 11,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "rinconada santa rita": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 43750,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "lomas altas": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 42480,
+    "nListings": 8,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "jardines de nuevo mexico": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26010,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "venta bosques vallarta": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32284,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "parques de tesistan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23725,
+    "nListings": 15,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "jardines del sol": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36789,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "las canadas": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36786,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "la estancia": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 44268,
+    "nListings": 8,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "arcos de guadalupe": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29740,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "real de valdepenas": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30730,
+    "nListings": 16,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "san isidro": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33721,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "la venta del astillero": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27703,
+    "nListings": 7,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "los almendros": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34097,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "las aguilas": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30618,
+    "nListings": 14,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "jardin real": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 39837,
+    "nListings": 16,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "los robles": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31535,
+    "nListings": 21,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "el vigia": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24013,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "pinar de la venta": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 61514,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "bosques vallarta": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34843,
+    "nListings": 38,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "tesistan": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18908,
+    "nListings": 10,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "victoria": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33929,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "el campanario": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16412,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "la moraleja": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22672,
+    "nListings": 6,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "francisco sarabia": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30375,
+    "nListings": 7,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "girasoles elite": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25813,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "madeiras": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23918,
+    "nListings": 14,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "la toscana": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 57400,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "prados tepeyac": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35250,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "mariano otero": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18362,
+    "nListings": 6,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "arenales tapatios": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 9854,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "abie residential": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 39063,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "mirador del bosque": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20000,
+    "nListings": 7,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "francisco villa": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21731,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "pinar de la calma": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29409,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "real de tesistan": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19811,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "hogares de nuevo mexico": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24342,
+    "nListings": 7,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "el campestre": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23036,
+    "nListings": 9,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "arboledas": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 41333,
+    "nListings": 6,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "parques de tesistan iii": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24143,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "argenta mirador": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31094,
+    "nListings": 7,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "la calma": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27372,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "atemajac del valle": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32000,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "sendas": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24709,
+    "nListings": 7,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "nuevo mexico": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26744,
+    "nListings": 37,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ionamiento bugambilias": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30844,
+    "nListings": 7,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "chapalita inn": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 39167,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "santa fe": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35355,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "camino real": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31962,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "pontevedra": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26784,
+    "nListings": 15,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ionamiento real de valdepenas": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30986,
+    "nListings": 19,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "la mojonera": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31399,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ionamiento rinconada del parque": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 43911,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "onia nuevo mexico": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25360,
+    "nListings": 7,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "hacienda la herradura": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26638,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "altavista": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29620,
+    "nListings": 10,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "el centinela": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27737,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ciudad granja": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 40299,
+    "nListings": 13,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "li urbano": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33518,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "inas de san isidro": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 37380,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "plaza guadalupe": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35909,
+    "nListings": 9,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ciudad bugambilia": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33991,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ionamiento solares": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 38563,
+    "nListings": 34,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "onia la estancia": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 44110,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "jocotan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32340,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "el colli urbano 1a seccion": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 39035,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "boulevard valle imperial": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29899,
+    "nListings": 23,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "el colli 1a": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35263,
+    "nListings": 6,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ionamiento valle imperial": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29061,
+    "nListings": 34,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "bosques de san isidro": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 38929,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "foret": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22000,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "onia el colli urbano": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31250,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "los treboles": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21886,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "la cantera": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28099,
+    "nListings": 8,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "zapopan centro": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31048,
+    "nListings": 14,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "san juan de ocotan": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 39262,
+    "nListings": 8,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "paraisos del colli": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17391,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "santillana parque": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36351,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "la cima de zapopan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32818,
+    "nListings": 8,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "onia paseos del sol": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27394,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "mirador del sol": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36694,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "parques tesistan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21247,
+    "nListings": 8,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ionamiento parques de tesistan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22752,
+    "nListings": 8,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "palermo": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26804,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "natura bosque": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28946,
+    "nListings": 6,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "onia santa ana tepetitlan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30508,
+    "nListings": 9,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "villas del ixtepete": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27397,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "villas de zapopan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24109,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "inas de las aguilas": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24000,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "altavista vitana": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30294,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "valle de san isidro": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28611,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ionamiento la moraleja": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22824,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "hacienda del tepeyac": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34559,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "lomas de zapopan": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35000,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "prados vallarta": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32851,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "sienna capital norte": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26667,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "bosques del centinela i": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31383,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "santa margarita": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30000,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ionamiento mirador del bosque": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19873,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ionamiento natura": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32611,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "bosques de la primavera": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27134,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "altaluz": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23188,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "bosques de san gonzalo": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23270,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ionamiento solares soare 3 altanza": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 38115,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "jalisco": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 38333,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ajijic centro": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 47669,
+    "nListings": 13,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "san antonio tlayacapan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31868,
+    "nListings": 11,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "onia san antonio tlayacapan": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 47519,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ajijic": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35515,
+    "nListings": 6,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "chapala centro": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35929,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ribera del pilar": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 52444,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "el moral": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24667,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "jardines de la reyna": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16901,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "tonala centro": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20006,
+    "nListings": 22,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "vistas del pedregal i": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19326,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "coyula": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21331,
+    "nListings": 7,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "rancho de la cruz": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22853,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "loma dorada a": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18200,
+    "nListings": 10,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "hacienda del real": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20548,
+    "nListings": 7,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "loma dorada": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21399,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "inas de tonala": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23820,
+    "nListings": 6,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "villas de oriente": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28966,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "urbi quinta montecarlo": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26923,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "urbi villa del rio": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24032,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "casa en coyula": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22092,
+    "nListings": 6,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "vistas del pedregal": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 37537,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "loma dorada c": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24286,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "san juan bosco": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17821,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "jardines del country": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28881,
+    "nListings": 18,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "jardines alcalde": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29667,
+    "nListings": 11,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ladron de guevara": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33330,
+    "nListings": 16,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "jardines del bosque": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34556,
+    "nListings": 8,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "providencia": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 39256,
+    "nListings": 6,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "prados providencia": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 135903,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "jardines de la cruz": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23393,
+    "nListings": 8,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "santa tere": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21739,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "analco": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14792,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "independencia": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25316,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "huentitan el bajo": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23714,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "guadalajara centro": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 53597,
+    "nListings": 42,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "oblatos": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17518,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "chapalita": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 44030,
+    "nListings": 7,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "colinas de la normal": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26296,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "onia del fresno": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21500,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "lomas de independencia": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23272,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "lopez portillo": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26364,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "bosques de la victoria": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 38288,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "santa teresita": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19798,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "arcos vallarta": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30357,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "circunvalacion oblatos": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20342,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "belisario dominguez": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19824,
+    "nListings": 6,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "verde valle": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31136,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "aldama tetlan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32035,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "jardines de santa isabel": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29203,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "santa elena alcalde": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29630,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "valle del alamo": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33496,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "lomas de guevara": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 70644,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "la perla": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28185,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "americana": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 44559,
+    "nListings": 8,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "lomas del paraiso": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23849,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "miravalle": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25452,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "mezquitan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26052,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "italia providencia": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 42703,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "monumental": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23346,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "el retiro": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20440,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "lomas de polanco": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15878,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "lomas del country": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25094,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "atlas": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20988,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "chapultepec country": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32222,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "balcones de oblatos": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14790,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "lomas independencia": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35124,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "san andres": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24823,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "revolucion": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19103,
+    "nListings": 6,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "omos providencia": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 50476,
+    "nListings": 6,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "centro": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18724,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "8 de julio": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36149,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "jardines del bosque norte": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 41945,
+    "nListings": 6,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "moderna": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 45652,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ionamiento jardines del country": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29545,
+    "nListings": 7,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "onia oblatos": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14571,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "olimpica": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21533,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "onia americana": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26971,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "jardines del bosque centro": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 41973,
+    "nListings": 6,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "onia chapalita": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 40010,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "del sur": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20586,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "onia morelos": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28916,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "esperanza": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14286,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "inas de la normal": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25945,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "18 de marzo": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25152,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "jardines de los historiadores": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36667,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "alcalde barranquitas": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20465,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "huentitan el alto": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33043,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "jardines de la cruz 1a seccion": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27398,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "santa cecilia 1a seccion": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16906,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "jardines de san jose": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30625,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "san pedro": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32500,
+    "nListings": 23,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "santa anita": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27743,
+    "nListings": 51,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "pedregal del bosque": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26772,
+    "nListings": 7,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "los olivos de tlaquepaque": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25765,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "parques del bosque": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26667,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "santa maria tequepexpan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29896,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "chapala": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34722,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "las moras": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20127,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "paraje casas de autor": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32882,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "adamar": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25385,
+    "nListings": 37,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "triventi residential": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23425,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "new galicia": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32656,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "lomas del sur": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20702,
+    "nListings": 6,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "san agustin": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27382,
+    "nListings": 111,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "real del valle": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21765,
+    "nListings": 21,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "san sebastian el grande": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21071,
+    "nListings": 10,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "senderos de monte verde": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22632,
+    "nListings": 42,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "alta california": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24000,
+    "nListings": 41,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "senderos de monteverde": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24117,
+    "nListings": 14,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "el palomar": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 45125,
+    "nListings": 19,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "lomas de san agustin": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25046,
+    "nListings": 12,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "casa fuerte": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24500,
+    "nListings": 58,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "el paraiso": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27808,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "belcanto": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22469,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "zoi santa anita": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29627,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "provenza": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33946,
+    "nListings": 7,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "las grullas": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29149,
+    "nListings": 16,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "las villas": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21470,
+    "nListings": 7,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "chulavista": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17808,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "el manantial": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36468,
+    "nListings": 10,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "villa california": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20833,
+    "nListings": 20,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "tlajomulco centro": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23979,
+    "nListings": 14,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "cortijo san agustin": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21333,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "cortijo de san agustin": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22113,
+    "nListings": 19,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "valle de los encinos": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 12500,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "bosques de santa anita": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26820,
+    "nListings": 58,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "tlajomulco de zuniga": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26523,
+    "nListings": 17,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "nueva galicia": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28537,
+    "nListings": 52,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "bosque real": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26415,
+    "nListings": 23,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "banus residential": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19431,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "san jose del valle": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20122,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "real del sol": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18901,
+    "nListings": 10,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "balcones de la calera": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28740,
+    "nListings": 6,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "arbolada bosques de santa anita": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26833,
+    "nListings": 43,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "el origen": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23344,
+    "nListings": 15,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "santa cruz de las flores": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 13350,
+    "nListings": 6,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "hacienda santa fe": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18088,
+    "nListings": 14,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "los gavilanes": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 39976,
+    "nListings": 10,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "club de golf santa anita": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 218191,
+    "nListings": 6,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "la rioja": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 37104,
+    "nListings": 30,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "hacienda casa fuerte": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24484,
+    "nListings": 6,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "bosque real de santa anita": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25425,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "punto sur": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33686,
+    "nListings": 31,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "la tijera": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29200,
+    "nListings": 23,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "colinas de santa anita": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26714,
+    "nListings": 6,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "puerta magnolia": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24215,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "jardines de santa anita": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27104,
+    "nListings": 23,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "bosque real tlajomulco de zuniga": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30643,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "sendero las moras": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26429,
+    "nListings": 13,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "cajititlan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26831,
+    "nListings": 7,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "santa cruz del valle": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23093,
+    "nListings": 25,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "bosques santa anita": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27419,
+    "nListings": 63,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "el eden": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29051,
+    "nListings": 12,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "villas terranova": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20755,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "tossa": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27000,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "san martin del tajo": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32311,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "campo sur": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22743,
+    "nListings": 6,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "san agustan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27227,
+    "nListings": 10,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "el baluarte": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24448,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ionamiento sendero las moras": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25625,
+    "nListings": 7,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ionamiento hacienda santa fe": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23225,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ionamiento nueva galicia residencia": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34734,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "arbolada bosque de santa anita": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26080,
+    "nListings": 7,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ionamiento del pilar": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33232,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "el alcazar casa fuerte": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25282,
+    "nListings": 29,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "huerta calderon zuno uno": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23214,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ionamiento real del sol": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18901,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "jardines del eden": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24100,
+    "nListings": 6,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ionamiento real del valle": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19551,
+    "nListings": 17,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "onia la tijera": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27941,
+    "nListings": 9,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ionamiento el origen": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24123,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "onia nueva galicia": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29200,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ionamiento jardines del eden": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27701,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ionamiento nueva galicia": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27242,
+    "nListings": 21,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ionamiento bosque real": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31032,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ionamiento senderos de monteverde": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23120,
+    "nListings": 24,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ionamiento el alcazar casa fuerte": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25526,
+    "nListings": 9,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "del pilar": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29421,
+    "nListings": 18,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ionamiento la rioja": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36049,
+    "nListings": 12,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ionamiento villa california": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21134,
+    "nListings": 7,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "bonanza": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19695,
+    "nListings": 6,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "la union del cuatro": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19528,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "los cantaros": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15574,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "arboleda bosques de santa anita": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25828,
+    "nListings": 9,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ionamiento senderos monte verde": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23818,
+    "nListings": 7,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "vista sur": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22018,
+    "nListings": 15,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ionamiento la arbolada": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23043,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "los encinos": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25484,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "tulipanes": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31944,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "banus": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17453,
+    "nListings": 7,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "hacienda los eucaliptos": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18889,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "inas de santa anita": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25926,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "hacienda la noria": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 10246,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "pueblo san agustin": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36184,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "san diego": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14536,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "onia bosques de santa anita": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24834,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "hacienda san miguel": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23000,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ionamiento casa fuerte": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27545,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "senderos de los monte verde": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25000,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "altus bosques": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20000,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "la noria de los reyes": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 40000,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "villas camino real de colima": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23545,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "casa fuerte el alcazar": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24835,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "villas de la hacienda": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24635,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ionamiento campo sur": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17713,
+    "nListings": 6,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "acueducto san agustin": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26415,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "haciendas del sur": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19882,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "ionamiento banus": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17905,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "villa fontana aqua": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 11455,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "sibaria condominium": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36505,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "el palomar jockey club": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 40925,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "casa en el eden": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30910,
+    "nListings": 16,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "casa en el alcazar casa fuerte": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25282,
+    "nListings": 47,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "casa en adamar": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26034,
+    "nListings": 37,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "la arbolada": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22888,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "casa en banus": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17979,
+    "nListings": 9,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "casa en alameda": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 9036,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "casa en las viboras valle de las flores": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20779,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "villas de san agustin": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22988,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "cima serena": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 12145,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "las pintitas": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 10314,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "san josa del quince": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 9833,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "las pintas": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 11448,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "el salto centro": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22003,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "parques del triunfo": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14200,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "las pintitas centro": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 12397,
+    "nListings": 4,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "parques santa cruz del valle": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24989,
+    "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  }
+}
