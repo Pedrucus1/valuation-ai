@@ -42,15 +42,34 @@ const _openai = process.env.OPENAI_API_KEY
 
 // ── helpers copiados de comparar_metodologias.js ──────────────────────────────
 
-const INDEX_PATH        = path.join(__dirname, 'cache_index.json');
-const COLONIAS_NSE_PATH = path.join(__dirname, 'colonias_nse.json');
-const COLONIAS_SIM_PATH = path.join(__dirname, 'colonias_similares.json');
-const COLONIAS_IA_PATH  = path.join(__dirname, 'colonias_similares_enriquecido.json');
+const INDEX_PATH         = path.join(__dirname, 'cache_index.json');
+const COLONIAS_NSE_PATH  = path.join(__dirname, 'colonias_nse.json');
+const COLONIAS_NSE2_PATH = path.join(__dirname, 'colonias_nse_v2.json');
+const IDX_VAL_PATH       = path.join(__dirname, 'idx_valoracion.json');
+const COLONIAS_SIM_PATH  = path.join(__dirname, 'colonias_similares.json');
+const COLONIAS_IA_PATH   = path.join(__dirname, 'colonias_similares_enriquecido.json');
 
-const IDX    = JSON.parse(fs.readFileSync(INDEX_PATH, 'utf8'));
-const _nse   = fs.existsSync(COLONIAS_NSE_PATH) ? JSON.parse(fs.readFileSync(COLONIAS_NSE_PATH, 'utf8')) : {};
-const _sim   = fs.existsSync(COLONIAS_SIM_PATH) ? JSON.parse(fs.readFileSync(COLONIAS_SIM_PATH, 'utf8')) : {};
-const _simIA = fs.existsSync(COLONIAS_IA_PATH)  ? JSON.parse(fs.readFileSync(COLONIAS_IA_PATH,  'utf8')) : {};
+const IDX     = JSON.parse(fs.readFileSync(INDEX_PATH, 'utf8'));
+const _nse    = fs.existsSync(COLONIAS_NSE_PATH)  ? JSON.parse(fs.readFileSync(COLONIAS_NSE_PATH,  'utf8')) : {};
+const _nse2   = fs.existsSync(COLONIAS_NSE2_PATH) ? JSON.parse(fs.readFileSync(COLONIAS_NSE2_PATH, 'utf8')) : {};
+const _idxVal = fs.existsSync(IDX_VAL_PATH)       ? (() => { const { _meta, ...c } = JSON.parse(fs.readFileSync(IDX_VAL_PATH, 'utf8')); return c; })() : {};
+const _sim    = fs.existsSync(COLONIAS_SIM_PATH)  ? JSON.parse(fs.readFileSync(COLONIAS_SIM_PATH,  'utf8')) : {};
+const _simIA  = fs.existsSync(COLONIAS_IA_PATH)   ? JSON.parse(fs.readFileSync(COLONIAS_IA_PATH,   'utf8')) : {};
+
+// Cascada de fuentes NSE (sin sustituir caps de v1):
+//   1. v1 (calibraciones manuales validadas) — siempre gana
+//   2. v2 (casas limpias por tipo) — para colonias sin entrada en v1
+//   3. idx_valoracion tipo-específico — para colonias sin v1/v2, con NSE correcto por tipo
+//   4. idx_valoracion casa como proxy — si el tipo no tiene entrada pero casa sí
+function getNSE(colNorm, tipo = 'casa') {
+    if (_nse[colNorm])  return _nse[colNorm];
+    if (_nse2[colNorm]) return _nse2[colNorm];
+    const tipoEntry = _idxVal[colNorm]?.[tipo]?.global;
+    if (tipoEntry) return { nse: tipoEntry.nse, nseIdx: tipoEntry.nseIdx, medianaPm2: tipoEntry.medianaPm2, fuente: 'idx-val-' + tipo };
+    const casaEntry = _idxVal[colNorm]?.casa?.global;
+    if (casaEntry) return { nse: casaEntry.nse, nseIdx: casaEntry.nseIdx, medianaPm2: casaEntry.medianaPm2, fuente: 'idx-val-casa' };
+    return null;
+}
 
 // Obtiene similares: primero base OPIs, fallback IA-Sepomex
 function getSimilares(colNorm) {
@@ -241,7 +260,7 @@ Responde ÚNICAMENTE con JSON válido, sin explicaciones:
     }
 }
 
-// ── Búsqueda web: Serper (Google) → GPT-4o extrae comparables ────────────────
+// ── Búsqueda web: Serper (Google) → DeepSeek extrae comparables ──────────────
 
 async function buscarEnSerper(query) {
     if (!process.env.SERPER_API_KEY) return [];
@@ -252,63 +271,111 @@ async function buscarEnSerper(query) {
             body: JSON.stringify({ q: query, gl: 'mx', hl: 'es', num: 10 })
         });
         const data = await res.json();
-        return (data.organic || []).map(r => `${r.title}\n${r.snippet || ''}`).join('\n\n');
+        // Incluir link para que DeepSeek pueda extraer URL real
+        return (data.organic || []).map(r => `[${r.title}]\n${r.snippet || ''}\nURL: ${r.link}`).join('\n\n---\n\n');
     } catch (e) {
         return '';
     }
 }
 
 async function buscarCompsConWeb(prop, similares) {
-    if (!_openai || !process.env.SERPER_API_KEY) return [];
+    if (!_deepseek || !process.env.SERPER_API_KEY) return [];
 
-    const zona = [prop.colonia, prop.municipio, 'Jalisco'].filter(Boolean).join(', ');
-    const coloniasSim = similares && similares.length
-        ? similares.slice(0, 4).join(', ')
+    const tipoQ  = (prop.tipo || 'casa').toLowerCase().includes('depto') ? 'departamento' : 'casa';
+    const m2Min  = Math.round((prop.construccion || 60) * 0.5);
+    const m2Max  = Math.round((prop.construccion || 60) * 1.5);
+    const muni   = prop.municipio || '';
+    const col    = prop.colonia   || muni;
+
+    // Contexto IDX/NSE para orientar a DeepSeek sobre el rango de precios válido
+    const colNormFn = s => (s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9\s]/g,'').replace(/\s+/g,' ').trim();
+    const muniN = normMuni(muni);
+    const colN  = normCol(col);
+    const nseEntry = getNSE(colN);
+    const idxEntry = IDX[muniN]?.casa?.[colN];
+    // Solo usar ancla si tiene datos específicos de casa — v1 sin fuente puede ser terreno/general
+    const anclaValida = nseEntry?.fuente?.startsWith('idx-val') || idxEntry?.medianaPm2c > 0;
+    const pm2cRef = anclaValida
+        ? (nseEntry?.medianaPm2 || idxEntry?.medianaPm2c || 0)
+        : (idxEntry?.medianaPm2c || 0);
+    const pm2cMin  = pm2cRef ? Math.round(pm2cRef * 0.5) : 5000;
+    const pm2cMax  = pm2cRef ? Math.round(pm2cRef * 1.8) : 60000;
+
+    // Colonias similares del NSE para ampliar búsqueda si hay pocas exactas
+    const simsNombres = (similares || [])
+        .map(s => (typeof s === 'string' ? s : s.colonia) || '')
+        .filter(Boolean).slice(0, 4);
+
+    // Búsqueda 1: colonia exacta
+    const q1 = `${tipoQ} en venta ${col} ${muni} Jalisco precio pesos m2 construccion`;
+    // Búsqueda 2: colonias similares (si hay)
+    const q2 = simsNombres.length
+        ? `${tipoQ} en venta ${simsNombres.join(' OR ')} ${muni} Jalisco precio pesos m2`
+        : null;
+
+    const [snip1, snip2] = await Promise.all([
+        buscarEnSerper(q1),
+        q2 ? buscarEnSerper(q2) : Promise.resolve(''),
+    ]);
+
+    const todosSnippets = [snip1, snip2].filter(Boolean).join('\n\n═══\n\n');
+    if (!todosSnippets.trim()) return [];
+
+    const coloniasSim = simsNombres.length ? `Colonias de NSE similar donde también puedes buscar: ${simsNombres.join(', ')}.` : '';
+    const anclajePrecios = pm2cRef
+        ? `Referencia de mercado en la zona: ~$${pm2cRef.toLocaleString()}/m²C (rango válido $${pm2cMin.toLocaleString()}–$${pm2cMax.toLocaleString()}/m²C). Rechaza comparables fuera de ese rango.`
         : '';
 
-    // Construir query de búsqueda
-    const colBusq = prop.colonia || prop.municipio;
-    const query = `casas en venta ${colBusq} ${prop.municipio} Jalisco precio m2 inmuebles24 OR vivanuncios OR casasyterrenos OR propiedades`;
+    const prompt = `Eres valuador inmobiliario experto en Jalisco, México. Tu tarea es como la de un humano buscando comparables de mercado en Google.
 
-    const snippets = await buscarEnSerper(query);
-    if (!snippets) return [];
+Propiedad sujeto: ${tipoQ} de ${prop.construccion}m² construcción, ${prop.terreno || 0}m² terreno, ${prop.edad || 0} años, en ${col}, ${muni}.
+Rango de m²C aceptable: ${m2Min}–${m2Max} m²C.
+${anclajePrecios}
+${coloniasSim}
 
-    const prompt = `Eres experto en mercado inmobiliario de Jalisco, México.
+Resultados de Google (portales inmobiliarios mexicanos):
+═══
+${todosSnippets.slice(0, 4000)}
+═══
 
-Propiedad sujeto: ${prop.tipo || 'casa'} de ${prop.construccion} m² construcción, ${prop.terreno || 0} m² terreno, ${prop.edad || 0} años, en ${zona}.
-${coloniasSim ? `Colonias similares aceptables: ${coloniasSim}.` : ''}
+INSTRUCCIONES:
+1. Analiza cada resultado como lo haría un valuador buscando comparables reales.
+2. Extrae propiedades con precio en pesos y m²C visibles en el snippet.
+3. Acepta también propiedades en colonias similares indicadas si la zona es compatible.
+4. NO estimes precios. Si el snippet no dice el precio exacto, omite esa propiedad.
+5. Incluye la URL exacta del listing (campo "url").
+6. Si el precio/m²C cae fuera del rango válido indicado, omite esa propiedad.
 
-Resultados de portales inmobiliarios mexicanos encontrados en internet:
----
-${snippets.slice(0, 3000)}
----
-
-Extrae de esos resultados propiedades comparables con precio y m² visibles. Si los snippets no tienen precios exactos, estima con base en el rango mencionado.
-Devuelve SOLO JSON válido:
-{"comparables":[{"colonia":"...","precio":0000000,"m2c":000,"m2t":000},...]}`;
+Devuelve SOLO JSON:
+{"comparables":[{"colonia":"...","precio":0,"m2c":0,"m2t":0,"url":"https://..."}]}`;
 
     try {
-        const res = await _openai.chat.completions.create({
-            model: 'gpt-4o',
+        const res = await _deepseek.chat.completions.create({
+            model: 'deepseek-chat',
             messages: [
-                { role: 'system', content: 'Extrae comparables inmobiliarios de Jalisco. Responde SOLO con JSON válido en pesos mexicanos.' },
+                { role: 'system', content: 'Eres valuador inmobiliario en Jalisco. Extrae comparables reales de snippets de Google. Responde SOLO JSON. Nunca inventes precios.' },
                 { role: 'user', content: prompt }
             ],
-            max_tokens: 1200,
-            temperature: 0.1
+            max_tokens: 1500,
+            temperature: 0.0
         });
         const text = res.choices[0].message.content.trim()
             .replace(/^```json\n?/, '').replace(/\n?```$/, '');
         const m = text.match(/\{[\s\S]*"comparables"[\s\S]*\}/);
         if (!m) return [];
         const parsed = JSON.parse(m[0]);
+        const m2Min = Math.round((prop.construccion || 60) * 0.4);
+        const m2Max = Math.round((prop.construccion || 60) * 1.8);
         return (parsed.comparables || [])
             .map(c => ({
-                precio: parseFloat(String(c.precio).replace(/[^0-9.]/g, '')),
-                m2c:    parseFloat(String(c.m2c).replace(/[^0-9.]/g, '')),
-                m2t:    parseFloat(String(c.m2t || 0).replace(/[^0-9.]/g, ''))
+                precio: parseFloat(String(c.precio).replace(/[^0-9.]/g, '')) || 0,
+                m2c:    parseFloat(String(c.m2c).replace(/[^0-9.]/g, ''))   || 0,
+                m2t:    parseFloat(String(c.m2t || 0).replace(/[^0-9.]/g, '')) || 0,
+                url:    c.url || '',
+                portal: 'serper',
             }))
-            .filter(c => c.precio > 500000 && c.m2c > 20); // sanity check
+            .filter(c => c.precio > 200000 && c.m2c > 15 && c.url
+                      && c.m2c >= m2Min && c.m2c <= m2Max); // filtro de tamaño real
     } catch (e) {
         return [];
     }
@@ -316,7 +383,7 @@ Devuelve SOLO JSON válido:
 
 async function buscarCompsDeepSeek(prop, similares, idxCtx) {
     const zona = [prop.colonia, prop.municipio, 'Jalisco'].filter(Boolean).join(', ');
-    const nseSubj = prop.colonia ? _nse[normCol(prop.colonia)] : null;
+    const nseSubj = prop.colonia ? getNSE(normCol(prop.colonia)) : null;
     const nseDesc = nseSubj ? ` NSE ${nseSubj.nseIdx} (${nseSubj.nse})` : '';
 
     // Contexto de precios de colonias similares conocidas del IDX
@@ -370,7 +437,7 @@ Responde SOLO con JSON, sin texto adicional:
     }
 }
 
-function roминаSobreComps(comps, m2C, edad, conservacion, poolTipo) {
+function remiSobreComps(comps, m2C, edad, conservacion, poolTipo) {
     const pm2c = comps.map(c => c.precio / c.m2c);
     const s = [...pm2c].sort((a,b)=>a-b);
     const med = s[Math.floor(s.length/2)];
@@ -495,12 +562,15 @@ function valuarPropiedad(prop) {
     // o está en la lista de municipios → no usar exacta, ir directamente a similares/general
     const coloniaEsVaga = !colNorm || NOMBRES_MUNICIPIO.has(colNorm) || colNorm === muniNorm;
 
-    // NSE
-    const nseSubjeto = _nse[colNorm] || null;
+    // Colonia vaga → usar "X centro" para lookups de NSE e IDX (evita mezclar toda la ciudad)
+    const colNormEfectivo = (coloniaEsVaga && colNorm) ? colNorm + ' centro' : colNorm;
+
+    // NSE — pasa tipo del sujeto para que idx_valoracion use la entrada correcta
+    const nseSubjeto = getNSE(colNormEfectivo, tipo);
     const similaresBrutos = getSimilares(colNorm).slice(0, 8).map(x => normCol(x.colonia));
     const similares = nseSubjeto
         ? similaresBrutos.filter(s => {
-            const ns = _nse[s];
+            const ns = getNSE(s);
             if (!ns) return true; // sin NSE: mantener (puede ser válido)
             return Math.abs(ns.nseIdx - nseSubjeto.nseIdx) <= 1;
           })
@@ -573,7 +643,7 @@ function valuarPropiedad(prop) {
         poolTipo = 'general';
         if (nseSubjeto) {
             const generalNSE = candidatos.filter(d => {
-                const nsd = _nse[normCol(d.co)];
+                const nsd = getNSE(normCol(d.co));
                 if (!nsd) return true;
                 return Math.abs(nsd.nseIdx - nseSubjeto.nseIdx) <= 1;
             });
@@ -704,45 +774,47 @@ async function valuarPropiedadCompleto(prop) {
     // pm2c de referencia para orientar a Gemini en el rango correcto de precios
     const idxPm2c = result.medPm2Zona || IDX[muniNormFb]?.[tipoFb]?.[colNormFb]?.medianaPm2c || 0;
 
-    // ── Modo COMPLEMENTO: caché tiene pocos comps → Gemini agrega los faltantes ──
+    // ── Modo COMPLEMENTO: caché tiene pocos comps → Serper (Google) agrega los faltantes ──
     const COMPS_MIN = 8;
     const poolNoComplementable = ['suma_partes', 'suma_partes_mix', 'atipica'];
     const necesitaComplemento = !result.error
         && result.nComps > 0 && result.nComps < COMPS_MIN
         && !poolNoComplementable.includes(result.poolTipo)
-        && _gemini;
+        && !!process.env.SERPER_API_KEY;
 
     if (necesitaComplemento) {
-        const compsExtra = await buscarCompsGemini(prop, simFb, idxPm2c);
+        const compsExtra = await buscarCompsConWeb(prop, simFb);
         if (compsExtra.length > 0) {
             const cacheComps = result._comps || [];
             const combined   = [...cacheComps, ...compsExtra].slice(0, 10);
             if (combined.length > cacheComps.length) {
-                const rg = roминаSobreComps(combined, m2C, edad, conserv, result.poolTipo);
+                const rg = remiSobreComps(combined, m2C, edad, conserv, result.poolTipo);
                 // Solo aplicar si CV mejora Y el valor no se aleja >10% del estimate original de caché
                 const valorDelta = result.valor > 0 ? Math.abs(rg.valor - result.valor) / result.valor : 1;
                 if (rg && rg.valor > 0 && rg.cv <= result.cv && valorDelta <= 0.10) {
                     delete result._comps;
-                    return { ...result, ...rg, poolTipo: result.poolTipo + '+g', nComps: rg.nComps, geminiComps: compsExtra };
+                    return { ...result, ...rg, poolTipo: result.poolTipo + '+w', nComps: rg.nComps, geminiComps: compsExtra };
                 }
             }
         }
     }
 
-    // ── Modo FALLBACK: caché tiene 0 comps → Gemini busca todo ──
+    // ── Modo FALLBACK: caché tiene 0 comps → Serper+DeepSeek primero, Gemini último recurso ──
     const necesitaFallback = result.error === 'sin_comps' || result.nComps === 0;
 
     if (necesitaFallback) {
-        let compsIA = [];
-        let poolIA  = 'gemini';
-        if (_gemini) compsIA = await buscarCompsGemini(prop, simFb, idxPm2c);
-        if (compsIA.length < 3) {
-            compsIA = await buscarCompsConWeb(prop, simFb);
-            poolIA  = 'web';
+        // 1. Serper (Google real) + DeepSeek extrae
+        let compsIA = await buscarCompsConWeb(prop, simFb);
+        let poolIA  = 'web';
+
+        // 2. Gemini solo si Serper no encontró suficientes
+        if (compsIA.length < 3 && _gemini) {
+            compsIA = await buscarCompsGemini(prop, simFb, idxPm2c);
+            poolIA  = 'gemini';
         }
 
         if (compsIA.length >= 3) {
-            const rg = roминаSobreComps(compsIA, m2C, edad, conserv, 'general');
+            const rg = remiSobreComps(compsIA, m2C, edad, conserv, 'general');
             if (rg && rg.valor > 0) {
                 return { ...rg, poolTipo: poolIA,
                     medM2CZona: result.medM2CZona || 0,
@@ -777,3 +849,4 @@ process.stdin.on('end', async () => {
         process.exit(1);
     }
 });
+

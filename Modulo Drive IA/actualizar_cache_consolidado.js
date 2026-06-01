@@ -23,7 +23,7 @@ const SHEET_ID       = '1rEyGTh4v-W3yfQ9BvFkznyuyCMKfVZDBlGhmGeMdkPE';
 // colonia(6) municipio(7) estado(8) rec(9) ban(10)
 // m2c(11) m2t(12) estac(13) año(14) desc(15) url(16)
 // agente(17) fecha_pub(18) portal(19) fecha_scrap(20) activo(21)
-const COL = { precio:2, tipo_op:4, tipo_prop:5, colonia:6, municipio:7, rec:9, ban:10, m2c:11, m2t:12, estac:13, activo:21 };
+const COL = { precio:2, tipo_op:4, tipo_prop:5, colonia:6, municipio:7, rec:9, ban:10, m2c:11, m2t:12, estac:13, fecha_scrap:20, activo:21 };
 
 async function main() {
     const creds = JSON.parse(readFileSync(CREDS_PATH, 'utf8'));
@@ -62,7 +62,23 @@ async function main() {
             re: cleanNum(r[COL.rec])  || null,
             ba: cleanNum(r[COL.ban])  || null,
             es: cleanNum(r[COL.estac]) || null,
+            fs: (r[COL.fecha_scrap] || '').toString().slice(0, 10) || null,
         }));
+
+    // Corrección de campo: terrenos con área en c en vez de t (bug de fallback scraper).
+    // Cuando el portal publica solo "250 m²" sin etiquetar, los scrapers lo meten en c.
+    // Si t=0 y c>0 y tipo es terreno/lote/predio → mover c a t.
+    // Si t>0 ya está correcto (puede ser terreno con construcción vendido como terreno).
+    const TIPOS_TERRENO = ['terreno', 'lote', 'predio', 'solar'];
+    let corregidos = 0;
+    for (const d of raw) {
+        if (TIPOS_TERRENO.some(tt => d.tp.includes(tt)) && d.t === 0 && d.c > 0) {
+            d.t = d.c;
+            d.c = 0;
+            corregidos++;
+        }
+    }
+    if (corregidos > 0) console.log(`Corrección terreno c→t: ${corregidos.toLocaleString()} listings`);
 
     // Dedup: eliminar registros con mismo m2c + precio (±2%) + colonia normalizada
     // Evita que el mismo anuncio scrapeado múltiples veces infle el pool de comparables
@@ -71,7 +87,8 @@ async function main() {
         const col = normStr(d.co);
         // Agrupar precio en bloques de 1% para tolerancia de redondeo
         const pKey = Math.round(d.p / (Math.max(d.p, 1) * 0.01));
-        const key = `${col}|${d.c}|${pKey}`;
+        const area = d.c > 0 ? d.c : d.t; // usar t cuando c=0 (terrenos corregidos)
+        const key = `${col}|${area}|${pKey}`;
         if (seen.has(key)) return false;
         seen.add(key);
         return true;
@@ -88,7 +105,10 @@ async function main() {
     writeFileSync(CACHE_PATH, JSON.stringify({ meta, datos: compacto }));
     console.log(`Cache guardada: ${compacto.length.toLocaleString()} comps válidos → cache_consolidado.json`);
     const conEspacios = compacto.filter(d => d.re || d.ba).length;
-    console.log(`Reducción: ${rows.length.toLocaleString()} filas × 22 cols → ${compacto.length.toLocaleString()} × 10 campos`);
+    const conFecha = compacto.filter(d => d.fs).length;
+    console.log(`Reducción: ${rows.length.toLocaleString()} filas × 22 cols → ${compacto.length.toLocaleString()} × 11 campos`);
+    console.log(`Con fecha_scraping: ${conFecha.toLocaleString()} (${Math.round(conFecha/compacto.length*100)}%)`);
+
     console.log(`Con recámaras/baños: ${conEspacios.toLocaleString()} (${Math.round(conEspacios/compacto.length*100)}%)`);
     const kb = Math.round(Buffer.byteLength(JSON.stringify({ meta, datos: compacto })) / 1024);
     console.log(`Tamaño del cache: ~${kb} KB`);

@@ -65,6 +65,8 @@ const CASOS_ESPECIALES = {
     // ── Batch ampliación H1-2025 ───────────────────────────────────────────────
     'OPI-25-3-04-AV':   { cat: 'EXCLUIR',        razon: 'Del Sur GDL 65.3m²C: borderline micro-propiedad. Perito valúa $19.6k/m²C (17% bajo NSE $23.7k). Motor refleja mercado correctamente; perito aplicó factores de micro-ubicación no capturables.' },
     'OPI-25-3-23-AV':   { cat: 'EXCLUIR',        razon: 'colonia="Zapopan" (nombre del municipio) Y 45m²C micro-propiedad. Doble exclusión: sin colonia real + rango sin comps representativos.' },
+    'OPI-26-1-10-OF':   { cat: 'EXCLUIR',        razon: 'Minerales El Salto: zona industrial/minera sin mercado residencial comparable en portales. suma_partes inflado por pm2T municipal.' },
+    'OPI-25-10-02-OF':  { cat: 'EXCLUIR',        razon: 'San José del Quince Tonalá: zona periférica sin cobertura en scraper. suma_partes con pm2T municipal no representativo.' },
 };
 
 function parsePesos(s) {
@@ -226,12 +228,14 @@ const outlierPerito = resultados.filter(r => r.especial === 'OUTLIER_PERITO');
 function stats(arr, label) {
     if (!arr.length) return;
     const e10 = arr.filter(r => Math.abs(r.diff) <= 10);
+    const e15 = arr.filter(r => Math.abs(r.diff) <= 15);
     const e20 = arr.filter(r => Math.abs(r.diff) <= 20);
     const avg = arr.reduce((s,r) => s+Math.abs(r.diff),0) / arr.length;
     const sorted = [...arr].sort((a,b) => Math.abs(a.diff)-Math.abs(b.diff));
     const med = sorted[Math.floor(sorted.length/2)]?.diff ?? 0;
     console.log(`\n── ${label} (${arr.length} OPIs) ─────────────────────`);
     console.log(`  ✅ ±10%: ${e10.length}/${arr.length} (${(e10.length/arr.length*100).toFixed(1)}%)`);
+    console.log(`  🎯 ±15%: ${e15.length}/${arr.length} (${(e15.length/arr.length*100).toFixed(1)}%)`);
     console.log(`  ⚠️  ±20%: ${e20.length}/${arr.length} (${(e20.length/arr.length*100).toFixed(1)}%)`);
     console.log(`  📊 error abs: ${avg.toFixed(1)}%  |  mediana: ${med.toFixed(1)}%`);
 }

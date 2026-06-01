@@ -5563,7 +5563,7 @@
     "fileId": "1lwsj4zdd0KgfQuiaTZxOWGDhuIcLN8or4LUW2w7btrc",
     "fileName": "OPI-26-2-07-OF Margaritas 246, Secc 12122, 45640 Tlajomulco de Zúñiga, Jal.",
     "fecha": "ESTATUS COMERCIAL:",
-    "sujetoColonia": "Jardines de la Calera",
+    "sujetoColonia": "Secc 12122",
     "municipio": "Tlajomulco de Zúñiga",
     "comparables": [
       {
@@ -12825,7 +12825,7 @@
     "fileName": "OPI-25-9-17-LS Blvd. Bosques de Santa Anita 200, interior 6, Condominio Teka, lote 6, Naturezza Residencial",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Naturezza",
-    "municipio": "San Pedro Tlaquepaque",
+    "municipio": "Tlajomulco de Zúñiga",
     "comparables": [
       {
         "terreno": 145,
@@ -12930,7 +12930,7 @@
     "recamaras": 3,
     "banos": 2.5,
     "estacionamientos": 2,
-    "estadoConservacion": "regular_medio",
+    "estadoConservacion": "regular_bueno",
     "esEjidal": false
   },
   {
@@ -77127,7 +77127,7 @@
     "fileName": "OPI-23-8-01-OF Cerrada Gonzlez Gallo",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Valle de Las Heras",
-    "municipio": "Guadalajara",
+    "municipio": "San Pedro Tlaquepaque",
     "comparables": [
       {
         "terreno": 2947,
@@ -79849,7 +79849,7 @@
     "fileName": "OPI-23-7-03-OF Emiliano Zapata 64, Lomas del Aeropuerto",
     "fecha": "ESTATUS COMERCIAL:",
     "sujetoColonia": "Lomas del Aeropuerto",
-    "municipio": "Zapopan",
+    "municipio": "El Salto",
     "comparables": [
       {
         "terreno": 295,

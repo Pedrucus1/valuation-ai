@@ -917,12 +917,6 @@
     "medianaPm2": 68327,
     "nListings": 30
   },
-  "guadalajara": {
-    "nse": "medio-alto",
-    "nseIdx": 4,
-    "medianaPm2": 25623,
-    "nListings": 3
-  },
   "parques de tesistan iii": {
     "nse": "medio-medio",
     "nseIdx": 3,
@@ -1481,12 +1475,6 @@
     "medianaPm2": 84829,
     "nListings": 3
   },
-  "tonala": {
-    "nse": "medio-bajo",
-    "nseIdx": 2,
-    "medianaPm2": 14700,
-    "nListings": 38
-  },
   "del sur": {
     "nse": "medio-medio",
     "nseIdx": 3,
@@ -1955,12 +1943,6 @@
     "medianaPm2": 21416,
     "nListings": 43
   },
-  "tlajomulco": {
-    "nse": "medio-medio",
-    "nseIdx": 3,
-    "medianaPm2": 27257,
-    "nListings": 16
-  },
   "valle de las flores": {
     "nse": "interes-social",
     "nseIdx": 1,
@@ -2327,17 +2309,12 @@
     "medianaPm2": 16994,
     "nListings": 7
   },
-  "tlaquepaque": {
+  "tlaquepaque centro": {
     "nse": "medio-bajo",
     "nseIdx": 2,
     "medianaPm2": 18863,
-    "nListings": 3
-  },
-  "tlaquepaque centro": {
-    "nse": "economico",
-    "nseIdx": 0,
-    "medianaPm2": 8915,
-    "nListings": 30
+    "nListings": 3,
+    "fuente": "v1-centro-rename"
   },
   "parque tlaquepaque": {
     "nse": "medio-alto",
@@ -2406,10 +2383,11 @@
     "nListings": 3
   },
   "chapala centro": {
-    "nse": "interes-social",
-    "nseIdx": 1,
-    "medianaPm2": 12002,
-    "nListings": 26
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33217,
+    "nListings": 7,
+    "fuente": "v1-centro-rename"
   },
   "front of lake chapala": {
     "nse": "interes-social",
@@ -3230,8 +3208,9 @@
   "tonala centro": {
     "nse": "medio-bajo",
     "nseIdx": 2,
-    "medianaPm2": 14286,
-    "nListings": 25
+    "medianaPm2": 14700,
+    "nListings": 38,
+    "fuente": "v1-centro-rename"
   },
   "san gaspar": {
     "nse": "economico",
@@ -3382,12 +3361,6 @@
     "nseIdx": 0,
     "medianaPm2": 3284,
     "nListings": 3
-  },
-  "chapala": {
-    "nse": "medio-alto",
-    "nseIdx": 4,
-    "medianaPm2": 33217,
-    "nListings": 7
   },
   "brisas de chapala subdivision": {
     "nse": "economico",
@@ -3804,10 +3777,11 @@
     "nListings": 13
   },
   "zapopan centro": {
-    "nse": "lujo",
-    "nseIdx": 5,
-    "medianaPm2": 52028,
-    "nListings": 84
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 15236,
+    "nListings": 21,
+    "fuente": "v1-centro-rename"
   },
   "onia puerta de hierro": {
     "nse": "lujo",
@@ -4150,12 +4124,6 @@
     "nseIdx": 5,
     "medianaPm2": 78769,
     "nListings": 18
-  },
-  "zapopan": {
-    "nse": "medio-alto",
-    "nseIdx": 4,
-    "medianaPm2": 15236,
-    "nListings": 21
   },
   "parque regency": {
     "nse": "medio-alto",
@@ -5250,10 +5218,11 @@
     "nListings": 11
   },
   "tlajomulco centro": {
-    "nse": "medio-bajo",
-    "nseIdx": 2,
-    "medianaPm2": 14167,
-    "nListings": 35
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27257,
+    "nListings": 16,
+    "fuente": "v1-centro-rename"
   },
   "ionamiento del pilar": {
     "nse": "medio-alto",
@@ -5940,10 +5909,11 @@
     "nListings": 3
   },
   "guadalajara centro": {
-    "nse": "lujo",
-    "nseIdx": 5,
-    "medianaPm2": 64142,
-    "nListings": 258
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 25623,
+    "nListings": 3,
+    "fuente": "v1-centro-rename"
   },
   "onia lomas de guevara": {
     "nse": "medio-alto",
@@ -6976,10 +6946,11 @@
     "nListings": 3
   },
   "el salto centro": {
-    "nse": "economico",
-    "nseIdx": 0,
-    "medianaPm2": 8934,
-    "nListings": 22
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 14000,
+    "nListings": 1,
+    "fuente": "v1-centro-rename"
   },
   "minerales": {
     "nse": "medio-bajo",
@@ -8484,7 +8455,7 @@
   "miguel hidalgo": {
     "nse": "medio-bajo",
     "nseIdx": 2,
-    "medianaPm2": 16800,
+    "medianaPm2": 18500,
     "nListings": 1
   },
   "santa maria": {
@@ -8672,12 +8643,6 @@
     "nse": "medio-alto",
     "nseIdx": 4,
     "medianaPm2": 24200,
-    "nListings": 1
-  },
-  "el salto": {
-    "nse": "interes-social",
-    "nseIdx": 1,
-    "medianaPm2": 14000,
     "nListings": 1
   },
   "vista california": {

@@ -68,7 +68,7 @@ const AMG_MUNIS = new Set([
 function dedup(listings) {
     const seen = new Set();
     return listings.filter(l => {
-        const key = `${Math.round(l.p/1000)}_${l.c}`;
+        const key = `${Math.round(l.p/1000)}_${l.c || l.t}`;
         if (seen.has(key)) return false;
         seen.add(key);
         return true;
@@ -94,11 +94,13 @@ const idx = {};  // { municipio: { tipo: { colonia: { listings, medianaPm2c, cou
 
 let skipped = 0;
 for (const d of CACHE) {
-    if (!d.p || !d.c) { skipped++; continue; }
+    if (!d.p || (!d.c && !d.t)) { skipped++; continue; }
 
     const muni  = normMuni(d.mu || '');
     const tipo  = canonTipo(d.tp || '');
-    const col   = normCol(d.co || '');
+    // Colonia con mismo nombre que el municipio → renombrar a "X centro"
+    const colRaw = normCol(d.co || '');
+    const col    = colRaw === muni ? muni + ' centro' : colRaw;
 
     if (!muni) { skipped++; continue; }
 
@@ -106,8 +108,8 @@ for (const d of CACHE) {
     if (!idx[muni][tipo])  idx[muni][tipo] = {};
     if (!idx[muni][tipo][col]) idx[muni][tipo][col] = [];
 
-    // Solo guardar los campos que usan los motores: precio, m²C, m²T
-    idx[muni][tipo][col].push({ p: d.p, c: d.c, t: d.t || 0 });
+    // Solo guardar los campos que usan los motores: precio, m²C, m²T, fecha_scraping
+    idx[muni][tipo][col].push({ p: d.p, c: d.c, t: d.t || 0, fs: d.fs || null });
 }
 
 // Post-procesar: dedup + calcular mediana por colonia
@@ -119,7 +121,11 @@ for (const muni of Object.keys(idx)) {
         for (const col of Object.keys(idx[muni][tipo])) {
             const raw = idx[muni][tipo][col];
             const dd  = dedup(raw);
-            const pm2cs = dd.filter(l=>l.c>0).map(l=>l.p/l.c);
+            // Terrenos usan t (m²T) para $/m²; resto usan c (m²C)
+            const esTerr = tipo === 'terreno';
+            const pm2cs = esTerr
+                ? dd.filter(l => l.t > 0).map(l => l.p / l.t)
+                : dd.filter(l => l.c > 0).map(l => l.p / l.c);
             idx[muni][tipo][col] = {
                 listings:    dd,
                 medianaPm2c: pm2cs.length ? Math.round(mediana(pm2cs)) : null,

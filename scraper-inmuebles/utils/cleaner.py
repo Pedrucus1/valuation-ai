@@ -203,20 +203,32 @@ def normalizar_propiedad(raw: dict) -> dict:
     precio_raw = raw.get("precio_raw", "")
     precio, moneda = limpiar_precio(precio_raw)
 
+    tipo_prop = normalizar_tipo_propiedad(raw.get("tipo_propiedad"))
+    m2c = limpiar_numero(raw.get("m2_construccion"))
+    m2t = limpiar_numero(raw.get("m2_terreno"))
+
+    # Fix terreno: scrapers meten el área en m2_construccion cuando no saben si es T o C.
+    # Si el tipo es terreno/lote/predio y m2_terreno está vacío pero m2_construccion tiene valor
+    # → mover a m2_terreno (mantener m2_construccion si también tiene valor propio).
+    _TIPOS_TERRENO = {"terreno", "lote", "predio", "solar"}
+    if tipo_prop in _TIPOS_TERRENO and m2t is None and m2c is not None:
+        m2t = m2c
+        m2c = None
+
     return {
         "id_unico": generar_id_unico(url),
         "titulo": limpiar_titulo(raw.get("titulo")),
         "precio": precio,
         "moneda": moneda,
         "tipo_operacion": normalizar_operacion(raw.get("tipo_operacion")),
-        "tipo_propiedad": normalizar_tipo_propiedad(raw.get("tipo_propiedad")),
+        "tipo_propiedad": tipo_prop,
         "colonia": limpiar_colonia(raw.get("colonia")),
         "municipio": limpiar_texto(raw.get("municipio"), 100),
         "estado": limpiar_texto(raw.get("estado"), 100),
         "recamaras": limpiar_entero(raw.get("recamaras")),
         "banos": limpiar_numero(raw.get("banos")),
-        "m2_construccion": limpiar_numero(raw.get("m2_construccion")),
-        "m2_terreno": limpiar_numero(raw.get("m2_terreno")),
+        "m2_construccion": m2c,
+        "m2_terreno": m2t,
         "estacionamientos": limpiar_entero(raw.get("estacionamientos")),
         "año_construccion": normalizar_anio_construccion(raw.get("año_construccion")),
         "descripcion": limpiar_texto(raw.get("descripcion"), 300),

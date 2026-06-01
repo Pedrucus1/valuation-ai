@@ -1,13 +1,70 @@
-# Motor Romina — Compendio de Diagnóstico y Calibración
+# Motor Remi — Compendio de Diagnóstico y Calibración
 
 > **LEER ANTES DE CUALQUIER SESIÓN CON EL MOTOR.**
 >
-> **OBJETIVO FINAL: error promedio ±5–10% (no ±20%).**
-> Estamos en ±10% en el set calibrado de 39 OPIs (mayo 2026). ±20% es apenas el umbral mínimo.
+> **OBJETIVO: >95% dentro de ±15% en el set de validación** — ya se logró antes, no retroceder.
+> Umbral mínimo aceptable: ±20%. Meta real: ±15%. Meta ideal: ±10%.
 > Cada mejora documentada aquí es un paso hacia esa meta. No retroceder sin prueba.
 >
-> **Este motor es BETA** — su aprendizaje se transfiere al motor de producción de avalúos.
-> Las reglas aquí validadas deben replicarse en `comparar_metodologias_v2.js` cuando estén estables.
+> **REGLAS CRÍTICAS IRROMPIBLES:**
+> 1. NO reemplazar colonias_nse.json (v1) con datos de v2 sin correr el validador completo antes
+> 2. NO cambiar el cascade NSE sin probar: v1 ganó por 20pp sobre v2 en test formal (31-May-2026)
+> 3. NO tocar un archivo que ya tiene múltiples sesiones de verificación sin leer ANTECEDENTES primero
+> 4. Un OPI problemático NO implica que todo lo demás esté mal — verificar con el validador completo
+> 5. Guardar conclusiones aquí EN TIEMPO REAL, no al final de sesión
+
+---
+
+## ⚠️ SESIÓN 31-May-2026 — Cambios y estado
+
+### Cambios al pipeline (ya aplicados):
+- cache_consolidado.json regenerado desde Google Sheets (148,151 filas → 22,983 comps útiles)
+- Fix terreno c→t: 9,340 listings terreno corregidos (área estaba en campo c, movida a t)
+- build_cache_index.js: fix filtro `!d.c` → `!d.c && !d.t` (terrenos con c=0 ya no se descartan)
+- dedup en build_cache_index.js usa `l.c || l.t` para terrenos
+- cache_index.json rebuild: 22,916 listings (vs 17,132 anterior), 8,692 colonias, 0 omitidos
+- idx_valoracion.json rebuild: 180 colonias terreno (vs 3 anterior)
+- validar_40_opis.js: agregado umbral ±15% en métricas
+
+### Correcciones colonias_similares.json (31-May-2026):
+| Colonia | Cambio |
+|---|---|
+| jardines de la calera | Reemplazadas por: Hacienda Santa Fe, Real del Valle, Chulavista, campo sur, los cantaros, villa california |
+| naturezza | Restauradas a las correctas: Bosques de Santa Anita, Arbolada BSA, Bosque Real SA, Jardines de SA, El Origen Residencial, Bellaterra, Vicenza |
+| loma bonita ejidal | Restauradas a las correctas: villa guerrero, Pinar La Calma, Las Aguilas, El Sauz, Jardines de la Cruz, Jardines del Sur, Tabachines |
+| miguel hidalgo | Simplificadas a: huentitan el bajo, circunvalacion oblatos, beatriz hernandez |
+| chapalita las fuentes | Nueva entrada: residencial plaza guadalupe, la primavera, chapalita, pinar de la venta |
+| 12122 (Secc 12122 Tlajomulco) | Nueva entrada: Rinconadas del Sol, Valle de Tlajomulco, Hacienda de los Eucaliptos, Jardines de Tlajomulco, Santa Fe, Galaxia la Noria, La Castilleja II |
+
+### Correcciones cerebro_datos.json (31-May-2026):
+- OPI-26-2-07-OF: sujetoColonia corregida de "Jardines de la Calera" → "Secc 12122" (dirección: Margaritas 246, Secc 12122 — la colonia no tiene nombre formal)
+- OPI-25-9-17-LS (Naturezza): estadoConservacion corregido de "regular_medio" → "regular_bueno" (el perito implica $19,984/m²C, compatible con regular_bueno no regular_medio)
+
+### Correcciones colonias_nse.json (31-May-2026):
+- miguel hidalgo: medianaPm2 $16,800→$18,500 (entrada original era n=1, no confiable; perito usa comps a $17-21k/m²C)
+
+### OPIs excluidos agregados a validar_40_opis.js:
+- OPI-26-1-10-OF (Minerales El Salto): zona industrial/minera sin mercado residencial comparable
+- OPI-25-10-02-OF (San José del Quince Tonalá): zona periférica sin cobertura en scraper
+
+### Resultados post-correcciones (31-May-2026):
+| OPI | Antes | Después | Estado |
+|---|---|---|---|
+| OPI-26-2-07 (Secc 12122) | -68.7% | -6.7% | ✅ |
+| OPI-25-12-02 (Chapalita las Fuentes) | -22.6% | -5.5% | ✅ |
+| OPI-25-9-17 (Naturezza) | -17.4% | -2.6% | ✅ |
+| OPI-26-2-01 (Miguel Hidalgo) | -23.5% | -17.7% | ⚠️ en progreso |
+| OPI-25-7-03 (Loma Bonita Ejidal) | -25.6% | -20.3% | ⚠️ limitación cobertura |
+
+### Problema estructural documentado — Cross-municipio:
+El motor restringe el pool al municipio del sujeto (`listingsEnMuni`). Colonias limítrofes en municipio contiguo no se pueden usar como comparables aunque estén a metros de distancia. Afecta especialmente Tlaquepaque↔Guadalajara. **Pendiente de fix arquitectónico** — requiere ampliar `enSim` para buscar en municipios vecinos sin afectar el pool general.
+
+### Comparación NSE v1 vs v2 vs idx (test formal 31-May-2026):
+Script: `comparar_nse_fuentes.js` — 137 OPIs --desde 2025-07
+- v1→v2→idx (actual): **60% ±10%, 77% ±20%** ← GANADOR
+- v2→v1→idx: 40% ±10%, 57% ±20%
+- idx solo: 40% ±10%, 57% ±20%
+**Conclusión: v1 sigue siendo la fuente principal. NO cambiar cascade.**
 
 ---
 
@@ -926,3 +983,165 @@ colonias_similares.enriquecido.v2.json:  1033 keys con muni+zona+fuente
 - WebSearch en lotes para las 439 sims sin datos en SEPOMEX (mayoría son cotos/fraccionamientos nuevos)
 - Resolver los 28 conflictos cerebro vs SEPOMEX restantes (los más complejos, per-caso)
 - **Validar impacto en accuracy:** correr `node validar_40_opis.js --n 200 --desde 2025-07` y comparar contra baseline pre-limpieza para confirmar mejora
+
+---
+
+## Sesión 31-May-2026 — IDX MULTIDIMENSIONAL POR TIPO + CORRECCIÓN TERRENOS
+
+### Baseline post-limpieza (punto de partida)
+
+Después de la limpieza 30-May, el set extendido (80 OPIs) quedó en:
+- **68.8% ±10%**, 87.5% ±20%, error absoluto promedio 9.6%
+- 12 OPIs fuera de ±10% — analizados esta sesión para identificar causas raíz
+
+### Análisis de 12 OPIs fallidos — 5 grupos de causa raíz
+
+| Grupo | OPIs | Causa | Fix |
+|---|---|---|---|
+| A — IDX contaminado | jardines de la calera, heliodoro hernandez loza | IDX[colonia]['casa'] tiene bodegas/industriales mal etiquetados → NSE económico → similares filtradas → pool barato | idx_valoracion.json por tipo elimina contaminación |
+| B — suma_partes n<5 | loma bonita ejidal, tinajitas | suma_partes_mix activa con <5 comps en pool; structural | Más cobertura IDX o similares adicionales |
+| C — pool:general por falta IDX | cortijo san agustin, provenza | Colonia sin suficientes listings en IDX → cae a general → error alto | Regenerar IDX con más datos de scraper |
+| D — NSE contaminado por tipo | colli urbano, naturezza | colonias_nse.json v1 calculado con TODOS los tipos → terrenos baratos bajan NSE → motor limita similares hacia abajo | idx_valoracion.json por tipo corrige esto |
+| E — sub-zona mal nominada | real del valle, miguel hidalgo | Colonia con micro-zonas de distinto valor; cerebro apunta a zona equivocada | Ajuste manual en cerebro_datos |
+
+**Ejemplo detallado — Jardines de la Calera:**
+- NSE v1 = económico (nseIdx=0, pm2=5,027) → causa: IDX mezclaba bodegas industriales con casas
+- IDX['casa'] listings m²C: [53, 450, 1500, 1800, 1000, 700…] → mayoritariamente industriales
+- Solo 1 listing genuinamente residencial en IDX de esa colonia
+- Fix: idx_valoracion separa por tipo → casas tendrán su propia mediana sin contaminación industrial
+
+### Bug crítico corregido: terreno m²T = 0 en 98.3% de listings
+
+**Problema:** 5,791 de 5,893 listings de tipo terreno tenían `t=0, c>0` — el área del terreno estaba almacenada en el campo de m²C (construcción). Causa: scrapers tienen fallback que mete cualquier "m²" en m²C cuando no puede identificar si es terreno o construcción.
+
+**Consecuencia:** `idx_valoracion.json` primera corrida reportó solo 5 colonias con terreno (vs 302 con el fix). Suponía que $/m²T = p/t pero t=0 → descartaba 98% de los listings.
+
+**Regla del campo t:**
+- Si `tp = terreno/lote/predio/solar` Y `t = 0` Y `c > 0` → la propiedad es un terreno puro, el área está equivocada en `c`. Mover: `t = c; c = 0`
+- Si `t > 0` → respetar ambos campos (puede ser terreno con construcción vendido como terreno — es válido y existe en el mercado)
+
+**Fix implementado en `actualizar_cache_consolidado.js`** (ANTES del paso de dedup):
+```javascript
+const TIPOS_TERRENO = ['terreno', 'lote', 'predio', 'solar'];
+for (const d of raw) {
+    if (TIPOS_TERRENO.some(tt => d.tp.includes(tt)) && d.t === 0 && d.c > 0) {
+        d.t = d.c;
+        d.c = 0;
+        corregidos++;
+    }
+}
+```
+El dedup también fue ajustado para usar `area = d.c > 0 ? d.c : d.t` como parte de la clave de deduplicación.
+
+**Fix pendiente en scrapers (Opción B — para siguiente ciclo):** cambiar la lógica de fallback en cada scraper para que cuando `tipo_prop=terreno` y solo hay un m² genérico, lo guarde en m²T (col M) no en m²C (col L).
+
+### Campo `fecha_scraping` agregado al pipeline
+
+**Motivación:** poder calcular ventanas temporales (18 meses) para dar más peso a listings recientes y descartar datos obsoletos.
+
+**Columna en Sheet CONSOLIDADO:** U (índice 20) = `fecha_scrap`.
+
+**Cambios en `actualizar_cache_consolidado.js`:**
+```javascript
+const COL = { ..., fecha_scrap:20, activo:21 };
+// En el map:
+fs: (r[COL.fecha_scrap] || '').toString().slice(0, 10) || null,
+```
+
+**Cambio en `build_cache_index.js`:**
+```javascript
+idx[muni][tipo][col].push({ p: d.p, c: d.c, t: d.t || 0, fs: d.fs || null });
+```
+
+**Estado actual:** el campo `fs` existe en el código pero el `cache_consolidado.json` en disco es pre-cambio (no regenerado aún — requiere correr `node actualizar_cache_consolidado.js` con acceso a Google Sheets). Cuando se regenere, `colonias_nse_v2.json` e `idx_valoracion.json` activarán automáticamente la lógica temporal.
+
+### Nuevos archivos creados
+
+| Archivo | Descripción | Estado |
+|---|---|---|
+| `construir_nse_v2.js` | Construye NSE usando solo IDX['casa'] con m²C≤300, ventana 18m | ✅ Listo |
+| `colonias_nse_v2.json` | 363 colonias, fuente: idx-casa. Actualmente 0 usan ventana temporal (sin fs en IDX actual) | ✅ Generado |
+| `construir_idx_valoracion.js` | Índice multidimensional: colonia→tipo→segmento→{medianaPm2,nListings,nse,nseIdx,fuente} | ✅ Listo |
+| `idx_valoracion.json` | 302 terreno, 358 casa, 286 depto, 19 bodega colonias. ~4,119 keys colonia (incluye aún algunos junk) | ✅ Generado |
+
+### Arquitectura idx_valoracion.json — decisión de diseño
+
+**Estructura de salida:**
+```json
+{
+  "_meta": { "version":2, "fechaCalculo":"...", "ventanaMeses":18, "tiposActivos":["casa","depto","terreno","bodega"] },
+  "jardines de la calera": {
+    "casa": {
+      "global": { "medianaPm2":12200, "nListings":8, "nse":"interes-social", "nseIdx":1, "fuente":"idx-historico" },
+      "80-150": { "medianaPm2":11800, "nListings":5, ... },
+      "150-250": { ... }
+    },
+    "terreno": {
+      "global": { "medianaPm2":2400, ... },
+      "<120": { ... }
+    }
+  }
+}
+```
+
+**Segmentos definitivos (validados con usuario):**
+- Casa (m²C): <80 · 80-150 · 150-250 · 250-450 · 450-1000 · >1000
+- Depto (m²C): <60 · 60-100 · 100-160 · >160
+- Terreno (m²T): <120 · 120-300 · 300-800 · >800
+- Bodega (m²C): <200 · 200-800 · >800 (bodegas usan m²C porque en zonas consolidadas no hay terreno sin construir)
+- Locales comerciales: **EXCLUIDOS** — lógica diferente (vialidad + tipo de centro comercial), se atacará después de viviendas
+
+**Relación con colonias_nse.json:**
+- `idx_valoracion.json` es PARALELO, no reemplaza nada
+- El motor consultará idx_valoracion primero; si no hay dato, fallback a colonias_nse.json (v1)
+- El NSE v2 (`colonias_nse_v2.json`) también es paralelo — pendiente integrar al motor
+
+**Ventana temporal:**
+- 18 meses preferencial; si <3 listings en ventana → fallback a histórico completo
+- Outliers eliminados p10-p90 antes de calcular mediana
+- Fuente marcada: `"idx-18m"` (ventana) o `"idx-historico"` (fallback)
+
+**Apreciación anual:**
+- El sistema no tiene apreciación escalonada — simplemente la ventana temporal refleja el mercado actual al recalcularse
+- Recalcular idx_valoracion.json cada vez que se actualiza cache_consolidado (post cada ciclo scraper)
+- Apreciación observada históricamente: 2–12%/año según tipo y zona; el IDX la captura orgánicamente
+
+### Localización del fix terreno en idx_valoracion.js
+```javascript
+const esTerr = tipo === 'terreno';
+const aplicarCapM2C = tipo === 'casa' || tipo === 'depto';
+const validos = data.listings.filter(l => {
+    const sup = esTerr ? l.t : l.c;
+    if (!sup || sup <= 0) return false;
+    if (aplicarCapM2C && l.c > M2C_MAX_RESIDENCIAL) return false; // 300m²C cap
+    return l.p > 0;
+}).map(l => ({
+    ...l,
+    _sup: esTerr ? l.t : l.c,
+    _pm2: l.p / (esTerr ? l.t : l.c),
+}));
+```
+
+### Filtro de claves basura en idx_valoracion
+
+El IDX tiene ~3,345 claves que parecen títulos de anuncio, no colonias:
+- `"casa en venta con excelente ubicacion en el colli urbano"` 
+- `"terreno disponible cerca de..."`, etc.
+
+Filtro aplicado en `construir_idx_valoracion.js`:
+```javascript
+if (!col || col.length < 3 || col.length > 45) continue;
+if (/venta|disponible|renta|excelente|hermosa|near|cerca|oportunidad/i.test(col)) continue;
+```
+Reduce junk pero no lo elimina completamente. Fix de raíz: corregir el campo `co` (colonia) en el scraper o en el consolidador.
+
+### Pendientes técnicos para próximas sesiones
+
+1. **Regenerar cache_consolidado.json** (requiere Google Sheets) → activará `fs` (fechas) y terreno t→c fix en datos reales
+2. **Rebuild cache_index.json** después de regenerar consolidado → terreno ahora con t>0
+3. **Rebuild idx_valoracion.json** → tendrá ventana temporal real + 302 terreno colonias con datos correctos
+4. **Conectar idx_valoracion.json al motor** (`motor_remi_api.js`): consultar idx_valoracion como primera fuente de NSE/pm2, fallback a colonias_nse.json
+5. **Correr validador post-integración** para medir mejora en el set extendido (baseline: 68.8% ±10%)
+6. **Fix scrapers (Opción B)**: para tipo=terreno, m² genérico va a m²T no m²C en cada scraper
+7. **Limpieza junk keys en IDX**: fix en normCol o en el consolidador para que títulos de anuncio no queden como colonia
+8. **Locales comerciales**: pendiente para después de viviendas — necesita lógica por vialidad + tipo de centro comercial

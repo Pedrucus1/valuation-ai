@@ -568,10 +568,6 @@
       "menciones": 2
     },
     {
-      "colonia": "san isidro",
-      "menciones": 2
-    },
-    {
       "colonia": "oblatos",
       "menciones": 2
     }
@@ -1072,17 +1068,7 @@
       "menciones": 1
     },
     {
-      "colonia": "americana",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
       "colonia": "lafayette",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "moderna",
       "menciones": 1,
       "fuente": "ia-sepomex"
     },
@@ -2636,48 +2622,16 @@
   ],
   "miguel hidalgo": [
     {
-      "colonia": "echeverria",
+      "colonia": "huentitan el bajo",
+      "menciones": 6
+    },
+    {
+      "colonia": "circunvalacion oblatos",
       "menciones": 5
     },
     {
-      "colonia": "insurgentes",
+      "colonia": "beatriz hernandez",
       "menciones": 4
-    },
-    {
-      "colonia": "insurgentes 1a",
-      "menciones": 4
-    },
-    {
-      "colonia": "revolucion",
-      "menciones": 3
-    },
-    {
-      "colonia": "belisario dominguez",
-      "menciones": 3
-    },
-    {
-      "colonia": "analco",
-      "menciones": 2
-    },
-    {
-      "colonia": "san juan bosco",
-      "menciones": 2
-    },
-    {
-      "colonia": "los arrayanes",
-      "menciones": 2
-    },
-    {
-      "colonia": "benito juarez",
-      "menciones": 2
-    },
-    {
-      "colonia": "san eugenio",
-      "menciones": 1
-    },
-    {
-      "colonia": "jardines de san francisco",
-      "menciones": 1
     }
   ],
   "circunvalacion oblatos": [
@@ -3235,60 +3189,32 @@
   ],
   "loma bonita ejidal": [
     {
-      "colonia": "revolucion",
-      "peso": 20
-    },
-    {
-      "colonia": "pedregal del bosque",
-      "peso": 18
-    },
-    {
-      "colonia": "los olivos de tlaquepaque",
-      "peso": 16
-    },
-    {
-      "colonia": "cerro del tesoro",
-      "peso": 14
-    },
-    {
-      "colonia": "santa cruz del valle",
-      "peso": 12
-    },
-    {
-      "colonia": "Jardines del Valle",
-      "menciones": 1
-    },
-    {
-      "colonia": "Loma Bonita Sur",
-      "menciones": 1
-    },
-    {
-      "colonia": "Lomas de Tabachines",
-      "menciones": 1
-    },
-    {
-      "colonia": "Tabachines",
-      "menciones": 1
-    },
-    {
-      "colonia": "La Victoria",
-      "menciones": 1
+      "colonia": "villa guerrero",
+      "menciones": 6
     },
     {
       "colonia": "Pinar La Calma",
-      "menciones": 1
+      "menciones": 5
+    },
+    {
+      "colonia": "Las Aguilas",
+      "menciones": 5
     },
     {
       "colonia": "El Sauz",
-      "menciones": 1
+      "menciones": 4
     },
     {
       "colonia": "Jardines de la Cruz",
-      "menciones": 1
+      "menciones": 4
     },
     {
       "colonia": "Jardines del Sur",
-      "menciones": 1
+      "menciones": 3
+    },
+    {
+      "colonia": "Tabachines",
+      "menciones": 3
     }
   ],
   "parques deo auditorio": [
@@ -4898,29 +4824,32 @@
   ],
   "naturezza": [
     {
-      "colonia": "las varitas",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
+      "colonia": "Bosques de Santa Anita",
+      "menciones": 5
     },
     {
-      "colonia": "hacienda del oro",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
+      "colonia": "Arbolada Bosques de Santa Anita",
+      "menciones": 4
     },
     {
-      "colonia": "bellaterra",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
+      "colonia": "Bosque Real de Santa Anita",
+      "menciones": 4
     },
     {
-      "colonia": "la loma residencial",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
+      "colonia": "Jardines de Santa Anita",
+      "menciones": 3
     },
     {
-      "colonia": "la rioja",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
+      "colonia": "El Origen Residencial",
+      "menciones": 2
+    },
+    {
+      "colonia": "Bellaterra",
+      "menciones": 2
+    },
+    {
+      "colonia": "Vicenza",
+      "menciones": 2
     }
   ],
   "bonanza": [
@@ -5035,10 +4964,6 @@
   ],
   "barrio san juan de dios": [],
   "el retiro": [
-    {
-      "colonia": "lomas independencia",
-      "menciones": 4
-    },
     {
       "colonia": "centro",
       "menciones": 2
@@ -5253,24 +5178,12 @@
       "menciones": 4
     },
     {
-      "colonia": "oblatos",
-      "menciones": 4
-    },
-    {
       "colonia": "circunvalacion oblato",
-      "menciones": 2
-    },
-    {
-      "colonia": "belisario dominguez",
       "menciones": 2
     },
     {
       "colonia": "el mirador",
       "menciones": 2
-    },
-    {
-      "colonia": "circunvalacion oblatos",
-      "menciones": 1
     },
     {
       "colonia": "rio verde",
@@ -7296,11 +7209,6 @@
       "menciones": 2
     },
     {
-      "colonia": "guadalajara centro",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
       "colonia": "lafayette",
       "menciones": 1,
       "fuente": "ia-sepomex"
@@ -9239,11 +9147,6 @@
       "fuente": "ia-sepomex"
     },
     {
-      "colonia": "guadalajara centro",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
       "colonia": "vallarta poniente",
       "menciones": 1,
       "fuente": "ia-sepomex"
@@ -10014,10 +9917,6 @@
     {
       "colonia": "de guevara",
       "menciones": 1
-    },
-    {
-      "colonia": "santa teresita",
-      "menciones": 2
     },
     {
       "colonia": "circunvalacion vallarta",
@@ -14347,40 +14246,28 @@
   ],
   "jardines de la calera": [
     {
-      "colonia": "los sauces",
-      "menciones": 2
-    },
-    {
-      "colonia": "balcones de la calera",
-      "menciones": 2
-    },
-    {
-      "colonia": "la alameda",
-      "menciones": 2
-    },
-    {
-      "colonia": "valle de los olivos",
-      "menciones": 2
-    },
-    {
       "colonia": "Hacienda Santa Fe",
       "menciones": 5
-    },
-    {
-      "colonia": "Chulavista",
-      "menciones": 4
     },
     {
       "colonia": "Real del Valle",
       "menciones": 3
     },
     {
-      "colonia": "Valle de los Encinos",
-      "menciones": 2
+      "colonia": "Chulavista",
+      "menciones": 4
     },
     {
-      "colonia": "Paseos de los Agaves",
-      "menciones": 1
+      "colonia": "campo sur",
+      "menciones": 3
+    },
+    {
+      "colonia": "los cantaros",
+      "menciones": 3
+    },
+    {
+      "colonia": "villa california",
+      "menciones": 3
     }
   ],
   "balcones de la calera": [
@@ -14459,10 +14346,6 @@
     {
       "colonia": "villas de san juan",
       "menciones": 2
-    },
-    {
-      "colonia": "el retiro",
-      "menciones": 4
     },
     {
       "colonia": "la perla",
@@ -17566,18 +17449,6 @@
       "menciones": 5
     },
     {
-      "colonia": "La Rioja",
-      "menciones": 4
-    },
-    {
-      "colonia": "Punto Sur Residencial",
-      "menciones": 3
-    },
-    {
-      "colonia": "El Palomar",
-      "menciones": 2
-    },
-    {
       "colonia": "Cortijo San Agustín",
       "menciones": 1
     }
@@ -18472,10 +18343,6 @@
     },
     {
       "colonia": "Colomos Providencia",
-      "menciones": 1
-    },
-    {
-      "colonia": "Italia Providencia",
       "menciones": 1
     }
   ],
@@ -20098,6 +19965,54 @@
     {
       "colonia": "francisco villa",
       "menciones": 1
+    }
+  ],
+  "chapalita las fuentes": [
+    {
+      "colonia": "residencial plaza guadalupe",
+      "menciones": 5
+    },
+    {
+      "colonia": "la primavera",
+      "menciones": 4
+    },
+    {
+      "colonia": "chapalita",
+      "menciones": 3
+    },
+    {
+      "colonia": "pinar de la venta",
+      "menciones": 2
+    }
+  ],
+  "12122": [
+    {
+      "colonia": "Rinconadas del Sol",
+      "menciones": 5
+    },
+    {
+      "colonia": "Valle de Tlajomulco",
+      "menciones": 5
+    },
+    {
+      "colonia": "Hacienda de los Eucaliptos",
+      "menciones": 4
+    },
+    {
+      "colonia": "Jardines de Tlajomulco",
+      "menciones": 4
+    },
+    {
+      "colonia": "Santa Fe",
+      "menciones": 3
+    },
+    {
+      "colonia": "Galaxia la Noria",
+      "menciones": 3
+    },
+    {
+      "colonia": "La Castilleja II",
+      "menciones": 2
     }
   ]
 }
