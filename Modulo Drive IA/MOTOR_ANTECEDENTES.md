@@ -15,6 +15,26 @@
 
 ---
 
+## ⚠️ SESIÓN 01-Jun-2026 — Cap de comparables por calidad de pool (Fase 3b-A)
+
+Experimento medido (web OFF = determinista, --n 200 --desde 2025-07, 94 OPIs):
+| Variante | ±10% | ±15% | ±20% | err abs |
+|---|---|---|---|---|
+| Cap 10 (baseline) | 74.5% | 80.9% | 93.6% | 8.4% |
+| Cap 15 plano | 76.6% | 81.9% | 92.6% | 8.3% |
+| **Cap 15 exacta/sim + 10 general** ✅ | **75.5%** | 80.9% | **93.6%** | **8.3%** |
+
+**Hallazgo clave:** subir el cap ayuda en pools CON ancla de colonia (exacta/similares) pero
+EMPEORA `general` (sin ancla, más comps = más ruido de zona → OPI-26-2-03 El Campanario pasó de
+-17.8% a -24.9%). Solución: `COMP_CAP=15` para exacta/similares, `COMP_CAP_GENERAL=10`.
+Resultado: +1 ±10%, error abs baja, CERO regresión en ±20% (FUERA idéntica al baseline).
+Cap 15 plano descartado por romper ±20%.
+
+**Nuevo baseline (cache, determinista): 75.5/80.9/93.6.** Validación con web (no determinista)
+da números equivalentes ±1 OPI. Para comparar cambios usar SIEMPRE `SERPER_API_KEY= MOTOR_NO_ACUMULAR=1`.
+
+---
+
 ## ⚠️ SESIÓN 01-Jun-2026 — Acumulación de comparables (Fase 3a)
 
 Cada avalúo con búsqueda web (Serper→DeepSeek) ahora persiste los comps reales con URL en

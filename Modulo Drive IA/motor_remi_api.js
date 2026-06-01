@@ -568,6 +568,13 @@ function getRH(edad, vida = 70) {
 // Valores mayores indican datos contaminados con departamentos/preventa en el IDX.
 const PM2T_MAX_PLAUSIBLE = 25000;
 
+// Tope de comparables por avalúo (3b), diferenciado por calidad de la pool:
+// - exacta/similares (hay ancla de colonia): más comps ayudan → 15
+// - general (sin ancla de colonia): más comps = más ruido de zona → se mantiene apretado en 10
+// Hallazgo medido 01-Jun: cap 15 plano mejora ±10/±15 pero empeora ±20 en pools general.
+const COMP_CAP = 15;
+const COMP_CAP_GENERAL = 10;
+
 function sumaDePartes(muniNorm, colNorm, m2T, m2C, edad, conservacion, esEjidal = false) {
     // Buscar pm2T en IDX de terrenos: colonia exacta (n≥3) → zona padre → mediana municipal
     let pm2t = 0, nTerrenos = 0;
@@ -739,14 +746,14 @@ function valuarPropiedad(prop) {
         }
     }
 
-    // Score + top-10
+    // Score + top-N (3b-A: COMP_CAP 10→15 para no conformarse con pocos comps)
     const scored = candidatos.map(d => {
         const dc = normCol(d.co);
         let s = m2C > 0 ? 1 - Math.abs(d.c - m2C) / Math.max(d.c, m2C) : 0;
         if (colNorm && dc.length >= 5 && (dc.includes(colNorm) || colNorm.includes(dc))) s += 0.50;
         else if (dc.length >= 4 && similares.some(x => dc.includes(x))) s += 0.25;
         return { precio: d.p, m2_const: d.c, score: s };
-    }).sort((a, b) => b.score - a.score).slice(0, 10);
+    }).sort((a, b) => b.score - a.score).slice(0, poolTipo === 'general' ? COMP_CAP_GENERAL : COMP_CAP);
 
     // Filtro post-scoring por escalafón
     const enTier = scored.filter(d => d.m2_const >= tierLo && d.m2_const <= tierHi);
@@ -875,7 +882,7 @@ async function valuarPropiedadCompleto(prop) {
         acumularComps(compsExtra, prop, 'complemento');   // guardar aunque luego se descarten
         if (compsExtra.length > 0) {
             const cacheComps = result._comps || [];
-            const combined   = [...cacheComps, ...compsExtra].slice(0, 10);
+            const combined   = [...cacheComps, ...compsExtra].slice(0, COMP_CAP);
             if (combined.length > cacheComps.length) {
                 const rg = remiSobreComps(combined, m2C, edad, conserv, result.poolTipo);
                 // Solo aplicar si CV mejora Y el valor no se aleja >10% del estimate original de caché
