@@ -70,9 +70,11 @@ LECCIÓN: NO etiquetar "estructural/sin comps" por conteo exacto — verificar l
 | 25-6-04 | Aldama Tetlán | +22% | caché propio contaminado (event hall $73k) |
 
 **BUGS/PALANCAS REALES (medir cada fix):**
-1. **Gate suma_partes usa clave EXACTA** (línea ~830 `exactaCount = IDX[muni][tipo][colNorm].count`)
-   → subcuenta, ignora comps fuzzy. Debe contar como el enColonia (fuzzy, ratio≥0.55). Rescata
-   Cortijo (+21%→~0%) y reduce los suma_partes que sí tienen comps. **Mayor impacto.**
+1. ✅ **APLICADO — Gate suma_partes usaba clave EXACTA** (línea ~830) → ahora usa `enColonia.length`
+   (fuzzy). Cortijo San Agustín +21%→−5% (usó sus 6 comps reales). 2025-2026: ±15% 80.0→80.6,
+   ±20% 90.3→91.0; curado 94 intacto (75.5/80.9/93.6). Cero regresión. Los otros 3 suma_partes
+   (Emiliano Zapata, La Experiencia, "Tlajomulco" vaga) genuinamente tienen <3 comps → siguen
+   suma_partes (overvalúan por la FÓRMULA de suma_partes, no por routing — tema aparte).
 2. **Bucket colonia VACÍA** en cache_index (zapopan/casa: n=399 $34,677, key ""). `colNorm.includes("")`
    lo mete al ancla de zona de TODOS. Limpiar listings sin colonia del índice (o guardar en enColoniaTodos).
 3. **similares premium para colonias baratas** (San Carlos): filtro NSE deja entrar vecinos caros.

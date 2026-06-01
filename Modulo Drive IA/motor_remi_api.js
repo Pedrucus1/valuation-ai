@@ -827,7 +827,11 @@ function valuarPropiedad(prop) {
     // ── Suma de partes como fallback cuando no hay comps residenciales propios ──
     // Condición: colonia sin datos exactos en IDX (<3 listings) Y pocos comps en pool
     // Se prefiere sobre el pool cuando la colonia carece de mercado residencial formal.
-    const exactaCount = IDX[muniNorm]?.[tipo]?.[colNorm]?.count || 0;
+    // Conteo de mercado de la colonia: usar los matches FUZZY (enColonia), no la clave EXACTA del
+    // IDX — esta subcuenta cuando los listings están bajo nombres ligeramente distintos (ej.
+    // "cortijo san agustin" vs "el cortijo san agustin"), y mandaba a suma_partes_mix colonias que
+    // SÍ tienen comps reales (sobrevaluándolas). Fix 01-Jun-2026.
+    const exactaCount = enColonia.length || (IDX[muniNorm]?.[tipo]?.[colNorm]?.count || 0);
     const sinMercadoExacto = exactaCount < 3 && compsFilt.length < 5;
     if (sinMercadoExacto && m2T > 0) {
         const sp = sumaDePartes(muniNorm, colNorm, m2T, m2C, prop.edad || 0, prop.estadoConservacion, prop.esEjidal || false);
