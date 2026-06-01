@@ -30,6 +30,18 @@ general/similares/suma_partes (n=3-10). El problema es **SELECCIÓN/CALIBRACIÓN
 motor +28%). Vecinos (Parques Tesistán $21.8k, Nuevo México $24.4k, Paseos Sol $29.6k) ≈$25k, MÁS
 cerca del perito. El motor usó su exacta dispersa y NO mezcló vecinos → sobrevalúa.
 
+**Colli Urbano — diagnóstico final (investigación de mercado WebSearch):**
+- El Colli Urbano 3-rec promedio **$4.49M asking** (≈$31.6k/m² para 142m²). Perito $27.8k (≈venta).
+  Motor $35.5k → está ARRIBA hasta del asking promedio.
+- Causa real (multi-factor, NO dispersión): el motor (a) sobre-selecciona los listings caros
+  ("1a/2a sección") vía tier filter, y (b) aplica poca negociación (factorNeg=0.95 = 5%; real ~12%).
+  El perito refleja venta cerrada → está ~bien. El motor sobrevalúa por asking + over-selección.
+- **Blend por dispersión (CV>0.18 → mezclar vecinos): PROBADO Y REVERTIDO 01-Jun.** No disparó en
+  Colli (su exacta NO está dispersa, CV~0.14) e inerte en el curado 94 (75.5/80.9/93.6 idéntico).
+  Hipótesis equivocada para este caso. Backup: _backups/motor_remi_api.backup.2026-06-01-pre-blend.js.
+- Lever real (medido, pendiente): (a) cap del pm2cAvg a la mediana de los comps (no sobre-seleccionar
+  caros), (b) factorNeg mayor en colonias asking-heavy. Ambos globales → validar con cuidado.
+
 **Palancas reales (medidas) para subir de ~90%:**
 1. Cuando la exacta tiene alta dispersión o pocos comps, BLEND con similares/vecinos en vez de
    confiar solo en la exacta (Colli Urbano bajaría de $38k hacia ~$28-30k).
