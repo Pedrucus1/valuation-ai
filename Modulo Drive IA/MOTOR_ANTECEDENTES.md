@@ -15,6 +15,24 @@
 
 ---
 
+## ⚠️ SESIÓN 01-Jun-2026 — Acumulación de comparables (Fase 3a)
+
+Cada avalúo con búsqueda web (Serper→DeepSeek) ahora persiste los comps reales con URL en
+`comps_acumulados.ndjson` (append-only). Antes se descartaban (el modo COMPLEMENTO solo los acepta
+si el CV mejora y el valor no se mueve >10% — línea ~858). Ahora se guardan SIEMPRE para crecer la
+base. No altera la valuación: validado 74.5/80.9/93.6 idéntico. Consolidar: `consolidar_comps_acumulados.js`.
+Prueba: 1 corrida del validador → 91 comps reales únicos (Zapopan 35, GDL 35, Tlajomulco 14, ...).
+
+**Serper está cableado con DeepSeek** (no Gemini): Serper trae snippets de Google, DeepSeek extrae
+comps con URL real. Es la búsqueda tipo-humano que no sufre el bloqueo de IP del scraper.
+
+Hallazgo sobre el límite de comps (para Fase 3b): el pool de caché solo se amplía si hay <3 exactas
+(cap 10); la búsqueda web (COMPLEMENTO) solo dispara con <8 comps y descarta resultados si mueven el
+valor >10%. Efecto: con 3-4 locales se conforma. Fase 3b = subir meta a ~15 multi-fuente ponderado
+por calidad, MEDIDO contra baseline (no diluir precisión). Pendiente.
+
+---
+
 ## ⚠️ SESIÓN 31-May-2026 (noche) — Consolidación en archivo maestro (Fase 1)
 
 ### colonias_maestro.json — fuente única que lee el motor

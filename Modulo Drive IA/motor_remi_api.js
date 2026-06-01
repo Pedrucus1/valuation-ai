@@ -445,6 +445,30 @@ Devuelve SOLO JSON:
     }
 }
 
+// ── Acumulación de comparables reales (3a) ───────────────────────────────────
+// Cada comp con URL real hallado en la búsqueda web se guarda en un log NDJSON
+// (append-only, una línea por comp → seguro ante avalúos concurrentes).
+// Hace crecer la base de comps útiles del motor. NO altera la valuación.
+// Desactivar con MOTOR_NO_ACUMULAR=1. Consolidar/dedup con: node consolidar_comps_acumulados.js
+const COMPS_ACUM_PATH = path.join(__dirname, 'comps_acumulados.ndjson');
+function acumularComps(comps, prop, origen) {
+    if (process.env.MOTOR_NO_ACUMULAR === '1') return;
+    if (!Array.isArray(comps) || !comps.length) return;
+    try {
+        const fecha = new Date().toISOString().slice(0, 10);
+        const lineas = comps
+            .filter(c => c && c.url && c.precio > 0 && c.m2c > 0)   // solo listings reales (con URL)
+            .map(c => JSON.stringify({
+                url: c.url, precio: c.precio, m2c: c.m2c, m2t: c.m2t || 0,
+                portal: c.portal || 'web',
+                colonia: prop.colonia || '', municipio: prop.municipio || '',
+                tipo: prop.tipo || 'casa', fecha, origen,
+            }))
+            .join('\n');
+        if (lineas) fs.appendFileSync(COMPS_ACUM_PATH, lineas + '\n');
+    } catch (e) { /* nunca romper la valuación por el log */ }
+}
+
 async function buscarCompsDeepSeek(prop, similares, idxCtx) {
     const zona = [prop.colonia, prop.municipio, 'Jalisco'].filter(Boolean).join(', ');
     const nseSubj = prop.colonia ? getNSE(normCol(prop.colonia)) : null;
@@ -848,6 +872,7 @@ async function valuarPropiedadCompleto(prop) {
 
     if (necesitaComplemento) {
         const compsExtra = await buscarCompsConWeb(prop, simFb);
+        acumularComps(compsExtra, prop, 'complemento');   // guardar aunque luego se descarten
         if (compsExtra.length > 0) {
             const cacheComps = result._comps || [];
             const combined   = [...cacheComps, ...compsExtra].slice(0, 10);
@@ -869,6 +894,7 @@ async function valuarPropiedadCompleto(prop) {
     if (necesitaFallback) {
         // 1. Serper (Google real) + DeepSeek extrae
         let compsIA = await buscarCompsConWeb(prop, simFb);
+        acumularComps(compsIA, prop, 'fallback');   // guardar comps web reales (Gemini no trae URL → se ignora)
         let poolIA  = 'web';
 
         // 2. Gemini solo si Serper no encontró suficientes

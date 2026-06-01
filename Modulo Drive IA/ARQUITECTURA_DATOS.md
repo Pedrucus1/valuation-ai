@@ -39,7 +39,19 @@ Las dos capas viven en columnas separadas del mismo registro: agregar datos a un
 
 El maestro guarda esto en `colonias_maestro.json._meta` (fechas, ventana, leyenda de capas).
 
-## Flywheel mensual (Fase 3 — pendiente)
+## Base de comparables acumulada (Fase 3a — ACTIVO)
+
+Cada avalúo que hace búsqueda web (Serper→DeepSeek, simula a un humano buscando en Google, sin el
+bloqueo de IP del scraper) guarda los comps reales **con URL** en `comps_acumulados.ndjson`
+(append-only, una línea por comp → seguro entre avalúos simultáneos). Antes esos comps se
+descartaban; ahora **la base de comparables útiles crece sola con cada valuación**.
+
+- No altera la valuación (solo persiste un log). Desactivar: `MOTOR_NO_ACUMULAR=1`.
+- Consolidar/dedup por URL: `node consolidar_comps_acumulados.js` → `comps_acumulados.json`.
+- Pendiente (3b): que esta base alimente el pool de comparables (meta ~15 por avalúo, ponderado por
+  calidad: exacta > similares > zona), medido contra el baseline para no diluir la precisión.
+
+## Flywheel mensual del valor del perito (Fase 3 — pendiente)
 
 Cada avalúo nuevo del perito se vuelve una calibración verificada → se agrega/actualiza en
 `colonias_nse.json` con su `fecha_verificacion`. Así la capa ganada **crece sola cada mes** con
