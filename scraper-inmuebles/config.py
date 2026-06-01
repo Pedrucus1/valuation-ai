@@ -28,6 +28,11 @@ LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
 # Si está vacío o no definido, se usa IP directa
 PROXY_URL = os.getenv("PROXY_URL", "").strip() or None
 
+# Puerto CDP para propiedades.com — Chrome DEDICADO del scraper (perfil aparte), NO el Chrome
+# personal (9222). Evita que el scraper abra pestañas en tu navegador y que Akamai marque tu
+# sesión personal. Lanzar ese Chrome con lanzar_chrome_scraper.bat (puerto 9333, perfil aislado).
+PROPIEDADES_CDP_PORT = int(os.getenv("PROPIEDADES_CDP_PORT", 9333))
+
 # ─────────────────────────────────────────
 # Nombres de pestañas en Google Sheets
 # ─────────────────────────────────────────
