@@ -41,6 +41,12 @@
   cerebro (data cleaning) → rescata clase entera. Pendiente, con backup + validación.
   LECCIÓN: antes de marcar "atípico", verificar si la colonia existe en OTRO municipio.
 
+**APLICADO 01-Jun:** `corregir_municipios_cerebro.js` (guardrail: pm2c perito ≈ mediana otro muni
+≤30%). Solo 3/27 pasaron la barra estricta (resto = genéricos o same-name-distinto-lugar, NO tocar):
+Alta California y Real del Valle (2025) + Real del Valle (2024) → tlajomulco. Backup en _backups/.
+Resultado 2025-2026: ±20% 89.7→90.3 (+1). Real del Valle −27%→+2% ✅. Alta California reveló
+perito-bajo ($19.4k vs mercado $24k). Curado 94 intacto. El detector corrige más al crecer el caché.
+
 **Atípicos por caché vs perito en desacuerdo (1 listing, no dirimible):**
 - OPI-25-6-04-LM (Aldama Tetlán: caché $32k vs perito $16k) · OPI-26-2-25-OF (Colli Urbano: exacta premium)
 
