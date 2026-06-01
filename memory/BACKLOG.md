@@ -12,6 +12,7 @@
 | 8 | ✅ | **Checkout con upsells** — add-ons Revisión por Perito +$350 y Verificación de m² +$600. |
 | 19 | ✅ | **Checkout Valuador e Inmobiliaria** — `/checkout/pro` con planes por rol. Modal de pago simulado. |
 | 7 | ⏳ | **Integración pasarela de pagos** — Stripe (tarjeta), OXXO, SPEI, Mercado Pago. |
+| 67 | ✅ | **Accesos autorizados (cortesía / pruebas)** — módulo admin `/admin/accesos` para dar acceso gratis a emails internos o de prueba (valuador/inmobiliaria). Por categoría (interno/valuador/inmobiliaria), acceso total o N avalúos gratis, modalidad (solo valuación / con valuador=addon $350 / con visita=addon $600) y vigencia opcional. Backend: colección `authorized_access`, CRUD + `GET /access/status` + consumo de cupo al generar reporte. Frontend: `AdminAccesos.jsx` + nav (Finanzas y datos) + banner de cortesía en ValuationForm que salta el pago. Probado contra Atlas; build OK. Pendiente: replicar salto de pago en ProCheckoutPage (planes pro) si se requiere. |
 
 ---
 
@@ -127,6 +128,9 @@
 | 61 | ⏳ | **Deploy backend en Render** — subir FastAPI a Render, obtener URL pública |
 | 62 | ⏳ | **Agregar secret `PROPVALU_BACKEND_URL` en GitHub** — URL de Render una vez desplegado, para que el workflow de scraper pueda hacer el sync final. Ir a github.com/Pedrucus1/valuation-ai → Settings → Secrets → Actions |
 | 63 | ⏳ | **Merge `feature/search-api` → `main`** — todos los cambios desde Mar 2026 están en esta branch |
+| 64 | ⏳ | **Auditoría de seguridad del portal** — revisar auth (cookies session_token, X-Admin-Token), secrets/API keys expuestas en repo, CORS, validación de inputs, rate limiting de endpoints, control de acceso por rol, sanitización de uploads KYC. Aunque ya está en producción, hay que asegurar que funcione correctamente y de forma segura. |
+| 65 | ⏳ | **Escalabilidad por volumen** — revisar comportamiento bajo carga: índices MongoDB, paginación de endpoints pesados (mercado/colonias, comps), caché, concurrencia del motor IA (Gemini/Serper rate limits), conexiones DB, cold starts Railway. Definir límites y plan de crecimiento. |
+| 66 | ⏳ | **Revisión de arquitectura y deploy** — validar que la arquitectura actual (Vercel front + Railway back + MongoDB Atlas) sea correcta y robusta para producción real: healthchecks, logging/observabilidad, manejo de errores, variables de entorno, backups DB, estrategia de redeploy. Evaluar migración de Railway si el bug de $PORT u otros limitan. |
 
 ---
 
@@ -141,7 +145,7 @@
 | 79 | ✅ | **Motor calibrado en 40 OPIs — 31/40 ±20%, error promedio 12.6%** — Mejoras: factorRH dinámico por conservación, prima vivienda pequeña (<65m²C), Beta-OPI preferido cuando colonia es vaga, factor obsolescencia urbana terreno (edad>30 + CUS<0.85). DeepSeek como agente primario de análisis. Script `deepseek_dev.js` creado. |
 | 80 | ✅ | **Comparar metodología perito vs motor propio vs precio real scraper** — `comparar_10_scraper.js`: 10/10 en ±20%, error 11.8%. Motor Remi gana al método perito en todos los casos. |
 | 74 | ✅ | **Base de datos de colonias similares** — `build_colonias_similares.js` corrido exitosamente con 712 OPIs. 0 colonias nuevas (ya existían todas), 3 actualizadas. colonias_similares.json tiene 1052 entradas. |
-| 75 | 🔄 | **Revisar enricher del scraper** — Coberturas conocidas (PINCALI 98% etc.) son de `m2_terreno`. **HALLAZGO 01-Jun:** `año_construccion` está al **0% en las 148,151 filas** — los portales no lo publican y el enricher no lo extrae (INMUEBLES24: 0 años en 16 filas). Enricher INMUEBLES24 detenido por inútil para edad. propiedades.com NO por CDP (Akamai/IP, ya probado) — su cobertura entra por ruta Serper del motor. Pendiente real: fuente de año (parsear `descripcion` con IA donde aparezca). |
+| 75 | 🔄 | **Enricher propiedades.com — RESUELTO vía HTTP simple Node (01-Jun PM).** La "puerta": `GET` con fetch nativo de Node da 200 con `__NEXT_DATA__` (incl. `amenities.age`), SIN Akamai/Chrome/CDP. `scrapers/plain_fetch.js` + `enricher.py fetch_html_node()`. Verificado: 47 props/página, 6/6 detalles con antigüedad (2003-2025). Enricher corriendo a escala (`--max 1000`, log `logs/enricher_pcom_run.log`). **Pendiente:** correr más lotes para llenar cobertura, luego refrescar cache. (La lección vieja "propiedades.com necesita CDP" quedó OBSOLETA: requests-Python recibe tarpit TLS, Node no.) |
 | 82 | ✅ | **Fix m2_terreno en scraper Mitula** — Corregido en `mitula.py`. |
 | 83 | ✅ | **Scheduler mensual corregido** — `run_mensual.ps1` con ruta, Python correcto y PROPIEDADES_COM. |
 | 84 | ✅ | **MongoDB-first en scheduler.py** — Escribe MongoDB primero, Sheets secundario. |
@@ -150,8 +154,8 @@
 | 88 | ✅ | **Ampliar validación y calibración** — **COMPLETADO 26-May**: 89/99 ±10% (89.9%), 100% ±20%, error abs 5.0%. Comando: `node validar_40_opis.js --n 200 --desde 2025-07`. FLOOR_EDAD_SIMILARES diferenciado por conservación implementado. |
 | 89 | ✅ | **Validación ampliada todo 2025+2026** — 157 OPIs: 82.8% ±10%, 98.1% ±20%, error 5.9%. 2 nuevos EXCLUIR (Del Sur micro + Zapopan-municipio). Motor confirmado robusto. |
 | 93 | ✅ | **SEPOMEX/IDX + SIM fixes post-rebuild 26-May** — +1,410 colonias SEPOMEX al IDX (8,703 total). SIM corregidas: san elias (similares premium→medio-alto), oblatos (garbage→analco/san juan bosco), zalatitan (sin datos→tonala/santa paula). Conservation mapping completo en server.py (11 estados vs 4 antes). Resultado: **85.4% ±10%, 99.0% ±20%, error 5.2%** (96 OPIs H2 2025+2026). |
-| 90 | 🔄 | **Opción 2: edad relativa a la zona** — **Maquinaria LISTA y probada neutral (01-Jun):** `build_cache_index.js` calcula `edadMedianaZona` por colonia; `motor_remi_api.js` usa ancla relativa en `factorEdad` (fallback a 10 sin dato → idéntico). **Bloqueada por #91 (año 0%).** Se activa sola cuando entre data de edad. |
-| 91 | 🔄 | **Opción 3: capturar edad en scraper** — `actualizar_cache_consolidado.js` ya mapea col 14 → campo `an`; `an` cargado en comps para depreciación comp-a-comp. **BLOQUEO:** `año_construccion` 0% en CONSOLIDADO (ver #75). Falta fuente real de año (IA sobre `descripcion`). |
+| 90 | 🔄 | **Opción 2: edad relativa a la zona** — **Maquinaria LISTA y probada neutral (01-Jun):** `build_cache_index.js` calcula `edadMedianaZona` por colonia; `motor_remi_api.js` usa ancla relativa en `factorEdad` (fallback a 10 sin dato → idéntico). **DESBLOQUEADA** (ver #75/#91): propiedades.com ya da antigüedad. Se activa al refrescar cache con cobertura nueva. Falta: medir mejora en colonias de casas viejas. |
+| 91 | 🔄 | **Opción 3: capturar edad en scraper — RESUELTO la fuente (01-Jun PM).** propiedades.com (73k, el más grande) ya entrega `año_construccion` vía enricher Node (#75). `actualizar_cache_consolidado.js` mapea col 14 → `an`; `an` cargado en comps. **Pendiente:** correr enricher a escala + refrescar cache + medir. |
 | 92 | ❌ | **Replicar calibración en comparar_metodologias_v2.js** — DESCARTADO: producción ya usa `motor_remi_api.js` directamente desde server.py. comparar_metodologias_v2.js es script legacy de prueba. |
 | 77 | ✅ | **Integrar Remi al backend** — `motor_remi_api.js` + endpoint en server.py. |
 | 81 | ✅ | **Migrar a cache_index.json** — IDX[muni][tipo] 1.6MB vs 50MB anterior. |

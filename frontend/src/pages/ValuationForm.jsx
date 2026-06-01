@@ -509,6 +509,7 @@ const ValuationForm = () => {
   const [adIndex, setAdIndex] = useState(0);
   const [adProgress, setAdProgress] = useState(0);
   const [user, setUser] = useState(null);
+  const [acceso, setAcceso] = useState(null); // acceso de cortesía/prueba autorizado
   const [includePhotos, setIncludePhotos] = useState(false);
 
   // Checkout step state (step 4, only for public users)
@@ -679,6 +680,14 @@ const ValuationForm = () => {
         // Ignorar respuestas del stub viejo (sin user_id real)
         if (userData?.user_id && userData.user_id !== 'user_local_dev') {
           setUser(userData);
+          // ¿Tiene acceso de cortesía / prueba autorizado por admin?
+          try {
+            const accRes = await fetch(`${API}/access/status?email=${encodeURIComponent(userData.email || "")}`, { credentials: "include" });
+            if (accRes.ok) {
+              const acc = await accRes.json();
+              if (acc?.autorizado) setAcceso(acc);
+            }
+          } catch { /* sin acceso de cortesía */ }
         }
       }
     } catch (error) {
@@ -780,8 +789,9 @@ const ValuationForm = () => {
 
   const showFloorFields = ["Departamento", "Oficina", "Local comercial"].includes(formData.property_type);
   const isAppraiserMode = user && user.role === "appraiser";
-  // Usuarios con plan comprado (valuador, inmobiliaria, admin) no ven el paso de pago
-  const skipCheckout = !!(user && ["appraiser", "realtor", "super_admin"].includes(user.role));
+  // Usuarios con plan comprado (valuador, inmobiliaria, admin) no ven el paso de pago.
+  // Los emails con acceso de cortesía/prueba autorizado tampoco pagan.
+  const skipCheckout = !!(user && ["appraiser", "realtor", "super_admin"].includes(user.role)) || !!acceso?.autorizado;
   const showAds = !user || (
     user.role !== "appraiser" &&
     user.role !== "super_admin" &&
@@ -1075,6 +1085,28 @@ const ValuationForm = () => {
           </div>
         </CardHeader>
         <CardContent key={resetKey} className="p-6">
+          {/* Banner de acceso de cortesía / prueba */}
+          {acceso?.autorizado && (
+            <div className="mb-5 flex items-start gap-3 rounded-xl border border-[#52B788]/40 bg-[#F0FAF5] px-4 py-3">
+              <CheckCircle2 className="w-5 h-5 text-[#52B788] shrink-0 mt-0.5" />
+              <div className="text-sm">
+                <p className="font-semibold text-[#1B4332]">
+                  {acceso.categoria === "interno" ? "Acceso interno" : "Acceso de prueba — sin costo"}
+                </p>
+                <p className="text-slate-600 mt-0.5">
+                  {acceso.acceso_total
+                    ? "Avalúos ilimitados"
+                    : `${acceso.restantes} de ${acceso.avaluos_gratis} avalúos ${acceso.categoria === "interno" ? "" : "gratis "}restantes`}
+                  {acceso.modalidad === "con_valuador" && " · incluye revisión por valuador"}
+                  {acceso.modalidad === "con_visita" && " · incluye verificación de m² en sitio"}
+                  {acceso.expira && ` · vigente hasta ${new Date(acceso.expira).toLocaleDateString("es-MX")}`}
+                </p>
+                <p className="text-xs text-slate-400 mt-1">
+                  {acceso.categoria === "interno" ? "Cuenta de uso interno — sin costo." : "No se te cobrará este avalúo."}
+                </p>
+              </div>
+            </div>
+          )}
           {/* Step 1 - Location */}
           {currentStep === 1 && (
             <div className="space-y-6 animate-fade-in">

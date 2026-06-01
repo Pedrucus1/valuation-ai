@@ -50,6 +50,7 @@ import AdminScraper from "@/pages/admin/AdminScraper";
 import AdminCMS from "@/pages/admin/AdminCMS";
 import AdminCFDI from "@/pages/admin/AdminCFDI";
 import AdminPayouts from "@/pages/admin/AdminPayouts";
+import AdminAccesos from "@/pages/admin/AdminAccesos";
 import AdminCobertura from "@/pages/admin/AdminCobertura";
 import AdminReportes from "@/pages/admin/AdminReportes";
 import AdminBlacklist from "@/pages/admin/AdminBlacklist";
@@ -153,6 +154,7 @@ function AppRouter() {
       <Route path="/admin/roles" element={<AdminProtectedRoute rolesPermitidos={["superadmin"]}><AdminRoles /></AdminProtectedRoute>} />
       <Route path="/admin/feedback" element={<AdminProtectedRoute><AdminFeedback /></AdminProtectedRoute>} />
       <Route path="/admin/valuadores" element={<AdminProtectedRoute><AdminValuadores /></AdminProtectedRoute>} />
+      <Route path="/admin/accesos" element={<AdminProtectedRoute rolesPermitidos={["superadmin","finanzas"]}><AdminAccesos /></AdminProtectedRoute>} />
       <Route path="/admin/broadcast" element={<AdminProtectedRoute rolesPermitidos={["superadmin","moderador","contenido"]}><AdminBroadcast /></AdminProtectedRoute>} />
       <Route path="/admin/newsletter" element={<AdminProtectedRoute rolesPermitidos={["superadmin","moderador","contenido"]}><AdminNewsletter /></AdminProtectedRoute>} />
       <Route path="/admin/scraper" element={<AdminProtectedRoute rolesPermitidos={["superadmin","moderador"]}><AdminScraper /></AdminProtectedRoute>} />
