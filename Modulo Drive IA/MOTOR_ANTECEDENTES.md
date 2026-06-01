@@ -51,6 +51,38 @@ LECCIÓN: NO etiquetar "estructural/sin comps" por conteo exacto — verificar l
 
 ---
 
+## 🔬 DIAGNÓSTICO POR-CASO DE VIOLADORES (01-Jun-2026) — la mayoría NO son atípicos
+
+`diagnostico_violadores.js` abrió cada uno. Causas reales (validan: NO son atípicos):
+| OPI | Colonia | diff | Causa |
+|---|---|---|---|
+| 25-1-12 | Cortijo San Agustín | +21% | **BUG: 6 comps reales $19,742(=perito) pero gate suma_partes usó clave EXACTA(n=1)** |
+| 25-9-01 | Emiliano Zapata | +82% | suma_partes sobrevalúa (colonia real $14,634) |
+| 25-1-38 | "Tlajomulco" | +46% | colonia vaga (=municipio) |
+| 25-3-11 | La Experiencia | +37% | suma_partes sin comps reales |
+| 25-5-03 | San Carlos | +37% | similares premium (su listing propio $14,881) |
+| 26-1-19 | Las Conchas | −41% | general; único listing $8,846 (outlier) |
+| 25-9-02 | Heliodoro H.L. | −49% | similares baratos + sobre-depreciación (46a) |
+| 25-2-03 | Educación Jal. | −31% | sin datos colonia → general barato |
+| 25-11-02 | Tinajitas | −23% | sin datos colonia → general |
+| 25-4-15 | Lomas Altos | −29% | micro-casa 31m² + sin datos |
+| 26-2-25 | Colli Urbano | +28% | asking + over-selección |
+| 25-6-04 | Aldama Tetlán | +22% | caché propio contaminado (event hall $73k) |
+
+**BUGS/PALANCAS REALES (medir cada fix):**
+1. **Gate suma_partes usa clave EXACTA** (línea ~830 `exactaCount = IDX[muni][tipo][colNorm].count`)
+   → subcuenta, ignora comps fuzzy. Debe contar como el enColonia (fuzzy, ratio≥0.55). Rescata
+   Cortijo (+21%→~0%) y reduce los suma_partes que sí tienen comps. **Mayor impacto.**
+2. **Bucket colonia VACÍA** en cache_index (zapopan/casa: n=399 $34,677, key ""). `colNorm.includes("")`
+   lo mete al ancla de zona de TODOS. Limpiar listings sin colonia del índice (o guardar en enColoniaTodos).
+3. **similares premium para colonias baratas** (San Carlos): filtro NSE deja entrar vecinos caros.
+4. **sobre-depreciación en similares para casas viejas** (Heliodoro 46a → factor 0.82).
+5. **sin datos de colonia** (Educación, Tinajitas, Lomas Altos) → necesitan web/comps (3b-2).
+
+LECCIÓN (de nuevo): NO marcar atípico sin abrir. El usuario tenía razón — la mayoría son addressable.
+
+---
+
 ## 🔒 REGISTRO DE VIOLADORES ±20% — REVISADOS Y CERRADOS (01-Jun-2026)
 
 > **REGLA: NO re-investigar estos OPIs.** Fueron analizados (script `analizar_rescate.js`) y son
