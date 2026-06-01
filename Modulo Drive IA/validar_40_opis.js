@@ -32,6 +32,8 @@ const CASOS_ESPECIALES = {
     'OPI-26-1-15-OF':   { cat: 'EXCLUIR',        razon: 'Plantilla perito vacía, datos sin base' },
     'OPI-25-12-07-OF':  { cat: 'OUTLIER_PERITO',  razon: 'Perito usó comps premium (Villas Mirador/$33k). El otro OPI de la colonia pasa al +19.1%' },
     'OPI-25-7-08-OF':   { cat: 'MERCADO',         razon: 'Deptos Zapopan 2025→2026 subieron >4%; motor refleja mercado actual' },
+    'OPI-26-2-25-OF':   { cat: 'MERCADO',         razon: 'Colli Urbano: 9 listings reales (mediana $33,518) validan nivel arriba del perito $27,768. Mercado abundante respalda el valor del motor (asking).' },
+    'OPI-25-4-19-AV':   { cat: 'MERCADO',         razon: 'Alta California Tlajomulco (CP 45645): 42 listings reales (mediana $23,750) vs perito $20,160. Profundidad de mercado fuerte respalda nivel superior. Municipio corregido Zapopan→Tlajomulco.' },
     'OPI-25-11-12-OF':  { cat: 'EXCLUIR',         razon: 'GDL noreste (Balcones de Oblatos) sin cobertura en portales — mercado informal no digitalizado' },
     'OPI-25-7-21-LM':   { cat: 'EXCLUIR',         razon: 'Datos perito inconsistentes: valorMercado=$1,449k/170m²C=$8,523/m² pero valorM2Ap=$13,616 — brecha 60% sin justificación' },
     'OPI-25-10-17-OF':  { cat: 'OUTLIER_PERITO',  razon: 'Perito usó pm2c de zona ($34k) sin descontar por casa pequeña (96m²C). Comps reales en cache: 4 listings 96-100m²C a $30k/m²C (cv=0.167)' },

@@ -63,7 +63,8 @@ ese dato de mercado tiene PESO y es válido (info útil, anotada para tenerla en
 **Matiz honesto:** son precios ASKING; el avalúo es valor de VENTA (asking − negociación ~15%). El
 gap de 18-21% encaja con la negociación → ambos válidos en su punto (mercado=asking, perito=venta).
 Por eso NO es claramente "motor correcto / perito mal" — pero la profundidad de mercado es dato real.
-Decisión de si se reclasifican como MERCADO (cambia el rate) queda anotada como pendiente del usuario.
+**DECISIÓN DEL USUARIO (01-Jun): opción A — reclasificadas como MERCADO** en CASOS_ESPECIALES.
+Rate nuevo: Curado 93 → 76.3/81.7/94.6 (antes 75.5/80.9/93.6). 2025-2026 153 → 69.9/81.7/91.5.
 Verificado, NO supuesto (corrección al error previo de suponer que Alta California "salió" sin abrir).
 
 ---
