@@ -47,10 +47,29 @@ limpiaron en una depuración previa. El upsert de Mongo dedupea solo por `id_uni
 la misma propiedad con otra URL queda duplicada → pools de comps ruidosos → el motor (calibrado
 contra el pool LIMPIO de Sheets) se degrada. Más listings ≠ mejor; importa la CALIDAD del pool.
 
-**Conclusión / orden correcto:** la migración del motor a Mongo está **bloqueada por la limpieza de
-duplicados de Mongo** (Parte B: id estable por contenido + dedup). Hacer B ANTES que A. El builder
-`actualizar_cache_desde_mongo.py` queda listo para cuando Mongo esté limpio. Backups del estado bueno:
-`_backups/cache_consolidado.sheets.json`, `_backups/cache_index.sheets.json`.
+**Intento de arreglo por dedup (02-Jun, mismo día) — TAMPOCO funciona:** se probó replicar el dedup
+de upsert de Sheets (`municipio|m2c`, utils/sheets.py `_content_key`) en el builder Mongo. Resultado:
+**4,710 comps** (demasiado pocos — colapsa uno por municipio+m²C). Si Sheets dedupeara así de fuerte
+también tendría ~4,710, no 22,983. → **Ninguna regla de dedup reproduce el snapshot de Sheets.**
+
+| Variante | Comps | Resultado |
+|---|---|---|
+| Sheets (baseline calibrado) | 22,983 | 71.6/83.9/92.9 |
+| Mongo dedup `colonia\|area` | 32,632 | ~21 fuera ±20% (regresa) |
+| Mongo + dedup `municipio\|m2c` | 4,710 | demasiado pocos comps |
+
+**CONCLUSIÓN FIRME:** el motor está calibrado contra un **snapshot específico de Sheets**, no contra
+"datos limpios" en abstracto. Migrar el motor a Mongo **NO es un problema de dedup — requiere
+RE-CALIBRAR el motor** contra los datos de Mongo (re-correr build_colonias_similares, NSE, factores…
+= rehacer la calibración de muchas sesiones). Es un proyecto dedicado, no un parche.
+
+**Recomendación (decouple):** el motor NO necesita migrar. Que **siga en su caché Sheets** (que es
+chico, ~3MB/22,983 filas — sin problema de límite). Perseguir Mongo-primario para TODO LO DEMÁS
+(almacenamiento, análisis de mercado). El motor migra a Mongo solo si alguien invierte en re-calibrarlo.
+Riesgo real a vigilar: si el CONSOLIDADO de Sheets llega al límite de celdas, `actualizar_cache_consolidado.js`
+no podrá refrescar el caché → ahí sí habría que migrar (con re-calibración). El builder
+`actualizar_cache_desde_mongo.py` queda como punto de partida para ese día.
+Backups del estado bueno: `_backups/cache_consolidado.sheets.json`, `_backups/cache_index.sheets.json`.
 
 ---
 
