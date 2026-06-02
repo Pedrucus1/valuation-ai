@@ -62,6 +62,23 @@ from mongo_comparables import search_comparables_from_mongo
 # Import report generator
 from report_generator import generate_html_report
 
+# Observabilidad opcional (Sentry). No-op si no hay SENTRY_DSN o si el paquete
+# no está instalado. Para activar en prod: setear SENTRY_DSN (el DSN del proyecto
+# de Sentry). Captura excepciones no manejadas automáticamente (auto-instrumenta FastAPI).
+_sentry_dsn = os.environ.get("SENTRY_DSN")
+if _sentry_dsn:
+    try:
+        import sentry_sdk
+        sentry_sdk.init(
+            dsn=_sentry_dsn,
+            environment=os.environ.get("RAILWAY_ENVIRONMENT_NAME", "production"),
+            traces_sample_rate=float(os.environ.get("SENTRY_TRACES_SAMPLE_RATE", "0.1")),
+            send_default_pii=False,
+        )
+        logging.info("[startup] Sentry inicializado")
+    except Exception as e:
+        logging.error(f"[startup] Sentry no se pudo inicializar: {e}")
+
 # Create the main app
 app = FastAPI(title="PropValu Mexico API")
 
@@ -4417,23 +4434,30 @@ async def startup():
         await _seed_mercado_accesos()
     except Exception as e:
         logging.error(f"[startup] seed_mercado_accesos falló (continuando): {e}")
-    try:
-        _scheduler.add_job(
-            _job_scrape_mensual,
-            CronTrigger(day=2, hour=3, minute=0),
-            id="scrape_mensual",
-            replace_existing=True,
-        )
-        _scheduler.add_job(
-            _job_sync_sheets,
-            CronTrigger(day=3, hour=4, minute=30),
-            id="sync_sheets_mensual",
-            replace_existing=True,
-        )
-        _scheduler.start()
-        logging.info("[scheduler] APScheduler iniciado")
-    except Exception as e:
-        logging.error(f"[startup] scheduler falló (continuando): {e}")
+    # Scheduler embebido OPT-IN. Por defecto NO corre: en Railway el job de
+    # scrape mensual falla (no existe scraper-inmuebles en el contenedor) y el
+    # scrape ya lo maneja el Task Scheduler de Windows local. Para correr el
+    # cron en algún entorno, setear ENABLE_SCHEDULER=1.
+    if os.environ.get("ENABLE_SCHEDULER") == "1":
+        try:
+            _scheduler.add_job(
+                _job_scrape_mensual,
+                CronTrigger(day=2, hour=3, minute=0),
+                id="scrape_mensual",
+                replace_existing=True,
+            )
+            _scheduler.add_job(
+                _job_sync_sheets,
+                CronTrigger(day=3, hour=4, minute=30),
+                id="sync_sheets_mensual",
+                replace_existing=True,
+            )
+            _scheduler.start()
+            logging.info("[scheduler] APScheduler iniciado (ENABLE_SCHEDULER=1)")
+        except Exception as e:
+            logging.error(f"[startup] scheduler falló (continuando): {e}")
+    else:
+        logging.info("[scheduler] deshabilitado (ENABLE_SCHEDULER!=1) — cron embebido no corre")
 
 # Include router
 app.include_router(api_router)
