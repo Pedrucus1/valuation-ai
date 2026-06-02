@@ -77,11 +77,15 @@ puede quedarse en server.py).
 |---|---|---|
 | S5 | Endpoints públicos de escritura con `request.json()` sin validación/topes (review-bombing, payloads enormes, ratings inflados). | `/feedback`, `/directorio/.../resena`, `/newsletter/subscribe`: allowlist de tipo, topes de longitud, calificación int 1-5, rate limit 5/min. **Probado:** calif=99→400, gigante truncado, 429 tras 5/min. Los 33 `request.json()` restantes están en endpoints admin (require_admin → input confiable, riesgo bajo). |
 
-### ⏳ Pendiente de revisar/arreglar
-| # | Tema | Riesgo | Nota |
-|---|---|---|---|
-| S7 | `directorio.py responder_resena` autentica con `db.users.find_one({"session_token": token})` (campo en colección `users`) en vez del patrón estándar `user_sessions`+expiry de `get_current_user`. Probable bug legacy: si users no tiene `session_token`, siempre 401 (falla cerrado). | Bajo | Unificar a `require_auth`. |
-| S4b | Rate limit en avalúo público (anti-abuso de generación) — límite por IP sin bloquear clientes reales (NAT). | Bajo | Diferido. |
+### ✅ Resuelto 02-Jun (commit 1ffed47, desplegado) — S7 + S4b
+| # | Tema | Fix verificado |
+|---|---|---|
+| S7 | `responder_resena` autenticaba por `session_token` en colección `users` (legacy). | Ahora `require_auth` (sesión estándar + expiry), compara `user.email == perfil_id`. Probado: sin sesión → 401. |
+| S4b | Sin rate limit en avalúo público. | 30/hora por IP en `POST /valuations` y `generate-comparables` (generoso para oficina, frena bots). Probado local y prod (404×30→429). |
+
+### ⏳ Pendiente — todos los hallazgos de seguridad cerrados
+Quedan solo temas de **infraestructura** (#66.3 jobs externos, #66.4 staging, #66.5 métricas) y la
+**higiene de ramas** #63 (consolidar `feature/search-api` → `master`, 292 commits de divergencia).
 | S6 | IDOR en otros recursos por ID | ✅ Bajo | **Barrido hecho 02-Jun:** encargos (admin→require_admin, `/mis-encargos` filtra user_id), inmobiliaria/equipo (auth+role realtor+filtra empresa propia), ads (anunciante scopa TODO por `advertiser_id`; admin→require_admin), kyc (ownership por doc_id+user_id). **Sin IDOR.** El único era valuations (cerrado). |
 
 ### #66.x infra pendiente
@@ -123,5 +127,9 @@ Get-Process python* -ErrorAction SilentlyContinue | ForEach-Object { taskkill /F
   (https://propvalu-backend-production.up.railway.app). Baseline pre-deploy confirmó IDOR vivo
   (200 sin auth); post-deploy smoke test 5/5: health 200, IDOR 403, anónimo 200, inexistente 404,
   rate limit 10×401→429. slowapi instaló OK en el build. **Los fixes de seguridad ya están en prod.**
-  Nota: Railway NO auto-desplegó al pushear (deploy fue manual vía `railway up`); revisar si conviene
-  conectar GitHub auto-deploy a esta rama.
+  Nota: Railway NO auto-desplegó al pushear (deploy fue manual vía `railway up`). Confirmado por qué:
+  el servicio tiene **`source: null`** (NO está conectado a GitHub). Para auto-deploy: dashboard →
+  servicio propvalu-backend → Settings → Source → Connect Repo (`Pedrucus1/valuation-ai`, rama `feature/search-api`).
+- **02-Jun-2026 — S7 + S4b DESPLEGADOS** (build 9f3943a1, `railway up`). S7: `responder_resena` usa
+  `require_auth` (sesión estándar + expiry), compara `user.email == perfil_id`. S4b: rate limit 30/hora
+  por IP en `POST /valuations` y `generate-comparables`. Verificado local (401 / 429) y prod (404×30→429).
