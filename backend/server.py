@@ -130,6 +130,7 @@ from core.accesos import _acceso_estado
 from routers.access import router as access_router
 from routers.newsletter import router as newsletter_router
 from routers.cms import router as cms_router
+from routers.feedback import router as feedback_router
 
 # ============== AUTH ENDPOINTS ==============
 
@@ -1952,42 +1953,7 @@ async def kyc_solicitar_entrevista(request: Request):
     # TODO: enviar WhatsApp de confirmación vía Twilio
     return {"ok": True, "mensaje": "Solicitud recibida. Te contactaremos para agendar la videollamada."}
 
-# ============== ADMIN — FEEDBACK ==============
-
-@api_router.get("/admin/feedback")
-async def admin_feedback_list(request: Request, estado: str = ""):
-    await require_admin(request)
-    filtro: Dict[str, Any] = {}
-    if estado:
-        filtro["estado"] = estado
-    items = await db.feedback.find(filtro, {"_id": 0}).sort("created_at", -1).to_list(200)
-    return {"items": items, "total": len(items)}
-
-@api_router.patch("/admin/feedback/{feedback_id}")
-async def admin_feedback_update(feedback_id: str, request: Request):
-    await require_admin(request)
-    body = await request.json()
-    allowed = {"estado", "asignado_a", "notas_internas"}
-    update = {k: v for k, v in body.items() if k in allowed}
-    update["updated_at"] = datetime.now(timezone.utc).isoformat()
-    await db.feedback.update_one({"feedback_id": feedback_id}, {"$set": update})
-    return {"ok": True}
-
-@api_router.post("/feedback")
-async def submit_feedback(request: Request):
-    body = await request.json()
-    doc = {
-        "feedback_id": f"PV-FB-{uuid.uuid4().hex[:8].upper()}",
-        "tipo": body.get("tipo", "general"),
-        "descripcion": body.get("descripcion", ""),
-        "email": body.get("email", ""),
-        "valuador_id": body.get("valuador_id"),
-        "calificacion": body.get("calificacion"),
-        "estado": "recibido",
-        "created_at": datetime.now(timezone.utc).isoformat(),
-    }
-    await db.feedback.insert_one(doc)
-    return {"ok": True, "folio": doc["feedback_id"]}
+# Feedback / quejas -> routers/feedback.py (#66.1)
 
 # ============== ADMIN — PRECIOS ==============
 
@@ -3943,6 +3909,7 @@ app.include_router(api_router)
 app.include_router(access_router)
 app.include_router(newsletter_router)
 app.include_router(cms_router)
+app.include_router(feedback_router)
 
 # Serve uploaded files (ads, kyc)
 app.mount("/uploads", StaticFiles(directory=str(UPLOADS_DIR)), name="uploads")
