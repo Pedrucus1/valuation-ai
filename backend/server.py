@@ -129,6 +129,7 @@ from core.auth import get_current_user, require_auth, require_admin
 from core.accesos import _acceso_estado
 from routers.access import router as access_router
 from routers.newsletter import router as newsletter_router
+from routers.cms import router as cms_router
 
 # ============== AUTH ENDPOINTS ==============
 
@@ -2115,34 +2116,7 @@ async def admin_zonas_put(request: Request):
     )
     return {"ok": True}
 
-# ============== ADMIN — CMS ==============
-
-CMS_SLUGS = ["terminos_generales", "privacidad", "politica_anuncios", "codigo_etica"]
-
-@api_router.get("/admin/cms/{slug}")
-async def admin_cms_get(request: Request, slug: str):
-    await require_admin(request)
-    if slug not in CMS_SLUGS:
-        raise HTTPException(status_code=404, detail="Documento no encontrado")
-    doc = await db.cms.find_one({"slug": slug}, {"_id": 0})
-    if doc:
-        return doc
-    return {"slug": slug, "contenido": "", "editado_por": "", "editado_at": ""}
-
-@api_router.put("/admin/cms/{slug}")
-async def admin_cms_put(slug: str, request: Request):
-    admin = await require_admin(request)
-    if slug not in CMS_SLUGS:
-        raise HTTPException(status_code=404, detail="Documento no encontrado")
-    body = await request.json()
-    doc = {
-        "slug": slug,
-        "contenido": body.get("contenido", ""),
-        "editado_por": admin.get("nombre", "Admin"),
-        "editado_at": datetime.now(timezone.utc).isoformat(),
-    }
-    await db.cms.replace_one({"slug": slug}, doc, upsert=True)
-    return {"ok": True}
+# CMS legal -> routers/cms.py (#66.1)
 
 # ============== ADMIN — SCRAPER ==============
 
@@ -3968,6 +3942,7 @@ async def startup():
 app.include_router(api_router)
 app.include_router(access_router)
 app.include_router(newsletter_router)
+app.include_router(cms_router)
 
 # Serve uploaded files (ads, kyc)
 app.mount("/uploads", StaticFiles(directory=str(UPLOADS_DIR)), name="uploads")
