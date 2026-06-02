@@ -130,7 +130,14 @@
 | 63 | ⏳ | **Merge `feature/search-api` → `main`** — todos los cambios desde Mar 2026 están en esta branch |
 | 64 | ⏳ | **Auditoría de seguridad del portal** — revisar auth (cookies session_token, X-Admin-Token), secrets/API keys expuestas en repo, CORS, validación de inputs, rate limiting de endpoints, control de acceso por rol, sanitización de uploads KYC. Aunque ya está en producción, hay que asegurar que funcione correctamente y de forma segura. |
 | 65 | ⏳ | **Escalabilidad por volumen** — revisar comportamiento bajo carga: índices MongoDB, paginación de endpoints pesados (mercado/colonias, comps), caché, concurrencia del motor IA (Gemini/Serper rate limits), conexiones DB, cold starts Railway. Definir límites y plan de crecimiento. |
-| 66 | ⏳ | **Revisión de arquitectura y deploy** — validar que la arquitectura actual (Vercel front + Railway back + MongoDB Atlas) sea correcta y robusta para producción real: healthchecks, logging/observabilidad, manejo de errores, variables de entorno, backups DB, estrategia de redeploy. Evaluar migración de Railway si el bug de $PORT u otros limitan. |
+| 66 | 🔄 | **Revisión de arquitectura y deploy** — REVISADA 01-Jun-2026. Hecho (quick wins): índices MongoDB en rutas calientes, CORS restringido a dominio propio + cuenta Vercel, handler de error sin filtrar internals. Ver sub-tareas #66.x para lo pendiente. |
+| 66.1 | ⏳ | **Partir el monolito** — `server.py` = 4438 líneas / 126 endpoints en un solo archivo. Dividir en routers por dominio (auth, valuations, admin, ads, mercado). |
+| 66.2 | ⏳ | **Unificar auth admin** — `require_admin` valida token contra colección `admins`, pero ~3 endpoints comparan `token == ADMIN_SECRET` directo. Unificar al patrón de DB. |
+| 66.3 | ⏳ | **Separar jobs pesados del proceso web** — APScheduler corre dentro del backend; el job mensual lanza subprocesos de scraper-inmuebles (carpeta inexistente en Railway → falla). Mover a worker/cron externo; evita duplicado si se escala a 2+ instancias. |
+| 66.4 | ⏳ | **Entorno de staging** — local y prod comparten la misma Mongo Atlas (las pruebas tocan datos reales). Crear DB/cluster de staging. |
+| 66.5 | ⏳ | **Observabilidad** — solo logs a stdout. Agregar Sentry (errores) + métricas básicas. |
+| 66.6 | ⏳ | **Higiene de repo** — quitar `backend/server.py.bak` (128 KB) y `backend/uvicorn.log` del repo / gitignore. |
+| 65.1 | ✅ | **Índices MongoDB** — `_ensure_indexes()` en startup: users(email,user_id), user_sessions(session_token,expires_at), valuations(valuation_id,user_id), authorized_access(email), admins(token,email). Creados en Atlas. |
 
 ---
 
