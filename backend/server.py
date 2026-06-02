@@ -3876,9 +3876,7 @@ async def mercado_acceso(plan_id: str = ""):
 
 @api_router.get("/admin/mercado/accesos")
 async def admin_mercado_accesos_get(request: Request):
-    token = request.headers.get("x-admin-token", "")
-    if token != os.getenv("ADMIN_SECRET", ""):
-        raise HTTPException(status_code=403, detail="No autorizado")
+    await require_admin(request)
     docs = await db["mercado_accesos"].find({}, {"_id": 0}).to_list(20)
     hoy = datetime.now(timezone.utc).date().isoformat()
     for d in docs:
@@ -3887,9 +3885,7 @@ async def admin_mercado_accesos_get(request: Request):
 
 @api_router.put("/admin/mercado/accesos/{plan_id}")
 async def admin_mercado_accesos_put(plan_id: str, request: Request):
-    token = request.headers.get("x-admin-token", "")
-    if token != os.getenv("ADMIN_SECRET", ""):
-        raise HTTPException(status_code=403, detail="No autorizado")
+    await require_admin(request)
     body = await request.json()
     update = {}
     for k in ("activo", "fecha_inicio", "fecha_fin", "nota"):
@@ -3949,9 +3945,7 @@ async def mercado_snapshots():
 
 @api_router.post("/admin/mercado/generar-snapshot")
 async def admin_generar_snapshot(request: Request):
-    token = request.headers.get("x-admin-token", "")
-    if token != os.getenv("ADMIN_SECRET", ""):
-        raise HTTPException(status_code=403, detail="No autorizado")
+    await require_admin(request)
     body = await request.json() if request.headers.get("content-type", "").startswith("application/json") else {}
     mes = body.get("mes") if isinstance(body, dict) else None
     mes_generado = await _generar_snapshot_mes(mes)
