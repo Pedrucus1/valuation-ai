@@ -124,9 +124,17 @@ async def logout(request: Request, response: Response):
 @router.post("/auth/upgrade-role")
 async def upgrade_role(request: Request):
     user = await require_auth(request)
+    # Ya es valuador: no-op (no reseteamos su KYC).
+    if user.role == "appraiser":
+        return {"message": "Ya eres valuador", "role": "appraiser"}
+    # Solo public -> appraiser (auto-alta). Un realtor/super_admin NO cambia rol
+    # por aquí. Arranca con KYC pendiente: ser appraiser no da privilegios reales
+    # hasta que admin ratifique el KYC.
+    if user.role != "public":
+        raise HTTPException(status_code=403, detail="Tu cuenta no puede cambiar de rol por esta vía")
     await db.users.update_one(
         {"user_id": user.user_id},
-        {"$set": {"role": "appraiser"}}
+        {"$set": {"role": "appraiser", "kyc_status": "pending"}}
     )
     return {"message": "Rol actualizado a valuador", "role": "appraiser"}
 

@@ -183,16 +183,47 @@ async def get_valuations(request: Request):
     ).sort("created_at", -1).to_list(100)
     return valuations
 
+async def _puede_acceder_valuacion(request: Request, owner_id: str) -> bool:
+    """True si el solicitante es el dueño, de la misma inmobiliaria, o admin.
+    Las valuaciones sin user_id (flujo público anónimo) no pasan por aquí — se
+    acceden por link (el valuation_id funciona como llave)."""
+    admin_token = request.headers.get("X-Admin-Token", "")
+    if admin_token and await db.admins.find_one({"token": admin_token, "activo": True}):
+        return True
+    user = await get_current_user(request)
+    if not user:
+        return False
+    if user.user_id == owner_id or user.role == "super_admin":
+        return True
+    # Misma inmobiliaria: el titular y sus asesores comparten avalúos de la empresa
+    ut = (user.company_name or user.empresa_afiliada or "").strip().lower()
+    if ut:
+        owner = await db.users.find_one(
+            {"user_id": owner_id}, {"_id": 0, "company_name": 1, "empresa_afiliada": 1}
+        )
+        if owner:
+            ot = (owner.get("company_name") or owner.get("empresa_afiliada") or "").strip().lower()
+            if ot and ot == ut:
+                return True
+    return False
+
+
 @api_router.get("/valuations/{valuation_id}")
 async def get_valuation(valuation_id: str, request: Request):
     valuation = await db.valuations.find_one(
         {"valuation_id": valuation_id},
         {"_id": 0}
     )
-    
+
     if not valuation:
         raise HTTPException(status_code=404, detail="Valuación no encontrada")
-    
+
+    # Control de acceso: valuaciones de un usuario registrado solo las ve el
+    # dueño / su inmobiliaria / admin. Las anónimas (sin user_id) por link.
+    owner_id = valuation.get("user_id")
+    if owner_id and not await _puede_acceder_valuacion(request, owner_id):
+        raise HTTPException(status_code=403, detail="No autorizado para ver esta valuación")
+
     return valuation
 
 @api_router.post("/valuations/{valuation_id}/upload-photos")
@@ -209,7 +240,12 @@ async def upload_photos(
     
     if not valuation:
         raise HTTPException(status_code=404, detail="Valuación no encontrada")
-    
+
+    # Mismo control que la lectura: si pertenece a un usuario, solo dueño/inmobiliaria/admin.
+    owner_id = valuation.get("user_id")
+    if owner_id and not await _puede_acceder_valuacion(request, owner_id):
+        raise HTTPException(status_code=403, detail="No autorizado para modificar esta valuación")
+
     if len(photos) > 16:
         raise HTTPException(status_code=400, detail="Máximo 16 fotos permitidas")
     
