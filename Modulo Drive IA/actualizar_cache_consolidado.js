@@ -63,6 +63,9 @@ async function main() {
             ba: cleanNum(r[COL.ban])  || null,
             es: cleanNum(r[COL.estac]) || null,
             fs: (r[COL.fecha_scrap] || '').toString().slice(0, 10) || null,
+            // #90/#91: año de construcción (el scraper ya convierte antigüedad→año).
+            // build_cache_index filtra >1900 → valores no-año (ej. "20") se ignoran solos.
+            an: cleanNum(r[COL.ano]) || null,
         }));
 
     // Corrección de campo: terrenos con área en c en vez de t (bug de fallback scraper).

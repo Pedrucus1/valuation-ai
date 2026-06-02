@@ -30,6 +30,30 @@ El flywheel ahora rinde: los comps web `verificado` (de `comps_acumulados.json`)
 
 ---
 
+## ❌ CACHÉ DEL MOTOR DESDE MONGO — PROBADO Y REVERTIDO (02-Jun-2026)
+
+Objetivo: mover la fuente del motor de Sheets (CONSOLIDADO) a MongoDB (`mercado_props`, el
+almacén primario que el scraper ya escribe primero) para quitar la dependencia/límite de Sheets.
+Builder nuevo: `actualizar_cache_desde_mongo.py` (replica EXACTO el filtro, mapeo, corrección
+terreno y dedup colonia|area del builder de Sheets). Generó **32,632 comps** (vs 22,983 de Sheets)
+→ build_cache_index → validación n=200.
+
+**RESULTADO: REGRESIÓN FUERTE, revertido.** Baseline 71.6/83.9/92.9, **11 fuera ±20%**.
+Con Mongo: **~21 fuera ±20%** (casi el doble de violadores; nuevos: 25-2-08, 25-9-15, 26-2-01,
+26-2-11, 26-3-01, 25-6-05, 25-3-14, 26-4-06, 26-3-24…).
+
+**Causa raíz (confirmada con el usuario):** Mongo conserva los **duplicados** que a Sheets ya se le
+limpiaron en una depuración previa. El upsert de Mongo dedupea solo por `id_unico=MD5(URL)` →
+la misma propiedad con otra URL queda duplicada → pools de comps ruidosos → el motor (calibrado
+contra el pool LIMPIO de Sheets) se degrada. Más listings ≠ mejor; importa la CALIDAD del pool.
+
+**Conclusión / orden correcto:** la migración del motor a Mongo está **bloqueada por la limpieza de
+duplicados de Mongo** (Parte B: id estable por contenido + dedup). Hacer B ANTES que A. El builder
+`actualizar_cache_desde_mongo.py` queda listo para cuando Mongo esté limpio. Backups del estado bueno:
+`_backups/cache_consolidado.sheets.json`, `_backups/cache_index.sheets.json`.
+
+---
+
 ## ❌ #103 LIMPIAR BUCKET COLONIA VACÍA — PROBADO Y REVERTIDO (02-Jun-2026)
 
 Hipótesis: los listings sin colonia (`dc=""`) contaminan el ancla de banda de precio
