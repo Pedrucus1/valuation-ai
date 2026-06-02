@@ -127,10 +127,12 @@ from models import (
 
 from core.auth import get_current_user, require_auth, require_admin
 from core.accesos import _acceso_estado
+from core.pricing import PRECIOS_DEFAULT
 from routers.access import router as access_router
 from routers.newsletter import router as newsletter_router
 from routers.cms import router as cms_router
 from routers.feedback import router as feedback_router
+from routers.admin_config import router as admin_config_router
 
 # ============== AUTH ENDPOINTS ==============
 
@@ -1955,134 +1957,7 @@ async def kyc_solicitar_entrevista(request: Request):
 
 # Feedback / quejas -> routers/feedback.py (#66.1)
 
-# ============== ADMIN — PRECIOS ==============
-
-PRECIOS_DEFAULT = {
-    # ── Público ─────────────────────────────────────────────────────
-    "publico_individual":       {"precio": 241.38,  "precio_con_iva": 280,   "iva": True,  "moneda": "MXN", "grupo": "Público",       "label": "Individual (1 reporte)"},
-    "publico_bronce":           {"precio": 702.59,  "precio_con_iva": 815,   "iva": True,  "moneda": "MXN", "grupo": "Público",       "label": "Bronce (3 reportes)"},
-    "publico_plata":            {"precio": 1135.34, "precio_con_iva": 1317,  "iva": True,  "moneda": "MXN", "grupo": "Público",       "label": "Plata (5 reportes)"},
-    "publico_oro":              {"precio": 2202.59, "precio_con_iva": 2555,  "iva": True,  "moneda": "MXN", "grupo": "Público",       "label": "Oro (10 reportes)"},
-    "addon_valuador":           {"precio": 301.72,  "precio_con_iva": 350,   "iva": True,  "moneda": "MXN", "grupo": "Público",       "label": "Add-on: Revisión Valuador Certificado"},
-    "addon_visita":             {"precio": 517.24,  "precio_con_iva": 600,   "iva": True,  "moneda": "MXN", "grupo": "Público",       "label": "Add-on: Verificación m² en sitio"},
-    # ── Valuadores ──────────────────────────────────────────────────
-    "valuador_independiente":   {"precio": 724.14,  "precio_con_iva": 840,   "iva": True,  "moneda": "MXN", "grupo": "Valuadores",    "label": "Plan Independiente — Valuador (5 avalúos/mes)"},
-    "valuador_despacho":        {"precio": 1379.31, "precio_con_iva": 1600,  "iva": True,  "moneda": "MXN", "grupo": "Valuadores",    "label": "Plan Despacho — Valuador (10 avalúos/mes, hasta 3 peritos)"},
-    "valuador_pro":             {"precio": 2672.41, "precio_con_iva": 3100,  "iva": True,  "moneda": "MXN", "grupo": "Valuadores",    "label": "Plan Pro — Valuador (20 avalúos/mes, hasta 5 peritos)"},
-    "valuador_corporativo":     {"precio": 3879.31, "precio_con_iva": 4500,  "iva": True,  "moneda": "MXN", "grupo": "Valuadores",    "label": "Plan Corporativo — Valuador (40+ avalúos/mes, hasta 10 peritos)"},
-    # ── Inmobiliarias ───────────────────────────────────────────────
-    "inmobiliaria_lite5":       {"precio": 1206.90, "precio_con_iva": 1400,  "iva": True,  "moneda": "MXN", "grupo": "Inmobiliarias", "label": "Plan Lite 5 — Inmobiliaria (5 avalúos/mes)"},
-    "inmobiliaria_lite10":      {"precio": 2327.59, "precio_con_iva": 2700,  "iva": True,  "moneda": "MXN", "grupo": "Inmobiliarias", "label": "Plan Lite 10 — Inmobiliaria (10 avalúos/mes)"},
-    "inmobiliaria_pro20":       {"precio": 4482.76, "precio_con_iva": 5200,  "iva": True,  "moneda": "MXN", "grupo": "Inmobiliarias", "label": "Plan Pro 20 — Inmobiliaria (20 avalúos/mes, hasta 5 usuarios)"},
-    "inmobiliaria_premier":     {"precio": 6465.52, "precio_con_iva": 7500,  "iva": True,  "moneda": "MXN", "grupo": "Inmobiliarias", "label": "Plan Premier — Inmobiliaria (30–50+ avalúos/mes, hasta 50 usuarios)"},
-    # ── Publicidad — precio por impresión (sin IVA) ─────────────────
-    "ad_slot1_15s":             {"precio": 15, "precio_con_iva": 15, "iva": False, "moneda": "MXN", "grupo": "Publicidad", "label": "Slot 1 · 15 seg/impresión (Comparables)"},
-    "ad_slot1_30s":             {"precio": 25, "precio_con_iva": 25, "iva": False, "moneda": "MXN", "grupo": "Publicidad", "label": "Slot 1 · 30 seg/impresión (Comparables)"},
-    "ad_slot1_60s":             {"precio": 38, "precio_con_iva": 38, "iva": False, "moneda": "MXN", "grupo": "Publicidad", "label": "Slot 1 · 60 seg/impresión (Comparables)"},
-    "ad_slot2_15s":             {"precio": 10, "precio_con_iva": 10, "iva": False, "moneda": "MXN", "grupo": "Publicidad", "label": "Slot 2 · 15 seg/impresión (Generación IA)"},
-    "ad_slot2_30s":             {"precio": 18, "precio_con_iva": 18, "iva": False, "moneda": "MXN", "grupo": "Publicidad", "label": "Slot 2 · 30 seg/impresión (Generación IA)"},
-    "ad_slot3_15s":             {"precio": 5,  "precio_con_iva": 5,  "iva": False, "moneda": "MXN", "grupo": "Publicidad", "label": "Slot 3 · 15 seg/impresión (Antes de descarga)"},
-}
-
-@api_router.get("/admin/precios")
-async def admin_precios_get(request: Request):
-    await require_admin(request)
-    doc = await db.config.find_one({"_id": "precios"})
-    if doc:
-        return {k: v for k, v in doc.items() if k != "_id"}
-    return PRECIOS_DEFAULT
-
-@api_router.put("/admin/precios")
-async def admin_precios_put(request: Request):
-    await require_admin(request)
-    body = await request.json()
-    body["updated_at"] = datetime.now(timezone.utc).isoformat()
-    await db.config.replace_one({"_id": "precios"}, {"_id": "precios", **body}, upsert=True)
-    return {"ok": True}
-
-@api_router.get("/precios")
-async def precios_publicos():
-    doc = await db.config.find_one({"_id": "precios"})
-    if doc:
-        return {k: v for k, v in doc.items() if k not in ("_id", "updated_at")}
-    return PRECIOS_DEFAULT
-
-# ============== ADMIN — MANTENIMIENTO ==============
-
-@api_router.get("/admin/mantenimiento")
-async def admin_mant_get(request: Request):
-    await require_admin(request)
-    doc = await db.config.find_one({"_id": "mantenimiento"})
-    if doc:
-        return {k: v for k, v in doc.items() if k != "_id"}
-    return {"activo": False}
-
-@api_router.put("/admin/mantenimiento")
-async def admin_mant_put(request: Request):
-    await require_admin(request)
-    body = await request.json()
-    body["updated_at"] = datetime.now(timezone.utc).isoformat()
-    await db.config.replace_one({"_id": "mantenimiento"}, {"_id": "mantenimiento", **body}, upsert=True)
-    return {"ok": True}
-
-@api_router.get("/mantenimiento")
-async def mantenimiento_publico():
-    doc = await db.config.find_one({"_id": "mantenimiento"})
-    if doc and doc.get("activo"):
-        return {k: v for k, v in doc.items() if k != "_id"}
-    return {"activo": False}
-
-# ============== ADMIN — BLACKLIST ==============
-
-@api_router.get("/admin/blacklist")
-async def admin_blacklist_get(request: Request):
-    await require_admin(request)
-    doc = await db.config.find_one({"_id": "blacklist"})
-    if doc:
-        return {k: v for k, v in doc.items() if k != "_id"}
-    return {"palabras": [], "dominios": []}
-
-@api_router.put("/admin/blacklist")
-async def admin_blacklist_put(request: Request):
-    await require_admin(request)
-    body = await request.json()
-    body["updated_at"] = datetime.now(timezone.utc).isoformat()
-    await db.config.replace_one({"_id": "blacklist"}, {"_id": "blacklist", **body}, upsert=True)
-    return {"ok": True}
-
-# ============== ADMIN — COBERTURA ==============
-
-ZONAS_DEFAULT = [
-    {"municipio": "Guadalajara",    "estado": "Jalisco", "scraper_activo": True,  "valuadores_activos": True,  "ads_disponible": True},
-    {"municipio": "Zapopan",        "estado": "Jalisco", "scraper_activo": True,  "valuadores_activos": True,  "ads_disponible": True},
-    {"municipio": "Tlaquepaque",    "estado": "Jalisco", "scraper_activo": True,  "valuadores_activos": True,  "ads_disponible": True},
-    {"municipio": "Tonalá",         "estado": "Jalisco", "scraper_activo": True,  "valuadores_activos": False, "ads_disponible": False},
-    {"municipio": "Tlajomulco",     "estado": "Jalisco", "scraper_activo": True,  "valuadores_activos": False, "ads_disponible": False},
-    {"municipio": "El Salto",       "estado": "Jalisco", "scraper_activo": False, "valuadores_activos": False, "ads_disponible": False},
-    {"municipio": "Juanacatlán",    "estado": "Jalisco", "scraper_activo": False, "valuadores_activos": False, "ads_disponible": False},
-    {"municipio": "Ixtlahuacán",    "estado": "Jalisco", "scraper_activo": False, "valuadores_activos": False, "ads_disponible": False},
-]
-
-@api_router.get("/admin/zonas-cobertura")
-async def admin_zonas_get(request: Request):
-    await require_admin(request)
-    doc = await db.config.find_one({"_id": "zonas_cobertura"})
-    if doc:
-        return {"zonas": doc.get("zonas", [])}
-    return {"zonas": ZONAS_DEFAULT}
-
-@api_router.put("/admin/zonas-cobertura")
-async def admin_zonas_put(request: Request):
-    await require_admin(request)
-    body = await request.json()
-    await db.config.replace_one(
-        {"_id": "zonas_cobertura"},
-        {"_id": "zonas_cobertura", "zonas": body.get("zonas", []), "updated_at": datetime.now(timezone.utc).isoformat()},
-        upsert=True
-    )
-    return {"ok": True}
-
-# CMS legal -> routers/cms.py (#66.1)
+# Config admin (precios/mantenimiento/blacklist/cobertura) -> routers/admin_config.py (#66.1)
 
 # ============== ADMIN — SCRAPER ==============
 
@@ -3910,6 +3785,7 @@ app.include_router(access_router)
 app.include_router(newsletter_router)
 app.include_router(cms_router)
 app.include_router(feedback_router)
+app.include_router(admin_config_router)
 
 # Serve uploaded files (ads, kyc)
 app.mount("/uploads", StaticFiles(directory=str(UPLOADS_DIR)), name="uploads")
