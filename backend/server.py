@@ -82,10 +82,12 @@ async def global_exception_handler(request: Request, exc: Exception):
     if _is_localhost(origin):
         headers["Access-Control-Allow-Origin"] = origin
         headers["Access-Control-Allow-Credentials"] = "true"
+    # Detalle completo SOLO al log del servidor; al cliente, mensaje genérico
+    # (evita filtrar rutas internas, mensajes de DB, etc.).
     logging.error(f"Unhandled exception on {request.method} {request.url}: {exc}", exc_info=True)
     return JSONResponse(
         status_code=500,
-        content={"detail": f"Error interno: {str(exc)}"},
+        content={"detail": "Error interno del servidor. Intenta de nuevo más tarde."},
         headers=headers,
     )
 
@@ -4395,8 +4397,28 @@ async def _job_scrape_mensual():
 async def health():
     return {"status": "ok"}
 
+async def _ensure_indexes():
+    """Índices para evitar full collection scans en las rutas calientes.
+    create_index es idempotente (no-op si ya existe). No-únicos para no
+    fallar si hubiera datos duplicados preexistentes."""
+    await db.users.create_index("email")
+    await db.users.create_index("user_id")
+    await db.user_sessions.create_index("session_token")
+    await db.user_sessions.create_index("expires_at")
+    await db.valuations.create_index("valuation_id")
+    await db.valuations.create_index("user_id")
+    await db["authorized_access"].create_index("email")
+    await db.admins.create_index("token")
+    await db.admins.create_index("email")
+
+
 @app.on_event("startup")
 async def startup():
+    try:
+        await _ensure_indexes()
+        logging.info("[startup] índices de MongoDB verificados")
+    except Exception as e:
+        logging.error(f"[startup] _ensure_indexes falló (continuando): {e}")
     try:
         await _seed_mercado_accesos()
     except Exception as e:
@@ -4425,10 +4447,13 @@ app.include_router(api_router)
 # Serve uploaded files (ads, kyc)
 app.mount("/uploads", StaticFiles(directory=str(UPLOADS_DIR)), name="uploads")
 
+# CORS restringido: localhost (dev), el alias de producción, los deploys de
+# ESTA cuenta de Vercel (…-pedrucus-projects.vercel.app) y el dominio propio.
+# Antes el regex aceptaba CUALQUIER *.vercel.app con credenciales — demasiado abierto.
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
-    allow_origin_regex=r"^https?://(localhost(:\d+)?|.*\.vercel\.app|propvalu\.mx|.*\.propvalu\.mx)$",
+    allow_origin_regex=r"^https?://(localhost(:\d+)?|frontend-rosy-six-74\.vercel\.app|[a-z0-9-]+-pedrucus-projects\.vercel\.app|([a-z0-9-]+\.)?propvalu\.mx)$",
     allow_methods=["*"],
     allow_headers=["*"],
 )
