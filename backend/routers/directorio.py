@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 from fastapi import APIRouter, Request, HTTPException
 
 from core.db import db
+from core.ratelimit import limiter
 
 router = APIRouter(prefix="/api")
 
@@ -74,15 +75,20 @@ async def directorio_inmobiliarias(
 
 
 @router.post("/directorio/{tipo}/{perfil_id}/resena")
+@limiter.limit("5/minute")
 async def enviar_resena(tipo: str, perfil_id: str, request: Request):
     if tipo not in ("valuadores", "inmobiliarias"):
         raise HTTPException(400, "Tipo debe ser 'valuadores' o 'inmobiliarias'")
     body = await request.json()
-    calificacion = int(body.get("calificacion", 0))
+    try:
+        calificacion = int(body.get("calificacion", 0))
+    except (ValueError, TypeError):
+        raise HTTPException(400, "Calificación inválida")
     if not (1 <= calificacion <= 5):
         raise HTTPException(400, "Calificación debe ser entre 1 y 5")
-    comentario = body.get("comentario", "").strip()
-    nombre_cliente = body.get("nombre_cliente", "Anónimo").strip() or "Anónimo"
+    # Topes de tamaño (S5): endpoint público, evita payloads enormes.
+    comentario = str(body.get("comentario") or "").strip()[:2000]
+    nombre_cliente = (str(body.get("nombre_cliente") or "Anónimo").strip() or "Anónimo")[:100]
     if not comentario:
         raise HTTPException(400, "El comentario no puede estar vacío")
 

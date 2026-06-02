@@ -3,12 +3,15 @@ import uuid
 from datetime import datetime, timezone
 from typing import Dict, Any
 
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, HTTPException
 
 from core.db import db
 from core.auth import require_admin
+from core.ratelimit import limiter
 
 router = APIRouter(prefix="/api")
+
+TIPOS_FEEDBACK = {"general", "queja", "sugerencia", "bug", "reseña", "resena"}
 
 
 @router.get("/admin/feedback")
@@ -33,15 +36,34 @@ async def admin_feedback_update(feedback_id: str, request: Request):
 
 
 @router.post("/feedback")
+@limiter.limit("5/minute")
 async def submit_feedback(request: Request):
     body = await request.json()
+    # Validación de input (S5): topes de tamaño y tipos para endpoint público.
+    tipo = str(body.get("tipo", "general"))[:40]
+    if tipo not in TIPOS_FEEDBACK:
+        tipo = "general"
+    descripcion = str(body.get("descripcion") or "").strip()[:3000]
+    email = str(body.get("email") or "").strip()[:200]
+    valuador_id = body.get("valuador_id")
+    if valuador_id is not None:
+        valuador_id = str(valuador_id)[:64]
+    # Calificación: solo entero 1-5 o None (evita inflar ratings con valores arbitrarios).
+    calificacion = body.get("calificacion")
+    if calificacion is not None:
+        try:
+            calificacion = int(calificacion)
+            if not (1 <= calificacion <= 5):
+                calificacion = None
+        except (ValueError, TypeError):
+            calificacion = None
     doc = {
         "feedback_id": f"PV-FB-{uuid.uuid4().hex[:8].upper()}",
-        "tipo": body.get("tipo", "general"),
-        "descripcion": body.get("descripcion", ""),
-        "email": body.get("email", ""),
-        "valuador_id": body.get("valuador_id"),
-        "calificacion": body.get("calificacion"),
+        "tipo": tipo,
+        "descripcion": descripcion,
+        "email": email,
+        "valuador_id": valuador_id,
+        "calificacion": calificacion,
         "estado": "recibido",
         "created_at": datetime.now(timezone.utc).isoformat(),
     }

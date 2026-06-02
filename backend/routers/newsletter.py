@@ -6,14 +6,16 @@ from fastapi import APIRouter, Request, HTTPException
 
 from core.db import db
 from core.auth import require_admin
+from core.ratelimit import limiter
 
 router = APIRouter(prefix="/api")
 
 
 @router.post("/newsletter/subscribe")
+@limiter.limit("5/minute")
 async def newsletter_subscribe(request: Request):
     body = await request.json()
-    email = (body.get("email") or "").strip().lower()
+    email = (body.get("email") or "").strip().lower()[:200]
     if not email or "@" not in email:
         raise HTTPException(400, "Email inválido")
     existing = await db["newsletter_subscribers"].find_one({"email": email})
@@ -24,8 +26,8 @@ async def newsletter_subscribe(request: Request):
     doc = {
         "subscriber_id": uuid.uuid4().hex,
         "email": email,
-        "nombre": (body.get("nombre") or "").strip() or None,
-        "rol": body.get("rol", "public"),
+        "nombre": ((body.get("nombre") or "").strip()[:120] or None),
+        "rol": str(body.get("rol", "public"))[:40],
         "activo": True,
         "fecha_suscripcion": datetime.now(timezone.utc).isoformat(),
     }
