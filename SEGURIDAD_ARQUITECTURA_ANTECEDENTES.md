@@ -84,8 +84,11 @@ puede quedarse en server.py).
 | S4b | Sin rate limit en avalúo público. | 30/hora por IP en `POST /valuations` y `generate-comparables` (generoso para oficina, frena bots). Probado local y prod (404×30→429). |
 
 ### ⏳ Pendiente — todos los hallazgos de seguridad cerrados
-Quedan solo temas de **infraestructura** (#66.3 jobs externos, #66.4 staging, #66.5 métricas) y la
-**higiene de ramas** #63 (consolidar `feature/search-api` → `master`, 292 commits de divergencia).
+Quedan solo temas de **infraestructura** (#66.3 jobs externos, #66.4 staging, #66.5 métricas).
+Higiene de ramas #63 resuelta 02-Jun: rama **`main`** (con el código actual) creada y puesta como
+**default en GitHub** (master/feature tenían historias disjuntas → no había ff posible; se evitó force-push).
+`master` y `feature/search-api` quedan redundantes en origin (borrado opcional). Si más adelante se
+conecta auto-deploy de Railway, la rama a conectar es **`main`**.
 | S6 | IDOR en otros recursos por ID | ✅ Bajo | **Barrido hecho 02-Jun:** encargos (admin→require_admin, `/mis-encargos` filtra user_id), inmobiliaria/equipo (auth+role realtor+filtra empresa propia), ads (anunciante scopa TODO por `advertiser_id`; admin→require_admin), kyc (ownership por doc_id+user_id). **Sin IDOR.** El único era valuations (cerrado). |
 
 ### #66.x infra pendiente
