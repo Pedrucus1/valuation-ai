@@ -23,18 +23,8 @@ import base64
 import asyncio
 from passlib.context import CryptContext
 
-# Caché en memoria para endpoints de mercado (TTL = 30 min)
-_mercado_cache: Dict[str, Any] = {}
-_CACHE_TTL = 1800
-
-def _cache_get(key: str):
-    entry = _mercado_cache.get(key)
-    if entry and (_time.time() - entry["ts"]) < _CACHE_TTL:
-        return entry["data"]
-    return None
-
-def _cache_set(key: str, data: Any):
-    _mercado_cache[key] = {"data": data, "ts": _time.time()}
+# Caché en memoria para endpoints de mercado (extraído a core/cache.py)
+from core.cache import _cache_get, _cache_set, _mercado_cache, _CACHE_TTL
 
 
 ROOT_DIR = Path(__file__).parent
