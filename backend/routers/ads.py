@@ -9,6 +9,7 @@ from fastapi import APIRouter, Request, HTTPException, UploadFile, File, Form
 
 from core.db import db
 from core.auth import require_admin, require_auth, pwd_context
+from core.ratelimit import limiter
 from core.config import ADS_DIR
 from core.pricing import PRECIOS_DEFAULT
 
@@ -125,6 +126,7 @@ async def require_advertiser(request: Request):
     return advertiser
 
 @router.post("/advertisers/register")
+@limiter.limit("10/minute")
 async def advertiser_register(request: Request):
     try:
         body = await request.json()
@@ -161,6 +163,7 @@ async def advertiser_register(request: Request):
         raise HTTPException(status_code=500, detail=f"Error al crear cuenta: {str(e)}")
 
 @router.post("/advertisers/login")
+@limiter.limit("10/minute")
 async def advertiser_login(request: Request):
     body = await request.json()
     email = body.get("email", "").lower().strip()

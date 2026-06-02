@@ -7,6 +7,7 @@ from fastapi import APIRouter, Request, Response, HTTPException
 
 from core.db import db
 from core.auth import get_current_user, require_auth, pwd_context
+from core.ratelimit import limiter
 from models import RegisterRequest, LoginRequest
 
 router = APIRouter(prefix="/api")
@@ -236,7 +237,8 @@ async def update_plan(request: Request):
     return {"plan": plan, "credits": credits}
 
 @router.post("/auth/register")
-async def register_email(data: RegisterRequest, response: Response):
+@limiter.limit("10/minute")
+async def register_email(request: Request, data: RegisterRequest, response: Response):
     existing = await db.users.find_one({"email": data.email})
     if existing:
         raise HTTPException(status_code=400, detail="El correo ya está registrado")
@@ -320,7 +322,8 @@ async def register_email(data: RegisterRequest, response: Response):
     return user_out
 
 @router.post("/auth/login")
-async def login_email(data: LoginRequest, response: Response):
+@limiter.limit("10/minute")
+async def login_email(request: Request, data: LoginRequest, response: Response):
     user_doc = await db.users.find_one({"email": data.email}, {"_id": 0})
     if not user_doc:
         raise HTTPException(status_code=401, detail="Correo o contraseña incorrectos")

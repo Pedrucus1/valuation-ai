@@ -69,6 +69,13 @@ if _sentry_dsn:
 # Create the main app
 app = FastAPI(title="PropValu Mexico API")
 
+# Rate limiting (S4): limiter compartido + handler de 429.
+from slowapi import _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
+from core.ratelimit import limiter
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
 import re as _re
 import calendar
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
@@ -1442,7 +1449,8 @@ def _matches_admin_secret(password: str) -> bool:
 
 
 @api_router.post("/admin/auth/login")
-async def admin_login(data: AdminLoginRequest):
+@limiter.limit("10/minute")
+async def admin_login(request: Request, data: AdminLoginRequest):
     admin = await db.admins.find_one({"email": data.email}, {"_id": 0})
     if not admin:
         # Bootstrap del superadmin desde env (solo si aún no existe). Se guarda YA
