@@ -30,6 +30,25 @@ El flywheel ahora rinde: los comps web `verificado` (de `comps_acumulados.json`)
 
 ---
 
+## ❌ #103 LIMPIAR BUCKET COLONIA VACÍA — PROBADO Y REVERTIDO (02-Jun-2026)
+
+Hipótesis: los listings sin colonia (`dc=""`) contaminan el ancla de banda de precio
+(`enColoniaTodos`/`enNSEBrutos`, motor_remi_api.js ~líneas 680/684) porque `colNorm.includes("")`
+y `s.includes("")` son SIEMPRE true → todo listing sin colonia entra al ancla de zona.
+Fix probado: agregar guard `if (!dc || dc.length < 5/4) return false` (igual que la *selección* línea 716/727).
+
+**RESULTADO: REGRESIÓN, revertido.** Baseline n=200 (155 OPIs): **71.6/83.9/92.9, err 8.6%, 11 fuera**.
+Con el guard: **69.7/81.3/91.0, err 9.2%, 14 fuera** (−1.9/−2.6/−1.9pp, +3 violadores).
+Empeoraron OPI-26-1-19 (−36→−49%), OPI-25-9-02 (−52→−59%) + nuevos (25-2-05, 25-7-05, 26-4-02).
+
+**Lección:** los listings sin colonia, aunque "impuros", aportan un ancla de zona ÚTIL (señal de
+nivel municipal/zona que estabiliza la banda donde la colonia exacta es delgada). Quitarlos del ancla
+quita señal buena. **NO reintentar.** El backup limpio quedó en `_backups/motor_remi_api.backup.2026-06-02-160822.js`.
+Reconfirma el patrón del doc (igual que "blend por dispersión"): los parches de selección/limpieza
+tienden a ser neutrales-o-peores; la mejora real viene de DATOS, no de parches.
+
+---
+
 ## ⚙️ #90/#91 EDAD RELATIVA A LA ZONA — MAQUINARIA LISTA, BLOQUEADA POR DATOS (01-Jun-2026, tarde)
 
 Se construyó el pipeline de edad relativa (opción 2 del 26-May) y se probó NEUTRAL/seguro:
