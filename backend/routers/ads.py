@@ -98,6 +98,14 @@ async def admin_anuncio_rechazar(ad_id: str, request: Request):
 
 # ============== ANUNCIANTES — AUTH, CAMPAÑAS, CREATIVIDADES ==============
 
+# Vigencia del token de anunciante (S3). Token sin expiry (legacy) → re-login.
+ADVERTISER_TOKEN_TTL_DAYS = 30
+
+
+def _advertiser_token_expiry() -> str:
+    return (datetime.now(timezone.utc) + timedelta(days=ADVERTISER_TOKEN_TTL_DAYS)).isoformat()
+
+
 async def require_advertiser(request: Request):
     token = request.headers.get("X-Advertiser-Token", "")
     if not token:
@@ -105,6 +113,15 @@ async def require_advertiser(request: Request):
     advertiser = await db.advertisers.find_one({"session_token": token, "activo": True}, {"_id": 0})
     if not advertiser:
         raise HTTPException(status_code=401, detail="Sesión inválida o expirada")
+    exp = advertiser.get("session_expires_at")
+    if not exp:
+        raise HTTPException(status_code=401, detail="Sesión expirada, vuelve a iniciar sesión")
+    if isinstance(exp, str):
+        exp = datetime.fromisoformat(exp)
+    if exp.tzinfo is None:
+        exp = exp.replace(tzinfo=timezone.utc)
+    if exp < datetime.now(timezone.utc):
+        raise HTTPException(status_code=401, detail="Sesión expirada, vuelve a iniciar sesión")
     return advertiser
 
 @router.post("/advertisers/register")
@@ -129,6 +146,7 @@ async def advertiser_register(request: Request):
             "uso_cfdi": body.get("uso_cfdi", ""),
             "password_hash": pwd_context.hash(body.get("password", "")),
             "session_token": token,
+            "session_expires_at": _advertiser_token_expiry(),
             "activo": True,
             "created_at": datetime.now(timezone.utc).isoformat(),
         }
@@ -150,7 +168,10 @@ async def advertiser_login(request: Request):
     if not advertiser or not pwd_context.verify(body.get("password", ""), advertiser.get("password_hash", "")):
         raise HTTPException(status_code=401, detail="Correo o contraseña incorrectos")
     token = uuid.uuid4().hex
-    await db.advertisers.update_one({"email": email}, {"$set": {"session_token": token}})
+    await db.advertisers.update_one(
+        {"email": email},
+        {"$set": {"session_token": token, "session_expires_at": _advertiser_token_expiry()}},
+    )
     return {"ok": True, "session_token": token, "company_name": advertiser["company_name"],
             "contact_name": advertiser["contact_name"], "email": advertiser["email"],
             "rfc": advertiser["rfc"], "giro": advertiser["giro"]}
