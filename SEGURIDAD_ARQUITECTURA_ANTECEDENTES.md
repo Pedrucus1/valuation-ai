@@ -58,15 +58,21 @@ puede quedarse en server.py).
 
 → **Ambos compilan (py_compile OK). Pendiente: smoke test + commit.**
 
+### ✅ Resuelto 02-Jun (commit 21bca3e) — endurecimiento auth
+| # | Tema | Fix verificado |
+|---|---|---|
+| S1 | Admin sin hash autenticaba por `ADMIN_SECRET` compartido para siempre. | Superadmin sembrado se guarda con bcrypt; admin legacy migra perezosamente (1 vez con ADMIN_SECRET) y queda hasheado. Fin del secreto compartido permanente. |
+| S2 | `ADMIN_SECRET` comparado con `==`. | `hmac.compare_digest` (`_matches_admin_secret`). |
+| S3 | Tokens admin/anunciante no expiraban. | `token_expires_at` (admin, TTL 7d) + `session_expires_at` (anunciante, TTL 30d). `require_admin`/`require_advertiser` rechazan vencidos/sin-expiry con 401. **Probado:** token expirado→401, restaurado→200. |
+
+> Nota de despliegue: al subir esto, las sesiones admin/anunciante activas pedirán re-login una vez (tokens viejos sin expiry se tratan como vencidos). Esperado.
+
 ### ⏳ Pendiente de revisar/arreglar
 | # | Tema | Riesgo | Nota |
 |---|---|---|---|
-| S1 | Admin sin `hashed_password` cae a comparar contra `ADMIN_SECRET` compartido (server.py:1462). El superadmin sembrado nunca recibe hash → autentica por ADMIN_SECRET para siempre. | Medio | Migrar admins a hash bcrypt obligatorio; quitar fallback. |
-| S2 | `ADMIN_SECRET` se compara con `==` (no `hmac.compare_digest`). | Bajo | Timing attack teórico. |
-| S3 | Tokens de admin NO expiran (`require_admin` solo checa `activo`). Rotan en cada login pero un token robado vive indefinido. | Medio | Agregar `expires_at` a admins como en user_sessions. |
 | S4 | Rate limiting ausente en login / endpoints públicos (fuerza bruta admin/login, abuso de avalúo público). | Medio | slowapi o límite por IP. |
 | S5 | Validación de inputs: revisar endpoints que hacen `request.json()` directo sin modelo Pydantic. | Bajo-Medio | Inventariar. |
-| S6 | IDOR en OTROS recursos por ID (encargos, ads, kyc docs admin, inmobiliaria/equipo) — confirmar que todos validan ownership/rol. | Medio | Barrido pendiente. |
+| S6 | IDOR en otros recursos por ID | ✅ Bajo | **Barrido hecho 02-Jun:** encargos (admin→require_admin, `/mis-encargos` filtra user_id), inmobiliaria/equipo (auth+role realtor+filtra empresa propia), ads (anunciante scopa TODO por `advertiser_id`; admin→require_admin), kyc (ownership por doc_id+user_id). **Sin IDOR.** El único era valuations (cerrado). |
 
 ### #66.x infra pendiente
 - **66.3** Separar jobs pesados del proceso web (APScheduler dentro del backend lanza subprocesos de scraper; carpeta inexistente en Railway → falla). Mover a worker/cron externo.
@@ -93,4 +99,8 @@ Get-Process python* -ErrorAction SilentlyContinue | ForEach-Object { taskkill /F
 
 - **02-Jun-2026** — Creado este doc. Verificado estado real vs BACKLOG (que estaba desactualizado:
   #66.2 y #66.6 ya hechos en commit c9bdaf4). Recuperadas 2 correcciones de seguridad sin commitear
-  (IDOR avalúos + escalada upgrade-role). Catalogados S1–S6 pendientes.
+  (IDOR avalúos + escalada upgrade-role, commit 4e15e10). Catalogados S1–S6.
+- **02-Jun-2026 (cont.)** — Barrido IDOR S6 completo (sin más casos). Endurecida auth admin/anunciante
+  S1+S2+S3 (commit 21bca3e): hash bcrypt obligatorio + migración perezosa, timing-safe, expiry de
+  tokens. Probado end-to-end contra backend local (6/6 casos). **Quedan S4 (rate limiting) y S5
+  (validación de inputs).**
