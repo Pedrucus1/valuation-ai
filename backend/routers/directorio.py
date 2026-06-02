@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 from fastapi import APIRouter, Request, HTTPException
 
 from core.db import db
+from core.auth import require_auth
 from core.ratelimit import limiter
 
 router = APIRouter(prefix="/api")
@@ -117,15 +118,11 @@ async def obtener_resenas(tipo: str, perfil_id: str):
 @router.post("/directorio/{tipo}/{perfil_id}/resenas/{resena_id}/respuesta")
 async def responder_resena(tipo: str, perfil_id: str, resena_id: str, request: Request):
     """La empresa dueña del perfil responde a una reseña."""
-    token = request.cookies.get("session_token")
-    if not token:
-        raise HTTPException(401, "No autenticado")
-    user = await db.users.find_one({"session_token": token})
-    if not user:
-        raise HTTPException(401, "Sesión inválida")
-    # Verificar que el usuario autenticado ES el dueño del perfil
-    uid = user.get("id") or user.get("email", "")
-    if uid != perfil_id:
+    # S7: usar el patrón estándar de sesión (user_sessions + expiry) vía require_auth,
+    # en vez del lookup legacy por session_token en la colección users.
+    user = await require_auth(request)
+    # El perfil_id en el directorio se basa en el email del usuario (ver listados arriba).
+    if user.email != perfil_id:
         raise HTTPException(403, "Solo puedes responder reseñas de tu propio perfil")
 
     body = await request.json()

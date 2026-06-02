@@ -149,7 +149,8 @@ from routers.mercado_accesos import router as mercado_accesos_router, _seed_merc
 # ============== VALUATION ENDPOINTS ==============
 
 @api_router.post("/valuations", response_model=dict)
-async def create_valuation(property_input: PropertyInput, request: Request):
+@limiter.limit("30/hour")
+async def create_valuation(request: Request, property_input: PropertyInput):
     user = await get_current_user(request)
     
     mode = "public"
@@ -305,6 +306,7 @@ async def update_location(valuation_id: str, request: Request):
     return {"message": "Ubicación actualizada"}
 
 @api_router.post("/valuations/{valuation_id}/generate-comparables")
+@limiter.limit("30/hour")
 async def generate_comparables(valuation_id: str, request: Request, append: bool = False):
     """
     Generate comparables using AI search (OpenAI + Gemini) as primary method.
