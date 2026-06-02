@@ -132,6 +132,8 @@ from routers.kyc import router as kyc_router
 from routers.admin_scraper import router as admin_scraper_router
 from routers.mercado import router as mercado_router
 from routers.ads import router as ads_router
+from routers.encargos import router as encargos_router
+from routers.inmobiliaria import router as inmobiliaria_router
 
 # Auth y sesión -> routers/auth.py (#66.1)
 
@@ -1441,78 +1443,7 @@ async def admin_me(request: Request):
 
 # Anuncios / anunciantes / ads -> routers/ads.py (#66.1)
 
-@api_router.get("/inmobiliaria/equipo")
-async def get_equipo_inmobiliaria(request: Request):
-    """Asesores vinculados al titular autenticado por empresa_afiliada o company_name."""
-    user = await require_auth(request)
-    if user.role != "realtor":
-        raise HTTPException(403, "Solo para inmobiliarias")
-
-    company = user.company_name or user.name or ""
-    if not company:
-        return []
-
-    # Buscar asesores que pusieron esta empresa en empresa_afiliada
-    asesores = await db.users.find(
-        {"role": "realtor", "inmobiliaria_tipo": "asesor", "empresa_afiliada": company},
-        {"_id": 0, "hashed_password": 0, "session_token": 0}
-    ).to_list(100)
-
-    resultado = []
-    for a in asesores:
-        uid = a.get("user_id") or a.get("email", "")
-        total_val = await db.valuations.count_documents({"user_id": uid})
-        mes_actual = datetime.now(timezone.utc).strftime("%Y-%m")
-        val_mes = await db.valuations.count_documents({
-            "user_id": uid,
-            "created_at": {"$regex": f"^{mes_actual}"}
-        })
-        resultado.append({
-            "user_id": uid,
-            "nombre": a.get("name", ""),
-            "email": a.get("email", ""),
-            "phone": a.get("phone", ""),
-            "kyc_status": a.get("kyc_status", "pending"),
-            "plan": a.get("plan"),
-            "valuaciones_total": total_val,
-            "valuaciones_mes": val_mes,
-            "activo": a.get("kyc_status") in ("approved", "under_review"),
-        })
-
-    return resultado
-
-
-# ─── Mercado: accesos por plan ───────────────────────────────────────────────
-
-PLANES_DEFAULT = [
-    {"plan_id": "valuador_independiente", "label": "Valuador Independiente", "activo": False},
-    {"plan_id": "valuador_despacho",      "label": "Valuador Despacho",      "activo": False},
-    {"plan_id": "valuador_pro",           "label": "Valuador Pro",           "activo": True},
-    {"plan_id": "valuador_corporativo",   "label": "Valuador Corporativo",   "activo": True},
-    {"plan_id": "inmobiliaria_lite5",     "label": "Inmobiliaria Lite 5",    "activo": False},
-    {"plan_id": "inmobiliaria_lite10",    "label": "Inmobiliaria Lite 10",   "activo": False},
-    {"plan_id": "inmobiliaria_pro20",     "label": "Inmobiliaria Pro 20",    "activo": False},
-    {"plan_id": "inmobiliaria_premier",   "label": "Inmobiliaria Premier",   "activo": True},
-]
-
-async def _seed_mercado_accesos():
-    col = db["mercado_accesos"]
-    for p in PLANES_DEFAULT:
-        existing = await col.find_one({"plan_id": p["plan_id"]})
-        if not existing:
-            await col.insert_one({**p, "fecha_inicio": None, "fecha_fin": None, "nota": ""})
-
-def _plan_tiene_acceso_hoy(doc: dict) -> bool:
-    if not doc.get("activo"):
-        return False
-    hoy = datetime.now(timezone.utc).date()
-    fi = doc.get("fecha_inicio")
-    ff = doc.get("fecha_fin")
-    if fi and hoy < datetime.fromisoformat(fi).date():
-        return False
-    if ff and hoy > datetime.fromisoformat(ff).date():
-        return False
-    return True
+# Inmobiliaria equipo -> routers/inmobiliaria.py (#66.1)
 
 @api_router.get("/mercado/acceso")
 async def mercado_acceso(plan_id: str = ""):
@@ -1721,81 +1652,7 @@ async def admin_sync_sheets(request: Request):
     return {"ok": True, **summary}
 
 
-# ─── Encargos / Payouts ──────────────────────────────────────────────────────
-
-@api_router.post("/admin/encargos")
-async def admin_crear_encargo(request: Request):
-    await require_admin(request)
-    body = await request.json()
-    valuador_id = body.get("valuador_id")
-    descripcion = (body.get("descripcion") or "").strip()
-    precio_total = float(body.get("precio_total", 0))
-    if not valuador_id or not descripcion or precio_total <= 0:
-        raise HTTPException(400, "valuador_id, descripcion y precio_total son requeridos")
-    doc = {
-        "encargo_id": f"enc_{uuid.uuid4().hex[:12]}",
-        "valuador_id": valuador_id,
-        "descripcion": descripcion,
-        "precio_total": precio_total,
-        "comision_valuador": round(precio_total * 0.80, 2),
-        "comision_propvalu": round(precio_total * 0.20, 2),
-        "estado": "completado",
-        "fecha_completado": datetime.now(timezone.utc).isoformat(),
-        "pago_realizado": False,
-        "fecha_pago": None,
-        "notas_admin": (body.get("notas_admin") or "").strip() or None,
-    }
-    await db["encargos"].insert_one(doc)
-    doc.pop("_id", None)
-    return {"ok": True, "encargo": doc}
-
-
-@api_router.get("/admin/encargos")
-async def admin_listar_encargos(request: Request, skip: int = 0, limit: int = 50, valuador_id: str = "", pagado: str = ""):
-    await require_admin(request)
-    query = {}
-    if valuador_id:
-        query["valuador_id"] = valuador_id
-    if pagado == "true":
-        query["pago_realizado"] = True
-    elif pagado == "false":
-        query["pago_realizado"] = False
-    total = await db["encargos"].count_documents(query)
-    items = await db["encargos"].find(query, {"_id": 0}).sort("fecha_completado", -1).skip(skip).limit(limit).to_list(limit)
-    # Enriquecer con nombre del valuador
-    for enc in items:
-        u = await db.users.find_one({"user_id": enc["valuador_id"]}, {"name": 1, "email": 1, "_id": 0})
-        enc["valuador_nombre"] = u.get("name") if u else enc["valuador_id"]
-    pendiente_total = await db["encargos"].aggregate([
-        {"$match": {"pago_realizado": False}},
-        {"$group": {"_id": None, "total": {"$sum": "$comision_valuador"}}}
-    ]).to_list(1)
-    return {"total": total, "pendiente": pendiente_total[0]["total"] if pendiente_total else 0, "items": items}
-
-
-@api_router.put("/admin/encargos/{encargo_id}/pagar")
-async def admin_pagar_encargo(encargo_id: str, request: Request):
-    await require_admin(request)
-    enc = await db["encargos"].find_one({"encargo_id": encargo_id})
-    if not enc:
-        raise HTTPException(404, "Encargo no encontrado")
-    await db["encargos"].update_one(
-        {"encargo_id": encargo_id},
-        {"$set": {"pago_realizado": True, "fecha_pago": datetime.now(timezone.utc).isoformat()}}
-    )
-    return {"ok": True}
-
-
-@api_router.get("/encargos/mis-encargos")
-async def mis_encargos(request: Request):
-    user = await require_auth(request)
-    items = await db["encargos"].find({"valuador_id": user.user_id}, {"_id": 0}).sort("fecha_completado", -1).to_list(200)
-    return {"items": items}
-
-
-# Newsletter -> routers/newsletter.py (#66.1)
-
-# Accesos autorizados -> routers/access.py (#66.1)
+# Encargos / Payouts -> routers/encargos.py (#66.1)
 
 async def _job_sync_sheets():
     """Job diario: sync Google Sheets → mercado_props."""
@@ -1907,6 +1764,8 @@ app.include_router(kyc_router)
 app.include_router(admin_scraper_router)
 app.include_router(mercado_router)
 app.include_router(ads_router)
+app.include_router(encargos_router)
+app.include_router(inmobiliaria_router)
 
 # Serve uploaded files (ads, kyc)
 app.mount("/uploads", StaticFiles(directory=str(UPLOADS_DIR)), name="uploads")
