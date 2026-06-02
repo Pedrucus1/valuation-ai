@@ -134,6 +134,7 @@ from routers.mercado import router as mercado_router
 from routers.ads import router as ads_router
 from routers.encargos import router as encargos_router
 from routers.inmobiliaria import router as inmobiliaria_router
+from routers.mercado_accesos import router as mercado_accesos_router, _seed_mercado_accesos
 
 # Auth y sesión -> routers/auth.py (#66.1)
 
@@ -1445,43 +1446,7 @@ async def admin_me(request: Request):
 
 # Inmobiliaria equipo -> routers/inmobiliaria.py (#66.1)
 
-@api_router.get("/mercado/acceso")
-async def mercado_acceso(plan_id: str = ""):
-    if not plan_id:
-        return {"acceso": False}
-    doc = await db["mercado_accesos"].find_one({"plan_id": plan_id})
-    if not doc:
-        return {"acceso": False}
-    acceso = _plan_tiene_acceso_hoy(doc)
-    promo = acceso and doc.get("fecha_fin") is not None
-    return {
-        "acceso": acceso,
-        "promo": promo,
-        "fecha_fin": doc.get("fecha_fin"),
-        "nota": doc.get("nota", ""),
-    }
-
-@api_router.get("/admin/mercado/accesos")
-async def admin_mercado_accesos_get(request: Request):
-    await require_admin(request)
-    docs = await db["mercado_accesos"].find({}, {"_id": 0}).to_list(20)
-    hoy = datetime.now(timezone.utc).date().isoformat()
-    for d in docs:
-        d["acceso_hoy"] = _plan_tiene_acceso_hoy(d)
-    return {"accesos": docs, "hoy": hoy}
-
-@api_router.put("/admin/mercado/accesos/{plan_id}")
-async def admin_mercado_accesos_put(plan_id: str, request: Request):
-    await require_admin(request)
-    body = await request.json()
-    update = {}
-    for k in ("activo", "fecha_inicio", "fecha_fin", "nota"):
-        if k in body:
-            update[k] = body[k] if body[k] != "" else None
-    if not update:
-        raise HTTPException(status_code=400, detail="Sin campos para actualizar")
-    await db["mercado_accesos"].update_one({"plan_id": plan_id}, {"$set": update}, upsert=True)
-    return {"ok": True}
+# Mercado accesos -> routers/mercado_accesos.py (#66.1)
 
 # ─── Mercado: snapshots mensuales ────────────────────────────────────────────
 
@@ -1766,6 +1731,7 @@ app.include_router(mercado_router)
 app.include_router(ads_router)
 app.include_router(encargos_router)
 app.include_router(inmobiliaria_router)
+app.include_router(mercado_accesos_router)
 
 # Serve uploaded files (ads, kyc)
 app.mount("/uploads", StaticFiles(directory=str(UPLOADS_DIR)), name="uploads")
