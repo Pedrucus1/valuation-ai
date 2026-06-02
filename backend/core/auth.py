@@ -51,3 +51,14 @@ async def require_auth(request: Request) -> User:
     if not user:
         raise HTTPException(status_code=401, detail="No autenticado")
     return user
+
+
+async def require_admin(request: Request):
+    """Valida el token de admin (sesión rotatoria en la colección admins)."""
+    token = request.headers.get("X-Admin-Token", "")
+    if not token:
+        raise HTTPException(status_code=401, detail="Token de administrador requerido")
+    admin = await db.admins.find_one({"token": token, "activo": True}, {"_id": 0})
+    if not admin:
+        raise HTTPException(status_code=401, detail="Token inválido o expirado")
+    return admin

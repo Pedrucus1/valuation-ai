@@ -125,7 +125,7 @@ from models import (
 
 # ============== AUTH HELPERS (extraídos a core/auth.py) ==============
 
-from core.auth import get_current_user, require_auth
+from core.auth import get_current_user, require_auth, require_admin
 
 # ============== AUTH ENDPOINTS ==============
 
@@ -1721,15 +1721,6 @@ ADS_DIR.mkdir(parents=True, exist_ok=True)
 class AdminLoginRequest(BaseModel):
     email: str
     password: str
-
-async def require_admin(request: Request):
-    token = request.headers.get("X-Admin-Token", "")
-    if not token:
-        raise HTTPException(status_code=401, detail="Token de administrador requerido")
-    admin = await db.admins.find_one({"token": token, "activo": True}, {"_id": 0})
-    if not admin:
-        raise HTTPException(status_code=401, detail="Token inválido o expirado")
-    return admin
 
 @api_router.post("/admin/auth/login")
 async def admin_login(data: AdminLoginRequest):
