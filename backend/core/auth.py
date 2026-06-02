@@ -3,9 +3,12 @@ from datetime import datetime, timezone
 from typing import Optional
 
 from fastapi import Request, HTTPException
+from passlib.context import CryptContext
 
 from core.db import db
 from models import User
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 async def get_current_user(request: Request) -> Optional[User]:
