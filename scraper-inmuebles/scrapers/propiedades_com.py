@@ -277,13 +277,18 @@ class PropiedadesComScraper(BaseScraper):
                 encoding="utf-8",
                 timeout=60,
             )
+            # El HTML se escribe (sync) ANTES del exit de Node. Un assertion de libuv al salir
+            # (returncode != 0) NO invalida el archivo → leerlo primero y validar por tamaño.
+            try:
+                with open(tmp, "r", encoding="utf-8") as f:
+                    html = f.read()
+            except OSError:
+                html = ""
+            if len(html) >= 5000:
+                return html
             if result.returncode != 0:
                 raise ErrorScraping(f"plain_fetch error: {result.stderr.strip()[:200]}")
-            with open(tmp, "r", encoding="utf-8") as f:
-                html = f.read()
-            if len(html) < 5000:
-                raise ErrorScraping(f"plain_fetch respuesta muy corta ({len(html)} bytes): {url}")
-            return html
+            raise ErrorScraping(f"plain_fetch respuesta muy corta ({len(html)} bytes): {url}")
         except subprocess.TimeoutExpired:
             raise ErrorScraping(f"plain_fetch timeout para {url}")
         finally:
