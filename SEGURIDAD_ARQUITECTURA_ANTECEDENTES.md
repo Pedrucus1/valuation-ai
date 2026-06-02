@@ -118,3 +118,10 @@ Get-Process python* -ErrorAction SilentlyContinue | ForEach-Object { taskkill /F
 - **02-Jun-2026 (cont.)** — S5 (commit b13acb1): validación + topes + rate limit 5/min en endpoints
   públicos de escritura (feedback, reseñas, newsletter). Detectado S7 (auth legacy en responder_resena).
   **Auditoría de seguridad #64 sustancialmente completa.** Quedan menores: S7, S4b, #66.3/66.4/66.5 (infra).
+- **02-Jun-2026 — DESPLEGADO A PRODUCCIÓN.** Push de los 37 commits a `origin/feature/search-api` +
+  `railway up` (build f783c269) en proyecto `propvalu-backend`
+  (https://propvalu-backend-production.up.railway.app). Baseline pre-deploy confirmó IDOR vivo
+  (200 sin auth); post-deploy smoke test 5/5: health 200, IDOR 403, anónimo 200, inexistente 404,
+  rate limit 10×401→429. slowapi instaló OK en el build. **Los fixes de seguridad ya están en prod.**
+  Nota: Railway NO auto-desplegó al pushear (deploy fue manual vía `railway up`); revisar si conviene
+  conectar GitHub auto-deploy a esta rama.
