@@ -67,11 +67,21 @@ puede quedarse en server.py).
 
 > Nota de despliegue: al subir esto, las sesiones admin/anunciante activas pedirán re-login una vez (tokens viejos sin expiry se tratan como vencidos). Esperado.
 
+### ✅ Resuelto 02-Jun (commit 70653dc) — rate limiting
+| # | Tema | Fix verificado |
+|---|---|---|
+| S4 | Sin rate limiting → fuerza bruta en login. | slowapi (`core/ratelimit.py`), key por X-Forwarded-For con fallback. **10/min por IP** en `/admin/auth/login`, `/auth/login`, `/auth/register`, `/advertisers/login`, `/advertisers/register`. Handler 429 en la app. **Probado:** 10×401 → 429; logins válidos intactos. `slowapi` en requirements.txt. |
+
+### ✅ Resuelto 02-Jun (commit b13acb1) — validación inputs públicos
+| # | Tema | Fix verificado |
+|---|---|---|
+| S5 | Endpoints públicos de escritura con `request.json()` sin validación/topes (review-bombing, payloads enormes, ratings inflados). | `/feedback`, `/directorio/.../resena`, `/newsletter/subscribe`: allowlist de tipo, topes de longitud, calificación int 1-5, rate limit 5/min. **Probado:** calif=99→400, gigante truncado, 429 tras 5/min. Los 33 `request.json()` restantes están en endpoints admin (require_admin → input confiable, riesgo bajo). |
+
 ### ⏳ Pendiente de revisar/arreglar
 | # | Tema | Riesgo | Nota |
 |---|---|---|---|
-| S4 | Rate limiting ausente en login / endpoints públicos (fuerza bruta admin/login, abuso de avalúo público). | Medio | slowapi o límite por IP. |
-| S5 | Validación de inputs: revisar endpoints que hacen `request.json()` directo sin modelo Pydantic. | Bajo-Medio | Inventariar. |
+| S7 | `directorio.py responder_resena` autentica con `db.users.find_one({"session_token": token})` (campo en colección `users`) en vez del patrón estándar `user_sessions`+expiry de `get_current_user`. Probable bug legacy: si users no tiene `session_token`, siempre 401 (falla cerrado). | Bajo | Unificar a `require_auth`. |
+| S4b | Rate limit en avalúo público (anti-abuso de generación) — límite por IP sin bloquear clientes reales (NAT). | Bajo | Diferido. |
 | S6 | IDOR en otros recursos por ID | ✅ Bajo | **Barrido hecho 02-Jun:** encargos (admin→require_admin, `/mis-encargos` filtra user_id), inmobiliaria/equipo (auth+role realtor+filtra empresa propia), ads (anunciante scopa TODO por `advertiser_id`; admin→require_admin), kyc (ownership por doc_id+user_id). **Sin IDOR.** El único era valuations (cerrado). |
 
 ### #66.x infra pendiente
@@ -102,5 +112,9 @@ Get-Process python* -ErrorAction SilentlyContinue | ForEach-Object { taskkill /F
   (IDOR avalúos + escalada upgrade-role, commit 4e15e10). Catalogados S1–S6.
 - **02-Jun-2026 (cont.)** — Barrido IDOR S6 completo (sin más casos). Endurecida auth admin/anunciante
   S1+S2+S3 (commit 21bca3e): hash bcrypt obligatorio + migración perezosa, timing-safe, expiry de
-  tokens. Probado end-to-end contra backend local (6/6 casos). **Quedan S4 (rate limiting) y S5
-  (validación de inputs).**
+  tokens. Probado end-to-end contra backend local (6/6 casos).
+- **02-Jun-2026 (cont.)** — Rate limiting S4 (commit 70653dc): slowapi 10/min por IP en login/registro
+  (admin, usuario, anunciante). Probado 10×401→429.
+- **02-Jun-2026 (cont.)** — S5 (commit b13acb1): validación + topes + rate limit 5/min en endpoints
+  públicos de escritura (feedback, reseñas, newsletter). Detectado S7 (auth legacy en responder_resena).
+  **Auditoría de seguridad #64 sustancialmente completa.** Quedan menores: S7, S4b, #66.3/66.4/66.5 (infra).
