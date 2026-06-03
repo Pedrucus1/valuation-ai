@@ -110,6 +110,14 @@ código (la maquinaria está lista y es segura). Enricher de INMUEBLES24 detenid
 **Para desbloquear:** necesitamos una fuente de año (ej. parsear de `descripcion` con IA donde aparezca,
 o un portal que lo publique). Hasta entonces, dejar la maquinaria como está (neutral).
 
+### ✅ DESBLOQUEO EN CURSO (03-Jun-2026) — fuente de año construida
+La premisa "los portales casi nunca publican el año" era **falsa por bug del extractor**, no por los datos:
+- **enricher.py arreglado** para sacar año de los 6 portales: PROPIEDADES_COM (`amenities.age`+'Nuevo'), CYT (`features.age>0`), INMUEBLES24/VIVANUNCIOS (JSON Navent `CFT5` `"antigüedad"`+'A estrenar'), PINCALI (regex "Año de construcción"), MITULA (parcial). Verificado uno por uno (la sesión anterior solo probó INMUEBLES24 con el extractor roto → falso negativo).
+- **enricher modo `--mongo`** escribe DIRECTO a `mercado_props.anio_construccion` (canónico sin ñ). `anio_construccion`: 58 → ~1000 y subiendo (6 enrichers en paralelo).
+- **Cuello de botella encontrado y resuelto:** propiedades.com (la fuente de edad más grande) scrapeaba **sin colonia** (369/369 aged docs con colonia vacía) → su año era inútil para `edadMedianaZona`. Ahora el extractor saca `property.colony`+`property.city`; el enricher re-selecciona docs con colonia vacía para backfillear.
+- **Estado cobertura (03-Jun):** ~33 colonias con ≥3 listings con año (creciendo conforme corren los enrichers + backfill de colonia). Aún delgado → activar HOY sería neutral. NO forzar.
+- **Pendiente para activar (cuando haya cobertura):** (1) puente Mongo→`cache_consolidado.json` para la edad (el caché se construye de Sheets vía `actualizar_cache_consolidado.js`, pero Sheets está en pausa y la edad vive en Mongo → falta builder/inyección desde Mongo); (2) `build_cache_index.js` recalcula `edadMedianaZona`; (3) `validador_masivo` baseline vs después; (4) guardar resultado aquí. La maquinaria #90 (zona) y #91 (comp-a-comp, `an` en comps scored) ya está codificada — NO requiere reescribir `remiSobreComps`, solo datos en el caché.
+
 ---
 
 ## 🔑 PALANCA REAL PARA LOS ESTRUCTURALES (01-Jun-2026)
