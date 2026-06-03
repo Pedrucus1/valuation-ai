@@ -106,11 +106,16 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
                 prop = data.get("props", {}).get("pageProps", {}).get("property", {})
                 features = prop.get("features", {})
 
+                # CYT: age es ANTIGÜEDAD en años. age=0 NO es "nuevo" sino el default
+                # "sin dato" → producía año=2026 falso. Solo aceptar edad > 0.
                 age = features.get("age")
-                if age is not None and age != "" and int(age) >= 0:
+                try:
+                    age_n = int(float(age)) if age not in (None, "") else 0
+                except (ValueError, TypeError):
+                    age_n = 0
+                if age_n > 0:
                     from datetime import date
-                    ano = date.today().year - int(age)
-                    resultado["año_construccion"] = ano
+                    resultado["año_construccion"] = date.today().year - age_n
 
                 area = features.get("area")
                 if area and float(area) > 0:
@@ -157,11 +162,14 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
                 if parking and int(parking) >= 0:
                     resultado["estacionamientos"] = int(parking)
 
-                age_val = amenities.get("age", "")
-                if age_val and str(age_val).strip().lower() not in ("", "nuevo", "none"):
+                age_val = str(amenities.get("age", "")).strip().lower()
+                from datetime import date
+                if age_val == "nuevo":
+                    # señal explícita de obra nueva → edad ~0
+                    resultado["año_construccion"] = date.today().year
+                elif age_val not in ("", "none", "n/d"):
                     try:
-                        from datetime import date
-                        resultado["año_construccion"] = date.today().year - int(age_val)
+                        resultado["año_construccion"] = date.today().year - int(float(age_val))
                     except ValueError:
                         pass
 
