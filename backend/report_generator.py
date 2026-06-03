@@ -623,15 +623,40 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
 
     # Comparables table
     comp_rows = ''
+    def _portal_label(p):
+        return (p or '').replace('_', ' ').replace('.com.mx', '').replace('.com', '').replace('www.', '').strip().title()
+
     for i, comp in enumerate(active_comparables, 1):
-        source_name = comp['source'].replace('.com.mx', '').replace('.com', '').replace('www.', '').capitalize()
-        # Fuente clickeable al anuncio real para verificar el comparable
-        source_url = comp.get('source_url', '') or ''
-        if source_url.startswith('http'):
-            fuente_cell = (f'<a href="{source_url}" target="_blank" rel="noreferrer" '
-                           f'style="color:var(--text-blue);text-decoration:underline;">{source_name} &#x2197;</a>')
-        else:
-            fuente_cell = source_name
+        # Fuente: si la misma propiedad se anuncia en varios portales (dedup
+        # cross-portal), mostrar TODOS los links para verificar/corroborar.
+        anuncios = comp.get('anuncios') or []
+        links = []
+        for a in anuncios:
+            u = (a.get('url') or '') if isinstance(a, dict) else ''
+            nm = _portal_label(a.get('portal') if isinstance(a, dict) else '')
+            if u.startswith('http'):
+                links.append(f'<a href="{u}" target="_blank" rel="noreferrer" '
+                             f'style="color:var(--text-blue);text-decoration:underline;">{nm} &#x2197;</a>')
+            elif nm:
+                links.append(nm)
+        if not links:
+            source_name = _portal_label(comp.get('source', ''))
+            source_url = comp.get('source_url', '') or ''
+            if source_url.startswith('http'):
+                links.append(f'<a href="{source_url}" target="_blank" rel="noreferrer" '
+                             f'style="color:var(--text-blue);text-decoration:underline;">{source_name} &#x2197;</a>')
+            else:
+                links.append(source_name)
+        fuente_cell = ' &middot; '.join(links)
+        # Badge de confiabilidad del comparable (informativo)
+        conf = comp.get('confiabilidad')
+        conf_label = comp.get('confiabilidad_label')
+        if conf is not None:
+            _dot = {'Alta': '#16a34a', 'Media': '#d97706', 'Baja': '#dc2626'}.get(conf_label, '#94a3b8')
+            n_portales = comp.get('n_portales', 1) or 1
+            _corro = f' &middot; {n_portales} portales' if n_portales > 1 else ''
+            fuente_cell += (f'<div style="font-size:8px;color:{_dot};font-weight:700;margin-top:2px;">'
+                            f'&#x25CF; {conf_label} ({conf}){_corro}</div>')
         adj = comp.get('total_adjustment', 0)
         adj_cls = 'comp-neg' if adj < 0 else 'comp-pos'
         beds = comp.get('bedrooms', '')
@@ -670,6 +695,23 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
     else:
         avg_raw = avg_adj_pct = avg_adj_sqm = 0
     adj_color_css = 'var(--red)' if avg_adj_pct < 0 else 'var(--green-500)'
+
+    # Confianza global del avalúo (informativo): dispersión del $/m² ajustado +
+    # confiabilidad promedio de los comparables + tamaño de muestra. NO cambia el valor.
+    _adj_vals = [c.get('adjusted_price_per_sqm', c['price_per_sqm']) for c in active_comparables]
+    if n_comp >= 2 and avg_adj_sqm > 0:
+        _sd = (sum((v - avg_adj_sqm) ** 2 for v in _adj_vals) / n_comp) ** 0.5
+        _cv = _sd / avg_adj_sqm
+    else:
+        _cv = 0.40
+    _conf_list = [c.get('confiabilidad') for c in active_comparables if c.get('confiabilidad') is not None]
+    _avg_conf = sum(_conf_list) / len(_conf_list) if _conf_list else 50
+    _disp_score = max(0.0, 100 - _cv * 250)          # cv 0.10→75, 0.20→50, 0.40→0
+    _n_score = min(n_comp / 6, 1.0) * 100
+    conf_global = max(0, min(100, round(0.45 * _disp_score + 0.35 * _avg_conf + 0.20 * _n_score)))
+    conf_global_label = 'Alta' if conf_global >= 70 else ('Media' if conf_global >= 50 else 'Baja')
+    conf_global_color = {'Alta': '#16a34a', 'Media': '#d97706', 'Baja': '#dc2626'}[conf_global_label]
+    conf_global_dispersion = round(_cv * 100, 1)
 
     # Ventajas / Oportunidades
     v_items_html = ''.join(f'<li>{v}</li>' for v in ventajas) if ventajas else '<li>Ubicación estratégica</li><li>Superficie competitiva</li>'
@@ -1124,6 +1166,12 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
       <div style="font-family:'Outfit',sans-serif;font-size:16px;font-weight:800;color:#1B4231;">${avg_adj_sqm:,.0f}</div>
       <div style="font-size:8px;color:var(--text-sec);">valor analizado</div>
     </div>
+  </div>
+
+  <div style="display:flex;align-items:center;gap:10px;margin-top:8px;border:1px solid var(--gray-200);border-left:4px solid {conf_global_color};border-radius:8px;padding:8px 12px;background:var(--box-bg);">
+    <div style="font-size:8px;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.4px;">Confianza del avalúo</div>
+    <div style="font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;color:{conf_global_color};">&#x25CF; {conf_global_label} ({conf_global}/100)</div>
+    <div style="font-size:8px;color:var(--text-sec);margin-left:auto;text-align:right;">Basada en {n_comp} comparables &middot; dispersión {conf_global_dispersion}% &middot; corroboración multi-portal</div>
   </div>
 
 {_footer(3)}

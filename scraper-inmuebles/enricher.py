@@ -67,7 +67,7 @@ PORTALES_PLAYWRIGHT = {"PROPIEDADES_COM", "INMUEBLES24", "VIVANUNCIOS"}
 # Cuántas propiedades procesar por defecto
 DEFAULT_MAX = 50
 
-# Pausa entre descargas de detalle (segundos)
+# Pausa entre descargas de detalle (segundos) — legacy, usado como fallback
 DELAY_MIN_REQUESTS  = 4    # portales con requests (Mitula, Vivanuncios, CasasYTerrenos)
 DELAY_MAX_REQUESTS  = 10
 DELAY_MIN_PLAYWRIGHT = 12  # portales JS (INMUEBLES24, PINCALI) — más tiempo entre páginas
@@ -77,6 +77,33 @@ DELAY_MAX_PLAYWRIGHT = 25
 PAUSA_LARGA_CADA    = 20   # cada 20 propiedades
 PAUSA_LARGA_MIN     = 30
 PAUSA_LARGA_MAX     = 60
+
+# ─────────────────────────────────────────
+# Delay calibrado POR PORTAL según su nivel real de protección anti-bot.
+# Formato: (delay_min, delay_max, pausa_cada_N, pausa_min, pausa_max)  — todo en segundos.
+#   🟢 PINCALI / CASAS_Y_TERRENOS / MITULA: HTML/JSON plano vía requests, SIN antibot → rápido
+#   🟡 PROPIEDADES_COM: Akamai (Node plain_fetch); el fetch ya tarda ~20s y espacia solo → delay corto
+#   🟠 VIVANUNCIOS / 🔴 INMUEBLES24: DataDome (Playwright) → conservador, no forzar
+# ─────────────────────────────────────────
+DELAYS_PORTAL = {
+    "PINCALI":          (3.0, 6.0, 50, 15, 25),  # bajado de (1.5,3.5): tiró HTTP 503 (throttle leve)
+    "CASAS_Y_TERRENOS": (2.0, 4.0, 50, 15, 25),
+    "MITULA":           (2.0, 4.0, 50, 15, 25),
+    "PROPIEDADES_COM":  (3.0, 6.0, 30, 25, 40),
+    "VIVANUNCIOS":      (6.0, 12.0, 25, 25, 45),
+    "INMUEBLES24":      (8.0, 16.0, 20, 30, 60),
+}
+DELAYS_DEFAULT = (4.0, 10.0, 20, 30, 60)
+
+
+def aplicar_delay_portal(portal_real: str, idx: int, log) -> None:
+    """Aplica el delay entre props + la pausa larga periódica, calibrados por portal."""
+    dmin, dmax, cada, pmin, pmax = DELAYS_PORTAL.get(portal_real, DELAYS_DEFAULT)
+    antiblock.delay_aleatorio(dmin, dmax)
+    if idx > 1 and idx % cada == 0:
+        pausa = random.uniform(pmin, pmax)
+        log.info(f"  ⏸  Pausa de seguridad: {pausa:.0f}s (cada {cada} props)...")
+        time.sleep(pausa)
 
 # Archivo de checkpoint para retomar si se interrumpe
 CHECKPOINT_FILE = Path(__file__).parent / "enricher_checkpoint.json"
@@ -596,15 +623,19 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
 # ─────────────────────────────────────────
 
 def fetch_html_requests(url: str, session: requests.Session) -> Optional[str]:
-    """Descarga el HTML de una URL usando requests con anti-bloqueo."""
+    """Descarga el HTML de una URL usando requests con anti-bloqueo.
+    Guarda el último status code en session.last_status para que el caller
+    distinga 404 (muerto, marcar inactivo) de 503/timeout (transitorio, reintentar)."""
     try:
         session.headers.update(antiblock.get_headers(referer=url))
         resp = session.get(url, timeout=25)
+        session.last_status = resp.status_code
         if resp.status_code == 200:
             return resp.text
         logger.warning(f"HTTP {resp.status_code} en {url}")
         return None
     except Exception as e:
+        session.last_status = None
         logger.warning(f"Error requests en {url}: {e}")
         return None
 
@@ -919,21 +950,10 @@ def enriquecer_tab(sheets: SheetsClient, tab_name: str, max_filas: int, dry_run:
         num_fila = prop["num_fila"]
         # Inferir portal real si el valor guardado está corrupto
         portal_real = portal if portal in PORTALES_PLAYWRIGHT or portal == "CASAS_Y_TERRENOS" else inferir_portal_por_url(url) or portal
-        usa_playwright = portal_real in PORTALES_PLAYWRIGHT
-
         log.info(f"[{idx}/{len(pendientes)}] {portal_real} fila {num_fila} — {url[:80]}")
 
-        # Delay según tipo de portal
-        if usa_playwright:
-            antiblock.delay_aleatorio(DELAY_MIN_PLAYWRIGHT, DELAY_MAX_PLAYWRIGHT)
-        else:
-            antiblock.delay_aleatorio(DELAY_MIN_REQUESTS, DELAY_MAX_REQUESTS)
-
-        # Pausa larga cada N propiedades
-        if idx > 1 and idx % PAUSA_LARGA_CADA == 0:
-            pausa = random.uniform(PAUSA_LARGA_MIN, PAUSA_LARGA_MAX)
-            log.info(f"  ⏸  Pausa de seguridad: {pausa:.0f}s (cada {PAUSA_LARGA_CADA} props)...")
-            time.sleep(pausa)
+        # Delay + pausa larga calibrados por portal (según protección anti-bot)
+        aplicar_delay_portal(portal_real, idx, log)
 
         # Descarga
         html = fetch_detalle(url, portal, session)
@@ -1078,26 +1098,27 @@ def enriquecer_mongo(col, portal: str, max_filas: int, dry_run: bool,
     for idx, prop in enumerate(pendientes, 1):
         url = prop["url"]
         portal_real = portal if portal in PORTALES_PLAYWRIGHT or portal == "CASAS_Y_TERRENOS" else inferir_portal_por_url(url) or portal
-        usa_playwright = portal_real in PORTALES_PLAYWRIGHT
-
         log.info(f"[{idx}/{len(pendientes)}] {portal_real} — {url[:80]}")
 
-        if usa_playwright:
-            antiblock.delay_aleatorio(DELAY_MIN_PLAYWRIGHT, DELAY_MAX_PLAYWRIGHT)
-        else:
-            antiblock.delay_aleatorio(DELAY_MIN_REQUESTS, DELAY_MAX_REQUESTS)
+        # Delay + pausa larga calibrados por portal (según protección anti-bot)
+        aplicar_delay_portal(portal_real, idx, log)
 
-        if idx > 1 and idx % PAUSA_LARGA_CADA == 0:
-            pausa = random.uniform(PAUSA_LARGA_MIN, PAUSA_LARGA_MAX)
-            log.info(f"  ⏸  Pausa de seguridad: {pausa:.0f}s...")
-            time.sleep(pausa)
-
+        session.last_status = None
         html = fetch_detalle(url, portal, session)
         urls_procesadas.add(url)
         guardar_checkpoint(urls_procesadas)
 
         if not html:
-            log.warning(f"  Sin HTML")
+            # 404 = anuncio eliminado del portal → marcar inactivo para no
+            # reintentarlo en cada corrida (el filtro activo:{$ne:False} lo excluye).
+            # 503/timeout/otros = transitorio → dejar para reintento futuro.
+            if getattr(session, "last_status", None) == 404:
+                col.update_one({"id_unico": prop["id_unico"]},
+                               {"$set": {"activo": False, "enrich_dead": "404",
+                                         "enrich_dead_at": datetime.now().isoformat()}})
+                log.warning(f"  404 → marcado inactivo (no se reintentará)")
+            else:
+                log.warning(f"  Sin HTML")
             errores += 1
             continue
 

@@ -540,9 +540,36 @@ async def generate_comparables(valuation_id: str, request: Request, append: bool
                 total_adj = base_negotiation + area_adj + regime_adj
                 adj_ppsm  = ppsm * (1 + total_adj / 100)
 
+                # Dedup cross-portal: el maestro trae en qué portales se anuncia
+                _anuncios = mc.get("anuncios") or [{"portal": mc.get("portal_origen", ""), "url": mc.get("url_original", "")}]
+                _nport = mc.get("n_portales", 1) or 1
+                # Confiabilidad del comparable (0-100, informativo — NO cambia el valor)
+                _conf = 50
+                _conf += min(_nport - 1, 2) * 15  # corroboración: mismo precio en N portales
+                _conf += sum(8 for f in ("anio_construccion", "m2_terreno", "recamaras", "banos") if mc.get(f))
+                if mc.get("colonia") and (mc.get("colonia") or "").strip().lower() == (prop.get("neighborhood") or "").strip().lower():
+                    _conf += 10  # colonia exacta del sujeto
+                try:
+                    _fs = mc.get("fecha_scraping") or mc.get("fecha_publicacion") or ""
+                    if _fs:
+                        _dt = datetime.fromisoformat(str(_fs).replace("Z", "+00:00"))
+                        if _dt.tzinfo is None:
+                            _dt = _dt.replace(tzinfo=timezone.utc)
+                        _dias = (datetime.now(timezone.utc) - _dt).days
+                        _conf += 10 if _dias <= 90 else (5 if _dias <= 180 else 0)
+                except Exception:
+                    pass
+                _conf = max(0, min(100, _conf))
+                _conf_label = "Alta" if _conf >= 75 else ("Media" if _conf >= 50 else "Baja")
+
                 comparables.append(Comparable(
                     source=mc.get("portal_origen", "mercado_props"),
                     source_url=mc.get("url_original", ""),
+                    anuncios=_anuncios,
+                    portales_anunciado=mc.get("portales_anunciado") or [mc.get("portal_origen", "")],
+                    n_portales=_nport,
+                    confiabilidad=_conf,
+                    confiabilidad_label=_conf_label,
                     title=mc.get("titulo", f"{search_type} en {mc.get('municipio', '')}"),
                     neighborhood=mc.get("colonia") or prop["neighborhood"],
                     municipality=mc.get("municipio", prop["municipality"]),
@@ -1652,31 +1679,66 @@ async def _generar_snapshot_mes(mes: str | None = None):
     col_props = db["mercado_props"]
     col_snap  = db["mercado_snapshots"]
 
+    # total_real excluye es_duplicado_secundario (misma propiedad en varios portales)
+    _no_dup = {"$cond": [{"$ne": ["$es_duplicado_secundario", True]}, 1, 0]}
+
     resumen = {}
     for tipo_op in ("venta", "renta"):
         total = await col_props.count_documents({"activo": True, "tipo_operacion": tipo_op})
+        total_real = await col_props.count_documents(
+            {"activo": True, "tipo_operacion": tipo_op, "es_duplicado_secundario": {"$ne": True}})
         por_tipo = await col_props.aggregate([
             {"$match": {"activo": True, "tipo_operacion": tipo_op}},
-            {"$group": {"_id": "$tipo_propiedad", "total": {"$sum": 1}}},
+            {"$group": {"_id": "$tipo_propiedad", "total": {"$sum": 1}, "total_real": {"$sum": _no_dup}}},
             {"$sort": {"total": -1}},
         ]).to_list(10)
         por_municipio = await col_props.aggregate([
             {"$match": {"activo": True, "tipo_operacion": tipo_op, "precio": {"$gt": 0}}},
-            {"$group": {"_id": "$municipio", "total": {"$sum": 1}, "precio_m2_avg": {"$avg": "$precio_m2"}}},
+            {"$group": {"_id": "$municipio", "total": {"$sum": 1}, "total_real": {"$sum": _no_dup},
+                        "precio_m2_avg": {"$avg": "$precio_m2"}}},
             {"$sort": {"total": -1}}, {"$limit": 10},
         ]).to_list(10)
         resumen[tipo_op] = {
-            "total": total,
-            "por_tipo": [{"name": r["_id"], "total": r["total"]} for r in por_tipo],
-            "por_municipio": [{"name": r["_id"], "total": r["total"], "precio_m2_avg": round(r.get("precio_m2_avg") or 0)} for r in por_municipio],
+            "total": total,                                    # bruto (compat retro)
+            "total_bruto": total,
+            "total_real": total_real,
+            "pct_duplicadas": round(100 * (total - total_real) / total, 1) if total else 0,
+            "por_tipo": [{"name": r["_id"], "total": r["total"], "total_real": r.get("total_real", r["total"])} for r in por_tipo],
+            "por_municipio": [{"name": r["_id"], "total": r["total"], "total_real": r.get("total_real", r["total"]),
+                               "precio_m2_avg": round(r.get("precio_m2_avg") or 0)} for r in por_municipio],
         }
+
+    # Ranking de calidad por portal: % de docs activos con cada campo clave lleno
+    _campos_calidad = ["anio_construccion", "m2_construccion", "m2_terreno",
+                       "colonia", "recamaras", "banos", "precio", "telefono"]
+    _lleno = lambda c: {"$sum": {"$cond": [
+        {"$and": [{"$ne": [f"${c}", None]}, {"$ne": [f"${c}", ""]}, {"$ne": [f"${c}", 0]}]}, 1, 0]}}
+    cal_raw = await col_props.aggregate([
+        {"$match": {"activo": True}},
+        {"$group": {"_id": "$portal_origen", "total": {"$sum": 1},
+                    **{f"con_{c}": _lleno(c) for c in _campos_calidad}}},
+        {"$sort": {"total": -1}},
+    ]).to_list(20)
+    calidad_portales = []
+    for r in cal_raw:
+        if not r.get("total") or not r["_id"]:
+            continue
+        pct = {c: round(100 * r.get(f"con_{c}", 0) / r["total"]) for c in _campos_calidad}
+        calidad_portales.append({
+            "portal": r["_id"], "total": r["total"],
+            "score_calidad": round(sum(pct.values()) / len(_campos_calidad)),
+            "campos_pct": pct,
+        })
+    calidad_portales.sort(key=lambda x: x["score_calidad"], reverse=True)
 
     await col_snap.update_one(
         {"mes": mes},
         {"$set": {
             "mes": mes,
             "resumen": resumen,
+            "calidad_portales": calidad_portales,
             "total_props": resumen["venta"]["total"] + resumen["renta"]["total"],
+            "total_props_real": resumen["venta"]["total_real"] + resumen["renta"]["total_real"],
             "generado_at": datetime.now(timezone.utc).isoformat(),
         }},
         upsert=True,

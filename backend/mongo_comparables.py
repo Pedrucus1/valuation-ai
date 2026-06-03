@@ -44,6 +44,9 @@ CAMPOS_COMPARABLE = {
     "m2_construccion": 1, "m2_terreno": 1,
     "recamaras": 1, "banos": 1, "estacionamientos": 1,
     "anio_construccion": 1, "portal_origen": 1, "url_original": 1,
+    # Dedup cross-portal: el maestro trae en qué portales se anuncia (links del
+    # reporte) y n_portales (corroboración para el score de confiabilidad).
+    "n_portales": 1, "anuncios": 1, "fecha_publicacion": 1, "fecha_scraping": 1,
 }
 
 
@@ -83,6 +86,9 @@ async def search_comparables_from_mongo(
         "tipo_propiedad": tipo_norm,
         "tipo_operacion": op_norm,
         "precio":         {"$gt": 0},
+        # Dedup cross-portal: excluir secundarios para no contar la misma
+        # propiedad 2-3 veces en la mediana $/m² (el maestro la representa).
+        "es_duplicado_secundario": {"$ne": True},
     }
 
     async def _query(municipios: list, m2_range: float) -> list[dict]:

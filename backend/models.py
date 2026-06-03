@@ -192,6 +192,14 @@ class Comparable(BaseModel):
     inmobiliaria: Optional[str] = None
     enriched: bool = False
 
+    # Dedup cross-portal: en qué portales se anuncia la misma propiedad (links del reporte)
+    anuncios: list = Field(default_factory=list)        # [{"portal": str, "url": str}]
+    portales_anunciado: list = Field(default_factory=list)
+    n_portales: int = 1
+    # Confiabilidad del comparable (0-100) y etiqueta — informativo, no cambia el valor
+    confiabilidad: Optional[int] = None
+    confiabilidad_label: Optional[str] = None
+
     # Adjustments
     negotiation_adjustment: float = 0.0
     area_adjustment: float = 0.0

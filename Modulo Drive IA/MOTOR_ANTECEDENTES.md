@@ -15,6 +15,24 @@
 
 ---
 
+## ⛔ #107 MIGRACIÓN CACHÉ Sheet→Mongo — REGRESA, NO ACTIVAR (03-Jun-2026)
+
+Se intentó cambiar la fuente del cache del motor del Sheet CONSOLIDADO a MongoDB (mercado_props), para
+abandonar Sheets (límites de celdas + errores de guardado). Script nuevo: `actualizar_cache_mongo.cjs`
+(lee Mongo vía `MONGO_URL_DIRECT` porque Node NO resuelve el SRV de Atlas; mismo esquema/filtros que el
+script de Sheets + excluye `es_duplicado_secundario` del dedup cross-portal nuevo).
+
+- Build Mongo: 83,254 docs → **32,398 comps** (vs 22,983 del Sheet). O sea Mongo tiene **MÁS** comps.
+- Validador `validar_40_opis.js --desde 2025-07`:
+  - **Baseline (Sheet, cache 31-may):** ±10% 83.3% · ±15% 86.1% · ±20% **100%** · err 6.1% · med +4.9%
+  - **Mongo:** ±15% 75.0% · ±20% **83.3%** · err 10.4% · med **-7.1%** (infravalúa) · 6 OPIs fuera ±20%
+- **CONCLUSIÓN:** la regresión NO es por falta de datos (Mongo tiene más) sino por **calidad/calibración**:
+  el cache del Sheet está afinado contra estos OPIs (similares/NSE curados aquí documentados). Mongo crudo
+  trae más listings ruidosos que bajan las medianas. Migrar a Mongo exige **re-calibrar**, no un swap directo.
+- **ACCIÓN:** baseline RESTAURADO (`cache_*.json.bak_20260603_135647`). Script queda como herramienta.
+  NO re-investigar OPIs individuales (ver regla #4 y feedback_motor_no_cazar_atipicos). La migración es un
+  proyecto de re-calibración, no un cambio de fuente.
+
 ## ✅ #101 PUENTE NSE DE COMPS VERIFICADOS — RESUELTO (01-Jun-2026, tarde)
 
 El flywheel ahora rinde: los comps web `verificado` (de `comps_acumulados.json`) entran al pool del motor.
