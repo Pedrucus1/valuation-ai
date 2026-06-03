@@ -102,17 +102,22 @@ def _guardar_en_mercado(comps_ctx: list, enriched: dict):
             if not (url.startswith("http") and ed):
                 continue
             uid = generar_id_unico(url)   # mismo esquema que el scraper → sin duplicados
-            doc = {
+            # $set SOLO datos de detalle (hechos de la página, refrescables).
+            set_doc = {k: v for k, v in ed.items() if v is not None}
+            set_doc["enriched_at"] = datetime.now(timezone.utc).isoformat()
+            # $setOnInsert: contexto del comp web — solo si es doc NUEVO; NUNCA pisa
+            # colonia/precio de un doc de scrape existente.
+            on_insert = {
                 "id_unico": uid, "url_original": url,
                 "portal_origen": (inferir_portal_por_url(url) or cx.get("portal") or "WEB"),
                 "precio": cx.get("precio"), "colonia": cx.get("colonia"),
                 "municipio": cx.get("municipio"), "tipo_propiedad": cx.get("tipo"),
                 "tipo_operacion": "venta", "origen_dato": "web_enriquecido",
                 "importado_at": datetime.now(timezone.utc).isoformat(), "activo": True,
-                **ed,
             }
-            doc = {k: v for k, v in doc.items() if v is not None}
-            col.update_one({"id_unico": uid}, {"$set": doc}, upsert=True)
+            on_insert = {k: v for k, v in on_insert.items() if v is not None}
+            col.update_one({"id_unico": uid},
+                           {"$set": set_doc, "$setOnInsert": on_insert}, upsert=True)
             n += 1
         return n
     except Exception:
