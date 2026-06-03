@@ -117,6 +117,13 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
                 ano = normalizar_anio_construccion(val if not val.isdigit() else f"{val} años")
                 if ano:
                     resultado["año_construccion"] = ano
+        # teléfono: VIVANUNCIOS lo trae en el JSON ("whatsApp":"52 33..."),
+        # INMUEBLES24 normalmente lo oculta tras API (no está en el HTML inicial)
+        mt = re.search(r'"whatsApp"\s*:\s*"([0-9 +]{8,20})"', html)
+        if mt:
+            num = re.sub(r"\D", "", mt.group(1))
+            if len(num) >= 10:
+                resultado["telefono"] = num[-15:]
 
     # ── CasasYTerrenos: extraer directo de __NEXT_DATA__ JSON ─────────────────
     if portal == "CASAS_Y_TERRENOS":
@@ -146,10 +153,31 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
                 if constr and float(constr) > 0:
                     resultado["m2_construccion"] = float(constr)
 
+                # recámaras / baños / estacionamientos (en el JSON, aunque la
+                # página los muestre como iconos)
+                rooms = features.get("rooms")
+                if rooms not in (None, "") and int(rooms) > 0:
+                    resultado["recamaras"] = int(rooms)
+                baths = features.get("bathrooms")
+                if baths not in (None, "") and float(baths) > 0:
+                    resultado["banos"] = float(baths)
+                parking = features.get("parking")
+                if parking not in (None, "") and int(parking) >= 0:
+                    resultado["estacionamientos"] = int(parking)
+
                 contacto = prop.get("contactCard", {})
                 nombre = contacto.get("name", "") or contacto.get("business_name", "")
                 if nombre:
                     resultado["nombre_agente"] = nombre[:150]
+                # inmobiliaria + teléfono (en background aunque esté oculto visualmente)
+                if contacto.get("business_name"):
+                    resultado["inmobiliaria"] = contacto["business_name"][:150]
+                tel = (contacto.get("phones", {}) or {})
+                tel = tel.get("mobile") or tel.get("whatsapp") or ""
+                if tel and re.sub(r"\D", "", str(tel)):
+                    resultado["telefono"] = re.sub(r"\D", "", str(tel))[:15]
+                if contacto.get("email"):
+                    resultado["email_agente"] = contacto["email"][:120]
 
                 desc = prop.get("description", "")
                 if desc:
@@ -986,7 +1014,8 @@ def obtener_props_mongo(col, portal: str, max_filas: int, urls_procesadas: set) 
     q = {"portal_origen": portal, "activo": {"$ne": False}, **falta_edad}
     proj = {"id_unico": 1, "url_original": 1, "portal_origen": 1,
             "anio_construccion": 1, "m2_terreno": 1, "m2_construccion": 1,
-            "nombre_agente": 1, "fecha_publicacion": 1, "estacionamientos": 1}
+            "nombre_agente": 1, "fecha_publicacion": 1, "estacionamientos": 1,
+            "recamaras": 1, "banos": 1, "telefono": 1, "inmobiliaria": 1}
     pendientes = []
     for d in col.find(q, proj).limit(max_filas * 3):
         url = (d.get("url_original") or "").strip()
@@ -1001,6 +1030,11 @@ def obtener_props_mongo(col, portal: str, max_filas: int, urls_procesadas: set) 
             "falta_ano_const":     d.get("anio_construccion") in (None, "", 0),
             "falta_nombre_agente": not d.get("nombre_agente"),
             "falta_fecha_pub":     not d.get("fecha_publicacion"),
+            "falta_recamaras":     not d.get("recamaras"),
+            "falta_banos":         not d.get("banos"),
+            "falta_estac":         not d.get("estacionamientos"),
+            "falta_telefono":      not d.get("telefono"),
+            "falta_inmobiliaria":  not d.get("inmobiliaria"),
         })
         if len(pendientes) >= max_filas:
             break
@@ -1073,8 +1107,23 @@ def enriquecer_mongo(col, portal: str, max_filas: int, dry_run: bool,
         if prop["falta_fecha_pub"] and "fecha_publicacion" in datos:
             set_doc["fecha_publicacion"] = datos["fecha_publicacion"]
             actualizados.append("fecha_pub")
-        if "estacionamientos" in datos:
-            set_doc.setdefault("estacionamientos", datos["estacionamientos"])
+        if prop.get("falta_estac") and "estacionamientos" in datos:
+            set_doc["estacionamientos"] = datos["estacionamientos"]
+            actualizados.append(f"estac={datos['estacionamientos']}")
+        if prop.get("falta_recamaras") and "recamaras" in datos:
+            set_doc["recamaras"] = datos["recamaras"]
+            actualizados.append(f"rec={datos['recamaras']}")
+        if prop.get("falta_banos") and "banos" in datos:
+            set_doc["banos"] = datos["banos"]
+            actualizados.append(f"ban={datos['banos']}")
+        if prop.get("falta_telefono") and "telefono" in datos:
+            set_doc["telefono"] = datos["telefono"]
+            actualizados.append("tel")
+        if prop.get("falta_inmobiliaria") and "inmobiliaria" in datos:
+            set_doc["inmobiliaria"] = datos["inmobiliaria"]
+            actualizados.append("inmob")
+        if "email_agente" in datos:
+            set_doc.setdefault("email_agente", datos["email_agente"])
 
         if set_doc:
             try:
