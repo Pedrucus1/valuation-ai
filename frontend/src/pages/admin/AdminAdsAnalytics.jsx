@@ -560,8 +560,8 @@ const TabAnunciantes = ({ anunciantes, onVerCampanas, cargando }) => {
           <p className="text-sm">{cargando ? "Cargando…" : "Sin anunciantes registrados"}</p>
         </div>
       ) : (
-        <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm overflow-hidden">
-          <table className="w-full text-sm">
+        <div className="bg-white rounded-2xl border border-[#B7E4C7] shadow-sm overflow-x-auto">
+          <table className="w-full text-sm min-w-[640px]">
             <thead>
               <tr className="border-b border-slate-100 text-[11px] text-slate-400 uppercase tracking-wide">
                 <th className="px-5 py-3 text-left">Empresa</th>

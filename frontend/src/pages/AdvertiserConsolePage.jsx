@@ -1157,7 +1157,7 @@ const AdvertiserConsolePage = () => {
                                               {spec.maxPhotos - imageItems.length} espacio{spec.maxPhotos - imageItems.length !== 1 ? "s" : ""} restante{spec.maxPhotos - imageItems.length !== 1 ? "s" : ""}
                                             </p>
                                           </div>
-                                          <div className="grid grid-cols-4 gap-2">
+                                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                                             {imageItems.map((item, idx) => (
                                               <div key={idx} className="relative group rounded-lg overflow-hidden aspect-video bg-slate-100">
                                                 <img src={item.previewUrl} alt={`Foto ${idx + 1}`} className="w-full h-full object-cover" />
