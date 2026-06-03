@@ -596,8 +596,14 @@ async def generate_comparables(valuation_id: str, request: Request, append: bool
             # Antes de construir los comparables, para que lleven datos de detalle y
             # el ajuste/valuación sea más certero. Deadline duro; nunca cuelga.
             try:
-                web_urls = [c.get("source_url") for c in ai_comparables
-                            if (c.get("source_url") or "").startswith("http")][:12]
+                # NOTA: la búsqueda AI (OpenAI/Gemini) genera URLs alucinadas (no
+                # resuelven) → no son enriquecibles. El enriquecimiento web REAL ocurre
+                # en el motor (motor_remi_api.js, ruta Serper con URLs reales). Aquí queda
+                # apagado por defecto; activar con ENRICH_WEB_COMPS_INLINE=1 solo si esta
+                # ruta se migra a Serper.
+                web_urls = ([c.get("source_url") for c in ai_comparables
+                             if (c.get("source_url") or "").startswith("http")][:12]
+                            if os.environ.get("ENRICH_WEB_COMPS_INLINE") == "1" else [])
                 enriched_map = await _enrich_comp_urls(web_urls, deadline=22)
                 for c in ai_comparables:
                     ed = enriched_map.get(c.get("source_url") or "")

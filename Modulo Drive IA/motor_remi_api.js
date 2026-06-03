@@ -21,6 +21,7 @@
 require('dotenv').config({ path: '../.env' });
 const fs   = require('fs');
 const path = require('path');
+const { spawn } = require('child_process');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 const OpenAI = require('openai');
 
@@ -343,6 +344,43 @@ async function buscarEnSerper(query) {
     }
 }
 
+// Enriquece los comps web (URLs reales de Serper) abriendo el listing con el
+// extractor Python (enrich_urls.py): agrega edad (an) y mejora m²C/m²T, y los
+// guarda en mercado_props (flywheel). Nunca rompe la valuación: ante error/timeout
+// devuelve los comps tal cual. Desactivable con MOTOR_NO_ENRIQUECER_WEB=1.
+async function enriquecerCompsWeb(comps, prop) {
+    if (process.env.MOTOR_NO_ENRIQUECER_WEB === '1') return comps;
+    const conUrl = (comps || []).filter(c => c && c.url && /^https?:\/\//.test(c.url));
+    if (!conUrl.length) return comps;
+    const py = process.env.SCRAPER_PYTHON || 'python';
+    const dir = path.join(__dirname, '..', 'scraper-inmuebles');
+    const payload = JSON.stringify(conUrl.map(c => ({
+        url: c.url, precio: c.precio, colonia: prop.colonia || '',
+        municipio: prop.municipio || '', tipo: (prop.tipo || 'casa'),
+        portal: c.portal || 'serper',
+    })));
+    try {
+        const enriched = await new Promise((resolve) => {
+            const ps = spawn(py, ['enrich_urls.py', '--save', '--deadline', '20'], { cwd: dir });
+            let out = '';
+            const killer = setTimeout(() => { try { ps.kill(); } catch (e) {} resolve({}); }, 32000);
+            ps.stdout.on('data', d => { out += d; });
+            ps.on('close', () => { clearTimeout(killer); try { resolve(JSON.parse(out || '{}')); } catch (e) { resolve({}); } });
+            ps.on('error', () => { clearTimeout(killer); resolve({}); });
+            try { ps.stdin.write(payload); ps.stdin.end(); } catch (e) {}
+        });
+        comps.forEach(c => {
+            const ed = enriched[c.url];
+            if (!ed) return;
+            if (ed.anio_construccion) c.an = ed.anio_construccion;   // edad real del listing
+            if ((!c.m2c || c.m2c <= 0) && ed.m2_construccion) c.m2c = ed.m2_construccion;
+            if ((!c.m2t || c.m2t <= 0) && ed.m2_terreno) c.m2t = ed.m2_terreno;
+            c.enriquecido = true;
+        });
+    } catch (e) { /* nunca romper la valuación por el enriquecimiento */ }
+    return comps;
+}
+
 async function buscarCompsConWeb(prop, similares) {
     if (!_deepseek || !process.env.SERPER_API_KEY) return [];
 
@@ -431,7 +469,7 @@ Devuelve SOLO JSON:
         const parsed = JSON.parse(m[0]);
         const m2Min = Math.round((prop.construccion || 60) * 0.4);
         const m2Max = Math.round((prop.construccion || 60) * 1.8);
-        return (parsed.comparables || [])
+        const compsWeb = (parsed.comparables || [])
             .map(c => ({
                 precio: parseFloat(String(c.precio).replace(/[^0-9.]/g, '')) || 0,
                 m2c:    parseFloat(String(c.m2c).replace(/[^0-9.]/g, ''))   || 0,
@@ -441,6 +479,8 @@ Devuelve SOLO JSON:
             }))
             .filter(c => c.precio > 200000 && c.m2c > 15 && c.url
                       && c.m2c >= m2Min && c.m2c <= m2Max); // filtro de tamaño real
+        // Enriquecer abriendo el listing real (edad + m² de detalle) y guardar (flywheel)
+        return await enriquecerCompsWeb(compsWeb, prop);
     } catch (e) {
         return [];
     }
