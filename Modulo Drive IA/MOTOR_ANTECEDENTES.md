@@ -37,6 +37,19 @@ script de Sheets + excluye `es_duplicado_secundario` del dedup cross-portal nuev
   El motor sigue leyendo el cache del Sheet. Migrar a Mongo = **proyecto de re-calibración** (re-tunear
   similares/NSE/colonias contra datos Mongo), NO un swap. El script queda como herramienta para ese proyecto.
 
+- **DIAGNÓSTICO de la divergencia (03-Jun, mismo día) — NO es ventana de tiempo:** comparé los pools
+  Sheet vs Mongo en 703 colonias+tipo solapadas (n≥4 ambos):
+  - Fechas de scraping **idénticas** (ambos mediana 2026-04-18, rango mar–may) → descarta hipótesis temporal.
+  - **Ratio mediana Sheet/Mongo = 1.000** (49% Sheet>Mongo) → SIN sesgo sistemático de precio.
+  - Mongo tiene **~2× listings** (45,681 vs 22,653 mismo período) → **el Sheet está INCOMPLETO** (errores de
+    guardado de Sheets, ~mitad de los datos no sincronizó). Media de ratios 1.599 (vs mediana 1.0) → diverge
+    **por colonia con alta varianza**, no uniforme.
+  - **Conclusión corregida:** el motor no está "mejor" con el Sheet; está afinado contra un subconjunto
+    DELGADO e incompleto (100% ±20% en parte por suerte/fit). Mongo es más completo y representativo; al
+    sumar el otro 50%, algunas medianas de colonia se mueven y el motor ya no calza ahí. La re-calibración
+    es re-afinar similares/NSE a los datos completos de Mongo + validar contra los 153 OPIs + hold-out
+    (no los 36, para no sobreajustar). Conviene hacerlo cuando el enricher suba cobertura (más datos = mejor base).
+
 ## ✅ #101 PUENTE NSE DE COMPS VERIFICADOS — RESUELTO (01-Jun-2026, tarde)
 
 El flywheel ahora rinde: los comps web `verificado` (de `comps_acumulados.json`) entran al pool del motor.
