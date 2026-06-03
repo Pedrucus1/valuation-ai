@@ -167,6 +167,38 @@ for (const muni of Object.keys(idx)) {
     }
 }
 
+// #90/#91 — Overlay de EDAD desde Mongo (fuente oficial; el cache de precio viene de
+// Sheets, que casi no trae año). El pool de edades es SEPARADO de los listings de
+// precio → no toca $/m². Solo setea edadMedianaZona en colonias con ≥3 años de Mongo.
+const EDAD_MONGO_PATH = path.join(__dirname, 'edad_mongo.json');
+if (fs.existsSync(EDAD_MONGO_PATH)) {
+    const edadRaw = JSON.parse(fs.readFileSync(EDAD_MONGO_PATH, 'utf8'));
+    const ANIO = new Date().getFullYear();
+    const pool = {};  // "muni|tipo|col" -> [edades]
+    for (const e of edadRaw) {
+        const muni = normMuni(e.mu || '');
+        const tipo = canonTipo(e.tp || '');
+        const colRaw = normCol(e.co || '');
+        const col = colRaw === muni ? muni + ' centro' : colRaw;
+        if (!muni || !col || !(e.an > 1900 && e.an <= ANIO)) continue;
+        const k = muni + '|' + tipo + '|' + col;
+        (pool[k] = pool[k] || []).push(ANIO - e.an);
+    }
+    let aplicadas = 0;
+    for (const muni of Object.keys(idx)) {
+        for (const tipo of Object.keys(idx[muni])) {
+            for (const col of Object.keys(idx[muni][tipo])) {
+                const edades = pool[muni + '|' + tipo + '|' + col];
+                if (edades && edades.length >= 3) {
+                    idx[muni][tipo][col].edadMedianaZona = Math.round(mediana(edades));
+                    aplicadas++;
+                }
+            }
+        }
+    }
+    console.log(`  Overlay edad Mongo: ${edadRaw.length} props → edadMedianaZona en ${aplicadas} colonias.`);
+}
+
 // ── Agregar colonias INEGI (si se pasa el CSV) ────────────────────────────────
 const inegiArg = process.argv.find(a => a.endsWith('.csv') || a.endsWith('.txt'));
 if (inegiArg && fs.existsSync(inegiArg)) {
