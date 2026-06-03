@@ -97,6 +97,20 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
 
     resultado = {}
 
+    # ── INMUEBLES24: la edad vive en el JSON embebido, NO en el texto visible ──
+    # feature CFT5: {"label":"antigüedad","value":"30"} → 30 = años de antigüedad
+    if portal == "INMUEBLES24":
+        m = re.search(r'"label"\s*:\s*"antig[üu]edad"[^}]*?"value"\s*:\s*"?(\d+)"?', html)
+        if not m:  # fallback al meta-keyword "Antigüedad 30 años"
+            m = re.search(r'antig[üu]edad\s+(\d+)\s*a[ñn]os', html, re.I)
+        if m:
+            # value puede ser años de antigüedad (30) o un año directo (1998);
+            # normalizar_anio_construccion distingue ambos. Sufijo "años" fuerza
+            # el cálculo de antigüedad cuando es un número pequeño.
+            ano = normalizar_anio_construccion(f"{m.group(1)} años")
+            if ano:
+                resultado["año_construccion"] = ano
+
     # ── CasasYTerrenos: extraer directo de __NEXT_DATA__ JSON ─────────────────
     if portal == "CASAS_Y_TERRENOS":
         nd = soup.find("script", id="__NEXT_DATA__")
@@ -337,10 +351,13 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
     ano_const = None
 
     patrones_ano = [
-        r"(?:año\s+de\s+construcc|construido\s+en|año\s+construcc|built\s+in|year\s+built)[:\s]+(\d{4}|\d+\s*años?)",
-        r"(?:antigüedad|antiguedad|age)[:\s]+(\d+\s*años?|\d{4})",
-        r"(\d+)\s*años?\s+de\s+(?:antigüedad|construcción|construido)",
-        r"(\d{4})\s*(?:año\s+de\s+construcc|construcc\w*)",
+        # "Año de construcción: 1999" — \w* abarca la cola "ión"; separador opcional
+        r"a[ñn]o\s+de\s+construcc\w*[:\s]*(\d{4})",
+        r"a[ñn]o\s+construcc\w*[:\s]*(\d{4})",
+        r"(?:construido\s+en|built\s+in|year\s+built)[:\s]*(\d{4})",
+        # "Antigüedad 30 años" / "Antigüedad: 1998"
+        r"antig[üu]edad[:\s]*(\d+\s*a[ñn]os?|\d{4})",
+        r"(\d+)\s*a[ñn]os?\s+de\s+(?:antig[üu]edad|construcc\w*|construido)",
     ]
     for pat in patrones_ano:
         m = re.search(pat, texto, re.I)
