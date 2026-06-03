@@ -936,6 +936,136 @@ def enriquecer_tab(sheets: SheetsClient, tab_name: str, max_filas: int, dry_run:
     return {"tab": tab_name, "pendientes": len(pendientes), "enriquecidas": enriquecidas, "errores": errores}
 
 
+# ─────────────────────────────────────────
+# Modo MongoDB nativo (Mongo es la base oficial; Sheets en pausa)
+# ─────────────────────────────────────────
+
+def _get_mongo_col():
+    """Retorna la colección mercado_props. Misma conexión que scheduler.py."""
+    import os
+    from dotenv import load_dotenv
+    from pymongo import MongoClient
+    load_dotenv()
+    client = MongoClient(os.getenv("MONGO_URL", "mongodb://localhost:27017"),
+                         serverSelectionTimeoutMS=30000, retryReads=True,
+                         retryWrites=True)
+    return client[os.getenv("DB_NAME", "propvalu")]["mercado_props"]
+
+
+def obtener_props_mongo(col, portal: str, max_filas: int, urls_procesadas: set) -> list[dict]:
+    """
+    Lee de mercado_props las props del portal a las que les falta anio_construccion
+    (canónico, sin ñ) y/o m2. Retorna dicts {id_unico, url, portal, falta_*}.
+    """
+    falta_edad = {"$or": [{"anio_construccion": {"$exists": False}},
+                          {"anio_construccion": None}]}
+    q = {"portal_origen": portal, "activo": {"$ne": False}, **falta_edad}
+    proj = {"id_unico": 1, "url_original": 1, "portal_origen": 1,
+            "anio_construccion": 1, "m2_terreno": 1, "m2_construccion": 1,
+            "nombre_agente": 1, "fecha_publicacion": 1, "estacionamientos": 1}
+    pendientes = []
+    for d in col.find(q, proj).limit(max_filas * 3):
+        url = (d.get("url_original") or "").strip()
+        if not url or url in urls_procesadas:
+            continue
+        pendientes.append({
+            "id_unico":            d.get("id_unico"),
+            "url":                 url,
+            "portal":              d.get("portal_origen") or portal,
+            "falta_m2_const":      not d.get("m2_construccion"),
+            "falta_m2_terreno":    not d.get("m2_terreno"),
+            "falta_ano_const":     d.get("anio_construccion") in (None, "", 0),
+            "falta_nombre_agente": not d.get("nombre_agente"),
+            "falta_fecha_pub":     not d.get("fecha_publicacion"),
+        })
+        if len(pendientes) >= max_filas:
+            break
+    return pendientes
+
+
+def enriquecer_mongo(col, portal: str, max_filas: int, dry_run: bool,
+                     urls_procesadas: set):
+    """Enriquece un portal leyendo y escribiendo DIRECTO en MongoDB (sin Sheets)."""
+    log = logger.bind(portal=portal)
+    log.info(f"=== [MONGO] Enriqueciendo '{portal}' (max={max_filas}) ===")
+
+    pendientes = obtener_props_mongo(col, portal, max_filas, urls_procesadas)
+    log.info(f"Props pendientes de edad: {len(pendientes)}")
+
+    if dry_run or not pendientes:
+        if dry_run:
+            log.info("(dry-run: no se descargan páginas)")
+        return {"tab": portal, "pendientes": len(pendientes), "enriquecidas": 0, "errores": 0}
+
+    session = requests.Session()
+    enriquecidas = errores = 0
+
+    for idx, prop in enumerate(pendientes, 1):
+        url = prop["url"]
+        portal_real = portal if portal in PORTALES_PLAYWRIGHT or portal == "CASAS_Y_TERRENOS" else inferir_portal_por_url(url) or portal
+        usa_playwright = portal_real in PORTALES_PLAYWRIGHT
+
+        log.info(f"[{idx}/{len(pendientes)}] {portal_real} — {url[:80]}")
+
+        if usa_playwright:
+            antiblock.delay_aleatorio(DELAY_MIN_PLAYWRIGHT, DELAY_MAX_PLAYWRIGHT)
+        else:
+            antiblock.delay_aleatorio(DELAY_MIN_REQUESTS, DELAY_MAX_REQUESTS)
+
+        if idx > 1 and idx % PAUSA_LARGA_CADA == 0:
+            pausa = random.uniform(PAUSA_LARGA_MIN, PAUSA_LARGA_MAX)
+            log.info(f"  ⏸  Pausa de seguridad: {pausa:.0f}s...")
+            time.sleep(pausa)
+
+        html = fetch_detalle(url, portal, session)
+        urls_procesadas.add(url)
+        guardar_checkpoint(urls_procesadas)
+
+        if not html:
+            log.warning(f"  Sin HTML")
+            errores += 1
+            continue
+
+        datos = extraer_datos_detalle(html, portal)
+        if not datos:
+            continue
+
+        # Construir $set solo con lo que falta. Mapear año_construccion (ñ) →
+        # anio_construccion (canónico ascii que lee el motor).
+        set_doc = {}
+        actualizados = []
+        if prop["falta_ano_const"] and "año_construccion" in datos:
+            set_doc["anio_construccion"] = datos["año_construccion"]
+            actualizados.append(f"anio={datos['año_construccion']}")
+        if prop["falta_m2_const"] and "m2_construccion" in datos:
+            set_doc["m2_construccion"] = datos["m2_construccion"]
+            actualizados.append(f"m2c={datos['m2_construccion']}")
+        if prop["falta_m2_terreno"] and "m2_terreno" in datos:
+            set_doc["m2_terreno"] = datos["m2_terreno"]
+            actualizados.append(f"m2t={datos['m2_terreno']}")
+        if prop["falta_nombre_agente"] and "nombre_agente" in datos:
+            set_doc["nombre_agente"] = datos["nombre_agente"]
+            actualizados.append("agente")
+        if prop["falta_fecha_pub"] and "fecha_publicacion" in datos:
+            set_doc["fecha_publicacion"] = datos["fecha_publicacion"]
+            actualizados.append("fecha_pub")
+        if "estacionamientos" in datos:
+            set_doc.setdefault("estacionamientos", datos["estacionamientos"])
+
+        if set_doc:
+            try:
+                col.update_one({"id_unico": prop["id_unico"]},
+                               {"$set": {**set_doc, "enriched_at": datetime.now().isoformat()}})
+                log.info(f"  ✓ {', '.join(actualizados)}")
+                enriquecidas += 1
+            except Exception as e:
+                log.error(f"  Error Mongo update: {e}")
+                errores += 1
+
+    log.info(f"=== [MONGO] '{portal}' completado: {enriquecidas} enriquecidas | {errores} errores ===")
+    return {"tab": portal, "pendientes": len(pendientes), "enriquecidas": enriquecidas, "errores": errores}
+
+
 def main():
     parser = argparse.ArgumentParser(description="Enriquecer propiedades con datos de páginas de detalle")
     parser.add_argument("--tab", default=None,
@@ -945,22 +1075,22 @@ def main():
                         help=f"Máximo de propiedades a procesar por pestaña (default: {DEFAULT_MAX})")
     parser.add_argument("--dry-run", action="store_true",
                         help="Solo contar cuántas propiedades faltan, sin descargar nada")
+    parser.add_argument("--mongo", action="store_true",
+                        help="Modo oficial: lee y escribe DIRECTO en MongoDB (sin Sheets)")
     args = parser.parse_args()
 
     inicio = datetime.now()
     logger.info(f"Enricher iniciado — {inicio.strftime('%Y-%m-%d %H:%M')}")
-    logger.info(f"Max por tab: {args.max} | Dry-run: {args.dry_run}")
+    logger.info(f"Max por tab: {args.max} | Dry-run: {args.dry_run} | Mongo: {args.mongo}")
 
-    sheets = SheetsClient()
-
-    # Determinar qué tabs procesar
+    # Portales reales (excluye tabs internas). En modo mongo no se toca Sheets.
+    PORTALES_REALES = ["PROPIEDADES_COM", "CASAS_Y_TERRENOS", "INMUEBLES24",
+                       "PINCALI", "VIVANUNCIOS", "MITULA"]
     if args.tab:
-        if args.tab not in config.TODAS_LAS_TABS:
-            logger.error(f"Tab '{args.tab}' no reconocida. Opciones: {config.TODAS_LAS_TABS}")
-            sys.exit(1)
         tabs = [args.tab]
+    elif args.mongo:
+        tabs = PORTALES_REALES
     else:
-        # Todas excepto LOG y CONSOLIDADO (el consolidado se enriquece via sus portales originales)
         tabs = [t for t in config.TODAS_LAS_TABS if t not in (config.TAB_LOG, config.TAB_CONSOLIDADO)]
 
     # Cargar checkpoint de sesión anterior (si existe)
@@ -969,12 +1099,22 @@ def main():
         logger.info(f"Checkpoint cargado: {len(urls_procesadas)} URLs ya procesadas en sesiones anteriores")
 
     resultados = []
-    for tab in tabs:
-        try:
-            r = enriquecer_tab(sheets, tab, args.max, args.dry_run, urls_procesadas)
-            resultados.append(r)
-        except Exception as e:
-            logger.error(f"Error procesando tab '{tab}': {e}")
+    if args.mongo:
+        col = _get_mongo_col()
+        for portal in tabs:
+            try:
+                r = enriquecer_mongo(col, portal, args.max, args.dry_run, urls_procesadas)
+                resultados.append(r)
+            except Exception as e:
+                logger.error(f"Error procesando portal '{portal}': {e}")
+    else:
+        sheets = SheetsClient()
+        for tab in tabs:
+            try:
+                r = enriquecer_tab(sheets, tab, args.max, args.dry_run, urls_procesadas)
+                resultados.append(r)
+            except Exception as e:
+                logger.error(f"Error procesando tab '{tab}': {e}")
 
     # Limpiar checkpoint solo si terminó sin errores graves
     if not args.dry_run and all(r.get("errores", 0) == 0 for r in resultados):
@@ -994,8 +1134,8 @@ def main():
     logger.info(f"  Duración        : {duracion:.0f}s")
     logger.info("=" * 50)
 
-    if not args.dry_run:
-        # Log a Sheets
+    if not args.dry_run and not args.mongo:
+        # Log a Sheets (solo en modo Sheets; en modo mongo Sheets está en pausa)
         try:
             sheets.append_fila_log([
                 datetime.now().isoformat(),
