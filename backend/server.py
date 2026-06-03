@@ -305,6 +305,76 @@ async def update_location(valuation_id: str, request: Request):
     
     return {"message": "Ubicación actualizada"}
 
+
+async def _enrich_comp_urls(urls: list, deadline: float = 22.0) -> dict:
+    """Abre las páginas de detalle de comparables web (subprocess enrich_urls.py)
+    y devuelve {url: {anio_construccion, m2_construccion, m2_terreno, recamaras,
+    banos, estacionamientos, telefono, inmobiliaria, nombre_agente, email_agente}}.
+    Nunca lanza: ante error/timeout devuelve {} y el avalúo sigue con el snippet."""
+    urls = [u for u in (urls or []) if isinstance(u, str) and u.startswith("http")]
+    if not urls:
+        return {}
+    python_exe = os.environ.get("SCRAPER_PYTHON", "python")
+    proc = None
+    try:
+        proc = await asyncio.create_subprocess_exec(
+            python_exe, "enrich_urls.py", "--deadline", str(deadline),
+            stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+            cwd=str(SCRAPER_DIR),
+        )
+        stdout, _ = await asyncio.wait_for(
+            proc.communicate(input=json.dumps(urls).encode()), timeout=deadline + 8
+        )
+        data = json.loads((stdout.decode() or "{}").strip() or "{}")
+        return data if isinstance(data, dict) else {}
+    except Exception as e:
+        logging.warning(f"[enrich_comps] enriquecimiento web no disponible (no crítico): {e}")
+        try:
+            if proc:
+                proc.kill()
+        except Exception:
+            pass
+        return {}
+
+
+async def _guardar_comps_web_en_mercado(enriched_comps: list):
+    """Flywheel: guarda en mercado_props los comparables web ya enriquecidos
+    (con URL real) para no volver a buscarlos en internet la próxima vez."""
+    import hashlib
+    from datetime import datetime, timezone
+    ops = 0
+    for c in enriched_comps:
+        url = c.get("source_url") or ""
+        if not (url.startswith("http") and c.get("enriched")):
+            continue
+        try:
+            uid = hashlib.md5(url.encode()).hexdigest()
+            doc = {
+                "id_unico": uid, "url_original": url,
+                "portal_origen": (c.get("source") or "web").upper(),
+                "titulo": c.get("title", ""), "precio": c.get("price"),
+                "colonia": c.get("neighborhood", ""), "municipio": c.get("municipality", ""),
+                "estado": c.get("state", ""), "tipo_propiedad": c.get("property_type", ""),
+                "tipo_operacion": c.get("listing_type", "venta"),
+                "m2_construccion": c.get("construction_area"), "m2_terreno": c.get("land_area"),
+                "recamaras": c.get("bedrooms"), "banos": c.get("bathrooms"),
+                "estacionamientos": c.get("estacionamientos"),
+                "anio_construccion": c.get("anio_construccion"),
+                "nombre_agente": c.get("nombre_agente"), "telefono": c.get("telefono"),
+                "inmobiliaria": c.get("inmobiliaria"),
+                "origen_dato": "web_enriquecido",
+                "importado_at": datetime.now(timezone.utc).isoformat(),
+                "activo": True,
+            }
+            doc = {k: v for k, v in doc.items() if v is not None}
+            await db.mercado_props.update_one({"id_unico": uid}, {"$set": doc}, upsert=True)
+            ops += 1
+        except Exception as e:
+            logging.warning(f"[flywheel] no se pudo guardar comp web: {e}")
+    if ops:
+        logging.info(f"[flywheel] {ops} comparables web enriquecidos guardados en mercado_props")
+
+
 @api_router.post("/valuations/{valuation_id}/generate-comparables")
 @limiter.limit("30/hour")
 async def generate_comparables(valuation_id: str, request: Request, append: bool = False):
@@ -521,8 +591,40 @@ async def generate_comparables(valuation_id: str, request: Request, append: bool
             search_method = "ai"
             
             logger.info(f"AI search found {len(ai_comparables)} comparables via {ai_providers_used}")
-            
+
+            # ── Enriquecer comps web abriendo el listing real (edad/tel/estac/m²) ──
+            # Antes de construir los comparables, para que lleven datos de detalle y
+            # el ajuste/valuación sea más certero. Deadline duro; nunca cuelga.
+            try:
+                web_urls = [c.get("source_url") for c in ai_comparables
+                            if (c.get("source_url") or "").startswith("http")][:12]
+                enriched_map = await _enrich_comp_urls(web_urls, deadline=22)
+                for c in ai_comparables:
+                    ed = enriched_map.get(c.get("source_url") or "")
+                    if not ed:
+                        continue
+                    c["_enriched"] = True
+                    if ed.get("anio_construccion") is not None:
+                        c["anio_construccion"] = ed["anio_construccion"]
+                    if ed.get("m2_construccion"):
+                        c["construction_area"] = ed["m2_construccion"]
+                    if ed.get("m2_terreno"):
+                        c["land_area"] = ed["m2_terreno"]
+                    if ed.get("recamaras"):
+                        c["bedrooms"] = ed["recamaras"]
+                    if ed.get("banos"):
+                        c["bathrooms"] = ed["banos"]
+                    for k in ("estacionamientos", "telefono", "inmobiliaria",
+                              "nombre_agente", "email_agente"):
+                        if ed.get(k) is not None:
+                            c[k] = ed[k]
+                if enriched_map:
+                    logger.info(f"Enriquecidos {len(enriched_map)}/{len(web_urls)} comps web con datos de detalle")
+            except Exception as e:
+                logger.warning(f"Enriquecimiento de comps web falló (no crítico): {e}")
+
             # Convert AI results to Comparable format with adjustments
+            comps_web_enriquecidos = []
             for ai_comp in ai_comparables:
                 construction_area = ai_comp.get("construction_area") or ai_comp.get("land_area") or prop["construction_area"]
                 price_per_sqm = ai_comp["price"] / construction_area if construction_area else 0
@@ -559,6 +661,13 @@ async def generate_comparables(valuation_id: str, request: Request, append: bool
                     land_regime=prop["land_regime"],
                     listing_type="venta",
                     image_url=ai_comp.get("image_url"),
+                    anio_construccion=ai_comp.get("anio_construccion"),
+                    bedrooms=ai_comp.get("bedrooms"),
+                    bathrooms=ai_comp.get("bathrooms"),
+                    estacionamientos=ai_comp.get("estacionamientos"),
+                    telefono=ai_comp.get("telefono"),
+                    inmobiliaria=ai_comp.get("inmobiliaria"),
+                    enriched=bool(ai_comp.get("_enriched")),
                     negotiation_adjustment=base_negotiation,
                     area_adjustment=round(area_adj, 2),
                     condition_adjustment=round(condition_adj, 2),
@@ -567,8 +676,19 @@ async def generate_comparables(valuation_id: str, request: Request, append: bool
                     total_adjustment=round(total_adj, 2),
                     adjusted_price_per_sqm=round(adjusted_price_per_sqm, 2)
                 )
-                comparables.append(comparable.model_dump())
+                comp_dict = comparable.model_dump()
+                comparables.append(comp_dict)
+                if comp_dict.get("enriched"):
+                    comps_web_enriquecidos.append(comp_dict)
             
+            # Flywheel: guardar los comps web enriquecidos en mercado_props para
+            # no volver a buscarlos en internet (next time salen del scrape).
+            if comps_web_enriquecidos:
+                try:
+                    await _guardar_comps_web_en_mercado(comps_web_enriquecidos)
+                except Exception as e:
+                    logger.warning(f"[flywheel] guardado de comps web falló (no crítico): {e}")
+
             # Try to get rental data with AI
             try:
                 rental_ai = await asyncio.wait_for(

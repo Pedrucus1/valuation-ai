@@ -183,6 +183,15 @@ class Comparable(BaseModel):
     listing_type: str = "venta"
     image_url: Optional[str] = None
 
+    # Datos enriquecidos desde la página de detalle (cuando se abre el listing)
+    anio_construccion: Optional[int] = None
+    bedrooms: Optional[int] = None
+    bathrooms: Optional[float] = None
+    estacionamientos: Optional[int] = None
+    telefono: Optional[str] = None
+    inmobiliaria: Optional[str] = None
+    enriched: bool = False
+
     # Adjustments
     negotiation_adjustment: float = 0.0
     area_adjustment: float = 0.0
