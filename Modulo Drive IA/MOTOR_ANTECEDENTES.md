@@ -26,12 +26,16 @@ script de Sheets + excluye `es_duplicado_secundario` del dedup cross-portal nuev
 - Validador `validar_40_opis.js --desde 2025-07`:
   - **Baseline (Sheet, cache 31-may):** ±10% 83.3% · ±15% 86.1% · ±20% **100%** · err 6.1% · med +4.9%
   - **Mongo:** ±15% 75.0% · ±20% **83.3%** · err 10.4% · med **-7.1%** (infravalúa) · 6 OPIs fuera ±20%
-- **CONCLUSIÓN:** la regresión NO es por falta de datos (Mongo tiene más) sino por **calidad/calibración**:
-  el cache del Sheet está afinado contra estos OPIs (similares/NSE curados aquí documentados). Mongo crudo
-  trae más listings ruidosos que bajan las medianas. Migrar a Mongo exige **re-calibrar**, no un swap directo.
-- **ACCIÓN:** baseline RESTAURADO (`cache_*.json.bak_20260603_135647`). Script queda como herramienta.
-  NO re-investigar OPIs individuales (ver regla #4 y feedback_motor_no_cazar_atipicos). La migración es un
-  proyecto de re-calibración, no un cambio de fuente.
+- **2º intento — limpieza de calidad** (`actualizar_cache_mongo.cjs` sin `--raw`: exige colonia + recorta
+  outliers de $/m² por colonia+tipo a [0.40×med, 2.5×med]): 30,718 comps. Validador: ±10% 69.4% · ±15% 75% ·
+  ±20% **83.3%** · err 10.2% · mediana **+7.1%**. La limpieza **invirtió el sesgo** (-7.1% → +7.1%) pero
+  **NO cerró la regresión** (±20% sigue 83.3% vs 100% baseline).
+- **CONCLUSIÓN:** el hueco NO son outliers ni volumen — es **calibración**. El cache del Sheet está afinado
+  contra estos OPIs (similares/NSE curados aquí documentados). Dos intentos (crudo y limpio) regresan igual.
+  Seguir ajustando umbrales = perseguir el set de 36 (overfit, prohibido por regla #4 / feedback_motor_no_cazar_atipicos).
+- **ACCIÓN:** baseline RESTAURADO (`cache_*.json.bak_20260603_135647`, git confirma sin cambios vs HEAD).
+  El motor sigue leyendo el cache del Sheet. Migrar a Mongo = **proyecto de re-calibración** (re-tunear
+  similares/NSE/colonias contra datos Mongo), NO un swap. El script queda como herramienta para ese proyecto.
 
 ## ✅ #101 PUENTE NSE DE COMPS VERIFICADOS — RESUELTO (01-Jun-2026, tarde)
 

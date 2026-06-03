@@ -72,9 +72,36 @@ async function main() {
     }
     if (corregidos > 0) console.log(`Corrección terreno c→t: ${corregidos.toLocaleString()} listings`);
 
+    // Limpieza de calidad (default; --raw la desactiva): exigir colonia + recortar
+    // outliers de $/m² por (colonia,tipo). Mongo crudo trae listings ruidosos que
+    // bajan las medianas (regresión vs cache Sheet curado, ver MOTOR_ANTECEDENTES #107).
+    let limpios = raw;
+    if (!process.argv.includes('--raw')) {
+        const before = raw.length;
+        const withCol = raw.filter(d => normStr(d.co).length > 1);
+        const groups = {};
+        for (const d of withCol) {
+            const area = d.c > 0 ? d.c : d.t;
+            if (!area) continue;
+            (groups[`${normStr(d.co)}|${d.tp}`] ||= []).push(d.p / area);
+        }
+        const med = {};
+        for (const k in groups) { const a = groups[k].slice().sort((x, y) => x - y); med[k] = a[Math.floor(a.length / 2)]; }
+        limpios = withCol.filter(d => {
+            const area = d.c > 0 ? d.c : d.t;
+            if (!area) return false;
+            const k = `${normStr(d.co)}|${d.tp}`;
+            const m = med[k];
+            if (!m || groups[k].length < 4) return true;   // pocos datos: no recortar
+            const ppm = d.p / area;
+            return ppm >= 0.40 * m && ppm <= 2.5 * m;       // recorte outliers $/m²
+        });
+        console.log(`Limpieza calidad: ${before.toLocaleString()} → ${limpios.length.toLocaleString()} (req colonia + recorte outliers $/m²)`);
+    }
+
     // Dedup colonia|área|precio(±1%) — idéntico al script de Sheets
     const seen = new Set();
-    const compacto = raw.filter(d => {
+    const compacto = limpios.filter(d => {
         const col2 = normStr(d.co);
         const pKey = Math.round(d.p / (Math.max(d.p, 1) * 0.01));
         const area = d.c > 0 ? d.c : d.t;
