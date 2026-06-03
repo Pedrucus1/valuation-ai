@@ -8,15 +8,11 @@ Este script estima cuántos hay, agrupando por firma de atributos. NO borra ni m
 Uso:  python medir_duplicados.py
 """
 import os, re, unicodedata
+from pathlib import Path
 from collections import defaultdict, Counter
+from db_target import get_mercado_props  # lee MONGO_URL/DB_NAME del entorno/.env (NO default a prod)
 
-os.environ.setdefault(
-    "MONGO_URL",
-    "mongodb+srv://PropValu:Avaluos.%2345%23.@cluster0.9eliadx.mongodb.net/?appName=Cluster0",
-)
-from pymongo import MongoClient
-
-col = MongoClient(os.environ["MONGO_URL"])["propvalu"]["mercado_props"]
+col = get_mercado_props()
 
 
 def norm(s):

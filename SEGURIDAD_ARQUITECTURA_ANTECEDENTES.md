@@ -93,8 +93,32 @@ conecta auto-deploy de Railway, la rama a conectar es **`main`**.
 
 ### #66.x infra pendiente
 - **66.3** Separar jobs pesados del proceso web (APScheduler dentro del backend lanza subprocesos de scraper; carpeta inexistente en Railway → falla). Mover a worker/cron externo.
-- **66.4** Entorno de staging (local y prod comparten la misma Atlas → pruebas tocan datos reales).
+- **66.4** Entorno de staging — 🔄 **EN PROGRESO (03-Jun)**. Decisión: cluster Atlas separado (aislamiento real).
 - **66.5** Observabilidad: Sentry ya está; faltan métricas básicas.
+
+#### 66.4 — Staging (cluster Atlas separado) — preparación de código HECHA 03-Jun
+Riesgo: local y prod usaban la MISMA Atlas → pruebas (incl. los scripts de dedup corridos hoy) tocaban
+datos reales. Decisión: **cluster M0 separado para staging**. Arquitectura: el backend ya lee
+`MONGO_URL`/`DB_NAME` de env (core/db.py) → **local `.env` apunta a STAGING; Railway (prod) a PROD**, sin
+cambiar código del backend.
+
+**Hecho (commit pendiente):**
+- `scraper-inmuebles/db_target.py` — conexión centralizada para scripts de mantenimiento: lee env/.env,
+  **fail-closed** (sin default a prod), imprime el target y **AVISA** si apunta al cluster prod (host
+  `9eliadx`) sin `APP_ENV=production`.
+- `medir_duplicados.py` / `fusionar_duplicados.py` ya NO hardcodean prod → usan `db_target`.
+- `backend/seed_staging.py` — copia prod→staging (no destructivo en origen; aborta si SOURCE==TARGET host).
+  `mercado_props` muestreado 10k por defecto (`--full` para todo). Lee `MONGO_URL_SOURCE`/`MONGO_URL_TARGET`.
+
+**RUNBOOK para el usuario (crear el cluster — ~5 min):**
+1. Atlas → Create → **M0 Free** → nombrarlo `propvalu-staging` (misma región que prod).
+2. Database Access: crear usuario (o reusar) con readWrite. Network Access: permitir IP local / 0.0.0.0/0.
+3. Copiar la **connection string** del cluster nuevo.
+4. Seed: `$env:MONGO_URL_SOURCE="<prod>"; $env:MONGO_URL_TARGET="<staging>"; python backend/seed_staging.py`
+5. Apuntar local a staging: en `backend/.env` y `scraper-inmuebles/.env` cambiar `MONGO_URL` al string de
+   **staging** (la URL de prod queda SOLO en las env vars de Railway). Verificar: correr cualquier script →
+   debe imprimir el host de staging, sin la advertencia de prod.
+6. (Opcional) En Railway, asegurar `APP_ENV=production`.
 
 ---
 

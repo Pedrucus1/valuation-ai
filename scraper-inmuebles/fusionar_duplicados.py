@@ -19,13 +19,10 @@ Idempotente: cada corrida limpia las marcas previas y recalcula desde cero.
 import os, re, sys, unicodedata, hashlib
 from collections import defaultdict
 
-os.environ.setdefault(
-    "MONGO_URL",
-    "mongodb+srv://PropValu:Avaluos.%2345%23.@cluster0.9eliadx.mongodb.net/?appName=Cluster0",
-)
-from pymongo import MongoClient, UpdateOne
+from pymongo import UpdateOne
+from db_target import get_mercado_props  # lee MONGO_URL/DB_NAME del entorno/.env (NO default a prod)
 
-col = MongoClient(os.environ["MONGO_URL"])["propvalu"]["mercado_props"]
+col = get_mercado_props()
 
 # Campos de agrupación que este script administra (para limpiar en reset / idempotencia)
 CAMPOS_GRUPO = ["es_maestro", "es_duplicado_secundario", "dup_de",
