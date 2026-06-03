@@ -93,7 +93,10 @@ conecta auto-deploy de Railway, la rama a conectar es **`main`**.
 
 ### #66.x infra pendiente
 - **66.3** Separar jobs pesados del proceso web (APScheduler dentro del backend lanza subprocesos de scraper; carpeta inexistente en Railway → falla). Mover a worker/cron externo.
-- **66.4** Entorno de staging — 🔄 **EN PROGRESO (03-Jun)**. Decisión: cluster Atlas separado (aislamiento real).
+- **66.4** Entorno de staging — ✅ **HECHO (03-Jun)**. Cluster M0 separado `cluster1.avle5ez` (proyecto
+  Atlas aparte = gratis). Seeded prod→staging (10k props muestreados + users/valuations/admins). Backend
+  LOCAL repuntado a staging (`backend/.env`); scraper sigue en prod (pipeline de datos). Creds solo en
+  `.env` local (gitignored). Modelo: app local→staging, scraper→prod, scripts mantenimiento→avisan cluster.
 - **66.5** Observabilidad: Sentry ya está; faltan métricas básicas.
 
 #### 66.4 — Staging (cluster Atlas separado) — preparación de código HECHA 03-Jun
