@@ -81,17 +81,66 @@ def enriquecer(urls: list[str], deadline: float = 25.0) -> dict:
     return resultado
 
 
+def _guardar_en_mercado(comps_ctx: list, enriched: dict):
+    """Flywheel: upsert a mercado_props de los comps web ya enriquecidos.
+    comps_ctx: lista de dicts con {url, precio, colonia, municipio, tipo, portal}.
+    enriched: {url: {campos extraídos}}. Solo guarda los que se enriquecieron."""
+    try:
+        import os
+        from datetime import datetime, timezone
+        from dotenv import load_dotenv
+        from pymongo import MongoClient
+        from utils.cleaner import generar_id_unico
+        load_dotenv()
+        col = MongoClient(os.getenv("MONGO_URL", "mongodb://localhost:27017"),
+                          serverSelectionTimeoutMS=15000, retryWrites=True)[
+                          os.getenv("DB_NAME", "propvalu")]["mercado_props"]
+        n = 0
+        for cx in comps_ctx:
+            url = (cx.get("url") or "").strip()
+            ed = enriched.get(url)
+            if not (url.startswith("http") and ed):
+                continue
+            uid = generar_id_unico(url)   # mismo esquema que el scraper → sin duplicados
+            doc = {
+                "id_unico": uid, "url_original": url,
+                "portal_origen": (inferir_portal_por_url(url) or cx.get("portal") or "WEB"),
+                "precio": cx.get("precio"), "colonia": cx.get("colonia"),
+                "municipio": cx.get("municipio"), "tipo_propiedad": cx.get("tipo"),
+                "tipo_operacion": "venta", "origen_dato": "web_enriquecido",
+                "importado_at": datetime.now(timezone.utc).isoformat(), "activo": True,
+                **ed,
+            }
+            doc = {k: v for k, v in doc.items() if v is not None}
+            col.update_one({"id_unico": uid}, {"$set": doc}, upsert=True)
+            n += 1
+        return n
+    except Exception:
+        return 0
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--deadline", type=float, default=25.0)
+    parser.add_argument("--save", action="store_true",
+                        help="Hacer upsert de los comps enriquecidos a mercado_props (flywheel)")
     args = parser.parse_args()
     try:
-        urls = json.load(sys.stdin)
-        if not isinstance(urls, list):
-            urls = []
+        items = json.load(sys.stdin)
+        if not isinstance(items, list):
+            items = []
     except Exception:
-        urls = []
-    res = enriquecer([u for u in urls if isinstance(u, str) and u.startswith("http")], args.deadline)
+        items = []
+    # stdin acepta: lista de URLs (strings) o lista de objetos {url, precio, colonia, ...}
+    comps_ctx = [it for it in items if isinstance(it, dict) and it.get("url")]
+    if comps_ctx:
+        urls = [it["url"] for it in comps_ctx]
+    else:
+        urls = [it for it in items if isinstance(it, str)]
+    urls = [u for u in urls if isinstance(u, str) and u.startswith("http")]
+    res = enriquecer(urls, args.deadline)
+    if args.save and comps_ctx:
+        _guardar_en_mercado(comps_ctx, res)
     sys.stdout.write(json.dumps(res, ensure_ascii=False))
 
 
