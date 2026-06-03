@@ -625,6 +625,13 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
     comp_rows = ''
     for i, comp in enumerate(active_comparables, 1):
         source_name = comp['source'].replace('.com.mx', '').replace('.com', '').replace('www.', '').capitalize()
+        # Fuente clickeable al anuncio real para verificar el comparable
+        source_url = comp.get('source_url', '') or ''
+        if source_url.startswith('http'):
+            fuente_cell = (f'<a href="{source_url}" target="_blank" rel="noreferrer" '
+                           f'style="color:var(--text-blue);text-decoration:underline;">{source_name} &#x2197;</a>')
+        else:
+            fuente_cell = source_name
         adj = comp.get('total_adjustment', 0)
         adj_cls = 'comp-neg' if adj < 0 else 'comp-pos'
         beds = comp.get('bedrooms', '')
@@ -651,7 +658,7 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
         <td>${comp['price_per_sqm']:,.0f}</td>
         <td class="{adj_cls}">{adj:+.1f}%</td>
         <td style="font-weight:700">${adj_sqm:,.0f}</td>
-        <td class="comp-fuente">{source_name}</td>
+        <td class="comp-fuente">{fuente_cell}</td>
       </tr>"""
 
     # Comparables stats
