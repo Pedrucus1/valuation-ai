@@ -59,8 +59,10 @@ COL_PORTAL        = 19
 COL_ACTIVO        = 21
 
 # Portales que requieren Playwright (JS rendering)
-# CASAS_Y_TERRENOS usa __NEXT_DATA__ JSON vía requests — NO necesita Playwright
-PORTALES_PLAYWRIGHT = {"PROPIEDADES_COM", "INMUEBLES24", "PINCALI", "VIVANUNCIOS"}
+# CASAS_Y_TERRENOS y PINCALI exponen los datos vía requests simple (HTML/JSON
+# embebido) — NO necesitan Playwright. INMUEBLES24/VIVANUNCIOS están protegidos
+# (DataDome) → requests recibe bloqueo, requieren Playwright.
+PORTALES_PLAYWRIGHT = {"PROPIEDADES_COM", "INMUEBLES24", "VIVANUNCIOS"}
 
 # Cuántas propiedades procesar por defecto
 DEFAULT_MAX = 50
@@ -699,6 +701,8 @@ def _pincali_url_espanol(url: str) -> str:
 
 def inferir_portal_por_url(url: str) -> Optional[str]:
     """Detecta el portal a partir del dominio de la URL."""
+    if "propiedades.com" in url:
+        return "PROPIEDADES_COM"
     if "inmuebles24.com" in url:
         return "INMUEBLES24"
     if "pincali.com" in url:
