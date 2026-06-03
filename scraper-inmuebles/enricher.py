@@ -97,19 +97,26 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
 
     resultado = {}
 
-    # ── INMUEBLES24: la edad vive en el JSON embebido, NO en el texto visible ──
-    # feature CFT5: {"label":"antigüedad","value":"30"} → 30 = años de antigüedad
-    if portal == "INMUEBLES24":
-        m = re.search(r'"label"\s*:\s*"antig[üu]edad"[^}]*?"value"\s*:\s*"?(\d+)"?', html)
-        if not m:  # fallback al meta-keyword "Antigüedad 30 años"
-            m = re.search(r'antig[üu]edad\s+(\d+)\s*a[ñn]os', html, re.I)
-        if m:
-            # value puede ser años de antigüedad (30) o un año directo (1998);
-            # normalizar_anio_construccion distingue ambos. Sufijo "años" fuerza
-            # el cálculo de antigüedad cuando es un número pequeño.
-            ano = normalizar_anio_construccion(f"{m.group(1)} años")
-            if ano:
-                resultado["año_construccion"] = ano
+    # ── INMUEBLES24 / VIVANUNCIOS: misma plataforma Navent. La edad vive en el
+    # JSON embebido, NO en el texto visible. feature CFT5:
+    # {"label":"antigüedad","value":"30"} → 30 años | "A estrenar" → obra nueva
+    if portal in ("INMUEBLES24", "VIVANUNCIOS"):
+        from datetime import date
+        m = re.search(r'"label"\s*:\s*"antig[üu]edad"[^}]*?"value"\s*:\s*"([^"]*)"', html, re.I)
+        val = m.group(1).strip() if m else None
+        if not val:  # fallback al meta-keyword "Antigüedad 30 años"
+            m2 = re.search(r'antig[üu]edad\s+(\d+)\s*a[ñn]os', html, re.I)
+            val = f"{m2.group(1)} años" if m2 else None
+        if val:
+            if re.search(r"estrenar|nuevo|nueva", val, re.I):
+                resultado["año_construccion"] = date.today().year
+            else:
+                # value puede ser años de antigüedad (30) o un año directo (1998);
+                # normalizar_anio_construccion distingue ambos. Sufijo "años" fuerza
+                # el cálculo de antigüedad cuando es un número pequeño.
+                ano = normalizar_anio_construccion(val if not val.isdigit() else f"{val} años")
+                if ano:
+                    resultado["año_construccion"] = ano
 
     # ── CasasYTerrenos: extraer directo de __NEXT_DATA__ JSON ─────────────────
     if portal == "CASAS_Y_TERRENOS":
