@@ -196,15 +196,22 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
         if nd:
             try:
                 data = json.loads(nd.string)
-                amenities = (
+                results = (
                     data.get("props", {})
                     .get("pageProps", {})
                     .get("initialState", {})
                     .get("Property", {})
                     .get("property", {})
                     .get("results", {})
-                    .get("amenities", {})
                 )
+                amenities = results.get("amenities", {})
+                # colonia/municipio: propiedades.com NO los guarda en el scrape (colonia
+                # vacía en sus docs) → extraerlos aquí desbloquea edadMedianaZona (#90/#91)
+                inner = results.get("property", {})
+                if inner.get("colony"):
+                    resultado["colonia"] = str(inner["colony"]).strip()[:120]
+                if inner.get("city"):
+                    resultado["municipio"] = str(inner["city"]).strip()[:120]
                 size_ground = amenities.get("size_ground")
                 if size_ground and float(size_ground) > 0:
                     resultado["m2_terreno"] = float(size_ground)
@@ -1013,13 +1020,17 @@ def obtener_props_mongo(col, portal: str, max_filas: int, urls_procesadas: set) 
     Lee de mercado_props las props del portal a las que les falta anio_construccion
     (canónico, sin ñ) y/o m2. Retorna dicts {id_unico, url, portal, falta_*}.
     """
-    falta_edad = {"$or": [{"anio_construccion": {"$exists": False}},
-                          {"anio_construccion": None}]}
-    q = {"portal_origen": portal, "activo": {"$ne": False}, **falta_edad}
+    # Seleccionar docs a los que les falta edad O colonia (colonia vacía bloquea
+    # edadMedianaZona; propiedades.com la deja vacía en el scrape → backfill).
+    falta = {"$or": [{"anio_construccion": {"$exists": False}},
+                     {"anio_construccion": None},
+                     {"colonia": {"$in": [None, ""]}}]}
+    q = {"portal_origen": portal, "activo": {"$ne": False}, **falta}
     proj = {"id_unico": 1, "url_original": 1, "portal_origen": 1,
             "anio_construccion": 1, "m2_terreno": 1, "m2_construccion": 1,
             "nombre_agente": 1, "fecha_publicacion": 1, "estacionamientos": 1,
-            "recamaras": 1, "banos": 1, "telefono": 1, "inmobiliaria": 1}
+            "recamaras": 1, "banos": 1, "telefono": 1, "inmobiliaria": 1,
+            "colonia": 1, "municipio": 1}
     pendientes = []
     for d in col.find(q, proj).limit(max_filas * 3):
         url = (d.get("url_original") or "").strip()
@@ -1039,6 +1050,8 @@ def obtener_props_mongo(col, portal: str, max_filas: int, urls_procesadas: set) 
             "falta_estac":         not d.get("estacionamientos"),
             "falta_telefono":      not d.get("telefono"),
             "falta_inmobiliaria":  not d.get("inmobiliaria"),
+            "falta_colonia":       not d.get("colonia"),
+            "falta_municipio":     not d.get("municipio"),
         })
         if len(pendientes) >= max_filas:
             break
@@ -1126,6 +1139,12 @@ def enriquecer_mongo(col, portal: str, max_filas: int, dry_run: bool,
         if prop.get("falta_inmobiliaria") and "inmobiliaria" in datos:
             set_doc["inmobiliaria"] = datos["inmobiliaria"]
             actualizados.append("inmob")
+        if prop.get("falta_colonia") and datos.get("colonia"):
+            set_doc["colonia"] = datos["colonia"]
+            actualizados.append(f"col={datos['colonia']}")
+        if prop.get("falta_municipio") and datos.get("municipio"):
+            set_doc["municipio"] = datos["municipio"]
+            actualizados.append("muni")
         if "email_agente" in datos:
             set_doc.setdefault("email_agente", datos["email_agente"])
 
