@@ -1,0 +1,402 @@
+[
+ {
+  "p": 2600000,
+  "c": 105,
+  "t": 0,
+  "tp": "casa",
+  "co": "mariano otero",
+  "mu": "zapopan",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 3650000,
+  "c": 127,
+  "t": 0,
+  "tp": "casa",
+  "co": "mariano otero",
+  "mu": "zapopan",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 3490000,
+  "c": 132,
+  "t": 123,
+  "tp": "casa",
+  "co": "bosque real",
+  "mu": "tlajomulco de zúñiga",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 4290000,
+  "c": 152,
+  "t": 152,
+  "tp": "casa",
+  "co": "bosque real",
+  "mu": "tlajomulco de zúñiga",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 7290000,
+  "c": 365,
+  "t": 446,
+  "tp": "casa",
+  "co": "colinas de santa anita",
+  "mu": "tlajomulco de zúñiga",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 4395000,
+  "c": 223,
+  "t": 186,
+  "tp": "casa",
+  "co": "colinas de santa anita",
+  "mu": "tlajomulco de zúñiga",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 1150000,
+  "c": 53,
+  "t": 53,
+  "tp": "depto",
+  "co": "altagracia",
+  "mu": "zapopan",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 1400000,
+  "c": 72,
+  "t": 72,
+  "tp": "depto",
+  "co": "altagracia",
+  "mu": "zapopan",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 2850000,
+  "c": 90,
+  "t": 60,
+  "tp": "casa",
+  "co": "jardines de san jose",
+  "mu": "guadalajara",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 2850000,
+  "c": 90,
+  "t": 60,
+  "tp": "casa",
+  "co": "jardines de san jose",
+  "mu": "guadalajara",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 2850000,
+  "c": 90,
+  "t": 60,
+  "tp": "casa",
+  "co": "jardines de san jose",
+  "mu": "guadalajara",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 1050000,
+  "c": 55,
+  "t": 96,
+  "tp": "casa",
+  "co": "hacienda santa fe",
+  "mu": "tlajomulco de zúñiga",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 1978290,
+  "c": 74,
+  "t": 0,
+  "tp": "casa",
+  "co": "hacienda santa fe",
+  "mu": "tlajomulco de zúñiga",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 2043840,
+  "c": 88,
+  "t": 0,
+  "tp": "casa",
+  "co": "hacienda santa fe",
+  "mu": "tlajomulco de zúñiga",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 3350000,
+  "c": 92,
+  "t": 0,
+  "tp": "casa",
+  "co": "francisco sarabia",
+  "mu": "zapopan",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 6600000,
+  "c": 240,
+  "t": 0,
+  "tp": "casa",
+  "co": "camino real",
+  "mu": "zapopan",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 8500000,
+  "c": 262,
+  "t": 0,
+  "tp": "casa",
+  "co": "camino real",
+  "mu": "zapopan",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 16900000,
+  "c": 415,
+  "t": 0,
+  "tp": "casa",
+  "co": "camino real",
+  "mu": "zapopan",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 2700000,
+  "c": 259,
+  "t": 0,
+  "tp": "casa",
+  "co": "echeverría",
+  "mu": "guadalajara",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 3680000,
+  "c": 160,
+  "t": 160,
+  "tp": "casa",
+  "co": "santa margarita",
+  "mu": "zapopan",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 2999000,
+  "c": 108,
+  "t": 108,
+  "tp": "casa",
+  "co": "santa margarita",
+  "mu": "zapopan",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 2350000,
+  "c": 146,
+  "t": 146,
+  "tp": "casa",
+  "co": "el bethel",
+  "mu": "guadalajara",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 2000000,
+  "c": 78,
+  "t": 0,
+  "tp": "casa",
+  "co": "santa margarita",
+  "mu": "zapopan",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 2670000,
+  "c": 126,
+  "t": 72,
+  "tp": "casa",
+  "co": "el fortin",
+  "mu": "guadalajara",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 4350000,
+  "c": 183,
+  "t": 105,
+  "tp": "casa",
+  "co": "el fortin",
+  "mu": "guadalajara",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 2950000,
+  "c": 124,
+  "t": 0,
+  "tp": "casa",
+  "co": "el fortin",
+  "mu": "guadalajara",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 2100000,
+  "c": 94,
+  "t": 0,
+  "tp": "casa",
+  "co": "campo real",
+  "mu": "zapopan",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 2060000,
+  "c": 92,
+  "t": 70,
+  "tp": "casa",
+  "co": "campo real",
+  "mu": "zapopan",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 2200000,
+  "c": 105,
+  "t": 0,
+  "tp": "casa",
+  "co": "campo real",
+  "mu": "zapopan",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 2250000,
+  "c": 99,
+  "t": 0,
+  "tp": "casa",
+  "co": "campo real",
+  "mu": "zapopan",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 450000,
+  "c": 42,
+  "t": 0,
+  "tp": "depto",
+  "co": "hacienda santa fe",
+  "mu": "tlajomulco de zúñiga",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 750000,
+  "c": 44,
+  "t": 77,
+  "tp": "depto",
+  "co": "hacienda santa fe",
+  "mu": "tlajomulco de zúñiga",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 5500000,
+  "c": 158,
+  "t": 158,
+  "tp": "casa",
+  "co": "centro",
+  "mu": "guadalajara",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 3850000,
+  "c": 159,
+  "t": 159,
+  "tp": "casa",
+  "co": "centro",
+  "mu": "guadalajara",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 3690000,
+  "c": 170,
+  "t": 170,
+  "tp": "casa",
+  "co": "centro",
+  "mu": "guadalajara",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 5400000,
+  "c": 248,
+  "t": 144,
+  "tp": "casa",
+  "co": "centro",
+  "mu": "guadalajara",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 4150000,
+  "c": 152,
+  "t": 0,
+  "tp": "casa",
+  "co": "lázaro cárdenas",
+  "mu": "guadalajara",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 6800000,
+  "c": 227,
+  "t": 140,
+  "tp": "casa",
+  "co": "las grullas residencial",
+  "mu": "tlajomulco de zúñiga",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 7480000,
+  "c": 136,
+  "t": 0,
+  "tp": "depto",
+  "co": "jardines de guadalupe",
+  "mu": "zapopan",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ },
+ {
+  "p": 7480000,
+  "c": 136,
+  "t": 0,
+  "tp": "depto",
+  "co": "jardines de guadalupe",
+  "mu": "zapopan",
+  "fs": "2026-06-01",
+  "_fuente": "web_verificado"
+ }
+]

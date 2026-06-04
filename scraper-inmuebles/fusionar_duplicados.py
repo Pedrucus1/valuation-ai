@@ -26,7 +26,7 @@ col = get_mercado_props()
 
 # Campos de agrupación que este script administra (para limpiar en reset / idempotencia)
 CAMPOS_GRUPO = ["es_maestro", "es_duplicado_secundario", "dup_de",
-                "grupo_id", "n_portales", "portales_anunciado", "anuncios"]
+                "grupo_id", "n_portales", "portales_anunciado", "anuncios", "dup_intra"]
 
 # Ranking de calidad de portal — desempate cuando dos docs tienen igual completitud.
 # (Orden = mejor info histórica primero; ajustable.)
@@ -115,13 +115,14 @@ def main():
     ops = []
     n_grupos_cross = 0
     n_secundarios = 0
+    marcados = set()  # id_unicos ya resueltos por el paso cross (no re-procesar en intra)
     for firma, docs in grupos.items():
         portales = {d.get("portal_origen") for d in docs}
-        # SOLO cross-portal (>=2 portales distintos) — intra-portal no se toca
+        # SOLO cross-portal (>=2 portales distintos); el resto va al paso intra-portal
         if len(portales) < 2:
             continue
         n_grupos_cross += 1
-        grupo_id = hashlib.md5("|".join(map(str, firma)).encode()).hexdigest()[:16]
+        grupo_id = hashlib.md5(("X|" + "|".join(map(str, firma))).encode()).hexdigest()[:16]
         # Maestro = más completo; desempate por ranking de portal, luego id estable
         maestro = max(docs, key=lambda d: (completitud(d),
                                            -PORTAL_RANK.get(d.get("portal_origen"), 9),
@@ -129,6 +130,7 @@ def main():
         anuncios = [{"portal": d.get("portal_origen"), "url": d.get("url_original")}
                     for d in docs]
         portales_ord = sorted(portales)
+        marcados.add(maestro["id_unico"])
         ops.append(UpdateOne({"id_unico": maestro["id_unico"]}, {"$set": {
             "es_maestro": True, "grupo_id": grupo_id, "n_portales": len(portales),
             "portales_anunciado": portales_ord, "anuncios": anuncios,
@@ -137,15 +139,58 @@ def main():
             if d["id_unico"] == maestro["id_unico"]:
                 continue
             n_secundarios += 1
+            marcados.add(d["id_unico"])
             ops.append(UpdateOne({"id_unico": d["id_unico"]}, {"$set": {
                 "es_duplicado_secundario": True, "dup_de": maestro["id_unico"],
                 "grupo_id": grupo_id,
             }, "$unset": {"es_maestro": "", "n_portales": "",
                           "portales_anunciado": "", "anuncios": ""}}))
 
+    # ── INTRA-PORTAL: misma propiedad re-scrapeada (mismo portal, otra URL). ──
+    # Firma ESTRICTA: portal + muni + colonia + tipo + op + m²(exacto) + PRECIO EXACTO
+    # + recámaras + baños. El precio exacto evita falsos positivos (unidades distintas
+    # casi nunca tienen precio idéntico al peso). Solo docs NO resueltos por cross.
+    intra = defaultdict(list)
+    for docs in grupos.values():
+        for d in docs:
+            if d["id_unico"] in marcados:
+                continue
+            m2 = m2_bucket(d.get("m2_construccion")) or m2_bucket(d.get("m2_terreno"))
+            try:
+                pr = round(float(d.get("precio")))
+            except (TypeError, ValueError):
+                pr = None
+            if m2 is None or pr is None:
+                continue
+            key = (d.get("portal_origen"), norm(d.get("municipio")), norm(d.get("colonia")),
+                   norm(d.get("tipo_propiedad")), norm(d.get("tipo_operacion")),
+                   m2, pr, d.get("recamaras"), d.get("banos"))
+            intra[key].append(d)
+
+    n_grupos_intra = 0
+    for key, docs in intra.items():
+        if len(docs) < 2:
+            continue
+        n_grupos_intra += 1
+        grupo_id = hashlib.md5(("I|" + "|".join(map(str, key))).encode()).hexdigest()[:16]
+        maestro = max(docs, key=lambda d: (completitud(d), d.get("id_unico", "")))
+        ops.append(UpdateOne({"id_unico": maestro["id_unico"]}, {"$set": {
+            "es_maestro": True, "grupo_id": grupo_id, "dup_intra": True,
+        }, "$unset": {"es_duplicado_secundario": "", "dup_de": ""}}))
+        for d in docs:
+            if d["id_unico"] == maestro["id_unico"]:
+                continue
+            n_secundarios += 1
+            ops.append(UpdateOne({"id_unico": d["id_unico"]}, {"$set": {
+                "es_duplicado_secundario": True, "dup_de": maestro["id_unico"],
+                "grupo_id": grupo_id, "dup_intra": True,
+            }, "$unset": {"es_maestro": "", "n_portales": "",
+                          "portales_anunciado": "", "anuncios": ""}}))
+
     print(f"\nTotal docs activos:            {total}")
     print(f"No evaluables (sin colonia/m²/precio): {no_evaluable} ({100*no_evaluable/total:.1f}%)")
     print(f"Grupos cross-portal:           {n_grupos_cross}")
+    print(f"Grupos intra-portal:           {n_grupos_intra}")
     print(f"Docs secundarios (se ocultan): {n_secundarios} ({100*n_secundarios/total:.1f}% del total)")
     print(f"Inventario real estimado:      {total - n_secundarios}")
 

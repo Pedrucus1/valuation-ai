@@ -68,7 +68,7 @@ const AMG_MUNIS = new Set([
 function dedup(listings) {
     const seen = new Set();
     return listings.filter(l => {
-        const key = `${Math.round(l.precio/1000)}_${l.m2c || l.m2t}`;
+        const key = `${Math.round(l.p/1000)}_${l.c || l.t}`;
         if (seen.has(key)) return false;
         seen.add(key);
         return true;
@@ -101,12 +101,12 @@ const idx = {};  // { municipio: { tipo: { colonia: { listings, medianaPm2c, cou
 
 let skipped = 0;
 for (const d of CACHE) {
-    if (!d.precio || (!d.m2c && !d.m2t)) { skipped++; continue; }
+    if (!d.p || (!d.c && !d.t)) { skipped++; continue; }
 
-    const muni  = normMuni(d.muni || '');
-    const tipo  = canonTipo(d.tipo || '');
+    const muni  = normMuni(d.mu || '');
+    const tipo  = canonTipo(d.tp || '');
     // Colonia con mismo nombre que el municipio → renombrar a "X centro"
-    const colRaw = normCol(d.colonia || '');
+    const colRaw = normCol(d.co || '');
     const col    = colRaw === muni ? muni + ' centro' : colRaw;
 
     if (!muni) { skipped++; continue; }
@@ -116,16 +116,16 @@ for (const d of CACHE) {
     if (!idx[muni][tipo][col]) idx[muni][tipo][col] = [];
 
     // Solo guardar los campos que usan los motores: precio, m²C, m²T, fecha_scraping, año (#90/#91)
-    idx[muni][tipo][col].push({ precio: d.precio, m2c: d.m2c, m2t: d.m2t || 0, fecha: d.fecha || null, anio: d.anio || null });
+    idx[muni][tipo][col].push({ p: d.p, c: d.c, t: d.t || 0, fs: d.fs || null, an: d.an || null });
 }
 
 // #101 — Inyectar comps web verificados SOLO en celdas pobres (<PUENTE_GATE scraper).
 let puenteAdd = 0;
 for (const d of _verificados) {
-    if (!d.precio || (!d.m2c && !d.m2t)) continue;
-    const muni = normMuni(d.muni || '');
-    const tipo = canonTipo(d.tipo || '');
-    const colRaw = normCol(d.colonia || '');
+    if (!d.p || (!d.c && !d.t)) continue;
+    const muni = normMuni(d.mu || '');
+    const tipo = canonTipo(d.tp || '');
+    const colRaw = normCol(d.co || '');
     const col = colRaw === muni ? muni + ' centro' : colRaw;
     if (!muni || !col) continue;
     const cell = idx[muni]?.[tipo]?.[col];
@@ -133,7 +133,7 @@ for (const d of _verificados) {
     if (!idx[muni])       idx[muni] = {};
     if (!idx[muni][tipo]) idx[muni][tipo] = {};
     if (!idx[muni][tipo][col]) idx[muni][tipo][col] = [];
-    idx[muni][tipo][col].push({ precio: d.precio, m2c: d.m2c, m2t: d.m2t || 0, fecha: d.fecha || null, web: 1 });
+    idx[muni][tipo][col].push({ p: d.p, c: d.c, t: d.t || 0, fs: d.fs || null, w: 1 });
     puenteAdd++;
 }
 if (_verificados.length) console.log(`  Puente #101: ${puenteAdd}/${_verificados.length} comps web inyectados en celdas pobres (<${PUENTE_GATE}).`);
@@ -150,11 +150,11 @@ for (const muni of Object.keys(idx)) {
             // Terrenos usan t (m²T) para $/m²; resto usan c (m²C)
             const esTerr = tipo === 'terreno';
             const pm2cs = esTerr
-                ? dd.filter(l => l.m2t > 0).map(l => l.precio / l.m2t)
-                : dd.filter(l => l.m2c > 0).map(l => l.precio / l.m2c);
-            // #90 — edad mediana de la zona (años) desde los `anio` presentes. Solo si ≥3 listings con año.
+                ? dd.filter(l => l.t > 0).map(l => l.p / l.t)
+                : dd.filter(l => l.c > 0).map(l => l.p / l.c);
+            // #90 — edad mediana de la zona (años) desde los `an` presentes. Solo si ≥3 listings con año.
             const ANIO_ACTUAL = new Date().getFullYear();
-            const edades = dd.filter(l => l.anio > 1900 && l.anio <= ANIO_ACTUAL).map(l => ANIO_ACTUAL - l.anio);
+            const edades = dd.filter(l => l.an > 1900 && l.an <= ANIO_ACTUAL).map(l => ANIO_ACTUAL - l.an);
             idx[muni][tipo][col] = {
                 listings:    dd,
                 medianaPm2c: pm2cs.length ? Math.round(mediana(pm2cs)) : null,
@@ -176,13 +176,13 @@ if (fs.existsSync(EDAD_MONGO_PATH)) {
     const ANIO = new Date().getFullYear();
     const pool = {};  // "muni|tipo|col" -> [edades]
     for (const e of edadRaw) {
-        const muni = normMuni(e.muni || '');
-        const tipo = canonTipo(e.tipo || '');
-        const colRaw = normCol(e.colonia || '');
+        const muni = normMuni(e.mu || '');
+        const tipo = canonTipo(e.tp || '');
+        const colRaw = normCol(e.co || '');
         const col = colRaw === muni ? muni + ' centro' : colRaw;
-        if (!muni || !col || !(e.anio > 1900 && e.anio <= ANIO)) continue;
+        if (!muni || !col || !(e.an > 1900 && e.an <= ANIO)) continue;
         const k = muni + '|' + tipo + '|' + col;
-        (pool[k] = pool[k] || []).push(ANIO - e.anio);
+        (pool[k] = pool[k] || []).push(ANIO - e.an);
     }
     let aplicadas = 0;
     for (const muni of Object.keys(idx)) {

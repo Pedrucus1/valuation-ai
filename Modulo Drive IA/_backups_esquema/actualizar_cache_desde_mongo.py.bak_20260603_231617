@@ -86,27 +86,27 @@ def main():
             fs = None
 
         d = {
-            "precio": round(precio),
-            "m2c": round(m2c),
-            "m2t": round(clean_num(r.get("m2_terreno"))) or 0,
-            "tipo": str(r.get("tipo_propiedad", "")).lower(),
-            "colonia": str(r.get("colonia", "")).lower(),
-            "muni": str(r.get("municipio", "")).lower(),
-            "recamaras": clean_num(r.get("recamaras")) or None,
-            "banos": clean_num(r.get("banos")) or None,
-            "estac": clean_num(r.get("estacionamientos")) or None,
-            "fecha": fs,
+            "p": round(precio),
+            "c": round(m2c),
+            "t": round(clean_num(r.get("m2_terreno"))) or 0,
+            "tp": str(r.get("tipo_propiedad", "")).lower(),
+            "co": str(r.get("colonia", "")).lower(),
+            "mu": str(r.get("municipio", "")).lower(),
+            "re": clean_num(r.get("recamaras")) or None,
+            "ba": clean_num(r.get("banos")) or None,
+            "es": clean_num(r.get("estacionamientos")) or None,
+            "fs": fs,
         }
         if an is not None:
-            d["anio"] = an
+            d["an"] = an
         raw.append(d)
 
     # Corrección terreno: c→t cuando t=0 y c>0 y tipo es terreno
     corregidos = 0
     for d in raw:
-        if any(tt in d["tipo"] for tt in TIPOS_TERRENO) and d["m2t"] == 0 and d["m2c"] > 0:
-            d["m2t"] = d["m2c"]
-            d["m2c"] = 0
+        if any(tt in d["tp"] for tt in TIPOS_TERRENO) and d["t"] == 0 and d["c"] > 0:
+            d["t"] = d["c"]
+            d["c"] = 0
             corregidos += 1
     if corregidos:
         print(f"Corrección terreno c→t: {corregidos:,}")
@@ -115,9 +115,9 @@ def main():
     seen = set()
     compacto = []
     for d in raw:
-        coln = norm_str(d["colonia"])
-        p_key = round(d["precio"] / (max(d["precio"], 1) * 0.01))  # ≡100 (mismo comportamiento que JS)
-        area = d["m2c"] if d["m2c"] > 0 else d["m2t"]
+        coln = norm_str(d["co"])
+        p_key = round(d["p"] / (max(d["p"], 1) * 0.01))  # ≡100 (mismo comportamiento que JS)
+        area = d["c"] if d["c"] > 0 else d["t"]
         key = f"{coln}|{area}|{p_key}"
         if key in seen:
             continue
@@ -127,7 +127,7 @@ def main():
     if n_dups:
         print(f"Duplicados eliminados: {n_dups:,} ({round(100*n_dups/max(len(raw),1))}%)")
 
-    con_an = sum(1 for d in compacto if d.get("anio") is not None)
+    con_an = sum(1 for d in compacto if d.get("an") is not None)
     meta = {
         "fecha_actualizacion": datetime.now(timezone.utc).isoformat(),
         "total_original": total_original,

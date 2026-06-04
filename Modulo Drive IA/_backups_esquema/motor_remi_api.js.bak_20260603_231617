@@ -260,7 +260,7 @@ function antiRemate(arr) {
 
 function dedup(arr) {
     return arr.filter((d, i, a) =>
-        a.findIndex(x => Math.abs(x.precio - d.precio) / Math.max(x.precio, 1) < 0.02 && x.m2c === d.m2c) === i
+        a.findIndex(x => Math.abs(x.p - d.p) / Math.max(x.p, 1) < 0.02 && x.c === d.c) === i
     );
 }
 
@@ -372,7 +372,7 @@ async function enriquecerCompsWeb(comps, prop) {
         comps.forEach(c => {
             const ed = enriched[c.url];
             if (!ed) return;
-            if (ed.anio_construccion) c.anio = ed.anio_construccion;   // edad real del listing
+            if (ed.anio_construccion) c.an = ed.anio_construccion;   // edad real del listing
             if ((!c.m2c || c.m2c <= 0) && ed.m2_construccion) c.m2c = ed.m2_construccion;
             if ((!c.m2t || c.m2t <= 0) && ed.m2_terreno) c.m2t = ed.m2_terreno;
             c.enriquecido = true;
@@ -591,7 +591,7 @@ function listingsEnMuni(muni, tipo) {
     const colonias = IDX[muni]?.[tipo] ?? {};
     const out = [];
     for (const [col, data] of Object.entries(colonias)) {
-        for (const l of data.listings) out.push({ precio: l.precio, m2c: l.m2c, m2t: l.m2t || 0, colonia: col, anio: l.anio || null });
+        for (const l of data.listings) out.push({ p: l.p, c: l.c, t: l.t || 0, co: col });
     }
     return out;
 }
@@ -717,21 +717,21 @@ function valuarPropiedad(prop) {
 
     // Banda de precio zona — anclada en datos locales (colonia o similares)
     const enColoniaTodos = colNorm ? todos.filter(d => {
-        const dc = normCol(d.colonia);
+        const dc = normCol(d.co);
         return dc.includes(colNorm) || colNorm.includes(dc);
     }) : [];
     const enNSEBrutos = similares.length ? todos.filter(d => {
-        const dc = normCol(d.colonia);
+        const dc = normCol(d.co);
         return similares.some(s => dc.includes(s) || s.includes(dc));
     }) : [];
     // Anti-outlier: quitar similares cuyo pm2c sea >2× la mediana del grupo
-    const pm2sNSE = enNSEBrutos.map(d => d.precio / d.m2c).filter(v => v > 0 && isFinite(v));
+    const pm2sNSE = enNSEBrutos.map(d => d.p / d.c).filter(v => v > 0 && isFinite(v));
     const medNSE  = pm2sNSE.length ? mediana(pm2sNSE) : 0;
     const enNSETodos = medNSE > 0
-        ? enNSEBrutos.filter(d => { const pm2 = d.precio / d.m2c; return pm2 >= medNSE * 0.40 && pm2 <= medNSE * 2.20; })
+        ? enNSEBrutos.filter(d => { const pm2 = d.p / d.c; return pm2 >= medNSE * 0.40 && pm2 <= medNSE * 2.20; })
         : enNSEBrutos;
     const fuenteBanda = enColoniaTodos.length >= 5 ? enColoniaTodos : [...enColoniaTodos, ...enNSETodos];
-    const pm2sBanda = fuenteBanda.map(d => d.precio / d.m2c).filter(v => v > 0 && isFinite(v));
+    const pm2sBanda = fuenteBanda.map(d => d.p / d.c).filter(v => v > 0 && isFinite(v));
     // Si hay datos locales (colonia o similares), usarlos para la banda
     // Si no, NO aplicar banda de precio (solo filtro por m²C) — evitar sesgo del promedio municipal
     const tieneAnclaje = pm2sBanda.length >= 3;
@@ -745,14 +745,14 @@ function valuarPropiedad(prop) {
 
     // Pool filtrado
     const pool = dedup(todos.filter(d => {
-        if (m2C > 0 && Math.abs(d.m2c - m2C) / Math.max(d.m2c, m2C) >= 0.50) return false;
-        const pm2 = d.precio / d.m2c;
+        if (m2C > 0 && Math.abs(d.c - m2C) / Math.max(d.c, m2C) >= 0.50) return false;
+        const pm2 = d.p / d.c;
         return pm2 >= bandaMin && pm2 <= bandaMax;
     }));
 
     // Cascada
     const enColonia = (!coloniaEsVaga && colNorm) ? pool.filter(d => {
-        const dc = normCol(d.colonia);
+        const dc = normCol(d.co);
         if (!dc || dc.length < 5) return false;
         const ratio = Math.min(dc.length, colNorm.length) / Math.max(dc.length, colNorm.length);
         return ratio >= 0.55 && (dc.includes(colNorm) || colNorm.includes(dc));
@@ -763,7 +763,7 @@ function valuarPropiedad(prop) {
 
     if (candidatos.length < 3 && similares.length > 0) {
         const enSim = pool.filter(d => {
-            const dc = normCol(d.colonia);
+            const dc = normCol(d.co);
             if (!dc || dc.length < 4) return false;
             if (colNorm && (dc.includes(colNorm) || colNorm.includes(dc))) return false;
             return similares.some(s => s.length >= 4 && dc.includes(s));
@@ -779,7 +779,7 @@ function valuarPropiedad(prop) {
         poolTipo = 'general';
         if (nseSubjeto) {
             const generalNSE = candidatos.filter(d => {
-                const nsd = getNSE(normCol(d.colonia));
+                const nsd = getNSE(normCol(d.co));
                 if (!nsd) return true;
                 return Math.abs(nsd.nseIdx - nseSubjeto.nseIdx) <= 1;
             });
@@ -789,11 +789,11 @@ function valuarPropiedad(prop) {
 
     // Score + top-N (3b-A: COMP_CAP 10→15 para no conformarse con pocos comps)
     const scored = candidatos.map(d => {
-        const dc = normCol(d.colonia);
-        let s = m2C > 0 ? 1 - Math.abs(d.m2c - m2C) / Math.max(d.m2c, m2C) : 0;
+        const dc = normCol(d.co);
+        let s = m2C > 0 ? 1 - Math.abs(d.c - m2C) / Math.max(d.c, m2C) : 0;
         if (colNorm && dc.length >= 5 && (dc.includes(colNorm) || colNorm.includes(dc))) s += 0.50;
         else if (dc.length >= 4 && similares.some(x => dc.includes(x))) s += 0.25;
-        return { precio: d.precio, m2_const: d.m2c, score: s, an: d.anio || null };
+        return { precio: d.p, m2_const: d.c, score: s, an: d.an || null };
     }).sort((a, b) => b.score - a.score).slice(0, poolTipo === 'general' ? COMP_CAP_GENERAL : COMP_CAP);
 
     // Filtro post-scoring por escalafón
@@ -855,7 +855,7 @@ function valuarPropiedad(prop) {
     const stddev = Math.sqrt(pm2cFilt.map(p => Math.pow(p - mean, 2)).reduce((a, b) => a + b, 0) / pm2cFilt.length);
     const cv     = mean > 0 ? stddev / mean : 1;
     const m2cZona = (enColoniaTodos.length >= 5 ? enColoniaTodos : [...enColoniaTodos, ...enNSETodos])
-        .map(d => d.m2c).filter(v => v > 5 && v < 2000);
+        .map(d => d.c).filter(v => v > 5 && v < 2000);
 
     const resultBase = {
         valor,

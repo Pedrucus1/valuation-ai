@@ -53,19 +53,19 @@ async function main() {
             return m2c > 0 && precio >= 100000 && tipoOp.includes('venta');
         })
         .map(r => ({
-            precio:  Math.round(cleanNum(r[COL.precio])),
-            m2c:  Math.round(cleanNum(r[COL.m2c])),
-            m2t:  Math.round(cleanNum(r[COL.m2t])) || 0,
-            tipo: (r[COL.tipo_prop] || '').toLowerCase(),
-            colonia: (r[COL.colonia]   || '').toLowerCase(),
-            muni: (r[COL.municipio] || '').toLowerCase(),
-            recamaras: cleanNum(r[COL.rec])  || null,
-            banos: cleanNum(r[COL.ban])  || null,
-            estac: cleanNum(r[COL.estac]) || null,
-            fecha: (r[COL.fecha_scrap] || '').toString().slice(0, 10) || null,
+            p:  Math.round(cleanNum(r[COL.precio])),
+            c:  Math.round(cleanNum(r[COL.m2c])),
+            t:  Math.round(cleanNum(r[COL.m2t])) || 0,
+            tp: (r[COL.tipo_prop] || '').toLowerCase(),
+            co: (r[COL.colonia]   || '').toLowerCase(),
+            mu: (r[COL.municipio] || '').toLowerCase(),
+            re: cleanNum(r[COL.rec])  || null,
+            ba: cleanNum(r[COL.ban])  || null,
+            es: cleanNum(r[COL.estac]) || null,
+            fs: (r[COL.fecha_scrap] || '').toString().slice(0, 10) || null,
             // #90/#91: año de construcción (el scraper ya convierte antigüedad→año).
             // build_cache_index filtra >1900 → valores no-año (ej. "20") se ignoran solos.
-            anio: cleanNum(r[COL.ano]) || null,
+            an: cleanNum(r[COL.ano]) || null,
         }));
 
     // Corrección de campo: terrenos con área en c en vez de t (bug de fallback scraper).
@@ -75,9 +75,9 @@ async function main() {
     const TIPOS_TERRENO = ['terreno', 'lote', 'predio', 'solar'];
     let corregidos = 0;
     for (const d of raw) {
-        if (TIPOS_TERRENO.some(tt => d.tipo.includes(tt)) && d.m2t === 0 && d.m2c > 0) {
-            d.m2t = d.m2c;
-            d.m2c = 0;
+        if (TIPOS_TERRENO.some(tt => d.tp.includes(tt)) && d.t === 0 && d.c > 0) {
+            d.t = d.c;
+            d.c = 0;
             corregidos++;
         }
     }
@@ -87,10 +87,10 @@ async function main() {
     // Evita que el mismo anuncio scrapeado múltiples veces infle el pool de comparables
     const seen = new Set();
     const compacto = raw.filter(d => {
-        const col = normStr(d.colonia);
+        const col = normStr(d.co);
         // Agrupar precio en bloques de 1% para tolerancia de redondeo
-        const pKey = Math.round(d.precio / (Math.max(d.precio, 1) * 0.01));
-        const area = d.m2c > 0 ? d.m2c : d.m2t; // usar m2t cuando m2c=0 (terrenos corregidos)
+        const pKey = Math.round(d.p / (Math.max(d.p, 1) * 0.01));
+        const area = d.c > 0 ? d.c : d.t; // usar t cuando c=0 (terrenos corregidos)
         const key = `${col}|${area}|${pKey}`;
         if (seen.has(key)) return false;
         seen.add(key);
@@ -107,8 +107,8 @@ async function main() {
 
     writeFileSync(CACHE_PATH, JSON.stringify({ meta, datos: compacto }));
     console.log(`Cache guardada: ${compacto.length.toLocaleString()} comps válidos → cache_consolidado.json`);
-    const conEspacios = compacto.filter(d => d.recamaras || d.banos).length;
-    const conFecha = compacto.filter(d => d.fecha).length;
+    const conEspacios = compacto.filter(d => d.re || d.ba).length;
+    const conFecha = compacto.filter(d => d.fs).length;
     console.log(`Reducción: ${rows.length.toLocaleString()} filas × 22 cols → ${compacto.length.toLocaleString()} × 11 campos`);
     console.log(`Con fecha_scraping: ${conFecha.toLocaleString()} (${Math.round(conFecha/compacto.length*100)}%)`);
 

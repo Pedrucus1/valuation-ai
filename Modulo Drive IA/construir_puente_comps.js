@@ -45,13 +45,13 @@ for (const c of comps) {
 }
 
 const datos = [...porUrl.values()].map(c => ({
-  p:  Math.round(c.precio),
-  c:  Math.round(c.m2c),
-  t:  Math.round(c.m2t) || 0,
-  tp: (c.tipo || 'casa').toLowerCase(),
-  co: c.colonia.toLowerCase(),
-  mu: c.municipio.toLowerCase(),
-  fs: (c.fecha || '').toString().slice(0, 10) || null,
+  precio:  Math.round(c.precio),
+  m2c:  Math.round(c.m2c),
+  m2t:  Math.round(c.m2t) || 0,
+  tipo: (c.tipo || 'casa').toLowerCase(),
+  colonia: c.colonia.toLowerCase(),
+  muni: c.municipio.toLowerCase(),
+  fecha: (c.fecha || '').toString().slice(0, 10) || null,
   _fuente: 'web_verificado',
 }));
 
