@@ -1,6 +1,20 @@
 {
-  "scanDate": "2026-04-18T03:17:22.120Z",
+  "scanDate": "2026-06-04T01:05:50.388Z",
   "rootFolderId": "1MSqdSduhmzgwqTYrQYkZ-lOsezYmmqjz",
+  "mesesEscaneados": [
+    {
+      "year": 2026,
+      "month": 6
+    },
+    {
+      "year": 2026,
+      "month": 5
+    },
+    {
+      "year": 2026,
+      "month": 4
+    }
+  ],
   "files": [
     {
       "id": "1vH86VOiw0n1bXbRBqWP7mxe_4slByGdufnDeDNfoSW4",
@@ -2143,11 +2157,6 @@
       "mimeType": "application/vnd.google-apps.spreadsheet"
     },
     {
-      "id": "1-3ZI4BqFOiSTO3BMxWc488SqR98Ql1wB9k0jhqO4d1k",
-      "name": "OPIRT2-24-7-01-OF Zapote 116 col las huertas Tlaquepaque Jalisco",
-      "mimeType": "application/vnd.google-apps.spreadsheet"
-    },
-    {
       "id": "1GcI994HBwNv_af5SXglNNGqLOELeeJl0Bz4y4iSdTvk",
       "name": "OPI-24-7-06-OF Sevilla 634, Nueva España, 45186 Zapopan, Jal.",
       "mimeType": "application/vnd.google-apps.spreadsheet"
@@ -3561,6 +3570,162 @@
       "id": "1lFzb-gJGklc30zNDOB6_rfXDCH5zwihn8fP2QT35FOo",
       "name": "OPI-23-6-02-OF Tormenta 599-402, Jardines del Bosque",
       "mimeType": "application/vnd.google-apps.spreadsheet"
+    },
+    {
+      "id": "1kxdoyWy1zHOHe5ZBxvOGvXa3cQMBFaPOo-nL1NKB2ng",
+      "name": "OPI-26-6-03-AV Volcán Pico de Quinceo 1, El Colli, Zapopan"
+    },
+    {
+      "id": "1tGfk2AsPtmcz91HChC-eA1QoMjxgMK9jEh-5F7J3Ee8",
+      "name": "OPI-26-6-02-AV Monte Jorullo 1946, Guadalajara"
+    },
+    {
+      "id": "1U1I44-t61K7fE2iQJBMvQC_AWPQlsicd8c6xAWnIZ5o",
+      "name": "OPI-26-6-01-AV Aquiles Serdán 44 Santa Anita Tlaquepaque Jalisco"
+    },
+    {
+      "id": "1VySPXi-cFOGmOlQ9c3lIgno3fLbWU17LUMnuIc8wlfQ",
+      "name": "OPI-26-5-26-AV Cto. de los Pinos 15-17, Bosques de Santa Anita, 45645 Bosques Santa Anita, Jal."
+    },
+    {
+      "id": "17tny1uS6fhvOGEb_5dMMqOZfEarAy8G0oxYh2XA6Nqw",
+      "name": "OPI-26-5-25-OF Periferico Manuel Gomez Morin 1000 Casa A-19 Puerta del Valle. Zapopan, Jal. "
+    },
+    {
+      "id": "1E3ZjZ6otloNKvupm2EbFnbUpRmPSBpPkn-YK17M4LEs",
+      "name": "OPI-26-5-24-AV Av. Miguel López de Legaspi 1897, Jardines de La Cruz,  Guadalajara, Jal.."
+    },
+    {
+      "id": "1ipNh3KRXasw0i2-2qlOz5fG-nmoQ2EZ96ANiIfkhYag",
+      "name": "OPI-26-5-23-AV C. Longinos Cadena 2266, Lomas de Polanco, 44960 Guadalajara, Jal."
+    },
+    {
+      "id": "1a1ubGbyC2QBxSOprp5rc-aaUPwSwZ4tEEf3XFtGrvjM",
+      "name": "OPI-26-5-22-AV Del Bodeguero 5948, Artesanos,  San Pedro Tlaquepaque, Jal."
+    },
+    {
+      "id": "1G2tMgIVYFJQt_On8VNw2Bb8x6NTeS_o-spb0KVxyDRU",
+      "name": "OPI-26-5-21-AV Av. Puerto Melaque 3551, Miguel Hidalgo,  Guadalajara, Jal"
+    },
+    {
+      "id": "1k1YKPk7KzgA_MGsMeOhnGow5XMCV5-eF8jeYAZFRtlo",
+      "name": "OPI-26-5-20-AV Antonio López de Santana 10, Quintas del Federalismo,  Zapopan, Jal."
+    },
+    {
+      "id": "1mUwiTiZXToVvGTk7sy26pH-LvK8RJj8bYV2zgjdf3eI",
+      "name": "OPI-26-5-19-AV Francisco Murguía 400-20, 48291 Las Juntas, Jal."
+    },
+    {
+      "id": "12t1bY6qAEylHVIiN5R_zfy7WxkaZ2QglR5AijofJ4yA",
+      "name": "OPI-26-5-18-AV C. Valle Alto 127, Fraccionamiento Las Luces, Valle Dorado Inn, Jal."
+    },
+    {
+      "id": "1i9Qy_WNico3dxOzKbiZI1fO3TPzY9N5-XdPNs1D34c8",
+      "name": "OPI-26-5-17-OF Gertrudis Bocanegra 2014, Nueva Santa María, Guadalajara"
+    },
+    {
+      "id": "1iaNePvQh83XSUNxIHxzIPGhDFLafRWf7K_Pxesh1JVw",
+      "name": "OPI-26-5-16-OF Santa Catalina 11, lote 12, manzana 246, Predio Nueva Santa María, Tlaquepaque"
+    },
+    {
+      "id": "1Ph54O6RBlelWcn4wUEize0WUPzHTFG1QhgRbpLT_80M",
+      "name": "OPI-26-5-15-OF Santander 1741, Nueva España,  Zapopan, Jal."
+    },
+    {
+      "id": "15vEFYfnIAouDlHa8qqNPGZ9zYg8I8fsHX55-9KK5nP8",
+      "name": "OPI-26-5-14-AV Arenales 2740, Arenales Tapatíos, 45066 Zapopan, Jal."
+    },
+    {
+      "id": "1JWePZGDwnHwPNHLbPqLF4uQsYxbIzseygFqgVcAl30s",
+      "name": "OPI-26-5-13-AV-C. Emiliano Zapata 45, Las Liebres, San Pedro Tlaquepaque, Jal."
+    },
+    {
+      "id": "1vptCXwjxgbG987BJCc8VK52HC82ramaydBlcNXWMCe0",
+      "name": "OPI-26-5-12-AV Constitución 160, Centro, 45650 San Sebastián el Grande, Jal."
+    },
+    {
+      "id": "1bnlPnrMyEFfETdwsUA4yZuYC6TUXMlI_0In07y3IsUk",
+      "name": "OPI-26-5-11-AV C. José y Antonio Lucano 976, Residencial La Soledad, 45525 San Pedro Tlaquepaque, Jal."
+    },
+    {
+      "id": "1MhQ-H7XxobSd78OS43CzI_KdmmncsorCYNeygqE3reY",
+      "name": "OPI-26-5-10-AV Fabián 30, Santa Rosa, las Pintas de arriba"
+    },
+    {
+      "id": "1gsIis9J1WUxvOoW3KMUlOtOKLYDFgD2RPNmUxiFd5Po",
+      "name": "OPI-26-5-09-AV Juan de la Barrera 6494, El Vergel, Tlaquepaque"
+    },
+    {
+      "id": "1bQMclPjXnKJvvWRMHo4YcnJ_YsuCPd_FEVSg0xsa84g",
+      "name": "OPI-26-5-08-AV Carr. libre Guadalajara - Zapotlanejo 3852, Tateposco, 45630 Guadalajara, Jal"
+    },
+    {
+      "id": "1_ZfB3fCiBpGYDL2N-bk8LANNmFEhNqe5iua5zsXo5Z4",
+      "name": "OPI-26-5-07-AV Prado de las Margaritas 2064, Residencias el Prado, Jal."
+    },
+    {
+      "id": "1mTwSmd1HyiIQ6RWxxQpgtgDtikSA70n799pY6LhVYMQ",
+      "name": "OPI-26-5-06-AV Presa Sta Rosa 572, Lagos de Oriente, Guadalajara, Jal."
+    },
+    {
+      "id": "1XQlbbyeAbPlkS5KjP2RN8IJu-f_SAnO_dNwwgrQiJKM",
+      "name": "OPI-26-5-05-AV Ficus 335 L28, Alamedas de Zalatitan, Tonalá"
+    },
+    {
+      "id": "1CfrB1Vjm97chd3qmsfrIruPxkPqodj2mgVMJPV58-qo",
+      "name": "OPI-26-5-04-AV C. Francisco Huízar 937, Fracc. Parques  del Nilo, Segunda Sección,  Guadalajara, Jal."
+    },
+    {
+      "id": "1VMZ3Bchow5N8gFS9rrolGexAxbmKgnmPm14px0QTuUU",
+      "name": "OPI-26-5-03-AV Margarita Maza de Juárez 1757, Benito Juárez, 45199 Zapopan, Jal."
+    },
+    {
+      "id": "1DYRo95dS_FYkL1X_DNVi8HAE7_qlPwOFJTXg_qSCHIQ",
+      "name": "OPI-26-5-02-AV Vicente Guerrero Numero  110A, 45640 San Agustín, Jal."
+    },
+    {
+      "id": "1NqMYyH8iMBc2GlBNnfgRVf5O0uUw38MA11oGLUlyXeg",
+      "name": "OPI-26-5-01-AV Fray Francisco Dumetz 500, 45200 Tesistán, Jal."
+    },
+    {
+      "id": "1SCO1d6CI-jO2McVM2G2xazHWIWW0o5p2rp_hX3VC9wU",
+      "name": "OPI-26-4-18-OF Mixcoatl 1962, Cd del Sol, 45050 Zapopan, Jal."
+    },
+    {
+      "id": "1MHh6ZzKTACWnDJfw-QEIbtWuO3r6FAv73infdAyYLzI",
+      "name": "OPI-26-4-18-AV Av. Jesús Miche Gonzalez 1189 402, Toluquilla"
+    },
+    {
+      "id": "1q0vozbbRJp5-d8zhXG8MytAVKdxEK58ulPvi5lLwtH0",
+      "name": "OPI-26-4-17-OF Paseo de los Fresnos 93, El Palomar"
+    },
+    {
+      "id": "1oSDL7xdPdKDCNFPSnsbkiq4jE-hv8uIhKfWxPL6M3_8",
+      "name": "OPI-26-4-16-AV Paseo de los Fresnos 93, El Palomar"
+    },
+    {
+      "id": "1h-zgdqCgkY1PPiYdpsJgEGtgnlA5kBBZ7jcsZrm8bT8",
+      "name": "OPI-26-4-15-AV Natividad Hernández 958, Educadores Jaliscienses, 45404 Tonalá, Jal."
+    },
+    {
+      "id": "1O3qasFQQaZtnrKmYEDW1jJDyTdRfXEZ4ijDffCmyYa4",
+      "name": "OPI-26-4-14-LS C. Flor de San Juan 20, Jardines de Santa María, 45606 San Pedro Tlaquepaque, Jal"
+    },
+    {
+      "id": "1c9Y5vmW0blliJclE-555xJyVtJSP7RUxE0_GgqAjVH4",
+      "name": "OPI-26-4-13-AV Av. San Blas 2605 aint. 54, Parques de Santa Cruz del Valle, Tlaquepaque, Jalisco"
+    },
+    {
+      "id": "1c0t-bqe5mQNDW_To1LF_rFSSn-Wc8_DkwFDiHOYZAGI",
+      "name": "OPI-26-4-12-AV Manantial 218 Int. 9, Col. El Paraíso, San José del Valle, Tlajomulco de Zúñiga, Jalisco"
+    },
+    {
+      "id": "16H9T0snHDzBau7b2xXFkkPvgc9mN_PchXhnd80csTHc",
+      "name": "OPI-26-4-11-AV San Álvaro L24 M24, Col. La Providencia, Tonalá"
+    },
+    {
+      "id": "1YjZkKBxJOjXQZLuYQtPKyRznyoNufw-7_9AcdsoDtI4",
+      "name": "OPI-26-4-10-AV C. Plan de Guadalupe 1890, Parques del Auditorio, Jardines del Porvenir, 45180 Zapopan, Jal."
     }
   ]
 }

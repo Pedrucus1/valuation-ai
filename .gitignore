@@ -134,3 +134,6 @@ nul
 
 # Backups locales (NO al repo — pueden contener secretos)
 _backups/
+
+# Reportes regenerables del job mensual de cerebro
+Modulo Drive IA/logs/

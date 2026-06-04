@@ -81654,5 +81654,3474 @@
     "estacionamientos": 1,
     "estadoConservacion": "bueno",
     "esEjidal": false
+  },
+  {
+    "fileId": "1kxdoyWy1zHOHe5ZBxvOGvXa3cQMBFaPOo-nL1NKB2ng",
+    "fileName": "OPI-26-6-03-AV Volcán Pico de Quinceo 1, El Colli, Zapopan",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "El Colli",
+    "municipio": "Zapopan",
+    "comparables": [],
+    "folio": "No hallado",
+    "tipo": "LOCAL COMERCIAL",
+    "direccion": "Volcán Pico de Quinceo 1, El Colli, Zapopan",
+    "valorMercado": "No hallado",
+    "m2Terreno": "No hallado",
+    "m2Construccion": "No hallado",
+    "edad": "No hallado",
+    "valorM2Aplicable": "No hallado",
+    "recamaras": null,
+    "banos": null,
+    "estacionamientos": null,
+    "_tabFallback": "OPI Loc Com b",
+    "estadoConservacion": null
+  },
+  {
+    "fileId": "1tGfk2AsPtmcz91HChC-eA1QoMjxgMK9jEh-5F7J3Ee8",
+    "fileName": "OPI-26-6-02-AV Monte Jorullo 1946, Guadalajara",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Guadalajara",
+    "municipio": "Guadalajara",
+    "comparables": [],
+    "folio": "No hallado",
+    "tipo": "LOCAL COMERCIAL",
+    "direccion": "Monte Jorullo 1946, Guadalajara",
+    "valorMercado": "No hallado",
+    "m2Terreno": "No hallado",
+    "m2Construccion": "No hallado",
+    "edad": "No hallado",
+    "valorM2Aplicable": "No hallado",
+    "recamaras": null,
+    "banos": null,
+    "estacionamientos": null,
+    "_tabFallback": "OPI Loc Com b",
+    "estadoConservacion": null
+  },
+  {
+    "fileId": "1U1I44-t61K7fE2iQJBMvQC_AWPQlsicd8c6xAWnIZ5o",
+    "fileName": "OPI-26-6-01-AV Aquiles Serdán 44 Santa Anita Tlaquepaque Jalisco",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "",
+    "municipio": "",
+    "comparables": [],
+    "folio": "No hallado",
+    "tipo": "LOCAL COMERCIAL",
+    "direccion": "Aquiles Serdán 44 Santa Anita Tlaquepaque Jalisco",
+    "valorMercado": "No hallado",
+    "m2Terreno": "No hallado",
+    "m2Construccion": "No hallado",
+    "edad": "No hallado",
+    "valorM2Aplicable": "No hallado",
+    "recamaras": null,
+    "banos": null,
+    "estacionamientos": null,
+    "_tabFallback": "OPI Loc Com b",
+    "estadoConservacion": null
+  },
+  {
+    "fileId": "1VySPXi-cFOGmOlQ9c3lIgno3fLbWU17LUMnuIc8wlfQ",
+    "fileName": "OPI-26-5-26-AV Cto. de los Pinos 15-17, Bosques de Santa Anita, 45645 Bosques Santa Anita, Jal.",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Bosques de Santa Anita",
+    "municipio": "Bosques Santa Anita",
+    "comparables": [],
+    "folio": "No hallado",
+    "tipo": "LOCAL COMERCIAL",
+    "direccion": "Cto. de los Pinos 15-17, Bosques de Santa Anita, 45645 Bosques Santa Anita, Jal.",
+    "valorMercado": "No hallado",
+    "m2Terreno": "No hallado",
+    "m2Construccion": "No hallado",
+    "edad": "No hallado",
+    "valorM2Aplicable": "No hallado",
+    "recamaras": null,
+    "banos": null,
+    "estacionamientos": null,
+    "_tabFallback": "OPI Loc Com b",
+    "estadoConservacion": null
+  },
+  {
+    "fileId": "17tny1uS6fhvOGEb_5dMMqOZfEarAy8G0oxYh2XA6Nqw",
+    "fileName": "OPI-26-5-25-OF Periferico Manuel Gomez Morin 1000 Casa A-19 Puerta del Valle. Zapopan, Jal. ",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Jal.",
+    "municipio": "",
+    "comparables": [
+      {
+        "terreno": 300,
+        "construccion": 0,
+        "precio": 9950000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-la-toscana-zona-real-148911521.html?n_src=Listado&n_pg=0&n_pos=1"
+      },
+      {
+        "terreno": 301,
+        "construccion": 0,
+        "precio": 9950000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-amplio-terreno-en-coto-la-toscana-149868375.html?n_src=Listado&n_pg=0&n_pos=1"
+      },
+      {
+        "terreno": 538,
+        "construccion": 0,
+        "precio": 19100000,
+        "colonia": "valle real",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-av-paseo-valle-real-valle-real-zapopan-jal-3838088"
+      },
+      {
+        "terreno": 230,
+        "construccion": 0,
+        "precio": 8789000,
+        "colonia": "del valle",
+        "link": "https://propiedades.com/inmuebles/terreno-habitacional-en-venta-puerta-del-valle-zapopan-jal-puerta-del-valle-jalisco-30513160#tipos=terrenos-habitacionales-venta&area=puerta-del-valle-zapopan&pos=1"
+      },
+      {
+        "terreno": 1436,
+        "construccion": 0,
+        "precio": 48000000,
+        "colonia": "",
+        "link": "https://propiedades.com/inmuebles/terreno-habitacional-en-venta-bosque-de-las-lomas-puerta-del-valle-jalisco-27650348#tipos=terrenos-habitacionales-venta&area=puerta-del-valle-zapopan&pos=2"
+      },
+      {
+        "terreno": 230,
+        "construccion": 241,
+        "precio": 11300000,
+        "colonia": "Tiene tres recamaras un estudio completo con cocina, baño, recamara y terraza, 2 COCHERAS",
+        "link": "$ 15,123.98"
+      },
+      {
+        "terreno": 230,
+        "construccion": 315,
+        "precio": 13600000,
+        "colonia": "cochera para 3 autos. en pb cocina equipada, sala, comedor, medio baño para visitas, recámara con baño completo y closet, cuarto de servicio con baño completo, área de lavandería y terraza. pa 3 habitaciones con baño. una de las habitaciones cuenta con vestidor, las otras 2 con amplios closets, y estar de tv.",
+        "link": "$ 14,750.54"
+      },
+      {
+        "terreno": 230,
+        "construccion": 257,
+        "precio": 11500000,
+        "colonia": "sala y comedoR cocina integral Cuarto  de lavado con baño y patio principal con vestidor y baño, 2 recámaraS secundariaS comparten un baño. Dos  cajones de estacionamiento.",
+        "link": "$ 15,305.30"
+      },
+      {
+        "terreno": 217,
+        "construccion": 277,
+        "precio": 12199000,
+        "colonia": "",
+        "link": "$ 16,158.09"
+      },
+      {
+        "terreno": 218,
+        "construccion": 234,
+        "precio": 10800000,
+        "colonia": "PLANTA BAJA:2 estacionamientos Baño de visitaS Cocina integral Sala y comedor Terraza Área lavado cuarto de servicio Baño completo DISTRIBUCIÓN PLANTA ALTA: 3 recamaras con baño completo y walking closet  Área de TV",
+        "link": "$ 15,994.72"
+      },
+      {
+        "terreno": 230,
+        "construccion": 241,
+        "precio": 11300000,
+        "colonia": "Tiene tres recamaras un estudio completo con cocina, baño, recamara y terraza, 2 COCHERAS",
+        "link": "3316725779"
+      },
+      {
+        "terreno": 230,
+        "construccion": 315,
+        "precio": 13600000,
+        "colonia": "cochera para 3 autos. en pb cocina equipada, sala, comedor, medio baño para visitas, recámara con baño completo y closet, cuarto de servicio con baño completo, área de lavandería y terraza. pa 3 habitaciones con baño. una de las habitaciones cuenta con vestidor, las otras 2 con amplios closets, y estar de tv.",
+        "link": "3312987826"
+      },
+      {
+        "terreno": 230,
+        "construccion": 257,
+        "precio": 11500000,
+        "colonia": "sala y comedoR cocina integral Cuarto  de lavado con baño y patio principal con vestidor y baño, 2 recámaraS secundariaS comparten un baño. Dos  cajones de estacionamiento.",
+        "link": "3338089344"
+      },
+      {
+        "terreno": 217,
+        "construccion": 277,
+        "precio": 12199000,
+        "colonia": "",
+        "link": "3335595655"
+      },
+      {
+        "terreno": 218,
+        "construccion": 234,
+        "precio": 10800000,
+        "colonia": "PLANTA BAJA:2 estacionamientos Baño de visitaS Cocina integral Sala y comedor Terraza Área lavado cuarto de servicio Baño completo DISTRIBUCIÓN PLANTA ALTA: 3 recamaras con baño completo y walking closet  Área de TV",
+        "link": "3323585214"
+      },
+      {
+        "terreno": 240,
+        "construccion": 304,
+        "precio": 12500000,
+        "colonia": "",
+        "link": ""
+      }
+    ],
+    "folio": "OPI-26-5-25-OF",
+    "tipo": "CASA HABITACIÓN EN CONDOMINIO",
+    "direccion": "Anillo Perif. Nte. Manuel Gómez Morín 1000-19A, Puerta del Valle, 45136 Zapopan, Jal.",
+    "valorMercado": "$9,258,000.00",
+    "m2Terreno": "200.00 M2",
+    "m2Construccion": "211.44 M2",
+    "edad": "18 AÑOS.    ",
+    "valorM2Aplicable": " $ 43,784 ",
+    "recamaras": 3,
+    "banos": 4.5,
+    "estacionamientos": 2,
+    "estadoConservacion": "bueno"
+  },
+  {
+    "fileId": "1E3ZjZ6otloNKvupm2EbFnbUpRmPSBpPkn-YK17M4LEs",
+    "fileName": "OPI-26-5-24-AV Av. Miguel López de Legaspi 1897, Jardines de La Cruz,  Guadalajara, Jal..",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Jardines de La Cruz",
+    "municipio": "Guadalajara",
+    "comparables": [
+      {
+        "terreno": 480,
+        "construccion": 0,
+        "precio": 7920000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-se-vende-terreno-en-calle-faro-no-3040-residencial-149819664.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 382,
+        "construccion": 0,
+        "precio": 3800000,
+        "colonia": "el carmen",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-miguel-topete-el-carmen-guadalajara-jal-3795264"
+      },
+      {
+        "terreno": 130,
+        "construccion": 125,
+        "precio": 4900000,
+        "colonia": "PLANTA BAJA: Sala/Comedor Cocina con estufa 3 recámaras 1 baño completo 1 cuarto de bodega Patio Cochera para 1 auto PLANTA ALTA: 1 recámara grande con baño completo Terraza cuenta con una tarja",
+        "link": "$ 11,832.95"
+      },
+      {
+        "terreno": 122,
+        "construccion": 105,
+        "precio": 3190000,
+        "colonia": "",
+        "link": "$ 9,059.60"
+      },
+      {
+        "terreno": 139,
+        "construccion": 171,
+        "precio": 4800000,
+        "colonia": "",
+        "link": "$ 12,613.52"
+      },
+      {
+        "terreno": 141,
+        "construccion": 170,
+        "precio": 3950000,
+        "colonia": "",
+        "link": "$ 9,059.60"
+      },
+      {
+        "terreno": 212,
+        "construccion": 273,
+        "precio": 7600000,
+        "colonia": "",
+        "link": "$ 10,982.45"
+      },
+      {
+        "terreno": 130,
+        "construccion": 125,
+        "precio": 4900000,
+        "colonia": "PLANTA BAJA: Sala/Comedor Cocina con estufa 3 recámaras 1 baño completo 1 cuarto de bodega Patio Cochera para 1 auto PLANTA ALTA: 1 recámara grande con baño completo Terraza cuenta con una tarja",
+        "link": ""
+      },
+      {
+        "terreno": 122,
+        "construccion": 105,
+        "precio": 3190000,
+        "colonia": "",
+        "link": "3318958711"
+      },
+      {
+        "terreno": 139,
+        "construccion": 171,
+        "precio": 4800000,
+        "colonia": "",
+        "link": "33 1657 3600"
+      },
+      {
+        "terreno": 141,
+        "construccion": 170,
+        "precio": 3950000,
+        "colonia": "",
+        "link": "3334617041"
+      },
+      {
+        "terreno": 212,
+        "construccion": 273,
+        "precio": 7600000,
+        "colonia": "",
+        "link": "3221203574"
+      },
+      {
+        "terreno": 169,
+        "construccion": 158,
+        "precio": 2800000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 126,
+        "construccion": 98,
+        "precio": 3850000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 130,
+        "construccion": 150,
+        "precio": 5499000,
+        "colonia": "",
+        "link": ""
+      }
+    ],
+    "folio": "OPI-26-5-24-AV",
+    "tipo": "CASA HABITACIÓN",
+    "direccion": "Av. Miguel López de Legaspi 1897, Jardines de La Cruz, 44950 Guadalajara, Jal.",
+    "valorMercado": "$5,048,000.00",
+    "m2Terreno": "183.75 M2",
+    "m2Construccion": "177.04 M2",
+    "edad": "32 AÑOS.    ",
+    "valorM2Aplicable": " $ 28,516 ",
+    "recamaras": 3,
+    "banos": 1.5,
+    "estacionamientos": 1,
+    "estadoConservacion": "bueno"
+  },
+  {
+    "fileId": "1ipNh3KRXasw0i2-2qlOz5fG-nmoQ2EZ96ANiIfkhYag",
+    "fileName": "OPI-26-5-23-AV C. Longinos Cadena 2266, Lomas de Polanco, 44960 Guadalajara, Jal.",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Lomas de Polanco",
+    "municipio": "Guadalajara",
+    "comparables": [],
+    "folio": "No hallado",
+    "tipo": "LOCAL COMERCIAL",
+    "direccion": "C. Longinos Cadena 2266, Lomas de Polanco, 44960 Guadalajara, Jal.",
+    "valorMercado": "No hallado",
+    "m2Terreno": "No hallado",
+    "m2Construccion": "No hallado",
+    "edad": "No hallado",
+    "valorM2Aplicable": "No hallado",
+    "recamaras": null,
+    "banos": null,
+    "estacionamientos": null,
+    "_tabFallback": "OPI Loc Com b",
+    "estadoConservacion": null
+  },
+  {
+    "fileId": "1a1ubGbyC2QBxSOprp5rc-aaUPwSwZ4tEEf3XFtGrvjM",
+    "fileName": "OPI-26-5-22-AV Del Bodeguero 5948, Artesanos,  San Pedro Tlaquepaque, Jal.",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Artesanos",
+    "municipio": "San Pedro Tlaquepaque",
+    "comparables": [
+      {
+        "terreno": 192,
+        "construccion": 0,
+        "precio": 1800000,
+        "colonia": "la propiedad cuenta con porton, todos los servicios, ya escriturada opción para inversión, bodega, terraza o construir casa habitación",
+        "link": "https://propiedades.com/inmuebles/terreno-habitacional-en-venta-maquinistas-artesanos-jalisco-31239642#tipos=terrenos-habitacionales-venta&area=artesanos-san-pedro-tlaquepaque&pos=4"
+      },
+      {
+        "terreno": 196,
+        "construccion": 0,
+        "precio": 1550000,
+        "colonia": "Terreno plano bardeado en esquina con uso de suelo mixto y entradas por ambas calles",
+        "link": "https://propiedades.com/inmuebles/terreno-habitacional-en-venta-del-cocinero-artesanos-jalisco-29966359#tipos=terrenos-habitacionales-venta&area=artesanos-san-pedro-tlaquepaque&pos=1"
+      },
+      {
+        "terreno": 129,
+        "construccion": 0,
+        "precio": 1380000,
+        "colonia": "dentro del condominio frondela, semi plano casi esquina",
+        "link": "https://propiedades.com/inmuebles/terreno-habitacional-en-venta-paraje-areto-artesanos-jalisco-31346511#tipos=terrenos-habitacionales-venta&area=artesanos-san-pedro-tlaquepaque&pos=3"
+      },
+      {
+        "terreno": 237,
+        "construccion": 0,
+        "precio": 2250000,
+        "colonia": "Uso de suelo habitacional Documentación en orden y libre de gravamen Predial al corriente Listo para escriturar.",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-lomas-del-cuatro-237-m-sup2--con-149058402.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 695,
+        "construccion": 0,
+        "precio": 3800000,
+        "colonia": "cuenta con DOS FRENTES, ya que esta de lado a lado de la manzana, frente principal por cruce de calles Rio Grande y Rio Balsas, frente posterior sobre Rio Tomatlán",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-bogega-en-venta-a-precio-de-terreno-en-el-vergel-149526488.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 492,
+        "construccion": 0,
+        "precio": 1575000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-de-492-m-sup2--con-20-m-de-frente-en-149058651.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 300,
+        "construccion": 0,
+        "precio": 3995000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclbcin-bodega-comercial-de-300-m-sup2--con-2-oficinas-en-148033220.html?n_src=Listado&n_pg=1&n_pos=2"
+      },
+      {
+        "terreno": 214,
+        "construccion": 0,
+        "precio": 2750000,
+        "colonia": "san pedro",
+        "link": "https://propiedades.com/inmuebles/terreno-habitacional-en-venta-av-cantabria-tlaquepaque-45598-san-pedro-tlaquepaque-jal-265-artesanos-jalisco-31126280#tipos=terrenos-habitacionales-venta&area=artesanos-san-pedro-tlaquepaque&pos=2"
+      },
+      {
+        "terreno": 280,
+        "construccion": 0,
+        "precio": 2950000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-venta-de-terreno-fines-comerciales-en-artesanos-149959687.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 125,
+        "construccion": 0,
+        "precio": 680000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-venta-terreno-por-gobernador-curiel-y-periferico-146899510.html?n_src=Listado&n_pg=1&n_pos=1"
+      }
+    ],
+    "folio": "OPI-26-5-22-AV",
+    "tipo": "CASA HABITACIÓN",
+    "direccion": "Del Bodeguero 5948, Artesanos, 45598 San Pedro Tlaquepaque, Jal.",
+    "valorMercado": "$2,355,000.00",
+    "m2Terreno": "285.00 M2",
+    "m2Construccion": "84.20 M2",
+    "valorM2Terreno": " $ 7,347.01 ",
+    "edad": "50 AÑOS.    ",
+    "estadoConservacion": "regular_medio"
+  },
+  {
+    "fileId": "1G2tMgIVYFJQt_On8VNw2Bb8x6NTeS_o-spb0KVxyDRU",
+    "fileName": "OPI-26-5-21-AV Av. Puerto Melaque 3551, Miguel Hidalgo,  Guadalajara, Jal",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Miguel Hidalgo",
+    "municipio": "Guadalajara",
+    "comparables": [
+      {
+        "terreno": 88,
+        "construccion": 57,
+        "precio": 2150000,
+        "colonia": "",
+        "link": "$ 9,307.77"
+      },
+      {
+        "terreno": 173,
+        "construccion": 180,
+        "precio": 4399000,
+        "colonia": "",
+        "link": "$ 14,302.04"
+      },
+      {
+        "terreno": 106,
+        "construccion": 189,
+        "precio": 3500000,
+        "colonia": "Cochera semitechada para 2 autos, Sala, Comedor, Cocina, 2 Baños y Patio de servicio. Área de T.V, Recámaras principal 3 Recámaras secundarias",
+        "link": "$ 10,404.83"
+      },
+      {
+        "terreno": 96,
+        "construccion": 80,
+        "precio": 1892000,
+        "colonia": "cuenta con 1 baño, 80 metros cuadrados, 1 recamara, y 1 piso.",
+        "link": "$ 7,076.82"
+      },
+      {
+        "terreno": 113,
+        "construccion": 85,
+        "precio": 3000000,
+        "colonia": "",
+        "link": "$ 13,044.29"
+      },
+      {
+        "terreno": 88,
+        "construccion": 57,
+        "precio": 2150000,
+        "colonia": "",
+        "link": "33 1728 5835"
+      },
+      {
+        "terreno": 173,
+        "construccion": 180,
+        "precio": 4399000,
+        "colonia": "",
+        "link": "33 2688 3875"
+      },
+      {
+        "terreno": 106,
+        "construccion": 189,
+        "precio": 3500000,
+        "colonia": "Cochera semitechada para 2 autos, Sala, Comedor, Cocina, 2 Baños y Patio de servicio. Área de T.V, Recámaras principal 3 Recámaras secundarias",
+        "link": "33 1487 1800"
+      },
+      {
+        "terreno": 96,
+        "construccion": 80,
+        "precio": 1892000,
+        "colonia": "cuenta con 1 baño, 80 metros cuadrados, 1 recamara, y 1 piso.",
+        "link": "3310558710"
+      },
+      {
+        "terreno": 113,
+        "construccion": 85,
+        "precio": 3000000,
+        "colonia": "",
+        "link": "3322354442"
+      },
+      {
+        "terreno": 108,
+        "construccion": 82,
+        "precio": 1884360,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 173,
+        "construccion": 180,
+        "precio": 4399000,
+        "colonia": "",
+        "link": "33 2688 3875"
+      },
+      {
+        "terreno": 187,
+        "construccion": 140,
+        "precio": 3450000,
+        "colonia": "en esquina 3 habitaciones Sala y comedor Cocina integral 1 baño completo Área de lavado Estacionamiento techado",
+        "link": "33 1675 7755"
+      },
+      {
+        "terreno": 115,
+        "construccion": 140,
+        "precio": 2800000,
+        "colonia": "CASA EN ESQUINA Y REMODELADA dos habitaciones cocina integral Baño cochera para dos autos",
+        "link": ""
+      }
+    ],
+    "folio": "OPI-26-5-21-AV",
+    "tipo": "CASA HABITACIÓN",
+    "direccion": "Av. Puerto Melaque 3551, Miguel Hidalgo, 44760 Guadalajara, Jal",
+    "valorMercado": "$1,544,000.00",
+    "m2Terreno": "108.30 M2",
+    "m2Construccion": "79.47 M2",
+    "edad": "54 AÑOS.    ",
+    "valorM2Aplicable": " $ 20,123 ",
+    "recamaras": 3,
+    "banos": 1,
+    "estacionamientos": 1,
+    "estadoConservacion": "bueno"
+  },
+  {
+    "fileId": "1k1YKPk7KzgA_MGsMeOhnGow5XMCV5-eF8jeYAZFRtlo",
+    "fileName": "OPI-26-5-20-AV Antonio López de Santana 10, Quintas del Federalismo,  Zapopan, Jal.",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Quintas del Federalismo",
+    "municipio": "Zapopan",
+    "comparables": [
+      {
+        "terreno": 125,
+        "construccion": 0,
+        "precio": 1000000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-miguel-hidalgo-zapopan-rtv-2285-149135891.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 271,
+        "construccion": 0,
+        "precio": 2250000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-el-vergel-148902490.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 151,
+        "construccion": 0,
+        "precio": 1400000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-la-colonia-palmita-zapopan-148734850.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 245,
+        "construccion": 0,
+        "precio": 2639586,
+        "colonia": "",
+        "link": "https://www.lamudi.com.mx/detalle/41032-73-9696910c15aa-55a7-19c4518-a1ea-7266"
+      },
+      {
+        "terreno": 763,
+        "construccion": 0,
+        "precio": 3600000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-la-experiencia-146367510.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 60,
+        "construccion": 122,
+        "precio": 2990000,
+        "colonia": "coto con 12 casas PLANTA BAJA: Cochera para 1 auto techado Sala Comedor  Cocina Baño Completo Patio con lavadero PLANTA ALTA Recámara principal con clóset y baño completo 2 recámaras secundarias con clóset, Roof con área de lavado",
+        "link": "$ 9,888.75"
+      },
+      {
+        "terreno": 91,
+        "construccion": 171,
+        "precio": 4190000,
+        "colonia": "dentro de coto Planta baja: cochera para dos autos, medio baño, área de sala y comedor cocina integral y patio. Planta alta: dos recamaras, las dos con baño completo. Tercer nivel: sala de Tv, medio baño, Roof",
+        "link": "$ 12,850.09"
+      },
+      {
+        "terreno": 68,
+        "construccion": 120,
+        "precio": 2200000,
+        "colonia": "",
+        "link": "$ 11,237.22"
+      },
+      {
+        "terreno": 90,
+        "construccion": 215,
+        "precio": 4550000,
+        "colonia": "",
+        "link": "$ -"
+      },
+      {
+        "terreno": 90,
+        "construccion": 180,
+        "precio": 4400000,
+        "colonia": "",
+        "link": "$ 14,087.84"
+      },
+      {
+        "terreno": 60,
+        "construccion": 122,
+        "precio": 2990000,
+        "colonia": "coto con 12 casas PLANTA BAJA: Cochera para 1 auto techado Sala Comedor  Cocina Baño Completo Patio con lavadero PLANTA ALTA Recámara principal con clóset y baño completo 2 recámaras secundarias con clóset, Roof con área de lavado",
+        "link": "3323585214"
+      },
+      {
+        "terreno": 91,
+        "construccion": 171,
+        "precio": 4190000,
+        "colonia": "dentro de coto Planta baja: cochera para dos autos, medio baño, área de sala y comedor cocina integral y patio. Planta alta: dos recamaras, las dos con baño completo. Tercer nivel: sala de Tv, medio baño, Roof",
+        "link": "3313085023"
+      },
+      {
+        "terreno": 68,
+        "construccion": 120,
+        "precio": 2200000,
+        "colonia": "",
+        "link": "3312803999"
+      },
+      {
+        "terreno": 90,
+        "construccion": 215,
+        "precio": 4550000,
+        "colonia": "",
+        "link": "33 1074 6277"
+      },
+      {
+        "terreno": 90,
+        "construccion": 180,
+        "precio": 4400000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 126,
+        "construccion": 212,
+        "precio": 2250000,
+        "colonia": "",
+        "link": ""
+      }
+    ],
+    "folio": "OPI-26-5-20-AV",
+    "tipo": "CASA HABITACIÓN EN CONDOMINIO",
+    "direccion": "Antonio López de Santana 10, Quintas del Federalismo, 45180 Zapopan, Jal.",
+    "valorMercado": "$2,760,000.00",
+    "m2Terreno": "90.00 M2",
+    "m2Construccion": "116.56 M2",
+    "edad": "20 AÑOS.    ",
+    "valorM2Aplicable": " $ 23,680 ",
+    "recamaras": 3,
+    "banos": 2.5,
+    "estacionamientos": 2,
+    "estadoConservacion": "bueno"
+  },
+  {
+    "fileId": "1mUwiTiZXToVvGTk7sy26pH-LvK8RJj8bYV2zgjdf3eI",
+    "fileName": "OPI-26-5-19-AV Francisco Murguía 400-20, 48291 Las Juntas, Jal.",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Las Juntas",
+    "municipio": "Las Juntas",
+    "comparables": [
+      {
+        "terreno": 1029,
+        "construccion": 0,
+        "precio": 6932000,
+        "colonia": "",
+        "link": "https://www.flexmls.com/share/E5MPR/Lote-Chavarin-187-Lazaro-Cardenas,-Puerto-Vallarta,-JA"
+      },
+      {
+        "terreno": 350,
+        "construccion": 0,
+        "precio": 2600000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-las-juntas-puerto-vallarta-146853683.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 160,
+        "construccion": 0,
+        "precio": 1800000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-bahia-de-banderas-nayarit-149833494.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 112,
+        "construccion": 0,
+        "precio": 1350000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-comercial-en-venta-en-puerto-vallarta-cerca-149635984.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 72,
+        "construccion": 117,
+        "precio": 2790000,
+        "colonia": "",
+        "link": "$ 14,976.43"
+      },
+      {
+        "terreno": 85,
+        "construccion": 97,
+        "precio": 3850000,
+        "colonia": "en ébano residencial 2 recámaras con baño completo 1 medio baño para visitas estudio cocina equipada área de lavado patio trasero 2 estacionamientos",
+        "link": "$ 15,382.83"
+      },
+      {
+        "terreno": 99,
+        "construccion": 124,
+        "precio": 4370000,
+        "colonia": "villa paradiso 2 niveles 3 recamaras en planta alta 2.5 baños Cocina integral Cochera para 2 autos Patio de lavado Terraza privada con acceso directo al jardín y alberca",
+        "link": "$ 15,516.73"
+      },
+      {
+        "terreno": 119,
+        "construccion": 110,
+        "precio": 4250000,
+        "colonia": "villa paradiso 2 recámaras 2 baños completos 1 cajón de estacionamiento",
+        "link": "$ 15,387.76"
+      },
+      {
+        "terreno": 96,
+        "construccion": 92,
+        "precio": 3590000,
+        "colonia": "",
+        "link": "$ 14,976.43"
+      },
+      {
+        "terreno": 72,
+        "construccion": 117,
+        "precio": 2790000,
+        "colonia": "",
+        "link": "322 222 5500"
+      },
+      {
+        "terreno": 85,
+        "construccion": 97,
+        "precio": 3850000,
+        "colonia": "en ébano residencial 2 recámaras con baño completo 1 medio baño para visitas estudio cocina equipada área de lavado patio trasero 2 estacionamientos",
+        "link": "3347614169"
+      },
+      {
+        "terreno": 99,
+        "construccion": 124,
+        "precio": 4370000,
+        "colonia": "villa paradiso 2 niveles 3 recamaras en planta alta 2.5 baños Cocina integral Cochera para 2 autos Patio de lavado Terraza privada con acceso directo al jardín y alberca",
+        "link": "322 224 8876"
+      },
+      {
+        "terreno": 119,
+        "construccion": 110,
+        "precio": 4250000,
+        "colonia": "villa paradiso 2 recámaras 2 baños completos 1 cajón de estacionamiento",
+        "link": "322 199 7403"
+      },
+      {
+        "terreno": 96,
+        "construccion": 92,
+        "precio": 3590000,
+        "colonia": "",
+        "link": "33 2177 9544"
+      },
+      {
+        "terreno": 86,
+        "construccion": 110,
+        "precio": 2870000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 99,
+        "construccion": 149,
+        "precio": 3750000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 75,
+        "construccion": 71,
+        "precio": 2465000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 70,
+        "construccion": 72,
+        "precio": 2640000,
+        "colonia": "",
+        "link": ""
+      }
+    ],
+    "folio": "OPI-26-5-19-AV",
+    "tipo": "CASA HABITACIÓN",
+    "direccion": "Francisco Murguía 400-20, 48291 Las Juntas, Jal.",
+    "valorMercado": "$3,557,000.00",
+    "m2Terreno": "65.00 M2",
+    "m2Construccion": "120.61 M2",
+    "edad": "10 AÑOS.    ",
+    "valorM2Aplicable": " $ 29,490 ",
+    "recamaras": 3,
+    "banos": 3.5,
+    "estacionamientos": 1,
+    "estadoConservacion": "bueno"
+  },
+  {
+    "fileId": "12t1bY6qAEylHVIiN5R_zfy7WxkaZ2QglR5AijofJ4yA",
+    "fileName": "OPI-26-5-18-AV C. Valle Alto 127, Fraccionamiento Las Luces, Valle Dorado Inn, Jal.",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Fraccionamiento Las Luces",
+    "municipio": "Valle Dorado Inn",
+    "comparables": [
+      {
+        "terreno": 104,
+        "construccion": 0,
+        "precio": 406500,
+        "colonia": "terreno fraccionamiento",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-fraccionamiento-tlajomulco-jalisco-66524541.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 825,
+        "construccion": 0,
+        "precio": 1650000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-san-jose-del-valle-tlajomulco-144935654.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 2200,
+        "construccion": 0,
+        "precio": 7480000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-comercial-en-hacienda-santa-fe-en-tlajomulco-147420245.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 260,
+        "construccion": 0,
+        "precio": 760000,
+        "colonia": "",
+        "link": "https://propiedades.com/inmuebles/terreno-habitacional-en-venta-av-paseo-de-los-laureles-valle-dorado-jalisco-30092548#tipos=terrenos-habitacionales&area=valle-dorado-tlajomulco-de-zuniga&pos=1"
+      },
+      {
+        "terreno": 63,
+        "construccion": 65,
+        "precio": 850000,
+        "colonia": "dos recámaras y dos baños completos dos espacios de estacionamiento",
+        "link": "$ 10,641.50"
+      },
+      {
+        "terreno": 90,
+        "construccion": 54,
+        "precio": 965000,
+        "colonia": "",
+        "link": "$ 11,925.64"
+      },
+      {
+        "terreno": 82,
+        "construccion": 49,
+        "precio": 970460,
+        "colonia": "cuenta con piso, tarja en cocina, protecciones 2 recamaras 1 baño 1 estacionamiento",
+        "link": "$ 11,144.55"
+      },
+      {
+        "terreno": 80,
+        "construccion": 50,
+        "precio": 850000,
+        "colonia": "",
+        "link": "$ 10,706.47"
+      },
+      {
+        "terreno": 80,
+        "construccion": 53,
+        "precio": 960000,
+        "colonia": "",
+        "link": "$ 11,465.59"
+      },
+      {
+        "terreno": 63,
+        "construccion": 65,
+        "precio": 850000,
+        "colonia": "dos recámaras y dos baños completos dos espacios de estacionamiento",
+        "link": "5536431777"
+      },
+      {
+        "terreno": 90,
+        "construccion": 54,
+        "precio": 965000,
+        "colonia": "",
+        "link": "333 806 4063"
+      },
+      {
+        "terreno": 82,
+        "construccion": 49,
+        "precio": 970460,
+        "colonia": "cuenta con piso, tarja en cocina, protecciones 2 recamaras 1 baño 1 estacionamiento",
+        "link": "3331050592"
+      },
+      {
+        "terreno": 80,
+        "construccion": 50,
+        "precio": 850000,
+        "colonia": "",
+        "link": "55 5431 3461"
+      },
+      {
+        "terreno": 80,
+        "construccion": 53,
+        "precio": 960000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 90,
+        "construccion": 45,
+        "precio": 869000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 96,
+        "construccion": 55,
+        "precio": 1100000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 75,
+        "construccion": 58,
+        "precio": 750000,
+        "colonia": "",
+        "link": ""
+      }
+    ],
+    "folio": "OPI-26-5-18-AV",
+    "tipo": "CASA HABITACIÓN EN CONDOMINIO",
+    "direccion": "C. Valle Alto 127, Fraccionamiento Las Luces, 45653 Valle Dorado Inn, Jal.",
+    "valorMercado": "$804,000.00",
+    "m2Terreno": "90.00 M2",
+    "m2Construccion": "52.50 M2",
+    "edad": "25 AÑOS.    ",
+    "valorM2Aplicable": " $ 15,311 ",
+    "recamaras": 1,
+    "banos": 1,
+    "estacionamientos": 1,
+    "estadoConservacion": "malo"
+  },
+  {
+    "fileId": "1i9Qy_WNico3dxOzKbiZI1fO3TPzY9N5-XdPNs1D34c8",
+    "fileName": "OPI-26-5-17-OF Gertrudis Bocanegra 2014, Nueva Santa María, Guadalajara",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Nueva Santa María",
+    "municipio": "Guadalajara",
+    "comparables": [
+      {
+        "terreno": 382,
+        "construccion": 0,
+        "precio": 3800000,
+        "colonia": "el carmen",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-miguel-topete-el-carmen-guadalajara-jal-3795264"
+      },
+      {
+        "terreno": 103,
+        "construccion": 0,
+        "precio": 1090000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 760,
+        "construccion": 0,
+        "precio": 3990000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-nueva-santa-maria-en-tlaquepaque-147434319.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 194,
+        "construccion": 87,
+        "precio": 2500000,
+        "colonia": "",
+        "link": "$ 11,743.62"
+      },
+      {
+        "terreno": 120,
+        "construccion": 138,
+        "precio": 1900000,
+        "colonia": "Planta Baja: 1 Cochera Sala y comedor Cocina Baño completo 2 recámaras Patio de servicio Planta Alta: 2 recámaras Terraza",
+        "link": "$ 7,436.40"
+      },
+      {
+        "terreno": 100,
+        "construccion": 162,
+        "precio": 3490000,
+        "colonia": "",
+        "link": "$ 9,364.35"
+      },
+      {
+        "terreno": 277,
+        "construccion": 140,
+        "precio": 3250000,
+        "colonia": "sala, comedor, cocina, una recámara con baño completo y un medio baño adicional para visitas. segundo nivel, tres recámaras, una de ellas con baño completo, y otro baño",
+        "link": "$ 8,434.80"
+      },
+      {
+        "terreno": 108,
+        "construccion": 182,
+        "precio": 2980000,
+        "colonia": "",
+        "link": "$ 8,434.80"
+      },
+      {
+        "terreno": 194,
+        "construccion": 87,
+        "precio": 2500000,
+        "colonia": "",
+        "link": "33 3445 0212"
+      },
+      {
+        "terreno": 120,
+        "construccion": 138,
+        "precio": 1900000,
+        "colonia": "Planta Baja: 1 Cochera Sala y comedor Cocina Baño completo 2 recámaras Patio de servicio Planta Alta: 2 recámaras Terraza",
+        "link": "33 3839 6135"
+      },
+      {
+        "terreno": 100,
+        "construccion": 162,
+        "precio": 3490000,
+        "colonia": "",
+        "link": "33 2821 6088"
+      },
+      {
+        "terreno": 277,
+        "construccion": 140,
+        "precio": 3250000,
+        "colonia": "sala, comedor, cocina, una recámara con baño completo y un medio baño adicional para visitas. segundo nivel, tres recámaras, una de ellas con baño completo, y otro baño",
+        "link": "33 1524 2424"
+      },
+      {
+        "terreno": 108,
+        "construccion": 182,
+        "precio": 2980000,
+        "colonia": "",
+        "link": "33 1580 9999"
+      }
+    ],
+    "folio": "OPI-26-5-17-OF",
+    "tipo": "CASA HABITACIÓN",
+    "direccion": "Gertrudis Bocanegra 2014, 44980 Guadalajara, Jal.",
+    "valorMercado": "$1,535,000.00",
+    "m2Terreno": "159.00 M2",
+    "m2Construccion": "73.83 M2",
+    "edad": "27 AÑOS.    ",
+    "valorM2Aplicable": " $ 20,790 ",
+    "recamaras": 2,
+    "banos": 2,
+    "estacionamientos": 1,
+    "estadoConservacion": "regular_medio"
+  },
+  {
+    "fileId": "1iaNePvQh83XSUNxIHxzIPGhDFLafRWf7K_Pxesh1JVw",
+    "fileName": "OPI-26-5-16-OF Santa Catalina 11, lote 12, manzana 246, Predio Nueva Santa María, Tlaquepaque",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "lote 12",
+    "municipio": "Tlaquepaque",
+    "comparables": [
+      {
+        "terreno": 382,
+        "construccion": 0,
+        "precio": 3800000,
+        "colonia": "el carmen",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-miguel-topete-el-carmen-guadalajara-jal-3795264"
+      },
+      {
+        "terreno": 103,
+        "construccion": 0,
+        "precio": 1090000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 760,
+        "construccion": 0,
+        "precio": 3990000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-nueva-santa-maria-en-tlaquepaque-147434319.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 194,
+        "construccion": 87,
+        "precio": 2500000,
+        "colonia": "",
+        "link": "$ 12,004.59"
+      },
+      {
+        "terreno": 120,
+        "construccion": 138,
+        "precio": 1900000,
+        "colonia": "Planta Baja: 1 Cochera Sala y comedor Cocina Baño completo 2 recámaras Patio de servicio Planta Alta: 2 recámaras Terraza",
+        "link": "$ 7,601.65"
+      },
+      {
+        "terreno": 100,
+        "construccion": 162,
+        "precio": 3490000,
+        "colonia": "",
+        "link": "$ 9,572.45"
+      },
+      {
+        "terreno": 277,
+        "construccion": 140,
+        "precio": 3250000,
+        "colonia": "sala, comedor, cocina, una recámara con baño completo y un medio baño adicional para visitas. segundo nivel, tres recámaras, una de ellas con baño completo, y otro baño",
+        "link": "$ 8,622.24"
+      },
+      {
+        "terreno": 108,
+        "construccion": 182,
+        "precio": 2980000,
+        "colonia": "",
+        "link": "$ 8,622.24"
+      },
+      {
+        "terreno": 194,
+        "construccion": 87,
+        "precio": 2500000,
+        "colonia": "",
+        "link": "33 3445 0212"
+      },
+      {
+        "terreno": 120,
+        "construccion": 138,
+        "precio": 1900000,
+        "colonia": "Planta Baja: 1 Cochera Sala y comedor Cocina Baño completo 2 recámaras Patio de servicio Planta Alta: 2 recámaras Terraza",
+        "link": "33 3839 6135"
+      },
+      {
+        "terreno": 100,
+        "construccion": 162,
+        "precio": 3490000,
+        "colonia": "",
+        "link": "33 2821 6088"
+      },
+      {
+        "terreno": 277,
+        "construccion": 140,
+        "precio": 3250000,
+        "colonia": "sala, comedor, cocina, una recámara con baño completo y un medio baño adicional para visitas. segundo nivel, tres recámaras, una de ellas con baño completo, y otro baño",
+        "link": "33 1524 2424"
+      },
+      {
+        "terreno": 108,
+        "construccion": 182,
+        "precio": 2980000,
+        "colonia": "",
+        "link": "33 1580 9999"
+      },
+      {
+        "terreno": 218,
+        "construccion": 206,
+        "precio": 2350000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 242,
+        "construccion": 118,
+        "precio": 5700000,
+        "colonia": "",
+        "link": ""
+      }
+    ],
+    "folio": "OPI-26-5-16-OF",
+    "tipo": "CASA HABITACIÓN",
+    "direccion": "Santa Catalina 11, lote 12, manzana 246, predio Nueva Santa María, Tlaquepaque, Jalisco.",
+    "valorMercado": "$2,030,000.00",
+    "m2Terreno": "254.00 M2",
+    "m2Construccion": "76.12 M2",
+    "edad": "36 AÑOS.    ",
+    "valorM2Aplicable": " $ 26,671 ",
+    "recamaras": 2,
+    "banos": 1,
+    "estacionamientos": 4,
+    "estadoConservacion": "regular_medio"
+  },
+  {
+    "fileId": "1Ph54O6RBlelWcn4wUEize0WUPzHTFG1QhgRbpLT_80M",
+    "fileName": "OPI-26-5-15-OF Santander 1741, Nueva España,  Zapopan, Jal.",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Nueva España",
+    "municipio": "Zapopan",
+    "comparables": [
+      {
+        "terreno": 726,
+        "construccion": 0,
+        "precio": 3300000,
+        "colonia": "la coronilla",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-av-vista-hermosa-la-coronilla-zapopan-jal-3695583"
+      },
+      {
+        "terreno": 140,
+        "construccion": 0,
+        "precio": 900000,
+        "colonia": "miguel hidalgo",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-16-de-septiembre-miguel-hidalgo-zapopan-jal-3863202"
+      },
+      {
+        "terreno": 275,
+        "construccion": 0,
+        "precio": 1450000,
+        "colonia": "del refugio",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-tequila-lomas-del-refugio-zapopan-jal-3860733"
+      },
+      {
+        "terreno": 256,
+        "construccion": 231,
+        "precio": 3590000,
+        "colonia": "esquina con 3 locales comerciales cochera cerrada para dos autos, 4 recamaras cocina, sala, y 2 baños completos",
+        "link": "$ 6,982.75"
+      },
+      {
+        "terreno": 203,
+        "construccion": 173,
+        "precio": 3500000,
+        "colonia": "Planta Baja: sala y comedor Cocina integral 1 Baño completo Terraza Cochera con espacio para 4 autos Planta Alta 2 Recámaras 1 Baño",
+        "link": "$ 12,395.10"
+      },
+      {
+        "terreno": 118,
+        "construccion": 200,
+        "precio": 2311000,
+        "colonia": "",
+        "link": "$ 325,000.00"
+      },
+      {
+        "terreno": 178,
+        "construccion": 99,
+        "precio": 1490000,
+        "colonia": "",
+        "link": "$ 8,793.09"
+      },
+      {
+        "terreno": 95,
+        "construccion": 85,
+        "precio": 1150000,
+        "colonia": "estacionamiento 1 auto sala comedor cocineta 2 recamaras baño completo Patio de servicio",
+        "link": "$ 9,017.52"
+      },
+      {
+        "terreno": 256,
+        "construccion": 231,
+        "precio": 3590000,
+        "colonia": "esquina con 3 locales comerciales cochera cerrada para dos autos, 4 recamaras cocina, sala, y 2 baños completos",
+        "link": "33 1140 3814"
+      },
+      {
+        "terreno": 203,
+        "construccion": 173,
+        "precio": 3500000,
+        "colonia": "Planta Baja: sala y comedor Cocina integral 1 Baño completo Terraza Cochera con espacio para 4 autos Planta Alta 2 Recámaras 1 Baño",
+        "link": "3312175135"
+      },
+      {
+        "terreno": 118,
+        "construccion": 200,
+        "precio": 2311000,
+        "colonia": "",
+        "link": "3328065962"
+      },
+      {
+        "terreno": 178,
+        "construccion": 99,
+        "precio": 1490000,
+        "colonia": "",
+        "link": "33 1580 9999"
+      },
+      {
+        "terreno": 95,
+        "construccion": 85,
+        "precio": 1150000,
+        "colonia": "estacionamiento 1 auto sala comedor cocineta 2 recamaras baño completo Patio de servicio",
+        "link": "3331742779"
+      }
+    ],
+    "folio": "OPI-26-5-15-OF",
+    "tipo": "CASA HABITACIÓN EN TERRENO EJIDAL",
+    "direccion": "Santander 1741, Nueva España, 45186 Zapopan, Jal.",
+    "valorMercado": "$736,000.00",
+    "m2Terreno": "120.00 M2",
+    "m2Construccion": "95.50 M2",
+    "edad": "35 AÑOS.    ",
+    "valorM2Aplicable": " $ 9,236 ",
+    "recamaras": 3,
+    "banos": 1,
+    "estacionamientos": null,
+    "estadoConservacion": "regular_medio"
+  },
+  {
+    "fileId": "15vEFYfnIAouDlHa8qqNPGZ9zYg8I8fsHX55-9KK5nP8",
+    "fileName": "OPI-26-5-14-AV Arenales 2740, Arenales Tapatíos, 45066 Zapopan, Jal.",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Arenales Tapatíos",
+    "municipio": "Zapopan",
+    "comparables": [
+      {
+        "terreno": 133,
+        "construccion": 0,
+        "precio": 980000,
+        "colonia": "terreno en arenales tapatíos. 7 m de frente por 18m de fondo. cuenta con escritura pública y libre de gravamen.",
+        "link": "https://propiedades.com/inmuebles/terreno-habitacional-en-venta-bronce-241-arenales-tapatios-jalisco-31234050#tipos=terrenos-habitacionales-venta&area=arenales-tapatios-zapopan&pos=4"
+      },
+      {
+        "terreno": 90,
+        "construccion": 0,
+        "precio": 980000,
+        "colonia": "a unas cuadras de prolongación mariano otero",
+        "link": "https://propiedades.com/inmuebles/terreno-habitacional-en-venta-calle-pirita-41-arenales-tapatios-jalisco-27734502"
+      },
+      {
+        "terreno": 66,
+        "construccion": 0,
+        "precio": 750000,
+        "colonia": "urbanizado ⁠escrituras ⁠sin adeudos  ⁠cerca de avenidas Mariano Otero, prolongación Av Guadalupe",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltepa-terreno-habitacional-en-venta-149715350.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 106,
+        "construccion": 0,
+        "precio": 1350000,
+        "colonia": "Terreno regular y de fácil acceso",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein--gran-oportunidad-para-invertir-o-construir-la-casa-de-149235005.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 780,
+        "construccion": 0,
+        "precio": 4725000,
+        "colonia": "Ubicada 1O min de la salida Mariano Otero por Periférico, ¡LISTO PARA ESCRITURAR Orientación: N-S",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-a-3-minutos-del-fortin-zapopan-142163284.html?n_src=Listado&n_pg=1&n_pos=2"
+      },
+      {
+        "terreno": 400,
+        "construccion": 0,
+        "precio": 3590000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-a-3-minutos-del-fortin-zapopan-142163940.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 523,
+        "construccion": 0,
+        "precio": 4500000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein--oportunidad!-amplio-terreno-en-col-paraisos-del-colli-148633893.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 276,
+        "construccion": 0,
+        "precio": 2890000,
+        "colonia": "",
+        "link": "https://propiedades.com/inmuebles/terreno-habitacional-en-venta-prolongacion-mariano-otero-55-55-arenales-tapatios-jalisco-30191151#tipos=terrenos-habitacionales-venta&area=arenales-tapatios-zapopan&pos=5"
+      },
+      {
+        "terreno": 780,
+        "construccion": 0,
+        "precio": 4725000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-a-3-minutos-del-fortin-zapopan-142163284.html?n_src=Listado&n_pg=1&n_pos=2"
+      }
+    ],
+    "folio": "OPI-26-5-14-AV",
+    "tipo": "BODEGA",
+    "direccion": "Arenales 2740, Arenales Tapatíos, 45066 Zapopan, Jal.",
+    "valorMercado": "$1,801,000.00",
+    "m2Terreno": "160.00 M2",
+    "m2Construccion": "160.00 M2",
+    "valorM2Terreno": " $ 8,359.66 ",
+    "edad": "30 AÑOS.    ",
+    "estadoConservacion": "regular_medio"
+  },
+  {
+    "fileId": "1JWePZGDwnHwPNHLbPqLF4uQsYxbIzseygFqgVcAl30s",
+    "fileName": "OPI-26-5-13-AV-C. Emiliano Zapata 45, Las Liebres, San Pedro Tlaquepaque, Jal.",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Las Liebres",
+    "municipio": "San Pedro Tlaquepaque",
+    "comparables": [
+      {
+        "terreno": 129,
+        "construccion": 0,
+        "precio": 260000,
+        "colonia": "san jose el verde centro",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-de-la-loma-colonia-san-jose-el-verde-centro-el-salto-jal-3758649"
+      },
+      {
+        "terreno": 400,
+        "construccion": 0,
+        "precio": 1040000,
+        "colonia": "las liebres",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-camichines-las-liebres-tlaquepaque-jal-3699688"
+      },
+      {
+        "terreno": 159,
+        "construccion": 0,
+        "precio": 525000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltepa-terreno-en-esquina-159-m-sup2--fracc.-la-loma-149420743.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 168,
+        "construccion": 0,
+        "precio": 472752,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-la-loma-el-salto-148392474.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 112,
+        "construccion": 0,
+        "precio": 302562,
+        "colonia": "el zalate",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terrenos-en-venta-en-el-zalate-el-salto-jalisco.-148684745.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 302,
+        "construccion": 0,
+        "precio": 1300000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-el-verde-el-salto-145914471.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 575,
+        "construccion": 0,
+        "precio": 2875000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-las-pintas-tlaquepaque-143059165.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 242,
+        "construccion": 0,
+        "precio": 620000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-unidad-y-progreso-149596525.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 1324,
+        "construccion": 0,
+        "precio": 4500000,
+        "colonia": "san pedro",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-jose-domingo-isordia-solidaridad-san-pedro-tlaquepaque-jal-3783980"
+      },
+      {
+        "terreno": 551,
+        "construccion": 0,
+        "precio": 2500000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-casa-a-precio-de-terreno-las-pintas-minerales-el-144866254.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 154,
+        "construccion": 100,
+        "precio": 3099000,
+        "colonia": "",
+        "link": "$ 13,195.78"
+      },
+      {
+        "terreno": 350,
+        "construccion": 120,
+        "precio": 2750000,
+        "colonia": "Tiene construidas dos casitas, fosa para alberca y fosa para chapoteadero palmas pasto",
+        "link": "$ 10,145.88"
+      },
+      {
+        "terreno": 81,
+        "construccion": 74,
+        "precio": 1930000,
+        "colonia": "Con 4 recamaras, 2 baños, 1 COCHERA",
+        "link": "$ 12,407.76"
+      },
+      {
+        "terreno": 80,
+        "construccion": 52,
+        "precio": 1450000,
+        "colonia": "LA CASA ESTA REMODELADA EN COTO, CUENTA CON AREA DE SALA, COMEDOR, COCINA INTEGRAL, 2 RECAMARAS, 1 BAÑO COMPLETO Y PATIO.",
+        "link": "$ 13,771.10"
+      },
+      {
+        "terreno": 119,
+        "construccion": 90,
+        "precio": 2500000,
+        "colonia": "coto privado Cochera para 2 autos Cocina integral 1 recámara 1 baño completo Patio con área de lavado",
+        "link": "$ 13,489.56"
+      },
+      {
+        "terreno": 154,
+        "construccion": 100,
+        "precio": 3099000,
+        "colonia": "",
+        "link": "3339545745"
+      },
+      {
+        "terreno": 350,
+        "construccion": 120,
+        "precio": 2750000,
+        "colonia": "Tiene construidas dos casitas, fosa para alberca y fosa para chapoteadero palmas pasto",
+        "link": ""
+      },
+      {
+        "terreno": 81,
+        "construccion": 74,
+        "precio": 1930000,
+        "colonia": "Con 4 recamaras, 2 baños, 1 COCHERA",
+        "link": "33 2177 9544"
+      },
+      {
+        "terreno": 80,
+        "construccion": 52,
+        "precio": 1450000,
+        "colonia": "LA CASA ESTA REMODELADA EN COTO, CUENTA CON AREA DE SALA, COMEDOR, COCINA INTEGRAL, 2 RECAMARAS, 1 BAÑO COMPLETO Y PATIO.",
+        "link": ""
+      },
+      {
+        "terreno": 119,
+        "construccion": 90,
+        "precio": 2500000,
+        "colonia": "coto privado Cochera para 2 autos Cocina integral 1 recámara 1 baño completo Patio con área de lavado",
+        "link": "33 1099 0158"
+      }
+    ],
+    "folio": "OPI-26-5-13-AV",
+    "tipo": "CASA HABITACIÓN EN TERRENO EJIDAL",
+    "direccion": "C. Emiliano Zapata 45, Las Liebres, 45623 San Pedro Tlaquepaque, Jal.",
+    "valorMercado": "$2,672,000.00",
+    "m2Terreno": "276.00 M2",
+    "m2Construccion": "187.44 M2",
+    "edad": "9 AÑOS.    ",
+    "valorM2Aplicable": " $ 14,258 ",
+    "recamaras": 4,
+    "banos": 2.5,
+    "estacionamientos": 3,
+    "estadoConservacion": "regular_medio"
+  },
+  {
+    "fileId": "1vptCXwjxgbG987BJCc8VK52HC82ramaydBlcNXWMCe0",
+    "fileName": "OPI-26-5-12-AV Constitución 160, Centro, 45650 San Sebastián el Grande, Jal.",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Centro",
+    "municipio": "San Sebastián el Grande",
+    "comparables": [
+      {
+        "terreno": 8366,
+        "construccion": 0,
+        "precio": 17568600,
+        "colonia": "",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-san-sebastian-el-grande-tlajomulco-de-zuniga-jal-3675870"
+      },
+      {
+        "terreno": 441.62,
+        "construccion": 0,
+        "precio": 2820000,
+        "colonia": "",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-colinas-de-santa-anita-tlajomulco-de-zuniga-jal-3853560"
+      },
+      {
+        "terreno": 166,
+        "construccion": 0,
+        "precio": 416525,
+        "colonia": "",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-constitucion-poniente-san-sebastian-el-grande-tlajomulco-de-zuniga-jal-3737824"
+      },
+      {
+        "terreno": 300,
+        "construccion": 500,
+        "precio": 3200000,
+        "colonia": "Cuenta con 7 habitaciones 3 habitaciones en la planta baja y 4 habitaciones en la planta alta , 2 y medio baños , cochera para un auto , sala , cocina , comedor , area para terreza",
+        "link": "$ 6,628.54"
+      },
+      {
+        "terreno": 277,
+        "construccion": 226,
+        "precio": 3000000,
+        "colonia": "",
+        "link": "$ 10,641.50"
+      },
+      {
+        "terreno": 200,
+        "construccion": 330,
+        "precio": 1800000,
+        "colonia": "Cuenta con 4 recamaras, sala, comedor amplios, 2 baños, patio, cochera",
+        "link": "$ 7,335.63"
+      },
+      {
+        "terreno": 341,
+        "construccion": 257,
+        "precio": 3300000,
+        "colonia": "recien remodelada cocina ,baños, terraza, closets, porton electrico para un auto, amplio patio",
+        "link": "$ 7,984.32"
+      },
+      {
+        "terreno": 106,
+        "construccion": 140,
+        "precio": 1650000,
+        "colonia": "PLANTA BAJA: sala, comedor, cocina integral, área de lavado, una cochera, 3 recamaras un baño completo un local comercial SEGUNDA PLANTA: recámara principal con vestidor baño completo, las otras dos recámaras comparten baño",
+        "link": "$ 12,218.02"
+      },
+      {
+        "terreno": 300,
+        "construccion": 500,
+        "precio": 3200000,
+        "colonia": "Cuenta con 7 habitaciones 3 habitaciones en la planta baja y 4 habitaciones en la planta alta , 2 y medio baños , cochera para un auto , sala , cocina , comedor , area para terreza",
+        "link": ""
+      },
+      {
+        "terreno": 277,
+        "construccion": 226,
+        "precio": 3000000,
+        "colonia": "",
+        "link": "33 1580 9999"
+      },
+      {
+        "terreno": 200,
+        "construccion": 330,
+        "precio": 1800000,
+        "colonia": "Cuenta con 4 recamaras, sala, comedor amplios, 2 baños, patio, cochera",
+        "link": "3336762353"
+      },
+      {
+        "terreno": 341,
+        "construccion": 257,
+        "precio": 3300000,
+        "colonia": "recien remodelada cocina ,baños, terraza, closets, porton electrico para un auto, amplio patio",
+        "link": "3310217302"
+      },
+      {
+        "terreno": 106,
+        "construccion": 140,
+        "precio": 1650000,
+        "colonia": "PLANTA BAJA: sala, comedor, cocina integral, área de lavado, una cochera, 3 recamaras un baño completo un local comercial SEGUNDA PLANTA: recámara principal con vestidor baño completo, las otras dos recámaras comparten baño",
+        "link": ""
+      },
+      {
+        "terreno": 97,
+        "construccion": 183,
+        "precio": 2550000,
+        "colonia": "",
+        "link": ""
+      }
+    ],
+    "folio": "OPI-26-5-12-AV",
+    "tipo": "CONJUNTO DE VIVIENDAS CON LOCALES",
+    "direccion": "Constitución Pte. 160, Centro, 45640 San Sebastián el Grande, Jal.",
+    "valorMercado": "$5,575,000.00",
+    "m2Terreno": "591.00 M2",
+    "m2Construccion": "614.41 M2",
+    "edad": "45 AÑOS.    ",
+    "valorM2Aplicable": " $ 9,073 ",
+    "recamaras": 15,
+    "banos": 12,
+    "estacionamientos": 4,
+    "estadoConservacion": "regular_medio"
+  },
+  {
+    "fileId": "1bnlPnrMyEFfETdwsUA4yZuYC6TUXMlI_0In07y3IsUk",
+    "fileName": "OPI-26-5-11-AV C. José y Antonio Lucano 976, Residencial La Soledad, 45525 San Pedro Tlaquepaque, Jal.",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "La Soledad",
+    "municipio": "San Pedro Tlaquepaque",
+    "comparables": [
+      {
+        "terreno": 190,
+        "construccion": 0,
+        "precio": 2600000,
+        "colonia": "a pocos minutos del Parian, Forum Tlaquepaque y rodeado de tiendas, restaurantes, servicios y entretenimiento Listo para escriturar",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-a-5-min.-del-parian-tlaquepaque-149170364.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 150,
+        "construccion": 0,
+        "precio": 1575000,
+        "colonia": "Terreno de uso mixto con cercanía a avenidas principales. Libre de grábamen. Propiedad privada.",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltepa-excelente-terreno.-para-casa-o-negocio.-149514205.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 144,
+        "construccion": 0,
+        "precio": 1650000,
+        "colonia": "Sobre Av. del Parque, entre Av. San Rafael y Av. Revolución, frente al IMSS UMF 78. Zona de alta visibilidad, conectividad y constante afluencia vehicular y peatonal. Uso de suelo comercial",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-comercial-e-industrial-en-venta-san-rafael-143273205.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 114,
+        "construccion": 0,
+        "precio": 900000,
+        "colonia": "Zonificación: H4-U Este terreno es una excelente opción para quienes buscan construir desde cero",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-bosques-de-tonala-149847790.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 297,
+        "construccion": 0,
+        "precio": 1499000,
+        "colonia": "terreno en esquina, en una zona completamente desarrollada y centrica, ideal para comercio o vivienda. Se entrega limpio y de forma regular, uso de suelo mixto.",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-venta-de-terreno-en-esquina-loma-bonita-148457853.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 952,
+        "construccion": 0,
+        "precio": 9800000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-comercial-e-industrial-en-venta-san-rafael-143273205.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 95,
+        "construccion": 0,
+        "precio": 490000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltepa-terreno-bardado-en-venta-col.-jerico-tonala-95-149656340.html?n_src=Listado&n_pg=1&n_pos=1"
+      }
+    ],
+    "folio": "OPI-26-5-11-AV",
+    "tipo": "TERRENO CON CONSTRUCCIONES",
+    "direccion": "C. José y Antonio Lucano 976, Residencial La Soledad, 45525 San Pedro Tlaquepaque, Jal.",
+    "valorMercado": "$1,120,000.00",
+    "m2Terreno": "119.85 M2",
+    "m2Construccion": "3.23 M2",
+    "valorM2Terreno": " $ 8,940.06 ",
+    "edad": "26 AÑOS.    ",
+    "estadoConservacion": "regular_medio"
+  },
+  {
+    "fileId": "1MhQ-H7XxobSd78OS43CzI_KdmmncsorCYNeygqE3reY",
+    "fileName": "OPI-26-5-10-AV Fabián 30, Santa Rosa, las Pintas de arriba",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Santa Rosa",
+    "municipio": "las Pintas de arriba",
+    "comparables": [],
+    "folio": "No hallado",
+    "tipo": "LOCAL COMERCIAL",
+    "direccion": "Fabián 30, Santa Rosa, las Pintas de arriba",
+    "valorMercado": "No hallado",
+    "m2Terreno": "No hallado",
+    "m2Construccion": "No hallado",
+    "edad": "No hallado",
+    "valorM2Aplicable": "No hallado",
+    "recamaras": null,
+    "banos": null,
+    "estacionamientos": null,
+    "_tabFallback": "OPI Loc Com b",
+    "estadoConservacion": null
+  },
+  {
+    "fileId": "1gsIis9J1WUxvOoW3KMUlOtOKLYDFgD2RPNmUxiFd5Po",
+    "fileName": "OPI-26-5-09-AV Juan de la Barrera 6494, El Vergel, Tlaquepaque",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "El Vergel",
+    "municipio": "Tlaquepaque",
+    "comparables": [
+      {
+        "terreno": 392,
+        "construccion": 0,
+        "precio": 1900000,
+        "colonia": "Ubicada a solo una calle de la Carretera a Chapala, en esquina con excelente exposición.",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-matamoros-el-campesino-san-pedro-tlaquepaque-jal-3800471"
+      },
+      {
+        "terreno": 90,
+        "construccion": 0,
+        "precio": 650000,
+        "colonia": "Terreno dentro de periférico, en pequeño fraccionamiento de solo 53 lotes Ya tienen escrituras, solo se venden de CONTADO",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-c-pedrera-las-juntitas-san-pedro-tlaquepaque-jal-3832327"
+      },
+      {
+        "terreno": 125,
+        "construccion": 0,
+        "precio": 680000,
+        "colonia": "TERRENO PLANO PARA CASA HABITACION O NEGOCIO, A DOS CUADRAS DE AV GOBERNADOR CURIEL Y A 3 MINUTOS DE PERIFERICO SUR CUENTA CON ESCRITURAS Y ESTA LIBRE DE GRAVAMEN",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-venta-terreno-por-gobernador-curiel-y-periferico-146899510.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 492,
+        "construccion": 0,
+        "precio": 1575000,
+        "colonia": "Cuenta con construcción existente de 76.43 m² (ideal para remodelar o demoler según proyecto). Uso de suelo habitacional Documentación en regla",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-de-492-m-sup2--con-20-m-de-frente-en-149058651.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 115,
+        "construccion": 0,
+        "precio": 590000,
+        "colonia": "Venta de terreno de uso habitacional.",
+        "link": "https://propiedades.com/inmuebles/terreno-habitacional-en-venta-san-martin-de-las-flores-45629-san-pedro-tlaquepaque-jal-sn-san-martin-de-las-flores-de-abajo-jalisco-30790030#tipos=terrenos-habitacionales&area=el-vergel-1ra-seccion-san-pedro-tlaquepaque&pos=14"
+      },
+      {
+        "terreno": 696,
+        "construccion": 0,
+        "precio": 3800000,
+        "colonia": "san pedro",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-rio-balsas-el-vergel-san-pedro-tlaquepaque-jal-3846248"
+      },
+      {
+        "terreno": 120,
+        "construccion": 0,
+        "precio": 480000,
+        "colonia": "san pedro",
+        "link": "https://propiedades.com/inmuebles/terreno-habitacional-en-venta-jardines-del-tapatio-san-pedro-tlaquepaque-jal-sn-jardines-del-tapatio-jalisco-30226351#tipos=terrenos-habitacionales&area=el-vergelito-san-pedro-tlaquepaque&pos=3"
+      },
+      {
+        "terreno": 177,
+        "construccion": 0,
+        "precio": 1239000,
+        "colonia": "san pedro",
+        "link": "https://propiedades.com/inmuebles/terreno-habitacional-en-venta-laurel-el-vergel-45595-san-pedro-tlaquepaque-jal-el-vergel-1ra-seccion-jalisco-30225106#tipos=terrenos-habitacionales&area=el-vergel-1ra-seccion-san-pedro-tlaquepaque&pos=1"
+      },
+      {
+        "terreno": 130,
+        "construccion": 0,
+        "precio": 893100,
+        "colonia": "san pedro",
+        "link": "https://propiedades.com/inmuebles/terreno-habitacional-en-venta-c-rio-san-pedro-el-vergel-45595-san-pedro-tlaquepaque-jal-el-vergelito-jalisco-30225168#tipos=terrenos-habitacionales&area=el-vergelito-san-pedro-tlaquepaque&pos=4"
+      }
+    ],
+    "folio": "OPI-26-5-09-AV",
+    "tipo": "CASA HABITACIÓN",
+    "direccion": "C. Juan de la Barrera 6494, El Vergel, 45598 San Pedro Tlaquepaque, Jal.",
+    "valorMercado": "$1,737,000.00",
+    "m2Terreno": "181.00 M2",
+    "m2Construccion": "107.46 M2",
+    "valorM2Terreno": " $ 5,311.22 ",
+    "edad": "21 AÑOS.    ",
+    "estadoConservacion": "regular_medio"
+  },
+  {
+    "fileId": "1bQMclPjXnKJvvWRMHo4YcnJ_YsuCPd_FEVSg0xsa84g",
+    "fileName": "OPI-26-5-08-AV Carr. libre Guadalajara - Zapotlanejo 3852, Tateposco, 45630 Guadalajara, Jal",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Tateposco",
+    "municipio": "Guadalajara",
+    "comparables": [],
+    "folio": "No hallado",
+    "tipo": "LOCAL COMERCIAL",
+    "direccion": "Carr. libre Guadalajara - Zapotlanejo 3852, Tateposco, 45630 Guadalajara, Jal",
+    "valorMercado": "No hallado",
+    "m2Terreno": "No hallado",
+    "m2Construccion": "No hallado",
+    "edad": "No hallado",
+    "valorM2Aplicable": "No hallado",
+    "recamaras": null,
+    "banos": null,
+    "estacionamientos": null,
+    "_tabFallback": "OPI Loc Com b",
+    "estadoConservacion": null
+  },
+  {
+    "fileId": "1_ZfB3fCiBpGYDL2N-bk8LANNmFEhNqe5iua5zsXo5Z4",
+    "fileName": "OPI-26-5-07-AV Prado de las Margaritas 2064, Residencias el Prado, Jal.",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Residencias el Prado",
+    "municipio": "Residencias el Prado",
+    "comparables": [
+      {
+        "terreno": 114,
+        "construccion": 0,
+        "precio": 350000,
+        "colonia": "",
+        "link": "https://propiedades.com/inmuebles/terreno-habitacional-en-venta-vistas-de-la-barranca-6-residencias-el-prado-jardines-del-prado-jalisco-29952244#tipos=terrenos-habitacionales-venta&area=residencial-el-prado-tonala&pos=5"
+      },
+      {
+        "terreno": 646,
+        "construccion": 0,
+        "precio": 1779195,
+        "colonia": "",
+        "link": "https://propiedades.com/inmuebles/terreno-habitacional-en-venta-prado-de-los-tulipanes-poniente-residencias-el-prado-jardines-del-prado-jalisco-26910301#tipos=terrenos-habitacionales-venta&area=residencial-el-prado-tonala&pos=1"
+      },
+      {
+        "terreno": 686,
+        "construccion": 0,
+        "precio": 1886995,
+        "colonia": "",
+        "link": "https://propiedades.com/inmuebles/terreno-habitacional-en-venta-calle-de-los-tulipanes-116-residencias-el-prado-jardines-del-prado-jalisco-26911239#tipos=terrenos-habitacionales-venta&area=residencial-el-prado-tonala&pos=3"
+      },
+      {
+        "terreno": 288,
+        "construccion": 0,
+        "precio": 1209000,
+        "colonia": "",
+        "link": "https://propiedades.com/inmuebles/terreno-habitacional-en-venta-circuito-prdo-de-los-tulipanes-norte-residencias-el-prado-jardines-del-prado-jalisco-31200658#tipos=terrenos-habitacionales-venta&area=residencial-el-prado-tonala&pos=4"
+      },
+      {
+        "terreno": 92,
+        "construccion": 66,
+        "precio": 1195000,
+        "colonia": "",
+        "link": "$ 13,820.88"
+      },
+      {
+        "terreno": 90,
+        "construccion": 69,
+        "precio": 1205000,
+        "colonia": "",
+        "link": "$ 13,940.69"
+      },
+      {
+        "terreno": 75,
+        "construccion": 85,
+        "precio": 1550000,
+        "colonia": "Planta Baja: SalA Comedor Cocineta 1 recámara 1 baño completo Patio de servicio Cochera para 1 auto Planta Alta: 2 recámaras 1 baño completo Terraza",
+        "link": "$ 13,312.07"
+      },
+      {
+        "terreno": 105,
+        "construccion": 90,
+        "precio": 1650000,
+        "colonia": "",
+        "link": "$ 13,039.91"
+      },
+      {
+        "terreno": 96,
+        "construccion": 147,
+        "precio": 2375000,
+        "colonia": "Planta Baja: 1 cochera, cocina, comedor, sala y baño Planta Alta: dos recámaras y un baño completo.",
+        "link": "$ 7,251.33"
+      },
+      {
+        "terreno": 92,
+        "construccion": 66,
+        "precio": 1195000,
+        "colonia": "",
+        "link": "3313157358"
+      },
+      {
+        "terreno": 90,
+        "construccion": 69,
+        "precio": 1205000,
+        "colonia": "",
+        "link": "3317713025"
+      },
+      {
+        "terreno": 75,
+        "construccion": 85,
+        "precio": 1550000,
+        "colonia": "Planta Baja: SalA Comedor Cocineta 1 recámara 1 baño completo Patio de servicio Cochera para 1 auto Planta Alta: 2 recámaras 1 baño completo Terraza",
+        "link": "33 3408 0563"
+      },
+      {
+        "terreno": 105,
+        "construccion": 90,
+        "precio": 1650000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 96,
+        "construccion": 147,
+        "precio": 2375000,
+        "colonia": "Planta Baja: 1 cochera, cocina, comedor, sala y baño Planta Alta: dos recámaras y un baño completo.",
+        "link": "33 3117 4253"
+      },
+      {
+        "terreno": 90,
+        "construccion": 110,
+        "precio": 3100000,
+        "colonia": "",
+        "link": ""
+      }
+    ],
+    "folio": "OPI-26-5-07-AV",
+    "tipo": "CASA HABITACIÓN",
+    "direccion": "Prado de las Margaritas 2064, Residencias el Prado, 45413 Residencias el Prado, Jal.",
+    "valorMercado": "$1,220,000.00",
+    "m2Terreno": "105.00 M2",
+    "m2Construccion": "63.61 M2",
+    "edad": "5 AÑOS.    ",
+    "valorM2Aplicable": " $ 19,178 ",
+    "recamaras": 2,
+    "banos": 1,
+    "estacionamientos": 1,
+    "estadoConservacion": "bueno"
+  },
+  {
+    "fileId": "1mTwSmd1HyiIQ6RWxxQpgtgDtikSA70n799pY6LhVYMQ",
+    "fileName": "OPI-26-5-06-AV Presa Sta Rosa 572, Lagos de Oriente, Guadalajara, Jal.",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Lagos de Oriente",
+    "municipio": "Guadalajara",
+    "comparables": [
+      {
+        "terreno": 670,
+        "construccion": 0,
+        "precio": 7642000,
+        "colonia": "anaya libertad",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-calle-general-pedro-maria-anaya-libertad-guadalajara-jal-3814937"
+      },
+      {
+        "terreno": 376,
+        "construccion": 0,
+        "precio": 5500000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-bodega-a-precio-de-terreno-147145971.html?n_src=Listado&n_pg=0&n_pos=1"
+      },
+      {
+        "terreno": 710,
+        "construccion": 0,
+        "precio": 3500000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-edificio-en-venta-como-terreno-en-san-isidro-145682002.html?n_src=Listado&n_pg=0&n_pos=1"
+      },
+      {
+        "terreno": 187,
+        "construccion": 140,
+        "precio": 3450000,
+        "colonia": "",
+        "link": "$ 12,174.67"
+      },
+      {
+        "terreno": 115,
+        "construccion": 140,
+        "precio": 2650000,
+        "colonia": "CASA EN ESQUINA Y REMODELADA. 2 recámaras.1 Baño, cochera para dos autos",
+        "link": "$ 10,603.75"
+      },
+      {
+        "terreno": 95,
+        "construccion": 63,
+        "precio": 2450000,
+        "colonia": "Cochera cerrada para 1 auto Sala Comedor Cocina Área de servicio Baño completo Jardín 2 recámaras",
+        "link": "$ -"
+      },
+      {
+        "terreno": 138,
+        "construccion": 141,
+        "precio": 2650000,
+        "colonia": "",
+        "link": "$ 12,174.67"
+      },
+      {
+        "terreno": 187,
+        "construccion": 140,
+        "precio": 3450000,
+        "colonia": "",
+        "link": "33 1675 7755"
+      },
+      {
+        "terreno": 115,
+        "construccion": 140,
+        "precio": 2650000,
+        "colonia": "CASA EN ESQUINA Y REMODELADA. 2 recámaras.1 Baño, cochera para dos autos",
+        "link": ""
+      },
+      {
+        "terreno": 95,
+        "construccion": 63,
+        "precio": 2450000,
+        "colonia": "Cochera cerrada para 1 auto Sala Comedor Cocina Área de servicio Baño completo Jardín 2 recámaras",
+        "link": "33 1823 3232"
+      },
+      {
+        "terreno": 161,
+        "construccion": 148,
+        "precio": 2650000,
+        "colonia": "PB: Cocina, sala, comedor, habitación y medio baño. P1: 3 habitaciones, 1 baño completo, área de TV. Estacionamiento 3 autos. Área de lavado",
+        "link": "33 3165 7857"
+      },
+      {
+        "terreno": 138,
+        "construccion": 141,
+        "precio": 3500000,
+        "colonia": "",
+        "link": "33 3805 4530"
+      },
+      {
+        "terreno": 347,
+        "construccion": 166,
+        "precio": 4590000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 154,
+        "construccion": 165,
+        "precio": 2700000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 124,
+        "construccion": 45,
+        "precio": 1250000,
+        "colonia": "",
+        "link": ""
+      }
+    ],
+    "folio": "OPI-26-5-06-AV",
+    "tipo": "CASA HABITACIÓN",
+    "direccion": "Presa Sta Rosa 527, Lagos de Oriente, 44790 Guadalajara, Jal.",
+    "valorMercado": "$1,483,000.00",
+    "m2Terreno": "188.60 M2",
+    "m2Construccion": "64.22 M2",
+    "edad": "50 AÑOS.    ",
+    "valorM2Aplicable": " $ 23,782 ",
+    "recamaras": 1,
+    "banos": 1,
+    "estacionamientos": null,
+    "estadoConservacion": "regular_medio"
+  },
+  {
+    "fileId": "1XQlbbyeAbPlkS5KjP2RN8IJu-f_SAnO_dNwwgrQiJKM",
+    "fileName": "OPI-26-5-05-AV Ficus 335 L28, Alamedas de Zalatitan, Tonalá",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Alamedas de Zalatitan",
+    "municipio": "Tonalá",
+    "comparables": [
+      {
+        "terreno": 297,
+        "construccion": 0,
+        "precio": 1499000,
+        "colonia": "terreno en esquina, de forma regular, uso de suelo mixto.",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-venta-de-terreno-en-esquina-loma-bonita-148457853.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 168,
+        "construccion": 0,
+        "precio": 1100000,
+        "colonia": "CUENTA CON TITULO DE PROPIEDAD, LISTA PARA ESCRITURAR.",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-ciudad-aztlan-tonala-149549585.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 288,
+        "construccion": 0,
+        "precio": 1209000,
+        "colonia": "Terreno PANORAMICO cuenta con todos los servicios pagados y listo para escriturar",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-panoramico-en-venta-en-residencial-prado-141971812.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 95,
+        "construccion": 0,
+        "precio": 490000,
+        "colonia": "Bardado con muro de 3 m de altura y portón de acceso compartido Constancia de posesión\r\n️",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltepa-terreno-bardado-en-venta-col.-jerico-tonala-95-149656340.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 140,
+        "construccion": 0,
+        "precio": 720000,
+        "colonia": "Terreno habitacional, con barda perimetral y cimientos Terreno urbanizado",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-tonala-142074295.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 405,
+        "construccion": 0,
+        "precio": 3381000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-el-centro-de-zalatitan-jalisco-145695565.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 150,
+        "construccion": 0,
+        "precio": 1575000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltepa-excelente-terreno.-para-casa-o-negocio.-149514205.html?n_src=Listado&n_pg=1&n_pos=1"
+      }
+    ],
+    "folio": "OPI-26-5-05-AV",
+    "tipo": "TERRENO URBANO",
+    "direccion": "Ficus 335, Alamedas de Zalatitan, 45405 Tonalá, Jal.",
+    "valorMercado": "$637,000.00",
+    "m2Terreno": "120.00 M2",
+    "m2Construccion": "0.00 M2",
+    "valorM2Terreno": " $ 5,308.52 ",
+    "edad": "0 AÑOS.    ",
+    "estadoConservacion": "regular_medio"
+  },
+  {
+    "fileId": "1CfrB1Vjm97chd3qmsfrIruPxkPqodj2mgVMJPV58-qo",
+    "fileName": "OPI-26-5-04-AV C. Francisco Huízar 937, Fracc. Parques  del Nilo, Segunda Sección,  Guadalajara, Jal.",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Parques  del Nilo",
+    "municipio": "Guadalajara",
+    "comparables": [
+      {
+        "terreno": 440,
+        "construccion": 0,
+        "precio": 4600000,
+        "colonia": "sobre avenida y en esquina, ideal para proyectos comerciales, habitacionales o mixtos",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-propiedad-como-terreno-en-colonia-la-paz-guadalajara-146814688.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 190,
+        "construccion": 0,
+        "precio": 2600000,
+        "colonia": "Listo para escriturar Zona con comercios, servicios y alto flujo de personas",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-a-5-min.-del-parian-tlaquepaque-149170364.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 150,
+        "construccion": 0,
+        "precio": 1575000,
+        "colonia": "Terreno de uso mixto con cercanía a avenidas principales, cines, bancos, plazas etc.\r\ncerca de una escuela y con amplias calles.",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltepa-excelente-terreno.-para-casa-o-negocio.-149514205.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 144,
+        "construccion": 0,
+        "precio": 1650000,
+        "colonia": "TERRENO espacio de 144 m2 en una ubicación céntrica, pero con el potencial de convertirse en una residencia tranquila y personalizada. Este terreno ofrece la ventaja de tener ya una construcción de base, permitiendo una rápida adaptación o demolición para su proyecto.\r\n\r\nVENTAJAS RESIDENCIALES Y FUNCIONALES:\r\n- Potencial: Ideal para construir la casa de tus sueños, maximizando los 144 m2\r\n- Base de Construcción: Cuenta con servicios básicos, Cocina Comedor y Barra Desayunador, que pueden integrarse en un diseño moderno.\r\n- Ubicación: Perímetro muy céntrico, pero con la ventaja de ser adaptable a un hogar que combine tranquilidad y cercanía a servicios.\r\n- Logística: Facilidad para estacionarse en la zona, una comodidad clave en el centro.\r\n\r\nENTORNO Y VIALIDADES:\r\n- Entorno Concurrido: Aunque es céntrico, su ubicación en Puerta del Rosario le da accesibilidad a todo.\r\n- Zonas Turísticas: Cerca de las áreas de mayor atractivo de Tonalá.\r\n- Conectividad: Rápido acceso a las vialidades principales que conectan con Tlaquepaque y Guadalajara.\r\n\r\n¡TU OPORTUNIDAD DE DISEÑAR Y CONSTRUIR EN EL CORAZÓN DE TONALÁ!\r\n\r\nVen a conocerlo y visualiza tu proyecto. ¡Agenda tu cita hoy mismo!\r\n(D)\r\n..........................................................\r\nLa disponibilidad y precios quedan sujeto a cambios sin previo aviso\r\nSe aceptan pagos con créditos, estos quedan sujeto a cambios por motivos de montos variables\r\nContamos con políticas de no discriminación\r\n*Para cualquier aclaración y/o quejas, por favor mandar mensaje al siguiente correo:@gmail.com *\r\n*Av., Santa Margarita #4099 Int. A-15\r\nPlaza D-Lucca, Col. Santa Margarita, Zapopan, Jalisco. CP:  *\r\n*Tel:  00\r\nHorario de atención: Lunes a Viernes de 9:00 am a 6:00 pm, Sábados de 9:00 am a 1:00 pm.*\r\nAviso de privacidad:\r\n**PIZARRO RESTREPO Y ASOCIADOS INMOBILIARIA S.A DE C.V de nombre comercial PRYA\r\nGrupo Inmobiliario, es responsable del uso y protección de sus datos personales, en este sentido\r\ny atendiendo las obligaciones legales establecidas en la Ley Federal de Protección de Datos\r\nPersonales en Posesión de los Particulares, a través de este instrumento se informa a los titulares\r\nde los datos, la información que de ellos se recaba y los fines que se le darán a dicha información...**\r\n\r\nConsulta nuestro aviso de privacidad en nuestra página:",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-tonala-jalisco-148057738.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 443,
+        "construccion": 0,
+        "precio": 4250000,
+        "colonia": "Ideal para proyecto vertical, comercio o desarrollo de negocio Zona con alta demanda, buena conectividad y gran potencial de crecimiento.",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-inmueble-en-venta-excelente-oportunidad-de-inversion-148801795.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 376,
+        "construccion": 0,
+        "precio": 5500000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-bodega-a-precio-de-terreno-147145971.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 952,
+        "construccion": 0,
+        "precio": 9800000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-comercial-e-industrial-en-venta-san-rafael-143273205.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 875,
+        "construccion": 0,
+        "precio": 14990000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 461,
+        "construccion": 0,
+        "precio": 5300000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-agustin-yanez-148990270.html?n_src=Listado&n_pg=1&n_pos=1"
+      }
+    ],
+    "folio": "OPI-26-5-04-AV",
+    "tipo": "TERRENO URBANO",
+    "direccion": "C. Francisco Huízar 937, Joyas del Nilo, Jardines de Los Historiadores, 44860 Guadalajara, Jal.",
+    "valorMercado": "$1,442,000.00",
+    "m2Terreno": "120.00 M2",
+    "m2Construccion": "0.00 M2",
+    "valorM2Terreno": " $ 12,020.28 ",
+    "edad": "0 AÑOS.    ",
+    "estadoConservacion": "regular_medio"
+  },
+  {
+    "fileId": "1VMZ3Bchow5N8gFS9rrolGexAxbmKgnmPm14px0QTuUU",
+    "fileName": "OPI-26-5-03-AV Margarita Maza de Juárez 1757, Benito Juárez, 45199 Zapopan, Jal.",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Benito Juárez",
+    "municipio": "Zapopan",
+    "comparables": [
+      {
+        "terreno": 300,
+        "construccion": 0,
+        "precio": 2100000,
+        "colonia": "venta terreno con pie de casa, ideal para construir hasta 3 viviendas.",
+        "link": "https://propiedades.com/inmuebles/terreno-habitacional-en-venta-sin-nombre-de-calle-villas-de-guadalupe-jalisco-30455413#tipos=terrenos-habitacionales-venta&area=villas-de-guadalupe-zapopan&pos=2"
+      },
+      {
+        "terreno": 763,
+        "construccion": 0,
+        "precio": 3900000,
+        "colonia": "para desarrollo habitacional, lotificar y vender, o para hacer una casa con mucho jardín. Ubicado en zona consolidada",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-la-experiencia-146367510.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 937,
+        "construccion": 0,
+        "precio": 2750000,
+        "colonia": "Terreno ubicado a una cuadra de carretera a saltillo. terreno ejidal",
+        "link": "https://propiedades.com/inmuebles/terreno-habitacional-en-venta-juan-jose-garcia-villas-de-guadalupe-jalisco-27731868#tipos=terrenos-habitacionales-venta&area=villas-de-guadalupe-zapopan&pos=1"
+      },
+      {
+        "terreno": 381,
+        "construccion": 0,
+        "precio": 2500000,
+        "colonia": "a tan solo 10 minutos del periférico Manuel Gómez Morin y a 5 minutos de calzada federalismo, se encuentra en esquina sobre calle cerrada, listo para escriturar",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-balcones-de-la-cantera-zapopan-149688483.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 275,
+        "construccion": 0,
+        "precio": 1450000,
+        "colonia": "zona tranquila cerca de la carretera saltillo 11 x 25 cuenta con escritura ,todos los servicios esta a desnivel rodeado de casas",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-tequila-lomas-del-refugio-zapopan-jal-3860733"
+      },
+      {
+        "terreno": 550,
+        "construccion": 0,
+        "precio": 8950000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-para-desarrollar-centro-de-zapopan-146692022.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 1072,
+        "construccion": 0,
+        "precio": 6800000,
+        "colonia": "terreno escriturado clasificación AU-RN/MB-4, ÁREA DE RENOVACIÓN URBANA MIXTA",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-arroyo-hondo-1072-m-sup2--uso-mixto-a-50-m-de-prol.-143461602.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 245,
+        "construccion": 0,
+        "precio": 2639586,
+        "colonia": "con una gran vista a la barranca de huentitan ideal para fiestas o reuniones cuenta con espacio para instalación de alberca y sótanos para área de juegos a 5 minutos del Auditorio Benitos Juarez",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terraza-con-vista-a-la-barranca-o-terreno-para-eventos-148916589.html?n_src=Listado&n_pg=1&n_pos=1"
+      }
+    ],
+    "folio": "OPI-26-5-03-AV",
+    "tipo": "TERRENO URBANO",
+    "direccion": "Margarita Maza de Juárez 1757, Benito Juárez, 45199 Zapopan, Jal.",
+    "valorMercado": "$1,238,000.00",
+    "m2Terreno": "153.00 M2",
+    "m2Construccion": "0.00 M2",
+    "valorM2Terreno": " $ 8,088.24 ",
+    "edad": "0 AÑOS.    ",
+    "estadoConservacion": "regular_medio"
+  },
+  {
+    "fileId": "1DYRo95dS_FYkL1X_DNVi8HAE7_qlPwOFJTXg_qSCHIQ",
+    "fileName": "OPI-26-5-02-AV Vicente Guerrero Numero  110A, 45640 San Agustín, Jal.",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "San Agustín",
+    "municipio": "San Agustín",
+    "comparables": [
+      {
+        "terreno": 120,
+        "construccion": 0,
+        "precio": 810000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-los-naranjos-senderos-de-monte-149360925.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 489,
+        "construccion": 0,
+        "precio": 4156500,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-tlajomulco-de-zuniga-jalisco-66240884.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 90,
+        "construccion": 0,
+        "precio": 850000,
+        "colonia": "",
+        "link": "https://propiedades.com/inmuebles/terreno-habitacional-en-venta-lago-de-chapala-san-agustin-jalisco-28790370#tipos=terrenos-habitacionales-venta&area=san-agustin-tlajomulco-de-zuniga&pos=1"
+      },
+      {
+        "terreno": 204,
+        "construccion": 315,
+        "precio": 5550000,
+        "colonia": "en esquina PB. SALA-COMEDOR, COCINA, DOS RECAMARAS, DOS BAÑOS, TERRAZA, PATIO, CUARTO DE LAVADO, COCHERA PARA DOS AUTOS  PA. DOS AMPLIAS RECAMARAS CON BAÑO, SALA DE ESTAR.",
+        "link": "$ 10,982.45"
+      },
+      {
+        "terreno": 90,
+        "construccion": 144,
+        "precio": 2595000,
+        "colonia": "Planta Baja Estacionamiento para 1 auto Sala Comedor cocina integral 1/2 baño Estudio recámara Patio Planta Alta Recámara con vestidor y baño 3 recámaras Área de servicio",
+        "link": "$ 10,058.00"
+      },
+      {
+        "terreno": 78,
+        "construccion": 108,
+        "precio": 1610000,
+        "colonia": "Dos recámaras Un baño completo Espacio para un automóvil Cocina integral",
+        "link": "$ 13,177.47"
+      },
+      {
+        "terreno": 80,
+        "construccion": 140,
+        "precio": 2500000,
+        "colonia": "Planta baja: Cochera Sala y comedor Medio baño Cocina Patio Área de lavado Planta alta 3 recámaras 1 Baño",
+        "link": "$ 10,982.45"
+      },
+      {
+        "terreno": 140,
+        "construccion": 277,
+        "precio": 3900000,
+        "colonia": "PLANTA BAJA local, 1 oficina Medio baño PLANTA ALTA Sala y Comedor Cocina Integral Patio de servicio 2 recámaras 1 baño",
+        "link": "$ 10,436.66"
+      },
+      {
+        "terreno": 204,
+        "construccion": 315,
+        "precio": 5550000,
+        "colonia": "en esquina PB. SALA-COMEDOR, COCINA, DOS RECAMARAS, DOS BAÑOS, TERRAZA, PATIO, CUARTO DE LAVADO, COCHERA PARA DOS AUTOS  PA. DOS AMPLIAS RECAMARAS CON BAÑO, SALA DE ESTAR.",
+        "link": "3310901540"
+      },
+      {
+        "terreno": 90,
+        "construccion": 144,
+        "precio": 2595000,
+        "colonia": "Planta Baja Estacionamiento para 1 auto Sala Comedor cocina integral 1/2 baño Estudio recámara Patio Planta Alta Recámara con vestidor y baño 3 recámaras Área de servicio",
+        "link": "33 3109 3481"
+      },
+      {
+        "terreno": 78,
+        "construccion": 108,
+        "precio": 1610000,
+        "colonia": "Dos recámaras Un baño completo Espacio para un automóvil Cocina integral",
+        "link": "33 1725 0396"
+      },
+      {
+        "terreno": 80,
+        "construccion": 140,
+        "precio": 2500000,
+        "colonia": "Planta baja: Cochera Sala y comedor Medio baño Cocina Patio Área de lavado Planta alta 3 recámaras 1 Baño",
+        "link": "3334040237"
+      },
+      {
+        "terreno": 140,
+        "construccion": 277,
+        "precio": 3900000,
+        "colonia": "PLANTA BAJA local, 1 oficina Medio baño PLANTA ALTA Sala y Comedor Cocina Integral Patio de servicio 2 recámaras 1 baño",
+        "link": ""
+      },
+      {
+        "terreno": 77,
+        "construccion": 76,
+        "precio": 1600000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 73,
+        "construccion": 90,
+        "precio": 2000000,
+        "colonia": "",
+        "link": ""
+      }
+    ],
+    "folio": "OPI-26-5-02-AV",
+    "tipo": "CASA HABITACIÓN",
+    "direccion": "Vicente Guerrero Numero  110A, 45640 San Agustín, Jal.",
+    "valorMercado": "$1,448,000.00",
+    "m2Terreno": "74.00 M2",
+    "m2Construccion": "148.00 M2",
+    "edad": "50 AÑOS.    ",
+    "valorM2Aplicable": " $ 10,524 ",
+    "recamaras": 2,
+    "banos": 2,
+    "estacionamientos": null,
+    "estadoConservacion": "regular_medio"
+  },
+  {
+    "fileId": "1NqMYyH8iMBc2GlBNnfgRVf5O0uUw38MA11oGLUlyXeg",
+    "fileName": "OPI-26-5-01-AV Fray Francisco Dumetz 500, 45200 Tesistán, Jal.",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Tesistán",
+    "municipio": "Tesistán",
+    "comparables": [
+      {
+        "terreno": 1717,
+        "construccion": 0,
+        "precio": 12023480,
+        "colonia": "tesistan tesistan",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-tesistan-tesistan-zapopan-jal-3860378"
+      },
+      {
+        "terreno": 300,
+        "construccion": 0,
+        "precio": 1220000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-tesistan-146379553.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 367,
+        "construccion": 0,
+        "precio": 3600000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-con-potencial-para-mini-plaza-comercial-en-147085384.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 127,
+        "construccion": 0,
+        "precio": 720000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-colonia-estrada-tesistan-zapopan-148835651.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 1295,
+        "construccion": 0,
+        "precio": 2980000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-venta-de-terreno-en-tesistan-zapopan-148445497.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 80,
+        "construccion": 84,
+        "precio": 1964000,
+        "colonia": "coto privado, sala y comedor 2 recámaras cocina integral y 2 baños completos cochera para 2 autos",
+        "link": "$ -"
+      },
+      {
+        "terreno": 75,
+        "construccion": 150,
+        "precio": 2550000,
+        "colonia": "Coto Los Pinos, cochera para un auto, sala, comedor, cocina una recámara secundaria y medio baño. El segundo nivel recámara principal con baño, una recámara secundaria con baño completo adicional tercer nivel área de lavado y una recámara El cuarto nivel roof garden",
+        "link": "$ 13,036.64"
+      },
+      {
+        "terreno": 80,
+        "construccion": 119,
+        "precio": 2290000,
+        "colonia": "Planta baja: Cochera para 2 autos Sala y comedor Cocina integral Medio baño Planta alta: Recámara principal con baño completo 2 recámaras secundarias Baño completo",
+        "link": "$ 13,036.64"
+      },
+      {
+        "terreno": 80,
+        "construccion": 158,
+        "precio": 2750000,
+        "colonia": "",
+        "link": "$ 12,348.60"
+      },
+      {
+        "terreno": 119,
+        "construccion": 156,
+        "precio": 2900000,
+        "colonia": "",
+        "link": "$ 13,414.71"
+      },
+      {
+        "terreno": 80,
+        "construccion": 84,
+        "precio": 1964000,
+        "colonia": "coto privado, sala y comedor 2 recámaras cocina integral y 2 baños completos cochera para 2 autos",
+        "link": "3331747714"
+      },
+      {
+        "terreno": 75,
+        "construccion": 150,
+        "precio": 2550000,
+        "colonia": "Coto Los Pinos, cochera para un auto, sala, comedor, cocina una recámara secundaria y medio baño. El segundo nivel recámara principal con baño, una recámara secundaria con baño completo adicional tercer nivel área de lavado y una recámara El cuarto nivel roof garden",
+        "link": "33 2916 1077"
+      },
+      {
+        "terreno": 80,
+        "construccion": 119,
+        "precio": 2290000,
+        "colonia": "Planta baja: Cochera para 2 autos Sala y comedor Cocina integral Medio baño Planta alta: Recámara principal con baño completo 2 recámaras secundarias Baño completo",
+        "link": "33 1675 7755"
+      },
+      {
+        "terreno": 80,
+        "construccion": 158,
+        "precio": 2750000,
+        "colonia": "",
+        "link": "33 1609 6521"
+      },
+      {
+        "terreno": 119,
+        "construccion": 156,
+        "precio": 2900000,
+        "colonia": "",
+        "link": "33 2688 3875"
+      },
+      {
+        "terreno": 118,
+        "construccion": 194,
+        "precio": 2900000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 118,
+        "construccion": 194,
+        "precio": 3100000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 80,
+        "construccion": 166,
+        "precio": 2212000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 80,
+        "construccion": 105,
+        "precio": 2300000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 76,
+        "construccion": 115,
+        "precio": 2250000,
+        "colonia": "",
+        "link": ""
+      }
+    ],
+    "folio": "OPI-26-5-01-AV",
+    "tipo": "CASA HABITACIÓN",
+    "direccion": "Fray Francisco Dumetz 510, Parques de Tesistán, 45200 Tesistán, Jal.",
+    "valorMercado": "$1,622,000.00",
+    "m2Terreno": "80.00 M2",
+    "m2Construccion": "94.29 M2",
+    "edad": "20 AÑOS.    ",
+    "valorM2Aplicable": " $ 17,201 ",
+    "recamaras": 2,
+    "banos": 1.5,
+    "estacionamientos": 1,
+    "estadoConservacion": "bueno"
+  },
+  {
+    "fileId": "1SCO1d6CI-jO2McVM2G2xazHWIWW0o5p2rp_hX3VC9wU",
+    "fileName": "OPI-26-4-18-OF Mixcoatl 1962, Cd del Sol, 45050 Zapopan, Jal.",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Cd del Sol",
+    "municipio": "Zapopan",
+    "comparables": [],
+    "folio": "No hallado",
+    "tipo": "LOCAL COMERCIAL",
+    "direccion": "Mixcoatl 1962, Cd del Sol, 45050 Zapopan, Jal.",
+    "valorMercado": "No hallado",
+    "m2Terreno": "No hallado",
+    "m2Construccion": "No hallado",
+    "edad": "No hallado",
+    "valorM2Aplicable": "No hallado",
+    "recamaras": null,
+    "banos": null,
+    "estacionamientos": null,
+    "_tabFallback": "OPI Loc Com b",
+    "estadoConservacion": null
+  },
+  {
+    "fileId": "1MHh6ZzKTACWnDJfw-QEIbtWuO3r6FAv73infdAyYLzI",
+    "fileName": "OPI-26-4-18-AV Av. Jesús Miche Gonzalez 1189 402, Toluquilla",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Toluquilla",
+    "municipio": "Toluquilla",
+    "comparables": [],
+    "folio": "No hallado",
+    "tipo": "LOCAL COMERCIAL",
+    "direccion": "Av. Jesús Miche Gonzalez 1189 402, Toluquilla",
+    "valorMercado": "No hallado",
+    "m2Terreno": "No hallado",
+    "m2Construccion": "No hallado",
+    "edad": "No hallado",
+    "valorM2Aplicable": "No hallado",
+    "recamaras": null,
+    "banos": null,
+    "estacionamientos": null,
+    "_tabFallback": "OPI Loc Com b",
+    "estadoConservacion": null
+  },
+  {
+    "fileId": "1q0vozbbRJp5-d8zhXG8MytAVKdxEK58ulPvi5lLwtH0",
+    "fileName": "OPI-26-4-17-OF Paseo de los Fresnos 93, El Palomar",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "El Palomar",
+    "municipio": "El Palomar",
+    "comparables": [
+      {
+        "terreno": 998,
+        "construccion": 0,
+        "precio": 5988000,
+        "colonia": "",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-paseo-de-los-cedros-el-palomar-secc-bosques-tlajomulco-de-zuniga-jal-3750664"
+      },
+      {
+        "terreno": 966,
+        "construccion": 0,
+        "precio": 4830000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-el-palomar-paseo-del-agua-138-146744178.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 852,
+        "construccion": 0,
+        "precio": 4260850,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-residencial-en-venta-en-el-palomar-149733512.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 955,
+        "construccion": 0,
+        "precio": 6400000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-venta-el-palomar-seccion-bosques-tlajomulco-de-148836289.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 955,
+        "construccion": 0,
+        "precio": 5990000,
+        "colonia": "santa isabel",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-po-de-los-laureles-santa-isabel-zapopan-jal-3740124"
+      },
+      {
+        "terreno": 1023,
+        "construccion": 1200,
+        "precio": 58500000,
+        "colonia": "RECAMARA PPAL, 2 recámaras secundarias cada una con baño completo. Estudio en planta alta. Gimnasio, Sala, Comedor, cocina totalmente equipada. Terraza techada con bar, alberca con jacuzzI Cochera para 4 autos. Cuarto de servicio con baño completo.",
+        "link": "$ 21,563.04"
+      },
+      {
+        "terreno": 610,
+        "construccion": 600,
+        "precio": 24500000,
+        "colonia": "",
+        "link": "$ 23,705.52"
+      },
+      {
+        "terreno": 431,
+        "construccion": 525,
+        "precio": 15500000,
+        "colonia": "Cochera para 4 autos Estudio Medio baño Sala Comedor Cocina Cuarto de servicio Bodega Terraza Jardín 3 Recámaras, vestidor y balcón 2 baños completos Estar de televisión",
+        "link": "$ 21,563.04"
+      },
+      {
+        "terreno": 300,
+        "construccion": 350,
+        "precio": 11500000,
+        "colonia": "Planta baja: Recámara con baño completo y vestidor Sala y comedor Cocina integral Terraza y jardín Área de servicio Cochera para 3 autos Segundo nivel Estar de televisión 2 recámaras con baño completo y vestidor Tercer nivel Cuarto de servicio con baño completo",
+        "link": "$ -"
+      },
+      {
+        "terreno": 450,
+        "construccion": 600,
+        "precio": 15980000,
+        "colonia": "Sala y comedor Cocina Terraza JARDIN Cuarto de servicio con baño Área de lavado Cochera para dos autos Planta alta: Estar de TV Recámara principal con vestidor y baño Segunda recámara con baño completo y clóset vestidor. Tercera y cuarta recámara comparten un baño completo.",
+        "link": "$ 24,716.61"
+      },
+      {
+        "terreno": 1023,
+        "construccion": 1200,
+        "precio": 58500000,
+        "colonia": "RECAMARA PPAL, 2 recámaras secundarias cada una con baño completo. Estudio en planta alta. Gimnasio, Sala, Comedor, cocina totalmente equipada. Terraza techada con bar, alberca con jacuzzI Cochera para 4 autos. Cuarto de servicio con baño completo.",
+        "link": "33 1557 3910"
+      },
+      {
+        "terreno": 610,
+        "construccion": 600,
+        "precio": 24500000,
+        "colonia": "",
+        "link": "33 1263 7366"
+      },
+      {
+        "terreno": 431,
+        "construccion": 525,
+        "precio": 15500000,
+        "colonia": "Cochera para 4 autos Estudio Medio baño Sala Comedor Cocina Cuarto de servicio Bodega Terraza Jardín 3 Recámaras, vestidor y balcón 2 baños completos Estar de televisión",
+        "link": "33 1464 2439"
+      },
+      {
+        "terreno": 300,
+        "construccion": 350,
+        "precio": 11500000,
+        "colonia": "Planta baja: Recámara con baño completo y vestidor Sala y comedor Cocina integral Terraza y jardín Área de servicio Cochera para 3 autos Segundo nivel Estar de televisión 2 recámaras con baño completo y vestidor Tercer nivel Cuarto de servicio con baño completo",
+        "link": "33 3462 5930"
+      },
+      {
+        "terreno": 450,
+        "construccion": 600,
+        "precio": 15980000,
+        "colonia": "Sala y comedor Cocina Terraza JARDIN Cuarto de servicio con baño Área de lavado Cochera para dos autos Planta alta: Estar de TV Recámara principal con vestidor y baño Segunda recámara con baño completo y clóset vestidor. Tercera y cuarta recámara comparten un baño completo.",
+        "link": "33 1133 5984"
+      },
+      {
+        "terreno": 400,
+        "construccion": 500,
+        "precio": 11000000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 1189,
+        "construccion": 1250,
+        "precio": 29990000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 591,
+        "construccion": 905,
+        "precio": 19990000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 579,
+        "construccion": 594,
+        "precio": 13900000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 742,
+        "construccion": 720,
+        "precio": 18000000,
+        "colonia": "",
+        "link": ""
+      }
+    ],
+    "folio": "OPI-26-4-17-OF",
+    "tipo": "CASA HABITACIÓN EN CONDOMINIO",
+    "direccion": "P.º de Los Fresnos 93, El Palomar, 45643 Palomar, Jal.",
+    "valorMercado": "$47,122,000.00",
+    "m2Terreno": "967.87 M2",
+    "m2Construccion": "1,317.85 M2",
+    "edad": "6 AÑOS.    ",
+    "valorM2Aplicable": " $ 35,757 ",
+    "recamaras": 4,
+    "banos": 6.5,
+    "estacionamientos": 8,
+    "estadoConservacion": "regular_medio"
+  },
+  {
+    "fileId": "1oSDL7xdPdKDCNFPSnsbkiq4jE-hv8uIhKfWxPL6M3_8",
+    "fileName": "OPI-26-4-16-AV Paseo de los Fresnos 93, El Palomar",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "El Palomar",
+    "municipio": "El Palomar",
+    "comparables": [],
+    "folio": "No hallado",
+    "tipo": "LOCAL COMERCIAL",
+    "direccion": "Paseo de los Fresnos 93, El Palomar",
+    "valorMercado": "No hallado",
+    "m2Terreno": "No hallado",
+    "m2Construccion": "No hallado",
+    "edad": "No hallado",
+    "valorM2Aplicable": "No hallado",
+    "recamaras": null,
+    "banos": null,
+    "estacionamientos": null,
+    "_tabFallback": "OPI Loc Com b",
+    "estadoConservacion": null
+  },
+  {
+    "fileId": "1h-zgdqCgkY1PPiYdpsJgEGtgnlA5kBBZ7jcsZrm8bT8",
+    "fileName": "OPI-26-4-15-AV Natividad Hernández 958, Educadores Jaliscienses, 45404 Tonalá, Jal.",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Educadores Jaliscienses",
+    "municipio": "Tonalá",
+    "comparables": [
+      {
+        "terreno": 337,
+        "construccion": 0,
+        "precio": 1100000,
+        "colonia": "la soledad",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-juan-gil-preciado-lomas-de-la-soledad-tonala-jal-3836153"
+      },
+      {
+        "terreno": 297,
+        "construccion": 0,
+        "precio": 1499000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-venta-de-terreno-en-esquina-loma-bonita-148457853.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 90,
+        "construccion": 133,
+        "precio": 1400000,
+        "colonia": "P.B: Cochera para un auto, cocina, sala, comedor, dos recamaras, un baño completo, patio. P.A: Cocina, área común para comedor- sala, estancia con un baño completo.",
+        "link": "$ 8,594.16"
+      },
+      {
+        "terreno": 105,
+        "construccion": 175,
+        "precio": 2280000,
+        "colonia": "PLANTA BAJA: 1 habitación 1 baño completo Cocina muy amplia Sala/comedor Patio de servicio PLANTA ALTA: 4 habitaciones 1 baño completo",
+        "link": "$ 11,098.49"
+      },
+      {
+        "terreno": 79,
+        "construccion": 140,
+        "precio": 2490000,
+        "colonia": "Planta baja: Cochera para un auto, ingreso, sala, comedor, cocina integral, medio baño y patio de servicio. Planta alta: Terraza ,dos recamaras baño completo, área de lavado en el tercer nivel.",
+        "link": "$ 13,913.91"
+      },
+      {
+        "terreno": 128,
+        "construccion": 289,
+        "precio": 5040000,
+        "colonia": "Primer nivel: cochera para un auto  Sala, comedor, estar de tv, cocina integral, medio baño, recamara y patio de servicio. Segundo nivel: sala de estar, recámara principal con closet, balcón y baño completo. Dos recámaras secundarias con closet y balcón, comparten baño completo. Tercer nivel: cuarto de lavado.",
+        "link": "$ 12,118.57"
+      },
+      {
+        "terreno": 120,
+        "construccion": 162,
+        "precio": 3672000,
+        "colonia": "",
+        "link": "$ 14,693.88"
+      },
+      {
+        "terreno": 90,
+        "construccion": 133,
+        "precio": 1400000,
+        "colonia": "P.B: Cochera para un auto, cocina, sala, comedor, dos recamaras, un baño completo, patio. P.A: Cocina, área común para comedor- sala, estancia con un baño completo.",
+        "link": "331566 8315"
+      },
+      {
+        "terreno": 105,
+        "construccion": 175,
+        "precio": 2280000,
+        "colonia": "PLANTA BAJA: 1 habitación 1 baño completo Cocina muy amplia Sala/comedor Patio de servicio PLANTA ALTA: 4 habitaciones 1 baño completo",
+        "link": "33 1518 7858"
+      },
+      {
+        "terreno": 79,
+        "construccion": 140,
+        "precio": 2490000,
+        "colonia": "Planta baja: Cochera para un auto, ingreso, sala, comedor, cocina integral, medio baño y patio de servicio. Planta alta: Terraza ,dos recamaras baño completo, área de lavado en el tercer nivel.",
+        "link": "33 1675 7755"
+      },
+      {
+        "terreno": 128,
+        "construccion": 289,
+        "precio": 5040000,
+        "colonia": "Primer nivel: cochera para un auto  Sala, comedor, estar de tv, cocina integral, medio baño, recamara y patio de servicio. Segundo nivel: sala de estar, recámara principal con closet, balcón y baño completo. Dos recámaras secundarias con closet y balcón, comparten baño completo. Tercer nivel: cuarto de lavado.",
+        "link": "33 3952 0580"
+      },
+      {
+        "terreno": 120,
+        "construccion": 162,
+        "precio": 3672000,
+        "colonia": "",
+        "link": "3328373644"
+      },
+      {
+        "terreno": 157,
+        "construccion": 189,
+        "precio": 2150000,
+        "colonia": "",
+        "link": ""
+      }
+    ],
+    "folio": "OPI-26-4-15-AV",
+    "tipo": "CASA HABITACIÓN",
+    "direccion": "Natividad Hernández 958, Educadores Jaliscienses, 45404 Tonalá, Jal.",
+    "valorMercado": "$3,867,000.00",
+    "m2Terreno": "136.00 M2",
+    "m2Construccion": "251.08 M2",
+    "edad": "30 AÑOS.    ",
+    "valorM2Aplicable": " $ 15,401 ",
+    "recamaras": 4,
+    "banos": 1,
+    "estacionamientos": 3,
+    "estadoConservacion": "bueno"
+  },
+  {
+    "fileId": "1O3qasFQQaZtnrKmYEDW1jJDyTdRfXEZ4ijDffCmyYa4",
+    "fileName": "OPI-26-4-14-LS C. Flor de San Juan 20, Jardines de Santa María, 45606 San Pedro Tlaquepaque, Jal",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Jardines de Santa María",
+    "municipio": "San Pedro Tlaquepaque",
+    "comparables": [
+      {
+        "terreno": 760,
+        "construccion": 0,
+        "precio": 3990000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-nueva-santa-maria-en-tlaquepaque-147434319.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 2313,
+        "construccion": 0,
+        "precio": 6900000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-tlaquepaque-san-sebastianito-148962540.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 790,
+        "construccion": 0,
+        "precio": 6250000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-toluquilla-jesus-michel-gonzalez-147228358.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 90,
+        "construccion": 91,
+        "precio": 2550000,
+        "colonia": "",
+        "link": "$ 11,424.91"
+      },
+      {
+        "terreno": 82,
+        "construccion": 74,
+        "precio": 1400000,
+        "colonia": "Propiedad para crecimiento o remodelación, ideal para ampliar.",
+        "link": "$ 11,424.91"
+      },
+      {
+        "terreno": 194,
+        "construccion": 87,
+        "precio": 2500000,
+        "colonia": "",
+        "link": "$ 12,174.67"
+      },
+      {
+        "terreno": 207,
+        "construccion": 190,
+        "precio": 2900000,
+        "colonia": "sala, cocina, baño completo, area de lavado, 2 recamaras y cochera 1 auto.",
+        "link": "$ 10,773.69"
+      },
+      {
+        "terreno": 201,
+        "construccion": 172,
+        "precio": 3150000,
+        "colonia": "",
+        "link": "$ 10,430.95"
+      },
+      {
+        "terreno": 90,
+        "construccion": 91,
+        "precio": 2550000,
+        "colonia": "",
+        "link": "33 1444 7806"
+      },
+      {
+        "terreno": 82,
+        "construccion": 74,
+        "precio": 1400000,
+        "colonia": "Propiedad para crecimiento o remodelación, ideal para ampliar.",
+        "link": ""
+      },
+      {
+        "terreno": 194,
+        "construccion": 87,
+        "precio": 2500000,
+        "colonia": "",
+        "link": "33 3445 0212"
+      },
+      {
+        "terreno": 207,
+        "construccion": 190,
+        "precio": 2900000,
+        "colonia": "sala, cocina, baño completo, area de lavado, 2 recamaras y cochera 1 auto.",
+        "link": "33 1618 6740"
+      },
+      {
+        "terreno": 201,
+        "construccion": 172,
+        "precio": 3150000,
+        "colonia": "",
+        "link": "33 2680 4873"
+      },
+      {
+        "terreno": 218,
+        "construccion": 206,
+        "precio": 2450000,
+        "colonia": "",
+        "link": ""
+      }
+    ],
+    "folio": "OPI-26-4-14-LS",
+    "tipo": "CASA HABITACIÓN EN TERRENO EJIDAL",
+    "direccion": "C. Flor de San Juan 20, Jardines de Santa María, 45606 San Pedro Tlaquepaque, Jal",
+    "valorMercado": "$1,177,000.00",
+    "m2Terreno": "120.00 M2",
+    "m2Construccion": "80.69 M2",
+    "edad": "21 AÑOS.    ",
+    "valorM2Aplicable": " $ 16,996 ",
+    "recamaras": 1,
+    "banos": 1,
+    "estacionamientos": 1,
+    "estadoConservacion": "regular_medio"
+  },
+  {
+    "fileId": "1c9Y5vmW0blliJclE-555xJyVtJSP7RUxE0_GgqAjVH4",
+    "fileName": "OPI-26-4-13-AV Av. San Blas 2605 aint. 54, Parques de Santa Cruz del Valle, Tlaquepaque, Jalisco",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Parques de Santa Cruz del Valle",
+    "municipio": "Tlaquepaque",
+    "comparables": [
+      {
+        "terreno": 210,
+        "construccion": 0,
+        "precio": 950000,
+        "colonia": "",
+        "link": "https://propiedades.com/inmuebles/terreno-habitacional-en-venta-ca-santa-cruz-del-valle-jalisco-30285561#tipos=terrenos-habitacionales-venta&area=santa-cruz-del-valle-tlajomulco-de-zuniga&pos=7"
+      },
+      {
+        "terreno": 300,
+        "construccion": 0,
+        "precio": 1999000,
+        "colonia": "",
+        "link": "https://propiedades.com/inmuebles/terreno-habitacional-en-venta-adolf-b-horn-santa-cruz-del-valle-jalisco-29771845#tipos=terrenos-habitacionales-venta&area=santa-cruz-del-valle-tlajomulco-de-zuniga&pos=5"
+      },
+      {
+        "terreno": 575,
+        "construccion": 0,
+        "precio": 2875000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-las-pintas-tlaquepaque-143059165.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 2010,
+        "construccion": 0,
+        "precio": 6730000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-industrial-en-venta-en-el-salto-jalisco.-147013254.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 160,
+        "construccion": 0,
+        "precio": 465000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-la-piedrera-160-m-sup2-148936571.html?n_src=Listado&n_pg=1&n_pos=1"
+      },
+      {
+        "terreno": 79,
+        "construccion": 73,
+        "precio": 1479000,
+        "colonia": "Planta baja: Cochera para dos autos Sala y comedor Cocina integral Patio de serviciO Planta alta: Dos habitaciones Un baño completo",
+        "link": "$ 13,104.38"
+      },
+      {
+        "terreno": 80,
+        "construccion": 95,
+        "precio": 1790000,
+        "colonia": "",
+        "link": "$ 12,174.67"
+      },
+      {
+        "terreno": 96,
+        "construccion": 71,
+        "precio": 1480000,
+        "colonia": "en esquina con 3 recámaras 3 baños completos, sala y comedor, cocineta, y área de servicio cochera para 2 autos",
+        "link": "$ 11,580.58"
+      },
+      {
+        "terreno": 76,
+        "construccion": 77,
+        "precio": 1270000,
+        "colonia": "EN ESQUINA Cochera para 2 autos Patio Trasero amplio Sala-comedor Cocina 2 Recamaras: una en planta baja y la principal en planta alta.",
+        "link": ""
+      },
+      {
+        "terreno": 117,
+        "construccion": 52,
+        "precio": 1380000,
+        "colonia": "",
+        "link": "$ 12,316.06"
+      },
+      {
+        "terreno": 79,
+        "construccion": 73,
+        "precio": 1479000,
+        "colonia": "Planta baja: Cochera para dos autos Sala y comedor Cocina integral Patio de serviciO Planta alta: Dos habitaciones Un baño completo",
+        "link": "33 1631 8620"
+      },
+      {
+        "terreno": 80,
+        "construccion": 95,
+        "precio": 1790000,
+        "colonia": "",
+        "link": "33 1892 6555"
+      },
+      {
+        "terreno": 96,
+        "construccion": 71,
+        "precio": 1480000,
+        "colonia": "en esquina con 3 recámaras 3 baños completos, sala y comedor, cocineta, y área de servicio cochera para 2 autos",
+        "link": "33 1892 6555"
+      },
+      {
+        "terreno": 76,
+        "construccion": 77,
+        "precio": 1270000,
+        "colonia": "EN ESQUINA Cochera para 2 autos Patio Trasero amplio Sala-comedor Cocina 2 Recamaras: una en planta baja y la principal en planta alta.",
+        "link": "3339541478"
+      },
+      {
+        "terreno": 117,
+        "construccion": 52,
+        "precio": 1380000,
+        "colonia": "",
+        "link": "33 2177 9544"
+      },
+      {
+        "terreno": 117,
+        "construccion": 52,
+        "precio": 1380000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 95,
+        "construccion": 57,
+        "precio": 1680000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 72,
+        "construccion": 44,
+        "precio": 1155000,
+        "colonia": "",
+        "link": ""
+      }
+    ],
+    "folio": "OPI-26-4-13-AV",
+    "tipo": "CASA HABITACIÓN EN CONDOMINIO",
+    "direccion": "Av. San Blas 2605-54, Parques de Santa Cruz, 45615 San Pedro Tlaquepaque, Jal.",
+    "valorMercado": "$1,132,000.00",
+    "m2Terreno": "80.00 M2",
+    "m2Construccion": "62.84 M2",
+    "edad": "23 AÑOS.    ",
+    "valorM2Aplicable": " $ 18,022 ",
+    "recamaras": 2,
+    "banos": 1,
+    "estacionamientos": 1,
+    "estadoConservacion": "bueno"
+  },
+  {
+    "fileId": "1c0t-bqe5mQNDW_To1LF_rFSSn-Wc8_DkwFDiHOYZAGI",
+    "fileName": "OPI-26-4-12-AV Manantial 218 Int. 9, Col. El Paraíso, San José del Valle, Tlajomulco de Zúñiga, Jalisco",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "El Paraíso",
+    "municipio": "Tlajomulco de Zúñiga",
+    "comparables": [
+      {
+        "terreno": 2700,
+        "construccion": 0,
+        "precio": 13500000,
+        "colonia": "lopez cotilla",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-adolf-b-horn-jr-lopez-cotilla-tlaquepaque-jal-3699318"
+      },
+      {
+        "terreno": 230,
+        "construccion": 0,
+        "precio": 1870000,
+        "colonia": "",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-real-del-valle-tlajomulco-de-zuniga-jal-3826527"
+      },
+      {
+        "terreno": 90,
+        "construccion": 0,
+        "precio": 640000,
+        "colonia": "",
+        "link": "https://propiedades.com/inmuebles/terreno-habitacional-en-venta-valle-de-san-guillermo-real-del-valle-jalisco-28786427#tipos=terrenos-habitacionales-venta&area=real-del-valle-tlajomulco-de-zuniga&pos=2"
+      },
+      {
+        "terreno": 83,
+        "construccion": 112,
+        "precio": 1695750,
+        "colonia": "planta baja cocina cochera 2 autos sala-comedor baño 1 recámara patio de servicio planta alta 2 recámaras estar de tv 1 baño",
+        "link": "$ 11,361.16"
+      },
+      {
+        "terreno": 82,
+        "construccion": 100,
+        "precio": 1680000,
+        "colonia": "planta baja cochera para 2 autos, sala comedor, cocina integral, recámara con clóset, baño completo, patio con área de lavado planta alta cuenta con 3 recámaras 1 baño",
+        "link": "$ 10,796.54"
+      },
+      {
+        "terreno": 108,
+        "construccion": 116,
+        "precio": 2550000,
+        "colonia": "Planta baja: Cochera 2 autos Medio baño Sala comedor Cocina integral Área de lavado con patio Planta Alta: 3 recámaras (la principal con baño, las secundarias comparten baño).",
+        "link": "$ 11,814.91"
+      },
+      {
+        "terreno": 73,
+        "construccion": 100,
+        "precio": 1790000,
+        "colonia": "PB 1 COCHERA SALA Y COMEDOR COCINA BAÑO COMPLETO RECÁMARA PATIO PA DOS RECAMARAS CON CLOSET TERRAZA ESTUDIO / ESTAR DE TV",
+        "link": "$ 13,771.10"
+      },
+      {
+        "terreno": 120,
+        "construccion": 130,
+        "precio": 2390000,
+        "colonia": "PLANTA BAJA Medio baño sala y comedor Cocina Patio de servicio Cochera para 1 automóvil PLANTA ALTA: 4 habitaciones 1 baño completo",
+        "link": "$ 13,044.29"
+      },
+      {
+        "terreno": 83,
+        "construccion": 112,
+        "precio": 1695750,
+        "colonia": "planta baja cocina cochera 2 autos sala-comedor baño 1 recámara patio de servicio planta alta 2 recámaras estar de tv 1 baño",
+        "link": "3314113912"
+      },
+      {
+        "terreno": 82,
+        "construccion": 100,
+        "precio": 1680000,
+        "colonia": "planta baja cochera para 2 autos, sala comedor, cocina integral, recámara con clóset, baño completo, patio con área de lavado planta alta cuenta con 3 recámaras 1 baño",
+        "link": "3326581241"
+      },
+      {
+        "terreno": 108,
+        "construccion": 116,
+        "precio": 2550000,
+        "colonia": "Planta baja: Cochera 2 autos Medio baño Sala comedor Cocina integral Área de lavado con patio Planta Alta: 3 recámaras (la principal con baño, las secundarias comparten baño).",
+        "link": "33 3832 5306"
+      },
+      {
+        "terreno": 73,
+        "construccion": 100,
+        "precio": 1790000,
+        "colonia": "PB 1 COCHERA SALA Y COMEDOR COCINA BAÑO COMPLETO RECÁMARA PATIO PA DOS RECAMARAS CON CLOSET TERRAZA ESTUDIO / ESTAR DE TV",
+        "link": "33 1811 8590"
+      },
+      {
+        "terreno": 120,
+        "construccion": 130,
+        "precio": 2390000,
+        "colonia": "PLANTA BAJA Medio baño sala y comedor Cocina Patio de servicio Cochera para 1 automóvil PLANTA ALTA: 4 habitaciones 1 baño completo",
+        "link": "33 1518 7858"
+      },
+      {
+        "terreno": 75,
+        "construccion": 80,
+        "precio": 1370000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 70,
+        "construccion": 89,
+        "precio": 1557000,
+        "colonia": "",
+        "link": ""
+      }
+    ],
+    "folio": "OPI-26-4-12-AV",
+    "tipo": "CASA HABITACIÓN EN CONDOMINIO",
+    "direccion": "Manantial 218-9, Fraccionamiento Real del Valle, 45654 Jal.",
+    "valorMercado": "$1,841,000.00",
+    "m2Terreno": "90.00 M2",
+    "m2Construccion": "120.06 M2",
+    "edad": "21 AÑOS.    ",
+    "valorM2Aplicable": " $ 15,330 ",
+    "recamaras": 2,
+    "banos": 1.5,
+    "estacionamientos": 2,
+    "estadoConservacion": null
+  },
+  {
+    "fileId": "16H9T0snHDzBau7b2xXFkkPvgc9mN_PchXhnd80csTHc",
+    "fileName": "OPI-26-4-11-AV San Álvaro L24 M24, Col. La Providencia, Tonalá",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "La Providencia",
+    "municipio": "Tonalá",
+    "comparables": [
+      {
+        "terreno": 143,
+        "construccion": 0,
+        "precio": 850000,
+        "colonia": "Terreno en Tonalá ubicado dentro del desarrollo habitacional el Mirador, a 10 minutos del centro de Tonalá, a 5 minutos de la carretera Guadalajara Zapotlanejo y cerca de la central nueva de Autobuses.",
+        "link": "https://www.lamudi.com.mx/detalle/41032-73-f4dc81a4a1c-44d5-19bbe74-89ae-7351"
+      },
+      {
+        "terreno": 144,
+        "construccion": 0,
+        "precio": 815000,
+        "colonia": "La propiedad se encuentra bardeada, cuenta con escritura y acceso a servicios",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-paloma-ramirez-la-gigantera-tonala-jal-3836140"
+      },
+      {
+        "terreno": 132,
+        "construccion": 0,
+        "precio": 920000,
+        "colonia": "bardeado, cuenta con escritura, con acceso a servicios y vialidades de la zona",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-sabino-barrera-la-gigantera-tonala-jal-3842033"
+      },
+      {
+        "terreno": 200,
+        "construccion": 0,
+        "precio": 420000,
+        "colonia": "en fraccionamiento privado",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-lagunitas-tonallan-tonala-jal-3686774"
+      },
+      {
+        "terreno": 400,
+        "construccion": 0,
+        "precio": 840000,
+        "colonia": "en fraccionamiento privado",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-lagunitas-tonallan-tonala-jal-3690116"
+      },
+      {
+        "terreno": 96,
+        "construccion": 0,
+        "precio": 850000,
+        "colonia": "santa paula",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-ojo-de-agua-santa-paula-tonala-jal-3832190"
+      },
+      {
+        "terreno": 186,
+        "construccion": 0,
+        "precio": 1200000,
+        "colonia": "",
+        "link": "https://www.lamudi.com.mx/detalle/41032-73-a08af4859737-21a2-19c6ea8-879d-7f7a"
+      }
+    ],
+    "folio": "OPI-26-4-11-AV",
+    "tipo": "TERRENO URBANO",
+    "direccion": "San Álvaro 254, La Providencia, 45400 Tonalá, Jal.",
+    "valorMercado": "$481,000.00",
+    "m2Terreno": "101.00 M2",
+    "m2Construccion": "0.00 M2",
+    "valorM2Terreno": " $ 4,764.65 ",
+    "edad": "0 AÑOS.    ",
+    "estadoConservacion": "regular_medio"
+  },
+  {
+    "fileId": "1YjZkKBxJOjXQZLuYQtPKyRznyoNufw-7_9AcdsoDtI4",
+    "fileName": "OPI-26-4-10-AV C. Plan de Guadalupe 1890, Parques del Auditorio, Jardines del Porvenir, 45180 Zapopan, Jal.",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Parques del Auditorio",
+    "municipio": "Zapopan",
+    "comparables": [],
+    "folio": "No hallado",
+    "tipo": "LOCAL COMERCIAL",
+    "direccion": "C. Plan de Guadalupe 1890, Parques del Auditorio, Jardines del Porvenir, 45180 Zapopan, Jal.",
+    "valorMercado": "No hallado",
+    "m2Terreno": "No hallado",
+    "m2Construccion": "No hallado",
+    "edad": "No hallado",
+    "valorM2Aplicable": "No hallado",
+    "recamaras": null,
+    "banos": null,
+    "estacionamientos": null,
+    "_tabFallback": "OPI Loc Com b",
+    "estadoConservacion": null
   }
 ]
