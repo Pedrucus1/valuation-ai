@@ -142,11 +142,25 @@ jobs:
       - name: Trigger sync en backend PropValu
         env:
           BACKEND_URL: ${{ secrets.PROPVALU_BACKEND_URL }}
-          ADMIN_SECRET: ${{ secrets.ADMIN_SECRET }}
+          JOBS_SECRET: ${{ secrets.JOBS_SECRET }}
         run: |
           curl -s -X POST "$BACKEND_URL/api/admin/mercado/sync-sheets" \
-            -H "x-admin-token: $ADMIN_SECRET" \
+            -H "X-Job-Token: $JOBS_SECRET" \
             -H "Content-Type: application/json" \
             -d "{}" \
             --max-time 300 \
-            -w "\nHTTP %{http_code}\n"
+            -w "\nHTTP %{http_code}\n" \
+            --fail-with-body
+
+      - name: Generar snapshot del mes
+        env:
+          BACKEND_URL: ${{ secrets.PROPVALU_BACKEND_URL }}
+          JOBS_SECRET: ${{ secrets.JOBS_SECRET }}
+        run: |
+          curl -s -X POST "$BACKEND_URL/api/admin/mercado/generar-snapshot" \
+            -H "X-Job-Token: $JOBS_SECRET" \
+            -H "Content-Type: application/json" \
+            -d "{}" \
+            --max-time 300 \
+            -w "\nHTTP %{http_code}\n" \
+            --fail-with-body

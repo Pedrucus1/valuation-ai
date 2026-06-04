@@ -140,7 +140,7 @@ from models import (
 
 # ============== AUTH HELPERS (extraídos a core/auth.py) ==============
 
-from core.auth import get_current_user, require_auth, require_admin, pwd_context, new_admin_token_expiry
+from core.auth import get_current_user, require_auth, require_admin, require_admin_or_job, pwd_context, new_admin_token_expiry
 import hmac
 from core.accesos import _acceso_estado
 from core.pricing import PRECIOS_DEFAULT
@@ -1774,7 +1774,7 @@ async def mercado_snapshots():
 
 @api_router.post("/admin/mercado/generar-snapshot")
 async def admin_generar_snapshot(request: Request):
-    await require_admin(request)
+    await require_admin_or_job(request)  # admin UI o cron externo (#66.3)
     body = await request.json() if request.headers.get("content-type", "").startswith("application/json") else {}
     mes = body.get("mes") if isinstance(body, dict) else None
     mes_generado = await _generar_snapshot_mes(mes)
@@ -1889,7 +1889,7 @@ async def _sync_sheets_to_mercado_props() -> dict:
 @api_router.post("/admin/mercado/sync-sheets")
 async def admin_sync_sheets(request: Request):
     """Importa / actualiza mercado_props desde Google Sheets (upsert por id_unico)."""
-    await require_admin(request)
+    await require_admin_or_job(request)  # admin UI o cron externo (#66.3)
     summary = await _sync_sheets_to_mercado_props()
     return {"ok": True, **summary}
 

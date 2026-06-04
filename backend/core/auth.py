@@ -1,4 +1,6 @@
 """Autenticación de usuarios (sesión por cookie/Bearer)."""
+import os
+import hmac
 from datetime import datetime, timezone, timedelta
 from typing import Optional
 
@@ -83,3 +85,21 @@ async def require_admin(request: Request):
     if expires_at < datetime.now(timezone.utc):
         raise HTTPException(status_code=401, detail="Sesión expirada, vuelve a iniciar sesión")
     return admin
+
+
+async def require_admin_or_job(request: Request):
+    """Auth para endpoints disparables por cron externo (#66.3).
+
+    Acepta DOS vías:
+      - Header `X-Job-Token` == env `JOBS_SECRET` (máquina-a-máquina, p.ej. GitHub
+        Actions). Token estable sin expiración de sesión, ideal para cron.
+      - Sesión de admin normal (para dispararlo desde el panel).
+
+    Así los jobs pesados viven fuera del proceso web (cron) sin depender de la
+    sesión rotatoria de admin, que expira a los 7 días y no sirve para cron.
+    """
+    job_token = request.headers.get("X-Job-Token", "")
+    expected = os.environ.get("JOBS_SECRET")
+    if expected and job_token and hmac.compare_digest(job_token, expected):
+        return {"job": True}
+    return await require_admin(request)
