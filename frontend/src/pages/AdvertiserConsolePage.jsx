@@ -1004,7 +1004,7 @@ const AdvertiserConsolePage = () => {
                                             </div>
                                         }
                                         <span className="absolute bottom-1 left-1 bg-black/60 text-white text-[9px] px-1 rounded">
-                                          Video · {spec.adDuration}s
+                                          Video · {adDuration}s
                                         </span>
                                         {videoCreative.status === "pendiente_revision" && (
                                           <span className="absolute top-1 left-1 bg-amber-400/90 text-white text-[8px] font-bold px-1 py-0.5 rounded leading-none">
@@ -1151,7 +1151,7 @@ const AdvertiserConsolePage = () => {
                                         <div>
                                           <div className="flex items-center justify-between mb-2">
                                             <p className="text-xs font-semibold text-slate-500">
-                                              Secuencia: {imageItems.length} foto{imageItems.length > 1 ? "s" : ""} · {imageItems.length * Math.max(1, Math.floor(spec.adDuration / imageItems.length))}s total
+                                              Secuencia: {imageItems.length} foto{imageItems.length > 1 ? "s" : ""} · {imageItems.length * Math.max(1, Math.floor(adDuration / imageItems.length))}s total
                                             </p>
                                             <p className="text-xs text-slate-400">
                                               {spec.maxPhotos - imageItems.length} espacio{spec.maxPhotos - imageItems.length !== 1 ? "s" : ""} restante{spec.maxPhotos - imageItems.length !== 1 ? "s" : ""}
@@ -1167,7 +1167,7 @@ const AdvertiserConsolePage = () => {
                                                   </button>
                                                 </div>
                                                 <span className="absolute bottom-1 left-1 bg-black/60 text-white text-[10px] px-1 rounded">
-                                                  {idx + 1} · {Math.max(1, Math.floor(spec.adDuration / imageItems.length))}s
+                                                  {idx + 1} · {Math.max(1, Math.floor(adDuration / imageItems.length))}s
                                                 </span>
                                                 {item.compMB && (
                                                   <span className="absolute top-1 right-1 bg-[#1B4332]/80 text-[#D9ED92] text-[9px] font-bold px-1 rounded">
