@@ -102,6 +102,25 @@ async def global_exception_handler(request: Request, exc: Exception):
         headers=headers,
     )
 
+# Métricas básicas (#66.5): mide cada request (conteo, latencia, errores).
+# Usa la ruta-plantilla (no la URL con IDs) para no explotar la cardinalidad.
+from core import metrics as _metrics
+
+@app.middleware("http")
+async def _metrics_middleware(request: Request, call_next):
+    _t0 = _time.perf_counter()
+    status = 500
+    try:
+        response = await call_next(request)
+        status = response.status_code
+        return response
+    finally:
+        route = request.scope.get("route")
+        path = getattr(route, "path", None) or request.url.path
+        _metrics.record(
+            request.method, path, status, (_time.perf_counter() - _t0) * 1000.0
+        )
+
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
 
@@ -1585,7 +1604,8 @@ async def root():
 
 @api_router.get("/health")
 async def health():
-    return {"status": "healthy"}
+    # Liviano a propósito (Railway lo pega seguido): sin tocar DB.
+    return {"status": "healthy", "uptime_seconds": _metrics.uptime_seconds()}
 
 # ============== ADMIN AUTH ==============
 
@@ -1914,9 +1934,25 @@ async def _job_scrape_mensual():
 
 # ─── Startup / shutdown ───────────────────────────────────────────────────────
 
-@api_router.get("/health")
-async def health():
-    return {"status": "ok"}
+@api_router.get("/metrics")
+async def metrics(request: Request):
+    """Métricas básicas (#66.5). Admin-only. Incluye snapshot de requests/latencia,
+    ping a Mongo y conteos de colecciones clave."""
+    await require_admin(request)
+    snap = _metrics.snapshot()
+    # Ping a Mongo + conteos baratos (estimated = lee metadata, no escanea).
+    db_ok, db_error = True, None
+    try:
+        await db.command("ping")
+        snap["db"] = {
+            "ok": True,
+            "valuations": await db.valuations.estimated_document_count(),
+            "users": await db.users.estimated_document_count(),
+            "mercado_props": await db.mercado_props.estimated_document_count(),
+        }
+    except Exception as e:
+        snap["db"] = {"ok": False, "error": str(e)}
+    return snap
 
 async def _ensure_indexes():
     """Índices para evitar full collection scans en las rutas calientes.
