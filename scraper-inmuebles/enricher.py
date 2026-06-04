@@ -495,6 +495,14 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
             except Exception:
                 pass
 
+    # Detectar obra nueva por texto libre en CUALQUIER portal (no solo Navent)
+    # Aplica cuando los selectores devuelven "Nueva", "En construcción", "Preventa", etc.
+    if ano_const is None:
+        from datetime import date as _date
+        if re.search(r"estrenar|nuev[oa]|en\s+construcci[óo]n|preventa|obra\s+nuev",
+                     texto, re.I):
+            ano_const = _date.today().year
+
     if ano_const is not None:
         resultado["año_construccion"] = ano_const
 
