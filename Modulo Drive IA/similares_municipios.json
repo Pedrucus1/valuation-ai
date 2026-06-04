@@ -106,9 +106,9 @@
   "zona": "AMG-NW"
  },
  "colotlan": {
-  "municipio": "Guadalajara",
+  "municipio": "Colotlán",
   "estado": "Jalisco",
-  "zona": "AMG-Centro"
+  "zona": "Otro"
  },
  "condado de sayavedra": null,
  "cortijo san agustin": {
@@ -177,9 +177,9 @@
   "zona": "AMG-S"
  },
  "huejuquilla": {
-  "municipio": "Zapopan",
+  "municipio": "Huejuquilla el Alto",
   "estado": "Jalisco",
-  "zona": "AMG-NW"
+  "zona": "Otro"
  },
  "huentitan": {
   "municipio": "Guadalajara",

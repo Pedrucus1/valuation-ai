@@ -118272,9 +118272,9 @@
   "similares": [
    {
     "colonia": "Colotlan",
-    "municipio": "Guadalajara",
+    "municipio": "Colotlán",
     "estado": "Jalisco",
-    "zona": "AMG-Centro",
+    "zona": "Otro",
     "fuente": "ai-coto",
     "menciones": 1
    },
@@ -118297,9 +118297,9 @@
    },
    {
     "colonia": "Huejuquilla",
-    "municipio": "Zapopan",
+    "municipio": "Huejuquilla el Alto",
     "estado": "Jalisco",
-    "zona": "AMG-NW",
+    "zona": "Otro",
     "fuente": "ai-coto",
     "menciones": 1
    },
@@ -159218,7 +159218,7 @@
   ]
  },
  "_meta": {
-  "generado": "2026-06-04T17:29:15.600Z",
+  "generado": "2026-06-04T17:53:33.187Z",
   "capas": {
    "ganada_v1": {
     "campo": "nse.v1",
