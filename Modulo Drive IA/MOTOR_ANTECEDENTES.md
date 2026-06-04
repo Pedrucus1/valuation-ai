@@ -15,6 +15,22 @@
 
 ---
 
+## ⛔ #104 SIMILARES PREMIUM/BARATOS — LÍMITE ESTRUCTURAL DE DATOS, NO REINTENTAR (03-Jun-2026)
+
+Dos casos, **direcciones opuestas, ambos pool:similares n=3 (delgado)**:
+- **Heliodoro Hernández** (GDL, OPI-25-9-02-OF): motor 811k vs perito 1698k = **-52.2%**. Las colonias SIM
+  elegidas son demasiado BARATAS para esa zona central de GDL. El factorEdad (0.82-0.85 en casa de 46a) aporta
+  ~3% — NO explica el -52%; el hueco es el pool SIM barato.
+- **San Carlos** (GDL, OPI-25-5-03-AV): motor 2054k vs perito 1575k = **+30.5%**. Las SIM son demasiado PREMIUM.
+
+**Por qué NO se toca:** tiran en sentidos opuestos y son colonia-específicos → no hay cambio de fórmula que
+ayude a ambos sin overfit. La única "solución" sería curar la lista SIM a mano para Heliodoro y San Carlos,
+que es exactamente el cazar-atípicos prohibido por regla #4 / [[feedback_motor_no_cazar_atipicos]] (hecho 10+
+veces sin subir el techo). Mejora real = **datos scrapeados propios** de esas colonias (que el motor use comps
+exactos en vez de SIM prestadas), no parches. Cerrado como límite estructural. NO reintentar manualmente.
+
+---
+
 ## ✅ #102 SUMA_PARTES_MIX SOBREVALÚA — RESUELTO con cota asimétrica (03-Jun-2026)
 
 **Diagnóstico (validador offline `--n 250`, sin Serper/Gemini = determinista):** los sobrevalúos NO eran
