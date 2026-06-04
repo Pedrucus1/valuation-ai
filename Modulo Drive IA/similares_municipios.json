@@ -1,0 +1,1013 @@
+{
+ "ameca urbana": {
+  "municipio": "Ameca",
+  "estado": "Jalisco",
+  "zona": "Otro"
+ },
+ "atequiza urbana": {
+  "municipio": "Ixtlahuacán de los Membrillos",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "atotonilco el alto": {
+  "municipio": "Atotonilco El Alto",
+  "estado": "Jalisco",
+  "zona": "Otro"
+ },
+ "barrio del tepehua": {
+  "municipio": "Chapala",
+  "estado": "Jalisco",
+  "zona": "Chapala"
+ },
+ "boca de tomatlan rural": {
+  "municipio": "Puerto Vallarta",
+  "estado": "Jalisco",
+  "zona": "Costa-Sur"
+ },
+ "bolanos": {
+  "municipio": "Bolaños",
+  "estado": "Jalisco",
+  "zona": "Otro"
+ },
+ "bosque real de santa anita": {
+  "municipio": "Tlajomulco de Zúñiga",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "bucerias interior": {
+  "municipio": "Bahía de Banderas",
+  "estado": "Nayarit",
+  "zona": "Costa-Sur"
+ },
+ "bucerias zona dorada": {
+  "municipio": "Bahía de Banderas",
+  "estado": "Nayarit",
+  "zona": "Costa-Sur"
+ },
+ "bugambilias primera": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "bugambilias segunda": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "campo de golf santa anita": {
+  "municipio": "Tlajomulco de Zúñiga",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "casa fuerte": {
+  "municipio": "Tlajomulco de Zúñiga",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "canada del sol": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "centro barranquitas": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "centro pv": {
+  "municipio": "Puerto Vallarta",
+  "estado": "Jalisco",
+  "zona": "Costa-Sur"
+ },
+ "centro de": {
+  "municipio": "San Pedro Tlaquepaque",
+  "estado": "Jalisco",
+  "zona": "AMG-SE"
+ },
+ "chapala country": {
+  "municipio": "Chapala",
+  "estado": "Jalisco",
+  "zona": "Chapala"
+ },
+ "chapalita occidente": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "chiluca": null,
+ "chula vista norte": {
+  "municipio": "Bahía de Banderas",
+  "estado": "Nayarit",
+  "zona": "Costa-Sur"
+ },
+ "club de golf hacienda": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "colotlan": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "condado de sayavedra": null,
+ "cortijo san agustin": {
+  "municipio": "Tlajomulco de Zúñiga",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "costa careyes": {
+  "municipio": "La Huerta",
+  "estado": "Jalisco",
+  "zona": "Otro"
+ },
+ "coto del fresno": {
+  "municipio": "Tlajomulco de Zúñiga",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "country club tapalpa": {
+  "municipio": "Tapalpa",
+  "estado": "Jalisco",
+  "zona": "Otro"
+ },
+ "cuastecomates": {
+  "municipio": "Cihuatlán",
+  "estado": "Jalisco",
+  "zona": "Otro"
+ },
+ "cuitzeo rural": {
+  "municipio": "Poncitlán",
+  "estado": "Jalisco",
+  "zona": "Chapala"
+ },
+ "el jorullo": {
+  "municipio": "Puerto Vallarta",
+  "estado": "Jalisco",
+  "zona": "Costa-Sur"
+ },
+ "el quince": {
+  "municipio": "El Salto",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "el rincon secreto": {
+  "municipio": "Bahía de Banderas",
+  "estado": "Nayarit",
+  "zona": "Costa-Sur"
+ },
+ "el salto rural": {
+  "municipio": "El Salto",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "epenche grande": {
+  "municipio": "San Gabriel",
+  "estado": "Jalisco",
+  "zona": "Otro"
+ },
+ "galaxia la noria": {
+  "municipio": "Tlajomulco de Zúñiga",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "hacienda de los eucaliptos": {
+  "municipio": "Tlajomulco de Zúñiga",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "huejuquilla": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "huentitan": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "industrial alamos": {
+  "municipio": "San Pedro Tlaquepaque",
+  "estado": "Jalisco",
+  "zona": "AMG-SE"
+ },
+ "jalisco ii": {
+  "municipio": "Tonalá",
+  "estado": "Jalisco",
+  "zona": "AMG-E"
+ },
+ "jamay periferia": {
+  "municipio": "Jamay",
+  "estado": "Jalisco",
+  "zona": "Otro"
+ },
+ "jamay urbana": {
+  "municipio": "Jamay",
+  "estado": "Jalisco",
+  "zona": "Otro"
+ },
+ "jardines de la calma": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "jardines de la granja": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "jardines de la universidad": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "jocotepec ribera": {
+  "municipio": "Jocotepec",
+  "estado": "Jalisco",
+  "zona": "Chapala"
+ },
+ "la cima de": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "la cruz centro": {
+  "municipio": "Bahía de Banderas",
+  "estado": "Nayarit",
+  "zona": "Costa-Sur"
+ },
+ "la cruz del valle": {
+  "municipio": "Tlajomulco de Zúñiga",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "la fresna": {
+  "municipio": "Tlajomulco de Zúñiga",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "la frontera tapalpa": {
+  "municipio": "Tapalpa",
+  "estado": "Jalisco",
+  "zona": "Otro"
+ },
+ "la manzanilla costa alegre": {
+  "municipio": "La Huerta",
+  "estado": "Jalisco",
+  "zona": "Otro"
+ },
+ "las pintitas": {
+  "municipio": "El Salto",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "litibu": {
+  "municipio": "Bahía de Banderas",
+  "estado": "Nayarit",
+  "zona": "Costa-Sur"
+ },
+ "lomas de san sebastian": {
+  "municipio": "Tonalá",
+  "estado": "Jalisco",
+  "zona": "AMG-E"
+ },
+ "los cazos": {
+  "municipio": "Mazamitla",
+  "estado": "Jalisco",
+  "zona": "Otro"
+ },
+ "los charcos": {
+  "municipio": "Tlajomulco de Zúñiga",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "marina nuevo vallarta": {
+  "municipio": "Bahía de Banderas",
+  "estado": "Nayarit",
+  "zona": "Costa-Sur"
+ },
+ "mazamitla urbana": {
+  "municipio": "Mazamitla",
+  "estado": "Jalisco",
+  "zona": "Otro"
+ },
+ "mezcala rural": {
+  "municipio": "Chapala",
+  "estado": "Jalisco",
+  "zona": "Chapala"
+ },
+ "mezquitic": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "nuevo corral del risco": {
+  "municipio": "Bahía de Banderas",
+  "estado": "Nayarit",
+  "zona": "Costa-Sur"
+ },
+ "nuevo san marcos": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "nuevo vallarta canal": {
+  "municipio": "Bahía de Banderas",
+  "estado": "Nayarit",
+  "zona": "Costa-Sur"
+ },
+ "ocotlan popular": {
+  "municipio": "Ocotlán",
+  "estado": "Jalisco",
+  "zona": "Otro"
+ },
+ "ocotlan rural": {
+  "municipio": "Ocotlán",
+  "estado": "Jalisco",
+  "zona": "Otro"
+ },
+ "palmar de aramara": {
+  "municipio": "Puerto Vallarta",
+  "estado": "Jalisco",
+  "zona": "Costa-Sur"
+ },
+ "paseos de los agaves": {
+  "municipio": "Tlajomulco de Zúñiga",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "pinar la calma": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "praderas de la alameda": {
+  "municipio": "Tlajomulco de Zúñiga",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "prado largo": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "provenza": {
+  "municipio": "Tlajomulco de Zúñiga",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "punta de mita pueblo": {
+  "municipio": "Bahía de Banderas",
+  "estado": "Nayarit",
+  "zona": "Costa-Sur"
+ },
+ "rancho club": {
+  "municipio": "Chapala",
+  "estado": "Jalisco",
+  "zona": "Chapala"
+ },
+ "raquet club": {
+  "municipio": "Chapala",
+  "estado": "Jalisco",
+  "zona": "Chapala"
+ },
+ "refugio gonzalez": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "riberas del pilar": {
+  "municipio": "Chapala",
+  "estado": "Jalisco",
+  "zona": "Chapala"
+ },
+ "samuel mondragon": {
+  "municipio": "Tonalá",
+  "estado": "Jalisco",
+  "zona": "AMG-E"
+ },
+ "san agustin tradicional": {
+  "municipio": "Tlajomulco de Zúñiga",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "san jose el verde": {
+  "municipio": "Tlajomulco de Zúñiga",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "san pancho": {
+  "municipio": "Bahía de Banderas",
+  "estado": "Nayarit",
+  "zona": "Costa-Sur"
+ },
+ "san pancho periferia": {
+  "municipio": "Bahía de Banderas",
+  "estado": "Nayarit",
+  "zona": "Costa-Sur"
+ },
+ "san ricardo": {
+  "municipio": "Tlajomulco de Zúñiga",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "santa anita club de golf": {
+  "municipio": "Tlajomulco de Zúñiga",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "sayula campestre": {
+  "municipio": "Sayula",
+  "estado": "Jalisco",
+  "zona": "Otro"
+ },
+ "sayulita norte": {
+  "municipio": "Bahía de Banderas",
+  "estado": "Nayarit",
+  "zona": "Costa-Sur"
+ },
+ "senderos de monteverde": {
+  "municipio": "Tlajomulco de Zúñiga",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "tala periferia": {
+  "municipio": "Tala",
+  "estado": "Jalisco",
+  "zona": "Otro"
+ },
+ "tamazula rural": {
+  "municipio": "Tamazula de Gordiano",
+  "estado": "Jalisco",
+  "zona": "Otro"
+ },
+ "tlachicilco": {
+  "municipio": "Zapotlán el Grande",
+  "estado": "Jalisco",
+  "zona": "Otro"
+ },
+ "urbano gomez": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "valle dorado mazamitla": {
+  "municipio": "Mazamitla",
+  "estado": "Jalisco",
+  "zona": "Otro"
+ },
+ "valle dorado segunda": {
+  "municipio": "Bahía de Banderas",
+  "estado": "Nayarit",
+  "zona": "Costa-Sur"
+ },
+ "valle escondido": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "versalles tradicional": {
+  "municipio": "Puerto Vallarta",
+  "estado": "Jalisco",
+  "zona": "Costa-Sur"
+ },
+ "vicenza": {
+  "municipio": "Tlajomulco de Zúñiga",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "vidanta": {
+  "municipio": "Bahía de Banderas",
+  "estado": "Nayarit",
+  "zona": "Costa-Sur"
+ },
+ "villa corona": {
+  "municipio": "Villa Corona",
+  "estado": "Jalisco",
+  "zona": "Otro"
+ },
+ "vista hermosa jocotepec": {
+  "municipio": "Jocotepec",
+  "estado": "Jalisco",
+  "zona": "Chapala"
+ },
+ "vista del lago": {
+  "municipio": "Chapala",
+  "estado": "Jalisco",
+  "zona": "Chapala"
+ },
+ "west ajijic": {
+  "municipio": "Chapala",
+  "estado": "Jalisco",
+  "zona": "Chapala"
+ },
+ "zacoalco": {
+  "municipio": "Zacoalco de Torres",
+  "estado": "Jalisco",
+  "zona": "Otro"
+ },
+ "a cuadra y media de chapultepec libre de gravamen": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "agua cristalina": {
+  "municipio": "Tlajomulco de Zúñiga",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "alcalde poniente": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "altanza": {
+  "municipio": "Tlajomulco de Zúñiga",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "altas 409": null,
+ "aralias ii": {
+  "municipio": "Puerto Vallarta",
+  "estado": "Jalisco",
+  "zona": "Costa-Sur"
+ },
+ "arboledas sur": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "arcos de san sebastian": {
+  "municipio": "Tlajomulco de Zúñiga",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "ardines de san jose": null,
+ "arroyo de en medio": {
+  "municipio": "Tonalá",
+  "estado": "Jalisco",
+  "zona": "AMG-E"
+ },
+ "atemajac": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "balcones de": {
+  "municipio": "San Pedro Tlaquepaque",
+  "estado": "Jalisco",
+  "zona": "AMG-SE"
+ },
+ "balcones del 4": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "barranquitas": {
+  "municipio": "Tonalá",
+  "estado": "Jalisco",
+  "zona": "AMG-E"
+ },
+ "barranquitas oriente": {
+  "municipio": "Tonalá",
+  "estado": "Jalisco",
+  "zona": "AMG-E"
+ },
+ "barranquitas poniente": {
+  "municipio": "Tonalá",
+  "estado": "Jalisco",
+  "zona": "AMG-E"
+ },
+ "barrio analco": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "barrio brunido": null,
+ "barrio el santuario": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "barrio san juan de dios": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "benito juarez auditorio": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "blanca industrial": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "blanco y cuellar": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "bodega con local comercial": null,
+ "boreales": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "bosque centro": null,
+ "bosque norte": null,
+ "bosques de san isidro": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "camichines i": {
+  "municipio": "San Pedro Tlaquepaque",
+  "estado": "Jalisco",
+  "zona": "AMG-SE"
+ },
+ "camichines ii": {
+  "municipio": "San Pedro Tlaquepaque",
+  "estado": "Jalisco",
+  "zona": "AMG-SE"
+ },
+ "camichines iii": {
+  "municipio": "San Pedro Tlaquepaque",
+  "estado": "Jalisco",
+  "zona": "AMG-SE"
+ },
+ "canadas san lorenzo": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "capital norte coto nara": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "casa con terraza es ejidal con papeles en regla": null,
+ "casi en el cruce de lopez mateos y periferico": null,
+ "cd de los ninos": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "cd universitaria": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "centinela i": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "centro historico": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "cerca de la glorieta las fuentes": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "circunvalacion oblato": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "col 18 de marzo": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "col americana": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "col jalisco": {
+  "municipio": "Tonalá",
+  "estado": "Jalisco",
+  "zona": "AMG-E"
+ },
+ "col lomas de la primavera": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "col miguel hidalgo cp": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "col san andres": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "col seattle": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "col sta margarita": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "col zoologico huentitan el bajo": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "colina real": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "comercial con metros de excedente": null,
+ "completamente bardeado": null,
+ "con servicios dentro de la zona urbanizada": null,
+ "condominio sole": {
+  "municipio": "Puerto Vallarta",
+  "estado": "Jalisco",
+  "zona": "Costa-Sur"
+ },
+ "constelacion": {
+  "municipio": "Tlajomulco de Zúñiga",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "copernico arboledas": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "coto 5 senderos de monte verde": {
+  "municipio": "Tlajomulco de Zúñiga",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "coto el marquez": {
+  "municipio": "Tlajomulco de Zúñiga",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "coyula coyula": {
+  "municipio": "Tonalá",
+  "estado": "Jalisco",
+  "zona": "AMG-E"
+ },
+ "cruz oriente": {
+  "municipio": "Tonalá",
+  "estado": "Jalisco",
+  "zona": "AMG-E"
+ },
+ "curiel tepeyac": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "de abajo": null,
+ "de": {
+  "municipio": "Tonalá",
+  "estado": "Jalisco",
+  "zona": "AMG-E"
+ },
+ "de dios": null,
+ "de guevara": null,
+ "de santiago san pedro": null,
+ "de tesistan": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "de valdepenas": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "del 4": null,
+ "del colli": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "del quince": null,
+ "es ejidal": null,
+ "es irregular zona de ranchos y cabanas": null,
+ "fovisste miravalle": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "francisco i madero nuevo mexico 120mt": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "francisco marquez": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "frente 13 mts fondo 28 mts": null,
+ "frente de 6 mts2 y fondo de 17 mts fondo": null,
+ "garcia barragan": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "gdl centro": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "guadalajara centro historico": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "hacienda atequiza estacion": {
+  "municipio": "Ixtlahuacán de los Membrillos",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "hacienda concepcion del valle": {
+  "municipio": "Tlajomulco de Zúñiga",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "independiencia oriente": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "industrial norte": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "infonavit del castillo": {
+  "municipio": "El Salto",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "int 21 an2": null,
+ "interior 6": null,
+ "ionamiento bugambilias": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "ionamiento la moraleja": {
+  "municipio": "Tlajomulco de Zúñiga",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "ionamiento mirador del bosque": {
+  "municipio": "Tlajomulco de Zúñiga",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "jal": null,
+ "jardin de san ignacio": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "jardines de la victoria": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "las heras": {
+  "municipio": "San Pedro Tlaquepaque",
+  "estado": "Jalisco",
+  "zona": "AMG-SE"
+ },
+ "loma dorada a": {
+  "municipio": "Tonalá",
+  "estado": "Jalisco",
+  "zona": "AMG-E"
+ },
+ "loma dorada c": {
+  "municipio": "Tonalá",
+  "estado": "Jalisco",
+  "zona": "AMG-E"
+ },
+ "loma dorada delegacion a": {
+  "municipio": "Tonalá",
+  "estado": "Jalisco",
+  "zona": "AMG-E"
+ },
+ "loma dorada delegacion d": {
+  "municipio": "Tonalá",
+  "estado": "Jalisco",
+  "zona": "AMG-E"
+ },
+ "lomas de camichin": {
+  "municipio": "San Pedro Tlaquepaque",
+  "estado": "Jalisco",
+  "zona": "AMG-SE"
+ },
+ "lomas de camichin ii": {
+  "municipio": "San Pedro Tlaquepaque",
+  "estado": "Jalisco",
+  "zona": "AMG-SE"
+ },
+ "lomas de oblatos": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "lomas de rio verde": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "lomas del 4": {
+  "municipio": "San Pedro Tlaquepaque",
+  "estado": "Jalisco",
+  "zona": "AMG-SE"
+ },
+ "los belenes": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "perote colli": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "pinar de la cima": {
+  "municipio": "Zapopan",
+  "estado": "Jalisco",
+  "zona": "AMG-NW"
+ },
+ "pintitas centro": {
+  "municipio": "El Salto",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "plano y rectangular": null,
+ "plaza sangaspar": {
+  "municipio": "Tonalá",
+  "estado": "Jalisco",
+  "zona": "AMG-E"
+ },
+ "prados atequiza": {
+  "municipio": "Ixtlahuacán de los Membrillos",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "prados cruz": null,
+ "prados de la canada": null,
+ "precio de oportunidad": null,
+ "preventa": null,
+ "primer nivel local comercial en complejo": null,
+ "primera": null,
+ "san juan bosc": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "san pedro tlaquepaque centro": {
+  "municipio": "San Pedro Tlaquepaque",
+  "estado": "Jalisco",
+  "zona": "AMG-SE"
+ },
+ "santa elena alcalde": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "santa tere": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "1a": null,
+ "ii": null,
+ "sector libertad": {
+  "municipio": "Guadalajara",
+  "estado": "Jalisco",
+  "zona": "AMG-Centro"
+ },
+ "soare ii": {
+  "municipio": "Tlajomulco de Zúñiga",
+  "estado": "Jalisco",
+  "zona": "AMG-S"
+ },
+ "sol de vallarta": {
+  "municipio": "Bahía de Banderas",
+  "estado": "Nayarit",
+  "zona": "Costa-Sur"
+ },
+ "somos": null
+}

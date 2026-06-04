@@ -102,8 +102,10 @@
    },
    {
     "colonia": "Hacienda de los Eucaliptos",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 4
    },
    {
@@ -133,8 +135,10 @@
    },
    {
     "colonia": "Galaxia la Noria",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 3
    },
    {
@@ -287,8 +291,10 @@
    },
    {
     "colonia": "boreales",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -300,8 +306,10 @@
    },
    {
     "colonia": "La Cima de Zapopan",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -1128,8 +1136,10 @@
    },
    {
     "colonia": "francisco marquez",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -1624,8 +1634,10 @@
    },
    {
     "colonia": "col sta margarita",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 4
    },
    {
@@ -1807,14 +1819,18 @@
   "similares": [
    {
     "colonia": "Bugambilias Primera Sección",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 5
    },
    {
     "colonia": "Bugambilias Segunda Sección",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 4
    },
    {
@@ -1839,8 +1855,10 @@
    },
    {
     "colonia": "Santa Anita Club de Golf",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -2740,14 +2758,18 @@
    },
    {
     "colonia": "soare ii",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
     "colonia": "altanza",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -3078,8 +3100,10 @@
    },
    {
     "colonia": "ionamiento bugambilias",
-    "municipio": null,
-    "fuente": "sin_datos"
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto"
    },
    {
     "colonia": "ciudad bugambilia",
@@ -3540,20 +3564,26 @@
    },
    {
     "colonia": "Country Club Tapalpa",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tapalpa",
+    "estado": "Jalisco",
+    "zona": "Otro",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "Rancho Club",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Chapala",
+    "estado": "Jalisco",
+    "zona": "Chapala",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "La Frontera Tapalpa",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tapalpa",
+    "estado": "Jalisco",
+    "zona": "Otro",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -5663,8 +5693,10 @@
    },
    {
     "colonia": "cerca de la glorieta las fuentes",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -5675,8 +5707,10 @@
    },
    {
     "colonia": "copernico arboledas",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -5856,20 +5890,26 @@
   "similares": [
    {
     "colonia": "blanco y cuellar",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 6
    },
    {
     "colonia": "san juan bosc",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 4
    },
    {
     "colonia": "circunvalacion oblato",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -7131,8 +7171,10 @@
    },
    {
     "colonia": "Cortijo San Agustín",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -7545,8 +7587,10 @@
   "similares": [
    {
     "colonia": "bosques de san isidro",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 16
    },
    {
@@ -8274,8 +8318,10 @@
    },
    {
     "colonia": "de tesistan",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -8981,8 +9027,10 @@
   "similares": [
    {
     "colonia": "loma dorada delegacion d",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 4
    },
    {
@@ -10033,8 +10081,10 @@
    },
    {
     "colonia": "Jardines de la Calma",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -10970,8 +11020,10 @@
    },
    {
     "colonia": "francisco i madero nuevo mexico 120mt",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -11330,8 +11382,10 @@
    },
    {
     "colonia": "sector libertad",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -11416,8 +11470,10 @@
   "similares": [
    {
     "colonia": "col americana",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 4
    },
    {
@@ -12517,8 +12573,10 @@
    },
    {
     "colonia": "jardin de san ignacio",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -12850,14 +12908,18 @@
   "similares": [
    {
     "colonia": "centro barranquitas",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 8
    },
    {
     "colonia": "guadalajara centro historico",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 5
    },
    {
@@ -12871,20 +12933,26 @@
    },
    {
     "colonia": "barranquitas oriente",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 3
    },
    {
     "colonia": "barranquitas poniente",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 3
    },
    {
     "colonia": "centro historico",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 4
    }
   ]
@@ -13581,8 +13649,10 @@
    },
    {
     "colonia": "santa elena alcalde",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -13925,8 +13995,10 @@
    },
    {
     "colonia": "cd universitaria",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -14016,8 +14088,10 @@
    },
    {
     "colonia": "independiencia oriente guadalajara",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 10
    },
    {
@@ -14095,8 +14169,10 @@
    },
    {
     "colonia": "col zoologico huentitan el bajo",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -14869,8 +14945,10 @@
   "similares": [
    {
     "colonia": "centro barranquitas",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -16186,8 +16264,10 @@
   "similares": [
    {
     "colonia": "col miguel hidalgo cp guadalajara",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 4
    },
    {
@@ -17472,8 +17552,10 @@
    },
    {
     "colonia": "a cuadra y media de chapultepec libre de gravamen",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -18131,8 +18213,10 @@
    },
    {
     "colonia": "col seattle",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 6
    },
    {
@@ -18249,8 +18333,10 @@
    },
    {
     "colonia": "gdl centro",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 10
    },
    {
@@ -19290,8 +19376,8 @@
   ]
  },
  "san agustin": {
-  "municipio": "Tlajomulco de Zúñiga",
-  "zona": "AMG-S",
+  "municipio": "San Agustín",
+  "zona": "Otro",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -19396,11 +19482,12 @@
   "similares": [
    {
     "colonia": "santa anita",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Lagos de Moreno",
     "estado": "Jalisco",
-    "zona": "AMG-S",
-    "tipo": "Condominio",
-    "fuente": "sepomex+muni-sujeto",
+    "zona": "Otro",
+    "tipo": "Ranchería",
+    "fuente": "sepomex+zona-sujeto-primero",
+    "n_matches": 2,
     "menciones": 4
    },
    {
@@ -19440,6 +19527,8 @@
   ]
  },
  "bosques de santa anita": {
+  "municipio": "Bosques Santa Anita",
+  "zona": "Otro",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -19506,27 +19595,22 @@
   "similares": [
    {
     "colonia": "santa anita",
-    "municipio": null,
-    "fuente": "sepomex_ambiguo",
-    "candidatos": [
-     "San Pedro Tlaquepaque/Jalisco",
-     "Tlajomulco de Zúñiga/Jalisco",
-     "Lagos de Moreno/Jalisco",
-     "Del Nayar/Nayarit"
-    ],
+    "municipio": "Lagos de Moreno",
+    "estado": "Jalisco",
+    "zona": "Otro",
+    "tipo": "Ranchería",
+    "fuente": "sepomex+zona-sujeto-primero",
+    "n_matches": 2,
     "menciones": 5
    },
    {
     "colonia": "san agustin",
-    "municipio": null,
-    "fuente": "sepomex_ambiguo",
-    "candidatos": [
-     "Tlajomulco de Zúñiga/Jalisco",
-     "Jamay/Jalisco",
-     "Jesús María/Jalisco",
-     "Unión de Tula/Jalisco",
-     "Cihuatlán/Jalisco"
-    ],
+    "municipio": "Jamay",
+    "estado": "Jalisco",
+    "zona": "Otro",
+    "tipo": "Ranchería",
+    "fuente": "sepomex+zona-sujeto-primero",
+    "n_matches": 4,
     "menciones": 5
    },
    {
@@ -19550,8 +19634,8 @@
   ]
  },
  "real del valle": {
-  "municipio": "Zapopan",
-  "zona": "AMG-NW",
+  "municipio": "tlajomulco",
+  "zona": "AMG-S",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -19622,19 +19706,21 @@
    },
    {
     "colonia": "el fortin",
-    "municipio": "Zapopan",
-    "estado": "Jalisco",
-    "zona": "AMG-NW",
-    "tipo": "Colonia",
-    "fuente": "sepomex+muni-sujeto"
+    "municipio": null,
+    "fuente": "sepomex_ambiguo",
+    "candidatos": [
+     "Zapopan/Jalisco",
+     "Pihuamo/Jalisco"
+    ]
    },
    {
     "colonia": "miramar",
-    "municipio": "Zapopan",
-    "estado": "Jalisco",
-    "zona": "AMG-NW",
-    "tipo": "Colonia",
-    "fuente": "sepomex+muni-sujeto"
+    "municipio": null,
+    "fuente": "sepomex_ambiguo",
+    "candidatos": [
+     "Zapopan/Jalisco",
+     "Compostela/Nayarit"
+    ]
    },
    {
     "colonia": "parques de tesistan",
@@ -19646,11 +19732,18 @@
    },
    {
     "colonia": "benito juarez",
-    "municipio": "Zapopan",
-    "estado": "Jalisco",
-    "zona": "AMG-NW",
-    "tipo": "Colonia",
-    "fuente": "sepomex+muni-sujeto"
+    "municipio": null,
+    "fuente": "sepomex_ambiguo",
+    "candidatos": [
+     "Guadalajara/Jalisco",
+     "Zapopan/Jalisco",
+     "Puerto Vallarta/Jalisco",
+     "Villa Purificación/Jalisco",
+     "Zapotlán el Grande/Jalisco",
+     "Tamazula de Gordiano/Jalisco",
+     "Tuxpan/Jalisco",
+     "Tepic/Nayarit"
+    ]
    }
   ]
  },
@@ -19965,14 +20058,18 @@
   "similares": [
    {
     "colonia": "coto 5 senderos de monte verde tlajomulco",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 10
    },
    {
     "colonia": "senderos de monteverde",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 10
    },
    {
@@ -20126,8 +20223,10 @@
    },
    {
     "colonia": "Casa Fuerte",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -21055,8 +21154,10 @@
    },
    {
     "colonia": "Campo de Golf Santa Anita",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -21070,8 +21171,9 @@
    },
    {
     "colonia": "Bosques de Santa Anita",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Bosques Santa Anita",
+    "zona": "Otro",
+    "fuente": "cerebro",
     "menciones": 1
    },
    {
@@ -21293,8 +21395,10 @@
    },
    {
     "colonia": "de chapala",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -23900,8 +24004,10 @@
   "similares": [
    {
     "colonia": "blanca industrial",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -23933,8 +24039,10 @@
    },
    {
     "colonia": "La Fresna",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -25354,8 +25462,10 @@
    },
    {
     "colonia": "hacienda concepcion del valle",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -25780,8 +25890,10 @@
    },
    {
     "colonia": "Centro Barranquitas",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 2
    }
   ]
@@ -26160,14 +26272,18 @@
    },
    {
     "colonia": "West Ajijic",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Chapala",
+    "estado": "Jalisco",
+    "zona": "Chapala",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "Chula Vista Norte",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Bahía de Banderas",
+    "estado": "Nayarit",
+    "zona": "Costa-Sur",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -26563,8 +26679,10 @@
    },
    {
     "colonia": "Barrio del Tepehua",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Chapala",
+    "estado": "Jalisco",
+    "zona": "Chapala",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -27120,8 +27238,10 @@
    },
    {
     "colonia": "Chapalita Occidente",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -27441,8 +27561,10 @@
   "similares": [
    {
     "colonia": "col zoologico huentitan el bajo",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 4
    },
    {
@@ -27539,8 +27661,10 @@
    },
    {
     "colonia": "balcones del 4",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 4
    },
    {
@@ -27632,8 +27756,10 @@
    },
    {
     "colonia": "arboledas sur",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -27647,8 +27773,10 @@
    },
    {
     "colonia": "lomas del 4",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "San Pedro Tlaquepaque",
+    "estado": "Jalisco",
+    "zona": "AMG-SE",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -27659,8 +27787,10 @@
    },
    {
     "colonia": "fovisste miravalle",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -27674,8 +27804,10 @@
    },
    {
     "colonia": "de chapala",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 4
    },
    {
@@ -28585,8 +28717,10 @@
    },
    {
     "colonia": "huentitan",
-    "municipio": null,
-    "fuente": "sin_datos"
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto"
    }
   ]
  },
@@ -29595,8 +29729,10 @@
    },
    {
     "colonia": "casa fuerte",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 2
    }
   ]
@@ -29693,20 +29829,25 @@
    },
    {
     "colonia": "Bosques de Santa Anita",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Bosques Santa Anita",
+    "zona": "Otro",
+    "fuente": "cerebro",
     "menciones": 2
    },
    {
     "colonia": "Cortijo San Agustín",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
     "colonia": "Provenza",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -29729,8 +29870,10 @@
    },
    {
     "colonia": "Senderos de Monteverde",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -30888,8 +31031,10 @@
   "similares": [
    {
     "colonia": "Tlachicilco",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapotlán el Grande",
+    "estado": "Jalisco",
+    "zona": "Otro",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -31129,8 +31274,10 @@
   "similares": [
    {
     "colonia": "loma dorada a",
-    "municipio": null,
-    "fuente": "sin_datos"
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto"
    },
    {
     "colonia": "coyula",
@@ -33594,8 +33741,10 @@
   "similares": [
    {
     "colonia": "lomas de camichin ii",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "San Pedro Tlaquepaque",
+    "estado": "Jalisco",
+    "zona": "AMG-SE",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -33905,8 +34054,8 @@
   ]
  },
  "tateposco": {
-  "municipio": "San Pedro Tlaquepaque",
-  "zona": "AMG-SE",
+  "municipio": "Guadalajara",
+  "zona": "AMG-Centro",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -34808,8 +34957,10 @@
    },
    {
     "colonia": "loma dorada delegacion d",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -35693,8 +35844,10 @@
    },
    {
     "colonia": "cd de los ninos",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -36496,8 +36649,10 @@
    },
    {
     "colonia": "santa elena alcalde",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -37993,8 +38148,10 @@
   "similares": [
    {
     "colonia": "barrio el santuario",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -38483,8 +38640,10 @@
    },
    {
     "colonia": "Pinar La Calma",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 5
    },
    {
@@ -38774,14 +38933,18 @@
    },
    {
     "colonia": "Jardines de la Granja",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "Industrial Alamos",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "San Pedro Tlaquepaque",
+    "estado": "Jalisco",
+    "zona": "AMG-SE",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -39233,8 +39396,10 @@
    },
    {
     "colonia": "El Rincón Secreto",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Bahía de Banderas",
+    "estado": "Nayarit",
+    "zona": "Costa-Sur",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -42201,8 +42366,10 @@
    },
    {
     "colonia": "col lomas de la primavera",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -42356,8 +42523,10 @@
   "similares": [
    {
     "colonia": "Jardines de la Universidad",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -44081,6 +44250,8 @@
   ]
  },
  "benito juarez": {
+  "municipio": "Zapopan",
+  "zona": "AMG-NW",
   "nse": {
    "v1": {
     "nse": "interes-social",
@@ -44129,15 +44300,11 @@
    },
    {
     "colonia": "arroyo hondo",
-    "municipio": null,
-    "fuente": "sepomex_ambiguo",
-    "candidatos": [
-     "Zapopan/Jalisco",
-     "Chapala/Jalisco",
-     "Ameca/Jalisco",
-     "Tamazula de Gordiano/Jalisco",
-     "Del Nayar/Nayarit"
-    ],
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "tipo": "Colonia",
+    "fuente": "sepomex+muni-sujeto",
     "menciones": 2
    },
    {
@@ -46000,8 +46167,10 @@
    },
    {
     "colonia": "ionamiento la moraleja",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 16
    },
    {
@@ -46437,8 +46606,10 @@
   "similares": [
    {
     "colonia": "canadas san lorenzo",
-    "municipio": null,
-    "fuente": "sin_datos"
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto"
    },
    {
     "colonia": "jardines del valle",
@@ -46939,8 +47110,10 @@
    },
    {
     "colonia": "garcia barragan",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -47275,8 +47448,10 @@
    },
    {
     "colonia": "de valdepenas",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -47631,8 +47806,10 @@
    },
    {
     "colonia": "sol de vallarta",
-    "municipio": null,
-    "fuente": "sin_datos"
+    "municipio": "Bahía de Banderas",
+    "estado": "Nayarit",
+    "zona": "Costa-Sur",
+    "fuente": "ai-coto"
    },
    {
     "colonia": "vista hermosa",
@@ -49344,8 +49521,10 @@
   "similares": [
    {
     "colonia": "loma dorada delegacion a",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 4
    },
    {
@@ -49401,8 +49580,10 @@
   "similares": [
    {
     "colonia": "Praderas de la Alameda",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 5
    },
    {
@@ -49642,8 +49823,10 @@
    },
    {
     "colonia": "cruz oriente",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -49778,8 +49961,10 @@
    },
    {
     "colonia": "La Cruz del Valle",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -54368,8 +54553,10 @@
   "similares": [
    {
     "colonia": "coto el marquez",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 4
    },
    {
@@ -55465,8 +55652,9 @@
   "similares": [
    {
     "colonia": "Bosques de Santa Anita",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Bosques Santa Anita",
+    "zona": "Otro",
+    "fuente": "cerebro",
     "menciones": 5
    },
    {
@@ -55480,8 +55668,10 @@
    },
    {
     "colonia": "Bosque Real de Santa Anita",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 4
    },
    {
@@ -55513,8 +55703,10 @@
    },
    {
     "colonia": "Vicenza",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 2
    }
   ]
@@ -56064,8 +56256,10 @@
   "similares": [
    {
     "colonia": "san jose el verde",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 3
    },
    {
@@ -56093,8 +56287,10 @@
    },
    {
     "colonia": "el quince",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "El Salto",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 2
    }
   ]
@@ -58961,8 +59157,10 @@
    },
    {
     "colonia": "col san andres",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -59220,8 +59418,10 @@
   "similares": [
    {
     "colonia": "gdl centro",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 10
    },
    {
@@ -59350,8 +59550,10 @@
    },
    {
     "colonia": "lomas de rio verde",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -59843,8 +60045,10 @@
    },
    {
     "colonia": "col 18 de marzo",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -60463,8 +60667,10 @@
    },
    {
     "colonia": "balcones del 4",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 2
    }
   ]
@@ -61780,8 +61986,10 @@
    },
    {
     "colonia": "camichines i",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "San Pedro Tlaquepaque",
+    "estado": "Jalisco",
+    "zona": "AMG-SE",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -63535,8 +63743,10 @@
    },
    {
     "colonia": "condominio sole",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Puerto Vallarta",
+    "estado": "Jalisco",
+    "zona": "Costa-Sur",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -64978,20 +65188,26 @@
   "similares": [
    {
     "colonia": "Las Pintitas",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "El Salto",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "El Quince",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "El Salto",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "San José el Verde",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -65078,8 +65294,10 @@
    },
    {
     "colonia": "el quince",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "El Salto",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 4
    },
    {
@@ -65432,8 +65650,10 @@
   "similares": [
    {
     "colonia": "el quince",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "El Salto",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 8
    },
    {
@@ -71116,8 +71336,10 @@
    },
    {
     "colonia": "lomas de oblatos",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -72354,8 +72576,10 @@
    },
    {
     "colonia": "santa tere",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 6
    },
    {
@@ -72528,8 +72752,10 @@
    },
    {
     "colonia": "blanco y cuellar",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 4
    },
    {
@@ -72862,8 +73088,10 @@
    },
    {
     "colonia": "santa tere",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 3
    },
    {
@@ -73107,8 +73335,10 @@
   "similares": [
    {
     "colonia": "La Cima de Zapopan",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -73227,8 +73457,10 @@
   "similares": [
    {
     "colonia": "loma dorada a",
-    "municipio": null,
-    "fuente": "sin_datos"
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto"
    },
    {
     "colonia": "coyula",
@@ -73276,8 +73508,10 @@
   "similares": [
    {
     "colonia": "Huentitán",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -73513,8 +73747,10 @@
    },
    {
     "colonia": "ionamiento bugambilias",
-    "municipio": null,
-    "fuente": "sin_datos"
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto"
    },
    {
     "colonia": "ciudad bugambilia",
@@ -73710,8 +73946,10 @@
    },
    {
     "colonia": "loma dorada delegacion a",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -73877,8 +74115,10 @@
   "similares": [
    {
     "colonia": "Riberas del Pilar",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Chapala",
+    "estado": "Jalisco",
+    "zona": "Chapala",
+    "fuente": "ai-coto",
     "menciones": 5
    },
    {
@@ -74027,8 +74267,10 @@
    },
    {
     "colonia": "ionamiento mirador del bosque",
-    "municipio": null,
-    "fuente": "sin_datos"
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto"
    },
    {
     "colonia": "vistas de tesistan",
@@ -74193,8 +74435,10 @@
    },
    {
     "colonia": "atemajac",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -77738,8 +77982,10 @@
    },
    {
     "colonia": "loma dorada c",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -81607,8 +81853,10 @@
   "similares": [
    {
     "colonia": "cd de los ninos",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -83686,8 +83934,10 @@
    },
    {
     "colonia": "cruz oriente",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -83847,8 +84097,10 @@
   "similares": [
    {
     "colonia": "Paseos de los Agaves",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 5
    },
    {
@@ -86313,8 +86565,10 @@
    },
    {
     "colonia": "loma dorada delegacion d",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 4
    },
    {
@@ -87827,8 +88081,10 @@
    },
    {
     "colonia": "loma dorada delegacion d",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -88938,14 +89194,18 @@
    },
    {
     "colonia": "col jalisco tonala",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 4
    },
    {
     "colonia": "jalisco ii",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -89291,8 +89551,10 @@
    },
    {
     "colonia": "guadalajara centro historico",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 5
    },
    {
@@ -89326,20 +89588,26 @@
    },
    {
     "colonia": "barranquitas oriente",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 3
    },
    {
     "colonia": "barranquitas poniente",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 3
    },
    {
     "colonia": "centro historico",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 4
    }
   ]
@@ -93369,8 +93637,10 @@
   "similares": [
    {
     "colonia": "santa elena alcalde",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 6
    },
    {
@@ -93658,8 +93928,10 @@
    },
    {
     "colonia": "loma dorada a",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 2
    }
   ]
@@ -94758,8 +95030,10 @@
    },
    {
     "colonia": "agua cristalina",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -96766,8 +97040,8 @@
   ]
  },
  "las luces": {
-  "municipio": "Tlajomulco de Zúñiga",
-  "zona": "AMG-S",
+  "municipio": "Valle Dorado Inn",
+  "zona": "Otro",
   "idx": {
    "casa": {}
   },
@@ -96819,11 +97093,11 @@
    },
    {
     "colonia": "las orquideas",
-    "municipio": "Tlajomulco de Zúñiga",
+    "municipio": "Autlán de Navarro",
     "estado": "Jalisco",
-    "zona": "AMG-S",
+    "zona": "Otro",
     "tipo": "Fraccionamiento",
-    "fuente": "sepomex+muni-sujeto",
+    "fuente": "sepomex+zona-sujeto",
     "menciones": 1
    }
   ]
@@ -100498,8 +100772,10 @@
   "similares": [
    {
     "colonia": "San Pancho",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Bahía de Banderas",
+    "estado": "Nayarit",
+    "zona": "Costa-Sur",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -100513,20 +100789,26 @@
    },
    {
     "colonia": "Punta de Mita Pueblo",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Bahía de Banderas",
+    "estado": "Nayarit",
+    "zona": "Costa-Sur",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "Litibú",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Bahía de Banderas",
+    "estado": "Nayarit",
+    "zona": "Costa-Sur",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "Bucerias Zona Dorada",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Bahía de Banderas",
+    "estado": "Nayarit",
+    "zona": "Costa-Sur",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -100592,8 +100874,10 @@
    },
    {
     "colonia": "Lomas de San Sebastian",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -100616,8 +100900,10 @@
   "similares": [
    {
     "colonia": "industrial norte",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 4
    },
    {
@@ -100722,14 +101008,18 @@
    },
    {
     "colonia": "cruz oriente",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 3
    },
    {
     "colonia": "coyula coyula",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -100758,26 +101048,34 @@
   "similares": [
    {
     "colonia": "Villa Corona",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Villa Corona",
+    "estado": "Jalisco",
+    "zona": "Otro",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "Zacoalco",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zacoalco de Torres",
+    "estado": "Jalisco",
+    "zona": "Otro",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "Tala Periferia",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tala",
+    "estado": "Jalisco",
+    "zona": "Otro",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "Ameca Urbana",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Ameca",
+    "estado": "Jalisco",
+    "zona": "Otro",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -100893,8 +101191,10 @@
    },
    {
     "colonia": "lomas de camichin ii",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "San Pedro Tlaquepaque",
+    "estado": "Jalisco",
+    "zona": "AMG-SE",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -101005,8 +101305,10 @@
    },
    {
     "colonia": "camichines ii",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "San Pedro Tlaquepaque",
+    "estado": "Jalisco",
+    "zona": "AMG-SE",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -101226,14 +101528,18 @@
    },
    {
     "colonia": "francisco marquez",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "copernico arboledas",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -101292,14 +101598,18 @@
    },
    {
     "colonia": "lomas del 4",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "San Pedro Tlaquepaque",
+    "estado": "Jalisco",
+    "zona": "AMG-SE",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "las pintitas",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "El Salto",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -101397,8 +101707,10 @@
    },
    {
     "colonia": "colina real",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -101706,14 +102018,18 @@
    },
    {
     "colonia": "Paseos de los Agaves",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "Valle Dorado Segunda Sección",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Bahía de Banderas",
+    "estado": "Nayarit",
+    "zona": "Costa-Sur",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -101869,8 +102185,10 @@
   "similares": [
    {
     "colonia": "san pedro tlaquepaque centro",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "San Pedro Tlaquepaque",
+    "estado": "Jalisco",
+    "zona": "AMG-SE",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -102017,8 +102335,10 @@
    },
    {
     "colonia": "El Rincón Secreto",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Bahía de Banderas",
+    "estado": "Nayarit",
+    "zona": "Costa-Sur",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -102041,8 +102361,10 @@
   "similares": [
    {
     "colonia": "Raquet Club",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Chapala",
+    "estado": "Jalisco",
+    "zona": "Chapala",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -102074,8 +102396,10 @@
    },
    {
     "colonia": "Vista Hermosa Jocotepec",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Jocotepec",
+    "estado": "Jalisco",
+    "zona": "Chapala",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -102126,8 +102450,10 @@
    },
    {
     "colonia": "Sayula Campestre",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Sayula",
+    "estado": "Jalisco",
+    "zona": "Otro",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -102183,14 +102509,18 @@
    },
    {
     "colonia": "loma dorada delegacion a",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
     "colonia": "cruz oriente",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 2
    }
   ]
@@ -102213,14 +102543,18 @@
   "similares": [
    {
     "colonia": "Vista del Lago",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Chapala",
+    "estado": "Jalisco",
+    "zona": "Chapala",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "Chapala Country",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Chapala",
+    "estado": "Jalisco",
+    "zona": "Chapala",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -102243,8 +102577,10 @@
    },
    {
     "colonia": "Raquet Club",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Chapala",
+    "estado": "Jalisco",
+    "zona": "Chapala",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -102346,14 +102682,18 @@
    },
    {
     "colonia": "Jamay Periferia",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Jamay",
+    "estado": "Jalisco",
+    "zona": "Otro",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "Ocotlan Rural",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Ocotlán",
+    "estado": "Jalisco",
+    "zona": "Otro",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -102460,8 +102800,10 @@
    },
    {
     "colonia": "camichines ii",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "San Pedro Tlaquepaque",
+    "estado": "Jalisco",
+    "zona": "AMG-SE",
+    "fuente": "ai-coto",
     "menciones": 2
    }
   ]
@@ -102562,20 +102904,26 @@
    },
    {
     "colonia": "Costa Careyes",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "La Huerta",
+    "estado": "Jalisco",
+    "zona": "Otro",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "La Manzanilla Costa Alegre",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "La Huerta",
+    "estado": "Jalisco",
+    "zona": "Otro",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "Cuastecomates",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Cihuatlán",
+    "estado": "Jalisco",
+    "zona": "Otro",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -102687,8 +103035,10 @@
    },
    {
     "colonia": "balcones del 4",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 2
    }
   ]
@@ -103097,8 +103447,10 @@
    },
    {
     "colonia": "Nuevo San Marcos",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -103244,8 +103596,10 @@
    },
    {
     "colonia": "las pintitas",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "El Salto",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 16
    },
    {
@@ -103421,8 +103775,10 @@
    },
    {
     "colonia": "los belenes",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -103508,8 +103864,10 @@
    },
    {
     "colonia": "centinela i",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -103871,8 +104229,10 @@
    },
    {
     "colonia": "balcones de tlaquepaque",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "San Pedro Tlaquepaque",
+    "estado": "Jalisco",
+    "zona": "AMG-SE",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -104157,8 +104517,10 @@
    },
    {
     "colonia": "sector libertad",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -104187,8 +104549,10 @@
    },
    {
     "colonia": "plaza sangaspar",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -104252,8 +104616,10 @@
    },
    {
     "colonia": "Nuevo Vallarta Canal",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Bahía de Banderas",
+    "estado": "Nayarit",
+    "zona": "Costa-Sur",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -104267,14 +104633,18 @@
    },
    {
     "colonia": "Marina Nuevo Vallarta",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Bahía de Banderas",
+    "estado": "Nayarit",
+    "zona": "Costa-Sur",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "Vidanta",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Bahía de Banderas",
+    "estado": "Nayarit",
+    "zona": "Costa-Sur",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -104315,14 +104685,18 @@
    },
    {
     "colonia": "hacienda atequiza estacion",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Ixtlahuacán de los Membrillos",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "prados atequiza",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Ixtlahuacán de los Membrillos",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -104372,8 +104746,10 @@
    },
    {
     "colonia": "El Salto Rural",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "El Salto",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -104450,8 +104826,9 @@
    },
    {
     "colonia": "Bosques de Santa Anita",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Bosques Santa Anita",
+    "zona": "Otro",
+    "fuente": "cerebro",
     "menciones": 1
    },
    {
@@ -104573,8 +104950,10 @@
    },
    {
     "colonia": "Jocotepec Ribera",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Jocotepec",
+    "estado": "Jalisco",
+    "zona": "Chapala",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -104669,8 +105048,10 @@
   "similares": [
    {
     "colonia": "Jalisco II Seccion",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -104833,8 +105214,10 @@
    },
    {
     "colonia": "jardines de la victoria",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -104939,14 +105322,18 @@
    },
    {
     "colonia": "arcos de san sebastian",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
     "colonia": "arroyo de en medio",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 2
    }
   ]
@@ -105066,14 +105453,18 @@
   "similares": [
    {
     "colonia": "Club de Golf Hacienda",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "Valle Escondido",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -105090,8 +105481,10 @@
    },
    {
     "colonia": "Prado Largo",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -105114,8 +105507,10 @@
   "similares": [
    {
     "colonia": "San Pancho Periferia",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Bahía de Banderas",
+    "estado": "Nayarit",
+    "zona": "Costa-Sur",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -105129,8 +105524,10 @@
    },
    {
     "colonia": "Sayulita Norte",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Bahía de Banderas",
+    "estado": "Nayarit",
+    "zona": "Costa-Sur",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -105144,8 +105541,10 @@
    },
    {
     "colonia": "Bucerias Interior",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Bahía de Banderas",
+    "estado": "Nayarit",
+    "zona": "Costa-Sur",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -105433,8 +105832,10 @@
   "similares": [
    {
     "colonia": "Centro de Tlaquepaque",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "San Pedro Tlaquepaque",
+    "estado": "Jalisco",
+    "zona": "AMG-SE",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -105547,14 +105948,18 @@
    },
    {
     "colonia": "camichines ii",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "San Pedro Tlaquepaque",
+    "estado": "Jalisco",
+    "zona": "AMG-SE",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
     "colonia": "de tlaquepaque",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -105606,14 +106011,18 @@
    },
    {
     "colonia": "Mezcala Rural",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Chapala",
+    "estado": "Jalisco",
+    "zona": "Chapala",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "Cuitzeo Rural",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Poncitlán",
+    "estado": "Jalisco",
+    "zona": "Chapala",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -105652,8 +106061,10 @@
    },
    {
     "colonia": "Coto del Fresno",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -105842,8 +106253,10 @@
    },
    {
     "colonia": "de chapala",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -105881,8 +106294,10 @@
    },
    {
     "colonia": "benito juarez auditorio",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 2
    }
   ]
@@ -106289,8 +106704,9 @@
   "similares": [
    {
     "colonia": "bosques de santa anita",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Bosques Santa Anita",
+    "zona": "Otro",
+    "fuente": "cerebro",
     "menciones": 10
    }
   ]
@@ -106354,8 +106770,10 @@
    },
    {
     "colonia": "Palmar de Aramara",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Puerto Vallarta",
+    "estado": "Jalisco",
+    "zona": "Costa-Sur",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -106415,8 +106833,10 @@
    },
    {
     "colonia": "Paseos de los Agaves",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -106741,8 +107161,10 @@
   "similares": [
    {
     "colonia": "col miguel hidalgo cp guadalajara",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 4
    },
    {
@@ -107497,8 +107919,10 @@
    },
    {
     "colonia": "boreales",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -107531,8 +107955,10 @@
   "similares": [
    {
     "colonia": "santa elena alcalde",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 4
    },
    {
@@ -108082,8 +108508,10 @@
    },
    {
     "colonia": "aralias ii",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Puerto Vallarta",
+    "estado": "Jalisco",
+    "zona": "Costa-Sur",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -108185,8 +108613,10 @@
    },
    {
     "colonia": "barrio san juan de dios",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 4
    },
    {
@@ -108293,14 +108723,18 @@
    },
    {
     "colonia": "las pintitas",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "El Salto",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
     "colonia": "pintitas centro",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "El Salto",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -108341,8 +108775,10 @@
    },
    {
     "colonia": "capital norte coto nara",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 2
    }
   ]
@@ -108681,8 +109117,10 @@
    },
    {
     "colonia": "de tlaquepaque",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -109391,8 +109829,10 @@
   "similares": [
    {
     "colonia": "barrio analco",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -110012,8 +110452,10 @@
   "similares": [
    {
     "colonia": "lomas de camichin",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "San Pedro Tlaquepaque",
+    "estado": "Jalisco",
+    "zona": "AMG-SE",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -110046,8 +110488,10 @@
    },
    {
     "colonia": "loma dorada a",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -112692,8 +113136,10 @@
   "similares": [
    {
     "colonia": "loma dorada delegacion a",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 4
    },
    {
@@ -113206,8 +113652,10 @@
    },
    {
     "colonia": "de tlaquepaque",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -113279,8 +113727,10 @@
    },
    {
     "colonia": "las heras",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "San Pedro Tlaquepaque",
+    "estado": "Jalisco",
+    "zona": "AMG-SE",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -114261,8 +114711,10 @@
   "similares": [
    {
     "colonia": "col sta margarita",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 6
    },
    {
@@ -114445,8 +114897,10 @@
    },
    {
     "colonia": "alcalde poniente",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -114887,8 +115341,10 @@
    },
    {
     "colonia": "Nuevo San Marcos Zapopan",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -115834,8 +116290,10 @@
    },
    {
     "colonia": "camichines iii",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "San Pedro Tlaquepaque",
+    "estado": "Jalisco",
+    "zona": "AMG-SE",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -115911,8 +116369,10 @@
    },
    {
     "colonia": "curiel tepeyac",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -115949,8 +116409,10 @@
    },
    {
     "colonia": "barranquitas",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 2
    }
   ]
@@ -116152,8 +116614,10 @@
   "similares": [
    {
     "colonia": "col zoologico huentitan el bajo",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 2
    }
   ]
@@ -116164,8 +116628,10 @@
   "similares": [
    {
     "colonia": "col zoologico huentitan el bajo",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -116443,8 +116909,10 @@
    },
    {
     "colonia": "infonavit del castillo",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "El Salto",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 2
    }
   ]
@@ -116578,20 +117046,26 @@
    },
    {
     "colonia": "La Cruz Centro",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Bahía de Banderas",
+    "estado": "Nayarit",
+    "zona": "Costa-Sur",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "Nuevo Corral del Risco",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Bahía de Banderas",
+    "estado": "Nayarit",
+    "zona": "Costa-Sur",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "Punta de Mita Pueblo",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Bahía de Banderas",
+    "estado": "Nayarit",
+    "zona": "Costa-Sur",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -116665,8 +117139,10 @@
    },
    {
     "colonia": "Chapalita Occidente",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 3
    },
    {
@@ -116732,14 +117208,18 @@
   "similares": [
    {
     "colonia": "Epenche Grande",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "San Gabriel",
+    "estado": "Jalisco",
+    "zona": "Otro",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "Los Cazos",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Mazamitla",
+    "estado": "Jalisco",
+    "zona": "Otro",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -116753,14 +117233,18 @@
    },
    {
     "colonia": "Valle Dorado Mazamitla",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Mazamitla",
+    "estado": "Jalisco",
+    "zona": "Otro",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "Los Charcos",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -116771,8 +117255,10 @@
   "similares": [
    {
     "colonia": "los belenes",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -116851,8 +117337,10 @@
   "similares": [
    {
     "colonia": "perote colli",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -116975,8 +117463,10 @@
    },
    {
     "colonia": "Paseos de los Agaves",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -117005,8 +117495,10 @@
    },
    {
     "colonia": "san pedro tlaquepaque centro",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "San Pedro Tlaquepaque",
+    "estado": "Jalisco",
+    "zona": "AMG-SE",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -117210,8 +117702,10 @@
   "similares": [
    {
     "colonia": "de tonala",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -117255,14 +117749,18 @@
    },
    {
     "colonia": "El Jorullo",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Puerto Vallarta",
+    "estado": "Jalisco",
+    "zona": "Costa-Sur",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "Boca de Tomatlan Rural",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Puerto Vallarta",
+    "estado": "Jalisco",
+    "zona": "Costa-Sur",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -117273,8 +117771,10 @@
   "similares": [
    {
     "colonia": "Mazamitla Urbana",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Mazamitla",
+    "estado": "Jalisco",
+    "zona": "Otro",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -117306,8 +117806,10 @@
    },
    {
     "colonia": "Tamazula Rural",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tamazula de Gordiano",
+    "estado": "Jalisco",
+    "zona": "Otro",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -117328,20 +117830,26 @@
    },
    {
     "colonia": "Atequiza Urbana",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Ixtlahuacán de los Membrillos",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "Ocotlan Popular",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Ocotlán",
+    "estado": "Jalisco",
+    "zona": "Otro",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "Atotonilco El Alto",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Atotonilco El Alto",
+    "estado": "Jalisco",
+    "zona": "Otro",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -117473,14 +117981,18 @@
    },
    {
     "colonia": "Ocotlan Popular",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Ocotlán",
+    "estado": "Jalisco",
+    "zona": "Otro",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "Jamay Urbana",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Jamay",
+    "estado": "Jalisco",
+    "zona": "Otro",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -117515,8 +118027,10 @@
   "similares": [
    {
     "colonia": "del colli",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -117563,14 +118077,18 @@
    },
    {
     "colonia": "pinar de la cima",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
     "colonia": "constelacion",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 2
    }
   ]
@@ -117643,14 +118161,18 @@
   "similares": [
    {
     "colonia": "Refugio Gonzalez",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "Samuel Mondragon",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tonalá",
+    "estado": "Jalisco",
+    "zona": "AMG-E",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -117671,14 +118193,18 @@
    },
    {
     "colonia": "San Ricardo",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "Urbano Gomez",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -117746,8 +118272,10 @@
   "similares": [
    {
     "colonia": "Colotlan",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -117761,20 +118289,26 @@
    },
    {
     "colonia": "Mezquitic",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "Huejuquilla",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "Bolanos",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Bolaños",
+    "estado": "Jalisco",
+    "zona": "Otro",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -117963,8 +118497,10 @@
   "similares": [
    {
     "colonia": "Cañada del Sol",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -118090,8 +118626,9 @@
   "similares": [
    {
     "colonia": "Bosques de Santa Anita",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Bosques Santa Anita",
+    "zona": "Otro",
+    "fuente": "cerebro",
     "menciones": 1
    },
    {
@@ -118151,8 +118688,10 @@
    },
    {
     "colonia": "Bosque Real de Santa Anita",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -118193,8 +118732,10 @@
    },
    {
     "colonia": "Vicenza",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 1
    }
   ]
@@ -118273,8 +118814,10 @@
    },
    {
     "colonia": "Huentitán",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Guadalajara",
+    "estado": "Jalisco",
+    "zona": "AMG-Centro",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -118319,14 +118862,18 @@
    },
    {
     "colonia": "Versalles Tradicional",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Puerto Vallarta",
+    "estado": "Jalisco",
+    "zona": "Costa-Sur",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
     "colonia": "Centro PV",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Puerto Vallarta",
+    "estado": "Jalisco",
+    "zona": "Costa-Sur",
+    "fuente": "ai-coto",
     "menciones": 1
    },
    {
@@ -118373,8 +118920,10 @@
    },
    {
     "colonia": "San Agustín tradicional",
-    "municipio": null,
-    "fuente": "sin_datos",
+    "municipio": "Tlajomulco de Zúñiga",
+    "estado": "Jalisco",
+    "zona": "AMG-S",
+    "fuente": "ai-coto",
     "menciones": 2
    },
    {
@@ -158669,7 +159218,7 @@
   ]
  },
  "_meta": {
-  "generado": "2026-06-01T08:51:30.739Z",
+  "generado": "2026-06-04T17:29:15.600Z",
   "capas": {
    "ganada_v1": {
     "campo": "nse.v1",

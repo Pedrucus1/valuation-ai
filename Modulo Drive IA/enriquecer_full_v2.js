@@ -13,6 +13,11 @@ const cerebro = JSON.parse(fs.readFileSync('cerebro_datos.json', 'utf8'));
 const manualMunis = fs.existsSync('colonias_manual_municipios.json')
   ? JSON.parse(fs.readFileSync('colonias_manual_municipios.json', 'utf8'))
   : {};
+// Override de municipio para SIMILARES que SEPOMEX no conoce (cotos nuevos), resuelto via Gemini.
+// Generado por resolver_similares_municipios.js. Llave = normCol(nombre). Valor: {municipio,estado,zona} o null.
+const simMunis = fs.existsSync('similares_municipios.json')
+  ? JSON.parse(fs.readFileSync('similares_municipios.json', 'utf8'))
+  : {};
 
 const colMuni = {};
 cerebro.forEach(d => {
@@ -81,6 +86,10 @@ function resolverSimilar(nombre, zonaSujeto, muniSujeto) {
   if (colMuni[k] && Object.keys(colMuni[k]).length) {
     const sorted = Object.entries(colMuni[k]).sort((a,b)=>b[1]-a[1]);
     return { municipio: sorted[0][0], zona: zonaOf(sorted[0][0]), fuente: 'cerebro' };
+  }
+  // Override AI para cotos nuevos sin SEPOMEX (resolver_similares_municipios.js)
+  if (simMunis[k]) {
+    return { municipio: simMunis[k].municipio, estado: simMunis[k].estado, zona: simMunis[k].zona, fuente: 'ai-coto' };
   }
   return { municipio: null, fuente: 'sin_datos' };
 }
