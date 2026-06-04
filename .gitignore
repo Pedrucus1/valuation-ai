@@ -137,3 +137,11 @@ _backups/
 
 # Reportes regenerables del job mensual de cerebro
 Modulo Drive IA/logs/
+
+# Backups/temporales del esquema y enrichers (cierre 2026-06-04)
+_backups_esquema/
+*.bak_*
+*.migrado_validado.json
+_enr_*.log
+_migrar_esquema.cjs
+scrape_active.flag
