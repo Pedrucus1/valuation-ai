@@ -15,6 +15,12 @@ from core.pricing import PRECIOS_DEFAULT
 
 router = APIRouter(prefix="/api")
 
+# Límites de creatividades (deben coincidir con SLOT_SPECS del frontend)
+VIDEO_MAX_MB = {"slot1": 25, "slot2": 12, "slot3": 6}
+IMAGE_MAX_MB = 10                  # imagen original (el front ya comprime a WebP)
+MAX_VIDEOS_POR_ANUNCIANTE = 5
+MAX_IMAGENES_POR_ANUNCIANTE = 25
+
 
 @router.post("/advertisers/anuncios")
 async def crear_anuncio(request: Request):
@@ -234,9 +240,38 @@ async def upload_creative(
     allowed = ["image/jpeg", "image/png", "image/webp", "video/mp4"]
     if file.content_type not in allowed:
         raise HTTPException(status_code=400, detail="Formato no permitido")
+    is_video = file.content_type == "video/mp4"
+
+    # Slot de la campaña → límite de tamaño del video
+    campaign = await db.ad_campaigns.find_one(
+        {"campaign_id": campaign_id, "advertiser_id": advertiser["advertiser_id"]},
+        {"_id": 0, "slot": 1},
+    )
+    if not campaign:
+        raise HTTPException(status_code=404, detail="Campaña no encontrada")
+    slot = campaign.get("slot", "slot1")
+
+    # Tope de archivos por anunciante (no somos bodega de archivos)
+    tope = MAX_VIDEOS_POR_ANUNCIANTE if is_video else MAX_IMAGENES_POR_ANUNCIANTE
+    usados = await db.ad_creatives.count_documents({
+        "advertiser_id": advertiser["advertiser_id"],
+        "file_type": "video" if is_video else "image",
+    })
+    if usados >= tope:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Límite alcanzado: máximo {tope} {'videos' if is_video else 'imágenes'} "
+                   "por anunciante. Elimina alguna creatividad para subir otra.",
+        )
+
+    content = await file.read()
+    # Tamaño máximo
+    max_mb = VIDEO_MAX_MB.get(slot, 25) if is_video else IMAGE_MAX_MB
+    if len(content) > max_mb * 1024 * 1024:
+        raise HTTPException(status_code=400, detail=f"El archivo excede el máximo de {max_mb} MB")
+
     ext = file.filename.rsplit(".", 1)[-1].lower() if "." in file.filename else "bin"
     filename = f"{uuid.uuid4().hex}.{ext}"
-    content = await file.read()
     with open(ADS_DIR / filename, "wb") as f:
         f.write(content)
     creative = {

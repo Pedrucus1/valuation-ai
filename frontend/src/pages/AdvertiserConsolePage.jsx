@@ -32,6 +32,9 @@ const advertiserFetch = async (path, options = {}) => {
 
 // Límite del archivo original antes de comprimir (en MB)
 const MAX_IMAGE_ORIGINAL_MB = 10;
+// Topes de almacenamiento por anunciante (no somos bodega de archivos)
+const MAX_VIDEOS_TOTAL = 5;
+const MAX_IMAGES_TOTAL = 25;
 // Ancho máximo de salida en px (mantiene proporción)
 const MAX_IMAGE_PX = 1920;
 // Calidad WebP (0–1)
@@ -119,7 +122,8 @@ const SLOT_SPECS = {
     tag: "Máxima exposición",
     where: "Página de Comparables · aparece mientras el sistema busca avalúos similares",
     desc: "Tu anuncio ocupa la pantalla completa mientras el sistema busca y analiza comparables del mercado. El usuario no puede avanzar — atención total garantizada.",
-    maxSizeMB: 50,
+    maxSizeMB: 25,
+    maxDuration: 60,
     acceptVideo: true,
     accept: "image/jpeg,image/png,video/mp4",
     dims: "1920×1080 px",
@@ -131,7 +135,8 @@ const SLOT_SPECS = {
     tag: "Alta atención",
     where: "Página de Reporte · aparece mientras la IA genera el avalúo",
     desc: "Tu anuncio se muestra mientras la inteligencia artificial redacta el reporte personalizado. El usuario está en espera activa, con la pantalla frente a él.",
-    maxSizeMB: 20,
+    maxSizeMB: 12,
+    maxDuration: 30,
     acceptVideo: true,
     accept: "image/jpeg,image/png,video/mp4",
     dims: "1920×1080 px",
@@ -143,7 +148,8 @@ const SLOT_SPECS = {
     tag: "Entrada accesible",
     where: "Página de Reporte · aparece justo antes de descargar el PDF",
     desc: "Tu anuncio aparece en pantalla completa justo antes de que el usuario descargue su reporte de valuación. Momento de alto interés e intención inmobiliaria.",
-    maxSizeMB: 10,
+    maxSizeMB: 6,
+    maxDuration: 15,
     acceptVideo: false,
     accept: "image/jpeg,image/png",
     dims: "1200×628 px",
@@ -588,6 +594,10 @@ const AdvertiserConsolePage = () => {
     // Si selecciona un video, reemplaza todo y solo admite 1
     if (fileArr.some(f => f.type === "video/mp4")) {
       if (fileArr.length > 1) { setUploadError("Solo puedes subir un video a la vez"); return; }
+      if (creatives.filter(c => (c.file_type || c.type) === "video").length >= MAX_VIDEOS_TOTAL) {
+        setUploadError(`Límite alcanzado: máximo ${MAX_VIDEOS_TOTAL} videos por cuenta. Elimina alguno para subir otro.`);
+        return;
+      }
       const err = await validateSingleFile(fileArr[0], campaignSlot);
       if (err) { setUploadError(err); return; }
       setUploadItems([{ file: fileArr[0], previewUrl: URL.createObjectURL(fileArr[0]), type: "video" }]);
@@ -597,7 +607,12 @@ const AdvertiserConsolePage = () => {
 
     // Fotos: acumular sin superar maxPhotos de la campaña
     const currentImages = uploadItems.filter(i => i.type === "image");
-    const remaining = campaignMaxPhotos - currentImages.length;
+    const storedImages = creatives.filter(c => (c.file_type || c.type) === "image").length;
+    if (storedImages >= MAX_IMAGES_TOTAL) {
+      setUploadError(`Límite alcanzado: máximo ${MAX_IMAGES_TOTAL} imágenes por cuenta. Elimina alguna para subir más.`);
+      return;
+    }
+    const remaining = Math.min(campaignMaxPhotos - currentImages.length, MAX_IMAGES_TOTAL - storedImages);
     if (remaining <= 0) {
       setUploadError(`Límite alcanzado: ${campaignMaxPhotos} fotos para este formato`);
       return;
@@ -951,11 +966,16 @@ const AdvertiserConsolePage = () => {
                                     <span className="text-[#2D6A4F]">📷 JPG/PNG hasta {MAX_IMAGE_ORIGINAL_MB} MB</span>
                                     <span className="text-slate-400">→ se comprime a WebP automáticamente</span>
                                     {spec.acceptVideo && (
-                                      <span className="text-[#2D6A4F]">🎬 MP4 hasta {spec.maxSizeMB} MB</span>
+                                      <span className="text-[#2D6A4F]">🎬 MP4 hasta {spec.maxSizeMB} MB · máx. {spec.maxDuration}s</span>
                                     )}
                                     {!spec.acceptVideo && (
                                       <span className="text-amber-500 font-semibold">Solo imágenes — este slot no acepta video</span>
                                     )}
+                                  </p>
+                                  <p className="text-[11px] text-slate-500 mt-1">
+                                    🗄️ Tu cuenta admite hasta {MAX_VIDEOS_TOTAL} videos y {MAX_IMAGES_TOTAL} imágenes · usados{" "}
+                                    {creatives.filter(c => (c.file_type || c.type) === "video").length}/{MAX_VIDEOS_TOTAL} videos,{" "}
+                                    {creatives.filter(c => (c.file_type || c.type) === "image").length}/{MAX_IMAGES_TOTAL} imágenes
                                   </p>
                                 </div>
                                 {campImages.length > 0 && (
