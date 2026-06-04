@@ -15,6 +15,31 @@
 
 ---
 
+## ✅ #102 SUMA_PARTES_MIX SOBREVALÚA — RESUELTO con cota asimétrica (03-Jun-2026)
+
+**Diagnóstico (validador offline `--n 250`, sin Serper/Gemini = determinista):** los sobrevalúos NO eran
+`suma_partes` puro sino **`suma_partes_mix`** (motor_remi_api.js ~881-892): cuando la colonia no tiene mercado
+exacto (exactaCount<3 & compsFilt<5) y m2T>0, mezcla **60% sumaDePartes + 40% pool**. En lotes terreno-pesados
+`sumaDePartes` infla (costo-reposición sobre m²T grande) → el 60% arrastra: Emiliano Zapata +82%, La Experiencia
++36.5%, Tlajomulco +45.9%, Albaterra +113%. Patrón sistemático del pool mix con n=3-4, no casos aislados.
+
+**Probado y descartado — peso 40/60 simétrico:** mejora sobrevalúos PERO castiga subvalúos donde suma_partes
+sostenía comps baratos (Zalatitán -18.7%→-20.8%, Minerales -14.6%→-26.2%). Bimodal: un peso fijo no separa
+sobre- de sub-valúo.
+
+**Fix aplicado — cota ASIMÉTRICA:** mantener 60/40, pero `if (valorMixto > valor*1.25) valorMixto = valor*1.25`.
+Solo recorta sobrevalúo (mix por encima de la señal de mercado >25%); NO toca el subvalúo (donde suma_partes
+legítimamente sube comps tipo remate). Es una cota de cordura, no calibrada a un caso.
+
+**Resultado (offline, baseline→después):**
+- Set curado `--desde 2025-07` (36): ±10% 83.3→83.3 · ±15% 86.1→**88.9** · ±20% **100→100** · err 6.1→**5.9**.
+- Full `--n 250` (203): ±10% 63.5→64.0 · ±15% 75.9→**77.3** · ±20% 86.7→**88.7 (+4)** · err 10.9→**9.7**.
+- Casos: Emiliano Zapata +82→+16.5 ✅, La Experiencia +36.5→+19.4 ✅, Tlajomulco +45.9→+2.3 ✅. Zalatitán -18.7 sin cambio ✓.
+- Sin regresión en ningún set. Mejora en cada métrica. (Nota: números offline < benchmark con web porque OPIs sin
+  datos caen a 0 sin fallback; el DELTA es lo válido. La media histórica con web sigue siendo la oficial.)
+
+---
+
 ## ⏸️ #101(a) PER-COMP POR EDAD en remiSobreComps — BLOQUEADO POR DATOS (03-Jun-2026)
 
 Objetivo de #101(a): en `remiSobreComps` (motor_remi_api.js:576-579) el `factorEdad` usa la edad del

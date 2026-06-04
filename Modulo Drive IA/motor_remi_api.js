@@ -881,12 +881,16 @@ function valuarPropiedad(prop) {
     if (sinMercadoExacto && m2T > 0) {
         const sp = sumaDePartes(muniNorm, colNorm, m2T, m2C, prop.edad || 0, prop.estadoConservacion, prop.esEjidal || false);
         if (sp && sp.valor > 0) {
-            // Promedio ponderado 60% suma_partes / 40% pool — si pool tiene algo útil
-            // Si pool tiene nComps<3, usar 100% suma_partes
+            // Promedio ponderado 60% suma_partes / 40% pool. Si pool tiene nComps<3, 100% suma_partes.
             if (compsFilt.length < 3) {
                 return { ...sp, confianza: 'MEDIA', cv: 0, pm2cAvg: Math.round(sp.valor / Math.max(m2C, 1)) };
             }
-            const valorMixto = Math.round(sp.valor * 0.6 + valor * 0.4);
+            let valorMixto = Math.round(sp.valor * 0.6 + valor * 0.4);
+            // #102: en lotes terreno-pesados sumaDePartes sobrevalúa fuerte (Emiliano Zapata, La
+            // Experiencia, Albaterra). Cuando hay comps reales (3-4), el pool es señal de mercado:
+            // si el mix la supera por >25%, recortar a pool×1.25. Asimétrico — NO toca el subvalúo
+            // (donde suma_partes legítimamente sostiene comps baratos tipo remate). (Fix #102, 03-Jun)
+            if (valor > 0 && valorMixto > valor * 1.25) valorMixto = Math.round(valor * 1.25);
             return { ...resultBase, valor: valorMixto, pm2cAvg: Math.round(valorMixto / Math.max(m2C, 1)),
                      poolTipo: 'suma_partes_mix', nComps: compsFilt.length,
                      pm2tRef: sp.pm2t, valorTerreno: sp.valorTerreno, valorConst: sp.valorConst };
