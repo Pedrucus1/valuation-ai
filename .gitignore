@@ -145,3 +145,8 @@ _backups_esquema/
 _enr_*.log
 _migrar_esquema.cjs
 scrape_active.flag
+
+# GeoNames crudo (descargable, no versionar)
+Modulo Drive IA/_geo/MX.zip
+Modulo Drive IA/_geo/MX.txt
+Modulo Drive IA/_geo/readme.txt
