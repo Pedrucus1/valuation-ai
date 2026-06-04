@@ -570,6 +570,9 @@ El desplome vs ANTECEDENTES 26-May (89.9% ±10%) se debe a cache_consolidado reb
 ### Problema estructural documentado — Cross-municipio:
 El motor restringe el pool al municipio del sujeto (`listingsEnMuni`). Colonias limítrofes en municipio contiguo no se pueden usar como comparables aunque estén a metros de distancia. Afecta especialmente Tlaquepaque↔Guadalajara. **Pendiente de fix arquitectónico** — requiere ampliar `enSim` para buscar en municipios vecinos sin afectar el pool general.
 
+**Adyacencia por MUNICIPIO: PROBADO Y REVERTIDO (04-Jun).** Mapa `MUNI_VECINOS` (AMG) + pool de vecinos SOLO en el bloque `enSim` (general intacto), mismo filtro m²C+banda. Validador `--n 200 --desde 2025-07` REGRESÓ: baseline ±15% 76.6 / ±20% 88.8 / err 10.6 → 73.8 / 86.9 / 11.4, fuera ±20% 12→14. Causa: la adyacencia a nivel municipio es **demasiado gruesa** — mete colonias de TODO el municipio vecino (muchas lejanas), no solo las limítrofes. NO reintentar así.
+**Mejora correcta (idea, pendiente de datos):** usar **CP (código postal)** como señal de proximidad fina — traer solo colonias del CP del sujeto y CPs colindantes. BLOQUEO: el caché/IDX NO tiene CP (esquema = precio/m2c/m2t/tipo/colonia/muni/anio/fecha/rec/banos/estac). Requiere proyecto de datos: capturar CP en scraper → caché, + centroides lat/lon por CP (el prefijo de CP no = distancia) → filtro por distancia real. No es parche de fórmula.
+
 ### Comparación NSE v1 vs v2 vs idx (test formal 31-May-2026):
 Script: `comparar_nse_fuentes.js` — 137 OPIs --desde 2025-07
 - v1→v2→idx (actual): **60% ±10%, 77% ±20%** ← GANADOR
