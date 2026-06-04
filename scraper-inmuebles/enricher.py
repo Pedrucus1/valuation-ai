@@ -137,7 +137,8 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
             m2 = re.search(r'antig[üu]edad\s+(\d+)\s*a[ñn]os', html, re.I)
             val = f"{m2.group(1)} años" if m2 else None
         if val:
-            if re.search(r"estrenar|nuevo|nueva", val, re.I):
+            if re.search(r"estrenar|nuev[oa]|en\s+construcci[óo]n|preventa", val, re.I):
+                # "A estrenar" / "En construcción" / "Preventa" → obra nueva = año actual
                 resultado["año_construccion"] = date.today().year
             else:
                 # value puede ser años de antigüedad (30) o un año directo (1998);
