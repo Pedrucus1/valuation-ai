@@ -15,6 +15,30 @@
 
 ---
 
+## ⏸️ #101(a) PER-COMP POR EDAD en remiSobreComps — BLOQUEADO POR DATOS (03-Jun-2026)
+
+Objetivo de #101(a): en `remiSobreComps` (motor_remi_api.js:576-579) el `factorEdad` usa la edad del
+**sujeto** y se aplica uniforme a todos los comps; la Opción 3 (MOTOR_ANTECEDENTES "Pendientes", abajo)
+es normalizar cada comp de SU edad (`c.an`) a la del sujeto.
+
+**Por qué NO se hace ahora — medido:** el caché que lee el motor tiene **0% de comps con `an`**:
+- `cache_consolidado.json`: ~22,983 listings, **con `an` = 0 (0.0%)**
+- `cache_index.json`: ~22,922 listings, **con `an` = 0 (0.0%)**
+
+El campo `an` (año) vive en Mongo `anio_construccion` (los enrichers lo están subiendo, 58→~1000+), pero el
+caché del motor es **Sheet-based** (baseline restaurado) y el Sheet no trae año. Meter `an` al caché requiere
+el rebuild desde Mongo = la **migración #107 que REGRESA** (ver abajo). Por tanto:
+- Implementar el per-comp hoy = **no-op** (dispara sobre cero comps) → el validador no movería nada.
+- El valor real solo aparece cuando: (1) enrichers terminen de subir `anio_construccion` en Mongo, y
+  (2) el caché del motor incorpore `an` (vía rebuild Mongo con re-calibración, NO swap — #107).
+
+**ACCIÓN:** #101(a) DEFERIDO hasta que `an` llegue al caché. Cuando eso pase: implementar normalización
+per-comp con fallback (si `c.an` ausente → comportamiento actual) y validar con `validar_40_opis.js`
+baseline-vs-después. #101(b) (test en vivo del fallback Serper) es independiente y sí se puede hacer aparte.
+Esto NO es perseguir atípicos — es esperar DATOS (regla #4 / feedback_motor_no_cazar_atipicos).
+
+---
+
 ## ⛔ #107 MIGRACIÓN CACHÉ Sheet→Mongo — REGRESA, NO ACTIVAR (03-Jun-2026)
 
 Se intentó cambiar la fuente del cache del motor del Sheet CONSOLIDADO a MongoDB (mercado_props), para
