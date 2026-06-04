@@ -48,17 +48,44 @@ function carpetaCoincide(folderName, year, month) {
     return pattern.test(folderName.trim());
 }
 
-// Lista archivos OPI dentro de una carpeta (sin recursión — estructura plana)
+// Lista hojas OPI de una carpeta de mes. Soporta DOS estructuras:
+//   (a) Vieja: hojas OPI sueltas directamente en la carpeta del mes.
+//   (b) Nueva (desde ~abril 2026): cada avalúo es una subcarpeta `OPI-XX-YY/`
+//       con la hoja adentro (+ PDFs, Fotos App, Pagos, etc.).
 async function listarOpisEnCarpeta(drive, folderId) {
-    const res = await drive.files.list({
+    const out = [];
+
+    // (a) Hojas OPI directas (estructura plana)
+    const planas = await drive.files.list({
         q: `'${folderId}' in parents and trashed = false and mimeType = 'application/vnd.google-apps.spreadsheet'`,
         fields: 'files(id, name)',
         supportsAllDrives: true,
         includeItemsFromAllDrives: true,
     });
-    return res.data.files
-        .filter(f => f.name.toUpperCase().startsWith('OPI'))
-        .map(f => ({ id: f.id, name: f.name }));
+    for (const f of planas.data.files.filter(f => f.name.toUpperCase().startsWith('OPI-'))) {
+        out.push({ id: f.id, name: f.name });
+    }
+
+    // (b) Subcarpetas OPI-XX → buscar la hoja del avalúo dentro
+    const subs = await drive.files.list({
+        q: `'${folderId}' in parents and trashed = false and mimeType = 'application/vnd.google-apps.folder'`,
+        fields: 'files(id, name)',
+        supportsAllDrives: true,
+        includeItemsFromAllDrives: true,
+    });
+    for (const sub of subs.data.files.filter(f => f.name.toUpperCase().startsWith('OPI-'))) {
+        const inside = await drive.files.list({
+            q: `'${sub.id}' in parents and trashed = false and mimeType = 'application/vnd.google-apps.spreadsheet'`,
+            fields: 'files(id, name)',
+            supportsAllDrives: true,
+            includeItemsFromAllDrives: true,
+        });
+        // La hoja suele llamarse igual que la subcarpeta (empieza con OPI); si no, tomar la 1ª hoja.
+        const hoja = inside.data.files.find(f => f.name.toUpperCase().startsWith('OPI')) || inside.data.files[0];
+        if (hoja) out.push({ id: hoja.id, name: hoja.name });
+    }
+
+    return out;
 }
 
 async function main() {
