@@ -759,9 +759,12 @@ def fetch_html_cdp(url: str) -> Optional[str]:
     import subprocess
     from pathlib import Path
     cdp_js = Path(__file__).parent / "scrapers" / "cdp_fetch.js"
+    # Puerto del Chrome AISLADO del scraper (9333 por defecto), no el personal (9222).
+    # Lanzar ese Chrome con lanzar_chrome_scraper.bat. (#105)
+    cdp_port = str(getattr(config, "PROPIEDADES_CDP_PORT", 9333))
     try:
         result = subprocess.run(
-            ["node", str(cdp_js), url, "9222"],
+            ["node", str(cdp_js), url, cdp_port],
             capture_output=True, text=True, encoding="utf-8", timeout=50,
         )
         html = result.stdout

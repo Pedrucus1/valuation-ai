@@ -27,7 +27,7 @@ from utils import antiblock
 _PLAIN_FETCH_JS = Path(__file__).parent / "plain_fetch.js"
 # (Legacy) Ruta al helper CDP — ya no se usa por defecto, se conserva por compatibilidad.
 _CDP_FETCH_JS = Path(__file__).parent / "cdp_fetch.js"
-CDP_PORT = getattr(config, "PROPIEDADES_CDP_PORT", 9222)
+CDP_PORT = getattr(config, "PROPIEDADES_CDP_PORT", 9333)  # Chrome aislado, no el personal 9222 (#105)
 
 # Tipos de propiedad que scrapear (genera URLs separadas por tipo)
 TIPOS_PROP_URL = ["casas", "departamentos", "terrenos"]
