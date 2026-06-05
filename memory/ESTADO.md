@@ -1,26 +1,40 @@
-# PropValu — Estado actual (snapshot de arranque)
+# Estado del Proyecto: PropValu
 
-> Único archivo a leer al iniciar sesión. Para detalle: `BACKLOG.md` (tablas, grep por #tarea), `MOTOR_ANTECEDENTES.md` (motor, grep), `BACKLOG_ARCHIVE.md` (historia).
-> **Actualizar este archivo al cerrar sesión** (no acumular narrativa — sobrescribir el estado).
+**Última Actualización:** 04 de Junio de 2026 (Fin de Sesión)
+**Fase Actual:** Estabilización, QA y Preparación para Lanzamiento Comercial.
 
-## Stack y rutas
-- Backend FastAPI `backend/server.py` (monolito en extracción, ~1786 líneas; routers en `backend/routers/`, fundación en `backend/core/`). Frontend React. Mongo Atlas. Motor IA en `Modulo Drive IA/` (`motor_remi_api.js`).
-- Python Windows: `C:\Users\pedru\AppData\Local\Python\pythoncore-3.14-64\python.exe` (nunca `python`).
-- Backend local → **staging** (`backend/.env`, cluster `cluster1.avle5ez`). Scraper → **prod**. Deploy backend prod = Railway (`railway up`, branch-agnóstico).
+## 🏆 Logros de esta Sesión (Hitos Alcanzados)
 
-## Git (al 03-Jun noche)
-- Rama `main`. **26 commits adelante de `origin/main`, SIN pushear.** Push dispara deploy Railway (incluye cambios de avalúos) → validar un avalúo antes.
-- Rama `feature/dedup-cross-portal` ya mergeada a main (existe aún).
+1. **Fichas de Promoción para Inmobiliarias (#10):**
+   - Completadas y desplegadas en el Frontend.
+   - Diseños elegantes con estilos variables (Costero, Moderno, Art Deco, Clásico).
+   - Generación de PDF dinámica con `window.print()` y autorelleno de datos del avalúo.
+   - Panel de configuración interactivo (Idiomas ES/EN, selector de estrategias de precios OPI).
 
-## Lo más caliente / próximos pasos
-1. **Push `main`→origin** cuando se valide un avalúo real (smoke-test). Despliega 26 commits de golpe.
-2. **Config #66.3:** setear `JOBS_SECRET` (GitHub secret + Railway env) o el cron mensual no autentica. También #62 `PROPVALU_BACKEND_URL`.
-3. **Enrichers**: si terminaron, **re-correr `fusionar_duplicados.py`** (baja el 19.6% no-evaluables) + considerar rebuild cache.
-4. Motor (cuando suba cobertura `an`): #101(a) per-comp edad (hoy BLOQUEADO: 0% `an` en caché), #102 suma_partes sobrevalúa, #104 similares premium/baratos.
-5. Producto: #7 pasarela de pagos, #34/#35 notificaciones (SendGrid/Twilio), #65 sync-sheets inicial.
+2. **Módulo Financiero y Payouts (#12):**
+   - Panel interactivo para control de flujos y "fugas" de dinero completado.
+   - Lógica de Split Variable (ej. 75/25) insertada.
 
-## Gotchas vigentes
-- **#107 migración cache motor Sheet→Mongo: REGRESA, NO activar.** Es proyecto de re-calibración, no swap. Ver MOTOR_ANTECEDENTES.
-- **#66.1 valuations** deferido (core avalúos bajo calibración) — no extraer aún.
-- Motor en techo ~90% sin más datos: NO perseguir OPIs atípicos; mejora viene de DATOS. Correr validador completo antes de tocar fórmulas. Guardar conclusiones en MOTOR_ANTECEDENTES en tiempo real.
-- Gemini: 1 llamada por vez (2ª consecutiva = 429). Modelo `gemini-2.5-flash`.
+3. **Sistema de Calificaciones y SEO (#13):**
+   - Se agregaron 30 testimonios persuasivos.
+   - Sistema de upsell de 4-5 estrellas para forzar reseñas públicas de PropValu.
+   - Archivo `llms.txt` público creado para SEO en motores de Inteligencia Artificial.
+
+4. **Blindaje de Escalabilidad y Rendimiento (#65):**
+   - Servidor blindado para alto tráfico.
+   - Implementación de `TTLCache` (maxsize=1000) de `cachetools` para prevenir fugas de RAM.
+   - Pool de conexiones MongoDB configurado a 200 hilos.
+   - Uvicorn configurado con 4 Workers simultáneos.
+   - Simulacro de Calidad (QA) End-to-End ejecutado con éxito total.
+
+5. **Nacimiento del "Data Exchange Program" (Descuento x Data):**
+   - Plan Estratégico desarrollado y aprobado.
+   - Mockup Funcional (Frontend) creado e inyectado en `InmobiliariaDashboardPage.jsx`.
+   - Incluye zona de Drag & Drop, descarga de plantilla, checklist de validación y Gestor de Inventario "Vivo" para capturar **Precios de Cierre reales**.
+
+## 🚧 Siguientes Pasos (Backlog Inmediato)
+- Revisión personal del usuario del Mockup de "Data Exchange" en el dashboard.
+- Construcción del "Cerebro" (Backend) para leer y validar los Excels de las inmobiliarias con IA.
+- Pasarela de Pagos (Stripe/Mercado Pago) - Pausada estratégicamente.
+- Correr la Sincronización Manual Sheets -> MongoDB.
+- Integrar notificaciones de WhatsApp (Twilio).

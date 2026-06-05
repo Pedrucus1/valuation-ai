@@ -1,0 +1,268 @@
+import React from "react";
+import { MapPin, Building, Map, Phone, Mail, User, CheckCircle2, Waves, Wind, Car, Camera, Trees, Dumbbell, Shield, Wine, Monitor, Plus, Fingerprint, Sofa, Home } from "lucide-react";
+
+const LayoutClasico = ({ fichaAvaluo, texts, idioma, descripcionTexto, theme, formatMXN, session, amenidades, instalaciones, espacios, formato }) => {
+  // Configuración de contenedores según el formato
+  let containerClasses = "";
+  let pageClasses = "";
+
+  switch (formato) {
+    case "horizontal":
+      containerClasses = "w-full max-w-[1100px] flex flex-col gap-8 print:gap-0 relative print:max-w-none";
+      pageClasses = "w-full aspect-[16/9] relative flex overflow-hidden shadow-xl print:shadow-none break-after-page page-break-after-always";
+      break;
+    case "reels":
+      containerClasses = "w-full max-w-[420px] mx-auto flex flex-col relative";
+      pageClasses = "w-full aspect-[9/16] relative flex flex-col overflow-hidden shadow-2xl bg-black";
+      break;
+    case "post":
+      containerClasses = "w-full max-w-[600px] mx-auto flex flex-col relative";
+      pageClasses = "w-full aspect-square relative flex flex-col overflow-hidden shadow-xl";
+      break;
+    case "vertical_2p":
+    default:
+      containerClasses = "w-full max-w-[800px] mx-auto flex flex-col gap-8 print:gap-0 relative print:max-w-none";
+      pageClasses = "w-full aspect-[1/1.414] relative flex flex-col overflow-hidden shadow-xl print:shadow-none break-after-page page-break-after-always";
+      break;
+  }
+
+  // --- PARSER DE ICONOS INTELIGENTE ---
+  const parseFeatureItem = (str) => {
+    const raw = str.trim();
+    // Extraer un número si existe al principio o final (Ej: "Alberca 100m2", "2 Aires")
+    const numMatch = raw.match(/\b(\d+(?:m2)?)\b/i);
+    const qty = numMatch ? numMatch[1] : null;
+    let label = raw;
+    if (qty) label = raw.replace(qty, "").replace(/\s+/, " ").trim();
+    
+    // Mapeo Inteligente
+    const lower = label.toLowerCase();
+    let Icon = CheckCircle2;
+    if (lower.includes("alberca") || lower.includes("piscina")) Icon = Waves;
+    else if (lower.includes("aire") || lower.includes("acondicionado")) Icon = Wind;
+    else if (lower.includes("auto") || lower.includes("cochera") || lower.includes("estacionamiento")) Icon = Car;
+    else if (lower.includes("camara") || lower.includes("circuito") || lower.includes("cctv")) Icon = Camera;
+    else if (lower.includes("jardin") || lower.includes("arbol") || lower.includes("areas verdes")) Icon = Trees;
+    else if (lower.includes("gym") || lower.includes("gimnasio")) Icon = Dumbbell;
+    else if (lower.includes("seguridad") || lower.includes("vigilancia") || lower.includes("caseta")) Icon = Shield;
+    else if (lower.includes("cava") || lower.includes("vino")) Icon = Wine;
+    else if (lower.includes("smart") || lower.includes("inteligente")) Icon = Monitor;
+    else if (lower.includes("biometrico") || lower.includes("huella")) Icon = Fingerprint;
+    else if (lower.includes("sala") || lower.includes("family")) Icon = Sofa;
+    else if (lower.includes("casa club")) Icon = Home;
+
+    return { label, qty, Icon };
+  };
+
+  // Si es un reel, dibujamos un diseño ultra compacto a pantalla completa
+  if (formato === "reels") {
+    return (
+      <div id="pv-ficha-root" className={containerClasses}>
+        <div className={pageClasses}>
+          <img src={fichaAvaluo?.fotos?.[0]} alt="Hero" className="absolute inset-0 w-full h-full object-cover opacity-60" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+          
+          <div className="relative z-10 flex flex-col h-full p-8 text-white">
+            <div className={`mt-auto mb-4 px-4 py-1.5 ${theme.bgAccent} rounded-full inline-block self-start`}>
+              <span className={`text-[10px] font-bold uppercase tracking-widest ${theme.textPri}`}>{fichaAvaluo.tipo}</span>
+            </div>
+            
+            <h2 className="text-4xl font-['Outfit'] font-black leading-tight mb-2 drop-shadow-md">{formatMXN(fichaAvaluo.valor)}</h2>
+            <p className="text-sm tracking-widest uppercase text-white/80 mb-8"><MapPin className="inline w-4 h-4 mr-1"/> {fichaAvaluo.direccion}</p>
+            
+            <div className="grid grid-cols-2 gap-4 mb-8">
+               {amenidades?.slice(0,4).map((am, i) => (
+                 <div key={i} className="bg-white/10 backdrop-blur-md rounded-xl p-3 border border-white/20 flex items-center justify-center text-center">
+                   <span className="text-[10px] font-bold uppercase tracking-widest leading-tight">{am}</span>
+                 </div>
+               ))}
+            </div>
+
+            <div className="bg-white text-black p-4 rounded-2xl text-center font-bold text-xs uppercase tracking-widest shadow-2xl">
+              Agenda tu visita en el Link
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Si es post cuadrado
+  if (formato === "post") {
+    return (
+      <div id="pv-ficha-root" className={containerClasses}>
+        <div className={`${pageClasses} bg-white`}>
+          <div className="h-[60%] w-full relative">
+             <img src={fichaAvaluo?.fotos?.[0]} alt="Hero" className="w-full h-full object-cover" />
+          </div>
+          <div className={`h-[40%] w-full ${theme.bgRoot} p-8 flex flex-col justify-between border-t-[12px] border-[#D4AF37]`}>
+            <div>
+              <p className={`text-[10px] uppercase tracking-widest font-bold ${theme.textSec} mb-1`}>Nueva Exclusiva</p>
+              <h2 className={`text-2xl font-bold ${theme.textPri} leading-tight truncate`}>{fichaAvaluo.direccion}</h2>
+            </div>
+            <div className="flex justify-between items-end">
+              <h1 className={`text-5xl font-black font-['Outfit'] ${theme.textPri}`}>{formatMXN(fichaAvaluo.valor)}</h1>
+              <div className="flex gap-4">
+                 <div className="text-center"><p className={`font-bold ${theme.textPri}`}>{fichaAvaluo.recamaras}</p><p className="text-[8px] uppercase tracking-widest text-slate-500">Habs</p></div>
+                 <div className="text-center"><p className={`font-bold ${theme.textPri}`}>{fichaAvaluo.banos}</p><p className="text-[8px] uppercase tracking-widest text-slate-500">Baños</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Default Vertical 2 Pages (A4) o Horizontal
+  return (
+    <div id="pv-ficha-root" className={containerClasses}>
+      
+      {/* PÁGINA 1 */}
+      <div className={`${pageClasses} ${theme.bgPage}`}>
+        <div className={`relative ${formato === 'horizontal' ? 'w-[50%] h-full' : 'h-[45%] w-full'} shrink-0`}>
+          <img src={fichaAvaluo?.fotos?.[0]} alt="Fachada" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+          
+          <div className={`absolute ${formato === 'horizontal' ? 'top-8 left-8' : 'top-8 left-8'} ${theme.bgAccent} px-4 py-1.5 rounded-full shadow-lg`}>
+            <span className={`text-xs font-bold tracking-widest uppercase ${theme.textPri}`}>{fichaAvaluo.tipo}</span>
+          </div>
+
+          <div className={`absolute ${formato === 'horizontal' ? 'bottom-8 left-8' : '-bottom-8 right-10'} bg-gradient-to-r ${theme.heroGrad} px-8 py-4 rounded-2xl shadow-2xl z-20`}>
+            <p className="text-[10px] text-white/80 uppercase tracking-widest font-bold mb-1">{idioma === 'es' ? 'Precio de Venta' : 'Asking Price'}</p>
+            <h1 className="text-4xl font-black text-white font-['Outfit']">{formatMXN(fichaAvaluo.valor)}</h1>
+          </div>
+        </div>
+
+        <div className={`flex-1 flex flex-col p-10 relative z-10 ${formato === 'horizontal' ? 'justify-center' : 'pt-12'}`}>
+          <div className="mb-8">
+             <h2 className={`text-2xl font-bold ${theme.textPri} mb-2 leading-tight`}>{fichaAvaluo.direccion}</h2>
+             <p className={`text-sm ${theme.textSec} flex items-center gap-2`}><MapPin className={`w-4 h-4 ${theme.accent}`}/> Ubicación Premium</p>
+          </div>
+
+          <div className="grid grid-cols-4 gap-4 pb-8 border-b border-slate-100 mb-8">
+            <div className="text-center">
+              <div className={`${theme.bgAccent} w-10 h-10 mx-auto rounded-full flex items-center justify-center mb-2`}><Building className={`w-4 h-4 ${theme.accent}`} /></div>
+              <p className={`font-bold ${theme.textPri} text-base`}>{fichaAvaluo.m2_construccion || 0}</p>
+              <p className="text-[8px] text-slate-500 uppercase tracking-widest font-bold">m² Const.</p>
+            </div>
+            <div className="text-center">
+              <div className={`${theme.bgAccent} w-10 h-10 mx-auto rounded-full flex items-center justify-center mb-2`}><Map className={`w-4 h-4 ${theme.accent}`} /></div>
+              <p className={`font-bold ${theme.textPri} text-base`}>{fichaAvaluo.m2_terreno || 0}</p>
+              <p className="text-[8px] text-slate-500 uppercase tracking-widest font-bold">m² Terr.</p>
+            </div>
+            <div className="text-center">
+              <div className={`${theme.bgAccent} w-10 h-10 mx-auto rounded-full flex items-center justify-center mb-2`}><span className={`font-bold ${theme.accent} text-lg font-['Outfit']`}>{fichaAvaluo.recamaras || 0}</span></div>
+              <p className="text-[8px] text-slate-500 uppercase tracking-widest font-bold">{texts.recamaras}</p>
+            </div>
+            <div className="text-center">
+              <div className={`${theme.bgAccent} w-10 h-10 mx-auto rounded-full flex items-center justify-center mb-2`}><span className={`font-bold ${theme.accent} text-lg font-['Outfit']`}>{fichaAvaluo.banos || 0}</span></div>
+              <p className="text-[8px] text-slate-500 uppercase tracking-widest font-bold">{texts.banos}</p>
+            </div>
+          </div>
+
+          <div className="flex-1">
+            <h3 className={`text-[11px] font-bold ${theme.textPri} uppercase tracking-widest mb-3 flex items-center gap-2`}><CheckCircle2 className={`w-4 h-4 ${theme.accent}`}/> {texts.descripcion}</h3>
+            <p className={`text-sm leading-relaxed text-justify ${theme.textSec}`}>{descripcionTexto}</p>
+          </div>
+        </div>
+      </div>
+
+      {/* PÁGINA 2 - Detalles de Lujo y Contacto */}
+      {formato === 'vertical_2p' && (
+        <div className={`${pageClasses} ${theme.bgPage} p-12 flex flex-col justify-between`}>
+          
+          {/* Listados */}
+          <div className="flex-1 flex flex-col gap-10">
+            {/* Amenidades */}
+            <div>
+              <h3 className={`text-lg font-bold ${theme.textPri} uppercase tracking-widest mb-6 border-b-2 border-slate-100 pb-2`}>{idioma === 'es' ? 'Amenidades de Lujo' : 'Luxury Amenities'}</h3>
+              <div className="grid grid-cols-3 gap-6">
+                {amenidades?.map((am, i) => {
+                  const { label, qty, Icon } = parseFeatureItem(am);
+                  return (
+                    <div key={i} className={`flex items-center gap-3 p-3 ${theme.bgRoot} rounded-xl border border-slate-100`}>
+                      <div className={`p-2 rounded-full ${theme.bgAccent} shrink-0`}><Icon className={`w-4 h-4 ${theme.accent}`}/></div>
+                      <div className="flex flex-col">
+                         <span className={`text-xs font-bold ${theme.textSec} capitalize leading-tight`}>{label}</span>
+                         {qty && <span className={`text-[10px] font-black ${theme.textPri} uppercase tracking-widest mt-0.5`}>{qty}</span>}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="flex gap-10">
+              <div className="flex-1">
+                <h3 className={`text-sm font-bold ${theme.textPri} uppercase tracking-widest mb-4 border-b border-slate-100 pb-2`}>{idioma === 'es' ? 'Instalaciones Especiales' : 'Special Installations'}</h3>
+                <ul className="space-y-4">
+                  {instalaciones?.map((inst, i) => {
+                    const { label, qty, Icon } = parseFeatureItem(inst);
+                    return (
+                      <li key={i} className={`flex items-center justify-between border-b border-slate-50 pb-2`}>
+                        <div className="flex items-center gap-3"><Icon className={`w-4 h-4 text-slate-400`}/><span className={`text-xs ${theme.textSec}`}>{label}</span></div>
+                        {qty && <span className={`text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-bold uppercase`}>{qty}</span>}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+              <div className="flex-1">
+                <h3 className={`text-sm font-bold ${theme.textPri} uppercase tracking-widest mb-4 border-b border-slate-100 pb-2`}>{idioma === 'es' ? 'Espacios Interiores' : 'Interior Spaces'}</h3>
+                <ul className="space-y-4">
+                  {espacios?.map((esp, i) => {
+                    const { label, qty, Icon } = parseFeatureItem(esp);
+                    return (
+                      <li key={i} className={`flex items-center justify-between border-b border-slate-50 pb-2`}>
+                        <div className="flex items-center gap-3"><Icon className={`w-4 h-4 text-slate-400`}/><span className={`text-xs ${theme.textSec}`}>{label}</span></div>
+                        {qty && <span className={`text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-bold uppercase`}>{qty}</span>}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Galería Secundaria (Mitad inferior) */}
+          <div className="h-[200px] w-full grid grid-cols-3 gap-4 mt-8 mb-8">
+            {fichaAvaluo?.fotos?.slice(1, 4).map((f, i) => (
+              <div key={i} className="w-full h-full bg-slate-200 rounded-2xl overflow-hidden shadow-inner"><img src={f} className="w-full h-full object-cover" alt="Detalle" /></div>
+            ))}
+          </div>
+
+          {/* Contacto Asesor */}
+          <div className={`${theme.bgRoot} rounded-2xl p-6 border border-slate-100 flex items-center justify-between`}>
+             <div className="flex items-center gap-4">
+               <div className="w-16 h-16 rounded-full bg-slate-200 border-2 border-white shadow-md flex items-center justify-center overflow-hidden">
+                 {session?.user?.photoURL ? <img src={session.user.photoURL} alt="Asesor" className="w-full h-full object-cover"/> : <User className="w-8 h-8 text-slate-400"/>}
+               </div>
+               <div>
+                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">{texts.asesor}</p>
+                 <p className={`text-lg font-bold ${theme.textPri}`}>{session?.user?.name || session?.user?.email?.split('@')[0] || "Asesor Inmobiliario"}</p>
+                 <div className="flex items-center gap-4 mt-1">
+                   {session?.user?.phone && <span className={`text-[10px] font-bold ${theme.textSec} flex items-center gap-1`}><Phone className="w-3 h-3"/> {session.user.phone}</span>}
+                   <span className={`text-[10px] font-bold ${theme.textSec} flex items-center gap-1`}><Mail className="w-3 h-3"/> {session?.user?.email}</span>
+                 </div>
+               </div>
+             </div>
+             <div className="flex items-center gap-6">
+                <div className="text-right">
+                  <p className={`text-[10px] font-bold ${theme.textPri} uppercase tracking-widest mb-1`}>Agenda tu cita</p>
+                  <p className="text-xs text-slate-500">Escanea el código QR</p>
+                </div>
+                <div className="w-20 h-20 bg-white p-2 rounded-xl border border-slate-200 flex flex-col items-center justify-center shadow-sm">
+                   {/* QR Placeholder. Can use a real react-qr-code later */}
+                   <div className="w-full h-full border-4 border-black border-dashed opacity-20"></div>
+                </div>
+             </div>
+          </div>
+
+        </div>
+      )}
+
+    </div>
+  );
+};
+
+export default LayoutClasico;

@@ -485,17 +485,26 @@ const ValuadorDashboardPage = () => {
   /* ── Facturación Tab ── */
   const FacturacionTab = () => {
     const [encargos, setEncargos] = useState([]);
+    const [payouts, setPayouts] = useState([]);
     const [loadingEnc, setLoadingEnc] = useState(true);
 
     useEffect(() => {
       const tok = session?.session_token || "";
-      fetch(`${API}/encargos/mis-encargos`, {
-        headers: tok ? { Authorization: `Bearer ${tok}` } : {},
-        credentials: "include",
-      })
-        .then(r => r.ok ? r.json() : { items: [] })
-        .then(d => setEncargos(d.items || []))
-        .catch(() => setEncargos([]))
+      Promise.all([
+        fetch(`${API}/encargos/mis-encargos`, {
+          headers: tok ? { Authorization: `Bearer ${tok}` } : {},
+          credentials: "include",
+        }).then(r => r.ok ? r.json() : { items: [] }),
+        fetch(`${API}/payouts/mis-pagos`, {
+          headers: tok ? { Authorization: `Bearer ${tok}` } : {},
+          credentials: "include",
+        }).then(r => r.ok ? r.json() : { items: [] })
+      ])
+        .then(([encData, payData]) => {
+          setEncargos(encData.items || []);
+          setPayouts(payData.items || []);
+        })
+        .catch(() => { setEncargos([]); setPayouts([]); })
         .finally(() => setLoadingEnc(false));
     }, []);
 
@@ -609,7 +618,7 @@ const ValuadorDashboardPage = () => {
                   <thead>
                     <tr className="border-b border-slate-100">
                       <th className="text-left py-2 text-xs font-bold text-slate-400 uppercase tracking-wide">Descripción</th>
-                      <th className="text-right py-2 text-xs font-bold text-slate-400 uppercase tracking-wide">Tu comisión (80%)</th>
+                      <th className="text-right py-2 text-xs font-bold text-slate-400 uppercase tracking-wide">Tu comisión</th>
                       <th className="text-center py-2 text-xs font-bold text-slate-400 uppercase tracking-wide">Fecha</th>
                       <th className="text-center py-2 text-xs font-bold text-slate-400 uppercase tracking-wide">Estado</th>
                     </tr>
@@ -639,8 +648,54 @@ const ValuadorDashboardPage = () => {
           </CardContent>
         </Card>
 
+        {/* Tabla de Lotes de Pago (Payouts) */}
+        <Card className="bg-white border-0 shadow-sm mt-5">
+          <CardContent className="p-5">
+            <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide mb-3">Historial de Pagos (Lotes Mensuales)</p>
+            {loadingEnc ? (
+              <p className="text-sm text-slate-400 text-center py-4">Cargando…</p>
+            ) : payouts.length === 0 ? (
+              <p className="text-sm text-slate-400 text-center py-4">Aún no tienes pagos generados.</p>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-slate-100">
+                      <th className="text-left py-2 text-xs font-bold text-slate-400 uppercase tracking-wide">Mes</th>
+                      <th className="text-center py-2 text-xs font-bold text-slate-400 uppercase tracking-wide">Encargos</th>
+                      <th className="text-right py-2 text-xs font-bold text-slate-400 uppercase tracking-wide">Monto Depositado</th>
+                      <th className="text-center py-2 text-xs font-bold text-slate-400 uppercase tracking-wide">Estado</th>
+                      <th className="text-center py-2 text-xs font-bold text-slate-400 uppercase tracking-wide">Fecha Pago</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {payouts.map(p => (
+                      <tr key={p.payout_id} className="border-b border-slate-50">
+                        <td className="py-2.5 text-slate-700 font-medium">{p.mes}</td>
+                        <td className="py-2.5 text-center text-slate-600">{p.cantidad_encargos}</td>
+                        <td className="py-2.5 text-right font-semibold text-[#1B4332]">
+                          {new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 }).format(p.monto_total)}
+                        </td>
+                        <td className="py-2.5 text-center">
+                          {p.estado === "pagado"
+                            ? <span className="text-xs bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-full px-2 py-0.5 flex items-center justify-center gap-1 w-fit mx-auto"><CheckCircle2 className="w-3 h-3" /> Pagado</span>
+                            : <span className="text-xs bg-amber-50 text-amber-700 border border-amber-200 rounded-full px-2 py-0.5">En Revisión</span>
+                          }
+                        </td>
+                        <td className="py-2.5 text-center text-slate-500 text-xs">
+                          {p.fecha_pago ? new Date(p.fecha_pago).toLocaleDateString("es-MX") : "—"}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
         {/* Preferencia de cobro */}
-        <Card className="bg-white border-0 shadow-sm">
+        <Card className="bg-white border-0 shadow-sm mt-5">
           <CardContent className="p-5">
             <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide mb-3">Preferencia de renovación</p>
             <div className="space-y-2">

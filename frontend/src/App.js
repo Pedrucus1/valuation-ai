@@ -34,6 +34,8 @@ import ValuadoresDirectorioPage from "@/pages/ValuadoresDirectorioPage";
 import InmobiliariasDirectorioPage from "@/pages/InmobiliariasDirectorioPage";
 import PoliticaAnunciosPage from "@/pages/PoliticaAnunciosPage";
 import ValuadorRedPage from "@/pages/ValuadorRedPage";
+import ForgotPasswordPage from "@/pages/ForgotPasswordPage";
+import ResetPasswordPage from "@/pages/ResetPasswordPage";
 
 // Admin
 import AdminLogin from "@/pages/admin/AdminLogin";
@@ -128,6 +130,8 @@ function AppRouter() {
       <Route path="/para-valuadores" element={<ValuadorPage />} />
       <Route path="/para-inmobiliarias" element={<InmobiliariaPage />} />
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+      <Route path="/reset-password" element={<ResetPasswordPage />} />
       <Route path="/anunciantes" element={<AdvertiserLandingPage />} />
       <Route path="/anunciantes/registro" element={<AdvertiserRegisterPage />} />
       <Route path="/anunciantes/consola" element={<AdvertiserConsolePage />} />

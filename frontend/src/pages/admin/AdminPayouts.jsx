@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import AdminLayout from "@/components/AdminLayout";
 import { PageHeader, AdminCard, GradThead, EmptyState, FilterBar, PrimaryBtn } from "@/components/AdminUI";
-import { DollarSign, Plus, CheckCircle2, Clock, RefreshCw, X } from "lucide-react";
+import { DollarSign, Plus, CheckCircle2, Clock, RefreshCw, X, Layers } from "lucide-react";
 import { adminFetch } from "@/lib/adminFetch";
 
 const fmtMXN = v => new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 }).format(v || 0);
@@ -49,7 +49,7 @@ function ModalNuevoEncargo({ valuadores, onClose, onCreado }) {
             </select>
           </div>
           <div>
-            <label className="text-xs font-bold text-slate-400 uppercase tracking-wide">Descripción del encargo</label>
+            <label className="text-xs font-bold text-slate-400 uppercase tracking-wide">Descripción</label>
             <input
               value={form.descripcion}
               onChange={e => setForm(f => ({ ...f, descripcion: e.target.value }))}
@@ -59,32 +59,13 @@ function ModalNuevoEncargo({ valuadores, onClose, onCreado }) {
             />
           </div>
           <div>
-            <label className="text-xs font-bold text-slate-400 uppercase tracking-wide">Precio total cobrado (MXN)</label>
+            <label className="text-xs font-bold text-slate-400 uppercase tracking-wide">Cobro total (MXN)</label>
             <input
               type="number"
               value={form.precio_total}
               onChange={e => setForm(f => ({ ...f, precio_total: e.target.value }))}
-              required
-              min="1"
-              placeholder="2000"
+              required min="1" placeholder="2000"
               className="mt-1 w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#52B788]/40"
-            />
-            {precio > 0 && (
-              <p className="text-xs text-slate-500 mt-1.5 flex items-center gap-1">
-                <span className="text-[#1B4332] font-semibold">Valuador: {fmtMXN(precio * 0.8)}</span>
-                <span className="text-slate-300">·</span>
-                <span>PropValu: {fmtMXN(precio * 0.2)}</span>
-              </p>
-            )}
-          </div>
-          <div>
-            <label className="text-xs font-bold text-slate-400 uppercase tracking-wide">Notas internas (opcional)</label>
-            <textarea
-              value={form.notas_admin}
-              onChange={e => setForm(f => ({ ...f, notas_admin: e.target.value }))}
-              rows={2}
-              placeholder="Referencia, número de expediente, etc."
-              className="mt-1 w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none resize-none"
             />
           </div>
           <PrimaryBtn type="submit" disabled={saving} className="w-full justify-center py-2.5">
@@ -97,26 +78,13 @@ function ModalNuevoEncargo({ valuadores, onClose, onCreado }) {
 }
 
 export default function AdminPayouts() {
-  const [data, setData] = useState({ total: 0, pendiente: 0, items: [] });
+  const [data, setData] = useState({ total: 0, items: [] });
   const [loading, setLoading] = useState(true);
   const [valuadores, setValuadores] = useState([]);
-  const [filtroPagado, setFiltroPagado] = useState("");
-  const [filtroValuador, setFiltroValuador] = useState("");
   const [modalNuevo, setModalNuevo] = useState(false);
+  const [filtroEstado, setFiltroEstado] = useState("");
+  const [generando, setGenerando] = useState(false);
   const [pagando, setPagando] = useState(null);
-
-  const fetchData = useCallback(async () => {
-    setLoading(true);
-    try {
-      const params = new URLSearchParams({ limit: 100 });
-      if (filtroPagado) params.set("pagado", filtroPagado);
-      if (filtroValuador) params.set("valuador_id", filtroValuador);
-      const res = await adminFetch(`/api/admin/encargos?${params}`);
-      setData(res);
-    } catch { /* ignore */ } finally { setLoading(false); }
-  }, [filtroPagado, filtroValuador]);
-
-  useEffect(() => { fetchData(); }, [fetchData]);
 
   useEffect(() => {
     adminFetch("/api/admin/usuarios?skip=0&limit=200&role=appraiser")
@@ -124,34 +92,62 @@ export default function AdminPayouts() {
       .catch(() => {});
   }, []);
 
+  const fetchData = useCallback(async () => {
+    setLoading(true);
+    try {
+      const params = new URLSearchParams({ limit: 100 });
+      if (filtroEstado) params.set("estado", filtroEstado);
+      const res = await adminFetch(`/api/admin/payouts?${params}`);
+      setData(res);
+    } catch { /* ignore */ } finally { setLoading(false); }
+  }, [filtroEstado]);
+
+  useEffect(() => { fetchData(); }, [fetchData]);
+
   const marcarPagado = async (id) => {
+    if (!window.confirm("¿Confirmas que ya realizaste el pago a este valuador?")) return;
     setPagando(id);
     try {
-      await adminFetch(`/api/admin/encargos/${id}/pagar`, { method: "PUT" });
+      await adminFetch(`/api/admin/payouts/${id}/pagar`, { method: "PUT" });
       fetchData();
     } finally { setPagando(null); }
   };
 
-  const pendienteCount = data.items.filter(e => !e.pago_realizado).length;
-  const liquidado = data.items.filter(e => e.pago_realizado).reduce((s, e) => s + (e.comision_valuador || 0), 0);
+  const generarPayouts = async () => {
+    if (!window.confirm("¿Agrupar todos los encargos completados pendientes de pago en nuevos lotes mensuales?")) return;
+    setGenerando(true);
+    try {
+      const res = await adminFetch("/api/admin/payouts/generar", { method: "POST" });
+      alert(`Se generaron ${res.payouts_creados} lotes de pago.`);
+      fetchData();
+    } finally { setGenerando(false); }
+  };
+
+  const pendienteCount = data.items.filter(e => e.estado === "pendiente_revision").length;
+  const liquidado = data.items.filter(e => e.estado === "pagado").reduce((s, e) => s + (e.monto_total || 0), 0);
 
   return (
     <AdminLayout>
       <div className="max-w-5xl mx-auto flex flex-col gap-6">
 
-        <PageHeader icon={DollarSign} title="Payouts Valuadores"
-          subtitle="Gestión de encargos y liquidación de comisiones 80/20">
-          <PrimaryBtn icon={Plus} onClick={() => setModalNuevo(true)}>
-            Registrar encargo
-          </PrimaryBtn>
+        <PageHeader icon={DollarSign} title="Payouts (Lotes Mensuales)"
+          subtitle="Agrupación y pago mensual de comisiones a Valuadores">
+          <div className="flex gap-2">
+            <PrimaryBtn icon={Plus} onClick={() => setModalNuevo(true)} className="bg-slate-700 hover:bg-slate-800">
+              Registrar Encargo
+            </PrimaryBtn>
+            <PrimaryBtn icon={Layers} onClick={generarPayouts} disabled={generando}>
+              {generando ? "Generando..." : "Generar Payouts"}
+            </PrimaryBtn>
+          </div>
         </PageHeader>
 
         {/* KPIs */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {[
-            { icon: Clock,        label: "Pendientes de pago", value: pendienteCount,                             sub: fmtMXN(data.pendiente), iconBg: "bg-amber-50",  iconColor: "text-amber-600" },
-            { icon: CheckCircle2, label: "Pagados (filtro)",   value: data.items.filter(e => e.pago_realizado).length, sub: fmtMXN(liquidado),      iconBg: "bg-green-50", iconColor: "text-emerald-600" },
-            { icon: DollarSign,   label: "Total encargos",     value: data.total,                                 sub: "",                     iconBg: "bg-[#F0FAF5]", iconColor: "text-[#1B4332]" },
+            { icon: Clock,        label: "Lotes Pendientes", value: pendienteCount,                             sub: "", iconBg: "bg-amber-50",  iconColor: "text-amber-600" },
+            { icon: CheckCircle2, label: "Lotes Pagados",   value: data.items.filter(e => e.estado === "pagado").length, sub: fmtMXN(liquidado),      iconBg: "bg-green-50", iconColor: "text-emerald-600" },
+            { icon: DollarSign,   label: "Total Lotes",     value: data.total,                                 sub: "",                     iconBg: "bg-[#F0FAF5]", iconColor: "text-[#1B4332]" },
           ].map(k => (
             <div key={k.label} className="bg-white rounded-xl border border-[#B7E4C7] shadow-sm overflow-hidden">
               <div className="h-1 bg-[#52B788]" />
@@ -170,23 +166,13 @@ export default function AdminPayouts() {
         {/* Filtros */}
         <FilterBar title="Filtros">
           <select
-            value={filtroPagado}
-            onChange={e => setFiltroPagado(e.target.value)}
+            value={filtroEstado}
+            onChange={e => setFiltroEstado(e.target.value)}
             className="appearance-none border border-slate-200 rounded-xl px-4 py-2 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-[#52B788]/40"
           >
             <option value="">Todos los estados</option>
-            <option value="false">Pendientes</option>
-            <option value="true">Pagados</option>
-          </select>
-          <select
-            value={filtroValuador}
-            onChange={e => setFiltroValuador(e.target.value)}
-            className="appearance-none border border-slate-200 rounded-xl px-4 py-2 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-[#52B788]/40"
-          >
-            <option value="">Todos los valuadores</option>
-            {valuadores.map(v => (
-              <option key={v.user_id} value={v.user_id}>{v.name}</option>
-            ))}
+            <option value="pendiente_revision">Pendientes</option>
+            <option value="pagado">Pagados</option>
           </select>
           <button onClick={fetchData} className="flex items-center gap-2 bg-white border border-slate-200 rounded-xl px-3 py-2 text-sm text-slate-600 hover:bg-slate-50">
             <RefreshCw className="w-4 h-4" />
@@ -194,41 +180,44 @@ export default function AdminPayouts() {
         </FilterBar>
 
         {/* Tabla */}
-        <AdminCard icon={DollarSign} title="Encargos registrados">
+        <AdminCard icon={DollarSign} title="Lotes de Pago">
           <div className="p-0">
             {loading ? (
               <p className="text-sm text-slate-400 text-center py-8">Cargando…</p>
             ) : data.items.length === 0 ? (
-              <EmptyState icon={DollarSign} title="No hay encargos con estos filtros"
-                sub="Registra el primer encargo con el botón de arriba" />
+              <EmptyState icon={DollarSign} title="No hay payouts"
+                sub="Haz clic en Generar Payouts para agrupar encargos pendientes" />
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
-                  <GradThead cols={["Valuador", "Descripción", { label: "Total", className: "text-right" }, { label: "Comisión (80%)", className: "text-right" }, "Fecha", "Estado", ""]} />
+                  <GradThead cols={["Valuador", "Mes", "Encargos", { label: "A Pagar (MXN)", className: "text-right" }, "Creación", "Estado", ""]} />
                   <tbody>
                     {data.items.map(e => (
-                      <tr key={e.encargo_id} className="border-b border-slate-50 hover:bg-slate-50/50">
-                        <td className="py-2.5 px-4 font-medium text-slate-800">{e.valuador_nombre || e.valuador_id}</td>
-                        <td className="py-2.5 px-4 text-slate-600 max-w-[200px] truncate">{e.descripcion}</td>
-                        <td className="py-2.5 px-4 text-right text-slate-600">{fmtMXN(e.precio_total)}</td>
-                        <td className="py-2.5 px-4 text-right font-semibold text-[#1B4332]">{fmtMXN(e.comision_valuador)}</td>
+                      <tr key={e.payout_id} className="border-b border-slate-50 hover:bg-slate-50/50">
+                        <td className="py-2.5 px-4">
+                          <div className="font-medium text-slate-800">{e.valuador_nombre}</div>
+                          <div className="text-xs text-slate-400">{e.valuador_email}</div>
+                        </td>
+                        <td className="py-2.5 px-4 text-slate-600">{e.mes}</td>
+                        <td className="py-2.5 px-4 text-center text-slate-600">{e.cantidad_encargos}</td>
+                        <td className="py-2.5 px-4 text-right font-semibold text-[#1B4332]">{fmtMXN(e.monto_total)}</td>
                         <td className="py-2.5 px-4 text-xs text-slate-500">
-                          {e.fecha_completado ? new Date(e.fecha_completado).toLocaleDateString("es-MX") : "—"}
+                          {new Date(e.fecha_creacion).toLocaleDateString("es-MX")}
                         </td>
                         <td className="py-2.5 px-4">
-                          {e.pago_realizado
+                          {e.estado === "pagado"
                             ? <span className="text-xs bg-green-100 text-green-700 rounded-full px-2 py-0.5">Pagado</span>
                             : <span className="text-xs bg-amber-100 text-amber-700 rounded-full px-2 py-0.5">Pendiente</span>
                           }
                         </td>
                         <td className="py-2.5 px-4 text-right">
-                          {!e.pago_realizado && (
+                          {e.estado !== "pagado" && (
                             <button
-                              onClick={() => marcarPagado(e.encargo_id)}
-                              disabled={pagando === e.encargo_id}
+                              onClick={() => marcarPagado(e.payout_id)}
+                              disabled={pagando === e.payout_id}
                               className="text-xs bg-[#1B4332] hover:bg-[#163828] text-white rounded-lg px-3 py-1 disabled:opacity-60 font-semibold"
                             >
-                              {pagando === e.encargo_id ? "…" : "Marcar pagado"}
+                              {pagando === e.payout_id ? "…" : "Marcar pagado"}
                             </button>
                           )}
                         </td>
@@ -247,7 +236,7 @@ export default function AdminPayouts() {
         <ModalNuevoEncargo
           valuadores={valuadores}
           onClose={() => setModalNuevo(false)}
-          onCreado={() => { setModalNuevo(false); fetchData(); }}
+          onCreado={() => { setModalNuevo(false); alert("Encargo registrado (aparecerá al Generar Payouts)"); }}
         />
       )}
     </AdminLayout>

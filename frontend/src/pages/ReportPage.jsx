@@ -19,10 +19,112 @@ import {
 } from "lucide-react";
 import { API } from "@/App";
 import AdOverlay from "@/components/AdOverlay";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
 
 const ReportPage = () => {
   const { valuationId } = useParams();
   const navigate = useNavigate();
+
+  // Review flow states
+  const [appraiserRating, setAppraiserRating] = useState(0);
+  const [appraiserComment, setAppraiserComment] = useState("");
+  const [showPropValuModal, setShowPropValuModal] = useState(false);
+  const [propValuRating, setPropValuRating] = useState(5);
+  const [propValuComment, setPropValuComment] = useState("");
+  const [isSubmittingReview, setIsSubmittingReview] = useState(false);
+  const [appraiserReviewDone, setAppraiserReviewDone] = useState(false);
+
+  const allOptions = [
+    "La información es valiosísima. De no haber tenido este avalúo exacto, seguramente habría perdido muchísimo dinero al malbaratar mi casa.",
+    "Me ahorró semanas de investigación y el estrés enorme de no saber si estaba tomando una buena decisión financiera.",
+    "Increíble la precisión del reporte, me dio la tranquilidad absoluta para sentarme a negociar el precio correcto sin dudar.",
+    "Una herramienta indispensable. Pude tomar una decisión de compra importantísima con total seguridad y respaldo.",
+    "El nivel de detalle es asombroso. Siento que por fin tengo el control total sobre lo que vale mi patrimonio.",
+    "Valió cada centavo pagado. Este reporte literalmente me protegió de cometer un error que me hubiera costado muy caro.",
+    "Me sorprendió muchísimo lo rápido y fácil que fue obtener información tan profesional, limpia y 100% confiable.",
+    "Gracias a este avalúo, logré vender mi propiedad a un precio súper justo, muy rápido y sin complicaciones.",
+    "Me dio una perspectiva clara y súper objetiva del mercado actual. Fue una excelente inversión para mi tranquilidad mental.",
+    "Nunca imaginé que un proceso tan complejo y aburrido como valuar una casa pudiera resolverse de forma tan sencilla y moderna.",
+    "La mejor herramienta para cualquier decisión inmobiliaria. Te entregan información de primera calidad al instante.",
+    "Me siento muchísimo más seguro al momento de dar el anticipo para comprar, sabiendo que el precio está avalado por datos duros.",
+    "Un auténtico salvavidas financiero. El reporte me mostró detalles de la zona que ni siquiera había considerado y subieron el valor.",
+    "Eficiencia y exactitud en su máxima expresión. La plataforma me ahorró muchísimos dolores de cabeza e incertidumbre.",
+    "Tener este nivel de certeza no tiene precio. Totalmente recomendado para cualquier persona que quiera evitar riesgos al vender.",
+    "Súper transparentes con todo el proceso. Pude demostrarle al comprador por qué mi casa vale lo que pido.",
+    "Me sacaron de un apuro rapidísimo. Urgía saber el valor comercial para un trámite y el sistema me lo dio en minutos.",
+    "Me encantó la atención y el formato del PDF. 10/10, se ve súper profesional cuando lo mandas por WhatsApp.",
+    "Si estás dudando en usarlo, hazlo. Me ahorré muchísimo dinero de pérdida por no saber en cuánto andaba la zona realmente.",
+    "Fácil de usar, sin rollos técnicos. Me entregaron el reporte clarísimo y entendí perfecto de dónde salió el precio.",
+    "Increíble lo potente que es esta Inteligencia Artificial. Me analizó cosas del entorno que un valuador tradicional jamás vio.",
+    "Completamente satisfecho con el resultado. Me dio muchísima seguridad para no regalar mi propiedad.",
+    "Recomendadísimo. Si vas a comprar casa, saca este avalúo primero para que no te vayan a ver la cara con el precio.",
+    "Excelente plataforma. Te ahorra la burocracia de ir a contratar a alguien físico y esperar semanas por un papel.",
+    "Los datos de plusvalía y servicios de la colonia están súper acertados. Definitivamente una inversión inteligentísima.",
+    "La interfaz es amigable y te guía paso a paso. No necesitas ser un genio de las finanzas para sacar un avalúo profesional.",
+    "Me encantó que pude descargar mi reporte en PDF y mandárselo a mi cliente al instante. Cero fricción, muy buen servicio.",
+    "Superó mis expectativas. Pensé que sería algo muy básico por ser tan rápido, pero la cantidad de datos es nivel experto.",
+    "Definitivamente la mejor opción costo-beneficio del mercado. Evitas fraudes, ahorras tiempo y ganas muchísima tranquilidad.",
+    "Lo usé para calcular el valor de una propiedad y el margen de error fue nulo cuando lo comparé. Súper confiable."
+  ];
+
+  const [randomOptions, setRandomOptions] = useState([]);
+
+  useEffect(() => {
+    if (showPropValuModal && randomOptions.length === 0) {
+      const shuffled = [...allOptions].sort(() => 0.5 - Math.random());
+      setRandomOptions(shuffled.slice(0, 3));
+    }
+  }, [showPropValuModal]);
+
+  const submitAppraiserReview = async () => {
+    if (!appraiserRating) {
+      toast.error("Por favor, selecciona una calificación (estrellas)");
+      return;
+    }
+    setIsSubmittingReview(true);
+    try {
+      await fetch(`${API}/reviews/appraiser`, {
+         method: "POST",
+         headers: { "Content-Type": "application/json" },
+         credentials: "include",
+         body: JSON.stringify({
+           valuador_id: valuation?.user_id || "unknown",
+           valuation_id: valuationId,
+           rating: appraiserRating,
+           comment: appraiserComment
+         })
+      });
+      setAppraiserReviewDone(true);
+      toast.success("¡Gracias por tu calificación!");
+    } catch (error) {
+      toast.error("Error al enviar calificación");
+    } finally {
+      setIsSubmittingReview(false);
+    }
+  };
+
+  const submitPropValuReview = async () => {
+    setIsSubmittingReview(true);
+    try {
+      await fetch(`${API}/reviews/platform`, {
+         method: "POST",
+         headers: { "Content-Type": "application/json" },
+         credentials: "include",
+         body: JSON.stringify({
+           rating: propValuRating,
+           comment: propValuComment
+         })
+      });
+      setShowPropValuModal(false);
+      toast.success("¡Gracias por ayudarnos a mejorar!");
+    } catch (error) {
+      toast.error("Error al enviar reseña de plataforma");
+    } finally {
+      setIsSubmittingReview(false);
+    }
+  };
+
   const [valuation, setValuation] = useState(null);
   const [reportHtml, setReportHtml] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -45,6 +147,31 @@ const ReportPage = () => {
     fetchValuation();
   }, [valuationId]);
 
+  const checkAndShowReviewModal = async () => {
+    if (sessionStorage.getItem(`propvalu_review_seen_${valuationId}`)) return;
+    sessionStorage.setItem(`propvalu_review_seen_${valuationId}`, "true");
+
+    try {
+      const res = await fetch(`${API}/auth/me`, { credentials: "include" });
+      if (!res.ok) {
+        setShowPropValuModal(true);
+        return;
+      }
+      const user = await res.json();
+      const role = (user.role || user.tipo || "").toLowerCase();
+      if (role === 'valuador' || role === 'inmobiliaria') {
+        const count = user.count || user.valuations_count || user.evaluations_count || user.total_valuations || user.reportes_generados || 0;
+        if (count > 0 && count % 10 === 0) {
+          setShowPropValuModal(true);
+        }
+      } else {
+        setShowPropValuModal(true);
+      }
+    } catch {
+      setShowPropValuModal(true);
+    }
+  };
+
   const fetchValuation = async () => {
     try {
       const response = await fetch(`${API}/valuations/${valuationId}`, {
@@ -58,8 +185,10 @@ const ReportPage = () => {
       const data = await response.json();
       setValuation(data);
 
-      if (data.report_html) {
+        if (data.report_html) {
         setReportHtml(data.report_html);
+        // If already generated, we wait a bit and show modal if applicable
+        setTimeout(checkAndShowReviewModal, 3000);
       } else if (data.result) {
         // If calculated but no report, generate it with default options
         generateReport(true);
@@ -125,6 +254,9 @@ const ReportPage = () => {
       }
 
       toast.success("Reporte generado exitosamente");
+      
+      // Delay slightly before showing the review modal
+      setTimeout(checkAndShowReviewModal, 2000);
     } catch (error) {
       console.error("Error:", error);
       toast.error(error.message || "Error al generar reporte");
@@ -450,28 +582,115 @@ const ReportPage = () => {
       )}
 
       {/* CTA — calificar valuador */}
-      {result && (
+      {result && valuation?.mode === "private" && !appraiserReviewDone && (
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-6 no-print">
-          <div className="rounded-xl border border-amber-200 bg-amber-50 p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center shrink-0">
-                <Star className="w-5 h-5 text-amber-600" />
+          <div className="rounded-xl border border-amber-200 bg-amber-50 p-5">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center shrink-0">
+                  <Star className="w-5 h-5 text-amber-600" />
+                </div>
+                <div>
+                  <p className="font-semibold text-amber-900 text-sm">Califica el servicio de tu valuador</p>
+                  <p className="text-amber-700 text-xs mt-0.5">Tu opinión ayuda a mantener la calidad de nuestra red.</p>
+                </div>
               </div>
-              <div>
-                <p className="font-semibold text-amber-900 text-sm">¿Te atendió un valuador certificado?</p>
-                <p className="text-amber-700 text-xs mt-0.5">Tu opinión ayuda a otros usuarios a elegir al mejor profesional.</p>
+              <div className="flex gap-1 shrink-0">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <button
+                    key={star}
+                    onClick={() => setAppraiserRating(star)}
+                    className={`p-1 rounded-full transition-colors ${appraiserRating >= star ? "text-amber-500" : "text-amber-200 hover:text-amber-300"}`}
+                  >
+                    <Star className="w-8 h-8 fill-current" />
+                  </button>
+                ))}
               </div>
             </div>
-            <Button
-              onClick={() => navigate("/valuadores")}
-              className="bg-amber-500 hover:bg-amber-600 text-white text-sm shrink-0"
-            >
-              Calificar valuador
-              <Star className="w-4 h-4 ml-2" />
-            </Button>
+            
+            {appraiserRating > 0 && (
+              <div className="mt-4 pt-4 border-t border-amber-200 flex flex-col items-end gap-3 animate-in fade-in slide-in-from-top-2">
+                <Textarea 
+                  placeholder="Escribe un breve comentario sobre el valuador (opcional)"
+                  value={appraiserComment}
+                  onChange={(e) => setAppraiserComment(e.target.value)}
+                  className="bg-white border-amber-200 text-sm min-h-[80px]"
+                />
+                <Button
+                  onClick={submitAppraiserReview}
+                  disabled={isSubmittingReview}
+                  className="bg-amber-500 hover:bg-amber-600 text-white"
+                >
+                  {isSubmittingReview ? "Enviando..." : "Enviar Calificación"}
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       )}
+
+      {/* PropValu Review Modal */}
+      <Dialog open={showPropValuModal} onOpenChange={setShowPropValuModal}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-center text-[#1B4332] text-xl font-bold font-['Outfit'] flex items-center justify-center gap-2">
+              <Star className="w-6 h-6 text-[#52B788] fill-current" />
+              ¡Gracias por tu reseña!
+            </DialogTitle>
+            <DialogDescription className="text-center text-slate-600">
+              Nos alegra que hayas tenido una gran experiencia. ¿Nos ayudarías calificando a PropValu?
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="py-4 space-y-4">
+            <div className="flex justify-center gap-2">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <button
+                  key={star}
+                  onClick={() => setPropValuRating(star)}
+                  className={`p-1 rounded-full transition-colors ${propValuRating >= star ? "text-[#52B788]" : "text-slate-200"}`}
+                >
+                  <Star className="w-10 h-10 fill-current" />
+                </button>
+              ))}
+            </div>
+            
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-slate-700">Comentario rápido:</label>
+              <div className="flex flex-col gap-2">
+                {randomOptions.map((opt, i) => (
+                  <Badge 
+                    key={i} 
+                    variant="outline" 
+                    className="cursor-pointer hover:bg-[#F0FDF4] hover:border-[#52B788] hover:text-[#1B4332] whitespace-normal text-left py-2 px-3"
+                    onClick={() => setPropValuComment(opt)}
+                  >
+                    {opt}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+            
+            <Textarea
+              placeholder="O escribe tu propio comentario..."
+              value={propValuComment}
+              onChange={(e) => setPropValuComment(e.target.value)}
+              className="resize-none"
+            />
+          </div>
+          
+          <DialogFooter className="sm:justify-stretch">
+            <Button 
+              type="button" 
+              onClick={submitPropValuReview}
+              disabled={isSubmittingReview || !propValuComment}
+              className="w-full bg-[#1B4332] hover:bg-[#2D6A4F] text-white"
+            >
+              {isSubmittingReview ? "Enviando..." : "Publicar reseña"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       {/* Slot 2 — durante generación con IA */}
       {showSlot2Ad && (

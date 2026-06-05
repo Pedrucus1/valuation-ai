@@ -1,0 +1,168 @@
+◇ injected env (12) from ..\.env // tip: ⌘ suppress logs { quiet: true }
+◇ injected env (0) from ..\.env // tip: ◈ secrets for agents [www.dotenvx.com]
+
+=== VALIDACIÓN remi vs PERITO — OPIs 1–126 de 126 candidatos ===
+
+🔶 ATIP OPI-26-4-09-AV   Zapopan     Lomas de Tabachines   perito:  5225k  motor:     0k  diff:    N/A  pool:atipica  n:  0
+✅ ±10% OPI-26-4-08-OF   Zapopan     Villas Belenes        perito:  3874k  motor:  3826k  diff:  -1.2%  pool:suma_par n:  3
+✅ ±10% OPI-26-4-07-OF   Guadalajara Colon Industrial      perito:  2091k  motor:  1996k  diff:  -4.5%  pool:similare n:  4
+✅ ±10% OPI-26-4-06-OF   Zapopan     Mariano Otero         perito:  1739k  motor:  1815k  diff:  +4.4%  pool:exacta   n:  2
+🔶 ATIP OPI-26-4-04-OF   Tlajomulco  Colinas de Cajititla  perito: 10370k  motor:     0k  diff:    N/A  pool:atipica  n:  0
+✅ ±10% OPI-26-4-03-OF   Zapopan     San Isidro Ejidal     perito:  1782k  motor:  1804k  diff:  +1.2%  pool:suma_par n:  3
+✅ ±10% OPI-26-4-02-OF   Guadalajara Santa Maria Guadalaj  perito:  1740k  motor:  1745k  diff:  +0.3%  pool:similare n:  4
+✅ ±10% OPI-26-4-01-OF   San Pedro T Cantera Colorada      perito:  2612k  motor:  2740k  diff:  +4.9%  pool:general  n:  8
+✅ ±10% OPI-26-3-24-OF   Tlajomulco  Bosque Real           perito:  3230k  motor:  2907k  diff: -10.0%  pool:exacta   n:  6
+✅ ±10% OPI-26-3-18-OF   Zapopan     Tabachines            perito:  2345k  motor:  2457k  diff:  +4.8%  pool:similare n: 15
+✅ ±10% OPI-26-3-16-OF   Zapopan     Zapopan               perito:  3192k  motor:  3192k  diff:  +0.0%  pool:similare n: 15
+✅ ±10% OPI-26-3-15-OF   Tlajomulco. Tlajomulco.           perito:  3896k  motor:  4147k  diff:  +6.4%  pool:suma_par n:  3
+✅ ±10% OPI-26-3-13-OF   Tlajomulco  Vista Sur             perito:  1278k  motor:  1322k  diff:  +3.4%  pool:exacta   n:  9
+✅ ±10% OPI-26-3-08-OF   Tlajomulco  Colinas de Santa Ani  perito:  6074k  motor:  6055k  diff:  -0.3%  pool:exacta   n:  7
+⚠️  ±20% OPI-26-3-05-OF   Zapopan     Altagracia            perito:  1194k  motor:   980k  diff: -17.9%  pool:exacta   n:  3
+✅ ±10% OPI-26-3-03-OF   Guadalajara Jardines de San Jose  perito:  3093k  motor:  3144k  diff:  +1.6%  pool:exacta   n:  3
+✅ ±10% OPI-26-3-02-OF   Tlajomulco  Hacienda Santa Fe     perito:   829k  motor:   792k  diff:  -4.5%  pool:exacta   n:  6
+✅ ±10% OPI-26-3-01-OF   Tlajomulco  Hacienda Santa Fe     perito:  1617k  motor:  1769k  diff:  +9.4%  pool:exacta   n:  3
+✅ ±10% OPI-26-2-26-OF   Tlajomulco  Balcones de Santa An  perito:  1016k  motor:  1080k  diff:  +6.3%  pool:similare n: 10
+📈 MKTD OPI-26-2-25-OF   Zapopan     Colli Urbano          perito:  3962k  motor:  4814k  diff: +21.5%  pool:exacta   n:  8
+✅ ±10% OPI-26-2-24-OF   Guadalajara La Guadalupana        perito:  2537k  motor:  2502k  diff:  -1.4%  pool:similare n:  5
+✅ ±10% OPI-26-2-23-OF   Zapopan     Francisco Sarabia     perito:  3212k  motor:  3446k  diff:  +7.3%  pool:exacta   n:  5
+✅ ±10% OPI-26-2-22-OF   Zapopan     Camino Real           perito:  8935k  motor:  9059k  diff:  +1.4%  pool:exacta   n:  4
+❌ FALLA OPI-26-2-21-OF   Zapopan     Paseo los Agaves      perito:  1164k  motor:  1498k  diff: +28.7%  pool:suma_par n:  4
+⚠️  ±20% OPI-26-2-20-OF   Guadalajara Echeverría            perito:  2523k  motor:  2102k  diff: -16.7%  pool:similare n:  7
+✅ ±10% OPI-26-2-19-OF   Tonalá      Tonalá                perito:  1709k  motor:  1793k  diff:  +4.9%  pool:similare n:  7
+⚠️  ±20% OPI-26-2-18-OF   Zapopan     Santa Margarita       perito:  3559k  motor:  3974k  diff: +11.7%  pool:exacta   n:  2
+✅ ±10% OPI-26-2-15-OF   Guadalajara Echeverría            perito:  2874k  motor:  3024k  diff:  +5.2%  pool:similare n: 13
+✅ ±10% OPI-26-2-14-OF   San Pedro T Paseos del Prado.     perito:  1110k  motor:  1140k  diff:  +2.7%  pool:general  n: 10
+✅ ±10% OPI-26-2-13-OF   Tonalá      Parques de la Victor  perito:   838k  motor:   898k  diff:  +7.1%  pool:similare n:  6
+✅ ±10% OPI-26-2-11-OF   Guadalajara Buenos Aires          perito:  2571k  motor:  2502k  diff:  -2.7%  pool:similare n:  3
+✅ ±10% OPI-26-2-10-OF   Tonalá      El Cerrito            perito:  1537k  motor:  1537k  diff:  +0.0%  pool:similare n: 12
+⚠️  ±20% OPI-26-2-08-OF   El Salto    El Castillo           perito:   925k  motor:   822k  diff: -11.1%  pool:suma_par n:  3
+✅ ±10% OPI-26-2-07-OF   Tlajomulco  Secc 12122            perito:   847k  motor:   790k  diff:  -6.7%  pool:similare n:  8
+✅ ±10% OPI-26-2-06-OF   Zapopan     Paseo del Prado       perito:   743k  motor:   764k  diff:  +2.8%  pool:general  n:  8
+✅ ±10% OPI-26-2-05-OF   Zapopan     Las Agujas            perito:  1747k  motor:  1668k  diff:  -4.5%  pool:similare n: 15
+🔶 ATIP OPI-26-2-04-OF   Zapopan     J. de Guadalupe       perito: 10863k  motor:     0k  diff:    N/A  pool:atipica  n:  0
+⚠️  ±20% OPI-26-2-03-OF   Tonalá      El Campanario Tonalá  perito:   941k  motor:   773k  diff: -17.8%  pool:general  n:  9
+✅ ±10% OPI-26-2-02-OF   Guadalajara El Bethel             perito:  1968k  motor:  2078k  diff:  +5.6%  pool:similare n: 11
+⚠️  ±20% OPI-26-2-01-OF   Guadalajara Miguel Hidalgo        perito:  3781k  motor:  3111k  diff: -17.7%  pool:similare n:  6
+❌ FALLA OPI-26-1-19-OF   Guadalajara Las Conchas           perito:  6653k  motor:  4264k  diff: -35.9%  pool:general  n:  9
+⛔ EXCL OPI-26-1-15-OF   Zapopan     Hogares de Nuevo Méx  perito:  4486k  motor:  8978k  diff:+100.1%  pool:suma_par n:  8
+✅ ±10% OPI-26-1-14-OF   Tonalá      San Francisco         perito:  1595k  motor:  1535k  diff:  -3.8%  pool:similare n:  5
+✅ ±10% OPI-26-1-13-OF   San Pedro T San Rafael            perito:  1970k  motor:  1942k  diff:  -1.4%  pool:general  n: 10
+✅ ±10% OPI-26-1-12-OF   Tonalá      Col Valle de San Nic  perito:  2188k  motor:  2181k  diff:  -0.3%  pool:similare n:  6
+❌ FALLA OPI-26-1-11-OF   Zapopan     Vista Hermosa         perito:  2762k  motor:  3452k  diff: +25.0%  pool:suma_par n:  3
+⛔ EXCL OPI-26-1-10-OF   El Salto    Minerales             perito:  1514k  motor:  1441k  diff:  -4.8%  pool:suma_par n:  3
+✅ ±10% OPI-26-1-09-OF   Guadalajara Bosques del Boulevar  perito:  2769k  motor:  2769k  diff:  +0.0%  pool:similare n: 14
+✅ ±10% OPI-26-1-08-OF   Guadalajara Villa Guerrero        perito:  3571k  motor:  3362k  diff:  -5.9%  pool:similare n: 15
+✅ ±10% OPI-26-1-07-OF   Zapopan     Parques deo Auditori  perito:  1486k  motor:  1482k  diff:  -0.3%  pool:general  n:  7
+✅ ±10% OPI-26-1-06-OF   Zapopan     Parques del Auditori  perito:  1481k  motor:  1482k  diff:  +0.0%  pool:general  n:  7
+✅ ±10% OPI-26-1-05-OF   Zapopan     Tabachines            perito:  3939k  motor:  3711k  diff:  -5.8%  pool:similare n: 15
+✅ ±10% OPI-26-1-02-OF   Zapopan     Santa Margarita       perito:  1776k  motor:  1733k  diff:  -2.4%  pool:similare n:  6
+✅ ±10% OPI-26-1-01-OF   Guadalajara Lagos de Oriente      perito:  1212k  motor:  1212k  diff:  -0.0%  pool:similare n:  3
+✅ ±10% OPI-25-12-11-OF  Tlajomulco  Fraccionamiento San   perito:   565k  motor:   518k  diff:  -8.3%  pool:similare n:  5 [2025×1.04]
+⚠️  OPIT OPI-25-12-07-OF  Zapopan     Mision del Bosque     perito:  2285k  motor:  1819k  diff: -20.4%  pool:similare n: 15 [2025×1.04]
+⚠️  ±20% OPI-25-12-06-OF  Tonalá      Cd Aztlán             perito:  2112k  motor:  2419k  diff: +14.5%  pool:general  n:  9 [2025×1.04]
+✅ ±10% OPI-25-12-02-OF  Zapopan     Chapalita las Fuente  perito:  4930k  motor:  4652k  diff:  -5.6%  pool:similare n: 11 [2025×1.04]
+✅ ±10% OPI-25-12-04-OF  Guadalajara El Fortin             perito:  2578k  motor:  2474k  diff:  -4.0%  pool:exacta   n:  3 [2025×1.04]
+✅ ±10% OPI-25-12-01-OF  Zapopan     Colinas del Rey       perito:  6112k  motor:  5878k  diff:  -3.8%  pool:similare n: 14 [2025×1.04]
+🔶 ATIP OPI-25-11-15-OF  Guadalajara Rancho Nuevo          perito:  7326k  motor:     0k  diff:    N/A  pool:atipica  n:  0 [2025×1.04]
+✅ ±10% OPI-25-11-14-OF  Zapopan     Auditorio             perito:  1455k  motor:  1514k  diff:  +4.0%  pool:similare n:  8 [2025×1.04]
+⚠️  ±20% OPI-25-11-13-OF  Zapopan     Campo Real            perito:  1697k  motor:  1892k  diff: +11.5%  pool:exacta   n:  5 [2025×1.04]
+⛔ EXCL OPI-25-11-12-OF  Guadalajara Balcones de Oblatos   perito:  1062k  motor:   856k  diff: -19.4%  pool:similare n:  6 [2025×1.04]
+✅ ±10% OPI-25-11-11-OF  Zapopan     Villas de la Haciend  perito:  1378k  motor:  1306k  diff:  -5.2%  pool:similare n: 10 [2025×1.04]
+⚠️  OPIT OPI-25-11-10-OF  Tlajomulco  Hacienda Santa Fe     perito:   657k  motor:   465k  diff: -29.3%  pool:exacta   n:  5 [2025×1.04]
+⚠️  ±20% OPI-25-11-09-OF  Zapopan     El Batán              perito:  1534k  motor:  1357k  diff: -11.5%  pool:general  n:  8 [2025×1.04]
+⚠️  OPIT OPI-25-11-07-OF  Guadalajara San Elías             perito:  2530k  motor:  1971k  diff: -22.1%  pool:similare n:  3 [2025×1.04]
+⚠️  ±20% OPI-25-11-04-OF  Guadalajara Colonia Oblatos       perito:  1045k  motor:  1181k  diff: +13.0%  pool:similare n:  4 [2025×1.04]
+✅ ±10% OPI-25-11-03-OF  Zapopan     Cañadas de San Loren  perito:  2986k  motor:  2866k  diff:  -4.0%  pool:similare n:  6 [2025×1.04]
+❌ FALLA OPI-25-11-02-OF  San Pedro T Tinajitas             perito:  2844k  motor:  2073k  diff: -27.1%  pool:general  n:  7 [2025×1.04]
+⚠️  OPIT OPI-25-10-17-OF  Zapopan     Paseos del Sol        perito:  3381k  motor:  2832k  diff: -16.2%  pool:exacta   n:  4 [2025×1.04]
+✅ ±10% OPI-25-10-14-OF  Guadalajara Miravalle             perito:  1524k  motor:  1488k  diff:  -2.4%  pool:exacta   n:  3 [2025×1.04]
+⚠️  ±20% OPI-25-10-10-OF  San Pedro T San Rafael Tlaquepaq  perito:  2258k  motor:  1831k  diff: -18.9%  pool:general  n:  6 [2025×1.04]
+✅ ±10% OPI-25-10-05-OF  Guadalajara Miguel de la Madrid   perito:  3504k  motor:  3515k  diff:  +0.3%  pool:general  n:  8 [2025×1.04]
+✅ ±10% OPI-25-10-06-LS  Tlajomulco  Parques del Castillo  perito:   826k  motor:   760k  diff:  -8.0%  pool:similare n:  8 [2025×1.04]
+✅ ±10% OPI-25-10-05-LS  Tlajomulco  Parques del Castillo  perito:  1407k  motor:  1431k  diff:  +1.7%  pool:similare n: 13 [2025×1.04]
+⚠️  ±20% OPI-25-10-04-OF  Zapopan     Puerta del Roble      perito: 14566k  motor: 12229k  diff: -16.0%  pool:similare n: 14 [2025×1.04]
+✅ ±10% OPI-25-10-03-OF  Tlajomulco  Villas Terranova      perito:  2014k  motor:  1985k  diff:  -1.5%  pool:similare n: 14 [2025×1.04]
+⛔ EXCL OPI-25-10-02-OF  Tonalá      San José del Quince   perito:  3111k  motor:  2806k  diff:  -9.8%  pool:suma_par n:  3 [2025×1.04]
+✅ ±10% OPI-25-9-17-LS   Tlajomulco  Naturezza             perito:  2690k  motor:  2559k  diff:  -4.9%  pool:similare n: 15 [2025×1.04]
+✅ ±10% OPI-25-9-16-OF   Tlajomulco  San Francisco de la   perito:  1654k  motor:  1659k  diff:  +0.4%  pool:general  n:  9 [2025×1.04]
+✅ ±10% OPI-25-9-15-OF   Guadalajara Monumental            perito:  2471k  motor:  2248k  diff:  -9.0%  pool:similare n:  7 [2025×1.04]
+✅ ±10% OPI-25-9-13-OF   Guadalajara Centro                perito:  1971k  motor:  1854k  diff:  -5.9%  pool:similare n:  5 [2025×1.04]
+⚠️  ±20% OPI-25-9-09-OF   El Salto    Baja California Las   perito:  2325k  motor:  1932k  diff: -16.9%  pool:similare n:  5 [2025×1.04]
+✅ ±10% OPI-25-9-08-OF   Zapopan     Cond. 2 Altaterra     perito:  3126k  motor:  3026k  diff:  -3.2%  pool:general  n:  9 [2025×1.04]
+⚠️  ±20% OPI-25-9-04-OF   Guadalajara San Isidro            perito:  1602k  motor:  1906k  diff: +19.0%  pool:similare n:  5 [2025×1.04]
+✅ ±10% OPI-25-9-03-OF   Guadalajara San Andres            perito:  2578k  motor:  2479k  diff:  -3.8%  pool:similare n:  8 [2025×1.04]
+❌ FALLA OPI-25-9-02-OF   Guadalajara Heliodoro Hernández   perito:  1698k  motor:   662k  diff: -61.0%  pool:similare n:  3 [2025×1.04]
+⚠️  ±20% OPI-25-9-01-OF   Zapopan     Colonia Emiliano Zap  perito:  2010k  motor:  1658k  diff: -17.5%  pool:suma_par n:  4 [2025×1.04]
+✅ ±10% OPI-25-8-17-LM   Zapopan     Real Valdepeñas       perito:  4080k  motor:  3924k  diff:  -3.8%  pool:exacta   n:  3 [2025×1.04]
+✅ ±10% OPI-25-8-16-LM   Guadalajara Guadalajara           perito:  4238k  motor:  4075k  diff:  -3.8%  pool:similare n: 15 [2025×1.04]
+✅ ±10% OPI-25-8-11-LM   Zapopan     Cañadas de San Loren  perito:  2713k  motor:  2681k  diff:  -1.2%  pool:similare n:  6 [2025×1.04]
+✅ ±10% OPI-25-8-05-LM   Zapopan     Vista California      perito:  1585k  motor:  1523k  diff:  -3.9%  pool:similare n: 15 [2025×1.04]
+✅ ±10% OPI-25-8-03-LM   Tlajomulco  Jardines del Vergel   perito:  2813k  motor:  2843k  diff:  +1.0%  pool:similare n: 15 [2025×1.04]
+⚠️  ±20% OPI-25-7-23-AV   Zapopan     Haciendas del Valle   perito:  1678k  motor:  1348k  diff: -19.6%  pool:similare n: 13 [2025×1.04]
+⚠️  OPIT OPI-25-7-22-LM   Zapopan     Misión del Bosque     perito:  1645k  motor:  2031k  diff: +23.4%  pool:similare n: 15 [2025×1.04]
+⛔ EXCL OPI-25-7-21-LM   Guadalajara Lázaro Cárdenas       perito:  1507k  motor:  2106k  diff: +39.8%  pool:similare n:  4 [2025×1.04]
+⛔ EXCL OPI-25-7-20-LM   San Pedro T Colonial Tlaquepaque  perito:  1232k  motor:   853k  diff: -30.8%  pool:general  n:  9 [2025×1.04]
+✅ ±10% OPI-25-7-18-LM   Tlajomulco  Villas de Zapotepec   perito:   882k  motor:   920k  diff:  +4.4%  pool:similare n: 15 [2025×1.04]
+⚠️  ±20% OPI-25-7-15-LM   Tonalá      Zalatitán             perito:  2038k  motor:  1658k  diff: -18.7%  pool:suma_par n:  3 [2025×1.04]
+✅ ±10% OPI-25-7-14-LM   Guadalajara La Paz                perito:  2832k  motor:  2702k  diff:  -4.6%  pool:similare n:  5 [2025×1.04]
+⚠️  OPIT OPI-25-7-13-LM   Zapopan     Pinar de la Calma     perito:  3036k  motor:  2555k  diff: -15.8%  pool:exacta   n:  3 [2025×1.04]
+✅ ±10% OPI-25-7-12-LM   Tlajomulco  Las Grullas Residenc  perito:  3815k  motor:  3971k  diff:  +4.1%  pool:exacta   n:  4 [2025×1.04]
+🔶 ATIP OPI-25-7-11-LM   Zapopan     Las Fuentes           perito: 16867k  motor:     0k  diff:    N/A  pool:atipica  n:  0 [2025×1.04]
+⚠️  ±20% OPI-25-7-10-LM   San Pedro T Tlaquepaque           perito:  1289k  motor:  1094k  diff: -15.1%  pool:general  n: 10 [2025×1.04]
+✅ ±10% OPI-25-7-09-LM   Zapopan     Colinas del Rey       perito:  6158k  motor:  6032k  diff:  -2.1%  pool:similare n: 14 [2025×1.04]
+📈 MKTD OPI-25-7-08-OF   Zapopan     Jardines de Guadalup  perito:  3797k  motor:  4823k  diff: +27.0%  pool:exacta   n:  6 [2025×1.04]
+✅ ±10% OPI-25-7-05-OF   Guadalajara Insurgentes           perito:  2098k  motor:  1897k  diff:  -9.6%  pool:similare n:  3 [2025×1.04]
+⚠️  ±20% OPI-25-7-04-OF   Zapopan     Cd del Sol            perito:  6273k  motor:  7401k  diff: +18.0%  pool:similare n: 11 [2025×1.04]
+❌ FALLA OPI-25-7-03-OF   San Pedro T Loma Bonita Ejidal    perito:  3316k  motor:  2539k  diff: -23.4%  pool:general  n:  7 [2025×1.04]
+✅ ±10% OPI-25-7-01-LM   Guadalajara Torre 9               perito:  1558k  motor:  1633k  diff:  +4.8%  pool:similare n:  6 [2025×1.04]
+❌ FALLA OPI-26-5-24-AV   Guadalajara Jardines de La Cruz   perito:  5048k  motor:  3982k  diff: -21.1%  pool:exacta   n:  7
+❌ FALLA OPI-26-5-22-AV   San Pedro T Artesanos             perito:  2355k  motor:  1073k  diff: -54.5%  pool:general  n: 10
+✅ ±10% OPI-26-5-21-AV   Guadalajara Miguel Hidalgo        perito:  1544k  motor:  1606k  diff:  +4.0%  pool:similare n:  3
+✅ ±10% OPI-26-5-20-AV   Zapopan     Quintas del Federali  perito:  2760k  motor:  2855k  diff:  +3.4%  pool:general  n: 10
+⚠️  ±20% OPI-26-5-17-OF   Guadalajara Nueva Santa María     perito:  1535k  motor:  1248k  diff: -18.7%  pool:similare n:  4
+❌ FALLA OPI-26-5-16-OF   Tlaquepaque lote 12               perito:  2030k  motor:   960k  diff: -52.7%  pool:general  n:  9
+❌ FALLA OPI-26-5-15-OF   Zapopan     Nueva España          perito:   736k  motor:  1455k  diff: +97.7%  pool:general  n:  7
+✅ ±10% OPI-26-5-13-AV   San Pedro T Las Liebres           perito:  2672k  motor:  2734k  diff:  +2.3%  pool:general  n:  7
+❌ FALLA OPI-26-5-09-AV   Tlaquepaque El Vergel             perito:  1737k  motor:  1377k  diff: -20.7%  pool:general  n:  7
+❌ FALLA OPI-26-5-06-AV   Guadalajara Lagos de Oriente      perito:  1483k  motor:   940k  diff: -36.6%  pool:similare n:  3
+❌ FALLA OPI-26-4-15-AV   Tonalá      Educadores Jaliscien  perito:  3867k  motor:  5617k  diff: +45.3%  pool:similare n:  8
+⚠️  ±20% OPI-26-4-14-LS   San Pedro T Jardines de Santa Ma  perito:  1177k  motor:  1316k  diff: +11.8%  pool:general  n: 10
+✅ ±10% OPI-26-4-13-AV   Tlaquepaque Parques de Santa Cru  perito:  1132k  motor:  1240k  diff:  +9.6%  pool:similare n:  6
+❌ FALLA OPI-26-4-12-AV   Tlajomulco  El Paraíso            perito:  1841k  motor:  3376k  diff: +83.4%  pool:exacta   n:  3
+
+═══════════════════════════════════════════════════════════
+
+── GLOBAL 2023-2026 (107 OPIs) ─────────────────────
+  ✅ ±10%: 72/107 (67.3%)
+  🎯 ±15%: 79/107 (73.8%)
+  ⚠️  ±20%: 93/107 (86.9%)
+  📊 error abs: 11.4%  |  mediana: 5.2%
+
+── 2024-2026 (confianza alta) (107 OPIs) ─────────────────────
+  ✅ ±10%: 72/107 (67.3%)
+  🎯 ±15%: 79/107 (73.8%)
+  ⚠️  ±20%: 93/107 (86.9%)
+  📊 error abs: 11.4%  |  mediana: 5.2%
+
+🔶 Atípicas (m²C>300): 5  |  sin comps: 0
+⛔ EXCLUIDOS (perito sin datos): OPI-26-1-15-OF, OPI-26-1-10-OF, OPI-25-11-12-OF, OPI-25-10-02-OF, OPI-25-7-21-LM, OPI-25-7-20-LM
+📈 MERCADO (motor correcto, perito desactualizado): OPI-26-2-25-OF, OPI-25-7-08-OF
+⚠️  OUTLIER_PERITO (comps premium atípicos): OPI-25-12-07-OF, OPI-25-11-10-OF, OPI-25-11-07-OF, OPI-25-10-17-OF, OPI-25-7-22-LM, OPI-25-7-13-LM
+Pools: suma_partes_mix:10 | similares:62 | exacta:23 | general:25 | suma_partes:1
+
+FUERA ±20% (14):
+  OPI-26-5-15-OF   diff:+97.7%  pool:general  n:7
+  OPI-26-4-12-AV   diff:+83.4%  pool:exacta  n:3
+  OPI-25-9-02-OF   diff:-61.0%  pool:similares  n:3
+  OPI-26-5-22-AV   diff:-54.5%  pool:general  n:10
+  OPI-26-5-16-OF   diff:-52.7%  pool:general  n:9
+  OPI-26-4-15-AV   diff:+45.3%  pool:similares  n:8
+  OPI-26-5-06-AV   diff:-36.6%  pool:similares  n:3
+  OPI-26-1-19-OF   diff:-35.9%  pool:general  n:9
+  OPI-26-2-21-OF   diff:+28.7%  pool:suma_partes_mix  n:4
+  OPI-25-11-02-OF  diff:-27.1%  pool:general  n:7
+  OPI-26-1-11-OF   diff:+25.0%  pool:suma_partes_mix  n:3
+  OPI-25-7-03-OF   diff:-23.4%  pool:general  n:7
+  OPI-26-5-24-AV   diff:-21.1%  pool:exacta  n:7
+  OPI-26-5-09-AV   diff:-20.7%  pool:general  n:7
+

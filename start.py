@@ -11,6 +11,7 @@ result = subprocess.call([
     sys.executable, "-m", "uvicorn", "server:app",
     "--host", "0.0.0.0",
     "--port", port,
-    "--app-dir", "/app/backend"
+    "--workers", "4",
+    "--app-dir", "backend"
 ])
 sys.exit(result)

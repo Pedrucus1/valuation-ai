@@ -61,6 +61,8 @@ const _maestro = fs.existsSync(MAESTRO_PATH)
     ? (() => { const { _meta, ...c } = JSON.parse(fs.readFileSync(MAESTRO_PATH, 'utf8')); return c; })()
     : null;
 
+const { coloniasCercanas } = require('./_geo/proximidad.cjs');
+
 // Fuentes legacy: SOLO se cargan si no hay maestro (compatibilidad / red de seguridad).
 const _nse    = !_maestro && fs.existsSync(COLONIAS_NSE_PATH)  ? JSON.parse(fs.readFileSync(COLONIAS_NSE_PATH,  'utf8')) : {};
 const _nse2   = !_maestro && fs.existsSync(COLONIAS_NSE2_PATH) ? JSON.parse(fs.readFileSync(COLONIAS_NSE2_PATH, 'utf8')) : {};
@@ -772,6 +774,40 @@ function valuarPropiedad(prop) {
             candidatos = [...enColonia, ...enSim];
             poolTipo = 'similares';
         }
+    }
+
+    if (candidatos.length < 3 && !coloniaEsVaga) {
+        const cercanas = coloniasCercanas(colNorm, muniNorm, 2.5);
+        const yaIncluidas = new Set([colNorm, ...similares.map(s => normCol(s))]);
+        let agregadosPorCP = false;
+        
+        for (const c of cercanas) {
+            if (yaIncluidas.has(c.colonia)) continue;
+            
+            const listingsCercana = listingsEnMuni(normMuni(c.municipio), tipo)
+                .filter(d => normCol(d.colonia) === c.colonia);
+                
+            const filtrados = listingsCercana.filter(d => {
+                if (m2C > 0 && Math.abs(d.m2c - m2C) / Math.max(d.m2c, m2C) >= 0.50) return false;
+                const pm2 = d.precio / d.m2c;
+                return pm2 >= bandaMin && pm2 <= bandaMax;
+            });
+            
+            // Aplicar el mismo filtro NSE que similares (±1)
+            const filtradosNSE = nseSubjeto ? filtrados.filter(d => {
+                const nsd = getNSE(c.colonia);
+                if (!nsd) return true; // sin NSE: mantener (asumimos válido por proximidad)
+                return Math.abs(nsd.nseIdx - nseSubjeto.nseIdx) <= 1;
+            }) : filtrados;
+
+            if (filtradosNSE.length > 0) {
+                candidatos.push(...filtradosNSE);
+                yaIncluidas.add(c.colonia);
+                agregadosPorCP = true;
+                if (candidatos.length >= 5) break; // cap de refuerzo
+            }
+        }
+        if (agregadosPorCP) poolTipo = poolTipo === 'exacta' ? 'similares+cp' : poolTipo + '+cp';
     }
 
     if (candidatos.length < 3) {

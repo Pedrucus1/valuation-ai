@@ -155,6 +155,7 @@
  "campo real": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45134",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -241,6 +242,7 @@
  "colinas del rey": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45130",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -641,6 +643,7 @@
  "ciudad del sol": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45050",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -924,6 +927,7 @@
  "valle imperial": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45134",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -1055,6 +1059,7 @@
  "las aguilas": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45080",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -1491,6 +1496,7 @@
  "jardines vallarta": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45027",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -1555,6 +1561,7 @@
  "jardines del valle": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45138",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -1712,6 +1719,7 @@
  "villa de los belenes": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45157",
   "nse": {
    "v1": {
     "nse": "interes-social",
@@ -1748,6 +1756,7 @@
  "bugambilias": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45238",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -1905,6 +1914,7 @@
  "paseos del sol": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45079",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -2178,6 +2188,7 @@
  "santa ana tepetitlan": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45230",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -2648,6 +2659,7 @@
  "solares": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45019",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -2817,6 +2829,7 @@
  "mesa colorada oriente": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45189",
   "nse": {
    "v1": {
     "nse": "economico",
@@ -3050,6 +3063,7 @@
  "miramar": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45060",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -3257,6 +3271,7 @@
  "chapalita las fuentes": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45030",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -3310,6 +3325,7 @@
  "lomas de guadalupe": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45038",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -3386,6 +3402,7 @@
  "la cima": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45134",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -3683,6 +3700,7 @@
  "la estancia": {
   "municipio": "Tala",
   "zona": "Otro",
+  "cp": "45306",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -3843,6 +3861,7 @@
  "lomas altas": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45128",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -3963,6 +3982,7 @@
  "chapalita": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44500",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -4059,6 +4079,7 @@
  "jardines de nuevo mexico": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45138",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -4470,6 +4491,7 @@
  "tabachines": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45188",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -4567,6 +4589,7 @@
  "parques de tesistan": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45200",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -4838,6 +4861,7 @@
  "vallarta universidad": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45110",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -4930,6 +4954,7 @@
  "diaz ordaz": {
   "municipio": "Puerto Vallarta",
   "zona": "Costa-Sur",
+  "cp": "48310",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -4957,6 +4982,7 @@
  "bosques del centinela": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45187",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -5025,6 +5051,7 @@
  "jardines del sol": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45050",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -5106,6 +5133,7 @@
  "colinas de san isidro": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45133",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -5298,6 +5326,7 @@
  "arcos de guadalupe": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45037",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -5503,6 +5532,7 @@
  "seattle": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45150",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -5635,6 +5665,7 @@
  "las fuentes": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45070",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -5718,6 +5749,7 @@
  "real de valdepenas": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45130",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -5842,6 +5874,7 @@
  "san isidro": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44740",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -5932,6 +5965,7 @@
  "la venta del astillero": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45221",
   "nse": {
    "v1": {
     "nse": "interes-social",
@@ -6229,6 +6263,7 @@
  "colinas de las aguilas": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45080",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -6372,6 +6407,7 @@
  "jardines de guadalupe": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45030",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -6549,6 +6585,7 @@
  "real vallarta": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45020",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -6612,6 +6649,7 @@
  "jardin real": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45136",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -6775,6 +6813,7 @@
  "el vigia": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45140",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -7119,6 +7158,7 @@
  "el campanario": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45234",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -7182,6 +7222,7 @@
  "villas de guadalupe": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45189",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -7411,6 +7452,7 @@
  "los cajetes": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45234",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -7541,6 +7583,7 @@
  "francisco sarabia": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45236",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -7791,6 +7834,7 @@
  "girasoles elite": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45138",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -7942,6 +7986,7 @@
  "la toscana": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45136",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -8048,6 +8093,7 @@
  "villa fontana": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45615",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -8121,6 +8167,7 @@
  "prados tepeyac": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45050",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -8404,6 +8451,7 @@
  "mariano otero": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45067",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -8677,6 +8725,7 @@
  "la loma": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44410",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -8883,6 +8932,7 @@
  "mirador del bosque": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45200",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -8971,6 +9021,7 @@
  "francisco villa": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45130",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -9150,6 +9201,7 @@
  "pinar de la calma": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45080",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -9206,6 +9258,7 @@
  "real de tesistan": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45200",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -9289,6 +9342,7 @@
  "hogares de nuevo mexico": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45138",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -9554,6 +9608,7 @@
  "jardines universidad": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45110",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -10262,6 +10317,7 @@
  "la moraleja": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45134",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -10368,6 +10424,7 @@
  "los almendros": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45133",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -10557,6 +10614,7 @@
  "la calma": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45070",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -10636,6 +10694,7 @@
  "lomas universidad": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45016",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -10734,6 +10793,7 @@
  "atemajac del valle": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45190",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -10869,6 +10929,7 @@
  "nuevo mexico": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45138",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -11127,6 +11188,7 @@
  "jardines de la calera": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45676",
   "nse": {
    "v1": {
     "nse": "economico",
@@ -11315,6 +11377,7 @@
  "san juan bosco": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44730",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -11393,6 +11456,7 @@
  "americana": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44160",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -11535,6 +11599,7 @@
  "arcos vallarta": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44130",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -11658,6 +11723,7 @@
  "jardines del country": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44210",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -11791,6 +11857,7 @@
  "providencia": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44630",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -11937,6 +12004,7 @@
  "jardines alcalde": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44298",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -12262,6 +12330,7 @@
  "ladron de guevara": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44600",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -12408,6 +12477,7 @@
  "jardines de los arcos": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44500",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -12680,6 +12750,7 @@
  "colomos providencia": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44660",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -12778,6 +12849,7 @@
  "jardines del sur": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44950",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -12853,6 +12925,7 @@
  "alcalde barranquitas": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44270",
   "nse": {
    "v1": {
     "nse": "bajo-medio",
@@ -12960,6 +13033,7 @@
  "san juan de dios": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44360",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -13374,6 +13448,7 @@
  "bosques de la victoria": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44540",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -13564,6 +13639,7 @@
  "mezquitan": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44260",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -13746,6 +13822,7 @@
  "jardines de san jose": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44950",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -13835,6 +13912,7 @@
  "analco": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44450",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -13928,6 +14006,7 @@
  "atlas": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44870",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -14025,6 +14104,7 @@
  "independencia": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44290",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -14108,6 +14188,7 @@
  "huentitan el bajo": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44250",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -14207,6 +14288,7 @@
  "monraz": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44670",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -14307,6 +14389,7 @@
  "oblatos": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44700",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -14426,6 +14509,7 @@
  "lazaro cardenas": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44490",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -14905,6 +14989,7 @@
  "colinas de la normal": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44270",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -15050,6 +15135,7 @@
  "tetlan": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44820",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -15111,6 +15197,7 @@
  "moderna": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44190",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -15439,6 +15526,7 @@
  "lomas de independencia": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44240",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -15570,6 +15658,7 @@
  "lopez portillo": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44960",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -15717,6 +15806,7 @@
  "san antonio": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45650",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -15848,6 +15938,7 @@
  "jardines de la paz": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45519",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -16240,6 +16331,7 @@
  "circunvalacion oblatos": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44716",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -16362,6 +16454,7 @@
  "patria nueva": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44966",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -16441,6 +16534,7 @@
  "del sur": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44920",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -16965,6 +17059,7 @@
  "villas de san juan": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44299",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -17168,6 +17263,7 @@
  "aldama tetlan": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44820",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -17262,6 +17358,7 @@
  "agustin yanez": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44790",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -17325,6 +17422,7 @@
  "jardines de santa isabel": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44300",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -17478,6 +17576,7 @@
  "santa teresita": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44600",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -17597,6 +17696,7 @@
  "ninos heroes": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44260",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -17836,6 +17936,7 @@
  "santa rosa": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45420",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -17956,6 +18057,7 @@
  "san miguel de mezquitan": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44260",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -18101,6 +18203,7 @@
  "san andres": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44810",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -18170,6 +18273,7 @@
  "lagos del country": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45177",
   "nse": {
    "v1": {
     "nse": "alto",
@@ -18438,6 +18542,7 @@
  "lomas del paradero": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44840",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -18951,6 +19056,7 @@
  "bosque real": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45645",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -19298,6 +19404,7 @@
  "lomas del sur": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45650",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -19812,6 +19919,7 @@
  "san sebastian el grande": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45650",
   "nse": {
    "v1": {
     "nse": "economico",
@@ -19981,6 +20089,7 @@
  "senderos de monte verde": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45646",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -20420,6 +20529,7 @@
  "lomas de san agustin": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45650",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -20776,6 +20886,7 @@
  "el paraiso": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45157",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -20827,6 +20938,7 @@
  "belcanto": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45654",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -21072,6 +21184,7 @@
  "las grullas": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45645",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -21199,6 +21312,7 @@
  "chulavista": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45653",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -21313,6 +21427,7 @@
  "el manantial": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44470",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -21642,6 +21757,7 @@
  "santa anita": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45645",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -21968,6 +22084,7 @@
  "cortijo de san agustin": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45645",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -22214,6 +22331,7 @@
  "lomas de santa anita": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45640",
   "nse": {
    "v1": {
     "nse": "interes-social",
@@ -22738,6 +22856,7 @@
  "san jose del valle": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45654",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -22798,6 +22917,7 @@
  "real del sol": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45654",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -22901,6 +23021,7 @@
  "balcones de la calera": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45677",
   "nse": {
    "v1": {
     "nse": "interes-social",
@@ -23211,6 +23332,7 @@
  "santa cruz de las flores": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45640",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -23314,6 +23436,7 @@
  "lomas del mirador": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45653",
   "nse": {
    "v1": {
     "nse": "interes-social",
@@ -23443,6 +23566,7 @@
  "hacienda santa fe": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45653",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -24393,6 +24517,7 @@
  "colinas de santa anita": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45640",
   "nse": {
    "v1": {
     "nse": "interes-social",
@@ -24911,6 +25036,7 @@
  "cajititlan": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45670",
   "nse": {
    "v1": {
     "nse": "economico",
@@ -25027,6 +25153,7 @@
  "santa cruz del valle": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45655",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -25236,6 +25363,7 @@
  "villas terranova": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45650",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -25438,6 +25566,7 @@
  "hacienda santa cruz": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45655",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -25506,6 +25635,7 @@
  "campo sur": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45640",
   "nse": {
    "v1": {
     "nse": "interes-social",
@@ -25645,6 +25775,7 @@
  "loma dorada": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45402",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -25793,6 +25924,7 @@
  "tlaquepaque centro": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45500",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -25986,6 +26118,7 @@
  "paisajes del tesoro": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45608",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -26036,6 +26169,7 @@
  "balcones de santa maria": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45606",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -26327,6 +26461,7 @@
  "ciudad granja": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45010",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -26610,6 +26745,7 @@
  "chapala centro": {
   "municipio": "Chapala",
   "zona": "Chapala",
+  "cp": "45900",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -26758,6 +26894,7 @@
  "san antonio tlayacapan": {
   "municipio": "Chapala",
   "zona": "Chapala",
+  "cp": "45922",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -27173,6 +27310,7 @@
  "camino real": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45040",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -27419,6 +27557,7 @@
  "la perla": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44360",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -27590,6 +27729,7 @@
  "miravalle": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44990",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -27911,6 +28051,7 @@
  "rancho nuevo": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44240",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -28067,6 +28208,7 @@
  "italia providencia": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44648",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -28183,6 +28325,7 @@
  "monumental": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44320",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -28318,6 +28461,7 @@
  "el retiro": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44280",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -28533,6 +28677,7 @@
  "lomas de polanco": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44960",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -28668,6 +28813,7 @@
  "balcones de oblatos": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44720",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -28727,6 +28873,7 @@
  "sutaj": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44840",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -28832,6 +28979,7 @@
  "lomas independencia": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44350",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -28938,6 +29086,7 @@
  "revolucion": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44400",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -29044,6 +29193,7 @@
  "vicente guerrero": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45134",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -29192,6 +29342,7 @@
  "vallarta sur": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44500",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -29300,6 +29451,7 @@
  "arcos sur": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44500",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -30155,6 +30307,7 @@
  "arvento": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45670",
   "nse": {
    "v1": {
     "nse": "interes-social",
@@ -30333,6 +30486,7 @@
  "rancho alegre": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45675",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -30410,6 +30564,7 @@
  "valle de tejeda": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45653",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -30487,6 +30642,7 @@
  "los cantaros": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45653",
   "nse": {
    "v1": {
     "nse": "interes-social",
@@ -31007,6 +31163,7 @@
  "el zapote": {
   "municipio": "Poncitlan",
   "zona": "Otro",
+  "cp": "45964",
   "nse": {
    "v1": {
     "nse": "economico",
@@ -31078,6 +31235,7 @@
  "colinas de cajititlan": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45670",
   "nse": {
    "v1": {
     "nse": "economico",
@@ -31241,6 +31399,7 @@
  "la providencia": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45400",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -31762,6 +31921,7 @@
  "nextipac": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45220",
   "nse": {
    "v1": {
     "nse": "economico",
@@ -32005,6 +32165,7 @@
  "chapalita inn": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45010",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -32376,6 +32537,7 @@
  "lomas del batan": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45190",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -32862,6 +33024,7 @@
  "el pedregal": {
   "municipio": "El Salto",
   "zona": "AMG-S",
+  "cp": "45680",
   "nse": {
    "v1": {
     "nse": "economico",
@@ -33001,6 +33164,7 @@
  "lomas de la primavera": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45065",
   "nse": {
    "v1": {
     "nse": "interes-social",
@@ -33312,6 +33476,7 @@
  "la palmita": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45180",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -33724,6 +33889,7 @@
  "santa paula": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45420",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -33841,6 +34007,7 @@
  "tonala centro": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45400",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -34127,6 +34294,7 @@
  "vistas del pedregal": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45422",
   "nse": {
    "v1": {
     "nse": "super-lujo",
@@ -34286,6 +34454,7 @@
  "mision del campanario": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45400",
   "nse": {
    "v1": {
     "nse": "interes-social",
@@ -34565,6 +34734,7 @@
  "puente grande": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45427",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -34634,6 +34804,7 @@
  "zalatitan": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45405",
   "nse": {
    "v1": {
     "nse": "economico",
@@ -34911,6 +35082,7 @@
  "santa cruz de las huertas": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45402",
   "nse": {
    "v1": {
     "nse": "interes-social",
@@ -35402,6 +35574,7 @@
  "valle de los molinos": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45200",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -35802,6 +35975,7 @@
  "chapalita oriente": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45040",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -35942,6 +36116,7 @@
  "rinconada de la calma": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45080",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -36485,6 +36660,7 @@
  "rinconada del sol": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45055",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -36591,6 +36767,7 @@
  "el batan": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45190",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -36703,6 +36880,7 @@
  "juan manuel vallarta": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45120",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -37815,6 +37993,7 @@
  "margarita maza de juarez": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44300",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -38101,6 +38280,7 @@
  "artesanos": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45598",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -38205,6 +38385,7 @@
  "mezquitan country": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44260",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -38592,6 +38773,7 @@
  "loma bonita ejidal": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45608",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -39345,6 +39527,7 @@
  "la mojonera": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45019",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -39867,6 +40050,7 @@
  "san juan de ocotan": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45019",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -40031,6 +40215,7 @@
  "la giralda": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45088",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -40491,6 +40676,7 @@
  "santa isabel": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45645",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -40591,6 +40777,7 @@
  "vallarta la patria": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45020",
   "nse": {
    "v1": {
     "nse": "alto",
@@ -40779,6 +40966,7 @@
  "atlas chapalita": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45030",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -41056,6 +41244,7 @@
  "chapalita de occidente": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45030",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -41124,6 +41313,7 @@
  "jardines tepeyac": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45034",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -41186,6 +41376,7 @@
  "agricola": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45236",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -41462,6 +41653,7 @@
  "chapalita sur": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45040",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -42247,6 +42439,7 @@
  "nueva espana": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45186",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -42305,6 +42498,7 @@
  "paraisos del colli": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45069",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -42499,6 +42693,7 @@
  "lomas del bosque": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45118",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -42890,6 +43085,7 @@
  "villas de san javier": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45120",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -43264,6 +43460,7 @@
  "lomas de san gonzalo": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45134",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -43459,6 +43656,7 @@
  "palermo": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45200",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -43521,6 +43719,7 @@
  "altagracia": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45130",
   "nse": {
    "v1": {
     "nseIdx": 3,
@@ -43923,6 +44122,7 @@
  "constitucion": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45180",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -44002,6 +44202,7 @@
  "la tuzania": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45138",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -44059,6 +44260,7 @@
  "altus quintas": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45200",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -44252,6 +44454,7 @@
  "benito juarez": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45199",
   "nse": {
    "v1": {
     "nse": "interes-social",
@@ -44417,6 +44620,7 @@
  "hacienda del tepeyac": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45053",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -44688,6 +44892,7 @@
  "san francisco tesistan": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45200",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -44976,6 +45181,7 @@
  "copalita": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45200",
   "nse": {
    "v1": {
     "nse": "economico",
@@ -45104,6 +45310,7 @@
  "la patria universidad": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45119",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -45373,6 +45580,7 @@
  "la palmira": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45234",
   "nse": {
    "v1": {
     "nse": "interes-social",
@@ -45573,6 +45781,7 @@
  "las agujas": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45200",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -45686,6 +45895,7 @@
  "valle de san isidro": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45133",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -45766,6 +45976,7 @@
  "bosque valdepenas": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45130",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -45967,6 +46178,7 @@
  "haciendas del valle": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45133",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -46100,6 +46312,7 @@
  "santa margarita": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45140",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -46250,6 +46463,7 @@
  "la primavera": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45226",
   "nse": {
    "v1": {
     "nse": "economico",
@@ -46470,6 +46684,7 @@
  "los molinos": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45200",
   "nse": {
    "v1": {
     "nse": "economico",
@@ -46582,6 +46797,7 @@
  "canadas de san lorenzo": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45130",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -47032,6 +47248,7 @@
  "marcelino garcia barragan": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45134",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -47121,6 +47338,7 @@
  "emiliano zapata": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45185",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -47281,6 +47499,7 @@
  "eucalipto vallarta": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45020",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -47402,6 +47621,7 @@
  "mirador de san isidro": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45130",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -47523,6 +47743,7 @@
  "parque real": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45136",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -47586,6 +47807,7 @@
  "la magdalena": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45019",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -47719,6 +47941,7 @@
  "jardines de san ignacio": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45040",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -47765,6 +47988,7 @@
  "mesa colorada poniente": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45189",
   "nse": {
    "v1": {
     "nse": "medio",
@@ -47977,6 +48201,7 @@
  "lomas de tesistan": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45200",
   "nse": {
    "v1": {
     "nse": "economico",
@@ -48097,6 +48322,7 @@
  "ajijic centro": {
   "municipio": "Chapala",
   "zona": "Chapala",
+  "cp": "45920",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -48260,6 +48486,7 @@
  "ribera del pilar": {
   "municipio": "Chapala",
   "zona": "Chapala",
+  "cp": "45906",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -48289,6 +48516,7 @@
  "el moral": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45416",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -48357,6 +48585,7 @@
  "coyula": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45410",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -48887,6 +49116,7 @@
  "puente viejo": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45424",
   "nse": {
    "v1": {
     "nse": "interes-social",
@@ -48914,6 +49144,7 @@
  "jardines de la reyna": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45410",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -49496,6 +49727,7 @@
  "lomas de la soledad": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45403",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -49628,6 +49860,7 @@
  "villas de oriente": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45403",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -49766,6 +49999,7 @@
  "vistas del valle": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45400",
   "nse": {
    "v1": {
     "nse": "interes-social",
@@ -49889,6 +50123,7 @@
  "20 de noviembre": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45404",
   "nse": {
    "v1": {
     "nse": "interes-social",
@@ -50340,6 +50575,7 @@
  "san martin de las flores de abajo": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45629",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -50475,6 +50711,7 @@
  "parques de santa maria": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45609",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -50723,6 +50960,7 @@
  "salvador portillo lopez": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45580",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -50793,6 +51031,7 @@
  "las juntitas": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45590",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -50973,6 +51212,7 @@
  "lomas de san pedrito": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45625",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -51551,6 +51791,7 @@
  "balcones de santa anita": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45650",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -51730,6 +51971,7 @@
  "tlajomulco centro": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45640",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -52200,6 +52442,7 @@
  "jardines del eden": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45654",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -52930,6 +53173,7 @@
  "altea": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45645",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -53052,6 +53296,7 @@
  "element": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45645",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -53937,6 +54182,7 @@
  "hacienda los eucaliptos": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45640",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -54539,6 +54785,7 @@
  "senderos del valle": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45654",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -54775,6 +55022,7 @@
  "altus bosques": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45654",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -55181,6 +55429,7 @@
  "tres reyes": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45670",
   "nse": {
    "v1": {
     "nse": "economico",
@@ -55638,6 +55887,7 @@
  "naturezza": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45645",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -55776,6 +56026,7 @@
  "haciendas del sur": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45646",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -55900,6 +56151,7 @@
  "heroes de nacozari": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45640",
   "nse": {
    "v1": {
     "nse": "interes-social",
@@ -56067,6 +56319,7 @@
  "valle dorado": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45653",
   "nse": {
    "v1": {
     "nse": "interes-social",
@@ -56334,6 +56587,7 @@
  "prados de providencia": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44670",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -57443,6 +57697,7 @@
  "independencia oriente": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44340",
   "nse": {
    "v1": {
     "nse": "medio",
@@ -57776,6 +58031,7 @@
  "circunvalacion vallarta": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44680",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -58040,6 +58296,7 @@
  "olimpica": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44430",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -58347,6 +58604,7 @@
  "guadalajara centro": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44100",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -58730,6 +58988,7 @@
  "echeverria": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44970",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -58798,6 +59057,7 @@
  "la federacha": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44300",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -58865,6 +59125,7 @@
  "quinta velarde": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44430",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -59781,6 +60042,7 @@
  "lagos de oriente": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44770",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -59978,6 +60240,7 @@
  "18 de marzo": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44960",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -60114,6 +60377,7 @@
  "jardines de los historiadores": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44820",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -60452,6 +60716,7 @@
  "reforma": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44890",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -60615,6 +60880,7 @@
  "zona industrial": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44940",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -60898,6 +61164,7 @@
  "villa hermosa": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44948",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -60955,6 +61222,7 @@
  "villasenor": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44600",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -61080,6 +61348,7 @@
  "arboledas del sur": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44980",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -61493,6 +61762,7 @@
  "las conchas": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44460",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -61569,6 +61839,7 @@
  "lomas de san eugenio": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44720",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -61657,6 +61928,7 @@
  "jardines el sauz": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44987",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -61901,6 +62173,7 @@
  "lomas del gallo": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44760",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -61997,6 +62270,7 @@
  "5 de mayo": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44970",
   "nse": {
    "v1": {
     "nse": "interes-social",
@@ -62102,6 +62376,7 @@
  "la normal": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44260",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -62171,6 +62446,7 @@
  "jardines del nilo": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44860",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -62700,6 +62976,7 @@
  "el carmen": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44980",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -62751,6 +63028,7 @@
  "magana": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44800",
   "nse": {
    "v1": {
     "nse": "lujo",
@@ -63503,6 +63781,7 @@
  "vistas del nilo": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44828",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -63558,6 +63837,7 @@
  "los abedules": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45650",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -63713,6 +63993,7 @@
  "valle esmeralda": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45138",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -63815,6 +64096,7 @@
  "prados santa lucia": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45200",
   "nse": {
    "v1": {
     "nse": "interes-social",
@@ -64131,6 +64413,7 @@
  "prados de santa maria": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45601",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -64320,6 +64603,7 @@
  "zapote del valle": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45672",
   "nse": {
    "v1": {
     "nse": "economico",
@@ -64864,6 +65148,7 @@
  "cima serena": {
   "municipio": "El Salto",
   "zona": "AMG-S",
+  "cp": "45685",
   "nse": {
    "v1": {
     "nse": "interes-social",
@@ -65069,6 +65354,7 @@
  "santa rosa del valle": {
   "municipio": "El Salto",
   "zona": "AMG-S",
+  "cp": "45690",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -65132,6 +65418,7 @@
  "las pintas": {
   "municipio": "El Salto",
   "zona": "AMG-S",
+  "cp": "45690",
   "nse": {
    "v1": {
     "nse": "interes-social",
@@ -65233,6 +65520,7 @@
  "san jose del quince": {
   "municipio": "El Salto",
   "zona": "AMG-S",
+  "cp": "45696",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -65468,6 +65756,7 @@
  "club de golf atlas": {
   "municipio": "El Salto",
   "zona": "AMG-S",
+  "cp": "45693",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -65636,6 +65925,7 @@
  "el terrero": {
   "municipio": "El Salto",
   "zona": "AMG-S",
+  "cp": "45696",
   "nse": {
    "v1": {
     "nse": "interes-social",
@@ -65834,6 +66124,7 @@
  "san jose del castillo": {
   "municipio": "El Salto",
   "zona": "AMG-S",
+  "cp": "45685",
   "nse": {
    "v1": {
     "nse": "interes-social",
@@ -66036,6 +66327,7 @@
  "minerales": {
   "municipio": "El Salto",
   "zona": "AMG-S",
+  "cp": "45694",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -66097,6 +66389,7 @@
  "la piedrera": {
   "municipio": "El Salto",
   "zona": "AMG-S",
+  "cp": "45690",
   "nse": {
    "v1": {
     "nse": "economico",
@@ -66169,6 +66462,7 @@
  "lomas del aeropuerto": {
   "municipio": "El Salto",
   "zona": "AMG-S",
+  "cp": "45693",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -66256,6 +66550,7 @@
  "morelos": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44910",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -66547,6 +66842,7 @@
  "ferrocarril": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44440",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -66753,6 +67049,7 @@
  "prados del nilo": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44840",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -67616,6 +67913,7 @@
  "los silos": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45675",
   "nse": {
    "v1": {
     "nse": "economico",
@@ -67700,6 +67998,7 @@
  "paseo de los agaves": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45675",
   "nse": {
    "v1": {
     "nse": "interes-social",
@@ -67888,6 +68187,7 @@
  "cima del sol": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45640",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -69553,6 +69853,7 @@
  "ejido copalita": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45200",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -69653,6 +69954,7 @@
  "jardines de san gonzalo": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45134",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -69754,6 +70056,7 @@
  "gonzalez ortega": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45190",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -70002,6 +70305,7 @@
  "geovillas del real": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45602",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -70328,6 +70632,7 @@
  "el refugio": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45599",
   "nse": {
    "v1": {
     "nse": "bajo-medio",
@@ -70388,6 +70693,7 @@
  "alamo": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45560",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -70457,6 +70763,7 @@
  "san pedrito": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45625",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -70711,6 +71018,7 @@
  "lomas de la victoria": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45607",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -71127,6 +71435,7 @@
  "valle del sur": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45601",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -71899,6 +72208,7 @@
  "acacias": {
   "municipio": "Tala",
   "zona": "Otro",
+  "cp": "45310",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -71977,6 +72287,7 @@
  "la nogalera": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44470",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -72677,6 +72988,7 @@
  "miguel hidalgo": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44760",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -72718,6 +73030,7 @@
  "santa maria": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44350",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -72806,6 +73119,7 @@
  "el cerrito": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45402",
   "nse": {
    "v1": {
     "nseIdx": 2,
@@ -72876,6 +73190,7 @@
  "vista hermosa": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45189",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -72957,6 +73272,7 @@
  "parques del auditorio": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45180",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -73060,6 +73376,7 @@
  "bosques del boulevard": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44899",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -73241,6 +73558,7 @@
  "puerta del roble": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45116",
   "nse": {
    "v1": {
     "nse": "alto",
@@ -73373,6 +73691,7 @@
  "nueva santa maria": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44980",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -73433,6 +73752,7 @@
  "pinar de las palomas": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45406",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -73483,6 +73803,7 @@
  "san martin": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44710",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -73720,6 +74041,7 @@
  "mision del bosque": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45133",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -73864,6 +74186,7 @@
  "cantera colorada": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45630",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -73919,6 +74242,7 @@
  "tinajitas": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45630",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -74050,6 +74374,7 @@
  "villas de zapotepec": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45650",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -74091,6 +74416,7 @@
  "atotonilquillo": {
   "municipio": "Chapala",
   "zona": "Chapala",
+  "cp": "45930",
   "nse": {
    "v1": {
     "nse": "medio-bajo",
@@ -74162,6 +74488,7 @@
  "valle de san nicolas": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45066",
   "nse": {
    "v1": {
     "nse": "medio-medio",
@@ -74222,6 +74549,7 @@
  "la experiencia": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45198",
   "nse": {
    "v1": {
     "nse": "interes-social",
@@ -74355,6 +74683,7 @@
  "la paz": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44860",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -74509,6 +74838,7 @@
  "haciendas de san jose": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45609",
   "nse": {
    "v1": {
     "nse": "medio",
@@ -74808,6 +75138,7 @@
  "las bovedas": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45138",
   "nse": {
    "v1": {
     "nse": "medio-alto",
@@ -76289,6 +76620,7 @@
  "lomas de atemajac": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45178",
   "idx": {
    "casa": {}
   },
@@ -76613,6 +76945,7 @@
  "parques del centinela": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45133",
   "idx": {
    "casa": {}
   },
@@ -76857,6 +77190,7 @@
  "altaterra ii": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45134",
   "idx": {
    "casa": {}
   },
@@ -77107,6 +77441,7 @@
  "parque de las aves": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45200",
   "idx": {
    "casa": {}
   },
@@ -77282,6 +77617,7 @@
  "la granja": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45066",
   "nse": {
    "perito": {
     "nse": "medio-bajo",
@@ -77457,6 +77793,7 @@
  "real cantabria": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45134",
   "idx": {
    "casa": {}
   },
@@ -77852,6 +78189,7 @@
  "loma chica": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45200",
   "idx": {
    "casa": {}
   },
@@ -78048,6 +78386,7 @@
  "jardines de la primavera": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45066",
   "idx": {
    "casa": {},
    "terreno": {}
@@ -78201,6 +78540,7 @@
  "rancho el centinela": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45133",
   "nse": {
    "perito": {
     "nse": "medio-medio",
@@ -78785,6 +79125,7 @@
  "la martinica": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45185",
   "idx": {
    "casa": {},
    "bodega": {}
@@ -79321,6 +79662,7 @@
  "girasoles acueducto": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45138",
   "idx": {
    "casa": {},
    "terreno": {}
@@ -79385,6 +79727,7 @@
  "flores del valle": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45138",
   "idx": {
    "casa": {}
   },
@@ -79447,6 +79790,7 @@
  "balcones de la cantera": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45186",
   "idx": {
    "casa": {}
   },
@@ -79656,6 +80000,7 @@
  "el acantilado": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45133",
   "idx": {
    "casa": {}
   },
@@ -79806,6 +80151,7 @@
  "mision la floresta": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45066",
   "idx": {
    "casa": {}
   },
@@ -80100,6 +80446,7 @@
  "arroyo hondo": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45186",
   "nse": {
    "perito": {
     "nse": "medio-bajo",
@@ -80176,6 +80523,7 @@
  "puerta del llano": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45200",
   "idx": {
    "casa": {}
   },
@@ -83062,6 +83410,7 @@
  "altaterra": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45134",
   "idx": {
    "depto": {}
   },
@@ -83121,6 +83470,7 @@
  "villa panamericana": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45014",
   "idx": {
    "depto": {}
   },
@@ -83328,6 +83678,7 @@
  "santa maria del pueblito": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45018",
   "idx": {
    "depto": {}
   },
@@ -84394,6 +84745,7 @@
  "villas de nuevo mexico": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45138",
   "idx": {
    "terreno": {}
   },
@@ -84505,6 +84857,7 @@
  "jardines de los belenes": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45190",
   "idx": {
    "terreno": {}
   },
@@ -84644,6 +84997,7 @@
  "villas de torremolinos": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45130",
   "idx": {
    "terreno": {}
   },
@@ -84992,6 +85346,7 @@
  "san jose del bajio": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45140",
   "idx": {
    "terreno": {}
   },
@@ -85056,6 +85411,7 @@
  "mesa de los ocotes": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45189",
   "nse": {
    "perito": {
     "nse": "super-lujo",
@@ -85131,6 +85487,7 @@
  "praderas de san antonio": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45138",
   "nse": {
    "perito": {
     "nse": "medio-bajo",
@@ -85266,6 +85623,7 @@
  "mision capistrano": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45200",
   "nse": {
    "perito": {
     "nse": "medio-bajo",
@@ -85402,6 +85760,7 @@
  "los girasoles": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45136",
   "idx": {
    "terreno": {}
   },
@@ -85466,6 +85825,7 @@
  "bosque de los encinos": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45134",
   "idx": {
    "terreno": {}
   },
@@ -85576,6 +85936,7 @@
  "agua blanca industrial": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45235",
   "idx": {
    "bodega": {}
   },
@@ -86660,6 +87021,7 @@
  "basilio badillo": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45406",
   "idx": {
    "casa": {}
   },
@@ -87030,6 +87392,7 @@
  "las huertas": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45589",
   "idx": {
    "casa": {}
   },
@@ -87228,6 +87591,7 @@
  "ojo de agua": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45650",
   "idx": {
    "casa": {}
   },
@@ -87920,6 +88284,7 @@
  "infonavit rio nilo": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45403",
   "idx": {
    "depto": {}
   },
@@ -88059,6 +88424,7 @@
  "loma dorada ejidal": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45402",
   "idx": {
    "depto": {}
   },
@@ -88483,6 +88849,7 @@
  "paseos de santiago": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45410",
   "nse": {
    "perito": {
     "nse": "medio-bajo",
@@ -89704,6 +90071,7 @@
  "arandas": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44720",
   "idx": {
    "casa": {}
   },
@@ -90289,6 +90657,7 @@
  "jose clemente orozco": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44970",
   "idx": {
    "casa": {}
   },
@@ -90358,6 +90727,7 @@
  "polanco": {
   "municipio": "Sayula",
   "zona": "Otro",
+  "cp": "49303",
   "idx": {
    "casa": {}
   },
@@ -90477,6 +90847,7 @@
  "san vicente": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44330",
   "idx": {
    "casa": {}
   },
@@ -91647,6 +92018,7 @@
  "cerro del cuatro": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45599",
   "idx": {
    "depto": {}
   },
@@ -92627,6 +92999,7 @@
  "jardines de los poetas": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44820",
   "nse": {
    "perito": {
     "nse": "medio-bajo",
@@ -92696,6 +93069,7 @@
  "alamo industrial": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45593",
   "nse": {
    "perito": {
     "nse": "medio-medio",
@@ -93355,6 +93729,7 @@
  "electricistas": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44810",
   "idx": {
    "depto": {}
   },
@@ -93972,6 +94347,7 @@
  "libertad": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44750",
   "idx": {
    "terreno": {}
   },
@@ -94247,6 +94623,7 @@
  "los puestos": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45638",
   "idx": {
    "casa": {}
   },
@@ -94425,6 +94802,7 @@
  "mirador del tesoro": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45608",
   "nse": {
    "perito": {
     "nse": "medio-medio",
@@ -94517,6 +94895,7 @@
  "ponciano arriaga": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45600",
   "idx": {
    "casa": {}
   },
@@ -95388,6 +95767,7 @@
  "la arboleda": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45148",
   "idx": {
    "casa": {}
   },
@@ -97662,6 +98042,7 @@
  "acueducto san javier": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45646",
   "idx": {
    "casa": {}
   },
@@ -97798,6 +98179,7 @@
  "colinas del roble": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45650",
   "nse": {
    "perito": {
     "nse": "interes-social",
@@ -97915,6 +98297,7 @@
  "los mezquites": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45640",
   "idx": {
    "casa": {}
   },
@@ -98309,6 +98692,7 @@
  "jardines de san sebastian": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45650",
   "idx": {
    "depto": {},
    "terreno": {}
@@ -98413,6 +98797,7 @@
  "mazatepec": {
   "municipio": "Tala",
   "zona": "Otro",
+  "cp": "45340",
   "idx": {
    "terreno": {}
   },
@@ -100585,6 +100970,7 @@
  "jardines del castillo": {
   "municipio": "El Salto",
   "zona": "AMG-S",
+  "cp": "45685",
   "idx": {
    "terreno": {}
   },
@@ -100690,6 +101076,7 @@
  "del carmen": {
   "municipio": "El Salto",
   "zona": "AMG-S",
+  "cp": "45693",
   "idx": {
    "casa": {}
   },
@@ -100948,6 +101335,7 @@
  "vista reina": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45410",
   "nse": {
    "perito": {
     "nse": "medio-bajo",
@@ -101152,6 +101540,7 @@
  "lomas del camichin": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45403",
   "nse": {
    "perito": {
     "nse": "interes-social",
@@ -101988,6 +102377,7 @@
  "san isidro mazatepec": {
   "municipio": "Tala",
   "zona": "Otro",
+  "cp": "45340",
   "nse": {
    "perito": {
     "nse": "medio-bajo",
@@ -102037,6 +102427,7 @@
  "guadalupe ejidal": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45599",
   "nse": {
    "perito": {
     "nse": "medio-bajo",
@@ -102094,6 +102485,7 @@
  "lomas del centinela": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45187",
   "nse": {
    "perito": {
     "nse": "economico",
@@ -102407,6 +102799,7 @@
  "tapalpa": {
   "municipio": "Tapalpa",
   "zona": "Otro",
+  "cp": "49340",
   "nse": {
    "perito": {
     "nse": "medio-medio",
@@ -102871,6 +103264,7 @@
  "barra de navidad": {
   "municipio": "Cihuatlán",
   "zona": "Otro",
+  "cp": "48987",
   "nse": {
    "perito": {
     "nse": "medio-bajo",
@@ -103046,6 +103440,7 @@
  "san jacinto": {
   "municipio": "Poncitlán",
   "zona": "Chapala",
+  "cp": "45976",
   "nse": {
    "perito": {
     "nse": "medio-medio",
@@ -103167,6 +103562,7 @@
  "campo verde": {
   "municipio": "Puerto Vallarta",
   "zona": "Costa-Sur",
+  "cp": "48290",
   "nse": {
    "perito": {
     "nse": "medio-bajo",
@@ -103344,6 +103740,7 @@
  "lomas de tabachines": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45185",
   "nse": {
    "perito": {
     "nse": "medio-bajo",
@@ -103468,6 +103865,7 @@
  "ixtlahuacan de los membrillos": {
   "municipio": "Ixtlahuacán de los Membrillos",
   "zona": "AMG-S",
+  "cp": "45850",
   "nse": {
    "perito": {
     "nse": "medio-bajo",
@@ -103942,6 +104340,7 @@
  "los cerritos": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45066",
   "nse": {
    "perito": {
     "nse": "medio-bajo",
@@ -104189,6 +104588,7 @@
  "de los camichines": {
   "municipio": "Zacoalco de Torres",
   "zona": "Otro",
+  "cp": "45753",
   "nse": {
    "perito": {
     "nse": "interes-social",
@@ -104259,6 +104659,7 @@
  "27 de septiembre": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45180",
   "nse": {
    "perito": {
     "nse": "medio-bajo",
@@ -104391,6 +104792,7 @@
  "las alamedas": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45079",
   "nse": {
    "perito": {
     "nse": "medio-medio",
@@ -104444,6 +104846,7 @@
  "santos degollado": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44710",
   "nse": {
    "perito": {
     "nse": "medio-bajo",
@@ -104652,6 +105055,7 @@
  "prados de atequiza": {
   "municipio": "Ixtlahuacán de los Membrillos",
   "zona": "AMG-S",
+  "cp": "45860",
   "nse": {
    "perito": {
     "nse": "interes-social",
@@ -104704,6 +105108,7 @@
  "atequiza": {
   "municipio": "Ixtlahuacán de los Membrillos",
   "zona": "AMG-S",
+  "cp": "45860",
   "nse": {
    "perito": {
     "nse": "medio-medio",
@@ -104757,6 +105162,7 @@
  "villas de la alameda": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45679",
   "nse": {
    "perito": {
     "nse": "interes-social",
@@ -105234,6 +105640,7 @@
  "la coronilla": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45189",
   "nse": {
    "perito": {
     "nse": "economico",
@@ -105279,6 +105686,7 @@
  "la via": {
   "municipio": "Puerto Vallarta",
   "zona": "Costa-Sur",
+  "cp": "48280",
   "nse": {
    "perito": {
     "nse": "interes-social",
@@ -105341,6 +105749,7 @@
  "marina vallarta": {
   "municipio": "Puerto Vallarta",
   "zona": "Costa-Sur",
+  "cp": "48335",
   "nse": {
    "perito": {
     "nse": "medio-alto",
@@ -105377,6 +105786,7 @@
  "polanquito": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44969",
   "nse": {
    "perito": {
     "nse": "medio-medio",
@@ -105817,6 +106227,7 @@
  "plan de oriente": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45620",
   "nse": {
    "perito": {
     "nse": "medio-bajo",
@@ -106085,6 +106496,7 @@
  "nuevo vergel": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45180",
   "nse": {
    "perito": {
     "nse": "interes-social",
@@ -106156,6 +106568,7 @@
  "cantarranas": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44829",
   "nse": {
    "perito": {
     "nse": "medio-bajo",
@@ -106459,6 +106872,7 @@
  "colinas de atemajac": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45170",
   "similares": [
    {
     "colonia": "villas belenes",
@@ -106517,6 +106931,7 @@
  "colon industrial": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44930",
   "similares": [
    {
     "colonia": "huentitan el alto",
@@ -106576,6 +106991,7 @@
  "san isidro ejidal": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45147",
   "similares": [
    {
     "colonia": "santa margarita",
@@ -106810,6 +107226,7 @@
  "ixtapa": {
   "municipio": "Puerto Vallarta",
   "zona": "Costa-Sur",
+  "cp": "48280",
   "similares": [
    {
     "colonia": "jardines ixtapa",
@@ -106823,6 +107240,7 @@
  "paraiso": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45645",
   "similares": [
    {
     "colonia": "jardines ixtapa",
@@ -106864,6 +107282,7 @@
  "campestre las canadas": {
   "municipio": "Puerto Vallarta",
   "zona": "Costa-Sur",
+  "cp": "48290",
   "similares": [
    {
     "colonia": "jardines ixtapa",
@@ -106877,6 +107296,7 @@
  "guayabitos": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45530",
   "similares": [
    {
     "colonia": "buenos aires",
@@ -107071,6 +107491,7 @@
  "bethel": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44720",
   "similares": [
    {
     "colonia": "el bethel",
@@ -107158,6 +107579,7 @@
  "beatriz hernandez": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44760",
   "similares": [
    {
     "colonia": "col miguel hidalgo cp guadalajara",
@@ -107208,6 +107630,7 @@
  "rinconada san francisco": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45403",
   "similares": [
    {
     "colonia": "san francisco",
@@ -107514,6 +107937,7 @@
  "lomas del vergel": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45188",
   "similares": [
    {
     "colonia": "frente de 6 mts2 y fondo de 17 mts fondo",
@@ -107686,6 +108110,7 @@
  "tetlan ii": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44820",
   "similares": [
    {
     "colonia": "pinar de las palomas",
@@ -107806,6 +108231,7 @@
  "francisco silva romero": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45638",
   "similares": [
    {
     "colonia": "salvador portillo lopez",
@@ -108183,6 +108609,7 @@
  "lomas de enmedio": {
   "municipio": "Puerto Vallarta",
   "zona": "Costa-Sur",
+  "cp": "48290",
   "similares": [
    {
     "colonia": "las jarretaderas",
@@ -108240,6 +108667,7 @@
  "san javier": {
   "municipio": "Tototlán",
   "zona": "Otro",
+  "cp": "47730",
   "similares": [
    {
     "colonia": "la estancia",
@@ -108256,6 +108684,7 @@
  "los ruisenores": {
   "municipio": "Tala",
   "zona": "Otro",
+  "cp": "45314",
   "similares": [
    {
     "colonia": "la estancia",
@@ -108567,6 +108996,7 @@
  "pitillal centro": {
   "municipio": "Puerto Vallarta",
   "zona": "Costa-Sur",
+  "cp": "48290",
   "similares": [
    {
     "colonia": "calvario",
@@ -108667,6 +109097,7 @@
  "valle de los olivos": {
   "municipio": "Ixtlahuacán de los Membrillos",
   "zona": "AMG-S",
+  "cp": "45877",
   "similares": [
    {
     "colonia": "valle de los olivos ixtlahuacan de los membrillos",
@@ -108903,6 +109334,7 @@
  "tetlan rio verde": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44727",
   "similares": [
    {
     "colonia": "heliodoro hernandez loza",
@@ -108978,6 +109410,7 @@
  "mision de san isidro": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45133",
   "similares": [
    {
     "colonia": "haciendas del valle",
@@ -109209,6 +109642,7 @@
  "los portales": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45580",
   "similares": [
    {
     "colonia": "salvador portillo lopez",
@@ -109265,6 +109699,7 @@
  "juan de la barrera": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45618",
   "similares": [
    {
     "colonia": "el refugio",
@@ -109340,6 +109775,7 @@
  "popular hornos": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44825",
   "similares": [
    {
     "colonia": "insurgentes",
@@ -109403,6 +109839,7 @@
  "zoquipan": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45170",
   "similares": [
    {
     "colonia": "torre 9",
@@ -109505,6 +109942,7 @@
  "el panoramico": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45410",
   "similares": [
    {
     "colonia": "vista reina",
@@ -109625,6 +110063,7 @@
  "mision de san francisco": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45406",
   "similares": [
    {
     "colonia": "vista reina",
@@ -109768,6 +110207,7 @@
  "los camichines": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45407",
   "similares": [
    {
     "colonia": "lomas del camichin",
@@ -109901,6 +110341,7 @@
  "rinconadas tabachines": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45188",
   "similares": [
    {
     "colonia": "jardines de tabachines",
@@ -110022,6 +110463,7 @@
  "jardines del verde": {
   "municipio": "El Salto",
   "zona": "AMG-S",
+  "cp": "45694",
   "similares": [
    {
     "colonia": "minerales",
@@ -110073,6 +110515,7 @@
  "las liebres": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45623",
   "similares": [
    {
     "colonia": "minerales",
@@ -110133,6 +110576,7 @@
  "santa eduwiges": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44580",
   "similares": [
    {
     "colonia": "ladron de guevara",
@@ -110184,6 +110628,7 @@
  "el vergelito": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45595",
   "similares": [
    {
     "colonia": "el refugio",
@@ -110267,6 +110712,7 @@
  "los camichines i": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45403",
   "similares": [
    {
     "colonia": "lomas del gallo",
@@ -110340,6 +110786,7 @@
  "lomas del laurel": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45407",
   "similares": [
    {
     "colonia": "lomas del gallo",
@@ -110391,6 +110838,7 @@
  "el molino": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45407",
   "similares": [
    {
     "colonia": "lomas del gallo",
@@ -110571,6 +111019,7 @@
  "colinas de tabachines": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45185",
   "similares": [
    {
     "colonia": "lomas del centinela",
@@ -110626,6 +111075,7 @@
  "hacienda san francisco": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45403",
   "similares": [
    {
     "colonia": "coyula",
@@ -110686,6 +111136,7 @@
  "santa elena estadio": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44230",
   "similares": [
    {
     "colonia": "san elias",
@@ -110746,6 +111197,7 @@
  "san juan": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45638",
   "similares": [
    {
     "colonia": "centro",
@@ -110898,6 +111350,7 @@
  "geovillas los olivos": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45601",
   "similares": [
    {
     "colonia": "los olivos",
@@ -110994,6 +111447,7 @@
  "senderos del lago": {
   "municipio": "Jocotepec",
   "zona": "Chapala",
+  "cp": "45825",
   "similares": [
    {
     "colonia": "nextipac",
@@ -111022,6 +111476,7 @@
  "fresno": {
   "municipio": "Zapotlán el Grande",
   "zona": "Otro",
+  "cp": "49086",
   "similares": [
    {
     "colonia": "jardines de la cruz",
@@ -111133,6 +111588,7 @@
  "solidaridad": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45580",
   "similares": [
    {
     "colonia": "centro",
@@ -111157,6 +111613,7 @@
  "ocotlan centro": {
   "municipio": "Ocotlán",
   "zona": "Otro",
+  "cp": "47800",
   "similares": [
    {
     "colonia": "centro",
@@ -111209,6 +111666,7 @@
  "valle de la reyna": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45404",
   "similares": [
    {
     "colonia": "villas de oriente i",
@@ -111280,6 +111738,7 @@
  "tenamaxtlan": {
   "municipio": "Tenamaxtlán",
   "zona": "Otro",
+  "cp": "48570",
   "similares": [
    {
     "colonia": "el ranchito",
@@ -111295,6 +111754,7 @@
  "atemajac de brizuela": {
   "municipio": "Atemajac de Brizuela",
   "zona": "Otro",
+  "cp": "45790",
   "similares": [
    {
     "colonia": "el ranchito",
@@ -111311,6 +111771,7 @@
  "chiquilistlan": {
   "municipio": "Chiquilistlán",
   "zona": "Otro",
+  "cp": "48640",
   "similares": [
    {
     "colonia": "el ranchito",
@@ -111437,6 +111898,7 @@
  "lomas del cuatro": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45599",
   "similares": [
    {
     "colonia": "las pintas el salto",
@@ -111489,6 +111951,7 @@
  "pacifico": {
   "municipio": "El Salto",
   "zona": "AMG-S",
+  "cp": "45690",
   "similares": [
    {
     "colonia": "las pintas el salto",
@@ -111625,6 +112088,7 @@
  "ixtapa centro": {
   "municipio": "Puerto Vallarta",
   "zona": "Costa-Sur",
+  "cp": "48280",
   "similares": [
    {
     "colonia": "campo verde",
@@ -111640,6 +112104,7 @@
  "primavera de vallarta": {
   "municipio": "Puerto Vallarta",
   "zona": "Costa-Sur",
+  "cp": "48313",
   "similares": [
    {
     "colonia": "campo verde",
@@ -111655,6 +112120,7 @@
  "real ixtapa": {
   "municipio": "Puerto Vallarta",
   "zona": "Costa-Sur",
+  "cp": "48280",
   "similares": [
    {
     "colonia": "campo verde",
@@ -111721,6 +112187,7 @@
  "las pintas de abajo": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45619",
   "similares": [
    {
     "colonia": "el vergel",
@@ -111984,6 +112451,7 @@
  "mision magnolia": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45615",
   "similares": [
    {
     "colonia": "paseo del prado",
@@ -112182,6 +112650,7 @@
  "guadalajara oriente": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44700",
   "similares": [
    {
     "colonia": "margarita maza de juarez",
@@ -112240,6 +112709,7 @@
  "valle de las heras": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45601",
   "similares": [
    {
     "colonia": "coto arrezo",
@@ -112422,6 +112892,7 @@
  "el rodeo": {
   "municipio": "Ixtlahuacán de los Membrillos",
   "zona": "AMG-S",
+  "cp": "45876",
   "similares": [
    {
     "colonia": "la barca",
@@ -112592,6 +113063,7 @@
  "parques del tepeyac": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45053",
   "similares": [
    {
     "colonia": "las alamedas",
@@ -112652,6 +113124,7 @@
  "el colli infonavit": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45057",
   "similares": [
    {
     "colonia": "las alamedas",
@@ -112929,6 +113402,7 @@
  "vallarta": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45012",
   "similares": [
    {
     "colonia": "juan manuel vallarta",
@@ -113319,6 +113793,7 @@
  "hermosa provincia": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44770",
   "similares": [
    {
     "colonia": "libertad",
@@ -113379,6 +113854,7 @@
  "pintores espanoles": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45600",
   "similares": [
    {
     "colonia": "santa anita",
@@ -113546,6 +114022,7 @@
  "jardines de la alameda": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
+  "cp": "45679",
   "similares": [
    {
     "colonia": "villas de la alameda",
@@ -113597,6 +114074,7 @@
  "los altos": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45520",
   "similares": [
    {
     "colonia": "camichines",
@@ -113776,6 +114254,7 @@
  "jardines de miraflores": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45601",
   "similares": [
    {
     "colonia": "olivos tlaquepaque",
@@ -113968,6 +114447,7 @@
  "heroes nacionales": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45138",
   "similares": [
    {
     "colonia": "lomas de independencia",
@@ -114024,6 +114504,7 @@
  "jardines de tabachines": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45188",
   "similares": [
    {
     "colonia": "tabachines",
@@ -114124,6 +114605,7 @@
  "coto arezzo": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45601",
   "similares": [
    {
     "colonia": "quintanova residencial",
@@ -114186,6 +114668,7 @@
  "quintero": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45550",
   "similares": [
    {
     "colonia": "colonial tlaquepaque",
@@ -114237,6 +114720,7 @@
  "colon": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44920",
   "similares": [
    {
     "colonia": "colonial tlaquepaque",
@@ -114297,6 +114781,7 @@
  "lomas del tepeyac": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45530",
   "similares": [
    {
     "colonia": "miravalle",
@@ -114420,6 +114905,7 @@
  "albatros": {
   "municipio": "Puerto Vallarta",
   "zona": "Costa-Sur",
+  "cp": "48315",
   "similares": [
    {
     "colonia": "marina vallarta",
@@ -114596,6 +115082,7 @@
  "porta real": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45019",
   "similares": [
    {
     "colonia": "solares",
@@ -114708,6 +115195,7 @@
  "la casita": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45138",
   "similares": [
    {
     "colonia": "col sta margarita",
@@ -115066,6 +115554,7 @@
  "ixtlahuacan del rio": {
   "municipio": "Ixtlahuacán del Río",
   "zona": "Otro",
+  "cp": "45260",
   "similares": [
    {
     "colonia": "jardines de la paz",
@@ -115272,6 +115761,7 @@
  "haciendas san pedro": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45588",
   "similares": [
    {
     "colonia": "lopez de legaspi",
@@ -115568,6 +116058,7 @@
  "san martin de las flores de arriba": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45629",
   "similares": [
    {
     "colonia": "plan de oriente tlaquepaque",
@@ -115628,6 +116119,7 @@
  "san martin de las flores": {
   "municipio": "Tapalpa",
   "zona": "Otro",
+  "cp": "49344",
   "similares": [
    {
     "colonia": "plan de oriente tlaquepaque",
@@ -115756,6 +116248,7 @@
  "san sebastianito": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45601",
   "similares": [
    {
     "colonia": "la llave",
@@ -115935,6 +116428,7 @@
  "aeropuerto": {
   "municipio": "Puerto Vallarta",
   "zona": "Costa-Sur",
+  "cp": "48317",
   "similares": [
    {
     "colonia": "calvario",
@@ -115968,6 +116462,7 @@
  "los meseros": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45510",
   "similares": [
    {
     "colonia": "insurgentes guadalajara",
@@ -116031,6 +116526,7 @@
  "agua fria": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45186",
   "similares": [
    {
     "colonia": "Balcones de la Cantera",
@@ -116073,6 +116569,7 @@
  "la grana": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45180",
   "similares": [
    {
     "colonia": "la arboleda",
@@ -116190,6 +116687,7 @@
  "nuevo santa maria": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45530",
   "similares": [
    {
     "colonia": "el refugio tlaquepaque",
@@ -116542,6 +117040,7 @@
  "potrero de fray ramon": {
   "municipio": "Lagos de Moreno",
   "zona": "Otro",
+  "cp": "47423",
   "similares": [
    {
     "colonia": "lagos de moreno",
@@ -116555,6 +117054,7 @@
  "hacienda los jacales": {
   "municipio": "Lagos de Moreno",
   "zona": "Otro",
+  "cp": "47472",
   "similares": [
    {
     "colonia": "lagos de moreno",
@@ -116568,6 +117068,7 @@
  "la adelita": {
   "municipio": "Lagos de Moreno",
   "zona": "Otro",
+  "cp": "47410",
   "similares": [
    {
     "colonia": "lagos de moreno",
@@ -116625,6 +117126,7 @@
  "panoramica huentitan": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44259",
   "similares": [
    {
     "colonia": "col zoologico huentitan el bajo",
@@ -116684,6 +117186,7 @@
  "rinconada de coyula": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45410",
   "similares": [
    {
     "colonia": "rinconadas de coyula",
@@ -116798,6 +117301,7 @@
  "terranova": {
   "municipio": "Guadalajara",
   "zona": "AMG-Centro",
+  "cp": "44689",
   "similares": [
    {
     "colonia": "ladron de guevara",
@@ -117252,6 +117756,7 @@
  "jardines de la esperanza": {
   "municipio": "Zapopan",
   "zona": "AMG-NW",
+  "cp": "45180",
   "similares": [
    {
     "colonia": "los belenes",
@@ -117430,6 +117935,7 @@
  "bella vista": {
   "municipio": "Zapotlanejo",
   "zona": "Otro",
+  "cp": "45430",
   "similares": [
    {
     "colonia": "santa cruz de las huertas",
@@ -117768,6 +118274,7 @@
  "la manzanilla de la paz": {
   "municipio": "La Manzanilla de la Paz",
   "zona": "Otro",
+  "cp": "49460",
   "similares": [
    {
     "colonia": "Mazamitla Urbana",
@@ -117856,7 +118363,8 @@
  },
  "mazamitla": {
   "municipio": "Mazamitla",
-  "zona": "Otro"
+  "zona": "Otro",
+  "cp": "49500"
  },
  "el tabardillo": {
   "municipio": "Mazamitla",
@@ -117969,6 +118477,7 @@
  "lomas de san luis": {
   "municipio": "La Barca",
   "zona": "Otro",
+  "cp": "47913",
   "similares": [
    {
     "colonia": "La Ribera",
@@ -118221,6 +118730,7 @@
  "villa franca": {
   "municipio": "Arandas",
   "zona": "Otro",
+  "cp": "47182",
   "similares": [
    {
     "colonia": "la moraleja",
@@ -118470,6 +118980,7 @@
  "el amial": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45400",
   "similares": [
    {
     "colonia": "San Francisco de la Soledad",
@@ -118494,6 +119005,7 @@
  "buena mirada": {
   "municipio": "Tonalá",
   "zona": "AMG-E",
+  "cp": "45410",
   "similares": [
    {
     "colonia": "Cañada del Sol",
@@ -118517,6 +119029,7 @@
  "alfredo barba": {
   "municipio": "San Pedro Tlaquepaque",
   "zona": "AMG-SE",
+  "cp": "45628",
   "similares": [
    {
     "colonia": "Álvaro Obregón",
@@ -118841,6 +119354,7 @@
  "5 de diciembre": {
   "municipio": "Puerto Vallarta",
   "zona": "Costa-Sur",
+  "cp": "48350",
   "similares": [
    {
     "colonia": "Emiliano Zapata",
@@ -159218,7 +159732,7 @@
   ]
  },
  "_meta": {
-  "generado": "2026-06-04T17:53:33.187Z",
+  "generado": "2026-06-04T18:47:08.768Z",
   "capas": {
    "ganada_v1": {
     "campo": "nse.v1",

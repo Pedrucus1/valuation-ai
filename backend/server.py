@@ -23,8 +23,7 @@ import base64
 import asyncio
 from passlib.context import CryptContext
 
-# Caché en memoria para endpoints de mercado (extraído a core/cache.py)
-from core.cache import _cache_get, _cache_set, _mercado_cache, _CACHE_TTL
+from core.cache import _cache_get, _cache_set, _mercado_cache
 
 
 ROOT_DIR = Path(__file__).parent
@@ -162,6 +161,7 @@ from routers.ads import router as ads_router
 from routers.encargos import router as encargos_router
 from routers.inmobiliaria import router as inmobiliaria_router
 from routers.mercado_accesos import router as mercado_accesos_router, _seed_mercado_accesos
+from routers.reviews import router as reviews_router
 
 # Auth y sesión -> routers/auth.py (#66.1)
 
@@ -2025,6 +2025,7 @@ app.include_router(ads_router)
 app.include_router(encargos_router)
 app.include_router(inmobiliaria_router)
 app.include_router(mercado_accesos_router)
+app.include_router(reviews_router)
 
 # Serve uploaded files (ads, kyc)
 app.mount("/uploads", StaticFiles(directory=str(UPLOADS_DIR)), name="uploads")

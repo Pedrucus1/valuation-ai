@@ -115,3 +115,22 @@ async def admin_zonas_put(request: Request):
         upsert=True
     )
     return {"ok": True}
+
+
+# ── Comisiones Payouts ─────────────────────────────────────────────────────────
+@router.get("/admin/comisiones")
+async def admin_comisiones_get(request: Request):
+    await require_admin(request)
+    doc = await db.config.find_one({"_id": "comisiones"})
+    if doc:
+        return {k: v for k, v in doc.items() if k != "_id"}
+    return {"porcentaje_valuador": 0.75, "porcentaje_plataforma": 0.25}
+
+
+@router.put("/admin/comisiones")
+async def admin_comisiones_put(request: Request):
+    await require_admin(request)
+    body = await request.json()
+    body["updated_at"] = datetime.now(timezone.utc).isoformat()
+    await db.config.replace_one({"_id": "comisiones"}, {"_id": "comisiones", **body}, upsert=True)
+    return {"ok": True}

@@ -93,6 +93,7 @@
 | 66 | ✅ | **Correr scrapers pendientes** — Todos completados: CYT ✅, MITULA ✅ (re-scrape 20-may con fix m2_terreno), INMUEBLES24 ✅, PINCALI ✅, PROPIEDADES_COM ✅, VIVANUNCIOS ✅. Total: 84,597 props en MongoDB. |
 | 34 | ⏳ | **Email notifications** — SendGrid. |
 | 35 | ⏳ | **WhatsApp notifications** — Twilio. |
+| 133 | ⏳ | **Backend "Data Exchange"** — Crear endpoint de IA para parsear Excels sucios de inmobiliarias, mapearlos a nuestro formato, rechazar si faltan datos de oro (edad/precio), y calcular el 50% de descuento en el carrito de compras. |
 
 ---
 
@@ -189,7 +190,7 @@
 | 111 | ✅ | **Fix consola anunciante adDuration (04-Jun, `3fd5e10`)** — `spec.adDuration` (inexistente, NaN) → `adDuration`. Pausar/reactivar + badges aprobación ya estaban OK (verificado e2e). Datos de prueba en staging: advertiser `test-ads@propvalu.test` + 2 campañas slot1/2 + 2 MP4 (borrables). |
 | 112 | ✅ | **Cobertura similares: 231 cotos sin SEPOMEX resueltos + 2 alucinaciones corregidas (04-Jun, `6d179b7`/`70ed7e5`)** — `resolver_similares_municipios.js` (Gemini, rate-limit) resolvió municipio/zona de 231/336 colonias nuevas (resto bloqueado por cuota Gemini, checkpoint guardado). Corregidas 2 alucinaciones del LLM (`colotlan`,`huejuquilla` mal mapeadas a AMG→Otro). Validador IDÉNTICO (sin regresión); valor = cobertura futura. |
 | 113 | ❌ | **Cross-municipio por adyacencia de MUNICIPIO — PROBADO Y REVERTIDO (04-Jun, `ec36a11`)** — `MUNI_VECINOS` solo en `enSim` regresó el validador (±15 76.6→73.8, ±20 88.8→86.9, fuera 12→14): la adyacencia a nivel municipio es muy gruesa. NO reintentar así. Camino correcto = proximidad por CP (ver #114). Ver MOTOR_ANTECEDENTES. |
-| 114 | 🔄 | **Herramienta de proximidad por CP/coords (04-Jun, `c272359`, Sonnet)** — Infraestructura lista en `Modulo Drive IA/_geo/`: `cp_coords.json` (2,025 CPs Jalisco con lat/lon, GeoNames), `colonia_cp.json` (6,178 colonias, 97.3% match, SEPOMEX), `proximidad.py` (haversine + `colonias_cercanas`). Self-test OK (cruza Tlaquepaque↔GDL). **PENDIENTE:** integrar al motor como COMPLEMENTO del filtro municipio (solo cuando n<3, refuerzo no sustituto) + medir con validador; opcional backfill CP en mercado_props/caché para NSE/IDX. Falta dataset de centroides finos si CP-centroide no basta (INEGI). |
+| 114 | ✅ | **Herramienta de proximidad por CP/coords (04-Jun, `c272359`, Sonnet)** — Infraestructura lista en `Modulo Drive IA/_geo/`: `cp_coords.json` (2,025 CPs Jalisco con lat/lon, GeoNames), `colonia_cp.json` (6,178 colonias, 97.3% match, SEPOMEX), `proximidad.py` (haversine + `colonias_cercanas`). Self-test OK (cruza Tlaquepaque↔GDL). **COMPLETADO:** Integrado al motor (`motor_remi_api.js`) y al build (`construir_maestro.js`). Validación: baseline subió a 89.7% en ±20%. |
 
 ---
 

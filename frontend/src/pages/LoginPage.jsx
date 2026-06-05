@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
   Building2, Eye, EyeOff, User, Mail, Lock, Phone, Briefcase,
@@ -1880,6 +1880,11 @@ const LoginPage = () => {
                       {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>
                   </div>
+                </div>
+                <div className="flex justify-end mt-1 mb-2">
+                  <button type="button" onClick={() => navigate("/forgot-password")} className="text-xs text-[#52B788] hover:text-[#2D6A4F] font-medium transition-colors">
+                    ¿Olvidaste tu contraseña?
+                  </button>
                 </div>
                 <Button type="submit" disabled={isLoading}
                   className="w-full bg-[#1B4332] hover:bg-[#2D6A4F] text-white font-semibold py-2.5">

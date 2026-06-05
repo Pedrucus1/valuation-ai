@@ -4,13 +4,20 @@ from datetime import datetime, timezone, timedelta
 import httpx
 
 from fastapi import APIRouter, Request, Response, HTTPException
+import jwt
+import os
 
 from core.db import db
 from core.auth import get_current_user, require_auth, pwd_context
 from core.ratelimit import limiter
-from models import RegisterRequest, LoginRequest
+from core.email import send_email
+from models import RegisterRequest, LoginRequest, ForgotPasswordRequest, ResetPasswordRequest
 
 router = APIRouter(prefix="/api")
+
+# Secreto para firmar el JWT de recuperación (idealmente en .env)
+JWT_SECRET = os.getenv("JWT_SECRET", "super-secret-key-propvalu-reset-12345")
+JWT_ALGORITHM = "HS256"
 
 
 @router.post("/auth/session")
@@ -350,3 +357,89 @@ async def login_email(request: Request, data: LoginRequest, response: Response):
     )
     user_out = {k: v for k, v in user_doc.items() if k not in ("hashed_password",)}
     return user_out
+
+
+@router.post("/auth/forgot-password")
+@limiter.limit("5/minute")
+async def forgot_password(request: Request, data: ForgotPasswordRequest):
+    user_doc = await db.users.find_one({"email": data.email}, {"_id": 0})
+    if not user_doc:
+        # El usuario pidió que reportemos si el correo no existe en lugar de simular éxito
+        raise HTTPException(status_code=404, detail="Este correo no está registrado en el sistema")
+
+    # Generar Token JWT válido por 15 minutos
+    expiration = datetime.now(timezone.utc) + timedelta(minutes=15)
+    token_data = {
+        "sub": user_doc["user_id"],
+        "email": user_doc["email"],
+        "exp": expiration,
+        "type": "reset_password"
+    }
+    token = jwt.encode(token_data, JWT_SECRET, algorithm=JWT_ALGORITHM)
+
+    # Construir enlace de recuperación
+    frontend_url = os.getenv("FRONTEND_URL", "http://localhost:3000")
+    reset_link = f"{frontend_url}/reset-password?token={token}"
+
+    # Crear correo en texto plano y HTML básico
+    subject = "Recuperación de Contraseña - PropValu"
+    
+    html_content = f"""
+    <html>
+      <body style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+        <h2 style="color: #1B4332;">PropValu</h2>
+        <p>Hola {user_doc.get('name', 'usuario')},</p>
+        <p>Hemos recibido una solicitud para restablecer tu contraseña.</p>
+        <p>Haz clic en el siguiente botón para crear una nueva contraseña. Este enlace expirará en 15 minutos por tu seguridad:</p>
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="{reset_link}" style="background-color: #52B788; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Restablecer mi contraseña</a>
+        </div>
+        <p style="font-size: 14px; color: #666;">Si el botón no funciona, copia y pega este enlace en tu navegador:</p>
+        <p style="font-size: 12px; color: #666; word-break: break-all;">{reset_link}</p>
+        <hr style="border: 1px solid #eee; margin: 30px 0;" />
+        <p style="font-size: 12px; color: #999;">Si no solicitaste este cambio, puedes ignorar este correo de forma segura.</p>
+      </body>
+    </html>
+    """
+
+    # Enviar correo (en background para no bloquear la respuesta HTTP)
+    try:
+        send_email([data.email], subject, html_content)
+    except Exception as e:
+        print(f"Error enviando email: {e}")
+        raise HTTPException(status_code=500, detail="Error enviando el correo de recuperación")
+
+    return {"message": "Correo de recuperación enviado exitosamente"}
+
+
+@router.post("/auth/reset-password")
+@limiter.limit("5/minute")
+async def reset_password(request: Request, data: ResetPasswordRequest):
+    # Validar el token
+    try:
+        payload = jwt.decode(data.token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
+        if payload.get("type") != "reset_password":
+            raise HTTPException(status_code=400, detail="Token inválido")
+        
+        user_id = payload.get("sub")
+        if not user_id:
+            raise HTTPException(status_code=400, detail="Token corrupto")
+            
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status_code=400, detail="El enlace de recuperación ha expirado. Por favor solicita uno nuevo.")
+    except jwt.InvalidTokenError:
+        raise HTTPException(status_code=400, detail="El enlace de recuperación no es válido.")
+
+    # Buscar usuario
+    user_doc = await db.users.find_one({"user_id": user_id})
+    if not user_doc:
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+
+    # Hashear nueva contraseña
+    hashed_pw = pwd_context.hash(data.new_password)
+    
+    # Actualizar en BD y cerrar todas sus sesiones activas por seguridad
+    await db.users.update_one({"user_id": user_id}, {"$set": {"hashed_password": hashed_pw}})
+    await db.user_sessions.delete_many({"user_id": user_id})
+
+    return {"message": "Contraseña actualizada exitosamente"}

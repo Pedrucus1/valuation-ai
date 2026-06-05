@@ -17,6 +17,7 @@
  */
 const fs = require('fs');
 const path = require('path');
+const { coordsDeColonia } = require('./_geo/proximidad.cjs');
 
 const R = f => fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : {};
 
@@ -58,7 +59,17 @@ for (const key of todas) {
 
   // Geo (referencia) — de la enriquecida v2
   const suj = simV2[key] && simV2[key]._sujeto;
-  if (suj && suj.municipio) { rec.municipio = suj.municipio; if (suj.zona) rec.zona = suj.zona; stats.con_geo++; }
+  if (suj && suj.municipio) {
+      rec.municipio = suj.municipio;
+      if (suj.zona) rec.zona = suj.zona;
+      stats.con_geo++;
+      
+      // Intentar adjuntar el CP (Componente 1)
+      const coordInfo = coordsDeColonia(key, rec.municipio);
+      if (coordInfo && coordInfo.cp) {
+          rec.cp = coordInfo.cp;
+      }
+  }
 
   // NSE — cascada v1 → perito → v2 → idx. Cada capa se guarda; v2 solo si no hay v1 ni perito.
   const nseObj = {};
