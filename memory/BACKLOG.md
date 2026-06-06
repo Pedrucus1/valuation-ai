@@ -1,5 +1,5 @@
 # PropValu — Backlog de Tareas
-> **Última actualización:** 04 Jun 2026 (tarde). Snapshot de estado vigente → `ESTADO.md`. Bitácora histórica de sesiones → `BACKLOG_ARCHIVE.md` (NO leer al iniciar).
+> **Última actualización:** 05 Jun 2026. Snapshot de estado vigente → `ESTADO.md`. Bitácora histórica de sesiones → `BACKLOG_ARCHIVE.md` (NO leer al iniciar).
 > Marcar ✅ completado · 🔄 en progreso · ⏳ pendiente · 👁️ pendiente revisión personal. Las descripciones largas de tareas viven en las tablas de abajo; el detalle del motor en `MOTOR_ANTECEDENTES.md` (grep, no leer completo).
 
 ---
@@ -191,6 +191,23 @@
 | 112 | ✅ | **Cobertura similares: 231 cotos sin SEPOMEX resueltos + 2 alucinaciones corregidas (04-Jun, `6d179b7`/`70ed7e5`)** — `resolver_similares_municipios.js` (Gemini, rate-limit) resolvió municipio/zona de 231/336 colonias nuevas (resto bloqueado por cuota Gemini, checkpoint guardado). Corregidas 2 alucinaciones del LLM (`colotlan`,`huejuquilla` mal mapeadas a AMG→Otro). Validador IDÉNTICO (sin regresión); valor = cobertura futura. |
 | 113 | ❌ | **Cross-municipio por adyacencia de MUNICIPIO — PROBADO Y REVERTIDO (04-Jun, `ec36a11`)** — `MUNI_VECINOS` solo en `enSim` regresó el validador (±15 76.6→73.8, ±20 88.8→86.9, fuera 12→14): la adyacencia a nivel municipio es muy gruesa. NO reintentar así. Camino correcto = proximidad por CP (ver #114). Ver MOTOR_ANTECEDENTES. |
 | 114 | ✅ | **Herramienta de proximidad por CP/coords (04-Jun, `c272359`, Sonnet)** — Infraestructura lista en `Modulo Drive IA/_geo/`: `cp_coords.json` (2,025 CPs Jalisco con lat/lon, GeoNames), `colonia_cp.json` (6,178 colonias, 97.3% match, SEPOMEX), `proximidad.py` (haversine + `colonias_cercanas`). Self-test OK (cruza Tlaquepaque↔GDL). **COMPLETADO:** Integrado al motor (`motor_remi_api.js`) y al build (`construir_maestro.js`). Validación: baseline subió a 89.7% en ±20%. |
+
+| 115 | ✅ | **Fix obra nueva genérico todos los portales (05-Jun, `42cf3e5`)** — El fix anterior solo cubría I24/VIVA. Agregado fallback: texto libre "obra nueva/en construcción/preventa/a estrenar" → año actual en PINCALI, PCOM, MITULA, CYT. |
+| 116 | 🔄 | **Enrichers relanzados con fixes (05-Jun)** — Relanzados con `python -u` (fix de buffering). Progreso al cierre: PINCALI 574/26,982 · CYT 815/8,522 · PCOM 393/10,676 · I24 126/5,298. Monitor activo. Al terminar: refrescar caché + re-dedup + medir #90/#91. |
+
+---
+
+## Estrategia de Negocio
+
+| # | Estado | Tarea |
+|---|---|---|
+| N1 | ✅ | **Plan de Negocio 2026** — `memory/PLAN_NEGOCIO.md` creado. Pivot SaaS inmobiliarias, cascada descuentos, DocuProp, portal. |
+| N2 | ✅ | **Análisis de negocio completo** — `memory/ANALISIS_NEGOCIO_COMPLETO.md`: TAM/SAM/SOM Jalisco, P&L 3 años, unit economics, GTM, legal, equipo. |
+| N3 | ⏳ | **Constituir SAPI de CV** — Prerequisito para cobrar con Stripe. Notario + RFC + cuenta bancaria empresarial. |
+| N4 | ⏳ | **Integrar Stripe** — Cobro real de suscripciones. Prerequisito: SAPI constituida. |
+| N5 | ⏳ | **10 pilotos gratuitos** — Validar product-market fit antes de gastar en marketing. |
+| N6 | ⏳ | **Contactar AMPI Guadalajara** — Solicitar presentación en asamblea mensual. Canal principal GTM. |
+| N7 | ⏳ | **Firmar acuerdos con abogados** — Red DocuProp: 3-5 abogados socios con split 75/25. |
 
 ---
 
