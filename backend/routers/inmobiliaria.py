@@ -1,5 +1,7 @@
-"""Inmobiliaria (titular): equipo de asesores vinculados."""
+"""Inmobiliaria (titular): equipo de asesores vinculados + propiedades manuales."""
+import uuid
 from datetime import datetime, timezone
+from typing import Optional
 
 from fastapi import APIRouter, Request, HTTPException
 
@@ -73,3 +75,185 @@ async def get_equipo_inmobiliaria(request: Request):
         })
 
     return resultado
+
+
+# ── Helpers ──────────────────────────────────────────────────────────────────
+
+def _now() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+async def _calcular_puntos_propvalu(body: dict) -> tuple[list[str], bool]:
+    """Genera chips verificados y flag fuera_de_mercado basados en datos de mercado."""
+    puntos = []
+    fuera_de_mercado = False
+
+    colonia = (body.get("colonia") or "").lower().strip()
+    municipio = (body.get("municipio") or "").lower().strip()
+    tipo = body.get("tipo", "")
+    precio = body.get("precio_oferta") or 0
+    m2c = body.get("m2_construccion") or 0
+    m2t = body.get("m2_terreno") or 0
+    antiguedad = body.get("antiguedad")
+
+    precio_m2 = precio / m2c if m2c > 0 else None
+
+    # Consultar promedio de mercado para colonia+tipo
+    filtro_mercado = {"tipo": tipo}
+    if colonia:
+        filtro_mercado["colonia"] = {"$regex": colonia, "$options": "i"}
+    elif municipio:
+        filtro_mercado["municipio"] = {"$regex": municipio, "$options": "i"}
+
+    props_zona = await db.mercado_props.find(
+        filtro_mercado,
+        {"precio": 1, "m2_construccion": 1, "_id": 0}
+    ).to_list(200)
+
+    precios_m2_zona = [
+        p["precio"] / p["m2_construccion"]
+        for p in props_zona
+        if p.get("precio") and p.get("m2_construccion") and p["m2_construccion"] > 0
+    ]
+
+    if precios_m2_zona and precio_m2:
+        avg_m2 = sum(precios_m2_zona) / len(precios_m2_zona)
+        ratio = precio_m2 / avg_m2
+
+        if ratio < 0.85:
+            puntos.append("Precio competitivo en la zona")
+        elif 0.85 <= ratio <= 1.20:
+            puntos.append("Precio acorde al mercado")
+        elif ratio > 1.20:
+            puntos.append("Precio premium justificado")
+
+        if ratio < 0.75 or ratio > 1.50:
+            fuera_de_mercado = True
+
+        # Superficie vs promedio de zona
+        m2c_zona = [p["m2_construccion"] for p in props_zona if p.get("m2_construccion")]
+        if m2c_zona and m2c > 0:
+            avg_m2c = sum(m2c_zona) / len(m2c_zona)
+            if m2c > avg_m2c * 1.15:
+                puntos.append("Superficie mayor al promedio de la zona")
+
+    elif not precios_m2_zona and colonia:
+        # Sin datos de esa colonia → sugiere OPI
+        fuera_de_mercado = True
+
+    # Antigüedad
+    if antiguedad is not None and antiguedad < 4:
+        puntos.append("Construcción reciente")
+
+    # Terreno amplio vs construcción (indicador de potencial)
+    if m2t > 0 and m2c > 0 and m2t > m2c * 1.5:
+        puntos.append("Amplio terreno con potencial")
+
+    return puntos, fuera_de_mercado
+
+
+# ── Endpoints Propiedades ─────────────────────────────────────────────────────
+
+@router.post("/inmobiliaria/propiedades")
+async def crear_propiedad(request: Request):
+    """Crea una propiedad manual y calcula puntos PropValu + background check."""
+    user = await require_auth(request)
+    body = await request.json()
+
+    puntos_propvalu, fuera_de_mercado = await _calcular_puntos_propvalu(body)
+
+    doc = {
+        "propiedad_id": uuid.uuid4().hex,
+        "user_id": user.user_id,
+        "origen": "manual",
+        "direccion": body.get("direccion", "").strip(),
+        "tipo": body.get("tipo", "Casa"),
+        "colonia": body.get("colonia"),
+        "municipio": body.get("municipio"),
+        "estado_mx": body.get("estado_mx"),
+        "precio_oferta": float(body.get("precio_oferta", 0)),
+        "m2_construccion": body.get("m2_construccion"),
+        "m2_terreno": body.get("m2_terreno"),
+        "recamaras": body.get("recamaras"),
+        "banos": body.get("banos"),
+        "medio_banos": body.get("medio_banos"),
+        "estacionamiento": body.get("estacionamiento"),
+        "niveles": body.get("niveles"),
+        "nivel_depto": body.get("nivel_depto"),
+        "antiguedad": body.get("antiguedad"),
+        "conservacion": body.get("conservacion"),
+        "fotos": body.get("fotos", [])[:10],
+        "url_recorrido": body.get("url_recorrido"),
+        "amenidades": body.get("amenidades", []),
+        "instalaciones": body.get("instalaciones", []),
+        "espacios": body.get("espacios", []),
+        "descripcion": body.get("descripcion"),
+        "puntos_libres": body.get("puntos_libres", [])[:2],
+        "puntos_propvalu": puntos_propvalu,
+        "fuera_de_mercado": fuera_de_mercado,
+        "activo": True,
+        "created_at": _now(),
+        "updated_at": _now(),
+    }
+
+    if not doc["direccion"]:
+        raise HTTPException(400, "La dirección es requerida")
+
+    await db.propiedades_inmobiliaria.insert_one(doc)
+    doc.pop("_id", None)
+    return {"ok": True, "propiedad": doc}
+
+
+@router.get("/inmobiliaria/propiedades")
+async def listar_propiedades(request: Request):
+    """Lista las propiedades activas del usuario."""
+    user = await require_auth(request)
+    props = await db.propiedades_inmobiliaria.find(
+        {"user_id": user.user_id, "activo": True},
+        {"_id": 0}
+    ).sort("created_at", -1).to_list(100)
+    return {"propiedades": props}
+
+
+@router.put("/inmobiliaria/propiedades/{propiedad_id}")
+async def actualizar_propiedad(propiedad_id: str, request: Request):
+    """Actualiza una propiedad y recalcula puntos PropValu."""
+    user = await require_auth(request)
+    body = await request.json()
+
+    prop = await db.propiedades_inmobiliaria.find_one(
+        {"propiedad_id": propiedad_id, "user_id": user.user_id}
+    )
+    if not prop:
+        raise HTTPException(404, "Propiedad no encontrada")
+
+    merged = {**prop, **body}
+    puntos_propvalu, fuera_de_mercado = await _calcular_puntos_propvalu(merged)
+
+    update = {k: v for k, v in body.items() if k not in ("propiedad_id", "user_id", "_id")}
+    update["puntos_propvalu"] = puntos_propvalu
+    update["fuera_de_mercado"] = fuera_de_mercado
+    update["updated_at"] = _now()
+    if "puntos_libres" in update:
+        update["puntos_libres"] = update["puntos_libres"][:2]
+
+    await db.propiedades_inmobiliaria.update_one(
+        {"propiedad_id": propiedad_id},
+        {"$set": update}
+    )
+    updated = await db.propiedades_inmobiliaria.find_one(
+        {"propiedad_id": propiedad_id}, {"_id": 0}
+    )
+    return {"ok": True, "propiedad": updated}
+
+
+@router.delete("/inmobiliaria/propiedades/{propiedad_id}")
+async def eliminar_propiedad(propiedad_id: str, request: Request):
+    """Soft delete: marca activo=False."""
+    user = await require_auth(request)
+    result = await db.propiedades_inmobiliaria.update_one(
+        {"propiedad_id": propiedad_id, "user_id": user.user_id},
+        {"$set": {"activo": False, "updated_at": _now()}}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(404, "Propiedad no encontrada")
+    return {"ok": True}

@@ -131,6 +131,39 @@ class UserSession(BaseModel):
     expires_at: datetime
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
+class PropiedadInmobiliaria(BaseModel):
+    propiedad_id: str
+    user_id: str
+    origen: str = "manual"          # "manual" | "opi"
+    direccion: str
+    tipo: str                        # Casa, Departamento, Terreno, Local Comercial, Oficina
+    colonia: Optional[str] = None
+    municipio: Optional[str] = None
+    estado_mx: Optional[str] = None
+    precio_oferta: float
+    m2_construccion: Optional[float] = None
+    m2_terreno: Optional[float] = None
+    recamaras: Optional[int] = None
+    banos: Optional[float] = None
+    medio_banos: Optional[int] = None
+    estacionamiento: Optional[int] = None
+    niveles: Optional[int] = None
+    nivel_depto: Optional[int] = None
+    antiguedad: Optional[int] = None
+    conservacion: Optional[str] = None  # Excelente, Bueno, Regular
+    fotos: List[str] = []
+    url_recorrido: Optional[str] = None
+    amenidades: List[str] = []
+    instalaciones: List[str] = []
+    espacios: List[str] = []
+    descripcion: Optional[str] = None
+    puntos_libres: List[str] = []        # hasta 2, texto libre del asesor
+    puntos_propvalu: List[str] = []      # generados automáticamente
+    fuera_de_mercado: bool = False
+    activo: bool = True
+    created_at: str
+    updated_at: str
+
 class PropertyInput(BaseModel):
     # Required fields
     state: str
