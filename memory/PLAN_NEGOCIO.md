@@ -81,29 +81,65 @@ Ingreso Neto a PropValu:       $1,062 MXN
 
 ---
 
-## PARTE 2: ANÁLISIS DE MERCADO — PORTALES COMPETIDORES
+## PARTE 2: ANÁLISIS DE MERCADO
 
-### Tabla Comparativa: Competencia en México
+### 2A. Plataformas de Avalúos Online — Competencia Directa
 
-| Portal | Servicios | Inversión Anual (Inmobiliaria) | Modelo | Usuarios/Alcance |
-|--------|----------|------|------|------|
-| **Inmuebles24** | Listados destacados, Panoramix (CRM), SmartLead (leads), análisis | $26,400 - $45,600 MXN | Suscripción + add-ons | 6.2M visitas/mes (30% tráfico) |
-| **Mercado Libre** | Publicación, Oro/Oro Premium (boost), almacenamiento | $10,380 - $50,388 MXN | Por volumen + visibilidad | 2.4M visitas/mes |
-| **Vivanuncios** | Listados, combos con Inmuebles24 | $4,800 - $26,400 MXN | Freemium + premium | 1M+ visitas/mes |
-| **Properati** | Leads pagados, insights | $3,600 - $18,000 MXN | **Pay-per-lead** (~30 MXN/contacto) | 1M+ (LatAm) |
-| **Lamudi** | Listados premium, herramientas dev | Precios privados | Premium + B2B | 1M+ visitas/mes |
-| **Facebook Marketplace** | Listados gratis, publicidad paga | $12,000 - $60,000 MXN | Freemium + ads | Millones usuarios |
+> Datos verificados Jun 2026
 
-### Gap Analysis: ¿Qué le falta al mercado?
+| | **YALS** | **Monopolio** | **Romina** | **AvaClick** |
+|---|---|---|---|---|
+| **Empresa** | Intelimétrica | DD360 | SOLESTAV (MTY, 25+ años) | AvaClick Digital |
+| **Precio entrada** | Gratis (60 créditos + 1 premium) | Gratis | Gratis (1er estimado) | Gratis (1 reporte) |
+| **Reporte individual** | $99-$299 MXN | No vende individual | $139 MXN | $199 MXN + IVA |
+| **Paquete/créditos** | $499/mes (2 reportes premium) | **$600 MXN = 5 reportes ($120/rep), sin vencimiento** | No publicado | $499/mes (5 rep.) · $799/mes (10 rep.) |
+| **Precio por reporte** | $99-$299 | **$120 MXN** | ~$139 MXN | $80-199 MXN |
+| **Vencimiento créditos** | Mensual | **Sin fecha límite** | — | No acumulan |
+| **Cobertura** | Nacional (15M props) | CDMX / MTY / GDL únicamente | CDMX / MTY / GDL (6,000 colonias) | 400 ciudades, 32 estados |
+| **Metodología perito** | ❌ AVM | ❌ AVM | ✅ 95% coincidencia perito | ❌ AVM |
+| **Valor de terreno** | ❌ | ❌ | ✅ único en México | ❌ |
+| **PDF descargable** | ✅ | ❓ | ✅ | ✅ |
+| **Comparables incluidos** | Desde $149 | ✅ gratis | ✅ | ✅ todos los planes |
+| **Análisis de mercado** | ✅ agente LUCiA (WhatsApp) | ✅ gratis (cap rate, plusvalía) | Limitado | Plan Pro+ |
+| **Para inmobiliarias** | Enterprise (cotizar) | Pre-lanzamiento (ValuAI) | ✅ asesores | ✅ Lite/Pro/Enterprise |
+| **API** | ❌ | ❌ | ✅ | ✅ |
+| **Suite operacional** | ❌ | ❌ | ❌ | ❌ |
+| **Portal de propiedades** | ❌ | ✅ (GDL/MTY/CDMX) | ❌ | ❌ |
 
-| Necesidad | Quién lo hace hoy | Costo | Gap de PropValu |
-|-----------|-------------------|------|---|
-| **Valuación IA rápida** | Lamudi (feature), YALS (gratis + créditos) | Gratis o integrado | ✅ **PropValu es mejor** (2 min) |
-| **CRM inmobiliario completo** | Wasi (externo, $179 USD/mes) | $2,148 MXN/mes | ⚠️ **Oportunidad sin explotar** |
-| **Análisis comparables + mercado** | Inmuebles24 Index, YALS | Dentro de plataforma | ⚠️ **Necesita más profundidad** |
-| **Documentación + Asesoría legal** | Abogados externos, servicios separados | $2,000-$5,000 MXN por transacción | ❌ **NO EXISTE** — Ocean Azul |
-| **Sincronización multi-portal** | Integración manual o servicios como Wasi | Dentro de CRM | ⚠️ **Oportunidad desatendida** |
-| **Portal propio + comisión** | Inmuebles24, propiedades.com | Dentro de suscripción | ⚠️ **Modelo diferente** |
+**Nota Monopolio:** Es la misma empresa que NOCNOK (CRM con 35,000 agentes). Su portal `inmuebles.nocnok.com` y `monopolio.com.mx` son fuentes potenciales de scraping para comparables de PropValu.
+
+### 2B. CRM y Suites para Inmobiliarias — Competencia Indirecta
+
+| | **NOCNOK** | **Tokko Broker** | **EasyBroker** | **Wasi** |
+|---|---|---|---|---|
+| **Precio** | ~$1,000/mes | $480-$3,500/mes | $490-$1,490/mes | $600+/mes |
+| **Usuarios** | 35,000 agentes | 4,000 inmob. | Alto en MX | 32,000 global |
+| **Multi-portal** | ✅ | ✅ (20+ portales) | ✅ | ✅ (28 portales) |
+| **Avalúo IA** | ❌ | ❌ | ❌ | ❌ |
+| **DocuProp** | ❌ | ❌ | ❌ | ❌ |
+| **Pre-calificador hipotecario** | ✅ | ❌ | ❌ | ❌ |
+
+### 2C. Gasto anual de una inmobiliaria típica (10-20 props activas)
+
+```
+Inmuebles24:          $2,200-$3,800/mes × 12 = $26,400-$45,600/año
++ Publicidad FB:      $1,000-$5,000/mes × 12 = $12,000-$60,000/año
++ CRM externo (Wasi): $179 USD/mes ≈ $2,148 MXN × 12 = $25,776/año
+─────────────────────────────────────────────────────
+TOTAL ANUAL ACTUAL: $64,176 - $131,376 MXN (~$3,200-$6,600 USD)
+SIN herramientas de avalúo, documentación ni asesoría legal
+```
+
+### 2D. Gap Analysis — Oportunidad PropValu
+
+| Necesidad | Quién lo hace hoy | Costo actual | Gap |
+|-----------|------------------|-------------|-----|
+| **Avalúo IA con metodología perito** | Romina (parcial, 3 metros) | $139+ MXN/rep | ✅ PropValu cubre Jalisco con INDAABIN |
+| **Suite operacional completa** | Nadie integrado | Fragmentado $64k-131k/año | ✅ **Ocean Azul** |
+| **DocuProp + asesoría legal** | Abogados externos | $2,000-15,000/transacción | ✅ **Ocean Azul** |
+| **Datos de mercado locales propios** | Ninguno en Jalisco | N/A | ✅ Scraper 84k props Jalisco |
+| **Sincronización multi-portal** | Wasi, Tokko | Dentro de CRM separado | ⚠️ Pendiente implementar |
+| **Pre-calificador hipotecario** | NOCNOK | Dentro de su CRM | ⚠️ Largo plazo |
 
 ### ¿Cuánto paga una inmobiliaria típica HOY?
 
