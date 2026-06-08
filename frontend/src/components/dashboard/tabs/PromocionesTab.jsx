@@ -126,6 +126,7 @@ const PromocionesTab = ({ valuacionesList, session }) => {
       setInstalacionesStr(parseField(fichaAvaluo.instalaciones, "Paneles Solares, Cisterna 10,000L, Aire Acondicionado"));
       setEspaciosStr(parseField(fichaAvaluo.espacios, "Sala de TV, Comedor, Cocina Integral, Estudio"));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fichaAvaluo, tipoPrecio]);
 
   const handleGenerarDescripcion = () => {

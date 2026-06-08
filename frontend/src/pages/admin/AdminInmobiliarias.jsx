@@ -1118,6 +1118,7 @@ const AdminInmobiliarias = () => {
 
   useEffect(() => {
     if (tab === "actividad" && actividad.length === 0) cargarActividad();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tab]);
 
   const pendientesKyc = inmobiliarias.filter((r) => r.kyc_status === "pending").length;

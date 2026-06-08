@@ -175,15 +175,15 @@ function FaqItem({ q, a }) {
 
 /* ─── Component ─────────────────────────────────────────── */
 
+const SLIDES = [
+  "https://images.pexels.com/photos/1546168/pexels-photo-1546168.jpeg?auto=compress&cs=tinysrgb&w=900",
+  "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=900",
+  "https://images.pexels.com/photos/1642125/pexels-photo-1642125.jpeg?auto=compress&w=900",
+];
+
 const AdvertiserLandingPage = () => {
   const navigate = useNavigate();
   const [activeSlide, setActiveSlide] = useState(0);
-
-  const SLIDES = [
-    "https://images.pexels.com/photos/1546168/pexels-photo-1546168.jpeg?auto=compress&cs=tinysrgb&w=900",
-    "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=900",
-    "https://images.pexels.com/photos/1642125/pexels-photo-1642125.jpeg?auto=compress&w=900",
-  ];
 
   useEffect(() => {
     const t = setInterval(() => setActiveSlide((p) => (p + 1) % SLIDES.length), 6000);

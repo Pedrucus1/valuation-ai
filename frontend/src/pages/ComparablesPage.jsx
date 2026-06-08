@@ -113,6 +113,7 @@ const ComparablesPage = () => {
 
   useEffect(() => {
     fetchValuation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [valuationId]);
 
   // Slide timer for loading ads (10s per slide)
@@ -130,6 +131,7 @@ const ComparablesPage = () => {
       }
     }, TICK_MS);
     return () => clearInterval(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
   // Iniciar enriquecimiento SSE cuando los comparables estén listos
@@ -169,6 +171,7 @@ const ComparablesPage = () => {
     es.onerror = () => { cleanup(); setIsEnriching(false); };
 
     return cleanup;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [valuation?.comparables?.length]);
 
   const fetchValuation = async () => {

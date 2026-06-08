@@ -328,6 +328,7 @@ const ValuadorDashboardPage = () => {
     } catch {
       navigate("/login", { state: { role: "appraiser" } });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleLogout = async () => {

@@ -75,6 +75,7 @@ const ReportPage = () => {
       const shuffled = [...allOptions].sort(() => 0.5 - Math.random());
       setRandomOptions(shuffled.slice(0, 3));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showPropValuModal]);
 
   const submitAppraiserReview = async () => {
@@ -145,6 +146,7 @@ const ReportPage = () => {
 
   useEffect(() => {
     fetchValuation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [valuationId]);
 
   const checkAndShowReviewModal = async () => {

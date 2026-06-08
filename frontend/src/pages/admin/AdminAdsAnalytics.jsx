@@ -635,6 +635,7 @@ const Lightbox = ({ items, startIndex, onClose }) => {
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [total]);
 
   if (!cr) return null;

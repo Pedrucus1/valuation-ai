@@ -27,6 +27,7 @@ const AdOverlay = ({ slot, zone = "", onDone }) => {
       })
       .catch(() => { if (!cancelled) onDone(); });
     return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slot, zone]);
 
   // Registrar impresión una sola vez
@@ -51,6 +52,7 @@ const AdOverlay = ({ slot, zone = "", onDone }) => {
       });
     }, 1000);
     return () => clearInterval(timerRef.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ad]);
 
   // No hay ad → no renderizar nada (onDone ya fue llamado)

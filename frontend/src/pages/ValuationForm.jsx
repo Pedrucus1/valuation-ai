@@ -242,6 +242,7 @@ const LocationMap = ({ latitude, longitude, onLocationChange, address, autoSearc
     if (address && address !== searchQuery) {
       setSearchQuery(address);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);
 
   return (

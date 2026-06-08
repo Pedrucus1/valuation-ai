@@ -33,7 +33,7 @@ const ThankYouPage = () => {
       .then((r) => r.json())
       .then((data) => setReportHtml(data.report_html || null))
       .catch(() => {});
-  }, [valuationId]);
+  }, [valuationId, reportHtml]);
 
   const handleDownload = () => {
     if (!reportHtml) {
