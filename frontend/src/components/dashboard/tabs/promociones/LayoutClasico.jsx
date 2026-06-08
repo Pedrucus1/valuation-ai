@@ -1,7 +1,11 @@
 import React from "react";
 import { MapPin, Building, Map, Phone, Mail, User, CheckCircle2, Waves, Wind, Car, Camera, Trees, Dumbbell, Shield, Wine, Monitor, Plus, Fingerprint, Sofa, Home } from "lucide-react";
 
-const LayoutClasico = ({ fichaAvaluo, texts, idioma, descripcionTexto, theme, formatMXN, session, amenidades, instalaciones, espacios, formato }) => {
+const LayoutClasico = ({ fichaAvaluo, texts, idioma, descripcionTexto, theme, palette, formatMXN, session, amenidades, instalaciones, espacios, puntosDestacados, formato }) => {
+  // palette override: si viene palette, usa sus hex; si no, mantiene clases Tailwind del theme
+  const heroBg = palette?.bg || "#1B4332";
+  const accentColor = palette?.accent || "#52B788";
+  const accentBg = palette ? palette.bg + "18" : null; // null = usar clase Tailwind
   // Configuración de contenedores según el formato
   let containerClasses = "";
   let pageClasses = "";
@@ -123,11 +127,14 @@ const LayoutClasico = ({ fichaAvaluo, texts, idioma, descripcionTexto, theme, fo
           <img src={fichaAvaluo?.fotos?.[0]} alt="Fachada" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
           
-          <div className={`absolute ${formato === 'horizontal' ? 'top-8 left-8' : 'top-8 left-8'} ${theme.bgAccent} px-4 py-1.5 rounded-full shadow-lg`}>
-            <span className={`text-xs font-bold tracking-widest uppercase ${theme.textPri}`}>{fichaAvaluo.tipo}</span>
+          <div className={`absolute top-8 left-8 px-4 py-1.5 rounded-full shadow-lg`}
+            style={accentBg ? { backgroundColor: accentBg } : undefined}
+            {...(!accentBg && { className: `absolute top-8 left-8 ${theme.bgAccent} px-4 py-1.5 rounded-full shadow-lg` })}>
+            <span className="text-xs font-bold tracking-widest uppercase" style={{ color: accentColor }}>{fichaAvaluo.tipo}</span>
           </div>
 
-          <div className={`absolute ${formato === 'horizontal' ? 'bottom-8 left-8' : '-bottom-8 right-10'} bg-gradient-to-r ${theme.heroGrad} px-8 py-4 rounded-2xl shadow-2xl z-20`}>
+          <div className={`absolute ${formato === 'horizontal' ? 'bottom-8 left-8' : '-bottom-8 right-10'} px-8 py-4 rounded-2xl shadow-2xl z-20`}
+            style={{ background: heroBg }}>
             <p className="text-[10px] text-white/80 uppercase tracking-widest font-bold mb-1">{idioma === 'es' ? 'Precio de Venta' : 'Asking Price'}</p>
             <h1 className="text-4xl font-black text-white font-['Outfit']">{formatMXN(fichaAvaluo.valor)}</h1>
           </div>
@@ -161,8 +168,21 @@ const LayoutClasico = ({ fichaAvaluo, texts, idioma, descripcionTexto, theme, fo
           </div>
 
           <div className="flex-1">
-            <h3 className={`text-[11px] font-bold ${theme.textPri} uppercase tracking-widest mb-3 flex items-center gap-2`}><CheckCircle2 className={`w-4 h-4 ${theme.accent}`}/> {texts.descripcion}</h3>
+            <h3 className={`text-[11px] font-bold ${theme.textPri} uppercase tracking-widest mb-3 flex items-center gap-2`}><CheckCircle2 className={`w-4 h-4 ${theme.accent}`} style={{ color: accentColor }}/> {texts.descripcion}</h3>
             <p className={`text-sm leading-relaxed text-justify ${theme.textSec}`}>{descripcionTexto}</p>
+
+            {/* Puntos destacados */}
+            {puntosDestacados?.length > 0 && (
+              <div className="mt-4 flex flex-wrap gap-2">
+                {puntosDestacados.slice(0, 6).map((p, i) => (
+                  <span key={i} className={`text-[11px] px-3 py-1 rounded-full font-semibold flex items-center gap-1 ${p.verificado ? "border" : "bg-slate-100 text-slate-600"}`}
+                    style={p.verificado ? { backgroundColor: accentColor + "18", color: heroBg, borderColor: accentColor + "40" } : undefined}>
+                    {p.verificado && <CheckCircle2 className="w-3 h-3" style={{ color: accentColor }} />}
+                    {p.texto}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -234,8 +254,16 @@ const LayoutClasico = ({ fichaAvaluo, texts, idioma, descripcionTexto, theme, fo
           {/* Contacto Asesor */}
           <div className={`${theme.bgRoot} rounded-2xl p-6 border border-slate-100 flex items-center justify-between`}>
              <div className="flex items-center gap-4">
-               <div className="w-16 h-16 rounded-full bg-slate-200 border-2 border-white shadow-md flex items-center justify-center overflow-hidden">
-                 {session?.user?.photoURL ? <img src={session.user.photoURL} alt="Asesor" className="w-full h-full object-cover"/> : <User className="w-8 h-8 text-slate-400"/>}
+               {/* Logo inmobiliaria (picture del usuario) */}
+               <div className="w-20 h-20 rounded-xl bg-slate-100 border border-slate-200 shadow-sm flex items-center justify-center overflow-hidden shrink-0">
+                 {session?.user?.picture
+                   ? <img src={session.user.picture} alt="Logo" className="w-full h-full object-contain p-1"/>
+                   : <Building className="w-10 h-10 text-slate-300"/>}
+               </div>
+               <div className="w-px h-12 bg-slate-200 mx-1" />
+               <div className="flex items-center gap-4">
+               <div className="w-12 h-12 rounded-full bg-slate-200 border-2 border-white shadow-md flex items-center justify-center overflow-hidden">
+                 {session?.user?.photoURL ? <img src={session.user.photoURL} alt="Asesor" className="w-full h-full object-cover"/> : <User className="w-6 h-6 text-slate-400"/>}
                </div>
                <div>
                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">{texts.asesor}</p>
@@ -244,6 +272,7 @@ const LayoutClasico = ({ fichaAvaluo, texts, idioma, descripcionTexto, theme, fo
                    {session?.user?.phone && <span className={`text-[10px] font-bold ${theme.textSec} flex items-center gap-1`}><Phone className="w-3 h-3"/> {session.user.phone}</span>}
                    <span className={`text-[10px] font-bold ${theme.textSec} flex items-center gap-1`}><Mail className="w-3 h-3"/> {session?.user?.email}</span>
                  </div>
+               </div>
                </div>
              </div>
              <div className="flex items-center gap-6">
