@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import { DESCRIPTIONS_CATALOG } from "../../../utils/descriptionsCatalog";
 
 import LayoutClasico from "./promociones/LayoutClasico";
+import LayoutFichaTecnica from "./promociones/LayoutFichaTecnica";
 import LayoutMinimalista from "./promociones/LayoutMinimalista";
 import LayoutUltraLujo from "./promociones/LayoutUltraLujo";
 import LayoutStitch from "./promociones/LayoutStitch";
@@ -222,23 +223,41 @@ const PromocionesTab = ({ valuacionesList, session }) => {
 
   // ── Export ──
   const exportarFicha = async (modo = "pdf") => {
-    const el = document.getElementById("pv-ficha-root");
+    const isA4 = ["vertical_2p","stitch_gallery","stitch_letter","stitch_asymmetry"].includes(formatoSeleccionado);
+    const elId = isA4 && hojaActiva === 2 ? "pv-ficha-tecnica-root" : "pv-ficha-root";
+    const el = document.getElementById(elId);
     if (!el) return;
     if (modo === "jpg") {
       try {
         const canvas = await html2canvas(el, { scale: 2, useCORS: true });
         const link = document.createElement("a");
-        link.download = `Ficha_${(fichaAvaluo?.direccion || "propiedad").replace(/\s+/g, "_")}.jpg`;
+        link.download = `Ficha_${(fichaAvaluo?.direccion || "propiedad").replace(/\s+/g, "_")}_H${hojaActiva}.jpg`;
         link.href = canvas.toDataURL("image/jpeg", 0.92);
         link.click();
         toast.success("Imagen descargada");
       } catch { toast.error("Error al exportar imagen"); }
       return;
     }
-    const clone = el.cloneNode(true);
+    // PDF: incluye ambas hojas si es A4 de 2 páginas
     const wrap = document.createElement("div");
-    wrap.style.cssText = "position:fixed;inset:0;z-index:9999;background:#fff;overflow:auto;";
-    wrap.appendChild(clone);
+    wrap.style.cssText = "position:fixed;inset:0;z-index:9999;background:#fff;overflow:auto;padding:0;margin:0;";
+    const h1 = document.getElementById("pv-ficha-root");
+    if (h1) {
+      const c1 = h1.cloneNode(true);
+      c1.style.display = "block";
+      wrap.appendChild(c1);
+    }
+    if (isA4) {
+      const h2 = document.getElementById("pv-ficha-tecnica-root");
+      if (h2) {
+        const sep = document.createElement("div");
+        sep.style.cssText = "page-break-before:always;break-before:page;";
+        const c2 = h2.cloneNode(true);
+        c2.style.display = "block";
+        wrap.appendChild(sep);
+        wrap.appendChild(c2);
+      }
+    }
     document.body.appendChild(wrap);
     window.print();
     document.body.removeChild(wrap);
@@ -693,7 +712,8 @@ const PromocionesTab = ({ valuacionesList, session }) => {
             )}
             <div className="flex-1 flex items-center justify-center p-4 overflow-hidden">
               <div className="transform scale-[0.38] md:scale-[0.45] lg:scale-[0.55] xl:scale-[0.65] 2xl:scale-[0.75] origin-top transition-transform duration-300">
-                <div className={`transition-transform duration-700 ease-in-out ${esFormatoA4 && hojaActiva === 2 ? "-translate-y-[1162px]" : "translate-y-0"}`}>
+                {/* Hoja 1 — siempre en DOM para export PDF */}
+                <div style={{ display: esFormatoA4 && hojaActiva === 2 ? "none" : "block" }}>
                   <LayoutComponent
                     fichaAvaluo={fichaConPrecio}
                     texts={texts}
@@ -710,6 +730,25 @@ const PromocionesTab = ({ valuacionesList, session }) => {
                     formato={formatoSeleccionado}
                   />
                 </div>
+                {/* Hoja 2 — técnica, solo visible en A4 */}
+                {esFormatoA4 && (
+                  <div style={{ display: hojaActiva === 2 ? "block" : "none" }}>
+                    <LayoutFichaTecnica
+                      fichaAvaluo={fichaConPrecio}
+                      texts={texts}
+                      idioma={idioma}
+                      descripcionTexto={descripcionTexto}
+                      theme={theme}
+                      palette={palette}
+                      formatMXN={formatMXN}
+                      session={session}
+                      amenidades={(amenidadesStr || "").split(",").map(s => s.trim()).filter(Boolean)}
+                      instalaciones={(instalacionesStr || "").split(",").map(s => s.trim()).filter(Boolean)}
+                      espacios={(espaciosStr || "").split(",").map(s => s.trim()).filter(Boolean)}
+                      puntosDestacados={todosLosPuntos}
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>
