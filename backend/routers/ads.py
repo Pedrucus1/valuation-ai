@@ -29,9 +29,9 @@ async def crear_anuncio(request: Request):
     body = await request.json()
     doc = {
         "ad_id": uuid.uuid4().hex,
-        "user_id": user["user_id"],
-        "anunciante": user.get("name") or user.get("email"),
-        "email": user.get("email"),
+        "user_id": user.user_id,
+        "anunciante": user.name or user.email,
+        "email": user.email,
         "tipo": body.get("tipo", "comparables_banner"),
         "titulo": body.get("titulo", ""),
         "descripcion": body.get("descripcion", ""),
@@ -60,7 +60,7 @@ async def crear_anuncio(request: Request):
 async def mis_anuncios(request: Request):
     user = await require_auth(request)
     items = await db.anuncios.find(
-        {"user_id": user["user_id"]}, {"_id": 0}
+        {"user_id": user.user_id}, {"_id": 0}
     ).sort("created_at", -1).to_list(50)
     return {"anuncios": items}
 
