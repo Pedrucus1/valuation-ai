@@ -120,9 +120,11 @@ const getLayoutComponent = (temaId) => {
 // Normaliza cualquier propiedad (OPI o manual) al formato que usan los layouts
 const normalizar = (v) => {
   if (!v) return null;
+  const fotos = (v.fotos?.length ? v.fotos : SAMPLE_FOTOS).filter(Boolean);
   if (v.origen === "manual") {
     return {
       ...v,
+      fotos,
       id: v.propiedad_id,
       valor: v.precio_oferta,
       valores: { maximo: v.precio_oferta, medio: v.precio_oferta, minimo: v.precio_oferta },
@@ -133,7 +135,7 @@ const normalizar = (v) => {
       _esManual: true,
     };
   }
-  return { ...v, _esManual: false };
+  return { ...v, fotos, _esManual: false };
 };
 
 // ── Iconos de amenidades ─────────────────────────────────────────────────────
@@ -156,6 +158,16 @@ const ESPACIOS_ICONS = [
   { label: "Cocina Integral", Icon: Utensils },{ label: "Estudio",          Icon: BookOpen },
   { label: "Cuarto de Servicio", Icon: Bed }, { label: "Bodega",           Icon: Box },
   { label: "Sala de Juegos", Icon: Gamepad2 }, { label: "Spa",              Icon: Droplet },
+];
+
+// Fotos de referencia para preview cuando no hay fotos reales
+const SAMPLE_FOTOS = [
+  "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600607687920-4e2a09be15f1?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1613490908677-49772ba6554b?auto=format&fit=crop&w=800&q=80",
 ];
 
 const FORM_INIT = {
@@ -361,7 +373,11 @@ const PromocionesTab = ({ valuacionesList, session }) => {
     en: { descripcion: "Description", caracteristicas: "Features", construccion: "Built Area", terreno: "Lot Size", recamaras: "Bedrooms", recamaras_val: `${fichaAvaluo?.recamaras || 0} Beds`, banos: "Bathrooms", banos_val: `${fichaAvaluo?.banos || 0} Baths`, entorno: "Surroundings (15 min)", asesor: "Real Estate Agent", tecnologia: "Powered by" },
   }[idioma];
 
-  const fichaConPrecio = fichaAvaluo ? { ...fichaAvaluo, valor: precioFinal } : null;
+  const fichaConPrecio = fichaAvaluo ? {
+    ...fichaAvaluo,
+    valor: precioFinal,
+    fotos: fichaAvaluo.fotos?.filter(Boolean).length ? fichaAvaluo.fotos : SAMPLE_FOTOS,
+  } : null;
 
   // ════════════════════════════════════════════════════════════════════════════
   // ── FORMULARIO DE CAPTURA ──
@@ -886,8 +902,8 @@ const PromocionesTab = ({ valuacionesList, session }) => {
             <div>
               <p className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-3">OPIs de PropValu</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {avaluosCompletados.map(v => (
-                  <PropCard key={v.id} prop={v} badge="OPI" badgeColor="green"
+                {avaluosCompletados.map((v, i) => (
+                  <PropCard key={v.id} prop={v} badge="OPI" badgeColor="green" idx={i}
                     precio={formatMXN(v.valor)}
                     onSelect={() => { setFichaAvaluo(normalizar(v)); handleGenerarDescripcion(); }} />
                 ))}
@@ -900,8 +916,8 @@ const PromocionesTab = ({ valuacionesList, session }) => {
             <div>
               <p className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-3">Mis propiedades</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {propiedadesManual.map(v => (
-                  <PropCard key={v.propiedad_id} prop={v} badge="Manual" badgeColor="blue"
+                {propiedadesManual.map((v, i) => (
+                  <PropCard key={v.propiedad_id} prop={v} badge="Manual" badgeColor="blue" idx={i + 3}
                     precio={formatMXN(v.precio_oferta)}
                     fotos={v.fotos}
                     onSelect={() => { setFichaAvaluo(normalizar(v)); }} />
@@ -916,8 +932,8 @@ const PromocionesTab = ({ valuacionesList, session }) => {
 };
 
 // ── PropCard subcomponent ────────────────────────────────────────────────────
-const PropCard = ({ prop, badge, badgeColor, precio, fotos, onSelect }) => {
-  const fotoSrc = fotos?.[0] || prop.fotos?.[0];
+const PropCard = ({ prop, badge, badgeColor, precio, fotos, onSelect, idx = 0 }) => {
+  const fotoSrc = fotos?.[0] || prop.fotos?.[0] || SAMPLE_FOTOS[idx % SAMPLE_FOTOS.length];
   const badgeCls = badgeColor === "green"
     ? "bg-green-100 text-green-700"
     : "bg-blue-100 text-blue-700";
@@ -925,13 +941,7 @@ const PropCard = ({ prop, badge, badgeColor, precio, fotos, onSelect }) => {
   return (
     <Card className="bg-white border-slate-200 shadow-sm hover:shadow-md transition-shadow overflow-hidden group flex flex-col">
       <div className="h-36 bg-slate-100 relative overflow-hidden">
-        {fotoSrc ? (
-          <img src={fotoSrc} alt="Fachada" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center text-slate-300">
-            <ImageIcon className="w-8 h-8 opacity-50" />
-          </div>
-        )}
+        <img src={fotoSrc} alt="Fachada" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
         <div className="absolute top-2 right-2">
           <span className={`text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full ${badgeCls}`}>{badge}</span>
