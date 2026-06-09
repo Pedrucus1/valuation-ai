@@ -1,5 +1,5 @@
 # PropValu — Backlog de Tareas
-> **Última actualización:** 05 Jun 2026. Snapshot de estado vigente → `ESTADO.md`. Bitácora histórica de sesiones → `BACKLOG_ARCHIVE.md` (NO leer al iniciar).
+> **Última actualización:** 08 Jun 2026. Snapshot de estado vigente → `ESTADO.md`. Bitácora histórica de sesiones → `BACKLOG_ARCHIVE.md` (NO leer al iniciar).
 > Marcar ✅ completado · 🔄 en progreso · ⏳ pendiente · 👁️ pendiente revisión personal. Las descripciones largas de tareas viven en las tablas de abajo; el detalle del motor en `MOTOR_ANTECEDENTES.md` (grep, no leer completo).
 
 ---
@@ -203,11 +203,14 @@
 |---|---|---|
 | N1 | ✅ | **Plan de Negocio 2026** — `memory/PLAN_NEGOCIO.md` creado. Pivot SaaS inmobiliarias, cascada descuentos, DocuProp, portal. |
 | N2 | ✅ | **Análisis de negocio completo** — `memory/ANALISIS_NEGOCIO_COMPLETO.md`: TAM/SAM/SOM Jalisco, P&L 3 años, unit economics, GTM, legal, equipo. |
+| N8 | ✅ | **Análisis competencia avalúos** — Tabla comparativa YALS/Monopolio/Romina/AvaClick con precios reales verificados. |
 | N3 | ⏳ | **Constituir SAPI de CV** — Prerequisito para cobrar con Stripe. Notario + RFC + cuenta bancaria empresarial. |
 | N4 | ⏳ | **Integrar Stripe** — Cobro real de suscripciones. Prerequisito: SAPI constituida. |
 | N5 | ⏳ | **10 pilotos gratuitos** — Validar product-market fit antes de gastar en marketing. |
 | N6 | ⏳ | **Contactar AMPI Guadalajara** — Solicitar presentación en asamblea mensual. Canal principal GTM. |
 | N7 | ⏳ | **Firmar acuerdos con abogados** — Red DocuProp: 3-5 abogados socios con split 75/25. |
+| N9 | ⏳ | **Scraper NOCNOK** — `inmuebles.nocnok.com/categoria/casa-en-venta/jalisco/guadalajara` — URL limpia, sin Cloudflare, scraper HTTP simple. |
+| N10 | ⏳ | **Scraper Monopolio** — `monopolio.com.mx/busqueda/...` — requiere CDP (JS pesado). Reutilizar scraper propiedades.com. |
 
 ---
 

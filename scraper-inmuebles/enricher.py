@@ -147,6 +147,19 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
                 ano = normalizar_anio_construccion(val if not val.isdigit() else f"{val} años")
                 if ano:
                     resultado["año_construccion"] = ano
+        # m2_construccion: Navent expone "superficie cubierta" / "m2 cubiertos" en label/value
+        mc = re.search(
+            r'"label"\s*:\s*"(?:superficie\s+(?:cubierta|construida?)|m[²2]\s*cubiertos?)"[^}]*?"value"\s*:\s*"([0-9][0-9,\.]*)"',
+            html, re.I
+        )
+        if mc:
+            try:
+                val_mc = float(mc.group(1).replace(",", ""))
+                if val_mc > 0:
+                    resultado["m2_construccion"] = val_mc
+            except ValueError:
+                pass
+
         # teléfono: VIVANUNCIOS lo trae en el JSON ("whatsApp":"52 33..."),
         # INMUEBLES24 normalmente lo oculta tras API (no está en el HTML inicial)
         mt = re.search(r'"whatsApp"\s*:\s*"([0-9 +]{8,20})"', html)
@@ -243,6 +256,15 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
                 size_ground = amenities.get("size_ground")
                 if size_ground and float(size_ground) > 0:
                     resultado["m2_terreno"] = float(size_ground)
+
+                size_const = amenities.get("size") or amenities.get("size_construction") or amenities.get("construction_area")
+                if size_const:
+                    try:
+                        val_sc = float(size_const)
+                        if val_sc > 0:
+                            resultado["m2_construccion"] = val_sc
+                    except (ValueError, TypeError):
+                        pass
 
                 parking = amenities.get("parking_num")
                 if parking and int(parking) >= 0:
@@ -1056,7 +1078,8 @@ def obtener_props_mongo(col, portal: str, max_filas: int, urls_procesadas: set) 
     # edadMedianaZona; propiedades.com la deja vacía en el scrape → backfill).
     falta = {"$or": [{"anio_construccion": {"$exists": False}},
                      {"anio_construccion": None},
-                     {"colonia": {"$in": [None, ""]}}]}
+                     {"colonia": {"$in": [None, ""]}},
+                     {"m2_construccion": {"$in": [None, ""]}}]}
     # Venta Y renta (ambas se enriquecen). Activos + NO duplicados-secundarios
     # (ya depurados por fusionar_duplicados.py) → no re-procesar duplicados.
     q = {"portal_origen": portal, "activo": {"$ne": False},
