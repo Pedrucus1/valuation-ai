@@ -662,7 +662,20 @@ const PromocionesTab = ({ valuacionesList, session }) => {
                   {[...Object.entries(TEMAS), ["moderno", { nombre: "Moderno" }]].map(([id, t]) => (
                     <button key={id} onClick={() => {
                       setTemaSeleccionado(id);
-                      setFormatoSeleccionado(id === "stitch_new" ? "stitch_gallery" : "vertical_2p");
+                      // Preserva el formato actual al cambiar de estilo (mapea entre familias)
+                      setFormatoSeleccionado(prev => {
+                        const FMT_COMUN = ["vertical_2p", "horizontal", "reels", "post"];
+                        // mapa stitch <-> común
+                        const stitchToComun = { stitch_gallery: "vertical_2p", stitch_letter: "horizontal", stitch_asymmetry: "vertical_2p", stitch_facebook: "post", stitch_tiktok: "reels", stitch_kit: "vertical_2p" };
+                        const comunToStitch = { vertical_2p: "stitch_gallery", horizontal: "stitch_letter", reels: "stitch_tiktok", post: "stitch_facebook" };
+                        if (id === "stitch_new") {
+                          if (prev.startsWith("stitch_")) return prev;
+                          return comunToStitch[prev] || "stitch_gallery";
+                        }
+                        // estilo común: si venía de stitch, traduce
+                        if (prev.startsWith("stitch_")) return stitchToComun[prev] || "vertical_2p";
+                        return FMT_COMUN.includes(prev) ? prev : "vertical_2p";
+                      });
                     }}
                       className={`relative rounded-xl overflow-hidden border-2 transition-all text-left ${temaSeleccionado === id ? "border-[#52B788] ring-2 ring-[#52B788]/20" : "border-slate-200 hover:border-slate-300"}`}>
                       <div className="aspect-[3/2] bg-slate-100 relative overflow-hidden">
