@@ -48,62 +48,46 @@ const THUMBS = {
   stitch_obsidian:  "https://lh3.googleusercontent.com/aida/AP1WRLsjKpobbO1c3mYio6ROYIY4bs1VNd2ug53dHgz1S1WviWW9eGpG1ikQFy3eLmBL4FTw6Obctxlas7r1F1L-fI7Bt2y_PaSrK8PJbOT4ITorjJQGM9iLMopT7klFGrj80VodqhBk_Dk6bNdJSZo4Io08vwOlYQpR-WJsEG372gZc510MMeCYdaSo3s6lzrUyO1kmukK0BdawURiu3Aoc6N4F1X9SLWLAdYvFbC40-DKvKqTEBMwanwmEVW79",
 };
 
-// Configuración visual de cada tema para el thumbnail
 const TEMA_THUMB = {
-  classic:         { bg: "#1B4332", accent: "#52B788", page: "#fff",    line: "#e2e8f0", variant: "vertical" },
-  minimalist:      { bg: "#1e293b", accent: "#3b82f6", page: "#fff",    line: "#e2e8f0", variant: "clean" },
-  luxury:          { bg: "#0D0D0D", accent: "#d4af37", page: "#111",    line: "#2a2a2a", variant: "dark" },
-  stitch_obsidian: { bg: "#0D0D0D", accent: "#f59e0b", page: "#000",    line: "#1f1f1f", variant: "dark" },
-  stitch_new:      { bg: "#111827", accent: "#d97706", page: "#fff",    line: "#f3f4f6", variant: "gallery" },
-  moderno:         { bg: "#1B4332", accent: "#52B788", page: "#fff",    line: "#e2e8f0", variant: "moderno" },
+  classic:         { bg: "#1B4332", accent: "#52B788", foto: SAMPLE_FOTOS[0] },
+  minimalist:      { bg: "#1e293b", accent: "#3b82f6", foto: SAMPLE_FOTOS[2] },
+  luxury:          { bg: "#0D0D0D", accent: "#d4af37", foto: SAMPLE_FOTOS[4] },
+  stitch_obsidian: { bg: "#0D0D0D", accent: "#f59e0b", foto: THUMBS.stitch_obsidian },
+  stitch_new:      { bg: "#111827", accent: "#d97706", foto: THUMBS.stitch_gallery },
+  moderno:         { bg: "#1B4332", accent: "#52B788", foto: SAMPLE_FOTOS[5] },
 };
 
-// Mini-preview CSS de cada layout
 const LayoutThumb = ({ temaId, nombre }) => {
   const t = TEMA_THUMB[temaId] || TEMA_THUMB.classic;
-  const img = THUMBS[temaId];
-  if (img) return (
-    <>
-      <img src={img} alt={nombre} className="w-full h-full object-cover object-top" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-      <span className="absolute bottom-1.5 left-2 text-[9px] font-bold text-white drop-shadow">{nombre}</span>
-    </>
-  );
-
-  const isDark = t.variant === "dark";
   return (
-    <div className="w-full h-full relative" style={{ background: t.page }}>
-      {/* Hero bar */}
-      <div className="absolute top-0 left-0 right-0" style={{ height: "42%", background: t.bg }}>
-        <div className="absolute bottom-0 left-0 right-0 h-1/2" style={{ background: `linear-gradient(transparent, ${t.bg}cc)` }} />
-        {/* Precio simulado */}
-        <div className="absolute bottom-2 left-2 right-2">
-          <div className="h-1 rounded mb-1 w-1/2" style={{ background: isDark ? "#ffffff30" : "#ffffff50" }} />
-          <div className="h-2 rounded w-3/4" style={{ background: t.accent + "cc" }} />
-        </div>
+    <div className="w-full h-full relative overflow-hidden">
+      {/* Foto de fondo */}
+      <img src={t.foto} alt={nombre} className="absolute inset-0 w-full h-full object-cover" />
+      {/* Franja superior con color de marca */}
+      <div className="absolute top-0 left-0 right-0 h-[38%]"
+        style={{ background: `linear-gradient(to bottom, ${t.bg}ee, ${t.bg}88)` }} />
+      {/* Precio simulado en la franja */}
+      <div className="absolute top-2 left-2 right-2">
+        <div className="text-white font-black text-[8px] opacity-80 mb-0.5" style={{ fontFamily: "Outfit, sans-serif", letterSpacing: -0.3 }}>$4,850,000</div>
+        <div className="h-[3px] rounded w-14" style={{ background: t.accent }} />
       </div>
-      {/* Contenido */}
-      <div className="absolute left-2 right-2" style={{ top: "46%" }}>
-        {/* Specs row */}
-        <div className="flex gap-1 mb-1.5">
-          {[0,1,2,3].map(i => (
-            <div key={i} className="flex-1 rounded" style={{ height: 5, background: t.accent + "40" }} />
-          ))}
-        </div>
-        {/* Líneas de texto */}
-        {[1, 0.85, 0.7].map((w, i) => (
-          <div key={i} className="rounded mb-1" style={{ height: 3, width: `${w * 100}%`, background: isDark ? "#ffffff20" : t.line }} />
-        ))}
-        {/* Chips */}
-        <div className="flex gap-1 mt-1.5">
-          {[0,1].map(i => (
-            <div key={i} className="rounded-full" style={{ height: 4, width: 28, background: t.accent + "50" }} />
+      {/* Barra de specs en el medio */}
+      <div className="absolute left-2 right-2" style={{ top: "40%" }}>
+        <div className="flex gap-1">
+          {["150m²","3 rec","2.5 b"].map((s, i) => (
+            <div key={i} className="flex-1 rounded text-[5px] font-bold text-center py-0.5"
+              style={{ background: t.bg + "dd", color: t.accent }}>
+              {s}
+            </div>
           ))}
         </div>
       </div>
-      {/* Gradient + label */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-      <span className="absolute bottom-1.5 left-2 text-[9px] font-bold text-white drop-shadow">{nombre}</span>
+      {/* Gradiente inferior + nombre */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
+      <div className="absolute bottom-1.5 left-2 right-2 flex items-end justify-between">
+        <span className="text-[9px] font-bold text-white drop-shadow">{nombre}</span>
+        <div className="w-3 h-3 rounded-sm" style={{ background: t.accent }} />
+      </div>
     </div>
   );
 };
