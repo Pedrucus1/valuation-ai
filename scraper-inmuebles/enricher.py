@@ -257,15 +257,6 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
                 if size_ground and float(size_ground) > 0:
                     resultado["m2_terreno"] = float(size_ground)
 
-                size_const = amenities.get("size") or amenities.get("size_construction") or amenities.get("construction_area")
-                if size_const:
-                    try:
-                        val_sc = float(size_const)
-                        if val_sc > 0:
-                            resultado["m2_construccion"] = val_sc
-                    except (ValueError, TypeError):
-                        pass
-
                 parking = amenities.get("parking_num")
                 if parking and int(parking) >= 0:
                     resultado["estacionamientos"] = int(parking)
