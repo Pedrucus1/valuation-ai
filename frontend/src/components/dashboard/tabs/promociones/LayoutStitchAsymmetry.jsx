@@ -41,209 +41,177 @@ export default function LayoutStitchAsymmetry({
 }) {
   const fotos = fichaAvaluo?.fotos || [];
   const direccion = fichaAvaluo?.direccion || 'The Obsidian Villa';
-  const precio = fichaAvaluo?.valor
-    ? formatMXN(fichaAvaluo.valor)
-    : '$2,500,000';
+  const valorNum = fichaAvaluo?.valor ?? fichaAvaluo?.precio_oferta ?? null;
+  const precio = valorNum ? formatMXN(valorNum) : '$2,500,000';
+  const m2c = fichaAvaluo?.m2_construccion ?? fichaAvaluo?.construccion ?? null;
+  const m2t = fichaAvaluo?.m2_terreno ?? fichaAvaluo?.terreno ?? null;
+  const precioM2 = (valorNum && m2c) ? formatMXN(Math.round(valorNum / m2c)) : null;
   const recamaras = fichaAvaluo?.recamaras ?? fichaAvaluo?.cuartos ?? '--';
   const banos = fichaAvaluo?.banos ?? '--';
-  const terreno = fichaAvaluo?.terreno ? `${fichaAvaluo.terreno} m²` : '--';
-  const construccion = fichaAvaluo?.construccion ? `${fichaAvaluo.construccion} m²` : '--';
+  const construccion = m2c ? `${m2c} m²` : '--';
+  const terreno = m2t ? `${m2t} m²` : '--';
   const estacionamiento = fichaAvaluo?.estacionamiento ?? fichaAvaluo?.cajones ?? '--';
+  const niveles = fichaAvaluo?.niveles ?? null;
+  const antiguedad = fichaAvaluo?.antiguedad ?? null;
+  const conservacion = fichaAvaluo?.conservacion ?? null;
+  const tipo = fichaAvaluo?.tipo ?? null;
   const ubicacion = fichaAvaluo?.colonia ?? fichaAvaluo?.municipio ?? '--';
   const asesor = session?.user?.name ?? session?.user?.email?.split('@')[0] ?? 'Asesor';
   const email = session?.user?.email ?? '';
   const telefono = session?.user?.phone ?? '';
+  const serif = 'Playfair Display, Georgia, serif';
+  const accent = palette?.accent || '#775a19';
 
   const descripcion =
     descripcionTexto ||
     'Una propuesta arquitectónica sin concesiones que fusiona precisión tectónica con la fluidez natural del entorno. Grandes volúmenes se abren sin fricción al horizonte, donde la alberca infinita actúa como extensión visual del paisaje. Cada detalle ha sido curado para eliminar el ruido visual y elevar la experiencia de habitar.';
 
-  const heroImg = fotos[0] ?? null;
+  const verified = (puntosDestacados || []).filter(p => p?.verificado).map(p => p.texto);
+  const otros = (puntosDestacados || []).filter(p => !p?.verificado).map(p => p.texto);
+  const especiales = [...new Set([...verified, ...amenidades, ...instalaciones, ...espacios, ...otros]
+    .filter(Boolean))].slice(0, 14);
+  const especialesCols = especiales.length > 6 ? '1fr 1fr' : '1fr';
 
-  // Asymmetry gallery: 2 large + 4 small (2×2)
+  // Asymmetry gallery: 2 large (col 1-2) + 4 small (2×2, col 3)
   const bigImgs = fotos.slice(0, 2);
   const smallImgs = fotos.slice(2, 6);
   while (bigImgs.length < 2) bigImgs.push(null);
   while (smallImgs.length < 4) smallImgs.push(null);
 
-  const serif = 'Playfair Display, Georgia, serif';
-  const accent = palette?.accent || '#775a19';
+  const heroImg = fotos[0] ?? null;
+
+  const specRows = [
+    { l: 'Precio', v: precio, big: true },
+    ...(precioM2 ? [{ l: 'Precio / m²', v: precioM2 }] : []),
+    { l: 'Construcción', v: construccion },
+    { l: 'Terreno', v: terreno },
+    ...(tipo ? [{ l: 'Tipo', v: tipo }] : []),
+    ...(niveles ? [{ l: 'Niveles', v: niveles }] : []),
+    ...(antiguedad ? [{ l: 'Antigüedad', v: `${antiguedad}` }] : []),
+    ...(conservacion ? [{ l: 'Conservación', v: conservacion }] : []),
+  ];
 
   return (
     <div
       id="pv-ficha-root"
-      className="bg-white shadow-2xl overflow-hidden flex flex-col border border-gray-300 relative font-sans"
-      style={{ width: 794, height: 1123, padding: '0.6in', fontFamily: 'Inter, sans-serif' }}
+      style={{ width: 794, height: 1123, display: 'flex', flexDirection: 'column', overflow: 'hidden', padding: 34, background: '#fff', border: '1px solid #d1d5db', fontFamily: 'Inter, sans-serif', position: 'relative' }}
     >
       {/* Header */}
-      <header className="flex justify-between items-baseline border-b border-gray-300 pb-5 mb-6">
-        <div>
-          <h1
-            className="text-[36px] tracking-tight leading-none font-bold uppercase text-black"
-            style={{ fontFamily: serif }}
-          >
+      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', borderBottom: '1px solid #d1d5db', paddingBottom: 12, marginBottom: 12, flexShrink: 0 }}>
+        <div style={{ minWidth: 0 }}>
+          <h1 style={{ fontFamily: serif, fontSize: 34, lineHeight: 1, fontWeight: 700, textTransform: 'uppercase', color: '#000', letterSpacing: '-0.01em' }}>
             {direccion}
           </h1>
-          <p className="text-sm text-gray-500 flex items-center gap-1 mt-1 uppercase tracking-widest">
-            <MapPin size={14} />
-            {ubicacion}
+          <p style={{ color: '#6b7280', display: 'flex', alignItems: 'center', gap: 4, marginTop: 5, textTransform: 'uppercase', letterSpacing: '0.18em', fontSize: 12 }}>
+            <MapPin size={13} />
+            {ubicacion}{tipo ? ` · ${tipo}` : ''}
           </p>
         </div>
-        <div style={{ display:'flex', alignItems:'center', gap:8 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
           {session?.user?.picture
-            ? <img src={session.user.picture} alt="Logo" style={{ height:32, maxWidth:100, objectFit:'contain' }} />
-            : <span style={{ fontSize:11, fontWeight:700, color:'#aaa', letterSpacing:'0.1em' }}>LOGO</span>}
+            ? <img src={session.user.picture} alt="Logo" style={{ height: 42, maxWidth: 130, objectFit: 'contain' }} />
+            : <span style={{ fontSize: 11, fontWeight: 700, color: '#aaa', letterSpacing: '0.1em' }}>LOGO</span>}
         </div>
       </header>
 
-      {/* Hero Image */}
-      <section className="mb-6">
-        <div className="w-full overflow-hidden" style={{ height: '240px' }}>
+      {/* Offset Hero with price overlay */}
+      <section style={{ flexShrink: 0, marginBottom: 14 }}>
+        <div style={{ width: '100%', height: 380, overflow: 'hidden', position: 'relative', background: '#e5e5e5' }}>
           {heroImg ? (
-            <img
-              alt="Vista principal"
-              className="w-full h-full object-cover"
-              src={heroImg}
-            />
+            <img alt="Vista principal" style={{ width: '100%', height: '100%', objectFit: 'cover' }} src={heroImg} />
           ) : (
-            <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-              <span className="text-gray-400 text-xs uppercase tracking-widest">Sin fotografía</span>
+            <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <span style={{ color: '#9ca3af', fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.18em' }}>Sin fotografía</span>
             </div>
           )}
+          {/* offset price tab — asymmetric, anchored bottom-left */}
+          <div style={{ position: 'absolute', bottom: 0, left: 0, background: accent, padding: '12px 24px 12px 18px' }}>
+            <span style={{ display: 'block', fontSize: 9, color: 'rgba(255,255,255,0.75)', textTransform: 'uppercase', letterSpacing: '0.2em' }}>Precio</span>
+            <span style={{ fontFamily: serif, fontSize: 30, fontWeight: 600, color: '#fff', lineHeight: 1 }}>{precio}</span>
+            {precioM2 && <span style={{ display: 'block', fontSize: 10, color: 'rgba(255,255,255,0.85)', marginTop: 2 }}>{precioM2} / m²</span>}
+          </div>
         </div>
       </section>
 
-      {/* Asymmetric: Narrative (8 cols) | Specs (4 cols) */}
-      <section className="grid gap-8 mb-6 items-start" style={{ gridTemplateColumns: '2fr 1fr' }}>
-        {/* Left: Narrative (wider) */}
-        <div className="border-r border-gray-300 pr-8">
-          <h2 className="text-[10px] text-gray-400 uppercase tracking-widest mb-3">
-            Descripción
-          </h2>
-          <p
-            className="text-[16px] text-gray-900 leading-relaxed italic border-l-4 pl-6 py-1 mb-4"
-            style={{ borderColor: accent }}
-          >
+      {/* Asymmetric: Narrative + Lo Especial (2fr) | Specs sidebar (1fr) */}
+      <section style={{ flexShrink: 0, marginBottom: 14, display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 28, alignItems: 'start' }}>
+        {/* Left: Narrative + Lo Especial (wider) */}
+        <div style={{ borderRight: '1px solid #d1d5db', paddingRight: 28 }}>
+          <h2 style={{ fontSize: 10, color: '#aaa', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: 8 }}>Descripción</h2>
+          <p style={{ fontSize: 15, color: '#1a1a1a', lineHeight: 1.5, fontStyle: 'italic', borderLeft: `4px solid ${accent}`, paddingLeft: 16, marginBottom: 8 }}>
             {descripcion.split('. ')[0]}.
           </p>
-          <p className="text-[14px] text-gray-500 leading-relaxed">
+          <p style={{ fontSize: 12.5, color: '#6b7280', lineHeight: 1.5, marginBottom: 14 }}>
             {descripcion.split('. ').slice(1).join('. ')}
           </p>
 
-          {/* Puntos Destacados */}
-          {puntosDestacados?.length > 0 && (
-            <div style={{ display:'flex', flexWrap:'wrap', gap:6, marginBottom:12, marginTop:12 }}>
-              {puntosDestacados.slice(0,4).map((p,i) => (
-                <span key={i} style={{
-                  padding:'4px 10px', borderRadius:20, fontSize:10, fontWeight:600,
-                  background: p.verificado ? (accent)+'15' : '#f8f8f8',
-                  border: `1px solid ${p.verificado ? (accent)+'50' : '#ddd'}`,
-                  color: p.verificado ? '#1a1a1a' : '#555',
-                  display:'flex', alignItems:'center', gap:4
-                }}>
-                  {p.verificado && <span style={{ color: accent, fontWeight:900 }}>✓</span>}
-                  {p.texto}
-                </span>
-              ))}
-            </div>
-          )}
-
-          {/* Amenidades */}
-          {amenidades?.length > 0 && (
-            <section style={{ marginBottom:16, marginTop: puntosDestacados?.length > 0 ? 0 : 12 }}>
-              <h2 style={{ fontSize:10, color:'#aaa', textTransform:'uppercase', letterSpacing:'0.2em', marginBottom:8 }}>Amenidades</h2>
-              <div style={{ display:'grid', gridTemplateColumns:'repeat(3, 1fr)', gap:'6px 12px' }}>
-                {amenidades.slice(0,6).map((a,i) => {
+          {especiales.length > 0 && (
+            <div>
+              <h2 style={{ fontSize: 10, color: '#aaa', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: 8 }}>Lo Especial</h2>
+              <div style={{ display: 'grid', gridTemplateColumns: especialesCols, gap: '5px 16px' }}>
+                {especiales.map((a, i) => {
                   const { label, Icon } = parseFeatureItem(a);
                   return (
-                    <div key={i} style={{ display:'flex', alignItems:'center', gap:6, fontSize:11 }}>
-                      <Icon size={12} style={{ color: accent, flexShrink:0 }} />
-                      <span style={{ color:'#555' }}>{label}</span>
+                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11 }}>
+                      <Icon size={13} style={{ color: accent, flexShrink: 0 }} />
+                      <span style={{ color: '#555', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{label}</span>
                     </div>
                   );
                 })}
               </div>
-            </section>
+            </div>
           )}
         </div>
 
-        {/* Right: Specs (compact sidebar) */}
-        <div className="space-y-4">
-          <h2 className="text-[10px] text-gray-400 uppercase tracking-widest mb-4">
-            Especificaciones
-          </h2>
-          <div className="space-y-3">
-            <div className="flex justify-between items-end border-b border-gray-200 pb-1">
-              <span className="text-[11px] uppercase text-gray-700 font-medium">Precio</span>
-              <span
-                className="text-[20px] font-semibold"
-                style={{ color: accent, fontFamily: serif }}
-              >
-                {precio}
-              </span>
+        {/* Right: Specs sidebar */}
+        <div>
+          <h2 style={{ fontSize: 10, color: '#aaa', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: 10 }}>Especificaciones</h2>
+          {specRows.map((s, i) => (
+            <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', borderBottom: '1px solid #eee', padding: '5px 0' }}>
+              <span style={{ fontSize: 10.5, textTransform: 'uppercase', color: '#555', fontWeight: 500 }}>{s.l}</span>
+              <span style={{ fontSize: s.big ? 17 : 13, fontWeight: s.big ? 600 : 700, color: s.big ? accent : '#222', fontFamily: s.big ? serif : 'inherit' }}>{s.v}</span>
             </div>
-            <div className="flex justify-between items-end border-b border-gray-200 pb-1">
-              <span className="text-[11px] uppercase text-gray-700 font-medium">Construcción</span>
-              <span className="text-sm font-bold text-gray-800">{construccion}</span>
+          ))}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, paddingTop: 12 }}>
+            <div>
+              <span style={{ fontSize: 9, textTransform: 'uppercase', color: '#aaa', display: 'block', marginBottom: 2 }}>Recámaras</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}><Bed size={15} /><span style={{ fontSize: 14, fontWeight: 700 }}>{recamaras}</span></div>
             </div>
-            <div className="flex justify-between items-end border-b border-gray-200 pb-1">
-              <span className="text-[11px] uppercase text-gray-700 font-medium">Terreno</span>
-              <span className="text-sm font-bold text-gray-800">{terreno}</span>
+            <div>
+              <span style={{ fontSize: 9, textTransform: 'uppercase', color: '#aaa', display: 'block', marginBottom: 2 }}>Baños</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}><Bath size={15} /><span style={{ fontSize: 14, fontWeight: 700 }}>{banos}</span></div>
             </div>
-            <div className="grid grid-cols-2 gap-2 pt-1">
-              <div className="flex items-center gap-2">
-                <Bed size={16} className="text-black" />
-                <span className="text-[13px] font-bold text-gray-800">{recamaras}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Bath size={16} className="text-black" />
-                <span className="text-[13px] font-bold text-gray-800">{banos}</span>
-              </div>
-            </div>
-            <div className="pt-1 flex items-center gap-2">
-              <Car size={16} className="text-black" />
-              <span className="text-[13px] font-bold uppercase text-gray-800">{estacionamiento} cajones</span>
+            <div>
+              <span style={{ fontSize: 9, textTransform: 'uppercase', color: '#aaa', display: 'block', marginBottom: 2 }}>Estac.</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}><Car size={15} /><span style={{ fontSize: 14, fontWeight: 700 }}>{estacionamiento}</span></div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Asymmetric Gallery: 2 large + 2×2 small */}
-      <section className="flex-grow">
-        <h2 className="text-[10px] text-gray-400 uppercase tracking-widest mb-3">
-          Perspectivas
-        </h2>
-        <div className="grid gap-3" style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
-          {/* Large featured (col 1 & 2) */}
+      {/* Asymmetric Gallery: 2 large + 2×2 small — fills remaining */}
+      <section style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', marginTop: 'auto' }}>
+        <h2 style={{ fontSize: 10, color: '#aaa', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: 6 }}>Perspectivas</h2>
+        <div style={{ flex: 1, minHeight: 0, display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8 }}>
           {bigImgs.map((src, i) => (
-            <div key={i} className="aspect-square bg-gray-200 overflow-hidden">
+            <div key={`b${i}`} style={{ background: '#e5e5e5', overflow: 'hidden' }}>
               {src ? (
-                <img
-                  alt={`Destacada ${i + 1}`}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                  src={src}
-                />
+                <img alt={`Destacada ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} src={src} />
               ) : (
-                <div className="w-full h-full flex items-center justify-center">
-                  <Square size={24} className="text-gray-300" />
+                <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Square size={24} color="#d1d5db" />
                 </div>
               )}
             </div>
           ))}
-
-          {/* Col 3: 2×2 grid of small images */}
-          <div className="grid grid-cols-2 gap-3">
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr', gap: 8, minHeight: 0 }}>
             {smallImgs.map((src, i) => (
-              <div key={i} className="aspect-square bg-gray-200 overflow-hidden">
+              <div key={`s${i}`} style={{ background: '#e5e5e5', overflow: 'hidden' }}>
                 {src ? (
-                  <img
-                    alt={`Interior ${i + 1}`}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                    src={src}
-                  />
+                  <img alt={`Interior ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} src={src} />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <Square size={16} className="text-gray-300" />
+                  <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Square size={16} color="#d1d5db" />
                   </div>
                 )}
               </div>
@@ -253,31 +221,32 @@ export default function LayoutStitchAsymmetry({
       </section>
 
       {/* Footer */}
-      <footer className="mt-6 pt-6 border-t border-gray-300 flex justify-between items-center">
-        <div className="flex items-center gap-4">
-          <div className="w-14 h-14 rounded-full overflow-hidden border border-gray-300 bg-gray-100 flex items-center justify-center">
+      <footer style={{ flexShrink: 0, marginTop: 12, paddingTop: 10, borderTop: '1px solid #d1d5db', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div style={{ width: 46, height: 46, borderRadius: '50%', overflow: 'hidden', border: '1px solid #d1d5db', background: '#f3f4f6', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
             {session?.user?.photoURL
-              ? <img src={session.user.photoURL} alt={asesor} className="w-full h-full object-cover" />
-              : <User size={28} className="text-gray-400" />}
+              ? <img src={session.user.photoURL} alt={asesor} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              : <User size={26} color="#9ca3af" />}
           </div>
           <div>
-            <h3 className="text-[13px] font-bold uppercase tracking-wider text-gray-900">{asesor}</h3>
-            <p className="text-[10px] text-gray-400 uppercase tracking-tighter">Asesor Inmobiliario</p>
+            <h3 style={{ fontSize: 13, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#111' }}>{asesor}</h3>
+            <p style={{ fontSize: 9.5, color: '#aaa', textTransform: 'uppercase' }}>Asesor Inmobiliario</p>
             {(telefono || email) && (
-              <p className="text-[11px] text-black mt-0.5">
-                {telefono}{telefono && email ? ' | ' : ''}{email}
+              <p style={{ fontSize: 11, color: '#000', marginTop: 1, display: 'flex', gap: 8, alignItems: 'center' }}>
+                {telefono && <span style={{ display: 'flex', alignItems: 'center', gap: 3 }}><Phone size={10} />{telefono}</span>}
+                {email && <span style={{ display: 'flex', alignItems: 'center', gap: 3 }}><Mail size={10} />{email}</span>}
               </p>
             )}
           </div>
         </div>
-        <div style={{ display:'flex', flexDirection:'column', alignItems:'flex-end', gap:4 }}>
-          <div style={{ display:'flex', alignItems:'center', gap:4 }}>
-            <div style={{ width:12, height:12, borderRadius:3, background: accent, display:'flex', alignItems:'center', justifyContent:'center' }}>
-              <span style={{ color:'#fff', fontWeight:900, fontSize:7 }}>P</span>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 4 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+            <div style={{ width: 14, height: 14, borderRadius: 3, background: accent, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <span style={{ color: '#fff', fontWeight: 900, fontSize: 8 }}>P</span>
             </div>
-            <span style={{ fontSize:9, fontWeight:700, letterSpacing:'0.08em', textTransform:'uppercase', color:'#aaa' }}>propvalu.mx</span>
+            <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#aaa' }}>propvalu.mx</span>
           </div>
-          <p style={{ fontSize:9, color:'#aaa' }}>© {new Date().getFullYear()} {asesor.toUpperCase()}</p>
+          <p style={{ fontSize: 9, color: '#aaa' }}>© {new Date().getFullYear()} {asesor.toUpperCase()}</p>
         </div>
       </footer>
     </div>

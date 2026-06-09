@@ -126,91 +126,121 @@ const A4Layout = ({ fichaAvaluo: f, palette, session, descripcionTexto, puntosDe
   return (
     <div id="pv-ficha-root" style={{ width: A4_W, fontFamily: "Manrope, sans-serif", color: textDark, background: "#fff" }}>
       {/* ── PÁGINA 1 ── */}
-      <div style={{ width: A4_W, height: A4_H, background: "#fff", position: "relative", overflow: "hidden" }}>
+      <div style={{ width: A4_W, height: A4_H, background: "#fff", position: "relative", overflow: "hidden", display: "flex", flexDirection: "column" }}>
         {/* Hero */}
-        <div style={{ position: "relative", height: "45%", overflow: "hidden" }}>
+        <div style={{ position: "relative", height: 500, overflow: "hidden", flexShrink: 0 }}>
           {fotos[0] && <img src={fotos[0]} alt="Fachada" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />}
           <div style={{ position: "absolute", bottom: 0, width: "100%", height: "50%", background: "linear-gradient(transparent, rgba(0,0,0,0.75))" }} />
           <div style={{ position: "absolute", top: 28, left: 28 }}>
             <LogoBox session={session} palette={palette} />
           </div>
+          <div style={{ position: "absolute", bottom: 24, left: 28, right: 28 }}>
+            <div style={{ display: "inline-block", background: accent, color: "#fff", padding: "7px 20px", fontWeight: 700, textTransform: "uppercase", fontSize: 13, letterSpacing: 1, borderRadius: 3, marginBottom: 12 }}>
+              {f?.tipo || "Propiedad"} en Venta
+            </div>
+            <h2 style={{ fontFamily: "Outfit, sans-serif", fontSize: 26, fontWeight: 800, color: "#fff", margin: 0, lineHeight: 1.05 }}>
+              {f?.direccion || ""}
+            </h2>
+          </div>
         </div>
 
-        {/* Content */}
-        <div style={{ padding: "32px 40px 0" }}>
-          <div style={{ display: "inline-block", background: accent, color: "#fff", padding: "7px 20px", fontWeight: 700, textTransform: "uppercase", fontSize: 13, letterSpacing: 1, borderRadius: 3, marginBottom: 16 }}>
-            {f?.tipo || "Propiedad"} en Venta
+        {/* Content — crece para llenar */}
+        <div style={{ padding: "26px 40px 0", flex: 1, display: "flex", flexDirection: "column" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+            <div>
+              <h1 style={{ fontFamily: "Outfit, sans-serif", fontSize: 54, fontWeight: 800, color: bg, lineHeight: 1, margin: "0 0 6px" }}>
+                {formatMXN(precio)}
+              </h1>
+              <p style={{ fontSize: 15, color: "#555", margin: 0, fontWeight: 500 }}>
+                {f?.colonia ? `${f.colonia}, ` : ""}{f?.municipio || ""}
+                {precioM2 && <span style={{ marginLeft: 14, fontSize: 13, color: "#888" }}>{formatMXN(precioM2)} / m²</span>}
+              </p>
+            </div>
           </div>
-          <h1 style={{ fontFamily: "Outfit, sans-serif", fontSize: 62, fontWeight: 800, color: bg, lineHeight: 1, margin: "0 0 8px" }}>
-            {formatMXN(precio)}
-          </h1>
-          <p style={{ fontSize: 16, color: "#555", margin: "0 0 32px", fontWeight: 500 }}>
-            {f?.colonia ? `${f.colonia}, ` : ""}{f?.municipio || f?.direccion || ""}
-            {precioM2 && <span style={{ marginLeft: 16, fontSize: 13, color: "#888" }}>{formatMXN(precioM2)} / m²</span>}
-          </p>
 
-          {/* Specs bar */}
-          <div style={{ display: "flex", justifyContent: "space-between", borderTop: "1px solid #ddd", borderBottom: "1px solid #ddd", padding: "22px 0", marginBottom: 32 }}>
-            {specs.slice(0, 5).map(({ Icon, val, label }, i) => (
-              <div key={i} style={{ textAlign: "center" }}>
-                <Icon size={22} color={accent} style={{ display: "block", margin: "0 auto 8px" }} />
-                <strong style={{ display: "block", fontFamily: "Outfit, sans-serif", fontSize: 20, color: bg }}>{val}</strong>
-                <span style={{ fontSize: 11, color: "#777", textTransform: "uppercase" }}>{label}</span>
+          {/* Specs bar — 6 specs */}
+          <div style={{ display: "flex", justifyContent: "space-between", borderTop: "1px solid #ddd", borderBottom: "1px solid #ddd", padding: "18px 0", margin: "22px 0 24px" }}>
+            {specs.slice(0, 6).map(({ Icon, val, label }, i) => (
+              <div key={i} style={{ textAlign: "center", flex: 1 }}>
+                <Icon size={20} color={accent} style={{ display: "block", margin: "0 auto 6px" }} />
+                <strong style={{ display: "block", fontFamily: "Outfit, sans-serif", fontSize: 18, color: bg }}>{val}</strong>
+                <span style={{ fontSize: 9.5, color: "#777", textTransform: "uppercase", letterSpacing: "0.05em" }}>{label}</span>
               </div>
             ))}
           </div>
 
           {/* Descripción */}
-          <p style={{ fontSize: 15, lineHeight: 1.75, color: "#444", marginBottom: 28 }}>
+          <p style={{ fontSize: 14, lineHeight: 1.7, color: "#444", marginBottom: 18, textAlign: "justify" }}>
             {descripcionTexto || "Propiedad en excelente ubicación con acabados de primera calidad."}
           </p>
 
           {/* Chips */}
-          <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-            {puntosDestacados?.slice(0, 4).map((p, i) => (
-              <div key={i} style={{
-                padding: "9px 18px", borderRadius: 30, fontSize: 13, fontWeight: 600,
-                background: p.verificado ? `${accent}18` : "#f8f8f8",
-                border: `1px solid ${p.verificado ? accent : "#ddd"}`,
-                color: p.verificado ? bg : textDark,
-                display: "flex", alignItems: "center", gap: 7,
-              }}>
-                {p.verificado && <CheckCircle2 size={13} color={accent} />}
-                {p.texto}
-              </div>
-            ))}
-          </div>
+          {puntosDestacados?.length > 0 && (
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 18 }}>
+              {puntosDestacados.slice(0, 5).map((p, i) => (
+                <div key={i} style={{
+                  padding: "8px 16px", borderRadius: 30, fontSize: 12, fontWeight: 600,
+                  background: p.verificado ? `${accent}18` : "#f8f8f8",
+                  border: `1px solid ${p.verificado ? accent : "#ddd"}`,
+                  color: p.verificado ? bg : textDark,
+                  display: "flex", alignItems: "center", gap: 6,
+                }}>
+                  {p.verificado && <CheckCircle2 size={12} color={accent} />}
+                  {p.texto}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Galería que llena el espacio restante */}
+          {fotos.length > 1 && (
+            <div style={{ flex: 1, minHeight: 0, display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10, marginBottom: 56 }}>
+              {fotos.slice(1, 4).map((foto, i) => (
+                <div key={i} style={{ borderRadius: 8, overflow: "hidden", background: "#e5e5e5" }}>
+                  <img src={foto} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Footer */}
-        <div style={{ position: "absolute", bottom: 20, width: "100%", textAlign: "center" }}>
+        <div style={{ position: "absolute", bottom: 18, width: "100%", textAlign: "center" }}>
           <PropValuBadge color="#aaa" />
         </div>
       </div>
 
       {/* ── PÁGINA 2 ── */}
       <div style={{ width: A4_W, height: A4_H, background: "#fff", position: "relative", overflow: "hidden", padding: "36px 40px", boxSizing: "border-box", display: "flex", flexDirection: "column" }}>
-        {/* Galería */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 32, height: 420 }}>
-          {fotos[1] ? <img src={fotos[1]} alt="" style={{ ...photoStyle(fotos[1], "100%"), gridColumn: "1 / 2 span", height: 250 }} /> : null}
-          {[fotos[2], fotos[3], fotos[4]].filter(Boolean).slice(0, 2).map((f, i) => (
-            <img key={i} src={f} alt="" style={photoStyle(f, 160)} />
-          ))}
+        {/* Galería destacada */}
+        <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 12, marginBottom: 28, height: 300, flexShrink: 0 }}>
+          <div style={{ borderRadius: 8, overflow: "hidden", background: "#e5e5e5" }}>
+            {fotos[1] && <img src={fotos[1]} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />}
+          </div>
+          <div style={{ display: "grid", gridTemplateRows: "1fr 1fr", gap: 12 }}>
+            {[fotos[2], fotos[3]].map((foto, i) => (
+              <div key={i} style={{ borderRadius: 8, overflow: "hidden", background: "#e5e5e5" }}>
+                {foto && <img src={foto} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />}
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Amenidades */}
+        {/* Amenidades / Lo Especial — 2 columnas con iconos */}
         {allFeatures.length > 0 && (
-          <div style={{ marginBottom: 32 }}>
-            <h2 style={{ fontFamily: "Outfit, sans-serif", fontSize: 24, color: bg, margin: "0 0 18px", borderLeft: `4px solid ${accent}`, paddingLeft: 14 }}>
-              Amenidades &amp; Instalaciones
+          <div style={{ marginBottom: 24 }}>
+            <h2 style={{ fontFamily: "Outfit, sans-serif", fontSize: 22, color: bg, margin: "0 0 16px", borderLeft: `4px solid ${accent}`, paddingLeft: 14 }}>
+              {idioma === "en" ? "Amenities & Features" : "Amenidades e Instalaciones"}
             </h2>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "14px 20px" }}>
-              {allFeatures.slice(0, 9).map((label, i) => {
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "12px 28px" }}>
+              {allFeatures.slice(0, 12).map((label, i) => {
                 const Icon = iconForLabel(label);
                 return (
-                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 14, fontWeight: 500 }}>
-                    <Icon size={16} color={accent} />
-                    {label}
+                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 14, fontWeight: 500, paddingBottom: 8, borderBottom: "1px solid #f1f5f9" }}>
+                    <div style={{ width: 34, height: 34, borderRadius: 8, background: `${accent}14`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                      <Icon size={17} color={accent} />
+                    </div>
+                    <span style={{ textTransform: "capitalize", color: "#334155" }}>{label}</span>
                   </div>
                 );
               })}

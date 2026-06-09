@@ -51,6 +51,7 @@ export default function LayoutStitchLetter({
   const construccion = m2c ? `${m2c} m²` : '--';
   const terreno = m2t ? `${m2t} m²` : '--';
   const estacionamiento = fichaAvaluo?.estacionamiento ?? fichaAvaluo?.cajones ?? '--';
+  const niveles = fichaAvaluo?.niveles ?? null;
   const antiguedad = fichaAvaluo?.antiguedad ?? null;
   const conservacion = fichaAvaluo?.conservacion ?? null;
   const tipo = fichaAvaluo?.tipo ?? null;
@@ -68,7 +69,8 @@ export default function LayoutStitchLetter({
   const verified = (puntosDestacados || []).filter(p => p?.verificado).map(p => p.texto);
   const otros = (puntosDestacados || []).filter(p => !p?.verificado).map(p => p.texto);
   const especiales = [...new Set([...verified, ...amenidades, ...instalaciones, ...espacios, ...otros]
-    .filter(Boolean))].slice(0, 12);
+    .filter(Boolean))].slice(0, 14);
+  const especialesCols = especiales.length > 6 ? '1fr 1fr' : '1fr';
 
   const heroImg = fotos[0] ?? null;
   const restantes = fotos.slice(1);
@@ -82,6 +84,7 @@ export default function LayoutStitchLetter({
     { l: 'Construcción', v: construccion },
     { l: 'Terreno', v: terreno },
     ...(tipo ? [{ l: 'Tipo', v: tipo }] : []),
+    ...(niveles ? [{ l: 'Niveles', v: niveles }] : []),
     ...(antiguedad ? [{ l: 'Antigüedad', v: `${antiguedad}` }] : []),
     ...(conservacion ? [{ l: 'Conservación', v: conservacion }] : []),
   ];
@@ -89,42 +92,41 @@ export default function LayoutStitchLetter({
   return (
     <div
       id="pv-ficha-root"
-      className="bg-white overflow-hidden flex flex-col border border-gray-300 relative"
-      style={{ width: 794, height: 1123, padding: 34, fontFamily: 'Inter, sans-serif' }}
+      style={{ width: 794, height: 1123, display: 'flex', flexDirection: 'column', overflow: 'hidden', padding: 34, background: '#fff', border: '1px solid #d1d5db', fontFamily: 'Inter, sans-serif', position: 'relative' }}
     >
       {/* Header */}
-      <header className="flex justify-between items-end border-b border-gray-300 pb-3 mb-3" style={{ flexShrink: 0 }}>
+      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', borderBottom: '1px solid #d1d5db', paddingBottom: 12, marginBottom: 12, flexShrink: 0 }}>
         <div style={{ minWidth: 0 }}>
-          <h1 className="tracking-tight leading-none font-bold uppercase text-black" style={{ fontFamily: serif, fontSize: 30 }}>
+          <h1 style={{ fontFamily: serif, fontSize: 32, lineHeight: 1, fontWeight: 700, textTransform: 'uppercase', color: '#000', letterSpacing: '-0.01em' }}>
             {direccion}
           </h1>
-          <p className="text-gray-500 flex items-center gap-1 mt-1 uppercase tracking-widest" style={{ fontSize: 12 }}>
+          <p style={{ color: '#6b7280', display: 'flex', alignItems: 'center', gap: 4, marginTop: 5, textTransform: 'uppercase', letterSpacing: '0.18em', fontSize: 12 }}>
             <MapPin size={13} />
             {ubicacion}{tipo ? ` · ${tipo}` : ''}
           </p>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
           {session?.user?.picture
-            ? <img src={session.user.picture} alt="Logo" style={{ height: 38, maxWidth: 120, objectFit: 'contain' }} />
+            ? <img src={session.user.picture} alt="Logo" style={{ height: 42, maxWidth: 130, objectFit: 'contain' }} />
             : <span style={{ fontSize: 11, fontWeight: 700, color: '#aaa', letterSpacing: '0.1em' }}>LOGO</span>}
         </div>
       </header>
 
       {/* Hero LARGE */}
-      <section style={{ flexShrink: 0, marginBottom: 12 }}>
-        <div style={{ width: '100%', height: 340, overflow: 'hidden', background: '#e5e5e5' }}>
+      <section style={{ flexShrink: 0, marginBottom: 14 }}>
+        <div style={{ width: '100%', height: 400, overflow: 'hidden', background: '#e5e5e5' }}>
           {heroImg ? (
             <img alt="Vista principal" style={{ width: '100%', height: '100%', objectFit: 'cover' }} src={heroImg} />
           ) : (
-            <div className="w-full h-full flex items-center justify-center">
-              <span className="text-gray-400 text-xs uppercase tracking-widest">Sin fotografía</span>
+            <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <span style={{ color: '#9ca3af', fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.18em' }}>Sin fotografía</span>
             </div>
           )}
         </div>
       </section>
 
       {/* Specs | Narrative + Lo Especial */}
-      <section style={{ flexShrink: 0, marginBottom: 12, display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 24, alignItems: 'start' }}>
+      <section style={{ flexShrink: 0, marginBottom: 14, display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 24, alignItems: 'start' }}>
         {/* Left: Specs */}
         <div style={{ borderRight: '1px solid #d1d5db', paddingRight: 24 }}>
           <h2 style={{ fontSize: 10, color: '#aaa', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: 10 }}>Especificaciones</h2>
@@ -134,7 +136,7 @@ export default function LayoutStitchLetter({
               <span style={{ fontSize: s.big ? 18 : 13, fontWeight: s.big ? 600 : 700, color: s.big ? accent : '#222', fontFamily: s.big ? serif : 'inherit' }}>{s.v}</span>
             </div>
           ))}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, paddingTop: 10 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, paddingTop: 12 }}>
             <div>
               <span style={{ fontSize: 9, textTransform: 'uppercase', color: '#aaa', display: 'block', marginBottom: 2 }}>Recámaras</span>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}><Bed size={15} /><span style={{ fontSize: 14, fontWeight: 700 }}>{recamaras}</span></div>
@@ -153,13 +155,13 @@ export default function LayoutStitchLetter({
         {/* Right: Narrative + Lo Especial */}
         <div>
           <h2 style={{ fontSize: 10, color: '#aaa', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: 6 }}>Descripción</h2>
-          <p style={{ fontSize: 14, color: '#1a1a1a', lineHeight: 1.5, fontStyle: 'italic', borderLeft: `4px solid ${accent}`, paddingLeft: 16, marginBottom: 12 }}>
+          <p style={{ fontSize: 14, color: '#1a1a1a', lineHeight: 1.5, fontStyle: 'italic', borderLeft: `4px solid ${accent}`, paddingLeft: 16, marginBottom: 14 }}>
             {descripcion}
           </p>
           {especiales.length > 0 && (
             <div>
               <h2 style={{ fontSize: 10, color: '#aaa', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: 8 }}>Lo Especial</h2>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5px 16px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: especialesCols, gap: '5px 16px' }}>
                 {especiales.map((a, i) => {
                   const { label, Icon } = parseFeatureItem(a);
                   return (
@@ -175,8 +177,8 @@ export default function LayoutStitchLetter({
         </div>
       </section>
 
-      {/* Gallery — fills remaining (1×4 strip that grows) */}
-      <section style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
+      {/* Gallery — fills remaining (strip that grows) */}
+      <section style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', marginTop: 'auto' }}>
         <h2 style={{ fontSize: 10, color: '#aaa', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: 6 }}>Galería de Imágenes</h2>
         <div style={{ flex: 1, minHeight: 0, display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8 }}>
           {galleryImages.map((src, i) => (
@@ -184,8 +186,8 @@ export default function LayoutStitchLetter({
               {src ? (
                 <img alt={`Fotografía ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} src={src} />
               ) : (
-                <div className="w-full h-full flex items-center justify-center">
-                  <Square size={24} className="text-gray-300" />
+                <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Square size={24} color="#d1d5db" />
                 </div>
               )}
             </div>
@@ -199,7 +201,7 @@ export default function LayoutStitchLetter({
           <div style={{ width: 46, height: 46, borderRadius: '50%', overflow: 'hidden', border: '1px solid #d1d5db', background: '#f3f4f6', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
             {session?.user?.photoURL
               ? <img src={session.user.photoURL} alt={asesor} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-              : <User size={26} className="text-gray-400" />}
+              : <User size={26} color="#9ca3af" />}
           </div>
           <div>
             <h3 style={{ fontSize: 13, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#111' }}>{asesor}</h3>

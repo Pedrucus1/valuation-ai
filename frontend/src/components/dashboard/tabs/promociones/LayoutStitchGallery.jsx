@@ -51,6 +51,7 @@ export default function LayoutStitchGallery({
   const construccion = m2c ? `${m2c} m²` : '--';
   const terreno = m2t ? `${m2t} m²` : '--';
   const estacionamiento = fichaAvaluo?.estacionamiento ?? fichaAvaluo?.cajones ?? '--';
+  const niveles = fichaAvaluo?.niveles ?? null;
   const antiguedad = fichaAvaluo?.antiguedad ?? null;
   const conservacion = fichaAvaluo?.conservacion ?? null;
   const tipo = fichaAvaluo?.tipo ?? null;
@@ -69,66 +70,74 @@ export default function LayoutStitchGallery({
   const verified = (puntosDestacados || []).filter(p => p?.verificado).map(p => p.texto);
   const otros = (puntosDestacados || []).filter(p => !p?.verificado).map(p => p.texto);
   const especiales = [...new Set([...verified, ...amenidades, ...instalaciones, ...espacios, ...otros]
-    .filter(Boolean))].slice(0, 12);
+    .filter(Boolean))].slice(0, 14);
+  const especialesCols = especiales.length > 6 ? '1fr 1fr' : '1fr';
 
   const heroImg = fotos[0] ?? null;
-  // gallery uses fotos after the hero
   const restantes = fotos.slice(1);
-  const galleryImages = restantes.length >= 6
-    ? restantes.slice(0, 6)
-    : [...restantes, ...Array(Math.max(0, 6 - restantes.length)).fill(null)];
+  // gallery grows: when few photos, fewer rows so each tile is bigger
+  const galleryCount = restantes.length >= 6 ? 6 : (restantes.length >= 3 ? 3 : Math.max(restantes.length, 3));
+  const galleryImages = [...restantes.slice(0, galleryCount),
+    ...Array(Math.max(0, galleryCount - restantes.length)).fill(null)];
+  const galleryRows = galleryImages.length > 3 ? 2 : 1;
+
+  const specs = [
+    { l: 'Construcción', v: construccion },
+    { l: 'Terreno', v: terreno },
+    { l: 'Recámaras', v: recamaras, Icon: Bed },
+    { l: 'Baños', v: banos, Icon: Bath },
+    { l: 'Estac.', v: estacionamiento, Icon: Car },
+    ...(niveles ? [{ l: 'Niveles', v: niveles }] : []),
+    ...(antiguedad ? [{ l: 'Antigüedad', v: `${antiguedad}` }] : []),
+    ...(conservacion ? [{ l: 'Conservación', v: conservacion }] : []),
+  ];
 
   return (
     <div
       id="pv-ficha-root"
-      className="bg-white overflow-hidden flex flex-col border border-gray-300 relative"
-      style={{ width: 794, height: 1123, padding: 34, fontFamily: 'Inter, sans-serif' }}
+      style={{ width: 794, height: 1123, display: 'flex', flexDirection: 'column', overflow: 'hidden', padding: 34, background: '#fff', border: '1px solid #d1d5db', fontFamily: 'Inter, sans-serif', position: 'relative' }}
     >
       {/* Header */}
-      <header className="flex justify-between items-end border-b border-gray-300 pb-3 mb-3" style={{ flexShrink: 0 }}>
+      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', borderBottom: '1px solid #d1d5db', paddingBottom: 12, marginBottom: 12, flexShrink: 0 }}>
         <div style={{ minWidth: 0 }}>
-          <h1
-            className="tracking-tight leading-none font-bold uppercase text-black"
-            style={{ fontFamily: serif, fontSize: 30 }}
-          >
+          <h1 style={{ fontFamily: serif, fontSize: 32, lineHeight: 1, fontWeight: 700, textTransform: 'uppercase', color: '#000', letterSpacing: '-0.01em' }}>
             {direccion}
           </h1>
-          <p className="text-gray-500 flex items-center gap-1 mt-1 uppercase tracking-widest" style={{ fontSize: 12 }}>
+          <p style={{ color: '#6b7280', display: 'flex', alignItems: 'center', gap: 4, marginTop: 5, textTransform: 'uppercase', letterSpacing: '0.18em', fontSize: 12 }}>
             <MapPin size={13} />
             {ubicacion}{tipo ? ` · ${tipo}` : ''}
           </p>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
           {session?.user?.picture
-            ? <img src={session.user.picture} alt="Logo" style={{ height: 38, maxWidth: 120, objectFit: 'contain' }} />
+            ? <img src={session.user.picture} alt="Logo" style={{ height: 42, maxWidth: 130, objectFit: 'contain' }} />
             : <span style={{ fontSize: 11, fontWeight: 700, color: '#aaa', letterSpacing: '0.1em' }}>LOGO</span>}
         </div>
       </header>
 
-      {/* Hero LARGE */}
+      {/* Hero LARGE (~46% page height) */}
       <section style={{ flexShrink: 0, marginBottom: 12 }}>
-        <div style={{ width: '100%', height: 410, overflow: 'hidden', position: 'relative', background: '#e5e5e5' }}>
+        <div style={{ width: '100%', height: 470, overflow: 'hidden', position: 'relative', background: '#e5e5e5' }}>
           {heroImg ? (
             <img alt="Vista principal" style={{ width: '100%', height: '100%', objectFit: 'cover' }} src={heroImg} />
           ) : (
-            <div className="w-full h-full flex items-center justify-center">
-              <span className="text-gray-400 text-xs uppercase tracking-widest">Sin fotografía</span>
+            <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <span style={{ color: '#9ca3af', fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.18em' }}>Sin fotografía</span>
             </div>
           )}
-          {/* Price overlay */}
           <div style={{
             position: 'absolute', bottom: 0, left: 0, right: 0,
-            background: 'linear-gradient(to top, rgba(0,0,0,0.72), rgba(0,0,0,0))',
-            padding: '34px 20px 14px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between'
+            background: 'linear-gradient(to top, rgba(0,0,0,0.78), rgba(0,0,0,0))',
+            padding: '46px 22px 16px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between'
           }}>
             <div>
               <span style={{ display: 'block', fontSize: 9, color: 'rgba(255,255,255,0.7)', textTransform: 'uppercase', letterSpacing: '0.2em' }}>Precio</span>
-              <span style={{ fontFamily: serif, fontSize: 30, fontWeight: 600, color: '#fff', lineHeight: 1 }}>{precio}</span>
+              <span style={{ fontFamily: serif, fontSize: 36, fontWeight: 600, color: '#fff', lineHeight: 1 }}>{precio}</span>
             </div>
             {precioM2 && (
               <div style={{ textAlign: 'right' }}>
                 <span style={{ display: 'block', fontSize: 9, color: 'rgba(255,255,255,0.7)', textTransform: 'uppercase', letterSpacing: '0.2em' }}>Precio / m²</span>
-                <span style={{ fontFamily: serif, fontSize: 18, fontWeight: 600, color: '#fff' }}>{precioM2}</span>
+                <span style={{ fontFamily: serif, fontSize: 20, fontWeight: 600, color: '#fff' }}>{precioM2}</span>
               </div>
             )}
           </div>
@@ -137,20 +146,12 @@ export default function LayoutStitchGallery({
 
       {/* Specs strip */}
       <section style={{ flexShrink: 0, marginBottom: 12 }}>
-        <div className="border-b border-t border-gray-300" style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0' }}>
-          {[
-            { l: 'Construcción', v: construccion },
-            { l: 'Terreno', v: terreno },
-            { l: 'Recámaras', v: recamaras, Icon: Bed },
-            { l: 'Baños', v: banos, Icon: Bath },
-            { l: 'Estac.', v: estacionamiento, Icon: Car },
-            ...(antiguedad ? [{ l: 'Antigüedad', v: `${antiguedad}` }] : []),
-            ...(conservacion ? [{ l: 'Conservación', v: conservacion }] : []),
-          ].map((s, i) => (
+        <div style={{ borderTop: '1px solid #d1d5db', borderBottom: '1px solid #d1d5db', display: 'flex', justifyContent: 'space-between', padding: '9px 0' }}>
+          {specs.map((s, i) => (
             <div key={i} style={{ display: 'flex', flexDirection: 'column' }}>
               <span style={{ fontSize: 9, color: '#aaa', textTransform: 'uppercase', letterSpacing: '0.15em' }}>{s.l}</span>
               <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                {s.Icon && <s.Icon size={13} className="text-black" />}
+                {s.Icon && <s.Icon size={13} color="#000" />}
                 <span style={{ fontSize: 14, fontWeight: 700, color: '#222' }}>{s.v}</span>
               </div>
             </div>
@@ -159,7 +160,7 @@ export default function LayoutStitchGallery({
       </section>
 
       {/* Descripción + Lo Especial */}
-      <section style={{ flexShrink: 0, marginBottom: 10, display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 20, alignItems: 'start' }}>
+      <section style={{ flexShrink: 0, marginBottom: 12, display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 20, alignItems: 'start' }}>
         <div>
           <h2 style={{ fontSize: 10, color: '#aaa', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: 6 }}>Descripción</h2>
           <p style={{ fontSize: 12.5, color: '#444', lineHeight: 1.5, fontStyle: 'italic', borderLeft: `3px solid ${accent}`, paddingLeft: 12 }}>
@@ -169,7 +170,7 @@ export default function LayoutStitchGallery({
         {especiales.length > 0 && (
           <div>
             <h2 style={{ fontSize: 10, color: '#aaa', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: 6 }}>Lo Especial</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px 10px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: especialesCols, gap: '4px 10px' }}>
               {especiales.map((a, i) => {
                 const { label, Icon } = parseFeatureItem(a);
                 return (
@@ -185,16 +186,16 @@ export default function LayoutStitchGallery({
       </section>
 
       {/* Gallery — fills remaining space */}
-      <section style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
+      <section style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', marginTop: 'auto' }}>
         <h2 style={{ fontSize: 10, color: '#aaa', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: 6 }}>Galería</h2>
-        <div style={{ flex: 1, minHeight: 0, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gridTemplateRows: '1fr 1fr', gap: 8 }}>
+        <div style={{ flex: 1, minHeight: 0, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gridTemplateRows: `repeat(${galleryRows}, 1fr)`, gap: 8 }}>
           {galleryImages.map((src, i) => (
             <div key={i} style={{ background: '#e5e5e5', overflow: 'hidden' }}>
               {src ? (
                 <img alt={`Fotografía ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} src={src} />
               ) : (
-                <div className="w-full h-full flex items-center justify-center">
-                  <Square size={24} className="text-gray-300" />
+                <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Square size={24} color="#d1d5db" />
                 </div>
               )}
             </div>
@@ -208,7 +209,7 @@ export default function LayoutStitchGallery({
           <div style={{ width: 46, height: 46, borderRadius: '50%', overflow: 'hidden', border: '1px solid #d1d5db', background: '#f3f4f6', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
             {session?.user?.photoURL
               ? <img src={session.user.photoURL} alt={asesor} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-              : <User size={26} className="text-gray-400" />}
+              : <User size={26} color="#9ca3af" />}
           </div>
           <div>
             <h3 style={{ fontSize: 13, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#111' }}>{asesor}</h3>
