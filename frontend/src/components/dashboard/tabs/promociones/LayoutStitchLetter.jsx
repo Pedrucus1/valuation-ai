@@ -1,4 +1,4 @@
-﻿import {
+import {
   Waves, Wind, Car, Camera, Trees, Dumbbell, Shield, Wine,
   Monitor, Fingerprint, Sofa, Home, CheckCircle2,
   Bed, Bath, Square, MapPin, Phone, Mail, User
@@ -36,6 +36,8 @@ export default function LayoutStitchLetter({
   descripcionTexto,
   texts,
   idioma,
+  palette = {},
+  puntosDestacados = [],
 }) {
   const fotos = fichaAvaluo?.fotos || [];
   const direccion = fichaAvaluo?.direccion || 'The Obsidian Villa';
@@ -60,174 +62,208 @@ export default function LayoutStitchLetter({
   const galleryImages = fotos.length >= 6 ? fotos.slice(0, 6) : [...fotos, ...Array(Math.max(0, 6 - fotos.length)).fill(null)];
 
   const serif = 'Playfair Display, Georgia, serif';
+  const accent = palette?.accent || '#775a19';
 
   return (
     <div
       id="pv-ficha-root"
-      className="bg-gray-100 flex flex-col items-center py-10 print:py-0 font-sans"
-      style={{ fontFamily: 'Inter, sans-serif' }}
+      className="bg-white shadow-2xl overflow-hidden flex flex-col border border-gray-300 relative font-sans"
+      style={{ width: 794, height: 1123, padding: '0.6in', fontFamily: 'Inter, sans-serif' }}
     >
-      {/* Page */}
-      <div
-        className="bg-white shadow-2xl overflow-hidden flex flex-col border border-gray-300 relative"
-        style={{ width: '8.5in', minHeight: '11in', padding: '0.6in' }}
-      >
-        {/* Header */}
-        <header className="flex justify-between items-baseline border-b border-gray-300 pb-5 mb-6">
-          <div>
-            <h1
-              className="text-[36px] tracking-tight leading-none font-bold uppercase text-black"
-              style={{ fontFamily: serif }}
-            >
-              {direccion}
-            </h1>
-            <p className="text-sm text-gray-500 flex items-center gap-1 mt-1 uppercase tracking-widest">
-              <MapPin size={14} />
-              {ubicacion}
-            </p>
-          </div>
-          <div className="text-right">
-            <span className="text-[10px] text-gray-400 uppercase tracking-wider block">Folio</span>
-            <span className="text-sm font-bold text-gray-800">
-              {new Date().getFullYear()}-{String(Math.floor(Math.random() * 999) + 1).padStart(3, '0')}
-            </span>
-          </div>
-        </header>
+      {/* Header */}
+      <header className="flex justify-between items-baseline border-b border-gray-300 pb-5 mb-6">
+        <div>
+          <h1
+            className="text-[36px] tracking-tight leading-none font-bold uppercase text-black"
+            style={{ fontFamily: serif }}
+          >
+            {direccion}
+          </h1>
+          <p className="text-sm text-gray-500 flex items-center gap-1 mt-1 uppercase tracking-widest">
+            <MapPin size={14} />
+            {ubicacion}
+          </p>
+        </div>
+        <div style={{ display:'flex', alignItems:'center', gap:8 }}>
+          {session?.user?.picture
+            ? <img src={session.user.picture} alt="Logo" style={{ height:32, maxWidth:100, objectFit:'contain' }} />
+            : <span style={{ fontSize:11, fontWeight:700, color:'#aaa', letterSpacing:'0.1em' }}>LOGO</span>}
+        </div>
+      </header>
 
-        {/* Hero Image */}
-        <section className="mb-6">
-          <div className="w-full overflow-hidden" style={{ height: '240px' }}>
-            {heroImg ? (
-              <img
-                alt="Vista principal"
-                className="w-full h-full object-cover"
-                src={heroImg}
-              />
-            ) : (
-              <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                <span className="text-gray-400 text-xs uppercase tracking-widest">Sin fotografía</span>
-              </div>
-            )}
-          </div>
-        </section>
-
-        {/* Specs + Narrative Grid (letter layout: 4 cols specs | 8 cols narrative) */}
-        <section className="grid gap-8 mb-6 items-start" style={{ gridTemplateColumns: '1fr 2fr' }}>
-          {/* Left: Specs */}
-          <div className="border-r border-gray-300 pr-8">
-            <h2 className="text-[10px] text-gray-400 uppercase tracking-widest mb-4">
-              Especificaciones
-            </h2>
-            <div className="space-y-3">
-              <div className="flex justify-between items-end border-b border-gray-200 pb-1">
-                <span className="text-[11px] uppercase text-gray-700 font-medium">Precio</span>
-                <span
-                  className="text-[20px] font-semibold"
-                  style={{ color: '#775a19', fontFamily: serif }}
-                >
-                  {precio}
-                </span>
-              </div>
-              <div className="flex justify-between items-end border-b border-gray-200 pb-1">
-                <span className="text-[11px] uppercase text-gray-700 font-medium">Construcción</span>
-                <span className="text-base font-bold text-gray-800">{construccion}</span>
-              </div>
-              <div className="flex justify-between items-end border-b border-gray-200 pb-1">
-                <span className="text-[11px] uppercase text-gray-700 font-medium">Terreno</span>
-                <span className="text-base font-bold text-gray-800">{terreno}</span>
-              </div>
-              <div className="grid grid-cols-2 gap-4 pt-1">
-                <div>
-                  <span className="text-[10px] uppercase text-gray-400 block mb-1 opacity-60">Recámaras</span>
-                  <div className="flex items-center gap-2">
-                    <Bed size={16} className="text-black" />
-                    <span className="text-base font-bold text-gray-800">{recamaras}</span>
-                  </div>
-                </div>
-                <div>
-                  <span className="text-[10px] uppercase text-gray-400 block mb-1 opacity-60">Baños</span>
-                  <div className="flex items-center gap-2">
-                    <Bath size={16} className="text-black" />
-                    <span className="text-base font-bold text-gray-800">{banos}</span>
-                  </div>
-                </div>
-              </div>
-              <div className="pt-1">
-                <span className="text-[10px] uppercase text-gray-400 block mb-1 opacity-60">Estacionamiento</span>
-                <div className="flex items-center gap-2">
-                  <Car size={16} className="text-black" />
-                  <span className="text-base font-bold uppercase text-gray-800">{estacionamiento} cajones</span>
-                </div>
-              </div>
+      {/* Hero Image */}
+      <section className="mb-6">
+        <div className="w-full overflow-hidden" style={{ height: '240px' }}>
+          {heroImg ? (
+            <img
+              alt="Vista principal"
+              className="w-full h-full object-cover"
+              src={heroImg}
+            />
+          ) : (
+            <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+              <span className="text-gray-400 text-xs uppercase tracking-widest">Sin fotografía</span>
             </div>
-          </div>
+          )}
+        </div>
+      </section>
 
-          {/* Right: Narrative */}
-          <div>
-            <h2 className="text-[10px] text-gray-400 uppercase tracking-widest mb-3">
-              Descripción
-            </h2>
-            <p
-              className="text-[16px] text-gray-900 leading-relaxed italic border-l-4 pl-6 py-1 mb-4"
-              style={{ borderColor: '#775a19' }}
-            >
-              {descripcion.split('. ')[0]}.
-            </p>
-            <p className="text-[14px] text-gray-500 leading-relaxed">
-              {descripcion.split('. ').slice(1).join('. ')}
-            </p>
-          </div>
-        </section>
-
-        {/* Gallery 3×2 */}
-        <section className="flex-grow">
-          <h2 className="text-[10px] text-gray-400 uppercase tracking-widest mb-3">
-            Galería de Imágenes
+      {/* Specs + Narrative Grid (letter layout: 4 cols specs | 8 cols narrative) */}
+      <section className="grid gap-8 mb-6 items-start" style={{ gridTemplateColumns: '1fr 2fr' }}>
+        {/* Left: Specs */}
+        <div className="border-r border-gray-300 pr-8">
+          <h2 className="text-[10px] text-gray-400 uppercase tracking-widest mb-4">
+            Especificaciones
           </h2>
-          <div className="grid grid-cols-3 gap-3">
-            {galleryImages.map((src, i) => (
-              <div key={i} className="aspect-square bg-gray-200 overflow-hidden">
-                {src ? (
-                  <img
-                    alt={`Fotografía ${i + 1}`}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                    src={src}
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <Square size={24} className="text-gray-300" />
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Footer */}
-        <footer className="mt-6 pt-6 border-t border-gray-300 flex justify-between items-center">
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-full overflow-hidden border border-gray-300 bg-gray-100 flex items-center justify-center">
-              <User size={28} className="text-gray-400" />
+          <div className="space-y-3">
+            <div className="flex justify-between items-end border-b border-gray-200 pb-1">
+              <span className="text-[11px] uppercase text-gray-700 font-medium">Precio</span>
+              <span
+                className="text-[20px] font-semibold"
+                style={{ color: accent, fontFamily: serif }}
+              >
+                {precio}
+              </span>
             </div>
-            <div>
-              <h3 className="text-[13px] font-bold uppercase tracking-wider text-gray-900">{asesor}</h3>
-              <p className="text-[10px] text-gray-400 uppercase tracking-tighter">Asesor Inmobiliario</p>
-              {(telefono || email) && (
-                <p className="text-[11px] text-black mt-0.5">
-                  {telefono}{telefono && email ? ' | ' : ''}{email}
-                </p>
+            <div className="flex justify-between items-end border-b border-gray-200 pb-1">
+              <span className="text-[11px] uppercase text-gray-700 font-medium">Construcción</span>
+              <span className="text-base font-bold text-gray-800">{construccion}</span>
+            </div>
+            <div className="flex justify-between items-end border-b border-gray-200 pb-1">
+              <span className="text-[11px] uppercase text-gray-700 font-medium">Terreno</span>
+              <span className="text-base font-bold text-gray-800">{terreno}</span>
+            </div>
+            <div className="grid grid-cols-2 gap-4 pt-1">
+              <div>
+                <span className="text-[10px] uppercase text-gray-400 block mb-1 opacity-60">Recámaras</span>
+                <div className="flex items-center gap-2">
+                  <Bed size={16} className="text-black" />
+                  <span className="text-base font-bold text-gray-800">{recamaras}</span>
+                </div>
+              </div>
+              <div>
+                <span className="text-[10px] uppercase text-gray-400 block mb-1 opacity-60">Baños</span>
+                <div className="flex items-center gap-2">
+                  <Bath size={16} className="text-black" />
+                  <span className="text-base font-bold text-gray-800">{banos}</span>
+                </div>
+              </div>
+            </div>
+            <div className="pt-1">
+              <span className="text-[10px] uppercase text-gray-400 block mb-1 opacity-60">Estacionamiento</span>
+              <div className="flex items-center gap-2">
+                <Car size={16} className="text-black" />
+                <span className="text-base font-bold uppercase text-gray-800">{estacionamiento} cajones</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right: Narrative */}
+        <div>
+          <h2 className="text-[10px] text-gray-400 uppercase tracking-widest mb-3">
+            Descripción
+          </h2>
+          <p
+            className="text-[16px] text-gray-900 leading-relaxed italic border-l-4 pl-6 py-1 mb-4"
+            style={{ borderColor: accent }}
+          >
+            {descripcion.split('. ')[0]}.
+          </p>
+          <p className="text-[14px] text-gray-500 leading-relaxed">
+            {descripcion.split('. ').slice(1).join('. ')}
+          </p>
+
+          {/* Puntos Destacados */}
+          {puntosDestacados?.length > 0 && (
+            <div style={{ display:'flex', flexWrap:'wrap', gap:6, marginBottom:12, marginTop:12 }}>
+              {puntosDestacados.slice(0,4).map((p,i) => (
+                <span key={i} style={{
+                  padding:'4px 10px', borderRadius:20, fontSize:10, fontWeight:600,
+                  background: p.verificado ? (accent)+'15' : '#f8f8f8',
+                  border: `1px solid ${p.verificado ? (accent)+'50' : '#ddd'}`,
+                  color: p.verificado ? '#1a1a1a' : '#555',
+                  display:'flex', alignItems:'center', gap:4
+                }}>
+                  {p.verificado && <span style={{ color: accent, fontWeight:900 }}>✓</span>}
+                  {p.texto}
+                </span>
+              ))}
+            </div>
+          )}
+
+          {/* Amenidades */}
+          {amenidades?.length > 0 && (
+            <section style={{ marginBottom:16, marginTop: puntosDestacados?.length > 0 ? 0 : 12 }}>
+              <h2 style={{ fontSize:10, color:'#aaa', textTransform:'uppercase', letterSpacing:'0.2em', marginBottom:8 }}>Amenidades</h2>
+              <div style={{ display:'grid', gridTemplateColumns:'repeat(3, 1fr)', gap:'6px 12px' }}>
+                {amenidades.slice(0,6).map((a,i) => {
+                  const { label, Icon } = parseFeatureItem(a);
+                  return (
+                    <div key={i} style={{ display:'flex', alignItems:'center', gap:6, fontSize:11 }}>
+                      <Icon size={12} style={{ color: accent, flexShrink:0 }} />
+                      <span style={{ color:'#555' }}>{label}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
+          )}
+        </div>
+      </section>
+
+      {/* Gallery 3×2 */}
+      <section className="flex-grow">
+        <h2 className="text-[10px] text-gray-400 uppercase tracking-widest mb-3">
+          Galería de Imágenes
+        </h2>
+        <div className="grid grid-cols-3 gap-3">
+          {galleryImages.map((src, i) => (
+            <div key={i} className="aspect-square bg-gray-200 overflow-hidden">
+              {src ? (
+                <img
+                  alt={`Fotografía ${i + 1}`}
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                  src={src}
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center">
+                  <Square size={24} className="text-gray-300" />
+                </div>
               )}
             </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="mt-6 pt-6 border-t border-gray-300 flex justify-between items-center">
+        <div className="flex items-center gap-4">
+          <div className="w-14 h-14 rounded-full overflow-hidden border border-gray-300 bg-gray-100 flex items-center justify-center">
+            {session?.user?.photoURL
+              ? <img src={session.user.photoURL} alt={asesor} className="w-full h-full object-cover" />
+              : <User size={28} className="text-gray-400" />}
           </div>
-          <div className="text-right">
-            <p className="text-[9px] text-gray-400 leading-tight">
-              © {new Date().getFullYear()} {asesor.toUpperCase()}.<br />
-              TODOS LOS DERECHOS RESERVADOS.
-            </p>
+          <div>
+            <h3 className="text-[13px] font-bold uppercase tracking-wider text-gray-900">{asesor}</h3>
+            <p className="text-[10px] text-gray-400 uppercase tracking-tighter">Asesor Inmobiliario</p>
+            {(telefono || email) && (
+              <p className="text-[11px] text-black mt-0.5">
+                {telefono}{telefono && email ? ' | ' : ''}{email}
+              </p>
+            )}
           </div>
-        </footer>
-      </div>
+        </div>
+        <div style={{ display:'flex', flexDirection:'column', alignItems:'flex-end', gap:4 }}>
+          <div style={{ display:'flex', alignItems:'center', gap:4 }}>
+            <div style={{ width:12, height:12, borderRadius:3, background: accent, display:'flex', alignItems:'center', justifyContent:'center' }}>
+              <span style={{ color:'#fff', fontWeight:900, fontSize:7 }}>P</span>
+            </div>
+            <span style={{ fontSize:9, fontWeight:700, letterSpacing:'0.08em', textTransform:'uppercase', color:'#aaa' }}>propvalu.mx</span>
+          </div>
+          <p style={{ fontSize:9, color:'#aaa' }}>© {new Date().getFullYear()} {asesor.toUpperCase()}</p>
+        </div>
+      </footer>
     </div>
   );
 }
-

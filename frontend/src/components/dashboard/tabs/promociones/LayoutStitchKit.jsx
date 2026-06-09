@@ -1,4 +1,4 @@
-﻿import {
+import {
   Waves, Wind, Car, Camera, Trees, Dumbbell, Shield, Wine,
   Monitor, Fingerprint, Sofa, Home, CheckCircle2,
   Bed, Bath, MapPin, Square as SquareIcon
@@ -36,6 +36,8 @@ export default function LayoutStitchKit({
   descripcionTexto,
   texts,
   idioma,
+  palette = {},
+  puntosDestacados = [],
 }) {
   const fotos = fichaAvaluo?.fotos || [];
   const direccion = fichaAvaluo?.direccion || 'The Obsidian Villa';
@@ -57,7 +59,7 @@ export default function LayoutStitchKit({
     'La propiedad se erige como testimonio de la belleza etérea de su entorno. Esta obra arquitectónica fusiona tonos monocromáticos con una arquitectura de luz y sombra. Cada detalle ha sido curado para eliminar el ruido visual y elevar la experiencia de habitar en un entorno de lujo.';
 
   const heroImg = fotos[0] ?? null;
-  const accent = '#c5a059';
+  const accent = palette?.accent || '#c5a059';
   const serif = 'Playfair Display, Georgia, serif';
 
   // Merge all feature arrays for highlights
@@ -83,6 +85,11 @@ export default function LayoutStitchKit({
     >
       {/* Header with hero image */}
       <header style={{ marginBottom: '3rem' }}>
+        {/* Logo inmobiliaria */}
+        {session?.user?.picture && (
+          <img src={session.user.picture} alt="Logo" style={{ height: 36, maxWidth: 120, objectFit: 'contain', marginBottom: 16 }} />
+        )}
+
         {heroImg ? (
           <img
             src={heroImg}
@@ -198,6 +205,32 @@ export default function LayoutStitchKit({
             Puntos Destacados
           </h2>
 
+          {/* puntosDestacados chips */}
+          {puntosDestacados?.length > 0 && (
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 16 }}>
+              {puntosDestacados.slice(0, 4).map((p, i) => (
+                <span
+                  key={i}
+                  style={{
+                    padding: '5px 12px',
+                    borderRadius: 20,
+                    fontSize: 11,
+                    fontWeight: 600,
+                    background: p.verificado ? accent + '15' : '#f8f8f8',
+                    border: `1px solid ${p.verificado ? accent + '50' : '#ddd'}`,
+                    color: '#333',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 5,
+                  }}
+                >
+                  {p.verificado && <span style={{ color: accent }}>✓</span>}
+                  {p.texto}
+                </span>
+              ))}
+            </div>
+          )}
+
           {/* Key numeric specs */}
           <div
             style={{
@@ -300,25 +333,26 @@ export default function LayoutStitchKit({
         )}
       </main>
 
-      {/* Footer */}
-      <footer
-        style={{
-          marginTop: '4rem',
-          paddingTop: '2rem',
-          borderTop: '1px solid #e7e5e4',
-          textAlign: 'center',
-        }}
-      >
-        <p style={{ fontSize: '11px', color: '#a8a29e', textTransform: 'uppercase', letterSpacing: '0.15em' }}>
-          © {new Date().getFullYear()} {asesor.toUpperCase()} • TODOS LOS DERECHOS RESERVADOS
-        </p>
-        {(telefono || email) && (
-          <p style={{ fontSize: '13px', color: '#78716c', marginTop: '4px' }}>
-            {telefono}{telefono && email ? ' • ' : ''}{email}
-          </p>
-        )}
+      {/* Footer with asesor info + PropValu badge */}
+      <footer style={{ marginTop: '4rem', paddingTop: '2rem', borderTop: '1px solid #e7e5e4', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div style={{ width: 44, height: 44, borderRadius: '50%', overflow: 'hidden', background: '#e5e5e5', flexShrink: 0 }}>
+            {session?.user?.photoURL
+              ? <img src={session.user.photoURL} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="" />
+              : <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: '#aaa', fontSize: 20 }}>👤</span>}
+          </div>
+          <div>
+            <p style={{ margin: 0, fontWeight: 700, fontSize: 14 }}>{asesor}</p>
+            <p style={{ margin: 0, fontSize: 12, color: '#78716c' }}>{telefono}{telefono && email ? ' · ' : ''}{email}</p>
+          </div>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+          <div style={{ width: 12, height: 12, borderRadius: 3, background: accent, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <span style={{ color: '#fff', fontWeight: 900, fontSize: 7 }}>P</span>
+          </div>
+          <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#aaa' }}>propvalu.mx</span>
+        </div>
       </footer>
     </div>
   );
 }
-
