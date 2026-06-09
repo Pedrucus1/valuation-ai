@@ -43,6 +43,16 @@ const TEMAS = {
   stitch_new:      { nombre: "Colección AI",       bgRoot: "bg-white", bgPage: "bg-white", bgAccent: "bg-gray-50", textPri: "text-gray-900", textSec: "text-gray-600", accent: "text-amber-600", heroGrad: "from-gray-900 to-gray-700" },
 };
 
+// Fotos de referencia para preview cuando no hay fotos reales
+const SAMPLE_FOTOS = [
+  "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600607687920-4e2a09be15f1?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1613490908677-49772ba6554b?auto=format&fit=crop&w=800&q=80",
+];
+
 const THUMBS = {
   stitch_gallery:   "https://lh3.googleusercontent.com/aida/AP1WRLvgu7q23LuhYb2qgjCcE_nOpubjwtm5pWSdu52H3ZHVCi5LjOhO2aEUx-5yU1ThSSuRq_PdlBrDu39LdUALTgWVRDNXc3LMU29kIiVpDsvL6_2vSfKsp51Dgs_H7IUiGaCfFoT85zfk8Y9bAlSDJrHTiwQob05Xxcf00HMdwqVNhmvvEVoo3pVZtegIUptRd3Tgs-l_atJ4Ldhb1aErVoYBACAFbDlrD6smdfY7AMWywtDa-N4fCXGOaELe",
   stitch_obsidian:  "https://lh3.googleusercontent.com/aida/AP1WRLsjKpobbO1c3mYio6ROYIY4bs1VNd2ug53dHgz1S1WviWW9eGpG1ikQFy3eLmBL4FTw6Obctxlas7r1F1L-fI7Bt2y_PaSrK8PJbOT4ITorjJQGM9iLMopT7klFGrj80VodqhBk_Dk6bNdJSZo4Io08vwOlYQpR-WJsEG372gZc510MMeCYdaSo3s6lzrUyO1kmukK0BdawURiu3Aoc6N4F1X9SLWLAdYvFbC40-DKvKqTEBMwanwmEVW79",
@@ -145,14 +155,33 @@ const ESPACIOS_ICONS = [
 ];
 
 // Fotos de referencia para preview cuando no hay fotos reales
-const SAMPLE_FOTOS = [
-  "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1600607687920-4e2a09be15f1?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1613490908677-49772ba6554b?auto=format&fit=crop&w=800&q=80",
-];
+const PROP_DEMO = {
+  propiedad_id: "demo",
+  origen: "manual",
+  tipo: "Casa",
+  direccion: "Av. Vallarta 1234, Col. Arcos",
+  colonia: "Arcos",
+  municipio: "Zapopan",
+  estado_mx: "Jalisco",
+  precio_oferta: 4850000,
+  m2_construccion: 220,
+  m2_terreno: 300,
+  recamaras: 3,
+  banos: 2.5,
+  estacionamiento: 2,
+  antiguedad: 2,
+  conservacion: "Excelente",
+  fotos: SAMPLE_FOTOS,
+  amenidades: ["Alberca", "Gimnasio", "Seguridad 24/7", "Jardín"],
+  instalaciones: ["Paneles Solares", "Cisterna 10,000L"],
+  espacios: ["Sala de TV", "Cocina Integral", "Estudio"],
+  descripcion: "Residencia contemporánea de lujo en una de las zonas más exclusivas. Acabados premium, dobles alturas y amplio jardín privado.",
+  puntos_libres: [],
+  puntos_propvalu: ["Precio competitivo en la zona", "Construcción reciente"],
+  fuera_de_mercado: false,
+  activo: true,
+  _demo: true,
+};
 
 const FORM_INIT = {
   tipo: "Casa", direccion: "", colonia: "", municipio: "", estado_mx: "Jalisco",
@@ -867,16 +896,29 @@ const PromocionesTab = ({ valuacionesList, session }) => {
         <div className="text-center py-8 text-slate-400 text-sm">Cargando propiedades...</div>
       )}
 
-      {/* Sin propiedades */}
+      {/* Sin propiedades — muestra ejemplo para que el usuario vea el resultado */}
       {!cargandoProps && totalPropiedades === 0 && (
-        <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center">
-          <Building2 className="w-12 h-12 mx-auto text-slate-200 mb-4" />
-          <p className="font-semibold text-slate-600 mb-1">Aún no tienes propiedades</p>
-          <p className="text-sm text-slate-400 mb-5">Sube tu primera propiedad para generar fichas de promoción profesionales.</p>
-          <Button onClick={() => { setMostrarFormulario(true); setPaso(1); setFormData(FORM_INIT); }}
-            className="bg-[#1B4332] hover:bg-[#2D6A4F] text-white">
-            <Plus className="w-4 h-4 mr-2" /> Subir primera propiedad
-          </Button>
+        <div>
+          <div className="flex items-center justify-between mb-3">
+            <p className="text-xs font-bold text-slate-400 uppercase tracking-wide">Ejemplo de ficha</p>
+            <span className="text-[10px] bg-amber-50 text-amber-600 border border-amber-200 px-2 py-0.5 rounded-full font-bold">Demo</span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-5">
+            <PropCard prop={PROP_DEMO} badge="Ejemplo" badgeColor="green" idx={0}
+              precio="$4,850,000"
+              fotos={SAMPLE_FOTOS}
+              onSelect={() => setFichaAvaluo(normalizar(PROP_DEMO))} />
+          </div>
+          <div className="bg-[#F0FAF5] border border-[#B7E4C7] rounded-xl p-4 flex items-center justify-between">
+            <div>
+              <p className="text-sm font-semibold text-[#1B4332]">¿Listo para subir tu primera propiedad?</p>
+              <p className="text-xs text-slate-500 mt-0.5">Carga los datos y genera tu ficha profesional en segundos.</p>
+            </div>
+            <Button onClick={() => { setMostrarFormulario(true); setPaso(1); setFormData(FORM_INIT); }}
+              className="bg-[#1B4332] hover:bg-[#2D6A4F] text-white shrink-0 ml-4">
+              <Plus className="w-4 h-4 mr-2" /> Agregar propiedad
+            </Button>
+          </div>
         </div>
       )}
 
