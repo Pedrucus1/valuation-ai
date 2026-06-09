@@ -1,72 +1,88 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import "@/App.css";
 import { BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
 import { Toaster } from "@/components/ui/sonner";
-
-// Pages
-import LandingPage from "@/pages/LandingPage";
-import ValuationForm from "@/pages/ValuationForm";
-import ComparablesPage from "@/pages/ComparablesPage";
-import ReportPage from "@/pages/ReportPage";
-import DashboardPage from "@/pages/DashboardPage";
-import AuthCallback from "@/pages/AuthCallback";
-import BenefitsPage from "@/pages/BenefitsPage";
-import ValuadorPage from "@/pages/ValuadorPage";
-import PricingPage from "@/pages/PricingPage";
-import InmobiliariaPage from "@/pages/InmobiliariaPage";
-import ThankYouPage from "@/pages/ThankYouPage";
-import LoginPage from "@/pages/LoginPage";
-import ProCheckoutPage from "@/pages/ProCheckoutPage";
-import ValuadorDashboardPage from "@/pages/ValuadorDashboardPage";
-import InmobiliariaDashboardPage from "@/pages/InmobiliariaDashboardPage";
-import AdvertiserLandingPage from "@/pages/AdvertiserLandingPage";
-import AdvertiserRegisterPage from "@/pages/AdvertiserRegisterPage";
-import AdvertiserConsolePage from "@/pages/AdvertiserConsolePage";
-import PrivacidadPage from "@/pages/PrivacidadPage";
-import TerminosPage from "@/pages/TerminosPage";
-import ContactoPage from "@/pages/ContactoPage";
-import TerminosAnunciantesPage from "@/pages/TerminosAnunciantesPage";
-import TerminosValuadoresPage from "@/pages/TerminosValuadoresPage";
-import TerminosInmobiliariasPage from "@/pages/TerminosInmobiliariasPage";
-import CodigoEticaPage from "@/pages/CodigoEticaPage";
-import FeedbackPage from "@/pages/FeedbackPage";
-import ValuadoresDirectorioPage from "@/pages/ValuadoresDirectorioPage";
-import InmobiliariasDirectorioPage from "@/pages/InmobiliariasDirectorioPage";
-import PoliticaAnunciosPage from "@/pages/PoliticaAnunciosPage";
-import ValuadorRedPage from "@/pages/ValuadorRedPage";
-import ForgotPasswordPage from "@/pages/ForgotPasswordPage";
-import ResetPasswordPage from "@/pages/ResetPasswordPage";
-
-// Admin
-import AdminLogin from "@/pages/admin/AdminLogin";
-import AdminDashboard from "@/pages/admin/AdminDashboard";
-import AdminUsuarios from "@/pages/admin/AdminUsuarios";
-import AdminKYC from "@/pages/admin/AdminKYC";
-import AdminModeracion from "@/pages/admin/AdminModeracion";
-import AdminRoles from "@/pages/admin/AdminRoles";
-import AdminFeedback from "@/pages/admin/AdminFeedback";
-import AdminValuadores from "@/pages/admin/AdminValuadores";
-import AdminBroadcast from "@/pages/admin/AdminBroadcast";
-import AdminNewsletter from "@/pages/admin/AdminNewsletter";
-import AdminScraper from "@/pages/admin/AdminScraper";
-import AdminCMS from "@/pages/admin/AdminCMS";
-import AdminCFDI from "@/pages/admin/AdminCFDI";
-import AdminPayouts from "@/pages/admin/AdminPayouts";
-import AdminAccesos from "@/pages/admin/AdminAccesos";
-import AdminCobertura from "@/pages/admin/AdminCobertura";
-import AdminReportes from "@/pages/admin/AdminReportes";
-import AdminBlacklist from "@/pages/admin/AdminBlacklist";
-import AdminAlertas from "@/pages/admin/AdminAlertas";
-import AdminPrecios from "@/pages/admin/AdminPrecios";
-import AdminMantenimiento from "@/pages/admin/AdminMantenimiento";
-import AdminAdsAnalytics from "@/pages/admin/AdminAdsAnalytics";
-import AdminInmobiliarias from "@/pages/admin/AdminInmobiliarias";
 import AdminProtectedRoute from "@/components/AdminProtectedRoute";
+
+// ── Lazy-loaded pages (cada una carga solo cuando el usuario visita esa ruta) ──
+
+// Públicas / landing
+const LandingPage               = lazy(() => import("@/pages/LandingPage"));
+const ValuationForm             = lazy(() => import("@/pages/ValuationForm"));
+const ComparablesPage           = lazy(() => import("@/pages/ComparablesPage"));
+const ReportPage                = lazy(() => import("@/pages/ReportPage"));
+const PricingPage               = lazy(() => import("@/pages/PricingPage"));
+const BenefitsPage              = lazy(() => import("@/pages/BenefitsPage"));
+const ValuadorPage              = lazy(() => import("@/pages/ValuadorPage"));
+const InmobiliariaPage          = lazy(() => import("@/pages/InmobiliariaPage"));
+const ThankYouPage              = lazy(() => import("@/pages/ThankYouPage"));
+const FeedbackPage              = lazy(() => import("@/pages/FeedbackPage"));
+const ContactoPage              = lazy(() => import("@/pages/ContactoPage"));
+const ValuadoresDirectorioPage  = lazy(() => import("@/pages/ValuadoresDirectorioPage"));
+const InmobiliariasDirectorioPage = lazy(() => import("@/pages/InmobiliariasDirectorioPage"));
+
+// Auth
+const LoginPage                 = lazy(() => import("@/pages/LoginPage"));
+const AuthCallback              = lazy(() => import("@/pages/AuthCallback"));
+const ForgotPasswordPage        = lazy(() => import("@/pages/ForgotPasswordPage"));
+const ResetPasswordPage         = lazy(() => import("@/pages/ResetPasswordPage"));
+
+// Dashboards (pesados — lazy crítico)
+const DashboardPage             = lazy(() => import("@/pages/DashboardPage"));
+const ValuadorDashboardPage     = lazy(() => import("@/pages/ValuadorDashboardPage"));
+const InmobiliariaDashboardPage = lazy(() => import("@/pages/InmobiliariaDashboardPage"));
+const ProCheckoutPage           = lazy(() => import("@/pages/ProCheckoutPage"));
+
+// Anunciantes
+const AdvertiserLandingPage     = lazy(() => import("@/pages/AdvertiserLandingPage"));
+const AdvertiserRegisterPage    = lazy(() => import("@/pages/AdvertiserRegisterPage"));
+const AdvertiserConsolePage     = lazy(() => import("@/pages/AdvertiserConsolePage"));
+
+// Legal / misc
+const PrivacidadPage            = lazy(() => import("@/pages/PrivacidadPage"));
+const TerminosPage              = lazy(() => import("@/pages/TerminosPage"));
+const TerminosAnunciantesPage   = lazy(() => import("@/pages/TerminosAnunciantesPage"));
+const TerminosValuadoresPage    = lazy(() => import("@/pages/TerminosValuadoresPage"));
+const TerminosInmobiliariasPage = lazy(() => import("@/pages/TerminosInmobiliariasPage"));
+const CodigoEticaPage           = lazy(() => import("@/pages/CodigoEticaPage"));
+const PoliticaAnunciosPage      = lazy(() => import("@/pages/PoliticaAnunciosPage"));
+const ValuadorRedPage           = lazy(() => import("@/pages/ValuadorRedPage"));
+
+// Admin (chunk separado — nunca carga para usuarios normales)
+const AdminLogin                = lazy(() => import("@/pages/admin/AdminLogin"));
+const AdminDashboard            = lazy(() => import("@/pages/admin/AdminDashboard"));
+const AdminUsuarios             = lazy(() => import("@/pages/admin/AdminUsuarios"));
+const AdminKYC                  = lazy(() => import("@/pages/admin/AdminKYC"));
+const AdminModeracion           = lazy(() => import("@/pages/admin/AdminModeracion"));
+const AdminRoles                = lazy(() => import("@/pages/admin/AdminRoles"));
+const AdminFeedback             = lazy(() => import("@/pages/admin/AdminFeedback"));
+const AdminValuadores           = lazy(() => import("@/pages/admin/AdminValuadores"));
+const AdminBroadcast            = lazy(() => import("@/pages/admin/AdminBroadcast"));
+const AdminNewsletter           = lazy(() => import("@/pages/admin/AdminNewsletter"));
+const AdminScraper              = lazy(() => import("@/pages/admin/AdminScraper"));
+const AdminCMS                  = lazy(() => import("@/pages/admin/AdminCMS"));
+const AdminCFDI                 = lazy(() => import("@/pages/admin/AdminCFDI"));
+const AdminPayouts              = lazy(() => import("@/pages/admin/AdminPayouts"));
+const AdminAccesos              = lazy(() => import("@/pages/admin/AdminAccesos"));
+const AdminCobertura            = lazy(() => import("@/pages/admin/AdminCobertura"));
+const AdminReportes             = lazy(() => import("@/pages/admin/AdminReportes"));
+const AdminBlacklist            = lazy(() => import("@/pages/admin/AdminBlacklist"));
+const AdminAlertas              = lazy(() => import("@/pages/admin/AdminAlertas"));
+const AdminPrecios              = lazy(() => import("@/pages/admin/AdminPrecios"));
+const AdminMantenimiento        = lazy(() => import("@/pages/admin/AdminMantenimiento"));
+const AdminAdsAnalytics         = lazy(() => import("@/pages/admin/AdminAdsAnalytics"));
+const AdminInmobiliarias        = lazy(() => import("@/pages/admin/AdminInmobiliarias"));
+
+// ── Spinner compartido ────────────────────────────────────────────────────────
+const PageSpinner = () => (
+  <div className="min-h-screen flex items-center justify-center bg-[#F8F9FA]">
+    <div className="spinner" />
+  </div>
+);
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 export const API = `${BACKEND_URL}/api`;
 
-// Auth Context
 export const AuthContext = {
   user: null,
   setUser: () => {},
@@ -74,7 +90,6 @@ export const AuthContext = {
   setIsLoading: () => {},
 };
 
-// Protected Route Component
 const ProtectedRoute = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -83,17 +98,14 @@ const ProtectedRoute = ({ children }) => {
 
   useEffect(() => {
     if (location.state?.user) return;
-
     const checkAuth = async () => {
       try {
-        const response = await fetch(`${API}/auth/me`, {
-          credentials: "include",
-        });
+        const response = await fetch(`${API}/auth/me`, { credentials: "include" });
         if (!response.ok) throw new Error("Not authenticated");
         const userData = await response.json();
         setUser(userData);
         setIsAuthenticated(true);
-      } catch (error) {
+      } catch {
         setIsAuthenticated(false);
         navigate("/", { replace: true });
       }
@@ -101,79 +113,72 @@ const ProtectedRoute = ({ children }) => {
     checkAuth();
   }, [navigate, location.state]);
 
-  if (isAuthenticated === null) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[#F8F9FA]">
-        <div className="spinner"></div>
-      </div>
-    );
-  }
-
+  if (isAuthenticated === null) return <PageSpinner />;
   return isAuthenticated ? children : null;
 };
 
-// App Router Component
 function AppRouter() {
-  const location = useLocation();
-  
   return (
-    <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/valuar" element={<ValuationForm />} />
-      <Route path="/comparables/:valuationId" element={<ComparablesPage />} />
-      <Route path="/reporte/:valuationId" element={<ReportPage />} />
-      <Route path="/comprar" element={<PricingPage />} />
-      <Route path="/checkout/pro" element={<ProCheckoutPage />} />
-      <Route path="/dashboard/valuador" element={<ValuadorDashboardPage />} />
-      <Route path="/dashboard/inmobiliaria" element={<InmobiliariaDashboardPage />} />
-      <Route path="/gracias/:valuationId" element={<ThankYouPage />} />
-      <Route path="/para-valuadores" element={<ValuadorPage />} />
-      <Route path="/para-inmobiliarias" element={<InmobiliariaPage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-      <Route path="/reset-password" element={<ResetPasswordPage />} />
-      <Route path="/anunciantes" element={<AdvertiserLandingPage />} />
-      <Route path="/anunciantes/registro" element={<AdvertiserRegisterPage />} />
-      <Route path="/anunciantes/consola" element={<AdvertiserConsolePage />} />
-      <Route path="/privacidad" element={<PrivacidadPage />} />
-      <Route path="/terminos" element={<TerminosPage />} />
-      <Route path="/contacto" element={<ContactoPage />} />
-      <Route path="/terminos-anunciantes" element={<TerminosAnunciantesPage />} />
-      <Route path="/terminos-valuadores" element={<TerminosValuadoresPage />} />
-      <Route path="/terminos-inmobiliarias" element={<TerminosInmobiliariasPage />} />
-      <Route path="/codigo-etica-valuadores" element={<CodigoEticaPage />} />
-      <Route path="/feedback" element={<FeedbackPage />} />
-      <Route path="/valuadores" element={<ValuadoresDirectorioPage />} />
-      <Route path="/inmobiliarias" element={<InmobiliariasDirectorioPage />} />
-      <Route path="/politica-anuncios" element={<PoliticaAnunciosPage />} />
-      <Route path="/valuador/red" element={<ValuadorRedPage />} />
-      <Route path="/dashboard" element={<Navigate to="/login" replace />} />
+    <Suspense fallback={<PageSpinner />}>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/valuar" element={<ValuationForm />} />
+        <Route path="/comparables/:valuationId" element={<ComparablesPage />} />
+        <Route path="/reporte/:valuationId" element={<ReportPage />} />
+        <Route path="/comprar" element={<PricingPage />} />
+        <Route path="/checkout/pro" element={<ProCheckoutPage />} />
+        <Route path="/dashboard/valuador" element={<ValuadorDashboardPage />} />
+        <Route path="/dashboard/inmobiliaria" element={<InmobiliariaDashboardPage />} />
+        <Route path="/gracias/:valuationId" element={<ThankYouPage />} />
+        <Route path="/para-valuadores" element={<ValuadorPage />} />
+        <Route path="/para-inmobiliarias" element={<InmobiliariaPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route path="/auth/callback" element={<AuthCallback />} />
+        <Route path="/anunciantes" element={<AdvertiserLandingPage />} />
+        <Route path="/anunciantes/registro" element={<AdvertiserRegisterPage />} />
+        <Route path="/anunciantes/consola" element={<AdvertiserConsolePage />} />
+        <Route path="/privacidad" element={<PrivacidadPage />} />
+        <Route path="/terminos" element={<TerminosPage />} />
+        <Route path="/contacto" element={<ContactoPage />} />
+        <Route path="/terminos-anunciantes" element={<TerminosAnunciantesPage />} />
+        <Route path="/terminos-valuadores" element={<TerminosValuadoresPage />} />
+        <Route path="/terminos-inmobiliarias" element={<TerminosInmobiliariasPage />} />
+        <Route path="/codigo-etica-valuadores" element={<CodigoEticaPage />} />
+        <Route path="/feedback" element={<FeedbackPage />} />
+        <Route path="/valuadores" element={<ValuadoresDirectorioPage />} />
+        <Route path="/inmobiliarias" element={<InmobiliariasDirectorioPage />} />
+        <Route path="/politica-anuncios" element={<PoliticaAnunciosPage />} />
+        <Route path="/valuador/red" element={<ValuadorRedPage />} />
+        <Route path="/dashboard" element={<Navigate to="/login" replace />} />
 
-      {/* Admin */}
-      <Route path="/admin/login" element={<AdminLogin />} />
-      <Route path="/admin" element={<AdminProtectedRoute><AdminDashboard /></AdminProtectedRoute>} />
-      <Route path="/admin/usuarios" element={<AdminProtectedRoute><AdminUsuarios /></AdminProtectedRoute>} />
-      <Route path="/admin/kyc" element={<AdminProtectedRoute><AdminKYC /></AdminProtectedRoute>} />
-      <Route path="/admin/moderacion" element={<AdminProtectedRoute><AdminModeracion /></AdminProtectedRoute>} />
-      <Route path="/admin/roles" element={<AdminProtectedRoute rolesPermitidos={["superadmin"]}><AdminRoles /></AdminProtectedRoute>} />
-      <Route path="/admin/feedback" element={<AdminProtectedRoute><AdminFeedback /></AdminProtectedRoute>} />
-      <Route path="/admin/valuadores" element={<AdminProtectedRoute><AdminValuadores /></AdminProtectedRoute>} />
-      <Route path="/admin/accesos" element={<AdminProtectedRoute rolesPermitidos={["superadmin","finanzas"]}><AdminAccesos /></AdminProtectedRoute>} />
-      <Route path="/admin/broadcast" element={<AdminProtectedRoute rolesPermitidos={["superadmin","moderador","contenido"]}><AdminBroadcast /></AdminProtectedRoute>} />
-      <Route path="/admin/newsletter" element={<AdminProtectedRoute rolesPermitidos={["superadmin","moderador","contenido"]}><AdminNewsletter /></AdminProtectedRoute>} />
-      <Route path="/admin/scraper" element={<AdminProtectedRoute rolesPermitidos={["superadmin","moderador"]}><AdminScraper /></AdminProtectedRoute>} />
-      <Route path="/admin/cms" element={<AdminProtectedRoute rolesPermitidos={["superadmin","contenido"]}><AdminCMS /></AdminProtectedRoute>} />
-      <Route path="/admin/cfdi" element={<AdminProtectedRoute rolesPermitidos={["superadmin","finanzas"]}><AdminCFDI /></AdminProtectedRoute>} />
-      <Route path="/admin/payouts" element={<AdminProtectedRoute rolesPermitidos={["superadmin","finanzas"]}><AdminPayouts /></AdminProtectedRoute>} />
-      <Route path="/admin/reportes" element={<AdminProtectedRoute rolesPermitidos={["superadmin","finanzas"]}><AdminReportes /></AdminProtectedRoute>} />
-      <Route path="/admin/cobertura" element={<AdminProtectedRoute rolesPermitidos={["superadmin","moderador"]}><AdminCobertura /></AdminProtectedRoute>} />
-      <Route path="/admin/blacklist" element={<AdminProtectedRoute rolesPermitidos={["superadmin","moderador","contenido"]}><AdminBlacklist /></AdminProtectedRoute>} />
-      <Route path="/admin/alertas" element={<AdminProtectedRoute><AdminAlertas /></AdminProtectedRoute>} />
-      <Route path="/admin/precios" element={<AdminProtectedRoute rolesPermitidos={["superadmin","finanzas"]}><AdminPrecios /></AdminProtectedRoute>} />
-      <Route path="/admin/mantenimiento" element={<AdminProtectedRoute rolesPermitidos={["superadmin"]}><AdminMantenimiento /></AdminProtectedRoute>} />
-      <Route path="/admin/ads-analytics" element={<AdminProtectedRoute><AdminAdsAnalytics /></AdminProtectedRoute>} />
-      <Route path="/admin/inmobiliarias" element={<AdminProtectedRoute><AdminInmobiliarias /></AdminProtectedRoute>} />
-    </Routes>
+        {/* Admin — chunk completamente separado */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin" element={<AdminProtectedRoute><AdminDashboard /></AdminProtectedRoute>} />
+        <Route path="/admin/usuarios" element={<AdminProtectedRoute><AdminUsuarios /></AdminProtectedRoute>} />
+        <Route path="/admin/kyc" element={<AdminProtectedRoute><AdminKYC /></AdminProtectedRoute>} />
+        <Route path="/admin/moderacion" element={<AdminProtectedRoute><AdminModeracion /></AdminProtectedRoute>} />
+        <Route path="/admin/roles" element={<AdminProtectedRoute rolesPermitidos={["superadmin"]}><AdminRoles /></AdminProtectedRoute>} />
+        <Route path="/admin/feedback" element={<AdminProtectedRoute><AdminFeedback /></AdminProtectedRoute>} />
+        <Route path="/admin/valuadores" element={<AdminProtectedRoute><AdminValuadores /></AdminProtectedRoute>} />
+        <Route path="/admin/accesos" element={<AdminProtectedRoute rolesPermitidos={["superadmin","finanzas"]}><AdminAccesos /></AdminProtectedRoute>} />
+        <Route path="/admin/broadcast" element={<AdminProtectedRoute rolesPermitidos={["superadmin","moderador","contenido"]}><AdminBroadcast /></AdminProtectedRoute>} />
+        <Route path="/admin/newsletter" element={<AdminProtectedRoute rolesPermitidos={["superadmin","moderador","contenido"]}><AdminNewsletter /></AdminProtectedRoute>} />
+        <Route path="/admin/scraper" element={<AdminProtectedRoute rolesPermitidos={["superadmin","moderador"]}><AdminScraper /></AdminProtectedRoute>} />
+        <Route path="/admin/cms" element={<AdminProtectedRoute rolesPermitidos={["superadmin","contenido"]}><AdminCMS /></AdminProtectedRoute>} />
+        <Route path="/admin/cfdi" element={<AdminProtectedRoute rolesPermitidos={["superadmin","finanzas"]}><AdminCFDI /></AdminProtectedRoute>} />
+        <Route path="/admin/payouts" element={<AdminProtectedRoute rolesPermitidos={["superadmin","finanzas"]}><AdminPayouts /></AdminProtectedRoute>} />
+        <Route path="/admin/reportes" element={<AdminProtectedRoute rolesPermitidos={["superadmin","finanzas"]}><AdminReportes /></AdminProtectedRoute>} />
+        <Route path="/admin/cobertura" element={<AdminProtectedRoute rolesPermitidos={["superadmin","moderador"]}><AdminCobertura /></AdminProtectedRoute>} />
+        <Route path="/admin/blacklist" element={<AdminProtectedRoute rolesPermitidos={["superadmin","moderador","contenido"]}><AdminBlacklist /></AdminProtectedRoute>} />
+        <Route path="/admin/alertas" element={<AdminProtectedRoute><AdminAlertas /></AdminProtectedRoute>} />
+        <Route path="/admin/precios" element={<AdminProtectedRoute rolesPermitidos={["superadmin","finanzas"]}><AdminPrecios /></AdminProtectedRoute>} />
+        <Route path="/admin/mantenimiento" element={<AdminProtectedRoute rolesPermitidos={["superadmin"]}><AdminMantenimiento /></AdminProtectedRoute>} />
+        <Route path="/admin/ads-analytics" element={<AdminProtectedRoute><AdminAdsAnalytics /></AdminProtectedRoute>} />
+        <Route path="/admin/inmobiliarias" element={<AdminProtectedRoute><AdminInmobiliarias /></AdminProtectedRoute>} />
+      </Routes>
+    </Suspense>
   );
 }
 
