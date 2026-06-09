@@ -117,10 +117,136 @@ const LayoutClasico = ({ fichaAvaluo, texts, idioma, descripcionTexto, theme, pa
     );
   }
 
-  // Default Vertical 2 Pages (A4) o Horizontal
+  // ── A4 FRONT PAGE (vertical_2p) — estilo brochure: hero grande + datos abajo ──
+  if (formato === 'vertical_2p') {
+    const fotos = (fichaAvaluo?.fotos || []).filter(Boolean);
+    const precioM2 = fichaAvaluo?.m2_construccion > 0 ? Math.round(fichaAvaluo.valor / fichaAvaluo.m2_construccion) : null;
+    const asesorName = session?.user?.name || session?.user?.email?.split('@')[0] || "Asesor Inmobiliario";
+    const specsFront = [
+      { Icon: Building, label: idioma === 'es' ? 'm² Const.' : 'Built',   val: fichaAvaluo?.m2_construccion ? `${fichaAvaluo.m2_construccion}` : null },
+      { Icon: Map,      label: idioma === 'es' ? 'm² Terreno' : 'Lot',    val: fichaAvaluo?.m2_terreno ? `${fichaAvaluo.m2_terreno}` : null },
+      { Icon: null,     label: texts.recamaras, val: fichaAvaluo?.recamaras != null ? String(fichaAvaluo.recamaras) : null },
+      { Icon: null,     label: texts.banos,     val: fichaAvaluo?.banos != null ? String(fichaAvaluo.banos) : null },
+      { Icon: Car,      label: idioma === 'es' ? 'Autos' : 'Parking',     val: fichaAvaluo?.estacionamiento != null ? String(fichaAvaluo.estacionamiento) : null },
+    ].filter(s => s.val !== null);
+
+    return (
+      <div id="pv-ficha-root" className="w-full mx-auto" style={{ width: 794 }}>
+        <div className="relative flex flex-col overflow-hidden shadow-xl print:shadow-none" style={{ width: 794, height: 1123, background: "#fff" }}>
+          {/* Hero grande (62%) con margen e inset */}
+          <div style={{ padding: 24, paddingBottom: 0 }}>
+            <div style={{ height: 660, borderRadius: 12, overflow: "hidden", position: "relative", background: "#e5e5e5" }}>
+              {fotos[0] && <img src={fotos[0]} alt="Fachada" style={{ width: "100%", height: "100%", objectFit: "cover" }} />}
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.35) 0%, transparent 35%)" }} />
+              {/* Chip tipo */}
+              <div style={{ position: "absolute", top: 20, left: 20, background: heroBg, padding: "8px 18px", borderRadius: 30, boxShadow: "0 4px 12px rgba(0,0,0,0.2)" }}>
+                <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "#fff" }}>
+                  {fichaAvaluo.tipo} · {idioma === 'es' ? 'En Venta' : 'For Sale'}
+                </span>
+              </div>
+              {/* Logo inmobiliaria */}
+              {session?.user?.picture && (
+                <div style={{ position: "absolute", top: 18, right: 20, background: "rgba(255,255,255,0.92)", borderRadius: 8, padding: "8px 14px", boxShadow: "0 4px 12px rgba(0,0,0,0.15)" }}>
+                  <img src={session.user.picture} alt="Logo" style={{ height: 28, maxWidth: 110, objectFit: "contain" }} />
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Bloque inferior */}
+          <div style={{ flex: 1, padding: "26px 32px 0", display: "flex", flexDirection: "column" }}>
+            {/* Tagline + dirección + precio */}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 20 }}>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <p style={{ margin: 0, fontSize: 11, fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase", color: accentColor }}>
+                  {idioma === 'es' ? 'Nuevo en Venta' : 'New Listing'}
+                </p>
+                <h1 style={{ margin: "6px 0 4px", fontFamily: "Outfit, sans-serif", fontSize: 34, fontWeight: 800, color: heroBg, lineHeight: 1.05 }}>
+                  {fichaAvaluo.direccion}
+                </h1>
+                <p style={{ margin: 0, fontSize: 14, color: "#64748b", display: "flex", alignItems: "center", gap: 6 }}>
+                  <MapPin style={{ width: 15, height: 15, color: accentColor }} />
+                  {[fichaAvaluo.colonia, fichaAvaluo.municipio].filter(Boolean).join(", ") || "Ubicación Premium"}
+                </p>
+              </div>
+              <div style={{ textAlign: "right", flexShrink: 0 }}>
+                <p style={{ margin: 0, fontFamily: "Outfit, sans-serif", fontSize: 38, fontWeight: 800, color: heroBg, lineHeight: 1 }}>
+                  {formatMXN(fichaAvaluo.valor)}
+                </p>
+                {precioM2 && <p style={{ margin: "4px 0 0", fontSize: 12, color: "#94a3b8" }}>{formatMXN(precioM2)} / m²</p>}
+              </div>
+            </div>
+
+            {/* Specs bar */}
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 12, margin: "24px 0", padding: "20px 0", borderTop: "1px solid #e2e8f0", borderBottom: "1px solid #e2e8f0" }}>
+              {specsFront.map(({ Icon, label, val }, i) => (
+                <div key={i} style={{ flex: 1, textAlign: "center" }}>
+                  <div style={{ width: 44, height: 44, margin: "0 auto 8px", borderRadius: "50%", background: accentColor + "1a", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    {Icon
+                      ? <Icon style={{ width: 18, height: 18, color: accentColor }} />
+                      : <span style={{ fontFamily: "Outfit, sans-serif", fontWeight: 800, fontSize: 18, color: accentColor }}>{val}</span>}
+                  </div>
+                  {Icon && <p style={{ margin: 0, fontFamily: "Outfit, sans-serif", fontWeight: 800, fontSize: 17, color: heroBg }}>{val}</p>}
+                  <p style={{ margin: "2px 0 0", fontSize: 8.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "#94a3b8", fontWeight: 700 }}>{label}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Descripción + chips */}
+            <div style={{ flex: 1 }}>
+              <p style={{ margin: 0, fontSize: 13, lineHeight: 1.7, color: "#475569", textAlign: "justify" }}>
+                {descripcionTexto}
+              </p>
+              {puntosDestacados?.length > 0 && (
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 16 }}>
+                  {puntosDestacados.slice(0, 5).map((p, i) => (
+                    <span key={i} style={{
+                      fontSize: 11, padding: "5px 12px", borderRadius: 30, fontWeight: 600,
+                      display: "flex", alignItems: "center", gap: 5,
+                      background: p.verificado ? accentColor + "18" : "#f1f5f9",
+                      border: p.verificado ? `1px solid ${accentColor}40` : "1px solid #e2e8f0",
+                      color: p.verificado ? heroBg : "#64748b",
+                    }}>
+                      {p.verificado && <CheckCircle2 style={{ width: 12, height: 12, color: accentColor }} />}
+                      {p.texto}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Footer asesor */}
+            <div style={{ marginTop: "auto", borderTop: "1px solid #e2e8f0", padding: "16px 0", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                <div style={{ width: 46, height: 46, borderRadius: "50%", overflow: "hidden", background: "#e5e5e5", border: `2px solid ${accentColor}`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  {session?.user?.photoURL
+                    ? <img src={session.user.photoURL} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    : <User style={{ width: 22, height: 22, color: "#94a3b8" }} />}
+                </div>
+                <div>
+                  <p style={{ margin: 0, fontSize: 14, fontWeight: 700, color: heroBg }}>{asesorName}</p>
+                  <p style={{ margin: 0, fontSize: 11, color: "#64748b" }}>
+                    {session?.user?.phone}{session?.user?.phone && session?.user?.email ? " · " : ""}{session?.user?.email}
+                  </p>
+                </div>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
+                <div style={{ width: 14, height: 14, borderRadius: 3, background: accentColor, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <span style={{ color: "#fff", fontWeight: 900, fontSize: 8, fontFamily: "Outfit, sans-serif" }}>P</span>
+                </div>
+                <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#94a3b8" }}>propvalu.mx</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Default Horizontal (16:9)
   return (
     <div id="pv-ficha-root" className={containerClasses}>
-      
+
       {/* PÁGINA 1 */}
       <div className={`${pageClasses} ${theme.bgPage}`}>
         <div className={`relative ${formato === 'horizontal' ? 'w-[50%] h-full' : 'h-[45%] w-full'} shrink-0`}>

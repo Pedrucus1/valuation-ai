@@ -1,21 +1,20 @@
 import React from "react";
 import {
-  MapPin, Building, Map, BedDouble, Bath, Car, Layers,
-  Calendar, Wrench, Phone, Mail, User, CheckCircle2,
-  Waves, Wind, Camera, Trees, Dumbbell, Shield, Wine,
-  Monitor, Fingerprint, Sofa, Home, QrCode
+  Building, Map, BedDouble, Bath, Car, Layers, Calendar, Wrench, Maximize,
+  Phone, Mail, User, CheckCircle2, QrCode,
+  Waves, Wind, Camera, Trees, Dumbbell, Shield, Wine, Monitor, Fingerprint, Sofa, Home
 } from "lucide-react";
 
-/* Hoja técnica — datos completos sin comparables de mercado.
-   Recibe las mismas props que LayoutClasico para ser intercambiable.
+/* Hoja 2 — "Back page" estilo brochure: sidebar de specs grandes +
+   lista "Lo Especial" + descripción + galería. Llena toda la hoja A4.
+   Usa la paleta: el sidebar toma el color bg de la paleta.
 */
 const LayoutFichaTecnica = ({
-  fichaAvaluo,
+  fichaAvaluo: f,
   texts,
   idioma,
   descripcionTexto,
   palette,
-  theme,
   formatMXN,
   session,
   amenidades = [],
@@ -23,276 +22,191 @@ const LayoutFichaTecnica = ({
   espacios = [],
   puntosDestacados = [],
 }) => {
-  const bg       = palette?.bg      || "#1B4332";
-  const accent   = palette?.accent  || "#52B788";
+  const bg        = palette?.bg        || "#1B4332";
+  const accent    = palette?.accent    || "#52B788";
   const textLight = palette?.textLight || "#D9ED92";
-  const cardBg   = palette?.card    || "#fff";
-  const muted    = palette?.muted   || "#4a7c59";
+  const muted     = palette?.muted     || "#4a7c59";
 
-  const iconMap = (str = "") => {
-    const s = str.toLowerCase();
-    if (s.includes("alberca") || s.includes("piscina")) return Waves;
-    if (s.includes("aire") || s.includes("acondicionado")) return Wind;
-    if (s.includes("auto") || s.includes("cochera") || s.includes("estacionamiento")) return Car;
-    if (s.includes("camara") || s.includes("cctv") || s.includes("circuito")) return Camera;
-    if (s.includes("jardin") || s.includes("arbol") || s.includes("areas verdes")) return Trees;
-    if (s.includes("gym") || s.includes("gimnasio")) return Dumbbell;
-    if (s.includes("seguridad") || s.includes("vigilancia")) return Shield;
-    if (s.includes("cava") || s.includes("vino")) return Wine;
-    if (s.includes("smart") || s.includes("inteligente")) return Monitor;
-    if (s.includes("biometrico") || s.includes("huella")) return Fingerprint;
-    if (s.includes("sala") || s.includes("family")) return Sofa;
-    if (s.includes("casa club")) return Home;
-    return CheckCircle2;
-  };
+  const precio = f?.valor ?? f?.precio_oferta ?? 0;
+  const fotos = (f?.fotos || []).filter(Boolean);
 
+  // Specs grandes para el sidebar
   const specs = [
-    { Icon: Building, label: "m² Construidos", val: fichaAvaluo?.m2_construccion ? `${fichaAvaluo.m2_construccion} m²` : "—" },
-    { Icon: Map,      label: "m² Terreno",     val: fichaAvaluo?.m2_terreno      ? `${fichaAvaluo.m2_terreno} m²`      : "—" },
-    { Icon: BedDouble, label: texts?.recamaras || "Recámaras", val: fichaAvaluo?.recamaras ?? "—" },
-    { Icon: Bath,     label: texts?.banos || "Baños",          val: fichaAvaluo?.banos ?? "—" },
-    { Icon: Car,      label: "Estacionamientos", val: fichaAvaluo?.estacionamiento ?? "—" },
-    { Icon: Layers,   label: "Niveles",          val: fichaAvaluo?.niveles ?? "—" },
-    { Icon: Calendar, label: "Antigüedad",       val: fichaAvaluo?.antiguedad != null ? `${fichaAvaluo.antiguedad} años` : "—" },
-    { Icon: Wrench,   label: "Conservación",     val: fichaAvaluo?.conservacion ?? "—" },
-  ].filter(s => s.val !== "—");
+    { Icon: Maximize, label: idioma === "en" ? "Built Area"  : "Construcción",   val: f?.m2_construccion ? `${f.m2_construccion} m²` : null },
+    { Icon: Map,      label: idioma === "en" ? "Lot Size"    : "Terreno",        val: f?.m2_terreno      ? `${f.m2_terreno} m²`      : null },
+    { Icon: BedDouble,label: idioma === "en" ? "Bedrooms"    : "Recámaras",      val: f?.recamaras != null ? String(f.recamaras)      : null },
+    { Icon: Bath,     label: idioma === "en" ? "Bathrooms"   : "Baños",          val: f?.banos      != null ? String(f.banos)         : null },
+    { Icon: Car,      label: idioma === "en" ? "Parking"     : "Estacionamiento",val: f?.estacionamiento != null ? `${f.estacionamiento} autos` : null },
+    { Icon: Layers,   label: idioma === "en" ? "Levels"      : "Niveles",        val: f?.niveles != null ? String(f.niveles)          : null },
+    { Icon: Calendar, label: idioma === "en" ? "Year Built"  : "Antigüedad",     val: f?.antiguedad != null ? `${f.antiguedad} años`  : null },
+    { Icon: Wrench,   label: idioma === "en" ? "Condition"   : "Conservación",   val: f?.conservacion || null },
+  ].filter(s => s.val !== null);
+
+  // Lista "Lo Especial": combina amenidades + instalaciones + espacios + puntos verificados
+  const especiales = [
+    ...puntosDestacados.filter(p => p.verificado).map(p => p.texto),
+    ...amenidades, ...instalaciones, ...espacios,
+    ...puntosDestacados.filter(p => !p.verificado).map(p => p.texto),
+  ].filter(Boolean);
 
   const asesorName = session?.user?.name || session?.user?.email?.split("@")[0] || "Asesor Inmobiliario";
-  const fotos = fichaAvaluo?.fotos || [];
+
+  // Mitad de la lista en cada columna
+  const mitad = Math.ceil(especiales.length / 2);
+  const colA = especiales.slice(0, mitad);
+  const colB = especiales.slice(mitad);
 
   return (
     <div
       id="pv-ficha-tecnica-root"
-      className="relative flex flex-col overflow-hidden shadow-xl print:shadow-none"
-      style={{ width: 794, height: 1123, backgroundColor: cardBg, fontFamily: "'Manrope', sans-serif" }}
+      className="relative flex overflow-hidden shadow-xl print:shadow-none"
+      style={{ width: 794, height: 1123, fontFamily: "'Manrope', sans-serif" }}
     >
-      {/* ── HEADER ──────────────────────────────────────────────────── */}
-      <div className="shrink-0 flex items-stretch" style={{ backgroundColor: bg, minHeight: 72 }}>
+      {/* ── SIDEBAR IZQUIERDO (specs) ───────────────────────────────── */}
+      <div className="shrink-0 flex flex-col" style={{ width: 290, background: bg, color: "#fff", padding: "44px 32px" }}>
         {/* Logo inmobiliaria */}
-        <div className="w-20 shrink-0 flex items-center justify-center p-3 border-r border-white/10">
+        <div style={{ marginBottom: 36, minHeight: 40, display: "flex", alignItems: "center" }}>
           {session?.user?.picture
-            ? <img src={session.user.picture} alt="Logo" className="w-full h-full object-contain" />
-            : <Building className="w-8 h-8 text-white/50" />}
-        </div>
-
-        <div className="flex-1 px-6 py-4 flex flex-col justify-center">
-          <p className="text-[9px] font-bold uppercase tracking-widest mb-0.5" style={{ color: accent }}>
-            {fichaAvaluo?.tipo || "Propiedad"} · {idioma === "en" ? "Technical Sheet" : "Ficha Técnica"}
-          </p>
-          <h2 className="text-base font-bold leading-snug text-white truncate">
-            {fichaAvaluo?.direccion || "Sin dirección"}
-          </h2>
-          {(fichaAvaluo?.colonia || fichaAvaluo?.municipio) && (
-            <p className="text-[10px] mt-0.5 flex items-center gap-1" style={{ color: textLight }}>
-              <MapPin className="w-3 h-3" />
-              {[fichaAvaluo.colonia, fichaAvaluo.municipio].filter(Boolean).join(", ")}
-            </p>
-          )}
+            ? <img src={session.user.picture} alt="Logo" style={{ height: 40, maxWidth: 160, objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.92 }} />
+            : <span style={{ fontFamily: "Outfit, sans-serif", fontWeight: 800, fontSize: 18, letterSpacing: 2, color: "#fff" }}>INMOBILIARIA</span>}
         </div>
 
         {/* Precio */}
-        <div className="shrink-0 flex flex-col items-end justify-center pr-6 py-4">
-          <p className="text-[9px] font-bold uppercase tracking-widest mb-0.5" style={{ color: textLight + "99" }}>
+        <div style={{ marginBottom: 8 }}>
+          <p style={{ margin: 0, fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: textLight + "cc" }}>
             {idioma === "en" ? "Asking Price" : "Precio de Oferta"}
           </p>
-          <p className="text-2xl font-black font-['Outfit'] text-white">
-            {formatMXN(fichaAvaluo?.valor ?? fichaAvaluo?.precio_oferta ?? 0)}
+          <p style={{ margin: "4px 0 0", fontFamily: "Outfit, sans-serif", fontSize: 34, fontWeight: 800, color: "#fff", lineHeight: 1 }}>
+            {formatMXN(precio)}
           </p>
-          {fichaAvaluo?.m2_construccion > 0 && (fichaAvaluo?.valor ?? fichaAvaluo?.precio_oferta) > 0 && (
-            <p className="text-[9px] mt-0.5" style={{ color: accent }}>
-              {formatMXN(Math.round((fichaAvaluo?.valor ?? fichaAvaluo?.precio_oferta) / fichaAvaluo.m2_construccion))} / m²
+          {f?.m2_construccion > 0 && precio > 0 && (
+            <p style={{ margin: "4px 0 0", fontSize: 11, color: accent }}>
+              {formatMXN(Math.round(precio / f.m2_construccion))} / m²
             </p>
           )}
+        </div>
+
+        <div style={{ height: 1, background: "rgba(255,255,255,0.15)", margin: "28px 0" }} />
+
+        {/* Specs apilados grandes */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 22, flex: 1 }}>
+          {specs.map(({ Icon, label, val }, i) => (
+            <div key={i} style={{ display: "flex", alignItems: "center", gap: 16 }}>
+              <div style={{ width: 42, height: 42, borderRadius: 10, background: "rgba(255,255,255,0.08)", border: `1px solid ${accent}40`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                <Icon style={{ width: 20, height: 20, color: accent }} />
+              </div>
+              <div>
+                <p style={{ margin: 0, fontFamily: "Outfit, sans-serif", fontSize: 19, fontWeight: 800, color: "#fff", lineHeight: 1.1 }}>{val}</p>
+                <p style={{ margin: "2px 0 0", fontSize: 9, letterSpacing: "0.15em", textTransform: "uppercase", color: textLight + "aa" }}>{label}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Badge propvalu */}
+        <div style={{ marginTop: 24, paddingTop: 18, borderTop: "1px solid rgba(255,255,255,0.15)", display: "flex", alignItems: "center", gap: 6 }}>
+          <div style={{ width: 14, height: 14, borderRadius: 3, background: accent, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <span style={{ color: bg, fontWeight: 900, fontSize: 8, fontFamily: "Outfit, sans-serif" }}>P</span>
+          </div>
+          <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: textLight + "cc" }}>propvalu.mx</span>
         </div>
       </div>
 
-      {/* ── BODY ────────────────────────────────────────────────────── */}
-      <div className="flex-1 flex overflow-hidden">
-
-        {/* Columna izquierda — foto principal + specs */}
-        <div className="w-[42%] shrink-0 flex flex-col border-r border-slate-100">
-          {/* Foto principal */}
-          <div className="relative" style={{ height: 190 }}>
-            {fotos[0]
-              ? <img src={fotos[0]} alt="Principal" className="w-full h-full object-cover" />
-              : <div className="w-full h-full flex items-center justify-center bg-slate-100">
-                  <Building className="w-12 h-12 text-slate-300" />
-                </div>}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-          </div>
-
-          {/* Galería secundaria */}
-          {fotos.length > 1 && (
-            <div className="grid grid-cols-3 gap-0.5 p-0.5" style={{ height: 64 }}>
-              {fotos.slice(1, 4).map((f, i) => (
-                <img key={i} src={f} alt="" className="w-full h-full object-cover" />
-              ))}
-            </div>
-          )}
-
-          {/* Specs grid */}
-          <div className="flex-1 p-4">
-            <p className="text-[9px] font-bold uppercase tracking-widest mb-3" style={{ color: muted }}>
-              {idioma === "en" ? "Technical Data" : "Datos Técnicos"}
+      {/* ── COLUMNA DERECHA ─────────────────────────────────────────── */}
+      <div className="flex-1 flex flex-col" style={{ background: "#fff" }}>
+        {/* Foto interior grande */}
+        <div style={{ height: 240, position: "relative", overflow: "hidden", background: "#e5e5e5" }}>
+          {fotos[1]
+            ? <img src={fotos[1]} alt="Interior" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+            : fotos[0] && <img src={fotos[0]} alt="Interior" style={{ width: "100%", height: "100%", objectFit: "cover" }} />}
+          {/* Título sobre la foto */}
+          <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "30px 28px 14px", background: "linear-gradient(transparent, rgba(0,0,0,0.7))" }}>
+            <p style={{ margin: 0, fontSize: 9, letterSpacing: "0.25em", textTransform: "uppercase", color: accent, fontWeight: 700 }}>
+              {f?.tipo || "Propiedad"} · {[f?.colonia, f?.municipio].filter(Boolean).join(", ")}
             </p>
-            <div className="grid grid-cols-2 gap-x-3 gap-y-3">
-              {specs.map(({ Icon, label, val }, i) => (
-                <div key={i} className="flex items-start gap-2">
-                  <div className="w-6 h-6 rounded-md shrink-0 flex items-center justify-center mt-0.5"
-                    style={{ backgroundColor: bg + "12" }}>
-                    <Icon className="w-3 h-3" style={{ color: accent }} />
-                  </div>
-                  <div>
-                    <p className="text-[8px] font-bold uppercase tracking-wide text-slate-400 leading-none mb-0.5">{label}</p>
-                    <p className="text-xs font-bold text-slate-700">{String(val)}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <h2 style={{ margin: "3px 0 0", fontFamily: "Outfit, sans-serif", fontSize: 22, fontWeight: 800, color: "#fff", lineHeight: 1.1 }}>
+              {f?.direccion || "Sin dirección"}
+            </h2>
           </div>
         </div>
 
-        {/* Columna derecha — descripción, puntos, amenidades */}
-        <div className="flex-1 flex flex-col overflow-hidden p-4 gap-4">
-
-          {/* Descripción */}
-          {descripcionTexto && (
-            <div>
-              <p className="text-[9px] font-bold uppercase tracking-widest mb-1.5" style={{ color: muted }}>
-                {idioma === "en" ? "Description" : "Descripción"}
-              </p>
-              <p className="text-[11px] leading-relaxed text-slate-600 line-clamp-5">{descripcionTexto}</p>
-            </div>
-          )}
-
-          {/* Puntos destacados */}
-          {puntosDestacados?.length > 0 && (
-            <div>
-              <p className="text-[9px] font-bold uppercase tracking-widest mb-2" style={{ color: muted }}>
-                {idioma === "en" ? "Highlights" : "Puntos Destacados"}
-              </p>
-              <div className="flex flex-wrap gap-1.5">
-                {puntosDestacados.slice(0, 5).map((p, i) => (
-                  <span key={i}
-                    className="text-[10px] px-2 py-1 rounded-full font-semibold flex items-center gap-1"
-                    style={p.verificado
-                      ? { backgroundColor: accent + "18", color: bg, border: `1px solid ${accent}40` }
-                      : { backgroundColor: "#f1f5f9", color: "#475569" }}>
-                    {p.verificado && <CheckCircle2 className="w-2.5 h-2.5" style={{ color: accent }} />}
-                    {p.texto}
-                  </span>
+        {/* Contenido */}
+        <div style={{ flex: 1, padding: "26px 28px", display: "flex", flexDirection: "column" }}>
+          {/* Lo Especial */}
+          {especiales.length > 0 && (
+            <div style={{ marginBottom: 22 }}>
+              <h3 style={{ margin: "0 0 14px", fontSize: 11, letterSpacing: "0.25em", textTransform: "uppercase", color: bg, fontWeight: 800, borderLeft: `4px solid ${accent}`, paddingLeft: 12 }}>
+                {idioma === "en" ? "What's Special" : "Lo Especial"}
+              </h3>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0 28px" }}>
+                {[colA, colB].map((col, ci) => (
+                  <ul key={ci} style={{ listStyle: "none", margin: 0, padding: 0 }}>
+                    {col.map((item, i) => (
+                      <li key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "7px 0", borderBottom: "1px solid #f1f5f9", fontSize: 12.5, color: "#334155" }}>
+                        <CheckCircle2 style={{ width: 14, height: 14, color: accent, flexShrink: 0 }} />
+                        <span style={{ textTransform: "capitalize" }}>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 ))}
               </div>
             </div>
           )}
 
-          {/* Amenidades */}
-          {amenidades.length > 0 && (
-            <div>
-              <p className="text-[9px] font-bold uppercase tracking-widest mb-2" style={{ color: muted }}>
-                {idioma === "en" ? "Amenities" : "Amenidades"}
-              </p>
-              <div className="grid grid-cols-2 gap-1.5">
-                {amenidades.slice(0, 8).map((am, i) => {
-                  const Icon = iconMap(am);
-                  return (
-                    <div key={i} className="flex items-center gap-2 text-[10px] text-slate-600">
-                      <Icon className="w-3 h-3 shrink-0" style={{ color: accent }} />
-                      <span className="truncate capitalize">{am}</span>
-                    </div>
-                  );
-                })}
+          {/* Descripción */}
+          {descripcionTexto && (
+            <div style={{ marginBottom: 20 }}>
+              <h3 style={{ margin: "0 0 10px", fontSize: 11, letterSpacing: "0.25em", textTransform: "uppercase", color: bg, fontWeight: 800, borderLeft: `4px solid ${accent}`, paddingLeft: 12 }}>
+                {idioma === "en" ? "Description" : "Descripción"}
+              </h3>
+              <p style={{ margin: 0, fontSize: 12.5, lineHeight: 1.75, color: "#475569", textAlign: "justify" }}>{descripcionTexto}</p>
+            </div>
+          )}
+
+          {/* Galería inferior — llena el espacio restante */}
+          {fotos.length > 2 && (
+            <div style={{ marginTop: "auto" }}>
+              <h3 style={{ margin: "0 0 10px", fontSize: 11, letterSpacing: "0.25em", textTransform: "uppercase", color: bg, fontWeight: 800, borderLeft: `4px solid ${accent}`, paddingLeft: 12 }}>
+                {idioma === "en" ? "Gallery" : "Galería"}
+              </h3>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8, height: 130 }}>
+                {fotos.slice(2, 5).map((foto, i) => (
+                  <div key={i} style={{ borderRadius: 8, overflow: "hidden", background: "#e5e5e5" }}>
+                    <img src={foto} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  </div>
+                ))}
               </div>
             </div>
           )}
+        </div>
 
-          {/* Instalaciones + Espacios en columnas */}
-          {(instalaciones.length > 0 || espacios.length > 0) && (
-            <div className="flex gap-3">
-              {instalaciones.length > 0 && (
-                <div className="flex-1">
-                  <p className="text-[9px] font-bold uppercase tracking-widest mb-1.5" style={{ color: muted }}>
-                    {idioma === "en" ? "Installations" : "Instalaciones"}
-                  </p>
-                  <ul className="space-y-1">
-                    {instalaciones.slice(0, 5).map((inst, i) => {
-                      const Icon = iconMap(inst);
-                      return (
-                        <li key={i} className="flex items-center gap-1.5 text-[10px] text-slate-600">
-                          <Icon className="w-3 h-3 shrink-0 text-slate-400" />
-                          <span className="truncate capitalize">{inst}</span>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
-              )}
-              {espacios.length > 0 && (
-                <div className="flex-1">
-                  <p className="text-[9px] font-bold uppercase tracking-widest mb-1.5" style={{ color: muted }}>
-                    {idioma === "en" ? "Spaces" : "Espacios"}
-                  </p>
-                  <ul className="space-y-1">
-                    {espacios.slice(0, 5).map((esp, i) => {
-                      const Icon = iconMap(esp);
-                      return (
-                        <li key={i} className="flex items-center gap-1.5 text-[10px] text-slate-600">
-                          <Icon className="w-3 h-3 shrink-0 text-slate-400" />
-                          <span className="truncate capitalize">{esp}</span>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
-              )}
+        {/* Footer asesor */}
+        <div style={{ borderTop: "1px solid #e2e8f0", padding: "14px 28px", display: "flex", alignItems: "center", justifyContent: "space-between", background: "#fafafa" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <div style={{ width: 44, height: 44, borderRadius: "50%", overflow: "hidden", background: "#e5e5e5", border: `2px solid ${accent}`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+              {session?.user?.photoURL
+                ? <img src={session.user.photoURL} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                : <User style={{ width: 20, height: 20, color: "#94a3b8" }} />}
+            </div>
+            <div>
+              <p style={{ margin: 0, fontSize: 13, fontWeight: 700, color: bg }}>{asesorName}</p>
+              <div style={{ display: "flex", gap: 12, marginTop: 2 }}>
+                {session?.user?.phone && <span style={{ fontSize: 10, color: "#64748b", display: "flex", alignItems: "center", gap: 4 }}><Phone style={{ width: 10, height: 10 }} /> {session.user.phone}</span>}
+                <span style={{ fontSize: 10, color: "#64748b", display: "flex", alignItems: "center", gap: 4 }}><Mail style={{ width: 10, height: 10 }} /> {session?.user?.email}</span>
+              </div>
+            </div>
+          </div>
+          {f?.url_recorrido && (
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <div style={{ textAlign: "right" }}>
+                <p style={{ margin: 0, fontSize: 8, fontWeight: 700, textTransform: "uppercase", color: "#94a3b8" }}>Recorrido</p>
+                <p style={{ margin: 0, fontSize: 8, fontWeight: 700, textTransform: "uppercase", color: "#94a3b8" }}>virtual</p>
+              </div>
+              <div style={{ width: 40, height: 40, borderRadius: 8, border: "2px dashed #cbd5e1", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <QrCode style={{ width: 20, height: 20, color: "#cbd5e1" }} />
+              </div>
             </div>
           )}
-        </div>
-      </div>
-
-      {/* ── FOOTER — contacto + badge ────────────────────────────────── */}
-      <div className="shrink-0 border-t border-slate-100 px-5 py-3 flex items-center justify-between"
-        style={{ backgroundColor: bg + "08" }}>
-        {/* Asesor */}
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-full bg-slate-200 border-2 border-white shadow flex items-center justify-center overflow-hidden shrink-0">
-            {session?.user?.photoURL
-              ? <img src={session.user.photoURL} alt="Asesor" className="w-full h-full object-cover" />
-              : <User className="w-4 h-4 text-slate-400" />}
-          </div>
-          <div>
-            <p className="text-[10px] font-bold leading-none" style={{ color: bg }}>{asesorName}</p>
-            <div className="flex items-center gap-3 mt-0.5">
-              {session?.user?.phone && (
-                <span className="text-[9px] text-slate-500 flex items-center gap-0.5">
-                  <Phone className="w-2.5 h-2.5" /> {session.user.phone}
-                </span>
-              )}
-              <span className="text-[9px] text-slate-500 flex items-center gap-0.5">
-                <Mail className="w-2.5 h-2.5" /> {session?.user?.email}
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* QR placeholder */}
-        {fichaAvaluo?.url_recorrido && (
-          <div className="flex items-center gap-2">
-            <div>
-              <p className="text-[8px] font-bold uppercase tracking-wide text-slate-400 text-right">Recorrido virtual</p>
-            </div>
-            <div className="w-10 h-10 rounded-lg border-2 border-dashed border-slate-200 flex items-center justify-center">
-              <QrCode className="w-5 h-5 text-slate-300" />
-            </div>
-          </div>
-        )}
-
-        {/* PropValu badge */}
-        <div className="flex items-center gap-1 px-2.5 py-1 rounded-full" style={{ backgroundColor: bg + "12" }}>
-          <div className="w-3 h-3 rounded-sm flex items-center justify-center shrink-0" style={{ backgroundColor: accent }}>
-            <span className="text-white font-black" style={{ fontSize: 6 }}>P</span>
-          </div>
-          <span className="text-[8px] font-bold uppercase tracking-widest" style={{ color: bg }}>propvalu.mx</span>
         </div>
       </div>
     </div>
