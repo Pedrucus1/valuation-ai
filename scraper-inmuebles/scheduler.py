@@ -677,7 +677,7 @@ def run(reset: bool = False, portal: str = None):
             print(f"\n{'='*50}")
             print(f"Scraping de {portal} terminado. Iniciando enricher...")
             print(f"{'='*50}\n")
-            _sp.run([python, "enricher.py", "--tab", portal], check=False)
+            _sp.run([python, "enricher.py", "--tab", portal, "--mongo"], check=False)
 
 
 # ─────────────────────────────────────────
@@ -690,7 +690,7 @@ if __name__ == "__main__":
     parser.add_argument("--status",      action="store_true", help="Mostrar estado actual sin ejecutar")
     parser.add_argument("--sync-sheets", action="store_true", help="Sincronizar MongoDB → Sheets (propiedades pendientes)")
     parser.add_argument("--portal", type=str, default=None,
-                        help="Filtrar solo un portal (ej: INMUEBLES24, PINCALI, VIVANUNCIOS, MITULA, CASAS_Y_TERRENOS)")
+                        help="Filtrar solo un portal (ej: INMUEBLES24, PINCALI, VIVANUNCIOS, MITULA, CASAS_Y_TERRENOS, NOCNOK)")
     args = parser.parse_args()
 
     if args.status:
@@ -706,5 +706,16 @@ if __name__ == "__main__":
             sync_mongo_a_sheets(sheets)
         except Exception as e:
             print(f"Error: {e}")
+    elif args.portal and args.portal.upper() == "NOCNOK":
+        # NOCNOK usa API JSON — no necesita el sistema de zonas ni enricher separado
+        import os
+        from dotenv import load_dotenv
+        from pymongo import MongoClient
+        from scrapers.nocnok import scrapear_jalisco
+        load_dotenv()
+        col = MongoClient(os.getenv("MONGO_URL"))["propvalu"]["mercado_props"]
+        print("=== NOCNOK scraper iniciando ===")
+        n = scrapear_jalisco(col)
+        print(f"=== NOCNOK terminado: {n} props ===")
     else:
         run(reset=args.reset, portal=args.portal)

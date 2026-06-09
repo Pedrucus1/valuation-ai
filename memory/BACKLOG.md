@@ -1,5 +1,5 @@
 # PropValu — Backlog de Tareas
-> **Última actualización:** 08 Jun 2026. Snapshot de estado vigente → `ESTADO.md`. Bitácora histórica de sesiones → `BACKLOG_ARCHIVE.md` (NO leer al iniciar).
+> **Última actualización:** 09 Jun 2026 (sesión enrich+NOCNOK). Snapshot de estado vigente → `ESTADO.md`. Bitácora histórica de sesiones → `BACKLOG_ARCHIVE.md` (NO leer al iniciar).
 > Marcar ✅ completado · 🔄 en progreso · ⏳ pendiente · 👁️ pendiente revisión personal. Las descripciones largas de tareas viven en las tablas de abajo; el detalle del motor en `MOTOR_ANTECEDENTES.md` (grep, no leer completo).
 
 ---
@@ -82,7 +82,7 @@
 
 | # | Estado | Tarea |
 |---|---|---|
-| 10 | 👁️ | **Fichas de Promoción para Inmobiliarias** — tab Promociones en InmobiliariaDashboard, 2 templates, exportable PDF vía window.print() — **pendiente revisión personal para afinar detalles** |
+| 10 | 🔄 | **Fichas Studio (Promociones)** — tab Promociones reescrito como diseñador split-panel: CRUD propiedades manuales (`propiedades_inmobiliaria`), upload fotos base64, 5 paletas, puntos verificados auto, propiedad demo, 6 estilos (Clásico/Minimalista/Noir/Moderno/Colección AI/Obsidian) × 4 formatos (A4/horizontal/reels/post), paletteUtils contraste, export PDF/JPG. **Pendiente:** integrar diseños nuevos de Stitch vía MCP (reiniciar sesión), pase de calidad a Moderno/Stitch, export TikTok 3 modos. |
 | 12 | 👁️ | **Módulo financiero / Payouts valuadores** — colección encargos, split 80/20, admin AdminPayouts, FacturacionTab con tabla de encargos — **pendiente revisión personal para afinar detalles** |
 | 13 | 👁️ | **Sistema de calificación de valuadores** — CTA en ReportPage, ReseñasTab ya estaba en ValuadorDashboard — **pendiente revisión personal para afinar detalles** |
 | 14 | ✅ | **Base de datos histórica de avalúos** — es `db.valuations` en MongoDB, se guarda automáticamente. Usada como comparables internos (Sección 0). |
@@ -193,7 +193,9 @@
 | 114 | ✅ | **Herramienta de proximidad por CP/coords (04-Jun, `c272359`, Sonnet)** — Infraestructura lista en `Modulo Drive IA/_geo/`: `cp_coords.json` (2,025 CPs Jalisco con lat/lon, GeoNames), `colonia_cp.json` (6,178 colonias, 97.3% match, SEPOMEX), `proximidad.py` (haversine + `colonias_cercanas`). Self-test OK (cruza Tlaquepaque↔GDL). **COMPLETADO:** Integrado al motor (`motor_remi_api.js`) y al build (`construir_maestro.js`). Validación: baseline subió a 89.7% en ±20%. |
 
 | 115 | ✅ | **Fix obra nueva genérico todos los portales (05-Jun, `42cf3e5`)** — El fix anterior solo cubría I24/VIVA. Agregado fallback: texto libre "obra nueva/en construcción/preventa/a estrenar" → año actual en PINCALI, PCOM, MITULA, CYT. |
-| 116 | 🔄 | **Enrichers relanzados con fixes (05-Jun)** — Relanzados con `python -u` (fix de buffering). Progreso al cierre: PINCALI 574/26,982 · CYT 815/8,522 · PCOM 393/10,676 · I24 126/5,298. Monitor activo. Al terminar: refrescar caché + re-dedup + medir #90/#91. |
+| 116 | 🔄 | **Enrichers relanzados con fixes (05-Jun)** — Relanzados con `python -u` (fix de buffering). Fix 09-Jun: scheduler.py línea 680 le faltaba `--mongo` → enriquía en modo Sheets y tiraba 429. Corregido. Enrichers relanzados con `--mongo`: PINCALI 12k · INMUEBLES24 8.4k · PROPIEDADES_COM 16.8k pendientes CORRIENDO. Al terminar: refrescar caché + re-dedup + medir #90/#91. |
+| 117 | ✅ | **Scraper NOCNOK completo (09-Jun)** — API JSON pura `/api/properties/search` con `stateId=14` + `countyIds` por municipio. 7 municipios GDL metro mapeados (IDs verificados). Split por precio para municipios >500 props (Zapopan/GDL). Detalle via `_next/data/{buildId}` para `yearBuilt`, `county`, `settlement`. Sin enricher separado — todo en un paso. Comando: `python scheduler.py --portal NOCNOK`. Corriendo en background (80+ props en Mongo al iniciar, ~2k total esperado). |
+| 118 | ⏳ | **Scraper Monopolio** — Explorado 09-Jun: API usa AWS Cognito con `explicit deny` para peticiones directas. Solo funciona desde browser autenticado. Para scraperlo se necesita login + JWT; fuera del alcance actual. Diferir. |
 
 ---
 
@@ -209,8 +211,8 @@
 | N5 | ⏳ | **10 pilotos gratuitos** — Validar product-market fit antes de gastar en marketing. |
 | N6 | ⏳ | **Contactar AMPI Guadalajara** — Solicitar presentación en asamblea mensual. Canal principal GTM. |
 | N7 | ⏳ | **Firmar acuerdos con abogados** — Red DocuProp: 3-5 abogados socios con split 75/25. |
-| N9 | ⏳ | **Scraper NOCNOK** — `inmuebles.nocnok.com/categoria/casa-en-venta/jalisco/guadalajara` — URL limpia, sin Cloudflare, scraper HTTP simple. |
-| N10 | ⏳ | **Scraper Monopolio** — `monopolio.com.mx/busqueda/...` — requiere CDP (JS pesado). Reutilizar scraper propiedades.com. |
+| N9 | ✅ | **Scraper NOCNOK** — `inmuebles.nocnok.com` — API JSON pura, sin Playwright. Ver #117. |
+| N10 | ⏳ | **Scraper Monopolio** — `monopolio.com.mx` — AWS Cognito explicit deny. Requiere login+JWT. Ver #118. |
 
 ---
 
