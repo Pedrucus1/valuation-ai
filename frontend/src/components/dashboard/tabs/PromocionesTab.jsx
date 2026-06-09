@@ -14,6 +14,7 @@ import { DESCRIPTIONS_CATALOG } from "../../../utils/descriptionsCatalog";
 
 import LayoutClasico from "./promociones/LayoutClasico";
 import LayoutFichaTecnica from "./promociones/LayoutFichaTecnica";
+import LayoutModerno from "./promociones/LayoutModerno";
 import LayoutMinimalista from "./promociones/LayoutMinimalista";
 import LayoutUltraLujo from "./promociones/LayoutUltraLujo";
 import LayoutStitch from "./promociones/LayoutStitch";
@@ -52,6 +53,7 @@ const getLayoutComponent = (temaId) => {
   if (temaId === "stitch_obsidian") return LayoutStitch;
   if (temaId === "luxury") return LayoutUltraLujo;
   if (temaId === "minimalist") return LayoutMinimalista;
+  if (temaId === "moderno") return LayoutModerno;
   return LayoutClasico;
 };
 
@@ -223,7 +225,7 @@ const PromocionesTab = ({ valuacionesList, session }) => {
 
   // ── Export ──
   const exportarFicha = async (modo = "pdf") => {
-    const isA4 = ["vertical_2p","stitch_gallery","stitch_letter","stitch_asymmetry"].includes(formatoSeleccionado);
+    const isA4 = ["vertical_2p","stitch_gallery","stitch_letter","stitch_asymmetry"].includes(formatoSeleccionado) && temaSeleccionado !== "moderno";
     const elId = isA4 && hojaActiva === 2 ? "pv-ficha-tecnica-root" : "pv-ficha-root";
     const el = document.getElementById(elId);
     if (!el) return;
@@ -279,7 +281,7 @@ const PromocionesTab = ({ valuacionesList, session }) => {
   const palette = PALETAS.find(p => p.id === paletaId) || PALETAS[0];
   const theme = TEMAS[temaSeleccionado] || TEMAS.classic;
   const LayoutComponent = getLayoutComponent(temaSeleccionado);
-  const esFormatoA4 = ["vertical_2p","stitch_gallery","stitch_letter","stitch_asymmetry"].includes(formatoSeleccionado);
+  const esFormatoA4 = ["vertical_2p","stitch_gallery","stitch_letter","stitch_asymmetry"].includes(formatoSeleccionado) && temaSeleccionado !== "moderno";
 
   const precioFinal = tipoPrecio === "ajustado" && precioAjustado
     ? parseFloat(precioAjustado)
@@ -564,6 +566,21 @@ const PromocionesTab = ({ valuacionesList, session }) => {
                       </div>
                     </button>
                   ))}
+                  {/* Estilo Moderno */}
+                  <button onClick={() => { setTemaSeleccionado("moderno"); setFormatoSeleccionado("vertical_2p"); }}
+                    className={`relative rounded-xl overflow-hidden border-2 transition-all text-left ${temaSeleccionado === "moderno" ? "border-[#52B788] ring-2 ring-[#52B788]/20" : "border-slate-200 hover:border-slate-300"}`}>
+                    <div className="aspect-[3/2] relative overflow-hidden" style={{ background: "linear-gradient(135deg, #1B4332 50%, #52B788 100%)" }}>
+                      <div className="absolute inset-0 flex flex-col justify-center items-start p-2 gap-1">
+                        <div className="w-full h-1.5 bg-white/20 rounded" />
+                        <div className="w-3/4 h-1.5 bg-white/20 rounded" />
+                        <div className="grid grid-cols-3 gap-1 w-full mt-1">
+                          {[0,1,2].map(i => <div key={i} className="h-1 bg-white/30 rounded" />)}
+                        </div>
+                      </div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                      <span className="absolute bottom-1.5 left-2 text-[9px] font-bold text-white drop-shadow">Moderno</span>
+                    </div>
+                  </button>
                 </div>
                 <div>
                   <label className="label-xs mb-1 block">Formato</label>
@@ -576,6 +593,13 @@ const PromocionesTab = ({ valuacionesList, session }) => {
                         <option value="stitch_facebook">Social – Facebook (3:2)</option>
                         <option value="stitch_tiktok">Social – TikTok/Reels (9:16)</option>
                         <option value="stitch_kit">Marketing Kit</option>
+                      </>
+                    ) : temaSeleccionado === "moderno" ? (
+                      <>
+                        <option value="vertical_2p">Folleto A4 (2 páginas)</option>
+                        <option value="horizontal">Ficha Carta (dos columnas)</option>
+                        <option value="reels">TikTok / Reels (3 slides)</option>
+                        <option value="post">Post Cuadrado 1:1</option>
                       </>
                     ) : (
                       <>
