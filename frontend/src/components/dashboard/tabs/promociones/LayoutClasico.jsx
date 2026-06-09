@@ -1,5 +1,6 @@
 import React from "react";
 import { MapPin, Building, Map, Phone, Mail, User, CheckCircle2, Waves, Wind, Car, Camera, Trees, Dumbbell, Shield, Wine, Monitor, Plus, Fingerprint, Sofa, Home } from "lucide-react";
+import { esClaro, sobreFondo, tinta } from "./paletteUtils";
 
 const LayoutClasico = ({ fichaAvaluo, texts, idioma, descripcionTexto, theme, palette, formatMXN, session, amenidades, instalaciones, espacios, puntosDestacados, formato }) => {
   // palette override: si viene palette, usa sus hex; si no, mantiene clases Tailwind del theme
@@ -130,84 +131,92 @@ const LayoutClasico = ({ fichaAvaluo, texts, idioma, descripcionTexto, theme, pa
       { Icon: Car,      label: idioma === 'es' ? 'Autos' : 'Parking',     val: fichaAvaluo?.estacionamiento != null ? String(fichaAvaluo.estacionamiento) : null },
     ].filter(s => s.val !== null);
 
+    const ink = tinta(heroBg, "#1a1a1a");          // título legible aunque la paleta sea clara
+    const chipText = sobreFondo(heroBg);           // texto sobre el chip de color
+    // Galería adaptativa: las fotos disponibles llenan el espacio
+    const galeria = fotos.slice(1, 4);
+
     return (
       <div id="pv-ficha-root" className="w-full mx-auto" style={{ width: 794 }}>
         <div className="relative flex flex-col overflow-hidden shadow-xl print:shadow-none" style={{ width: 794, height: 1123, background: "#fff" }}>
-          {/* Hero grande (62%) con margen e inset */}
-          <div style={{ padding: 24, paddingBottom: 0 }}>
-            <div style={{ height: 660, borderRadius: 12, overflow: "hidden", position: "relative", background: "#e5e5e5" }}>
+          {/* Detalle de fondo: barra diagonal de color de marca */}
+          <div style={{ position: "absolute", top: 0, right: 0, width: 0, height: 0, borderStyle: "solid", borderWidth: "0 130px 130px 0", borderColor: `transparent ${accentColor}22 transparent transparent`, zIndex: 0 }} />
+
+          {/* Hero grande con margen e inset */}
+          <div style={{ padding: 22, paddingBottom: 0, position: "relative", zIndex: 1 }}>
+            <div style={{ height: 600, borderRadius: 14, overflow: "hidden", position: "relative", background: "#e5e5e5" }}>
               {fotos[0] && <img src={fotos[0]} alt="Fachada" style={{ width: "100%", height: "100%", objectFit: "cover" }} />}
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.35) 0%, transparent 35%)" }} />
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 38%)" }} />
               {/* Chip tipo */}
-              <div style={{ position: "absolute", top: 20, left: 20, background: heroBg, padding: "8px 18px", borderRadius: 30, boxShadow: "0 4px 12px rgba(0,0,0,0.2)" }}>
-                <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "#fff" }}>
+              <div style={{ position: "absolute", top: 22, left: 22, background: heroBg, padding: "10px 22px", borderRadius: 30, boxShadow: "0 4px 14px rgba(0,0,0,0.25)" }}>
+                <span style={{ fontSize: 14, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: chipText }}>
                   {fichaAvaluo.tipo} · {idioma === 'es' ? 'En Venta' : 'For Sale'}
                 </span>
               </div>
               {/* Logo inmobiliaria */}
               {session?.user?.picture && (
-                <div style={{ position: "absolute", top: 18, right: 20, background: "rgba(255,255,255,0.92)", borderRadius: 8, padding: "8px 14px", boxShadow: "0 4px 12px rgba(0,0,0,0.15)" }}>
-                  <img src={session.user.picture} alt="Logo" style={{ height: 28, maxWidth: 110, objectFit: "contain" }} />
+                <div style={{ position: "absolute", top: 20, right: 22, background: "rgba(255,255,255,0.94)", borderRadius: 10, padding: "10px 16px", boxShadow: "0 4px 14px rgba(0,0,0,0.18)" }}>
+                  <img src={session.user.picture} alt="Logo" style={{ height: 34, maxWidth: 130, objectFit: "contain" }} />
                 </div>
               )}
             </div>
           </div>
 
           {/* Bloque inferior */}
-          <div style={{ flex: 1, padding: "26px 32px 0", display: "flex", flexDirection: "column" }}>
+          <div style={{ flex: 1, padding: "24px 34px 0", display: "flex", flexDirection: "column", position: "relative", zIndex: 1 }}>
             {/* Tagline + dirección + precio */}
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 20 }}>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <p style={{ margin: 0, fontSize: 11, fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase", color: accentColor }}>
+                <p style={{ margin: 0, fontSize: 14, fontWeight: 800, letterSpacing: "0.18em", textTransform: "uppercase", color: accentColor }}>
                   {idioma === 'es' ? 'Nuevo en Venta' : 'New Listing'}
                 </p>
-                <h1 style={{ margin: "6px 0 4px", fontFamily: "Outfit, sans-serif", fontSize: 34, fontWeight: 800, color: heroBg, lineHeight: 1.05 }}>
+                <h1 style={{ margin: "7px 0 5px", fontFamily: "Outfit, sans-serif", fontSize: 40, fontWeight: 800, color: ink, lineHeight: 1.03 }}>
                   {fichaAvaluo.direccion}
                 </h1>
-                <p style={{ margin: 0, fontSize: 14, color: "#64748b", display: "flex", alignItems: "center", gap: 6 }}>
-                  <MapPin style={{ width: 15, height: 15, color: accentColor }} />
+                <p style={{ margin: 0, fontSize: 17, color: "#64748b", display: "flex", alignItems: "center", gap: 6 }}>
+                  <MapPin style={{ width: 18, height: 18, color: accentColor }} />
                   {[fichaAvaluo.colonia, fichaAvaluo.municipio].filter(Boolean).join(", ") || "Ubicación Premium"}
                 </p>
               </div>
               <div style={{ textAlign: "right", flexShrink: 0 }}>
-                <p style={{ margin: 0, fontFamily: "Outfit, sans-serif", fontSize: 38, fontWeight: 800, color: heroBg, lineHeight: 1 }}>
+                <p style={{ margin: 0, fontFamily: "Outfit, sans-serif", fontSize: 46, fontWeight: 800, color: ink, lineHeight: 1 }}>
                   {formatMXN(fichaAvaluo.valor)}
                 </p>
-                {precioM2 && <p style={{ margin: "4px 0 0", fontSize: 12, color: "#94a3b8" }}>{formatMXN(precioM2)} / m²</p>}
+                {precioM2 && <p style={{ margin: "5px 0 0", fontSize: 15, color: "#94a3b8" }}>{formatMXN(precioM2)} / m²</p>}
               </div>
             </div>
 
             {/* Specs bar */}
-            <div style={{ display: "flex", justifyContent: "space-between", gap: 12, margin: "24px 0", padding: "20px 0", borderTop: "1px solid #e2e8f0", borderBottom: "1px solid #e2e8f0" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 12, margin: "22px 0", padding: "20px 0", borderTop: "2px solid #e2e8f0", borderBottom: "2px solid #e2e8f0" }}>
               {specsFront.map(({ Icon, label, val }, i) => (
                 <div key={i} style={{ flex: 1, textAlign: "center" }}>
-                  <div style={{ width: 44, height: 44, margin: "0 auto 8px", borderRadius: "50%", background: accentColor + "1a", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <div style={{ width: 54, height: 54, margin: "0 auto 8px", borderRadius: "50%", background: accentColor + "1f", display: "flex", alignItems: "center", justifyContent: "center" }}>
                     {Icon
-                      ? <Icon style={{ width: 18, height: 18, color: accentColor }} />
-                      : <span style={{ fontFamily: "Outfit, sans-serif", fontWeight: 800, fontSize: 18, color: accentColor }}>{val}</span>}
+                      ? <Icon style={{ width: 24, height: 24, color: accentColor }} />
+                      : <span style={{ fontFamily: "Outfit, sans-serif", fontWeight: 800, fontSize: 24, color: accentColor }}>{val}</span>}
                   </div>
-                  {Icon && <p style={{ margin: 0, fontFamily: "Outfit, sans-serif", fontWeight: 800, fontSize: 17, color: heroBg }}>{val}</p>}
-                  <p style={{ margin: "2px 0 0", fontSize: 8.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "#94a3b8", fontWeight: 700 }}>{label}</p>
+                  {Icon && <p style={{ margin: 0, fontFamily: "Outfit, sans-serif", fontWeight: 800, fontSize: 22, color: ink }}>{val}</p>}
+                  <p style={{ margin: "3px 0 0", fontSize: 11, letterSpacing: "0.08em", textTransform: "uppercase", color: "#94a3b8", fontWeight: 700 }}>{label}</p>
                 </div>
               ))}
             </div>
 
             {/* Descripción + chips */}
-            <div style={{ flex: 1 }}>
-              <p style={{ margin: 0, fontSize: 13, lineHeight: 1.7, color: "#475569", textAlign: "justify" }}>
+            <div>
+              <p style={{ margin: 0, fontSize: 15.5, lineHeight: 1.7, color: "#475569", textAlign: "justify" }}>
                 {descripcionTexto}
               </p>
               {puntosDestacados?.length > 0 && (
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 16 }}>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 9, marginTop: 16 }}>
                   {puntosDestacados.slice(0, 5).map((p, i) => (
                     <span key={i} style={{
-                      fontSize: 11, padding: "5px 12px", borderRadius: 30, fontWeight: 600,
-                      display: "flex", alignItems: "center", gap: 5,
+                      fontSize: 13.5, padding: "7px 16px", borderRadius: 30, fontWeight: 600,
+                      display: "flex", alignItems: "center", gap: 6,
                       background: p.verificado ? accentColor + "18" : "#f1f5f9",
                       border: p.verificado ? `1px solid ${accentColor}40` : "1px solid #e2e8f0",
-                      color: p.verificado ? heroBg : "#64748b",
+                      color: p.verificado ? ink : "#64748b",
                     }}>
-                      {p.verificado && <CheckCircle2 style={{ width: 12, height: 12, color: accentColor }} />}
+                      {p.verificado && <CheckCircle2 style={{ width: 14, height: 14, color: accentColor }} />}
                       {p.texto}
                     </span>
                   ))}
@@ -215,26 +224,37 @@ const LayoutClasico = ({ fichaAvaluo, texts, idioma, descripcionTexto, theme, pa
               )}
             </div>
 
+            {/* Galería adaptativa — llena el espacio restante con las fotos disponibles */}
+            {galeria.length > 0 && (
+              <div style={{ flex: 1, minHeight: 0, marginTop: 18, display: "grid", gridTemplateColumns: `repeat(${galeria.length}, 1fr)`, gap: 10 }}>
+                {galeria.map((foto, i) => (
+                  <div key={i} style={{ borderRadius: 10, overflow: "hidden", background: "#e5e5e5" }}>
+                    <img src={foto} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  </div>
+                ))}
+              </div>
+            )}
+
             {/* Footer asesor */}
-            <div style={{ marginTop: "auto", borderTop: "1px solid #e2e8f0", padding: "16px 0", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                <div style={{ width: 46, height: 46, borderRadius: "50%", overflow: "hidden", background: "#e5e5e5", border: `2px solid ${accentColor}`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+            <div style={{ marginTop: "auto", borderTop: "2px solid #e2e8f0", padding: "16px 0", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+                <div style={{ width: 52, height: 52, borderRadius: "50%", overflow: "hidden", background: "#e5e5e5", border: `2px solid ${accentColor}`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                   {session?.user?.photoURL
                     ? <img src={session.user.photoURL} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                    : <User style={{ width: 22, height: 22, color: "#94a3b8" }} />}
+                    : <User style={{ width: 24, height: 24, color: "#94a3b8" }} />}
                 </div>
                 <div>
-                  <p style={{ margin: 0, fontSize: 14, fontWeight: 700, color: heroBg }}>{asesorName}</p>
-                  <p style={{ margin: 0, fontSize: 11, color: "#64748b" }}>
+                  <p style={{ margin: 0, fontSize: 16, fontWeight: 700, color: ink }}>{asesorName}</p>
+                  <p style={{ margin: 0, fontSize: 13, color: "#64748b" }}>
                     {session?.user?.phone}{session?.user?.phone && session?.user?.email ? " · " : ""}{session?.user?.email}
                   </p>
                 </div>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-                <div style={{ width: 14, height: 14, borderRadius: 3, background: accentColor, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <span style={{ color: "#fff", fontWeight: 900, fontSize: 8, fontFamily: "Outfit, sans-serif" }}>P</span>
+                <div style={{ width: 16, height: 16, borderRadius: 3, background: accentColor, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <span style={{ color: sobreFondo(accentColor), fontWeight: 900, fontSize: 9, fontFamily: "Outfit, sans-serif" }}>P</span>
                 </div>
-                <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#94a3b8" }}>propvalu.mx</span>
+                <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", color: "#94a3b8" }}>propvalu.mx</span>
               </div>
             </div>
           </div>

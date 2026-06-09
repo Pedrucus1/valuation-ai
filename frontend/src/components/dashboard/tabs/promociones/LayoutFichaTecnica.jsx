@@ -4,6 +4,7 @@ import {
   Phone, Mail, User, CheckCircle2, QrCode,
   Waves, Wind, Camera, Trees, Dumbbell, Shield, Wine, Monitor, Fingerprint, Sofa, Home
 } from "lucide-react";
+import { sobreFondo, tinta } from "./paletteUtils";
 
 /* Hoja 2 — "Back page" estilo brochure: sidebar de specs grandes +
    lista "Lo Especial" + descripción + galería. Llena toda la hoja A4.
@@ -26,6 +27,9 @@ const LayoutFichaTecnica = ({
   const accent    = palette?.accent    || "#52B788";
   const textLight = palette?.textLight || "#D9ED92";
   const muted     = palette?.muted     || "#4a7c59";
+  const onBg      = sobreFondo(bg);            // texto legible sobre el sidebar (resuelve beige)
+  const ink       = tinta(bg, "#1a1a1a");      // títulos sobre fondo blanco
+  const onBgSoft  = onBg === "#ffffff" ? "rgba(255,255,255,0.7)" : "rgba(0,0,0,0.55)";
 
   const precio = f?.valor ?? f?.precio_oferta ?? 0;
   const fotos = (f?.fotos || []).filter(Boolean);
@@ -63,52 +67,55 @@ const LayoutFichaTecnica = ({
       style={{ width: 794, height: 1123, fontFamily: "'Manrope', sans-serif" }}
     >
       {/* ── SIDEBAR IZQUIERDO (specs) ───────────────────────────────── */}
-      <div className="shrink-0 flex flex-col" style={{ width: 290, background: bg, color: "#fff", padding: "44px 32px" }}>
+      <div className="shrink-0 flex flex-col" style={{ width: 296, background: bg, color: onBg, padding: "44px 32px", position: "relative", overflow: "hidden" }}>
+        {/* Detalle geométrico: círculo accent translúcido */}
+        <div style={{ position: "absolute", bottom: -60, right: -60, width: 180, height: 180, borderRadius: "50%", background: accent + "1a" }} />
+
         {/* Logo inmobiliaria */}
-        <div style={{ marginBottom: 36, minHeight: 40, display: "flex", alignItems: "center" }}>
+        <div style={{ marginBottom: 36, minHeight: 42, display: "flex", alignItems: "center", position: "relative", zIndex: 1 }}>
           {session?.user?.picture
-            ? <img src={session.user.picture} alt="Logo" style={{ height: 40, maxWidth: 160, objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.92 }} />
-            : <span style={{ fontFamily: "Outfit, sans-serif", fontWeight: 800, fontSize: 18, letterSpacing: 2, color: "#fff" }}>INMOBILIARIA</span>}
+            ? <img src={session.user.picture} alt="Logo" style={{ height: 42, maxWidth: 170, objectFit: "contain", filter: onBg === "#ffffff" ? "brightness(0) invert(1)" : "none", opacity: 0.92 }} />
+            : <span style={{ fontFamily: "Outfit, sans-serif", fontWeight: 800, fontSize: 19, letterSpacing: 2, color: onBg }}>INMOBILIARIA</span>}
         </div>
 
         {/* Precio */}
-        <div style={{ marginBottom: 8 }}>
-          <p style={{ margin: 0, fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: textLight + "cc" }}>
+        <div style={{ marginBottom: 8, position: "relative", zIndex: 1 }}>
+          <p style={{ margin: 0, fontSize: 12, letterSpacing: "0.18em", textTransform: "uppercase", color: onBgSoft }}>
             {idioma === "en" ? "Asking Price" : "Precio de Oferta"}
           </p>
-          <p style={{ margin: "4px 0 0", fontFamily: "Outfit, sans-serif", fontSize: 34, fontWeight: 800, color: "#fff", lineHeight: 1 }}>
+          <p style={{ margin: "5px 0 0", fontFamily: "Outfit, sans-serif", fontSize: 38, fontWeight: 800, color: onBg, lineHeight: 1 }}>
             {formatMXN(precio)}
           </p>
           {f?.m2_construccion > 0 && precio > 0 && (
-            <p style={{ margin: "4px 0 0", fontSize: 11, color: accent }}>
+            <p style={{ margin: "5px 0 0", fontSize: 13, color: accent, fontWeight: 700 }}>
               {formatMXN(Math.round(precio / f.m2_construccion))} / m²
             </p>
           )}
         </div>
 
-        <div style={{ height: 1, background: "rgba(255,255,255,0.15)", margin: "28px 0" }} />
+        <div style={{ height: 1, background: onBg === "#ffffff" ? "rgba(255,255,255,0.16)" : "rgba(0,0,0,0.12)", margin: "26px 0", position: "relative", zIndex: 1 }} />
 
         {/* Specs apilados grandes */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 22, flex: 1 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 20, flex: 1, position: "relative", zIndex: 1 }}>
           {specs.map(({ Icon, label, val }, i) => (
             <div key={i} style={{ display: "flex", alignItems: "center", gap: 16 }}>
-              <div style={{ width: 42, height: 42, borderRadius: 10, background: "rgba(255,255,255,0.08)", border: `1px solid ${accent}40`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                <Icon style={{ width: 20, height: 20, color: accent }} />
+              <div style={{ width: 46, height: 46, borderRadius: 11, background: accent + "26", border: `1px solid ${accent}55`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                <Icon style={{ width: 22, height: 22, color: accent }} />
               </div>
               <div>
-                <p style={{ margin: 0, fontFamily: "Outfit, sans-serif", fontSize: 19, fontWeight: 800, color: "#fff", lineHeight: 1.1 }}>{val}</p>
-                <p style={{ margin: "2px 0 0", fontSize: 9, letterSpacing: "0.15em", textTransform: "uppercase", color: textLight + "aa" }}>{label}</p>
+                <p style={{ margin: 0, fontFamily: "Outfit, sans-serif", fontSize: 22, fontWeight: 800, color: onBg, lineHeight: 1.1 }}>{val}</p>
+                <p style={{ margin: "2px 0 0", fontSize: 10.5, letterSpacing: "0.13em", textTransform: "uppercase", color: onBgSoft }}>{label}</p>
               </div>
             </div>
           ))}
         </div>
 
         {/* Badge propvalu */}
-        <div style={{ marginTop: 24, paddingTop: 18, borderTop: "1px solid rgba(255,255,255,0.15)", display: "flex", alignItems: "center", gap: 6 }}>
-          <div style={{ width: 14, height: 14, borderRadius: 3, background: accent, display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <span style={{ color: bg, fontWeight: 900, fontSize: 8, fontFamily: "Outfit, sans-serif" }}>P</span>
+        <div style={{ marginTop: 22, paddingTop: 18, borderTop: onBg === "#ffffff" ? "1px solid rgba(255,255,255,0.16)" : "1px solid rgba(0,0,0,0.12)", display: "flex", alignItems: "center", gap: 6, position: "relative", zIndex: 1 }}>
+          <div style={{ width: 16, height: 16, borderRadius: 3, background: accent, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <span style={{ color: sobreFondo(accent), fontWeight: 900, fontSize: 9, fontFamily: "Outfit, sans-serif" }}>P</span>
           </div>
-          <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: textLight + "cc" }}>propvalu.mx</span>
+          <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: onBgSoft }}>propvalu.mx</span>
         </div>
       </div>
 
@@ -131,19 +138,19 @@ const LayoutFichaTecnica = ({
         </div>
 
         {/* Contenido */}
-        <div style={{ flex: 1, padding: "26px 28px", display: "flex", flexDirection: "column" }}>
+        <div style={{ flex: 1, padding: "26px 30px", display: "flex", flexDirection: "column" }}>
           {/* Lo Especial */}
           {especiales.length > 0 && (
             <div style={{ marginBottom: 22 }}>
-              <h3 style={{ margin: "0 0 14px", fontSize: 11, letterSpacing: "0.25em", textTransform: "uppercase", color: bg, fontWeight: 800, borderLeft: `4px solid ${accent}`, paddingLeft: 12 }}>
+              <h3 style={{ margin: "0 0 14px", fontSize: 13, letterSpacing: "0.22em", textTransform: "uppercase", color: ink, fontWeight: 800, borderLeft: `4px solid ${accent}`, paddingLeft: 12 }}>
                 {idioma === "en" ? "What's Special" : "Lo Especial"}
               </h3>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0 28px" }}>
                 {[colA, colB].map((col, ci) => (
                   <ul key={ci} style={{ listStyle: "none", margin: 0, padding: 0 }}>
                     {col.map((item, i) => (
-                      <li key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "7px 0", borderBottom: "1px solid #f1f5f9", fontSize: 12.5, color: "#334155" }}>
-                        <CheckCircle2 style={{ width: 14, height: 14, color: accent, flexShrink: 0 }} />
+                      <li key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 0", borderBottom: "1px solid #f1f5f9", fontSize: 14, color: "#334155" }}>
+                        <CheckCircle2 style={{ width: 16, height: 16, color: accent, flexShrink: 0 }} />
                         <span style={{ textTransform: "capitalize" }}>{item}</span>
                       </li>
                     ))}
@@ -156,20 +163,20 @@ const LayoutFichaTecnica = ({
           {/* Descripción */}
           {descripcionTexto && (
             <div style={{ marginBottom: 20 }}>
-              <h3 style={{ margin: "0 0 10px", fontSize: 11, letterSpacing: "0.25em", textTransform: "uppercase", color: bg, fontWeight: 800, borderLeft: `4px solid ${accent}`, paddingLeft: 12 }}>
+              <h3 style={{ margin: "0 0 10px", fontSize: 13, letterSpacing: "0.22em", textTransform: "uppercase", color: ink, fontWeight: 800, borderLeft: `4px solid ${accent}`, paddingLeft: 12 }}>
                 {idioma === "en" ? "Description" : "Descripción"}
               </h3>
-              <p style={{ margin: 0, fontSize: 12.5, lineHeight: 1.75, color: "#475569", textAlign: "justify" }}>{descripcionTexto}</p>
+              <p style={{ margin: 0, fontSize: 14, lineHeight: 1.75, color: "#475569", textAlign: "justify" }}>{descripcionTexto}</p>
             </div>
           )}
 
-          {/* Galería inferior — llena el espacio restante */}
+          {/* Galería inferior adaptativa — las fotos disponibles llenan el espacio restante */}
           {fotos.length > 2 && (
-            <div style={{ marginTop: "auto" }}>
-              <h3 style={{ margin: "0 0 10px", fontSize: 11, letterSpacing: "0.25em", textTransform: "uppercase", color: bg, fontWeight: 800, borderLeft: `4px solid ${accent}`, paddingLeft: 12 }}>
+            <div style={{ marginTop: "auto", display: "flex", flexDirection: "column", minHeight: 0, flex: 1 }}>
+              <h3 style={{ margin: "0 0 10px", fontSize: 13, letterSpacing: "0.22em", textTransform: "uppercase", color: ink, fontWeight: 800, borderLeft: `4px solid ${accent}`, paddingLeft: 12 }}>
                 {idioma === "en" ? "Gallery" : "Galería"}
               </h3>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8, height: 130 }}>
+              <div style={{ flex: 1, minHeight: 120, display: "grid", gridTemplateColumns: `repeat(${Math.min(fotos.slice(2).length, 3)}, 1fr)`, gap: 8 }}>
                 {fotos.slice(2, 5).map((foto, i) => (
                   <div key={i} style={{ borderRadius: 8, overflow: "hidden", background: "#e5e5e5" }}>
                     <img src={foto} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
