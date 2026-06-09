@@ -284,8 +284,8 @@ const PromocionesTab = ({ valuacionesList, session }) => {
 
   // ── Export ──
   const exportarFicha = async (modo = "pdf") => {
-    const isA4 = ["vertical_2p","stitch_gallery","stitch_letter","stitch_asymmetry"].includes(formatoSeleccionado) && temaSeleccionado !== "moderno";
-    const elId = isA4 && hojaActiva === 2 ? "pv-ficha-tecnica-root" : "pv-ficha-root";
+    const hasHoja2 = temaSeleccionado === "classic" && formatoSeleccionado === "vertical_2p";
+    const elId = hasHoja2 && hojaActiva === 2 ? "pv-ficha-tecnica-root" : "pv-ficha-root";
     const el = document.getElementById(elId);
     if (!el) return;
     if (modo === "jpg") {
@@ -308,7 +308,7 @@ const PromocionesTab = ({ valuacionesList, session }) => {
       c1.style.display = "block";
       wrap.appendChild(c1);
     }
-    if (isA4) {
+    if (hasHoja2) {
       const h2 = document.getElementById("pv-ficha-tecnica-root");
       if (h2) {
         const sep = document.createElement("div");
@@ -341,6 +341,8 @@ const PromocionesTab = ({ valuacionesList, session }) => {
   const theme = TEMAS[temaSeleccionado] || TEMAS.classic;
   const LayoutComponent = getLayoutComponent(temaSeleccionado);
   const esFormatoA4 = ["vertical_2p","stitch_gallery","stitch_letter","stitch_asymmetry"].includes(formatoSeleccionado) && temaSeleccionado !== "moderno";
+  // Hoja 2 (LayoutFichaTecnica) solo existe para el estilo Clásico en formato A4
+  const tieneHoja2 = temaSeleccionado === "classic" && formatoSeleccionado === "vertical_2p";
 
   const precioFinal = tipoPrecio === "ajustado" && precioAjustado
     ? parseFloat(precioAjustado)
@@ -780,7 +782,7 @@ const PromocionesTab = ({ valuacionesList, session }) => {
 
           {/* ── Panel derecho: preview ── */}
           <div className="flex-1 bg-slate-200/60 rounded-2xl border border-slate-300 relative flex flex-col overflow-hidden shadow-inner">
-            {esFormatoA4 && (
+            {tieneHoja2 && (
               <div className="absolute top-3 left-0 right-0 z-20 flex justify-center">
                 <div className="bg-white rounded-full shadow-lg border border-slate-200 p-1 flex items-center gap-1">
                   {["Hoja 1","Hoja 2"].map((label, idx) => (
@@ -795,7 +797,7 @@ const PromocionesTab = ({ valuacionesList, session }) => {
             <div className="flex-1 overflow-y-auto p-4 flex justify-center items-start">
               <div style={{ zoom: 0.5 }} className="origin-top transition-transform duration-300">
                 {/* Hoja 1 — siempre en DOM para export PDF */}
-                <div style={{ display: esFormatoA4 && hojaActiva === 2 ? "none" : "block" }}>
+                <div style={{ display: tieneHoja2 && hojaActiva === 2 ? "none" : "block" }}>
                   <LayoutComponent
                     fichaAvaluo={fichaConPrecio}
                     texts={texts}
@@ -812,8 +814,8 @@ const PromocionesTab = ({ valuacionesList, session }) => {
                     formato={formatoSeleccionado}
                   />
                 </div>
-                {/* Hoja 2 — técnica, solo visible en A4 */}
-                {esFormatoA4 && (
+                {/* Hoja 2 — técnica, solo en estilo Clásico vertical_2p */}
+                {tieneHoja2 && (
                   <div style={{ display: hojaActiva === 2 ? "block" : "none" }}>
                     <LayoutFichaTecnica
                       fichaAvaluo={fichaConPrecio}

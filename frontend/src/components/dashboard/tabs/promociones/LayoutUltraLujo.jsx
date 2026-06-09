@@ -1,91 +1,140 @@
 import React from "react";
-import { Phone, Mail } from "lucide-react";
+import { Phone, Mail, CheckCircle2, User } from "lucide-react";
 
-const LayoutUltraLujo = ({ fichaAvaluo, texts, idioma, descripcionTexto, theme, formatMXN, session }) => {
+const LayoutUltraLujo = ({ fichaAvaluo: f, texts, idioma, descripcionTexto, theme, palette, formatMXN, session, amenidades = [], puntosDestacados = [] }) => {
+  const bg      = palette?.bg      || "#0D0D0D";
+  const accent  = palette?.accent  || "#d4af37";
+  const textLt  = palette?.textLight || "#f5f5f5";
+  const card    = palette?.card    || "#1a1a1a";
+
+  const precio = f?.valor || f?.precio_oferta || 0;
+  const precioM2 = f?.m2_construccion > 0 ? Math.round(precio / f.m2_construccion) : null;
+  const fotos = f?.fotos || [];
+
+  const specs = [
+    { label: texts?.construccion || "m² Const.", val: f?.m2_construccion ? `${f.m2_construccion} m²` : null },
+    { label: texts?.terreno      || "m² Terr.",  val: f?.m2_terreno      ? `${f.m2_terreno} m²`      : null },
+    { label: texts?.recamaras    || "Recámaras", val: f?.recamaras != null ? String(f.recamaras)      : null },
+    { label: texts?.banos        || "Baños",     val: f?.banos      != null ? String(f.banos)         : null },
+    { label: "Cajones",          val: f?.estacionamiento != null ? String(f.estacionamiento)          : null },
+  ].filter(s => s.val !== null);
+
   return (
-    <div id="pv-ficha-root" className={`${theme.bgRoot} mx-auto w-full max-w-[800px] flex flex-col gap-8 print:gap-0 relative print:max-w-none print:bg-transparent print:m-0`}>
-      {/* HOJA 1 */}
-      <div className={`${theme.bgPage} w-full aspect-[1/1.414] relative flex flex-col print:aspect-auto print:h-screen print:w-screen overflow-hidden break-after-page page-break-after-always shadow-2xl print:shadow-none border-[12px] border-[#111111]`}>
-        
-        {/* Top Branding */}
-        <div className="absolute top-0 left-0 right-0 p-8 flex justify-between items-center z-20">
-          <span className={`text-[10px] tracking-[0.4em] uppercase font-bold text-white/70`}>PropValu Exclusive</span>
-          <div className="w-12 h-[1px] bg-[#D4AF37]"></div>
-        </div>
+    <div id="pv-ficha-root" style={{ width: 794, height: 1123, background: bg, fontFamily: "Manrope, sans-serif", position: "relative", overflow: "hidden", border: `10px solid #111` }}>
 
-        {/* Hero Section */}
-        <div className="relative w-full h-[55%] bg-black shrink-0">
-          {fichaAvaluo?.fotos && fichaAvaluo.fotos.length > 0 ? (
-            <img src={fichaAvaluo.fotos[0]} alt="Fachada" className="w-full h-full object-cover opacity-80 mix-blend-luminosity" />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center text-slate-800 font-serif">COLLECTION</div>
-          )}
-          
-          {/* Gradients */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#111] via-transparent to-black/40"></div>
-          
-          <div className="absolute bottom-10 left-10 right-10 text-center">
-             <span className={`inline-block border border-[#D4AF37] px-4 py-1 mb-6 text-[10px] tracking-[0.3em] uppercase text-[#D4AF37]`}>{fichaAvaluo.tipo}</span>
-             <h1 className={`text-5xl font-serif text-white mb-3 tracking-wide`}>{formatMXN(fichaAvaluo.valor)}</h1>
-             <p className="text-white/60 tracking-[0.2em] uppercase text-xs">{fichaAvaluo.direccion}</p>
+      {/* Top branding */}
+      <div style={{ position: "absolute", top: 0, left: 0, right: 0, padding: "16px 28px", display: "flex", justifyContent: "space-between", alignItems: "center", zIndex: 20 }}>
+        {session?.user?.picture
+          ? <img src={session.user.picture} alt="Logo" style={{ height: 28, maxWidth: 90, objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.85 }} />
+          : <span style={{ fontSize: 9, letterSpacing: "0.4em", textTransform: "uppercase", fontWeight: 700, color: "rgba(255,255,255,0.5)" }}>INMOBILIARIA</span>}
+        <div style={{ width: 40, height: 1, background: accent }} />
+      </div>
+
+      {/* Hero foto 55% */}
+      <div style={{ position: "relative", height: "52%", overflow: "hidden", background: "#000" }}>
+        {fotos[0] && <img src={fotos[0]} alt="Fachada" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.75, mixBlendMode: "luminosity" }} />}
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, transparent 40%, #111 100%)" }} />
+
+        {/* Precio encima */}
+        <div style={{ position: "absolute", bottom: 28, left: 0, right: 0, textAlign: "center", zIndex: 2 }}>
+          <span style={{ display: "inline-block", border: `1px solid ${accent}`, padding: "4px 16px", marginBottom: 10, fontSize: 9, letterSpacing: "0.3em", textTransform: "uppercase", color: accent }}>
+            {f?.tipo || "Propiedad"} · {idioma === "en" ? "For Sale" : "En Venta"}
+          </span>
+          <h1 style={{ fontFamily: "Outfit, sans-serif", fontSize: 52, fontWeight: 800, color: "#fff", margin: "0 0 6px", letterSpacing: -1 }}>
+            {formatMXN(precio)}
+          </h1>
+          {precioM2 && <p style={{ margin: 0, fontSize: 11, color: accent, letterSpacing: "0.15em" }}>{formatMXN(precioM2)} / m²</p>}
+          <p style={{ margin: "6px 0 0", fontSize: 10, color: "rgba(255,255,255,0.5)", letterSpacing: "0.2em", textTransform: "uppercase" }}>{f?.direccion || ""}</p>
+        </div>
+      </div>
+
+      {/* Mini galería strip */}
+      <div style={{ display: "flex", height: 80, background: "#0a0a0a" }}>
+        {fotos.slice(1, 4).map((foto, i) => (
+          <div key={i} style={{ flex: 1, borderRight: i < 2 ? "1px solid #222" : "none", overflow: "hidden" }}>
+            <img src={foto} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.55, filter: "grayscale(1)" }} />
           </div>
-        </div>
+        ))}
+      </div>
 
-        {/* Mini Gallery Strip */}
-        <div className="flex h-[15%] w-full bg-[#0a0a0a]">
-           {fichaAvaluo?.fotos && fichaAvaluo.fotos.length > 1 ? (
-             <>
-               <div className="flex-1 border-r border-[#222]"><img src={fichaAvaluo.fotos[1]} className="w-full h-full object-cover opacity-60 hover:opacity-100 transition-opacity filter grayscale" alt="Interior" /></div>
-               <div className="flex-1 border-r border-[#222]"><img src={fichaAvaluo.fotos[2]} className="w-full h-full object-cover opacity-60 hover:opacity-100 transition-opacity filter grayscale" alt="Interior" /></div>
-               <div className="flex-1"><img src={fichaAvaluo.fotos[3] || fichaAvaluo.fotos[0]} className="w-full h-full object-cover opacity-60 hover:opacity-100 transition-opacity filter grayscale" alt="Interior" /></div>
-             </>
-           ) : (
-             <div className="w-full h-full flex items-center justify-center text-[#333] font-serif text-xs tracking-widest">GALERÍA NO DISPONIBLE</div>
-           )}
-        </div>
+      {/* Contenido inferior */}
+      <div style={{ flex: 1, display: "flex", padding: "20px 28px", gap: 24, background: card }}>
 
-        {/* Bottom Content Split */}
-        <div className="flex-1 flex p-12 gap-12 bg-[#111]">
-          {/* Main Desc */}
-          <div className="flex-1 flex flex-col justify-between">
-            <div>
-              <div className="w-8 h-[2px] bg-[#D4AF37] mb-6"></div>
-              <h3 className={`text-[9px] tracking-[0.3em] uppercase font-bold mb-4 ${theme.textPri}`}>La Propiedad</h3>
-              <p className={`text-xs leading-relaxed text-justify font-serif text-slate-400`}>
-                {descripcionTexto || "Ubicada en el enclave más codiciado de la ciudad, esta obra de arte habitable establece un nuevo estándar de lujo sin compromisos."}
-              </p>
+        {/* Descripción + puntos */}
+        <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+          <div style={{ width: 28, height: 2, background: accent, marginBottom: 12 }} />
+          <p style={{ fontSize: 8, letterSpacing: "0.3em", textTransform: "uppercase", fontWeight: 700, color: accent, marginBottom: 10 }}>
+            {idioma === "en" ? "The Property" : "La Propiedad"}
+          </p>
+          <p style={{ fontSize: 11, lineHeight: 1.7, color: "#94a3b8", textAlign: "justify", marginBottom: 14, flex: 1 }}>
+            {descripcionTexto || "Una obra de arte habitable que establece un nuevo estándar de lujo sin compromisos."}
+          </p>
+
+          {/* Puntos verificados */}
+          {puntosDestacados.length > 0 && (
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 5, marginBottom: 14 }}>
+              {puntosDestacados.slice(0, 4).map((p, i) => (
+                <span key={i} style={{
+                  padding: "4px 10px", borderRadius: 20, fontSize: 9, fontWeight: 700,
+                  background: p.verificado ? `${accent}20` : "#222",
+                  border: `1px solid ${p.verificado ? accent + "60" : "#333"}`,
+                  color: p.verificado ? accent : "#666",
+                  display: "flex", alignItems: "center", gap: 4,
+                }}>
+                  {p.verificado && <CheckCircle2 size={9} color={accent} />}
+                  {p.texto}
+                </span>
+              ))}
             </div>
-            
-            {/* Agent Contact Footer */}
-            <div className="pt-6 border-t border-[#333]">
-              <p className={`text-[10px] tracking-[0.2em] uppercase ${theme.textPri} mb-2`}>{session?.company_name || session?.name || "Premium Real Estate"}</p>
-              <div className="flex items-center gap-6 text-slate-500 text-[10px] tracking-widest">
-                <span className="flex items-center gap-2"><Phone className="w-3 h-3 text-[#D4AF37]"/> {session?.phone || "555-0123-456"}</span>
-                <span className="flex items-center gap-2"><Mail className="w-3 h-3 text-[#D4AF37]"/> {session?.email || "contacto@inmobiliaria.com"}</span>
+          )}
+
+          {/* Amenidades */}
+          {amenidades.length > 0 && (
+            <div style={{ marginBottom: 14 }}>
+              <p style={{ fontSize: 8, letterSpacing: "0.2em", textTransform: "uppercase", color: "#444", fontWeight: 700, marginBottom: 6 }}>Amenidades</p>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
+                {amenidades.slice(0, 6).map((a, i) => (
+                  <span key={i} style={{ fontSize: 9, color: "#666", background: "#222", padding: "3px 8px", borderRadius: 3 }}>{a}</span>
+                ))}
               </div>
             </div>
-          </div>
-          
-          {/* Divider */}
-          <div className="w-[1px] bg-gradient-to-b from-transparent via-[#333] to-transparent"></div>
-          
-          {/* Specs Column */}
-          <div className="w-[160px] shrink-0 flex flex-col justify-center gap-8">
-            <div className="text-center">
-               <p className={`text-3xl font-serif text-white`}>{fichaAvaluo.m2_construccion || 0}</p>
-               <p className="text-[8px] tracking-[0.3em] uppercase text-[#D4AF37] mt-2">{texts.construccion}</p>
+          )}
+
+          {/* Asesor */}
+          <div style={{ paddingTop: 12, borderTop: "1px solid #222", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <div style={{ width: 32, height: 32, borderRadius: "50%", background: "#222", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                {session?.user?.photoURL ? <img src={session.user.photoURL} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" /> : <User size={14} color="#555" />}
+              </div>
+              <div>
+                <p style={{ margin: 0, fontSize: 10, fontWeight: 700, color: textLt }}>{session?.user?.name || "Asesor"}</p>
+                <div style={{ display: "flex", gap: 10, marginTop: 2 }}>
+                  {session?.user?.phone && <span style={{ fontSize: 9, color: "#666", display: "flex", alignItems: "center", gap: 3 }}><Phone size={8} color={accent} /> {session.user.phone}</span>}
+                  <span style={{ fontSize: 9, color: "#666", display: "flex", alignItems: "center", gap: 3 }}><Mail size={8} color={accent} /> {session?.user?.email || ""}</span>
+                </div>
+              </div>
             </div>
-            <div className="text-center">
-               <p className={`text-3xl font-serif text-white`}>{fichaAvaluo.recamaras || 0}</p>
-               <p className="text-[8px] tracking-[0.3em] uppercase text-[#D4AF37] mt-2">{texts.recamaras}</p>
-            </div>
-            <div className="text-center">
-               <p className={`text-3xl font-serif text-white`}>{fichaAvaluo.banos || 0}</p>
-               <p className="text-[8px] tracking-[0.3em] uppercase text-[#D4AF37] mt-2">{texts.banos}</p>
+            <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+              <div style={{ width: 10, height: 10, borderRadius: 2, background: accent, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <span style={{ color: "#000", fontWeight: 900, fontSize: 6, fontFamily: "Outfit, sans-serif" }}>P</span>
+              </div>
+              <span style={{ fontSize: 8, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#444" }}>propvalu.mx</span>
             </div>
           </div>
         </div>
 
+        {/* Divisor */}
+        <div style={{ width: 1, background: "linear-gradient(to bottom, transparent, #333, transparent)" }} />
+
+        {/* Specs columna */}
+        <div style={{ width: 130, flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "center", gap: 18 }}>
+          {specs.map(({ label, val }, i) => (
+            <div key={i} style={{ textAlign: "center" }}>
+              <p style={{ margin: 0, fontFamily: "Outfit, sans-serif", fontSize: 26, fontWeight: 800, color: "#fff" }}>{val}</p>
+              <p style={{ margin: "3px 0 0", fontSize: 7, letterSpacing: "0.3em", textTransform: "uppercase", color: accent }}>{label}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

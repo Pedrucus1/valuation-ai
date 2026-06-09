@@ -63,8 +63,8 @@ const LayoutFichaTecnica = ({
   return (
     <div
       id="pv-ficha-tecnica-root"
-      className="w-full max-w-[800px] mx-auto aspect-[1/1.414] relative flex flex-col overflow-hidden shadow-xl print:shadow-none"
-      style={{ backgroundColor: cardBg, fontFamily: "'Manrope', sans-serif" }}
+      className="relative flex flex-col overflow-hidden shadow-xl print:shadow-none"
+      style={{ width: 794, height: 1123, backgroundColor: cardBg, fontFamily: "'Manrope', sans-serif" }}
     >
       {/* ── HEADER ──────────────────────────────────────────────────── */}
       <div className="shrink-0 flex items-stretch" style={{ backgroundColor: bg, minHeight: 72 }}>
