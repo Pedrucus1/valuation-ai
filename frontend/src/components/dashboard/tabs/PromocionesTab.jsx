@@ -48,6 +48,66 @@ const THUMBS = {
   stitch_obsidian:  "https://lh3.googleusercontent.com/aida/AP1WRLsjKpobbO1c3mYio6ROYIY4bs1VNd2ug53dHgz1S1WviWW9eGpG1ikQFy3eLmBL4FTw6Obctxlas7r1F1L-fI7Bt2y_PaSrK8PJbOT4ITorjJQGM9iLMopT7klFGrj80VodqhBk_Dk6bNdJSZo4Io08vwOlYQpR-WJsEG372gZc510MMeCYdaSo3s6lzrUyO1kmukK0BdawURiu3Aoc6N4F1X9SLWLAdYvFbC40-DKvKqTEBMwanwmEVW79",
 };
 
+// Configuración visual de cada tema para el thumbnail
+const TEMA_THUMB = {
+  classic:         { bg: "#1B4332", accent: "#52B788", page: "#fff",    line: "#e2e8f0", variant: "vertical" },
+  minimalist:      { bg: "#1e293b", accent: "#3b82f6", page: "#fff",    line: "#e2e8f0", variant: "clean" },
+  luxury:          { bg: "#0D0D0D", accent: "#d4af37", page: "#111",    line: "#2a2a2a", variant: "dark" },
+  stitch_obsidian: { bg: "#0D0D0D", accent: "#f59e0b", page: "#000",    line: "#1f1f1f", variant: "dark" },
+  stitch_new:      { bg: "#111827", accent: "#d97706", page: "#fff",    line: "#f3f4f6", variant: "gallery" },
+  moderno:         { bg: "#1B4332", accent: "#52B788", page: "#fff",    line: "#e2e8f0", variant: "moderno" },
+};
+
+// Mini-preview CSS de cada layout
+const LayoutThumb = ({ temaId, nombre }) => {
+  const t = TEMA_THUMB[temaId] || TEMA_THUMB.classic;
+  const img = THUMBS[temaId];
+  if (img) return (
+    <>
+      <img src={img} alt={nombre} className="w-full h-full object-cover object-top" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+      <span className="absolute bottom-1.5 left-2 text-[9px] font-bold text-white drop-shadow">{nombre}</span>
+    </>
+  );
+
+  const isDark = t.variant === "dark";
+  return (
+    <div className="w-full h-full relative" style={{ background: t.page }}>
+      {/* Hero bar */}
+      <div className="absolute top-0 left-0 right-0" style={{ height: "42%", background: t.bg }}>
+        <div className="absolute bottom-0 left-0 right-0 h-1/2" style={{ background: `linear-gradient(transparent, ${t.bg}cc)` }} />
+        {/* Precio simulado */}
+        <div className="absolute bottom-2 left-2 right-2">
+          <div className="h-1 rounded mb-1 w-1/2" style={{ background: isDark ? "#ffffff30" : "#ffffff50" }} />
+          <div className="h-2 rounded w-3/4" style={{ background: t.accent + "cc" }} />
+        </div>
+      </div>
+      {/* Contenido */}
+      <div className="absolute left-2 right-2" style={{ top: "46%" }}>
+        {/* Specs row */}
+        <div className="flex gap-1 mb-1.5">
+          {[0,1,2,3].map(i => (
+            <div key={i} className="flex-1 rounded" style={{ height: 5, background: t.accent + "40" }} />
+          ))}
+        </div>
+        {/* Líneas de texto */}
+        {[1, 0.85, 0.7].map((w, i) => (
+          <div key={i} className="rounded mb-1" style={{ height: 3, width: `${w * 100}%`, background: isDark ? "#ffffff20" : t.line }} />
+        ))}
+        {/* Chips */}
+        <div className="flex gap-1 mt-1.5">
+          {[0,1].map(i => (
+            <div key={i} className="rounded-full" style={{ height: 4, width: 28, background: t.accent + "50" }} />
+          ))}
+        </div>
+      </div>
+      {/* Gradient + label */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+      <span className="absolute bottom-1.5 left-2 text-[9px] font-bold text-white drop-shadow">{nombre}</span>
+    </div>
+  );
+};
+
 const getLayoutComponent = (temaId) => {
   if (temaId === "stitch_new") return LayoutStitchHub;
   if (temaId === "stitch_obsidian") return LayoutStitch;
@@ -210,7 +270,10 @@ const PromocionesTab = ({ valuacionesList, session }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-      if (!res.ok) throw new Error();
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.detail || `Error ${res.status}`);
+      }
       const data = await res.json();
       const nueva = data.propiedad;
       setPropiedadesManual(prev => [nueva, ...prev]);
@@ -219,7 +282,7 @@ const PromocionesTab = ({ valuacionesList, session }) => {
       setPaso(1);
       setFormData(FORM_INIT);
       setFichaAvaluo(normalizar(nueva));
-    } catch { toast.error("Error al guardar la propiedad"); }
+    } catch (e) { toast.error(e.message || "Error al guardar la propiedad"); }
     finally { setGuardando(false); }
   };
 
@@ -401,27 +464,45 @@ const PromocionesTab = ({ valuacionesList, session }) => {
           <Card className="border-slate-200">
             <CardContent className="p-5 space-y-4">
               <div>
-                <label className="label-xs mb-1 block">Fotos (URLs, hasta 10)</label>
-                <div className="space-y-2">
+                <label className="label-xs mb-2 block">Fotos (hasta 10)</label>
+                <div className="grid grid-cols-3 gap-2">
                   {formData.fotos.map((url, i) => (
-                    <div key={i} className="flex gap-2">
-                      <input
-                        className="input-base flex-1 text-xs"
-                        placeholder={`URL foto ${i + 1}`}
-                        value={url}
-                        onChange={e => {
-                          const next = [...formData.fotos];
-                          next[i] = e.target.value;
-                          setF("fotos", next);
-                        }}
-                      />
-                      {i === formData.fotos.length - 1 && formData.fotos.length < 10 && (
-                        <Button variant="ghost" size="icon" onClick={() => setF("fotos", [...formData.fotos, ""])}>
-                          <Plus className="w-4 h-4" />
-                        </Button>
+                    <label key={i} className="relative cursor-pointer group aspect-square rounded-xl overflow-hidden border-2 border-dashed border-slate-300 hover:border-[#52B788] transition-colors flex items-center justify-center bg-slate-50">
+                      {url
+                        ? <img src={url} alt="" className="w-full h-full object-cover" />
+                        : <div className="flex flex-col items-center gap-1 text-slate-400 group-hover:text-[#52B788]">
+                            <ImageIcon className="w-5 h-5" />
+                            <span className="text-[9px] font-bold uppercase">{i === 0 ? "Principal" : `Foto ${i + 1}`}</span>
+                          </div>}
+                      {url && (
+                        <button type="button" onClick={e => { e.preventDefault(); const next = [...formData.fotos]; next[i] = ""; setF("fotos", next); }}
+                          className="absolute top-1 right-1 bg-black/60 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity">
+                          <X className="w-3 h-3" />
+                        </button>
                       )}
-                    </div>
+                      <input type="file" accept="image/*" className="sr-only"
+                        onChange={async e => {
+                          const file = e.target.files?.[0];
+                          if (!file) return;
+                          const fd = new FormData();
+                          fd.append("fotos", file);
+                          try {
+                            const res = await fetch(`${API}/api/inmobiliaria/upload-fotos`, { method: "POST", credentials: "include", body: fd });
+                            if (!res.ok) throw new Error();
+                            const data = await res.json();
+                            const next = [...formData.fotos];
+                            next[i] = data.urls[0];
+                            setF("fotos", next);
+                          } catch { toast.error("Error al subir la foto"); }
+                        }} />
+                    </label>
                   ))}
+                  {formData.fotos.length < 10 && (
+                    <button type="button" onClick={() => setF("fotos", [...formData.fotos, ""])}
+                      className="aspect-square rounded-xl border-2 border-dashed border-slate-200 hover:border-[#52B788] flex items-center justify-center text-slate-300 hover:text-[#52B788] transition-colors bg-slate-50">
+                      <Plus className="w-6 h-6" />
+                    </button>
+                  )}
                 </div>
               </div>
 
@@ -547,40 +628,17 @@ const PromocionesTab = ({ valuacionesList, session }) => {
               <CardContent className="p-4 space-y-3">
                 <label className="label-xs block">Estilo de diseño</label>
                 <div className="grid grid-cols-2 gap-2">
-                  {Object.entries(TEMAS).map(([id, t]) => (
+                  {[...Object.entries(TEMAS), ["moderno", { nombre: "Moderno" }]].map(([id, t]) => (
                     <button key={id} onClick={() => {
                       setTemaSeleccionado(id);
                       setFormatoSeleccionado(id === "stitch_new" ? "stitch_gallery" : "vertical_2p");
                     }}
                       className={`relative rounded-xl overflow-hidden border-2 transition-all text-left ${temaSeleccionado === id ? "border-[#52B788] ring-2 ring-[#52B788]/20" : "border-slate-200 hover:border-slate-300"}`}>
                       <div className="aspect-[3/2] bg-slate-100 relative overflow-hidden">
-                        {THUMBS[id] ? (
-                          <img src={THUMBS[id]} alt={t.nombre} className="w-full h-full object-cover object-top" />
-                        ) : (
-                          <div className={`w-full h-full ${t.bgRoot} flex items-center justify-center`}>
-                            <span className="text-[9px] font-bold uppercase tracking-wider text-slate-400">{t.nombre}</span>
-                          </div>
-                        )}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                        <span className="absolute bottom-1.5 left-2 text-[9px] font-bold text-white drop-shadow">{t.nombre}</span>
+                        <LayoutThumb temaId={id} nombre={t.nombre} />
                       </div>
                     </button>
                   ))}
-                  {/* Estilo Moderno */}
-                  <button onClick={() => { setTemaSeleccionado("moderno"); setFormatoSeleccionado("vertical_2p"); }}
-                    className={`relative rounded-xl overflow-hidden border-2 transition-all text-left ${temaSeleccionado === "moderno" ? "border-[#52B788] ring-2 ring-[#52B788]/20" : "border-slate-200 hover:border-slate-300"}`}>
-                    <div className="aspect-[3/2] relative overflow-hidden" style={{ background: "linear-gradient(135deg, #1B4332 50%, #52B788 100%)" }}>
-                      <div className="absolute inset-0 flex flex-col justify-center items-start p-2 gap-1">
-                        <div className="w-full h-1.5 bg-white/20 rounded" />
-                        <div className="w-3/4 h-1.5 bg-white/20 rounded" />
-                        <div className="grid grid-cols-3 gap-1 w-full mt-1">
-                          {[0,1,2].map(i => <div key={i} className="h-1 bg-white/30 rounded" />)}
-                        </div>
-                      </div>
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                      <span className="absolute bottom-1.5 left-2 text-[9px] font-bold text-white drop-shadow">Moderno</span>
-                    </div>
-                  </button>
                 </div>
                 <div>
                   <label className="label-xs mb-1 block">Formato</label>
@@ -734,8 +792,8 @@ const PromocionesTab = ({ valuacionesList, session }) => {
                 </div>
               </div>
             )}
-            <div className="flex-1 flex items-center justify-center p-4 overflow-hidden">
-              <div className="transform scale-[0.38] md:scale-[0.45] lg:scale-[0.55] xl:scale-[0.65] 2xl:scale-[0.75] origin-top transition-transform duration-300">
+            <div className="flex-1 overflow-y-auto p-4 flex justify-center items-start">
+              <div style={{ zoom: 0.5 }} className="origin-top transition-transform duration-300">
                 {/* Hoja 1 — siempre en DOM para export PDF */}
                 <div style={{ display: esFormatoA4 && hojaActiva === 2 ? "none" : "block" }}>
                   <LayoutComponent

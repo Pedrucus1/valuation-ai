@@ -134,8 +134,8 @@ code {
 input,
 textarea,
 button[role="combobox"] {
-  background-color: #f1f5f9 !important;
-  /* Light slate bg when empty */
+  background-color: #f8fafc !important;
+  border-color: #94a3b8 !important;
   transition: background-color 0.2s ease, border-color 0.2s ease !important;
 }
 
@@ -176,6 +176,6 @@ button[role="combobox"]:not([data-placeholder]) {
     @apply text-[10px] font-bold text-slate-400 uppercase tracking-wide;
   }
   .input-base {
-    @apply w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#52B788] bg-white text-slate-700;
+    @apply w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#52B788] focus:ring-2 focus:ring-[#52B788]/20 bg-white text-slate-700 placeholder:text-slate-400;
   }
 }

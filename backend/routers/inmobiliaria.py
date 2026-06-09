@@ -1,9 +1,10 @@
 """Inmobiliaria (titular): equipo de asesores vinculados + propiedades manuales."""
 import uuid
+import base64
 from datetime import datetime, timezone
-from typing import Optional
+from typing import Optional, List
 
-from fastapi import APIRouter, Request, HTTPException
+from fastapi import APIRouter, Request, HTTPException, UploadFile, File
 
 import os
 import google.generativeai as genai
@@ -149,6 +150,24 @@ async def _calcular_puntos_propvalu(body: dict) -> tuple[list[str], bool]:
         puntos.append("Amplio terreno con potencial")
 
     return puntos, fuera_de_mercado
+
+
+# ── Upload fotos ─────────────────────────────────────────────────────────────
+
+@router.post("/inmobiliaria/upload-fotos")
+async def upload_fotos(request: Request, fotos: List[UploadFile] = File(...)):
+    """Convierte hasta 10 fotos a base64 data-URL y las devuelve."""
+    await require_auth(request)
+    if len(fotos) > 10:
+        raise HTTPException(400, "Máximo 10 fotos")
+    urls = []
+    for foto in fotos[:10]:
+        content = await foto.read()
+        if len(content) > 8 * 1024 * 1024:
+            raise HTTPException(400, f"'{foto.filename}' supera los 8 MB permitidos")
+        ct = foto.content_type or "image/jpeg"
+        urls.append(f"data:{ct};base64,{base64.b64encode(content).decode()}")
+    return {"urls": urls}
 
 
 # ── Endpoints Propiedades ─────────────────────────────────────────────────────
