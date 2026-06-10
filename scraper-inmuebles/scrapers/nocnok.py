@@ -122,7 +122,14 @@ def _mapear(search_item: dict, detail: dict) -> dict:
         colonia = parts[0] if parts else ""
 
     year_built = detail.get("yearBuilt", 0) or 0
-    anio = int(year_built) if year_built and int(year_built) > 1900 else None
+    anio = None
+    if year_built:
+        yb = int(year_built)
+        if 1 < yb < 150:          # edad en años (ej. 20 → año 2006)
+            from datetime import date as _d
+            anio = _d.today().year - yb
+        elif yb > 1900:            # año directo
+            anio = yb
 
     op_code = (detail.get("operationCode") or search_item.get("operation", "")).lower()
     tipo_op = "venta" if op_code in ("sale", "venta") else "renta" if op_code in ("rent", "renta") else op_code

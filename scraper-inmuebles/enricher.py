@@ -257,6 +257,16 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
                 if size_ground and float(size_ground) > 0:
                     resultado["m2_terreno"] = float(size_ground)
 
+                # m2_construccion: vive en property.size_house, NO en amenities
+                size_house = inner.get("size_house")
+                if size_house:
+                    try:
+                        sh = float(size_house)
+                        if sh > 0:
+                            resultado["m2_construccion"] = sh
+                    except (ValueError, TypeError):
+                        pass
+
                 parking = amenities.get("parking_num")
                 if parking and int(parking) >= 0:
                     resultado["estacionamientos"] = int(parking)
@@ -508,12 +518,16 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
             except Exception:
                 pass
 
-    # Detectar obra nueva por texto libre en CUALQUIER portal (no solo Navent)
-    # Aplica cuando los selectores devuelven "Nueva", "En construcción", "Preventa", etc.
-    if ano_const is None:
+    # Detectar obra nueva por texto libre — solo portales sin handler dedicado.
+    # I24/VIVA tienen su bloque Navent JSON arriba; excluirlos evita falsos positivos
+    # por "nueva búsqueda", "nuevas propiedades", etc. en texto de navegación.
+    if ano_const is None and portal not in ("INMUEBLES24", "VIVANUNCIOS"):
         from datetime import date as _date
-        if re.search(r"estrenar|nuev[oa]|en\s+construcci[óo]n|preventa|obra\s+nuev",
-                     texto, re.I):
+        if re.search(
+            r"a\s+estrenar|obra\s+nuev[ao]|\bnuev[ao]\s+(?:construcci|desarrollo|proyecto)"
+            r"|en\s+construcci[óo]n\b|preventa\b",
+            texto, re.I,
+        ):
             ano_const = _date.today().year
 
     if ano_const is not None:
