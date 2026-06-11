@@ -28,7 +28,8 @@ import sys
 import time
 import random
 import re
-from datetime import datetime
+import zlib
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Optional
 
@@ -179,13 +180,18 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
 
                 # CYT: age es ANTIGÜEDAD en años. age=0 NO es "nuevo" sino el default
                 # "sin dato" → producía año=2026 falso. Solo aceptar edad > 0.
+                # Algunos agentes ponen el AÑO directo en age (2026 → "0 años" falso):
+                # >1900 se interpreta como año de construcción.
                 age = features.get("age")
                 try:
                     age_n = int(float(age)) if age not in (None, "") else 0
                 except (ValueError, TypeError):
                     age_n = 0
-                if age_n > 0:
-                    from datetime import date
+                from datetime import date
+                if age_n > 1900:
+                    if age_n <= date.today().year + 2:
+                        resultado["año_construccion"] = age_n
+                elif 0 < age_n < 150:
                     resultado["año_construccion"] = date.today().year - age_n
 
                 area = features.get("area")
@@ -278,7 +284,13 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
                     resultado["año_construccion"] = date.today().year
                 elif age_val not in ("", "none", "n/d"):
                     try:
-                        resultado["año_construccion"] = date.today().year - int(float(age_val))
+                        age_n = int(float(age_val))
+                        # >1900 = el agente puso el AÑO directo, no la antigüedad
+                        if age_n > 1900:
+                            if age_n <= date.today().year + 2:
+                                resultado["año_construccion"] = age_n
+                        elif 0 < age_n < 150:
+                            resultado["año_construccion"] = date.today().year - age_n
                     except ValueError:
                         pass
 
@@ -518,17 +530,11 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
             except Exception:
                 pass
 
-    # Detectar obra nueva por texto libre — solo portales sin handler dedicado.
-    # I24/VIVA tienen su bloque Navent JSON arriba; excluirlos evita falsos positivos
-    # por "nueva búsqueda", "nuevas propiedades", etc. en texto de navegación.
-    if ano_const is None and portal not in ("INMUEBLES24", "VIVANUNCIOS"):
-        from datetime import date as _date
-        if re.search(
-            r"a\s+estrenar|obra\s+nuev[ao]|\bnuev[ao]\s+(?:construcci|desarrollo|proyecto)"
-            r"|en\s+construcci[óo]n\b|preventa\b",
-            texto, re.I,
-        ):
-            ano_const = _date.today().year
+    # SIN fallback de obra nueva por texto libre: la página entera incluye carruseles
+    # de propiedades similares ("... a Estrenar") y navegación, que envenenan el año
+    # (21k PINCALI con 2026 falso, jun-2026). La obra nueva legítima ya la capturan
+    # los handlers dedicados: I24/VIVA (JSON Navent), PCOM (age="nuevo"),
+    # CYT (features.age), PINCALI (selectores de detalle).
 
     if ano_const is not None:
         resultado["año_construccion"] = ano_const
@@ -1074,7 +1080,8 @@ def _get_mongo_col():
     return client[os.getenv("DB_NAME", "propvalu")]["mercado_props"]
 
 
-def obtener_props_mongo(col, portal: str, max_filas: int, urls_procesadas: set) -> list[dict]:
+def obtener_props_mongo(col, portal: str, max_filas: int, urls_procesadas: set,
+                        shard: tuple[int, int] | None = None) -> list[dict]:
     """
     Lee de mercado_props las props del portal a las que les falta anio_construccion
     (canónico, sin ñ) y/o m2. Retorna dicts {id_unico, url, portal, falta_*}.
@@ -1085,19 +1092,32 @@ def obtener_props_mongo(col, portal: str, max_filas: int, urls_procesadas: set) 
                      {"anio_construccion": None},
                      {"colonia": {"$in": [None, ""]}},
                      {"m2_construccion": {"$in": [None, ""]}}]}
+    # No re-fetchear props ya intentadas recientemente: si la página se descargó y
+    # no traía el dato, volver a bajarla cada corrida es puro desperdicio. La marca
+    # enrich_last_attempt se escribe en cada intento (parallel-safe, a diferencia
+    # del checkpoint local que se pisa entre procesos). Reintento tras 30 días
+    # (el anuncio pudo actualizarse).
+    cutoff = (datetime.now() - timedelta(days=30)).isoformat()
     # Venta Y renta (ambas se enriquecen). Activos + NO duplicados-secundarios
     # (ya depurados por fusionar_duplicados.py) → no re-procesar duplicados.
     q = {"portal_origen": portal, "activo": {"$ne": False},
-         "es_duplicado_secundario": {"$ne": True}, **falta}
+         "es_duplicado_secundario": {"$ne": True},
+         "enrich_last_attempt": {"$not": {"$gte": cutoff}}, **falta}
     proj = {"id_unico": 1, "url_original": 1, "portal_origen": 1,
             "anio_construccion": 1, "m2_terreno": 1, "m2_construccion": 1,
             "nombre_agente": 1, "fecha_publicacion": 1, "estacionamientos": 1,
             "recamaras": 1, "banos": 1, "telefono": 1, "inmobiliaria": 1,
             "colonia": 1, "municipio": 1}
     pendientes = []
-    for d in col.find(q, proj).limit(max_filas * 3):
+    cursor_limit = max_filas * 3 * (shard[1] if shard else 1)
+    for d in col.find(q, proj).limit(cursor_limit):
         url = (d.get("url_original") or "").strip()
         if not url or url in urls_procesadas:
+            continue
+        # Partición determinista por URL: cada proceso --shard n/m toma solo
+        # las URLs cuyo crc32 % m == n → varios procesos del mismo portal
+        # en paralelo sin descargar la misma página dos veces.
+        if shard is not None and zlib.crc32(url.encode("utf-8")) % shard[1] != shard[0]:
             continue
         pendientes.append({
             "id_unico":            d.get("id_unico"),
@@ -1122,12 +1142,12 @@ def obtener_props_mongo(col, portal: str, max_filas: int, urls_procesadas: set) 
 
 
 def enriquecer_mongo(col, portal: str, max_filas: int, dry_run: bool,
-                     urls_procesadas: set):
+                     urls_procesadas: set, shard: tuple[int, int] | None = None):
     """Enriquece un portal leyendo y escribiendo DIRECTO en MongoDB (sin Sheets)."""
     log = logger.bind(portal=portal)
-    log.info(f"=== [MONGO] Enriqueciendo '{portal}' (max={max_filas}) ===")
+    log.info(f"=== [MONGO] Enriqueciendo '{portal}' (max={max_filas}, shard={shard}) ===")
 
-    pendientes = obtener_props_mongo(col, portal, max_filas, urls_procesadas)
+    pendientes = obtener_props_mongo(col, portal, max_filas, urls_procesadas, shard=shard)
     log.info(f"Props pendientes de edad: {len(pendientes)}")
 
     if dry_run or not pendientes:
@@ -1150,6 +1170,8 @@ def enriquecer_mongo(col, portal: str, max_filas: int, dry_run: bool,
         html = fetch_detalle(url, portal, session)
         urls_procesadas.add(url)
         guardar_checkpoint(urls_procesadas)
+        col.update_one({"id_unico": prop["id_unico"]},
+                       {"$set": {"enrich_last_attempt": datetime.now().isoformat()}})
 
         if not html:
             # 404 = anuncio eliminado del portal → marcar inactivo para no
@@ -1174,8 +1196,14 @@ def enriquecer_mongo(col, portal: str, max_filas: int, dry_run: bool,
         set_doc = {}
         actualizados = []
         if prop["falta_ano_const"] and "año_construccion" in datos:
-            set_doc["anio_construccion"] = datos["año_construccion"]
-            actualizados.append(f"anio={datos['año_construccion']}")
+            # Red de seguridad global: nunca escribir un año absurdo (0, 21, 3000…)
+            # venga del handler que venga.
+            _anio = datos["año_construccion"]
+            if isinstance(_anio, (int, float)) and 1800 <= _anio <= datetime.now().year + 2:
+                set_doc["anio_construccion"] = int(_anio)
+                actualizados.append(f"anio={int(_anio)}")
+            else:
+                log.warning(f"  año descartado por inválido: {_anio!r}")
         if prop["falta_m2_const"] and "m2_construccion" in datos:
             set_doc["m2_construccion"] = datos["m2_construccion"]
             actualizados.append(f"m2c={datos['m2_construccion']}")
@@ -1237,7 +1265,16 @@ def main():
                         help="Solo contar cuántas propiedades faltan, sin descargar nada")
     parser.add_argument("--mongo", action="store_true",
                         help="Modo oficial: lee y escribe DIRECTO en MongoDB (sin Sheets)")
+    parser.add_argument("--shard", default=None,
+                        help="Partición N/M para correr varios procesos del mismo portal "
+                             "sin pisarse (ej. --shard 0/3, 1/3, 2/3). Solo modo --mongo.")
     args = parser.parse_args()
+
+    shard = None
+    if args.shard:
+        n, m = (int(x) for x in args.shard.split("/"))
+        assert 0 <= n < m, f"--shard inválido: {args.shard}"
+        shard = (n, m)
 
     inicio = datetime.now()
     logger.info(f"Enricher iniciado — {inicio.strftime('%Y-%m-%d %H:%M')}")
@@ -1263,7 +1300,8 @@ def main():
         col = _get_mongo_col()
         for portal in tabs:
             try:
-                r = enriquecer_mongo(col, portal, args.max, args.dry_run, urls_procesadas)
+                r = enriquecer_mongo(col, portal, args.max, args.dry_run, urls_procesadas,
+                                     shard=shard)
                 resultados.append(r)
             except Exception as e:
                 logger.error(f"Error procesando portal '{portal}': {e}")

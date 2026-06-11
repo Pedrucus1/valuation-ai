@@ -373,7 +373,15 @@ def _guardar_en_mongo(propiedades: list, portal: str) -> dict:
             if not uid:
                 continue
             doc = {**prop, "portal": portal, "mongo_ts": datetime.now(timezone.utc).isoformat()}
-            result = col.update_one({"id_unico": uid}, {"$set": doc}, upsert=True)
+            # NO pisar con vacíos lo que el enricher ya llenó (anio/colonia/m2c
+            # costaron horas de fetch): los campos sin valor solo se escriben al
+            # INSERTAR; en updates solo entran los que traen contenido.
+            con_valor = {k: v for k, v in doc.items() if v not in (None, "")}
+            solo_insert = {k: v for k, v in doc.items() if k not in con_valor}
+            update = {"$set": con_valor}
+            if solo_insert:
+                update["$setOnInsert"] = solo_insert
+            result = col.update_one({"id_unico": uid}, update, upsert=True)
             if result.upserted_id:
                 nuevas += 1
             elif result.modified_count:

@@ -124,11 +124,11 @@ def _mapear(search_item: dict, detail: dict) -> dict:
     year_built = detail.get("yearBuilt", 0) or 0
     anio = None
     if year_built:
+        from datetime import date as _d
         yb = int(year_built)
         if 1 < yb < 150:          # edad en años (ej. 20 → año 2006)
-            from datetime import date as _d
             anio = _d.today().year - yb
-        elif yb > 1900:            # año directo
+        elif 1900 < yb <= _d.today().year + 2:  # año directo (con tope: nada de 2999)
             anio = yb
 
     op_code = (detail.get("operationCode") or search_item.get("operation", "")).lower()
@@ -214,9 +214,16 @@ def _paginar_lote(session, params: dict, mongo_col, build_id: str, delay: float)
 
             doc = _mapear(item, detail)
             try:
+                # No pisar con None/"" datos ya presentes (mismo criterio que
+                # _guardar_en_mongo del scheduler): vacíos solo en el insert.
+                con_valor = {k: v for k, v in doc.items() if v not in (None, "")}
+                solo_insert = {k: v for k, v in doc.items() if k not in con_valor}
+                update = {"$set": con_valor}
+                if solo_insert:
+                    update["$setOnInsert"] = solo_insert
                 res = mongo_col.update_one(
                     {"id_unico": doc["id_unico"]},
-                    {"$set": doc},
+                    update,
                     upsert=True,
                 )
                 guardadas += 1 if (res.upserted_id or res.modified_count) else 0
