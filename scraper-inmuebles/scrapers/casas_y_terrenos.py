@@ -9,6 +9,7 @@ y buscar "MeiliSearch" para obtener host y apiKey nuevos.
 """
 
 import time
+from datetime import datetime
 from typing import Optional
 
 import requests
@@ -109,6 +110,12 @@ class CasasYTerrenosScraper(BaseScraper):
             for hit in hits:
                 raw = self._normalizar_hit(hit, zona, operacion)
                 if raw:
+                    # ejecutar() está overrideado → este camino NO pasa por el
+                    # setdefault de BaseScraper; sin esto los docs quedan con
+                    # portal_origen vacío e invisibles para enricher/dedup.
+                    raw.setdefault("portal_origen", self.nombre_portal)
+                    raw.setdefault("fecha_scraping", datetime.now().isoformat())
+                    raw.setdefault("activo", True)
                     propiedades.append(normalizar_propiedad(raw))
 
             self.log.info(f"Página {pagina} — {len(hits)} hits | Acum: {len(propiedades)}")
