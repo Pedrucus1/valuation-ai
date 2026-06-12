@@ -1112,7 +1112,7 @@ def obtener_props_mongo(col, portal: str, max_filas: int, urls_procesadas: set,
     cursor_limit = max_filas * 3 * (shard[1] if shard else 1)
     for d in col.find(q, proj).limit(cursor_limit):
         url = (d.get("url_original") or "").strip()
-        if not url or url in urls_procesadas:
+        if not url:
             continue
         # Partición determinista por URL: cada proceso --shard n/m toma solo
         # las URLs cuyo crc32 % m == n → varios procesos del mismo portal
