@@ -178,8 +178,11 @@ class PincaliScraper(BaseScraper):
         for intento in range(1, config.MAX_RETRIES + 1):
             try:
                 r = self._session.get(url, timeout=20)
+                if r.status_code == 404:
+                    self.log.info(f"HTTP 404 (sin resultados): {url}")
+                    return ""
                 if r.status_code == 403:
-                    raise ErrorScraping(f"403 Forbidden: {url}")
+                    raise ErrorScraping(f"HTTP 403 bloqueado: {url}")
                 r.raise_for_status()
                 if len(r.text) < 5000:
                     raise ErrorScraping(f"Respuesta corta ({len(r.text)}b): {url}")
