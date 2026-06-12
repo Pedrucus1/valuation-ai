@@ -257,9 +257,13 @@ class MitulaScraper(BaseScraper):
         self.log.info(f"=== Iniciando {self.nombre_portal} (via Lamudi) ===")
         todas = []
 
+        # El scheduler puede pasar tipos_propiedad=["todas"] (formato legacy).
+        # En ese caso iteramos todos los tipos de Lamudi.
+        tipos = list(TIPOS_LAMUDI.keys()) if self.tipos_propiedad == ["todas"] else self.tipos_propiedad
+
         for zona in config.ZONAS:
             for operacion in config.TIPOS_OPERACION:
-                for tipo in self.tipos_propiedad:
+                for tipo in tipos:
                     zona_con_tipo = {**zona, "_tipo_actual": tipo}
                     props = self._scrapear_zona_operacion(zona_con_tipo, operacion)
                     todas.extend(props)
