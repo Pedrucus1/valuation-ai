@@ -61,9 +61,9 @@ COL_ACTIVO        = 21
 
 # Portales que requieren Playwright (JS rendering)
 # CASAS_Y_TERRENOS y PINCALI exponen los datos vía requests simple (HTML/JSON
-# embebido) — NO necesitan Playwright. INMUEBLES24/VIVANUNCIOS están protegidos
-# (DataDome) → requests recibe bloqueo, requieren Playwright.
-PORTALES_PLAYWRIGHT = {"PROPIEDADES_COM", "INMUEBLES24", "VIVANUNCIOS"}
+# embebido) — NO necesitan Playwright. INMUEBLES24 protegido (DataDome) → Playwright.
+# VIVANUNCIOS: DataDome solo en listados, NO en páginas de detalle → requests funciona.
+PORTALES_PLAYWRIGHT = {"PROPIEDADES_COM", "INMUEBLES24"}
 
 # Cuántas propiedades procesar por defecto
 DEFAULT_MAX = 50
@@ -84,7 +84,8 @@ PAUSA_LARGA_MAX     = 60
 # Formato: (delay_min, delay_max, pausa_cada_N, pausa_min, pausa_max)  — todo en segundos.
 #   🟢 PINCALI / CASAS_Y_TERRENOS / MITULA: HTML/JSON plano vía requests, SIN antibot → rápido
 #   🟡 PROPIEDADES_COM: Akamai (Node plain_fetch); el fetch ya tarda ~20s y espacia solo → delay corto
-#   🟠 VIVANUNCIOS / 🔴 INMUEBLES24: DataDome (Playwright) → conservador, no forzar
+#   🟠 VIVANUNCIOS: detalle vía requests (sin DataDome en detalles) → moderado
+#   🔴 INMUEBLES24: DataDome (Playwright) → conservador, no forzar
 # ─────────────────────────────────────────
 DELAYS_PORTAL = {
     "PINCALI":          (3.0, 6.0, 50, 15, 25),  # bajado de (1.5,3.5): tiró HTTP 503 (throttle leve)
@@ -347,15 +348,16 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
                 "img[alt*='cubierta'] ~ span",
             ],
             "PINCALI": [
-                # Español (página /inmueble/)
+                # Inglés (/en/home/ — URL canónica desde jun-2026)
+                "li:contains('Construction')",
+                "li:contains('Built')",
+                "li:contains('Interior')",
+                # Español (legacy, por si quedan URLs antiguas en DB)
                 "li:contains('Construcción')",
                 "li:contains('Construidos')",
                 "li:contains('Construido')",
                 "span:contains('Construcción')",
                 "[class*='construcc']",
-                # Inglés (fallback si se carga en inglés)
-                "li:contains('Construction')",
-                "li:contains('Built')",
             ],
             "MITULA": [
                 "li[class*='built']",
@@ -416,16 +418,16 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
                 "img[alt*='surface'] ~ span",
             ],
             "PINCALI": [
-                # Español (página /inmueble/)
+                # Inglés (/en/home/ — URL canónica desde jun-2026)
+                "li:contains('Land')",
+                "li:contains('Lot')",
+                "span[class*='lot']",
+                # Español (legacy)
                 "li:contains('Terreno')",
                 "li:contains('Superficie de terreno')",
                 "li:contains('Lote')",
                 "span:contains('Terreno')",
                 "[class*='terreno']",
-                # Inglés (fallback)
-                "li:contains('Land')",
-                "li:contains('Lot')",
-                "span[class*='lot']",
             ],
             "PROPIEDADES_COM": [
                 "[class*='terrain']",
@@ -492,13 +494,16 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
                 "li:contains('Antigüedad')",
             ],
             "PINCALI": [
+                # Inglés (/en/home/ — URL canónica desde jun-2026)
+                "li:contains('Year Built')",
+                "li:contains('Year built')",
+                "li:contains('Age')",
+                # Español (legacy)
                 "li:contains('Antigüedad')",
                 "li:contains('Año de construcción')",
                 "li:contains('Año construcc')",
                 "li:contains('Años de antigüedad')",
                 "span:contains('Antigüedad')",
-                "li:contains('Year built')",
-                "li:contains('Age')",
             ],
             "VIVANUNCIOS": [
                 "li:contains('Antigüedad')",
@@ -530,11 +535,25 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
             except Exception:
                 pass
 
-    # SIN fallback de obra nueva por texto libre: la página entera incluye carruseles
-    # de propiedades similares ("... a Estrenar") y navegación, que envenenan el año
-    # (21k PINCALI con 2026 falso, jun-2026). La obra nueva legítima ya la capturan
-    # los handlers dedicados: I24/VIVA (JSON Navent), PCOM (age="nuevo"),
-    # CYT (features.age), PINCALI (selectores de detalle).
+    # Fallback obra nueva — SOLO buscar en descripción acotada del inmueble,
+    # nunca en texto de página completa (los carruseles de similares + navegación
+    # contienen "a Estrenar" de OTRAS propiedades → 21k PINCALI envenenados jun-2026).
+    if ano_const is None:
+        from datetime import date as _date
+        _NUEVA_RE = re.compile(
+            r"a\s+estrenar|obra\s+nueva|nuevo\s+desarrollo|en\s+construcci[oó]n\b"
+            r"|preventa\b|brand[- ]new|new[- ]build|recién\s+construid",
+            re.I
+        )
+        # Buscar solo en: (1) h1, (2) div/section de descripción del agente
+        _desc_tag = soup.select_one('[class*="description"], [id*="description"]')
+        _h1_tag = soup.find("h1")
+        _desc_txt = " ".join([
+            _h1_tag.get_text(" ", strip=True) if _h1_tag else "",
+            _desc_tag.get_text(" ", strip=True) if _desc_tag else "",
+        ])
+        if _NUEVA_RE.search(_desc_txt):
+            ano_const = _date.today().year
 
     if ano_const is not None:
         resultado["año_construccion"] = ano_const
@@ -853,8 +872,9 @@ def fetch_detalle(url: str, portal: str, session: requests.Session) -> Optional[
     """Selecciona el método de descarga adecuado según el portal."""
     portal_real = portal if portal in PORTALES_PLAYWRIGHT or portal == "CASAS_Y_TERRENOS" else inferir_portal_por_url(url) or portal
 
-    # PINCALI: convertir a URL española
-    fetch_url = _pincali_url_espanol(url) if portal_real == "PINCALI" else url
+    # PINCALI: NO convertir a español — /inmueble/ devuelve 422 desde jun-2026.
+    # La URL inglesa /en/home/ funciona directamente con plain requests.
+    fetch_url = url
 
     # PROPIEDADES_COM: HTTP simple via Node (Akamai deja pasar el GET; el __NEXT_DATA__ trae `age`)
     if portal_real == "PROPIEDADES_COM":
