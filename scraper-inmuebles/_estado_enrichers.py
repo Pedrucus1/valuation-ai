@@ -1,23 +1,35 @@
-import os, sys
-sys.path.insert(0, '.')
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
+import os
 from dotenv import load_dotenv; load_dotenv()
 from pymongo import MongoClient
 from datetime import datetime, timedelta
 
 col = MongoClient(os.getenv('MONGO_URL'))['propvalu']['mercado_props']
-cutoff = (datetime.now() - timedelta(days=30)).isoformat()
+cutoff30 = (datetime.now() - timedelta(days=30)).isoformat()
+cutoff2d = (datetime.now() - timedelta(days=2)).isoformat()
 
-portales = ["PROPIEDADES_COM","CASAS_Y_TERRENOS","INMUEBLES24","PINCALI","VIVANUNCIOS","MITULA","NOCNOK"]
 falta_q = {"$or": [{"anio_construccion": {"$exists": False}}, {"anio_construccion": None},
                    {"m2_construccion": {"$in": [None, ""]}}]}
 
+portales = ["PROPIEDADES_COM","CASAS_Y_TERRENOS","INMUEBLES24","PINCALI","VIVANUNCIOS","MITULA","NOCNOK"]
+print(f"{'Portal':<20} {'Total':>6} {'Enriq':>6} {'%':>4} {'Pend':>6} {'Bloq30d':>7} {'UltEnrich':>12}")
+print("-"*75)
 for p in portales:
     total = col.count_documents({'portal_origen': p, 'activo': {'$ne': False}})
-    enriched = col.count_documents({'portal_origen': p, 'activo': {'$ne': False}, 'anio_construccion': {'$nin': [None, '']}})
-    pendientes_real = col.count_documents({'portal_origen': p, 'activo': {'$ne': False},
+    enriched = col.count_documents({'portal_origen': p, 'activo': {'$ne': False},
+        'anio_construccion': {'$nin': [None, '', 0]}})
+    pendientes = col.count_documents({'portal_origen': p, 'activo': {'$ne': False},
         'es_duplicado_secundario': {'$ne': True},
-        'enrich_last_attempt': {'$not': {'$gte': cutoff}}, **falta_q})
-    bloqueados = col.count_documents({'portal_origen': p, 'enrich_last_attempt': {'$gte': cutoff}, **falta_q})
+        'enrich_last_attempt': {'$not': {'$gte': cutoff30}}, **falta_q})
+    bloq = col.count_documents({'portal_origen': p, 'enrich_last_attempt': {'$gte': cutoff30}, **falta_q})
+    # Última actividad del enricher
+    last = col.find_one({'portal_origen': p, 'enrich_last_attempt': {'$exists': True}},
+                        {'enrich_last_attempt': 1}, sort=[('enrich_last_attempt', -1)])
+    last_ts = last['enrich_last_attempt'][:16] if last else 'nunca'
     pct = round(enriched/total*100) if total > 0 else 0
-    print(f'{p:20s}  total={total:6d}  enriq={enriched:6d} ({pct:3d}%)  pendientes={pendientes_real:6d}  bloq_30d={bloqueados:5d}')
+    print(f"{p:<20} {total:>6} {enriched:>6} {pct:>3}% {pendientes:>6} {bloq:>7} {last_ts:>12}")
+
+print()
+# Total activos
+tot = col.count_documents({'activo': {'$ne': False}})
+dup = col.count_documents({'es_duplicado_secundario': True})
+print(f"Total activos: {tot:,}  |  Duplicados secundarios: {dup:,}  |  Únicos: {tot-dup:,}")

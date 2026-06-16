@@ -9,9 +9,9 @@ Por qué existe:
   y hace una segunda descarga para completarlos.
 
 Uso:
-  python enricher.py                  — procesar max 50 propiedades
-  python enricher.py --max 200        — procesar hasta 200
-  python enricher.py --tab INMUEBLES24 --max 100
+  python enricher.py                  — procesar todos los pendientes del portal
+  python enricher.py --max 200        — limitar a 200 (útil para pruebas)
+  python enricher.py --tab INMUEBLES24
   python enricher.py --tab CONSOLIDADO
   python enricher.py --dry-run        — ver cuántas hay sin enriquecer (sin fetch)
 
@@ -65,8 +65,9 @@ COL_ACTIVO        = 21
 # VIVANUNCIOS: DataDome solo en listados, NO en páginas de detalle → requests funciona.
 PORTALES_PLAYWRIGHT = {"PROPIEDADES_COM", "INMUEBLES24"}
 
-# Cuántas propiedades procesar por defecto
-DEFAULT_MAX = 50
+# Sin tope artificial — el enricher corre hasta agotar todos los pendientes.
+# enrich_last_attempt garantiza que no se reprocese nada ya intentado (<30d).
+DEFAULT_MAX = 999_999
 
 # Pausa entre descargas de detalle (segundos) — legacy, usado como fallback
 DELAY_MIN_REQUESTS  = 4    # portales con requests (Mitula, Vivanuncios, CasasYTerrenos)
