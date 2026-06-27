@@ -1,40 +1,46 @@
 # Estado del Proyecto: PropValu
 
-**Última Actualización:** 04 de Junio de 2026 (Fin de Sesión)
-**Fase Actual:** Estabilización, QA y Preparación para Lanzamiento Comercial.
+**Última Actualización:** 27 de Junio de 2026
+**Fase Actual:** Datos enriquecidos, scraper al día, plataforma estable en Railway+Vercel.
 
-## 🏆 Logros de esta Sesión (Hitos Alcanzados)
+## ✅ Estado de Enriquecimiento (27-Jun-2026)
 
-1. **Fichas de Promoción para Inmobiliarias (#10):**
-   - Completadas y desplegadas en el Frontend.
-   - Diseños elegantes con estilos variables (Costero, Moderno, Art Deco, Clásico).
-   - Generación de PDF dinámica con `window.print()` y autorelleno de datos del avalúo.
-   - Panel de configuración interactivo (Idiomas ES/EN, selector de estrategias de precios OPI).
+Todos los portales drenados. Base: ~99,904 docs activos, 8,135 secundarios (dedup).
 
-2. **Módulo Financiero y Payouts (#12):**
-   - Panel interactivo para control de flujos y "fugas" de dinero completado.
-   - Lógica de Split Variable (ej. 75/25) insertada.
+| Portal | Estado | Cobertura año |
+|---|---|---|
+| PROPIEDADES_COM | ✅ completo (10/10 hoy) | ~93% |
+| INMUEBLES24 | ✅ completo | ~98% |
+| VIVANUNCIOS | ✅ completo | ~93% |
+| CASAS_Y_TERRENOS | ✅ 191/379 (27-Jun) | ~50% (rest. no expone) |
+| PINCALI | ✅ techo real ~24.4% | portal no expone más |
+| MITULA | ✅ completo | parcial |
+| NOCNOK | ✅ completo (portal nuevo) | — |
 
-3. **Sistema de Calificaciones y SEO (#13):**
-   - Se agregaron 30 testimonios persuasivos.
-   - Sistema de upsell de 4-5 estrellas para forzar reseñas públicas de PropValu.
-   - Archivo `llms.txt` público creado para SEO en motores de Inteligencia Artificial.
+## ✅ Infraestructura (vigente)
 
-4. **Blindaje de Escalabilidad y Rendimiento (#65):**
-   - Servidor blindado para alto tráfico.
-   - Implementación de `TTLCache` (maxsize=1000) de `cachetools` para prevenir fugas de RAM.
-   - Pool de conexiones MongoDB configurado a 200 hilos.
-   - Uvicorn configurado con 4 Workers simultáneos.
-   - Simulacro de Calidad (QA) End-to-End ejecutado con éxito total.
+- **Railway** (backend): corriendo con `start.py`, `google-generativeai` en requirements.txt, healthcheck OK. Scheduler off (`ENABLE_SCHEDULER=0`). Monolito partido (-60%): 17 routers extraídos.
+- **Vercel** (frontend): último deploy exitoso `frontend-9fd4er6s2-pedrucus-projects.vercel.app`.
+- **MongoDB prod**: Atlas cluster0. Staging: cluster1.avle5ez.
+- **Auth**: `require_admin` y `require_admin_or_job` (acepta `X-Job-Token`=`JOBS_SECRET`).
+- **Métricas**: `core/metrics.py` + `/api/metrics` admin-only.
+- **Proxy IPRoyal**: cableado en enricher (requests.Session + Playwright), no-op si PROXY_URL no seteado.
 
-5. **Nacimiento del "Data Exchange Program" (Descuento x Data):**
-   - Plan Estratégico desarrollado y aprobado.
-   - Mockup Funcional (Frontend) creado e inyectado en `InmobiliariaDashboardPage.jsx`.
-   - Incluye zona de Drag & Drop, descarga de plantilla, checklist de validación y Gestor de Inventario "Vivo" para capturar **Precios de Cierre reales**.
+## ✅ Motor de Valuación (vigente)
 
-## 🚧 Siguientes Pasos (Backlog Inmediato)
-- Revisión personal del usuario del Mockup de "Data Exchange" en el dashboard.
-- Construcción del "Cerebro" (Backend) para leer y validar los Excels de las inmobiliarias con IA.
-- Pasarela de Pagos (Stripe/Mercado Pago) - Pausada estratégicamente.
-- Correr la Sincronización Manual Sheets -> MongoDB.
-- Integrar notificaciones de WhatsApp (Twilio).
+- Score validador: ±15% ~86%, ±20% ~89.7% (post geoproximidad #114).
+- Cache: Sheets CONSOLIDADO (~22,983 comps). NO migrar a Mongo (requiere re-calibración completa, ver MOTOR_ANTECEDENTES).
+- Reglas irrompibles: NO cambiar NSE v1→v2, NO cazar atípicos, correr validador_masivo antes de cambios.
+
+## 🔄 En progreso
+
+- **fill_similares_gemini.js**: batch 5/10 (~120 colonias), cuota Gemini → waits normales. Se completa solo.
+
+## 🕐 Pendientes próximas sesiones
+
+| # | Tarea | Notas |
+|---|---|---|
+| #9 | Migrar cache motor Sheets→Mongo | Proyecto de re-calibración completa, no un parche |
+| #14 | Lanzar scraper mensual julio | Fecha: 7-Jul-2026 |
+| #16 | Definir gancho de entrada de precios | Benchmark $80-$120/reporte — decisión usuario |
+| #17 | Agregar Monopolio al scraper | CDP + login+JWT — deferred |

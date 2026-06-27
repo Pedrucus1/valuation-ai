@@ -17,6 +17,36 @@
       "menciones": 2
     }
   ],
+  "12122": [
+    {
+      "colonia": "Rinconadas del Sol",
+      "menciones": 5
+    },
+    {
+      "colonia": "Valle de Tlajomulco",
+      "menciones": 5
+    },
+    {
+      "colonia": "Hacienda de los Eucaliptos",
+      "menciones": 4
+    },
+    {
+      "colonia": "Jardines de Tlajomulco",
+      "menciones": 4
+    },
+    {
+      "colonia": "Santa Fe",
+      "menciones": 3
+    },
+    {
+      "colonia": "Galaxia la Noria",
+      "menciones": 3
+    },
+    {
+      "colonia": "La Castilleja II",
+      "menciones": 2
+    }
+  ],
   "san elias": [
     {
       "colonia": "bosques de la victoria",
@@ -517,7 +547,13 @@
       "menciones": 2
     }
   ],
-  "la perla": [],
+  "la perla": [
+    "el retiro",
+    "san juan de dios",
+    "la aurora",
+    "santa tere",
+    "oblatos"
+  ],
   "lomas de independencia": [
     {
       "colonia": "lomas independencia",
@@ -3725,19 +3761,20 @@
   ],
   "chapalita las fuentes": [
     {
-      "colonia": "el carmen habitat",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
+      "colonia": "residencial plaza guadalupe",
+      "menciones": 5
     },
     {
-      "colonia": "parque sereno",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
+      "colonia": "la primavera",
+      "menciones": 4
     },
     {
-      "colonia": "atlas chapalita",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
+      "colonia": "chapalita",
+      "menciones": 3
+    },
+    {
+      "colonia": "pinar de la venta",
+      "menciones": 2
     }
   ],
   "plaza guadalupe": [
@@ -3750,7 +3787,13 @@
       "menciones": 2
     }
   ],
-  "la primavera": [],
+  "la primavera": [
+    "pinar de la venta",
+    "rancho contento",
+    "diana naturas",
+    "el bajío",
+    "san juan de ocotán"
+  ],
   "colinas del rey": [
     {
       "colonia": "bugambilias",
@@ -4192,7 +4235,13 @@
       "menciones": 1
     }
   ],
-  "haciendas tonala": [],
+  "haciendas tonala": [
+    "lomas del camichín",
+    "jardines de tonalá",
+    "fovissste tonalá",
+    "alberca",
+    "la providencia"
+  ],
   "paseos del sol": [
     {
       "colonia": "la calma",
@@ -4399,7 +4448,13 @@
       "menciones": 4
     }
   ],
-  "acacias": [],
+  "acacias": [
+    "monraz",
+    "prados providencia",
+    "lomas del valle",
+    "colinas de san javier",
+    "parque metropolitano"
+  ],
   "san javier": [
     {
       "colonia": "la estancia",
@@ -4962,7 +5017,13 @@
       "menciones": 2
     }
   ],
-  "barrio san juan de dios": [],
+  "barrio san juan de dios": [
+    "la perla",
+    "el retiro",
+    "centro de guadalajara",
+    "analco",
+    "mexicaltzingo"
+  ],
   "el retiro": [
     {
       "colonia": "centro",
@@ -5748,7 +5809,13 @@
       "fuente": "ia-sepomex"
     }
   ],
-  "los pinos": [],
+  "los pinos": [
+    "monraz",
+    "vallarta san jorge",
+    "ladrón de guevara",
+    "rojas lázaro",
+    "providencia"
+  ],
   "20 de noviembre": [
     {
       "colonia": "zalatitan",
@@ -6027,7 +6094,13 @@
       "fuente": "ia-sepomex"
     }
   ],
-  "las pintitas ejidal": [],
+  "las pintitas ejidal": [
+    "el quince",
+    "san josé del quince",
+    "la calera",
+    "san martín de las flores",
+    "el verde"
+  ],
   "la cima": [
     {
       "colonia": "colinas del rey",
@@ -6143,7 +6216,13 @@
       "fuente": "ia-sepomex"
     }
   ],
-  "jardines del sol": [],
+  "jardines del sol": [
+    "ciudad del sol",
+    "la estancia",
+    "paseos del sol",
+    "residencial moctezuma",
+    "prados tepeyac"
+  ],
   "torre 9": [
     {
       "colonia": "constitucion",
@@ -6341,8 +6420,20 @@
       "menciones": 1
     }
   ],
-  "lo de marcos": [],
-  "rincon de guayabitos": [],
+  "lo de marcos": [
+    "san pancho",
+    "sayulita",
+    "guayabitos",
+    "la peñita de jaltemba",
+    "los ayala"
+  ],
+  "rincon de guayabitos": [
+    "los ayala",
+    "la peñita de jaltemba",
+    "lo de marcos",
+    "san pancho",
+    "chacala"
+  ],
   "santa cruz de las flores": [
     {
       "colonia": "mazatepec",
@@ -7051,7 +7142,13 @@
       "menciones": 2
     }
   ],
-  "ribera del pilar": [],
+  "ribera del pilar": [
+    "chula vista",
+    "san antonio tlayacapan",
+    "ajijic",
+    "la floresta",
+    "riberas del pilar"
+  ],
   "san antonio tlayacapan": [
     {
       "colonia": "el parque",
@@ -7242,7 +7339,13 @@
       "menciones": 2
     }
   ],
-  "arboledas 1a": [],
+  "arboledas 1a": [
+    "las águilas",
+    "loma bonita residencial",
+    "paseos del sol",
+    "la calma",
+    "residencial victoria"
+  ],
   "lomas del camichin": [
     {
       "colonia": "lomas de la soledad",
@@ -8721,7 +8824,13 @@
       "menciones": 2
     }
   ],
-  "santa tere": [],
+  "santa tere": [
+    "villaseñor",
+    "ladrón de guevara",
+    "americana",
+    "el retiro",
+    "mezquitán"
+  ],
   "lomas de la victoria": [
     {
       "colonia": "jardines el sauz",
@@ -9739,7 +9848,13 @@
       "menciones": 2
     }
   ],
-  "polanquito poniente": [],
+  "polanquito poniente": [
+    "polanco",
+    "lomas de polanco",
+    "echeverría",
+    "el fresno",
+    "zona industrial"
+  ],
   "geovillas los olivos": [
     {
       "colonia": "los olivos",
@@ -10111,7 +10226,13 @@
       "fuente": "ia-sepomex"
     }
   ],
-  "lomas de guadalupe": [],
+  "lomas de guadalupe": [
+    "camino real",
+    "jardines de guadalupe",
+    "residencial cordilleras",
+    "prados tepeyac",
+    "la estancia"
+  ],
   "jardines vallarta": [
     {
       "colonia": "sta rita",
@@ -11357,7 +11478,13 @@
       "menciones": 2
     }
   ],
-  "santa isabel ii": [],
+  "santa isabel ii": [
+    "colinas de san javier",
+    "lomas del valle",
+    "providencia",
+    "villa universitaria",
+    "jacarandas"
+  ],
   "zona centro": [
     {
       "colonia": "gdl centro",
@@ -12105,7 +12232,13 @@
       "menciones": 4
     }
   ],
-  "lomas del bosque uag": [],
+  "lomas del bosque uag": [
+    "villa universitaria",
+    "lomas del valle",
+    "santa isabel",
+    "patria universidad",
+    "san wenceslao"
+  ],
   "col vallarta la patria": [
     {
       "colonia": "jardines de san ignacio",
@@ -12191,7 +12324,13 @@
       "menciones": 1
     }
   ],
-  "el rodeo": [],
+  "el rodeo": [
+    "la federacha",
+    "postes cuates",
+    "san vicente",
+    "oblatos",
+    "lomas del paraíso"
+  ],
   "san jose": [
     {
       "colonia": "santa cruz del valle",
@@ -14639,7 +14778,13 @@
       "menciones": 1
     }
   ],
-  "ajijic centro": [],
+  "ajijic centro": [
+    "la floresta",
+    "san antonio tlayacapan",
+    "chula vista",
+    "san juan cosalá",
+    "jocotepec centro"
+  ],
   "ejido copalita": [
     {
       "colonia": "puerta del llano",
@@ -14868,7 +15013,13 @@
       "fuente": "ia-sepomex"
     }
   ],
-  "las flores": [],
+  "las flores": [
+    "el colli urbano",
+    "miramar",
+    "arenales tapatíos",
+    "paraísos del colli",
+    "lomas de primavera"
+  ],
   "jardines tepeyac": [
     {
       "colonia": "colli sitio",
@@ -16450,7 +16601,13 @@
       "fuente": "ia-sepomex"
     }
   ],
-  "santa fe": [],
+  "santa fe": [
+    "chulavista",
+    "lomas del mirador",
+    "villa fontana aqua",
+    "cantaros",
+    "los agaves"
+  ],
   "nuevo santa maria": [
     {
       "colonia": "el refugio tlaquepaque",
@@ -18227,7 +18384,13 @@
       "menciones": 1
     }
   ],
-  "haciendas de chapala": [],
+  "haciendas de chapala": [
+    "vista del lago",
+    "brisas de chapala",
+    "chapala centro",
+    "san antonio tlayacapan",
+    "ajijic"
+  ],
   "cuitzeo": [
     {
       "colonia": "Mezcala",
@@ -18346,7 +18509,13 @@
       "menciones": 1
     }
   ],
-  "mazamitla": [],
+  "mazamitla": [
+    "tapalpa",
+    "san sebastián del oeste",
+    "tequila centro",
+    "concepción de buenos aires",
+    "atemajac de brizuela"
+  ],
   "zona indutrial": [
     {
       "colonia": "Colon Industrial",
@@ -19965,54 +20134,6 @@
     {
       "colonia": "francisco villa",
       "menciones": 1
-    }
-  ],
-  "chapalita las fuentes": [
-    {
-      "colonia": "residencial plaza guadalupe",
-      "menciones": 5
-    },
-    {
-      "colonia": "la primavera",
-      "menciones": 4
-    },
-    {
-      "colonia": "chapalita",
-      "menciones": 3
-    },
-    {
-      "colonia": "pinar de la venta",
-      "menciones": 2
-    }
-  ],
-  "12122": [
-    {
-      "colonia": "Rinconadas del Sol",
-      "menciones": 5
-    },
-    {
-      "colonia": "Valle de Tlajomulco",
-      "menciones": 5
-    },
-    {
-      "colonia": "Hacienda de los Eucaliptos",
-      "menciones": 4
-    },
-    {
-      "colonia": "Jardines de Tlajomulco",
-      "menciones": 4
-    },
-    {
-      "colonia": "Santa Fe",
-      "menciones": 3
-    },
-    {
-      "colonia": "Galaxia la Noria",
-      "menciones": 3
-    },
-    {
-      "colonia": "La Castilleja II",
-      "menciones": 2
     }
   ]
 }
