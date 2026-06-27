@@ -719,7 +719,9 @@ def fetch_html_playwright(url: str, portal: str) -> Optional[str]:
 
     try:
         with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True, args=extra_args)
+            _pw_proxy = {"server": config.PROXY_URL} if config.PROXY_URL else None
+            browser = p.chromium.launch(headless=True, args=extra_args,
+                                        **( {"proxy": _pw_proxy} if _pw_proxy else {}))
             ctx = browser.new_context(
                 user_agent=ua,
                 viewport=viewport,
@@ -1007,6 +1009,8 @@ def enriquecer_tab(sheets: SheetsClient, tab_name: str, max_filas: int, dry_run:
         return {"tab": tab_name, "pendientes": len(pendientes), "enriquecidas": 0, "errores": 0}
 
     session = requests.Session()
+    if config.PROXY_URL:
+        session.proxies.update({"http": config.PROXY_URL, "https": config.PROXY_URL})
     enriquecidas = 0
     errores = 0
 
@@ -1177,6 +1181,8 @@ def enriquecer_mongo(col, portal: str, max_filas: int, dry_run: bool,
         return {"tab": portal, "pendientes": len(pendientes), "enriquecidas": 0, "errores": 0}
 
     session = requests.Session()
+    if config.PROXY_URL:
+        session.proxies.update({"http": config.PROXY_URL, "https": config.PROXY_URL})
     enriquecidas = errores = 0
 
     for idx, prop in enumerate(pendientes, 1):
