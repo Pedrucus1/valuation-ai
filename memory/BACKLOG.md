@@ -206,6 +206,8 @@
 | N1 | ✅ | **Plan de Negocio 2026** — `memory/PLAN_NEGOCIO.md` creado. Pivot SaaS inmobiliarias, cascada descuentos, DocuProp, portal. |
 | N2 | ✅ | **Análisis de negocio completo** — `memory/ANALISIS_NEGOCIO_COMPLETO.md`: TAM/SAM/SOM Jalisco, P&L 3 años, unit economics, GTM, legal, equipo. |
 | N8 | ✅ | **Análisis competencia avalúos** — Tabla comparativa YALS/Monopolio/Romina/AvaClick con precios reales verificados. |
+| N11 | ✅ | **Análisis Nexti** — CRM inmobiliario con módulo de avalúos. $499/mes ilimitados. Homologación 0.80-1.20, PDF con UID, cita NMX-R-081 implícita. Para agentes: certificaciones CONOCER (EC0110.02/EC0903.01), curso gratis, respaldo de perito, entrega automática por correo. Diferenciador PropValu: comparables automáticos del mercado real vs captura manual; rigor técnico vs ecosistema generalista. |
+| N12 | ✅ | **NMX-R-081-SCFI-2015 revisada** — Motor PropValu alineado con principios: enfoque mercado (Romina ≥3 comps) + costo (Suma de Partes INDAABIN). Frase segura: "metodología alineada con los principios de la NMX-R-081-SCFI-2015". |
 | N3 | ⏳ | **Constituir SAPI de CV** — Prerequisito para cobrar con Stripe. Notario + RFC + cuenta bancaria empresarial. |
 | N4 | ⏳ | **Integrar Stripe** — Cobro real de suscripciones. Prerequisito: SAPI constituida. |
 | N5 | ⏳ | **10 pilotos gratuitos** — Validar product-market fit antes de gastar en marketing. |
