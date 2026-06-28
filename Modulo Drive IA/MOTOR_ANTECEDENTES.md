@@ -12,6 +12,10 @@
 > 3. NO tocar un archivo que ya tiene múltiples sesiones de verificación sin leer ANTECEDENTES primero
 > 4. Un OPI problemático NO implica que todo lo demás esté mal — verificar con el validador completo
 > 5. Guardar conclusiones aquí EN TIEMPO REAL, no al final de sesión
+> 6. **SET DE VALIDACIÓN OFICIAL = solo 2025 y 2026** — los casos 2023-2024 se EXCLUYEN porque la
+>    diferencia de valores a lo largo del tiempo los hace incomparables con el mercado actual. El
+>    validador debe correrse con `--desde 2025-01` como mínimo. NO reportar scores con casos 2023-2024
+>    como si fueran el benchmark real — son histórico descartado.
 
 ---
 
