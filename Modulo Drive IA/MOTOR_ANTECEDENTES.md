@@ -161,6 +161,7 @@ también tendría ~4,710, no 22,983. → **Ninguna regla de dedup reproduce el s
 | Sheets (baseline calibrado) | 22,983 | 71.6/83.9/92.9 |
 | Mongo dedup `colonia\|area` | 32,632 | ~21 fuera ±20% (regresa) |
 | Mongo + dedup `municipio\|m2c` | 4,710 | demasiado pocos comps |
+| Mongo + filtro `es_duplicado_secundario≠true` (27-Jun-2026) | 37,153 | **Revertido sin validar** — más comps que el intento anterior, se esperaba igual o peor regresión per histórico. Baseline restaurado desde backup bak_20260603_135647. |
 
 **CONCLUSIÓN FIRME:** el motor está calibrado contra un **snapshot específico de Sheets**, no contra
 "datos limpios" en abstracto. Migrar el motor a Mongo **NO es un problema de dedup — requiere

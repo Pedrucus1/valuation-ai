@@ -56,7 +56,8 @@ def main():
 
     raw = []
     anio_now = datetime.now().year
-    for r in col.find({}, proj):
+    filtro = {"es_duplicado_secundario": {"$ne": True}}
+    for r in col.find(filtro, proj):
         activo = str(r.get("activo", "")).lower()
         if activo in ("false", "0"):
             continue
@@ -109,7 +110,7 @@ def main():
             d["m2c"] = 0
             corregidos += 1
     if corregidos:
-        print(f"Corrección terreno c→t: {corregidos:,}")
+        print(f"Correccion terreno c->t: {corregidos:,}")
 
     # Dedup por contenido (idéntico a la versión Sheets): colonia|area|pKey
     seen = set()
