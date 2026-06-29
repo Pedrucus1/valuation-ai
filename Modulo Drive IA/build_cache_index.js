@@ -111,6 +111,12 @@ for (const d of CACHE) {
 
     if (!muni) { skipped++; continue; }
 
+    // Colonia inválida: vacía, demasiado larga (descripción/dirección), o contiene frases de anuncio
+    const coloniaInvalida = !col || col.length > 45
+        || /\b(venta|renta|sale|for rent|oportunidad|inversion|departamento|bodega|oficina|local)\b/.test(col)
+        || /\b(downtown|center|centre|av |calle |blvd |carretera )\b/.test(col);
+    if (coloniaInvalida) { skipped++; continue; }
+
     if (!idx[muni])        idx[muni] = {};
     if (!idx[muni][tipo])  idx[muni][tipo] = {};
     if (!idx[muni][tipo][col]) idx[muni][tipo][col] = [];

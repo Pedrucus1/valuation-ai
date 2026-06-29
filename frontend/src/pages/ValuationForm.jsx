@@ -829,6 +829,16 @@ const ValuationForm = () => {
   const handleSubmit = async () => {
     if (!validateStep(currentStep)) return;
 
+    if (formData.land_regime === "EJIDAL" || formData.property_type === "Uso mixto") {
+      toast.error(
+        formData.land_regime === "EJIDAL"
+          ? "Las propiedades ejidales requieren revisión por perito certificado — el motor automático no puede valuarlas."
+          : "Las propiedades de uso mixto requieren revisión por perito certificado — el motor automático no puede valuarlas.",
+        { duration: 6000 }
+      );
+      return;
+    }
+
     setIsLoading(true);
     const submitStart = Date.now();
     // Mínimo de tiempo que el popup de ads debe mostrarse (45-60s aleatorio)
@@ -1322,6 +1332,20 @@ const ValuationForm = () => {
                         <span className="font-semibold">Importante:</span> Las propiedades de uso mixto <span className="font-semibold">no pueden adquirirse mediante crédito hipotecario</span> (INFONAVIT, FOVISSSTE, crédito bancario hipotecario), ya que estos instrumentos están destinados exclusivamente a vivienda. La transacción deberá realizarse con recursos propios, crédito comercial o financiamiento alternativo.
                       </p>
                     </div>
+
+                    {/* Bloque duro: requiere perito */}
+                    <div className="p-3 bg-red-50 border border-red-300 rounded-lg space-y-1">
+                      <p className="text-xs font-semibold text-red-800">
+                        ⚠️ Este tipo de propiedad no puede valuarse de forma automática.
+                      </p>
+                      <p className="text-xs text-red-700">
+                        El motor de valuación está calibrado para uso habitacional puro. Una propiedad mixta
+                        requiere la evaluación individual de cada componente por un perito certificado.
+                      </p>
+                      <a href="/valuadores" className="inline-block text-xs font-semibold text-red-700 underline underline-offset-2 hover:text-red-900">
+                        Ver directorio de peritos certificados →
+                      </a>
+                    </div>
                   </div>
                 )}
               </div>
@@ -1446,11 +1470,17 @@ const ValuationForm = () => {
               </div>
 
               {formData.land_regime === "EJIDAL" && (
-                <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-                  <p className="text-sm text-amber-800">
-                    <strong>Nota:</strong> Los inmuebles con régimen {formData.land_regime.toLowerCase()}{" "}
-                    tienen restricciones legales y menor liquidez.
+                <div className="bg-red-50 border border-red-300 rounded-lg p-4 space-y-2">
+                  <p className="text-sm text-red-800 font-semibold">
+                    ⚠️ Las propiedades ejidales no pueden valuarse de forma automática.
                   </p>
+                  <p className="text-xs text-red-700">
+                    Este tipo de inmueble requiere revisión por un perito valuador certificado debido a sus
+                    restricciones legales, trámites de regularización y condiciones de mercado particulares.
+                  </p>
+                  <a href="/valuadores" className="inline-block text-xs font-semibold text-red-700 underline underline-offset-2 hover:text-red-900">
+                    Ver directorio de peritos certificados →
+                  </a>
                 </div>
               )}
             </div>

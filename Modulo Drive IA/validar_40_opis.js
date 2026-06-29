@@ -10,6 +10,9 @@ const { valuarPropiedadCompleto, normTipo } = require('./motor_remi_api');
 const args  = process.argv.slice(2);
 const N     = parseInt(args[args.indexOf('--n') !== -1 ? args.indexOf('--n') + 1 : -1] || 40);
 const SKIP  = parseInt(args[args.indexOf('--skip') !== -1 ? args.indexOf('--skip') + 1 : -1] || 0);
+// --folios OPI-25-6-04-LM,OPI-25-9-01-OF  → solo esos folios
+const FOLIOS_RAW = args[args.indexOf('--folios') !== -1 ? args.indexOf('--folios') + 1 : -1] || null;
+const FOLIOS_SET = FOLIOS_RAW ? new Set(FOLIOS_RAW.split(',').map(s => s.trim())) : null;
 // --desde YYYY-MM filtra OPIs desde ese mes (ej: --desde 2025-07 = solo H2 2025 + 2026)
 const DESDE_RAW = args[args.indexOf('--desde') !== -1 ? args.indexOf('--desde') + 1 : -1] || null;
 const DESDE_ANIO = DESDE_RAW ? parseInt(DESDE_RAW.split('-')[0]) : 0;
@@ -68,7 +71,12 @@ const CASOS_ESPECIALES = {
     'OPI-25-3-04-AV':   { cat: 'EXCLUIR',        razon: 'Del Sur GDL 65.3m²C: borderline micro-propiedad. Perito valúa $19.6k/m²C (17% bajo NSE $23.7k). Motor refleja mercado correctamente; perito aplicó factores de micro-ubicación no capturables.' },
     'OPI-25-3-23-AV':   { cat: 'EXCLUIR',        razon: 'colonia="Zapopan" (nombre del municipio) Y 45m²C micro-propiedad. Doble exclusión: sin colonia real + rango sin comps representativos.' },
     'OPI-26-1-10-OF':   { cat: 'EXCLUIR',        razon: 'Minerales El Salto: zona industrial/minera sin mercado residencial comparable en portales. suma_partes inflado por pm2T municipal.' },
+    'OPI-26-1-19-OF':   { cat: 'EXCLUIR',        razon: 'CASA HABITACIÓN CON LOCAL: uso mixto residencial+comercial, 649m²T (ratio 3:1). Perito valuó con comps comerciales (terrenos near Central Camionera, uso suelo alto impacto). Motor solo capta componente residencial → -54%. Limitación estructural: propiedades mixtas deben ir a revisión de perito.' },
     'OPI-25-10-02-OF':  { cat: 'EXCLUIR',        razon: 'San José del Quince Tonalá: zona periférica sin cobertura en scraper. suma_partes con pm2T municipal no representativo.' },
+    'OPI-26-4-12-AV':   { cat: 'EXCLUIR',        razon: 'IDX "El Paraíso" Tlajomulco contaminado: 5 listings a mediana $27.5k/m²C (fraccionamiento premium) vs comps reales del perito $10.8-13.8k/m²C. Múltiples "El Paraíso" en Tlajomulco mezclados en una sola celda IDX. +83.4% por datos IDX no representativos del sujeto.' },
+    // ── Junio 2026 ────────────────────────────────────────────────────────────────
+    'OPI-26-6-12-OF':   { cat: 'EXCLUIR',        razon: 'San Isidro Mazatepec Tlajomulco: pueblo rural/campestre. Motor usa comps urbanos de Tlajomulco → +153%. Tipo campestre sin mercado digital comparable.' },
+    'OPI-26-6-10-AV':   { cat: 'EXCLUIR',        razon: 'colonia="Zapopan" (nombre del municipio, no colonia real). Motor usa pool general Zapopan premium → +72.5% en depto 42m²C.' },
 };
 
 function parsePesos(s) {
@@ -119,6 +127,7 @@ const M2C_ATIPICA = 300;
 
 const candidatos = cerebro.filter(o =>
     TIPOS_RESIDENCIAL.some(t => (o.tipo||'').toUpperCase().startsWith(t.slice(0,10)))
+    && !(o.tipo||'').toUpperCase().includes('EJIDAL')
     && MUNIS_AMG.has(normSimple(o.municipio))
     && parsePesos(o.valorMercado) > 0
     && parsePesos(o.m2Construccion) > 0
@@ -126,7 +135,9 @@ const candidatos = cerebro.filter(o =>
     && folioReciente(o.folio || o.fileName || '')
 );
 
-const muestra = candidatos.slice(SKIP, SKIP + N);
+const muestra = FOLIOS_SET
+    ? candidatos.filter(o => FOLIOS_SET.has(o.folio))
+    : candidatos.slice(SKIP, SKIP + N);
 console.log(`\n=== VALIDACIÓN remi vs PERITO — OPIs ${SKIP+1}–${SKIP+muestra.length} de ${candidatos.length} candidatos ===\n`);
 
 // Ajuste temporal: índice precio acumulado GDL vs IDX-2026

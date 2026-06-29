@@ -618,9 +618,9 @@ const PM2T_MAX_PLAUSIBLE = 25000;
 const COMP_CAP = 15;
 const COMP_CAP_GENERAL = 10;
 
-function sumaDePartes(muniNorm, colNorm, m2T, m2C, edad, conservacion, esEjidal = false) {
-    // Buscar pm2T en IDX de terrenos: colonia exacta (n≥3) → zona padre → mediana municipal
-    let pm2t = 0, nTerrenos = 0;
+function sumaDePartes(muniNorm, colNorm, m2T, m2C, edad, conservacion, esEjidal = false, pm2tOverride = 0) {
+    // Buscar pm2T en IDX de terrenos: colonia exacta (n≥3) → zona padre → similares residencial → municipal
+    let pm2t = pm2tOverride || 0, nTerrenos = pm2tOverride ? 1 : 0;
     const terrenosMuni = IDX[muniNorm]?.['terreno'] ?? {};
 
     // 1. Colonia exacta con n≥3 (n<3 es demasiado volátil para anclar sumaDePartes)
@@ -641,7 +641,29 @@ function sumaDePartes(muniNorm, colNorm, m2T, m2C, edad, conservacion, esEjidal 
         if (match) { pm2t = match[1].medianaPm2c; nTerrenos = match[1].count; }
     }
 
-    // 3. Mediana municipal filtrada por pm2T plausible
+    // 3. Colonias similares: pm2T residual de casas — solo cuando terreno domina (ratio>2)
+    const ratioCheck = m2C > 0 ? m2T / m2C : 0;
+    if (!pm2t && colNorm && ratioCheck > 2) {
+        const simCols = getSimilares(colNorm, muniNorm).map(s => normCol(s.colonia));
+        const casasMuni = IDX[muniNorm]?.['casa'] ?? {};
+        const pm2tsSim = [];
+        for (const sim of simCols) {
+            const cell = casasMuni[sim];
+            if (!cell || !cell.listings) continue;
+            for (const l of cell.listings) {
+                if (!l.m2t || l.m2t < 50 || !l.m2c || l.m2c < 30 || !l.precio) continue;
+                const costoConst = 12000 * 1.20 * l.m2c * 0.85; // media NSE, dep ~15%
+                const residual = (l.precio - costoConst) / l.m2t;
+                if (residual > 500 && residual <= PM2T_MAX_PLAUSIBLE) pm2tsSim.push(residual);
+            }
+        }
+        if (pm2tsSim.length >= 3) {
+            pm2t = Math.round(mediana(pm2tsSim));
+            nTerrenos = pm2tsSim.length;
+        }
+    }
+
+    // 4. Mediana municipal de terrenos (fallback amplio)
     if (!pm2t) {
         const pm2ts = Object.values(terrenosMuni)
             .filter(d => d.count >= 3 && d.medianaPm2c > 100 && d.medianaPm2c <= PM2T_MAX_PLAUSIBLE)
@@ -686,7 +708,8 @@ function valuarPropiedad(prop) {
     const tieneLocal = /con local/i.test(prop.tipoRaw || prop.tipo || '');
     const factorComercial = tieneLocal ? 1.15 : 1.00;
 
-    // Suma de Partes: terreno domina (ratio > 4) y la colonia no es vaga
+    // ── Routing Y: ratio > 4 → Motor 2 directo (terreno domina fuertemente) ──
+    // ratio ≤ 4 → Motor 1 primero; suma_partes como fallback post-Motor-1
     const ratioTerr = m2C > 0 && m2T > 0 ? m2T / m2C : 0;
     if (ratioTerr > 4 && m2T > 200) {
         const sp = sumaDePartes(muniNorm, colNorm, m2T, m2C, prop.edad || 0, prop.estadoConservacion, prop.esEjidal || false);
@@ -958,6 +981,35 @@ async function valuarPropiedadCompleto(prop) {
 
     // pm2c de referencia para orientar a Gemini en el rango correcto de precios
     const idxPm2c = result.medPm2Zona || IDX[muniNormFb]?.[tipoFb]?.[colNormFb]?.medianaPm2c || 0;
+
+    // ── Suma de Partes vía web: ratio > 2.5 pero sin pm2T en IDX ni similares ──
+    // Busca terrenos en Google para estimar pm2T, luego corre sumaDePartes con ese valor.
+    const ratioTerrWeb = (prop.terreno || 0) / Math.max(prop.construccion || 1, 1);
+    const necesitaSumaPartesWeb = ratioTerrWeb > 2.5
+        && (prop.terreno || 0) > 200
+        && !['suma_partes', 'suma_partes_mix'].includes(result.poolTipo)
+        && !!process.env.SERPER_API_KEY;
+
+    if (necesitaSumaPartesWeb) {
+        const propTerreno = { ...prop, tipo: 'terreno', tipoRaw: 'terreno en venta' };
+        const compsTerreno = await buscarCompsConWeb(propTerreno, simFb);
+        acumularComps(compsTerreno, prop, 'suma_partes_web');
+        const pm2tVals = compsTerreno
+            .filter(c => c.m2t > 50 && c.precio > 0)
+            .map(c => c.precio / c.m2t)
+            .filter(v => v > 500 && v <= PM2T_MAX_PLAUSIBLE);
+        if (pm2tVals.length >= 2) {
+            const pm2tWeb = Math.round(mediana(pm2tVals));
+            const spWeb = sumaDePartes(muniNormFb, colNormFb, prop.terreno, m2C,
+                                       edad, conserv, prop.esEjidal || false, pm2tWeb);
+            if (spWeb && spWeb.valor > 0) {
+                delete result._comps;
+                return { ...spWeb, poolTipo: 'suma_partes_web', confianza: 'MEDIA',
+                         pm2cAvg: Math.round(spWeb.valor / Math.max(m2C, 1)),
+                         cv: 0, geminiComps: compsTerreno };
+            }
+        }
+    }
 
     // ── Modo COMPLEMENTO: caché tiene pocos comps → Serper (Google) agrega los faltantes ──
     const COMPS_MIN = 8;
