@@ -5,8 +5,25 @@ Convierte strings crudos del HTML a tipos limpios y consistentes.
 
 import re
 import hashlib
+import json
+import os
 from datetime import datetime
 from typing import Optional
+
+# Catálogo de colonias conocidas (SEPOMEX/INEGI) — cargado lazy al primer uso
+_COLONIAS_CATALOGO: list[str] | None = None
+
+def _cargar_catalogo() -> list[str]:
+    global _COLONIAS_CATALOGO
+    if _COLONIAS_CATALOGO is not None:
+        return _COLONIAS_CATALOGO
+    ruta = os.path.join(os.path.dirname(__file__), "colonias_catalogo.json")
+    if os.path.exists(ruta):
+        with open(ruta, encoding="utf-8") as f:
+            _COLONIAS_CATALOGO = json.load(f)
+    else:
+        _COLONIAS_CATALOGO = []
+    return _COLONIAS_CATALOGO
 
 
 # ─────────────────────────────────────────
@@ -146,13 +163,55 @@ def limpiar_titulo(texto: Optional[str]) -> str:
 # Ubicación
 # ─────────────────────────────────────────
 
+def _extraer_colonia_de_basura(texto: str) -> str:
+    """
+    Intenta rescatar el nombre de colonia de un string largo/sucio.
+    Estrategia 1: patrón explícito "Col. NOMBRE" / "Colonia NOMBRE".
+    Estrategia 2: substring match contra catálogo SEPOMEX (más largo gana).
+    """
+    # Patrón explícito — el más confiable
+    m = re.search(r"\b(?:col\.|colonia)\s+([A-Za-záéíóúÁÉÍÓÚüÜñÑ][A-Za-záéíóúÁÉÍÓÚüÜñÑ\s\d\-\.]{2,44}?)(?=\s*[,\.\d#]|$)", texto, re.I)
+    if m:
+        candidato = m.group(1).strip().rstrip(".,")
+        if 3 <= len(candidato) <= 45:
+            return candidato
+
+    # Catálogo INEGI — buscar la colonia conocida más larga que aparezca en el texto
+    texto_lower = texto.lower()
+    mejor = ""
+    for col in _cargar_catalogo():
+        if len(col) > len(mejor) and col in texto_lower:
+            mejor = col
+    if mejor:
+        # Capitalizar correctamente (el catálogo está en minúsculas)
+        return mejor.title()
+
+    return ""
+
+
 def limpiar_colonia(texto: Optional[str]) -> str:
-    """Limpia el nombre de la colonia."""
+    """Limpia el nombre de la colonia. Si el texto es largo/sucio, intenta rescatar la colonia real."""
     if not texto:
         return ""
-    # Eliminar prefijos comunes
-    texto = re.sub(r"^(col\.?|colonia|fracc\.?|fraccionamiento)\s*", "", texto.strip(), flags=re.IGNORECASE)
-    return limpiar_texto(texto, max_chars=100)
+    # Strip prefijos solo con punto o espacio explícito — col. / colonia / fracc. / fraccionamiento
+    texto = re.sub(r"^(col\.|colonia|fracc\.|fraccionamiento)\s*", "", texto.strip(), flags=re.IGNORECASE)
+    texto = limpiar_texto(texto, max_chars=200)
+
+    invalido = (
+        len(texto) > 45
+        or re.search(r"\b(en\s+venta|en\s+renta|for\s+sale|for\s+rent|oportunidad|inversion)\b", texto, re.I)
+        or re.search(r"^(venta|renta|sale|casa\s+en)\b", texto, re.I)
+        or re.search(r"\b(bodega|terreno|departamento|local|warehouse|apartment|house\s+for)\b", texto, re.I)
+        or re.search(r"\b(downtown|center|centre)\b", texto, re.I)
+        or re.search(r"\b(av\.|calle\s|blvd\.|carretera\s|km\s)\b", texto, re.I)
+        or re.search(r"\d{4,}", texto)
+        or re.search(r"\b(jalisco|jal\.|mexico|méxico)\b", texto, re.I)
+    )
+    if invalido:
+        # Intentar rescatar la colonia real del texto sucio
+        rescatada = _extraer_colonia_de_basura(texto)
+        return rescatada
+    return texto
 
 
 # ─────────────────────────────────────────

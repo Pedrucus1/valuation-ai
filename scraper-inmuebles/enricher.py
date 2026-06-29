@@ -98,6 +98,15 @@ DELAYS_PORTAL = {
 }
 DELAYS_DEFAULT = (4.0, 10.0, 20, 30, 60)
 
+_RE_COLONIA_BASURA = re.compile(
+    r".{46,}|jalisco|jal\.|san pedro|col\. |#\d|int\. |\d{4,}|"
+    r"\b(en\s+venta|en\s+renta|casa\s+en|venta\s+de)\b",
+    re.I
+)
+
+def _colonia_es_basura(col: str) -> bool:
+    return bool(col and _RE_COLONIA_BASURA.search(col))
+
 
 def aplicar_delay_portal(portal_real: str, idx: int, log) -> None:
     """Aplica el delay entre props + la pausa larga periódica, calibrados por portal."""
@@ -261,6 +270,10 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
                     resultado["colonia"] = str(inner["colony"]).strip()[:120]
                 if inner.get("city"):
                     resultado["municipio"] = str(inner["city"]).strip()[:120]
+                # Precio: real_price es numérico directo; price es string "$X MXN"
+                real_price = inner.get("real_price")
+                if real_price and float(real_price) > 0:
+                    resultado["precio"] = float(real_price)
                 size_ground = amenities.get("size_ground")
                 if size_ground and float(size_ground) > 0:
                     resultado["m2_terreno"] = float(size_ground)
@@ -559,6 +572,32 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
     if ano_const is not None:
         resultado["año_construccion"] = ano_const
 
+    # ── PINCALI: colonia desde página de detalle ─────────────────────────────
+    # La tarjeta del scraper guarda el título como colonia. La página de detalle
+    # expone "li Neighborhood [COLONIA]" y el breadcrumb "... > Zapopan > [COLONIA]".
+    if portal == "PINCALI":
+        pincali_col = None
+        # 1. li que contiene "Neighborhood" — texto directo tras el label
+        for li in soup.select("li"):
+            txt = li.get_text(separator=" ", strip=True)
+            m = re.match(r"Neighborhood\s+(.+)", txt, re.I)
+            if m:
+                candidato = m.group(1).strip()
+                if 3 <= len(candidato) <= 60:
+                    pincali_col = candidato
+                    break
+        # 2. Breadcrumb fallback — último nodo (no es el municipio)
+        if not pincali_col:
+            crumbs = soup.select('nav a, [class*="breadcrumb"] a, [class*="crumb"] a')
+            if len(crumbs) >= 2:
+                last = crumbs[-1].get_text(strip=True)
+                # Validar: no es "Jalisco", no es el municipio, no contiene "for sale/rent"
+                if (3 <= len(last) <= 60
+                        and not re.search(r'jalisco|for sale|for rent|en venta|en renta', last, re.I)):
+                    pincali_col = last
+        if pincali_col:
+            resultado["colonia"] = pincali_col
+
     # ── nombre_agente ────────────────────────────────────────────────────────
     nombre_agente = None
 
@@ -830,6 +869,7 @@ def fetch_html_cdp(url: str) -> Optional[str]:
         result = subprocess.run(
             ["node", str(cdp_js), url, cdp_port],
             capture_output=True, text=True, encoding="utf-8", timeout=50,
+            creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),  # sin ventana de consola en Windows
         )
         html = result.stdout
         return html if len(html) > 5000 else None
@@ -848,7 +888,8 @@ def fetch_html_node(url: str) -> Optional[str]:
     os.close(fd)
     try:
         r = subprocess.run(["node", str(js), url, tmp],
-                           capture_output=True, text=True, encoding="utf-8", timeout=60)
+                           capture_output=True, text=True, encoding="utf-8", timeout=60,
+                           creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))  # sin ventana en Windows
         # El HTML se escribe (sync) ANTES del exit de Node; un assertion de libuv al salir no
         # invalida el archivo → leerlo primero y validar por tamaño, no por returncode.
         try:
@@ -1116,7 +1157,15 @@ def obtener_props_mongo(col, portal: str, max_filas: int, urls_procesadas: set,
     falta = {"$or": [{"anio_construccion": {"$exists": False}},
                      {"anio_construccion": None},
                      {"colonia": {"$in": [None, ""]}},
-                     {"m2_construccion": {"$in": [None, ""]}}]}
+                     {"m2_construccion": {"$in": [None, ""]}},
+                     # PCOM: precio=0 significa que el scraper no lo capturó — re-intentar
+                     {"precio": {"$in": [0, 0.0]}},
+                     # PINCALI: scraper guardó título como colonia — re-extraer siempre
+                     {"portal_origen": "PINCALI"},
+                     # PCOM/VIVANUNCIOS: colonia con basura (dirección larga) — re-extraer
+                     {"portal_origen": {"$in": ["PROPIEDADES_COM", "VIVANUNCIOS"]},
+                      "colonia": {"$regex": r".{46,}|jalisco|jal\.|san pedro|col\. |#\d|int\. |\d{4}",
+                                  "$options": "i"}}]}
     # No re-fetchear props ya intentadas recientemente: si la página se descargó y
     # no traía el dato, volver a bajarla cada corrida es puro desperdicio. La marca
     # enrich_last_attempt se escribe en cada intento (parallel-safe, a diferencia
@@ -1158,8 +1207,12 @@ def obtener_props_mongo(col, portal: str, max_filas: int, urls_procesadas: set,
             "falta_estac":         not d.get("estacionamientos"),
             "falta_telefono":      not d.get("telefono"),
             "falta_inmobiliaria":  not d.get("inmobiliaria"),
-            "falta_colonia":       not d.get("colonia"),
+            # PINCALI/PCOM/VIVANUNCIOS: forzar re-extracción si colonia es basura
+            "falta_colonia":       not d.get("colonia") or portal == "PINCALI"
+                                   or (portal in ("PROPIEDADES_COM", "VIVANUNCIOS")
+                                       and _colonia_es_basura(d.get("colonia", ""))),
             "falta_municipio":     not d.get("municipio"),
+            "falta_precio":        not d.get("precio") or d.get("precio") == 0,
         })
         if len(pendientes) >= max_filas:
             break
@@ -1264,6 +1317,10 @@ def enriquecer_mongo(col, portal: str, max_filas: int, dry_run: bool,
         if prop.get("falta_municipio") and datos.get("municipio"):
             set_doc["municipio"] = datos["municipio"]
             actualizados.append("muni")
+        if prop.get("falta_precio") and datos.get("precio") and float(datos["precio"]) > 0:
+            set_doc["precio"] = float(datos["precio"])
+            set_doc["precio_m2"] = ""  # se recalcula en el motor; limpiar el 0 anterior
+            actualizados.append(f"precio={datos['precio']}")
         if "email_agente" in datos:
             set_doc.setdefault("email_agente", datos["email_agente"])
 

@@ -111,10 +111,14 @@ for (const d of CACHE) {
 
     if (!muni) { skipped++; continue; }
 
-    // Colonia inválida: vacía, demasiado larga (descripción/dirección), o contiene frases de anuncio
+    // Colonia inválida: vacía, larga, o contiene frases operacionales
+    // NOTA: "La Venta del Astillero" y "Pinar de la Venta" son colonias REALES → no rechazar "venta" en medio
     const coloniaInvalida = !col || col.length > 45
-        || /\b(venta|renta|sale|for rent|oportunidad|inversion|departamento|bodega|oficina|local)\b/.test(col)
-        || /\b(downtown|center|centre|av |calle |blvd |carretera )\b/.test(col);
+        || /\b(en venta|en renta|for sale|for rent|oportunidad|inversion)\b/i.test(col)
+        || /^(venta|renta|sale)\b/i.test(col)
+        || /\b(departamento|bodega|oficina|local|warehouse|apartment)\b/i.test(col)
+        || /\b(downtown|center|centre|av |calle |blvd |carretera )\b/i.test(col)
+        || /\d{4,}/.test(col);
     if (coloniaInvalida) { skipped++; continue; }
 
     if (!idx[muni])        idx[muni] = {};
