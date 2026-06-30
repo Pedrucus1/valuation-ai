@@ -52,9 +52,10 @@ function normMuni(s) {
     return s.toString().toLowerCase()
         .normalize('NFD').replace(/[̀-ͯ]/g, '')
         .replace(/[^a-z\s]/g, '').replace(/\s+/g, ' ').trim()
-        .replace(/^san pedro /, 'tlaquepaque')  // "san pedro tlaquepaque" → "tlaquepaque"
+        .replace(/san pedro tlaquepaque/, 'tlaquepaque')  // nombre oficial (antes duplicaba → "tlaquepaquetlaquepaque")
         .replace(/tlajomulco de zuniga/, 'tlajomulco')
-        .replace(/tlajomulco de zúñiga/, 'tlajomulco');
+        .replace(/tlajomulco de zúñiga/, 'tlajomulco')
+        .replace(/(\b\w+)\1\b/, '$1');  // colapsa nombre duplicado por el bug previo
 }
 
 // ── AMG municipios de interés ─────────────────────────────────────────────────
@@ -139,7 +140,9 @@ for (const d of _verificados) {
     const col = colRaw === muni ? muni + ' centro' : colRaw;
     if (!muni || !col) continue;
     const cell = idx[muni]?.[tipo]?.[col];
-    if (cell && cell.length >= PUENTE_GATE) continue;  // bien cubierta → no tocar
+    // Comps del perito (flywheel) = venta vetada → SIEMPRE sumar (no aplica el gate).
+    // Comps web (asking) = solo rellenan celdas pobres (<PUENTE_GATE) para no distorsionar.
+    if (d.fuente !== 'perito_flywheel' && cell && cell.length >= PUENTE_GATE) continue;
     if (!idx[muni])       idx[muni] = {};
     if (!idx[muni][tipo]) idx[muni][tipo] = {};
     if (!idx[muni][tipo][col]) idx[muni][tipo][col] = [];
@@ -261,6 +264,21 @@ console.log(`  Municipios : ${meta.municipios}`);
 console.log(`  Colonias   : ${meta.totalColonias.toLocaleString()}`);
 console.log(`  Listings   : ${meta.totalListings.toLocaleString()} (${skipped} sin precio/m²C omitidos)`);
 console.log(`  Tamaño     : ${sizeMB} MB`);
+
+// Validador de municipios: reporta municipios del cache que NO están en el catálogo oficial
+// (cp_coords.json = SEPOMEX Jalisco). Caza phantom (colonias mal puestas como municipio) y doblados.
+// NO filtra — solo reporta (hay datos legítimos de otros estados: CDMX, Nayarit, Edomex).
+try {
+    const cpCoords = JSON.parse(fs.readFileSync(path.join(__dirname, '_geo', 'cp_coords.json'), 'utf8'));
+    const validos = new Set(Object.values(cpCoords).map(v => normMuni(v.municipio || '')).filter(Boolean));
+    const phantom = Object.keys(idx).filter(m => !validos.has(normMuni(m)))
+        .map(m => [m, Object.values(idx[m]).reduce((s, t) => s + Object.values(t).reduce((a, c) => a + (c.count || 0), 0), 0)])
+        .sort((a, b) => b[1] - a[1]);
+    if (phantom.length) {
+        console.log(`\n  ⚠ Municipios fuera del catálogo Jalisco (${phantom.length}) — phantom o de otros estados:`);
+        phantom.slice(0, 12).forEach(([m, n]) => console.log(`     ${m}: ${n} listings`));
+    }
+} catch (e) { /* sin catálogo → no se reporta */ }
 console.log(`\nUso en scripts:`);
 console.log(`  const IDX = require('./cache_index.json');`);
 console.log(`  const casasZapopan = IDX['zapopan']?.['casa'] ?? {};`);

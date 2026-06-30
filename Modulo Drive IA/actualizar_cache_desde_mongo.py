@@ -137,7 +137,10 @@ def main():
         "con_anio": con_an,
     }
     OUT.write_text(json.dumps({"meta": meta, "datos": compacto}), encoding="utf-8")
-    print(f"cache_consolidado.json: {len(compacto):,} comps (con año: {con_an:,}) ← MongoDB")
+    import sys as _sys
+    try: _sys.stdout.reconfigure(encoding="utf-8")
+    except Exception: pass
+    print(f"cache_consolidado.json: {len(compacto):,} comps (con anio: {con_an:,}) <- MongoDB")
 
 
 if __name__ == "__main__":

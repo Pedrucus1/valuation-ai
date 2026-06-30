@@ -1,0 +1,21 @@
+archivo        CUSconsSuj        manualProm  zona  ubic  cons  acab  otro
+opi_522       0.30REGULAR             0.950  1.00  1.00  1.00  1.00  0.95
+opi_26-5-16   0.30REGULAR             0.930  0.99  1.05  0.96  0.98  0.95
+opi_perito    0.30REGULAR             0.930  0.99  1.05  0.96  0.98  0.95
+opi_259-02    0.44REGULAR             0.867  1.00  1.00  0.95  0.96  0.95
+opi_257-14    0.65BUENO               0.865  1.00  1.00  0.99  0.92  0.95
+opi_264-14    0.67REGULAR             0.787  0.90  1.00  0.92  1.00  0.95
+opi_2511-07   0.81REMODELADO          1.036  0.98  1.00  1.04  1.07  0.95
+opi_264-01    0.99BUENO               0.892  0.97  1.04  0.96  0.97  0.95
+opi_266-18    1.28REMODELADO          0.773  1.00  0.98  0.91  0.91  0.95
+opi_2512-02   1.29BUENO               0.989  1.06  0.98  1.00  1.00  0.95
+opi_264-17    1.36REGULAR             0.893  1.00  1.00  0.94  1.00  0.95
+opi_613       1.72BUENO               1.036  1.04  1.00  1.04  1.01  0.95
+opi_264-15    1.85BUENO               0.970  1.00  1.04  1.00  0.98  0.95
+
+Factor MANUAL promedio: 0.917  min 0.773  max 1.036  stdev 0.079
+
+Factor manual por estado de conservacion del sujeto:
+  BUENO                    n=5 manual_prom=0.950
+  REGULAR                  n=6 manual_prom=0.893
+  REMODELADO               n=2 manual_prom=0.904

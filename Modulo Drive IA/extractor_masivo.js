@@ -4,6 +4,22 @@ const path = require('path');
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
+// INEGI/SEPOMEX: catálogo de colonias reales — red de seguridad para no dejar basura en la base.
+const _sepomex = (() => {
+    try { return new Set(Object.keys(JSON.parse(fs.readFileSync(path.join(__dirname, 'sepomex_v2.json'), 'utf8')))
+        .map(k => k.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').trim())); }
+    catch { return new Set(); }
+})();
+function _normCat(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim(); }
+// Rechaza texto que es descripción/características, no una colonia (idea: validar contra INEGI).
+function coloniaEsBasura(c) {
+    const n = _normCat(c);
+    if (n.length < 4) return true;
+    if (/\b(cochera|recamar|recamara|bano|banos|cocina|sala|comedor|planta|patio|nivel|terraza|estudio|habitacion|completo|servicio|frente)\b/.test(n)) return true;
+    if (/\d{3,}/.test(n)) return true;
+    return false;  // (membresía en _sepomex es señal positiva extra, pero no se exige: hay colonias válidas fuera del catálogo)
+}
+
 // Timeout wrapper — evita que llamadas de red cuelguen para siempre
 function withTimeout(promise, ms, label) {
     return Promise.race([
@@ -550,27 +566,51 @@ function extraerColoniaDeURL(url) {
 
 function extractComparables(mercadoData) {
     const comparables = [];
-    if (!mercadoData || mercadoData.length < 5) return [];
+    if (!mercadoData || mercadoData.length < 4) return [];
 
-    for (let i = 3; i < mercadoData.length; i++) {
+    // Detecta el índice de columna por la ETIQUETA del encabezado (robusto a los ≥3 layouts
+    // distintos que el perito usó a lo largo de los años — NO hardcodear números de columna).
+    // BUG previo: leía colonia de la col 6 (COMENT/características) → 96% basura. La colonia
+    // real está en la columna rotulada "Colonia" (índice E en el layout actual).
+    const idxDe = (headerRow, ...labels) => {
+        for (let c = 0; c < headerRow.length; c++) {
+            const h = String(headerRow[c] || '').toLowerCase().trim();
+            if (h && labels.some(l => h.includes(l))) return c;
+        }
+        return -1;
+    };
+
+    let map = null;  // mapping del encabezado vigente (hay bloques: comps de venta + estudio residual de terrenos)
+    for (let i = 0; i < mercadoData.length; i++) {
         const row = mercadoData[i];
         if (!row) continue;
+        const lower = row.map(x => String(x || '').toLowerCase());
 
-        // precio (col J = índice 9) debe ser número > 10,000
-        const precioRaw = String(row[9] || '').replace(/[^0-9.-]/g, '');
-        const precio = parseFloat(precioRaw);
+        // ¿Fila de encabezado? contiene "colonia" Y "precio" → re-mapear columnas para el bloque siguiente
+        if (lower.some(h => h.includes('colonia')) && lower.some(h => h.includes('precio'))) {
+            map = {
+                col:  idxDe(row, 'colonia'),
+                terr: idxDe(row, 'terreno'),
+                cons: idxDe(row, 'const'),
+                prec: idxDe(row, 'precio'),
+                link: idxDe(row, 'link'),
+            };
+            continue;
+        }
+        if (!map || map.prec < 0) continue;
+
+        const precio = parseFloat(String(row[map.prec] || '').replace(/[^0-9.-]/g, ''));
         if (!precio || precio < 10000) continue;
 
-        const terreno     = parseFloat(String(row[7] || '').replace(/[^0-9.-]/g, '')) || 0;
-        const construccion = parseFloat(String(row[8] || '').replace(/[^0-9.-]/g, '')) || 0;
-        const link        = String(row[13] || '').trim();
+        const terreno      = map.terr >= 0 ? parseFloat(String(row[map.terr] || '').replace(/[^0-9.-]/g, '')) || 0 : 0;
+        const construccion = map.cons >= 0 ? parseFloat(String(row[map.cons] || '').replace(/[^0-9.-]/g, '')) || 0 : 0;
+        const link         = map.link >= 0 ? String(row[map.link] || '').trim() : '';
 
-        // Colonia: intentar columna G (índice 6), luego URL
-        const coloniaCol = String(row[6] || '').trim()
-            .replace(/^col\.?\s*/i, '').replace(/^fracc\.?\s*/i, '');
-        const colonia = (coloniaCol.length > 3 && !/^\d/.test(coloniaCol))
-            ? coloniaCol
-            : extraerColoniaDeURL(link);
+        // Colonia desde la columna "Colonia" detectada. En valuaciones por TERRENO el comp no
+        // trae construcción pero SÍ trae colonia en esta misma columna (por eso antes salían en blanco).
+        let colonia = map.col >= 0 ? String(row[map.col] || '').trim()
+            .replace(/^col\.?\s*/i, '').replace(/^fracc\.?\s*/i, '') : '';
+        if (!(colonia.length > 3 && !/^\d/.test(colonia))) colonia = extraerColoniaDeURL(link);
 
         comparables.push({ terreno, construccion, precio, colonia, link });
     }

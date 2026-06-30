@@ -223,9 +223,10 @@ function normMuni(s) {
     return s.toString().toLowerCase()
         .normalize('NFD').replace(/[̀-ͯ]/g, '')
         .replace(/[^a-z\s]/g, '').replace(/\s+/g, ' ').trim()
-        .replace(/^san pedro /, 'tlaquepaque')
+        .replace(/san pedro tlaquepaque/, 'tlaquepaque')  // nombre oficial de Tlaquepaque (antes duplicaba → "tlaquepaquetlaquepaque")
         .replace(/tlajomulco de zuniga/, 'tlajomulco')
-        .replace(/tlajomulco de z.niga/, 'tlajomulco');
+        .replace(/tlajomulco de z.niga/, 'tlajomulco')
+        .replace(/(\b\w+)\1\b/, '$1');  // colapsa nombre duplicado por bugs previos (xx→x)
 }
 
 const TIPO_SINONIMOS = {
@@ -698,6 +699,49 @@ function sumaDePartes(muniNorm, colNorm, m2T, m2C, edad, conservacion, esEjidal 
 
 // ── motor principal ───────────────────────────────────────────────────────────
 
+// ── Gate LOTE GRANDE (CUS<0.40): homologación CUS del perito ──────────────────
+// Casa chica en lote grande: el flujo m²C subvalúa (ignora el terreno de más). Se valúa
+// homologando comps por superficie/CUS + valor de suelo (semilla pm2T). VÍA APARTE — no toca
+// el flujo normal (CUS≥0.40), 0 riesgo de regresión. Validado: OPI-26-5-16 −1.3% (Remi daba −52%).
+const PM2T_SEMILLA = (() => { try { return JSON.parse(fs.readFileSync(path.join(__dirname, 'pm2t_semilla.json'), 'utf8')).zonas || {}; } catch { return {}; } })();
+const CAL_CONSERV_LG = { bueno: 0.95, regular_bueno: 0.92, regular_medio: 0.89, regular: 0.89, regular_bajo: 0.86, malo: 0.82, remodelado: 0.90, remodelada: 0.90 };
+function pm2tSemilla(muniNorm, colNorm, sims) {
+    if (PM2T_SEMILLA[`${muniNorm}|${colNorm}`]) return PM2T_SEMILLA[`${muniNorm}|${colNorm}`].pm2T;
+    for (const s of (sims || [])) if (PM2T_SEMILLA[`${muniNorm}|${s}`]) return PM2T_SEMILLA[`${muniNorm}|${s}`].pm2T;
+    return 0;
+}
+function valuarLoteGrandeCUS(prop, muniNorm, colNorm, tipo, m2C, m2T) {
+    const cusSuj = m2C / m2T;
+    const sims = getSimilares(colNorm, muniNorm).slice(0, 6).map(x => normCol(x.colonia));
+    const todos = listingsEnMuni(muniNorm, tipo).filter(d => d.m2t > 0 && d.m2c > 0 && d.precio > 0);
+    const esCol = d => { const dc = normCol(d.colonia); return dc && dc.length >= 4 && (dc.includes(colNorm) || colNorm.includes(dc)); };
+    const esSim = d => { const dc = normCol(d.colonia); return dc && dc.length >= 4 && sims.some(s => s.length >= 4 && (dc.includes(s) || s.includes(dc))); };
+    // Priorizar colonia EXACTA (como el perito); ampliar a similares solo si hay <3.
+    const exact = todos.filter(esCol);
+    const casa  = exact.length >= 3 ? exact : [...exact, ...todos.filter(esSim)];
+    if (casa.length < 3) return null;
+    const pm2T = pm2tSemilla(muniNorm, colNorm, sims);
+    if (!pm2T) return null;  // sin valor de suelo confiable → caer al flujo normal
+    const K = 0.8;  // descuento del terreno excedente (rendimiento decreciente del lote grande)
+    const pus = casa.slice(0, 15).map(d => {
+        const cusC = d.m2c / d.m2t;
+        const pu = d.precio / d.m2c + K * pm2T * (1 / cusSuj - 1 / cusC);
+        return pu * Math.pow(cusSuj / cusC, 1 / 6) * Math.pow(m2T / d.m2t, 1 / 6);
+    });
+    const puAvg = pus.reduce((a, b) => a + b, 0) / pus.length;
+    const cal = CAL_CONSERV_LG[(prop.estadoConservacion || '').toLowerCase()] || 0.89;
+    let valor = puAvg * m2C * cal;
+    // Tope sobre el valor TOTAL, anclado al nivel de la colonia EN SU MUNICIPIO. El cache (IDX)
+    // está indexado por muni→tipo→colonia → SIN colisión de nombres (Nueva Santa María Tlaquepaque
+    // ≠ Guadalajara). Fallback al NSE por nombre solo si la colonia no tiene celda en el cache.
+    const cellTope = IDX[muniNorm]?.[tipo]?.[colNorm];
+    const techoPm2 = (cellTope && cellTope.medianaPm2c > 0) ? cellTope.medianaPm2c : (getNSE(colNorm, tipo)?.medianaPm2 || 0);
+    if (techoPm2 > 0) valor = Math.min(valor, techoPm2 * 1.30 * m2C);
+    if (!(valor > 0)) return null;
+    return { valor: Math.round(valor), confianza: casa.length >= 5 ? 'MEDIA' : 'BAJA', cv: 0,
+             nComps: casa.length, poolTipo: 'lote_grande_cus', pm2cAvg: Math.round(valor / Math.max(m2C, 1)) };
+}
+
 function valuarPropiedad(prop) {
     const muniNorm = normMuni(prop.municipio || '');
     const colNorm  = normCol(prop.colonia || '');
@@ -716,6 +760,13 @@ function valuarPropiedad(prop) {
         if (sp && sp.valor > 0) return { ...sp, confianza: 'MEDIA', cv: 0, pm2cAvg: Math.round(sp.valor / Math.max(m2C, 1)) };
     }
 
+    // Gate LOTE GRANDE: CUS<0.40 (ratioTerr>2.5) → homologación CUS si hay comps + semilla pm2T.
+    // Si no hay datos, retorna null y sigue el flujo normal (no empeora nada).
+    if (ratioTerr > 2.5 && m2C >= 40 && m2T > 0) {
+        const lg = valuarLoteGrandeCUS(prop, muniNorm, colNorm, tipo, m2C, m2T);
+        if (lg) return lg;
+    }
+
     // Suma de Partes alternativa: colonia sin datos exactos en scraper + terreno disponible
     // Se activa DESPUÉS de correr el motor (ver abajo) — marcador para post-proceso
 
@@ -727,7 +778,17 @@ function valuarPropiedad(prop) {
     const colNormEfectivo = (coloniaEsVaga && colNorm) ? colNorm + ' centro' : colNorm;
 
     // NSE — pasa tipo del sujeto para que idx_valoracion use la entrada correcta
-    const nseSubjeto = getNSE(colNormEfectivo, tipo);
+    let nseSubjeto = getNSE(colNormEfectivo, tipo);
+    // Anti-colisión de nombres: si el NSE hallado es de OTRO municipio (misma colonia, distinto
+    // lugar — ej. Nueva Santa María Guadalajara vs Tlaquepaque), usar el nivel de la colonia EN SU
+    // municipio (cache, indexado por muni → sin colisión). Solo afecta colonias colisionadas.
+    const _maeMuni = _maestro && _maestro[colNormEfectivo] && _maestro[colNormEfectivo].municipio;
+    if (nseSubjeto && _maeMuni && normMuni(_maeMuni) !== muniNorm) {
+        const cellSuj = IDX[muniNorm]?.[tipo]?.[colNorm];
+        nseSubjeto = (cellSuj && cellSuj.medianaPm2c > 0)
+            ? { ...nseSubjeto, medianaPm2: cellSuj.medianaPm2c, fuente: 'cache-muni' }
+            : null;  // sin dato muni-correcto → no aplicar el tope de otra zona
+    }
     const similaresBrutos = getSimilares(colNorm, muniNorm).slice(0, 8).map(x => normCol(x.colonia));
     const similares = nseSubjeto
         ? similaresBrutos.filter(s => {

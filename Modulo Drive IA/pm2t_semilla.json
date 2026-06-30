@@ -1,0 +1,2584 @@
+{
+ "_meta": {
+  "fecha": "2026-06-30",
+  "total_colonias": 515,
+  "fuente": "cerebro terreno comps + AC108 hojas perito"
+ },
+ "zonas": {
+  "zapopan|lomas de tabachines": {
+   "pm2T": 6662,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|villas belenes": {
+   "pm2T": 10000,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|colon industrial": {
+   "pm2T": 10663,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|mariano otero": {
+   "pm2T": 10000,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "bahia de banderas|cruz de huanacaxtle": {
+   "pm2T": 17989,
+   "n": 10,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|colinas de cajititlan": {
+   "pm2T": 2200,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|san isidro ejidal": {
+   "pm2T": 14683,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|santa maria guadalajara": {
+   "pm2T": 8802,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|cantera colorada": {
+   "pm2T": 2900,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|paraiso": {
+   "pm2T": 2707,
+   "n": 14,
+   "fuente": "perito_terreno_comps"
+  },
+  "el salto|minerales": {
+   "pm2T": 2857,
+   "n": 28,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|el campanario": {
+   "pm2T": 8519,
+   "n": 16,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|tabachines": {
+   "pm2T": 9207,
+   "n": 8,
+   "fuente": "perito_terreno_comps"
+  },
+  "la manzanilla de la paz|la manzanilla de la paz": {
+   "pm2T": 3200,
+   "n": 11,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|zapopan": {
+   "pm2T": 9405,
+   "n": 31,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|jardines de vallarta": {
+   "pm2T": 26505,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|tlajomulco": {
+   "pm2T": 3258,
+   "n": 14,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|vista sur": {
+   "pm2T": 5532,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "mazamitla|la lagunita mazamitla": {
+   "pm2T": 3000,
+   "n": 1,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|el verde": {
+   "pm2T": 2720,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|jardines de la esperanza": {
+   "pm2T": 9386,
+   "n": 10,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|colinas de santa anita": {
+   "pm2T": 6156,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|altagracia": {
+   "pm2T": 14683,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|jardines de san jose": {
+   "pm2T": 11379,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|hacienda santa fe": {
+   "pm2T": 3882,
+   "n": 17,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|el mirador juan arias": {
+   "pm2T": 7641,
+   "n": 10,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|balcones de santa anita": {
+   "pm2T": 6375,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|colli urbano": {
+   "pm2T": 13938,
+   "n": 11,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|la guadalupana": {
+   "pm2T": 12075,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|francisco sarabia": {
+   "pm2T": 7914,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|camino real": {
+   "pm2T": 25000,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|paseo los agaves": {
+   "pm2T": 3139,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|echeverria": {
+   "pm2T": 8241,
+   "n": 14,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|tonala": {
+   "pm2T": 3939,
+   "n": 10,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|santa margarita": {
+   "pm2T": 12290,
+   "n": 10,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|lomas del batan": {
+   "pm2T": 9493,
+   "n": 9,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|paseos del prado": {
+   "pm2T": 3000,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|parques de la victoria tonala": {
+   "pm2T": 3506,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "puerto vallarta|jardines ixtapa": {
+   "pm2T": 3500,
+   "n": 9,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|buenos aires": {
+   "pm2T": 10265,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|el cerrito": {
+   "pm2T": 2483,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "el salto|el castillo": {
+   "pm2T": 4051,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|12122": {
+   "pm2T": 3507,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|paseo del prado": {
+   "pm2T": 2816,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|las agujas": {
+   "pm2T": 5006,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|j de guadalupe": {
+   "pm2T": 20033,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|el campanario tonala": {
+   "pm2T": 5000,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|el bethel": {
+   "pm2T": 5612,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|las conchas": {
+   "pm2T": 14059,
+   "n": 10,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|arenales tapatios": {
+   "pm2T": 7813,
+   "n": 8,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|santa isabel": {
+   "pm2T": 7584,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|cajititlan": {
+   "pm2T": 2757,
+   "n": 11,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|hogares de nuevo mexico": {
+   "pm2T": 5516,
+   "n": 25,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|san francisco": {
+   "pm2T": 5401,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|san rafael": {
+   "pm2T": 10852,
+   "n": 12,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|col valle de san nicolas": {
+   "pm2T": 5128,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|vista hermosa": {
+   "pm2T": 4127,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|bosques del boulevard": {
+   "pm2T": 8986,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|villa guerrero": {
+   "pm2T": 11379,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|parques deo auditorio": {
+   "pm2T": 6869,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|parques del auditorio": {
+   "pm2T": 6869,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|lagos de oriente": {
+   "pm2T": 9415,
+   "n": 16,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|san antonio": {
+   "pm2T": 2245,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|jardines de la providencia": {
+   "pm2T": 4484,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|lomas del paradero": {
+   "pm2T": 13297,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|mision del bosque": {
+   "pm2T": 12542,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|cd aztlan": {
+   "pm2T": 2900,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|chapalita las fuentes": {
+   "pm2T": 17800,
+   "n": 5,
+   "fuente": "perito_AC108"
+  },
+  "guadalajara|el fortin": {
+   "pm2T": 10889,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|colinas del rey": {
+   "pm2T": 12337,
+   "n": 8,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|rancho nuevo": {
+   "pm2T": 7754,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|auditorio": {
+   "pm2T": 6343,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|campo real": {
+   "pm2T": 11364,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|balcones de oblatos": {
+   "pm2T": 8598,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|villas de la hacienda": {
+   "pm2T": 3125,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|el batan": {
+   "pm2T": 8683,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "tepatitlan|agua caliente": {
+   "pm2T": 2074,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|san elias": {
+   "pm2T": 10500,
+   "n": 6,
+   "fuente": "perito_AC108"
+  },
+  "zapotlanejo|bella vista": {
+   "pm2T": 5267,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|oblatos": {
+   "pm2T": 8598,
+   "n": 11,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|canadas de san lorenzo": {
+   "pm2T": 12174,
+   "n": 15,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|tinajitas": {
+   "pm2T": 4362,
+   "n": 8,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|20 de noviembre tonala": {
+   "pm2T": 5341,
+   "n": 14,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|vicente guerrero": {
+   "pm2T": 6022,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|miravalle": {
+   "pm2T": 5957,
+   "n": 38,
+   "fuente": "perito_terreno_comps"
+  },
+  "bahia de banderas|las jarretaderas": {
+   "pm2T": 8104,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|atotojilquillo": {
+   "pm2T": 3789,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|san rafael tlaquepaque": {
+   "pm2T": 10463,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "tala|la estancia": {
+   "pm2T": 6276,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|miguel de la madrid": {
+   "pm2T": 12104,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|parques del castillo": {
+   "pm2T": 2000,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|puerta del roble": {
+   "pm2T": 27026,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|san jose del quince": {
+   "pm2T": 3471,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|jardines de los belenes": {
+   "pm2T": 5273,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "puerto vallarta|calvario": {
+   "pm2T": 6897,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|naturezza": {
+   "pm2T": 11179,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|san francisco de la soledad": {
+   "pm2T": 2000,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|monumental": {
+   "pm2T": 12250,
+   "n": 14,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|analco": {
+   "pm2T": 11017,
+   "n": 12,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|centro": {
+   "pm2T": 20021,
+   "n": 44,
+   "fuente": "perito_terreno_comps"
+  },
+  "ixtlahuacan de los membrillos|valle de los olivos ixtlahuacan delosmembrillos": {
+   "pm2T": 1509,
+   "n": 1,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|centro guadalajara": {
+   "pm2T": 9946,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "el salto|baja california las pintitas": {
+   "pm2T": 5438,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|cond 2 altaterra": {
+   "pm2T": 10893,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|lomas de tesistan": {
+   "pm2T": 2745,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "puerto vallarta|las juntas": {
+   "pm2T": 5440,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|vinatera": {
+   "pm2T": 2556,
+   "n": 8,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|san isidro": {
+   "pm2T": 11785,
+   "n": 13,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|san andres": {
+   "pm2T": 10754,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|heliodoro hernandez loza": {
+   "pm2T": 6900,
+   "n": 5,
+   "fuente": "perito_AC108"
+  },
+  "zapopan|emiliano zapata": {
+   "pm2T": 4300,
+   "n": 13,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|real valdepenas": {
+   "pm2T": 17441,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|santa teresita": {
+   "pm2T": 18398,
+   "n": 9,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|guadalajara": {
+   "pm2T": 10333,
+   "n": 13,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|villas de zapopan": {
+   "pm2T": 17800,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|mariano otero": {
+   "pm2T": 10536,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|nueva santa maria": {
+   "pm2T": 5430,
+   "n": 10,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|la periquera": {
+   "pm2T": 5600,
+   "n": 8,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|vista california": {
+   "pm2T": 2000,
+   "n": 1,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|jardines del vergel": {
+   "pm2T": 11785,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|nuevo mexico": {
+   "pm2T": 6160,
+   "n": 12,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|haciendas del valle": {
+   "pm2T": 12542,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|lazaro cardenas": {
+   "pm2T": 7521,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|colonial tlaquepaque": {
+   "pm2T": 8989,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|villas de zapotepec": {
+   "pm2T": 2505,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|lomas de la primavera": {
+   "pm2T": 5837,
+   "n": 15,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|zalatitan": {
+   "pm2T": 6900,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|la paz": {
+   "pm2T": 13000,
+   "n": 3,
+   "fuente": "perito_AC108"
+  },
+  "zapopan|pinar de la calma": {
+   "pm2T": 17551,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|las grullas": {
+   "pm2T": 12656,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|las fuentes": {
+   "pm2T": 18720,
+   "n": 15,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|tlaquepaque": {
+   "pm2T": 2752,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|jardines de guadalupe": {
+   "pm2T": 20000,
+   "n": 9,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|tololotlan puente grande": {
+   "pm2T": 1900,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|insurgentes": {
+   "pm2T": 10439,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|cd del sol": {
+   "pm2T": 20909,
+   "n": 8,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|loma bonita ejidal": {
+   "pm2T": 12500,
+   "n": 15,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|torre 9": {
+   "pm2T": 8000,
+   "n": 1,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|haciendas de san jose": {
+   "pm2T": 6000,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "bahia de banderas|sayulita": {
+   "pm2T": 5528,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|la calma": {
+   "pm2T": 17831,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|santa cruz de las flores": {
+   "pm2T": 3646,
+   "n": 8,
+   "fuente": "perito_terreno_comps"
+  },
+  "poncitlan|el zapote": {
+   "pm2T": 2500,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|ladron de guevara": {
+   "pm2T": 27022,
+   "n": 1,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|rancho el centinela": {
+   "pm2T": 11719,
+   "n": 16,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|jardines del bosque": {
+   "pm2T": 18137,
+   "n": 26,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|victoria": {
+   "pm2T": 21077,
+   "n": 12,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|los olivos ii": {
+   "pm2T": 7707,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|colomos providencia": {
+   "pm2T": 28723,
+   "n": 9,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|prados de santa maria": {
+   "pm2T": 6000,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|rinconada del sol": {
+   "pm2T": 23750,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|aldama tetlan": {
+   "pm2T": 10439,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "el salto|club de golf atlas": {
+   "pm2T": 6497,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|morelos": {
+   "pm2T": 13364,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|jardines de la cruz": {
+   "pm2T": 11914,
+   "n": 8,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|chapalita sur": {
+   "pm2T": 23750,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|el campanario": {
+   "pm2T": 8409,
+   "n": 18,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|industrial zapopan norte": {
+   "pm2T": 8901,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|vista reina": {
+   "pm2T": 3750,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|arcos de zapopan": {
+   "pm2T": 13792,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|el parque": {
+   "pm2T": 6200,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|valle de san nicolas": {
+   "pm2T": 5128,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "acatlan de juarez|acatlan de juarez": {
+   "pm2T": 3175,
+   "n": 11,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|jardines alcalde": {
+   "pm2T": 19091,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|artesanos tlaquepaque": {
+   "pm2T": 5517,
+   "n": 10,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|col del fresno": {
+   "pm2T": 13364,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|arboledas": {
+   "pm2T": 14423,
+   "n": 17,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|lomas del camichin": {
+   "pm2T": 7624,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|san carlos": {
+   "pm2T": 9804,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|real del valle": {
+   "pm2T": 7111,
+   "n": 24,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|alta california": {
+   "pm2T": 3886,
+   "n": 8,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|hacienda del sur francisco villa": {
+   "pm2T": 12337,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|alcalde barranquitas": {
+   "pm2T": 10955,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|lomas altos": {
+   "pm2T": 7834,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|agujas": {
+   "pm2T": 4763,
+   "n": 8,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|condominio ignis": {
+   "pm2T": 6043,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|moctezuma": {
+   "pm2T": 19000,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|santa rosa": {
+   "pm2T": 2193,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|el colli": {
+   "pm2T": 17559,
+   "n": 8,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|colinas del roble": {
+   "pm2T": 2245,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|santa anita": {
+   "pm2T": 6747,
+   "n": 20,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|ahujas": {
+   "pm2T": 3490,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|paseos del sol": {
+   "pm2T": 13000,
+   "n": 15,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|la mojonera": {
+   "pm2T": 22703,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|la loma": {
+   "pm2T": 11135,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|arroyo las flores": {
+   "pm2T": 7450,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|la esperanza": {
+   "pm2T": 11737,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|postes cuates": {
+   "pm2T": 7419,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|la experiencia": {
+   "pm2T": 6263,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|jalisco i seccion": {
+   "pm2T": 5314,
+   "n": 16,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|jardines del valle": {
+   "pm2T": 10081,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|el refugio": {
+   "pm2T": 3763,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|del sur": {
+   "pm2T": 15147,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|alamo industrial": {
+   "pm2T": 9662,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|lomas de santa anita": {
+   "pm2T": 4452,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|el refugio": {
+   "pm2T": 6037,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|centro tonala": {
+   "pm2T": 7000,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|parques de tesistan": {
+   "pm2T": 5831,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|lomas de la victoria": {
+   "pm2T": 9908,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|imperio inca": {
+   "pm2T": 12464,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|santa margarita 1 seccion": {
+   "pm2T": 8051,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|santa cruz de la loma": {
+   "pm2T": 1976,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|constitucion": {
+   "pm2T": 8873,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|lomas del gallo": {
+   "pm2T": 8654,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "puerto vallarta|playon de mismaloya": {
+   "pm2T": 2045,
+   "n": 1,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|educacion jalisciense": {
+   "pm2T": 5143,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "el salto|las pintas": {
+   "pm2T": 2683,
+   "n": 8,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|san juan de dios": {
+   "pm2T": 12525,
+   "n": 10,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|americana": {
+   "pm2T": 21562,
+   "n": 14,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|la gloria del colli": {
+   "pm2T": 9992,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|guadalupe ejidal": {
+   "pm2T": 6000,
+   "n": 9,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|5 de mayo": {
+   "pm2T": 11111,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|lomas del centinela": {
+   "pm2T": 5229,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|villa hermosa": {
+   "pm2T": 11111,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|tlaquepaque centro": {
+   "pm2T": 11051,
+   "n": 35,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|de santiago": {
+   "pm2T": 9913,
+   "n": 10,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|las bovedas": {
+   "pm2T": 11275,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|el cortijo san agustin": {
+   "pm2T": 6043,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|valle del mar": {
+   "pm2T": 11151,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|lomas de san agustin": {
+   "pm2T": 4771,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|parques de la victoria": {
+   "pm2T": 2315,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|francisco villa": {
+   "pm2T": 12337,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|el moral": {
+   "pm2T": 2652,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|lomas de polanco": {
+   "pm2T": 7914,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|los olivos": {
+   "pm2T": 3550,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|la venta del astillero": {
+   "pm2T": 2577,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|valle esmeralda": {
+   "pm2T": 23265,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|jardines de la paz": {
+   "pm2T": 7834,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "jocotepec|senderos del lago 4ta seccion": {
+   "pm2T": 3000,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|paraisos del colli": {
+   "pm2T": 9659,
+   "n": 13,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|la ladrillera": {
+   "pm2T": 6742,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|colinas de las aguilas": {
+   "pm2T": 11454,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|las aguilas": {
+   "pm2T": 15860,
+   "n": 8,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|lomas de la soledad": {
+   "pm2T": 5314,
+   "n": 13,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|cerro de la reyna": {
+   "pm2T": 3589,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "chapala|haciendas de chapala": {
+   "pm2T": 2447,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|paseos de la hacienda": {
+   "pm2T": 2188,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "puerto vallarta|5 de diciembre": {
+   "pm2T": 14111,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|fabrica de atemajac": {
+   "pm2T": 9206,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|loma bonita ejidal": {
+   "pm2T": 20000,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|real vallarta": {
+   "pm2T": 19627,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|pinar de las palomas": {
+   "pm2T": 5150,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|atlas": {
+   "pm2T": 11414,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "poncitlan|cuitzeo": {
+   "pm2T": 5217,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "ocotlan|centro": {
+   "pm2T": 2625,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|valle de coyula": {
+   "pm2T": 5556,
+   "n": 11,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|jardines de los poetas": {
+   "pm2T": 7654,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|infonavit condor": {
+   "pm2T": 2700,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|villas de oriente i": {
+   "pm2T": 8512,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|solares": {
+   "pm2T": 21111,
+   "n": 9,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|zapote del valle": {
+   "pm2T": 2043,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "el salto|el ranchito": {
+   "pm2T": 1800,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|albaterra": {
+   "pm2T": 2803,
+   "n": 1,
+   "fuente": "perito_terreno_comps"
+  },
+  "cihuatlan|barra de navidad": {
+   "pm2T": 2000,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|colinas de la cruz": {
+   "pm2T": 3503,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "el salto|infonavit condor": {
+   "pm2T": 3500,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|san jose del quince": {
+   "pm2T": 2244,
+   "n": 9,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|lomas de san eugenio": {
+   "pm2T": 7419,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapotlanejo|zapotlanejo": {
+   "pm2T": 4826,
+   "n": 8,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|vistas del nilo": {
+   "pm2T": 8512,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "el salto|las pintas el salto": {
+   "pm2T": 2752,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|segunda seccion zona industrial": {
+   "pm2T": 10026,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "poncitlan|san jacinto": {
+   "pm2T": 2417,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|prados providencia": {
+   "pm2T": 26321,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|condominio jardines del vergel": {
+   "pm2T": 7213,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "puerto vallarta|campo verde": {
+   "pm2T": 5500,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|villa fontana": {
+   "pm2T": 4552,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|la alameda": {
+   "pm2T": 3500,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|sta margarita": {
+   "pm2T": 8051,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|el vergel": {
+   "pm2T": 5460,
+   "n": 11,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|del fresno": {
+   "pm2T": 11886,
+   "n": 18,
+   "fuente": "perito_terreno_comps"
+  },
+  "mazamitla|el pandito": {
+   "pm2T": 1812,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|las pintas de arriba": {
+   "pm2T": 6615,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|vistas del valle": {
+   "pm2T": 3589,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|seattle": {
+   "pm2T": 21000,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|lomas de zapopan": {
+   "pm2T": 13494,
+   "n": 8,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|artesanos": {
+   "pm2T": 11932,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|agua fria": {
+   "pm2T": 4545,
+   "n": 9,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|miramar": {
+   "pm2T": 7822,
+   "n": 9,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|parques de tesistan iii": {
+   "pm2T": 5509,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|valle de los molinos": {
+   "pm2T": 2803,
+   "n": 1,
+   "fuente": "perito_terreno_comps"
+  },
+  "ixtlahuacan de los membrillos|ixtlahuacan de los membrillos": {
+   "pm2T": 1529,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|la granja": {
+   "pm2T": 6896,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|zona centro": {
+   "pm2T": 16601,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "el salto|el salto": {
+   "pm2T": 3500,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|insurgentes guadalajara": {
+   "pm2T": 10500,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|ninos heroes": {
+   "pm2T": 11932,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "el salto|col la huizachera el salto jalisco": {
+   "pm2T": 2752,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|zona indutrial": {
+   "pm2T": 11807,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "mazamitla|el tabardillo": {
+   "pm2T": 2000,
+   "n": 1,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|el fortin": {
+   "pm2T": 5970,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|margarita maza de juarez": {
+   "pm2T": 8571,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|santa maria": {
+   "pm2T": 7419,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|coloniacotoarrezo": {
+   "pm2T": 10768,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|san martin": {
+   "pm2T": 8802,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|lomas del paraiso ii": {
+   "pm2T": 5838,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|zona industrial": {
+   "pm2T": 10026,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|sta rita": {
+   "pm2T": 20510,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|col mirador de san isidro": {
+   "pm2T": 14589,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|mezquitan": {
+   "pm2T": 11932,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|juan manuel vallarta": {
+   "pm2T": 25000,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|entre rosa navarro y ejido col lomas de revolucion": {
+   "pm2T": 10348,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|providencia": {
+   "pm2T": 26321,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|granja": {
+   "pm2T": 17595,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|los cerritos": {
+   "pm2T": 2508,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|marcelino garcia barragan": {
+   "pm2T": 7055,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|lomas del bosque": {
+   "pm2T": 17000,
+   "n": 1,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|vallarta la patria": {
+   "pm2T": 18768,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "la barca|la barca": {
+   "pm2T": 2533,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "la barca|lomas de san luis": {
+   "pm2T": 2933,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|san jose": {
+   "pm2T": 5235,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "el plan|el plan": {
+   "pm2T": 1505,
+   "n": 1,
+   "fuente": "perito_terreno_comps"
+  },
+  "zacoalco de torres|de los camichines": {
+   "pm2T": 2809,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|villafontana": {
+   "pm2T": 4552,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|27 de septiembre": {
+   "pm2T": 10127,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|arcos sur": {
+   "pm2T": 19091,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|las alamedas": {
+   "pm2T": 13000,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|los puestos": {
+   "pm2T": 2000,
+   "n": 20,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|salvador portillo lopez": {
+   "pm2T": 3203,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|bosque real": {
+   "pm2T": 11948,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|juan manuel vallarta": {
+   "pm2T": 21394,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|los cajetes": {
+   "pm2T": 7450,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|nueva espana": {
+   "pm2T": 5000,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|santos degollado": {
+   "pm2T": 9810,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|tonla centro": {
+   "pm2T": 5312,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "bahia de banderas|flamingos": {
+   "pm2T": 9081,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|senderos de monte verde": {
+   "pm2T": 7159,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "tapalpa|loma bonita": {
+   "pm2T": 3002,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|el roble": {
+   "pm2T": 3824,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "lomas de polanco|lomas de polanco": {
+   "pm2T": 7235,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|agricola": {
+   "pm2T": 8492,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "vistas del nilo|vistas del nilo": {
+   "pm2T": 5307,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|francisco villa": {
+   "pm2T": 6084,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|mision capistrano zapopan": {
+   "pm2T": 5555,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|jardines del sur": {
+   "pm2T": 10714,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "ixtlahuacan de los membrillos|prados de atequiza": {
+   "pm2T": 2895,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "ixtlahuacan de los membrillos|atequiza": {
+   "pm2T": 1861,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "el salto|centro": {
+   "pm2T": 2416,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|mirador de san isidro": {
+   "pm2T": 14602,
+   "n": 9,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|san juan bosco": {
+   "pm2T": 8455,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|la penal": {
+   "pm2T": 9091,
+   "n": 13,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|santa margarita1a": {
+   "pm2T": 8051,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|talpita": {
+   "pm2T": 7386,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|villas de la alameda": {
+   "pm2T": 3500,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "jocotepec|centro": {
+   "pm2T": 2936,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|camichines": {
+   "pm2T": 6500,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|centro": {
+   "pm2T": 3193,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|paseo los agaves": {
+   "pm2T": 1977,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|olivos tlaquepaque": {
+   "pm2T": 3550,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|colinas de la normal": {
+   "pm2T": 16737,
+   "n": 12,
+   "fuente": "perito_terreno_comps"
+  },
+  "el salto|valle de la misericordia": {
+   "pm2T": 2752,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|casa fuerte la ciudadela": {
+   "pm2T": 9571,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "san luis soyatlan|la limonera": {
+   "pm2T": 2450,
+   "n": 8,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|tesistan": {
+   "pm2T": 3552,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|la palmita": {
+   "pm2T": 10891,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|chapalita oriente": {
+   "pm2T": 20385,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|la palmira": {
+   "pm2T": 7287,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|barragan hernandez": {
+   "pm2T": 12380,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|villas de la hacienda": {
+   "pm2T": 2817,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|fovissste": {
+   "pm2T": 7620,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|la coronilla": {
+   "pm2T": 3632,
+   "n": 11,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|praderas de san antonio": {
+   "pm2T": 7000,
+   "n": 9,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|lopez portillo": {
+   "pm2T": 7911,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|el amial": {
+   "pm2T": 3127,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|el manantial": {
+   "pm2T": 5957,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|miguel hidalgo": {
+   "pm2T": 4286,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "chapala|atotonilquillo": {
+   "pm2T": 2059,
+   "n": 9,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|loma dorada": {
+   "pm2T": 4300,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|san miguel de huentitan": {
+   "pm2T": 8571,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|a santa maria tequepexpan": {
+   "pm2T": 4000,
+   "n": 1,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|lomas universidad": {
+   "pm2T": 19600,
+   "n": 1,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|el mirador": {
+   "pm2T": 2859,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|cd granja": {
+   "pm2T": 17595,
+   "n": 8,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|reforma": {
+   "pm2T": 7419,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|casa fuerte la ciudadela": {
+   "pm2T": 8000,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "el salto|el verde": {
+   "pm2T": 2824,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|santa cruz del valle": {
+   "pm2T": 3200,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|lomas independencia": {
+   "pm2T": 7419,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "el salto|san jose del quince": {
+   "pm2T": 3814,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|unidad abastos": {
+   "pm2T": 15000,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|la estancia": {
+   "pm2T": 19500,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|tres reyes": {
+   "pm2T": 2786,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "chapala|ajijic": {
+   "pm2T": 6786,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|ejido copalita": {
+   "pm2T": 2498,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "puerto vallarta|la via": {
+   "pm2T": 5004,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "puerto vallarta|marina vallarta": {
+   "pm2T": 15250,
+   "n": 10,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|loma bonita ejidal": {
+   "pm2T": 12857,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|artesanos": {
+   "pm2T": 5468,
+   "n": 41,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|colinas del desarroyo": {
+   "pm2T": 2000,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|lomas del vergel": {
+   "pm2T": 5697,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|miramar zapopan": {
+   "pm2T": 10971,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|bugambilias": {
+   "pm2T": 9002,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|mirador del tesoro": {
+   "pm2T": 12857,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|moderna": {
+   "pm2T": 11944,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|chapalita": {
+   "pm2T": 22295,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|porta real": {
+   "pm2T": 21057,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|villas de san miguel": {
+   "pm2T": 1963,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|arboledas del sur": {
+   "pm2T": 7521,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|polanquito": {
+   "pm2T": 7129,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|hacienda de vidrio": {
+   "pm2T": 6754,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|paseos del briseno": {
+   "pm2T": 7376,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|alfredo barba": {
+   "pm2T": 4928,
+   "n": 9,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|arvento": {
+   "pm2T": 2444,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|hacienda real tonala": {
+   "pm2T": 4700,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|el retiro": {
+   "pm2T": 10572,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|jardines independencia": {
+   "pm2T": 10021,
+   "n": 10,
+   "fuente": "perito_terreno_comps"
+  },
+  "atizapan de zaragoza estado de mexico|mayorazgos del bosque": {
+   "pm2T": 11144,
+   "n": 10,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|constitucion zapopan": {
+   "pm2T": 11287,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|buena mirada tonala": {
+   "pm2T": 3619,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "ixtlahuacan del rio|jardines de la paz": {
+   "pm2T": 3824,
+   "n": 1,
+   "fuente": "perito_terreno_comps"
+  },
+  "bahia de banderas|deportiva": {
+   "pm2T": 9315,
+   "n": 8,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|real de valdepenas zapopan": {
+   "pm2T": 13274,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|villas guadalupe zapopan": {
+   "pm2T": 3632,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|la cima zapopan": {
+   "pm2T": 17749,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|real del sol": {
+   "pm2T": 2509,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|san isidro mazatepec": {
+   "pm2T": 1694,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|atlas chapalita": {
+   "pm2T": 20000,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|heroes de nacozari": {
+   "pm2T": 3889,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|lopez de legaspi": {
+   "pm2T": 11944,
+   "n": 9,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|alteza  nuevo mexico": {
+   "pm2T": 10778,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|san antonio": {
+   "pm2T": 10659,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|lomas del paraiso": {
+   "pm2T": 6667,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|santa elena de la cruz": {
+   "pm2T": 9564,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|sta paula tonala": {
+   "pm2T": 2284,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|junta de los ocotes": {
+   "pm2T": 3214,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|margarita masa de juarez": {
+   "pm2T": 10417,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|paseos de santiago": {
+   "pm2T": 3492,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|los altos": {
+   "pm2T": 6505,
+   "n": 10,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|plan de oriente tlaquepaque": {
+   "pm2T": 3020,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|santa cecilia": {
+   "pm2T": 11000,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|villa franca": {
+   "pm2T": 8907,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|bosques de la vicctoria": {
+   "pm2T": 21077,
+   "n": 8,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|arroyo hondo": {
+   "pm2T": 5838,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|tlajomulco centro": {
+   "pm2T": 4425,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "chapala|chapala centro": {
+   "pm2T": 7157,
+   "n": 9,
+   "fuente": "perito_terreno_comps"
+  },
+  "san juan de los lagos|la llave": {
+   "pm2T": 5462,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|18 de marzo": {
+   "pm2T": 9219,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "huejucar|jerez huejucar": {
+   "pm2T": 2440,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|colinas de san isidro": {
+   "pm2T": 12500,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|revolucion": {
+   "pm2T": 4536,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|hacienda santa cruz": {
+   "pm2T": 3239,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|el nuevo resplandor": {
+   "pm2T": 2816,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|el colliurbano": {
+   "pm2T": 12964,
+   "n": 11,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|independencia oriente": {
+   "pm2T": 9127,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|jardin real": {
+   "pm2T": 21134,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|mesa de los ocotes": {
+   "pm2T": 3632,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "el salto|san jose del castillo": {
+   "pm2T": 1992,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|jardines de la paz": {
+   "pm2T": 12308,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|mesa colorada poniente": {
+   "pm2T": 4078,
+   "n": 8,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|la arboleda": {
+   "pm2T": 7004,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|jardines del tepeyac": {
+   "pm2T": 19128,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|la romita": {
+   "pm2T": 3734,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|hacienda casa fuerte": {
+   "pm2T": 9523,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|villas deguadalupe": {
+   "pm2T": 3477,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|lomas de polanco": {
+   "pm2T": 9457,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|la giralda": {
+   "pm2T": 19875,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|camichines tonala": {
+   "pm2T": 12001,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|flores del valle": {
+   "pm2T": 12947,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|el batan": {
+   "pm2T": 11299,
+   "n": 8,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|haciendas del valle": {
+   "pm2T": 13819,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "poncitlan|tlachicilco poncitlan": {
+   "pm2T": 1852,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|nuevo vergel": {
+   "pm2T": 6064,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|la toscana": {
+   "pm2T": 27429,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|el refugio tlaquepaque": {
+   "pm2T": 4833,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|del pilar": {
+   "pm2T": 15460,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|valle de las heras": {
+   "pm2T": 5975,
+   "n": 8,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|guadalajara centro": {
+   "pm2T": 11622,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|villa fontana": {
+   "pm2T": 5625,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|cantarranas": {
+   "pm2T": 9140,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|san miguel de mezquitan": {
+   "pm2T": 14260,
+   "n": 10,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|la federacha": {
+   "pm2T": 11000,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|andador grosellos 6": {
+   "pm2T": 4167,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|villas de guadalupe": {
+   "pm2T": 3477,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|jardines los belenes": {
+   "pm2T": 6578,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "lagos de moreno|lagos de moreno": {
+   "pm2T": 3553,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|rinconadas de coyula": {
+   "pm2T": 3492,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "el salto|lomas del aeropuerto": {
+   "pm2T": 1735,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|mesa de san juan": {
+   "pm2T": 2025,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|ciudad granja": {
+   "pm2T": 16000,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|lagos del country": {
+   "pm2T": 11718,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|el paraiso": {
+   "pm2T": 10733,
+   "n": 8,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|la magdalena zapopan": {
+   "pm2T": 4659,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|paseo de los agaves": {
+   "pm2T": 2687,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|cond hacienda del lago 3": {
+   "pm2T": 7575,
+   "n": 6,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|ojo de agua": {
+   "pm2T": 7000,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "el salto|albereda": {
+   "pm2T": 2687,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|la providencia": {
+   "pm2T": 5660,
+   "n": 11,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|mezquitan country": {
+   "pm2T": 16019,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|quintas del federalismo": {
+   "pm2T": 8303,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "las juntas|las juntas": {
+   "pm2T": 9339,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "valle dorado inn|las luces": {
+   "pm2T": 3162,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|lote 12": {
+   "pm2T": 9948,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|arenales tapatios": {
+   "pm2T": 8975,
+   "n": 9,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|las liebres": {
+   "pm2T": 3058,
+   "n": 10,
+   "fuente": "perito_terreno_comps"
+  },
+  "san sebastian el grande|centro": {
+   "pm2T": 2509,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|la soledad": {
+   "pm2T": 10294,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "residencias el prado|residencias el prado": {
+   "pm2T": 2912,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|alamedas de zalatitan": {
+   "pm2T": 5158,
+   "n": 7,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|parques del nilo": {
+   "pm2T": 11458,
+   "n": 9,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|benito juarez": {
+   "pm2T": 6452,
+   "n": 8,
+   "fuente": "perito_terreno_comps"
+  },
+  "san agustin|san agustin": {
+   "pm2T": 8500,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "tesistan|tesistan": {
+   "pm2T": 5669,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "el palomar|el palomar": {
+   "pm2T": 6000,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|educadores jaliscienses": {
+   "pm2T": 5000,
+   "n": 3,
+   "fuente": "perito_AC108"
+  },
+  "tlaquepaque|jardines de santa maria": {
+   "pm2T": 5300,
+   "n": 4,
+   "fuente": "perito_AC108"
+  },
+  "tlaquepaque|parques de santa cruz del valle": {
+   "pm2T": 4524,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|el paraiso": {
+   "pm2T": 7111,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "santa cruz del valle|santa cruz del valle": {
+   "pm2T": 3536,
+   "n": 5,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|villas mirador": {
+   "pm2T": 13137,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "tonala|basilio badillo": {
+   "pm2T": 5047,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlaquepaque|nueva santa maria": {
+   "pm2T": 5800,
+   "n": 2,
+   "fuente": "perito_AC108"
+  },
+  "tlaquepaque|tateposco": {
+   "pm2T": 3900,
+   "n": 1,
+   "fuente": "perito_AC108"
+  },
+  "tlajomulco|el palomar": {
+   "pm2T": 5600,
+   "n": 1,
+   "fuente": "perito_AC108"
+  },
+  "guadalajara|colon": {
+   "pm2T": 10500,
+   "n": 1,
+   "fuente": "perito_AC108"
+  },
+  "tonala|quintas del paraiso": {
+   "pm2T": 5200,
+   "n": 1,
+   "fuente": "perito_AC108"
+  }
+ }
+}
