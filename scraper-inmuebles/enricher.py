@@ -598,6 +598,14 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
         if pincali_col:
             resultado["colonia"] = pincali_col
 
+        # Estacionamiento: JSON embebido (HTML-escapado) "Parking Spaces":N — campo estructurado,
+        # junto a Bedrooms/Bathrooms/Area M2 (autoritativo; la prosa del agente puede diferir).
+        # El scraper de tarjeta lo deja None; aquí se rellena. Captura 0 = "no tiene" (explícito).
+        if resultado.get("estacionamientos") is None:
+            mpark = re.search(r'Parking Spaces(?:&quot;|")\s*:\s*(\d+)', html)
+            if mpark:
+                resultado["estacionamientos"] = int(mpark.group(1))
+
     # ── nombre_agente ────────────────────────────────────────────────────────
     nombre_agente = None
 
