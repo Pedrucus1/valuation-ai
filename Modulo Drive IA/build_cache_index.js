@@ -127,7 +127,8 @@ for (const d of CACHE) {
     if (!idx[muni][tipo][col]) idx[muni][tipo][col] = [];
 
     // Solo guardar los campos que usan los motores: precio, m²C, m²T, fecha_scraping, año (#90/#91)
-    idx[muni][tipo][col].push({ precio: d.precio, m2c: d.m2c, m2t: d.m2t || 0, fecha: d.fecha || null, anio: d.anio || null });
+    idx[muni][tipo][col].push({ precio: d.precio, m2c: d.m2c, m2t: d.m2t || 0, fecha: d.fecha || null, anio: d.anio || null,
+        recamaras: d.recamaras || 0, banos: d.banos || 0, estac: d.estac || 0 });  // #121: vars para ponderación DV
 }
 
 // #101 — Inyectar comps web verificados SOLO en celdas pobres (<PUENTE_GATE scraper).

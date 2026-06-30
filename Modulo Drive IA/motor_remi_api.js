@@ -594,7 +594,8 @@ function listingsEnMuni(muni, tipo) {
     const colonias = IDX[muni]?.[tipo] ?? {};
     const out = [];
     for (const [col, data] of Object.entries(colonias)) {
-        for (const l of data.listings) out.push({ precio: l.precio, m2c: l.m2c, m2t: l.m2t || 0, colonia: col, anio: l.anio || null });
+        for (const l of data.listings) out.push({ precio: l.precio, m2c: l.m2c, m2t: l.m2t || 0, colonia: col, anio: l.anio || null,
+            recamaras: l.recamaras || 0, banos: l.banos || 0, estac: l.estac || 0 });  // #121 DV
     }
     return out;
 }
@@ -914,7 +915,8 @@ function valuarPropiedad(prop) {
         let s = m2C > 0 ? 1 - Math.abs(d.m2c - m2C) / Math.max(d.m2c, m2C) : 0;
         if (colNorm && dc.length >= 5 && (dc.includes(colNorm) || colNorm.includes(dc))) s += 0.50;
         else if (dc.length >= 4 && similares.some(x => dc.includes(x))) s += 0.25;
-        return { precio: d.precio, m2_const: d.m2c, score: s, an: d.anio || null };
+        return { precio: d.precio, m2_const: d.m2c, score: s, an: d.anio || null,
+                 m2t: d.m2t || 0, rec: d.recamaras || 0, ban: d.banos || 0 };  // #121 DV
     }).sort((a, b) => b.score - a.score).slice(0, poolTipo === 'general' ? COMP_CAP_GENERAL : COMP_CAP);
 
     // Filtro post-scoring por escalafón
@@ -950,12 +952,39 @@ function valuarPropiedad(prop) {
     const factorNeg     = 0.95;
 
     const compsFilt = comps.filter((c, i) => pm2cFilt.includes(pm2c[i]));
-    let suma = 0;
-    compsFilt.forEach(c => {
-        const pu = c.precio / c.m2_const;
-        suma += pu * Math.pow(c.m2_const / m2C, 1/6) * factorEdad * factorConserv;
-    });
-    let pm2cAvg = suma / compsFilt.length;
+
+    // #121 — Ponderación por similitud (DV). En vez de promediar los comps parejo, se pesa cada uno
+    // INVERSO a su distancia al sujeto sobre {m²C, m²T, recámaras, baños, año} estandarizados, y se
+    // queda con los 8 más parecidos. Variable faltante (comp o sujeto = 0) no penaliza. Conserva los
+    // ajustes de tamaño/edad/conservación. Validado en 103 OPIs (2025-2026): ±15 +2.9pp, ±20 +4.9pp,
+    // 0 regresiones (rescata errores grandes; no afina lo que ya estaba en ±10). Ver reference_avm_metodologia.
+    const DV_NMAX = 8, DV_EPS = 1.0, _curY = new Date().getFullYear();
+    const _subj = { m2c: m2C, m2t: m2T || 0, rec: prop.recamaras || 0, ban: prop.banos || 0,
+                    anio: edad > 0 ? _curY - edad : 0 };
+    const _cv = (c, v) => v==='m2c' ? c.m2_const : v==='m2t' ? (c.m2t||0) : v==='rec' ? (c.rec||0)
+                        : v==='ban' ? (c.ban||0) : (c.an||0);
+    const _VARS = ['m2c','m2t','rec','ban','anio'];
+    const _std = {};
+    for (const v of _VARS) {
+        const vals = compsFilt.map(c => _cv(c,v)).filter(x => x > 0);
+        if (vals.length > 1) { const mu = vals.reduce((a,b)=>a+b,0)/vals.length;
+            _std[v] = Math.sqrt(vals.map(x=>(x-mu)**2).reduce((a,b)=>a+b,0)/vals.length) || 1; }
+        else _std[v] = 1;
+    }
+    const _DV = (c) => {
+        let s=0, k=0;
+        for (const v of _VARS) { const cv=_cv(c,v), sv=_subj[v];
+            if (cv>0 && sv>0) { const d=(cv-sv)/_std[v]; s+=d*d; k++; } }
+        return k ? Math.sqrt(s/k) : 1;   // RMS normalizado por #vars usadas
+    };
+    const _sel = compsFilt.map(c => ({
+        adj: (c.precio/c.m2_const) * Math.pow(c.m2_const/m2C, 1/6) * factorEdad * factorConserv,
+        dv:  _DV(c)
+    })).sort((a,b) => a.dv - b.dv).slice(0, DV_NMAX);
+    let _w=0, _vv=0;
+    _sel.forEach(({adj,dv}) => { const wt = 1/(dv+DV_EPS); _vv += adj*wt; _w += wt; });
+    let pm2cAvg = _w > 0 ? _vv/_w
+        : (compsFilt.reduce((a,c)=>a+(c.precio/c.m2_const)*Math.pow(c.m2_const/m2C,1/6)*factorEdad*factorConserv,0)/compsFilt.length);
 
     // Cap: si exacta tiene datos sólidos (n≥10) y el pm2cAvg supera la mediana del IDX en >15%,
     // usar la mediana como techo. Evita que el tier filter seleccione solo los listings caros
