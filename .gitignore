@@ -125,6 +125,17 @@ simulador_mercado.js
 simulador_mercado_utf8.js
 simulador_resultado.txt
 simulador_resultado_utf8.txt
+
+# Temporales de análisis del motor/scraper (hojas del perito, baselines, outputs de validación)
+opi_*.xlsx
+Modulo Drive IA/opi_*.xlsx
+motor_baseline*.txt
+Modulo Drive IA/motor_baseline*.txt
+calib*.txt
+decomp_out.txt
+_orig_run.log
+_conca*.log
+_seg_run.log
 test_ai.js
 test_gemini.js
 tools/
