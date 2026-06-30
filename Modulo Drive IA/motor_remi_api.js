@@ -760,9 +760,10 @@ function valuarPropiedad(prop) {
         if (sp && sp.valor > 0) return { ...sp, confianza: 'MEDIA', cv: 0, pm2cAvg: Math.round(sp.valor / Math.max(m2C, 1)) };
     }
 
-    // Gate LOTE GRANDE: CUS<0.40 (ratioTerr>2.5) → homologación CUS si hay comps + semilla pm2T.
+    // Gate LOTE GRANDE: CUS<0.50 (ratioTerr>2.0) → homologación CUS si hay comps + semilla pm2T.
+    // Umbral validado 30-jun: 0.50 mejor que 0.40 (band 0.40-0.50 mejoró sin romper; err 16.7→16.2).
     // Si no hay datos, retorna null y sigue el flujo normal (no empeora nada).
-    if (ratioTerr > 2.5 && m2C >= 40 && m2T > 0) {
+    if (ratioTerr > 2.0 && m2C >= 40 && m2T > 0) {
         const lg = valuarLoteGrandeCUS(prop, muniNorm, colNorm, tipo, m2C, m2T);
         if (lg) return lg;
     }
@@ -918,7 +919,16 @@ function valuarPropiedad(prop) {
 
     // Filtro post-scoring por escalafón
     const enTier = scored.filter(d => d.m2_const >= tierLo && d.m2_const <= tierHi);
-    const comps  = enTier.length >= 3 ? enTier : scored;
+    let comps  = enTier.length >= 3 ? enTier : scored;
+
+    // Filtro de SEGMENTO de precio (como el perito: no mezclar segmentos). Si el sujeto tiene
+    // nivel NSE conocido (muni-correcto), descartar comps cuyo $/m²C esté fuera de [0.55,1.55]×
+    // la mediana de la zona. Conservador: solo si hay ≥5 comps y quedan ≥3 tras filtrar.
+    if (nseSubjeto && nseSubjeto.medianaPm2 > 0 && comps.length >= 5) {
+        const lo = nseSubjeto.medianaPm2 * 0.55, hi = nseSubjeto.medianaPm2 * 1.55;
+        const seg = comps.filter(c => { const pu = c.precio / c.m2_const; return pu >= lo && pu <= hi; });
+        if (seg.length >= 3) comps = seg;
+    }
 
     if (!comps.length) return { valor: 0, confianza: 'N/A', nComps: 0, poolTipo, error: 'sin_comps' };
 

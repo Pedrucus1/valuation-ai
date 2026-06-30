@@ -1141,8 +1141,12 @@ def _get_mongo_col():
     from pymongo import MongoClient
     load_dotenv()
     client = MongoClient(os.getenv("MONGO_URL", "mongodb://localhost:27017"),
-                         serverSelectionTimeoutMS=30000, retryReads=True,
-                         retryWrites=True)
+                         serverSelectionTimeoutMS=30000,
+                         # CAUSA RAÍZ del cuelgue del enricher (30-jun): sin socketTimeoutMS, un
+                         # read/write a Atlas que se estanca (blip de red) cuelga el proceso PARA
+                         # SIEMPRE. serverSelectionTimeoutMS NO cubre sockets ya establecidos.
+                         socketTimeoutMS=60000, connectTimeoutMS=30000,
+                         retryReads=True, retryWrites=True)
     return client[os.getenv("DB_NAME", "propvalu")]["mercado_props"]
 
 
