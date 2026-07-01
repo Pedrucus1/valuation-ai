@@ -29,7 +29,7 @@ Todos los portales drenados. Base: ~99,904 docs activos, 8,135 secundarios (dedu
 ## ✅ Motor de Valuación (vigente)
 
 - Score validador: ±15% ~86%, ±20% ~89.7% (post geoproximidad #114).
-- Cache: Sheets CONSOLIDADO (~22,983 comps). NO migrar a Mongo (requiere re-calibración completa, ver MOTOR_ANTECEDENTES).
+- **Cache: MongoDB (fuente única, 30-jun-2026).** Migrado Sheets→Mongo: `actualizar_cache_consolidado_mongo.py` construye `cache_consolidado.json` desde `mercado_props` (33,483 comps). Validado NEUTRAL vs Sheets (±15/±20 idénticos, errAbs 15.6→15.1). Google Sheets CORTADO (`config.ENABLE_SHEETS` off; motor ya no lee Sheets, scraper ya no escribe). `actualizar_cache_consolidado.js` deprecado.
 - Reglas irrompibles: NO cambiar NSE v1→v2, NO cazar atípicos, correr validador_masivo antes de cambios.
 
 ## 🔄 En progreso
