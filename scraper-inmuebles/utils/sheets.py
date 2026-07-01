@@ -162,6 +162,10 @@ class SheetsClient:
         Dedup doble: por id_unico (URL) y por contenido (municipio+m2c+precio ±2%).
         Retorna estadísticas: {nuevas, actualizadas, duplicados_contenido}.
         """
+        # Sheets CORTADO (30-jun-2026): Mongo es la fuente única. No-op reversible (ENABLE_SHEETS=1
+        # para re-habilitar). Retorna forma normal para no romper a los callers ni el flujo de buffer.
+        if not config.ENABLE_SHEETS:
+            return {"nuevas": 0, "actualizadas": 0, "duplicados_contenido": 0}
         if not propiedades:
             return {"nuevas": 0, "actualizadas": 0, "duplicados_contenido": 0}
 

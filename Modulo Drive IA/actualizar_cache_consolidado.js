@@ -1,10 +1,12 @@
 /**
- * actualizar_cache_consolidado.js
+ * actualizar_cache_consolidado.js  ⚠️ DEPRECADO (30-jun-2026) — leía de Google Sheets.
+ *
+ * REEMPLAZADO POR: actualizar_cache_consolidado_mongo.py (lee de Mongo, la fuente única de verdad).
+ * Mongo quedó validado neutral vs Sheets (±15/±20 idénticos, errAbs 15.6→15.1). Sheets ya no se
+ * escribe (scraper) ni se lee (motor). Este archivo se conserva solo por referencia histórica; NO correr.
+ *
  * Descarga CONSOLIDADO de Sheets y guarda solo las columnas necesarias
  * para valuación en cache_consolidado.json (lectura local, sin API).
- *
- * Correr manualmente cuando termine un ciclo de scraping:
- *   node actualizar_cache_consolidado.js
  */
 
 import 'dotenv/config';

@@ -46,6 +46,11 @@ TAB_NOCNOK = "NOCNOK"
 TAB_CONSOLIDADO = "CONSOLIDADO"
 TAB_LOG = "LOG"
 
+# Google Sheets DESACTIVADO (30-jun-2026): Mongo es la fuente única de verdad. El motor lee su
+# caché de Mongo (actualizar_cache_consolidado_mongo.py). El scraper ya NO escribe a Sheets.
+# Poner ENABLE_SHEETS=1 en el entorno solo para re-habilitarlo temporalmente.
+ENABLE_SHEETS = os.getenv("ENABLE_SHEETS", "0") == "1"
+
 TODAS_LAS_TABS = [
     TAB_INMUEBLES24,
     TAB_VIVANUNCIOS,
