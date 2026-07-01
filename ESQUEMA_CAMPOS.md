@@ -34,6 +34,19 @@
 
 ---
 
+## Criterio UNIFICADO — normalización en el guardado (30-jun-2026)
+
+Todo se normaliza en UN solo punto: `scheduler.py::_guardar_en_mongo` (chokepoint por donde pasa TODO portal).
+Así ningún scraper ni automatización puede meter variantes.
+
+1. **`tipo_propiedad` SIEMPRE minúscula canónica** — 6 valores únicos: `casa · departamento · terreno · local · oficina · bodega`.
+   Se aplica `normalizar_tipo_propiedad()` del cleaner en el guardado (idempotente). NUNCA capitalizado.
+   (NOCNOK metía `"Casa"`/`"Local Comercial"` por fallback al valor crudo del API → causaba queries fallidas. Migrado 30-jun.)
+   Al LEER: usar siempre minúscula. `canonTipo()` del motor ya minuscula defensivamente — mantener esa defensa.
+2. **`estacionamientos` en residencial (casa/departamento): >10 → `None`.** Una vivienda no tiene >10 cajones propios;
+   valores 20-4000 eran el total del EDIFICIO/PLAZA mal capturado por la fuente (CYT/INM24/PINCALI comerciales). Capado en el guardado.
+   Rango válido residencial: 1-10. Datos históricos limpiados 30-jun (reversibles: `estac_original_basura`, `tipo_original`).
+
 ## Reglas críticas de la EDAD (origen de errores recurrentes)
 
 1. **El campo canónico es `anio_construccion` (SIN ñ).** Guarda el AÑO de construcción (2011), no la edad.

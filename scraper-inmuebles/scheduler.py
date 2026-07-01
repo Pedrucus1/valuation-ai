@@ -38,6 +38,7 @@ sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="repla
 import config
 from utils.logger import get_logger
 from utils.sheets import SheetsClient
+from utils.cleaner import normalizar_tipo_propiedad
 
 log = get_logger("SCHEDULER")
 
@@ -372,6 +373,14 @@ def _guardar_en_mongo(propiedades: list, portal: str) -> dict:
             uid = prop.get("id_unico") or prop.get("url_original", "")
             if not uid:
                 continue
+            # ── Criterio UNIFICADO en el chokepoint de guardado (todo portal pasa por aquí) ──
+            # 1) tipo_propiedad SIEMPRE canónico en minúscula (NOCNOK traía "Casa"/"Local Comercial").
+            # 2) estacionamiento absurdo en residencial (>10 = total de edificio mal capturado por
+            #    la fuente, ej. CYT/INM24) → None. Casa/depto nunca tienen >10 cajones propios.
+            prop["tipo_propiedad"] = normalizar_tipo_propiedad(prop.get("tipo_propiedad"))
+            _e = prop.get("estacionamientos")
+            if prop["tipo_propiedad"] in ("casa", "departamento") and isinstance(_e, (int, float)) and _e > 10:
+                prop["estacionamientos"] = None
             doc = {**prop, "portal": portal, "mongo_ts": datetime.now(timezone.utc).isoformat()}
             # NO pisar con vacíos lo que el enricher ya llenó (anio/colonia/m2c
             # costaron horas de fetch): los campos sin valor solo se escriben al
