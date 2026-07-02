@@ -43,7 +43,7 @@ const _openai = process.env.OPENAI_API_KEY
 
 // ── helpers copiados de comparar_metodologias.js ──────────────────────────────
 
-const INDEX_PATH         = path.join(__dirname, 'cache_index.json');
+const INDEX_PATH         = path.join(__dirname, 'cache_index_limpio.json');
 const COLONIAS_NSE_PATH  = path.join(__dirname, 'colonias_nse.json');
 const COLONIAS_NSE2_PATH = path.join(__dirname, 'colonias_nse_v2.json');
 const IDX_VAL_PATH       = path.join(__dirname, 'idx_valoracion.json');
@@ -986,61 +986,28 @@ function valuarPropiedad(prop) {
     let pm2cAvg = _w > 0 ? _vv/_w
         : (compsFilt.reduce((a,c)=>a+(c.precio/c.m2_const)*Math.pow(c.m2_const/m2C,1/6)*factorEdad*factorConserv,0)/compsFilt.length);
 
-    // #121b-ANCHOR: reconciliación robusta anclada al NSE limpio (patrón jerárquico/multi-escala).
-    // El pool puede estar envenenado por precios corruptos (MITULA/NOCNOK truncados) que arrastran la
-    // mediana muy por debajo del valor real. La calibración NSE (medianaPm2) es un ancla LIMPIA de
-    // colonia/zona. Filtramos comps implausibles vs el ancla; si quedan pocos → confiamos el ancla
-    // (shrinkage bayesiano/jerárquico). Colapsa a no-op cuando el pool ya concuerda con el ancla.
-    if (process.env.LAB_ANCHOR === '1' && nseSubjeto && nseSubjeto.medianaPm2 > 0) {
-        const anchor = nseSubjeto.medianaPm2;
-        // Quitar SOLO la basura implausible vs el ancla limpia; conservar comps legítimamente bajos
-        // (0.5-0.9× ancla) → no sobrecorrige propiedades que sí valen menos que su zona.
-        const plaus = compsFilt.filter(c => { const pu = c.precio/c.m2_const; return pu >= 0.5*anchor && pu <= 2.5*anchor; });
-        if (plaus.length >= 2) {
-            let w2=0, v2=0;
-            plaus.forEach(c => { const adj=(c.precio/c.m2_const)*Math.pow(c.m2_const/m2C,1/6)*factorEdad*factorConserv;
-                const wt=1/(_DV(c)+DV_EPS); v2+=adj*wt; w2+=wt; });
-            if (w2>0) pm2cAvg = v2/w2;
-        } else {
-            // pool garbage-dominado (sin comps legítimos) → ancla NSE limpia con premium de tamaño
-            // para casa chica. SIN factorConserv (el ancla es nivel de mercado; el perito ya no lo
-            // re-descuenta cuando ubicación/tamaño dominan). sz suave para no sobredisparar.
-            const sz = (_medM2CZona > 0 && m2C > 0 && m2C < 0.8*_medM2CZona)
-                ? Math.min(1.30, Math.pow(_medM2CZona/m2C, 0.25)) : 1.0;
-            pm2cAvg = anchor * sz;
-        }
-    }
-
-    // #121b-A CAPS SIZE-AWARE: los caps se anclaban a la mediana de zona (dominada por casas
-    // grandes), aplastando el $/m²C legítimo de casas chicas céntricas (premium por economía de
-    // escala + suelo). Multiplicador que ELEVA el techo solo cuando el sujeto es más chico que su
-    // zona; colapsa a 1.0 para sujetos de tamaño típico → CERO regresión en los que ya aciertan.
-    const _mZona = (enColoniaTodos.length >= 5 ? enColoniaTodos : [...enColoniaTodos, ...enNSETodos])
-        .map(d => d.m2c).filter(v => v > 5 && v < 2000);
-    const _medM2CZona = _mZona.length >= 5 ? mediana(_mZona) : 0;
-    const sizeAdj = (process.env.LAB_SIZECAP === '1' && _medM2CZona > 0 && m2C > 0 && m2C < 0.80 * _medM2CZona)
-        ? Math.min(2.0, Math.pow(_medM2CZona / m2C, 1/3)) : 1.0;
-
+    // Cap: si exacta tiene datos sólidos (n≥10) y el pm2cAvg supera la mediana del IDX en >15%,
+    // usar la mediana como techo. Evita que el tier filter seleccione solo los listings caros
+    // ignorando los baratos de la misma colonia.
     if (poolTipo === 'exacta') {
         const exactaIDX = IDX[muniNorm]?.[tipo]?.[colNorm];
         if (exactaIDX && exactaIDX.count >= 10 && exactaIDX.medianaPm2c > 0) {
-            const techo = exactaIDX.medianaPm2c * 1.05 * sizeAdj;
+            const techo = exactaIDX.medianaPm2c * 1.05;
             if (pm2cAvg > techo) pm2cAvg = techo;
         }
     }
 
+    // Cap NSE: para similares/general, si el sujeto tiene NSE con medianaPm2 conocida,
+    // limitar pm2cAvg a medianaPm2 × 1.15. Evita que el pool general infle colonias sin IDX.
+    // También aplica a exacta con muy pocos comps (< 4) — muestra demasiado pequeña para ser confiable.
     if (nseSubjeto && nseSubjeto.medianaPm2 > 0) {
         const aplicarCap = poolTipo !== 'exacta' || comps.length < 4;
         if (aplicarCap) {
-            const techoNSE = nseSubjeto.medianaPm2 * 1.15 * sizeAdj;
+            const techoNSE = nseSubjeto.medianaPm2 * 1.15;
             if (pm2cAvg > techoNSE) pm2cAvg = techoNSE;
         }
     }
 
-    if (process.env.LAB_DEBUG && colNorm && colNorm.includes(process.env.LAB_DEBUG)) {
-        console.error(`[DBG ${colNorm}] subjM2C=${m2C} pool=${poolTipo} nComps=${compsFilt.length} medM2CZona=${Math.round(_medM2CZona||0)} sizeAdj=${(sizeAdj||1).toFixed(2)} pm2cAvg=${Math.round(pm2cAvg)}`);
-        console.error('  comps(m²@$/m²C): ' + compsFilt.map(c=>`${Math.round(c.m2_const)}@${Math.round(c.precio/c.m2_const)}`).join('  '));
-    }
     const valor   = Math.round(pm2cAvg * m2C * factorNeg * factorComercial);
 
     const mean   = avg(pm2cFilt);
