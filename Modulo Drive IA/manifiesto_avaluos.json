@@ -1,6 +1,20 @@
 {
-  "scanDate": "2026-06-28T00:36:45.630Z",
+  "scanDate": "2026-07-04T16:30:31.675Z",
   "rootFolderId": "1MSqdSduhmzgwqTYrQYkZ-lOsezYmmqjz",
+  "mesesEscaneados": [
+    {
+      "year": 2026,
+      "month": 7
+    },
+    {
+      "year": 2026,
+      "month": 6
+    },
+    {
+      "year": 2026,
+      "month": 5
+    }
+  ],
   "files": [
     {
       "mimeType": "application/vnd.google-apps.spreadsheet",
@@ -4896,6 +4910,14 @@
       "mimeType": "application/vnd.google-apps.spreadsheet",
       "id": "1EwG3SnicsmmVXRf1CfXZ-2NV-MUSm9GBRuIYGMZcz0o",
       "name": "OPI-23-6-01-OF André Baudín 4190 Miravalle 44990 Guadalajara Jal."
+    },
+    {
+      "id": "1v9gqdPMfmRPWc4e70X7OUdDePC7OQrr8p1lz1n3O6Ro",
+      "name": "OPI-26-7-02-OF Andador Francisco Marquez 11, Coyula"
+    },
+    {
+      "id": "1tgWwwNN9Kfs7kuF0fUcvkDJvYefJMl2rS2ubbVApwKY",
+      "name": "OPI-26-7-01-OF Nte. F 1341, Conjunto Laureles, 45158 Zapopan, Jal."
     }
   ]
 }
