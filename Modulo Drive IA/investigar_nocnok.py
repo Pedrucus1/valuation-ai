@@ -1,3 +1,5 @@
+import os
+from dotenv import load_dotenv; load_dotenv()
 """
 investigar_nocnok.py — Tarea 1: Investiga listings NOCNOK/MITULA con $/m²C < 12000
 en zonas de GDL. Re-fetchea URLs reales para comparar precio guardado vs precio real.
@@ -5,7 +7,7 @@ en zonas de GDL. Re-fetchea URLs reales para comparar precio guardado vs precio 
 import json, unicodedata, requests
 from pymongo import MongoClient
 
-MONGO_URL = "mongodb+srv://PropValu:Avaluos.%2345%23.@cluster0.9eliadx.mongodb.net/?appName=Cluster0"
+MONGO_URL = os.environ["MONGO_URL"]
 BASE_URL  = "https://inmuebles.nocnok.com"
 
 def main():

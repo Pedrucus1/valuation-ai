@@ -1,9 +1,11 @@
+import os
+from dotenv import load_dotenv; load_dotenv()
 # -*- coding: utf-8 -*-
 import sys, io
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 from pymongo import MongoClient
 from collections import Counter
-MONGO_URL="mongodb+srv://PropValu:Avaluos.%2345%23.@cluster0.9eliadx.mongodb.net/?appName=Cluster0"
+MONGO_URL=os.environ["MONGO_URL"]
 col = MongoClient(MONGO_URL, serverSelectionTimeoutMS=60000, socketTimeoutMS=180000)["propvalu"]["mercado_props"]
 def num(v):
     try:

@@ -1,10 +1,12 @@
+import os
+from dotenv import load_dotenv; load_dotenv()
 """
 investigar3.py — Diagnóstico granular NOCNOK
 """
 import json, requests, re
 from pymongo import MongoClient
 
-MONGO_URL = "mongodb+srv://PropValu:Avaluos.%2345%23.@cluster0.9eliadx.mongodb.net/?appName=Cluster0"
+MONGO_URL = os.environ["MONGO_URL"]
 BASE_URL  = "https://inmuebles.nocnok.com"
 
 def main():

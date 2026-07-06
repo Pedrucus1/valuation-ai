@@ -1,7 +1,9 @@
+import os
+from dotenv import load_dotenv; load_dotenv()
 from pymongo import MongoClient
 import json
 
-MONGO_URL = "mongodb+srv://PropValu:Avaluos.%2345%23.@cluster0.9eliadx.mongodb.net/?appName=Cluster0"
+MONGO_URL = os.environ["MONGO_URL"]
 client = MongoClient(MONGO_URL)
 db = client['propvalu']
 

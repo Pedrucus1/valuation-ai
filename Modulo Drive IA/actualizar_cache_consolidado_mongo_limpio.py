@@ -1,3 +1,5 @@
+import os
+from dotenv import load_dotenv; load_dotenv()
 """
 actualizar_cache_consolidado_mongo_limpio.py
 
@@ -17,7 +19,7 @@ from datetime import datetime
 from pathlib import Path
 from pymongo import MongoClient
 
-MONGO_URL = "mongodb+srv://PropValu:Avaluos.%2345%23.@cluster0.9eliadx.mongodb.net/?appName=Cluster0"
+MONGO_URL = os.environ["MONGO_URL"]
 OUT       = Path(__file__).parent / "cache_consolidado_limpio.json"
 NSE_PATH  = Path(__file__).parent / "colonias_nse.json"
 TIPOS_TERRENO = {"terreno", "lote", "predio", "solar"}

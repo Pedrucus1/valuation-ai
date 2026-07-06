@@ -1,3 +1,5 @@
+import os
+from dotenv import load_dotenv; load_dotenv()
 """
 backfill_estac_pincali.py — Backfill QUIRÚRGICO de estacionamiento en PINCALI.
 
@@ -16,7 +18,7 @@ from datetime import datetime
 import requests
 from pymongo import MongoClient
 
-MONGO_URL = "mongodb+srv://PropValu:Avaluos.%2345%23.@cluster0.9eliadx.mongodb.net/?appName=Cluster0"
+MONGO_URL = os.environ["MONGO_URL"]
 PARK_RE = re.compile(r'Parking Spaces(?:&quot;|")\s*:\s*(\d+)')
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
 
