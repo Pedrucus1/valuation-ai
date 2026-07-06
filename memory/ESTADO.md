@@ -36,11 +36,26 @@ Todos los portales drenados. Base: ~99,904 docs activos, 8,135 secundarios (dedu
 
 - **fill_similares_gemini.js**: batch 5/10 (~120 colonias), cuota Gemini → waits normales. Se completa solo.
 
+## 🔐 Seguridad (06-Jul) — incidente resuelto
+- Fuga en commit `7e90cf1` (Gemini key + MONGO_URL prod hardcodeados). De-hardcodeado + **rotadas ambas keys** (Mongo pw + Gemini) en .env×2 + Railway. Pre-commit hook anti-secretos en `.githooks/`. Registro maestro de keys → memoria Claude `credentials_registry.md`.
+- **Pendiente:** de-hardcodear 9 archivos más con el pw viejo (muerto): `investigar*.py`, `audit_basura*.py`, `backfill_estac_pincali.py`, `check_quality.py`.
+
+## 🗺️ Índice del motor (NUEVO 06-Jul)
+`Modulo Drive IA/INDICE_MOTOR.md` — leer ANTES de buscar/tocar algo del motor (qué es canónico vs experimento, dónde OPIs/comps/IDX/NSE). Enganchado en CLAUDE.md.
+
+## 🧠 Motor (06-Jul) — baseline y diagnóstico
+- Caché reconstruido con colonias PINCALI limpias (25,556 comps). **Baseline offline: ±20 75.7% / mediana −8.7 (subvalúa).**
+- 4 palancas de fórmula probadas, NINGUNA mueve ±20 → cuello es DATO. `factorNeg=0.95` confirmado óptimo (NO tocar).
+- **Diagnóstico 3-columnas: el MÉTODO es correcto; falla la SELECCIÓN de comps** (promedia nuevo+usado en vez del segmento del sujeto). Palanca real = segmentar comps por edad/subsegmento. `LAB_EDADSEG` codeada (+2 ±15). Todo en `MOTOR_ANTECEDENTES.md`.
+- **Validador SIEMPRE offline** (`GEMINI_API_KEY= SERPER_API_KEY= DEEPSEEK_API_KEY= node validar_lab.js …`) o no es determinista.
+
 ## 🕐 Pendientes próximas sesiones
 
 | # | Tarea | Notas |
 |---|---|---|
-| #9 | Migrar cache motor Sheets→Mongo | Proyecto de re-calibración completa, no un parche |
-| #14 | Lanzar scraper mensual julio | Fecha: 7-Jul-2026 |
+| **#20** | **IPRoyal proxy sin saldo (402)** | Bloquea backfill. PINCALI no necesita proxy (HTTP simple) → correr proxy-free o recargar IPRoyal |
+| **#21** | **Backfill año PINCALI** | Fix HECHO (`enricher.py`, ES `/inmueble/`). 25,492 docs ya con `enrich_last_attempt` limpio. Correr `enricher.py --tab PINCALI --mongo` cuando se destrabe #20 |
+| **#22** | **Palanca motor: selección comps por segmento** | Edad + subsegmento de colonia; guardar subsegmento en la base. Ver MOTOR_ANTECEDENTES |
+| #14 | Lanzar scraper mensual julio | Fecha: 7-Jul-2026 (bloqueado por #20) |
 | #16 | Definir gancho de entrada de precios | Benchmark $80-$120/reporte — decisión usuario |
 | #17 | Agregar Monopolio al scraper | CDP + login+JWT — deferred |
