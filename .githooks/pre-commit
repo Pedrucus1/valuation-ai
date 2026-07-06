@@ -4,10 +4,12 @@
 # Saltar (bajo tu riesgo): git commit --no-verify
 
 # Patrones de secreto que ya nos han mordido:
-#  - Google/Gemini API key:     AIza + 35 chars
+#  - Google/Gemini API key:      AIza + 35 chars
+#  - Gemini AI Studio (nuevo):   AQ. + 40+ chars
 #  - Mongo URI con credenciales: mongodb+srv://user:pass@
 #  - OpenAI/DeepSeek key:        sk- + 20+ hex/alfanum
-PATRON='AIza[0-9A-Za-z_-]{35}|mongodb(\+srv)?://[^:@/ ]+:[^@/ ]+@|sk-[A-Za-z0-9]{20,}'
+#  - GitHub PAT:                 ghp_ + 36 chars
+PATRON='AIza[0-9A-Za-z_-]{35}|AQ\.[A-Za-z0-9_-]{40,}|mongodb(\+srv)?://[^:@/ ]+:[^@/ ]+@|sk-[A-Za-z0-9-]{20,}|ghp_[A-Za-z0-9]{36}'
 
 # Solo revisa el contenido staged de archivos de texto que se agregan/modifican.
 hits=$(git diff --cached --no-color -U0 --diff-filter=ACM \
