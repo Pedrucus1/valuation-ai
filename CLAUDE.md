@@ -5,6 +5,11 @@ Al primer mensaje, leer **solo** `memory/ESTADO.md` (snapshot compacto) y respon
 NO leer BACKLOG.md ni project_propvalu.md completos — son grandes; consultarlos por grep cuando la tarea lo pida
 (`BACKLOG.md` = tabla de tareas por #; `MOTOR_ANTECEDENTES.md` = motor, SIEMPRE por grep/sección, nunca completo).
 
+## 🗺️ DÓNDE VIVE CADA COSA — leer el índice ANTES de buscar/adivinar
+- **Motor** (`Modulo Drive IA/`): leer `Modulo Drive IA/INDICE_MOTOR.md` — cuál motor/validador/caché es canónico vs experimento, dónde están OPIs del perito (`cerebro_datos.json`), comps (`cache_consolidado.json`), IDX (`cache_index.json`), NSE, y cómo correr el validador offline. NUNCA adivinar en qué archivo está algo del motor.
+- **Todas las API keys** (qué cuenta/proyecto/valor): memoria `credentials_registry.md`.
+- Al crear un archivo o guardar info nueva importante, registrarlo en el índice correspondiente (INDICE_MOTOR.md para el motor) — no dejar cosas sueltas sin mapa.
+
 ## ⚡ Token efficiency (CRÍTICO) — ver `~/.claude/EFFICIENCY.md`
 - 1 archivo → Read una vez → Edit una vez. Multi-archivo → Glob + Read c/u una vez.
 - Archivo grande (>1k líneas) → Grep primero, luego Read solo esa sección. Nunca leer archivos enormes completos.

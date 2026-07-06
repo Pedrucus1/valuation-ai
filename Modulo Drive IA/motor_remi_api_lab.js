@@ -949,7 +949,8 @@ function valuarPropiedad(prop) {
                      : poolTipo === 'similares' ? Math.max(floorEdad,  1 - (edadEfectiva - anclaEdad) * 0.005)
                      :                            Math.max(0.70,       1 - (edadEfectiva - anclaEdad) * 0.01);
     const factorConserv = FACTORES_CONSERVACION[prop.estadoConservacion] || 1.00;
-    const factorNeg     = 0.95;
+    // LAB_NEG: override del factor de negociación (listing→mercado). Default prod 0.95.
+    const factorNeg     = process.env.LAB_NEG ? parseFloat(process.env.LAB_NEG) : 0.95;
 
     const compsFilt = comps.filter((c, i) => pm2cFilt.includes(pm2c[i]));
 

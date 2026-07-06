@@ -41,10 +41,41 @@
 - **2 estructurales (NO fix):** Echeverría (CASA+LOCAL), colonia="Guadalajara"(=municipio) → revisión manual.
 
 **Cadena pendiente ("validación 2" = re-validar tras rebuild):**
-(a) Backfill PINCALI colonias español (`enricher.py --portal PINCALI --mongo`, fix `a46909a` del 5-Jul, aún
-    NO reflejado en el caché del 1-Jul). (b) Rebuild caché (`actualizar_cache_consolidado_mongo.py`).
-(c) Recalcular anclas NSE (palancas 2-3, data-side). (d) Experimento curva de edad (palanca 1, en lab).
-(e) Medir todo vs 76.7%, committear solo lo que mejore. Ver [[project_motor_lab_121b]].
+(a) Traducir colonias PINCALI EN→ES con DeepSeek (`fix_colonias_pincali_deepseek.py`, reversible). (b) Rebuild
+    caché. (c) Aplicar palancas medidas abajo. (d) Medir vs 76.7%, committear solo lo que mejore. Ver [[project_motor_lab_121b]].
+
+### ANÁLISIS 3 CONSULTORES (06-Jul, reconstruido sobre los 24 OPIs frescos) — CONVERGEN: la pared es DATO, no fórmula
+Clasificación de los 24 (agente datos): **17 DATO (71%) · 5 FÓRMULA (21%) · 2 ESTRUCTURAL (8%)**. Fórmula pura da +5 máx → 81.6% (INSUFICIENTE para 85%).
+
+**★ HALLAZGO NUEVO CLAVE — problema de TIPO OFICINA (OF):** 9 de los 17 fallos-dato son OPIs de **oficina** en colonias con **0 comps de oficina** (monumental, echeverría, colinas del rey, ciudad del sol, la guadalupana, arcos de zapopan, insurgentes, santa maría). El motor usa **residenciales como proxy** → sesgo sistemático bidireccional (colonia cara sobrevalúa la oficina, barata subvalúa). Es el mayor subproblema de datos del motor y NO estaba identificado. El caché tiene solo 534 comps OF, concentrados en corredor premium (Country Club, Puerta Hierro, Americana).
+
+**Cluster exacta-negativo AV (agente perito):** MITULA/NOCNOK baratos contaminan las medianas del IDX → cascada por 4 filtros (`bandaMax=medRef*1.60`, IDX cap `mediana*1.05` en n≥10 líneas 992-997, `antiRemate ±40%`, `factorNeg=0.95`) que clavan la estimación abajo. Analgésicos de fórmula: relajar IDX cap (1.05→1.25) y subir bandaMax en exacta (1.60→1.80); cura real = limpiar dato. Verificar por qué el filtro anti-basura #121b (`013ea2e`) no limpió el IDX (¿IDX se construye aparte del caché filtrado?).
+
+**Curva de edad (agente hedónico, datos de NUESTRO caché n=7,191):** depreciación NO lineal — escalón ~22% a los 10a, luego PLANA (20-50+a todos 0.78-0.85). El modelo `max(0.70,1-(edad-10)*0.01)` sobre-castiga viejas (piso 0.70 vs real 0.82-0.85) y no capta el escalón. PERO solo afecta pools no-exacta (en exacta factorEdad=1.0). Palanca: subir piso **0.70→0.80** (no-exacta), +1-2pp, riesgo casi nulo. NO derivar exponente tamaño 1/6 (confounding NSE-m²). NO estratificar edad por NSE (falta NSE en comps del caché). Respaldo: Shultz 2018, IMF WP/16/213, MDPI APC.
+
+**Comp corrupto:** El Batán PINCALI `m2c=3 @ $7.73M` (pm2=$2.57M/m²) SOBREVIVIÓ el filtro anti-basura y contamina OPI-25-11-09-OF (+72%). Fix: 1 registro. El filtro #121b filtra por $/m² vs ancla pero no por m2c absurdamente chico.
+
+**PLAN MEDIBLE hacia 85% (cada uno vs 76.7%, cero regresión, en lab):**
+1. **Quitar comp corrupto El Batán** + guardia m2c mínimo en builder → +1, riesgo 0.
+2. **Ajuste de TIPO OFICINA** cuando pool=0 comps OF (descuento/factor uso configurable) → +2-3, el de mayor valor. Riesgo medio.
+3. **Marginales exacta** (relajar IDX cap 1.05→1.25 y/o bandaMax 1.60→1.80 en exacta) → +2-3 (OPI-26-5-24-AV, -25-1-07-AV, -26-2-24-OF cerca del umbral).
+4. **Piso factorEdad 0.70→0.80** no-exacta → +1-2.
+5. **Factor tipo LM** (local mixto, sin ajuste propio hoy) → +2 (OPI-25-7-12-LM, -25-6-17-LM).
+**Veredicto honesto:** 85% ALCANZABLE pero al límite, y SOLO si se ejecuta el ajuste OF (pasos 1+3+4+5 sin OF ≈ 82-83%). La verdad de fondo: el motor tiene un problema de TIPO (valúa oficina/LM con comps residenciales) — sin datos OF propios, el ajuste es un proxy, no cura. 2 estructurales (lote_grande, suma_partes) NO se tocan.
+
+### VALIDACIÓN 2 (06-Jul) — caché reconstruido con colonias PINCALI limpias (12,376 traducidas DeepSeek), SIN tocar fórmula
+Caché: 33,483→**25,556 comps** (filtro más agresivo + dedup colonias). Resultado vs baseline (76.7%):
+**±10 54.4% (+2.0) · ±15 62.1% (+0.9) · ±20 75.7% (−1.0) · errAbs 13.5% (−0.4) · mediana +9.6→−8.7 (FLIP).**
+- Limpiar colonias mejoró precisión CENTRAL (±10/±15/errAbs) pero NO el objetivo ±20 (−1 OPI). NO se revierte: las colonias ahora son CORRECTAS (verdad de datos).
+- **★ La mediana se volteó de +9.6 a −8.7 → el motor ahora SUBVALÚA sistemáticamente.** Los comps PINCALI, bien asignados a su colonia real, son listings más baratos que jalan abajo. Confirma con número duro el diagnóstico de los 3 agentes. Las palancas anti-subvaluación (relajar factorNeg=0.95 / IDX cap / bandaMax + ajuste OF) ahora tienen blanco claro: corregir −8.7.
+- Backup del caché previo: `cache_consolidado.PRE_COLONIAS.bak.json` + `cache_index.PRE_COLONIAS.bak.json`.
+- NOTA seguridad: `actualizar_cache_consolidado_mongo.py` de-hardcodeado (leía MONGO_URL viejo). Faltan 9 archivos más con el password muerto (investigar*/audit_basura*/backfill_estac/check_quality) por de-hardcodear.
+
+### validador determinista para estos 103 OPIs (06-Jul) — CORRECCIÓN de una conclusión previa errónea
+El motor tiene fallbacks EN VIVO (buscarCompsGemini línea 272, buscarEnSerper 334) para OPIs sin cobertura de caché — **es proceso LEGÍTIMO del motor** (propiedades que el scraper no alcanza por ubicación), NO ruido. Al principio creí que metían no-determinismo, pero comparé offline (keys en blanco) vs online variante por variante y son **IDÉNTICOS** → para estos 103 OPIs el caché los cubre a todos y los fallbacks NO se disparan. El validador ES determinista tal cual. (Correr con keys en blanco solo si se quiere GARANTIZAR que ningún OPI toque la web; da el mismo número aquí.)
+**BASELINE (caché colonias-limpias 25,556 comps): ±10 54.4 / ±15 62.1 / ±20 75.7 / errAbs 13.5 / mediana −8.7.**
+- **factorNeg CONFIRMADO ÓPTIMO en su default 0.95** (barrido determinista): 0.92→±20 74.8/±10 50.5 · **0.95→75.7/54.4 (mejor en ambas)** · 0.98→75.7/49.5 · 1.0→73.8/44.7. NO tocar. Flag `LAB_NEG` en motor_remi_api_lab.js:952 (default 0.95). La mediana no-monótona (−8.7/+10.0/−10.6) es quirk real de interacción con calibración aguas abajo, no ruido.
+- **LECCIÓN:** no perseguir factores ya calibrados; las ganancias están en DATO (oficinas sin comps OF, comp corrupto El Batán), no en el factor de negociación.
 
 ---
 

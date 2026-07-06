@@ -24,12 +24,17 @@ RECUPERACIÓN MITULA (#121b):
 Solo LECTURA de Mongo. Salida: cache_consolidado.json
 Uso:  python actualizar_cache_consolidado_mongo.py
 """
-import json, unicodedata
+import json, os, unicodedata
 from datetime import datetime
 from pathlib import Path
+from dotenv import load_dotenv
 from pymongo import MongoClient
 
-MONGO_URL     = "mongodb+srv://PropValu:Avaluos.%2345%23.@cluster0.9eliadx.mongodb.net/?appName=Cluster0"
+# MONGO_URL desde .env — NUNCA hardcodear (secret scanning). Busca en scraper y raíz del repo.
+_ROOT = Path(__file__).resolve().parent.parent
+load_dotenv(_ROOT / "scraper-inmuebles" / ".env")
+load_dotenv(_ROOT / ".env")
+MONGO_URL     = os.environ["MONGO_URL"]
 OUT           = Path(__file__).parent / "cache_consolidado.json"
 NSE_PATH      = Path(__file__).parent / "colonias_nse.json"
 TIPOS_TERRENO = {"terreno", "lote", "predio", "solar"}
