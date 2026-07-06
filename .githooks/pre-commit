@@ -1,0 +1,28 @@
+#!/bin/sh
+# Bloquea commits que contengan secretos hardcodeados.
+# Cubre el "Respaldo automatico diario" (git add -A) que ya filtro una key.
+# Saltar (bajo tu riesgo): git commit --no-verify
+
+# Patrones de secreto que ya nos han mordido:
+#  - Google/Gemini API key:     AIza + 35 chars
+#  - Mongo URI con credenciales: mongodb+srv://user:pass@
+#  - OpenAI/DeepSeek key:        sk- + 20+ hex/alfanum
+PATRON='AIza[0-9A-Za-z_-]{35}|mongodb(\+srv)?://[^:@/ ]+:[^@/ ]+@|sk-[A-Za-z0-9]{20,}'
+
+# Solo revisa el contenido staged de archivos de texto que se agregan/modifican.
+hits=$(git diff --cached --no-color -U0 --diff-filter=ACM \
+       -- '*.py' '*.js' '*.ts' '*.json' '*.sh' '*.yml' '*.yaml' '*.md' \
+       | grep -nE "^\+" | grep -E "$PATRON")
+
+if [ -n "$hits" ]; then
+  echo "=============================================================="
+  echo " COMMIT BLOQUEADO: se detecto un posible secreto hardcodeado."
+  echo "=============================================================="
+  echo "$hits" | sed -E 's/(.{100}).*/\1.../'
+  echo "--------------------------------------------------------------"
+  echo "Muevelo a .env y leelo con os.environ / process.env."
+  echo "Si es un falso positivo: git commit --no-verify"
+  echo "=============================================================="
+  exit 1
+fi
+exit 0
