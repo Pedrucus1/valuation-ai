@@ -77,6 +77,26 @@ El motor tiene fallbacks EN VIVO (buscarCompsGemini línea 272, buscarEnSerper 3
 - **factorNeg CONFIRMADO ÓPTIMO en su default 0.95** (barrido determinista): 0.92→±20 74.8/±10 50.5 · **0.95→75.7/54.4 (mejor en ambas)** · 0.98→75.7/49.5 · 1.0→73.8/44.7. NO tocar. Flag `LAB_NEG` en motor_remi_api_lab.js:952 (default 0.95). La mediana no-monótona (−8.7/+10.0/−10.6) es quirk real de interacción con calibración aguas abajo, no ruido.
 - **LECCIÓN:** no perseguir factores ya calibrados; las ganancias están en DATO (oficinas sin comps OF, comp corrupto El Batán), no en el factor de negociación.
 
+### Los 12 no-OF que fallan (06-Jul, oficinas FUERA de scope = doble validación venta+renta no construida)
+SUBVALÚAN (motor<perito), casi todas PREMIUM: Las Bóvedas 5266→4109k (−22) · Jardines de la Cruz 5134→4047k (−21, n12) · Seattle 3663→2566k (−30) · Educadores Jal. 3867→3031k (−22) · El Vergel 1737→1165k (−33) · Lomas San Agustín 810→639k (−21) · **Villa Hermosa 1232→511k (−58, SIM de NSE inferior)** · La Esperanza 595→308k (−48, cobertura pésima).
+SOBREVALÚAN, los 2 LM (locales, valúa con residencial→sobrevalúa, probablemente también doble-validación como OF): Loma Bonita Ejidal 1934→2722k (+41) · Las Grullas 3815→5004k (+31). 2 estructurales NO-fix: 26-5-22 lote_grande, 25-2-18 suma_partes.
+**Patrón: el motor recorta ~20-30% las CARAS** (pool jalado bajo el ancla NSE limpia por listings baratos).
+- **LAB_ANCHOR=1 (offline): ±20 75.7→76.7 (+1) pero errAbs 13.5→15.2 (PEOR, sobrecorrige).** NO mergear así (viola cero-regresión errAbs). Confirma memoria previa. Solo aplica a colonias CON ancla NSE.
+- **Camino real = DATO:** (a) CREAR ancla NSE para premium sin entrada (El Vergel, Educadores, Lomas del Camichin) desde caché limpio (mediana $/m²C, n≥umbral) — ADITIVO, no reemplazar v1. (b) Arreglar mapa SIM de Villa Hermosa (usa similares de NSE inferior). (c) LM → parkear como OF. Medir con validador antes/después.
+
+### ★ CURVA DE EDAD data-derived + BUG del factorEdad (06-Jul, validado con 9,245 comps del caché)
+Mediana $/m²C por bucket de edad (ratio vs nuevo):
+`0-5a: $41,821 (1.00) · 6-10a: $32,561 (0.78) · 11-20a: $27,831 (0.665) · 21-35a: $28,553 (0.68) · 36+a: $29,059 (0.70)`.
+**Es un ESCALÓN, no lineal:** caída fuerte en los primeros ~10 años, luego PLANO (11-36+ todos 0.66-0.70). Confirma experiencia del usuario (nuevo manda premium, se estabiliza ~10a) y el hallazgo del agente hedónico.
+**★ BUG del factorEdad:** `max(0.70, 1-(edad-10)*0.01)` → **da 1.0 para 0-10 años (cero depreciación)** justo donde el mercado castiga MÁS (0.78 a los 6-10). Además en pool `exacta` factorEdad=1.0 (no aplica). Curva correcta ≈ `1.00/0.78/0.67` (0-5/6-10/11+). Aplicar por DIFERENCIA de segmento sujeto-vs-comp, solo vivienda, en selección/anclaje (Ross-Heidecke = edad×conservación). Pendiente experimento medido en lab.
+
+### COBERTURA DE EDAD real (06-Jul, corrige el "~35% límite estructural" que era demasiado absoluto)
+Mongo `mercado_props` `anio_construccion`: **44% global**, MUY dependiente del portal:
+VIVANUNCIOS 94% · PROPIEDADES_COM 83% · INMUEBLES24 83% (ALTOS) — PINCALI 31% (38k docs!) · CASAS_Y_TERRENOS 34% · NOCNOK 19% · MITULA 17% (BAJOS). Caché arrastra ~37% (pérdida menor vs Mongo, el builder NO es el gran culpable).
+→ La curva de edad ES aplicable donde el pool viene de portales buenos. Campo canónico `anio_construccion` (sin ñ), sin columna alterna.
+**PINCALI año = TECHO REAL 31%, VERIFICADO 06-Jul (NO reintentar):** las páginas `/en/` de PINCALI NO exponen año/antigüedad en ningún bloque (ni el JSON escapado de atributos ni el schema.org; descripcion vacía). El enricher lo busca con selectores DOM que no matchean, pero aunque se arreglara, el dato NO ESTÁ en el source. Ver `scraper-inmuebles/PINCALI_ENRICHER_NOTAS.md`. → La cobertura de edad NO sube vía PINCALI; se queda ~44% global (VIVA 94/PCOM 83/INM24 83 sostienen). El desbloqueo de la palanca de edad requiere OTRA fuente de año, no PINCALI.
+**Estado palanca edad (LAB_EDADSEG, codeada+medida):** homologación por segmento nuevo/usado mejora ±15 +2 / errAbs −0.3, CERO regresión, pero NO mueve ±20 (los casos que fallan no tienen edad en sus comps). Lista para pagar cuando suba cobertura de edad. Barrido K: K=0.5 óptimo (mediana centra menos mal), full sobrecorrige.
+
 ---
 
 ## ⛔ #104 SIMILARES PREMIUM/BARATOS — LÍMITE ESTRUCTURAL DE DATOS, NO REINTENTAR (03-Jun-2026)

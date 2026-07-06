@@ -125,7 +125,7 @@ CHECKPOINT_FILE = Path(__file__).parent / "enricher_checkpoint.json"
 # Extracción de datos en páginas de detalle
 # ─────────────────────────────────────────
 
-def extraer_datos_detalle(html: str, portal: str) -> dict:
+def extraer_datos_detalle(html: str, portal: str, url: str = None, session=None) -> dict:
     """
     Intenta extraer m2_terreno y año_construccion del HTML de detalle.
     Usa patrones regex comunes + selectores específicos por portal.
@@ -615,6 +615,25 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
             if mpark:
                 resultado["estacionamientos"] = int(mpark.group(1))
 
+        # Año de construcción: NO está en /en/home/, SÍ en la página ES /inmueble/ (mismo slug,
+        # confirmado por <link rel=alternate hreflang>). Formato: "Año de construcción: 2012" o
+        # "Año de construcción: A estrenar" (= nuevo → año actual). Verificado 06-Jul.
+        # Anclar SIEMPRE al label (la página lista "A estrenar" de OTRAS propiedades = envenenamiento).
+        if resultado.get("año_construccion") is None and url and session and "/en/home/" in url:
+            es_url = url.replace("/en/home/", "/inmueble/")
+            html_es = fetch_html_requests(es_url, session)
+            if html_es:
+                myr = re.search(r'A\w*o de construcci\w*n:\s*([^<\n]{1,20})', html_es, re.I)
+                if myr:
+                    from datetime import date
+                    val = myr.group(1).strip()
+                    if "estrenar" in val.lower():
+                        resultado["año_construccion"] = date.today().year
+                    else:
+                        ano = normalizar_anio_construccion(val)
+                        if ano:
+                            resultado["año_construccion"] = ano
+
     # ── nombre_agente ────────────────────────────────────────────────────────
     nombre_agente = None
 
@@ -1096,7 +1115,7 @@ def enriquecer_tab(sheets: SheetsClient, tab_name: str, max_filas: int, dry_run:
             continue
 
         # Extracción
-        datos = extraer_datos_detalle(html, portal)
+        datos = extraer_datos_detalle(html, portal, url, session)
 
         if not datos:
             log.debug(f"  Nada nuevo extraído para fila {num_fila}")
@@ -1288,7 +1307,7 @@ def enriquecer_mongo(col, portal: str, max_filas: int, dry_run: bool,
             errores += 1
             continue
 
-        datos = extraer_datos_detalle(html, portal)
+        datos = extraer_datos_detalle(html, portal, url, session)
         if not datos:
             continue
 

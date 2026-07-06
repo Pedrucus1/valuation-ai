@@ -978,14 +978,27 @@ function valuarPropiedad(prop) {
             if (cv>0 && sv>0) { const d=(cv-sv)/_std[v]; s+=d*d; k++; } }
         return k ? Math.sqrt(s/k) : 1;   // RMS normalizado por #vars usadas
     };
-    const _sel = compsFilt.map(c => ({
-        adj: (c.precio/c.m2_const) * Math.pow(c.m2_const/m2C, 1/6) * factorEdad * factorConserv,
-        dv:  _DV(c)
-    })).sort((a,b) => a.dv - b.dv).slice(0, DV_NMAX);
+    // LAB_EDADSEG: homologación por SEGMENTO de edad (data-derived 06-Jul, 9245 comps: 0-5→1.0, 6-10→0.78, 11+→0.67).
+    // Ajusta cada comp de SU segmento de edad al del sujeto usando la edad del COMP (c.an = año construcción).
+    // Sin edad del comp → cae al factorEdad actual. Flag OFF = idéntico a prod.
+    const _ageRatio = (age) => (age == null || age <= 0) ? null : age <= 5 ? 1.00 : age <= 10 ? 0.78 : 0.67;
+    const _subjR = _ageRatio(edadEfectiva) || 1.0;
+    const _compAdj = (c) => {
+        const base = (c.precio/c.m2_const) * Math.pow(c.m2_const/m2C, 1/6) * factorConserv;
+        if (process.env.LAB_EDADSEG === '1') {
+            const cr = _ageRatio(c.an > 0 ? _curY - c.an : null);
+            if (cr) { const K = process.env.LAB_EDADSEG_K ? parseFloat(process.env.LAB_EDADSEG_K) : 1.0;
+                      return base * (1 + K * ((_subjR / cr) - 1)); }
+            return base * factorEdad;
+        }
+        return base * factorEdad;
+    };
+    const _sel = compsFilt.map(c => ({ adj: _compAdj(c), dv: _DV(c) }))
+                          .sort((a,b) => a.dv - b.dv).slice(0, DV_NMAX);
     let _w=0, _vv=0;
     _sel.forEach(({adj,dv}) => { const wt = 1/(dv+DV_EPS); _vv += adj*wt; _w += wt; });
     let pm2cAvg = _w > 0 ? _vv/_w
-        : (compsFilt.reduce((a,c)=>a+(c.precio/c.m2_const)*Math.pow(c.m2_const/m2C,1/6)*factorEdad*factorConserv,0)/compsFilt.length);
+        : (compsFilt.reduce((a,c)=>a+_compAdj(c),0)/compsFilt.length);
 
     // #121b-ANCHOR: reconciliación robusta anclada al NSE limpio (patrón jerárquico/multi-escala).
     // El pool puede estar envenenado por precios corruptos (MITULA/NOCNOK truncados) que arrastran la
@@ -1202,7 +1215,7 @@ async function valuarPropiedadCompleto(prop) {
 }
 
 // ── export para uso inline (validador, tests) ─────────────────────────────────
-module.exports = { valuarPropiedad, valuarPropiedadCompleto, normCol, normMuni, normTipo, getSimilares };
+module.exports = { valuarPropiedad, valuarPropiedadCompleto, normCol, normMuni, normTipo, getSimilares, remiSobreComps };
 
 // ── stdin/stdout ──────────────────────────────────────────────────────────────
 if (require.main !== module) return; // solo corre stdin/stdout cuando es el proceso principal
