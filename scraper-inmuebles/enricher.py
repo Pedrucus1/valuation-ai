@@ -573,28 +573,37 @@ def extraer_datos_detalle(html: str, portal: str) -> dict:
         resultado["año_construccion"] = ano_const
 
     # ── PINCALI: colonia desde página de detalle ─────────────────────────────
-    # La tarjeta del scraper guarda el título como colonia. La página de detalle
-    # expone "li Neighborhood [COLONIA]" y el breadcrumb "... > Zapopan > [COLONIA]".
+    # La página /en/ tiene los nombres en el HTML-escaped JSON embebido:
+    #   Neighborhood&quot;:&quot;La Estancia&quot;  (nombres propios, iguales en español)
+    # El selector <li>Neighborhood</li> NO funciona — ese texto no existe como nodo.
     if portal == "PINCALI":
         pincali_col = None
-        # 1. li que contiene "Neighborhood" — texto directo tras el label
-        for li in soup.select("li"):
-            txt = li.get_text(separator=" ", strip=True)
-            m = re.match(r"Neighborhood\s+(.+)", txt, re.I)
-            if m:
-                candidato = m.group(1).strip()
-                if 3 <= len(candidato) <= 60:
-                    pincali_col = candidato
-                    break
-        # 2. Breadcrumb fallback — último nodo (no es el municipio)
+        # 1. HTML-escaped JSON: Neighborhood&quot;:&quot;VALUE&quot;
+        mneigh = re.search(
+            r'Neighborhood(?:&quot;|"):\s*(?:&quot;|")([^&"]{3,60})(?:&quot;|")',
+            html, re.I
+        )
+        if mneigh:
+            pincali_col = mneigh.group(1).strip()
+        # 2. BreadcrumbList ld+json — último nodo es la colonia/fraccionamiento
         if not pincali_col:
-            crumbs = soup.select('nav a, [class*="breadcrumb"] a, [class*="crumb"] a')
-            if len(crumbs) >= 2:
-                last = crumbs[-1].get_text(strip=True)
-                # Validar: no es "Jalisco", no es el municipio, no contiene "for sale/rent"
-                if (3 <= len(last) <= 60
-                        and not re.search(r'jalisco|for sale|for rent|en venta|en renta', last, re.I)):
-                    pincali_col = last
+            crumb_m = re.search(
+                r'"@type":\s*"BreadcrumbList".*?"itemListElement":\s*(\[.*?\])',
+                html, re.S
+            )
+            if crumb_m:
+                try:
+                    items = json.loads(crumb_m.group(1))
+                    crumb_names = [it.get("name", "") for it in items if isinstance(it, dict)]
+                    if len(crumb_names) >= 5:
+                        candidato = crumb_names[-1]
+                        if (3 <= len(candidato) <= 60
+                                and not re.search(
+                                    r'for sale|for rent|en venta|en renta|jalisco',
+                                    candidato, re.I)):
+                            pincali_col = candidato
+                except Exception:
+                    pass
         if pincali_col:
             resultado["colonia"] = pincali_col
 

@@ -138,14 +138,10 @@ class PincaliScraper(BaseScraper):
         ban_m = re.search(r"(\d+)\s*(?:baths?|baños?)", texto, re.I)
         banos = ban_m.group(1) if ban_m else None
 
-        # Dirección / colonia — aparece después de m² en el texto pipe-separado
+        # Colonia: la tarjeta en inglés no tiene este dato de forma fiable.
+        # El enricher la extrae del HTML-escaped JSON de la página de detalle.
         colonia = ""
         partes = [p.strip() for p in texto.split("|") if p.strip()]
-        for i, parte in enumerate(partes):
-            if re.search(r"\d+\s*m[²2]", parte):
-                if i + 1 < len(partes):
-                    colonia = partes[i + 1]
-                break
 
         # Título — última parte larga
         titulo = ""
