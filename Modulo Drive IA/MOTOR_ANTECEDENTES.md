@@ -19,6 +19,35 @@
 
 ---
 
+## 📌 #121b ESTADO VALIDADO + PLAN A 85% (06-Jul-2026)
+
+**Validación de hoy (caché 1-Jul, `node validar_40_opis.js --n 400 --desde 2025-01`):**
+±10 52.4% (54/103) · ±15 61.2% (63/103) · ±20 76.7% (79/103) · errAbs 13.9% · mediana +9.6.
+**IDÉNTICA al baseline post-#121b → cero regresión.** Los 8 commits del motor (hasta `7e90cf1`) se
+**pushearon a origin/main** (validado antes de subir). Falta desplegar a Railway.
+
+**Compromiso: ±20 ≥ 85%.** Hoy 76.7% → faltan ~9pp (~8-9 OPIs de las 24 que fallan).
+
+**Las 24 que fallan → 3 PALANCAS (del análisis 1×1, cubren ~18-19):**
+1. **Curva de depreciación por edad según NSE** (~8-9 OPIs): el factor lineal SOBRE-castiga casas 25-55a
+   en zonas premium (Seattle, Cd del Sol) y NO deprecia casas viejas en populares (El Batán 81a→sobrevalúa).
+   Fix: curva de edad dependiente de NSE (premium deprecia lento, popular con piso ~0.45). CAMBIO DE FÓRMULA
+   → probar en lab (`motor_remi_api_lab.js` flag ENV), medir vs 76.7%, cero regresión.
+2. **Recalcular anclas NSE con muestra chica** (~6): colonias con ancla de 1 listing (Santa María, La
+   Esperanza $8.4k vs real $15-18k). Fix data-side: recomputar `colonias_nse.json` desde el caché YA LIMPIO
+   (mediana real por colonia, n≥5). Bajo riesgo.
+3. **SIM map de 4 colonias sin pool** (~4): Villa Hermosa $6k (real $15-20k), El Vergel, Educadores Jal.
+   (sin NSE entry), La Guadalupana. Data-side.
+- **2 estructurales (NO fix):** Echeverría (CASA+LOCAL), colonia="Guadalajara"(=municipio) → revisión manual.
+
+**Cadena pendiente ("validación 2" = re-validar tras rebuild):**
+(a) Backfill PINCALI colonias español (`enricher.py --portal PINCALI --mongo`, fix `a46909a` del 5-Jul, aún
+    NO reflejado en el caché del 1-Jul). (b) Rebuild caché (`actualizar_cache_consolidado_mongo.py`).
+(c) Recalcular anclas NSE (palancas 2-3, data-side). (d) Experimento curva de edad (palanca 1, en lab).
+(e) Medir todo vs 76.7%, committear solo lo que mejore. Ver [[project_motor_lab_121b]].
+
+---
+
 ## ⛔ #104 SIMILARES PREMIUM/BARATOS — LÍMITE ESTRUCTURAL DE DATOS, NO REINTENTAR (03-Jun-2026)
 
 Dos casos, **direcciones opuestas, ambos pool:similares n=3 (delgado)**:

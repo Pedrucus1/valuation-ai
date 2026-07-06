@@ -10,5 +10,5 @@ _BACKEND_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(_BACKEND_DIR / ".env")
 
 mongo_url = os.environ["MONGO_URL"]
-client = AsyncIOMotorClient(mongo_url, tlsCAFile=certifi.where(), maxPoolSize=200, minPoolSize=10)
+client = AsyncIOMotorClient(mongo_url, tlsCAFile=certifi.where(), maxPoolSize=50, minPoolSize=0)
 db = client[os.environ["DB_NAME"]]

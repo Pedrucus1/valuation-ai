@@ -11,6 +11,7 @@ Uso:
 
 import argparse
 import json
+import os
 import re
 import sys
 import time
@@ -19,16 +20,21 @@ from pathlib import Path
 from collections import defaultdict
 
 import requests
+from dotenv import load_dotenv
 from pymongo import MongoClient
 from pymongo import UpdateOne
 
 # ──────────────────────────────────────────────────────────────────────────────
-# CONFIG
+# CONFIG (todo desde .env, NUNCA hardcodeado — GitGuardian/GitHub secret scanning)
 # ──────────────────────────────────────────────────────────────────────────────
-MONGO_URL  = "mongodb+srv://PropValu:Avaluos.%2345%23.@cluster0.9eliadx.mongodb.net/?appName=Cluster0"
+_HERE = Path(__file__).resolve().parent
+load_dotenv(_HERE / ".env")          # MONGO_URL del scraper
+load_dotenv(_HERE.parent / ".env")   # GEMINI_API_KEY del repo raiz
+
+MONGO_URL  = os.environ["MONGO_URL"]
 DB_NAME    = "propvalu"
 COL_NAME   = "mercado_props"
-GEMINI_KEY = "AIzaSyCqh6g6iMg27LfMuQdGm1ljeLJpiIXv69M"
+GEMINI_KEY = os.environ["GEMINI_API_KEY"]
 GEMINI_MODEL_PRIMARY  = "gemini-2.5-flash"
 GEMINI_MODEL_FALLBACK = "gemini-2.0-flash"
 BATCH_SIZE  = 120      # títulos ÚNICOS por llamada Gemini
