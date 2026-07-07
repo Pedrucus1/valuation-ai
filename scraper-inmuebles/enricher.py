@@ -615,24 +615,33 @@ def extraer_datos_detalle(html: str, portal: str, url: str = None, session=None)
             if mpark:
                 resultado["estacionamientos"] = int(mpark.group(1))
 
-        # Año de construcción: NO está en /en/home/, SÍ en la página ES /inmueble/ (mismo slug,
-        # confirmado por <link rel=alternate hreflang>). Formato: "Año de construcción: 2012" o
-        # "Año de construcción: A estrenar" (= nuevo → año actual). Verificado 06-Jul.
+        # Año de construcción PINCALI — 07-Jul-2026:
+        # PRIMARIO: "Year Built: YYYY" en feature-icon de /en/home/ (ya descargado, sin HTTP extra).
+        #   Verificado: campo canónico cuando el agente lo publica; extrae directamente del HTML crudo
+        #   (más robusto que soup.get_text() que puede tener ruido de encoding).
+        # FALLBACK: página española /inmueble/ con "Año de construcción: YEAR|A estrenar".
+        #   /inmueble/ puede devolver 422 intermitentemente (confirmado 06-Jul) → no depender de él.
         # Anclar SIEMPRE al label (la página lista "A estrenar" de OTRAS propiedades = envenenamiento).
-        if resultado.get("año_construccion") is None and url and session and "/en/home/" in url:
-            es_url = url.replace("/en/home/", "/inmueble/")
-            html_es = fetch_html_requests(es_url, session)
-            if html_es:
-                myr = re.search(r'A\w*o de construcci\w*n:\s*([^<\n]{1,20})', html_es, re.I)
-                if myr:
-                    from datetime import date
-                    val = myr.group(1).strip()
-                    if "estrenar" in val.lower():
-                        resultado["año_construccion"] = date.today().year
-                    else:
-                        ano = normalizar_anio_construccion(val)
-                        if ano:
-                            resultado["año_construccion"] = ano
+        if resultado.get("año_construccion") is None and url and "/en/home/" in url:
+            from datetime import date as _date_pincali
+            # 1. Buscar "Year Built: YYYY" directamente en el HTML /en/home/ ya descargado
+            myr_en = re.search(r'Year\s+Built\s*:\s*(\d{4})', html, re.I)
+            if myr_en:
+                resultado["año_construccion"] = int(myr_en.group(1))
+            elif session:
+                # 2. Fallback: página española /inmueble/ (puede estar a 422; intentar igual)
+                es_url = url.replace("/en/home/", "/inmueble/")
+                html_es = fetch_html_requests(es_url, session)
+                if html_es:
+                    myr_es = re.search(r'A\w*o de construcci\w*n:\s*([^<\n]{1,20})', html_es, re.I)
+                    if myr_es:
+                        val = myr_es.group(1).strip()
+                        if "estrenar" in val.lower():
+                            resultado["año_construccion"] = _date_pincali.today().year
+                        else:
+                            ano = normalizar_anio_construccion(val)
+                            if ano:
+                                resultado["año_construccion"] = ano
 
     # ── nombre_agente ────────────────────────────────────────────────────────
     nombre_agente = None
