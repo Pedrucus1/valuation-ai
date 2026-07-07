@@ -827,6 +827,50 @@ function valuarPropiedad(prop) {
     const bandaMin  = tieneAnclaje ? medRef * 0.40 : 0;
     const bandaMax  = tieneAnclaje ? medRef * 1.60 : Infinity;
 
+    // Ancla segmentada por tipo + franja de edad del sujeto (#121b, portado de lab).
+    // Franjas: 0-5 / 6-15 / 16+ años. Cascada: segmento n≥5 → tipo any-age n≥5 → blended actual.
+    // Solo usa banda estrecha [0.50×, 1.80×] cuando hay datos de segmento real (n≥5).
+    // Cascade a colonia all-age o blended → mantiene [0.40×, 1.60×]. SOLO residencial (casa/depto).
+    let bandaMinEff = bandaMin, bandaMaxEff = bandaMax;
+    if (tipo === 'casa' || tipo === 'depto') {
+        const edadSubj = prop.edad || 0;
+        const _franjaFn = (e) => e <= 5 ? 0 : e <= 15 ? 1 : 2;
+        const franjaSubj = _franjaFn(edadSubj);
+
+        let pm2cRefSeg = 0;
+        let _useTighter = false;
+
+        // Paso 1: colonia exacta + misma franja de edad (n≥5) — activa banda estrecha
+        if (enColoniaTodos.length >= 5) {
+            const _yrCur = new Date().getFullYear();
+            const enFranjaCol = enColoniaTodos.filter(d => {
+                if (!d.anio || d.anio <= 0) return false;
+                return _franjaFn(_yrCur - d.anio) === franjaSubj;
+            });
+            if (enFranjaCol.length >= 5) {
+                const pm2s = enFranjaCol.map(d => d.precio / d.m2c).filter(v => v > 0 && isFinite(v));
+                if (pm2s.length >= 5) { pm2cRefSeg = mediana(pm2s); _useTighter = true; }
+            }
+            // Paso 2 (cascade a): colonia + cualquier edad — mantiene banda original
+            if (!pm2cRefSeg) {
+                const pm2sAll = enColoniaTodos.map(d => d.precio / d.m2c).filter(v => v > 0 && isFinite(v));
+                if (pm2sAll.length >= 5) { pm2cRefSeg = mediana(pm2sAll); }
+            }
+        }
+        // Paso 3 (cascade b): blended actual (lo de hoy), banda original
+        if (!pm2cRefSeg && medRef > 0) { pm2cRefSeg = medRef; }
+
+        if (pm2cRefSeg > 0) {
+            if (_useTighter) {
+                bandaMinEff = pm2cRefSeg * 0.50;
+                bandaMaxEff = pm2cRefSeg * 1.80;
+            } else {
+                bandaMinEff = pm2cRefSeg * 0.40;
+                bandaMaxEff = pm2cRefSeg * 1.60;
+            }
+        }
+    }
+
     // Tiers de escalafón
     const tierLo = m2C <= 62 ? 30 : m2C <= 100 ? 52 : m2C <= 145 ? 88 : m2C <= 200 ? 125 : 170;
     const tierHi = m2C <= 62 ? 72 : m2C <= 100 ? 112 : m2C <= 145 ? 162 : m2C <= 200 ? 225 : 9999;
@@ -835,7 +879,7 @@ function valuarPropiedad(prop) {
     const pool = dedup(todos.filter(d => {
         if (m2C > 0 && Math.abs(d.m2c - m2C) / Math.max(d.m2c, m2C) >= 0.50) return false;
         const pm2 = d.precio / d.m2c;
-        return pm2 >= bandaMin && pm2 <= bandaMax;
+        return pm2 >= bandaMinEff && pm2 <= bandaMaxEff;
     }));
 
     // Cascada
@@ -876,7 +920,7 @@ function valuarPropiedad(prop) {
             const filtrados = listingsCercana.filter(d => {
                 if (m2C > 0 && Math.abs(d.m2c - m2C) / Math.max(d.m2c, m2C) >= 0.50) return false;
                 const pm2 = d.precio / d.m2c;
-                return pm2 >= bandaMin && pm2 <= bandaMax;
+                return pm2 >= bandaMinEff && pm2 <= bandaMaxEff;
             });
             
             // Aplicar el mismo filtro NSE que similares (±1)
