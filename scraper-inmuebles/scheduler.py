@@ -74,9 +74,11 @@ def generar_tareas() -> list[dict]:
     ]
 
     # Portales que no tienen URL por tipo — una tarea = zona × operacion
+    # MITULA excluido (06-jul-2026): agregador con dato corrupto (m²c×1000, precios,
+    # 0% estac) que ya se descarta al construir el caché del motor. Scrapearlo era esfuerzo
+    # perdido. Los mappings MITULA (SCRAPER_MAP, PORTAL_NOMBRES) quedan inertes.
     portales_simples = [
         "VIVANUNCIOS",
-        "MITULA",
         "CASAS_Y_TERRENOS",
     ]
 
