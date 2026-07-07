@@ -14,11 +14,12 @@ Excluye comps con $/m²C por debajo de 0.5 × ancla NSE de su colonia.
   - Si no está                          → umbral = PISO_ABSOLUTO ($8,000)
 Los terrenos (m2c==0 tras corrección) se pasan sin filtro.
 
-RECUPERACIÓN MITULA (#121b):
-  Portal MITULA (via Lamudi) tiene un bug de unidades documentado: m2_construccion
-  suele venir ×1000 (p.ej. 58850 en lugar de 58.85). Si portal_origen=MITULA y
-  m2c > 2000, se divide m2c / 1000. El comp se mantiene solo si tras la corrección
-  su $/m²C queda en el rango [8000, 82000] (fuera → basura / extravagante → descartar).
+EXCLUSIÓN MITULA (#121b — validado lab 07-Jul-2026):
+  Portal MITULA (via Lamudi) tiene un bug documentado de datos corruptos que
+  envenena el pool de comps (m2c×1000, precios no confiables). Se excluye
+  COMPLETO al construir el caché — es más limpio que filtrar en el motor y
+  aplica a todos los tipos de propiedad, no solo residencial.
+  Lab: ±10 55.3→63.1 / ±15 63.1→69.9 / ±20 76.7→79.6 / errAbs 13.2→11.6 (103 OPIs).
 ──────────────────────────────────────────────────────────────────────────────
 
 Solo LECTURA de Mongo. Salida: cache_consolidado.json
@@ -39,7 +40,6 @@ OUT           = Path(__file__).parent / "cache_consolidado.json"
 NSE_PATH      = Path(__file__).parent / "colonias_nse.json"
 TIPOS_TERRENO = {"terreno", "lote", "predio", "solar"}
 PISO_ABSOLUTO = 8_000    # $/m²C mínimo para colonias sin ancla NSE
-PM2C_MAX      = 82_000   # techo para recuperación MITULA (sobre este = extravagante → descartar)
 
 
 def low(s):  return (s or "").lower().strip()
@@ -96,21 +96,13 @@ def main():
         if any(t in d["tipo"] for t in TIPOS_TERRENO) and d["m2t"] == 0 and d["m2c"] > 0:
             d["m2t"] = d["m2c"]; d["m2c"] = 0; corr += 1
 
-    # ── Recuperación MITULA: bug de unidades (m2c × 1000) ────────────────────
-    # Portal MITULA (Lamudi) reporta m2c en dm² en lugar de m². Si m2c > 2000,
-    # dividir / 1000 y validar que el $/m²C resultante sea plausible [8k, 82k].
-    mitula_corr = 0
-    mitula_desc = 0
-    for d in raw:
-        if d.get("portal", "").upper() == "MITULA" and d["m2c"] > 2000:
-            m2c_orig = d["m2c"]
-            d["m2c"] = round(m2c_orig / 1000, 2)
-            pm2c_corr = d["precio"] / d["m2c"] if d["m2c"] > 0 else 0
-            if PISO_ABSOLUTO <= pm2c_corr <= PM2C_MAX:
-                mitula_corr += 1   # recuperado con buen $/m²C
-            else:
-                d["m2c"] = m2c_orig  # revertir → quedará como basura y será excluido
-                mitula_desc += 1
+    # ── Exclusión MITULA: portal con datos corruptos (#121b) ──────────────────
+    # Bug documentado: m2c viene ×1000, precios no confiables. Excluir completo.
+    # Validado en lab 07-Jul-2026: ±20 76.7→79.6, cero regresión en 103 OPIs.
+    n_antes_mitula = len(raw)
+    raw = [d for d in raw if d.get("portal", "").upper() != "MITULA"]
+    mitula_excluidos = n_antes_mitula - len(raw)
+    print(f"MITULA excluidos del pool: {mitula_excluidos:,} (de {n_antes_mitula:,} crudos)")
 
     # ── Filtro anti-basura: NSE 0.5× ancla + piso absoluto ───────────────────
     excluidos = 0
@@ -139,7 +131,6 @@ def main():
 
     print(f"Excluidos por filtro NSE/piso: {excluidos:,}")
     print(f"  Por portal: {dict(sorted(excl_por_portal.items(), key=lambda x: -x[1]))}")
-    print(f"MITULA corregidos (m2c/1000): {mitula_corr:,} | descartados tras corrección: {mitula_desc:,}")
 
     # ── Dedup: mismo colonia + área ───────────────────────────────────────────
     seen, comp = set(), []
@@ -153,11 +144,10 @@ def main():
     meta = {
         "fecha_actualizacion":   datetime.now().isoformat(),
         "total_cache":           len(comp),
-        "fuente":                "MONGO mercado_props — filtro anti-basura NSE 0.5×ancla (#121b)",
+        "fuente":                "MONGO mercado_props — filtro anti-basura NSE 0.5×ancla + excl.MITULA (#121b)",
         "excluidos_basura":      excluidos,
         "piso_absoluto":         PISO_ABSOLUTO,
-        "mitula_corregidos":     mitula_corr,
-        "mitula_descartados":    mitula_desc,
+        "mitula_excluidos":      mitula_excluidos,
     }
     OUT.write_text(json.dumps({"meta": meta, "datos": comp}), encoding="utf-8")
     ce = sum(1 for d in comp if d["recamaras"] or d["banos"])

@@ -157,6 +157,28 @@ VIVANUNCIOS 94% · PROPIEDADES_COM 83% · INMUEBLES24 83% (ALTOS) — PINCALI 31
 
 **VEREDICTO: PORTAR A PROD — mejora masiva sin regresión en ninguna métrica.** ±10 sube +7.8pp (el mayor salto registrado), ±20 sube +2.9pp, errAbs baja 1.6pp. El sesgo negativo se reduce (mediana −8.5→−7.3%). MITULA envenenaba el pool en muchas más colonias de las diagnosticadas.
 
+### ✅ IMPLEMENTADO EN PROD — excluir MITULA al construir caché (07-Jul-2026)
+
+**DECISIÓN:** sacar MITULA en `actualizar_cache_consolidado_mongo.py` (constructor del caché) en vez de filtrar en el motor. Un solo lugar, limpia todo, aplica a todos los tipos de propiedad.
+
+**ADVERTENCIA EVALUADA:** sin la salvaguarda per-query del lab (reintroduce MITULA si <3 comps), el caché pierde esa red de seguridad. Se midió para determinar si hubo regresión.
+
+**NÚMEROS MEDIDOS (07-Jul-2026, `node validar_40_opis.js --n 400 --desde 2025-01`, 103 OPIs, caché 21,562 comps SIN MITULA):**
+
+| Métrica | Baseline (caché CON MITULA, 25,556) | Caché SIN MITULA (21,562) | Delta |
+|---|---|---|---|
+| ±10% | 55.3% | **60.2%** | +4.9pp |
+| ±15% | 63.1% | **68.0%** | +4.9pp |
+| ±20% | 76.7% | **79.6%** | +2.9pp |
+| errAbs | 13.2% | **12.0%** | −1.2pp |
+| mediana | — | 7.4% | — |
+
+**CERO REGRESIÓN** en todas las métricas. ±20% igualó exactamente la predicción del lab (79.6%).
+Sin salvaguarda per-query, pero la mejora aplica igual — las colonias dependientes de MITULA tenían datos corruptos de todos modos.
+MITULA excluidos del pool crudo: 7,395 de 49,804 (14.8%). Comps en caché: 25,556→21,562 (−3,994).
+
+**Commit:** `feat(cache): excluir MITULA al construir cache_consolidado (#121b)` — ver git log.
+
 ---
 
 ## ⛔ #104 SIMILARES PREMIUM/BARATOS — LÍMITE ESTRUCTURAL DE DATOS, NO REINTENTAR (03-Jun-2026)

@@ -30,7 +30,7 @@
 ## ⚙️ CÓMO CORRER (gotchas)
 - **Validador OFFLINE determinista:** `GEMINI_API_KEY= SERPER_API_KEY= DEEPSEEK_API_KEY= node validar_lab.js --n 400 --desde 2025-01`. Sin esto, los OPIs sin cobertura de caché re-buscan comps vivos (legítimo pero no reproducible para A/B).
 - **Python Windows:** `C:\Users\pedru\AppData\Local\Python\pythoncore-3.14-64\python.exe` + `PYTHONUTF8=1` (o crashea en consola por acentos).
-- **Baseline vigente (06-Jul, caché colonias-limpias):** ±10 54.4 / ±15 62.1 / ±20 75.7 / errAbs 13.5 / mediana −8.7.
+- **Baseline vigente (07-Jul, caché SIN MITULA 21,562 comps):** ±10 60.2 / ±15 68.0 / ±20 79.6 / errAbs 12.0 / mediana +7.4. (Previo con MITULA: ±10 55.3 / ±15 63.1 / ±20 76.7 / errAbs 13.2).
 
 ## 🗑️ VARIANTES/EXPERIMENTOS (NO son prod — no confundir)
 - Motores: `motor_remi_api_dv.js` (experimento DV, ya mergeado a prod), `_limpio`, `_migr`.
