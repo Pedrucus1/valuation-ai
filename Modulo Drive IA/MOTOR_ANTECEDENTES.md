@@ -134,6 +134,29 @@ VIVANUNCIOS 94% · PROPIEDADES_COM 83% · INMUEBLES24 83% (ALTOS) — PINCALI 31
 
 **PORTADO A PROD (06-Jul-2026, commit b5430fc):** Integrado en `motor_remi_api.js` como comportamiento permanente (sin flag). Solo residencial (casa/depto). Cascada idéntica al lab. Validado offline 400 OPIs: ±10 55.3% / ±15 63.1% / ±20 76.7% / errAbs 13.2% / mediana −8.5% — cero regresión confirmada.
 
+### ★ LAB_NO_MITULA=1 — excluir MITULA del pool de comparables residencial (06-Jul-2026, motor_remi_api_lab.js)
+
+**HIPÓTESIS:** MITULA arrastra medianas hacia abajo y subvalúa por el bug m²C×1000 que genera precios truncados. Diagnóstico previo: El Vergel 6/7 comps MITULA, Jardines de la Cruz 5/11, La Esperanza 3/3 — todos subvaluaban.
+
+**IMPLEMENTACIÓN:** Fingerprint set de listings MITULA (precio_m2c_colNorm, 2,700 huellas residencial) cargado al arrancar. Filtrado de `todos` antes de construir el pool. Salvaguarda: si tras toda la cascada (exacta→similares→CP→general) quedan <3 candidatos, reintroduce MITULA. Colisiones fingerprint con no-MITULA: 0.19% (medido). Solo residencial (casa/depto). Flag: `LAB_NO_MITULA=1`.
+
+**RESULTADO (offline, 103 OPIs, desde 2025-01):**
+
+| Métrica | Baseline (LAB_ANCLA_SEG en prod) | LAB_NO_MITULA=1 | Delta |
+|---------|----------------------------------|-----------------|-------|
+| ±10% | 55.3% | **63.1%** | **+7.8pp** |
+| ±15% | 63.1% | **69.9%** | **+6.8pp** |
+| ±20% | 76.7% | **79.6%** | **+2.9pp** |
+| errAbs | 13.2% | **11.6%** | **-1.6pp** |
+| mediana | -8.5% | -7.3% | +1.2pp (menos sesgo) |
+
+**Colonias objetivo:**
+- **Jardines de la Cruz** OPI-25-5-23-LM 2025: ✅ ±10% (-6.8%) — RECUPERADO. OPI-26-5-24-AV 2026: ❌ FALLA -21.1% (diferente OPI, perito $5.1M, probablemente casa distinta).
+- **La Esperanza** OPI-25-3-15-AV: ✅ ±10% (-3.8%) — RECUPERADO.
+- **El Vergel** OPI-26-5-09-AV: ❌ FALLA -32.9% pool:exacta n=3 — NO recuperado. Quedan solo 3 comps sin MITULA y siguen siendo bajos; el problema en El Vergel es más profundo (pocos comparables de cualquier portal en la zona).
+
+**VEREDICTO: PORTAR A PROD — mejora masiva sin regresión en ninguna métrica.** ±10 sube +7.8pp (el mayor salto registrado), ±20 sube +2.9pp, errAbs baja 1.6pp. El sesgo negativo se reduce (mediana −8.5→−7.3%). MITULA envenenaba el pool en muchas más colonias de las diagnosticadas.
+
 ---
 
 ## ⛔ #104 SIMILARES PREMIUM/BARATOS — LÍMITE ESTRUCTURAL DE DATOS, NO REINTENTAR (03-Jun-2026)

@@ -229,6 +229,41 @@ function normMuni(s) {
         .replace(/(\b\w+)\1\b/, '$1');  // colapsa nombre duplicado por bugs previos (xx→x)
 }
 
+// ── LAB_NO_MITULA: fingerprint set de listings MITULA (precio_m2c_colNorm) ───
+// Cargado una sola vez al arrancar; solo si el flag está activo (evita overhead en baseline).
+// Usa normCol del ÍNDICE (build_cache_index) para que la clave coincida con d.colonia en todos[].
+// Colisiones con no-MITULA: ~0.19% (medido 06-jul-2026). Aceptable para experimento de lab.
+function _normColIdx(s) {
+    if (!s) return '';
+    return s.toString().toLowerCase()
+        .normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .replace(/\b(col\.|colonia|fracc\.|fraccionamiento|residencial|secc?\.?|coto|privada|conjunto)\b/g, '')
+        .replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+}
+
+const _MITULA_FPS = (() => {
+    if (process.env.LAB_NO_MITULA !== '1') return null;
+    const CONS_PATH = path.join(__dirname, 'cache_consolidado.json');
+    if (!fs.existsSync(CONS_PATH)) return null;
+    const { datos } = JSON.parse(fs.readFileSync(CONS_PATH, 'utf8'));
+    const fps = new Set();
+    for (const d of datos) {
+        if (d.portal !== 'MITULA') continue;
+        const t = (d.tipo || '').toLowerCase();
+        if (t !== 'casa' && !t.includes('depto')) continue;  // solo residencial
+        const cn = _normColIdx(d.colonia || '');
+        fps.add(`${d.precio}_${d.m2c}_${cn}`);
+    }
+    console.error(`[LAB_NO_MITULA] fingerprints MITULA cargados: ${fps.size}`);
+    return fps;
+})();
+
+// d.colonia ya es la clave normalizada del IDX → comparar directo (sin renormalizar)
+function _esMitula(d) {
+    if (!_MITULA_FPS) return false;
+    return _MITULA_FPS.has(`${d.precio}_${d.m2c}_${d.colonia}`);
+}
+
 const TIPO_SINONIMOS = {
     'casa': ['casa', 'casas', 'residencia', 'chalet', 'villa'],
     'depto': ['departamento', 'depto', 'apartamento', 'flat', 'loft', 'penthouse', 'suite'],
@@ -801,7 +836,13 @@ function valuarPropiedad(prop) {
         : similaresBrutos;
 
     // Pool base
-    const todos = listingsEnMuni(muniNorm, tipo);
+    const todosRaw = listingsEnMuni(muniNorm, tipo);
+
+    // LAB_NO_MITULA: excluir MITULA de residencial.
+    // Salvaguarda: si tras toda la cascada quedan <3 candidatos, se reintroducen (ver abajo).
+    const esResidencial = tipo === 'casa' || tipo === 'depto';
+    const _filtrarMitula = _MITULA_FPS && esResidencial;
+    const todos = _filtrarMitula ? todosRaw.filter(d => !_esMitula(d)) : todosRaw;
 
     // Banda de precio zona — anclada en datos locales (colonia o similares)
     const enColoniaTodos = colNorm ? todos.filter(d => {
@@ -827,6 +868,56 @@ function valuarPropiedad(prop) {
     const bandaMin  = tieneAnclaje ? medRef * 0.40 : 0;
     const bandaMax  = tieneAnclaje ? medRef * 1.60 : Infinity;
 
+    // LAB_ANCLA_SEG=1: pm2cRef segmentado por tipo + franja de edad del sujeto.
+    // Franjas: 0-5 / 6-15 / 16+ años. Cascada: segmento n≥5 → tipo any-age n≥5 → medRef.
+    // SOLO usa ventana más estrecha [0.50×, 1.80×] cuando hay datos de segmento real (nFranja≥5).
+    // Cascade a colonia all-age o blended → mantiene [0.40×, 1.60×] para no cortar comps legítimos.
+    let bandaMinEff = bandaMin, bandaMaxEff = bandaMax;
+    if (process.env.LAB_ANCLA_SEG === '1') {
+        const _yrCur = new Date().getFullYear();
+        const edadSubj = prop.edad || 0;
+        const _franjaFn = (e) => e <= 5 ? 0 : e <= 15 ? 1 : 2;
+        const franjaSubj = _franjaFn(edadSubj);
+
+        let pm2cRefSeg = 0;
+        let _nFranja = 0, _srcSeg = 'none', _useTighter = false;
+
+        // Paso 1: colonia exacta + misma franja de edad (n≥5) — activa banda estrecha
+        if (enColoniaTodos.length >= 5) {
+            const enFranjaCol = enColoniaTodos.filter(d => {
+                if (!d.anio || d.anio <= 0) return false;
+                return _franjaFn(_yrCur - d.anio) === franjaSubj;
+            });
+            _nFranja = enFranjaCol.length;
+            if (enFranjaCol.length >= 5) {
+                const pm2s = enFranjaCol.map(d => d.precio / d.m2c).filter(v => v > 0 && isFinite(v));
+                if (pm2s.length >= 5) { pm2cRefSeg = mediana(pm2s); _srcSeg = 'col+franja'; _useTighter = true; }
+            }
+            // Paso 2 (cascade a): colonia + cualquier edad — mantiene banda original
+            if (!pm2cRefSeg) {
+                const pm2sAll = enColoniaTodos.map(d => d.precio / d.m2c).filter(v => v > 0 && isFinite(v));
+                if (pm2sAll.length >= 5) { pm2cRefSeg = mediana(pm2sAll); _srcSeg = 'col+all'; }
+            }
+        }
+        // Paso 3 (cascade b): blended actual (colonia+similares — lo de hoy), banda original
+        if (!pm2cRefSeg && medRef > 0) { pm2cRefSeg = medRef; _srcSeg = 'blended'; }
+
+        if (pm2cRefSeg > 0) {
+            if (_useTighter) {
+                // Solo con datos de segmento real: banda estrecha centrada en pm2cRefSeg
+                bandaMinEff = pm2cRefSeg * 0.50;
+                bandaMaxEff = pm2cRefSeg * 1.80;
+            } else {
+                // Cascade: usar pm2cRefSeg como ancla pero mantener tolerancia original
+                bandaMinEff = pm2cRefSeg * 0.40;
+                bandaMaxEff = pm2cRefSeg * 1.60;
+            }
+        }
+        if (process.env.LAB_DEBUG && colNorm && colNorm.includes(process.env.LAB_DEBUG)) {
+            console.error(`[SEG] colonia=${colNorm} edadSubj=${edadSubj} franja=${franjaSubj} nFranja=${_nFranja} nCol=${enColoniaTodos.length} pm2cRefSeg=${Math.round(pm2cRefSeg)} src=${_srcSeg} tighter=${_useTighter} banda=[${Math.round(bandaMinEff)},${Math.round(bandaMaxEff)}]`);
+        }
+    }
+
     // Tiers de escalafón
     const tierLo = m2C <= 62 ? 30 : m2C <= 100 ? 52 : m2C <= 145 ? 88 : m2C <= 200 ? 125 : 170;
     const tierHi = m2C <= 62 ? 72 : m2C <= 100 ? 112 : m2C <= 145 ? 162 : m2C <= 200 ? 225 : 9999;
@@ -835,7 +926,7 @@ function valuarPropiedad(prop) {
     const pool = dedup(todos.filter(d => {
         if (m2C > 0 && Math.abs(d.m2c - m2C) / Math.max(d.m2c, m2C) >= 0.50) return false;
         const pm2 = d.precio / d.m2c;
-        return pm2 >= bandaMin && pm2 <= bandaMax;
+        return pm2 >= bandaMinEff && pm2 <= bandaMaxEff;
     }));
 
     // Cascada
@@ -876,9 +967,9 @@ function valuarPropiedad(prop) {
             const filtrados = listingsCercana.filter(d => {
                 if (m2C > 0 && Math.abs(d.m2c - m2C) / Math.max(d.m2c, m2C) >= 0.50) return false;
                 const pm2 = d.precio / d.m2c;
-                return pm2 >= bandaMin && pm2 <= bandaMax;
+                return pm2 >= bandaMinEff && pm2 <= bandaMaxEff;
             });
-            
+
             // Aplicar el mismo filtro NSE que similares (±1)
             const filtradosNSE = nseSubjeto ? filtrados.filter(d => {
                 const nsd = getNSE(c.colonia);
@@ -906,6 +997,15 @@ function valuarPropiedad(prop) {
                 return Math.abs(nsd.nseIdx - nseSubjeto.nseIdx) <= 1;
             });
             if (generalNSE.length >= 3) candidatos = generalNSE;
+        }
+        // LAB_NO_MITULA salvaguarda: si aún < 3, reintroducir MITULA (colonia sin datos limpios)
+        if (_filtrarMitula && candidatos.length < 3) {
+            const poolConMitula = dedup(todosRaw.filter(d => {
+                if (m2C > 0 && Math.abs(d.m2c - m2C) / Math.max(d.m2c, m2C) >= 0.50) return false;
+                const pm2 = d.precio / d.m2c;
+                return pm2 >= bandaMinEff && pm2 <= bandaMaxEff;
+            }));
+            if (poolConMitula.length >= 3) { candidatos = poolConMitula; poolTipo = 'general+mitula_ok'; }
         }
     }
 
@@ -945,9 +1045,37 @@ function valuarPropiedad(prop) {
     // como su zona ya no se sobre-deprecia. Fallback a 10 cuando no hay dato → comportamiento idéntico.
     const _cellEdad = IDX[muniNorm]?.[tipo]?.[colNorm];
     const anclaEdad = (_cellEdad && _cellEdad.edadMedianaZona != null) ? _cellEdad.edadMedianaZona : 10;
-    const factorEdad = poolTipo === 'exacta'   ? 1.0
-                     : poolTipo === 'similares' ? Math.max(floorEdad,  1 - (edadEfectiva - anclaEdad) * 0.005)
-                     :                            Math.max(0.70,       1 - (edadEfectiva - anclaEdad) * 0.01);
+    // LAB_EDAD_NSE=1: curva de depreciación dependiente del NSE del sujeto (solo no-exacta).
+    // Premium (nseIdx≥4): deprecia lento (floor=0.80, slope=0.004 similares / 0.006 general).
+    // Popular (nseIdx≤1): deprecia rápido (floor=0.50, slope=0.006 similares / 0.015 general).
+    // Medio (nseIdx 2-3): comportamiento idéntico a prod (floor=floorEdad/0.70, slope=0.005/0.01).
+    // OJO: en exacta factorEdad=1.0 siempre, este flag NO afecta el cluster dominante.
+    let factorEdad;
+    if (poolTipo === 'exacta') {
+        factorEdad = 1.0;
+    } else if (process.env.LAB_EDAD_NSE === '1' && nseSubjeto) {
+        const nIdx = nseSubjeto.nseIdx;
+        if (nIdx >= 4) {
+            // Premium: deprecia lento
+            const fSim = Math.max(0.80, 1 - (edadEfectiva - anclaEdad) * 0.004);
+            const fGen = Math.max(0.80, 1 - (edadEfectiva - anclaEdad) * 0.006);
+            factorEdad = poolTipo === 'similares' ? fSim : fGen;
+        } else if (nIdx <= 1) {
+            // Popular: deprecia rápido
+            const fSim = Math.max(0.50, 1 - (edadEfectiva - anclaEdad) * 0.008);
+            const fGen = Math.max(0.50, 1 - (edadEfectiva - anclaEdad) * 0.015);
+            factorEdad = poolTipo === 'similares' ? fSim : fGen;
+        } else {
+            // Medio (nseIdx 2-3): idéntico a prod
+            factorEdad = poolTipo === 'similares'
+                ? Math.max(floorEdad, 1 - (edadEfectiva - anclaEdad) * 0.005)
+                : Math.max(0.70,      1 - (edadEfectiva - anclaEdad) * 0.01);
+        }
+    } else {
+        factorEdad = poolTipo === 'similares'
+            ? Math.max(floorEdad, 1 - (edadEfectiva - anclaEdad) * 0.005)
+            : Math.max(0.70,      1 - (edadEfectiva - anclaEdad) * 0.01);
+    }
     const factorConserv = FACTORES_CONSERVACION[prop.estadoConservacion] || 1.00;
     // LAB_NEG: override del factor de negociación (listing→mercado). Default prod 0.95.
     const factorNeg     = process.env.LAB_NEG ? parseFloat(process.env.LAB_NEG) : 0.95;
