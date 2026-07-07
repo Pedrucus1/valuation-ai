@@ -38,13 +38,17 @@ Todos los portales drenados. Base: ~99,904 docs activos, 8,135 secundarios (dedu
 
 ## 🔐 Seguridad (06-Jul) — incidente resuelto
 - Fuga en commit `7e90cf1` (Gemini key + MONGO_URL prod hardcodeados). De-hardcodeado + **rotadas ambas keys** (Mongo pw + Gemini) en .env×2 + Railway. Pre-commit hook anti-secretos en `.githooks/`. Registro maestro de keys → memoria Claude `credentials_registry.md`.
-- **Pendiente:** de-hardcodear 9 archivos más con el pw viejo (muerto): `investigar*.py`, `audit_basura*.py`, `backfill_estac_pincali.py`, `check_quality.py`.
+- ✅ **De-hardcodeados los 9 archivos** con el pw viejo (leen `MONGO_URL` de `.env` vía dotenv) — commit `ab7ad50`. 0 literales restantes en el repo. Incidente cerrado.
 
 ## 🗺️ Índice del motor (NUEVO 06-Jul)
 `Modulo Drive IA/INDICE_MOTOR.md` — leer ANTES de buscar/tocar algo del motor (qué es canónico vs experimento, dónde OPIs/comps/IDX/NSE). Enganchado en CLAUDE.md.
 
 ## 🧠 Motor (06-Jul) — baseline y diagnóstico
-- Caché reconstruido con colonias PINCALI limpias (25,556 comps). **Baseline offline: ±20 75.7% / mediana −8.7 (subvalúa).**
+- Caché reconstruido con colonias PINCALI limpias (25,556 comps). Baseline offline: ±20 75.7% / mediana −8.7.
+- ✅ **ANCLA SEGMENTADA (tipo+edad) PORTADA A PROD** (`b5430fc`): ±20 75.7→**76.7**, cero regresión. Cascada: segmento n≥5 → tipo n≥5 → blended (nunca opera sin datos). Solo casa/depto. `.bak_port_121b` en disco. Efecto pleno espera + cobertura de año (backfill PINCALI).
+- ✅ **MITULA envenena el pool** (validado lab, 103 OPIs): `LAB_NO_MITULA` da ±10 55.3→**63.1** / ±15 63.1→**69.9** / ±20 76.7→**79.6** / errAbs 13.2→11.6, cero regresión. El MAYOR salto medido. Recuperó La Esperanza + Jardines de la Cruz. Flag en `motor_remi_api_lab.js`, prod NO tocado.
+- **DECISIÓN (usuario, próxima sesión):** sacar MITULA **al construir el caché** (`actualizar_cache_consolidado_mongo.py`) CON respaldo (un solo lugar, limpia todo), LUEGO portar el filtro. NO hecho aún por falta de tokens.
+- Diagnóstico 10 residenciales fuera ±20 (en MOTOR_ANTECEDENTES): 4 ANCLA-SESGADA (MITULA+NSE n=1), 3 SUBSEGMENTO-VACÍO, 1 SIN-COMPS, 1 PERITO-ATÍPICO, 1 ESTRUCTURAL. Los 14 restantes de los 24 fuera-±20 son OFICINA/LOCAL (aparte).
 - 4 palancas de fórmula probadas, NINGUNA mueve ±20 → cuello es DATO. `factorNeg=0.95` confirmado óptimo (NO tocar).
 - **Diagnóstico 3-columnas: el MÉTODO es correcto; falla la SELECCIÓN de comps** (promedia nuevo+usado en vez del segmento del sujeto). Palanca real = segmentar comps por edad/subsegmento. `LAB_EDADSEG` codeada (+2 ±15). Todo en `MOTOR_ANTECEDENTES.md`.
 - **Validador SIEMPRE offline** (`GEMINI_API_KEY= SERPER_API_KEY= DEEPSEEK_API_KEY= node validar_lab.js …`) o no es determinista.
@@ -53,8 +57,8 @@ Todos los portales drenados. Base: ~99,904 docs activos, 8,135 secundarios (dedu
 
 | # | Tarea | Notas |
 |---|---|---|
-| **#20** | **IPRoyal proxy sin saldo (402)** | Bloquea backfill. PINCALI no necesita proxy (HTTP simple) → correr proxy-free o recargar IPRoyal |
-| **#21** | **Backfill año PINCALI** | Fix HECHO (`enricher.py`, ES `/inmueble/`). 25,492 docs ya con `enrich_last_attempt` limpio. Correr `enricher.py --tab PINCALI --mongo` cuando se destrabe #20 |
+| ~~#20~~ | ✅ Destrabado: **PINCALI backfill funciona proxy-free** (`PROXY_URL=""`). No requiere recargar IPRoyal |
+| 🔄#21 | **Backfill año PINCALI** — validado proxy-free (~380 docs OK, 0 errores, ~5.6s/prop, resumible por checkpoint). Falta el grueso (~25k). ⚠️ Los background de Claude se matan a ~40min → correr en TERMINAL REAL: `set PROXY_URL=` + `enricher.py --tab PINCALI --mongo --max 20000` desde `scraper-inmuebles` |
 | **#22** | **Palanca motor: selección comps por segmento** | Edad + subsegmento de colonia; guardar subsegmento en la base. Ver MOTOR_ANTECEDENTES |
 | #14 | Lanzar scraper mensual julio | Fecha: 7-Jul-2026 (bloqueado por #20) |
 | #16 | Definir gancho de entrada de precios | Benchmark $80-$120/reporte — decisión usuario |

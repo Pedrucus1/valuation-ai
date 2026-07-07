@@ -1,5 +1,5 @@
 # PropValu — Backlog de Tareas
-> **Última actualización:** 29 Jun 2026 (sesión colonias-basura+cleaner-INEGI+OPI análisis). Snapshot de estado vigente → `ESTADO.md`. Bitácora histórica de sesiones → `BACKLOG_ARCHIVE.md` (NO leer al iniciar).
+> **Última actualización:** 06 Jul 2026 (seguridad/rotación keys + índice motor + análisis motor 3-columnas + fix año PINCALI). Snapshot de estado vigente → `ESTADO.md`. Bitácora histórica de sesiones → `BACKLOG_ARCHIVE.md` (NO leer al iniciar).
 > Marcar ✅ completado · 🔄 en progreso · ⏳ pendiente · 👁️ pendiente revisión personal. Las descripciones largas de tareas viven en las tablas de abajo; el detalle del motor en `MOTOR_ANTECEDENTES.md` (grep, no leer completo).
 
 ---
@@ -218,6 +218,10 @@
 | N7 | ⏳ | **Firmar acuerdos con abogados** — Red DocuProp: 3-5 abogados socios con split 75/25. |
 | N9 | ✅ | **Scraper NOCNOK** — `inmuebles.nocnok.com` — API JSON pura, sin Playwright. Ver #117. |
 | N10 | ⏳ | **Scraper Monopolio** — `monopolio.com.mx` — AWS Cognito explicit deny. Requiere login+JWT. Ver #118. |
+| #20 | ✅ | **IPRoyal DESCARTADO 100%** (causa conflicto con páginas + 402). Comentado en `.env`; scraper corre proxy-free. Regla en `scraper-inmuebles/INDICE_SCRAPER.md`. NO reactivar. (06-Jul) |
+| #21 | ⏳ | **Backfill año PINCALI** — fix HECHO en `enricher.py` (año en página ES `/inmueble/`, no `/en/`). 25,492 docs con `enrich_last_attempt` ya limpio. Correr `enricher.py --tab PINCALI --mongo` cuando se destrabe #20. Cobertura 31%→~50%. (06-Jul) |
+| #22 | ⏳ | **Motor: selección de comps por SEGMENTO** (edad + subsegmento de colonia) — diagnóstico 3-columnas: el método es correcto, falla la selección (promedia nuevo+usado). Guardar subsegmento en la base. `LAB_EDADSEG` codeada. Ver MOTOR_ANTECEDENTES. (06-Jul) |
+| #23 | ⏳ | **Seguridad: de-hardcodear 9 archivos con MONGO_URL viejo** (`investigar*.py`, `audit_basura*.py`, `backfill_estac_pincali.py`, `check_quality.py`, `actualizar_cache_consolidado_mongo_limpio.py`). Pw ya muerto pero hygiene. (06-Jul) |
 
 ---
 
