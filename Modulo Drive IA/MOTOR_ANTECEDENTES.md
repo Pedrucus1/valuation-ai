@@ -1824,5 +1824,49 @@ Reduce junk pero no lo elimina completamente. Fix de raíz: corregir el campo `c
 4. **Conectar idx_valoracion.json al motor** (`motor_remi_api.js`): consultar idx_valoracion como primera fuente de NSE/pm2, fallback a colonias_nse.json
 5. **Correr validador post-integración** para medir mejora en el set extendido (baseline: 68.8% ±10%)
 6. **Fix scrapers (Opción B)**: para tipo=terreno, m² genérico va a m²T no m²C en cada scraper
-7. **Limpieza junk keys en IDX**: fix en normCol o en el consolidador para que títulos de anuncio no queden como colonia
+7. **Limpieza junk keys en IDX**: fix en normCol o en el consolidador para que títulos de anuncio no queden como colonia → **RESUELTO #121b (07-Jul-2026)** via `consolidar_colonias_idx.py` (ver sección abajo)
 8. **Locales comerciales**: pendiente para después de viviendas — necesita lógica por vialidad + tipo de centro comercial
+
+---
+
+## Consolidación colonias fragmentadas — #121b (07-Jul-2026)
+
+### Problema
+`cache_index.json` tenía **3,440 claves únicas de colonia** de las cuales **537 eran fragmentos/variantes** del mismo lugar real. El scraper guardó títulos de listings como nombre de colonia. Ejemplos canónicos:
+- `"onia seattle"` (truncado de "Colonia Seattle") → `"seattle"`
+- `"terreno en seattle zapopan"` → `"seattle"`
+- `"casa en adamar tlajomulco de zuniga"` (37 comps) → `"adamar"`
+- `"onia americana"` (65 comps) → `"americana"`
+- `"terreno en valle imperial zapopan"` (99 comps) → `"valle imperial"`
+
+### Origen
+`build_cache_index.js::normCol()` ya stripeaba `colonia|fracc.|residencial` pero NO:
+- Prefijo "onia " (truncado de "colonia" en datos crudos)
+- "casa en X municipio" / "terreno en X municipio" (títulos de listing)
+- Decoradores en inglés: `neighborhood|colony|residential|condominium`
+
+### Fix aplicado
+`consolidar_colonias_idx.py` — post-procesador directo sobre `cache_index.json` y `colonias_maestro.json`:
+- 537 fusiones (patrones seguros: 536 sin AI, 1 validado por DeepSeek)
+- Patrones: "onia X" (90), "terreno en X muni" (295), "casa en X muni" (147), "col X" (5)
+- **2,772 comps recuperados** (distribuidos en las celdas canónicas)
+- Backups en `cache_index.consolidacion.bak.json` / `colonias_maestro.consolidacion.bak.json`
+
+### Resultados
+| Métrica | Antes | Después | Delta |
+|---------|-------|---------|-------|
+| ±10%   | 60.2% | 61.2%   | +1.0pp |
+| ±15%   | 68.0% | 70.9%   | **+2.9pp** |
+| ±20%   | 79.6% | 79.6%   | 0 |
+| errAbs | 12.0% | 11.7%   | −0.3pp |
+
+**Sin regresión. Mejora real en ±15%.**
+
+### Seattle (OPI-25-1-45-AV) — canaria
+- casa: 15 → 18 comps, terreno: 2 → 10 comps (fragmentos fusionados correctamente)
+- Diff sigue en −29.9% porque el problema de Seattle es calidad de comps (NSE mixto), no cobertura
+- No es un OPI recuperable solo con más comps; requiere ancla NSE explícita del perito
+
+### Reglas para el futuro
+- Al hacer rebuild de `cache_index.json` desde Mongo, correr `consolidar_colonias_idx.py --apply` después
+- El root fix es en `normCol()` de `build_cache_index.js`: agregar strip de "onia ", "casa en ", "terreno en " y decoradores EN — pendiente para no romper ahora, ya documentado
