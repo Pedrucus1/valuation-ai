@@ -32,6 +32,11 @@
 - **Python Windows:** `C:\Users\pedru\AppData\Local\Python\pythoncore-3.14-64\python.exe` + `PYTHONUTF8=1` (o crashea en consola por acentos).
 - **Baseline vigente (07-Jul, caché SIN MITULA 21,562 comps):** ±10 60.2 / ±15 68.0 / ±20 79.6 / errAbs 12.0 / mediana +7.4. (Previo con MITULA: ±10 55.3 / ±15 63.1 / ±20 76.7 / errAbs 13.2).
 
+## 🔧 SCRIPTS DE MANTENIMIENTO
+| Script | Qué hace | Cuándo correr |
+|---|---|---|
+| `build_seg_anclas.py` | Lee `cache_index.json` → genera `cache_seg_anclas.json` (75 colonias con ancla viejo/nuevo segmentada, k-means k=2). Flag LAB_SEG_CLUSTER=1 en motor_remi_api_lab.js lo consume. | Tras rebuild del caché. Ver MOTOR_ANTECEDENTES.md #121b. |
+
 ## 🗑️ VARIANTES/EXPERIMENTOS (NO son prod — no confundir)
 - Motores: `motor_remi_api_dv.js` (experimento DV, ya mergeado a prod), `_limpio`, `_migr`.
 - Validadores: `validar_dv.js`, `validar_limpio.js`, `validar_migr.js`, `validar_idx_valoracion.js`.

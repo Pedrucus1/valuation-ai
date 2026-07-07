@@ -19,6 +19,50 @@
 
 ---
 
+## 📌 #121b LAB_SEG_CLUSTER — SELECCIÓN POR CLUSTER NSE-MIXTO (07-Jul-2026)
+
+### Hipótesis
+Pool bimodal en colonias NSE-mixto (ej. Seattle: lujo nuevo ~$50k/m²C + viejo ~$25k/m²C). Motor promedia → ancla queda mal. Fix: usar ancla del SEGMENTO del sujeto (viejo→cluster bajo, nuevo→cluster alto).
+
+### Implementación en dos capas (motor_remi_api_lab.js, flag LAB_SEG_CLUSTER=1)
+1. **Runtime k-means (threshold 2.0×):** activa si pool ≥6, clusters n≥3 y ratio ≥2.0. Con threshold=2.0 → **CERO activaciones** en los 103 OPIs. Threshold 1.6 activa en spreads normales → regresión −1 OPI. Conclusión: runtime no es viable.
+2. **Build-time (cache_seg_anclas.json):** precomputa medianaPm2c viejo/nuevo por colonia×tipo desde cache_index.json. 75 colonias con bimodalidad detectada (72 k-means, 3 por anio). Band = [0.5×, 1.8×] ancla de segmento. SALVAGUARDA: n<5 → no aplica.
+
+### Baseline (lab, 103 OPIs, --desde 2025-01)
+±10 60.2% / ±15 70.9% / ±20 79.6% / errAbs 11.9% / mediana +7.4%
+
+### Resultados LAB_SEG_CLUSTER=1 con build-time anchor
+| Métrica | Baseline | LAB_SEG_CLUSTER=1 | Delta |
+|---|---|---|---|
+| ±10% | 60.2% | 60.2% | 0 |
+| ±15% | 70.9% | 70.9% | 0 |
+| ±20% | 79.6% | 79.6% | 0 |
+| errAbs | 11.9% | 12.1% | +0.2 (marginal) |
+| mediana | +7.4% | +7.4% | 0 |
+
+**NO COMMITEAR — cero OPIs recuperados, errAbs +0.2.**
+
+### Por qué NO funcionó en los 5 OPIs target
+| OPI | Diff antes | Diff después | Por qué no cambió |
+|---|---|---|---|
+| Seattle (OPI-25-1-45-AV) | −29.9% | −29.9% | SEG_BUILD activa (ancla $25k, banda [$12.5k, $45k]) pero el **filtro NSE** (nseSubjeto.medianaPm2×[0.55,1.55]) sigue siendo la restricción dominante: corta todo >$38.75k, dejando los mismos 4 comps a $23-28k. Causa raíz real = **factorConserv="malo"=0.55** × $26k = $14.3k/m²C vs perito $18k. |
+| El Vergel (OPI-26-5-09-AV) | −32.9% | −32.9% | n=3 pool → salvaguarda bloquea (necesita n≥5 en cada cluster). |
+| Las Bóvedas (OPI-25-1-13-AV) | −22.0% | −22.0% | Colonia no detectada como bimodal (no en cache_seg_anclas). |
+| Lomas San Agustín (OPI-25-1-07-AV) | −21.1% | −21.1% | Colonia no detectada como bimodal. |
+| Jardines Cruz (OPI-26-5-24-AV) | −21.1% | −21.1% | Ancla viejo=$23k → banda [$11.5k, $41.5k] admite todos los 12 comps (mismo resultado que banda blended $9.8k-$39.2k). La franja viejo no EXCLUYE los comps premium porque overlapping de clusters. |
+
+### Diagnóstico final
+- **Seattle:** raíz = factorConserv=0.55 (malo) × comps ($23-28k). El filtro NSE ya restringió el pool al cluster bajo. Palanca real: recalibrar factorConserv para cotos premium, o subir NSE anchor de Seattle.
+- **Jardines Cruz:** bimodal ($17-18k vs $23-35k) pero con 12 comps en pool el overlap es amplio — cualquier banda razonable admite todo. Se necesita un criterio de calidad de datos, no de segmentación.
+- **Conclusión general:** el problema NO es selección de comps sino ajustes POST-selección (factorConserv, NSE anchor). La selección por cluster NSE-mixto es la arquitectura CORRECTA pero requiere datos más granulares (NSE del comp individual o fuente de año por comp).
+
+### Archivos generados (útiles para el futuro)
+- `build_seg_anclas.py`: builder de anclas segmentadas. Re-ejecutar con `python build_seg_anclas.py` tras rebuild del caché.
+- `cache_seg_anclas.json`: 75 colonias con viejo/nuevo anchors. Backup en `.json.bak`.
+- Flag `LAB_SEG_CLUSTER=1` en motor_remi_api_lab.js: capa build-time + capa runtime (2.0× threshold). Disponible para futuros experimentos.
+
+---
+
 ## 📌 #121b ESTADO — TAREAS 2 y 3 MEDIDAS (06-Jul-2026, sesión 2)
 
 **BASELINE VIGENTE (caché colonias-limpias, colonias_maestro.json reconstruido):**

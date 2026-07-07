@@ -51,6 +51,7 @@ const COLONIAS_SIM_PATH  = path.join(__dirname, 'colonias_similares.json');
 const COLONIAS_IA_PATH   = path.join(__dirname, 'colonias_similares_enriquecido.json');
 const COLONIAS_SIM_V2_PATH = path.join(__dirname, 'colonias_similares.enriquecido.v2.json');
 const MAESTRO_PATH       = path.join(__dirname, 'colonias_maestro.json');
+const SEG_ANCLAS_PATH    = path.join(__dirname, 'cache_seg_anclas.json');
 
 const IDX     = JSON.parse(fs.readFileSync(INDEX_PATH, 'utf8'));
 
@@ -70,6 +71,10 @@ const _idxVal = !_maestro && fs.existsSync(IDX_VAL_PATH)       ? (() => { const 
 const _sim    = !_maestro && fs.existsSync(COLONIAS_SIM_PATH)  ? JSON.parse(fs.readFileSync(COLONIAS_SIM_PATH,  'utf8')) : {};
 const _simIA  = !_maestro && fs.existsSync(COLONIAS_IA_PATH)   ? JSON.parse(fs.readFileSync(COLONIAS_IA_PATH,   'utf8')) : {};
 const _simV2  = !_maestro && fs.existsSync(COLONIAS_SIM_V2_PATH) ? JSON.parse(fs.readFileSync(COLONIAS_SIM_V2_PATH, 'utf8')) : {};
+
+// LAB_SEG_CLUSTER: anclas segmentadas precomputadas (viejo/nuevo por colonia×tipo).
+// Se activa solo cuando LAB_SEG_CLUSTER=1. Cero costo en prod.
+const _SEG_ANCLAS = fs.existsSync(SEG_ANCLAS_PATH) ? JSON.parse(fs.readFileSync(SEG_ANCLAS_PATH, 'utf8')) : null;
 
 // Zonas geográficas — claves en formato normMuni (sin acentos, lowercase)
 // Quirk: normMuni("San Pedro Tlaquepaque") → "tlaquepaquetlaquepaque" (la regex "^san pedro " reemplaza
@@ -918,6 +923,31 @@ function valuarPropiedad(prop) {
         }
     }
 
+    // LAB_SEG_CLUSTER (capa 2 / build-time): ancla segmentada precomputada por colonia×tipo.
+    // Usa cache_seg_anclas.json generado por build_seg_anclas.py.
+    // La ventana [0.5×, 1.8×] se centra en el ancla del SEGMENTO del sujeto (viejo/nuevo),
+    // no en el blended actual. Esto filtra comps del segmento cruzado ANTES del scoring.
+    // SALVAGUARDA: solo activa si el segmento del sujeto tiene n≥5 en la colonia.
+    // No aplica si no hay bimodalidad (colonia no está en el índice).
+    if (process.env.LAB_SEG_CLUSTER === '1' && _SEG_ANCLAS && colNorm && muniNorm) {
+        const _edadSubjBuild = prop.edad || 0;
+        if (_edadSubjBuild > 0) { // sin edad conocida del sujeto → no segmentar
+            const _segCol = _SEG_ANCLAS[muniNorm]?.[tipo]?.[colNorm];
+            if (_segCol) {
+                const _esViejoBuild = _edadSubjBuild >= 16;
+                const _segEntry = _esViejoBuild ? _segCol.viejo : _segCol.nuevo;
+                if (_segEntry && _segEntry.n >= 5 && _segEntry.medianaPm2c > 0) {
+                    const _anclaSeq = _segEntry.medianaPm2c;
+                    bandaMinEff = _anclaSeq * 0.50;
+                    bandaMaxEff = _anclaSeq * 1.80;
+                    if (process.env.LAB_DEBUG && colNorm && colNorm.includes(process.env.LAB_DEBUG)) {
+                        console.error(`[SEG_BUILD] col=${colNorm} edad=${_edadSubjBuild} esViejo=${_esViejoBuild} ancla=${Math.round(_anclaSeq)} ratio=${_segCol.ratio} method=${_segCol.method} n=${_segEntry.n} banda=[${Math.round(bandaMinEff)},${Math.round(bandaMaxEff)}]`);
+                    }
+                }
+            }
+        }
+    }
+
     // Tiers de escalafón
     const tierLo = m2C <= 62 ? 30 : m2C <= 100 ? 52 : m2C <= 145 ? 88 : m2C <= 200 ? 125 : 170;
     const tierHi = m2C <= 62 ? 72 : m2C <= 100 ? 112 : m2C <= 145 ? 162 : m2C <= 200 ? 225 : 9999;
@@ -1030,6 +1060,49 @@ function valuarPropiedad(prop) {
         const lo = nseSubjeto.medianaPm2 * 0.55, hi = nseSubjeto.medianaPm2 * 1.55;
         const seg = comps.filter(c => { const pu = c.precio / c.m2_const; return pu >= lo && pu <= hi; });
         if (seg.length >= 3) comps = seg;
+    }
+
+    // LAB_SEG_CLUSTER=1: selección de comps por cluster de segmento (NSE-mixto / bimodalidad).
+    // Cuando el pool mezcla segmentos (ej. lujo NUEVO ~$83k/m²C + VIEJAS ~$30k/m²C), detecta
+    // bimodalidad via k-means k=2 y selecciona el cluster que corresponde al SEGMENTO del sujeto
+    // según su edad. Sujeto VIEJO (edad≥16) → cluster BAJO. Sujeto NUEVO (edad<16) → cluster ALTO.
+    // Salvaguarda: solo activa si el sujeto tiene edad conocida, bimodalidad clara (centroide HI/LO ≥ 1.6×),
+    // y AMBOS clusters tienen n≥3. Si el cluster elegido queda con n<3 o la bimodalidad no es clara → no aplica.
+    if (process.env.LAB_SEG_CLUSTER === '1' && comps.length >= 6) {
+        const _edadSubjSeg = prop.edad || 0;
+        if (_edadSubjSeg > 0) { // sin edad del sujeto → no segmentar (no sabemos a qué cluster pertenece)
+            const _pm2vSeg = comps.map(c => c.precio / c.m2_const).filter(v => v > 0 && isFinite(v));
+            if (_pm2vSeg.length >= 6) {
+                // K-means k=2: inicializar en Q1 y Q3 del pool (mejor que aleatorio)
+                const _srtSeg = [..._pm2vSeg].sort((a, b) => a - b);
+                let _c1s = _srtSeg[Math.floor(_srtSeg.length * 0.25)]; // centroide bajo (Q1)
+                let _c2s = _srtSeg[Math.floor(_srtSeg.length * 0.75)]; // centroide alto (Q3)
+                for (let _it = 0; _it < 15; _it++) {
+                    const _g1s = _pm2vSeg.filter(v => Math.abs(v - _c1s) <= Math.abs(v - _c2s));
+                    const _g2s = _pm2vSeg.filter(v => Math.abs(v - _c2s) < Math.abs(v - _c1s));
+                    if (!_g1s.length || !_g2s.length) break;
+                    const _n1s = _g1s.reduce((a, b) => a + b, 0) / _g1s.length;
+                    const _n2s = _g2s.reduce((a, b) => a + b, 0) / _g2s.length;
+                    if (Math.abs(_n1s - _c1s) < 10 && Math.abs(_n2s - _c2s) < 10) { _c1s = _n1s; _c2s = _n2s; break; }
+                    _c1s = _n1s; _c2s = _n2s;
+                }
+                // Asegurar c1s ≤ c2s
+                const _loC = Math.min(_c1s, _c2s), _hiC = Math.max(_c1s, _c2s);
+                // Clasificar comps en cluster bajo vs alto
+                const _loGrpSeg = comps.filter(c => { const v = c.precio / c.m2_const; return Math.abs(v - _loC) <= Math.abs(v - _hiC); });
+                const _hiGrpSeg = comps.filter(c => { const v = c.precio / c.m2_const; return Math.abs(v - _hiC) < Math.abs(v - _loC); });
+                const _esViejoSeg = _edadSubjSeg >= 16;
+                const _clusterElegido = _esViejoSeg ? _loGrpSeg : _hiGrpSeg;
+                // Bimodalidad clara: centroide alto ≥ 2.0× centroide bajo y ambos clusters n≥3
+                // 2.0× evita falsos positivos en spreads normales (Q1/Q3 suelen ser ~1.4-1.6×)
+                if (_loC > 0 && _hiC / _loC >= 2.0 && _loGrpSeg.length >= 3 && _hiGrpSeg.length >= 3 && _clusterElegido.length >= 3) {
+                    if (process.env.LAB_DEBUG && colNorm && colNorm.includes(process.env.LAB_DEBUG)) {
+                        console.error(`[SEG_CLUSTER] col=${colNorm} edad=${_edadSubjSeg} esViejo=${_esViejoSeg} cLo=${Math.round(_loC)} cHi=${Math.round(_hiC)} sep=${(_hiC / _loC).toFixed(2)} nLo=${_loGrpSeg.length} nHi=${_hiGrpSeg.length} → cluster ${_esViejoSeg ? 'LO' : 'HI'} n=${_clusterElegido.length}`);
+                    }
+                    comps = _clusterElegido;
+                }
+            }
+        }
     }
 
     if (!comps.length) return { valor: 0, confianza: 'N/A', nComps: 0, poolTipo, error: 'sin_comps' };
