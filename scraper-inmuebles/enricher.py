@@ -44,7 +44,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 import config
 from utils.sheets import SheetsClient
 from utils import antiblock
-from utils.cleaner import normalizar_anio_construccion, limpiar_numero
+from utils.cleaner import normalizar_anio_construccion, limpiar_numero, limpiar_colonia
 
 # ─────────────────────────────────────────
 # Columnas en Sheets (índice 0-based)
@@ -605,7 +605,10 @@ def extraer_datos_detalle(html: str, portal: str, url: str = None, session=None)
                 except Exception:
                     pass
         if pincali_col:
-            resultado["colonia"] = pincali_col
+            # PREVENCIÓN (07-jul): rutar por el normalizador SEPOMEX/INEGI (antes se
+            # brincaba → entraban fragmentos "seattle colony condominium" etc.).
+            # Si el normalizador no rescata nada, conservar el crudo (no perder el coto).
+            resultado["colonia"] = limpiar_colonia(pincali_col) or pincali_col
 
         # Estacionamiento: JSON embebido (HTML-escapado) "Parking Spaces":N — campo estructurado,
         # junto a Bedrooms/Bathrooms/Area M2 (autoritativo; la prosa del agente puede diferir).

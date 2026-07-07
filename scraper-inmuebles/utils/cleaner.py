@@ -196,6 +196,14 @@ def limpiar_colonia(texto: Optional[str]) -> str:
     # Strip prefijos solo con punto o espacio explícito — col. / colonia / fracc. / fraccionamiento
     texto = re.sub(r"^(col\.|colonia|fracc\.|fraccionamiento)\s*", "", texto.strip(), flags=re.IGNORECASE)
     texto = limpiar_texto(texto, max_chars=200)
+    # Decoradores en inglés que el scraper PINCALI arrastra tras el nombre del coto
+    # (fragmentación tipo "Seattle Colony Condominium"). Se quitan conservando el nombre
+    # base ("Seattle Colony Condominium" → "Seattle"), no invalidan el registro.
+    texto = re.sub(
+        r"\s+(colony|condominium|residential|neighbou?rhood|duplex|"
+        r"upper\s+floor|lower\s+floor|apartments?)\b.*$",
+        "", texto, flags=re.IGNORECASE,
+    ).strip()
 
     invalido = (
         len(texto) > 45
