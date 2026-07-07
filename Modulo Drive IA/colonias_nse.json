@@ -1140,10 +1140,10 @@
     "nListings": 57
   },
   "alcalde barranquitas": {
-    "nse": "bajo-medio",
+    "nse": "medio-bajo",
     "nseIdx": 2,
-    "medianaPm2": 10000,
-    "nListings": 1
+    "medianaPm2": 20463,
+    "nListings": 14
   },
   "san juan de dios": {
     "nse": "medio-alto",
@@ -3038,10 +3038,10 @@
     "nListings": 4
   },
   "los olivos": {
-    "nse": "medio-bajo",
-    "nseIdx": 3,
-    "medianaPm2": 17000,
-    "nListings": 1
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 43825,
+    "nListings": 10
   },
   "villa fontana diamante": {
     "nse": "medio-bajo",

@@ -3338,15 +3338,11 @@
    "depto": {}
   },
   "similares": [
-   {
-    "colonia": "real vallarta",
-    "menciones": 2
-   },
-   {
-    "colonia": "lomas del seminario",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   }
+   "camino real",
+   "jardines de guadalupe",
+   "residencial cordilleras",
+   "prados tepeyac",
+   "la estancia"
   ]
  },
  "opportunity in solares 311 m basement 4 cars": {
@@ -5088,10 +5084,11 @@
    }
   },
   "similares": [
-   {
-    "colonia": "cd del sol",
-    "menciones": 2
-   }
+   "ciudad del sol",
+   "la estancia",
+   "paseos del sol",
+   "residencial moctezuma",
+   "prados tepeyac"
   ]
  },
  "venta en santa ana tepetitlan": {
@@ -12928,10 +12925,10 @@
   "cp": "44270",
   "nse": {
    "v1": {
-    "nse": "bajo-medio",
+    "nse": "medio-bajo",
     "nseIdx": 2,
-    "medianaPm2": 10000,
-    "nListings": 1
+    "medianaPm2": 20463,
+    "nListings": 14
    },
    "perito": {
     "nse": "interes-social",
@@ -13773,10 +13770,11 @@
    "depto": {}
   },
   "similares": [
-   {
-    "colonia": "guadalajara",
-    "menciones": 4
-   }
+   "villaseñor",
+   "ladrón de guevara",
+   "americana",
+   "el retiro",
+   "mezquitán"
   ]
  },
  "tres lagos": {
@@ -20510,19 +20508,8 @@
   },
   "similares": [
    {
-    "colonia": "cielo contry club",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "las villas",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "san martin del tajo",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
+    "colonia": "santa isabel",
+    "menciones": 1
    }
   ]
  },
@@ -27624,45 +27611,11 @@
    }
   },
   "similares": [
-   {
-    "colonia": "santa maria guadalajara",
-    "menciones": 4
-   },
-   {
-    "colonia": "col centro",
-    "menciones": 4
-   },
-   {
-    "colonia": "analco",
-    "menciones": 2
-   },
-   {
-    "colonia": "san juan bosco",
-    "menciones": 2
-   },
-   {
-    "colonia": "lomas independencia",
-    "menciones": 2
-   },
-   {
-    "colonia": "santa maria",
-    "menciones": 2
-   },
-   {
-    "colonia": "independencia oriente",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "postes cuates federalismo",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "santa maria oriente",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   }
+   "el retiro",
+   "san juan de dios",
+   "la aurora",
+   "santa tere",
+   "oblatos"
   ]
  },
  "lomas del paraiso": {
@@ -30950,10 +30903,11 @@
    "terreno": {}
   },
   "similares": [
-   {
-    "colonia": "santa anita",
-    "menciones": 2
-   }
+   "chulavista",
+   "lomas del mirador",
+   "villa fontana aqua",
+   "cantaros",
+   "los agaves"
   ]
  },
  "banus": {
@@ -32595,10 +32549,10 @@
   "zona": "AMG-SE",
   "nse": {
    "v1": {
-    "nse": "medio-bajo",
-    "nseIdx": 3,
-    "medianaPm2": 17000,
-    "nListings": 1
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 43825,
+    "nListings": 10
    },
    "perito": {
     "nse": "medio-bajo",
@@ -34869,44 +34823,12 @@
   },
   "similares": [
    {
-    "colonia": "el molino",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
+    "colonia": "terreno en esquina de forma regular uso de suelo mixto",
+    "menciones": 1
    },
    {
-    "colonia": "lomas del laurel",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "los camichines",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "el caracol",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "lomas de zalatitan",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "la arena",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "los manantiales",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "los camichines 2",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
+    "colonia": "cuenta con titulo de propiedad lista para escriturar",
+    "menciones": 1
    }
   ]
  },
@@ -38643,14 +38565,11 @@
    }
   },
   "similares": [
-   {
-    "colonia": "arboledas",
-    "menciones": 4
-   },
-   {
-    "colonia": "int 2",
-    "menciones": 2
-   }
+   "las águilas",
+   "loma bonita residencial",
+   "paseos del sol",
+   "la calma",
+   "residencial victoria"
   ]
  },
  "onia ciudad granja": {
@@ -46492,10 +46411,11 @@
    }
   },
   "similares": [
-   {
-    "colonia": "chapalita las fuentes",
-    "menciones": 2
-   }
+   "pinar de la venta",
+   "rancho contento",
+   "diana naturas",
+   "el bajío",
+   "san juan de ocotán"
   ]
  },
  "ionamiento natura": {
@@ -46872,10 +46792,11 @@
    "terreno": {}
   },
   "similares": [
-   {
-    "colonia": "zalatitan",
-    "menciones": 2
-   }
+   "monraz",
+   "vallarta san jorge",
+   "ladrón de guevara",
+   "rojas lázaro",
+   "providencia"
   ]
  },
  "el colli urbano 2a": {
@@ -48394,10 +48315,11 @@
    }
   },
   "similares": [
-   {
-    "colonia": "ajijic",
-    "menciones": 10
-   }
+   "la floresta",
+   "san antonio tlayacapan",
+   "chula vista",
+   "san juan cosalá",
+   "jocotepec centro"
   ]
  },
  "onia san antonio tlayacapan": {
@@ -48507,10 +48429,11 @@
    }
   },
   "similares": [
-   {
-    "colonia": "fracc el parque",
-    "menciones": 4
-   }
+   "chula vista",
+   "san antonio tlayacapan",
+   "ajijic",
+   "la floresta",
+   "riberas del pilar"
   ]
  },
  "el moral": {
@@ -50233,10 +50156,11 @@
    "bodega": {}
   },
   "similares": [
-   {
-    "colonia": "tinajitas",
-    "menciones": 1
-   }
+   "lomas del camichín",
+   "jardines de tonalá",
+   "fovissste tonalá",
+   "alberca",
+   "la providencia"
   ]
  },
  "urbi quinta montecarlo": {
@@ -61116,10 +61040,11 @@
    "depto": {}
   },
   "similares": [
-   {
-    "colonia": "col centro",
-    "menciones": 4
-   }
+   "la perla",
+   "el retiro",
+   "centro de guadalajara",
+   "analco",
+   "mexicaltzingo"
   ]
  },
  "mercado de abastos": {
@@ -66231,10 +66156,11 @@
    "bodega": {}
   },
   "similares": [
-   {
-    "colonia": "tlaquepaque",
-    "menciones": 2
-   }
+   "el quince",
+   "san josé del quince",
+   "la calera",
+   "san martín de las flores",
+   "el verde"
   ]
  },
  "el salto centro": {
@@ -68358,10 +68284,11 @@
    "casa": {}
   },
   "similares": [
-   {
-    "colonia": "chapalita",
-    "menciones": 2
-   }
+   "el colli urbano",
+   "miramar",
+   "arenales tapatíos",
+   "paraísos del colli",
+   "lomas de primavera"
   ]
  },
  "colinas del valle": {
@@ -72218,10 +72145,11 @@
    }
   },
   "similares": [
-   {
-    "colonia": "la estancia",
-    "menciones": 2
-   }
+   "monraz",
+   "prados providencia",
+   "lomas del valle",
+   "colinas de san javier",
+   "parque metropolitano"
   ]
  },
  "credito constructor": {
@@ -95497,34 +95425,8 @@
   },
   "similares": [
    {
-    "colonia": "antigua santa maria",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "mezquitera",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "balcones de santa maria",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "villas colon",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "loma bonita poniente",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "lomas de la victoria",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
+    "colonia": "propiedad para crecimiento o remodelacion ideal para ampliar",
+    "menciones": 2
    }
   ]
  },
@@ -109910,20 +109812,22 @@
   "municipio": "Bahía de Banderas",
   "zona": "Costa-Sur",
   "similares": [
-   {
-    "colonia": "c nanzal 10",
-    "menciones": 2
-   }
+   "san pancho",
+   "sayulita",
+   "guayabitos",
+   "la peñita de jaltemba",
+   "los ayala"
   ]
  },
  "rincon de guayabitos": {
   "municipio": "Compostela",
   "zona": "Costa-Sur",
   "similares": [
-   {
-    "colonia": "c nanzal 10",
-    "menciones": 2
-   }
+   "los ayala",
+   "la peñita de jaltemba",
+   "lo de marcos",
+   "san pancho",
+   "chacala"
   ]
  },
  "colomos providenci": {
@@ -111341,10 +111245,11 @@
  },
  "polanquito poniente": {
   "similares": [
-   {
-    "colonia": "lomas de polanco",
-    "menciones": 2
-   }
+   "polanco",
+   "lomas de polanco",
+   "echeverría",
+   "el fresno",
+   "zona industrial"
   ]
  },
  "geovillas los olivos": {
@@ -112422,10 +112327,11 @@
  },
  "santa isabel ii": {
   "similares": [
-   {
-    "colonia": "tonala",
-    "menciones": 2
-   }
+   "colinas de san javier",
+   "lomas del valle",
+   "providencia",
+   "villa universitaria",
+   "jacarandas"
   ]
  },
  "gdl centro": {
@@ -112823,10 +112729,11 @@
  },
  "lomas del bosque uag": {
   "similares": [
-   {
-    "colonia": "edificio a3",
-    "menciones": 8
-   }
+   "villa universitaria",
+   "lomas del valle",
+   "santa isabel",
+   "patria universidad",
+   "san wenceslao"
   ]
  },
  "col vallarta la patria": {
@@ -112894,10 +112801,11 @@
   "zona": "AMG-S",
   "cp": "45876",
   "similares": [
-   {
-    "colonia": "la barca",
-    "menciones": 1
-   }
+   "la federacha",
+   "postes cuates",
+   "san vicente",
+   "oblatos",
+   "lomas del paraíso"
   ]
  },
  "col villafontana": {
@@ -118321,7 +118229,15 @@
    }
   ]
  },
- "haciendas de chapala": {},
+ "haciendas de chapala": {
+  "similares": [
+   "vista del lago",
+   "brisas de chapala",
+   "chapala centro",
+   "san antonio tlayacapan",
+   "ajijic"
+  ]
+ },
  "zapotlanejo": {
   "municipio": "Zapotlanejo",
   "zona": "Otro",
@@ -118364,7 +118280,14 @@
  "mazamitla": {
   "municipio": "Mazamitla",
   "zona": "Otro",
-  "cp": "49500"
+  "cp": "49500",
+  "similares": [
+   "tapalpa",
+   "san sebastián del oeste",
+   "tequila centro",
+   "concepción de buenos aires",
+   "atemajac de brizuela"
+  ]
  },
  "el tabardillo": {
   "municipio": "Mazamitla",
@@ -119448,6 +119371,207 @@
     "tipo": "Colonia",
     "fuente": "sepomex+muni-sujeto",
     "menciones": 1
+   }
+  ]
+ },
+ "quililla": {},
+ "jalisco i seccion": {
+  "similares": [
+   {
+    "colonia": "superficie aproximada de 7913 mts2",
+    "menciones": 1
+   },
+   {
+    "colonia": "cuenta con barda perimetral cisterna",
+    "menciones": 1
+   },
+   {
+    "colonia": "de tonala",
+    "menciones": 1
+   },
+   {
+    "colonia": "zalatitan centro",
+    "menciones": 1
+   },
+   {
+    "colonia": "terreno bien ubicado a unas cuadras de avenida juan pablo ii",
+    "menciones": 1
+   },
+   {
+    "colonia": "terreno en venta en guadalajara",
+    "menciones": 1
+   }
+  ]
+ },
+ "imperio inca": {},
+ "senderos del lago 4ta seccion": {
+  "similares": [
+   {
+    "colonia": "habitaciones 3 banos 2 medios banos 1 estacionamientos 2",
+    "menciones": 4
+   },
+   {
+    "colonia": "habitaciones 2 banos 2 medios banos 1 estacionamientos 2",
+    "menciones": 2
+   },
+   {
+    "colonia": "habitaciones 2 banos 2 estacionamientos 2",
+    "menciones": 2
+   }
+  ]
+ },
+ "el pandito": {
+  "similares": [
+   {
+    "colonia": "sala cocina terraza y recamara principal s",
+    "menciones": 2
+   }
+  ]
+ },
+ "tapalpa jalisco": {},
+ "sta paula tonala": {
+  "similares": [
+   {
+    "colonia": "con todos los servicios ideal para bodega o terraza",
+    "menciones": 2
+   }
+  ]
+ },
+ "mesa de san juan": {},
+ "albereda": {
+  "similares": [
+   {
+    "colonia": "casa con 3 recamaras 2 banos cochera para 1 auto",
+    "menciones": 2
+   }
+  ]
+ },
+ "quintas del federalismo": {},
+ "lote 12": {
+  "similares": [
+   {
+    "colonia": "el carmen",
+    "menciones": 1
+   }
+  ]
+ },
+ "parques del nilo": {
+  "similares": [
+   {
+    "colonia": "dioses del nilo",
+    "menciones": 1,
+    "fuente": "ia-sepomex"
+   },
+   {
+    "colonia": "insurgentes 1a secc",
+    "menciones": 1,
+    "fuente": "ia-sepomex"
+   },
+   {
+    "colonia": "insurgentes 2a secc",
+    "menciones": 1,
+    "fuente": "ia-sepomex"
+   },
+   {
+    "colonia": "insurgentes 3a secc",
+    "menciones": 1,
+    "fuente": "ia-sepomex"
+   },
+   {
+    "colonia": "insurgentes la presa",
+    "menciones": 1,
+    "fuente": "ia-sepomex"
+   },
+   {
+    "colonia": "tetlan",
+    "menciones": 1,
+    "fuente": "ia-sepomex"
+   },
+   {
+    "colonia": "tetlan i",
+    "menciones": 1,
+    "fuente": "ia-sepomex"
+   },
+   {
+    "colonia": "tetlan ii",
+    "menciones": 1,
+    "fuente": "ia-sepomex"
+   },
+   {
+    "colonia": "los obeliscos",
+    "menciones": 1,
+    "fuente": "ia-sepomex"
+   },
+   {
+    "colonia": "villas de la presa",
+    "menciones": 1,
+    "fuente": "ia-sepomex"
+   },
+   {
+    "colonia": "cantarranas",
+    "menciones": 1,
+    "fuente": "ia-sepomex"
+   }
+  ]
+ },
+ "toluquilla": {
+  "similares": [
+   {
+    "colonia": "pedregal del bosque",
+    "menciones": 1,
+    "fuente": "ia-sepomex"
+   },
+   {
+    "colonia": "tres pinos",
+    "menciones": 1,
+    "fuente": "ia-sepomex"
+   },
+   {
+    "colonia": "real tulipanes",
+    "menciones": 1,
+    "fuente": "ia-sepomex"
+   }
+  ]
+ },
+ "educadores jaliscienses": {
+  "similares": [
+   {
+    "colonia": "la soledad",
+    "menciones": 1
+   }
+  ]
+ },
+ "parques de santa cruz del valle": {
+  "similares": [
+   {
+    "colonia": "paseo del prado",
+    "menciones": 1,
+    "fuente": "ia-sepomex"
+   },
+   {
+    "colonia": "paseo de los parques",
+    "menciones": 1,
+    "fuente": "ia-sepomex"
+   },
+   {
+    "colonia": "valle de la misericordia",
+    "menciones": 1,
+    "fuente": "ia-sepomex"
+   },
+   {
+    "colonia": "villa fontana",
+    "menciones": 1,
+    "fuente": "ia-sepomex"
+   },
+   {
+    "colonia": "mision magnolia",
+    "menciones": 1,
+    "fuente": "ia-sepomex"
+   },
+   {
+    "colonia": "coto del carmen",
+    "menciones": 1,
+    "fuente": "ia-sepomex"
    }
   ]
  },
@@ -129025,65 +129149,6 @@
    },
    {
     "colonia": "dioses del nilo",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "cantarranas",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   }
-  ]
- },
- "parques del nilo": {
-  "similares": [
-   {
-    "colonia": "dioses del nilo",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "insurgentes 1a secc",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "insurgentes 2a secc",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "insurgentes 3a secc",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "insurgentes la presa",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "tetlan",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "tetlan i",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "tetlan ii",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "los obeliscos",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "villas de la presa",
     "menciones": 1,
     "fuente": "ia-sepomex"
    },
@@ -146615,25 +146680,6 @@
    }
   ]
  },
- "toluquilla": {
-  "similares": [
-   {
-    "colonia": "pedregal del bosque",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "tres pinos",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "real tulipanes",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   }
-  ]
- },
  "real tulipanes": {
   "similares": [
    {
@@ -146667,40 +146713,6 @@
    },
    {
     "colonia": "parques de santa cruz del valle",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "villa fontana",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "mision magnolia",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "coto del carmen",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   }
-  ]
- },
- "parques de santa cruz del valle": {
-  "similares": [
-   {
-    "colonia": "paseo del prado",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "paseo de los parques",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "valle de la misericordia",
     "menciones": 1,
     "fuente": "ia-sepomex"
    },
@@ -154438,50 +154450,6 @@
    }
   ]
  },
- "educadores jaliscienses": {
-  "similares": [
-   {
-    "colonia": "jardines de elizabeth",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "la hortaliza",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "leyes de reforma",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "el rosarito",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "gavilanes",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "bosques de tonala",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "puesta del sol",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   },
-   {
-    "colonia": "valle leones",
-    "menciones": 1,
-    "fuente": "ia-sepomex"
-   }
-  ]
- },
  "leyes de reforma": {
   "similares": [
    {
@@ -159732,7 +159700,7 @@
   ]
  },
  "_meta": {
-  "generado": "2026-06-04T18:47:08.768Z",
+  "generado": "2026-07-07T02:35:45.961Z",
   "capas": {
    "ganada_v1": {
     "campo": "nse.v1",

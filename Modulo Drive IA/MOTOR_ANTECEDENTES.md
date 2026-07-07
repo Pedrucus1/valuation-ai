@@ -19,6 +19,25 @@
 
 ---
 
+## 📌 #121b ESTADO — TAREAS 2 y 3 MEDIDAS (06-Jul-2026, sesión 2)
+
+**BASELINE VIGENTE (caché colonias-limpias, colonias_maestro.json reconstruido):**
+±10 54.4% · ±15 62.1% · ±20 75.7% · errAbs 13.5% · mediana -8.7. (prod, offline determinista)
+
+### TAREA 2 — Recalcular anclas NSE (data-side)
+**Hallazgo:** las 3 colonias del enunciado (santa maría, la esperanza, villa hermosa) tienen 0 casas en cache_consolidado.json → NO actualizables. La recomputación amplia (546 colonias con ALL tipos) produce 205 flips NSE con direcciones incorrectas (ciudad del sol $44k→$34k, cima del sol $16k→$9k) porque el caché mezcla tipos (casas/deps/oficinas/locales). Filtro por tipo='casa' mejora pero las colonias clave siguen sin cobertura.
+**Acción:** Sólo 2 correcciones dirigidas con datos limpios (tipo=casa, n≥5, sin outliers m2c extremos):
+- `alcalde barranquitas`: $10k (n=1, mal etiquetado "bajo-medio") → $20,463 (n=14, medio-bajo)
+- `los olivos` (Zapopan): $17k (n=1) → $43,825 (n=10, medio-alto)
+**Medición:** CERO impacto en ±10/±15/±20/errAbs (esas colonias no están en los 103 OPIs de test). Correcciones de calidad de dato conservadas sin regresión. colonias_nse.json.bak disponible.
+**Lección:** El problema de NSE para los failing OPIs es estructural: faltan comps residenciales en el cache para las colonias que fallan. La solución es scraper, no recomputación.
+
+### TAREA 3 — LAB_EDAD_NSE=1 (curva de depreciación por NSE)
+**Resultado (offline, 103 OPIs):** ±10 52.4% (−2.0) · ±15 60.2% (−1.9) · ±20 74.8% (−0.9) · errAbs 14.3% (+0.8) · mediana +9.6 (FLIP de −8.7).
+**EMPEORA TODO. NO mergear.** La corrección premium (floor 0.80 en nseIdx≥4) sube estimaciones de zonas premium QUE YA SUBVALÚAN — las sobrevalúa al cruzar el ±20% desde el otro lado. Mediana se voltea de −8.7 a +9.6. Confirma el análisis previo: "NO estratificar edad por NSE en la selección de comps" (falta NSE en comps individuales del caché). Flag LAB_EDAD_NSE queda en motor_remi_api_lab.js como experimento documentado (no commitear).
+
+---
+
 ## 📌 #121b ESTADO VALIDADO + PLAN A 85% (06-Jul-2026)
 
 **Validación de hoy (caché 1-Jul, `node validar_40_opis.js --n 400 --desde 2025-01`):**
