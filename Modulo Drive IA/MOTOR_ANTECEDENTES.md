@@ -116,6 +116,24 @@ VIVANUNCIOS 94% · PROPIEDADES_COM 83% · INMUEBLES24 83% (ALTOS) — PINCALI 31
 **PINCALI año = TECHO REAL 31%, VERIFICADO 06-Jul (NO reintentar):** las páginas `/en/` de PINCALI NO exponen año/antigüedad en ningún bloque (ni el JSON escapado de atributos ni el schema.org; descripcion vacía). El enricher lo busca con selectores DOM que no matchean, pero aunque se arreglara, el dato NO ESTÁ en el source. Ver `scraper-inmuebles/PINCALI_ENRICHER_NOTAS.md`. → La cobertura de edad NO sube vía PINCALI; se queda ~44% global (VIVA 94/PCOM 83/INM24 83 sostienen). El desbloqueo de la palanca de edad requiere OTRA fuente de año, no PINCALI.
 **Estado palanca edad (LAB_EDADSEG, codeada+medida):** homologación por segmento nuevo/usado mejora ±15 +2 / errAbs −0.3, CERO regresión, pero NO mueve ±20 (los casos que fallan no tienen edad en sus comps). Lista para pagar cuando suba cobertura de edad. Barrido K: K=0.5 óptimo (mediana centra menos mal), full sobrecorrige.
 
+### ⚠️ LAB_ANCLA_SEG=1 — ancla segmentada por tipo+franja de edad (06-Jul-2026, motor_remi_api_lab.js)
+**HIPÓTESIS:** usar mediana $/m²C de comps en la MISMA franja de edad (0-5/6-15/16+) como pm2cRef para la banda de selección del pool, en lugar del blended actual. Franjas distintas → ancla más cercana al segmento del sujeto → menos contaminación cruzada nuevo/usado.
+**IMPLEMENTACIÓN:** `LAB_ANCLA_SEG=1` en `motor_remi_api_lab.js` líneas 829-869. Cascada: col+franja (n≥5, banda estrecha [0.50, 1.80]) → col+all (n≥5, banda original [0.40, 1.60]) → blended actual. Tighter bounds SOLO con datos reales; cascade no cambia tolerancia (evita regresión en datos contaminados como Quintas del Federalismo IDX=$66k/m²C). `bandaMinEff`/`bandaMaxEff` reemplazan `bandaMin`/`bandaMax` en pool filter y cercanas filter.
+**LIMITACIÓN CRÍTICA DESCUBIERTA:** solo 32.4% de listings en cache_index.json tienen `anio`; solo 20.6% de colonias con ≥5 listings tienen alguna franja con n≥5. → La ruta col+franja (tighter) raramente activa.
+**RESULTADOS (400 OPIs --desde 2025-01):**
+
+| | Baseline | LAB_ANCLA_SEG=1 | Delta |
+|---|---|---|---|
+| ±10% | 54.4% | 55.3% | +0.9pp |
+| ±15% | 62.1% | 63.1% | +1.0pp |
+| ±20% | 75.7% | **76.7%** | **+1.0pp** |
+| errAbs | 13.5% | 13.2% | −0.3pp |
+| mediana | −8.7% | −8.5% | neutral |
+
+**VEREDICTO:** mejora marginal (+1pp) con CERO regresión. Sin activación real de la hipótesis (32% cobertura anio). El gain vendría de la cascada `col+all` que recentra la banda hacia la colonia cuando hay datos. La hipótesis edad-segmentada solo pagará cuando cobertura anio suba (VIVA/PCOM/INM24 ya en 83-94%). **NO commitear como mejora definitiva** — efectivamente es recentrado de banda, no segmentación real. Si se quiere la ganancia ahora: el LAB se puede activar tal cual (+1pp); si se quiere la hipótesis real: necesita más anio en caché.
+
+**PORTADO A PROD (06-Jul-2026, commit b5430fc):** Integrado en `motor_remi_api.js` como comportamiento permanente (sin flag). Solo residencial (casa/depto). Cascada idéntica al lab. Validado offline 400 OPIs: ±10 55.3% / ±15 63.1% / ±20 76.7% / errAbs 13.2% / mediana −8.5% — cero regresión confirmada.
+
 ---
 
 ## ⛔ #104 SIMILARES PREMIUM/BARATOS — LÍMITE ESTRUCTURAL DE DATOS, NO REINTENTAR (03-Jun-2026)
