@@ -219,9 +219,14 @@
 | N9 | ✅ | **Scraper NOCNOK** — `inmuebles.nocnok.com` — API JSON pura, sin Playwright. Ver #117. |
 | N10 | ⏳ | **Scraper Monopolio** — `monopolio.com.mx` — AWS Cognito explicit deny. Requiere login+JWT. Ver #118. |
 | #20 | ✅ | **IPRoyal DESCARTADO 100%** (causa conflicto con páginas + 402). Comentado en `.env`; scraper corre proxy-free. Regla en `scraper-inmuebles/INDICE_SCRAPER.md`. NO reactivar. (06-Jul) |
-| #21 | ⏳ | **Backfill año PINCALI** — fix HECHO en `enricher.py` (año en página ES `/inmueble/`, no `/en/`). 25,492 docs con `enrich_last_attempt` ya limpio. Correr `enricher.py --tab PINCALI --mongo` cuando se destrabe #20. Cobertura 31%→~50%. (06-Jul) |
-| #22 | ⏳ | **Motor: selección de comps por SEGMENTO** (edad + subsegmento de colonia) — diagnóstico 3-columnas: el método es correcto, falla la selección (promedia nuevo+usado). Guardar subsegmento en la base. `LAB_EDADSEG` codeada. Ver MOTOR_ANTECEDENTES. (06-Jul) |
-| #23 | ⏳ | **Seguridad: de-hardcodear 9 archivos con MONGO_URL viejo** (`investigar*.py`, `audit_basura*.py`, `backfill_estac_pincali.py`, `check_quality.py`, `actualizar_cache_consolidado_mongo_limpio.py`). Pw ya muerto pero hygiene. (06-Jul) |
+| #21 | 🔄 | **Backfill año PINCALI** — DESTRABADO: corre proxy-free (no requiere IPRoyal), corriendo en terminal del usuario. Fix año MEJORADO 07-jul (`57442ae`): `/inmueble/` da 422 → ahora saca "Year Built" del `/en/` ya descargado, resiliente. (07-Jul) |
+| #22 | 🔄 | **Motor: selección de comps por SEGMENTO** — GRAN AVANCE: ancla segmentada tipo+edad portada a prod (`b5430fc`), MITULA fuera del caché (`b044f0a`), consolidación 537 colonias (`774b016`). **±20 73.8→79.6 / ±15 →70.9.** EN CURSO (agente): ancla segmentada MATERIALIZADA por colonia×tipo×segmento viejo/nuevo (para NSE-mixto tipo Seattle). (07-Jul) |
+| #23 | ✅ | **Seguridad: de-hardcodear 9 archivos** — HECHO (`ab7ad50`), leen MONGO_URL de .env. 0 literales en el repo. Incidente cerrado. (07-Jul) |
+| #24 | ⚠️ | **Ancla segmentada NSE-mixto — PROBADO, CERO recuperación (07-jul).** Infra construida (`build_seg_anclas.py`, `cache_seg_anclas.json`, flag `LAB_SEG_CLUSTER`, 75 colonias, en lab documentado). Los 5 OPIs target NO mejoraron: fallan por ajustes **POST-selección**, no por selección de comps. **Seattle: cuello real = `factorConserv="malo"=0.55`** (−45% a comps). 2ª vez que fórmula/ancla sobre estos 5 sale en cero (antes LAB_EDAD_NSE) → NO re-perseguir (regla no-cazar-atípicos). Si acaso, revisar `factorConserv` malo=0.55 como caso general. (07-Jul) |
+| #25 | ⏳ | **`catalogo_cotos.json` desde mercado_props** — SEPOMEX/INEGI no cubren cotos privados; construir catálogo propio de cotos desde el corpus scrapeado + IA para canonicalizar. Base para validar colonias. (07-Jul) |
+| #26 | ⏳ | **Búsqueda dirigida en colonias similares** (Serper/scrape) para enriquecer segmentos genuinamente vacíos (casas viejas en cotos de lujo). Paso 2 tras el ancla segmentada. (07-Jul) |
+| #27 | ⏳ | **REDEPLOY Railway** — prod quedó en `b044f0a`; falta desplegar consolidación (`774b016`) + prevención (`d33f075`) + fixes. Frontend Vercel ya desplegado (`frontend-kcmu3se88`). (07-Jul) |
+| #28 | ✅ | **Scraper mensual automatizado** — tarea Windows `PropValu_ScraperMensual` (diaria, lanzador Python decide 1 corrida/mes random día 2-10). MITULA quitado del scraper (`796e23c`). (07-Jul) |
 
 ---
 
