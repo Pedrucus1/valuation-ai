@@ -155,6 +155,7 @@ def _mapear(search_item: dict, detail: dict) -> dict:
 
     return {
         "id_unico": _md5(url),
+        "portal": PORTAL,  # canónico: el pipeline (enricher/caché) filtra por 'portal'; scrapear_jalisco upserta directo y no pasa por _guardar_en_mongo del scheduler
         "portal_origen": PORTAL,
         "url_original": url,
         "titulo": detail.get("title") or search_item.get("title", ""),
