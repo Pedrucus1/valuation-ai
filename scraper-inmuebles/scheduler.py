@@ -574,19 +574,11 @@ def run(reset: bool = False, portal: str = None):
         pendientes = [t for t in tareas if t["estado"] == "pendiente"]
     log.info(f"Tareas pendientes: {len(pendientes)}")
 
-    # Conectar a Sheets (no-fatal — MongoDB es primario ahora)
-    log.info("Conectando a Google Sheets...")
-    try:
-        sheets = SheetsClient()
-    except Exception as e:
-        log.warning(f"Google Sheets no disponible ({e}) — continuando solo con MongoDB")
-        sheets = None
-
-    if sheets is None:
-        # Monkey-patch para que el resto del código no explote sin Sheets
-        class _FakeSheets:
-            def upsert_propiedades(self, *a, **kw): return {"nuevas":0,"actualizadas":0}
-        sheets = _FakeSheets()
+    # Google Sheets retirado del scraper (usuario, 08-jul): MongoDB es la única base.
+    # No se conecta ni se consulta; _FakeSheets neutraliza los upserts sin tocar el código de flujo.
+    class _FakeSheets:
+        def upsert_propiedades(self, *a, **kw): return {"nuevas":0,"actualizadas":0}
+    sheets = _FakeSheets()
 
     # Reintentar buffers pendientes de sesiones anteriores
     reintentar_buffers_pendientes(tareas, sheets)
@@ -683,8 +675,19 @@ def run(reset: bool = False, portal: str = None):
     # Resumen final
     mostrar_status(tareas)
     total_props = sum(t["props"] for t in tareas if t["estado"] == "completada")
-    log.info(f"Sesion terminada. Props totales en Sheets: {total_props:,}")
+    log.info(f"Sesion terminada. Props totales en MongoDB: {total_props:,}")
     _reportar_a_mongo(tareas)
+
+    # NOCNOK: API JSON, fuera del sistema de zonas/tareas. Se corre en el full run
+    # (portal=None) para que no quede fuera del scrape mensual. (usuario, 08-jul)
+    if portal is None:
+        try:
+            from scrapers.nocnok import scrapear_jalisco
+            log.info("Scrapeando NOCNOK (API JSON)...")
+            n_noc = scrapear_jalisco(_get_mongo_col())
+            log.info(f"NOCNOK: {n_noc} props en MongoDB")
+        except Exception as e:
+            log.error(f"NOCNOK falló (no bloquea el resto): {e}")
 
     # Auto-enricher: si se corrió un portal específico y terminó sin pendientes, enriquecer
     if portal:
