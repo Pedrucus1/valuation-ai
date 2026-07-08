@@ -19,23 +19,23 @@
 
 ---
 
-## ✅ REBUILD CACHÉ 08-Jul-2026 — MITULA excluida + NOCNOK + año fresco → 79.6% ±20
+## ⚠️ REBUILD CACHÉ 08-Jul-2026 — REGRESÓ, REVERTIDO (dato nuevo mete ruido)
 
-**Rebuild completo** (`actualizar_cache_consolidado_mongo.py` → `build_cache_index.js`) sobre Mongo actualizado tras una ronda de scrapers/enrichers (año total 51k, 45%).
-- El builder de prod **ya excluye MITULA** del pool (7,395 fuera) → el beneficio que en el lab era `LAB_NO_MITULA` quedó horneado en prod (ya no es flag).
-- **NOCNOK integrado**: bug `portal` vs `portal_origen` arreglado (commit 9d805c4) + backfill 2786 docs → ahora alimenta el pool.
-- `cache_consolidado.json` = 19,173 comps (rec/baños 84%, estac 71%).
+**Rebuild completo** (`actualizar_cache_consolidado_mongo.py` → `build_cache_index.js`) sobre Mongo tras ronda de scrapers/enrichers + NOCNOK integrado. **Resultó en REGRESIÓN, se revirtió al caché previo.**
 
-**Validador `--n 400 --desde 2025-01` (103 OPIs confianza alta):**
-| métrica | baseline | rebuild | Δ |
+**Antes/después REAL sobre el mismo validador (`--n 400 --desde 2025-01`, 103 OPIs):**
+| métrica | caché previo | rebuild nuevo | Δ |
 |---|---|---|---|
-| ±10 | 55.3 | 59.2 | +3.9 |
-| ±15 | 63.1 | 69.9 | +6.8 |
-| ±20 | 76.7 | **79.6** | +2.9 |
-| errAbs | 13.2 | 12.6 | −0.6 |
+| ±10 | **61.2** | 59.2 | −2.0 |
+| ±15 | **70.9** | 69.9 | −1.0 |
+| ±20 | 79.6 | 79.6 | 0 |
+| errAbs | **11.7** | 12.6 | +0.9 (peor) |
+| mediana | −7.3% | +7.4% | flip a sobrevaluar |
 
-Cero regresión (GLOBAL y confianza-alta idénticos = 79.6%). Los 21 fuera-±20 son mayormente OFICINA/LOCAL (problema estructural #121b, no regresión). Commit caché: `78f43f4`.
-**Pendiente:** deploy a Railway. **Siguiente palanca:** recalcular anclas NSE desde el caché limpio (data-side, bajo riesgo).
+**LECCIÓN 1:** el "baseline 76.7% ±20" de memoria estaba VIEJO — el caché desplegado ya estaba en **79.6/70.9/61.2**. No comparar contra números de memoria; correr el validador sobre el caché real ANTES de declarar mejora.
+**LECCIÓN 2:** rebuild con dato fresco NO es gratis: NOCNOK (21% año, ruido) + scrapes nuevos degradaron los buckets apretados y voltearon el sesgo (infra→sobrevaluación). El builder ya excluye MITULA (7,395), eso no fue el problema.
+**Acción:** restaurado `cache_consolidado.json`/`cache_index.json` del respaldo `*.PRE_REBUILD_20260708_1701.bak.json`. Commit de rebuild `78f43f4` revertido.
+**Siguiente:** investigar 1×1 qué del dato nuevo dañó (aislar NOCNOK: rebuild excluyéndolo y medir). NO re-commitear caché sin ganar sobre 61.2/70.9/79.6.
 
 ---
 
