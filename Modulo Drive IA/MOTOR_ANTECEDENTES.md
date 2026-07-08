@@ -19,6 +19,26 @@
 
 ---
 
+## ✅ REBUILD CACHÉ 08-Jul-2026 — MITULA excluida + NOCNOK + año fresco → 79.6% ±20
+
+**Rebuild completo** (`actualizar_cache_consolidado_mongo.py` → `build_cache_index.js`) sobre Mongo actualizado tras una ronda de scrapers/enrichers (año total 51k, 45%).
+- El builder de prod **ya excluye MITULA** del pool (7,395 fuera) → el beneficio que en el lab era `LAB_NO_MITULA` quedó horneado en prod (ya no es flag).
+- **NOCNOK integrado**: bug `portal` vs `portal_origen` arreglado (commit 9d805c4) + backfill 2786 docs → ahora alimenta el pool.
+- `cache_consolidado.json` = 19,173 comps (rec/baños 84%, estac 71%).
+
+**Validador `--n 400 --desde 2025-01` (103 OPIs confianza alta):**
+| métrica | baseline | rebuild | Δ |
+|---|---|---|---|
+| ±10 | 55.3 | 59.2 | +3.9 |
+| ±15 | 63.1 | 69.9 | +6.8 |
+| ±20 | 76.7 | **79.6** | +2.9 |
+| errAbs | 13.2 | 12.6 | −0.6 |
+
+Cero regresión (GLOBAL y confianza-alta idénticos = 79.6%). Los 21 fuera-±20 son mayormente OFICINA/LOCAL (problema estructural #121b, no regresión). Commit caché: `78f43f4`.
+**Pendiente:** deploy a Railway. **Siguiente palanca:** recalcular anclas NSE desde el caché limpio (data-side, bajo riesgo).
+
+---
+
 ## 📌 #121b LAB_SEG_CLUSTER — SELECCIÓN POR CLUSTER NSE-MIXTO (07-Jul-2026)
 
 ### Hipótesis
