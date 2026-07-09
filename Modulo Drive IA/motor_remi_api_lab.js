@@ -1446,7 +1446,14 @@ async function valuarPropiedadCompleto(prop) {
                 const rg = remiSobreComps(combined, m2C, edad, conserv, result.poolTipo);
                 // Solo aplicar si CV mejora Y el valor no se aleja >10% del estimate original de caché
                 const valorDelta = result.valor > 0 ? Math.abs(rg.valor - result.valor) / result.valor : 1;
-                if (rg && rg.valor > 0 && rg.cv <= result.cv && valorDelta <= 0.10) {
+                // LAB_BIG_WEB: para propiedades GRANDES (m²C ≥ umbral) el caché sesga a comps grandes
+                // baratos → relajar la guarda de 10% para que la corrección web pueda entrar (cluster B).
+                const _bigWeb = process.env.LAB_BIG_WEB === '1' && m2C >= parseFloat(process.env.LAB_BIG_WEB_M2C || '180');
+                const _deltaMax = _bigWeb ? parseFloat(process.env.LAB_BIG_WEB_DELTA || '0.60') : 0.10;
+                if (process.env.LAB_DEBUG && _bigWeb) {
+                    console.error(`[BIG_WEB] m²C=${m2C} cacheVal=${Math.round(result.valor/1000)}k webComps=${compsExtra.length} combVal=${rg?Math.round(rg.valor/1000):0}k delta=${(valorDelta*100).toFixed(0)}% cv ${result.cv?.toFixed?.(2)}→${rg?.cv?.toFixed?.(2)} → ${(rg&&rg.valor>0&&rg.cv<=result.cv&&valorDelta<=_deltaMax)?'APLICA':'rechaza'}`);
+                }
+                if (rg && rg.valor > 0 && rg.cv <= result.cv && valorDelta <= _deltaMax) {
                     delete result._comps;
                     return { ...result, ...rg, poolTipo: result.poolTipo + '+w', nComps: rg.nComps, geminiComps: compsExtra };
                 }
