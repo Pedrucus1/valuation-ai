@@ -1238,10 +1238,14 @@ function valuarPropiedad(prop) {
             _std[v] = Math.sqrt(vals.map(x=>(x-mu)**2).reduce((a,b)=>a+b,0)/vals.length) || 1; }
         else _std[v] = 1;
     }
+    // LAB_DV_M2CW: peso del m2c en la distancia DV (default 1.0 = prod). <1 → el DV deja de
+    // concentrarse solo en el tamaño-exacto (que en casas grandes agarra los grandes-baratos) y
+    // admite comps de precio representativo; el ajuste ^(1/6) homologa el tamaño. Cluster B.
+    const _wM2C = process.env.LAB_DV_M2CW ? parseFloat(process.env.LAB_DV_M2CW) : 1.0;
     const _DV = (c) => {
         let s=0, k=0;
         for (const v of _VARS) { const cv=_cv(c,v), sv=_subj[v];
-            if (cv>0 && sv>0) { const d=(cv-sv)/_std[v]; s+=d*d; k++; } }
+            if (cv>0 && sv>0) { const d=(cv-sv)/_std[v]; const w=(v==='m2c'?_wM2C:1); s+=w*d*d; k++; } }
         return k ? Math.sqrt(s/k) : 1;   // RMS normalizado por #vars usadas
     };
     // LAB_EDADSEG: homologación por SEGMENTO de edad (data-derived 06-Jul, 9245 comps: 0-5→1.0, 6-10→0.78, 11+→0.67).
