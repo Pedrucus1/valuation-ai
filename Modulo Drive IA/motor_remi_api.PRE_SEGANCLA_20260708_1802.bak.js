@@ -51,7 +51,6 @@ const COLONIAS_SIM_PATH  = path.join(__dirname, 'colonias_similares.json');
 const COLONIAS_IA_PATH   = path.join(__dirname, 'colonias_similares_enriquecido.json');
 const COLONIAS_SIM_V2_PATH = path.join(__dirname, 'colonias_similares.enriquecido.v2.json');
 const MAESTRO_PATH       = path.join(__dirname, 'colonias_maestro.json');
-const SEG_ANCLAS_PATH    = path.join(__dirname, 'cache_seg_anclas.json');
 
 const IDX     = JSON.parse(fs.readFileSync(INDEX_PATH, 'utf8'));
 
@@ -71,10 +70,6 @@ const _idxVal = !_maestro && fs.existsSync(IDX_VAL_PATH)       ? (() => { const 
 const _sim    = !_maestro && fs.existsSync(COLONIAS_SIM_PATH)  ? JSON.parse(fs.readFileSync(COLONIAS_SIM_PATH,  'utf8')) : {};
 const _simIA  = !_maestro && fs.existsSync(COLONIAS_IA_PATH)   ? JSON.parse(fs.readFileSync(COLONIAS_IA_PATH,   'utf8')) : {};
 const _simV2  = !_maestro && fs.existsSync(COLONIAS_SIM_V2_PATH) ? JSON.parse(fs.readFileSync(COLONIAS_SIM_V2_PATH, 'utf8')) : {};
-
-// LAB_SEG_CLUSTER: anclas segmentadas precomputadas (viejo/nuevo por colonia×tipo).
-// Se activa solo cuando LAB_SEG_CLUSTER=1. Cero costo en prod.
-const _SEG_ANCLAS = fs.existsSync(SEG_ANCLAS_PATH) ? JSON.parse(fs.readFileSync(SEG_ANCLAS_PATH, 'utf8')) : null;
 
 // Zonas geográficas — claves en formato normMuni (sin acentos, lowercase)
 // Quirk: normMuni("San Pedro Tlaquepaque") → "tlaquepaquetlaquepaque" (la regex "^san pedro " reemplaza
@@ -232,41 +227,6 @@ function normMuni(s) {
         .replace(/tlajomulco de zuniga/, 'tlajomulco')
         .replace(/tlajomulco de z.niga/, 'tlajomulco')
         .replace(/(\b\w+)\1\b/, '$1');  // colapsa nombre duplicado por bugs previos (xx→x)
-}
-
-// ── LAB_NO_MITULA: fingerprint set de listings MITULA (precio_m2c_colNorm) ───
-// Cargado una sola vez al arrancar; solo si el flag está activo (evita overhead en baseline).
-// Usa normCol del ÍNDICE (build_cache_index) para que la clave coincida con d.colonia en todos[].
-// Colisiones con no-MITULA: ~0.19% (medido 06-jul-2026). Aceptable para experimento de lab.
-function _normColIdx(s) {
-    if (!s) return '';
-    return s.toString().toLowerCase()
-        .normalize('NFD').replace(/[̀-ͯ]/g, '')
-        .replace(/\b(col\.|colonia|fracc\.|fraccionamiento|residencial|secc?\.?|coto|privada|conjunto)\b/g, '')
-        .replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
-}
-
-const _MITULA_FPS = (() => {
-    if (process.env.LAB_NO_MITULA !== '1') return null;
-    const CONS_PATH = path.join(__dirname, 'cache_consolidado.json');
-    if (!fs.existsSync(CONS_PATH)) return null;
-    const { datos } = JSON.parse(fs.readFileSync(CONS_PATH, 'utf8'));
-    const fps = new Set();
-    for (const d of datos) {
-        if (d.portal !== 'MITULA') continue;
-        const t = (d.tipo || '').toLowerCase();
-        if (t !== 'casa' && !t.includes('depto')) continue;  // solo residencial
-        const cn = _normColIdx(d.colonia || '');
-        fps.add(`${d.precio}_${d.m2c}_${cn}`);
-    }
-    console.error(`[LAB_NO_MITULA] fingerprints MITULA cargados: ${fps.size}`);
-    return fps;
-})();
-
-// d.colonia ya es la clave normalizada del IDX → comparar directo (sin renormalizar)
-function _esMitula(d) {
-    if (!_MITULA_FPS) return false;
-    return _MITULA_FPS.has(`${d.precio}_${d.m2c}_${d.colonia}`);
 }
 
 const TIPO_SINONIMOS = {
@@ -610,13 +570,6 @@ Responde SOLO con JSON, sin texto adicional:
 }
 
 function remiSobreComps(comps, m2C, edad, conservacion, poolTipo) {
-    // LAB_SIZEBAND: descartar comps fuera de ±X% del m²C del sujeto (bajar dispersión).
-    // Salvaguarda: solo aplica si quedan >=3 comps; si no, usa el pool completo.
-    const SB = parseFloat(process.env.LAB_SIZEBAND || '0');
-    if (SB > 0 && m2C > 0) {
-        const band = comps.filter(c => c.m2c > 0 && Math.abs(c.m2c - m2C) / m2C <= SB);
-        if (band.length >= 3) comps = band;
-    }
     const pm2c = comps.map(c => c.precio / c.m2c);
     const s = [...pm2c].sort((a,b)=>a-b);
     const med = s[Math.floor(s.length/2)];
@@ -848,13 +801,7 @@ function valuarPropiedad(prop) {
         : similaresBrutos;
 
     // Pool base
-    const todosRaw = listingsEnMuni(muniNorm, tipo);
-
-    // LAB_NO_MITULA: excluir MITULA de residencial.
-    // Salvaguarda: si tras toda la cascada quedan <3 candidatos, se reintroducen (ver abajo).
-    const esResidencial = tipo === 'casa' || tipo === 'depto';
-    const _filtrarMitula = _MITULA_FPS && esResidencial;
-    const todos = _filtrarMitula ? todosRaw.filter(d => !_esMitula(d)) : todosRaw;
+    const todos = listingsEnMuni(muniNorm, tipo);
 
     // Banda de precio zona — anclada en datos locales (colonia o similares)
     const enColoniaTodos = colNorm ? todos.filter(d => {
@@ -880,77 +827,46 @@ function valuarPropiedad(prop) {
     const bandaMin  = tieneAnclaje ? medRef * 0.40 : 0;
     const bandaMax  = tieneAnclaje ? medRef * 1.60 : Infinity;
 
-    // LAB_ANCLA_SEG=1: pm2cRef segmentado por tipo + franja de edad del sujeto.
-    // Franjas: 0-5 / 6-15 / 16+ años. Cascada: segmento n≥5 → tipo any-age n≥5 → medRef.
-    // SOLO usa ventana más estrecha [0.50×, 1.80×] cuando hay datos de segmento real (nFranja≥5).
-    // Cascade a colonia all-age o blended → mantiene [0.40×, 1.60×] para no cortar comps legítimos.
+    // Ancla segmentada por tipo + franja de edad del sujeto (#121b, portado de lab).
+    // Franjas: 0-5 / 6-15 / 16+ años. Cascada: segmento n≥5 → tipo any-age n≥5 → blended actual.
+    // Solo usa banda estrecha [0.50×, 1.80×] cuando hay datos de segmento real (n≥5).
+    // Cascade a colonia all-age o blended → mantiene [0.40×, 1.60×]. SOLO residencial (casa/depto).
     let bandaMinEff = bandaMin, bandaMaxEff = bandaMax;
-    if (process.env.LAB_ANCLA_SEG === '1') {
-        const _yrCur = new Date().getFullYear();
+    if (tipo === 'casa' || tipo === 'depto') {
         const edadSubj = prop.edad || 0;
         const _franjaFn = (e) => e <= 5 ? 0 : e <= 15 ? 1 : 2;
         const franjaSubj = _franjaFn(edadSubj);
 
         let pm2cRefSeg = 0;
-        let _nFranja = 0, _srcSeg = 'none', _useTighter = false;
+        let _useTighter = false;
 
         // Paso 1: colonia exacta + misma franja de edad (n≥5) — activa banda estrecha
         if (enColoniaTodos.length >= 5) {
+            const _yrCur = new Date().getFullYear();
             const enFranjaCol = enColoniaTodos.filter(d => {
                 if (!d.anio || d.anio <= 0) return false;
                 return _franjaFn(_yrCur - d.anio) === franjaSubj;
             });
-            _nFranja = enFranjaCol.length;
             if (enFranjaCol.length >= 5) {
                 const pm2s = enFranjaCol.map(d => d.precio / d.m2c).filter(v => v > 0 && isFinite(v));
-                if (pm2s.length >= 5) { pm2cRefSeg = mediana(pm2s); _srcSeg = 'col+franja'; _useTighter = true; }
+                if (pm2s.length >= 5) { pm2cRefSeg = mediana(pm2s); _useTighter = true; }
             }
             // Paso 2 (cascade a): colonia + cualquier edad — mantiene banda original
             if (!pm2cRefSeg) {
                 const pm2sAll = enColoniaTodos.map(d => d.precio / d.m2c).filter(v => v > 0 && isFinite(v));
-                if (pm2sAll.length >= 5) { pm2cRefSeg = mediana(pm2sAll); _srcSeg = 'col+all'; }
+                if (pm2sAll.length >= 5) { pm2cRefSeg = mediana(pm2sAll); }
             }
         }
-        // Paso 3 (cascade b): blended actual (colonia+similares — lo de hoy), banda original
-        if (!pm2cRefSeg && medRef > 0) { pm2cRefSeg = medRef; _srcSeg = 'blended'; }
+        // Paso 3 (cascade b): blended actual (lo de hoy), banda original
+        if (!pm2cRefSeg && medRef > 0) { pm2cRefSeg = medRef; }
 
         if (pm2cRefSeg > 0) {
             if (_useTighter) {
-                // Solo con datos de segmento real: banda estrecha centrada en pm2cRefSeg
                 bandaMinEff = pm2cRefSeg * 0.50;
                 bandaMaxEff = pm2cRefSeg * 1.80;
             } else {
-                // Cascade: usar pm2cRefSeg como ancla pero mantener tolerancia original
                 bandaMinEff = pm2cRefSeg * 0.40;
                 bandaMaxEff = pm2cRefSeg * 1.60;
-            }
-        }
-        if (process.env.LAB_DEBUG && colNorm && colNorm.includes(process.env.LAB_DEBUG)) {
-            console.error(`[SEG] colonia=${colNorm} edadSubj=${edadSubj} franja=${franjaSubj} nFranja=${_nFranja} nCol=${enColoniaTodos.length} pm2cRefSeg=${Math.round(pm2cRefSeg)} src=${_srcSeg} tighter=${_useTighter} banda=[${Math.round(bandaMinEff)},${Math.round(bandaMaxEff)}]`);
-        }
-    }
-
-    // LAB_SEG_CLUSTER (capa 2 / build-time): ancla segmentada precomputada por colonia×tipo.
-    // Usa cache_seg_anclas.json generado por build_seg_anclas.py.
-    // La ventana [0.5×, 1.8×] se centra en el ancla del SEGMENTO del sujeto (viejo/nuevo),
-    // no en el blended actual. Esto filtra comps del segmento cruzado ANTES del scoring.
-    // SALVAGUARDA: solo activa si el segmento del sujeto tiene n≥5 en la colonia.
-    // No aplica si no hay bimodalidad (colonia no está en el índice).
-    if (process.env.LAB_SEG_CLUSTER === '1' && _SEG_ANCLAS && colNorm && muniNorm) {
-        const _edadSubjBuild = prop.edad || 0;
-        if (_edadSubjBuild > 0) { // sin edad conocida del sujeto → no segmentar
-            const _segCol = _SEG_ANCLAS[muniNorm]?.[tipo]?.[colNorm];
-            if (_segCol) {
-                const _esViejoBuild = _edadSubjBuild >= 16;
-                const _segEntry = _esViejoBuild ? _segCol.viejo : _segCol.nuevo;
-                if (_segEntry && _segEntry.n >= 5 && _segEntry.medianaPm2c > 0) {
-                    const _anclaSeq = _segEntry.medianaPm2c;
-                    bandaMinEff = _anclaSeq * 0.50;
-                    bandaMaxEff = _anclaSeq * 1.80;
-                    if (process.env.LAB_DEBUG && colNorm && colNorm.includes(process.env.LAB_DEBUG)) {
-                        console.error(`[SEG_BUILD] col=${colNorm} edad=${_edadSubjBuild} esViejo=${_esViejoBuild} ancla=${Math.round(_anclaSeq)} ratio=${_segCol.ratio} method=${_segCol.method} n=${_segEntry.n} banda=[${Math.round(bandaMinEff)},${Math.round(bandaMaxEff)}]`);
-                    }
-                }
             }
         }
     }
@@ -1006,15 +922,13 @@ function valuarPropiedad(prop) {
                 const pm2 = d.precio / d.m2c;
                 return pm2 >= bandaMinEff && pm2 <= bandaMaxEff;
             });
-
-            // Aplicar el mismo filtro NSE que similares (±1).
-            // LAB_SOFT_NSE: NO excluir por clase — incluir todos y ponderar por distancia NSE en el scoring.
-            const filtradosNSE = (process.env.LAB_SOFT_NSE === '1') ? filtrados
-                : nseSubjeto ? filtrados.filter(d => {
-                    const nsd = getNSE(c.colonia);
-                    if (!nsd) return true; // sin NSE: mantener (asumimos válido por proximidad)
-                    return Math.abs(nsd.nseIdx - nseSubjeto.nseIdx) <= 1;
-                }) : filtrados;
+            
+            // Aplicar el mismo filtro NSE que similares (±1)
+            const filtradosNSE = nseSubjeto ? filtrados.filter(d => {
+                const nsd = getNSE(c.colonia);
+                if (!nsd) return true; // sin NSE: mantener (asumimos válido por proximidad)
+                return Math.abs(nsd.nseIdx - nseSubjeto.nseIdx) <= 1;
+            }) : filtrados;
 
             if (filtradosNSE.length > 0) {
                 candidatos.push(...filtradosNSE);
@@ -1029,23 +943,13 @@ function valuarPropiedad(prop) {
     if (candidatos.length < 3) {
         candidatos = pool;
         poolTipo = 'general';
-        // LAB_SOFT_NSE: no colapsar el pool al gate NSE±1 — dejar entrar clases vecinas, ponderar en scoring.
-        if (nseSubjeto && process.env.LAB_SOFT_NSE !== '1') {
+        if (nseSubjeto) {
             const generalNSE = candidatos.filter(d => {
                 const nsd = getNSE(normCol(d.colonia));
                 if (!nsd) return true;
                 return Math.abs(nsd.nseIdx - nseSubjeto.nseIdx) <= 1;
             });
             if (generalNSE.length >= 3) candidatos = generalNSE;
-        }
-        // LAB_NO_MITULA salvaguarda: si aún < 3, reintroducir MITULA (colonia sin datos limpios)
-        if (_filtrarMitula && candidatos.length < 3) {
-            const poolConMitula = dedup(todosRaw.filter(d => {
-                if (m2C > 0 && Math.abs(d.m2c - m2C) / Math.max(d.m2c, m2C) >= 0.50) return false;
-                const pm2 = d.precio / d.m2c;
-                return pm2 >= bandaMinEff && pm2 <= bandaMaxEff;
-            }));
-            if (poolConMitula.length >= 3) { candidatos = poolConMitula; poolTipo = 'general+mitula_ok'; }
         }
     }
 
@@ -1055,16 +959,6 @@ function valuarPropiedad(prop) {
         let s = m2C > 0 ? 1 - Math.abs(d.m2c - m2C) / Math.max(d.m2c, m2C) : 0;
         if (colNorm && dc.length >= 5 && (dc.includes(colNorm) || colNorm.includes(dc))) s += 0.50;
         else if (dc.length >= 4 && similares.some(x => dc.includes(x))) s += 0.25;
-        // LAB_SOFT_NSE_W: penalización SUAVE por distancia de clase (default 0 = puro "no excluir").
-        if (process.env.LAB_SOFT_NSE === '1' && nseSubjeto) {
-            const w = parseFloat(process.env.LAB_SOFT_NSE_W || '0');
-            if (w > 0) { const nsd = getNSE(dc); if (nsd) s -= w * Math.abs(nsd.nseIdx - nseSubjeto.nseIdx); }
-        }
-        // LAB_EDAD_W: premia comps de edad similar al sujeto (nuevo↔usado). anio ausente = neutro.
-        if (process.env.LAB_EDAD_W === '1' && prop.edad > 0 && d.anio) {
-            const compEdad = Math.max(0, (new Date().getFullYear()) - d.anio);
-            s -= parseFloat(process.env.LAB_EDAD_W_K || '0.010') * Math.abs(compEdad - prop.edad);
-        }
         return { precio: d.precio, m2_const: d.m2c, score: s, an: d.anio || null,
                  m2t: d.m2t || 0, rec: d.recamaras || 0, ban: d.banos || 0 };  // #121 DV
     }).sort((a, b) => b.score - a.score).slice(0, poolTipo === 'general' ? COMP_CAP_GENERAL : COMP_CAP);
@@ -1076,78 +970,10 @@ function valuarPropiedad(prop) {
     // Filtro de SEGMENTO de precio (como el perito: no mezclar segmentos). Si el sujeto tiene
     // nivel NSE conocido (muni-correcto), descartar comps cuyo $/m²C esté fuera de [0.55,1.55]×
     // la mediana de la zona. Conservador: solo si hay ≥5 comps y quedan ≥3 tras filtrar.
-    // LAB_SEGBAND=x → banda [1-x, 1+x] alrededor de la mediana de zona (default prod: 0.55/1.55).
-    // Aprieta el segmento de clase para que no se cuelen comps de otra clase (media-baja vs media-alta).
     if (nseSubjeto && nseSubjeto.medianaPm2 > 0 && comps.length >= 5) {
-        const _sb = parseFloat(process.env.LAB_SEGBAND || '0');
-        const loF = _sb > 0 ? (1 - _sb) : 0.55, hiF = _sb > 0 ? (1 + _sb) : 1.55;
-        // LAB_TIPOANCLA=1 → referencia de zona TIPO-ESPECÍFICA (celda casa/depto del sujeto), no la
-        // mediana mezclada de v1 (que es ~casa). Corrige deptos: valen ~1.63× casa en la misma colonia.
-        let refZona = nseSubjeto.medianaPm2;
-        if (process.env.LAB_TIPOANCLA === '1') {
-            const _cellT = IDX[muniNorm]?.[tipo]?.[colNorm];
-            if (_cellT && _cellT.count >= 3 && _cellT.medianaPm2c > 0) refZona = _cellT.medianaPm2c;
-        }
-        // LAB_SEGANCHOR=self → ancla la banda en la mediana $/m² de los comps más parecidos (segmento
-        // del sujeto), no en la mediana de zona (evita jalar al sujeto premium hacia el promedio de zona).
-        let ancla = refZona;
-        if (process.env.LAB_SEGANCHOR === 'self' || process.env.LAB_SEGANCHOR === 'hybrid') {
-            const _pu = comps.map(c => c.precio / c.m2_const).filter(v => v > 0).sort((a,b)=>a-b);
-            if (_pu.length) ancla = _pu[_pu.length >> 1];
-            // hybrid: acota el ancla-self por la ref de zona [×CAPLO, ×CAPHI] para que no se
-            // dispare a un sub-pool caro/barato no representativo de la clase del sujeto.
-            if (process.env.LAB_SEGANCHOR === 'hybrid') {
-                const capLo = parseFloat(process.env.LAB_ANCLA_CAPLO || '0.90');
-                const capHi = parseFloat(process.env.LAB_ANCLA_CAPHI || '1.30');
-                ancla = Math.max(refZona * capLo, Math.min(refZona * capHi, ancla));
-            }
-        }
-        const lo = ancla * loF, hi = ancla * hiF;
+        const lo = nseSubjeto.medianaPm2 * 0.55, hi = nseSubjeto.medianaPm2 * 1.55;
         const seg = comps.filter(c => { const pu = c.precio / c.m2_const; return pu >= lo && pu <= hi; });
         if (seg.length >= 3) comps = seg;
-    }
-
-    // LAB_SEG_CLUSTER=1: selección de comps por cluster de segmento (NSE-mixto / bimodalidad).
-    // Cuando el pool mezcla segmentos (ej. lujo NUEVO ~$83k/m²C + VIEJAS ~$30k/m²C), detecta
-    // bimodalidad via k-means k=2 y selecciona el cluster que corresponde al SEGMENTO del sujeto
-    // según su edad. Sujeto VIEJO (edad≥16) → cluster BAJO. Sujeto NUEVO (edad<16) → cluster ALTO.
-    // Salvaguarda: solo activa si el sujeto tiene edad conocida, bimodalidad clara (centroide HI/LO ≥ 1.6×),
-    // y AMBOS clusters tienen n≥3. Si el cluster elegido queda con n<3 o la bimodalidad no es clara → no aplica.
-    if (process.env.LAB_SEG_CLUSTER === '1' && comps.length >= 6) {
-        const _edadSubjSeg = prop.edad || 0;
-        if (_edadSubjSeg > 0) { // sin edad del sujeto → no segmentar (no sabemos a qué cluster pertenece)
-            const _pm2vSeg = comps.map(c => c.precio / c.m2_const).filter(v => v > 0 && isFinite(v));
-            if (_pm2vSeg.length >= 6) {
-                // K-means k=2: inicializar en Q1 y Q3 del pool (mejor que aleatorio)
-                const _srtSeg = [..._pm2vSeg].sort((a, b) => a - b);
-                let _c1s = _srtSeg[Math.floor(_srtSeg.length * 0.25)]; // centroide bajo (Q1)
-                let _c2s = _srtSeg[Math.floor(_srtSeg.length * 0.75)]; // centroide alto (Q3)
-                for (let _it = 0; _it < 15; _it++) {
-                    const _g1s = _pm2vSeg.filter(v => Math.abs(v - _c1s) <= Math.abs(v - _c2s));
-                    const _g2s = _pm2vSeg.filter(v => Math.abs(v - _c2s) < Math.abs(v - _c1s));
-                    if (!_g1s.length || !_g2s.length) break;
-                    const _n1s = _g1s.reduce((a, b) => a + b, 0) / _g1s.length;
-                    const _n2s = _g2s.reduce((a, b) => a + b, 0) / _g2s.length;
-                    if (Math.abs(_n1s - _c1s) < 10 && Math.abs(_n2s - _c2s) < 10) { _c1s = _n1s; _c2s = _n2s; break; }
-                    _c1s = _n1s; _c2s = _n2s;
-                }
-                // Asegurar c1s ≤ c2s
-                const _loC = Math.min(_c1s, _c2s), _hiC = Math.max(_c1s, _c2s);
-                // Clasificar comps en cluster bajo vs alto
-                const _loGrpSeg = comps.filter(c => { const v = c.precio / c.m2_const; return Math.abs(v - _loC) <= Math.abs(v - _hiC); });
-                const _hiGrpSeg = comps.filter(c => { const v = c.precio / c.m2_const; return Math.abs(v - _hiC) < Math.abs(v - _loC); });
-                const _esViejoSeg = _edadSubjSeg >= 16;
-                const _clusterElegido = _esViejoSeg ? _loGrpSeg : _hiGrpSeg;
-                // Bimodalidad clara: centroide alto ≥ 2.0× centroide bajo y ambos clusters n≥3
-                // 2.0× evita falsos positivos en spreads normales (Q1/Q3 suelen ser ~1.4-1.6×)
-                if (_loC > 0 && _hiC / _loC >= 2.0 && _loGrpSeg.length >= 3 && _hiGrpSeg.length >= 3 && _clusterElegido.length >= 3) {
-                    if (process.env.LAB_DEBUG && colNorm && colNorm.includes(process.env.LAB_DEBUG)) {
-                        console.error(`[SEG_CLUSTER] col=${colNorm} edad=${_edadSubjSeg} esViejo=${_esViejoSeg} cLo=${Math.round(_loC)} cHi=${Math.round(_hiC)} sep=${(_hiC / _loC).toFixed(2)} nLo=${_loGrpSeg.length} nHi=${_hiGrpSeg.length} → cluster ${_esViejoSeg ? 'LO' : 'HI'} n=${_clusterElegido.length}`);
-                    }
-                    comps = _clusterElegido;
-                }
-            }
-        }
     }
 
     if (!comps.length) return { valor: 0, confianza: 'N/A', nComps: 0, poolTipo, error: 'sin_comps' };
@@ -1163,50 +989,11 @@ function valuarPropiedad(prop) {
     // como su zona ya no se sobre-deprecia. Fallback a 10 cuando no hay dato → comportamiento idéntico.
     const _cellEdad = IDX[muniNorm]?.[tipo]?.[colNorm];
     const anclaEdad = (_cellEdad && _cellEdad.edadMedianaZona != null) ? _cellEdad.edadMedianaZona : 10;
-    // LAB_EDAD_NSE=1: curva de depreciación dependiente del NSE del sujeto (solo no-exacta).
-    // Premium (nseIdx≥4): deprecia lento (floor=0.80, slope=0.004 similares / 0.006 general).
-    // Popular (nseIdx≤1): deprecia rápido (floor=0.50, slope=0.006 similares / 0.015 general).
-    // Medio (nseIdx 2-3): comportamiento idéntico a prod (floor=floorEdad/0.70, slope=0.005/0.01).
-    // OJO: en exacta factorEdad=1.0 siempre, este flag NO afecta el cluster dominante.
-    let factorEdad;
-    if (poolTipo === 'exacta') {
-        // LAB_EDAD_EXACTA=1: deprecia SOLO el exceso de edad del sujeto sobre la zona (cluster A:
-        // casas viejas sobre-valuadas porque exacta no deprecia). Nunca aprecia (Math.max(0,...)) →
-        // sujetos de edad normal/nueva quedan en 1.0 idéntico a prod. Tunable K/FLOOR/GAP.
-        if (process.env.LAB_EDAD_EXACTA === '1') {
-            const _k    = parseFloat(process.env.LAB_EDAD_EXACTA_K    || '0.005');
-            const _fl   = parseFloat(process.env.LAB_EDAD_EXACTA_FLOOR|| '0.70');
-            const _gap  = parseFloat(process.env.LAB_EDAD_EXACTA_GAP  || '0');
-            factorEdad = Math.max(_fl, 1 - Math.max(0, edadEfectiva - anclaEdad - _gap) * _k);
-        } else {
-            factorEdad = 1.0;
-        }
-    } else if (process.env.LAB_EDAD_NSE === '1' && nseSubjeto) {
-        const nIdx = nseSubjeto.nseIdx;
-        if (nIdx >= 4) {
-            // Premium: deprecia lento
-            const fSim = Math.max(0.80, 1 - (edadEfectiva - anclaEdad) * 0.004);
-            const fGen = Math.max(0.80, 1 - (edadEfectiva - anclaEdad) * 0.006);
-            factorEdad = poolTipo === 'similares' ? fSim : fGen;
-        } else if (nIdx <= 1) {
-            // Popular: deprecia rápido
-            const fSim = Math.max(0.50, 1 - (edadEfectiva - anclaEdad) * 0.008);
-            const fGen = Math.max(0.50, 1 - (edadEfectiva - anclaEdad) * 0.015);
-            factorEdad = poolTipo === 'similares' ? fSim : fGen;
-        } else {
-            // Medio (nseIdx 2-3): idéntico a prod
-            factorEdad = poolTipo === 'similares'
-                ? Math.max(floorEdad, 1 - (edadEfectiva - anclaEdad) * 0.005)
-                : Math.max(0.70,      1 - (edadEfectiva - anclaEdad) * 0.01);
-        }
-    } else {
-        factorEdad = poolTipo === 'similares'
-            ? Math.max(floorEdad, 1 - (edadEfectiva - anclaEdad) * 0.005)
-            : Math.max(0.70,      1 - (edadEfectiva - anclaEdad) * 0.01);
-    }
+    const factorEdad = poolTipo === 'exacta'   ? 1.0
+                     : poolTipo === 'similares' ? Math.max(floorEdad,  1 - (edadEfectiva - anclaEdad) * 0.005)
+                     :                            Math.max(0.70,       1 - (edadEfectiva - anclaEdad) * 0.01);
     const factorConserv = FACTORES_CONSERVACION[prop.estadoConservacion] || 1.00;
-    // LAB_NEG: override del factor de negociación (listing→mercado). Default prod 0.95.
-    const factorNeg     = process.env.LAB_NEG ? parseFloat(process.env.LAB_NEG) : 0.95;
+    const factorNeg     = 0.95;
 
     const compsFilt = comps.filter((c, i) => pm2cFilt.includes(pm2c[i]));
 
@@ -1234,83 +1021,37 @@ function valuarPropiedad(prop) {
             if (cv>0 && sv>0) { const d=(cv-sv)/_std[v]; s+=d*d; k++; } }
         return k ? Math.sqrt(s/k) : 1;   // RMS normalizado por #vars usadas
     };
-    // LAB_EDADSEG: homologación por SEGMENTO de edad (data-derived 06-Jul, 9245 comps: 0-5→1.0, 6-10→0.78, 11+→0.67).
-    // Ajusta cada comp de SU segmento de edad al del sujeto usando la edad del COMP (c.an = año construcción).
-    // Sin edad del comp → cae al factorEdad actual. Flag OFF = idéntico a prod.
-    const _ageRatio = (age) => (age == null || age <= 0) ? null : age <= 5 ? 1.00 : age <= 10 ? 0.78 : 0.67;
-    const _subjR = _ageRatio(edadEfectiva) || 1.0;
-    const _compAdj = (c) => {
-        const base = (c.precio/c.m2_const) * Math.pow(c.m2_const/m2C, 1/6) * factorConserv;
-        if (process.env.LAB_EDADSEG === '1') {
-            const cr = _ageRatio(c.an > 0 ? _curY - c.an : null);
-            if (cr) { const K = process.env.LAB_EDADSEG_K ? parseFloat(process.env.LAB_EDADSEG_K) : 1.0;
-                      return base * (1 + K * ((_subjR / cr) - 1)); }
-            return base * factorEdad;
-        }
-        return base * factorEdad;
-    };
-    const _sel = compsFilt.map(c => ({ adj: _compAdj(c), dv: _DV(c) }))
-                          .sort((a,b) => a.dv - b.dv).slice(0, DV_NMAX);
+    const _sel = compsFilt.map(c => ({
+        adj: (c.precio/c.m2_const) * Math.pow(c.m2_const/m2C, 1/6) * factorEdad * factorConserv,
+        dv:  _DV(c)
+    })).sort((a,b) => a.dv - b.dv).slice(0, DV_NMAX);
     let _w=0, _vv=0;
     _sel.forEach(({adj,dv}) => { const wt = 1/(dv+DV_EPS); _vv += adj*wt; _w += wt; });
     let pm2cAvg = _w > 0 ? _vv/_w
-        : (compsFilt.reduce((a,c)=>a+_compAdj(c),0)/compsFilt.length);
+        : (compsFilt.reduce((a,c)=>a+(c.precio/c.m2_const)*Math.pow(c.m2_const/m2C,1/6)*factorEdad*factorConserv,0)/compsFilt.length);
 
-    // #121b-ANCHOR: reconciliación robusta anclada al NSE limpio (patrón jerárquico/multi-escala).
-    // El pool puede estar envenenado por precios corruptos (MITULA/NOCNOK truncados) que arrastran la
-    // mediana muy por debajo del valor real. La calibración NSE (medianaPm2) es un ancla LIMPIA de
-    // colonia/zona. Filtramos comps implausibles vs el ancla; si quedan pocos → confiamos el ancla
-    // (shrinkage bayesiano/jerárquico). Colapsa a no-op cuando el pool ya concuerda con el ancla.
-    if (process.env.LAB_ANCHOR === '1' && nseSubjeto && nseSubjeto.medianaPm2 > 0) {
-        const anchor = nseSubjeto.medianaPm2;
-        // Quitar SOLO la basura implausible vs el ancla limpia; conservar comps legítimamente bajos
-        // (0.5-0.9× ancla) → no sobrecorrige propiedades que sí valen menos que su zona.
-        const plaus = compsFilt.filter(c => { const pu = c.precio/c.m2_const; return pu >= 0.5*anchor && pu <= 2.5*anchor; });
-        if (plaus.length >= 2) {
-            let w2=0, v2=0;
-            plaus.forEach(c => { const adj=(c.precio/c.m2_const)*Math.pow(c.m2_const/m2C,1/6)*factorEdad*factorConserv;
-                const wt=1/(_DV(c)+DV_EPS); v2+=adj*wt; w2+=wt; });
-            if (w2>0) pm2cAvg = v2/w2;
-        } else {
-            // pool garbage-dominado (sin comps legítimos) → ancla NSE limpia con premium de tamaño
-            // para casa chica. SIN factorConserv (el ancla es nivel de mercado; el perito ya no lo
-            // re-descuenta cuando ubicación/tamaño dominan). sz suave para no sobredisparar.
-            const sz = (_medM2CZona > 0 && m2C > 0 && m2C < 0.8*_medM2CZona)
-                ? Math.min(1.30, Math.pow(_medM2CZona/m2C, 0.25)) : 1.0;
-            pm2cAvg = anchor * sz;
-        }
-    }
-
-    // #121b-A CAPS SIZE-AWARE: los caps se anclaban a la mediana de zona (dominada por casas
-    // grandes), aplastando el $/m²C legítimo de casas chicas céntricas (premium por economía de
-    // escala + suelo). Multiplicador que ELEVA el techo solo cuando el sujeto es más chico que su
-    // zona; colapsa a 1.0 para sujetos de tamaño típico → CERO regresión en los que ya aciertan.
-    const _mZona = (enColoniaTodos.length >= 5 ? enColoniaTodos : [...enColoniaTodos, ...enNSETodos])
-        .map(d => d.m2c).filter(v => v > 5 && v < 2000);
-    const _medM2CZona = _mZona.length >= 5 ? mediana(_mZona) : 0;
-    const sizeAdj = (process.env.LAB_SIZECAP === '1' && _medM2CZona > 0 && m2C > 0 && m2C < 0.80 * _medM2CZona)
-        ? Math.min(2.0, Math.pow(_medM2CZona / m2C, 1/3)) : 1.0;
-
+    // Cap: si exacta tiene datos sólidos (n≥10) y el pm2cAvg supera la mediana del IDX en >15%,
+    // usar la mediana como techo. Evita que el tier filter seleccione solo los listings caros
+    // ignorando los baratos de la misma colonia.
     if (poolTipo === 'exacta') {
         const exactaIDX = IDX[muniNorm]?.[tipo]?.[colNorm];
         if (exactaIDX && exactaIDX.count >= 10 && exactaIDX.medianaPm2c > 0) {
-            const techo = exactaIDX.medianaPm2c * 1.05 * sizeAdj;
+            const techo = exactaIDX.medianaPm2c * 1.05;
             if (pm2cAvg > techo) pm2cAvg = techo;
         }
     }
 
+    // Cap NSE: para similares/general, si el sujeto tiene NSE con medianaPm2 conocida,
+    // limitar pm2cAvg a medianaPm2 × 1.15. Evita que el pool general infle colonias sin IDX.
+    // También aplica a exacta con muy pocos comps (< 4) — muestra demasiado pequeña para ser confiable.
     if (nseSubjeto && nseSubjeto.medianaPm2 > 0) {
         const aplicarCap = poolTipo !== 'exacta' || comps.length < 4;
         if (aplicarCap) {
-            const techoNSE = nseSubjeto.medianaPm2 * 1.15 * sizeAdj;
+            const techoNSE = nseSubjeto.medianaPm2 * 1.15;
             if (pm2cAvg > techoNSE) pm2cAvg = techoNSE;
         }
     }
 
-    if (process.env.LAB_DEBUG && colNorm && colNorm.includes(process.env.LAB_DEBUG)) {
-        console.error(`[DBG ${colNorm}] subjM2C=${m2C} pool=${poolTipo} nComps=${compsFilt.length} medM2CZona=${Math.round(_medM2CZona||0)} sizeAdj=${(sizeAdj||1).toFixed(2)} pm2cAvg=${Math.round(pm2cAvg)}`);
-        console.error('  comps(m²@$/m²C): ' + compsFilt.map(c=>`${Math.round(c.m2_const)}@${Math.round(c.precio/c.m2_const)}`).join('  '));
-    }
     const valor   = Math.round(pm2cAvg * m2C * factorNeg * factorComercial);
 
     const mean   = avg(pm2cFilt);
@@ -1471,7 +1212,7 @@ async function valuarPropiedadCompleto(prop) {
 }
 
 // ── export para uso inline (validador, tests) ─────────────────────────────────
-module.exports = { valuarPropiedad, valuarPropiedadCompleto, normCol, normMuni, normTipo, getSimilares, remiSobreComps };
+module.exports = { valuarPropiedad, valuarPropiedadCompleto, normCol, normMuni, normTipo, getSimilares };
 
 // ── stdin/stdout ──────────────────────────────────────────────────────────────
 if (require.main !== module) return; // solo corre stdin/stdout cuando es el proceso principal

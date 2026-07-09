@@ -19,7 +19,17 @@
 
 ---
 
-## 🔬 SEGMENTACIÓN DEPTOS 08-Jul-2026 (tarde) — DIAGNÓSTICO REVISADO: NO es sistémico, es DATO
+## 🏚️ CLUSTER EDAD (casas viejas) 08-Jul noche — LAB_EDAD_EXACTA + LECCIÓN de tensión edad×clase
+
+**El 18% fuera de ±20 lo dominan CASAS en pool `exacta` (17/20; solo 3 deptos), no deptos.** Dos clusters:
+- **A) SOBREVALÚA = casas viejas (46-81a):** El Batán 81a +72%, Loma Bonita 51a +41%, Miguel Hidalgo 54a +39%, Camichin 46a +27%, Cd del Sol 52a +24%. Causa: en exacta `factorEdad=1.0` (no deprecia); un sujeto viejo se compara con comps más nuevos de su colonia sin ajuste.
+- **B) SUBVALÚA = casas grandes (195-252m²):** Seattle −30%, Educadores −29%, Las Bóvedas −22%, Santa María −32%. El sujeto grande matchea comps grandes (menor $/m²) + ajuste `^(1/6)` castiga de más.
+
+**Flag `LAB_EDAD_EXACTA` (motor lab):** deprecia SOLO el exceso de edad sobre la zona en exacta: `Math.max(FLOOR, 1 - Math.max(0, edadEfectiva - anclaEdad - GAP) * K)`. Nunca aprecia. **Barrido:**
+- Sin GAP (K=0.005-0.008): REGRESA fuerte (−9 ±10) — con `anclaEdad=10` fallback deprecia los muchos casos normales 20-40a. (Por esto exacta=1.0; confirma que la curva de edad es delicada.)
+- **Con GAP=25, K=0.010, FL=0.55: ±20 60→81→82 (+1.0), errAbs 11.8→11.2 (−0.6), CERO regresión ±10/±15.** El GAP protege los normales (solo toca >35a). Arregla El Batán (+72→−1.1) y Cd del Sol (+24→+2.5); Miguel/Camichin a ±15; Loma Bonita mejora (+41→+32, sigue fuera).
+
+**★ LECCIÓN CLAVE (edad×clase, no aplicar edad plana):** la misma depreciación que arregla A **EMPEORA Seattle −30→−50**. Seattle es viejo+grande pero en colonia PREMIUM donde el perito ya lo valúa a **0.38× los comps** de su colonia; depreciar a un sujeto que ya está muy por debajo de su zona lo hunde. **Regla que emerge: viejo+popular (perito ~0.55× comps) NECESITA depreciación; viejo+premium-con-sujeto-ya-barato (perito ~0.38× comps) NO.** El discriminante no es la edad sola sino **cuán lejos está el perito de la mediana de comps de su colonia**. Cluster B (grandes) es mecánica de TAMAÑO (`^(1/6)` + DV elige comps grandes baratos), aparte. **Config cluster-A queda medida pero NO commiteada (gana +1/errAbs−0.6 pero hunde Seattle; conviene un discriminante clase antes de portar).** — DIAGNÓSTICO REVISADO: NO es sistémico, es DATO
 
 **Bloque "segmentación socioeconómica de deptos". Junté datos de laboratorio (sin tocar prod) y el diagnóstico VIEJO de memoria (deptos sobre-valuados por fuga de clase a pool general $32k) quedó DESACTUALIZADO — el maestro cambió (ahora la colonia SÍ tiene NSE v1) y el commit ancla-self ya está.**
 

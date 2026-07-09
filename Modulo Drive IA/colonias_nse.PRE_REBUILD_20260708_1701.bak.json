@@ -1,0 +1,8708 @@
+{
+  "campo real": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 18900,
+    "nListings": 13
+  },
+  "colinas del rey": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 27500,
+    "nListings": 3
+  },
+  "el fortin": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17300,
+    "nListings": 43
+  },
+  "puerta del bosque": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 65340,
+    "nListings": 88
+  },
+  "reserva real": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 46988,
+    "nListings": 22
+  },
+  "colinas de san javier": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 60876,
+    "nListings": 90
+  },
+  "ciudad del sol": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 44444,
+    "nListings": 110
+  },
+  "cd del sol": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 44444,
+    "nListings": 110
+  },
+  "lomas del valle": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 57143,
+    "nListings": 67
+  },
+  "city of the sun": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 39996,
+    "nListings": 8
+  },
+  "north capital": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26229,
+    "nListings": 25
+  },
+  "valle imperial": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27000,
+    "nListings": 470
+  },
+  "las aguilas": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 52969,
+    "nListings": 165
+  },
+  "virreyes": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 62700,
+    "nListings": 180
+  },
+  "capital norte": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26453,
+    "nListings": 40
+  },
+  "el bajio": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32410,
+    "nListings": 36
+  },
+  "jardines vallarta": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 49738,
+    "nListings": 36
+  },
+  "jardines del valle": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36957,
+    "nListings": 61
+  },
+  "conjunto patria": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34615,
+    "nListings": 9
+  },
+  "villa de los belenes": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 10556,
+    "nListings": 3
+  },
+  "bugambilias": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31252,
+    "nListings": 90
+  },
+  "casa en la cima": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32667,
+    "nListings": 5
+  },
+  "paseos del sol": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29578,
+    "nListings": 38
+  },
+  "puerta de hierro": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 82632,
+    "nListings": 433
+  },
+  "valdepenas": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31188,
+    "nListings": 12
+  },
+  "puerta plata": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 70526,
+    "nListings": 31
+  },
+  "santa ana tepetitlan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28740,
+    "nListings": 166
+  },
+  "virreyes residential": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 44717,
+    "nListings": 9
+  },
+  "argenta mirador residential": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31579,
+    "nListings": 12
+  },
+  "jardines de la patria": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 43785,
+    "nListings": 71
+  },
+  "valle real": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 53198,
+    "nListings": 579
+  },
+  "villa verona": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 70000,
+    "nListings": 77
+  },
+  "solares": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 39535,
+    "nListings": 375
+  },
+  "vitana residential": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28684,
+    "nListings": 6
+  },
+  "mesa colorada oriente": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 2289,
+    "nListings": 4
+  },
+  "vitana residence": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29781,
+    "nListings": 3
+  },
+  "casa en venta": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34657,
+    "nListings": 21
+  },
+  "ciudad bugambilias": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34149,
+    "nListings": 16
+  },
+  "olivos residential": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 42353,
+    "nListings": 8
+  },
+  "imperial valley": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29741,
+    "nListings": 11
+  },
+  "miramar": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 26175,
+    "nListings": 9
+  },
+  "soare iii": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 38476,
+    "nListings": 3
+  },
+  "albaterra": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23883,
+    "nListings": 55
+  },
+  "venta en puerta las lomas": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 59438,
+    "nListings": 3
+  },
+  "chapalita las fuentes": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35565,
+    "nListings": 4
+  },
+  "lomas de guadalupe": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 71674,
+    "nListings": 102
+  },
+  "opportunity in solares 311 m basement 4 cars": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28907,
+    "nListings": 3
+  },
+  "alva": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28889,
+    "nListings": 11
+  },
+  "la cima": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33706,
+    "nListings": 42
+  },
+  "loma bonita": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 57317,
+    "nListings": 97
+  },
+  "venta en valle imperial": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27790,
+    "nListings": 4
+  },
+  "vistas de tesistan": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14667,
+    "nListings": 3
+  },
+  "la estancia": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 77685,
+    "nListings": 96
+  },
+  "residential victoria": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28551,
+    "nListings": 17
+  },
+  "lomas altas": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 62417,
+    "nListings": 221
+  },
+  "bugambilias second section": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22770,
+    "nListings": 10
+  },
+  "venta en solares": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 46667,
+    "nListings": 3
+  },
+  "chapalita": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 53833,
+    "nListings": 311
+  },
+  "jardines de nuevo mexico": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25658,
+    "nListings": 5
+  },
+  "venta bosques vallarta": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32284,
+    "nListings": 3
+  },
+  "venta en": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23409,
+    "nListings": 10
+  },
+  "san wenceslao": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32575,
+    "nListings": 7
+  },
+  "novaterra": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 50794,
+    "nListings": 4
+  },
+  "altanza subdivision": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 44069,
+    "nListings": 4
+  },
+  "casa en venta en zapopan": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35382,
+    "nListings": 4
+  },
+  "tabachines": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 23725,
+    "nListings": 4
+  },
+  "parques de tesistan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21828,
+    "nListings": 74
+  },
+  "los robles residential": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19199,
+    "nListings": 8
+  },
+  "puerta las lomas": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 95804,
+    "nListings": 271
+  },
+  "zapopan norte": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20540,
+    "nListings": 4
+  },
+  "vallarta universidad": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 78098,
+    "nListings": 353
+  },
+  "diaz ordaz": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26136,
+    "nListings": 3
+  },
+  "bosques del centinela": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 44340,
+    "nListings": 3
+  },
+  "jardines del sol": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31660,
+    "nListings": 35
+  },
+  "venta en santa ana tepetitlan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29333,
+    "nListings": 3
+  },
+  "colinas de san isidro": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33824,
+    "nListings": 9
+  },
+  "las canadas": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28548,
+    "nListings": 285
+  },
+  "university villa": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 37097,
+    "nListings": 5
+  },
+  "arcos de guadalupe": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31847,
+    "nListings": 30
+  },
+  "coto espanol valle imperial": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27202,
+    "nListings": 3
+  },
+  "bosques de los lagos": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 59253,
+    "nListings": 4
+  },
+  "argenta residential": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28243,
+    "nListings": 4
+  },
+  "zona real": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 69283,
+    "nListings": 31
+  },
+  "seattle": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 83259,
+    "nListings": 70
+  },
+  "casa en venta en solares": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 38932,
+    "nListings": 4
+  },
+  "las fuentes": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 42417,
+    "nListings": 37
+  },
+  "real de valdepenas": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 28500,
+    "nListings": 9
+  },
+  "san isidro": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26380,
+    "nListings": 51
+  },
+  "la venta del astillero": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 9020,
+    "nListings": 48
+  },
+  "bosque de los lagos": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 61457,
+    "nListings": 26
+  },
+  "los olivos residential": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 45317,
+    "nListings": 4
+  },
+  "arauca ii": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35533,
+    "nListings": 23
+  },
+  "parques vallarta": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36624,
+    "nListings": 70
+  },
+  "los frailes": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 73515,
+    "nListings": 69
+  },
+  "colinas de las aguilas": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21196,
+    "nListings": 3
+  },
+  "ciudad de los ninos": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 40714,
+    "nListings": 8
+  },
+  "jardines de guadalupe": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 44964,
+    "nListings": 42
+  },
+  "vallarta university": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 86261,
+    "nListings": 4
+  },
+  "jacarandas": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 50980,
+    "nListings": 22
+  },
+  "real vallarta": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33750,
+    "nListings": 10
+  },
+  "jardin real": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 40565,
+    "nListings": 177
+  },
+  "solares residential": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 40238,
+    "nListings": 10
+  },
+  "el vigia": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 61283,
+    "nListings": 35
+  },
+  "pinar de la venta": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26483,
+    "nListings": 61
+  },
+  "bosques vallarta": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33176,
+    "nListings": 186
+  },
+  "condominium": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 60561,
+    "nListings": 6
+  },
+  "victoria": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 32000,
+    "nListings": 65
+  },
+  "el campanario": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24000,
+    "nListings": 67
+  },
+  "villas de guadalupe": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16549,
+    "nListings": 4
+  },
+  "bugambilias city": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32619,
+    "nListings": 7
+  },
+  "los robles": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25082,
+    "nListings": 149
+  },
+  "madeiras subdivision": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29121,
+    "nListings": 4
+  },
+  "los cajetes": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19154,
+    "nListings": 10
+  },
+  "rinconada del bosque": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30210,
+    "nListings": 16
+  },
+  "francisco sarabia": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31276,
+    "nListings": 22
+  },
+  "arauca": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 84435,
+    "nListings": 56
+  },
+  "jardines guadalupe": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 45038,
+    "nListings": 6
+  },
+  "diana natura residential": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 75676,
+    "nListings": 4
+  },
+  "girasoles elite": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31354,
+    "nListings": 6
+  },
+  "madeiras": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24076,
+    "nListings": 37
+  },
+  "la toscana": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 56899,
+    "nListings": 161
+  },
+  "parques vallarta coto abeto": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 41250,
+    "nListings": 3
+  },
+  "villa fontana": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16500,
+    "nListings": 21
+  },
+  "prados tepeyac": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36000,
+    "nListings": 12
+  },
+  "lomas de": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20952,
+    "nListings": 3
+  },
+  "tesistan": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 10194,
+    "nListings": 51
+  },
+  "diana natura": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32816,
+    "nListings": 9
+  },
+  "los suenos residential": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 45238,
+    "nListings": 6
+  },
+  "mariano otero": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26582,
+    "nListings": 27
+  },
+  "arenales tapatios": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 11616,
+    "nListings": 26
+  },
+  "abie residential": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 39063,
+    "nListings": 3
+  },
+  "natura": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27941,
+    "nListings": 3
+  },
+  "la loma": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17835,
+    "nListings": 69
+  },
+  "rancho contento": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 46810,
+    "nListings": 94
+  },
+  "villa universitaria": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 40750,
+    "nListings": 21
+  },
+  "mirador del bosque": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17523,
+    "nListings": 15
+  },
+  "francisco villa": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21329,
+    "nListings": 11
+  },
+  "pinar de la calma": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23868,
+    "nListings": 9
+  },
+  "real de tesistan": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19862,
+    "nListings": 52
+  },
+  "hogares de nuevo mexico": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25024,
+    "nListings": 24
+  },
+  "el colli urbano": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 47442,
+    "nListings": 12
+  },
+  "opportunity": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 45783,
+    "nListings": 6
+  },
+  "sendas residential": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26268,
+    "nListings": 3
+  },
+  "jardines universidad": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 81594,
+    "nListings": 173
+  },
+  "altamira": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 69448,
+    "nListings": 42
+  },
+  "canadas san lorenzo": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35343,
+    "nListings": 3
+  },
+  "el campestre": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21495,
+    "nListings": 24
+  },
+  "villa magna": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 130801,
+    "nListings": 21
+  },
+  "santa lucia": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 4500,
+    "nListings": 13
+  },
+  "las canadas country club": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31808,
+    "nListings": 9
+  },
+  "lomas del seminario": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 46362,
+    "nListings": 8
+  },
+  "mirador del sol": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 38299,
+    "nListings": 17
+  },
+  "arboledas": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 68327,
+    "nListings": 30
+  },
+  "parques de tesistan iii": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24143,
+    "nListings": 5
+  },
+  "excellent location": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27400,
+    "nListings": 4
+  },
+  "la moraleja": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22519,
+    "nListings": 9
+  },
+  "tepeyac casino": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 5523,
+    "nListings": 7
+  },
+  "los almendros": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32065,
+    "nListings": 15
+  },
+  "argenta mirador": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31094,
+    "nListings": 18
+  },
+  "ramon corona": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33363,
+    "nListings": 4
+  },
+  "la calma": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25918,
+    "nListings": 72
+  },
+  "lomas universidad": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 65385,
+    "nListings": 10
+  },
+  "atemajac del valle": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 38256,
+    "nListings": 29
+  },
+  "san esteban": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 3778,
+    "nListings": 12
+  },
+  "nuevo mexico": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24358,
+    "nListings": 130
+  },
+  "valle imperial in": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27949,
+    "nListings": 5
+  },
+  "pedregal de san miguel": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 11913,
+    "nListings": 6
+  },
+  "jardines de la calera": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 5027,
+    "nListings": 42
+  },
+  "venta en americana": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 88938,
+    "nListings": 6
+  },
+  "department sale": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 67150,
+    "nListings": 12
+  },
+  "san juan bosco": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20642,
+    "nListings": 20
+  },
+  "americana": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 65591,
+    "nListings": 1220
+  },
+  "arcos vallarta": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 61224,
+    "nListings": 494
+  },
+  "jardines del country": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26482,
+    "nListings": 165
+  },
+  "venta en ladron de guevara": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 61288,
+    "nListings": 3
+  },
+  "ladron de guevara colony": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 70948,
+    "nListings": 3
+  },
+  "providencia": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 73838,
+    "nListings": 139
+  },
+  "jardines alcalde": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29667,
+    "nListings": 58
+  },
+  "country club": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 70000,
+    "nListings": 586
+  },
+  "san carlos": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31193,
+    "nListings": 9
+  },
+  "saant marten lofts": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 61798,
+    "nListings": 3
+  },
+  "new apartment in col americana": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 68110,
+    "nListings": 3
+  },
+  "ladron de guevara": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 53503,
+    "nListings": 486
+  },
+  "jardines de los arcos": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 39697,
+    "nListings": 12
+  },
+  "coordenada lafayette": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 55063,
+    "nListings": 4
+  },
+  "jardines del bosque": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36351,
+    "nListings": 70
+  },
+  "new apartment": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 42647,
+    "nListings": 5
+  },
+  "last units in presale veq asuncion": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 85693,
+    "nListings": 3
+  },
+  "colomos providencia": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 74632,
+    "nListings": 220
+  },
+  "jardines del sur": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20192,
+    "nListings": 57
+  },
+  "alcalde barranquitas": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20463,
+    "nListings": 14
+  },
+  "san juan de dios": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 46252,
+    "nListings": 100
+  },
+  "la americana": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 64896,
+    "nListings": 15
+  },
+  "jardines de la cruz": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28288,
+    "nListings": 18
+  },
+  "lomas del country": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 65153,
+    "nListings": 75
+  },
+  "prados providencia": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 51921,
+    "nListings": 34
+  },
+  "bosques de la victoria": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25743,
+    "nListings": 90
+  },
+  "insurgentes": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17512,
+    "nListings": 8
+  },
+  "mezquitan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21011,
+    "nListings": 74
+  },
+  "santa tere": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26277,
+    "nListings": 11
+  },
+  "tres lagos": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 37931,
+    "nListings": 5
+  },
+  "jardines de san jose": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30189,
+    "nListings": 15
+  },
+  "analco": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19826,
+    "nListings": 16
+  },
+  "atlas": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 43950,
+    "nListings": 74
+  },
+  "independencia": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31461,
+    "nListings": 57
+  },
+  "huentitan el bajo": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25676,
+    "nListings": 139
+  },
+  "monraz": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 53538,
+    "nListings": 137
+  },
+  "oblatos": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32856,
+    "nListings": 25
+  },
+  "huentitan": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 9889,
+    "nListings": 10
+  },
+  "lazaro cardenas": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30422,
+    "nListings": 5
+  },
+  "terralta": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28371,
+    "nListings": 27
+  },
+  "americana neighborhood": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 62142,
+    "nListings": 24
+  },
+  "apartments for presale": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 76974,
+    "nListings": 16
+  },
+  "preventa en italia providencia": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 68159,
+    "nListings": 3
+  },
+  "vallarta norte": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 62850,
+    "nListings": 266
+  },
+  "lafayette coordinate": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 70233,
+    "nListings": 3
+  },
+  "rinconada santa rita": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 39063,
+    "nListings": 15
+  },
+  "the best area of gardens of the forest": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 67668,
+    "nListings": 3
+  },
+  "colinas de la normal": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26296,
+    "nListings": 11
+  },
+  "a luxurious apartment": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 75825,
+    "nListings": 3
+  },
+  "onia del fresno": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21500,
+    "nListings": 6
+  },
+  "tetlan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24969,
+    "nListings": 4
+  },
+  "moderna": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 60638,
+    "nListings": 395
+  },
+  "presale apartments": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 54585,
+    "nListings": 5
+  },
+  "moderna neighborhood": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 70946,
+    "nListings": 5
+  },
+  "masaya residential": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 89652,
+    "nListings": 4
+  },
+  "apartment in lofts san miguel perfect for airbnb": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 60171,
+    "nListings": 3
+  },
+  "livet ottawa": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 44850,
+    "nListings": 3
+  },
+  "excellent investment opportunity": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 42308,
+    "nListings": 3
+  },
+  "lomas de independencia": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31535,
+    "nListings": 96
+  },
+  "central park": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 66972,
+    "nListings": 9
+  },
+  "lopez portillo": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26364,
+    "nListings": 43
+  },
+  "monraz neighborhood": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 87209,
+    "nListings": 5
+  },
+  "sale of apartment next to the colomos forest": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 50847,
+    "nListings": 3
+  },
+  "san antonio": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 47828,
+    "nListings": 15
+  },
+  "jardines de la paz": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22799,
+    "nListings": 15
+  },
+  "studio apartments in the heart of americana": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 83395,
+    "nListings": 3
+  },
+  "department for presale in providencia": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 70905,
+    "nListings": 3
+  },
+  "venta en providencia": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 61468,
+    "nListings": 5
+  },
+  "providencia in the financial zone": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 141501,
+    "nListings": 4
+  },
+  "providencia en la zona financiera": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 119630,
+    "nListings": 3
+  },
+  "ayuntamiento": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 59375,
+    "nListings": 51
+  },
+  "circunvalacion oblatos": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23016,
+    "nListings": 50
+  },
+  "vallarta poniente": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 47139,
+    "nListings": 67
+  },
+  "patria nueva": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35800,
+    "nListings": 9
+  },
+  "apartment for presale in arcos vallarta": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 84829,
+    "nListings": 3
+  },
+  "del sur": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23717,
+    "nListings": 11
+  },
+  "downtown": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32469,
+    "nListings": 5
+  },
+  "presale of apartment environment mexico": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 73850,
+    "nListings": 4
+  },
+  "avila camacho and enrique diaz": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 71096,
+    "nListings": 3
+  },
+  "apartments for presale in villas del country": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 66504,
+    "nListings": 4
+  },
+  "the americana neighborhood": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 46823,
+    "nListings": 3
+  },
+  "offices in cyc": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 74659,
+    "nListings": 3
+  },
+  "furnished apartments for presale in daiku": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 80645,
+    "nListings": 3
+  },
+  "apartments": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 46580,
+    "nListings": 4
+  },
+  "aurora boreal towers": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 41757,
+    "nListings": 3
+  },
+  "dept tower sora": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 60741,
+    "nListings": 3
+  },
+  "apartments for presale habitat azul modern col": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 38512,
+    "nListings": 3
+  },
+  "furnished bitloft col mexicaltzingo": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 40123,
+    "nListings": 3
+  },
+  "apartments under development monraz": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 68569,
+    "nListings": 5
+  },
+  "guadalajara yu country building": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 73254,
+    "nListings": 4
+  },
+  "lopez cotilla": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21618,
+    "nListings": 34
+  },
+  "villas de san juan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32394,
+    "nListings": 62
+  },
+  "florencia gardens": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 249219,
+    "nListings": 5
+  },
+  "belisario dominguez": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18810,
+    "nListings": 17
+  },
+  "verde valle": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35577,
+    "nListings": 15
+  },
+  "plaza mexico": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35933,
+    "nListings": 3
+  },
+  "aldama tetlan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25098,
+    "nListings": 9
+  },
+  "agustin yanez": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20040,
+    "nListings": 3
+  },
+  "jardines de santa isabel": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25798,
+    "nListings": 5
+  },
+  "the historical center of": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36304,
+    "nListings": 5
+  },
+  "apartment for presale": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 63244,
+    "nListings": 8
+  },
+  "santa teresita": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 60000,
+    "nListings": 230
+  },
+  "col americana": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 70732,
+    "nListings": 5
+  },
+  "ninos heroes": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 53211,
+    "nListings": 6
+  },
+  "santa elena alcalde": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29630,
+    "nListings": 11
+  },
+  "chapultepec country": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 63636,
+    "nListings": 67
+  },
+  "santa rosa": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16000,
+    "nListings": 7
+  },
+  "italy providencia": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 46580,
+    "nListings": 5
+  },
+  "san miguel de mezquitan": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 57410,
+    "nListings": 14
+  },
+  "departamento en venta": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 67414,
+    "nListings": 6
+  },
+  "san andres": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 23177,
+    "nListings": 17
+  },
+  "lagos del country": {
+    "nse": "alto",
+    "nseIdx": 5,
+    "medianaPm2": 40000,
+    "nListings": 15
+  },
+  "centro": {
+    "nse": "economico",
+    "nseIdx": 1,
+    "medianaPm2": 8696,
+    "nListings": 2
+  },
+  "rincon de agua azul": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31866,
+    "nListings": 11
+  },
+  "lomas del paradero": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 41244,
+    "nListings": 61
+  },
+  "adamar": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22642,
+    "nListings": 134
+  },
+  "pedregal del bosque": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26400,
+    "nListings": 17
+  },
+  "san pedro tlaquepaque": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24835,
+    "nListings": 8
+  },
+  "coto las moras": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20127,
+    "nListings": 4
+  },
+  "santa anita golf club": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 38205,
+    "nListings": 38
+  },
+  "triventi residential": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23425,
+    "nListings": 4
+  },
+  "pontevedra": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26243,
+    "nListings": 41
+  },
+  "bosque real": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27370,
+    "nListings": 121
+  },
+  "new galicia": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29839,
+    "nListings": 7
+  },
+  "san jose del tajo": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35464,
+    "nListings": 36
+  },
+  "bosques santa anita": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26840,
+    "nListings": 261
+  },
+  "lomas del sur": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16596,
+    "nListings": 25
+  },
+  "san agustin": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26078,
+    "nListings": 444
+  },
+  "bosques de santa anita": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26122,
+    "nListings": 164
+  },
+  "real del valle": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 13000,
+    "nListings": 54
+  },
+  "senderos de monteverde": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22426,
+    "nListings": 41
+  },
+  "san sebastian el grande": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 4211,
+    "nListings": 46
+  },
+  "el cielo country club": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 45833,
+    "nListings": 168
+  },
+  "senderos de monte verde": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21505,
+    "nListings": 229
+  },
+  "las villas": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18915,
+    "nListings": 15
+  },
+  "alta california": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 17500,
+    "nListings": 133
+  },
+  "hacienda del oro": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35379,
+    "nListings": 18
+  },
+  "el palomar": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33000,
+    "nListings": 315
+  },
+  "lomas de san agustin": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24534,
+    "nListings": 44
+  },
+  "casa fuerte": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24500,
+    "nListings": 125
+  },
+  "del pilar residential": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 54149,
+    "nListings": 6
+  },
+  "provenza residential": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29563,
+    "nListings": 4
+  },
+  "casa fuerte subdivision": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27234,
+    "nListings": 3
+  },
+  "el paraiso": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27517,
+    "nListings": 16
+  },
+  "belcanto": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22113,
+    "nListings": 7
+  },
+  "la rioja residential": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 37951,
+    "nListings": 4
+  },
+  "rinconada santa anita": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26364,
+    "nListings": 29
+  },
+  "zoi santa anita": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30276,
+    "nListings": 7
+  },
+  "las grullas": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29149,
+    "nListings": 46
+  },
+  "chulavista": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16143,
+    "nListings": 19
+  },
+  "zoi sur": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32137,
+    "nListings": 4
+  },
+  "el manantial": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33458,
+    "nListings": 87
+  },
+  "villa california": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21416,
+    "nListings": 43
+  },
+  "valle de las flores": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 13778,
+    "nListings": 3
+  },
+  "lago nogal": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 42213,
+    "nListings": 43
+  },
+  "santa anita": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27139,
+    "nListings": 190
+  },
+  "punto sur": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35294,
+    "nListings": 154
+  },
+  "cortijo san agustin": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18150,
+    "nListings": 13
+  },
+  "cortijo de san agustin": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18150,
+    "nListings": 69
+  },
+  "adamar residential": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22882,
+    "nListings": 4
+  },
+  "provenza": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32605,
+    "nListings": 63
+  },
+  "lomas de santa anita": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 10889,
+    "nListings": 40
+  },
+  "valle de los encinos": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 11818,
+    "nListings": 9
+  },
+  "tlajomulco de zuniga": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24340,
+    "nListings": 25
+  },
+  "nueva galicia": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32932,
+    "nListings": 154
+  },
+  "atmosfera habitat": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27559,
+    "nListings": 4
+  },
+  "buenavista": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 4068,
+    "nListings": 20
+  },
+  "los gavilanes poniente": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23664,
+    "nListings": 17
+  },
+  "banus residential": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19155,
+    "nListings": 4
+  },
+  "real del parque": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 39353,
+    "nListings": 4
+  },
+  "san jose del valle": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18388,
+    "nListings": 7
+  },
+  "real del sol": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19717,
+    "nListings": 19
+  },
+  "balcones de la calera": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 9595,
+    "nListings": 45
+  },
+  "los naranjos": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27139,
+    "nListings": 6
+  },
+  "hacienda mirage": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29310,
+    "nListings": 16
+  },
+  "el origen": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23828,
+    "nListings": 20
+  },
+  "coto": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 45297,
+    "nListings": 3
+  },
+  "santa cruz de las flores": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18000,
+    "nListings": 83
+  },
+  "lomas del mirador": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 9184,
+    "nListings": 3
+  },
+  "los gavilanes": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 38327,
+    "nListings": 90
+  },
+  "hacienda santa fe": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15459,
+    "nListings": 46
+  },
+  "arbolada bosques de santa anita": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24929,
+    "nListings": 130
+  },
+  "real del bosque": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19709,
+    "nListings": 3
+  },
+  "club de golf santa anita": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36375,
+    "nListings": 161
+  },
+  "la rioja": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 39301,
+    "nListings": 150
+  },
+  "el cortijo san agustin": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17475,
+    "nListings": 3
+  },
+  "hacienda casa fuerte": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24448,
+    "nListings": 7
+  },
+  "el manantial subdivision": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 38244,
+    "nListings": 3
+  },
+  "la rioja subdivision": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33798,
+    "nListings": 5
+  },
+  "bosque real de santa anita": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26580,
+    "nListings": 6
+  },
+  "la tijera": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32102,
+    "nListings": 131
+  },
+  "la calera": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 11111,
+    "nListings": 26
+  },
+  "colinas de santa anita": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 13330,
+    "nListings": 31
+  },
+  "bosques de las moras": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19912,
+    "nListings": 3
+  },
+  "solum residential": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28451,
+    "nListings": 3
+  },
+  "puerta magnolia": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24215,
+    "nListings": 3
+  },
+  "el eden residential": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28168,
+    "nListings": 5
+  },
+  "jardines de santa anita": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26549,
+    "nListings": 47
+  },
+  "saint augustine": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 11806,
+    "nListings": 3
+  },
+  "bosque real tlajomulco de zuniga": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30643,
+    "nListings": 3
+  },
+  "sendero las moras": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22333,
+    "nListings": 36
+  },
+  "cajititlan": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 4545,
+    "nListings": 63
+  },
+  "santa cruz del valle": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20850,
+    "nListings": 109
+  },
+  "el eden": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27517,
+    "nListings": 38
+  },
+  "villas terranova": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14783,
+    "nListings": 8
+  },
+  "tossa": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27000,
+    "nListings": 3
+  },
+  "punto sur elite": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22027,
+    "nListings": 3
+  },
+  "san martin del tajo": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36294,
+    "nListings": 42
+  },
+  "hacienda santa cruz": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21390,
+    "nListings": 4
+  },
+  "campo sur": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 12833,
+    "nListings": 24
+  },
+  "the south of the city": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27414,
+    "nListings": 3
+  },
+  "loma dorada": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18200,
+    "nListings": 11
+  },
+  "infonavit la soledad": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20645,
+    "nListings": 4
+  },
+  "loma dorada c": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16994,
+    "nListings": 7
+  },
+  "tlaquepaque centro": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18863,
+    "nListings": 3,
+    "fuente": "v1-centro-rename"
+  },
+  "parque tlaquepaque": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 43182,
+    "nListings": 3
+  },
+  "cerro del tesoro": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26667,
+    "nListings": 7
+  },
+  "paisajes del tesoro": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 43342,
+    "nListings": 68
+  },
+  "balcones de santa maria": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29231,
+    "nListings": 40
+  },
+  "ajijic": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33934,
+    "nListings": 68
+  },
+  "legacy tower": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 110686,
+    "nListings": 6
+  },
+  "ciudad granja": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 52371,
+    "nListings": 401
+  },
+  "cima park": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 54685,
+    "nListings": 4
+  },
+  "landmark reserve": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 115231,
+    "nListings": 11
+  },
+  "ajijic chapala": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 44217,
+    "nListings": 4
+  },
+  "riberas del pilar": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34448,
+    "nListings": 3
+  },
+  "chapala centro": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33217,
+    "nListings": 7,
+    "fuente": "v1-centro-rename"
+  },
+  "front of lake chapala": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 9001,
+    "nListings": 3
+  },
+  "chapala haciendas": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 11300,
+    "nListings": 4
+  },
+  "san antonio tlayacapan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32963,
+    "nListings": 32
+  },
+  "la floresta": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 11885,
+    "nListings": 7
+  },
+  "san diego": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14050,
+    "nListings": 13
+  },
+  "polanco iv": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 78947,
+    "nListings": 67
+  },
+  "insurgentes cuicuilco": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28764,
+    "nListings": 32
+  },
+  "apartment for presale in ajijic": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 53127,
+    "nListings": 5
+  },
+  "el dorado": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31507,
+    "nListings": 3
+  },
+  "country club corporate": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 149044,
+    "nListings": 3
+  },
+  "chapultepec": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 59176,
+    "nListings": 11
+  },
+  "venta en ciudad granja": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 56061,
+    "nListings": 3
+  },
+  "acueducto puerta de hierro": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 112493,
+    "nListings": 5
+  },
+  "andares": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 116815,
+    "nListings": 16
+  },
+  "camino real": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 47175,
+    "nListings": 71
+  },
+  "lomas de guevara": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 60345,
+    "nListings": 138
+  },
+  "santa rita": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 44990,
+    "nListings": 3
+  },
+  "apartments for presale in mezquitan country avila and leon development": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 75000,
+    "nListings": 3
+  },
+  "la perla": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 45081,
+    "nListings": 188
+  },
+  "lomas del paraiso": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23849,
+    "nListings": 4
+  },
+  "miravalle": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14717,
+    "nListings": 60
+  },
+  "juan manuel": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 88336,
+    "nListings": 47
+  },
+  "rancho nuevo": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 20300,
+    "nListings": 6
+  },
+  "lomas de providencia": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 46286,
+    "nListings": 55
+  },
+  "italia providencia": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 58155,
+    "nListings": 204
+  },
+  "monumental": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 28288,
+    "nListings": 9
+  },
+  "seattle neighborhood": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36458,
+    "nListings": 4
+  },
+  "el retiro": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 51115,
+    "nListings": 141
+  },
+  "la guadalupana": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22056,
+    "nListings": 8
+  },
+  "buenos aires": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24306,
+    "nListings": 7
+  },
+  "lomas de polanco": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 12880,
+    "nListings": 5
+  },
+  "la penal": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16952,
+    "nListings": 5
+  },
+  "balcones de oblatos": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15000,
+    "nListings": 5
+  },
+  "sutaj": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 37500,
+    "nListings": 10
+  },
+  "loma real": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 50756,
+    "nListings": 12
+  },
+  "lomas independencia": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17308,
+    "nListings": 14
+  },
+  "revolucion": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19310,
+    "nListings": 23
+  },
+  "vicente guerrero": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 41667,
+    "nListings": 10
+  },
+  "omos providencia": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 69838,
+    "nListings": 352
+  },
+  "vallarta sur": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 68157,
+    "nListings": 42
+  },
+  "del fresno": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36303,
+    "nListings": 5
+  },
+  "arcos sur": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 40769,
+    "nListings": 5
+  },
+  "interlomas": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 76398,
+    "nListings": 3
+  },
+  "santa maria tequepexpan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29962,
+    "nListings": 48
+  },
+  "parques del bosque": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28131,
+    "nListings": 90
+  },
+  "los sauces": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 8268,
+    "nListings": 16
+  },
+  "hacienda las palomas": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22121,
+    "nListings": 5
+  },
+  "vista sur": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22222,
+    "nListings": 30
+  },
+  "del pilar": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29955,
+    "nListings": 34
+  },
+  "hispania": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 68205,
+    "nListings": 10
+  },
+  "hispania la rioja": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 60676,
+    "nListings": 3
+  },
+  "land sale": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 111211,
+    "nListings": 4
+  },
+  "venta en tlajomulco": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18406,
+    "nListings": 3
+  },
+  "terreno en venta": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 3545,
+    "nListings": 6
+  },
+  "la arbolada": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22676,
+    "nListings": 8
+  },
+  "sant marti": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35856,
+    "nListings": 5
+  },
+  "plaza sorrento": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36429,
+    "nListings": 4
+  },
+  "unbeatable land in provenza residential": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14100,
+    "nListings": 3
+  },
+  "arvento": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 10833,
+    "nListings": 9
+  },
+  "boralba living luxury apartments la tijera tlajomulco de zuniga": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 51581,
+    "nListings": 3
+  },
+  "private gated community": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33167,
+    "nListings": 3
+  },
+  "rancho alegre": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17091,
+    "nListings": 4
+  },
+  "venta senderos de monteverde": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 7821,
+    "nListings": 4
+  },
+  "valle de tejeda": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17110,
+    "nListings": 8
+  },
+  "los cantaros": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 12900,
+    "nListings": 24
+  },
+  "the south of the city in adamar": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 38173,
+    "nListings": 3
+  },
+  "canadas del bosque": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 12705,
+    "nListings": 5
+  },
+  "la rua": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34545,
+    "nListings": 3
+  },
+  "bambu residential": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28333,
+    "nListings": 3
+  },
+  "alameda": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 5111,
+    "nListings": 8
+  },
+  "santa fe": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 46111,
+    "nListings": 76
+  },
+  "banus": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17453,
+    "nListings": 9
+  },
+  "la concha": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 7811,
+    "nListings": 6
+  },
+  "tejeda valley": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 13381,
+    "nListings": 3
+  },
+  "villa fontana aqua": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14442,
+    "nListings": 15
+  },
+  "el zapote": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 3300,
+    "nListings": 6
+  },
+  "colinas de cajititlan": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 3333,
+    "nListings": 6
+  },
+  "albazur": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20957,
+    "nListings": 3
+  },
+  "san lucas evangelista": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 1526,
+    "nListings": 4
+  },
+  "la providencia": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15000,
+    "nListings": 17
+  },
+  "roma norte": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 76154,
+    "nListings": 372
+  },
+  "jardines del pedregal": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 77358,
+    "nListings": 98
+  },
+  "lomas del pedregal": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 2800,
+    "nListings": 3
+  },
+  "los alpes": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 63739,
+    "nListings": 132
+  },
+  "olivos": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 50048,
+    "nListings": 29
+  },
+  "puertas del tule": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 47801,
+    "nListings": 12
+  },
+  "la haciendita": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23863,
+    "nListings": 6
+  },
+  "paseos del parque": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 48638,
+    "nListings": 20
+  },
+  "ayamonte": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 54437,
+    "nListings": 70
+  },
+  "diamond zone": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 278170,
+    "nListings": 4
+  },
+  "casa en venta en valle real": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 53333,
+    "nListings": 3
+  },
+  "hacienda san acacio": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 43160,
+    "nListings": 19
+  },
+  "lomas del colli": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20710,
+    "nListings": 3
+  },
+  "nextipac": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 7410,
+    "nListings": 41
+  },
+  "altavista": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27919,
+    "nListings": 24
+  },
+  "venta en jardin real": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 39672,
+    "nListings": 4
+  },
+  "cube district": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 47561,
+    "nListings": 5
+  },
+  "chapalita inn": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 46677,
+    "nListings": 6
+  },
+  "zona andares": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 94118,
+    "nListings": 3
+  },
+  "real view towers": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 110000,
+    "nListings": 5
+  },
+  "alva residential": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31099,
+    "nListings": 7
+  },
+  "bosques de las lomas": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 47000,
+    "nListings": 51
+  },
+  "los pinos campestre": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18417,
+    "nListings": 6
+  },
+  "las lomas golf club": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 130435,
+    "nListings": 7
+  },
+  "granjas city": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 59710,
+    "nListings": 3
+  },
+  "casa en venta en valle imperial": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 75923,
+    "nListings": 4
+  },
+  "ederra residential reserve": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20703,
+    "nListings": 3
+  },
+  "lomas del batan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24677,
+    "nListings": 4
+  },
+  "los olivos": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 43825,
+    "nListings": 10
+  },
+  "villa fontana diamante": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20409,
+    "nListings": 54
+  },
+  "entrebosques": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 120883,
+    "nListings": 3
+  },
+  "santillana": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22748,
+    "nListings": 3
+  },
+  "andares area": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 82090,
+    "nListings": 5
+  },
+  "rinconada del parque": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 63636,
+    "nListings": 67
+  },
+  "puerta del valle": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 79923,
+    "nListings": 172
+  },
+  "villa la cima": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 62687,
+    "nListings": 3
+  },
+  "el pedregal": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 2700,
+    "nListings": 5
+  },
+  "stelar bugambilias": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 39063,
+    "nListings": 3
+  },
+  "colli urbano": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 46800,
+    "nListings": 7
+  },
+  "lomas de la primavera": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 9667,
+    "nListings": 6
+  },
+  "las lomas": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 112195,
+    "nListings": 3
+  },
+  "venta en loma bonita": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 128178,
+    "nListings": 7
+  },
+  "el colli": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 45213,
+    "nListings": 6
+  },
+  "vista lomas": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 60826,
+    "nListings": 5
+  },
+  "cd granja": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 48099,
+    "nListings": 8
+  },
+  "bosques del centinela i": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28780,
+    "nListings": 15
+  },
+  "la palmita": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34719,
+    "nListings": 58
+  },
+  "artpark apartments": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 63000,
+    "nListings": 3
+  },
+  "los suenos": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 42250,
+    "nListings": 20
+  },
+  "landmark reserve apartment": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 121635,
+    "nListings": 3
+  },
+  "juan palomar and arias": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 72944,
+    "nListings": 3
+  },
+  "virreyes zone": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 88653,
+    "nListings": 5
+  },
+  "torre agave": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 84608,
+    "nListings": 3
+  },
+  "lomas de tonala": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 10000,
+    "nListings": 19
+  },
+  "santa paula": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15048,
+    "nListings": 26
+  },
+  "mision de los vinedos": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25556,
+    "nListings": 3
+  },
+  "tonala centro": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14700,
+    "nListings": 38,
+    "fuente": "v1-centro-rename"
+  },
+  "san gaspar": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 3500,
+    "nListings": 5
+  },
+  "venta en jauja": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 2700,
+    "nListings": 5
+  },
+  "terreno en venta en carretera libre a zapotlanejo": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 2700,
+    "nListings": 3
+  },
+  "lomas tonala": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22720,
+    "nListings": 3
+  },
+  "tateposco": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27273,
+    "nListings": 6
+  },
+  "tonala center": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 10362,
+    "nListings": 4
+  },
+  "vistas del pedregal": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 176667,
+    "nListings": 10
+  },
+  "colinas de tonala": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 10997,
+    "nListings": 18
+  },
+  "mision del campanario": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 13632,
+    "nListings": 4
+  },
+  "el vado": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 7500,
+    "nListings": 25
+  },
+  "nuevo israel": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 5500,
+    "nListings": 3
+  },
+  "jauja": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 7485,
+    "nListings": 10
+  },
+  "residencias del prado": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 62056,
+    "nListings": 4
+  },
+  "puente grande": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34356,
+    "nListings": 8
+  },
+  "zalatitan": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 7204,
+    "nListings": 6
+  },
+  "alamedas de zalatitan": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20833,
+    "nListings": 6
+  },
+  "lomas del manantial": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 13667,
+    "nListings": 8
+  },
+  "colimilla": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 2755,
+    "nListings": 3
+  },
+  "prados tonala": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 2626,
+    "nListings": 8
+  },
+  "santa cruz de las huertas": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 11676,
+    "nListings": 13
+  },
+  "bosques de tonala": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 13899,
+    "nListings": 7
+  },
+  "los conejos": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 9900,
+    "nListings": 17
+  },
+  "san juan cosala": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25101,
+    "nListings": 3
+  },
+  "venta en vista alegre ajijic": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 7980,
+    "nListings": 3
+  },
+  "land in front of chapala": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 3284,
+    "nListings": 3
+  },
+  "brisas de chapala subdivision": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 150,
+    "nListings": 3
+  },
+  "chapala center": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 3990,
+    "nListings": 5
+  },
+  "san nicolas de ibarra": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 13174,
+    "nListings": 7
+  },
+  "villa shambala ajijic": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30941,
+    "nListings": 3
+  },
+  "constanza residential club": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 6507,
+    "nListings": 11
+  },
+  "lands in lake chapala": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 5790,
+    "nListings": 4
+  },
+  "valle de los molinos": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14100,
+    "nListings": 70
+  },
+  "san bernardo": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 53018,
+    "nListings": 12
+  },
+  "prados vallarta": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29789,
+    "nListings": 12
+  },
+  "department in lirica in presale": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 89489,
+    "nListings": 4
+  },
+  "andares vida": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 111455,
+    "nListings": 3
+  },
+  "presale apartments lirica": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 97487,
+    "nListings": 4
+  },
+  "torre del prado": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 100255,
+    "nListings": 4
+  },
+  "chapalita oriente": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 44593,
+    "nListings": 12
+  },
+  "vallarta universidad neighborhood": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 102885,
+    "nListings": 3
+  },
+  "zona real neighborhood": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 80397,
+    "nListings": 3
+  },
+  "rinconada de la calma": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31618,
+    "nListings": 6
+  },
+  "hacienda copala": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 2500,
+    "nListings": 13
+  },
+  "avaterra": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 44444,
+    "nListings": 3
+  },
+  "landmark": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 112713,
+    "nListings": 4
+  },
+  "departments in presale": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 59738,
+    "nListings": 3
+  },
+  "district la perla expo gdl univa eniti life in fullness": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 49917,
+    "nListings": 3
+  },
+  "torre heredit colinas de san javier": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 73466,
+    "nListings": 9
+  },
+  "jardines del ixtepete": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 43776,
+    "nListings": 3
+  },
+  "loma blanca": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 65605,
+    "nListings": 8
+  },
+  "torre opera": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 89300,
+    "nListings": 4
+  },
+  "department for presale in cd granja": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 43317,
+    "nListings": 3
+  },
+  "jalisco": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34085,
+    "nListings": 12
+  },
+  "rinconada del sol": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 63501,
+    "nListings": 63
+  },
+  "presale apartment ciudad granja": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 74715,
+    "nListings": 3
+  },
+  "el batan": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14400,
+    "nListings": 4
+  },
+  "juan manuel vallarta": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 51684,
+    "nListings": 58
+  },
+  "ground floor apartment": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34222,
+    "nListings": 4
+  },
+  "tepeyac": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 56953,
+    "nListings": 4
+  },
+  "sale of apartments in zapopan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21023,
+    "nListings": 3
+  },
+  "av adolfo lopez mateos sur": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 67493,
+    "nListings": 4
+  },
+  "las aguilas next to the calm sun walks": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 56104,
+    "nListings": 3
+  },
+  "arevia tower": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 73696,
+    "nListings": 3
+  },
+  "presale apartments on av mexico": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 76154,
+    "nListings": 3
+  },
+  "presale apartment west point tower 1000": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 186152,
+    "nListings": 3
+  },
+  "parques tesistan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21689,
+    "nListings": 15
+  },
+  "residential virreyes": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 74692,
+    "nListings": 3
+  },
+  "jocotan": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 57143,
+    "nListings": 17
+  },
+  "preventa liv capital": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 46384,
+    "nListings": 3
+  },
+  "fidel velazquez": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 41852,
+    "nListings": 17
+  },
+  "gobernador curiel": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 51280,
+    "nListings": 4
+  },
+  "venta en punto sao paulo": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 84426,
+    "nListings": 3
+  },
+  "venta en arcos vallarta": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 72000,
+    "nListings": 5
+  },
+  "new apartment in guadalajara san antonio presale": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 56211,
+    "nListings": 3
+  },
+  "presale departments": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 73438,
+    "nListings": 3
+  },
+  "jardines del bosque centro": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34635,
+    "nListings": 192
+  },
+  "main street la americana apartments for presale in arcos vallarta": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 75789,
+    "nListings": 3
+  },
+  "torre heritage col americana": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 65614,
+    "nListings": 3
+  },
+  "apartment in providencia": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 58594,
+    "nListings": 3
+  },
+  "apartment for presale in jardines del bosque": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 50853,
+    "nListings": 3
+  },
+  "margarita maza de juarez": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 42533,
+    "nListings": 117
+  },
+  "mexicaltzingo": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34527,
+    "nListings": 85
+  },
+  "an exclusive area of": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 92711,
+    "nListings": 3
+  },
+  "the best option to invest near la minerva": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 69186,
+    "nListings": 3
+  },
+  "country club condominiums": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 92702,
+    "nListings": 3
+  },
+  "artesanos": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36466,
+    "nListings": 94
+  },
+  "mezquitan country": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 27371,
+    "nListings": 54
+  },
+  "vallarta san jorge": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 64394,
+    "nListings": 39
+  },
+  "punto sao paulo": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 120912,
+    "nListings": 3
+  },
+  "atlas colomos": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 88913,
+    "nListings": 29
+  },
+  "arboledas 1a": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31667,
+    "nListings": 14
+  },
+  "onia ciudad granja": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 48421,
+    "nListings": 4
+  },
+  "ionamiento bugambilias": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29258,
+    "nListings": 48
+  },
+  "loma bonita ejidal": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15500,
+    "nListings": 13
+  },
+  "zapopan centro": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 15236,
+    "nListings": 21,
+    "fuente": "v1-centro-rename"
+  },
+  "onia puerta de hierro": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 76923,
+    "nListings": 45
+  },
+  "granja": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 56136,
+    "nListings": 11
+  },
+  "bugambilias 2a": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26488,
+    "nListings": 5
+  },
+  "ionamiento jardin real": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 38739,
+    "nListings": 7
+  },
+  "onia lomas de zapopan": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20474,
+    "nListings": 4
+  },
+  "onia loma bonita": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 39540,
+    "nListings": 6
+  },
+  "onia valle real": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 50000,
+    "nListings": 24
+  },
+  "ionamiento real de valdepenas": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30986,
+    "nListings": 25
+  },
+  "campestre los pinos": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34186,
+    "nListings": 6
+  },
+  "onia santa ana tepetitlan": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33417,
+    "nListings": 13
+  },
+  "la mojonera": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 52520,
+    "nListings": 154
+  },
+  "ionamiento jardines de guadalupe": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 47135,
+    "nListings": 27
+  },
+  "li urbano": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 38250,
+    "nListings": 5
+  },
+  "onia seattle": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 55240,
+    "nListings": 5
+  },
+  "ionamiento rinconada del parque": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 42836,
+    "nListings": 6
+  },
+  "onia nuevo mexico": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25360,
+    "nListings": 7
+  },
+  "lomas de zapopan": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35484,
+    "nListings": 15
+  },
+  "hacienda la herradura": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 1650,
+    "nListings": 19
+  },
+  "san juan de ocotan": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 40541,
+    "nListings": 66
+  },
+  "royal country": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 56238,
+    "nListings": 45
+  },
+  "la giralda": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 68783,
+    "nListings": 10
+  },
+  "el centinela": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 13661,
+    "nListings": 9
+  },
+  "bosques de san isidro": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33448,
+    "nListings": 33
+  },
+  "inas de san isidro": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36141,
+    "nListings": 11
+  },
+  "plaza guadalupe": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34194,
+    "nListings": 15
+  },
+  "ciudad bugambilia": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21728,
+    "nListings": 69
+  },
+  "ionamiento solares": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 37959,
+    "nListings": 53
+  },
+  "los colomos": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 72739,
+    "nListings": 3
+  },
+  "santa isabel": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19398,
+    "nListings": 12
+  },
+  "vallarta la patria": {
+    "nse": "alto",
+    "nseIdx": 5,
+    "medianaPm2": 38024,
+    "nListings": 3
+  },
+  "onia la estancia": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 41193,
+    "nListings": 12
+  },
+  "onia el campanario": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31510,
+    "nListings": 4
+  },
+  "atlas chapalita": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 69078,
+    "nListings": 6
+  },
+  "el bajio habitat": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 48077,
+    "nListings": 3
+  },
+  "poniente": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 46962,
+    "nListings": 262
+  },
+  "el colli urbano 1a": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 37658,
+    "nListings": 9
+  },
+  "boulevard valle imperial": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29927,
+    "nListings": 33
+  },
+  "el colli 1a": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 38248,
+    "nListings": 9
+  },
+  "chapalita de occidente": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34881,
+    "nListings": 9
+  },
+  "jardines tepeyac": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35455,
+    "nListings": 6
+  },
+  "agricola": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20610,
+    "nListings": 3
+  },
+  "ionamiento valle imperial": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29352,
+    "nListings": 52
+  },
+  "mitica": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 43323,
+    "nListings": 124
+  },
+  "foret": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22000,
+    "nListings": 5
+  },
+  "inas de san javier": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 141837,
+    "nListings": 382
+  },
+  "chapalita sur": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34946,
+    "nListings": 14
+  },
+  "parque de la castellana": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 38158,
+    "nListings": 8
+  },
+  "haciendas la herradura": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 1940,
+    "nListings": 8
+  },
+  "onia el colli urbano": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31250,
+    "nListings": 5
+  },
+  "sendas": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 44118,
+    "nListings": 67
+  },
+  "bugambilias 1ra": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23948,
+    "nListings": 4
+  },
+  "onia altamira": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 46587,
+    "nListings": 4
+  },
+  "rinconada de santa rita": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30575,
+    "nListings": 5
+  },
+  "los treboles": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19605,
+    "nListings": 5
+  },
+  "la cantera": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28099,
+    "nListings": 8
+  },
+  "canteras del centinela": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32900,
+    "nListings": 3
+  },
+  "las cumbres": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 78769,
+    "nListings": 18
+  },
+  "parque regency": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34138,
+    "nListings": 5
+  },
+  "nueva espana": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 46379,
+    "nListings": 57
+  },
+  "paraisos del colli": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17559,
+    "nListings": 6
+  },
+  "onia virreyes": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 40508,
+    "nListings": 7
+  },
+  "santillana parque": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36313,
+    "nListings": 5
+  },
+  "lomas del bosque": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32926,
+    "nListings": 12
+  },
+  "onia la calma": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36275,
+    "nListings": 4
+  },
+  "la cima de zapopan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31311,
+    "nListings": 11
+  },
+  "onia paseos del sol": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25714,
+    "nListings": 7
+  },
+  "soare": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 38873,
+    "nListings": 4
+  },
+  "onia el colli 1a": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 45263,
+    "nListings": 3
+  },
+  "zotogrande": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 156159,
+    "nListings": 70
+  },
+  "prados de guadalupe": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32500,
+    "nListings": 9
+  },
+  "villas de san javier": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 51333,
+    "nListings": 3
+  },
+  "bosques de san isidro las canadas": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36667,
+    "nListings": 55
+  },
+  "haciendas san acasio": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35976,
+    "nListings": 12
+  },
+  "villas del ixtepete": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28580,
+    "nListings": 6
+  },
+  "amaranto": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20887,
+    "nListings": 4
+  },
+  "rio blanco": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32713,
+    "nListings": 5
+  },
+  "ionamiento los suenos": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 43762,
+    "nListings": 16
+  },
+  "lomas de san gonzalo": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25670,
+    "nListings": 3
+  },
+  "onia loma bonita ejidal": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35714,
+    "nListings": 3
+  },
+  "rinconada la calma": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30268,
+    "nListings": 3
+  },
+  "ionamiento parques de tesistan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21867,
+    "nListings": 11
+  },
+  "palermo": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29360,
+    "nListings": 4
+  },
+  "altagracia": {
+    "nseIdx": 3,
+    "nse": "medio-medio",
+    "medianaPm2": 16654,
+    "nListings": 4
+  },
+  "altaluz": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32509,
+    "nListings": 9
+  },
+  "natura bosque": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28309,
+    "nListings": 9
+  },
+  "bugambilias 1a": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27402,
+    "nListings": 4
+  },
+  "el mante": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25604,
+    "nListings": 14
+  },
+  "condominio puerta plata": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 70717,
+    "nListings": 20
+  },
+  "diana nature": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 49220,
+    "nListings": 86
+  },
+  "ionamiento canadas de san lorenzo": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36607,
+    "nListings": 4
+  },
+  "constitucion": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25192,
+    "nListings": 7
+  },
+  "la tuzania": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 37931,
+    "nListings": 9
+  },
+  "altus quintas": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26014,
+    "nListings": 3
+  },
+  "el alcazar oriente": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 73370,
+    "nListings": 6
+  },
+  "onia prados tepeyac": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 37081,
+    "nListings": 5
+  },
+  "li ctm": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23387,
+    "nListings": 6
+  },
+  "benito juarez": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 9525,
+    "nListings": 8
+  },
+  "arauca bosque": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 40277,
+    "nListings": 27
+  },
+  "vallarta cuauhtemoc": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 44893,
+    "nListings": 4
+  },
+  "hacienda del tepeyac": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 48026,
+    "nListings": 8
+  },
+  "res virreyes": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 75711,
+    "nListings": 6
+  },
+  "guadalajarita": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31982,
+    "nListings": 4
+  },
+  "ionamiento jardines de san ignacio": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 44379,
+    "nListings": 5
+  },
+  "villas de zapopan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24109,
+    "nListings": 3
+  },
+  "san francisco tesistan": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19231,
+    "nListings": 9
+  },
+  "puerta aqua": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 74835,
+    "nListings": 21
+  },
+  "los castanos": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 59677,
+    "nListings": 7
+  },
+  "arcos de zapopan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22787,
+    "nListings": 3
+  },
+  "copalita": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 4569,
+    "nListings": 14
+  },
+  "onia lomas del valle": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 67143,
+    "nListings": 7
+  },
+  "ciudad bugambilias 2da": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28190,
+    "nListings": 3
+  },
+  "la patria universidad": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 51742,
+    "nListings": 4
+  },
+  "inas de las aguilas": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31667,
+    "nListings": 5
+  },
+  "los maestros": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32083,
+    "nListings": 55
+  },
+  "ionamiento victoria": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32857,
+    "nListings": 14
+  },
+  "las palomas": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 3181,
+    "nListings": 5
+  },
+  "la palmira": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 11000,
+    "nListings": 12
+  },
+  "altavista vitana": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30294,
+    "nListings": 4
+  },
+  "ionamiento puerta del valle": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 63158,
+    "nListings": 3
+  },
+  "ionamiento puerta del bosque": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 60814,
+    "nListings": 6
+  },
+  "las agujas": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22000,
+    "nListings": 3
+  },
+  "cumbres": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 37279,
+    "nListings": 6
+  },
+  "valle de san isidro": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29462,
+    "nListings": 4
+  },
+  "bosque valdepenas": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22794,
+    "nListings": 51
+  },
+  "ionamiento la moraleja": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22824,
+    "nListings": 3
+  },
+  "el coto": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 74651,
+    "nListings": 12
+  },
+  "privanza habitat solares": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 45420,
+    "nListings": 4
+  },
+  "villa universidad": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 70226,
+    "nListings": 3
+  },
+  "haciendas del valle": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20000,
+    "nListings": 4
+  },
+  "coto sienna capital norte": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22396,
+    "nListings": 18
+  },
+  "las lomas club golf": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 80440,
+    "nListings": 60
+  },
+  "santa margarita": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 27116,
+    "nListings": 13
+  },
+  "ionamiento mirador del bosque": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19873,
+    "nListings": 3
+  },
+  "la primavera": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 8217,
+    "nListings": 27
+  },
+  "ionamiento natura": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31954,
+    "nListings": 4
+  },
+  "campo lago": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 62999,
+    "nListings": 18
+  },
+  "coto nueva galicia": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30583,
+    "nListings": 30
+  },
+  "onia miramar": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18333,
+    "nListings": 3
+  },
+  "azaleas": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 47810,
+    "nListings": 4
+  },
+  "los molinos": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 8929,
+    "nListings": 7
+  },
+  "indigena san juan de ocotan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28750,
+    "nListings": 7
+  },
+  "villa coral": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 52014,
+    "nListings": 6
+  },
+  "canadas de san lorenzo": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35350,
+    "nListings": 3
+  },
+  "los pinos": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 39984,
+    "nListings": 4
+  },
+  "el colli urbano 2a": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 38412,
+    "nListings": 3
+  },
+  "bosques de la primavera": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16272,
+    "nListings": 9
+  },
+  "inas del rey": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26500,
+    "nListings": 3
+  },
+  "onia jardines del valle": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 51474,
+    "nListings": 4
+  },
+  "patria": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 66918,
+    "nListings": 4
+  },
+  "conjunto seattle": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 72613,
+    "nListings": 3
+  },
+  "ionamiento la cima": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31333,
+    "nListings": 3
+  },
+  "parque virreyes": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 47038,
+    "nListings": 3
+  },
+  "guadalupe inn": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 67045,
+    "nListings": 33
+  },
+  "guadalupe": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 59091,
+    "nListings": 7
+  },
+  "marcelino garcia barragan": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 45357,
+    "nListings": 7
+  },
+  "emiliano zapata": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 19500,
+    "nListings": 21
+  },
+  "jardines del vergel": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 24000,
+    "nListings": 3
+  },
+  "eucalipto vallarta": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30785,
+    "nListings": 4
+  },
+  "villas la loma": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18333,
+    "nListings": 3
+  },
+  "mirador de san isidro": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29620,
+    "nListings": 5
+  },
+  "campestre las palomas": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18393,
+    "nListings": 51
+  },
+  "parque real": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23640,
+    "nListings": 3
+  },
+  "la magdalena": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14167,
+    "nListings": 4
+  },
+  "bosques de san gonzalo": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16663,
+    "nListings": 13
+  },
+  "jardines de san ignacio": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 72724,
+    "nListings": 19
+  },
+  "mesa colorada poniente": {
+    "nse": "medio",
+    "nseIdx": 3,
+    "medianaPm2": 20000,
+    "nListings": 4
+  },
+  "ionamiento solares soare 3 coto altanza": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 38115,
+    "nListings": 5
+  },
+  "ionamiento la rioja": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35924,
+    "nListings": 46
+  },
+  "los jales": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 143122,
+    "nListings": 13
+  },
+  "lomas de tesistan": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 2775,
+    "nListings": 7
+  },
+  "casa en venta soare ll solares": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 112273,
+    "nListings": 3
+  },
+  "ajijic centro": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 46186,
+    "nListings": 111
+  },
+  "onia san antonio tlayacapan": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 40417,
+    "nListings": 4
+  },
+  "vista del lago country club": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33710,
+    "nListings": 3
+  },
+  "ribera del pilar": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 52444,
+    "nListings": 3
+  },
+  "el moral": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25146,
+    "nListings": 8
+  },
+  "coyula": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16897,
+    "nListings": 21
+  },
+  "hacienda real": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24945,
+    "nListings": 7
+  },
+  "ionamiento la providencia": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 8295,
+    "nListings": 6
+  },
+  "la gigantera": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22708,
+    "nListings": 19
+  },
+  "el mirador": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19833,
+    "nListings": 14
+  },
+  "la ladrillera": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 13309,
+    "nListings": 3
+  },
+  "el rosario": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22265,
+    "nListings": 8
+  },
+  "puente viejo": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 11333,
+    "nListings": 10
+  },
+  "jardines de la reyna": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19701,
+    "nListings": 6
+  },
+  "la noria": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 13425,
+    "nListings": 12
+  },
+  "paseo de la canada": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 10833,
+    "nListings": 3
+  },
+  "rancho la cruz": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 13000,
+    "nListings": 7
+  },
+  "vistas del pedregal i": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18519,
+    "nListings": 5
+  },
+  "hipodromo": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 41079,
+    "nListings": 65
+  },
+  "inas de tonala": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21425,
+    "nListings": 9
+  },
+  "hacienda del real": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26008,
+    "nListings": 21
+  },
+  "rancho de la cruz": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23307,
+    "nListings": 4
+  },
+  "loma dorada a": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18200,
+    "nListings": 11
+  },
+  "lomas de la soledad": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19407,
+    "nListings": 6
+  },
+  "san francisco de la soledad": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 10870,
+    "nListings": 9
+  },
+  "villas de oriente": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28378,
+    "nListings": 6
+  },
+  "arboledas de san gaspar": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 10864,
+    "nListings": 3
+  },
+  "vistas del valle": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 13500,
+    "nListings": 5
+  },
+  "loma de san gaspar": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16156,
+    "nListings": 3
+  },
+  "20 de noviembre": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 13767,
+    "nListings": 4
+  },
+  "haciendas tonala": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 6355,
+    "nListings": 6
+  },
+  "urbi quinta montecarlo": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26923,
+    "nListings": 5
+  },
+  "tonaltecas": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22128,
+    "nListings": 3
+  },
+  "puerta del rosario": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18448,
+    "nListings": 6
+  },
+  "san pedro": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31511,
+    "nListings": 52
+  },
+  "lomas de tlaquepaque": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15695,
+    "nListings": 3
+  },
+  "las terrazas": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34806,
+    "nListings": 4
+  },
+  "san martin de las flores de abajo": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26081,
+    "nListings": 19
+  },
+  "paseos lago": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16044,
+    "nListings": 3
+  },
+  "loreto": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32315,
+    "nListings": 19
+  },
+  "parques de santa maria": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19178,
+    "nListings": 17
+  },
+  "aurea": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27182,
+    "nListings": 18
+  },
+  "los olivos de tlaquepaque": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25765,
+    "nListings": 3
+  },
+  "el tapatio": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 10054,
+    "nListings": 25
+  },
+  "fovissste miravalle": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16022,
+    "nListings": 17
+  },
+  "salvador portillo lopez": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26182,
+    "nListings": 11
+  },
+  "las juntitas": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15417,
+    "nListings": 33
+  },
+  "infonavit miravalle": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32576,
+    "nListings": 6
+  },
+  "cerro del cuatro 1ra": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 8676,
+    "nListings": 6
+  },
+  "lomas de san miguel": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 3324,
+    "nListings": 7
+  },
+  "lomas de san pedrito": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32353,
+    "nListings": 7
+  },
+  "haciendas de vista hermosa": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 13376,
+    "nListings": 17
+  },
+  "tres pinos": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20958,
+    "nListings": 3
+  },
+  "el alamo": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19375,
+    "nListings": 3
+  },
+  "el vergel 1ra": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17950,
+    "nListings": 6
+  },
+  "palomar": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26419,
+    "nListings": 4
+  },
+  "san agustan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28195,
+    "nListings": 9
+  },
+  "el baluarte": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24474,
+    "nListings": 4
+  },
+  "tlajomulco de zaaiga": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32982,
+    "nListings": 4
+  },
+  "ionamiento sendero las moras": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24955,
+    "nListings": 9
+  },
+  "ionamiento hacienda santa fe": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23225,
+    "nListings": 11
+  },
+  "onia la tijera": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28212,
+    "nListings": 16
+  },
+  "ionamiento el paraiso": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27517,
+    "nListings": 4
+  },
+  "ionamiento nueva galicia residencia": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35655,
+    "nListings": 5
+  },
+  "balcones de santa anita": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20000,
+    "nListings": 3
+  },
+  "onia el palomar": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 39767,
+    "nListings": 7
+  },
+  "hacienda san agustin": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26024,
+    "nListings": 4
+  },
+  "arbolada bosque de santa anita": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24931,
+    "nListings": 11
+  },
+  "tlajomulco centro": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27257,
+    "nListings": 16,
+    "fuente": "v1-centro-rename"
+  },
+  "ionamiento del pilar": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33232,
+    "nListings": 4
+  },
+  "el alcazar casa fuerte": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25359,
+    "nListings": 40
+  },
+  "huerta calderon zuno uno": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23214,
+    "nListings": 3
+  },
+  "ionamiento real del sol": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18690,
+    "nListings": 6
+  },
+  "el palomar bosques": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33929,
+    "nListings": 26
+  },
+  "las moras": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16170,
+    "nListings": 7
+  },
+  "jardines del eden": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21974,
+    "nListings": 7
+  },
+  "pueblo santa cruz de las flores": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14615,
+    "nListings": 6
+  },
+  "ionamiento real del valle": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19488,
+    "nListings": 21
+  },
+  "ionamiento club de golf santa anita": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 39938,
+    "nListings": 12
+  },
+  "ionamiento el origen": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24123,
+    "nListings": 4
+  },
+  "rancho grande": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17546,
+    "nListings": 5
+  },
+  "onia coto nueva galicia": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34597,
+    "nListings": 7
+  },
+  "ionamiento jardines del eden": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26684,
+    "nListings": 5
+  },
+  "ionamiento nueva galicia": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27000,
+    "nListings": 31
+  },
+  "onia lomas de santa anita": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25616,
+    "nListings": 4
+  },
+  "ionamiento bosque real": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31032,
+    "nListings": 4
+  },
+  "paseos del valle": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15273,
+    "nListings": 3
+  },
+  "ionamiento senderos de monteverde": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23206,
+    "nListings": 41
+  },
+  "el guaje": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23947,
+    "nListings": 3
+  },
+  "pueblo san miguel cuyutlan": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 8572,
+    "nListings": 3
+  },
+  "altea": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15245,
+    "nListings": 4
+  },
+  "ionamiento el alcazar casa fuerte": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26861,
+    "nListings": 10
+  },
+  "element": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29240,
+    "nListings": 8
+  },
+  "4 estaciones": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 13627,
+    "nListings": 3
+  },
+  "ionamiento villa california": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21542,
+    "nListings": 10
+  },
+  "el palomar balcones": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31995,
+    "nListings": 9
+  },
+  "bonanza": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20994,
+    "nListings": 7
+  },
+  "valle de santa cruz": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21676,
+    "nListings": 3
+  },
+  "la union del cuatro": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21987,
+    "nListings": 7
+  },
+  "san miguel": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19667,
+    "nListings": 3
+  },
+  "arboleda bosques de santa anita": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24494,
+    "nListings": 24
+  },
+  "ionamiento senderos monte verde": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23818,
+    "nListings": 10
+  },
+  "ionamiento la arbolada": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23043,
+    "nListings": 5
+  },
+  "el zapote del valle": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 7156,
+    "nListings": 30
+  },
+  "los encinos": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22186,
+    "nListings": 6
+  },
+  "tulipanes": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31944,
+    "nListings": 3
+  },
+  "el refugio del valle": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19084,
+    "nListings": 6
+  },
+  "cielo contry club": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 46218,
+    "nListings": 3
+  },
+  "ciudad tlajomulco de zuniga": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15132,
+    "nListings": 6
+  },
+  "hacienda los eucaliptos": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16400,
+    "nListings": 7
+  },
+  "inas de santa anita": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21826,
+    "nListings": 7
+  },
+  "hacienda la noria": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 10246,
+    "nListings": 5
+  },
+  "pueblo san agustin": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33454,
+    "nListings": 6
+  },
+  "santa cruz de la loma tepetates": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19732,
+    "nListings": 4
+  },
+  "onia bosques de santa anita": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25336,
+    "nListings": 4
+  },
+  "provenza la romana": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34737,
+    "nListings": 5
+  },
+  "hacienda san miguel": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23000,
+    "nListings": 7
+  },
+  "ionamiento casa fuerte": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26320,
+    "nListings": 6
+  },
+  "senderos de los monte verde": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25000,
+    "nListings": 3
+  },
+  "lomas de tejeda": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15067,
+    "nListings": 11
+  },
+  "campo nogal": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 37541,
+    "nListings": 24
+  },
+  "senderos del valle": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22794,
+    "nListings": 3
+  },
+  "jardines del capulin": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 4365,
+    "nListings": 9
+  },
+  "granja alaada": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33907,
+    "nListings": 3
+  },
+  "los tulipanes": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25373,
+    "nListings": 5
+  },
+  "altus bosques": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19205,
+    "nListings": 9
+  },
+  "cuexcomatitlan": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 3343,
+    "nListings": 9
+  },
+  "la noria de los reyes": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19633,
+    "nListings": 8
+  },
+  "buena vista": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18756,
+    "nListings": 3
+  },
+  "villas camino real de colima": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23545,
+    "nListings": 7
+  },
+  "santa anita camino real": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20087,
+    "nListings": 33
+  },
+  "casa fuerte el alcazar": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24670,
+    "nListings": 5
+  },
+  "tres reyes": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 7385,
+    "nListings": 9
+  },
+  "villas de la hacienda": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 11500,
+    "nListings": 9
+  },
+  "vistas de san agustin": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16316,
+    "nListings": 3
+  },
+  "acueducto san agustin": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27068,
+    "nListings": 11
+  },
+  "cofradia": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17516,
+    "nListings": 15
+  },
+  "san miguel cuyutlan": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 2109,
+    "nListings": 15
+  },
+  "naturezza": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25671,
+    "nListings": 3
+  },
+  "ionamiento campo sur": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17955,
+    "nListings": 7
+  },
+  "haciendas del sur": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25214,
+    "nListings": 4
+  },
+  "ionamiento banus": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17905,
+    "nListings": 4
+  },
+  "heroes de nacozari": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 11000,
+    "nListings": 5
+  },
+  "rancho o rancheria san sebastian el grande": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15323,
+    "nListings": 3
+  },
+  "el palomar canadas": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 9500,
+    "nListings": 5
+  },
+  "lomas de san agustin ii": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23917,
+    "nListings": 6
+  },
+  "valle dorado": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 13627,
+    "nListings": 9
+  },
+  "la quinta catalina": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 5576,
+    "nListings": 4
+  },
+  "8 de julio": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36149,
+    "nListings": 7
+  },
+  "el verde": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 4250,
+    "nListings": 16
+  },
+  "condominio campo de golf santa anita": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 51760,
+    "nListings": 3
+  },
+  "prados de providencia": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 57054,
+    "nListings": 208
+  },
+  "jardines del bosque norte": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 50936,
+    "nListings": 210
+  },
+  "ionamiento ladron de guevara": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 61865,
+    "nListings": 11
+  },
+  "omosprovidencia": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 75676,
+    "nListings": 7
+  },
+  "onia mezquitan country": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 43981,
+    "nListings": 5
+  },
+  "onia chapalita": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 66258,
+    "nListings": 19
+  },
+  "providencia 1a": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 87962,
+    "nListings": 124
+  },
+  "onia moderna": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 59405,
+    "nListings": 57
+  },
+  "del fresno 1a": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 43000,
+    "nListings": 30
+  },
+  "onia jardines del bosque norte": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 55000,
+    "nListings": 10
+  },
+  "infonavit benito juarez": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15659,
+    "nListings": 3
+  },
+  "onial independencia": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15773,
+    "nListings": 6
+  },
+  "onia guadalajara centro": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 39984,
+    "nListings": 6
+  },
+  "villas del country": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 49351,
+    "nListings": 84
+  },
+  "onia oblatos": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16405,
+    "nListings": 11
+  },
+  "providencia 4a": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 72082,
+    "nListings": 14
+  },
+  "real": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35592,
+    "nListings": 61
+  },
+  "huentitan el alto": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 39241,
+    "nListings": 58
+  },
+  "independencia oriente": {
+    "nse": "medio",
+    "nseIdx": 3,
+    "medianaPm2": 28000,
+    "nListings": 18
+  },
+  "santa monica": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26943,
+    "nListings": 5
+  },
+  "santa elena alcalde oriente": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23167,
+    "nListings": 6
+  },
+  "ionamiento jardines del country": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30550,
+    "nListings": 19
+  },
+  "inas de la normal": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26296,
+    "nListings": 14
+  },
+  "circunvalacion vallarta": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 60345,
+    "nListings": 59
+  },
+  "ionamiento vallarta san jorge": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 66972,
+    "nListings": 7
+  },
+  "ionamiento jardines del bosque": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34774,
+    "nListings": 13
+  },
+  "arcos": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 64189,
+    "nListings": 46
+  },
+  "olimpica": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21540,
+    "nListings": 6
+  },
+  "onia americana": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 52041,
+    "nListings": 94
+  },
+  "ionamiento jardines alcalde": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25366,
+    "nListings": 3
+  },
+  "rojas ladron de guevara": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 70620,
+    "nListings": 4
+  },
+  "santa elena alcalde poniente": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25035,
+    "nListings": 3
+  },
+  "guadalajara centro": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 25623,
+    "nListings": 3,
+    "fuente": "v1-centro-rename"
+  },
+  "onia lomas de guevara": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 44586,
+    "nListings": 10
+  },
+  "ionamiento providencia": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 63217,
+    "nListings": 18
+  },
+  "barrio santa teresita": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 56321,
+    "nListings": 15
+  },
+  "ionamiento vallarta norte": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 75556,
+    "nListings": 10
+  },
+  "echeverria": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15000,
+    "nListings": 3
+  },
+  "la federacha": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15846,
+    "nListings": 6
+  },
+  "quinta velarde": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 41566,
+    "nListings": 20
+  },
+  "ionamiento providencia 1a": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 41549,
+    "nListings": 7
+  },
+  "el dean": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 42857,
+    "nListings": 30
+  },
+  "san rafael": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26077
+  },
+  "onia morelos": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25000,
+    "nListings": 7
+  },
+  "jardines del nilo norte": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27500,
+    "nListings": 3
+  },
+  "esperanza": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14286,
+    "nListings": 41
+  },
+  "providencia 3a": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 87907,
+    "nListings": 74
+  },
+  "zona centro": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20678,
+    "nListings": 4
+  },
+  "san felipe": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 9469,
+    "nListings": 10
+  },
+  "san miguel de huentitan": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 43056,
+    "nListings": 5
+  },
+  "heliodoro hernandez loza 1a": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 12821,
+    "nListings": 5
+  },
+  "providencia 2a": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35522,
+    "nListings": 63
+  },
+  "lafayette": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 70930,
+    "nListings": 98
+  },
+  "insurgentes 1a": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30479,
+    "nListings": 54
+  },
+  "lagos de oriente": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 13395,
+    "nListings": 12
+  },
+  "talpita oriente": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19333,
+    "nListings": 3
+  },
+  "barrio el retiro": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 44301,
+    "nListings": 12
+  },
+  "18 de marzo": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18725,
+    "nListings": 6
+  },
+  "onia jardines del sur": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30000,
+    "nListings": 4
+  },
+  "jardines de los historiadores": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32692,
+    "nListings": 9
+  },
+  "onia independencia": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26815,
+    "nListings": 3
+  },
+  "ionamiento prados de providencia": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 74048,
+    "nListings": 3
+  },
+  "ionamiento monraz": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 51210,
+    "nListings": 11
+  },
+  "ionamiento lomas de providencia": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36430,
+    "nListings": 4
+  },
+  "circunvalacion americas": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 67809,
+    "nListings": 13
+  },
+  "reforma": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24139,
+    "nListings": 17
+  },
+  "valle del alamo": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29911,
+    "nListings": 4
+  },
+  "zona industrial": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25036,
+    "nListings": 4
+  },
+  "medrano": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 78000,
+    "nListings": 13
+  },
+  "providencia1a": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 65870,
+    "nListings": 4
+  },
+  "jardines de atemajac": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 40487,
+    "nListings": 4
+  },
+  "del fresno 2a": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30435,
+    "nListings": 46
+  },
+  "barrio san juan de dios": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 39291,
+    "nListings": 5
+  },
+  "mercado de abastos": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 39676,
+    "nListings": 4
+  },
+  "villa hermosa": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 13235,
+    "nListings": 8
+  },
+  "villasenor": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 54163,
+    "nListings": 12
+  },
+  "ionamiento country club": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 48196,
+    "nListings": 4
+  },
+  "arboledas del sur": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 41176,
+    "nListings": 8
+  },
+  "ionamiento lomas del country": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29452,
+    "nListings": 3
+  },
+  "jardines de plaza del sol": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 39894,
+    "nListings": 41
+  },
+  "el sauz": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24958,
+    "nListings": 9
+  },
+  "providencia sur": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 80292,
+    "nListings": 8
+  },
+  "onia lafayette": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 63571,
+    "nListings": 3
+  },
+  "ionamiento italia providencia": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 45418,
+    "nListings": 7
+  },
+  "capilla de jesus": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22541,
+    "nListings": 10
+  },
+  "las conchas": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 27500,
+    "nListings": 9
+  },
+  "jardines de la cruz 1a": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28737,
+    "nListings": 8
+  },
+  "lomas de san eugenio": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28431,
+    "nListings": 7
+  },
+  "santa cecilia 1a": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16906,
+    "nListings": 3
+  },
+  "jardines el sauz": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28814,
+    "nListings": 6
+  },
+  "las torres": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25805,
+    "nListings": 5
+  },
+  "barragan y hernandez": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21039,
+    "nListings": 9
+  },
+  "obrera": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25000,
+    "nListings": 23
+  },
+  "infonavit el verde": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23729,
+    "nListings": 5
+  },
+  "lomas del gallo": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27651,
+    "nListings": 3
+  },
+  "5 de mayo": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 10385,
+    "nListings": 39
+  },
+  "la normal": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31506,
+    "nListings": 8
+  },
+  "jardines del nilo": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30795,
+    "nListings": 3
+  },
+  "circunvalacion guevara": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 82353,
+    "nListings": 3
+  },
+  "la aurora": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25592,
+    "nListings": 5
+  },
+  "antigua penal de oblatos": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 50755,
+    "nListings": 21
+  },
+  "universidad": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 70000,
+    "nListings": 5
+  },
+  "villa guerrero": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 17970
+  },
+  "ionamiento colomos providencia": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 68948,
+    "nListings": 4
+  },
+  "americas colomos": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 50899,
+    "nListings": 3
+  },
+  "lomas del paraiso 1a": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29388,
+    "nListings": 53
+  },
+  "postes cuates federalismo": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18654,
+    "nListings": 3
+  },
+  "el carmen": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25946,
+    "nListings": 6
+  },
+  "magana": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 52667,
+    "nListings": 7
+  },
+  "villas del nilo": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35788,
+    "nListings": 3
+  },
+  "villalta": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16395,
+    "nListings": 8
+  },
+  "hispania tower in la rioja tlajo": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 39417,
+    "nListings": 5
+  },
+  "beautiful apartment in col americana": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 64226,
+    "nListings": 4
+  },
+  "departamento en preventa jardines del bosque": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 79755,
+    "nListings": 3
+  },
+  "department tower margot": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 88455,
+    "nListings": 3
+  },
+  "apartment for presale in montevideo habitat": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 78218,
+    "nListings": 3
+  },
+  "preventa torre paramount providencia": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 78185,
+    "nListings": 3
+  },
+  "renzo towers": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 64653,
+    "nListings": 3
+  },
+  "commercial land on nuevo periferico oriente": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 12001,
+    "nListings": 4
+  },
+  "zendera": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 85714,
+    "nListings": 3
+  },
+  "cita": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 139364,
+    "nListings": 3
+  },
+  "cordilleras": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 59000,
+    "nListings": 10
+  },
+  "new apartment in ciudad granja presale": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 44100,
+    "nListings": 3
+  },
+  "la cantera tower north capital floor 1": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 41514,
+    "nListings": 3
+  },
+  "almena residential": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 60579,
+    "nListings": 3
+  },
+  "sibaria condominium": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36505,
+    "nListings": 3
+  },
+  "habitat san millan": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 11203,
+    "nListings": 5
+  },
+  "vistas del nilo": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 43157,
+    "nListings": 3
+  },
+  "los abedules": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15111,
+    "nListings": 7
+  },
+  "el palomar jockey club": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 40925,
+    "nListings": 10
+  },
+  "land in the canadas": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 6720,
+    "nListings": 3
+  },
+  "bosque de las lomas": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 47962,
+    "nListings": 101
+  },
+  "coto vistas del sol": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 10000,
+    "nListings": 4
+  },
+  "valle esmeralda": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 48083,
+    "nListings": 6
+  },
+  "tesitan": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14865,
+    "nListings": 6
+  },
+  "nextipark": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 7800,
+    "nListings": 3
+  },
+  "prados santa lucia": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 11613,
+    "nListings": 3
+  },
+  "lomas del refugio": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 10774,
+    "nListings": 3
+  },
+  "canteras": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 67857,
+    "nListings": 3
+  },
+  "urbi villa del rio": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24032,
+    "nListings": 4
+  },
+  "prados de santa maria": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15650,
+    "nListings": 33
+  },
+  "senderos de tlaquepaque": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20260,
+    "nListings": 18
+  },
+  "se vende casa encolinas de san javier guadalajara jal col colinas de san javierzapopan jalisc": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 74509,
+    "nListings": 49
+  },
+  "jardines de tlajomulco": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 13750,
+    "nListings": 3
+  },
+  "zapote del valle": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 7107,
+    "nListings": 3
+  },
+  "oficina en arboledas 1a": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 52750,
+    "nListings": 6
+  },
+  "av artesanos 1338 san isidro oblatos 44740 guadalajara jal 1338 col san isidroguadalajara j": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26380,
+    "nListings": 19
+  },
+  "casa en ventac isla cartagena col lopez portilloguadalajara jalisco mexico cp 44960 id30": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26364,
+    "nListings": 21
+  },
+  "av union 430 americana guadalajara col americanaguadalajara jalisco mexico cp 44160 id30": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 64035,
+    "nListings": 22
+  },
+  "venta casa enc ramon garces 566 lomas del paraiso iii 44250 guadalajara jal 566 col huentita": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 11765,
+    "nListings": 19
+  },
+  "venta de casa enchapalita guadalajara jal col chapalitaguadalajara jalisco mexico cp 4450": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 53833,
+    "nListings": 24
+  },
+  "avila camacho 2714 col country clubguadalajara jalisco mexico cp 44610 id30870544": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 59382,
+    "nListings": 42
+  },
+  "justo sierra col ladron de guevaraguadalajara jalisco mexico cp 44600 id28432756": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30928,
+    "nListings": 20
+  },
+  "providencia 2a guadalajara jal sn col palacio de gobierno del estado de jaliscoguadala": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28266,
+    "nListings": 17
+  },
+  "casa en ventaav circunvalacion 870 col jardines alcaldeguadalajara jalisco mexico cp 44298": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29667,
+    "nListings": 24
+  },
+  "venta de casa enjose guillerno carbo col 5 de mayoguadalajara jalisco mexico cp 44970 id28": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 10385,
+    "nListings": 20
+  },
+  "se vende casacamichin del fresno 44900 guadalajara jal col del fresno 2a guadalajara": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30435,
+    "nListings": 22
+  },
+  "se vende casa enc rita perez de moreno santa maria guadalajara jal 971 col talpita poniente": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20833,
+    "nListings": 20
+  },
+  "casa en venta disponible enguayaquil col providencia 2a guadalajara jalisco mexico cp 44": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35522,
+    "nListings": 18
+  },
+  "casa en ventaavenida acueducto 1650 1650 col colinas de san javierguadalajara jalisco mexico": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28234,
+    "nListings": 21
+  },
+  "avenida chapultepec col americanaguadalajara jalisco mexico cp 44160 id30726148": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31800,
+    "nListings": 22
+  },
+  "becerra y tanco 536 col chapalitaguadalajara jalisco mexico cp 44500 id30427734": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 68750,
+    "nListings": 28
+  },
+  "chapalita guadalajara jal col chapalitaguadalajara jalisco mexico cp 44500 id30663594": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 53833,
+    "nListings": 28
+  },
+  "se vende casa encalle los alpes 2527 2527 col esperanzaguadalajara jalisco mexico cp 44300": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14286,
+    "nListings": 24
+  },
+  "se vende casafrancisco de quevedo col arcos vallartaguadalajara jalisco mexico cp 44130 id": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20296,
+    "nListings": 18
+  },
+  "se vende casa ensan heriberto 2801 col jardines de plaza del solguadalajara jalisco mexico c": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 39894,
+    "nListings": 18
+  },
+  "venta casa enav union 430 americana guadalajara col americanaguadalajara jalisco mexico cp": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 65989,
+    "nListings": 25
+  },
+  "lope de vega 182 arcos vallarta guadalajara col vallarta surguadalajara jalisco mexico cp": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 68157,
+    "nListings": 24
+  },
+  "casa disponible en venta enostia 2900 lomas de providencia 44647 guadalajara jal 2900 col lom": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 46286,
+    "nListings": 36
+  },
+  "casa en venta disponible enc francisco sarabia 1477 circunvalacion oblatos 44710 guadalajara jal": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23016,
+    "nListings": 3
+  },
+  "justo sierra 1894 col ladron de guevaraguadalajara jalisco mexico cp 44600 id29714229": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 41147,
+    "nListings": 15
+  },
+  "venta de casarayo col jardines del bosque centroguadalajara jalisco mexico cp 44520 id2875": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27907,
+    "nListings": 22
+  },
+  "se vende casasalto del agua 2387 col jardines del countryguadalajara jalisco mexico cp 4421": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26482,
+    "nListings": 10
+  },
+  "se vende casapichon 1521 col morelosguadalajara jalisco mexico cp 44910 id29362073": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17738,
+    "nListings": 7
+  },
+  "casa en ventalechuga 2968 col rincon del bosqueguadalajara jalisco mexico cp 44530 id287": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27687,
+    "nListings": 10
+  },
+  "casa en ventaavenida de los maestros 554 col alcalde barranquitasguadalajara jalisco mexico": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 37313,
+    "nListings": 14
+  },
+  "se vende casaolmecas 859 col monrazguadalajara jalisco mexico cp 44670 id28721853": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24815,
+    "nListings": 12
+  },
+  "venta casa enavila camacho 1293 col mezquitanguadalajara jalisco mexico cp 44260 id310404": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21011,
+    "nListings": 4
+  },
+  "se vende casamilan 2519 italia providencia 44648 guadalajara jal 2519 col italia providencia": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28804,
+    "nListings": 37
+  },
+  "casa en venta disponible enav americas 148 col ladron de guevaraguadalajara jalisco mexico c": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32986,
+    "nListings": 10
+  },
+  "otranto 2671 col prados de providenciaguadalajara jalisco mexico cp 44670 id30918414": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34722,
+    "nListings": 8
+  },
+  "se vende casaplateros 2276 jardines del country 44210 guadalajara jal 2276 col jardines del c": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24913,
+    "nListings": 52
+  },
+  "casa disponible en venta encometa 2990 col jardines del bosque norteguadalajara jalisco mexico": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33394,
+    "nListings": 51
+  },
+  "san jeronimo lidice": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29167,
+    "nListings": 52
+  },
+  "bacalar": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28147,
+    "nListings": 3
+  },
+  "jardines en la montana": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 41056,
+    "nListings": 17
+  },
+  "santa maria nonoalco": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 59403,
+    "nListings": 67
+  },
+  "cima serena": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 11043,
+    "nListings": 5
+  },
+  "las pintitas": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 10314,
+    "nListings": 4
+  },
+  "felipe angeles": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 13115,
+    "nListings": 6
+  },
+  "san josa del quince": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 9833,
+    "nListings": 3
+  },
+  "santa rosa del valle": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16899,
+    "nListings": 5
+  },
+  "las pintas": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 10297,
+    "nListings": 14
+  },
+  "san jose del quince": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 13136,
+    "nListings": 9
+  },
+  "parques del triunfo": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 13329,
+    "nListings": 4
+  },
+  "las pintitas centro": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 11189,
+    "nListings": 17
+  },
+  "club de golf atlas": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32913,
+    "nListings": 17
+  },
+  "parques del castillo": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 13913,
+    "nListings": 9
+  },
+  "onia las pintitas centro": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 13286,
+    "nListings": 4
+  },
+  "el terrero": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 9519,
+    "nListings": 3
+  },
+  "la purisima": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15262,
+    "nListings": 12
+  },
+  "hacienda vieja del castillo": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 47664,
+    "nListings": 4
+  },
+  "los laureles": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18000,
+    "nListings": 8
+  },
+  "san jose del castillo": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 11458,
+    "nListings": 12
+  },
+  "las pintitas ejidal": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 10909,
+    "nListings": 3
+  },
+  "el salto centro": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 14000,
+    "nListings": 1,
+    "fuente": "v1-centro-rename"
+  },
+  "minerales": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14000,
+    "nListings": 4
+  },
+  "la piedrera": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 7984,
+    "nListings": 7
+  },
+  "lomas del aeropuerto": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27788,
+    "nListings": 6
+  },
+  "lomas del verde": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 9273,
+    "nListings": 3
+  },
+  "oficina en providencia 1a": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 73718,
+    "nListings": 5
+  },
+  "morelos": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17738,
+    "nListings": 55
+  },
+  "departamento en providencia 4a": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 74419,
+    "nListings": 28
+  },
+  "departamento en providencia 1a": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 81188,
+    "nListings": 90
+  },
+  "departamento en providencia 3a": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 82618,
+    "nListings": 32
+  },
+  "ferrocarril": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22165,
+    "nListings": 3
+  },
+  "miraflores": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 40197,
+    "nListings": 7
+  },
+  "departamento en del fresno 1a": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 43000,
+    "nListings": 10
+  },
+  "departamento en providencia 2a": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 70779,
+    "nListings": 17
+  },
+  "departamento en 18 de marzo": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 42969,
+    "nListings": 3
+  },
+  "departamento en jardines de la cruz 1a": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 58504,
+    "nListings": 4
+  },
+  "prados del nilo": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31250,
+    "nListings": 7
+  },
+  "departamento en san miguel de huentitan el alto 1a": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 47945,
+    "nListings": 6
+  },
+  "parques de": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18699,
+    "nListings": 9
+  },
+  "santa sofia hacienda country club": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 3529,
+    "nListings": 9
+  },
+  "terreno en el colli urbano 1a": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16734,
+    "nListings": 6
+  },
+  "terreno en lomas de montechelo el pedregal": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 1600,
+    "nListings": 22
+  },
+  "terreno en el colli 1a": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19389,
+    "nListings": 8
+  },
+  "el alcazar poniente": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34058,
+    "nListings": 5
+  },
+  "jardines de la cantera": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14065,
+    "nListings": 4
+  },
+  "terreno en la cuchilla extramuros de tesistan": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33996,
+    "nListings": 4
+  },
+  "el meson de copala": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 1929,
+    "nListings": 4
+  },
+  "del bosque": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 1100,
+    "nListings": 3
+  },
+  "ciudad universitaria": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35156,
+    "nListings": 7
+  },
+  "el prado": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 7047,
+    "nListings": 12
+  },
+  "real fresno": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 8490,
+    "nListings": 3
+  },
+  "rey xolotl": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 2000,
+    "nListings": 5
+  },
+  "terreno en el alcazar casa fuerte": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 10000,
+    "nListings": 20
+  },
+  "terreno en provenza la romana": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14500,
+    "nListings": 3
+  },
+  "los silos": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 7950,
+    "nListings": 3
+  },
+  "paseo de los agaves": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 13028,
+    "nListings": 7
+  },
+  "lomas de san diego": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 2000,
+    "nListings": 5
+  },
+  "concepcion del valle": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 3800,
+    "nListings": 4
+  },
+  "terreno en santa cruz de la loma tepetates": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 1855,
+    "nListings": 3
+  },
+  "cima del sol": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16344,
+    "nListings": 3
+  },
+  "valle de tlajomulco": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27396,
+    "nListings": 9
+  },
+  "el palomar panoramica": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34000,
+    "nListings": 6
+  },
+  "las flores": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25103,
+    "nListings": 18
+  },
+  "colinas del valle": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15855,
+    "nListings": 6
+  },
+  "casa en venta disponible encto jose becerra casa 642 lt 33 mz xii emiliano zapata san pedro tlaqu": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19089,
+    "nListings": 17
+  },
+  "casa en ventaav primero de mayo 301 santa cruz del valle 45615 guadalajara jal col parques sa": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24811,
+    "nListings": 20
+  },
+  "circuito efren 406 mz xii lt 29 parques de la victoria etapa ii tlaquepaque jalisco cp 45638": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18571,
+    "nListings": 20
+  },
+  "av primero de mayo 301 santa cruz del valle 45615 guadalajara jal col parques santa cruz del v": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29007,
+    "nListings": 35
+  },
+  "felipe loza 15 la llave 45615 san pedro tlaquepaque jal 15 col coto del carmensan pedro tlaq": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 8333,
+    "nListings": 25
+  },
+  "bahia majahua 715 parques del bosque 45609 san pedro tlaquepaque jal 715int 12 col parques d": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33714,
+    "nListings": 23
+  },
+  "av camino real a colima col geovillas del realsan pedro tlaquepaque jalisco mexico cp 45602": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23661,
+    "nListings": 25
+  },
+  "venta de casa enc sta gertrudis 1933 int 10 san pedro tlaquepaque cp 45615 col parques santa": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22096,
+    "nListings": 27
+  },
+  "se vende casa enav primero de mayo 301 santa cruz del valle 45615 guadalajara jal col parques": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24600,
+    "nListings": 20
+  },
+  "se vende casapadre xavier scheifler de amezaga parques del bosque 45609 san pedro tlaquepaque jal": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26056,
+    "nListings": 21
+  },
+  "venta de casa enav primero de mayo 301 santa cruz del valle 45615 guadalajara jal col parques": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24989,
+    "nListings": 27
+  },
+  "independencia 255 santa maria tequepexpan 45601 san pedro tlaquepaque jal 255 col santa maria": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29962,
+    "nListings": 50
+  },
+  "venta de casac arena 66 loreto coto el dorado snint 40 col loretosan pedro tlaquepaque jalis": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32315,
+    "nListings": 26
+  },
+  "venta de casa en1o de mayo ote 301 las villas 45615 santa cruz del valle jal col lopez cotil": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21141,
+    "nListings": 26
+  },
+  "casa en venta disponible enav camino real a colima col geovillas del realsan pedro tlaquepaque j": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23661,
+    "nListings": 26
+  },
+  "casa en ventadel cantor col prados de santa mariasan pedro tlaquepaque jalisco mexico cp 45": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15650,
+    "nListings": 19
+  },
+  "casa disponible en venta en1o de mayo ote 301 las villas 45615 santa cruz del valle jal col": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22095,
+    "nListings": 21
+  },
+  "se vende casaav agricola parques de santa maria 45609 san pedro tlaquepaque jal 2701int 67 c": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19178,
+    "nListings": 25
+  },
+  "venta de casaprol gobernador curiel 6047 el refugio 45599 san pedro tlaquepaque jal 6047int 34": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15833,
+    "nListings": 26
+  },
+  "venta de casa en col santa anitasan pedro tlaquepaque jalisco mexico cp 45600 id30672297": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14925,
+    "nListings": 12
+  },
+  "se vende casa enaldama col alamosan pedro tlaquepaque jalisco mexico cp 45560 id30208828": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26056,
+    "nListings": 24
+  },
+  "se vende casapaseos de la serenata col balcones de santa mariasan pedro tlaquepaque jalisco mex": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20833,
+    "nListings": 23
+  },
+  "venta de casa entomatlan 58 fovissste miravalle 45594 san pedro tlaquepaque jal 58 col foviss": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16022,
+    "nListings": 21
+  },
+  "juan escutia col las juntitassan pedro tlaquepaque jalisco mexico cp 45590 id30841651": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15417,
+    "nListings": 8
+  },
+  "venta de casa enc san francisco 2813 45615 san pedro tlaquepaque jal 2813 col coto del carmen": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28750,
+    "nListings": 22
+  },
+  "adolf b horn y camino real col la giganterasan pedro tlaquepaque jalisco mexico cp 45601 i": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22708,
+    "nListings": 19
+  },
+  "venta de casaloreto 45602 santa anita jal col aurea san pedro tlaquepaque jalisco": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27182,
+    "nListings": 28
+  },
+  "venta casa envalle de la misericordia sn col senderos de tlaquepaquesan pedro tlaquepaque jalis": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20260,
+    "nListings": 22
+  },
+  "venta casa enjuan escutia 80 col las juntitassan pedro tlaquepaque jalisco mexico cp 45590": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 13806,
+    "nListings": 5
+  },
+  "casa en venta disponible enindependencia 255 santa maria tequepexpan 45601 san pedro tlaquepaque": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29781,
+    "nListings": 27
+  },
+  "casa en ventaconstitucion de 1857 3784 3784 col las floressan pedro tlaquepaque jalisco mexic": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25103,
+    "nListings": 28
+  },
+  "venta casa enav padre xavier scheifler 907 col parques del bosquesan pedro tlaquepaque jalisco": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 29237,
+    "nListings": 5
+  },
+  "venta de casasan pedro tlaquepaque jal col el campesinosan pedro tlaquepaque jalisco mexico": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 12857,
+    "nListings": 16
+  },
+  "casa en ventaindependencia 3411 col parques del bosquesan pedro tlaquepaque jalisco mexico c": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28131,
+    "nListings": 4
+  },
+  "se vende casaporvenir el ext 118 col san martin de las flores de abajosan pedro tlaquepaque jal": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26081,
+    "nListings": 7
+  },
+  "casa disponible en venta encamino real a colima 1109 col parques del bosquesan pedro tlaquepaque": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26667,
+    "nListings": 3
+  },
+  "se vende casafuente guadalajara 1552 col villa fontanasan pedro tlaquepaque jalisco mexico c": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26538,
+    "nListings": 3
+  },
+  "casa disponible en venta encorregidora 63 col el tapatiosan pedro tlaquepaque jalisco mexico": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 10054,
+    "nListings": 3
+  },
+  "casa en venta disponible enjosefa ortiz de dominguez santa anita tlaquepaque 262 col santa anit": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14030,
+    "nListings": 8
+  },
+  "casa en coyula": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22853,
+    "nListings": 9
+  },
+  "casa en el eden": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28889,
+    "nListings": 19
+  },
+  "casa en el alcazar casa fuerte": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25273,
+    "nListings": 69
+  },
+  "casa en adamar": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26615,
+    "nListings": 49
+  },
+  "casa en banus": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17979,
+    "nListings": 9
+  },
+  "casa en alameda": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 9036,
+    "nListings": 3
+  },
+  "casa en las viboras valle de las flores": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20779,
+    "nListings": 3
+  },
+  "villas de san agustin": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22988,
+    "nListings": 3
+  },
+  "talpita poniente": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20833,
+    "nListings": 38
+  },
+  "rincon del bosque": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27687,
+    "nListings": 38
+  },
+  "palacio de gobierno del estado de jalisco": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28266,
+    "nListings": 44
+  },
+  "el sauz infonavit": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35795,
+    "nListings": 38
+  },
+  "miguel galindo": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25000,
+    "nListings": 6
+  },
+  "potrero nuevo": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17167,
+    "nListings": 4
+  },
+  "la azucena": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 4000,
+    "nListings": 3
+  },
+  "jesus maria": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 1300,
+    "nListings": 3
+  },
+  "arrayanes": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28077,
+    "nListings": 50
+  },
+  "villas del mirador": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32144,
+    "nListings": 100
+  },
+  "ionamiento parque virreyes": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 55442,
+    "nListings": 100
+  },
+  "militar zapopan": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19169,
+    "nListings": 50
+  },
+  "vista zapopan": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18333,
+    "nListings": 150
+  },
+  "ejido copalita": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21807,
+    "nListings": 100
+  },
+  "jardines de san gonzalo": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16250,
+    "nListings": 100
+  },
+  "rinconada lopez cotilla": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 51207,
+    "nListings": 50
+  },
+  "gonzalez ortega": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 51263,
+    "nListings": 100
+  },
+  "alianza de cazadores diana": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17143,
+    "nListings": 4
+  },
+  "coronilla del ocote": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18421,
+    "nListings": 4
+  },
+  "parques santa cruz del valle": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 24900,
+    "nListings": 96
+  },
+  "coto del carmen": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18542,
+    "nListings": 32
+  },
+  "geovillas del real": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23661,
+    "nListings": 32
+  },
+  "parques de la victoria": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 18000,
+    "nListings": 16
+  },
+  "el puente": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14950,
+    "nListings": 16
+  },
+  "amaneceres": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25893,
+    "nListings": 16
+  },
+  "el campesino": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 12857,
+    "nListings": 16
+  },
+  "el refugio": {
+    "nse": "bajo-medio",
+    "nseIdx": 2,
+    "medianaPm2": 12000,
+    "nListings": 16
+  },
+  "alamo": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26056,
+    "nListings": 21
+  },
+  "san pedrito": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28556,
+    "nListings": 17
+  },
+  "villas colon": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32311,
+    "nListings": 5
+  },
+  "tecnologico": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34674,
+    "nListings": 10
+  },
+  "compositores": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 32030,
+    "nListings": 5
+  },
+  "micaelita": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17850,
+    "nListings": 5
+  },
+  "quintanova": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22128,
+    "nListings": 5
+  },
+  "lomas de la victoria": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 46899,
+    "nListings": 10
+  },
+  "pedregal de san francisco": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 44615,
+    "nListings": 50
+  },
+  "haciendas de coyoacan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 22286,
+    "nListings": 50
+  },
+  "los cedros": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35597,
+    "nListings": 50
+  },
+  "lomas de chapultepec ii": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 115607,
+    "nListings": 50
+  },
+  "san miguel chapultepec i": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 118557,
+    "nListings": 50
+  },
+  "campestre coyoacan": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 49143,
+    "nListings": 50
+  },
+  "rancho san francisco pueblo san bartolo ameyalco": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 47000,
+    "nListings": 50
+  },
+  "lomas de chapultepec i": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 56949,
+    "nListings": 131
+  },
+  "general pedro maria anaya": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 69872,
+    "nListings": 100
+  },
+  "san agustin del pueblo tetelpan": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 50000,
+    "nListings": 50
+  },
+  "santa ines": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20000,
+    "nListings": 50
+  },
+  "chimalistac": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 41730,
+    "nListings": 50
+  },
+  "torres lindavista": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 30142,
+    "nListings": 50
+  },
+  "agricola oriental": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 9057,
+    "nListings": 50
+  },
+  "anzures": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 52632,
+    "nListings": 81
+  },
+  "santa cruz xochitepec": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19091,
+    "nListings": 50
+  },
+  "pueblo nuevo bajo": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 40299,
+    "nListings": 50
+  },
+  "del valle centro": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 45556,
+    "nListings": 209
+  },
+  "narvarte poniente": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 47692,
+    "nListings": 228
+  },
+  "contadero": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35306,
+    "nListings": 81
+  },
+  "heroe de nacozari": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23757,
+    "nListings": 50
+  },
+  "lomas de bezares": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 57720,
+    "nListings": 50
+  },
+  "florida": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 52843,
+    "nListings": 50
+  },
+  "chimalcoyoc": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26707,
+    "nListings": 50
+  },
+  "transito": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17487,
+    "nListings": 50
+  },
+  "tecalcapa del pueblo tetelpan": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35168,
+    "nListings": 100
+  },
+  "pedregal de san nicolas 2a": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28276,
+    "nListings": 50
+  },
+  "presidentes ejidales 2a": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 49645,
+    "nListings": 50
+  },
+  "sindicato mexicano de electricistas": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27328,
+    "nListings": 50
+  },
+  "caracol": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14056,
+    "nListings": 50
+  },
+  "xotepingo": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 31604,
+    "nListings": 50
+  },
+  "valle del sur": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14510,
+    "nListings": 50
+  },
+  "club de golf mexico": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34501,
+    "nListings": 50
+  },
+  "lomas de vista hermosa": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 38500,
+    "nListings": 50
+  },
+  "toriello guerra": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 60052,
+    "nListings": 66
+  },
+  "campestre churubusco": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26531,
+    "nListings": 50
+  },
+  "san bartolo el chico": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18942,
+    "nListings": 66
+  },
+  "ampliacion las aguilas": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35585,
+    "nListings": 150
+  },
+  "san pedro de los pinos": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 40881,
+    "nListings": 81
+  },
+  "doctores": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 45139,
+    "nListings": 100
+  },
+  "cuauhtemoc": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 149883,
+    "nListings": 100
+  },
+  "mixcoac": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 45811,
+    "nListings": 66
+  },
+  "condesa": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 65593,
+    "nListings": 66
+  },
+  "manzanastitla": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33333,
+    "nListings": 50
+  },
+  "san sebastian": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 33167,
+    "nListings": 50
+  },
+  "cuajimalpa": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 41379,
+    "nListings": 131
+  },
+  "albert": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 45000,
+    "nListings": 50
+  },
+  "tabacalera": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 72165,
+    "nListings": 50
+  },
+  "prado coapa 3a": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 35000,
+    "nListings": 50
+  },
+  "roma sur": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 67336,
+    "nListings": 97
+  },
+  "san jose de los cedros": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 37013,
+    "nListings": 50
+  },
+  "olivar de los padres": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 42330,
+    "nListings": 50
+  },
+  "parque san andres": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 51075,
+    "nListings": 201
+  },
+  "santa cruz atoyac": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 57929,
+    "nListings": 50
+  },
+  "lomas de plateros": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 39231,
+    "nListings": 50
+  },
+  "polanco i": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 52985,
+    "nListings": 81
+  },
+  "xoco": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 91019,
+    "nListings": 100
+  },
+  "granada": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 90698,
+    "nListings": 81
+  },
+  "bosque de chapultepec i": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 210762,
+    "nListings": 50
+  },
+  "las aguilas 2o parque": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 46788,
+    "nListings": 50
+  },
+  "polanco v": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 60000,
+    "nListings": 112
+  },
+  "zacahuitzco": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 72761,
+    "nListings": 50
+  },
+  "napoles": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 80000,
+    "nListings": 143
+  },
+  "lorenzo boturini": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 39286,
+    "nListings": 16
+  },
+  "tlaxpana": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 57143,
+    "nListings": 16
+  },
+  "san simon ticumac": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 56897,
+    "nListings": 16
+  },
+  "centro area 1": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 46729,
+    "nListings": 16
+  },
+  "jesus del monte": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 48000,
+    "nListings": 64
+  },
+  "prado coapa 2a": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 59259,
+    "nListings": 16
+  },
+  "santa maria la ribera": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 80000,
+    "nListings": 16
+  },
+  "oxtopulco universidad": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 192308,
+    "nListings": 16
+  },
+  "copilco el bajo": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 57321,
+    "nListings": 32
+  },
+  "campestre palo alto": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 87500,
+    "nListings": 16
+  },
+  "8 de agosto": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 55357,
+    "nListings": 16
+  },
+  "prohogar": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 106203,
+    "nListings": 32
+  },
+  "torre blanca": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 34021,
+    "nListings": 16
+  },
+  "san angel": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 55000,
+    "nListings": 110
+  },
+  "nonoalco tlatelolco": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 56140,
+    "nListings": 16
+  },
+  "villa gustavo a madero": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 9589,
+    "nListings": 16
+  },
+  "escandon i": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 68182,
+    "nListings": 47
+  },
+  "ampliacion petrolera": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27356,
+    "nListings": 16
+  },
+  "lomas de santa fe": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 60000,
+    "nListings": 31
+  },
+  "ampliacion granada": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 160000,
+    "nListings": 31
+  },
+  "san jose insurgentes": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 58462,
+    "nListings": 31
+  },
+  "irrigacion": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 39535,
+    "nListings": 31
+  },
+  "progreso tizapan": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 54545,
+    "nListings": 31
+  },
+  "lago sur": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20812,
+    "nListings": 31
+  },
+  "acacias": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36923,
+    "nListings": 31
+  },
+  "credito constructor": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 92857,
+    "nListings": 31
+  },
+  "hipodromo condesa": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 40260,
+    "nListings": 62
+  },
+  "nochebuena": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 51429,
+    "nListings": 31
+  },
+  "tacubaya": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20000,
+    "nListings": 31
+  },
+  "del valle sur": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 58466,
+    "nListings": 31
+  },
+  "la nogalera": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16845,
+    "nListings": 3
+  },
+  "se vende casasan francisco 45500 san pedro tlaquepaque jal 238 col tlaquepaque centrosan pedr": {
+    "nse": "economico",
+    "nseIdx": 0,
+    "medianaPm2": 8915,
+    "nListings": 39
+  },
+  "venta casa enavila camacho 1287 col mezquitanguadalajara jalisco mexico cp 44260 id310404": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21011,
+    "nListings": 50
+  },
+  "casa en venta disponible enc josefa ortiz de dominguez 1425 progreso 44730 guadalajara jal 142": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14242,
+    "nListings": 50
+  },
+  "venta casa enavenida doctor angel leano 1305 col los robleszapopan jalisco mexico cp 45134": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25082,
+    "nListings": 50
+  },
+  "venta de casa enboulevard primavera 1480int b6 col arrayaneszapopan jalisco mexico cp 4506": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28077,
+    "nListings": 50
+  },
+  "casa disponible en venta enavenida general ramon corona 7880 col mitica zapopan jalis": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 43340,
+    "nListings": 50
+  },
+  "casa disponible en venta envia calabria 20 trento av mariano otero 4200 santa ana te": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 28740,
+    "nListings": 50
+  },
+  "virreyes zapopan jal col parque virreyeszapopan jalisco mexico": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 58904,
+    "nListings": 50
+  },
+  "casa en venta disponible encalle volcan jorullo 5451 int3 colli urbano zapopan jalisco cp 450": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 25918,
+    "nListings": 50
+  },
+  "se vende casa envirreyes zapopan jal col parque virreyeszapopan j": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 51981,
+    "nListings": 49
+  },
+  "venta de casa encalle fray miguel pieras 1319 vivienda 95 accanta guadalajara jalisc": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 23883,
+    "nListings": 49
+  },
+  "casa disponible en venta enav acueducto 5300 col zotograndezapopan jalisco mexico cp 45118": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 156159,
+    "nListings": 48
+  },
+  "venta de casa enav paseo rio blanco 1295 condominio rinconada del lago casa 432 parques de tesista": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 21828,
+    "nListings": 48
+  },
+  "venta de casaav de las rosas rancho contento col rancho contentozapopan jalisco mexico cp": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 46810,
+    "nListings": 48
+  },
+  "venta de casa enav rafael sanzio 198228 col la estanciazapopan jalisco mexico cp 45030 id": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 77685,
+    "nListings": 48
+  },
+  "casa en venta disponible enavenida general ramon corona 2500 col la mojonerazapopan jalisco mex": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 52520,
+    "nListings": 48
+  },
+  "puerta del bosque col puerta del bosquezapopan jalisco mexico cp 45066 id30052804": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 65340,
+    "nListings": 48
+  },
+  "casa en ventaav acueducto 6060 col los fraileszapopan jalisco mexico cp 45140": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 73515,
+    "nListings": 48
+  },
+  "inas de san javier guadalajara jal col colinas de san javierzapopan jalisco mexico cp 451": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 160234,
+    "nListings": 48
+  },
+  "venta de casa enc paseo de los encinos norte casa 51355 mz i coto c villas de zapopan zapopan": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 27723,
+    "nListings": 48
+  },
+  "casa en venta disponible enav juan palomar y arias 1299 col jardines universidadzapopan jalisco": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 81594,
+    "nListings": 48
+  },
+  "pinar de la venta col diana nature zapopan jalisco mexico cp 45221 id30752145": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 49220,
+    "nListings": 48
+  },
+  "casa en ventavirreyes zapopan jal col virreyes zapopan jalisco mexico cp 4511": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 62700,
+    "nListings": 48
+  },
+  "se vende casaavenida general ramon corona 2500 col la mojonerazapopan jalisco mexico cp 4501": {
+    "nse": "super-lujo",
+    "nseIdx": 6,
+    "medianaPm2": 118438,
+    "nListings": 48
+  },
+  "casa en ventacolegio del aire avenida rio san francisco 160 col araucazapopan jalisco mexico": {
+    "nse": "lujo",
+    "nseIdx": 5,
+    "medianaPm2": 84435,
+    "nListings": 48
+  },
+  "paseo los agaves": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 14800,
+    "nListings": 1
+  },
+  "paseo del prado": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16500,
+    "nListings": 1
+  },
+  "paseos del prado": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15500,
+    "nListings": 1
+  },
+  "villas belenes": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 30000,
+    "nListings": 1
+  },
+  "el bethel": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18700,
+    "nListings": 1
+  },
+  "el castillo": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16000,
+    "nListings": 1
+  },
+  "miguel hidalgo": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 18500,
+    "nListings": 1
+  },
+  "santa maria": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16000,
+    "nListings": 1
+  },
+  "primera": {
+    "nse": "medio-alto",
+    "nseIdx": 3,
+    "medianaPm2": 25500,
+    "nListings": 1
+  },
+  "el cerrito": {
+    "nseIdx": 2,
+    "nse": "medio-bajo",
+    "medianaPm2": 11531
+  },
+  "vista hermosa": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 13190
+  },
+  "parques del auditorio": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 18435
+  },
+  "parques deo auditorio": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 18435
+  },
+  "bosques del boulevard": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 15286
+  },
+  "miguel de la madrid": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 10870,
+    "nListings": 9
+  },
+  "interior 6": {
+    "nse": "medio",
+    "nseIdx": 3,
+    "medianaPm2": 20714,
+    "nListings": 2
+  },
+  "puerta del roble": {
+    "nse": "alto",
+    "nseIdx": 5,
+    "medianaPm2": 43429,
+    "nListings": 3
+  },
+  "colonia emiliano zapata": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17607,
+    "nListings": 8
+  },
+  "real valdepenas": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 28500,
+    "nListings": 9
+  },
+  "nueva santa maria": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16534,
+    "nListings": 1
+  },
+  "pinar de las palomas": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16402,
+    "nListings": 1
+  },
+  "san martin": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15000,
+    "nListings": 1
+  },
+  "rinconadas de coyula": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 12140,
+    "nListings": 1
+  },
+  "segunda seccion zona industrial": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 12368,
+    "nListings": 1
+  },
+  "auditorio": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 19000,
+    "nListings": 1
+  },
+  "moctezuma": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26190,
+    "nListings": 1
+  },
+  "mision del bosque": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 27000,
+    "nListings": 1
+  },
+  "san elias": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 28000,
+    "nListings": 1
+  },
+  "alteza residencial nuevo mexico": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 30000,
+    "nListings": 1
+  },
+  "cantera colorada": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 19000,
+    "nListings": 1
+  },
+  "tinajitas": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19000,
+    "nListings": 1
+  },
+  "el parque": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 32000,
+    "nListings": 1
+  },
+  "villas de zapotepec": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 13000,
+    "nListings": 1
+  },
+  "atotonilquillo": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17000,
+    "nListings": 1
+  },
+  "valle de san nicolas": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 17000,
+    "nListings": 1
+  },
+  "la experiencia": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 11000,
+    "nListings": 1
+  },
+  "postes cuates": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 13000,
+    "nListings": 1
+  },
+  "la paz": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 26000,
+    "nListings": 1
+  },
+  "torre 9": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 24200,
+    "nListings": 1
+  },
+  "vista california": {
+    "nse": "medio",
+    "nseIdx": 3,
+    "medianaPm2": 22000,
+    "nListings": 1
+  },
+  "haciendas de san jose": {
+    "nse": "medio",
+    "nseIdx": 3,
+    "medianaPm2": 26000,
+    "nListings": 1
+  },
+  "ahujas": {
+    "nse": "economico",
+    "nseIdx": 1,
+    "medianaPm2": 6300,
+    "nListings": 1
+  },
+  "la esperanza": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 8400,
+    "nListings": 1
+  },
+  "santa margarita 1 seccion": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 16000,
+    "nListings": 1
+  },
+  "santa margarita  seccion": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 16000,
+    "nListings": 1
+  },
+  "santa margarita seccion": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 16000,
+    "nListings": 1
+  },
+  "santa margarita 1": {
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 16000,
+    "nListings": 1
+  },
+  "las bovedas": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 20000,
+    "nListings": 1
+  },
+  "condominio ignis": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 22000,
+    "nListings": 1
+  }
+}
