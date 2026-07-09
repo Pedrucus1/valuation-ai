@@ -1174,10 +1174,20 @@ function valuarPropiedad(prop) {
         // casas viejas sobre-valuadas porque exacta no deprecia). Nunca aprecia (Math.max(0,...)) →
         // sujetos de edad normal/nueva quedan en 1.0 idéntico a prod. Tunable K/FLOOR/GAP.
         if (process.env.LAB_EDAD_EXACTA === '1') {
-            const _k    = parseFloat(process.env.LAB_EDAD_EXACTA_K    || '0.005');
-            const _fl   = parseFloat(process.env.LAB_EDAD_EXACTA_FLOOR|| '0.70');
-            const _gap  = parseFloat(process.env.LAB_EDAD_EXACTA_GAP  || '0');
-            factorEdad = Math.max(_fl, 1 - Math.max(0, edadEfectiva - anclaEdad - _gap) * _k);
+            const _k    = parseFloat(process.env.LAB_EDAD_EXACTA_K    || '0.010');
+            const _fl   = parseFloat(process.env.LAB_EDAD_EXACTA_FLOOR|| '0.55');
+            const _gap  = parseFloat(process.env.LAB_EDAD_EXACTA_GAP  || '25');
+            const _segMin = parseFloat(process.env.LAB_EDAD_EXACTA_SEGMIN || '0.75');
+            // Discriminante de clase: si el sujeto ya cae en un sub-segmento BARATO de su colonia
+            // (mediana de sus comps << mediana de la colonia), NO depreciar más por edad — ya está
+            // bajo (Seattle: viejo+grande en zona premium, perito 0.38× comps). Solo depreciar cuando
+            // el sujeto está al nivel de su colonia y el exceso viene de la EDAD (El Batán ~0.93×).
+            const _medComps = pm2cFilt.length ? mediana(pm2cFilt) : 0;
+            const _medCol   = _cellEdad?.medianaPm2c || 0;
+            const _segRatio = (_medComps > 0 && _medCol > 0) ? _medComps / _medCol : 1;
+            factorEdad = (_segRatio >= _segMin)
+                ? Math.max(_fl, 1 - Math.max(0, edadEfectiva - anclaEdad - _gap) * _k)
+                : 1.0;
         } else {
             factorEdad = 1.0;
         }

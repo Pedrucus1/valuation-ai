@@ -996,9 +996,25 @@ function valuarPropiedad(prop) {
     // como su zona ya no se sobre-deprecia. Fallback a 10 cuando no hay dato → comportamiento idéntico.
     const _cellEdad = IDX[muniNorm]?.[tipo]?.[colNorm];
     const anclaEdad = (_cellEdad && _cellEdad.edadMedianaZona != null) ? _cellEdad.edadMedianaZona : 10;
-    const factorEdad = poolTipo === 'exacta'   ? 1.0
-                     : poolTipo === 'similares' ? Math.max(floorEdad,  1 - (edadEfectiva - anclaEdad) * 0.005)
-                     :                            Math.max(0.70,       1 - (edadEfectiva - anclaEdad) * 0.01);
+    // Pool exacta: asume comps de edad similar (factor 1.0), pero un sujeto MUCHO más viejo que su
+    // zona (>25 años sobre la mediana) se sobre-valúa. Deprecia solo ese exceso (K=0.010, floor 0.55),
+    // y SOLO si el sujeto no está ya en un sub-segmento barato de su colonia — discriminante de clase:
+    // mediana de sus comps vs mediana de la colonia. Evita hundir casas modestas en zona premium
+    // (ej. una casa vieja barata en colonia cara ya sale baja; no re-castigar). Medido 103 OPIs:
+    // ±20 +1.0, errAbs −0.8, cero regresión ±10/±15.
+    let factorEdad;
+    if (poolTipo === 'exacta') {
+        const _medComps = pm2cFilt.length ? mediana(pm2cFilt) : 0;
+        const _medCol   = _cellEdad?.medianaPm2c || 0;
+        const _segRatio = (_medComps > 0 && _medCol > 0) ? _medComps / _medCol : 1;
+        factorEdad = (_segRatio >= 0.75)
+            ? Math.max(0.55, 1 - Math.max(0, edadEfectiva - anclaEdad - 25) * 0.010)
+            : 1.0;
+    } else if (poolTipo === 'similares') {
+        factorEdad = Math.max(floorEdad, 1 - (edadEfectiva - anclaEdad) * 0.005);
+    } else {
+        factorEdad = Math.max(0.70, 1 - (edadEfectiva - anclaEdad) * 0.01);
+    }
     const factorConserv = FACTORES_CONSERVACION[prop.estadoConservacion] || 1.00;
     const factorNeg     = 0.95;
 
