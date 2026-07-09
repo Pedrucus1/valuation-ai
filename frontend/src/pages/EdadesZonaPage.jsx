@@ -254,7 +254,7 @@ const EdadesZonaPage = () => {
               <div className="p-4 space-y-2.5">
                 {/* Edad de construcción: rango + año exacto */}
                 <div>
-                  <label className={LBL}>Edad de construcción</label>
+                  <label className={LBL}>Edad de construcción <span className="normal-case font-normal text-slate-400">(original)</span></label>
                   <div className="flex gap-2">
                     <Select value={edadRango[it.id_unico] || ""} onValueChange={v => set(setEdadRango)(it.id_unico, v)}>
                       <SelectTrigger className={INP + " flex-1"}><SelectValue placeholder="Rango" /></SelectTrigger>
