@@ -19,6 +19,46 @@
 
 ---
 
+## 🔬 SEGMENTACIÓN DEPTOS 08-Jul-2026 (tarde) — DIAGNÓSTICO REVISADO: NO es sistémico, es DATO
+
+**Bloque "segmentación socioeconómica de deptos". Junté datos de laboratorio (sin tocar prod) y el diagnóstico VIEJO de memoria (deptos sobre-valuados por fuga de clase a pool general $32k) quedó DESACTUALIZADO — el maestro cambió (ahora la colonia SÍ tiene NSE v1) y el commit ancla-self ya está.**
+
+**Datos juntados (los 3 pedidos):**
+1. **Lomas de la Victoria (S.P. Tlaquepaque):** NSE `v1`=medio-alto **$46,899** (10 listings) que **anula** la entrada flywheel `perito`=medio-medio **$21,533** (regla dura "v1 gana"). Similares SIM = `[jardines el sauz, jardines de san jose, echeverria]` — **ninguna tiene inventario de deptos**.
+2. **Inventario deptos zona:** la colonia tiene **2 comps, ambos NUEVOS 2026** (72-73m², $46,899/m²). Similares: 0 deptos. Pool `general` de Tlaquepaque = 43 colonias depto, **solo 3 con n≥5**, mediana count=1 → pool propio siempre delgado, cae a general.
+3. **Cobertura EDAD deptos (todo cache_index):** **44.2%** de los listings depto traen `anio` (mejor que el 32% all-listings que temía la memoria).
+
+**Comportamiento ACTUAL del caso testigo (OPI-25-2-14-RM, depto 30 años usado, 60m², perito $21,536, $1,344k):** motor **$1,946k = +44.8%**, pool=`general`, 7 comps casi todos nuevos 2026 ($46-59k/m²). El pool general **YA deprecia por edad** (factorEdad≈0.75, L999-1001) → $46k→$34k, pero sigue +44.8% porque los comps base están a **2.2× el nivel usado real**. El **cap NSE** (L1051-1052, `pm2cAvg≤medianaPm2×1.15`) usa v1=$46,899 → cap $53,933 = **inerte**. Triangulación: comps del PROPIO perito = $1,422k → el **mercado da la razón al perito** (motor mal). ⚠️ El flywheel `perito` $21,533 ES este mismo avalúo (n=1, 2025-02) → **no se puede usar para capar este OPI (circular/overfit)**.
+
+**★ HALLAZGO CLAVE (mata la hipótesis sistémica): el sesgo nuevo/usado NO es general en deptos.** Medí los **23 deptos residenciales** (sufijos -AV/-RM/-EK, sin oficina/local) con `validar_lab_mercado.js --n 400 --folios ...`:
+- Deptos con pool `exacta` (colonia con ≥5 comps propios) salen BIEN o **ligeramente SUB**: edad 36-44a → −10 a −17% (Loma Bonita 44a −10%, Auditorio 36a −17%, Real del Valle 21a −15%). Aplicar más depreciación por edad los EMPEORARÍA.
+- **Solo OPI-25-2-14-RM falla** (+44.8%), y es exactamente el caso `general` (colonia con 2 comps nuevos, cero comps usados en colonia+similares).
+- Deptos ~**90% dentro de ±20%** = igual que el global. **NO hay problema depto-específico que justifique construir maquinaria de segmentación.**
+
+**CONCLUSIÓN inicial (revisada abajo):** parecía DATA-gap puro. **PERO el usuario objetó con razón** → tracé la SELECCIÓN de comps y el dato SÍ está.
+
+**★★ ROOT CAUSE REAL (smoking gun, corrige la conclusión de arriba):** la cascada de selección (colonia→SIM→cercanas geo→general, `motor_remi_api.js` L886-954) YA expande a colonias vecinas con scoring ponderado (colonia +0.50, similar +0.25, +similitud tamaño). El dato usado SÍ existe: el pool depto de Tlaquepaque (78 listings, 43 colonias) tiene colonias media-baja usadas en **$8k-$20k (idx NSE 2)** — vista hermosa, villa fontana, lomas de tlaquepaque, micaelita, los cajetes, fovissste miravalle — justo el nivel del sujeto ($21,536). **El bug: el gate NSE±1 (L927-931 cercanas, L946-953 general) usa el ancla del sujeto = v1 medio-alto idx4 (construida de los 2 comps NUEVOS) → admite solo idx 3-5 → RECHAZA exactamente las colonias idx2 usadas.** El ancla equivocada (nueva) contamina la expansión y filtra la respuesta correcta; se queda con $22k-$56k → sobre-valúa. **Es un bug de SELECCIÓN circular, no un DATA-gap.**
+
+**FIX en lab (probado y MEDIDO — NO commitear):** `LAB_SOFT_NSE` (abre el gate NSE±1 en cercanas/general) + `LAB_SOFT_NSE_W` (penalización suave por distancia clase) + `LAB_EDAD_W`/`LAB_EDAD_W_K` (peso por similitud de edad). Flags en `motor_remi_api_lab.js` (OFF = idéntico a prod, verificado). **Resultado 103 OPIs (validar_lab_mercado --n 400 --desde 2025-01):**
+| cfg | ±10 | ±15 | ±20 | errAbs |
+|---|---|---|---|---|
+| OFF | 60.4 | 71.3 | 80.2 | 11.8 |
+| SOFT_NSE | 60.4 | 71.3 | 80.2 | 11.8 (**cero efecto**) |
+| EDAD_W | 59.4 | 72.3 | 80.2 | 11.9 (neutro/−) |
+| BOTH | 59.4 | 72.3 | 80.2 | 12.0 |
+
+**★ POR QUÉ NO FUNCIONAN (instrumentado con debug [BANDA]/[POOL], ya removido):** trazando 25-2-14-RM al detalle, **el pool general (n=60) YA CONTIENE los comps correctos** ($22-31k: terralta, san pedrito, tecnológico, salvador portillo) y **ningún gate los excluye** (ni banda [$18,630-$74,521] ni NSE±1). El problema es que **el scoring de selección es SOLO por tamaño** (L1050-1057): con sujeto 60m² agarra los comps de ~62m² que resultan ser premium ($45-59k paisajes del tesoro), ignorando los del mismo tamaño más baratos. SOFT_NSE no mueve nada porque los baratos ya están en candidatos (pierden por tamaño, no por gate). EDAD_W no discrimina porque **anio está ausente (~56%) en AMBOS lados** (premium nuevos Y baratos usados sin año). **No hay señal no-circular que diga que este depto es media-baja: su colonia solo tiene 2 comps NUEVOS medio-alto; la única señal (edad 30a) está tapada por la falta de anio en los comps.**
+
+**CONCLUSIÓN FINAL (data/señal-gap confirmado, NO fórmula):** 25-2-14-RM no se arregla con selección/gate/peso — el motor no puede saber que es media-baja sin (a) anio en los comps del pool [→ enricher de año] o (b) inventario de deptos usados en la colonia [→ scraper]. Los 22 deptos restantes ~90% ±20 (igual que global), no necesitan cambio. **La palanca es DATO (año/scraper), no motor.** Flags quedan documentados en lab para re-test si sube la cobertura de año. La hipótesis del usuario (expandir+ponderar) era razonable pero la expansión YA existe y el pool YA tiene el dato — el cuello es la señal de edad, no la selección.
+
+**📅 COBERTURA DE AÑO EN DEPTOS (revisada 08-jul, decisiva para lo anterior):** deptos con año = **40.6%** en caché (54% en Mongo crudo PINCALI). Hueco concentrado en PINCALI (40%) + CASAS_Y_TERRENOS (31%); los portales que sí extraen llegan a 94-96% (PROPIEDADES_COM, VIVANUNCIOS, INMUEBLES24). **NO es campo oculto:** en Mongo solo existe `anio_construccion`; `descripcion` VACÍA en 100% de PINCALI (el scraper nunca la guarda → sin texto para IA/regex). **PERO recuperable parcial:** abrí fichas reales "sin año" (via `url_original`, son páginas `/en/`) → la página SÍ tiene campo **"Year Built" con valor categórico "New"** que el scraper (solo-numérico) descarta. 2/2 muestreadas = deptos NUEVOS (entrega inmediata). El título NO lo delata (solo el detalle). **Implicación: los deptos sin año son desproporcionadamente NUEVOS** → recuperar `"New"/preventa → anio=año-actual (edad 0)` en el enricher poblaría las edades de los comps nuevos = **exactamente la señal que le falta a LAB_EDAD_W para descartar comps nuevos frente a un sujeto usado**. **Palanca concreta: enricher PINCALI capture el campo Year Built incluyendo categórico (New/Preventa→año actual), no solo numérico.** Sube cobertura Y habilita el peso por edad. Es trabajo de scraper/enricher.
+
+**FIX PINCALI aplicado 08-jul + backfill:** el enricher YA extraía año (primario `Year Built:YYYY` en `/en/home/` + fallback ES `/inmueble/` `Año de construcción`, ver `scraper-inmuebles/PINCALI_ENRICHER_NOTAS.md`); el hueco era que (a) el **backfill nunca se corrió** y (b) el categórico `Year Built: New` (sin \d{4}) se saltaba. Agregado a `enricher.py` L631-638 el branch `Year Built: New/Preventa/A estrenar → date.today().year` (anclado al label). Corriendo backfill acotado `--tab PINCALI --mongo --max 200`. **CYT auditado (read-only, NO tocar): estructural** — su `__NEXT_DATA__` da `features.age=0` (ambiguo nuevo/sin-dato, sin campo categórico de nuevo) → año NO recuperable por extracción; techo = lo que el vendedor llenó (17% deptos). La palanca de año es PINCALI, no CYT.
+
+**💎 MEDICIÓN DE LUJO (flag `LAB_MED_ATIPICA=1` en validar_lab_mercado.js, 08-jul):** el validador excluía todo m²C>300 (`M2C_ATIPICA`, motor:0, sin medir). Flag nuevo LLAMA al motor para las atípicas y las reporta en bucket aparte (300-340 vs >340) SIN meterlas al score principal (verificado: 61/81 idéntico con flag on/off). **Resultado (5 OPIs lujo): ultra-lujo >340m² = 3/4 dentro de ±20% (errAbs 21%); deptos de lujo bien (OPI-25-2-13-RM 347m² −1.9%, OPI-26-4-09-AV 485m² +17%); único malo OPI-25-7-11-LM 368m² −48.5% (es LOCAL, track aparte).** Conclusión: el corte 300 es conservador — el motor maneja el lujo residencial dentro de ±20%. Subir el cutoff es viable pero toca oficina/local (decisión aparte). Flag queda para medir, no cambia default.
+
+---
+
 ## ✅ ANCLA-SELF DEL SEGMENTO 08-Jul-2026 — +2-3pp en TODOS los buckets (hipótesis del usuario)
 
 **Hipótesis del usuario (correcta):** los comps se salían del segmento de clase (media-baja mezclada con media-alta) porque el filtro de segmento (`motor_remi_api.js` ~L970) usaba banda **ancha [0.55,1.55]×** anclada en la **mediana de ZONA**.

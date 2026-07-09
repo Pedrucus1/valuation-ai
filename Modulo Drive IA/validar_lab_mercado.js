@@ -186,15 +186,18 @@ for (const opi of muestra) {
 
     // Detectar atípica antes de llamar al motor
     const esAtipica = m2C > M2C_ATIPICA;
+    // LAB_MED_ATIPICA=1: MEDIR las atípicas/lujo (el motor sí las valúa) en bucket aparte,
+    // sin meterlas en el score principal. Default off = idéntico (se excluyen del motor).
+    const medirAtip = esAtipica && process.env.LAB_MED_ATIPICA === '1';
 
     let motorResult = { valor: 0, nComps: 0, poolTipo: 'atipica', error: 'atipica' };
-    if (!esAtipica) {
+    if (!esAtipica || medirAtip) {
         try { motorResult = await valuarPropiedadCompleto(prop); }
         catch (e) { motorResult = { valor: 0, nComps: 0, poolTipo: '?', error: e.message }; }
     }
 
     const valorMotor = motorResult.valor || 0;
-    const diff = (!esAtipica && valorPeritoAjustado > 0)
+    const diff = ((!esAtipica || medirAtip) && valorPeritoAjustado > 0 && valorMotor > 0)
         ? ((valorMotor - valorPeritoAjustado) / valorPeritoAjustado) * 100
         : null;
     const ok    = diff !== null && Math.abs(diff) <= 10;
@@ -240,13 +243,14 @@ for (const opi of muestra) {
     const medPeriM2 = pcompsM2.length ? (pcompsM2.length%2 ? pcompsM2[pcompsM2.length>>1] : (pcompsM2[(pcompsM2.length>>1)-1]+pcompsM2[pcompsM2.length>>1])/2) : 0;
     const valorMktPeritoComps = (medPeriM2 > 0 && m2C > 0) ? Math.round(medPeriM2 * m2C * factorInf) : 0;
     resultados.push({ folio: opi.folio, anio: anioOPI, diff, ok, cerca, pool: motorResult.poolTipo, nComps: motorResult.nComps, error: motorResult.error, especial: especialCat,
+        m2C, atipica: esAtipica,
         valorPerito: valorPeritoAjustado, valorMotor, valorMercadoComps, valorMktPeritoComps, nCompsPeri: pcompsM2.length });
 }
 
 // ── Resumen ───────────────────────────────────────────────────────────────────
 const atip     = resultados.filter(r => r.error === 'atipica');
 // Excluir casos especiales de las métricas principales
-const conDiff  = resultados.filter(r => r.diff !== null && !r.especial);
+const conDiff  = resultados.filter(r => r.diff !== null && !r.especial && !r.atipica);
 const recientes = conDiff.filter(r => (r.anio||2026) >= 2024);
 const historicos = conDiff.filter(r => (r.anio||2026) <= 2023);
 // Conteo de casos especiales para reporte
@@ -278,6 +282,15 @@ stats(conDiff,    'GLOBAL 2023-2026');
 stats(recientes,  '2024-2026 (confianza alta)');
 if (historicos.length) stats(historicos, '2023 (confianza baja — ajuste ×1.25)');
 console.log(`\n🔶 Atípicas (m²C>${M2C_ATIPICA}): ${atip.length}  |  sin comps: ${sinComps.length}`);
+// LAB_MED_ATIPICA: medición del segmento lujo (>300 m²C) que normalmente se excluye.
+if (process.env.LAB_MED_ATIPICA === '1') {
+    const lujoMed = resultados.filter(r => r.atipica && r.diff !== null);
+    console.log(`\n💎 LUJO MEDIDO (LAB_MED_ATIPICA) — ${lujoMed.length} OPIs con m²C>${M2C_ATIPICA}, NO en el score principal:`);
+    stats(lujoMed.filter(r => r.m2C <= 340), `lujo 300-340 m²C`);
+    stats(lujoMed.filter(r => r.m2C > 340),  `ultra-lujo >340 m²C`);
+    lujoMed.sort((a,b)=>b.m2C-a.m2C).forEach(r =>
+        console.log(`  ${(r.folio||'?').padEnd(16)} m²C:${Math.round(r.m2C).toString().padStart(4)}  diff:${(r.diff>0?'+':'')+r.diff.toFixed(1)}%  pool:${r.pool||'?'}  n:${r.nComps||0}`));
+}
 if (excluidos.length)     console.log(`⛔ EXCLUIDOS (perito sin datos): ${excluidos.map(r=>r.folio).join(', ')}`);
 if (mercado.length)       console.log(`📈 MERCADO (motor correcto, perito desactualizado): ${mercado.map(r=>r.folio).join(', ')}`);
 if (outlierPerito.length) console.log(`⚠️  OUTLIER_PERITO (comps premium atípicos): ${outlierPerito.map(r=>r.folio).join(', ')}`);

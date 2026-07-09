@@ -1007,12 +1007,14 @@ function valuarPropiedad(prop) {
                 return pm2 >= bandaMinEff && pm2 <= bandaMaxEff;
             });
 
-            // Aplicar el mismo filtro NSE que similares (±1)
-            const filtradosNSE = nseSubjeto ? filtrados.filter(d => {
-                const nsd = getNSE(c.colonia);
-                if (!nsd) return true; // sin NSE: mantener (asumimos válido por proximidad)
-                return Math.abs(nsd.nseIdx - nseSubjeto.nseIdx) <= 1;
-            }) : filtrados;
+            // Aplicar el mismo filtro NSE que similares (±1).
+            // LAB_SOFT_NSE: NO excluir por clase — incluir todos y ponderar por distancia NSE en el scoring.
+            const filtradosNSE = (process.env.LAB_SOFT_NSE === '1') ? filtrados
+                : nseSubjeto ? filtrados.filter(d => {
+                    const nsd = getNSE(c.colonia);
+                    if (!nsd) return true; // sin NSE: mantener (asumimos válido por proximidad)
+                    return Math.abs(nsd.nseIdx - nseSubjeto.nseIdx) <= 1;
+                }) : filtrados;
 
             if (filtradosNSE.length > 0) {
                 candidatos.push(...filtradosNSE);
@@ -1027,7 +1029,8 @@ function valuarPropiedad(prop) {
     if (candidatos.length < 3) {
         candidatos = pool;
         poolTipo = 'general';
-        if (nseSubjeto) {
+        // LAB_SOFT_NSE: no colapsar el pool al gate NSE±1 — dejar entrar clases vecinas, ponderar en scoring.
+        if (nseSubjeto && process.env.LAB_SOFT_NSE !== '1') {
             const generalNSE = candidatos.filter(d => {
                 const nsd = getNSE(normCol(d.colonia));
                 if (!nsd) return true;
@@ -1052,6 +1055,16 @@ function valuarPropiedad(prop) {
         let s = m2C > 0 ? 1 - Math.abs(d.m2c - m2C) / Math.max(d.m2c, m2C) : 0;
         if (colNorm && dc.length >= 5 && (dc.includes(colNorm) || colNorm.includes(dc))) s += 0.50;
         else if (dc.length >= 4 && similares.some(x => dc.includes(x))) s += 0.25;
+        // LAB_SOFT_NSE_W: penalización SUAVE por distancia de clase (default 0 = puro "no excluir").
+        if (process.env.LAB_SOFT_NSE === '1' && nseSubjeto) {
+            const w = parseFloat(process.env.LAB_SOFT_NSE_W || '0');
+            if (w > 0) { const nsd = getNSE(dc); if (nsd) s -= w * Math.abs(nsd.nseIdx - nseSubjeto.nseIdx); }
+        }
+        // LAB_EDAD_W: premia comps de edad similar al sujeto (nuevo↔usado). anio ausente = neutro.
+        if (process.env.LAB_EDAD_W === '1' && prop.edad > 0 && d.anio) {
+            const compEdad = Math.max(0, (new Date().getFullYear()) - d.anio);
+            s -= parseFloat(process.env.LAB_EDAD_W_K || '0.010') * Math.abs(compEdad - prop.edad);
+        }
         return { precio: d.precio, m2_const: d.m2c, score: s, an: d.anio || null,
                  m2t: d.m2t || 0, rec: d.recamaras || 0, ban: d.banos || 0 };  // #121 DV
     }).sort((a, b) => b.score - a.score).slice(0, poolTipo === 'general' ? COMP_CAP_GENERAL : COMP_CAP);
