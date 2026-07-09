@@ -481,6 +481,7 @@ const ValuadorDashboardPage = () => {
     { id: "resenas",      label: "Reseñas" },
     { id: "facturacion",  label: "Facturación", badge: billingData?.billing_status === "blocked" || billingData?.days_to_cutoff <= 5 },
     { id: "publicidad",   label: "Publicidad" },
+    { id: "edades",       label: "Edades por zona", to: "/edades-zona" },
   ];
 
   /* ── Facturación Tab ── */
@@ -1380,23 +1381,13 @@ const ValuadorDashboardPage = () => {
             </p>
           </div>
         </div>
-        <div className="flex gap-2 shrink-0">
-          <Button
-            onClick={() => navigate("/edades-zona")}
-            variant="outline"
-            className="border-[#52B788] text-[#1B4332] hover:bg-[#D9ED92]/30"
-          >
-            <MapPin className="w-4 h-4 mr-2" />
-            Edades por zona
-          </Button>
-          <Button
-            onClick={() => navigate("/valuar")}
-            className="bg-[#52B788] hover:bg-[#40916C] text-white"
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            Nueva Valuación
-          </Button>
-        </div>
+        <Button
+          onClick={() => navigate("/valuar")}
+          className="bg-[#52B788] hover:bg-[#40916C] text-white shrink-0"
+        >
+          <Plus className="w-4 h-4 mr-2" />
+          Nueva Valuación
+        </Button>
       </CardContent>
     </Card>
   );
@@ -2401,7 +2392,7 @@ const ValuadorDashboardPage = () => {
             {TABS.map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => tab.to ? navigate(tab.to) : setActiveTab(tab.id)}
                 className={`relative px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                   activeTab === tab.id
                     ? "bg-[#1B4332] text-white shadow-sm"

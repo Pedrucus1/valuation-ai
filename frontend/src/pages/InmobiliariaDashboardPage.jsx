@@ -671,6 +671,7 @@ const InmobiliariaDashboardPage = () => {
     { id: "facturacion",  label: "Facturación", badge: billingData?.billing_status === "blocked" || billingData?.days_to_cutoff <= 5 },
     { id: "publicidad",   label: "Publicidad" },
     { id: "promociones",  label: "Promociones" },
+    { id: "edades",       label: "Edades por zona", to: "/edades-zona" },
   ];
 
   /* ── Facturación Tab ── */
@@ -2200,7 +2201,7 @@ const InmobiliariaDashboardPage = () => {
             {TABS.map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => tab.to ? navigate(tab.to) : setActiveTab(tab.id)}
                 className={`relative px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                   activeTab === tab.id
                     ? "bg-[#1B4332] text-white shadow-sm"
@@ -2291,15 +2292,7 @@ const InmobiliariaDashboardPage = () => {
         {/* Tab: Valuaciones */}
         {activeTab === "valuaciones" && (
           <>
-            <div className="flex items-center justify-end gap-2 mb-4">
-              <Button
-                onClick={() => navigate("/edades-zona")}
-                variant="outline"
-                className="border-[#52B788] text-[#1B4332] hover:bg-[#D9ED92]/30"
-              >
-                <MapPin className="w-4 h-4 mr-2" />
-                Edades por zona
-              </Button>
+            <div className="flex items-center justify-end mb-4">
               <Button
                 onClick={() => navigate("/valuar")}
                 className="bg-[#52B788] hover:bg-[#40916C] text-white"

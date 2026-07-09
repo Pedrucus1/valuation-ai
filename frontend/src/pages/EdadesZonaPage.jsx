@@ -30,6 +30,17 @@ const MUNICIPIOS = [
 ];
 const TIPOS = ["Casa", "Departamento", "Terreno", "Local", "Oficina"];
 
+// Headers: si hay token admin en localStorage, mandarlo (el panel sirve para
+// valuador/inmobiliaria vía cookie de sesión, y para super_admin vía X-Admin-Token).
+const authHeaders = (extra = {}) => {
+  const h = { ...extra };
+  try {
+    const t = JSON.parse(localStorage.getItem("pv_admin") || "{}")?.token;
+    if (t) h["X-Admin-Token"] = t;
+  } catch { /* noop */ }
+  return h;
+};
+
 const formatCurrency = (v) => {
   const n = Number(v);
   if (isNaN(n)) return "";
@@ -57,7 +68,7 @@ const EdadesZonaPage = () => {
       if (colonia) params.set("colonia", colonia.trim());
       if (tipo) params.set("tipo", tipo);
       params.set("limit", "40");
-      const res = await fetch(`${API}/comps-sin-edad?${params}`, { credentials: "include" });
+      const res = await fetch(`${API}/comps-sin-edad?${params}`, { credentials: "include", headers: authHeaders() });
       if (!res.ok) throw new Error();
       const data = await res.json();
       setItems(data.items || []);
@@ -81,7 +92,7 @@ const EdadesZonaPage = () => {
     try {
       const res = await fetch(`${API}/edad-estimada`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: authHeaders({ "Content-Type": "application/json" }),
         credentials: "include",
         body: JSON.stringify(body),
       });

@@ -7,10 +7,20 @@ from datetime import datetime, timezone
 from fastapi import APIRouter, Request, HTTPException
 
 from core.db import db
-from core.auth import require_auth
+from core.auth import get_current_user, require_admin
 from mongo_comparables import TIPO_ALIAS
 
 router = APIRouter(prefix="/api")
+
+
+async def _quien(request: Request) -> str:
+    """Acepta sesión de usuario (perito/inmobiliaria) O token de admin.
+    Devuelve el id del estimador para trazabilidad. 401 si ninguno."""
+    user = await get_current_user(request)
+    if user:
+        return user.user_id
+    admin = await require_admin(request)   # lanza 401 si tampoco hay admin
+    return f"admin:{admin.get('email', 'admin')}"
 
 # Rangos finos (Ross-Heidecke: la depreciación es sensible temprano) → punto medio (años).
 # El año se guarda como año_actual - midpoint.
@@ -34,7 +44,7 @@ async def comps_sin_edad(
     limit: int = 30,
 ):
     """Lote de propiedades de mercado_props sin año, para etiquetar (panel)."""
-    await require_auth(request)
+    await _quien(request)
     q = {
         "anio_construccion": None,
         "precio": {"$gt": 0},
@@ -43,7 +53,10 @@ async def comps_sin_edad(
     if municipio:
         q["municipio"] = municipio
     if colonia:
-        q["colonia"] = colonia
+        # Match parcial insensible: las colonias escrapeadas vienen en mayúsculas
+        # y con variaciones, un match exacto casi nunca pega.
+        import re as _re
+        q["colonia"] = {"$regex": _re.escape(colonia.strip()), "$options": "i"}
     if tipo:
         q["tipo_propiedad"] = TIPO_ALIAS.get(tipo.lower().strip(), tipo)
     limit = max(1, min(limit, 100))
@@ -54,7 +67,7 @@ async def comps_sin_edad(
 @router.post("/edad-estimada")
 async def edad_estimada(request: Request):
     """Guarda la edad estimada por el perito en mercado_props (por id_unico)."""
-    user = await require_auth(request)
+    estimador = await _quien(request)
     body = await request.json()
 
     id_unico = str(body.get("id_unico") or "").strip()
@@ -96,7 +109,7 @@ async def edad_estimada(request: Request):
         "edad_fuente": "perito_crowdsource",
         "edad_rango": rango if (rango in RANGO_MIDPOINT and not exacta) else None,
         "edad_exacta": exacta,
-        "edad_estimador": user.user_id,
+        "edad_estimador": estimador,
         "edad_fecha": ahora.isoformat(),
     }
     if conjunto:
@@ -106,11 +119,14 @@ async def edad_estimada(request: Request):
     if res.matched_count == 0:
         raise HTTPException(status_code=404, detail="Propiedad no encontrada")
 
-    # Puntos (stub): contador por usuario, sin canje en v1.
-    await db.users.update_one({"user_id": user.user_id}, {"$inc": {"puntos_edad": 1}})
-    puntos_doc = await db.users.find_one({"user_id": user.user_id}, {"_id": 0, "puntos_edad": 1})
+    # Puntos (stub): contador por usuario real (admin no acumula), sin canje en v1.
+    puntos = None
+    if not estimador.startswith("admin:"):
+        await db.users.update_one({"user_id": estimador}, {"$inc": {"puntos_edad": 1}})
+        pdoc = await db.users.find_one({"user_id": estimador}, {"_id": 0, "puntos_edad": 1})
+        puntos = (pdoc or {}).get("puntos_edad", 1)
 
-    return {"ok": True, "anio_construccion": anio, "puntos": (puntos_doc or {}).get("puntos_edad", 1)}
+    return {"ok": True, "anio_construccion": anio, "puntos": puntos}
 
 
 if __name__ == "__main__":
