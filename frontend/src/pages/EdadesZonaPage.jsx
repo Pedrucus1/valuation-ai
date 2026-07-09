@@ -41,6 +41,11 @@ const authHeaders = (extra = {}) => {
   return h;
 };
 
+// PINCALI guarda la URL en inglés (/en/home/) porque el enricher del servidor
+// recibe 422 en español; pero en el navegador la versión ES abre bien. Para el
+// humano mostramos siempre el link en español.
+const linkEs = (url) => (url || "").replace("/en/home/", "/inmueble/");
+
 const formatCurrency = (v) => {
   const n = Number(v);
   if (isNaN(n)) return "";
@@ -185,7 +190,7 @@ const EdadesZonaPage = () => {
                     {it.m2_construccion ? ` · ${it.m2_construccion} m²` : ""}
                   </p>
                   {it.url_original?.startsWith("http") && (
-                    <a href={it.url_original} target="_blank" rel="noopener noreferrer"
+                    <a href={linkEs(it.url_original)} target="_blank" rel="noopener noreferrer"
                        className="text-xs text-[#52B788] hover:underline inline-flex items-center gap-1 mt-1">
                       ver anuncio (foto/mapa) <ExternalLink className="w-3 h-3" />
                     </a>

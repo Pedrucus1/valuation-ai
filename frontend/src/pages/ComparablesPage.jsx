@@ -753,7 +753,7 @@ const ComparablesPage = () => {
                               onBlur={(e) => { if (e.target.value) estimarEdad(comp, { anioExacto: e.target.value }); }}
                             />
                             {comp.source_url?.startsWith("http") && (
-                              <a href={comp.source_url} target="_blank" rel="noopener noreferrer"
+                              <a href={comp.source_url.replace("/en/home/", "/inmueble/")} target="_blank" rel="noopener noreferrer"
                                  className="text-[11px] text-[#52B788] hover:underline inline-flex items-center gap-0.5">
                                 ver anuncio<ExternalLink className="w-2.5 h-2.5" />
                               </a>
