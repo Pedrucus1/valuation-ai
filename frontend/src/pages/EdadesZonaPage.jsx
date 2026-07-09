@@ -59,7 +59,9 @@ const authHeaders = (extra = {}) => {
 const linkEs = (url) => (url || "").replace("/en/home/", "/inmueble/");
 
 // Clase de etiqueta de campo (reutilizada en cada control del formulario)
-const LBL = "block text-[11px] font-semibold uppercase tracking-wide text-slate-500 mb-1.5";
+const LBL = "block text-[11px] font-semibold uppercase tracking-wide text-slate-500 mb-1";
+// Cajas con gris un poco más contrastante (menos pálido) que resalta sobre la ficha blanca
+const INP = "h-9 text-sm bg-slate-100 border-slate-200 focus:bg-white";
 
 const formatCurrency = (v) => {
   const n = Number(v);
@@ -214,12 +216,12 @@ const EdadesZonaPage = () => {
 
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3 items-start">
           {pendientes.map(it => (
-            <Card key={it.id_unico} className="bg-white shadow-sm border border-slate-100 rounded-xl overflow-hidden">
+            <Card key={it.id_unico} className="bg-white shadow-sm border border-slate-200 rounded-xl overflow-hidden">
               {/* Encabezado de la propiedad */}
-              <div className="px-5 pt-4 pb-3 bg-[#F4F8F6] border-b border-slate-100">
-                <div className="flex items-start justify-between gap-3">
+              <div className="px-4 pt-3 pb-2.5 bg-gradient-to-r from-[#EAF3EE] to-[#F4F8F6] border-b border-slate-200">
+                <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0">
-                    <div className="flex items-center gap-2 text-[#1B4332] font-semibold">
+                    <div className="flex items-center gap-1.5 text-[#1B4332] font-semibold text-sm">
                       <MapPin className="w-4 h-4 text-[#52B788] shrink-0" />
                       <span className="truncate">{it.colonia || "Sin colonia"}</span>
                     </div>
@@ -227,76 +229,78 @@ const EdadesZonaPage = () => {
                   </div>
                   {it.url_original?.startsWith("http") && (
                     <a href={linkEs(it.url_original)} target="_blank" rel="noopener noreferrer"
-                       className="shrink-0 inline-flex items-center gap-1 text-xs font-medium text-[#52B788] hover:text-[#40916C] border border-[#52B788]/40 rounded-full px-3 py-1">
-                      Ver anuncio <ExternalLink className="w-3 h-3" />
+                       className="shrink-0 inline-flex items-center gap-1 text-xs font-medium text-white bg-[#52B788] hover:bg-[#40916C] rounded-full px-2.5 py-1">
+                      Ver <ExternalLink className="w-3 h-3" />
                     </a>
                   )}
                 </div>
-                <div className="flex flex-wrap gap-1.5 mt-2">
-                  <span className="text-[11px] font-medium text-slate-600 bg-white border border-slate-200 rounded-full px-2 py-0.5">{it.tipo_propiedad}</span>
-                  {it.precio ? <span className="text-[11px] font-medium text-slate-600 bg-white border border-slate-200 rounded-full px-2 py-0.5">{formatCurrency(it.precio)}</span> : null}
-                  {it.m2_construccion ? <span className="text-[11px] font-medium text-slate-600 bg-white border border-slate-200 rounded-full px-2 py-0.5">{it.m2_construccion} m²</span> : null}
+                <div className="flex flex-wrap gap-1 mt-1.5">
+                  <span className="text-[11px] font-medium text-[#1B4332] bg-white border border-slate-200 rounded-full px-2 py-0.5">{it.tipo_propiedad}</span>
+                  {it.precio ? <span className="text-[11px] font-medium text-[#1B4332] bg-white border border-slate-200 rounded-full px-2 py-0.5">{formatCurrency(it.precio)}</span> : null}
+                  {it.m2_construccion ? <span className="text-[11px] font-medium text-[#1B4332] bg-white border border-slate-200 rounded-full px-2 py-0.5">{it.m2_construccion} m²</span> : null}
                 </div>
               </div>
 
               {/* Formulario de estimación */}
-              <div className="p-5">
-                <div className="grid grid-cols-1 gap-4">
-                  {/* Edad de construcción */}
-                  <div>
-                    <label className={LBL}>Edad de construcción</label>
-                    <div className="flex gap-2">
-                      <Select value={edadRango[it.id_unico] || ""} onValueChange={v => set(setEdadRango)(it.id_unico, v)}>
-                        <SelectTrigger className="h-10 text-sm flex-1"><SelectValue placeholder="Elige un rango" /></SelectTrigger>
-                        <SelectContent>
-                          {AGE_RANGES.map(r => <SelectItem key={r.value} value={r.value}>{r.label}</SelectItem>)}
-                        </SelectContent>
-                      </Select>
-                      <Input type="number" min="1900" max={new Date().getFullYear()} placeholder="Año"
-                             value={anioConst[it.id_unico] || ""} onChange={e => set(setAnioConst)(it.id_unico, e.target.value)}
-                             className="h-10 w-20 text-sm" title="Año exacto si lo sabes" />
-                    </div>
+              <div className="p-4 space-y-2.5">
+                {/* Edad de construcción: rango + año exacto */}
+                <div>
+                  <label className={LBL}>Edad de construcción</label>
+                  <div className="flex gap-2">
+                    <Select value={edadRango[it.id_unico] || ""} onValueChange={v => set(setEdadRango)(it.id_unico, v)}>
+                      <SelectTrigger className={INP + " flex-1"}><SelectValue placeholder="Rango" /></SelectTrigger>
+                      <SelectContent>
+                        {AGE_RANGES.map(r => <SelectItem key={r.value} value={r.value}>{r.label}</SelectItem>)}
+                      </SelectContent>
+                    </Select>
+                    <Input type="number" min="1900" max={new Date().getFullYear()} placeholder="Año"
+                           value={anioConst[it.id_unico] || ""} onChange={e => set(setAnioConst)(it.id_unico, e.target.value)}
+                           className={INP + " w-16"} title="Año exacto si lo sabes" />
                   </div>
-                  {/* Remodelación */}
-                  <div>
-                    <label className={LBL}>Remodelación <span className="normal-case font-normal text-slate-400">(si aplica)</span></label>
-                    <div className="flex gap-2">
-                      <Select value={remodGrado[it.id_unico] || ""} onValueChange={v => set(setRemodGrado)(it.id_unico, v)}>
-                        <SelectTrigger className="h-10 text-sm flex-1"><SelectValue placeholder="Grado" /></SelectTrigger>
-                        <SelectContent>
-                          {GRADOS_REMOD.map(g => <SelectItem key={g.value} value={g.value} className="text-xs">{g.label}</SelectItem>)}
-                        </SelectContent>
-                      </Select>
-                      <Input type="number" min="1900" max={new Date().getFullYear()} placeholder="Año"
-                             value={remodAnio[it.id_unico] || ""} onChange={e => set(setRemodAnio)(it.id_unico, e.target.value)}
-                             className="h-10 w-20 text-sm" title="Año de la remodelación" />
-                    </div>
+                </div>
+                {/* Remodelación: grado + año + leyenda de grados */}
+                <div>
+                  <label className={LBL}>Remodelación <span className="normal-case font-normal text-slate-400">(si aplica)</span></label>
+                  <div className="flex gap-2">
+                    <Select value={remodGrado[it.id_unico] || ""} onValueChange={v => set(setRemodGrado)(it.id_unico, v)}>
+                      <SelectTrigger className={INP + " flex-1"}><SelectValue placeholder="Grado" /></SelectTrigger>
+                      <SelectContent>
+                        {GRADOS_REMOD.map(g => <SelectItem key={g.value} value={g.value}>{g.label}</SelectItem>)}
+                      </SelectContent>
+                    </Select>
+                    <Input type="number" min="1900" max={new Date().getFullYear()} placeholder="Año"
+                           value={remodAnio[it.id_unico] || ""} onChange={e => set(setRemodAnio)(it.id_unico, e.target.value)}
+                           className={INP + " w-16"} title="Año de la remodelación" />
                   </div>
-                  {/* Conservación */}
+                  <p className="text-[11px] text-slate-400 mt-1 leading-snug">
+                    Ligera: pintura/pisos · Básica: acabados · Intermedia: +instalaciones · Completa: +estructura
+                  </p>
+                </div>
+                {/* Conservación + Conjunto en una fila (cajas más chicas) */}
+                <div className="grid grid-cols-2 gap-2">
                   <div>
-                    <label className={LBL}>Estado de conservación</label>
+                    <label className={LBL}>Conservación</label>
                     <Select value={conserv[it.id_unico] || ""} onValueChange={v => set(setConserv)(it.id_unico, v)}>
-                      <SelectTrigger className="h-10 text-sm"><SelectValue placeholder="Elige un estado" /></SelectTrigger>
+                      <SelectTrigger className={INP}><SelectValue placeholder="Estado" /></SelectTrigger>
                       <SelectContent>
                         {CONSERVACIONES.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
                       </SelectContent>
                     </Select>
                   </div>
-                  {/* Conjunto */}
                   <div>
-                    <label className={LBL}>Coto / conjunto <span className="normal-case font-normal text-slate-400">(opcional)</span></label>
+                    <label className={LBL}>Coto / conjunto</label>
                     <Input value={conjuntos[it.id_unico] || ""}
                            onChange={e => setConjuntos(prev => ({ ...prev, [it.id_unico]: e.target.value }))}
-                           placeholder="Ej. Coto Los Robles" className="h-10 text-sm" />
+                           placeholder="Opcional" className={INP} />
                   </div>
                 </div>
 
                 {/* Acciones */}
-                <div className="flex justify-end gap-2 mt-5 pt-4 border-t border-slate-100">
-                  <Button onClick={() => saltar(it)} variant="ghost"
-                          className="h-10 text-slate-400 hover:text-slate-600">No sé, saltar</Button>
+                <div className="flex justify-end gap-2 pt-2.5 mt-0.5 border-t border-slate-100">
+                  <Button onClick={() => saltar(it)} variant="outline"
+                          className="h-9 border-slate-300 text-slate-500 hover:bg-slate-50">No sé</Button>
                   <Button onClick={() => guardar(it)} disabled={guardando[it.id_unico]}
-                          className="h-10 px-6 bg-[#52B788] hover:bg-[#40916C] text-white shadow-sm">
+                          className="h-9 px-6 bg-[#52B788] hover:bg-[#40916C] text-white shadow-sm">
                     {guardando[it.id_unico] ? "Guardando..." : "Guardar"}
                   </Button>
                 </div>
