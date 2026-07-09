@@ -30,10 +30,10 @@ const CONSERVACIONES = [
 ];
 // Grado de remodelación → con el año calcula la edad efectiva ponderada.
 const GRADOS_REMOD = [
-  { value: "ligera", label: "Ligera / cosmética (pintura, pisos, un baño o cocina)" },
-  { value: "basica", label: "Básica (acabados completos)" },
-  { value: "intermedia", label: "Intermedia (acabados + instalaciones)" },
-  { value: "completa", label: "Completa (+ estructura, casi nueva)" },
+  { value: "ligera", label: "Ligera / cosmética", hint: "(pintura, pisos, un baño o cocina)" },
+  { value: "basica", label: "Básica", hint: "(acabados completos)" },
+  { value: "intermedia", label: "Intermedia", hint: "(acabados + instalaciones)" },
+  { value: "completa", label: "Completa", hint: "(+ estructura, casi nueva)" },
 ];
 
 const MUNICIPIOS = [
@@ -278,7 +278,11 @@ const EdadesZonaPage = () => {
                     <Select value={remodGrado[it.id_unico] || ""} onValueChange={v => set(setRemodGrado)(it.id_unico, v)}>
                       <SelectTrigger className={INP + " flex-1"}><SelectValue placeholder="Grado" /></SelectTrigger>
                       <SelectContent>
-                        {GRADOS_REMOD.map(g => <SelectItem key={g.value} value={g.value}>{g.label}</SelectItem>)}
+                        {GRADOS_REMOD.map(g => (
+                          <SelectItem key={g.value} value={g.value}>
+                            {g.label} <span className="text-slate-400">{g.hint}</span>
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                     <Input type="number" min="1900" max={new Date().getFullYear()} placeholder="Año"
