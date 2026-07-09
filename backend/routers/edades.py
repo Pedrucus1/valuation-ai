@@ -45,7 +45,7 @@ CONSERVACION_VALIDAS = {
 # partidas del dictamen del perito, versión conservadora). Con el año de
 # remodelación se calcula la EDAD EFECTIVA (método del dictamen de mejoras):
 #   edad_efectiva = edad_crono − p × (edad_crono − edad_de_mejoras)
-GRADO_REMOD_P = {"basica": 0.35, "intermedia": 0.55, "completa": 0.95}
+GRADO_REMOD_P = {"ligera": 0.20, "basica": 0.35, "intermedia": 0.55, "completa": 0.95}
 
 
 def _edad_efectiva(anio_construccion, anio_remodelacion, grado, ahora_year):

@@ -30,9 +30,10 @@ const CONSERVACIONES = [
 ];
 // Grado de remodelación → con el año calcula la edad efectiva ponderada.
 const GRADOS_REMOD = [
-  { value: "basica", label: "Básica (acabados)" },
-  { value: "intermedia", label: "Intermedia (instalaciones + acabados)" },
-  { value: "completa", label: "Completa (estructura + instalaciones + acabados)" },
+  { value: "ligera", label: "Ligera / cosmética (pintura, pisos, un baño o cocina)" },
+  { value: "basica", label: "Básica (acabados completos)" },
+  { value: "intermedia", label: "Intermedia (acabados + instalaciones)" },
+  { value: "completa", label: "Completa (+ estructura, casi nueva)" },
 ];
 
 const MUNICIPIOS = [
@@ -56,6 +57,9 @@ const authHeaders = (extra = {}) => {
 // recibe 422 en español; pero en el navegador la versión ES abre bien. Para el
 // humano mostramos siempre el link en español.
 const linkEs = (url) => (url || "").replace("/en/home/", "/inmueble/");
+
+// Clase de etiqueta de campo (reutilizada en cada control del formulario)
+const LBL = "block text-[11px] font-semibold uppercase tracking-wide text-slate-500 mb-1.5";
 
 const formatCurrency = (v) => {
   const n = Number(v);
@@ -210,79 +214,93 @@ const EdadesZonaPage = () => {
 
         <div className="space-y-3">
           {pendientes.map(it => (
-            <Card key={it.id_unico} className="bg-white shadow-sm border-0">
-              <CardContent className="p-4 flex flex-col md:flex-row md:items-center gap-4">
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 text-[#1B4332] font-semibold">
-                    <MapPin className="w-4 h-4 text-[#52B788] shrink-0" />
-                    <span className="truncate">{it.colonia || "Sin colonia"}</span>
+            <Card key={it.id_unico} className="bg-white shadow-sm border border-slate-100 rounded-xl overflow-hidden">
+              {/* Encabezado de la propiedad */}
+              <div className="px-5 pt-4 pb-3 bg-[#F4F8F6] border-b border-slate-100">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2 text-[#1B4332] font-semibold">
+                      <MapPin className="w-4 h-4 text-[#52B788] shrink-0" />
+                      <span className="truncate">{it.colonia || "Sin colonia"}</span>
+                    </div>
+                    {it.calle_numero && <p className="text-xs text-slate-500 mt-0.5 truncate">{it.calle_numero}</p>}
                   </div>
-                  {it.calle_numero && <p className="text-xs text-slate-500 mt-0.5 truncate">{it.calle_numero}</p>}
-                  <p className="text-xs text-slate-500 mt-0.5">
-                    {it.tipo_propiedad} · {formatCurrency(it.precio)}
-                    {it.m2_construccion ? ` · ${it.m2_construccion} m²` : ""}
-                  </p>
                   {it.url_original?.startsWith("http") && (
                     <a href={linkEs(it.url_original)} target="_blank" rel="noopener noreferrer"
-                       className="text-xs text-[#52B788] hover:underline inline-flex items-center gap-1 mt-1">
-                      ver anuncio (foto/mapa) <ExternalLink className="w-3 h-3" />
+                       className="shrink-0 inline-flex items-center gap-1 text-xs font-medium text-[#52B788] hover:text-[#40916C] border border-[#52B788]/40 rounded-full px-3 py-1">
+                      Ver anuncio <ExternalLink className="w-3 h-3" />
                     </a>
                   )}
                 </div>
-                <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 md:w-[520px]">
-                  {/* Edad de construcción: rango o año exacto */}
-                  <Select value={edadRango[it.id_unico] || ""} onValueChange={v => set(setEdadRango)(it.id_unico, v)}>
-                    <SelectTrigger className="h-9 text-sm border-[#52B788] text-[#1B4332] font-semibold">
-                      <SelectValue placeholder="Edad construcción" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {AGE_RANGES.map(r => <SelectItem key={r.value} value={r.value}>{r.label}</SelectItem>)}
-                    </SelectContent>
-                  </Select>
-                  <Input
-                    type="number" min="1900" max={new Date().getFullYear()}
-                    placeholder="o año exacto"
-                    value={anioConst[it.id_unico] || ""}
-                    onChange={e => set(setAnioConst)(it.id_unico, e.target.value)}
-                    className="h-9 text-sm" title="Año exacto de construcción si lo sabes"
-                  />
+                <div className="flex flex-wrap gap-1.5 mt-2">
+                  <span className="text-[11px] font-medium text-slate-600 bg-white border border-slate-200 rounded-full px-2 py-0.5">{it.tipo_propiedad}</span>
+                  {it.precio ? <span className="text-[11px] font-medium text-slate-600 bg-white border border-slate-200 rounded-full px-2 py-0.5">{formatCurrency(it.precio)}</span> : null}
+                  {it.m2_construccion ? <span className="text-[11px] font-medium text-slate-600 bg-white border border-slate-200 rounded-full px-2 py-0.5">{it.m2_construccion} m²</span> : null}
+                </div>
+              </div>
+
+              {/* Formulario de estimación */}
+              <div className="p-5">
+                <div className="grid sm:grid-cols-2 gap-x-5 gap-y-4">
+                  {/* Edad de construcción */}
+                  <div>
+                    <label className={LBL}>Edad de construcción</label>
+                    <div className="flex gap-2">
+                      <Select value={edadRango[it.id_unico] || ""} onValueChange={v => set(setEdadRango)(it.id_unico, v)}>
+                        <SelectTrigger className="h-10 text-sm flex-1"><SelectValue placeholder="Elige un rango" /></SelectTrigger>
+                        <SelectContent>
+                          {AGE_RANGES.map(r => <SelectItem key={r.value} value={r.value}>{r.label}</SelectItem>)}
+                        </SelectContent>
+                      </Select>
+                      <Input type="number" min="1900" max={new Date().getFullYear()} placeholder="Año"
+                             value={anioConst[it.id_unico] || ""} onChange={e => set(setAnioConst)(it.id_unico, e.target.value)}
+                             className="h-10 w-20 text-sm" title="Año exacto si lo sabes" />
+                    </div>
+                  </div>
+                  {/* Remodelación */}
+                  <div>
+                    <label className={LBL}>Remodelación <span className="normal-case font-normal text-slate-400">(si aplica)</span></label>
+                    <div className="flex gap-2">
+                      <Select value={remodGrado[it.id_unico] || ""} onValueChange={v => set(setRemodGrado)(it.id_unico, v)}>
+                        <SelectTrigger className="h-10 text-sm flex-1"><SelectValue placeholder="Grado" /></SelectTrigger>
+                        <SelectContent>
+                          {GRADOS_REMOD.map(g => <SelectItem key={g.value} value={g.value} className="text-xs">{g.label}</SelectItem>)}
+                        </SelectContent>
+                      </Select>
+                      <Input type="number" min="1900" max={new Date().getFullYear()} placeholder="Año"
+                             value={remodAnio[it.id_unico] || ""} onChange={e => set(setRemodAnio)(it.id_unico, e.target.value)}
+                             className="h-10 w-20 text-sm" title="Año de la remodelación" />
+                    </div>
+                  </div>
                   {/* Conservación */}
-                  <Select value={conserv[it.id_unico] || ""} onValueChange={v => set(setConserv)(it.id_unico, v)}>
-                    <SelectTrigger className="h-9 text-sm"><SelectValue placeholder="Conservación" /></SelectTrigger>
-                    <SelectContent>
-                      {CONSERVACIONES.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
-                    </SelectContent>
-                  </Select>
-                  {/* Remodelación: grado + año */}
-                  <Select value={remodGrado[it.id_unico] || ""} onValueChange={v => set(setRemodGrado)(it.id_unico, v)}>
-                    <SelectTrigger className="h-9 text-sm"><SelectValue placeholder="¿Remodelada?" /></SelectTrigger>
-                    <SelectContent>
-                      {GRADOS_REMOD.map(g => <SelectItem key={g.value} value={g.value} className="text-xs">{g.label}</SelectItem>)}
-                    </SelectContent>
-                  </Select>
-                  <Input
-                    type="number" min="1900" max={new Date().getFullYear()}
-                    placeholder="Año remodelación"
-                    value={remodAnio[it.id_unico] || ""}
-                    onChange={e => set(setRemodAnio)(it.id_unico, e.target.value)}
-                    className="h-9 text-sm" title="Año de la remodelación"
-                  />
-                  <Input
-                    value={conjuntos[it.id_unico] || ""}
-                    onChange={e => setConjuntos(prev => ({ ...prev, [it.id_unico]: e.target.value }))}
-                    placeholder="Coto / conjunto"
-                    className="h-9 text-sm"
-                  />
-                  <div className="col-span-2 lg:col-span-3 flex gap-2">
-                    <Button onClick={() => guardar(it)} disabled={guardando[it.id_unico]}
-                            className="flex-1 h-9 bg-[#52B788] hover:bg-[#40916C] text-white">
-                      {guardando[it.id_unico] ? "Guardando..." : "Guardar"}
-                    </Button>
-                    <Button onClick={() => saltar(it)} variant="outline"
-                            className="h-9 text-slate-500 border-slate-300">No sé</Button>
+                  <div>
+                    <label className={LBL}>Estado de conservación</label>
+                    <Select value={conserv[it.id_unico] || ""} onValueChange={v => set(setConserv)(it.id_unico, v)}>
+                      <SelectTrigger className="h-10 text-sm"><SelectValue placeholder="Elige un estado" /></SelectTrigger>
+                      <SelectContent>
+                        {CONSERVACIONES.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  {/* Conjunto */}
+                  <div>
+                    <label className={LBL}>Coto / conjunto <span className="normal-case font-normal text-slate-400">(opcional)</span></label>
+                    <Input value={conjuntos[it.id_unico] || ""}
+                           onChange={e => setConjuntos(prev => ({ ...prev, [it.id_unico]: e.target.value }))}
+                           placeholder="Ej. Coto Los Robles" className="h-10 text-sm" />
                   </div>
                 </div>
-              </CardContent>
+
+                {/* Acciones */}
+                <div className="flex justify-end gap-2 mt-5 pt-4 border-t border-slate-100">
+                  <Button onClick={() => saltar(it)} variant="ghost"
+                          className="h-10 text-slate-400 hover:text-slate-600">No sé, saltar</Button>
+                  <Button onClick={() => guardar(it)} disabled={guardando[it.id_unico]}
+                          className="h-10 px-6 bg-[#52B788] hover:bg-[#40916C] text-white shadow-sm">
+                    {guardando[it.id_unico] ? "Guardando..." : "Guardar"}
+                  </Button>
+                </div>
+              </div>
             </Card>
           ))}
         </div>
