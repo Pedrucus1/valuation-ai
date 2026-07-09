@@ -63,6 +63,15 @@ const LBL = "block text-[11px] font-semibold uppercase tracking-wide text-slate-
 // Cajas con gris un poco más contrastante (menos pálido) que resalta sobre la ficha blanca
 const INP = "h-9 text-sm bg-slate-100 border-slate-200 focus:bg-white";
 
+// Convierte un rango de edad a los años calendario que representa (año en curso).
+const yearSpan = (v) => {
+  const y = new Date().getFullYear();
+  if (v === "nuevo") return `${y}`;
+  if (v === "50+") return `antes de ${y - 50}`;
+  const [a, b] = v.split("-").map(Number);
+  return `${y - b}–${y - a}`;
+};
+
 const formatCurrency = (v) => {
   const n = Number(v);
   if (isNaN(n)) return "";
@@ -250,7 +259,11 @@ const EdadesZonaPage = () => {
                     <Select value={edadRango[it.id_unico] || ""} onValueChange={v => set(setEdadRango)(it.id_unico, v)}>
                       <SelectTrigger className={INP + " flex-1"}><SelectValue placeholder="Rango" /></SelectTrigger>
                       <SelectContent>
-                        {AGE_RANGES.map(r => <SelectItem key={r.value} value={r.value}>{r.label}</SelectItem>)}
+                        {AGE_RANGES.map(r => (
+                          <SelectItem key={r.value} value={r.value}>
+                            {r.label} <span className="text-slate-400">· {yearSpan(r.value)}</span>
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                     <Input type="number" min="1900" max={new Date().getFullYear()} placeholder="Año"
