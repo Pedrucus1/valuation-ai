@@ -629,8 +629,13 @@ def extraer_datos_detalle(html: str, portal: str, url: str = None, session=None)
             from datetime import date as _date_pincali
             # 1. Buscar "Year Built: YYYY" directamente en el HTML /en/home/ ya descargado
             myr_en = re.search(r'Year\s+Built\s*:\s*(\d{4})', html, re.I)
+            # 1b. Categórico: "Year Built: New/Preventa/A estrenar" = obra nueva → año actual (edad 0).
+            #     Anclado al label "Year Built:" para evitar "A estrenar" suelto de otras propiedades.
+            myr_new = re.search(r'Year\s+Built\s*:\s*(?:New|Nuevo|Pre-?venta|A\s+estrenar)', html, re.I)
             if myr_en:
                 resultado["año_construccion"] = int(myr_en.group(1))
+            elif myr_new:
+                resultado["año_construccion"] = _date_pincali.today().year
             elif session:
                 # 2. Fallback: página española /inmueble/ (puede estar a 422; intentar igual)
                 es_url = url.replace("/en/home/", "/inmueble/")

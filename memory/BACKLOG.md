@@ -1,5 +1,5 @@
 # PropValu — Backlog de Tareas
-> **Última actualización:** 06 Jul 2026 (seguridad/rotación keys + índice motor + análisis motor 3-columnas + fix año PINCALI). Snapshot de estado vigente → `ESTADO.md`. Bitácora histórica de sesiones → `BACKLOG_ARCHIVE.md` (NO leer al iniciar).
+> **Última actualización:** 08 Jul 2026 (NOCNOK integrado + Sheets retirado del scraper + ancla-self del segmento en prod + diagnóstico deptos → próximo bloque en `project_motor_lab_121b`). Snapshot de estado vigente → `ESTADO.md`. Bitácora histórica de sesiones → `BACKLOG_ARCHIVE.md` (NO leer al iniciar).
 > Marcar ✅ completado · 🔄 en progreso · ⏳ pendiente · 👁️ pendiente revisión personal. Las descripciones largas de tareas viven en las tablas de abajo; el detalle del motor en `MOTOR_ANTECEDENTES.md` (grep, no leer completo).
 
 ---
@@ -89,7 +89,7 @@
 | 15 | 👁️ | **Newsletter fase 1** — suscriptores en MongoDB, sección en LandingPage, AdminNewsletter, endpoints subscribe/unsubscribe. Envío real pendiente (SendGrid) — **pendiente revisión personal para afinar detalles** |
 | 21 | ✅ | **Google Sheets como fuente de comparables** — scraper conectado. |
 | 64 | ✅ | **MongoDB como fuente primaria de comparables** — `mongo_comparables.py` filtra `mercado_props` por municipio/tipo/m2 ±40%, integrado en server.py step 0.5. |
-| 65 | ⏳ | **Sync Sheets → MongoDB inicial** — El endpoint `/admin/mercado/sync-sheets` ya existe y tiene scheduler automático (día 3 de cada mes). Solo falta correrlo una vez manualmente desde el panel admin. Scrapers ya están completos (#66 ✅). |
+| 65 | ❌ | **Sync Sheets → MongoDB — OBSOLETO (08-jul)** — Google Sheets llegó al límite de 10M celdas y se RETIRÓ del scraper (Mongo es la única base, commit 34fb66e). El scraper ya escribe directo a Mongo. No correr sync-sheets. |
 | 66 | ✅ | **Correr scrapers pendientes** — Todos completados: CYT ✅, MITULA ✅ (re-scrape 20-may con fix m2_terreno), INMUEBLES24 ✅, PINCALI ✅, PROPIEDADES_COM ✅, VIVANUNCIOS ✅. Total: 84,597 props en MongoDB. |
 | 34 | ⏳ | **Email notifications** — SendGrid. |
 | 35 | ⏳ | **WhatsApp notifications** — Twilio. |
