@@ -968,12 +968,16 @@ function valuarPropiedad(prop) {
     let comps  = enTier.length >= 3 ? enTier : scored;
 
     // Filtro de SEGMENTO de precio (como el perito: no mezclar segmentos de clase). Ancla la banda
-    // en el SEGMENTO DEL SUJETO (mediana $/m²C de sus comps más parecidos), NO en la mediana de zona
-    // — así un sujeto premium en colonia mixta no se jala hacia el promedio de la zona. Banda ±18%.
-    // Validado en 101 casas/deptos puros (2025-26): ±20 80.2→84.2, ±10 60.4→63.4, cero regresión (08-jul).
+    // en el SEGMENTO DEL SUJETO (mediana $/m²C de sus comps más parecidos), acotada por la zona,
+    // NO en la mediana de zona sola — así un sujeto premium en colonia mixta no se jala al promedio.
+    // Banda ±18%, ancla-self acotada a [0.90,1.30]× zona. Prod 103 OPIs (2025-26):
+    // ±10 61.2→64.1, ±15 70.9→72.8, ±20 79.6→81.6, errAbs 11.7→11.5. Cero regresión (08-jul).
     if (nseSubjeto && nseSubjeto.medianaPm2 > 0 && comps.length >= 5) {
         const _pu = comps.map(c => c.precio / c.m2_const).filter(v => v > 0).sort((a,b)=>a-b);
-        const ancla = _pu.length ? _pu[_pu.length >> 1] : nseSubjeto.medianaPm2;
+        let ancla = _pu.length ? _pu[_pu.length >> 1] : nseSubjeto.medianaPm2;
+        // Acotar el ancla-self por la mediana de zona [0.90,1.30]: permite premium legítimo pero
+        // evita que se dispare a un sub-pool caro no representativo de la clase (blowups +26%).
+        ancla = Math.max(nseSubjeto.medianaPm2 * 0.90, Math.min(nseSubjeto.medianaPm2 * 1.30, ancla));
         const lo = ancla * 0.82, hi = ancla * 1.18;
         const seg = comps.filter(c => { const pu = c.precio / c.m2_const; return pu >= lo && pu <= hi; });
         if (seg.length >= 3) comps = seg;

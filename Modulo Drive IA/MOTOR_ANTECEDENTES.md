@@ -19,6 +19,25 @@
 
 ---
 
+## ✅ ANCLA-SELF DEL SEGMENTO 08-Jul-2026 — +2-3pp en TODOS los buckets (hipótesis del usuario)
+
+**Hipótesis del usuario (correcta):** los comps se salían del segmento de clase (media-baja mezclada con media-alta) porque el filtro de segmento (`motor_remi_api.js` ~L970) usaba banda **ancha [0.55,1.55]×** anclada en la **mediana de ZONA**.
+
+**Fix (commit `b8faa86` + refinamiento):** anclar la banda en el **segmento del SUJETO** = mediana $/m²C de sus comps más parecidos, **acotada a [0.90,1.30]× la mediana de zona** (el cap evita que el ancla-self se dispare a un sub-pool caro → blowups tipo +1.7%→+26%). Banda ±18% ([0.82,1.18]).
+
+**Prod 103 OPIs (`validar_40_opis.js --n 400 --desde 2025-01`):**
+| métrica | baseline | ancla-self+cap | Δ |
+|---|---|---|---|
+| ±10 | 61.2 | **64.1** | +2.9 |
+| ±15 | 70.9 | **72.8** | +1.9 |
+| ±20 | 79.6 | **81.6** | +2.0 |
+| errAbs | 11.7 | 11.5 | −0.2 |
+
+Cero regresión. Mediana voltea −7.3→+7.3 (misma magnitud, de subvaluar a sobrevaluar). **El self-puro sin cap subía ±20 más (84.2 en set puro) pero bajaba ±15 −1 y metía blowups; el cap [0.90,1.30] recupera ±15 y es más robusto.** Lab: flags `LAB_SEGANCHOR=self|hybrid`, `LAB_SEGBAND`, `LAB_ANCLA_CAPLO/CAPHI` en `motor_remi_api_lab.js`; validador triangulación `validar_lab_mercado.js` (perito/REMI/mercado-independiente).
+**Pendiente:** deploy a Railway. **Track aparte (usuario):** oficinas/locales se valúan distinto (NSE comercial + proceso propio) — HOY excluidos del validador; su propio análisis.
+
+---
+
 ## ⚠️ REBUILD CACHÉ 08-Jul-2026 — REGRESÓ, REVERTIDO (dato nuevo mete ruido)
 
 **Rebuild completo** (`actualizar_cache_consolidado_mongo.py` → `build_cache_index.js`) sobre Mongo tras ronda de scrapers/enrichers + NOCNOK integrado. **Resultó en REGRESIÓN, se revirtió al caché previo.**
