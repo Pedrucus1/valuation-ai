@@ -967,11 +967,14 @@ function valuarPropiedad(prop) {
     const enTier = scored.filter(d => d.m2_const >= tierLo && d.m2_const <= tierHi);
     let comps  = enTier.length >= 3 ? enTier : scored;
 
-    // Filtro de SEGMENTO de precio (como el perito: no mezclar segmentos). Si el sujeto tiene
-    // nivel NSE conocido (muni-correcto), descartar comps cuyo $/m²C esté fuera de [0.55,1.55]×
-    // la mediana de la zona. Conservador: solo si hay ≥5 comps y quedan ≥3 tras filtrar.
+    // Filtro de SEGMENTO de precio (como el perito: no mezclar segmentos de clase). Ancla la banda
+    // en el SEGMENTO DEL SUJETO (mediana $/m²C de sus comps más parecidos), NO en la mediana de zona
+    // — así un sujeto premium en colonia mixta no se jala hacia el promedio de la zona. Banda ±18%.
+    // Validado en 101 casas/deptos puros (2025-26): ±20 80.2→84.2, ±10 60.4→63.4, cero regresión (08-jul).
     if (nseSubjeto && nseSubjeto.medianaPm2 > 0 && comps.length >= 5) {
-        const lo = nseSubjeto.medianaPm2 * 0.55, hi = nseSubjeto.medianaPm2 * 1.55;
+        const _pu = comps.map(c => c.precio / c.m2_const).filter(v => v > 0).sort((a,b)=>a-b);
+        const ancla = _pu.length ? _pu[_pu.length >> 1] : nseSubjeto.medianaPm2;
+        const lo = ancla * 0.82, hi = ancla * 1.18;
         const seg = comps.filter(c => { const pu = c.precio / c.m2_const; return pu >= lo && pu <= hi; });
         if (seg.length >= 3) comps = seg;
     }
