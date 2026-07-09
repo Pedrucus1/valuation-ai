@@ -104,6 +104,7 @@ const EdadesZonaPage = () => {
   const [estados, setEstados] = useState([]);
   const [municipios, setMunicipios] = useState([]);
   const [colonias, setColonias] = useState([]);
+  const [coloniasOficiales, setColoniasOficiales] = useState([]); // SEPOMEX {nombre, cp}
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [buscado, setBuscado] = useState(false);
@@ -163,6 +164,11 @@ const EdadesZonaPage = () => {
   const onMunicipio = (v) => {
     setMunicipio(v); setColonia(""); setColonias([]);
     fetchZonas({ estado, municipio: v }).then(setColonias);
+    // Colonias oficiales SEPOMEX para sugerir al corregir
+    fetch(`${API}/colonias-oficiales?municipio=${encodeURIComponent(v)}`, { credentials: "include", headers: authHeaders() })
+      .then(r => r.ok ? r.json() : { colonias: [] })
+      .then(d => setColoniasOficiales(d.colonias || []))
+      .catch(() => setColoniasOficiales([]));
   };
 
   const buscar = async () => {
@@ -192,7 +198,11 @@ const EdadesZonaPage = () => {
     const id = it.id_unico;
     const p = {};
     const colFix = (coloniaEdit[id] ?? "").trim();
-    if (colFix && colFix !== it.colonia) p.colonia = colFix;   // corrección de colonia
+    if (colFix && colFix !== it.colonia) {
+      p.colonia = colFix;   // corrección de colonia
+      const of = coloniasOficiales.find(c => c.nombre === colFix);   // si es oficial SEPOMEX, adjunta CP
+      if (of?.cp) p.cp = of.cp;
+    }
     if (conjuntos[id]) p.conjunto = conjuntos[id];
     if (anioConst[id]) p.anio_exacto = Number(anioConst[id]);
     else if (edadRango[id]) p.edad_rango = edadRango[id];
@@ -349,6 +359,11 @@ const EdadesZonaPage = () => {
           </p>
         )}
 
+        {/* Colonias oficiales SEPOMEX (compartido por todas las fichas para sugerir al corregir) */}
+        <datalist id="col-oficiales">
+          {coloniasOficiales.map(c => <option key={c.nombre + c.cp} value={c.nombre}>{c.cp}</option>)}
+        </datalist>
+
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3 items-start">
           {items.map(it => hechos[it.id_unico] ? (
             /* Ficha bloqueada tras guardar / saltar */
@@ -393,10 +408,10 @@ const EdadesZonaPage = () => {
               <div className="p-4 space-y-2.5">
                 {/* Corregir colonia (si el dato vino mal, ej. viene el coto como colonia) */}
                 <div>
-                  <label className={LBL}>Colonia <span className="normal-case font-normal text-slate-400">(corrige si está mal)</span></label>
+                  <label className={LBL}>Colonia <span className="normal-case font-normal text-slate-400">(oficial SEPOMEX — corrige si está mal)</span></label>
                   <Input value={coloniaEdit[it.id_unico] ?? it.colonia ?? ""}
                          onChange={e => set(setColoniaEdit)(it.id_unico, e.target.value)}
-                         placeholder="Colonia real" className={INP} />
+                         list="col-oficiales" placeholder="Colonia oficial" className={INP} />
                 </div>
                 {/* Edad de construcción: rango + año exacto */}
                 <div>

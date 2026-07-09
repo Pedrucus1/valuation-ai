@@ -2,7 +2,11 @@
 propiedades sin año → se escribe al pool mercado_props para permear valores de
 zona. Dos vertientes usan estos endpoints: la celda Edad del avalúo y el panel
 "Edades por zona". Ver plan streamed-exploring-patterson.md."""
+import json
+import unicodedata
 from datetime import datetime, timezone
+from functools import lru_cache
+from pathlib import Path
 
 from fastapi import APIRouter, Request, HTTPException
 
@@ -11,6 +15,34 @@ from core.auth import get_current_user, require_admin
 from mongo_comparables import TIPO_ALIAS
 
 router = APIRouter(prefix="/api")
+
+# Catálogo oficial SEPOMEX (read-only) para sugerir nombres de colonia unificados.
+_SEPOMEX_PATH = Path(__file__).resolve().parents[2] / "Modulo Drive IA" / "sepomex_v2.json"
+
+
+def _norm_muni(s):
+    """Sin acentos + minúsculas (SEPOMEX y nuestros nombres difieren en acentos)."""
+    s = unicodedata.normalize("NFD", (s or "").lower())
+    return "".join(c for c in s if unicodedata.category(c) != "Mn").strip()
+
+
+@lru_cache(maxsize=1)
+def _sepomex_por_municipio():
+    """municipio_normalizado -> {nombre_oficial: cp}. Se carga una vez (read-only)."""
+    idx = {}
+    try:
+        data = json.loads(_SEPOMEX_PATH.read_text(encoding="utf-8"))
+    except Exception:
+        return idx
+    for entradas in data.values():
+        if isinstance(entradas, dict):
+            entradas = [entradas]
+        for e in entradas or []:
+            muni = _norm_muni(e.get("municipio"))
+            nombre = (e.get("nombre") or "").strip()
+            if muni and nombre:
+                idx.setdefault(muni, {}).setdefault(nombre, e.get("cp") or "")
+    return idx
 
 
 async def _quien(request: Request) -> str:
@@ -95,6 +127,24 @@ async def edad_zonas(request: Request, estado: str = "", municipio: str = ""):
     return {"campo": campo, "valores": vals}
 
 
+@router.get("/colonias-oficiales")
+async def colonias_oficiales(request: Request, municipio: str = ""):
+    """Colonias oficiales SEPOMEX de un municipio (nombre + CP) para unificar
+    nombres. Read-only, no toca datos."""
+    await _quien(request)
+    idx = _sepomex_por_municipio()
+    q = _norm_muni(municipio)
+    m = dict(idx.get(q) or {})
+    if not m and q:
+        # "Tlaquepaque" ⊂ "san pedro tlaquepaque"; y prefijo limpio de 5 letras
+        # para municipios con mojibake en SEPOMEX (Tlajomulco…Zúñiga, Tonalá).
+        for k, v in idx.items():
+            if q in k or k in q or (len(q) >= 5 and len(k) >= 5 and k[:5] == q[:5]):
+                m.update(v)
+    cols = sorted(({"nombre": n, "cp": cp} for n, cp in m.items()), key=lambda x: x["nombre"])
+    return {"municipio": municipio, "colonias": cols, "total": len(cols)}
+
+
 @router.get("/comps-sin-edad")
 async def comps_sin_edad(
     request: Request,
@@ -138,6 +188,7 @@ async def edad_estimada(request: Request):
     anio_remod = body.get("anio_remodelacion")
     grado_remod = str(body.get("grado_remodelacion") or "").strip().lower()
     colonia_fix = str(body.get("colonia") or "").strip()[:60]
+    cp = str(body.get("cp") or "").strip()[:6]
 
     if not id_unico:
         raise HTTPException(status_code=400, detail="Falta id_unico")
@@ -213,6 +264,8 @@ async def edad_estimada(request: Request):
     if colonia_fix:
         update["colonia"] = colonia_fix
         update["colonia_fuente"] = "perito_correccion"
+        if cp:
+            update["codigo_postal"] = cp
 
     res = await db.mercado_props.update_one({"id_unico": id_unico}, {"$set": update})
     if res.matched_count == 0:
