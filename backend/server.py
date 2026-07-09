@@ -162,6 +162,7 @@ from routers.encargos import router as encargos_router
 from routers.inmobiliaria import router as inmobiliaria_router
 from routers.mercado_accesos import router as mercado_accesos_router, _seed_mercado_accesos
 from routers.reviews import router as reviews_router
+from routers.edades import router as edades_router
 
 # Auth y sesión -> routers/auth.py (#66.1)
 
@@ -323,6 +324,16 @@ async def update_location(valuation_id: str, request: Request):
     )
     
     return {"message": "Ubicación actualizada"}
+
+
+def _edad(anio) -> Optional[int]:
+    """Edad en años a partir del año de construcción (None si no hay dato válido)."""
+    try:
+        anio = int(anio)
+    except (TypeError, ValueError):
+        return None
+    edad = datetime.now(timezone.utc).year - anio
+    return edad if 0 <= edad <= 200 else None
 
 
 async def _enrich_comp_urls(urls: list, deadline: float = 22.0) -> dict:
@@ -584,6 +595,10 @@ async def generate_comparables(valuation_id: str, request: Request, append: bool
                 comparables.append(Comparable(
                     source=mc.get("portal_origen", "mercado_props"),
                     source_url=mc.get("url_original", ""),
+                    id_unico=mc.get("id_unico"),
+                    street_address=mc.get("calle_numero"),
+                    anio_construccion=mc.get("anio_construccion"),
+                    age=_edad(mc.get("anio_construccion")),
                     anuncios=_anuncios,
                     portales_anunciado=mc.get("portales_anunciado") or [mc.get("portal_origen", "")],
                     n_portales=_nport,
@@ -714,6 +729,7 @@ async def generate_comparables(valuation_id: str, request: Request, append: bool
                     listing_type="venta",
                     image_url=ai_comp.get("image_url"),
                     anio_construccion=ai_comp.get("anio_construccion"),
+                    age=_edad(ai_comp.get("anio_construccion")),
                     bedrooms=ai_comp.get("bedrooms"),
                     bathrooms=ai_comp.get("bathrooms"),
                     estacionamientos=ai_comp.get("estacionamientos"),
@@ -2026,6 +2042,7 @@ app.include_router(encargos_router)
 app.include_router(inmobiliaria_router)
 app.include_router(mercado_accesos_router)
 app.include_router(reviews_router)
+app.include_router(edades_router)
 
 # Serve uploaded files (ads, kyc)
 app.mount("/uploads", StaticFiles(directory=str(UPLOADS_DIR)), name="uploads")

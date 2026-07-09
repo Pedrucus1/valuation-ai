@@ -10,6 +10,7 @@ import AdminProtectedRoute from "@/components/AdminProtectedRoute";
 const LandingPage               = lazy(() => import("@/pages/LandingPage"));
 const ValuationForm             = lazy(() => import("@/pages/ValuationForm"));
 const ComparablesPage           = lazy(() => import("@/pages/ComparablesPage"));
+const EdadesZonaPage            = lazy(() => import("@/pages/EdadesZonaPage"));
 const ReportPage                = lazy(() => import("@/pages/ReportPage"));
 const PricingPage               = lazy(() => import("@/pages/PricingPage"));
 const BenefitsPage              = lazy(() => import("@/pages/BenefitsPage"));
@@ -127,6 +128,7 @@ function AppRouter() {
         <Route path="/reporte/:valuationId" element={<ReportPage />} />
         <Route path="/comprar" element={<PricingPage />} />
         <Route path="/checkout/pro" element={<ProCheckoutPage />} />
+        <Route path="/edades-zona" element={<EdadesZonaPage />} />
         <Route path="/dashboard/valuador" element={<ValuadorDashboardPage />} />
         <Route path="/dashboard/inmobiliaria" element={<InmobiliariaDashboardPage />} />
         <Route path="/gracias/:valuationId" element={<ThankYouPage />} />

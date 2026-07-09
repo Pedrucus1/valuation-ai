@@ -32,6 +32,27 @@ import {
 import { API } from "@/App";
 import AdOverlay from "@/components/AdOverlay";
 
+// Rangos finos de edad (Ross-Heidecke: depreciación sensible temprano) para el
+// crowdsourcing interno. "No sé" es válido y solo salta.
+const AGE_RANGES = [
+  { value: "nuevo", label: "Nuevo" },
+  { value: "1-5", label: "1–5 años" },
+  { value: "6-10", label: "6–10 años" },
+  { value: "11-15", label: "11–15 años" },
+  { value: "16-20", label: "16–20 años" },
+  { value: "21-25", label: "21–25 años" },
+  { value: "26-30", label: "26–30 años" },
+  { value: "31-35", label: "31–35 años" },
+  { value: "36-40", label: "36–40 años" },
+  { value: "41-45", label: "41–45 años" },
+  { value: "46-50", label: "46–50 años" },
+  { value: "50+", label: "50+ años" },
+];
+const RANGE_MID = {
+  "nuevo": 0, "1-5": 3, "6-10": 8, "11-15": 13, "16-20": 18, "21-25": 23,
+  "26-30": 28, "31-35": 33, "36-40": 38, "41-45": 43, "46-50": 48, "50+": 55,
+};
+
 // Negotiation options
 const NEGOTIATION_OPTIONS = [
   { value: -1, label: "-1% (Mercado muy activo)" },
@@ -222,6 +243,38 @@ const ComparablesPage = () => {
       toast.error(error.message || "Error al buscar comparables");
     } finally {
       setIsSearchingMore(false);
+    }
+  };
+
+  // Guardar la edad estimada por el perito (escribe al pool mercado_props).
+  // rango: clave de AGE_RANGES ("no_se" = saltar). anioExacto: año tecleado (prioridad).
+  const estimarEdad = async (comp, { rango, anioExacto } = {}) => {
+    if (rango === "no_se") return; // válido: no escribe, solo pasa
+    const body = { id_unico: comp.id_unico };
+    let edad;
+    if (anioExacto) {
+      body.anio_exacto = Number(anioExacto);
+      edad = new Date().getFullYear() - Number(anioExacto);
+    } else if (rango) {
+      body.edad_rango = rango;
+      edad = RANGE_MID[rango];
+    } else return;
+    try {
+      const res = await fetch(`${API}/edad-estimada`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(body)
+      });
+      if (!res.ok) throw new Error();
+      setValuation(prev => prev ? {
+        ...prev,
+        comparables: prev.comparables.map(c =>
+          c.comparable_id === comp.comparable_id ? { ...c, age: edad } : c)
+      } : prev);
+      toast.success("Edad guardada. ¡Gracias!");
+    } catch {
+      toast.error("No se pudo guardar la edad");
     }
   };
 
@@ -679,6 +732,33 @@ const ComparablesPage = () => {
                       <TableCell className="text-center">
                         {comp.age != null ? (
                           <span className="text-xs font-semibold text-slate-500">{comp.age} años{comp.age === 0 ? " (nuevo)" : ""}</span>
+                        ) : comp.id_unico ? (
+                          <div onClick={(e) => e.stopPropagation()} className="flex flex-col items-center gap-1">
+                            <Select onValueChange={(v) => estimarEdad(comp, { rango: v })}>
+                              <SelectTrigger className="h-7 w-24 text-xs border-[#52B788] text-[#1B4332]" data-testid={`edad-select-${index}`}>
+                                <SelectValue placeholder="¿Edad?" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {AGE_RANGES.map(r => (
+                                  <SelectItem key={r.value} value={r.value} className="text-xs">{r.label}</SelectItem>
+                                ))}
+                                <SelectItem value="no_se" className="text-xs text-slate-400">No sé</SelectItem>
+                              </SelectContent>
+                            </Select>
+                            <input
+                              type="number" placeholder="Año" min="1900" max={new Date().getFullYear()}
+                              className="h-6 w-20 text-center text-[11px] border border-slate-300 rounded"
+                              title="Año exacto si lo sabes"
+                              onKeyDown={(e) => { if (e.key === "Enter" && e.target.value) estimarEdad(comp, { anioExacto: e.target.value }); }}
+                              onBlur={(e) => { if (e.target.value) estimarEdad(comp, { anioExacto: e.target.value }); }}
+                            />
+                            {comp.source_url?.startsWith("http") && (
+                              <a href={comp.source_url} target="_blank" rel="noopener noreferrer"
+                                 className="text-[11px] text-[#52B788] hover:underline inline-flex items-center gap-0.5">
+                                ver anuncio<ExternalLink className="w-2.5 h-2.5" />
+                              </a>
+                            )}
+                          </div>
                         ) : <span className="text-slate-300 text-xs">—</span>}
                       </TableCell>
                       <TableCell className="text-right text-slate-600">{comp.land_area} m²</TableCell>

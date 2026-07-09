@@ -43,7 +43,7 @@ CAMPOS_COMPARABLE = {
     "precio": 1, "moneda": 1, "precio_m2": 1,
     "m2_construccion": 1, "m2_terreno": 1,
     "recamaras": 1, "banos": 1, "estacionamientos": 1,
-    "anio_construccion": 1, "portal_origen": 1, "url_original": 1,
+    "anio_construccion": 1, "portal_origen": 1, "url_original": 1, "calle_numero": 1,
     # Dedup cross-portal: el maestro trae en qué portales se anuncia (links del
     # reporte) y n_portales (corroboración para el score de confiabilidad).
     "n_portales": 1, "anuncios": 1, "fecha_publicacion": 1, "fecha_scraping": 1,

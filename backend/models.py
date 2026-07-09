@@ -201,8 +201,10 @@ class PropertyInput(BaseModel):
 class Comparable(BaseModel):
     model_config = ConfigDict(extra="ignore")
     comparable_id: str = Field(default_factory=lambda: f"comp_{uuid.uuid4().hex[:12]}")
+    id_unico: Optional[str] = None      # clave en mercado_props (para escribir edad de vuelta al pool)
     source: str
     source_url: str
+    street_address: Optional[str] = None  # calle_numero del anuncio (el frontend ya lo lee)
     title: str
     neighborhood: str
     municipality: str
@@ -218,6 +220,8 @@ class Comparable(BaseModel):
 
     # Datos enriquecidos desde la página de detalle (cuando se abre el listing)
     anio_construccion: Optional[int] = None
+    age: Optional[int] = None            # edad en años (año_actual - anio_construccion); lo que el frontend lee
+    edad_fuente: Optional[str] = None    # p.ej. "perito_crowdsource" cuando la estima un perito
     bedrooms: Optional[int] = None
     bathrooms: Optional[float] = None
     estacionamientos: Optional[int] = None
