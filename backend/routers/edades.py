@@ -61,9 +61,44 @@ def _edad_efectiva(anio_construccion, anio_remodelacion, grado, ahora_year):
     return round(edad_crono - p * edad_ajustada, 1)
 
 
+def _base_usables():
+    """Filtro base de comps etiquetables: sin año, con precio, no duplicado y
+    con colonia real (no el título del anuncio ni frases largas en inglés)."""
+    return {
+        "anio_construccion": None,
+        "precio": {"$gt": 0},
+        "es_duplicado_secundario": {"$ne": True},
+        "$expr": {"$and": [
+            {"$ne": ["$colonia", "$titulo"]},
+            {"$lt": [{"$strLenCP": {"$ifNull": ["$colonia", ""]}}, 40]},
+        ]},
+    }
+
+
+@router.get("/edad-zonas")
+async def edad_zonas(request: Request, estado: str = "", municipio: str = ""):
+    """Cascada de zonas alimentada por los datos reales (nivel nacional):
+    sin params → estados; con estado → municipios; con estado+municipio → colonias.
+    Solo cuenta propiedades etiquetables (base usables)."""
+    await _quien(request)
+    q = _base_usables()
+    if municipio and estado:
+        q.update({"estado": estado, "municipio": municipio})
+        campo = "colonia"
+    elif estado:
+        q["estado"] = estado
+        campo = "municipio"
+    else:
+        campo = "estado"
+    vals = await db.mercado_props.distinct(campo, q)
+    vals = sorted(v for v in vals if v and str(v).strip())
+    return {"campo": campo, "valores": vals}
+
+
 @router.get("/comps-sin-edad")
 async def comps_sin_edad(
     request: Request,
+    estado: str = "",
     municipio: str = "",
     colonia: str = "",
     tipo: str = "",
@@ -71,20 +106,9 @@ async def comps_sin_edad(
 ):
     """Lote de propiedades de mercado_props sin año, para etiquetar (panel)."""
     await _quien(request)
-    q = {
-        "anio_construccion": None,
-        "precio": {"$gt": 0},
-        "es_duplicado_secundario": {"$ne": True},
-        # Excluir colonia contaminada: (1) igual al título del anuncio (PINCALI
-        # guardó el título como colonia, muchas en inglés); (2) demasiado larga
-        # (una colonia real es corta; >40 chars ⇒ es una frase/título). Sin
-        # colonia real no sirven para etiquetar por zona; reaparecen cuando se
-        # les extraiga la colonia buena.
-        "$expr": {"$and": [
-            {"$ne": ["$colonia", "$titulo"]},
-            {"$lt": [{"$strLenCP": {"$ifNull": ["$colonia", ""]}}, 40]},
-        ]},
-    }
+    q = _base_usables()
+    if estado:
+        q["estado"] = estado
     if municipio:
         q["municipio"] = municipio
     if colonia:

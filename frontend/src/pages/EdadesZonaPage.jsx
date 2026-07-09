@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -39,10 +39,6 @@ const GRADOS_REMOD = [
   { value: "completa", label: "Completa", hint: "(+ estructura, casi nueva)" },
 ];
 
-const MUNICIPIOS = [
-  "Guadalajara", "Zapopan", "Tlaquepaque", "Tonalá",
-  "Tlajomulco de Zúñiga", "Chapala", "Ajijic", "El Salto",
-];
 const TIPOS = ["Casa", "Departamento", "Terreno", "Local", "Oficina"];
 
 // Headers: si hay token admin en localStorage, mandarlo (el panel sirve para
@@ -83,9 +79,13 @@ const formatCurrency = (v) => {
 
 const EdadesZonaPage = () => {
   const navigate = useNavigate();
+  const [estado, setEstado] = useState("");
   const [municipio, setMunicipio] = useState("");
   const [colonia, setColonia] = useState("");
   const [tipo, setTipo] = useState("");
+  const [estados, setEstados] = useState([]);
+  const [municipios, setMunicipios] = useState([]);
+  const [colonias, setColonias] = useState([]);
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [buscado, setBuscado] = useState(false);
@@ -101,11 +101,42 @@ const EdadesZonaPage = () => {
   const [guardando, setGuardando]   = useState({}); // id -> bool
   const set = (setter) => (id, v) => setter(prev => ({ ...prev, [id]: v }));
 
+  // Cascada de zonas (nivel nacional, alimentada por los datos reales)
+  const fetchZonas = async (params = {}) => {
+    const qs = new URLSearchParams(params);
+    try {
+      const res = await fetch(`${API}/edad-zonas?${qs}`, { credentials: "include", headers: authHeaders() });
+      if (!res.ok) return [];
+      return (await res.json()).valores || [];
+    } catch { return []; }
+  };
+
+  useEffect(() => {
+    fetchZonas().then(es => {
+      setEstados(es);
+      if (es.length === 1) {            // sólo un estado con datos → seleccionarlo solo
+        setEstado(es[0]);
+        fetchZonas({ estado: es[0] }).then(setMunicipios);
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const onEstado = (v) => {
+    setEstado(v); setMunicipio(""); setColonia(""); setMunicipios([]); setColonias([]);
+    fetchZonas({ estado: v }).then(setMunicipios);
+  };
+  const onMunicipio = (v) => {
+    setMunicipio(v); setColonia(""); setColonias([]);
+    fetchZonas({ estado, municipio: v }).then(setColonias);
+  };
+
   const buscar = async () => {
     setLoading(true);
     setBuscado(true);
     try {
       const params = new URLSearchParams();
+      if (estado) params.set("estado", estado);
       if (municipio) params.set("municipio", municipio);
       if (colonia) params.set("colonia", colonia.trim());
       if (tipo) params.set("tipo", tipo);
@@ -190,23 +221,37 @@ const EdadesZonaPage = () => {
         <Card className="bg-white shadow-sm border-0 mb-6">
           <CardContent className="p-4 flex flex-wrap items-end gap-3">
             <div className="flex flex-col gap-1">
-              <label className="text-xs font-semibold text-slate-500">Municipio</label>
-              <Select value={municipio} onValueChange={setMunicipio}>
-                <SelectTrigger className="h-9 w-52 text-sm"><SelectValue placeholder="Todos" /></SelectTrigger>
+              <label className="text-xs font-semibold text-slate-500">Estado</label>
+              <Select value={estado} onValueChange={onEstado}>
+                <SelectTrigger className="h-9 w-44 text-sm"><SelectValue placeholder="Estado" /></SelectTrigger>
                 <SelectContent>
-                  {MUNICIPIOS.map(m => <SelectItem key={m} value={m}>{m}</SelectItem>)}
+                  {estados.map(e => <SelectItem key={e} value={e}>{e}</SelectItem>)}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="flex flex-col gap-1">
+              <label className="text-xs font-semibold text-slate-500">Municipio</label>
+              <Select value={municipio} onValueChange={onMunicipio} disabled={!estado}>
+                <SelectTrigger className="h-9 w-48 text-sm"><SelectValue placeholder="Municipio" /></SelectTrigger>
+                <SelectContent>
+                  {municipios.map(m => <SelectItem key={m} value={m}>{m}</SelectItem>)}
                 </SelectContent>
               </Select>
             </div>
             <div className="flex flex-col gap-1">
               <label className="text-xs font-semibold text-slate-500">Colonia</label>
               <Input value={colonia} onChange={e => setColonia(e.target.value)}
-                     placeholder="Ej. Providencia" className="h-9 w-52 text-sm" />
+                     list="colonias-list" disabled={!municipio}
+                     placeholder={municipio ? "Escribe o elige…" : "Elige municipio"}
+                     className="h-9 w-56 text-sm" />
+              <datalist id="colonias-list">
+                {colonias.map(c => <option key={c} value={c} />)}
+              </datalist>
             </div>
             <div className="flex flex-col gap-1">
               <label className="text-xs font-semibold text-slate-500">Tipo</label>
               <Select value={tipo} onValueChange={setTipo}>
-                <SelectTrigger className="h-9 w-40 text-sm"><SelectValue placeholder="Todos" /></SelectTrigger>
+                <SelectTrigger className="h-9 w-36 text-sm"><SelectValue placeholder="Todos" /></SelectTrigger>
                 <SelectContent>
                   {TIPOS.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}
                 </SelectContent>
@@ -227,7 +272,20 @@ const EdadesZonaPage = () => {
         )}
 
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3 items-start">
-          {pendientes.map(it => (
+          {items.map(it => hechos[it.id_unico] ? (
+            /* Ficha bloqueada tras guardar / saltar */
+            <Card key={it.id_unico} className="bg-[#F0F7F3] border border-[#52B788]/40 rounded-xl">
+              <div className="px-4 py-3 flex items-center gap-2.5">
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${hechos[it.id_unico] === "no_se" ? "bg-slate-200" : "bg-[#52B788]"}`}>
+                  <Check className={`w-5 h-5 ${hechos[it.id_unico] === "no_se" ? "text-slate-500" : "text-white"}`} />
+                </div>
+                <div className="min-w-0">
+                  <p className="font-semibold text-sm text-[#1B4332] truncate">{it.colonia}</p>
+                  <p className="text-xs text-slate-500">{hechos[it.id_unico] === "no_se" ? "Saltada" : "Guardado"}</p>
+                </div>
+              </div>
+            </Card>
+          ) : (
             <Card key={it.id_unico} className="bg-white shadow-sm border border-slate-200 rounded-xl overflow-hidden">
               {/* Encabezado de la propiedad */}
               <div className="px-4 pt-3 pb-2.5 bg-gradient-to-r from-[#EAF3EE] to-[#F4F8F6] border-b border-slate-200">
