@@ -137,6 +137,7 @@ async def edad_estimada(request: Request):
     conservacion = str(body.get("conservacion") or "").strip()
     anio_remod = body.get("anio_remodelacion")
     grado_remod = str(body.get("grado_remodelacion") or "").strip().lower()
+    colonia_fix = str(body.get("colonia") or "").strip()[:60]
 
     if not id_unico:
         raise HTTPException(status_code=400, detail="Falta id_unico")
@@ -183,8 +184,8 @@ async def edad_estimada(request: Request):
         if not (1900 <= anio_remod_val <= ahora.year + 1):
             raise HTTPException(status_code=400, detail="Año de remodelación fuera de rango")
 
-    if not tiene_edad and not conservacion and not grado_remod:
-        raise HTTPException(status_code=400, detail="Falta edad, conservación o remodelación")
+    if not tiene_edad and not conservacion and not grado_remod and not colonia_fix:
+        raise HTTPException(status_code=400, detail="Falta edad, conservación, remodelación o colonia")
 
     if tiene_edad:
         update["anio_construccion"] = anio
@@ -209,6 +210,9 @@ async def edad_estimada(request: Request):
             update["edad_efectiva"] = ee
     if conjunto:
         update["conjunto"] = str(conjunto).strip()[:120]
+    if colonia_fix:
+        update["colonia"] = colonia_fix
+        update["colonia_fuente"] = "perito_correccion"
 
     res = await db.mercado_props.update_one({"id_unico": id_unico}, {"$set": update})
     if res.matched_count == 0:

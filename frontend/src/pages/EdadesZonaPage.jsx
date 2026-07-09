@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
@@ -117,6 +118,12 @@ const EdadesZonaPage = () => {
   const [remodAnio, setRemodAnio]   = useState({}); // año de remodelación
   const [guardando, setGuardando]   = useState({}); // id -> bool
   const [openCol, setOpenCol] = useState(false);    // popover del combo de colonia
+  const [coloniaEdit, setColoniaEdit] = useState({}); // id -> colonia corregida
+  const [aplicarGrupo, setAplicarGrupo] = useState({}); // id -> aplicar al mismo coto
+
+  // Otras pendientes del mismo coto/colonia (incluye variantes: ABIE Eco Hábitat ≈ Abié Residencial)
+  const grupoDe = (it) => items.filter(o =>
+    o.id_unico !== it.id_unico && !hechos[o.id_unico] && mismoGrupo(o.colonia, it.colonia));
   const set = (setter) => (id, v) => setter(prev => ({ ...prev, [id]: v }));
 
   // Al elegir "Nuevo": conservación = Nuevo y año = año en curso (automático).
@@ -181,8 +188,11 @@ const EdadesZonaPage = () => {
 
   const saltar = (it) => setHechos(prev => ({ ...prev, [it.id_unico]: "no_se" }));
 
-  const construirPayload = (id) => {
+  const construirPayload = (it) => {
+    const id = it.id_unico;
     const p = {};
+    const colFix = (coloniaEdit[id] ?? "").trim();
+    if (colFix && colFix !== it.colonia) p.colonia = colFix;   // corrección de colonia
     if (conjuntos[id]) p.conjunto = conjuntos[id];
     if (anioConst[id]) p.anio_exacto = Number(anioConst[id]);
     else if (edadRango[id]) p.edad_rango = edadRango[id];
@@ -216,9 +226,9 @@ const EdadesZonaPage = () => {
 
   const guardar = async (it) => {
     const id = it.id_unico;
-    const payload = construirPayload(id);
-    if (!payload.anio_exacto && !payload.edad_rango && !payload.conservacion && !payload.grado_remodelacion) {
-      toast.error("Indica al menos edad, conservación o remodelación");
+    const payload = construirPayload(it);
+    if (!payload.anio_exacto && !payload.edad_rango && !payload.conservacion && !payload.grado_remodelacion && !payload.colonia) {
+      toast.error("Indica al menos edad, conservación, remodelación o colonia");
       return;
     }
     set(setGuardando)(id, true);
@@ -228,16 +238,11 @@ const EdadesZonaPage = () => {
       setHechos(prev => ({ ...prev, [id]: true }));
       if (data.puntos != null) setPuntos(data.puntos);
       const base = data.edad_efectiva != null ? `Guardado · edad efectiva ${data.edad_efectiva} años` : "Guardado ✓";
-      // Otras pendientes del mismo coto/colonia, incluyendo variantes (ABIE…)
-      const otras = items.filter(o => o.id_unico !== id && !hechos[o.id_unico] && mismoGrupo(o.colonia, it.colonia));
-      if (otras.length) {
-        toast.success(base, {
-          description: `¿Aplicar lo mismo a ${otras.length} más de "${it.colonia}"?`,
-          action: { label: `Aplicar a ${otras.length}`, onClick: () => aplicarAOtras(payload, otras) },
-          duration: 8000,
-        });
-      } else {
-        toast.success(base);
+      toast.success(base);
+      // Si el perito marcó "aplicar al grupo", propagar a las variantes del mismo coto
+      if (aplicarGrupo[id]) {
+        const otras = grupoDe(it);
+        if (otras.length) await aplicarAOtras(payload, otras);
       }
     } catch {
       toast.error("No se pudo guardar");
@@ -386,6 +391,13 @@ const EdadesZonaPage = () => {
 
               {/* Formulario de estimación */}
               <div className="p-4 space-y-2.5">
+                {/* Corregir colonia (si el dato vino mal, ej. viene el coto como colonia) */}
+                <div>
+                  <label className={LBL}>Colonia <span className="normal-case font-normal text-slate-400">(corrige si está mal)</span></label>
+                  <Input value={coloniaEdit[it.id_unico] ?? it.colonia ?? ""}
+                         onChange={e => set(setColoniaEdit)(it.id_unico, e.target.value)}
+                         placeholder="Colonia real" className={INP} />
+                </div>
                 {/* Edad de construcción: rango + año exacto */}
                 <div>
                   <label className={LBL}>Edad de construcción <span className="normal-case font-normal text-slate-400">(original)</span></label>
@@ -445,6 +457,21 @@ const EdadesZonaPage = () => {
                            placeholder="Opcional" className={INP} />
                   </div>
                 </div>
+
+                {/* Aplicar al grupo: visible sólo si hay otras del mismo coto en la lista */}
+                {(() => {
+                  const g = grupoDe(it);
+                  return g.length > 0 ? (
+                    <label className="flex items-center gap-2 pt-1 cursor-pointer">
+                      <Checkbox checked={!!aplicarGrupo[it.id_unico]}
+                                onCheckedChange={v => set(setAplicarGrupo)(it.id_unico, !!v)}
+                                className="data-[state=checked]:bg-[#52B788] border-[#52B788]" />
+                      <span className="text-xs text-slate-600">
+                        Aplicar también a <b>{g.length}</b> más del mismo coto (<b>{it.colonia}</b>)
+                      </span>
+                    </label>
+                  ) : null;
+                })()}
 
                 {/* Acciones */}
                 <div className="flex justify-end gap-2 pt-2.5 mt-0.5 border-t border-slate-100">
