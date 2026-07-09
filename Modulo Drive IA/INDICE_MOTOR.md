@@ -7,7 +7,7 @@
 ## 🎯 ARCHIVOS CANÓNICOS (los de producción — usar estos)
 | Rol | Archivo | Notas |
 |---|---|---|
-| **Motor prod** | `motor_remi_api.js` | El que se despliega. Carga `cache_index.json` (línea 46), `colonias_nse.json`(+`_v2`), `colonias_sim*`. `factorNeg` línea 952. Fallbacks vivos: `buscarCompsGemini` (272), `buscarEnSerper` (334). |
+| **Motor prod** | `motor_remi_api.js` | El que se despliega. Carga `cache_index.json` (línea 46), `colonias_nse.json`(+`_v2`), `colonias_sim*`. `factorNeg` línea 952. **Búsqueda web:** `buscarWeb` = cascada `buscarEnTavily`(primario, `TAVILY_API_KEY`, admite VARIAS keys por coma) → `buscarEnSerper`(fallback pago, `SERPER_API_KEY`); una key agotada (4xx→null) pasa a la siguiente. Fallback IA: `buscarCompsGemini`. Ambas keys en `credentials_registry` (memoria). NUNCA usar en lote (ver [[feedback_no_busqueda_masiva]]). |
 | **Motor LAB** | `motor_remi_api_lab.js` | Copia para experimentos, gateada por ENV (`LAB_NEG`, `LAB_ANCHOR`, `LAB_SIZECAP`, `LAB_DEBUG`). Con flags OFF = idéntico a prod. |
 | **Validador prod** | `validar_40_opis.js` | Usa `motor_remi_api.js`. `node validar_40_opis.js --n 400 --desde 2025-01`. |
 | **Validador LAB** | `validar_lab.js` | Usa `motor_remi_api_lab.js`. Mismo uso. Para medir experimentos. |
