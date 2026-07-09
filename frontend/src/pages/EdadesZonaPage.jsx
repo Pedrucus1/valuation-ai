@@ -73,6 +73,21 @@ const yearSpan = (v) => {
   return `${y - b}–${y - a}`;
 };
 
+// Agrupar variantes del mismo coto/colonia (ABIE Eco Hábitat ≈ Abié Residencial).
+const norm = (s) => (s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "")
+  .replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
+// Palabras genéricas de nombre de zona → NO agrupar solo por ellas (evita unir "Valle Real" con "Valle Imperial").
+const GENERICO = new Set(["san", "santa", "las", "los", "el", "la", "valle", "lomas", "loma",
+  "jardines", "jardin", "colonia", "col", "fracc", "fraccionamiento", "residencial", "coto",
+  "real", "del", "de", "villa", "villas", "paseo", "paseos", "rincon", "puerta", "puertas"]);
+const mismoGrupo = (a, b) => {
+  const na = norm(a), nb = norm(b);
+  if (!na || !nb) return false;
+  if (na === nb) return true;
+  const ta = na.split(" ")[0], tb = nb.split(" ")[0];
+  return ta === tb && ta.length >= 4 && !GENERICO.has(ta);
+};
+
 const formatCurrency = (v) => {
   const n = Number(v);
   if (isNaN(n)) return "";
@@ -213,8 +228,8 @@ const EdadesZonaPage = () => {
       setHechos(prev => ({ ...prev, [id]: true }));
       if (data.puntos != null) setPuntos(data.puntos);
       const base = data.edad_efectiva != null ? `Guardado · edad efectiva ${data.edad_efectiva} años` : "Guardado ✓";
-      // Otras pendientes del mismo coto/colonia (mismo valor mostrado)
-      const otras = items.filter(o => o.id_unico !== id && !hechos[o.id_unico] && o.colonia && o.colonia === it.colonia);
+      // Otras pendientes del mismo coto/colonia, incluyendo variantes (ABIE…)
+      const otras = items.filter(o => o.id_unico !== id && !hechos[o.id_unico] && mismoGrupo(o.colonia, it.colonia));
       if (otras.length) {
         toast.success(base, {
           description: `¿Aplicar lo mismo a ${otras.length} más de "${it.colonia}"?`,
