@@ -166,38 +166,64 @@ const EdadesZonaPage = () => {
 
   const saltar = (it) => setHechos(prev => ({ ...prev, [it.id_unico]: "no_se" }));
 
+  const construirPayload = (id) => {
+    const p = {};
+    if (conjuntos[id]) p.conjunto = conjuntos[id];
+    if (anioConst[id]) p.anio_exacto = Number(anioConst[id]);
+    else if (edadRango[id]) p.edad_rango = edadRango[id];
+    if (conserv[id]) p.conservacion = conserv[id];
+    if (remodGrado[id]) {
+      p.grado_remodelacion = remodGrado[id];
+      if (remodAnio[id]) p.anio_remodelacion = Number(remodAnio[id]);
+    }
+    return p;
+  };
+
+  const postEdad = async (id, payload) => {
+    const res = await fetch(`${API}/edad-estimada`, {
+      method: "POST",
+      headers: authHeaders({ "Content-Type": "application/json" }),
+      credentials: "include",
+      body: JSON.stringify({ ...payload, id_unico: id }),
+    });
+    return res.ok ? res.json() : null;
+  };
+
+  // Propagar los mismos datos a otras propiedades del mismo coto/colonia (ABIE, etc.)
+  const aplicarAOtras = async (payload, otras) => {
+    let n = 0;
+    for (const o of otras) {
+      const ok = await postEdad(o.id_unico, payload);
+      if (ok) { setHechos(prev => ({ ...prev, [o.id_unico]: true })); n++; }
+    }
+    toast.success(`Aplicado a ${n} más`);
+  };
+
   const guardar = async (it) => {
     const id = it.id_unico;
-    const body = { id_unico: id };
-    if (conjuntos[id]) body.conjunto = conjuntos[id];
-    if (anioConst[id]) body.anio_exacto = Number(anioConst[id]);
-    else if (edadRango[id]) body.edad_rango = edadRango[id];
-    if (conserv[id]) body.conservacion = conserv[id];
-    if (remodGrado[id]) {
-      body.grado_remodelacion = remodGrado[id];
-      if (remodAnio[id]) body.anio_remodelacion = Number(remodAnio[id]);
-    }
-    if (!body.anio_exacto && !body.edad_rango && !body.conservacion && !body.grado_remodelacion) {
+    const payload = construirPayload(id);
+    if (!payload.anio_exacto && !payload.edad_rango && !payload.conservacion && !payload.grado_remodelacion) {
       toast.error("Indica al menos edad, conservación o remodelación");
       return;
     }
     set(setGuardando)(id, true);
     try {
-      const res = await fetch(`${API}/edad-estimada`, {
-        method: "POST",
-        headers: authHeaders({ "Content-Type": "application/json" }),
-        credentials: "include",
-        body: JSON.stringify(body),
-      });
-      if (!res.ok) throw new Error();
-      const data = await res.json();
+      const data = await postEdad(id, payload);
+      if (!data) throw new Error();
       setHechos(prev => ({ ...prev, [id]: true }));
       if (data.puntos != null) setPuntos(data.puntos);
-      toast.success(
-        data.edad_efectiva != null
-          ? `Guardado. Edad efectiva estimada: ${data.edad_efectiva} años`
-          : "Guardado. ¡Gracias!"
-      );
+      const base = data.edad_efectiva != null ? `Guardado · edad efectiva ${data.edad_efectiva} años` : "Guardado ✓";
+      // Otras pendientes del mismo coto/colonia (mismo valor mostrado)
+      const otras = items.filter(o => o.id_unico !== id && !hechos[o.id_unico] && o.colonia && o.colonia === it.colonia);
+      if (otras.length) {
+        toast.success(base, {
+          description: `¿Aplicar lo mismo a ${otras.length} más de "${it.colonia}"?`,
+          action: { label: `Aplicar a ${otras.length}`, onClick: () => aplicarAOtras(payload, otras) },
+          duration: 8000,
+        });
+      } else {
+        toast.success(base);
+      }
     } catch {
       toast.error("No se pudo guardar");
     } finally {
