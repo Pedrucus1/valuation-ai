@@ -21,7 +21,10 @@ const AGE_RANGES = [
   { value: "36-40", label: "36–40 años" },
   { value: "41-45", label: "41–45 años" },
   { value: "46-50", label: "46–50 años" },
-  { value: "50+", label: "50+ años" },
+  { value: "51-60", label: "51–60 años" },
+  { value: "61-70", label: "61–70 años" },
+  { value: "71-80", label: "71–80 años" },
+  { value: "80+", label: "80+ años" },
 ];
 
 // Estado de conservación (escala, sin remodelación — eso es un eje aparte).
@@ -67,7 +70,7 @@ const INP = "h-9 text-sm bg-slate-100 border-slate-200 focus:bg-white";
 const yearSpan = (v) => {
   const y = new Date().getFullYear();
   if (v === "nuevo") return `${y}`;
-  if (v === "50+") return `antes de ${y - 50}`;
+  if (v.endsWith("+")) return `antes de ${y - parseInt(v, 10)}`;
   const [a, b] = v.split("-").map(Number);
   return `${y - b}–${y - a}`;
 };

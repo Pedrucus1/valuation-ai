@@ -26,7 +26,9 @@ async def _quien(request: Request) -> str:
 # El año se guarda como año_actual - midpoint.
 RANGO_MIDPOINT = {
     "nuevo": 0, "1-5": 3, "6-10": 8, "11-15": 13, "16-20": 18, "21-25": 23,
-    "26-30": 28, "31-35": 33, "36-40": 38, "41-45": 43, "46-50": 48, "50+": 55,
+    "26-30": 28, "31-35": 33, "36-40": 38, "41-45": 43, "46-50": 48,
+    # Propiedades viejas: buckets de 10 años hasta los 40s.
+    "51-60": 55, "61-70": 65, "71-80": 75, "80+": 88,
 }
 
 CAMPOS_SIN_EDAD = {
@@ -205,11 +207,11 @@ async def edad_estimada(request: Request):
 
 if __name__ == "__main__":
     # Self-check de midpoints (offline, sin DB).
-    assert RANGO_MIDPOINT["nuevo"] == 0 and RANGO_MIDPOINT["50+"] == 55
+    assert RANGO_MIDPOINT["nuevo"] == 0 and RANGO_MIDPOINT["80+"] == 88
     assert list(RANGO_MIDPOINT)[:3] == ["nuevo", "1-5", "6-10"]
     vals = list(RANGO_MIDPOINT.values())
     assert vals == sorted(vals), "midpoints deben ir en orden creciente"
-    assert len(RANGO_MIDPOINT) == 12
+    assert len(RANGO_MIDPOINT) == 15
     # Edad efectiva ponderada — ejemplo del dictamen del perito:
     # construida 1960, remodelada 2020, grado completa (p=0.95), año 2026.
     ee = _edad_efectiva(1960, 2020, "completa", 2026)   # 66 − 0.95×60 = 9.0
