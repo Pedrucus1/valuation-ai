@@ -610,6 +610,13 @@ Responde SOLO con JSON, sin texto adicional:
 }
 
 function remiSobreComps(comps, m2C, edad, conservacion, poolTipo) {
+    // LAB_SIZEBAND: descartar comps fuera de ±X% del m²C del sujeto (bajar dispersión).
+    // Salvaguarda: solo aplica si quedan >=3 comps; si no, usa el pool completo.
+    const SB = parseFloat(process.env.LAB_SIZEBAND || '0');
+    if (SB > 0 && m2C > 0) {
+        const band = comps.filter(c => c.m2c > 0 && Math.abs(c.m2c - m2C) / m2C <= SB);
+        if (band.length >= 3) comps = band;
+    }
     const pm2c = comps.map(c => c.precio / c.m2c);
     const s = [...pm2c].sort((a,b)=>a-b);
     const med = s[Math.floor(s.length/2)];
@@ -1056,8 +1063,33 @@ function valuarPropiedad(prop) {
     // Filtro de SEGMENTO de precio (como el perito: no mezclar segmentos). Si el sujeto tiene
     // nivel NSE conocido (muni-correcto), descartar comps cuyo $/m²C esté fuera de [0.55,1.55]×
     // la mediana de la zona. Conservador: solo si hay ≥5 comps y quedan ≥3 tras filtrar.
+    // LAB_SEGBAND=x → banda [1-x, 1+x] alrededor de la mediana de zona (default prod: 0.55/1.55).
+    // Aprieta el segmento de clase para que no se cuelen comps de otra clase (media-baja vs media-alta).
     if (nseSubjeto && nseSubjeto.medianaPm2 > 0 && comps.length >= 5) {
-        const lo = nseSubjeto.medianaPm2 * 0.55, hi = nseSubjeto.medianaPm2 * 1.55;
+        const _sb = parseFloat(process.env.LAB_SEGBAND || '0');
+        const loF = _sb > 0 ? (1 - _sb) : 0.55, hiF = _sb > 0 ? (1 + _sb) : 1.55;
+        // LAB_TIPOANCLA=1 → referencia de zona TIPO-ESPECÍFICA (celda casa/depto del sujeto), no la
+        // mediana mezclada de v1 (que es ~casa). Corrige deptos: valen ~1.63× casa en la misma colonia.
+        let refZona = nseSubjeto.medianaPm2;
+        if (process.env.LAB_TIPOANCLA === '1') {
+            const _cellT = IDX[muniNorm]?.[tipo]?.[colNorm];
+            if (_cellT && _cellT.count >= 3 && _cellT.medianaPm2c > 0) refZona = _cellT.medianaPm2c;
+        }
+        // LAB_SEGANCHOR=self → ancla la banda en la mediana $/m² de los comps más parecidos (segmento
+        // del sujeto), no en la mediana de zona (evita jalar al sujeto premium hacia el promedio de zona).
+        let ancla = refZona;
+        if (process.env.LAB_SEGANCHOR === 'self' || process.env.LAB_SEGANCHOR === 'hybrid') {
+            const _pu = comps.map(c => c.precio / c.m2_const).filter(v => v > 0).sort((a,b)=>a-b);
+            if (_pu.length) ancla = _pu[_pu.length >> 1];
+            // hybrid: acota el ancla-self por la ref de zona [×CAPLO, ×CAPHI] para que no se
+            // dispare a un sub-pool caro/barato no representativo de la clase del sujeto.
+            if (process.env.LAB_SEGANCHOR === 'hybrid') {
+                const capLo = parseFloat(process.env.LAB_ANCLA_CAPLO || '0.90');
+                const capHi = parseFloat(process.env.LAB_ANCLA_CAPHI || '1.30');
+                ancla = Math.max(refZona * capLo, Math.min(refZona * capHi, ancla));
+            }
+        }
+        const lo = ancla * loF, hi = ancla * hiF;
         const seg = comps.filter(c => { const pu = c.precio / c.m2_const; return pu >= lo && pu <= hi; });
         if (seg.length >= 3) comps = seg;
     }
