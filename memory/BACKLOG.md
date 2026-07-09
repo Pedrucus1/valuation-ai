@@ -1,5 +1,5 @@
 # PropValu — Backlog de Tareas
-> **Última actualización:** 08 Jul 2026 (NOCNOK integrado + Sheets retirado del scraper + ancla-self del segmento en prod + diagnóstico deptos → próximo bloque en `project_motor_lab_121b`). Snapshot de estado vigente → `ESTADO.md`. Bitácora histórica de sesiones → `BACKLOG_ARCHIVE.md` (NO leer al iniciar).
+> **Última actualización:** 09 Jul 2026 (cluster A edad-exacta con discriminante de clase → PROD **+1.9 ±20** [83.5%]; cluster B = NO es bug [motor≈mercado]; techo de fórmula ~82-83%, lo restante es DATO; **búsqueda web migrada Serper→Tavily con cascada multi-cuenta** [Serper sin créditos]; prior de edad parqueado [regresa, necesita edad de comps]; feature edades-crowdsourcing planeada. Detalle → `project_motor_lab_121b` + `project_edades_crowdsourcing` + `MOTOR_ANTECEDENTES.md`. **PENDIENTE: deploy Railway** [+ TAVILY_API_KEY]). Snapshot de estado vigente → `ESTADO.md`. Bitácora histórica de sesiones → `BACKLOG_ARCHIVE.md` (NO leer al iniciar).
 > Marcar ✅ completado · 🔄 en progreso · ⏳ pendiente · 👁️ pendiente revisión personal. Las descripciones largas de tareas viven en las tablas de abajo; el detalle del motor en `MOTOR_ANTECEDENTES.md` (grep, no leer completo).
 
 ---
