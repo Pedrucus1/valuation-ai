@@ -402,7 +402,7 @@ const EdadesZonaPage = () => {
                     </Select>
                     <Input type="number" min="1900" max={new Date().getFullYear()} placeholder="Año"
                            value={anioConst[it.id_unico] || ""} onChange={e => set(setAnioConst)(it.id_unico, e.target.value)}
-                           className={INP + " w-16"} title="Año exacto si lo sabes" />
+                           className={INP + " w-20"} title="Año exacto si lo sabes" />
                   </div>
                 </div>
                 {/* Remodelación: grado + año + leyenda de grados */}
@@ -421,7 +421,7 @@ const EdadesZonaPage = () => {
                     </Select>
                     <Input type="number" min="1900" max={new Date().getFullYear()} placeholder="Año"
                            value={remodAnio[it.id_unico] || ""} onChange={e => set(setRemodAnio)(it.id_unico, e.target.value)}
-                           className={INP + " w-16"} title="Año de la remodelación" />
+                           className={INP + " w-20"} title="Año de la remodelación" />
                   </div>
                   <p className="text-[11px] text-slate-400 mt-1 leading-snug">
                     Ligera: pintura/pisos · Básica: acabados · Intermedia: +instalaciones · Completa: +estructura
