@@ -4,8 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
 import { toast } from "sonner";
-import { Building2, ArrowLeft, ExternalLink, MapPin, Search, Check, Award } from "lucide-react";
+import { Building2, ArrowLeft, ExternalLink, MapPin, Search, Check, Award, ChevronsUpDown } from "lucide-react";
 import { API } from "@/App";
 
 // Rangos finos (Ross-Heidecke). "No sé" salta sin escribir.
@@ -99,6 +101,7 @@ const EdadesZonaPage = () => {
   const [remodGrado, setRemodGrado] = useState({}); // grado de remodelación
   const [remodAnio, setRemodAnio]   = useState({}); // año de remodelación
   const [guardando, setGuardando]   = useState({}); // id -> bool
+  const [openCol, setOpenCol] = useState(false);    // popover del combo de colonia
   const set = (setter) => (id, v) => setter(prev => ({ ...prev, [id]: v }));
 
   // Cascada de zonas (nivel nacional, alimentada por los datos reales)
@@ -240,13 +243,33 @@ const EdadesZonaPage = () => {
             </div>
             <div className="flex flex-col gap-1">
               <label className="text-xs font-semibold text-slate-500">Colonia</label>
-              <Input value={colonia} onChange={e => setColonia(e.target.value)}
-                     list="colonias-list" disabled={!municipio}
-                     placeholder={municipio ? "Escribe o elige…" : "Elige municipio"}
-                     className="h-9 w-56 text-sm" />
-              <datalist id="colonias-list">
-                {colonias.map(c => <option key={c} value={c} />)}
-              </datalist>
+              <Popover open={openCol} onOpenChange={setOpenCol}>
+                <PopoverTrigger asChild>
+                  <Button variant="outline" role="combobox" disabled={!municipio}
+                          className="h-9 w-56 justify-between text-sm font-normal">
+                    <span className="truncate">{colonia || (municipio ? "Todas las colonias" : "Elige municipio")}</span>
+                    <ChevronsUpDown className="w-4 h-4 opacity-50 shrink-0" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-56 p-0" align="start">
+                  <Command>
+                    <CommandInput placeholder={`Buscar en ${colonias.length} colonias…`} />
+                    <CommandList>
+                      <CommandEmpty>Sin resultados</CommandEmpty>
+                      <CommandGroup>
+                        <CommandItem value="__todas" onSelect={() => { setColonia(""); setOpenCol(false); }}>
+                          <Check className={`w-4 h-4 mr-2 ${colonia === "" ? "opacity-100" : "opacity-0"}`} />Todas
+                        </CommandItem>
+                        {colonias.map(c => (
+                          <CommandItem key={c} value={c} onSelect={() => { setColonia(c); setOpenCol(false); }}>
+                            <Check className={`w-4 h-4 mr-2 ${colonia === c ? "opacity-100" : "opacity-0"}`} />{c}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
             </div>
             <div className="flex flex-col gap-1">
               <label className="text-xs font-semibold text-slate-500">Tipo</label>
