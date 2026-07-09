@@ -152,7 +152,7 @@ const EdadesZonaPage = () => {
 
   return (
     <div className="min-h-screen bg-[#F8F9FA] py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <Button variant="ghost" onClick={() => navigate(-1)} className="mb-4 text-[#1B4332] hover:bg-[#D9ED92]/30">
           <ArrowLeft className="w-4 h-4 mr-2" /> Volver
         </Button>
@@ -212,7 +212,7 @@ const EdadesZonaPage = () => {
           </p>
         )}
 
-        <div className="space-y-3">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3 items-start">
           {pendientes.map(it => (
             <Card key={it.id_unico} className="bg-white shadow-sm border border-slate-100 rounded-xl overflow-hidden">
               {/* Encabezado de la propiedad */}
@@ -241,7 +241,7 @@ const EdadesZonaPage = () => {
 
               {/* Formulario de estimación */}
               <div className="p-5">
-                <div className="grid sm:grid-cols-2 gap-x-5 gap-y-4">
+                <div className="grid grid-cols-1 gap-4">
                   {/* Edad de construcción */}
                   <div>
                     <label className={LBL}>Edad de construcción</label>
