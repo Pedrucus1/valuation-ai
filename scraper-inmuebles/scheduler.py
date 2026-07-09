@@ -42,6 +42,10 @@ from utils.cleaner import normalizar_tipo_propiedad
 
 log = get_logger("SCHEDULER")
 
+# Fuentes de colonia/edad que el scraper NUNCA pisa (#135b): las fijó un
+# humano o el crowdsource; una corrida mensual no borra la corrección.
+FUENTES_PROTEGIDAS = {"perito_correccion", "usuario_correccion", "perito_crowdsource"}
+
 # ─────────────────────────────────────────
 # Configuración del scheduler
 # ─────────────────────────────────────────
@@ -389,6 +393,19 @@ def _guardar_en_mongo(propiedades: list, portal: str) -> dict:
             # INSERTAR; en updates solo entran los que traen contenido.
             con_valor = {k: v for k, v in doc.items() if v not in (None, "")}
             solo_insert = {k: v for k, v in doc.items() if k not in con_valor}
+            # Sticky (#135b): si un humano/crowdsource ya fijó colonia o edad,
+            # una corrida mensual NO la pisa. colonia_fuente protege colonia+
+            # conjunto; edad_fuente protege anio_construccion. Se leen del doc
+            # existente (find_one barato; corrida mensual, no hot-path).
+            existente = col.find_one({"id_unico": uid},
+                                     {"colonia_fuente": 1, "edad_fuente": 1})
+            if existente:
+                if existente.get("colonia_fuente") in FUENTES_PROTEGIDAS:
+                    for c in ("colonia", "conjunto", "colonia_fuente"):
+                        con_valor.pop(c, None); solo_insert.pop(c, None)
+                if existente.get("edad_fuente") in FUENTES_PROTEGIDAS:
+                    for c in ("anio_construccion", "edad_fuente"):
+                        con_valor.pop(c, None); solo_insert.pop(c, None)
             update = {"$set": con_valor}
             if solo_insert:
                 update["$setOnInsert"] = solo_insert

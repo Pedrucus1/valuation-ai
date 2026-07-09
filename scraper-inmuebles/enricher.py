@@ -46,6 +46,10 @@ from utils.sheets import SheetsClient
 from utils import antiblock
 from utils.cleaner import normalizar_anio_construccion, limpiar_numero, limpiar_colonia
 
+# Fuentes de colonia/edad que NUNCA pisa el scraper/enricher (#135b): las puso
+# un humano o el crowdsource; una corrida mensual no debe borrar la corrección.
+FUENTES_PROTEGIDAS = {"perito_correccion", "usuario_correccion", "perito_crowdsource"}
+
 # ─────────────────────────────────────────
 # Columnas en Sheets (índice 0-based)
 # ─────────────────────────────────────────
@@ -1238,7 +1242,7 @@ def obtener_props_mongo(col, portal: str, max_filas: int, urls_procesadas: set,
             "anio_construccion": 1, "m2_terreno": 1, "m2_construccion": 1,
             "nombre_agente": 1, "fecha_publicacion": 1, "estacionamientos": 1,
             "recamaras": 1, "banos": 1, "telefono": 1, "inmobiliaria": 1,
-            "colonia": 1, "municipio": 1}
+            "colonia": 1, "municipio": 1, "colonia_fuente": 1, "edad_fuente": 1}
     pendientes = []
     cursor_limit = max_filas * 3 * (shard[1] if shard else 1)
     for d in col.find(q, proj).limit(cursor_limit):
@@ -1250,13 +1254,17 @@ def obtener_props_mongo(col, portal: str, max_filas: int, urls_procesadas: set,
         # en paralelo sin descargar la misma página dos veces.
         if shard is not None and zlib.crc32(url.encode("utf-8")) % shard[1] != shard[0]:
             continue
+        # Sticky: no re-extraer/pisar lo corregido por perito/usuario/crowdsource
+        # (#135b). colonia_fuente protege colonia; edad_fuente protege el año.
+        prot_col = d.get("colonia_fuente") in FUENTES_PROTEGIDAS
+        prot_edad = d.get("edad_fuente") in FUENTES_PROTEGIDAS
         pendientes.append({
             "id_unico":            d.get("id_unico"),
             "url":                 url,
             "portal":              d.get("portal_origen") or portal,
             "falta_m2_const":      not d.get("m2_construccion"),
             "falta_m2_terreno":    not d.get("m2_terreno"),
-            "falta_ano_const":     d.get("anio_construccion") in (None, "", 0),
+            "falta_ano_const":     not prot_edad and d.get("anio_construccion") in (None, "", 0),
             "falta_nombre_agente": not d.get("nombre_agente"),
             "falta_fecha_pub":     not d.get("fecha_publicacion"),
             "falta_recamaras":     not d.get("recamaras"),
@@ -1265,9 +1273,9 @@ def obtener_props_mongo(col, portal: str, max_filas: int, urls_procesadas: set,
             "falta_telefono":      not d.get("telefono"),
             "falta_inmobiliaria":  not d.get("inmobiliaria"),
             # PINCALI/PCOM/VIVANUNCIOS: forzar re-extracción si colonia es basura
-            "falta_colonia":       not d.get("colonia") or portal == "PINCALI"
+            "falta_colonia":       not prot_col and (not d.get("colonia") or portal == "PINCALI"
                                    or (portal in ("PROPIEDADES_COM", "VIVANUNCIOS")
-                                       and _colonia_es_basura(d.get("colonia", ""))),
+                                       and _colonia_es_basura(d.get("colonia", "")))),
             "falta_municipio":     not d.get("municipio"),
             "falta_precio":        not d.get("precio") or d.get("precio") == 0,
         })
