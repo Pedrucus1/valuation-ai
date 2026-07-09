@@ -76,6 +76,12 @@ const _simV2  = !_maestro && fs.existsSync(COLONIAS_SIM_V2_PATH) ? JSON.parse(fs
 // Se activa solo cuando LAB_SEG_CLUSTER=1. Cero costo en prod.
 const _SEG_ANCLAS = fs.existsSync(SEG_ANCLAS_PATH) ? JSON.parse(fs.readFileSync(SEG_ANCLAS_PATH, 'utf8')) : null;
 
+// LAB_EDAD_PRIOR: prior de edad real (perito) por municipio×tipo → tipo, para anclar la
+// depreciación cuando la colonia no tiene edadMedianaZona (que además sesga a nuevo). Se
+// regenera con `node build_edades_prior.js`. Estructura permite override manual futuro.
+const _EDAD_PRIOR_PATH = path.join(__dirname, 'edades_prior.json');
+const _EDAD_PRIOR = fs.existsSync(_EDAD_PRIOR_PATH) ? JSON.parse(fs.readFileSync(_EDAD_PRIOR_PATH, 'utf8')) : null;
+
 // Zonas geográficas — claves en formato normMuni (sin acentos, lowercase)
 // Quirk: normMuni("San Pedro Tlaquepaque") → "tlaquepaquetlaquepaque" (la regex "^san pedro " reemplaza
 // el prefijo con "tlaquepaque" pero el sufijo ya contiene "tlaquepaque" → duplicación). Ambas formas apuntan a AMG-SE.
@@ -1192,7 +1198,15 @@ function valuarPropiedad(prop) {
     // el descuento se mide contra la edad típica de la zona (no contra un fijo 10). Un sujeto tan viejo
     // como su zona ya no se sobre-deprecia. Fallback a 10 cuando no hay dato → comportamiento idéntico.
     const _cellEdad = IDX[muniNorm]?.[tipo]?.[colNorm];
-    const anclaEdad = (_cellEdad && _cellEdad.edadMedianaZona != null) ? _cellEdad.edadMedianaZona : 10;
+    let anclaEdad = (_cellEdad && _cellEdad.edadMedianaZona != null) ? _cellEdad.edadMedianaZona : 10;
+    // LAB_EDAD_PRIOR: sin edadMedianaZona de la colonia, usar el prior de edad real (perito)
+    // por municipio×tipo → tipo, en vez del fallback fijo 10 (que sobre-deprecia usados).
+    if (process.env.LAB_EDAD_PRIOR === '1' && _EDAD_PRIOR && !(_cellEdad && _cellEdad.edadMedianaZona != null)) {
+        const _mt = _EDAD_PRIOR.muniTipo?.[`${muniNorm}|${tipo}`];
+        const _tt = _EDAD_PRIOR.tipo?.[tipo];
+        if (_mt) anclaEdad = _mt.edad;
+        else if (_tt) anclaEdad = _tt.edad;
+    }
     // LAB_EDAD_NSE=1: curva de depreciación dependiente del NSE del sujeto (solo no-exacta).
     // Premium (nseIdx≥4): deprecia lento (floor=0.80, slope=0.004 similares / 0.006 general).
     // Popular (nseIdx≤1): deprecia rápido (floor=0.50, slope=0.006 similares / 0.015 general).
