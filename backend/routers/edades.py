@@ -73,6 +73,15 @@ async def comps_sin_edad(
         "anio_construccion": None,
         "precio": {"$gt": 0},
         "es_duplicado_secundario": {"$ne": True},
+        # Excluir colonia contaminada: (1) igual al título del anuncio (PINCALI
+        # guardó el título como colonia, muchas en inglés); (2) demasiado larga
+        # (una colonia real es corta; >40 chars ⇒ es una frase/título). Sin
+        # colonia real no sirven para etiquetar por zona; reaparecen cuando se
+        # les extraiga la colonia buena.
+        "$expr": {"$and": [
+            {"$ne": ["$colonia", "$titulo"]},
+            {"$lt": [{"$strLenCP": {"$ifNull": ["$colonia", ""]}}, 40]},
+        ]},
     }
     if municipio:
         q["municipio"] = municipio
