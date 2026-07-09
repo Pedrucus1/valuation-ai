@@ -24,6 +24,17 @@ const AGE_RANGES = [
   { value: "50+", label: "50+ años" },
 ];
 
+// Estado de conservación (escala, sin remodelación — eso es un eje aparte).
+const CONSERVACIONES = [
+  "Nuevo", "Excelente", "Bueno", "Regular Bueno", "Regular", "Regular Malo", "Malo", "Muy Malo",
+];
+// Grado de remodelación → con el año calcula la edad efectiva ponderada.
+const GRADOS_REMOD = [
+  { value: "basica", label: "Básica (acabados)" },
+  { value: "intermedia", label: "Intermedia (instalaciones + acabados)" },
+  { value: "completa", label: "Completa (estructura + instalaciones + acabados)" },
+];
+
 const MUNICIPIOS = [
   "Guadalajara", "Zapopan", "Tlaquepaque", "Tonalá",
   "Tlajomulco de Zúñiga", "Chapala", "Ajijic", "El Salto",
@@ -61,8 +72,16 @@ const EdadesZonaPage = () => {
   const [loading, setLoading] = useState(false);
   const [buscado, setBuscado] = useState(false);
   const [conjuntos, setConjuntos] = useState({});   // id_unico -> texto conjunto
-  const [hechos, setHechos] = useState({});         // id_unico -> edad guardada
+  const [hechos, setHechos] = useState({});         // id_unico -> guardado
   const [puntos, setPuntos] = useState(null);
+  // Campos por fila (id_unico -> valor)
+  const [edadRango, setEdadRango] = useState({});   // año construcción por rango
+  const [anioConst, setAnioConst] = useState({});   // año construcción exacto
+  const [conserv, setConserv]     = useState({});   // estado de conservación
+  const [remodGrado, setRemodGrado] = useState({}); // grado de remodelación
+  const [remodAnio, setRemodAnio]   = useState({}); // año de remodelación
+  const [guardando, setGuardando]   = useState({}); // id -> bool
+  const set = (setter) => (id, v) => setter(prev => ({ ...prev, [id]: v }));
 
   const buscar = async () => {
     setLoading(true);
@@ -84,16 +103,24 @@ const EdadesZonaPage = () => {
     }
   };
 
-  // rango: clave de AGE_RANGES ("no_se" = saltar). anioExacto: año tecleado (prioridad).
-  const guardar = async (it, { rango, anioExacto } = {}) => {
-    if (rango === "no_se") {                     // válido: no escribe, solo pasa
-      setHechos(prev => ({ ...prev, [it.id_unico]: "no_se" }));
+  const saltar = (it) => setHechos(prev => ({ ...prev, [it.id_unico]: "no_se" }));
+
+  const guardar = async (it) => {
+    const id = it.id_unico;
+    const body = { id_unico: id };
+    if (conjuntos[id]) body.conjunto = conjuntos[id];
+    if (anioConst[id]) body.anio_exacto = Number(anioConst[id]);
+    else if (edadRango[id]) body.edad_rango = edadRango[id];
+    if (conserv[id]) body.conservacion = conserv[id];
+    if (remodGrado[id]) {
+      body.grado_remodelacion = remodGrado[id];
+      if (remodAnio[id]) body.anio_remodelacion = Number(remodAnio[id]);
+    }
+    if (!body.anio_exacto && !body.edad_rango && !body.conservacion && !body.grado_remodelacion) {
+      toast.error("Indica al menos edad, conservación o remodelación");
       return;
     }
-    const body = { id_unico: it.id_unico, conjunto: conjuntos[it.id_unico] || null };
-    if (anioExacto) body.anio_exacto = Number(anioExacto);
-    else if (rango) body.edad_rango = rango;
-    else return;
+    set(setGuardando)(id, true);
     try {
       const res = await fetch(`${API}/edad-estimada`, {
         method: "POST",
@@ -103,11 +130,17 @@ const EdadesZonaPage = () => {
       });
       if (!res.ok) throw new Error();
       const data = await res.json();
-      setHechos(prev => ({ ...prev, [it.id_unico]: anioExacto || rango }));
+      setHechos(prev => ({ ...prev, [id]: true }));
       if (data.puntos != null) setPuntos(data.puntos);
-      toast.success("Edad guardada. ¡Gracias!");
+      toast.success(
+        data.edad_efectiva != null
+          ? `Guardado. Edad efectiva estimada: ${data.edad_efectiva} años`
+          : "Guardado. ¡Gracias!"
+      );
     } catch {
       toast.error("No se pudo guardar");
+    } finally {
+      set(setGuardando)(id, false);
     }
   };
 
@@ -196,30 +229,58 @@ const EdadesZonaPage = () => {
                     </a>
                   )}
                 </div>
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-                  <Input
-                    value={conjuntos[it.id_unico] || ""}
-                    onChange={e => setConjuntos(prev => ({ ...prev, [it.id_unico]: e.target.value }))}
-                    placeholder="Coto / conjunto (opcional)"
-                    className="h-9 w-full sm:w-44 text-sm"
-                  />
-                  <Input
-                    type="number" min="1900" max={new Date().getFullYear()}
-                    placeholder="Año exacto"
-                    className="h-9 w-full sm:w-28 text-sm"
-                    title="Año exacto si lo sabes"
-                    onKeyDown={e => { if (e.key === "Enter" && e.target.value) guardar(it, { anioExacto: e.target.value }); }}
-                    onBlur={e => { if (e.target.value) guardar(it, { anioExacto: e.target.value }); }}
-                  />
-                  <Select onValueChange={v => guardar(it, { rango: v })}>
-                    <SelectTrigger className="h-9 w-full sm:w-36 text-sm border-[#52B788] text-[#1B4332] font-semibold">
-                      <SelectValue placeholder="¿Edad?" />
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 md:w-[520px]">
+                  {/* Edad de construcción: rango o año exacto */}
+                  <Select value={edadRango[it.id_unico] || ""} onValueChange={v => set(setEdadRango)(it.id_unico, v)}>
+                    <SelectTrigger className="h-9 text-sm border-[#52B788] text-[#1B4332] font-semibold">
+                      <SelectValue placeholder="Edad construcción" />
                     </SelectTrigger>
                     <SelectContent>
                       {AGE_RANGES.map(r => <SelectItem key={r.value} value={r.value}>{r.label}</SelectItem>)}
-                      <SelectItem value="no_se" className="text-slate-400">No sé (saltar)</SelectItem>
                     </SelectContent>
                   </Select>
+                  <Input
+                    type="number" min="1900" max={new Date().getFullYear()}
+                    placeholder="o año exacto"
+                    value={anioConst[it.id_unico] || ""}
+                    onChange={e => set(setAnioConst)(it.id_unico, e.target.value)}
+                    className="h-9 text-sm" title="Año exacto de construcción si lo sabes"
+                  />
+                  {/* Conservación */}
+                  <Select value={conserv[it.id_unico] || ""} onValueChange={v => set(setConserv)(it.id_unico, v)}>
+                    <SelectTrigger className="h-9 text-sm"><SelectValue placeholder="Conservación" /></SelectTrigger>
+                    <SelectContent>
+                      {CONSERVACIONES.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                    </SelectContent>
+                  </Select>
+                  {/* Remodelación: grado + año */}
+                  <Select value={remodGrado[it.id_unico] || ""} onValueChange={v => set(setRemodGrado)(it.id_unico, v)}>
+                    <SelectTrigger className="h-9 text-sm"><SelectValue placeholder="¿Remodelada?" /></SelectTrigger>
+                    <SelectContent>
+                      {GRADOS_REMOD.map(g => <SelectItem key={g.value} value={g.value} className="text-xs">{g.label}</SelectItem>)}
+                    </SelectContent>
+                  </Select>
+                  <Input
+                    type="number" min="1900" max={new Date().getFullYear()}
+                    placeholder="Año remodelación"
+                    value={remodAnio[it.id_unico] || ""}
+                    onChange={e => set(setRemodAnio)(it.id_unico, e.target.value)}
+                    className="h-9 text-sm" title="Año de la remodelación"
+                  />
+                  <Input
+                    value={conjuntos[it.id_unico] || ""}
+                    onChange={e => setConjuntos(prev => ({ ...prev, [it.id_unico]: e.target.value }))}
+                    placeholder="Coto / conjunto"
+                    className="h-9 text-sm"
+                  />
+                  <div className="col-span-2 lg:col-span-3 flex gap-2">
+                    <Button onClick={() => guardar(it)} disabled={guardando[it.id_unico]}
+                            className="flex-1 h-9 bg-[#52B788] hover:bg-[#40916C] text-white">
+                      {guardando[it.id_unico] ? "Guardando..." : "Guardar"}
+                    </Button>
+                    <Button onClick={() => saltar(it)} variant="outline"
+                            className="h-9 text-slate-500 border-slate-300">No sé</Button>
+                  </div>
                 </div>
               </CardContent>
             </Card>

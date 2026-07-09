@@ -34,6 +34,30 @@ CAMPOS_SIN_EDAD = {
     "tipo_propiedad": 1, "precio": 1, "m2_construccion": 1, "url_original": 1,
 }
 
+# Estado de conservación (escala, SIN remodelación — eso es un eje aparte que
+# ajusta la edad efectiva). Alimenta el factor de conservación del motor.
+CONSERVACION_VALIDAS = {
+    "Nuevo", "Excelente", "Bueno", "Regular Bueno", "Regular",
+    "Regular Malo", "Malo", "Muy Malo",
+}
+
+# Remodelación → fracción p de la construcción renovada (peso derivado de las
+# partidas del dictamen del perito, versión conservadora). Con el año de
+# remodelación se calcula la EDAD EFECTIVA (método del dictamen de mejoras):
+#   edad_efectiva = edad_crono − p × (edad_crono − edad_de_mejoras)
+GRADO_REMOD_P = {"basica": 0.35, "intermedia": 0.55, "completa": 0.95}
+
+
+def _edad_efectiva(anio_construccion, anio_remodelacion, grado, ahora_year):
+    """Edad efectiva ponderada por remodelación (None si no hay grado válido)."""
+    p = GRADO_REMOD_P.get((grado or "").lower())
+    if p is None or not anio_construccion:
+        return None
+    edad_crono = ahora_year - anio_construccion
+    edad_mejoras = (ahora_year - anio_remodelacion) if anio_remodelacion else 0
+    edad_ajustada = edad_crono - edad_mejoras
+    return round(edad_crono - p * edad_ajustada, 1)
+
 
 @router.get("/comps-sin-edad")
 async def comps_sin_edad(
@@ -75,13 +99,23 @@ async def edad_estimada(request: Request):
     conjunto = body.get("conjunto")
     anio_exacto = body.get("anio_exacto")
     edad_exacta = body.get("edad_exacta")
+    conservacion = str(body.get("conservacion") or "").strip()
+    anio_remod = body.get("anio_remodelacion")
+    grado_remod = str(body.get("grado_remodelacion") or "").strip().lower()
 
     if not id_unico:
         raise HTTPException(status_code=400, detail="Falta id_unico")
+    if conservacion and conservacion not in CONSERVACION_VALIDAS:
+        raise HTTPException(status_code=400, detail=f"Conservación inválida: {conservacion}")
+    if grado_remod and grado_remod not in GRADO_REMOD_P:
+        raise HTTPException(status_code=400, detail=f"Grado de remodelación inválido: {grado_remod}")
 
     ahora = datetime.now(timezone.utc)
+    update = {"edad_estimador": estimador, "edad_fecha": ahora.isoformat()}
+
+    # Edad (opcional si viene conservación): exacto > rango.
     exacta = False
-    # Valor exacto tiene prioridad sobre el rango.
+    tiene_edad = True
     if anio_exacto not in (None, ""):
         try:
             anio = int(anio_exacto)
@@ -102,16 +136,42 @@ async def edad_estimada(request: Request):
     elif rango in RANGO_MIDPOINT:
         anio = ahora.year - RANGO_MIDPOINT[rango]
     else:
-        raise HTTPException(status_code=400, detail="Falta edad (rango o valor exacto)")
+        tiene_edad = False
 
-    update = {
-        "anio_construccion": anio,
-        "edad_fuente": "perito_crowdsource",
-        "edad_rango": rango if (rango in RANGO_MIDPOINT and not exacta) else None,
-        "edad_exacta": exacta,
-        "edad_estimador": estimador,
-        "edad_fecha": ahora.isoformat(),
-    }
+    # Año de remodelación (opcional) — se valida si viene.
+    anio_remod_val = None
+    if anio_remod not in (None, ""):
+        try:
+            anio_remod_val = int(anio_remod)
+        except (TypeError, ValueError):
+            raise HTTPException(status_code=400, detail="Año de remodelación inválido")
+        if not (1900 <= anio_remod_val <= ahora.year + 1):
+            raise HTTPException(status_code=400, detail="Año de remodelación fuera de rango")
+
+    if not tiene_edad and not conservacion and not grado_remod:
+        raise HTTPException(status_code=400, detail="Falta edad, conservación o remodelación")
+
+    if tiene_edad:
+        update["anio_construccion"] = anio
+        update["edad_fuente"] = "perito_crowdsource"
+        update["edad_rango"] = rango if (rango in RANGO_MIDPOINT and not exacta) else None
+        update["edad_exacta"] = exacta
+    if conservacion:
+        update["conservacion"] = conservacion
+        update["conservacion_fuente"] = "perito_crowdsource"
+    if grado_remod:
+        update["grado_remodelacion"] = grado_remod
+        if anio_remod_val:
+            update["anio_remodelacion"] = anio_remod_val
+        # Edad efectiva ponderada (método dictamen de mejoras). Usa el año de
+        # construcción de este mismo request si vino, si no el que ya tenga el doc.
+        anio_c = anio if tiene_edad else None
+        if anio_c is None:
+            doc = await db.mercado_props.find_one({"id_unico": id_unico}, {"_id": 0, "anio_construccion": 1})
+            anio_c = (doc or {}).get("anio_construccion")
+        ee = _edad_efectiva(anio_c, anio_remod_val, grado_remod, ahora.year)
+        if ee is not None:
+            update["edad_efectiva"] = ee
     if conjunto:
         update["conjunto"] = str(conjunto).strip()[:120]
 
@@ -126,15 +186,27 @@ async def edad_estimada(request: Request):
         pdoc = await db.users.find_one({"user_id": estimador}, {"_id": 0, "puntos_edad": 1})
         puntos = (pdoc or {}).get("puntos_edad", 1)
 
-    return {"ok": True, "anio_construccion": anio, "puntos": puntos}
+    return {
+        "ok": True,
+        "anio_construccion": anio if tiene_edad else None,
+        "edad_efectiva": update.get("edad_efectiva"),
+        "puntos": puntos,
+    }
 
 
 if __name__ == "__main__":
     # Self-check de midpoints (offline, sin DB).
     assert RANGO_MIDPOINT["nuevo"] == 0 and RANGO_MIDPOINT["50+"] == 55
     assert list(RANGO_MIDPOINT)[:3] == ["nuevo", "1-5", "6-10"]
-    # Monotónico creciente (rangos ordenados de menor a mayor edad).
     vals = list(RANGO_MIDPOINT.values())
     assert vals == sorted(vals), "midpoints deben ir en orden creciente"
     assert len(RANGO_MIDPOINT) == 12
+    # Edad efectiva ponderada — ejemplo del dictamen del perito:
+    # construida 1960, remodelada 2020, grado completa (p=0.95), año 2026.
+    ee = _edad_efectiva(1960, 2020, "completa", 2026)   # 66 − 0.95×60 = 9.0
+    assert ee == 9.0, ee
+    assert _edad_efectiva(1960, 2020, "intermedia", 2026) == round(66 - 0.55*60, 1)  # 33.0
+    assert _edad_efectiva(1960, 2020, "basica", 2026) == round(66 - 0.35*60, 1)      # 45.0
+    assert _edad_efectiva(1960, None, "completa", 2026) is not None                   # sin año remod → edad_mejoras=0
+    assert _edad_efectiva(None, 2020, "completa", 2026) is None                       # sin año constr → None
     print("edades self-check OK")
