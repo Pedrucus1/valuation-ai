@@ -104,6 +104,15 @@ const EdadesZonaPage = () => {
   const [openCol, setOpenCol] = useState(false);    // popover del combo de colonia
   const set = (setter) => (id, v) => setter(prev => ({ ...prev, [id]: v }));
 
+  // Al elegir "Nuevo": conservación = Nuevo y año = año en curso (automático).
+  const onEdadRango = (id, v) => {
+    set(setEdadRango)(id, v);
+    if (v === "nuevo") {
+      set(setConserv)(id, "Nuevo");
+      set(setAnioConst)(id, String(new Date().getFullYear()));
+    }
+  };
+
   // Cascada de zonas (nivel nacional, alimentada por los datos reales)
   const fetchZonas = async (params = {}) => {
     const qs = new URLSearchParams(params);
@@ -340,7 +349,7 @@ const EdadesZonaPage = () => {
                 <div>
                   <label className={LBL}>Edad de construcción <span className="normal-case font-normal text-slate-400">(original)</span></label>
                   <div className="flex gap-2">
-                    <Select value={edadRango[it.id_unico] || ""} onValueChange={v => set(setEdadRango)(it.id_unico, v)}>
+                    <Select value={edadRango[it.id_unico] || ""} onValueChange={v => onEdadRango(it.id_unico, v)}>
                       <SelectTrigger className={INP + " flex-1"}><SelectValue placeholder="Rango" /></SelectTrigger>
                       <SelectContent>
                         {AGE_RANGES.map(r => (
