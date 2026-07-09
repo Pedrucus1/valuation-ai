@@ -371,20 +371,50 @@ Responde ÚNICAMENTE con JSON válido, sin explicaciones:
 
 // ── Búsqueda web: Serper (Google) → DeepSeek extrae comparables ──────────────
 
-async function buscarEnSerper(query) {
-    if (!process.env.SERPER_API_KEY) return [];
+// Devuelve string de resultados, o null si la key falló/está agotada (para la cascada).
+async function buscarEnSerper(query, key) {
+    if (!key) return null;
     try {
         const res = await fetch('https://google.serper.dev/search', {
             method: 'POST',
-            headers: { 'X-API-KEY': process.env.SERPER_API_KEY, 'Content-Type': 'application/json' },
+            headers: { 'X-API-KEY': key, 'Content-Type': 'application/json' },
             body: JSON.stringify({ q: query, gl: 'mx', hl: 'es', num: 10 })
         });
+        if (!res.ok) return null;   // 400 "Not enough credits" → siguiente key/proveedor
         const data = await res.json();
         // Incluir link para que DeepSeek pueda extraer URL real
         return (data.organic || []).map(r => `[${r.title}]\n${r.snippet || ''}\nURL: ${r.link}`).join('\n\n---\n\n');
     } catch (e) {
-        return '';
+        return null;
     }
+}
+
+// Tavily: buscador para IA (tier gratis 1000/mes). Mismo formato de salida que Serper.
+// Devuelve null si la key falló/está agotada (cuota → HTTP 4xx). Ver credentials_registry.
+async function buscarEnTavily(query, key) {
+    if (!key) return null;
+    try {
+        const res = await fetch('https://api.tavily.com/search', {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${key}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ query, max_results: 10, search_depth: 'basic', include_answer: false })
+        });
+        if (!res.ok) return null;   // cuota agotada / error → siguiente key/proveedor
+        const data = await res.json();
+        return (data.results || []).map(r => `[${r.title}]\n${(r.content || '').slice(0, 400)}\nURL: ${r.url}`).join('\n\n---\n\n');
+    } catch (e) {
+        return null;
+    }
+}
+
+// Cascada de búsqueda web: prueba cada key de Tavily (gratis; TAVILY_API_KEY admite VARIAS
+// separadas por coma para apilar cuentas) y luego Serper (pago). Si una key está agotada
+// (null) pasa a la siguiente → permite sumar cuentas gratis y caer a pago al crecer.
+const _webKeys = env => (process.env[env] || '').split(',').map(s => s.trim()).filter(Boolean);
+async function buscarWeb(query) {
+    for (const k of _webKeys('TAVILY_API_KEY')) { const r = await buscarEnTavily(query, k); if (r !== null) return r; }
+    for (const k of _webKeys('SERPER_API_KEY')) { const r = await buscarEnSerper(query, k); if (r !== null) return r; }
+    return '';
 }
 
 // Enriquece los comps web (URLs reales de Serper) abriendo el listing con el
@@ -425,7 +455,7 @@ async function enriquecerCompsWeb(comps, prop) {
 }
 
 async function buscarCompsConWeb(prop, similares) {
-    if (!_deepseek || !process.env.SERPER_API_KEY) return [];
+    if (!_deepseek || (!process.env.SERPER_API_KEY && !process.env.TAVILY_API_KEY)) return [];
 
     const tipoQ  = (prop.tipo || 'casa').toLowerCase().includes('depto') ? 'departamento' : 'casa';
     const m2Min  = Math.round((prop.construccion || 60) * 0.5);
@@ -460,8 +490,8 @@ async function buscarCompsConWeb(prop, similares) {
         : null;
 
     const [snip1, snip2] = await Promise.all([
-        buscarEnSerper(q1),
-        q2 ? buscarEnSerper(q2) : Promise.resolve(''),
+        buscarWeb(q1),
+        q2 ? buscarWeb(q2) : Promise.resolve(''),
     ]);
 
     const todosSnippets = [snip1, snip2].filter(Boolean).join('\n\n═══\n\n');
@@ -1405,7 +1435,7 @@ async function valuarPropiedadCompleto(prop) {
     const necesitaSumaPartesWeb = ratioTerrWeb > 2.5
         && (prop.terreno || 0) > 200
         && !['suma_partes', 'suma_partes_mix'].includes(result.poolTipo)
-        && !!process.env.SERPER_API_KEY;
+        && (!!process.env.SERPER_API_KEY || !!process.env.TAVILY_API_KEY);
 
     if (necesitaSumaPartesWeb) {
         const propTerreno = { ...prop, tipo: 'terreno', tipoRaw: 'terreno en venta' };
@@ -1434,7 +1464,7 @@ async function valuarPropiedadCompleto(prop) {
     const necesitaComplemento = !result.error
         && result.nComps > 0 && result.nComps < COMPS_MIN
         && !poolNoComplementable.includes(result.poolTipo)
-        && !!process.env.SERPER_API_KEY;
+        && (!!process.env.SERPER_API_KEY || !!process.env.TAVILY_API_KEY);
 
     if (necesitaComplemento) {
         const compsExtra = await buscarCompsConWeb(prop, simFb);
