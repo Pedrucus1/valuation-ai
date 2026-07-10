@@ -412,6 +412,32 @@ const EdadesZonaPage = () => {
                   <Input value={coloniaEdit[it.id_unico] ?? it.colonia ?? ""}
                          onChange={e => set(setColoniaEdit)(it.id_unico, e.target.value)}
                          list="col-oficiales" placeholder="Colonia oficial" className={INP} />
+                  {(() => {
+                    // Chips de "misma zona": colonias que comparten el CP de esta propiedad
+                    // (CP guardado, o el de la colonia actual si coincide con una oficial).
+                    const actual = coloniaEdit[it.id_unico] ?? it.colonia ?? "";
+                    const cpAncla = String(it.codigo_postal
+                      || coloniasOficiales.find(c => norm(c.nombre) === norm(actual))?.cp || "");
+                    if (!cpAncla) return null;
+                    const mismas = coloniasOficiales
+                      .filter(c => String(c.cp) === cpAncla && norm(c.nombre) !== norm(actual))
+                      .slice(0, 8);
+                    if (!mismas.length) return null;
+                    return (
+                      <div className="mt-1.5">
+                        <p className="text-[10px] text-slate-400 uppercase tracking-wide mb-1">Misma zona · CP {cpAncla}</p>
+                        <div className="flex flex-wrap gap-1">
+                          {mismas.map(c => (
+                            <button key={c.nombre} type="button"
+                              onClick={() => set(setColoniaEdit)(it.id_unico, c.nombre)}
+                              className="text-[11px] px-2 py-0.5 rounded-full border border-[#B7E4C7] text-[#1B4332] bg-[#F0FAF5] hover:bg-[#E0F4E8]">
+                              {c.nombre}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })()}
                 </div>
                 {/* Edad de construcción: rango + año exacto */}
                 <div>

@@ -64,7 +64,7 @@ RANGO_MIDPOINT = {
 }
 
 CAMPOS_SIN_EDAD = {
-    "_id": 0, "id_unico": 1, "colonia": 1, "calle_numero": 1,
+    "_id": 0, "id_unico": 1, "colonia": 1, "calle_numero": 1, "codigo_postal": 1,
     "tipo_propiedad": 1, "precio": 1, "m2_construccion": 1, "url_original": 1,
 }
 
