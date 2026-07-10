@@ -141,8 +141,11 @@ const EdadesZonaPage = () => {
   const [openCol, setOpenCol] = useState(false);    // popover del combo de colonia
   const [coloniaEdit, setColoniaEdit] = useState({}); // id -> colonia corregida
   const [tipoEdit, setTipoEdit] = useState({});       // id -> tipo corregido
+  const [nivelEdit, setNivelEdit] = useState({});     // id -> nivel/piso (depto/local/oficina)
   const [retiradoChk, setRetiradoChk] = useState({}); // id -> anuncio retirado
   const [aplicarGrupo, setAplicarGrupo] = useState({}); // id -> aplicar al mismo coto
+  const [coloniasExistentes, setColoniasExistentes] = useState([]); // nombres ya usados en la zona
+  const [conjuntosExistentes, setConjuntosExistentes] = useState([]); // cotos ya usados en la zona
 
   // Otras pendientes del mismo coto/colonia (incluye variantes: ABIE Eco Hábitat ≈ Abié Residencial)
   const grupoDe = (it) => items.filter(o =>
@@ -198,6 +201,11 @@ const EdadesZonaPage = () => {
       .then(r => r.ok ? r.json() : { colonias: [] })
       .then(d => setColoniasOficiales(d.colonias || []))
       .catch(() => setColoniasOficiales([]));
+    // Nombres ya usados (colonia/coto) en la zona → autocompletar y homogenizar
+    fetch(`${API}/nombres-zona?municipio=${encodeURIComponent(v)}`, { credentials: "include", headers: authHeaders() })
+      .then(r => r.ok ? r.json() : { colonias: [], conjuntos: [] })
+      .then(d => { setColoniasExistentes(d.colonias || []); setConjuntosExistentes(d.conjuntos || []); })
+      .catch(() => { setColoniasExistentes([]); setConjuntosExistentes([]); });
   };
 
   const buscar = async () => {
@@ -241,6 +249,7 @@ const EdadesZonaPage = () => {
     }
     if (conjuntos[id]) p.conjunto = conjuntos[id];
     if (tipoEdit[id] && tipoEdit[id] !== it.tipo_propiedad) p.tipo = tipoEdit[id];  // corrección de tipo
+    if (nivelEdit[id] !== undefined && nivelEdit[id] !== "") p.nivel = Number(nivelEdit[id]);  // piso/nivel
     if (retiradoChk[id]) p.retirado = true;   // anuncio ya no publicado
     if (anioConst[id]) p.anio_exacto = Number(anioConst[id]);
     else if (edadRango[id]) p.edad_rango = edadRango[id];
@@ -280,8 +289,8 @@ const EdadesZonaPage = () => {
   const guardar = async (it) => {
     const id = it.id_unico;
     const payload = construirPayload(it);
-    if (!payload.anio_exacto && !payload.edad_rango && !payload.conservacion && !payload.grado_remodelacion && !payload.colonia && !payload.tipo && !payload.retirado) {
-      toast.error("Indica al menos edad, conservación, remodelación, colonia, tipo o retiro");
+    if (!payload.anio_exacto && !payload.edad_rango && !payload.conservacion && !payload.grado_remodelacion && !payload.colonia && !payload.tipo && !payload.retirado && payload.nivel === undefined) {
+      toast.error("Indica al menos edad, conservación, remodelación, colonia, tipo, nivel o retiro");
       return;
     }
     set(setGuardando)(id, true);
@@ -316,7 +325,10 @@ const EdadesZonaPage = () => {
         <div className="flex items-center justify-between flex-wrap gap-3 mb-2">
           <div className="flex items-center gap-3">
             <Building2 className="w-8 h-8 text-[#1B4332]" />
-            <h1 className="font-['Outfit'] text-2xl md:text-3xl font-bold text-[#1B4332]">Verifica y Gana</h1>
+            <div>
+              <h1 className="font-['Outfit'] text-2xl md:text-3xl font-bold text-[#1B4332] leading-tight">Verificación de Datos por Zona</h1>
+              <p className="text-sm font-semibold text-[#52B788]">Verifica y Gana</p>
+            </div>
           </div>
           {puntos != null && (
             <div className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#1B4332] bg-[#D9ED92]/40 border border-[#52B788]/40 rounded-full px-3 py-1">
@@ -329,9 +341,9 @@ const EdadesZonaPage = () => {
           <p className="text-sm text-[#1B4332] font-semibold mb-1">Ayuda a completar los datos de tu zona y gana puntos 🎯</p>
           <p className="text-sm text-slate-600 leading-relaxed">
             Tú conoces las colonias mejor que nadie. Corrige o completa la información de estas
-            propiedades (edad, colonia, tipo, estado de conservación) o marca las que ya no están publicadas.
-            <b> Cada propiedad que verificas suma 1 punto</b>, y esos puntos los podrás
-            <b> canjear por avalúos con descuento o gratis</b>. De paso, haces más preciso el mercado que todos usamos.
+            propiedades (edad, colonia, tipo, nivel, estado de conservación) o marca las que ya no están publicadas.
+            <b> Cada propiedad que verificas suma 1 punto</b>. Al llegar a <b>150 puntos ganas una opinión de valor gratis</b> (valor $320).
+            De paso, haces más preciso el mercado que todos usamos.
           </p>
         </div>
 
@@ -409,9 +421,18 @@ const EdadesZonaPage = () => {
           </p>
         )}
 
-        {/* Colonias oficiales SEPOMEX (compartido por todas las fichas para sugerir al corregir) */}
+        {/* Colonias: oficiales SEPOMEX + nombres YA usados en la zona (fraccionamientos
+            no oficiales) — compartido por todas las fichas para autocompletar y homogenizar. */}
         <datalist id="col-oficiales">
-          {coloniasOficiales.map(c => <option key={c.nombre + c.cp} value={c.nombre}>{c.cp}</option>)}
+          {coloniasOficiales.map(c => <option key={"of" + c.nombre + c.cp} value={c.nombre}>{c.cp}</option>)}
+          {coloniasExistentes
+            .filter(n => !coloniasOficiales.some(o => norm(o.nombre) === norm(n)))
+            .map(n => <option key={"ex" + n} value={n} />)}
+        </datalist>
+        {/* Cotos/conjuntos/edificios ya usados en la zona → elegir uno existente
+            en vez de inventar variantes ('Albaterra' vs 'Fracc. Albaterra'). */}
+        <datalist id="conj-existentes">
+          {conjuntosExistentes.map(n => <option key={n} value={n} />)}
         </datalist>
 
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3 items-start">
@@ -490,6 +511,26 @@ const EdadesZonaPage = () => {
                     );
                   })()}
                 </div>
+                {/* Coto / conjunto / edificio (pegado a colonia) — autocompleta con los ya usados */}
+                <div>
+                  <label className={LBL}>Coto / conjunto / edificio <span className="normal-case font-normal text-slate-400">(opcional)</span></label>
+                  <Input value={conjuntos[it.id_unico] || ""}
+                         onChange={e => setConjuntos(prev => ({ ...prev, [it.id_unico]: e.target.value }))}
+                         list="conj-existentes" placeholder="Elige uno existente o escribe" className={INP} />
+                </div>
+                {/* Nivel / piso: solo departamento, local u oficina (torre/plaza) */}
+                {(() => {
+                  const tipoEff = tipoEdit[it.id_unico] ?? it.tipo_propiedad;
+                  if (!["departamento", "local", "oficina"].includes(tipoEff)) return null;
+                  return (
+                    <div>
+                      <label className={LBL}>Nivel / piso <span className="normal-case font-normal text-slate-400">(en qué piso está)</span></label>
+                      <Input type="number" value={nivelEdit[it.id_unico] ?? ""}
+                             onChange={e => set(setNivelEdit)(it.id_unico, e.target.value)}
+                             placeholder="Ej. 3 (PB = 0)" className={INP} />
+                    </div>
+                  );
+                })()}
                 {/* Corregir tipo de propiedad (si el scrapeo lo trae mal) */}
                 <div>
                   <label className={LBL}>Tipo <span className="normal-case font-normal text-slate-400">(corrige si el scrapeo está mal)</span></label>
@@ -558,23 +599,15 @@ const EdadesZonaPage = () => {
                     </div>
                   )}
                 </div>
-                {/* Conservación + Conjunto en una fila (cajas más chicas) */}
-                <div className="grid grid-cols-2 gap-2">
-                  <div>
-                    <label className={LBL}>Conservación</label>
-                    <Select value={conserv[it.id_unico] || ""} onValueChange={v => set(setConserv)(it.id_unico, v)}>
-                      <SelectTrigger className={INP}><SelectValue placeholder="Estado" /></SelectTrigger>
-                      <SelectContent>
-                        {CONSERVACIONES.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div>
-                    <label className={LBL}>Coto / conjunto</label>
-                    <Input value={conjuntos[it.id_unico] || ""}
-                           onChange={e => setConjuntos(prev => ({ ...prev, [it.id_unico]: e.target.value }))}
-                           placeholder="Opcional" className={INP} />
-                  </div>
+                {/* Conservación */}
+                <div>
+                  <label className={LBL}>Conservación</label>
+                  <Select value={conserv[it.id_unico] || ""} onValueChange={v => set(setConserv)(it.id_unico, v)}>
+                    <SelectTrigger className={INP}><SelectValue placeholder="Estado" /></SelectTrigger>
+                    <SelectContent>
+                      {CONSERVACIONES.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                    </SelectContent>
+                  </Select>
                 </div>
 
                 {/* Aplicar al grupo: visible sólo si hay otras del mismo coto en la lista */}

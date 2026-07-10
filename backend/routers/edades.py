@@ -147,6 +147,24 @@ async def colonias_oficiales(request: Request, municipio: str = ""):
     return {"municipio": municipio, "colonias": cols, "total": len(cols)}
 
 
+@router.get("/nombres-zona")
+async def nombres_zona(request: Request, municipio: str = ""):
+    """Nombres de colonia y coto/conjunto YA usados en ese municipio, para
+    autocompletar y que los usuarios elijan uno existente en vez de inventar
+    variantes ('Albaterra' vs 'Fracc. Albaterra'). Read-only (distinct)."""
+    await _quien(request)
+    if not municipio:
+        return {"colonias": [], "conjuntos": []}
+    q = {"municipio": municipio}
+    colonias = await db.mercado_props.distinct("colonia", q)
+    conjuntos = await db.mercado_props.distinct("conjunto", q)
+    # Colonias: filtrar basura (títulos largos en inglés) por longitud.
+    limpio_col = sorted({str(v).strip() for v in colonias
+                         if v and 2 < len(str(v).strip()) <= 45})
+    limpio_conj = sorted({str(v).strip() for v in conjuntos if v and str(v).strip()})
+    return {"colonias": limpio_col, "conjuntos": limpio_conj}
+
+
 @router.get("/comps-sin-edad")
 async def comps_sin_edad(
     request: Request,
@@ -199,6 +217,17 @@ async def edad_estimada(request: Request):
     # Anuncio retirado / ya no publicado: baja el comp (activo=False) sin borrarlo
     # (el precio sigue sirviendo al motor como comp de menor calidad).
     retirado = bool(body.get("retirado"))
+    # Nivel/piso (campo NUEVO): importa en depto de torre y en local/oficina de
+    # plaza (y el último nivel de edificios chicos sin elevador vale menos).
+    nivel = body.get("nivel")
+    nivel_val = None
+    if nivel not in (None, ""):
+        try:
+            nivel_val = int(nivel)
+        except (TypeError, ValueError):
+            raise HTTPException(status_code=400, detail="Nivel inválido")
+        if not (-5 <= nivel_val <= 200):
+            raise HTTPException(status_code=400, detail="Nivel fuera de rango")
 
     if not id_unico:
         raise HTTPException(status_code=400, detail="Falta id_unico")
@@ -247,8 +276,8 @@ async def edad_estimada(request: Request):
         if not (1900 <= anio_remod_val <= ahora.year + 1):
             raise HTTPException(status_code=400, detail="Año de remodelación fuera de rango")
 
-    if not tiene_edad and not conservacion and not grado_remod and not colonia_fix and not tipo_fix and not retirado:
-        raise HTTPException(status_code=400, detail="Falta edad, conservación, remodelación, colonia, tipo o retiro")
+    if not tiene_edad and not conservacion and not grado_remod and not colonia_fix and not tipo_fix and not retirado and nivel_val is None:
+        raise HTTPException(status_code=400, detail="Falta edad, conservación, remodelación, colonia, tipo, nivel o retiro")
 
     if tiene_edad:
         update["anio_construccion"] = anio
@@ -285,6 +314,8 @@ async def edad_estimada(request: Request):
         update["activo"] = False
         update["baja_fuente"] = "perito_retirado"
         update["baja_fecha"] = ahora.isoformat()
+    if nivel_val is not None:
+        update["nivel"] = nivel_val
 
     res = await db.mercado_props.update_one({"id_unico": id_unico}, {"$set": update})
     if res.matched_count == 0:
