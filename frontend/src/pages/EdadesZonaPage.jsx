@@ -205,6 +205,13 @@ const EdadesZonaPage = () => {
     }
   };
 
+  // Anticipar la búsqueda al elegir una colonia (el botón sigue disponible para
+  // "Todas" o re-buscar tras cambiar tipo).
+  useEffect(() => {
+    if (municipio && colonia) buscar();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [colonia]);
+
   const saltar = (it) => setHechos(prev => ({ ...prev, [it.id_unico]: "no_se" }));
 
   const construirPayload = (it) => {
