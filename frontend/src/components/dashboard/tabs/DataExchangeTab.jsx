@@ -142,11 +142,15 @@ const DataExchangeTab = () => {
               </div>
               <CardContent className="p-5 space-y-4">
                 <div className="flex flex-wrap gap-3 text-sm">
-                  <span className="px-3 py-1.5 rounded-lg bg-green-50 text-green-700 font-semibold">✓ {analysis.aceptadas} aceptadas</span>
+                  <span className="px-3 py-1.5 rounded-lg bg-green-50 text-green-700 font-semibold">✓ {analysis.nuevas ?? analysis.aceptadas} nuevas</span>
+                  {analysis.duplicadas > 0 && (
+                    <span className="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-500 font-semibold">↺ {analysis.duplicadas} ya las tenías</span>
+                  )}
                   {analysis.rechazadas.length > 0 && (
                     <span className="px-3 py-1.5 rounded-lg bg-amber-50 text-amber-700 font-semibold">⚠ {analysis.rechazadas.length} con datos faltantes</span>
                   )}
                   <span className="px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 font-semibold">{analysis.al_pool} suman al mercado</span>
+                  <span className="px-3 py-1.5 rounded-lg bg-[#D9ED92]/50 text-[#1B4332] font-semibold">Descuento por calidad: {analysis.descuento_pct}%</span>
                 </div>
 
                 {analysis.rechazadas.length > 0 && (
@@ -192,10 +196,10 @@ const DataExchangeTab = () => {
                 )}
 
                 <div className="flex justify-end">
-                  <Button onClick={confirmar} disabled={loading || confirmed || analysis.aceptadas === 0}
+                  <Button onClick={confirmar} disabled={loading || confirmed || (analysis.nuevas ?? analysis.aceptadas) === 0}
                     className="bg-[#1B4332] text-white hover:bg-[#2D6A4F] font-semibold">
                     {loading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <CheckCircle2 className="w-4 h-4 mr-2" />}
-                    {confirmed ? "Importado ✓" : `Importar ${analysis.aceptadas} y activar 50%`}
+                    {confirmed ? "Importado ✓" : `Importar ${analysis.nuevas ?? analysis.aceptadas} y activar ${analysis.descuento_pct}%`}
                   </Button>
                 </div>
               </CardContent>

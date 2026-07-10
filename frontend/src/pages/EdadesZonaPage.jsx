@@ -229,12 +229,12 @@ const EdadesZonaPage = () => {
     }
   };
 
-  // Anticipar la búsqueda al elegir una colonia (el botón sigue disponible para
-  // "Todas" o re-buscar tras cambiar tipo).
+  // Anticipar la búsqueda al elegir/limpiar colonia o tipo (con colonia puesta),
+  // para ver al instante los otros tipos del fraccionamiento. El botón sigue.
   useEffect(() => {
     if (municipio && colonia) buscar();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [colonia]);
+  }, [colonia, tipo]);
 
   const saltar = (it) => setHechos(prev => ({ ...prev, [it.id_unico]: "no_se" }));
 
@@ -400,9 +400,10 @@ const EdadesZonaPage = () => {
             </div>
             <div className="flex flex-col gap-1">
               <label className="text-xs font-semibold text-slate-500">Tipo</label>
-              <Select value={tipo} onValueChange={setTipo}>
+              <Select value={tipo || "__todos"} onValueChange={v => setTipo(v === "__todos" ? "" : v)}>
                 <SelectTrigger className="h-9 w-36 text-sm"><SelectValue placeholder="Todos" /></SelectTrigger>
                 <SelectContent>
+                  <SelectItem value="__todos">Todos los tipos</SelectItem>
                   {TIPOS.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}
                 </SelectContent>
               </Select>

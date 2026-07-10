@@ -18,12 +18,11 @@ from core.db import db
 from core.auth import require_auth
 from core.data_exchange import (
     parse_upload, normalizar_fila, validar_fila, generar_plantilla_xlsx,
-    id_unico_data_exchange, ETIQUETA, COLUMNAS,
+    id_unico_data_exchange, clave_direccion, descuento_por_calidad, ETIQUETA, COLUMNAS,
 )
 
 router = APIRouter(prefix="/api/inmobiliaria/data-exchange")
 
-DESCUENTO_PCT = 50
 _TIPO_DISPLAY = {"casa": "Casa", "departamento": "Departamento", "terreno": "Terreno",
                  "local": "Local", "oficina": "Oficina", "bodega": "Bodega"}
 
@@ -43,6 +42,28 @@ def _procesar(contenido: bytes, filename: str):
     return validas, rechazadas
 
 
+async def _dedup(user_id: str, validas: list):
+    """Separa filas NUEVAS de DUPLICADAS (#142). Duplicada = ya subida antes por
+    esta inmobiliaria al pool (mismo id) O ya en su CRM (misma dirección). Solo
+    lo nuevo cuenta para el descuento y solo lo nuevo se ingiere. 2 queries."""
+    ids = [id_unico_data_exchange(user_id, f["direccion"]) for f in validas]
+    en_pool = set()
+    if ids:
+        docs = await db.mercado_props.find(
+            {"id_unico": {"$in": ids}}, {"id_unico": 1, "_id": 0}).to_list(len(ids))
+        en_pool = {d["id_unico"] for d in docs}
+    crm = await db.propiedades_inmobiliaria.find(
+        {"user_id": user_id}, {"direccion": 1, "_id": 0}).to_list(100000)
+    dirs_crm = {clave_direccion(d.get("direccion")) for d in crm}
+    nuevas, duplicadas = [], 0
+    for f, uid in zip(validas, ids):
+        if uid in en_pool or clave_direccion(f["direccion"]) in dirs_crm:
+            duplicadas += 1
+        else:
+            nuevas.append(f)
+    return nuevas, duplicadas
+
+
 @router.get("/plantilla")
 async def descargar_plantilla(request: Request):
     await require_auth(request)
@@ -56,39 +77,44 @@ async def descargar_plantilla(request: Request):
 
 @router.post("/analizar")
 async def analizar(request: Request, archivo: UploadFile = File(...)):
-    """Preview: valida y devuelve resumen SIN escribir nada."""
-    await require_auth(request)
+    """Preview: valida, deduplica y calcula el descuento por calidad. NO escribe."""
+    user = await require_auth(request)
     try:
         validas, rechazadas = _procesar(await archivo.read(), archivo.filename)
     except ValueError as e:
         raise HTTPException(400, str(e))
-    al_pool = sum(1 for f in validas if f.get("precio") and f.get("anio"))
-    preview = [{ETIQUETA[k]: f.get(k) for k, _ in COLUMNAS} for f in validas[:20]]
+    nuevas, duplicadas = await _dedup(user.user_id, validas)
+    al_pool = sum(1 for f in nuevas if f.get("precio") and f.get("anio"))
+    preview = [{ETIQUETA[k]: f.get(k) for k, _ in COLUMNAS} for f in nuevas[:20]]
     return {
         "total": len(validas) + len(rechazadas),
         "aceptadas": len(validas),
+        "nuevas": len(nuevas),
+        "duplicadas": duplicadas,
         "rechazadas": rechazadas,
         "al_pool": al_pool,
-        "descuento_pct": DESCUENTO_PCT,
+        "descuento_pct": descuento_por_calidad(len(nuevas)),
         "preview": preview,
     }
 
 
 @router.post("/confirmar")
 async def confirmar(request: Request, archivo: UploadFile = File(...)):
-    """Re-parsea y escribe: CRM + pool. Activa el 50%."""
+    """Re-parsea, deduplica y escribe SOLO lo nuevo (CRM + pool). El descuento
+    lo gana la calidad (filas nuevas) y es acumulable (máx histórico)."""
     user = await require_auth(request)
     try:
         validas, rechazadas = _procesar(await archivo.read(), archivo.filename)
     except ValueError as e:
         raise HTTPException(400, str(e))
-    if not validas:
-        raise HTTPException(400, "Ninguna fila válida para importar.")
+    nuevas, duplicadas = await _dedup(user.user_id, validas)
+    if not nuevas:
+        raise HTTPException(400, "No hay filas nuevas para importar (todas duplicadas o inválidas).")
 
     ahora = datetime.now(timezone.utc).isoformat()
     anio_actual = datetime.now().year
     crm_docs, ingeridas_pool = [], 0
-    for f in validas:
+    for f in nuevas:
         # 1) CRM (propiedades_inmobiliaria) — nombres del CRM
         crm_docs.append({
             "user_id": user.user_id, "origen": "data_exchange",
@@ -122,9 +148,13 @@ async def confirmar(request: Request, archivo: UploadFile = File(...)):
 
     if crm_docs:
         await db.propiedades_inmobiliaria.insert_many(crm_docs)
+    # Descuento por calidad, acumulable: nunca baja del que ya tenía.
+    gana = descuento_por_calidad(len(nuevas))
+    udoc = await db.users.find_one({"user_id": user.user_id}, {"data_exchange_pct": 1, "_id": 0})
+    pct = max(gana, (udoc or {}).get("data_exchange_pct", 0) or 0)
     await db.users.update_one({"user_id": user.user_id},
-                              {"$set": {"data_exchange_pct": DESCUENTO_PCT}})
+                              {"$set": {"data_exchange_pct": pct}})
     return {
         "ok": True, "al_crm": len(crm_docs), "al_pool": ingeridas_pool,
-        "rechazadas": len(rechazadas), "descuento_pct": DESCUENTO_PCT,
+        "duplicadas": duplicadas, "rechazadas": len(rechazadas), "descuento_pct": pct,
     }

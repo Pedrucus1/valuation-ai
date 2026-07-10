@@ -3,8 +3,19 @@ python test_data_exchange.py  (sin pytest; usa openpyxl instalado)."""
 from datetime import date
 from core.data_exchange import (
     normalizar_fila, validar_fila, normalizar_tipo, id_unico_data_exchange,
-    parse_upload, generar_plantilla_xlsx,
+    parse_upload, generar_plantilla_xlsx, descuento_por_calidad, clave_direccion,
 )
+
+
+def test_descuento_por_calidad_tramos():
+    assert descuento_por_calidad(0) == 0
+    assert descuento_por_calidad(5) == 20
+    assert descuento_por_calidad(20) == 35
+    assert descuento_por_calidad(80) == 50
+
+
+def test_clave_direccion_colapsa():
+    assert clave_direccion("  Av  Patria  1200 ") == clave_direccion("av patria 1200")
 
 
 def test_casa_completa_valida():

@@ -124,6 +124,25 @@ def id_unico_data_exchange(inmobiliaria_id: str, direccion: str) -> str:
     return hashlib.md5(base.encode("utf-8")).hexdigest()
 
 
+def clave_direccion(direccion: str) -> str:
+    """Clave normalizada de dirección para deduplicar (colapsa espacios/caso)."""
+    return " ".join(str(direccion or "").lower().split())
+
+
+# ── Descuento por CALIDAD (#142) ─────────────────────────────────────────────
+# El descuento lo GANA la calidad, no el volumen crudo: solo cuentan las filas
+# NUEVAS (no duplicadas) y completas (la plantilla ya obliga los campos clave).
+# Tramos tunables; el descuento es acumulable (se toma el máx histórico).
+def descuento_por_calidad(filas_nuevas: int) -> int:
+    if filas_nuevas <= 0:
+        return 0
+    if filas_nuevas < 20:      # ponytail: tramos tunables por negocio
+        return 20
+    if filas_nuevas < 50:
+        return 35
+    return 50
+
+
 # ── Lectura del archivo subido ────────────────────────────────────────────────
 def parse_upload(contenido: bytes, filename: str) -> list[dict]:
     """Lee .xlsx o .csv → lista de filas {clave_canónica: valor}. Reconoce las
