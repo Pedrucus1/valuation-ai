@@ -19,3 +19,18 @@ Recuperado del corte de sesión y verificado el cierre de IDOR en avalúos + esc
 
 ## 01 Jun 2026 — Motor Remi: consolidación en archivo maestro
 6 fuentes→1, capas ganada/derivada + temporalidad, flywheel del perito, acumulación de comps web + score de confianza, cap por calidad de pool, y fixes de bugs reales (municipio mal capturado, gate suma_partes con clave exacta). Benchmark honesto **2025-2026 (153 OPIs): 69.9% ±10%, 81.7% ±15%, 91.5% ±20%**; curado 93: 76.3/81.7/94.6. (El 85.4% del 26-May era pre-rebuild de caché; el set 2025-2026 es más amplio y honesto.) Ver MOTOR_ANTECEDENTES.md.
+
+---
+# 📸 Snapshots retirados (consolidación 10-Jul-2026)
+> Contenido de archivos de estado antiguos, movido aquí para no perder historial al unificar en un solo `ESTADO.md` vigente.
+
+## ESTADO.md — snapshot 27-Jun / 06-Jul 2026 (retirado)
+**Enriquecimiento (27-Jun):** ~99,904 docs activos, 8,135 secundarios (dedup). PROPIEDADES_COM ✅ ~93% año · INMUEBLES24 ✅ ~98% · VIVANUNCIOS ✅ ~93% · CASAS_Y_TERRENOS ✅ 191/379 ~50% · PINCALI ✅ techo ~24.4% · MITULA ✅ parcial · NOCNOK ✅ nuevo.
+**Motor (06-Jul, baseline offline):** caché reconstruido colonias PINCALI limpias (25,556 comps), ±20 75.7% / mediana −8.7. Ancla segmentada tipo+edad → PROD (`b5430fc`) 75.7→76.7. MITULA envenena pool (lab): sacándolo ±20 76.7→**79.6**, errAbs 13.2→11.6 (mayor salto). Consolidación colonias fragmentadas (`774b016`): 537 llaves, 2,772 comps recuperados, ±15 68.0→70.9. Prevención fragmentación (`d33f075`). Estado motor: ±20 79.6 / ±15 70.9 / errAbs 11.7 (desde 73.8). 4 palancas de fórmula probadas, ninguna mueve ±20 → cuello es DATO. Diagnóstico 3-columnas: el MÉTODO es correcto, falla la SELECCIÓN de comps. Validador SIEMPRE offline.
+**Score histórico validador:** ±15% ~86%, ±20% ~89.7% (post geoproximidad #114, baseline distinto al offline de lab).
+**Seguridad (06-Jul):** fuga commit `7e90cf1` (Gemini key + MONGO_URL prod), de-hardcodeado + ambas keys rotadas + pre-commit hook. 9 archivos de-hardcodeados (`ab7ad50`). Incidente cerrado.
+**Índice motor (06-Jul):** `Modulo Drive IA/INDICE_MOTOR.md` — canónico vs experimento, dónde OPIs/comps/IDX/NSE.
+**Pendientes de entonces:** #21 backfill año PINCALI (~25k, proxy-free en terminal real), #22 selección comps por segmento, #14 scraper mensual julio, #16 gancho de precios, #17 Monopolio (diferido).
+
+## CURRENT_STATE.md — snapshot 10-Mar 2026 (retirado, era arquitectura Node.js pre-migración a FastAPI)
+Estado de marzo, cuando el stack era Node.js/Express (`server.js`, `aiSearch.js`) antes de migrar a FastAPI/Python. Features de entonces: edición manual de factores INDAABIN para valuadores (`ComparablesPage.jsx` + endpoint `select-comparables` con `custom_factors`); mejoras estéticas PDF (desglose amenidades 🛏️🚿🚗, diseño 3 columnas, advertencias predial/mercado, clamp 5 líneas análisis IA, densidad real "121+ Propiedades"); filtros estrictos extracción web (prompt Gemini "no inventes propiedades/links vivos"). Arquitectura: React :3001 → Express :3000 → Google Maps + Gemini. Próximo paso de entonces: migrar recolector de comparables de Vertex Grounding a SerpAPI/Google Custom Search (evolucionó luego a Serper→Tavily). Obsoleto: todo el backend se reescribió a FastAPI.
