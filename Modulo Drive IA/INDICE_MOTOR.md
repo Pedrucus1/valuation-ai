@@ -25,6 +25,7 @@
 | **Ancla NSE** por colonia | `colonias_nse.json` (v1, PROD) · `colonias_nse_v2.json` | REGLA DURA: NO cambiar v1→v2. |
 | **Colonias similares** (mapa SIM) | `colonias_sim*.json`, `colonias_ia*.json` | Para pool `similares`. |
 | **Geo** (colonia→CP→coords) | `_geo/proximidad.cjs`, `_geo/*.json` | proximidad geográfica. |
+| **Catálogo de cotos/zonas** (#25) | `catalogo_cotos.json` | `{_meta, zonas:[{colonia_oficial, municipio, tipo_sepomex, es_coto_privado, n, pm2_mediana, variantes[], conjuntos[{nombre,n}], bucket}]}`. 1,762 zonas desde `mercado_props`+SEPOMEX; nivel conjunto (coto interior) canonicalizado con DeepSeek. **Aún NO wireado al motor** — data lista para validar/normalizar colonias. |
 | **Reglas/calibraciones/antecedentes** | `MOTOR_ANTECEDENTES.md` | fuente de verdad de decisiones del motor. |
 
 ## ⚙️ CÓMO CORRER (gotchas)

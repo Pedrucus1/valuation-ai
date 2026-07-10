@@ -6,13 +6,14 @@
 **Fase:** Plataforma estable en Railway+Vercel. Datos drenados. Motor en calibración por DATO (no fórmula).
 
 ## 🔥 Lo más caliente (qué sigue)
-1. **#25** catálogo cotos desde `mercado_props` (SEPOMEX/INEGI no cubren cotos privados; IA para canonicalizar).
+1. **#25 wirear el catálogo al motor** — `catalogo_cotos.json` YA construido (1,762 zonas, 2 niveles zona+conjunto). Falta conectarlo: validar/normalizar colonias + selección de comps por zona/conjunto. Data lista.
 2. **#26** búsqueda dirigida en colonias similares para segmentos vacíos. ⚠️ NO usar Serper/Tavily masivo (quema créditos, ver `feedback_no_busqueda_masiva`).
 3. **#7 / N4** pasarela de pagos (Stripe) — bloqueada por SAPI (N3).
 
 ## ✅ Hecho reciente (10 Jul)
 - **#27 REDEPLOY Railway** — motor mejorado (73.8→~83.5% ±20) en prod (deployment `765fbc38`, healthcheck 200). **TAVILY_API_KEY** de Railway tenía un typo → corregida con la canónica del registro (validada 200). 41 commits pusheados a origin.
 - **#133 Data Exchange PRUEBA EN VIVO PASADA** — e2e contra staging: analizar/confirmar escriben CRM+pool correctamente, terreno sin año no entra al pool, dedup OK, descuento 20%. Datos de prueba limpiados.
+- **#25 catálogo de cotos CONSTRUIDO** — `Modulo Drive IA/catalogo_cotos.json` (1,762 zonas, 2 niveles: zona SEPOMEX + conjunto interior canonicalizado con DeepSeek). Falta wirearlo al motor. Hallazgo: el coto vive en `titulo` no en `colonia`; discriminador coto/oficial = SEPOMEX.
 - **Docs de estado unificados**: `ESTADO.md` único archivo de arranque; snapshots viejos → `BACKLOG_ARCHIVE.md`; skill `end-session` arreglado (reescribe ESTADO.md).
 
 ## ✅ Hecho previo (09 Jul)
