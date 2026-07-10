@@ -163,6 +163,7 @@ from routers.inmobiliaria import router as inmobiliaria_router
 from routers.mercado_accesos import router as mercado_accesos_router, _seed_mercado_accesos
 from routers.reviews import router as reviews_router
 from routers.edades import router as edades_router
+from routers.data_exchange import router as data_exchange_router
 
 # Auth y sesión -> routers/auth.py (#66.1)
 
@@ -2043,6 +2044,7 @@ app.include_router(inmobiliaria_router)
 app.include_router(mercado_accesos_router)
 app.include_router(reviews_router)
 app.include_router(edades_router)
+app.include_router(data_exchange_router)
 
 # Serve uploaded files (ads, kyc)
 app.mount("/uploads", StaticFiles(directory=str(UPLOADS_DIR)), name="uploads")
