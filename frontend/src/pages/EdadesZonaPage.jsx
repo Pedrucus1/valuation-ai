@@ -41,6 +41,18 @@ const GRADOS_REMOD = [
   { value: "intermedia", label: "Intermedia", hint: "(acabados + instalaciones)" },
   { value: "completa", label: "Completa", hint: "(+ estructura, casi nueva)" },
 ];
+// Rango de antigüedad de la remodelación (si no se sabe el año exacto). Una
+// remodelación relevante es reciente → tope 30 años. `mid` = punto medio en años,
+// se convierte a año = añoActual − mid.
+const REMOD_RANGES = [
+  { value: "reciente", label: "Reciente (< 1 año)", mid: 0 },
+  { value: "1-5",   label: "1–5 años",   mid: 3 },
+  { value: "6-10",  label: "6–10 años",  mid: 8 },
+  { value: "11-15", label: "11–15 años", mid: 13 },
+  { value: "16-20", label: "16–20 años", mid: 18 },
+  { value: "21-25", label: "21–25 años", mid: 23 },
+  { value: "26-30", label: "26–30 años", mid: 28 },
+];
 
 const TIPOS = ["Casa", "Departamento", "Terreno", "Local", "Oficina"];
 
@@ -116,7 +128,8 @@ const EdadesZonaPage = () => {
   const [anioConst, setAnioConst] = useState({});   // año construcción exacto
   const [conserv, setConserv]     = useState({});   // estado de conservación
   const [remodGrado, setRemodGrado] = useState({}); // grado de remodelación
-  const [remodAnio, setRemodAnio]   = useState({}); // año de remodelación
+  const [remodAnio, setRemodAnio]   = useState({}); // año de remodelación (exacto)
+  const [remodRango, setRemodRango] = useState({}); // antigüedad remod por rango (si no hay año)
   const [guardando, setGuardando]   = useState({}); // id -> bool
   const [openCol, setOpenCol] = useState(false);    // popover del combo de colonia
   const [coloniaEdit, setColoniaEdit] = useState({}); // id -> colonia corregida
@@ -209,7 +222,12 @@ const EdadesZonaPage = () => {
     if (conserv[id]) p.conservacion = conserv[id];
     if (remodGrado[id]) {
       p.grado_remodelacion = remodGrado[id];
-      if (remodAnio[id]) p.anio_remodelacion = Number(remodAnio[id]);
+      if (remodAnio[id]) {
+        p.anio_remodelacion = Number(remodAnio[id]);
+      } else if (remodRango[id]) {
+        const mid = REMOD_RANGES.find(r => r.value === remodRango[id])?.mid;
+        if (mid != null) p.anio_remodelacion = new Date().getFullYear() - mid;
+      }
     }
     return p;
   };
@@ -458,25 +476,33 @@ const EdadesZonaPage = () => {
                            className={INP + " w-20"} title="Año exacto si lo sabes" />
                   </div>
                 </div>
-                {/* Remodelación: grado + año + leyenda de grados */}
+                {/* Remodelación: grado + (rango o año) + leyenda de grados */}
                 <div>
                   <label className={LBL}>Remodelación <span className="normal-case font-normal text-slate-400">(si aplica)</span></label>
-                  <div className="flex gap-2">
-                    <Select value={remodGrado[it.id_unico] || ""} onValueChange={v => set(setRemodGrado)(it.id_unico, v)}>
-                      <SelectTrigger className={INP + " flex-1"}><SelectValue placeholder="Grado" /></SelectTrigger>
+                  <Select value={remodGrado[it.id_unico] || ""} onValueChange={v => set(setRemodGrado)(it.id_unico, v)}>
+                    <SelectTrigger className={INP + " w-full"}><SelectValue placeholder="Grado" /></SelectTrigger>
+                    <SelectContent>
+                      {GRADOS_REMOD.map(g => (
+                        <SelectItem key={g.value} value={g.value}>
+                          {g.label} <span className="text-slate-400">{g.hint}</span>
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <div className="flex gap-2 mt-2">
+                    <Select value={remodRango[it.id_unico] || ""} onValueChange={v => set(setRemodRango)(it.id_unico, v)}>
+                      <SelectTrigger className={INP + " flex-1"}><SelectValue placeholder="¿Hace cuánto? (rango)" /></SelectTrigger>
                       <SelectContent>
-                        {GRADOS_REMOD.map(g => (
-                          <SelectItem key={g.value} value={g.value}>
-                            {g.label} <span className="text-slate-400">{g.hint}</span>
-                          </SelectItem>
+                        {REMOD_RANGES.map(r => (
+                          <SelectItem key={r.value} value={r.value}>{r.label}</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
                     <Input type="number" min="1900" max={new Date().getFullYear()} placeholder="Año"
                            value={remodAnio[it.id_unico] || ""} onChange={e => set(setRemodAnio)(it.id_unico, e.target.value)}
-                           className={INP + " w-20"} title="Año de la remodelación" />
+                           className={INP + " w-20"} title="Año exacto si lo sabes (tiene prioridad sobre el rango)" />
                   </div>
-                  <p className="text-[11px] text-slate-400 mt-1 leading-snug">
+                  <p className="text-[13px] text-slate-500 mt-1.5 leading-snug">
                     Ligera: pintura/pisos · Básica: acabados · Intermedia: +instalaciones · Completa: +estructura
                   </p>
                 </div>
