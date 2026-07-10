@@ -481,7 +481,7 @@ const ValuadorDashboardPage = () => {
     { id: "resenas",      label: "Reseñas" },
     { id: "facturacion",  label: "Facturación", badge: billingData?.billing_status === "blocked" || billingData?.days_to_cutoff <= 5 },
     { id: "publicidad",   label: "Publicidad" },
-    { id: "edades",       label: "Verifica y Gana", to: "/edades-zona" },
+    { id: "edades",       label: "Verificación de Datos por Zona", to: "/edades-zona" },
   ];
 
   /* ── Facturación Tab ── */

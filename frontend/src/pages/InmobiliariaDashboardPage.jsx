@@ -673,7 +673,7 @@ const InmobiliariaDashboardPage = () => {
     { id: "publicidad",   label: "Publicidad" },
     { id: "promociones",  label: "Promociones" },
     ...(esTitular ? [{ id: "data_exchange", label: "Data Exchange" }] : []),
-    { id: "edades",       label: "Verifica y Gana", to: "/edades-zona" },
+    { id: "edades",       label: "Verificación de Datos por Zona", to: "/edades-zona" },
   ];
 
   /* ── Facturación Tab ── */
