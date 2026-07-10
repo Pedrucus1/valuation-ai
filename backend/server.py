@@ -1984,6 +1984,14 @@ async def _ensure_indexes():
     await db["authorized_access"].create_index("email")
     await db.admins.create_index("token")
     await db.admins.create_index("email")
+    # #65 escalabilidad — mercado_props (~100k docs) solo tenía _id_ → COLLSCAN en
+    # cada request de la página de mercado y en el dedup de data_exchange. Índices
+    # sobre los filtros EXACTOS del hot path (colonia usa $regex, no se indexa).
+    await db.mercado_props.create_index([("activo", 1), ("tipo_operacion", 1), ("tipo_propiedad", 1)])
+    await db.mercado_props.create_index("id_unico")
+    await db.mercado_props.create_index("inmobiliaria_id")
+    await db.mercado_props.create_index([("municipio", 1), ("tipo_propiedad", 1)])
+    await db.propiedades_inmobiliaria.create_index("user_id")
 
 
 @app.on_event("startup")
