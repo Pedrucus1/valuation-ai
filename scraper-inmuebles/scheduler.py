@@ -398,13 +398,16 @@ def _guardar_en_mongo(propiedades: list, portal: str) -> dict:
             # conjunto; edad_fuente protege anio_construccion. Se leen del doc
             # existente (find_one barato; corrida mensual, no hot-path).
             existente = col.find_one({"id_unico": uid},
-                                     {"colonia_fuente": 1, "edad_fuente": 1})
+                                     {"colonia_fuente": 1, "edad_fuente": 1, "tipo_fuente": 1})
             if existente:
                 if existente.get("colonia_fuente") in FUENTES_PROTEGIDAS:
                     for c in ("colonia", "conjunto", "colonia_fuente"):
                         con_valor.pop(c, None); solo_insert.pop(c, None)
                 if existente.get("edad_fuente") in FUENTES_PROTEGIDAS:
                     for c in ("anio_construccion", "edad_fuente"):
+                        con_valor.pop(c, None); solo_insert.pop(c, None)
+                if existente.get("tipo_fuente") in FUENTES_PROTEGIDAS:
+                    for c in ("tipo_propiedad", "tipo_fuente"):
                         con_valor.pop(c, None); solo_insert.pop(c, None)
             update = {"$set": con_valor}
             if solo_insert:

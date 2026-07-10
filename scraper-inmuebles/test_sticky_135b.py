@@ -13,6 +13,9 @@ def _guardia_scheduler(con_valor, solo_insert, existente):
         if existente.get("edad_fuente") in FUENTES_PROTEGIDAS:
             for c in ("anio_construccion", "edad_fuente"):
                 con_valor.pop(c, None); solo_insert.pop(c, None)
+        if existente.get("tipo_fuente") in FUENTES_PROTEGIDAS:
+            for c in ("tipo_propiedad", "tipo_fuente"):
+                con_valor.pop(c, None); solo_insert.pop(c, None)
     return con_valor, solo_insert
 
 
@@ -35,6 +38,12 @@ def test_solo_colonia_protegida_deja_edad():
     cv = {"colonia": "X", "anio_construccion": 2010}
     cv, _ = _guardia_scheduler(cv, {}, {"colonia_fuente": "usuario_correccion"})
     assert "colonia" not in cv and cv["anio_construccion"] == 2010
+
+
+def test_tipo_corregido_no_se_pisa():
+    cv = {"tipo_propiedad": "local", "precio": 100}
+    cv, _ = _guardia_scheduler(cv, {}, {"tipo_fuente": "perito_correccion"})
+    assert "tipo_propiedad" not in cv and cv["precio"] == 100
 
 
 if __name__ == "__main__":

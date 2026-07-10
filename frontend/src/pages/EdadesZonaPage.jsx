@@ -55,6 +55,12 @@ const REMOD_RANGES = [
 ];
 
 const TIPOS = ["Casa", "Departamento", "Terreno", "Local", "Oficina"];
+// Opciones para corregir el tipo scrapeado (valor en minúscula = como lo guarda el pool).
+const TIPO_OPCIONES = [
+  { v: "casa", l: "Casa" }, { v: "departamento", l: "Departamento" },
+  { v: "terreno", l: "Terreno" }, { v: "local", l: "Local" },
+  { v: "oficina", l: "Oficina" }, { v: "bodega", l: "Bodega" },
+];
 
 // Headers: si hay token admin en localStorage, mandarlo (el panel sirve para
 // valuador/inmobiliaria vía cookie de sesión, y para super_admin vía X-Admin-Token).
@@ -130,15 +136,24 @@ const EdadesZonaPage = () => {
   const [remodGrado, setRemodGrado] = useState({}); // grado de remodelación
   const [remodAnio, setRemodAnio]   = useState({}); // año de remodelación (exacto)
   const [remodRango, setRemodRango] = useState({}); // antigüedad remod por rango (si no hay año)
+  const [remodOn, setRemodOn]       = useState({}); // id -> mostrar campos de remodelación
   const [guardando, setGuardando]   = useState({}); // id -> bool
   const [openCol, setOpenCol] = useState(false);    // popover del combo de colonia
   const [coloniaEdit, setColoniaEdit] = useState({}); // id -> colonia corregida
+  const [tipoEdit, setTipoEdit] = useState({});       // id -> tipo corregido
   const [aplicarGrupo, setAplicarGrupo] = useState({}); // id -> aplicar al mismo coto
 
   // Otras pendientes del mismo coto/colonia (incluye variantes: ABIE Eco Hábitat ≈ Abié Residencial)
   const grupoDe = (it) => items.filter(o =>
     o.id_unico !== it.id_unico && !hechos[o.id_unico] && mismoGrupo(o.colonia, it.colonia));
   const set = (setter) => (id, v) => setter(prev => ({ ...prev, [id]: v }));
+
+  // Mostrar/ocultar los campos de remodelación con un check; al desmarcar, limpiar
+  // lo capturado para que no se envíe una remodelación fantasma.
+  const toggleRemod = (id, v) => {
+    set(setRemodOn)(id, v);
+    if (!v) { set(setRemodGrado)(id, ""); set(setRemodRango)(id, ""); set(setRemodAnio)(id, ""); }
+  };
 
   // Al elegir "Nuevo": conservación = Nuevo y año = año en curso (automático).
   const onEdadRango = (id, v) => {
@@ -224,6 +239,7 @@ const EdadesZonaPage = () => {
       if (of?.cp) p.cp = of.cp;
     }
     if (conjuntos[id]) p.conjunto = conjuntos[id];
+    if (tipoEdit[id] && tipoEdit[id] !== it.tipo_propiedad) p.tipo = tipoEdit[id];  // corrección de tipo
     if (anioConst[id]) p.anio_exacto = Number(anioConst[id]);
     else if (edadRango[id]) p.edad_rango = edadRango[id];
     if (conserv[id]) p.conservacion = conserv[id];
@@ -262,8 +278,8 @@ const EdadesZonaPage = () => {
   const guardar = async (it) => {
     const id = it.id_unico;
     const payload = construirPayload(it);
-    if (!payload.anio_exacto && !payload.edad_rango && !payload.conservacion && !payload.grado_remodelacion && !payload.colonia) {
-      toast.error("Indica al menos edad, conservación, remodelación o colonia");
+    if (!payload.anio_exacto && !payload.edad_rango && !payload.conservacion && !payload.grado_remodelacion && !payload.colonia && !payload.tipo) {
+      toast.error("Indica al menos edad, conservación, remodelación, colonia o tipo");
       return;
     }
     set(setGuardando)(id, true);
@@ -464,6 +480,16 @@ const EdadesZonaPage = () => {
                     );
                   })()}
                 </div>
+                {/* Corregir tipo de propiedad (si el scrapeo lo trae mal) */}
+                <div>
+                  <label className={LBL}>Tipo <span className="normal-case font-normal text-slate-400">(corrige si el scrapeo está mal)</span></label>
+                  <Select value={tipoEdit[it.id_unico] ?? it.tipo_propiedad ?? ""} onValueChange={v => set(setTipoEdit)(it.id_unico, v)}>
+                    <SelectTrigger className={INP + " w-full"}><SelectValue placeholder="Tipo de propiedad" /></SelectTrigger>
+                    <SelectContent>
+                      {TIPO_OPCIONES.map(t => <SelectItem key={t.v} value={t.v}>{t.l}</SelectItem>)}
+                    </SelectContent>
+                  </Select>
+                </div>
                 {/* Edad de construcción: rango + año exacto */}
                 <div>
                   <label className={LBL}>Edad de construcción <span className="normal-case font-normal text-slate-400">(original)</span></label>
@@ -483,35 +509,44 @@ const EdadesZonaPage = () => {
                            className={INP + " w-20"} title="Año exacto si lo sabes" />
                   </div>
                 </div>
-                {/* Remodelación: grado + (rango o año) + leyenda de grados */}
+                {/* Remodelación: colapsada hasta marcar el check (evita confusión) */}
                 <div>
-                  <label className={LBL}>Remodelación <span className="normal-case font-normal text-slate-400">(si aplica)</span></label>
-                  <Select value={remodGrado[it.id_unico] || ""} onValueChange={v => set(setRemodGrado)(it.id_unico, v)}>
-                    <SelectTrigger className={INP + " w-full"}><SelectValue placeholder="Grado" /></SelectTrigger>
-                    <SelectContent>
-                      {GRADOS_REMOD.map(g => (
-                        <SelectItem key={g.value} value={g.value}>
-                          {g.label} <span className="text-slate-400">{g.hint}</span>
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <div className="flex gap-2 mt-2">
-                    <Select value={remodRango[it.id_unico] || ""} onValueChange={v => set(setRemodRango)(it.id_unico, v)}>
-                      <SelectTrigger className={INP + " flex-1"}><SelectValue placeholder="¿Hace cuánto? (rango)" /></SelectTrigger>
-                      <SelectContent>
-                        {REMOD_RANGES.map(r => (
-                          <SelectItem key={r.value} value={r.value}>{r.label}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <Input type="number" min="1900" max={new Date().getFullYear()} placeholder="Año"
-                           value={remodAnio[it.id_unico] || ""} onChange={e => set(setRemodAnio)(it.id_unico, e.target.value)}
-                           className={INP + " w-20"} title="Año exacto si lo sabes (tiene prioridad sobre el rango)" />
-                  </div>
-                  <p className="text-[13px] text-slate-500 mt-1.5 leading-snug">
-                    Ligera: pintura/pisos · Básica: acabados · Intermedia: +instalaciones · Completa: +estructura
-                  </p>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <Checkbox checked={!!remodOn[it.id_unico]}
+                              onCheckedChange={v => toggleRemod(it.id_unico, !!v)}
+                              className="data-[state=checked]:bg-[#52B788] border-[#52B788]" />
+                    <span className={LBL + " mb-0"}>¿Se remodeló?</span>
+                  </label>
+                  {remodOn[it.id_unico] && (
+                    <div className="mt-2">
+                      <Select value={remodGrado[it.id_unico] || ""} onValueChange={v => set(setRemodGrado)(it.id_unico, v)}>
+                        <SelectTrigger className={INP + " w-full"}><SelectValue placeholder="Grado" /></SelectTrigger>
+                        <SelectContent>
+                          {GRADOS_REMOD.map(g => (
+                            <SelectItem key={g.value} value={g.value}>
+                              {g.label} <span className="text-slate-400">{g.hint}</span>
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <div className="flex gap-2 mt-2">
+                        <Select value={remodRango[it.id_unico] || ""} onValueChange={v => set(setRemodRango)(it.id_unico, v)}>
+                          <SelectTrigger className={INP + " flex-1"}><SelectValue placeholder="¿Hace cuánto? (rango)" /></SelectTrigger>
+                          <SelectContent>
+                            {REMOD_RANGES.map(r => (
+                              <SelectItem key={r.value} value={r.value}>{r.label}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <Input type="number" min="1900" max={new Date().getFullYear()} placeholder="Año"
+                               value={remodAnio[it.id_unico] || ""} onChange={e => set(setRemodAnio)(it.id_unico, e.target.value)}
+                               className={INP + " w-20"} title="Año exacto si lo sabes (tiene prioridad sobre el rango)" />
+                      </div>
+                      <p className="text-[13px] text-slate-500 mt-1.5 leading-snug">
+                        Ligera: pintura/pisos · Básica: acabados · Intermedia: +instalaciones · Completa: +estructura
+                      </p>
+                    </div>
+                  )}
                 </div>
                 {/* Conservación + Conjunto en una fila (cajas más chicas) */}
                 <div className="grid grid-cols-2 gap-2">
