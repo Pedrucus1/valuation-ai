@@ -19,6 +19,12 @@ NO leer BACKLOG.md ni project_propvalu.md completos — son grandes; consultarlo
 - **Directo** (sin aprobación): cambio en 1 archivo claro, bug fix obvio, ajuste de color/texto/margen.
 - **EnterPlanMode primero**: feature que toca 2+ archivos, rediseño, petición vaga, backend+frontend juntos, o **cualquier cambio en server.py / archivos críticos**. El usuario no es programador — ver el plan evita retrabajo.
 
+## 🧪 MEDIR ANTES DE IMPLEMENTAR (regla fuerte — queja recurrente)
+Default = **probar impacto ANTES de conectar/wirear**, no proponer la implementación como primer paso.
+- Antes de conectar algo nuevo al motor/sistema (normalización, filtro, fuente, palanca): **dry-run** que muestre qué cambia y sus repercusiones (fusiones, colisiones, si junta cosas dispares).
+- Cambio de motor: **validador offline before/after** (baseline → copia lab → comparar ±10/15/20/errAbs → restaurar). NO wirear hasta ver verde.
+- Ofrecer "lo pruebo", no "lo implemento". Si el test sale **neutral o negativo → NO implementar** y decirlo tal cual. Trabajar reversible (backup). Memoria: `feedback_medir_antes_de_implementar`.
+
 ## Commits automáticos
 Al dejar algo funcionando (feature, bug fix verificado, diseño confirmado) → commit inmediato, sin que lo pidan.
 Formato: `tipo(alcance): descripción en español` (`feat`/`fix`/`style`/`refactor`/`docs`) + línea `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`.
