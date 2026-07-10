@@ -28,6 +28,10 @@ from loguru import logger as log
 import config
 from utils.cleaner import normalizar_tipo_propiedad
 
+# Debe coincidir con FUENTES_PROTEGIDAS de scheduler.py / enricher.py (#135b).
+# Local aquí para no importar scheduler (evita import circular: scheduler→nocnok).
+FUENTES_PROTEGIDAS = {"perito_correccion", "usuario_correccion", "perito_crowdsource"}
+
 BASE_URL = "https://inmuebles.nocnok.com"
 SEARCH_URL = f"{BASE_URL}/api/properties/search"
 PORTAL = "NOCNOK"
@@ -223,6 +227,22 @@ def _paginar_lote(session, params: dict, mongo_col, build_id: str, delay: float)
                 # _guardar_en_mongo del scheduler): vacíos solo en el insert.
                 con_valor = {k: v for k, v in doc.items() if v not in (None, "")}
                 solo_insert = {k: v for k, v in doc.items() if k not in con_valor}
+                # Guardia sticky (#135b): NOCNOK salta el chokepoint, así que aquí
+                # también respetamos correcciones humanas — no pisar colonia/edad/
+                # tipo si un perito/usuario/crowdsource ya las fijó.
+                existente = mongo_col.find_one(
+                    {"id_unico": doc["id_unico"]},
+                    {"colonia_fuente": 1, "edad_fuente": 1, "tipo_fuente": 1})
+                if existente:
+                    if existente.get("colonia_fuente") in FUENTES_PROTEGIDAS:
+                        for c in ("colonia", "conjunto", "colonia_fuente"):
+                            con_valor.pop(c, None); solo_insert.pop(c, None)
+                    if existente.get("edad_fuente") in FUENTES_PROTEGIDAS:
+                        for c in ("anio_construccion", "edad_fuente"):
+                            con_valor.pop(c, None); solo_insert.pop(c, None)
+                    if existente.get("tipo_fuente") in FUENTES_PROTEGIDAS:
+                        for c in ("tipo_propiedad", "tipo_fuente"):
+                            con_valor.pop(c, None); solo_insert.pop(c, None)
                 update = {"$set": con_valor}
                 if solo_insert:
                     update["$setOnInsert"] = solo_insert
