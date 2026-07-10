@@ -22,7 +22,7 @@ from bs4 import BeautifulSoup
 import config
 from scrapers.base_scraper import BaseScraper, ErrorScraping
 from utils import antiblock
-from utils.cleaner import normalizar_propiedad
+from utils.cleaner import normalizar_propiedad, tipo_por_slug
 
 BASE_URL = "https://www.pincali.com"
 ITEMS_POR_PAGINA = 42  # confirmado 2026-06-12
@@ -109,6 +109,11 @@ class PincaliScraper(BaseScraper):
         href = link.get("href", "")
         url  = href if href.startswith("http") else BASE_URL + href
 
+        # El tipo real está en el slug de la URL ('departamento-en-renta-...'), NO
+        # en la categoría scrapeada (la de 'commercial' devuelve mezclado → todo
+        # salía 'local'). Slug manda; la categoría es fallback.
+        tipo_final = tipo_por_slug(url) or tipo_prop
+
         texto = card.get_text(separator="|", strip=True)
 
         # Precio — div.price contiene "$3,200,000 MXNFor Sale" todo junto
@@ -125,7 +130,7 @@ class PincaliScraper(BaseScraper):
         m2_match = re.search(r"([\d,]+(?:\.\d+)?)\s*m[²2]", texto, re.I)
         if m2_match:
             val = m2_match.group(1).replace(",", "")
-            if tipo_prop == "terrenos":
+            if tipo_final in ("terreno", "terrenos"):
                 m2_terreno = val
             else:
                 m2_const = val
@@ -154,7 +159,7 @@ class PincaliScraper(BaseScraper):
             "titulo":           titulo,
             "precio_raw":       precio_raw,
             "tipo_operacion":   operacion,
-            "tipo_propiedad":   tipo_prop,
+            "tipo_propiedad":   tipo_final,
             "colonia":          colonia,
             "calle_numero":     "",
             "municipio":        zona["municipio"],

@@ -117,6 +117,36 @@ def normalizar_tipo_propiedad(texto: Optional[str]) -> str:
     return "casa"  # Valor por defecto
 
 
+def tipo_por_slug(url: Optional[str]) -> Optional[str]:
+    """Deriva el tipo del SLUG de la URL (PINCALI). El slug empieza por el tipo
+    en español ('departamento-en-renta-...', 'casa-en-venta-...') y es MUCHO más
+    confiable que la página de categoría (la de 'commercial' devuelve mezclado →
+    todo salía 'local'). Devuelve None si el slug no lo dice.
+
+    Orden: primero el token INICIAL del slug (lo más confiable); si el tipo no va
+    al inicio ('hermosa-casa-en-venta'), se busca por presencia con 'local' al
+    final (era el cubo sobre-asignado) para no robarle casas/deptos.
+    """
+    if not url:
+        return None
+    slug = str(url).lower().split("/inmueble/")[-1].split("/en/home/")[-1]
+    head = slug[:45]
+    inicio = [
+        ("casa",          ("casa", "residencia", "chalet", "villa")),
+        ("departamento",  ("departamento", "depa", "penthouse", "loft", "estudio")),
+        ("terreno",       ("terreno", "lote", "predio")),
+        ("oficina",       ("oficina", "consultorio")),
+        ("local",         ("local", "bodega", "nave")),
+    ]
+    for tipo, kws in inicio:
+        if head.startswith(kws):
+            return tipo
+    for tipo, kws in inicio:                 # tipo no va al inicio del slug
+        if any(k in head for k in kws):
+            return tipo
+    return None
+
+
 # ─────────────────────────────────────────
 # Valores numéricos (recámaras, baños, m2)
 # ─────────────────────────────────────────
