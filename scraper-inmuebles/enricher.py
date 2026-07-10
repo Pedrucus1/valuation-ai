@@ -50,6 +50,43 @@ from utils.cleaner import normalizar_anio_construccion, limpiar_numero, limpiar_
 # un humano o el crowdsource; una corrida mensual no debe borrar la corrección.
 FUENTES_PROTEGIDAS = {"perito_correccion", "usuario_correccion", "perito_crowdsource"}
 
+# ── Catálogo SEPOMEX para validar colonias del breadcrumb PINCALI (#135) ──────
+# El último nodo del breadcrumb a veces es el municipio ("San Pedro"), no una
+# colonia → degradaría buenas ("San Pedrito"). Solo aceptamos el nodo si valida
+# como colonia real del municipio en SEPOMEX. Read-only, se carga 1 vez.
+import unicodedata as _ud
+from functools import lru_cache as _lru
+_SEPOMEX_PATH = Path(__file__).resolve().parents[1] / "Modulo Drive IA" / "sepomex_v2.json"
+
+
+def _norm_geo(s: str) -> str:
+    s = _ud.normalize("NFD", (s or "").lower())
+    return "".join(c for c in s if _ud.category(c) != "Mn").strip()
+
+
+@_lru(maxsize=1)
+def _sepomex_colonias_por_muni() -> dict:
+    """municipio_normalizado -> set(colonia_normalizada). {} si no carga."""
+    idx: dict = {}
+    try:
+        data = json.loads(_SEPOMEX_PATH.read_text(encoding="utf-8"))
+    except Exception:
+        return idx
+    for entradas in data.values():
+        entradas = entradas if isinstance(entradas, list) else [entradas]
+        for e in entradas or []:
+            muni, nombre = _norm_geo(e.get("municipio")), _norm_geo(e.get("nombre"))
+            if muni and nombre:
+                idx.setdefault(muni, set()).add(nombre)
+    return idx
+
+
+def _colonia_valida_sepomex(colonia: str, municipio: str) -> bool:
+    """True si `colonia` figura como colonia real del `municipio` en SEPOMEX.
+    Rechaza nombres de municipio (no se listan como colonia de sí mismos)."""
+    idx = _sepomex_colonias_por_muni()
+    return _norm_geo(colonia) in idx.get(_norm_geo(municipio), set())
+
 # ─────────────────────────────────────────
 # Columnas en Sheets (índice 0-based)
 # ─────────────────────────────────────────
@@ -600,11 +637,16 @@ def extraer_datos_detalle(html: str, portal: str, url: str = None, session=None)
                     items = json.loads(crumb_m.group(1))
                     crumb_names = [it.get("name", "") for it in items if isinstance(it, dict)]
                     if len(crumb_names) >= 5:
-                        candidato = crumb_names[-1]
+                        candidato = crumb_names[-1]     # colonia
+                        municipio_crumb = crumb_names[-2]
+                        # Guardia SEPOMEX (#135): el último nodo a veces es el
+                        # municipio ("San Pedro") → degradaría "San Pedrito".
+                        # Solo aceptar si valida como colonia real del municipio.
                         if (3 <= len(candidato) <= 60
                                 and not re.search(
                                     r'for sale|for rent|en venta|en renta|jalisco',
-                                    candidato, re.I)):
+                                    candidato, re.I)
+                                and _colonia_valida_sepomex(candidato, municipio_crumb)):
                             pincali_col = candidato
                 except Exception:
                     pass
