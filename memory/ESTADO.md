@@ -6,9 +6,9 @@
 **Fase:** Plataforma estable en Railway+Vercel. Datos drenados. Motor en calibración por DATO (no fórmula).
 
 ## 🔥 Lo más caliente (qué sigue)
-1. **#25 wirear el catálogo al motor** — `catalogo_cotos.json` YA construido (1,762 zonas, 2 niveles zona+conjunto). Falta conectarlo: validar/normalizar colonias + selección de comps por zona/conjunto. Data lista.
-2. **#26** búsqueda dirigida en colonias similares para segmentos vacíos. ⚠️ NO usar Serper/Tavily masivo (quema créditos, ver `feedback_no_busqueda_masiva`).
-3. **#7 / N4** pasarela de pagos (Stripe) — bloqueada por SAPI (N3).
+1. **#26** búsqueda dirigida en colonias similares para segmentos vacíos. ⚠️ NO usar Serper/Tavily masivo (quema créditos, ver `feedback_no_busqueda_masiva`).
+2. **#7 / N4** pasarela de pagos (Stripe) — bloqueada por SAPI (N3).
+3. Motor: la palanca real sigue siendo DATOS/segmentación (normalizar colonias con el catálogo ya se probó NEUTRAL, no wirear).
 
 ## ✅ Hecho reciente (10 Jul)
 - **#27 REDEPLOY Railway** — motor mejorado (73.8→~83.5% ±20) en prod (deployment `765fbc38`, healthcheck 200). **TAVILY_API_KEY** de Railway tenía un typo → corregida con la canónica del registro (validada 200). 41 commits pusheados a origin.
