@@ -26,6 +26,7 @@ from datetime import datetime
 from loguru import logger as log
 
 import config
+from utils.cleaner import normalizar_tipo_propiedad
 
 BASE_URL = "https://inmuebles.nocnok.com"
 SEARCH_URL = f"{BASE_URL}/api/properties/search"
@@ -143,7 +144,10 @@ def _mapear(search_item: dict, detail: dict) -> dict:
         "bodega": "Bodega", "warehouse": "Bodega",
     }
     tipo_raw = (detail.get("type") or search_item.get("type", "")).lower()
-    tipo_prop = tipo_map.get(tipo_raw, search_item.get("type", ""))
+    # NOCNOK salta el chokepoint del scheduler → normalizar aquí a canónico
+    # minúscula (antes guardaba "Casa"/"Local Comercial"/exóticos que el motor
+    # no matchea). tipo_map traduce inglés→es; normalizar deja el canónico.
+    tipo_prop = normalizar_tipo_propiedad(tipo_map.get(tipo_raw, search_item.get("type", "")))
 
     fecha_str = detail.get("statusDate") or search_item.get("statusDate", "")
     try:
