@@ -456,13 +456,6 @@ const EdadesZonaPage = () => {
 
               {/* Formulario de estimación */}
               <div className="p-4 space-y-2.5">
-                {/* Anuncio retirado: ya no está publicado (baja el comp, no lo borra) */}
-                <label className="flex items-center gap-2 cursor-pointer bg-red-50 border border-red-100 rounded-lg px-2.5 py-1.5">
-                  <Checkbox checked={!!retiradoChk[it.id_unico]}
-                            onCheckedChange={v => set(setRetiradoChk)(it.id_unico, !!v)}
-                            className="data-[state=checked]:bg-red-500 border-red-400" />
-                  <span className="text-xs font-medium text-red-700">Anuncio retirado / ya no está publicado</span>
-                </label>
                 {/* Corregir colonia (si el dato vino mal, ej. viene el coto como colonia) */}
                 <div>
                   <label className={LBL}>Colonia <span className="normal-case font-normal text-slate-400">(oficial SEPOMEX — corrige si está mal)</span></label>
@@ -600,13 +593,21 @@ const EdadesZonaPage = () => {
                 })()}
 
                 {/* Acciones */}
-                <div className="flex justify-end gap-2 pt-2.5 mt-0.5 border-t border-slate-100">
-                  <Button onClick={() => saltar(it)} variant="outline"
-                          className="h-9 border-slate-300 text-slate-500 hover:bg-slate-50">No sé</Button>
-                  <Button onClick={() => guardar(it)} disabled={guardando[it.id_unico]}
-                          className="h-9 px-6 bg-[#52B788] hover:bg-[#40916C] text-white shadow-sm">
-                    {guardando[it.id_unico] ? "Guardando..." : "Guardar"}
-                  </Button>
+                <div className="flex items-center justify-between gap-2 pt-2.5 mt-0.5 border-t border-slate-100">
+                  <label className="flex items-center gap-1.5 cursor-pointer" title="Marca si el anuncio ya no está publicado">
+                    <Checkbox checked={!!retiradoChk[it.id_unico]}
+                              onCheckedChange={v => set(setRetiradoChk)(it.id_unico, !!v)}
+                              className="data-[state=checked]:bg-red-500 border-red-400" />
+                    <span className="text-xs text-slate-500">Retirado</span>
+                  </label>
+                  <div className="flex gap-2">
+                    <Button onClick={() => saltar(it)} variant="outline"
+                            className="h-9 border-slate-300 text-slate-500 hover:bg-slate-50">No sé</Button>
+                    <Button onClick={() => guardar(it)} disabled={guardando[it.id_unico]}
+                            className="h-9 px-6 bg-[#52B788] hover:bg-[#40916C] text-white shadow-sm">
+                      {guardando[it.id_unico] ? "Guardando..." : "Guardar"}
+                    </Button>
+                  </div>
                 </div>
               </div>
             </Card>
