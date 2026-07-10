@@ -141,6 +141,7 @@ const EdadesZonaPage = () => {
   const [openCol, setOpenCol] = useState(false);    // popover del combo de colonia
   const [coloniaEdit, setColoniaEdit] = useState({}); // id -> colonia corregida
   const [tipoEdit, setTipoEdit] = useState({});       // id -> tipo corregido
+  const [retiradoChk, setRetiradoChk] = useState({}); // id -> anuncio retirado
   const [aplicarGrupo, setAplicarGrupo] = useState({}); // id -> aplicar al mismo coto
 
   // Otras pendientes del mismo coto/colonia (incluye variantes: ABIE Eco Hábitat ≈ Abié Residencial)
@@ -240,6 +241,7 @@ const EdadesZonaPage = () => {
     }
     if (conjuntos[id]) p.conjunto = conjuntos[id];
     if (tipoEdit[id] && tipoEdit[id] !== it.tipo_propiedad) p.tipo = tipoEdit[id];  // corrección de tipo
+    if (retiradoChk[id]) p.retirado = true;   // anuncio ya no publicado
     if (anioConst[id]) p.anio_exacto = Number(anioConst[id]);
     else if (edadRango[id]) p.edad_rango = edadRango[id];
     if (conserv[id]) p.conservacion = conserv[id];
@@ -278,8 +280,8 @@ const EdadesZonaPage = () => {
   const guardar = async (it) => {
     const id = it.id_unico;
     const payload = construirPayload(it);
-    if (!payload.anio_exacto && !payload.edad_rango && !payload.conservacion && !payload.grado_remodelacion && !payload.colonia && !payload.tipo) {
-      toast.error("Indica al menos edad, conservación, remodelación, colonia o tipo");
+    if (!payload.anio_exacto && !payload.edad_rango && !payload.conservacion && !payload.grado_remodelacion && !payload.colonia && !payload.tipo && !payload.retirado) {
+      toast.error("Indica al menos edad, conservación, remodelación, colonia, tipo o retiro");
       return;
     }
     set(setGuardando)(id, true);
@@ -314,7 +316,7 @@ const EdadesZonaPage = () => {
         <div className="flex items-center justify-between flex-wrap gap-3 mb-2">
           <div className="flex items-center gap-3">
             <Building2 className="w-8 h-8 text-[#1B4332]" />
-            <h1 className="font-['Outfit'] text-2xl md:text-3xl font-bold text-[#1B4332]">Edades por zona</h1>
+            <h1 className="font-['Outfit'] text-2xl md:text-3xl font-bold text-[#1B4332]">Verifica y Gana</h1>
           </div>
           {puntos != null && (
             <div className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#1B4332] bg-[#D9ED92]/40 border border-[#52B788]/40 rounded-full px-3 py-1">
@@ -322,9 +324,16 @@ const EdadesZonaPage = () => {
             </div>
           )}
         </div>
-        <p className="text-slate-600 mb-6 text-sm">
-          Estima la edad de propiedades sin dato en la zona que conoces. Mejora la base para futuros comparables.
-        </p>
+        {/* Beneficio: qué se gana y en qué se convierte */}
+        <div className="mb-6 rounded-xl bg-gradient-to-r from-[#EAF3EE] to-[#F4F8F6] border border-[#B7E4C7] p-4">
+          <p className="text-sm text-[#1B4332] font-semibold mb-1">Ayuda a completar los datos de tu zona y gana puntos 🎯</p>
+          <p className="text-sm text-slate-600 leading-relaxed">
+            Tú conoces las colonias mejor que nadie. Corrige o completa la información de estas
+            propiedades (edad, colonia, tipo, estado de conservación) o marca las que ya no están publicadas.
+            <b> Cada propiedad que verificas suma 1 punto</b>, y esos puntos los podrás
+            <b> canjear por avalúos con descuento o gratis</b>. De paso, haces más preciso el mercado que todos usamos.
+          </p>
+        </div>
 
         {/* Filtros */}
         <Card className="bg-white shadow-sm border-0 mb-6">
@@ -447,6 +456,13 @@ const EdadesZonaPage = () => {
 
               {/* Formulario de estimación */}
               <div className="p-4 space-y-2.5">
+                {/* Anuncio retirado: ya no está publicado (baja el comp, no lo borra) */}
+                <label className="flex items-center gap-2 cursor-pointer bg-red-50 border border-red-100 rounded-lg px-2.5 py-1.5">
+                  <Checkbox checked={!!retiradoChk[it.id_unico]}
+                            onCheckedChange={v => set(setRetiradoChk)(it.id_unico, !!v)}
+                            className="data-[state=checked]:bg-red-500 border-red-400" />
+                  <span className="text-xs font-medium text-red-700">Anuncio retirado / ya no está publicado</span>
+                </label>
                 {/* Corregir colonia (si el dato vino mal, ej. viene el coto como colonia) */}
                 <div>
                   <label className={LBL}>Colonia <span className="normal-case font-normal text-slate-400">(oficial SEPOMEX — corrige si está mal)</span></label>
@@ -454,8 +470,9 @@ const EdadesZonaPage = () => {
                          onChange={e => set(setColoniaEdit)(it.id_unico, e.target.value)}
                          list="col-oficiales" placeholder="Colonia oficial" className={INP} />
                   {(() => {
-                    // Chips de "misma zona": colonias que comparten el CP de esta propiedad
-                    // (CP guardado, o el de la colonia actual si coincide con una oficial).
+                    // Chips de "misma zona": si el nombre scrapeado está mal pero el CP
+                    // es correcto, sugieren las otras colonias oficiales de ese mismo CP
+                    // para elegir la correcta de un clic (atajo, no obligatorio).
                     const actual = coloniaEdit[it.id_unico] ?? it.colonia ?? "";
                     const cpAncla = String(it.codigo_postal
                       || coloniasOficiales.find(c => norm(c.nombre) === norm(actual))?.cp || "");
@@ -466,7 +483,7 @@ const EdadesZonaPage = () => {
                     if (!mismas.length) return null;
                     return (
                       <div className="mt-1.5">
-                        <p className="text-[10px] text-slate-400 uppercase tracking-wide mb-1">Misma zona · CP {cpAncla}</p>
+                        <p className="text-[10px] text-slate-400 uppercase tracking-wide mb-1">Otras colonias del mismo CP {cpAncla} (por si el nombre está mal)</p>
                         <div className="flex flex-wrap gap-1">
                           {mismas.map(c => (
                             <button key={c.nombre} type="button"

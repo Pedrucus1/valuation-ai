@@ -31,7 +31,7 @@ const NAV_GRUPOS = [
       { label: "Broadcast",    icon: Send,            href: "/admin/broadcast" },
       { label: "Newsletter",   icon: Mail,            href: "/admin/newsletter" },
       { label: "Scraper",      icon: Activity,        href: "/admin/scraper" },
-      { label: "Edades por zona", icon: MapPin,       href: "/edades-zona" },
+      { label: "Verifica y Gana", icon: MapPin,       href: "/edades-zona" },
       { label: "CMS Legal",    icon: FileText,        href: "/admin/cms" },
     ],
   },

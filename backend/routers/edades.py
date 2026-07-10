@@ -196,6 +196,9 @@ async def edad_estimada(request: Request):
     tipo_fix = str(body.get("tipo") or "").strip()
     if tipo_fix:
         tipo_fix = TIPO_ALIAS.get(tipo_fix.lower(), tipo_fix).lower()
+    # Anuncio retirado / ya no publicado: baja el comp (activo=False) sin borrarlo
+    # (el precio sigue sirviendo al motor como comp de menor calidad).
+    retirado = bool(body.get("retirado"))
 
     if not id_unico:
         raise HTTPException(status_code=400, detail="Falta id_unico")
@@ -244,8 +247,8 @@ async def edad_estimada(request: Request):
         if not (1900 <= anio_remod_val <= ahora.year + 1):
             raise HTTPException(status_code=400, detail="Año de remodelación fuera de rango")
 
-    if not tiene_edad and not conservacion and not grado_remod and not colonia_fix and not tipo_fix:
-        raise HTTPException(status_code=400, detail="Falta edad, conservación, remodelación, colonia o tipo")
+    if not tiene_edad and not conservacion and not grado_remod and not colonia_fix and not tipo_fix and not retirado:
+        raise HTTPException(status_code=400, detail="Falta edad, conservación, remodelación, colonia, tipo o retiro")
 
     if tiene_edad:
         update["anio_construccion"] = anio
@@ -278,6 +281,10 @@ async def edad_estimada(request: Request):
     if tipo_fix:
         update["tipo_propiedad"] = tipo_fix
         update["tipo_fuente"] = "perito_correccion"
+    if retirado:
+        update["activo"] = False
+        update["baja_fuente"] = "perito_retirado"
+        update["baja_fecha"] = ahora.isoformat()
 
     res = await db.mercado_props.update_one({"id_unico": id_unico}, {"$set": update})
     if res.matched_count == 0:
