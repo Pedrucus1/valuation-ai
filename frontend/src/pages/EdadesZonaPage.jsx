@@ -655,8 +655,8 @@ const EdadesZonaPage = () => {
                     </label>
                     <button type="button" onClick={() => marcarBasura(it)} disabled={guardando[it.id_unico]}
                             title="Reporta que los datos de esta propiedad son incorrectos; se excluye de la búsqueda de comparables"
-                            className="flex items-center gap-1 text-xs text-red-600 hover:text-red-700 hover:underline disabled:opacity-40">
-                      <AlertTriangle className="w-3.5 h-3.5" /> Datos incorrectos
+                            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border border-red-300 text-red-600 hover:bg-red-50 hover:border-red-400 text-xs font-semibold disabled:opacity-40 transition-colors">
+                      <AlertTriangle className="w-4 h-4" /> Info incorrecta
                     </button>
                   </div>
                   <div className="flex gap-2">
