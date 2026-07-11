@@ -317,7 +317,6 @@ const EdadesZonaPage = () => {
   // se excluye de la búsqueda de comparables (activo=False) para que no meta ruido.
   const marcarBasura = async (it) => {
     const id = it.id_unico;
-    if (!window.confirm("¿Marcar esta propiedad como información incorrecta? Se excluirá de la búsqueda de comparables para que no meta ruido.")) return;
     set(setGuardando)(id, true);
     try {
       const data = await postEdad(id, { datos_basura: true });
