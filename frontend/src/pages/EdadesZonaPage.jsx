@@ -70,6 +70,10 @@ const authHeaders = (extra = {}) => {
     const t = JSON.parse(localStorage.getItem("pv_admin") || "{}")?.token;
     if (t) h["X-Admin-Token"] = t;
   } catch { /* noop */ }
+  try {
+    const ut = localStorage.getItem("pv_token");   // usuario normal: Bearer (no depende de cookie)
+    if (ut) h["Authorization"] = `Bearer ${ut}`;
+  } catch { /* noop */ }
   return h;
 };
 

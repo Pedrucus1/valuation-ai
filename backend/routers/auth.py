@@ -90,6 +90,10 @@ async def create_session(request: Request, response: Response):
     )
     
     user_doc = await db.users.find_one({"user_id": user_id}, {"_id": 0})
+    # Token también en el body: el frontend lo guarda y lo manda como Bearer.
+    # Necesario porque la cookie cross-dominio (Vercel↔Railway) la bloquean los
+    # navegadores; el Bearer no depende de cookies y funciona en todos.
+    user_doc["session_token"] = session_token
     return user_doc
 
 @router.get("/auth/me")

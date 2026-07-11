@@ -430,6 +430,8 @@ const LoginPage = () => {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.detail || data.error || "Error al iniciar sesión");
+      // Guardar el token para auth por Bearer (no depende de la cookie cross-dominio).
+      try { if (data.session_token) localStorage.setItem("pv_token", data.session_token); } catch { /* noop */ }
       toast.success(`Bienvenido, ${data.name}`);
       navigateByRole(data);
     } catch (err) {
