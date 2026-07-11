@@ -226,9 +226,28 @@ async def comps_sin_edad(
     colonia: str = "",
     tipo: str = "",
     limit: int = 30,
+    colonia_rara: bool = False,
 ):
-    """Lote de propiedades de mercado_props sin año, para etiquetar (panel)."""
+    """Lote de propiedades de mercado_props sin año, para etiquetar (panel).
+    Con `colonia_rara=true`: trae las que tienen la COLONIA mal capturada (CP,
+    dirección, título de anuncio, o = municipio) para corregirlas en lote."""
     await _quien(request)
+    limit = max(1, min(limit, 100))
+    if colonia_rara:
+        if not municipio:
+            return {"items": [], "count": 0}
+        patron = (r"[0-9]{3,}|,|for sale|for rent|apartment|house|building|en renta|"
+                  r"en venta|casa en|departamento en|se vende|dentro de|downtown|commercial|expo")
+        q = {"activo": {"$ne": False}, "municipio": municipio, "$or": [
+            {"colonia": {"$regex": patron, "$options": "i"}},
+            {"colonia": {"$regex": rf"^{re.escape(municipio)}$", "$options": "i"}},  # colonia == municipio
+        ]}
+        if estado:
+            q["estado"] = estado
+        if tipo:
+            q["tipo_propiedad"] = TIPO_ALIAS.get(tipo.lower().strip(), tipo)
+        items = await db.mercado_props.find(q, CAMPOS_SIN_EDAD).limit(limit).to_list(limit)
+        return {"items": items, "count": len(items)}
     q = _base_usables()
     if estado:
         q["estado"] = estado

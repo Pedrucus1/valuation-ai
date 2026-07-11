@@ -211,6 +211,7 @@ const EdadesZonaPage = () => {
   const [municipio, setMunicipio] = useState("");
   const [colonia, setColonia] = useState("");
   const [tipo, setTipo] = useState("");
+  const [soloRaras, setSoloRaras] = useState(false);  // ver solo propiedades con colonia mal capturada
   const [estados, setEstados] = useState([]);
   const [municipios, setMunicipios] = useState([]);
   const [colonias, setColonias] = useState([]);
@@ -306,7 +307,8 @@ const EdadesZonaPage = () => {
       const params = new URLSearchParams();
       if (estado) params.set("estado", estado);
       if (municipio) params.set("municipio", municipio);
-      if (colonia) params.set("colonia", colonia.trim());
+      if (soloRaras) params.set("colonia_rara", "true");   // propiedades con colonia mal capturada
+      else if (colonia) params.set("colonia", colonia.trim());
       if (tipo) params.set("tipo", tipo);
       params.set("limit", "40");
       const res = await fetch(`${API}/comps-sin-edad?${params}`, { credentials: "include", headers: authHeaders() });
@@ -491,7 +493,7 @@ const EdadesZonaPage = () => {
             </div>
             <div className="flex flex-col gap-1">
               <label className="text-xs font-semibold text-slate-500">Colonia</label>
-              <ColoniaCombo colonias={colonias} value={colonia} onChange={setColonia} disabled={!municipio} />
+              <ColoniaCombo colonias={colonias} value={colonia} onChange={setColonia} disabled={!municipio || soloRaras} />
             </div>
             <div className="flex flex-col gap-1">
               <label className="text-xs font-semibold text-slate-500">Tipo</label>
@@ -507,6 +509,12 @@ const EdadesZonaPage = () => {
                     className="bg-[#52B788] hover:bg-[#40916C] text-white h-9">
               <Search className="w-4 h-4 mr-2" /> {loading ? "Buscando..." : "Buscar"}
             </Button>
+            <label className="flex items-center gap-2 cursor-pointer h-9 ml-1"
+                   title="Muestra propiedades cuya colonia está mal capturada (CP, dirección, título de anuncio) para corregirlas en lote">
+              <Checkbox checked={soloRaras} onCheckedChange={v => setSoloRaras(!!v)}
+                        className="data-[state=checked]:bg-amber-500 border-amber-400" />
+              <span className="text-xs text-slate-600">Solo colonias por corregir <span className="text-slate-400">(datos raros)</span></span>
+            </label>
           </CardContent>
         </Card>
 
