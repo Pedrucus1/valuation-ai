@@ -117,6 +117,53 @@ const formatCurrency = (v) => {
   return new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 }).format(n);
 };
 
+// Combo de colonia AISLADO: mantiene su propio query/open adentro, así escribir
+// solo re-renderiza este combo y NO toda la página (que tiene 30+ tarjetas).
+const ColoniaCombo = ({ colonias, value, onChange, disabled }) => {
+  const [open, setOpen] = useState(false);
+  const [q, setQ] = useState("");
+  const filtradas = useMemo(() => {
+    const s = q.toLowerCase().trim();
+    const base = s ? colonias.filter(c => c.toLowerCase().includes(s)) : colonias;
+    return { lista: base.slice(0, 50), total: base.length };
+  }, [colonias, q]);
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button variant="outline" role="combobox" disabled={disabled}
+                className="h-9 w-56 justify-between text-sm font-normal">
+          <span className="truncate">{value || (disabled ? "Elige municipio" : "Todas las colonias")}</span>
+          <ChevronsUpDown className="w-4 h-4 opacity-50 shrink-0" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-56 p-0" align="start">
+        <Command shouldFilter={false}>
+          <CommandInput value={q} onValueChange={setQ}
+                        placeholder={`Buscar en ${colonias.length} colonias…`} />
+          <CommandList>
+            <CommandEmpty>Sin resultados</CommandEmpty>
+            <CommandGroup>
+              <CommandItem value="__todas" onSelect={() => { onChange(""); setQ(""); setOpen(false); }}>
+                <Check className={`w-4 h-4 mr-2 ${value === "" ? "opacity-100" : "opacity-0"}`} />Todas
+              </CommandItem>
+              {filtradas.lista.map(c => (
+                <CommandItem key={c} value={c} onSelect={() => { onChange(c); setQ(""); setOpen(false); }}>
+                  <Check className={`w-4 h-4 mr-2 ${value === c ? "opacity-100" : "opacity-0"}`} />{c}
+                </CommandItem>
+              ))}
+              {filtradas.total > filtradas.lista.length && (
+                <div className="px-2 py-1.5 text-xs text-slate-400">
+                  +{filtradas.total - filtradas.lista.length} más… sigue escribiendo para afinar
+                </div>
+              )}
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
+  );
+};
+
 const EdadesZonaPage = () => {
   const navigate = useNavigate();
   const [estado, setEstado] = useState("");
@@ -142,7 +189,6 @@ const EdadesZonaPage = () => {
   const [remodRango, setRemodRango] = useState({}); // antigüedad remod por rango (si no hay año)
   const [remodOn, setRemodOn]       = useState({}); // id -> mostrar campos de remodelación
   const [guardando, setGuardando]   = useState({}); // id -> bool
-  const [openCol, setOpenCol] = useState(false);    // popover del combo de colonia
   const [coloniaEdit, setColoniaEdit] = useState({}); // id -> colonia corregida
   const [tipoEdit, setTipoEdit] = useState({});       // id -> tipo corregido
   const [nivelEdit, setNivelEdit] = useState({});     // id -> nivel/piso (depto/local/oficina)
@@ -343,15 +389,6 @@ const EdadesZonaPage = () => {
 
   const pendientes = items.filter(it => !hechos[it.id_unico]);
 
-  // Perf del combo de colonia: filtrar en JS y renderizar máx 50 items (no los ~1700
-  // → evita que el DOM se arrastre y que cmdk puntúe toda la lista en cada tecla).
-  const [colQuery, setColQuery] = useState("");
-  const colFiltradas = useMemo(() => {
-    const q = colQuery.toLowerCase().trim();
-    const base = q ? colonias.filter(c => c.toLowerCase().includes(q)) : colonias;
-    return { lista: base.slice(0, 50), total: base.length };
-  }, [colonias, colQuery]);
-
   return (
     <div className="min-h-screen bg-[#F8F9FA] py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
@@ -407,39 +444,7 @@ const EdadesZonaPage = () => {
             </div>
             <div className="flex flex-col gap-1">
               <label className="text-xs font-semibold text-slate-500">Colonia</label>
-              <Popover open={openCol} onOpenChange={setOpenCol}>
-                <PopoverTrigger asChild>
-                  <Button variant="outline" role="combobox" disabled={!municipio}
-                          className="h-9 w-56 justify-between text-sm font-normal">
-                    <span className="truncate">{colonia || (municipio ? "Todas las colonias" : "Elige municipio")}</span>
-                    <ChevronsUpDown className="w-4 h-4 opacity-50 shrink-0" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-56 p-0" align="start">
-                  <Command shouldFilter={false}>
-                    <CommandInput value={colQuery} onValueChange={setColQuery}
-                                  placeholder={`Buscar en ${colonias.length} colonias…`} />
-                    <CommandList>
-                      <CommandEmpty>Sin resultados</CommandEmpty>
-                      <CommandGroup>
-                        <CommandItem value="__todas" onSelect={() => { setColonia(""); setColQuery(""); setOpenCol(false); }}>
-                          <Check className={`w-4 h-4 mr-2 ${colonia === "" ? "opacity-100" : "opacity-0"}`} />Todas
-                        </CommandItem>
-                        {colFiltradas.lista.map(c => (
-                          <CommandItem key={c} value={c} onSelect={() => { setColonia(c); setColQuery(""); setOpenCol(false); }}>
-                            <Check className={`w-4 h-4 mr-2 ${colonia === c ? "opacity-100" : "opacity-0"}`} />{c}
-                          </CommandItem>
-                        ))}
-                        {colFiltradas.total > colFiltradas.lista.length && (
-                          <div className="px-2 py-1.5 text-xs text-slate-400">
-                            +{colFiltradas.total - colFiltradas.lista.length} más… sigue escribiendo para afinar
-                          </div>
-                        )}
-                      </CommandGroup>
-                    </CommandList>
-                  </Command>
-                </PopoverContent>
-              </Popover>
+              <ColoniaCombo colonias={colonias} value={colonia} onChange={setColonia} disabled={!municipio} />
             </div>
             <div className="flex flex-col gap-1">
               <label className="text-xs font-semibold text-slate-500">Tipo</label>
