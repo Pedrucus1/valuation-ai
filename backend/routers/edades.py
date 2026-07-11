@@ -110,9 +110,18 @@ def _base_usables():
     }
 
 
+# Decoradores/truncaciones que el scraper deja al inicio ('onia'=colonia truncado,
+# 'ionamiento'=fraccionamiento, etc.). Se quitan para agrupar y para el display.
+_DECOR_RE = re.compile(r"^(onia|inas|omos|ionamiento|amiento|col\.?|colonia|fracc\.?|"
+                       r"fraccionamiento|condominio|coto|priv\.?|privada)\s+", re.I)
+
+def _limpia_decor(s):
+    return _DECOR_RE.sub("", str(s or "").strip()).strip()
+
 def _norm_col_key(s):
     s = unicodedata.normalize("NFKD", str(s or "")).encode("ascii", "ignore").decode().lower()
-    return " ".join(s.split())
+    s = " ".join(s.split())
+    return _DECOR_RE.sub("", s)   # 'onia guadalajara centro' agrupa con 'guadalajara centro'
 
 
 def _es_junk_colonia(v):
@@ -145,9 +154,10 @@ def _dedup_colonias(vals):
         k = _norm_col_key(v)
         if not k:
             continue
+        vd = _limpia_decor(v)          # display sin el decorador truncado ('onia X' → 'X')
         cur = grupos.get(k)
-        if cur is None or (cur.isupper() and not v.isupper()):
-            grupos[k] = v
+        if cur is None or (cur.isupper() and not vd.isupper()):
+            grupos[k] = vd
     return sorted(grupos.values(), key=lambda x: x.lower())
 
 
