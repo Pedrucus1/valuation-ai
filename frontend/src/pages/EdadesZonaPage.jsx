@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
 import { toast } from "sonner";
-import { Building2, ArrowLeft, ExternalLink, MapPin, Search, Check, Award, ChevronsUpDown } from "lucide-react";
+import { Building2, ArrowLeft, ExternalLink, MapPin, Search, Check, Award, ChevronsUpDown, AlertTriangle } from "lucide-react";
 import { API } from "@/App";
 
 // Rangos finos (Ross-Heidecke). "No sé" salta sin escribir.
@@ -308,6 +308,24 @@ const EdadesZonaPage = () => {
       }
     } catch {
       toast.error("No se pudo guardar");
+    } finally {
+      set(setGuardando)(id, false);
+    }
+  };
+
+  // Reporte de un clic: los datos de esta propiedad son incorrectos/basura →
+  // se excluye de la búsqueda de comparables (activo=False) para que no meta ruido.
+  const marcarBasura = async (it) => {
+    const id = it.id_unico;
+    if (!window.confirm("¿Marcar esta propiedad como información incorrecta? Se excluirá de la búsqueda de comparables para que no meta ruido.")) return;
+    set(setGuardando)(id, true);
+    try {
+      const data = await postEdad(id, { datos_basura: true });
+      if (!data) throw new Error();
+      setHechos(prev => ({ ...prev, [id]: true }));
+      toast.success("Reportada como datos incorrectos · excluida de comparables");
+    } catch {
+      toast.error("No se pudo reportar");
     } finally {
       set(setGuardando)(id, false);
     }
@@ -628,12 +646,19 @@ const EdadesZonaPage = () => {
 
                 {/* Acciones */}
                 <div className="flex items-center justify-between gap-2 pt-2.5 mt-0.5 border-t border-slate-100">
-                  <label className="flex items-center gap-1.5 cursor-pointer" title="Marca si el anuncio ya no está publicado">
-                    <Checkbox checked={!!retiradoChk[it.id_unico]}
-                              onCheckedChange={v => set(setRetiradoChk)(it.id_unico, !!v)}
-                              className="data-[state=checked]:bg-red-500 border-red-400" />
-                    <span className="text-xs text-slate-500">Retirado</span>
-                  </label>
+                  <div className="flex items-center gap-3">
+                    <label className="flex items-center gap-1.5 cursor-pointer" title="Marca si el anuncio ya no está publicado">
+                      <Checkbox checked={!!retiradoChk[it.id_unico]}
+                                onCheckedChange={v => set(setRetiradoChk)(it.id_unico, !!v)}
+                                className="data-[state=checked]:bg-red-500 border-red-400" />
+                      <span className="text-xs text-slate-500">Retirado</span>
+                    </label>
+                    <button type="button" onClick={() => marcarBasura(it)} disabled={guardando[it.id_unico]}
+                            title="Reporta que los datos de esta propiedad son incorrectos; se excluye de la búsqueda de comparables"
+                            className="flex items-center gap-1 text-xs text-red-600 hover:text-red-700 hover:underline disabled:opacity-40">
+                      <AlertTriangle className="w-3.5 h-3.5" /> Datos incorrectos
+                    </button>
+                  </div>
                   <div className="flex gap-2">
                     <Button onClick={() => saltar(it)} variant="outline"
                             className="h-9 border-slate-300 text-slate-500 hover:bg-slate-50">No sé</Button>

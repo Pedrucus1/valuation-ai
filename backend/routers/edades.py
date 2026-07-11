@@ -217,6 +217,10 @@ async def edad_estimada(request: Request):
     # Anuncio retirado / ya no publicado: baja el comp (activo=False) sin borrarlo
     # (el precio sigue sirviendo al motor como comp de menor calidad).
     retirado = bool(body.get("retirado"))
+    # Datos basura / información incorrecta: el anuncio tiene datos malos (precio,
+    # m², colonia, etc. no confiables). Se excluye de comparables (activo=False)
+    # con motivo propio, para que no meta ruido al motor.
+    datos_basura = bool(body.get("datos_basura"))
     # Nivel/piso (campo NUEVO): importa en depto de torre y en local/oficina de
     # plaza (y el último nivel de edificios chicos sin elevador vale menos).
     nivel = body.get("nivel")
@@ -276,8 +280,8 @@ async def edad_estimada(request: Request):
         if not (1900 <= anio_remod_val <= ahora.year + 1):
             raise HTTPException(status_code=400, detail="Año de remodelación fuera de rango")
 
-    if not tiene_edad and not conservacion and not grado_remod and not colonia_fix and not tipo_fix and not retirado and nivel_val is None:
-        raise HTTPException(status_code=400, detail="Falta edad, conservación, remodelación, colonia, tipo, nivel o retiro")
+    if not tiene_edad and not conservacion and not grado_remod and not colonia_fix and not tipo_fix and not retirado and not datos_basura and nivel_val is None:
+        raise HTTPException(status_code=400, detail="Falta edad, conservación, remodelación, colonia, tipo, nivel, retiro o reporte de datos incorrectos")
 
     if tiene_edad:
         update["anio_construccion"] = anio
@@ -313,6 +317,11 @@ async def edad_estimada(request: Request):
     if retirado:
         update["activo"] = False
         update["baja_fuente"] = "perito_retirado"
+        update["baja_fecha"] = ahora.isoformat()
+    if datos_basura:
+        update["activo"] = False
+        update["baja_fuente"] = "perito_datos_basura"
+        update["datos_basura"] = True
         update["baja_fecha"] = ahora.isoformat()
     if nivel_val is not None:
         update["nivel"] = nivel_val
