@@ -125,10 +125,11 @@ const ColoniaCombo = ({ colonias, value, onChange, disabled }) => {
   const filtradas = useMemo(() => {
     const s = q.toLowerCase().trim();
     const base = s ? colonias.filter(c => c.toLowerCase().includes(s)) : colonias;
-    return { lista: base.slice(0, 50), total: base.length };
+    return { lista: base.slice(0, 30), total: base.length };
   }, [colonias, q]);
+  const elegir = (c) => { onChange(c); setQ(""); setOpen(false); };
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover open={open} onOpenChange={(o) => { setOpen(o); if (!o) setQ(""); }}>
       <PopoverTrigger asChild>
         <Button variant="outline" role="combobox" disabled={disabled}
                 className="h-9 w-56 justify-between text-sm font-normal">
@@ -136,29 +137,30 @@ const ColoniaCombo = ({ colonias, value, onChange, disabled }) => {
           <ChevronsUpDown className="w-4 h-4 opacity-50 shrink-0" />
         </Button>
       </PopoverTrigger>
+      {/* input nativo + lista simple (SIN cmdk → escritura instantánea) */}
       <PopoverContent className="w-56 p-0" align="start">
-        <Command shouldFilter={false}>
-          <CommandInput value={q} onValueChange={setQ}
-                        placeholder={`Buscar en ${colonias.length} colonias…`} />
-          <CommandList>
-            <CommandEmpty>Sin resultados</CommandEmpty>
-            <CommandGroup>
-              <CommandItem value="__todas" onSelect={() => { onChange(""); setQ(""); setOpen(false); }}>
-                <Check className={`w-4 h-4 mr-2 ${value === "" ? "opacity-100" : "opacity-0"}`} />Todas
-              </CommandItem>
-              {filtradas.lista.map(c => (
-                <CommandItem key={c} value={c} onSelect={() => { onChange(c); setQ(""); setOpen(false); }}>
-                  <Check className={`w-4 h-4 mr-2 ${value === c ? "opacity-100" : "opacity-0"}`} />{c}
-                </CommandItem>
-              ))}
-              {filtradas.total > filtradas.lista.length && (
-                <div className="px-2 py-1.5 text-xs text-slate-400">
-                  +{filtradas.total - filtradas.lista.length} más… sigue escribiendo para afinar
-                </div>
-              )}
-            </CommandGroup>
-          </CommandList>
-        </Command>
+        <div className="p-2 border-b border-slate-100">
+          <input autoFocus value={q} onChange={(e) => setQ(e.target.value)}
+                 placeholder={`Buscar en ${colonias.length}…`}
+                 className="w-full h-8 px-2 text-sm border border-slate-200 rounded outline-none focus:border-[#52B788]" />
+        </div>
+        <div className="max-h-64 overflow-y-auto py-1">
+          <button type="button" onClick={() => elegir("")}
+                  className="w-full text-left px-3 py-1.5 text-sm hover:bg-slate-100 flex items-center gap-2">
+            <Check className={`w-4 h-4 ${value === "" ? "opacity-100 text-[#52B788]" : "opacity-0"}`} />Todas
+          </button>
+          {filtradas.lista.map(c => (
+            <button type="button" key={c} onClick={() => elegir(c)}
+                    className="w-full text-left px-3 py-1.5 text-sm hover:bg-slate-100 flex items-center gap-2">
+              <Check className={`w-4 h-4 shrink-0 ${value === c ? "opacity-100 text-[#52B788]" : "opacity-0"}`} />
+              <span className="truncate">{c}</span>
+            </button>
+          ))}
+          {filtradas.total === 0 && <p className="px-3 py-2 text-xs text-slate-400">Sin resultados</p>}
+          {filtradas.total > filtradas.lista.length && (
+            <p className="px-3 py-1.5 text-xs text-slate-400">+{filtradas.total - filtradas.lista.length} más… sigue escribiendo</p>
+          )}
+        </div>
       </PopoverContent>
     </Popover>
   );
