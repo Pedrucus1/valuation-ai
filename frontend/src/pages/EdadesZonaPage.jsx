@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -336,6 +336,15 @@ const EdadesZonaPage = () => {
 
   const pendientes = items.filter(it => !hechos[it.id_unico]);
 
+  // Perf del combo de colonia: filtrar en JS y renderizar máx 50 items (no los ~1700
+  // → evita que el DOM se arrastre y que cmdk puntúe toda la lista en cada tecla).
+  const [colQuery, setColQuery] = useState("");
+  const colFiltradas = useMemo(() => {
+    const q = colQuery.toLowerCase().trim();
+    const base = q ? colonias.filter(c => c.toLowerCase().includes(q)) : colonias;
+    return { lista: base.slice(0, 50), total: base.length };
+  }, [colonias, colQuery]);
+
   return (
     <div className="min-h-screen bg-[#F8F9FA] py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
@@ -400,19 +409,25 @@ const EdadesZonaPage = () => {
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-56 p-0" align="start">
-                  <Command>
-                    <CommandInput placeholder={`Buscar en ${colonias.length} colonias…`} />
+                  <Command shouldFilter={false}>
+                    <CommandInput value={colQuery} onValueChange={setColQuery}
+                                  placeholder={`Buscar en ${colonias.length} colonias…`} />
                     <CommandList>
                       <CommandEmpty>Sin resultados</CommandEmpty>
                       <CommandGroup>
-                        <CommandItem value="__todas" onSelect={() => { setColonia(""); setOpenCol(false); }}>
+                        <CommandItem value="__todas" onSelect={() => { setColonia(""); setColQuery(""); setOpenCol(false); }}>
                           <Check className={`w-4 h-4 mr-2 ${colonia === "" ? "opacity-100" : "opacity-0"}`} />Todas
                         </CommandItem>
-                        {colonias.map(c => (
-                          <CommandItem key={c} value={c} onSelect={() => { setColonia(c); setOpenCol(false); }}>
+                        {colFiltradas.lista.map(c => (
+                          <CommandItem key={c} value={c} onSelect={() => { setColonia(c); setColQuery(""); setOpenCol(false); }}>
                             <Check className={`w-4 h-4 mr-2 ${colonia === c ? "opacity-100" : "opacity-0"}`} />{c}
                           </CommandItem>
                         ))}
+                        {colFiltradas.total > colFiltradas.lista.length && (
+                          <div className="px-2 py-1.5 text-xs text-slate-400">
+                            +{colFiltradas.total - colFiltradas.lista.length} más… sigue escribiendo para afinar
+                          </div>
+                        )}
                       </CommandGroup>
                     </CommandList>
                   </Command>
