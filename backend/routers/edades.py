@@ -3,6 +3,7 @@ propiedades sin año → se escribe al pool mercado_props para permear valores d
 zona. Dos vertientes usan estos endpoints: la celda Edad del avalúo y el panel
 "Edades por zona". Ver plan streamed-exploring-patterson.md."""
 import json
+import re
 import unicodedata
 from datetime import datetime, timezone
 from functools import lru_cache
@@ -114,14 +115,33 @@ def _norm_col_key(s):
     return " ".join(s.split())
 
 
+def _es_junk_colonia(v):
+    """True si el 'nombre de colonia' es en realidad basura scrapeada: una dirección
+    (con coma o número de calle) o 'CP + ciudad' ('44230 Guadalajara'). No debe salir
+    en el selector. Deja pasar nombres reales tipo '18 de Marzo', '1 de Mayo'."""
+    if "," in v:
+        return True                      # direcciones: "Av De La Paz 2121, Americana, GDL"
+    if re.search(r"\d{3,}", v):
+        return True                      # CP o número de calle (3+ dígitos): "44230 Guadalajara"
+    if len(v) > 34:
+        return True                      # nombres largos = títulos/descripciones, no colonias
+    if re.search(r"\b(for sale|for rent|for pre-?sale|apartment|house|building|sale in|rent in|"
+                 r"en renta|en venta|casa en|depto en|departamento en|se vende|se renta|dentro de|"
+                 r"downtown|commercial|local in|zone|expo)\b", v.lower()):
+        return True                      # frases de anuncio, no nombres de colonia
+    return False
+
+
 def _dedup_colonias(vals):
     """Colapsa variantes de colonia por mayúsculas/acentos/espacios ('18 DE MARZO'
-    = '18 de Marzo'). Muestra un solo display limpio (prefiere el que NO está en
-    mayúsculas). La búsqueda downstream (comps-sin-edad) es regex case-insensitive,
-    así que un display cubre todas las variantes."""
+    = '18 de Marzo') y descarta basura (direcciones, 'CP + ciudad'). Muestra un solo
+    display limpio (prefiere el que NO está en mayúsculas). La búsqueda downstream
+    (comps-sin-edad) es regex case-insensitive, así que un display cubre las variantes."""
     grupos = {}
     for v in vals:
         v = str(v).strip()
+        if _es_junk_colonia(v):
+            continue
         k = _norm_col_key(v)
         if not k:
             continue

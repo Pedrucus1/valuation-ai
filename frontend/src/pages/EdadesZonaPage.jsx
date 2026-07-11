@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, memo } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -165,6 +165,45 @@ const ColoniaCombo = ({ colonias, value, onChange, disabled }) => {
     </Popover>
   );
 };
+
+// Autocompletado de colonia tipo Google: estado LOCAL (escribir no re-renderiza la
+// página) + muestra solo el top 12 de coincidencias (no las ~868). Reporta al padre
+// solo al elegir/salir, no en cada tecla.
+const ColoniaCorregir = memo(({ nombres, valorInicial, onSet }) => {
+  const [text, setText] = useState(valorInicial || "");
+  const [open, setOpen] = useState(false);
+  const matches = useMemo(() => {
+    const s = text.toLowerCase().trim();
+    if (!s) return [];
+    const pref = [], resto = [];
+    for (const c of nombres) {
+      const cl = c.toLowerCase();
+      if (cl.startsWith(s)) pref.push(c);
+      else if (cl.includes(s)) resto.push(c);
+      if (pref.length >= 12) break;
+    }
+    return [...pref, ...resto].slice(0, 12);
+  }, [nombres, text]);
+  const elegir = (c) => { setText(c); onSet(c); setOpen(false); };
+  return (
+    <div className="relative">
+      <input value={text}
+             onChange={(e) => { setText(e.target.value); setOpen(true); }}
+             onFocus={() => setOpen(true)}
+             onBlur={() => { onSet(text); setTimeout(() => setOpen(false), 120); }}
+             placeholder="Colonia oficial"
+             className="w-full h-9 px-3 text-sm border border-slate-200 rounded-md outline-none focus:border-[#52B788]" />
+      {open && matches.length > 0 && (
+        <div className="absolute z-30 mt-1 w-full max-h-52 overflow-y-auto bg-white border border-slate-200 rounded-md shadow-lg">
+          {matches.map(c => (
+            <button key={c} type="button" onMouseDown={(e) => { e.preventDefault(); elegir(c); }}
+                    className="w-full text-left px-3 py-1.5 text-sm hover:bg-slate-100 truncate">{c}</button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+});
 
 const EdadesZonaPage = () => {
   const navigate = useNavigate();
@@ -391,6 +430,12 @@ const EdadesZonaPage = () => {
 
   const pendientes = items.filter(it => !hechos[it.id_unico]);
 
+  // Lista combinada de nombres de colonia (oficiales SEPOMEX + existentes en la zona)
+  // para el autocompletado de corrección. Estable → no cambia al escribir.
+  const nombresColonia = useMemo(
+    () => Array.from(new Set([...coloniasOficiales.map(c => c.nombre), ...coloniasExistentes])),
+    [coloniasOficiales, coloniasExistentes]);
+
   return (
     <div className="min-h-screen bg-[#F8F9FA] py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
@@ -472,14 +517,6 @@ const EdadesZonaPage = () => {
           </p>
         )}
 
-        {/* Colonias: oficiales SEPOMEX + nombres YA usados en la zona (fraccionamientos
-            no oficiales) — compartido por todas las fichas para autocompletar y homogenizar. */}
-        <datalist id="col-oficiales">
-          {coloniasOficiales.map(c => <option key={"of" + c.nombre + c.cp} value={c.nombre}>{c.nombre}</option>)}
-          {coloniasExistentes
-            .filter(n => !coloniasOficiales.some(o => norm(o.nombre) === norm(n)))
-            .map(n => <option key={"ex" + n} value={n} />)}
-        </datalist>
         {/* Cotos/conjuntos/edificios ya usados en la zona → elegir uno existente
             en vez de inventar variantes ('Albaterra' vs 'Fracc. Albaterra'). */}
         <datalist id="conj-existentes">
@@ -535,9 +572,9 @@ const EdadesZonaPage = () => {
                 {/* Corregir colonia (si el dato vino mal, ej. viene el coto como colonia) */}
                 <div>
                   <label className={LBL}>Colonia <span className="normal-case font-normal text-slate-400">(oficial SEPOMEX — corrige si está mal)</span></label>
-                  <Input value={coloniaEdit[it.id_unico] ?? it.colonia ?? ""}
-                         onChange={e => set(setColoniaEdit)(it.id_unico, e.target.value)}
-                         list="col-oficiales" placeholder="Colonia oficial" className={INP} />
+                  <ColoniaCorregir nombres={nombresColonia}
+                                   valorInicial={coloniaEdit[it.id_unico] ?? it.colonia ?? ""}
+                                   onSet={(v) => set(setColoniaEdit)(it.id_unico, v)} />
                   {(() => {
                     // Chips de "misma zona": si el nombre scrapeado está mal pero el CP
                     // es correcto, sugieren las otras colonias oficiales de ese mismo CP
