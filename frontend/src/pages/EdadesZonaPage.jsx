@@ -475,7 +475,7 @@ const EdadesZonaPage = () => {
         {/* Colonias: oficiales SEPOMEX + nombres YA usados en la zona (fraccionamientos
             no oficiales) — compartido por todas las fichas para autocompletar y homogenizar. */}
         <datalist id="col-oficiales">
-          {coloniasOficiales.map(c => <option key={"of" + c.nombre + c.cp} value={c.nombre}>{c.cp}</option>)}
+          {coloniasOficiales.map(c => <option key={"of" + c.nombre + c.cp} value={c.nombre}>{c.nombre}</option>)}
           {coloniasExistentes
             .filter(n => !coloniasOficiales.some(o => norm(o.nombre) === norm(n)))
             .map(n => <option key={"ex" + n} value={n} />)}
