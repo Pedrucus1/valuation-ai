@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
 import { toast } from "sonner";
-import { Building2, ArrowLeft, ExternalLink, MapPin, Search, Check, Award, ChevronsUpDown, AlertTriangle } from "lucide-react";
+import { Building2, ArrowLeft, ExternalLink, MapPin, Search, Check, Award, ChevronsUpDown, AlertTriangle, Pencil, Gavel, XCircle } from "lucide-react";
 import { API } from "@/App";
 
 // Rangos finos (Ross-Heidecke). "No sé" salta sin escribir.
@@ -240,7 +240,7 @@ const EdadesZonaPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [colonia, tipo]);
 
-  const saltar = (it) => setHechos(prev => ({ ...prev, [it.id_unico]: "no_se" }));
+  const saltar = (it) => setHechos(prev => ({ ...prev, [it.id_unico]: "Saltada" }));
 
   const construirPayload = (it) => {
     const id = it.id_unico;
@@ -285,7 +285,7 @@ const EdadesZonaPage = () => {
     let n = 0;
     for (const o of otras) {
       const ok = await postEdad(o.id_unico, payload);
-      if (ok) { setHechos(prev => ({ ...prev, [o.id_unico]: true })); n++; }
+      if (ok) { setHechos(prev => ({ ...prev, [o.id_unico]: "Guardado" })); n++; }
     }
     toast.success(`Aplicado a ${n} más`);
   };
@@ -301,7 +301,7 @@ const EdadesZonaPage = () => {
     try {
       const data = await postEdad(id, payload);
       if (!data) throw new Error();
-      setHechos(prev => ({ ...prev, [id]: true }));
+      setHechos(prev => ({ ...prev, [id]: "Guardado" }));
       if (data.puntos != null) setPuntos(data.puntos);
       const base = data.edad_efectiva != null ? `Guardado · edad efectiva ${data.edad_efectiva} años` : "Guardado ✓";
       toast.success(base);
@@ -319,20 +319,27 @@ const EdadesZonaPage = () => {
 
   // Reporte de un clic: los datos de esta propiedad son incorrectos/basura →
   // se excluye de la búsqueda de comparables (activo=False) para que no meta ruido.
-  const marcarBasura = async (it) => {
+  // Excluir de comparables por un motivo (un clic). Guarda el label en `hechos`
+  // para el historial. Reutilizado por retirado / datos incorrectos / juicio-remate.
+  const excluir = async (it, campo, label) => {
     const id = it.id_unico;
     set(setGuardando)(id, true);
     try {
-      const data = await postEdad(id, { datos_basura: true });
+      const data = await postEdad(id, { [campo]: true });
       if (!data) throw new Error();
-      setHechos(prev => ({ ...prev, [id]: true }));
-      toast.success("Reportada como datos incorrectos · excluida de comparables");
+      setHechos(prev => ({ ...prev, [id]: label }));
+      toast.success(`${label} · excluida de comparables`);
     } catch {
-      toast.error("No se pudo reportar");
+      toast.error("No se pudo marcar");
     } finally {
       set(setGuardando)(id, false);
     }
   };
+
+  // Reabrir una ficha ya guardada para corregirla (la saca de `hechos`).
+  const editar = (it) => setHechos(prev => {
+    const n = { ...prev }; delete n[it.id_unico]; return n;
+  });
 
   const pendientes = items.filter(it => !hechos[it.id_unico]);
 
@@ -477,13 +484,17 @@ const EdadesZonaPage = () => {
             /* Ficha bloqueada tras guardar / saltar */
             <Card key={it.id_unico} className="bg-[#F0F7F3] border border-[#52B788]/40 rounded-xl">
               <div className="px-4 py-3 flex items-center gap-2.5">
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${hechos[it.id_unico] === "no_se" ? "bg-slate-200" : "bg-[#52B788]"}`}>
-                  <Check className={`w-5 h-5 ${hechos[it.id_unico] === "no_se" ? "text-slate-500" : "text-white"}`} />
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${hechos[it.id_unico] === "Guardado" ? "bg-[#52B788]" : "bg-slate-300"}`}>
+                  <Check className={`w-5 h-5 ${hechos[it.id_unico] === "Guardado" ? "text-white" : "text-slate-600"}`} />
                 </div>
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <p className="font-semibold text-sm text-[#1B4332] truncate">{it.colonia}</p>
-                  <p className="text-xs text-slate-500">{hechos[it.id_unico] === "no_se" ? "Saltada" : "Guardado"}</p>
+                  <p className="text-xs text-slate-500">{hechos[it.id_unico]}</p>
                 </div>
+                <button type="button" onClick={() => editar(it)}
+                        className="shrink-0 flex items-center gap-1 text-xs text-[#52B788] hover:text-[#40916C] hover:underline font-medium">
+                  <Pencil className="w-3.5 h-3.5" /> Editar
+                </button>
               </div>
             </Card>
           ) : (
@@ -663,21 +674,30 @@ const EdadesZonaPage = () => {
                 })()}
 
                 {/* Acciones */}
-                <div className="flex items-center justify-between gap-2 pt-2.5 mt-0.5 border-t border-slate-100">
-                  <div className="flex items-center gap-3">
-                    <label className="flex items-center gap-1.5 cursor-pointer" title="Marca si el anuncio ya no está publicado">
-                      <Checkbox checked={!!retiradoChk[it.id_unico]}
-                                onCheckedChange={v => set(setRetiradoChk)(it.id_unico, !!v)}
-                                className="data-[state=checked]:bg-red-500 border-red-400" />
-                      <span className="text-xs text-slate-500">Retirado</span>
-                    </label>
-                    <button type="button" onClick={() => marcarBasura(it)} disabled={guardando[it.id_unico]}
-                            title="Reporta que los datos de esta propiedad son incorrectos; se excluye de la búsqueda de comparables"
-                            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border border-red-300 text-red-600 hover:bg-red-50 hover:border-red-400 text-xs font-semibold disabled:opacity-40 transition-colors">
-                      <AlertTriangle className="w-4 h-4" /> Info incorrecta
-                    </button>
+                <div className="pt-2.5 mt-0.5 border-t border-slate-100 space-y-2.5">
+                  {/* Motivos de exclusión (un clic → saca la propiedad de comparables) */}
+                  <div>
+                    <p className="text-[11px] text-slate-400 mb-1.5">¿Excluir de comparables?</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      <button type="button" onClick={() => excluir(it, "retirado", "Retirado")} disabled={guardando[it.id_unico]}
+                              title="El anuncio ya no está publicado"
+                              className="inline-flex items-center gap-1 px-2 py-1 rounded-md border border-slate-300 text-slate-600 hover:bg-slate-100 text-xs font-medium disabled:opacity-40 transition-colors">
+                        <XCircle className="w-3.5 h-3.5" /> Retirado
+                      </button>
+                      <button type="button" onClick={() => excluir(it, "datos_basura", "Datos incorrectos")} disabled={guardando[it.id_unico]}
+                              title="Los datos del anuncio son incorrectos/basura"
+                              className="inline-flex items-center gap-1 px-2 py-1 rounded-md border border-red-300 text-red-600 hover:bg-red-50 text-xs font-medium disabled:opacity-40 transition-colors">
+                        <AlertTriangle className="w-3.5 h-3.5" /> Info incorrecta
+                      </button>
+                      <button type="button" onClick={() => excluir(it, "en_juicio_remate", "En juicio/remate")} disabled={guardando[it.id_unico]}
+                              title="Está en juicio o es remate; su precio no es de mercado"
+                              className="inline-flex items-center gap-1 px-2 py-1 rounded-md border border-amber-300 text-amber-700 hover:bg-amber-50 text-xs font-medium disabled:opacity-40 transition-colors">
+                        <Gavel className="w-3.5 h-3.5" /> Juicio/remate
+                      </button>
+                    </div>
                   </div>
-                  <div className="flex gap-2">
+                  {/* Primarias */}
+                  <div className="flex gap-2 justify-end">
                     <Button onClick={() => saltar(it)} variant="outline"
                             className="h-9 border-slate-300 text-slate-500 hover:bg-slate-50">No sé</Button>
                     <Button onClick={() => guardar(it)} disabled={guardando[it.id_unico]}

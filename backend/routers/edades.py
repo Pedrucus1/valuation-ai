@@ -244,6 +244,9 @@ async def edad_estimada(request: Request):
     # m², colonia, etc. no confiables). Se excluye de comparables (activo=False)
     # con motivo propio, para que no meta ruido al motor.
     datos_basura = bool(body.get("datos_basura"))
+    # En juicio / remate: la propiedad tiene litigio o es remate → precio no
+    # representativo del mercado. Se excluye de comparables con motivo propio.
+    en_juicio = bool(body.get("en_juicio_remate"))
     # Nivel/piso (campo NUEVO): importa en depto de torre y en local/oficina de
     # plaza (y el último nivel de edificios chicos sin elevador vale menos).
     nivel = body.get("nivel")
@@ -303,8 +306,8 @@ async def edad_estimada(request: Request):
         if not (1900 <= anio_remod_val <= ahora.year + 1):
             raise HTTPException(status_code=400, detail="Año de remodelación fuera de rango")
 
-    if not tiene_edad and not conservacion and not grado_remod and not colonia_fix and not tipo_fix and not retirado and not datos_basura and nivel_val is None:
-        raise HTTPException(status_code=400, detail="Falta edad, conservación, remodelación, colonia, tipo, nivel, retiro o reporte de datos incorrectos")
+    if not tiene_edad and not conservacion and not grado_remod and not colonia_fix and not tipo_fix and not retirado and not datos_basura and not en_juicio and nivel_val is None:
+        raise HTTPException(status_code=400, detail="Falta edad, conservación, remodelación, colonia, tipo, nivel, retiro, datos incorrectos o juicio/remate")
 
     if tiene_edad:
         update["anio_construccion"] = anio
@@ -345,6 +348,11 @@ async def edad_estimada(request: Request):
         update["activo"] = False
         update["baja_fuente"] = "perito_datos_basura"
         update["datos_basura"] = True
+        update["baja_fecha"] = ahora.isoformat()
+    if en_juicio:
+        update["activo"] = False
+        update["baja_fuente"] = "perito_juicio_remate"
+        update["en_juicio_remate"] = True
         update["baja_fecha"] = ahora.isoformat()
     if nivel_val is not None:
         update["nivel"] = nivel_val
