@@ -109,6 +109,28 @@ def _base_usables():
     }
 
 
+def _norm_col_key(s):
+    s = unicodedata.normalize("NFKD", str(s or "")).encode("ascii", "ignore").decode().lower()
+    return " ".join(s.split())
+
+
+def _dedup_colonias(vals):
+    """Colapsa variantes de colonia por mayúsculas/acentos/espacios ('18 DE MARZO'
+    = '18 de Marzo'). Muestra un solo display limpio (prefiere el que NO está en
+    mayúsculas). La búsqueda downstream (comps-sin-edad) es regex case-insensitive,
+    así que un display cubre todas las variantes."""
+    grupos = {}
+    for v in vals:
+        v = str(v).strip()
+        k = _norm_col_key(v)
+        if not k:
+            continue
+        cur = grupos.get(k)
+        if cur is None or (cur.isupper() and not v.isupper()):
+            grupos[k] = v
+    return sorted(grupos.values(), key=lambda x: x.lower())
+
+
 @router.get("/edad-zonas")
 async def edad_zonas(request: Request, estado: str = "", municipio: str = ""):
     """Cascada de zonas alimentada por los datos reales (nivel nacional):
@@ -124,8 +146,8 @@ async def edad_zonas(request: Request, estado: str = "", municipio: str = ""):
         campo = "municipio"
     else:
         campo = "estado"
-    vals = await db.mercado_props.distinct(campo, q)
-    vals = sorted(v for v in vals if v and str(v).strip())
+    vals = [v for v in await db.mercado_props.distinct(campo, q) if v and str(v).strip()]
+    vals = _dedup_colonias(vals) if campo == "colonia" else sorted(set(str(v).strip() for v in vals))
     return {"campo": campo, "valores": vals}
 
 
@@ -158,9 +180,10 @@ async def nombres_zona(request: Request, municipio: str = ""):
     q = {"municipio": municipio}
     colonias = await db.mercado_props.distinct("colonia", q)
     conjuntos = await db.mercado_props.distinct("conjunto", q)
-    # Colonias: filtrar basura (títulos largos en inglés) por longitud.
-    limpio_col = sorted({str(v).strip() for v in colonias
-                         if v and 2 < len(str(v).strip()) <= 45})
+    # Colonias: filtrar basura (títulos largos en inglés) por longitud + dedup
+    # de variantes por mayúsculas/acentos ('18 DE MARZO' = '18 de Marzo').
+    limpio_col = _dedup_colonias([str(v).strip() for v in colonias
+                                  if v and 2 < len(str(v).strip()) <= 45])
     limpio_conj = sorted({str(v).strip() for v in conjuntos if v and str(v).strip()})
     return {"colonias": limpio_col, "conjuntos": limpio_conj}
 
