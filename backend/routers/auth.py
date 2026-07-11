@@ -360,6 +360,7 @@ async def login_email(request: Request, data: LoginRequest, response: Response):
         path="/", max_age=7 * 24 * 60 * 60,
     )
     user_out = {k: v for k, v in user_doc.items() if k not in ("hashed_password",)}
+    user_out["session_token"] = session_token   # para auth por Bearer (no depende de la cookie cross-dominio)
     return user_out
 
 
