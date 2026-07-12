@@ -592,8 +592,8 @@ const EdadesZonaPage = () => {
                                      onSet={(v) => set(setMunicipioEdit)(it.id_unico, v)} />
                   </div>
                   <div>
-                    <label className={LBL}>Población <span className="normal-case font-normal text-slate-400">(pueblo, ej. Cajititlán)</span></label>
-                    <ColoniaCorregir nombres={[]} placeholder="Población / pueblo"
+                    <label className={LBL}>Población</label>
+                    <ColoniaCorregir nombres={[]} placeholder="Pueblo (ej. Cajititlán)"
                                      valorInicial={poblacionEdit[it.id_unico] ?? it.poblacion ?? ""}
                                      onSet={(v) => set(setPoblacionEdit)(it.id_unico, v)} />
                   </div>
