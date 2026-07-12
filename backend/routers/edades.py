@@ -65,7 +65,8 @@ RANGO_MIDPOINT = {
 }
 
 CAMPOS_SIN_EDAD = {
-    "_id": 0, "id_unico": 1, "colonia": 1, "calle_numero": 1, "codigo_postal": 1,
+    "_id": 0, "id_unico": 1, "colonia": 1, "municipio": 1, "poblacion": 1,
+    "calle_numero": 1, "codigo_postal": 1,
     "tipo_propiedad": 1, "precio": 1, "m2_construccion": 1, "url_original": 1,
 }
 
@@ -282,6 +283,7 @@ async def edad_estimada(request: Request):
     grado_remod = str(body.get("grado_remodelacion") or "").strip().lower()
     colonia_fix = str(body.get("colonia") or "").strip()[:60]
     municipio_fix = str(body.get("municipio") or "").strip()[:60]   # corregir municipio mal capturado
+    poblacion_fix = str(body.get("poblacion") or "").strip()[:60]   # población/pueblo (nivel entre muni y colonia, ej. Cajititlán)
     cp = str(body.get("cp") or "").strip()[:6]
     # Corrección de tipo de propiedad (si el scrapeo lo trae mal, ej. "local"
     # que en realidad es casa). Canónico en minúscula, como lo guarda el pool.
@@ -357,7 +359,7 @@ async def edad_estimada(request: Request):
         if not (1900 <= anio_remod_val <= ahora.year + 1):
             raise HTTPException(status_code=400, detail="Año de remodelación fuera de rango")
 
-    if not tiene_edad and not conservacion and not grado_remod and not colonia_fix and not municipio_fix and not tipo_fix and not retirado and not datos_basura and not en_juicio and nivel_val is None:
+    if not tiene_edad and not conservacion and not grado_remod and not colonia_fix and not municipio_fix and not poblacion_fix and not tipo_fix and not retirado and not datos_basura and not en_juicio and nivel_val is None:
         raise HTTPException(status_code=400, detail="Falta edad, conservación, remodelación, colonia, tipo, nivel, retiro, datos incorrectos o juicio/remate")
 
     if tiene_edad:
@@ -386,6 +388,9 @@ async def edad_estimada(request: Request):
     if municipio_fix:
         update["municipio"] = municipio_fix
         update["municipio_fuente"] = "perito_correccion"
+    if poblacion_fix:
+        update["poblacion"] = poblacion_fix
+        update["poblacion_fuente"] = "perito_correccion"
     if colonia_fix:
         update["colonia"] = colonia_fix
         update["colonia_fuente"] = "perito_correccion"

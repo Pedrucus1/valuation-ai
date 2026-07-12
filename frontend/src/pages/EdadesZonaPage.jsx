@@ -233,6 +233,7 @@ const EdadesZonaPage = () => {
   const [guardando, setGuardando]   = useState({}); // id -> bool
   const [coloniaEdit, setColoniaEdit] = useState({}); // id -> colonia corregida
   const [municipioEdit, setMunicipioEdit] = useState({}); // id -> municipio corregido
+  const [poblacionEdit, setPoblacionEdit] = useState({}); // id -> población/pueblo (Cajititlán, etc.)
   const [tipoEdit, setTipoEdit] = useState({});       // id -> tipo corregido
   const [nivelEdit, setNivelEdit] = useState({});     // id -> nivel/piso (depto/local/oficina)
   const [retiradoChk, setRetiradoChk] = useState({}); // id -> anuncio retirado
@@ -337,6 +338,8 @@ const EdadesZonaPage = () => {
     const p = {};
     const muniFix = (municipioEdit[id] ?? "").trim();
     if (muniFix && muniFix !== it.municipio) p.municipio = muniFix;   // corrección de municipio
+    const pobFix = (poblacionEdit[id] ?? "").trim();
+    if (pobFix && pobFix !== (it.poblacion || "")) p.poblacion = pobFix;   // población/pueblo
     const colFix = (coloniaEdit[id] ?? "").trim();
     if (colFix && colFix !== it.colonia) {
       p.colonia = colFix;   // corrección de colonia
@@ -385,7 +388,7 @@ const EdadesZonaPage = () => {
   const guardar = async (it) => {
     const id = it.id_unico;
     const payload = construirPayload(it);
-    if (!payload.anio_exacto && !payload.edad_rango && !payload.conservacion && !payload.grado_remodelacion && !payload.colonia && !payload.municipio && !payload.tipo && !payload.retirado && payload.nivel === undefined) {
+    if (!payload.anio_exacto && !payload.edad_rango && !payload.conservacion && !payload.grado_remodelacion && !payload.colonia && !payload.municipio && !payload.poblacion && !payload.tipo && !payload.retirado && payload.nivel === undefined) {
       toast.error("Indica al menos edad, conservación, remodelación, colonia, municipio, tipo, nivel o retiro");
       return;
     }
@@ -580,12 +583,20 @@ const EdadesZonaPage = () => {
 
               {/* Formulario de estimación */}
               <div className="p-4 space-y-2.5">
-                {/* Corregir municipio (si la propiedad está mal ubicada de municipio) */}
-                <div>
-                  <label className={LBL}>Municipio <span className="normal-case font-normal text-slate-400">(corrige si está en el municipio equivocado)</span></label>
-                  <ColoniaCorregir nombres={municipios} placeholder="Municipio"
-                                   valorInicial={municipioEdit[it.id_unico] ?? it.municipio ?? ""}
-                                   onSet={(v) => set(setMunicipioEdit)(it.id_unico, v)} />
+                {/* Municipio + Población (pueblo) — nivel entre municipio y colonia */}
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <label className={LBL}>Municipio</label>
+                    <ColoniaCorregir nombres={municipios} placeholder="Municipio"
+                                     valorInicial={municipioEdit[it.id_unico] ?? it.municipio ?? ""}
+                                     onSet={(v) => set(setMunicipioEdit)(it.id_unico, v)} />
+                  </div>
+                  <div>
+                    <label className={LBL}>Población <span className="normal-case font-normal text-slate-400">(pueblo, ej. Cajititlán)</span></label>
+                    <ColoniaCorregir nombres={[]} placeholder="Población / pueblo"
+                                     valorInicial={poblacionEdit[it.id_unico] ?? it.poblacion ?? ""}
+                                     onSet={(v) => set(setPoblacionEdit)(it.id_unico, v)} />
+                  </div>
                 </div>
                 {/* Corregir colonia (si el dato vino mal, ej. viene el coto como colonia) */}
                 <div>
