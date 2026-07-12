@@ -169,7 +169,7 @@ const ColoniaCombo = ({ colonias, value, onChange, disabled }) => {
 // Autocompletado de colonia tipo Google: estado LOCAL (escribir no re-renderiza la
 // página) + muestra solo el top 12 de coincidencias (no las ~868). Reporta al padre
 // solo al elegir/salir, no en cada tecla.
-const ColoniaCorregir = memo(({ nombres, valorInicial, onSet }) => {
+const ColoniaCorregir = memo(({ nombres, valorInicial, onSet, placeholder = "Colonia oficial" }) => {
   const [text, setText] = useState(valorInicial || "");
   const [open, setOpen] = useState(false);
   const matches = useMemo(() => {
@@ -191,7 +191,7 @@ const ColoniaCorregir = memo(({ nombres, valorInicial, onSet }) => {
              onChange={(e) => { setText(e.target.value); setOpen(true); }}
              onFocus={() => setOpen(true)}
              onBlur={() => { onSet(text); setTimeout(() => setOpen(false), 120); }}
-             placeholder="Colonia oficial"
+             placeholder={placeholder}
              className="w-full h-9 px-3 text-sm border border-slate-200 rounded-md outline-none focus:border-[#52B788]" />
       {open && matches.length > 0 && (
         <div className="absolute z-30 mt-1 w-full max-h-52 overflow-y-auto bg-white border border-slate-200 rounded-md shadow-lg">
@@ -232,6 +232,7 @@ const EdadesZonaPage = () => {
   const [remodOn, setRemodOn]       = useState({}); // id -> mostrar campos de remodelación
   const [guardando, setGuardando]   = useState({}); // id -> bool
   const [coloniaEdit, setColoniaEdit] = useState({}); // id -> colonia corregida
+  const [municipioEdit, setMunicipioEdit] = useState({}); // id -> municipio corregido
   const [tipoEdit, setTipoEdit] = useState({});       // id -> tipo corregido
   const [nivelEdit, setNivelEdit] = useState({});     // id -> nivel/piso (depto/local/oficina)
   const [retiradoChk, setRetiradoChk] = useState({}); // id -> anuncio retirado
@@ -334,6 +335,8 @@ const EdadesZonaPage = () => {
   const construirPayload = (it) => {
     const id = it.id_unico;
     const p = {};
+    const muniFix = (municipioEdit[id] ?? "").trim();
+    if (muniFix && muniFix !== it.municipio) p.municipio = muniFix;   // corrección de municipio
     const colFix = (coloniaEdit[id] ?? "").trim();
     if (colFix && colFix !== it.colonia) {
       p.colonia = colFix;   // corrección de colonia
@@ -382,8 +385,8 @@ const EdadesZonaPage = () => {
   const guardar = async (it) => {
     const id = it.id_unico;
     const payload = construirPayload(it);
-    if (!payload.anio_exacto && !payload.edad_rango && !payload.conservacion && !payload.grado_remodelacion && !payload.colonia && !payload.tipo && !payload.retirado && payload.nivel === undefined) {
-      toast.error("Indica al menos edad, conservación, remodelación, colonia, tipo, nivel o retiro");
+    if (!payload.anio_exacto && !payload.edad_rango && !payload.conservacion && !payload.grado_remodelacion && !payload.colonia && !payload.municipio && !payload.tipo && !payload.retirado && payload.nivel === undefined) {
+      toast.error("Indica al menos edad, conservación, remodelación, colonia, municipio, tipo, nivel o retiro");
       return;
     }
     set(setGuardando)(id, true);
@@ -577,6 +580,13 @@ const EdadesZonaPage = () => {
 
               {/* Formulario de estimación */}
               <div className="p-4 space-y-2.5">
+                {/* Corregir municipio (si la propiedad está mal ubicada de municipio) */}
+                <div>
+                  <label className={LBL}>Municipio <span className="normal-case font-normal text-slate-400">(corrige si está en el municipio equivocado)</span></label>
+                  <ColoniaCorregir nombres={municipios} placeholder="Municipio"
+                                   valorInicial={municipioEdit[it.id_unico] ?? it.municipio ?? ""}
+                                   onSet={(v) => set(setMunicipioEdit)(it.id_unico, v)} />
+                </div>
                 {/* Corregir colonia (si el dato vino mal, ej. viene el coto como colonia) */}
                 <div>
                   <label className={LBL}>Colonia <span className="normal-case font-normal text-slate-400">(oficial SEPOMEX — corrige si está mal)</span></label>
