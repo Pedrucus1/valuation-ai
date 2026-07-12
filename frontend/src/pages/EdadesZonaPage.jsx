@@ -132,7 +132,7 @@ const ColoniaCombo = ({ colonias, value, onChange, disabled }) => {
     <Popover open={open} onOpenChange={(o) => { setOpen(o); if (!o) setQ(""); }}>
       <PopoverTrigger asChild>
         <Button variant="outline" role="combobox" disabled={disabled}
-                className="h-9 w-56 justify-between text-sm font-normal">
+                className="h-9 w-44 justify-between text-sm font-normal">
           <span className="truncate">{value || (disabled ? "Elige municipio" : "Todas las colonias")}</span>
           <ChevronsUpDown className="w-4 h-4 opacity-50 shrink-0" />
         </Button>
@@ -516,7 +516,7 @@ const EdadesZonaPage = () => {
                    title="Muestra propiedades cuya colonia está mal capturada (CP, dirección, título de anuncio) para corregirlas en lote">
               <Checkbox checked={soloRaras} onCheckedChange={v => setSoloRaras(!!v)}
                         className="data-[state=checked]:bg-amber-500 border-amber-400" />
-              <span className="text-xs text-slate-600">Solo colonias por corregir <span className="text-slate-400">(datos raros)</span></span>
+              <span className="text-xs text-slate-600 whitespace-nowrap">Datos raros <span className="text-slate-400">(por corregir)</span></span>
             </label>
           </CardContent>
         </Card>

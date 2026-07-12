@@ -100,6 +100,7 @@ def _base_usables():
     """Filtro base de comps etiquetables: sin año, con precio, no duplicado y
     con colonia real (no el título del anuncio ni frases largas en inglés)."""
     return {
+        "activo": {"$ne": False},   # NO mostrar las que ya se marcaron Retirado/Info incorrecta/Juicio (activo=False)
         "anio_construccion": None,
         "precio": {"$gt": 0},
         "es_duplicado_secundario": {"$ne": True},
