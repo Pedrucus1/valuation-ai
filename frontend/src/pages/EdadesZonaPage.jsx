@@ -54,13 +54,46 @@ const REMOD_RANGES = [
   { value: "26-30", label: "26–30 años", mid: 28 },
 ];
 
-const TIPOS = ["Casa", "Departamento", "Terreno", "Local", "Oficina"];
+const TIPOS = ["Casa", "Departamento", "Terreno", "Local", "Oficina", "Rancho"];
 // Opciones para corregir el tipo scrapeado (valor en minúscula = como lo guarda el pool).
 const TIPO_OPCIONES = [
   { v: "casa", l: "Casa" }, { v: "departamento", l: "Departamento" },
   { v: "terreno", l: "Terreno" }, { v: "local", l: "Local" },
   { v: "oficina", l: "Oficina" }, { v: "bodega", l: "Bodega" },
+  { v: "rancho", l: "Rancho" },
 ];
+
+// Multi-select de tipo en un DROPDOWN con checkboxes (compacto: el botón muestra lo
+// elegido, las opciones ocultas). Una propiedad puede ser casa Y rancho, etc.
+const TipoMultiSelect = ({ opciones, value, onChange }) => {
+  const [open, setOpen] = useState(false);
+  const toggle = (v) => onChange(value.includes(v) ? value.filter(x => x !== v) : [...value, v]);
+  const label = value.length ? opciones.filter(o => value.includes(o.v)).map(o => o.l).join(", ") : "Tipo de propiedad";
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <button type="button" className="h-9 w-full flex items-center justify-between bg-slate-100 border border-slate-200 rounded-md px-3 text-sm">
+          <span className="truncate text-left">{label}</span>
+          <ChevronsUpDown className="w-4 h-4 opacity-50 shrink-0 ml-1" />
+        </button>
+      </PopoverTrigger>
+      <PopoverContent className="w-56 p-1" align="start">
+        {opciones.map(o => {
+          const sel = value.includes(o.v);
+          return (
+            <button key={o.v} type="button" onClick={() => toggle(o.v)}
+                    className="w-full flex items-center gap-2 px-2 py-1.5 text-sm rounded hover:bg-slate-100">
+              <span className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 ${sel ? "bg-[#52B788] border-[#52B788]" : "border-slate-300"}`}>
+                {sel && <Check className="w-3 h-3 text-white" />}
+              </span>
+              {o.l}
+            </button>
+          );
+        })}
+      </PopoverContent>
+    </Popover>
+  );
+};
 
 // Headers: si hay token admin en localStorage, mandarlo (el panel sirve para
 // valuador/inmobiliaria vía cookie de sesión, y para super_admin vía X-Admin-Token).
@@ -234,7 +267,8 @@ const EdadesZonaPage = () => {
   const [coloniaEdit, setColoniaEdit] = useState({}); // id -> colonia corregida
   const [municipioEdit, setMunicipioEdit] = useState({}); // id -> municipio corregido
   const [poblacionEdit, setPoblacionEdit] = useState({}); // id -> población/pueblo (Cajititlán, etc.)
-  const [tipoEdit, setTipoEdit] = useState({});       // id -> tipo corregido
+  const [tipoEdit, setTipoEdit] = useState({});       // id -> tipo corregido (compat)
+  const [tiposEdit, setTiposEdit] = useState({});     // id -> array de tipos (multi: casa+rancho)
   const [nivelEdit, setNivelEdit] = useState({});     // id -> nivel/piso (depto/local/oficina)
   const [retiradoChk, setRetiradoChk] = useState({}); // id -> anuncio retirado
   const [aplicarGrupo, setAplicarGrupo] = useState({}); // id -> aplicar al mismo coto
@@ -347,7 +381,11 @@ const EdadesZonaPage = () => {
       if (of?.cp) p.cp = of.cp;
     }
     if (conjuntos[id]) p.conjunto = conjuntos[id];
-    if (tipoEdit[id] && tipoEdit[id] !== it.tipo_propiedad) p.tipo = tipoEdit[id];  // corrección de tipo
+    const tiposSel = tiposEdit[id];   // multi-tipo: casa+rancho, etc.
+    if (tiposSel && tiposSel.length && JSON.stringify(tiposSel) !== JSON.stringify([it.tipo_propiedad].filter(Boolean))) {
+      p.tipo = tiposSel[0];   // primario para el motor
+      p.tipos = tiposSel;     // etiquetas completas
+    }
     if (nivelEdit[id] !== undefined && nivelEdit[id] !== "") p.nivel = Number(nivelEdit[id]);  // piso/nivel
     if (retiradoChk[id]) p.retirado = true;   // anuncio ya no publicado
     if (anioConst[id]) p.anio_exacto = Number(anioConst[id]);
@@ -641,7 +679,7 @@ const EdadesZonaPage = () => {
                 </div>
                 {/* Nivel / piso: solo departamento, local u oficina (torre/plaza) */}
                 {(() => {
-                  const tipoEff = tipoEdit[it.id_unico] ?? it.tipo_propiedad;
+                  const tipoEff = (tiposEdit[it.id_unico]?.[0]) ?? it.tipo_propiedad;
                   if (!["departamento", "local", "oficina"].includes(tipoEff)) return null;
                   return (
                     <div>
@@ -652,15 +690,12 @@ const EdadesZonaPage = () => {
                     </div>
                   );
                 })()}
-                {/* Corregir tipo de propiedad (si el scrapeo lo trae mal) */}
+                {/* Corregir tipo (multi: puede ser casa Y rancho). Dropdown con checkboxes. */}
                 <div>
-                  <label className={LBL}>Tipo <span className="normal-case font-normal text-slate-400">(corrige si el scrapeo está mal)</span></label>
-                  <Select value={tipoEdit[it.id_unico] ?? it.tipo_propiedad ?? ""} onValueChange={v => set(setTipoEdit)(it.id_unico, v)}>
-                    <SelectTrigger className={INP + " w-full"}><SelectValue placeholder="Tipo de propiedad" /></SelectTrigger>
-                    <SelectContent>
-                      {TIPO_OPCIONES.map(t => <SelectItem key={t.v} value={t.v}>{t.l}</SelectItem>)}
-                    </SelectContent>
-                  </Select>
+                  <label className={LBL}>Tipo <span className="normal-case font-normal text-slate-400">(puede ser más de uno, ej. casa y rancho)</span></label>
+                  <TipoMultiSelect opciones={TIPO_OPCIONES}
+                                   value={tiposEdit[it.id_unico] ?? [it.tipo_propiedad].filter(Boolean)}
+                                   onChange={(arr) => set(setTiposEdit)(it.id_unico, arr)} />
                 </div>
                 {/* Edad de construcción: rango + año exacto */}
                 <div>

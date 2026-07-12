@@ -34,6 +34,7 @@ TIPO_ALIAS = {
     "comercial": "Local",
     "oficina": "Oficina", "oficinas": "Oficina", "office": "Oficina",
     "bodega": "Bodega", "nave industrial": "Bodega",
+    "rancho": "Rancho", "ranchos": "Rancho", "quinta": "Rancho", "hacienda": "Rancho",
 }
 
 CAMPOS_COMPARABLE = {

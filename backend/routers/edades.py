@@ -72,7 +72,7 @@ CAMPOS_SIN_EDAD = {
 
 # Estado de conservación (escala, SIN remodelación — eso es un eje aparte que
 # ajusta la edad efectiva). Alimenta el factor de conservación del motor.
-TIPOS_CANON = {"casa", "departamento", "terreno", "local", "oficina", "bodega"}
+TIPOS_CANON = {"casa", "departamento", "terreno", "local", "oficina", "bodega", "rancho"}
 
 CONSERVACION_VALIDAS = {
     "Nuevo", "Excelente", "Bueno", "Regular Bueno", "Regular",
@@ -290,6 +290,10 @@ async def edad_estimada(request: Request):
     tipo_fix = str(body.get("tipo") or "").strip()
     if tipo_fix:
         tipo_fix = TIPO_ALIAS.get(tipo_fix.lower(), tipo_fix).lower()
+    # Etiquetas de tipo (multi): una propiedad puede venderse como casa Y rancho, etc.
+    tipos_body = body.get("tipos") or []
+    tipos_fix = [t for t in (TIPO_ALIAS.get(str(x).lower(), str(x)).lower() for x in tipos_body if x)
+                 if t in TIPOS_CANON]
     # Anuncio retirado / ya no publicado: baja el comp (activo=False) sin borrarlo
     # (el precio sigue sirviendo al motor como comp de menor calidad).
     retirado = bool(body.get("retirado"))
@@ -399,6 +403,8 @@ async def edad_estimada(request: Request):
     if tipo_fix:
         update["tipo_propiedad"] = tipo_fix
         update["tipo_fuente"] = "perito_correccion"
+    if tipos_fix:
+        update["tipos"] = tipos_fix   # etiquetas multi (casa+rancho, etc.)
     if retirado:
         update["activo"] = False
         update["baja_fuente"] = "perito_retirado"
