@@ -6,6 +6,7 @@
 **Fase:** Prod en Railway (Hobby PAGADO) + Vercel público. Herramienta "Verificación de Datos por Zona" muy mejorada. Base de colonias limpiada con IA.
 
 ## 🔥 Lo más caliente (qué sigue)
+0. **⭐ VERIFICAR la limpieza de colonias con IA (PRIORIDAD del usuario).** Revisar muestra de las 3,747 derivadas por DeepSeek (`colonia_fuente=ia_derivada`) — que la colonia extraída sea correcta y coincida con SEPOMEX/existentes (no inventadas). Correr find_one/muestreo por municipio. Backups en scratchpad si hay que revertir. Luego decidir sobre las ~337 raras restantes.
 1. **#29 Render como respaldo gratis** — servicio `valuation-ai-1` ya en rama `main`; FALTAN las env vars (MONGO_URL/DB_NAME/ADMIN_SECRET/ADMIN_EMAIL/JWT_SECRET/JOBS_SECRET/TAVILY_API_KEY) — el usuario las pega, yo no puedo teclear secretos. Hacerlo **~5 días antes de que venza Railway**. Detalle en BACKLOG #29.
 2. **#34 SMTP** — recuperación de contraseña NO funciona (no hay correo saliente). Configurar SMTP en Railway (Gmail app password o SendGrid). Mientras: reset se destraba generando el link JWT a mano.
 3. **~337 colonias raras** que la IA no pudo derivar (Cancún/Toluca mal etiquetadas, calles sin colonia). Revisión manual con el filtro "datos raros", o descartar las de otras ciudades.
@@ -34,3 +35,4 @@
 
 ## 🕐 Diseño parqueado (no construir aún)
 - **#139/#140/#141** crowdsource edades (consenso/tokenización/paneles). **#142** Data Exchange descuento por calidad.
+- **IDEA gamificación (para versión PÚBLICA, tipo Google Maps Local Guides):** al terminar una zona/sesión, modal al centro con **count-up de propiedades verificadas** (números corriendo rápido hasta el total) + **confetti/celebración** simple pero vistosa + puntos ganados. Tarjetas "flotantes" sin mostrar cuántas faltan (que no se vea infinito). Prototipo empezado y REVERTIDO 11-jul (el usuario pidió priorizar verificar limpieza de colonias). Componente `CelebracionPuntos` (count-up con requestAnimationFrame + confetti CSS, sin dependencias) — reconstruir cuando se retome. La versión interna actual funciona bien; evaluar si la pública lleva esto.
