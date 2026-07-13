@@ -1,5 +1,10 @@
 # PINCALI — qué expone el source y qué NO (verificado 06-Jul-2026)
 
+> ⛔ **REGLA FIJA (usuario):** PINCALI se scrapea/enriquece **SOLO en español `/inmueble/`**, NUNCA inglés `/en/home/`.
+> La ES trae todo junto (colonia+precio+m²+parking+**año**); la EN no trae año. El "FIX 06-Jul" de abajo (fetch EN y
+> luego ES) es el enfoque a **superar**: ir directo a la ES. Ver `INDICE_SCRAPER.md` (regla dura). No re-plantear inglés.
+
+
 > Para que NO se vuelva a investigar desde cero. Verificado con páginas reales `/en/home/...`.
 
 ## Estructura de datos de la página de detalle

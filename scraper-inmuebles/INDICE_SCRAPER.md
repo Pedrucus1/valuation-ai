@@ -3,6 +3,13 @@
 > **LEER ANTES de tocar el scraper/enricher.** Reglas de negocio del scraper (proxy, métodos por portal) que
 > NO se deben re-descubrir. Lecciones detalladas → memoria Claude `feedback_scraper_lecciones.md` + `project_scraper_inmuebles.md`.
 
+## ⛔ REGLA DURA: PINCALI SOLO EN ESPAÑOL (`/inmueble/`), NUNCA inglés (`/en/home/`)
+**Decisión del usuario (fija):** PINCALI se scrapea y enriquece **solo en la página ESPAÑOLA `/inmueble/<slug>`**.
+NO usar la inglesa `/en/home/`. Motivo: la ES trae **TODO junto** (colonia, precio, m², parking, recámaras/baños Y
+**año de construcción**); la inglesa NO trae año → obligaba a doble fetch (EN+ES). NO volver a plantear el inglés.
+- Legacy: muchos `url_original` guardados son `/en/home/`. Al tocar PINCALI, ir directo a la ES (convertir el slug)
+  o re-scrapear en ES; nunca bajar la EN "primero". Pendiente: afinar mapeo de slug EN→ES (los con UUID fallan ~50%).
+
 ## ⛔ REGLA DURA: TODO EN MONGO — GOOGLE SHEETS DESCARTADO (no usar en NINGÚN proceso)
 **Sheets NO se usa** en el motor, el scraper, el enricher ni ningún otro proceso. La fuente de verdad es
 **MongoDB `mercado_props`** (prod cluster0). En `enricher.py` las funciones basadas en Sheets
