@@ -99,17 +99,12 @@ Cero regresión. Mediana voltea −7.3→+7.3 (misma magnitud, de subvaluar a so
 
 ---
 
-## ⚠️ FILTRAR duplicado+remate DEL CACHÉ 13-Jul-2026 — NEGATIVO, REVERTIDO
-Probado: agregar `duplicado != true` + `es_remate != true` al query del builder (`actualizar_cache_consolidado_mongo.py`) para sacar del pool los duplicados estrictos (dedup cross-portal 12-jul) y los remates.
-**Medido (validar_40_opis.js --n 400 --desde 2025-01, 103 OPIs, offline):**
-| métrica | baseline | con filtro | Δ |
-|---|---|---|---|
-| ±10 | 63.1 | 60.2 | **−2.9** |
-| ±15 | 74.8 | 71.8 | **−3.0** |
-| ±20 | 83.5 | 83.5 | 0 |
-| errAbs | 10.8 | 11.7 | **+0.9** |
-
-Pool 21k→**18.2k** comps. **Conclusión: NO filtrar dup/remate del caché** — los comps extra ayudan a la mediana más de lo que la ensucian; encoger el pool sube el ruido en ±10/±15. Revertido (caché restaurado del backup, filtro quitado del builder). El marcado `duplicado`/`es_remate` en Mongo SÍ se conserva (lo usa el verificador para no re-verificar, no el motor). Mismo patrón que el rebuild 08-jul (encoger/cambiar el pool regresa). Palanca real = datos/segmentación, NO quitar comps.
+## ⚠️ FILTRAR duplicado+remate DEL CACHÉ 13-Jul-2026 — matizado (el −3pp fue DEDUP, no remate)
+Probado: agregar `duplicado != true` + `es_remate != true` al builder. **ERROR del test: se midieron JUNTOS.** Al aislar:
+- **REMATE: ya está fuera del motor, correcto.** Los 1,517 remates marcados son `activo=false` y el builder ya excluye `activo=false` → en el pool del builder hay **0** con `es_remate=true`. El filtro remate quita CERO comps (efecto nulo, baseline idéntico). **Ningún remate se usa como comp — metodología correcta, ya aplicada.** Quitar remates NO es lo que regresó.
+- **DEDUP (`duplicado`): quita 1,824 del pool → −3pp.** Ese fue el culpable. Medido junto: ±10 63.1→60.2, ±15 74.8→71.8, ±20 flat, errAbs 10.8→11.7.
+  - Causa probable: el builder **ya hace dedup interno** (`dups eliminados: 19,173`). Mi capa `duplicado` (dedup estricto cross-portal 12-jul) encima **choca**: remueve un doc que el dedup del builder habría conservado → pierde comps/cambia el representante. NO es que "los duplicados ayuden": es doble-dedup mal alineado.
+**Acción:** revertido builder + `mongo_comparables.py` (caché restaurado). Remate seguirá fuera vía `activo=false`/dedup interno. **PENDIENTE si se retoma dedup del motor:** alinear con el dedup interno del builder (no aplicar dos capas), o reemplazar el interno por el estricto y RE-medir. El marcado `duplicado`/`es_remate` en Mongo se conserva (lo usa el verificador). Palanca real = datos/segmentación.
 
 ## ⚠️ REBUILD CACHÉ 08-Jul-2026 — REGRESÓ, REVERTIDO (dato nuevo mete ruido)
 
