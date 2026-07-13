@@ -99,6 +99,18 @@ Cero regresión. Mediana voltea −7.3→+7.3 (misma magnitud, de subvaluar a so
 
 ---
 
+## ⚠️ FILTRAR duplicado+remate DEL CACHÉ 13-Jul-2026 — NEGATIVO, REVERTIDO
+Probado: agregar `duplicado != true` + `es_remate != true` al query del builder (`actualizar_cache_consolidado_mongo.py`) para sacar del pool los duplicados estrictos (dedup cross-portal 12-jul) y los remates.
+**Medido (validar_40_opis.js --n 400 --desde 2025-01, 103 OPIs, offline):**
+| métrica | baseline | con filtro | Δ |
+|---|---|---|---|
+| ±10 | 63.1 | 60.2 | **−2.9** |
+| ±15 | 74.8 | 71.8 | **−3.0** |
+| ±20 | 83.5 | 83.5 | 0 |
+| errAbs | 10.8 | 11.7 | **+0.9** |
+
+Pool 21k→**18.2k** comps. **Conclusión: NO filtrar dup/remate del caché** — los comps extra ayudan a la mediana más de lo que la ensucian; encoger el pool sube el ruido en ±10/±15. Revertido (caché restaurado del backup, filtro quitado del builder). El marcado `duplicado`/`es_remate` en Mongo SÍ se conserva (lo usa el verificador para no re-verificar, no el motor). Mismo patrón que el rebuild 08-jul (encoger/cambiar el pool regresa). Palanca real = datos/segmentación, NO quitar comps.
+
 ## ⚠️ REBUILD CACHÉ 08-Jul-2026 — REGRESÓ, REVERTIDO (dato nuevo mete ruido)
 
 **Rebuild completo** (`actualizar_cache_consolidado_mongo.py` → `build_cache_index.js`) sobre Mongo tras ronda de scrapers/enrichers + NOCNOK integrado. **Resultó en REGRESIÓN, se revirtió al caché previo.**

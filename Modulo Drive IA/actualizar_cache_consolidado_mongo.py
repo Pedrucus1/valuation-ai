@@ -63,6 +63,9 @@ def main():
         "tipo_operacion": {"$regex": "venta", "$options": "i"},
         "activo":                     {"$ne": False},
         "es_duplicado_secundario":    {"$ne": True},
+        # NO filtrar `duplicado`/`es_remate` aquí: PROBADO 13-jul, encoge el pool y
+        # empeora el motor (±10 −2.9, ±15 −3.0, ±20 flat, errAbs +0.9). Los comps extra
+        # ayudan la mediana más de lo que estorban. Ver MOTOR_ANTECEDENTES.
         "m2_construccion":            {"$gt": 0},
         "precio":                     {"$gte": 100000},
     }

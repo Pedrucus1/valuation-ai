@@ -90,11 +90,9 @@ async def search_comparables_from_mongo(
         # Dedup cross-portal: excluir secundarios para no contar la misma
         # propiedad 2-3 veces en la mediana $/m² (el maestro la representa).
         "es_duplicado_secundario": {"$ne": True},
-        # Dedup estricto (12-jul): excluye el duplicado, conserva el canónico (es_canonico).
-        "duplicado": {"$ne": True},
-        # Remate/recuperación bancaria: precio NO de mercado → fuera de comps
-        # (a diferencia de un "retirado", que sí sirve como comp de menor calidad).
-        "es_remate": {"$ne": True},
+        # NO filtrar `duplicado`/`es_remate` aquí: PROBADO 13-jul en el caché del motor =
+        # NEGATIVO (encoge el pool, empeora ±10/±15). Los comps extra ayudan la mediana.
+        # (Además esta función es camino secundario e inerte por casing tipo Casa/casa.)
     }
 
     async def _query(municipios: list, m2_range: float) -> list[dict]:
