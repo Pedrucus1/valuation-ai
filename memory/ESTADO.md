@@ -2,7 +2,7 @@
 
 > **Único archivo que se lee al iniciar** (corto, siempre vigente). Tareas por # → `BACKLOG.md` (grep). Historial → `BACKLOG_ARCHIVE.md`. Motor → `MOTOR_ANTECEDENTES.md` (grep). **Se sobrescribe en cada cierre de sesión.**
 
-**Última actualización:** 11 Jul 2026
+**Última actualización:** 12 Jul 2026
 **Fase:** Prod en Railway (Hobby PAGADO) + Vercel público. Herramienta "Verificación de Datos por Zona" muy mejorada. Base de colonias limpiada con IA.
 
 ## 🔥 COMPENDIO DE TAREAS DEL VERIFICADOR (dejadas 12-jul, retomar aquí)
