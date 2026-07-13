@@ -30,7 +30,7 @@
 
 ## ⏳ Otras del compendio (sin tocar)
 - **I.** Pregunta abierta: tras corregir colonia, ¿la vieja DESAPARECE del selector? (reconciliación verificado↔original).
-- **J.** Verificar limpieza colonias IA (3,747 `ia_derivada`): muestra por municipio. ~337 raras restantes → manual.
+- **J. ✅ YA CUBIERTO — NO re-verificar.** (a) La QA puntual de las 3,747 `ia_derivada` YA se hizo: ~62% match SEPOMEX exacto, no-match mayormente falsos negativos (abreviaturas/nombre de municipio/fraccs no-SEPOMEX), errores reales ~10%, mejora neta → NO revertir (`BACKLOG_ARCHIVE.md`). (b) Validación **automática y continua**: el enricher tiene guardia `_colonia_valida_sepomex` (#135) que solo acepta colonia real del municipio en `sepomex_v2.json`; corre cada scrape mensual. Solo queda opcional: las ~337 raras restantes (Cancún/Toluca mal etiquetadas) → manual con filtro "datos raros" o descartar.
 1. **#29 Render como respaldo gratis** — servicio `valuation-ai-1` ya en rama `main`; FALTAN las env vars (MONGO_URL/DB_NAME/ADMIN_SECRET/ADMIN_EMAIL/JWT_SECRET/JOBS_SECRET/TAVILY_API_KEY) — el usuario las pega, yo no puedo teclear secretos. Hacerlo **~5 días antes de que venza Railway**. Detalle en BACKLOG #29.
 2. **#34 SMTP** — recuperación de contraseña NO funciona (no hay correo saliente). Configurar SMTP en Railway (Gmail app password o SendGrid). Mientras: reset se destraba generando el link JWT a mano.
 3. **~337 colonias raras** que la IA no pudo derivar (Cancún/Toluca mal etiquetadas, calles sin colonia). Revisión manual con el filtro "datos raros", o descartar las de otras ciudades.
