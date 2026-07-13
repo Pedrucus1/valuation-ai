@@ -5,8 +5,34 @@
 **Última actualización:** 11 Jul 2026
 **Fase:** Prod en Railway (Hobby PAGADO) + Vercel público. Herramienta "Verificación de Datos por Zona" muy mejorada. Base de colonias limpiada con IA.
 
-## 🔥 Lo más caliente (qué sigue)
-0. **⭐ VERIFICAR la limpieza de colonias con IA (PRIORIDAD del usuario).** Revisar muestra de las 3,747 derivadas por DeepSeek (`colonia_fuente=ia_derivada`) — que la colonia extraída sea correcta y coincida con SEPOMEX/existentes (no inventadas). Correr find_one/muestreo por municipio. Backups en scratchpad si hay que revertir. Luego decidir sobre las ~337 raras restantes.
+## 🔥 COMPENDIO DE TAREAS DEL VERIFICADOR (dejadas 12-jul, retomar aquí)
+> Herramienta "Verificación de Datos por Zona" (`EdadesZonaPage.jsx` + `routers/edades.py`). Ya en prod. Todas ⏳.
+
+**A. Conservación / fórmulas (verificar empate con el motor):**
+- Mover **"Conservación" ARRIBA de "se remodeló"** en la ficha (reordenar).
+- Cambiar estado **"Excelente" → "Muy Bueno"** para que empate con las fórmulas del motor. **VERIFICAR** que la escala `CONSERVACIONES` del verificador coincida con la que usa el motor (revisar MOTOR_ANTECEDENTES / factorConserv).
+
+**B. Tipos de propiedad — agregar más** (ya se agregó Rancho + multi-select dropdown): edificio, escuela, **oficinas** (conjunto de oficinas, nombre corto), hotel, **conjunto apartamentos**, **conjunto mini apartamentos**, **terreno con construcciones**, **salón de eventos**, **centro comercial**. Sugerencias extra a proponer: nave industrial, plaza comercial, penthouse, loft, casa en condominio, usos mixtos.
+- **Check "uso mixto" FUERA del dropdown** cuando la casa tenga local comercial (casa con local).
+
+**C. Terrenos:** si NO trae construcciones, **omitir la revisión de EDAD** (no aplica a terrenos en venta). Mantenerlos en la lista **solo para revisar/corregir colonia**. Pedir edad solo si trae construcciones.
+
+**D. Pills bajo la dirección:** mostrar **VENTA o RENTA** (`tipo_operacion`) — hay misma propiedad en anuncios distintos (uno venta, otro renta), confunde.
+
+**E. Corrección refleja en el TÍTULO:** al corregir colonia, actualizar el nombre mostrado en la ficha/título — hoy tras revisar aparece el nombre ORIGINAL, no el corregido → confunde si se hizo o no.
+
+**F. "Aplicar a otras propiedades":** poner **aviso preventivo** (confirmación) antes del apply en lote. Además ese botón sale en props FUERA de coto → acotar/detallar (casas iguales en fracc fuera de coto son pocas, agrupa con cuidado).
+
+**G. Gamificación / record del día:** mostrar el **record del día** (cuántas capturó hoy vs otros días) ABAJO de la medallita del total. (+ idea celebración count-up parqueada.)
+
+**H. PINCALI (datos/enricher) — es donde está el desmadre:**
+- Detectar/filtrar **remate / recuperación bancaria** (viene en TÍTULO o DESCRIPCIÓN) → excluir o marcar (precio no de mercado, como juicio/remate). Afinar en scraper/enricher.
+- **DEDUP PINCALI:** hay propiedades DUPLICADAS en la BD (ej. "Alcázar Oriente Zapopan") → dedup.
+- Enricher PINCALI: capturar **descripción + dirección/Maps** para derivar colonia al scrapear (análisis previo: PINCALI aportó 2,619 de 3,747 fixes IA; su `descripcion` está vacía, no hay dirección/CP/geo).
+
+**I. Pregunta abierta del usuario:** tras corregir una colonia, ¿la colonia vieja debe DESAPARECER del listado del selector? (reconciliación verificado↔original).
+
+**J. Verificar limpieza colonias IA** (3,747 `ia_derivada`): revisar muestra por municipio que la colonia extraída sea correcta. Backups en scratchpad reversibles. ~337 raras restantes (Cancún/Toluca/calles) → manual.
 1. **#29 Render como respaldo gratis** — servicio `valuation-ai-1` ya en rama `main`; FALTAN las env vars (MONGO_URL/DB_NAME/ADMIN_SECRET/ADMIN_EMAIL/JWT_SECRET/JOBS_SECRET/TAVILY_API_KEY) — el usuario las pega, yo no puedo teclear secretos. Hacerlo **~5 días antes de que venza Railway**. Detalle en BACKLOG #29.
 2. **#34 SMTP** — recuperación de contraseña NO funciona (no hay correo saliente). Configurar SMTP en Railway (Gmail app password o SendGrid). Mientras: reset se destraba generando el link JWT a mano.
 3. **~337 colonias raras** que la IA no pudo derivar (Cancún/Toluca mal etiquetadas, calles sin colonia). Revisión manual con el filtro "datos raros", o descartar las de otras ciudades.
