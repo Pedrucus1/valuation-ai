@@ -136,6 +136,10 @@ def main():
     print(f"  Por portal: {dict(sorted(excl_por_portal.items(), key=lambda x: -x[1]))}")
 
     # ── Dedup: mismo colonia + área ───────────────────────────────────────────
+    # PROBADO 13-jul: quitar esta dedup (dejar solo la precio+m2c del índice) = mixto/peor
+    # (±15 −3.0, errAbs +0.7, mediana +7.2→−7.4). Aunque colapsa propiedades distintas del
+    # mismo tamaño, está en un óptimo local — más comps empujan la mediana abajo (asking prices).
+    # NO tocar sin re-medir. Ver MOTOR_ANTECEDENTES.
     seen, comp = set(), []
     for d in limpio:
         area = d["m2c"] if d["m2c"] > 0 else d["m2t"]
