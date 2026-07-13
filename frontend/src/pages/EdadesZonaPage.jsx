@@ -32,7 +32,7 @@ const AGE_RANGES = [
 
 // Estado de conservación (escala, sin remodelación — eso es un eje aparte).
 const CONSERVACIONES = [
-  "Nuevo", "Excelente", "Bueno", "Regular Bueno", "Regular", "Regular Malo", "Malo", "Muy Malo",
+  "Nuevo", "Muy Bueno", "Bueno", "Regular Bueno", "Regular", "Regular Malo", "Malo", "Muy Malo",
 ];
 // Grado de remodelación → con el año calcula la edad efectiva ponderada.
 const GRADOS_REMOD = [
@@ -58,9 +58,16 @@ const TIPOS = ["Casa", "Departamento", "Terreno", "Local", "Oficina", "Rancho"];
 // Opciones para corregir el tipo scrapeado (valor en minúscula = como lo guarda el pool).
 const TIPO_OPCIONES = [
   { v: "casa", l: "Casa" }, { v: "departamento", l: "Departamento" },
-  { v: "terreno", l: "Terreno" }, { v: "local", l: "Local" },
-  { v: "oficina", l: "Oficina" }, { v: "bodega", l: "Bodega" },
-  { v: "rancho", l: "Rancho" },
+  { v: "terreno", l: "Terreno" }, { v: "terreno_construido", l: "Terreno c/ construcción" },
+  { v: "local", l: "Local" }, { v: "oficina", l: "Oficina" },
+  { v: "conjunto_oficinas", l: "Conjunto de oficinas" }, { v: "bodega", l: "Bodega" },
+  { v: "rancho", l: "Rancho" }, { v: "edificio", l: "Edificio" },
+  { v: "conjunto_deptos", l: "Conjunto de apartamentos" },
+  { v: "conjunto_mini_deptos", l: "Conjunto mini apartamentos" },
+  { v: "hotel", l: "Hotel" }, { v: "escuela", l: "Escuela" },
+  { v: "salon_eventos", l: "Salón de eventos" },
+  { v: "centro_comercial", l: "Centro comercial" },
+  { v: "nave_industrial", l: "Nave industrial" },
 ];
 
 // Multi-select de tipo en un DROPDOWN con checkboxes (compacto: el botón muestra lo
@@ -255,6 +262,7 @@ const EdadesZonaPage = () => {
   const [conjuntos, setConjuntos] = useState({});   // id_unico -> texto conjunto
   const [hechos, setHechos] = useState({});         // id_unico -> guardado
   const [puntos, setPuntos] = useState(null);
+  const [diaStats, setDiaStats] = useState(null);   // {hoy, record} para el récord del día
   // Campos por fila (id_unico -> valor)
   const [edadRango, setEdadRango] = useState({});   // año construcción por rango
   const [anioConst, setAnioConst] = useState({});   // año construcción exacto
@@ -264,6 +272,7 @@ const EdadesZonaPage = () => {
   const [remodRango, setRemodRango] = useState({}); // antigüedad remod por rango (si no hay año)
   const [remodOn, setRemodOn]       = useState({}); // id -> mostrar campos de remodelación
   const [guardando, setGuardando]   = useState({}); // id -> bool
+  const [usoMixto, setUsoMixto]     = useState({}); // id -> casa con local (uso mixto)
   const [coloniaEdit, setColoniaEdit] = useState({}); // id -> colonia corregida
   const [municipioEdit, setMunicipioEdit] = useState({}); // id -> municipio corregido
   const [poblacionEdit, setPoblacionEdit] = useState({}); // id -> población/pueblo (Cajititlán, etc.)
@@ -275,9 +284,19 @@ const EdadesZonaPage = () => {
   const [coloniasExistentes, setColoniasExistentes] = useState([]); // nombres ya usados en la zona
   const [conjuntosExistentes, setConjuntosExistentes] = useState([]); // cotos ya usados en la zona
 
-  // Otras pendientes del mismo coto/colonia (incluye variantes: ABIE Eco Hábitat ≈ Abié Residencial)
-  const grupoDe = (it) => items.filter(o =>
-    o.id_unico !== it.id_unico && !hechos[o.id_unico] && mismoGrupo(o.colonia, it.colonia));
+  // Coto/conjunto de una propiedad: lo tecleado gana sobre lo scrapeado.
+  const cotoDe = (it) => norm((conjuntos[it.id_unico] ?? it.conjunto ?? "").trim());
+  // Otras pendientes AGRUPABLES. Si la propiedad tiene coto → solo las del MISMO coto
+  // (evita barrer toda la colonia). Sin coto → otras de la misma colonia que TAMPOCO
+  // tengan coto (casas iguales de un fracc sin coto son pocas; el aviso las confirma).
+  const grupoDe = (it) => {
+    const coto = cotoDe(it);
+    return items.filter(o => {
+      if (o.id_unico === it.id_unico || hechos[o.id_unico]) return false;
+      if (!mismoGrupo(o.colonia, it.colonia)) return false;
+      return coto ? norm(o.conjunto || "") === coto : !norm(o.conjunto || "");
+    });
+  };
   const set = (setter) => (id, v) => setter(prev => ({ ...prev, [id]: v }));
 
   // Mostrar/ocultar los campos de remodelación con un check; al desmarcar, limpiar
@@ -386,6 +405,7 @@ const EdadesZonaPage = () => {
       p.tipo = tiposSel[0];   // primario para el motor
       p.tipos = tiposSel;     // etiquetas completas
     }
+    if (usoMixto[id]) p.uso_mixto = true;   // casa con local comercial
     if (nivelEdit[id] !== undefined && nivelEdit[id] !== "") p.nivel = Number(nivelEdit[id]);  // piso/nivel
     if (retiradoChk[id]) p.retirado = true;   // anuncio ya no publicado
     if (anioConst[id]) p.anio_exacto = Number(anioConst[id]);
@@ -426,7 +446,7 @@ const EdadesZonaPage = () => {
   const guardar = async (it) => {
     const id = it.id_unico;
     const payload = construirPayload(it);
-    if (!payload.anio_exacto && !payload.edad_rango && !payload.conservacion && !payload.grado_remodelacion && !payload.colonia && !payload.municipio && !payload.poblacion && !payload.tipo && !payload.retirado && payload.nivel === undefined) {
+    if (!payload.anio_exacto && !payload.edad_rango && !payload.conservacion && !payload.grado_remodelacion && !payload.colonia && !payload.municipio && !payload.poblacion && !payload.tipo && !payload.uso_mixto && !payload.retirado && payload.nivel === undefined) {
       toast.error("Indica al menos edad, conservación, remodelación, colonia, municipio, tipo, nivel o retiro");
       return;
     }
@@ -435,13 +455,27 @@ const EdadesZonaPage = () => {
       const data = await postEdad(id, payload);
       if (!data) throw new Error();
       setHechos(prev => ({ ...prev, [id]: "Guardado" }));
+      // Reflejar la corrección en el item para que la ficha/título muestre lo corregido, no el original
+      setItems(prev => prev.map(x => x.id_unico === id ? {
+        ...x,
+        ...(payload.colonia ? { colonia: payload.colonia } : {}),
+        ...(payload.municipio ? { municipio: payload.municipio } : {}),
+        ...(payload.tipo ? { tipo_propiedad: payload.tipo } : {}),
+      } : x));
       if (data.puntos != null) setPuntos(data.puntos);
+      if (data.hoy != null) setDiaStats({ hoy: data.hoy, record: data.record });
       const base = data.edad_efectiva != null ? `Guardado · edad efectiva ${data.edad_efectiva} años` : "Guardado ✓";
       toast.success(base);
-      // Si el perito marcó "aplicar al grupo", propagar a las variantes del mismo coto
+      // Si el perito marcó "aplicar al grupo", propagar a las variantes del mismo coto.
+      // Aviso preventivo: se aplican los MISMOS datos a varias propiedades → confirmar.
       if (aplicarGrupo[id]) {
         const otras = grupoDe(it);
-        if (otras.length) await aplicarAOtras(payload, otras);
+        const coto = cotoDe(it);
+        const donde = coto ? `del coto "${conjuntos[id] ?? it.conjunto}"` : `de la colonia "${it.colonia}" (revisa que sean iguales)`;
+        if (otras.length && window.confirm(
+          `Vas a aplicar los MISMOS datos a ${otras.length} propiedad(es) más ${donde}.\n\n¿Continuar?`)) {
+          await aplicarAOtras(payload, otras);
+        }
       }
     } catch {
       toast.error("No se pudo guardar");
@@ -498,8 +532,18 @@ const EdadesZonaPage = () => {
             </div>
           </div>
           {puntos != null && (
-            <div className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#1B4332] bg-[#D9ED92]/40 border border-[#52B788]/40 rounded-full px-3 py-1">
-              <Award className="w-4 h-4 text-[#52B788]" /> {puntos} pts
+            <div className="flex flex-col items-end gap-0.5">
+              <div className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#1B4332] bg-[#D9ED92]/40 border border-[#52B788]/40 rounded-full px-3 py-1">
+                <Award className="w-4 h-4 text-[#52B788]" /> {puntos} pts
+              </div>
+              {diaStats && (
+                <span className="text-xs text-slate-500">
+                  Hoy: <b className="text-[#1B4332]">{diaStats.hoy}</b>
+                  {diaStats.record > diaStats.hoy
+                    ? <> · récord del día <b>{diaStats.record}</b></>
+                    : diaStats.hoy > 1 && <> · <b className="text-[#52B788]">¡récord del día! 🏆</b></>}
+                </span>
+              )}
             </div>
           )}
         </div>
@@ -613,6 +657,11 @@ const EdadesZonaPage = () => {
                   )}
                 </div>
                 <div className="flex flex-wrap gap-1 mt-1.5">
+                  {it.tipo_operacion && (
+                    <span className={`text-[11px] font-semibold rounded-full px-2 py-0.5 border ${/renta/i.test(it.tipo_operacion) ? "text-amber-700 bg-amber-50 border-amber-200" : "text-[#1B4332] bg-[#EAF3EE] border-[#B7E4C7]"}`}>
+                      {/renta/i.test(it.tipo_operacion) ? "RENTA" : "VENTA"}
+                    </span>
+                  )}
                   <span className="text-[11px] font-medium text-[#1B4332] bg-white border border-slate-200 rounded-full px-2 py-0.5">{it.tipo_propiedad}</span>
                   {it.precio ? <span className="text-[11px] font-medium text-[#1B4332] bg-white border border-slate-200 rounded-full px-2 py-0.5">{formatCurrency(it.precio)}</span> : null}
                   {it.m2_construccion ? <span className="text-[11px] font-medium text-[#1B4332] bg-white border border-slate-200 rounded-full px-2 py-0.5">{it.m2_construccion} m²</span> : null}
@@ -696,7 +745,19 @@ const EdadesZonaPage = () => {
                   <TipoMultiSelect opciones={TIPO_OPCIONES}
                                    value={tiposEdit[it.id_unico] ?? [it.tipo_propiedad].filter(Boolean)}
                                    onChange={(arr) => set(setTiposEdit)(it.id_unico, arr)} />
+                  <label className="flex items-center gap-2 cursor-pointer mt-1.5">
+                    <Checkbox checked={!!usoMixto[it.id_unico]}
+                              onCheckedChange={v => set(setUsoMixto)(it.id_unico, !!v)}
+                              className="data-[state=checked]:bg-[#52B788] border-[#52B788]" />
+                    <span className="text-xs text-slate-600">Uso mixto <span className="text-slate-400">(casa con local comercial)</span></span>
+                  </label>
                 </div>
+                {/* Terreno sin construcción: no aplica edad/conservación/remodelación (solo se corrige colonia). "terreno_construido" sí las lleva. */}
+                {((tiposEdit[it.id_unico]?.[0]) ?? it.tipo_propiedad) === "terreno" ? (
+                  <p className="text-[13px] text-slate-500 leading-snug bg-slate-50 border border-slate-200 rounded-lg px-3 py-2">
+                    Terreno sin construcción — no se pide edad ni conservación. Corrige colonia/tipo si hace falta.
+                  </p>
+                ) : (<>
                 {/* Edad de construcción: rango + año exacto */}
                 <div>
                   <label className={LBL}>Edad de construcción <span className="normal-case font-normal text-slate-400">(original)</span></label>
@@ -715,6 +776,16 @@ const EdadesZonaPage = () => {
                            value={anioConst[it.id_unico] || ""} onChange={e => set(setAnioConst)(it.id_unico, e.target.value)}
                            className={INP + " w-20"} title="Año exacto si lo sabes" />
                   </div>
+                </div>
+                {/* Conservación */}
+                <div>
+                  <label className={LBL}>Conservación</label>
+                  <Select value={conserv[it.id_unico] || ""} onValueChange={v => set(setConserv)(it.id_unico, v)}>
+                    <SelectTrigger className={INP}><SelectValue placeholder="Estado" /></SelectTrigger>
+                    <SelectContent>
+                      {CONSERVACIONES.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                    </SelectContent>
+                  </Select>
                 </div>
                 {/* Remodelación: colapsada hasta marcar el check (evita confusión) */}
                 <div>
@@ -755,30 +826,25 @@ const EdadesZonaPage = () => {
                     </div>
                   )}
                 </div>
-                {/* Conservación */}
-                <div>
-                  <label className={LBL}>Conservación</label>
-                  <Select value={conserv[it.id_unico] || ""} onValueChange={v => set(setConserv)(it.id_unico, v)}>
-                    <SelectTrigger className={INP}><SelectValue placeholder="Estado" /></SelectTrigger>
-                    <SelectContent>
-                      {CONSERVACIONES.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
-                    </SelectContent>
-                  </Select>
-                </div>
+                </>)}
 
                 {/* Aplicar al grupo: visible sólo si hay otras del mismo coto en la lista */}
                 {(() => {
                   const g = grupoDe(it);
-                  return g.length > 0 ? (
-                    <label className="flex items-center gap-2 pt-1 cursor-pointer">
+                  if (g.length === 0) return null;
+                  const coto = cotoDe(it);
+                  return (
+                    <label className="flex items-start gap-2 pt-1 cursor-pointer">
                       <Checkbox checked={!!aplicarGrupo[it.id_unico]}
                                 onCheckedChange={v => set(setAplicarGrupo)(it.id_unico, !!v)}
-                                className="data-[state=checked]:bg-[#52B788] border-[#52B788]" />
+                                className="mt-0.5 data-[state=checked]:bg-[#52B788] border-[#52B788]" />
                       <span className="text-xs text-slate-600">
-                        Aplicar también a <b>{g.length}</b> más del mismo coto (<b>{it.colonia}</b>)
+                        {coto
+                          ? <>Aplicar también a <b>{g.length}</b> más del mismo coto (<b>{conjuntos[it.id_unico] ?? it.conjunto}</b>)</>
+                          : <>Aplicar también a <b>{g.length}</b> más de <b>{it.colonia}</b> <span className="text-amber-600">(sin coto — verifica que sean iguales)</span></>}
                       </span>
                     </label>
-                  ) : null;
+                  );
                 })()}
 
                 {/* Acciones */}

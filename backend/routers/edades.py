@@ -67,16 +67,21 @@ RANGO_MIDPOINT = {
 CAMPOS_SIN_EDAD = {
     "_id": 0, "id_unico": 1, "colonia": 1, "municipio": 1, "poblacion": 1,
     "calle_numero": 1, "codigo_postal": 1,
-    "tipo_propiedad": 1, "precio": 1, "m2_construccion": 1, "url_original": 1,
+    "tipo_propiedad": 1, "tipo_operacion": 1, "precio": 1, "m2_construccion": 1, "url_original": 1,
+    "conjunto": 1,
 }
 
 # Estado de conservación (escala, SIN remodelación — eso es un eje aparte que
 # ajusta la edad efectiva). Alimenta el factor de conservación del motor.
-TIPOS_CANON = {"casa", "departamento", "terreno", "local", "oficina", "bodega", "rancho"}
+TIPOS_CANON = {"casa", "departamento", "terreno", "terreno_construido", "local", "oficina",
+               "conjunto_oficinas", "bodega", "rancho", "edificio", "conjunto_deptos",
+               "conjunto_mini_deptos", "hotel", "escuela", "salon_eventos",
+               "centro_comercial", "nave_industrial"}
 
 CONSERVACION_VALIDAS = {
-    "Nuevo", "Excelente", "Bueno", "Regular Bueno", "Regular",
+    "Nuevo", "Muy Bueno", "Bueno", "Regular Bueno", "Regular",
     "Regular Malo", "Malo", "Muy Malo",
+    "Excelente",  # legacy: registros viejos; el dropdown ya solo ofrece "Muy Bueno"
 }
 
 # Remodelación → fracción p de la construcción renovada (peso derivado de las
@@ -304,6 +309,8 @@ async def edad_estimada(request: Request):
     # En juicio / remate: la propiedad tiene litigio o es remate → precio no
     # representativo del mercado. Se excluye de comparables con motivo propio.
     en_juicio = bool(body.get("en_juicio_remate"))
+    # Uso mixto: casa con local comercial (flag aparte, no cambia el tipo primario del motor).
+    uso_mixto = bool(body.get("uso_mixto"))
     # Nivel/piso (campo NUEVO): importa en depto de torre y en local/oficina de
     # plaza (y el último nivel de edificios chicos sin elevador vale menos).
     nivel = body.get("nivel")
@@ -363,7 +370,7 @@ async def edad_estimada(request: Request):
         if not (1900 <= anio_remod_val <= ahora.year + 1):
             raise HTTPException(status_code=400, detail="Año de remodelación fuera de rango")
 
-    if not tiene_edad and not conservacion and not grado_remod and not colonia_fix and not municipio_fix and not poblacion_fix and not tipo_fix and not retirado and not datos_basura and not en_juicio and nivel_val is None:
+    if not tiene_edad and not conservacion and not grado_remod and not colonia_fix and not municipio_fix and not poblacion_fix and not tipo_fix and not uso_mixto and not retirado and not datos_basura and not en_juicio and nivel_val is None:
         raise HTTPException(status_code=400, detail="Falta edad, conservación, remodelación, colonia, tipo, nivel, retiro, datos incorrectos o juicio/remate")
 
     if tiene_edad:
@@ -400,6 +407,9 @@ async def edad_estimada(request: Request):
         update["colonia_fuente"] = "perito_correccion"
         if cp:
             update["codigo_postal"] = cp
+    if uso_mixto:
+        update["uso_mixto"] = True
+        update["uso_mixto_fuente"] = "perito_correccion"
     if tipo_fix:
         update["tipo_propiedad"] = tipo_fix
         update["tipo_fuente"] = "perito_correccion"
@@ -427,17 +437,27 @@ async def edad_estimada(request: Request):
         raise HTTPException(status_code=404, detail="Propiedad no encontrada")
 
     # Puntos (stub): contador por usuario real (admin no acumula), sin canje en v1.
-    puntos = None
+    # Además contador POR DÍA (dias_edad: {YYYY-MM-DD: n}) para el "récord del día".
+    puntos = hoy_cnt = record_cnt = None
     if not estimador.startswith("admin:"):
-        await db.users.update_one({"user_id": estimador}, {"$inc": {"puntos_edad": 1}})
-        pdoc = await db.users.find_one({"user_id": estimador}, {"_id": 0, "puntos_edad": 1})
+        hoy_key = ahora.strftime("%Y-%m-%d")
+        await db.users.update_one(
+            {"user_id": estimador},
+            {"$inc": {"puntos_edad": 1, f"dias_edad.{hoy_key}": 1}})
+        pdoc = await db.users.find_one({"user_id": estimador},
+                                       {"_id": 0, "puntos_edad": 1, "dias_edad": 1})
         puntos = (pdoc or {}).get("puntos_edad", 1)
+        dias = (pdoc or {}).get("dias_edad") or {}
+        hoy_cnt = dias.get(hoy_key, 1)
+        record_cnt = max(dias.values()) if dias else hoy_cnt
 
     return {
         "ok": True,
         "anio_construccion": anio if tiene_edad else None,
         "edad_efectiva": update.get("edad_efectiva"),
         "puntos": puntos,
+        "hoy": hoy_cnt,
+        "record": record_cnt,
     }
 
 

@@ -1146,7 +1146,8 @@ async def calculate_valuation(valuation_id: str, request: Request):
     
     # Conservation state affects remaining useful life
     conservation_factors = {
-        "Excelente": 1.0,   # No penalty
+        "Muy Bueno": 1.0,   # No penalty
+        "Excelente": 1.0,   # legacy alias
         "Bueno": 0.85,      # 15% penalty
         "Regular": 0.65,    # 35% penalty  
         "Malo": 0.40        # 60% penalty
@@ -1265,7 +1266,8 @@ async def calculate_remi(valuation_id: str):
         "terreno":           prop.get("land_area", 0),
         "edad":              prop.get("estimated_age", 10),
         "estadoConservacion": {
-            "Excelente":               "muy_bueno",
+            "Muy Bueno":               "muy_bueno",
+            "Excelente":               "muy_bueno",  # legacy
             "Bueno":                   "bueno",
             "Regular Bueno":           "regular_bueno",
             "Regular":                 "regular_medio",
