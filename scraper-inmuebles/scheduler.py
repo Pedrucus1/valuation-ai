@@ -722,6 +722,16 @@ def run(reset: bool = False, portal: str = None):
         except Exception as e:
             log.error(f"NOCNOK falló (no bloquea el resto): {e}")
 
+        # Full-run: dedup estricto cross-portal (idempotente). El remate ya se marcó al vuelo
+        # en el guardado. Dedup corre sobre lo YA enriquecido (mayoría); las props nuevas de
+        # este scrape se depuran el próximo mes una vez el enricher les puso colonia.
+        try:
+            import subprocess as _sp2
+            log.info("Corriendo dedup estricto (full-run)...")
+            _sp2.run([sys.executable, "dedup_estricto.py"], cwd=str(Path(__file__).resolve().parent), check=False)
+        except Exception as e:
+            log.error(f"dedup_estricto falló (no bloquea): {e}")
+
     # Auto-enricher: si se corrió un portal específico y terminó sin pendientes, enriquecer
     if portal:
         restantes_portal = [t for t in tareas if t["estado"] == "pendiente" and t["portal"] == portal]
