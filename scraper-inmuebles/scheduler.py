@@ -363,6 +363,16 @@ def _get_mongo_col():
     return client[os.getenv("DB_NAME", "propvalu")]["mercado_props"]
 
 
+import re as _re
+# Remate / recuperación bancaria: precio NO de mercado. Se marca `es_remate` AL VUELO
+# en el guardado (mismo patrón afinado que el backfill 12-jul). Se excluye de comps por
+# es_remate (mongo_comparables.base_q), NO por activo (un "retirado" sí es comp de menor calidad).
+_RE_REMATE = _re.compile(
+    r"remate|recuperaci[oó]n bancaria|recuperada por (el )?banco|adjudicaci[oó]n judicial|"
+    r"daci[oó]n en pago|cesi[oó]n de derechos|cartera vencida|bien adjudicado|"
+    r"propiedad recuperada|inmueble recuperado", _re.I)
+
+
 def _guardar_en_mongo(propiedades: list, portal: str) -> dict:
     """
     Upsert de propiedades en MongoDB (mercado_props).
@@ -387,6 +397,9 @@ def _guardar_en_mongo(propiedades: list, portal: str) -> dict:
             _e = prop.get("estacionamientos")
             if prop["tipo_propiedad"] in ("casa", "departamento") and isinstance(_e, (int, float)) and _e > 10:
                 prop["estacionamientos"] = None
+            # Remate al vuelo: si título/descripción lo delata, marcar es_remate (aditivo, solo True).
+            if _RE_REMATE.search(f"{prop.get('titulo','')} {prop.get('descripcion','')}"):
+                prop["es_remate"] = True
             doc = {**prop, "portal": portal, "mongo_ts": datetime.now(timezone.utc).isoformat()}
             # NO pisar con vacíos lo que el enricher ya llenó (anio/colonia/m2c
             # costaron horas de fetch): los campos sin valor solo se escriben al
@@ -720,6 +733,10 @@ def run(reset: bool = False, portal: str = None):
             print(f"Scraping de {portal} terminado. Iniciando enricher...")
             print(f"{'='*50}\n")
             _sp.run([python, "enricher.py", "--tab", portal, "--mongo"], check=False)
+            # Post-enricher: dedup estricto cross-portal (la colonia ya está enriquecida →
+            # mejor agrupado, sobre todo PINCALI). Idempotente. El remate ya se marcó al vuelo.
+            log.info("Enricher terminado — corriendo dedup estricto...")
+            _sp.run([python, "dedup_estricto.py"], check=False)
 
 
 # ─────────────────────────────────────────
