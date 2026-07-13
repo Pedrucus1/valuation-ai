@@ -110,6 +110,8 @@ def _base_usables():
         "anio_construccion": None,
         "precio": {"$gt": 0},
         "es_duplicado_secundario": {"$ne": True},
+        "duplicado": {"$ne": True},   # dedup estricto cross-portal: el duplicado no se verifica (su canónico sí)
+        "es_remate": {"$ne": True},   # remate = precio no-mercado, no tiene caso verificarlo
         "$expr": {"$and": [
             {"$ne": ["$colonia", "$titulo"]},
             {"$lt": [{"$strLenCP": {"$ifNull": ["$colonia", ""]}}, 40]},
@@ -245,7 +247,9 @@ async def comps_sin_edad(
             return {"items": [], "count": 0}
         patron = (r"[0-9]{3,}|,|for sale|for rent|apartment|house|building|en renta|"
                   r"en venta|casa en|departamento en|se vende|dentro de|downtown|commercial|expo")
-        q = {"activo": {"$ne": False}, "municipio": municipio, "$or": [
+        q = {"activo": {"$ne": False}, "municipio": municipio,
+             "duplicado": {"$ne": True}, "es_remate": {"$ne": True},  # no ensuciar con dup/remate
+             "$or": [
             {"colonia": {"$regex": patron, "$options": "i"}},
             {"colonia": {"$regex": rf"^{re.escape(municipio)}$", "$options": "i"}},  # colonia == municipio
         ]}
