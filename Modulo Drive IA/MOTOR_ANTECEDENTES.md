@@ -99,6 +99,19 @@ Cero regresión. Mediana voltea −7.3→+7.3 (misma magnitud, de subvaluar a so
 
 ---
 
+## 🔬 MATRIZ 4 VERSIONES 13-Jul — el regreso es DERIVA DE DATOS (7→13 jul), no el filtro
+Motor `34b4985` (9-jul) + `validar_40_opis.js` offline, 103 OPIs. **Baseline = caché 7-jul (21,562 comps).**
+| Versión | ±10 | ±15 | ±20 | errAbs | mediana | comps |
+|---|---|---|---|---|---|---|
+| **7-jul SIN filtro (DESPLEGADO)** | **63.1** | **74.8** | 83.5 | **10.8** | **+7.2** | 21,562 |
+| 7-jul CON filtro (match fuzzy, poco fiable) | 60.2 | 71.8 | 82.5 | 11.1 | −7.3 | 20,443 |
+| 13-jul SIN filtro (rebuild Mongo hoy) | 60.2 | 71.8 | 83.5 | 11.7 | −7.4 | 18,288 |
+| 13-jul CON filtro | 60.2 | 71.8 | 83.5 | 11.7 | −7.4 | 18,228 |
+
+**Conclusiones:** (1) El **filtro dup/remate es NEUTRO** (A/B preciso 13-jul: 60.2=60.2). La celda 7-jul-fuzzy salió −3pp pero es match por (precio,m2c,portal) sin id → falsos positivos (voltea mediana, imposible si solo quitara remates baratos). (2) **La DERIVA DE DATOS 7→13 jul REGRESA el motor** (63.1→60.2, mediana +7.2→−7.4) — comps 21,562→18,288 pese a MÁS data en Mongo. (3) **El 7-jul es el mejor y está desplegado; basta NO reconstruir.** Backup: `cache_*.BASELINE_07JUL*`.
+
+**AISLAMIENTO limpieza de colonias IA (13-jul) — NO es la culpable principal:** 7,202 comps del pool cambiaron colonia (`colonia_original` en 13,259 docs vía `colonia_fix_ia`; los 3,746 `ia_derivada` casi no lo tienen). Rebuild usando `colonia_original` (colonias PRE-limpieza): **±10 61.2, ±15 71.8, ±20 81.6, mediana −7.4, 22,010 comps.** → Revertir colonias recupera **solo ~1pp** (60.2→61.2) y NO recupera la mediana (sigue −7.4). El comp count SÍ vuelve (22,010≈21,562 → confirma que la limpieza colapsa +comps en el dedup crudo), **pero la calibración NO vuelve.** Con ~mismos comps y colonias viejas sigue en 61.2. **Conclusión: el regreso es DATA DRIFT general (listados nuevos/actualizados con menor $/m² 7→13 jul), NO la limpieza de colonias (solo ~1pp) ni dedup/remate (neutro).** La limpieza es data-quality-buena y solo levemente motor-negativa. **PENDIENTE si se retoma: comparar precios 7-jul vs 13-jul (qué listados bajaron la mediana).**
+
 ## ⚠️ FILTRAR duplicado+remate DEL CACHÉ 13-Jul-2026 — matizado (el −3pp fue DEDUP, no remate)
 Probado: agregar `duplicado != true` + `es_remate != true` al builder. **ERROR del test: se midieron JUNTOS.** Al aislar:
 - **REMATE: ya está fuera del motor, correcto.** Los 1,517 remates marcados son `activo=false` y el builder ya excluye `activo=false` → en el pool del builder hay **0** con `es_remate=true`. El filtro remate quita CERO comps (efecto nulo, baseline idéntico). **Ningún remate se usa como comp — metodología correcta, ya aplicada.** Quitar remates NO es lo que regresó.
