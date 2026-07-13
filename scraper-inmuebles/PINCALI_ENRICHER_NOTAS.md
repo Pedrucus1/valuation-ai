@@ -35,8 +35,8 @@ NO traen el año. Pero las **`/inmueble/<slug>` (español) SÍ**, con el campo e
 - Bloque PINCALI: si falta `año_construccion`, fetchea la ES (`url.replace('/en/home/','/inmueble/')` — mismo slug, confirmado por `<link rel=alternate hreflang>`) y extrae `A\w*o de construcci\w*n:\s*([^<\n]{1,20})`. `A estrenar`→`date.today().year`; resto→`normalizar_anio_construccion`.
 - Verificado sobre docs reales: extrae 2026 / 2010 / "A estrenar" correctamente; colonia sigue OK. Sintaxis OK.
 - **Cobertura realista: 31% → ~45-55%.** MUCHOS listings (incluso premium: Seattle, Valle Real) **genuinamente NO llenan el año** → techo real por dato faltante del vendedor, NO bug.
-- **COSTO:** duplica fetches (EN+ES) por doc sin año → backfill de ~26k lento y carga el portal. Mejora futura posible: fetchear SOLO la ES (tiene colonia+parking+año juntos) para no duplicar.
-- **BACKFILL (pendiente de correr):** `python enricher.py --tab PINCALI --mongo` (recomendado con `--max N` acotado primero para medir yield real y no martillar el portal).
+- **COSTO:** duplica fetches (EN+ES) por doc sin año → backfill de ~26k lento y carga el portal. Mejora futura posible: fetchear SOLO la ES (ver regla dura arriba: PINCALI solo español).
+- **✅ BACKFILL YA CORRIDO — NO RE-CORRER.** Estado final medido (12-jul, 39,001 activos): **colonia 99.3%** (resuelto), **año 45.1%** (17,589), con **37,274 ya intentados (96%)**. El ~45% del año es **TECHO REAL por dato faltante del vendedor** (el resto genuinamente NO trae año en el source), NO bug. No hay más que sacar con re-correr el enricher; solo subiría marginalmente afinando el mapeo de slug EN→ES. **No re-proponer el backfill de año como tarea pendiente.**
 
 ## Implicación para el motor
 Con PINCALI enriquecido, la cobertura de año global sube bastante desde el 44% actual → la homologación por edad
