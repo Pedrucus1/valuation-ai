@@ -117,7 +117,13 @@ Motor `34b4985` (9-jul) + `validar_40_opis.js` offline, 103 OPIs. **Baseline = c
 - **Celdas (muni,tipo,colonia) compartidas: 63% planas ±3%, 25% SUBIERON >3%, solo 12% de comps en celdas que bajaron >3%.** Los "top drops" son terreno/local/bodega mal codificados con n=2-3 (pm2c en millones) = ruido, no driver.
 - **Inventario fresco 7→13 (fecha_scraping > 07-jul): apenas 526 comps** (mediana 26k, sí barato pero minúsculo) → **NO hay dump de un portal barato.**
 - **Todo el encogimiento del pool es PINCALI: 15,111 → 11,738 (−3,373)**; su mediana casi no cambia (40,714→39,581) — pierde COUNT (colapso de dedup por colonias limpias), no precio. Los demás portales ±planos en n y mediana.
-**Síntesis:** ni market-wide (pool −2.9%), ni cheap-portal dump (526 comps), ni colonias (~1pp por revert-test previo). El −14.6pp viene de un drift **local a las celdas de los 103 OPIs** (updates de precio a la baja en listados específicos que alimentan esas colonias, o sensibilidad de la muestra) sumado a PINCALI perdiendo count. **NO es filtrable con un filtro de comps baratos.** El 7-jul NO está "stale" en general (mercado ~igual), solo ciertas celdas se movieron. **Acción: mantener 7-jul, NO reconstruir.** Si se retoma: identificar las colonias de los 103 OPIs y ver updates de precio doc-a-doc entre 7 y 13 jul en ESAS celdas.
+**Síntesis:** ni market-wide (pool −2.9%), ni cheap-portal dump (526 comps), ni colonias (~1pp por revert-test previo).
+
+**VERIFICACIÓN DIRECTA per-OPI (13-jul, `diff_opis.py` — no por eliminación):** diff del valor del motor OPI-por-OPI entre índice 7-jul y 13-jul, 131 OPIs comunes. **Confirma que es LOCAL:**
+- **Mediana del cambio del motor = +0.0%** (media +0.6%). **El OPI típico NO se mueve.**
+- **73% de los OPIs cambia <3%; solo 13% cambia ≥10%.** El swing agregado lo cargan un puñado de celdas que perdieron/ganaron 1-2 comps o saltaron de pool (exacta↔similares↔suma_partes). El mayor (OPI-26-6-12-OF −37.9%, n55→31) es EXCLUIDO de las stats. Cluster real: 26-3-05-OF, 25-3-06-AV, 26-3-21-AV, 26-2-20-OF (n4→2), 25-11-04-OF (~−16 a −20%).
+- **MATIZ (corrige el reporte previo):** la "mediana −7.4" es un estadístico de RANGO cerca del cruce por cero → **exagera**. Las pass-rates que importan solo caen ~3pp (±10 −2.9, ±15 −3.0, **±20 plano**). Regresión **modesta y local**, no colapso.
+**Conclusión final (medida, no inferida):** el 7-jul NO está "stale" (mercado ~igual, 73% de OPIs quietos). El rebuild regresa por una minoría de celdas cuyos comps cambiaron. **NO es filtrable con filtro de comps baratos. Acción: mantener 7-jul, NO reconstruir.** Si se retoma: inspeccionar comps doc-a-doc SOLO en las ~15 celdas del cluster de arriba (no market-wide).
 
 ## ⚠️ FILTRAR duplicado+remate DEL CACHÉ 13-Jul-2026 — matizado (el −3pp fue DEDUP, no remate)
 Probado: agregar `duplicado != true` + `es_remate != true` al builder. **ERROR del test: se midieron JUNTOS.** Al aislar:
