@@ -17,13 +17,14 @@
 
 ## 🔥 H — DATOS (PINCALI/scraper) — remate+dedup APLICADOS, resto ⏳
 **Todo READ-ONLY medido antes de aplicar. Prod = cluster0 (root `.env` autentica; scraper `.env` tiene pass ROTADO → usar root). Scripts en scratchpad (efímero).**
-- **H1 remate ✅ APLICADO (1,517):** `es_remate=true` + `activo=false` + `baja_fuente="auto_remate"`. Regex afinado (remate/recuperación bancaria/dación en pago/cesión de derechos/adjudicación judicial…) sobre titulo|descripcion. Salen de comps por activo=false. **Revertir:** `activo=true` + unset es_remate/baja_fuente/baja_fecha where `baja_fuente=auto_remate`.
+- **H1 remate ✅ APLICADO (1,517):** `es_remate=true` + `activo=false` + `baja_fuente="auto_remate"`. Regex afinado (remate/recuperación bancaria/dación en pago/cesión de derechos/adjudicación judicial…) sobre titulo|descripcion. **OJO:** comps NO filtran `activo` (los "retirado" activo=false son comps de menor calidad POR DISEÑO) → remate se excluye por **`es_remate`**, no por activo (ya wireado en base_q). **Revertir:** `activo=true` + unset es_remate/baja_fuente/baja_fecha where `baja_fuente=auto_remate`.
 - **H2 dedup cross-portal ✅ APLICADO (3,734 dups / 2,113 grupos):** ESTRICTO = (muni|colonia|**precio y m² EXACTOS**|op|tipo) + guarda (título-Jaccard≥0.45 O mismo agente). Campos **convención existente**: `duplicado=true`, keeper `es_canonico=true`, `grupo_id`, `canonico_id`, `dedup_fuente="estricto_crossportal"`. **activo INTACTO** (solo marcado, no baja). Keeper=más completo con preferencia perito/ia_derivada; nunca marca doc con dato de perito. **Revertir:** unset duplicado/es_canonico/grupo_id/canonico_id/n_portales_duplicado/dedup_fuente/dedup_fecha where `dedup_fuente=estricto_crossportal`.
   - **Descartado:** dedup oficial `dedup_seguimiento.py` crudo = 52k (huella laxa ±15% precio, sin m² → colapsa distintas). MEDIA (huella tolerante+guarda)=13.5k pero 11k falsos positivos (títulos genéricos de Inmuebles24 = colonia). ESTRICTA es la segura.
   - **Set limpio para uso** (activo, no-duplicado): **97,274**.
 - **H ⏳ PENDIENTE:**
-  1. **Wirear filtro `duplicado:true`** en comps (`mongo_comparables.py`) y enricher (para que el set limpio se use; comps ya excluye remate por activo=false).
-  2. **Por-scrape:** correr dedup + detección remate tras cada scrape (marcar nuevos). Dedup puede ir DESPUÉS del enricher.
+  1. **Comps ✅ WIREADO+DESPLEGADO** (commit `3dbff92`, `mongo_comparables.py` base_q: `duplicado!=true` + `es_remate!=true`). Impacto medido 4.1% del pool (hasta 10.6% GDL/casa). Backend live.
+  2. **Enricher ✅ WIREADO** (`duplicado!=true` en `obtener_props_mongo` de la carpeta MAIN + sync en 2 conteos de `monitor_local.py`). Ahorro medido: 425 props (3% del set). **NOTA: TODO es Mongo, Sheets DESCARTADO — documentado en `INDICE_SCRAPER.md` (2 reglas duras nuevas: Mongo-only + carpeta canónica).**
+  3. **Por-scrape ⏳:** correr dedup + detección remate tras cada scrape (marcar nuevos). Dedup puede ir DESPUÉS del enricher. Conviven 2 convenciones: `es_duplicado_secundario` (viejo, fusionar_duplicados.py) vs `duplicado`/`es_canonico`/`canonico_id` (nuevo, estricto 12-jul).
   3. **PINCALI enricher (el grande):** su `descripcion` VACÍA + sin CP/dirección/geo (aportó 2,619/3,747 fixes IA). Capturar descripción+dirección/Maps al scrapear para derivar colonia en origen.
   - NOCNOK: los "duplicados" que dudaba el usuario son **cross-portal** (mismo agente también en casasyterrenos), no internos.
 

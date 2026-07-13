@@ -1277,8 +1277,11 @@ def obtener_props_mongo(col, portal: str, max_filas: int, urls_procesadas: set,
     cutoff = (datetime.now() - timedelta(days=30)).isoformat()
     # Venta Y renta (ambas se enriquecen). Activos + NO duplicados-secundarios
     # (ya depurados por fusionar_duplicados.py) → no re-procesar duplicados.
+    # `duplicado` = dedup estricto cross-portal (12-jul): no enriquecer el duplicado,
+    # su canónico (es_canonico) sí se enriquece. SINCRONIZADO con monitor_local.py.
     q = {"portal_origen": portal, "activo": {"$ne": False},
          "es_duplicado_secundario": {"$ne": True},
+         "duplicado": {"$ne": True},
          "enrich_last_attempt": {"$not": {"$gte": cutoff}}, **falta}
     proj = {"id_unico": 1, "url_original": 1, "portal_origen": 1,
             "anio_construccion": 1, "m2_terreno": 1, "m2_construccion": 1,
