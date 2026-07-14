@@ -446,7 +446,12 @@ const EdadesZonaPage = () => {
   const guardar = async (it) => {
     const id = it.id_unico;
     const payload = construirPayload(it);
-    if (!payload.anio_exacto && !payload.edad_rango && !payload.conservacion && !payload.grado_remodelacion && !payload.colonia && !payload.municipio && !payload.poblacion && !payload.tipo && !payload.uso_mixto && !payload.retirado && payload.nivel === undefined) {
+    const esTerreno = ((tiposEdit[id]?.[0]) ?? it.tipo_propiedad) === "terreno";
+    if (esTerreno) {
+      // Terreno: no lleva edad/conservación. Guardar = confirmar correcto tal cual
+      // (con o sin corrección de colonia/tipo) → lo saca de la lista sin exigir edad.
+      payload.revisado = true;
+    } else if (!payload.anio_exacto && !payload.edad_rango && !payload.conservacion && !payload.grado_remodelacion && !payload.colonia && !payload.municipio && !payload.poblacion && !payload.tipo && !payload.uso_mixto && !payload.retirado && payload.nivel === undefined) {
       toast.error("Indica al menos edad, conservación, remodelación, colonia, municipio, tipo, nivel o retiro");
       return;
     }
@@ -755,7 +760,7 @@ const EdadesZonaPage = () => {
                 {/* Terreno sin construcción: no aplica edad/conservación/remodelación (solo se corrige colonia). "terreno_construido" sí las lleva. */}
                 {((tiposEdit[it.id_unico]?.[0]) ?? it.tipo_propiedad) === "terreno" ? (
                   <p className="text-[13px] text-slate-500 leading-snug bg-slate-50 border border-slate-200 rounded-lg px-3 py-2">
-                    Terreno sin construcción — no se pide edad ni conservación. Corrige colonia/tipo si hace falta.
+                    Terreno sin construcción — no se pide edad ni conservación. Corrige colonia/tipo si hace falta y pulsa <b>Guardar</b> para confirmarlo (sale de la lista aunque no cambies nada).
                   </p>
                 ) : (<>
                 {/* Edad de construcción: rango + año exacto */}

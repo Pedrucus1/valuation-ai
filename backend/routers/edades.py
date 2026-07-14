@@ -107,6 +107,7 @@ def _base_usables():
     con colonia real (no el título del anuncio ni frases largas en inglés)."""
     return {
         "activo": {"$ne": False},   # NO mostrar las que ya se marcaron Retirado/Info incorrecta/Juicio (activo=False)
+        "revisado": {"$ne": True},  # NO mostrar las que el perito ya confirmó correctas tal cual (ej. terrenos, que no llevan edad)
         "anio_construccion": None,
         "precio": {"$gt": 0},
         "es_duplicado_secundario": {"$ne": True},
@@ -315,6 +316,10 @@ async def edad_estimada(request: Request):
     en_juicio = bool(body.get("en_juicio_remate"))
     # Uso mixto: casa con local comercial (flag aparte, no cambia el tipo primario del motor).
     uso_mixto = bool(body.get("uso_mixto"))
+    # Revisado correcto tal cual: el perito confirmó que los datos están bien y no
+    # hay nada que corregir (típico en terrenos, que no llevan edad). Lo saca de la
+    # lista del verificador sin excluirlo de comparables (sigue activo=True).
+    revisado = bool(body.get("revisado"))
     # Nivel/piso (campo NUEVO): importa en depto de torre y en local/oficina de
     # plaza (y el último nivel de edificios chicos sin elevador vale menos).
     nivel = body.get("nivel")
@@ -374,7 +379,7 @@ async def edad_estimada(request: Request):
         if not (1900 <= anio_remod_val <= ahora.year + 1):
             raise HTTPException(status_code=400, detail="Año de remodelación fuera de rango")
 
-    if not tiene_edad and not conservacion and not grado_remod and not colonia_fix and not municipio_fix and not poblacion_fix and not tipo_fix and not uso_mixto and not retirado and not datos_basura and not en_juicio and nivel_val is None:
+    if not tiene_edad and not conservacion and not grado_remod and not colonia_fix and not municipio_fix and not poblacion_fix and not tipo_fix and not uso_mixto and not retirado and not datos_basura and not en_juicio and nivel_val is None and not revisado:
         raise HTTPException(status_code=400, detail="Falta edad, conservación, remodelación, colonia, tipo, nivel, retiro, datos incorrectos o juicio/remate")
 
     if tiene_edad:
@@ -435,6 +440,8 @@ async def edad_estimada(request: Request):
         update["baja_fecha"] = ahora.isoformat()
     if nivel_val is not None:
         update["nivel"] = nivel_val
+    if revisado:
+        update["revisado"] = True   # correcto tal cual → sale del verificador (sigue como comp)
 
     res = await db.mercado_props.update_one({"id_unico": id_unico}, {"$set": update})
     if res.matched_count == 0:
