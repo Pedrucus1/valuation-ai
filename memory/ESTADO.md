@@ -2,7 +2,7 @@
 
 > **Único archivo que se lee al iniciar** (corto, siempre vigente). Tareas por # → `BACKLOG.md` (grep). Historial → `BACKLOG_ARCHIVE.md`. Motor → `MOTOR_ANTECEDENTES.md` (grep). **Se sobrescribe en cada cierre de sesión.**
 
-**Última actualización:** 13 Jul 2026
+**Última actualización:** 14 Jul 2026
 **Fase:** Prod Railway (Hobby PAGADO) + Vercel público. Verificador A–G desplegado. H (datos) cerrado. Motor SIN cambios (caché 7-jul es el mejor, desplegado).
 
 ## ⚡ LO MÁS CALIENTE / decisiones vigentes
