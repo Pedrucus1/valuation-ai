@@ -2,7 +2,7 @@
 
 > **Único archivo que se lee al iniciar** (corto, siempre vigente). Tareas por # → `BACKLOG.md` (grep). Historial → `BACKLOG_ARCHIVE.md`. Motor → `MOTOR_ANTECEDENTES.md` (grep). **Se sobrescribe en cada cierre de sesión.**
 
-**Última actualización:** 14 Jul 2026
+**Última actualización:** 15 Jul 2026
 **Fase:** Prod Railway (Hobby PAGADO) + Vercel público. Verificador A–G desplegado. H (datos) cerrado. Motor SIN cambios (caché 7-jul es el mejor, desplegado).
 
 ## ⚡ LO MÁS CALIENTE / decisiones vigentes
@@ -43,6 +43,11 @@
 2. **#34 SMTP** — recuperación de contraseña NO funciona (no hay correo saliente). Configurar SMTP en Railway (Gmail app password o SendGrid). Mientras: reset se destraba generando el link JWT a mano.
 3. **~337 colonias raras** que la IA no pudo derivar (Cancún/Toluca mal etiquetadas, calles sin colonia). Revisión manual con el filtro "datos raros", o descartar las de otras ciudades.
 4. **#136/#137** ahora más viables: la base de colonias quedó limpia (medias por colonia útiles).
+
+## ✅ Hecho reciente (15 Jul) — Data Exchange UI + videos promo
+- **Data Exchange (tab inmobiliaria) rediseñado + desplegado:** promo **-50%** movido a la MISMA fila del cuadro **Plan Pro** (solo en su tab, alto contraste, título blanco legible); **tabla tipo Excel "Mi inventario subido"** (fetch `/api/inmobiliaria/propiedades`, refresca al confirmar subida) con **muestra de ejemplo** si está vacío y **sin scroll horizontal** (`table-fixed`+`colgroup`); barra de subida **delgada** (Descargar Plantilla a la izquierda + texto, **ícono de subir clicable**, nota de condiciones anti-duplicados mensuales, **contador "N útiles · sin repetir"**). Archivos: `DataExchangeTab.jsx`, `InmobiliariaDashboardPage.jsx`.
+- **Plantilla Data Exchange: +3 columnas OPCIONALES** — **Coto/Edificio**, **Piso**, **Amenidades** (texto libre, ej "Alberca, Panel solar, Seguridad"). `core/data_exchange.py` (COLUMNAS/EJEMPLO/normalizar/NUMERICOS) + `routers/data_exchange.py` (se guardan al CRM). Test **10/10** OK. Commits `5c9b59d`+`b58ba71` pusheados → Vercel + Railway.
+- **Fuera de PropValu (proyecto `C:\Users\pedru\remotion-video`, NO repo git):** videos promo con **Remotion** (React) vertical+horizontal. 2 versiones: beneficios 20s y **emocional 44s** con voz (Gemini TTS), música (Pixabay), fotos (Pexels, caras a cámara), transiciones + fade-out por escena, textos editables en el Studio (props+zod inline). Skill genérica **`/remotion`** creada en `~/.claude/skills/remotion`. Gemini free NO hace imágenes/Veo (404 — requiere billing). MCP **Open Design** agregado a `.claude.json` (requiere reiniciar Claude Code para cargar sus tools).
 
 ## ✅ Hecho reciente (12–13 Jul)
 - **Verificador A–G** completado y desplegado (ver compendio arriba). Commit `9909fd9`.
