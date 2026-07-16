@@ -119,6 +119,8 @@ async def confirmar(request: Request, archivo: UploadFile = File(...)):
         crm_docs.append({
             "user_id": user.user_id, "origen": "data_exchange",
             "direccion": f["direccion"], "tipo": _TIPO_DISPLAY.get(f["tipo"], f["tipo"]),
+            "coto_edificio": f.get("coto_edificio"), "piso": f.get("piso"),
+            "amenidades": f.get("amenidades"),
             "colonia": f["colonia"], "municipio": f["municipio"],
             "precio_oferta": f["precio"],
             "m2_construccion": f.get("m2_construccion"), "m2_terreno": f.get("m2_terreno"),

@@ -1,12 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
-import { TrendingUp, CheckCircle2, Download, Upload, FileText, AlertTriangle, Loader2 } from "lucide-react";
+import { CheckCircle2, Download, Upload, FileText, AlertTriangle, Loader2, Database } from "lucide-react";
 import { toast } from "sonner";
 
 const API = process.env.REACT_APP_BACKEND_URL || "http://localhost:8000";
 const DX = `${API}/api/inmobiliaria/data-exchange`;
+
+const money = (v) => (v ? `$${Number(v).toLocaleString("es-MX")}` : "—");
+const num = (v) => (v || v === 0 ? v : "—");
+
+// Muestra de ejemplo (se ve cuando aún no has subido nada) para saber qué datos poner
+const SAMPLE = [
+  { direccion: "Av. Patria 1250", coto_edificio: "Coto Las Palmas", colonia: "Jardines Universidad", municipio: "Zapopan", tipo: "Casa", precio_oferta: 4200000, m2_construccion: 220, m2_terreno: 180, recamaras: 3, banos: 2, estacionamiento: 2, piso: null, antiguedad: 8, amenidades: "Alberca, Seguridad 24h, Panel solar" },
+  { direccion: "Calle Morelos 45", coto_edificio: "Edificio Central", colonia: "Centro", municipio: "Guadalajara", tipo: "Departamento", precio_oferta: 2850000, m2_construccion: 95, m2_terreno: null, recamaras: 2, banos: 2, estacionamiento: 1, piso: 4, antiguedad: 3, amenidades: "Elevador, Gimnasio, Roof garden" },
+  { direccion: "Prol. Américas 900", coto_edificio: "", colonia: "Providencia", municipio: "Guadalajara", tipo: "Casa", precio_oferta: 6800000, m2_construccion: 310, m2_terreno: 260, recamaras: 4, banos: 3, estacionamiento: 2, piso: null, antiguedad: 12, amenidades: "Jardín, Cuarto de servicio, Aire acondicionado" },
+  { direccion: "Camino Real 30", coto_edificio: "El Palomar", colonia: "El Palomar", municipio: "Tlajomulco", tipo: "Terreno", precio_oferta: 3500000, m2_construccion: null, m2_terreno: 500, recamaras: null, banos: null, estacionamiento: null, piso: null, antiguedad: null, amenidades: "" },
+];
 
 const DataExchangeTab = () => {
   const [file, setFile] = useState(null);
@@ -14,6 +25,23 @@ const DataExchangeTab = () => {
   const [loading, setLoading] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
   const [dragActive, setDragActive] = useState(false);
+  const [inventario, setInventario] = useState([]);  // propiedades ya subidas (tabla Excel)
+  const [cargandoInv, setCargandoInv] = useState(true);
+
+  const cargarInventario = useCallback(async () => {
+    setCargandoInv(true);
+    try {
+      const res = await fetch(`${API}/api/inmobiliaria/propiedades`, { credentials: "include" });
+      const data = await res.json();
+      if (res.ok) setInventario(data.propiedades || []);
+    } catch {
+      /* silencioso: el tab sigue usable sin la tabla */
+    } finally {
+      setCargandoInv(false);
+    }
+  }, []);
+
+  useEffect(() => { cargarInventario(); }, [cargarInventario]);
 
   const descargarPlantilla = async () => {
     try {
@@ -58,6 +86,7 @@ const DataExchangeTab = () => {
       if (!res.ok) throw new Error(data.detail || "Error al confirmar");
       setConfirmed(true);
       toast.success(`${data.al_crm} propiedades importadas · ${data.descuento_pct}% activado`);
+      cargarInventario();   // refresca la tabla con lo recién subido
     } catch (e) {
       toast.error(e.message || "No se pudo confirmar la importación");
     } finally {
@@ -68,145 +97,179 @@ const DataExchangeTab = () => {
   const onFile = (e) => { const f = e.target.files?.[0]; if (f) analizar(f); };
 
   return (
-    <div className="space-y-6">
-      {/* Hero Banner */}
-      <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden shadow-sm">
-        <div className="relative z-10 text-white max-w-2xl">
-          <h2 className="text-2xl md:text-3xl font-bold font-['Outfit'] mb-2">Programa Data Exchange: 50% Off</h2>
-          <p className="text-sm md:text-base text-[#D9ED92]/90 leading-relaxed">
-            Comparte tu inventario de propiedades. Se suma a tu CRM y, al enriquecer nuestra base de datos, obtienes un <strong>50% de descuento vitalicio</strong> en tus valuaciones.
-          </p>
-        </div>
-        <div className="relative z-10 shrink-0">
-          <div className={`font-bold text-2xl px-6 py-4 rounded-xl shadow-lg flex items-center gap-2 ${confirmed ? "bg-[#D9ED92] text-[#1B4332]" : "bg-white/15 text-white"}`}>
-            <TrendingUp className="w-6 h-6" /> {confirmed ? "-50% Activo" : "-50% Off"}
+    <div className="space-y-5">
+      {/* Fila compacta: instrucciones + zona de subida */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <Card className="bg-white border border-[#B7E4C7] shadow-sm lg:col-span-1">
+          <div className="bg-[#1B4332] px-4 py-2.5 rounded-t-xl">
+            <h3 className="font-['Outfit'] font-bold text-white text-sm flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-[#D9ED92]" /> Instrucciones
+            </h3>
           </div>
-        </div>
-      </div>
+          <CardContent className="p-4">
+            <p className="text-xs text-slate-600 mb-3">
+              Descarga la plantilla, llénala (una fila por propiedad) y súbela. La primera columna es el <strong>Tipo</strong>: para Terreno solo se piden ubicación, precio y m² terreno.
+            </p>
+            <Button onClick={descargarPlantilla} className="w-full bg-[#F0FAF5] text-[#1B4332] hover:bg-[#E0F4E8] font-semibold border border-[#B7E4C7]">
+              <Download className="w-4 h-4 mr-2" /> Descargar Plantilla
+            </Button>
+          </CardContent>
+        </Card>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Instructions & Checklist */}
-        <div className="lg:col-span-1 space-y-4">
-          <Card className="bg-white border-0 shadow-sm h-full border-[#B7E4C7]">
-            <div className="bg-[#1B4332] px-5 py-3 rounded-t-xl">
-              <h3 className="font-['Outfit'] font-bold text-white text-sm flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#D9ED92]" /> Instrucciones
-              </h3>
+        <Card className="bg-white border-0 shadow-sm lg:col-span-2">
+          <CardContent className="p-5">
+            <div
+              className={`border-2 border-dashed rounded-2xl p-6 flex flex-col items-center justify-center text-center transition-colors ${
+                dragActive ? "border-[#52B788] bg-[#F0FAF5]" : "border-slate-200 bg-slate-50"
+              }`}
+              onDragOver={(e) => { e.preventDefault(); setDragActive(true); }}
+              onDragLeave={() => setDragActive(false)}
+              onDrop={(e) => { e.preventDefault(); setDragActive(false); const f = e.dataTransfer.files?.[0]; if (f) analizar(f); }}
+            >
+              <div className="w-14 h-14 rounded-full bg-white shadow-sm flex items-center justify-center mb-3">
+                {loading ? <Loader2 className="w-7 h-7 text-[#52B788] animate-spin" /> : <Upload className="w-7 h-7 text-[#52B788]" />}
+              </div>
+              <h3 className="text-base font-bold text-[#1B4332] mb-1">{file ? file.name : "Sube tu inventario"}</h3>
+              <p className="text-xs text-slate-500 mb-3">Arrastra tu Excel o CSV aquí, o haz clic para explorar.</p>
+              <label className="bg-[#1B4332] text-white text-sm font-semibold px-5 py-2.5 rounded-xl hover:bg-[#2D6A4F] cursor-pointer transition-colors inline-flex items-center gap-2">
+                Explorar archivos
+                <input type="file" className="hidden" onChange={onFile}
+                  accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+              </label>
             </div>
-            <CardContent className="p-5">
-              <p className="text-sm text-slate-600 mb-4">
-                Descarga la plantilla, llénala (una fila por propiedad) y súbela. La primera columna es el <strong>Tipo de propiedad</strong>: para Terreno solo se piden ubicación, precio y m² terreno.
-              </p>
-              <Button onClick={descargarPlantilla} className="w-full bg-[#F0FAF5] text-[#1B4332] hover:bg-[#E0F4E8] font-semibold border border-[#B7E4C7]">
-                <Download className="w-4 h-4 mr-2" /> Descargar Plantilla
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Upload Zone & Results */}
-        <div className="lg:col-span-2 space-y-6">
-          <Card className="bg-white border-0 shadow-sm">
-            <CardContent className="p-6">
-              <div
-                className={`border-2 border-dashed rounded-2xl p-8 flex flex-col items-center justify-center text-center transition-colors ${
-                  dragActive ? "border-[#52B788] bg-[#F0FAF5]" : "border-slate-200 bg-slate-50"
-                }`}
-                onDragOver={(e) => { e.preventDefault(); setDragActive(true); }}
-                onDragLeave={() => setDragActive(false)}
-                onDrop={(e) => { e.preventDefault(); setDragActive(false); const f = e.dataTransfer.files?.[0]; if (f) analizar(f); }}
-              >
-                <div className="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-4">
-                  {loading ? <Loader2 className="w-8 h-8 text-[#52B788] animate-spin" /> : <Upload className="w-8 h-8 text-[#52B788]" />}
-                </div>
-                <h3 className="text-lg font-bold text-[#1B4332] mb-1">{file ? file.name : "Sube tu inventario"}</h3>
-                <p className="text-sm text-slate-500 mb-4">Arrastra tu Excel o CSV aquí, o haz clic para explorar.</p>
-                <label className="bg-[#1B4332] text-white text-sm font-semibold px-5 py-2.5 rounded-xl hover:bg-[#2D6A4F] cursor-pointer transition-colors inline-flex items-center gap-2">
-                  Explorar archivos
-                  <input type="file" className="hidden" onChange={onFile}
-                    accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
-                </label>
-              </div>
-            </CardContent>
-          </Card>
-
-          {analysis && (
-            <Card className="bg-white border-0 shadow-sm overflow-hidden">
-              <div className="bg-gradient-to-r from-[#52B788] to-[#40916C] px-5 py-4 flex items-center justify-between">
-                <p className="font-['Outfit'] font-bold text-white text-base flex items-center gap-2">
-                  <FileText className="w-5 h-5 text-[#D9ED92]" /> Resultado del análisis
-                </p>
-                <span className="text-white text-sm font-semibold">
-                  {analysis.aceptadas} de {analysis.total} listas
-                </span>
-              </div>
-              <CardContent className="p-5 space-y-4">
-                <div className="flex flex-wrap gap-3 text-sm">
-                  <span className="px-3 py-1.5 rounded-lg bg-green-50 text-green-700 font-semibold">✓ {analysis.nuevas ?? analysis.aceptadas} nuevas</span>
-                  {analysis.duplicadas > 0 && (
-                    <span className="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-500 font-semibold">↺ {analysis.duplicadas} ya las tenías</span>
-                  )}
-                  {analysis.rechazadas.length > 0 && (
-                    <span className="px-3 py-1.5 rounded-lg bg-amber-50 text-amber-700 font-semibold">⚠ {analysis.rechazadas.length} con datos faltantes</span>
-                  )}
-                  <span className="px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 font-semibold">{analysis.al_pool} suman al mercado</span>
-                  <span className="px-3 py-1.5 rounded-lg bg-[#D9ED92]/50 text-[#1B4332] font-semibold">Descuento por calidad: {analysis.descuento_pct}%</span>
-                </div>
-
-                {analysis.rechazadas.length > 0 && (
-                  <div className="rounded-lg border border-amber-200 bg-amber-50/50 p-3">
-                    <p className="text-xs font-semibold text-amber-800 mb-2 flex items-center gap-1">
-                      <AlertTriangle className="w-3.5 h-3.5" /> Corrige y vuelve a subir estas filas:
-                    </p>
-                    <ul className="space-y-1 max-h-40 overflow-y-auto">
-                      {analysis.rechazadas.map((r) => (
-                        <li key={r.fila} className="text-xs text-slate-600">
-                          <strong>Fila {r.fila}:</strong> falta {r.faltan.join(", ")}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                {analysis.preview.length > 0 && (
-                  <div className="overflow-x-auto">
-                    <Table>
-                      <TableHeader>
-                        <TableRow className="bg-slate-50">
-                          <TableHead className="font-semibold text-[#1B4332]">Dirección</TableHead>
-                          <TableHead className="font-semibold text-[#1B4332]">Colonia</TableHead>
-                          <TableHead className="font-semibold text-[#1B4332]">Tipo</TableHead>
-                          <TableHead className="font-semibold text-[#1B4332]">Precio</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {analysis.preview.map((p, i) => (
-                          <TableRow key={i} className="hover:bg-slate-50">
-                            <TableCell className="text-sm text-slate-700 font-medium">{p["Dirección"]}</TableCell>
-                            <TableCell className="text-sm text-slate-600">{p["Colonia"]}</TableCell>
-                            <TableCell className="text-sm text-slate-600">{p["Tipo de propiedad"]}</TableCell>
-                            <TableCell className="text-sm text-[#1B4332] font-semibold">
-                              {p["Precio de salida (MXN)"] ? `$${Number(p["Precio de salida (MXN)"]).toLocaleString("es-MX")}` : "—"}
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </div>
-                )}
-
-                <div className="flex justify-end">
-                  <Button onClick={confirmar} disabled={loading || confirmed || (analysis.nuevas ?? analysis.aceptadas) === 0}
-                    className="bg-[#1B4332] text-white hover:bg-[#2D6A4F] font-semibold">
-                    {loading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <CheckCircle2 className="w-4 h-4 mr-2" />}
-                    {confirmed ? "Importado ✓" : `Importar ${analysis.nuevas ?? analysis.aceptadas} y activar ${analysis.descuento_pct}%`}
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          )}
-        </div>
+          </CardContent>
+        </Card>
       </div>
+
+      {/* Resultado del análisis (solo tras subir un archivo) */}
+      {analysis && (
+        <Card className="bg-white border-0 shadow-sm overflow-hidden">
+          <div className="bg-gradient-to-r from-[#52B788] to-[#40916C] px-5 py-4 flex items-center justify-between">
+            <p className="font-['Outfit'] font-bold text-white text-base flex items-center gap-2">
+              <FileText className="w-5 h-5 text-[#D9ED92]" /> Resultado del análisis
+            </p>
+            <span className="text-white text-sm font-semibold">{analysis.aceptadas} de {analysis.total} listas</span>
+          </div>
+          <CardContent className="p-5 space-y-4">
+            <div className="flex flex-wrap gap-3 text-sm">
+              <span className="px-3 py-1.5 rounded-lg bg-green-50 text-green-700 font-semibold">✓ {analysis.nuevas ?? analysis.aceptadas} nuevas</span>
+              {analysis.duplicadas > 0 && (
+                <span className="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-500 font-semibold">↺ {analysis.duplicadas} ya las tenías</span>
+              )}
+              {analysis.rechazadas.length > 0 && (
+                <span className="px-3 py-1.5 rounded-lg bg-amber-50 text-amber-700 font-semibold">⚠ {analysis.rechazadas.length} con datos faltantes</span>
+              )}
+              <span className="px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 font-semibold">{analysis.al_pool} suman al mercado</span>
+              <span className="px-3 py-1.5 rounded-lg bg-[#D9ED92]/50 text-[#1B4332] font-semibold">Descuento por calidad: {analysis.descuento_pct}%</span>
+            </div>
+
+            {analysis.rechazadas.length > 0 && (
+              <div className="rounded-lg border border-amber-200 bg-amber-50/50 p-3">
+                <p className="text-xs font-semibold text-amber-800 mb-2 flex items-center gap-1">
+                  <AlertTriangle className="w-3.5 h-3.5" /> Corrige y vuelve a subir estas filas:
+                </p>
+                <ul className="space-y-1 max-h-40 overflow-y-auto">
+                  {analysis.rechazadas.map((r) => (
+                    <li key={r.fila} className="text-xs text-slate-600"><strong>Fila {r.fila}:</strong> falta {r.faltan.join(", ")}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <div className="flex justify-end">
+              <Button onClick={confirmar} disabled={loading || confirmed || (analysis.nuevas ?? analysis.aceptadas) === 0}
+                className="bg-[#1B4332] text-white hover:bg-[#2D6A4F] font-semibold">
+                {loading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <CheckCircle2 className="w-4 h-4 mr-2" />}
+                {confirmed ? "Importado ✓" : `Importar ${analysis.nuevas ?? analysis.aceptadas} y activar ${analysis.descuento_pct}%`}
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Listado tipo Excel: inventario ya subido (con muestra de ejemplo si está vacío) */}
+      {(() => {
+        const esEjemplo = inventario.length === 0;
+        const filas = esEjemplo ? SAMPLE : inventario;
+        return (
+          <Card className="bg-white border-0 shadow-sm overflow-hidden">
+            <div className="px-5 py-3 border-b border-slate-100 flex items-center justify-between gap-3 flex-wrap">
+              <h3 className="font-['Outfit'] font-bold text-[#1B4332] text-base flex items-center gap-2">
+                <Database className="w-5 h-5 text-[#52B788]" /> Mi inventario subido
+              </h3>
+              {esEjemplo
+                ? <span className="text-xs font-semibold text-amber-700 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded-lg">Ejemplo — así se verá. Sube tu Excel para reemplazarlo.</span>
+                : <span className="text-xs text-slate-400 font-semibold">{inventario.length} propiedades</span>}
+            </div>
+            <CardContent className="p-0">
+              {cargandoInv ? (
+                <div className="flex items-center justify-center py-12 text-slate-400 text-sm gap-2">
+                  <Loader2 className="w-5 h-5 animate-spin" /> Cargando inventario…
+                </div>
+              ) : (
+                <div className="max-h-[460px] overflow-y-auto">
+                  <Table className="table-fixed w-full">
+                    <colgroup>
+                      <col style={{ width: "12%" }} />
+                      <col style={{ width: "10%" }} />
+                      <col style={{ width: "9%" }} />
+                      <col style={{ width: "8%" }} />
+                      <col style={{ width: "7%" }} />
+                      <col style={{ width: "9%" }} />
+                      <col style={{ width: "5%" }} />
+                      <col style={{ width: "5%" }} />
+                      <col style={{ width: "4%" }} />
+                      <col style={{ width: "4%" }} />
+                      <col style={{ width: "4%" }} />
+                      <col style={{ width: "4%" }} />
+                      <col style={{ width: "4%" }} />
+                      <col style={{ width: "15%" }} />
+                    </colgroup>
+                    <TableHeader className="sticky top-0 bg-slate-50 z-10">
+                      <TableRow>
+                        <TableHead className="px-2 py-2 text-xs font-semibold text-[#1B4332]">Dirección</TableHead>
+                        <TableHead className="px-2 py-2 text-xs font-semibold text-[#1B4332]">Coto / Edif.</TableHead>
+                        <TableHead className="px-2 py-2 text-xs font-semibold text-[#1B4332]">Colonia</TableHead>
+                        <TableHead className="px-2 py-2 text-xs font-semibold text-[#1B4332]">Municipio</TableHead>
+                        <TableHead className="px-2 py-2 text-xs font-semibold text-[#1B4332]">Tipo</TableHead>
+                        <TableHead className="px-2 py-2 text-xs font-semibold text-[#1B4332] text-right">Precio</TableHead>
+                        <TableHead className="px-2 py-2 text-xs font-semibold text-[#1B4332] text-right">m²C</TableHead>
+                        <TableHead className="px-2 py-2 text-xs font-semibold text-[#1B4332] text-right">m²T</TableHead>
+                        <TableHead className="px-2 py-2 text-xs font-semibold text-[#1B4332] text-right">Rec</TableHead>
+                        <TableHead className="px-2 py-2 text-xs font-semibold text-[#1B4332] text-right">Bñ</TableHead>
+                        <TableHead className="px-2 py-2 text-xs font-semibold text-[#1B4332] text-right">Est</TableHead>
+                        <TableHead className="px-2 py-2 text-xs font-semibold text-[#1B4332] text-right">Piso</TableHead>
+                        <TableHead className="px-2 py-2 text-xs font-semibold text-[#1B4332] text-right">Ant</TableHead>
+                        <TableHead className="px-2 py-2 text-xs font-semibold text-[#1B4332]">Amenidades</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody className={esEjemplo ? "opacity-60 italic" : ""}>
+                      {filas.map((p, i) => (
+                        <TableRow key={p.propiedad_id || i} className="hover:bg-slate-50 odd:bg-white even:bg-slate-50/40">
+                          <TableCell className="px-2 py-1.5 text-xs text-slate-700 font-medium truncate" title={p.direccion}>{p.direccion || "—"}</TableCell>
+                          <TableCell className="px-2 py-1.5 text-xs text-slate-600 truncate" title={p.coto_edificio}>{p.coto_edificio || "—"}</TableCell>
+                          <TableCell className="px-2 py-1.5 text-xs text-slate-600 truncate" title={p.colonia}>{p.colonia || "—"}</TableCell>
+                          <TableCell className="px-2 py-1.5 text-xs text-slate-600 truncate" title={p.municipio}>{p.municipio || "—"}</TableCell>
+                          <TableCell className="px-2 py-1.5 text-xs text-slate-600 truncate">{p.tipo || "—"}</TableCell>
+                          <TableCell className="px-2 py-1.5 text-xs text-[#1B4332] font-semibold text-right whitespace-nowrap">{money(p.precio_oferta)}</TableCell>
+                          <TableCell className="px-2 py-1.5 text-xs text-slate-600 text-right">{num(p.m2_construccion)}</TableCell>
+                          <TableCell className="px-2 py-1.5 text-xs text-slate-600 text-right">{num(p.m2_terreno)}</TableCell>
+                          <TableCell className="px-2 py-1.5 text-xs text-slate-600 text-right">{num(p.recamaras)}</TableCell>
+                          <TableCell className="px-2 py-1.5 text-xs text-slate-600 text-right">{num(p.banos)}</TableCell>
+                          <TableCell className="px-2 py-1.5 text-xs text-slate-600 text-right">{num(p.estacionamiento)}</TableCell>
+                          <TableCell className="px-2 py-1.5 text-xs text-slate-600 text-right">{num(p.piso)}</TableCell>
+                          <TableCell className="px-2 py-1.5 text-xs text-slate-600 text-right">{p.antiguedad || p.antiguedad === 0 ? `${p.antiguedad}a` : "—"}</TableCell>
+                          <TableCell className="px-2 py-1.5 text-xs text-slate-600 truncate" title={p.amenidades}>{p.amenidades || "—"}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        );
+      })()}
     </div>
   );
 };

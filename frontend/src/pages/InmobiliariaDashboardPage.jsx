@@ -2219,7 +2219,21 @@ const InmobiliariaDashboardPage = () => {
               </button>
             ))}
           </div>
-          {/* Plan — misma fila que tabs */}
+          {/* Lado derecho: promo Data Exchange (a un lado del plan) + Plan */}
+          <div className="flex items-center gap-3 flex-wrap justify-end">
+          {activeTab === "data_exchange" && (
+            <div className="flex items-center gap-3 bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] rounded-lg px-4 py-2 shrink-0 shadow-sm">
+              <div className="max-w-xs">
+                <p className="text-sm font-bold font-['Outfit'] leading-tight text-white">Programa Data Exchange</p>
+                <p className="text-[11px] text-white/95 leading-snug mt-0.5">
+                  Comparte tu inventario y obtén <strong className="text-[#D9ED92]">50% de descuento vitalicio</strong> en tus valuaciones.
+                </p>
+              </div>
+              <div className="shrink-0 font-bold text-sm px-3 py-1.5 rounded-lg bg-[#D9ED92] text-[#1B4332] flex items-center gap-1.5 whitespace-nowrap">
+                <TrendingUp className="w-4 h-4" /> -50% Off
+              </div>
+            </div>
+          )}
           {(() => {
             if (activeTab === "promociones") return null;
             const planKey = session?.plan || derivePlanFromAsesores();
@@ -2269,6 +2283,7 @@ const InmobiliariaDashboardPage = () => {
               </div>
             );
           })()}
+          </div>
         </div>
 
         {/* Tab: Resumen */}

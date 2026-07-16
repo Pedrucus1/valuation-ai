@@ -18,6 +18,7 @@ from datetime import date
 COLUMNAS = [
     ("tipo",            "Tipo de propiedad"),
     ("direccion",       "Dirección"),
+    ("coto_edificio",   "Coto / Edificio"),
     ("colonia",         "Colonia"),
     ("municipio",       "Municipio"),
     ("precio",          "Precio de salida (MXN)"),
@@ -30,7 +31,9 @@ COLUMNAS = [
     ("medios_banos",    "Medios baños"),
     ("estacionamientos","Estacionamientos"),
     ("niveles",         "Niveles"),
+    ("piso",            "Piso"),
     ("conservacion",    "Estado de conservación"),
+    ("amenidades",      "Amenidades"),
     ("descripcion",     "Descripción"),
 ]
 ETIQUETA = dict(COLUMNAS)                       # clave → etiqueta
@@ -45,7 +48,7 @@ TIPOS_CANON = {
 
 # Obligatorios por tipo (claves canónicas). "_edad" = requiere año O edad.
 NUMERICOS = {"precio", "anio", "edad", "m2_construccion", "m2_terreno",
-             "recamaras", "banos", "medios_banos", "estacionamientos", "niveles"}
+             "recamaras", "banos", "medios_banos", "estacionamientos", "niveles", "piso"}
 _BASE = {"tipo", "direccion", "colonia", "municipio", "precio"}
 REQUERIDOS_POR_TIPO = {
     "casa":        _BASE | {"_edad", "m2_construccion", "m2_terreno", "recamaras",
@@ -59,11 +62,13 @@ REQUERIDOS_POR_TIPO = {
 }
 
 EJEMPLO = {
-    "tipo": "Casa", "direccion": "Av. Patria 1200", "colonia": "Jardines de San Ignacio",
+    "tipo": "Casa", "direccion": "Av. Patria 1200", "coto_edificio": "Coto Las Palmas",
+    "colonia": "Jardines de San Ignacio",
     "municipio": "Zapopan", "precio": "3500000", "anio": "2015", "edad": "",
     "m2_construccion": "180", "m2_terreno": "200", "recamaras": "3", "banos": "2",
-    "medios_banos": "1", "estacionamientos": "2", "niveles": "2",
-    "conservacion": "Bueno", "descripcion": "Casa en excelente ubicación",
+    "medios_banos": "1", "estacionamientos": "2", "niveles": "2", "piso": "",
+    "conservacion": "Bueno", "amenidades": "Alberca, Seguridad 24h, Panel solar",
+    "descripcion": "Casa en excelente ubicación",
 }
 
 
@@ -89,7 +94,7 @@ def normalizar_fila(raw: dict) -> dict:
     derivado de edad si hace falta. No valida (eso es validar_fila)."""
     out = {}
     out["tipo"] = normalizar_tipo(raw.get("tipo"))
-    for k in ("direccion", "colonia", "municipio", "conservacion", "descripcion"):
+    for k in ("direccion", "coto_edificio", "colonia", "municipio", "conservacion", "amenidades", "descripcion"):
         val = str(raw.get(k) or "").strip()
         out[k] = val or None
     for k in NUMERICOS:
