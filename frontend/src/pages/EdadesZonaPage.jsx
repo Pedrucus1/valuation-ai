@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, memo } from "react";
+import { useState, useEffect, useMemo, memo, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -10,6 +10,7 @@ import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, Command
 import { toast } from "sonner";
 import { Building2, ArrowLeft, ExternalLink, MapPin, Search, Check, Award, ChevronsUpDown, AlertTriangle, Pencil, Gavel, XCircle } from "lucide-react";
 import { API } from "@/App";
+import GamificacionVerificador from "@/components/GamificacionVerificador";
 
 // Rangos finos (Ross-Heidecke). "No sé" salta sin escribir.
 const AGE_RANGES = [
@@ -263,6 +264,9 @@ const EdadesZonaPage = () => {
   const [loading, setLoading] = useState(false);
   const [buscado, setBuscado] = useState(false);
   const [conjuntos, setConjuntos] = useState({});   // id_unico -> texto conjunto
+  const [m2TerrenoEdit, setM2TerrenoEdit] = useState({}); // id_unico -> m² terreno corregido
+  const [m2ConstEdit, setM2ConstEdit] = useState({});     // id_unico -> m² construcción corregido
+  const gamiRef = useRef(null);   // panel de gamificación (confeti, récord, concurso)
   const [hechos, setHechos] = useState({});         // id_unico -> guardado
   const [puntos, setPuntos] = useState(null);
   const [diaStats, setDiaStats] = useState(null);   // {hoy, record} para el récord del día
@@ -403,6 +407,10 @@ const EdadesZonaPage = () => {
       if (of?.cp) p.cp = of.cp;
     }
     if (conjuntos[id]) p.conjunto = conjuntos[id];
+    const m2t = (m2TerrenoEdit[id] ?? "").toString().trim();
+    if (m2t && Number(m2t) !== it.m2_terreno) p.m2_terreno = Number(m2t);
+    const m2c = (m2ConstEdit[id] ?? "").toString().trim();
+    if (m2c && Number(m2c) !== it.m2_construccion) p.m2_construccion = Number(m2c);
     const tiposSel = tiposEdit[id];   // multi-tipo: casa+rancho, etc.
     if (tiposSel && tiposSel.length && JSON.stringify(tiposSel) !== JSON.stringify([it.tipo_propiedad].filter(Boolean))) {
       p.tipo = tiposSel[0];   // primario para el motor
@@ -454,8 +462,8 @@ const EdadesZonaPage = () => {
       // Terreno: no lleva edad/conservación. Guardar = confirmar correcto tal cual
       // (con o sin corrección de colonia/tipo) → lo saca de la lista sin exigir edad.
       payload.revisado = true;
-    } else if (!payload.anio_exacto && !payload.edad_rango && !payload.conservacion && !payload.grado_remodelacion && !payload.colonia && !payload.municipio && !payload.poblacion && !payload.tipo && !payload.uso_mixto && !payload.retirado && payload.nivel === undefined) {
-      toast.error("Indica al menos edad, conservación, remodelación, colonia, municipio, tipo, nivel o retiro");
+    } else if (!payload.anio_exacto && !payload.edad_rango && !payload.conservacion && !payload.grado_remodelacion && !payload.colonia && !payload.municipio && !payload.poblacion && !payload.tipo && !payload.uso_mixto && !payload.retirado && payload.nivel === undefined && !payload.conjunto && !payload.m2_terreno && !payload.m2_construccion) {
+      toast.error("Indica al menos edad, conservación, remodelación, colonia, municipio, tipo, nivel, m², conjunto o retiro");
       return;
     }
     set(setGuardando)(id, true);
@@ -469,9 +477,12 @@ const EdadesZonaPage = () => {
         ...(payload.colonia ? { colonia: payload.colonia } : {}),
         ...(payload.municipio ? { municipio: payload.municipio } : {}),
         ...(payload.tipo ? { tipo_propiedad: payload.tipo } : {}),
+        ...(payload.m2_terreno ? { m2_terreno: payload.m2_terreno } : {}),
+        ...(payload.m2_construccion ? { m2_construccion: payload.m2_construccion } : {}),
       } : x));
       if (data.puntos != null) setPuntos(data.puntos);
       if (data.hoy != null) setDiaStats({ hoy: data.hoy, record: data.record });
+      gamiRef.current?.registrarPunto({ hoy: data.hoy, record: data.record, puntos: data.puntos });
       const base = data.edad_efectiva != null ? `Guardado · edad efectiva ${data.edad_efectiva} años` : "Guardado ✓";
       toast.success(base);
       // Si el perito marcó "aplicar al grupo", propagar a las variantes del mismo coto.
@@ -539,22 +550,8 @@ const EdadesZonaPage = () => {
               <p className="text-sm font-semibold text-[#52B788]">Verifica y Gana</p>
             </div>
           </div>
-          {puntos != null && (
-            <div className="flex flex-col items-end gap-0.5">
-              <div className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#1B4332] bg-[#D9ED92]/40 border border-[#52B788]/40 rounded-full px-3 py-1">
-                <Award className="w-4 h-4 text-[#52B788]" /> {puntos} pts
-              </div>
-              {diaStats && (
-                <span className="text-xs text-slate-500">
-                  Hoy: <b className="text-[#1B4332]">{diaStats.hoy}</b>
-                  {diaStats.record > diaStats.hoy
-                    ? <> · récord del día <b>{diaStats.record}</b></>
-                    : diaStats.hoy > 1 && <> · <b className="text-[#52B788]">¡récord del día! 🏆</b></>}
-                </span>
-              )}
-            </div>
-          )}
         </div>
+        <div className="mb-4"><GamificacionVerificador ref={gamiRef} /></div>
         {/* Beneficio: qué se gana y en qué se convierte */}
         <div className="mb-6 rounded-xl bg-gradient-to-r from-[#EAF3EE] to-[#F4F8F6] border border-[#B7E4C7] p-4">
           <p className="text-sm text-[#1B4332] font-semibold mb-1">Ayuda a completar los datos de tu zona y gana puntos 🎯</p>
@@ -733,6 +730,21 @@ const EdadesZonaPage = () => {
                   <Input value={conjuntos[it.id_unico] || ""}
                          onChange={e => setConjuntos(prev => ({ ...prev, [it.id_unico]: e.target.value }))}
                          list="conj-existentes" placeholder="Elige uno existente o escribe" className={INP} />
+                </div>
+                {/* m² editables — el scraper (sobre todo PINCALI) a veces los guarda mal */}
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <label className={LBL}>m² terreno <span className="normal-case font-normal text-slate-400">(corrige si está mal)</span></label>
+                    <Input type="number" value={m2TerrenoEdit[it.id_unico] ?? ""}
+                           onChange={e => set(setM2TerrenoEdit)(it.id_unico, e.target.value)}
+                           placeholder={it.m2_terreno != null ? `Actual: ${it.m2_terreno}` : "m² de terreno"} className={INP} />
+                  </div>
+                  <div>
+                    <label className={LBL}>m² construcción</label>
+                    <Input type="number" value={m2ConstEdit[it.id_unico] ?? ""}
+                           onChange={e => set(setM2ConstEdit)(it.id_unico, e.target.value)}
+                           placeholder={it.m2_construccion != null ? `Actual: ${it.m2_construccion}` : "m² de construcción"} className={INP} />
+                  </div>
                 </div>
                 {/* Nivel / piso: solo departamento, local u oficina (torre/plaza) */}
                 {(() => {

@@ -332,6 +332,22 @@ async def edad_estimada(request: Request):
         if not (-5 <= nivel_val <= 200):
             raise HTTPException(status_code=400, detail="Nivel fuera de rango")
 
+    # m² editables: el scraper (sobre todo PINCALI) guarda m² mal; el perito los corrige.
+    m2t_val = m2c_val = None
+    for _raw, _name, _terr in ((body.get("m2_terreno"), "m2 de terreno", True),
+                               (body.get("m2_construccion"), "m2 de construcción", False)):
+        if _raw not in (None, ""):
+            try:
+                _v = float(_raw)
+            except (TypeError, ValueError):
+                raise HTTPException(status_code=400, detail=f"{_name} inválido")
+            if not (0 < _v <= 1_000_000):
+                raise HTTPException(status_code=400, detail=f"{_name} fuera de rango")
+            if _terr:
+                m2t_val = _v
+            else:
+                m2c_val = _v
+
     if not id_unico:
         raise HTTPException(status_code=400, detail="Falta id_unico")
     if conservacion and conservacion not in CONSERVACION_VALIDAS:
@@ -379,8 +395,8 @@ async def edad_estimada(request: Request):
         if not (1900 <= anio_remod_val <= ahora.year + 1):
             raise HTTPException(status_code=400, detail="Año de remodelación fuera de rango")
 
-    if not tiene_edad and not conservacion and not grado_remod and not colonia_fix and not municipio_fix and not poblacion_fix and not tipo_fix and not uso_mixto and not retirado and not datos_basura and not en_juicio and nivel_val is None and not revisado:
-        raise HTTPException(status_code=400, detail="Falta edad, conservación, remodelación, colonia, tipo, nivel, retiro, datos incorrectos o juicio/remate")
+    if not tiene_edad and not conservacion and not grado_remod and not colonia_fix and not municipio_fix and not poblacion_fix and not tipo_fix and not uso_mixto and not retirado and not datos_basura and not en_juicio and nivel_val is None and not revisado and not conjunto and m2t_val is None and m2c_val is None:
+        raise HTTPException(status_code=400, detail="Falta edad, conservación, remodelación, colonia, tipo, nivel, retiro, m², conjunto, datos incorrectos o juicio/remate")
 
     if tiene_edad:
         update["anio_construccion"] = anio
@@ -405,6 +421,12 @@ async def edad_estimada(request: Request):
             update["edad_efectiva"] = ee
     if conjunto:
         update["conjunto"] = str(conjunto).strip()[:120]
+    if m2t_val is not None:
+        update["m2_terreno"] = m2t_val
+        update["m2_terreno_fuente"] = "perito_correccion"
+    if m2c_val is not None:
+        update["m2_construccion"] = m2c_val
+        update["m2_construccion_fuente"] = "perito_correccion"
     if municipio_fix:
         update["municipio"] = municipio_fix
         update["municipio_fuente"] = "perito_correccion"
