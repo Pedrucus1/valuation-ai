@@ -65,7 +65,7 @@ def get_map_for_report(lat: float, lng: float) -> dict:
     iframe_url = (
         "https://www.google.com/maps/embed/v1/place"
         f"?key={GOOGLE_KEY}&q={lat},{lng}&zoom=16"
-    )
+    ) if GOOGLE_KEY else None
     return {
         "static_image": static_image,
         "iframe_url": iframe_url,

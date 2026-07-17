@@ -61,7 +61,7 @@ async def mis_puntos(request: Request):
         {"$group": {
             "_id": {"$dateToString": {
                 "format": "%Y-%m-%d",
-                "date": {"$toDate": "$edad_fecha"},
+                "date": {"$dateFromString": {"dateString": "$edad_fecha", "onError": None, "onNull": None}},
                 "timezone": "America/Mexico_City",
             }},
             "count": {"$sum": 1},
@@ -115,7 +115,7 @@ async def leaderboard(request: Request, rango: str = "trimestre"):
     if corte is not None:
         # Comparar la fecha real (parseada) contra el corte tz-aware.
         pipeline.append({"$match": {"$expr": {
-            "$gte": [{"$toDate": "$edad_fecha"}, corte]}}})
+            "$gte": [{"$dateFromString": {"dateString": "$edad_fecha", "onError": None, "onNull": None}}, corte]}}})
     pipeline += [
         {"$group": {"_id": "$edad_estimador", "count": {"$sum": 1}}},
         {"$sort": {"count": -1, "_id": 1}},

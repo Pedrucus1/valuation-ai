@@ -6,6 +6,7 @@ import json
 import re
 import unicodedata
 from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 from functools import lru_cache
 from pathlib import Path
 
@@ -473,7 +474,7 @@ async def edad_estimada(request: Request):
     # Además contador POR DÍA (dias_edad: {YYYY-MM-DD: n}) para el "récord del día".
     puntos = hoy_cnt = record_cnt = None
     if not estimador.startswith("admin:"):
-        hoy_key = ahora.strftime("%Y-%m-%d")
+        hoy_key = ahora.astimezone(ZoneInfo("America/Mexico_City")).strftime("%Y-%m-%d")  # día local MX (fuente de verdad, igual que gamificacion.py)
         await db.users.update_one(
             {"user_id": estimador},
             {"$inc": {"puntos_edad": 1, f"dias_edad.{hoy_key}": 1}})

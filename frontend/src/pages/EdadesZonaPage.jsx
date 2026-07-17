@@ -6,9 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
 import { toast } from "sonner";
-import { Building2, ArrowLeft, ExternalLink, MapPin, Search, Check, Award, ChevronsUpDown, AlertTriangle, Pencil, Gavel, XCircle } from "lucide-react";
+import { Building2, ArrowLeft, ExternalLink, MapPin, Search, Check, ChevronsUpDown, AlertTriangle, Pencil, Gavel, XCircle } from "lucide-react";
 import { API } from "@/App";
 import GamificacionVerificador from "@/components/GamificacionVerificador";
 
@@ -268,8 +267,6 @@ const EdadesZonaPage = () => {
   const [m2ConstEdit, setM2ConstEdit] = useState({});     // id_unico -> m² construcción corregido
   const gamiRef = useRef(null);   // panel de gamificación (confeti, récord, concurso)
   const [hechos, setHechos] = useState({});         // id_unico -> guardado
-  const [puntos, setPuntos] = useState(null);
-  const [diaStats, setDiaStats] = useState(null);   // {hoy, record} para el récord del día
   // Campos por fila (id_unico -> valor)
   const [edadRango, setEdadRango] = useState({});   // año construcción por rango
   const [anioConst, setAnioConst] = useState({});   // año construcción exacto
@@ -283,7 +280,6 @@ const EdadesZonaPage = () => {
   const [coloniaEdit, setColoniaEdit] = useState({}); // id -> colonia corregida
   const [municipioEdit, setMunicipioEdit] = useState({}); // id -> municipio corregido
   const [poblacionEdit, setPoblacionEdit] = useState({}); // id -> población/pueblo (Cajititlán, etc.)
-  const [tipoEdit, setTipoEdit] = useState({});       // id -> tipo corregido (compat)
   const [tiposEdit, setTiposEdit] = useState({});     // id -> array de tipos (multi: casa+rancho)
   const [nivelEdit, setNivelEdit] = useState({});     // id -> nivel/piso (depto/local/oficina)
   const [retiradoChk, setRetiradoChk] = useState({}); // id -> anuncio retirado
@@ -480,8 +476,6 @@ const EdadesZonaPage = () => {
         ...(payload.m2_terreno ? { m2_terreno: payload.m2_terreno } : {}),
         ...(payload.m2_construccion ? { m2_construccion: payload.m2_construccion } : {}),
       } : x));
-      if (data.puntos != null) setPuntos(data.puntos);
-      if (data.hoy != null) setDiaStats({ hoy: data.hoy, record: data.record });
       gamiRef.current?.registrarPunto({ hoy: data.hoy, record: data.record, puntos: data.puntos });
       const base = data.edad_efectiva != null ? `Guardado · edad efectiva ${data.edad_efectiva} años` : "Guardado ✓";
       toast.success(base);

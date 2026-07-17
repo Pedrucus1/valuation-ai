@@ -303,13 +303,20 @@ const LocationMap = ({ latitude, longitude, onLocationChange, address, autoSearc
     setIsSearching(true);
     lastSearchedRef.current = query;
     try {
-      const response = await fetch(`${API}/geocode?q=${encodeURIComponent(query)}`);
-      const data = await response.json();
+      if (!window.google?.maps?.Geocoder) {
+        if (!isAuto) toast.error("Mapa aún no está listo");
+        return false;
+      }
+      const geocoder = new window.google.maps.Geocoder();
+      const result = await geocoder.geocode({
+        address: query,
+        componentRestrictions: { country: "MX" },
+      }).catch(() => null);
 
-      if (data && data.length > 0) {
-        const { lat, lon } = data[0];
-        const nLat = parseFloat(lat);
-        const nLon = parseFloat(lon);
+      if (result && result.results && result.results.length > 0) {
+        const loc = result.results[0].geometry.location;
+        const nLat = loc.lat();
+        const nLon = loc.lng();
 
         if (Math.abs(nLat - latitude) > 0.0001 || Math.abs(nLon - longitude) > 0.0001) {
           onLocationChangeRef.current(nLat, nLon);
@@ -973,10 +980,13 @@ const ValuationForm = () => {
         land_use: formData.land_use || null,
         bedrooms: formData.bedrooms ? parseInt(formData.bedrooms) : null,
         bathrooms: formData.bathrooms ? parseFloat(formData.bathrooms) : null,
-        parking_spaces: formData.parking_spaces ? parseInt(formData.parking_spaces) : null,
+        parking_spaces: formData.parking_spots ? parseInt(formData.parking_spots)
+          : ((parseInt(formData.parking_covered) || 0) + (parseInt(formData.parking_uncovered) || 0)) || null,
         service_room: hasServiceRoom,
         laundry_room: hasLaundryRoom,
-        floor_number: formData.floor_number ? parseInt(formData.floor_number) : null,
+        floor_number: formData.property_level
+          ? (formData.property_level === "PB" ? 0 : (parseInt(formData.property_level) || null))
+          : null,
         total_floors: formData.total_floors ? parseInt(formData.total_floors) : null,
         estimated_age: formData.estimated_age ? parseInt(formData.estimated_age) : null,
         conservation_state: formData.conservation_state || null,
