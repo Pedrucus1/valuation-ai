@@ -549,6 +549,7 @@ async def generate_comparables(valuation_id: str, request: Request, append: bool
                 m2_construccion=prop.get("construction_area"),
                 precio_referencia=prop.get("value"),
                 max_results=50,
+                colonia=prop.get("neighborhood"),
             ),
             timeout=10.0,
         )

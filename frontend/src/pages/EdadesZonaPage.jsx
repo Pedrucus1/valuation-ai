@@ -66,7 +66,7 @@ const TIPO_OPCIONES = [
   { v: "conjunto_oficinas", l: "Conjunto de oficinas" }, { v: "bodega", l: "Bodega" },
   { v: "rancho", l: "Rancho" }, { v: "edificio", l: "Edificio" },
   { v: "conjunto_deptos", l: "Conjunto de apartamentos" },
-  { v: "conjunto_mini_deptos", l: "Conjunto mini apartamentos" },
+  { v: "conjunto_mini_deptos", l: "Conjunto aparta estudios" },
   { v: "hotel", l: "Hotel" }, { v: "escuela", l: "Escuela" },
   { v: "salon_eventos", l: "Salón de eventos" },
   { v: "centro_comercial", l: "Centro comercial" },
@@ -87,12 +87,12 @@ const TipoMultiSelect = ({ opciones, value, onChange }) => {
           <ChevronsUpDown className="w-4 h-4 opacity-50 shrink-0 ml-1" />
         </button>
       </PopoverTrigger>
-      <PopoverContent className="w-56 p-1" align="start">
+      <PopoverContent className="w-56 max-w-[calc(100vw-1.5rem)] max-h-[55vh] overflow-y-auto p-1" align="start" collisionPadding={12}>
         {opciones.map(o => {
           const sel = value.includes(o.v);
           return (
             <button key={o.v} type="button" onClick={() => toggle(o.v)}
-                    className="w-full flex items-center gap-2 px-2 py-1.5 text-sm rounded hover:bg-slate-100">
+                    className="w-full flex items-center gap-2 px-2 py-1.5 text-[13px] leading-tight text-left rounded hover:bg-slate-100">
               <span className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 ${sel ? "bg-[#52B788] border-[#52B788]" : "border-slate-300"}`}>
                 {sel && <Check className="w-3 h-3 text-white" />}
               </span>

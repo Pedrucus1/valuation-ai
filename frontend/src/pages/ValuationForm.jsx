@@ -184,6 +184,32 @@ const PAVEMENT_TYPES = [
 
 const GOOGLE_MAPS_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
+// Carga dinámica (una sola vez) de la API JS de Google Maps.
+// Reusa window.google.maps si ya existe; si el script ya se está cargando, espera su onload.
+let googleMapsPromise = null;
+const loadGoogleMaps = () => {
+  if (window.google?.maps) return Promise.resolve(window.google.maps);
+  if (googleMapsPromise) return googleMapsPromise;
+
+  googleMapsPromise = new Promise((resolve, reject) => {
+    const existing = document.getElementById("google-maps-js");
+    if (existing) {
+      existing.addEventListener("load", () => resolve(window.google.maps));
+      existing.addEventListener("error", reject);
+      return;
+    }
+    const script = document.createElement("script");
+    script.id = "google-maps-js";
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_KEY}`;
+    script.async = true;
+    script.defer = true;
+    script.onload = () => resolve(window.google.maps);
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+  return googleMapsPromise;
+};
+
 // Map Component with draggable pin using Google Maps
 const LocationMap = ({ latitude, longitude, onLocationChange, address, autoSearch }) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -191,10 +217,85 @@ const LocationMap = ({ latitude, longitude, onLocationChange, address, autoSearc
   const debounceRef = useRef(null);
   const lastSearchedRef = useRef("");
 
+  // Refs del mapa interactivo
+  const mapContainerRef = useRef(null);
+  const mapRef = useRef(null);
+  const markerRef = useRef(null);
+  const [mapError, setMapError] = useState(false);
+
   const onLocationChangeRef = useRef(onLocationChange);
   useEffect(() => {
     onLocationChangeRef.current = onLocationChange;
   }, [onLocationChange]);
+
+  // Últimas coords aplicadas por el propio mapa (para no reposicionar en loop)
+  const selfUpdateRef = useRef({ lat: null, lng: null });
+
+  // Inicializa el mapa una sola vez cuando la API está disponible
+  useEffect(() => {
+    let cancelled = false;
+    loadGoogleMaps()
+      .then((maps) => {
+        if (cancelled || !mapContainerRef.current || mapRef.current) return;
+
+        const center = { lat: latitude, lng: longitude };
+        const map = new maps.Map(mapContainerRef.current, {
+          center,
+          zoom: 16,
+          mapTypeControl: false,
+          streetViewControl: false,
+          fullscreenControl: true,
+        });
+        const marker = new maps.Marker({
+          position: center,
+          map,
+          draggable: true,
+        });
+
+        const applyChange = (lat, lng) => {
+          selfUpdateRef.current = { lat, lng };
+          onLocationChangeRef.current(lat, lng);
+        };
+
+        marker.addListener("dragend", (e) => {
+          applyChange(e.latLng.lat(), e.latLng.lng());
+        });
+        map.addListener("click", (e) => {
+          const lat = e.latLng.lat();
+          const lng = e.latLng.lng();
+          marker.setPosition({ lat, lng });
+          applyChange(lat, lng);
+        });
+
+        mapRef.current = map;
+        markerRef.current = marker;
+      })
+      .catch(() => {
+        if (!cancelled) setMapError(true);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Reacciona a cambios de lat/lng desde afuera (geocode, formulario) sin crear loops
+  useEffect(() => {
+    if (!mapRef.current || !markerRef.current) return;
+    const self = selfUpdateRef.current;
+    // Si este cambio lo provocó el propio mapa, no reposicionar
+    if (
+      self.lat !== null &&
+      Math.abs(self.lat - latitude) < 1e-9 &&
+      Math.abs(self.lng - longitude) < 1e-9
+    ) {
+      return;
+    }
+    const pos = { lat: latitude, lng: longitude };
+    markerRef.current.setPosition(pos);
+    mapRef.current.panTo(pos);
+  }, [latitude, longitude]);
 
   const searchLocation = useCallback(async (query, isAuto = false) => {
     if (!query || query.trim().length < 8 || query === lastSearchedRef.current) return;
@@ -268,24 +369,21 @@ const LocationMap = ({ latitude, longitude, onLocationChange, address, autoSearc
       </div>
 
       <div className="relative rounded-lg overflow-hidden border border-slate-200" style={{ height: "280px" }}>
-        <iframe
-          width="100%"
-          height="100%"
-          frameBorder="0"
-          style={{ border: 0 }}
-          src={`https://www.google.com/maps/embed/v1/place?key=${GOOGLE_MAPS_KEY}&q=${latitude},${longitude}&zoom=16`}
-          allowFullScreen
-          title="Ubicación Google Maps"
-        />
+        <div ref={mapContainerRef} className="w-full h-full" />
+        {mapError && (
+          <div className="absolute inset-0 flex items-center justify-center bg-slate-50 text-sm text-slate-500 p-4 text-center">
+            No se pudo cargar el mapa. Verifica tu conexión o la clave de Google Maps.
+          </div>
+        )}
       </div>
 
-      <div className="flex items-center justify-between text-sm">
+      <div className="flex items-center justify-between text-sm gap-2 flex-wrap">
         <span className="text-slate-500">
           <MapPin className="w-4 h-4 inline mr-1" />
           {latitude.toFixed(6)}, {longitude.toFixed(6)}
         </span>
-        <span className="text-xs text-[#52B788] font-medium">
-          💡 Google Maps habilitado para máxima precisión
+        <span className="text-xs text-[#1B4332] font-medium">
+          Arrastra el pin o toca el mapa para corregir la ubicación exacta
         </span>
       </div>
     </div>

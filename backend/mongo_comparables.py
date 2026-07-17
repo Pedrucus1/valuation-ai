@@ -51,8 +51,23 @@ CAMPOS_COMPARABLE = {
 }
 
 
-def _similarity_score(candidate: dict, m2_ref: float, precio_ref: Optional[float]) -> float:
-    """Score 0-1: más alto = más similar. Usa distancia normalizada de m2 y precio."""
+def _col_eq(a, b) -> bool:
+    """Colonias 'iguales' de forma tolerante (mayúsculas, espacios, truncamientos del scraper)."""
+    a = str(a or "").strip().lower()
+    b = str(b or "").strip().lower()
+    return bool(a) and bool(b) and (a in b or b in a)
+
+
+def _ppm(c: dict) -> Optional[float]:
+    p = c.get("precio")
+    a = c.get("m2_construccion")
+    return p / a if (p and a and a > 0) else None
+
+
+def _similarity_score(candidate: dict, m2_ref: float, precio_ref: Optional[float],
+                      colonia_ref: Optional[str] = None) -> float:
+    """Score: más alto = más similar. Distancia normalizada de m2 y precio,
+    con preferencia por misma colonia que el sujeto (proximidad, como el motor)."""
     score = 1.0
     m2 = candidate.get("m2_construccion")
     if m2 and m2_ref:
@@ -63,7 +78,11 @@ def _similarity_score(candidate: dict, m2_ref: float, precio_ref: Optional[float
         if precio and precio > 0:
             diff_p = abs(precio - precio_ref) / precio_ref
             score -= min(diff_p, 0.5) * 0.4  # precio pesa 40%
-    return max(score, 0.0)
+    # Misma colonia que el sujeto: sube al tope para no mezclar zonas dispares
+    # (ej. un depto chico en Country Club vs uno en Ixtepete).
+    if colonia_ref and _col_eq(candidate.get("colonia"), colonia_ref):
+        score += 0.3
+    return max(min(score, 1.3), 0.0)
 
 
 async def search_comparables_from_mongo(
@@ -74,13 +93,18 @@ async def search_comparables_from_mongo(
     m2_construccion: Optional[float] = None,
     precio_referencia: Optional[float] = None,
     max_results: int = 50,
+    colonia: Optional[str] = None,
 ) -> list[dict]:
     """
     Retorna candidatos reales de mercado_props ordenados por similitud.
     Amplía a municipios vecinos o relaja filtro m2 si hay pocos resultados.
     """
     col = db["mercado_props"]
-    tipo_norm = TIPO_ALIAS.get(tipo_propiedad.lower().strip(), tipo_propiedad)
+    # mercado_props guarda tipo en MINÚSCULA ("casa","departamento"...) y municipio a veces
+    # con espacios. Sin normalizar, "Casa"/"Zapopan " => 0 resultados y la OPI caía a datos
+    # SIMULADOS (bug histórico "inerte por casing"). Normalizamos para que el filtro empate.
+    tipo_norm = TIPO_ALIAS.get(tipo_propiedad.lower().strip(), tipo_propiedad).lower().strip()
+    municipio = (municipio or "").strip()
     op_norm   = "venta" if "venta" in tipo_operacion.lower() else "renta"
 
     base_q = {
@@ -96,7 +120,7 @@ async def search_comparables_from_mongo(
     }
 
     async def _query(municipios: list, m2_range: float) -> list[dict]:
-        q = {**base_q, "municipio": {"$in": municipios}}
+        q = {**base_q, "municipio": {"$in": [m.strip() for m in municipios]}}
         if m2_construccion and m2_construccion > 0:
             q["m2_construccion"] = {
                 "$gte": m2_construccion * (1 - m2_range),
@@ -126,10 +150,49 @@ async def search_comparables_from_mongo(
         cursor = col.find(q, CAMPOS_COMPARABLE).limit(max_results)
         results = await cursor.to_list(length=max_results)
 
+    # ── Proximidad como el motor: preferir la ZONA del sujeto y su segmento de precio ──
+    # Sin esto, un m²-similar de una colonia cara (ej. Chapalita $175k/m²) contamina la
+    # mediana de una casa de Ixtepete (~$25k/m²) e infla el avalúo.
+    import re as _re
+    colonia_comps = []
+    if colonia:
+        toks = [t for t in str(colonia).split() if len(t) >= 4]
+        token = max(toks, key=len) if toks else ""
+        if token:
+            cq = {**base_q, "municipio": municipio,
+                  "colonia": {"$regex": _re.escape(token), "$options": "i"}}
+            colonia_comps = await col.find(cq, CAMPOS_COMPARABLE).limit(max_results).to_list(length=max_results)
+
+    # Referencia de $/m² del segmento de la zona (colonia del sujeto)
+    ref_ppm = None
+    if precio_referencia and m2_construccion and m2_construccion > 0:
+        ref_ppm = precio_referencia / m2_construccion
+    else:
+        zona_ppm = sorted(x for x in (_ppm(c) for c in colonia_comps) if x)
+        if zona_ppm:
+            ref_ppm = zona_ppm[len(zona_ppm) // 2]  # mediana de la colonia
+
+    # Unir colonia + municipio (dedup por id_unico)
+    seen, merged = set(), []
+    for c in colonia_comps + results:
+        uid = c.get("id_unico")
+        if uid and uid in seen:
+            continue
+        if uid:
+            seen.add(uid)
+        merged.append(c)
+    results = merged
+
+    # Filtrar por banda de $/m² del segmento (descarta colonias de precio dispar)
+    if ref_ppm:
+        banded = [c for c in results if _ppm(c) and ref_ppm * 0.55 <= _ppm(c) <= ref_ppm * 1.6]
+        if len(banded) >= 4:
+            results = banded
+
     # Ordenar por similitud y recortar
     if m2_construccion:
         results.sort(
-            key=lambda c: _similarity_score(c, m2_construccion, precio_referencia),
+            key=lambda c: _similarity_score(c, m2_construccion, precio_referencia, colonia),
             reverse=True,
         )
 

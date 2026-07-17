@@ -233,6 +233,41 @@ const MOCK_VALUACIONES = [
   },
 ];
 
+/* ─── Mapeo status backend (inglés) → estado del badge (español) ───
+   Backend: draft | comparables_ready | calculated | completed
+   Badge:   pendiente | en_proceso | completada                      */
+const STATUS_BACKEND_MAP = {
+  completed: "completada",
+  calculated: "en_proceso",
+  comparables_ready: "en_proceso",
+  draft: "pendiente",
+};
+
+function mapValuacionBackend(v) {
+  const pd = v.property_data || {};
+  const estado = STATUS_BACKEND_MAP[(v.status || "").toLowerCase()] || "en_proceso";
+  const direccion =
+    [pd.neighborhood, pd.municipality, pd.state].filter(Boolean).join(", ") ||
+    "Propiedad sin dirección";
+  return {
+    id: v.valuation_id,
+    direccion,
+    tipo: pd.property_type || "Casa",
+    fecha: v.created_at
+      ? new Date(v.created_at).toLocaleDateString("es-MX", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        })
+      : "—",
+    valor: v.result?.estimated_value || 0,
+    estado,
+    valuador_nombre: null,
+    valuador_id: null,
+    calificada: false,
+  };
+}
+
 /* ─── Modal calificación valuador ────────────────────────── */
 const ModalCalificarValuador = ({ valuacion, onClose, onCalificado }) => {
   const [estrellas, setEstrellas] = useState(0);
@@ -463,6 +498,20 @@ const InmobiliariaDashboardPage = () => {
       .then(d => setMercadoStats(d))
       .catch(() => {});
   }, [mercadoTipoOp]);
+
+  // Valuaciones reales del usuario (reemplazan el mock cuando existen).
+  // El backend guarda status en INGLÉS: draft | comparables_ready | calculated | completed.
+  useEffect(() => {
+    if (!session) return;
+    fetch(`${API}/valuations`, { credentials: "include" })
+      .then(r => r.ok ? r.json() : [])
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+          setValuacionesList(data.map(mapValuacionBackend));
+        }
+      })
+      .catch(() => {});
+  }, [session]);
 
   useEffect(() => {
     if (!session) return;

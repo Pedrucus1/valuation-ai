@@ -539,8 +539,11 @@ const ComparablesPage = () => {
               </h1>
               <Badge className="bg-[#1B4332] text-white">Modo Valuador</Badge>
             </div>
-            <p className="text-slate-600">
-              Seleccione entre 3-10 comparables para su análisis
+            <p className="text-slate-600 max-w-2xl">
+              Seleccione entre <strong>3 y 10</strong> comparables para su análisis. Elija los más
+              parecidos al sujeto: <strong>mismo tipo</strong> de inmueble, <strong>misma colonia o una cercana</strong>,
+              con <strong>superficie (m²) similar</strong>, <strong>edad parecida</strong> y de
+              <strong> publicación reciente</strong>.
             </p>
           </div>
           <div className="flex items-center gap-3">
@@ -565,6 +568,54 @@ const ComparablesPage = () => {
                 <Search className="w-4 h-4 mr-2" />
               )}
               Buscar más
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      {/* Cómo seleccionar: manual + selección rápida */}
+      <div className="max-w-6xl mx-auto mb-6 rounded-xl border border-[#52B788]/40 bg-[#F0FAF5] p-4">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+          <div>
+            <p className="text-sm font-semibold text-[#1B4332]">
+              Selección manual: marca o desmarca cada tarjeta a mano
+            </p>
+            <p className="text-xs text-slate-600 mt-0.5">
+              Haz clic en cualquier fila (o su casilla) para elegir/quitar un comparable. Los resaltados en
+              <span className="font-semibold text-[#1B4332]"> verde</span> son los de mayor certeza.
+            </p>
+          </div>
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-xs font-semibold text-slate-500 whitespace-nowrap">o usa una selección rápida:</span>
+            {[
+              { label: "Top 6", count: 6, testId: "select-top-6-btn" },
+              { label: "Top 10", count: 10, testId: "select-top-10-btn" },
+            ].map(({ label, count, testId }) => (
+              <Button
+                key={count}
+                variant="outline"
+                size="sm"
+                onClick={() => selectTop(count)}
+                className={activeTopFilter === count
+                  ? "bg-[#1B4332] !text-white border-[#1B4332] hover:bg-[#1B4332] hover:!text-white shadow-md"
+                  : "border-slate-300 text-slate-600 hover:border-[#1B4332] hover:text-[#1B4332] bg-white"
+                }
+                data-testid={testId}
+              >
+                {label}
+              </Button>
+            ))}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={selectAll}
+              className={activeTopFilter === "all"
+                ? "bg-[#1B4332] !text-white border-[#1B4332] hover:bg-[#1B4332] hover:!text-white shadow-md"
+                : "border-[#1B4332] text-[#1B4332] hover:bg-[#1B4332] hover:!text-white bg-white"
+              }
+              data-testid="select-all-btn"
+            >
+              {selectedIds.length === comparables.length && comparables.length > 0 ? "Ninguno" : "Todas"}
             </Button>
           </div>
         </div>
@@ -645,39 +696,10 @@ const ComparablesPage = () => {
               </div>
             </div>
 
-            {/* Top filter buttons */}
-            <div className="flex gap-2">
-              {[
-                { label: "Top 6", count: 6, testId: "select-top-6-btn" },
-                { label: "Top 10", count: 10, testId: "select-top-10-btn" },
-              ].map(({ label, count, testId }) => (
-                <Button
-                  key={count}
-                  variant="outline"
-                  size="sm"
-                  onClick={() => selectTop(count)}
-                  className={activeTopFilter === count
-                    ? "bg-[#1B4332] !text-white border-[#1B4332] hover:bg-[#1B4332] hover:!text-white shadow-md"
-                    : "border-slate-300 text-slate-600 hover:border-[#1B4332] hover:text-[#1B4332]"
-                  }
-                  data-testid={testId}
-                >
-                  {label}
-                </Button>
-              ))}
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={selectAll}
-                className={activeTopFilter === "all"
-                  ? "bg-[#1B4332] !text-white border-[#1B4332] hover:bg-[#1B4332] hover:!text-white shadow-md"
-                  : "border-[#1B4332] text-[#1B4332] hover:bg-[#1B4332] hover:!text-white"
-                }
-                data-testid="select-all-btn"
-              >
-                {selectedIds.length === comparables.length && comparables.length > 0 ? "Ninguno" : "Todos"}
-              </Button>
-            </div>
+            {/* Selección rápida movida arriba; recordatorio de selección manual */}
+            <span className="text-xs text-slate-400 italic">
+              Marca las filas a mano o usa la selección rápida de arriba
+            </span>
           </div>
         </CardHeader>
         <CardContent className="p-0">
@@ -697,21 +719,25 @@ const ComparablesPage = () => {
                   <TableHead className="text-white text-right">$/m²</TableHead>
                   <TableHead className="text-white text-center">Aj.%</TableHead>
                   <TableHead className="text-white text-right">$/m² Aj.</TableHead>
-                  <TableHead className="text-white">Fuente</TableHead>
+                  <TableHead className="text-white">Certeza del comparable</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {comparables.map((comp, index) => {
                   const isSelected = selectedIds.includes(comp.comparable_id);
                   const adjusted = getAdjustedPrice(comp);
+                  const conf = Number(comp.confiabilidad);
+                  const isAlta = comp.confiabilidad_label === "Alta" || (!isNaN(conf) && conf >= 70);
                   return (
                     <TableRow
                       key={comp.comparable_id}
                       className={`cursor-pointer transition-all duration-150 ${isSelected
                         ? "bg-[#D9ED92]/30 border-l-4 border-l-[#52B788] hover:bg-[#D9ED92]/40"
-                        : comp.source === "propvalu_db"
-                          ? "hover:bg-blue-50/40 border-l-4 border-l-blue-400"
-                          : "hover:bg-slate-50 border-l-4 border-l-transparent"
+                        : isAlta
+                          ? "bg-[#F0FAF5] border-l-4 border-l-[#52B788] hover:bg-[#E4F6EC]"
+                          : comp.source === "propvalu_db"
+                            ? "hover:bg-blue-50/40 border-l-4 border-l-blue-400"
+                            : "hover:bg-slate-50 border-l-4 border-l-transparent"
                         }`}
                       onClick={() => toggleComparable(comp.comparable_id)}
                       data-testid={`comparable-row-${index}`}
@@ -790,22 +816,42 @@ const ComparablesPage = () => {
                         {formatCurrency(adjusted.adjustedPrice)}
                       </TableCell>
                       <TableCell>
-                        {comp.source === "propvalu_db" ? (
-                          <span className="inline-flex items-center gap-1 text-xs font-semibold text-blue-700 bg-blue-50 border border-blue-200 rounded-full px-2 py-0.5">
-                            ★ PropValu
-                          </span>
-                        ) : (
-                          <a
-                            href={comp.source_url?.startsWith('http') ? comp.source_url : undefined}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={(e) => e.stopPropagation()}
-                            className={`flex items-center gap-1 text-sm ${comp.source_url?.startsWith('http') ? 'text-[#52B788] hover:underline cursor-pointer' : 'text-slate-400 cursor-default'}`}
-                          >
-                            {comp.source?.split('.')[0] || comp.source}
-                            <ExternalLink className="w-3 h-3" />
-                          </a>
-                        )}
+                        {(() => {
+                          const label = comp.confiabilidad_label
+                            || (!isNaN(conf) ? (conf >= 70 ? "Alta" : conf >= 40 ? "Media" : "Baja") : null);
+                          const badgeCls = label === "Alta"
+                            ? "text-[#1B4332] bg-[#D9ED92]/50 border-[#52B788]"
+                            : label === "Media"
+                              ? "text-amber-700 bg-amber-50 border-amber-300"
+                              : "text-slate-600 bg-slate-100 border-slate-300";
+                          const portal = comp.source === "propvalu_db"
+                            ? "★ PropValu"
+                            : (comp.portal_origen || comp.source?.split('.')[0] || comp.source);
+                          return (
+                            <div className="flex flex-col gap-0.5">
+                              {label ? (
+                                <span className={`inline-flex items-center gap-1 w-fit text-xs font-bold border rounded-full px-2 py-0.5 ${badgeCls}`}>
+                                  {label}{!isNaN(conf) ? ` · ${Math.round(conf)}/100` : ""}
+                                </span>
+                              ) : (
+                                <span className="text-xs text-slate-400">Sin dato</span>
+                              )}
+                              {comp.source_url?.startsWith('http') ? (
+                                <a
+                                  href={comp.source_url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  onClick={(e) => e.stopPropagation()}
+                                  className="inline-flex items-center gap-0.5 text-[10px] text-slate-400 hover:text-[#52B788] hover:underline"
+                                >
+                                  {portal}<ExternalLink className="w-2.5 h-2.5" />
+                                </a>
+                              ) : (
+                                <span className="text-[10px] text-slate-400">{portal}</span>
+                              )}
+                            </div>
+                          );
+                        })()}
                       </TableCell>
                     </TableRow>
                   );

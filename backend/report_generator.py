@@ -208,9 +208,9 @@ _REPORT_CSS = """
   .cb-1 { background: #76C893; } .cb-2 { background: var(--green-500); }
   .cb-3 { background: #3d9970; } .cb-4 { background: #2D6A4F; }
   .cb-5 { background: var(--green-900); }
-  .chart-pct    { font-size: 9px; font-weight: 700; color: var(--green-900); }
-  .chart-year   { font-size: 9px; color: var(--text-sec); }
-  .chart-amount { font-size: 8px; color: var(--text-sec); }
+  .chart-pct    { font-size: 11px; font-weight: 700; color: var(--green-900); }
+  .chart-year   { font-size: 11px; color: var(--text-sec); }
+  .chart-amount { font-size: 11px; color: var(--text-sec); }
   .chart-footnote { font-size: 8px; color: var(--gray-400); font-style: italic; margin-top: 4px; }
 
   .entorno-card { border: 1px solid var(--gray-200); border-radius: 12px; padding: 12px 14px; }
@@ -227,11 +227,11 @@ _REPORT_CSS = """
   .pe-scores-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
   .pe-score-card { border: 1px solid var(--gray-200); border-radius: 12px; padding: 10px 12px; }
   .pe-score-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
-  .pe-score-name { display: flex; align-items: center; gap: 5px; font-weight: 700; font-size: 10px; color: var(--text-main); }
+  .pe-score-name { display: flex; align-items: center; gap: 5px; font-weight: 700; font-size: 11px; color: var(--text-main); }
   .pe-score-val  { font-weight: 800; color: var(--green-700); font-size: 11px; }
   .pe-score-bar-bg { height: 5px; background: var(--gray-200); border-radius: 3px; margin-bottom: 5px; }
   .pe-score-bar    { height: 5px; background: var(--green-500); border-radius: 3px; }
-  .pe-score-text   { font-size: 9px; color: var(--text-sec); line-height: 1.4; }
+  .pe-score-text   { font-size: 11px; color: var(--text-sec); line-height: 1.4; }
 
   .page-footer {
     position: absolute; bottom: 10px; left: 28px; right: 28px;
@@ -329,10 +329,10 @@ _REPORT_CSS = """
   .va-card .va-title { font-family: 'Outfit', sans-serif; font-size: 11px; font-weight: 700; margin-bottom: 7px; }
   .va-title-green { color: var(--green-500); }
   .va-title-amber { color: #d97706; }
-  .va-card ul { list-style: disc; padding-left: 14px; font-size: 10px; color: var(--text-sec); line-height: 1.6; }
+  .va-card ul { list-style: disc; padding-left: 14px; font-size: 11px; color: var(--text-sec); line-height: 1.6; }
 
   .analisis-box { border: 1px solid var(--gray-200); border-radius: 10px; padding: 12px 14px; margin-bottom: 12px; background: var(--box-bg); }
-  .analisis-box p { font-size: 10px; color: var(--text-sec); line-height: 1.7; text-align: justify; }
+  .analisis-box p { font-size: 11px; color: var(--text-sec); line-height: 1.7; text-align: justify; }
 
   .metodo-box { background: var(--gray-50); border: 1px solid var(--gray-200); border-left: 3px solid var(--green-500); border-radius: 12px; padding: 12px 14px; font-size: 10px; color: var(--text-sec); line-height: 1.6; }
   .metodo-box .mb-title { font-weight: 700; color: var(--green-900); margin-bottom: 4px; font-size: 11px; }
@@ -1147,31 +1147,31 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
 
   <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px;">
     <div style="border:1px solid var(--gray-200);border-radius:8px;padding:9px 10px;text-align:center;background:var(--box-bg);">
-      <div style="font-size:8px;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:2px;">Muestra</div>
+      <div style="font-size:11px;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:2px;">Muestra</div>
       <div style="font-family:'Outfit',sans-serif;font-size:16px;font-weight:800;color:#1B4231;">{n_comp}</div>
-      <div style="font-size:8px;color:var(--text-sec);">comparables</div>
+      <div style="font-size:11px;color:var(--text-sec);">comparables</div>
     </div>
     <div style="border:1px solid var(--gray-200);border-radius:8px;padding:9px 10px;text-align:center;background:var(--box-bg);">
-      <div style="font-size:8px;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:2px;">$/m&#xB2; Medio</div>
+      <div style="font-size:11px;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:2px;">$/m&#xB2; Medio</div>
       <div style="font-family:'Outfit',sans-serif;font-size:16px;font-weight:800;color:#1B4231;">${avg_raw:,.0f}</div>
-      <div style="font-size:8px;color:var(--text-sec);">mercado zona</div>
+      <div style="font-size:11px;color:var(--text-sec);">mercado zona</div>
     </div>
     <div style="border:1px solid var(--gray-200);border-radius:8px;padding:9px 10px;text-align:center;background:var(--box-bg);">
-      <div style="font-size:8px;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:2px;">Aj. Promedio</div>
+      <div style="font-size:11px;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:2px;">Aj. Promedio</div>
       <div style="font-family:'Outfit',sans-serif;font-size:16px;font-weight:800;color:{adj_color_css};">{avg_adj_pct:+.1f}%</div>
-      <div style="font-size:8px;color:var(--text-sec);">homologación</div>
+      <div style="font-size:11px;color:var(--text-sec);">homologación</div>
     </div>
     <div style="border:1px solid var(--gray-200);border-radius:8px;padding:9px 10px;text-align:center;background:var(--box-bg);">
-      <div style="font-size:8px;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:2px;">$/m&#xB2; Ajustado</div>
+      <div style="font-size:11px;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:2px;">$/m&#xB2; Ajustado</div>
       <div style="font-family:'Outfit',sans-serif;font-size:16px;font-weight:800;color:#1B4231;">${avg_adj_sqm:,.0f}</div>
-      <div style="font-size:8px;color:var(--text-sec);">valor analizado</div>
+      <div style="font-size:11px;color:var(--text-sec);">valor analizado</div>
     </div>
   </div>
 
   <div style="display:flex;align-items:center;gap:10px;margin-top:8px;border:1px solid var(--gray-200);border-left:4px solid {conf_global_color};border-radius:8px;padding:8px 12px;background:var(--box-bg);">
-    <div style="font-size:8px;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.4px;">Confianza del avalúo</div>
+    <div style="font-size:11px;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.4px;">Confianza del avalúo</div>
     <div style="font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;color:{conf_global_color};">&#x25CF; {conf_global_label} ({conf_global}/100)</div>
-    <div style="font-size:8px;color:var(--text-sec);margin-left:auto;text-align:right;">Basada en {n_comp} comparables &middot; dispersión {conf_global_dispersion}% &middot; corroboración multi-portal</div>
+    <div style="font-size:11px;color:var(--text-sec);margin-left:auto;text-align:right;">Basada en {n_comp} comparables &middot; dispersión {conf_global_dispersion}% &middot; corroboración multi-portal</div>
   </div>
 
 {_footer(3)}
