@@ -49,6 +49,8 @@ import {
   Wind,
   Info,
   CreditCard,
+  Volume2,
+  VolumeX,
 } from "lucide-react";
 import { API } from "@/App";
 
@@ -508,6 +510,7 @@ const ValuationForm = () => {
   );
   const [isLoading, setIsLoading] = useState(false);
   const [adIndex, setAdIndex] = useState(0);
+  const [adMuted, setAdMuted] = useState(true); // autoplay arranca muted (política del navegador); usuario activa sonido
   const [adProgress, setAdProgress] = useState(0);
   const [user, setUser] = useState(null);
   const [acceso, setAcceso] = useState(null); // acceso de cortesía/prueba autorizado
@@ -952,13 +955,22 @@ const ValuationForm = () => {
               </div>
             </div>
 
-            {/* Video publicitario (Remotion) — prueba en el slot de espera */}
-            <video
-              src="/ads/propvalu-emo-horizontal.mp4"
-              autoPlay muted loop playsInline
-              className="w-full rounded-xl border border-white/10 shadow-lg bg-black"
-              style={{ aspectRatio: "16 / 9", objectFit: "cover" }}
-            />
+            {/* Video publicitario (Remotion) — autoplay muted + botón de sonido */}
+            <div className="relative w-full">
+              <video
+                src="/ads/propvalu-emo-horizontal.mp4"
+                autoPlay loop playsInline muted={adMuted}
+                className="w-full rounded-xl border border-white/10 shadow-lg bg-black"
+                style={{ aspectRatio: "16 / 9", objectFit: "cover" }}
+              />
+              <button
+                type="button"
+                onClick={() => setAdMuted(m => !m)}
+                className="absolute bottom-2 right-2 flex items-center gap-1.5 bg-black/70 hover:bg-black/90 text-white text-xs font-semibold rounded-full px-3 py-1.5 backdrop-blur transition-colors"
+              >
+                {adMuted ? <><VolumeX className="w-3.5 h-3.5" /> Activar sonido</> : <><Volume2 className="w-3.5 h-3.5" /> Silenciar</>}
+              </button>
+            </div>
             <div className="flex-1 flex flex-col items-center justify-center text-center px-2 py-4">
               <p className="text-[10px] font-bold text-[#D9ED92] uppercase tracking-widest mb-3">{ad.tag}</p>
               <h2 className="font-['Outfit'] text-2xl sm:text-3xl font-bold text-white mb-4 leading-snug">{ad.title}</h2>
