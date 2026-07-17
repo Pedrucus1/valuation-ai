@@ -2,20 +2,22 @@
 
 > **Único archivo que se lee al iniciar** (corto, siempre vigente). Tareas por # → `BACKLOG.md` (grep). Historial → `BACKLOG_ARCHIVE.md`. Motor → `MOTOR_ANTECEDENTES.md` (grep). **Se sobrescribe en cada cierre de sesión.**
 
-**Última actualización:** 17 Jul 2026
-**Fase:** Prod Railway (Hobby PAGADO) + Vercel público. Sesión 17-jul = arreglo mayor del flujo de avalúo (comparables reales, mapas Google, verificador, gamificación) + auditoría. Motor SIN cambios (caché 7-jul sigue desplegado).
+**Última actualización:** 17 Jul 2026 (2ª sesión)
+**Fase:** Prod Railway (Hobby PAGADO) + Vercel público. Sesión 17-jul = arreglo mayor del flujo de avalúo (comparables reales, mapas Google, verificador, gamificación) + auditoría **YA APLICADA Y DESPLEGADA** (commit `d8c0a40`). Motor SIN cambios (caché 7-jul sigue desplegado).
 
 ## ⚡ LO MÁS CALIENTE / decisiones vigentes
 - **Mapas Google RESUELTOS (17-jul).** La key EN USO vive en **avaluos** (`propvalu-mexico`, cuenta facturación `013DD6`, tarjeta Banamex ...5099) → `AIzaSyB0OMqh…`. Respaldo en **pedrucus** (`fair-geography-430001-k8`, billing `01F912`) → `AIzaSyCgsW8…`. **Sin restricción de referente**, Maps JS+Static habilitadas. Puestas en frontend/.env+Vercel y backend/.env+Railway. Detalle en `credentials_registry.md`. Ambos mapas (formulario arrastrable + reporte Static) verificados 200. Odisea de billing: la cuenta avaluos tardó en verificar documento; se destrabó al final.
 - **Comparables reales de la zona (17-jul, DESPLEGADO, el fix estrella).** Bug histórico: `search_comparables_from_mongo` comparaba `tipo="Casa"` (mayúscula) vs `"casa"` (minúscula del pool) + municipio con espacio → **0 resultados → la OPI caía a modo `simulated`** (comparables inventados sin URL + entorno enlatado con "Av. Vallarta"). Fix: normalizar casing + strip municipio + **filtro de proximidad por colonia y banda $/m² del segmento** (no mezcla Chapalita $175k/m² con Ixtepete $25k/m²). Medido en prod: Ixtepete devuelve 6 reales de la zona. `mongo_comparables.py` + `server.py`.
 - **Motor: NO reconstruir el caché.** El del **7-jul (63.1/74.8/83.5) es el mejor y está desplegado.** Reconstruir REGRESA ~3pp por deriva de datos, no catastrófico. Detalle en `MOTOR_ANTECEDENTES.md`. Reglas: reportar pass-rates+errAbs, la "mediana" del validador es ruido.
 
-## 🔧 PENDIENTE — arreglos de la AUDITORÍA (17-jul, NO aplicados; el usuario aún no dio go)
-1. **ValuationForm.jsx:976,979 (MEDIA, pérdida de datos):** el payload lee `formData.parking_spaces` y `formData.floor_number`, **campos inexistentes** → estacionamientos y piso/nivel se guardan SIEMPRE `null`. Campos reales: `parking_covered/uncovered/spots` y `property_level`. Falta confirmar mapeo (parking = cubiertos+descubiertos? floor = property_level con "PB"→0?) y arreglar.
-2. **Geocode 404 (MEDIA):** NO existe endpoint `/geocode` en backend, pero el buscador de dirección del mapa lo llama → búsqueda por dirección rota (el pin arrastrable lo mitiga). Fix propuesto: geocodificar del lado del navegador con `google.maps.Geocoder`.
-3. **gamificacion.py sin try/except (MEDIA):** un doc con `edad_fecha` corrupto tumbaría `/leaderboard` con 500. Blindar.
-4. **ESLint deshabilitado de facto (MEDIA tooling):** react-scripts 5 vs eslint 9 → el build no corre el linter (0 warnings falsos). Fijar `eslint@^8`.
-5. **Bajos:** doble contador de puntos UTC vs México (decidir fuente de verdad; admin sale en leaderboard pero no en `users`); `/api/valuations` sin sesión responde `[]` 200 sin gate; imports/estados sin usar en EdadesZonaPage (`Command*`, `Award`, `tipoEdit`, `puntos`/`diaStats`); confeti sin `cancelAnimationFrame`; static_map iframe con key vacía. **pytest no instalado** → los 6 tests no corren.
+## ✅ AUDITORÍA 17-jul — RESUELTA Y DESPLEGADA (commit `d8c0a40`)
+1. **ValuationForm parking/piso:** payload leía `parking_spaces`/`floor_number` inexistentes → mapea `parking_spots` (o cubiertos+descubiertos) y `property_level` (PB→0). ✅
+2. **Geocode 404:** `/geocode` no existe → `google.maps.Geocoder` en el navegador (componentRestrictions MX). ✅
+3. **gamificacion.py 500:** `$toDate` lanzaba con `edad_fecha` corrupto → `$dateFromString onError:null` (ignora docs inválidos). ✅
+4. **ESLint:** `eslint 9→^8.57.1`, `npm install --legacy-peer-deps` → build vuelve a lintar (0 warnings). ✅
+5. **Bajos:** doble contador alineado a **día local MX** en `edades.py` (fuente de verdad = gamificacion.py); `static_map` sin iframe si key vacía; imports/estado muertos fuera de EdadesZonaPage; pytest instalado. ✅
+   - **NO tocados (con razón ponytail):** `/api/valuations` sin sesión → `[]` (no filtra datos, dashboard espera array; 401 lo rompería); confeti sin `cancelAnimationFrame` (loop auto-terminante 2-3s, `clearRect` sobre canvas desmontado no lanza).
+   - **pytest:** instalado, pero los 6 tests de integración viejos (v22-v26) requieren servidor vivo + chocan con incompat pytest+Python 3.14 (`I/O operation on closed file`). No es código del proyecto.
 
 ## ✅ Hecho reciente (17 Jul) — flujo de avalúo + gamificación + mapas
 - **Comparables reales de la zona** (ver LO MÁS CALIENTE). Raíz también explicaba la OPI de Ixtepete `val_6fc91c341233` que salía con "Av. Vallarta" y comparables sin URL (era modo simulated por el casing).
