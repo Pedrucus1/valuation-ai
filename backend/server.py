@@ -165,6 +165,7 @@ from routers.reviews import router as reviews_router
 from routers.edades import router as edades_router
 from routers.data_exchange import router as data_exchange_router
 from routers.gamificacion import router as gamificacion_router
+from routers.admin_auth import router as admin_auth_router
 
 # Auth y sesión -> routers/auth.py (#66.1)
 
@@ -1629,75 +1630,9 @@ async def health():
     return {"status": "healthy", "uptime_seconds": _metrics.uptime_seconds()}
 
 # ============== ADMIN AUTH ==============
-
-ADMIN_SECRET = os.environ.get("ADMIN_SECRET")
-if not ADMIN_SECRET:
-    raise RuntimeError("ADMIN_SECRET no está definida en las variables de entorno")
 from core.config import UPLOADS_DIR, KYC_DIR, ADS_DIR
 
-class AdminLoginRequest(BaseModel):
-    email: str
-    password: str
-
-def _matches_admin_secret(password: str) -> bool:
-    """Comparación timing-safe contra ADMIN_SECRET (S2)."""
-    return hmac.compare_digest(password.encode("utf-8"), ADMIN_SECRET.encode("utf-8"))
-
-
-@api_router.post("/admin/auth/login")
-@limiter.limit("10/minute")
-async def admin_login(request: Request, data: AdminLoginRequest):
-    admin = await db.admins.find_one({"email": data.email}, {"_id": 0})
-    if not admin:
-        # Bootstrap del superadmin desde env (solo si aún no existe). Se guarda YA
-        # con hash bcrypt: no se vuelve a usar ADMIN_SECRET para este admin (S1).
-        if data.email == os.environ.get("ADMIN_EMAIL", "admin@propvalu.mx") and _matches_admin_secret(data.password):
-            token = f"adm_{uuid.uuid4().hex}"
-            doc = {
-                "admin_id": f"adm_{uuid.uuid4().hex[:8]}",
-                "email": data.email,
-                "nombre": "Super Admin",
-                "rol": "superadmin",
-                "hashed_password": pwd_context.hash(data.password),
-                "token": token,
-                "token_expires_at": new_admin_token_expiry(),
-                "activo": True,
-                "created_at": datetime.now(timezone.utc).isoformat(),
-            }
-            await db.admins.insert_one(doc)
-            return {k: v for k, v in doc.items() if k not in ("_id", "hashed_password")}
-        raise HTTPException(status_code=401, detail="Credenciales incorrectas")
-
-    stored_hash = admin.get("hashed_password")
-    if stored_hash:
-        if not pwd_context.verify(data.password, stored_hash):
-            raise HTTPException(status_code=401, detail="Credenciales incorrectas")
-    else:
-        # Admin legacy sin hash: migración perezosa. Acepta ADMIN_SECRET una sola
-        # vez y guarda el hash; a partir de ahí ya no hay secreto compartido (S1).
-        if not _matches_admin_secret(data.password):
-            raise HTTPException(status_code=401, detail="Credenciales incorrectas")
-        await db.admins.update_one(
-            {"email": data.email},
-            {"$set": {"hashed_password": pwd_context.hash(data.password)}},
-        )
-
-    token = f"adm_{uuid.uuid4().hex}"
-    expiry = new_admin_token_expiry()
-    await db.admins.update_one(
-        {"email": data.email},
-        {"$set": {"token": token, "token_expires_at": expiry}},
-    )
-    return {
-        **{k: v for k, v in admin.items() if k not in ("_id", "hashed_password")},
-        "token": token,
-        "token_expires_at": expiry,
-    }
-
-@api_router.get("/admin/auth/me")
-async def admin_me(request: Request):
-    admin = await require_admin(request)
-    return admin
+# Admin auth (login / me) -> routers/admin_auth.py (#66.1)
 
 # Admin usuarios -> routers/admin_usuarios.py (#66.1)
 
@@ -2058,6 +1993,7 @@ app.include_router(reviews_router)
 app.include_router(edades_router)
 app.include_router(data_exchange_router)
 app.include_router(gamificacion_router)
+app.include_router(admin_auth_router)
 
 # Serve uploaded files (ads, kyc)
 app.mount("/uploads", StaticFiles(directory=str(UPLOADS_DIR)), name="uploads")
