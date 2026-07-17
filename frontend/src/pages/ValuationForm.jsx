@@ -371,9 +371,17 @@ const LocationMap = ({ latitude, longitude, onLocationChange, address, autoSearc
       <div className="relative rounded-lg overflow-hidden border border-slate-200" style={{ height: "280px" }}>
         <div ref={mapContainerRef} className="w-full h-full" />
         {mapError && (
-          <div className="absolute inset-0 flex items-center justify-center bg-slate-50 text-sm text-slate-500 p-4 text-center">
-            No se pudo cargar el mapa. Verifica tu conexión o la clave de Google Maps.
-          </div>
+          // Respaldo: si la JS API no está habilitada en la key, mostramos el mapa
+          // embebido (no arrastrable, pero visible). Se vuelve interactivo al habilitar
+          // "Maps JavaScript API" en la key de Google.
+          <iframe
+            title="Ubicación"
+            className="absolute inset-0 w-full h-full"
+            frameBorder="0"
+            style={{ border: 0 }}
+            src={`https://www.google.com/maps/embed/v1/place?key=${GOOGLE_MAPS_KEY}&q=${latitude},${longitude}&zoom=16`}
+            allowFullScreen
+          />
         )}
       </div>
 
