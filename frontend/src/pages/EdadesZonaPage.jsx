@@ -55,6 +55,9 @@ const REMOD_RANGES = [
 ];
 
 const TIPOS = ["Casa", "Departamento", "Terreno", "Local", "Oficina", "Rancho"];
+// Terreno sin construcción, sin importar mayúsculas ni origen del dato (el pool guarda "Terreno",
+// el dropdown usa "terreno"). "terreno_construido" NO cuenta (ese sí lleva edad).
+const esTerrenoSinConstruccion = (tp) => String(tp || "").trim().toLowerCase() === "terreno";
 // Opciones para corregir el tipo scrapeado (valor en minúscula = como lo guarda el pool).
 const TIPO_OPCIONES = [
   { v: "casa", l: "Casa" }, { v: "departamento", l: "Departamento" },
@@ -446,7 +449,7 @@ const EdadesZonaPage = () => {
   const guardar = async (it) => {
     const id = it.id_unico;
     const payload = construirPayload(it);
-    const esTerreno = ((tiposEdit[id]?.[0]) ?? it.tipo_propiedad) === "terreno";
+    const esTerreno = esTerrenoSinConstruccion((tiposEdit[id]?.[0]) ?? it.tipo_propiedad);
     if (esTerreno) {
       // Terreno: no lleva edad/conservación. Guardar = confirmar correcto tal cual
       // (con o sin corrección de colonia/tipo) → lo saca de la lista sin exigir edad.
@@ -758,7 +761,7 @@ const EdadesZonaPage = () => {
                   </label>
                 </div>
                 {/* Terreno sin construcción: no aplica edad/conservación/remodelación (solo se corrige colonia). "terreno_construido" sí las lleva. */}
-                {((tiposEdit[it.id_unico]?.[0]) ?? it.tipo_propiedad) === "terreno" ? (
+                {esTerrenoSinConstruccion((tiposEdit[it.id_unico]?.[0]) ?? it.tipo_propiedad) ? (
                   <p className="text-[13px] text-slate-500 leading-snug bg-slate-50 border border-slate-200 rounded-lg px-3 py-2">
                     Terreno sin construcción — no se pide edad ni conservación. Corrige colonia/tipo si hace falta y pulsa <b>Guardar</b> para confirmarlo (sale de la lista aunque no cambies nada).
                   </p>

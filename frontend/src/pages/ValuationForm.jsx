@@ -152,7 +152,7 @@ const SPECIAL_FEATURES = [
   { id: "kitchen_integral", label: "Cocina Integral", icon: Utensils },
   { id: "solar_panels", label: "Paneles Solares", icon: Sun },
   { id: "solar_heater", label: "Calentador Solar", icon: Thermometer },
-  { id: "cistern", label: "Cisterna", icon: Droplets },
+  { id: "cistern", label: "Cisterna/Aljibe", icon: Droplets },
   { id: "electric_fence", label: "Cerca Eléctrica", icon: Zap },
   { id: "ac", label: "Aire Acondicionado", icon: Wind }
 ];
@@ -937,8 +937,8 @@ const ValuationForm = () => {
       {isLoading && showAds && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4"
              style={{ backgroundColor: "rgba(0,0,0,0.65)", backdropFilter: "blur(4px)" }}>
-          <div className="bg-[#1B4332] rounded-2xl shadow-2xl border border-white/20 flex flex-col items-center justify-between p-8"
-               style={{ width: "min(90vw, 520px)", height: "min(90vw, 520px)" }}>
+          <div className="bg-[#1B4332] rounded-2xl shadow-2xl border border-white/20 flex flex-col items-center justify-between gap-4 p-6"
+               style={{ width: "min(92vw, 540px)", maxHeight: "94vh" }}>
             <div className="flex flex-col items-center gap-3 w-full">
               <div className="flex items-center gap-2">
                 <Building2 className="w-6 h-6 text-[#D9ED92]" />
@@ -951,6 +951,14 @@ const ValuationForm = () => {
                 <p className="text-white/60 text-xs">Generando tu valuación...</p>
               </div>
             </div>
+
+            {/* Video publicitario (Remotion) — prueba en el slot de espera */}
+            <video
+              src="/ads/propvalu-emo-horizontal.mp4"
+              autoPlay muted loop playsInline
+              className="w-full rounded-xl border border-white/10 shadow-lg bg-black"
+              style={{ aspectRatio: "16 / 9", objectFit: "cover" }}
+            />
             <div className="flex-1 flex flex-col items-center justify-center text-center px-2 py-4">
               <p className="text-[10px] font-bold text-[#D9ED92] uppercase tracking-widest mb-3">{ad.tag}</p>
               <h2 className="font-['Outfit'] text-2xl sm:text-3xl font-bold text-white mb-4 leading-snug">{ad.title}</h2>
@@ -1656,14 +1664,14 @@ const ValuationForm = () => {
               {/* Tipo de frente — al final de columna izquierda */}
               <div className="space-y-2">
                 <Label className="text-sm font-semibold text-[#1B4332] flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-[#52B788]" /> Tipo de Frente del Inmueble
+                  <MapPin className="w-4 h-4 text-[#52B788]" /> ¿A cuántas calles da el inmueble?
                 </Label>
                 <Select
                   value={formData.frontage_type || undefined}
                   onValueChange={(value) => handleInputChange('frontage_type', value)}
                 >
                   <SelectTrigger className="h-12">
-                    <SelectValue placeholder="Seleccione tipo de frente" />
+                    <SelectValue placeholder="Selecciona cuántos frentes (lados a la calle) tiene" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="medianero">▪ 1 Frente — Medianero (interior, sin ventaja de esquina)</SelectItem>
