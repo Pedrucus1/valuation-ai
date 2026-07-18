@@ -6,7 +6,7 @@ import {
   Waves, Dumbbell, Shield, Trees, Sun, Wine, Wind, Car, Monitor,
   Box, Droplets, Zap, Camera, Wifi, Tv, Utensils, BookOpen, Bed,
   Gamepad2, Droplet, Plus, X, CheckCircle2, Building2, AlertCircle,
-  ChevronRight
+  ChevronRight, ZoomIn, ZoomOut, LayoutTemplate, Palette, DollarSign, Type, Star
 } from "lucide-react";
 import html2canvas from "html2canvas";
 import { toast } from "sonner";
@@ -19,6 +19,9 @@ import LayoutMinimalista from "./promociones/LayoutMinimalista";
 import LayoutUltraLujo from "./promociones/LayoutUltraLujo";
 import LayoutStitch from "./promociones/LayoutStitch";
 import LayoutStitchHub from "./promociones/LayoutStitchHub";
+import LayoutJustListed from "./promociones/LayoutJustListed";
+import SecuenciasJustListed from "./promociones/SecuenciasJustListed";
+import { exportSecuenciasGif } from "./promociones/secuenciasGif";
 
 const API = process.env.REACT_APP_BACKEND_URL || "http://localhost:8000";
 
@@ -65,6 +68,7 @@ const TEMA_THUMB = {
   stitch_obsidian: { bg: "#0D0D0D", accent: "#f59e0b", foto: THUMBS.stitch_obsidian },
   stitch_new:      { bg: "#111827", accent: "#d97706", foto: THUMBS.stitch_gallery },
   moderno:         { bg: "#1B4332", accent: "#52B788", foto: SAMPLE_FOTOS[5] },
+  just_listed:     { bg: "#2F3527", accent: "#B08B4F", foto: SAMPLE_FOTOS[3] },
 };
 
 const LayoutThumb = ({ temaId, nombre }) => {
@@ -102,7 +106,30 @@ const LayoutThumb = ({ temaId, nombre }) => {
   );
 };
 
+// Formatos disponibles por estilo (para los pills del diseñador)
+const FORMATOS = {
+  stitch_new: [
+    ["stitch_gallery", "A4 · Gallery"], ["stitch_letter", "A4 · Carta"], ["stitch_asymmetry", "A4 · Asymmetry"],
+    ["stitch_facebook", "Facebook 3:2"], ["stitch_tiktok", "Reels 9:16"], ["stitch_kit", "Marketing Kit"],
+  ],
+  moderno: [["vertical_2p", "Folleto A4"], ["horizontal", "Ficha Carta"], ["reels", "TikTok / Reels"], ["post", "Post 1:1"]],
+  just_listed: [["vertical_2p", "Folleto A4"], ["post", "Post 1:1"], ["reels", "Story / Reels"], ["horizontal", "Facebook"]],
+  _default: [["vertical_2p", "Folleto A4"], ["horizontal", "Presentación 16:9"], ["reels", "TikTok / Reels"], ["post", "Post 1:1"]],
+};
+const formatosDe = (t) => FORMATOS[t] || FORMATOS._default;
+
+// Secciones del rail tipo Canva (cada ícono abre su panel; sin scroll largo)
+const SECCIONES = [
+  { id: "estilo",     label: "Estilo y formato",     short: "Estilo",  Icon: LayoutTemplate },
+  { id: "color",      label: "Paleta de color",      short: "Color",   Icon: Palette },
+  { id: "precio",     label: "Precio a mostrar",     short: "Precio",  Icon: DollarSign },
+  { id: "texto",      label: "Descripción e idioma", short: "Texto",   Icon: Type },
+  { id: "puntos",     label: "Puntos destacados",    short: "Puntos",  Icon: Star },
+  { id: "amenidades", label: "Amenidades y extras",  short: "Extras",  Icon: Sparkles },
+];
+
 const getLayoutComponent = (temaId) => {
+  if (temaId === "just_listed") return LayoutJustListed;
   if (temaId === "stitch_new") return LayoutStitchHub;
   if (temaId === "stitch_obsidian") return LayoutStitch;
   if (temaId === "luxury") return LayoutUltraLujo;
@@ -220,6 +247,10 @@ const PromocionesTab = ({ valuacionesList, session }) => {
   const [temaSeleccionado, setTemaSeleccionado] = useState("classic");
   const [formatoSeleccionado, setFormatoSeleccionado] = useState("vertical_2p");
   const [hojaActiva, setHojaActiva] = useState(1);
+  const [zoom, setZoom] = useState(0.5);
+  const [secuencias, setSecuencias] = useState(false);
+  const [gifProgress, setGifProgress] = useState(null); // null | 0-100
+  const [seccionActiva, setSeccionActiva] = useState("estilo"); // rail tipo Canva
   const [idioma, setIdioma] = useState("es");
   const [tipoPrecio, setTipoPrecio] = useState("oferta");
   const [precioAjustado, setPrecioAjustado] = useState("");
@@ -592,24 +623,38 @@ const PromocionesTab = ({ valuacionesList, session }) => {
   // ════════════════════════════════════════════════════════════════════════════
   if (fichaAvaluo) {
     return (
-      <div className="flex flex-col h-[calc(100vh-100px)] pt-2">
-        {/* Barra superior */}
-        <div className="flex items-center gap-3 mb-3">
+      <div className="flex flex-col h-[calc(100vh-96px)] pt-1">
+        {/* Barra superior: navegación · avisos · acciones (todo en una fila) */}
+        <div className="flex items-center gap-2 mb-3 flex-wrap">
           <Button variant="outline" onClick={() => setFichaAvaluo(null)}
-            className="w-10 h-10 rounded-full p-0 flex items-center justify-center text-[#1B4332] border-[#1B4332] hover:bg-[#1B4332] hover:text-white shrink-0">
+            className="w-9 h-9 rounded-full p-0 flex items-center justify-center text-[#1B4332] border-[#1B4332] hover:bg-[#1B4332] hover:text-white shrink-0">
             <ChevronLeft className="w-5 h-5" />
           </Button>
-          <div className="flex-1 min-w-0">
-            <h2 className="text-base font-bold font-['Outfit'] text-[#1B4332] truncate">Diseñador de Ficha</h2>
-            <p className="text-xs text-slate-500 truncate">{fichaAvaluo.direccion}</p>
+          <div className="min-w-0 max-w-[210px]">
+            <h2 className="text-sm font-bold font-['Outfit'] text-[#1B4332] truncate">
+              Diseñador <span className="font-normal text-slate-500">· {fichaAvaluo.direccion}</span>
+            </h2>
           </div>
-          {fichaAvaluo._esManual && (
-            <span className="text-[10px] font-bold uppercase tracking-wide bg-blue-100 text-blue-700 px-2 py-1 rounded-full shrink-0">Manual</span>
+          <span className={`text-[10px] font-bold uppercase tracking-wide px-2 py-1 rounded-full shrink-0 ${fichaAvaluo._esManual ? "bg-blue-100 text-blue-700" : "bg-green-100 text-green-700"}`}>
+            {fichaAvaluo._esManual ? "Manual" : "OPI"}
+          </span>
+          {/* Chip de precio (abre la sección Precio) */}
+          <button onClick={() => setSeccionActiva("precio")} title="Editar precio a mostrar"
+            className="flex items-center gap-1 text-xs font-bold text-[#1B4332] bg-[#F0FAF5] border border-[#B7E4C7] px-2.5 py-1.5 rounded-full hover:bg-[#D9F0E3] shrink-0">
+            <DollarSign className="w-3.5 h-3.5" /> {formatMXN(precioFinal)}
+          </button>
+          {/* Aviso compacto: precio fuera de mercado */}
+          {bannerMercado && (
+            <span className="flex items-center gap-1 text-[11px] font-semibold text-amber-700 bg-amber-50 border border-amber-200 px-2.5 py-1.5 rounded-full shrink-0"
+              title="Una valuación formal puede darte certeza y credibilidad ante el comprador.">
+              <AlertCircle className="w-3.5 h-3.5" /> Precio fuera de mercado
+              <button onClick={() => setBannerMercado(false)} className="text-amber-400 hover:text-amber-600 ml-0.5"><X className="w-3 h-3" /></button>
+            </span>
           )}
-          {!fichaAvaluo._esManual && (
-            <span className="text-[10px] font-bold uppercase tracking-wide bg-green-100 text-green-700 px-2 py-1 rounded-full shrink-0">OPI</span>
-          )}
-          <div className="flex gap-2 shrink-0">
+          <div className="flex gap-2 shrink-0 ml-auto">
+            <Button onClick={() => setSecuencias(true)} variant="outline" className="text-xs px-3 h-8 border-[#B08B4F] text-[#8b6914] hover:bg-[#faf6ee]">
+              <Sparkles className="w-3.5 h-3.5 mr-1.5" /> Secuencias
+            </Button>
             <Button onClick={() => exportarFicha("pdf")} className="bg-[#1B4332] hover:bg-[#2D6A4F] text-white text-xs px-3 h-8">
               <Download className="w-3.5 h-3.5 mr-1.5" /> PDF
             </Button>
@@ -619,25 +664,27 @@ const PromocionesTab = ({ valuacionesList, session }) => {
           </div>
         </div>
 
-        {/* Banner: precio fuera de mercado */}
-        {bannerMercado && (
-          <div className="flex items-start gap-3 bg-amber-50 border border-amber-200 rounded-xl p-3 mb-3 text-sm">
-            <AlertCircle className="w-4 h-4 text-amber-500 mt-0.5 shrink-0" />
-            <div className="flex-1">
-              <p className="text-amber-800 font-semibold text-xs">El precio parece alejarse del mercado de la zona</p>
-              <p className="text-amber-600 text-xs mt-0.5">Una valuación formal puede darte certeza y credibilidad ante el comprador.</p>
-            </div>
-            <button onClick={() => setBannerMercado(false)} className="text-amber-400 hover:text-amber-600"><X className="w-4 h-4" /></button>
-          </div>
-        )}
-
         {/* Split panel */}
         <div className="flex flex-col lg:flex-row gap-4 flex-1 min-h-0">
 
-          {/* ── Panel izquierdo ── */}
-          <div className="w-full lg:w-[380px] shrink-0 overflow-y-auto pr-1 pb-10 space-y-4">
+          {/* ── Rail tipo Canva + panel de la sección activa (rail arriba en móvil, al lado en desktop) ── */}
+          <div className="flex flex-col lg:flex-row shrink-0 min-h-0 w-full lg:w-auto">
+            {/* Rail de íconos */}
+            <div className="flex flex-row lg:flex-col gap-1 bg-white border border-slate-200 rounded-t-xl lg:rounded-t-none lg:rounded-l-xl p-1.5 self-stretch lg:self-start shrink-0 overflow-x-auto lg:overflow-visible">
+              {SECCIONES.map(s => (
+                <button key={s.id} onClick={() => setSeccionActiva(s.id)} title={s.label}
+                  className={`w-12 h-12 shrink-0 rounded-lg flex flex-col items-center justify-center gap-0.5 transition-colors ${seccionActiva === s.id ? "bg-[#1B4332] text-white" : "text-slate-500 hover:bg-slate-100"}`}>
+                  <s.Icon className="w-[18px] h-[18px]" />
+                  <span className="text-[8px] font-semibold leading-none">{s.short}</span>
+                </button>
+              ))}
+            </div>
+
+            {/* Panel de la sección activa */}
+            <div className="w-full lg:w-[320px] bg-slate-50 border border-t-0 lg:border-t lg:border-l-0 border-slate-200 rounded-b-xl lg:rounded-b-none lg:rounded-r-xl p-3 overflow-y-auto space-y-4">
 
             {/* Paleta de color */}
+            {seccionActiva === "color" && (
             <Card className="border-slate-200">
               <CardContent className="p-4">
                 <label className="label-xs mb-3 block">Paleta de color</label>
@@ -653,13 +700,15 @@ const PromocionesTab = ({ valuacionesList, session }) => {
                 </div>
               </CardContent>
             </Card>
+            )}
 
             {/* Estilo + Formato */}
+            {seccionActiva === "estilo" && (
             <Card className="border-slate-200">
               <CardContent className="p-4 space-y-3">
                 <label className="label-xs block">Estilo de diseño</label>
                 <div className="grid grid-cols-2 gap-2">
-                  {[...Object.entries(TEMAS), ["moderno", { nombre: "Moderno" }]].map(([id, t]) => (
+                  {[...Object.entries(TEMAS), ["moderno", { nombre: "Moderno" }], ["just_listed", { nombre: "Just Listed" }]].map(([id, t]) => (
                     <button key={id} onClick={() => {
                       setTemaSeleccionado(id);
                       // Preserva el formato actual al cambiar de estilo (mapea entre familias)
@@ -686,37 +735,22 @@ const PromocionesTab = ({ valuacionesList, session }) => {
                 </div>
                 <div>
                   <label className="label-xs mb-1 block">Formato</label>
-                  <select className="input-base text-xs" value={formatoSeleccionado} onChange={e => setFormatoSeleccionado(e.target.value)}>
-                    {temaSeleccionado === "stitch_new" ? (
-                      <>
-                        <option value="stitch_gallery">A4 – Gallery Focus</option>
-                        <option value="stitch_letter">A4 – Carta Clásica</option>
-                        <option value="stitch_asymmetry">A4 – Modern Asymmetry</option>
-                        <option value="stitch_facebook">Social – Facebook (3:2)</option>
-                        <option value="stitch_tiktok">Social – TikTok/Reels (9:16)</option>
-                        <option value="stitch_kit">Marketing Kit</option>
-                      </>
-                    ) : temaSeleccionado === "moderno" ? (
-                      <>
-                        <option value="vertical_2p">Folleto A4 (2 páginas)</option>
-                        <option value="horizontal">Ficha Carta (dos columnas)</option>
-                        <option value="reels">TikTok / Reels (3 slides)</option>
-                        <option value="post">Post Cuadrado 1:1</option>
-                      </>
-                    ) : (
-                      <>
-                        <option value="vertical_2p">Folleto Vertical (A4)</option>
-                        <option value="horizontal">Presentación 16:9</option>
-                        <option value="reels">TikTok / Reels (9:16)</option>
-                        <option value="post">Post Cuadrado (1:1)</option>
-                      </>
-                    )}
-                  </select>
+                  <div className="flex flex-wrap gap-1.5">
+                    {formatosDe(temaSeleccionado).map(([val, label]) => (
+                      <button key={val} onClick={() => setFormatoSeleccionado(val)}
+                        className={`px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ${formatoSeleccionado === val ? "bg-[#1B4332] text-white border-[#1B4332]" : "bg-white text-slate-600 border-slate-200 hover:border-[#52B788]"}`}>
+                        {label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </CardContent>
             </Card>
 
+            )}
+
             {/* Precio */}
+            {seccionActiva === "precio" && (
             <Card className="border-slate-200">
               <CardContent className="p-4 space-y-2">
                 <label className="label-xs block">Precio a mostrar</label>
@@ -736,7 +770,10 @@ const PromocionesTab = ({ valuacionesList, session }) => {
               </CardContent>
             </Card>
 
+            )}
+
             {/* Descripción + Idioma */}
+            {seccionActiva === "texto" && (
             <Card className="border-slate-200">
               <CardContent className="p-4 space-y-3">
                 <div className="flex justify-between items-center">
@@ -763,7 +800,10 @@ const PromocionesTab = ({ valuacionesList, session }) => {
               </CardContent>
             </Card>
 
+            )}
+
             {/* Puntos de valor */}
+            {seccionActiva === "puntos" && (
             <Card className="border-slate-200">
               <CardContent className="p-4 space-y-3">
                 <label className="label-xs block">Puntos destacados</label>
@@ -797,8 +837,10 @@ const PromocionesTab = ({ valuacionesList, session }) => {
               </CardContent>
             </Card>
 
+            )}
+
             {/* Amenidades / Instalaciones / Espacios */}
-            {[
+            {seccionActiva === "amenidades" && [
               { label: "Amenidades", state: amenidadesStr, set: setAmenidadesStr, icons: AMENIDADES_ICONS },
               { label: "Instalaciones", state: instalacionesStr, set: setInstalacionesStr, icons: INSTALACIONES_ICONS },
               { label: "Espacios interiores", state: espaciosStr, set: setEspaciosStr, icons: ESPACIOS_ICONS },
@@ -820,10 +862,26 @@ const PromocionesTab = ({ valuacionesList, session }) => {
                 </CardContent>
               </Card>
             ))}
+            </div>
           </div>
 
           {/* ── Panel derecho: preview ── */}
           <div className="flex-1 bg-slate-200/60 rounded-2xl border border-slate-300 relative flex flex-col overflow-hidden shadow-inner">
+            {/* Control de zoom */}
+            <div className="absolute top-3 right-3 z-20 flex items-center gap-1 bg-white rounded-full shadow-lg border border-slate-200 px-1.5 py-1">
+              <button onClick={() => setZoom(z => Math.max(0.25, Math.round((z - 0.1) * 100) / 100))}
+                title="Alejar" className="w-7 h-7 rounded-full flex items-center justify-center text-slate-600 hover:bg-slate-100">
+                <ZoomOut className="w-4 h-4" />
+              </button>
+              <button onClick={() => setZoom(0.5)} title="Restablecer"
+                className="text-[11px] font-bold text-slate-600 tabular-nums w-11 text-center hover:text-[#1B4332]">
+                {Math.round(zoom * 100)}%
+              </button>
+              <button onClick={() => setZoom(z => Math.min(1.5, Math.round((z + 0.1) * 100) / 100))}
+                title="Acercar" className="w-7 h-7 rounded-full flex items-center justify-center text-slate-600 hover:bg-slate-100">
+                <ZoomIn className="w-4 h-4" />
+              </button>
+            </div>
             {tieneHoja2 && (
               <div className="absolute top-3 left-0 right-0 z-20 flex justify-center">
                 <div className="bg-white rounded-full shadow-lg border border-slate-200 p-1 flex items-center gap-1">
@@ -837,7 +895,7 @@ const PromocionesTab = ({ valuacionesList, session }) => {
               </div>
             )}
             <div className="flex-1 overflow-y-auto p-4 flex justify-center items-start">
-              <div style={{ zoom: 0.5 }} className="origin-top transition-transform duration-300">
+              <div style={{ zoom }} className="origin-top transition-transform duration-300">
                 {/* Hoja 1 — siempre en DOM para export PDF */}
                 <div style={{ display: tieneHoja2 && hojaActiva === 2 ? "none" : "block" }}>
                   <LayoutComponent
@@ -879,6 +937,42 @@ const PromocionesTab = ({ valuacionesList, session }) => {
             </div>
           </div>
         </div>
+        {/* ── Overlay: Secuencias (loop tipo GIF/TikTok 9:16) ── */}
+        {secuencias && (
+          <div className="fixed inset-0 z-[80] flex flex-col items-center justify-center p-4"
+            style={{ background: "rgba(20,18,15,.92)" }} onClick={() => setSecuencias(false)}>
+            <button onClick={() => setSecuencias(false)}
+              className="absolute top-4 right-5 z-10 bg-[#F4EFE4] text-[#2A2A24] rounded-full px-4 py-2 text-sm font-bold shadow-lg">
+              ✕ Cerrar
+            </button>
+            <div onClick={e => e.stopPropagation()} className="flex flex-col items-center gap-3">
+              <p className="text-[#C9A96A] text-xs font-bold uppercase tracking-[0.2em]">Secuencias · Just Listed · 9:16</p>
+              <SecuenciasJustListed
+                fichaAvaluo={fichaConPrecio}
+                session={session}
+                formatMXN={formatMXN}
+                scale={Math.max(0.2, Math.min((window.innerHeight - 220) / 1920, (window.innerWidth - 80) / 1080))}
+              />
+              <button
+                disabled={gifProgress !== null}
+                onClick={async () => {
+                  try {
+                    setGifProgress(0);
+                    await exportSecuenciasGif({ nombre: fichaAvaluo?.direccion || "propiedad", onProgress: setGifProgress });
+                    toast.success("GIF descargado");
+                  } catch (e) { toast.error(e.message || "No se pudo generar el GIF"); }
+                  finally { setGifProgress(null); }
+                }}
+                className="mt-1 bg-[#B08B4F] hover:bg-[#9a7943] disabled:opacity-60 text-white font-bold text-sm px-5 py-2.5 rounded-full shadow-lg flex items-center gap-2">
+                <Download className="w-4 h-4" />
+                {gifProgress === null ? "Descargar GIF" : `Generando… ${gifProgress}%`}
+              </button>
+              <p className="text-[#b8b2a4] text-[11px] max-w-xs text-center">
+                Loop de 3 secuencias con zoom y transición (9:16, {`~9s`}). El GIF autoplaya en redes, WhatsApp y correo.
+              </p>
+            </div>
+          </div>
+        )}
       </div>
     );
   }

@@ -722,7 +722,7 @@ const InmobiliariaDashboardPage = () => {
     { id: "publicidad",   label: "Publicidad" },
     { id: "promociones",  label: "Promociones" },
     ...(esTitular ? [{ id: "data_exchange", label: "Data Exchange" }] : []),
-    { id: "edades",       label: "Verificación de Datos por Zona", to: "/edades-zona" },
+    { id: "edades",       label: "Verificación por Zona", to: "/edades-zona" },
   ];
 
   /* ── Facturación Tab ── */
@@ -2219,10 +2219,10 @@ const InmobiliariaDashboardPage = () => {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5">
         {/* KYC Banner */}
         {showKycBanner && (
-          <div className={`mb-6 flex items-start justify-between gap-3 rounded-lg px-4 py-3 border ${docsCompletos ? "bg-blue-50 border-blue-200" : "bg-amber-50 border-amber-200"}`}>
+          <div className={`mb-3 flex items-center justify-between gap-3 rounded-lg px-4 py-2 border ${docsCompletos ? "bg-blue-50 border-blue-200" : "bg-amber-50 border-amber-200"}`}>
             <div className="flex items-start gap-3">
               <AlertTriangle className={`w-5 h-5 shrink-0 mt-0.5 ${docsCompletos ? "text-blue-500" : "text-amber-600"}`} />
               <p className={`text-sm ${docsCompletos ? "text-blue-800" : "text-amber-800"}`}>
@@ -2247,13 +2247,13 @@ const InmobiliariaDashboardPage = () => {
         )}
 
         {/* Tab Nav + Plan badge */}
-        <div className="flex items-center justify-between gap-3 mb-6 flex-wrap">
-          <div className="flex gap-1 bg-white border border-slate-200 rounded-lg p-1 flex-wrap">
+        <div className="flex items-center justify-between gap-3 mb-4 flex-wrap">
+          <div className="flex gap-0.5 bg-white border border-slate-200 rounded-lg p-1 flex-wrap">
             {TABS.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => tab.to ? navigate(tab.to) : setActiveTab(tab.id)}
-                className={`relative px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                className={`relative px-3 py-1.5 rounded-md text-xs font-medium whitespace-nowrap transition-colors ${
                   activeTab === tab.id
                     ? "bg-[#1B4332] text-white shadow-sm"
                     : "text-slate-500 hover:text-[#1B4332]"

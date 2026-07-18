@@ -405,7 +405,22 @@ legítimamente sube comps tipo remate). Es una cota de cordura, no calibrada a u
 
 ---
 
-## ⏸️ #101(a) PER-COMP POR EDAD en remiSobreComps — BLOQUEADO POR DATOS (03-Jun-2026)
+## ❌ #101(a) PER-COMP POR EDAD — MEDIDO Y DESCARTADO (17-Jul-2026)
+
+**Actualización 17-jul (deja obsoleto lo de abajo del 03-jun):** ya NO está bloqueado por datos. El rebuild del caché del **7-jul** (desde Mongo, excl. MITULA) metió el año al caché:
+- `cache_consolidado.json`: **41.7%** de comps con `anio` (8,992/21,562)
+- `cache_index.json` (lo que lee el motor): **36.9%** (8,226/22,314) — y `anio` sí llega al comp (`motor_remi_api.js:993 → an: d.anio || null`).
+
+Con eso ya se pudo **medir el impacto** (validador OFFLINE, 103 OPIs, motor DV real `valuarPropiedad`, no `remiSobreComps` que offline está muerto — solo se llama en paths web con SERPER/TAVILY):
+
+| | ±10 | ±15 | ±20 | errAbs |
+|---|---|---|---|---|
+| Baseline 7-jul | 63.1 | 74.8 | 83.5 | 10.8 |
+| Per-comp por edad | **61.2** | 74.8 | 83.5 | **10.9** |
+
+**Resultado: NEUTRO-NEGATIVO** (−2 OPIs en ±10, resto plano, errAbs +0.1). Causa: 90/103 OPIs son pool `exacta` con `factorEdad`≈1.0, el ajuste solo movió `similares`/`general`/`suma_partes` y neto restó. **NO se implementa** (regla medir-antes-de-implementar). No hace falta traer `an` de nuevo ni tocar el caché: el dato ya está, simplemente el ajuste no ayuda con la calibración actual. **NO re-investigar.**
+
+--- (histórico, del 03-jun, ya superado por la medición de arriba) ---
 
 Objetivo de #101(a): en `remiSobreComps` (motor_remi_api.js:576-579) el `factorEdad` usa la edad del
 **sujeto** y se aplica uniforme a todos los comps; la Opción 3 (MOTOR_ANTECEDENTES "Pendientes", abajo)
