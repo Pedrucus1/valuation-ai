@@ -54,6 +54,65 @@ const drawCover = (ctx, img, s, alpha) => {
   ctx.globalAlpha = 1;
 };
 
+// Exporta las 3 secuencias como imágenes JPG (una por slide).
+export async function exportSecuenciasJpg({ nombre = "propiedad" } = {}) {
+  const imgs = await capturarSecuencias();
+  imgs.forEach((img, i) => {
+    const canvas = document.createElement("canvas");
+    canvas.width = SRC_W; canvas.height = SRC_H;
+    canvas.getContext("2d").drawImage(img, 0, 0, SRC_W, SRC_H);
+    const a = document.createElement("a");
+    a.href = canvas.toDataURL("image/jpeg", 0.92);
+    a.download = `Secuencia_${i + 1}_${String(nombre).replace(/\s+/g, "_").slice(0, 30)}.jpg`;
+    a.click();
+  });
+}
+
+// Exporta las 3 secuencias como VIDEO (WebM/MP4) vía canvas + MediaRecorder.
+export async function exportSecuenciasVideo({ nombre = "propiedad", onProgress } = {}) {
+  const imgs = await capturarSecuencias();
+  const canvas = document.createElement("canvas");
+  canvas.width = OUT_W; canvas.height = OUT_H;
+  const ctx = canvas.getContext("2d");
+  const fps = 25;
+  const stream = canvas.captureStream(fps);
+  const mime = ["video/mp4;codecs=avc1", "video/webm;codecs=vp9", "video/webm"].find((m) => window.MediaRecorder && MediaRecorder.isTypeSupported(m)) || "video/webm";
+  const rec = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 6_000_000 });
+  const chunks = [];
+  rec.ondataavailable = (e) => e.data.size && chunks.push(e.data);
+  const done = new Promise((res) => (rec.onstop = res));
+  rec.start();
+
+  const totalMs = 3 * SEQ_MS;
+  const t0 = performance.now();
+  await new Promise((resolve) => {
+    const draw = () => {
+      const t = performance.now() - t0;
+      if (t >= totalMs) return resolve();
+      const si = Math.floor(t / SEQ_MS) % 3;
+      const local = t - Math.floor(t / SEQ_MS) * SEQ_MS;
+      const p = local / SEQ_MS;
+      ctx.clearRect(0, 0, OUT_W, OUT_H);
+      drawCover(ctx, imgs[si], 1 + KB * p, 1);
+      if (local > SEQ_MS - XFADE_MS) drawCover(ctx, imgs[(si + 1) % 3], 1, (local - (SEQ_MS - XFADE_MS)) / XFADE_MS);
+      if (onProgress) onProgress(Math.round((t / totalMs) * 100));
+      requestAnimationFrame(draw);
+    };
+    requestAnimationFrame(draw);
+  });
+  rec.stop();
+  await done;
+
+  const ext = mime.startsWith("video/mp4") ? "mp4" : "webm";
+  const blob = new Blob(chunks, { type: mime });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `Secuencias_${String(nombre).replace(/\s+/g, "_").slice(0, 40)}.${ext}`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
 export async function exportSecuenciasGif({ nombre = "propiedad", onProgress } = {}) {
   const imgs = await capturarSecuencias();
 

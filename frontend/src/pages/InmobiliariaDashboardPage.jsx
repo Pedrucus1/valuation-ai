@@ -253,6 +253,18 @@ function mapValuacionBackend(v) {
     id: v.valuation_id,
     direccion,
     tipo: pd.property_type || "Casa",
+    // Specs para las fichas/promos (property_data viene en inglés → nombres que usan los layouts)
+    colonia: pd.neighborhood || "",
+    municipio: pd.municipality || "",
+    estado_mx: pd.state || "",
+    recamaras: pd.bedrooms ?? null,
+    banos: pd.bathrooms ?? null,
+    estacionamiento: pd.parking_spaces ?? null,
+    m2_construccion: pd.construction_area ?? null,
+    m2_terreno: pd.land_area ?? null,
+    antiguedad: pd.estimated_age ?? null,
+    fotos: Array.isArray(pd.photos) ? pd.photos.filter(Boolean) : [],
+    descripcion: pd.other_features || "",
     fecha: v.created_at
       ? new Date(v.created_at).toLocaleDateString("es-MX", {
           day: "2-digit",
@@ -2253,7 +2265,7 @@ const InmobiliariaDashboardPage = () => {
               <button
                 key={tab.id}
                 onClick={() => tab.to ? navigate(tab.to) : setActiveTab(tab.id)}
-                className={`relative px-3 py-1.5 rounded-md text-xs font-medium whitespace-nowrap transition-colors ${
+                className={`relative px-3 py-1.5 rounded-md text-[13px] font-medium whitespace-nowrap transition-colors ${
                   activeTab === tab.id
                     ? "bg-[#1B4332] text-white shadow-sm"
                     : "text-slate-500 hover:text-[#1B4332]"

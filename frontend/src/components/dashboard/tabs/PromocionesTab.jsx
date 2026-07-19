@@ -6,7 +6,7 @@ import {
   Waves, Dumbbell, Shield, Trees, Sun, Wine, Wind, Car, Monitor,
   Box, Droplets, Zap, Camera, Wifi, Tv, Utensils, BookOpen, Bed,
   Gamepad2, Droplet, Plus, X, CheckCircle2, Building2, AlertCircle,
-  ChevronRight, ZoomIn, ZoomOut, LayoutTemplate, Palette, DollarSign, Type, Star
+  ChevronRight, ZoomIn, ZoomOut, LayoutTemplate, Palette, DollarSign, Type, Star, Eye, User
 } from "lucide-react";
 import html2canvas from "html2canvas";
 import { toast } from "sonner";
@@ -21,7 +21,7 @@ import LayoutStitch from "./promociones/LayoutStitch";
 import LayoutStitchHub from "./promociones/LayoutStitchHub";
 import LayoutJustListed from "./promociones/LayoutJustListed";
 import SecuenciasJustListed from "./promociones/SecuenciasJustListed";
-import { exportSecuenciasGif } from "./promociones/secuenciasGif";
+import { exportSecuenciasGif, exportSecuenciasJpg, exportSecuenciasVideo } from "./promociones/secuenciasGif";
 
 const API = process.env.REACT_APP_BACKEND_URL || "http://localhost:8000";
 
@@ -35,6 +35,10 @@ const PALETAS = [
   { id: "noir",   nombre: "Noir",     bg: "#0D0D0D", accent: "#d4af37", textLight: "#f5f5f5", card: "#1a1a1a",textDark: "#fff",  muted: "#a0a0a0" },
   { id: "beige",  nombre: "Arena",    bg: "#f5f0e8", accent: "#8b6914", textLight: "#fff",    card: "#faf8f3",textDark: "#2c2010",muted: "#8b7355" },
   { id: "rojo",   nombre: "Pasión",   bg: "#7b1c1c", accent: "#e74c3c", textLight: "#fde8e8", card: "#fff",  textDark: "#7b1c1c",muted: "#a05252" },
+  { id: "oro",    nombre: "Oro",      bg: "#2F3527", accent: "#B08B4F", textLight: "#F4EFE4", card: "#F4EFE4",textDark: "#2A2A24",muted: "#6E6A5C" },
+  { id: "carbon", nombre: "Carbón",   bg: "#1f2937", accent: "#c99a4b", textLight: "#f3f4f6", card: "#f7f7f5",textDark: "#111827",muted: "#6b7280" },
+  { id: "vino",   nombre: "Vino",     bg: "#4a1420", accent: "#b0778a", textLight: "#f7ecef", card: "#faf6f7",textDark: "#3a1018",muted: "#8a6b73" },
+  { id: "cielo",  nombre: "Cielo",    bg: "#0e4a52", accent: "#4ea0a8", textLight: "#eaf6f7", card: "#f4fafb",textDark: "#0a3238",muted: "#5a8288" },
 ];
 
 // ── Temas (backward compat con layouts existentes) ──────────────────────────
@@ -49,11 +53,17 @@ const TEMAS = {
 // Fotos de referencia para preview cuando no hay fotos reales
 const SAMPLE_FOTOS = [
   "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1600607687920-4e2a09be15f1?auto=format&fit=crop&w=800&q=80",
   "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80",
   "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
   "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1613490908677-49772ba6554b?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600121848594-d8644e57abab?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=800&q=80",
 ];
 
 const THUMBS = {
@@ -113,7 +123,7 @@ const FORMATOS = {
     ["stitch_facebook", "Facebook 3:2"], ["stitch_tiktok", "Reels 9:16"], ["stitch_kit", "Marketing Kit"],
   ],
   moderno: [["vertical_2p", "Folleto A4"], ["horizontal", "Ficha Carta"], ["reels", "TikTok / Reels"], ["post", "Post 1:1"]],
-  just_listed: [["vertical_2p", "Folleto A4"], ["post", "Post 1:1"], ["reels", "Story / Reels"], ["horizontal", "Facebook"]],
+  just_listed: [["vertical_2p", "Folleto A4"], ["post", "Post 1:1"], ["post3", "Post · 3 slides"], ["reels", "Story / Reels"], ["tiktok", "TikTok · 3 slides"], ["horizontal", "Facebook"]],
   _default: [["vertical_2p", "Folleto A4"], ["horizontal", "Presentación 16:9"], ["reels", "TikTok / Reels"], ["post", "Post 1:1"]],
 };
 const formatosDe = (t) => FORMATOS[t] || FORMATOS._default;
@@ -122,10 +132,54 @@ const formatosDe = (t) => FORMATOS[t] || FORMATOS._default;
 const SECCIONES = [
   { id: "estilo",     label: "Estilo y formato",     short: "Estilo",  Icon: LayoutTemplate },
   { id: "color",      label: "Paleta de color",      short: "Color",   Icon: Palette },
+  { id: "fotos",      label: "Fotos del anuncio",    short: "Fotos",   Icon: ImageIcon },
   { id: "precio",     label: "Precio a mostrar",     short: "Precio",  Icon: DollarSign },
   { id: "texto",      label: "Descripción e idioma", short: "Texto",   Icon: Type },
   { id: "puntos",     label: "Puntos destacados",    short: "Puntos",  Icon: Star },
   { id: "amenidades", label: "Amenidades y extras",  short: "Extras",  Icon: Sparkles },
+  { id: "asesor",     label: "Datos del asesor",     short: "Asesor",  Icon: User },
+  { id: "elementos",  label: "Qué mostrar",          short: "Mostrar", Icon: Eye },
+];
+
+// Tipografía de títulos (Just Listed) — fuentes de sistema, ~20 opciones
+const FUENTES = [
+  { label: "Editorial (Didot)", css: '"Didot","Bodoni MT","Playfair Display",Georgia,"Times New Roman",serif' },
+  { label: "Playfair", css: '"Playfair Display",Georgia,serif' },
+  { label: "Georgia", css: "Georgia,serif" },
+  { label: "Times", css: '"Times New Roman",Times,serif' },
+  { label: "Garamond", css: 'Garamond,"EB Garamond",serif' },
+  { label: "Baskerville", css: 'Baskerville,"Libre Baskerville",serif' },
+  { label: "Bodoni", css: '"Bodoni MT","Didot",serif' },
+  { label: "Cambria", css: "Cambria,Georgia,serif" },
+  { label: "Palatino", css: '"Palatino Linotype","Book Antiqua",Palatino,serif' },
+  { label: "Cormorant", css: '"Cormorant Garamond",Georgia,serif' },
+  { label: "Helvetica", css: '"Helvetica Neue",Helvetica,Arial,sans-serif' },
+  { label: "Arial", css: "Arial,sans-serif" },
+  { label: "Futura", css: 'Futura,"Century Gothic",sans-serif' },
+  { label: "Century Gothic", css: '"Century Gothic",Futura,sans-serif' },
+  { label: "Trebuchet", css: '"Trebuchet MS",sans-serif' },
+  { label: "Verdana", css: "Verdana,Geneva,sans-serif" },
+  { label: "Segoe UI", css: '"Segoe UI",Roboto,sans-serif' },
+  { label: "Optima", css: 'Optima,"Segoe UI",sans-serif' },
+  { label: "Gill Sans", css: '"Gill Sans","Gill Sans MT",sans-serif' },
+  { label: "Tahoma", css: "Tahoma,Geneva,sans-serif" },
+];
+
+// Colores individuales por elemento (Just Listed) — override sobre la paleta
+const COLOR_CAMPOS = [
+  { key: "bg",     label: "Fondo",              def: "#F4EFE4" },
+  { key: "ink",    label: "Texto",              def: "#2A2A24" },
+  { key: "accent", label: "Acento (líneas/íconos)", def: "#B08B4F" },
+  { key: "dark",   label: "Recuadros / Footer", def: "#2F3527" },
+  { key: "onDark", label: "Texto sobre oscuro", def: "#FCFAF4" },
+];
+
+// Bloques que se pueden mostrar/ocultar en la ficha (Just Listed)
+const ELEMENTOS_TOGGLE = [
+  { key: "descripcion",      label: "Descripción" },
+  { key: "especificaciones", label: "Características (m², rec, baños…)" },
+  { key: "amenidades",       label: "Amenidades e instalaciones" },
+  { key: "puntos",           label: "Puntos destacados" },
 ];
 
 const getLayoutComponent = (temaId) => {
@@ -251,6 +305,14 @@ const PromocionesTab = ({ valuacionesList, session }) => {
   const [secuencias, setSecuencias] = useState(false);
   const [gifProgress, setGifProgress] = useState(null); // null | 0-100
   const [seccionActiva, setSeccionActiva] = useState("estilo"); // rail tipo Canva
+  const [fotosElegidas, setFotosElegidas] = useState([]); // fotos ordenadas para la ficha (1ª = portada)
+  const [elementos, setElementos] = useState({ descripcion: true, especificaciones: true, amenidades: true, puntos: true });
+  const [coloresCustom, setColoresCustom] = useState({}); // override de color por elemento (Just Listed)
+  const [asesorCfg, setAsesorCfg] = useState({ fuente: "asesor", mostrarFoto: true, mostrarNombre: true }); // fuente: asesor | empresa
+  const [precioBg, setPrecioBg] = useState("solido"); // solido | transparente | nulo
+  const [fuente, setFuente] = useState(FUENTES[0].css); // tipografía de títulos
+  const [ctaTexto, setCtaTexto] = useState(""); // texto del botón CTA (vacío = default por idioma)
+  const [slidesFotos, setSlidesFotos] = useState(0); // # de slides de fotos en mosaico (TikTok)
   const [idioma, setIdioma] = useState("es");
   const [tipoPrecio, setTipoPrecio] = useState("oferta");
   const [precioAjustado, setPrecioAjustado] = useState("");
@@ -284,6 +346,7 @@ const PromocionesTab = ({ valuacionesList, session }) => {
     setInstalacionesStr(parseField(fichaAvaluo.instalaciones, "Paneles Solares, Cisterna 10,000L"));
     setEspaciosStr(parseField(fichaAvaluo.espacios, "Sala de TV, Cocina Integral, Estudio"));
     setPrecioAjustado((fichaAvaluo.valor || fichaAvaluo.precio_oferta || "").toString());
+    setFotosElegidas((fichaAvaluo.fotos || []).filter(Boolean));
     setPuntosLibres(fichaAvaluo.puntos_libres?.length ? [...fichaAvaluo.puntos_libres, ""].slice(0, 2) : ["", ""]);
     if (fichaAvaluo.fuera_de_mercado) setBannerMercado(true);
     else setBannerMercado(false);
@@ -422,8 +485,28 @@ const PromocionesTab = ({ valuacionesList, session }) => {
   const fichaConPrecio = fichaAvaluo ? {
     ...fichaAvaluo,
     valor: precioFinal,
-    fotos: fichaAvaluo.fotos?.filter(Boolean).length ? fichaAvaluo.fotos : SAMPLE_FOTOS,
+    fotos: fotosElegidas.length ? fotosElegidas
+      : (fichaAvaluo.fotos?.filter(Boolean).length ? fichaAvaluo.fotos.filter(Boolean) : SAMPLE_FOTOS),
   } : null;
+
+  // Pool de fotos para el selector: las de la propiedad + las de muestra (para siempre tener de dónde elegir)
+  const fotosPool = fichaAvaluo
+    ? Array.from(new Set([...(fichaAvaluo.fotos || []).filter(Boolean), ...SAMPLE_FOTOS]))
+    : [];
+
+  // Datos del asesor a mostrar (precargados de la cuenta): fuente Asesor o Empresa
+  const esEmpresa = asesorCfg.fuente === "empresa";
+  const asesorFinal = {
+    nombre: asesorCfg.mostrarNombre === false ? ""
+      : (esEmpresa ? (session?.company_name || session?.empresa_afiliada || "")
+        : (session?.name || session?.email?.split("@")[0] || "Asesor Inmobiliario")),
+    telefono: esEmpresa
+      ? (session?.telefono_empresa || session?.company_phone || session?.phone || "")
+      : (session?.phone || session?.telefono || ""),
+    foto: asesorCfg.mostrarFoto === false ? null
+      : (esEmpresa ? (session?.logo_url || session?.logo_empresa_url || session?.picture || null)
+        : (session?.picture || session?.foto_url || null)),
+  };
 
   // ════════════════════════════════════════════════════════════════════════════
   // ── FORMULARIO DE CAPTURA ──
@@ -636,7 +719,7 @@ const PromocionesTab = ({ valuacionesList, session }) => {
             </h2>
           </div>
           <span className={`text-[10px] font-bold uppercase tracking-wide px-2 py-1 rounded-full shrink-0 ${fichaAvaluo._esManual ? "bg-blue-100 text-blue-700" : "bg-green-100 text-green-700"}`}>
-            {fichaAvaluo._esManual ? "Manual" : "OPI"}
+            {fichaAvaluo._esManual ? "Subida" : "OPI"}
           </span>
           {/* Chip de precio (abre la sección Precio) */}
           <button onClick={() => setSeccionActiva("precio")} title="Editar precio a mostrar"
@@ -675,7 +758,7 @@ const PromocionesTab = ({ valuacionesList, session }) => {
                 <button key={s.id} onClick={() => setSeccionActiva(s.id)} title={s.label}
                   className={`w-12 h-12 shrink-0 rounded-lg flex flex-col items-center justify-center gap-0.5 transition-colors ${seccionActiva === s.id ? "bg-[#1B4332] text-white" : "text-slate-500 hover:bg-slate-100"}`}>
                   <s.Icon className="w-[18px] h-[18px]" />
-                  <span className="text-[8px] font-semibold leading-none">{s.short}</span>
+                  <span className="text-[10px] font-semibold leading-none">{s.short}</span>
                 </button>
               ))}
             </div>
@@ -686,17 +769,37 @@ const PromocionesTab = ({ valuacionesList, session }) => {
             {/* Paleta de color */}
             {seccionActiva === "color" && (
             <Card className="border-slate-200">
-              <CardContent className="p-4">
-                <label className="label-xs mb-3 block">Paleta de color</label>
-                <div className="flex gap-2">
-                  {PALETAS.map(p => (
-                    <button key={p.id} title={p.nombre} onClick={() => setPaletaId(p.id)}
-                      className={`flex flex-col items-center gap-1 group transition-transform ${paletaId === p.id ? "scale-110" : "hover:scale-105"}`}>
-                      <div className={`w-9 h-9 rounded-full border-2 transition-all ${paletaId === p.id ? "border-slate-700 shadow-md" : "border-slate-200"}`}
-                        style={{ background: `linear-gradient(135deg, ${p.bg} 50%, ${p.accent} 50%)` }} />
-                      <span className="text-[9px] text-slate-400">{p.nombre}</span>
-                    </button>
-                  ))}
+              <CardContent className="p-4 space-y-4">
+                <div>
+                  <label className="label-xs mb-3 block">Paleta de color</label>
+                  <div className="flex gap-2 flex-wrap">
+                    {PALETAS.map(p => (
+                      <button key={p.id} title={p.nombre} onClick={() => setPaletaId(p.id)}
+                        className={`flex flex-col items-center gap-1 group transition-transform ${paletaId === p.id ? "scale-110" : "hover:scale-105"}`}>
+                        <div className={`w-9 h-9 rounded-full border-2 transition-all ${paletaId === p.id ? "border-slate-700 shadow-md" : "border-slate-200"}`}
+                          style={{ background: `linear-gradient(135deg, ${p.bg} 50%, ${p.accent} 50%)` }} />
+                        <span className="text-[9px] text-slate-400">{p.nombre}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                {/* Colores individuales (Just Listed) */}
+                <div className="pt-3 border-t border-slate-100">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="label-xs">Color por elemento (Just Listed)</span>
+                    <button onClick={() => setColoresCustom({})} className="text-[10px] text-slate-400 hover:text-[#1B4332] font-semibold">Restablecer</button>
+                  </div>
+                  <div className="space-y-1.5">
+                    {COLOR_CAMPOS.map(({ key, label, def }) => (
+                      <label key={key} className="flex items-center justify-between gap-2 cursor-pointer">
+                        <span className="text-xs text-slate-600">{label}</span>
+                        <input type="color" value={coloresCustom[key] || def}
+                          onChange={e => setColoresCustom(prev => ({ ...prev, [key]: e.target.value }))}
+                          className="w-9 h-7 rounded border border-slate-200 cursor-pointer bg-white p-0.5" />
+                      </label>
+                    ))}
+                  </div>
+                  <p className="text-[10px] text-slate-400 leading-snug mt-2">Cada color se aplica a su elemento en todos los formatos de Just Listed.</p>
                 </div>
               </CardContent>
             </Card>
@@ -749,6 +852,53 @@ const PromocionesTab = ({ valuacionesList, session }) => {
 
             )}
 
+            {/* Fotos del anuncio */}
+            {seccionActiva === "fotos" && (
+            <Card className="border-slate-200">
+              <CardContent className="p-4 space-y-3">
+                <div className="flex items-center justify-between">
+                  <label className="label-xs">Fotos del anuncio</label>
+                  <span className="text-[10px] text-slate-400">{fotosElegidas.length} elegidas</span>
+                </div>
+                <p className="text-[10px] text-slate-400 leading-snug">Toca para incluir/quitar. La ★ marca la portada. El número indica el orden.</p>
+                {fotosPool.length === 0 ? (
+                  <p className="text-xs text-slate-400 italic">Sin fotos disponibles.</p>
+                ) : (
+                  <div className="grid grid-cols-3 gap-2">
+                    {fotosPool.map((url, i) => {
+                      const pos = fotosElegidas.indexOf(url);
+                      const incluida = pos >= 0;
+                      return (
+                        <div key={i}
+                          className={`relative aspect-square rounded-lg overflow-hidden border-2 cursor-pointer transition-opacity ${incluida ? "border-[#1B4332]" : "border-transparent opacity-50 hover:opacity-80"}`}
+                          onClick={() => setFotosElegidas(prev => incluida ? prev.filter(u => u !== url) : [...prev, url])}>
+                          <img src={url} alt="" className="w-full h-full object-cover" />
+                          {incluida && (
+                            <span className="absolute bottom-1 right-1 w-5 h-5 rounded-full bg-[#1B4332] text-white text-[10px] font-bold flex items-center justify-center">{pos + 1}</span>
+                          )}
+                          <button onClick={(e) => { e.stopPropagation(); setFotosElegidas(prev => [url, ...prev.filter(u => u !== url)]); }}
+                            title="Usar como portada"
+                            className={`absolute top-1 left-1 w-6 h-6 rounded-full flex items-center justify-center text-xs ${pos === 0 ? "bg-amber-400 text-white" : "bg-black/50 text-white/90 hover:bg-black/70"}`}>★</button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+                <div className="pt-3 border-t border-slate-100">
+                  <label className="label-xs mb-1.5 block">Slides de fotos en mosaico (TikTok)</label>
+                  <div className="flex items-center gap-3">
+                    <button onClick={() => setSlidesFotos(n => Math.max(0, n - 1))}
+                      className="w-8 h-8 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 flex items-center justify-center font-bold">–</button>
+                    <span className="text-sm font-bold text-[#1B4332] tabular-nums w-6 text-center">{slidesFotos}</span>
+                    <button onClick={() => setSlidesFotos(n => Math.min(3, n + 1))}
+                      className="w-8 h-8 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 flex items-center justify-center font-bold">+</button>
+                    <span className="text-[10px] text-slate-400">4 fotos por slide</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            )}
+
             {/* Precio */}
             {seccionActiva === "precio" && (
             <Card className="border-slate-200">
@@ -767,6 +917,17 @@ const PromocionesTab = ({ valuacionesList, session }) => {
                 {tipoPrecio === "ajustado" && (
                   <input type="number" className="input-base mt-1 font-bold" placeholder="Precio a mostrar" value={precioAjustado} onChange={e => setPrecioAjustado(e.target.value)} />
                 )}
+                <div className="pt-2 border-t border-slate-100">
+                  <label className="label-xs mb-1.5 block">Fondo del recuadro de precio (Just Listed)</label>
+                  <div className="flex bg-slate-100 rounded-lg p-1">
+                    {[["solido", "Sólido"], ["transparente", "Transparente"], ["nulo", "Sin fondo"]].map(([v, l]) => (
+                      <button key={v} onClick={() => setPrecioBg(v)}
+                        className={`flex-1 py-1.5 rounded-md text-[11px] font-bold transition-colors ${precioBg === v ? "bg-white text-[#1B4332] shadow-sm" : "text-slate-500"}`}>
+                        {l}
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </CardContent>
             </Card>
 
@@ -775,17 +936,40 @@ const PromocionesTab = ({ valuacionesList, session }) => {
             {/* Descripción + Idioma */}
             {seccionActiva === "texto" && (
             <Card className="border-slate-200">
-              <CardContent className="p-4 space-y-3">
-                <div className="flex justify-between items-center">
-                  <label className="label-xs">Descripción</label>
-                  <button onClick={handleGenerarDescripcion}
-                    className="flex items-center gap-1 text-xs text-[#52B788] hover:text-[#1B4332] font-semibold bg-[#F0FAF5] px-2 py-1 rounded-md">
-                    <Sparkles className="w-3 h-3" /> Generar con IA
-                  </button>
+              <CardContent className="p-4 space-y-5">
+                <div>
+                  <div className="flex justify-between items-center mb-1.5">
+                    <label className="label-xs">Descripción</label>
+                    <button onClick={handleGenerarDescripcion}
+                      className="flex items-center gap-1 text-xs text-[#52B788] hover:text-[#1B4332] font-semibold bg-[#F0FAF5] px-2 py-1 rounded-md">
+                      <Sparkles className="w-3 h-3" /> Generar con IA
+                    </button>
+                  </div>
+                  <textarea value={descripcionTexto} onChange={e => setDescripcionTexto(e.target.value)}
+                    className="input-base min-h-[150px] resize-y text-sm"
+                    placeholder="Escribe una descripción que enamore..." />
+                  {(() => {
+                    const palabras = descripcionTexto.trim() ? descripcionTexto.trim().split(/\s+/).length : 0;
+                    const LIM = 60;
+                    return (
+                      <div className={`text-[10px] mt-1 text-right ${palabras > LIM ? "text-red-500 font-semibold" : "text-slate-400"}`}>
+                        {palabras} / {LIM} palabras {palabras > LIM ? "· recórtala para que quepa bien" : ""}
+                      </div>
+                    );
+                  })()}
                 </div>
-                <textarea value={descripcionTexto} onChange={e => setDescripcionTexto(e.target.value)}
-                  className="input-base min-h-[120px] resize-y text-sm"
-                  placeholder="Escribe una descripción que enamore..." />
+                <div>
+                  <label className="label-xs mb-1 block">Tipografía de títulos</label>
+                  <select className="input-base text-xs" value={fuente} onChange={e => setFuente(e.target.value)}>
+                    {FUENTES.map(({ label, css }) => <option key={label} value={css} style={{ fontFamily: css }}>{label}</option>)}
+                  </select>
+                </div>
+                <div>
+                  <label className="label-xs mb-1 block">Texto del botón (TikTok / slides)</label>
+                  <input className="input-base text-xs" maxLength={30}
+                    placeholder={idioma === "en" ? "Schedule your visit" : "Agenda tu visita"}
+                    value={ctaTexto} onChange={e => setCtaTexto(e.target.value)} />
+                </div>
                 <div>
                   <label className="label-xs mb-1 block">Idioma</label>
                   <div className="flex bg-slate-100 rounded-lg p-1">
@@ -822,17 +1006,31 @@ const PromocionesTab = ({ valuacionesList, session }) => {
                   <p className="text-xs text-slate-400 italic">Sin datos suficientes para generar puntos verificados.</p>
                 )}
                 <div className="space-y-1.5">
-                  <p className="text-[10px] text-slate-400 uppercase tracking-wide">Agrega hasta 2 puntos propios</p>
+                  <p className="text-[10px] text-slate-400 uppercase tracking-wide">Agrega tus puntos propios</p>
                   {puntosLibres.map((val, i) => (
-                    <input key={i} className="input-base text-xs" maxLength={40}
-                      placeholder={`Ej. Vista al jardín, Cocina equipada...`}
-                      value={val}
-                      onChange={e => {
-                        const next = [...puntosLibres];
-                        next[i] = e.target.value;
-                        setPuntosLibres(next);
-                      }} />
+                    <div key={i} className="flex items-center gap-1.5">
+                      <input className="input-base text-xs flex-1" maxLength={40}
+                        placeholder={`Ej. Vista al jardín, Cocina equipada...`}
+                        value={val}
+                        onChange={e => {
+                          const next = [...puntosLibres];
+                          next[i] = e.target.value;
+                          setPuntosLibres(next);
+                        }} />
+                      {puntosLibres.length > 1 && (
+                        <button onClick={() => setPuntosLibres(puntosLibres.filter((_, j) => j !== i))}
+                          className="w-6 h-6 rounded-md text-slate-400 hover:text-red-500 hover:bg-red-50 flex items-center justify-center shrink-0">
+                          <X className="w-3.5 h-3.5" />
+                        </button>
+                      )}
+                    </div>
                   ))}
+                  {puntosLibres.length < 8 && (
+                    <button onClick={() => setPuntosLibres([...puntosLibres, ""])}
+                      className="flex items-center gap-1 text-xs font-semibold text-[#1B4332] hover:text-[#2D6A4F] mt-1">
+                      <Plus className="w-3.5 h-3.5" /> Agregar punto
+                    </button>
+                  )}
                 </div>
               </CardContent>
             </Card>
@@ -862,6 +1060,65 @@ const PromocionesTab = ({ valuacionesList, session }) => {
                 </CardContent>
               </Card>
             ))}
+
+            {/* Datos del asesor */}
+            {seccionActiva === "asesor" && (
+            <Card className="border-slate-200">
+              <CardContent className="p-4 space-y-3">
+                <label className="label-xs block">Datos de:</label>
+                <div className="flex bg-slate-100 rounded-lg p-1">
+                  {[["asesor", "Asesor"], ["empresa", "Empresa"]].map(([v, l]) => (
+                    <button key={v} onClick={() => setAsesorCfg(p => ({ ...p, fuente: v }))}
+                      className={`flex-1 py-1.5 rounded-md text-xs font-bold transition-colors ${asesorCfg.fuente === v ? "bg-white text-[#1B4332] shadow-sm" : "text-slate-500"}`}>
+                      {l}
+                    </button>
+                  ))}
+                </div>
+                {/* Preview de lo precargado */}
+                <div className="flex items-center gap-3 bg-slate-50 rounded-lg p-2.5 border border-slate-100">
+                  <div className="w-10 h-10 rounded-full overflow-hidden bg-slate-200 border border-slate-200 flex items-center justify-center shrink-0">
+                    {asesorFinal.foto ? <img src={asesorFinal.foto} alt="" className="w-full h-full object-cover" /> : <User className="w-5 h-5 text-slate-400" />}
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-xs font-semibold text-[#1B4332] truncate">{asesorFinal.nombre || "—"}</p>
+                    <p className="text-[11px] text-slate-500 truncate">{asesorFinal.telefono || "sin teléfono"}</p>
+                  </div>
+                </div>
+                {[
+                  { key: "mostrarFoto", label: "Mostrar foto" },
+                  { key: "mostrarNombre", label: "Mostrar nombre" },
+                ].map(({ key, label }) => (
+                  <div key={key} className="flex items-center justify-between gap-2">
+                    <span className="text-xs text-slate-700">{label}</span>
+                    <button type="button" onClick={() => setAsesorCfg(p => ({ ...p, [key]: !p[key] }))}
+                      className={`w-10 h-6 rounded-full relative transition-colors shrink-0 ${asesorCfg[key] ? "bg-[#1B4332]" : "bg-slate-300"}`}>
+                      <span className={`absolute top-1 w-4 h-4 rounded-full bg-white shadow transition-all ${asesorCfg[key] ? "left-5" : "left-1"}`} />
+                    </button>
+                  </div>
+                ))}
+                <p className="text-[10px] text-slate-400 leading-snug">Se precargan de tu cuenta. Aplica a todos los formatos.</p>
+              </CardContent>
+            </Card>
+            )}
+
+            {/* Qué mostrar (toggles de elementos) */}
+            {seccionActiva === "elementos" && (
+            <Card className="border-slate-200">
+              <CardContent className="p-4 space-y-1">
+                <label className="label-xs block mb-1">Qué mostrar en la ficha</label>
+                {ELEMENTOS_TOGGLE.map(({ key, label }) => (
+                  <div key={key} className="flex items-center justify-between gap-2 py-1.5">
+                    <span className="text-xs text-slate-700">{label}</span>
+                    <button type="button" onClick={() => setElementos(prev => ({ ...prev, [key]: !prev[key] }))}
+                      className={`w-10 h-6 rounded-full relative transition-colors shrink-0 ${elementos[key] ? "bg-[#1B4332]" : "bg-slate-300"}`}>
+                      <span className={`absolute top-1 w-4 h-4 rounded-full bg-white shadow transition-all ${elementos[key] ? "left-5" : "left-1"}`} />
+                    </button>
+                  </div>
+                ))}
+                <p className="text-[10px] text-slate-400 leading-snug pt-1">Aplica al estilo Just Listed en todos sus formatos.</p>
+              </CardContent>
+            </Card>
+            )}
             </div>
           </div>
 
@@ -911,6 +1168,13 @@ const PromocionesTab = ({ valuacionesList, session }) => {
                     instalaciones={(instalacionesStr || "").split(",").map(s => s.trim()).filter(Boolean)}
                     espacios={(espaciosStr || "").split(",").map(s => s.trim()).filter(Boolean)}
                     puntosDestacados={todosLosPuntos}
+                    elementos={elementos}
+                    coloresCustom={coloresCustom}
+                    asesor={asesorFinal}
+                    precioBg={precioBg}
+                    fuente={fuente}
+                    cta={ctaTexto}
+                    slidesFotos={slidesFotos}
                     formato={formatoSeleccionado}
                   />
                 </div>
@@ -951,24 +1215,33 @@ const PromocionesTab = ({ valuacionesList, session }) => {
                 fichaAvaluo={fichaConPrecio}
                 session={session}
                 formatMXN={formatMXN}
+                palette={palette}
+                coloresCustom={coloresCustom}
+                idioma={idioma}
+                asesor={asesorFinal}
                 scale={Math.max(0.2, Math.min((window.innerHeight - 220) / 1920, (window.innerWidth - 80) / 1080))}
               />
-              <button
-                disabled={gifProgress !== null}
-                onClick={async () => {
-                  try {
-                    setGifProgress(0);
-                    await exportSecuenciasGif({ nombre: fichaAvaluo?.direccion || "propiedad", onProgress: setGifProgress });
-                    toast.success("GIF descargado");
-                  } catch (e) { toast.error(e.message || "No se pudo generar el GIF"); }
-                  finally { setGifProgress(null); }
-                }}
-                className="mt-1 bg-[#B08B4F] hover:bg-[#9a7943] disabled:opacity-60 text-white font-bold text-sm px-5 py-2.5 rounded-full shadow-lg flex items-center gap-2">
-                <Download className="w-4 h-4" />
-                {gifProgress === null ? "Descargar GIF" : `Generando… ${gifProgress}%`}
-              </button>
+              <div className="mt-1 flex items-center gap-2">
+                {[
+                  { fmt: "jpg", label: "JPG", fn: () => exportSecuenciasJpg({ nombre: fichaAvaluo?.direccion || "propiedad" }) },
+                  { fmt: "gif", label: "GIF", fn: () => exportSecuenciasGif({ nombre: fichaAvaluo?.direccion || "propiedad", onProgress: setGifProgress }) },
+                  { fmt: "mp4", label: "MP4", fn: () => exportSecuenciasVideo({ nombre: fichaAvaluo?.direccion || "propiedad", onProgress: setGifProgress }) },
+                ].map(({ fmt, label, fn }) => (
+                  <button key={fmt} disabled={gifProgress !== null}
+                    onClick={async () => {
+                      try { if (fmt !== "jpg") setGifProgress(0); await fn(); toast.success(`${label} descargado`); }
+                      catch (e) { toast.error(e.message || `No se pudo generar el ${label}`); }
+                      finally { setGifProgress(null); }
+                    }}
+                    className="bg-[#B08B4F] hover:bg-[#9a7943] disabled:opacity-60 text-white font-bold text-sm px-5 py-2.5 rounded-full shadow-lg flex items-center gap-2">
+                    <Download className="w-4 h-4" /> {label}
+                  </button>
+                ))}
+              </div>
               <p className="text-[#b8b2a4] text-[11px] max-w-xs text-center">
-                Loop de 3 secuencias con zoom y transición (9:16, {`~9s`}). El GIF autoplaya en redes, WhatsApp y correo.
+                {gifProgress === null
+                  ? "Elige la salida: JPG (3 imágenes), GIF animado o MP4 (video). Loop de 3 secuencias 9:16 con zoom y transición."
+                  : `Generando… ${gifProgress}%`}
               </p>
             </div>
           </div>
@@ -989,12 +1262,12 @@ const PromocionesTab = ({ valuacionesList, session }) => {
         <div>
           <p className="font-bold text-white text-lg font-['Outfit']">Fichas de Promoción</p>
           <p className="text-[#D9ED92]/80 text-sm mt-1">
-            Genera fichas inmobiliarias de alto impacto para cualquiera de tus propiedades.
+            Genera fichas de tus <b>OPIs</b> (avalúos) o de propiedades que <b>subas tú</b> con sus fotos.
           </p>
         </div>
         <Button onClick={() => { setMostrarFormulario(true); setPaso(1); setFormData(FORM_INIT); }}
           className="bg-white text-[#1B4332] hover:bg-[#D9ED92] font-bold shrink-0">
-          <Plus className="w-4 h-4 mr-2" /> Agregar propiedad
+          <Plus className="w-4 h-4 mr-2" /> Subir propiedad
         </Button>
       </div>
 
@@ -1046,20 +1319,36 @@ const PromocionesTab = ({ valuacionesList, session }) => {
             </div>
           )}
 
-          {/* Manuales */}
-          {propiedadesManual.length > 0 && (
-            <div>
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-3">Mis propiedades</p>
+          {/* Mis propiedades (subidas) — siempre visible con guía */}
+          <div>
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-wide">Mis propiedades (subidas)</p>
+                <p className="text-[11px] text-slate-400 mt-0.5">Propiedades que subes tú con sus fotos, en “Subir propiedad”.</p>
+              </div>
+              <button onClick={() => { setMostrarFormulario(true); setPaso(1); setFormData(FORM_INIT); }}
+                className="flex items-center gap-1 text-xs font-semibold text-[#1B4332] hover:text-[#2D6A4F] shrink-0">
+                <Plus className="w-3.5 h-3.5" /> Subir propiedad
+              </button>
+            </div>
+            {propiedadesManual.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {propiedadesManual.map((v, i) => (
-                  <PropCard key={v.propiedad_id} prop={v} badge="Manual" badgeColor="blue" idx={i + 3}
+                  <PropCard key={v.propiedad_id} prop={v} badge="Subida" badgeColor="blue" idx={i + 3}
                     precio={formatMXN(v.precio_oferta)}
                     fotos={v.fotos}
                     onSelect={() => { setFichaAvaluo(normalizar(v)); }} />
                 ))}
               </div>
-            </div>
-          )}
+            ) : (
+              <button onClick={() => { setMostrarFormulario(true); setPaso(1); setFormData(FORM_INIT); }}
+                className="w-full border-2 border-dashed border-slate-200 hover:border-[#52B788] rounded-xl py-6 flex flex-col items-center gap-1 text-slate-400 hover:text-[#1B4332] transition-colors">
+                <Plus className="w-6 h-6" />
+                <span className="text-xs font-semibold">Sube una propiedad con sus fotos</span>
+                <span className="text-[10px]">Paso 2 del formulario: cargas las fotos</span>
+              </button>
+            )}
+          </div>
         </>
       )}
     </div>
