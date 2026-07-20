@@ -1537,6 +1537,26 @@ IMPORTANTE: Devuelve SOLO el JSON. Los scores de perfil_entorno deben ser entero
     except Exception as e:
         logger.error(f"LLM error (using template): {e}")
 
+    # Conteos REALES de POIs cercanos (Google Places) — reemplazan los estimados
+    # por la IA. recreacion = parques + áreas deportivas. Si Places está deshabilitada
+    # o falla, se conservan los conteos de la IA (degradación elegante).
+    try:
+        pe = ai_sections.get("perfil_entorno") if isinstance(ai_sections, dict) else None
+        if pe:
+            from nearby_places import count_nearby_by_category
+            _loop = asyncio.get_running_loop()
+            real_counts = await _loop.run_in_executor(
+                None,
+                lambda: count_nearby_by_category(prop.get("latitude"), prop.get("longitude")),
+            )
+            for _cat, _cnt in real_counts.items():
+                if isinstance(pe.get(_cat), dict):
+                    pe[_cat]["count"] = _cnt
+            if real_counts:
+                logger.info(f"Entorno con conteos reales de Places: {real_counts}")
+    except Exception as _pe:
+        logger.warning(f"No se pudieron obtener conteos reales de entorno: {_pe}")
+
     # Generate HTML report with optional analysis section
     report_html = generate_html_report(valuation, analysis, include_analysis=include_analysis, ai_sections=ai_sections)
     

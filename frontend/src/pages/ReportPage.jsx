@@ -34,6 +34,9 @@ const ReportPage = () => {
   const [propValuComment, setPropValuComment] = useState("");
   const [isSubmittingReview, setIsSubmittingReview] = useState(false);
   const [appraiserReviewDone, setAppraiserReviewDone] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  // El perito/admin es quien HACE el avalúo: no se autocalifica ni reseña la plataforma tras cada reporte.
+  const isPro = ["appraiser", "super_admin", "valuador"].includes((currentUser?.role || "").toLowerCase());
 
   const allOptions = [
     "La información es valiosísima. De no haber tenido este avalúo exacto, seguramente habría perdido muchísimo dinero al malbaratar mi casa.",
@@ -146,6 +149,10 @@ const ReportPage = () => {
 
   useEffect(() => {
     fetchValuation();
+    fetch(`${API}/auth/me`, { credentials: "include" })
+      .then(r => r.ok ? r.json() : null)
+      .then(u => setCurrentUser(u))
+      .catch(() => {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [valuationId]);
 
@@ -161,14 +168,12 @@ const ReportPage = () => {
       }
       const user = await res.json();
       const role = (user.role || user.tipo || "").toLowerCase();
-      if (role === 'valuador' || role === 'inmobiliaria') {
-        const count = user.count || user.valuations_count || user.evaluations_count || user.total_valuations || user.reportes_generados || 0;
-        if (count > 0 && count % 10 === 0) {
-          setShowPropValuModal(true);
-        }
-      } else {
-        setShowPropValuModal(true);
+      // Profesionales (perito/inmobiliaria/admin) NO reseñan la plataforma tras cada reporte;
+      // solo el público general ve el modal de reseña.
+      if (["appraiser", "super_admin", "valuador", "realtor", "inmobiliaria"].includes(role)) {
+        return;
       }
+      setShowPropValuModal(true);
     } catch {
       setShowPropValuModal(true);
     }
@@ -559,8 +564,8 @@ const ReportPage = () => {
         )}
       </div>
 
-      {/* CTA — directorio de inmobiliarias */}
-      {result && (
+      {/* CTA — directorio de inmobiliarias (solo en el reporte final, no durante el cálculo) */}
+      {result && !isGenerating && reportHtml && (
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-6 no-print">
           <div className="rounded-xl border border-[#B7E4C7] bg-[#F0FDF4] p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="flex items-start gap-3">
@@ -583,8 +588,8 @@ const ReportPage = () => {
         </div>
       )}
 
-      {/* CTA — calificar valuador */}
-      {result && valuation?.mode === "private" && !appraiserReviewDone && (
+      {/* CTA — calificar valuador (solo público/inmobiliaria; el perito no se autocalifica) */}
+      {result && !isGenerating && reportHtml && valuation?.mode === "private" && !appraiserReviewDone && !isPro && (
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-6 no-print">
           <div className="rounded-xl border border-amber-200 bg-amber-50 p-5">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -633,7 +638,7 @@ const ReportPage = () => {
 
       {/* PropValu Review Modal */}
       <Dialog open={showPropValuModal} onOpenChange={setShowPropValuModal}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-md bg-white">
           <DialogHeader>
             <DialogTitle className="text-center text-[#1B4332] text-xl font-bold font-['Outfit'] flex items-center justify-center gap-2">
               <Star className="w-6 h-6 text-[#52B788] fill-current" />

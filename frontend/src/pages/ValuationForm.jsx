@@ -182,7 +182,9 @@ const PAVEMENT_TYPES = [
   { value: "concreto", label: "Concreto Hidráulico" }
 ];
 
-const GOOGLE_MAPS_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+// ponytail: fallback hardcodeado — key pública de cliente (visible en el bundle por diseño,
+// protegida por restricción de dominio en Google Cloud, no por secreto). Evita depender del env de Vercel.
+const GOOGLE_MAPS_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY || "AIzaSyB0OMqh_jRy7liOFTNBHXuTO7vBsJNVpIg";
 
 // Carga dinámica (una sola vez) de la API JS de Google Maps.
 // Reusa window.google.maps si ya existe; si el script ya se está cargando, espera su onload.

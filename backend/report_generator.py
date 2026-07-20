@@ -111,6 +111,21 @@ _REPORT_CSS = """
   .page:last-child { page-break-after: avoid; }
   h1, h2, h3 { font-family: 'Outfit', sans-serif; }
 
+  /* Impresión / PDF: sin @page el navegador agrega sus propios márgenes (grandes
+     a los lados) y empuja la hoja de 297mm a la siguiente física. margin:0 hace que
+     cada .page ocupe exactamente una hoja A4 y el padding interno sea el margen. */
+  @media print {
+    @page { size: A4; margin: 0; }
+    body { background: #fff; }
+    .page {
+      margin: 0 !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+      width: 210mm;
+      min-height: 297mm;
+    }
+  }
+
   .header {
     display: flex;
     justify-content: space-between;
@@ -528,7 +543,9 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
     # Plusvalía bars
     tasa = float(pv.get('tasa_anual', appreciation)) if pv else float(appreciation)
     cur_year = datetime.now(timezone.utc).year
-    bar_heights = [34, 52, 68, 85, 103]
+    # Alturas topadas a ~82px: el contenedor mide 110px y el "+%" de arriba (~16px)
+    # más la barra deben caber dentro; con 103px el porcentaje se desbordaba del recuadro.
+    bar_heights = [26, 40, 54, 68, 82]
     bar_classes = ['cb-1', 'cb-2', 'cb-3', 'cb-4', 'cb-5']
     bars_html = ''
     for i in range(5):
