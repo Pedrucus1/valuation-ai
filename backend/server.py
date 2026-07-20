@@ -1557,6 +1557,26 @@ IMPORTANTE: Devuelve SOLO el JSON. Los scores de perfil_entorno deben ser entero
     except Exception as _pe:
         logger.warning(f"No se pudieron obtener conteos reales de entorno: {_pe}")
 
+    # Folio estable por avalúo (EST-YYMMDD-TIPO[-SIGLAS]-NN). Se calcula una vez y se
+    # guarda; al regenerar el reporte se reutiliza el mismo folio. El consecutivo NN
+    # incrementa el contador del usuario (pro); público usa NN estable del valuation_id.
+    folio_val = valuation.get("folio")
+    if not folio_val:
+        from report_generator import build_folio, user_siglas
+        _fu = await get_current_user(request)
+        if _fu and (_fu.role or "").lower() in ("appraiser", "realtor", "super_admin"):
+            _udoc = await db.users.find_one({"user_id": _fu.user_id}, {"_id": 0}) or {}
+            _seq = int(_udoc.get("folio_seq") or 0) + 1
+            _sig = _udoc.get("siglas") or user_siglas(_udoc.get("company_name") or _udoc.get("name") or "")
+            folio_val = build_folio(_fu.role, _sig, _seq)
+            await db.users.update_one({"user_id": _fu.user_id},
+                                      {"$set": {"folio_seq": _seq, "siglas": _sig}})
+        else:
+            _num = ''.join(filter(str.isdigit, valuation_id[-4:])) or '01'
+            folio_val = build_folio("public", "", int(_num[:2] or "1"))
+        await db.valuations.update_one({"valuation_id": valuation_id}, {"$set": {"folio": folio_val}})
+    valuation["folio"] = folio_val
+
     # Generate HTML report with optional analysis section
     report_html = generate_html_report(valuation, analysis, include_analysis=include_analysis, ai_sections=ai_sections)
     

@@ -49,6 +49,8 @@ class User(BaseModel):
     galardones: Optional[str] = None
     billing_preference: Optional[str] = "ask_monthly"   # auto | manual | ask_monthly
     billing_status: Optional[str] = "active"             # active | pending_payment | blocked
+    siglas: Optional[str] = None                         # iniciales para el folio (ej. "AA")
+    folio_seq: Optional[int] = 0                          # consecutivo de avalúos del usuario
 
 class RegisterRequest(BaseModel):
     name: str

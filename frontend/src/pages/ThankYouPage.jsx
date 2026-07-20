@@ -48,6 +48,11 @@ const ThankYouPage = () => {
     toast.info("Usa 'Guardar como PDF' en el diálogo de impresión");
   };
 
+  // Nombre del archivo = <title> del reporte (ej. "PropValu EST-260720-IN-AA-01 - ...").
+  const fileName = reportHtml
+    ? (reportHtml.match(/<title>([^<]+)<\/title>/i)?.[1]?.trim() || "Reporte PropValu")
+    : null;
+
   const handleSubmit = async () => {
     if (selected === 0) {
       toast.error("Selecciona una calificación");
@@ -125,32 +130,6 @@ const ThankYouPage = () => {
           </h1>
           <p className="text-slate-500 text-sm max-w-xs mx-auto">
             El avalúo fue generado con éxito. Descárgalo cuando quieras.
-          </p>
-        </div>
-
-        {/* Download card */}
-        <div className="bg-gradient-to-br from-[#1B4332] to-[#2D6A4F] rounded-2xl p-6 mb-6 text-white shadow-xl">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center">
-              <svg viewBox="0 0 24 24" className="w-5 h-5 text-[#D9ED92]" fill="none" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-            </div>
-            <div>
-              <p className="font-semibold text-sm">Reporte de Valuación</p>
-              <p className="text-white/60 text-xs">Metodología CNBV / SHF / INDAABIN · PDF</p>
-            </div>
-          </div>
-          <Button
-            onClick={handleDownload}
-            className="w-full bg-[#D9ED92] text-[#1B4332] hover:bg-[#c8e070] font-bold text-base py-5 rounded-xl gap-2"
-            disabled={!reportHtml}
-          >
-            <Download className="w-5 h-5" />
-            {reportHtml ? "Descargar PDF" : "Cargando reporte…"}
-          </Button>
-          <p className="text-white/40 text-xs text-center mt-3">
-            Estimación realizada con inteligencia de PropValu
           </p>
         </div>
 
@@ -245,6 +224,34 @@ const ThankYouPage = () => {
               </p>
             </div>
           )}
+        </div>
+
+        {/* Download card (debajo de calificar: el objetivo es que califiquen antes de descargar) */}
+        <div className="bg-gradient-to-br from-[#1B4332] to-[#2D6A4F] rounded-2xl p-6 mb-6 text-white shadow-xl">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center shrink-0">
+              <svg viewBox="0 0 24 24" className="w-5 h-5 text-[#D9ED92]" fill="none" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <div className="min-w-0">
+              <p className="font-semibold text-sm">Reporte de Valuación</p>
+              <p className="text-white/60 text-xs truncate">
+                {fileName ? `${fileName}.pdf` : "Metodología CNBV / SHF / INDAABIN · PDF"}
+              </p>
+            </div>
+          </div>
+          <Button
+            onClick={handleDownload}
+            className="w-full bg-[#D9ED92] text-[#1B4332] hover:bg-[#c8e070] font-bold text-base py-5 rounded-xl gap-2"
+            disabled={!reportHtml}
+          >
+            <Download className="w-5 h-5" />
+            {reportHtml ? "Descargar PDF" : "Cargando reporte…"}
+          </Button>
+          <p className="text-white/40 text-xs text-center mt-3">
+            Estimación realizada con inteligencia de PropValu
+          </p>
         </div>
 
         {/* Actions */}

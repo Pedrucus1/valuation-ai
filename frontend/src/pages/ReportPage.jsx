@@ -564,8 +564,8 @@ const ReportPage = () => {
         )}
       </div>
 
-      {/* CTA — directorio de inmobiliarias (solo en el reporte final, no durante el cálculo) */}
-      {result && !isGenerating && reportHtml && (
+      {/* CTA — directorio de inmobiliarias (solo público general, en el reporte final) */}
+      {result && !isGenerating && reportHtml && !isPro && (
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-6 no-print">
           <div className="rounded-xl border border-[#B7E4C7] bg-[#F0FDF4] p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="flex items-start gap-3">

@@ -56,9 +56,37 @@ def get_land_use_info(land_use: str) -> Dict:
 
 
 def generate_folio(valuation_id: str) -> str:
-    now = datetime.now(timezone.utc)
+    """Fallback legado (público sin folio guardado): EST-YYMMDD-PU-NN."""
     num = ''.join(filter(str.isdigit, valuation_id[-4:])) or '01'
-    return f"EST-{now.strftime('%y%m%d')}-{num[:2].zfill(2)}"
+    return build_folio("public", "", int(num[:2] or "1"))
+
+
+_SIGLAS_STOPWORDS = {"y", "e", "de", "del", "la", "el", "los", "las"}
+
+
+def user_siglas(nombre: str) -> str:
+    """2 iniciales de las palabras significativas del nombre/empresa. '' si vacío.
+    Ej: 'Avaluos y Arquitectura' -> 'AA'; 'Ana Vargas' -> 'AV'."""
+    if not nombre:
+        return ""
+    palabras = [w for w in nombre.split() if w.lower() not in _SIGLAS_STOPWORDS and w[:1].isalnum()]
+    return "".join(w[0] for w in palabras[:2]).upper()
+
+
+def tipo_code(role: str) -> str:
+    """Tipo de usuario para el folio: IN inmobiliaria, PE perito, AD admin, PU público."""
+    return {"realtor": "IN", "appraiser": "PE", "super_admin": "AD"}.get((role or "").lower(), "PU")
+
+
+def build_folio(role: str, siglas: str, seq: int, when=None) -> str:
+    """EST-YYMMDD-TIPO[-SIGLAS]-NN. Público (PU) no lleva siglas."""
+    when = when or datetime.now(timezone.utc)
+    tipo = tipo_code(role)
+    partes = ["EST", when.strftime("%y%m%d"), tipo]
+    if tipo != "PU" and siglas:
+        partes.append(siglas)
+    partes.append(str(seq).zfill(2))
+    return "-".join(partes)
 
 
 # ── CSS exacto del template reporte-preview-TEMPLATE.html ─────────────────────
@@ -415,7 +443,7 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
     except Exception:
         date_display = date_str
 
-    folio = generate_folio(valuation.get('valuation_id', '001'))
+    folio = valuation.get('folio') or generate_folio(valuation.get('valuation_id', '001'))
 
     # Market metrics
     market_metrics = result.get('market_metrics', {})
@@ -872,6 +900,7 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
     </div>
     <div class="folio-box">
       Folio: <strong>{folio}</strong><br>
+      <span style="color:var(--text-main);">&#x1F4CD; {addr_full}</span><br>
       Fecha: {date_display}
     </div>
   </div>"""
@@ -890,7 +919,7 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reporte PropValu - {folio}</title>
+<title>PropValu {folio} - {addr_full}</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 {_REPORT_CSS}
