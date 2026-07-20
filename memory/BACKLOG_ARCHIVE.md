@@ -5,6 +5,31 @@
 
 ---
 
+## 18-20 Jul 2026 — Diseñador de promocionales "Just Listed" (frontend, local, NO desplegado)
+
+Sesión larga y muy iterativa construyendo el **generador de fichas/promocionales** en el tab **Promociones** del panel inmobiliaria (`InmobiliariaDashboardPage` → `PromocionesTab.jsx`). Todo es frontend React; **backend/motor no se tocaron**. El trabajo quedó commiteado por el hook de auto-backup y **pusheado** (`19a115e`), pero **NO desplegado a Vercel** — el usuario lo revisa en local (`localhost:3000`, backend local apuntando a staging).
+
+**Concepto (Magic Switch tipo Canva):** un solo objeto de datos (ficha del avalúo o propiedad subida + sesión del asesor) → cada formato se recompone automáticamente. Estilo nuevo **"Just Listed"** (`promociones/LayoutJustListed.jsx`): identidad editorial crema/serif Didot/dorado. Formatos: **A4** (1 hoja: precio junto/encima del logo, características 2 col, amenidades 4 col, 6 fotos, footer delgado con tel/email bajo el CTA) · **Post 1:1** · **Post·3slides (1:1)** · **Story/Reels 9:16** · **TikTok·3slides** · **Facebook**.
+
+**Rail tipo Canva** (secciones: Estilo·Color·Fotos·Precio·Texto·Puntos·Extras·**Asesor**·Mostrar) con controles que aplican a todos los formatos:
+- **Color:** theming por paleta (9 paletas; "verde"=editorial por default) + **color por elemento** (fondo/texto/acento/recuadros/texto-sobre-oscuro) via `c.priceBg`/overrides.
+- **Precio:** fondo **sólido / transparente (50%) / sin fondo**.
+- **Texto:** **20 tipografías** de sistema (headings vía `c.serif`), **CTA editable**, idioma **ES/EN** con **i18n completo** (títulos, specs, secciones, footer, y **amenidades** traducidas por mapa ES→EN), **contador de palabras** (60) en la descripción + más separación entre cajas.
+- **Fotos:** selector con pool (fotos de la propiedad + 12 de muestra), incluir/orden/portada, y **stepper de slides de fotos en mosaico** (2×2) para Story/TikTok/Post3.
+- **Puntos:** botón **"+"** para agregar/quitar; salen en **todos** los formatos.
+- **Asesor:** datos **precargados de la cuenta**, pills **Asesor / Empresa** (nombre+tel+foto según fuente) + toggles Mostrar foto / Mostrar nombre. (Se quitó el editable/upload manual por pedido del usuario.)
+- **Mostrar:** toggles de qué bloques se ven (descripción/características/amenidades/puntos).
+
+**Export** (`SecuenciasJustListed.jsx` + `secuenciasGif.js`): reproductor animado 9:16 (ken-burns + crossfade) con salida **GIF** (gifenc), **JPG** (3 imágenes) y **MP4/WebM** (MediaRecorder + captureStream).
+
+**Hallazgos importantes:** (1) los specs del avalúo viven anidados en `property_data` con nombres en inglés (`bedrooms`/`bathrooms`/`parking_spaces`) → se arregló `mapValuacionBackend` (`InmobiliariaDashboardPage`) para cargarlos + fotos; antes salían "Sin datos". (2) `session` es **plano** (`session.phone`, no `session.user.phone`) → helpers de asesor corregidos. (3) Sin la cookie de sesión el front cae a **datos MOCK** (por eso al inspeccionar por curl-login salía "Sin datos" — no era bug real). (4) Verificado en vivo con **claude-in-chrome** (login por cookie en el navegador → datos reales): A4/Post/Story se ven bien con specs, iconos, colonia y fotos.
+
+**Otros:** nav del dashboard más compacto ("Verificación por Zona"), banner de documentos con menos margen, etiqueta **"Manual" → "Subida"**, sección **"Mis propiedades (subidas)" siempre visible** con guía + botón "Subir propiedad" + empty-state. Login de prueba local (staging): `pedrucus@gmail.com` / `PropValu2026!` (reset directo en Mongo staging).
+
+**PENDIENTE:** seguir puliendo por feedback del usuario (afinar márgenes/tamaños por formato); desplegar a Vercel cuando lo apruebe. El motor y el backend siguen intactos (caché 7-jul desplegado).
+
+---
+
 ## 17 Jul 2026 (2ª sesión) — Aplicada la auditoría (los 5 pendientes) + deploy
 
 Se aplicaron y desplegaron los 5 arreglos que la auditoría de la 1ª sesión había dejado propuestos (el usuario dio "dale a todo"). Commit `d8c0a40`, pusheado, Railway + Vercel desplegados y verificados (backend `/api/health` 200, Vercel READY).
