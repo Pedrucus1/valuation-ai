@@ -215,8 +215,8 @@ const ReportPage = () => {
   const calculateAndGenerate = async () => {
     setIsGenerating(true);
     try {
-      // Calculate first
-      const calcResponse = await fetch(`${API}/valuations/${valuationId}/calculate`, {
+      // Calcular con el MOTOR canónico (no el /calculate viejo)
+      const calcResponse = await fetch(`${API}/valuations/${valuationId}/calculate-remi`, {
         method: "POST",
         credentials: "include"
       });

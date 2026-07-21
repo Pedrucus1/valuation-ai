@@ -633,23 +633,28 @@ async def generate_comparables(valuation_id: str, request: Request, append: bool
     except Exception as e:
         logger.warning(f"mercado_props error: {e}")
 
-    # ============== 1. TRY AI SEARCH FIRST (OpenAI + Gemini) ==============
+    # ============== 1. BÚSQUEDA IA (OpenAI GPT-4o) — DESACTIVADA por defecto ==============
+    # Proceso CANÓNICO: NO se usa ChatGPT. Los comps salen del pool real (mercado_props,
+    # con banda $/m²) y la búsqueda web canónica (Tavily/Serper) vive en el MOTOR.
+    # Este bloque (código legacy de feb-2026) queda gateado con USE_AI_COMPS=1 solo para pruebas.
     try:
-        logger.info("Starting AI-powered comparable search...")
-        
-        ai_result = await asyncio.wait_for(
-            search_comparables_with_ai(
-                location=location,
-                property_type=search_type,
-                land_area=prop["land_area"],
-                construction_area=prop["construction_area"],
-                listing_type="venta",
-                max_results=15,
-                use_both_providers=True
-            ),
-            timeout=60.0
-        )
-        
+        if os.environ.get("USE_AI_COMPS") == "1":
+            logger.info("Starting AI-powered comparable search...")
+            ai_result = await asyncio.wait_for(
+                search_comparables_with_ai(
+                    location=location,
+                    property_type=search_type,
+                    land_area=prop["land_area"],
+                    construction_area=prop["construction_area"],
+                    listing_type="venta",
+                    max_results=15,
+                    use_both_providers=True
+                ),
+                timeout=60.0
+            )
+        else:
+            ai_result = {"success": False, "comparables": []}
+
         if ai_result.get("success") and ai_result.get("comparables"):
             ai_comparables = ai_result["comparables"]
             ai_providers_used = ai_result.get("providers_used", [])
@@ -966,11 +971,20 @@ async def generate_comparables(valuation_id: str, request: Request, append: bool
             )
             comparables.append(comparable.model_dump())
 
-    # Solo los 15 mejores para seleccionar (antes se guardaban hasta ~50 de la búsqueda IA).
-    # Orden por confiabilidad desc; los sin score quedan al final. NO capar si el usuario
-    # pidió explícitamente "Buscar más" (append=true), ahí sí quiere ver más de 15.
     comparables.sort(key=lambda c: c.get("confiabilidad") or 0, reverse=True)
-    if not append:
+
+    # "Buscar otros" (append=true): reemplazar los 15 que ya se veían por OTROS distintos
+    # (el siguiente mejor bloque), excluyendo los que ya estaban. Si ya no quedan nuevos,
+    # se conservan los actuales. Antes `append` no hacía nada (reconstruía lo mismo).
+    if append:
+        def _ckey(c):
+            return (c.get("id_unico") or c.get("source_url")
+                    or f"{c.get('neighborhood')}|{c.get('price')}|{c.get('construction_area')}")
+        vistos = {_ckey(c) for c in (valuation.get("comparables") or [])}
+        otros = [c for c in comparables if _ckey(c) not in vistos]
+        comparables = (otros or comparables)[:15]
+    else:
+        # Solo los 15 mejores para seleccionar (antes se guardaban hasta ~50 de la búsqueda IA).
         comparables = comparables[:15]
 
     # Update valuation in database
@@ -1291,32 +1305,34 @@ async def calculate_remi(valuation_id: str):
         }.get(prop.get("conservation_state", "Bueno"), "bueno"),
         "recamaras":         prop.get("bedrooms", 0),
         "banos":             prop.get("bathrooms", 0),
-        "municipio":         prop.get("city", ""),
+        "municipio":         prop.get("municipality") or prop.get("city", ""),
         "colonia":           prop.get("neighborhood", ""),
     }
 
-    try:
-        proc = await asyncio.wait_for(
-            asyncio.create_subprocess_exec(
-                "node", MOTOR_SCRIPT,
-                stdin=subprocess.PIPE,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                cwd=str(MOTOR_DIR),
-            ),
-            timeout=30,
+    # Subprocess en thread (subprocess.run) en vez de asyncio.create_subprocess_exec:
+    # bajo el event loop de uvicorn en Windows el segundo lanza NotImplementedError.
+    # Así funciona igual en Windows (local) y Linux (prod).
+    def _run_motor():
+        return subprocess.run(
+            ["node", MOTOR_SCRIPT],
+            input=json.dumps(motor_input).encode(),
+            capture_output=True, cwd=str(MOTOR_DIR), timeout=30,
         )
-        stdout, stderr = await asyncio.wait_for(proc.communicate(input=json.dumps(motor_input).encode()), timeout=30)
-    except asyncio.TimeoutError:
+    try:
+        _loop = asyncio.get_running_loop()
+        proc = await asyncio.wait_for(_loop.run_in_executor(None, _run_motor), timeout=40)
+    except (asyncio.TimeoutError, subprocess.TimeoutExpired):
         raise HTTPException(status_code=503, detail="Motor timeout")
     except Exception as e:
-        raise HTTPException(status_code=503, detail=f"Motor error: {str(e)}")
+        raise HTTPException(status_code=503, detail=f"Motor error: {str(e) or type(e).__name__}")
 
     if proc.returncode != 0:
-        raise HTTPException(status_code=503, detail=f"Motor error: {stderr.decode()[:200]}")
+        raise HTTPException(status_code=503, detail=f"Motor error: {proc.stderr.decode()[:200] or ('exit ' + str(proc.returncode))}")
 
     try:
-        result = json.loads(stdout.decode())
+        # El motor imprime un banner (dotenvx) antes del JSON → tomar la última línea JSON.
+        _lines = [l for l in proc.stdout.decode().splitlines() if l.strip().startswith("{")]
+        result = json.loads(_lines[-1]) if _lines else json.loads(proc.stdout.decode())
     except Exception:
         raise HTTPException(status_code=503, detail="Motor respuesta inválida")
 
@@ -1363,15 +1379,57 @@ async def calculate_remi(valuation_id: str):
                 logger.warning(f"Flywheel insert error: {fw_e}")
     # ──────────────────────────────────────────────────────────────────────────
 
-    # Guardar resultado Remi en la valuación
+    # ── Adaptar la salida del motor al `result` que consume el reporte ──
+    # El motor devuelve {valor, confianza, cv, nComps, pm2cAvg, valorTerreno, valorConst...};
+    # el reporte espera la forma ValuationResult. Reconstruimos TODO desde el `valor` del
+    # motor (calculate_market_metrics deriva renta/cap_rate/plusvalía solo del valor).
+    valor = float(result.get("valor") or 0)
+    m2c = float(prop.get("construction_area") or 0) or 1
+    cv = float(result.get("cv") or 0.10)
+    rango = max(0.08, min(0.15, cv))  # ±8-15% guiado por el cv del motor
+    conf_map = {"ALTA": "ALTO", "ALTO": "ALTO", "MEDIA": "MEDIO", "MEDIO": "MEDIO",
+                "BAJA": "BAJO", "BAJO": "BAJO"}
+    confianza = conf_map.get(str(result.get("confianza", "")).upper(), "MEDIO")
+    land_v = float(result.get("valorTerreno") or 0)
+    const_v = float(result.get("valorConst") or 0)
+    rfd = valuation.get("rental_factor_data") or {}
+    mm = calculate_market_metrics(
+        estimated_value=valor,
+        rental_factor=rfd.get("factor", 0.005),
+        property_type=prop.get("property_type", "Casa"),
+        state=prop.get("state", ""),
+    )
+    mm["similar_properties_count"] = int(result.get("nComps") or 0)
+    mm["rental_listings_count"] = rfd.get("rental_listings_count", 0)
+    web_result = {
+        "comparative_min_value": round(valor * (1 - rango), 2),
+        "comparative_avg_value": round(valor, 2),
+        "comparative_max_value": round(valor * (1 + rango), 2),
+        "comparative_weighted": round(valor, 2),
+        "land_value": round(land_v, 2),
+        "construction_new_value": round(const_v, 2),
+        "depreciation_percent": 0.0,
+        "construction_depreciated": round(const_v, 2),
+        "physical_total": round(land_v + const_v, 2) if (land_v or const_v) else round(valor, 2),
+        "estimated_value": round(valor, 2),
+        "value_range_min": round(valor * (1 - rango), 2),
+        "value_range_max": round(valor * (1 + rango), 2),
+        "price_per_sqm": round(valor / m2c, 2),
+        "confidence_level": confianza,
+        "market_metrics": mm,
+    }
+
+    # Guardar resultado del motor + el `result` para el reporte
     await db.valuations.update_one(
         {"valuation_id": valuation_id},
         {"$set": {
             "remi_result": result,
+            "result": web_result,
+            "status": "calculated",
             "updated_at": datetime.now(timezone.utc).isoformat()
         }}
     )
-    return result
+    return {**result, "result": web_result}
 
 @api_router.post("/valuations/{valuation_id}/generate-report")
 async def generate_report(valuation_id: str, request: Request, include_analysis: bool = True):

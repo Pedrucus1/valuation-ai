@@ -241,7 +241,7 @@ const ComparablesPage = () => {
       if (!response.ok) throw new Error("Error al buscar más comparables");
 
       const data = await response.json();
-      toast.success(`Se encontraron ${data.count} comparables en total`);
+      toast.success(`Comparables actualizados (${data.count})`);
       await fetchValuation();
     } catch (error) {
       toast.error(error.message || "Error al buscar comparables");
@@ -400,7 +400,9 @@ const ComparablesPage = () => {
 
       if (!selectResponse.ok) throw new Error("Error al guardar selección");
 
-      const calcResponse = await fetch(`${API}/valuations/${valuationId}/calculate`, {
+      // Valor por el MOTOR canónico (no el /calculate viejo). La selección de arriba
+      // queda como verificación humana; el motor selecciona y calcula por su cuenta.
+      const calcResponse = await fetch(`${API}/valuations/${valuationId}/calculate-remi`, {
         method: "POST",
         credentials: "include"
       });
@@ -565,9 +567,9 @@ const ComparablesPage = () => {
               {isSearchingMore ? (
                 <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
               ) : (
-                <Search className="w-4 h-4 mr-2" />
+                <RefreshCw className="w-4 h-4 mr-2" />
               )}
-              Buscar más
+              Buscar otros
             </Button>
           </div>
         </div>
