@@ -1126,6 +1126,18 @@ const ValuationForm = () => {
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
+          {currentStep > 1 && (
+            <button
+              type="button"
+              onClick={prevStep}
+              className="flex items-center gap-1 flex-shrink-0 text-white/85 hover:text-white text-xs font-semibold px-2.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
+              title="Regresar al paso anterior"
+              data-testid="header-prev-step-btn"
+            >
+              <ChevronLeft className="w-4 h-4" />
+              <span className="hidden sm:inline">Paso anterior</span>
+            </button>
+          )}
           <div className="flex items-center gap-2 flex-shrink-0 min-w-0">
             <Building2 className="w-5 h-5 text-white flex-shrink-0" />
             <h1 className="font-['Outfit'] text-base font-bold text-white hidden sm:block">Nueva Valuación</h1>
