@@ -233,6 +233,11 @@ const LocationMap = ({ latitude, longitude, onLocationChange, address, autoSearc
   // Últimas coords aplicadas por el propio mapa (para no reposicionar en loop)
   const selfUpdateRef = useRef({ lat: null, lng: null });
 
+  // Coords más recientes: el init del mapa es async; sin esto centraría en el
+  // default (CDMX) si lat/lng cambian (geocode/restauración) antes de cargar la API.
+  const coordsRef = useRef({ lat: latitude, lng: longitude });
+  coordsRef.current = { lat: latitude, lng: longitude };
+
   // Inicializa el mapa una sola vez cuando la API está disponible
   useEffect(() => {
     let cancelled = false;
@@ -240,7 +245,7 @@ const LocationMap = ({ latitude, longitude, onLocationChange, address, autoSearc
       .then((maps) => {
         if (cancelled || !mapContainerRef.current || mapRef.current) return;
 
-        const center = { lat: latitude, lng: longitude };
+        const center = coordsRef.current;
         const map = new maps.Map(mapContainerRef.current, {
           center,
           zoom: 16,
