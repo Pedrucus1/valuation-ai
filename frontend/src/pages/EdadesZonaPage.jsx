@@ -248,7 +248,7 @@ const ColoniaCorregir = memo(({ nombres, valorInicial, onSet, placeholder = "Col
   );
 });
 
-const EdadesZonaPage = () => {
+const EdadesZonaPage = ({ embedded = false }) => {
   const navigate = useNavigate();
   const [estado, setEstado] = useState("");
   const [municipio, setMunicipio] = useState("");
@@ -530,11 +530,13 @@ const EdadesZonaPage = () => {
     [coloniasOficiales, coloniasExistentes]);
 
   return (
-    <div className="min-h-screen bg-[#F8F9FA] py-8 px-4 sm:px-6 lg:px-8">
+    <div className={embedded ? "" : "min-h-screen bg-[#F8F9FA] py-8 px-4 sm:px-6 lg:px-8"}>
       <div className="max-w-6xl mx-auto">
-        <Button variant="ghost" onClick={() => navigate(-1)} className="mb-4 text-[#1B4332] hover:bg-[#D9ED92]/30">
-          <ArrowLeft className="w-4 h-4 mr-2" /> Volver
-        </Button>
+        {!embedded && (
+          <Button variant="ghost" onClick={() => navigate(-1)} className="mb-4 text-[#1B4332] hover:bg-[#D9ED92]/30">
+            <ArrowLeft className="w-4 h-4 mr-2" /> Volver
+          </Button>
+        )}
 
         <div className="flex items-center justify-between flex-wrap gap-3 mb-2">
           <div className="flex items-center gap-3">

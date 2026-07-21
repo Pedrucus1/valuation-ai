@@ -965,7 +965,12 @@ async def generate_comparables(valuation_id: str, request: Request, append: bool
                 adjusted_price_per_sqm=round(adjusted_price, 2)
             )
             comparables.append(comparable.model_dump())
-    
+
+    # Solo los 15 mejores para seleccionar (antes se guardaban hasta ~50 de la búsqueda IA).
+    # Orden por confiabilidad desc; los sin score quedan al final.
+    comparables.sort(key=lambda c: c.get("confiabilidad") or 0, reverse=True)
+    comparables = comparables[:15]
+
     # Update valuation in database
     await db.valuations.update_one(
         {"valuation_id": valuation_id},

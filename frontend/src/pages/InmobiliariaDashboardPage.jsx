@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import PromocionesTab from "../components/dashboard/tabs/PromocionesTab";
 import DataExchangeTab from "../components/dashboard/tabs/DataExchangeTab";
+import EdadesZonaPage from "./EdadesZonaPage";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, CircleMarker, Popup } from "react-leaflet";
 import MapaAvaluos from "@/components/MapaAvaluos";
@@ -737,7 +738,7 @@ const InmobiliariaDashboardPage = () => {
     { id: "publicidad",   label: "Publicidad" },
     { id: "promociones",  label: "Promociones" },
     ...(esTitular ? [{ id: "data_exchange", label: "Data Exchange" }] : []),
-    { id: "edades",       label: "Verificación por Zona", to: "/edades-zona" },
+    { id: "edades",       label: "Verificación por Zona" },
   ];
 
   /* ── Facturación Tab ── */
@@ -1494,7 +1495,12 @@ const InmobiliariaDashboardPage = () => {
             </TableHeader>
             <TableBody>
               {valuacionesList.map((v) => (
-                <TableRow key={v.id} className="hover:bg-slate-50">
+                <TableRow
+                  key={v.id}
+                  onClick={() => v.estado === "completada" && window.open(`/reporte/${v.id}`, "_blank")}
+                  className={`hover:bg-slate-50 ${v.estado === "completada" ? "cursor-pointer" : ""}`}
+                  title={v.estado === "completada" ? "Abrir reporte" : ""}
+                >
                   <TableCell>
                     <div className="flex items-center gap-2">
                       <MapPin className="w-4 h-4 text-[#52B788] shrink-0" />
@@ -1523,7 +1529,7 @@ const InmobiliariaDashboardPage = () => {
                   <TableCell className="flex items-center gap-2">
                     {v.estado === "completada" && (
                       <button
-                        onClick={() => window.open(`/reporte/${v.id}`, "_blank")}
+                        onClick={(e) => { e.stopPropagation(); window.open(`/reporte/${v.id}`, "_blank"); }}
                         className="flex items-center gap-1 text-xs font-semibold text-[#1B4332] hover:text-[#2D6A4F] bg-[#F0FAF5] hover:bg-[#D9F0E3] border border-[#B7E4C7] px-2 py-1 rounded-lg transition-colors whitespace-nowrap"
                         title="Ver Reporte"
                       >
@@ -1533,7 +1539,7 @@ const InmobiliariaDashboardPage = () => {
                     )}
                     {v.estado === "completada" && v.valuador_id && !v.calificada && (
                       <button
-                        onClick={() => setCalificarModal(v)}
+                        onClick={(e) => { e.stopPropagation(); setCalificarModal(v); }}
                         className="flex items-center gap-1 text-xs font-semibold text-amber-600 hover:text-amber-700 bg-amber-50 hover:bg-amber-100 border border-amber-200 px-2 py-1 rounded-lg transition-colors whitespace-nowrap"
                       >
                         <Star className="w-3 h-3" />
@@ -2396,6 +2402,9 @@ const InmobiliariaDashboardPage = () => {
 
         {/* Tab: Equipo */}
         {activeTab === "equipo" && <EquipoTable />}
+
+        {/* Tab: Verificación por Zona (inline, conserva el menú de pestañas arriba) */}
+        {activeTab === "edades" && <EdadesZonaPage embedded />}
 
         {/* Tab: Documentos */}
         {activeTab === "documentos" && <DocumentosTab />}

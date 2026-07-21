@@ -573,54 +573,6 @@ const ComparablesPage = () => {
         </div>
       </div>
 
-      {/* Cómo seleccionar: manual + selección rápida */}
-      <div className="max-w-6xl mx-auto mb-6 rounded-xl border border-[#52B788]/40 bg-[#F0FAF5] p-4">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
-          <div>
-            <p className="text-sm font-semibold text-[#1B4332]">
-              Selección manual: marca o desmarca cada tarjeta a mano
-            </p>
-            <p className="text-xs text-slate-600 mt-0.5">
-              Haz clic en cualquier fila (o su casilla) para elegir/quitar un comparable. Los resaltados en
-              <span className="font-semibold text-[#1B4332]"> verde</span> son los de mayor certeza.
-            </p>
-          </div>
-          <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-xs font-semibold text-slate-500 whitespace-nowrap">o usa una selección rápida:</span>
-            {[
-              { label: "Top 6", count: 6, testId: "select-top-6-btn" },
-              { label: "Top 10", count: 10, testId: "select-top-10-btn" },
-            ].map(({ label, count, testId }) => (
-              <Button
-                key={count}
-                variant="outline"
-                size="sm"
-                onClick={() => selectTop(count)}
-                className={activeTopFilter === count
-                  ? "bg-[#1B4332] !text-white border-[#1B4332] hover:bg-[#1B4332] hover:!text-white shadow-md"
-                  : "border-slate-300 text-slate-600 hover:border-[#1B4332] hover:text-[#1B4332] bg-white"
-                }
-                data-testid={testId}
-              >
-                {label}
-              </Button>
-            ))}
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={selectAll}
-              className={activeTopFilter === "all"
-                ? "bg-[#1B4332] !text-white border-[#1B4332] hover:bg-[#1B4332] hover:!text-white shadow-md"
-                : "border-[#1B4332] text-[#1B4332] hover:bg-[#1B4332] hover:!text-white bg-white"
-              }
-              data-testid="select-all-btn"
-            >
-              {selectedIds.length === comparables.length && comparables.length > 0 ? "Ninguno" : "Todas"}
-            </Button>
-          </div>
-        </div>
-      </div>
-
       {/* Property Summary */}
       <Card className="max-w-6xl mx-auto mb-6 bg-white shadow-sm border-0">
         <CardContent className="p-6">
@@ -696,10 +648,40 @@ const ComparablesPage = () => {
               </div>
             </div>
 
-            {/* Selección rápida movida arriba; recordatorio de selección manual */}
-            <span className="text-xs text-slate-400 italic">
-              Marca las filas a mano o usa la selección rápida de arriba
-            </span>
+            {/* Selección rápida: a la derecha del título */}
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-xs font-semibold text-slate-500 whitespace-nowrap">Selecciona:</span>
+              {[
+                { label: "Top 6", count: 6, testId: "select-top-6-btn" },
+                { label: "Top 10", count: 10, testId: "select-top-10-btn" },
+              ].map(({ label, count, testId }) => (
+                <Button
+                  key={count}
+                  variant="outline"
+                  size="sm"
+                  onClick={() => selectTop(count)}
+                  className={activeTopFilter === count
+                    ? "bg-[#1B4332] !text-white border-[#1B4332] hover:bg-[#1B4332] hover:!text-white shadow-md rounded-full"
+                    : "border-slate-300 text-slate-600 hover:border-[#1B4332] hover:text-[#1B4332] bg-white rounded-full"
+                  }
+                  data-testid={testId}
+                >
+                  {label}
+                </Button>
+              ))}
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={selectAll}
+                className={activeTopFilter === "all"
+                  ? "bg-[#1B4332] !text-white border-[#1B4332] hover:bg-[#1B4332] hover:!text-white shadow-md rounded-full"
+                  : "border-[#1B4332] text-[#1B4332] hover:bg-[#1B4332] hover:!text-white bg-white rounded-full"
+                }
+                data-testid="select-all-btn"
+              >
+                {selectedIds.length === comparables.length && comparables.length > 0 ? "Ninguno" : "Todos"}
+              </Button>
+            </div>
           </div>
         </CardHeader>
         <CardContent className="p-0">
@@ -762,7 +744,8 @@ const ComparablesPage = () => {
                       <TableCell className="text-center">
                         {comp.age != null ? (
                           <span className="text-xs font-semibold text-slate-500">{comp.age} años{comp.age === 0 ? " (nuevo)" : ""}</span>
-                        ) : comp.id_unico ? (
+                        ) : (comp.id_unico && (user?.role === "appraiser" || user?.role === "super_admin")) ? (
+                          /* Estimar/capturar edad SOLO el perito; inmobiliaria/público no editan edad */
                           <div onClick={(e) => e.stopPropagation()} className="flex flex-col items-center gap-1">
                             <Select onValueChange={(v) => estimarEdad(comp, { rango: v })}>
                               <SelectTrigger className="h-7 w-24 text-xs border-[#52B788] text-[#1B4332]" data-testid={`edad-select-${index}`}>
@@ -925,9 +908,9 @@ const ComparablesPage = () => {
                               <p className="text-[10px] text-slate-400 leading-tight">{comp.street_address}</p>
                             )}
                             <div className="text-[10px] text-sky-600 font-medium mt-1 inline-flex gap-2">
-                              {comp.bedrooms ? <span>{comp.bedrooms} 🛌</span> : null}
-                              {comp.bathrooms ? <span>{comp.bathrooms} 🚿</span> : null}
-                              {comp.parking ? <span>{comp.parking} 🚗</span> : null}
+                              {(comp.bedrooms || comp.recamaras) ? <span>{comp.bedrooms || comp.recamaras} 🛌</span> : null}
+                              {(comp.bathrooms || comp.banos) ? <span>{comp.bathrooms || comp.banos} 🚿</span> : null}
+                              {(comp.parking || comp.estacionamientos || comp.parking_spaces) ? <span>{comp.parking || comp.estacionamientos || comp.parking_spaces} 🚗</span> : null}
                             </div>
                           </div>
                           <div className="text-right">
@@ -1013,9 +996,9 @@ const ComparablesPage = () => {
                               <div className="font-semibold text-[#1B4332] text-sm break-words">{comp.neighborhood}</div>
                               {comp.street_address && <div className="text-xs font-medium text-slate-500 mt-0.5">{comp.street_address}</div>}
                             </td>
-                            <td className="px-1 py-1.5 text-center text-slate-600 text-[11px] font-semibold">{comp.bedrooms || '-'}</td>
-                            <td className="px-1 py-1.5 text-center text-slate-600 text-[11px] font-semibold">{comp.bathrooms || '-'}</td>
-                            <td className="px-1 py-1.5 text-center text-slate-600 text-[11px] font-semibold">{comp.parking || '-'}</td>
+                            <td className="px-1 py-1.5 text-center text-slate-600 text-[11px] font-semibold">{comp.bedrooms || comp.recamaras || '-'}</td>
+                            <td className="px-1 py-1.5 text-center text-slate-600 text-[11px] font-semibold">{comp.bathrooms || comp.banos || '-'}</td>
+                            <td className="px-1 py-1.5 text-center text-slate-600 text-[11px] font-semibold">{comp.parking || comp.estacionamientos || comp.parking_spaces || '-'}</td>
                             <td className="px-2 py-1.5 text-center text-slate-500 text-xs font-semibold">{comp.age != null ? comp.age + ' años' + (comp.age === 0 ? ' (nuevo)' : '') : 'N/D'}</td>
                             <td className="px-2 py-1.5 text-center text-red-600 font-semibold text-xs">{toFactor(negotiation)}</td>
                             <td className="px-2 py-1.5 text-center">
@@ -1053,10 +1036,10 @@ const ComparablesPage = () => {
 
       {/* Footer Actions */}
       <div className="max-w-6xl mx-auto mt-6 flex justify-between items-center flex-wrap gap-4">
-        <div className="text-sm text-slate-500">
-          <p>Seleccione entre <strong>3 y 10</strong> comparables para el análisis</p>
-          <p className="text-xs mt-1">
-            Factor de negociación activo: <strong className="text-red-600">{negotiation}%</strong>
+        <div className="text-sm text-slate-500 max-w-md">
+          <p className="text-xs">
+            Factor de negociación: <strong className="text-red-600">{negotiation}%</strong>
+            <span className="text-slate-400"> — {NEGOTIATION_OPTIONS.find(o => o.value === negotiation)?.label.replace(/^-?\d+%\s*/, "").replace(/[()]/g, "") || "descuento típico de precio de lista a precio de cierre en la zona"}</span>
           </p>
         </div>
         <Button

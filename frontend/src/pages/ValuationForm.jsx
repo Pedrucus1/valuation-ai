@@ -1131,7 +1131,13 @@ const ValuationForm = () => {
           <div className="flex-1 flex justify-end items-center">
             {steps.map((step, index) => (
               <div key={step.number} className="flex items-center">
-                <div className="flex flex-col items-center mx-1.5 sm:mx-3">
+                <button
+                  type="button"
+                  onClick={() => step.number < currentStep && setCurrentStep(step.number)}
+                  disabled={step.number >= currentStep}
+                  title={step.number < currentStep ? `Volver a ${step.title}` : ""}
+                  className={`flex flex-col items-center mx-1.5 sm:mx-3 ${step.number < currentStep ? "cursor-pointer" : "cursor-default"}`}
+                >
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
                     currentStep > step.number
                       ? "bg-[#52B788] text-white"
@@ -1148,7 +1154,7 @@ const ValuationForm = () => {
                   }`}>
                     {step.title}
                   </span>
-                </div>
+                </button>
                 {index < steps.length - 1 && (
                   <div className={`w-4 sm:w-10 h-0.5 ${currentStep > step.number ? "bg-[#52B788]" : "bg-white/25"}`} />
                 )}

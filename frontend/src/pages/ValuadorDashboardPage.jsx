@@ -73,6 +73,7 @@ import { Label } from "@/components/ui/label";
 import { API } from "@/App";
 import { compressFile } from "@/lib/compressFile";
 import MercadoView from "@/components/MercadoView";
+import EdadesZonaPage from "./EdadesZonaPage";
 const MercadoViewM = React.memo(MercadoView);
 
 /* ─── PropValu Watermark ─────────────────────────────── */
@@ -483,7 +484,7 @@ const ValuadorDashboardPage = () => {
     { id: "resenas",      label: "Reseñas" },
     { id: "facturacion",  label: "Facturación", badge: billingData?.billing_status === "blocked" || billingData?.days_to_cutoff <= 5 },
     { id: "publicidad",   label: "Publicidad" },
-    { id: "edades",       label: "Verificación de Datos por Zona", to: "/edades-zona" },
+    { id: "edades",       label: "Verificación de Datos por Zona" },
   ];
 
   /* ── Facturación Tab ── */
@@ -1418,11 +1419,19 @@ const ValuadorDashboardPage = () => {
               </TableHeader>
               <TableBody>
                 {valuaciones.map((v) => (
-                  <TableRow key={v.id} className="hover:bg-slate-50">
+                  <TableRow
+                    key={v.id}
+                    onClick={() => v.estado === "completada" && window.open(`/reporte/${v.id}`, "_blank")}
+                    className={`hover:bg-slate-50 ${v.estado === "completada" ? "cursor-pointer" : ""}`}
+                    title={v.estado === "completada" ? "Abrir reporte" : ""}
+                  >
                     <TableCell>
                       <div className="flex items-center gap-2">
                         <MapPin className="w-4 h-4 text-[#52B788] shrink-0" />
                         <span className="text-sm text-[#1B4332]">{v.direccion}</span>
+                        {v.estado === "completada" && (
+                          <span className="ml-1 text-xs font-semibold text-[#52B788] underline">Ver reporte</span>
+                        )}
                       </div>
                     </TableCell>
                     <TableCell>
@@ -2543,6 +2552,8 @@ const ValuadorDashboardPage = () => {
 
         {/* Tab: Expediente */}
         {activeTab === "expediente" && <ExpedienteTab />}
+
+        {activeTab === "edades" && <EdadesZonaPage embedded />}
 
         {/* Tab: Reseñas */}
         {activeTab === "resenas" && <ReseñasTab />}
