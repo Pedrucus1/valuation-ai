@@ -967,9 +967,11 @@ async def generate_comparables(valuation_id: str, request: Request, append: bool
             comparables.append(comparable.model_dump())
 
     # Solo los 15 mejores para seleccionar (antes se guardaban hasta ~50 de la búsqueda IA).
-    # Orden por confiabilidad desc; los sin score quedan al final.
+    # Orden por confiabilidad desc; los sin score quedan al final. NO capar si el usuario
+    # pidió explícitamente "Buscar más" (append=true), ahí sí quiere ver más de 15.
     comparables.sort(key=lambda c: c.get("confiabilidad") or 0, reverse=True)
-    comparables = comparables[:15]
+    if not append:
+        comparables = comparables[:15]
 
     # Update valuation in database
     await db.valuations.update_one(

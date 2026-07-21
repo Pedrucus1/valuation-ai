@@ -819,19 +819,8 @@ const ComparablesPage = () => {
                               ) : (
                                 <span className="text-xs text-slate-400">Sin dato</span>
                               )}
-                              {comp.source_url?.startsWith('http') ? (
-                                <a
-                                  href={comp.source_url}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  onClick={(e) => e.stopPropagation()}
-                                  className="inline-flex items-center gap-0.5 text-[10px] text-slate-400 hover:text-[#52B788] hover:underline"
-                                >
-                                  {portal}<ExternalLink className="w-2.5 h-2.5" />
-                                </a>
-                              ) : (
-                                <span className="text-[10px] text-slate-400">{portal}</span>
-                              )}
+                              {/* Solo calidad + origen como texto; sin enlace al anuncio */}
+                              <span className="text-[10px] text-slate-400">{portal}</span>
                             </div>
                           );
                         })()}

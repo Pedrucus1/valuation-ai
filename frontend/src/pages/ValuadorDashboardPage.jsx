@@ -182,9 +182,16 @@ function normalizeValuacion(v) {
       : "—",
     valor: v.result?.estimated_value || 0,
     estado: statusMap[v.status] || "en_proceso",
+    status: (v.status || "").toLowerCase(),
     lat: typeof v.property_data?.latitude === "number" ? v.property_data.latitude : null,
     lng: typeof v.property_data?.longitude === "number" ? v.property_data.longitude : null,
   };
+}
+
+// Completada/calculated → ver o terminar reporte; en proceso/borrador → seguir en comparables.
+function destinoValuacion(v) {
+  if (v.estado === "completada" || v.status === "calculated") return `/reporte/${v.id}`;
+  return `/comparables/${v.id}`;
 }
 
 /* ─── Modal Nuevo Anuncio ─────────────────────────────── */
@@ -1421,17 +1428,19 @@ const ValuadorDashboardPage = () => {
                 {valuaciones.map((v) => (
                   <TableRow
                     key={v.id}
-                    onClick={() => v.estado === "completada" && window.open(`/reporte/${v.id}`, "_blank")}
-                    className={`hover:bg-slate-50 ${v.estado === "completada" ? "cursor-pointer" : ""}`}
-                    title={v.estado === "completada" ? "Abrir reporte" : ""}
+                    onClick={() => v.estado === "completada"
+                      ? window.open(destinoValuacion(v), "_blank")
+                      : navigate(destinoValuacion(v))}
+                    className="hover:bg-slate-50 cursor-pointer"
+                    title={v.estado === "completada" ? "Ver reporte" : "Continuar valuación"}
                   >
                     <TableCell>
                       <div className="flex items-center gap-2">
                         <MapPin className="w-4 h-4 text-[#52B788] shrink-0" />
                         <span className="text-sm text-[#1B4332]">{v.direccion}</span>
-                        {v.estado === "completada" && (
-                          <span className="ml-1 text-xs font-semibold text-[#52B788] underline">Ver reporte</span>
-                        )}
+                        <span className="ml-1 text-xs font-semibold text-[#52B788] underline">
+                          {v.estado === "completada" ? "Ver reporte" : "Continuar"}
+                        </span>
                       </div>
                     </TableCell>
                     <TableCell>
