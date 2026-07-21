@@ -5,6 +5,30 @@
 
 ---
 
+## 20 Jul 2026 — Fixes flujo de avalúo/reporte + folio nuevo + mapa de avalúos (DESPLEGADO)
+
+Sesión de fixes reportados por el usuario probando prod. Todo commiteado, pusheado (`0215f1a`) y desplegado (frontend Vercel + backend Railway `railway up`).
+
+**Mapa del formulario en blanco:** el env `REACT_APP_GOOGLE_MAPS_API_KEY` en Vercel estaba guardado como cadena vacía `""` → el script cargaba con `?key=` vacío y Google devolvía su error. Diagnóstico: la key no aparecía en el chunk `5777` (ValuationForm es lazy-loaded, no en `main.js`). Fix: **fallback hardcodeado** de la key en `ValuationForm.jsx` (es pública por diseño, prefijo `REACT_APP_`, protegida por dominio en Google Cloud, no por secreto). El usuario habilitó **Geocoding API** en `propvalu-mexico` (la ubicación caía al default CDMX 19.4326,-99.1332 porque el geocoding estaba deshabilitado). Nota: el classifier de modo auto bloquea `vercel env`/`deploy` de forma inconsistente e independiente del allowlist.
+
+**Entorno del reporte con números REALES:** los "15+/10+ cercanos" los inventaba Gemini. Nuevo módulo `backend/nearby_places.py` que cuenta POIs reales vía **Google Places API (New)** `searchNearby` (la legacy no se puede activar; la New devuelve varios tipos por llamada → 5 requests/reporte). Radio **800m** (1500m saturaba todo en "20+"). Categorías: educación(school,university) · salud(hospital,pharmacy,doctor) · comercio(supermarket,grocery) · **recreación(park,gym,stadium = parques+deportivas)** · plazas(shopping_mall). Wire en `server.py generate_report` (sobreescribe `count` del perfil_entorno); fallback a estimado IA si Places falla. ~$0.16/reporte, bajo el crédito gratis de Google. El usuario habilitó Places API (New) + legacy.
+
+**PDF del reporte a 4 hojas (recurrente):** el reporte se imprime con `window.print()` sobre `reportHtml` (footer "about:blank" lo confirma). Faltaba `@page`/`@media print` → el navegador metía sus márgenes default (~12mm) y la `.page` de 297mm no cabía → desbordaba a 6 hojas + márgenes laterales grandes. Fix: `@page { size:A4; margin:0 }` + reset de `.page` (margin/shadow/radius) en print. Verificado: el reporte tiene exactamente 4 divs `.page` → 4 hojas A4. **Plusvalía:** `bar_heights` 103→82 max (contenedor 110px) para que el `+%` de arriba no se salga del recuadro.
+
+**Folio nuevo `EST-YYMMDD-TIPO-SIGLAS-NN`:** helpers `build_folio`/`user_siglas`/`tipo_code` en `report_generator.py`. Tipo IN(realtor)/PE(appraiser)/AD(super_admin)/PU(público) + 2 iniciales de empresa/nombre (stopwords y/de/la…) + consecutivo `folio_seq`. **Estable por avalúo** (se calcula una vez en server.py con `get_current_user`, se incrementa el contador del usuario y se guarda `valuation.folio`; al regenerar se reutiliza). Público: `EST-YYMMDD-PU-NN` (NN del valuation_id). Campos nuevos en `User`: `siglas`, `folio_seq`. **Dirección** de la propiedad tras el Folio en el header. **Nombre de archivo** del PDF = `<title>` = `PropValu {folio} - {addr_full}` (empieza con PropValu). Formato de folio confirmado con el usuario; contador = acumulado por usuario (reinicio por presupuesto comprado queda pendiente opcional).
+
+**Reseñas/CTAs (`ReportPage.jsx`):** el guard comparaba rol `'valuador'`/`'inmobiliaria'` pero los reales son `'appraiser'`/`'realtor'` → el perito veía "califica valuador" y el modal en cada reporte. Ahora `isPro` (appraiser/super_admin/valuador) NO ve la CTA de calificar valuador ni la CTA de inmobiliarias (solo público); ambas CTAs solo en el reporte final (`!isGenerating && reportHtml`), no durante el cálculo. Modal "¡Gracias por tu reseña!" con `bg-white` (salía transparente porque `bg-background` no tiene la var de tema definida). Se agregó fetch de `currentUser` vía `/auth/me`.
+
+**Página "gracias" (`ThankYouPage.jsx`):** intercambiadas las tarjetas — **calificar arriba, descargar abajo** (objetivo: que califiquen antes de bajar el PDF). Nombre de archivo (extraído del `<title>` de reportHtml) visible en la tarjeta de descarga.
+
+**Mapa de mis avalúos:** usaba coordenadas FALSAS (centro del municipio + jitter senoidal), no la ubicación real. Ahora usa **lat/lng real** (`property_data.latitude/longitude`, agregadas a los normalizadores de ambos dashboards), **centrado en el avalúo más reciente**, y **click abre un modal grande** interactivo (drag + zoom) con **filtro por tipo de propiedad**. Nuevo componente compartido `frontend/src/components/MapaAvaluos.jsx`, usado en el resumen del dashboard de **inmobiliaria** (que importaba leaflet pero no tenía la sección); en **valuador** quedó la versión inline (ya desplegada y funcionando, no se tocó por la regla de no romper lo aprobado).
+
+**Favicon:** el edificio se veía muy chico (escala 1.5 con mucho margen). `favicon.svg` a escala 2.0 centrado, trazo 2→2.2, amarillo `#D9ED92`; regenerados `.ico`/`-32`/`-64` con PIL. Los navegadores cachean favicons agresivamente.
+
+Commits: `431eec0` (form+entorno+PDF+reseñas), `64b0006` (folio+dirección+gracias), `658f9ed` (mapa valuador), `218c3ed` (mapa inmobiliaria), `0215f1a` (favicon).
+
+---
+
 ## 18-20 Jul 2026 — Diseñador de promocionales "Just Listed" (frontend, local, NO desplegado)
 
 Sesión larga y muy iterativa construyendo el **generador de fichas/promocionales** en el tab **Promociones** del panel inmobiliaria (`InmobiliariaDashboardPage` → `PromocionesTab.jsx`). Todo es frontend React; **backend/motor no se tocaron**. El trabajo quedó commiteado por el hook de auto-backup y **pusheado** (`19a115e`), pero **NO desplegado a Vercel** — el usuario lo revisa en local (`localhost:3000`, backend local apuntando a staging).
