@@ -35,19 +35,28 @@ LAND_USE_INFO = {
     "EI":   {"name": "Equipamiento Institucional", "description": "Escuelas, hospitales, gobierno", "icon": "🏛", "color": "#3b82f6"},
     "PE":   {"name": "Preservación Ecológica", "description": "Áreas naturales protegidas", "icon": "🌲", "color": "#16a34a"},
     "AG":   {"name": "Agrícola", "description": "Uso agrícola y ganadero", "icon": "🌾", "color": "#a3e635"},
+    # Valores auto-sugeridos por el formulario (ValuationForm) que no usan el código oficial.
+    "h_habitacional": {"name": "Habitacional Unifamiliar", "description": "Una vivienda por lote", "icon": "🏠", "color": "#22c55e"},
+    "h_popular":      {"name": "Habitacional Popular", "description": "Interés social / económico", "icon": "🏠", "color": "#22c55e"},
+    "h_vertical":     {"name": "Habitacional Vertical", "description": "Departamentos en edificio", "icon": "🏢", "color": "#eab308"},
+    "comercial":      {"name": "Comercial", "description": "Uso comercial", "icon": "🏪", "color": "#8b5cf6"},
+    "oficinas":       {"name": "Oficinas", "description": "Uso de oficinas", "icon": "🏢", "color": "#8b5cf6"},
     "desconocido": {"name": "Por Verificar", "description": "Consulte el visor urbano municipal", "icon": "❓", "color": "#94a3b8"},
 }
 
 FEATURE_ICONS = {
-    "parking": "🅿️", "pool": "🏊", "garden": "🌳", "terrace": "🌅",
+    "parking": "🅿️", "pool": "🏊", "garden": "🌳", "patio": "🌳", "terrace": "🌅",
     "gym": "🏋", "security": "🛡", "elevator": "🛗", "rooftop": "🌿",
     "service_room": "🚪", "laundry_room": "🧺", "storage": "📦", "kitchen_integral": "🍳",
+    "solar_panels": "☀️", "solar_heater": "🌡️", "cistern": "💧", "electric_fence": "⚡", "ac": "❄️",
 }
 FEATURE_NAMES = {
-    "parking": "Estacionamiento", "pool": "Alberca", "garden": "Jardín", "terrace": "Terraza",
-    "gym": "Gimnasio", "security": "Seguridad 24/7", "elevator": "Elevador", "rooftop": "Roof Garden",
-    "service_room": "Cuarto de Servicio", "laundry_room": "Cuarto de Lavado",
+    "parking": "Estacionamiento", "pool": "Alberca", "garden": "Jardín", "patio": "Patio",
+    "terrace": "Terraza", "gym": "Gimnasio", "security": "Seguridad 24/7", "elevator": "Elevador",
+    "rooftop": "Roof Garden", "service_room": "Cuarto de Servicio", "laundry_room": "Cuarto de Lavado",
     "storage": "Bodega/Almacén", "kitchen_integral": "Cocina Integral",
+    "solar_panels": "Paneles Solares", "solar_heater": "Calentador Solar",
+    "cistern": "Cisterna/Aljibe", "electric_fence": "Cerca Eléctrica", "ac": "Aire Acondicionado",
 }
 
 
@@ -209,17 +218,17 @@ _REPORT_CSS = """
   .data-grid td {
     border-top: 1px solid var(--gray-200);
     border-right: 1px solid var(--gray-200);
-    padding: 8px 12px; width: 33.33%;
+    padding: 7px 9px; width: 20%;
     vertical-align: top; background: white;
   }
   .data-grid td:last-child { border-right: none; }
   .data-grid .dg-label {
-    font-size: 9px; color: var(--text-sec);
-    text-transform: uppercase; letter-spacing: 0.5px;
+    font-size: 8.5px; color: var(--text-sec);
+    text-transform: uppercase; letter-spacing: 0.3px;
     margin-bottom: 3px; font-weight: 500;
     display: flex; align-items: center; gap: 4px;
   }
-  .data-grid .dg-value { font-size: 13px; font-weight: 700; color: var(--text-main); }
+  .data-grid .dg-value { font-size: 12px; font-weight: 700; color: var(--text-main); }
 
   .badges { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
   .badge {
@@ -254,7 +263,7 @@ _REPORT_CSS = """
   .chart-pct    { font-size: 11px; font-weight: 700; color: var(--green-900); }
   .chart-year   { font-size: 11px; color: var(--text-sec); }
   .chart-amount { font-size: 11px; color: var(--text-sec); }
-  .chart-footnote { font-size: 8px; color: var(--gray-400); font-style: italic; margin-top: 4px; }
+  .chart-footnote { font-size: 10px; color: var(--gray-400); font-style: italic; margin-top: 4px; }
 
   .entorno-card { border: 1px solid var(--gray-200); border-radius: 12px; padding: 12px 14px; }
   .entorno-item {
@@ -377,7 +386,7 @@ _REPORT_CSS = """
   .analisis-box { border: 1px solid var(--gray-200); border-radius: 10px; padding: 12px 14px; margin-bottom: 12px; background: var(--box-bg); }
   .analisis-box p { font-size: 11px; color: var(--text-sec); line-height: 1.7; text-align: justify; }
 
-  .metodo-box { background: var(--gray-50); border: 1px solid var(--gray-200); border-left: 3px solid var(--green-500); border-radius: 12px; padding: 12px 14px; font-size: 10px; color: var(--text-sec); line-height: 1.6; }
+  .metodo-box { background: var(--gray-50); border: 1px solid var(--gray-200); border-left: 3px solid var(--green-500); border-radius: 12px; padding: 10px 12px; font-size: 8.5px; color: var(--text-sec); line-height: 1.45; }
   .metodo-box .mb-title { font-weight: 700; color: var(--green-900); margin-bottom: 4px; font-size: 11px; }
   .metodo-box strong { color: var(--text-main); }
 
@@ -387,12 +396,12 @@ _REPORT_CSS = """
   .servicio-card .sc-header { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
   .servicio-card .sc-icon { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; background: var(--green-100); border-radius: 8px; flex-shrink: 0; }
   .servicio-card .sc-title    { font-weight: 700; font-size: 12px; color: var(--text-main); }
-  .servicio-card .sc-subtitle { font-size: 9px; color: var(--text-sec); }
-  .servicio-card .sc-list     { font-size: 9px; color: var(--text-sec); line-height: 1.6; }
+  .servicio-card .sc-subtitle { font-size: 11px; color: var(--text-sec); }
+  .servicio-card .sc-list     { font-size: 11px; color: var(--text-sec); line-height: 1.4; }
 
   .recom-box { border: 1px solid #c7d7f5; border-left: 3px solid var(--text-mkt); border-radius: 10px; padding: 12px 14px; margin-bottom: 12px; background: #f0f4fd; }
   .recom-box .recom-head { font-weight: 700; color: var(--text-mkt); margin-bottom: 7px; font-size: 11px; }
-  .recom-item { display: flex; gap: 8px; margin-bottom: 7px; font-size: 10px; color: var(--text-mkt); line-height: 1.6; align-items: flex-start; }
+  .recom-item { display: flex; gap: 8px; margin-bottom: 4px; font-size: 12px; color: var(--text-mkt); line-height: 1.3; align-items: flex-start; }
   .recom-item span { font-size: 13px; flex-shrink: 0; margin-top: 1px; }
   .recom-item strong { color: var(--text-mkt); font-weight: 700; }
 
@@ -400,7 +409,7 @@ _REPORT_CSS = """
   .tip-card { display: flex; gap: 9px; padding: 9px 11px; border: 1px solid var(--gray-200); border-radius: 8px; font-size: 10px; }
   .tip-card .tip-icon  { font-size: 16px; flex-shrink: 0; }
   .tip-card .tip-title { font-weight: 700; color: var(--text-main); margin-bottom: 2px; }
-  .tip-card .tip-text  { color: var(--text-sec); font-size: 9px; line-height: 1.5; }
+  .tip-card .tip-text  { color: var(--text-sec); font-size: 11px; line-height: 1.35; }
 
   .legal-box { background: #fdf8f3; border: 1px solid #e8d5b0; border-left: 3px solid var(--text-disc); border-radius: 10px; padding: 10px 14px; font-size: 9px; color: var(--text-disc); line-height: 1.7; }
   .legal-box .lb-title { font-weight: 700; color: var(--text-disc); font-size: 10px; margin-bottom: 4px; }
@@ -517,21 +526,25 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
         map_html = f'<span>&#x1F4CD; {lat:.6f}, {lng:.6f}</span>'
 
     # Property fields
-    address = prop.get('address', 'Dirección no especificada')
+    # El formulario guarda street_address / municipality / land_regime; había un
+    # mismatch de nombres (address/city/tenure_type) que dejaba la dirección como
+    # "no especificada" y el régimen en blanco. Aceptar ambos nombres.
+    address = (prop.get('address') or prop.get('street_address') or '').strip()
     neighborhood = prop.get('neighborhood', '')
-    city = prop.get('city', '')
+    city = prop.get('city') or prop.get('municipality') or ''
     state_name = prop.get('state', '')
     location_parts = [p for p in [city, state_name] if p]
     location_str = ', '.join(location_parts)
-    addr_full = f"{address}{', ' + neighborhood if neighborhood else ''}"
+    addr_full = ', '.join([p for p in [address, neighborhood] if p]) or 'Dirección no especificada'
 
     land_area = prop.get('land_area', '-')
     construction_area = prop.get('construction_area', '-')
     property_type = prop.get('property_type', 'Casa')
-    tenure = prop.get('tenure_type', '-')
+    tenure = prop.get('tenure_type') or prop.get('land_regime') or '-'
     floor_number = prop.get('floor_number', '')
     total_floors = prop.get('total_floors', '')
     land_use = prop.get('land_use', 'desconocido')
+    land_use_label = get_land_use_info(land_use or 'desconocido')['name']  # etiqueta humana, no el código crudo
     age = prop.get('estimated_age', '-')
 
     if floor_number and total_floors:
@@ -672,36 +685,18 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
         return (p or '').replace('_', ' ').replace('.com.mx', '').replace('.com', '').replace('www.', '').strip().title()
 
     for i, comp in enumerate(active_comparables, 1):
-        # Fuente: si la misma propiedad se anuncia en varios portales (dedup
-        # cross-portal), mostrar TODOS los links para verificar/corroborar.
-        anuncios = comp.get('anuncios') or []
-        links = []
-        for a in anuncios:
-            u = (a.get('url') or '') if isinstance(a, dict) else ''
-            nm = _portal_label(a.get('portal') if isinstance(a, dict) else '')
-            if u.startswith('http'):
-                links.append(f'<a href="{u}" target="_blank" rel="noreferrer" '
-                             f'style="color:var(--text-blue);text-decoration:underline;">{nm} &#x2197;</a>')
-            elif nm:
-                links.append(nm)
-        if not links:
-            source_name = _portal_label(comp.get('source', ''))
-            source_url = comp.get('source_url', '') or ''
-            if source_url.startswith('http'):
-                links.append(f'<a href="{source_url}" target="_blank" rel="noreferrer" '
-                             f'style="color:var(--text-blue);text-decoration:underline;">{source_name} &#x2197;</a>')
-            else:
-                links.append(source_name)
-        fuente_cell = ' &middot; '.join(links)
-        # Badge de confiabilidad del comparable (informativo)
+        # Antes se mostraban links a los anuncios/portal; se quitaron del reporte.
+        # En su lugar mostramos SOLO la calificación de calidad del comparable.
         conf = comp.get('confiabilidad')
         conf_label = comp.get('confiabilidad_label')
         if conf is not None:
             _dot = {'Alta': '#16a34a', 'Media': '#d97706', 'Baja': '#dc2626'}.get(conf_label, '#94a3b8')
             n_portales = comp.get('n_portales', 1) or 1
             _corro = f' &middot; {n_portales} portales' if n_portales > 1 else ''
-            fuente_cell += (f'<div style="font-size:8px;color:{_dot};font-weight:700;margin-top:2px;">'
-                            f'&#x25CF; {conf_label} ({conf}){_corro}</div>')
+            fuente_cell = (f'<div style="font-size:9px;color:{_dot};font-weight:700;">'
+                           f'&#x25CF; {conf_label} ({conf}){_corro}</div>')
+        else:
+            fuente_cell = '<span style="font-size:9px;color:var(--gray-400);">&#x25CF; N/D</span>'
         adj = comp.get('total_adjustment', 0)
         adj_cls = 'comp-neg' if adj < 0 else 'comp-pos'
         beds = comp.get('bedrooms', '')
@@ -799,10 +794,13 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
         cat = pe.get(key, {}) if pe else {}
         if not cat:
             continue
-        count   = cat.get('count', '') if isinstance(cat, dict) else ''
+        count   = str(cat.get('count', '')) if isinstance(cat, dict) else ''
         nombres = cat.get('nombres', '') if isinstance(cat, dict) else ''
-        texto   = cat.get('texto', '') if isinstance(cat, dict) else ''
-        title   = f"{count} {label}" if count else label
+        # Conteo real 0/vacío → no mostrar nombres (evita "0 Supermercados" y luego
+        # listarlos; los nombres vienen de Places, si no hay conteo no hay nombres válidos).
+        sin_datos = count in ('', '0')
+        title   = label if sin_datos else f"{count} {label}"
+        detalle = 'Sin registros a 800 m' if sin_datos else (nombres or '—')
         equip_cards += f"""
     <div class="servicio-card">
       <div class="sc-header">
@@ -812,7 +810,7 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
           <div class="sc-subtitle">{cat_name}</div>
         </div>
       </div>
-      <div class="sc-list">{nombres or texto}</div>
+      <div class="sc-list">{detalle}</div>
     </div>"""
     if not equip_cards:
         for icon, label, cat_name in [
@@ -836,9 +834,11 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
     plazas_cat = pe.get('plazas', {}) if pe else {}
     plazas_card = ''
     if plazas_cat and isinstance(plazas_cat, dict):
-        pl_count  = plazas_cat.get('count', '')
+        pl_count  = str(plazas_cat.get('count', ''))
         pl_nombres = plazas_cat.get('nombres', '')
-        pl_title  = f"{pl_count} Plazas" if pl_count else "Plazas"
+        pl_sin = pl_count in ('', '0')
+        pl_title  = "Plazas" if pl_sin else f"{pl_count} Plazas"
+        pl_detalle = 'Sin registros a 800 m' if pl_sin else (pl_nombres or '—')
         plazas_card = f"""
   <div class="servicio-card" style="margin-bottom:12px;">
     <div class="sc-header">
@@ -848,7 +848,7 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
         <div class="sc-subtitle">Comercio</div>
       </div>
     </div>
-    <div class="sc-list">{pl_nombres}</div>
+    <div class="sc-list">{pl_detalle}</div>
   </div>"""
 
     # Facade photo for mapa section
@@ -948,21 +948,20 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
         Las superficies de Predial no están validadas físicamente. Discrepancias impactarán la precisión del valor.
       </div>
     </div>
-    <table class="data-grid">
+    <table class="data-grid" style="table-layout:fixed;">
       <tr>
         <td><div class="dg-label">&#x1F4D0; Terreno</div><div class="dg-value">{land_area} m&#xB2;</div></td>
         <td><div class="dg-label">&#x1F3D7; Construcción</div><div class="dg-value">{construction_area} m&#xB2;</div></td>
         <td><div class="dg-label">&#x1F3E0; Tipo</div><div class="dg-value">{property_type}</div></td>
-      </tr>
-      <tr>
         <td><div class="dg-label">&#x1F3E2; Régimen</div><div class="dg-value">{tenure}</div></td>
         <td><div class="dg-label">&#x1F3D8; Niveles</div><div class="dg-value">{niveles_str}</div></td>
-        <td><div class="dg-label">&#x1F4CB; Uso de Suelo</div><div class="dg-value">{land_use}</div></td>
       </tr>
       <tr>
-        <td><div class="dg-label">&#x1F4C4; Fuente Info.</div><div class="dg-value">Predial / Escrituras</div></td>
+        <td><div class="dg-label">&#x1F4CB; Uso de Suelo</div><div class="dg-value">{land_use_label}</div></td>
         <td><div class="dg-label">&#x25B6; Conservación</div><div class="dg-value">{conservation}</div></td>
         <td><div class="dg-label">&#x1F3DB; Antigüedad</div><div class="dg-value">{age} años</div></td>
+        <td><div class="dg-label">&#x1F4C4; Fuente Info.</div><div class="dg-value">Predial / Escrituras</div></td>
+        <td></td>
       </tr>
     </table>
   </div>

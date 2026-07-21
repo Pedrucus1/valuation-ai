@@ -30,12 +30,12 @@ CATEGORY_TYPES = {
 }
 
 
-def _count_category(lat: float, lng: float, types: list) -> str:
-    """'N' | 'N+' para una categoría. Lanza si la API deniega (para abortar el resto)."""
+def _fetch_category(lat: float, lng: float, types: list):
+    """(conteo 'N'|'N+', [nombres reales]) para una categoría. Lanza si la API deniega."""
     resp = requests.post(_URL, headers={
         "Content-Type": "application/json",
         "X-Goog-Api-Key": GOOGLE_KEY,
-        "X-Goog-FieldMask": "places.id",
+        "X-Goog-FieldMask": "places.id,places.displayName",
     }, json={
         "includedTypes": types,
         "maxResultCount": MAX_RESULTS,
@@ -45,21 +45,38 @@ def _count_category(lat: float, lng: float, types: list) -> str:
     }, timeout=10)
     if resp.status_code != 200:
         raise RuntimeError(f"Places (New) {resp.status_code}: {resp.text[:150]}")
-    n = len(resp.json().get("places", []))
-    return f"{n}+" if n >= MAX_RESULTS else str(n)
+    places = resp.json().get("places", [])
+    n = len(places)
+    count = f"{n}+" if n >= MAX_RESULTS else str(n)
+    nombres = [p.get("displayName", {}).get("text", "") for p in places]
+    nombres = [x for x in nombres if x]
+    return count, nombres
+
+
+def _count_category(lat: float, lng: float, types: list) -> str:
+    """Compat: solo el conteo."""
+    return _fetch_category(lat, lng, types)[0]
 
 
 def count_nearby_by_category(lat: float, lng: float) -> dict:
+    """{categoria: 'N' | 'N+'} — solo conteos (compat)."""
+    return {k: v["count"] for k, v in nearby_by_category(lat, lng).items()}
+
+
+def nearby_by_category(lat: float, lng: float) -> dict:
     """
-    {categoria: 'N' | 'N+'} con conteos reales. {} si la API está deshabilitada
-    o la primera llamada falla (para no gastar llamadas ni bloquear el reporte).
+    {categoria: {"count": 'N'|'N+', "nombres": "A, B, C"}} con datos REALES de Places.
+    {} si la API está deshabilitada o la primera llamada falla (sin gastar llamadas
+    ni bloquear el reporte). Los nombres reales evitan que la IA invente establecimientos
+    de otras zonas.
     """
     if not GOOGLE_KEY or lat is None or lng is None:
         return {}
     out = {}
     try:
         for cat, types in CATEGORY_TYPES.items():
-            out[cat] = _count_category(lat, lng, types)
+            count, nombres = _fetch_category(lat, lng, types)
+            out[cat] = {"count": count, "nombres": ", ".join(nombres[:5])}
     except Exception as e:
         logger.warning(f"Places nearby falló ({e}); se usan conteos estimados por IA")
         return {}
@@ -69,6 +86,8 @@ def count_nearby_by_category(lat: float, lng: float) -> dict:
 if __name__ == "__main__":
     # Self-check: Zapopan centro. Requiere Places API (New) habilitada + GOOGLE_MAPS_API_KEY.
     import json
-    r = count_nearby_by_category(20.6597, -103.4098)
+    r = nearby_by_category(20.6597, -103.4098)
     print(json.dumps(r, indent=2, ensure_ascii=False))
     assert isinstance(r, dict)
+    for v in r.values():
+        assert "count" in v and "nombres" in v

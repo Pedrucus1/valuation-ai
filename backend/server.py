@@ -1457,7 +1457,7 @@ DATOS DE LA PROPIEDAD:
 
 Responde con este JSON (usa valores realistas para la zona, no inventes datos absurdos):
 {{
-  "analisis_mercado": "Párrafo 1: análisis del mercado local y comparables. Párrafo 2: conclusión con recomendaciones de negociación y estrategia de venta. Sé conciso y profesional.",
+  "analisis_mercado": "UN SOLO párrafo breve (máx 4-5 líneas): mercado local + comparables + una recomendación de negociación/venta. Conciso, sin relleno, útil. Debe caber junto al cuadro de metodología en una hoja carta.",
   "plusvalia": {{
     "tasa_anual": {annual_appreciation:.1f},
     "anio1": {yr1:.0f},
@@ -1468,8 +1468,8 @@ Responde con este JSON (usa valores realistas para la zona, no inventes datos ab
     "comentario": "Una oración sobre perspectiva de plusvalía en la zona."
   }},
   "perfil_entorno": {{
-    "seguridad": {{"score": 7, "texto": "Descripción breve de seguridad en la zona"}},
-    "movilidad": {{"score": 7, "texto": "Descripción breve de transporte y acceso"}},
+    "seguridad": {{"score": 7, "texto": "Descripción breve de seguridad. NO nombres calles ni vías específicas."}},
+    "movilidad": {{"score": 7, "texto": "Descripción breve de transporte y acceso EN GENERAL. NO inventes nombres de avenidas/calles específicas (no las conoces)."}},
     "educacion": {{"score": 8, "texto": "Descripción breve de oferta educativa cercana", "count": "12+", "nombres": "Nombre escuela 1, Nombre escuela 2, Nombre escuela 3"}},
     "salud": {{"score": 7, "texto": "Descripción breve de servicios de salud", "count": "8+", "nombres": "Nombre hospital 1, Nombre clínica 2"}},
     "comercio": {{"score": 8, "texto": "Descripción breve de comercio y servicios", "count": "15+", "nombres": "Supermercado 1, Tienda 2, Plaza 3"}},
@@ -1495,7 +1495,7 @@ Responde con este JSON (usa valores realistas para la zona, no inventes datos ab
   }}
 }}
 
-IMPORTANTE: Devuelve SOLO el JSON. Los scores de perfil_entorno deben ser enteros del 1 al 10 basados en la zona real. Para educacion/salud/comercio/recreacion/plazas incluye count (ej: "13+") y nombres reales de establecimientos conocidos en la zona. Los valores de plusvalía son proyecciones, ya los calculé tú solo ajusta el comentario."""
+IMPORTANTE: Devuelve SOLO el JSON. Los scores de perfil_entorno deben ser enteros del 1 al 10 según el tipo de zona. Deja "count" y "nombres" con los placeholders — se rellenan con datos REALES de Google Places, NO inventes nombres de establecimientos, calles o vías (si los pones serán de otra zona y estarán mal). En los "texto" describe la zona en general sin nombrar lugares específicos. Los valores de plusvalía son proyecciones ya calculadas, solo ajusta el comentario."""
 
             _genai.configure(api_key=gemini_key)
             _sys = "Valuador inmobiliario certificado en México. Responde SOLO con JSON válido, sin markdown."
@@ -1537,25 +1537,28 @@ IMPORTANTE: Devuelve SOLO el JSON. Los scores de perfil_entorno deben ser entero
     except Exception as e:
         logger.error(f"LLM error (using template): {e}")
 
-    # Conteos REALES de POIs cercanos (Google Places) — reemplazan los estimados
-    # por la IA. recreacion = parques + áreas deportivas. Si Places está deshabilitada
-    # o falla, se conservan los conteos de la IA (degradación elegante).
+    # Datos REALES de POIs cercanos (Google Places) — reemplazan conteos Y NOMBRES
+    # estimados por la IA (que inventaba establecimientos de otras zonas). Si Places
+    # está deshabilitada o falla, se conservan los estimados de la IA (degradación).
     try:
         pe = ai_sections.get("perfil_entorno") if isinstance(ai_sections, dict) else None
         if pe:
-            from nearby_places import count_nearby_by_category
+            from nearby_places import nearby_by_category
             _loop = asyncio.get_running_loop()
-            real_counts = await _loop.run_in_executor(
+            real = await _loop.run_in_executor(
                 None,
-                lambda: count_nearby_by_category(prop.get("latitude"), prop.get("longitude")),
+                lambda: nearby_by_category(prop.get("latitude"), prop.get("longitude")),
             )
-            for _cat, _cnt in real_counts.items():
+            for _cat, _data in real.items():
                 if isinstance(pe.get(_cat), dict):
-                    pe[_cat]["count"] = _cnt
-            if real_counts:
-                logger.info(f"Entorno con conteos reales de Places: {real_counts}")
+                    pe[_cat]["count"] = _data["count"]
+                    # Nombres reales de la zona; si Places no devolvió ninguno, vaciar
+                    # los inventados por la IA (no mostrar lugares de otra zona).
+                    pe[_cat]["nombres"] = _data["nombres"]
+            if real:
+                logger.info(f"Entorno con datos reales de Places: { {k: v['count'] for k, v in real.items()} }")
     except Exception as _pe:
-        logger.warning(f"No se pudieron obtener conteos reales de entorno: {_pe}")
+        logger.warning(f"No se pudieron obtener datos reales de entorno: {_pe}")
 
     # Folio estable por avalúo (EST-YYMMDD-TIPO[-SIGLAS]-NN). Se calcula una vez y se
     # guarda; al regenerar el reporte se reutiliza el mismo folio. El consecutivo NN
