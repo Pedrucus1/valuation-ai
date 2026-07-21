@@ -577,6 +577,11 @@ const PhotoUploader = ({ photos, onPhotosChange, facadeIndex, onFacadeChange, ph
   );
 };
 
+// Video "casa" de prueba: stand-in del slot pagado hasta que exista el Ad-Engine.
+// ponytail: hardcoded a propósito para verificar el render de video; cuando /ads/active
+// devuelva inventario real, ese lo reemplaza. Se reproduce 1 vez → luego texto de cajón.
+const TEST_SLOT_VIDEO = { file_type: "video", file_url: "/ads/propvalu-emo-horizontal.mp4", company_name: "PropValu" };
+
 const ADS = [
   { tag: "Consejo PropValu", title: "El valor lo define la oferta y la demanda", body: "No existe un precio único para una propiedad. El valor real es el que un comprador informado está dispuesto a pagar en el mercado actual." },
   { tag: "¿Sabías que?", title: "El predial puede engañarte", body: "Las medidas del predial a menudo no coinciden con las escrituras. Siempre usa la superficie real de construcción de tus escrituras para una valuación más precisa." },
@@ -632,6 +637,10 @@ const ValuationForm = () => {
   const [adIndex, setAdIndex] = useState(0);
   const [adMuted, setAdMuted] = useState(true); // autoplay arranca muted (política del navegador); usuario activa sonido
   const [adProgress, setAdProgress] = useState(0);
+  // Slot "Búsqueda de Comparables" (60s): null=sin resolver, false=sin campaña (usar anuncio de
+  // cajón/texto), obj=campaña pagada. Regla DOCUMENTO_MAESTRO §139-155: pagada ó house-ad, nunca ambos.
+  const [paidAd, setPaidAd] = useState(null);
+  const [paidAdEnded, setPaidAdEnded] = useState(false);
   const [user, setUser] = useState(null);
   const [acceso, setAcceso] = useState(null); // acceso de cortesía/prueba autorizado
   const [includePhotos, setIncludePhotos] = useState(false);
@@ -922,6 +931,20 @@ const ValuationForm = () => {
     !(user.role === "realtor" && user.plan === "premier")
   );
 
+  // Resolver campaña pagada del slot al arrancar el análisis (false = usar anuncio de cajón).
+  useEffect(() => {
+    if (!isLoading || !showAds) return;
+    let cancelled = false;
+    setPaidAdEnded(false);
+    const zone = formData.municipality || "";
+    fetch(`${API}/ads/active?slot=slot1&zone=${encodeURIComponent(zone)}`)
+      .then((r) => r.json())
+      .then((d) => { if (!cancelled) setPaidAd(d.ad || TEST_SLOT_VIDEO); })
+      .catch(() => { if (!cancelled) setPaidAd(TEST_SLOT_VIDEO); });
+    return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading, showAds]);
+
   // Slide timer for ad popup during submission (6s per slide = 60s total)
   useEffect(() => {
     if (!isLoading || !showAds) return;
@@ -1058,6 +1081,12 @@ const ValuationForm = () => {
   ];
 
   const ad = ADS[adIndex];
+  // Los creativos subidos viven en el backend (/uploads/...); un src relativo resolvería
+  // contra el frontend → 404 (video negro). Prefijar sólo esos; assets públicos y URLs
+  // absolutas quedan igual.
+  const adSrc = paidAd && (String(paidAd.file_url || "").startsWith("/uploads")
+    ? `${API.replace("/api", "")}${paidAd.file_url}`
+    : paidAd.file_url);
 
   return (
     <div className="min-h-screen bg-[#F8F9FA]">
@@ -1081,39 +1110,61 @@ const ValuationForm = () => {
               </div>
             </div>
 
-            {/* Video publicitario (Remotion) — autoplay muted + botón de sonido */}
-            <div className="relative w-full">
-              <video
-                src="/ads/propvalu-emo-horizontal.mp4"
-                autoPlay loop playsInline muted={adMuted}
-                className="w-full rounded-xl border border-white/10 shadow-lg bg-black"
-                style={{ aspectRatio: "16 / 9", objectFit: "cover" }}
-              />
-              <button
-                type="button"
-                onClick={() => setAdMuted(m => !m)}
-                className="absolute bottom-2 right-2 flex items-center gap-1.5 bg-black/70 hover:bg-black/90 text-white text-xs font-semibold rounded-full px-3 py-1.5 backdrop-blur transition-colors"
-              >
-                {adMuted ? <><VolumeX className="w-3.5 h-3.5" /> Activar sonido</> : <><Volume2 className="w-3.5 h-3.5" /> Silenciar</>}
-              </button>
-            </div>
-            <div className="flex-1 flex flex-col items-center justify-center text-center px-2 py-4">
-              <p className="text-[10px] font-bold text-[#D9ED92] uppercase tracking-widest mb-3">{ad.tag}</p>
-              <h2 className="font-['Outfit'] text-2xl sm:text-3xl font-bold text-white mb-4 leading-snug">{ad.title}</h2>
-              <p className="text-white/80 text-base leading-relaxed max-w-xs">{ad.body}</p>
-            </div>
-            <div className="w-full flex flex-col items-center gap-2">
-              <div className="flex gap-1.5">
-                {ADS.map((_, i) => (
-                  <div key={i} className={`rounded-full transition-all duration-300 ${
-                    i === adIndex ? "w-5 h-2 bg-[#D9ED92]" : i < adIndex ? "w-2 h-2 bg-[#52B788]" : "w-2 h-2 bg-white/20"
-                  }`} />
-                ))}
+            {/* Slot Búsqueda de Comparables: campaña PAGADA si existe; si no, anuncio de cajón
+                (texto PropValu). Excluyente — nunca ambos (DOCUMENTO_MAESTRO §139-155). */}
+            {paidAd && !paidAdEnded ? (
+              <div className="relative w-full">
+                {paidAd.file_type === "video" ? (
+                  <video
+                    src={adSrc}
+                    autoPlay playsInline muted={adMuted}
+                    onEnded={() => setPaidAdEnded(true)}
+                    className="w-full rounded-xl border border-white/10 shadow-lg bg-black"
+                    style={{ aspectRatio: "16 / 9", objectFit: "cover" }}
+                  />
+                ) : (
+                  <img
+                    src={adSrc}
+                    alt="Anuncio"
+                    className="w-full rounded-xl border border-white/10 shadow-lg bg-black"
+                    style={{ aspectRatio: "16 / 9", objectFit: "cover" }}
+                  />
+                )}
+                {paidAd.file_type === "video" && (
+                  <button
+                    type="button"
+                    onClick={() => setAdMuted(m => !m)}
+                    className="absolute bottom-2 right-2 flex items-center gap-1.5 bg-black/70 hover:bg-black/90 text-white text-xs font-semibold rounded-full px-3 py-1.5 backdrop-blur transition-colors"
+                  >
+                    {adMuted ? <><VolumeX className="w-3.5 h-3.5" /> Activar sonido</> : <><Volume2 className="w-3.5 h-3.5" /> Silenciar</>}
+                  </button>
+                )}
+                <span className="absolute top-2 left-2 text-white/70 text-[10px] font-semibold bg-black/50 rounded px-2 py-0.5">
+                  Publicidad · {paidAd.company_name || ""}
+                </span>
               </div>
-              <p className="text-white/25 text-[10px] mt-1">
-                {Math.max(1, Math.ceil((100 - adProgress) / 100 * 12))}s · Estimación con inteligencia de PropValu
-              </p>
-            </div>
+            ) : (
+              <>
+                {/* Anuncio de cajón (house ad): tips PropValu. Backfill sin campaña pagada. */}
+                <div className="flex-1 flex flex-col items-center justify-center text-center px-2 py-4">
+                  <p className="text-[10px] font-bold text-[#D9ED92] uppercase tracking-widest mb-3">{ad.tag}</p>
+                  <h2 className="font-['Outfit'] text-2xl sm:text-3xl font-bold text-white mb-4 leading-snug">{ad.title}</h2>
+                  <p className="text-white/80 text-base leading-relaxed max-w-xs">{ad.body}</p>
+                </div>
+                <div className="w-full flex flex-col items-center gap-2">
+                  <div className="flex gap-1.5">
+                    {ADS.map((_, i) => (
+                      <div key={i} className={`rounded-full transition-all duration-300 ${
+                        i === adIndex ? "w-5 h-2 bg-[#D9ED92]" : i < adIndex ? "w-2 h-2 bg-[#52B788]" : "w-2 h-2 bg-white/20"
+                      }`} />
+                    ))}
+                  </div>
+                  <p className="text-white/25 text-[10px] mt-1">
+                    {Math.max(1, Math.ceil((100 - adProgress) / 100 * 12))}s · Estimación con inteligencia de PropValu
+                  </p>
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}

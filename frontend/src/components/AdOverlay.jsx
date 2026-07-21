@@ -84,6 +84,11 @@ const AdOverlay = ({ slot, zone = "", onDone }) => {
   const showHouse = !ad || (ad.file_type === "video" && videoEnded);
   const totalDur = (ad && ad.duration) || SLOT_DURATION[slot] || 30;
   const pct = Math.round((seconds / totalDur) * 100);
+  // Creativos subidos viven en el backend (/uploads/...); un src relativo resolvería contra
+  // el frontend → 404 (video negro). Prefijar sólo esos; URLs absolutas quedan igual.
+  const adSrc = ad && (String(ad.file_url || "").startsWith("/uploads")
+    ? `${API.replace("/api", "")}${ad.file_url}`
+    : ad.file_url);
 
   return (
     <div className="fixed inset-0 z-[9999] bg-black flex flex-col items-center justify-center">
@@ -97,7 +102,7 @@ const AdOverlay = ({ slot, zone = "", onDone }) => {
           </div>
         ) : ad.file_type === "video" ? (
           <video
-            src={ad.file_url}
+            src={adSrc}
             autoPlay
             muted={false}
             playsInline
@@ -105,7 +110,7 @@ const AdOverlay = ({ slot, zone = "", onDone }) => {
             className="w-full h-full object-contain cursor-pointer"
           />
         ) : (
-          <img src={ad.file_url} alt="Anuncio" className="w-full h-full object-contain cursor-pointer" />
+          <img src={adSrc} alt="Anuncio" className="w-full h-full object-contain cursor-pointer" />
         )}
 
         {/* Overlay superior: etiqueta + cuenta regresiva */}
