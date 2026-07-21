@@ -105,20 +105,34 @@ async def global_exception_handler(request: Request, exc: Exception):
 # Usa la ruta-plantilla (no la URL con IDs) para no explotar la cardinalidad.
 from core import metrics as _metrics
 
-@app.middleware("http")
-async def _metrics_middleware(request: Request, call_next):
-    _t0 = _time.perf_counter()
-    status = 500
-    try:
-        response = await call_next(request)
-        status = response.status_code
-        return response
-    finally:
-        route = request.scope.get("route")
-        path = getattr(route, "path", None) or request.url.path
-        _metrics.record(
-            request.method, path, status, (_time.perf_counter() - _t0) * 1000.0
-        )
+class _MetricsMiddleware:
+    """ASGI puro (no BaseHTTPMiddleware): mide cada request SIN buffear la respuesta.
+    BaseHTTPMiddleware buffea el body completo y rompe el streaming de archivos grandes
+    (los videos de /uploads se quedaban en readyState 0 = negro en el navegador)."""
+    def __init__(self, app):
+        self.app = app
+
+    async def __call__(self, scope, receive, send):
+        if scope["type"] != "http":
+            return await self.app(scope, receive, send)
+        _t0 = _time.perf_counter()
+        status = {"code": 500}
+
+        async def _send(message):
+            if message["type"] == "http.response.start":
+                status["code"] = message["status"]
+            await send(message)
+
+        try:
+            await self.app(scope, receive, _send)
+        finally:
+            route = scope.get("route")
+            path = getattr(route, "path", None) or scope.get("path", "")
+            _metrics.record(
+                scope.get("method", ""), path, status["code"], (_time.perf_counter() - _t0) * 1000.0
+            )
+
+app.add_middleware(_MetricsMiddleware)
 
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
@@ -2103,8 +2117,63 @@ app.include_router(data_exchange_router)
 app.include_router(gamificacion_router)
 app.include_router(admin_auth_router)
 
-# Serve uploaded files (ads, kyc)
-app.mount("/uploads", StaticFiles(directory=str(UPLOADS_DIR)), name="uploads")
+# Serve uploaded files (ads, kyc) con soporte de HTTP Range (206).
+# StaticFiles en este entorno responde 200 sin Accept-Ranges a peticiones Range, y
+# Chromium EXIGE 206 para reproducir <video>/<audio> (si no → readyState 0 = negro).
+# Esta ruta implementa Range para que los creativos de video funcionen.
+import mimetypes as _mimetypes
+from starlette.responses import StreamingResponse as _StreamingResponse
+
+@app.get("/uploads/{file_path:path}")
+async def serve_upload(file_path: str, request: Request):
+    base = UPLOADS_DIR.resolve()
+    full = (UPLOADS_DIR / file_path).resolve()
+    if base not in full.parents or not full.is_file():
+        raise HTTPException(status_code=404, detail="No encontrado")
+    file_size = full.stat().st_size
+    media_type = _mimetypes.guess_type(str(full))[0] or "application/octet-stream"
+    range_header = request.headers.get("range", "")
+
+    if range_header.startswith("bytes="):
+        try:
+            start_s, _, end_s = range_header[6:].partition("-")
+            start = int(start_s) if start_s else 0
+            end = int(end_s) if end_s else file_size - 1
+        except ValueError:
+            start, end = 0, file_size - 1
+        end = min(end, file_size - 1)
+        start = max(0, min(start, end))
+        length = end - start + 1
+
+        def _iter_range():
+            with open(full, "rb") as f:
+                f.seek(start)
+                remaining = length
+                while remaining > 0:
+                    chunk = f.read(min(262144, remaining))
+                    if not chunk:
+                        break
+                    remaining -= len(chunk)
+                    yield chunk
+
+        return _StreamingResponse(_iter_range(), status_code=206, media_type=media_type, headers={
+            "Content-Range": f"bytes {start}-{end}/{file_size}",
+            "Accept-Ranges": "bytes",
+            "Content-Length": str(length),
+        })
+
+    def _iter_full():
+        with open(full, "rb") as f:
+            while True:
+                chunk = f.read(262144)
+                if not chunk:
+                    break
+                yield chunk
+
+    return _StreamingResponse(_iter_full(), media_type=media_type, headers={
+        "Accept-Ranges": "bytes",
+        "Content-Length": str(file_size),
+    })
 
 # CORS restringido: localhost (dev), el alias de producción, los deploys de
 # ESTA cuenta de Vercel (…-pedrucus-projects.vercel.app) y el dominio propio.
