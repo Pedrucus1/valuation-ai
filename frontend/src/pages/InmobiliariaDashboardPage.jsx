@@ -4,6 +4,7 @@ import PromocionesTab from "../components/dashboard/tabs/PromocionesTab";
 import DataExchangeTab from "../components/dashboard/tabs/DataExchangeTab";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, CircleMarker, Popup } from "react-leaflet";
+import MapaAvaluos from "@/components/MapaAvaluos";
 import {
   AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LabelList,
@@ -273,6 +274,8 @@ function mapValuacionBackend(v) {
         })
       : "—",
     valor: v.result?.estimated_value || 0,
+    lat: typeof pd.latitude === "number" ? pd.latitude : null,
+    lng: typeof pd.longitude === "number" ? pd.longitude : null,
     estado,
     valuador_nombre: null,
     valuador_id: null,
@@ -1364,6 +1367,14 @@ const InmobiliariaDashboardPage = () => {
             Ver análisis completo →
           </button>
         </div>
+
+        {/* Mapa de mis avalúos */}
+        <Card className="bg-white border-0 shadow-sm">
+          <CardContent className="p-4">
+            <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide mb-3">Mapa de mis avalúos</p>
+            <MapaAvaluos valuaciones={valuacionesList} height={180} />
+          </CardContent>
+        </Card>
 
         {/* Fila de mini-charts */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
