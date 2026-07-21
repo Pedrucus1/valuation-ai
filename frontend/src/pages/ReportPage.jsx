@@ -272,16 +272,6 @@ const ReportPage = () => {
     }
   };
 
-  const handlePrint = () => {
-    const printWindow = window.open('', '_blank');
-    printWindow.document.write(reportHtml);
-    printWindow.document.close();
-    printWindow.focus();
-    setTimeout(() => {
-      printWindow.print();
-    }, 500);
-  };
-
   const handleDownloadPDF = () => {
     if (valuation?.mode !== "private") {
       // Show slot3 ad "antes de la descarga" for public/realtor users

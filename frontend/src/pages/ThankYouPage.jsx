@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Building2, Star, ArrowRight, Share2, Download } from "lucide-react";
+import { Building2, Star, ArrowRight, Share2, Download, LayoutDashboard } from "lucide-react";
 import { toast } from "sonner";
 import { API } from "@/App";
+import { downloadReportPdf } from "@/lib/downloadReportPdf";
 
 const RATING_LABELS = {
   1: "Muy malo",
@@ -25,6 +26,8 @@ const ThankYouPage = () => {
   const [name, setName] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [downloading, setDownloading] = useState(false);
+  const [role, setRole] = useState(null);   // rol del usuario logueado (para no sacarlo del dashboard)
 
   // Fetch report HTML if not passed via navigation state
   useEffect(() => {
@@ -35,17 +38,27 @@ const ThankYouPage = () => {
       .catch(() => {});
   }, [valuationId, reportHtml]);
 
-  const handleDownload = () => {
+  // Rol del usuario (si está logueado) para rutear "Nueva valuación"/"Dashboard"
+  useEffect(() => {
+    fetch(`${API}/auth/me`, { credentials: "include" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((u) => setRole(u?.role || null))
+      .catch(() => {});
+  }, []);
+
+  const dashboardPath = role === "appraiser" ? "/dashboard/valuador"
+    : role === "realtor" ? "/dashboard/inmobiliaria" : null;
+
+  const handleDownload = async () => {
     if (!reportHtml) {
       toast.error("El reporte no está disponible. Regresa a verlo primero.");
       return;
     }
-    const printWindow = window.open("", "_blank");
-    printWindow.document.write(reportHtml);
-    printWindow.document.close();
-    printWindow.focus();
-    setTimeout(() => printWindow.print(), 500);
-    toast.info("Usa 'Guardar como PDF' en el diálogo de impresión");
+    setDownloading(true);
+    const ok = await downloadReportPdf(reportHtml, fileName || "Reporte PropValu");
+    setDownloading(false);
+    if (ok) toast.success("Reporte descargado en PDF");
+    else toast.error("No se pudo generar el PDF. Intenta de nuevo.");
   };
 
   // Nombre del archivo = <title> del reporte (ej. "PropValu EST-260720-IN-AA-01 - ...").
@@ -244,10 +257,10 @@ const ThankYouPage = () => {
           <Button
             onClick={handleDownload}
             className="w-full bg-[#D9ED92] text-[#1B4332] hover:bg-[#c8e070] font-bold text-base py-5 rounded-xl gap-2"
-            disabled={!reportHtml}
+            disabled={!reportHtml || downloading}
           >
             <Download className="w-5 h-5" />
-            {reportHtml ? "Descargar PDF" : "Cargando reporte…"}
+            {downloading ? "Generando PDF…" : reportHtml ? "Descargar PDF" : "Cargando reporte…"}
           </Button>
           <p className="text-white/40 text-xs text-center mt-3">
             Estimación realizada con inteligencia de PropValu
@@ -256,8 +269,9 @@ const ThankYouPage = () => {
 
         {/* Actions */}
         <div className="flex flex-col sm:flex-row gap-3">
+          {/* Si está logueado (perito/inmobiliaria) → valuar dentro del dashboard, sin re-login */}
           <Button
-            onClick={() => navigate("/comprar")}
+            onClick={() => navigate(dashboardPath ? "/valuar" : "/comprar")}
             variant="outline"
             className="flex-1 border-[#1B4332] text-[#1B4332] hover:bg-[#f0faf4] gap-2 font-semibold"
           >
@@ -273,6 +287,18 @@ const ThankYouPage = () => {
             Compartir PropValu
           </Button>
         </div>
+
+        {/* Regresar al dashboard (solo usuarios logueados) — evita el callejón sin salida */}
+        {dashboardPath && (
+          <Button
+            onClick={() => navigate(dashboardPath)}
+            variant="ghost"
+            className="w-full mt-3 text-[#1B4332] hover:bg-[#f0faf4] gap-2 font-semibold"
+          >
+            <LayoutDashboard className="w-4 h-4" />
+            Regresar al panel
+          </Button>
+        )}
       </main>
     </div>
   );
