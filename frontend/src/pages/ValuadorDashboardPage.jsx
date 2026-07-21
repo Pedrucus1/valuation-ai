@@ -181,6 +181,8 @@ function normalizeValuacion(v) {
       : "—",
     valor: v.result?.estimated_value || 0,
     estado: statusMap[v.status] || "en_proceso",
+    lat: typeof v.property_data?.latitude === "number" ? v.property_data.latitude : null,
+    lng: typeof v.property_data?.longitude === "number" ? v.property_data.longitude : null,
   };
 }
 
@@ -1527,6 +1529,8 @@ const ValuadorDashboardPage = () => {
 
   /* ── Resumen: mapa de avalúos + mini-charts ── */
   const ResumenActividad = () => {
+    const [mapaOpen, setMapaOpen] = useState(false);
+    const [filtroTipoMapa, setFiltroTipoMapa] = useState("Todos");
     const COORDS = {
       "zapopan":    [20.721, -103.401],
       "guadalajara":[20.659, -103.349],
@@ -1543,11 +1547,18 @@ const ValuadorDashboardPage = () => {
     const COLORES_TIPO = { Casa:"#1B4332", Departamento:"#52B788", Terreno:"#95B849", Local:"#F4A261", Bodega:"#9B5DE5", Oficina:"#00BBF9" };
     const COLORS = ["#1B4332", "#52B788", "#D9ED92", "#74C69D", "#40916C", "#95D5B2"];
 
+    // Usa la ubicación REAL del avalúo; si un avalúo viejo no la tiene, cae al centro
+    // del municipio con un pequeño desfase para que no se encimen.
     const puntos = valuaciones.map((v, i) => {
+      if (v.lat != null && v.lng != null) return { ...v, lat: v.lat, lng: v.lng };
       const mun = getMunicipio(v.direccion);
       const [lat, lng] = COORDS[mun];
       return { ...v, lat: lat + (Math.sin(i * 1.3) * 0.007), lng: lng + (Math.cos(i * 1.7) * 0.007) };
     });
+    // Centrar en el avalúo más reciente (primero de la lista).
+    const centroMapa = puntos.length ? [puntos[0].lat, puntos[0].lng] : [20.57, -103.38];
+    const tiposMapa = ["Todos", ...Array.from(new Set(puntos.map(p => p.tipo).filter(t => t && t !== "—")))];
+    const puntosFiltrados = filtroTipoMapa === "Todos" ? puntos : puntos.filter(p => p.tipo === filtroTipoMapa);
 
     const porTipo = Object.entries(
       valuaciones.reduce((acc, v) => { const t = v.tipo || "Otro"; acc[t] = (acc[t]||0)+1; return acc; }, {})
@@ -1610,22 +1621,21 @@ const ValuadorDashboardPage = () => {
                 Mapa de mis avalúos
               </p>
               {valuaciones.length > 0 ? (
-                <div className="rounded-xl overflow-hidden" style={{ height: 150 }}>
-                  <MapContainer center={[20.57, -103.38]} zoom={10} style={{ height:"100%", width:"100%" }} scrollWheelZoom={false} zoomControl={false} dragging={false} attributionControl={false}>
+                <div className="relative rounded-xl overflow-hidden cursor-pointer group" style={{ height: 150 }}
+                     onClick={() => setMapaOpen(true)} title="Click para ampliar y filtrar">
+                  <MapContainer center={centroMapa} zoom={13} style={{ height:"100%", width:"100%" }} scrollWheelZoom={false} zoomControl={false} dragging={false} attributionControl={false} key={centroMapa.join(",")}>
                     <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                     {puntos.map((p, i) => (
                       <CircleMarker key={i} center={[p.lat, p.lng]} radius={6}
-                        pathOptions={{ fillColor: COLORES_TIPO[p.tipo] || "#52B788", color:"#fff", weight:1.5, fillOpacity:0.88 }}>
-                        <Popup>
-                          <div className="text-xs min-w-[130px]">
-                            <p className="font-bold text-[#1B4332]">{p.tipo || "Propiedad"}</p>
-                            <p className="text-slate-400 truncate">{p.direccion}</p>
-                            {p.valor > 0 && <p className="text-[#1B4332] font-semibold">{formatMXN(p.valor)}</p>}
-                          </div>
-                        </Popup>
-                      </CircleMarker>
+                        pathOptions={{ fillColor: COLORES_TIPO[p.tipo] || "#52B788", color:"#fff", weight:1.5, fillOpacity:0.88 }} />
                     ))}
                   </MapContainer>
+                  {/* Capa para capturar el click (Leaflet se traga los eventos del div) */}
+                  <div className="absolute inset-0 z-[500] flex items-end justify-end p-2 bg-black/0 group-hover:bg-black/5 transition-colors">
+                    <span className="text-[10px] font-semibold text-[#1B4332] bg-white/90 rounded-full px-2 py-0.5 shadow flex items-center gap-1">
+                      <Maximize2 className="w-3 h-3" /> Ampliar
+                    </span>
+                  </div>
                 </div>
               ) : (
                 <div className="h-[150px] flex flex-col items-center justify-center text-slate-300 gap-2">
@@ -1720,6 +1730,50 @@ const ValuadorDashboardPage = () => {
                 </p>
               </div>
             ))}
+          </div>
+        )}
+
+        {/* Modal: mapa ampliado, interactivo y filtrable por tipo */}
+        {mapaOpen && (
+          <div className="fixed inset-0 z-[9999] bg-black/60 flex items-center justify-center p-4"
+               onClick={() => setMapaOpen(false)}>
+            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl flex flex-col overflow-hidden"
+                 style={{ height: "85vh" }} onClick={(e) => e.stopPropagation()}>
+              <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
+                <div>
+                  <p className="text-sm font-bold text-[#1B4332]">Mapa de mis avalúos</p>
+                  <p className="text-xs text-slate-400">{puntosFiltrados.length} de {puntos.length} · arrastra y haz zoom</p>
+                </div>
+                <button onClick={() => setMapaOpen(false)} className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-500">
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              <div className="flex flex-wrap gap-1.5 px-4 py-2 border-b border-slate-50">
+                {tiposMapa.map((t) => (
+                  <button key={t} onClick={() => setFiltroTipoMapa(t)}
+                    className={`text-xs font-semibold rounded-full px-3 py-1 border transition-colors ${filtroTipoMapa === t ? "bg-[#1B4332] text-white border-[#1B4332]" : "bg-white text-slate-500 border-slate-200 hover:border-[#52B788]"}`}>
+                    {t}{t !== "Todos" && <span className="ml-1 opacity-60">{puntos.filter(p => p.tipo === t).length}</span>}
+                  </button>
+                ))}
+              </div>
+              <div className="flex-1">
+                <MapContainer center={centroMapa} zoom={13} style={{ height:"100%", width:"100%" }} scrollWheelZoom zoomControl dragging attributionControl={false}>
+                  <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                  {puntosFiltrados.map((p, i) => (
+                    <CircleMarker key={i} center={[p.lat, p.lng]} radius={8}
+                      pathOptions={{ fillColor: COLORES_TIPO[p.tipo] || "#52B788", color:"#fff", weight:2, fillOpacity:0.9 }}>
+                      <Popup>
+                        <div className="text-xs min-w-[140px]">
+                          <p className="font-bold text-[#1B4332]">{p.tipo || "Propiedad"}</p>
+                          <p className="text-slate-400">{p.direccion}</p>
+                          {p.valor > 0 && <p className="text-[#1B4332] font-semibold">{formatMXN(p.valor)}</p>}
+                        </div>
+                      </Popup>
+                    </CircleMarker>
+                  ))}
+                </MapContainer>
+              </div>
+            </div>
           </div>
         )}
       </div>
