@@ -2078,3 +2078,13 @@ Reduce junk pero no lo elimina completamente. Fix de raíz: corregir el campo `c
 - Cuarzo 2380 (depto 75m² edad45 Bosques Victoria): $3.55M → **$2.80M** (residual ~17% sobre techo perito = falta stock modesto-usado en la colonia, DATO no fórmula).
 **Backup:** `motor_remi_api.PRE_DEPTOEDAD.bak.js`. Copia lab flag `LAB_EDAD_DEPTO` (+ `_GAP/_K/_FLOOR`) en `motor_remi_api_lab.js`.
 **Es PARCHE, no el fix real.** El fix correcto (propuesto por el usuario) = seleccionar comps en **banda de edad del sujeto** (LAB_ANCLA_SEG / LAB_SEG_CLUSTER + `cache_seg_anclas.json`), no aplicar factor sobre la mediana. Bloqueado por cobertura de año en comps depto = **44.2%** (de esos, 63% nuevos). Con más año → medir banda-por-sujeto vs este parche.
+
+## ❌ RECUPERAR i24 (t->c depto) — MEDIDO NEGATIVO 21-Jul-2026, NO implementar
+**Hipótesis (correcta) del usuario:** hay mucho dato de año en i24/prop.com que el motor tira; recuperarlo debería ayudar. **Confirmado el drop:** i24 mete el área del depto en `m2_terreno` (m2_construccion null) → el builder los excluye en la query (`m2c>0`). 904 deptos venta i24 (91% año), 632 en AMG.
+**Fix probado (LAB):** relajar query + mapear t->c depto (m2c vacío & m2t 30-250 → m2c=m2t) en `actualizar_cache_consolidado_mongo.LAB.py`. Rebuild cache LAB → **año depto 44.2% → 63.5%** (+19pp, 860 recuperados). Cache canónico intacto (swap+restore).
+**RESULTADO (motor prod gap6 constante, solo cambia el cache, OFFLINE):**
+- Deptos: **76% → 60%** ±20 (errAbs 18.8→20.9). **PEOR.**
+- Global n400: **70.7% → 68.8%**. Peor.
+- Tu banda-por-sujeto (LAB_ANCLA_SEG) sobre el cache rico: **56%**. Peor aún.
+**Por qué:** de los 750 i24 recuperados con año, **64% son NUEVOS (≥2024), solo 6% viejos (<2010).** Recuperarlos inunda el pool de obra nueva → sube medianas → amplifica la sobrevaluación de deptos viejos. La cobertura de año que suma es de PROPIEDADES NUEVAS, no la señal que falta.
+**LECCIÓN:** el lever NO es "cobertura de año" — es **inventario de deptos USADOS**, que es genuinamente escaso (6% de lo recuperable). El parche `gap6` sigue siendo lo mejor (funciona justo depreciando el sujeto viejo contra el pool sesgado-nuevo). Artefactos LAB quedan (`*.LAB.*`) por si se retoma con filtro pro-usado. NO graduar el t->c sin filtrar obra nueva antes.
