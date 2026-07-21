@@ -1052,6 +1052,9 @@ const ValuationForm = () => {
     { number: 2, title: "Inmueble",  icon: <Ruler className="w-5 h-5" /> },
     { number: 3, title: "Detalles",  icon: <Home className="w-5 h-5" /> },
     ...(!skipCheckout ? [{ number: 4, title: "Pago", icon: <CreditCard className="w-5 h-5" /> }] : []),
+    // Círculo cosmético: la selección de comparables ocurre en /comparables/:id (página aparte).
+    // Nunca es "currentStep" (maxStep lo tope en 3/4), sólo da continuidad visual al proceso.
+    { number: skipCheckout ? 4 : 5, title: "Comparables", icon: <Search className="w-5 h-5" /> },
   ];
 
   const ad = ADS[adIndex];
