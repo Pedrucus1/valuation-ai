@@ -1038,8 +1038,13 @@ function valuarPropiedad(prop) {
         const _medComps = pm2cFilt.length ? mediana(pm2cFilt) : 0;
         const _medCol   = _cellEdad?.medianaPm2c || 0;
         const _segRatio = (_medComps > 0 && _medCol > 0) ? _medComps / _medCol : 1;
+        // Deptos: el pool "exacta" suele ser obra nueva/preventa (asking de estreno), así que el
+        // supuesto "comps de edad similar" falla y un depto viejo se sobre-valúa. Menos gracia de
+        // edad (gap 6 vs 25) → deprecia el exceso casi completo. Casas sin cambio. Validado LAB:
+        // deptos ±20 64→72, errAbs 21.6→19.3; prod --n400 ±20 69.3→70.7 sin regresión.
+        const _gapEdad = tipo === 'depto' ? 6 : 25;
         factorEdad = (_segRatio >= 0.75)
-            ? Math.max(0.55, 1 - Math.max(0, edadEfectiva - anclaEdad - 25) * 0.010)
+            ? Math.max(0.55, 1 - Math.max(0, edadEfectiva - anclaEdad - _gapEdad) * 0.010)
             : 1.0;
     } else if (poolTipo === 'similares') {
         factorEdad = Math.max(floorEdad, 1 - (edadEfectiva - anclaEdad) * 0.005);

@@ -3,6 +3,7 @@
 > **LEER ANTES de buscar/tocar cualquier cosa del motor.** Hay muchos archivos con nombres parecidos
 > (_mongo/_limpio/_dv/_migr) que son variantes/experimentos. Aquí está cuál es el BUENO y qué carga cada uno.
 > Reglas y calibraciones del motor → `MOTOR_ANTECEDENTES.md` (leer también).
+> Qué hace cada archivo y en qué paso del pipeline → `DICCIONARIO_ARCHIVOS.md`.
 
 ## 🎯 ARCHIVOS CANÓNICOS (los de producción — usar estos)
 | Rol | Archivo | Notas |

@@ -1217,10 +1217,15 @@ function valuarPropiedad(prop) {
         // LAB_EDAD_EXACTA=1: deprecia SOLO el exceso de edad del sujeto sobre la zona (cluster A:
         // casas viejas sobre-valuadas porque exacta no deprecia). Nunca aprecia (Math.max(0,...)) →
         // sujetos de edad normal/nueva quedan en 1.0 idéntico a prod. Tunable K/FLOOR/GAP.
-        if (process.env.LAB_EDAD_EXACTA === '1') {
-            const _k    = parseFloat(process.env.LAB_EDAD_EXACTA_K    || '0.010');
-            const _fl   = parseFloat(process.env.LAB_EDAD_EXACTA_FLOOR|| '0.55');
-            const _gap  = parseFloat(process.env.LAB_EDAD_EXACTA_GAP  || '25');
+        // LAB_EDAD_DEPTO=1: en deptos el pool "exacta" suele ser obra nueva/preventa (asking a $/m²
+        // de estreno), así que el supuesto "comps de edad similar" falla y un depto viejo se
+        // sobre-valúa. Para tipo==='depto' se usan params más agresivos (menos GAP de gracia) →
+        // deprecia el exceso de edad sobre la zona casi completo. Casas y deptos nuevos: sin cambio.
+        const _isDepto = tipo === 'depto' && process.env.LAB_EDAD_DEPTO === '1';
+        if (process.env.LAB_EDAD_EXACTA === '1' || _isDepto) {
+            const _k    = parseFloat(_isDepto ? (process.env.LAB_EDAD_DEPTO_K     || '0.010') : (process.env.LAB_EDAD_EXACTA_K    || '0.010'));
+            const _fl   = parseFloat(_isDepto ? (process.env.LAB_EDAD_DEPTO_FLOOR || '0.55')  : (process.env.LAB_EDAD_EXACTA_FLOOR|| '0.55'));
+            const _gap  = parseFloat(_isDepto ? (process.env.LAB_EDAD_DEPTO_GAP   || '0')     : (process.env.LAB_EDAD_EXACTA_GAP  || '25'));
             const _segMin = parseFloat(process.env.LAB_EDAD_EXACTA_SEGMIN || '0.75');
             // Discriminante de clase: si el sujeto ya cae en un sub-segmento BARATO de su colonia
             // (mediana de sus comps << mediana de la colonia), NO depreciar más por edad — ya está

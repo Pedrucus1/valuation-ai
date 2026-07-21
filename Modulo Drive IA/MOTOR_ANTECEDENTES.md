@@ -2068,3 +2068,13 @@ Reduce junk pero no lo elimina completamente. Fix de raíz: corregir el campo `c
 ### Reglas para el futuro
 - Al hacer rebuild de `cache_index.json` desde Mongo, correr `consolidar_colonias_idx.py --apply` después
 - El root fix es en `normCol()` de `build_cache_index.js`: agregar strip de "onia ", "casa en ", "terreno en " y decoradores EN — pendiente para no romper ahora, ya documentado
+
+## 🏢 DEPTO-EDAD (gap exacta) 21-Jul-2026 — parche interino graduado a prod
+**Sesgo medido:** deptos en pool `exacta` se **sobre-valúan** por edad. Causa: en `exacta` `factorEdad` asume comps de edad similar, pero el pool depto suele ser **obra nueva/preventa** (asking de estreno) → un depto viejo no se deprecia. Distinto del caso testigo OPI-25-2-14-RM (pool `general`, data-gap de año — ver arriba); este es el cluster `exacta`.
+**Cambio (motor_remi_api.js):** en el bloque `factorEdad` de exacta, `_gapEdad = tipo==='depto' ? 6 : 25`. Menos gracia de edad para depto → deprecia el exceso casi completo. Casas idénticas.
+**Validación OFFLINE (keys en blanco, determinista):**
+- Deptos (25 OPIs, `--folios`): gap25 **68%** ±20 (errAbs 21.0) → gap6 **76%** ±20 (errAbs 18.9). errAbs baja en todos los gaps (robusto).
+- Global prod `--n 400` (205 OPIs): **69.3 → 70.7%** ±20, errAbs 15.6→15.3, cero regresión (casas intactas por gate `tipo==='depto'`).
+- Cuarzo 2380 (depto 75m² edad45 Bosques Victoria): $3.55M → **$2.80M** (residual ~17% sobre techo perito = falta stock modesto-usado en la colonia, DATO no fórmula).
+**Backup:** `motor_remi_api.PRE_DEPTOEDAD.bak.js`. Copia lab flag `LAB_EDAD_DEPTO` (+ `_GAP/_K/_FLOOR`) en `motor_remi_api_lab.js`.
+**Es PARCHE, no el fix real.** El fix correcto (propuesto por el usuario) = seleccionar comps en **banda de edad del sujeto** (LAB_ANCLA_SEG / LAB_SEG_CLUSTER + `cache_seg_anclas.json`), no aplicar factor sobre la mediana. Bloqueado por cobertura de año en comps depto = **44.2%** (de esos, 63% nuevos). Con más año → medir banda-por-sujeto vs este parche.
