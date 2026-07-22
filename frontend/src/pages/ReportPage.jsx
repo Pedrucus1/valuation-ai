@@ -277,7 +277,7 @@ const ReportPage = () => {
       // Show slot3 ad "antes de la descarga" for public/realtor users
       setShowSlot3Ad(true);
     } else {
-      navigate(`/gracias/${valuationId}`, { state: { reportHtml } });
+      navigate(`/gracias/${valuationId}`, { state: { reportHtml, autoDownload: true } });
     }
   };
 
@@ -705,7 +705,7 @@ const ReportPage = () => {
           zone={property?.municipality || property?.city || ""}
           onDone={() => {
             setShowSlot3Ad(false);
-            navigate(`/gracias/${valuationId}`, { state: { reportHtml } });
+            navigate(`/gracias/${valuationId}`, { state: { reportHtml, autoDownload: true } });
           }}
         />
       )}

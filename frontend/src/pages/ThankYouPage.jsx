@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Building2, Star, ArrowRight, Share2, Download, LayoutDashboard } from "lucide-react";
+import { Building2, Star, ArrowRight, ArrowLeft, Share2, Download, LayoutDashboard, FileText } from "lucide-react";
 import { toast } from "sonner";
 import { API } from "@/App";
 import { downloadReportPdf } from "@/lib/downloadReportPdf";
@@ -66,6 +66,17 @@ const ThankYouPage = () => {
     ? (reportHtml.match(/<title>([^<]+)<\/title>/i)?.[1]?.trim() || "Reporte PropValu")
     : null;
 
+  // Auto-descarga: si el usuario ya pidió descargar en el reporte, no lo hacemos picar de
+  // nuevo — apenas el HTML esté listo, se descarga solo (una sola vez).
+  const autoDownloadedRef = useRef(false);
+  useEffect(() => {
+    if (location.state?.autoDownload && reportHtml && !autoDownloadedRef.current) {
+      autoDownloadedRef.current = true;
+      handleDownload();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reportHtml]);
+
   const handleSubmit = async () => {
     if (selected === 0) {
       toast.error("Selecciona una calificación");
@@ -115,7 +126,7 @@ const ThankYouPage = () => {
     <div className="min-h-screen bg-gradient-to-b from-[#f0faf4] via-white to-[#F8F9FA]">
       {/* Header */}
       <header className="bg-white/80 backdrop-blur border-b border-slate-200">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-3">
           <button
             onClick={() => navigate("/")}
             className="flex items-center gap-2 hover:opacity-80 transition-opacity"
@@ -125,6 +136,17 @@ const ThankYouPage = () => {
               Prop<span className="text-[#52B788]">Valu</span>
             </span>
           </button>
+          {valuationId && (
+            <button
+              onClick={() => navigate(`/reporte/${valuationId}`)}
+              className="flex items-center gap-1.5 text-sm font-semibold text-[#1B4332] hover:text-[#2D6A4F] border border-[#B7E4C7] hover:bg-[#F0FAF5] px-3 py-2 rounded-lg transition-colors whitespace-nowrap"
+              title="Volver a ver el reporte"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <FileText className="w-4 h-4" />
+              <span className="hidden sm:inline">Ver reporte</span>
+            </button>
+          )}
         </div>
       </header>
 
