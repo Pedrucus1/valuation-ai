@@ -610,11 +610,12 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
     # Entorno simple list (seguridad/movilidad se omiten aquí porque aparecen en la cuadrícula de scores)
     _ent_names = {
         'seguridad': 'Seguridad', 'movilidad': 'Movilidad', 'educacion': 'Educación',
-        'salud': 'Salud', 'comercio': 'Comercio', 'recreacion': 'Recreación', 'plazas': 'Plazas'
+        'salud': 'Salud', 'comercio': 'Comercio', 'recreacion': 'Recreación', 'plazas': 'Plazas',
+        'bancos': 'Bancos'
     }
     entorno_items = ''
     if pe:
-        for key in ['educacion', 'salud', 'comercio', 'recreacion', 'plazas']:
+        for key in ['educacion', 'salud', 'comercio', 'recreacion', 'plazas', 'bancos']:
             cat = pe.get(key, {})
             if not cat:
                 continue
@@ -854,8 +855,11 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
     <div class="sc-list">{pl_detalle}</div>
   </div>"""
 
-    # Facade photo for mapa section
+    # Facade photo for mapa section — si no se eligió portada pero hay fotos, usar la primera
+    # (para que la fachada aparezca junto al mapa en la hoja 1).
     facade_idx = prop.get('facade_photo_index')
+    if facade_idx is None and photos:
+        facade_idx = 0
     facade_photo_url = photos[facade_idx] if (facade_idx is not None and photos and facade_idx < len(photos)) else None
 
     # Photos (page 5) — hasta 15 fotos, columnas y altura según cantidad

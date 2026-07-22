@@ -1968,11 +1968,13 @@ const ValuationForm = () => {
                   <PhotoUploader
                     photos={formData.photos}
                     onPhotosChange={(updateFn) => {
-                      if (typeof updateFn === 'function') {
-                        setFormData(prev => ({ ...prev, photos: updateFn(prev.photos) }));
-                      } else {
-                        setFormData(prev => ({ ...prev, photos: updateFn }));
-                      }
+                      setFormData(prev => {
+                        const newPhotos = typeof updateFn === 'function' ? updateFn(prev.photos) : updateFn;
+                        // Auto-fachada: si hay fotos y no se eligió portada, usar la 1ª (para que
+                        // aparezca junto al mapa en el reporte). Atómico para no perderse en subidas en lote.
+                        const facade = (prev.facade_photo_index == null && newPhotos.length > 0) ? 0 : prev.facade_photo_index;
+                        return { ...prev, photos: newPhotos, facade_photo_index: facade };
+                      });
                     }}
                     facadeIndex={formData.facade_photo_index}
                     onFacadeChange={(idx) => handleInputChange("facade_photo_index", idx)}

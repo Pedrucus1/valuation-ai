@@ -27,6 +27,7 @@ CATEGORY_TYPES = {
     "comercio": ["supermarket", "grocery_store"],
     "recreacion": ["park", "gym", "stadium"],
     "plazas": ["shopping_mall"],
+    "bancos": ["bank", "atm"],
 }
 
 
