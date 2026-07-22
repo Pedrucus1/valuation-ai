@@ -2,8 +2,14 @@
 
 > **Único archivo que se lee al iniciar** (corto, siempre vigente). Tareas por # → `BACKLOG.md` (grep). Historial → `BACKLOG_ARCHIVE.md`. Motor → `MOTOR_ANTECEDENTES.md` (grep). **Se sobrescribe en cada cierre de sesión.**
 
-**Última actualización:** 21 Jul 2026
-**Fase:** Prod Railway (Hobby PAGADO) + Vercel público. Sesión 21-jul = **calibración del motor para departamentos** (parche edad `gap6`) + investigación de datos i24. Trabajo en rama `fix/flujo-avaluo-reporte-jul20` (pusheada, **NO mergeada a main ni desplegada** aún).
+**Última actualización:** 22 Jul 2026
+**Fase:** Prod Railway + Vercel público. Sesión 21-22 jul = **revisión a fondo del flujo web (form→comparables→reporte→PDF) + ads + valor físico + investigación de comparables/scraper**. Todo en rama `fix/flujo-avaluo-reporte-jul20` (**pusheada, NO mergeada a main ni desplegada**). El motor conectado (Opción C) también sigue solo en la rama, NO en prod.
+
+## 🔥 SESIÓN 22-JUL — hecho (rama, sin desplegar)
+- **Flujo web:** mapa centra en coords reales (no CDMX), botón "Paso anterior" en cabecera, modal informativo ya no parpadea, stepper con círculo "Comparables", auto-descarga PDF + botón "Ver reporte" en Gracias, fotos máx 12→15 + auto-fachada, quitado "Anterior" del cuadro blanco.
+- **Ads:** popup excluyente (pagada ó texto de cajón, no ambos), consistentes (no fullscreen) + adaptados a formato V/H, sin loop, cuenta arranca al reproducir el video, no se repite slot1 tras el análisis. **Fix backend: `/uploads` con Range 206** (sin él los videos salían negros) + métricas ASGI puro (no buffea). Setup de prueba: anunciante "Avaluos y Arquitectura" con Remotion en slots 1/2/3 (staging).
+- **Reporte/PDF:** genera en **A4** (no carta) sin cortar, régimen legible, orden min/medio/máx, ícono 🎯, "M.N.", fotos que llenan la hoja, fachada junto al mapa (fallback 1ª foto), 6º apartado "Bancos". **Valor físico #11/#12 RESUELTO:** `calculate_remi` deriva enfoque físico (terreno ratio + construcción paramétrica CMIC − Ross-Heidecke), como el `/calculate` viejo. Mapeo recámaras/baños/estac desde `mercado_props`.
+- **Comparables/scraper (investigación):** Cuarzo jala comps de otras colonias porque BV tiene ~0 deptos de venta en BD (1 renta de PINCALI inglés). GDL tiene 1547 deptos → hueco de COLONIA, no sistémico. **Tavily VIVA** (Serper muerta) y encuentra ~19 deptos en BV, pero el motor no la dispara (usa pool "exacta"). **PINCALI se scrapea del listado INGLÉS** (viola la regla, debía ser español directo) → ~60% deptos sin año. colonias_similares.v2 es mayormente SEPOMEX geográfico (36% colonias flacas). Override manual de similares de BV hecho (neutral por ahora). Archivo de scrape on-demand por colonia = `Modulo Drive IA/buscar_comparables_browser.js` (corre pero dio 0/nav-error, hay que arreglarlo).
 
 ## ⚡ LO MÁS CALIENTE / decisiones vigentes
 - **Motor — parche depto-edad `gap6` GRADUADO a `motor_remi_api.js`** (commit `e8ed0fd`, en rama, sin desplegar). Deptos viejos en pool `exacta` se sobre-valuaban (el pool suele ser obra nueva → no depreciaba). Fix: `_gapEdad = tipo==='depto' ? 6 : 25`. Validado OFFLINE: **deptos 68→76% ±20, global --n400 69.3→70.7%, cero regresión en casas**. Cuarzo 2380 $3.55M→$2.80M. Backup `motor_remi_api.PRE_DEPTOEDAD.bak.js`. **Decisión pendiente: mergear a main + desplegar** o seguir puliendo.
@@ -13,6 +19,14 @@
 - **Motor: NO reconstruir el caché a ciegas.** El del 7-jul (63.1/74.8/83.5) sigue siendo el desplegado; el cambio gap6 es sobre ESE cache, sin rebuild.
 
 ## ⏳ Pendientes / decisiones abiertas
+### De la sesión 22-jul (rama sin desplegar)
+0. **Mergear a main + desplegar** TODO lo de la rama (Opción C motor + revisión flujo/ads/reporte). Está pusheado, falta merge + Railway + Vercel.
+1b. **Scraper por colonia:** arreglar `buscar_comparables_browser.js` — construir URLs POR COLONIA (los links del usuario funcionan), manejar anti-bot de propiedades.com/i24, sumar PINCALI (español) y nocnok. Objetivo: poblar deptos de BV + colonias similares (chapalita 21, jardines del bosque 3 ya en BD; el resto en 0).
+1c. **Enricher PINCALI:** dejar de scrapear el listado INGLÉS → español directo (trae año) para tapar el ~60% de deptos sin edad. Lever real del problema de comps de depto.
+1d. **Motor:** que dispare Tavily/similares para la colonia del sujeto cuando la caché es delgada, aunque tenga pool "exacta" (hoy no lo hace). Sesión de motor con validador.
+1e. **colonias_similares:** reconstruir por NSE/precio (no solo SEPOMEX geográfico); 36% de colonias están flacas. `residencial victoria` no existía.
+1f. **Reporte:** margen simétrico hoja 4 (mejora con altura dinámica, verificar), enfoque físico depto usa `land_area` completo (¿indiviso?), auto-ajuste de texto en celdas si desborda.
+### Previos
 1. **Mergear + desplegar el parche gap6** a prod — o retomar "recuperar i24 SOLO usados" (filtrar obra nueva año≥2024 del pool depto y re-medir).
 2. **Contador de folio por presupuesto comprado** (hoy: acumulado por usuario).
 3. **#29 Render respaldo gratis** — FALTAN env vars (usuario las pega). ~5 días antes de que venza Railway.
