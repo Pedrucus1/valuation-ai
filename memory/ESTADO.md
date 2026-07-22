@@ -5,7 +5,17 @@
 **Última actualización:** 22 Jul 2026 (deploy)
 **Fase:** Prod Railway + Vercel público. Sesión 21-22 jul = **revisión a fondo del flujo web (form→comparables→reporte→PDF) + ads + valor físico + investigación de comparables/scraper**. **✅ DESPLEGADO 22-jul:** rama `fix/flujo-avaluo-reporte-jul20` mergeada ff-only a `main` + push; **backend Railway** (deployment `0d42b1d8` RUNNING, health 200) + **frontend Vercel** (READY, alias `frontend-rosy-six-74.vercel.app`). Motor Opción C + parche `gap6` de deptos AHORA EN PROD.
 
-## 🔥 SESIÓN 22-JUL — hecho (rama, sin desplegar)
+## 🔥 SESIÓN 22-JUL-b — hecho
+- **Deploy:** rama `fix/flujo-avaluo-reporte-jul20` mergeada ff-only a main + desplegada (Railway `0d42b1d8` RUNNING + Vercel READY). Motor Opción C + gap6 en prod.
+- **BV similares (commit `1722bcc`, main, NO desplegado):** las 16 colonias manuales del usuario estaban solo en el legacy `colonias_similares.enriquecido.v2.json`, que el motor **ignora** cuando existe `colonias_maestro.json` (fuente única). Movidas al maestro (donde `getSimilares`/`getNSE` sí leen). 11/16 sobreviven filtro NSE±1 (ancla BV = v1 medio-medio nseIdx 3, n=90 — robusto; el idx casa=4 sale de solo 3 listados, no se usa como ancla). Backup `colonias_maestro.PRE_BV_MANUAL.bak.json`. **Falta redeploy para que prod lo tenga.**
+- **Discusión metodológica (root cause NSE):** el usuario llegó solo al hallazgo ya documentado (deptos NUEVOS inflan NSE colonia; casa≠depto; remodelado≠viejo). Confirmado que el fix NO es motor (ya se intentó, regresa) sino DATO (año/scraper). **Dirección aprobada:** separar NSE nuevo/usado × tipo en el mismo maestro (blocker=cobertura año). Detalle en memoria Claude `project_propvalu_nse_nuevo_usado`.
+
+### ⏭️ PRÓXIMA SESIÓN (3 hilos paralelos)
+1. **Cuarzo:** el usuario dará links directos de comparables para ver datos, solo ese avalúo.
+2. **Scraper por colonias** (`buscar_comparables_browser.js` — URLs por colonia, anti-bot, +PINCALI ES +nocnok) + enricher PINCALI capture "Year Built = New/Preventa→año actual" (línea 75 MOTOR_ANTECEDENTES).
+3. **Lab valuación minimalista:** `motor_simple` = mediana $/m²C de N comps cercanos (tipo+colonia/similares+banda tamaño) × m²C, SIN cascada NSE/IDX/Ross-Heidecke. Validador 400 OPIs vs motor actual (60/68/79).
+
+## 🔥 SESIÓN 22-JUL — hecho (desplegado ver arriba)
 - **Flujo web:** mapa centra en coords reales (no CDMX), botón "Paso anterior" en cabecera, modal informativo ya no parpadea, stepper con círculo "Comparables", auto-descarga PDF + botón "Ver reporte" en Gracias, fotos máx 12→15 + auto-fachada, quitado "Anterior" del cuadro blanco.
 - **Ads:** popup excluyente (pagada ó texto de cajón, no ambos), consistentes (no fullscreen) + adaptados a formato V/H, sin loop, cuenta arranca al reproducir el video, no se repite slot1 tras el análisis. **Fix backend: `/uploads` con Range 206** (sin él los videos salían negros) + métricas ASGI puro (no buffea). Setup de prueba: anunciante "Avaluos y Arquitectura" con Remotion en slots 1/2/3 (staging).
 - **Reporte/PDF:** genera en **A4** (no carta) sin cortar, régimen legible, orden min/medio/máx, ícono 🎯, "M.N.", fotos que llenan la hoja, fachada junto al mapa (fallback 1ª foto), 6º apartado "Bancos". **Valor físico #11/#12 RESUELTO:** `calculate_remi` deriva enfoque físico (terreno ratio + construcción paramétrica CMIC − Ross-Heidecke), como el `/calculate` viejo. Mapeo recámaras/baños/estac desde `mercado_props`.
