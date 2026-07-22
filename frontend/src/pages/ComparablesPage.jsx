@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -27,7 +27,9 @@ import {
   RefreshCw,
   Search,
   LayoutList,
-  LayoutGrid
+  LayoutGrid,
+  Home,
+  CheckCircle2
 } from "lucide-react";
 import { API } from "@/App";
 import AdOverlay from "@/components/AdOverlay";
@@ -74,6 +76,7 @@ const NEGOTIATION_OPTIONS = [
 const ComparablesPage = () => {
   const { valuationId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const [valuation, setValuation] = useState(null);
   const [selectedIds, setSelectedIds] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -86,7 +89,9 @@ const ComparablesPage = () => {
   const [enrichProgress, setEnrichProgress] = useState({ done: 0, total: 0 });
   const [adIndex, setAdIndex] = useState(0);
   const [adProgress, setAdProgress] = useState(0); // 0-100 per slide
-  const [showSlot1Ad, setShowSlot1Ad] = useState(true); // slot1 al iniciar carga
+  // slot1 ("Búsqueda de Comparables") ya se muestra en el popup del análisis; si venimos de
+  // ahí no lo repetimos (evita el video fullscreen duplicado). Si se entra directo, sí se muestra.
+  const [showSlot1Ad, setShowSlot1Ad] = useState(!location.state?.fromAnalysis);
 
   const ADS = [
     { tag: "Consejo PropValu", title: "El valor lo define la oferta y la demanda", body: "No existe un precio único para una propiedad. El valor real es el que un comprador informado está dispuesto a pagar en el mercado actual." },
@@ -531,6 +536,30 @@ const ComparablesPage = () => {
           <ArrowLeft className="w-4 h-4 mr-2" />
           Nueva valuación
         </Button>
+
+        {/* Stepper cosmético — continuidad con el formulario; Comparables = paso actual */}
+        <div className="flex items-center mb-6 overflow-x-auto">
+          {[
+            { n: 1, label: "Ubicación", icon: <MapPin className="w-4 h-4" /> },
+            { n: 2, label: "Inmueble", icon: <Ruler className="w-4 h-4" /> },
+            { n: 3, label: "Detalles", icon: <Home className="w-4 h-4" /> },
+            { n: 4, label: "Comparables", icon: <Search className="w-4 h-4" /> },
+          ].map((s, i) => (
+            <div key={s.n} className="flex items-center">
+              <div className="flex flex-col items-center mx-1.5 sm:mx-3">
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                  s.n < 4 ? "bg-[#52B788] text-white" : "bg-[#1B4332] text-white ring-2 ring-[#D9ED92] shadow-md"
+                }`}>
+                  {s.n < 4 ? <CheckCircle2 className="w-4 h-4" /> : s.icon}
+                </div>
+                <span className={`mt-1 text-xs hidden sm:block ${s.n === 4 ? "text-[#1B4332] font-bold" : "text-slate-500 font-medium"}`}>
+                  {s.label}
+                </span>
+              </div>
+              {i < 3 && <div className="w-4 sm:w-10 h-0.5 bg-[#52B788]" />}
+            </div>
+          ))}
+        </div>
 
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div>

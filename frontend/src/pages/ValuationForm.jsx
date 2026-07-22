@@ -1065,7 +1065,7 @@ const ValuationForm = () => {
       const remaining = MIN_AD_MS - elapsed;
       if (remaining > 0) await new Promise(r => setTimeout(r, remaining));
 
-      navigate(`/comparables/${valuation.valuation_id}`);
+      navigate(`/comparables/${valuation.valuation_id}`, { state: { fromAnalysis: true } });
 
     } catch (error) {
       console.error("Error:", error);
