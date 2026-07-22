@@ -1288,6 +1288,44 @@ async def calculate_valuation(valuation_id: str, request: Request):
     return result.model_dump()
 
 
+def _physical_breakdown(prop: dict, comparative_ppsm: float) -> dict:
+    """Enfoque físico (Costo de Reposición) — misma lógica del /calculate viejo:
+    terreno por ratio del $/m² comparativo + construcción paramétrica (tipo CMIC) con
+    depreciación Ross-Heidecke (edad + conservación). El motor comparativo no lo calcula."""
+    land_ratio_by_state = {
+        "Ciudad de México": 0.50, "Nuevo León": 0.45, "Jalisco": 0.40,
+        "Quintana Roo": 0.45, "Estado de México": 0.35, "Querétaro": 0.40,
+    }
+    land_ratio = land_ratio_by_state.get(prop.get("state", ""), 0.38)
+    land_area = float(prop.get("land_area") or 0)
+    construction_area = float(prop.get("construction_area") or 0)
+    land_value = comparative_ppsm * land_ratio * land_area
+
+    quality_costs = {
+        "Interés social": 12000, "Media": 16000, "Media-alta": 22000,
+        "Residencial": 30000, "Residencial plus": 45000,
+    }
+    cost_per_sqm = quality_costs.get(prop.get("construction_quality") or "Media", 16000)
+    construction_new = cost_per_sqm * construction_area
+
+    age = float(prop.get("estimated_age") or 10)
+    conservation_factors = {
+        "Muy Bueno": 1.0, "Excelente": 1.0, "Bueno": 0.85, "Regular": 0.65, "Malo": 0.40,
+    }
+    conservation_factor = conservation_factors.get(prop.get("conservation_state") or "Bueno", 0.85)
+    age_depreciation = min(age / 60.0, 0.50)
+    total_depreciation = min(age_depreciation + (1 - conservation_factor) * 0.3, 0.60)
+    construction_depreciated = construction_new * (1 - total_depreciation)
+    physical_total = land_value + construction_depreciated
+    return {
+        "land_value": round(land_value, 2),
+        "construction_new_value": round(construction_new, 2),
+        "construction_depreciated": round(construction_depreciated, 2),
+        "depreciation_percent": round(total_depreciation * 100, 1),
+        "physical_total": round(physical_total, 2),
+    }
+
+
 @api_router.post("/valuations/{valuation_id}/calculate-remi")
 async def calculate_remi(valuation_id: str):
     """
@@ -1407,8 +1445,11 @@ async def calculate_remi(valuation_id: str):
     conf_map = {"ALTA": "ALTO", "ALTO": "ALTO", "MEDIA": "MEDIO", "MEDIO": "MEDIO",
                 "BAJA": "BAJO", "BAJO": "BAJO"}
     confianza = conf_map.get(str(result.get("confianza", "")).upper(), "MEDIO")
-    land_v = float(result.get("valorTerreno") or 0)
-    const_v = float(result.get("valorConst") or 0)
+    # Enfoque físico: el motor no separa terreno/construcción → derivarlo (paramétrico + R-H).
+    # Si el motor sí devolviera valorTerreno/valorConst, se respetan.
+    phys = _physical_breakdown(prop, valor / m2c)
+    land_v = float(result.get("valorTerreno") or phys["land_value"])
+    const_v = float(result.get("valorConst") or phys["construction_new_value"])
     rfd = valuation.get("rental_factor_data") or {}
     mm = calculate_market_metrics(
         estimated_value=valor,
@@ -1425,9 +1466,10 @@ async def calculate_remi(valuation_id: str):
         "comparative_weighted": round(valor, 2),
         "land_value": round(land_v, 2),
         "construction_new_value": round(const_v, 2),
-        "depreciation_percent": 0.0,
-        "construction_depreciated": round(const_v, 2),
-        "physical_total": round(land_v + const_v, 2) if (land_v or const_v) else round(valor, 2),
+        "depreciation_percent": phys["depreciation_percent"],
+        "construction_depreciated": phys["construction_depreciated"],
+        "physical_total": round(land_v + phys["construction_depreciated"], 2),
+        "physical_value": round(land_v + phys["construction_depreciated"], 2),
         "estimated_value": round(valor, 2),
         "value_range_min": round(valor * (1 - rango), 2),
         "value_range_max": round(valor * (1 + rango), 2),

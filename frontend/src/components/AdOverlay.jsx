@@ -26,6 +26,7 @@ const AdOverlay = ({ slot, zone = "", onDone }) => {
   const [ad, setAd] = useState(null);          // null=cargando, false=sin campaña (usar casa), obj=pagada
   const [seconds, setSeconds] = useState(0);
   const [videoEnded, setVideoEnded] = useState(false);
+  const [videoReady, setVideoReady] = useState(false); // el video ya arrancó (para no contar mientras bufferea)
   const timerRef = useRef(null);
   const trackedRef = useRef(false);
   const doneRef = useRef(false);
@@ -43,9 +44,16 @@ const AdOverlay = ({ slot, zone = "", onDone }) => {
     return () => { cancelled = true; };
   }, [slot, zone]);
 
-  // Cuenta regresiva: arranca cuando ya se resolvió el ad (pagado o casa).
+  // Cuenta regresiva: arranca cuando ya se resolvió el ad. Para video PAGADO espera a que
+  // el video empiece a reproducir (onPlaying) — así no cuenta mientras bufferea ("inicia
+  // empezado"). Fallback: si no arranca en 3s, cuenta igual (no colgar el anuncio).
   useEffect(() => {
     if (ad === null) return;
+    const needsVideo = ad && ad.file_type === "video";
+    if (needsVideo && !videoReady) {
+      const t = setTimeout(() => setVideoReady(true), 3000);
+      return () => clearTimeout(t);
+    }
     const dur = (ad && ad.duration) || SLOT_DURATION[slot] || 30;
     setSeconds(dur);
     timerRef.current = setInterval(() => {
@@ -53,7 +61,7 @@ const AdOverlay = ({ slot, zone = "", onDone }) => {
     }, 1000);
     return () => clearInterval(timerRef.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ad]);
+  }, [ad, videoReady]);
 
   // Registrar impresión una vez (solo pagada)
   useEffect(() => {
@@ -116,6 +124,7 @@ const AdOverlay = ({ slot, zone = "", onDone }) => {
               autoPlay
               muted={false}
               playsInline
+              onPlaying={() => setVideoReady(true)}
               onEnded={() => setVideoEnded(true)}
               className="block max-h-[86vh] max-w-[92vw] object-contain cursor-pointer"
             />

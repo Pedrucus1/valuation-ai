@@ -862,23 +862,24 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
         facade_idx = 0
     facade_photo_url = photos[facade_idx] if (facade_idx is not None and photos and facade_idx < len(photos)) else None
 
-    # Photos (page 5) — hasta 15 fotos, columnas y altura según cantidad
+    # Photos (page 5) — hasta 15 fotos. Columnas por cantidad y ALTURA DINÁMICA para
+    # llenar el alto útil de la hoja (si suben pocas → más grandes, sin margen vacío abajo).
     if photos and len(photos) > 0:
         n = min(len(photos), 15)
         display_photos = photos[:n]
-        # Decidir columnas: 1 col si solo hay 1 foto, 2 cols para conteos pares ≤8, 3 cols resto
         if n == 1:
             cols = 1
-            height = "420px"
         elif n in (2, 4, 6, 8):
             cols = 2
-            height = "260px"
         else:
             cols = 3
-            height = "178px"
+        rows = (n + cols - 1) // cols
+        gap = 8
+        avail = 860  # alto útil para fotos en la hoja A4 (menos cabecera/título/pie)
+        height = max(150, min(460, int((avail - gap * (rows - 1)) / rows)))
         photo_items = ''.join(
             f'<div style="border-radius:10px;overflow:hidden;border:1px solid var(--gray-200);background:#fdfdfd;">'
-            f'<img src="{p}" style="width:100%;height:{height};object-fit:cover;display:block;" alt="Foto {i+1}"></div>'
+            f'<img src="{p}" style="width:100%;height:{height}px;object-fit:cover;display:block;" alt="Foto {i+1}"></div>'
             for i, p in enumerate(display_photos)
         )
         photos_content = f'<div style="display:grid;grid-template-columns:repeat({cols},1fr);gap:8px;margin-top:10px;">{photo_items}</div>'
