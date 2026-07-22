@@ -2,8 +2,8 @@
 
 > **Único archivo que se lee al iniciar** (corto, siempre vigente). Tareas por # → `BACKLOG.md` (grep). Historial → `BACKLOG_ARCHIVE.md`. Motor → `MOTOR_ANTECEDENTES.md` (grep). **Se sobrescribe en cada cierre de sesión.**
 
-**Última actualización:** 22 Jul 2026
-**Fase:** Prod Railway + Vercel público. Sesión 21-22 jul = **revisión a fondo del flujo web (form→comparables→reporte→PDF) + ads + valor físico + investigación de comparables/scraper**. Todo en rama `fix/flujo-avaluo-reporte-jul20` (**pusheada, NO mergeada a main ni desplegada**). El motor conectado (Opción C) también sigue solo en la rama, NO en prod.
+**Última actualización:** 22 Jul 2026 (deploy)
+**Fase:** Prod Railway + Vercel público. Sesión 21-22 jul = **revisión a fondo del flujo web (form→comparables→reporte→PDF) + ads + valor físico + investigación de comparables/scraper**. **✅ DESPLEGADO 22-jul:** rama `fix/flujo-avaluo-reporte-jul20` mergeada ff-only a `main` + push; **backend Railway** (deployment `0d42b1d8` RUNNING, health 200) + **frontend Vercel** (READY, alias `frontend-rosy-six-74.vercel.app`). Motor Opción C + parche `gap6` de deptos AHORA EN PROD.
 
 ## 🔥 SESIÓN 22-JUL — hecho (rama, sin desplegar)
 - **Flujo web:** mapa centra en coords reales (no CDMX), botón "Paso anterior" en cabecera, modal informativo ya no parpadea, stepper con círculo "Comparables", auto-descarga PDF + botón "Ver reporte" en Gracias, fotos máx 12→15 + auto-fachada, quitado "Anterior" del cuadro blanco.
