@@ -633,6 +633,9 @@ const ValuationForm = () => {
   const [infoDismissed, setInfoDismissed] = useState(() =>
     !!localStorage.getItem("propvalu_info_dismissed")
   );
+  // El modal informativo es solo para público sin sesión. La sesión se resuelve async
+  // (/auth/me); sin esta bandera parpadea en cada refresh/back mientras user === null.
+  const [authChecked, setAuthChecked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [adIndex, setAdIndex] = useState(0);
   const [adMuted, setAdMuted] = useState(true); // autoplay arranca muted (política del navegador); usuario activa sonido
@@ -825,6 +828,8 @@ const ValuationForm = () => {
       }
     } catch (error) {
       // No autenticado — usuario público
+    } finally {
+      setAuthChecked(true);
     }
   };
 
@@ -1235,8 +1240,8 @@ const ValuationForm = () => {
         </div>
       </div>
 
-      {/* Modal informativo para Público General */}
-      {!infoDismissed && !user && (
+      {/* Modal informativo para Público General (solo tras confirmar que no hay sesión) */}
+      {authChecked && !infoDismissed && !user && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4"
              style={{ backgroundColor: "rgba(0,0,0,0.6)", backdropFilter: "blur(3px)" }}>
           <div className="bg-[#1B4332] rounded-2xl shadow-2xl w-full max-w-lg p-7">
@@ -2147,14 +2152,6 @@ const ValuationForm = () => {
 
                 <div className="flex gap-3 pt-2 border-t border-slate-100">
                   <Button
-                    variant="outline"
-                    onClick={prevStep}
-                    className="border-[#1B4332] text-[#1B4332] hover:bg-[#1B4332] hover:text-white"
-                  >
-                    <ChevronLeft className="w-4 h-4 mr-1" />
-                    Atrás
-                  </Button>
-                  <Button
                     onClick={handlePayAndAnalyze}
                     disabled={checkoutLoading || isLoading || !cardOk}
                     className="flex-1 bg-[#52B788] hover:bg-[#40916C] text-white font-bold"
@@ -2171,20 +2168,9 @@ const ValuationForm = () => {
             );
           })()}
 
-          {/* Navigation Buttons */}
+          {/* Navigation Buttons — "Anterior" vive en la cabecera verde (Paso anterior) */}
           {currentStep < 4 && (
-            <div className="flex justify-between mt-8 pt-6 border-t border-slate-100">
-              <Button
-                variant="outline"
-                onClick={prevStep}
-                disabled={currentStep === 1}
-                className="border-[#1B4332] text-[#1B4332] hover:bg-[#1B4332] hover:text-white"
-                data-testid="prev-step-btn"
-              >
-                <ChevronLeft className="w-4 h-4 mr-2" />
-                Anterior
-              </Button>
-
+            <div className="flex justify-end mt-8 pt-6 border-t border-slate-100">
               {currentStep < 3 ? (
                 <Button
                   onClick={nextStep}
