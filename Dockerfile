@@ -12,8 +12,8 @@ WORKDIR /app
 COPY backend/requirements.txt ./backend/
 RUN pip install --no-cache-dir -r backend/requirements.txt
 
-# Install only what motor Remi needs: openai + google-generative-ai
-RUN npm install openai @google/generative-ai
+# Install only what motor Remi needs: openai + google-generative-ai + dotenv
+RUN npm install openai @google/generative-ai dotenv
 
 # Copy all project files
 COPY . .
