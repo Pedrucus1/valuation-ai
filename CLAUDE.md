@@ -5,10 +5,18 @@ Al primer mensaje, leer **solo** `memory/ESTADO.md` (snapshot compacto) y respon
 NO leer BACKLOG.md ni project_propvalu.md completos — son grandes; consultarlos por grep cuando la tarea lo pida
 (`BACKLOG.md` = tabla de tareas por #; `MOTOR_ANTECEDENTES.md` = motor, SIEMPRE por grep/sección, nunca completo).
 
-## 🗺️ DÓNDE VIVE CADA COSA — leer el índice ANTES de buscar/adivinar
-- **Motor** (`Modulo Drive IA/`): leer `Modulo Drive IA/INDICE_MOTOR.md` — cuál motor/validador/caché es canónico vs experimento, dónde están OPIs del perito (`cerebro_datos.json`), comps (`cache_consolidado.json`), IDX (`cache_index.json`), NSE, y cómo correr el validador offline. NUNCA adivinar en qué archivo está algo del motor.
-- **Todas las API keys** (qué cuenta/proyecto/valor): memoria `credentials_registry.md`.
-- Al crear un archivo o guardar info nueva importante, registrarlo en el índice correspondiente (INDICE_MOTOR.md para el motor) — no dejar cosas sueltas sin mapa.
+## 🗺️ DÓNDE VIVE CADA COSA — PROTOCOLO DURO (regla #1, NO negociable)
+**ANTES de grepear/adivinar CUALQUIER ubicación** ("¿dónde está X?", "¿cómo funciona Y?", "¿qué archivo/script hace Z?", "¿dónde se scrapea/valúa/guarda W?"):
+
+1. **`graphify query "<pregunta>"` PRIMERO.** El grafo vive en `C:\Users\pedru\graphify-out\` → `cd C:\Users\pedru; graphify query "..."`. Devuelve los nodos relevantes con `archivo:línea`. **PROHIBIDO grepear a ciegas cuando el grafo ya lo sabe.** (Queja recurrente y fuerte del usuario: reinventar/buscar manual teniendo el índice = horas perdidas. ~60% de errores venían de esto.)
+2. **Luego el índice del subsistema** correspondiente:
+   - **Motor** (`Modulo Drive IA/`): `INDICE_MOTOR.md` + `MOTOR_ANTECEDENTES.md` (por grep/sección) — canónico vs experimento, `cerebro_datos.json` (OPIs perito), `cache_consolidado.json` (comps), `cache_index.json` (IDX), NSE, validador offline.
+   - **Scraper/enricher** (`scraper-inmuebles/`): `INDICE_SCRAPER.md` + `PINCALI_ENRICHER_NOTAS.md` — método por portal, reglas duras (PINCALI solo ES, todo en Mongo, carpeta canónica). Scrape on-demand por colonia: `Modulo Drive IA/buscar_comparables_browser.js`.
+   - **Campos/datos:** `ESQUEMA_CAMPOS.md`. **Estado:** `memory/ESTADO.md`. **Tareas:** `memory/BACKLOG.md`.
+   - **API keys/cuentas:** memoria `credentials_registry.md` (Serper muerto, Tavily primaria).
+   - **Arquitectura general:** `memory/ARQUITECTURA_MAPA.md` (se carga al arranque).
+3. **Verificar en el código/dato REAL antes de afirmar.** Nunca concluir desde una salida truncada — mostrar la lista COMPLETA (incidente similares 22-jul). No inventar.
+- Al crear archivo o info importante nueva → registrarlo en el índice correspondiente.
 
 ## ⚡ Token efficiency (CRÍTICO) — ver `~/.claude/EFFICIENCY.md`
 - 1 archivo → Read una vez → Edit una vez. Multi-archivo → Glob + Read c/u una vez.
