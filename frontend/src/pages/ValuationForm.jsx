@@ -449,7 +449,7 @@ const compressImage = (file) => {
 };
 
 // Photo Upload Component
-const PhotoUploader = ({ photos, onPhotosChange, facadeIndex, onFacadeChange, photoOrientations, onOrientationsChange, maxPhotos = 12 }) => {
+const PhotoUploader = ({ photos, onPhotosChange, facadeIndex, onFacadeChange, photoOrientations, onOrientationsChange, maxPhotos = 15 }) => {
   const fileInputRef = useRef(null);
 
   const handleFileSelect = async (e) => {
@@ -495,7 +495,7 @@ const PhotoUploader = ({ photos, onPhotosChange, facadeIndex, onFacadeChange, ph
           <Label className="text-sm font-semibold text-[#1B4332]">
             Fotografías ({photos.length}/{maxPhotos})
           </Label>
-          <p className="text-[10px] text-slate-500">Máximo 12 imágenes. Selecciona una como "Fachada" para la portada.</p>
+          <p className="text-[10px] text-slate-500">Máximo 15 imágenes. Selecciona una como "Fachada" para la portada.</p>
         </div>
         <Button
           type="button"
@@ -1978,7 +1978,7 @@ const ValuationForm = () => {
                     onFacadeChange={(idx) => handleInputChange("facade_photo_index", idx)}
                     photoOrientations={photoOrientations}
                     onOrientationsChange={setPhotoOrientations}
-                    maxPhotos={12}
+                    maxPhotos={15}
                   />
                 )}
               </div>

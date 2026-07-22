@@ -541,6 +541,9 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
     construction_area = prop.get('construction_area', '-')
     property_type = prop.get('property_type', 'Casa')
     tenure = prop.get('tenure_type') or prop.get('land_regime') or '-'
+    # Régimen guardado como enum (ej. "CONDOMINIO_VERTICAL") → legible ("Condominio Vertical")
+    if tenure and tenure != '-' and ('_' in tenure or tenure.isupper()):
+        tenure = tenure.replace('_', ' ').title()
     floor_number = prop.get('floor_number', '')
     total_floors = prop.get('total_floors', '')
     land_use = prop.get('land_use', 'desconocido')
@@ -1008,17 +1011,17 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
   <div class="valor-hero">
     <div class="vh-row">
       <div class="vh-side-col">
-        <div class="vh-side-label">VALOR MÁXIMO</div>
-        <div class="vh-side-val vh-val-lime">${value_max:,.0f}</div>
+        <div class="vh-side-label">VALOR MÍNIMO</div>
+        <div class="vh-side-val vh-val-lime">${value_min:,.0f}</div>
       </div>
       <div class="vh-center-col">
         <div class="valor-subtitle">&#x1F4B0; VALOR MEDIO O JUSTO</div>
         <div class="valor-main">${total_value:,.0f}</div>
-        <div class="valor-currency">M.N. (VALOR ANALIZADO)</div>
+        <div class="valor-currency">M.N.</div>
       </div>
       <div class="vh-side-col right">
-        <div class="vh-side-label">VALOR MÍNIMO</div>
-        <div class="vh-side-val vh-val-lime">${value_min:,.0f}</div>
+        <div class="vh-side-label">VALOR MÁXIMO</div>
+        <div class="vh-side-val vh-val-lime">${value_max:,.0f}</div>
       </div>
     </div>
     <div class="vh-footer">
@@ -1027,7 +1030,7 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
     </div>
   </div>
 
-  <div class="section-title">&#x1F3C1; POSICIÓN COMPETITIVA EN EL MERCADO</div>
+  <div class="section-title">&#x1F3AF; POSICIÓN COMPETITIVA EN EL MERCADO</div>
   <p style="font-size:10px;color:var(--text-sec);margin-bottom:6px;">{pos_label}</p>
   <div class="competitiva-bar-bg">
     <div class="competitiva-marker" style="left:{thermo_pos:.0f}%;"></div>
