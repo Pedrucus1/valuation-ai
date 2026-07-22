@@ -1125,14 +1125,14 @@ const ValuationForm = () => {
                     autoPlay playsInline muted={adMuted}
                     onEnded={() => setPaidAdEnded(true)}
                     className="w-full rounded-xl border border-white/10 shadow-lg bg-black"
-                    style={{ aspectRatio: "16 / 9", objectFit: "cover" }}
+                    style={{ maxHeight: "56vh", objectFit: "contain" }}
                   />
                 ) : (
                   <img
                     src={adSrc}
                     alt="Anuncio"
                     className="w-full rounded-xl border border-white/10 shadow-lg bg-black"
-                    style={{ aspectRatio: "16 / 9", objectFit: "cover" }}
+                    style={{ maxHeight: "56vh", objectFit: "contain" }}
                   />
                 )}
                 {paidAd.file_type === "video" && (

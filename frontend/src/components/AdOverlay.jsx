@@ -91,51 +91,60 @@ const AdOverlay = ({ slot, zone = "", onDone }) => {
     : ad.file_url);
 
   return (
-    <div className="fixed inset-0 z-[9999] bg-black flex flex-col items-center justify-center">
-      <div className="relative w-full h-full flex items-center justify-center" onClick={!showHouse ? handleClick : undefined}>
-        {showHouse ? (
-          // Texto casa centrado (excluyente con el video/imagen)
-          <div className="max-w-md mx-auto text-center px-8">
+    // Popup centrado (consistente con el del análisis), NO pantalla completa.
+    <div className="fixed inset-0 z-[9999] bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
+      {showHouse ? (
+        // Texto casa: tarjeta verde de marca (excluyente con el video/imagen)
+        <div className="relative bg-[#1B4332] rounded-2xl shadow-2xl border border-white/15 w-full max-w-lg p-8 text-center">
+          <span className="absolute top-3 left-4 text-white/60 text-[11px] font-semibold">Publicidad · PropValu</span>
+          <span className="absolute top-3 right-4 text-white text-sm font-bold tabular-nums">{seconds}</span>
+          <div className="mt-4">
             <p className="text-[11px] font-bold text-[#D9ED92] uppercase tracking-widest mb-3">{houseRef.current.tag}</p>
             <h2 className="font-['Outfit'] text-2xl sm:text-3xl font-bold text-white mb-4 leading-snug">{houseRef.current.title}</h2>
             <p className="text-white/80 text-base leading-relaxed">{houseRef.current.body}</p>
           </div>
-        ) : ad.file_type === "video" ? (
-          <video
-            src={adSrc}
-            autoPlay
-            muted={false}
-            playsInline
-            onEnded={() => setVideoEnded(true)}
-            className="w-full h-full object-contain cursor-pointer"
-          />
-        ) : (
-          <img src={adSrc} alt="Anuncio" className="w-full h-full object-contain cursor-pointer" />
-        )}
-
-        {/* Overlay superior: etiqueta + cuenta regresiva */}
-        <div className="absolute top-0 left-0 right-0 flex items-center justify-between px-5 py-3 bg-gradient-to-b from-black/60 to-transparent">
-          <span className="text-white/80 text-xs font-semibold tracking-wide">
-            {showHouse ? "Publicidad · PropValu" : `Publicidad · ${ad.company_name || ""}`}
-          </span>
-          <div className="flex items-center gap-3">
-            <div className="w-24 h-1.5 bg-white/30 rounded-full overflow-hidden">
-              <div className="h-full bg-white rounded-full transition-all duration-1000" style={{ width: `${pct}%` }} />
-            </div>
-            <span className="text-white text-sm font-bold tabular-nums w-5 text-right">{seconds}</span>
+          <div className="mt-6 w-full h-1.5 bg-white/20 rounded-full overflow-hidden">
+            <div className="h-full bg-[#52B788] rounded-full transition-all duration-1000" style={{ width: `${pct}%` }} />
           </div>
         </div>
+      ) : (
+        // Media: la tarjeta se ajusta al formato (horizontal o vertical) vía max-h/max-w.
+        <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-black" onClick={handleClick}>
+          {ad.file_type === "video" ? (
+            <video
+              src={adSrc}
+              autoPlay
+              muted={false}
+              playsInline
+              onEnded={() => setVideoEnded(true)}
+              className="block max-h-[86vh] max-w-[92vw] object-contain cursor-pointer"
+            />
+          ) : (
+            <img src={adSrc} alt="Anuncio" className="block max-h-[86vh] max-w-[92vw] object-contain cursor-pointer" />
+          )}
 
-        {/* CTA solo para pagada con enlace y que aún se ve (no en texto casa) */}
-        {!showHouse && ad.link_url && (
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2">
-            <button onClick={handleClick}
-              className="bg-white text-[#1B4332] font-bold text-sm px-6 py-2.5 rounded-full shadow-lg hover:bg-[#D9ED92] transition-colors">
-              {ad.link_type === "whatsapp" ? "💬 Contactar por WhatsApp" : "🌐 Visitar sitio"}
-            </button>
+          {/* Overlay superior: etiqueta + cuenta regresiva */}
+          <div className="absolute top-0 left-0 right-0 flex items-center justify-between px-4 py-2.5 bg-gradient-to-b from-black/60 to-transparent">
+            <span className="text-white/80 text-xs font-semibold tracking-wide">Publicidad · {ad.company_name || ""}</span>
+            <div className="flex items-center gap-3">
+              <div className="w-24 h-1.5 bg-white/30 rounded-full overflow-hidden">
+                <div className="h-full bg-white rounded-full transition-all duration-1000" style={{ width: `${pct}%` }} />
+              </div>
+              <span className="text-white text-sm font-bold tabular-nums w-5 text-right">{seconds}</span>
+            </div>
           </div>
-        )}
-      </div>
+
+          {/* CTA solo para pagada con enlace */}
+          {ad.link_url && (
+            <div className="absolute bottom-5 left-1/2 -translate-x-1/2">
+              <button onClick={handleClick}
+                className="bg-white text-[#1B4332] font-bold text-sm px-6 py-2.5 rounded-full shadow-lg hover:bg-[#D9ED92] transition-colors whitespace-nowrap">
+                {ad.link_type === "whatsapp" ? "💬 Contactar por WhatsApp" : "🌐 Visitar sitio"}
+              </button>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };
