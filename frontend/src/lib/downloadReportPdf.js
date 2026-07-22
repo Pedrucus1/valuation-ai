@@ -16,8 +16,8 @@ export async function downloadReportPdf(reportHtml, fileName = "Reporte PropValu
   iframe.style.position = "fixed";
   iframe.style.left = "-10000px";
   iframe.style.top = "0";
-  iframe.style.width = "816px"; // ~ ancho carta @ 96dpi
-  iframe.style.height = "1056px";
+  iframe.style.width = "794px";  // ancho A4 @ 96dpi (210mm) — el reporte está diseñado en A4
+  iframe.style.height = "1123px"; // alto A4 @ 96dpi (297mm)
   document.body.appendChild(iframe);
 
   try {
@@ -33,9 +33,11 @@ export async function downloadReportPdf(reportHtml, fileName = "Reporte PropValu
     const pages = doc.querySelectorAll(".page");
     const targets = pages.length ? Array.from(pages) : [doc.body];
 
-    const pdf = new jsPDF({ unit: "pt", format: "letter" });
+    const pdf = new jsPDF({ unit: "pt", format: "a4" });
     const pw = pdf.internal.pageSize.getWidth();
+    const ph = pdf.internal.pageSize.getHeight();
 
+    let added = 0;
     for (let i = 0; i < targets.length; i++) {
       // eslint-disable-next-line no-await-in-loop
       const canvas = await html2canvas(targets[i], {
@@ -44,11 +46,19 @@ export async function downloadReportPdf(reportHtml, fileName = "Reporte PropValu
         backgroundColor: "#ffffff",
         logging: false,
       });
+      if (!canvas.width || !canvas.height) continue; // página vacía → no la agregamos
       const img = canvas.toDataURL("image/jpeg", 0.92);
-      const imgH = (canvas.height * pw) / canvas.width;
-      if (i > 0) pdf.addPage();
-      pdf.addImage(img, "JPEG", 0, 0, pw, imgH);
+      // Ajustar a la hoja carta SIN cortar: llena el ancho; si queda más alto que la
+      // página, se escala para caber completo (centrado horizontalmente).
+      let w = pw;
+      let h = (canvas.height * pw) / canvas.width;
+      if (h > ph) { h = ph; w = (canvas.width * ph) / canvas.height; }
+      const x = (pw - w) / 2;
+      if (added > 0) pdf.addPage();
+      pdf.addImage(img, "JPEG", x, 0, w, h);
+      added++;
     }
+    if (added === 0) return false;
 
     pdf.save(`${fileName}.pdf`);
     return true;
