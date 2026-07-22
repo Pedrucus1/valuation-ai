@@ -13528,6 +13528,86 @@
         "tipo": "Fraccionamiento",
         "fuente": "sepomex+muni-sujeto",
         "menciones": 1
+      },
+      {
+        "colonia": "residencial victoria",
+        "fuente": "manual",
+        "menciones": 1
+      },
+      {
+        "colonia": "loma bonita",
+        "fuente": "manual",
+        "menciones": 1
+      },
+      {
+        "colonia": "jardines del bosque",
+        "fuente": "manual",
+        "menciones": 1
+      },
+      {
+        "colonia": "camino real",
+        "fuente": "manual",
+        "menciones": 1
+      },
+      {
+        "colonia": "chapalita",
+        "fuente": "manual",
+        "menciones": 1
+      },
+      {
+        "colonia": "jardines de san ignacio",
+        "fuente": "manual",
+        "menciones": 1
+      },
+      {
+        "colonia": "la estancia",
+        "fuente": "manual",
+        "menciones": 1
+      },
+      {
+        "colonia": "arboledas",
+        "fuente": "manual",
+        "menciones": 1
+      },
+      {
+        "colonia": "la calma",
+        "fuente": "manual",
+        "menciones": 1
+      },
+      {
+        "colonia": "ciudad del sol",
+        "fuente": "manual",
+        "menciones": 1
+      },
+      {
+        "colonia": "residencial del bosque",
+        "fuente": "manual",
+        "menciones": 1
+      },
+      {
+        "colonia": "jardines de la victoria",
+        "fuente": "manual",
+        "menciones": 1
+      },
+      {
+        "colonia": "verde valle",
+        "fuente": "manual",
+        "menciones": 1
+      },
+      {
+        "colonia": "jardines del valle",
+        "fuente": "manual",
+        "menciones": 1
+      },
+      {
+        "colonia": "jardines de plaza del sol",
+        "fuente": "manual",
+        "menciones": 1
+      },
+      {
+        "colonia": "parque de las estrellas",
+        "fuente": "manual",
+        "menciones": 1
       }
     ]
   },
