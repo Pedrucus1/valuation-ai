@@ -2,75 +2,78 @@
 
 > **Único archivo que se lee al iniciar** (corto, siempre vigente). Tareas por # → `BACKLOG.md` (grep). Historial → `BACKLOG_ARCHIVE.md`. Motor → `MOTOR_ANTECEDENTES.md` (grep). **Se sobrescribe en cada cierre de sesión.**
 
-**Última actualización:** 23 Jul 2026 (noche, sesión #3)
-**Fase:** Prod Railway + Vercel público. Sesión 23-jul mañana = bug sistémico SEPOMEX. Sesión 23-jul noche #2 = validador post-merge + enricher scoped + research IMEPLAN. **Sesión 23-jul noche #3 (esta) = video de anuncios arreglado y desplegado + investigación profunda del caso Cuarzo (causa raíz real encontrada, 2 fixes medidos y descartados, 1 fix real aplicado).** Commits `6b3a76f`, `db7d218` (pusheados).
+**Última actualización:** 23 Jul 2026 (noche, sesión #5)
+**Fase:** Prod Railway + Vercel público. Sesión #5 (esta) = motor JS mejorado (piso espejo graduado + limpieza masiva de datos rotos, +5 OPIs de mejora medida, cero regresión), hallazgo de mecanismo (rebuild completo del caché regresa aunque no cambies datos), NSE nuevo/usado cerrado con 8 variantes descartadas. Commits `052d029`, `1a87870`, `e36b2a6`, `b391518`, `6e43010` (todos pusheados).
 
-## 🔥 SESIÓN 23-JUL NOCHE #3 — hecho
+## 🔥 SESIÓN 23-JUL NOCHE #5 — hecho
 
-### Video de anuncios (bug reportado por el usuario) — RESUELTO Y DESPLEGADO
-- Causa: no había ningún creativo de video aprobado/activo (todos los 14 creativos existentes eran imagen). `AdOverlay.jsx` (componente real, usado en ComparablesPage/ReportPage) estaba bien codeado; `AdRenderer.jsx` es código muerto sin usar.
-- Subido video (Remotion, `propvalu-emo-horizontal.mp4`) a slot1 y slot2 de la campaña de "avaluos y arquitectura", aprobado como admin. Slot3 quedó con su imagen.
-- **Volumen persistente de Railway agregado** (`propvalu-backend-volume`, 5GB, montado en `/app/backend/uploads`) — antes el storage de ads/KYC era efímero, se perdía en cada deploy. **Costo del cambio:** al adjuntar el volumen (dispara redeploy automático) se borraron los archivos viejos que NO estaban respaldados — 14 creativos de imagen de otras campañas de "avaluos y arquitectura" se perdieron (no hay backup, si el usuario los tiene hay que resubirlos).
-- **Achicador de video agregado** (`_compress_video()` en `backend/routers/ads.py`, ffmpeg en Dockerfile): cualquier video subido se recomprime automáticamente (720p, CRF26, faststart) antes de guardarse — 12.2MB→1.5MB en la prueba real. Antes NO existía compresión de video (solo imágenes vía `compressFile.js`, que el usuario recordaba mal como "el achicador" que cubría todo). Desplegado y verificado en prod (commit `6b3a76f`).
+### Motor JS mejorado, MEDIDO y desplegado localmente (commiteado, no requiere deploy a Railway — el motor corre embebido)
+- **Piso espejo del techo `poolTipo=exacta` GRADUADO a producción** (`motor_remi_api.js`, commit `1a87870`): mismo 5%/mismo gate n≥10 que el techo ya existente, pero también hacia abajo del blend (antes solo tenía techo, no piso). Aislado de 2 candidatos más (piso-NSE=negativo, bono-edad=nunca se activa) — solo se graduó el que midió positivo. +1.0/+2.9/+1.0pp en ±10/15/20.
+- **Bug de datos encontrado y arreglado a escala: 744 registros casa/depto en TODO el caché con `m2c` roto** (mayoría PINCALI, obra nueva mal capturada — deptos de 5-55m² a precios de hasta $5,250 millones, $/m² imposibles hasta $60M). Limpiado en 309 celdas de colonia (commit `e36b2a6`). Mejora en las 4 métricas del validador, cero regresión.
+- **Caso Cuarzo (Bosques de la Victoria) arreglado de verdad esta vez** (commit `052d029`): enriquecido con 8 comps reales de Mongo que faltaban en el caché + quitados 2 registros rotos. Motor JS: $2.83M→$1.94M (referencia — el reporte REAL de Cuarzo lo genera el pipeline Python separado, no se tocó).
+- **Validador 207 OPIs, acumulado de la sesión: 98→103 en ±10% (+5), 124→131 en ±15% (+7), 147→152 en ±20% (+5), errAbs 15.0%→15.2% (neutral).**
 
-### Caso Cuarzo — investigación profunda, causa raíz real encontrada
-- **Enricher scoped de la sesión anterior confirmado terminado:** 401 docs enriquecidos, 0 errores (CASAS_Y_TERRENOS 201, PROPIEDADES_COM 195, NOCNOK 0, PINCALI 5).
-- **Validación de datos:** 605 docs tocados en 20h, 389 con `anio_construccion`, sin colonias/municipios vacíos — datos correctos. **NO forman parte del NSE/IDX** (esos son snapshot precalculado `idx-18m` en `colonias_maestro.json`, no se actualizan solos; reconstruirlo ya se probó y se descartó por deriva de datos).
-- **Metodología manual (banda edad + Ross-Heidecke) probada y comparada contra el motor JS (103 OPIs, `validar_lab.js`):** el bucket ya existente `LAB_EDADSEG=1 K=0.5` (0-5→1.0/6-10→0.78/11+→0.67) sigue ganando (+2.4pp ±15, cero regresión, reconfirmado hoy con datos frescos). **Ross-Heidecke (curva continua) NO le gana en ningún K — descartado como curva.**
-- **Hallazgo grande: el pipeline de REPORTES reales (`server.py: calculate_valuation` / `mongo_comparables.py`) es código Python completamente separado del motor JS (`motor_remi_api.js`) — nunca se benefició de LAB_EDADSEG ni de nada validado ahí.**
-  - Cuarzo real (`val_43a05a7a5511`, 21-jul): `estimated_value=$3,931,206`. Mi cálculo manual segmentado: ~$2.29M (−42%). Ixtepete y La Calma (mismo pipeline) dieron valores cercanos a mi cálculo manual (−3%, −10%) — el problema es específico de Bosques de la Victoria, no generalizado.
-  - **Causa raíz:** `mongo_comparables.py::_similarity_score()` rankea comparables SOLO por m²(60%)+precio(40%, inactivo si no hay `precio_referencia`, el caso normal) — **la edad nunca entra al ranking**. El pool "zona exacta" de BV tiene mediana $64,511/m²C en crudo (dominado por PINCALI obra nueva 2026).
-  - **Fix #1 descartado (medido):** homologación por edad en `calculate_valuation` (bucket EDADSEG) → NO-OP (mediana +0.0% sobre 19 avalúos guardados) porque los comps GUARDADOS casi no traen `age`.
-  - **Fix #2 descartado (medido):** agregar edad a `_similarity_score()` → empeoró (mediana subió de $51,067 a $55,000/m²C, con solo 8/50 comps con edad conocida — ruido, no señal).
-  - **Conclusión:** ningún ajuste suave de ponderación arregla esto. El blocker real sigue siendo el split categórico **NSE nuevo/usado** (filtro duro, no reponderación) — ya identificado como su propio scope desde antes de esta sesión.
-- **Fix real aplicado y desplegado (bajo riesgo, sin necesidad de medir):** `land_area` en `ValuationForm.jsx` ya NO defaultea a `construction_area` cuando se omite — ahora defaultea a 0. El fallback viejo inflaba el método físico (20% del peso) para CUALQUIER departamento sin importar el piso. Commit `db7d218`.
-- **Corrección de memoria propia:** `feedback_pincali_solo_espanol` ya documentaba que el 75% de docs PINCALI históricos en inglés es legado conocido y corregido hacia adelante — lo re-flageé como "hallazgo nuevo" sin consultar memoria primero, corregido para no repetirlo.
+### Hallazgo de mecanismo — CRÍTICO para cualquier fix de caché futuro
+- **Reconstruir `cache_index.json` completo (`node build_cache_index.js`), aunque no cambies NADA de datos, regresa el validador** (confirmado: rebuild del `cache_consolidado.json` sin ningún edit mío dio los mismos números "malos" que con mi fix). Causa: el `cache_index.json` commiteado en git ya estaba desactualizado respecto al `cache_consolidado.json` commiteado — cualquier rebuild arrastra TODA la deriva acumulada de TODAS las colonias, no solo la que quieras arreglar.
+- **Fix correcto: parchar la celda específica directo en `cache_index.json` (a mano, sin correr el builder completo).** Así se puede corregir una colonia puntual sin regresar el resto. Esta técnica ya se usó para Cuarzo y para la limpieza de los 744 registros rotos, ambas sin regresión.
+- **Regla nueva para la memoria:** NUNCA correr `build_cache_index.js` completo para un fix puntual — parchar la celda a mano. Reconstruir todo sigue reservado para cuando se decida conscientemente absorber toda la deriva (y medir el impacto neto primero).
+
+### NSE nuevo/usado — CERRADO por ahora, 8 variantes probadas y descartadas
+- Motor JS: split forzado, subject-aware, n≥8 (sesión pasada + hoy) + techo con corte 2/5/6 años + selección-de-comps con corte 2/3/4/5/8 años (a pedido del usuario, probando el punto de inyección correcto). **Las 8 dan negativo o sin efecto.**
+- **Causa de fondo (no es la fórmula, es el dato):** casi ninguna colonia tiene ≥5 comparables con edad conocida Y en la misma franja de edad que el sujeto al mismo tiempo. No importa el mecanismo ni el corte de años elegido si no hay volumen con qué segmentar.
+- **Conclusión: no reintentar el split nuevo/usado sin antes subir la cobertura de datos por colonia** (scraper dirigido a colonias débiles, ya identificado en sesiones previas). Detalle completo en memoria `project_propvalu_nse_nuevo_usado`.
+
+### Junio/julio sumados al validador
+- Cerebro 751→1000 OPIs (17 de junio + 19 de julio). De los "No hallado" en folio: la mayoría son avalúos genuinamente sin terminar por el perito (`#DIV/0!` en la fórmula, tabla de comparables vacía — verificado en Sheets, no es bug), unos pocos sí eran cuota de Google Sheets saturada (recuperados con reintento).
+
+### Render (`valuation-ai-1`) — deploy falló, en pausa
+- Email de error de deploy. Diagnóstico (no confirmado con logs, sin MCP de Render): `puppeteer` en `package.json` raíz descarga Chromium completo, típico causante de fallo en plan gratis. Usuario decidió dejarlo en pausa (no es el backend de producción, solo respaldo gratis).
 
 ### ⏭️ PRÓXIMA SESIÓN
-0. **Si el usuario tiene backups de los 14 creativos de imagen perdidos** (otras campañas de "avaluos y arquitectura"), resubirlos.
-1. **NSE nuevo/usado × tipo de propiedad — ahora es EL blocker confirmado para reportes reales, no solo para el motor JS.** Filtro duro (excluir obra nueva del pool antes de calcular), no reponderación suave — ya descartadas 2 variantes de reponderación esta sesión. Ver memoria `project_propvalu_nse_nuevo_usado`. Necesita su propio scope.
-2. **Usar los comps nuevos en el avalúo Cuarzo real** — ya se hizo el cálculo manual (~$2.29M), pendiente decidir si se actualiza el reporte guardado o se espera al fix estructural de NSE nuevo/usado.
-3. Limpiar `colonias_maestro.lab.json` (artefacto de prueba, no committeado) si ya no se necesita.
-4. Lab valuación minimalista (`motor_simple`), IMEPLAN Zoom — sin arrancar, ver `BACKLOG.md`.
+1. **NSE nuevo/usado sigue bloqueado por cobertura de datos, no por fórmula.** Antes de volver a intentarlo, subir volumen de comparables con edad por colonia (scraper dirigido).
+2. **Cache_index.json vs cache_consolidado.json — considerar si conviene alinear ambos con un rebuild completo consciente**, midiendo el impacto neto primero (hoy se evitó a propósito parchando celda por celda).
+3. Si el usuario tiene backups de los 14 creativos de imagen perdidos (sesión #3), resubirlos.
+4. Limpiar `colonias_maestro.lab.json` (artefacto de prueba, no committeado) si ya no se necesita.
+5. Render: retomar cuando el usuario quiera (diagnóstico de puppeteer listo).
 
 ## 🔙 Historial reciente (condensado — detalle en `BACKLOG_ARCHIVE.md`)
-- **23-jul noche #2:** Validador post-merge SEPOMEX (34 OPIs, dentro de rango normal). Enricher scoped lanzado. Research IMEPLAN Zoom (API pública confirmada, nada integrado).
-- **23-jul mañana:** Bug sistémico SEPOMEX corregido (`enriquecer_colonias_ia.js`, merge aditivo, commit `6bd75c9`). Scraper on-demand 86 colonias débiles + cluster La Calma/Ixtepete.
-- **22-jul-d:** Scraper on-demand por colonia arreglado + caso Cuarzo/BV con 8 comps directos + 16 similares.
-- **22-jul-c:** Fix comparables de zona desplegado (vecinas geográficas reales). Cache rebuild descartado.
+- **23-jul noche #4:** Validación de junio/julio, investigación NSE nuevo/usado en el motor JS (negativo, causa: cap unidireccional sobre motor que ya subvalúa).
+- **23-jul noche #3:** Video de anuncios arreglado y desplegado. Caso Cuarzo — causa raíz real encontrada (pipeline Python separado del motor JS), 2 fixes de reponderación descartados.
+- **23-jul noche #2:** Validador post-merge SEPOMEX. Enricher scoped. Research IMEPLAN Zoom.
+- **23-jul mañana:** Bug sistémico SEPOMEX corregido (commit `6bd75c9`).
 
 ## ⚡ LO MÁS CALIENTE / decisiones vigentes
-- **NSE nuevo/usado es AHORA el blocker #1 confirmado** — afecta tanto al motor JS (validado desde 06-jul) como al pipeline de reportes reales (confirmado hoy, 23-jul). 2 alternativas de reponderación suave ya descartadas por medición. Solo un filtro duro categórico puede arreglarlo.
-- **Motor — parche depto-edad `gap6` GRADUADO a `motor_remi_api.js`** (commit `e8ed0fd`, en rama, sin desplegar). Decisión pendiente: mergear+desplegar.
-- **Motor: NO reconstruir el caché a ciegas.** El del 7-jul sigue siendo el desplegado.
-- **PINCALI solo español** — regla dura. Legado en inglés (75% histórico) ya conocido y corregido hacia adelante, NO re-flagear como hallazgo.
-- **Railway ahora tiene volumen persistente** (`propvalu-backend-volume`, `/app/backend/uploads`) — uploads de ads/KYC ya sobreviven redeploys.
+- **Motor JS mejorado y estable: 103/207 (±10%), 131/207 (±15%), 152/207 (±20%), errAbs 15.2%.** Todo commiteado y pusheado.
+- **NSE nuevo/usado: blocker de negocio real (reportes reales sobrevaloran obra nueva), pero SIN mecanismo algorítmico que funcione — el bloqueador es volumen de datos por colonia, no la fórmula.** No reintentar sin antes resolver cobertura.
+- **REGLA NUEVA DURA: nunca `build_cache_index.js` completo para un fix puntual — parchar la celda a mano en `cache_index.json`.** Un rebuild completo regresa el validador aunque no cambies datos, por deriva ya acumulada entre consolidado e índice.
+- **PINCALI tiene un bug de captura de m²c en preventa** (números de unidad/modelo confundidos con metros) — ya limpiado en 309 celdas hoy, pero el bug de EXTRACCIÓN en el scraper/enricher sigue sin arreglarse en la fuente (seguirá generando basura nueva).
+- **Motor — parche depto-edad `gap6`** (commit `e8ed0fd`, en rama, sin desplegar). Decisión pendiente: mergear+desplegar.
+- **PINCALI solo español** — regla dura, ya conocida.
 
 ## ⏳ Pendientes / decisiones abiertas
 ### De sesiones previas sin desplegar
 0. **Mergear a main + desplegar** rama `fix/flujo-avaluo-reporte-jul20` completa.
 1. **Mergear + desplegar el parche gap6** a prod.
 2. Contador de folio por presupuesto comprado.
-3. #29 Render respaldo gratis — faltan env vars.
+3. #29 Render respaldo gratis — deploy falló hoy (puppeteer sospechoso), en pausa.
 4. #34 SMTP — recuperación de contraseña sin correo saliente.
 5. ~337 colonias raras (Cancún/Toluca mal etiquetadas).
-6. PINCALI/CyT escrapean m² mal (sistémico) — fix en el enricher, sesión aparte.
+6. **Bug de extracción PINCALI m²c en preventa** (fuente del problema limpiado hoy en 309 celdas) — arreglar en el enricher/scraper para que no siga generando basura.
 
 ## 🌐 URLs / accesos
 - **Sitio (público):** https://frontend-pedrucus-projects.vercel.app (alias prod: frontend-rosy-six-74.vercel.app)
 - **Backend API:** https://propvalu-backend-production.up.railway.app (Railway Hobby, único environment "production")
-- **Anunciante real:** avaluosyarquitectura2@gmail.com (mismo Pedro Vergara, contraseña no confirmada esta sesión — se generó token directo vía script cuando se necesitó).
-- **Login realtor staging:** `pedrucus@gmail.com` / `PropValu2026!` (backend local :8000 → staging, cluster1.avle5ez — bloqueado por IP allowlist de Atlas, no confirmado si sigue así).
+- **Login realtor staging:** `pedrucus@gmail.com` / `PropValu2026!` (backend local :8000 → staging, cluster1.avle5ez — bloqueado por IP allowlist de Atlas).
 - Reset password sin SMTP: JWT (`JWT_SECRET` de Railway) → `/reset-password?token=...`
 
 ## 🧠 Motor (vigente)
-- **Canónico (validador 103 OPIs):** `motor_remi_api.js` (+ `_lab.js` con flags `LAB_*`). Validador: `validar_lab.js` (offline, correr sin API keys). Baseline hoy: ±10 60.5% / ±15 74.1% / ±20 81.5% / errAbs 11.7%.
-- **`LAB_EDADSEG=1 K=0.5`** (bucket 3-escalones por edad del comp): +2.4pp ±15, cero regresión — mejor palanca de edad probada, sin desplegar (falta que suba más la cobertura de `anio_construccion`).
-- **`LAB_EDADSEG_MODE=rh`** (Ross-Heidecke continua): agregada y descartada esta sesión, no supera al bucket.
+- **Canónico (validador 207 OPIs):** `motor_remi_api.js`. Validador: `validar_40_opis.js --n 1000` (ONLINE por default, usa Serper/Tavily/Gemini — confirmado que el resultado es igual de determinista con o sin ellas para el set actual). Baseline hoy: ±10 49.8% / ±15 63.3% / ±20 73.4% / errAbs 15.2%.
+- **Piso espejo del techo (`poolTipo=exacta`, n≥10, ±5%)** — graduado hoy, en producción.
+- **`LAB_NSE_SPLIT`/`LAB_INDEX_PATH`** — infra de laboratorio no-op, queda para futuras pruebas de nuevo/usado cuando haya más cobertura de datos.
 - **⚠️ Pipeline de REPORTES REALES es código separado** (`backend/server.py: calculate_valuation` + `backend/mongo_comparables.py`) — no comparte nada con el motor JS de arriba. Cualquier mejora ahí NO se propaga a los reportes que ven los usuarios.
-- Reglas irrompibles: NO NSE v1→v2 · NO cazar atípicos · validador OFFLINE antes de cambios · medir/dry-run antes de wirear.
+- Reglas irrompibles: NO NSE v1→v2 · NO cazar atípicos · validador OFFLINE/determinista antes de cambios · medir/dry-run antes de wirear · **NUNCA rebuild completo del índice para un fix puntual**.
 
 ## 🏗️ Infra / datos
-- Railway (backend): `start.py`, scheduler off, 22 routers. **Volumen persistente en `/app/backend/uploads`** (nuevo esta sesión). Deploy = `railway up` (no hay auto-deploy desde GitHub, hay que dispararlo manual).
-- MongoDB: **prod real = `cluster0.9eliadx`** (confirmado esta sesión vía `railway run` — el `.env` local del backend apunta a `cluster1.avle5ez`, que es staging, bloqueado por IP allowlist de Atlas). Scraper (`scraper-inmuebles/.env`) también apunta a `cluster0.9eliadx` — mismo cluster que prod, sin split-brain.
-- `Modulo Drive IA/CUARZO_BOSQUES_VICTORIA.md` — caso completo, actualizado esta sesión con la causa raíz real.
+- Railway (backend): `start.py`, scheduler off, 22 routers. Deploy = `railway up` manual.
+- MongoDB: **prod real = `cluster0.9eliadx`** (backend local apunta a `cluster1.avle5ez`, staging, bloqueado por IP allowlist de Atlas — `railway run` sirve para correr scripts contra prod real desde local).
+- `Modulo Drive IA/CUARZO_BOSQUES_VICTORIA.md` — caso completo, actualizar con el fix de hoy si se retoma.
