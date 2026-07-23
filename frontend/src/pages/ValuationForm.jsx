@@ -1009,7 +1009,7 @@ const ValuationForm = () => {
         latitude: formData.latitude,
         longitude: formData.longitude,
         construction_area: parseFloat(formData.construction_area),
-        land_area: parseFloat(formData.land_area) || parseFloat(formData.construction_area),
+        land_area: parseFloat(formData.land_area) || 0,
         land_regime: formData.land_regime,
         property_type: formData.property_type,
         land_use: formData.land_use || null,
@@ -1583,12 +1583,12 @@ const ValuationForm = () => {
                     type="number"
                     value={formData.land_area}
                     onChange={(e) => handleInputChange("land_area", e.target.value)}
-                    placeholder={["Departamento", "Oficina", "Local comercial"].includes(formData.property_type) ? `Igual a construcción (${formData.construction_area || "m²"})` : "Ej: 150"}
+                    placeholder={["Departamento", "Oficina", "Local comercial"].includes(formData.property_type) ? "Solo si tiene terreno propio (ej: planta baja con patio)" : "Ej: 150"}
                     className="h-12"
                     min="1"
                   />
                   {["Departamento", "Oficina", "Local comercial"].includes(formData.property_type) && !formData.land_area && formData.construction_area && (
-                    <p className="text-xs text-slate-400">Si se omite, se usará {formData.construction_area} m² (igual a construcción)</p>
+                    <p className="text-xs text-slate-400">Si se omite, se usará 0 m² (sin terreno propio)</p>
                   )}
                 </div>
 

@@ -58,11 +58,23 @@ esta corrida — no investigado más a fondo).
   contra `sepomex_v2.json` (ver bug sistémico abajo) en vez de asumirlo: ambas resuelven a coincidencia
   exacta en **Zapopan** (Loma Bonita CP 45086, La Estancia CP 45030). Corridas con Zapopan:
   Loma Bonita → **26 nuevas + 19 actualizadas**; La Estancia → **3 nuevas + 6 actualizadas**.
-- [ ] Enricher (año) sobre los docs nuevos sin `anio_construccion` — decidido posponer, no corrido aún.
-- [ ] Segmentar por edad/antigüedad antes de usar en el avalúo Cuarzo (no promediar el pool completo)
+- [x] Enricher (año) corrido (23-jul, scoped por `min_id`): 401 docs enriquecidos, 0 errores,
+  4 portales (CASAS_Y_TERRENOS 201, PROPIEDADES_COM 195, NOCNOK 0, PINCALI 5).
+- [x] **Segmentado por edad + homologado Ross-Heidecke (23-jul).** Pool BV+16 similares, depto-venta:
+  795 crudo → 663 sin dup/remate/inactivo → 619 con precio+m² → 338 con `anio_construccion`.
+  2 errores de captura excluidos (Arboledas $2,500M/67m² dígitos de más; Chapalita 7m²/$6.9M).
+  Nuevo/preventa (edad≤3): 267, excluido. Usado (edad>3): 69. Banda cercana al subject (25-65
+  años, n=28) + RH(edad)=max(0.20, 1−0.5(x+x²)), x=edad/70, homologado a edad=45:
+  **mediana $30,525/m²C → 75m² = $2,289,375 MXN** (dentro del rango esperado $2-2.5M).
+  Homologar el pool completo (incluye comps jóvenes 4-12 años) da $26,417/m²C — descartado:
+  cruza tiers de construcción distintos (premium nuevo vs usado modesto), mismo patrón NSE
+  nuevo/usado. Script: ver sesión 23-jul, no versionado (ad-hoc en scratchpad).
 - [ ] Ampliar a las demás 86 colonias débiles de `colonias_debiles_scraper.md` (mismo patrón, caso por caso)
 - [ ] **NSE nuevo/usado × tipo** (ver memoria `project_propvalu_nse_nuevo_usado`) — feature de motor
   más grande, blocker=cobertura de año; NO iniciada esta sesión, requiere su propio scope.
+- [ ] **Inmuebles24 casi sin cobertura en BV** (1 solo doc): scraper on-demand por colonia no cubre
+  este portal (necesita Playwright, fuera de alcance). Los links que pasó el usuario a Inmuebles24
+  probablemente tienen comps viejos reales que no están en Mongo. Pendiente de otro scope.
 
 ## ⚠️ BUG PROPIO encontrado y corregido (22-jul) — id_unico colapsado en Propiedades.com
 `buscarEnPropiedadesCom` usaba la URL de LISTADO (`urlColonia`, la misma para toda la corrida)

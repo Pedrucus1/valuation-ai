@@ -1300,7 +1300,16 @@ function valuarPropiedad(prop) {
     // LAB_EDADSEG: homologación por SEGMENTO de edad (data-derived 06-Jul, 9245 comps: 0-5→1.0, 6-10→0.78, 11+→0.67).
     // Ajusta cada comp de SU segmento de edad al del sujeto usando la edad del COMP (c.an = año construcción).
     // Sin edad del comp → cae al factorEdad actual. Flag OFF = idéntico a prod.
-    const _ageRatio = (age) => (age == null || age <= 0) ? null : age <= 5 ? 1.00 : age <= 10 ? 0.78 : 0.67;
+    // LAB_EDADSEG_MODE=rh: swap del bucket de 3 escalones por curva continua Ross-Heidecke
+    // (vidaUtil=70), probado 23-jul en caso Cuarzo, comparado aquí contra el bucket ya validado.
+    const _rossHeidecke = (age, vidaUtil = 70) => {
+        if (age == null || age <= 0) return null;
+        const x = Math.min(1, age / vidaUtil);
+        return Math.max(0.20, 1 - 0.5 * (x + x ** 2));
+    };
+    const _ageRatio = process.env.LAB_EDADSEG_MODE === 'rh'
+        ? _rossHeidecke
+        : (age) => (age == null || age <= 0) ? null : age <= 5 ? 1.00 : age <= 10 ? 0.78 : 0.67;
     const _subjR = _ageRatio(edadEfectiva) || 1.0;
     const _compAdj = (c) => {
         const base = (c.precio/c.m2_const) * Math.pow(c.m2_const/m2C, 1/6) * factorConserv;
