@@ -43,7 +43,9 @@ const _openai = process.env.OPENAI_API_KEY
 
 // ── helpers copiados de comparar_metodologias.js ──────────────────────────────
 
-const INDEX_PATH         = path.join(__dirname, 'cache_index.json');
+// ponytail: LAB_INDEX_PATH permite apuntar a un cache_index.json alterno para pruebas
+// offline del validador (ej. split nuevo/usado) sin tocar el índice de producción.
+const INDEX_PATH         = process.env.LAB_INDEX_PATH || path.join(__dirname, 'cache_index.json');
 const COLONIAS_NSE_PATH  = path.join(__dirname, 'colonias_nse.json');
 const COLONIAS_NSE2_PATH = path.join(__dirname, 'colonias_nse_v2.json');
 const IDX_VAL_PATH       = path.join(__dirname, 'idx_valoracion.json');
@@ -1033,10 +1035,22 @@ function valuarPropiedad(prop) {
     // mediana de sus comps vs mediana de la colonia. Evita hundir casas modestas en zona premium
     // (ej. una casa vieja barata en colonia cara ya sale baja; no re-castigar). Medido 103 OPIs:
     // ±20 +1.0, errAbs −0.8, cero regresión ±10/±15.
+    // ponytail: LAB_NSE_SPLIT (env, off por default) — usa medianaPm2c_nuevo/usado de la celda
+    // segun la edad REAL del sujeto en vez del blend, con fallback a blend si el bucket es delgado.
+    // No-op si no hay LAB_INDEX_PATH cargado con los buckets (campo undefined → cae a blend igual que produ).
+    const _LAB_SPLIT = process.env.LAB_NSE_SPLIT === '1';
+    function _pm2cCelda(cell) {
+        if (_LAB_SPLIT && cell) {
+            if (edad <= 2 && cell.medianaPm2c_nuevo > 0) return cell.medianaPm2c_nuevo;
+            if (edad > 2  && cell.medianaPm2c_usado > 0) return cell.medianaPm2c_usado;
+        }
+        return cell?.medianaPm2c || 0;
+    }
+
     let factorEdad;
     if (poolTipo === 'exacta') {
         const _medComps = pm2cFilt.length ? mediana(pm2cFilt) : 0;
-        const _medCol   = _cellEdad?.medianaPm2c || 0;
+        const _medCol   = _pm2cCelda(_cellEdad);
         const _segRatio = (_medComps > 0 && _medCol > 0) ? _medComps / _medCol : 1;
         // Deptos: el pool "exacta" suele ser obra nueva/preventa (asking de estreno), así que el
         // supuesto "comps de edad similar" falla y un depto viejo se sobre-valúa. Menos gracia de
@@ -1094,8 +1108,9 @@ function valuarPropiedad(prop) {
     // ignorando los baratos de la misma colonia.
     if (poolTipo === 'exacta') {
         const exactaIDX = IDX[muniNorm]?.[tipo]?.[colNorm];
-        if (exactaIDX && exactaIDX.count >= 10 && exactaIDX.medianaPm2c > 0) {
-            const techo = exactaIDX.medianaPm2c * 1.05;
+        const _techoPm2c = _pm2cCelda(exactaIDX);
+        if (exactaIDX && exactaIDX.count >= 10 && _techoPm2c > 0) {
+            const techo = _techoPm2c * 1.05;
             if (pm2cAvg > techo) pm2cAvg = techo;
         }
     }

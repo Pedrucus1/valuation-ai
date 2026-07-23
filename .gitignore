@@ -161,3 +161,6 @@ scrape_active.flag
 Modulo Drive IA/_geo/MX.zip
 Modulo Drive IA/_geo/MX.txt
 Modulo Drive IA/_geo/readme.txt
+
+# Índices LAB (regenerables con build_cache_index_lab_*.js, no versionar)
+Modulo Drive IA/cache_index.LAB_*.json
