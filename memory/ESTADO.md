@@ -2,18 +2,27 @@
 
 > **Único archivo que se lee al iniciar** (corto, siempre vigente). Tareas por # → `BACKLOG.md` (grep). Historial → `BACKLOG_ARCHIVE.md`. Motor → `MOTOR_ANTECEDENTES.md` (grep). **Se sobrescribe en cada cierre de sesión.**
 
-**Última actualización:** 22 Jul 2026 (deploy)
-**Fase:** Prod Railway + Vercel público. Sesión 21-22 jul = **revisión a fondo del flujo web (form→comparables→reporte→PDF) + ads + valor físico + investigación de comparables/scraper**. **✅ DESPLEGADO 22-jul:** rama `fix/flujo-avaluo-reporte-jul20` mergeada ff-only a `main` + push; **backend Railway** (deployment `0d42b1d8` RUNNING, health 200) + **frontend Vercel** (READY, alias `frontend-rosy-six-74.vercel.app`). Motor Opción C + parche `gap6` de deptos AHORA EN PROD.
+**Última actualización:** 22 Jul 2026 (c)
+**Fase:** Prod Railway + Vercel público. Sesión 22-jul-c = **fix de comparables de zona (Ixtepete) + equipamiento, desplegado; investigación a fondo de por qué reconstruir el caché del motor regresa el validador**. **✅ DESPLEGADO 22-jul-c:** commit `8fe0946` (backend, Railway) — comparables restringidos a colonia exacta + vecinas geográficas reales, Places sin negocios cerrados/con cadenas conocidas primero.
 
-## 🔥 SESIÓN 22-JUL-b — hecho
-- **Deploy:** rama `fix/flujo-avaluo-reporte-jul20` mergeada ff-only a main + desplegada (Railway `0d42b1d8` RUNNING + Vercel READY). Motor Opción C + gap6 en prod.
-- **BV similares (commit `1722bcc`, main, NO desplegado):** las 16 colonias manuales del usuario estaban solo en el legacy `colonias_similares.enriquecido.v2.json`, que el motor **ignora** cuando existe `colonias_maestro.json` (fuente única). Movidas al maestro (donde `getSimilares`/`getNSE` sí leen). 11/16 sobreviven filtro NSE±1 (ancla BV = v1 medio-medio nseIdx 3, n=90 — robusto; el idx casa=4 sale de solo 3 listados, no se usa como ancla). Backup `colonias_maestro.PRE_BV_MANUAL.bak.json`. **Falta redeploy para que prod lo tenga.**
-- **Discusión metodológica (root cause NSE):** el usuario llegó solo al hallazgo ya documentado (deptos NUEVOS inflan NSE colonia; casa≠depto; remodelado≠viejo). Confirmado que el fix NO es motor (ya se intentó, regresa) sino DATO (año/scraper). **Dirección aprobada:** separar NSE nuevo/usado × tipo en el mismo maestro (blocker=cobertura año). Detalle en memoria Claude `project_propvalu_nse_nuevo_usado`.
+## 🔥 SESIÓN 22-JUL-c — hecho
+- **Fix comparables de zona (DESPLEGADO, `8fe0946`):** `mongo_comparables.py` conecta `Modulo Drive IA/_geo/proximidad.py` (centroides SEPOMEX, ya en el repo sin usar) — colonia exacta primero, y solo si faltan, colonias VECINAS GEOGRÁFICAS reales (km_max 2.5→5). Nunca más "todo el municipio" por banda de precio (bug: Villas del Ixtepete traía comps de El Fortín a 8km, Tesistán, Jocotán). Cada comp trae `zona_tag` ("Zona exacta"/"Vecina (X.X km)") visible en la tabla del reporte (repurpone el slot `tenure_tag`, muerto para comps reales). Corregido en el camino: nombres cortos genéricos ("Del Sur") hacían match por substring en "Lomas del Sur" (otro municipio) — ahora match exacto anclado.
+- **Fix equipamiento (mismo commit):** `nearby_places.py` — filtro `businessStatus=OPERATIONAL` (ya no sale "Escuela de Fútbol Atlas", cerrada); `rankPreference:POPULARITY` + top 8 nombres (antes 5) para que salgan cadenas conocidas (Super Bara) sobre abarrotes chicos; radio diferenciado (educación 1500m, plazas 2000m — antes 800m dejaba fuera Prepa 9 y plazas de Mariano Otero). Bug real corregido: si Places fallaba TOTAL, el reporte dejaba nombres INVENTADOS por Gemini como si fueran reales — ahora limpia a "sin datos verificados".
+- **Motor: cache rebuild MEDIDO y descartado.** Reconstruir `cache_consolidado.json`/`cache_index.json` desde Mongo de hoy (incluye correcciones del verificador) da ±10 63.1→59.2%, ±15 75.7→70.9%, ±20 84.5→82.5%, errAbs 10.6→11.8%, mediana -7.1%→+8.8% — regresión confirmada, NO desplegado, caché restaurado al baseline 7-jul.
+  - **Root cause investigado (no especulación):** del pool del 7-jul (21,562 comps), 73.7% SIGUE existiendo hoy en Mongo (colonia+área). El 26.3% que ya no calza esa llave es 98.4% PINCALI — muestreo de 200 mostró 0% marcados duplicado/remate, 46% siguen activos normales: **la corrección de m²/colonia del verificador en PINCALI cambia la llave de dedup `colonia+m²`**, no es que las propiedades se vendieron.
+  - **Por qué baja el pass-rate:** los 18 OPIs (de 103) que cruzaron la línea ±10% son casi todos de pools CHICOS (n=3-7) — con tan pocos comps, que entre/salga UNO mueve la mediana 10-40pp. Caso verificado: "Álamo Industrial" (San Pedro Tlaquepaque, sin ancla NSE propia) tiene un pool de 7 anuncios con dispersión de $10k a $43k/m²C.
+  - **86 colonias con pool débil (n≤6) → `Modulo Drive IA/colonias_debiles_scraper.md`** (municipio+colonia+n, generado desde `cerebro_datos.json`), para priorizar en la tarea de scraper por colonia.
 
-### ⏭️ PRÓXIMA SESIÓN (3 hilos paralelos)
-1. **Cuarzo:** el usuario dará links directos de comparables para ver datos, solo ese avalúo.
-2. **Scraper por colonias** (`buscar_comparables_browser.js` — URLs por colonia, anti-bot, +PINCALI ES +nocnok) + enricher PINCALI capture "Year Built = New/Preventa→año actual" (línea 75 MOTOR_ANTECEDENTES).
+### ⏭️ PRÓXIMA SESIÓN (arrancar con /crear el scraper por colonia)
+1. **Scraper por colonias** (`buscar_comparables_browser.js` — URLs por colonia, anti-bot, +PINCALI ES +nocnok), priorizando las 86 colonias débiles de `colonias_debiles_scraper.md` + BV/Cuarzo.
+2. **Cuarzo:** el usuario dará links directos de comparables para ver datos, solo ese avalúo.
 3. **Lab valuación minimalista:** `motor_simple` = mediana $/m²C de N comps cercanos (tipo+colonia/similares+banda tamaño) × m²C, SIN cascada NSE/IDX/Ross-Heidecke. Validador 400 OPIs vs motor actual (60/68/79).
+4. **Mejora estructural anotada (de la investigación de hoy):** ancla NSE más completa (colonias como Álamo Industrial no tienen) o piso menos ingenuo que $8,000/m²C fijo — ayudaría más que perseguir rebuilds reactivos del caché.
+
+## 🔙 SESIÓN 22-JUL-b (previo)
+- **Deploy:** rama `fix/flujo-avaluo-reporte-jul20` mergeada ff-only a main + desplegada (Railway `0d42b1d8` RUNNING + Vercel READY). Motor Opción C + gap6 en prod.
+- **BV similares (commit `1722bcc`, main):** las 16 colonias manuales del usuario estaban solo en el legacy `colonias_similares.enriquecido.v2.json`, que el motor **ignora** cuando existe `colonias_maestro.json` (fuente única). Movidas al maestro. 11/16 sobreviven filtro NSE±1. Backup `colonias_maestro.PRE_BV_MANUAL.bak.json`.
+- **Discusión metodológica (root cause NSE):** deptos NUEVOS inflan NSE colonia; casa≠depto; remodelado≠viejo. Fix NO es motor (ya se intentó, regresa) sino DATO (año/scraper). **Dirección aprobada:** separar NSE nuevo/usado × tipo en el mismo maestro (blocker=cobertura año). Detalle en memoria Claude `project_propvalu_nse_nuevo_usado`.
 
 ## 🔥 SESIÓN 22-JUL — hecho (desplegado ver arriba)
 - **Flujo web:** mapa centra en coords reales (no CDMX), botón "Paso anterior" en cabecera, modal informativo ya no parpadea, stepper con círculo "Comparables", auto-descarga PDF + botón "Ver reporte" en Gracias, fotos máx 12→15 + auto-fachada, quitado "Anterior" del cuadro blanco.
@@ -31,7 +40,7 @@
 ## ⏳ Pendientes / decisiones abiertas
 ### De la sesión 22-jul (rama sin desplegar)
 0. **Mergear a main + desplegar** TODO lo de la rama (Opción C motor + revisión flujo/ads/reporte). Está pusheado, falta merge + Railway + Vercel.
-1b. **Scraper por colonia:** arreglar `buscar_comparables_browser.js` — construir URLs POR COLONIA (los links del usuario funcionan), manejar anti-bot de propiedades.com/i24, sumar PINCALI (español) y nocnok. Objetivo: poblar deptos de BV + colonias similares (chapalita 21, jardines del bosque 3 ya en BD; el resto en 0).
+1b. **Scraper por colonia:** arreglar `buscar_comparables_browser.js` — construir URLs POR COLONIA (los links del usuario funcionan), manejar anti-bot de propiedades.com/i24, sumar PINCALI (español) y nocnok. Objetivo: poblar deptos de BV + colonias similares (chapalita 21, jardines del bosque 3 ya en BD; el resto en 0) **+ 86 colonias con pool débil (n≤6) identificadas 22-jul** al investigar por qué el rebuild del caché bajaba el validador — lista completa en `Modulo Drive IA/colonias_debiles_scraper.md`.
 1c. **Enricher PINCALI:** dejar de scrapear el listado INGLÉS → español directo (trae año) para tapar el ~60% de deptos sin edad. Lever real del problema de comps de depto.
 1d. **Motor:** que dispare Tavily/similares para la colonia del sujeto cuando la caché es delgada, aunque tenga pool "exacta" (hoy no lo hace). Sesión de motor con validador.
 1e. **colonias_similares:** reconstruir por NSE/precio (no solo SEPOMEX geográfico); 36% de colonias están flacas. `residencial victoria` no existía.
