@@ -21,8 +21,8 @@ const path = require('path');
 
 const CACHE_PATH = path.join(__dirname, 'cache_consolidado.json');
 const OUT_PATH   = path.join(__dirname, 'cache_index.LAB_SPLIT8.json');
-const CORTE_NUEVO_ANIOS = 2;
-const MIN_BUCKET = 8;
+const CORTE_NUEVO_ANIOS = parseInt(process.env.CORTE_NUEVO_ANIOS || '5');
+const MIN_BUCKET = parseInt(process.env.MIN_BUCKET || '3');
 
 const TIPO_CANON = {
     casa: ['casa','casas','residencia','chalet','villa'],
