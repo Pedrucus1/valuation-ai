@@ -5271,7 +5271,7 @@
       "menciones": 2
     },
     {
-      "colonia": "villa del ixtepete",
+      "colonia": "villas del ixtepete",
       "menciones": 2
     },
     {
@@ -16944,12 +16944,6 @@
       "fuente": "ia-sepomex"
     }
   ],
-  "villa del ixtepete": [
-    {
-      "colonia": "paseos del briseno",
-      "menciones": 2
-    }
-  ],
   "arvento": [
     {
       "colonia": "renaceres",
@@ -22541,5 +22535,11 @@
   ],
   "parques de santa cruz del valle": [],
   "quintas del paraiso": [],
-  "jardines de chapalita": []
+  "jardines de chapalita": [],
+  "villas del ixtepete": [
+    {
+      "colonia": "paseos del briseno",
+      "menciones": 2
+    }
+  ]
 }

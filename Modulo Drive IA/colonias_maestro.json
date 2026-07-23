@@ -10685,6 +10685,60 @@
         "tipo": "Colonia",
         "fuente": "sepomex",
         "menciones": 2
+      },
+      {
+        "colonia": "el colli ejidal",
+        "municipio": "Zapopan",
+        "estado": "Jalisco",
+        "zona": "AMG-NW",
+        "tipo": "Colonia",
+        "fuente": "manual",
+        "menciones": 3
+      },
+      {
+        "colonia": "arboledas 1a secc",
+        "municipio": "Zapopan",
+        "estado": "Jalisco",
+        "zona": "AMG-NW",
+        "tipo": "Colonia",
+        "fuente": "manual",
+        "menciones": 3
+      },
+      {
+        "colonia": "loma bonita",
+        "municipio": "Zapopan",
+        "estado": "Jalisco",
+        "zona": "AMG-NW",
+        "tipo": "Colonia",
+        "fuente": "manual",
+        "menciones": 3
+      },
+      {
+        "colonia": "las aguilas",
+        "municipio": "Zapopan",
+        "estado": "Jalisco",
+        "zona": "AMG-NW",
+        "tipo": "Colonia",
+        "fuente": "manual",
+        "menciones": 3
+      },
+      {
+        "colonia": "el colli urbano 1a",
+        "municipio": "Zapopan",
+        "estado": "Jalisco",
+        "zona": "AMG-NW",
+        "tipo": "Colonia",
+        "fuente": "manual",
+        "menciones": 3
+      },
+      {
+        "colonia": "pinar de la calma",
+        "municipio": "Zapopan",
+        "estado": "Jalisco",
+        "zona": "AMG-NW",
+        "tipo": "Colonia",
+        "fuente": "manual",
+        "menciones": 3
       }
     ]
   },
@@ -36400,60 +36454,6 @@
       }
     ]
   },
-  "jardines del ixtepete": {
-    "nse": {
-      "v1": {
-        "nse": "medio-alto",
-        "nseIdx": 4,
-        "medianaPm2": 43776,
-        "nListings": 3
-      }
-    },
-    "idx": {
-      "depto": {
-        "global": {
-          "medianaPm2": 43776,
-          "nListings": 3,
-          "nse": "medio-alto",
-          "nseIdx": 4,
-          "fuente": "idx-18m"
-        },
-        "60-100": {
-          "medianaPm2": 43776,
-          "nListings": 3,
-          "nse": "medio-alto",
-          "nseIdx": 4,
-          "fuente": "idx-18m"
-        }
-      }
-    },
-    "similares": [
-      {
-        "colonia": "rinconada de la calma",
-        "peso": 20
-      },
-      {
-        "colonia": "mariano otero",
-        "peso": 18
-      },
-      {
-        "colonia": "avaterra",
-        "peso": 16
-      },
-      {
-        "colonia": "onia el colli 1a",
-        "peso": 14
-      },
-      {
-        "colonia": "nuevo mexico",
-        "peso": 12
-      },
-      {
-        "colonia": "ionamiento rinconada del parque",
-        "peso": 10
-      }
-    ]
-  },
   "loma blanca": {
     "nse": {
       "v1": {
@@ -42421,26 +42421,6 @@
     ]
   },
   "villas del ixtepete": {
-    "nse": {
-      "v1": {
-        "nse": "medio-medio",
-        "nseIdx": 3,
-        "medianaPm2": 28580,
-        "nListings": 6
-      }
-    },
-    "idx": {
-      "casa": {
-        "global": {
-          "medianaPm2": 27397,
-          "nListings": 3,
-          "nse": "medio-medio",
-          "nseIdx": 3,
-          "fuente": "idx-18m"
-        }
-      },
-      "depto": {}
-    },
     "similares": [
       {
         "colonia": "villas perisur",
@@ -42481,8 +42461,35 @@
         "colonia": "residencial el bosque",
         "menciones": 1,
         "fuente": "ia-sepomex"
+      },
+      {
+        "colonia": "paseos del briseno",
+        "municipio": "Zapopan",
+        "zona": "AMG-NW",
+        "fuente": "cerebro",
+        "menciones": 2
       }
-    ]
+    ],
+    "nse": {
+      "v1": {
+        "nse": "medio-medio",
+        "nseIdx": 3,
+        "medianaPm2": 28580,
+        "nListings": 6
+      }
+    },
+    "idx": {
+      "casa": {
+        "global": {
+          "medianaPm2": 27397,
+          "nListings": 3,
+          "nse": "medio-medio",
+          "nseIdx": 3,
+          "fuente": "idx-18m"
+        }
+      },
+      "depto": {}
+    }
   },
   "amaranto": {
     "municipio": "Zapopan",
@@ -106304,7 +106311,7 @@
         "menciones": 2
       },
       {
-        "colonia": "villa del ixtepete",
+        "colonia": "villas del ixtepete",
         "municipio": null,
         "fuente": "sin_datos",
         "menciones": 2
@@ -112907,17 +112914,6 @@
           "Cihuatlán/Jalisco",
           "Manzanillo/Colima"
         ],
-        "menciones": 2
-      }
-    ]
-  },
-  "villa del ixtepete": {
-    "similares": [
-      {
-        "colonia": "paseos del briseno",
-        "municipio": "Zapopan",
-        "zona": "AMG-NW",
-        "fuente": "cerebro",
         "menciones": 2
       }
     ]
@@ -140841,6 +140837,32 @@
     ]
   },
   "jardines de ixtepete": {
+    "nse": {
+      "v1": {
+        "nse": "medio-alto",
+        "nseIdx": 4,
+        "medianaPm2": 43776,
+        "nListings": 3
+      }
+    },
+    "idx": {
+      "depto": {
+        "global": {
+          "medianaPm2": 43776,
+          "nListings": 3,
+          "nse": "medio-alto",
+          "nseIdx": 4,
+          "fuente": "idx-18m"
+        },
+        "60-100": {
+          "medianaPm2": 43776,
+          "nListings": 3,
+          "nse": "medio-alto",
+          "nseIdx": 4,
+          "fuente": "idx-18m"
+        }
+      }
+    },
     "similares": [
       {
         "colonia": "agua blanca industrial",
@@ -140881,6 +140903,30 @@
         "colonia": "paseos del briceno",
         "menciones": 1,
         "fuente": "ia-sepomex"
+      },
+      {
+        "colonia": "rinconada de la calma",
+        "peso": 20
+      },
+      {
+        "colonia": "mariano otero",
+        "peso": 18
+      },
+      {
+        "colonia": "avaterra",
+        "peso": 16
+      },
+      {
+        "colonia": "onia el colli 1a",
+        "peso": 14
+      },
+      {
+        "colonia": "nuevo mexico",
+        "peso": 12
+      },
+      {
+        "colonia": "ionamiento rinconada del parque",
+        "peso": 10
       }
     ]
   },

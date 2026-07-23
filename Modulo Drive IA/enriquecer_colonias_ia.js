@@ -29,7 +29,7 @@ const geminiClient = process.env.GEMINI_API_KEY
     ? new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
     : null;
 
-const SEP_PATH  = path.join(__dirname, 'sepomex_jalisco.json');
+const SEP_PATH  = path.join(__dirname, 'sepomex_v2.json'); // v2 preserva TODAS las entradas por nombre (fix colisión municipio, 22-jul)
 const SIM_PATH  = path.join(__dirname, 'colonias_similares.json');
 const OUT_PATH  = path.join(__dirname, 'colonias_similares_enriquecido.json');
 
@@ -177,7 +177,8 @@ async function main() {
     const simExistente = JSON.parse(fs.readFileSync(SIM_PATH, 'utf8'));
 
     // Filtrar colonias residenciales
-    const todas = Object.values(sep).filter(c => !TIPOS_NO_RESIDENCIAL.has(c.tipo));
+    // v2: cada key es un ARRAY de entradas (una por municipio donde existe el nombre) — flat() antes de filtrar
+    const todas = Object.values(sep).flat().filter(c => !TIPOS_NO_RESIDENCIAL.has(c.tipo));
 
     // Municipios a procesar
     const munis = muniArg

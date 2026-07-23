@@ -17,7 +17,6 @@ const path = require('path');
 const IDX   = JSON.parse(fs.readFileSync(path.join(__dirname, 'cache_index.json'), 'utf8'));
 const NSE   = JSON.parse(fs.readFileSync(path.join(__dirname, 'colonias_nse.json'), 'utf8'));
 const SIM   = JSON.parse(fs.readFileSync(path.join(__dirname, 'colonias_similares.json'), 'utf8'));
-const SEP   = JSON.parse(fs.readFileSync(path.join(__dirname, 'sepomex_jalisco.json'), 'utf8'));
 const cerebro = JSON.parse(fs.readFileSync(path.join(__dirname, 'cerebro_datos.json'), 'utf8'));
 
 const args   = process.argv.slice(2);
