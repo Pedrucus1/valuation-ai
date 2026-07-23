@@ -1039,10 +1039,11 @@ function valuarPropiedad(prop) {
     // segun la edad REAL del sujeto en vez del blend, con fallback a blend si el bucket es delgado.
     // No-op si no hay LAB_INDEX_PATH cargado con los buckets (campo undefined → cae a blend igual que produ).
     const _LAB_SPLIT = process.env.LAB_NSE_SPLIT === '1';
+    const _CORTE_NUEVO = parseInt(process.env.CORTE_NUEVO_ANIOS || '2');
     function _pm2cCelda(cell) {
         if (_LAB_SPLIT && cell) {
-            if (edad <= 2 && cell.medianaPm2c_nuevo > 0) return cell.medianaPm2c_nuevo;
-            if (edad > 2  && cell.medianaPm2c_usado > 0) return cell.medianaPm2c_usado;
+            if (edad <= _CORTE_NUEVO && cell.medianaPm2c_nuevo > 0) return cell.medianaPm2c_nuevo;
+            if (edad > _CORTE_NUEVO  && cell.medianaPm2c_usado > 0) return cell.medianaPm2c_usado;
         }
         return cell?.medianaPm2c || 0;
     }
