@@ -1,18 +1,10 @@
 {
-  "scanDate": "2026-07-04T16:30:31.675Z",
+  "scanDate": "2026-07-23T19:21:37.324Z",
   "rootFolderId": "1MSqdSduhmzgwqTYrQYkZ-lOsezYmmqjz",
   "mesesEscaneados": [
     {
       "year": 2026,
       "month": 7
-    },
-    {
-      "year": 2026,
-      "month": 6
-    },
-    {
-      "year": 2026,
-      "month": 5
     }
   ],
   "files": [
@@ -4918,6 +4910,82 @@
     {
       "id": "1tgWwwNN9Kfs7kuF0fUcvkDJvYefJMl2rS2ubbVApwKY",
       "name": "OPI-26-7-01-OF Nte. F 1341, Conjunto Laureles, 45158 Zapopan, Jal."
+    },
+    {
+      "id": "1um9QWrJOsV5TuUjnMFhH1bCmS5ww4S6vc4YfTyCCQDs",
+      "name": "OPI-26-7-22-OF Av. Naciones Unidas 6885, int. Lirios 409 Jardines del Tule"
+    },
+    {
+      "id": "1zqqg1FWFRwH65KgB_rBQb80YQ8jBgJJWyf9Jph6d4OE",
+      "name": "OPI-26-7-21-OF Aurora Boreal Nte. 4285, Arboledas, 45070 Zapopan, Jal."
+    },
+    {
+      "id": "16U-xV3bb55oe7JgCQ5o7hRr03b32oSY9xzyTFJ6HAAk",
+      "name": "OPI-26-7-20-OF C. Pavo 226, Zona Centro, 44100 Guadalajara, Jal."
+    },
+    {
+      "id": "1bOseHgHbqir8oxFforwecLIRqF_PGSQ-WIik6lgHsGY",
+      "name": "OPI-26-7-18-OF Loma del Nte. 10, Loma Bonita, 45416 Tonalá, Jal."
+    },
+    {
+      "id": "16SZmkj1jIb76ggWo7hflcttI-nuN3eHTxiowFy9n86g",
+      "name": "OPI-26-7-17-OF Jose maría Vigil 1210,  Sagrada Familia"
+    },
+    {
+      "id": "1xhZhNx83hpG3KU70zHuZzT3zzAcywBjKDAulN-iIAsc",
+      "name": "OPI-26-7-16-OF Av. Patria esquina Santa Rosalia"
+    },
+    {
+      "id": "1iKPYR0UNc_GkPkdgHFd79Ka0n59hhuvlS1zoGsqw4cw",
+      "name": "OPI-26-7-15-OF Carlos Vidal 26, 44980 Guadalajara, Jal."
+    },
+    {
+      "id": "1L0hn_get0baKfP2drW1uRgPIOg4sIAwQpjEk0yB30eA",
+      "name": "OPI-26-7-14-OF La Concepcion Poniente 172, La Concha Tonala"
+    },
+    {
+      "id": "1oQEk5Df8zXYxgE-YX2WK_flAjKcf7Mp4HLMhmNP3pkc",
+      "name": "OPI-26-7-13-OF Emiliano Zapata 3, El Plan, Acatlan Jalisco"
+    },
+    {
+      "id": "1TSTAVgrGcgwg3E6qXVoYvTfMxvhBrQ9mXTXKVdSRAKU",
+      "name": "OPI-26-7-12-OF Calz Juan Pablo II 3173, Santa Cecilia, 44700 Guadalajara, Jal."
+    },
+    {
+      "id": "1y7LikFT2R4cRuRmmYjxXVhOnxAEBTyAWLXhs52E0Uak",
+      "name": "OPI-26-7-11-OF Cumbre de san Bartolomé 299 en Los Robles Tlajomulco de Zúñiga"
+    },
+    {
+      "id": "1yGjie0dDT2O--m4c2ne0pM9N1MzcEUWtDnIGKXWjvx8",
+      "name": "OPI-26-7-10-OF Rancho los Portales, Condominio Pinto Col. Salvador Lopez Portillo"
+    },
+    {
+      "id": "1d5O2nyeJL_eRS1EXB0D2JHvsZDxxc_KYhYBeTA24Gvk",
+      "name": "OPI-26-7-09-OF Los Pinos 344-4, coto Los Pinos Zapopan"
+    },
+    {
+      "id": "18yyjHEzG0kbC26QNhJ-Hq3j29E-jQFnkRfAXMl9TP0w",
+      "name": "OPI-26-7-08-OF Rio Colotlan 2056, Las Aguilas Zapopan"
+    },
+    {
+      "id": "1u3SpngTjQYRCB_Ka12AXpYBxLQM1jpkGFHfKXcNIdj8",
+      "name": "OPI-26-7-07-OF Séptima Sur 4943, Nuevo México, Jal."
+    },
+    {
+      "id": "1W9ql5TTuxZM5XVGHcsbwyuFnnLFGvG2OFml3frhl3Sc",
+      "name": "OPI-26-7-06-OF C. José María Morelos 259, Tepeyac, 45150 Zapopan, Jal."
+    },
+    {
+      "id": "1r10-bU2eImA5AJTiKkG6L3jj7IYP9sr3K9Do2maHn-g",
+      "name": "OPI-26-7-05-OF Ramon Corona s/n, ejido Jesus Maria, Santa Rosa, San Martin Hidalgo"
+    },
+    {
+      "id": "1fGOqTfMgG3MH5l_efji4LvV-dpsU-1gwBZTnTbua2lA",
+      "name": "OPI-26-7-04-OF Santa Cruz 7, Coto Coronado, Alta California"
+    },
+    {
+      "id": "16MFnMRky_OnkJ29yg3oTFWXI_o0KHNM1p3Ht4iUxJEo",
+      "name": "OPI-26-7-03-OF Av. de las Rosas 1297 piso 13 dpto 8, Jardines del Bosque"
     }
   ]
 }
