@@ -712,7 +712,7 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
             rooms_parts.append(f'{baths}&#x1F6BF;')
         rooms_str = ' '.join(rooms_parts)
         adj_sqm = comp.get('adjusted_price_per_sqm', comp['price_per_sqm'])
-        tenure_tag = comp.get('tenure_type', 'N/A')
+        tenure_tag = comp.get('zona_tag') or comp.get('tenure_type', 'N/A')
         comp_rows += f"""
       <tr>
         <td>{i}</td>

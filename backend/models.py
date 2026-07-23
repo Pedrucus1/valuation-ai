@@ -238,6 +238,7 @@ class Comparable(BaseModel):
     # Confiabilidad del comparable (0-100) y etiqueta — informativo, no cambia el valor
     confiabilidad: Optional[int] = None
     confiabilidad_label: Optional[str] = None
+    zona_tag: Optional[str] = None  # "Zona exacta" | "Vecina (X.X km)" — ver proximidad.py
 
     # Adjustments
     negotiation_adjustment: float = 0.0

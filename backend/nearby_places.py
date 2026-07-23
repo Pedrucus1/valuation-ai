@@ -30,23 +30,37 @@ CATEGORY_TYPES = {
     "bancos": ["bank", "atm"],
 }
 
+# Radio por categoría: plazas/escuelas (prepas) se referencian aunque no queden a
+# 800m caminables — es información que el comprador sí espera ver en el reporte
+# (queja: "falta la Prepa 9", "centros comerciales sobre Mariano Otero" quedaban fuera).
+RADIUS_BY_CATEGORY = {
+    "educacion": 1500,
+    "plazas": 2000,
+}
 
-def _fetch_category(lat: float, lng: float, types: list):
+
+def _fetch_category(lat: float, lng: float, types: list, radius_m: int):
     """(conteo 'N'|'N+', [nombres reales]) para una categoría. Lanza si la API deniega."""
     resp = requests.post(_URL, headers={
         "Content-Type": "application/json",
         "X-Goog-Api-Key": GOOGLE_KEY,
-        "X-Goog-FieldMask": "places.id,places.displayName",
+        "X-Goog-FieldMask": "places.id,places.displayName,places.businessStatus",
     }, json={
         "includedTypes": types,
         "maxResultCount": MAX_RESULTS,
+        # POPULARITY prioriza cadenas conocidas (Aurrera, Super Bara) sobre abarrotes
+        # chicos que antes las tapaban en el top-5 mostrado.
+        "rankPreference": "POPULARITY",
         "locationRestriction": {
-            "circle": {"center": {"latitude": lat, "longitude": lng}, "radius": RADIUS_M}
+            "circle": {"center": {"latitude": lat, "longitude": lng}, "radius": radius_m}
         },
     }, timeout=10)
     if resp.status_code != 200:
         raise RuntimeError(f"Places (New) {resp.status_code}: {resp.text[:150]}")
     places = resp.json().get("places", [])
+    # Google conserva negocios cerrados en su índice; filtrarlos (ej. "Escuela Oficial
+    # de Fútbol Atlas F.C." ya no existe pero seguía apareciendo).
+    places = [p for p in places if p.get("businessStatus", "OPERATIONAL") == "OPERATIONAL"]
     n = len(places)
     count = f"{n}+" if n >= MAX_RESULTS else str(n)
     nombres = [p.get("displayName", {}).get("text", "") for p in places]
@@ -56,7 +70,7 @@ def _fetch_category(lat: float, lng: float, types: list):
 
 def _count_category(lat: float, lng: float, types: list) -> str:
     """Compat: solo el conteo."""
-    return _fetch_category(lat, lng, types)[0]
+    return _fetch_category(lat, lng, types, RADIUS_M)[0]
 
 
 def count_nearby_by_category(lat: float, lng: float) -> dict:
@@ -76,8 +90,11 @@ def nearby_by_category(lat: float, lng: float) -> dict:
     out = {}
     try:
         for cat, types in CATEGORY_TYPES.items():
-            count, nombres = _fetch_category(lat, lng, types)
-            out[cat] = {"count": count, "nombres": ", ".join(nombres[:5])}
+            radius = RADIUS_BY_CATEGORY.get(cat, RADIUS_M)
+            count, nombres = _fetch_category(lat, lng, types, radius)
+            # top 8 (antes 5): cadenas conocidas (Aurrera, Super Bara) suelen quedar
+            # detrás de varios abarrotes chicos en el ranking de Google.
+            out[cat] = {"count": count, "nombres": ", ".join(nombres[:8])}
     except Exception as e:
         logger.warning(f"Places nearby falló ({e}); se usan conteos estimados por IA")
         return {}

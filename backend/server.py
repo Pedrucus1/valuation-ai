@@ -625,6 +625,7 @@ async def generate_comparables(valuation_id: str, request: Request, append: bool
                     n_portales=_nport,
                     confiabilidad=_conf,
                     confiabilidad_label=_conf_label,
+                    zona_tag=mc.get("_zona_tag"),
                     title=mc.get("titulo", f"{search_type} en {mc.get('municipio', '')}"),
                     neighborhood=mc.get("colonia") or prop["neighborhood"],
                     municipality=mc.get("municipio", prop["municipality"]),
@@ -1673,14 +1674,24 @@ IMPORTANTE: Devuelve SOLO el JSON. Los scores de perfil_entorno deben ser entero
                 None,
                 lambda: nearby_by_category(prop.get("latitude"), prop.get("longitude")),
             )
-            for _cat, _data in real.items():
-                if isinstance(pe.get(_cat), dict):
-                    pe[_cat]["count"] = _data["count"]
-                    # Nombres reales de la zona; si Places no devolvió ninguno, vaciar
-                    # los inventados por la IA (no mostrar lugares de otra zona).
-                    pe[_cat]["nombres"] = _data["nombres"]
             if real:
+                for _cat, _data in real.items():
+                    if isinstance(pe.get(_cat), dict):
+                        pe[_cat]["count"] = _data["count"]
+                        # Nombres reales de la zona; si Places no devolvió ninguno, vaciar
+                        # los inventados por la IA (no mostrar lugares de otra zona).
+                        pe[_cat]["nombres"] = _data["nombres"]
                 logger.info(f"Entorno con datos reales de Places: { {k: v['count'] for k, v in real.items()} }")
+            else:
+                # Places falló por completo (API caída/deshabilitada): los "count"/"nombres"
+                # que quedan son INVENTADOS por Gemini (nombres de establecimientos que no
+                # verificamos) — antes se mostraban como si fueran reales. Se limpian para
+                # que el reporte muestre "sin datos verificados" en vez de un negocio falso.
+                for _cat in pe.keys():
+                    if isinstance(pe.get(_cat), dict):
+                        pe[_cat]["count"] = ""
+                        pe[_cat]["nombres"] = ""
+                logger.warning("Places no disponible: se limpiaron nombres/conteos estimados por IA (no verificados)")
     except Exception as _pe:
         logger.warning(f"No se pudieron obtener datos reales de entorno: {_pe}")
 
