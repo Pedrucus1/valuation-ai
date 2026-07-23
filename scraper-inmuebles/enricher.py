@@ -1250,10 +1250,14 @@ def _get_mongo_col():
 
 
 def obtener_props_mongo(col, portal: str, max_filas: int, urls_procesadas: set,
-                        shard: tuple[int, int] | None = None) -> list[dict]:
+                        shard: tuple[int, int] | None = None, min_id=None) -> list[dict]:
     """
     Lee de mercado_props las props del portal a las que les falta anio_construccion
     (canónico, sin ñ) y/o m2. Retorna dicts {id_unico, url, portal, falta_*}.
+
+    min_id: si se da (ObjectId), acota a docs insertados desde ese punto en adelante —
+    para enriquecer solo un lote on-demand recién insertado sin barrer todo el backlog
+    del portal (evita scraping masivo fuera de scope).
     """
     # Seleccionar docs a los que les falta edad O colonia (colonia vacía bloquea
     # edadMedianaZona; propiedades.com la deja vacía en el scrape → backfill).
@@ -1283,6 +1287,8 @@ def obtener_props_mongo(col, portal: str, max_filas: int, urls_procesadas: set,
          "es_duplicado_secundario": {"$ne": True},
          "duplicado": {"$ne": True},
          "enrich_last_attempt": {"$not": {"$gte": cutoff}}, **falta}
+    if min_id is not None:
+        q["_id"] = {"$gte": min_id}
     proj = {"id_unico": 1, "url_original": 1, "portal_origen": 1,
             "anio_construccion": 1, "m2_terreno": 1, "m2_construccion": 1,
             "nombre_agente": 1, "fecha_publicacion": 1, "estacionamientos": 1,
@@ -1330,12 +1336,12 @@ def obtener_props_mongo(col, portal: str, max_filas: int, urls_procesadas: set,
 
 
 def enriquecer_mongo(col, portal: str, max_filas: int, dry_run: bool,
-                     urls_procesadas: set, shard: tuple[int, int] | None = None):
+                     urls_procesadas: set, shard: tuple[int, int] | None = None, min_id=None):
     """Enriquece un portal leyendo y escribiendo DIRECTO en MongoDB (sin Sheets)."""
     log = logger.bind(portal=portal)
     log.info(f"=== [MONGO] Enriqueciendo '{portal}' (max={max_filas}, shard={shard}) ===")
 
-    pendientes = obtener_props_mongo(col, portal, max_filas, urls_procesadas, shard=shard)
+    pendientes = obtener_props_mongo(col, portal, max_filas, urls_procesadas, shard=shard, min_id=min_id)
     log.info(f"Props pendientes de edad: {len(pendientes)}")
 
     if dry_run or not pendientes:

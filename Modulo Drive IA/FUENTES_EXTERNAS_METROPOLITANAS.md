@@ -25,8 +25,20 @@ Revisado en vivo, capas confirmadas por categoría:
   "conectividad/walkability" de una colonia.
 - **Resiliencia** y **Medio Ambiente** — no revisadas a fondo, pendiente.
 Interactivo (visor tipo ArcGIS/Leaflet), con selector por municipio y búsqueda de dirección.
-No se confirmó descarga directa de datos/API — pendiente inspeccionar Network tab o el menú
-"Herramientas" para ver si expone export.
+
+**23-jul-2026 — CONFIRMADO API pública sin auth, no hace falta scraping visual:**
+- Backend del visor: `https://zoom.imeplan.mx/rest/v1/` (Django REST Framework, browsable).
+  `categories_with_menus/` (~540KB) da el árbol completo categoría→tema→subtema→capa con
+  el nombre real de GeoServer en el campo `capa` de cada nodo hoja (`type: "Capa"`).
+- Datos geo: GeoServer en `https://geoserver.imeplan.mx/geoserver/sigmetro/{wms,ows}` (espejo
+  `geoserver2.imeplan.mx`), workspace `sigmetro`, sin login. WFS 2.0.0 confirmado funcionando.
+- **Estrategia POTmet 2024 → Zonificación Primaria** (uso de suelo metropolitano) =
+  layer `sigmetro:vwZonificacion_primaria_POTmet_2024`. 10,590 polígonos AMG. Atributos:
+  `Clasificación_general_del_área`, `Subclasificación`, `Municipio`. Descarga directa GeoJSON:
+  `https://geoserver.imeplan.mx/geoserver/sigmetro/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=sigmetro:vwZonificacion_primaria_POTmet_2024&outputFormat=application/json&srsName=EPSG:4326`
+- Hay decenas más de capas POTmet públicas por el mismo WFS (equipamiento urbano, riesgos,
+  centralidades, vialidad, etc. — ver `GetCapabilities` en el mismo `/ows`). No integrado al
+  pipeline todavía, solo confirmado que es viable sin scraping visual.
 
 ## Valor medio — consulta puntual, no integración sistemática
 
