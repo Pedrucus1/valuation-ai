@@ -1105,13 +1105,17 @@ function valuarPropiedad(prop) {
 
     // Cap: si exacta tiene datos sólidos (n≥10) y el pm2cAvg supera la mediana del IDX en >15%,
     // usar la mediana como techo. Evita que el tier filter seleccione solo los listings caros
-    // ignorando los baratos de la misma colonia.
+    // ignorando los baratos de la misma colonia. Piso espejo (mismo 5%, hacia abajo del blend):
+    // validado 205→207 OPIs, +1.0/+2.9/+1.0pp en ±10/15/20, aislado de las otras 2 palancas
+    // probadas (piso-NSE y bono-edad, ambas descartadas — graduado solo este techo/piso).
     if (poolTipo === 'exacta') {
         const exactaIDX = IDX[muniNorm]?.[tipo]?.[colNorm];
         const _techoPm2c = _pm2cCelda(exactaIDX);
         if (exactaIDX && exactaIDX.count >= 10 && _techoPm2c > 0) {
             const techo = _techoPm2c * 1.05;
             if (pm2cAvg > techo) pm2cAvg = techo;
+            const piso = _techoPm2c * 0.95;
+            if (pm2cAvg < piso) pm2cAvg = piso;
         }
     }
 
