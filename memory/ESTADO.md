@@ -2,81 +2,75 @@
 
 > **Único archivo que se lee al iniciar** (corto, siempre vigente). Tareas por # → `BACKLOG.md` (grep). Historial → `BACKLOG_ARCHIVE.md`. Motor → `MOTOR_ANTECEDENTES.md` (grep). **Se sobrescribe en cada cierre de sesión.**
 
-**Última actualización:** 23 Jul 2026 (tarde/noche, sesión #2)
-**Fase:** Prod Railway + Vercel público. Sesión 23-jul mañana = bug sistémico SEPOMEX corregido y aplicado. Sesión 23-jul noche (esta) = **validador post-merge corrido, enricher scoped en `enricher.py` (min_id), research IMEPLAN Zoom (API pública confirmada)**. Commits `225e788` (pusheado).
+**Última actualización:** 23 Jul 2026 (noche, sesión #3)
+**Fase:** Prod Railway + Vercel público. Sesión 23-jul mañana = bug sistémico SEPOMEX. Sesión 23-jul noche #2 = validador post-merge + enricher scoped + research IMEPLAN. **Sesión 23-jul noche #3 (esta) = video de anuncios arreglado y desplegado + investigación profunda del caso Cuarzo (causa raíz real encontrada, 2 fixes medidos y descartados, 1 fix real aplicado).** Commits `6b3a76f`, `db7d218` (pusheados).
 
-## 🔥 SESIÓN 23-JUL NOCHE — hecho
-- **Validador offline post-merge SEPOMEX** (`validar_40_opis.js`, motor prod): 34 OPIs candidatos → ±10% 61.8%, ±15% 79.4%, ±20% 88.2%, error abs 10.0%/mediana -7.3%. No hay baseline pre-merge guardado para comparar directo, pero está dentro de rango histórico normal del motor.
-- **Revisados resultados reales de los 2 scrapes** (`colonias_debiles_progreso.md` + `ixtepete_calma_progreso.md`): ~301 comps nuevos insertados en `mercado_props` (41 del cluster La Calma/Ixtepete, ~260 de las 86 colonias débiles). 39/86 colonias débiles terminaron en 0 nuevos — casi todo por "0 resultados" del scraper (sin match en portal), NO por bloqueo (`ninguna bloqueo hasta ahora` según el propio log).
-- **Detectado y cerrado gap de enriquecimiento:** `insertar_comparables_ondemand.py` reusa `_guardar_en_mongo` pero NO dispara el auto-enricher (ese trigger solo vive dentro del loop normal de `scheduler.py`). Los ~301 comps nuevos tenían `m2_construccion` (lo pone el scraper directo) pero `anio_construccion` incompleto.
-- **`enricher.py` — nuevo parámetro `min_id`** en `obtener_props_mongo`/`enriquecer_mongo` (ObjectId, opcional, default None = comportamiento sin cambios) para acotar una corrida a un lote reciente sin barrer el backlog completo del portal. Usado para enriquecer scoped los 4 portales del batch on-demand (CASAS_Y_TERRENOS 205, PROPIEDADES_COM 195, NOCNOK 2, PINCALI 5 pendientes detectados). **Corrida lanzada en background, sigue corriendo al cierre de sesión** — ver abajo.
-- **Research IMEPLAN Zoom (`zoom.imeplan.mx`) — API pública confirmada, sin scraping visual:** backend REST (`zoom.imeplan.mx/rest/v1/`, Django REST Framework browsable) + GeoServer WMS/WFS público sin auth (`geoserver.imeplan.mx/geoserver/sigmetro/{wms,ows}`). Confirmado en vivo: capa "Estrategia POTmet 2024 → Zonificación Primaria" = `sigmetro:vwZonificacion_primaria_POTmet_2024` (10,590 polígonos AMG, uso de suelo). Catálogo completo tiene además: marginación por AGEB/localidad, riesgo industrial/químico (`vwARQuimico*`), islas de calor + proyecciones de temperatura a 2039/2069, densidad poblacional (`AMG_densidad_2020_sm`), y movilidad muy completa (estaciones de transporte masivo, cobertura de rutas de camión, infraestructura ciclista, suficiencia de transporte público por zona). Documentado con URLs exactas en `FUENTES_EXTERNAS_METROPOLITANAS.md`. Nada integrado al pipeline todavía — solo confirmado que es viable.
-- **INEGI DENUE (equipamiento urbano)** identificado como alternativa gratuita a Google Places, pero requiere token de registro (no se probó en vivo, endpoint sin token dio 404).
+## 🔥 SESIÓN 23-JUL NOCHE #3 — hecho
 
-## 🔥 SESIÓN 23-JUL MAÑANA — hecho
-- **Bug sistémico SEPOMEX CORREGIDO:** el culpable real era `enriquecer_colonias_ia.js` (no `generar_similares_sepomex.js`, que tenía un import muerto de `sepomex_jalisco.json` nunca usado — limpiado). Fix de 2 líneas: lee `sepomex_v2.json` + `.flat()` antes de filtrar. Verificado con dry-run: +52 a +93 colonias visibles por municipio AMG, caso "Loma Bonita" en Zapopan ya no se pierde contra Tecomán/Colima.
-- **Regenerado `colonias_similares_enriquecido.json`** con DeepSeek+Gemini (7 municipios AMG) usando el fix — 2,349 colonias con similares, 15,756 pares nuevos. Errores transitorios de Gemini (rate-limit) no bloquearon nada, DeepSeek cubrió el 100%.
-- **Hallazgo crítico sobre `construir_maestro.js`:** un rebuild completo PIERDE 647 colonias con similares que solo viven en `colonias_maestro.json` (ediciones manuales acumuladas de sesiones pasadas vía scripts in-place como `backfill_cp_maestro.js`, nunca alimentadas de vuelta a los 6 archivos fuente). Medido con copia lab (`colonias_maestro.lab.json`) antes de aplicar nada — **regla "NO reconstruir a ciegas" ahora cuantificada**.
-- **Fix aplicado vía merge ADITIVO** (`merge_simIA_a_maestro.js`, nuevo script, no destructivo): 51 colonias nuevas, 1,805 ampliadas, 11,852 pares agregados, CERO pérdidas. Commit `6bd75c9`.
-- **Fusión de variantes de nombre Ixtepete:** "Jardines del/de Ixtepete" y "Villa/Villas del Ixtepete" eran la misma colonia partida en 2 por typo — unificadas a los nombres oficiales SEPOMEX, similares combinados.
-- **La Calma (Zapopan) ampliada a mano** con conocimiento del usuario: +6 similares verificados contra `sepomex_v2.json` por CP (El Colli Ejidal, El Colli Urbano 1a, Arboledas 1a Secc, Loma Bonita, Las Águilas, Pinar de la Calma).
-- **Scraper on-demand ampliado:** las 86 colonias débiles de `colonias_debiles_scraper.md` corridas completas (loop propio en background, sin supervisión granular por evento — lección de eficiencia) + cluster La Calma/Ixtepete/nuevos similares (10 corridas).
-- **Enrichers de año completos:** PROPIEDADES_COM (74/74), INMUEBLES24 (100/100, 4 enriquecidas), NOCNOK (500/500, 0 nuevas), CASAS_Y_TERRENOS (2000/2000, 1906 enriquecidas, 94 errores normales).
-- **Incidente resuelto en la sesión:** un agente lanzado para "arreglar" el loop de scraping duplicó el trabajo (2 loops corriendo en paralelo sobre las mismas colonias) — detectado por entradas repetidas en el log, matado a tiempo, solo 3 colonias re-procesadas sin daño (dedup por id_unico en Mongo).
-- **Investigación de fuentes externas** (IIEG datos abiertos, mapa.jalisco.gob.mx, MapaLab, AlertaRoja): solo IIEG Datos Abiertos vale la pena integrar (nivel colonia/AGEB, descargable). El visor de Zapopan revisado en vivo no trae equipamiento/uso de suelo/seguridad como capas. AlertaRoja = solo consulta manual puntual, no sistemático.
+### Video de anuncios (bug reportado por el usuario) — RESUELTO Y DESPLEGADO
+- Causa: no había ningún creativo de video aprobado/activo (todos los 14 creativos existentes eran imagen). `AdOverlay.jsx` (componente real, usado en ComparablesPage/ReportPage) estaba bien codeado; `AdRenderer.jsx` es código muerto sin usar.
+- Subido video (Remotion, `propvalu-emo-horizontal.mp4`) a slot1 y slot2 de la campaña de "avaluos y arquitectura", aprobado como admin. Slot3 quedó con su imagen.
+- **Volumen persistente de Railway agregado** (`propvalu-backend-volume`, 5GB, montado en `/app/backend/uploads`) — antes el storage de ads/KYC era efímero, se perdía en cada deploy. **Costo del cambio:** al adjuntar el volumen (dispara redeploy automático) se borraron los archivos viejos que NO estaban respaldados — 14 creativos de imagen de otras campañas de "avaluos y arquitectura" se perdieron (no hay backup, si el usuario los tiene hay que resubirlos).
+- **Achicador de video agregado** (`_compress_video()` en `backend/routers/ads.py`, ffmpeg en Dockerfile): cualquier video subido se recomprime automáticamente (720p, CRF26, faststart) antes de guardarse — 12.2MB→1.5MB en la prueba real. Antes NO existía compresión de video (solo imágenes vía `compressFile.js`, que el usuario recordaba mal como "el achicador" que cubría todo). Desplegado y verificado en prod (commit `6b3a76f`).
+
+### Caso Cuarzo — investigación profunda, causa raíz real encontrada
+- **Enricher scoped de la sesión anterior confirmado terminado:** 401 docs enriquecidos, 0 errores (CASAS_Y_TERRENOS 201, PROPIEDADES_COM 195, NOCNOK 0, PINCALI 5).
+- **Validación de datos:** 605 docs tocados en 20h, 389 con `anio_construccion`, sin colonias/municipios vacíos — datos correctos. **NO forman parte del NSE/IDX** (esos son snapshot precalculado `idx-18m` en `colonias_maestro.json`, no se actualizan solos; reconstruirlo ya se probó y se descartó por deriva de datos).
+- **Metodología manual (banda edad + Ross-Heidecke) probada y comparada contra el motor JS (103 OPIs, `validar_lab.js`):** el bucket ya existente `LAB_EDADSEG=1 K=0.5` (0-5→1.0/6-10→0.78/11+→0.67) sigue ganando (+2.4pp ±15, cero regresión, reconfirmado hoy con datos frescos). **Ross-Heidecke (curva continua) NO le gana en ningún K — descartado como curva.**
+- **Hallazgo grande: el pipeline de REPORTES reales (`server.py: calculate_valuation` / `mongo_comparables.py`) es código Python completamente separado del motor JS (`motor_remi_api.js`) — nunca se benefició de LAB_EDADSEG ni de nada validado ahí.**
+  - Cuarzo real (`val_43a05a7a5511`, 21-jul): `estimated_value=$3,931,206`. Mi cálculo manual segmentado: ~$2.29M (−42%). Ixtepete y La Calma (mismo pipeline) dieron valores cercanos a mi cálculo manual (−3%, −10%) — el problema es específico de Bosques de la Victoria, no generalizado.
+  - **Causa raíz:** `mongo_comparables.py::_similarity_score()` rankea comparables SOLO por m²(60%)+precio(40%, inactivo si no hay `precio_referencia`, el caso normal) — **la edad nunca entra al ranking**. El pool "zona exacta" de BV tiene mediana $64,511/m²C en crudo (dominado por PINCALI obra nueva 2026).
+  - **Fix #1 descartado (medido):** homologación por edad en `calculate_valuation` (bucket EDADSEG) → NO-OP (mediana +0.0% sobre 19 avalúos guardados) porque los comps GUARDADOS casi no traen `age`.
+  - **Fix #2 descartado (medido):** agregar edad a `_similarity_score()` → empeoró (mediana subió de $51,067 a $55,000/m²C, con solo 8/50 comps con edad conocida — ruido, no señal).
+  - **Conclusión:** ningún ajuste suave de ponderación arregla esto. El blocker real sigue siendo el split categórico **NSE nuevo/usado** (filtro duro, no reponderación) — ya identificado como su propio scope desde antes de esta sesión.
+- **Fix real aplicado y desplegado (bajo riesgo, sin necesidad de medir):** `land_area` en `ValuationForm.jsx` ya NO defaultea a `construction_area` cuando se omite — ahora defaultea a 0. El fallback viejo inflaba el método físico (20% del peso) para CUALQUIER departamento sin importar el piso. Commit `db7d218`.
+- **Corrección de memoria propia:** `feedback_pincali_solo_espanol` ya documentaba que el 75% de docs PINCALI históricos en inglés es legado conocido y corregido hacia adelante — lo re-flageé como "hallazgo nuevo" sin consultar memoria primero, corregido para no repetirlo.
 
 ### ⏭️ PRÓXIMA SESIÓN
-0. **Verificar si terminó el enricher scoped** lanzado en background (CASAS_Y_TERRENOS ✅ 201/0 err, PROPIEDADES_COM en curso ~85/195, NOCNOK y PINCALI pendientes). Log: `AppData\Local\Temp\claude\...\scratchpad\enrich_ondemand_batch.log` (ruta de sesión, puede haberse limpiado — si no está, solo son ~400 docs, tarda <1h, se puede relanzar con el mismo `min_id` documentado en `enricher.py`).
-1. **Usar los comps nuevos (BV + 86 colonias débiles + La Calma/Ixtepete) en el avalúo Cuarzo real** — segmentar por edad/antigüedad antes de promediar (BV mezcla obra nueva $58-71k/m²C con usado $22-40k/m²C). Sigue pendiente, no arrancado.
-2. **NSE nuevo/usado × tipo de propiedad** — separar `idx.casa.usado`/`idx.casa.nuevo` (y extender a depto/local/oficina/bodega) en `colonias_maestro.json`. Blocker = cobertura de año (mejorada con los enrichers). Nueva idea a evaluar en el scope: cruzar índice de marginación IMEPLAN (`vwPOTmetGradoMarginacionAGEB`) como señal NSE independiente para colonias sin/pocos comps — medir correlación contra `colonias_nse.json` ANTES de conectar nada. Ver memoria `project_propvalu_nse_nuevo_usado`. Necesita su propio scope antes de tocar código.
-3. **Limpiar `colonias_maestro.lab.json`** (artefacto de prueba, no committeado) si ya no se necesita de referencia.
-4. **Lab valuación minimalista:** `motor_simple` = mediana $/m²C de N comps cercanos × m²C, sin cascada NSE/IDX/Ross-Heidecke. Validador 400 OPIs vs motor actual. No arrancado.
-5. **Si se decide integrar IMEPLAN:** empezar por la capa de zonificación (`vwZonificacion_primaria_POTmet_2024`, uso de suelo — filtra si un predio cae en área no urbanizable/conservación) o distancia a transporte masivo (mayor impacto en plusvalía, hoy el motor no tiene nada de esto). Requiere su propio scope (cómo cruzar polígono↔colonia, WFS es point-in-polygon no lookup directo).
+0. **Si el usuario tiene backups de los 14 creativos de imagen perdidos** (otras campañas de "avaluos y arquitectura"), resubirlos.
+1. **NSE nuevo/usado × tipo de propiedad — ahora es EL blocker confirmado para reportes reales, no solo para el motor JS.** Filtro duro (excluir obra nueva del pool antes de calcular), no reponderación suave — ya descartadas 2 variantes de reponderación esta sesión. Ver memoria `project_propvalu_nse_nuevo_usado`. Necesita su propio scope.
+2. **Usar los comps nuevos en el avalúo Cuarzo real** — ya se hizo el cálculo manual (~$2.29M), pendiente decidir si se actualiza el reporte guardado o se espera al fix estructural de NSE nuevo/usado.
+3. Limpiar `colonias_maestro.lab.json` (artefacto de prueba, no committeado) si ya no se necesita.
+4. Lab valuación minimalista (`motor_simple`), IMEPLAN Zoom — sin arrancar, ver `BACKLOG.md`.
 
 ## 🔙 Historial reciente (condensado — detalle en `BACKLOG_ARCHIVE.md`)
-- **22-jul-d:** Scraper on-demand por colonia arreglado (`buscar_comparables_browser.js` reescrito sin navegador) + caso Cuarzo/BV resuelto con 8 comps directos + 16 similares (~180 comps). Bug propio Propiedades.com (id_unico colapsado) corregido. Bug sistémico SEPOMEX flagged (corregido al día siguiente, ver arriba).
-- **22-jul-c:** Fix comparables de zona DESPLEGADO (`8fe0946`) — vecinas geográficas reales vía `proximidad.py`, nunca "todo el municipio". Equipamiento (`nearby_places.py`) sin negocios cerrados. Cache rebuild MEDIDO y descartado (regresión por pools chicos n≤6) → identificadas 86 colonias débiles.
-- **22-jul-b:** Rama `fix/flujo-avaluo-reporte-jul20` desplegada (motor Opción C + gap6 en prod). BV similares movidas al maestro (`1722bcc`). Dirección aprobada: NSE nuevo/usado × tipo (blocker=año).
-- **22-jul:** Flujo web/ads/reporte — múltiples fixes desplegados. Investigación inicial Cuarzo (premisa "BV ~0 deptos" — corregida esta sesión, ver arriba).
+- **23-jul noche #2:** Validador post-merge SEPOMEX (34 OPIs, dentro de rango normal). Enricher scoped lanzado. Research IMEPLAN Zoom (API pública confirmada, nada integrado).
+- **23-jul mañana:** Bug sistémico SEPOMEX corregido (`enriquecer_colonias_ia.js`, merge aditivo, commit `6bd75c9`). Scraper on-demand 86 colonias débiles + cluster La Calma/Ixtepete.
+- **22-jul-d:** Scraper on-demand por colonia arreglado + caso Cuarzo/BV con 8 comps directos + 16 similares.
+- **22-jul-c:** Fix comparables de zona desplegado (vecinas geográficas reales). Cache rebuild descartado.
 
 ## ⚡ LO MÁS CALIENTE / decisiones vigentes
-- **Motor — parche depto-edad `gap6` GRADUADO a `motor_remi_api.js`** (commit `e8ed0fd`, en rama, sin desplegar). `_gapEdad = tipo==='depto' ? 6 : 25`. Validado OFFLINE: deptos 68→76% ±20, global 69.3→70.7%, cero regresión en casas. **Decisión pendiente: mergear+desplegar.**
-- **Recuperar i24 (t→c depto) = MEDIDO NEGATIVO, NO implementar** — 64% de lo recuperable es obra nueva, empeora. Lever real = inventario de deptos USADOS.
-- **Método "banda por edad del sujeto"** (`LAB_ANCLA_SEG`) es el fix correcto a futuro pero inerte hoy (falta cobertura de año en usados).
-- **Motor: NO reconstruir el caché a ciegas.** El del 7-jul (63.1/74.8/83.5) sigue siendo el desplegado.
-- **PINCALI solo español (`/inmueble/`)** para colonia/año — regla dura, respetada en el fix de hoy.
+- **NSE nuevo/usado es AHORA el blocker #1 confirmado** — afecta tanto al motor JS (validado desde 06-jul) como al pipeline de reportes reales (confirmado hoy, 23-jul). 2 alternativas de reponderación suave ya descartadas por medición. Solo un filtro duro categórico puede arreglarlo.
+- **Motor — parche depto-edad `gap6` GRADUADO a `motor_remi_api.js`** (commit `e8ed0fd`, en rama, sin desplegar). Decisión pendiente: mergear+desplegar.
+- **Motor: NO reconstruir el caché a ciegas.** El del 7-jul sigue siendo el desplegado.
+- **PINCALI solo español** — regla dura. Legado en inglés (75% histórico) ya conocido y corregido hacia adelante, NO re-flagear como hallazgo.
+- **Railway ahora tiene volumen persistente** (`propvalu-backend-volume`, `/app/backend/uploads`) — uploads de ads/KYC ya sobreviven redeploys.
 
 ## ⏳ Pendientes / decisiones abiertas
 ### De sesiones previas sin desplegar
-0. **Mergear a main + desplegar** rama `fix/flujo-avaluo-reporte-jul20` completa (Opción C motor + revisión flujo/ads/reporte). Pusheada, falta merge + Railway + Vercel.
+0. **Mergear a main + desplegar** rama `fix/flujo-avaluo-reporte-jul20` completa.
 1. **Mergear + desplegar el parche gap6** a prod.
-2. **Contador de folio por presupuesto comprado** (hoy: acumulado por usuario).
-3. **#29 Render respaldo gratis** — faltan env vars.
-4. **#34 SMTP** — recuperación de contraseña sin correo saliente. Mientras: link JWT a mano.
-5. **~337 colonias raras** (Cancún/Toluca mal etiquetadas) — manual o descartar.
-6. **PINCALI/CyT escrapean m² mal** (systemic) — fix en el enricher, sesión aparte.
+2. Contador de folio por presupuesto comprado.
+3. #29 Render respaldo gratis — faltan env vars.
+4. #34 SMTP — recuperación de contraseña sin correo saliente.
+5. ~337 colonias raras (Cancún/Toluca mal etiquetadas).
+6. PINCALI/CyT escrapean m² mal (sistémico) — fix en el enricher, sesión aparte.
 
 ## 🌐 URLs / accesos
 - **Sitio (público):** https://frontend-pedrucus-projects.vercel.app (alias prod: frontend-rosy-six-74.vercel.app)
-- **Backend API:** https://propvalu-backend-production.up.railway.app (Railway Hobby)
-- **Render (respaldo, a medio configurar):** https://valuation-ai-1.onrender.com (sin env vars aún)
-- **Login realtor staging:** `pedrucus@gmail.com` / `PropValu2026!` (backend local :8000 → staging).
-- Reset password sin SMTP: JWT (`JWT_SECRET` de Railway, type=reset_password) → `/reset-password?token=...`
+- **Backend API:** https://propvalu-backend-production.up.railway.app (Railway Hobby, único environment "production")
+- **Anunciante real:** avaluosyarquitectura2@gmail.com (mismo Pedro Vergara, contraseña no confirmada esta sesión — se generó token directo vía script cuando se necesitó).
+- **Login realtor staging:** `pedrucus@gmail.com` / `PropValu2026!` (backend local :8000 → staging, cluster1.avle5ez — bloqueado por IP allowlist de Atlas, no confirmado si sigue así).
+- Reset password sin SMTP: JWT (`JWT_SECRET` de Railway) → `/reset-password?token=...`
 
 ## 🧠 Motor (vigente)
-- **Canónico:** `motor_remi_api.js` (+ `_lab.js` con flags `LAB_*`, incl. `LAB_EDAD_DEPTO`). Validador: `validar_40_opis.js` (prod) / `validar_lab.js` (lab). **Correr OFFLINE** (`GEMINI_API_KEY= SERPER_API_KEY= TAVILY_API_KEY= DEEPSEEK_API_KEY=`) — nunca online en lote.
-- **Baseline** (cache 7-jul, sin MITULA): ±10 60.2 / ±15 68.0 / ±20 79.6 (offline --n400 ~69-71%). Con gap6: deptos +8pp, casas sin cambio.
-- **Pipeline:** `actualizar_cache_consolidado_mongo.py` (Mongo→consolidado) → `build_cache_index.js` (→cache_index) → `construir_idx_valoracion.js` (→idx_valoracion) → motor → validador. Ver `DICCIONARIO_ARCHIVOS.md`.
-- Reglas irrompibles: NO NSE v1→v2 · NO cazar atípicos · validador OFFLINE antes de cambios · **medir/dry-run antes de wirear**. Fuentes de verdad: `MOTOR_ANTECEDENTES.md`, `ESQUEMA_CAMPOS.md`, `INDICE_MOTOR.md`.
+- **Canónico (validador 103 OPIs):** `motor_remi_api.js` (+ `_lab.js` con flags `LAB_*`). Validador: `validar_lab.js` (offline, correr sin API keys). Baseline hoy: ±10 60.5% / ±15 74.1% / ±20 81.5% / errAbs 11.7%.
+- **`LAB_EDADSEG=1 K=0.5`** (bucket 3-escalones por edad del comp): +2.4pp ±15, cero regresión — mejor palanca de edad probada, sin desplegar (falta que suba más la cobertura de `anio_construccion`).
+- **`LAB_EDADSEG_MODE=rh`** (Ross-Heidecke continua): agregada y descartada esta sesión, no supera al bucket.
+- **⚠️ Pipeline de REPORTES REALES es código separado** (`backend/server.py: calculate_valuation` + `backend/mongo_comparables.py`) — no comparte nada con el motor JS de arriba. Cualquier mejora ahí NO se propaga a los reportes que ven los usuarios.
+- Reglas irrompibles: NO NSE v1→v2 · NO cazar atípicos · validador OFFLINE antes de cambios · medir/dry-run antes de wirear.
 
 ## 🏗️ Infra / datos
-- Railway (backend): `start.py`, scheduler off, **22 routers**. Auth Bearer + cookie + X-Admin-Token. Deploy backend = `railway up`.
-- MongoDB: prod cluster0, staging `cluster1.avle5ez`. ~102k props activas / 111,946+ totales en `mercado_props` (creciendo con el scraper on-demand).
-- Seguridad: incidente 06-jul cerrado. Keys → `credentials_registry.md`.
-- **`.env` local del scraper apunta a PROD** (no staging pese al comentario de `db_target.py` — verificar si se quiere cambiar).
-- `Modulo Drive IA/CUARZO_BOSQUES_VICTORIA.md` — caso de uso completo + bug sistémico SEPOMEX documentado.
-
-## 🕐 Diseño parqueado (no construir aún)
-- **Banda-por-sujeto del motor** (LAB_ANCLA_SEG): reactivar cuando suba cobertura de año de deptos USADOS.
-- **Diseñador de promocionales "Just Listed"** (`LayoutJustListed.jsx`): en repo, pulir por feedback.
-- **#139/#140/#141** crowdsource edades. **#142** Data Exchange descuento por calidad. **Gamificación pública.**
+- Railway (backend): `start.py`, scheduler off, 22 routers. **Volumen persistente en `/app/backend/uploads`** (nuevo esta sesión). Deploy = `railway up` (no hay auto-deploy desde GitHub, hay que dispararlo manual).
+- MongoDB: **prod real = `cluster0.9eliadx`** (confirmado esta sesión vía `railway run` — el `.env` local del backend apunta a `cluster1.avle5ez`, que es staging, bloqueado por IP allowlist de Atlas). Scraper (`scraper-inmuebles/.env`) también apunta a `cluster0.9eliadx` — mismo cluster que prod, sin split-brain.
+- `Modulo Drive IA/CUARZO_BOSQUES_VICTORIA.md` — caso completo, actualizado esta sesión con la causa raíz real.
