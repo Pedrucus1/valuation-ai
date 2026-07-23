@@ -664,6 +664,28 @@ def extraer_datos_detalle(html: str, portal: str, url: str = None, session=None)
             if mpark:
                 resultado["estacionamientos"] = int(mpark.group(1))
 
+        # m²C autoritativo (bug 23-jul): la tarjeta de listado NO tiene campo
+        # estructurado de área (solo el detalle) → su regex de prosa (primer
+        # "N m²" del texto, sin ancla) a veces agarra un número ajeno (terraza,
+        # rango "desde X m²", etc.) y guarda un m2c chico con precio de millones.
+        # El detalle SÍ trae el área real en 2 lugares estructurados: JSON-LD
+        # "floorSize":{"value":N} (más preciso) y el bloque escapado "Area M2":N.
+        # Si el tipo no es terreno, este valor pisa el de tarjeta (autoritativo
+        # > prosa, aunque m2_construccion ya viniera con algo).
+        mptype = re.search(r'Property Type(?:&quot;|")\s*:\s*(?:&quot;|")([^&"]{2,30})(?:&quot;|")', html)
+        es_terreno = bool(mptype) and re.search(r'land|lot|terreno|lote', mptype.group(1), re.I)
+        if not es_terreno:
+            marea = re.search(r'"floorSize"\s*:\s*\{[^}]*?"value"\s*:\s*([\d.]+)', html)
+            if not marea:
+                marea = re.search(r'Area M2(?:&quot;|"):\s*([\d.]+)', html)
+            if marea:
+                try:
+                    val = float(marea.group(1))
+                    if val > 0:
+                        resultado["m2_construccion"] = val
+                except ValueError:
+                    pass
+
         # Año de construcción PINCALI — 07-Jul-2026:
         # PRIMARIO: "Year Built: YYYY" en feature-icon de /en/home/ (ya descargado, sin HTTP extra).
         #   Verificado: campo canónico cuando el agente lo publica; extrae directamente del HTML crudo
@@ -1400,7 +1422,11 @@ def enriquecer_mongo(col, portal: str, max_filas: int, dry_run: bool,
                 actualizados.append(f"anio={int(_anio)}")
             else:
                 log.warning(f"  año descartado por inválido: {_anio!r}")
-        if prop["falta_m2_const"] and "m2_construccion" in datos:
+        # PINCALI: "m2_construccion" en datos viene del campo estructurado
+        # autoritativo (floorSize/Area M2) → pisa lo que haya puesto la tarjeta
+        # (regex de prosa sin ancla, ver comentario en extraer_datos_detalle).
+        # Otros portales: solo rellenar si faltaba (comportamiento previo).
+        if "m2_construccion" in datos and (prop["falta_m2_const"] or prop["portal"] == "PINCALI"):
             set_doc["m2_construccion"] = datos["m2_construccion"]
             actualizados.append(f"m2c={datos['m2_construccion']}")
         if prop["falta_m2_terreno"] and "m2_terreno" in datos:
