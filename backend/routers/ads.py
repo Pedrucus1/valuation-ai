@@ -2,6 +2,8 @@
 anunciantes, ads públicos (active/track) y analytics."""
 import os
 import uuid
+import subprocess
+import tempfile
 from datetime import datetime, timezone, timedelta
 from typing import Dict, Any, Optional
 
@@ -20,6 +22,28 @@ VIDEO_MAX_MB = {"slot1": 25, "slot2": 12, "slot3": 6}
 IMAGE_MAX_MB = 10                  # imagen original (el front ya comprime a WebP)
 MAX_VIDEOS_POR_ANUNCIANTE = 5
 MAX_IMAGENES_POR_ANUNCIANTE = 25
+
+
+def _compress_video(raw_bytes: bytes) -> bytes:
+    """Recomprime a calidad web (720p, CRF 26) vía ffmpeg. Si falla o no
+    hay ffmpeg, devuelve el archivo original sin tocar (nunca rompe el upload)."""
+    with tempfile.TemporaryDirectory() as tmp:
+        src = os.path.join(tmp, "in.mp4")
+        dst = os.path.join(tmp, "out.mp4")
+        with open(src, "wb") as f:
+            f.write(raw_bytes)
+        try:
+            subprocess.run(
+                ["ffmpeg", "-y", "-i", src, "-vf", "scale='min(1280,iw)':-2",
+                 "-c:v", "libx264", "-crf", "26", "-preset", "veryfast",
+                 "-c:a", "aac", "-b:a", "96k", "-movflags", "+faststart", dst],
+                check=True, capture_output=True, timeout=120,
+            )
+            with open(dst, "rb") as f:
+                compressed = f.read()
+            return compressed if compressed and len(compressed) < len(raw_bytes) else raw_bytes
+        except Exception:
+            return raw_bytes
 
 
 @router.post("/advertisers/anuncios")
@@ -265,6 +289,8 @@ async def upload_creative(
         )
 
     content = await file.read()
+    if is_video:
+        content = _compress_video(content)
     # Tamaño máximo
     max_mb = VIDEO_MAX_MB.get(slot, 25) if is_video else IMAGE_MAX_MB
     if len(content) > max_mb * 1024 * 1024:
