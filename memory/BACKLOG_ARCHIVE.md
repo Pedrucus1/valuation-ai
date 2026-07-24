@@ -5,6 +5,26 @@
 
 ---
 
+## 23 Jul 2026 (noche #7) — Feature "Promo Interactiva": link público compartible (reel EstateElite con datos reales)
+
+Sesión de feature, distinta a las anteriores (motor/scraper). El usuario venía trabajando en un diseño propio de reel inmobiliario "EstateElite" (9:16, 3 hojas: Portada + Características + Contacto, paleta verde `#051b12` + dorado `#e9c176`, tipografías Noto Serif + Work Sans) que primero prototipamos como HTML suelto FUERA del repo (`C:\Users\pedru\valuation-ai\disenos-tiktok\`, no git). El pedido final: llevarlo a la app en Promociones como una opción que genere un **link público** para compartir por WhatsApp — porque un archivo `.html` adjunto no siempre lo reconoce el celular del destinatario como abrible.
+
+**Aclaración clave a mitad de camino:** el usuario recalcó que el diseño debe ser SU EstateElite exacto (respetado al 100%), NO el `LayoutStitchTikTok`/"Obsidian" que ya trae el app (ese "le faltan elementos y está desacomodado"), y con datos REALES de la propiedad. Eso cambió el plan aprobado originalmente (que reusaba el layout del panel): como el diseño pasa a ser fijo, se DESCARTÓ toda la capa de persistencia de config (`promo_config` PUT) y el refactor `renderPromo.js` — innecesarios. El link se arma solo con `propiedad_id`; la página pública recomputa desde el registro de la propiedad + asesor.
+
+**Implementación (5 archivos, aditiva, no toca nada existente):**
+- `PromoReelEstateElite.jsx` (`frontend/.../promociones/`): port fiel del reel, **autocontenido** — `<style>` scoped bajo `.ee-reel` + iconos SVG inline en un objeto `ICONS`. No depende del `tailwind.config` del app (sus tokens `primary/surface/etc.` colisionarían). Navegación con los botones propios de cada hoja (Ver características → Ver contacto → Atrás y los puntos de arriba), heurística `iconoDe()` para elegir icono de cada amenidad, fallback de foto de asesor a inicial, CTA de contacto como `tel:` si hay teléfono. Basado en un HTML que ya se validó visualmente (fuentes/imágenes incrustadas) durante la sesión.
+- `backend/routers/inmobiliaria.py`: `GET /api/inmobiliaria/propiedades/{id}/promo-publica` PÚBLICO (sin `require_auth`, patrón de `directorio.py`). Whitelist `_PROMO_CAMPOS` de la propiedad (nunca `user_id`/`activo`/`fuera_de_mercado`/internos) + asesor `{nombre, foto, telefono}` resuelto del `User` dueño con proyección acotada (nunca el doc completo ni email).
+- `frontend/src/pages/PromoPublicPage.jsx` + ruta `/promo/:propiedadId` en `App.js` (sin auth shell, patrón de `/reporte/:valuationId`): fetch al endpoint, render del reel a 9:16 centrado (letterbox en desktop), 404 → "promoción no disponible". Inyecta Noto Serif + Work Sans por CDN (web normal, permitido — a diferencia del artifact con CSP).
+- `PromocionesTab.jsx`: pill "Promo Interactiva" junto a PDF/JPG + handler `handlePromoInteractiva` (si hay `propiedad_id` copia `${origin}/promo/{id}` al portapapeles; si no, toast pidiendo guardar la propiedad).
+
+**Verificación:** frontend compila limpio (`Compiled successfully!`), backend importa y la ruta queda registrada como GET público (confirmado por OpenAPI). **NO se pudo probar end-to-end con datos reales** porque el entorno no alcanza el cluster de staging (`cluster1.avle5ez`, bloqueado por IP allowlist de Atlas — falla el handshake TLS, esperado). Se entregó al usuario un prompt para verificar desde una terminal con acceso a la DB (backend local + `/promo/:id` en incógnito + pill). Commit `f86ab06`, pusheado a `main` (Railway + Vercel auto-deploy). El push de esta sesión de memoria lo hace el usuario desde terminal.
+
+**Nota de higiene:** el usuario insistió en NO commitear plasmic/storybook/temporales ni los HTML de prueba sueltos — se respetó (solo los 5 archivos de la feature entraron al commit; el resto quedó sin tocar y los prototipos viven fuera del repo git).
+
+**Limitación conocida:** el link solo funciona hoy para propiedades manuales/Subidas (las que tienen `propiedad_id`), no para avalúos OPI. Pendientes: verificar en prod, soporte OPI, botón WhatsApp `wa.me` en el CTA, preview del reel dentro del panel.
+
+---
+
 ## 23 Jul 2026 (noche #6) — PINCALI bug de raíz (m²c+título) + limpieza retroactiva Mongo + Ixtepete portado al motor + ads/gamificación/edades
 
 Sesión de "los dos" pendientes de la noche anterior (PINCALI en la fuente + subir cobertura de colonias débiles), que fue creciendo por interrupciones del usuario con hallazgos en vivo mientras trabajaba en la app.

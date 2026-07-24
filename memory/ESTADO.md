@@ -2,50 +2,31 @@
 
 > **Único archivo que se lee al iniciar** (corto, siempre vigente). Tareas por # → `BACKLOG.md` (grep). Historial → `BACKLOG_ARCHIVE.md`. Motor → `MOTOR_ANTECEDENTES.md` (grep). **Se sobrescribe en cada cierre de sesión.**
 
-**Última actualización:** 23 Jul 2026 (noche, sesión #6)
-**Fase:** Prod Railway + Vercel público. Sesión #6 (esta) = bug de raíz de PINCALI arreglado (m²c + título) con limpieza retroactiva grande en Mongo, guardia de colonia lejana portado al motor (Ixtepete), fixes de ads/equipamiento/gamificación/edades, y bug de UX del selector de colonias. Commits `80efa8d`, `8ae0c42`, `36e2d19`, `3ac523f`, `8778746`, `04a99f9` (todos pusheados).
+**Última actualización:** 23 Jul 2026 (noche, sesión #7)
+**Fase:** Prod Railway + Vercel público. Sesión #7 (esta) = feature "Promo Interactiva" desplegada (commit `f86ab06`): link público compartible por WhatsApp con el reel EstateElite de 3 hojas alimentado con datos reales de la propiedad. Sesión #6 (previa) = bug de raíz PINCALI + limpieza Mongo + Ixtepete al motor + ads/gamificación/edades (commits `80efa8d`, `8ae0c42`, `36e2d19`, `3ac523f`, `8778746`, `04a99f9`).
 
-## 🔥 SESIÓN 23-JUL NOCHE #6 — hecho
+## 🔥 SESIÓN 23-JUL #7 — hecho (feature Promo Interactiva, commit `f86ab06`)
 
-### PINCALI: bug de raíz de m²c y título arreglado (commits `80efa8d`, `36e2d19`)
-- **Causa real:** la página de listado que se escanea es SIEMPRE inglesa (`/propiedades/` española da 403, no existe ruta de listado en español) → su m²c salía de un regex de prosa SIN ancla (primer "N m²" del texto) que a veces agarraba un número ajeno (terraza, rango "desde X m²"). Mismo mecanismo detrás de la limpieza de 744 registros de la sesión pasada.
-- **Fix:** el detalle SÍ trae el área real estructurada (JSON-LD `floorSize` / bloque escapado `Area M2`, mismo bloque de donde ya se sacaba Parking Spaces) → el enricher ahora la usa como autoritativa y PISA lo que puso la tarjeta (antes solo rellenaba si faltaba). Guardia de $/m² (3,000–200,000) en `pincali.py` ANTES de guardar (limpiar antes de insertar, no solo después). Título sintetizado en español desde `Property Type`+`Operation Type` estructurados (la tarjeta nunca tiene título en español disponible).
-- **Limpieza retroactiva en Mongo (no scraping, solo transformación local):** 38,726 títulos PINCALI regenerados a español (determinístico, desde `tipo_propiedad`/`tipo_operacion`/`colonia` ya guardados) + 5,729 `m2_construccion` corruptos limpiados (`$unset`) — mucho más que los 744 anteriores, porque esa limpieza fue solo en el caché del motor, nunca tocó `mercado_props` crudo.
-- **⚠️ PAUSADO: re-enriquecimiento de los 6,548 docs afectados** (los 5,729 limpiados hoy + ~819 que ya estaban vacíos) llegó a 503/6,600 cuando PINCALI empezó a responder HTTP 202 (soft-block) en ~98% de las peticiones — se dejó de insistir para no empeorar el bloqueo. **Retomar más tarde/mañana:** `enricher.py --tab PINCALI --max 6600 --mongo` (ya reseteó `enrich_last_attempt` de los 6,548 el 23-jul).
+Feature autocontenida, aditiva (5 archivos, no toca flujos existentes). El usuario pidió llevar SU diseño EstateElite (reel 9:16 de 3 hojas: Portada + Características + Contacto, verde `#051b12`+dorado `#e9c176`, Noto Serif + Work Sans) a Promociones como una opción que genera un **link público** para mandar por WhatsApp (un `.html` adjunto no siempre lo reconoce el celular).
 
-### Ixtepete — comps de zonas lejanas: causa real encontrada y arreglada en el motor
-- El mismo bug ya documentado y arreglado en `mongo_comparables.py` (panel de "comparables reales" del reporte) **nunca se portó al motor de valuación**: `buscarCompsConWeb` (`motor_remi_api.js`) dejaba que DeepSeek metiera cualquier "colonia" que sacara de los snippets de Google sin validarla contra el sujeto — así entraban Tesistán, Valle Imperial, Unidad Díaz Ordaz, etc. en avalúos de Villas del Ixtepete.
-- Fix: guardia `normCol(colonia)` contra sujeto+similares antes de aceptar un comp web. No medido con el validador online (la regla es no correr el validador online en lote; este código solo se ejercita en el fallback de búsqueda web, que el offline no toca).
-
-### Ads / reporte
-- **Video de slot1 no se veía** (solo counter+botón CTA): `autoPlay` + `muted={false}` — los navegadores bloquean autoplay con audio, el video quedaba en negro pero el overlay (que no depende del video) sí se veía. Fix: arranca muted + botón toggle 🔇/🔊.
-- **Duración slot1** 60s→30s (frontend y backend, el backend manda la duración real cuando hay campaña pagada).
-- **Equipamiento:** tarjeta de "Bancos" agregada — el dato real (`nearby_places.py`, tipos `bank`/`atm`) ya existía, pero el reporte nunca le hizo tarjeta (grid fijo de 4 + plazas suelta, bancos se quedó fuera).
-
-### Scraper on-demand: 165 colonias débiles de edad
-- Recalculadas: 165 colonias con ≥5 props casa/depto pero <5 con edad conocida (antes eran 86 con el criterio más estricto de "0 con edad").
-- Corridas 3 veces (94+7+64) por interrupciones del proceso en background (status "killed", sin causa de código identificada) → **334 comps nuevos** en NOCNOK/CASAS_Y_TERRENOS/PROPIEDADES_COM, la mayoría enriquecidos con año (`enricher.py` scoped por `min_id`).
-
-### Gamificación
-- Sonidito (Web Audio sintetizado, sin archivos) + 20 variantes de festejo al azar (antes siempre "+1 🎯") al sumar propiedad verificada.
-- Nuevo campo `avaluos_ganados` (`total // 150`) en `/api/gamificacion/mis-puntos`, mostrado junto a Récord (barra compacta), en la línea de Meta, y como tile en el panel expandido.
-- **Hallazgo importante: el premio NO está conectado a ningún saldo de créditos real** (`session.credits` es solo el plan pagado mensual, totalmente separado). Es puramente informativo hoy. Pendiente decidir si se integra de verdad.
-
-### Edades por zona
-- Nueva opción "Preventa (aún no construida)" en el selector de edad — no tiene edad cronológica, pide en su lugar un año probable de terminación (input a futuro, hasta +6 años, opcional). Backend (`edades.py`): rango `preventa` fuera de `RANGO_MIDPOINT`, guarda `anio_terminacion_estimado`.
-
-### Bug de UX arreglado: filtro de colonias del verificador
-- El combo (`ColoniaCombo`) tenía tope fijo de **30 items desde siempre** (diseño original) — invisible mientras los municipios tenían <30 colonias. Al crecer la base hoy (165 colonias scrapeadas), Zapopan/Guadalajara ya pasan de 30 y solo se veían las primeras alfabéticamente ("solo la A"). Tope subido a 300 + aviso "+N más" con fondo verde/negritas (antes gris casi invisible).
+- **Nuevo pill "Promo Interactiva"** en la toolbar de `PromocionesTab.jsx` (junto a PDF/JPG): si la propiedad tiene `propiedad_id` copia `${origin}/promo/{propiedad_id}` al portapapeles; si no, pide guardarla primero. Handler `handlePromoInteractiva`.
+- **Componente `PromoReelEstateElite.jsx`** (`.../promociones/`): port fiel 100% del diseño, **autocontenido** — estilos en `<style>` scoped bajo `.ee-reel` + iconos SVG inline. NO usa el `tailwind.config` del app (esos tokens colisionarían). Navegación por botones propios de cada hoja (Ver características → Ver contacto → Atrás/puntos). Alimentado con datos reales: precio, dirección, colonia/municipio, m²c, recámaras, baños, estacionamiento, amenidades, y asesor {nombre, foto, teléfono}.
+- **Backend `GET /api/inmobiliaria/propiedades/{id}/promo-publica`** (público, sin auth, patrón `directorio.py`): whitelist de campos de la propiedad (`_PROMO_CAMPOS`) — **nunca expone `user_id`, email ni internos**; asesor resuelto server-side desde el `User` dueño (proyección solo name/picture/foto_url/phone/telefono/company_name).
+- **Página pública `/promo/:propiedadId`** (`PromoPublicPage.jsx`, ruta en `App.js` sin auth shell, patrón `/reporte/:valuationId`): fetch → render del reel; 404 → "promoción no disponible". Carga Noto Serif + Work Sans por CDN (web normal, permitido).
+- **Se decidió NO persistir config de diseño** (el diseño es fijo → no hace falta `promo_config` ni refactor de render pipeline). Se descartaron plan original de `renderPromo.js` y PUT de config.
+- **⚠️ NO verificado end-to-end con datos reales:** el entorno no alcanza staging (`cluster1.avle5ez`, bloqueado por IP allowlist de Atlas — esperado). Sí verificado: frontend compila limpio, backend importa y registra la ruta como GET público. **Prompt de verificación entregado al usuario** para correr desde una terminal con acceso a la DB.
+- **Diseños de referencia (FUERA del repo, no se commitean):** `C:\Users\pedru\valuation-ai\disenos-tiktok\perfect-green-reel-completo.html` (y `-whatsapp.html` autocontenido, `perfect-green-2.html`).
 
 ### ⏭️ PRÓXIMA SESIÓN
-1. **Retomar el re-enriquecimiento de PINCALI** (6,045 docs restantes de los 6,548) cuando el rate-limit de PINCALI se enfríe.
-2. **Decidir si se integra "avalúos ganados" al saldo de créditos real** (hoy es solo informativo, requiere lógica backend de acreditación idempotente).
-3. **NSE nuevo/usado sigue bloqueado por cobertura de datos** — las 165 colonias de hoy suman volumen pero no se volvió a intentar el split; medir si ahora hay suficiente cobertura antes de reintentar.
-4. Investigar por qué los procesos en background se están matando solos ("killed", 3 veces en la sesión, sin traceback ni causa de código) — puede ser límite del harness, no del proyecto.
-5. Limpiar `colonias_maestro.lab.json` (artefacto de prueba, no committeado) si ya no se necesita — pendiente desde sesión #5.
-6. Render: retomar cuando el usuario quiera (diagnóstico de puppeteer listo, sesión #5).
+1. **Verificar Promo Interactiva end-to-end en prod** (o local con acceso DB): que `promo-publica` no filtre `user_id`/email, que `/promo/:id` se vea idéntico al diseño con datos reales, y que el pill copie bien.
+2. **Soporte para avalúos OPI en el link** (hoy solo funciona con propiedades manuales/Subidas que tienen `propiedad_id`).
+3. Mejoras del reel: botón **WhatsApp (wa.me)** además del `tel:` en el CTA de contacto; **preview del reel dentro del panel** de Promociones (hoy abre en pestaña nueva).
+4. **Retomar el re-enriquecimiento de PINCALI** (6,045 docs restantes de los 6,548) cuando el rate-limit se enfríe: `enricher.py --tab PINCALI --max 6600 --mongo`.
+5. **Decidir si se integra "avalúos ganados" al saldo de créditos real** (hoy solo informativo).
+6. NSE nuevo/usado sigue bloqueado por cobertura; investigar procesos background "killed"; limpiar `colonias_maestro.lab.json`; Render en pausa.
 
 ## 🔙 Historial reciente (condensado — detalle en `BACKLOG_ARCHIVE.md`)
+- **23-jul noche #6:** Bug de raíz PINCALI m²c+título (detalle estructurado pisa la tarjeta inglesa; guardia $/m² antes de insertar) + limpieza retroactiva Mongo (38,726 títulos ES + 5,729 m²c corruptos), re-enrich PAUSADO a 503/6,600 por soft-block HTTP 202. Ixtepete: guardia `normCol` portado a `buscarCompsConWeb` del motor. Ads (video slot1 muted+toggle, 60→30s), tarjeta de bancos, 165 colonias débiles (334 comps), gamificación (sonido+avaluos_ganados informativo), edades (Preventa), fix combo colonias (tope 30→300).
 - **23-jul noche #5:** Motor JS mejorado (piso espejo del techo graduado + limpieza de 744 m²c rotos en caché), hallazgo de mecanismo (rebuild completo del índice regresa aunque no cambies datos), NSE nuevo/usado cerrado con 8 variantes descartadas.
 - **23-jul noche #4:** Validación de junio/julio, investigación NSE nuevo/usado en el motor JS (negativo).
 - **23-jul noche #3:** Video de anuncios arreglado y desplegado. Caso Cuarzo — causa raíz real encontrada.
