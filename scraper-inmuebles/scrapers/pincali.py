@@ -125,15 +125,31 @@ class PincaliScraper(BaseScraper):
             moneda = (m.group(2) or "MXN").upper()
             precio_raw = f"${m.group(1)} {moneda}"
 
-        # m² — puede ser construcción o terreno
+        # m² — puede ser construcción o terreno. La tarjeta concatena varios campos sin
+        # ancla clara (bug 23-jul: agarraba la terraza, un rango "desde X m²", etc.) y el
+        # enricher la corrige con el dato estructurado de la página de detalle (autoritativo).
+        # Filtro de cordura ANTES de guardar (limpiar antes de insertar, no después):
+        # descarta si el $/m² resultante es fisicamente imposible.
         m2_const = m2_terreno = None
         m2_match = re.search(r"([\d,]+(?:\.\d+)?)\s*m[²2]", texto, re.I)
+        precio_num = None
+        if m:
+            try:
+                precio_num = float(m.group(1).replace(",", ""))
+            except ValueError:
+                pass
         if m2_match:
             val = m2_match.group(1).replace(",", "")
-            if tipo_final in ("terreno", "terrenos"):
-                m2_terreno = val
-            else:
-                m2_const = val
+            try:
+                val_f = float(val)
+            except ValueError:
+                val_f = 0
+            ppm2 = (precio_num / val_f) if (precio_num and val_f > 0) else None
+            if ppm2 is None or (3000 <= ppm2 <= 200000):
+                if tipo_final in ("terreno", "terrenos"):
+                    m2_terreno = val
+                else:
+                    m2_const = val
 
         # Recámaras
         rec_m = re.search(r"(\d+)\s*(?:beds?|recámaras?|habitaciones?)", texto, re.I)

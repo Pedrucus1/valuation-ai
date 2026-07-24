@@ -686,6 +686,22 @@ def extraer_datos_detalle(html: str, portal: str, url: str = None, session=None)
                 except ValueError:
                     pass
 
+        # Título en español (bug 23-jul, queja usuario): la página de listado que se
+        # escanea es SIEMPRE inglesa (la ruta /propiedades/ española da 403 — no hay
+        # forma de listar en español) → el "titulo" de tarjeta queda en inglés aunque
+        # la regla del proyecto sea "PINCALI solo español". El detalle SÍ trae Property
+        # Type / Operation Type estructurados (mismo bloque de Neighborhood/Area M2) ->
+        # sintetizar un título limpio en español a partir de eso, pisando el de tarjeta.
+        _TIPO_ES = {"house": "Casa", "apartment": "Departamento", "land": "Terreno",
+                    "office": "Oficina", "commercial": "Local comercial"}
+        _OP_ES = {"sale": "venta", "rent": "renta"}
+        if mptype:
+            tipo_es = _TIPO_ES.get(mptype.group(1).strip().lower(), mptype.group(1).strip())
+            mop = re.search(r'Operation Type(?:&quot;|")\s*:\s*(?:&quot;|")([^&"]{2,20})(?:&quot;|")', html)
+            op_es = _OP_ES.get(mop.group(1).strip().lower(), "venta") if mop else "venta"
+            col_tit = resultado.get("colonia")
+            resultado["titulo"] = f"{tipo_es} en {op_es} en {col_tit}" if col_tit else f"{tipo_es} en {op_es}"
+
         # Año de construcción PINCALI — 07-Jul-2026:
         # PRIMARIO: "Year Built: YYYY" en feature-icon de /en/home/ (ya descargado, sin HTTP extra).
         #   Verificado: campo canónico cuando el agente lo publica; extrae directamente del HTML crudo
@@ -1429,6 +1445,11 @@ def enriquecer_mongo(col, portal: str, max_filas: int, dry_run: bool,
         if "m2_construccion" in datos and (prop["falta_m2_const"] or prop["portal"] == "PINCALI"):
             set_doc["m2_construccion"] = datos["m2_construccion"]
             actualizados.append(f"m2c={datos['m2_construccion']}")
+        # PINCALI: título sintetizado en español (bug 23-jul) pisa siempre el de
+        # tarjeta (inglés, la única página de listado que existe para escanear).
+        if "titulo" in datos and prop["portal"] == "PINCALI":
+            set_doc["titulo"] = datos["titulo"]
+            actualizados.append("titulo=ES")
         if prop["falta_m2_terreno"] and "m2_terreno" in datos:
             set_doc["m2_terreno"] = datos["m2_terreno"]
             actualizados.append(f"m2t={datos['m2_terreno']}")
