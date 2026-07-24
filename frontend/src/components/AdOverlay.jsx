@@ -11,7 +11,7 @@ import { API } from "@/App";
  *
  * Props: slot ("slot1"|"slot2"|"slot3"), zone (municipio), onDone (al terminar).
  */
-const SLOT_DURATION = { slot1: 60, slot2: 30, slot3: 15 };
+const SLOT_DURATION = { slot1: 30, slot2: 30, slot3: 15 };
 
 // Textos "casa" (fallback sin campaña pagada / relleno cuando el video acaba antes).
 const HOUSE_ADS = [
@@ -27,6 +27,7 @@ const AdOverlay = ({ slot, zone = "", onDone }) => {
   const [seconds, setSeconds] = useState(0);
   const [videoEnded, setVideoEnded] = useState(false);
   const [videoReady, setVideoReady] = useState(false); // el video ya arrancó (para no contar mientras bufferea)
+  const [muted, setMuted] = useState(true); // arranca muted: autoplay con audio lo bloquea el navegador (video se queda en negro)
   const timerRef = useRef(null);
   const trackedRef = useRef(false);
   const doneRef = useRef(false);
@@ -119,15 +120,24 @@ const AdOverlay = ({ slot, zone = "", onDone }) => {
         // Media: la tarjeta se ajusta al formato (horizontal o vertical) vía max-h/max-w.
         <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-black" onClick={handleClick}>
           {ad.file_type === "video" ? (
-            <video
-              src={adSrc}
-              autoPlay
-              muted={false}
-              playsInline
-              onPlaying={() => setVideoReady(true)}
-              onEnded={() => setVideoEnded(true)}
-              className="block max-h-[86vh] max-w-[92vw] object-contain cursor-pointer"
-            />
+            <>
+              <video
+                src={adSrc}
+                autoPlay
+                muted={muted}
+                playsInline
+                onPlaying={() => setVideoReady(true)}
+                onEnded={() => setVideoEnded(true)}
+                className="block max-h-[86vh] max-w-[92vw] object-contain cursor-pointer"
+              />
+              <button
+                onClick={(e) => { e.stopPropagation(); setMuted((m) => !m); }}
+                className="absolute bottom-5 right-5 w-9 h-9 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center text-sm"
+                title={muted ? "Activar sonido" : "Silenciar"}
+              >
+                {muted ? "🔇" : "🔊"}
+              </button>
+            </>
           ) : (
             <img src={adSrc} alt="Anuncio" className="block max-h-[86vh] max-w-[92vw] object-contain cursor-pointer" />
           )}

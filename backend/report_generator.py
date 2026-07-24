@@ -855,6 +855,26 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
     <div class="sc-list">{pl_detalle}</div>
   </div>"""
 
+    bancos_cat = pe.get('bancos', {}) if pe else {}
+    bancos_card = ''
+    if bancos_cat and isinstance(bancos_cat, dict):
+        bc_count  = str(bancos_cat.get('count', ''))
+        bc_nombres = bancos_cat.get('nombres', '')
+        bc_sin = bc_count in ('', '0')
+        bc_title  = "Bancos" if bc_sin else f"{bc_count} Bancos"
+        bc_detalle = 'Sin registros a 800 m' if bc_sin else (bc_nombres or '—')
+        bancos_card = f"""
+  <div class="servicio-card" style="margin-bottom:12px;">
+    <div class="sc-header">
+      <div class="sc-icon">&#x1F3E6;</div>
+      <div>
+        <div class="sc-title">{bc_title}</div>
+        <div class="sc-subtitle">Bancos y cajeros</div>
+      </div>
+    </div>
+    <div class="sc-list">{bc_detalle}</div>
+  </div>"""
+
     # Facade photo for mapa section — si no se eligió portada pero hay fotos, usar la primera
     # (para que la fachada aparezca junto al mapa en la hoja 1).
     facade_idx = prop.get('facade_photo_index')
@@ -1243,6 +1263,7 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
     {equip_cards}
   </div>
   {plazas_card}
+  {bancos_card}
 
   <div class="section-title">&#x1F525; ESTRATEGIA DE COMERCIALIZACIÓN Y PROMOCIÓN</div>
   <div class="recom-box">

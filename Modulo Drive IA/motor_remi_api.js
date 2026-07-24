@@ -505,6 +505,12 @@ Devuelve SOLO JSON:
         const parsed = JSON.parse(m[0]);
         const m2Min = Math.round((prop.construccion || 60) * 0.4);
         const m2Max = Math.round((prop.construccion || 60) * 1.8);
+        // Guardia de colonia (bug Villas del Ixtepete, mismo patrón que mongo_comparables.py):
+        // DeepSeek extrae de snippets de Google que a veces mezclan resultados de todo el
+        // municipio (colonias chicas con poco contenido propio) -> sin esto, comps de zonas
+        // lejanas (Tesistan, Valle Imperial...) entraban sin validación geográfica alguna.
+        // Solo aceptar si el "colonia" que devolvió coincide con el sujeto o un similar dado.
+        const coloniasValidas = new Set([colN, ...simsNombres.map(normCol)].filter(Boolean));
         const compsWeb = (parsed.comparables || [])
             .map(c => ({
                 precio: parseFloat(String(c.precio).replace(/[^0-9.]/g, '')) || 0,
@@ -512,9 +518,11 @@ Devuelve SOLO JSON:
                 m2t:    parseFloat(String(c.m2t || 0).replace(/[^0-9.]/g, '')) || 0,
                 url:    c.url || '',
                 portal: 'serper',
+                colonia: c.colonia || '',
             }))
             .filter(c => c.precio > 200000 && c.m2c > 15 && c.url
-                      && c.m2c >= m2Min && c.m2c <= m2Max); // filtro de tamaño real
+                      && c.m2c >= m2Min && c.m2c <= m2Max // filtro de tamaño real
+                      && coloniasValidas.has(normCol(c.colonia))); // filtro geográfico real
         // Enriquecer abriendo el listing real (edad + m² de detalle) y guardar (flywheel)
         return await enriquecerCompsWeb(compsWeb, prop);
     } catch (e) {
