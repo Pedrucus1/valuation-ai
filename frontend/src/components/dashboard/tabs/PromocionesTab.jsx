@@ -6,7 +6,7 @@ import {
   Waves, Dumbbell, Shield, Trees, Sun, Wine, Wind, Car, Monitor,
   Box, Droplets, Zap, Camera, Wifi, Tv, Utensils, BookOpen, Bed,
   Gamepad2, Droplet, Plus, X, CheckCircle2, Building2, AlertCircle,
-  ChevronRight, ZoomIn, ZoomOut, LayoutTemplate, Palette, DollarSign, Type, Star, Eye, User
+  ChevronRight, ZoomIn, ZoomOut, LayoutTemplate, Palette, DollarSign, Type, Star, Eye, User, Link2
 } from "lucide-react";
 import html2canvas from "html2canvas";
 import { toast } from "sonner";
@@ -447,6 +447,22 @@ const PromocionesTab = ({ valuacionesList, session }) => {
     document.body.removeChild(wrap);
   };
 
+  // ── Promo Interactiva: copia link público del reel EstateElite ──
+  const handlePromoInteractiva = async () => {
+    const propId = fichaAvaluo?.propiedad_id;
+    if (!propId) {
+      toast.error("Guarda la propiedad primero (opción “Subir propiedad”) para generar su link.");
+      return;
+    }
+    const url = `${window.location.origin}/promo/${propId}`;
+    try {
+      await navigator.clipboard.writeText(url);
+      toast.success("Link copiado — pégalo en WhatsApp");
+    } catch {
+      window.prompt("Copia el link de tu promo:", url);
+    }
+  };
+
   // ── Derivados ──
   const avaluosCompletados = (valuacionesList || [])
     .filter(v => v.estado === "completada")
@@ -743,6 +759,9 @@ const PromocionesTab = ({ valuacionesList, session }) => {
             </Button>
             <Button onClick={() => exportarFicha("jpg")} variant="outline" className="text-xs px-3 h-8">
               <ImageIcon className="w-3.5 h-3.5 mr-1.5" /> JPG
+            </Button>
+            <Button onClick={handlePromoInteractiva} variant="outline" className="text-xs px-3 h-8 border-[#1B4332] text-[#1B4332] hover:bg-[#f0f7f2]">
+              <Link2 className="w-3.5 h-3.5 mr-1.5" /> Promo Interactiva
             </Button>
           </div>
         </div>

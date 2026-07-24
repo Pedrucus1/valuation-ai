@@ -21,6 +21,7 @@ const FeedbackPage              = lazy(() => import("@/pages/FeedbackPage"));
 const ContactoPage              = lazy(() => import("@/pages/ContactoPage"));
 const ValuadoresDirectorioPage  = lazy(() => import("@/pages/ValuadoresDirectorioPage"));
 const InmobiliariasDirectorioPage = lazy(() => import("@/pages/InmobiliariasDirectorioPage"));
+const PromoPublicPage           = lazy(() => import("@/pages/PromoPublicPage"));
 
 // Auth
 const LoginPage                 = lazy(() => import("@/pages/LoginPage"));
@@ -38,6 +39,9 @@ const ProCheckoutPage           = lazy(() => import("@/pages/ProCheckoutPage"));
 const AdvertiserLandingPage     = lazy(() => import("@/pages/AdvertiserLandingPage"));
 const AdvertiserRegisterPage    = lazy(() => import("@/pages/AdvertiserRegisterPage"));
 const AdvertiserConsolePage     = lazy(() => import("@/pages/AdvertiserConsolePage"));
+
+// Editor visual (Plasmic) — hoja en blanco para diseñar/probar layouts
+const PlasmicPage               = lazy(() => import("@/PlasmicPage"));
 
 // Legal / misc
 const PrivacidadPage            = lazy(() => import("@/pages/PrivacidadPage"));
@@ -126,6 +130,7 @@ function AppRouter() {
         <Route path="/valuar" element={<ValuationForm />} />
         <Route path="/comparables/:valuationId" element={<ComparablesPage />} />
         <Route path="/reporte/:valuationId" element={<ReportPage />} />
+        <Route path="/promo/:propiedadId" element={<PromoPublicPage />} />
         <Route path="/comprar" element={<PricingPage />} />
         <Route path="/checkout/pro" element={<ProCheckoutPage />} />
         <Route path="/edades-zona" element={<EdadesZonaPage />} />
@@ -138,6 +143,8 @@ function AppRouter() {
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/auth/callback" element={<AuthCallback />} />
+        <Route path="/diseno/:pageSlug" element={<PlasmicPage />} />
+        <Route path="/diseno" element={<PlasmicPage />} />
         <Route path="/anunciantes" element={<AdvertiserLandingPage />} />
         <Route path="/anunciantes/registro" element={<AdvertiserRegisterPage />} />
         <Route path="/anunciantes/consola" element={<AdvertiserConsolePage />} />

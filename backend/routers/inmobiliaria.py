@@ -276,3 +276,42 @@ async def eliminar_propiedad(propiedad_id: str, request: Request):
     if result.matched_count == 0:
         raise HTTPException(404, "Propiedad no encontrada")
     return {"ok": True}
+
+
+# Campos de la propiedad seguros para la promo pública (whitelist — nunca exponer user_id/internos)
+_PROMO_CAMPOS = (
+    "propiedad_id", "direccion", "tipo", "colonia", "municipio", "estado_mx",
+    "precio_oferta", "m2_construccion", "m2_terreno", "recamaras", "banos",
+    "medio_banos", "estacionamiento", "niveles", "antiguedad", "fotos",
+    "amenidades", "instalaciones", "espacios", "descripcion",
+)
+
+
+@router.get("/inmobiliaria/propiedades/{propiedad_id}/promo-publica")
+async def promo_publica(propiedad_id: str):
+    """PÚBLICO (sin auth): datos de la propiedad + asesor para el reel interactivo.
+    Solo devuelve un subconjunto seguro; nunca user_id ni datos internos/del usuario."""
+    prop = await db.propiedades_inmobiliaria.find_one(
+        {"propiedad_id": propiedad_id, "activo": True}
+    )
+    if not prop:
+        raise HTTPException(404, "Promo no encontrada")
+
+    propiedad = {k: prop.get(k) for k in _PROMO_CAMPOS if prop.get(k) is not None}
+
+    # Asesor: solo nombre, foto y teléfono del dueño de la propiedad
+    asesor = {}
+    owner_id = prop.get("user_id")
+    if owner_id:
+        u = await db.users.find_one(
+            {"user_id": owner_id},
+            {"_id": 0, "name": 1, "picture": 1, "foto_url": 1, "phone": 1, "telefono": 1, "company_name": 1},
+        )
+        if u:
+            asesor = {
+                "nombre": u.get("name") or u.get("company_name") or "",
+                "foto": u.get("picture") or u.get("foto_url"),
+                "telefono": u.get("phone") or u.get("telefono"),
+            }
+
+    return {"propiedad": propiedad, "asesor": asesor}
