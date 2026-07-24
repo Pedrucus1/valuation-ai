@@ -10,10 +10,11 @@ import PromoReelEstateElite from "./PromoReelEstateElite";
 const REEL_W = 390;
 const REEL_H = 693;
 
-export default function LayoutEstateElite({ fichaAvaluo, asesor, slidesFotos }) {
+export default function LayoutEstateElite({ fichaAvaluo, asesor, slidesFotos, amenidades }) {
   const ficha = {
     ...fichaAvaluo,
     fotos: (slidesFotos?.length ? slidesFotos : fichaAvaluo?.fotos) || [],
+    amenidades: (amenidades?.length ? amenidades : fichaAvaluo?.amenidades) || [],
   };
 
   return (
