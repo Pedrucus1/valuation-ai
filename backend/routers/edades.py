@@ -289,6 +289,7 @@ async def edad_estimada(request: Request):
     conjunto = body.get("conjunto")
     anio_exacto = body.get("anio_exacto")
     edad_exacta = body.get("edad_exacta")
+    anio_terminacion = body.get("anio_terminacion_estimado")
     conservacion = str(body.get("conservacion") or "").strip()
     anio_remod = body.get("anio_remodelacion")
     grado_remod = str(body.get("grado_remodelacion") or "").strip().lower()
@@ -383,6 +384,18 @@ async def edad_estimada(request: Request):
         exacta = True
     elif rango in RANGO_MIDPOINT:
         anio = ahora.year - RANGO_MIDPOINT[rango]
+    elif rango == "preventa":
+        # Aún no construida: no tiene edad cronológica. El año de terminación es
+        # a futuro (a diferencia de "nuevo"/resto, que topan en ahora.year+1) →
+        # rango más amplio propio. Marcar preventa NO exige saber el año todavía.
+        anio = None
+        if anio_terminacion not in (None, ""):
+            try:
+                anio = int(anio_terminacion)
+            except (TypeError, ValueError):
+                raise HTTPException(status_code=400, detail="Año de terminación inválido")
+            if not (ahora.year <= anio <= ahora.year + 6):
+                raise HTTPException(status_code=400, detail="Año de terminación fuera de rango")
     else:
         tiene_edad = False
 
@@ -400,10 +413,13 @@ async def edad_estimada(request: Request):
         raise HTTPException(status_code=400, detail="Falta edad, conservación, remodelación, colonia, tipo, nivel, retiro, m², conjunto, datos incorrectos o juicio/remate")
 
     if tiene_edad:
-        update["anio_construccion"] = anio
+        if anio is not None:
+            update["anio_construccion"] = anio
         update["edad_fuente"] = "perito_crowdsource"
-        update["edad_rango"] = rango if (rango in RANGO_MIDPOINT and not exacta) else None
+        update["edad_rango"] = rango if (rango in RANGO_MIDPOINT or rango == "preventa") and not exacta else None
         update["edad_exacta"] = exacta
+        if rango == "preventa":
+            update["anio_terminacion_estimado"] = anio  # puede ser None si aún no se sabe
     if conservacion:
         update["conservacion"] = conservacion
         update["conservacion_fuente"] = "perito_crowdsource"

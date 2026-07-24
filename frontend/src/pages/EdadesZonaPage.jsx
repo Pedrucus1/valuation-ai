@@ -13,6 +13,7 @@ import GamificacionVerificador from "@/components/GamificacionVerificador";
 
 // Rangos finos (Ross-Heidecke). "No sé" salta sin escribir.
 const AGE_RANGES = [
+  { value: "preventa", label: "Preventa (aún no construida)" },
   { value: "nuevo", label: "Nuevo" },
   { value: "1-5", label: "1–5 años" },
   { value: "6-10", label: "6–10 años" },
@@ -133,6 +134,7 @@ const INP = "h-9 text-sm bg-slate-100 border-slate-200 focus:bg-white";
 // Convierte un rango de edad a los años calendario que representa (año en curso).
 const yearSpan = (v) => {
   const y = new Date().getFullYear();
+  if (v === "preventa") return "a futuro";
   if (v === "nuevo") return `${y}`;
   if (v.endsWith("+")) return `antes de ${y - parseInt(v, 10)}`;
   const [a, b] = v.split("-").map(Number);
@@ -270,6 +272,7 @@ const EdadesZonaPage = ({ embedded = false }) => {
   // Campos por fila (id_unico -> valor)
   const [edadRango, setEdadRango] = useState({});   // año construcción por rango
   const [anioConst, setAnioConst] = useState({});   // año construcción exacto
+  const [anioTerminacion, setAnioTerminacion] = useState({}); // preventa: año probable de terminación
   const [conserv, setConserv]     = useState({});   // estado de conservación
   const [remodGrado, setRemodGrado] = useState({}); // grado de remodelación
   const [remodAnio, setRemodAnio]   = useState({}); // año de remodelación (exacto)
@@ -315,6 +318,10 @@ const EdadesZonaPage = ({ embedded = false }) => {
     if (v === "nuevo") {
       set(setConserv)(id, "Nuevo");
       set(setAnioConst)(id, String(new Date().getFullYear()));
+    } else if (v === "preventa") {
+      // Aún no construida: no aplica año exacto/conservación de una edad que no existe todavía.
+      set(setConserv)(id, "Nuevo");
+      set(setAnioConst)(id, "");
     }
   };
 
@@ -415,7 +422,10 @@ const EdadesZonaPage = ({ embedded = false }) => {
     if (usoMixto[id]) p.uso_mixto = true;   // casa con local comercial
     if (nivelEdit[id] !== undefined && nivelEdit[id] !== "") p.nivel = Number(nivelEdit[id]);  // piso/nivel
     if (retiradoChk[id]) p.retirado = true;   // anuncio ya no publicado
-    if (anioConst[id]) p.anio_exacto = Number(anioConst[id]);
+    if (edadRango[id] === "preventa") {
+      p.edad_rango = "preventa";
+      if (anioTerminacion[id]) p.anio_terminacion_estimado = Number(anioTerminacion[id]);
+    } else if (anioConst[id]) p.anio_exacto = Number(anioConst[id]);
     else if (edadRango[id]) p.edad_rango = edadRango[id];
     if (conserv[id]) p.conservacion = conserv[id];
     if (remodGrado[id]) {
@@ -788,9 +798,16 @@ const EdadesZonaPage = ({ embedded = false }) => {
                         ))}
                       </SelectContent>
                     </Select>
-                    <Input type="number" min="1900" max={new Date().getFullYear()} placeholder="Año"
-                           value={anioConst[it.id_unico] || ""} onChange={e => set(setAnioConst)(it.id_unico, e.target.value)}
-                           className={INP + " w-20"} title="Año exacto si lo sabes" />
+                    {edadRango[it.id_unico] === "preventa" ? (
+                      <Input type="number" min={new Date().getFullYear()} max={new Date().getFullYear() + 6}
+                             placeholder="Año term."
+                             value={anioTerminacion[it.id_unico] || ""} onChange={e => set(setAnioTerminacion)(it.id_unico, e.target.value)}
+                             className={INP + " w-24"} title="Año probable de terminación, si se conoce" />
+                    ) : (
+                      <Input type="number" min="1900" max={new Date().getFullYear()} placeholder="Año"
+                             value={anioConst[it.id_unico] || ""} onChange={e => set(setAnioConst)(it.id_unico, e.target.value)}
+                             className={INP + " w-20"} title="Año exacto si lo sabes" />
+                    )}
                   </div>
                 </div>
                 {/* Conservación */}
