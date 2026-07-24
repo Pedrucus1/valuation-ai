@@ -20,6 +20,7 @@ import LayoutUltraLujo from "./promociones/LayoutUltraLujo";
 import LayoutStitch from "./promociones/LayoutStitch";
 import LayoutStitchHub from "./promociones/LayoutStitchHub";
 import LayoutJustListed from "./promociones/LayoutJustListed";
+import LayoutEstateElite from "./promociones/LayoutEstateElite";
 import SecuenciasJustListed from "./promociones/SecuenciasJustListed";
 import { exportSecuenciasGif, exportSecuenciasJpg, exportSecuenciasVideo } from "./promociones/secuenciasGif";
 
@@ -79,6 +80,7 @@ const TEMA_THUMB = {
   stitch_new:      { bg: "#111827", accent: "#d97706", foto: THUMBS.stitch_gallery },
   moderno:         { bg: "#1B4332", accent: "#52B788", foto: SAMPLE_FOTOS[5] },
   just_listed:     { bg: "#2F3527", accent: "#B08B4F", foto: SAMPLE_FOTOS[3] },
+  estateelite:     { bg: "#051b12", accent: "#e9c176", foto: SAMPLE_FOTOS[1] },
 };
 
 const LayoutThumb = ({ temaId, nombre }) => {
@@ -124,6 +126,7 @@ const FORMATOS = {
   ],
   moderno: [["vertical_2p", "Folleto A4"], ["horizontal", "Ficha Carta"], ["reels", "TikTok / Reels"], ["post", "Post 1:1"]],
   just_listed: [["vertical_2p", "Folleto A4"], ["post", "Post 1:1"], ["post3", "Post · 3 slides"], ["reels", "Story / Reels"], ["tiktok", "TikTok · 3 slides"], ["horizontal", "Facebook"]],
+  estateelite: [["reel_ee", "Reel 9:16"]],
   _default: [["vertical_2p", "Folleto A4"], ["horizontal", "Presentación 16:9"], ["reels", "TikTok / Reels"], ["post", "Post 1:1"]],
 };
 const formatosDe = (t) => FORMATOS[t] || FORMATOS._default;
@@ -189,6 +192,7 @@ const getLayoutComponent = (temaId) => {
   if (temaId === "luxury") return LayoutUltraLujo;
   if (temaId === "minimalist") return LayoutMinimalista;
   if (temaId === "moderno") return LayoutModerno;
+  if (temaId === "estateelite") return LayoutEstateElite;
   return LayoutClasico;
 };
 
@@ -830,7 +834,7 @@ const PromocionesTab = ({ valuacionesList, session }) => {
               <CardContent className="p-4 space-y-3">
                 <label className="label-xs block">Estilo de diseño</label>
                 <div className="grid grid-cols-2 gap-2">
-                  {[...Object.entries(TEMAS), ["moderno", { nombre: "Moderno" }], ["just_listed", { nombre: "Just Listed" }]].map(([id, t]) => (
+                  {[...Object.entries(TEMAS), ["moderno", { nombre: "Moderno" }], ["just_listed", { nombre: "Just Listed" }], ["estateelite", { nombre: "EstateElite" }]].map(([id, t]) => (
                     <button key={id} onClick={() => {
                       setTemaSeleccionado(id);
                       // Preserva el formato actual al cambiar de estilo (mapea entre familias)
@@ -839,6 +843,7 @@ const PromocionesTab = ({ valuacionesList, session }) => {
                         // mapa stitch <-> común
                         const stitchToComun = { stitch_gallery: "vertical_2p", stitch_letter: "horizontal", stitch_asymmetry: "vertical_2p", stitch_facebook: "post", stitch_tiktok: "reels", stitch_kit: "vertical_2p" };
                         const comunToStitch = { vertical_2p: "stitch_gallery", horizontal: "stitch_letter", reels: "stitch_tiktok", post: "stitch_facebook" };
+                        if (id === "estateelite") return "reel_ee";
                         if (id === "stitch_new") {
                           if (prev.startsWith("stitch_")) return prev;
                           return comunToStitch[prev] || "stitch_gallery";

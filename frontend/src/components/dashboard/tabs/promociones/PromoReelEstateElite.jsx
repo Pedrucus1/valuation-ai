@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
+const FONTS_HREF = "https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&display=swap";
 
 /*
   PromoReelEstateElite — port fiel 100% del diseño EstateElite (reel 9:16 de 3 hojas:
@@ -143,6 +145,25 @@ export default function PromoReelEstateElite({ ficha, asesor, marca }) {
   const [current, setCurrent] = useState(0);
   const go = (i) => { if (i >= 0 && i <= 2) setCurrent(i); };
 
+  useEffect(() => {
+    if (document.querySelector(`link[href="${FONTS_HREF}"]`)) return;
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = FONTS_HREF;
+    document.head.appendChild(link);
+  }, []);
+
+  // Inyecta el CSS en <head> vía DOM (no como <style> JSX inline): montado dentro de
+  // árboles muy anidados (p.ej. el panel del Diseñador), el <style> inline a veces
+  // queda con 0 reglas parseadas por el navegador; creado directo en head siempre parsea bien.
+  useEffect(() => {
+    if (document.getElementById("ee-reel-styles")) return;
+    const style = document.createElement("style");
+    style.id = "ee-reel-styles";
+    style.textContent = STYLES;
+    document.head.appendChild(style);
+  }, []);
+
   const f = ficha || {};
   const brand = marca || "EstateElite";
   const heroImg = (f.fotos || []).filter(Boolean)[0] || null;
@@ -179,8 +200,6 @@ export default function PromoReelEstateElite({ ficha, asesor, marca }) {
 
   return (
     <div className="ee-reel">
-      <style>{STYLES}</style>
-
       <div className="ee-dots">
         {[0, 1, 2].map((i) => (
           <button key={i} className={`ee-dot ${dotState(i)}`} onClick={() => go(i)} aria-label={`Ir a hoja ${i + 1}`} />
