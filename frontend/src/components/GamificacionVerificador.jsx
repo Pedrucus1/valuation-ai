@@ -13,6 +13,51 @@ const authHeaders = () => {
 
 const reduce = () => window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
+// ── Sonidito (Web Audio, sin archivos) ──────────────────────────────────────
+function reproducirDing() {
+  try {
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    const ctx = new Ctx();
+    const t0 = ctx.currentTime;
+    [[880, 0], [1320, 0.08]].forEach(([freq, delay]) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.0001, t0 + delay);
+      gain.gain.exponentialRampToValueAtTime(0.18, t0 + delay + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t0 + delay + 0.25);
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.start(t0 + delay); osc.stop(t0 + delay + 0.26);
+    });
+    setTimeout(() => ctx.close(), 500);
+  } catch {}
+}
+
+// ── 20 variantes de festejo al sumar un punto (variedad = divertido) ───────
+const CELEBRACIONES_PUNTO = [
+  { emoji: "🎯", texto: "+1 punto" },
+  { emoji: "🎉", texto: "¡Sumaste una más!" },
+  { emoji: "👏", texto: "¡Buen trabajo!" },
+  { emoji: "🔥", texto: "¡Así se hace!" },
+  { emoji: "⭐", texto: "¡Genial!" },
+  { emoji: "🚀", texto: "¡Vas muy bien!" },
+  { emoji: "👍", texto: "¡Nice!" },
+  { emoji: "💚", texto: "¡A la lista!" },
+  { emoji: "🏡", texto: "¡Dato guardado!" },
+  { emoji: "🥳", texto: "¡Otra más!" },
+  { emoji: "💯", texto: "¡Perfecto!" },
+  { emoji: "✅", texto: "¡Confirmado!" },
+  { emoji: "🙌", texto: "¡Sigue así!" },
+  { emoji: "🤩", texto: "¡Excelente!" },
+  { emoji: "😎", texto: "¡Correcto!" },
+  { emoji: "🎈", texto: "¡Vamos!" },
+  { emoji: "✨", texto: "¡Chido!" },
+  { emoji: "👌", texto: "OK" },
+  { emoji: "🌟", texto: "¡Anotado!" },
+  { emoji: "💪", texto: "¡Bien ahí!" },
+];
+
 // ── Confeti canvas (sin librerías) ──────────────────────────────────────────
 function lanzarConfeti(canvas, fuerte = false) {
   if (!canvas || reduce()) return;
@@ -90,8 +135,10 @@ const GamificacionVerificador = forwardRef((props, ref) => {
         setFestejo({ tipo: "record", texto: `¡Nuevo récord del día: ${hoy}! 🎉` });
         setTimeout(() => lanzarConfeti(canvasRef.current, false), 30);
       } else {
-        setFestejo({ tipo: "punto", texto: `+1 punto` });
+        const c = CELEBRACIONES_PUNTO[(Math.random() * CELEBRACIONES_PUNTO.length) | 0];
+        setFestejo({ tipo: "punto", texto: c.texto, emoji: c.emoji });
       }
+      reproducirDing();
       setTimeout(() => setFestejo(null), cruzaMeta ? 4200 : nuevoRecordDia ? 3200 : 1200);
     },
   }), []);
@@ -123,7 +170,9 @@ const GamificacionVerificador = forwardRef((props, ref) => {
         <div className="fixed inset-0 z-[60] pointer-events-none flex items-center justify-center">
           <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
           {festejo.tipo === "punto" ? (
-            <div className="animate-[floatUp_1.1s_ease-out] text-3xl font-black text-[#1B4332] drop-shadow">+1 🎯</div>
+            <div className="animate-[floatUp_1.1s_ease-out] text-3xl font-black text-[#1B4332] drop-shadow flex items-center gap-2">
+              <span>{festejo.emoji}</span><span>{festejo.texto}</span>
+            </div>
           ) : (
             <div className="bg-white rounded-2xl shadow-2xl border-4 border-[#D9ED92] px-8 py-6 text-center animate-[pop_0.4s_ease-out]">
               <div className="text-6xl mb-2">{festejo.tipo === "meta" ? "🏆" : "🎉"}</div>
