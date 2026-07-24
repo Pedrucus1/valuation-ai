@@ -97,6 +97,7 @@ async def mis_puntos(request: Request):
         "por_dia": por_dia,
         "meta": META,
         "progreso_meta": min(total, META),
+        "avaluos_ganados": total // META,  # 1 opinion de valor gratis por cada META puntos
     }
 
 

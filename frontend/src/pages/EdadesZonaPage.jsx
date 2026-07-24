@@ -170,7 +170,9 @@ const ColoniaCombo = ({ colonias, value, onChange, disabled }) => {
   const filtradas = useMemo(() => {
     const s = q.toLowerCase().trim();
     const base = s ? colonias.filter(c => c.toLowerCase().includes(s)) : colonias;
-    return { lista: base.slice(0, 30), total: base.length };
+    // Tope 300 (antes 30): con más colonias en la base, algunos municipios ya
+    // pasaban de 30 y solo se veían las primeras alfabéticamente ("solo la A...").
+    return { lista: base.slice(0, 300), total: base.length };
   }, [colonias, q]);
   const elegir = (c) => { onChange(c); setQ(""); setOpen(false); };
   return (
@@ -203,7 +205,9 @@ const ColoniaCombo = ({ colonias, value, onChange, disabled }) => {
           ))}
           {filtradas.total === 0 && <p className="px-3 py-2 text-xs text-slate-400">Sin resultados</p>}
           {filtradas.total > filtradas.lista.length && (
-            <p className="px-3 py-1.5 text-xs text-slate-400">+{filtradas.total - filtradas.lista.length} más… sigue escribiendo</p>
+            <p className="px-3 py-1.5 text-xs font-semibold text-[#1B4332] bg-[#F0FAF5] border-t border-[#B7E4C7]">
+              +{filtradas.total - filtradas.lista.length} más — sigue escribiendo para filtrar
+            </p>
           )}
         </div>
       </PopoverContent>

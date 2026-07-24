@@ -145,6 +145,7 @@ const GamificacionVerificador = forwardRef((props, ref) => {
 
   const abrirPanel = () => { setAbierto(true); cargarBoard(rango); };
   const hoy = stats?.hoy ?? 0, total = stats?.total ?? 0, record = stats?.record_dia?.count ?? 0;
+  const avaluosGanados = stats?.avaluos_ganados ?? Math.floor(total / META);
   const pct = Math.min(100, Math.round((total / META) * 100));
 
   return (
@@ -153,10 +154,15 @@ const GamificacionVerificador = forwardRef((props, ref) => {
       <div className="flex items-center gap-3 flex-wrap bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] rounded-xl px-4 py-2.5 text-white">
         <div className="flex items-center gap-1.5"><Flame className="w-4 h-4 text-[#D9ED92]" /><span className="text-sm">Hoy <b className="text-[#D9ED92]">{hoy}</b></span></div>
         <div className="flex items-center gap-1.5"><Trophy className="w-4 h-4 text-[#D9ED92]" /><span className="text-sm">Récord <b>{record}</b></span></div>
+        {avaluosGanados > 0 && (
+          <div className="flex items-center gap-1.5" title="Opiniones de valor gratis ganadas por puntos">
+            <Medal className="w-4 h-4 text-[#D9ED92]" /><span className="text-sm">Avalúos ganados <b className="text-[#D9ED92]">{avaluosGanados}</b></span>
+          </div>
+        )}
         <div className="flex items-center gap-1.5 flex-1 min-w-[140px]">
           <Target className="w-4 h-4 text-[#D9ED92]" />
           <div className="flex-1">
-            <div className="flex justify-between text-[10px] opacity-80"><span>Meta {META}</span><span>{total}/{META}</span></div>
+            <div className="flex justify-between text-[10px] opacity-80"><span>Meta {META}{avaluosGanados > 0 ? ` · ${avaluosGanados} ganado${avaluosGanados > 1 ? "s" : ""}` : ""}</span><span>{total}/{META}</span></div>
             <div className="h-1.5 bg-white/20 rounded-full overflow-hidden"><div className="h-full bg-[#D9ED92] transition-all duration-500" style={{ width: `${pct}%` }} /></div>
           </div>
         </div>
@@ -194,8 +200,8 @@ const GamificacionVerificador = forwardRef((props, ref) => {
             </div>
             <div className="p-5 space-y-5">
               {/* Resumen */}
-              <div className="grid grid-cols-3 gap-2 text-center">
-                {[["Hoy", hoy, "🔥"], ["Récord/día", record, "🏆"], ["Total", total, "⭐"]].map(([l, v, e]) => (
+              <div className="grid grid-cols-4 gap-2 text-center">
+                {[["Hoy", hoy, "🔥"], ["Récord/día", record, "🏆"], ["Total", total, "⭐"], ["Avalúos ganados", avaluosGanados, "🎁"]].map(([l, v, e]) => (
                   <div key={l} className="bg-[#F0FAF5] border border-[#B7E4C7] rounded-xl py-3">
                     <div className="text-2xl">{e}</div><div className="text-2xl font-black text-[#1B4332]">{v}</div>
                     <div className="text-[10px] uppercase tracking-wide text-slate-500">{l}</div>
