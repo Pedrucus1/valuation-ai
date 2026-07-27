@@ -2,74 +2,69 @@
 
 > **Único archivo que se lee al iniciar** (corto, siempre vigente). Tareas por # → `BACKLOG.md` (grep). Historial → `BACKLOG_ARCHIVE.md`. Motor → `MOTOR_ANTECEDENTES.md` (grep). **Se sobrescribe en cada cierre de sesión.**
 
-**Última actualización:** 24 Jul 2026
-**Fase:** Prod Railway + Vercel público. Sesión 24-jul (esta) = **EstateElite ahora seleccionable como estilo** en el Diseñador de Promociones (antes solo vía pill "Promo Interactiva"), con preview en vivo fiel — commits `aab71fa`+`b358703` en main. Plan grande de continuación (hojas opcionales + PDF cliqueable) aprobado y guardado, NO implementado (sesión cerrada por presupuesto de contexto). Sesión #7 (previa) = feature "Promo Interactiva" desplegada (commit `f86ab06`).
+**Última actualización:** 26 Jul 2026
+**Fase:** Prod Railway + Vercel público (sin cambios de esta sesión desplegados todavía). Sesión 26-jul (esta) = **plan EstateElite implementado por completo** (hojas dinámicas + export real de todas las hojas + formatos Post 1:1/Facebook + auto-ajuste de zoom del visualizador), commits `3934a60`→`3f65e8a` en `main`, **local, sin push/deploy**. Además: 2 pendientes obsoletos detectados y cerrados vía agentes en paralelo (gap6 ya estaba en prod; PINCALI sigue bloqueado por el portal, no por código).
 
-## 🔥 SESIÓN 24-JUL — hecho (EstateElite seleccionable, commits `aab71fa`+`b358703`)
+## 🔥 SESIÓN 26-JUL — hecho (EstateElite: plan completo, commits `3934a60`→`3f65e8a`)
 
-Objetivo: que EstateElite (antes solo accesible vía el pill "Promo Interactiva") aparezca como una plantilla más en el selector "Estilo de diseño" del Diseñador, con preview en vivo, igual que Clásico/Obsidian/Just Listed.
+Objetivo: retomar el plan aprobado la sesión pasada (`pure-wobbling-dongarra.md`) — hojas opcionales del reel + export real — y resolver los problemas que el usuario encontró al probarlo en vivo.
 
-- **Nuevo `LayoutEstateElite.jsx`** (`.../promociones/`): adaptador delgado que traduce las ~15 props genéricas del panel (`fichaAvaluo`, `asesor`, `slidesFotos`, `amenidades`) al shape que espera `PromoReelEstateElite` (`ficha`/`asesor`), sin tocar ese componente — cero riesgo para `PromoPublicPage.jsx`. Registrado en `getLayoutComponent()`, `TEMA_THUMB`, `FORMATOS` (formato único "Reel 9:16") y la grilla del selector de `PromocionesTab.jsx`.
-- **2 bugs de raíz encontrados y corregidos al verificar visualmente** (no eran evidentes por código, solo al renderizar):
-  1. **CSS con 0 reglas parseadas:** el `<style>{STYLES}</style>` inline de `PromoReelEstateElite.jsx` quedaba con `sheet.cssRules.length === 0` al montarse anidado dentro del árbol del panel (confirmado con DevTools/JS — el mismo texto copiado a un `<style>` creado a mano en `<head>` sí parseaba bien). Fix: mover la inyección a `document.createElement("style")` + `document.head.appendChild()` vía `useEffect` idempotente (mismo patrón ya usado para las Google Fonts).
-  2. **Escala de texto vs. imagen:** el wrapper usaba `1080×1920` (convención de export estático de `LayoutModerno`), pero `PromoReelEstateElite` tiene sus tamaños de fuente calibrados para **ancho de teléfono real** (~390px, como el `stage` de `PromoPublicPage.jsx`: `width: min(100vw, 56.25dvh)`) — el texto se veía diminuto contra la foto. Fix: `REEL_W=390, REEL_H=693`.
-- **Fix adicional:** amenidades editadas en el panel ahora sí se reflejan en EstateElite (antes usaba solo `fichaAvaluo.amenidades` original, ignoraba la edición de sesión).
-- **Verificado end-to-end con datos reales:** se agregó una foto de prueba + foto de asesor a la propiedad "Cuarzo 2380" en Mongo (tenía `fotos:[]` real) para confirmar visualmente el hero de portada y la foto de contacto — coincide con el diseño de referencia (Stitch/`perfect-green-reel-completo.html`). Confirmado que `/promo-publica` sigue sin exponer `user_id`/email.
-- **Efecto secundario resuelto:** el TLS/allowlist de Atlas volvió a fallar (la IP pública rotó) — se re-agregó. Un rabbit-hole de teclado (`AltGr+Q` vs `AltGr+2`) resultó ser un layout de Windows agregado por error al diagnosticar un problema no relacionado — revertido a solo Latinoamericano.
+- **Hojas dinámicas** (`3934a60`): backend expone `puntos_libres`/`puntos_propvalu` en `_PROMO_CAMPOS`; input nuevo de "Puntos destacados" en "Subir propiedad"; `PromoReelEstateElite.jsx` reescrito con array `slides` dinámico — Descripción/Puntos/Galería aparecen solo si hay dato real (sin toggle manual). Verificado con propiedad de prueba: 6 hojas renderizan bien.
+- **2 bugs de raíz encontrados al verificar export** (`1398629`): (1) `LayoutEstateElite.jsx` no tenía `id="pv-ficha-root"` (a diferencia de TODOS los demás layouts) → JPG/PDF no capturaba nada; (2) `html2canvas` no soporta el CSS `zoom` (no estándar) que usa el preview → con las hojas en `position:absolute` producía texto de varias hojas montado encima. Fix: agregar el id + capturar siempre a zoom 1.
+- **Generalizado a pedido del usuario** (`56e949f`): JPG ahora descarga una imagen por CADA hoja, no solo la visible — aplica a EstateElite (dinámico) Y a Clásico Hoja1+Hoja2 (mismo bug, no reportado antes de hoy). PDF real client-side (jsPDF+html2canvas, una página por hoja) reemplaza el `window.print()` que sacaba la hoja 390×693 chueca en una página A4 sin CSS de impresión (el `@media print` de `index.css` es genérico, sin `@page` por formato). Botón "Secuencias" oculto para EstateElite — estaba codificado para animar siempre el diseño Just Listed (mismatch de hoja 2 reportado por el usuario).
+- **Nuevos formatos Post 1:1 y Facebook para EstateElite** (`56e949f`): reutilizan el mismo diseño/datos del reel, escalados y centrados en el lienzo del formato, con el fondo de la hoja activa extendido a los costados (letterbox) — cero CSS nuevo por formato. Post 1:1 se ve bien; Facebook (1200×628) funciona pero con mucho espacio vacío a los lados (choque 9:16→16:9) — marcado `ponytail:` como mejora futura (ej. fondo desenfocado de la foto).
+- **Auto-ajuste de zoom del visualizador** (`3709e89`): el zoom fijo de 50% no cabía completo en formatos grandes (Post 1:1 obligaba a hacer scroll para ver los botones de abajo) — ahora se mide el tamaño real de `#pv-ficha-root` y el espacio disponible del panel, genérico para cualquier estilo/formato actual o futuro (no requiere tabla de tamaños a mano). Verificado con ventana angosta (750px alto): ya no hace falta scroll ni en Reel 9:16 ni en Post 1:1.
+- **Toolbar solo-ícono en pantallas chicas** (`3f65e8a`): PDF/JPG/Promo Interactiva/Secuencias mostraban texto siempre, apretándose en 360-390px — ahora el texto se oculta bajo `sm` (queda ícono + tooltip).
+- **2 agentes en paralelo (background) resolvieron 2 pendientes obsoletos:** el parche de motor `gap6` YA estaba mergeado y desplegado a prod desde una sesión anterior (confirmado por `git log`, commit `99cf9ea`) — pendiente tachado. El re-enriquecimiento PINCALI sigue **bloqueado por soft-block del portal, no por el código** — solo 6 de 6,203 antes de repetir HTTP 202 igual que el 23-jul; no se enfrió en 3 días, necesita proxy rotativo o backoff mucho mayor.
+- **Nota de sesión:** hay una tarea programada de Windows ("Respaldo automático diario") que commitea cambios pendientes automáticamente en segundo plano — ya pasó una vez a mitad de esta sesión (commit `600e3a1`), es normal, no confundir con trabajo perdido.
 
-### 📋 PLAN APROBADO, NO IMPLEMENTADO (retomar primero la próxima sesión)
-Guardado completo en `C:\Users\pedru\.claude\plans\pure-wobbling-dongarra.md`. Dos partes:
-
-1. **Hojas opcionales en el reel** (Descripción / Puntos destacados / Galería de fotos), insertadas dinámicamente antes de Contacto — aparecen automático según si hay datos llenados (sin toggle manual: "el usuario decide cuántas" con solo llenar o no esos campos).
-   - `descripcion` y `fotos` ya están persistidos y en la whitelist `_PROMO_CAMPOS` — cero trabajo de backend.
-   - `puntos_libres`/`puntos_propvalu` **faltan en la whitelist** `_PROMO_CAMPOS` (`backend/routers/inmobiliaria.py:282-287`) — 1 línea.
-   - `puntos_libres` **no tiene input en el formulario "Subir propiedad"** (solo se edita en el panel efímero del reel, nunca persiste) — agregar 2 líneas junto al textarea de Descripción existente (`PromocionesTab.jsx:695-698`), mismo patrón.
-   - `PromoPublicPage.jsx: toFicha()` necesita mapear `descripcion`/`puntos_libres`/`puntos_propvalu`.
-   - `PromoReelEstateElite.jsx`: construir array `slides` dinámico (hoy hardcoded 0/1/2), generalizar `go()`/dots/botones "siguiente" a la longitud real del array.
-2. **Botón de descarga PDF con navegación interna cliqueable** entre hojas — el mecanismo de PDF ya existente en la app (`exportarFicha`, `PromocionesTab.jsx:413-452`) usa `window.print()` nativo, SIN links cliqueables; el usuario pidió explícitamente la versión con anclas. Confirmado: **`jsPDF` ya está instalado** (`^4.2.1`) y `html2canvas` ya se usa — combinar ambos (capturar cada hoja a imagen + `doc.link()` de jsPDF apuntando a página interna), cero dependencias nuevas, generado 100% client-side (sin guardar nada server-side, igual que el export JPG actual).
+### 📋 PLAN — estado actual (`pure-wobbling-dongarra.md`)
+1. Hojas opcionales (Descripción/Puntos/Galería) — **HECHO**, ver arriba.
+2. Botón PDF con anclas cliqueables entre hojas — **PARCIAL**: ya hay un PDF real (una página por hoja), pero SIN los links internos cliqueables que pedía el plan original (`doc.link()` de jsPDF). Pendiente si se quiere esa navegación interna del PDF.
 
 ### ⏭️ PRÓXIMA SESIÓN
-1. **Implementar el plan de arriba** (hojas opcionales + PDF cliqueable) — empezar leyendo `pure-wobbling-dongarra.md`.
-2. **Soporte para avalúos OPI en el link** (hoy solo funciona con propiedades manuales/Subidas que tienen `propiedad_id`).
-3. **Retomar el re-enriquecimiento de PINCALI** (6,045 docs restantes de los 6,548) cuando el rate-limit se enfríe: `enricher.py --tab PINCALI --max 6600` (sin `--mongo`, esa flag ya no existe en el script actual).
-4. **Decidir si se integra "avalúos ganados" al saldo de créditos real** (hoy solo informativo).
-5. NSE nuevo/usado sigue bloqueado por cobertura; investigar procesos background "killed"; limpiar `colonias_maestro.lab.json`; Render en pausa.
-6. Considerar meta tags Open Graph (`og:image`/`og:title`) por propiedad para que el link de "Promo Interactiva" muestre miniatura al pegarse en WhatsApp (hoy no tiene — requiere pre-render/función serverless, la app es SPA sin SSR).
+1. **Decidir si se hace `git push` + deploy** de todo lo de EstateElite (commits `3934a60`→`3f65e8a`, solo local hoy).
+2. Anclas cliqueables dentro del PDF de EstateElite (`doc.link()`, jsPDF) — mejora sobre el PDF ya funcional.
+3. Opcional: mejorar el formato Facebook de EstateElite (fondo desenfocado en vez de color sólido en el letterbox).
+4. Verificar responsividad móvil real de `PromocionesTab` en un teléfono físico (no se pudo forzar un viewport móvil real con las herramientas de este entorno) — probar por red local o ya desplegado.
+5. Soporte para avalúos OPI en el link de Promo Interactiva (hoy solo funciona con propiedades manuales/Subidas con `propiedad_id`).
+6. **Retomar re-enriquecimiento PINCALI** solo si se resuelve el soft-block (proxy rotativo o backoff mucho mayor) — reintentar tal cual ya se probó y no funciona.
+7. Decidir si se integra "avalúos ganados" al saldo de créditos real (hoy solo informativo).
+8. NSE nuevo/usado sigue bloqueado por cobertura; Render en pausa.
+9. Meta tags Open Graph por propiedad para miniatura de WhatsApp en el link de Promo Interactiva.
 
 ## 🔙 Historial reciente (condensado — detalle en `BACKLOG_ARCHIVE.md`)
-- **23-jul noche #7:** Feature "Promo Interactiva" desplegada (commit `f86ab06`) — link público del reel EstateElite (entonces solo accesible por ese pill, no seleccionable en el panel).
-- **23-jul noche #6:** Bug de raíz PINCALI m²c+título (detalle estructurado pisa la tarjeta inglesa; guardia $/m² antes de insertar) + limpieza retroactiva Mongo (38,726 títulos ES + 5,729 m²c corruptos), re-enrich PAUSADO a 503/6,600 por soft-block HTTP 202. Ixtepete: guardia `normCol` portado a `buscarCompsConWeb` del motor. Ads (video slot1 muted+toggle, 60→30s), tarjeta de bancos, 165 colonias débiles (334 comps), gamificación (sonido+avaluos_ganados informativo), edades (Preventa), fix combo colonias (tope 30→300).
-- **23-jul noche #5:** Motor JS mejorado (piso espejo del techo graduado + limpieza de 744 m²c rotos en caché), hallazgo de mecanismo (rebuild completo del índice regresa aunque no cambies datos), NSE nuevo/usado cerrado con 8 variantes descartadas.
-- **23-jul noche #4:** Validación de junio/julio, investigación NSE nuevo/usado en el motor JS (negativo).
-- **23-jul noche #3:** Video de anuncios arreglado y desplegado. Caso Cuarzo — causa raíz real encontrada.
-- **23-jul noche #2:** Validador post-merge SEPOMEX. Enricher scoped. Research IMEPLAN Zoom.
-- **23-jul mañana:** Bug sistémico SEPOMEX corregido (commit `6bd75c9`).
+- **24-jul:** EstateElite seleccionable como estilo en el panel (antes solo vía pill), preview en vivo fiel al diseño de referencia. Plan de hojas opcionales + PDF aprobado, no implementado (retomado hoy).
+- **23-jul noche #7:** Feature "Promo Interactiva" desplegada (commit `f86ab06`) — link público del reel EstateElite.
+- **23-jul noche #6:** Bug de raíz PINCALI m²c+título + limpieza retroactiva Mongo (38,726 títulos ES + 5,729 m²c corruptos), re-enrich pausado por soft-block HTTP 202 (el mismo bloqueo que sigue activo hoy). Ixtepete: guardia `normCol` portado al motor. Ads, tarjeta de bancos, 165 colonias débiles, gamificación, edades.
+- **23-jul noche #5:** Motor JS mejorado (piso espejo del techo + limpieza m²c), NSE nuevo/usado cerrado con 8 variantes descartadas.
+- **23-jul y antes:** ver `BACKLOG_ARCHIVE.md`.
 
 ## ⚡ LO MÁS CALIENTE / decisiones vigentes
-- **EstateElite seleccionable en el panel + plan de hojas opcionales/PDF cliqueable aprobado sin implementar — ver `pure-wobbling-dongarra.md`, es lo primero a retomar.**
-- **PINCALI: fix de raíz de m²c/título desplegado (embebido, no requiere Railway). Limpieza retroactiva grande hecha, PERO el re-enriquecimiento de 6,045 docs quedó pausado por rate-limit del portal — pendiente caliente.**
-- **Ixtepete/comps lejanos: causa real (motor sin guardia de colonia en búsqueda web) encontrada y arreglada, no solo el síntoma del panel de reporte.**
+- **EstateElite: plan completo implementado y commiteado, sin desplegar — decidir push+deploy es lo primero de la próxima sesión.**
+- **PINCALI: re-enriquecimiento sigue bloqueado por soft-block del portal (verificado de nuevo 26-jul, no se enfrió en 3 días) — no reintentar tal cual, necesita proxy rotativo o backoff mucho mayor.**
+- **gap6 y la rama `fix/flujo-avaluo-reporte-jul20`: YA estaban en prod desde antes — pendientes obsoletos cerrados.**
 - **Motor JS (sesión #5): 103/207 (±10%), 131/207 (±15%), 152/207 (±20%), errAbs 15.2%.** No tocado esta sesión.
-- **NSE nuevo/usado: bloqueador de volumen de datos, no de fórmula** (sesión #5). 165 colonias débiles scrapeadas hoy pueden ayudar — no medido aún.
+- **NSE nuevo/usado: bloqueador de volumen de datos, no de fórmula.**
 - **REGLA DURA vigente:** nunca `build_cache_index.js` completo para un fix puntual — parchar la celda a mano.
-- **PINCALI solo español** — regla dura, reforzada hoy (título ahora se sintetiza en español desde campos estructurados, ya que la tarjeta de listado es irremediablemente inglesa).
+- **PINCALI solo español** — regla dura.
 - **Gamificación "avalúos ganados" es solo informativa — no está conectada a créditos reales.**
-- **Motor — parche depto-edad `gap6`** (commit `e8ed0fd`, en rama, sin desplegar). Decisión pendiente de sesiones previas.
 
 ## ⏳ Pendientes / decisiones abiertas
 ### De sesiones previas sin desplegar
-0. **Mergear a main + desplegar** rama `fix/flujo-avaluo-reporte-jul20` completa.
-1. **Mergear + desplegar el parche gap6** a prod.
-2. Contador de folio por presupuesto comprado.
-3. #29 Render respaldo gratis — deploy falló (puppeteer sospechoso), en pausa.
-4. #34 SMTP — recuperación de contraseña sin correo saliente.
-5. ~337 colonias raras (Cancún/Toluca mal etiquetadas).
+1. Contador de folio por presupuesto comprado.
+2. #29 Render respaldo gratis — deploy falló (puppeteer sospechoso), en pausa.
+3. #34 SMTP — recuperación de contraseña sin correo saliente.
+4. ~337 colonias raras (Cancún/Toluca mal etiquetadas).
 
 ### Nuevos de hoy
-6. Retomar re-enriquecimiento PINCALI (6,045 docs) cuando baje el rate-limit.
-7. Decidir integración real de "avalúos ganados" al saldo de créditos.
-8. **Implementar plan de EstateElite: hojas opcionales (Descripción/Puntos/Galería) + botón PDF con anclas cliqueables** — plan completo en `C:\Users\pedru\.claude\plans\pure-wobbling-dongarra.md`.
-9. Meta tags Open Graph por propiedad para miniatura de WhatsApp en el link de Promo Interactiva.
+5. **Push + deploy de EstateElite** (commits `3934a60`→`3f65e8a`, todo local).
+6. Anclas cliqueables dentro del PDF de EstateElite (mejora sobre el PDF ya funcional).
+7. Mejorar letterbox del formato Facebook de EstateElite (fondo desenfocado).
+8. Verificar responsividad móvil real de `PromocionesTab` en un teléfono físico.
+9. Retomar re-enriquecimiento PINCALI (6,203 pendientes, solo 6 enriquecidos el 26-jul) — bloqueado por soft-block, necesita proxy/backoff antes de reintentar.
+10. Decidir integración real de "avalúos ganados" al saldo de créditos.
+11. Meta tags Open Graph por propiedad para miniatura de WhatsApp en Promo Interactiva.
 
 ## 🌐 URLs / accesos
 - **Sitio (público):** https://frontend-pedrucus-projects.vercel.app (alias prod: frontend-rosy-six-74.vercel.app)
@@ -78,15 +73,15 @@ Guardado completo en `C:\Users\pedru\.claude\plans\pure-wobbling-dongarra.md`. D
 - Reset password sin SMTP: JWT (`JWT_SECRET` de Railway) → `/reset-password?token=...`
 
 ## 🧠 Motor (vigente)
-- **Canónico (validador 207 OPIs):** `motor_remi_api.js`. Validador: `validar_40_opis.js --n 1000` (ONLINE por default, usa Serper/Tavily/Gemini — confirmado que el resultado es igual de determinista con o sin ellas para el set actual). Baseline sesión #5: ±10 49.8% / ±15 63.3% / ±20 73.4% / errAbs 15.2%.
+- **Canónico (validador 207 OPIs):** `motor_remi_api.js`. Validador: `validar_40_opis.js --n 1000` (ONLINE por default, usa Serper/Tavily/Gemini — confirmado que el resultado es igual de determinista con o sin ellos para el set actual). Baseline sesión #5: ±10 49.8% / ±15 63.3% / ±20 73.4% / errAbs 15.2%.
 - **Piso espejo del techo (`poolTipo=exacta`, n≥10, ±5%)** — graduado sesión #5, en producción.
-- **`buscarCompsConWeb` ahora valida colonia** (fix Ixtepete, hoy) — solo afecta al fallback de búsqueda web (Tavily/Serper/DeepSeek/Gemini), no al pool cacheado.
-- **`LAB_NSE_SPLIT`/`LAB_INDEX_PATH`** — infra de laboratorio no-op, queda para futuras pruebas de nuevo/usado cuando haya más cobertura de datos.
+- **`buscarCompsConWeb` ahora valida colonia** (fix Ixtepete) — solo afecta al fallback de búsqueda web, no al pool cacheado.
+- **Parche depto-edad `gap6`** (`_gapEdad = tipo==='depto' ? 6 : 25`) — confirmado 26-jul que YA está en prod (`main:Modulo Drive IA/motor_remi_api.js:1068`, sin flag de lab).
 - **⚠️ Pipeline de REPORTES REALES es código separado** (`backend/server.py: calculate_valuation` + `backend/mongo_comparables.py`) — no comparte nada con el motor JS de arriba. Cualquier mejora ahí NO se propaga a los reportes que ven los usuarios.
 - Reglas irrompibles: NO NSE v1→v2 · NO cazar atípicos · validador OFFLINE/determinista antes de cambios · medir/dry-run antes de wirear · **NUNCA rebuild completo del índice para un fix puntual**.
 
 ## 🏗️ Infra / datos
 - Railway (backend): `start.py`, scheduler off, 22 routers. Deploy = `railway up` manual.
 - MongoDB: **prod real = `cluster0.9eliadx`** (backend local apunta a `cluster1.avle5ez`, staging, bloqueado por IP allowlist de Atlas — `railway run` sirve para correr scripts contra prod real desde local).
-- `Modulo Drive IA/CUARZO_BOSQUES_VICTORIA.md` — caso completo, actualizar con el fix de hoy si se retoma.
-- **PINCALI cobertura (post-limpieza hoy, 38,990 activos):** colonia 99.3%, municipio 100%, precio 99.9%, m²c 78.2% (subiendo), recámaras/baños 63-67%, año 45.2% (techo real, dato faltante del vendedor).
+- `Modulo Drive IA/CUARZO_BOSQUES_VICTORIA.md` — caso completo, actualizar si se retoma.
+- **PINCALI cobertura (post-limpieza, 38,990 activos):** colonia 99.3%, municipio 100%, precio 99.9%, m²c 78.2%, recámaras/baños 63-67%, año 45.2% (techo real, dato faltante del vendedor).
