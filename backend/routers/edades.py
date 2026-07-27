@@ -10,10 +10,13 @@ from zoneinfo import ZoneInfo
 from functools import lru_cache
 from pathlib import Path
 
-from fastapi import APIRouter, Request, HTTPException
+from fastapi import APIRouter, Request, HTTPException, Body
 
 from core.db import db
 from core.auth import get_current_user, require_admin
+from core.data_exchange import (
+    normalizar_fila, validar_fila, id_unico_data_exchange, fila_a_doc_pool, verificar_link,
+)
 from mongo_comparables import TIPO_ALIAS
 
 router = APIRouter(prefix="/api")
@@ -55,6 +58,62 @@ async def _quien(request: Request) -> str:
         return user.user_id
     admin = await require_admin(request)   # lanza 401 si tampoco hay admin
     return f"admin:{admin.get('email', 'admin')}"
+
+
+MAX_FILAS_MANUAL = 3
+
+
+@router.post("/comparables/manual")
+async def alta_comparable_manual(request: Request, payload: dict = Body(...)):
+    """Alta visual de 1-3 propiedades directo al pool (mercado_props), sin CRM
+    de inmobiliaria — usada desde Verificación por Zona (perito/inmobiliaria/admin,
+    misma doble auth que el resto de este router vía `_quien`)."""
+    actor_id = await _quien(request)
+    filas_raw = payload.get("filas") or []
+    if not filas_raw:
+        raise HTTPException(400, "Manda al menos una propiedad")
+    if len(filas_raw) > MAX_FILAS_MANUAL:
+        raise HTTPException(400, f"Máximo {MAX_FILAS_MANUAL} propiedades por alta manual")
+
+    validas, rechazadas = [], []
+    for i, raw in enumerate(filas_raw, start=1):
+        fila = normalizar_fila(raw)
+        faltan = validar_fila(fila)
+        if faltan:
+            rechazadas.append({"fila": i, "faltan": faltan})
+        else:
+            validas.append(fila)
+
+    ids = [id_unico_data_exchange(actor_id, f["direccion"]) for f in validas]
+    en_pool = set()
+    if ids:
+        docs = await db.mercado_props.find(
+            {"id_unico": {"$in": ids}}, {"id_unico": 1, "_id": 0}).to_list(len(ids))
+        en_pool = {d["id_unico"] for d in docs}
+    links = [f["link"] for f in validas if f.get("link")]
+    links_en_pool = set()
+    if links:
+        docs = await db.mercado_props.find(
+            {"url_original": {"$in": links}}, {"url_original": 1, "_id": 0}).to_list(len(links))
+        links_en_pool = {d["url_original"] for d in docs}
+
+    # `validar_fila` ya exigió precio (_BASE) y año SOLO cuando el tipo lo requiere
+    # (_edad) — a diferencia de Data Exchange (que además tiene CRM de respaldo),
+    # aquí no hace falta volver a filtrar por año: terreno legítimamente no lo trae.
+    ahora = datetime.now(timezone.utc).isoformat()
+    creadas, duplicadas = 0, 0
+    for f, uid in zip(validas, ids):
+        if uid in en_pool or (f.get("link") and f["link"] in links_en_pool):
+            duplicadas += 1
+            continue
+        link_ok = await verificar_link(f.get("link")) if f.get("link") else None
+        doc = fila_a_doc_pool(f, uid, portal_origen="MANUAL_ZONA", fuente="captura_manual_zona",
+                               colonia_fuente="manual_zona", inmobiliaria_id=None, ahora=ahora,
+                               link_verificado=link_ok)
+        await db.mercado_props.update_one({"id_unico": uid}, {"$set": doc}, upsert=True)
+        creadas += 1
+
+    return {"ok": True, "creadas": creadas, "duplicadas": duplicadas, "rechazadas": rechazadas}
 
 # Rangos finos (Ross-Heidecke: la depreciación es sensible temprano) → punto medio (años).
 # El año se guarda como año_actual - midpoint.

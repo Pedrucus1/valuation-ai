@@ -11,7 +11,7 @@ escribe. El archivo es la única fuente de verdad (sin estado temporal server-si
 """
 from datetime import datetime, timezone
 
-from fastapi import APIRouter, Request, HTTPException, UploadFile, File
+from fastapi import APIRouter, Request, HTTPException, UploadFile, File, Body
 from fastapi.responses import Response
 
 from core.db import db
@@ -19,12 +19,12 @@ from core.auth import require_auth
 from core.data_exchange import (
     parse_upload, normalizar_fila, validar_fila, generar_plantilla_xlsx,
     id_unico_data_exchange, clave_direccion, descuento_por_calidad, ETIQUETA, COLUMNAS,
+    fila_a_doc_crm, fila_a_doc_pool, verificar_link,
 )
 
 router = APIRouter(prefix="/api/inmobiliaria/data-exchange")
 
-_TIPO_DISPLAY = {"casa": "Casa", "departamento": "Departamento", "terreno": "Terreno",
-                 "local": "Local", "oficina": "Oficina", "bodega": "Bodega"}
+MAX_FILAS_MANUAL = 3
 
 
 def _procesar(contenido: bytes, filename: str):
@@ -44,20 +44,28 @@ def _procesar(contenido: bytes, filename: str):
 
 async def _dedup(user_id: str, validas: list):
     """Separa filas NUEVAS de DUPLICADAS (#142). Duplicada = ya subida antes por
-    esta inmobiliaria al pool (mismo id) O ya en su CRM (misma dirección). Solo
-    lo nuevo cuenta para el descuento y solo lo nuevo se ingiere. 2 queries."""
+    esta inmobiliaria al pool (mismo id), ya en su CRM (misma dirección), o su
+    link de origen ya existe en el pool (evita recargar a mano algo ya scrapeado).
+    Solo lo nuevo cuenta para el descuento y solo lo nuevo se ingiere."""
     ids = [id_unico_data_exchange(user_id, f["direccion"]) for f in validas]
     en_pool = set()
     if ids:
         docs = await db.mercado_props.find(
             {"id_unico": {"$in": ids}}, {"id_unico": 1, "_id": 0}).to_list(len(ids))
         en_pool = {d["id_unico"] for d in docs}
+    links = [f["link"] for f in validas if f.get("link")]
+    links_en_pool = set()
+    if links:
+        docs = await db.mercado_props.find(
+            {"url_original": {"$in": links}}, {"url_original": 1, "_id": 0}).to_list(len(links))
+        links_en_pool = {d["url_original"] for d in docs}
     crm = await db.propiedades_inmobiliaria.find(
         {"user_id": user_id}, {"direccion": 1, "_id": 0}).to_list(100000)
     dirs_crm = {clave_direccion(d.get("direccion")) for d in crm}
     nuevas, duplicadas = [], 0
     for f, uid in zip(validas, ids):
-        if uid in en_pool or clave_direccion(f["direccion"]) in dirs_crm:
+        if (uid in en_pool or clave_direccion(f["direccion"]) in dirs_crm
+                or (f.get("link") and f["link"] in links_en_pool)):
             duplicadas += 1
         else:
             nuevas.append(f)
@@ -112,39 +120,14 @@ async def confirmar(request: Request, archivo: UploadFile = File(...)):
         raise HTTPException(400, "No hay filas nuevas para importar (todas duplicadas o inválidas).")
 
     ahora = datetime.now(timezone.utc).isoformat()
-    anio_actual = datetime.now().year
     crm_docs, ingeridas_pool = [], 0
     for f in nuevas:
-        # 1) CRM (propiedades_inmobiliaria) — nombres del CRM
-        crm_docs.append({
-            "user_id": user.user_id, "origen": "data_exchange",
-            "direccion": f["direccion"], "tipo": _TIPO_DISPLAY.get(f["tipo"], f["tipo"]),
-            "coto_edificio": f.get("coto_edificio"), "piso": f.get("piso"),
-            "amenidades": f.get("amenidades"),
-            "colonia": f["colonia"], "municipio": f["municipio"],
-            "precio_oferta": f["precio"],
-            "m2_construccion": f.get("m2_construccion"), "m2_terreno": f.get("m2_terreno"),
-            "recamaras": f.get("recamaras"), "banos": f.get("banos"),
-            "medio_banos": f.get("medios_banos"), "estacionamiento": f.get("estacionamientos"),
-            "niveles": f.get("niveles"),
-            "antiguedad": (anio_actual - f["anio"]) if f.get("anio") else None,
-            "conservacion": f.get("conservacion"), "descripcion": f.get("descripcion"),
-            "activo": True, "created_at": ahora, "updated_at": ahora,
-        })
-        # 2) Pool (mercado_props) — solo con datos de oro (precio + año)
+        crm_docs.append(fila_a_doc_crm(f, user.user_id, origen="data_exchange", ahora=ahora))
+        # Pool (mercado_props) — solo con datos de oro (precio + año)
         if f.get("precio") and f.get("anio"):
             uid = id_unico_data_exchange(user.user_id, f["direccion"])
-            doc = {
-                "id_unico": uid, "portal_origen": "DATA_EXCHANGE", "fuente": "data_exchange",
-                "inmobiliaria_id": user.user_id, "colonia_fuente": "data_exchange",
-                "tipo_propiedad": f["tipo"], "precio": f["precio"],
-                "colonia": f["colonia"], "municipio": f["municipio"],
-                "anio_construccion": f["anio"], "tipo_operacion": "venta",
-                "m2_construccion": f.get("m2_construccion"), "m2_terreno": f.get("m2_terreno"),
-                "recamaras": f.get("recamaras"), "banos": f.get("banos"),
-                "estacionamientos": f.get("estacionamientos"),
-                "activo": True, "fecha_scraping": ahora[:10], "mongo_ts": ahora,
-            }
+            doc = fila_a_doc_pool(f, uid, portal_origen="DATA_EXCHANGE", fuente="data_exchange",
+                                   colonia_fuente="data_exchange", inmobiliaria_id=user.user_id, ahora=ahora)
             await db.mercado_props.update_one({"id_unico": uid}, {"$set": doc}, upsert=True)
             ingeridas_pool += 1
 
@@ -159,4 +142,50 @@ async def confirmar(request: Request, archivo: UploadFile = File(...)):
     return {
         "ok": True, "al_crm": len(crm_docs), "al_pool": ingeridas_pool,
         "duplicadas": duplicadas, "rechazadas": len(rechazadas), "descuento_pct": pct,
+    }
+
+
+@router.post("/manual")
+async def alta_manual(request: Request, payload: dict = Body(...)):
+    """Alta visual de 1-3 propiedades (sin archivo) — mismo destino y reglas que
+    /confirmar: CRM + pool, cuenta para el descuento por calidad."""
+    user = await require_auth(request)
+    filas_raw = payload.get("filas") or []
+    if not filas_raw:
+        raise HTTPException(400, "Manda al menos una propiedad")
+    if len(filas_raw) > MAX_FILAS_MANUAL:
+        raise HTTPException(400, f"Máximo {MAX_FILAS_MANUAL} propiedades por alta manual")
+
+    validas, rechazadas = [], []
+    for i, raw in enumerate(filas_raw, start=1):
+        fila = normalizar_fila(raw)
+        faltan = validar_fila(fila)
+        if faltan:
+            rechazadas.append({"fila": i, "faltan": faltan})
+        else:
+            validas.append(fila)
+
+    nuevas, duplicadas = await _dedup(user.user_id, validas)
+    ahora = datetime.now(timezone.utc).isoformat()
+    crm_docs, ingeridas_pool = [], 0
+    for f in nuevas:
+        crm_docs.append(fila_a_doc_crm(f, user.user_id, origen="captura_manual_realtor", ahora=ahora))
+        if f.get("precio") and f.get("anio"):
+            link_ok = await verificar_link(f.get("link")) if f.get("link") else None
+            uid = id_unico_data_exchange(user.user_id, f["direccion"])
+            doc = fila_a_doc_pool(f, uid, portal_origen="DATA_EXCHANGE_MANUAL", fuente="captura_manual_realtor",
+                                   colonia_fuente="data_exchange", inmobiliaria_id=user.user_id, ahora=ahora,
+                                   link_verificado=link_ok)
+            await db.mercado_props.update_one({"id_unico": uid}, {"$set": doc}, upsert=True)
+            ingeridas_pool += 1
+
+    if crm_docs:
+        await db.propiedades_inmobiliaria.insert_many(crm_docs)
+    gana = descuento_por_calidad(len(nuevas))
+    udoc = await db.users.find_one({"user_id": user.user_id}, {"data_exchange_pct": 1, "_id": 0})
+    pct = max(gana, (udoc or {}).get("data_exchange_pct", 0) or 0)
+    await db.users.update_one({"user_id": user.user_id}, {"$set": {"data_exchange_pct": pct}})
+    return {
+        "ok": True, "creadas": len(crm_docs), "al_pool": ingeridas_pool,
+        "duplicadas": duplicadas, "rechazadas": rechazadas, "descuento_pct": pct,
     }

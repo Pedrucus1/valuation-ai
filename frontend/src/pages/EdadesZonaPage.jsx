@@ -7,9 +7,10 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { toast } from "sonner";
-import { Building2, ArrowLeft, ExternalLink, MapPin, Search, Check, ChevronsUpDown, AlertTriangle, Pencil, Gavel, XCircle } from "lucide-react";
+import { Building2, ArrowLeft, ExternalLink, MapPin, Search, Check, ChevronsUpDown, AlertTriangle, Pencil, Gavel, XCircle, FilePlus2 } from "lucide-react";
 import { API } from "@/App";
 import GamificacionVerificador from "@/components/GamificacionVerificador";
+import PropiedadManualForm from "@/components/PropiedadManualForm";
 
 // Rangos finos (Ross-Heidecke). "No sé" salta sin escribir.
 const AGE_RANGES = [
@@ -261,6 +262,7 @@ const EdadesZonaPage = ({ embedded = false }) => {
   const [colonia, setColonia] = useState("");
   const [tipo, setTipo] = useState("");
   const [soloRaras, setSoloRaras] = useState(false);  // ver solo propiedades con colonia mal capturada
+  const [manualOpen, setManualOpen] = useState(false);
   const [estados, setEstados] = useState([]);
   const [municipios, setMunicipios] = useState([]);
   const [colonias, setColonias] = useState([]);
@@ -618,8 +620,21 @@ const EdadesZonaPage = ({ embedded = false }) => {
                         className="data-[state=checked]:bg-amber-500 border-amber-400" />
               <span className="text-xs text-slate-600 whitespace-nowrap">Datos raros <span className="text-slate-400">(por corregir)</span></span>
             </label>
+            <Button onClick={() => setManualOpen(true)} variant="outline"
+              className="h-9 border-[#B7E4C7] text-[#1B4332] hover:bg-[#F0FAF5] ml-auto"
+              title="Agregar 1 a 3 propiedades a mano" aria-label="Agregar propiedad manual">
+              <FilePlus2 className="w-4 h-4 sm:mr-1.5" /> <span className="hidden sm:inline">Agregar propiedad</span>
+            </Button>
           </CardContent>
         </Card>
+
+        <PropiedadManualForm
+          open={manualOpen}
+          onOpenChange={setManualOpen}
+          endpoint={`${API}/api/comparables/manual`}
+          authHeaders={authHeaders()}
+          onSuccess={() => buscar()}
+        />
 
         {/* Resultados */}
         {buscado && !loading && pendientes.length === 0 && (

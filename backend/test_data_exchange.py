@@ -4,6 +4,7 @@ from datetime import date
 from core.data_exchange import (
     normalizar_fila, validar_fila, normalizar_tipo, id_unico_data_exchange,
     parse_upload, generar_plantilla_xlsx, descuento_por_calidad, clave_direccion,
+    fila_a_doc_pool, fila_a_doc_crm,
 )
 
 
@@ -78,6 +79,31 @@ def test_csv_tambien_parsea():
                "Terreno,Lote 9,Norte,Zapopan,800000,250\n").encode("utf-8")
     filas = parse_upload(csv_txt, "inv.csv")
     assert len(filas) == 1 and validar_fila(normalizar_fila(filas[0])) == []
+
+
+def test_link_se_normaliza_y_pasa_a_pool():
+    f = normalizar_fila({"tipo": "casa", "direccion": "Av X 1", "colonia": "C", "municipio": "M",
+                         "precio": "100", "anio": "2020", "link": "  https://ejemplo.com/prop-1  "})
+    assert f["link"] == "https://ejemplo.com/prop-1"
+    doc = fila_a_doc_pool(f, "uid1", portal_origen="MANUAL_ZONA", fuente="captura_manual_zona",
+                           colonia_fuente="manual_zona", inmobiliaria_id=None, ahora="2026-07-27T00:00:00",
+                           link_verificado=True)
+    assert doc["url_original"] == "https://ejemplo.com/prop-1" and doc["link_verificado"] is True
+
+
+def test_fila_sin_link_no_agrega_campo_url():
+    f = normalizar_fila({"tipo": "casa", "direccion": "Av X 1", "colonia": "C", "municipio": "M",
+                         "precio": "100", "anio": "2020"})
+    doc = fila_a_doc_pool(f, "uid2", portal_origen="DATA_EXCHANGE", fuente="data_exchange",
+                           colonia_fuente="data_exchange", inmobiliaria_id="inmoA", ahora="2026-07-27T00:00:00")
+    assert "url_original" not in doc
+
+
+def test_fila_a_doc_crm_shape():
+    f = normalizar_fila({"tipo": "departamento", "direccion": "Torre 1", "colonia": "C", "municipio": "M",
+                         "precio": "2000000", "anio": "2018", "recamaras": "2"})
+    doc = fila_a_doc_crm(f, "userX", origen="captura_manual_realtor", ahora="2026-07-27T00:00:00")
+    assert doc["user_id"] == "userX" and doc["tipo"] == "Departamento" and doc["antiguedad"] == 8
 
 
 if __name__ == "__main__":

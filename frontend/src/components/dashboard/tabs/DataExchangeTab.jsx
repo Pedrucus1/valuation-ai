@@ -2,8 +2,9 @@ import React, { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
-import { CheckCircle2, Download, Upload, FileText, AlertTriangle, Loader2, Database } from "lucide-react";
+import { CheckCircle2, Download, Upload, FileText, AlertTriangle, Loader2, Database, FilePlus2 } from "lucide-react";
 import { toast } from "sonner";
+import PropiedadManualForm from "@/components/PropiedadManualForm";
 
 const API = process.env.REACT_APP_BACKEND_URL || "http://localhost:8000";
 const DX = `${API}/api/inmobiliaria/data-exchange`;
@@ -27,6 +28,7 @@ const DataExchangeTab = () => {
   const [dragActive, setDragActive] = useState(false);
   const [inventario, setInventario] = useState([]);  // propiedades ya subidas (tabla Excel)
   const [cargandoInv, setCargandoInv] = useState(true);
+  const [manualOpen, setManualOpen] = useState(false);
 
   const cargarInventario = useCallback(async () => {
     setCargandoInv(true);
@@ -113,7 +115,12 @@ const DataExchangeTab = () => {
             <Button onClick={descargarPlantilla} className="bg-[#F0FAF5] text-[#1B4332] hover:bg-[#E0F4E8] font-semibold border border-[#B7E4C7] h-9 px-3 shrink-0">
               <Download className="w-4 h-4 mr-1.5" /> Descargar Plantilla
             </Button>
-            <p className="text-xs text-slate-500 hidden sm:block">Descarga la plantilla para subir tus propiedades.</p>
+            <Button onClick={() => setManualOpen(true)} variant="outline"
+              className="border-slate-200 text-[#1B4332] hover:bg-[#F0FAF5] h-9 px-3 shrink-0"
+              title="Agregar 1 a 3 propiedades a mano, sin plantilla" aria-label="Agregar propiedad manual">
+              <FilePlus2 className="w-4 h-4 sm:mr-1.5" /> <span className="hidden sm:inline">Agregar manual</span>
+            </Button>
+            <p className="text-xs text-slate-500 hidden lg:block">Descarga la plantilla para subir tus propiedades.</p>
           </div>
 
           {/* Derecha: conteo útiles + ícono clicable para subir */}
@@ -274,6 +281,13 @@ const DataExchangeTab = () => {
           </Card>
         );
       })()}
+
+      <PropiedadManualForm
+        open={manualOpen}
+        onOpenChange={setManualOpen}
+        endpoint={`${DX}/manual`}
+        onSuccess={cargarInventario}
+      />
     </div>
   );
 };

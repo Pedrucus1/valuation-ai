@@ -35,6 +35,7 @@ COLUMNAS = [
     ("conservacion",    "Estado de conservación"),
     ("amenidades",      "Amenidades"),
     ("descripcion",     "Descripción"),
+    ("link",            "Link de origen (opcional)"),
 ]
 ETIQUETA = dict(COLUMNAS)                       # clave → etiqueta
 CLAVE_POR_ETIQUETA = {v.lower(): k for k, v in COLUMNAS}
@@ -94,7 +95,7 @@ def normalizar_fila(raw: dict) -> dict:
     derivado de edad si hace falta. No valida (eso es validar_fila)."""
     out = {}
     out["tipo"] = normalizar_tipo(raw.get("tipo"))
-    for k in ("direccion", "coto_edificio", "colonia", "municipio", "conservacion", "amenidades", "descripcion"):
+    for k in ("direccion", "coto_edificio", "colonia", "municipio", "conservacion", "amenidades", "descripcion", "link"):
         val = str(raw.get(k) or "").strip()
         out[k] = val or None
     for k in NUMERICOS:
@@ -132,6 +133,68 @@ def id_unico_data_exchange(inmobiliaria_id: str, direccion: str) -> str:
 def clave_direccion(direccion: str) -> str:
     """Clave normalizada de dirección para deduplicar (colapsa espacios/caso)."""
     return " ".join(str(direccion or "").lower().split())
+
+
+_TIPO_DISPLAY = {"casa": "Casa", "departamento": "Departamento", "terreno": "Terreno",
+                  "local": "Local", "oficina": "Oficina", "bodega": "Bodega"}
+
+
+def fila_a_doc_crm(f: dict, user_id: str, *, origen: str, ahora: str) -> dict:
+    """Fila normalizada → doc de `propiedades_inmobiliaria` (CRM de la inmobiliaria)."""
+    anio_actual = date.today().year
+    return {
+        "user_id": user_id, "origen": origen,
+        "direccion": f["direccion"], "tipo": _TIPO_DISPLAY.get(f["tipo"], f["tipo"]),
+        "coto_edificio": f.get("coto_edificio"), "piso": f.get("piso"),
+        "amenidades": f.get("amenidades"),
+        "colonia": f["colonia"], "municipio": f["municipio"],
+        "precio_oferta": f["precio"],
+        "m2_construccion": f.get("m2_construccion"), "m2_terreno": f.get("m2_terreno"),
+        "recamaras": f.get("recamaras"), "banos": f.get("banos"),
+        "medio_banos": f.get("medios_banos"), "estacionamiento": f.get("estacionamientos"),
+        "niveles": f.get("niveles"),
+        "antiguedad": (anio_actual - f["anio"]) if f.get("anio") else None,
+        "conservacion": f.get("conservacion"), "descripcion": f.get("descripcion"),
+        "activo": True, "created_at": ahora, "updated_at": ahora,
+    }
+
+
+def fila_a_doc_pool(f: dict, id_unico: str, *, portal_origen: str, fuente: str,
+                     colonia_fuente: str, inmobiliaria_id: str | None, ahora: str,
+                     link_verificado: bool | None = None) -> dict:
+    """Fila normalizada (con precio+año) → doc de `mercado_props` (pool de comps)."""
+    doc = {
+        "id_unico": id_unico, "portal_origen": portal_origen, "fuente": fuente,
+        "inmobiliaria_id": inmobiliaria_id, "colonia_fuente": colonia_fuente,
+        "tipo_propiedad": f["tipo"], "precio": f["precio"],
+        "colonia": f["colonia"], "municipio": f["municipio"],
+        "anio_construccion": f["anio"], "tipo_operacion": "venta",
+        "m2_construccion": f.get("m2_construccion"), "m2_terreno": f.get("m2_terreno"),
+        "recamaras": f.get("recamaras"), "banos": f.get("banos"),
+        "estacionamientos": f.get("estacionamientos"),
+        "activo": True, "fecha_scraping": ahora[:10], "mongo_ts": ahora,
+    }
+    if f.get("link"):
+        doc["url_original"] = f["link"]
+        doc["link_verificado"] = link_verificado
+    return doc
+
+
+async def verificar_link(url: str) -> bool | None:
+    """Best-effort: intenta confirmar que la URL sigue publicada. NUNCA lanza —
+    varios portales (PINCALI) sueltan soft-block a requests automáticos, así que
+    un fallo aquí no debe bloquear el guardado, solo se reporta `False`."""
+    if not url:
+        return None
+    import httpx
+    try:
+        async with httpx.AsyncClient(follow_redirects=True, timeout=6.0) as client:
+            r = await client.get(url, headers={
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+            })
+            return r.status_code < 400
+    except Exception:
+        return False
 
 
 # ── Descuento por CALIDAD (#142) ─────────────────────────────────────────────
