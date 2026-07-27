@@ -153,8 +153,9 @@ const NEXT_LABEL = {
   contacto: "Ver contacto",
 };
 
-export default function PromoReelEstateElite({ ficha, asesor, marca }) {
-  const [current, setCurrent] = useState(0);
+export default function PromoReelEstateElite({ ficha, asesor, marca, activeSlide, onSlideChange, onSlideCountChange, onBgChange }) {
+  const [internalCurrent, setInternalCurrent] = useState(0);
+  const current = activeSlide != null ? activeSlide : internalCurrent;
 
   useEffect(() => {
     if (document.querySelector(`link[href="${FONTS_HREF}"]`)) return;
@@ -216,8 +217,19 @@ export default function PromoReelEstateElite({ ficha, asesor, marca }) {
     "contacto",
   ];
 
-  const go = (i) => { if (i >= 0 && i < slides.length) setCurrent(i); };
-  const dotState = (i) => (i === current ? "active" : i < current ? "done" : "");
+  const go = (i) => {
+    if (i < 0 || i >= slides.length) return;
+    if (onSlideChange) onSlideChange(i); else setInternalCurrent(i);
+  };
+  const safeCurrent = Math.min(current, slides.length - 1);
+  const dotState = (i) => (i === safeCurrent ? "active" : i < safeCurrent ? "done" : "");
+
+  useEffect(() => { onSlideCountChange && onSlideCountChange(slides.length); }, [slides.length, onSlideCountChange]);
+
+  const slideActualKey = slides[safeCurrent];
+  useEffect(() => {
+    onBgChange && onBgChange(slideActualKey === "contacto" ? "light" : "dark");
+  }, [slideActualKey, onBgChange]);
 
   const a = asesor || {};
   const asesorNombre = a.nombre || brand;
@@ -402,7 +414,7 @@ export default function PromoReelEstateElite({ ficha, asesor, marca }) {
       {slides.map((key, i) => (
         <div
           key={key}
-          className={`ee-slide ${i === current ? "active" : ""} ${key === "contacto" ? "ee-contacto-slide" : (key !== "portada" ? "ee-dark-slide" : "")}`}
+          className={`ee-slide ${i === safeCurrent ? "active" : ""} ${key === "contacto" ? "ee-contacto-slide" : (key !== "portada" ? "ee-dark-slide" : "")}`}
         >
           {renderSlide(key, i)}
         </div>

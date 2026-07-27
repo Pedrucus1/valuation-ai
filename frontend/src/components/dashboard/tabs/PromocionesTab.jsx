@@ -9,6 +9,7 @@ import {
   ChevronRight, ZoomIn, ZoomOut, LayoutTemplate, Palette, DollarSign, Type, Star, Eye, User, Link2
 } from "lucide-react";
 import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 import { toast } from "sonner";
 import { DESCRIPTIONS_CATALOG } from "../../../utils/descriptionsCatalog";
 
@@ -126,7 +127,7 @@ const FORMATOS = {
   ],
   moderno: [["vertical_2p", "Folleto A4"], ["horizontal", "Ficha Carta"], ["reels", "TikTok / Reels"], ["post", "Post 1:1"]],
   just_listed: [["vertical_2p", "Folleto A4"], ["post", "Post 1:1"], ["post3", "Post · 3 slides"], ["reels", "Story / Reels"], ["tiktok", "TikTok · 3 slides"], ["horizontal", "Facebook"]],
-  estateelite: [["reel_ee", "Reel 9:16"]],
+  estateelite: [["reel_ee", "Reel 9:16"], ["post_ee", "Post 1:1"], ["fb_ee", "Facebook"]],
   _default: [["vertical_2p", "Folleto A4"], ["horizontal", "Presentación 16:9"], ["reels", "TikTok / Reels"], ["post", "Post 1:1"]],
 };
 const formatosDe = (t) => FORMATOS[t] || FORMATOS._default;
@@ -307,6 +308,9 @@ const PromocionesTab = ({ valuacionesList, session }) => {
   const [hojaActiva, setHojaActiva] = useState(1);
   const [zoom, setZoom] = useState(0.5);
   const [secuencias, setSecuencias] = useState(false);
+  // Navegación de hojas dinámicas de EstateElite (Portada/Características/Descripción/Puntos/Galería/Contacto)
+  const [estateEliteSlide, setEstateEliteSlide] = useState(0);
+  const [estateEliteSlideCount, setEstateEliteSlideCount] = useState(1);
   const [gifProgress, setGifProgress] = useState(null); // null | 0-100
   const [seccionActiva, setSeccionActiva] = useState("estilo"); // rail tipo Canva
   const [fotosElegidas, setFotosElegidas] = useState([]); // fotos ordenadas para la ficha (1ª = portada)
@@ -354,8 +358,12 @@ const PromocionesTab = ({ valuacionesList, session }) => {
     setPuntosLibres(fichaAvaluo.puntos_libres?.length ? [...fichaAvaluo.puntos_libres, ""].slice(0, 2) : ["", ""]);
     if (fichaAvaluo.fuera_de_mercado) setBannerMercado(true);
     else setBannerMercado(false);
+    setEstateEliteSlide(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fichaAvaluo]);
+
+  // Al cambiar de estilo, regresar a la primera hoja de EstateElite
+  useEffect(() => { setEstateEliteSlide(0); }, [temaSeleccionado]);
 
   const handleGenerarDescripcion = useCallback(() => {
     const src = fichaAvaluo || {};
@@ -411,28 +419,83 @@ const PromocionesTab = ({ valuacionesList, session }) => {
   };
 
   // ── Export ──
+  const waitFrame = () => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+
+  const descargarJPGDe = async (elId, sufijo) => {
+    const el = document.getElementById(elId);
+    if (!el) return false;
+    const canvas = await html2canvas(el, { scale: 2, useCORS: true });
+    const link = document.createElement("a");
+    link.download = `Ficha_${(fichaAvaluo?.direccion || "propiedad").replace(/\s+/g, "_")}_${sufijo}.jpg`;
+    link.href = canvas.toDataURL("image/jpeg", 0.92);
+    link.click();
+    return true;
+  };
+
   const exportarFicha = async (modo = "pdf") => {
     const hasHoja2 = temaSeleccionado === "classic" && formatoSeleccionado === "vertical_2p";
     const elId = hasHoja2 && hojaActiva === 2 ? "pv-ficha-tecnica-root" : "pv-ficha-root";
     if (modo === "jpg") {
       // El zoom del preview usa CSS "zoom" (no estándar) y html2canvas no lo soporta bien:
       // duplica el contenido a dos escalas superpuestas. Se captura siempre a zoom 1.
+      // Además: si el estilo tiene varias hojas (EstateElite dinámico, Clásico H1+H2),
+      // se descarga una imagen por cada una — no solo la que está a la vista.
       const zoomPrevio = zoom;
-      if (zoomPrevio !== 1) {
-        setZoom(1);
-        await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
-      }
-      const el = document.getElementById(elId);
+      if (zoomPrevio !== 1) { setZoom(1); await waitFrame(); }
       try {
-        if (!el) throw new Error("elemento no encontrado");
-        const canvas = await html2canvas(el, { scale: 2, useCORS: true });
-        const link = document.createElement("a");
-        link.download = `Ficha_${(fichaAvaluo?.direccion || "propiedad").replace(/\s+/g, "_")}_H${hojaActiva}.jpg`;
-        link.href = canvas.toDataURL("image/jpeg", 0.92);
-        link.click();
-        toast.success("Imagen descargada");
+        if (temaSeleccionado === "estateelite") {
+          const slidePrevio = estateEliteSlide;
+          for (let i = 0; i < estateEliteSlideCount; i++) {
+            setEstateEliteSlide(i);
+            await waitFrame();
+            await descargarJPGDe("pv-ficha-root", `H${i + 1}`);
+          }
+          setEstateEliteSlide(slidePrevio);
+        } else if (hasHoja2) {
+          const hojaPrevia = hojaActiva;
+          setHojaActiva(1); await waitFrame();
+          await descargarJPGDe("pv-ficha-root", "H1");
+          setHojaActiva(2); await waitFrame();
+          await descargarJPGDe("pv-ficha-tecnica-root", "H2");
+          setHojaActiva(hojaPrevia);
+        } else {
+          const ok = await descargarJPGDe(elId, `H${hojaActiva}`);
+          if (!ok) throw new Error("elemento no encontrado");
+        }
+        toast.success("Imagen(es) descargada(s)");
       } catch { toast.error("Error al exportar imagen"); }
       finally { if (zoomPrevio !== 1) setZoom(zoomPrevio); }
+      return;
+    }
+    if (temaSeleccionado === "estateelite") {
+      // El reel (390x693, hojas apiladas) no cabe en el mecanismo genérico de
+      // window.print() (pensado para hojas A4 sueltas) — se arma un PDF real
+      // client-side con una página por hoja, capturando cada una a zoom 1.
+      const zoomPrevio = zoom;
+      const slidePrevio = estateEliteSlide;
+      if (zoomPrevio !== 1) setZoom(1);
+      try {
+        let doc = null;
+        for (let i = 0; i < estateEliteSlideCount; i++) {
+          setEstateEliteSlide(i);
+          await waitFrame();
+          const el = document.getElementById("pv-ficha-root");
+          if (!el) continue;
+          const canvas = await html2canvas(el, { scale: 2, useCORS: true });
+          const img = canvas.toDataURL("image/jpeg", 0.92);
+          if (!doc) doc = new jsPDF({ unit: "px", format: [canvas.width, canvas.height] });
+          else doc.addPage([canvas.width, canvas.height]);
+          doc.addImage(img, "JPEG", 0, 0, canvas.width, canvas.height);
+        }
+        if (doc) {
+          doc.save(`Reel_${(fichaAvaluo?.direccion || "propiedad").replace(/\s+/g, "_")}.pdf`);
+          toast.success("PDF descargado");
+        }
+      } catch { toast.error("Error al exportar PDF"); }
+      finally {
+        if (zoomPrevio !== 1) setZoom(zoomPrevio);
+        setEstateEliteSlide(slidePrevio);
+      }
       return;
     }
     const el = document.getElementById(elId);
@@ -779,9 +842,13 @@ const PromocionesTab = ({ valuacionesList, session }) => {
             </span>
           )}
           <div className="flex gap-2 shrink-0 ml-auto">
-            <Button onClick={() => setSecuencias(true)} variant="outline" className="text-xs px-3 h-8 border-[#B08B4F] text-[#8b6914] hover:bg-[#faf6ee]">
-              <Sparkles className="w-3.5 h-3.5 mr-1.5" /> Secuencias
-            </Button>
+            {/* "Secuencias" solo sabe animar el diseño Just Listed; en EstateElite mostraría
+                una hoja 2 que no corresponde al estilo elegido, así que se oculta acá. */}
+            {temaSeleccionado !== "estateelite" && (
+              <Button onClick={() => setSecuencias(true)} variant="outline" className="text-xs px-3 h-8 border-[#B08B4F] text-[#8b6914] hover:bg-[#faf6ee]">
+                <Sparkles className="w-3.5 h-3.5 mr-1.5" /> Secuencias
+              </Button>
+            )}
             <Button onClick={() => exportarFicha("pdf")} className="bg-[#1B4332] hover:bg-[#2D6A4F] text-white text-xs px-3 h-8">
               <Download className="w-3.5 h-3.5 mr-1.5" /> PDF
             </Button>
@@ -1199,6 +1266,20 @@ const PromocionesTab = ({ valuacionesList, session }) => {
                 </div>
               </div>
             )}
+            {/* Navegación de hojas dinámicas (EstateElite): mismo patrón visual que Hoja 1/Hoja 2 */}
+            {temaSeleccionado === "estateelite" && estateEliteSlideCount > 1 && (
+              <div className="absolute top-3 left-0 right-0 z-20 flex justify-center">
+                <div className="bg-white rounded-full shadow-lg border border-slate-200 p-1 flex items-center gap-1">
+                  {Array.from({ length: estateEliteSlideCount }, (_, idx) => (
+                    <button key={idx} onClick={() => setEstateEliteSlide(idx)}
+                      title={`Hoja ${idx + 1}`}
+                      className={`w-6 h-6 rounded-full text-[10px] font-bold transition-colors ${estateEliteSlide === idx ? "bg-[#1B4332] text-white" : "text-slate-500 hover:bg-slate-100"}`}>
+                      {idx + 1}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
             <div className="flex-1 overflow-y-auto p-4 flex justify-center items-start">
               <div style={{ zoom }} className="origin-top transition-transform duration-300">
                 {/* Hoja 1 — siempre en DOM para export PDF */}
@@ -1224,6 +1305,9 @@ const PromocionesTab = ({ valuacionesList, session }) => {
                     cta={ctaTexto}
                     slidesFotos={slidesFotos}
                     formato={formatoSeleccionado}
+                    activeSlide={estateEliteSlide}
+                    onSlideChange={setEstateEliteSlide}
+                    onSlideCountChange={setEstateEliteSlideCount}
                   />
                 </div>
                 {/* Hoja 2 — técnica, solo en estilo Clásico vertical_2p */}
