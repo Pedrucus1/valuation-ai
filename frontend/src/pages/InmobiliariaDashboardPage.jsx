@@ -37,7 +37,6 @@ import {
   Download,
   Search,
   ChevronLeft,
-  ChevronRight,
   ArrowUpDown,
   AlertCircle,
   User,
@@ -496,6 +495,8 @@ const InmobiliariaDashboardPage = () => {
 
   const [session, setSession] = useState(null);
   const [activeTab, setActiveTab] = useState("resumen");
+  const [anunciosColapsados, setAnunciosColapsados] = useState(false);
+  const [avisosNoLeidos, setAvisosNoLeidos] = useState(false);
   const [kycDocs, setKycDocs] = useState([]);
   const [kycSubiendo, setKycSubiendo] = useState({});
   const [kycError, setKycError] = useState("");
@@ -703,6 +704,14 @@ const InmobiliariaDashboardPage = () => {
     });
   };
 
+  // Campanita de avisos: rojo si el contenido de la fila (docs/plan) cambió desde la última vez que se vio
+  useEffect(() => {
+    if (!session) return;
+    const docsCompletosChk = DOCS_REQUERIDOS.filter((d) => docSubido(d.key)).length === DOCS_REQUERIDOS.length;
+    const showKycBannerChk = !session?.kyc_status || session.kyc_status === "pending";
+    setAvisosNoLeidos(localStorage.getItem("pv_avisos_vistos") !== `${showKycBannerChk}-${docsCompletosChk}`);
+  }, [session, kycDocs]);
+
   if (!session) return null;
 
   const credits = session.credits ?? 0;
@@ -721,6 +730,11 @@ const InmobiliariaDashboardPage = () => {
   /* ── Tabs ── */
   const docsSubidos = DOCS_REQUERIDOS.filter((d) => docSubido(d.key)).length;
   const docsCompletos = docsSubidos === DOCS_REQUERIDOS.length;
+
+  const marcarAvisosVistos = () => {
+    localStorage.setItem("pv_avisos_vistos", `${showKycBanner}-${docsCompletos}`);
+    setAvisosNoLeidos(false);
+  };
 
   const solicitarVerificacion = async () => {
     const res = await fetch(`${API}/kyc/solicitar-entrevista`, { method: "POST", credentials: "include" });
@@ -2229,24 +2243,51 @@ const InmobiliariaDashboardPage = () => {
             </span>
           </div>
 
-          {/* Right: company chip + logout */}
+          {/* Right: campana avisos + company chip + advisor chip + logout */}
           <div className="flex items-center gap-3">
-            <div className="hidden sm:flex items-center gap-2 px-2 py-1 bg-[#D9ED92]/40 rounded-full max-w-xs">
-              {(() => {
-                const fotoDoc = kycDocs.find(d => d.doc_tipo === "foto_profesional");
-                const logoDoc = kycDocs.find(d => d.doc_tipo === "logo_empresa");
-                const imgDoc = fotoDoc || logoDoc;
-                return imgDoc ? (
-                  <img src={`${API}/kyc/documento/${imgDoc.doc_id}`} alt="" className="w-7 h-7 rounded-full object-cover shrink-0 border border-[#52B788]" />
-                ) : (
-                  <div className="w-7 h-7 rounded-full bg-slate-300/60 border border-dashed border-slate-400/50 flex items-center justify-center shrink-0">
-                    <Briefcase className="w-3.5 h-3.5 text-slate-400" />
-                  </div>
-                );
-              })()}
-              <span className="text-sm font-medium text-[#1B4332] truncate pr-1">
-                {displayName}
-              </span>
+            <button
+              onClick={() => {
+                setAnunciosColapsados(v => !v);
+                if (anunciosColapsados) marcarAvisosVistos();
+              }}
+              className="relative p-2 rounded-full hover:bg-slate-100 transition-colors"
+              title="Avisos"
+            >
+              <Bell className={`w-5 h-5 ${avisosNoLeidos ? "text-red-500" : "text-slate-500"}`} />
+              {avisosNoLeidos && <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-red-500" />}
+            </button>
+            <div className="hidden sm:flex items-center gap-1.5">
+              <div className="flex items-center gap-2 px-2 py-1 bg-[#D9ED92]/40 rounded-full max-w-[160px]">
+                {(() => {
+                  const logoDoc = kycDocs.find(d => d.doc_tipo === "logo_empresa");
+                  return logoDoc ? (
+                    <img src={`${API}/kyc/documento/${logoDoc.doc_id}`} alt="" className="w-7 h-7 rounded-full object-cover shrink-0 border border-[#52B788]" />
+                  ) : (
+                    <div className="w-7 h-7 rounded-full bg-slate-300/60 border border-dashed border-slate-400/50 flex items-center justify-center shrink-0">
+                      <Briefcase className="w-3.5 h-3.5 text-slate-400" />
+                    </div>
+                  );
+                })()}
+                <span className="text-sm font-medium text-[#1B4332] truncate pr-1">
+                  {displayName}
+                </span>
+              </div>
+              {/* Chip del asesor (foto + nombre), solo si hay empresa distinta al nombre — diferencia cuentas abiertas en otras pestañas */}
+              {session.company_name && session.name && (
+                <div className="flex items-center gap-1.5 px-2 py-1 bg-slate-100 rounded-full max-w-[130px]">
+                  {(() => {
+                    const fotoDoc = kycDocs.find(d => d.doc_tipo === "foto_profesional");
+                    return fotoDoc ? (
+                      <img src={`${API}/kyc/documento/${fotoDoc.doc_id}`} alt="" className="w-6 h-6 rounded-full object-cover shrink-0 border border-slate-300" />
+                    ) : (
+                      <div className="w-6 h-6 rounded-full bg-slate-200 flex items-center justify-center shrink-0">
+                        <User className="w-3 h-3 text-slate-400" />
+                      </div>
+                    );
+                  })()}
+                  <span className="text-xs text-slate-600 truncate">{session.name}</span>
+                </div>
+              )}
             </div>
             <Button
               variant="ghost"
@@ -2262,7 +2303,8 @@ const InmobiliariaDashboardPage = () => {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5">
-        {/* Fila de anuncios PropValu: documentos + Data Exchange + Plan, 3 columnas iguales, altura al contenido */}
+        {/* Fila de anuncios PropValu: documentos + Data Exchange + Plan. Disparador = campana en el header; sin margen cuando está colapsada */}
+        {!anunciosColapsados && (
         <div className={`mb-4 grid grid-cols-1 ${showKycBanner ? "lg:grid-cols-3" : "lg:grid-cols-2"} gap-3 items-stretch`}>
           {showKycBanner && (
             <div className={`flex flex-col gap-1.5 rounded-lg px-4 py-2.5 border ${docsCompletos ? "bg-blue-50 border-blue-200" : "bg-amber-50 border-amber-200"}`}>
@@ -2339,6 +2381,7 @@ const InmobiliariaDashboardPage = () => {
             );
           })()}
         </div>
+        )}
 
         {/* Tab Nav */}
         <div className="flex items-center gap-3 mb-4 flex-wrap">

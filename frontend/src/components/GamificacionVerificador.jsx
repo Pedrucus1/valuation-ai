@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback, forwardRef, useImperativeHandle } from "react";
-import { Trophy, Flame, Target, X, Medal, TrendingUp } from "lucide-react";
+import { Trophy, Flame, Target, X, Medal, TrendingUp, Info } from "lucide-react";
 
 const API = process.env.REACT_APP_BACKEND_URL || "http://localhost:8000";
 const META = 150;
@@ -150,12 +150,12 @@ const GamificacionVerificador = forwardRef((props, ref) => {
 
   return (
     <>
-      {/* Barra de stats */}
-      <div className="flex items-center gap-3 flex-wrap bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] rounded-xl px-4 py-2.5 text-white">
+      {/* Barra de stats — 1 sola fila, el mensaje de ayuda vive en el tooltip del ícono Info */}
+      <div className="flex items-center gap-3 flex-wrap bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] rounded-xl px-4 py-2 text-white">
         <div className="flex items-center gap-1.5"><Flame className="w-4 h-4 text-[#D9ED92]" /><span className="text-sm">Hoy <b className="text-[#D9ED92]">{hoy}</b></span></div>
         <div className="flex items-center gap-1.5"><Trophy className="w-4 h-4 text-[#D9ED92]" /><span className="text-sm">Récord <b>{record}</b></span></div>
         {avaluosGanados > 0 && (
-          <div className="flex items-center gap-1.5" title="Opiniones de valor gratis ganadas por puntos">
+          <div className="flex items-center gap-1.5" title="Créditos adicionales en tu cuenta, canjeables en tu próxima solicitud de avalúo. Vigencia: 3 meses desde que se ganan.">
             <Medal className="w-4 h-4 text-[#D9ED92]" /><span className="text-sm">Avalúos ganados <b className="text-[#D9ED92]">{avaluosGanados}</b></span>
           </div>
         )}
@@ -166,6 +166,8 @@ const GamificacionVerificador = forwardRef((props, ref) => {
             <div className="h-1.5 bg-white/20 rounded-full overflow-hidden"><div className="h-full bg-[#D9ED92] transition-all duration-500" style={{ width: `${pct}%` }} /></div>
           </div>
         </div>
+        <Info className="w-4 h-4 text-white/70 shrink-0 cursor-help"
+              title={`🎯 Ayuda a completar los datos de tu zona — cada propiedad que verificas suma 1 punto · ${META} puntos = opinión de valor gratis ($320).`} />
         <button onClick={abrirPanel} className="bg-white/15 hover:bg-white/25 rounded-lg px-3 py-1.5 text-xs font-bold flex items-center gap-1.5 transition-colors">
           <Medal className="w-3.5 h-3.5" /> Mi récord / Concurso
         </button>
@@ -184,7 +186,12 @@ const GamificacionVerificador = forwardRef((props, ref) => {
               <div className="text-6xl mb-2">{festejo.tipo === "meta" ? "🏆" : "🎉"}</div>
               <div className="text-7xl mb-1">{festejo.tipo === "meta" ? "🥳" : "🙌"}</div>
               <p className="text-xl font-black text-[#1B4332] font-['Outfit']">{festejo.texto}</p>
-              {festejo.tipo === "meta" && <p className="text-sm text-[#52B788] mt-1 font-semibold">¡Vas por el premio del trimestre! 🎊</p>}
+              {festejo.tipo === "meta" && (
+                <>
+                  <p className="text-sm text-[#52B788] mt-1 font-semibold">¡Vas por el premio del trimestre! 🎊</p>
+                  <p className="text-xs text-slate-500 mt-1">Se acreditó como crédito adicional en tu cuenta · vigencia 3 meses</p>
+                </>
+              )}
             </div>
           )}
         </div>
@@ -214,6 +221,11 @@ const GamificacionVerificador = forwardRef((props, ref) => {
                 <div className="h-3 bg-slate-200 rounded-full overflow-hidden"><div className="h-full bg-gradient-to-r from-[#52B788] to-[#D9ED92]" style={{ width: `${pct}%` }} /></div>
                 {total >= META ? <p className="text-xs text-[#52B788] font-bold mt-1">¡Meta lograda! 🎉</p> : <p className="text-[11px] text-slate-500 mt-1">Te faltan <b>{META - total}</b> para tu premio.</p>}
               </div>
+              {avaluosGanados > 0 && (
+                <p className="text-[11px] text-slate-500 -mt-2">
+                  🎁 Tus <b>{avaluosGanados}</b> avalúo{avaluosGanados > 1 ? "s" : ""} ganado{avaluosGanados > 1 ? "s" : ""} se acreditan como <b>créditos adicionales</b> en tu cuenta. Vigencia: <b>3 meses</b> desde que se ganan.
+                </p>
+              )}
               {/* Historial por día */}
               {stats?.por_dia?.length > 0 && (
                 <div>
@@ -221,8 +233,18 @@ const GamificacionVerificador = forwardRef((props, ref) => {
                   <div className="flex items-end gap-1 h-24">
                     {stats.por_dia.slice(-21).map((d, i) => {
                       const mx = Math.max(...stats.por_dia.map(x => x.count), 1);
-                      return <div key={i} className="flex-1 bg-[#52B788] rounded-t hover:bg-[#1B4332] transition-colors" style={{ height: `${Math.max(3, (d.count / mx) * 100)}%` }} title={`${d.fecha}: ${d.count}`} />;
+                      return (
+                        <div key={i} className="flex-1 flex flex-col items-center justify-end h-full" title={`${d.fecha}: ${d.count}`}>
+                          {d.count > 0 && <span className="text-[8px] font-bold text-[#1B4332] leading-none mb-0.5">{d.count}</span>}
+                          <div className="w-full bg-[#52B788] rounded-t hover:bg-[#1B4332] transition-colors" style={{ height: `${Math.max(3, (d.count / mx) * 70)}%` }} />
+                        </div>
+                      );
                     })}
+                  </div>
+                  <div className="flex gap-1 mt-1">
+                    {stats.por_dia.slice(-21).map((d, i) => (
+                      <span key={i} className="flex-1 text-center text-[8px] text-slate-400">{new Date(`${d.fecha}T00:00:00`).getDate()}</span>
+                    ))}
                   </div>
                 </div>
               )}

@@ -180,9 +180,9 @@ const ColoniaCombo = ({ colonias, value, onChange, disabled }) => {
     <Popover open={open} onOpenChange={(o) => { setOpen(o); if (!o) setQ(""); }}>
       <PopoverTrigger asChild>
         <Button variant="outline" role="combobox" disabled={disabled}
-                className="h-9 w-44 justify-between text-sm font-normal">
+                className={`h-8 w-36 justify-between text-xs font-normal border-input shadow-sm hover:border-[#52B788] hover:bg-[#f0fdf4]/60 transition-colors ${value ? "border-[#52B788] bg-[#f0fdf4]" : ""}`}>
           <span className="truncate">{value || (disabled ? "Elige municipio" : "Todas las colonias")}</span>
-          <ChevronsUpDown className="w-4 h-4 opacity-50 shrink-0" />
+          <ChevronsUpDown className="w-3.5 h-3.5 opacity-50 shrink-0" />
         </Button>
       </PopoverTrigger>
       {/* input nativo + lista simple (SIN cmdk → escritura instantánea) */}
@@ -554,71 +554,63 @@ const EdadesZonaPage = ({ embedded = false }) => {
           </Button>
         )}
 
-        <div className="flex items-center justify-between flex-wrap gap-3 mb-2">
-          <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between flex-wrap gap-3 mb-3">
+          <div className="flex items-center gap-3 shrink-0">
             <Building2 className="w-8 h-8 text-[#1B4332]" />
             <div>
               <h1 className="font-['Outfit'] text-2xl md:text-3xl font-bold text-[#1B4332] leading-tight">Verificación de Datos por Zona</h1>
               <p className="text-sm font-semibold text-[#52B788]">Verifica y Gana</p>
             </div>
           </div>
-        </div>
-        {/* Récord/concurso + beneficio, en la misma fila para no gastar alto */}
-        <div className="mb-6 flex flex-col lg:flex-row gap-3 items-stretch">
-          <div className="lg:flex-1"><GamificacionVerificador ref={gamiRef} /></div>
-          <div className="lg:w-[38%] rounded-xl bg-gradient-to-r from-[#EAF3EE] to-[#F4F8F6] border border-[#B7E4C7] px-4 py-2.5 flex flex-col justify-center">
-            <p className="text-xs text-[#1B4332] font-semibold">Ayuda a completar los datos de tu zona y gana puntos 🎯</p>
-            <p className="text-[11px] text-slate-600 leading-snug mt-0.5">
-              <b>Cada propiedad que verificas suma 1 punto</b> · 150 puntos = opinión de valor gratis ($320).
-            </p>
-          </div>
+          {/* Récord/concurso (incluye el mensaje de beneficio, mismo fondo), en la fila del título para ganar espacio vertical */}
+          <div className="flex-1 min-w-[320px]"><GamificacionVerificador ref={gamiRef} /></div>
         </div>
 
         {/* Filtros */}
         <Card className="bg-white shadow-sm border-0 mb-6">
-          <CardContent className="p-4 flex flex-wrap items-end gap-3">
+          <CardContent className="p-3 flex flex-wrap items-end gap-2">
             <div className="flex flex-col gap-1">
-              <label className="text-xs font-semibold text-slate-500">Estado</label>
+              <label className="text-[11px] font-semibold text-slate-500">Estado</label>
               <Select value={estado} onValueChange={onEstado}>
-                <SelectTrigger className="h-9 w-44 text-sm"><SelectValue placeholder="Estado" /></SelectTrigger>
+                <SelectTrigger className="h-8 w-32 text-xs"><SelectValue placeholder="Estado" /></SelectTrigger>
                 <SelectContent>
                   {estados.map(e => <SelectItem key={e} value={e}>{e}</SelectItem>)}
                 </SelectContent>
               </Select>
             </div>
             <div className="flex flex-col gap-1">
-              <label className="text-xs font-semibold text-slate-500">Municipio</label>
+              <label className="text-[11px] font-semibold text-slate-500">Municipio</label>
               <Select value={municipio} onValueChange={onMunicipio} disabled={!estado}>
-                <SelectTrigger className="h-9 w-48 text-sm"><SelectValue placeholder="Municipio" /></SelectTrigger>
+                <SelectTrigger className="h-8 w-36 text-xs"><SelectValue placeholder="Municipio" /></SelectTrigger>
                 <SelectContent>
                   {municipios.map(m => <SelectItem key={m} value={m}>{m}</SelectItem>)}
                 </SelectContent>
               </Select>
             </div>
             <div className="flex flex-col gap-1">
-              <label className="text-xs font-semibold text-slate-500">Colonia</label>
+              <label className="text-[11px] font-semibold text-slate-500">Colonia</label>
               <ColoniaCombo colonias={colonias} value={colonia} onChange={setColonia} disabled={!municipio || soloRaras} />
             </div>
             <div className="flex flex-col gap-1">
-              <label className="text-xs font-semibold text-slate-500">Tipo</label>
+              <label className="text-[11px] font-semibold text-slate-500">Tipo</label>
               <Select value={tipo || "__todos"} onValueChange={v => setTipo(v === "__todos" ? "" : v)}>
-                <SelectTrigger className="h-9 w-36 text-sm"><SelectValue placeholder="Todos" /></SelectTrigger>
+                <SelectTrigger className="h-8 w-28 text-xs"><SelectValue placeholder="Todos" /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="__todos">Todos los tipos</SelectItem>
                   {TIPOS.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}
                 </SelectContent>
               </Select>
             </div>
-            <Button onClick={() => setManualOpen(true)}
-              className="bg-[#52B788] hover:bg-[#40916C] text-white h-9"
-              title="Agregar 1 a 3 propiedades a mano" aria-label="Agregar propiedad manualmente">
-              <FilePlus2 className="w-4 h-4 sm:mr-1.5" /> <span className="hidden sm:inline">Agregar propiedad manualmente</span>
-            </Button>
             <Button onClick={buscar} disabled={loading}
-                    className="bg-[#1B4332] hover:bg-[#2D6A4F] text-white h-9">
-              <Search className="w-4 h-4 mr-2" /> {loading ? "Buscando..." : "Buscar"}
+                    className="bg-[#1B4332] hover:bg-[#2D6A4F] text-white h-8 text-xs">
+              <Search className="w-3.5 h-3.5 mr-1.5" /> {loading ? "Buscando..." : "Buscar"}
             </Button>
-            <label className="flex items-center gap-1.5 cursor-pointer h-9 ml-auto text-slate-400 hover:text-amber-600 transition-colors"
+            <Button onClick={() => setManualOpen(true)}
+              className="bg-[#52B788] hover:bg-[#40916C] text-white h-8 text-xs"
+              title="Agregar 1 a 3 propiedades a mano" aria-label="Agregar propiedad manualmente">
+              <FilePlus2 className="w-3.5 h-3.5 sm:mr-1.5" /> <span className="hidden sm:inline">Agregar propiedad</span>
+            </Button>
+            <label className="flex items-center gap-1.5 cursor-pointer h-8 ml-auto text-slate-400 hover:text-amber-600 transition-colors"
                    title="Muestra propiedades cuya colonia está mal capturada (CP, dirección, título de anuncio) para corregirlas en lote">
               <Checkbox checked={soloRaras} onCheckedChange={v => setSoloRaras(!!v)}
                         className="data-[state=checked]:bg-amber-500 border-amber-400 w-3.5 h-3.5" />
