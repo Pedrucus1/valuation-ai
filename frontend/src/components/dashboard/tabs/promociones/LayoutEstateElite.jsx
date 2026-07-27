@@ -18,7 +18,7 @@ export default function LayoutEstateElite({ fichaAvaluo, asesor, slidesFotos, am
   };
 
   return (
-    <div style={{ width: REEL_W, height: REEL_H, position: "relative", overflow: "hidden", flexShrink: 0, background: "#051b12" }}>
+    <div id="pv-ficha-root" style={{ width: REEL_W, height: REEL_H, position: "relative", overflow: "hidden", flexShrink: 0, background: "#051b12" }}>
       <PromoReelEstateElite ficha={ficha} asesor={asesor} />
     </div>
   );

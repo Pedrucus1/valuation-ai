@@ -387,6 +387,7 @@ const PromocionesTab = ({ valuacionesList, session }) => {
         estacionamiento: formData.estacionamiento ? parseInt(formData.estacionamiento) : null,
         antiguedad: formData.antiguedad ? parseInt(formData.antiguedad) : null,
         fotos: formData.fotos.filter(Boolean),
+        puntos_libres: formData.puntos_libres.map(s => s.trim()).filter(Boolean),
       };
       const res = await fetch(`${API}/api/inmobiliaria/propiedades`, {
         method: "POST", credentials: "include",
@@ -413,10 +414,17 @@ const PromocionesTab = ({ valuacionesList, session }) => {
   const exportarFicha = async (modo = "pdf") => {
     const hasHoja2 = temaSeleccionado === "classic" && formatoSeleccionado === "vertical_2p";
     const elId = hasHoja2 && hojaActiva === 2 ? "pv-ficha-tecnica-root" : "pv-ficha-root";
-    const el = document.getElementById(elId);
-    if (!el) return;
     if (modo === "jpg") {
+      // El zoom del preview usa CSS "zoom" (no estándar) y html2canvas no lo soporta bien:
+      // duplica el contenido a dos escalas superpuestas. Se captura siempre a zoom 1.
+      const zoomPrevio = zoom;
+      if (zoomPrevio !== 1) {
+        setZoom(1);
+        await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+      }
+      const el = document.getElementById(elId);
       try {
+        if (!el) throw new Error("elemento no encontrado");
         const canvas = await html2canvas(el, { scale: 2, useCORS: true });
         const link = document.createElement("a");
         link.download = `Ficha_${(fichaAvaluo?.direccion || "propiedad").replace(/\s+/g, "_")}_H${hojaActiva}.jpg`;
@@ -424,8 +432,11 @@ const PromocionesTab = ({ valuacionesList, session }) => {
         link.click();
         toast.success("Imagen descargada");
       } catch { toast.error("Error al exportar imagen"); }
+      finally { if (zoomPrevio !== 1) setZoom(zoomPrevio); }
       return;
     }
+    const el = document.getElementById(elId);
+    if (!el) return;
     // PDF: incluye ambas hojas si es A4 de 2 páginas
     const wrap = document.createElement("div");
     wrap.style.cssText = "position:fixed;inset:0;z-index:9999;background:#fff;overflow:auto;padding:0;margin:0;";
