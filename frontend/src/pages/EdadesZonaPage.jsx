@@ -563,16 +563,15 @@ const EdadesZonaPage = ({ embedded = false }) => {
             </div>
           </div>
         </div>
-        <div className="mb-4"><GamificacionVerificador ref={gamiRef} /></div>
-        {/* Beneficio: qué se gana y en qué se convierte */}
-        <div className="mb-6 rounded-xl bg-gradient-to-r from-[#EAF3EE] to-[#F4F8F6] border border-[#B7E4C7] p-4">
-          <p className="text-sm text-[#1B4332] font-semibold mb-1">Ayuda a completar los datos de tu zona y gana puntos 🎯</p>
-          <p className="text-sm text-slate-600 leading-relaxed">
-            Tú conoces las colonias mejor que nadie. Corrige o completa la información de estas
-            propiedades (edad, colonia, tipo, nivel, estado de conservación) o marca las que ya no están publicadas.
-            <b> Cada propiedad que verificas suma 1 punto</b>. Al llegar a <b>150 puntos ganas una opinión de valor gratis</b> (valor $320).
-            De paso, haces más preciso el mercado que todos usamos.
-          </p>
+        {/* Récord/concurso + beneficio, en la misma fila para no gastar alto */}
+        <div className="mb-6 flex flex-col lg:flex-row gap-3 items-stretch">
+          <div className="lg:flex-1"><GamificacionVerificador ref={gamiRef} /></div>
+          <div className="lg:w-[38%] rounded-xl bg-gradient-to-r from-[#EAF3EE] to-[#F4F8F6] border border-[#B7E4C7] px-4 py-2.5 flex flex-col justify-center">
+            <p className="text-xs text-[#1B4332] font-semibold">Ayuda a completar los datos de tu zona y gana puntos 🎯</p>
+            <p className="text-[11px] text-slate-600 leading-snug mt-0.5">
+              <b>Cada propiedad que verificas suma 1 punto</b> · 150 puntos = opinión de valor gratis ($320).
+            </p>
+          </div>
         </div>
 
         {/* Filtros */}
@@ -610,21 +609,21 @@ const EdadesZonaPage = ({ embedded = false }) => {
                 </SelectContent>
               </Select>
             </div>
+            <Button onClick={() => setManualOpen(true)}
+              className="bg-[#52B788] hover:bg-[#40916C] text-white h-9"
+              title="Agregar 1 a 3 propiedades a mano" aria-label="Agregar propiedad manualmente">
+              <FilePlus2 className="w-4 h-4 sm:mr-1.5" /> <span className="hidden sm:inline">Agregar propiedad manualmente</span>
+            </Button>
             <Button onClick={buscar} disabled={loading}
-                    className="bg-[#52B788] hover:bg-[#40916C] text-white h-9">
+                    className="bg-[#1B4332] hover:bg-[#2D6A4F] text-white h-9">
               <Search className="w-4 h-4 mr-2" /> {loading ? "Buscando..." : "Buscar"}
             </Button>
-            <label className="flex items-center gap-2 cursor-pointer h-9 ml-1"
+            <label className="flex items-center gap-1.5 cursor-pointer h-9 ml-auto text-slate-400 hover:text-amber-600 transition-colors"
                    title="Muestra propiedades cuya colonia está mal capturada (CP, dirección, título de anuncio) para corregirlas en lote">
               <Checkbox checked={soloRaras} onCheckedChange={v => setSoloRaras(!!v)}
-                        className="data-[state=checked]:bg-amber-500 border-amber-400" />
-              <span className="text-xs text-slate-600 whitespace-nowrap">Datos raros <span className="text-slate-400">(por corregir)</span></span>
+                        className="data-[state=checked]:bg-amber-500 border-amber-400 w-3.5 h-3.5" />
+              <span className="text-[11px] whitespace-nowrap">Datos raros</span>
             </label>
-            <Button onClick={() => setManualOpen(true)} variant="outline"
-              className="h-9 border-[#B7E4C7] text-[#1B4332] hover:bg-[#F0FAF5] ml-auto"
-              title="Agregar 1 a 3 propiedades a mano" aria-label="Agregar propiedad manual">
-              <FilePlus2 className="w-4 h-4 sm:mr-1.5" /> <span className="hidden sm:inline">Agregar propiedad</span>
-            </Button>
           </CardContent>
         </Card>
 

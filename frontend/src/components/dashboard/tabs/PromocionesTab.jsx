@@ -218,8 +218,8 @@ const normalizar = (v) => {
   return { ...v, fotos, _esManual: false };
 };
 
-// ── Iconos de amenidades ─────────────────────────────────────────────────────
-const AMENIDADES_ICONS = [
+// ── Iconos de amenidades (exportado: reutilizado por PropiedadManualForm) ────
+export const AMENIDADES_ICONS = [
   { label: "Alberca",            Icon: Waves },    { label: "Gimnasio",           Icon: Dumbbell },
   { label: "Seguridad 24/7",    Icon: Shield },   { label: "Casa Club",          Icon: Home },
   { label: "Jardín",            Icon: Trees },    { label: "Terraza",            Icon: Sun },

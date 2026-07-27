@@ -2262,34 +2262,86 @@ const InmobiliariaDashboardPage = () => {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5">
-        {/* KYC Banner */}
-        {showKycBanner && (
-          <div className={`mb-3 flex items-center justify-between gap-3 rounded-lg px-4 py-2 border ${docsCompletos ? "bg-blue-50 border-blue-200" : "bg-amber-50 border-amber-200"}`}>
-            <div className="flex items-start gap-3">
-              <AlertTriangle className={`w-5 h-5 shrink-0 mt-0.5 ${docsCompletos ? "text-blue-500" : "text-amber-600"}`} />
-              <p className={`text-sm ${docsCompletos ? "text-blue-800" : "text-amber-800"}`}>
-                <span className="font-semibold">{docsCompletos ? "Documentos completos" : "Falta de documentos"}</span> —
-                {docsCompletos
-                  ? " ya puedes solicitar tu verificación PropValu."
-                  : " sube los documentos requeridos para solicitar la verificación."}
-              </p>
+        {/* Fila de anuncios PropValu: documentos + Data Exchange + Plan, 3 columnas iguales, altura al contenido */}
+        <div className={`mb-4 grid grid-cols-1 ${showKycBanner ? "lg:grid-cols-3" : "lg:grid-cols-2"} gap-3 items-stretch`}>
+          {showKycBanner && (
+            <div className={`flex flex-col gap-1.5 rounded-lg px-4 py-2.5 border ${docsCompletos ? "bg-blue-50 border-blue-200" : "bg-amber-50 border-amber-200"}`}>
+              <div className="flex items-start gap-2">
+                <AlertTriangle className={`w-4 h-4 shrink-0 mt-0.5 ${docsCompletos ? "text-blue-500" : "text-amber-600"}`} />
+                <p className={`text-[11px] leading-snug ${docsCompletos ? "text-blue-800" : "text-amber-800"}`}>
+                  <span className="font-semibold">{docsCompletos ? "Documentos completos" : "Falta de documentos"}</span>
+                  {" — "}
+                  {docsCompletos
+                    ? "ya puedes solicitar tu verificación PropValu."
+                    : "sube los documentos requeridos para solicitar la verificación."}
+                </p>
+              </div>
+              {docsCompletos ? (
+                <button onClick={solicitarVerificacion}
+                  className="self-start text-xs font-semibold text-blue-700 border border-blue-300 bg-blue-100 px-3 py-1.5 rounded-lg hover:bg-blue-200 whitespace-nowrap">
+                  🎯 Solicitar verificación
+                </button>
+              ) : (
+                <button onClick={() => setActiveTab("documentos")}
+                  className="self-start text-xs font-semibold text-amber-700 border border-amber-300 px-3 py-1.5 rounded-lg hover:bg-amber-100 whitespace-nowrap">
+                  Ver documentos
+                </button>
+              )}
             </div>
-            {docsCompletos ? (
-              <button onClick={solicitarVerificacion}
-                className="text-xs font-semibold text-blue-700 border border-blue-300 bg-blue-100 px-3 py-1.5 rounded-lg hover:bg-blue-200 whitespace-nowrap shrink-0">
-                🎯 Solicitar verificación
-              </button>
-            ) : (
-              <button onClick={() => setActiveTab("documentos")}
-                className="text-xs font-semibold text-amber-700 border border-amber-300 px-3 py-1.5 rounded-lg hover:bg-amber-100 whitespace-nowrap shrink-0">
-                Ver documentos
-              </button>
-            )}
-          </div>
-        )}
+          )}
 
-        {/* Tab Nav + Plan badge */}
-        <div className="flex items-center justify-between gap-3 mb-4 flex-wrap">
+          <div className="flex flex-col gap-1.5 bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] rounded-lg px-4 py-2.5 shadow-sm">
+            <div className="flex items-start justify-between gap-2">
+              <p className="text-sm font-bold font-['Outfit'] leading-tight text-white">Programa Data Exchange</p>
+              <span className="shrink-0 font-bold text-xs px-2 py-1 rounded-lg bg-[#D9ED92] text-[#1B4332] flex items-center gap-1 whitespace-nowrap">
+                <TrendingUp className="w-3.5 h-3.5" /> -50%
+              </span>
+            </div>
+            <p className="text-[11px] text-white/95 leading-snug">
+              Comparte tu inventario y obtén <strong className="text-[#D9ED92]">50% de descuento vitalicio</strong> en tus valuaciones.
+            </p>
+          </div>
+
+          {activeTab !== "promociones" && (() => {
+            const planKey = session?.plan || derivePlanFromAsesores();
+            const plan = PLAN_INFO_INMO[planKey];
+            if (!plan) return (
+              <button onClick={handleComprarCreditos}
+                className="flex items-center justify-center gap-2 px-3 py-2 rounded-lg border border-dashed border-slate-300 text-xs text-slate-500 hover:bg-slate-50 transition-colors">
+                <CreditCard className="w-3.5 h-3.5"/> Activar plan
+              </button>
+            );
+            return (
+              <div className={`flex flex-col gap-1.5 px-4 py-2.5 rounded-lg border ${plan.border}`}>
+                <div className="flex items-start justify-between gap-2">
+                  {/* Badge + precio */}
+                  <div className="flex flex-col gap-0.5">
+                    <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full w-fit ${plan.badge}`}>Plan {plan.label}</span>
+                    <span className="text-[10px] text-slate-400">{plan.precio} MXN / {plan.periodo}</span>
+                  </div>
+                  {/* Créditos */}
+                  <div className="flex flex-col items-center shrink-0">
+                    <span className="text-[10px] text-slate-400">Créditos</span>
+                    <span className={`text-lg font-bold font-['Outfit'] leading-none ${creditsLow ? "text-red-500" : "text-[#1B4332]"}`}>{credits}</span>
+                    <span className="text-[10px] text-slate-400">de {plan.valuaciones}</span>
+                  </div>
+                  {/* Botón, a la misma altura que el badge -50%/créditos */}
+                  <button onClick={handleComprarCreditos}
+                    className="shrink-0 bg-[#1B4332] hover:bg-[#163828] text-white text-[11px] font-bold px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap">
+                    Renovar plan
+                  </button>
+                </div>
+                {/* Beneficios, en una sola línea compacta */}
+                <p className="text-[11px] text-slate-500 leading-snug truncate">
+                  {plan.valuaciones} valuaciones/mes · {plan.usuarios}{plan.extras[0] ? ` · ${plan.extras[0]}` : ""}
+                </p>
+              </div>
+            );
+          })()}
+        </div>
+
+        {/* Tab Nav */}
+        <div className="flex items-center gap-3 mb-4 flex-wrap">
           <div className="flex gap-0.5 bg-white border border-slate-200 rounded-lg p-1 flex-wrap">
             {TABS.map((tab) => (
               <button
@@ -2309,71 +2361,6 @@ const InmobiliariaDashboardPage = () => {
                 )}
               </button>
             ))}
-          </div>
-          {/* Lado derecho: promo Data Exchange (a un lado del plan) + Plan */}
-          <div className="flex items-center gap-3 flex-wrap justify-end">
-          {activeTab === "data_exchange" && (
-            <div className="flex items-center gap-3 bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] rounded-lg px-4 py-2 shrink-0 shadow-sm">
-              <div className="max-w-xs">
-                <p className="text-sm font-bold font-['Outfit'] leading-tight text-white">Programa Data Exchange</p>
-                <p className="text-[11px] text-white/95 leading-snug mt-0.5">
-                  Comparte tu inventario y obtén <strong className="text-[#D9ED92]">50% de descuento vitalicio</strong> en tus valuaciones.
-                </p>
-              </div>
-              <div className="shrink-0 font-bold text-sm px-3 py-1.5 rounded-lg bg-[#D9ED92] text-[#1B4332] flex items-center gap-1.5 whitespace-nowrap">
-                <TrendingUp className="w-4 h-4" /> -50% Off
-              </div>
-            </div>
-          )}
-          {(() => {
-            if (activeTab === "promociones") return null;
-            const planKey = session?.plan || derivePlanFromAsesores();
-            const plan = PLAN_INFO_INMO[planKey];
-            if (!plan) return (
-              <button onClick={handleComprarCreditos}
-                className="flex items-center gap-2 px-3 py-2 rounded-lg border border-dashed border-slate-300 text-xs text-slate-500 hover:bg-slate-50 transition-colors shrink-0">
-                <CreditCard className="w-3.5 h-3.5"/> Activar plan
-              </button>
-            );
-            return (
-              <div className={`flex items-center gap-3 px-4 py-2 rounded-lg border shrink-0 ${plan.border}`}>
-                {/* Badge + precio */}
-                <div className="flex flex-col gap-0.5">
-                  <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full w-fit ${plan.badge}`}>Plan {plan.label}</span>
-                  <span className="text-[10px] text-slate-400">{plan.precio} MXN / {plan.periodo}</span>
-                </div>
-                {/* Separador */}
-                <div className="w-px h-8 bg-slate-200"/>
-                {/* Beneficios */}
-                <div className="flex flex-col gap-0.5">
-                  <span className="text-[11px] text-slate-600 flex items-center gap-1">
-                    <CheckCircle2 className="w-3 h-3 text-[#52B788] shrink-0"/>{plan.valuaciones} valuaciones/mes
-                  </span>
-                  <span className="text-[11px] text-slate-600 flex items-center gap-1">
-                    <CheckCircle2 className="w-3 h-3 text-[#52B788] shrink-0"/>{plan.usuarios}
-                  </span>
-                  {plan.extras.slice(0,1).map(e => (
-                    <span key={e} className="text-[11px] text-slate-600 flex items-center gap-1">
-                      <CheckCircle2 className="w-3 h-3 text-[#52B788] shrink-0"/>{e}
-                    </span>
-                  ))}
-                </div>
-                {/* Separador */}
-                <div className="w-px h-8 bg-slate-200"/>
-                {/* Créditos */}
-                <div className="flex flex-col items-center">
-                  <span className="text-[10px] text-slate-400">Créditos</span>
-                  <span className={`text-xl font-bold font-['Outfit'] leading-none ${creditsLow ? "text-red-500" : "text-[#1B4332]"}`}>{credits}</span>
-                  <span className="text-[10px] text-slate-400">de {plan.valuaciones}</span>
-                </div>
-                {/* Botón */}
-                <button onClick={handleComprarCreditos}
-                  className="bg-[#1B4332] hover:bg-[#163828] text-white text-[11px] font-bold px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap">
-                  Renovar plan
-                </button>
-              </div>
-            );
-          })()}
           </div>
         </div>
 

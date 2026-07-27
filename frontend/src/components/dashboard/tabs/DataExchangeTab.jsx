@@ -110,17 +110,19 @@ const DataExchangeTab = () => {
           onDragLeave={() => setDragActive(false)}
           onDrop={(e) => { e.preventDefault(); setDragActive(false); const f = e.dataTransfer.files?.[0]; if (f) analizar(f); }}
         >
-          {/* Izquierda: descargar plantilla + texto */}
-          <div className="flex items-center gap-3 flex-1 min-w-0">
-            <Button onClick={descargarPlantilla} className="bg-[#F0FAF5] text-[#1B4332] hover:bg-[#E0F4E8] font-semibold border border-[#B7E4C7] h-9 px-3 shrink-0">
-              <Download className="w-4 h-4 mr-1.5" /> Descargar Plantilla
+          {/* Izquierda: descargar plantilla (+texto debajo) y agregar manual, alineados arriba */}
+          <div className="flex items-start gap-3 flex-1 min-w-0">
+            <div className="flex flex-col gap-1 shrink-0">
+              <Button onClick={descargarPlantilla} className="bg-[#F0FAF5] text-[#1B4332] hover:bg-[#E0F4E8] font-semibold border border-[#B7E4C7] h-9 px-3">
+                <Download className="w-4 h-4 mr-1.5" /> Descargar Plantilla
+              </Button>
+              <p className="text-xs text-slate-500 hidden sm:block">Descarga la plantilla para subir tus propiedades.</p>
+            </div>
+            <Button onClick={() => setManualOpen(true)}
+              className="bg-[#52B788] hover:bg-[#40916C] text-white font-semibold h-9 px-3 border border-[#52B788] hover:border-[#40916C] shrink-0"
+              title="Agregar 1 a 3 propiedades a mano, sin plantilla" aria-label="Agregar propiedad manualmente">
+              <FilePlus2 className="w-4 h-4 sm:mr-1.5" /> <span className="hidden sm:inline">Agregar propiedad manualmente</span>
             </Button>
-            <Button onClick={() => setManualOpen(true)} variant="outline"
-              className="border-slate-200 text-[#1B4332] hover:bg-[#F0FAF5] h-9 px-3 shrink-0"
-              title="Agregar 1 a 3 propiedades a mano, sin plantilla" aria-label="Agregar propiedad manual">
-              <FilePlus2 className="w-4 h-4 sm:mr-1.5" /> <span className="hidden sm:inline">Agregar manual</span>
-            </Button>
-            <p className="text-xs text-slate-500 hidden lg:block">Descarga la plantilla para subir tus propiedades.</p>
           </div>
 
           {/* Derecha: conteo útiles + ícono clicable para subir */}

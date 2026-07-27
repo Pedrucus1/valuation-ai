@@ -33,6 +33,8 @@ COLUMNAS = [
     ("niveles",         "Niveles"),
     ("piso",            "Piso"),
     ("conservacion",    "Estado de conservación"),
+    ("grado_remodelacion", "Grado de remodelación (opcional)"),
+    ("anio_remodelacion",  "Año de remodelación (opcional)"),
     ("amenidades",      "Amenidades"),
     ("descripcion",     "Descripción"),
     ("link",            "Link de origen (opcional)"),
@@ -49,7 +51,8 @@ TIPOS_CANON = {
 
 # Obligatorios por tipo (claves canónicas). "_edad" = requiere año O edad.
 NUMERICOS = {"precio", "anio", "edad", "m2_construccion", "m2_terreno",
-             "recamaras", "banos", "medios_banos", "estacionamientos", "niveles", "piso"}
+             "recamaras", "banos", "medios_banos", "estacionamientos", "niveles", "piso",
+             "anio_remodelacion"}
 _BASE = {"tipo", "direccion", "colonia", "municipio", "precio"}
 REQUERIDOS_POR_TIPO = {
     "casa":        _BASE | {"_edad", "m2_construccion", "m2_terreno", "recamaras",
@@ -95,7 +98,8 @@ def normalizar_fila(raw: dict) -> dict:
     derivado de edad si hace falta. No valida (eso es validar_fila)."""
     out = {}
     out["tipo"] = normalizar_tipo(raw.get("tipo"))
-    for k in ("direccion", "coto_edificio", "colonia", "municipio", "conservacion", "amenidades", "descripcion", "link"):
+    for k in ("direccion", "coto_edificio", "colonia", "municipio", "conservacion",
+              "grado_remodelacion", "amenidades", "descripcion", "link"):
         val = str(raw.get(k) or "").strip()
         out[k] = val or None
     for k in NUMERICOS:
@@ -177,6 +181,10 @@ def fila_a_doc_pool(f: dict, id_unico: str, *, portal_origen: str, fuente: str,
     if f.get("link"):
         doc["url_original"] = f["link"]
         doc["link_verificado"] = link_verificado
+    if f.get("grado_remodelacion"):
+        doc["grado_remodelacion"] = f["grado_remodelacion"]
+        if f.get("anio_remodelacion"):
+            doc["anio_remodelacion"] = f["anio_remodelacion"]
     return doc
 
 
