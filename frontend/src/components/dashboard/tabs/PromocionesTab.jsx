@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -307,6 +307,7 @@ const PromocionesTab = ({ valuacionesList, session }) => {
   const [formatoSeleccionado, setFormatoSeleccionado] = useState("vertical_2p");
   const [hojaActiva, setHojaActiva] = useState(1);
   const [zoom, setZoom] = useState(0.5);
+  const previewBoxRef = useRef(null); // contenedor scrollable del visualizador, para el auto-ajuste de zoom
   const [secuencias, setSecuencias] = useState(false);
   // Navegación de hojas dinámicas de EstateElite (Portada/Características/Descripción/Puntos/Galería/Contacto)
   const [estateEliteSlide, setEstateEliteSlide] = useState(0);
@@ -364,6 +365,34 @@ const PromocionesTab = ({ valuacionesList, session }) => {
 
   // Al cambiar de estilo, regresar a la primera hoja de EstateElite
   useEffect(() => { setEstateEliteSlide(0); }, [temaSeleccionado]);
+
+  // Auto-ajuste de zoom al cambiar de estilo/formato/propiedad: cada formato tiene un
+  // tamaño real distinto (Reel 693px alto, Post 1:1 1080px, A4 1123px, etc.) y un zoom
+  // fijo (50%) no cabe igual de bien en todos — se calcula el zoom que sí quepa completo
+  // en el visualizador, midiendo el tamaño real de #pv-ficha-root (genérico: sirve para
+  // cualquier estilo/formato actual o futuro, no hace falta una tabla de tamaños a mano).
+  // ponytail: no reacciona a resize de ventana, solo a cambio de estilo/formato/propiedad.
+  useEffect(() => {
+    if (!fichaAvaluo) return;
+    const fit = () => {
+      const box = previewBoxRef.current;
+      const elId = tieneHoja2 && hojaActiva === 2 ? "pv-ficha-tecnica-root" : "pv-ficha-root";
+      const el = document.getElementById(elId);
+      if (!box || !el) return;
+      const rect = el.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+      const nativeW = rect.width / zoom;
+      const nativeH = rect.height / zoom;
+      const availW = box.clientWidth - 32; // p-4 = 16px por lado
+      const availH = box.clientHeight - 32;
+      if (availW <= 0 || availH <= 0) return;
+      const fitZoom = Math.max(0.15, Math.min(availW / nativeW, availH / nativeH, 1));
+      setZoom(Math.round(fitZoom * 100) / 100);
+    };
+    const raf = requestAnimationFrame(() => requestAnimationFrame(fit));
+    return () => cancelAnimationFrame(raf);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [temaSeleccionado, formatoSeleccionado, fichaAvaluo?.propiedad_id]);
 
   const handleGenerarDescripcion = useCallback(() => {
     const src = fichaAvaluo || {};
@@ -1280,7 +1309,7 @@ const PromocionesTab = ({ valuacionesList, session }) => {
                 </div>
               </div>
             )}
-            <div className="flex-1 overflow-y-auto p-4 flex justify-center items-start">
+            <div ref={previewBoxRef} className="flex-1 overflow-y-auto p-4 flex justify-center items-start">
               <div style={{ zoom }} className="origin-top transition-transform duration-300">
                 {/* Hoja 1 — siempre en DOM para export PDF */}
                 <div style={{ display: tieneHoja2 && hojaActiva === 2 ? "none" : "block" }}>
