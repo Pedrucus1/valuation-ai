@@ -18,6 +18,9 @@ const toFicha = (p = {}) => ({
   cajones: p.estacionamiento,
   fotos: p.fotos,
   amenidades: p.amenidades,
+  descripcion: p.descripcion,
+  puntos_libres: p.puntos_libres,
+  puntos_propvalu: p.puntos_propvalu,
 });
 
 export default function PromoPublicPage() {

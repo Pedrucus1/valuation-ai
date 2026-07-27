@@ -3,9 +3,11 @@ import React, { useEffect, useState } from "react";
 const FONTS_HREF = "https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&display=swap";
 
 /*
-  PromoReelEstateElite — port fiel 100% del diseño EstateElite (reel 9:16 de 3 hojas:
-  Portada · Características · Contacto). Autocontenido: estilos en <style> scoped bajo
-  .ee-reel + iconos SVG inline. NO depende del tailwind.config del app.
+  PromoReelEstateElite — port fiel 100% del diseño EstateElite (reel 9:16).
+  Hojas fijas: Portada · Características · Contacto.
+  Hojas opcionales (se insertan automáticamente antes de Contacto si hay datos):
+  Descripción · Puntos destacados · Galería. Autocontenido: estilos en <style>
+  scoped bajo .ee-reel + iconos SVG inline. NO depende del tailwind.config del app.
   Alimentado con datos reales de la propiedad + asesor.
 */
 
@@ -67,16 +69,18 @@ const STYLES = `
 .ee-reel .no-scrollbar::-webkit-scrollbar { display: none; }
 .ee-reel .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-.ee-slide { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity .28s ease; }
+.ee-slide { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity .28s ease; background: #051b12; }
 .ee-slide.active { opacity: 1; visibility: visible; }
+.ee-slide.ee-dark-slide { background: linear-gradient(180deg, rgba(5,27,18,1) 0%, rgba(26,48,38,1) 100%); }
+.ee-slide.ee-contacto-slide { background: #f7f5f0; }
+.ee-slide.ee-contacto-slide .ee-back { color: rgba(26,28,27,0.45); }
 
 .ee-dots { position: absolute; top: 12px; left: 0; right: 0; display: flex; justify-content: center; gap: 6px; z-index: 60; padding: 0 16px; }
 .ee-dot { flex: 1; max-width: 60px; height: 3px; border-radius: 2px; background: rgba(255,255,255,0.22); overflow: hidden; border: none; padding: 0; cursor: pointer; }
 .ee-dot::after { content: ''; display: block; width: 0; height: 100%; background: #fff; transition: width .25s ease; }
 .ee-dot.active::after, .ee-dot.done::after { width: 100%; }
 
-/* Slide 1: Portada */
-#ee-slide-0 { background: #051b12; }
+/* Slide: Portada */
 .ee-s0-frame { position: relative; height: 100%; width: 100%; overflow: hidden; }
 .ee-s0-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.08); }
 .ee-s0-bg-fallback { position: absolute; inset: 0; background: linear-gradient(135deg, #0a2a1c 0%, #1a3026 50%, #0a2a1c 100%); }
@@ -93,8 +97,7 @@ const STYLES = `
 .ee-s0-stats .k { color: rgba(255,255,255,0.55); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
 .ee-s0-stats .v { color: #fff; font-family: 'Noto Serif', Georgia, serif; font-weight: 600; font-size: 22px; }
 
-/* Slide 2: Características */
-#ee-slide-1 { background: linear-gradient(180deg, rgba(5,27,18,1) 0%, rgba(26,48,38,1) 100%); }
+/* Slides oscuras: Características / Descripción / Puntos / Galería */
 .ee-s1-frame { height: 100%; width: 100%; display: flex; flex-direction: column; padding-top: 46px; }
 .ee-s1-mark { padding: 0 20px 18px; }
 .ee-s1-mark span { font-family: 'Noto Serif', Georgia, serif; font-weight: 700; font-size: 18px; color: #cfe9d9; border: 1px solid rgba(179,204,190,0.3); padding: 5px 12px; background: rgba(0,0,0,0.1); }
@@ -107,9 +110,11 @@ const STYLES = `
 .ee-amen-card { display: flex; align-items: center; gap: 14px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 13px 14px; margin-bottom: 10px; }
 .ee-amen-icon { width: 38px; height: 38px; border-radius: 8px; background: rgba(58,40,0,0.35); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #e9c176; }
 .ee-amen-card p { font-size: 14px; color: rgba(255,255,255,0.92); margin: 0; }
+.ee-s1-body p.ee-desc-text { font-size: 15px; line-height: 1.6; color: rgba(255,255,255,0.85); margin: 0; }
+.ee-gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.ee-gallery-grid img { width: 100%; height: 140px; object-fit: cover; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); }
 
-/* Slide 3: Contacto */
-#ee-slide-2 { background: #f7f5f0; }
+/* Slide: Contacto */
 .ee-s2-frame { position: relative; height: 100%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: space-between; overflow: hidden; }
 .ee-glow-a, .ee-glow-b { position: absolute; width: 220px; height: 220px; border-radius: 50%; filter: blur(70px); opacity: 0.14; pointer-events: none; }
 .ee-glow-a { top: -6%; right: -12%; background: #b3ccbe; }
@@ -138,12 +143,18 @@ const STYLES = `
 .ee-advance .ee-icon { transition: transform .15s ease; }
 .ee-advance:hover .ee-icon { transform: translateX(3px); }
 .ee-back { position: absolute; top: 16px; left: 18px; z-index: 60; display: flex; align-items: center; gap: 4px; background: none; border: none; padding: 4px; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; cursor: pointer; color: rgba(255,255,255,0.55); }
-#ee-slide-2 .ee-back { color: rgba(26,28,27,0.45); }
 `;
+
+const NEXT_LABEL = {
+  caracteristicas: "Ver características",
+  descripcion: "Ver descripción",
+  puntos: "Ver puntos destacados",
+  galeria: "Ver galería",
+  contacto: "Ver contacto",
+};
 
 export default function PromoReelEstateElite({ ficha, asesor, marca }) {
   const [current, setCurrent] = useState(0);
-  const go = (i) => { if (i >= 0 && i <= 2) setCurrent(i); };
 
   useEffect(() => {
     if (document.querySelector(`link[href="${FONTS_HREF}"]`)) return;
@@ -189,6 +200,25 @@ export default function PromoReelEstateElite({ ficha, asesor, marca }) {
     ? f.amenidades
     : (typeof f.amenidades === "string" ? f.amenidades.split(",").map((s) => s.trim()).filter(Boolean) : []);
 
+  const descripcionTexto = (f.descripcion || "").trim();
+  const puntosLibres = (Array.isArray(f.puntos_libres) ? f.puntos_libres : []).map((s) => (s || "").trim()).filter(Boolean);
+  const puntosPropvalu = (Array.isArray(f.puntos_propvalu) ? f.puntos_propvalu : []).map((s) => (s || "").trim()).filter(Boolean);
+  const galeriaFotos = (f.fotos || []).filter(Boolean).slice(1);
+
+  // Hojas dinámicas: portada y características siempre; descripción/puntos/galería
+  // solo si hay datos reales; contacto siempre al final.
+  const slides = [
+    "portada",
+    "caracteristicas",
+    ...(descripcionTexto ? ["descripcion"] : []),
+    ...(puntosLibres.length || puntosPropvalu.length ? ["puntos"] : []),
+    ...(galeriaFotos.length > 0 ? ["galeria"] : []),
+    "contacto",
+  ];
+
+  const go = (i) => { if (i >= 0 && i < slides.length) setCurrent(i); };
+  const dotState = (i) => (i === current ? "active" : i < current ? "done" : "");
+
   const a = asesor || {};
   const asesorNombre = a.nombre || brand;
   const asesorFoto = a.foto || null;
@@ -196,18 +226,22 @@ export default function PromoReelEstateElite({ ficha, asesor, marca }) {
   const telHref = asesorTel ? `tel:${String(asesorTel).replace(/[^\d+]/g, "")}` : null;
   const inicial = (asesorNombre || "?").trim().charAt(0).toUpperCase();
 
-  const dotState = (i) => (i === current ? "active" : i < current ? "done" : "");
+  const AdvanceButton = ({ toIdx, gold }) => (
+    <button className={`ee-advance ${gold ? "gold" : ""}`} onClick={() => go(toIdx)}>
+      {NEXT_LABEL[slides[toIdx]] || "Continuar"}<Icon name="arrowR" size={16} />
+    </button>
+  );
 
-  return (
-    <div className="ee-reel">
-      <div className="ee-dots">
-        {[0, 1, 2].map((i) => (
-          <button key={i} className={`ee-dot ${dotState(i)}`} onClick={() => go(i)} aria-label={`Ir a hoja ${i + 1}`} />
-        ))}
-      </div>
+  const BackButton = ({ toIdx }) => (
+    <button className="ee-back" onClick={() => go(toIdx)}><Icon name="arrowUR" size={14} />Atrás</button>
+  );
 
-      {/* HOJA 1 — Portada */}
-      <div className={`ee-slide ${current === 0 ? "active" : ""}`} id="ee-slide-0">
+  const renderSlide = (key, idx) => {
+    const nextIdx = idx + 1;
+    const isNextContacto = slides[nextIdx] === "contacto";
+
+    if (key === "portada") {
+      return (
         <div className="ee-s0-frame">
           {heroImg ? <img className="ee-s0-bg" alt={direccion} src={heroImg} /> : <div className="ee-s0-bg-fallback" />}
           <div className="ee-s0-scrim" />
@@ -227,15 +261,16 @@ export default function PromoReelEstateElite({ ficha, asesor, marca }) {
               <div><span className="k">Baños</span><span className="v">{baths}</span></div>
               <div><span className="k">m² Const.</span><span className="v">{constr ?? "—"}</span></div>
             </div>
-            <button className="ee-advance" onClick={() => go(1)}>Ver características<Icon name="arrowR" size={16} /></button>
+            <AdvanceButton toIdx={nextIdx} gold={isNextContacto} />
           </div>
         </div>
-      </div>
+      );
+    }
 
-      {/* HOJA 2 — Características */}
-      <div className={`ee-slide ${current === 1 ? "active" : ""}`} id="ee-slide-1">
+    if (key === "caracteristicas") {
+      return (
         <div className="ee-s1-frame">
-          <button className="ee-back" onClick={() => go(0)}><Icon name="arrowUR" size={14} />Atrás</button>
+          <BackButton toIdx={idx - 1} />
           <div className="ee-s1-mark"><span>{brand}</span></div>
           <div className="ee-s1-body no-scrollbar">
             <p className="ee-eyebrow">Características</p>
@@ -256,37 +291,122 @@ export default function PromoReelEstateElite({ ficha, asesor, marca }) {
                 ))}
               </div>
             )}
-            <button className="ee-advance gold" onClick={() => go(2)}>Ver contacto<Icon name="arrowR" size={16} /></button>
+            <AdvanceButton toIdx={nextIdx} gold={isNextContacto} />
           </div>
         </div>
+      );
+    }
+
+    if (key === "descripcion") {
+      return (
+        <div className="ee-s1-frame">
+          <BackButton toIdx={idx - 1} />
+          <div className="ee-s1-mark"><span>{brand}</span></div>
+          <div className="ee-s1-body no-scrollbar">
+            <p className="ee-eyebrow">Descripción</p>
+            <p className="ee-desc-text">{descripcionTexto}</p>
+            <AdvanceButton toIdx={nextIdx} gold={isNextContacto} />
+          </div>
+        </div>
+      );
+    }
+
+    if (key === "puntos") {
+      return (
+        <div className="ee-s1-frame">
+          <BackButton toIdx={idx - 1} />
+          <div className="ee-s1-mark"><span>{brand}</span></div>
+          <div className="ee-s1-body no-scrollbar">
+            <p className="ee-eyebrow">Puntos destacados</p>
+            {puntosPropvalu.length > 0 && (
+              <div className="ee-amen-section" style={{ marginTop: 0 }}>
+                {puntosPropvalu.map((pt, i) => (
+                  <div className="ee-amen-card" key={i}>
+                    <div className="ee-amen-icon"><Icon name="check" size={19} /></div>
+                    <p>{pt}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+            {puntosLibres.length > 0 && (
+              <div className="ee-amen-section">
+                {puntosPropvalu.length > 0 && <p className="ee-eyebrow">Puntos propios</p>}
+                {puntosLibres.map((pt, i) => (
+                  <div className="ee-amen-card" key={i}>
+                    <div className="ee-amen-icon"><Icon name="star" size={19} /></div>
+                    <p>{pt}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+            <AdvanceButton toIdx={nextIdx} gold={isNextContacto} />
+          </div>
+        </div>
+      );
+    }
+
+    if (key === "galeria") {
+      return (
+        <div className="ee-s1-frame">
+          <BackButton toIdx={idx - 1} />
+          <div className="ee-s1-mark"><span>{brand}</span></div>
+          <div className="ee-s1-body no-scrollbar">
+            <p className="ee-eyebrow">Galería</p>
+            <div className="ee-gallery-grid">
+              {galeriaFotos.map((src, i) => (
+                <img key={i} src={src} alt={`Foto ${i + 2}`} />
+              ))}
+            </div>
+            <AdvanceButton toIdx={nextIdx} gold={isNextContacto} />
+          </div>
+        </div>
+      );
+    }
+
+    // contacto
+    return (
+      <div className="ee-s2-frame">
+        <div className="ee-glow-a" />
+        <div className="ee-glow-b" />
+        <BackButton toIdx={idx - 1} />
+        <div className="ee-s2-mark"><span>{brand}</span><i className="rule" /></div>
+        <div className="ee-s2-main">
+          <div className="ee-s2-photo">
+            {asesorFoto ? <img alt={asesorNombre} src={asesorFoto} /> : <div className="ph">{inicial}</div>}
+            <div className="ee-s2-badge"><Icon name="check" size={14} /></div>
+          </div>
+          <h1 className="ee-s2-name">{asesorNombre}</h1>
+          <p className="ee-s2-role">Asesor Inmobiliario</p>
+          {asesorTel && (
+            <div className="ee-s2-phone"><Icon name="phone" size={16} />{asesorTel}</div>
+          )}
+          {telHref ? (
+            <a className="ee-s2-cta" href={telHref}>Agendar mi visita<Icon name="arrowR" size={18} /></a>
+          ) : (
+            <button className="ee-s2-cta" type="button">Agendar mi visita<Icon name="arrowR" size={18} /></button>
+          )}
+        </div>
+        <div className="ee-s2-foot">propvalu.mx</div>
+      </div>
+    );
+  };
+
+  return (
+    <div className="ee-reel">
+      <div className="ee-dots">
+        {slides.map((_, i) => (
+          <button key={i} className={`ee-dot ${dotState(i)}`} onClick={() => go(i)} aria-label={`Ir a hoja ${i + 1}`} />
+        ))}
       </div>
 
-      {/* HOJA 3 — Contacto */}
-      <div className={`ee-slide ${current === 2 ? "active" : ""}`} id="ee-slide-2">
-        <div className="ee-s2-frame">
-          <div className="ee-glow-a" />
-          <div className="ee-glow-b" />
-          <button className="ee-back" onClick={() => go(1)}><Icon name="arrowUR" size={14} />Atrás</button>
-          <div className="ee-s2-mark"><span>{brand}</span><i className="rule" /></div>
-          <div className="ee-s2-main">
-            <div className="ee-s2-photo">
-              {asesorFoto ? <img alt={asesorNombre} src={asesorFoto} /> : <div className="ph">{inicial}</div>}
-              <div className="ee-s2-badge"><Icon name="check" size={14} /></div>
-            </div>
-            <h1 className="ee-s2-name">{asesorNombre}</h1>
-            <p className="ee-s2-role">Asesor Inmobiliario</p>
-            {asesorTel && (
-              <div className="ee-s2-phone"><Icon name="phone" size={16} />{asesorTel}</div>
-            )}
-            {telHref ? (
-              <a className="ee-s2-cta" href={telHref}>Agendar mi visita<Icon name="arrowR" size={18} /></a>
-            ) : (
-              <button className="ee-s2-cta" type="button">Agendar mi visita<Icon name="arrowR" size={18} /></button>
-            )}
-          </div>
-          <div className="ee-s2-foot">propvalu.mx</div>
+      {slides.map((key, i) => (
+        <div
+          key={key}
+          className={`ee-slide ${i === current ? "active" : ""} ${key === "contacto" ? "ee-contacto-slide" : (key !== "portada" ? "ee-dark-slide" : "")}`}
+        >
+          {renderSlide(key, i)}
         </div>
-      </div>
+      ))}
     </div>
   );
 }
