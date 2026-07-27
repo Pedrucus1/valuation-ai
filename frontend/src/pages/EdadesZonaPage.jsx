@@ -622,7 +622,7 @@ const EdadesZonaPage = ({ embedded = false }) => {
         <PropiedadManualForm
           open={manualOpen}
           onOpenChange={setManualOpen}
-          endpoint={`${API}/api/comparables/manual`}
+          endpoint={`${API}/comparables/manual`}
           authHeaders={authHeaders()}
           onSuccess={() => buscar()}
         />
