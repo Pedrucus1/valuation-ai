@@ -284,6 +284,7 @@ _PROMO_CAMPOS = (
     "precio_oferta", "m2_construccion", "m2_terreno", "recamaras", "banos",
     "medio_banos", "estacionamiento", "niveles", "antiguedad", "fotos",
     "amenidades", "instalaciones", "espacios", "descripcion",
+    "puntos_libres", "puntos_propvalu",
 )
 
 

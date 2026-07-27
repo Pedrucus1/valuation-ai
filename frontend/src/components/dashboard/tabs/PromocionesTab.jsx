@@ -274,7 +274,7 @@ const FORM_INIT = {
   recamaras: "", banos: "", medio_banos: "", estacionamiento: "",
   niveles: "", nivel_depto: "", antiguedad: "", conservacion: "",
   fotos: ["", "", ""], url_recorrido: "", descripcion: "",
-  amenidades: [], instalaciones: [], espacios: [],
+  amenidades: [], instalaciones: [], espacios: [], puntos_libres: ["", ""],
 };
 
 const toggleArr = (arr, val) =>
@@ -695,6 +695,19 @@ const PromocionesTab = ({ valuacionesList, session }) => {
               <div>
                 <label className="label-xs mb-1 block">Descripción</label>
                 <textarea className="input-base min-h-[100px] resize-y text-sm" placeholder="Descripción de la propiedad..." value={formData.descripcion} onChange={e => setF("descripcion", e.target.value)} />
+              </div>
+
+              <div>
+                <label className="label-xs mb-1 block">Puntos destacados (hasta 2)</label>
+                {[0, 1].map(i => (
+                  <input key={i} className="input-base text-sm mb-2" placeholder={`Punto destacado ${i + 1}...`}
+                    value={formData.puntos_libres[i] || ""}
+                    onChange={e => {
+                      const next = [...formData.puntos_libres];
+                      next[i] = e.target.value;
+                      setF("puntos_libres", next);
+                    }} />
+                ))}
               </div>
             </CardContent>
           </Card>
