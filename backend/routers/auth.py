@@ -9,6 +9,7 @@ import os
 
 from core.db import db
 from core.auth import get_current_user, require_auth, pwd_context
+from core.creditos import establecer_creditos_mensuales, saldo_efectivo
 from core.ratelimit import limiter
 from core.email import send_email
 from models import RegisterRequest, LoginRequest, ForgotPasswordRequest, ResetPasswordRequest
@@ -123,6 +124,7 @@ async def update_profile(request: Request):
         raise HTTPException(status_code=400, detail="Sin campos válidos para actualizar")
     await db.users.update_one({"user_id": user.user_id}, {"$set": update})
     updated = await db.users.find_one({"user_id": user.user_id}, {"_id": 0, "hashed_password": 0})
+    updated["credits"] = saldo_efectivo(updated)  # no exponer el int crudo si ya hay ledger
     return updated
 
 @router.post("/auth/logout")
@@ -241,10 +243,9 @@ async def update_plan(request: Request):
     credits = body.get("credits", 0)
     if not plan:
         raise HTTPException(status_code=400, detail="Plan requerido")
-    await db.users.update_one(
-        {"user_id": user.user_id},
-        {"$set": {"plan": plan, "credits": credits}}
-    )
+    await db.users.update_one({"user_id": user.user_id}, {"$set": {"plan": plan}})
+    # Créditos del plan = "pago_mensual": expira fin de mes, no rueda (política confirmada).
+    await establecer_creditos_mensuales(db, user.user_id, credits)
     return {"plan": plan, "credits": credits}
 
 @router.post("/auth/register")

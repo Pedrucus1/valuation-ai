@@ -13,6 +13,7 @@ from zoneinfo import ZoneInfo
 from fastapi import APIRouter, Request
 
 from core.db import db
+from core.creditos import otorgar_credito, expira_en_meses
 # Reutiliza EXACTAMENTE el criterio de identificación de edades.py (sesión de
 # usuario perito/inmobiliaria O token de admin).
 from routers.edades import _quien
@@ -21,6 +22,29 @@ router = APIRouter(prefix="/api")
 
 _TZ = ZoneInfo("America/Mexico_City")
 META = 150  # objetivo fijo de verificaciones
+
+
+async def _acreditar_avaluos_ganados(usuario: str, total: int) -> None:
+    """Si el usuario cruzó uno o más tramos nuevos de META puntos, acredita
+    1 crédito por tramo al ledger (origen "gamificacion", vigencia 3 meses).
+    Idempotente vía el contador `creditos_edad_otorgados` en users: solo
+    acredita la diferencia entre tramos ganados y tramos ya otorgados, así
+    recargar la página o llamar el endpoint varias veces no duplica crédito.
+    Admin no acumula puntos reales (ver edades.py), así que no aplica aquí."""
+    if usuario.startswith("admin:"):
+        return
+    tramos_ganados = total // META
+    if tramos_ganados <= 0:
+        return
+    udoc = await db.users.find_one({"user_id": usuario}, {"_id": 0, "creditos_edad_otorgados": 1})
+    ya_otorgados = (udoc or {}).get("creditos_edad_otorgados", 0)
+    faltan = tramos_ganados - ya_otorgados
+    if faltan <= 0:
+        return
+    expira = expira_en_meses(3)
+    for _ in range(faltan):
+        await otorgar_credito(db, usuario, 1, "gamificacion", expira)
+    await db.users.update_one({"user_id": usuario}, {"$inc": {"creditos_edad_otorgados": faltan}})
 
 # Doc con verificación real: tiene estimador y una fecha string no vacía.
 _BASE_MATCH = {
@@ -72,6 +96,8 @@ async def mis_puntos(request: Request):
 
     por_dia_map = {f["_id"]: f["count"] for f in filas if f.get("_id")}
     total = sum(por_dia_map.values())
+
+    await _acreditar_avaluos_ganados(usuario, total)
 
     hoy_key = _hoy_mx()
     hoy = por_dia_map.get(hoy_key, 0)

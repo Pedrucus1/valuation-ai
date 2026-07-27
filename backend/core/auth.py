@@ -8,6 +8,7 @@ from fastapi import Request, HTTPException
 from passlib.context import CryptContext
 
 from core.db import db
+from core.creditos import saldo_efectivo
 from models import User
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -56,7 +57,12 @@ async def get_current_user(request: Request) -> Optional[User]:
     if not user_doc:
         return None
 
-    return User(**user_doc)
+    user = User(**user_doc)
+    # Saldo real de créditos (filtra expirados del ledger) — único punto de
+    # cómputo, así toda sesión/endpoint que lea user.credits ya sale correcto
+    # sin tocar cada lugar que lo consume.
+    user.credits = saldo_efectivo(user_doc)
+    return user
 
 
 async def require_auth(request: Request) -> User:

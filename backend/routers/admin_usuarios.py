@@ -5,6 +5,7 @@ from fastapi import APIRouter, Request, HTTPException
 
 from core.db import db
 from core.auth import require_admin
+from core.creditos import establecer_creditos_mensuales, saldo_efectivo
 
 router = APIRouter(prefix="/api")
 
@@ -23,6 +24,8 @@ async def admin_usuarios(request: Request, skip: int = 0, limit: int = 50, q: st
     if estado:
         filtro["cuenta_estado"] = estado
     usuarios = await db.users.find(filtro, {"_id": 0, "hashed_password": 0}).skip(skip).limit(limit).to_list(limit)
+    for u in usuarios:
+        u["credits"] = saldo_efectivo(u)  # saldo real (filtra expirados), no el int crudo
     total = await db.users.count_documents(filtro)
     return {"usuarios": usuarios, "total": total}
 
@@ -44,5 +47,7 @@ async def admin_usuario_plan(user_id: str, request: Request):
     credits = body.get("credits", 0)
     if not plan:
         raise HTTPException(status_code=400, detail="Plan requerido")
-    await db.users.update_one({"user_id": user_id}, {"$set": {"plan": plan, "credits": credits}})
+    await db.users.update_one({"user_id": user_id}, {"$set": {"plan": plan}})
+    # Créditos del plan = "pago_mensual": expira fin de mes, no rueda (política confirmada).
+    await establecer_creditos_mensuales(db, user_id, credits)
     return {"ok": True}
