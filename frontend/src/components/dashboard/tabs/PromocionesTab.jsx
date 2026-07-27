@@ -874,18 +874,18 @@ const PromocionesTab = ({ valuacionesList, session }) => {
             {/* "Secuencias" solo sabe animar el diseño Just Listed; en EstateElite mostraría
                 una hoja 2 que no corresponde al estilo elegido, así que se oculta acá. */}
             {temaSeleccionado !== "estateelite" && (
-              <Button onClick={() => setSecuencias(true)} variant="outline" className="text-xs px-3 h-8 border-[#B08B4F] text-[#8b6914] hover:bg-[#faf6ee]">
-                <Sparkles className="w-3.5 h-3.5 mr-1.5" /> Secuencias
+              <Button onClick={() => setSecuencias(true)} variant="outline" title="Secuencias" className="text-xs px-2 sm:px-3 h-8 border-[#B08B4F] text-[#8b6914] hover:bg-[#faf6ee]">
+                <Sparkles className="w-3.5 h-3.5 sm:mr-1.5" /> <span className="hidden sm:inline">Secuencias</span>
               </Button>
             )}
-            <Button onClick={() => exportarFicha("pdf")} className="bg-[#1B4332] hover:bg-[#2D6A4F] text-white text-xs px-3 h-8">
-              <Download className="w-3.5 h-3.5 mr-1.5" /> PDF
+            <Button onClick={() => exportarFicha("pdf")} title="PDF" className="bg-[#1B4332] hover:bg-[#2D6A4F] text-white text-xs px-2 sm:px-3 h-8">
+              <Download className="w-3.5 h-3.5 sm:mr-1.5" /> <span className="hidden sm:inline">PDF</span>
             </Button>
-            <Button onClick={() => exportarFicha("jpg")} variant="outline" className="text-xs px-3 h-8">
-              <ImageIcon className="w-3.5 h-3.5 mr-1.5" /> JPG
+            <Button onClick={() => exportarFicha("jpg")} variant="outline" title="JPG" className="text-xs px-2 sm:px-3 h-8">
+              <ImageIcon className="w-3.5 h-3.5 sm:mr-1.5" /> <span className="hidden sm:inline">JPG</span>
             </Button>
-            <Button onClick={handlePromoInteractiva} variant="outline" className="text-xs px-3 h-8 border-[#1B4332] text-[#1B4332] hover:bg-[#f0f7f2]">
-              <Link2 className="w-3.5 h-3.5 mr-1.5" /> Promo Interactiva
+            <Button onClick={handlePromoInteractiva} variant="outline" title="Promo Interactiva" className="text-xs px-2 sm:px-3 h-8 border-[#1B4332] text-[#1B4332] hover:bg-[#f0f7f2]">
+              <Link2 className="w-3.5 h-3.5 sm:mr-1.5" /> <span className="hidden sm:inline">Promo Interactiva</span>
             </Button>
           </div>
         </div>
