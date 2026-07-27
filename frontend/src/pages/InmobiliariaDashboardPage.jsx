@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import PromocionesTab from "../components/dashboard/tabs/PromocionesTab";
 import DataExchangeTab from "../components/dashboard/tabs/DataExchangeTab";
+import RequisicionesTab from "../components/dashboard/tabs/RequisicionesTab";
 import EdadesZonaPage from "./EdadesZonaPage";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, CircleMarker, Popup } from "react-leaflet";
@@ -761,6 +762,7 @@ const InmobiliariaDashboardPage = () => {
     { id: "promociones",  label: "Promociones" },
     ...(esTitular ? [{ id: "data_exchange", label: "Data Exchange" }] : []),
     { id: "edades",       label: "Verificación por Zona" },
+    { id: "requisiciones", label: "Bolsa de Requerimientos" },
   ];
 
   /* ── Facturación Tab ── */
@@ -2523,6 +2525,7 @@ const InmobiliariaDashboardPage = () => {
         {/* Tab: Promociones */}
         {activeTab === "promociones" && <PromocionesTab valuacionesList={valuacionesList} session={session} />}
         {activeTab === "data_exchange" && <DataExchangeTab />}
+        {activeTab === "requisiciones" && <RequisicionesTab />}
       </main>
 
       {/* Modal calificar valuador */}
