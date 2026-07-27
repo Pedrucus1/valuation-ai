@@ -50,19 +50,22 @@ TIPOS_CANON = {
 }
 
 # Obligatorios por tipo (claves canónicas). "_edad" = requiere año O edad.
+# Solo lo que el motor de valuación realmente necesita (ubicación+precio+edad+m2);
+# recámaras/baños/medios baños/estacionamientos/niveles/conservación quedan
+# OPCIONALES — el resto del sistema ya tolera None en esos campos (scraper los
+# trae vacíos seguido) y exigirlos bloqueaba altas manuales de propiedades reales
+# donde el agente no tiene ese detalle a la mano.
 NUMERICOS = {"precio", "anio", "edad", "m2_construccion", "m2_terreno",
              "recamaras", "banos", "medios_banos", "estacionamientos", "niveles", "piso",
              "anio_remodelacion"}
 _BASE = {"tipo", "direccion", "colonia", "municipio", "precio"}
 REQUERIDOS_POR_TIPO = {
-    "casa":        _BASE | {"_edad", "m2_construccion", "m2_terreno", "recamaras",
-                            "banos", "medios_banos", "estacionamientos", "niveles", "conservacion"},
-    "departamento":_BASE | {"_edad", "m2_construccion", "m2_terreno", "recamaras",
-                            "banos", "medios_banos", "estacionamientos", "niveles", "conservacion"},
+    "casa":        _BASE | {"_edad", "m2_construccion", "m2_terreno"},
+    "departamento":_BASE | {"_edad", "m2_construccion"},
     "terreno":     _BASE | {"m2_terreno"},
-    "local":       _BASE | {"_edad", "m2_construccion", "m2_terreno", "estacionamientos", "conservacion"},
-    "oficina":     _BASE | {"_edad", "m2_construccion", "m2_terreno", "estacionamientos", "conservacion"},
-    "bodega":      _BASE | {"_edad", "m2_construccion", "m2_terreno", "estacionamientos", "conservacion"},
+    "local":       _BASE | {"_edad", "m2_construccion"},
+    "oficina":     _BASE | {"_edad", "m2_construccion"},
+    "bodega":      _BASE | {"_edad", "m2_construccion"},
 }
 
 EJEMPLO = {
