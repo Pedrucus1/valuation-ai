@@ -54,6 +54,41 @@ def _compress_video(raw_bytes: bytes) -> bytes:
             return raw_bytes
 
 
+@router.post("/admin/ads/reprocesar-video/{creative_id}")
+async def reprocesar_video_creative(creative_id: str, request: Request):
+    """Reprocesa en sitio el archivo de una creatividad ya subida (recomprime
+    con las banderas de color corregidas). Uso puntual: creatividades subidas
+    ANTES del fix de colorspace que quedaron con video negro en Chrome/Windows."""
+    await require_admin(request)
+    creative = await db.ad_creatives.find_one({"creative_id": creative_id})
+    if not creative or creative.get("file_type") != "video":
+        raise HTTPException(404, "Creatividad de video no encontrada")
+    filename = creative["file_url"].rsplit("/", 1)[-1]
+    path = ADS_DIR / filename
+    if not path.exists():
+        raise HTTPException(404, "Archivo no encontrado en disco")
+    with open(path, "rb") as f:
+        original = f.read()
+    with tempfile.TemporaryDirectory() as tmp:
+        src, dst = os.path.join(tmp, "in.mp4"), os.path.join(tmp, "out.mp4")
+        with open(src, "wb") as f:
+            f.write(original)
+        subprocess.run(
+            ["ffmpeg", "-y", "-i", src, "-vf", "scale='min(1280,iw)':-2,format=yuv420p",
+             "-c:v", "libx264", "-crf", "26", "-preset", "veryfast",
+             "-color_range", "tv", "-colorspace", "bt709",
+             "-color_primaries", "bt709", "-color_trc", "bt709",
+             "-c:a", "aac", "-b:a", "96k", "-movflags", "+faststart", dst],
+            check=True, capture_output=True, timeout=120,
+        )
+        with open(dst, "rb") as f:
+            fixed = f.read()
+    with open(path, "wb") as f:
+        f.write(fixed)
+    await db.ad_creatives.update_one({"creative_id": creative_id}, {"$set": {"size_bytes": len(fixed)}})
+    return {"ok": True, "size_antes": len(original), "size_despues": len(fixed)}
+
+
 @router.post("/advertisers/anuncios")
 async def crear_anuncio(request: Request):
     """Anunciante sube un anuncio nuevo, queda en estado 'pendiente'."""
