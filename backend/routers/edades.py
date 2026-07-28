@@ -334,7 +334,10 @@ async def comps_sin_edad(
         q["tipo_propiedad"] = TIPO_ALIAS.get(tipo.lower().strip(), tipo)
     limit = max(1, min(limit, 100))
     items = await db.mercado_props.find(q, CAMPOS_SIN_EDAD).limit(limit).to_list(limit)
-    return {"items": items, "count": len(items)}
+    # Total real de pendientes en esta colonia/municipio (no solo lo que trae este lote) —
+    # para que el perito sepa cuánto falta y no confunda "se acabó el lote" con "ya no queda nada".
+    total_pendientes = await db.mercado_props.count_documents(q)
+    return {"items": items, "count": len(items), "total_pendientes": total_pendientes}
 
 
 @router.post("/edad-estimada")

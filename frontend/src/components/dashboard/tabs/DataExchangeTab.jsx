@@ -289,6 +289,7 @@ const DataExchangeTab = () => {
         onOpenChange={setManualOpen}
         endpoint={`${DX}/manual`}
         onSuccess={cargarInventario}
+        nota="Se agrega a tu inventario (CRM) y al mercado, atribuida a tu cuenta — sí cuenta para tu descuento por calidad."
       />
     </div>
   );

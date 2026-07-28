@@ -268,6 +268,7 @@ const EdadesZonaPage = ({ embedded = false }) => {
   const [colonias, setColonias] = useState([]);
   const [coloniasOficiales, setColoniasOficiales] = useState([]); // SEPOMEX {nombre, cp}
   const [items, setItems] = useState([]);
+  const [totalPendientes, setTotalPendientes] = useState(null); // total real en la colonia/municipio (no solo el lote)
   const [loading, setLoading] = useState(false);
   const [buscado, setBuscado] = useState(false);
   const [conjuntos, setConjuntos] = useState({});   // id_unico -> texto conjunto
@@ -386,6 +387,7 @@ const EdadesZonaPage = ({ embedded = false }) => {
       if (!res.ok) throw new Error();
       const data = await res.json();
       setItems(data.items || []);
+      setTotalPendientes(data.total_pendientes ?? null);
     } catch {
       toast.error("Error al buscar propiedades");
     } finally {
@@ -625,7 +627,15 @@ const EdadesZonaPage = ({ embedded = false }) => {
           endpoint={`${API}/comparables/manual`}
           authHeaders={authHeaders()}
           onSuccess={() => buscar()}
+          nota="Se agrega como comparable anónimo al mercado (para el motor de valuación) — no aparecerá en tu inventario de Data Exchange."
         />
+
+        {/* Total real de pendientes en la zona (no solo el lote de 40 que trae este fetch) */}
+        {buscado && !loading && totalPendientes != null && totalPendientes > items.length && (
+          <p className="text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 -mt-2">
+            Mostrando {items.length} de <strong>{totalPendientes}</strong> pendientes en esta zona — sigue buscando, aún falta.
+          </p>
+        )}
 
         {/* Resultados */}
         {buscado && !loading && pendientes.length === 0 && (

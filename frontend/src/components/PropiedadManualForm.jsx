@@ -64,7 +64,7 @@ const seccion = "text-[11px] font-bold uppercase tracking-wide text-[#52B788] mb
 // Formulario compartido para dar de alta 1-3 propiedades a mano (sin plantilla).
 // El backend es la única fuente de verdad de qué es obligatorio por tipo — este
 // form no duplica esa validación, solo pinta los errores que regresa el server.
-const PropiedadManualForm = ({ open, onOpenChange, endpoint, authHeaders = {}, onSuccess }) => {
+const PropiedadManualForm = ({ open, onOpenChange, endpoint, authHeaders = {}, onSuccess, nota }) => {
   const [filas, setFilas] = useState([{ ...FILA_VACIA }]);
   const [errores, setErrores] = useState({}); // { [index]: string[] }
   const [loading, setLoading] = useState(false);
@@ -119,6 +119,11 @@ const PropiedadManualForm = ({ open, onOpenChange, endpoint, authHeaders = {}, o
             <FilePlus2 className="w-5 h-5 text-[#52B788]" /> Agregar propiedad
           </DialogTitle>
           <DialogDescription>Captura hasta {MAX_FILAS} propiedades a mano, sin plantilla.</DialogDescription>
+          {nota && (
+            <p className="text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 mt-1">
+              {nota}
+            </p>
+          )}
         </DialogHeader>
 
         <div className="space-y-2">

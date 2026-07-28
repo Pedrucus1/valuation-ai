@@ -22,6 +22,8 @@ import LayoutStitch from "./promociones/LayoutStitch";
 import LayoutStitchHub from "./promociones/LayoutStitchHub";
 import LayoutJustListed from "./promociones/LayoutJustListed";
 import LayoutEstateElite from "./promociones/LayoutEstateElite";
+import LayoutA4EstateElite from "./promociones/LayoutA4EstateElite";
+import LayoutA4EstateElite2 from "./promociones/LayoutA4EstateElite2";
 import SecuenciasJustListed from "./promociones/SecuenciasJustListed";
 import { exportSecuenciasGif, exportSecuenciasJpg, exportSecuenciasVideo } from "./promociones/secuenciasGif";
 
@@ -127,7 +129,7 @@ const FORMATOS = {
   ],
   moderno: [["vertical_2p", "Folleto A4"], ["horizontal", "Ficha Carta"], ["reels", "TikTok / Reels"], ["post", "Post 1:1"]],
   just_listed: [["vertical_2p", "Folleto A4"], ["post", "Post 1:1"], ["post3", "Post · 3 slides"], ["reels", "Story / Reels"], ["tiktok", "TikTok · 3 slides"], ["horizontal", "Facebook"]],
-  estateelite: [["reel_ee", "Reel 9:16"], ["post_ee", "Post 1:1"], ["fb_ee", "Facebook"]],
+  estateelite: [["reel_ee", "Reel 9:16"], ["post_ee", "Post 1:1"], ["fb_ee", "Facebook"], ["a4_ee", "Ficha A4"]],
   _default: [["vertical_2p", "Folleto A4"], ["horizontal", "Presentación 16:9"], ["reels", "TikTok / Reels"], ["post", "Post 1:1"]],
 };
 const formatosDe = (t) => FORMATOS[t] || FORMATOS._default;
@@ -186,14 +188,14 @@ const ELEMENTOS_TOGGLE = [
   { key: "puntos",           label: "Puntos destacados" },
 ];
 
-const getLayoutComponent = (temaId) => {
+const getLayoutComponent = (temaId, formatoId) => {
   if (temaId === "just_listed") return LayoutJustListed;
   if (temaId === "stitch_new") return LayoutStitchHub;
   if (temaId === "stitch_obsidian") return LayoutStitch;
   if (temaId === "luxury") return LayoutUltraLujo;
   if (temaId === "minimalist") return LayoutMinimalista;
   if (temaId === "moderno") return LayoutModerno;
-  if (temaId === "estateelite") return LayoutEstateElite;
+  if (temaId === "estateelite") return formatoId === "a4_ee" ? LayoutA4EstateElite : LayoutEstateElite;
   return LayoutClasico;
 };
 
@@ -218,27 +220,9 @@ const normalizar = (v) => {
   return { ...v, fotos, _esManual: false };
 };
 
-// ── Iconos de amenidades (exportado: reutilizado por PropiedadManualForm) ────
-export const AMENIDADES_ICONS = [
-  { label: "Alberca",            Icon: Waves },    { label: "Gimnasio",           Icon: Dumbbell },
-  { label: "Seguridad 24/7",    Icon: Shield },   { label: "Casa Club",          Icon: Home },
-  { label: "Jardín",            Icon: Trees },    { label: "Terraza",            Icon: Sun },
-  { label: "Cava de Vinos",     Icon: Wine },     { label: "Aire Acondicionado", Icon: Wind },
-  { label: "Cochera 2 autos",   Icon: Car },      { label: "Smart Home",         Icon: Monitor },
-  { label: "Elevador",          Icon: Box },      { label: "Área de mascotas",   Icon: Trees },
-];
-const INSTALACIONES_ICONS = [
-  { label: "Paneles Solares",        Icon: Sun },      { label: "Cisterna 10,000L",  Icon: Droplets },
-  { label: "Generador",             Icon: Zap },      { label: "Circuito Cerrado",  Icon: Camera },
-  { label: "Domótica",              Icon: Monitor },  { label: "Calentador Solar",  Icon: Sun },
-  { label: "Gas Estacionario",      Icon: Zap },      { label: "Fibra Óptica",      Icon: Wifi },
-];
-const ESPACIOS_ICONS = [
-  { label: "Sala de TV",    Icon: Tv },        { label: "Comedor",          Icon: Utensils },
-  { label: "Cocina Integral", Icon: Utensils },{ label: "Estudio",          Icon: BookOpen },
-  { label: "Cuarto de Servicio", Icon: Bed }, { label: "Bodega",           Icon: Box },
-  { label: "Sala de Juegos", Icon: Gamepad2 }, { label: "Spa",              Icon: Droplet },
-];
+// ── Iconos de amenidades (reexportado: reutilizado por PropiedadManualForm y
+// LayoutA4EstateElite2 — viven en amenidadesIcons.js para evitar import circular) ────
+export { AMENIDADES_ICONS, INSTALACIONES_ICONS, ESPACIOS_ICONS } from "./promociones/amenidadesIcons";
 
 // Fotos de referencia para preview cuando no hay fotos reales
 const PROP_DEMO = {
@@ -462,7 +446,8 @@ const PromocionesTab = ({ valuacionesList, session }) => {
   };
 
   const exportarFicha = async (modo = "pdf") => {
-    const hasHoja2 = temaSeleccionado === "classic" && formatoSeleccionado === "vertical_2p";
+    const hasHoja2 = (temaSeleccionado === "classic" && formatoSeleccionado === "vertical_2p")
+      || (temaSeleccionado === "estateelite" && formatoSeleccionado === "a4_ee");
     const elId = hasHoja2 && hojaActiva === 2 ? "pv-ficha-tecnica-root" : "pv-ficha-root";
     if (modo === "jpg") {
       // El zoom del preview usa CSS "zoom" (no estándar) y html2canvas no lo soporta bien:
@@ -472,7 +457,7 @@ const PromocionesTab = ({ valuacionesList, session }) => {
       const zoomPrevio = zoom;
       if (zoomPrevio !== 1) { setZoom(1); await waitFrame(); }
       try {
-        if (temaSeleccionado === "estateelite") {
+        if (temaSeleccionado === "estateelite" && formatoSeleccionado !== "a4_ee") {
           const slidePrevio = estateEliteSlide;
           for (let i = 0; i < estateEliteSlideCount; i++) {
             setEstateEliteSlide(i);
@@ -496,7 +481,7 @@ const PromocionesTab = ({ valuacionesList, session }) => {
       finally { if (zoomPrevio !== 1) setZoom(zoomPrevio); }
       return;
     }
-    if (temaSeleccionado === "estateelite") {
+    if (temaSeleccionado === "estateelite" && formatoSeleccionado !== "a4_ee") {
       // El reel (390x693, hojas apiladas) no cabe en el mecanismo genérico de
       // window.print() (pensado para hojas A4 sueltas) — se arma un PDF real
       // client-side con una página por hoja, capturando cada una a zoom 1.
@@ -585,10 +570,11 @@ const PromocionesTab = ({ valuacionesList, session }) => {
 
   const palette = PALETAS.find(p => p.id === paletaId) || PALETAS[0];
   const theme = TEMAS[temaSeleccionado] || TEMAS.classic;
-  const LayoutComponent = getLayoutComponent(temaSeleccionado);
-  const esFormatoA4 = ["vertical_2p","stitch_gallery","stitch_letter","stitch_asymmetry"].includes(formatoSeleccionado) && temaSeleccionado !== "moderno";
+  const LayoutComponent = getLayoutComponent(temaSeleccionado, formatoSeleccionado);
+  const esFormatoA4 = ["vertical_2p","stitch_gallery","stitch_letter","stitch_asymmetry","a4_ee"].includes(formatoSeleccionado) && temaSeleccionado !== "moderno";
   // Hoja 2 (LayoutFichaTecnica) solo existe para el estilo Clásico en formato A4
-  const tieneHoja2 = temaSeleccionado === "classic" && formatoSeleccionado === "vertical_2p";
+  const tieneHoja2 = (temaSeleccionado === "classic" && formatoSeleccionado === "vertical_2p")
+    || (temaSeleccionado === "estateelite" && formatoSeleccionado === "a4_ee");
 
   const precioFinal = tipoPrecio === "ajustado" && precioAjustado
     ? parseFloat(precioAjustado)
@@ -1296,7 +1282,7 @@ const PromocionesTab = ({ valuacionesList, session }) => {
               </div>
             )}
             {/* Navegación de hojas dinámicas (EstateElite): mismo patrón visual que Hoja 1/Hoja 2 */}
-            {temaSeleccionado === "estateelite" && estateEliteSlideCount > 1 && (
+            {temaSeleccionado === "estateelite" && formatoSeleccionado !== "a4_ee" && estateEliteSlideCount > 1 && (
               <div className="absolute top-3 left-0 right-0 z-20 flex justify-center">
                 <div className="bg-white rounded-full shadow-lg border border-slate-200 p-1 flex items-center gap-1">
                   {Array.from({ length: estateEliteSlideCount }, (_, idx) => (
@@ -1339,23 +1325,34 @@ const PromocionesTab = ({ valuacionesList, session }) => {
                     onSlideCountChange={setEstateEliteSlideCount}
                   />
                 </div>
-                {/* Hoja 2 — técnica, solo en estilo Clásico vertical_2p */}
+                {/* Hoja 2 — técnica (Clásico vertical_2p) o galería+contacto (EstateElite a4_ee) */}
                 {tieneHoja2 && (
                   <div style={{ display: hojaActiva === 2 ? "block" : "none" }}>
-                    <LayoutFichaTecnica
-                      fichaAvaluo={fichaConPrecio}
-                      texts={texts}
-                      idioma={idioma}
-                      descripcionTexto={descripcionTexto}
-                      theme={theme}
-                      palette={palette}
-                      formatMXN={formatMXN}
-                      session={session}
-                      amenidades={(amenidadesStr || "").split(",").map(s => s.trim()).filter(Boolean)}
-                      instalaciones={(instalacionesStr || "").split(",").map(s => s.trim()).filter(Boolean)}
-                      espacios={(espaciosStr || "").split(",").map(s => s.trim()).filter(Boolean)}
-                      puntosDestacados={todosLosPuntos}
-                    />
+                    {temaSeleccionado === "estateelite" ? (
+                      <LayoutA4EstateElite2
+                        fichaAvaluo={fichaConPrecio}
+                        asesor={asesorFinal}
+                        session={session}
+                        formatMXN={formatMXN}
+                        slidesFotos={slidesFotos}
+                        amenidades={(amenidadesStr || "").split(",").map(s => s.trim()).filter(Boolean)}
+                      />
+                    ) : (
+                      <LayoutFichaTecnica
+                        fichaAvaluo={fichaConPrecio}
+                        texts={texts}
+                        idioma={idioma}
+                        descripcionTexto={descripcionTexto}
+                        theme={theme}
+                        palette={palette}
+                        formatMXN={formatMXN}
+                        session={session}
+                        amenidades={(amenidadesStr || "").split(",").map(s => s.trim()).filter(Boolean)}
+                        instalaciones={(instalacionesStr || "").split(",").map(s => s.trim()).filter(Boolean)}
+                        espacios={(espaciosStr || "").split(",").map(s => s.trim()).filter(Boolean)}
+                        puntosDestacados={todosLosPuntos}
+                      />
+                    )}
                   </div>
                 )}
               </div>
