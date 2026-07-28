@@ -34,8 +34,16 @@ def _compress_video(raw_bytes: bytes) -> bytes:
             f.write(raw_bytes)
         try:
             subprocess.run(
-                ["ffmpeg", "-y", "-i", src, "-vf", "scale='min(1280,iw)':-2",
+                # pix_fmt/colorspace explícitos: sin esto, el video hereda la
+                # metadata de color del export original (ej. Remotion deja
+                # yuvj420p + color_range=pc + colorspace SD sobre contenido HD),
+                # combinación que el decodificador de hardware de Chrome/Windows
+                # (Media Foundation) renderiza como negro sólido aunque el
+                # archivo sea válido (se ve bien en VLC/ffplay/curl).
+                ["ffmpeg", "-y", "-i", src, "-vf", "scale='min(1280,iw)':-2,format=yuv420p",
                  "-c:v", "libx264", "-crf", "26", "-preset", "veryfast",
+                 "-color_range", "tv", "-colorspace", "bt709",
+                 "-color_primaries", "bt709", "-color_trc", "bt709",
                  "-c:a", "aac", "-b:a", "96k", "-movflags", "+faststart", dst],
                 check=True, capture_output=True, timeout=120,
             )
