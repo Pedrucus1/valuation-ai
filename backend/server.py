@@ -1630,7 +1630,28 @@ IMPORTANTE: Devuelve SOLO el JSON. Los scores de perfil_entorno deben ser entero
 
             def _call_gemini(model_name: str):
                 _m = _genai.GenerativeModel(model_name, system_instruction=_sys)
-                return _m.generate_content(prompt)
+                # response_mime_type=json: modo JSON nativo de Gemini, reduce el
+                # riesgo de que la respuesta salga truncada/mal formada a medio JSON.
+                return _m.generate_content(prompt, generation_config={"response_mime_type": "application/json"})
+
+            async def _call_deepseek(prompt: str, sys: str) -> str:
+                """Respaldo real cuando Gemini falla — mismo proveedor/API que ya
+                usa `Modulo Drive IA/motor_remi_api.js` (compatible OpenAI)."""
+                key = os.environ.get("DEEPSEEK_API_KEY")
+                if not key:
+                    raise RuntimeError("DEEPSEEK_API_KEY no configurada")
+                async with httpx.AsyncClient(timeout=30.0) as client:
+                    r = await client.post(
+                        "https://api.deepseek.com/v1/chat/completions",
+                        headers={"Authorization": f"Bearer {key}"},
+                        json={
+                            "model": "deepseek-chat",
+                            "messages": [{"role": "system", "content": sys}, {"role": "user", "content": prompt}],
+                            "response_format": {"type": "json_object"},
+                        },
+                    )
+                    r.raise_for_status()
+                    return r.json()["choices"][0]["message"]["content"]
 
             def _parse_raw(raw: str):
                 raw = raw.strip()
@@ -1643,20 +1664,23 @@ IMPORTANTE: Devuelve SOLO el JSON. Los scores de perfil_entorno deben ser entero
 
             try:
                 _loop = asyncio.get_running_loop()
-                # Try models in order, fallback on rate limit
-                for _model_name in ("gemini-2.5-flash", "gemini-2.0-flash", "gemini-2.0-flash-lite"):
+                try:
+                    _gresult = await asyncio.wait_for(
+                        _loop.run_in_executor(None, lambda: _call_gemini("gemini-2.5-flash")),
+                        timeout=30.0
+                    )
+                    ai_sections = _parse_raw(_gresult.text)
+                    analysis = ai_sections.get("analisis_mercado", analysis)
+                    logger.info("Gemini AI sections generated (gemini-2.5-flash)")
+                except Exception as _ge:
+                    logger.warning(f"gemini-2.5-flash failed: {_ge}")
                     try:
-                        _gresult = await asyncio.wait_for(
-                            _loop.run_in_executor(None, lambda m=_model_name: _call_gemini(m)),
-                            timeout=30.0
-                        )
-                        ai_sections = _parse_raw(_gresult.text)
+                        _draw = await asyncio.wait_for(_call_deepseek(prompt, _sys), timeout=30.0)
+                        ai_sections = _parse_raw(_draw)
                         analysis = ai_sections.get("analisis_mercado", analysis)
-                        logger.info(f"Gemini AI sections generated ({_model_name})")
-                        break
-                    except Exception as _me:
-                        logger.warning(f"{_model_name} failed: {_me}")
-                        continue
+                        logger.info("DeepSeek AI sections generated (fallback)")
+                    except Exception as _de:
+                        logger.warning(f"DeepSeek fallback failed: {_de}")
             except asyncio.TimeoutError:
                 logger.warning("Gemini timeout, using template analysis")
 
