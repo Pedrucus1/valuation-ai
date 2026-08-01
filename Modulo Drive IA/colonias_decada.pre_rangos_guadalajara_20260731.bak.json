@@ -385,11 +385,10 @@
   "confianza": "baja"
  },
  "la loma": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
@@ -398,7 +397,6 @@
  "el colli urbano": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -408,22 +406,20 @@
   "confianza": "baja"
  },
  "san juan bosco": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
   "confianza": "baja"
  },
  "arcos vallarta": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "lujo",
   "fuente": "heuristica-anillo",
@@ -455,19 +451,17 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
   "confianza": "baja"
  },
  "colomos providencia": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "lujo",
   "fuente": "heuristica-anillo",
@@ -477,8 +471,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
@@ -499,8 +492,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -509,7 +501,6 @@
  "prados providencia": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -522,8 +513,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -533,8 +523,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
@@ -555,8 +544,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -566,8 +554,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
@@ -621,19 +608,17 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
   "confianza": "baja"
  },
  "rinconada santa rita": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
@@ -654,8 +639,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -676,19 +660,17 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
   "confianza": "baja"
  },
  "san antonio": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
@@ -698,8 +680,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -720,8 +701,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
@@ -731,8 +711,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -753,8 +732,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
@@ -764,8 +742,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -786,8 +763,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -805,11 +781,10 @@
   "confianza": "baja"
  },
  "col americana": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "lujo",
   "fuente": "heuristica-anillo",
@@ -860,11 +835,10 @@
   "confianza": "baja"
  },
  "san andres": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
@@ -882,11 +856,10 @@
   "confianza": "baja"
  },
  "centro": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "lujo",
   "fuente": "heuristica-anillo",
@@ -896,19 +869,17 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
   "confianza": "baja"
  },
  "el manantial": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
@@ -917,7 +888,6 @@
  "hacienda casa fuerte": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -929,7 +899,6 @@
  "tlaquepaque centro": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -975,8 +944,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
@@ -1008,19 +976,17 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
   "confianza": "baja"
  },
  "la penal": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
@@ -1041,8 +1007,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
@@ -1052,8 +1017,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
@@ -1063,8 +1027,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
@@ -1074,8 +1037,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "lujo",
   "fuente": "heuristica-anillo",
@@ -1085,8 +1047,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
@@ -1096,8 +1057,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
@@ -1107,19 +1067,17 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
   "confianza": "baja"
  },
  "artesanos": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
@@ -1128,7 +1086,6 @@
  "loma bonita ejidal": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -1141,8 +1098,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "lujo",
   "fuente": "heuristica-anillo",
@@ -1151,7 +1107,6 @@
  "constitucion": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -1163,7 +1118,6 @@
  "marcelino garcia barragan": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -1176,8 +1130,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -1195,11 +1148,10 @@
   "confianza": "baja"
  },
  "el rosario": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -1208,7 +1160,6 @@
  "los olivos de tlaquepaque": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -1231,7 +1182,6 @@
  "del fresno 1a": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -1241,11 +1191,10 @@
   "confianza": "baja"
  },
  "providencia 4a": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "lujo",
   "fuente": "heuristica-anillo",
@@ -1255,8 +1204,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
@@ -1274,33 +1222,30 @@
   "confianza": "baja"
  },
  "olimpica": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
   "confianza": "baja"
  },
  "guadalajara centro": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
   "confianza": "baja"
  },
  "echeverria": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
@@ -1310,30 +1255,27 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
   "confianza": "baja"
  },
  "quinta velarde": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
   "confianza": "baja"
  },
  "san rafael": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -1342,7 +1284,6 @@
  "zona centro": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -1377,8 +1318,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
@@ -1388,8 +1328,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -1406,11 +1345,10 @@
   "confianza": "alta"
  },
  "villa hermosa": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
@@ -1431,19 +1369,17 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
   "confianza": "baja"
  },
  "las conchas": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
@@ -1464,8 +1400,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -1475,8 +1410,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -1494,11 +1428,10 @@
   "confianza": "baja"
  },
  "5 de mayo": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "lujo",
   "fuente": "heuristica-anillo",
@@ -1519,8 +1452,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -1541,8 +1473,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -1552,8 +1483,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "lujo",
   "fuente": "heuristica-anillo",
@@ -1563,19 +1493,17 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
   "confianza": "baja"
  },
  "morelos": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
@@ -1585,8 +1513,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -1607,8 +1534,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -1618,8 +1544,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
@@ -1628,7 +1553,6 @@
  "cuauhtemoc": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -1638,11 +1562,10 @@
   "confianza": "baja"
  },
  "la nogalera": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
@@ -1652,8 +1575,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
@@ -1674,8 +1596,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
@@ -1685,8 +1606,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -1696,8 +1616,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
@@ -1707,19 +1626,17 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
   "confianza": "baja"
  },
  "san martin": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
@@ -1729,8 +1646,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
@@ -1740,8 +1656,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
@@ -1762,8 +1677,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
@@ -1784,8 +1698,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
@@ -1805,7 +1718,6 @@
  "jardin de san ignacio": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -1828,7 +1740,6 @@
  "san jose del rio verde": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -1904,33 +1815,30 @@
   "confianza": "baja"
  },
  "talpita": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
   "confianza": "baja"
  },
  "jose clemente orozco": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
   "confianza": "baja"
  },
  "san vicente": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
@@ -1939,7 +1847,6 @@
  "san jose rio verde": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -1952,8 +1859,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -1962,7 +1868,6 @@
  "alamo industrial": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -1972,22 +1877,20 @@
   "confianza": "baja"
  },
  "la joyita": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
   "confianza": "baja"
  },
  "electricistas": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -2016,22 +1919,20 @@
   "confianza": "baja"
  },
  "rancho blanco": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
   "confianza": "baja"
  },
  "col del fresno": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
@@ -2041,8 +1942,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -2060,11 +1960,10 @@
   "confianza": "baja"
  },
  "segunda zona industrial": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "lujo",
   "fuente": "heuristica-anillo",
@@ -2074,8 +1973,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
@@ -2103,11 +2001,10 @@
   "confianza": "baja"
  },
  "entre rosa navarro y ejido col lomas de revolucion": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -2125,22 +2022,20 @@
   "confianza": "baja"
  },
  "santos degollado": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
   "confianza": "baja"
  },
  "barragan hernandez": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
@@ -2149,7 +2044,6 @@
  "jalisco i": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -2162,8 +2056,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -2173,8 +2066,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
@@ -2184,8 +2076,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -2194,7 +2085,6 @@
  "sta paula": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -2204,11 +2094,10 @@
   "confianza": "baja"
  },
  "cantarranas": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "lujo",
   "fuente": "heuristica-anillo",
@@ -2218,8 +2107,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -2239,8 +2127,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
@@ -2305,8 +2192,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -2315,7 +2201,6 @@
  "colinas del rey_old": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -2361,8 +2246,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -2382,7 +2266,6 @@
  "jalisco ii": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -2406,8 +2289,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
@@ -2417,8 +2299,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
@@ -2427,7 +2308,6 @@
  "zoquipan": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -2439,7 +2319,6 @@
  "atemajac": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -2449,11 +2328,10 @@
   "confianza": "baja"
  },
  "colomos providenci": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s",
-   "1920s"
+   "1910s"
   ],
   "nivel": "lujo",
   "fuente": "heuristica-anillo",
@@ -2462,7 +2340,6 @@
  "int 7": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -2474,7 +2351,6 @@
  "miravalle fovissste": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -2498,8 +2374,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "lujo",
   "fuente": "heuristica-anillo",
@@ -2563,7 +2438,6 @@
  "geovillas los olivos": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -2576,8 +2450,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
@@ -2587,8 +2460,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -2597,7 +2469,6 @@
  "el rastro": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -2621,8 +2492,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
@@ -2642,7 +2512,6 @@
  "gdl centro": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -2655,8 +2524,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -2676,7 +2544,6 @@
  "valle de las heras": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -2688,7 +2555,6 @@
  "heliodoro hernandez": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -2700,7 +2566,6 @@
  "jal": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -2713,8 +2578,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
@@ -2724,8 +2588,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
@@ -2778,7 +2641,6 @@
  "lomas de rio verde": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -2791,8 +2653,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -2802,8 +2663,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -2824,8 +2684,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -2846,8 +2705,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
@@ -2857,8 +2715,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
@@ -2868,8 +2725,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -2879,8 +2735,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-baja",
   "fuente": "heuristica-anillo",
@@ -2900,7 +2755,6 @@
  "unidad habitacional zoologico planetario infonavit": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -2924,8 +2778,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-alta",
   "fuente": "heuristica-anillo",
@@ -2945,7 +2798,6 @@
  "jardines de vallarta": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -2958,8 +2810,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -2969,8 +2820,7 @@
   "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -2979,7 +2829,6 @@
  "america a": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -2991,7 +2840,6 @@
  "margarita masa de juarez": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -3003,7 +2851,6 @@
  "jerez huejucar": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"
@@ -3026,7 +2873,6 @@
  "san martin o talpita": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
    "1950s",
    "1960s",
    "1970s"

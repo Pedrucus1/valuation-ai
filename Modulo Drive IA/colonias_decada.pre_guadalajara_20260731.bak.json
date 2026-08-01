@@ -1,0 +1,376 @@
+{
+ "analco": {
+  "decada_ref": "1900s",
+  "decadas": [
+   "1900s"
+  ],
+  "nivel": "popular",
+  "fuente": "manual-investigacion",
+  "confianza": "alta"
+ },
+ "mexicaltzingo": {
+  "decada_ref": "1900s",
+  "decadas": [
+   "1900s"
+  ],
+  "nivel": "popular",
+  "fuente": "manual-investigacion",
+  "confianza": "alta"
+ },
+ "san juan de dios": {
+  "decada_ref": "1900s",
+  "decadas": [
+   "1900s"
+  ],
+  "nivel": "popular",
+  "fuente": "manual-investigacion",
+  "confianza": "alta"
+ },
+ "americana": {
+  "decada_ref": "1910s",
+  "decadas": [
+   "1900s",
+   "1910s",
+   "1920s"
+  ],
+  "nivel": "media-alta",
+  "fuente": "manual-investigacion",
+  "confianza": "alta"
+ },
+ "moderna": {
+  "decada_ref": "1900s",
+  "decadas": [
+   "1900s",
+   "1910s"
+  ],
+  "nivel": "media-alta",
+  "fuente": "manual-investigacion",
+  "confianza": "media"
+ },
+ "reforma": {
+  "decada_ref": "1900s",
+  "decadas": [
+   "1900s",
+   "1910s"
+  ],
+  "nivel": "media-alta",
+  "fuente": "manual-investigacion",
+  "confianza": "media"
+ },
+ "lafayette": {
+  "decada_ref": "1930s",
+  "decadas": [
+   "1920s",
+   "1930s"
+  ],
+  "nivel": "media-alta",
+  "fuente": "manual-investigacion",
+  "confianza": "alta"
+ },
+ "chapalita": {
+  "decada_ref": "1940s",
+  "decadas": [
+   "1940s",
+   "1950s"
+  ],
+  "nivel": "media-alta",
+  "fuente": "manual-investigacion",
+  "confianza": "alta"
+ },
+ "providencia": {
+  "decada_ref": "1960s",
+  "decadas": [
+   "1940s",
+   "1950s",
+   "1960s",
+   "1970s"
+  ],
+  "nivel": "media-alta",
+  "fuente": "manual-investigacion",
+  "confianza": "alta"
+ },
+ "las fuentes": {
+  "decada_ref": "1940s",
+  "decadas": [
+   "1940s",
+   "1950s"
+  ],
+  "nivel": "media-alta",
+  "fuente": "manual-investigacion",
+  "confianza": "media"
+ },
+ "country club": {
+  "decada_ref": "1940s",
+  "decadas": [
+   "1940s",
+   "1950s"
+  ],
+  "nivel": "media-alta",
+  "fuente": "manual-investigacion",
+  "confianza": "media"
+ },
+ "jardines del bosque": {
+  "decada_ref": "1960s",
+  "decadas": [
+   "1960s"
+  ],
+  "nivel": "media",
+  "fuente": "manual-investigacion",
+  "confianza": "alta"
+ },
+ "colinas de san javier": {
+  "decada_ref": "1960s",
+  "decadas": [
+   "1960s",
+   "1970s"
+  ],
+  "nivel": "lujo",
+  "fuente": "manual-investigacion",
+  "confianza": "alta"
+ },
+ "el batan": {
+  "decada_ref": "1960s",
+  "decadas": [
+   "1960s"
+  ],
+  "nivel": "popular",
+  "fuente": "manual-investigacion",
+  "confianza": "media"
+ },
+ "las huertas": {
+  "decada_ref": "1960s",
+  "decadas": [
+   "1960s"
+  ],
+  "nivel": "media-baja",
+  "fuente": "manual-investigacion",
+  "confianza": "media"
+ },
+ "jardines de san ignacio": {
+  "decada_ref": "1960s",
+  "decadas": [
+   "1960s"
+  ],
+  "nivel": "media-alta",
+  "fuente": "manual-investigacion",
+  "confianza": "media"
+ },
+ "la monumental": {
+  "decada_ref": "1960s",
+  "decadas": [
+   "1960s"
+  ],
+  "nivel": "media",
+  "fuente": "manual-investigacion",
+  "confianza": "media"
+ },
+ "mezquitan country": {
+  "decada_ref": "1960s",
+  "decadas": [
+   "1960s"
+  ],
+  "nivel": "media",
+  "fuente": "manual-investigacion",
+  "confianza": "media"
+ },
+ "jardines del country": {
+  "decada_ref": "1960s",
+  "decadas": [
+   "1960s",
+   "1970s",
+   "1980s"
+  ],
+  "nivel": "media-alta",
+  "fuente": "manual-investigacion",
+  "confianza": "media"
+ },
+ "el country": {
+  "decada_ref": "1960s",
+  "decadas": [
+   "1960s",
+   "1970s",
+   "1980s"
+  ],
+  "nivel": "media-alta",
+  "fuente": "manual-investigacion",
+  "confianza": "media"
+ },
+ "seattle": {
+  "decada_ref": "1900s",
+  "decadas": [
+   "1900s"
+  ],
+  "nivel": "media",
+  "fuente": "manual-investigacion",
+  "confianza": "baja"
+ },
+ "miravalle": {
+  "decada_ref": "1970s",
+  "decadas": [
+   "1970s"
+  ],
+  "nivel": "popular",
+  "fuente": "manual-investigacion",
+  "confianza": "alta"
+ },
+ "el sauz": {
+  "decada_ref": "1970s",
+  "decadas": [
+   "1970s"
+  ],
+  "nivel": "popular",
+  "fuente": "manual-investigacion",
+  "confianza": "media"
+ },
+ "loma dorada": {
+  "decada_ref": "1970s",
+  "decadas": [
+   "1970s",
+   "1980s"
+  ],
+  "nivel": "popular",
+  "fuente": "manual-investigacion",
+  "confianza": "media"
+ },
+ "ciudad bugambilias": {
+  "decada_ref": "1970s",
+  "decadas": [
+   "1970s",
+   "1980s"
+  ],
+  "nivel": "media-alta",
+  "fuente": "manual-investigacion",
+  "confianza": "alta"
+ },
+ "bugambilias": {
+  "decada_ref": "1970s",
+  "decadas": [
+   "1970s",
+   "1980s"
+  ],
+  "nivel": "media-alta",
+  "fuente": "manual-investigacion",
+  "confianza": "alta"
+ },
+ "la calma": {
+  "decada_ref": "1970s",
+  "decadas": [
+   "1970s"
+  ],
+  "nivel": "media",
+  "fuente": "manual-investigacion",
+  "confianza": "media"
+ },
+ "santa anita": {
+  "decada_ref": "1970s",
+  "decadas": [
+   "1970s",
+   "1980s"
+  ],
+  "nivel": "lujo",
+  "fuente": "manual-investigacion",
+  "confianza": "media"
+ },
+ "las aguilas": {
+  "decada_ref": "1980s",
+  "decadas": [
+   "1980s"
+  ],
+  "nivel": "media",
+  "fuente": "manual-investigacion",
+  "confianza": "media"
+ },
+ "paseos del sol": {
+  "decada_ref": "1980s",
+  "decadas": [
+   "1980s"
+  ],
+  "nivel": "media",
+  "fuente": "manual-investigacion",
+  "confianza": "media"
+ },
+ "jardines del sol": {
+  "decada_ref": "1980s",
+  "decadas": [
+   "1980s"
+  ],
+  "nivel": "media",
+  "fuente": "manual-investigacion",
+  "confianza": "media"
+ },
+ "arboledas": {
+  "decada_ref": "1980s",
+  "decadas": [
+   "1980s"
+  ],
+  "nivel": "media-alta",
+  "fuente": "manual-investigacion",
+  "confianza": "media"
+ },
+ "loma bonita": {
+  "decada_ref": "1980s",
+  "decadas": [
+   "1980s"
+  ],
+  "nivel": "media",
+  "fuente": "manual-investigacion",
+  "confianza": "media"
+ },
+ "valle real": {
+  "decada_ref": "1980s",
+  "decadas": [
+   "1980s",
+   "1990s"
+  ],
+  "nivel": "lujo",
+  "fuente": "manual-investigacion",
+  "confianza": "alta"
+ },
+ "hacienda santa fe": {
+  "decada_ref": "2000s",
+  "decadas": [
+   "2000s",
+   "2010s"
+  ],
+  "nivel": "popular",
+  "fuente": "manual-investigacion",
+  "confianza": "alta"
+ },
+ "chulavista": {
+  "decada_ref": "2000s",
+  "decadas": [
+   "2000s"
+  ],
+  "nivel": "popular",
+  "fuente": "manual-investigacion",
+  "confianza": "media"
+ },
+ "la noria": {
+  "decada_ref": "2000s",
+  "decadas": [
+   "2000s"
+  ],
+  "nivel": "popular",
+  "fuente": "manual-investigacion",
+  "confianza": "media"
+ },
+ "puerta de hierro": {
+  "decada_ref": "2000s",
+  "decadas": [
+   "2000s",
+   "2010s"
+  ],
+  "nivel": "lujo",
+  "fuente": "manual-investigacion",
+  "confianza": "alta"
+ },
+ "andares": {
+  "decada_ref": "2010s",
+  "decadas": [
+   "2010s"
+  ],
+  "nivel": "lujo",
+  "fuente": "manual-investigacion",
+  "confianza": "alta"
+ }
+}
