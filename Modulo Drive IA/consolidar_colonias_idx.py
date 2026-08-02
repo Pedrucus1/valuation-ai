@@ -60,7 +60,7 @@ RE_COL_PREFIX    = re.compile(r"^col\s+(.+)$")
 # colonia distinta de Providencia; 'inas de atemajac' es Colinas de Atemajac.
 # 'condominio'/'coto'/'privada' quedan FUERA a propósito: son desarrollos con
 # edad y producto propios dentro de la colonia, no decoradores del nombre.
-RE_TRUNCADO      = re.compile(r"^(?:ionamiento|amiento)\s+(.+)$")
+RE_TRUNCADO      = re.compile(r"^(?:ionamiento|amiento|fracc\.?|fraccionamiento|colonia)\s+(.+)$")
 RE_TRUNC_NOMBRE  = re.compile(r"^(omos|inas)\s+(.+)$")
 RESTAURA_TRUNC   = {"omos": "colomos", "inas": "colinas"}
 RE_CASA_EN       = re.compile(r"^casa\s+en\s+(.+)$")
@@ -73,10 +73,16 @@ RE_MUNI_SUFFIX   = re.compile(r"^(.+?)\s+(zapopan|guadalajara|tlaquepaque|tonala
 
 
 def strip_muni_suffix(s: str) -> str:
-    """Elimina el nombre de municipio normalizado del final del string."""
+    """Elimina el nombre de municipio normalizado del final del string.
+
+    No lo quita si al hacerlo el nombre queda colgando de una preposición: en
+    'brisas de chapala' o 'haciendas de chapala', 'chapala' es parte del nombre,
+    no el municipio, y quitarlo dejaba 'brisas de'."""
+    s = " ".join(s.split())
     for muni in AMG_MUNIS_NORM:
         if s.endswith(" " + muni):
-            return s[: -len(muni) - 1].strip()
+            corto = s[: -len(muni) - 1].strip()
+            return s if corto.split()[-1:] in ([p] for p in ("de", "del", "la", "las", "los", "el", "y", "en")) else corto
         if s == muni:
             return ""
     return s
@@ -105,7 +111,7 @@ def is_valid_canonical(s: str) -> bool:
     meaningful = [w for w in words if len(w) > 3]
     if len(meaningful) != len(set(meaningful)):
         return False
-    if words[-1] in ("de", "del", "la", "las", "los", "el", "y"):
+    if words[-1] in ("de", "del", "la", "las", "los", "el", "y", "en"):
         return False  # strip_muni_suffix se comió el nombre ('brisas de chapala' → 'brisas de')
     return True
 
@@ -494,10 +500,9 @@ def main():
     print("\n[6] Aplicando fusiones en colonias_maestro.json...")
     fusiones_aplicadas_mae = 0
 
-    for frag, canon in fusiones.items():
-        if frag not in maestro:
-            continue  # fragmento no tiene entrada en maestro
-
+    def fusionar_en_maestro(frag, canon):
+        if frag not in maestro or frag == canon:
+            return False
         rec_frag = maestro[frag]
 
         if canon not in maestro:
@@ -516,11 +521,29 @@ def main():
                     if sub in frag_nse and sub not in rec_canon["nse"]:
                         rec_canon["nse"][sub] = frag_nse[sub]
 
-        # Eliminar fragmento del maestro
         del maestro[frag]
-        fusiones_aplicadas_mae += 1
+        return True
 
-    print(f"  Entradas de maestro fusionadas: {fusiones_aplicadas_mae}")
+    for frag, canon in fusiones.items():
+        fusiones_aplicadas_mae += fusionar_en_maestro(frag, canon)
+
+    # Segunda pasada: fragmentos que SOLO viven en el maestro (nunca tuvieron
+    # celda en cache_index), que el barrido anterior no alcanza.
+    solo_maestro = 0
+    for frag in list(maestro):
+        canon, tipo = extract_canonical(frag)
+        if not canon or tipo != "seguro":
+            continue
+        if not (len(canon) < len(frag) or canon.split()[0] in RESTAURA_TRUNC.values()):
+            continue
+        # No fusionar homónimos de municipios distintos ('jardines del vergel')
+        mf, mc = (maestro[frag] or {}).get("municipio"), (maestro.get(canon) or {}).get("municipio")
+        if mf and mc and mf != mc:
+            continue
+        solo_maestro += fusionar_en_maestro(frag, canon)
+
+    print(f"  Entradas de maestro fusionadas: {fusiones_aplicadas_mae} "
+          f"(+{solo_maestro} que solo existían en el maestro)")
 
     # ── Guardar ───────────────────────────────────────────────────────────────
     print("\n[7] Guardando archivos...")
