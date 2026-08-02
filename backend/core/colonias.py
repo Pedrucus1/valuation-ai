@@ -80,31 +80,29 @@ def es_junk_colonia(v):
 
 
 def _fuerza(decada, k):
-    """Orden de preferencia dentro de un grupo normalizado: primero la confianza
-    del dato, y a igualdad la llave que YA es canónica ('chapalita' sobre
-    'ionamiento chapalita')."""
+    """Orden de preferencia dentro de un grupo: primero la confianza del dato, y
+    a igualdad la llave que ya es canónica."""
     return (decada[k].get("confianza_puntos") or 0, norm_col_key(k) == k)
 
 
 @lru_cache(maxsize=1)
 def _indice():
-    """(exacto, por_norm, colisiones). `por_norm[(muni_norm, clave_norm)]` guarda
-    la entrada ganadora del grupo; `muni_norm` es "" cuando el maestro no sabe el
-    municipio (solo 731 de 5,018 lo tienen, así que no puede ser obligatorio)."""
+    """(decada, por_clave, colisiones). `por_clave[(municipio, nombre_norm)]` →
+    llave real. El municipio sale del propio dato (`municipio`, presente en 2,465
+    de 4,808 entradas), no de un cruce contra el maestro. Las homónimas de verdad
+    viven con llave 'nombre|municipio'."""
     decada = json.loads(_DECADA_PATH.read_text(encoding="utf-8"))
-    try:
-        maestro = json.loads(_MAESTRO_PATH.read_text(encoding="utf-8"))
-    except Exception:
-        maestro = {}
 
     grupos = {}
-    for k in decada:
-        muni = norm_muni((maestro.get(k) or {}).get("municipio") or "")
-        grupos.setdefault((muni, norm_col_key(k)), []).append(k)
-        if muni:                       # también en el cubo sin municipio, para buscar sin él
-            grupos.setdefault(("", norm_col_key(k)), []).append(k)
+    for k, v in decada.items():
+        nombre, _, muni_llave = k.partition("|")
+        nk = norm_col_key(nombre)
+        muni = muni_llave or norm_muni(v.get("municipio") or "")
+        grupos.setdefault((muni, nk), []).append(k)
+        if muni:                   # también sin municipio, para buscar sin él
+            grupos.setdefault(("", nk), []).append(k)
 
-    por_norm, colisiones = {}, []
+    por_clave, colisiones = {}, []
     for (muni, nk), llaves in grupos.items():
         llaves = sorted(llaves, key=lambda k: _fuerza(decada, k), reverse=True)
         top = llaves[0]
@@ -121,74 +119,85 @@ def _indice():
                                    for k in llaves],
                 })
             if empate:
-                continue               # ambiguo: no se resuelve con "último gana"
-        por_norm[(muni, nk)] = top
-    return decada, por_norm, colisiones
+                continue           # ambiguo: no se resuelve con "último gana"
+        por_clave[(muni, nk)] = top
+    return decada, por_clave, colisiones
 
 
 def decada_de(nombre, municipio=None):
-    """Década de una colonia con el normalizador REAL de la app. Devuelve la
-    entrada de colonias_decada.json + `_llave` y `_match` (exacta|municipio|
-    normalizada), o None si no hay dato o el grupo quedó en empate.
+    """Década de una colonia. Devuelve la entrada + `_llave`, `_match`
+    (municipio|nombre) y `_ambiguo`, o None.
 
-    Siempre resuelve por GRUPO, no por llave literal: pedir 'ionamiento chapalita'
-    debe devolver el dato bueno de 'chapalita' (manual, 84 pts), no el de la
-    heurística que quedó pegada a la llave deformada."""
-    decada, por_norm, _ = _indice()
+    `_ambiguo=True` significa que el nombre existe en varios municipios y no se
+    sabe a cuál corresponde esta década: sirve para no aplicarla a ciegas.
+    Devuelve None cuando el municipio pedido contradice al de la entrada — ahí
+    es otra colonia, no un dato faltante."""
+    decada, por_clave, _ = _indice()
     nombre = str(nombre or "").strip()
     if not nombre:
         return None
     nk = norm_col_key(nombre)
-    llave = por_norm.get((norm_muni(municipio or ""), nk))
-    match = "municipio" if llave and municipio else "normalizada"
+    muni = norm_muni(municipio or "")
+
+    llave = por_clave.get((muni, nk)) if muni else None
+    match = "municipio"
     if not llave:
-        llave, match = por_norm.get(("", nk)), "normalizada"
+        llave, match = por_clave.get(("", nk)), "nombre"
     if not llave:
         return None
-    return {**decada[llave], "_llave": llave,
-            "_match": "exacta" if llave == nombre else match}
+
+    v = decada[llave]
+    propio = norm_muni(v.get("municipio") or "")
+    if muni and propio and propio != muni:
+        return None                # homónima de otro municipio: no es esta colonia
+    return {**v, "_llave": llave, "_match": match,
+            "_ambiguo": bool(v.get("homonima_en")) and not (muni and propio == muni)}
 
 
 def colisiones_decada():
-    """Grupos donde variantes de la misma colonia traen décadas distintas.
-    Auditable: `empate=True` significa que NO se resolvió y `decada_de` devuelve None."""
+    """Grupos donde variantes de la misma colonia traen décadas distintas."""
     return _indice()[2]
 
 
 if __name__ == "__main__":
-    decada, por_norm, colis = _indice()
-    variantes = [k for k in decada if norm_col_key(k) != k]
+    decada, por_clave, colis = _indice()
 
+    # normalización: genérico se quita, nombre truncado se restaura
     assert norm_col_key("Col. Americana") == "americana"
     assert norm_col_key("IONAMIENTO Chapalita") == "chapalita"
-    # truncación que es parte del nombre: se restaura, no se borra
     assert norm_col_key("omos providencia") == "colomos providencia"
     assert norm_col_key("inas de atemajac") == "colinas de atemajac"
     assert limpia_decor("omos Providencia") == "colomos Providencia"
-    assert decada_de("omos providencia")["decada_ref"] == decada["colomos providencia"]["decada_ref"]
-    assert decada_de("providencia")["decada_ref"] == decada["providencia"]["decada_ref"]
+
+    # Colomos Providencia y Providencia son colonias distintas
     assert decada_de("omos providencia")["decada_ref"] != decada_de("providencia")["decada_ref"]
 
-    # 1. las variantes deformadas ahora se encuentran
-    fallan = [k for k in variantes if decada_de(k) is None]
-    # 2. ninguna llave canónica desaparece
-    canon = [k for k in decada if norm_col_key(k) == k]
-    perdidas = [k for k in canon if decada_de(k) is None]
+    # las variantes deformadas siguen encontrándose tras consolidar el dato
+    assert decada_de("ionamiento chapalita")["decada_ref"] == decada["chapalita"]["decada_ref"]
+    assert decada_de("Col. Chapalita")["decada_ref"] == decada["chapalita"]["decada_ref"]
+
+    # ninguna llave del archivo queda inalcanzable
+    perdidas = [k for k in decada if decada_de(k.partition("|")[0],
+                                               k.partition("|")[2] or None) is None]
     assert not perdidas, perdidas[:5]
 
-    # 3. exacta gana sobre normalizada (chapalita manual 1940s, no la heurística)
-    assert decada_de("chapalita")["_match"] == "exacta"
-    assert decada_de("ionamiento chapalita")["decada_ref"] == decada["chapalita"]["decada_ref"]
+    # el municipio discrimina las homónimas
+    vsn_t = decada_de("valle de san nicolas", "Tonalá")
+    vsn_z = decada_de("valle de san nicolas", "Zapopan")
+    assert vsn_t["_llave"].endswith("|tonala") and vsn_z["_llave"].endswith("|zapopan")
+    assert decada_de("valle de san nicolas", "Guadalajara") is None   # ahí no existe
 
-    # 4. el municipio discrimina cuando el maestro lo conoce
-    con_muni = [c for c in colis if c["municipio"]]
+    # nombre presente en varios municipios: se entrega marcado, no a ciegas
+    amb = decada_de("altamira")
+    assert amb["_ambiguo"] and "tonala" in amb["homonima_en"]
+    assert not decada_de("chapalita")["_ambiguo"]
 
-    # 5. junk NO se aplica a este dataset
     assert es_junk_colonia("Av De La Paz 2121, Americana")
-    assert decada_de("real del valle") is not None or True
 
+    con_muni = sum(1 for v in decada.values() if v.get("municipio"))
+    homon = sum(1 for v in decada.values() if v.get("homonima_en"))
     print(f"entradas............. {len(decada)}")
-    print(f"variantes deformadas. {len(variantes)}  -> sin resolver: {len(fallan)} {fallan[:5]}")
-    print(f"colisiones de decada. {len(colis)}  (empates sin resolver: {sum(c['empate'] for c in colis)})")
-    print(f"  con municipio...... {len(con_muni)}")
+    print(f"con municipio........ {con_muni}  ({100*con_muni//len(decada)}%)")
+    print(f"homónimas marcadas... {homon}")
+    print(f"colisiones sin resolver: {sum(c['empate'] for c in colis)}")
     print("OK")
