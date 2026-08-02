@@ -1,0 +1,2007 @@
+{
+  "agua blanca": {
+    "decada_ref_actual": "1970s",
+    "decadas_actual": [
+      "1960s",
+      "1970s",
+      "1980s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "el salto",
+      "tonala",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "ayotlan",
+      "cuquio",
+      "el salto",
+      "manzanillo",
+      "quitupan",
+      "tepatitlan de morelos",
+      "tonala",
+      "zapopan"
+    ]
+  },
+  "agua escondida": {
+    "decada_ref_actual": "1990s",
+    "decadas_actual": [
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "fuente_actual": "inegi",
+    "confianza_puntos_actual": 72,
+    "nivel": "media",
+    "municipios_zmg": [
+      "ixtlahuacan de los membrillos",
+      "tonala",
+      "zapotlanejo"
+    ],
+    "municipios_todos": [
+      "ixtlahuacan de los membrillos",
+      "juchitlan",
+      "tonala",
+      "zapotlanejo"
+    ]
+  },
+  "alfareros": {
+    "decada_ref_actual": "1940s",
+    "decadas_actual": [
+      "1930s",
+      "1940s",
+      "1950s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "san pedro tlaquepaque",
+      "tonala"
+    ],
+    "municipios_todos": [
+      "san pedro tlaquepaque",
+      "tonala"
+    ]
+  },
+  "altamira": {
+    "decada_ref_actual": "1980s",
+    "decadas_actual": [
+      "1970s",
+      "1980s",
+      "1990s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "lujo",
+    "municipios_zmg": [
+      "tonala",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "degollado",
+      "lagos de moreno",
+      "tonala",
+      "zapopan"
+    ]
+  },
+  "arroyo seco": {
+    "decada_ref_actual": "1980s",
+    "decadas_actual": [
+      "1970s",
+      "1980s",
+      "1990s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "san pedro tlaquepaque",
+      "tonala"
+    ],
+    "municipios_todos": [
+      "la huerta",
+      "san pedro tlaquepaque",
+      "tonala"
+    ]
+  },
+  "bacalar": {
+    "decada_ref_actual": "1990s",
+    "decadas_actual": [
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "chapala",
+      "el salto"
+    ],
+    "municipios_todos": [
+      "chapala",
+      "el salto"
+    ]
+  },
+  "balcones del sol": {
+    "decada_ref_actual": "1970s",
+    "decadas_actual": [
+      "1960s",
+      "1970s",
+      "1980s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "tonala",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "tonala",
+      "zapopan"
+    ]
+  },
+  "bellavista": {
+    "decada_ref_actual": "1980s",
+    "decadas_actual": [
+      "1970s",
+      "1980s",
+      "1990s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "poncitlan",
+      "tonala",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "acatlan de juarez",
+      "atotonilco el alto",
+      "manzanillo",
+      "poncitlan",
+      "teocaltiche",
+      "tepic",
+      "tonala",
+      "zapopan"
+    ]
+  },
+  "bosque de las lomas": {
+    "decada_ref_actual": "1980s",
+    "decadas_actual": [
+      "1970s",
+      "1980s",
+      "1990s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media-alta",
+    "municipios_zmg": [
+      "tonala",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "tonala",
+      "zapopan"
+    ]
+  },
+  "bosques de las lomas": {
+    "decada_ref_actual": "1980s",
+    "decadas_actual": [
+      "1970s",
+      "1980s",
+      "1990s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media-alta",
+    "municipios_zmg": [
+      "tonala",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "ajijic",
+      "tonala",
+      "zapopan"
+    ]
+  },
+  "brisas de chapala": {
+    "decada_ref_actual": "1980s",
+    "decadas_actual": [
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 36,
+    "nivel": "media",
+    "municipios_zmg": [
+      "chapala",
+      "san pedro tlaquepaque"
+    ],
+    "municipios_todos": [
+      "chapala",
+      "san pedro tlaquepaque"
+    ]
+  },
+  "cancun": {
+    "decada_ref_actual": "1990s",
+    "decadas_actual": [
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "chapala",
+      "el salto"
+    ],
+    "municipios_todos": [
+      "ajijic",
+      "chapala",
+      "el salto",
+      "tlajomulco"
+    ]
+  },
+  "cipreses": {
+    "decada_ref_actual": "1990s",
+    "decadas_actual": [
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "tonala",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "tonala",
+      "zapopan"
+    ]
+  },
+  "ciudad de cancun": {
+    "decada_ref_actual": "1990s",
+    "decadas_actual": [
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "el salto",
+      "tonala"
+    ],
+    "municipios_todos": [
+      "el salto",
+      "tonala"
+    ]
+  },
+  "colinas de san javier": {
+    "decada_ref_actual": "1960s",
+    "decadas_actual": [
+      "1960s",
+      "1970s"
+    ],
+    "fuente_actual": "manual",
+    "confianza_puntos_actual": 84,
+    "nivel": "lujo",
+    "municipios_zmg": [
+      "guadalajara",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "guadalajara",
+      "lagos de moreno",
+      "zapopan"
+    ]
+  },
+  "cuauhtemoc": {
+    "decada_ref_actual": "1960s",
+    "decadas_actual": [
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s"
+    ],
+    "fuente_actual": "plan-parcial",
+    "confianza_puntos_actual": 48,
+    "nivel": "lujo",
+    "municipios_zmg": [],
+    "municipios_todos": [
+      "colima",
+      "comala",
+      "cuauhtemoc",
+      "del nayar",
+      "manzanillo",
+      "santiago ixcuintla",
+      "tepic",
+      "toliman"
+    ]
+  },
+  "de la cruz": {
+    "decada_ref_actual": "1960s",
+    "decadas_actual": [
+      "1950s",
+      "1960s",
+      "1970s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [],
+    "municipios_todos": [
+      "cocula",
+      "compostela"
+    ]
+  },
+  "del bosque": {
+    "decada_ref_actual": "1980s",
+    "decadas_actual": [
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "fuente_actual": "plan-parcial",
+    "confianza_puntos_actual": 46,
+    "nivel": "popular",
+    "municipios_zmg": [],
+    "municipios_todos": [
+      "colotlan",
+      "compostela",
+      "santa maria del oro",
+      "tepic"
+    ]
+  },
+  "division del norte": {
+    "decada_ref_actual": "1960s",
+    "decadas_actual": [
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s"
+    ],
+    "fuente_actual": "inegi",
+    "confianza_puntos_actual": 72,
+    "nivel": "media-alta",
+    "municipios_zmg": [
+      "guadalajara",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "guadalajara",
+      "zapopan"
+    ]
+  },
+  "el alamo": {
+    "decada_ref_actual": "1960s",
+    "decadas_actual": [
+      "1950s",
+      "1960s",
+      "1970s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media-baja",
+    "municipios_zmg": [
+      "san pedro tlaquepaque",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "el grullo",
+      "san pedro tlaquepaque",
+      "tala",
+      "zapopan"
+    ]
+  },
+  "el bajio": {
+    "decada_ref_actual": "1960s",
+    "decadas_actual": [
+      "1950s",
+      "1960s",
+      "1970s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "chapala",
+      "zapopan",
+      "zapotlanejo"
+    ],
+    "municipios_todos": [
+      "ayotlan",
+      "chapala",
+      "del nayar",
+      "san miguel el alto",
+      "zapopan",
+      "zapotlan el grande",
+      "zapotlanejo"
+    ]
+  },
+  "el baluarte": {
+    "decada_ref_actual": "2000s",
+    "decadas_actual": [
+      "1990s",
+      "2000s",
+      "2010s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [],
+    "municipios_todos": [
+      "teocaltiche",
+      "yahualica de gonzalez gallo"
+    ]
+  },
+  "el derramadero": {
+    "decada_ref_actual": "1990s",
+    "decadas_actual": [
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [],
+    "municipios_todos": [
+      "cuquio",
+      "teocaltiche"
+    ]
+  },
+  "el mante": {
+    "decada_ref_actual": "1980s",
+    "decadas_actual": [
+      "1970s",
+      "1980s",
+      "1990s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "san pedro tlaquepaque",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "san pedro tlaquepaque",
+      "zapopan"
+    ]
+  },
+  "el porvenir": {
+    "decada_ref_actual": "1990s",
+    "decadas_actual": [
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [],
+    "municipios_todos": [
+      "ameca",
+      "bahia de banderas",
+      "colima",
+      "compostela",
+      "tecalitlan",
+      "teocaltiche"
+    ]
+  },
+  "el rastro": {
+    "decada_ref_actual": "1960s",
+    "decadas_actual": [
+      "1940s",
+      "1950s",
+      "1960s",
+      "1970s"
+    ],
+    "fuente_actual": "plan-parcial",
+    "confianza_puntos_actual": 48,
+    "nivel": "media",
+    "municipios_zmg": [],
+    "municipios_todos": [
+      "bahia de banderas",
+      "pihuamo",
+      "rosamorada",
+      "ruiz"
+    ]
+  },
+  "el real": {
+    "decada_ref_actual": "2000s",
+    "decadas_actual": [
+      "1990s",
+      "2000s",
+      "2010s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "san pedro tlaquepaque",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "san pedro tlaquepaque",
+      "tecoman",
+      "zapopan"
+    ]
+  },
+  "el rosario": {
+    "decada_ref_actual": "2000s",
+    "decadas_actual": [
+      "1990s",
+      "2000s",
+      "2010s"
+    ],
+    "fuente_actual": "plan-parcial",
+    "confianza_puntos_actual": 51,
+    "nivel": "media",
+    "municipios_zmg": [
+      "guadalajara",
+      "tonala",
+      "zapotlanejo"
+    ],
+    "municipios_todos": [
+      "amatlan de canas",
+      "arandas",
+      "ayotlan",
+      "ayutla",
+      "encarnacion de diaz",
+      "guadalajara",
+      "ocotlan",
+      "san juan de los lagos",
+      "tecoman",
+      "teocaltiche",
+      "tequila",
+      "tonala",
+      "zapotlanejo"
+    ]
+  },
+  "el zalate": {
+    "decada_ref_actual": "1960s",
+    "decadas_actual": [
+      "1950s",
+      "1960s",
+      "1970s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "guadalajara",
+      "san pedro tlaquepaque"
+    ],
+    "municipios_todos": [
+      "guadalajara",
+      "san pedro tlaquepaque"
+    ]
+  },
+  "ignacio zaragoza": {
+    "decada_ref_actual": "1990s",
+    "decadas_actual": [
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [],
+    "municipios_todos": [
+      "colima",
+      "manzanillo"
+    ]
+  },
+  "jardines del pedregal": {
+    "decada_ref_actual": "1980s",
+    "decadas_actual": [
+      "1970s",
+      "1980s",
+      "1990s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "lujo",
+    "municipios_zmg": [
+      "tonala",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "tonala",
+      "zapopan"
+    ]
+  },
+  "juan diego": {
+    "decada_ref_actual": "1960s",
+    "decadas_actual": [
+      "1950s",
+      "1960s",
+      "1970s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "guadalajara",
+      "san pedro tlaquepaque"
+    ],
+    "municipios_todos": [
+      "guadalajara",
+      "san pedro tlaquepaque",
+      "villa purificacion"
+    ]
+  },
+  "juan escutia": {
+    "decada_ref_actual": "1990s",
+    "decadas_actual": [
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [],
+    "municipios_todos": [
+      "acaponeta",
+      "ixtlan del rio",
+      "jala",
+      "ruiz",
+      "tecuala",
+      "tepic",
+      "tuxpan"
+    ]
+  },
+  "la arena": {
+    "decada_ref_actual": "1980s",
+    "decadas_actual": [
+      "1970s",
+      "1980s",
+      "1990s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "san pedro tlaquepaque",
+      "tonala"
+    ],
+    "municipios_todos": [
+      "san pedro tlaquepaque",
+      "tonala"
+    ]
+  },
+  "la cima de zapopan": {
+    "decada_ref_actual": "1960s",
+    "decadas_actual": [
+      "1950s",
+      "1960s",
+      "1970s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "guadalajara",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "guadalajara",
+      "zapopan"
+    ]
+  },
+  "la cofradia": {
+    "decada_ref_actual": "1980s",
+    "decadas_actual": [
+      "1970s",
+      "1980s",
+      "1990s"
+    ],
+    "fuente_actual": "plan-parcial",
+    "confianza_puntos_actual": 72,
+    "nivel": "media",
+    "municipios_zmg": [
+      "juanacatlan",
+      "san pedro tlaquepaque"
+    ],
+    "municipios_todos": [
+      "ahualulco de mercado",
+      "atotonilco el alto",
+      "del nayar",
+      "huejuquilla el alto",
+      "juanacatlan",
+      "la yesca",
+      "mazamitla",
+      "san pedro tlaquepaque",
+      "tonaya",
+      "tonila",
+      "tuxcueca",
+      "villa guerrero",
+      "villa purificacion"
+    ]
+  },
+  "la cuspide": {
+    "decada_ref_actual": "1990s",
+    "decadas_actual": [
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "tonala",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "tonala",
+      "zapopan"
+    ]
+  },
+  "la escondida": {
+    "decada_ref_actual": "1960s",
+    "decadas_actual": [
+      "1950s",
+      "1960s",
+      "1970s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [],
+    "municipios_todos": [
+      "cuauhtemoc",
+      "lagos de moreno",
+      "tepic",
+      "tequila"
+    ]
+  },
+  "la gigantera": {
+    "decada_ref_actual": "2000s",
+    "decadas_actual": [
+      "1980s",
+      "1990s",
+      "2000s",
+      "2010s"
+    ],
+    "fuente_actual": "plan-parcial",
+    "confianza_puntos_actual": 47,
+    "nivel": "media",
+    "municipios_zmg": [
+      "san pedro tlaquepaque",
+      "tlajomulco de zuniga",
+      "tonala"
+    ],
+    "municipios_todos": [
+      "san pedro tlaquepaque",
+      "tlajomulco de zuniga",
+      "tonala"
+    ]
+  },
+  "la laja": {
+    "decada_ref_actual": "2000s",
+    "decadas_actual": [
+      "1990s",
+      "2000s",
+      "2010s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 30,
+    "nivel": "media",
+    "municipios_zmg": [
+      "zapopan",
+      "zapotlanejo"
+    ],
+    "municipios_todos": [
+      "el grullo",
+      "mixtlan",
+      "zapopan",
+      "zapotlanejo"
+    ]
+  },
+  "la playita": {
+    "decada_ref_actual": "1980s",
+    "decadas_actual": [
+      "1970s",
+      "1980s",
+      "1990s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [],
+    "municipios_todos": [
+      "bolanos",
+      "manzanillo",
+      "puerto vallarta",
+      "san blas",
+      "zacoalco de torres"
+    ]
+  },
+  "la purisima": {
+    "decada_ref_actual": "2000s",
+    "decadas_actual": [
+      "1980s",
+      "1990s",
+      "2000s",
+      "2010s"
+    ],
+    "fuente_actual": "plan-parcial",
+    "confianza_puntos_actual": 47,
+    "nivel": "media-baja",
+    "municipios_zmg": [
+      "el salto",
+      "tlajomulco de zuniga",
+      "zapotlanejo"
+    ],
+    "municipios_todos": [
+      "atotonilco el alto",
+      "el salto",
+      "lagos de moreno",
+      "tecalitlan",
+      "tlajomulco de zuniga",
+      "zapotlanejo"
+    ]
+  },
+  "la severiana": {
+    "decada_ref_actual": "1980s",
+    "decadas_actual": [
+      "1970s",
+      "1980s",
+      "1990s"
+    ],
+    "fuente_actual": "plan-parcial",
+    "confianza_puntos_actual": 72,
+    "nivel": "media",
+    "municipios_zmg": [
+      "san pedro tlaquepaque",
+      "tonala"
+    ],
+    "municipios_todos": [
+      "san pedro tlaquepaque",
+      "tonala"
+    ]
+  },
+  "la villa": {
+    "decada_ref_actual": "1990s",
+    "decadas_actual": [
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "tonala",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "tonala",
+      "zapopan"
+    ]
+  },
+  "las arboledas": {
+    "decada_ref_actual": "1980s",
+    "decadas_actual": [
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [],
+    "municipios_todos": [
+      "encarnacion de diaz",
+      "ixtlan del rio"
+    ]
+  },
+  "las flores": {
+    "decada_ref_actual": "1980s",
+    "decadas_actual": [
+      "1970s",
+      "1980s",
+      "1990s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "san pedro tlaquepaque",
+      "tlajomulco de zuniga",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "autlan de navarro",
+      "bahia de banderas",
+      "compostela",
+      "el grullo",
+      "encarnacion de diaz",
+      "ixtlan del rio",
+      "manzanillo",
+      "puerto vallarta",
+      "san pedro tlaquepaque",
+      "santiago ixcuintla",
+      "tecoman",
+      "teocaltiche",
+      "tepic",
+      "tlajomulco de zuniga",
+      "zapopan"
+    ]
+  },
+  "las mojoneras": {
+    "decada_ref_actual": "1990s",
+    "decadas_actual": [
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [],
+    "municipios_todos": [
+      "acaponeta",
+      "puerto vallarta"
+    ]
+  },
+  "las palmas": {
+    "decada_ref_actual": "1980s",
+    "decadas_actual": [
+      "1970s",
+      "1980s",
+      "1990s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 30,
+    "nivel": "media",
+    "municipios_zmg": [
+      "guadalajara",
+      "tlajomulco de zuniga"
+    ],
+    "municipios_todos": [
+      "ahuacatlan",
+      "atotonilco el alto",
+      "bahia de banderas",
+      "colima",
+      "del nayar",
+      "guadalajara",
+      "lagos de moreno",
+      "manzanillo",
+      "san blas",
+      "tecoman",
+      "tlajomulco de zuniga",
+      "zapotlan el grande"
+    ]
+  },
+  "las trojes": {
+    "decada_ref_actual": "2000s",
+    "decadas_actual": [
+      "1990s",
+      "2000s",
+      "2010s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "jocotepec",
+      "tlajomulco de zuniga"
+    ],
+    "municipios_todos": [
+      "colotlan",
+      "jocotepec",
+      "tlajomulco de zuniga"
+    ]
+  },
+  "lindavista": {
+    "decada_ref_actual": "1980s",
+    "decadas_actual": [
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "san pedro tlaquepaque",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "armeria",
+      "casimiro castillo",
+      "lagos de moreno",
+      "magdalena",
+      "ocotlan",
+      "ruiz",
+      "san miguel el alto",
+      "san pedro tlaquepaque",
+      "tecoman",
+      "tepic",
+      "tototlan",
+      "villa de alvarez",
+      "zapopan"
+    ]
+  },
+  "loma real": {
+    "decada_ref_actual": "1980s",
+    "decadas_actual": [
+      "1970s",
+      "1980s",
+      "1990s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media-alta",
+    "municipios_zmg": [
+      "tonala",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "arandas",
+      "tonala",
+      "zapopan"
+    ]
+  },
+  "lomas de san miguel": {
+    "decada_ref_actual": "1980s",
+    "decadas_actual": [
+      "1970s",
+      "1980s",
+      "1990s"
+    ],
+    "fuente_actual": "plan-parcial",
+    "confianza_puntos_actual": 57,
+    "nivel": "popular",
+    "municipios_zmg": [
+      "san pedro tlaquepaque",
+      "tonala"
+    ],
+    "municipios_todos": [
+      "san pedro tlaquepaque",
+      "tepatitlan de morelos",
+      "tonala"
+    ]
+  },
+  "lomas del pedregal": {
+    "decada_ref_actual": "2000s",
+    "decadas_actual": [
+      "1990s",
+      "2000s",
+      "2010s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "popular",
+    "municipios_zmg": [
+      "guadalajara",
+      "tlajomulco de zuniga"
+    ],
+    "municipios_todos": [
+      "autlan de navarro",
+      "comala",
+      "guadalajara",
+      "puerto vallarta",
+      "tlajomulco de zuniga"
+    ]
+  },
+  "lomas del valle": {
+    "decada_ref_actual": "1960s",
+    "decadas_actual": [
+      "1950s",
+      "1960s",
+      "1970s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "lujo",
+    "municipios_zmg": [
+      "guadalajara",
+      "zapopan",
+      "zapotlanejo"
+    ],
+    "municipios_todos": [
+      "colima",
+      "el grullo",
+      "guadalajara",
+      "jalostotitlan",
+      "lagos de moreno",
+      "manzanillo",
+      "tamazula de gordiano",
+      "tepic",
+      "zapopan",
+      "zapotlan el grande",
+      "zapotlanejo"
+    ]
+  },
+  "los alamos": {
+    "decada_ref_actual": "2000s",
+    "decadas_actual": [
+      "1990s",
+      "2000s",
+      "2010s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "tlajomulco de zuniga",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "tepic",
+      "tlajomulco de zuniga",
+      "zapopan"
+    ]
+  },
+  "los amiales": {
+    "decada_ref_actual": "2000s",
+    "decadas_actual": [
+      "1990s",
+      "2000s",
+      "2010s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "san pedro tlaquepaque",
+      "tonala"
+    ],
+    "municipios_todos": [
+      "ameca",
+      "san pedro tlaquepaque",
+      "tonala"
+    ]
+  },
+  "los colorines": {
+    "decada_ref_actual": "1980s",
+    "decadas_actual": [
+      "1970s",
+      "1980s",
+      "1990s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "guadalajara",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "guadalajara",
+      "zapopan"
+    ]
+  },
+  "los laureles": {
+    "decada_ref_actual": "1980s",
+    "decadas_actual": [
+      "1970s",
+      "1980s",
+      "1990s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media-baja",
+    "municipios_zmg": [
+      "el salto",
+      "tlajomulco de zuniga",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "atoyac",
+      "el salto",
+      "huejuquilla el alto",
+      "tlajomulco de zuniga",
+      "tuxpan",
+      "zapopan"
+    ]
+  },
+  "los maestros": {
+    "decada_ref_actual": "1980s",
+    "decadas_actual": [
+      "1970s",
+      "1980s",
+      "1990s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "el salto",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "el salto",
+      "tala",
+      "zapopan"
+    ]
+  },
+  "los manzanos": {
+    "decada_ref_actual": "2000s",
+    "decadas_actual": [
+      "1990s",
+      "2000s",
+      "2010s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "tlajomulco de zuniga",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "lagos de moreno",
+      "tlajomulco de zuniga",
+      "zapopan"
+    ]
+  },
+  "los naranjos": {
+    "decada_ref_actual": "1980s",
+    "decadas_actual": [
+      "1970s",
+      "1980s",
+      "1990s"
+    ],
+    "fuente_actual": "plan-parcial",
+    "confianza_puntos_actual": 72,
+    "nivel": "media",
+    "municipios_zmg": [
+      "poncitlan",
+      "san pedro tlaquepaque"
+    ],
+    "municipios_todos": [
+      "ameca",
+      "atotonilco el alto",
+      "autlan de navarro",
+      "poncitlan",
+      "san pedro tlaquepaque"
+    ]
+  },
+  "los pinos": {
+    "decada_ref_actual": "1960s",
+    "decadas_actual": [
+      "1950s",
+      "1960s",
+      "1970s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media-alta",
+    "municipios_zmg": [
+      "tlajomulco de zuniga",
+      "tonala",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "arandas",
+      "cuauhtemoc",
+      "jala",
+      "lagos de moreno",
+      "manzanillo",
+      "santiago ixcuintla",
+      "tepic",
+      "tlajomulco de zuniga",
+      "tonala",
+      "tototlan",
+      "zapopan",
+      "zapotlan el grande"
+    ]
+  },
+  "los sabinos": {
+    "decada_ref_actual": "1980s",
+    "decadas_actual": [
+      "1970s",
+      "1980s",
+      "1990s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "chapala",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "chapala",
+      "del nayar",
+      "tepic",
+      "zapopan"
+    ]
+  },
+  "milpillas": {
+    "decada_ref_actual": "1990s",
+    "decadas_actual": [
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "fuente_actual": "inegi",
+    "confianza_puntos_actual": 72,
+    "nivel": "media",
+    "municipios_zmg": [],
+    "municipios_todos": [
+      "atotonilco el alto",
+      "ixtlan del rio"
+    ]
+  },
+  "mirador del sol": {
+    "decada_ref_actual": "1970s",
+    "decadas_actual": [
+      "1960s",
+      "1970s",
+      "1980s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media-alta",
+    "municipios_zmg": [
+      "tonala",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "tonala",
+      "zapopan"
+    ]
+  },
+  "nueva galicia": {
+    "decada_ref_actual": "2000s",
+    "decadas_actual": [
+      "2000s",
+      "2010s"
+    ],
+    "fuente_actual": "hemeroteca",
+    "confianza_puntos_actual": 72,
+    "nivel": "media",
+    "municipios_zmg": [],
+    "municipios_todos": [
+      "compostela",
+      "xalisco"
+    ]
+  },
+  "obrera": {
+    "decada_ref_actual": "1960s",
+    "decadas_actual": [
+      "1950s",
+      "1960s",
+      "1970s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "el salto",
+      "guadalajara"
+    ],
+    "municipios_todos": [
+      "acaponeta",
+      "ameca",
+      "autlan de navarro",
+      "el salto",
+      "guadalajara",
+      "manzanillo",
+      "santiago ixcuintla",
+      "tala",
+      "tequila"
+    ]
+  },
+  "parque san andres": {
+    "decada_ref_actual": "2000s",
+    "decadas_actual": [
+      "1990s",
+      "2000s",
+      "2010s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media-alta",
+    "municipios_zmg": [
+      "chapala",
+      "tonala"
+    ],
+    "municipios_todos": [
+      "ajijic",
+      "chapala",
+      "tonala"
+    ]
+  },
+  "parque virreyes": {
+    "decada_ref_actual": "2000s",
+    "decadas_actual": [
+      "1990s",
+      "2000s",
+      "2010s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media-alta",
+    "municipios_zmg": [
+      "el salto",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "el salto",
+      "zapopan"
+    ]
+  },
+  "paseos del valle": {
+    "decada_ref_actual": "1990s",
+    "decadas_actual": [
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "fuente_actual": "plan-parcial",
+    "confianza_puntos_actual": 51,
+    "nivel": "media-baja",
+    "municipios_zmg": [
+      "tlajomulco de zuniga",
+      "tonala"
+    ],
+    "municipios_todos": [
+      "tlajomulco de zuniga",
+      "tonala"
+    ]
+  },
+  "patria": {
+    "decada_ref_actual": "1980s",
+    "decadas_actual": [
+      "1970s",
+      "1980s",
+      "1990s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "lujo",
+    "municipios_zmg": [
+      "guadalajara",
+      "poncitlan",
+      "tlajomulco de zuniga",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "el grullo",
+      "guadalajara",
+      "poncitlan",
+      "tlajomulco de zuniga",
+      "zapopan"
+    ]
+  },
+  "polanco iv seccion": {
+    "decada_ref_actual": "1990s",
+    "decadas_actual": [
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "tonala",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "tonala",
+      "zapopan"
+    ]
+  },
+  "pontevedra": {
+    "decada_ref_actual": "1980s",
+    "decadas_actual": [
+      "1970s",
+      "1980s",
+      "1990s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "tlajomulco de zuniga",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "tlajomulco de zuniga",
+      "zapopan"
+    ]
+  },
+  "prados de la higuera": {
+    "decada_ref_actual": "2000s",
+    "decadas_actual": [
+      "1990s",
+      "2000s",
+      "2010s"
+    ],
+    "fuente_actual": "plan-parcial",
+    "confianza_puntos_actual": 48,
+    "nivel": "media",
+    "municipios_zmg": [
+      "tlajomulco de zuniga",
+      "tonala"
+    ],
+    "municipios_todos": [
+      "puerto vallarta",
+      "tlajomulco de zuniga",
+      "tonala"
+    ]
+  },
+  "puerta del sol": {
+    "decada_ref_actual": "2000s",
+    "decadas_actual": [
+      "1990s",
+      "2000s",
+      "2010s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "ixtlahuacan de los membrillos",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "amatitan",
+      "arandas",
+      "ixtlahuacan de los membrillos",
+      "manzanillo",
+      "xalisco",
+      "zapopan",
+      "zapotiltic"
+    ]
+  },
+  "puerta real": {
+    "decada_ref_actual": "2000s",
+    "decadas_actual": [
+      "1990s",
+      "2000s",
+      "2010s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "tlajomulco de zuniga",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "tlajomulco de zuniga",
+      "zapopan"
+    ]
+  },
+  "real del bosque": {
+    "decada_ref_actual": "1980s",
+    "decadas_actual": [
+      "1970s",
+      "1980s",
+      "1990s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media-baja",
+    "municipios_zmg": [
+      "tlajomulco de zuniga",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "tecoman",
+      "tlajomulco de zuniga",
+      "xalisco",
+      "zapopan"
+    ]
+  },
+  "real del parque": {
+    "decada_ref_actual": "2000s",
+    "decadas_actual": [
+      "1990s",
+      "2000s",
+      "2010s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media-alta",
+    "municipios_zmg": [
+      "tlajomulco de zuniga",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "tlajomulco de zuniga",
+      "zapopan"
+    ]
+  },
+  "residencial del parque": {
+    "decada_ref_actual": "1980s",
+    "decadas_actual": [
+      "1970s",
+      "1980s",
+      "1990s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "guadalajara",
+      "zapopan",
+      "zapotlanejo"
+    ],
+    "municipios_todos": [
+      "guadalajara",
+      "zapopan",
+      "zapotlanejo"
+    ]
+  },
+  "residencial victoria": {
+    "decada_ref_actual": "1980s",
+    "decadas_actual": [
+      "1970s",
+      "1980s",
+      "1990s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "guadalajara",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "colima",
+      "guadalajara",
+      "zapopan"
+    ]
+  },
+  "ricardo flores magon": {
+    "decada_ref_actual": "1960s",
+    "decadas_actual": [
+      "1950s",
+      "1960s",
+      "1970s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "guadalajara",
+      "tonala"
+    ],
+    "municipios_todos": [
+      "cuauhtemoc",
+      "guadalajara",
+      "jala",
+      "tonala",
+      "tuxpan",
+      "zapotlan el grande"
+    ]
+  },
+  "rinconada de santa rita": {
+    "decada_ref_actual": "2000s",
+    "decadas_actual": [
+      "1980s",
+      "1990s",
+      "2000s",
+      "2010s",
+      "2020s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "guadalajara",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "guadalajara",
+      "zapopan"
+    ]
+  },
+  "rinconada santa rita": {
+    "decada_ref_actual": "1960s",
+    "decadas_actual": [
+      "1950s",
+      "1960s",
+      "1970s"
+    ],
+    "fuente_actual": "plan-parcial",
+    "confianza_puntos_actual": 72,
+    "nivel": "media-alta",
+    "municipios_zmg": [
+      "guadalajara",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "guadalajara",
+      "zapopan"
+    ]
+  },
+  "rinconadas del sol": {
+    "decada_ref_actual": "2010s",
+    "decadas_actual": [
+      "2010s"
+    ],
+    "fuente_actual": "plan-parcial",
+    "confianza_puntos_actual": 62,
+    "nivel": "media",
+    "municipios_zmg": [
+      "tlajomulco de zuniga",
+      "tonala"
+    ],
+    "municipios_todos": [
+      "tlajomulco de zuniga",
+      "tonala"
+    ]
+  },
+  "san angel": {
+    "decada_ref_actual": "1980s",
+    "decadas_actual": [
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "lujo",
+    "municipios_zmg": [],
+    "municipios_todos": [
+      "atotonilco el alto",
+      "lagos de moreno",
+      "tepic"
+    ]
+  },
+  "san bernardo": {
+    "decada_ref_actual": "1960s",
+    "decadas_actual": [
+      "1950s",
+      "1960s",
+      "1970s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "lujo",
+    "municipios_zmg": [
+      "guadalajara",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "guadalajara",
+      "lagos de moreno",
+      "teocaltiche",
+      "zapopan"
+    ]
+  },
+  "san jeronimo lidice": {
+    "decada_ref_actual": "1990s",
+    "decadas_actual": [
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "chapala",
+      "tonala"
+    ],
+    "municipios_todos": [
+      "chapala",
+      "tonala"
+    ]
+  },
+  "san pedro": {
+    "decada_ref_actual": "1970s",
+    "decadas_actual": [
+      "1960s",
+      "1970s",
+      "1980s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [],
+    "municipios_todos": [
+      "ayutla",
+      "cocula",
+      "el grullo",
+      "jala",
+      "lagos de moreno",
+      "san juanito de escobedo",
+      "teocaltiche",
+      "zapotlan el grande"
+    ]
+  },
+  "san pedro tlaquepaque": {
+    "decada_ref_actual": "1980s",
+    "decadas_actual": [
+      "1970s",
+      "1980s",
+      "1990s"
+    ],
+    "fuente_actual": "plan-parcial",
+    "confianza_puntos_actual": 57,
+    "nivel": "media",
+    "municipios_zmg": [
+      "guadalajara",
+      "tlaquepaque"
+    ],
+    "municipios_todos": [
+      "guadalajara",
+      "tlajomulco",
+      "tlaquepaque"
+    ]
+  },
+  "santa cruz": {
+    "decada_ref_actual": "1990s",
+    "decadas_actual": [
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [],
+    "municipios_todos": [
+      "acaponeta",
+      "del nayar",
+      "lagos de moreno",
+      "mezquitic",
+      "pihuamo",
+      "santiago ixcuintla"
+    ]
+  },
+  "santa fe": {
+    "decada_ref_actual": "2000s",
+    "decadas_actual": [
+      "1990s",
+      "2000s",
+      "2010s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media-alta",
+    "municipios_zmg": [
+      "zapopan",
+      "zapotlanejo"
+    ],
+    "municipios_todos": [
+      "bahia de banderas",
+      "cihuatlan",
+      "encarnacion de diaz",
+      "jala",
+      "lagos de moreno",
+      "rosamorada",
+      "tepic",
+      "union de tula",
+      "villa de alvarez",
+      "villa hidalgo",
+      "zapopan",
+      "zapotlan el grande",
+      "zapotlanejo"
+    ]
+  },
+  "santa maria nonoalco": {
+    "decada_ref_actual": "1990s",
+    "decadas_actual": [
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "lujo",
+    "municipios_zmg": [
+      "el salto",
+      "tonala"
+    ],
+    "municipios_todos": [
+      "el salto",
+      "tonala"
+    ]
+  },
+  "santa rita": {
+    "decada_ref_actual": "1960s",
+    "decadas_actual": [
+      "1950s",
+      "1960s",
+      "1970s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media-alta",
+    "municipios_zmg": [],
+    "municipios_todos": [
+      "autlan de navarro",
+      "ayotlan",
+      "coquimatlan",
+      "lagos de moreno",
+      "manzanillo",
+      "totatiche",
+      "villa guerrero"
+    ]
+  },
+  "vallarta cuauhtemoc": {
+    "decada_ref_actual": "2000s",
+    "decadas_actual": [
+      "1990s",
+      "2000s",
+      "2010s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media-alta",
+    "municipios_zmg": [
+      "guadalajara",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "guadalajara",
+      "zapopan"
+    ]
+  },
+  "valle del sol": {
+    "decada_ref_actual": "2000s",
+    "decadas_actual": [
+      "1990s",
+      "2000s",
+      "2010s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "tonala",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "armeria",
+      "tonala",
+      "villa de alvarez",
+      "zapopan",
+      "zapotlan el grande"
+    ]
+  },
+  "vista sur residencial": {
+    "decada_ref_actual": "2000s",
+    "decadas_actual": [
+      "1990s",
+      "2000s",
+      "2010s"
+    ],
+    "fuente_actual": "heuristica-anillo",
+    "confianza_puntos_actual": 25,
+    "nivel": "media",
+    "municipios_zmg": [
+      "tlajomulco de zuniga",
+      "zapopan"
+    ],
+    "municipios_todos": [
+      "tlajomulco de zuniga",
+      "zapopan"
+    ]
+  }
+}

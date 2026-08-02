@@ -49,6 +49,14 @@ def municipios_por_colonia(maestro):
     return mae, sep, idxm
 
 
+# El dataset cubre la ZMG y la Ribera. Si un nombre existe en Zapopan y también
+# en Manzanillo, la entrada es la de Zapopan: la ambigüedad es del catálogo
+# nacional, no nuestra.
+ZMG = {"guadalajara", "zapopan", "san pedro tlaquepaque", "tlaquepaque", "tonala",
+       "tlajomulco de zuniga", "el salto", "juanacatlan", "zapotlanejo",
+       "ixtlahuacan de los membrillos", "chapala", "jocotepec", "poncitlan"}
+
+
 def resolver_municipio(nk, mae, sep, idxm):
     """(municipio, fuente, homonima_en) — `homonima_en` lista los municipios
     cuando el nombre existe en varios y NO se puede decidir: ahí la década que
@@ -58,6 +66,9 @@ def resolver_municipio(nk, mae, sep, idxm):
         if len(munis) == 1:
             return next(iter(munis)), fuente, None
     ambiguo = (sep.get(nk) or set()) or (idxm.get(nk) or set())
+    dentro = ambiguo & ZMG
+    if len(dentro) == 1:
+        return next(iter(dentro)), "sepomex-zmg", None
     return None, None, sorted(ambiguo) or None
 
 
