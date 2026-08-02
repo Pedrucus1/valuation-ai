@@ -23,20 +23,36 @@ _DRIVE_IA = Path(__file__).resolve().parents[2] / "Modulo Drive IA"
 _DECADA_PATH = _DRIVE_IA / "colonias_decada.json"
 _MAESTRO_PATH = _DRIVE_IA / "colonias_maestro.json"
 
-# Decoradores/truncaciones que el scraper deja al inicio ('onia'=colonia truncado,
-# 'ionamiento'=fraccionamiento, etc.). Se quitan para agrupar y para el display.
-_DECOR_RE = re.compile(r"^(onia|inas|omos|ionamiento|amiento|col\.?|colonia|fracc\.?|"
-                       r"fraccionamiento|condominio|coto|priv\.?|privada)\s+", re.I)
+# El scraper corta la primera palabra. Hay DOS casos y confundirlos borra colonias:
+#
+#   a) la palabra cortada era genérica ('colonia', 'fraccionamiento') → se quita.
+#      'onia guadalajara centro' → 'guadalajara centro'
+#   b) la palabra cortada era PARTE DEL NOMBRE → hay que restaurarla, no quitarla.
+#      'omos providencia' es COLOMOS Providencia (1910s), NO Providencia (1960s):
+#      son dos colonias distintas. 'inas de atemajac' es COLINAS de Atemajac;
+#      quitarlo dejaba 'de atemajac', que no es nombre de nada.
+# 'coto', 'condominio' y 'privada' NO se quitan: un coto de 2010 dentro de una
+# colonia de los 60 es otra edad y otro producto ('coto del fresno' 2010s vs
+# 'del fresno' 1960s). 'colonia' y 'fraccionamiento' sí son genéricos.
+_RESTAURA = {"omos": "colomos", "inas": "colinas"}
+_TRUNC_RE = re.compile(r"^(omos|inas)\s+", re.I)
+_DECOR_RE = re.compile(r"^(onia|ionamiento|amiento|col\.?|colonia|fracc\.?|"
+                       r"fraccionamiento)\s+", re.I)
+
+
+def _restaura_trunc(s):
+    return _TRUNC_RE.sub(lambda m: _RESTAURA[m.group(1).lower()] + " ", s)
 
 
 def limpia_decor(s):
-    return _DECOR_RE.sub("", str(s or "").strip()).strip()
+    s = _restaura_trunc(str(s or "").strip())
+    return _DECOR_RE.sub("", s).strip()
 
 
 def norm_col_key(s):
     s = unicodedata.normalize("NFKD", str(s or "")).encode("ascii", "ignore").decode().lower()
     s = " ".join(s.split())
-    return _DECOR_RE.sub("", s)   # 'onia guadalajara centro' agrupa con 'guadalajara centro'
+    return _DECOR_RE.sub("", _restaura_trunc(s))
 
 
 def norm_muni(s):
@@ -145,6 +161,13 @@ if __name__ == "__main__":
 
     assert norm_col_key("Col. Americana") == "americana"
     assert norm_col_key("IONAMIENTO Chapalita") == "chapalita"
+    # truncación que es parte del nombre: se restaura, no se borra
+    assert norm_col_key("omos providencia") == "colomos providencia"
+    assert norm_col_key("inas de atemajac") == "colinas de atemajac"
+    assert limpia_decor("omos Providencia") == "colomos Providencia"
+    assert decada_de("omos providencia")["decada_ref"] == decada["colomos providencia"]["decada_ref"]
+    assert decada_de("providencia")["decada_ref"] == decada["providencia"]["decada_ref"]
+    assert decada_de("omos providencia")["decada_ref"] != decada_de("providencia")["decada_ref"]
 
     # 1. las variantes deformadas ahora se encuentran
     fallan = [k for k in variantes if decada_de(k) is None]
@@ -156,7 +179,6 @@ if __name__ == "__main__":
     # 3. exacta gana sobre normalizada (chapalita manual 1940s, no la heurística)
     assert decada_de("chapalita")["_match"] == "exacta"
     assert decada_de("ionamiento chapalita")["decada_ref"] == decada["chapalita"]["decada_ref"]
-    assert decada_de("omos providencia")["decada_ref"] == decada["providencia"]["decada_ref"]
 
     # 4. el municipio discrimina cuando el maestro lo conoce
     con_muni = [c for c in colis if c["municipio"]]

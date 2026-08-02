@@ -54,6 +54,15 @@ AMG_MUNIS_NORM.sort(key=len, reverse=True)
 # Regex SOLO para pre-filtrar, no como decisión final
 RE_ONIA          = re.compile(r"^onia\s+(.+)$")
 RE_COL_PREFIX    = re.compile(r"^col\s+(.+)$")
+# Truncaciones del scraper (mismas que backend/core/colonias.py). Solo se quita
+# la palabra cuando era GENÉRICA ('fraccionamiento', 'condominio'). Cuando era
+# parte del nombre se RESTAURA: 'omos providencia' es Colomos Providencia, una
+# colonia distinta de Providencia; 'inas de atemajac' es Colinas de Atemajac.
+# 'condominio'/'coto'/'privada' quedan FUERA a propósito: son desarrollos con
+# edad y producto propios dentro de la colonia, no decoradores del nombre.
+RE_TRUNCADO      = re.compile(r"^(?:ionamiento|amiento)\s+(.+)$")
+RE_TRUNC_NOMBRE  = re.compile(r"^(omos|inas)\s+(.+)$")
+RESTAURA_TRUNC   = {"omos": "colomos", "inas": "colinas"}
 RE_CASA_EN       = re.compile(r"^casa\s+en\s+(.+)$")
 RE_TERRENO_EN    = re.compile(r"^terreno\s+en\s+(.+)$")
 RE_LOTE_EN       = re.compile(r"^lote\s+en\s+(.+)$")
@@ -77,7 +86,9 @@ def strip_muni_suffix(s: str) -> str:
 _INVALID_CANON_WORDS = re.compile(
     r"\b(corner|lot|department|in\s+\w|for\s+sale|bedroom|sqm|mts|per\s+m2|"
     r"land\s+in|great|near|property|luxury|garden|ranch|unique|best|meet|"
-    r"sale|rent|house|apartment|condo|plot)\b",
+    r"sale|rent|house|apartment|condo|plot|"
+    # 'casa en venta' no deja la colonia 'venta'
+    r"venta|renta|preventa|remate)\b",
     re.IGNORECASE,
 )
 
@@ -94,6 +105,8 @@ def is_valid_canonical(s: str) -> bool:
     meaningful = [w for w in words if len(w) > 3]
     if len(meaningful) != len(set(meaningful)):
         return False
+    if words[-1] in ("de", "del", "la", "las", "los", "el", "y"):
+        return False  # strip_muni_suffix se comió el nombre ('brisas de chapala' → 'brisas de')
     return True
 
 
@@ -113,6 +126,21 @@ def extract_canonical(key: str) -> tuple[str, str]:
     m = RE_COL_PREFIX.match(key)
     if m:
         canon = strip_muni_suffix(m.group(1).strip())
+        if is_valid_canonical(canon):
+            return canon, "seguro"
+
+    # 2b. "ionamiento X" / "condominio X" → "X" (palabra genérica truncada)
+    m = RE_TRUNCADO.match(key)
+    if m:
+        canon = strip_muni_suffix(m.group(1).strip())
+        if is_valid_canonical(canon):
+            return canon, "seguro"
+
+    # 2c. "omos X" → "colomos X", "inas X" → "colinas X" (la palabra truncada
+    #     era parte del nombre; quitarla inventaba otra colonia)
+    m = RE_TRUNC_NOMBRE.match(key)
+    if m:
+        canon = RESTAURA_TRUNC[m.group(1).lower()] + " " + strip_muni_suffix(m.group(2).strip())
         if is_valid_canonical(canon):
             return canon, "seguro"
 
@@ -382,7 +410,9 @@ def main():
     fusiones = {
         frag: canon
         for frag, canon in fusiones.items()
-        if len(canon) < len(frag)  # canon siempre debe ser más corto o igual
+        # canon más corto = se quitó un decorador. La excepción son las
+        # restauraciones ('omos X' → 'colomos X'), que sí alargan.
+        if len(canon) < len(frag) or canon.split()[0] in RESTAURA_TRUNC.values()
     }
 
     print(f"\n[4] Total fusiones a aplicar: {len(fusiones)}")
