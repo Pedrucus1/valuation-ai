@@ -4,7 +4,6 @@ zona. Dos vertientes usan estos endpoints: la celda Edad del avalúo y el panel
 "Edades por zona". Ver plan streamed-exploring-patterson.md."""
 import json
 import re
-import unicodedata
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 from functools import lru_cache
@@ -12,6 +11,7 @@ from pathlib import Path
 
 from fastapi import APIRouter, Request, HTTPException, Body
 
+from core.colonias import limpia_decor, norm_col_key, norm_muni, es_junk_colonia
 from core.db import db
 from core.auth import get_current_user, require_admin
 from core.data_exchange import (
@@ -25,10 +25,7 @@ router = APIRouter(prefix="/api")
 _SEPOMEX_PATH = Path(__file__).resolve().parents[2] / "Modulo Drive IA" / "sepomex_v2.json"
 
 
-def _norm_muni(s):
-    """Sin acentos + minúsculas (SEPOMEX y nuestros nombres difieren en acentos)."""
-    s = unicodedata.normalize("NFD", (s or "").lower())
-    return "".join(c for c in s if unicodedata.category(c) != "Mn").strip()
+_norm_muni = norm_muni
 
 
 @lru_cache(maxsize=1)
@@ -180,35 +177,9 @@ def _base_usables():
     }
 
 
-# Decoradores/truncaciones que el scraper deja al inicio ('onia'=colonia truncado,
-# 'ionamiento'=fraccionamiento, etc.). Se quitan para agrupar y para el display.
-_DECOR_RE = re.compile(r"^(onia|inas|omos|ionamiento|amiento|col\.?|colonia|fracc\.?|"
-                       r"fraccionamiento|condominio|coto|priv\.?|privada)\s+", re.I)
-
-def _limpia_decor(s):
-    return _DECOR_RE.sub("", str(s or "").strip()).strip()
-
-def _norm_col_key(s):
-    s = unicodedata.normalize("NFKD", str(s or "")).encode("ascii", "ignore").decode().lower()
-    s = " ".join(s.split())
-    return _DECOR_RE.sub("", s)   # 'onia guadalajara centro' agrupa con 'guadalajara centro'
-
-
-def _es_junk_colonia(v):
-    """True si el 'nombre de colonia' es en realidad basura scrapeada: una dirección
-    (con coma o número de calle) o 'CP + ciudad' ('44230 Guadalajara'). No debe salir
-    en el selector. Deja pasar nombres reales tipo '18 de Marzo', '1 de Mayo'."""
-    if "," in v:
-        return True                      # direcciones: "Av De La Paz 2121, Americana, GDL"
-    if re.search(r"\d{3,}", v):
-        return True                      # CP o número de calle (3+ dígitos): "44230 Guadalajara"
-    if len(v) > 34:
-        return True                      # nombres largos = títulos/descripciones, no colonias
-    if re.search(r"\b(for sale|for rent|for pre-?sale|apartment|house|building|sale in|rent in|"
-                 r"en renta|en venta|casa en|depto en|departamento en|se vende|se renta|dentro de|"
-                 r"downtown|commercial|local in|zone|expo)\b", v.lower()):
-        return True                      # frases de anuncio, no nombres de colonia
-    return False
+# Normalización de colonias: definida en core/colonias.py (fuente única, la misma
+# que traduce colonias_decada.json en la lectura). Aquí solo se re-exporta.
+_limpia_decor, _norm_col_key, _es_junk_colonia = limpia_decor, norm_col_key, es_junk_colonia
 
 
 def _dedup_colonias(vals):
