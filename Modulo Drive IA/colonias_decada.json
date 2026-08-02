@@ -11,7 +11,7 @@
     "confianza": "baja",
     "confianza_puntos": 30,
     "municipio": "guadalajara",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "1 hectare plot on the road to colotlan": {
     "decada_ref": "1990s",
@@ -39,7 +39,7 @@
     "confianza": "baja",
     "confianza_puntos": 30,
     "municipio": "zapopan",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "12122": {
     "decada_ref": "2000s",
@@ -224,22 +224,6 @@
     "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "sepomex"
   },
-  "5 de diciembre": {
-    "decada_ref": "1980s",
-    "decadas": [
-      "1960s",
-      "1970s",
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "puerto vallarta",
-    "municipio_fuente": "maestro"
-  },
   "5 de mayo": {
     "decada_ref": "1910s",
     "decadas": [
@@ -266,7 +250,7 @@
     "confianza": "baja",
     "confianza_puntos": 30,
     "municipio": "zapopan",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "542": {
     "decada_ref": "1960s",
@@ -491,8 +475,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tala",
-    "municipio_fuente": "maestro"
+    "municipio": "tonala",
+    "municipio_fuente": "cache_index"
   },
   "acatlan de juarez": {
     "decada_ref": "2000s",
@@ -817,22 +801,6 @@
     "municipio": null,
     "municipio_fuente": null
   },
-  "aeropuerto": {
-    "decada_ref": "1980s",
-    "decadas": [
-      "1960s",
-      "1970s",
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "puerto vallarta",
-    "municipio_fuente": "maestro"
-  },
   "aeropuerto toncalli": {
     "decada_ref": "1990s",
     "decadas": [
@@ -945,12 +913,7 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "ayotlan",
-      "cuquio",
       "el salto",
-      "manzanillo",
-      "quitupan",
-      "tepatitlan de morelos",
       "tonala",
       "zapopan"
     ]
@@ -1008,8 +971,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tepatitlan",
-    "municipio_fuente": "maestro"
+    "municipio": "poncitlan",
+    "municipio_fuente": "sepomex"
   },
   "agua cristalina": {
     "decada_ref": "2000s",
@@ -1041,7 +1004,6 @@
     "municipio_fuente": null,
     "homonima_en": [
       "ixtlahuacan de los membrillos",
-      "juchitlan",
       "tonala",
       "zapotlanejo"
     ]
@@ -1512,20 +1474,6 @@
     "municipio": null,
     "municipio_fuente": null
   },
-  "albatros": {
-    "decada_ref": "1960s",
-    "decadas": [
-      "1950s",
-      "1960s",
-      "1970s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "puerto vallarta",
-    "municipio_fuente": "maestro"
-  },
   "albazur": {
     "decada_ref": "1970s",
     "decadas": [
@@ -1607,8 +1555,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "albereda residencial el salto jalisco",
-    "municipio_fuente": "cache_index"
+    "municipio": null,
+    "municipio_fuente": null
   },
   "albereda residence": {
     "decada_ref": "2010s",
@@ -1664,20 +1612,6 @@
     "confianza_puntos": 25,
     "municipio": "tonala",
     "municipio_fuente": "cache_index"
-  },
-  "alborada": {
-    "decada_ref": "1980s",
-    "decadas": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "xalisco",
-    "municipio_fuente": "maestro"
   },
   "alcalde barranquitas": {
     "decada_ref": "1960s",
@@ -2104,8 +2038,6 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "degollado",
-      "lagos de moreno",
       "tonala",
       "zapopan"
     ]
@@ -2635,7 +2567,7 @@
     "confianza": "media",
     "confianza_puntos": 72,
     "municipio": "el salto",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "alvaro obregon": {
     "decada_ref": "1980s",
@@ -2650,7 +2582,7 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "san pedro tlaquepaque",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "alviento": {
     "decada_ref": "1990s",
@@ -3079,8 +3011,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "puerto vallarta",
-    "municipio_fuente": "sepomex"
+    "municipio": "zapopan",
+    "municipio_fuente": "cache_index"
   },
   "andares": {
     "decada_ref": "2010s",
@@ -3266,8 +3198,12 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio": null,
+    "municipio_fuente": null,
+    "homonima_en": [
+      "ajijic",
+      "tonala"
+    ]
   },
   "apartment 2 blocks from av guadalupe": {
     "decada_ref": "1990s",
@@ -5289,7 +5225,7 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "san pedro tlaquepaque",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "arboledas del sur": {
     "decada_ref": "1980s",
@@ -5813,7 +5749,7 @@
     "confianza": "baja",
     "confianza_puntos": 30,
     "municipio": "zapopan",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "arrezo": {
     "decada_ref": "2000s",
@@ -5826,8 +5762,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 38,
-    "municipio": "colonia coto arrezo",
-    "municipio_fuente": "cache_index"
+    "municipio": null,
+    "municipio_fuente": null
   },
   "arroyo": {
     "decada_ref": "1990s",
@@ -5913,7 +5849,6 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "la huerta",
       "san pedro tlaquepaque",
       "tonala"
     ]
@@ -6070,20 +6005,6 @@
     "confianza_puntos": 92,
     "municipio": "zapopan",
     "municipio_fuente": "cache_index"
-  },
-  "atemajac de brizuela": {
-    "decada_ref": "1980s",
-    "decadas": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "atemajac de brizuela",
-    "municipio_fuente": "maestro"
   },
   "atemajac del vall": {
     "decada_ref": "1960s",
@@ -6638,7 +6559,7 @@
     "confianza": "baja",
     "confianza_puntos": 30,
     "municipio": "zapopan",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "avila camacho": {
     "decada_ref": "1990s",
@@ -6720,7 +6641,7 @@
     "confianza": "baja",
     "confianza_puntos": 30,
     "municipio": "guadalajara",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "azabache": {
     "decada_ref": "1980s",
@@ -6821,8 +6742,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "bahia de banderas",
-    "municipio_fuente": "maestro"
+    "municipio": "zapopan",
+    "municipio_fuente": "cache_index"
   },
   "bahia majahua 715 parques del bosque 45609 san pedro tlaquepaque jal 715int 12 col parques d": {
     "decada_ref": "2000s",
@@ -7206,20 +7127,6 @@
     "municipio": "guadalajara",
     "municipio_fuente": "sepomex"
   },
-  "barra de navidad": {
-    "decada_ref": "1990s",
-    "decadas": [
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "nivel": "media-baja",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "cihuatlan",
-    "municipio_fuente": "maestro"
-  },
   "barragan hernandez": {
     "decada_ref": "1910s",
     "decadas": [
@@ -7417,7 +7324,7 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "tonala",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "barrio san juan bosco": {
     "decada_ref": "1980s",
@@ -7807,7 +7714,7 @@
     "confianza": "media",
     "confianza_puntos": 48,
     "municipio": "guadalajara",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "belisario dominguez 3815": {
     "decada_ref": "1960s",
@@ -7962,11 +7869,7 @@
     "municipio_fuente": null,
     "homonima_en": [
       "acatlan de juarez",
-      "atotonilco el alto",
-      "manzanillo",
       "poncitlan",
-      "teocaltiche",
-      "tepic",
       "tonala",
       "zapopan"
     ]
@@ -8712,8 +8615,12 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "bosques santa anita",
-    "municipio_fuente": "maestro"
+    "municipio": null,
+    "municipio_fuente": null,
+    "homonima_en": [
+      "tlajomulco",
+      "zapopan"
+    ]
   },
   "bosques de santa anita area": {
     "decada_ref": "2000s",
@@ -9179,8 +9086,12 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "manzanillo",
-    "municipio_fuente": "sepomex"
+    "municipio": null,
+    "municipio_fuente": null,
+    "homonima_en": [
+      "ajijic",
+      "tlajomulco"
+    ]
   },
   "brisas de chapala": {
     "decada_ref": "1980s",
@@ -9198,7 +9109,8 @@
     "municipio_fuente": null,
     "homonima_en": [
       "chapala",
-      "san pedro tlaquepaque"
+      "san pedro tlaquepaque",
+      "tlaquepaque"
     ]
   },
   "brisas de chapala lot 11 storm": {
@@ -9569,8 +9481,12 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "zapopan",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio": null,
+    "municipio_fuente": null,
+    "homonima_en": [
+      "tlajomulco",
+      "zapopan"
+    ]
   },
   "bugambilias 2da": {
     "decada_ref": "1980s",
@@ -9766,8 +9682,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "nay",
-    "municipio_fuente": "cache_index"
+    "municipio": null,
+    "municipio_fuente": null
   },
   "cadiz": {
     "decada_ref": "2000s",
@@ -9884,20 +9800,6 @@
     "confianza_puntos": 52,
     "municipio": "zapopan",
     "municipio_fuente": "sepomex"
-  },
-  "calvario": {
-    "decada_ref": "1980s",
-    "decadas": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "puerto vallarta",
-    "municipio_fuente": "maestro"
   },
   "calzada del ejercito": {
     "decada_ref": "1990s",
@@ -10222,22 +10124,6 @@
     "municipio": "tonala",
     "municipio_fuente": "cache_index"
   },
-  "campestre las canadas": {
-    "decada_ref": "2000s",
-    "decadas": [
-      "1980s",
-      "1990s",
-      "2000s",
-      "2010s",
-      "2020s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "puerto vallarta",
-    "municipio_fuente": "maestro"
-  },
   "campestre las canadas ii": {
     "decada_ref": "2000s",
     "decadas": [
@@ -10420,20 +10306,6 @@
     "confianza_puntos": 25,
     "municipio": null,
     "municipio_fuente": null
-  },
-  "campo verde": {
-    "decada_ref": "1990s",
-    "decadas": [
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "nivel": "media-baja",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "puerto vallarta",
-    "municipio_fuente": "maestro"
   },
   "canada real": {
     "decada_ref": "1970s",
@@ -11503,8 +11375,12 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 62,
-    "municipio": "zapopan",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio": null,
+    "municipio_fuente": null,
+    "homonima_en": [
+      "tlajomulco",
+      "zapopan"
+    ]
   },
   "casa fuerte baluarte": {
     "decada_ref": "1990s",
@@ -11725,8 +11601,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tepic",
-    "municipio_fuente": "sepomex"
+    "municipio": "tlajomulco",
+    "municipio_fuente": "cache_index"
   },
   "castilla excellent opportunity": {
     "decada_ref": "1990s",
@@ -12561,8 +12437,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tepic",
-    "municipio_fuente": "sepomex"
+    "municipio": "guadalajara",
+    "municipio_fuente": "cache_index"
   },
   "chapultepec area": {
     "decada_ref": "1990s",
@@ -12619,20 +12495,6 @@
     "confianza_puntos": 25,
     "municipio": "tonala",
     "municipio_fuente": "cache_index"
-  },
-  "chiquilistlan": {
-    "decada_ref": "1980s",
-    "decadas": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "chiquilistlan",
-    "municipio_fuente": "maestro"
   },
   "chula vista": {
     "decada_ref": "1970s",
@@ -13040,7 +12902,7 @@
     "confianza": "baja",
     "confianza_puntos": 30,
     "municipio": "zapopan",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "city of the sun": {
     "decada_ref": "1970s",
@@ -13151,8 +13013,12 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "zapopan",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio": null,
+    "municipio_fuente": null,
+    "homonima_en": [
+      "tlajomulco",
+      "zapopan"
+    ]
   },
   "ciudad creativa digital": {
     "decada_ref": "1990s",
@@ -13705,7 +13571,6 @@
     "municipio_fuente": null,
     "homonima_en": [
       "guadalajara",
-      "lagos de moreno",
       "zapopan"
     ]
   },
@@ -13913,7 +13778,7 @@
     "confianza": "media",
     "confianza_puntos": 72,
     "municipio": "el salto",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "colinas del valle": {
     "decada_ref": "2010s",
@@ -13925,8 +13790,8 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 47,
-    "municipio": "tlajomulco",
-    "municipio_fuente": "cache_index"
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "sepomex"
   },
   "colinas desarrollo": {
     "decada_ref": "2000s",
@@ -14288,7 +14153,7 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "commercial area": {
     "decada_ref": "1990s",
@@ -14511,8 +14376,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 36,
-    "municipio": "tlaquepaque",
-    "municipio_fuente": "cache_index"
+    "municipio": "san pedro tlaquepaque",
+    "municipio_fuente": "sepomex"
   },
   "concepcion del valle": {
     "decada_ref": "2000s",
@@ -14595,7 +14460,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "cache_index"
   },
   "condo el dorado 202": {
     "decada_ref": "1990s",
@@ -14766,8 +14631,12 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "zapopan",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio": null,
+    "municipio_fuente": null,
+    "homonima_en": [
+      "tlajomulco",
+      "zapopan"
+    ]
   },
   "condominio sole": {
     "decada_ref": "2000s",
@@ -14986,7 +14855,7 @@
     "confianza": "media",
     "confianza_puntos": 46,
     "municipio": "zapopan",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "contadero": {
     "decada_ref": "1990s",
@@ -14999,8 +14868,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "huajicori",
-    "municipio_fuente": "sepomex"
+    "municipio": "tonala",
+    "municipio_fuente": "cache_index"
   },
   "coordenada country": {
     "decada_ref": "1990s",
@@ -15073,22 +14942,6 @@
     "confianza_puntos": 25,
     "municipio": null,
     "municipio_fuente": null
-  },
-  "copala": {
-    "decada_ref": "1990s",
-    "decadas": [
-      "1970s",
-      "1980s",
-      "1990s",
-      "2000s",
-      "2010s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "toliman",
-    "municipio_fuente": "sepomex"
   },
   "copalita": {
     "decada_ref": "1990s",
@@ -15440,7 +15293,7 @@
     "confianza": "media",
     "confianza_puntos": 52,
     "municipio": "zapopan",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "coto del sol": {
     "decada_ref": "2010s",
@@ -15662,7 +15515,7 @@
     "confianza": "media",
     "confianza_puntos": 62,
     "municipio": "guadalajara",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "country club area": {
     "decada_ref": "1990s",
@@ -15803,7 +15656,7 @@
     "confianza": "media",
     "confianza_puntos": 46,
     "municipio": "zapopan",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "crucero de la mesa": {
     "decada_ref": "1980s",
@@ -15818,20 +15671,6 @@
     "confianza_puntos": 30,
     "municipio": "zapopan",
     "municipio_fuente": "sepomex"
-  },
-  "cruz de huanacaxtle": {
-    "decada_ref": "1990s",
-    "decadas": [
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "bahia de banderas",
-    "municipio_fuente": "maestro"
   },
   "cruz loma": {
     "decada_ref": "2000s",
@@ -15886,8 +15725,12 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio": null,
+    "municipio_fuente": null,
+    "homonima_en": [
+      "ajijic",
+      "tonala"
+    ]
   },
   "cuatro camichines de la tijera": {
     "decada_ref": "1990s",
@@ -15916,32 +15759,7 @@
     "confianza": "media",
     "confianza_puntos": 48,
     "municipio": null,
-    "municipio_fuente": null,
-    "homonima_en": [
-      "colima",
-      "comala",
-      "cuauhtemoc",
-      "del nayar",
-      "manzanillo",
-      "santiago ixcuintla",
-      "tepic",
-      "toliman"
-    ]
-  },
-  "cuauhtemoc centro": {
-    "decada_ref": "1960s",
-    "decadas": [
-      "1940s",
-      "1950s",
-      "1960s",
-      "1970s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "cuauhtemoc",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": null
   },
   "cuauhtemoc infonavit": {
     "decada_ref": "1960s",
@@ -16084,7 +15902,7 @@
     "confianza": "baja",
     "confianza_puntos": 30,
     "municipio": "zapopan",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "cumbres del cielo": {
     "decada_ref": "1990s",
@@ -16224,25 +16042,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": null,
-    "municipio_fuente": null,
-    "homonima_en": [
-      "cocula",
-      "compostela"
-    ]
-  },
-  "de los camichines": {
-    "decada_ref": "1960s",
-    "decadas": [
-      "1950s",
-      "1960s",
-      "1970s"
-    ],
-    "nivel": "media",
-    "fuente": "plan-parcial",
-    "confianza": "media",
-    "confianza_puntos": 48,
-    "municipio": "zacoalco de torres",
-    "municipio_fuente": "maestro"
+    "municipio_fuente": null
   },
   "de puerta de hierro": {
     "decada_ref": "1990s",
@@ -16318,10 +16118,8 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "colotlan",
-      "compostela",
-      "santa maria del oro",
-      "tepic"
+      "guadalajara",
+      "zapopan"
     ]
   },
   "del carmen": {
@@ -16563,7 +16361,7 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "del valle centro": {
     "decada_ref": "1960s",
@@ -18094,22 +17892,6 @@
     "municipio": null,
     "municipio_fuente": null
   },
-  "deportiva": {
-    "decada_ref": "1980s",
-    "decadas": [
-      "1960s",
-      "1970s",
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "bahia de banderas",
-    "municipio_fuente": "maestro"
-  },
   "dept tower sora": {
     "decada_ref": "1960s",
     "decadas": [
@@ -18235,8 +18017,8 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 72,
-    "municipio": "puerto vallarta",
-    "municipio_fuente": "maestro"
+    "municipio": "zapopan",
+    "municipio_fuente": "cache_index"
   },
   "dioses del nilo": {
     "decada_ref": "1980s",
@@ -18457,7 +18239,7 @@
     "confianza": "baja",
     "confianza_puntos": 30,
     "municipio": "zapopan",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "ebano 18 naturezza bosque real": {
     "decada_ref": "2000s",
@@ -18472,8 +18254,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "ebano naturezza bosque real",
-    "municipio_fuente": "cache_index"
+    "municipio": null,
+    "municipio_fuente": null
   },
   "echeverria": {
     "decada_ref": "1970s",
@@ -18772,9 +18554,9 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "el grullo",
+      "guadalajara",
       "san pedro tlaquepaque",
-      "tala",
+      "tlaquepaque",
       "zapopan"
     ]
   },
@@ -18848,7 +18630,7 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "el arroyo": {
     "decada_ref": "2000s",
@@ -18878,12 +18660,8 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "ayotlan",
       "chapala",
-      "del nayar",
-      "san miguel el alto",
       "zapopan",
-      "zapotlan el grande",
       "zapotlanejo"
     ]
   },
@@ -18927,11 +18705,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": null,
-    "municipio_fuente": null,
-    "homonima_en": [
-      "teocaltiche",
-      "yahualica de gonzalez gallo"
-    ]
+    "municipio_fuente": null
   },
   "el barro": {
     "decada_ref": "1990s",
@@ -18985,7 +18759,7 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "el bosque": {
     "decada_ref": "1980s",
@@ -19070,8 +18844,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 36,
-    "municipio": "tlaquepaque",
-    "municipio_fuente": "cache_index"
+    "municipio": "san pedro tlaquepaque",
+    "municipio_fuente": "sepomex"
   },
   "el campestre": {
     "decada_ref": "1930s",
@@ -19143,7 +18917,7 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "san pedro tlaquepaque",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "el capulin": {
     "decada_ref": "2000s",
@@ -19186,7 +18960,7 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "el carmen": {
     "decada_ref": "1980s",
@@ -19242,7 +19016,7 @@
     "confianza": "baja",
     "confianza_puntos": 30,
     "municipio": "zapopan",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "el castillo": {
     "decada_ref": "1980s",
@@ -19270,8 +19044,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "jalostotitlan",
-    "municipio_fuente": "sepomex"
+    "municipio": "zapopan",
+    "municipio_fuente": "cache_index"
   },
   "el cerrito": {
     "decada_ref": "1980s",
@@ -19299,7 +19073,7 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "el chirimoyo": {
     "decada_ref": "2000s",
@@ -19326,8 +19100,12 @@
     "fuente": "hemeroteca",
     "confianza": "alta",
     "confianza_puntos": 94,
-    "municipio": "zapopan",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio": null,
+    "municipio_fuente": null,
+    "homonima_en": [
+      "tlajomulco",
+      "zapopan"
+    ]
   },
   "el colibri": {
     "decada_ref": "2000s",
@@ -19525,8 +19303,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 38,
-    "municipio": "tlajomulco",
-    "municipio_fuente": "cache_index"
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "sepomex"
   },
   "el cortijo de san agustin": {
     "decada_ref": "1990s",
@@ -19624,11 +19402,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": null,
-    "municipio_fuente": null,
-    "homonima_en": [
-      "cuquio",
-      "teocaltiche"
-    ]
+    "municipio_fuente": null
   },
   "el diamante": {
     "decada_ref": "1990s",
@@ -19656,20 +19430,6 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "tonala",
-    "municipio_fuente": "sepomex"
-  },
-  "el dorado": {
-    "decada_ref": "1960s",
-    "decadas": [
-      "1950s",
-      "1960s",
-      "1970s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "manzanillo",
     "municipio_fuente": "sepomex"
   },
   "el dorado condominium": {
@@ -19865,7 +19625,7 @@
     "confianza": "baja",
     "confianza_puntos": 30,
     "municipio": "guadalajara",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "el jordan": {
     "decada_ref": "1970s",
@@ -19951,6 +19711,7 @@
     "municipio_fuente": null,
     "homonima_en": [
       "san pedro tlaquepaque",
+      "tlaquepaque",
       "zapopan"
     ]
   },
@@ -19965,8 +19726,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 38,
-    "municipio": "real del valle",
-    "municipio_fuente": "cache_index"
+    "municipio": null,
+    "municipio_fuente": null
   },
   "el meson de copala": {
     "decada_ref": "1990s",
@@ -20092,7 +19853,7 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "san pedro tlaquepaque",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "el nuevo resplandor": {
     "decada_ref": "2000s",
@@ -20119,8 +19880,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 38,
-    "municipio": "tlajomulco",
-    "municipio_fuente": "cache_index"
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "sepomex"
   },
   "el olivo": {
     "decada_ref": "1980s",
@@ -20134,7 +19895,7 @@
     "confianza": "baja",
     "confianza_puntos": 30,
     "municipio": "zapopan",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "el organo": {
     "decada_ref": "1980s",
@@ -20147,8 +19908,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 36,
-    "municipio": "tlaquepaque",
-    "municipio_fuente": "cache_index"
+    "municipio": "san pedro tlaquepaque",
+    "municipio_fuente": "sepomex"
   },
   "el origen": {
     "decada_ref": "2010s",
@@ -20202,7 +19963,7 @@
     "confianza": "media",
     "confianza_puntos": 62,
     "municipio": "tlajomulco de zuniga",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "el palomar balcones": {
     "decada_ref": "2010s",
@@ -20372,7 +20133,7 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "san pedro tlaquepaque",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "el pandito": {
     "decada_ref": "1990s",
@@ -20581,8 +20342,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "el plan",
-    "municipio_fuente": "maestro"
+    "municipio": null,
+    "municipio_fuente": null
   },
   "el porvenir": {
     "decada_ref": "1990s",
@@ -20596,15 +20357,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": null,
-    "municipio_fuente": null,
-    "homonima_en": [
-      "ameca",
-      "bahia de banderas",
-      "colima",
-      "compostela",
-      "tecalitlan",
-      "teocaltiche"
-    ]
+    "municipio_fuente": null
   },
   "el porvenir oriente": {
     "decada_ref": "1960s",
@@ -20646,7 +20399,7 @@
     "confianza": "media",
     "confianza_puntos": 46,
     "municipio": "zapopan",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "el puente": {
     "decada_ref": "1960s",
@@ -20659,8 +20412,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 36,
-    "municipio": "tlaquepaque",
-    "municipio_fuente": "cache_index"
+    "municipio": "san pedro tlaquepaque",
+    "municipio_fuente": "sepomex"
   },
   "el quemado": {
     "decada_ref": "1990s",
@@ -20674,7 +20427,7 @@
     "confianza": "media",
     "confianza_puntos": 52,
     "municipio": "zapopan",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "el quince": {
     "decada_ref": "1990s",
@@ -20733,13 +20486,7 @@
     "confianza": "media",
     "confianza_puntos": 48,
     "municipio": null,
-    "municipio_fuente": null,
-    "homonima_en": [
-      "bahia de banderas",
-      "pihuamo",
-      "rosamorada",
-      "ruiz"
-    ]
+    "municipio_fuente": null
   },
   "el real": {
     "decada_ref": "2000s",
@@ -20756,7 +20503,7 @@
     "municipio_fuente": null,
     "homonima_en": [
       "san pedro tlaquepaque",
-      "tecoman",
+      "tlaquepaque",
       "zapopan"
     ]
   },
@@ -20772,7 +20519,7 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "tonala",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "el refugio": {
     "decada_ref": "1930s",
@@ -20945,7 +20692,7 @@
     "confianza": "baja",
     "confianza_puntos": 30,
     "municipio": "guadalajara",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "el rodeo": {
     "decada_ref": "1980s",
@@ -20976,17 +20723,7 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "amatlan de canas",
-      "arandas",
-      "ayotlan",
-      "ayutla",
-      "encarnacion de diaz",
       "guadalajara",
-      "ocotlan",
-      "san juan de los lagos",
-      "tecoman",
-      "teocaltiche",
-      "tequila",
       "tonala",
       "zapotlanejo"
     ]
@@ -21017,7 +20754,7 @@
     "confianza": "media",
     "confianza_puntos": 72,
     "municipio": "el salto",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "el salto": {
     "decada_ref": "1900s",
@@ -21075,7 +20812,7 @@
     "confianza": "media",
     "confianza_puntos": 72,
     "municipio": "san pedro tlaquepaque",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "el sauz guadalajara": {
     "decada_ref": "1980s",
@@ -21131,7 +20868,7 @@
     "confianza": "media",
     "confianza_puntos": 72,
     "municipio": "el salto",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "el sereno": {
     "decada_ref": "1980s",
@@ -21146,20 +20883,6 @@
     "confianza_puntos": 36,
     "municipio": "san pedro tlaquepaque",
     "municipio_fuente": "sepomex"
-  },
-  "el tabardillo": {
-    "decada_ref": "1980s",
-    "decadas": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "nivel": "media",
-    "fuente": "plan-parcial",
-    "confianza": "media",
-    "confianza_puntos": 48,
-    "municipio": "mazamitla",
-    "municipio_fuente": "maestro"
   },
   "el tapatio": {
     "decada_ref": "1980s",
@@ -21202,7 +20925,7 @@
     "confianza": "baja",
     "confianza_puntos": 38,
     "municipio": "tlajomulco de zuniga",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "el terrero": {
     "decada_ref": "1990s",
@@ -21230,7 +20953,7 @@
     "confianza": "baja",
     "confianza_puntos": 30,
     "municipio": "zapopan",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "el tizate": {
     "decada_ref": "1980s",
@@ -21258,7 +20981,7 @@
     "confianza": "baja",
     "confianza_puntos": 30,
     "municipio": "zapopan",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "el ultimo de juan palomar entrega julio 2026": {
     "decada_ref": "1990s",
@@ -21286,7 +21009,7 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "tonala",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "el verde": {
     "decada_ref": "2010s",
@@ -21427,6 +21150,7 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
+      "el salto",
       "guadalajara",
       "san pedro tlaquepaque"
     ]
@@ -21597,7 +21321,7 @@
     "confianza": "baja",
     "confianza_puntos": 30,
     "municipio": "zapopan",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "eniti your home": {
     "decada_ref": "1990s",
@@ -21807,8 +21531,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 36,
-    "municipio": "tlaquepaque",
-    "municipio_fuente": "cache_index"
+    "municipio": "san pedro tlaquepaque",
+    "municipio_fuente": "sepomex"
   },
   "espanol valle imperial": {
     "decada_ref": "1960s",
@@ -21852,7 +21576,7 @@
     "confianza": "baja",
     "confianza_puntos": 30,
     "municipio": "guadalajara",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "esquina en de solares": {
     "decada_ref": "1990s",
@@ -22036,7 +21760,7 @@
     "confianza": "baja",
     "confianza_puntos": 30,
     "municipio": "guadalajara",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "europa": {
     "decada_ref": "1960s",
@@ -22489,20 +22213,6 @@
     "municipio": null,
     "municipio_fuente": null
   },
-  "flamingos": {
-    "decada_ref": "2010s",
-    "decadas": [
-      "2000s",
-      "2010s",
-      "2020s"
-    ],
-    "nivel": "lujo",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "bahia de banderas",
-    "municipio_fuente": "maestro"
-  },
   "flat land 7 minutes from the center of tesistan": {
     "decada_ref": "1990s",
     "decadas": [
@@ -22557,7 +22267,7 @@
     "confianza": "baja",
     "confianza_puntos": 30,
     "municipio": "guadalajara",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "florencia gardens": {
     "decada_ref": "1990s",
@@ -22599,7 +22309,7 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "flores magon ii": {
     "decada_ref": "1990s",
@@ -22640,22 +22350,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "ocotlan",
-    "municipio_fuente": "sepomex"
-  },
-  "fluvial vallarta": {
-    "decada_ref": "1980s",
-    "decadas": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "puerto vallarta",
-    "municipio_fuente": "maestro"
+    "municipio": "tonala",
+    "municipio_fuente": "cache_index"
   },
   "forest way": {
     "decada_ref": "1990s",
@@ -22877,8 +22573,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "colima",
-    "municipio_fuente": "sepomex"
+    "municipio": "tlaquepaque",
+    "municipio_fuente": "cache_index"
   },
   "francisco sarabia": {
     "decada_ref": "1990s",
@@ -22965,20 +22661,6 @@
     "confianza_puntos": 25,
     "municipio": null,
     "municipio_fuente": null
-  },
-  "fresno": {
-    "decada_ref": "1980s",
-    "decadas": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "zapotlan el grande",
-    "municipio_fuente": "maestro"
   },
   "fresno department": {
     "decada_ref": "1990s",
@@ -23343,7 +23025,7 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "gdl centro": {
     "decada_ref": "1960s",
@@ -23497,7 +23179,7 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "tonala",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "girasoles acueducto": {
     "decada_ref": "1980s",
@@ -24023,7 +23705,7 @@
     "confianza": "baja",
     "confianza_puntos": 30,
     "municipio": "zapopan",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "guadalupana": {
     "decada_ref": "1960s",
@@ -24036,8 +23718,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 36,
-    "municipio": "guadalajara",
-    "municipio_fuente": "cache_index"
+    "municipio": "tonala",
+    "municipio_fuente": "sepomex"
   },
   "guadalupana norte": {
     "decada_ref": "1960s",
@@ -24603,20 +24285,6 @@
     "confianza": "media",
     "confianza_puntos": 62,
     "municipio": "tlajomulco de zuniga",
-    "municipio_fuente": "maestro"
-  },
-  "hacienda los jacales": {
-    "decada_ref": "1960s",
-    "decadas": [
-      "1950s",
-      "1960s",
-      "1970s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "lagos de moreno",
     "municipio_fuente": "maestro"
   },
   "hacienda mirage": {
@@ -25432,8 +25100,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 36,
-    "municipio": "tlaquepaque",
-    "municipio_fuente": "cache_index"
+    "municipio": "san pedro tlaquepaque",
+    "municipio_fuente": "sepomex"
   },
   "hidalgo de tonala": {
     "decada_ref": "1960s",
@@ -25573,7 +25241,7 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "tonala",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "hipodromo condesa": {
     "decada_ref": "1980s",
@@ -26150,11 +25818,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": null,
-    "municipio_fuente": null,
-    "homonima_en": [
-      "colima",
-      "manzanillo"
-    ]
+    "municipio_fuente": null
   },
   "ikal residential": {
     "decada_ref": "2010s",
@@ -26536,7 +26200,7 @@
     "confianza": "media",
     "confianza_puntos": 72,
     "municipio": "san pedro tlaquepaque",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "indigena de mezquitan": {
     "decada_ref": "1960s",
@@ -27011,8 +26675,12 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "zapopan",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio": null,
+    "municipio_fuente": null,
+    "homonima_en": [
+      "ajijic",
+      "zapopan"
+    ]
   },
   "insurgentes guadalajara": {
     "decada_ref": "1980s",
@@ -27025,8 +26693,8 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 51,
-    "municipio": "colonia insurgentes guadalajara",
-    "municipio_fuente": "cache_index"
+    "municipio": null,
+    "municipio_fuente": null
   },
   "insurgentes la presa": {
     "decada_ref": "1980s",
@@ -27096,8 +26764,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "col real del valle",
-    "municipio_fuente": "cache_index"
+    "municipio": null,
+    "municipio_fuente": null
   },
   "int 130": {
     "decada_ref": "2000s",
@@ -27194,8 +26862,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "san jose del castillo",
-    "municipio_fuente": "cache_index"
+    "municipio": null,
+    "municipio_fuente": null
   },
   "int 7": {
     "decada_ref": "1960s",
@@ -27223,8 +26891,8 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 51,
-    "municipio": "naturezza residencial",
-    "municipio_fuente": "cache_index"
+    "municipio": null,
+    "municipio_fuente": null
   },
   "interior casa 19": {
     "decada_ref": "1970s",
@@ -27253,8 +26921,12 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "chapala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio": null,
+    "municipio_fuente": null,
+    "homonima_en": [
+      "ajijic",
+      "chapala"
+    ]
   },
   "international condominium": {
     "decada_ref": "2010s",
@@ -27522,37 +27194,6 @@
     "municipio": null,
     "municipio_fuente": null
   },
-  "ixtapa": {
-    "decada_ref": "2000s",
-    "decadas": [
-      "1980s",
-      "1990s",
-      "2000s",
-      "2010s",
-      "2020s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "puerto vallarta",
-    "municipio_fuente": "maestro"
-  },
-  "ixtapa centro": {
-    "decada_ref": "1960s",
-    "decadas": [
-      "1940s",
-      "1950s",
-      "1960s",
-      "1970s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "puerto vallarta",
-    "municipio_fuente": "maestro"
-  },
   "ixtlahuacan de los membrillos": {
     "decada_ref": "1970s",
     "decadas": [
@@ -27566,20 +27207,6 @@
     "confianza": "media",
     "confianza_puntos": 72,
     "municipio": "ixtlahuacan de los membrillos",
-    "municipio_fuente": "maestro"
-  },
-  "ixtlahuacan del rio": {
-    "decada_ref": "1960s",
-    "decadas": [
-      "1950s",
-      "1960s",
-      "1970s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "ixtlahuacan del rio",
     "municipio_fuente": "maestro"
   },
   "j de guadalupe": {
@@ -27621,8 +27248,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 38,
-    "municipio": "tlajomulco",
-    "municipio_fuente": "cache_index"
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "sepomex"
   },
   "jade fraction tlajomulco": {
     "decada_ref": "1990s",
@@ -27678,7 +27305,7 @@
     "confianza": "media",
     "confianza_puntos": 48,
     "municipio": "jocotepec",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "jalisco 1a": {
     "decada_ref": "1980s",
@@ -28342,7 +27969,7 @@
     "confianza": "baja",
     "confianza_puntos": 30,
     "municipio": "zapopan",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "jardines de los arcos": {
     "decada_ref": "1980s",
@@ -28689,8 +28316,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlaquepaque",
-    "municipio_fuente": "cache_index"
+    "municipio": "san pedro tlaquepaque",
+    "municipio_fuente": "sepomex"
   },
   "jardines de tabachines": {
     "decada_ref": "1980s",
@@ -29219,7 +28846,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "el salto",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "cache_index"
   },
   "jardines guadalupe": {
     "decada_ref": "1970s",
@@ -29247,22 +28874,6 @@
     "confianza": "media",
     "confianza_puntos": 48,
     "municipio": "guadalajara",
-    "municipio_fuente": "maestro"
-  },
-  "jardines ixtapa": {
-    "decada_ref": "2000s",
-    "decadas": [
-      "1980s",
-      "1990s",
-      "2000s",
-      "2010s",
-      "2020s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "puerto vallarta",
     "municipio_fuente": "maestro"
   },
   "jardines la magdalena": {
@@ -29532,22 +29143,7 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
-  },
-  "jerez huejucar": {
-    "decada_ref": "1960s",
-    "decadas": [
-      "1940s",
-      "1950s",
-      "1960s",
-      "1970s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "huejucar",
-    "municipio_fuente": "maestro"
+    "municipio_fuente": "sepomex"
   },
   "jesus del monte": {
     "decada_ref": "1990s",
@@ -29575,7 +29171,7 @@
     "confianza": "baja",
     "confianza_puntos": 30,
     "municipio": "guadalajara",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "jesus maria": {
     "decada_ref": "1990s",
@@ -29589,7 +29185,7 @@
     "confianza": "media",
     "confianza_puntos": 72,
     "municipio": "el salto",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "joaquin aaron": {
     "decada_ref": "1960s",
@@ -29704,8 +29300,7 @@
     "municipio_fuente": null,
     "homonima_en": [
       "guadalajara",
-      "san pedro tlaquepaque",
-      "villa purificacion"
+      "san pedro tlaquepaque"
     ]
   },
   "juan escutia": {
@@ -29720,16 +29315,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": null,
-    "municipio_fuente": null,
-    "homonima_en": [
-      "acaponeta",
-      "ixtlan del rio",
-      "jala",
-      "ruiz",
-      "tecuala",
-      "tepic",
-      "tuxpan"
-    ]
+    "municipio_fuente": null
   },
   "juan escutia col las juntitassan pedro tlaquepaque jalisco mexico cp 45590 id30841651": {
     "decada_ref": "1990s",
@@ -29842,8 +29428,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 36,
-    "municipio": "ajijic",
-    "municipio_fuente": "cache_index"
+    "municipio": "tonala",
+    "municipio_fuente": "sepomex"
   },
   "junta de los ocotes": {
     "decada_ref": "1990s",
@@ -29943,20 +29529,6 @@
     "municipio": "zapopan",
     "municipio_fuente": "cache_index"
   },
-  "la adelita": {
-    "decada_ref": "1960s",
-    "decadas": [
-      "1950s",
-      "1960s",
-      "1970s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "lagos de moreno",
-    "municipio_fuente": "maestro"
-  },
   "la alameda": {
     "decada_ref": "2000s",
     "decadas": [
@@ -29984,7 +29556,7 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "la alborada": {
     "decada_ref": "1990s",
@@ -30168,7 +29740,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "san pedro tlaquepaque",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "la aurora": {
     "decada_ref": "1960s",
@@ -30197,20 +29769,6 @@
     "confianza_puntos": 25,
     "municipio": null,
     "municipio_fuente": null
-  },
-  "la barca": {
-    "decada_ref": "1980s",
-    "decadas": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "nivel": "popular",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "la barca",
-    "municipio_fuente": "maestro"
   },
   "la bella": {
     "decada_ref": "1980s",
@@ -30253,8 +29811,8 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 62,
-    "municipio": "tlajomulco",
-    "municipio_fuente": "cache_index"
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "sepomex"
   },
   "la calerilla": {
     "decada_ref": "1980s",
@@ -30365,7 +29923,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "san pedro tlaquepaque",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "la cantera": {
     "decada_ref": "1960s",
@@ -30378,8 +29936,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 30,
-    "municipio": "zapopan",
-    "municipio_fuente": "cache_index"
+    "municipio": "guadalajara",
+    "municipio_fuente": "sepomex"
   },
   "la cantera habitat": {
     "decada_ref": "1990s",
@@ -30434,8 +29992,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlaquepaque",
-    "municipio_fuente": "cache_index"
+    "municipio": "san pedro tlaquepaque",
+    "municipio_fuente": "sepomex"
   },
   "la capilla": {
     "decada_ref": "1970s",
@@ -30530,7 +30088,7 @@
     "confianza": "baja",
     "confianza_puntos": 30,
     "municipio": "zapopan",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "la cibela": {
     "decada_ref": "2010s",
@@ -30622,19 +30180,9 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "ahualulco de mercado",
-      "atotonilco el alto",
-      "del nayar",
-      "huejuquilla el alto",
       "juanacatlan",
-      "la yesca",
-      "mazamitla",
       "san pedro tlaquepaque",
-      "tonaya",
-      "tonila",
-      "tuxcueca",
-      "villa guerrero",
-      "villa purificacion"
+      "tuxcueca"
     ]
   },
   "la coladera": {
@@ -30691,8 +30239,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 38,
-    "municipio": "tlajomulco",
-    "municipio_fuente": "cache_index"
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "sepomex"
   },
   "la consti": {
     "decada_ref": "1990s",
@@ -30750,7 +30298,7 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "la cruz del valle": {
     "decada_ref": "2000s",
@@ -30852,13 +30400,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": null,
-    "municipio_fuente": null,
-    "homonima_en": [
-      "cuauhtemoc",
-      "lagos de moreno",
-      "tepic",
-      "tequila"
-    ]
+    "municipio_fuente": null
   },
   "la esmeralda": {
     "decada_ref": "1990s",
@@ -30872,7 +30414,7 @@
     "confianza": "media",
     "confianza_puntos": 72,
     "municipio": "el salto",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "la esperanza": {
     "decada_ref": "1980s",
@@ -30913,8 +30455,8 @@
     "confianza": "media",
     "nivel": "lujo",
     "confianza_puntos": 72,
-    "municipio": "tala",
-    "municipio_fuente": "maestro"
+    "municipio": "zapopan",
+    "municipio_fuente": "sepomex"
   },
   "la experiencia": {
     "decada_ref": "1900s",
@@ -30984,7 +30526,7 @@
     "confianza": "alta",
     "confianza_puntos": 87,
     "municipio": "chapala",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "la floresta del colli": {
     "decada_ref": "1970s",
@@ -31025,8 +30567,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 38,
-    "municipio": "tlajomulco",
-    "municipio_fuente": "cache_index"
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "sepomex"
   },
   "la fortuna colony": {
     "decada_ref": "1990s",
@@ -31102,6 +30644,7 @@
     "homonima_en": [
       "san pedro tlaquepaque",
       "tlajomulco de zuniga",
+      "tlaquepaque",
       "tonala"
     ]
   },
@@ -31187,7 +30730,7 @@
     "confianza": "baja",
     "confianza_puntos": 30,
     "municipio": "zapopan",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "la herradura subdivision": {
     "decada_ref": "1990s",
@@ -31257,7 +30800,7 @@
     "confianza": "baja",
     "confianza_puntos": 30,
     "municipio": "zapopan",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "la huizachera": {
     "decada_ref": "1990s",
@@ -31357,36 +30900,6 @@
     "municipio": "san pedro tlaquepaque",
     "municipio_fuente": "maestro"
   },
-  "la lagunita": {
-    "decada_ref": "1970s",
-    "decadas": [
-      "1960s",
-      "1970s",
-      "1980s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "acaponeta",
-    "municipio_fuente": "maestro"
-  },
-  "la lagunita mazamitla": {
-    "decada_ref": "1980s",
-    "decadas": [
-      "1960s",
-      "1970s",
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "mazamitla",
-    "municipio_fuente": "maestro"
-  },
   "la laja": {
     "decada_ref": "2000s",
     "decadas": [
@@ -31401,8 +30914,6 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "el grullo",
-      "mixtlan",
       "zapopan",
       "zapotlanejo"
     ]
@@ -31432,8 +30943,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "san luis soyatlan",
-    "municipio_fuente": "maestro"
+    "municipio": null,
+    "municipio_fuente": null
   },
   "la llave": {
     "decada_ref": "1980s",
@@ -31446,8 +30957,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 36,
-    "municipio": "san juan de los lagos",
-    "municipio_fuente": "maestro"
+    "municipio": "tonala",
+    "municipio_fuente": "sepomex"
   },
   "la loma": {
     "decada_ref": "1990s",
@@ -31502,7 +31013,7 @@
     "confianza": "baja",
     "confianza_puntos": 38,
     "municipio": "tlajomulco de zuniga",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "la magdalena": {
     "decada_ref": "1990s",
@@ -31545,20 +31056,6 @@
     "confianza_puntos": 72,
     "municipio": null,
     "municipio_fuente": null
-  },
-  "la manzanilla de la paz": {
-    "decada_ref": "1990s",
-    "decadas": [
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "la manzanilla de la paz",
-    "municipio_fuente": "maestro"
   },
   "la martinica": {
     "decada_ref": "1980s",
@@ -31658,7 +31155,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "zapopan",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "la mojonera": {
     "decada_ref": "2000s",
@@ -31698,7 +31195,7 @@
     "confianza": "media",
     "confianza_puntos": 45,
     "municipio": "zapopan",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "la mora residencial": {
     "decada_ref": "2010s",
@@ -31754,7 +31251,7 @@
     "confianza": "baja",
     "confianza_puntos": 30,
     "municipio": "guadalajara",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "la nogalera": {
     "decada_ref": "1910s",
@@ -31780,7 +31277,7 @@
     "confianza": "media",
     "confianza_puntos": 62,
     "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "la noria de los reyes": {
     "decada_ref": "1970s",
@@ -31835,7 +31332,7 @@
     "confianza": "media",
     "confianza_puntos": 56,
     "municipio": "tlajomulco de zuniga",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "la palmira": {
     "decada_ref": "1990s",
@@ -31892,8 +31389,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "talpa de allende",
-    "municipio_fuente": "sepomex"
+    "municipio": "chapala",
+    "municipio_fuente": "cache_index"
   },
   "la patria universidad": {
     "decada_ref": "1960s",
@@ -31949,8 +31446,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "compostela",
-    "municipio_fuente": "sepomex"
+    "municipio": "tonala",
+    "municipio_fuente": "cache_index"
   },
   "la periquera": {
     "decada_ref": "1990s",
@@ -32036,7 +31533,7 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "la pila de san gaspar": {
     "decada_ref": "2000s",
@@ -32078,14 +31575,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": null,
-    "municipio_fuente": null,
-    "homonima_en": [
-      "bolanos",
-      "manzanillo",
-      "puerto vallarta",
-      "san blas",
-      "zacoalco de torres"
-    ]
+    "municipio_fuente": null
   },
   "la primavera": {
     "decada_ref": "1980s",
@@ -32141,7 +31631,7 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "la purasima": {
     "decada_ref": "1990s",
@@ -32172,10 +31662,8 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "atotonilco el alto",
       "el salto",
-      "lagos de moreno",
-      "tecalitlan",
+      "tlajomulco",
       "tlajomulco de zuniga",
       "zapotlanejo"
     ]
@@ -32204,7 +31692,7 @@
     "confianza": "alta",
     "confianza_puntos": 94,
     "municipio": "tlajomulco de zuniga",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "la reserva neighborhood": {
     "decada_ref": "1990s",
@@ -32377,7 +31865,7 @@
     "confianza": "baja",
     "confianza_puntos": 30,
     "municipio": "zapopan",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "la severiana": {
     "decada_ref": "1980s",
@@ -32410,8 +31898,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 30,
-    "municipio": "tlaquepaque",
-    "municipio_fuente": "cache_index"
+    "municipio": "zapopan",
+    "municipio_fuente": "sepomex"
   },
   "la teja": {
     "decada_ref": "2000s",
@@ -32551,20 +32039,6 @@
     "nivel": "popular",
     "confianza_puntos": 72,
     "municipio": "zapopan",
-    "municipio_fuente": "maestro"
-  },
-  "la via": {
-    "decada_ref": "2000s",
-    "decadas": [
-      "1990s",
-      "2000s",
-      "2010s"
-    ],
-    "nivel": "popular",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "puerto vallarta",
     "municipio_fuente": "maestro"
   },
   "la victoria": {
@@ -32866,22 +32340,6 @@
     "confianza_puntos": 25,
     "municipio": "tonala",
     "municipio_fuente": "cache_index"
-  },
-  "lagos de moreno": {
-    "decada_ref": "1960s",
-    "decadas": [
-      "1940s",
-      "1950s",
-      "1960s",
-      "1970s",
-      "1980s"
-    ],
-    "nivel": "popular",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "lagos de moreno",
-    "municipio_fuente": "maestro"
   },
   "lagos de oriente": {
     "decada_ref": "1960s",
@@ -34077,11 +33535,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": null,
-    "municipio_fuente": null,
-    "homonima_en": [
-      "encarnacion de diaz",
-      "ixtlan del rio"
-    ]
+    "municipio_fuente": null
   },
   "las asturias": {
     "decada_ref": "2010s",
@@ -34221,8 +33675,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tepic",
-    "municipio_fuente": "sepomex"
+    "municipio": "zapopan",
+    "municipio_fuente": "cache_index"
   },
   "las flores": {
     "decada_ref": "1980s",
@@ -34238,20 +33692,10 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "autlan de navarro",
-      "bahia de banderas",
-      "compostela",
-      "el grullo",
-      "encarnacion de diaz",
-      "ixtlan del rio",
-      "manzanillo",
-      "puerto vallarta",
       "san pedro tlaquepaque",
-      "santiago ixcuintla",
-      "tecoman",
-      "teocaltiche",
-      "tepic",
+      "tlajomulco",
       "tlajomulco de zuniga",
+      "tlaquepaque",
       "zapopan"
     ]
   },
@@ -34321,7 +33765,7 @@
     "confianza": "baja",
     "confianza_puntos": 30,
     "municipio": "zapopan",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "las grullas": {
     "decada_ref": "2000s",
@@ -34379,20 +33823,6 @@
     "municipio": "san pedro tlaquepaque",
     "municipio_fuente": "maestro"
   },
-  "las jarretaderas": {
-    "decada_ref": "2000s",
-    "decadas": [
-      "1990s",
-      "2000s",
-      "2010s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "bahia de banderas",
-    "municipio_fuente": "maestro"
-  },
   "las juntas": {
     "decada_ref": "1940s",
     "decadas": [
@@ -34406,8 +33836,13 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 62,
-    "municipio": "puerto vallarta",
-    "municipio_fuente": "maestro"
+    "municipio": null,
+    "municipio_fuente": null,
+    "homonima_en": [
+      "guadalajara",
+      "san pedro tlaquepaque",
+      "tlaquepaque"
+    ]
   },
   "las juntitas": {
     "decada_ref": "1940s",
@@ -34503,8 +33938,8 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 60,
-    "municipio": "valle dorado inn",
-    "municipio_fuente": "maestro"
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "sepomex"
   },
   "las mojoneras": {
     "decada_ref": "1990s",
@@ -34518,11 +33953,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": null,
-    "municipio_fuente": null,
-    "homonima_en": [
-      "acaponeta",
-      "puerto vallarta"
-    ]
+    "municipio_fuente": null
   },
   "las moras": {
     "decada_ref": "2010s",
@@ -34535,8 +33966,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
-    "municipio_fuente": "cache_index"
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "sepomex"
   },
   "las moras residential": {
     "decada_ref": "2010s",
@@ -34564,7 +33995,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "tlajomulco de zuniga",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "las palmas": {
     "decada_ref": "1980s",
@@ -34580,18 +34011,10 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "ahuacatlan",
-      "atotonilco el alto",
-      "bahia de banderas",
-      "colima",
-      "del nayar",
       "guadalajara",
-      "lagos de moreno",
-      "manzanillo",
-      "san blas",
-      "tecoman",
+      "tlajomulco",
       "tlajomulco de zuniga",
-      "zapotlan el grande"
+      "tonala"
     ]
   },
   "las palomas": {
@@ -34606,7 +34029,7 @@
     "confianza": "baja",
     "confianza_puntos": 30,
     "municipio": "zapopan",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "las piedrotas": {
     "decada_ref": "1960s",
@@ -34662,8 +34085,8 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 72,
-    "municipio": ". tlaquepaque",
-    "municipio_fuente": "maestro"
+    "municipio": "tlaquepaque",
+    "municipio_fuente": "cache_index"
   },
   "las pintas el salto": {
     "decada_ref": "1980s",
@@ -34808,7 +34231,6 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "colotlan",
       "jocotepec",
       "tlajomulco de zuniga"
     ]
@@ -34881,8 +34303,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
-    "municipio_fuente": "cache_index"
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "sepomex"
   },
   "last apartment in ciudad granja": {
     "decada_ref": "1990s",
@@ -35053,7 +34475,7 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "li ctm": {
     "decada_ref": "1960s",
@@ -35141,7 +34563,7 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "lindavista": {
     "decada_ref": "1980s",
@@ -35158,18 +34580,9 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "armeria",
-      "casimiro castillo",
-      "lagos de moreno",
-      "magdalena",
-      "ocotlan",
-      "ruiz",
-      "san miguel el alto",
+      "guadalajara",
       "san pedro tlaquepaque",
-      "tecoman",
-      "tepic",
-      "tototlan",
-      "villa de alvarez",
+      "tlaquepaque",
       "zapopan"
     ]
   },
@@ -35440,22 +34853,6 @@
     "municipio": null,
     "municipio_fuente": null
   },
-  "lo de marcos": {
-    "decada_ref": "1980s",
-    "decadas": [
-      "1960s",
-      "1970s",
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "bahia de banderas",
-    "municipio_fuente": "maestro"
-  },
   "lobby 33 furnishedunfurnished apartment": {
     "decada_ref": "1990s",
     "decadas": [
@@ -35623,8 +35020,13 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 62,
-    "municipio": "tapalpa",
-    "municipio_fuente": "maestro"
+    "municipio": null,
+    "municipio_fuente": null,
+    "homonima_en": [
+      "el salto",
+      "guadalajara",
+      "zapopan"
+    ]
   },
   "loma bonita 1a seccion": {
     "decada_ref": "1980s",
@@ -36005,7 +35407,7 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "arandas",
+      "guadalajara",
       "tonala",
       "zapopan"
     ]
@@ -36165,8 +35567,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "miguel hidalgo",
-    "municipio_fuente": "cache_index"
+    "municipio": null,
+    "municipio_fuente": null
   },
   "lomas de camichin": {
     "decada_ref": "1980s",
@@ -36265,20 +35667,6 @@
     "confianza_puntos": 72,
     "municipio": "san pedro tlaquepaque",
     "municipio_fuente": "sepomex"
-  },
-  "lomas de enmedio": {
-    "decada_ref": "2000s",
-    "decadas": [
-      "1990s",
-      "2000s",
-      "2010s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "puerto vallarta",
-    "municipio_fuente": "maestro"
   },
   "lomas de guadalupe": {
     "decada_ref": "1970s",
@@ -36628,36 +36016,6 @@
     "municipio": "zapopan",
     "municipio_fuente": "maestro"
   },
-  "lomas de san juan": {
-    "decada_ref": "1990s",
-    "decadas": [
-      "1970s",
-      "1980s",
-      "1990s",
-      "2000s",
-      "2010s"
-    ],
-    "nivel": "media",
-    "fuente": "plan-parcial",
-    "confianza": "media",
-    "confianza_puntos": 72,
-    "municipio": "tepic",
-    "municipio_fuente": "maestro"
-  },
-  "lomas de san luis": {
-    "decada_ref": "1980s",
-    "decadas": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "la barca",
-    "municipio_fuente": "maestro"
-  },
   "lomas de san miguel": {
     "decada_ref": "1980s",
     "decadas": [
@@ -36673,7 +36031,7 @@
     "municipio_fuente": null,
     "homonima_en": [
       "san pedro tlaquepaque",
-      "tepatitlan de morelos",
+      "tlaquepaque",
       "tonala"
     ]
   },
@@ -36772,8 +36130,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "alvaro obregon",
-    "municipio_fuente": "cache_index"
+    "municipio": null,
+    "municipio_fuente": null
   },
   "lomas de santa maria": {
     "decada_ref": "1980s",
@@ -37056,7 +36414,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "tlajomulco de zuniga",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "lomas del centinela": {
     "decada_ref": "1980s",
@@ -37197,7 +36555,7 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "tonala",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "lomas del mirador": {
     "decada_ref": "2000s",
@@ -37366,11 +36724,10 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "autlan de navarro",
-      "comala",
       "guadalajara",
-      "puerto vallarta",
-      "tlajomulco de zuniga"
+      "tlajomulco",
+      "tlajomulco de zuniga",
+      "tonala"
     ]
   },
   "lomas del refugio": {
@@ -37470,16 +36827,8 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "colima",
-      "el grullo",
       "guadalajara",
-      "jalostotitlan",
-      "lagos de moreno",
-      "manzanillo",
-      "tamazula de gordiano",
-      "tepic",
       "zapopan",
-      "zapotlan el grande",
       "zapotlanejo"
     ]
   },
@@ -37706,7 +37055,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "san pedro tlaquepaque",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "lopez mateos dream tower": {
     "decada_ref": "1990s",
@@ -37858,7 +37207,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "zapopan",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "los alamos": {
     "decada_ref": "2000s",
@@ -37874,7 +37223,6 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "tepic",
       "tlajomulco de zuniga",
       "zapopan"
     ]
@@ -37933,7 +37281,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "cache_index"
   },
   "los altos": {
     "decada_ref": "1980s",
@@ -37977,7 +37325,6 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "ameca",
       "san pedro tlaquepaque",
       "tonala"
     ]
@@ -38174,7 +37521,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "ixtlahuacan de los membrillos",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "los cerritos": {
     "decada_ref": "1990s",
@@ -38216,7 +37563,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "tlajomulco de zuniga",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "los colomos": {
     "decada_ref": "1960s",
@@ -38230,7 +37577,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "guadalajara",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "los colorines": {
     "decada_ref": "1980s",
@@ -38262,7 +37609,7 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "tonala",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "los cuadros": {
     "decada_ref": "1980s",
@@ -38417,7 +37764,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "zapopan",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "los hornos": {
     "decada_ref": "1980s",
@@ -38431,7 +37778,7 @@
     "confianza": "media",
     "confianza_puntos": 72,
     "municipio": "san pedro tlaquepaque",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "los jales": {
     "decada_ref": "1960s",
@@ -38463,11 +37810,9 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "atoyac",
       "el salto",
-      "huejuquilla el alto",
+      "tlajomulco",
       "tlajomulco de zuniga",
-      "tuxpan",
       "zapopan"
     ]
   },
@@ -38502,7 +37847,6 @@
     "municipio_fuente": null,
     "homonima_en": [
       "el salto",
-      "tala",
       "zapopan"
     ]
   },
@@ -38518,7 +37862,7 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "los mandarinos": {
     "decada_ref": "1980s",
@@ -38546,7 +37890,7 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "los manzanos": {
     "decada_ref": "2000s",
@@ -38562,7 +37906,6 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "lagos de moreno",
       "tlajomulco de zuniga",
       "zapopan"
     ]
@@ -38668,11 +38011,10 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "ameca",
-      "atotonilco el alto",
-      "autlan de navarro",
       "poncitlan",
-      "san pedro tlaquepaque"
+      "san pedro tlaquepaque",
+      "tlajomulco",
+      "tlaquepaque"
     ]
   },
   "los naranjos condominium": {
@@ -38857,18 +38199,9 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "arandas",
-      "cuauhtemoc",
-      "jala",
-      "lagos de moreno",
-      "manzanillo",
-      "santiago ixcuintla",
-      "tepic",
       "tlajomulco de zuniga",
       "tonala",
-      "tototlan",
-      "zapopan",
-      "zapotlan el grande"
+      "zapopan"
     ]
   },
   "los pinos campestre": {
@@ -38913,7 +38246,7 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "los portales": {
     "decada_ref": "1980s",
@@ -38983,7 +38316,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "zapopan",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "los robles 45133": {
     "decada_ref": "2000s",
@@ -39083,20 +38416,6 @@
     "municipio": "guadalajara",
     "municipio_fuente": "sepomex"
   },
-  "los ruisenores": {
-    "decada_ref": "1960s",
-    "decadas": [
-      "1950s",
-      "1960s",
-      "1970s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "tala",
-    "municipio_fuente": "maestro"
-  },
   "los sabinos": {
     "decada_ref": "1980s",
     "decadas": [
@@ -39112,8 +38431,6 @@
     "municipio_fuente": null,
     "homonima_en": [
       "chapala",
-      "del nayar",
-      "tepic",
       "zapopan"
     ]
   },
@@ -39239,8 +38556,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
-    "municipio_fuente": "cache_index"
+    "municipio": "guadalajara",
+    "municipio_fuente": "sepomex"
   },
   "los vizcarra san isidro": {
     "decada_ref": "2000s",
@@ -39424,7 +38741,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "zapopan",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "luna bosque": {
     "decada_ref": "1980s",
@@ -39844,7 +39161,7 @@
     "confianza": "baja",
     "confianza_puntos": 36,
     "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "marcelino garcia barragan": {
     "decada_ref": "1980s",
@@ -39987,20 +39304,6 @@
     "municipio": null,
     "municipio_fuente": null
   },
-  "marina vallarta": {
-    "decada_ref": "1960s",
-    "decadas": [
-      "1950s",
-      "1960s",
-      "1970s"
-    ],
-    "nivel": "media-alta",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "puerto vallarta",
-    "municipio_fuente": "maestro"
-  },
   "maritima playa flamingos": {
     "decada_ref": "2010s",
     "decadas": [
@@ -40131,38 +39434,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "atizapan de zaragoza estado de mexico",
-    "municipio_fuente": "maestro"
-  },
-  "mazamitla": {
-    "decada_ref": "1980s",
-    "decadas": [
-      "1960s",
-      "1970s",
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "mazamitla",
-    "municipio_fuente": "maestro"
-  },
-  "mazatepec": {
-    "decada_ref": "1970s",
-    "decadas": [
-      "1960s",
-      "1970s",
-      "1980s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "tala",
-    "municipio_fuente": "maestro"
+    "municipio": null,
+    "municipio_fuente": null
   },
   "medical office 1": {
     "decada_ref": "1990s",
@@ -40232,8 +39505,12 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "zapopan",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio": null,
+    "municipio_fuente": null,
+    "homonima_en": [
+      "ajijic",
+      "zapopan"
+    ]
   },
   "meridiano": {
     "decada_ref": "1980s",
@@ -40511,7 +39788,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "zapopan",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "miguel galindo": {
     "decada_ref": "1960s",
@@ -40595,11 +39872,7 @@
     "nivel": "media",
     "confianza_puntos": 72,
     "municipio": null,
-    "municipio_fuente": null,
-    "homonima_en": [
-      "atotonilco el alto",
-      "ixtlan del rio"
-    ]
+    "municipio_fuente": null
   },
   "minerales": {
     "decada_ref": "2000s",
@@ -40682,8 +39955,12 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio": null,
+    "municipio_fuente": null,
+    "homonima_en": [
+      "tlajomulco",
+      "tonala"
+    ]
   },
   "mirador de san isidro|tlajomulco de zuniga": {
     "decada_ref": "1980s",
@@ -40912,8 +40189,8 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 72,
-    "municipio": "col miramar zapopan",
-    "municipio_fuente": "cache_index"
+    "municipio": null,
+    "municipio_fuente": null
   },
   "miravalle": {
     "decada_ref": "1970s",
@@ -41233,8 +40510,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tonala",
-    "municipio_fuente": "cache_index"
+    "municipio": "tizapan el alto",
+    "municipio_fuente": "sepomex"
   },
   "mitica": {
     "decada_ref": "1980s",
@@ -41616,8 +40893,12 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio": null,
+    "municipio_fuente": null,
+    "homonima_en": [
+      "ajijic",
+      "tonala"
+    ]
   },
   "nara": {
     "decada_ref": "2000s",
@@ -42533,8 +41814,9 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "compostela",
-      "xalisco"
+      "guadalajara",
+      "tlajomulco",
+      "zapopan"
     ]
   },
   "nueva galicia 1": {
@@ -42831,7 +42113,7 @@
     "confianza": "media",
     "confianza_puntos": 72,
     "municipio": "el salto",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "nuevo san miguel": {
     "decada_ref": "2000s",
@@ -43014,15 +42296,10 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "acaponeta",
-      "ameca",
-      "autlan de navarro",
+      "ajijic",
       "el salto",
       "guadalajara",
-      "manzanillo",
-      "santiago ixcuintla",
-      "tala",
-      "tequila"
+      "tonala"
     ]
   },
   "obrera centro": {
@@ -43065,7 +42342,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "ocotlan": {
     "decada_ref": "1980s",
@@ -43082,22 +42359,6 @@
     "confianza_puntos": 25,
     "municipio": null,
     "municipio_fuente": null
-  },
-  "ocotlan centro": {
-    "decada_ref": "1910s",
-    "decadas": [
-      "1890s",
-      "1900s",
-      "1910s",
-      "1920s",
-      "1930s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "ocotlan",
-    "municipio_fuente": "maestro"
   },
   "offices in cyc": {
     "decada_ref": "1990s",
@@ -43806,7 +43067,7 @@
     "confianza": "media",
     "confianza_puntos": 72,
     "municipio": "el salto",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "palomar": {
     "decada_ref": "2000s",
@@ -44677,8 +43938,12 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 51,
-    "municipio": "tlaquepaque",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio": null,
+    "municipio_fuente": null,
+    "homonima_en": [
+      "tlajomulco",
+      "tlaquepaque"
+    ]
   },
   "parques tesistan": {
     "decada_ref": "2000s",
@@ -45174,6 +44439,7 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
+      "tlajomulco",
       "tlajomulco de zuniga",
       "tonala"
     ]
@@ -45218,7 +44484,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "zapopan",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "passion la floresta": {
     "decada_ref": "1990s",
@@ -45248,7 +44514,6 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "el grullo",
       "guadalajara",
       "poncitlan",
       "tlajomulco de zuniga",
@@ -45353,7 +44618,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "tonala",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "pedregal de san francisco": {
     "decada_ref": "1990s",
@@ -45482,7 +44747,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "zapopan",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "penal": {
     "decada_ref": "1910s",
@@ -45510,7 +44775,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "zapopan",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "perla real": {
     "decada_ref": "1980s",
@@ -45524,7 +44789,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "guadalajara",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "ph in city farm": {
     "decada_ref": "1990s",
@@ -45682,20 +44947,6 @@
     "municipio": "tonala",
     "municipio_fuente": "sepomex"
   },
-  "pitillal centro": {
-    "decada_ref": "1980s",
-    "decadas": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "puerto vallarta",
-    "municipio_fuente": "maestro"
-  },
   "placita del sol": {
     "decada_ref": "2000s",
     "decadas": [
@@ -45722,7 +44973,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "guadalajara",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "plan de guajes": {
     "decada_ref": "1990s",
@@ -45792,34 +45043,6 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "san pedro tlaquepaque",
-    "municipio_fuente": "sepomex"
-  },
-  "playon de mismaloya": {
-    "decada_ref": "1990s",
-    "decadas": [
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "puerto vallarta",
-    "municipio_fuente": "maestro"
-  },
-  "plaza de toros": {
-    "decada_ref": "1990s",
-    "decadas": [
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "san miguel el alto",
     "municipio_fuente": "sepomex"
   },
   "plaza del sol": {
@@ -45989,8 +45212,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "sayula",
-    "municipio_fuente": "maestro"
+    "municipio": "guadalajara",
+    "municipio_fuente": "cache_index"
   },
   "polanco i": {
     "decada_ref": "1990s",
@@ -46122,20 +45345,6 @@
     "municipio": "san pedro tlaquepaque",
     "municipio_fuente": "maestro"
   },
-  "poncitlan": {
-    "decada_ref": "1970s",
-    "decadas": [
-      "1960s",
-      "1970s",
-      "1980s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "atoyac",
-    "municipio_fuente": "sepomex"
-  },
   "poniente": {
     "decada_ref": "1990s",
     "decadas": [
@@ -46166,6 +45375,7 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
+      "tlajomulco",
       "tlajomulco de zuniga",
       "zapopan"
     ]
@@ -46198,7 +45408,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "guadalajara",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "popular hornos": {
     "decada_ref": "1980s",
@@ -46311,20 +45521,6 @@
     "confianza_puntos": 25,
     "municipio": "guadalajara",
     "municipio_fuente": "sepomex"
-  },
-  "potrero de fray ramon": {
-    "decada_ref": "1960s",
-    "decadas": [
-      "1950s",
-      "1960s",
-      "1970s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "lagos de moreno",
-    "municipio_fuente": "maestro"
   },
   "potrero de san jose": {
     "decada_ref": "1960s",
@@ -46661,7 +45857,6 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "puerto vallarta",
       "tlajomulco de zuniga",
       "tonala"
     ]
@@ -47831,20 +47026,6 @@
     "municipio": null,
     "municipio_fuente": null
   },
-  "primavera de vallarta": {
-    "decada_ref": "1990s",
-    "decadas": [
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "puerto vallarta",
-    "municipio_fuente": "maestro"
-  },
   "primera": {
     "decada_ref": "1970s",
     "decadas": [
@@ -48126,7 +47307,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "guadalajara",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "progreso tizapan": {
     "decada_ref": "1990s",
@@ -48811,7 +47992,7 @@
     "confianza": "alta",
     "confianza_puntos": 84,
     "municipio": "zapopan",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "puerta de hierro agave area": {
     "decada_ref": "1990s",
@@ -48967,13 +48148,9 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "amatitan",
-      "arandas",
       "ixtlahuacan de los membrillos",
-      "manzanillo",
-      "xalisco",
-      "zapopan",
-      "zapotiltic"
+      "tlajomulco",
+      "zapopan"
     ]
   },
   "puerta del valle": {
@@ -48988,7 +48165,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "zapopan",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "puerta del valle the best investment": {
     "decada_ref": "1940s",
@@ -49103,6 +48280,7 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
+      "el salto",
       "tlajomulco de zuniga",
       "zapopan"
     ]
@@ -49229,7 +48407,7 @@
     "confianza": "media",
     "confianza_puntos": 63,
     "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "puesta del sol neighborhood": {
     "decada_ref": "1990s",
@@ -49453,20 +48631,6 @@
     "municipio": null,
     "municipio_fuente": null
   },
-  "quililla": {
-    "decada_ref": "1990s",
-    "decadas": [
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "tecolotlan",
-    "municipio_fuente": "sepomex"
-  },
   "quinta del federalismo": {
     "decada_ref": "1960s",
     "decadas": [
@@ -49676,7 +48840,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "guadalajara",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "rancho alegre": {
     "decada_ref": "2000s",
@@ -50211,9 +49375,8 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "tecoman",
+      "tlajomulco",
       "tlajomulco de zuniga",
-      "xalisco",
       "zapopan"
     ]
   },
@@ -50243,7 +49406,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "zapopan",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "real del carmen grand": {
     "decada_ref": "2000s",
@@ -50287,6 +49450,7 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
+      "tlajomulco",
       "tlajomulco de zuniga",
       "zapopan"
     ]
@@ -50385,20 +49549,6 @@
     "confianza_puntos": 25,
     "municipio": "tonala",
     "municipio_fuente": "sepomex"
-  },
-  "real ixtapa": {
-    "decada_ref": "1990s",
-    "decadas": [
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "puerto vallarta",
-    "municipio_fuente": "maestro"
   },
   "real patria": {
     "decada_ref": "1980s",
@@ -51376,7 +50526,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "tlajomulco de zuniga",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "residencial santa fe": {
     "decada_ref": "2000s",
@@ -51488,7 +50638,6 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "colima",
       "guadalajara",
       "zapopan"
     ]
@@ -51883,12 +51032,8 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "cuauhtemoc",
       "guadalajara",
-      "jala",
-      "tonala",
-      "tuxpan",
-      "zapotlan el grande"
+      "tonala"
     ]
   },
   "rincon de agua azul": {
@@ -51904,22 +51049,6 @@
     "confianza_puntos": 25,
     "municipio": "guadalajara",
     "municipio_fuente": "sepomex"
-  },
-  "rincon de guayabitos": {
-    "decada_ref": "1980s",
-    "decadas": [
-      "1960s",
-      "1970s",
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "compostela",
-    "municipio_fuente": "maestro"
   },
   "rincon de los copales": {
     "decada_ref": "2000s",
@@ -51946,8 +51075,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "colima",
-    "municipio_fuente": "sepomex"
+    "municipio": "guadalajara",
+    "municipio_fuente": "cache_index"
   },
   "rincon del paraiso": {
     "decada_ref": "2000s",
@@ -52865,20 +51994,6 @@
     "municipio": "guadalajara",
     "municipio_fuente": "sepomex"
   },
-  "rio zula": {
-    "decada_ref": "1980s",
-    "decadas": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "ocotlan",
-    "municipio_fuente": "sepomex"
-  },
   "riveras de san sebastianito": {
     "decada_ref": "1980s",
     "decadas": [
@@ -52948,7 +52063,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "cache_index"
   },
   "roma sur": {
     "decada_ref": "1990s",
@@ -53032,7 +52147,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "guadalajara",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "sagrado corazon": {
     "decada_ref": "1910s",
@@ -53749,8 +52864,8 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 62,
-    "municipio": "san agustin",
-    "municipio_fuente": "maestro"
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "sepomex"
   },
   "san agustin del pueblo tetelpan": {
     "decada_ref": "1960s",
@@ -53908,13 +53023,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": null,
-    "municipio_fuente": null,
-    "homonima_en": [
-      "atotonilco el alto",
-      "lagos de moreno",
-      "tepic"
-    ]
+    "municipio": "tonala",
+    "municipio_fuente": "cache_index"
   },
   "san antonio": {
     "decada_ref": "1910s",
@@ -54017,8 +53127,6 @@
     "municipio_fuente": null,
     "homonima_en": [
       "guadalajara",
-      "lagos de moreno",
-      "teocaltiche",
       "zapopan"
     ]
   },
@@ -54034,7 +53142,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "guadalajara",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "san clemente": {
     "decada_ref": "1980s",
@@ -54048,7 +53156,7 @@
     "confianza": "media",
     "confianza_puntos": 72,
     "municipio": "san pedro tlaquepaque",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "san diego": {
     "decada_ref": "2000s",
@@ -54104,8 +53212,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "puerto vallarta",
-    "municipio_fuente": "sepomex"
+    "municipio": "zapopan",
+    "municipio_fuente": "cache_index"
   },
   "san esteban san miguel tateposco": {
     "decada_ref": "1990s",
@@ -54305,8 +53413,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tala",
-    "municipio_fuente": "maestro"
+    "municipio": "tlajomulco",
+    "municipio_fuente": "cache_index"
   },
   "san isidro mezatepec": {
     "decada_ref": "1980s",
@@ -54364,20 +53472,6 @@
     "municipio": "poncitlan",
     "municipio_fuente": "maestro"
   },
-  "san javier": {
-    "decada_ref": "1960s",
-    "decadas": [
-      "1950s",
-      "1960s",
-      "1970s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "tototlan",
-    "municipio_fuente": "maestro"
-  },
   "san jeronimo": {
     "decada_ref": "1980s",
     "decadas": [
@@ -54390,7 +53484,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "zapopan",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "san jeronimo lidice": {
     "decada_ref": "1990s",
@@ -54422,7 +53516,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "guadalajara",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "san jorge": {
     "decada_ref": "1970s",
@@ -54436,7 +53530,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "san josa": {
     "decada_ref": "1990s",
@@ -54898,7 +53992,7 @@
     "confianza": "media",
     "confianza_puntos": 72,
     "municipio": "el salto",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "san lucas evangelista": {
     "decada_ref": "1970s",
@@ -55028,20 +54122,6 @@
     "municipio": "guadalajara",
     "municipio_fuente": "sepomex"
   },
-  "san martin de las flores": {
-    "decada_ref": "1960s",
-    "decadas": [
-      "1950s",
-      "1960s",
-      "1970s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "tapalpa",
-    "municipio_fuente": "maestro"
-  },
   "san martin de las flores de abajo": {
     "decada_ref": "1940s",
     "decadas": [
@@ -55115,7 +54195,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "san miguel": {
     "decada_ref": "2000s",
@@ -55388,14 +54468,8 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "ayutla",
-      "cocula",
-      "el grullo",
-      "jala",
-      "lagos de moreno",
-      "san juanito de escobedo",
-      "teocaltiche",
-      "zapotlan el grande"
+      "ajijic",
+      "tlaquepaque"
     ]
   },
   "san pedro de los pinos": {
@@ -55410,7 +54484,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "cache_index"
   },
   "san pedro tlaquepaque": {
     "decada_ref": "1980s",
@@ -55515,7 +54589,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "guadalajara",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "san ricardo": {
     "decada_ref": "2000s",
@@ -55543,8 +54617,8 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 48,
-    "municipio": "tonala",
-    "municipio_fuente": "cache_index"
+    "municipio": "poncitlan",
+    "municipio_fuente": "sepomex"
   },
   "san sebastian el grande": {
     "decada_ref": "1970s",
@@ -55617,8 +54691,12 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio": null,
+    "municipio_fuente": null,
+    "homonima_en": [
+      "ajijic",
+      "tonala"
+    ]
   },
   "san vicente": {
     "decada_ref": "1910s",
@@ -55886,7 +54964,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "zapopan",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "santa cecilia": {
     "decada_ref": "1960s",
@@ -55983,15 +55061,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": null,
-    "municipio_fuente": null,
-    "homonima_en": [
-      "acaponeta",
-      "del nayar",
-      "lagos de moreno",
-      "mezquitic",
-      "pihuamo",
-      "santiago ixcuintla"
-    ]
+    "municipio_fuente": null
   },
   "santa cruz atoyac": {
     "decada_ref": "1990s",
@@ -56265,18 +55335,8 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "bahia de banderas",
-      "cihuatlan",
-      "encarnacion de diaz",
-      "jala",
-      "lagos de moreno",
-      "rosamorada",
-      "tepic",
-      "union de tula",
-      "villa de alvarez",
-      "villa hidalgo",
+      "tonala",
       "zapopan",
-      "zapotlan el grande",
       "zapotlanejo"
     ]
   },
@@ -56363,7 +55423,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "zapopan",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "santa lucia tesistan": {
     "decada_ref": "1990s",
@@ -56635,7 +55695,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "guadalajara",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "santa monica campestre": {
     "decada_ref": "1990s",
@@ -56707,13 +55767,8 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "autlan de navarro",
-      "ayotlan",
-      "coquimatlan",
-      "lagos de moreno",
-      "manzanillo",
-      "totatiche",
-      "villa guerrero"
+      "guadalajara",
+      "zapopan"
     ]
   },
   "santa rita very close to new american consulate": {
@@ -56769,8 +55824,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "el arenal",
-    "municipio_fuente": "sepomex"
+    "municipio": "zapopan",
+    "municipio_fuente": "cache_index"
   },
   "santa tere": {
     "decada_ref": "1980s",
@@ -56999,20 +56054,6 @@
     "confianza_puntos": 25,
     "municipio": "zapopan",
     "municipio_fuente": "sepomex"
-  },
-  "sayulita": {
-    "decada_ref": "1980s",
-    "decadas": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "nivel": "media-alta",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "bahia de banderas",
-    "municipio_fuente": "maestro"
   },
   "se vende casa": {
     "decada_ref": "1990s",
@@ -59025,20 +58066,6 @@
     "municipio": "guadalajara",
     "municipio_fuente": "maestro"
   },
-  "tabacalera": {
-    "decada_ref": "1990s",
-    "decadas": [
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "nivel": "lujo",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "bahia de banderas",
-    "municipio_fuente": "sepomex"
-  },
   "tabachines": {
     "decada_ref": "1980s",
     "decadas": [
@@ -59151,22 +58178,6 @@
     "municipio": null,
     "municipio_fuente": null
   },
-  "tapalpa": {
-    "decada_ref": "1980s",
-    "decadas": [
-      "1960s",
-      "1970s",
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "tapalpa",
-    "municipio_fuente": "maestro"
-  },
   "tapalpa jalisco": {
     "decada_ref": "1990s",
     "decadas": [
@@ -59268,20 +58279,6 @@
     "municipio": null,
     "municipio_fuente": null
   },
-  "tenamaxtlan": {
-    "decada_ref": "1980s",
-    "decadas": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "tenamaxtlan",
-    "municipio_fuente": "maestro"
-  },
   "tenamaxtle": {
     "decada_ref": "1980s",
     "decadas": [
@@ -59308,7 +58305,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "zapopan",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "tepeyac casino": {
     "decada_ref": "1970s",
@@ -59394,7 +58391,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "san pedro tlaquepaque",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "terranova": {
     "decada_ref": "1960s",
@@ -60800,8 +59797,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlaquepaque",
-    "municipio_fuente": "cache_index"
+    "municipio": "san pedro tlaquepaque",
+    "municipio_fuente": "sepomex"
   },
   "tonala": {
     "decada_ref": "1960s",
@@ -62307,7 +61304,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "guadalajara",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "universitaria": {
     "decada_ref": "1980s",
@@ -62321,7 +61318,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "guadalajara",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "university gardens": {
     "decada_ref": "1990s",
@@ -62587,7 +61584,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "guadalajara",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "vallarta": {
     "decada_ref": "1960s",
@@ -63237,11 +62234,8 @@
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
-      "armeria",
       "tonala",
-      "villa de alvarez",
-      "zapopan",
-      "zapotlan el grande"
+      "zapopan"
     ]
   },
   "valle del sur": {
@@ -63508,7 +62502,7 @@
     "confianza": "alta",
     "confianza_puntos": 84,
     "municipio": "zapopan",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "valle real ground floor": {
     "decada_ref": "1990s",
@@ -64536,7 +63530,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "zapopan",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "verde valle": {
     "decada_ref": "1960s",
@@ -64605,8 +63599,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "zapopan",
-    "municipio_fuente": "cache_index"
+    "municipio": "guadalajara",
+    "municipio_fuente": "sepomex"
   },
   "versalles residencial": {
     "decada_ref": "2000s",
@@ -64941,7 +63935,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "zapopan",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "villa de los belenes": {
     "decada_ref": "1990s",
@@ -65026,7 +64020,7 @@
     "confianza": "media",
     "confianza_puntos": 45,
     "municipio": "tlajomulco de zuniga",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "villa esmeralda aqua": {
     "decada_ref": "2000s",
@@ -65110,8 +64104,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "arandas",
-    "municipio_fuente": "maestro"
+    "municipio": "zapopan",
+    "municipio_fuente": "cache_index"
   },
   "villa galicia": {
     "decada_ref": "2000s",
@@ -65472,8 +64466,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
-    "municipio_fuente": "cache_index"
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "sepomex"
   },
   "villarmonia": {
     "decada_ref": "2000s",
@@ -65669,7 +64663,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "guadalajara",
-    "municipio_fuente": "cache_index"
+    "municipio_fuente": "sepomex"
   },
   "villas de la hacienda": {
     "decada_ref": "2000s",
@@ -66015,8 +65009,8 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 72,
-    "municipio": "tepic",
-    "municipio_fuente": "sepomex"
+    "municipio": "zapopan",
+    "municipio_fuente": "cache_index"
   },
   "villas de zapotepec": {
     "decada_ref": "2000s",
@@ -66058,7 +65052,7 @@
     "confianza": "baja",
     "confianza_puntos": 25,
     "municipio": "zapopan",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio_fuente": "sepomex"
   },
   "villas del centinela": {
     "decada_ref": "1980s",
@@ -66450,8 +65444,8 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
-    "municipio_fuente": "cache_index"
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "sepomex"
   },
   "villas terranova": {
     "decada_ref": "2000s",
@@ -66533,8 +65527,12 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tepatitlan de morelos",
-    "municipio_fuente": "sepomex"
+    "municipio": null,
+    "municipio_fuente": null,
+    "homonima_en": [
+      "guadalajara",
+      "zapopan"
+    ]
   },
   "virreyes lyrics presale premium location": {
     "decada_ref": "1990s",
@@ -67609,8 +66607,12 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio": null,
+    "municipio_fuente": null,
+    "homonima_en": [
+      "ajijic",
+      "tonala"
+    ]
   },
   "your apartment in the historic center": {
     "decada_ref": "1990s",
@@ -68253,8 +67255,13 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tonala",
-    "municipio_fuente": "sepomex-zmg"
+    "municipio": null,
+    "municipio_fuente": null,
+    "homonima_en": [
+      "ajijic",
+      "tlajomulco",
+      "tonala"
+    ]
   },
   "zona industrial": {
     "decada_ref": "1960s",

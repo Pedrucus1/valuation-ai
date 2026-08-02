@@ -26,6 +26,19 @@ CACHE_IDX = _HERE / "cache_index.json"
 SEPOMEX = _HERE / "sepomex_v2.json"
 
 
+def municipios_reales():
+    """Padrón de municipios que existen de verdad, según SEPOMEX. El campo
+    `municipio` del maestro trae basura ('valle dorado inn', '. tlaquepaque',
+    'col miramar zapopan'): sin este filtro, una colonia de Zapopan con el
+    municipio mal escrito parece 'fuera de la ZMG' y se borraría."""
+    reales = set()
+    for _, lst in json.loads(SEPOMEX.read_text(encoding="utf-8")).items():
+        for e in lst:
+            if e.get("municipio"):
+                reales.add(norm_muni(e["municipio"]))
+    return reales | ZMG
+
+
 def municipios_por_colonia(maestro):
     """clave normalizada → {fuente: {municipios}}. Tres fuentes, de más a menos
     confiable: el maestro (curado), SEPOMEX (catálogo oficial) y cache_index
@@ -52,24 +65,46 @@ def municipios_por_colonia(maestro):
 # El dataset cubre la ZMG y la Ribera. Si un nombre existe en Zapopan y también
 # en Manzanillo, la entrada es la de Zapopan: la ambigüedad es del catálogo
 # nacional, no nuestra.
+# Incluye las variantes con que aparecen escritos en los datos ('tlajomulco' a
+# secas) y las localidades que se usan como si fueran municipio ('ajijic' es
+# Chapala). Faltar una aquí significa borrar colonias buenas.
 ZMG = {"guadalajara", "zapopan", "san pedro tlaquepaque", "tlaquepaque", "tonala",
-       "tlajomulco de zuniga", "el salto", "juanacatlan", "zapotlanejo",
-       "ixtlahuacan de los membrillos", "chapala", "jocotepec", "poncitlan"}
+       "tlajomulco de zuniga", "tlajomulco", "el salto", "juanacatlan", "zapotlanejo",
+       "ixtlahuacan de los membrillos", "acatlan de juarez",
+       # Ribera de Chapala
+       "chapala", "ajijic", "san antonio tlayacapan", "jocotepec", "san juan cosala",
+       "poncitlan", "tuxcueca", "tizapan el alto"}
 
 
-def resolver_municipio(nk, mae, sep, idxm):
-    """(municipio, fuente, homonima_en) — `homonima_en` lista los municipios
-    cuando el nombre existe en varios y NO se puede decidir: ahí la década que
-    tenemos vale para uno solo de ellos y hay que avisarlo, no adivinar."""
-    for fuente, tabla in (("maestro", mae), ("sepomex", sep), ("cache_index", idxm)):
-        munis = tabla.get(nk) or set()
+def resolver_municipio(nk, mae, sep, idxm, reales):
+    """(municipio, fuente, homonima_en).
+
+    Primero busca dentro de la ZMG en las tres fuentes: si el maestro dice
+    'puerta vallarta' pero SEPOMEX y el índice ubican el nombre en Zapopan, es
+    de Zapopan ('las juntas' es Tlaquepaque, no Vallarta). Solo si NINGUNA
+    fuente la pone en la ZMG se devuelve el municipio de fuera — y esa es la
+    señal de que la entrada no pertenece a este dataset."""
+    fuentes = (("maestro", mae), ("sepomex", sep), ("cache_index", idxm))
+
+    # 1. ¿alguna fuente la ubica dentro de la ZMG, sin ambigüedad?
+    for fuente, tabla in fuentes:
+        dentro = (tabla.get(nk) or set()) & ZMG
+        if len(dentro) == 1:
+            return next(iter(dentro)), fuente, None
+
+    # 2. varios candidatos DENTRO de la ZMG → homónima, nunca se descarta
+    todas_zmg = set()
+    for _, tabla in fuentes:
+        todas_zmg |= (tabla.get(nk) or set()) & ZMG
+    if todas_zmg:
+        return None, None, sorted(todas_zmg)
+
+    # 3. nadie la pone en la ZMG: si hay un municipio real de fuera, no pertenece
+    for fuente, tabla in fuentes:
+        munis = {m for m in (tabla.get(nk) or set()) if m in reales}
         if len(munis) == 1:
             return next(iter(munis)), fuente, None
-    ambiguo = (sep.get(nk) or set()) or (idxm.get(nk) or set())
-    dentro = ambiguo & ZMG
-    if len(dentro) == 1:
-        return next(iter(dentro)), "sepomex-zmg", None
-    return None, None, sorted(ambiguo) or None
+    return None, None, None
 
 
 def canonica(llave):
@@ -126,13 +161,14 @@ def limpiar(decada, maestro):
     # El municipio es el discriminador de los homónimos: va EN el dato, no
     # implícito en que una llave haya quedado deformada.
     mae, sep, idxm = municipios_por_colonia(maestro)
+    reales = municipios_reales()
     for k, v in salida.items():
         nombre, _, explicito = k.partition("|")
         if explicito:                       # llave 'nombre|municipio': ya resuelto
             v["municipio"], v["municipio_fuente"] = explicito, "maestro"
             v.pop("homonima_en", None)
             continue
-        muni, fuente, ambiguo = resolver_municipio(canonica(nombre), mae, sep, idxm)
+        muni, fuente, ambiguo = resolver_municipio(canonica(nombre), mae, sep, idxm, reales)
         v["municipio"] = muni
         v["municipio_fuente"] = fuente
         if ambiguo:
@@ -142,13 +178,20 @@ def limpiar(decada, maestro):
             v["homonima_en"] = ambiguo
         else:
             v.pop("homonima_en", None)
-    return dict(sorted(salida.items())), fusiones, intactos
+
+    # El dataset es ZMG + Ribera de Chapala. Lo que quedó ubicado FUERA no
+    # pertenece aquí: se elimina. Solo cuando ninguna fuente la pone en la ZMG.
+    fuera = {k: v for k, v in salida.items()
+             if v.get("municipio") and v["municipio"] not in ZMG}
+    for k in fuera:
+        del salida[k]
+    return dict(sorted(salida.items())), fusiones, intactos, fuera
 
 
 def main():
     decada = json.loads(DECADA.read_text(encoding="utf-8"))
     maestro = json.loads(MAESTRO.read_text(encoding="utf-8"))
-    salida, fusiones, intactos = limpiar(decada, maestro)
+    salida, fusiones, intactos, fuera = limpiar(decada, maestro)
 
     cambian = [k for k in decada if norm_col_key(k) != k]
     disc = [f for f in fusiones if len(f[3]) > 1]
@@ -162,6 +205,8 @@ def main():
     print(f"con municipio....... {con_muni} de {len(salida)}  ({dict(porf)})")
     print(f"homónimas marcadas.. {len(homon)} (mismo nombre en 2+ municipios, década sin desambiguar)")
     print(f"   ej: {[(k, salida[k]['homonima_en'][:3]) for k in homon[:4]]}")
+    import collections as _c
+    print(f"ELIMINADAS fuera ZMG {len(fuera)}  {_c.Counter(v['municipio'] for v in fuera.values()).most_common(6)}")
     print(f"homónimos INTACTOS.. {len(intactos)} (municipios distintos, no se fusionan)")
     for nk, llaves, munis in intactos:
         print(f"   · {nk}: {llaves} en {munis}")
@@ -172,7 +217,9 @@ def main():
               f"sobre {perdedores} — décadas en disputa {decs}")
 
     # ninguna colonia se pierde: toda llave vieja debe seguir siendo alcanzable
-    alcanzable = set(salida) | {k.partition("|")[0] for k in salida if "|" in k}
+    # Ninguna colonia se pierde por accidente: o sigue alcanzable, o se eliminó
+    # a propósito por quedar fuera de la ZMG.
+    alcanzable = set(salida) | {k.partition("|")[0] for k in salida if "|" in k} | set(fuera)
     perdidas = [k for k in decada if canonica(k) not in alcanzable and k not in alcanzable]
     assert not perdidas, perdidas[:5]
 
