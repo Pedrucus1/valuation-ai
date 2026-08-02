@@ -12,7 +12,7 @@
 
 ## Ejes del sistema (god nodes — lo más conectado)
 - **Auth**: `require_admin()` (admin, sesión rotatoria) · `require_auth()` (usuario, cookie/Bearer) · `require_admin_or_job()` (crons externos #66.3) → `backend/routers/*`
-- **Normalización**: `normCol()` (colonias) · `normMuni()` (municipios) — usadas por todo el motor y scrapers
+- **Normalización**: `backend/core/colonias.py` es la **fuente única** del lado Python (`norm_col_key`, `limpia_decor`, `norm_muni`, `es_junk_colonia`) + `decada_de(nombre, municipio)` para leer `colonias_decada.json`; `routers/edades.py` solo re-exporta (antes había 4 copias divergiendo). El motor JS conserva su `normCol()`/`normMuni()` aparte. **Regla: las truncaciones del scraper se restauran (`omos X`→`colomos X`, `inas X`→`colinas X`), y `coto`/`condominio`/`privada` NO se quitan** — son desarrollos con edad propia.
 - **Motor valuación**: `valuarPropiedad()` / `valuarPropiedadCompleto()` → `Modulo Drive IA/motor_remi_api.js` (prod) · `motor_remi_api_lab.js` (LAB)
 - **Sheets**: `SheetsClient` / `googleSheetsConnector` — integración Google Sheets del scraper
 - **Scrapers**: `BaseScraper` (clase base abstracta) · `ErrorScraping` → inmuebles24 / pincali / nocnok / mitula(lamudi) / casas_y_terrenos / propiedades.com
