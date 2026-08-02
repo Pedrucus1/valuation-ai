@@ -5,6 +5,30 @@
 
 ---
 
+## 2 Ago 2026 — Colonias limpias en origen (Tarea 6 cerrada)
+
+Sesión de datos, sin tocar features ni UI. Objetivo: la **década de urbanización por colonia**, que alimenta el identificador de edad.
+
+**El defecto de raíz eran cuatro normalizadores divergiendo.** `_norm_col_key` vivía copiado en `backend/routers/edades.py`, en el auditor del manual, con una variante propia (`normCol`) en el motor JS, y Codex validaba contra la suya. Ninguno entendía las truncaciones del scraper, así que `colonias_decada.json` tenía 228 llaves que existían pero el motor no encontraba, y 113 décadas contradictorias. Se movió todo a `backend/core/colonias.py` como fuente única; `edades.py` solo re-exporta y el auditor ahora importa en vez de copiar.
+
+**Corrección de datos que estaba activa en producción.** Al revisar la lista completa de fusiones antes de aplicar, se vio que el normalizador **borraba** la primera palabra truncada cuando a veces esa palabra era parte del nombre: `omos providencia` no es una variante de Providencia (1960s), es **Colomos Providencia** (1910s, plan parcial), otra colonia; `inas de atemajac` es **Colinas** de Atemajac y quitarle el prefijo dejaba `de atemajac`, que no es nombre de nada. Ahora se restauran (`omos X`→`colomos X`, `inas X`→`colinas X`) y solo se quita la palabra cuando era genérica (`colonia`, `fraccionamiento`). Verificado contra el catálogo: las 21 restauraciones apuntan a colonias reales (Colomos Patria, Colomos Independencia, Colinas del Rey).
+
+**Segunda corrección de criterio:** `coto`, `condominio` y `privada` dejaron de tratarse como decoradores. `coto del fresno` es 2010s y `del fresno` es 1960s — un coto nuevo dentro de una colonia vieja tiene su propia edad, que es justo lo que el manual quiere fechar.
+
+**`colonias_decada.json`: 5,018 → 4,749.** 192 grupos consolidados, 0 contradicciones de década, 0 llaves inalcanzables. En ninguna fusión ganó la estimación sobre la investigación (0 casos), y los empates reales se dejaron sin fusionar en vez de inventar un ganador.
+
+**El municipio entró al dato.** Antes los homónimos se distinguían por accidente: una de las dos llaves había quedado deformada por el scraper. Ahora cada entrada lleva `municipio` + `municipio_fuente` (cascada maestro → SEPOMEX → cache_index, 2,484 de 4,749) y las homónimas reales se llavean `nombre|municipio`. Al medirlo apareció que **no eran 2 homónimas sino 209**: Altamira existe en Tonalá, Zapopan, Degollado y Lagos de Moreno con una sola década. Se filtraron las que solo eran ambiguas fuera de la ZMG (113) y quedaron **102 marcadas con `homonima_en`**, que `decada_de()` devuelve con `_ambiguo=true` en vez de aplicar una década a ciegas.
+
+**Acotado a ZMG + Ribera de Chapala:** 59 colonias eliminadas (Puerto Vallarta 17, Bahía de Banderas 7, Lagos de Moreno 4, Mazamitla, Tapalpa, Manzanillo…). El borrado exigió tres candados porque la versión ingenua destruía datos buenos: (1) el padrón debe incluir las variantes con que aparecen escritos los municipios (`tlajomulco` a secas, `ajijic` usado como municipio) o se borraban 130 colonias buenas, 126 de Tlajomulco; (2) el campo `municipio` del maestro trae basura (`valle dorado inn`, `. tlaquepaque`, `col miramar zapopan`), así que se valida contra el padrón real de SEPOMEX y lo que no es municipio cuenta como *desconocido*, no como *fuera*; (3) se elimina solo si NINGUNA fuente la ubica en la ZMG — eso salvó `las juntas` (figuraba en PV pero también en Tlaquepaque), `virreyes` y `loma bonita`. Único caso dudoso verificado en el catálogo: "San Martín de las Flores" a secas sí es de Tapalpa; las de Tlaquepaque son "de Abajo" y "de Arriba" y se conservan.
+
+**`cache_index.json` 5,019 → 2,809 celdas y `colonias_maestro.json` 4,988 → 4,781.** No se escribió un limpiador nuevo: ya existía `consolidar_colonias_idx.py`, que fusiona bien (junta los anuncios y **recalcula** medianas). Le faltaban los prefijos truncados y una segunda pasada para los 118 fragmentos que solo viven en el maestro y nunca tuvieron celda en el índice. **760 comps recuperados** — eran comparables que el motor no veía porque estaban bajo una llave rota (`bugambilias` tenía 90 anuncios y `ionamiento bugambilias` otros 48, la misma colonia partida en dos muestras). Dos candados nuevos en el camino: `strip_muni_suffix` ya no deja el nombre colgando de una preposición (`brisas de chapala` no se vuelve `brisas de`) y `casa en venta` ya no produce una colonia llamada "venta".
+
+**Validador del motor sin cerrar.** Baseline medido y guardado: ±10 49.8% · ±15 62.3% · ±20 72.5% · errAbs 15.2% (207 OPIs). El "después" quedó corriendo al cerrar la sesión. Decisión explícita del usuario: si sale peor **no revertir**, revisar qué pasó — esto es afinación y tiene estira y afloja, y el objetivo de la sesión era la década de las colonias, no el motor de precios (que además no lee `colonias_decada.json`).
+
+Commits: `0c21bea`, `9c902ca`, `e584ce1`, `44cac42`, `40bac70`, `c78ae50`.
+
+---
+
 ## 2026-07-28 — Créditos + Bolsa de Requerimientos + 5 bugs de producción
 
 ## 🔥 SESIÓN 28-JUL — Créditos + Bolsa de Requerimientos + 5 bugs de producción + A4 EstateElite (parcial)
