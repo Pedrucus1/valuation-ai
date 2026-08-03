@@ -2,8 +2,25 @@
 
 > **Único archivo que se lee al iniciar** (corto, siempre vigente). Tareas por # → `BACKLOG.md` (grep). Historial → `BACKLOG_ARCHIVE.md`. Motor → `MOTOR_ANTECEDENTES.md` (grep). **Se sobrescribe en cada cierre de sesión.**
 
-**Última actualización:** 3 Ago 2026
-**Fase:** Prod Railway + Vercel público, estable. Dos sesiones en paralelo el 2 y 3 de agosto: una de **features/deploys** (abajo) y otra de **datos de colonias + manual** (aquí). No se tocó el motor.
+**Última actualización:** 3 Ago 2026 (noche)
+**Fase:** Prod Railway + Vercel público, estable. Deploy de esta noche: fix de depreciación física en `server.py` (`998d7b8`). Dos sesiones en paralelo el 2 y 3 de agosto: una de **features/deploys** (abajo) y otra de **datos de colonias + manual**. No se tocó el motor JS.
+
+## 🔥 SESIÓN 3-AGO (noche) — bug depreciación física (Escorpión 3518) + fórmula Ross-Heidecke en observación
+
+- **Bug real encontrado y arreglado en prod:** en `backend/server.py::calculate_valuation`, dos OPIs de la misma propiedad (Escorpión 3518, La Calma) con y sin remodelación daban el **mismo `estimated_value`** (6,394,032.00 idéntico). Causa: `age_depreciation = min(edad/60, 0.50)` + `total_depreciation` topado a `0.60` saturan igual para cualquier edad ≥30 años, aunque la remodelación bajara la edad efectiva de 54 a 41.35. **Fix desplegado:** quitado el tope de 0.50, tope final subido a 0.85. Deploy Railway `8422016d` SUCCESS.
+- **Hallazgo grande:** la hoja real del perito (`Modulo Drive IA/opi_perito.xlsx` → sheet "Ross Heideke", tabla VLOOKUP usada en `OPI Constr`/`OPI Loc Com b`/`Mercado`) usa **vida útil 70 años** (no 60) y deprecia a **0% de valor a los 70 años** — muy distinto del tope 60-85% que tenía el backend. El motor JS (`motor_remi_api.js::getRH/FACTORES_CONSERVACION/calcEdadEfectiva`) YA reproduce esa curva casi exacto (`getRH(54,70)=31.7%` vs 30.9-31.7% real de la hoja) — está calibrado contra `cerebro_datos.json` vía `validar_40_opis.js`, aunque ese validador prueba `valuarPropiedadCompleto()` (comps), no el cost-approach de `server.py`.
+- **Se portó esa fórmula ya calibrada a Python** como `_depreciacion_lab()` + campo `result_lab_rh` en `server.py` (calculado en paralelo, **NO reemplaza `estimated_value` en prod todavía** — puesto en observación a pedido del usuario). Validado offline contra 26 OPIs reales de prod (edad>15): 4 con delta >20pp, 6 entre 15-20pp vs la fórmula vieja.
+- **Regla nueva del usuario (pendiente de aplicar):** vida útil 70 años para calidad Lujo/Superior/Medio Alto ("medio hacia arriba"), 60 para Medio Medio/Medio Bajo/Económico/Interés Social ("medio bajo a bajo"). El corte exacto (¿Medio Alto entra en 70 o 60?) fue asumido por mí, no confirmado explícito.
+- **Bug relacionado encontrado, SIN arreglar:** `construction_quality` del frontend (`Lujo/Superior/Medio Alto/Medio Medio/Medio Bajo/Económico/Interés Social`) no hace match con las claves de `quality_costs` en `server.py` (`Interés social/Media/Media-alta/Residencial/Residencial plus`) → **la calidad de construcción nunca afecta el costo/m² en ningún avalúo**, siempre cae al default $16,000 (Media). Esto también bloquea aplicar bien la regla de vida útil 70/60 por calidad.
+- Commit `998d7b8` (pusheado). Deploy Railway confirmado SUCCESS + health OK.
+
+## 🔥 SESIÓN 3-AGO (tarde) — purga de colonias_decada + núcleos históricos + manual
+
+- **`colonias_decada.json`: 4,749 → 3,896.** El 46% sin municipio NO era problema de municipios: eran ~2,100 registros que **no son colonias**, sino titulares de anuncio en inglés que un scraper metió en el campo (`26 lots located in la providencia`, `chapalita on one floor`, `128 m apartment in cd granja 48`), más `_meta` colada como llave. Con municipio: 54% → **63%**.
+- Arreglado **dentro de `limpiar_colonias_decada.py`** (no en script nuevo — ese ya resolvía municipio contra 3 fuentes). Dos cambios: `canonica()` despega la cola de anuncio **solo en inglés** antes de agrupar (fusionó 114 grupos: `adamar` + `adamar residential` + `adamar subdivision` eran 3 registros de 1 colonia); y `es_junk_colonia` descarta 728, **pero SEPOMEX lo indulta** — tiene falsos positivos sobre nombres reales (`2001` cae por la regla de 3+ dígitos, `san miguel de huentitan el alto 1a secc` por la de 34 caracteres). Verificado antes de escribir: en ninguna fusión la heurística le ganó a una fuente documental.
+- **Campo nuevo `nucleo_historico`** (79 entradas) + `nucleo_tipo`, cruzando el campo `tipo` de SEPOMEX (Pueblo/Ranchería/Ejido/Barrio/Hacienda). Su década es la del **registro municipal, no la de la edificación**. El motor no debe usarla como edad de construcción.
+- **`heuristica-anillo` sigue en 71% y NINGUNA edad fue verificada.** Bajó de 76% solo porque se encogió el denominador. Medido: su sesgo **cambia de signo por municipio** (tarde en Guadalajara y Tonalá, temprano en Tlajomulco) — una corrección global no sirve.
+- Manual de arquitectura (fuera de git, `valuation-ai\Manual-Arquitectura-ZMG`): pendientes 64 → 40.
 
 ## 🔥 SESIÓN 2/3-AGO — homónimas CERRADAS + manual de arquitectura
 
@@ -28,6 +45,8 @@
 - Commits `0c21bea`, `9c902ca`, `e584ce1`, `44cac42`, `40bac70`, `c78ae50`.
 
 ## ⚡ LO MÁS CALIENTE / decisiones vigentes
+- **🆕 Worksheet listo para el usuario:** `Manual-Arquitectura-ZMG\Peticion_Verificar_Heuristica_GDL_1990s.md` — 26 colonias de Guadalajara fechadas en 1990s por heurística. Bolsa falsa casi por construcción (documentadas 0% ahí; la ciudad decrece desde 1990). 4 contradicciones ya detectadas: Providencia 3a/5a (es 1960s), Americana Oriente (1900s-10s), Sector Reforma/San Juan de Dios II/La Federacha. **Él trae las respuestas → procesarlas y reasignar.** Pedirle a ÉL las fechas antes que buscarlas: la investigación web para esto NO escala (probado: 3 filas en 70 años, acervos cerrados).
+- **🆕 `result_lab_rh` en observación en cada `/calculate`** — decidir si reemplaza `estimated_value` tras validar con más OPIs. Y arreglar el mismatch `construction_quality` (frontend) ↔ `quality_costs` (server.py) antes de aplicar vida útil 70/60 por calidad.
 - **⏳ VALIDADOR DEL MOTOR SIN CERRAR.** Baseline guardado (±10 **49.8%** · ±15 62.3% · ±20 72.5% · errAbs 15.2%, 207 OPIs). El "después" quedó corriendo al cerrar la sesión. **Decisión del usuario: si sale peor NO se revierte** — se revisa qué pasó; esto es afinación y tiene estira y afloja. Correr `node validar_40_opis.js --n 1000` y comparar.
 - **`colonias_decada.json` SIGUE SIN CABLEARSE AL MOTOR.** El motor es JS y lee `colonias_maestro.json`; el camino de lectura en Python (`decada_de`) está listo y probado, el cableado es decisión aparte.
 - ~~102 homónimas~~ **CERRADAS el 3-ago** (107 pares en `homonimas_resueltas.json`, 0 pendientes).
@@ -50,6 +69,8 @@
 11. Exponer link de origen / remodelación en la plantilla de carga masiva de Data Exchange.
 12. Migrar usuarios con `credits` int plano a ledger explícito (opcional).
 13. Investigar por qué staging (`cluster1`) tiene datasets mucho más chicos que prod (La Calma: 29 vs 390).
+14. Decidir si `result_lab_rh` (Ross-Heidecke vida útil 70, calibrado) reemplaza `estimated_value` en prod, tras validar con más OPIs.
+15. Arreglar mismatch `construction_quality` (frontend: Lujo/Superior/Medio Alto/Medio Medio/Medio Bajo/Económico/Interés Social) vs `quality_costs` (server.py: Interés social/Media/Media-alta/Residencial/Residencial plus) — hoy la calidad no afecta el costo/m² en ningún avalúo.
 
 ## 🌐 URLs / accesos
 - **Sitio:** https://frontend-pedrucus-projects.vercel.app (alias prod: frontend-rosy-six-74.vercel.app)

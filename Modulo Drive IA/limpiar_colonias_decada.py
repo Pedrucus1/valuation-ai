@@ -12,12 +12,23 @@ exige validador offline antes/después.
 Respaldo = git (el archivo está versionado). Dry-run por defecto; `--apply` escribe.
 """
 import json
+import re
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "backend"))
-from core.colonias import norm_col_key, norm_muni   # noqa: E402
+from core.colonias import norm_col_key, norm_muni, es_junk_colonia   # noqa: E402
 import consolidar_colonias_idx as CONS               # noqa: E402
+
+# Colas de anuncio EN INGLÉS que el scraper pegó al nombre: 'adamar residential',
+# 'la rioja subdivision', 'chapalita on one floor'. extract_canonical no las quita
+# porque fue escrito para sufijos de municipio y truncaciones, no para texto de
+# anuncio. Solo inglés a propósito: 'residencial' o 'fraccionamiento' sí forman
+# parte de nombres legítimos en español y quitarlos fusionaría colonias distintas.
+_COLA_EN = re.compile(
+    r"\s+(residential|subdivision|neighborhood|district|city|towers?|apartments?|"
+    r"condos?|lofts?|houses?|homes?|lots?|land|for sale|for rent|on one floor)$",
+    re.I)
 
 _HERE = Path(__file__).resolve().parent
 DECADA = _HERE / "colonias_decada.json"
@@ -37,6 +48,14 @@ def municipios_reales():
             if e.get("municipio"):
                 reales.add(norm_muni(e["municipio"]))
     return reales | ZMG
+
+
+def nombres_sepomex():
+    """Claves canónicas del catálogo postal. Sirve de indulto: lo que está aquí
+    existe, por raro que se vea el nombre."""
+    return {canonica(e["nombre"])
+            for lst in json.loads(SEPOMEX.read_text(encoding="utf-8")).values()
+            for e in lst if e.get("nombre")}
 
 
 def municipios_por_colonia(maestro):
@@ -111,7 +130,15 @@ def canonica(llave):
     """MISMO criterio que consolidar_colonias_idx.py, para que las llaves de los
     tres archivos coincidan. Ese script además quita el sufijo de municipio
     ('omos providencia guadalajara' → 'colomos providencia'); si no aplica ningún
-    patrón suyo, cae al normalizador del backend."""
+    patrón suyo, cae al normalizador del backend.
+
+    Antes de eso se despega la cola de anuncio en inglés, para que 'adamar
+    residential', 'adamar subdivision' y 'adamar' sean UNA colonia y no tres."""
+    for _ in range(2):                       # 'x residential tower' lleva dos
+        limpia = _COLA_EN.sub("", str(llave or "").strip()).strip()
+        if limpia == llave or len(limpia) < 3:
+            break
+        llave = limpia
     canon, tipo = CONS.extract_canonical(llave)
     if canon and tipo == "seguro" and (
             len(canon) < len(llave) or canon.split()[0] in CONS.RESTAURA_TRUNC.values()):
@@ -125,6 +152,20 @@ def _fuerza(entrada, llave):
 
 
 def limpiar(decada, maestro):
+    # Titulares de anuncio que el scraper metió en el campo de colonia
+    # ('26 lots located in la providencia', '128 m apartment in cd granja 48') y
+    # '_meta', que es una llave de metadatos colada como si fuera colonia.
+    # Se descartan ANTES de agrupar: no son nombres y ensucian los grupos.
+    # ...pero es_junk_colonia es una heurística de anuncios y tiene falsos
+    # positivos sobre nombres legítimos: '2001' cae por la regla de 3+ dígitos y
+    # 'san miguel de huentitan el alto 1a secc' por la de 34 caracteres, y las dos
+    # son colonias reales. Estar en SEPOMEX es prueba de que el nombre existe, así
+    # que gana sobre la heurística.
+    oficiales = nombres_sepomex()
+    basura = {k: v for k, v in decada.items()
+              if k == "_meta" or (es_junk_colonia(k) and canonica(k) not in oficiales)}
+    decada = {k: v for k, v in decada.items() if k not in basura}
+
     grupos = {}
     for k in decada:
         grupos.setdefault(canonica(k), []).append(k)
@@ -185,17 +226,19 @@ def limpiar(decada, maestro):
              if v.get("municipio") and v["municipio"] not in ZMG}
     for k in fuera:
         del salida[k]
-    return dict(sorted(salida.items())), fusiones, intactos, fuera
+    return dict(sorted(salida.items())), fusiones, intactos, fuera, basura
 
 
 def main():
     decada = json.loads(DECADA.read_text(encoding="utf-8"))
     maestro = json.loads(MAESTRO.read_text(encoding="utf-8"))
-    salida, fusiones, intactos, fuera = limpiar(decada, maestro)
+    salida, fusiones, intactos, fuera, basura = limpiar(decada, maestro)
 
     cambian = [k for k in decada if norm_col_key(k) != k]
     disc = [f for f in fusiones if len(f[3]) > 1]
     print(f"entradas............ {len(decada)} -> {len(salida)}")
+    print(f"basura descartada... {len(basura)} (titulares de anuncio + _meta)")
+    print(f"   ej: {list(basura)[:4]}")
     print(f"llaves mal escritas. {len(cambian)}")
     print(f"grupos fusionados... {len(fusiones)}  (con década contradictoria: {len(disc)})")
     con_muni = sum(1 for v in salida.values() if v.get("municipio"))
@@ -219,8 +262,10 @@ def main():
     # ninguna colonia se pierde: toda llave vieja debe seguir siendo alcanzable
     # Ninguna colonia se pierde por accidente: o sigue alcanzable, o se eliminó
     # a propósito por quedar fuera de la ZMG.
-    alcanzable = set(salida) | {k.partition("|")[0] for k in salida if "|" in k} | set(fuera)
-    perdidas = [k for k in decada if canonica(k) not in alcanzable and k not in alcanzable]
+    alcanzable = (set(salida) | {k.partition("|")[0] for k in salida if "|" in k}
+                  | set(fuera) | set(basura))
+    perdidas = [k for k in decada
+                if k not in basura and canonica(k) not in alcanzable and k not in alcanzable]
     assert not perdidas, perdidas[:5]
 
     if "--apply" in sys.argv:

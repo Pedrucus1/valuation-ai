@@ -5,6 +5,19 @@
 
 ---
 
+## 3 Ago 2026 (tarde) — purga de colonias_decada, núcleos históricos y manual de arquitectura
+
+Sesión de datos, en paralelo a la de features/deploy. No se tocó el motor ni `server.py`.
+
+**Manual de Arquitectura ZMG** (fuera de git, `valuation-ai\Manual-Arquitectura-ZMG`): pendientes 64 → 40. Se descubrió que `extraer_fichas.py` cuenta de más porque incluye dos respaldos `_cuerpo_previo.html` del 29-jul, y que el bloque "ampliar" ya estaba en cero en las fichas vivas. Decisión del usuario que disolvió 18 marcas de golpe: **el manual fecha por década, no por año**; el año exacto es enriquecimiento opcional y solo se investiga cuando hay contradicción. La evidencia que lo respalda: una barrida documental de 1900-1969 pidiendo obra con año exacto devolvió 3 filas en 70 años, con INAH, RIUdeG y el Archivo Histórico Municipal todos cerrados a consulta automatizada.
+
+Se aplicó investigación externa verificada URL por URL (1 de 4 ligas dio 404): seis townhouses del corredor López Mateos Sur aportados por el usuario, Legacy Tower, «Distrito Andares» como fechador de marca, y la advertencia de que la preventa despega la venta de la obra hasta seis años (Torre ALAC se vende con entrega dic-2029). Se retiró de la ficha de los 2000 la cifra sin fuente de «nueve torres». Se corrigió la tabla de m² del townhouse 2020s a terreno 60–90 / constr. 90–145 —el arrastre decía que un townhouse apilado se para en más suelo que una casa de coto— en el HTML **y** en `Rangos_m2_por_decada_perito.md`, porque `aplicar_rangos_perito.py` revierte el HTML si solo se toca uno. Fechador nuevo derivado de las 40 filas de m² ya cerradas: el **ratio construcción/terreno**, que funciona en segmento medio y medio alto pero no fecha en popular antes del 2000 ni en lujo.
+
+**`colonias_decada.json` 4,749 → 3,896.** Detalle en la tarea #146 del BACKLOG. Lo importante del hallazgo: el 46% sin municipio no era un problema de municipios sino ~2,100 registros que no son colonias. Y el sesgo de `heuristica-anillo` **cambia de signo según el municipio** —tarde en Guadalajara y Tonalá, temprano en Tlajomulco—, que es lo que hace un modelo concéntrico en una metrópoli con núcleos históricos propios; una corrección global no sirve.
+
+Queda listo el worksheet `Peticion_Verificar_Heuristica_GDL_1990s.md` para que el usuario feche 26 colonias a mano. **Lección de método: pedirle las fechas a él antes que buscarlas** — es perito con conocimiento local y ya corrigió 18 décadas mal en el archivo; la investigación web para esto no escala.
+
+
 ## 3 Ago 2026 — Homónimas cerradas y manual de arquitectura
 
 Sesión de datos e investigación, sin tocar features. Empezó con 35 pares homónimos sin
