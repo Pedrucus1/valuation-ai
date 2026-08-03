@@ -2866,20 +2866,6 @@
   "municipio": null,
   "municipio_fuente": null
  },
- "apartments in presale bravante": {
-  "decada_ref": "1990s",
-  "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
-  ],
-  "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": "guadalajara",
-  "municipio_fuente": "cache_index"
- },
  "apartments in presale opera": {
   "decada_ref": "1990s",
   "decadas": [
@@ -8648,20 +8634,6 @@
   "municipio": "zapopan",
   "municipio_fuente": "sepomex"
  },
- "celestia model luna forest gardens": {
-  "decada_ref": "1990s",
-  "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
-  ],
-  "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": "guadalajara",
-  "municipio_fuente": "cache_index"
- },
  "centinela i": {
   "decada_ref": "1980s",
   "decadas": [
@@ -13234,20 +13206,6 @@
   "municipio": null,
   "municipio_fuente": null
  },
- "departments governors": {
-  "decada_ref": "1990s",
-  "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
-  ],
-  "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": "guadalajara",
-  "municipio_fuente": "cache_index"
- },
  "departments in presale": {
   "decada_ref": "1990s",
   "decadas": [
@@ -17445,20 +17403,6 @@
   "municipio": "guadalajara",
   "municipio_fuente": "sepomex"
  },
- "florencia gardens": {
-  "decada_ref": "1990s",
-  "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
-  ],
-  "nivel": "lujo",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": "guadalajara",
-  "municipio_fuente": "cache_index"
- },
  "flores del valle": {
   "decada_ref": "2000s",
   "decadas": [
@@ -18379,20 +18323,6 @@
   "confianza_puntos": 72,
   "municipio": "zapopan",
   "municipio_fuente": "maestro"
- },
- "governors": {
-  "decada_ref": "1990s",
-  "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
-  ],
-  "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": "guadalajara",
-  "municipio_fuente": "cache_index"
  },
  "gral real": {
   "decada_ref": "1930s",
@@ -21224,20 +21154,6 @@
   "municipio": "san pedro tlaquepaque",
   "municipio_fuente": "sepomex"
  },
- "initi 5": {
-  "decada_ref": "1990s",
-  "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
-  ],
-  "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": "guadalajara",
-  "municipio_fuente": "cache_index"
- },
  "insurgentes": {
   "decada_ref": "1980s",
   "decadas": [
@@ -21543,20 +21459,6 @@
   "confianza_puntos": 25,
   "municipio": null,
   "municipio_fuente": null
- },
- "invest in 1 min from la minerva": {
-  "decada_ref": "1990s",
-  "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
-  ],
-  "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": "guadalajara",
-  "municipio_fuente": "cache_index"
  },
  "investment opportunity": {
   "decada_ref": "1990s",
@@ -28612,20 +28514,6 @@
   "municipio": null,
   "municipio_fuente": null
  },
- "live a few blocks midtown": {
-  "decada_ref": "1990s",
-  "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
-  ],
-  "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": "guadalajara",
-  "municipio_fuente": "cache_index"
- },
  "live daiku": {
   "decada_ref": "1990s",
   "decadas": [
@@ -32653,20 +32541,6 @@
   "municipio": null,
   "municipio_fuente": null
  },
- "m smart living": {
-  "decada_ref": "1990s",
-  "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
-  ],
-  "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": "guadalajara",
-  "municipio_fuente": "cache_index"
- },
  "madeiras": {
   "decada_ref": "2010s",
   "decadas": [
@@ -34651,20 +34525,6 @@
   "municipio": null,
   "municipio_fuente": null
  },
- "new providence": {
-  "decada_ref": "1990s",
-  "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
-  ],
-  "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": "guadalajara",
-  "municipio_fuente": "cache_index"
- },
  "nextipac": {
   "decada_ref": "1990s",
   "decadas": [
@@ -35710,20 +35570,6 @@
    "1970s",
    "1980s",
    "1990s"
-  ],
-  "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": "guadalajara",
-  "municipio_fuente": "cache_index"
- },
- "on towers new apartmentsandalusia": {
-  "decada_ref": "1990s",
-  "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
@@ -39089,20 +38935,6 @@
   "municipio": null,
   "municipio_fuente": null
  },
- "presale apartments habitat azul": {
-  "decada_ref": "1990s",
-  "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
-  ],
-  "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": "guadalajara",
-  "municipio_fuente": "cache_index"
- },
  "presale apartments in harmony": {
   "decada_ref": "1990s",
   "decadas": [
@@ -39273,20 +39105,6 @@
   "confianza": "baja",
   "confianza_puntos": 25,
   "municipio": "zapopan",
-  "municipio_fuente": "cache_index"
- },
- "presale of apartments san miguel": {
-  "decada_ref": "1990s",
-  "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
-  ],
-  "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": "guadalajara",
   "municipio_fuente": "cache_index"
  },
  "presale of apartmentscity farm": {
@@ -50996,20 +50814,6 @@
   "municipio": "tonala",
   "municipio_fuente": "sepomex"
  },
- "torres duo presale": {
-  "decada_ref": "1990s",
-  "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
-  ],
-  "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": "guadalajara",
-  "municipio_fuente": "cache_index"
- },
  "torres lindavista": {
   "decada_ref": "1990s",
   "decadas": [
@@ -51675,20 +51479,6 @@
   "confianza": "baja",
   "confianza_puntos": 25,
   "municipio": "zapopan",
-  "municipio_fuente": "cache_index"
- },
- "uno urban life santa teresita": {
-  "decada_ref": "1990s",
-  "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
-  ],
-  "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": "guadalajara",
   "municipio_fuente": "cache_index"
  },
  "upper california": {
@@ -56212,20 +56002,6 @@
   "confianza_puntos": 25,
   "municipio": null,
   "municipio_fuente": null
- },
- "yu style": {
-  "decada_ref": "1990s",
-  "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
-  ],
-  "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": "guadalajara",
-  "municipio_fuente": "cache_index"
  },
  "zacahuitzco": {
   "decada_ref": "1990s",
