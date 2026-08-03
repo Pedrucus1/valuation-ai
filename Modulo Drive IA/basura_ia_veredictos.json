@@ -1,0 +1,11066 @@
+[
+ [
+  "2 lots in el pedregal",
+  {
+   "n": 1,
+   "tipo": "renombrar",
+   "nombre": "el pedregal"
+  }
+ ],
+ [
+  "20 de noviembre ii",
+  {
+   "n": 2,
+   "tipo": "colonia",
+   "nombre": "20 de noviembre ii"
+  }
+ ],
+ [
+  "26 lots located in la providencia",
+  {
+   "n": 3,
+   "tipo": "renombrar",
+   "nombre": "la providencia"
+  }
+ ],
+ [
+  "3 min from andares platino",
+  {
+   "n": 4,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "abedul",
+  {
+   "n": 5,
+   "tipo": "colonia",
+   "nombre": "abedul"
+  }
+ ],
+ [
+  "acatlan de juarez",
+  {
+   "n": 6,
+   "tipo": "colonia",
+   "nombre": "acatlan de juarez"
+  }
+ ],
+ [
+  "acuarela",
+  {
+   "n": 7,
+   "tipo": "colonia",
+   "nombre": "acuarela"
+  }
+ ],
+ [
+  "acuarela tower giverny",
+  {
+   "n": 8,
+   "tipo": "renombrar",
+   "nombre": "acuarela"
+  }
+ ],
+ [
+  "acueducto puerta de hierro",
+  {
+   "n": 9,
+   "tipo": "colonia",
+   "nombre": "acueducto puerta de hierro"
+  }
+ ],
+ [
+  "adamar gated community",
+  {
+   "n": 10,
+   "tipo": "renombrar",
+   "nombre": "adamar"
+  }
+ ],
+ [
+  "adamar metlac",
+  {
+   "n": 11,
+   "tipo": "renombrar",
+   "nombre": "adamar metlac"
+  }
+ ],
+ [
+  "adamar residential model frida",
+  {
+   "n": 12,
+   "tipo": "renombrar",
+   "nombre": "adamar"
+  }
+ ],
+ [
+  "adamar residential model tamayo",
+  {
+   "n": 13,
+   "tipo": "renombrar",
+   "nombre": "adamar"
+  }
+ ],
+ [
+  "adamar residential siqueiros model",
+  {
+   "n": 14,
+   "tipo": "renombrar",
+   "nombre": "adamar"
+  }
+ ],
+ [
+  "adamar residential velasco model",
+  {
+   "n": 15,
+   "tipo": "renombrar",
+   "nombre": "adamar"
+  }
+ ],
+ [
+  "adamar tehuantepec",
+  {
+   "n": 16,
+   "tipo": "renombrar",
+   "nombre": "adamar tehuantepec"
+  }
+ ],
+ [
+  "adamar tlajomulco de zuniga",
+  {
+   "n": 17,
+   "tipo": "renombrar",
+   "nombre": "adamar tlajomulco de zuniga"
+  }
+ ],
+ [
+  "adamar zapata",
+  {
+   "n": 18,
+   "tipo": "renombrar",
+   "nombre": "adamar zapata"
+  }
+ ],
+ [
+  "adolf b horn",
+  {
+   "n": 19,
+   "tipo": "colonia",
+   "nombre": "adolf b horn"
+  }
+ ],
+ [
+  "adolf b horn y camino real",
+  {
+   "n": 20,
+   "tipo": "renombrar",
+   "nombre": "adolf b horn"
+  }
+ ],
+ [
+  "agave",
+  {
+   "n": 21,
+   "tipo": "colonia",
+   "nombre": "agave"
+  }
+ ],
+ [
+  "agracola",
+  {
+   "n": 22,
+   "tipo": "colonia",
+   "nombre": "agracola"
+  }
+ ],
+ [
+  "agua blanca industry",
+  {
+   "n": 23,
+   "tipo": "renombrar",
+   "nombre": "agua blanca"
+  }
+ ],
+ [
+  "ajijic architectural gem",
+  {
+   "n": 24,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "ajijic center",
+  {
+   "n": 25,
+   "tipo": "renombrar",
+   "nombre": "ajijic centro"
+  }
+ ],
+ [
+  "ajijic chapala",
+  {
+   "n": 1,
+   "tipo": "colonia",
+   "nombre": "ajijic chapala"
+  }
+ ],
+ [
+  "ajijic la floresta",
+  {
+   "n": 2,
+   "tipo": "colonia",
+   "nombre": "ajijic la floresta"
+  }
+ ],
+ [
+  "ajijic overlooking lake chapala",
+  {
+   "n": 3,
+   "tipo": "renombrar",
+   "nombre": "ajijic"
+  }
+ ],
+ [
+  "akalani land 38",
+  {
+   "n": 4,
+   "tipo": "renombrar",
+   "nombre": "akalani"
+  }
+ ],
+ [
+  "akalani land 39",
+  {
+   "n": 5,
+   "tipo": "renombrar",
+   "nombre": "akalani"
+  }
+ ],
+ [
+  "akalani land 40",
+  {
+   "n": 6,
+   "tipo": "renombrar",
+   "nombre": "akalani"
+  }
+ ],
+ [
+  "aladra",
+  {
+   "n": 7,
+   "tipo": "colonia",
+   "nombre": "aladra"
+  }
+ ],
+ [
+  "alamedas de san gaspar",
+  {
+   "n": 8,
+   "tipo": "colonia",
+   "nombre": "alamedas de san gaspar"
+  }
+ ],
+ [
+  "alba estate",
+  {
+   "n": 9,
+   "tipo": "renombrar",
+   "nombre": "alba"
+  }
+ ],
+ [
+  "albazur",
+  {
+   "n": 10,
+   "tipo": "colonia",
+   "nombre": "albazur"
+  }
+ ],
+ [
+  "albazur alba",
+  {
+   "n": 11,
+   "tipo": "renombrar",
+   "nombre": "albazur"
+  }
+ ],
+ [
+  "albazur santa ana tepatitlan",
+  {
+   "n": 12,
+   "tipo": "colonia",
+   "nombre": "albazur santa ana tepatitlan"
+  }
+ ],
+ [
+  "albereda",
+  {
+   "n": 13,
+   "tipo": "renombrar",
+   "nombre": "albereda"
+  }
+ ],
+ [
+  "albereda el salto jalisco",
+  {
+   "n": 14,
+   "tipo": "colonia",
+   "nombre": "albereda el salto jalisco"
+  }
+ ],
+ [
+  "albereda residence",
+  {
+   "n": 15,
+   "tipo": "renombrar",
+   "nombre": "albereda"
+  }
+ ],
+ [
+  "alhambra",
+  {
+   "n": 16,
+   "tipo": "colonia",
+   "nombre": "alhambra"
+  }
+ ],
+ [
+  "alicante capital north",
+  {
+   "n": 17,
+   "tipo": "renombrar",
+   "nombre": "alicante"
+  }
+ ],
+ [
+  "alicate capital norte",
+  {
+   "n": 18,
+   "tipo": "colonia",
+   "nombre": "alicante capital norte"
+  }
+ ],
+ [
+  "all that you desire and more",
+  {
+   "n": 19,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "almena",
+  {
+   "n": 20,
+   "tipo": "colonia",
+   "nombre": "almena"
+  }
+ ],
+ [
+  "almendros residential in",
+  {
+   "n": 21,
+   "tipo": "renombrar",
+   "nombre": "almendros"
+  }
+ ],
+ [
+  "almendros valle imperial",
+  {
+   "n": 22,
+   "tipo": "colonia",
+   "nombre": "almendros valle imperial"
+  }
+ ],
+ [
+  "alta california san agustin",
+  {
+   "n": 23,
+   "tipo": "colonia",
+   "nombre": "alta california san agustin"
+  }
+ ],
+ [
+  "alta california tlajomulco",
+  {
+   "n": 24,
+   "tipo": "colonia",
+   "nombre": "alta california tlajomulco"
+  }
+ ],
+ [
+  "altamira department",
+  {
+   "n": 25,
+   "tipo": "colonia",
+   "nombre": "altamira department"
+  }
+ ],
+ [
+  "altanza de solares",
+  {
+   "n": 1,
+   "tipo": "colonia",
+   "nombre": "altanza de solares"
+  }
+ ],
+ [
+  "altanza soare solares",
+  {
+   "n": 2,
+   "tipo": "renombrar",
+   "nombre": "altanza solares"
+  }
+ ],
+ [
+  "altanza solares",
+  {
+   "n": 3,
+   "tipo": "colonia",
+   "nombre": "altanza solares"
+  }
+ ],
+ [
+  "altara ii",
+  {
+   "n": 4,
+   "tipo": "colonia",
+   "nombre": "altara ii"
+  }
+ ],
+ [
+  "altara ii tlajomulco de zuniga",
+  {
+   "n": 5,
+   "tipo": "renombrar",
+   "nombre": "altara ii"
+  }
+ ],
+ [
+  "altara2",
+  {
+   "n": 6,
+   "tipo": "renombrar",
+   "nombre": "altara ii"
+  }
+ ],
+ [
+  "altaterra en",
+  {
+   "n": 7,
+   "tipo": "renombrar",
+   "nombre": "altaterra"
+  }
+ ],
+ [
+  "altavista vitana",
+  {
+   "n": 8,
+   "tipo": "colonia",
+   "nombre": "altavista vitana"
+  }
+ ],
+ [
+  "alteza residencial nuevo mexico",
+  {
+   "n": 9,
+   "tipo": "colonia",
+   "nombre": "alteza residencial nuevo mexico"
+  }
+ ],
+ [
+  "altures",
+  {
+   "n": 10,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "alva zona capital norte",
+  {
+   "n": 11,
+   "tipo": "colonia",
+   "nombre": "alva zona capital norte"
+  }
+ ],
+ [
+  "amelia",
+  {
+   "n": 12,
+   "tipo": "colonia",
+   "nombre": "amelia"
+  }
+ ],
+ [
+  "america a",
+  {
+   "n": 13,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "american",
+  {
+   "n": 14,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "american colony colonies street",
+  {
+   "n": 15,
+   "tipo": "renombrar",
+   "nombre": "colonia americana"
+  }
+ ],
+ [
+  "americana lafayette colony",
+  {
+   "n": 16,
+   "tipo": "renombrar",
+   "nombre": "colonia americana lafayette"
+  }
+ ],
+ [
+  "an exclusive area of",
+  {
+   "n": 17,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "andador grosellos 6",
+  {
+   "n": 18,
+   "tipo": "colonia",
+   "nombre": "andador grosellos 6"
+  }
+ ],
+ [
+  "andares and colomos area",
+  {
+   "n": 19,
+   "tipo": "renombrar",
+   "nombre": "andares y colomos"
+  }
+ ],
+ [
+  "andares area",
+  {
+   "n": 20,
+   "tipo": "renombrar",
+   "nombre": "andares"
+  }
+ ],
+ [
+  "andares loft type",
+  {
+   "n": 21,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "andares triple a area",
+  {
+   "n": 22,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "andares vida",
+  {
+   "n": 23,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "anzures",
+  {
+   "n": 24,
+   "tipo": "colonia",
+   "nombre": "anzures"
+  }
+ ],
+ [
+  "apartments",
+  {
+   "n": 25,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "apartments in presale",
+  {
+   "n": 1,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "apartments in presale opera",
+  {
+   "n": 2,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "apartments in tower tria",
+  {
+   "n": 3,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "apartments in tria",
+  {
+   "n": 4,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "apartments in zapopan center",
+  {
+   "n": 5,
+   "tipo": "renombrar",
+   "nombre": "zapopan centro"
+  }
+ ],
+ [
+  "apartments near plaza la perla",
+  {
+   "n": 6,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "apartments on ering street",
+  {
+   "n": 7,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "apollo model in vitad",
+  {
+   "n": 8,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "aqueduct",
+  {
+   "n": 9,
+   "tipo": "colonia",
+   "nombre": "aqueduct"
+  }
+ ],
+ [
+  "aqueduct san agustin condominium",
+  {
+   "n": 10,
+   "tipo": "renombrar",
+   "nombre": "aqueduct san agustin"
+  }
+ ],
+ [
+  "ara colinas del valle ciruelo 3n",
+  {
+   "n": 11,
+   "tipo": "renombrar",
+   "nombre": "colinas del valle"
+  }
+ ],
+ [
+  "ara colinas del valle plum 2n",
+  {
+   "n": 12,
+   "tipo": "renombrar",
+   "nombre": "colinas del valle"
+  }
+ ],
+ [
+  "ara hills of the valley plum 1n",
+  {
+   "n": 13,
+   "tipo": "renombrar",
+   "nombre": "colinas del valle"
+  }
+ ],
+ [
+  "aralias ii",
+  {
+   "n": 14,
+   "tipo": "colonia",
+   "nombre": "aralias ii"
+  }
+ ],
+ [
+  "arauca bosque",
+  {
+   "n": 15,
+   "tipo": "colonia",
+   "nombre": "arauca bosque"
+  }
+ ],
+ [
+  "arbolada bosque de santa anita",
+  {
+   "n": 16,
+   "tipo": "renombrar",
+   "nombre": "arbolada bosque de santa anita"
+  }
+ ],
+ [
+  "arbolada neighborhood",
+  {
+   "n": 17,
+   "tipo": "renombrar",
+   "nombre": "arbolada"
+  }
+ ],
+ [
+  "arbolada residential",
+  {
+   "n": 18,
+   "tipo": "renombrar",
+   "nombre": "arbolada"
+  }
+ ],
+ [
+  "arbolada santa anita",
+  {
+   "n": 19,
+   "tipo": "renombrar",
+   "nombre": "arbolada santa anita"
+  }
+ ],
+ [
+  "arboleda bosques de santa anita",
+  {
+   "n": 20,
+   "tipo": "renombrar",
+   "nombre": "arboleda bosques de santa anita"
+  }
+ ],
+ [
+  "arboleda santa anita",
+  {
+   "n": 21,
+   "tipo": "renombrar",
+   "nombre": "arboleda santa anita"
+  }
+ ],
+ [
+  "arboledas 2a",
+  {
+   "n": 22,
+   "tipo": "colonia",
+   "nombre": "arboledas 2a"
+  }
+ ],
+ [
+  "arboledas colony",
+  {
+   "n": 23,
+   "tipo": "renombrar",
+   "nombre": "arboledas"
+  }
+ ],
+ [
+  "arboledas santa anita",
+  {
+   "n": 24,
+   "tipo": "renombrar",
+   "nombre": "arboledas santa anita"
+  }
+ ],
+ [
+  "arboledas sur",
+  {
+   "n": 25,
+   "tipo": "colonia",
+   "nombre": "arboledas sur"
+  }
+ ],
+ [
+  "arboreto",
+  {
+   "n": 1,
+   "tipo": "colonia",
+   "nombre": "arboreto"
+  }
+ ],
+ [
+  "arboreto resdencial",
+  {
+   "n": 2,
+   "tipo": "renombrar",
+   "nombre": "arboreto residencial"
+  }
+ ],
+ [
+  "arcadia villas department",
+  {
+   "n": 3,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "arcos guadalupe",
+  {
+   "n": 4,
+   "tipo": "colonia",
+   "nombre": "arcos guadalupe"
+  }
+ ],
+ [
+  "arcos zapopan",
+  {
+   "n": 5,
+   "tipo": "colonia",
+   "nombre": "arcos zapopan"
+  }
+ ],
+ [
+  "ardines de san jose",
+  {
+   "n": 6,
+   "tipo": "renombrar",
+   "nombre": "jardines de san jose"
+  }
+ ],
+ [
+  "arevia",
+  {
+   "n": 7,
+   "tipo": "colonia",
+   "nombre": "arevia"
+  }
+ ],
+ [
+  "argenta gated community",
+  {
+   "n": 8,
+   "tipo": "renombrar",
+   "nombre": "argenta"
+  }
+ ],
+ [
+  "argenta residential viewpoint",
+  {
+   "n": 9,
+   "tipo": "renombrar",
+   "nombre": "argenta"
+  }
+ ],
+ [
+  "arrezo",
+  {
+   "n": 10,
+   "tipo": "colonia",
+   "nombre": "arrezo"
+  }
+ ],
+ [
+  "arroyo",
+  {
+   "n": 11,
+   "tipo": "colonia",
+   "nombre": "arroyo"
+  }
+ ],
+ [
+  "artesanos tlaquepaque",
+  {
+   "n": 12,
+   "tipo": "colonia",
+   "nombre": "artesanos tlaquepaque"
+  }
+ ],
+ [
+  "artisans guadalajara jalisco",
+  {
+   "n": 13,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "artpark",
+  {
+   "n": 14,
+   "tipo": "colonia",
+   "nombre": "artpark"
+  }
+ ],
+ [
+  "arvento sn",
+  {
+   "n": 15,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "atmosfera habitat",
+  {
+   "n": 16,
+   "tipo": "colonia",
+   "nombre": "atmosfera habitat"
+  }
+ ],
+ [
+  "atmosphere",
+  {
+   "n": 17,
+   "tipo": "renombrar",
+   "nombre": "atmosfera"
+  }
+ ],
+ [
+  "atmosphere condominium",
+  {
+   "n": 18,
+   "tipo": "renombrar",
+   "nombre": "atmosfera"
+  }
+ ],
+ [
+  "atmosphere habitat",
+  {
+   "n": 19,
+   "tipo": "colonia",
+   "nombre": "atmosfera habitat"
+  }
+ ],
+ [
+  "aurea",
+  {
+   "n": 20,
+   "tipo": "colonia",
+   "nombre": "aurea"
+  }
+ ],
+ [
+  "aurora boreal",
+  {
+   "n": 21,
+   "tipo": "colonia",
+   "nombre": "aurora boreal"
+  }
+ ],
+ [
+  "author residence in 3 solares",
+  {
+   "n": 22,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "autocinema colony",
+  {
+   "n": 23,
+   "tipo": "renombrar",
+   "nombre": "autocinema"
+  }
+ ],
+ [
+  "av adolfo lopez mateos sur",
+  {
+   "n": 24,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "av alcalde zona transito",
+  {
+   "n": 25,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "av belisario dominguez sn",
+  {
+   "n": 1,
+   "tipo": "renombrar",
+   "nombre": "belisario dominguez"
+  }
+ ],
+ [
+  "av guadalupe casi av patria",
+  {
+   "n": 2,
+   "tipo": "renombrar",
+   "nombre": "guadalupe"
+  }
+ ],
+ [
+  "av naciones unidas",
+  {
+   "n": 3,
+   "tipo": "renombrar",
+   "nombre": "naciones unidas"
+  }
+ ],
+ [
+  "av vallarta",
+  {
+   "n": 4,
+   "tipo": "renombrar",
+   "nombre": "vallarta"
+  }
+ ],
+ [
+  "avaterra",
+  {
+   "n": 5,
+   "tipo": "colonia",
+   "nombre": "avaterra"
+  }
+ ],
+ [
+  "avila camacho",
+  {
+   "n": 6,
+   "tipo": "colonia",
+   "nombre": "avila camacho"
+  }
+ ],
+ [
+  "avila camacho and enrique diaz",
+  {
+   "n": 7,
+   "tipo": "renombrar",
+   "nombre": "avila camacho"
+  }
+ ],
+ [
+  "ayamonte club de golf",
+  {
+   "n": 8,
+   "tipo": "colonia",
+   "nombre": "ayamonte club de golf"
+  }
+ ],
+ [
+  "azaleasbugambilias",
+  {
+   "n": 9,
+   "tipo": "renombrar",
+   "nombre": "azaleas bugambilias"
+  }
+ ],
+ [
+  "bacalar",
+  {
+   "n": 10,
+   "tipo": "colonia",
+   "nombre": "bacalar"
+  }
+ ],
+ [
+  "balanty",
+  {
+   "n": 11,
+   "tipo": "colonia",
+   "nombre": "balanty"
+  }
+ ],
+ [
+  "balcones de la calera tlajomulco",
+  {
+   "n": 12,
+   "tipo": "colonia",
+   "nombre": "balcones de la calera"
+  }
+ ],
+ [
+  "balica",
+  {
+   "n": 13,
+   "tipo": "colonia",
+   "nombre": "balica"
+  }
+ ],
+ [
+  "baluarte",
+  {
+   "n": 14,
+   "tipo": "colonia",
+   "nombre": "baluarte"
+  }
+ ],
+ [
+  "bambu",
+  {
+   "n": 15,
+   "tipo": "colonia",
+   "nombre": "bambu"
+  }
+ ],
+ [
+  "banus residential tlajomulco",
+  {
+   "n": 16,
+   "tipo": "colonia",
+   "nombre": "banus residential"
+  }
+ ],
+ [
+  "barranquitas",
+  {
+   "n": 17,
+   "tipo": "colonia",
+   "nombre": "barranquitas"
+  }
+ ],
+ [
+  "barrio del tepehua",
+  {
+   "n": 18,
+   "tipo": "colonia",
+   "nombre": "barrio del tepehua"
+  }
+ ],
+ [
+  "barrio el santuario",
+  {
+   "n": 19,
+   "tipo": "colonia",
+   "nombre": "barrio el santuario"
+  }
+ ],
+ [
+  "basalto",
+  {
+   "n": 20,
+   "tipo": "colonia",
+   "nombre": "basalto"
+  }
+ ],
+ [
+  "beautiful",
+  {
+   "n": 21,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "before villa california",
+  {
+   "n": 22,
+   "tipo": "renombrar",
+   "nombre": "villa california"
+  }
+ ],
+ [
+  "bellaterra cumbres platino",
+  {
+   "n": 23,
+   "tipo": "colonia",
+   "nombre": "bellaterra cumbres platino"
+  }
+ ],
+ [
+  "bellaterra fronda",
+  {
+   "n": 24,
+   "tipo": "colonia",
+   "nombre": "bellaterra fronda"
+  }
+ ],
+ [
+  "bellaterra fronda estate",
+  {
+   "n": 25,
+   "tipo": "colonia",
+   "nombre": "bellaterra fronda estate"
+  }
+ ],
+ [
+  "bellaterra senda",
+  {
+   "n": 1,
+   "tipo": "colonia",
+   "nombre": "bellaterra senda"
+  }
+ ],
+ [
+  "better",
+  {
+   "n": 2,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "bizantino valle imperial",
+  {
+   "n": 3,
+   "tipo": "colonia",
+   "nombre": "bizantino valle imperial"
+  }
+ ],
+ [
+  "blanco and cuellar",
+  {
+   "n": 4,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "bonito jalisco",
+  {
+   "n": 5,
+   "tipo": "colonia",
+   "nombre": "bonito jalisco"
+  }
+ ],
+ [
+  "boreales",
+  {
+   "n": 6,
+   "tipo": "colonia",
+   "nombre": "boreales"
+  }
+ ],
+ [
+  "boreales biosfera living",
+  {
+   "n": 7,
+   "tipo": "renombrar",
+   "nombre": "boreales biosfera living"
+  }
+ ],
+ [
+  "boreales vertical life",
+  {
+   "n": 8,
+   "tipo": "renombrar",
+   "nombre": "boreales vertical life"
+  }
+ ],
+ [
+  "bosque cedros",
+  {
+   "n": 9,
+   "tipo": "colonia",
+   "nombre": "bosque cedros"
+  }
+ ],
+ [
+  "bosque cedros santa anita",
+  {
+   "n": 10,
+   "tipo": "colonia",
+   "nombre": "bosque cedros santa anita"
+  }
+ ],
+ [
+  "bosque de chapultepec i",
+  {
+   "n": 11,
+   "tipo": "colonia",
+   "nombre": "bosque de chapultepec i"
+  }
+ ],
+ [
+  "bosque de las lomas",
+  {
+   "n": 12,
+   "tipo": "colonia",
+   "nombre": "bosque de las lomas"
+  }
+ ],
+ [
+  "bosque de san isidro in",
+  {
+   "n": 13,
+   "tipo": "renombrar",
+   "nombre": "bosque de san isidro"
+  }
+ ],
+ [
+  "bosque encantado",
+  {
+   "n": 14,
+   "tipo": "colonia",
+   "nombre": "bosque encantado"
+  }
+ ],
+ [
+  "bosque real santa anita",
+  {
+   "n": 15,
+   "tipo": "colonia",
+   "nombre": "bosque real santa anita"
+  }
+ ],
+ [
+  "bosque real tlajomulco de zuniga",
+  {
+   "n": 16,
+   "tipo": "colonia",
+   "nombre": "bosque real tlajomulco de zuniga"
+  }
+ ],
+ [
+  "bosques cedros",
+  {
+   "n": 17,
+   "tipo": "colonia",
+   "nombre": "bosques cedros"
+  }
+ ],
+ [
+  "bosques de las lomas",
+  {
+   "n": 18,
+   "tipo": "colonia",
+   "nombre": "bosques de las lomas"
+  }
+ ],
+ [
+  "bosques de las moras",
+  {
+   "n": 19,
+   "tipo": "colonia",
+   "nombre": "bosques de las moras"
+  }
+ ],
+ [
+  "bosques de san isidro las canadas",
+  {
+   "n": 20,
+   "tipo": "colonia",
+   "nombre": "bosques de san isidro las canadas"
+  }
+ ],
+ [
+  "bosques de santa anita",
+  {
+   "n": 21,
+   "tipo": "colonia",
+   "nombre": "bosques de santa anita"
+  }
+ ],
+ [
+  "bosques de santa anita area",
+  {
+   "n": 22,
+   "tipo": "renombrar",
+   "nombre": "bosques de santa anita"
+  }
+ ],
+ [
+  "bosques de santa anita fraction",
+  {
+   "n": 23,
+   "tipo": "renombrar",
+   "nombre": "bosques de santa anita"
+  }
+ ],
+ [
+  "bosques de santa anita monteza",
+  {
+   "n": 24,
+   "tipo": "colonia",
+   "nombre": "bosques de santa anita monteza"
+  }
+ ],
+ [
+  "bosques de santanita",
+  {
+   "n": 25,
+   "tipo": "renombrar",
+   "nombre": "bosques de santa anita"
+  }
+ ],
+ [
+  "bosques del centinela in",
+  {
+   "n": 1,
+   "tipo": "renombrar",
+   "nombre": "bosques del centinela"
+  }
+ ],
+ [
+  "bosques san gonzalo",
+  {
+   "n": 2,
+   "tipo": "colonia",
+   "nombre": "bosques san gonzalo"
+  }
+ ],
+ [
+  "bosques vallarta amate",
+  {
+   "n": 3,
+   "tipo": "renombrar",
+   "nombre": "bosques vallarta"
+  }
+ ],
+ [
+  "bosques vallarta on circuito",
+  {
+   "n": 4,
+   "tipo": "renombrar",
+   "nombre": "bosques vallarta"
+  }
+ ],
+ [
+  "bosques vallarta residence",
+  {
+   "n": 5,
+   "tipo": "renombrar",
+   "nombre": "bosques vallarta"
+  }
+ ],
+ [
+  "bosquesvallarta",
+  {
+   "n": 6,
+   "tipo": "renombrar",
+   "nombre": "bosques vallarta"
+  }
+ ],
+ [
+  "boutique",
+  {
+   "n": 7,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "breezes of the mountain lot 34",
+  {
+   "n": 8,
+   "tipo": "renombrar",
+   "nombre": "brisas de la montana"
+  }
+ ],
+ [
+  "brisas de chapala lot 11 storm",
+  {
+   "n": 9,
+   "tipo": "renombrar",
+   "nombre": "brisas de chapala"
+  }
+ ],
+ [
+  "brisas de chapala lot 13 storm",
+  {
+   "n": 10,
+   "tipo": "renombrar",
+   "nombre": "brisas de chapala"
+  }
+ ],
+ [
+  "brisas de chapala lot 3 storm",
+  {
+   "n": 11,
+   "tipo": "renombrar",
+   "nombre": "brisas de chapala"
+  }
+ ],
+ [
+  "brisas de chapala lot 4 cloud",
+  {
+   "n": 12,
+   "tipo": "renombrar",
+   "nombre": "brisas de chapala"
+  }
+ ],
+ [
+  "brisas de chapala lot 6 cloud",
+  {
+   "n": 13,
+   "tipo": "renombrar",
+   "nombre": "brisas de chapala"
+  }
+ ],
+ [
+  "brisas de chapala lot 7 storm",
+  {
+   "n": 14,
+   "tipo": "renombrar",
+   "nombre": "brisas de chapala"
+  }
+ ],
+ [
+  "brisas de chapala lot 8 cloud",
+  {
+   "n": 15,
+   "tipo": "renombrar",
+   "nombre": "brisas de chapala"
+  }
+ ],
+ [
+  "brisas de chapala lot 9 storm",
+  {
+   "n": 16,
+   "tipo": "renombrar",
+   "nombre": "brisas de chapala"
+  }
+ ],
+ [
+  "brisas niebla",
+  {
+   "n": 17,
+   "tipo": "colonia",
+   "nombre": "brisas niebla"
+  }
+ ],
+ [
+  "buena mirada tonala",
+  {
+   "n": 18,
+   "tipo": "colonia",
+   "nombre": "buena mirada tonala"
+  }
+ ],
+ [
+  "buena vista",
+  {
+   "n": 19,
+   "tipo": "colonia",
+   "nombre": "buena vista"
+  }
+ ],
+ [
+  "buenavista on the roadside",
+  {
+   "n": 20,
+   "tipo": "renombrar",
+   "nombre": "buenavista"
+  }
+ ],
+ [
+  "bugambilias 1a",
+  {
+   "n": 21,
+   "tipo": "colonia",
+   "nombre": "bugambilias 1a"
+  }
+ ],
+ [
+  "bugambilias 1ra",
+  {
+   "n": 22,
+   "tipo": "colonia",
+   "nombre": "bugambilias 1ra"
+  }
+ ],
+ [
+  "bugambilias 2a",
+  {
+   "n": 23,
+   "tipo": "colonia",
+   "nombre": "bugambilias 2a"
+  }
+ ],
+ [
+  "bugambilias 2a seccion",
+  {
+   "n": 24,
+   "tipo": "colonia",
+   "nombre": "bugambilias 2a seccion"
+  }
+ ],
+ [
+  "bugambilias i",
+  {
+   "n": 25,
+   "tipo": "colonia",
+   "nombre": "bugambilias i"
+  }
+ ],
+ [
+  "bugambilias in excellent condition",
+  {
+   "n": 1,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "bugambilias in los pinos campestre",
+  {
+   "n": 2,
+   "tipo": "renombrar",
+   "nombre": "bugambilias en los pinos campestre"
+  }
+ ],
+ [
+  "bugambilias second section",
+  {
+   "n": 3,
+   "tipo": "renombrar",
+   "nombre": "bugambilias segunda seccion"
+  }
+ ],
+ [
+  "c los pinos 93",
+  {
+   "n": 4,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "c nanzal 10",
+  {
+   "n": 5,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "cadiz",
+  {
+   "n": 6,
+   "tipo": "colonia",
+   "nombre": "cadiz"
+  }
+ ],
+ [
+  "cajetes",
+  {
+   "n": 7,
+   "tipo": "colonia",
+   "nombre": "cajetes"
+  }
+ ],
+ [
+  "cajititlan la noria",
+  {
+   "n": 8,
+   "tipo": "colonia",
+   "nombre": "cajititlan la noria"
+  }
+ ],
+ [
+  "california villa",
+  {
+   "n": 9,
+   "tipo": "renombrar",
+   "nombre": "california villa"
+  }
+ ],
+ [
+  "california villas",
+  {
+   "n": 10,
+   "tipo": "renombrar",
+   "nombre": "california villas"
+  }
+ ],
+ [
+  "calzada del ejercito",
+  {
+   "n": 11,
+   "tipo": "colonia",
+   "nombre": "calzada del ejercito"
+  }
+ ],
+ [
+  "calzada independencia",
+  {
+   "n": 12,
+   "tipo": "colonia",
+   "nombre": "calzada independencia"
+  }
+ ],
+ [
+  "camichin santa anita",
+  {
+   "n": 13,
+   "tipo": "colonia",
+   "nombre": "camichin santa anita"
+  }
+ ],
+ [
+  "campestre colinas de santa anita",
+  {
+   "n": 14,
+   "tipo": "colonia",
+   "nombre": "campestre colinas de santa anita"
+  }
+ ],
+ [
+  "campestre las canadas ii",
+  {
+   "n": 15,
+   "tipo": "colonia",
+   "nombre": "campestre las canadas ii"
+  }
+ ],
+ [
+  "campo sur tlajomulco de zuniga",
+  {
+   "n": 16,
+   "tipo": "colonia",
+   "nombre": "campo sur tlajomulco de zuniga"
+  }
+ ],
+ [
+  "cancun",
+  {
+   "n": 17,
+   "tipo": "colonia",
+   "nombre": "cancun"
+  }
+ ],
+ [
+  "cantera",
+  {
+   "n": 18,
+   "tipo": "colonia",
+   "nombre": "cantera"
+  }
+ ],
+ [
+  "cantero san agustin",
+  {
+   "n": 19,
+   "tipo": "colonia",
+   "nombre": "cantero san agustin"
+  }
+ ],
+ [
+  "capital norte creta",
+  {
+   "n": 20,
+   "tipo": "colonia",
+   "nombre": "capital norte creta"
+  }
+ ],
+ [
+  "carrara capital norte",
+  {
+   "n": 21,
+   "tipo": "colonia",
+   "nombre": "carrara capital norte"
+  }
+ ],
+ [
+  "carrara gated community",
+  {
+   "n": 22,
+   "tipo": "renombrar",
+   "nombre": "carrara"
+  }
+ ],
+ [
+  "casa 4 habs los almendros",
+  {
+   "n": 23,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "casa a estrenar a 20 min del iteso",
+  {
+   "n": 24,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "casa duplex para inversion",
+  {
+   "n": 25,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "casa el eden",
+  {
+   "n": 1,
+   "tipo": "renombrar",
+   "nombre": "el eden"
+  }
+ ],
+ [
+  "casa estilo campestre",
+  {
+   "n": 2,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "casa fuerte baluarte",
+  {
+   "n": 3,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "casa fuerte condominium el bastion",
+  {
+   "n": 4,
+   "tipo": "renombrar",
+   "nombre": "el bastion"
+  }
+ ],
+ [
+  "casa fuerte el alcazar",
+  {
+   "n": 5,
+   "tipo": "renombrar",
+   "nombre": "el alcazar"
+  }
+ ],
+ [
+  "casa fuerte el bastion",
+  {
+   "n": 6,
+   "tipo": "colonia",
+   "nombre": "el bastion"
+  }
+ ],
+ [
+  "casa fuerte tlajomulco de zuniga",
+  {
+   "n": 7,
+   "tipo": "renombrar",
+   "nombre": "tlajomulco de zuniga"
+  }
+ ],
+ [
+  "casas de autor housing development",
+  {
+   "n": 8,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "castanos",
+  {
+   "n": 9,
+   "tipo": "colonia",
+   "nombre": "castanos"
+  }
+ ],
+ [
+  "castilla excellent opportunity",
+  {
+   "n": 10,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "cd de los ninos",
+  {
+   "n": 11,
+   "tipo": "colonia",
+   "nombre": "cd de los ninos"
+  }
+ ],
+ [
+  "cd granja planta baja",
+  {
+   "n": 12,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "cd universitaria",
+  {
+   "n": 13,
+   "tipo": "colonia",
+   "nombre": "cd universitaria"
+  }
+ ],
+ [
+  "cedar forests",
+  {
+   "n": 14,
+   "tipo": "renombrar",
+   "nombre": "bosques de cedros"
+  }
+ ],
+ [
+  "cedars forests",
+  {
+   "n": 15,
+   "tipo": "renombrar",
+   "nombre": "bosques de cedros"
+  }
+ ],
+ [
+  "cedros forests",
+  {
+   "n": 16,
+   "tipo": "renombrar",
+   "nombre": "bosques de cedros"
+  }
+ ],
+ [
+  "central coordinate",
+  {
+   "n": 17,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "central tower furnished sale",
+  {
+   "n": 18,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "centrica de",
+  {
+   "n": 19,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "centro area 1",
+  {
+   "n": 20,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "centro guadalajara",
+  {
+   "n": 21,
+   "tipo": "colonia",
+   "nombre": "centro guadalajara"
+  }
+ ],
+ [
+  "centro tonala",
+  {
+   "n": 22,
+   "tipo": "colonia",
+   "nombre": "centro tonala"
+  }
+ ],
+ [
+  "cerezo",
+  {
+   "n": 23,
+   "tipo": "colonia",
+   "nombre": "cerezo"
+  }
+ ],
+ [
+  "cerro del cuatro 1ra",
+  {
+   "n": 24,
+   "tipo": "colonia",
+   "nombre": "cerro del cuatro 1ra"
+  }
+ ],
+ [
+  "chapala",
+  {
+   "n": 25,
+   "tipo": "colonia",
+   "nombre": "chapala"
+  }
+ ],
+ [
+  "chapala center",
+  {
+   "n": 1,
+   "tipo": "renombrar",
+   "nombre": "chapala centro"
+  }
+ ],
+ [
+  "chapala classic",
+  {
+   "n": 2,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "chapala haciendas land on corner",
+  {
+   "n": 3,
+   "tipo": "renombrar",
+   "nombre": "haciendas de chapala"
+  }
+ ],
+ [
+  "chapala haciendas lot 3",
+  {
+   "n": 4,
+   "tipo": "renombrar",
+   "nombre": "haciendas de chapala"
+  }
+ ],
+ [
+  "chapala lot haciendas swans",
+  {
+   "n": 5,
+   "tipo": "renombrar",
+   "nombre": "haciendas de chapala"
+  }
+ ],
+ [
+  "chapala premiere",
+  {
+   "n": 6,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "chapultepec area",
+  {
+   "n": 7,
+   "tipo": "colonia",
+   "nombre": "chapultepec area"
+  }
+ ],
+ [
+  "chula vista norte 2",
+  {
+   "n": 8,
+   "tipo": "colonia",
+   "nombre": "chula vista norte 2"
+  }
+ ],
+ [
+  "chula vista north 3",
+  {
+   "n": 9,
+   "tipo": "renombrar",
+   "nombre": "chula vista norte 3"
+  }
+ ],
+ [
+  "cielo vista",
+  {
+   "n": 10,
+   "tipo": "renombrar",
+   "nombre": "cielo vista"
+  }
+ ],
+ [
+  "cima park",
+  {
+   "n": 11,
+   "tipo": "colonia",
+   "nombre": "cima park"
+  }
+ ],
+ [
+  "cima park unit phf",
+  {
+   "n": 12,
+   "tipo": "renombrar",
+   "nombre": "cima park"
+  }
+ ],
+ [
+  "circuito de la gracia",
+  {
+   "n": 13,
+   "tipo": "colonia",
+   "nombre": "circuito de la gracia"
+  }
+ ],
+ [
+  "circuito metropolitano sur",
+  {
+   "n": 14,
+   "tipo": "colonia",
+   "nombre": "circuito metropolitano sur"
+  }
+ ],
+ [
+  "circunvalacion oblato",
+  {
+   "n": 15,
+   "tipo": "colonia",
+   "nombre": "circunvalacion oblato"
+  }
+ ],
+ [
+  "cisnes estate",
+  {
+   "n": 16,
+   "tipo": "renombrar",
+   "nombre": "cisnes"
+  }
+ ],
+ [
+  "cita",
+  {
+   "n": 17,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "city of the sun",
+  {
+   "n": 18,
+   "tipo": "renombrar",
+   "nombre": "ciudad del sol"
+  }
+ ],
+ [
+  "city of the sun eniti tower new",
+  {
+   "n": 19,
+   "tipo": "renombrar",
+   "nombre": "ciudad del sol"
+  }
+ ],
+ [
+  "citytower",
+  {
+   "n": 20,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "ciudad bugambilias 2da",
+  {
+   "n": 21,
+   "tipo": "colonia",
+   "nombre": "ciudad bugambilias 2da"
+  }
+ ],
+ [
+  "ciudad bugambilias 2da seccion",
+  {
+   "n": 22,
+   "tipo": "colonia",
+   "nombre": "ciudad bugambilias 2da seccion"
+  }
+ ],
+ [
+  "ciudad creativa digital",
+  {
+   "n": 23,
+   "tipo": "colonia",
+   "nombre": "ciudad creativa digital"
+  }
+ ],
+ [
+  "ciudad de cancun",
+  {
+   "n": 24,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "ciudad granja en entorno cantabria",
+  {
+   "n": 25,
+   "tipo": "renombrar",
+   "nombre": "entorno cantabria"
+  }
+ ],
+ [
+  "ciudad granja in entorno cantabria",
+  {
+   "n": 1,
+   "tipo": "renombrar",
+   "nombre": "ciudad granja entorno cantabria"
+  }
+ ],
+ [
+  "ciudad tlajomulco de zuniga",
+  {
+   "n": 2,
+   "tipo": "colonia",
+   "nombre": "ciudad tlajomulco de zuniga"
+  }
+ ],
+ [
+  "closet and bathtub",
+  {
+   "n": 3,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "club de golf sta anita",
+  {
+   "n": 4,
+   "tipo": "renombrar",
+   "nombre": "club de golf santa anita"
+  }
+ ],
+ [
+  "colina real",
+  {
+   "n": 5,
+   "tipo": "colonia",
+   "nombre": "colina real"
+  }
+ ],
+ [
+  "colinas de montebello",
+  {
+   "n": 6,
+   "tipo": "colonia",
+   "nombre": "colinas de montebello"
+  }
+ ],
+ [
+  "colinas de san jorge",
+  {
+   "n": 7,
+   "tipo": "colonia",
+   "nombre": "colinas de san jorge"
+  }
+ ],
+ [
+  "colinas del roble tlajomulco",
+  {
+   "n": 8,
+   "tipo": "renombrar",
+   "nombre": "colinas del roble tlajomulco"
+  }
+ ],
+ [
+  "colinas san isidro",
+  {
+   "n": 9,
+   "tipo": "colonia",
+   "nombre": "colinas san isidro"
+  }
+ ],
+ [
+  "colinas santa anita",
+  {
+   "n": 10,
+   "tipo": "colonia",
+   "nombre": "colinas santa anita"
+  }
+ ],
+ [
+  "colomos patria privee",
+  {
+   "n": 11,
+   "tipo": "renombrar",
+   "nombre": "colomos patria privee"
+  }
+ ],
+ [
+  "colomos providence",
+  {
+   "n": 12,
+   "tipo": "renombrar",
+   "nombre": "colomos providencia"
+  }
+ ],
+ [
+  "colomos providenci",
+  {
+   "n": 13,
+   "tipo": "renombrar",
+   "nombre": "colomos providencia"
+  }
+ ],
+ [
+  "colomos providencia for investors",
+  {
+   "n": 14,
+   "tipo": "renombrar",
+   "nombre": "colomos providencia"
+  }
+ ],
+ [
+  "colony villa la loma",
+  {
+   "n": 15,
+   "tipo": "renombrar",
+   "nombre": "villa la loma"
+  }
+ ],
+ [
+  "conception oblatos estate",
+  {
+   "n": 16,
+   "tipo": "renombrar",
+   "nombre": "concepcion oblatos"
+  }
+ ],
+ [
+  "condominio 1",
+  {
+   "n": 17,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "condominio asturias",
+  {
+   "n": 18,
+   "tipo": "colonia",
+   "nombre": "condominio asturias"
+  }
+ ],
+ [
+  "condominio bruma",
+  {
+   "n": 19,
+   "tipo": "colonia",
+   "nombre": "condominio bruma"
+  }
+ ],
+ [
+  "condominio jardines del vergel",
+  {
+   "n": 20,
+   "tipo": "colonia",
+   "nombre": "condominio jardines del vergel"
+  }
+ ],
+ [
+  "condominio mitikha",
+  {
+   "n": 21,
+   "tipo": "colonia",
+   "nombre": "condominio mitikha"
+  }
+ ],
+ [
+  "condominio orbara",
+  {
+   "n": 22,
+   "tipo": "colonia",
+   "nombre": "condominio orbara"
+  }
+ ],
+ [
+  "condominio puerta plata",
+  {
+   "n": 23,
+   "tipo": "colonia",
+   "nombre": "condominio puerta plata"
+  }
+ ],
+ [
+  "condominio sole",
+  {
+   "n": 24,
+   "tipo": "colonia",
+   "nombre": "condominio sole"
+  }
+ ],
+ [
+  "condominio topacio",
+  {
+   "n": 25,
+   "tipo": "colonia",
+   "nombre": "condominio topacio"
+  }
+ ],
+ [
+  "condominium",
+  {
+   "n": 1,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "condominium la fresna",
+  {
+   "n": 2,
+   "tipo": "renombrar",
+   "nombre": "la fresna"
+  }
+ ],
+ [
+  "condominium terrazas lomas altas",
+  {
+   "n": 3,
+   "tipo": "colonia",
+   "nombre": "terrazas lomas altas"
+  }
+ ],
+ [
+  "conjunto patria",
+  {
+   "n": 4,
+   "tipo": "colonia",
+   "nombre": "conjunto patria"
+  }
+ ],
+ [
+  "constanza residential club",
+  {
+   "n": 5,
+   "tipo": "renombrar",
+   "nombre": "constanza residential club"
+  }
+ ],
+ [
+  "coordenada country",
+  {
+   "n": 6,
+   "tipo": "colonia",
+   "nombre": "coordenada country"
+  }
+ ],
+ [
+  "coordenada lafayette",
+  {
+   "n": 7,
+   "tipo": "colonia",
+   "nombre": "coordenada lafayette"
+  }
+ ],
+ [
+  "coordenada living",
+  {
+   "n": 8,
+   "tipo": "colonia",
+   "nombre": "coordenada living"
+  }
+ ],
+ [
+  "coordinated country presale",
+  {
+   "n": 9,
+   "tipo": "renombrar",
+   "nombre": "coordenada country"
+  }
+ ],
+ [
+  "corporate tower republic",
+  {
+   "n": 10,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "corporativo dos puntas andares",
+  {
+   "n": 11,
+   "tipo": "colonia",
+   "nombre": "corporativo dos puntas andares"
+  }
+ ],
+ [
+  "cortijo san agustin tlajomulco",
+  {
+   "n": 12,
+   "tipo": "colonia",
+   "nombre": "cortijo san agustin tlajomulco"
+  }
+ ],
+ [
+  "cortijosanagustin",
+  {
+   "n": 13,
+   "tipo": "renombrar",
+   "nombre": "cortijo san agustin"
+  }
+ ],
+ [
+  "cosmocrat",
+  {
+   "n": 14,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "cosmocrat puerta de hierro",
+  {
+   "n": 15,
+   "tipo": "colonia",
+   "nombre": "cosmocrat puerta de hierro"
+  }
+ ],
+ [
+  "cot the garden",
+  {
+   "n": 16,
+   "tipo": "renombrar",
+   "nombre": "coto the garden"
+  }
+ ],
+ [
+  "coto",
+  {
+   "n": 17,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "coto 12 coronado",
+  {
+   "n": 18,
+   "tipo": "colonia",
+   "nombre": "coto 12 coronado"
+  }
+ ],
+ [
+  "coto 18",
+  {
+   "n": 19,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "coto 2 jardin real",
+  {
+   "n": 20,
+   "tipo": "colonia",
+   "nombre": "coto 2 jardin real"
+  }
+ ],
+ [
+  "coto arrezo",
+  {
+   "n": 21,
+   "tipo": "colonia",
+   "nombre": "coto arrezo"
+  }
+ ],
+ [
+  "coto espanol valle imperial",
+  {
+   "n": 22,
+   "tipo": "colonia",
+   "nombre": "coto espanol valle imperial"
+  }
+ ],
+ [
+  "coto las moras",
+  {
+   "n": 23,
+   "tipo": "colonia",
+   "nombre": "coto las moras"
+  }
+ ],
+ [
+  "coto nueva galicia",
+  {
+   "n": 24,
+   "tipo": "colonia",
+   "nombre": "coto nueva galicia"
+  }
+ ],
+ [
+  "coto sienna capital norte",
+  {
+   "n": 25,
+   "tipo": "colonia",
+   "nombre": "coto sienna capital norte"
+  }
+ ],
+ [
+  "coto vistas del sol",
+  {
+   "n": 1,
+   "tipo": "colonia",
+   "nombre": "coto vistas del sol"
+  }
+ ],
+ [
+  "cotocastanos",
+  {
+   "n": 2,
+   "tipo": "renombrar",
+   "nombre": "coto castanos"
+  }
+ ],
+ [
+  "cotocerezo",
+  {
+   "n": 3,
+   "tipo": "renombrar",
+   "nombre": "coto cerezo"
+  }
+ ],
+ [
+  "country club area",
+  {
+   "n": 4,
+   "tipo": "renombrar",
+   "nombre": "country club"
+  }
+ ],
+ [
+  "country club condominiums",
+  {
+   "n": 5,
+   "tipo": "renombrar",
+   "nombre": "country club"
+  }
+ ],
+ [
+  "country club corporate",
+  {
+   "n": 6,
+   "tipo": "renombrar",
+   "nombre": "country club"
+  }
+ ],
+ [
+  "country land monteciello zapopan",
+  {
+   "n": 7,
+   "tipo": "renombrar",
+   "nombre": "monteciello zapopan"
+  }
+ ],
+ [
+  "cruz vieja",
+  {
+   "n": 8,
+   "tipo": "colonia",
+   "nombre": "cruz vieja"
+  }
+ ],
+ [
+  "crystal condominium",
+  {
+   "n": 9,
+   "tipo": "renombrar",
+   "nombre": "crystal"
+  }
+ ],
+ [
+  "cuajimalpa",
+  {
+   "n": 10,
+   "tipo": "colonia",
+   "nombre": "cuajimalpa"
+  }
+ ],
+ [
+  "cuatro camichines de la tijera",
+  {
+   "n": 11,
+   "tipo": "colonia",
+   "nombre": "cuatro camichines de la tijera"
+  }
+ ],
+ [
+  "cube",
+  {
+   "n": 12,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "cube district home plus",
+  {
+   "n": 13,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "cuitzeo",
+  {
+   "n": 14,
+   "tipo": "colonia",
+   "nombre": "cuitzeo"
+  }
+ ],
+ [
+  "cumbres del lago",
+  {
+   "n": 15,
+   "tipo": "colonia",
+   "nombre": "cumbres del lago"
+  }
+ ],
+ [
+  "dalia section",
+  {
+   "n": 16,
+   "tipo": "renombrar",
+   "nombre": "dalia"
+  }
+ ],
+ [
+  "dare to live surrounded by nature",
+  {
+   "n": 17,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "de coyula",
+  {
+   "n": 18,
+   "tipo": "renombrar",
+   "nombre": "coyula"
+  }
+ ],
+ [
+  "de la calma",
+  {
+   "n": 19,
+   "tipo": "colonia",
+   "nombre": "de la calma"
+  }
+ ],
+ [
+  "de puerta de hierro",
+  {
+   "n": 20,
+   "tipo": "renombrar",
+   "nombre": "puerta de hierro"
+  }
+ ],
+ [
+  "de santiago san pedro",
+  {
+   "n": 21,
+   "tipo": "renombrar",
+   "nombre": "santiago san pedro"
+  }
+ ],
+ [
+  "del fresno 2a",
+  {
+   "n": 22,
+   "tipo": "colonia",
+   "nombre": "del fresno 2a"
+  }
+ ],
+ [
+  "del oro dream",
+  {
+   "n": 23,
+   "tipo": "renombrar",
+   "nombre": "del oro"
+  }
+ ],
+ [
+  "depa amaranto alders",
+  {
+   "n": 24,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "depa en av americas nuevo",
+  {
+   "n": 25,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "depa in pre sale",
+  {
+   "n": 1,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "depa palladian villa",
+  {
+   "n": 2,
+   "tipo": "renombrar",
+   "nombre": "palladian villa"
+  }
+ ],
+ [
+  "departamento de lujo en urbania",
+  {
+   "n": 3,
+   "tipo": "renombrar",
+   "nombre": "urbania"
+  }
+ ],
+ [
+  "departamento torre via del bosque",
+  {
+   "n": 4,
+   "tipo": "renombrar",
+   "nombre": "torre via del bosque"
+  }
+ ],
+ [
+  "departamento zona andares",
+  {
+   "n": 5,
+   "tipo": "renombrar",
+   "nombre": "andares"
+  }
+ ],
+ [
+  "departamentos manara col monraz",
+  {
+   "n": 6,
+   "tipo": "renombrar",
+   "nombre": "monraz"
+  }
+ ],
+ [
+  "departamentos venta torre almira",
+  {
+   "n": 7,
+   "tipo": "renombrar",
+   "nombre": "torre almira"
+  }
+ ],
+ [
+  "department agave",
+  {
+   "n": 8,
+   "tipo": "renombrar",
+   "nombre": "agave"
+  }
+ ],
+ [
+  "department camino real to colima",
+  {
+   "n": 9,
+   "tipo": "renombrar",
+   "nombre": "camino real a colima"
+  }
+ ],
+ [
+  "department in anuva",
+  {
+   "n": 10,
+   "tipo": "renombrar",
+   "nombre": "anuva"
+  }
+ ],
+ [
+  "department in high hills",
+  {
+   "n": 11,
+   "tipo": "renombrar",
+   "nombre": "high hills"
+  }
+ ],
+ [
+  "department in jardines gpe",
+  {
+   "n": 12,
+   "tipo": "renombrar",
+   "nombre": "jardines guadalupe"
+  }
+ ],
+ [
+  "department in lirica in presale",
+  {
+   "n": 13,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "department in presale brussels",
+  {
+   "n": 14,
+   "tipo": "renombrar",
+   "nombre": "brussels"
+  }
+ ],
+ [
+  "department in presale heredit",
+  {
+   "n": 15,
+   "tipo": "renombrar",
+   "nombre": "heredit"
+  }
+ ],
+ [
+  "department in presale iqono parq",
+  {
+   "n": 16,
+   "tipo": "renombrar",
+   "nombre": "iqono parq"
+  }
+ ],
+ [
+  "department in presale lazaro perse",
+  {
+   "n": 17,
+   "tipo": "renombrar",
+   "nombre": "lazaro perse"
+  }
+ ],
+ [
+  "department in presale villadhara",
+  {
+   "n": 18,
+   "tipo": "renombrar",
+   "nombre": "villadhara"
+  }
+ ],
+ [
+  "department in southern point",
+  {
+   "n": 19,
+   "tipo": "renombrar",
+   "nombre": "southern point"
+  }
+ ],
+ [
+  "department in vina del mar",
+  {
+   "n": 20,
+   "tipo": "renombrar",
+   "nombre": "vina del mar"
+  }
+ ],
+ [
+  "department in virreyes model a",
+  {
+   "n": 21,
+   "tipo": "renombrar",
+   "nombre": "virreyes"
+  }
+ ],
+ [
+  "department in virreyes th",
+  {
+   "n": 22,
+   "tipo": "renombrar",
+   "nombre": "virreyes"
+  }
+ ],
+ [
+  "department in zapopan",
+  {
+   "n": 23,
+   "tipo": "colonia",
+   "nombre": "zapopan"
+  }
+ ],
+ [
+  "department on av universidad",
+  {
+   "n": 24,
+   "tipo": "renombrar",
+   "nombre": "av universidad"
+  }
+ ],
+ [
+  "department sale",
+  {
+   "n": 25,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "department sale city farm",
+  {
+   "n": 1,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "department sale ladron de guevara",
+  {
+   "n": 2,
+   "tipo": "renombrar",
+   "nombre": "ladron de guevara"
+  }
+ ],
+ [
+  "department teran",
+  {
+   "n": 3,
+   "tipo": "renombrar",
+   "nombre": "teran"
+  }
+ ],
+ [
+  "department tower aura 1",
+  {
+   "n": 4,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "department tower cantera",
+  {
+   "n": 5,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "department tower margot",
+  {
+   "n": 6,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "department tower zentral",
+  {
+   "n": 7,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "departments in presale",
+  {
+   "n": 8,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "departments in presale city farm",
+  {
+   "n": 9,
+   "tipo": "renombrar",
+   "nombre": "city farm"
+  }
+ ],
+ [
+  "depas en zona del nilo",
+  {
+   "n": 10,
+   "tipo": "renombrar",
+   "nombre": "zona del nilo"
+  }
+ ],
+ [
+  "dept tower sora",
+  {
+   "n": 11,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "deptos en calle ering",
+  {
+   "n": 12,
+   "tipo": "renombrar",
+   "nombre": "calle ering"
+  }
+ ],
+ [
+  "diamond breezes lot 38",
+  {
+   "n": 13,
+   "tipo": "renombrar",
+   "nombre": "diamond breezes"
+  }
+ ],
+ [
+  "diana nature",
+  {
+   "n": 14,
+   "tipo": "renombrar",
+   "nombre": "diana nature"
+  }
+ ],
+ [
+  "district cube",
+  {
+   "n": 15,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "distrito cube",
+  {
+   "n": 16,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "double height loft on av patria",
+  {
+   "n": 17,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "dpto 8",
+  {
+   "n": 18,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "dream lopez mateos",
+  {
+   "n": 19,
+   "tipo": "renombrar",
+   "nombre": "lopez mateos"
+  }
+ ],
+ [
+  "e 17col las grullas",
+  {
+   "n": 20,
+   "tipo": "renombrar",
+   "nombre": "las grullas"
+  }
+ ],
+ [
+  "ebano 18 naturezza bosque real",
+  {
+   "n": 21,
+   "tipo": "renombrar",
+   "nombre": "ebano naturezza bosque real"
+  }
+ ],
+ [
+  "ecuestre valle real",
+  {
+   "n": 22,
+   "tipo": "renombrar",
+   "nombre": "ecuestre valle real"
+  }
+ ],
+ [
+  "eden",
+  {
+   "n": 23,
+   "tipo": "renombrar",
+   "nombre": "eden"
+  }
+ ],
+ [
+  "eden facing the lake",
+  {
+   "n": 24,
+   "tipo": "renombrar",
+   "nombre": "eden facing the lake"
+  }
+ ],
+ [
+  "ederra residential reserve",
+  {
+   "n": 25,
+   "tipo": "renombrar",
+   "nombre": "ederra residential reserve"
+  }
+ ],
+ [
+  "edificio a3",
+  {
+   "n": 1,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "educadores de",
+  {
+   "n": 2,
+   "tipo": "renombrar",
+   "nombre": "educadores"
+  }
+ ],
+ [
+  "educadores jalisciense",
+  {
+   "n": 3,
+   "tipo": "colonia",
+   "nombre": "educadores jalisciense"
+  }
+ ],
+ [
+  "ejido santa cruz",
+  {
+   "n": 4,
+   "tipo": "colonia",
+   "nombre": "ejido santa cruz"
+  }
+ ],
+ [
+  "el",
+  {
+   "n": 5,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "el campanario tonala",
+  {
+   "n": 6,
+   "tipo": "colonia",
+   "nombre": "el campanario tonala"
+  }
+ ],
+ [
+  "el campestre lugano",
+  {
+   "n": 7,
+   "tipo": "colonia",
+   "nombre": "el campestre lugano"
+  }
+ ],
+ [
+  "el campestre residential seneca",
+  {
+   "n": 8,
+   "tipo": "renombrar",
+   "nombre": "el campestre seneca"
+  }
+ ],
+ [
+  "el carril tapatao",
+  {
+   "n": 9,
+   "tipo": "renombrar",
+   "nombre": "el carril tapatao"
+  }
+ ],
+ [
+  "el colli 1a",
+  {
+   "n": 10,
+   "tipo": "colonia",
+   "nombre": "el colli 1a"
+  }
+ ],
+ [
+  "el colli urbano 1a",
+  {
+   "n": 11,
+   "tipo": "colonia",
+   "nombre": "el colli urbano 1a"
+  }
+ ],
+ [
+  "el colli urbano 1a seccionl",
+  {
+   "n": 12,
+   "tipo": "renombrar",
+   "nombre": "el colli urbano 1a seccion"
+  }
+ ],
+ [
+  "el colli urbano 2a",
+  {
+   "n": 13,
+   "tipo": "colonia",
+   "nombre": "el colli urbano 2a"
+  }
+ ],
+ [
+  "el corredor norponiente",
+  {
+   "n": 14,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "el cortijo de san agustin",
+  {
+   "n": 15,
+   "tipo": "colonia",
+   "nombre": "el cortijo de san agustin"
+  }
+ ],
+ [
+  "el coto",
+  {
+   "n": 16,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "el crucero del salto",
+  {
+   "n": 17,
+   "tipo": "colonia",
+   "nombre": "el crucero del salto"
+  }
+ ],
+ [
+  "el dorado condominium",
+  {
+   "n": 18,
+   "tipo": "renombrar",
+   "nombre": "el dorado"
+  }
+ ],
+ [
+  "el eden bosques de santa anita",
+  {
+   "n": 19,
+   "tipo": "colonia",
+   "nombre": "el eden bosques de santa anita"
+  }
+ ],
+ [
+  "el eden tlajomulco de zuniga",
+  {
+   "n": 20,
+   "tipo": "colonia",
+   "nombre": "el eden tlajomulco de zuniga"
+  }
+ ],
+ [
+  "el guaje",
+  {
+   "n": 21,
+   "tipo": "colonia",
+   "nombre": "el guaje"
+  }
+ ],
+ [
+  "el marquez",
+  {
+   "n": 22,
+   "tipo": "colonia",
+   "nombre": "el marquez"
+  }
+ ],
+ [
+  "el origen condominium",
+  {
+   "n": 23,
+   "tipo": "renombrar",
+   "nombre": "el origen"
+  }
+ ],
+ [
+  "el palomar balcones",
+  {
+   "n": 24,
+   "tipo": "colonia",
+   "nombre": "el palomar balcones"
+  }
+ ],
+ [
+  "el palomar bosques",
+  {
+   "n": 25,
+   "tipo": "colonia",
+   "nombre": "el palomar bosques"
+  }
+ ],
+ [
+  "el palomar canadas",
+  {
+   "n": 1,
+   "tipo": "colonia",
+   "nombre": "el palomar canadas"
+  }
+ ],
+ [
+  "el palomar contry club",
+  {
+   "n": 2,
+   "tipo": "colonia",
+   "nombre": "el palomar contry club"
+  }
+ ],
+ [
+  "el palomar first section",
+  {
+   "n": 3,
+   "tipo": "renombrar",
+   "nombre": "el palomar primera seccion"
+  }
+ ],
+ [
+  "el palomar jockey club",
+  {
+   "n": 4,
+   "tipo": "colonia",
+   "nombre": "el palomar jockey club"
+  }
+ ],
+ [
+  "el palomar panoramica",
+  {
+   "n": 5,
+   "tipo": "colonia",
+   "nombre": "el palomar panoramica"
+  }
+ ],
+ [
+  "el palomar seccion bosques",
+  {
+   "n": 6,
+   "tipo": "colonia",
+   "nombre": "el palomar seccion bosques"
+  }
+ ],
+ [
+  "el palomar tlajomulco",
+  {
+   "n": 7,
+   "tipo": "colonia",
+   "nombre": "el palomar tlajomulco"
+  }
+ ],
+ [
+  "el pandito",
+  {
+   "n": 8,
+   "tipo": "colonia",
+   "nombre": "el pandito"
+  }
+ ],
+ [
+  "el panoramico 2",
+  {
+   "n": 9,
+   "tipo": "renombrar",
+   "nombre": "el panoramico 2"
+  }
+ ],
+ [
+  "el pilar",
+  {
+   "n": 10,
+   "tipo": "colonia",
+   "nombre": "el pilar"
+  }
+ ],
+ [
+  "el pilar residential tlajomulco",
+  {
+   "n": 11,
+   "tipo": "renombrar",
+   "nombre": "el pilar residencial tlajomulco"
+  }
+ ],
+ [
+  "el pitillal",
+  {
+   "n": 12,
+   "tipo": "colonia",
+   "nombre": "el pitillal"
+  }
+ ],
+ [
+  "el refugio airport el zapote",
+  {
+   "n": 13,
+   "tipo": "renombrar",
+   "nombre": "el refugio aeropuerto el zapote"
+  }
+ ],
+ [
+  "el refugio del valle",
+  {
+   "n": 14,
+   "tipo": "colonia",
+   "nombre": "el refugio del valle"
+  }
+ ],
+ [
+  "el vergel to",
+  {
+   "n": 15,
+   "tipo": "renombrar",
+   "nombre": "el vergel"
+  }
+ ],
+ [
+  "el vigaa",
+  {
+   "n": 16,
+   "tipo": "renombrar",
+   "nombre": "el vigia"
+  }
+ ],
+ [
+  "el zapote del valle",
+  {
+   "n": 17,
+   "tipo": "colonia",
+   "nombre": "el zapote del valle"
+  }
+ ],
+ [
+  "elemwnt fracc",
+  {
+   "n": 18,
+   "tipo": "renombrar",
+   "nombre": "element fracc"
+  }
+ ],
+ [
+  "elite santa lucia",
+  {
+   "n": 19,
+   "tipo": "colonia",
+   "nombre": "elite santa lucia"
+  }
+ ],
+ [
+  "elite stop",
+  {
+   "n": 20,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "emily acuarela",
+  {
+   "n": 21,
+   "tipo": "renombrar",
+   "nombre": "emily acuarela"
+  }
+ ],
+ [
+  "eniti your",
+  {
+   "n": 22,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "enrique diaz de leon",
+  {
+   "n": 23,
+   "tipo": "colonia",
+   "nombre": "enrique diaz de leon"
+  }
+ ],
+ [
+  "entorno mexico",
+  {
+   "n": 24,
+   "tipo": "colonia",
+   "nombre": "entorno mexico"
+  }
+ ],
+ [
+  "entrebosques",
+  {
+   "n": 25,
+   "tipo": "colonia",
+   "nombre": "entrebosques"
+  }
+ ],
+ [
+  "entrebosques t5",
+  {
+   "n": 1,
+   "tipo": "renombrar",
+   "nombre": "entre bosques"
+  }
+ ],
+ [
+  "escandon i",
+  {
+   "n": 2,
+   "tipo": "colonia",
+   "nombre": "escandon i"
+  }
+ ],
+ [
+  "esenik nuevo",
+  {
+   "n": 3,
+   "tipo": "renombrar",
+   "nombre": "esenik nuevo"
+  }
+ ],
+ [
+  "espacio monraz terrazas",
+  {
+   "n": 4,
+   "tipo": "renombrar",
+   "nombre": "espacio monraz terrazas"
+  }
+ ],
+ [
+  "espanol valle imperial",
+  {
+   "n": 5,
+   "tipo": "renombrar",
+   "nombre": "espanol valle imperial"
+  }
+ ],
+ [
+  "esquina en de solares",
+  {
+   "n": 6,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "estrela living solares",
+  {
+   "n": 7,
+   "tipo": "renombrar",
+   "nombre": "estrela living solares"
+  }
+ ],
+ [
+  "excellent investment opportunity",
+  {
+   "n": 8,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "excellent location",
+  {
+   "n": 9,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "excellent price ejidal",
+  {
+   "n": 10,
+   "tipo": "renombrar",
+   "nombre": "ejidal"
+  }
+ ],
+ [
+  "excellent property to finish 7",
+  {
+   "n": 11,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "exceptional",
+  {
+   "n": 12,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "exclusive country club area",
+  {
+   "n": 13,
+   "tipo": "renombrar",
+   "nombre": "country club"
+  }
+ ],
+ [
+  "exclusive pilar",
+  {
+   "n": 14,
+   "tipo": "renombrar",
+   "nombre": "pilar"
+  }
+ ],
+ [
+  "exclusive presale at arcos minerva",
+  {
+   "n": 15,
+   "tipo": "renombrar",
+   "nombre": "arcos minerva"
+  }
+ ],
+ [
+  "facing puerta hierro",
+  {
+   "n": 16,
+   "tipo": "renombrar",
+   "nombre": "puerta hierro"
+  }
+ ],
+ [
+  "fco silva romero",
+  {
+   "n": 17,
+   "tipo": "colonia",
+   "nombre": "fco silva romero"
+  }
+ ],
+ [
+  "fenced",
+  {
+   "n": 18,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "fermin riestra modern colony",
+  {
+   "n": 19,
+   "tipo": "renombrar",
+   "nombre": "fermin riestra"
+  }
+ ],
+ [
+  "ferrara",
+  {
+   "n": 20,
+   "tipo": "colonia",
+   "nombre": "ferrara"
+  }
+ ],
+ [
+  "fiori",
+  {
+   "n": 21,
+   "tipo": "colonia",
+   "nombre": "fiori"
+  }
+ ],
+ [
+  "floor 12",
+  {
+   "n": 22,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "flor de loto la tijera",
+  {
+   "n": 23,
+   "tipo": "renombrar",
+   "nombre": "flor de loto la tijera"
+  }
+ ],
+ [
+  "floresta finest",
+  {
+   "n": 24,
+   "tipo": "renombrar",
+   "nombre": "floresta"
+  }
+ ],
+ [
+  "forest way",
+  {
+   "n": 25,
+   "tipo": "renombrar",
+   "nombre": "forest way"
+  }
+ ],
+ [
+  "foret residential iii",
+  {
+   "n": 1,
+   "tipo": "renombrar",
+   "nombre": "foret residential iii"
+  }
+ ],
+ [
+  "fovisste miravalle",
+  {
+   "n": 2,
+   "tipo": "colonia",
+   "nombre": "fovisste miravalle"
+  }
+ ],
+ [
+  "frac las luces",
+  {
+   "n": 3,
+   "tipo": "colonia",
+   "nombre": "frac las luces"
+  }
+ ],
+ [
+  "fraccionacion nouve",
+  {
+   "n": 4,
+   "tipo": "renombrar",
+   "nombre": "fraccionamiento nouve"
+  }
+ ],
+ [
+  "fraccionacion solares zanthe",
+  {
+   "n": 5,
+   "tipo": "renombrar",
+   "nombre": "fraccionamiento solares zanthe"
+  }
+ ],
+ [
+  "francisco sarabia poniente",
+  {
+   "n": 6,
+   "tipo": "colonia",
+   "nombre": "francisco sarabia poniente"
+  }
+ ],
+ [
+  "fraybarron",
+  {
+   "n": 7,
+   "tipo": "colonia",
+   "nombre": "fray barron"
+  }
+ ],
+ [
+  "frente a un parque",
+  {
+   "n": 8,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "fresno department",
+  {
+   "n": 9,
+   "tipo": "renombrar",
+   "nombre": "fresno department"
+  }
+ ],
+ [
+  "front of arena vfg",
+  {
+   "n": 10,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "front of cajititlan lake",
+  {
+   "n": 11,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "front of lake chapala",
+  {
+   "n": 12,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "front of swimming pool",
+  {
+   "n": 13,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "furnished",
+  {
+   "n": 14,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "galaxia bonito",
+  {
+   "n": 15,
+   "tipo": "colonia",
+   "nombre": "galaxia bonito"
+  }
+ ],
+ [
+  "gallo colorado",
+  {
+   "n": 16,
+   "tipo": "colonia",
+   "nombre": "gallo colorado"
+  }
+ ],
+ [
+  "galo",
+  {
+   "n": 17,
+   "tipo": "colonia",
+   "nombre": "galo"
+  }
+ ],
+ [
+  "gardens of guadalupe",
+  {
+   "n": 18,
+   "tipo": "renombrar",
+   "nombre": "jardines de guadalupe"
+  }
+ ],
+ [
+  "gardens of peace",
+  {
+   "n": 19,
+   "tipo": "renombrar",
+   "nombre": "jardines de la paz"
+  }
+ ],
+ [
+  "gardens of the forest",
+  {
+   "n": 20,
+   "tipo": "renombrar",
+   "nombre": "jardines del bosque"
+  }
+ ],
+ [
+  "gardens of the valley",
+  {
+   "n": 21,
+   "tipo": "renombrar",
+   "nombre": "jardines del valle"
+  }
+ ],
+ [
+  "gated community",
+  {
+   "n": 22,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "gdl centro",
+  {
+   "n": 23,
+   "tipo": "colonia",
+   "nombre": "gdl centro"
+  }
+ ],
+ [
+  "geo villas la arbolada",
+  {
+   "n": 24,
+   "tipo": "colonia",
+   "nombre": "geo villas la arbolada"
+  }
+ ],
+ [
+  "gigthe grovetopaz",
+  {
+   "n": 25,
+   "tipo": "renombrar",
+   "nombre": "gig the grove topaz"
+  }
+ ],
+ [
+  "gilberto vazquez",
+  {
+   "n": 1,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "gloria terrace la calera",
+  {
+   "n": 2,
+   "tipo": "renombrar",
+   "nombre": "gloria terrace la calera"
+  }
+ ],
+ [
+  "gobernador curiel",
+  {
+   "n": 3,
+   "tipo": "colonia",
+   "nombre": "gobernador curiel"
+  }
+ ],
+ [
+  "golden breezes lot 22",
+  {
+   "n": 4,
+   "tipo": "renombrar",
+   "nombre": "golden breezes lot 22"
+  }
+ ],
+ [
+  "golden lands ground floor",
+  {
+   "n": 5,
+   "tipo": "renombrar",
+   "nombre": "golden lands ground floor"
+  }
+ ],
+ [
+  "gran ciudad",
+  {
+   "n": 6,
+   "tipo": "colonia",
+   "nombre": "gran ciudad"
+  }
+ ],
+ [
+  "grand",
+  {
+   "n": 7,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "granja alaada",
+  {
+   "n": 8,
+   "tipo": "renombrar",
+   "nombre": "granja alada"
+  }
+ ],
+ [
+  "granja central barragan moreno",
+  {
+   "n": 9,
+   "tipo": "renombrar",
+   "nombre": "granja central barragan moreno"
+  }
+ ],
+ [
+  "granjas",
+  {
+   "n": 10,
+   "tipo": "colonia",
+   "nombre": "granjas"
+  }
+ ],
+ [
+  "guadalajara center",
+  {
+   "n": 11,
+   "tipo": "renombrar",
+   "nombre": "centro guadalajara"
+  }
+ ],
+ [
+  "guadalajara el dean",
+  {
+   "n": 12,
+   "tipo": "renombrar",
+   "nombre": "guadalajara el dean"
+  }
+ ],
+ [
+  "guadalajara t",
+  {
+   "n": 13,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "habitacional laureles",
+  {
+   "n": 14,
+   "tipo": "colonia",
+   "nombre": "habitacional laureles"
+  }
+ ],
+ [
+  "habitacional lomas altas",
+  {
+   "n": 15,
+   "tipo": "colonia",
+   "nombre": "habitacional lomas altas"
+  }
+ ],
+ [
+  "hacienda atequiza estacion",
+  {
+   "n": 16,
+   "tipo": "renombrar",
+   "nombre": "hacienda atequiza estacion"
+  }
+ ],
+ [
+  "hacienda copala in",
+  {
+   "n": 17,
+   "tipo": "renombrar",
+   "nombre": "hacienda copala"
+  }
+ ],
+ [
+  "hacienda del oro tlajomulco",
+  {
+   "n": 18,
+   "tipo": "renombrar",
+   "nombre": "hacienda del oro tlajomulco"
+  }
+ ],
+ [
+  "hacienda del sur iii",
+  {
+   "n": 19,
+   "tipo": "colonia",
+   "nombre": "hacienda del sur iii"
+  }
+ ],
+ [
+  "hacienda la candelaria",
+  {
+   "n": 20,
+   "tipo": "colonia",
+   "nombre": "hacienda la candelaria"
+  }
+ ],
+ [
+  "hacienda la labor",
+  {
+   "n": 21,
+   "tipo": "colonia",
+   "nombre": "hacienda la labor"
+  }
+ ],
+ [
+  "hacienda la loma o el casco",
+  {
+   "n": 22,
+   "tipo": "renombrar",
+   "nombre": "hacienda la loma o el casco"
+  }
+ ],
+ [
+  "hacienda of naples",
+  {
+   "n": 23,
+   "tipo": "renombrar",
+   "nombre": "hacienda de napoles"
+  }
+ ],
+ [
+  "hacienda real tonala",
+  {
+   "n": 24,
+   "tipo": "colonia",
+   "nombre": "hacienda real tonala"
+  }
+ ],
+ [
+  "hacienda san miguel i",
+  {
+   "n": 25,
+   "tipo": "colonia",
+   "nombre": "hacienda san miguel i"
+  }
+ ],
+ [
+  "hacienda santa fe tlajomulco",
+  {
+   "n": 1,
+   "tipo": "colonia",
+   "nombre": "hacienda santa fe tlajomulco"
+  }
+ ],
+ [
+  "haciendas chapala",
+  {
+   "n": 2,
+   "tipo": "renombrar",
+   "nombre": "haciendas de chapala"
+  }
+ ],
+ [
+  "haciendas de chapala",
+  {
+   "n": 3,
+   "tipo": "colonia",
+   "nombre": "haciendas de chapala"
+  }
+ ],
+ [
+  "haciendas la candelaria",
+  {
+   "n": 4,
+   "tipo": "colonia",
+   "nombre": "haciendas la candelaria"
+  }
+ ],
+ [
+  "hard rock",
+  {
+   "n": 5,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "heliodoro hernandez",
+  {
+   "n": 6,
+   "tipo": "colonia",
+   "nombre": "heliodoro hernandez"
+  }
+ ],
+ [
+  "heliodoro hernandez loza 1a",
+  {
+   "n": 7,
+   "tipo": "colonia",
+   "nombre": "heliodoro hernandez loza 1a"
+  }
+ ],
+ [
+  "heliodoro hndz loza",
+  {
+   "n": 8,
+   "tipo": "renombrar",
+   "nombre": "heliodoro hernandez loza"
+  }
+ ],
+ [
+  "hernandez",
+  {
+   "n": 9,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "hidalgo on ladron de guevara",
+  {
+   "n": 10,
+   "tipo": "renombrar",
+   "nombre": "hidalgo"
+  }
+ ],
+ [
+  "hidden forest",
+  {
+   "n": 11,
+   "tipo": "renombrar",
+   "nombre": "bosque escondido"
+  }
+ ],
+ [
+  "high california",
+  {
+   "n": 12,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "high park",
+  {
+   "n": 13,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "high park in",
+  {
+   "n": 14,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "hispania",
+  {
+   "n": 15,
+   "tipo": "colonia",
+   "nombre": "hispania"
+  }
+ ],
+ [
+  "hispania la rioja",
+  {
+   "n": 16,
+   "tipo": "colonia",
+   "nombre": "hispania la rioja"
+  }
+ ],
+ [
+  "hispania la rioja tlajomulco",
+  {
+   "n": 17,
+   "tipo": "colonia",
+   "nombre": "hispania la rioja tlajomulco"
+  }
+ ],
+ [
+  "hispania tower in la rioja tlajo",
+  {
+   "n": 18,
+   "tipo": "renombrar",
+   "nombre": "hispania la rioja"
+  }
+ ],
+ [
+  "hispania tower la rioja floor 4",
+  {
+   "n": 19,
+   "tipo": "renombrar",
+   "nombre": "hispania la rioja"
+  }
+ ],
+ [
+  "home ph",
+  {
+   "n": 20,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "horizontal san fco",
+  {
+   "n": 21,
+   "tipo": "renombrar",
+   "nombre": "san francisco"
+  }
+ ],
+ [
+  "horizontal san francisco",
+  {
+   "n": 22,
+   "tipo": "colonia",
+   "nombre": "san francisco"
+  }
+ ],
+ [
+  "hotel in chapala",
+  {
+   "n": 23,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "huentitan hills",
+  {
+   "n": 24,
+   "tipo": "renombrar",
+   "nombre": "huentitan"
+  }
+ ],
+ [
+  "huerta baeza",
+  {
+   "n": 25,
+   "tipo": "colonia",
+   "nombre": "huerta baeza"
+  }
+ ],
+ [
+  "huerta calderon zuno uno",
+  {
+   "n": 1,
+   "tipo": "colonia",
+   "nombre": "huerta calderon zuno uno"
+  }
+ ],
+ [
+  "huertas productivas",
+  {
+   "n": 2,
+   "tipo": "colonia",
+   "nombre": "huertas productivas"
+  }
+ ],
+ [
+  "huertas productivas de",
+  {
+   "n": 3,
+   "tipo": "renombrar",
+   "nombre": "huertas productivas"
+  }
+ ],
+ [
+  "huxley",
+  {
+   "n": 4,
+   "tipo": "colonia",
+   "nombre": "huxley"
+  }
+ ],
+ [
+  "iconia hard rock",
+  {
+   "n": 5,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "iconic location",
+  {
+   "n": 6,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "if you like it",
+  {
+   "n": 7,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "imilla",
+  {
+   "n": 8,
+   "tipo": "colonia",
+   "nombre": "imilla"
+  }
+ ],
+ [
+  "imperial valley section woods",
+  {
+   "n": 9,
+   "tipo": "renombrar",
+   "nombre": "valle imperial seccion bosques"
+  }
+ ],
+ [
+  "imperio inca",
+  {
+   "n": 10,
+   "tipo": "colonia",
+   "nombre": "imperio inca"
+  }
+ ],
+ [
+  "inamiento mirador de san isidro",
+  {
+   "n": 11,
+   "tipo": "renombrar",
+   "nombre": "mirador de san isidro"
+  }
+ ],
+ [
+  "incredible land in chapala",
+  {
+   "n": 12,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "incredible location",
+  {
+   "n": 13,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "incredible vertical development",
+  {
+   "n": 14,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "independence",
+  {
+   "n": 15,
+   "tipo": "renombrar",
+   "nombre": "independencia"
+  }
+ ],
+ [
+  "independencia ote",
+  {
+   "n": 16,
+   "tipo": "renombrar",
+   "nombre": "independencia oriente"
+  }
+ ],
+ [
+  "independiencia oriente guadalajara",
+  {
+   "n": 17,
+   "tipo": "renombrar",
+   "nombre": "independencia oriente guadalajara"
+  }
+ ],
+ [
+  "infonavit la soleda",
+  {
+   "n": 18,
+   "tipo": "renombrar",
+   "nombre": "infonavit la soledad"
+  }
+ ],
+ [
+  "insurgentes 1a",
+  {
+   "n": 19,
+   "tipo": "colonia",
+   "nombre": "insurgentes 1a"
+  }
+ ],
+ [
+  "insurgentes cuicuilco",
+  {
+   "n": 20,
+   "tipo": "colonia",
+   "nombre": "insurgentes cuicuilco"
+  }
+ ],
+ [
+  "int",
+  {
+   "n": 21,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "int 12",
+  {
+   "n": 22,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "int 2",
+  {
+   "n": 23,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "int 21 an2",
+  {
+   "n": 24,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "int 28",
+  {
+   "n": 25,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "int 59",
+  {
+   "n": 1,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "int 7",
+  {
+   "n": 2,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "interior casa 19",
+  {
+   "n": 3,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "interlomas",
+  {
+   "n": 4,
+   "tipo": "colonia",
+   "nombre": "interlomas"
+  }
+ ],
+ [
+  "international condominium",
+  {
+   "n": 5,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "inversion zona real",
+  {
+   "n": 6,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "investment opportunity",
+  {
+   "n": 7,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "investment opportunity real park",
+  {
+   "n": 8,
+   "tipo": "renombrar",
+   "nombre": "real park"
+  }
+ ],
+ [
+  "isla raza",
+  {
+   "n": 9,
+   "tipo": "colonia",
+   "nombre": "isla raza"
+  }
+ ],
+ [
+  "italy providencia",
+  {
+   "n": 10,
+   "tipo": "renombrar",
+   "nombre": "italia providencia"
+  }
+ ],
+ [
+  "jade fraction tlajomulco",
+  {
+   "n": 11,
+   "tipo": "renombrar",
+   "nombre": "jade fraccionamiento tlajomulco"
+  }
+ ],
+ [
+  "jalis",
+  {
+   "n": 12,
+   "tipo": "colonia",
+   "nombre": "jalis"
+  }
+ ],
+ [
+  "jalisco 2da seccian",
+  {
+   "n": 13,
+   "tipo": "renombrar",
+   "nombre": "jalisco 2da seccion"
+  }
+ ],
+ [
+  "jalisco cp",
+  {
+   "n": 14,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "jalisco i seccion",
+  {
+   "n": 15,
+   "tipo": "renombrar",
+   "nombre": "jalisco primera seccion"
+  }
+ ],
+ [
+  "jalisco primera seccion",
+  {
+   "n": 16,
+   "tipo": "renombrar",
+   "nombre": "jalisco primera seccion"
+  }
+ ],
+ [
+  "jardan real",
+  {
+   "n": 17,
+   "tipo": "renombrar",
+   "nombre": "jardin real"
+  }
+ ],
+ [
+  "jardin de las victorias",
+  {
+   "n": 18,
+   "tipo": "colonia",
+   "nombre": "jardin de las victorias"
+  }
+ ],
+ [
+  "jardin oblatos",
+  {
+   "n": 19,
+   "tipo": "renombrar",
+   "nombre": "jardin oblatos"
+  }
+ ],
+ [
+  "jardin real zona real",
+  {
+   "n": 20,
+   "tipo": "renombrar",
+   "nombre": "jardin real"
+  }
+ ],
+ [
+  "jardines de gpe",
+  {
+   "n": 21,
+   "tipo": "renombrar",
+   "nombre": "jardines de guadalupe"
+  }
+ ],
+ [
+  "jardines de la calera tlajomulco",
+  {
+   "n": 22,
+   "tipo": "renombrar",
+   "nombre": "jardines de la calera tlajomulco"
+  }
+ ],
+ [
+  "jardines de la cruz 1a",
+  {
+   "n": 23,
+   "tipo": "renombrar",
+   "nombre": "jardines de la cruz 1a seccion"
+  }
+ ],
+ [
+  "jardines de la cruz 3a",
+  {
+   "n": 24,
+   "tipo": "renombrar",
+   "nombre": "jardines de la cruz 3a seccion"
+  }
+ ],
+ [
+  "jardines de la magdalena",
+  {
+   "n": 25,
+   "tipo": "colonia",
+   "nombre": "jardines de la magdalena"
+  }
+ ],
+ [
+  "jardines de san fco",
+  {
+   "n": 1,
+   "tipo": "renombrar",
+   "nombre": "jardines de san francisco"
+  }
+ ],
+ [
+  "jardines de santa ana tepetitlan",
+  {
+   "n": 2,
+   "tipo": "colonia",
+   "nombre": "jardines de santa ana tepetitlan"
+  }
+ ],
+ [
+  "jardines del bosque in celestia",
+  {
+   "n": 3,
+   "tipo": "renombrar",
+   "nombre": "jardines del bosque"
+  }
+ ],
+ [
+  "jardines del eden tlajomulco",
+  {
+   "n": 4,
+   "tipo": "colonia",
+   "nombre": "jardines del eden tlajomulco"
+  }
+ ],
+ [
+  "jardines del nilo gran san rafael",
+  {
+   "n": 5,
+   "tipo": "renombrar",
+   "nombre": "jardines del nilo"
+  }
+ ],
+ [
+  "jardines del pedregal",
+  {
+   "n": 6,
+   "tipo": "colonia",
+   "nombre": "jardines del pedregal"
+  }
+ ],
+ [
+  "jardines del valle in",
+  {
+   "n": 7,
+   "tipo": "renombrar",
+   "nombre": "jardines del valle"
+  }
+ ],
+ [
+  "jardines palacio",
+  {
+   "n": 8,
+   "tipo": "colonia",
+   "nombre": "jardines palacio"
+  }
+ ],
+ [
+  "jardines real",
+  {
+   "n": 9,
+   "tipo": "colonia",
+   "nombre": "jardines real"
+  }
+ ],
+ [
+  "jardines santa isabel",
+  {
+   "n": 10,
+   "tipo": "colonia",
+   "nombre": "jardines santa isabel"
+  }
+ ],
+ [
+  "jardinesl del valle",
+  {
+   "n": 11,
+   "tipo": "renombrar",
+   "nombre": "jardines del valle"
+  }
+ ],
+ [
+  "joaquin amaro",
+  {
+   "n": 12,
+   "tipo": "colonia",
+   "nombre": "joaquin amaro"
+  }
+ ],
+ [
+  "jocotan brittania",
+  {
+   "n": 13,
+   "tipo": "renombrar",
+   "nombre": "jocotan"
+  }
+ ],
+ [
+  "juan manuel vallarta colony",
+  {
+   "n": 14,
+   "tipo": "renombrar",
+   "nombre": "juan manuel vallarta"
+  }
+ ],
+ [
+  "juan palomar and arias",
+  {
+   "n": 15,
+   "tipo": "colonia",
+   "nombre": "juan palomar y arias"
+  }
+ ],
+ [
+  "juan ruiz de alarcon",
+  {
+   "n": 16,
+   "tipo": "colonia",
+   "nombre": "juan ruiz de alarcon"
+  }
+ ],
+ [
+  "justo sierra",
+  {
+   "n": 17,
+   "tipo": "colonia",
+   "nombre": "justo sierra"
+  }
+ ],
+ [
+  "katania",
+  {
+   "n": 18,
+   "tipo": "colonia",
+   "nombre": "katania"
+  }
+ ],
+ [
+  "l26b",
+  {
+   "n": 19,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "la alborada",
+  {
+   "n": 20,
+   "tipo": "colonia",
+   "nombre": "la alborada"
+  }
+ ],
+ [
+  "la alcantarilla",
+  {
+   "n": 21,
+   "tipo": "colonia",
+   "nombre": "la alcantarilla"
+  }
+ ],
+ [
+  "la almena in casa fuerte",
+  {
+   "n": 22,
+   "tipo": "renombrar",
+   "nombre": "la almena"
+  }
+ ],
+ [
+  "la arbolada",
+  {
+   "n": 23,
+   "tipo": "colonia",
+   "nombre": "la arbolada"
+  }
+ ],
+ [
+  "la arboleda tisu",
+  {
+   "n": 24,
+   "tipo": "renombrar",
+   "nombre": "la arboleda"
+  }
+ ],
+ [
+  "la azucena",
+  {
+   "n": 25,
+   "tipo": "colonia",
+   "nombre": "la azucena"
+  }
+ ],
+ [
+  "la calzada independencia",
+  {
+   "n": 1,
+   "tipo": "colonia",
+   "nombre": "la calzada independencia"
+  }
+ ],
+ [
+  "la canacinta",
+  {
+   "n": 2,
+   "tipo": "renombrar",
+   "nombre": "la canacinta"
+  }
+ ],
+ [
+  "la cima de zapopan",
+  {
+   "n": 3,
+   "tipo": "colonia",
+   "nombre": "la cima de zapopan"
+  }
+ ],
+ [
+  "la cima j",
+  {
+   "n": 4,
+   "tipo": "renombrar",
+   "nombre": "la cima"
+  }
+ ],
+ [
+  "la cima zapopan",
+  {
+   "n": 5,
+   "tipo": "colonia",
+   "nombre": "la cima zapopan"
+  }
+ ],
+ [
+  "la fortuna colony",
+  {
+   "n": 6,
+   "tipo": "renombrar",
+   "nombre": "la fortuna"
+  }
+ ],
+ [
+  "la fresna enclosure",
+  {
+   "n": 7,
+   "tipo": "renombrar",
+   "nombre": "la fresna"
+  }
+ ],
+ [
+  "la independencia",
+  {
+   "n": 8,
+   "tipo": "colonia",
+   "nombre": "la independencia"
+  }
+ ],
+ [
+  "la jolla",
+  {
+   "n": 9,
+   "tipo": "colonia",
+   "nombre": "la jolla"
+  }
+ ],
+ [
+  "la limonera",
+  {
+   "n": 10,
+   "tipo": "colonia",
+   "nombre": "la limonera"
+  }
+ ],
+ [
+  "la magdalena gardens",
+  {
+   "n": 11,
+   "tipo": "renombrar",
+   "nombre": "la magdalena"
+  }
+ ],
+ [
+  "la mesa de la coronilla",
+  {
+   "n": 12,
+   "tipo": "colonia",
+   "nombre": "la mesa de la coronilla"
+  }
+ ],
+ [
+  "la mesa poniente",
+  {
+   "n": 13,
+   "tipo": "colonia",
+   "nombre": "la mesa poniente"
+  }
+ ],
+ [
+  "la moraleja en",
+  {
+   "n": 14,
+   "tipo": "renombrar",
+   "nombre": "la moraleja"
+  }
+ ],
+ [
+  "la noria de los reyes",
+  {
+   "n": 15,
+   "tipo": "colonia",
+   "nombre": "la noria de los reyes"
+  }
+ ],
+ [
+  "la purasima",
+  {
+   "n": 16,
+   "tipo": "colonia",
+   "nombre": "la purisima"
+  }
+ ],
+ [
+  "la reserva zotogrande",
+  {
+   "n": 17,
+   "tipo": "renombrar",
+   "nombre": "la reserva zotogrande"
+  }
+ ],
+ [
+  "la rioja hispania tlajomulco",
+  {
+   "n": 18,
+   "tipo": "colonia",
+   "nombre": "la rioja hispania tlajomulco"
+  }
+ ],
+ [
+  "la rua",
+  {
+   "n": 19,
+   "tipo": "colonia",
+   "nombre": "la rua"
+  }
+ ],
+ [
+  "la rua residential to the south of",
+  {
+   "n": 20,
+   "tipo": "renombrar",
+   "nombre": "la rua"
+  }
+ ],
+ [
+  "la troje",
+  {
+   "n": 21,
+   "tipo": "colonia",
+   "nombre": "la troje"
+  }
+ ],
+ [
+  "la union del 4",
+  {
+   "n": 22,
+   "tipo": "renombrar",
+   "nombre": "la union del 4"
+  }
+ ],
+ [
+  "la zapota alley",
+  {
+   "n": 23,
+   "tipo": "renombrar",
+   "nombre": "la zapota"
+  }
+ ],
+ [
+  "ladran de guevara",
+  {
+   "n": 24,
+   "tipo": "renombrar",
+   "nombre": "ladran de guevara"
+  }
+ ],
+ [
+  "ladrillera",
+  {
+   "n": 25,
+   "tipo": "colonia",
+   "nombre": "ladrillera"
+  }
+ ],
+ [
+  "ladron de guavara",
+  {
+   "n": 1,
+   "tipo": "renombrar",
+   "nombre": "ladron de guevara"
+  }
+ ],
+ [
+  "ladron de guevara arcos",
+  {
+   "n": 2,
+   "tipo": "renombrar",
+   "nombre": "ladron de guevara arcos"
+  }
+ ],
+ [
+  "ladron de guevara colony",
+  {
+   "n": 3,
+   "tipo": "renombrar",
+   "nombre": "ladron de guevara"
+  }
+ ],
+ [
+  "lafayette area",
+  {
+   "n": 4,
+   "tipo": "renombrar",
+   "nombre": "lafayette"
+  }
+ ],
+ [
+  "lafayette colony",
+  {
+   "n": 5,
+   "tipo": "renombrar",
+   "nombre": "lafayette"
+  }
+ ],
+ [
+  "lafayette coordinate",
+  {
+   "n": 6,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "laguna de cajititlan",
+  {
+   "n": 7,
+   "tipo": "colonia",
+   "nombre": "laguna de cajititlan"
+  }
+ ],
+ [
+  "land 25 hectares",
+  {
+   "n": 8,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "land 7",
+  {
+   "n": 9,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "land above javier mina",
+  {
+   "n": 10,
+   "tipo": "renombrar",
+   "nombre": "javier mina"
+  }
+ ],
+ [
+  "land balconies of la calera",
+  {
+   "n": 11,
+   "tipo": "renombrar",
+   "nombre": "balcones de la calera"
+  }
+ ],
+ [
+  "land behind guadalajara airport",
+  {
+   "n": 12,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "land chapala",
+  {
+   "n": 13,
+   "tipo": "renombrar",
+   "nombre": "chapala"
+  }
+ ],
+ [
+  "land el casco",
+  {
+   "n": 14,
+   "tipo": "renombrar",
+   "nombre": "el casco"
+  }
+ ],
+ [
+  "land facing park in maples 1",
+  {
+   "n": 15,
+   "tipo": "renombrar",
+   "nombre": "maples 1"
+  }
+ ],
+ [
+  "land for cutlajo",
+  {
+   "n": 16,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "land for development",
+  {
+   "n": 17,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "land in bosque real j6",
+  {
+   "n": 18,
+   "tipo": "renombrar",
+   "nombre": "bosque real"
+  }
+ ],
+ [
+  "land in chapala",
+  {
+   "n": 19,
+   "tipo": "renombrar",
+   "nombre": "chapala"
+  }
+ ],
+ [
+  "land in cumbres",
+  {
+   "n": 20,
+   "tipo": "renombrar",
+   "nombre": "cumbres"
+  }
+ ],
+ [
+  "land in el palomar",
+  {
+   "n": 21,
+   "tipo": "renombrar",
+   "nombre": "el palomar"
+  }
+ ],
+ [
+  "land in fracc campo sur",
+  {
+   "n": 22,
+   "tipo": "renombrar",
+   "nombre": "campo sur"
+  }
+ ],
+ [
+  "land in front of chapala",
+  {
+   "n": 23,
+   "tipo": "renombrar",
+   "nombre": "chapala"
+  }
+ ],
+ [
+  "land in nueva galicia",
+  {
+   "n": 24,
+   "tipo": "renombrar",
+   "nombre": "nueva galicia"
+  }
+ ],
+ [
+  "land in raquet club",
+  {
+   "n": 25,
+   "tipo": "renombrar",
+   "nombre": "raquet club"
+  }
+ ],
+ [
+  "land in san agustin",
+  {
+   "n": 1,
+   "tipo": "renombrar",
+   "nombre": "san agustin"
+  }
+ ],
+ [
+  "land in senderos de monte verde 3",
+  {
+   "n": 2,
+   "tipo": "renombrar",
+   "nombre": "senderos de monte verde"
+  }
+ ],
+ [
+  "land in tetlan",
+  {
+   "n": 3,
+   "tipo": "colonia",
+   "nombre": "tetlan"
+  }
+ ],
+ [
+  "land in the canadas",
+  {
+   "n": 4,
+   "tipo": "renombrar",
+   "nombre": "las canadas"
+  }
+ ],
+ [
+  "land in the residential paradise",
+  {
+   "n": 5,
+   "tipo": "renombrar",
+   "nombre": "residencial paraiso"
+  }
+ ],
+ [
+  "land in tlajomulco",
+  {
+   "n": 6,
+   "tipo": "colonia",
+   "nombre": "tlajomulco"
+  }
+ ],
+ [
+  "land in villa guerrero",
+  {
+   "n": 7,
+   "tipo": "colonia",
+   "nombre": "villa guerrero"
+  }
+ ],
+ [
+  "land in vista sur",
+  {
+   "n": 8,
+   "tipo": "colonia",
+   "nombre": "vista sur"
+  }
+ ],
+ [
+  "land jardin real 3",
+  {
+   "n": 9,
+   "tipo": "renombrar",
+   "nombre": "jardin real"
+  }
+ ],
+ [
+  "land los olmos san agustin",
+  {
+   "n": 10,
+   "tipo": "renombrar",
+   "nombre": "los olmos san agustin"
+  }
+ ],
+ [
+  "land next to the penafiel plant",
+  {
+   "n": 11,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "land on guadalajara ocotlan road",
+  {
+   "n": 12,
+   "tipo": "renombrar",
+   "nombre": "carretera guadalajara ocotlan"
+  }
+ ],
+ [
+  "land opportunity in the sky",
+  {
+   "n": 13,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "land presale bosques sta anita",
+  {
+   "n": 14,
+   "tipo": "renombrar",
+   "nombre": "bosques santa anita"
+  }
+ ],
+ [
+  "land riberas de chapala 43",
+  {
+   "n": 15,
+   "tipo": "renombrar",
+   "nombre": "riberas de chapala"
+  }
+ ],
+ [
+  "land sale",
+  {
+   "n": 16,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "land sale valle imperial zapopan",
+  {
+   "n": 17,
+   "tipo": "renombrar",
+   "nombre": "valle imperial zapopan"
+  }
+ ],
+ [
+  "land with a view of lake chapala",
+  {
+   "n": 18,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "land with potential in chapala",
+  {
+   "n": 19,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "land with terrace cuexcomatitlan",
+  {
+   "n": 20,
+   "tipo": "renombrar",
+   "nombre": "cuexcomatitlan"
+  }
+ ],
+ [
+  "land with view of lake chapala",
+  {
+   "n": 21,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "lands in lake chapala",
+  {
+   "n": 22,
+   "tipo": "renombrar",
+   "nombre": "riberas de chapala"
+  }
+ ],
+ [
+  "landscape of treasure",
+  {
+   "n": 23,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "lapez de legaspi",
+  {
+   "n": 24,
+   "tipo": "renombrar",
+   "nombre": "lopez de legaspi"
+  }
+ ],
+ [
+  "las grullas residential tlajomulco",
+  {
+   "n": 25,
+   "tipo": "renombrar",
+   "nombre": "las grullas tlajomulco"
+  }
+ ],
+ [
+  "las heras",
+  {
+   "n": 1,
+   "tipo": "colonia",
+   "nombre": "las heras"
+  }
+ ],
+ [
+  "las lomas golf club",
+  {
+   "n": 2,
+   "tipo": "renombrar",
+   "nombre": "las lomas golf club"
+  }
+ ],
+ [
+  "las terrazas",
+  {
+   "n": 3,
+   "tipo": "colonia",
+   "nombre": "las terrazas"
+  }
+ ],
+ [
+  "las viboras valle de las flores",
+  {
+   "n": 4,
+   "tipo": "renombrar",
+   "nombre": "las viboras valle de las flores"
+  }
+ ],
+ [
+  "last units in presale veq asuncion",
+  {
+   "n": 5,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "lazaro perse",
+  {
+   "n": 6,
+   "tipo": "renombrar",
+   "nombre": "lazaro cardenas"
+  }
+ ],
+ [
+  "legacy",
+  {
+   "n": 7,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "legacy andares",
+  {
+   "n": 8,
+   "tipo": "renombrar",
+   "nombre": "legacy andares"
+  }
+ ],
+ [
+  "lerdo de tejada",
+  {
+   "n": 9,
+   "tipo": "colonia",
+   "nombre": "lerdo de tejada"
+  }
+ ],
+ [
+  "li ctm",
+  {
+   "n": 10,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "li urbano department",
+  {
+   "n": 11,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "lirica",
+  {
+   "n": 12,
+   "tipo": "colonia",
+   "nombre": "lirica"
+  }
+ ],
+ [
+  "lirica tower l virreyes",
+  {
+   "n": 13,
+   "tipo": "renombrar",
+   "nombre": "lirica virreyes"
+  }
+ ],
+ [
+  "lirica virreyes",
+  {
+   "n": 14,
+   "tipo": "renombrar",
+   "nombre": "lirica virreyes"
+  }
+ ],
+ [
+  "liva life style",
+  {
+   "n": 15,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "live daiku",
+  {
+   "n": 16,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "live next to the metropolitan park",
+  {
+   "n": 17,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "livet ottawa",
+  {
+   "n": 18,
+   "tipo": "renombrar",
+   "nombre": "livet ottawa"
+  }
+ ],
+ [
+  "livify",
+  {
+   "n": 19,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "living cot in arcos de guadalupe",
+  {
+   "n": 20,
+   "tipo": "renombrar",
+   "nombre": "arcos de guadalupe"
+  }
+ ],
+ [
+  "living cot residence",
+  {
+   "n": 21,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "livorno",
+  {
+   "n": 22,
+   "tipo": "colonia",
+   "nombre": "livorno"
+  }
+ ],
+ [
+  "loft americana ideal airbnb",
+  {
+   "n": 23,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "loft in united nations",
+  {
+   "n": 24,
+   "tipo": "renombrar",
+   "nombre": "united nations"
+  }
+ ],
+ [
+  "loft in virreyes",
+  {
+   "n": 25,
+   "tipo": "renombrar",
+   "nombre": "virreyes"
+  }
+ ],
+ [
+  "loma bonit sur",
+  {
+   "n": 1,
+   "tipo": "renombrar",
+   "nombre": "loma bonita sur"
+  }
+ ],
+ [
+  "loma bonita tlajomulco",
+  {
+   "n": 2,
+   "tipo": "colonia",
+   "nombre": "loma bonita tlajomulco"
+  }
+ ],
+ [
+  "loma bonita zalatitan",
+  {
+   "n": 3,
+   "tipo": "renombrar",
+   "nombre": "loma bonita zalatitan"
+  }
+ ],
+ [
+  "loma chica tesistan",
+  {
+   "n": 4,
+   "tipo": "colonia",
+   "nombre": "loma chica tesistan"
+  }
+ ],
+ [
+  "loma de occidente",
+  {
+   "n": 5,
+   "tipo": "colonia",
+   "nombre": "loma de occidente"
+  }
+ ],
+ [
+  "loma dorada b",
+  {
+   "n": 6,
+   "tipo": "renombrar",
+   "nombre": "loma dorada b"
+  }
+ ],
+ [
+  "loma dorada c",
+  {
+   "n": 7,
+   "tipo": "renombrar",
+   "nombre": "loma dorada c"
+  }
+ ],
+ [
+  "loma dorada delegacian c",
+  {
+   "n": 8,
+   "tipo": "renombrar",
+   "nombre": "loma dorada delegacion c"
+  }
+ ],
+ [
+  "loma dorada tonala",
+  {
+   "n": 9,
+   "tipo": "colonia",
+   "nombre": "loma dorada tonala"
+  }
+ ],
+ [
+  "lomas de",
+  {
+   "n": 10,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "lomas de batan",
+  {
+   "n": 11,
+   "tipo": "colonia",
+   "nombre": "lomas de batan"
+  }
+ ],
+ [
+  "lomas de bezares",
+  {
+   "n": 12,
+   "tipo": "colonia",
+   "nombre": "lomas de bezares"
+  }
+ ],
+ [
+  "lomas de chapultepec i",
+  {
+   "n": 13,
+   "tipo": "colonia",
+   "nombre": "lomas de chapultepec i"
+  }
+ ],
+ [
+  "lomas de chapultepec ii",
+  {
+   "n": 14,
+   "tipo": "colonia",
+   "nombre": "lomas de chapultepec ii"
+  }
+ ],
+ [
+  "lomas de oblatos",
+  {
+   "n": 15,
+   "tipo": "colonia",
+   "nombre": "lomas de oblatos"
+  }
+ ],
+ [
+  "lomas de santa anita tlajomulco",
+  {
+   "n": 16,
+   "tipo": "colonia",
+   "nombre": "lomas de santa anita tlajomulco"
+  }
+ ],
+ [
+  "lomas de santa fe",
+  {
+   "n": 17,
+   "tipo": "colonia",
+   "nombre": "lomas de santa fe"
+  }
+ ],
+ [
+  "lomas de tejeda habitacional",
+  {
+   "n": 18,
+   "tipo": "colonia",
+   "nombre": "lomas de tejeda habitacional"
+  }
+ ],
+ [
+  "lomas del bosque uag",
+  {
+   "n": 19,
+   "tipo": "renombrar",
+   "nombre": "lomas del bosque uag"
+  }
+ ],
+ [
+  "lomas del country midtown",
+  {
+   "n": 20,
+   "tipo": "renombrar",
+   "nombre": "lomas del country midtown"
+  }
+ ],
+ [
+  "lomas del paraiso 1a",
+  {
+   "n": 21,
+   "tipo": "renombrar",
+   "nombre": "lomas del paraiso 1a"
+  }
+ ],
+ [
+  "lomas independencia colony",
+  {
+   "n": 22,
+   "tipo": "renombrar",
+   "nombre": "lomas independencia"
+  }
+ ],
+ [
+  "lomas independencia in",
+  {
+   "n": 23,
+   "tipo": "renombrar",
+   "nombre": "lomas independencia"
+  }
+ ],
+ [
+  "lomas independencis",
+  {
+   "n": 24,
+   "tipo": "renombrar",
+   "nombre": "lomas independencia"
+  }
+ ],
+ [
+  "lomas tonala",
+  {
+   "n": 25,
+   "tipo": "colonia",
+   "nombre": "lomas tonala"
+  }
+ ],
+ [
+  "lopez de legazpi",
+  {
+   "n": 1,
+   "tipo": "colonia",
+   "nombre": "lopez de legazpi"
+  }
+ ],
+ [
+  "lopez mateos dream",
+  {
+   "n": 2,
+   "tipo": "renombrar",
+   "nombre": "lopez mateos"
+  }
+ ],
+ [
+  "lopez mateos in dream",
+  {
+   "n": 3,
+   "tipo": "renombrar",
+   "nombre": "lopez mateos"
+  }
+ ],
+ [
+  "lopez mateos southern",
+  {
+   "n": 4,
+   "tipo": "renombrar",
+   "nombre": "lopez mateos sur"
+  }
+ ],
+ [
+  "lopez mateos sur",
+  {
+   "n": 5,
+   "tipo": "colonia",
+   "nombre": "lopez mateos sur"
+  }
+ ],
+ [
+  "los almendros residential in",
+  {
+   "n": 6,
+   "tipo": "renombrar",
+   "nombre": "los almendros"
+  }
+ ],
+ [
+  "los gavilanes oriente",
+  {
+   "n": 7,
+   "tipo": "colonia",
+   "nombre": "los gavilanes oriente"
+  }
+ ],
+ [
+  "los naranjos condominium",
+  {
+   "n": 8,
+   "tipo": "renombrar",
+   "nombre": "los naranjos"
+  }
+ ],
+ [
+  "los olmos",
+  {
+   "n": 9,
+   "tipo": "colonia",
+   "nombre": "los olmos"
+  }
+ ],
+ [
+  "los pinos residential chapala",
+  {
+   "n": 10,
+   "tipo": "renombrar",
+   "nombre": "los pinos"
+  }
+ ],
+ [
+  "los robles at a bargain price",
+  {
+   "n": 11,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "lot san nicolas road",
+  {
+   "n": 12,
+   "tipo": "renombrar",
+   "nombre": "san nicolas"
+  }
+ ],
+ [
+  "lote 12",
+  {
+   "n": 13,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "lote colibri",
+  {
+   "n": 14,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "lotus flower",
+  {
+   "n": 15,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "lourdes",
+  {
+   "n": 16,
+   "tipo": "colonia",
+   "nombre": "lourdes"
+  }
+ ],
+ [
+  "lourdes views",
+  {
+   "n": 17,
+   "tipo": "renombrar",
+   "nombre": "lourdes"
+  }
+ ],
+ [
+  "luxia justo sierra",
+  {
+   "n": 18,
+   "tipo": "renombrar",
+   "nombre": "justo sierra"
+  }
+ ],
+ [
+  "luxury residence in chapala",
+  {
+   "n": 19,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "madeiras i capital norte",
+  {
+   "n": 20,
+   "tipo": "renombrar",
+   "nombre": "madeiras i capital norte"
+  }
+ ],
+ [
+  "madeiras ii",
+  {
+   "n": 21,
+   "tipo": "colonia",
+   "nombre": "madeiras ii"
+  }
+ ],
+ [
+  "madeiras ii condominium",
+  {
+   "n": 22,
+   "tipo": "renombrar",
+   "nombre": "madeiras ii"
+  }
+ ],
+ [
+  "magnolias",
+  {
+   "n": 23,
+   "tipo": "colonia",
+   "nombre": "magnolias"
+  }
+ ],
+ [
+  "malecon norte circuit",
+  {
+   "n": 24,
+   "tipo": "renombrar",
+   "nombre": "malecon norte"
+  }
+ ],
+ [
+  "manuel j clouthier",
+  {
+   "n": 25,
+   "tipo": "colonia",
+   "nombre": "manuel j clouthier"
+  }
+ ],
+ [
+  "maples1",
+  {
+   "n": 1,
+   "tipo": "renombrar",
+   "nombre": "maples"
+  }
+ ],
+ [
+  "margarita masa de juarez",
+  {
+   "n": 2,
+   "tipo": "colonia",
+   "nombre": "margarita masa de juarez"
+  }
+ ],
+ [
+  "margaritaville",
+  {
+   "n": 3,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "mariano otero and copernicus",
+  {
+   "n": 4,
+   "tipo": "renombrar",
+   "nombre": "mariano otero y copernico"
+  }
+ ],
+ [
+  "maritima playa flamingos",
+  {
+   "n": 5,
+   "tipo": "colonia",
+   "nombre": "maritima playa flamingos"
+  }
+ ],
+ [
+  "masaya",
+  {
+   "n": 6,
+   "tipo": "colonia",
+   "nombre": "masaya"
+  }
+ ],
+ [
+  "maximum luxury and location",
+  {
+   "n": 7,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "mayorazgos del bosque",
+  {
+   "n": 8,
+   "tipo": "colonia",
+   "nombre": "mayorazgos del bosque"
+  }
+ ],
+ [
+  "medical office 1",
+  {
+   "n": 9,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "merida centro",
+  {
+   "n": 10,
+   "tipo": "colonia",
+   "nombre": "merida centro"
+  }
+ ],
+ [
+  "mesa colorada pte",
+  {
+   "n": 11,
+   "tipo": "renombrar",
+   "nombre": "mesa colorada poniente"
+  }
+ ],
+ [
+  "mesa de san juan",
+  {
+   "n": 12,
+   "tipo": "colonia",
+   "nombre": "mesa de san juan"
+  }
+ ],
+ [
+  "metropolitan park",
+  {
+   "n": 13,
+   "tipo": "renombrar",
+   "nombre": "parque metropolitano"
+  }
+ ],
+ [
+  "metropolitano",
+  {
+   "n": 14,
+   "tipo": "colonia",
+   "nombre": "metropolitano"
+  }
+ ],
+ [
+  "mezquitanl country",
+  {
+   "n": 15,
+   "tipo": "renombrar",
+   "nombre": "mezquitan country"
+  }
+ ],
+ [
+  "miguel hidalgo cp",
+  {
+   "n": 16,
+   "tipo": "renombrar",
+   "nombre": "miguel hidalgo"
+  }
+ ],
+ [
+  "militar",
+  {
+   "n": 17,
+   "tipo": "colonia",
+   "nombre": "militar"
+  }
+ ],
+ [
+  "minerva",
+  {
+   "n": 18,
+   "tipo": "renombrar",
+   "nombre": "minerva"
+  }
+ ],
+ [
+  "minerva area",
+  {
+   "n": 19,
+   "tipo": "renombrar",
+   "nombre": "zona minerva"
+  }
+ ],
+ [
+  "mirador de los encinos",
+  {
+   "n": 20,
+   "tipo": "colonia",
+   "nombre": "mirador de los encinos"
+  }
+ ],
+ [
+  "mirador del bosque in",
+  {
+   "n": 21,
+   "tipo": "renombrar",
+   "nombre": "mirador del bosque"
+  }
+ ],
+ [
+  "miravalle ground floor",
+  {
+   "n": 22,
+   "tipo": "renombrar",
+   "nombre": "miravalle"
+  }
+ ],
+ [
+  "misian acueducto",
+  {
+   "n": 23,
+   "tipo": "renombrar",
+   "nombre": "mision acueducto"
+  }
+ ],
+ [
+  "mixed land zapopan center",
+  {
+   "n": 24,
+   "tipo": "renombrar",
+   "nombre": "zapopan centro"
+  }
+ ],
+ [
+  "monte carlo",
+  {
+   "n": 25,
+   "tipo": "colonia",
+   "nombre": "monte carlo"
+  }
+ ],
+ [
+  "monte verde el fortin condominium",
+  {
+   "n": 1,
+   "tipo": "renombrar",
+   "nombre": "monte verde el fortin"
+  }
+ ],
+ [
+  "monte verde trails",
+  {
+   "n": 2,
+   "tipo": "renombrar",
+   "nombre": "monte verde"
+  }
+ ],
+ [
+  "munah",
+  {
+   "n": 3,
+   "tipo": "colonia",
+   "nombre": "munah"
+  }
+ ],
+ [
+  "napoles",
+  {
+   "n": 4,
+   "tipo": "colonia",
+   "nombre": "napoles"
+  }
+ ],
+ [
+  "nature wind city farm",
+  {
+   "n": 5,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "naturezza bosque real",
+  {
+   "n": 6,
+   "tipo": "renombrar",
+   "nombre": "naturezza bosque real"
+  }
+ ],
+ [
+  "nauna",
+  {
+   "n": 7,
+   "tipo": "colonia",
+   "nombre": "nauna"
+  }
+ ],
+ [
+  "nerea",
+  {
+   "n": 8,
+   "tipo": "colonia",
+   "nombre": "nerea"
+  }
+ ],
+ [
+  "new door",
+  {
+   "n": 9,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "new galicia",
+  {
+   "n": 10,
+   "tipo": "renombrar",
+   "nombre": "nueva galicia"
+  }
+ ],
+ [
+  "new in casa fuerte",
+  {
+   "n": 11,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "new mexico",
+  {
+   "n": 12,
+   "tipo": "colonia",
+   "nombre": "nuevo mexico"
+  }
+ ],
+ [
+  "new on the south side of the",
+  {
+   "n": 13,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "nextipark",
+  {
+   "n": 14,
+   "tipo": "renombrar",
+   "nombre": "nextipark"
+  }
+ ],
+ [
+  "nicolas bravo",
+  {
+   "n": 15,
+   "tipo": "colonia",
+   "nombre": "nicolas bravo"
+  }
+ ],
+ [
+  "nicolas r casillas",
+  {
+   "n": 16,
+   "tipo": "colonia",
+   "nombre": "nicolas r casillas"
+  }
+ ],
+ [
+  "nile parks",
+  {
+   "n": 17,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "niza residences",
+  {
+   "n": 18,
+   "tipo": "colonia",
+   "nombre": "niza residences"
+  }
+ ],
+ [
+  "nogal parques vallarta",
+  {
+   "n": 19,
+   "tipo": "renombrar",
+   "nombre": "nogal parques vallarta"
+  }
+ ],
+ [
+  "north capital",
+  {
+   "n": 20,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "nueva espaaa",
+  {
+   "n": 21,
+   "tipo": "renombrar",
+   "nombre": "nueva españa"
+  }
+ ],
+ [
+  "nueva galicia andalucia",
+  {
+   "n": 22,
+   "tipo": "renombrar",
+   "nombre": "nueva galicia andalucia"
+  }
+ ],
+ [
+  "nueva galicia department",
+  {
+   "n": 23,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "nueva galicia in a gated community",
+  {
+   "n": 24,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "nueva galicia residencia",
+  {
+   "n": 25,
+   "tipo": "renombrar",
+   "nombre": "nueva galicia residencia"
+  }
+ ],
+ [
+  "nueva galicia tlajomulco de zuniga",
+  {
+   "n": 1,
+   "tipo": "colonia",
+   "nombre": "nueva galicia tlajomulco de zuniga"
+  }
+ ],
+ [
+  "nuevo chapala club",
+  {
+   "n": 2,
+   "tipo": "colonia",
+   "nombre": "nuevo chapala club"
+  }
+ ],
+ [
+  "nuevo hogar en nueva galicia",
+  {
+   "n": 3,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "number 4",
+  {
+   "n": 4,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "oaks hills",
+  {
+   "n": 5,
+   "tipo": "renombrar",
+   "nombre": "oaks hills"
+  }
+ ],
+ [
+  "obeliscos",
+  {
+   "n": 6,
+   "tipo": "colonia",
+   "nombre": "obeliscos"
+  }
+ ],
+ [
+  "oblates",
+  {
+   "n": 7,
+   "tipo": "colonia",
+   "nombre": "oblates"
+  }
+ ],
+ [
+  "ocotlan",
+  {
+   "n": 8,
+   "tipo": "colonia",
+   "nombre": "ocotlan"
+  }
+ ],
+ [
+  "offices in cyc",
+  {
+   "n": 9,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "oficina en arboledas 1a",
+  {
+   "n": 10,
+   "tipo": "renombrar",
+   "nombre": "arboledas 1a"
+  }
+ ],
+ [
+  "oficina en providencia 1a",
+  {
+   "n": 11,
+   "tipo": "renombrar",
+   "nombre": "providencia 1a"
+  }
+ ],
+ [
+  "ojo de agua 2da etapa",
+  {
+   "n": 12,
+   "tipo": "colonia",
+   "nombre": "ojo de agua 2da etapa"
+  }
+ ],
+ [
+  "olampica",
+  {
+   "n": 13,
+   "tipo": "renombrar",
+   "nombre": "olimpica"
+  }
+ ],
+ [
+  "omosprovidencia",
+  {
+   "n": 14,
+   "tipo": "renombrar",
+   "nombre": "providencia"
+  }
+ ],
+ [
+  "on corner",
+  {
+   "n": 15,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "one of the most sought after areas",
+  {
+   "n": 16,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "opportunity",
+  {
+   "n": 17,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "opportunity gardens of peace",
+  {
+   "n": 18,
+   "tipo": "renombrar",
+   "nombre": "jardines de paz"
+  }
+ ],
+ [
+  "opportunity price",
+  {
+   "n": 19,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "orquideas",
+  {
+   "n": 20,
+   "tipo": "colonia",
+   "nombre": "orquideas"
+  }
+ ],
+ [
+  "ovie 20 vertical living",
+  {
+   "n": 21,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "pablo casals",
+  {
+   "n": 22,
+   "tipo": "colonia",
+   "nombre": "pablo casals"
+  }
+ ],
+ [
+  "palomar",
+  {
+   "n": 23,
+   "tipo": "colonia",
+   "nombre": "palomar"
+  }
+ ],
+ [
+  "panoramic mirador",
+  {
+   "n": 24,
+   "tipo": "colonia",
+   "nombre": "mirador panoramico"
+  }
+ ],
+ [
+  "panoramic views",
+  {
+   "n": 25,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "paradero elite ii",
+  {
+   "n": 1,
+   "tipo": "colonia",
+   "nombre": "paradero elite ii"
+  }
+ ],
+ [
+  "paradise",
+  {
+   "n": 2,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "paraiso residential santa anita",
+  {
+   "n": 3,
+   "tipo": "renombrar",
+   "nombre": "paraiso residential santa anita"
+  }
+ ],
+ [
+  "paraje",
+  {
+   "n": 4,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "paraje area galerias santa anita",
+  {
+   "n": 5,
+   "tipo": "renombrar",
+   "nombre": "paraje area galerias santa anita"
+  }
+ ],
+ [
+  "paraje casa de autor tlajomulco",
+  {
+   "n": 6,
+   "tipo": "renombrar",
+   "nombre": "paraje casa de autor tlajomulco"
+  }
+ ],
+ [
+  "paraje casas de autor",
+  {
+   "n": 7,
+   "tipo": "renombrar",
+   "nombre": "paraje casas de autor"
+  }
+ ],
+ [
+  "park life plaza pabellon",
+  {
+   "n": 8,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "parklife",
+  {
+   "n": 9,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "parks of tesistan zapopan",
+  {
+   "n": 10,
+   "tipo": "renombrar",
+   "nombre": "parques de tesistan zapopan"
+  }
+ ],
+ [
+  "parque agua azul",
+  {
+   "n": 11,
+   "tipo": "colonia",
+   "nombre": "parque agua azul"
+  }
+ ],
+ [
+  "parque san andres",
+  {
+   "n": 12,
+   "tipo": "colonia",
+   "nombre": "parque san andres"
+  }
+ ],
+ [
+  "parque san javier",
+  {
+   "n": 13,
+   "tipo": "colonia",
+   "nombre": "parque san javier"
+  }
+ ],
+ [
+  "parque virreyes",
+  {
+   "n": 14,
+   "tipo": "colonia",
+   "nombre": "parque virreyes"
+  }
+ ],
+ [
+  "parques",
+  {
+   "n": 15,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "parques de",
+  {
+   "n": 16,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "parques de la victoria etapa ii",
+  {
+   "n": 17,
+   "tipo": "colonia",
+   "nombre": "parques de la victoria etapa ii"
+  }
+ ],
+ [
+  "parques de tesista",
+  {
+   "n": 18,
+   "tipo": "renombrar",
+   "nombre": "parques de tesistan"
+  }
+ ],
+ [
+  "parques del auditorio in",
+  {
+   "n": 19,
+   "tipo": "renombrar",
+   "nombre": "parques del auditorio"
+  }
+ ],
+ [
+  "parques vallarta abeto",
+  {
+   "n": 20,
+   "tipo": "renombrar",
+   "nombre": "parques vallarta abeto"
+  }
+ ],
+ [
+  "parques vallarta coto abeto",
+  {
+   "n": 21,
+   "tipo": "renombrar",
+   "nombre": "parques vallarta coto abeto"
+  }
+ ],
+ [
+  "parques vallarta in",
+  {
+   "n": 22,
+   "tipo": "renombrar",
+   "nombre": "parques vallarta"
+  }
+ ],
+ [
+  "parres arias",
+  {
+   "n": 23,
+   "tipo": "colonia",
+   "nombre": "parres arias"
+  }
+ ],
+ [
+  "pase los agaves",
+  {
+   "n": 24,
+   "tipo": "renombrar",
+   "nombre": "pase los agaves"
+  }
+ ],
+ [
+  "paseo del origen",
+  {
+   "n": 25,
+   "tipo": "colonia",
+   "nombre": "paseo del origen"
+  }
+ ],
+ [
+  "paseo del zoologico",
+  {
+   "n": 1,
+   "tipo": "colonia",
+   "nombre": "paseo del zoologico"
+  }
+ ],
+ [
+  "paseos de la ca",
+  {
+   "n": 2,
+   "tipo": "renombrar",
+   "nombre": "paseos de la ca"
+  }
+ ],
+ [
+  "paseos de tonala",
+  {
+   "n": 3,
+   "tipo": "colonia",
+   "nombre": "paseos de tonala"
+  }
+ ],
+ [
+  "passion la floresta",
+  {
+   "n": 4,
+   "tipo": "renombrar",
+   "nombre": "la floresta"
+  }
+ ],
+ [
+  "patria sur",
+  {
+   "n": 5,
+   "tipo": "colonia",
+   "nombre": "patria sur"
+  }
+ ],
+ [
+  "pedregal de san nicolas 2a",
+  {
+   "n": 6,
+   "tipo": "colonia",
+   "nombre": "pedregal de san nicolas 2a"
+  }
+ ],
+ [
+  "ph in city farm",
+  {
+   "n": 7,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "ph point sao pablo",
+  {
+   "n": 8,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "ph with rooftop in la americana",
+  {
+   "n": 9,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "pilar",
+  {
+   "n": 10,
+   "tipo": "colonia",
+   "nombre": "pilar"
+  }
+ ],
+ [
+  "plaza mexico",
+  {
+   "n": 11,
+   "tipo": "colonia",
+   "nombre": "plaza mexico"
+  }
+ ],
+ [
+  "plaza puesta del sol",
+  {
+   "n": 12,
+   "tipo": "renombrar",
+   "nombre": "plaza puesta del sol"
+  }
+ ],
+ [
+  "plaza sorrento",
+  {
+   "n": 13,
+   "tipo": "colonia",
+   "nombre": "plaza sorrento"
+  }
+ ],
+ [
+  "plaza triventi",
+  {
+   "n": 14,
+   "tipo": "colonia",
+   "nombre": "plaza triventi"
+  }
+ ],
+ [
+  "plenitud valle real",
+  {
+   "n": 15,
+   "tipo": "renombrar",
+   "nombre": "valle real"
+  }
+ ],
+ [
+  "plenitude valle real",
+  {
+   "n": 16,
+   "tipo": "renombrar",
+   "nombre": "valle real"
+  }
+ ],
+ [
+  "polanco i",
+  {
+   "n": 17,
+   "tipo": "colonia",
+   "nombre": "polanco i"
+  }
+ ],
+ [
+  "polanco iv",
+  {
+   "n": 18,
+   "tipo": "colonia",
+   "nombre": "polanco iv"
+  }
+ ],
+ [
+  "polanco iv seccion",
+  {
+   "n": 19,
+   "tipo": "colonia",
+   "nombre": "polanco iv seccion"
+  }
+ ],
+ [
+  "polanco v",
+  {
+   "n": 20,
+   "tipo": "colonia",
+   "nombre": "polanco v"
+  }
+ ],
+ [
+  "polanquito poniente",
+  {
+   "n": 21,
+   "tipo": "colonia",
+   "nombre": "polanquito poniente"
+  }
+ ],
+ [
+  "poniente",
+  {
+   "n": 22,
+   "tipo": "colonia",
+   "nombre": "poniente"
+  }
+ ],
+ [
+  "pontevedra capital norte",
+  {
+   "n": 23,
+   "tipo": "colonia",
+   "nombre": "pontevedra capital norte"
+  }
+ ],
+ [
+  "prado coapa 2a",
+  {
+   "n": 24,
+   "tipo": "colonia",
+   "nombre": "prado coapa 2a"
+  }
+ ],
+ [
+  "prado coapa 3a",
+  {
+   "n": 25,
+   "tipo": "colonia",
+   "nombre": "prado coapa 3a"
+  }
+ ],
+ [
+  "prados atequiza",
+  {
+   "n": 1,
+   "tipo": "colonia",
+   "nombre": "prados atequiza"
+  }
+ ],
+ [
+  "prados cruz",
+  {
+   "n": 2,
+   "tipo": "colonia",
+   "nombre": "prados cruz"
+  }
+ ],
+ [
+  "prados cruz 1",
+  {
+   "n": 3,
+   "tipo": "colonia",
+   "nombre": "prados cruz 1"
+  }
+ ],
+ [
+  "pre sale for older adults",
+  {
+   "n": 4,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "precious residence in atmosphere",
+  {
+   "n": 5,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "presale",
+  {
+   "n": 6,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "presale apartments city farm",
+  {
+   "n": 7,
+   "tipo": "renombrar",
+   "nombre": "ciudad granja"
+  }
+ ],
+ [
+  "presale apartments in harmony",
+  {
+   "n": 8,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "presale apartments liiv vallarte",
+  {
+   "n": 9,
+   "tipo": "renombrar",
+   "nombre": "liiv vallarta"
+  }
+ ],
+ [
+  "presale apartments lirica",
+  {
+   "n": 10,
+   "tipo": "renombrar",
+   "nombre": "lirica"
+  }
+ ],
+ [
+  "presale apartments on av mexico",
+  {
+   "n": 11,
+   "tipo": "renombrar",
+   "nombre": "av mexico"
+  }
+ ],
+ [
+  "presale apartments tepeyac",
+  {
+   "n": 12,
+   "tipo": "renombrar",
+   "nombre": "tepeyac"
+  }
+ ],
+ [
+  "presale apartments tower mass",
+  {
+   "n": 13,
+   "tipo": "renombrar",
+   "nombre": "torre mass"
+  }
+ ],
+ [
+  "presale apartments zapopan center",
+  {
+   "n": 14,
+   "tipo": "renombrar",
+   "nombre": "zapopan centro"
+  }
+ ],
+ [
+  "presale department in moderna",
+  {
+   "n": 15,
+   "tipo": "renombrar",
+   "nombre": "moderna"
+  }
+ ],
+ [
+  "presale departments",
+  {
+   "n": 16,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "presale in ajijic villa shambala",
+  {
+   "n": 17,
+   "tipo": "renombrar",
+   "nombre": "ajijic villa shambala"
+  }
+ ],
+ [
+  "presale nuvo apartments montevideo",
+  {
+   "n": 18,
+   "tipo": "renombrar",
+   "nombre": "nuvo montevideo"
+  }
+ ],
+ [
+  "presale of",
+  {
+   "n": 19,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "presale of apartmentscity farm",
+  {
+   "n": 20,
+   "tipo": "renombrar",
+   "nombre": "ciudad granja"
+  }
+ ],
+ [
+  "presale residence in altanza",
+  {
+   "n": 21,
+   "tipo": "renombrar",
+   "nombre": "altanza"
+  }
+ ],
+ [
+  "presale suite zapopan center",
+  {
+   "n": 22,
+   "tipo": "renombrar",
+   "nombre": "zapopan centro"
+  }
+ ],
+ [
+  "presales department",
+  {
+   "n": 23,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "presales department at thalatha",
+  {
+   "n": 24,
+   "tipo": "renombrar",
+   "nombre": "thalatha"
+  }
+ ],
+ [
+  "presidentes ejidales 2a",
+  {
+   "n": 25,
+   "tipo": "colonia",
+   "nombre": "presidentes ejidales 2a"
+  }
+ ],
+ [
+  "preventa eleva gonzaga",
+  {
+   "n": 1,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "preventa eleva rio de janeiro",
+  {
+   "n": 2,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "preventa en italia providencia",
+  {
+   "n": 3,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "preventa liv capital",
+  {
+   "n": 4,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "primera",
+  {
+   "n": 5,
+   "tipo": "colonia",
+   "nombre": "primera"
+  }
+ ],
+ [
+  "primera seccion",
+  {
+   "n": 6,
+   "tipo": "colonia",
+   "nombre": "primera seccion"
+  }
+ ],
+ [
+  "privada los olivos",
+  {
+   "n": 7,
+   "tipo": "colonia",
+   "nombre": "privada los olivos"
+  }
+ ],
+ [
+  "privado del pilar",
+  {
+   "n": 8,
+   "tipo": "colonia",
+   "nombre": "privado del pilar"
+  }
+ ],
+ [
+  "privanza atemajac",
+  {
+   "n": 9,
+   "tipo": "colonia",
+   "nombre": "privanza atemajac"
+  }
+ ],
+ [
+  "privanza senda",
+  {
+   "n": 10,
+   "tipo": "colonia",
+   "nombre": "privanza senda"
+  }
+ ],
+ [
+  "private cot el campestre",
+  {
+   "n": 11,
+   "tipo": "renombrar",
+   "nombre": "coto el campestre"
+  }
+ ],
+ [
+  "private cot in real del valle",
+  {
+   "n": 12,
+   "tipo": "renombrar",
+   "nombre": "coto real del valle"
+  }
+ ],
+ [
+  "private gated community",
+  {
+   "n": 13,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "private guadalajarita",
+  {
+   "n": 14,
+   "tipo": "renombrar",
+   "nombre": "guadalajarita"
+  }
+ ],
+ [
+  "private subdivision los galapagos",
+  {
+   "n": 15,
+   "tipo": "renombrar",
+   "nombre": "los galapagos"
+  }
+ ],
+ [
+  "prohogar",
+  {
+   "n": 16,
+   "tipo": "colonia",
+   "nombre": "prohogar"
+  }
+ ],
+ [
+  "project the labor",
+  {
+   "n": 17,
+   "tipo": "renombrar",
+   "nombre": "la labor"
+  }
+ ],
+ [
+  "prontevedra",
+  {
+   "n": 18,
+   "tipo": "renombrar",
+   "nombre": "pontevedra"
+  }
+ ],
+ [
+  "property center of gdl mixed",
+  {
+   "n": 19,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "provenza la romana",
+  {
+   "n": 20,
+   "tipo": "renombrar",
+   "nombre": "provenza la romana"
+  }
+ ],
+ [
+  "providencia 1a",
+  {
+   "n": 21,
+   "tipo": "colonia",
+   "nombre": "providencia 1a"
+  }
+ ],
+ [
+  "providencia 2a",
+  {
+   "n": 22,
+   "tipo": "colonia",
+   "nombre": "providencia 2a"
+  }
+ ],
+ [
+  "providencia 3a",
+  {
+   "n": 23,
+   "tipo": "colonia",
+   "nombre": "providencia 3a"
+  }
+ ],
+ [
+  "providencia area",
+  {
+   "n": 24,
+   "tipo": "renombrar",
+   "nombre": "providencia"
+  }
+ ],
+ [
+  "providencia artea vertical",
+  {
+   "n": 25,
+   "tipo": "renombrar",
+   "nombre": "providencia artea vertical"
+  }
+ ],
+ [
+  "providencia en la zona financiera",
+  {
+   "n": 1,
+   "tipo": "renombrar",
+   "nombre": "providencia"
+  }
+ ],
+ [
+  "providencia for investors",
+  {
+   "n": 2,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "providencia jose maria vigil",
+  {
+   "n": 3,
+   "tipo": "colonia",
+   "nombre": "providencia jose maria vigil"
+  }
+ ],
+ [
+  "providencia montreal",
+  {
+   "n": 4,
+   "tipo": "colonia",
+   "nombre": "providencia montreal"
+  }
+ ],
+ [
+  "providencia otower",
+  {
+   "n": 5,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "providencia the best area of",
+  {
+   "n": 6,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "providencia1a",
+  {
+   "n": 7,
+   "tipo": "renombrar",
+   "nombre": "providencia"
+  }
+ ],
+ [
+  "pueblo cajititlan",
+  {
+   "n": 8,
+   "tipo": "colonia",
+   "nombre": "pueblo cajititlan"
+  }
+ ],
+ [
+  "pueblo la primavera",
+  {
+   "n": 9,
+   "tipo": "colonia",
+   "nombre": "pueblo la primavera"
+  }
+ ],
+ [
+  "pueblo san agustin",
+  {
+   "n": 10,
+   "tipo": "colonia",
+   "nombre": "pueblo san agustin"
+  }
+ ],
+ [
+  "pueblo san miguel cuyutlan",
+  {
+   "n": 11,
+   "tipo": "colonia",
+   "nombre": "pueblo san miguel cuyutlan"
+  }
+ ],
+ [
+  "pueblo santa cruz de las flores",
+  {
+   "n": 12,
+   "tipo": "colonia",
+   "nombre": "pueblo santa cruz de las flores"
+  }
+ ],
+ [
+  "pueblo tateposco",
+  {
+   "n": 13,
+   "tipo": "colonia",
+   "nombre": "pueblo tateposco"
+  }
+ ],
+ [
+  "puerta de hierro agave area",
+  {
+   "n": 14,
+   "tipo": "renombrar",
+   "nombre": "puerta de hierro"
+  }
+ ],
+ [
+  "puerta de hierro asturias",
+  {
+   "n": 15,
+   "tipo": "colonia",
+   "nombre": "puerta de hierro asturias"
+  }
+ ],
+ [
+  "puerta de piedra tlajomulco",
+  {
+   "n": 16,
+   "tipo": "colonia",
+   "nombre": "puerta de piedra tlajomulco"
+  }
+ ],
+ [
+  "puerta del angel",
+  {
+   "n": 17,
+   "tipo": "colonia",
+   "nombre": "puerta del angel"
+  }
+ ],
+ [
+  "puerta las lomas andares",
+  {
+   "n": 18,
+   "tipo": "renombrar",
+   "nombre": "puerta las lomas"
+  }
+ ],
+ [
+  "puerta magnolia",
+  {
+   "n": 19,
+   "tipo": "colonia",
+   "nombre": "puerta magnolia"
+  }
+ ],
+ [
+  "puerta sol autopista",
+  {
+   "n": 20,
+   "tipo": "renombrar",
+   "nombre": "puerta sol"
+  }
+ ],
+ [
+  "puertas del angel",
+  {
+   "n": 21,
+   "tipo": "colonia",
+   "nombre": "puertas del angel"
+  }
+ ],
+ [
+  "puerto yavaros sn",
+  {
+   "n": 22,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "puestas del sol",
+  {
+   "n": 23,
+   "tipo": "renombrar",
+   "nombre": "puestas del sol"
+  }
+ ],
+ [
+  "punto ajijic",
+  {
+   "n": 24,
+   "tipo": "colonia",
+   "nombre": "punto ajijic"
+  }
+ ],
+ [
+  "punto sao paulo vertical",
+  {
+   "n": 25,
+   "tipo": "colonia",
+   "nombre": "punto sao paulo vertical"
+  }
+ ],
+ [
+  "punto sur elite",
+  {
+   "n": 1,
+   "tipo": "colonia",
+   "nombre": "punto sur elite"
+  }
+ ],
+ [
+  "punto sur facing the park",
+  {
+   "n": 2,
+   "tipo": "renombrar",
+   "nombre": "punto sur"
+  }
+ ],
+ [
+  "qalina chapultepec for investors",
+  {
+   "n": 3,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "quintanova",
+  {
+   "n": 4,
+   "tipo": "colonia",
+   "nombre": "quintanova"
+  }
+ ],
+ [
+  "quintas del federalismo",
+  {
+   "n": 5,
+   "tipo": "colonia",
+   "nombre": "quintas del federalismo"
+  }
+ ],
+ [
+  "ramal de la tijera",
+  {
+   "n": 6,
+   "tipo": "colonia",
+   "nombre": "ramal de la tijera"
+  }
+ ],
+ [
+  "rancho club",
+  {
+   "n": 7,
+   "tipo": "colonia",
+   "nombre": "rancho club"
+  }
+ ],
+ [
+  "rancho grande",
+  {
+   "n": 8,
+   "tipo": "colonia",
+   "nombre": "rancho grande"
+  }
+ ],
+ [
+  "rancho o rancheria buenavista",
+  {
+   "n": 9,
+   "tipo": "renombrar",
+   "nombre": "buenavista"
+  }
+ ],
+ [
+  "rancho san jose del tajo",
+  {
+   "n": 10,
+   "tipo": "colonia",
+   "nombre": "rancho san jose del tajo"
+  }
+ ],
+ [
+  "real center",
+  {
+   "n": 11,
+   "tipo": "colonia",
+   "nombre": "real center"
+  }
+ ],
+ [
+  "real de san ignacio",
+  {
+   "n": 12,
+   "tipo": "colonia",
+   "nombre": "real de san ignacio"
+  }
+ ],
+ [
+  "real del monte gated community",
+  {
+   "n": 13,
+   "tipo": "renombrar",
+   "nombre": "real del monte"
+  }
+ ],
+ [
+  "real valley sale",
+  {
+   "n": 14,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "real view",
+  {
+   "n": 15,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "ref",
+  {
+   "n": 16,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "rents pool",
+  {
+   "n": 17,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "renzo",
+  {
+   "n": 18,
+   "tipo": "colonia",
+   "nombre": "renzo"
+  }
+ ],
+ [
+  "republic",
+  {
+   "n": 19,
+   "tipo": "colonia",
+   "nombre": "republic"
+  }
+ ],
+ [
+  "residence in new galicia",
+  {
+   "n": 20,
+   "tipo": "renombrar",
+   "nombre": "nueva galicia"
+  }
+ ],
+ [
+  "residencia bosques vallarta",
+  {
+   "n": 21,
+   "tipo": "colonia",
+   "nombre": "residencia bosques vallarta"
+  }
+ ],
+ [
+  "residencias del prado",
+  {
+   "n": 22,
+   "tipo": "colonia",
+   "nombre": "residencias del prado"
+  }
+ ],
+ [
+  "residential albaterra",
+  {
+   "n": 23,
+   "tipo": "colonia",
+   "nombre": "residential albaterra"
+  }
+ ],
+ [
+  "residential alberi",
+  {
+   "n": 24,
+   "tipo": "colonia",
+   "nombre": "residential alberi"
+  }
+ ],
+ [
+  "residential alta california",
+  {
+   "n": 25,
+   "tipo": "colonia",
+   "nombre": "residential alta california"
+  }
+ ],
+ [
+  "residential del pilar",
+  {
+   "n": 1,
+   "tipo": "renombrar",
+   "nombre": "residencial del pilar"
+  }
+ ],
+ [
+  "residential diana natura",
+  {
+   "n": 2,
+   "tipo": "renombrar",
+   "nombre": "residencial diana natura"
+  }
+ ],
+ [
+  "residential el eden",
+  {
+   "n": 3,
+   "tipo": "renombrar",
+   "nombre": "residencial el eden"
+  }
+ ],
+ [
+  "residential virreyes",
+  {
+   "n": 4,
+   "tipo": "renombrar",
+   "nombre": "residencial virreyes"
+  }
+ ],
+ [
+  "revolucion primer cuadro",
+  {
+   "n": 5,
+   "tipo": "colonia",
+   "nombre": "revolucion primer cuadro"
+  }
+ ],
+ [
+  "revolution",
+  {
+   "n": 6,
+   "tipo": "renombrar",
+   "nombre": "revolucion"
+  }
+ ],
+ [
+  "riberas mountainside",
+  {
+   "n": 7,
+   "tipo": "renombrar",
+   "nombre": "riberas del bosque"
+  }
+ ],
+ [
+  "rinconada de los nogales i y ii",
+  {
+   "n": 8,
+   "tipo": "colonia",
+   "nombre": "rinconada de los nogales i y ii"
+  }
+ ],
+ [
+  "rinconada de santa anita",
+  {
+   "n": 9,
+   "tipo": "colonia",
+   "nombre": "rinconada de santa anita"
+  }
+ ],
+ [
+  "rinconada del camichin",
+  {
+   "n": 10,
+   "tipo": "colonia",
+   "nombre": "rinconada del camichin"
+  }
+ ],
+ [
+  "rinconada las palmas",
+  {
+   "n": 11,
+   "tipo": "colonia",
+   "nombre": "rinconada las palmas"
+  }
+ ],
+ [
+  "rio papagayo int 1a",
+  {
+   "n": 12,
+   "tipo": "renombrar",
+   "nombre": "rio papagayo"
+  }
+ ],
+ [
+  "riviera alta",
+  {
+   "n": 13,
+   "tipo": "colonia",
+   "nombre": "riviera alta"
+  }
+ ],
+ [
+  "saant marten",
+  {
+   "n": 14,
+   "tipo": "renombrar",
+   "nombre": "santa marten"
+  }
+ ],
+ [
+  "safe investment here",
+  {
+   "n": 15,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "saint augustine",
+  {
+   "n": 16,
+   "tipo": "renombrar",
+   "nombre": "san agustin"
+  }
+ ],
+ [
+  "sale",
+  {
+   "n": 17,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "sale 1",
+  {
+   "n": 18,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "sale av old road to tesistan",
+  {
+   "n": 19,
+   "tipo": "renombrar",
+   "nombre": "camino a tesistan"
+  }
+ ],
+ [
+  "sale dept colonies",
+  {
+   "n": 20,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "sale land atotonilquillo",
+  {
+   "n": 21,
+   "tipo": "renombrar",
+   "nombre": "atotonilquillo"
+  }
+ ],
+ [
+  "sale land colinas de santa anita",
+  {
+   "n": 22,
+   "tipo": "renombrar",
+   "nombre": "colinas de santa anita"
+  }
+ ],
+ [
+  "sale land cortijo san agustin",
+  {
+   "n": 23,
+   "tipo": "renombrar",
+   "nombre": "cortijo san agustin"
+  }
+ ],
+ [
+  "sale land palomar section forests",
+  {
+   "n": 24,
+   "tipo": "renombrar",
+   "nombre": "palomar"
+  }
+ ],
+ [
+  "sale of apartments colotlan road",
+  {
+   "n": 25,
+   "tipo": "renombrar",
+   "nombre": "colotlan"
+  }
+ ],
+ [
+  "sale of apartments in zapopan",
+  {
+   "n": 1,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "sale of apartments on ering street",
+  {
+   "n": 2,
+   "tipo": "renombrar",
+   "nombre": "calle ering"
+  }
+ ],
+ [
+  "sale of land in zapopan",
+  {
+   "n": 3,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "sale of panoramic land in chapala",
+  {
+   "n": 4,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "sale ph new in city farm",
+  {
+   "n": 5,
+   "tipo": "renombrar",
+   "nombre": "granja ciudad"
+  }
+ ],
+ [
+  "sale residence",
+  {
+   "n": 6,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "sale stadium area jalisco",
+  {
+   "n": 7,
+   "tipo": "renombrar",
+   "nombre": "estadio jalisco"
+  }
+ ],
+ [
+  "san agustan",
+  {
+   "n": 8,
+   "tipo": "renombrar",
+   "nombre": "san agustin"
+  }
+ ],
+ [
+  "san agustin poniente",
+  {
+   "n": 9,
+   "tipo": "colonia",
+   "nombre": "san agustin poniente"
+  }
+ ],
+ [
+  "san agustin residential cot",
+  {
+   "n": 10,
+   "tipo": "renombrar",
+   "nombre": "san agustin residencial"
+  }
+ ],
+ [
+  "san agustin tlajomulco de zuniga",
+  {
+   "n": 11,
+   "tipo": "colonia",
+   "nombre": "san agustin tlajomulco de zuniga"
+  }
+ ],
+ [
+  "san ana tepatitlan",
+  {
+   "n": 12,
+   "tipo": "colonia",
+   "nombre": "san ana tepatitlan"
+  }
+ ],
+ [
+  "san antonio la estancia",
+  {
+   "n": 13,
+   "tipo": "colonia",
+   "nombre": "san antonio la estancia"
+  }
+ ],
+ [
+  "san fco tesistan",
+  {
+   "n": 14,
+   "tipo": "renombrar",
+   "nombre": "san francisco tesistan"
+  }
+ ],
+ [
+  "san isidro mezatepec",
+  {
+   "n": 15,
+   "tipo": "colonia",
+   "nombre": "san isidro mezatepec"
+  }
+ ],
+ [
+  "san isidro oblatos",
+  {
+   "n": 16,
+   "tipo": "colonia",
+   "nombre": "san isidro oblatos"
+  }
+ ],
+ [
+  "san jeronimo lidice",
+  {
+   "n": 17,
+   "tipo": "colonia",
+   "nombre": "san jeronimo lidice"
+  }
+ ],
+ [
+  "san josa",
+  {
+   "n": 18,
+   "tipo": "renombrar",
+   "nombre": "san jose"
+  }
+ ],
+ [
+  "san josa del castillo",
+  {
+   "n": 19,
+   "tipo": "renombrar",
+   "nombre": "san jose del castillo"
+  }
+ ],
+ [
+  "san josa del quince",
+  {
+   "n": 20,
+   "tipo": "renombrar",
+   "nombre": "san jose del quince"
+  }
+ ],
+ [
+  "san jose rio hondo rio hondo",
+  {
+   "n": 21,
+   "tipo": "renombrar",
+   "nombre": "san jose rio hondo"
+  }
+ ],
+ [
+  "san juan bosc",
+  {
+   "n": 22,
+   "tipo": "renombrar",
+   "nombre": "san juan bosco"
+  }
+ ],
+ [
+  "san luis gonzaga department",
+  {
+   "n": 23,
+   "tipo": "renombrar",
+   "nombre": "san luis gonzaga"
+  }
+ ],
+ [
+  "san luis soyotlan",
+  {
+   "n": 24,
+   "tipo": "colonia",
+   "nombre": "san luis soyotlan"
+  }
+ ],
+ [
+  "san miguel chapultepec i",
+  {
+   "n": 25,
+   "tipo": "renombrar",
+   "nombre": "san miguel chapultepec"
+  }
+ ],
+ [
+  "san miguel cuyutlan in tlajomulco",
+  {
+   "n": 1,
+   "tipo": "renombrar",
+   "nombre": "san miguel cuyutlan"
+  }
+ ],
+ [
+  "san rafael tlaquepaque",
+  {
+   "n": 2,
+   "tipo": "colonia",
+   "nombre": "san rafael tlaquepaque"
+  }
+ ],
+ [
+  "san sebastian el grande tlajomulco",
+  {
+   "n": 3,
+   "tipo": "renombrar",
+   "nombre": "san sebastian el grande"
+  }
+ ],
+ [
+  "san sebastian tlajomulco",
+  {
+   "n": 4,
+   "tipo": "colonia",
+   "nombre": "san sebastian tlajomulco"
+  }
+ ],
+ [
+  "san simon ticumac",
+  {
+   "n": 5,
+   "tipo": "colonia",
+   "nombre": "san simon ticumac"
+  }
+ ],
+ [
+  "san vicente belisario dominguez",
+  {
+   "n": 6,
+   "tipo": "colonia",
+   "nombre": "san vicente belisario dominguez"
+  }
+ ],
+ [
+  "san vicente colony",
+  {
+   "n": 7,
+   "tipo": "renombrar",
+   "nombre": "san vicente"
+  }
+ ],
+ [
+  "sant marti",
+  {
+   "n": 8,
+   "tipo": "colonia",
+   "nombre": "sant marti"
+  }
+ ],
+ [
+  "sant marti condominium",
+  {
+   "n": 9,
+   "tipo": "renombrar",
+   "nombre": "sant marti"
+  }
+ ],
+ [
+  "santa amelia 2",
+  {
+   "n": 10,
+   "tipo": "colonia",
+   "nombre": "santa amelia 2"
+  }
+ ],
+ [
+  "santa ana tepatitlan",
+  {
+   "n": 11,
+   "tipo": "colonia",
+   "nombre": "santa ana tepatitlan"
+  }
+ ],
+ [
+  "santa anita country",
+  {
+   "n": 12,
+   "tipo": "renombrar",
+   "nombre": "santa anita"
+  }
+ ],
+ [
+  "santa anita golf club",
+  {
+   "n": 13,
+   "tipo": "renombrar",
+   "nombre": "santa anita"
+  }
+ ],
+ [
+  "santa anita tlajomulco de zuniga",
+  {
+   "n": 14,
+   "tipo": "colonia",
+   "nombre": "santa anita tlajomulco de zuniga"
+  }
+ ],
+ [
+  "santa anita woods",
+  {
+   "n": 15,
+   "tipo": "renombrar",
+   "nombre": "santa anita"
+  }
+ ],
+ [
+  "santa cecilia 1a",
+  {
+   "n": 16,
+   "tipo": "colonia",
+   "nombre": "santa cecilia 1a"
+  }
+ ],
+ [
+  "santa cruz de la flores",
+  {
+   "n": 17,
+   "tipo": "renombrar",
+   "nombre": "santa cruz de las flores"
+  }
+ ],
+ [
+  "santa cruz estate",
+  {
+   "n": 18,
+   "tipo": "renombrar",
+   "nombre": "santa cruz"
+  }
+ ],
+ [
+  "santa elena stadium",
+  {
+   "n": 19,
+   "tipo": "renombrar",
+   "nombre": "santa elena"
+  }
+ ],
+ [
+  "santa fe tlajomulco",
+  {
+   "n": 20,
+   "tipo": "colonia",
+   "nombre": "santa fe tlajomulco"
+  }
+ ],
+ [
+  "santa isabel 8",
+  {
+   "n": 21,
+   "tipo": "colonia",
+   "nombre": "santa isabel 8"
+  }
+ ],
+ [
+  "santa isabel ii",
+  {
+   "n": 22,
+   "tipo": "colonia",
+   "nombre": "santa isabel ii"
+  }
+ ],
+ [
+  "santa lucia tesistan",
+  {
+   "n": 23,
+   "tipo": "colonia",
+   "nombre": "santa lucia tesistan"
+  }
+ ],
+ [
+  "santa margarita seccion",
+  {
+   "n": 24,
+   "tipo": "colonia",
+   "nombre": "santa margarita seccion"
+  }
+ ],
+ [
+  "santa margarita1a seccion",
+  {
+   "n": 25,
+   "tipo": "renombrar",
+   "nombre": "santa margarita 1a seccion"
+  }
+ ],
+ [
+  "santa maria guadalajara",
+  {
+   "n": 1,
+   "tipo": "colonia",
+   "nombre": "santa maria guadalajara"
+  }
+ ],
+ [
+  "santa maria nonoalco",
+  {
+   "n": 2,
+   "tipo": "colonia",
+   "nombre": "santa maria nonoalco"
+  }
+ ],
+ [
+  "santa monica campestre",
+  {
+   "n": 3,
+   "tipo": "colonia",
+   "nombre": "santa monica campestre"
+  }
+ ],
+ [
+  "santillana parque",
+  {
+   "n": 4,
+   "tipo": "colonia",
+   "nombre": "santillana parque"
+  }
+ ],
+ [
+  "seattle colony",
+  {
+   "n": 5,
+   "tipo": "renombrar",
+   "nombre": "colonia seattle"
+  }
+ ],
+ [
+  "seattle colony condominium",
+  {
+   "n": 6,
+   "tipo": "renombrar",
+   "nombre": "colonia seattle"
+  }
+ ],
+ [
+  "seistrece living",
+  {
+   "n": 7,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "sendas",
+  {
+   "n": 8,
+   "tipo": "colonia",
+   "nombre": "sendas"
+  }
+ ],
+ [
+  "sendero de las moras",
+  {
+   "n": 9,
+   "tipo": "colonia",
+   "nombre": "sendero de las moras"
+  }
+ ],
+ [
+  "sendero de monteverde",
+  {
+   "n": 10,
+   "tipo": "colonia",
+   "nombre": "sendero de monteverde"
+  }
+ ],
+ [
+  "senderodelasmoras",
+  {
+   "n": 11,
+   "tipo": "renombrar",
+   "nombre": "sendero de las moras"
+  }
+ ],
+ [
+  "senderos de las moras",
+  {
+   "n": 12,
+   "tipo": "colonia",
+   "nombre": "senderos de las moras"
+  }
+ ],
+ [
+  "senderos de los monte verde",
+  {
+   "n": 13,
+   "tipo": "renombrar",
+   "nombre": "senderos de monteverde"
+  }
+ ],
+ [
+  "senderos de monte verde tlajomulco",
+  {
+   "n": 14,
+   "tipo": "colonia",
+   "nombre": "senderos de monte verde tlajomulco"
+  }
+ ],
+ [
+  "senderos de monteverde condominium",
+  {
+   "n": 15,
+   "tipo": "renombrar",
+   "nombre": "senderos de monteverde"
+  }
+ ],
+ [
+  "senderos del lago 4ta seccion",
+  {
+   "n": 16,
+   "tipo": "colonia",
+   "nombre": "senderos del lago 4ta seccion"
+  }
+ ],
+ [
+  "senderos monte verde",
+  {
+   "n": 17,
+   "tipo": "renombrar",
+   "nombre": "senderos de monteverde"
+  }
+ ],
+ [
+  "senderos monteverde",
+  {
+   "n": 18,
+   "tipo": "renombrar",
+   "nombre": "senderos de monteverde"
+  }
+ ],
+ [
+  "sentinel meadows",
+  {
+   "n": 19,
+   "tipo": "renombrar",
+   "nombre": "praderas centinela"
+  }
+ ],
+ [
+  "sentinel woods",
+  {
+   "n": 20,
+   "tipo": "renombrar",
+   "nombre": "bosques centinela"
+  }
+ ],
+ [
+  "sevilla",
+  {
+   "n": 21,
+   "tipo": "colonia",
+   "nombre": "sevilla"
+  }
+ ],
+ [
+  "shalo lot santa cruz",
+  {
+   "n": 22,
+   "tipo": "renombrar",
+   "nombre": "shalo lot santa cruz"
+  }
+ ],
+ [
+  "sibaria condominium",
+  {
+   "n": 23,
+   "tipo": "renombrar",
+   "nombre": "sibaria"
+  }
+ ],
+ [
+  "sienna",
+  {
+   "n": 24,
+   "tipo": "colonia",
+   "nombre": "sienna"
+  }
+ ],
+ [
+  "sienna capital norte",
+  {
+   "n": 25,
+   "tipo": "colonia",
+   "nombre": "sienna capital norte"
+  }
+ ],
+ [
+  "silver lake 2",
+  {
+   "n": 1,
+   "tipo": "renombrar",
+   "nombre": "silver lake"
+  }
+ ],
+ [
+  "silver water 8",
+  {
+   "n": 2,
+   "tipo": "renombrar",
+   "nombre": "silver water"
+  }
+ ],
+ [
+  "silver water lot 1",
+  {
+   "n": 3,
+   "tipo": "renombrar",
+   "nombre": "silver water"
+  }
+ ],
+ [
+  "silver water lot 2",
+  {
+   "n": 4,
+   "tipo": "renombrar",
+   "nombre": "silver water"
+  }
+ ],
+ [
+  "silver water lot 3",
+  {
+   "n": 5,
+   "tipo": "renombrar",
+   "nombre": "silver water"
+  }
+ ],
+ [
+  "silver water lot 5",
+  {
+   "n": 6,
+   "tipo": "renombrar",
+   "nombre": "silver water"
+  }
+ ],
+ [
+  "sivec",
+  {
+   "n": 7,
+   "tipo": "colonia",
+   "nombre": "sivec"
+  }
+ ],
+ [
+  "sn",
+  {
+   "n": 8,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "soho community living",
+  {
+   "n": 9,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "soho morelos immediate delivery",
+  {
+   "n": 10,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "solares altanza",
+  {
+   "n": 11,
+   "tipo": "colonia",
+   "nombre": "solares altanza"
+  }
+ ],
+ [
+  "solares althea",
+  {
+   "n": 12,
+   "tipo": "colonia",
+   "nombre": "solares althea"
+  }
+ ],
+ [
+  "solares muraan",
+  {
+   "n": 13,
+   "tipo": "colonia",
+   "nombre": "solares muraan"
+  }
+ ],
+ [
+  "solares privanza",
+  {
+   "n": 14,
+   "tipo": "colonia",
+   "nombre": "solares privanza"
+  }
+ ],
+ [
+  "solares soare 2",
+  {
+   "n": 15,
+   "tipo": "colonia",
+   "nombre": "solares soare"
+  }
+ ],
+ [
+  "solares soare 3",
+  {
+   "n": 16,
+   "tipo": "colonia",
+   "nombre": "solares soare"
+  }
+ ],
+ [
+  "solares soare 3 altanza",
+  {
+   "n": 17,
+   "tipo": "colonia",
+   "nombre": "solares soare altanza"
+  }
+ ],
+ [
+  "solares soare 3 coto altanza",
+  {
+   "n": 18,
+   "tipo": "colonia",
+   "nombre": "solares soare coto altanza"
+  }
+ ],
+ [
+  "solares valeira habitat",
+  {
+   "n": 19,
+   "tipo": "colonia",
+   "nombre": "solares valeira habitat"
+  }
+ ],
+ [
+  "solena",
+  {
+   "n": 20,
+   "tipo": "colonia",
+   "nombre": "solena"
+  }
+ ],
+ [
+  "solum",
+  {
+   "n": 21,
+   "tipo": "colonia",
+   "nombre": "solum"
+  }
+ ],
+ [
+  "somos",
+  {
+   "n": 22,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "southern metropolitan circuit",
+  {
+   "n": 23,
+   "tipo": "renombrar",
+   "nombre": "circuito sur metropolitano"
+  }
+ ],
+ [
+  "sta eduwiges",
+  {
+   "n": 24,
+   "tipo": "renombrar",
+   "nombre": "santa eduiges"
+  }
+ ],
+ [
+  "sta fe",
+  {
+   "n": 25,
+   "tipo": "renombrar",
+   "nombre": "santa fe"
+  }
+ ],
+ [
+  "sta monica",
+  {
+   "n": 1,
+   "tipo": "colonia",
+   "nombre": "sta monica"
+  }
+ ],
+ [
+  "sta paula tonala",
+  {
+   "n": 2,
+   "tipo": "colonia",
+   "nombre": "sta paula tonala"
+  }
+ ],
+ [
+  "stelar bugambilias",
+  {
+   "n": 3,
+   "tipo": "colonia",
+   "nombre": "stelar bugambilias"
+  }
+ ],
+ [
+  "stelar bugambilias department",
+  {
+   "n": 4,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "storage room in la tijera",
+  {
+   "n": 5,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "strela living solares",
+  {
+   "n": 6,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "studio in virreyes suite",
+  {
+   "n": 7,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "sun",
+  {
+   "n": 8,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "super residence in a",
+  {
+   "n": 9,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "talavera",
+  {
+   "n": 10,
+   "tipo": "colonia",
+   "nombre": "talavera"
+  }
+ ],
+ [
+  "tamarindo",
+  {
+   "n": 11,
+   "tipo": "colonia",
+   "nombre": "tamarindo"
+  }
+ ],
+ [
+  "tapalpa jalisco",
+  {
+   "n": 12,
+   "tipo": "colonia",
+   "nombre": "tapalpa jalisco"
+  }
+ ],
+ [
+  "tejeda valley",
+  {
+   "n": 13,
+   "tipo": "renombrar",
+   "nombre": "valle tejeda"
+  }
+ ],
+ [
+  "teka 16",
+  {
+   "n": 14,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "terrace with pool",
+  {
+   "n": 15,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "terranova villas",
+  {
+   "n": 16,
+   "tipo": "colonia",
+   "nombre": "terranova villas"
+  }
+ ],
+ [
+  "terravista",
+  {
+   "n": 17,
+   "tipo": "colonia",
+   "nombre": "terravista"
+  }
+ ],
+ [
+  "terreno 3 reyes laguna cajititlan",
+  {
+   "n": 18,
+   "tipo": "colonia",
+   "nombre": "terreno 3 reyes laguna cajititlan"
+  }
+ ],
+ [
+  "terreno balcones de la calera",
+  {
+   "n": 19,
+   "tipo": "colonia",
+   "nombre": "balcones de la calera"
+  }
+ ],
+ [
+  "terreno chapalita polo field",
+  {
+   "n": 20,
+   "tipo": "renombrar",
+   "nombre": "chapalita polo field"
+  }
+ ],
+ [
+  "terreno sobre av lopez mateos",
+  {
+   "n": 21,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "tesistan country",
+  {
+   "n": 22,
+   "tipo": "colonia",
+   "nombre": "tesistan country"
+  }
+ ],
+ [
+  "the alameda",
+  {
+   "n": 23,
+   "tipo": "colonia",
+   "nombre": "la alameda"
+  }
+ ],
+ [
+  "the americana",
+  {
+   "n": 24,
+   "tipo": "colonia",
+   "nombre": "la americana"
+  }
+ ],
+ [
+  "the americana colony",
+  {
+   "n": 25,
+   "tipo": "renombrar",
+   "nombre": "colonia americana"
+  }
+ ],
+ [
+  "the andares puerta de hierro area",
+  {
+   "n": 1,
+   "tipo": "renombrar",
+   "nombre": "andares puerta de hierro"
+  }
+ ],
+ [
+  "the belisario dominguez colony",
+  {
+   "n": 2,
+   "tipo": "renombrar",
+   "nombre": "belisario dominguez"
+  }
+ ],
+ [
+  "the bovedas girasoles",
+  {
+   "n": 3,
+   "tipo": "renombrar",
+   "nombre": "bovedas girasoles"
+  }
+ ],
+ [
+  "the cielo country club",
+  {
+   "n": 4,
+   "tipo": "renombrar",
+   "nombre": "cielo country club"
+  }
+ ],
+ [
+  "the eden",
+  {
+   "n": 5,
+   "tipo": "renombrar",
+   "nombre": "eden"
+  }
+ ],
+ [
+  "the el rosario",
+  {
+   "n": 6,
+   "tipo": "renombrar",
+   "nombre": "el rosario"
+  }
+ ],
+ [
+  "the gardens lot 4",
+  {
+   "n": 7,
+   "tipo": "renombrar",
+   "nombre": "jardines lote 4"
+  }
+ ],
+ [
+  "the gardens lot 5",
+  {
+   "n": 8,
+   "tipo": "renombrar",
+   "nombre": "jardines lote 5"
+  }
+ ],
+ [
+  "the glorieta de la normal area",
+  {
+   "n": 9,
+   "tipo": "renombrar",
+   "nombre": "glorieta de la normal"
+  }
+ ],
+ [
+  "the grove",
+  {
+   "n": 10,
+   "tipo": "renombrar",
+   "nombre": "grove"
+  }
+ ],
+ [
+  "the grove of real del valle",
+  {
+   "n": 11,
+   "tipo": "renombrar",
+   "nombre": "grove de real del valle"
+  }
+ ],
+ [
+  "the guadalajara jalisco retreat",
+  {
+   "n": 12,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "the heart of a quiet block",
+  {
+   "n": 13,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "the historical center of",
+  {
+   "n": 14,
+   "tipo": "renombrar",
+   "nombre": "centro historico"
+  }
+ ],
+ [
+  "the los almendros",
+  {
+   "n": 15,
+   "tipo": "renombrar",
+   "nombre": "los almendros"
+  }
+ ],
+ [
+  "the los robles",
+  {
+   "n": 16,
+   "tipo": "renombrar",
+   "nombre": "los robles"
+  }
+ ],
+ [
+  "the mills",
+  {
+   "n": 17,
+   "tipo": "renombrar",
+   "nombre": "mills"
+  }
+ ],
+ [
+  "the moderna",
+  {
+   "n": 18,
+   "tipo": "renombrar",
+   "nombre": "moderna"
+  }
+ ],
+ [
+  "the municipality of tonala",
+  {
+   "n": 19,
+   "tipo": "renombrar",
+   "nombre": "municipio de tonala"
+  }
+ ],
+ [
+  "the pitchers",
+  {
+   "n": 20,
+   "tipo": "renombrar",
+   "nombre": "pitchers"
+  }
+ ],
+ [
+  "the residential campestre",
+  {
+   "n": 21,
+   "tipo": "renombrar",
+   "nombre": "residencial campestre"
+  }
+ ],
+ [
+  "the rioja",
+  {
+   "n": 22,
+   "tipo": "renombrar",
+   "nombre": "rioja"
+  }
+ ],
+ [
+  "the rivera de chapala",
+  {
+   "n": 23,
+   "tipo": "renombrar",
+   "nombre": "rivera de chapala"
+  }
+ ],
+ [
+  "the sabines 11",
+  {
+   "n": 24,
+   "tipo": "renombrar",
+   "nombre": "sabines 11"
+  }
+ ],
+ [
+  "the santa anita",
+  {
+   "n": 25,
+   "tipo": "renombrar",
+   "nombre": "santa anita"
+  }
+ ],
+ [
+  "the santa eduwiges",
+  {
+   "n": 1,
+   "tipo": "renombrar",
+   "nombre": "santa eduiges"
+  }
+ ],
+ [
+  "the south of the",
+  {
+   "n": 2,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "the south of the city in adamar",
+  {
+   "n": 3,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "the south orbara habitat nueva",
+  {
+   "n": 4,
+   "tipo": "renombrar",
+   "nombre": "orbara habitat nueva"
+  }
+ ],
+ [
+  "the spring",
+  {
+   "n": 5,
+   "tipo": "renombrar",
+   "nombre": "la primavera"
+  }
+ ],
+ [
+  "the swedish cot in valle imperial",
+  {
+   "n": 6,
+   "tipo": "renombrar",
+   "nombre": "valle imperial"
+  }
+ ],
+ [
+  "the treboles residential complex",
+  {
+   "n": 7,
+   "tipo": "renombrar",
+   "nombre": "los treboles"
+  }
+ ],
+ [
+  "the views oasis",
+  {
+   "n": 8,
+   "tipo": "renombrar",
+   "nombre": "oasis"
+  }
+ ],
+ [
+  "the villas",
+  {
+   "n": 9,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "the warhol tower in providencia",
+  {
+   "n": 10,
+   "tipo": "renombrar",
+   "nombre": "providencia"
+  }
+ ],
+ [
+  "three canals lot 37",
+  {
+   "n": 11,
+   "tipo": "renombrar",
+   "nombre": "tres canales"
+  }
+ ],
+ [
+  "tierra",
+  {
+   "n": 12,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "tierra y esperanza",
+  {
+   "n": 13,
+   "tipo": "colonia",
+   "nombre": "tierra y esperanza"
+  }
+ ],
+ [
+  "titanium",
+  {
+   "n": 14,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "tlajomulco center",
+  {
+   "n": 15,
+   "tipo": "colonia",
+   "nombre": "tlajomulco centro"
+  }
+ ],
+ [
+  "tlajomulco de zaaiga",
+  {
+   "n": 16,
+   "tipo": "renombrar",
+   "nombre": "tlajomulco de zuniga"
+  }
+ ],
+ [
+  "tlajomulco de zu",
+  {
+   "n": 17,
+   "tipo": "renombrar",
+   "nombre": "tlajomulco de zuniga"
+  }
+ ],
+ [
+  "tlajomulco de zuni",
+  {
+   "n": 18,
+   "tipo": "renombrar",
+   "nombre": "tlajomulco de zuniga"
+  }
+ ],
+ [
+  "tlajomulco de zuniga",
+  {
+   "n": 19,
+   "tipo": "colonia",
+   "nombre": "tlajomulco de zuniga"
+  }
+ ],
+ [
+  "tlajomulco de zuniga en",
+  {
+   "n": 20,
+   "tipo": "renombrar",
+   "nombre": "tlajomulco de zuniga"
+  }
+ ],
+ [
+  "tlajomulco de zuniga in",
+  {
+   "n": 21,
+   "tipo": "renombrar",
+   "nombre": "tlajomulco de zuniga"
+  }
+ ],
+ [
+  "tlajomulco de zuniga jalisco",
+  {
+   "n": 22,
+   "tipo": "colonia",
+   "nombre": "tlajomulco de zuniga"
+  }
+ ],
+ [
+  "tlajomulco jal",
+  {
+   "n": 23,
+   "tipo": "renombrar",
+   "nombre": "tlajomulco"
+  }
+ ],
+ [
+  "tlajomulco metropolitan circuit",
+  {
+   "n": 24,
+   "tipo": "renombrar",
+   "nombre": "circuito metropolitano tlajomulco"
+  }
+ ],
+ [
+  "tonala center",
+  {
+   "n": 25,
+   "tipo": "colonia",
+   "nombre": "tonala centro"
+  }
+ ],
+ [
+  "tonala mixed use",
+  {
+   "n": 1,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "tonala on gigantes extension",
+  {
+   "n": 2,
+   "tipo": "renombrar",
+   "nombre": "tonala gigantes"
+  }
+ ],
+ [
+  "tonala on the highway",
+  {
+   "n": 3,
+   "tipo": "renombrar",
+   "nombre": "tonala carretera"
+  }
+ ],
+ [
+  "torre agave",
+  {
+   "n": 4,
+   "tipo": "colonia",
+   "nombre": "torre agave"
+  }
+ ],
+ [
+  "torre anuva",
+  {
+   "n": 5,
+   "tipo": "colonia",
+   "nombre": "torre anuva"
+  }
+ ],
+ [
+  "torre artea vertical",
+  {
+   "n": 6,
+   "tipo": "colonia",
+   "nombre": "torre artea vertical"
+  }
+ ],
+ [
+  "torre aura lofts andares area",
+  {
+   "n": 7,
+   "tipo": "renombrar",
+   "nombre": "torre aura andares"
+  }
+ ],
+ [
+  "torre balanty",
+  {
+   "n": 8,
+   "tipo": "colonia",
+   "nombre": "torre balanty"
+  }
+ ],
+ [
+  "torre brittania",
+  {
+   "n": 9,
+   "tipo": "colonia",
+   "nombre": "torre brittania"
+  }
+ ],
+ [
+  "torre catania",
+  {
+   "n": 10,
+   "tipo": "colonia",
+   "nombre": "torre catania"
+  }
+ ],
+ [
+  "torre cavalia",
+  {
+   "n": 11,
+   "tipo": "colonia",
+   "nombre": "torre cavalia"
+  }
+ ],
+ [
+  "torre de prado",
+  {
+   "n": 12,
+   "tipo": "colonia",
+   "nombre": "torre de prado"
+  }
+ ],
+ [
+  "torre del prado",
+  {
+   "n": 13,
+   "tipo": "colonia",
+   "nombre": "torre del prado"
+  }
+ ],
+ [
+  "torre duke",
+  {
+   "n": 14,
+   "tipo": "colonia",
+   "nombre": "torre duke"
+  }
+ ],
+ [
+  "torre eleve",
+  {
+   "n": 15,
+   "tipo": "colonia",
+   "nombre": "torre eleve"
+  }
+ ],
+ [
+  "torre enity",
+  {
+   "n": 16,
+   "tipo": "colonia",
+   "nombre": "torre enity"
+  }
+ ],
+ [
+  "torre eria next to plaza ciudadela",
+  {
+   "n": 17,
+   "tipo": "renombrar",
+   "nombre": "torre eria ciudadela"
+  }
+ ],
+ [
+  "torre hamlet",
+  {
+   "n": 18,
+   "tipo": "colonia",
+   "nombre": "torre hamlet"
+  }
+ ],
+ [
+  "torre heritage col americana",
+  {
+   "n": 19,
+   "tipo": "renombrar",
+   "nombre": "torre heritage americana"
+  }
+ ],
+ [
+  "torre hispania",
+  {
+   "n": 20,
+   "tipo": "colonia",
+   "nombre": "torre hispania"
+  }
+ ],
+ [
+  "torre liva",
+  {
+   "n": 21,
+   "tipo": "colonia",
+   "nombre": "torre liva"
+  }
+ ],
+ [
+  "torre livorno",
+  {
+   "n": 22,
+   "tipo": "colonia",
+   "nombre": "torre livorno"
+  }
+ ],
+ [
+  "torre margot",
+  {
+   "n": 23,
+   "tipo": "colonia",
+   "nombre": "torre margot"
+  }
+ ],
+ [
+  "torre mina",
+  {
+   "n": 24,
+   "tipo": "colonia",
+   "nombre": "torre mina"
+  }
+ ],
+ [
+  "torre nara naciones unidas",
+  {
+   "n": 25,
+   "tipo": "renombrar",
+   "nombre": "torre nara naciones unidas"
+  }
+ ],
+ [
+  "torre opera",
+  {
+   "n": 1,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "torre stelar bugambilias",
+  {
+   "n": 2,
+   "tipo": "renombrar",
+   "nombre": "bugambilias"
+  }
+ ],
+ [
+  "torre tejada",
+  {
+   "n": 3,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "torre urbania",
+  {
+   "n": 4,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "torre uria",
+  {
+   "n": 5,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "torre via del bosque",
+  {
+   "n": 6,
+   "tipo": "renombrar",
+   "nombre": "via del bosque"
+  }
+ ],
+ [
+  "torre vive del bosque",
+  {
+   "n": 7,
+   "tipo": "renombrar",
+   "nombre": "vive del bosque"
+  }
+ ],
+ [
+  "tossa",
+  {
+   "n": 8,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "tower eleve",
+  {
+   "n": 9,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "tower margot",
+  {
+   "n": 10,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "traditional chapala",
+  {
+   "n": 11,
+   "tipo": "renombrar",
+   "nombre": "chapala"
+  }
+ ],
+ [
+  "trebol residential tesistan",
+  {
+   "n": 12,
+   "tipo": "renombrar",
+   "nombre": "trebol residencial tesistan"
+  }
+ ],
+ [
+  "treboles",
+  {
+   "n": 13,
+   "tipo": "colonia",
+   "nombre": "treboles"
+  }
+ ],
+ [
+  "trento",
+  {
+   "n": 14,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "tres gallo",
+  {
+   "n": 15,
+   "tipo": "renombrar",
+   "nombre": "tres gallos"
+  }
+ ],
+ [
+  "tres lagos condominium",
+  {
+   "n": 16,
+   "tipo": "renombrar",
+   "nombre": "tres lagos"
+  }
+ ],
+ [
+  "tres reyes cajititlan",
+  {
+   "n": 17,
+   "tipo": "renombrar",
+   "nombre": "tres reyes cajititlan"
+  }
+ ],
+ [
+  "tres reyes de cajititlan",
+  {
+   "n": 18,
+   "tipo": "renombrar",
+   "nombre": "tres reyes de cajititlan"
+  }
+ ],
+ [
+  "triventi",
+  {
+   "n": 19,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "tuscany",
+  {
+   "n": 20,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "tuzania",
+  {
+   "n": 21,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "union del cuatro",
+  {
+   "n": 22,
+   "tipo": "colonia",
+   "nombre": "union del cuatro"
+  }
+ ],
+ [
+  "union square",
+  {
+   "n": 23,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "union square in",
+  {
+   "n": 24,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "unique natural environment",
+  {
+   "n": 25,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "united nations",
+  {
+   "n": 1,
+   "tipo": "renombrar",
+   "nombre": "naciones unidas"
+  }
+ ],
+ [
+  "university gardens",
+  {
+   "n": 2,
+   "tipo": "renombrar",
+   "nombre": "jardines universitarios"
+  }
+ ],
+ [
+  "upper california",
+  {
+   "n": 3,
+   "tipo": "renombrar",
+   "nombre": "alta california"
+  }
+ ],
+ [
+  "urbania mexico avenue",
+  {
+   "n": 4,
+   "tipo": "renombrar",
+   "nombre": "urbania avenida mexico"
+  }
+ ],
+ [
+  "valentica",
+  {
+   "n": 5,
+   "tipo": "renombrar",
+   "nombre": "valentica"
+  }
+ ],
+ [
+  "vallarta cuauhtemoc",
+  {
+   "n": 6,
+   "tipo": "renombrar",
+   "nombre": "vallarta cuauhtemoc"
+  }
+ ],
+ [
+  "vallarta university",
+  {
+   "n": 7,
+   "tipo": "renombrar",
+   "nombre": "vallarta universidad"
+  }
+ ],
+ [
+  "vallarta woods",
+  {
+   "n": 8,
+   "tipo": "renombrar",
+   "nombre": "vallarta woods"
+  }
+ ],
+ [
+  "valle de la peninsula",
+  {
+   "n": 9,
+   "tipo": "colonia",
+   "nombre": "valle de la peninsula"
+  }
+ ],
+ [
+  "valle de los guamuchiles 53",
+  {
+   "n": 10,
+   "tipo": "renombrar",
+   "nombre": "valle de los guamuchiles"
+  }
+ ],
+ [
+  "valle del ebano",
+  {
+   "n": 11,
+   "tipo": "colonia",
+   "nombre": "valle del ebano"
+  }
+ ],
+ [
+  "valle dorado tlajomulco",
+  {
+   "n": 12,
+   "tipo": "renombrar",
+   "nombre": "valle dorado tlajomulco"
+  }
+ ],
+ [
+  "valle imperial area in",
+  {
+   "n": 13,
+   "tipo": "renombrar",
+   "nombre": "valle imperial"
+  }
+ ],
+ [
+  "valle imperial bizantino",
+  {
+   "n": 14,
+   "tipo": "renombrar",
+   "nombre": "valle imperial bizantino"
+  }
+ ],
+ [
+  "valle imperial egyptian",
+  {
+   "n": 15,
+   "tipo": "renombrar",
+   "nombre": "valle imperial egipcio"
+  }
+ ],
+ [
+  "valle imperial galo",
+  {
+   "n": 16,
+   "tipo": "renombrar",
+   "nombre": "valle imperial galo"
+  }
+ ],
+ [
+  "valle imperial griego",
+  {
+   "n": 17,
+   "tipo": "renombrar",
+   "nombre": "valle imperial griego"
+  }
+ ],
+ [
+  "valle imperial in",
+  {
+   "n": 18,
+   "tipo": "renombrar",
+   "nombre": "valle imperial"
+  }
+ ],
+ [
+  "valle imperial nuevo mexico",
+  {
+   "n": 19,
+   "tipo": "renombrar",
+   "nombre": "valle imperial nuevo mexico"
+  }
+ ],
+ [
+  "valle imperial on the avenue",
+  {
+   "n": 20,
+   "tipo": "renombrar",
+   "nombre": "valle imperial en la avenida"
+  }
+ ],
+ [
+  "valle real ground floor",
+  {
+   "n": 21,
+   "tipo": "renombrar",
+   "nombre": "valle real planta baja"
+  }
+ ],
+ [
+  "valle real zapopan jalisco",
+  {
+   "n": 22,
+   "tipo": "renombrar",
+   "nombre": "valle real zapopan jalisco"
+  }
+ ],
+ [
+  "valley hills",
+  {
+   "n": 23,
+   "tipo": "renombrar",
+   "nombre": "lomas del valle"
+  }
+ ],
+ [
+  "valley of the mills",
+  {
+   "n": 24,
+   "tipo": "renombrar",
+   "nombre": "valle de los molinos"
+  }
+ ],
+ [
+  "valley of the oaks",
+  {
+   "n": 25,
+   "tipo": "renombrar",
+   "nombre": "valle de los robles"
+  }
+ ],
+ [
+  "valley walks",
+  {
+   "n": 1,
+   "tipo": "renombrar",
+   "nombre": "valle walks"
+  }
+ ],
+ [
+  "varitas condominium",
+  {
+   "n": 2,
+   "tipo": "renombrar",
+   "nombre": "varitas condominium"
+  }
+ ],
+ [
+  "venta bosques vallarta",
+  {
+   "n": 3,
+   "tipo": "renombrar",
+   "nombre": "bosques vallarta"
+  }
+ ],
+ [
+  "venta colomos providencia",
+  {
+   "n": 4,
+   "tipo": "renombrar",
+   "nombre": "colomos providencia"
+  }
+ ],
+ [
+  "venta eco park sur",
+  {
+   "n": 5,
+   "tipo": "renombrar",
+   "nombre": "eco park sur"
+  }
+ ],
+ [
+  "venta en",
+  {
+   "n": 6,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "venta en americana",
+  {
+   "n": 7,
+   "tipo": "colonia",
+   "nombre": "americana"
+  }
+ ],
+ [
+  "venta en anuva",
+  {
+   "n": 8,
+   "tipo": "colonia",
+   "nombre": "anuva"
+  }
+ ],
+ [
+  "venta en arcos vallarta",
+  {
+   "n": 9,
+   "tipo": "renombrar",
+   "nombre": "arcos vallarta"
+  }
+ ],
+ [
+  "venta en bosques de santa anita",
+  {
+   "n": 10,
+   "tipo": "colonia",
+   "nombre": "bosques de santa anita"
+  }
+ ],
+ [
+  "venta en ciudad granja",
+  {
+   "n": 11,
+   "tipo": "colonia",
+   "nombre": "ciudad granja"
+  }
+ ],
+ [
+  "venta en jardin real",
+  {
+   "n": 12,
+   "tipo": "colonia",
+   "nombre": "jardin real"
+  }
+ ],
+ [
+  "venta en jauja",
+  {
+   "n": 13,
+   "tipo": "colonia",
+   "nombre": "jauja"
+  }
+ ],
+ [
+  "venta en ladron de guevara",
+  {
+   "n": 14,
+   "tipo": "colonia",
+   "nombre": "ladron de guevara"
+  }
+ ],
+ [
+  "venta en life patria",
+  {
+   "n": 15,
+   "tipo": "renombrar",
+   "nombre": "life patria"
+  }
+ ],
+ [
+  "venta en loma bonita",
+  {
+   "n": 16,
+   "tipo": "colonia",
+   "nombre": "loma bonita"
+  }
+ ],
+ [
+  "venta en paseos del sol",
+  {
+   "n": 17,
+   "tipo": "colonia",
+   "nombre": "paseos del sol"
+  }
+ ],
+ [
+  "venta en providencia",
+  {
+   "n": 18,
+   "tipo": "colonia",
+   "nombre": "providencia"
+  }
+ ],
+ [
+  "venta en puerta las lomas",
+  {
+   "n": 19,
+   "tipo": "colonia",
+   "nombre": "puerta las lomas"
+  }
+ ],
+ [
+  "venta en punto sao paulo",
+  {
+   "n": 20,
+   "tipo": "renombrar",
+   "nombre": "punto sao paulo"
+  }
+ ],
+ [
+  "venta en santa ana tepetitlan",
+  {
+   "n": 21,
+   "tipo": "colonia",
+   "nombre": "santa ana tepetitlan"
+  }
+ ],
+ [
+  "venta en senderos de monteverde",
+  {
+   "n": 22,
+   "tipo": "colonia",
+   "nombre": "senderos de monteverde"
+  }
+ ],
+ [
+  "venta en solares",
+  {
+   "n": 23,
+   "tipo": "colonia",
+   "nombre": "solares"
+  }
+ ],
+ [
+  "venta en tlajomulco",
+  {
+   "n": 24,
+   "tipo": "colonia",
+   "nombre": "tlajomulco"
+  }
+ ],
+ [
+  "venta en tlaquepaque",
+  {
+   "n": 25,
+   "tipo": "colonia",
+   "nombre": "tlaquepaque"
+  }
+ ],
+ [
+  "venta en tonala",
+  {
+   "n": 1,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "venta en valle imperial",
+  {
+   "n": 2,
+   "tipo": "renombrar",
+   "nombre": "valle imperial"
+  }
+ ],
+ [
+  "venta en vista alegre ajijic",
+  {
+   "n": 3,
+   "tipo": "renombrar",
+   "nombre": "vista alegre ajijic"
+  }
+ ],
+ [
+  "venta independencia",
+  {
+   "n": 4,
+   "tipo": "renombrar",
+   "nombre": "independencia"
+  }
+ ],
+ [
+  "venta monteza",
+  {
+   "n": 5,
+   "tipo": "renombrar",
+   "nombre": "monteza"
+  }
+ ],
+ [
+  "venta rinconada del parque",
+  {
+   "n": 6,
+   "tipo": "renombrar",
+   "nombre": "rinconada del parque"
+  }
+ ],
+ [
+  "venta senderos de monteverde",
+  {
+   "n": 7,
+   "tipo": "renombrar",
+   "nombre": "senderos de monteverde"
+  }
+ ],
+ [
+  "vergel de arboledas",
+  {
+   "n": 8,
+   "tipo": "colonia",
+   "nombre": "vergel de arboledas"
+  }
+ ],
+ [
+  "vertical giralda",
+  {
+   "n": 9,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "veta residential san agustin",
+  {
+   "n": 10,
+   "tipo": "renombrar",
+   "nombre": "veta residential san agustin"
+  }
+ ],
+ [
+  "via del bosque",
+  {
+   "n": 11,
+   "tipo": "colonia",
+   "nombre": "via del bosque"
+  }
+ ],
+ [
+  "via del bosque andares",
+  {
+   "n": 12,
+   "tipo": "renombrar",
+   "nombre": "via del bosque andares"
+  }
+ ],
+ [
+  "vicente guerrero in",
+  {
+   "n": 13,
+   "tipo": "renombrar",
+   "nombre": "vicente guerrero"
+  }
+ ],
+ [
+  "view over",
+  {
+   "n": 14,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "villa california cordoba model",
+  {
+   "n": 15,
+   "tipo": "renombrar",
+   "nombre": "villa california"
+  }
+ ],
+ [
+  "villa california on the corner",
+  {
+   "n": 16,
+   "tipo": "renombrar",
+   "nombre": "villa california"
+  }
+ ],
+ [
+  "villa california remodeled",
+  {
+   "n": 17,
+   "tipo": "renombrar",
+   "nombre": "villa california"
+  }
+ ],
+ [
+  "villa colorada",
+  {
+   "n": 18,
+   "tipo": "colonia",
+   "nombre": "villa colorada"
+  }
+ ],
+ [
+  "villa del ixtepete",
+  {
+   "n": 19,
+   "tipo": "colonia",
+   "nombre": "villa del ixtepete"
+  }
+ ],
+ [
+  "villa escondida",
+  {
+   "n": 20,
+   "tipo": "colonia",
+   "nombre": "villa escondida"
+  }
+ ],
+ [
+  "villa esmeralda aqua",
+  {
+   "n": 21,
+   "tipo": "renombrar",
+   "nombre": "villa esmeralda"
+  }
+ ],
+ [
+  "villa fontana acua",
+  {
+   "n": 22,
+   "tipo": "renombrar",
+   "nombre": "villa fontana"
+  }
+ ],
+ [
+  "villa gustavo a madero",
+  {
+   "n": 23,
+   "tipo": "renombrar",
+   "nombre": "villa gustavo a madero"
+  }
+ ],
+ [
+  "villa shambala ajijic",
+  {
+   "n": 24,
+   "tipo": "renombrar",
+   "nombre": "villa shambala ajijic"
+  }
+ ],
+ [
+  "villadhara",
+  {
+   "n": 25,
+   "tipo": "colonia",
+   "nombre": "villadhara"
+  }
+ ],
+ [
+  "villadhara condominium",
+  {
+   "n": 1,
+   "tipo": "renombrar",
+   "nombre": "villa dhar"
+  }
+ ],
+ [
+  "villas california",
+  {
+   "n": 2,
+   "tipo": "colonia",
+   "nombre": "villas california"
+  }
+ ],
+ [
+  "villas de",
+  {
+   "n": 3,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "villas de la loma",
+  {
+   "n": 4,
+   "tipo": "colonia",
+   "nombre": "villas de la loma"
+  }
+ ],
+ [
+  "villas de las haciendas",
+  {
+   "n": 5,
+   "tipo": "colonia",
+   "nombre": "villas de las haciendas"
+  }
+ ],
+ [
+  "villas del oriente ii",
+  {
+   "n": 6,
+   "tipo": "colonia",
+   "nombre": "villas del oriente ii"
+  }
+ ],
+ [
+  "villas mirador",
+  {
+   "n": 7,
+   "tipo": "colonia",
+   "nombre": "villas mirador"
+  }
+ ],
+ [
+  "vista",
+  {
+   "n": 8,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "vista alegre",
+  {
+   "n": 9,
+   "tipo": "colonia",
+   "nombre": "vista alegre"
+  }
+ ],
+ [
+  "vista alegre ajijic",
+  {
+   "n": 10,
+   "tipo": "colonia",
+   "nombre": "vista alegre ajijic"
+  }
+ ],
+ [
+  "vista alegre condominium",
+  {
+   "n": 11,
+   "tipo": "renombrar",
+   "nombre": "vista alegre"
+  }
+ ],
+ [
+  "vista del lago chapala",
+  {
+   "n": 12,
+   "tipo": "colonia",
+   "nombre": "vista del lago chapala"
+  }
+ ],
+ [
+  "vista las lomas",
+  {
+   "n": 13,
+   "tipo": "colonia",
+   "nombre": "vista las lomas"
+  }
+ ],
+ [
+  "vista lomas",
+  {
+   "n": 14,
+   "tipo": "colonia",
+   "nombre": "vista lomas"
+  }
+ ],
+ [
+  "vista lomas residential park",
+  {
+   "n": 15,
+   "tipo": "renombrar",
+   "nombre": "vista lomas"
+  }
+ ],
+ [
+  "vista point ajijic",
+  {
+   "n": 16,
+   "tipo": "colonia",
+   "nombre": "vista point ajijic"
+  }
+ ],
+ [
+  "vista real",
+  {
+   "n": 17,
+   "tipo": "colonia",
+   "nombre": "vista real"
+  }
+ ],
+ [
+  "vista sur tlajomulco de zuniga",
+  {
+   "n": 18,
+   "tipo": "colonia",
+   "nombre": "vista sur tlajomulco de zuniga"
+  }
+ ],
+ [
+  "vistas de san agustin facing park",
+  {
+   "n": 19,
+   "tipo": "renombrar",
+   "nombre": "vistas de san agustin"
+  }
+ ],
+ [
+  "vistas del valle 1",
+  {
+   "n": 20,
+   "tipo": "colonia",
+   "nombre": "vistas del valle 1"
+  }
+ ],
+ [
+  "vistas lomas altas",
+  {
+   "n": 21,
+   "tipo": "colonia",
+   "nombre": "vistas lomas altas"
+  }
+ ],
+ [
+  "vistas zapopan",
+  {
+   "n": 22,
+   "tipo": "colonia",
+   "nombre": "vistas zapopan"
+  }
+ ],
+ [
+  "vitana",
+  {
+   "n": 23,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "vitana residence",
+  {
+   "n": 24,
+   "tipo": "renombrar",
+   "nombre": "vitana"
+  }
+ ],
+ [
+  "vitia la toscana zona real",
+  {
+   "n": 25,
+   "tipo": "renombrar",
+   "nombre": "la toscana zona real"
+  }
+ ],
+ [
+  "vitia toscana price drop",
+  {
+   "n": 1,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "vittia la toscana",
+  {
+   "n": 2,
+   "tipo": "renombrar",
+   "nombre": "vittia la toscana"
+  }
+ ],
+ [
+  "vive torre del bosque",
+  {
+   "n": 3,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "walker peret",
+  {
+   "n": 4,
+   "tipo": "renombrar",
+   "nombre": "walker peret"
+  }
+ ],
+ [
+  "walks of the sun",
+  {
+   "n": 5,
+   "tipo": "renombrar",
+   "nombre": "paseos del sol"
+  }
+ ],
+ [
+  "welllocated",
+  {
+   "n": 6,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "xotepingo",
+  {
+   "n": 7,
+   "tipo": "colonia",
+   "nombre": "xotepingo"
+  }
+ ],
+ [
+  "your new home santa anita horizon",
+  {
+   "n": 8,
+   "tipo": "renombrar",
+   "nombre": "santa anita horizon"
+  }
+ ],
+ [
+  "yu country in",
+  {
+   "n": 9,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "zap jal",
+  {
+   "n": 10,
+   "tipo": "renombrar",
+   "nombre": "zapopan jal"
+  }
+ ],
+ [
+  "zapata",
+  {
+   "n": 11,
+   "tipo": "colonia",
+   "nombre": "zapata"
+  }
+ ],
+ [
+  "zapata adamar",
+  {
+   "n": 12,
+   "tipo": "renombrar",
+   "nombre": "zapata adamar"
+  }
+ ],
+ [
+  "zapopan center",
+  {
+   "n": 13,
+   "tipo": "renombrar",
+   "nombre": "zapopan centro"
+  }
+ ],
+ [
+  "zapopan facing ciudad granja",
+  {
+   "n": 14,
+   "tipo": "renombrar",
+   "nombre": "zapopan frente a ciudad granja"
+  }
+ ],
+ [
+  "zapopan gardens of the valley",
+  {
+   "n": 15,
+   "tipo": "renombrar",
+   "nombre": "zapopan jardines del valle"
+  }
+ ],
+ [
+  "zapopan in altaluz",
+  {
+   "n": 16,
+   "tipo": "renombrar",
+   "nombre": "zapopan altaluz"
+  }
+ ],
+ [
+  "zapopan norte",
+  {
+   "n": 17,
+   "tipo": "colonia",
+   "nombre": "zapopan norte"
+  }
+ ],
+ [
+  "zaragoza batch",
+  {
+   "n": 18,
+   "tipo": "renombrar",
+   "nombre": "zaragoza"
+  }
+ ],
+ [
+  "zentral in",
+  {
+   "n": 19,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "zentral residential",
+  {
+   "n": 20,
+   "tipo": "renombrar",
+   "nombre": "zentral residential"
+  }
+ ],
+ [
+  "zentral tower",
+  {
+   "n": 21,
+   "tipo": "renombrar",
+   "nombre": "zentral tower"
+  }
+ ],
+ [
+  "zhenka",
+  {
+   "n": 22,
+   "tipo": "colonia",
+   "nombre": "zhenka"
+  }
+ ],
+ [
+  "zimalta",
+  {
+   "n": 23,
+   "tipo": "renombrar",
+   "nombre": "zimalta"
+  }
+ ],
+ [
+  "zoi residential south",
+  {
+   "n": 24,
+   "tipo": "renombrar",
+   "nombre": "zoi residential sur"
+  }
+ ],
+ [
+  "zoi santa anita",
+  {
+   "n": 25,
+   "tipo": "renombrar",
+   "nombre": "zoi santa anita"
+  }
+ ],
+ [
+  "zoi santa anita tlajomulco",
+  {
+   "n": 1,
+   "tipo": "renombrar",
+   "nombre": "zoi santa anita tlajomulco"
+  }
+ ],
+ [
+  "zoi sur",
+  {
+   "n": 2,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "zoi sur fraction",
+  {
+   "n": 3,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "zona andares",
+  {
+   "n": 4,
+   "tipo": "colonia",
+   "nombre": "andares"
+  }
+ ],
+ [
+  "zona hotelera",
+  {
+   "n": 5,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "zona real department",
+  {
+   "n": 6,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "zona valdepenas casa duplex",
+  {
+   "n": 7,
+   "tipo": "basura",
+   "nombre": ""
+  }
+ ],
+ [
+  "zoologico huentitan el bajo",
+  {
+   "n": 8,
+   "tipo": "renombrar",
+   "nombre": "zoologico huentitan el bajo"
+  }
+ ]
+]
