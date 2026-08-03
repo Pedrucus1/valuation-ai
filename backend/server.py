@@ -1101,6 +1101,52 @@ def _edad_efectiva_opi(prop: dict) -> float:
     ee = _edad_efectiva_ponderada(anio_construccion, prop.get("remodelacion_anio"), grado, ahora_year)
     return ee if ee is not None else edad
 
+# ============== LAB: depreciación física — port de motor_remi_api.js ==============
+# Puesta en observación (04-ago, caso Escorpión 3518): la fórmula de producción de arriba
+# (age_depreciation con tope) no reflejaba remodelación en propiedades viejas. El motor JS
+# (Modulo Drive IA/motor_remi_api.js: getRH/FACTORES_CONSERVACION/calcEdadEfectiva) ya tiene
+# una curva calibrada contra las OPIs reales del perito (validar_40_opis.js) y su getRH(54, 70)
+# = 31.7% de valor restante, casi igual al 30.9-31.7% de la hoja "Ross Heideke" de opi_perito.xlsx.
+# Este bloque solo CALCULA y guarda el resultado alterno en result_lab_rh — NO reemplaza
+# estimated_value en producción hasta que se valide con más casos.
+FACTORES_CONSERVACION_LAB = {
+    "Nuevo": 1.05, "Muy Bueno": 1.05, "Bueno": 1.00,
+    "Regular Bueno": 0.85, "Regular": 0.75, "Regular Malo": 0.65,
+    "Malo": 0.55, "Muy Malo": 0.45,
+}
+GRADO_REMOD_A_JS = {"ligera": "menor", "basica": "menor", "intermedia": "intermedia", "completa": "completa"}
+# "medio hacia arriba" (Lujo/Superior/Medio Alto) usa vida útil 70 años; "medio bajo a bajo"
+# (Medio Medio/Medio Bajo/Económico/Interés Social) usa 60 — mismo criterio que el perito.
+CALIDADES_VIDA_70 = {"Lujo", "Superior", "Medio Alto"}
+
+def _calc_edad_efectiva_lab(edad: float, grado: str | None) -> float:
+    g = GRADO_REMOD_A_JS.get((grado or "").lower())
+    if g == "menor":
+        return edad - min(8, edad * 0.15)
+    if g == "intermedia":
+        return max(8, edad * 0.35)
+    if g == "completa":
+        return 5
+    return edad
+
+def _get_rh_lab(edad: float, vida: float = 70) -> float:
+    if edad <= 0:
+        return 1.0
+    x = min(1, edad / vida)
+    return max(0.20, 1 - 0.5 * (x + x * x))
+
+def _depreciacion_lab(prop: dict) -> float:
+    """Fracción de valor de construcción que se PIERDE (equivalente a total_depreciation arriba)."""
+    edad = prop.get("estimated_age") or 10
+    grado = prop.get("remodelacion_grado")
+    conservation = prop.get("conservation_state") or "Bueno"
+    quality = prop.get("construction_quality")
+    vida = 70 if quality in CALIDADES_VIDA_70 else 60
+    edad_ef = _calc_edad_efectiva_lab(edad, grado)
+    valor_restante = _get_rh_lab(edad_ef, vida) * FACTORES_CONSERVACION_LAB.get(conservation, 1.00)
+    valor_restante = max(0.0, min(1.05, valor_restante))
+    return 1 - valor_restante
+
 @api_router.post("/valuations/{valuation_id}/calculate")
 async def calculate_valuation(valuation_id: str, request: Request):
     """
@@ -1219,14 +1265,22 @@ async def calculate_valuation(valuation_id: str, request: Request):
     conservation = prop.get("conservation_state") or "Bueno"
     conservation_factor = conservation_factors.get(conservation, 0.85)
     
-    # Calculate depreciation
-    age_depreciation = min(age / useful_life, 0.50)  # Cap at 50%
+    # Calculate depreciation. Sin tope intermedio en age_depreciation: con el tope de 0.50
+    # (30 años), una remodelación que baja la edad efectiva de 54 a 41 años no cambiaba nada
+    # (ambas saturaban igual) — ver caso Escorpión 3518. El tope final (0.85) es el único límite.
+    age_depreciation = age / useful_life
     total_depreciation = age_depreciation + (1 - conservation_factor) * 0.3
-    total_depreciation = min(total_depreciation, 0.60)  # Max 60% depreciation
+    total_depreciation = min(total_depreciation, 0.85)  # Max 85% depreciation física
     
     construction_depreciated = construction_new * (1 - total_depreciation)
     physical_total = land_value + construction_depreciated
-    
+
+    # LAB (observación, no afecta estimated_value): mismo blend 80/20 pero con la
+    # depreciación calibrada de _depreciacion_lab() en vez de la fórmula de arriba.
+    total_depreciation_lab = _depreciacion_lab(prop)
+    construction_depreciated_lab = construction_new * (1 - total_depreciation_lab)
+    physical_total_lab = land_value + construction_depreciated_lab
+
     # ============== VALOR FINAL ==============
     # Regime discount (affects both methods)
     regime_discounts = {
@@ -1251,7 +1305,14 @@ async def calculate_valuation(valuation_id: str, request: Request):
     # If our estimate is more than 30% above comparable average, adjust down
     if estimated_value > comparable_avg_total * 1.30:
         estimated_value = (estimated_value + comparable_avg_total * 1.30) / 2
-    
+
+    # LAB: mismo blend + mismo sanity check, pero con physical_total_lab
+    estimated_value_lab = (comparative_weighted * 0.80 + physical_total_lab * 0.20) * (1 - regime_discount)
+    if estimated_value_lab < comparable_avg_total * 0.70:
+        estimated_value_lab = (estimated_value_lab + comparable_avg_total * 0.70) / 2
+    if estimated_value_lab > comparable_avg_total * 1.30:
+        estimated_value_lab = (estimated_value_lab + comparable_avg_total * 1.30) / 2
+
     # Confidence level
     confidence = "MEDIO"
     if len(active_comparables) >= 5:
@@ -1297,11 +1358,19 @@ async def calculate_valuation(valuation_id: str, request: Request):
         market_metrics=MarketMetrics(**market_metrics)
     )
     
+    result_lab_rh = {
+        "depreciation_percent": round(total_depreciation_lab * 100, 1),
+        "construction_depreciated": round(construction_depreciated_lab, 2),
+        "physical_total": round(physical_total_lab, 2),
+        "estimated_value": round(estimated_value_lab, 2),
+    }
+
     await db.valuations.update_one(
         {"valuation_id": valuation_id},
         {
             "$set": {
                 "result": result.model_dump(),
+                "result_lab_rh": result_lab_rh,
                 "status": "calculated",
                 "updated_at": datetime.now(timezone.utc).isoformat()
             }
@@ -1339,8 +1408,8 @@ def _physical_breakdown(prop: dict, comparative_ppsm: float) -> dict:
         "Remodelación Menor": 0.80, "Remodelación Intermedia": 0.90, "Remodelación Completa": 1.0,
     }
     conservation_factor = conservation_factors.get(prop.get("conservation_state") or "Bueno", 0.85)
-    age_depreciation = min(age / 60.0, 0.50)
-    total_depreciation = min(age_depreciation + (1 - conservation_factor) * 0.3, 0.60)
+    age_depreciation = age / 60.0
+    total_depreciation = min(age_depreciation + (1 - conservation_factor) * 0.3, 0.85)
     construction_depreciated = construction_new * (1 - total_depreciation)
     physical_total = land_value + construction_depreciated
     return {
