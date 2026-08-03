@@ -979,7 +979,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "alamedas de san gaspar": {
@@ -1117,7 +1117,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "albazur santa ana tepatitlan": {
@@ -1373,7 +1373,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "almendros valle imperial": {
@@ -2367,7 +2367,7 @@
   "municipio": "tonala",
   "municipio_fuente": "anuncios",
   "homonima_en": [
-   "ajijic",
+   "chapala",
    "tonala"
   ]
  },
@@ -2496,7 +2496,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "arbolada bosques de santa anita": {
@@ -2524,7 +2524,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "arboleda bosques de santa anita": {
@@ -2538,7 +2538,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "arboleda coto residencial": {
@@ -2701,7 +2701,7 @@
   "fuente": "manual",
   "confianza": "media",
   "confianza_puntos": 70,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index",
   "nota": "nombre correcto"
  },
@@ -3438,7 +3438,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "atmosphere habitat": {
@@ -3533,7 +3533,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlaquepaque",
+  "municipio": "san pedro tlaquepaque",
   "municipio_fuente": "cache_index"
  },
  "aurea residencial": {
@@ -4122,7 +4122,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "barajas villasenor san pablo": {
@@ -4581,7 +4581,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "bellaterra fronda": {
@@ -4927,7 +4927,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "bosque cedros santa anita": {
@@ -5103,7 +5103,7 @@
   "fuente": "manual",
   "confianza": "media",
   "confianza_puntos": 62,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "bosque real santa anita": {
@@ -5133,7 +5133,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "bosque valdepenas": {
@@ -5172,7 +5172,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "bosques de centinela": {
@@ -5289,7 +5289,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "bosques de los lagos": {
@@ -5364,7 +5364,6 @@
   "municipio": null,
   "municipio_fuente": null,
   "homonima_en": [
-   "tlajomulco",
    "tlajomulco de zuniga",
    "zapopan"
   ],
@@ -5603,12 +5602,8 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": null,
-  "municipio_fuente": null,
-  "homonima_en": [
-   "tlajomulco",
-   "tlajomulco de zuniga"
-  ]
+  "municipio": "tlajomulco de zuniga",
+  "municipio_fuente": "sepomex"
  },
  "brisas de chapala": {
   "decada_ref": "1970s",
@@ -5695,7 +5690,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "buenavista": {
@@ -5711,7 +5706,7 @@
   "fuente": "manual",
   "confianza": "media",
   "confianza_puntos": 62,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index",
   "nucleo_historico": true,
   "nucleo_tipo": "Ejido"
@@ -5861,7 +5856,6 @@
   "municipio": null,
   "municipio_fuente": null,
   "homonima_en": [
-   "tlajomulco",
    "tlajomulco de zuniga",
    "zapopan"
   ]
@@ -6147,7 +6141,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlaquepaque",
+  "municipio": "san pedro tlaquepaque",
   "municipio_fuente": "cache_index"
  },
  "camichines alborada 2 seccion": {
@@ -6614,7 +6608,6 @@
   "homonima_en": [
    "chapala",
    "el salto",
-   "tlajomulco",
    "tlajomulco de zuniga"
   ]
  },
@@ -6896,7 +6889,6 @@
   "municipio": null,
   "municipio_fuente": null,
   "homonima_en": [
-   "tlajomulco",
    "tlajomulco de zuniga",
    "zapopan"
   ],
@@ -6940,7 +6932,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "casa fuerte el bastion": {
@@ -7034,7 +7026,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "cd aztlan": {
@@ -7163,7 +7155,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "ajijic",
+  "municipio": "chapala",
   "municipio_fuente": "cache_index"
  },
  "central park": {
@@ -7981,7 +7973,6 @@
   "municipio": null,
   "municipio_fuente": null,
   "homonima_en": [
-   "tlajomulco",
    "tlajomulco de zuniga",
    "zapopan"
   ]
@@ -8107,7 +8098,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "ciudad universitaria": {
@@ -8174,7 +8165,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "colegio del aire": {
@@ -8734,7 +8725,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "colinas santa cruz ii": {
@@ -9223,7 +9214,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "condominio puerta plata": {
@@ -9242,7 +9233,7 @@
   "municipio": "zapopan",
   "municipio_fuente": "anuncios",
   "homonima_en": [
-   "tlajomulco",
+   "tlajomulco de zuniga",
    "zapopan"
   ]
  },
@@ -9590,7 +9581,7 @@
   "fuente": "manual",
   "confianza": "media",
   "confianza_puntos": 62,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "cortijo san agustin tlajomulco": {
@@ -10124,7 +10115,7 @@
   "municipio": "tonala",
   "municipio_fuente": "anuncios",
   "homonima_en": [
-   "ajijic",
+   "chapala",
    "tonala"
   ]
  },
@@ -10139,7 +10130,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "cuauhtemoc": {
@@ -10719,7 +10710,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "department in anuva": {
@@ -10807,7 +10798,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "department in zapopan": {
@@ -11382,7 +11373,6 @@
   "homonima_en": [
    "guadalajara",
    "san pedro tlaquepaque",
-   "tlaquepaque",
    "zapopan"
   ],
   "por_municipio": {
@@ -11411,7 +11401,7 @@
   "fuente": "manual",
   "confianza": "media",
   "confianza_puntos": 62,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "el alcazar oriente": {
@@ -11937,7 +11927,6 @@
   "municipio": null,
   "municipio_fuente": null,
   "homonima_en": [
-   "tlajomulco",
    "tlajomulco de zuniga",
    "zapopan"
   ]
@@ -12164,7 +12153,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "el dean": {
@@ -12361,7 +12350,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "el humedo de nextipac": {
@@ -12448,7 +12437,6 @@
   "municipio_fuente": "sepomex+anuncios",
   "homonima_en": [
    "san pedro tlaquepaque",
-   "tlaquepaque",
    "zapopan"
   ],
   "por_municipio": {
@@ -12726,7 +12714,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "el palomar bosques": {
@@ -12740,7 +12728,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "el palomar canadas": {
@@ -12754,7 +12742,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "el palomar contry club": {
@@ -12768,7 +12756,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "el palomar first section": {
@@ -12796,7 +12784,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "el palomar panoramica": {
@@ -12810,7 +12798,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "el palomar seccion bosques": {
@@ -12826,7 +12814,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "el palomar tlajomulco": {
@@ -13008,7 +12996,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "el pilar residential tlajomulco": {
@@ -13211,7 +13199,6 @@
   "municipio_fuente": "sepomex+anuncios",
   "homonima_en": [
    "san pedro tlaquepaque",
-   "tlaquepaque",
    "zapopan"
   ],
   "por_municipio": {
@@ -13297,7 +13284,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "el refugio tlaquepaque": {
@@ -13826,7 +13813,7 @@
   "fuente": "plan-parcial",
   "confianza": "media",
   "confianza_puntos": 72,
-  "municipio": "tlaquepaque",
+  "municipio": "san pedro tlaquepaque",
   "municipio_fuente": "cache_index"
  },
  "el vergel 2da seccion": {
@@ -13941,7 +13928,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "electricistas": {
@@ -14896,7 +14883,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlaquepaque",
+  "municipio": "san pedro tlaquepaque",
   "municipio_fuente": "cache_index"
  },
  "francisco sarabia": {
@@ -15162,7 +15149,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "geovillas del real": {
@@ -15442,7 +15429,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "granja central barragan moreno": {
@@ -16017,7 +16004,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "hacienda la herradura": {
@@ -16281,7 +16268,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "hacienda sant fe": {
@@ -16489,7 +16476,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlaquepaque",
+  "municipio": "san pedro tlaquepaque",
   "municipio_fuente": "cache_index"
  },
  "haciendas de zapopan": {
@@ -16911,7 +16898,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "hispania la rioja": {
@@ -16925,7 +16912,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "hispania la rioja tlajomulco": {
@@ -17162,7 +17149,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "huerta de pena": {
@@ -17219,7 +17206,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "huertas productivas de jalisco": {
@@ -17869,7 +17856,7 @@
   "municipio": "zapopan",
   "municipio_fuente": "anuncios",
   "homonima_en": [
-   "ajijic",
+   "chapala",
    "zapopan"
   ]
  },
@@ -17943,7 +17930,6 @@
   "municipio": "chapala",
   "municipio_fuente": "anuncios",
   "homonima_en": [
-   "ajijic",
    "chapala"
   ]
  },
@@ -20119,7 +20105,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 38,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "la arbolada plus": {
@@ -21023,7 +21009,7 @@
   "fuente": "plan-parcial",
   "confianza": "media",
   "confianza_puntos": 45,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "la gavia": {
@@ -21037,7 +21023,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "ajijic",
+  "municipio": "chapala",
   "municipio_fuente": "cache_index"
  },
  "la gigantera": {
@@ -21057,7 +21043,6 @@
   "homonima_en": [
    "san pedro tlaquepaque",
    "tlajomulco de zuniga",
-   "tlaquepaque",
    "tonala"
   ],
   "por_municipio": {
@@ -21731,7 +21716,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "la noria residencial": {
@@ -22243,7 +22228,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "la sauceda": {
@@ -22380,7 +22365,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "la union del cuatro": {
@@ -23204,9 +23189,7 @@
   "municipio_fuente": "sepomex+anuncios",
   "homonima_en": [
    "san pedro tlaquepaque",
-   "tlajomulco",
    "tlajomulco de zuniga",
-   "tlaquepaque",
    "zapopan"
   ],
   "por_municipio": {
@@ -23367,8 +23350,7 @@
   "municipio_fuente": "sepomex+anuncios",
   "homonima_en": [
    "guadalajara",
-   "san pedro tlaquepaque",
-   "tlaquepaque"
+   "san pedro tlaquepaque"
   ],
   "por_municipio": {
    "guadalajara": {
@@ -23551,7 +23533,6 @@
   "municipio_fuente": "sepomex+anuncios",
   "homonima_en": [
    "guadalajara",
-   "tlajomulco",
    "tlajomulco de zuniga",
    "tonala"
   ],
@@ -23638,7 +23619,7 @@
   "fuente": "plan-parcial",
   "confianza": "media",
   "confianza_puntos": 72,
-  "municipio": "tlaquepaque",
+  "municipio": "san pedro tlaquepaque",
   "municipio_fuente": "cache_index"
  },
  "las pintas el salto": {
@@ -23739,7 +23720,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlaquepaque",
+  "municipio": "san pedro tlaquepaque",
   "municipio_fuente": "cache_index"
  },
  "las terrazas residencial": {
@@ -23854,7 +23835,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "las victorias residencial": {
@@ -24030,7 +24011,6 @@
   "homonima_en": [
    "guadalajara",
    "san pedro tlaquepaque",
-   "tlaquepaque",
    "zapopan"
   ]
  },
@@ -24607,7 +24587,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "ajijic",
+  "municipio": "chapala",
   "municipio_fuente": "cache_index"
  },
  "lomas de atemajac": {
@@ -25042,7 +25022,7 @@
   "fuente": "manual",
   "confianza": "media",
   "confianza_puntos": 58,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "lomas de san diego": {
@@ -25102,7 +25082,6 @@
   "municipio_fuente": "sepomex+anuncios",
   "homonima_en": [
    "san pedro tlaquepaque",
-   "tlaquepaque",
    "tonala"
   ],
   "por_municipio": {
@@ -25283,7 +25262,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "lomas de tesistan": {
@@ -25311,7 +25290,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "ajijic",
+  "municipio": "chapala",
   "municipio_fuente": "cache_index"
  },
  "lomas de tlaquepaque": {
@@ -25395,7 +25374,7 @@
   "fuente": "plan-parcial",
   "confianza": "media",
   "confianza_puntos": 72,
-  "municipio": "tlaquepaque",
+  "municipio": "san pedro tlaquepaque",
   "municipio_fuente": "cache_index"
  },
  "lomas del aeropuerto": {
@@ -25822,7 +25801,6 @@
   "municipio_fuente": "sepomex+anuncios",
   "homonima_en": [
    "guadalajara",
-   "tlajomulco",
    "tlajomulco de zuniga",
    "tonala"
   ],
@@ -26117,7 +26095,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 36,
-  "municipio": "tlaquepaque",
+  "municipio": "san pedro tlaquepaque",
   "municipio_fuente": "cache_index"
  },
  "lopez de legaspi": {
@@ -26743,7 +26721,7 @@
   "fuente": "plan-parcial",
   "confianza": "media",
   "confianza_puntos": 45,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "los flamingos la vinatera": {
@@ -26784,7 +26762,7 @@
   "fuente": "manual",
   "confianza": "media",
   "confianza_puntos": 60,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "los gavilanes": {
@@ -27267,7 +27245,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "los pajaritos": {
@@ -27502,7 +27480,7 @@
   "fuente": "plan-parcial",
   "confianza": "media",
   "confianza_puntos": 48,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "los silos": {
@@ -28099,7 +28077,7 @@
   "municipio": "zapopan",
   "municipio_fuente": "anuncios",
   "homonima_en": [
-   "ajijic",
+   "chapala",
    "zapopan"
   ]
  },
@@ -28497,7 +28475,6 @@
   "municipio": null,
   "municipio_fuente": null,
   "homonima_en": [
-   "tlajomulco",
    "tlajomulco de zuniga",
    "tonala"
   ]
@@ -29277,7 +29254,7 @@
   "municipio": "tonala",
   "municipio_fuente": "anuncios",
   "homonima_en": [
-   "ajijic",
+   "chapala",
    "tonala"
   ]
  },
@@ -29675,7 +29652,7 @@
   "municipio_fuente": "sepomex",
   "homonima_en": [
    "guadalajara",
-   "tlajomulco",
+   "tlajomulco de zuniga",
    "zapopan"
   ],
   "por_municipio": {
@@ -29757,7 +29734,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "nueva galicia residencial": {
@@ -29798,7 +29775,7 @@
   "fuente": "hemeroteca",
   "confianza": "media",
   "confianza_puntos": 64,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "nueva lazaro cardenas": {
@@ -30084,7 +30061,7 @@
   "municipio": "guadalajara",
   "municipio_fuente": "sepomex+anuncios",
   "homonima_en": [
-   "ajijic",
+   "chapala",
    "el salto",
    "guadalajara",
    "tonala"
@@ -30190,7 +30167,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "olimpica": {
@@ -30275,7 +30252,7 @@
   "fuente": "plan-parcial",
   "confianza": "media",
   "confianza_puntos": 57,
-  "municipio": "tlaquepaque",
+  "municipio": "san pedro tlaquepaque",
   "municipio_fuente": "cache_index"
  },
  "olmos": {
@@ -30331,7 +30308,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlaquepaque",
+  "municipio": "san pedro tlaquepaque",
   "municipio_fuente": "cache_index"
  },
  "onialibertad": {
@@ -31303,8 +31280,8 @@
   "municipio": null,
   "municipio_fuente": null,
   "homonima_en": [
-   "tlajomulco",
-   "tlaquepaque"
+   "san pedro tlaquepaque",
+   "tlajomulco de zuniga"
   ],
   "por_municipio": {
    "san pedro tlaquepaque": {
@@ -31816,7 +31793,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlaquepaque",
+  "municipio": "san pedro tlaquepaque",
   "municipio_fuente": "cache_index"
  },
  "paseos universidad": {
@@ -33680,7 +33657,7 @@
   "fuente": "manual",
   "confianza": "media",
   "confianza_puntos": 49,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "provenza la romana": {
@@ -33695,7 +33672,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "providencia": {
@@ -33967,7 +33944,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "pueblo san antonio tlayacapan": {
@@ -33996,7 +33973,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "pueblo santa cruz de las flores": {
@@ -34010,7 +33987,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "pueblo tateposco": {
@@ -34212,7 +34189,7 @@
   "municipio_fuente": "sepomex+anuncios",
   "homonima_en": [
    "ixtlahuacan de los membrillos",
-   "tlajomulco",
+   "tlajomulco de zuniga",
    "zapopan"
   ],
   "por_municipio": {
@@ -34409,7 +34386,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "puertas del sol autopista": {
@@ -34602,7 +34579,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "quinta del federalismo": {
@@ -34660,7 +34637,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlaquepaque",
+  "municipio": "san pedro tlaquepaque",
   "municipio_fuente": "cache_index"
  },
  "quintanova residencial": {
@@ -34954,7 +34931,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "rancho grande residencial": {
@@ -35053,7 +35030,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "rancho sanchez": {
@@ -35389,7 +35366,6 @@
   "municipio": "zapopan",
   "municipio_fuente": "sepomex+anuncios",
   "homonima_en": [
-   "tlajomulco",
    "tlajomulco de zuniga",
    "zapopan"
   ],
@@ -35442,7 +35418,7 @@
   "fuente": "plan-parcial",
   "confianza": "alta",
   "confianza_puntos": 94,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "maestro"
  },
  "real el tapatio residencial": {
@@ -36949,7 +36925,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "rinconada de los novelistas": {
@@ -37989,7 +37965,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "san agustin residential cot": {
@@ -38500,7 +38476,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "san isidro mezatepec": {
@@ -38988,7 +38964,7 @@
   "fuente": "manual",
   "confianza": "media",
   "confianza_puntos": 62,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "san lorenzo": {
@@ -39429,11 +39405,11 @@
   "fuente": "manual",
   "confianza": "alta",
   "confianza_puntos": 86,
-  "municipio": "tlaquepaque",
+  "municipio": "san pedro tlaquepaque",
   "municipio_fuente": "anuncios",
   "homonima_en": [
-   "ajijic",
-   "tlaquepaque"
+   "chapala",
+   "san pedro tlaquepaque"
   ],
   "nucleo_historico": true,
   "nucleo_tipo": "Ejido"
@@ -39467,9 +39443,8 @@
   "municipio_fuente": null,
   "homonima_en": [
    "guadalajara",
-   "tlajomulco",
-   "tlajomulco de zuniga",
-   "tlaquepaque"
+   "san pedro tlaquepaque",
+   "tlajomulco de zuniga"
   ]
  },
  "san pedro tlaquepaque centro": {
@@ -39651,7 +39626,7 @@
   "municipio": "tonala",
   "municipio_fuente": "anuncios",
   "homonima_en": [
-   "ajijic",
+   "chapala",
    "tonala"
   ]
  },
@@ -39708,7 +39683,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "santa amelia 2": {
@@ -39977,7 +39952,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "santa cruz de la soledad": {
@@ -40884,7 +40859,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "sendero de monteverde": {
@@ -40977,7 +40952,7 @@
   "fuente": "plan-parcial",
   "confianza": "alta",
   "confianza_puntos": 94,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "senderos de santiago": {
@@ -41948,7 +41923,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlaquepaque",
+  "municipio": "san pedro tlaquepaque",
   "municipio_fuente": "cache_index"
  },
  "tejeda valley": {
@@ -42160,7 +42135,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "terreno chapalita polo field": {
@@ -42598,7 +42573,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "tinajitas": {
@@ -42687,7 +42662,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "tlajomulco de zuniga jalisco": {
@@ -43501,7 +43476,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "tres reyes de cajititlan": {
@@ -43541,7 +43516,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "turquesa": {
@@ -43783,7 +43758,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "universidad": {
@@ -44868,7 +44843,7 @@
   "fuente": "plan-parcial",
   "confianza": "media",
   "confianza_puntos": 57,
-  "municipio": "tlaquepaque",
+  "municipio": "san pedro tlaquepaque",
   "municipio_fuente": "cache_index"
  },
  "valley of the oaks": {
@@ -45396,7 +45371,7 @@
   "fuente": "manual",
   "confianza": "media",
   "confianza_puntos": 49,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "victor hugo": {
@@ -46065,7 +46040,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "villas camino real de colima": {
@@ -46259,7 +46234,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "villas de loma grande": {
@@ -47816,7 +47791,7 @@
   "municipio": "tonala",
   "municipio_fuente": "anuncios",
   "homonima_en": [
-   "ajijic",
+   "chapala",
    "tonala"
   ]
  },
@@ -47831,7 +47806,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "zacahuitzco": {
@@ -48370,7 +48345,7 @@
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
-  "municipio": "tlajomulco",
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
  "el dorado": {
