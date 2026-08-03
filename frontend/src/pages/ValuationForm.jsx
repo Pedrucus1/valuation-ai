@@ -105,7 +105,10 @@ const CONSERVATION_STATES = [
   { value: "Excelente", label: "Excelente", color: "text-green-600" },
   { value: "Bueno", label: "Bueno", color: "text-blue-600" },
   { value: "Regular", label: "Regular", color: "text-amber-600" },
-  { value: "Malo", label: "Malo", color: "text-red-600" }
+  { value: "Malo", label: "Malo", color: "text-red-600" },
+  { value: "Remodelación Menor", label: "Remodelación Menor (acabados: pintura, pisos, baño/cocina)", color: "text-teal-600" },
+  { value: "Remodelación Intermedia", label: "Remodelación Intermedia (instalaciones + acabados principales)", color: "text-teal-600" },
+  { value: "Remodelación Completa", label: "Remodelación Completa (prácticamente nueva)", color: "text-teal-600" },
 ];
 
 // Catálogo basado en Reglamento de Zonificación de Jalisco

@@ -491,7 +491,7 @@ const ComparablesPage = () => {
   };
 
   if (isLoading) {
-    const zone = valuation?.property_data?.municipio || "";
+    const zone = valuation?.property_data?.municipality || "";
     return (
       <div className="min-h-screen bg-[#F8F9FA] flex items-center justify-center">
         {showAds && showSlot1Ad && (
