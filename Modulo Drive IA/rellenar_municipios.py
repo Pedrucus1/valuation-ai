@@ -32,6 +32,10 @@ ZONA = {"guadalajara", "zapopan", "san pedro tlaquepaque", "tlaquepaque", "tonal
         "tlajomulco de zuniga", "tlajomulco", "el salto", "juanacatlan",
         "ixtlahuacan de los membrillos", "zapotlanejo", "chapala", "poncitlan", "jocotepec"}
 
+# una sola ortografia por municipio: el archivo ya quedo normalizado asi
+CANON = {"tlaquepaque": "san pedro tlaquepaque", "tlajomulco": "tlajomulco de zuniga",
+         "ajijic": "chapala"}
+
 
 def cargar():
     dec = json.loads((DIR / "colonias_decada.json").read_text(encoding="utf-8"))
@@ -67,10 +71,26 @@ def cargar():
     return dec, padron, vistos
 
 
+def por_el_nombre(nk):
+    """El municipio va escrito en el propio nombre: "camichines tonala",
+    "arcos de zapopan 2a seccion", "balcones de tlaquepaque"."""
+    pal = set(nk.split())
+    hallados = {m for m in ZONA if set(m.split()) <= pal}
+    if len(hallados) != 1:
+        return None
+    m = next(iter(hallados))
+    # el nombre no puede ser SOLO el municipio ("tlaquepaque" a secas no dice nada)
+    return CANON.get(m, m) if pal - set(m.split()) else None
+
+
 def resolver(nk, padron, vistos):
     """-> (municipio, fuente, homonima_en). municipio None = no se pudo."""
     munis = {m for m in (padron.get(nk) or set()) if m}
     anuncios = vistos.get(nk) or collections.Counter()
+
+    escrito = por_el_nombre(nk)
+    if escrito and (not munis or escrito in munis):
+        return escrito, "nombre", None
 
     if len(munis) == 1:
         return next(iter(munis)), "sepomex", None
