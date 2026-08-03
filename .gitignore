@@ -164,3 +164,8 @@ Modulo Drive IA/_geo/readme.txt
 
 # Índices LAB (regenerables con build_cache_index_lab_*.js, no versionar)
 Modulo Drive IA/cache_index.LAB_*.json
+
+# Respaldos automáticos de integrar.py y scripts de catastro (48 MB, regenerables)
+Modulo Drive IA/colonias_decada.json.bak-*
+Modulo Drive IA/homonimas_resueltas.json.bak-*
+Modulo Drive IA/*.SOBREESCRITO-*

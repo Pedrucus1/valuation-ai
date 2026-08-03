@@ -5,6 +5,56 @@
 
 ---
 
+## 3 Ago 2026 — Homónimas cerradas y manual de arquitectura
+
+Sesión de datos e investigación, sin tocar features. Empezó con 35 pares homónimos sin
+fechar y 24 con confianza baja; terminó con **107 pares fechados, 0 pendientes y ninguno
+bajo 60 puntos**.
+
+**Lo que resolvió el problema no fue el OCR.** Los PDF del Periódico Oficial llevaban varias
+sesiones sin rendir. La vía que sí funcionó: el usuario investiga cada colonia —plan parcial
+por distrito, detonante urbano y sobre todo el **porcentaje de edificación por corte censal
+en la ortofoto**— y Claude integra con `integrar.py`, contrasta contra la cobertura INEGI y
+marca lo que no cuadra. El dato pedido en dos líneas por colonia; el formato largo con
+fuentes y tipología no cambiaba ninguna fecha.
+
+**Dos criterios quedaron fijados.** Primero: **la década es la de la edificación, no la del
+trazo**. Colinas de San Javier se traza en 1968 y es de los setenta; Puerta de Hierro se
+urbaniza en 1987 y es de los noventa. Segundo: `cov2000 = 1.00` en el cruce con INEGI no
+prueba que la colonia estuviera construida —el polígono cae dentro de la mancha
+metropolitana, que ya cubría los baldíos—, y ni siquiera los ceros valen en municipios
+periféricos, donde el censo no traza mancha urbana aunque haya casas. Eso lo demostró
+`puerta del sol|ixtlahuacan`: cero en 2010 y 50-60% edificada en la ortofoto.
+
+**Cerrar por cobertura fechaba sistemáticamente tarde.** De 24 pares revisados con ese
+método, 19 se corrigieron hacia atrás; `el zalate|tlaquepaque` estaba cuatro décadas fuera.
+
+**Corrección de datos:** `colomos providencia` pasa de 1910s a 1960s. El 1910s venía del
+normalizador heredado, que confundió los manantiales de Los Colomos, de principios de siglo,
+con la fundación de la colonia. La regla de normalización sigue vigente —se restaura a
+Colomos Providencia y no se colapsa con Providencia—; lo que era falso es la década.
+
+**Incidente de concurrencia.** Otra sesión sobrescribió `colonias_decada.json` con una versión
+anterior y borró los 106 pares de golpe. Se recuperó del respaldo previo sin pérdida; la
+versión que lo pisó quedó como `.SOBREESCRITO-2335`. Regla nueva: contar los pares antes y
+después de cada escritura. También se descubrió que el contador de `integrar.py` engaña
+—imprime `pares_antes + len(aplicados)` y reaplica todo en cada corrida, así que decía 209
+cuando en el archivo hay 107—.
+
+**Manual de Arquitectura ZMG: de 168 marcas a 82.** Se cerraron las 13 tablas paramétricas de
+m² con datos periciales del usuario (destapando que el interés social de 2010-2019 estaba en
+45-75 m² cuando son 65-95, y que el townhouse de 2020 tenía invertidos terreno y
+construcción); las 13 décadas quedaron con sus colonias clasificadas por segmento; y el
+catálogo de materiales se extendió con **34 fechadores de 1995 a 2026**, con dos hallazgos de
+campo: el polo a tierra es obligatorio desde la NOM-001-SEDE-1999 —ancla dura equivalente al
+tinaco de polietileno de 1989— y el criterio de que "las instalaciones no se remodelan" falla
+entre 1995 y 2026, con tres puntos de inspección para salvarlo. Apareció además una categoría
+nueva, **pueblos absorbidos**: 25 de los 101 registros de los setenta son núcleos históricos
+que el municipio inscribió cuando los alcanzó la ciudad, no fraccionamientos de la década.
+
+
+---
+
 ## 2 Ago 2026 — Colonias limpias en origen (Tarea 6 cerrada)
 
 Sesión de datos, sin tocar features ni UI. Objetivo: la **década de urbanización por colonia**, que alimenta el identificador de edad.

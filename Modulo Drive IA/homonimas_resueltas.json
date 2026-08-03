@@ -1,0 +1,1373 @@
+{
+  "casa fuerte|tlajomulco de zuniga": {
+    "decada_ref": "2010s",
+    "decadas": [
+      "2010s"
+    ],
+    "nivel": "media",
+    "fuente": "manual",
+    "confianza_puntos": 80,
+    "evidencia": "Programa de Ordenamiento Ecológico Local de Tlajomulco, zona San Agustín-La Primavera: \"Hacienda Casa Fuerte ... del 2014\" — https://tlajomulco.gob.mx/sites/default/files/PoelTlajoZonaSanAgustin.pdf",
+    "nota": "Corrige la referencia heredada 2000s: el documento municipal fecha expresamente el asentamiento en 2014."
+  },
+  "bosques de santa anita|tlajomulco de zuniga": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "1990s",
+      "2000s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Predios boscosos al pie de La Primavera, camino a La Tijera: cotos residenciales campestres de alta gama. Ortofoto 2000 con 30-40% edificado y 2010 arriba del 90%: el grueso es de los 2000s, no de los 2010s como decía el cierre por cobertura. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "nueva galicia|tlajomulco de zuniga": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "2000s"
+    ],
+    "nivel": "media",
+    "fuente": "manual",
+    "confianza_puntos": 78,
+    "evidencia": "CIESAS, tesis de Fabiola Casas Cervantes (2022), apartado sobre Nueva Galicia: \"Este desarrollo fue construido en el año 2001 por GIG\" — https://ciesas.repositorioinstitucional.mx/jspui/bitstream/1015/1550/1/TE%20C.C.%202022%20Abril%20Fabiola%20Casas%20Cervantes.pdf"
+  },
+  "colinas de san javier|guadalajara": {
+    "decada_ref": "1960s",
+    "decadas": [
+      "1960s"
+    ],
+    "nivel": "lujo",
+    "fuente": "hemeroteca",
+    "confianza_puntos": 86,
+    "evidencia": "Gaceta Municipal de Guadalajara, septiembre de 2022, acuerdo A 22/15/22: monumento conmemorativo por el LX aniversario de la fundación de la colonia Colinas de San Javier — https://transparencia.guadalajara.gob.mx/sites/default/files/GacetaSeptiembre2022.pdf",
+    "nota": "El LX aniversario celebrado en 2022 sitúa la fundación en 1962."
+  },
+  "colinas de san javier|zapopan": {
+    "decada_ref": "1970s",
+    "decadas": [
+      "1970s",
+      "1980s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 65,
+    "nivel": "media",
+    "evidencia": "Fraccionamiento de muy alta plusvalía autorizado hacia 1968; edificación en los 70 y 80 impulsada por el Colegio San Javier (maristas, principios de los 70) y por Pablo Neruda y Patria. Residencias de la escuela tapatía (Barragán, Díaz Morales, González Gortázar). Densificación vertical desde los 90. INEGI cov2000=0.92. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "agua blanca|el salto": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "1990s",
+      "2000s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Ejidos junto al corredor industrial de El Salto: vivienda obrera popular. Ortofoto 2000 con 30-40% y 2010 arriba del 90%: el grueso es de los 2000s, no de los 2010s que daba la cobertura. La de Tonalá también es 2000s y la de Zapopan es 1980s. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "agua blanca|tonala": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "2000s",
+      "2010s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Predios ejidales de la periferia nororiente: autoconstrucción. Ortofoto 2000 con 15-25%, 2010 con 65-75% y 2020 arriba del 95%: el grueso es de los 2000s. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "la cuspide|zapopan": {
+    "decada_ref": "2010s",
+    "decadas": [
+      "2000s",
+      "2010s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Distrito ZPN-05 Tesistán: coto residencial autorizado hacia 2006-2008, ocupación 2010-2018. INEGI cov2000=0.00 / cov2010=0.01 / cov2020=0.99 confirma que en 2010 estaba prácticamente sin construir: la década efectiva es 2010s. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "el zalate|san pedro tlaquepaque": {
+    "decada_ref": "1960s",
+    "decadas": [
+      "1950s",
+      "1960s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Predios agrarios del oriente de la cabecera, corredor a Zapotlanejo. Series históricas 1960 con 50-60% y 1970 al 95%: es de los 1960s. Corrige el 2000s de hemeroteca que tenía 40 pts, cuatro décadas tarde. La homónima de Guadalajara (Tetlán) es 1980s. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "las trojes|jocotepec": {
+    "decada_ref": "1990s",
+    "decadas": [
+      "1980s",
+      "1990s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Quintas y terrenos agrícolas de la ribera de Chapala: crecimiento de la cabecera y turismo residencial. Ortofoto 1990 con 30-40%, 2000 con 75-85% y 2010 arriba del 90%: el grueso es de los 1990s, no de los 2010s. Pertenece al apartado de la ribera, no al cruce metropolitano. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "lomas del valle|zapotlanejo": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "1990s",
+      "2000s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Predios ejidales de la periferia de la cabecera: expansión ligada al comercio y la industria textil local. Ortofoto 2000 con 25-35% y 2010 arriba del 90%: el grueso es de los 2000s. Las homónimas de Guadalajara y Zapopan son de los 70 y los 80. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "valle del sol|zapopan": {
+    "decada_ref": "1990s",
+    "decadas": [
+      "1990s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 65,
+    "nivel": "media",
+    "evidencia": "Distrito ZPN-08 Mariano Otero / Paseos del Sol / Felipe Zetter (surponiente): lotificada tras Paseos del Sol, ortofoto INEGI 1990 con ~30% (traza y movimiento de tierras) y serie 2000 con ~100% de ocupación. POLÍGONO DCAH 2024 NO COINCIDENTE: el que lleva este nombre (cov 0.00/0.00/0.94) cae en otro desarrollo homónimo del norte, corredor Tesistán-Colotlán o Nextipac, construido después de 2010. No usar ese polígono para esta colonia. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "bellavista|tonala": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "2000s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Sur-oriente de Tonalá, franja de transición hacia El Salto y Coyula. Ortofoto 1990 con 5-10% (rústico y parcelario), 2000 con 20-30% (lotificación y autoproducción incipiente; el cov2000=0.00 se debe a que no alcanzaba el umbral censal urbano) y 2010 con 85-90%. El grueso se construyó entre 2000 y 2010. Distinta de la bellavista de El Salto (1950s, fábrica textil), la de Zapopan (1970s) y la de Poncitlán (1990s). |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "parque virreyes|zapopan": {
+    "decada_ref": "2010s",
+    "decadas": [
+      "2000s",
+      "2010s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 65,
+    "nivel": "media",
+    "evidencia": "Distrito ZPN-4 Vallarta-Universidad: urbanización y venta de lotes 2005-2007, edificación 2008-2018 con Av. Universidad y Juan Palomar y Arias. INEGI cov2000=0.00 (suelo rústico) / cov2010=1.00 marca la urbanización, no la edificación: el grueso de las casas es de los 2010s. Arquitectura contemporánea/minimalista en coto. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "parques santa cruz del valle|san pedro tlaquepaque": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "1990s",
+      "2000s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Ejidos de Santa Cruz del Valle junto al Periférico Sur: fraccionamientos de interés social. Ortofoto 2000 con 30-40% y 2010 arriba del 95%: confirma el 2000s que ya tenía, ahora con evidencia. Coincide con la lámina catastral 2020 zona 49 ya confirmada. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "_sin_resolver": {
+    "agua blanca": "Sin evidencia temporal citable para separar: zapopan. El Salto y Tonalá sí aparecen como pares resueltos mediante cortes cartográficos INEGI.",
+    "agua escondida": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: ixtlahuacan de los membrillos, tonala, zapotlanejo. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "alfareros": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: san pedro tlaquepaque, tonala. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "altamira": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: tonala, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "anzures": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: chapala, tonala. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "arroyo seco": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: san pedro tlaquepaque, tonala. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "bacalar": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: chapala, el salto. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "balcones del sol": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: tonala, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "bellavista": "Sin evidencia temporal citable para separar: acatlan de juarez, poncitlan, zapopan. Tonalá sí aparece como par resuelto mediante cortes cartográficos INEGI.",
+    "bosque de las lomas": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: tonala, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "bosques de las lomas": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: chapala, tonala, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "bosques de santa anita": "Sin evidencia temporal citable para separar: zapopan. El/los municipio(s) con evidencia sí aparecen como pares resueltos.",
+    "brisas": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: chapala, tlajomulco de zuniga. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "brisas de chapala": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: chapala, san pedro tlaquepaque. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "bugambilias 2a seccion": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: tlajomulco de zuniga, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "cancun": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: chapala, el salto, tlajomulco de zuniga. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "casa fuerte": "Sin evidencia temporal citable para separar: zapopan. El/los municipio(s) con evidencia sí aparecen como pares resueltos.",
+    "cipreses": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: tonala, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "ciudad bugambilias 2da seccion": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: tlajomulco de zuniga, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "ciudad de cancun": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: el salto, tonala. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "colinas de san javier": "Sin evidencia temporal citable para separar: zapopan. El/los municipio(s) con evidencia sí aparecen como pares resueltos.",
+    "condominio puerta plata": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: tlajomulco de zuniga, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "cuajimalpa": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: chapala, tonala. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "del bosque": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: guadalajara, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "division del norte": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: guadalajara, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "el alamo": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: guadalajara, san pedro tlaquepaque, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "el bajio": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: chapala, zapopan, zapotlanejo. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "el cielo country club": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: tlajomulco de zuniga, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "el mante": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: san pedro tlaquepaque, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "el real": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: san pedro tlaquepaque, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "el rosario": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: guadalajara, tonala, zapotlanejo. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "el zalate": "Sin evidencia temporal citable para separar: el salto, guadalajara. San Pedro Tlaquepaque sí aparece como par resuelto mediante cortes cartográficos INEGI.",
+    "insurgentes cuicuilco": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: chapala, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "interlomas": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: chapala. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "jardines del pedregal": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: tonala, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "juan diego": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: guadalajara, san pedro tlaquepaque. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "la arena": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: san pedro tlaquepaque, tonala. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "la cima de zapopan": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: guadalajara, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "la cofradia": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: juanacatlan, san pedro tlaquepaque, tuxcueca. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "la cuspide": "Sin evidencia temporal citable para separar: tonala. Zapopan sí aparece como par resuelto mediante cortes cartográficos INEGI.",
+    "la gigantera": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: san pedro tlaquepaque, tlajomulco de zuniga, tonala. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "la laja": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: zapopan, zapotlanejo. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "la purisima": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: el salto, tlajomulco de zuniga, zapotlanejo. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "la severiana": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: san pedro tlaquepaque, tonala. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "la villa": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: tonala, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "las flores": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: san pedro tlaquepaque, tlajomulco de zuniga, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "las juntas": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: guadalajara, san pedro tlaquepaque. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "las palmas": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: guadalajara, tlajomulco de zuniga, tonala. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "las trojes": "Sin evidencia temporal citable para separar: tlajomulco de zuniga. Jocotepec sí aparece como par resuelto mediante cortes cartográficos INEGI.",
+    "lindavista": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: guadalajara, san pedro tlaquepaque, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "loma bonita": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: el salto, guadalajara, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "loma real": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: guadalajara, tonala, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "lomas de san miguel": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: san pedro tlaquepaque, tonala. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "lomas del pedregal": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: guadalajara, tlajomulco de zuniga, tonala. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "lomas del valle": "Sin evidencia temporal citable para separar: guadalajara, zapopan. Zapotlanejo sí aparece como par resuelto mediante cortes cartográficos INEGI.",
+    "los alamos": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: tlajomulco de zuniga, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "los amiales": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: san pedro tlaquepaque, tonala. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "los colorines": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: guadalajara, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "los laureles": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: el salto, tlajomulco de zuniga, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "los maestros": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: el salto, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "los manzanos": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: tlajomulco de zuniga, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "los naranjos": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: poncitlan, san pedro tlaquepaque, tlajomulco de zuniga. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "los pinos": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: tlajomulco de zuniga, tonala, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "los sabinos": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: chapala, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "merida centro": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: chapala, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "mirador de los encinos": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: tlajomulco de zuniga, tonala. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "mirador del sol": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: tonala, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "napoles": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: chapala, tonala. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "nueva galicia": "Sin evidencia temporal citable para separar: guadalajara, zapopan. El/los municipio(s) con evidencia sí aparecen como pares resueltos.",
+    "obrera": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: chapala, el salto, guadalajara, tonala. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "parque san andres": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: chapala, tonala. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "parque virreyes": "Sin evidencia temporal citable para separar: el salto. Zapopan sí aparece como par resuelto mediante cortes cartográficos INEGI.",
+    "parques santa cruz del valle": "Sin evidencia temporal citable para separar: tlajomulco de zuniga. San Pedro Tlaquepaque sí aparece como par resuelto con cartografía INEGI y acta municipal.",
+    "paseos del valle": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: tlajomulco de zuniga, tonala. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "patria": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: guadalajara, poncitlan, tlajomulco de zuniga, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "polanco iv seccion": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: tonala, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "pontevedra": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: tlajomulco de zuniga, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "prados de la higuera": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: tlajomulco de zuniga, tonala. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "puerta del sol": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: ixtlahuacan de los membrillos, tlajomulco de zuniga, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "puerta real": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: el salto, tlajomulco de zuniga, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "real del bosque": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: tlajomulco de zuniga, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "real del parque": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: tlajomulco de zuniga, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "residencial del parque": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: guadalajara, zapopan, zapotlanejo. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "residencial victoria": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: guadalajara, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "ricardo flores magon": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: guadalajara, tonala. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "rinconada de santa rita": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: guadalajara, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "rinconada santa rita": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: guadalajara, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "rinconadas del sol": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: tlajomulco de zuniga, tonala. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "san bernardo": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: guadalajara, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "san jeronimo lidice": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: chapala, tonala. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "san pedro": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: chapala, san pedro tlaquepaque. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "san pedro tlaquepaque": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: guadalajara, san pedro tlaquepaque, tlajomulco de zuniga. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "san simon ticumac": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: chapala, tonala. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "santa fe": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: tonala, zapopan, zapotlanejo. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "santa maria nonoalco": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: el salto, tonala. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "santa rita": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: guadalajara, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "vallarta cuauhtemoc": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: guadalajara, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "valle del sol": "Sin evidencia temporal citable para separar: tonala. Zapopan sí aparece como par resuelto mediante cortes cartográficos INEGI.",
+    "virreyes": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: guadalajara, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "vista sur residencial": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: tlajomulco de zuniga, zapopan. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "xotepingo": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: chapala, tonala. Se omitió antes que reutilizar la década heredada o inferir por anillo.",
+    "zona hotelera": "No se localizó una fuente verificable que feche inequívocamente cada homónimo municipal: chapala, tlajomulco de zuniga, tonala. Se omitió antes que reutilizar la década heredada o inferir por anillo."
+  },
+  "el mante|san pedro tlaquepaque": {
+    "decada_ref": "1980s",
+    "decadas": [
+      "1970s",
+      "1980s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Fincas rurales al sur del Periférico y la prolongación Mariano Otero: expansión industrial y habitacional del sur. Fotogrametría 1980 con 40-50% y 1990 en 90-95%: es de los 1980s, no de los 2000s. Coincide con la lámina catastral 2020 zona 33 ya confirmada, que solo probaba presencia. La de Zapopan también es 1980s. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "la gigantera|san pedro tlaquepaque": {
+    "decada_ref": "1990s",
+    "decadas": [
+      "1980s",
+      "1990s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Ejidos al pie del Cerro del Gato, oriente de Tlaquepaque: vivienda popular de autoconstrucción. Ortofoto 1990 con 35-45% y 2000 arriba del 90%: el grueso es de los 1990s, no de los 2000s. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "la gigantera|tlajomulco de zuniga": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "2000s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Ejidos de transición hacia Tlaquepaque y el Cerro del Gato: interés social del corredor sur. Ortofoto 2000 con 15-25%, 2010 con 70-80% y 2020 arriba del 95%: el grueso se construyó entre 2000 y 2010. La homónima de Tonalá es 2010s y la de Tlaquepaque 1990s. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "la purisima|tlajomulco de zuniga": {
+    "decada_ref": "2010s",
+    "decadas": [
+      "2000s",
+      "2010s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Parcelas agrícolas cerca de Cajititlán: vivienda económica periférica. Ortofoto 2000 fuera de localidad censal, 2010 con 30-40% y 2020 arriba del 90%. Confirma el 2010s que ya tenía. La de El Salto es 1980s y la de Zapotlanejo 2010s. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "las palmas|tonala": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "1990s",
+      "2000s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Ejidos del sector oriente: expansión urbana popular. Ortofoto 2000 con 25-35% y 2010 arriba del 90%: el grueso es de los 2000s, no de los 2010s que daba la cobertura. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "las trojes|tlajomulco de zuniga": {
+    "decada_ref": "1990s",
+    "decadas": [
+      "1990s",
+      "2000s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Parcelas del valle sur con la conectividad de López Mateos Sur. Ortofoto 1990 con 20-30%, 2000 con 75-85% y 2010 al 95%: el grueso es de los 1990s. El cierre por cobertura la tenía en 2010s, dos décadas tarde. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "loma bonita|el salto": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "2000s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Norte / centro-oriente de El Salto, junto a la carretera vía La Capilla y el corredor industrial. Ortofoto 1990 con 5-15% (ejidal abierto), 2000 con 30-40% (concuerda con el cov2000=0.31) y 2010 con 95-100% saturada. El grueso se construyó entre 2000 y 2010. La homónima de Tonalá es 1990s y la de Zapopan 1980s. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "lomas de san miguel|tonala": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "1990s",
+      "2000s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Predios cerriles y ejidales del nororiente: autoproducción de densidad media. Ortofoto 2000 con 30-40% y 2010 arriba del 90%: el grueso es de los 2000s. La homónima de Tlaquepaque (San Martín de las Flores) es 1990s. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "lomas del pedregal|tlajomulco de zuniga": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "1990s",
+      "2000s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 65,
+    "nivel": "media",
+    "evidencia": "Terrenos cerriles ejidales en San Agustín: fraccionamientos campestres con control de acceso. Ortofoto 2000 con 40-50% y 2010 en 90-95%: se reparte entre los 90 y los 2000. La homónima de Guadalajara (barranca de Huentitán) es 1990s. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "paseos del valle|tlajomulco de zuniga": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "2000s",
+      "2010s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Macrofraccionamiento sobre ejido en el extremo sur, de la política federal de vivienda en serie. Ortofoto 2000 en cero, 2010 con 60-70% y 2020 arriba del 95%: el grueso es de los 2000s. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "pontevedra|tlajomulco de zuniga": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "2000s",
+      "2010s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 65,
+    "nivel": "media",
+    "evidencia": "Predios agrícolas reconvertidos a cotos de nivel medio-alto sobre López Mateos Sur. Ortofoto 2000 con 10-20%, 2010 con 55-65% y 2020 arriba del 95%: algo más de la mitad se construyó en los 2000s. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "puerta real|tlajomulco de zuniga": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "1990s",
+      "2000s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Ejidos junto a San José del Castillo y el corredor industrial: conjuntos para trabajadores. Ortofoto 2000 con 25-35% y 2010 arriba del 90%: el grueso es de los 2000s. La homónima de Zapopan (Av. Universidad) también es 2000s. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "real del bosque|tlajomulco de zuniga": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "2000s",
+      "2010s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Terrenos ejidales de Santa Fe / Chulavista: vivienda de interés social masiva. Ortofoto 2000 en cero, 2010 con 65-75% y 2020 arriba del 95%: el grueso es de los 2000s. La homónima de Zapopan (el Bajío) también es 2000s. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "real del parque|tlajomulco de zuniga": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "2000s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Predios rústicos del corredor de López Mateos Sur: fraccionamientos privados. Ortofoto 2000 con 20-30%, 2010 con 70-80% y 2020 arriba del 95%: el grueso es de los 2000s. La homónima de Zapopan (Parque Metropolitano) también es 2000s. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "rinconadas del sol|tlajomulco de zuniga": {
+    "decada_ref": "1990s",
+    "decadas": [
+      "1980s",
+      "1990s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Terrenos agrícolas junto a la cabecera y el corredor norte: suburbano de densidad media. Ortofoto 1990 con 35-45%, 2000 con 80-90% y 2010 al 95-100%: el grueso es de los 1990s, no de los 2000s. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "agua blanca|zapopan": {
+    "decada_ref": "1980s",
+    "decadas": [
+      "1970s",
+      "1980s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 60,
+    "nivel": "media",
+    "evidencia": "Distrito ZPN-08 Santa Ana Tepetitlán: ejido agrícola que pasa a urbano-industrial con Periférico Sur y López Mateos; consolidación 80s-90s. INEGI cov2000=1.00 (ya urbanizada antes de 2000, consistente). |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "bellavista|zapopan": {
+    "decada_ref": "1970s",
+    "decadas": [
+      "1970s",
+      "1980s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 60,
+    "nivel": "media",
+    "evidencia": "Trazada en 1908 con el tranvía Guadalajara-Zapopan (proyecto no prosperó, la Revolución la dejó rural). Poblamiento real 1970s, integración a servicios en los 80s. INEGI cov2000=1.00. La fecha útil para valuar es la del poblamiento, no la del trazo de 1908. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "del bosque|zapopan": {
+    "decada_ref": "1980s",
+    "decadas": [
+      "1980s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 60,
+    "nivel": "media",
+    "evidencia": "Distrito ZPN-08 Mariano Otero / El Collí: lotificación tras la extensión de Mariano Otero; Plan Director 1979-1983. Vuelo INEGI 1975 sin construir, 1986 con traza completa. INEGI cov2000=0.68. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "division del norte|zapopan": {
+    "decada_ref": "1970s",
+    "decadas": [
+      "1960s",
+      "1970s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 60,
+    "nivel": "media",
+    "evidencia": "Distrito ZPN-02 Atemajac/Batallón: asentamiento popular de autoconstrucción en ejido, origen finales de los 60s, llegada masiva en los 70s, regularización CORETT en los 80s. INEGI cov2000=1.00. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "el mante|zapopan": {
+    "decada_ref": "1980s",
+    "decadas": [
+      "1970s",
+      "1980s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 60,
+    "nivel": "media",
+    "evidencia": "Distrito ZPN-09 Santa Ana Tepetitlán / El Mante: ejido a urbano-industrial en las revisiones del Plan Director 1979-1988; vuelo INEGI 1975-1986 muestra el cambio. INEGI cov2000=0.87. Ojo: el homónimo de Tlaquepaque está confirmado en lámina catastral 2020 (zona 33). |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "el real|zapopan": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "2000s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Distrito ZPN-04 Vallarta Patria: parcelación tras Rafael Sanzio y Patria Poniente en los 80s. Ortofotos INEGI por polígono: en la serie 2000 solo ~26% ocupado (movimiento de tierras e infraestructura inicial); la edificación masiva ocurre 2000-2010, detonada por Plaza Galerías en 2003. cov2000=0.26 / cov2010=1.00 concuerda. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "las flores|zapopan": {
+    "decada_ref": "1970s",
+    "decadas": [
+      "1960s",
+      "1970s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 60,
+    "nivel": "media",
+    "evidencia": "Distrito ZPN-08 Las Águilas / Cruz del Sur: lotificación detonada por Ciudad del Sol (1955) y Plaza del Sol (1969); consolidación 70s-80s. INEGI cov2000=1.00. Ojo: en Tlajomulco 2002 la coincidencia OCR 'las flores' resultó ser Sta. Cruz de las Flores. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "loma bonita|zapopan": {
+    "decada_ref": "1980s",
+    "decadas": [
+      "1970s",
+      "1980s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 60,
+    "nivel": "media",
+    "evidencia": "Distrito ZPN-08 Cruz del Sur / Las Águilas: urbanizada tras la apertura de Patria Sur a finales de los 70s, edificación completa a mediados de los 90s. INEGI cov2000=1.00. El homónimo de El Salto es 2000s. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "loma real|zapopan": {
+    "decada_ref": "1990s",
+    "decadas": [
+      "1990s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Distrito ZPN-04 Vallarta Universidad: cotos detonados por Patria Poniente, Universidad y Juan Palomar y Arias. Ortofotos INEGI por polígono: movimiento de tierras a principios de los 90 y traza urbana e infraestructura al 100% ya en la serie 2000, con pocos baldíos. cov2000=1.00 concuerda. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "lomas del valle|zapopan": {
+    "decada_ref": "1980s",
+    "decadas": [
+      "1970s",
+      "1980s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 60,
+    "nivel": "media",
+    "evidencia": "Distrito ZPN-03 Providencia / Lomas de Zapopan: detonada por el campus de la UAG (inicios de los 70s) y las avenidas Pablo Neruda y Terranova; fraccionamiento H2 completo a finales de los 80s. INEGI cov2000=0.80. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "los colorines|zapopan": {
+    "decada_ref": "2010s",
+    "decadas": [
+      "2000s",
+      "2010s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Distrito ZPN-05 Tesistán / Carretera a Colotlán: fraccionamientos y cotos H3/H4 construidos 2008-2018. INEGI cov2000=0.04 / cov2010=0.08 / cov2020=0.66 corrobora: en 2010 seguía sin construir. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "real del parque|zapopan": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "1990s",
+      "2000s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 60,
+    "nivel": "media",
+    "evidencia": "Distrito ZPN-04 Vallarta Patria / Parque Metropolitano: cotos detonados por el Parque Metropolitano (1989) sobre Rafael Sanzio. Traza a finales de los 90, ortofoto INEGI 2000 con ~60% urbanizado, 100% habitacional hacia 2006-2008 con el nodo Galerías. El grueso de la vivienda es de los 2000s. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "san bernardo|zapopan": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "2000s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 65,
+    "nivel": "media",
+    "evidencia": "Distrito ZPN-03 Puerta de Hierro / Acueducto-Patria: revalorizado por Patria Poniente y el polo Puerta de Hierro a mediados de los 90. Ortofoto INEGI 2000 con vialidades incipientes (~30%); serie 2010 cerca del 100% edificado, con el crecimiento de Andares. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "santa fe|zapopan": {
+    "decada_ref": "1980s",
+    "decadas": [
+      "1980s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Distrito ZPN-03 Providencia / UAG: lotificada tras el campus de la UAG (1970) y las avenidas Pablo Neruda y Patria. Serie fotogramétrica 1985 con ~70% edificado, ocupación completa 1992-1995. INEGI cov2000=1.00 concuerda. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "altamira|zapopan": {
+    "decada_ref": "1970s",
+    "decadas": [
+      "1960s",
+      "1970s",
+      "1980s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 60,
+    "nivel": "media",
+    "evidencia": "Zona Patria-Américas, contigua a Colinas de San Javier: agrícola hasta los 50, traza y fraccionamiento formal desde los 60, edificación intensa a finales de los 70 y en los 80 con Av. Patria y Av. de las Américas. Arquitectura modernista tardía y funcionalista tapatía. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "balcones del sol|zapopan": {
+    "decada_ref": "1990s",
+    "decadas": [
+      "1990s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Distrito ZPN-9 Mariano Otero, franja contigua al Bosque de la Primavera: incorporación urbana irregular y regularización desde finales de los 80; salto demográfico en las AGEB durante los 90; servicios SIAPA/CFE entre mediados de los 90 y principios de los 2000. INEGI cov2000=0.49 concuerda con una colonia a medio construir en 2000. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "los laureles|zapopan": {
+    "decada_ref": "1970s",
+    "decadas": [
+      "1960s",
+      "1970s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 60,
+    "nivel": "media",
+    "evidencia": "Distrito ZPN-1 Zapopan Centro: primera ola de fraccionamientos que ligó el casco de la Basílica con Belenes, finales de los 60 y los 70; consolidación a principios de los 80. Fincas de clase media con cochera techada, marquesina y herrería. INEGI cov2000=1.00. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "los sabinos|zapopan": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "2000s",
+      "2010s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 60,
+    "nivel": "media",
+    "evidencia": "Zapopan norte, corredor Juan Gil Preciado / Tesistán: reserva urbana en la transición de siglo, licencias de coto aceleradas desde los 2000; AGEB con muy baja densidad en el censo 2000 y salto poblacional en 2010-2020. Modelo de coto cerrado, lotes de 90-140 m². (INEGI cov2000=1.00 no discrimina: el polígono cae dentro de la mancha urbana metropolitana.) |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "mirador del sol|zapopan": {
+    "decada_ref": "1980s",
+    "decadas": [
+      "1980s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Distrito ZPN-4 Tepeyac / Molino de Agua: predios intermedios entre Ciudad del Sol y La Estancia, fraccionados a finales de los 70; censo 1980 en trazo inicial y censo 1990 con ocupación casi total. Fincas de clase media de los 80 (tabique aparente, marquesina, cochera doble). |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "nueva galicia|zapopan": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "2000s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 65,
+    "nivel": "media",
+    "evidencia": "OJO DE MUNICIPIO: formalmente está en Tlajomulco de Zúñiga (corredor López Mateos Sur, en el límite con Zapopan); se asocia a Zapopan por continuidad urbana con El Palomar y Agua Blanca. Trazo 1998-1999, comercialización y edificación masiva 2000-2010 (cotos Barcelona, Vigo, Granada, Oporto); AGEB de baja densidad en el censo 2000 y de los mayores incrementos del AMG en 2010. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "puerta real|zapopan": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "2000s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 65,
+    "nivel": "media",
+    "evidencia": "Distrito ZPN-4 Vallarta-Universidad: comercialización 2001-2004 y edificación 2004-2012, primera generación de cotos sobre la prolongación de Av. Universidad (antecede a Parque Virreyes). Arquitectura neo-mediterránea de los 2000: teja, cantera, herrería. (cov2000=1.00 no discrimina, el polígono cae en la mancha metropolitana.) |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "real del bosque|zapopan": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "2000s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Distrito ZPN-4 Vallarta-Universidad, franja del Bajío: urbanización y venta de lotes 1997-1999, edificación 2000-2010. Conteo 1995 sin traza, censo 2000 con vialidad y primeras viviendas, censo 2010 con alta densidad. INEGI cov2000=0.33 concuerda. Arquitectura contemporánea de inicios de los 2000 en coto cerrado. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "los alamos|zapopan": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "2000s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 65,
+    "nivel": "media",
+    "evidencia": "Distrito ZPN-03 Los Robles / Nuevo México, corredor Juan Gil Preciado: demanda detonada por la ampliación de la carretera a Tesistán y el Parque Industrial Zapopan Norte en los 90. Ortofoto INEGI 2000 con traza incipiente (~30%); consolidación cercana al 100% entre 2008 y 2010. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "los pinos|zapopan": {
+    "decada_ref": "1970s",
+    "decadas": [
+      "1960s",
+      "1970s",
+      "1980s",
+      "1990s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 65,
+    "nivel": "media",
+    "evidencia": "LLAVE MEZCLADA: tres polígonos DCAH distintos con este nombre en Zapopan y el CSV de cobertura los suma (227,287 m²). El mayor (177,313 m², 78% del área, centroide 20.68054/-103.40629) es el que manda: urbanización del norte del municipio (Atemajac/Tabachines), fotogrametría 1970 con 40-50% edificado y 1980 arriba del 95%, de los 60-70. Los otros dos son la rinconada surponiente junto a Bugambilias (20.60716/-103.43747, de los 80-90) y un fraccionamiento del norte (20.79207/-103.47436). Para valuar en el cuadrante sur no usar el valor de esta llave. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "agua escondida|tonala": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "2000s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Distrito TON-04/TON-05 El Jauja / Santa Paula, corredor a El Salto: lotificación de parcelas de agostadero durante los 90 por presión de vivienda popular. Ortofoto INEGI 2000 con traza incipiente (~25-30%); autoproducción de vivienda, redes y pavimentación entre 2000 y 2010. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "alfareros|tonala": {
+    "decada_ref": "1990s",
+    "decadas": [
+      "1980s",
+      "1990s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Distrito TON-01 Cabecera Municipal: lotificación del perímetro artesanal del centro tras la conurbación de Tonalá al AMG en los 80 y la ampliación de Av. Tonalá hacia Río Nilo y Zapotlanejo. Ortofoto 1990 con traza y ~40-50% edificado; 100% en la serie 2000. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "altamira|tonala": {
+    "decada_ref": "1990s",
+    "decadas": [
+      "1980s",
+      "1990s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Distrito TON-06 Zalatitán / El Rosario: lomas de ladrilleras subdivididas a mediados y finales de los 80. Ortofoto 1990 con ~20-30% edificado y serie 2000 arriba del 85-90%. Alberga el Panteón Municipal El Rosario (Constitución / Loma Azul / L. Bofill). Distinta de la altamira de Zapopan, que es de los 70. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "arroyo seco|tonala": {
+    "decada_ref": "1990s",
+    "decadas": [
+      "1980s",
+      "1990s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Distrito TON-03/TON-04, límite con San Pedro Tlaquepaque sobre el cauce del arroyo: asentamiento popular irregular de los 80 en los márgenes. Ortofoto 1990 con ocupación dispersa (~30%), serie 2000 en 80-85% con regularización y servicios; 100% y obras de mitigación hidráulica después de 2010. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "balcones del sol|tonala": {
+    "decada_ref": "1990s",
+    "decadas": [
+      "1990s",
+      "2000s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Distrito TON-01/TON-02, oriente de la cabecera: lomas de agostadero y arcillas parceladas por saturación del centro. Ortofoto 1990 con traza apenas insinuada y menos del 15% edificado; serie 2000 en 60-70% con vialidades pavimentadas; 100% en 2010. La homónima de Zapopan también es de los 90. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "el rosario|tonala": {
+    "decada_ref": "1980s",
+    "decadas": [
+      "1970s",
+      "1980s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 65,
+    "nivel": "media",
+    "evidencia": "Distrito TON-06: no es fraccionamiento sino delegación de origen rural alfarero/ladrillero absorbida por la expansión del oriente del AMG. Fotogrametría 1980 con el núcleo tradicional disperso (~40%), ortofoto 1990 ya arriba del 85% y consolidación total en 2000. La década útil para valuar el parque construido es la de su absorción urbana. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "la gigantera|tonala": {
+    "decada_ref": "2010s",
+    "decadas": [
+      "2000s",
+      "2010s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Distrito TON-05 El Jauja: parcelas ejidales de San Martín de las Flores subdivididas por el auge logístico de El Salto. Vuelo INEGI 2000 casi todo rústico (menos del 10%), ortofoto 2010 con lotificación y traza básica (~35-40%), y 85-90% hacia 2020. Origen rústico en los 90, pero la vivienda es de los 2010s. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "la villa|tonala": {
+    "decada_ref": "1990s",
+    "decadas": [
+      "1980s",
+      "1990s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Distrito TON-01/TON-02, acceso poniente a la cabecera: polígonos intermedios parcelados tras la consolidación del eje Río Nilo-Tonaltecas en los 80. Ortofoto 1990 con traza abierta y ~35-40% edificado; serie 2000 en 90-95% con servicios completos; 100% en 2010. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "la purisima|el salto": {
+    "decada_ref": "1980s",
+    "decadas": [
+      "1980s",
+      "1990s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Junto a la cabecera y al corredor industrial: fragmentación de predios agrícolas en lotes para trabajadores desde finales de los 70, poblamiento por autoconstrucción en los 80 y 90 con la llegada de las plantas manufactureras; servicios entre mediados de los 80 y finales de los 90. Censo 1980 semirural disperso, salto en 1990, estructurada en 2000. Corrige el 'sin coincidencias' del OCR 2002, que no era ausencia. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "los amiales|tonala": {
+    "decada_ref": "1980s",
+    "decadas": [
+      "1970s",
+      "1980s",
+      "1990s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 65,
+    "nivel": "media",
+    "evidencia": "Distrito TNL-1 Centro / Aztlán, poniente contiguo a la carretera libre a Zapotlanejo: traza desde finales de los 70, poblamiento y regularización en los 80 y 90, con servicios SIAPA/CFE en ese periodo. AGEB incipiente en el censo 1980, ya consolidada en 1990-2000. Autoconstrucción progresiva de 1-2 niveles. El polígono DCAH da 0.23 en 2000 y 0.00 en 2010 (imposible): no usarlo, está mal asignado. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "los maestros|el salto": {
+    "decada_ref": "1980s",
+    "decadas": [
+      "1980s",
+      "1990s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Zona central/norte junto a la cabecera y El Castillo: lotes asignados a trabajadores de la educación a principios de los 80, rezonificación a H3/H4 entre los 80 y principios de los 90, servicios entre finales de los 80 y los 90. Censo 1980 rústico, censo 1990 con traza y ocupación, censo 2000 consolidada. Corrige el 'sin coincidencias' del OCR 2002. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "mirador del sol|tonala": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "2000s",
+      "2010s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 65,
+    "nivel": "media",
+    "evidencia": "Nororiente de Tonalá (Colinas del Tonalá, Santa Isabel, Cerro de la Reina): reserva urbana desde 1997-1999, regularización y trazo 1998-2000s, poblamiento por autoconstrucción en los 2000s y 2010s con el Periférico Nuevo. AGEB incipiente en el censo 2000. Distinta de la mirador del sol de Zapopan, que es de los 80. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "ricardo flores magon|tonala": {
+    "decada_ref": "1980s",
+    "decadas": [
+      "1970s",
+      "1980s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Distrito TNL-1, anillo inmediato a la cabecera junto al Cerro de la Reina: trazo y poblamiento inicial a mediados de los 70, edificación y regularización en los 80, servicios CFE/SIAPA entre 1982 y 1992. Censo 1980 incipiente, salto demográfico en 1990, cobertura completa en 2000. INEGI cov2000=0.86. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "valle del sol|el salto": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "2000s",
+      "2010s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 60,
+    "nivel": "media",
+    "evidencia": "Corredor industrial Chapala-El Salto, junto a Las Pintas / San José del Castillo: rezonificación agrícola a H4/H5, planeación 2002-2005 y edificación masiva de interés social 2006-2015 (lotes de 60-90 m², vivienda en serie). Censo 2000 rústico, censo 2010 con traza y crecimiento acelerado. OJO: no es la valle del sol de Tonalá, que sigue pendiente. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "arroyo seco|san pedro tlaquepaque": {
+    "decada_ref": "1990s",
+    "decadas": [
+      "1980s",
+      "1990s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Distrito TLA-04 Cerro del Cuatro/Artesanos: autoproducción sobre suelo ejidal junto al cauce y las vías a Manzanillo, por la expansión de Gobernador Curiel y Periférico Sur. Fotogrametría 1990 con traza irregular y 35-45% edificado; ortofoto 2000 en 80-85% con canalización del arroyo; 95-100% en 2010. La homónima de Tonalá también es de los 90. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "bellavista|poncitlan": {
+    "decada_ref": "1990s",
+    "decadas": [
+      "1980s",
+      "1990s",
+      "2000s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 60,
+    "nivel": "media",
+    "evidencia": "Delegación ribereña del norte del lago de Chapala (corredor Santa Cruz de la Soledad - San Ciro): origen rural y pesquero de principios del siglo XX, subdivisión a H3/H4 y vivienda vacacional entre los 80 y los 2000. Censos 1980-1990 rurales con manzanas poco definidas, censo 2000 con traza definida; servicios entre finales de los 80 y los 90. Doble tipología: casco antiguo de adobe y fincas de descanso desde los 90. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "brisas de chapala|san pedro tlaquepaque": {
+    "decada_ref": "1990s",
+    "decadas": [
+      "1980s",
+      "1990s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Distrito TLA-04, laderas orientales del Cerro del Cuatro hacia la salida a Chapala: lotificación de ladera ejidal para obreros de Gobernador Curiel. Ortofoto 1990 con traza adaptada a la pendiente y 40-50% edificado; serie 2000 en 85-90% con drenaje y escalinatas; 100% en 2010. Antes se había descartado una coincidencia OCR de 2020 que decía 'Las Brisas', no esta colonia. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "division del norte|guadalajara": {
+    "decada_ref": "1970s",
+    "decadas": [
+      "1960s",
+      "1970s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Subdistrito 1 Huentitán: lotificación H3 tras la extensión de Calzada Independencia Norte hacia la barranca y el Parque Mirador. Vuelo INEGI 1970 con traza reticular y ~30-40% edificado; ortofoto 1980 arriba del 85% con servicios; 100% en 1990. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "el alamo|san pedro tlaquepaque": {
+    "decada_ref": "1960s",
+    "decadas": [
+      "1950s",
+      "1960s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Distrito TLA-01, nodo Lázaro Cárdenas / carretera a Chapala: potreros de la antigua finca El Álamo lotificados a H3 para trabajadores del corredor industrial de los 50. Aerofotos 1960 con retícula completa y más del 60% edificado; ortofoto 1970 en 95-100% con servicios. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "el real|san pedro tlaquepaque": {
+    "decada_ref": "1980s",
+    "decadas": [
+      "1970s",
+      "1980s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Distrito TLA-01, oriente del centro histórico junto a la calzada Del Delirio: huertas lotificadas a H3-U con la conectividad de Niños Héroes e Hidalgo hacia Revolución. Fotogrametría 1980 con retícula pavimentada y 60-70% edificado; ortofoto 1990 en 95-100%. La homónima de Zapopan (Vallarta Patria) es de los 2000s. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "el rosario|guadalajara": {
+    "decada_ref": "1950s",
+    "decadas": [
+      "1940s",
+      "1950s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Subdistrito 5 Olímpica/Atlas, sector Reforma-Agua Azul: vivienda obrera y ferrocarrilera junto a González Gallo y las vías. Planos y aerofotos de 1950 con traza reticular y más del 60% construido; ocupación total en 1960. Tabique rojo y losa plana de mediados de siglo. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "el rosario|zapotlanejo": {
+    "decada_ref": "1990s",
+    "decadas": [
+      "1980s",
+      "1990s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 65,
+    "nivel": "media",
+    "evidencia": "Barrio periurbano de la cabecera: predios rústicos fragmentados a H3/H4 con la eclosión textil de Zapotlanejo desde finales de los 70. Censo 1980 de muy baja densidad, censo 1990 con manzanas y fincas, censo 2000 plenamente estructurada; servicios entre mediados de los 80 y finales de los 90. Autoconstrucción con talleres de confección en planta baja. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "el zalate|guadalajara": {
+    "decada_ref": "1980s",
+    "decadas": [
+      "1970s",
+      "1980s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Subdistrito 7 Tetlán/San Andrés, límite con Tonalá: lotificación popular H3/H4 por presión demográfica del oriente y la extensión de Av. Malecón. Fotogrametría 1980 con 50-60% edificado; ortofoto 1990 en 90-95%; 100% hacia 1995 con la estación Tetlán de la Línea 2. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "la arena|san pedro tlaquepaque": {
+    "decada_ref": "1960s",
+    "decadas": [
+      "1950s",
+      "1960s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Distrito TLA-01 Centro Histórico: antiguos bancos de arcilla, barro y arena de la industria alfarera, lotificados para los propios artesanos al integrarse Tlaquepaque al AMG. Aerofotos 1960 con retícula sobre las áreas de extracción y 50-60% edificado; ortofoto 1970 en 90-95%; 100% en 1980. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "la laja|zapotlanejo": {
+    "decada_ref": "1980s",
+    "decadas": [
+      "1970s",
+      "1980s",
+      "1990s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 60,
+    "nivel": "media",
+    "evidencia": "Delegación rural histórica (caserío de principios del siglo XX) sobre el corredor libre y de cuota a Guadalajara: subdivisión y regularización de predios ejidales para vivienda H3/H4 entre los 70 y los 90. Censos 1970-1980 como localidad rural dispersa, censo 1990 con traza definida, censo 2000 consolidada. Adobe en las fincas antiguas, ladrillo y concreto en las nuevas. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "las juntas|guadalajara": {
+    "decada_ref": "1960s",
+    "decadas": [
+      "1950s",
+      "1960s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Subdistrito 5, corredor Gobernador Curiel y cruce ferroviario: vivienda obrera parcelada con el parque industrial sur de los 50. Fotogrametría 1960 con retícula y 50-60% edificado; ortofoto 1970 en 90-95% con infraestructura completa; 100% en 1980. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "lomas del pedregal|guadalajara": {
+    "decada_ref": "1990s",
+    "decadas": [
+      "1980s",
+      "1990s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Subdistrito 1 Huentitán, declives de pedregal basáltico de la barranca: ocupación tardía por la dificultad del suelo rocoso. Fotogrametría 1980 con menos del 20% edificado; ortofoto 1990 en ~60% con autoproducción adaptada a la pendiente; 90-95% en 2000 con escalinatas y concreto hidráulico. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "lomas del valle|guadalajara": {
+    "decada_ref": "1970s",
+    "decadas": [
+      "1960s",
+      "1970s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Subdistrito 2 Minerva/Providencia: lotes amplios H2-U parcelados por la expansión residencial alta hacia el poniente. Fotogrametría 1970 con traza pavimentada y 50-60% edificado; ortofoto 1980 en 90-95%; 100% en 1990. Arquitectura californiana y modernista tapatía. La homónima de Zapopan (UAG) es de los 80. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "los alamos|tlajomulco de zuniga": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "2000s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Corredor carretera a Morelia / San Agustín, junto a San Diego y Santa Cruz de las Flores: rezonificación a H3/H4 y licencias de urbanización entre 1997-1999 y principios de los 2000; edificación 2000-2012. Censo 2000 con manzanas incipientes, censos 2010 y 2020 con brinco demográfico. La homónima de Zapopan (Nuevo México) también es de los 2000s. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "los colorines|guadalajara": {
+    "decada_ref": "1980s",
+    "decadas": [
+      "1970s",
+      "1980s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Subdistrito 5, faldas del Cerro del Cuatro junto a Miravalle: ocupación impulsada por la demanda obrera del corredor Gobernador Curiel y el polígono Miravalle de INDECO/INFONAVIT. Fotogrametría 1980 con 40-50%; ortofoto 1990 en 85-90% con redes y escalinatas; 100% en 2000. La homónima de Zapopan (Tesistán) es de los 2010s. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "los naranjos|poncitlan": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "1990s",
+      "2000s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 65,
+    "nivel": "media",
+    "evidencia": "Junto a la delegación de Cuitzeo, corredor Poncitlán-Ocotlán: reserva urbana H3/H4 desde la segunda mitad de los 90, trazo 1995-1998 y poblamiento 1999-2012. Conteo 1995 aún agrícola, censo 2000 con manzanas definidas y viviendas habitadas; servicios y pavimentación entre finales de los 90 y los 2000. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "los naranjos|tlajomulco de zuniga": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "2000s",
+      "2010s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 65,
+    "nivel": "media",
+    "evidencia": "Periferia de la cabecera hacia la carretera a Morelia y el Circuito Sur: dictámenes y licencias de urbanización 2002-2006, edificación 2005-2015. Censo 2000 rústico, censo 2010 con cuadrícula y viviendas, censo 2020 consolidado. Fraccionamiento popular con autoconstrucción posterior. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "obrera|guadalajara": {
+    "decada_ref": "1940s",
+    "decadas": [
+      "1930s",
+      "1940s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Subdistrito 4 Centro/San Andrés: uno de los primeros ensanches populares planeados fuera del primer cuadro, sobre huertas entre Analco y San Andrés, con los talleres de calzado y textil de la posrevolución. Planos y aerofotos de 1940 con retícula y más del 60% edificado; 100% en 1950. Adobe y tabique rojo, funcionalista temprano y neocolonial modesto. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "patria|guadalajara": {
+    "decada_ref": "1970s",
+    "decadas": [
+      "1960s",
+      "1970s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Subdistrito 7 Tetlán/San Andrés (también Patria Oriente): huertas parceladas para vivienda H3 con la extensión de Esteban Alatorre y Plutarco Elías Calles. Vuelo 1970 con retícula y 50-60% edificado; fotogrametría 1980 en 90-95% con servicios completos; 100% en 1990. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "patria|poncitlan": {
+    "decada_ref": "1990s",
+    "decadas": [
+      "1990s",
+      "2000s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Nororiente del casco de la cabecera, junto al río Santiago: loteos a finales de los 80 y edificación 1992-2008. Censo 1990 periurbano en trazado inicial, censo 2000 con manzanas consolidadas y alta ocupación, censo 2010 saturada; redes CFE/agua en los 90 y pavimentación en los 2000. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "prados de la higuera|tlajomulco de zuniga": {
+    "decada_ref": "2010s",
+    "decadas": [
+      "2000s",
+      "2010s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Distrito TLA-1 Cabecera, predios de la antigua hacienda de la Higuera junto al Circuito Sur: rezonificación H3/H4 y licencias 2004-2007, edificación 2008-2018. Censo 2000 rústico, censo 2010 con manzanas definidas, censo 2020 consolidado. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "residencial del parque|guadalajara": {
+    "decada_ref": "1980s",
+    "decadas": [
+      "1970s",
+      "1980s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Subdistrito 4 San Andrés/San Rafael: parcelación H3 detonada por el Parque San Rafael (finales de los 60) y la apertura de San Jacinto e Historiadores. Fotogrametría 1980 con ~60% edificado; ortofoto 1990 en 95-100%. Concreto, cochera frontal y marquesina de los 70-80. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "residencial del parque|zapotlanejo": {
+    "decada_ref": "2010s",
+    "decadas": [
+      "2000s",
+      "2010s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Fraccionamiento H3 en la periferia de la cabecera: urbanización y venta de lotes 2005-2008, edificación 2009-2018 por el auge comercial-textil. Censo 2000 aún rústico, censo 2010 con traza y primeras fincas, censo 2020 consolidado. Arquitectura contemporánea de 2 a 3 niveles. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "rinconada de santa rita|guadalajara": {
+    "decada_ref": "1980s",
+    "decadas": [
+      "1970s",
+      "1980s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Subdistrito 3 Cruz del Sur/Minerva: rinconadas y cerradas H2-U/H3-U lotificadas por el polo de López Mateos y Plaza del Sol (1969). Fotogrametría 1980 con traza e infraestructura y 50-60% edificado; ortofoto 1990 en 95-100%. Ladrillo aparente y jardines frontales de finales de los 70 y los 80. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "san bernardo|guadalajara": {
+    "decada_ref": "1970s",
+    "decadas": [
+      "1960s",
+      "1970s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Subdistrito 1 Huentitán/La Normal: lotificación H3/H4 con la apertura de Fidel Velázquez y el transporte de Calzada Independencia. Vuelo 1970 con traza pavimentada y 60-70% edificado; ortofoto 1980 en 95-100% con servicios. La homónima de Zapopan (Puerta de Hierro) es de los 2000s. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "valle del sol|san pedro tlaquepaque": {
+    "decada_ref": "1990s",
+    "decadas": [
+      "1990s",
+      "2000s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 60,
+    "nivel": "media",
+    "evidencia": "Distrito TLA-05 San Martín / Periférico Sur, límite con Tonalá: suelo rústico lotificado por la demanda obrera del corredor de El Salto. Ortofoto 1990 con caminos vecinales y lotificación dispersa; serie 2000 con calles abiertas y 50-60% edificado; 90-95% en 2010. Cuarta valle del sol distinta: Zapopan 1990s, El Salto 2000s, Tonalá 2000s. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "valle del sol|tonala": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "2000s",
+      "2010s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 65,
+    "nivel": "media",
+    "evidencia": "Oriente de Tonalá, cerca del límite con El Salto y Zapotlanejo sobre el acceso a la autopista: rezonificación a H3/H4 del periodo 2000-2005, licencias y dictámenes 2003-2008, edificación masiva 2006-2016. Censo 2000 rústico, censo 2010 con manzanas estructuradas, censo 2020 consolidado. Ésta es la valle del sol de Tonalá, no la de El Salto ni la de Zapopan. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "agua escondida|ixtlahuacan de los membrillos": {
+    "decada_ref": "2010s",
+    "decadas": [
+      "2000s",
+      "2010s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 65,
+    "nivel": "media",
+    "evidencia": "Corredor carretera a Chapala: ortofoto 2010 con 35-45% edificado, en fincas campestres, quintas y asentamiento suburbano disperso que el marco geoestadístico de ese año dejaba fuera de la localidad urbana censal (de ahí el cov2010=0.004 engañoso). El grueso de la construcción es posterior a 2010: cobertura 0.96 en 2020. 250 ha, el par homónimo más grande. |  |  |  | cruce espacial, no lámina catastral"
+  },
+  "la cofradia|san pedro tlaquepaque": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "1990s",
+      "2000s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 65,
+    "nivel": "media",
+    "evidencia": "Oriente de Tlaquepaque: ortofoto 2010 con 70-75% edificado en autoconstrucción ya avanzada desde la década anterior. CORRIGE el cierre previo en 2010s: el cov2010=0.00 era desfase de la poligonal de AGEB, no suelo sin construir. La homónima de Juanacatlán es de los 90. |  |  |  | cruce espacial, no lámina catastral"
+  },
+  "la purisima|zapotlanejo": {
+    "decada_ref": "2010s",
+    "decadas": [
+      "2000s",
+      "2010s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 65,
+    "nivel": "media",
+    "evidencia": "Municipio periférico: ortofoto 2010 con solo 25-35% edificado, asentamiento rural-suburbano de baja densidad que las capas censales omitían por no alcanzar el umbral de concentración poblacional. El grueso es posterior a 2010 (cobertura 1.00 en 2020). La homónima de El Salto es de los 80. |  |  |  | cruce espacial, no lámina catastral"
+  },
+  "puerta del sol|ixtlahuacan de los membrillos": {
+    "decada_ref": "2000s",
+    "decadas": [
+      "2000s",
+      "2010s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 65,
+    "nivel": "media",
+    "evidencia": "Corredor carretera a Chapala, junto a Olivos, Cedros y Sabinos: vivienda en serie trazada en los 2000. Ortofoto 2000 agrícola sin traza; serie 2010 con retícula pavimentada, servicios y 50-60% edificado; 90-95% hacia 2020. CORRIGE el cierre anterior por cobertura: cov2010=0.00 no significaba suelo sin construir sino polígono fuera de la localidad urbana censal. |  |  |  | cruce espacial, no lámina catastral"
+  },
+  "la cofradia|juanacatlan": {
+    "decada_ref": "1990s",
+    "decadas": [
+      "1980s",
+      "1990s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Delegación en la margen oriente del río Santiago: caserío rural de los siglos XIX-XX que se parcela para vivienda de trabajadores con el polo industrial de El Salto. Fotogrametría 1980 con edificación dispersa (35-45%), ortofoto 1990 en 75-80% con manzanas y calles formales, 95-100% desde 2000. INEGI cov 0.52 (2000) / 0.75 (2010) concuerda. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "las juntas|san pedro tlaquepaque": {
+    "decada_ref": "1980s",
+    "decadas": [
+      "1970s",
+      "1980s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Distrito TLA-04, cruce de Gobernador Curiel con Periférico Sur al pie del Cerro del Cuatro: nodo obrero e industrial ligero detonado por la industrialización del corredor y el Periférico en los 70. Fotogrametría 1980 con retícula pavimentada sobre las vías y ~60% edificado; ortofoto 1990 en 90-95%. INEGI cov2000=0.81 concuerda. La homónima de Guadalajara es de los 60. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "lomas de san miguel|san pedro tlaquepaque": {
+    "decada_ref": "1990s",
+    "decadas": [
+      "1980s",
+      "1990s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Distrito TLA-06 San Martín de las Flores, lomeríos del oriente sobre la carretera libre a Zapotlanejo: lotificación ejidal y autoproducción por la presión habitacional del oriente del AMG. Ortofoto 1990 con traza adaptada a la topografía y 35-45% edificado; serie 2000 en 80-85% con redes y pavimentación; más del 95% en 2010. La homónima de Tonalá es de los 2010s. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "los naranjos|san pedro tlaquepaque": {
+    "decada_ref": "1990s",
+    "decadas": [
+      "1990s",
+      "2000s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 60,
+    "nivel": "media",
+    "evidencia": "Distrito TLA-06 San Martín de las Flores / Los Puestos, junto a Tateposco y la carretera libre a Zapotlanejo: lotificación por la demanda obrera del corredor logístico y el Periférico Oriente. Ortofoto 1990 agrícola con accesos rústicos; serie 2000 con manzanas y vialidades abiertas y 45-55% edificado por autoproducción; 90-95% en 2010. El polígono DCAH da 0.61 (2000) y 0.37 (2010), secuencia imposible: no usarlo. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "bellavista|el salto": {
+    "decada_ref": "1950s",
+    "decadas": [
+      "1950s",
+      "1960s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Terrenos obreros de la antigua fábrica textil de Bellavista, a la vera del río Santiago. Fotogrametría 1960 con 70-80% edificado y 1970 arriba del 95%: es de las colonias más antiguas del cruce. La homónima de Tonalá sigue sin investigar y la de Zapopan es 1970s. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "loma bonita|tonala": {
+    "decada_ref": "1990s",
+    "decadas": [
+      "1980s",
+      "1990s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "nivel": "media",
+    "evidencia": "Predios ejidales junto a la cabecera: densificación del primer cuadro. Ortofoto 1990 con 40-50%, 2000 con 80-90% y consolidada en 2010: el grueso es de los 1990s. La de Zapopan es 1980s; la de El Salto sigue sin investigar. |  |  |  | investigación documental del usuario, no lámina catastral"
+  },
+  "rinconadas del sol|zapopan": {
+    "decada_ref": "2010s",
+    "decadas": [
+      "2010s"
+    ],
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 65,
+    "nivel": "media",
+    "evidencia": "Coto independiente de Zapopan, distinto del fraccionamiento homónimo de Tlajomulco (1990s, junto a la cabecera). Clase media, edificado en los 2010s. |  |  |  | investigación documental del usuario, no lámina catastral"
+  }
+}

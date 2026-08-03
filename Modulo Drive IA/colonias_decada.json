@@ -916,7 +916,45 @@
       "el salto",
       "tonala",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "el salto": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "1990s",
+          "2000s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Ejidos junto al corredor industrial de El Salto: vivienda obrera popular. Ortofoto 2000 con 30-40% y 2010 arriba del 90%: el grueso es de los 2000s, no de los 2010s que daba la cobertura. La de Tonalá también es 2000s y la de Zapopan es 1980s. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "tonala": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "2000s",
+          "2010s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Predios ejidales de la periferia nororiente: autoconstrucción. Ortofoto 2000 con 15-25%, 2010 con 65-75% y 2020 arriba del 95%: el grueso es de los 2000s. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "zapopan": {
+        "decada_ref": "1980s",
+        "decadas": [
+          "1970s",
+          "1980s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 60,
+        "nivel": "media",
+        "evidencia": "Distrito ZPN-08 Santa Ana Tepetitlán: ejido agrícola que pasa a urbano-industrial con Periférico Sur y López Mateos; consolidación 80s-90s. INEGI cov2000=1.00 (ya urbanizada antes de 2000, consistente). |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "agua blanca industrial": {
     "decada_ref": "1990s",
@@ -986,8 +1024,8 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 45,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "zapopan",
+    "municipio_fuente": "perito"
   },
   "agua escondida": {
     "decada_ref": "1990s",
@@ -1006,7 +1044,32 @@
       "ixtlahuacan de los membrillos",
       "tonala",
       "zapotlanejo"
-    ]
+    ],
+    "por_municipio": {
+      "tonala": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "2000s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Distrito TON-04/TON-05 El Jauja / Santa Paula, corredor a El Salto: lotificación de parcelas de agostadero durante los 90 por presión de vivienda popular. Ortofoto INEGI 2000 con traza incipiente (~25-30%); autoproducción de vivienda, redes y pavimentación entre 2000 y 2010. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "ixtlahuacan de los membrillos": {
+        "decada_ref": "2010s",
+        "decadas": [
+          "2000s",
+          "2010s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 65,
+        "nivel": "media",
+        "evidencia": "Corredor carretera a Chapala: ortofoto 2010 con 35-45% edificado, en fincas campestres, quintas y asentamiento suburbano disperso que el marco geoestadístico de ese año dejaba fuera de la localidad urbana censal (de ahí el cov2010=0.004 engañoso). El grueso de la construcción es posterior a 2010: cobertura 0.96 en 2020. 250 ha, el par homónimo más grande. |  |  |  | cruce espacial, no lámina catastral"
+      }
+    }
   },
   "agua fria": {
     "decada_ref": "2000s",
@@ -1319,7 +1382,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "alamedas de san gaspar": {
@@ -1485,7 +1548,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "albazur alba": {
@@ -1671,7 +1734,21 @@
     "homonima_en": [
       "san pedro tlaquepaque",
       "tonala"
-    ]
+    ],
+    "por_municipio": {
+      "tonala": {
+        "decada_ref": "1990s",
+        "decadas": [
+          "1980s",
+          "1990s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Distrito TON-01 Cabecera Municipal: lotificación del perímetro artesanal del centro tras la conurbación de Tonalá al AMG en los 80 y la ampliación de Av. Tonalá hacia Río Nilo y Zapotlanejo. Ortofoto 1990 con traza y ~40-50% edificado; 100% en la serie 2000. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "alfredo barba": {
     "decada_ref": "1980s",
@@ -1811,7 +1888,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "almena residential": {
@@ -1893,8 +1970,8 @@
     "fuente": "plan-parcial",
     "confianza": "alta",
     "confianza_puntos": 94,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "perito"
   },
   "alta california san agustin": {
     "decada_ref": "2000s",
@@ -2040,7 +2117,34 @@
     "homonima_en": [
       "tonala",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "zapopan": {
+        "decada_ref": "1970s",
+        "decadas": [
+          "1960s",
+          "1970s",
+          "1980s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 60,
+        "nivel": "media",
+        "evidencia": "Zona Patria-Américas, contigua a Colinas de San Javier: agrícola hasta los 50, traza y fraccionamiento formal desde los 60, edificación intensa a finales de los 70 y en los 80 con Av. Patria y Av. de las Américas. Arquitectura modernista tardía y funcionalista tapatía. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "tonala": {
+        "decada_ref": "1990s",
+        "decadas": [
+          "1980s",
+          "1990s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Distrito TON-06 Zalatitán / El Rosario: lomas de ladrilleras subdivididas a mediados y finales de los 80. Ortofoto 1990 con ~20-30% edificado y serie 2000 arriba del 85-90%. Alberga el Panteón Municipal El Rosario (Constitución / Loma Azul / L. Bofill). Distinta de la altamira de Zapopan, que es de los 70. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "altamira department": {
     "decada_ref": "1990s",
@@ -5002,7 +5106,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "arbolada bosques de santa anita": {
@@ -5058,7 +5162,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "arboleda bosques de santa anita": {
@@ -5072,7 +5176,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "arboleda coto residencial": {
@@ -5241,18 +5345,17 @@
     "municipio_fuente": "maestro"
   },
   "arboledas plus": {
-    "decada_ref": "1990s",
+    "decada_ref": "2000s",
     "decadas": [
-      "1980s",
-      "1990s",
       "2000s"
     ],
     "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": "tlajomulco",
-    "municipio_fuente": "cache_index"
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "cache_index",
+    "nota": "nombre correcto"
   },
   "arboledas santa anita": {
     "decada_ref": "1990s",
@@ -5404,8 +5507,8 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 65,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "perito"
   },
   "arcos de zalatitan": {
     "decada_ref": "2000s",
@@ -5650,16 +5753,14 @@
     "municipio_fuente": "cache_index"
   },
   "argenta mirador residencial": {
-    "decada_ref": "1980s",
+    "decada_ref": "1990s",
     "decadas": [
-      "1970s",
-      "1980s",
       "1990s"
     ],
     "nivel": "media",
-    "fuente": "plan-parcial",
+    "fuente": "manual",
     "confianza": "media",
-    "confianza_puntos": 52,
+    "confianza_puntos": 65,
     "municipio": "zapopan",
     "municipio_fuente": "sepomex"
   },
@@ -5851,7 +5952,33 @@
     "homonima_en": [
       "san pedro tlaquepaque",
       "tonala"
-    ]
+    ],
+    "por_municipio": {
+      "tonala": {
+        "decada_ref": "1990s",
+        "decadas": [
+          "1980s",
+          "1990s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Distrito TON-03/TON-04, límite con San Pedro Tlaquepaque sobre el cauce del arroyo: asentamiento popular irregular de los 80 en los márgenes. Ortofoto 1990 con ocupación dispersa (~30%), serie 2000 en 80-85% con regularización y servicios; 100% y obras de mitigación hidráulica después de 2010. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "san pedro tlaquepaque": {
+        "decada_ref": "1990s",
+        "decadas": [
+          "1980s",
+          "1990s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Distrito TLA-04 Cerro del Cuatro/Artesanos: autoproducción sobre suelo ejidal junto al cauce y las vías a Manzanillo, por la expansión de Gobernador Curiel y Periférico Sur. Fotogrametría 1990 con traza irregular y 35-45% edificado; ortofoto 2000 en 80-85% con canalización del arroyo; 95-100% en 2010. La homónima de Tonalá también es de los 90. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "arroyos": {
     "decada_ref": "2000s",
@@ -6018,8 +6145,8 @@
     "confianza": "media",
     "nivel": "media",
     "confianza_puntos": 72,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "zapopan",
+    "municipio_fuente": "perito"
   },
   "atemajac del valle": {
     "decada_ref": "1960s",
@@ -6173,7 +6300,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "atmosphere condominium": {
@@ -6292,7 +6419,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlaquepaque",
+    "municipio": "san pedro tlaquepaque",
     "municipio_fuente": "cache_index"
   },
   "aurea residencial": {
@@ -7028,7 +7155,32 @@
     "homonima_en": [
       "tonala",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "zapopan": {
+        "decada_ref": "1990s",
+        "decadas": [
+          "1990s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Distrito ZPN-9 Mariano Otero, franja contigua al Bosque de la Primavera: incorporación urbana irregular y regularización desde finales de los 80; salto demográfico en las AGEB durante los 90; servicios SIAPA/CFE entre mediados de los 90 y principios de los 2000. INEGI cov2000=0.49 concuerda con una colonia a medio construir en 2000. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "tonala": {
+        "decada_ref": "1990s",
+        "decadas": [
+          "1990s",
+          "2000s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Distrito TON-01/TON-02, oriente de la cabecera: lomas de agostadero y arcillas parceladas por saturación del centro. Ortofoto 1990 con traza apenas insinuada y menos del 15% edificado; serie 2000 en 60-70% con vialidades pavimentadas; 100% en 2010. La homónima de Zapopan también es de los 90. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "balica": {
     "decada_ref": "1990s",
@@ -7096,7 +7248,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "banus residential tlajomulco": {
@@ -7110,7 +7262,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "barajas villasenor san pablo": {
@@ -7795,7 +7947,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "bellaterra fronda": {
@@ -7872,7 +8024,57 @@
       "poncitlan",
       "tonala",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "tonala": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "2000s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Sur-oriente de Tonalá, franja de transición hacia El Salto y Coyula. Ortofoto 1990 con 5-10% (rústico y parcelario), 2000 con 20-30% (lotificación y autoproducción incipiente; el cov2000=0.00 se debe a que no alcanzaba el umbral censal urbano) y 2010 con 85-90%. El grueso se construyó entre 2000 y 2010. Distinta de la bellavista de El Salto (1950s, fábrica textil), la de Zapopan (1970s) y la de Poncitlán (1990s). |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "zapopan": {
+        "decada_ref": "1970s",
+        "decadas": [
+          "1970s",
+          "1980s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 60,
+        "nivel": "media",
+        "evidencia": "Trazada en 1908 con el tranvía Guadalajara-Zapopan (proyecto no prosperó, la Revolución la dejó rural). Poblamiento real 1970s, integración a servicios en los 80s. INEGI cov2000=1.00. La fecha útil para valuar es la del poblamiento, no la del trazo de 1908. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "poncitlan": {
+        "decada_ref": "1990s",
+        "decadas": [
+          "1980s",
+          "1990s",
+          "2000s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 60,
+        "nivel": "media",
+        "evidencia": "Delegación ribereña del norte del lago de Chapala (corredor Santa Cruz de la Soledad - San Ciro): origen rural y pesquero de principios del siglo XX, subdivisión a H3/H4 y vivienda vacacional entre los 80 y los 2000. Censos 1980-1990 rurales con manzanas poco definidas, censo 2000 con traza definida; servicios entre finales de los 80 y los 90. Doble tipología: casco antiguo de adobe y fincas de descanso desde los 90. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "el salto": {
+        "decada_ref": "1950s",
+        "decadas": [
+          "1950s",
+          "1960s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Terrenos obreros de la antigua fábrica textil de Bellavista, a la vera del río Santiago. Fotogrametría 1960 con 70-80% edificado y 1970 arriba del 95%: es de las colonias más antiguas del cruce. La homónima de Tonalá sigue sin investigar y la de Zapopan es 1970s. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "beltura residencial": {
     "decada_ref": "2020s",
@@ -7912,8 +8114,8 @@
     "confianza": "media",
     "nivel": "media",
     "confianza_puntos": 72,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "zapopan",
+    "municipio_fuente": "perito"
   },
   "benito juarez norte": {
     "decada_ref": "1990s",
@@ -8178,7 +8380,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "bosque cedros santa anita": {
@@ -8354,7 +8556,7 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 62,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "bosque real santa anita": {
@@ -8384,20 +8586,18 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "bosque valdepenas": {
-    "decada_ref": "1980s",
+    "decada_ref": "1990s",
     "decadas": [
-      "1970s",
-      "1980s",
       "1990s"
     ],
     "nivel": "media",
-    "fuente": "plan-parcial",
+    "fuente": "manual",
     "confianza": "media",
-    "confianza_puntos": 72,
+    "confianza_puntos": 65,
     "municipio": "zapopan",
     "municipio_fuente": "maestro"
   },
@@ -8425,7 +8625,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "bosques de centinela": {
@@ -8543,7 +8743,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "bosques de los lagos": {
@@ -8620,7 +8820,21 @@
     "homonima_en": [
       "tlajomulco",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "tlajomulco de zuniga": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "1990s",
+          "2000s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Predios boscosos al pie de La Primavera, camino a La Tijera: cotos residenciales campestres de alta gama. Ortofoto 2000 con 30-40% edificado y 2010 arriba del 90%: el grueso es de los 2000s, no de los 2010s como decía el cierre por cobertura. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "bosques de santa anita area": {
     "decada_ref": "2000s",
@@ -8750,16 +8964,14 @@
     "municipio_fuente": "maestro"
   },
   "bosques del centinela": {
-    "decada_ref": "1980s",
+    "decada_ref": "1990s",
     "decadas": [
-      "1970s",
-      "1980s",
       "1990s"
     ],
-    "nivel": "media-alta",
-    "fuente": "plan-parcial",
+    "nivel": "media",
+    "fuente": "manual",
     "confianza": "media",
-    "confianza_puntos": 72,
+    "confianza_puntos": 65,
     "municipio": "zapopan",
     "municipio_fuente": "maestro"
   },
@@ -9111,7 +9323,21 @@
       "chapala",
       "san pedro tlaquepaque",
       "tlaquepaque"
-    ]
+    ],
+    "por_municipio": {
+      "san pedro tlaquepaque": {
+        "decada_ref": "1990s",
+        "decadas": [
+          "1980s",
+          "1990s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Distrito TLA-04, laderas orientales del Cerro del Cuatro hacia la salida a Chapala: lotificación de ladera ejidal para obreros de Gobernador Curiel. Ortofoto 1990 con traza adaptada a la pendiente y 40-50% edificado; serie 2000 en 85-90% con drenaje y escalinatas; 100% en 2010. Antes se había descartado una coincidencia OCR de 2020 que decía 'Las Brisas', no esta colonia. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "brisas de chapala lot 11 storm": {
     "decada_ref": "1990s",
@@ -9306,7 +9532,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "buenavista": {
@@ -9322,7 +9548,7 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 62,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "buenavista i": {
@@ -9529,15 +9755,14 @@
     "municipio_fuente": null
   },
   "bugambilias country": {
-    "decada_ref": "1980s",
+    "decada_ref": "1990s",
     "decadas": [
-      "1970s",
-      "1980s"
+      "1990s"
     ],
     "nivel": "media",
-    "fuente": "wikipedia",
+    "fuente": "manual",
     "confianza": "media",
-    "confianza_puntos": 64,
+    "confianza_puntos": 65,
     "municipio": "zapopan",
     "municipio_fuente": "sepomex"
   },
@@ -9896,7 +10121,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlaquepaque",
+    "municipio": "san pedro tlaquepaque",
     "municipio_fuente": "cache_index"
   },
   "camichines alborada 2 seccion": {
@@ -10079,8 +10304,8 @@
     "confianza": "media",
     "nivel": "media",
     "confianza_puntos": 72,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "zapopan",
+    "municipio_fuente": "perito"
   },
   "campestre churubusco": {
     "decada_ref": "1990s",
@@ -10210,18 +10435,17 @@
     "municipio_fuente": "sepomex"
   },
   "campo de golf santa anita": {
-    "decada_ref": "2000s",
+    "decada_ref": "1980s",
     "decadas": [
-      "1990s",
-      "2000s",
-      "2010s"
+      "1980s",
+      "1990s"
     ],
     "nivel": "media",
     "fuente": "manual",
     "confianza": "media",
-    "confianza_puntos": 62,
-    "municipio": null,
-    "municipio_fuente": null
+    "confianza_puntos": 65,
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "perito"
   },
   "campo de polo chapalita": {
     "decada_ref": "1980s",
@@ -10482,16 +10706,14 @@
     "municipio_fuente": "sepomex"
   },
   "canteras del centinela": {
-    "decada_ref": "1980s",
+    "decada_ref": "1990s",
     "decadas": [
-      "1970s",
-      "1980s",
       "1990s"
     ],
     "nivel": "media",
-    "fuente": "plan-parcial",
+    "fuente": "manual",
     "confianza": "media",
-    "confianza_puntos": 46,
+    "confianza_puntos": 65,
     "municipio": "zapopan",
     "municipio_fuente": "sepomex"
   },
@@ -10561,8 +10783,8 @@
     "confianza": "media",
     "nivel": "media",
     "confianza_puntos": 72,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "zapopan",
+    "municipio_fuente": "perito"
   },
   "capital norte creta": {
     "decada_ref": "2010s",
@@ -11375,12 +11597,26 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 62,
-    "municipio": null,
-    "municipio_fuente": null,
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "perito",
     "homonima_en": [
       "tlajomulco",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "tlajomulco de zuniga": {
+        "decada_ref": "2010s",
+        "decadas": [
+          "2010s"
+        ],
+        "fuente": "manual",
+        "confianza": "alta",
+        "confianza_puntos": 80,
+        "url": "https://tlajomulco.gob.mx/sites/default/files/PoelTlajoZonaSanAgustin.pdf",
+        "evidencia": "Programa de Ordenamiento Ecológico Local de Tlajomulco, zona San Agustín-La Primavera: \"Hacienda Casa Fuerte ... del 2014\" — https://tlajomulco.gob.mx/sites/default/files/PoelTlajoZonaSanAgustin.pdf",
+        "nota": "Corrige la referencia heredada 2000s: el documento municipal fecha expresamente el asentamiento en 2014."
+      }
+    }
   },
   "casa fuerte baluarte": {
     "decada_ref": "1990s",
@@ -11421,7 +11657,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "casa fuerte el bastion": {
@@ -11509,16 +11745,14 @@
     "municipio_fuente": null
   },
   "casa grande": {
-    "decada_ref": "1980s",
+    "decada_ref": "1990s",
     "decadas": [
-      "1970s",
-      "1980s",
       "1990s"
     ],
     "nivel": "media",
-    "fuente": "plan-parcial",
+    "fuente": "manual",
     "confianza": "media",
-    "confianza_puntos": 46,
+    "confianza_puntos": 65,
     "municipio": "zapopan",
     "municipio_fuente": "sepomex"
   },
@@ -11601,7 +11835,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "castilla excellent opportunity": {
@@ -11999,8 +12233,8 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 62,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "san pedro tlaquepaque",
+    "municipio_fuente": "perito"
   },
   "centro guadalajara": {
     "decada_ref": "1910s",
@@ -12200,8 +12434,8 @@
     "fuente": "manual",
     "confianza": "alta",
     "confianza_puntos": 86,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "chapala",
+    "municipio_fuente": "perito"
   },
   "chapala country club": {
     "decada_ref": "1990s",
@@ -13173,7 +13407,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "ciudad universitaria": {
@@ -13231,16 +13465,15 @@
     "municipio_fuente": "cache_index"
   },
   "club de golf santa anita": {
-    "decada_ref": "2000s",
+    "decada_ref": "1980s",
     "decadas": [
-      "1990s",
-      "2000s",
-      "2010s"
+      "1980s",
+      "1990s"
     ],
-    "nivel": "media-alta",
+    "nivel": "media",
     "fuente": "manual",
     "confianza": "media",
-    "confianza_puntos": 62,
+    "confianza_puntos": 65,
     "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "sepomex"
   },
@@ -13269,7 +13502,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "colegio del aire": {
@@ -13530,16 +13763,14 @@
     "municipio_fuente": "sepomex"
   },
   "colinas de san isidro": {
-    "decada_ref": "1980s",
+    "decada_ref": "1990s",
     "decadas": [
-      "1970s",
-      "1980s",
       "1990s"
     ],
-    "nivel": "media-alta",
-    "fuente": "plan-parcial",
+    "nivel": "media",
+    "fuente": "manual",
     "confianza": "media",
-    "confianza_puntos": 72,
+    "confianza_puntos": 65,
     "municipio": "zapopan",
     "municipio_fuente": "maestro"
   },
@@ -13572,7 +13803,33 @@
     "homonima_en": [
       "guadalajara",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "guadalajara": {
+        "decada_ref": "1960s",
+        "decadas": [
+          "1960s"
+        ],
+        "fuente": "hemeroteca",
+        "confianza": "alta",
+        "confianza_puntos": 86,
+        "url": "https://transparencia.guadalajara.gob.mx/sites/default/files/GacetaSeptiembre2022.pdf",
+        "evidencia": "Gaceta Municipal de Guadalajara, septiembre de 2022, acuerdo A 22/15/22: monumento conmemorativo por el LX aniversario de la fundación de la colonia Colinas de San Javier — https://transparencia.guadalajara.gob.mx/sites/default/files/GacetaSeptiembre2022.pdf",
+        "nota": "El LX aniversario celebrado en 2022 sitúa la fundación en 1962."
+      },
+      "zapopan": {
+        "decada_ref": "1970s",
+        "decadas": [
+          "1970s",
+          "1980s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 65,
+        "nivel": "media",
+        "evidencia": "Fraccionamiento de muy alta plusvalía autorizado hacia 1968; edificación en los 70 y 80 impulsada por el Colegio San Javier (maristas, principios de los 70) y por Pablo Neruda y Patria. Residencias de la escuela tapatía (Barragán, Díaz Morales, González Gortázar). Densificación vertical desde los 90. INEGI cov2000=0.92. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "colinas de san javier guadalajara jal col colinas de san javierzapopan jalisco mexico cp 451": {
     "decada_ref": "1980s",
@@ -13845,7 +14102,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "colinas santa cruz ii": {
@@ -14003,18 +14260,17 @@
     "municipio_fuente": null
   },
   "colomos providencia": {
-    "decada_ref": "1910s",
+    "decada_ref": "1960s",
     "decadas": [
-      "1900s",
-      "1910s",
-      "1920s"
+      "1960s"
     ],
-    "nivel": "lujo",
-    "fuente": "plan-parcial",
-    "confianza": "media",
-    "confianza_puntos": 48,
+    "nivel": "alta",
+    "fuente": "manual",
+    "confianza": "alta",
+    "confianza_puntos": 75,
     "municipio": "guadalajara",
-    "municipio_fuente": "maestro"
+    "municipio_fuente": "maestro",
+    "nota": "el 1910s previo venía de un error del normalizador heredado: confundía los manantiales y obras hidráulicas de Los Colomos, de principios del siglo XX, con la fundación de la colonia. Se desarrolla con el resto de Providencia."
   },
   "colomos providencia for investors": {
     "decada_ref": "1990s",
@@ -14615,7 +14871,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "condominio puerta plata": {
@@ -14810,8 +15066,8 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 45,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "zapopan",
+    "municipio_fuente": "perito"
   },
   "constitucion": {
     "decada_ref": "1960s",
@@ -14840,20 +15096,18 @@
     "confianza": "media",
     "nivel": "media",
     "confianza_puntos": 72,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "zapopan",
+    "municipio_fuente": "perito"
   },
   "constituyentes": {
-    "decada_ref": "1980s",
+    "decada_ref": "1970s",
     "decadas": [
-      "1970s",
-      "1980s",
-      "1990s"
+      "1970s"
     ],
     "nivel": "media",
-    "fuente": "plan-parcial",
+    "fuente": "manual",
     "confianza": "media",
-    "confianza_puntos": 46,
+    "confianza_puntos": 65,
     "municipio": "zapopan",
     "municipio_fuente": "sepomex"
   },
@@ -15080,7 +15334,7 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 62,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "cortijo san agustin tlajomulco": {
@@ -15108,7 +15362,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "cosmocrat puerta de hierro": {
@@ -15278,8 +15532,8 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 49,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "guadalajara",
+    "municipio_fuente": "perito"
   },
   "coto del rey": {
     "decada_ref": "1960s",
@@ -15319,8 +15573,8 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 49,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "perito"
   },
   "coto espanol valle imperial": {
     "decada_ref": "2010s",
@@ -15743,7 +15997,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "cuauhtemoc": {
@@ -15758,8 +16012,8 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 48,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "guadalajara",
+    "municipio_fuente": "perito"
   },
   "cuauhtemoc infonavit": {
     "decada_ref": "1960s",
@@ -16120,7 +16374,20 @@
     "homonima_en": [
       "guadalajara",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "zapopan": {
+        "decada_ref": "1980s",
+        "decadas": [
+          "1980s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 60,
+        "nivel": "media",
+        "evidencia": "Distrito ZPN-08 Mariano Otero / El Collí: lotificación tras la extensión de Mariano Otero; Plan Director 1979-1983. Vuelo INEGI 1975 sin construir, 1986 con traza completa. INEGI cov2000=0.68. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "del carmen": {
     "decada_ref": "1990s",
@@ -16417,7 +16684,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "depa en av americas nuevo": {
@@ -16980,7 +17247,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "department camino real to colima nuevo": {
@@ -17179,7 +17446,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "department in enalta tower country club": {
@@ -17507,7 +17774,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "department in the tianguis del sol area": {
@@ -17535,7 +17802,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "department in valle de tejeda in tlajomulco": {
@@ -17563,7 +17830,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "department in virreyes model a": {
@@ -17619,7 +17886,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "department on av universidad": {
@@ -18095,7 +18362,33 @@
     "homonima_en": [
       "guadalajara",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "zapopan": {
+        "decada_ref": "1970s",
+        "decadas": [
+          "1960s",
+          "1970s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 60,
+        "nivel": "media",
+        "evidencia": "Distrito ZPN-02 Atemajac/Batallón: asentamiento popular de autoconstrucción en ejido, origen finales de los 60s, llegada masiva en los 70s, regularización CORETT en los 80s. INEGI cov2000=1.00. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "guadalajara": {
+        "decada_ref": "1970s",
+        "decadas": [
+          "1960s",
+          "1970s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Subdistrito 1 Huentitán: lotificación H3 tras la extensión de Calzada Independencia Norte hacia la barranca y el Parque Mirador. Vuelo INEGI 1970 con traza reticular y ~30-40% edificado; ortofoto 1980 arriba del 85% con servicios; 100% en 1990. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "doctores": {
     "decada_ref": "2000s",
@@ -18166,7 +18459,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlaquepaque",
+    "municipio": "san pedro tlaquepaque",
     "municipio_fuente": "cache_index"
   },
   "dr atl": {
@@ -18224,7 +18517,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "ebano": {
@@ -18297,8 +18590,8 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 52,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "zapopan",
+    "municipio_fuente": "perito"
   },
   "ecuestre valle real": {
     "decada_ref": "1990s",
@@ -18558,7 +18851,21 @@
       "san pedro tlaquepaque",
       "tlaquepaque",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "san pedro tlaquepaque": {
+        "decada_ref": "1960s",
+        "decadas": [
+          "1950s",
+          "1960s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Distrito TLA-01, nodo Lázaro Cárdenas / carretera a Chapala: potreros de la antigua finca El Álamo lotificados a H3 para trabajadores del corredor industrial de los 50. Aerofotos 1960 con retícula completa y más del 60% edificado; ortofoto 1970 en 95-100% con servicios. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "el alcazar casa fuerte": {
     "decada_ref": "2000s",
@@ -18571,7 +18878,7 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 62,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "el alcazar oriente": {
@@ -19100,8 +19407,8 @@
     "fuente": "hemeroteca",
     "confianza": "alta",
     "confianza_puntos": 94,
-    "municipio": null,
-    "municipio_fuente": null,
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "perito",
     "homonima_en": [
       "tlajomulco",
       "zapopan"
@@ -19359,8 +19666,8 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 62,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "guadalajara",
+    "municipio_fuente": "perito"
   },
   "el crucero del salto": {
     "decada_ref": "1990s",
@@ -19373,7 +19680,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "el dean": {
@@ -19484,8 +19791,8 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 49,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "perito"
   },
   "el eden residential": {
     "decada_ref": "1970s",
@@ -19596,7 +19903,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "el humedo de nextipac": {
@@ -19713,7 +20020,33 @@
       "san pedro tlaquepaque",
       "tlaquepaque",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "san pedro tlaquepaque": {
+        "decada_ref": "1980s",
+        "decadas": [
+          "1970s",
+          "1980s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Fincas rurales al sur del Periférico y la prolongación Mariano Otero: expansión industrial y habitacional del sur. Fotogrametría 1980 con 40-50% y 1990 en 90-95%: es de los 1980s, no de los 2000s. Coincide con la lámina catastral 2020 zona 33 ya confirmada, que solo probaba presencia. La de Zapopan también es 1980s. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "zapopan": {
+        "decada_ref": "1980s",
+        "decadas": [
+          "1970s",
+          "1980s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 60,
+        "nivel": "media",
+        "evidencia": "Distrito ZPN-09 Santa Ana Tepetitlán / El Mante: ejido a urbano-industrial en las revisiones del Plan Director 1979-1988; vuelo INEGI 1975-1986 muestra el cambio. INEGI cov2000=0.87. Ojo: el homónimo de Tlaquepaque está confirmado en lámina catastral 2020 (zona 33). |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "el marquez": {
     "decada_ref": "2000s",
@@ -19948,20 +20281,19 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 49,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "perito"
   },
   "el palomar": {
-    "decada_ref": "2000s",
+    "decada_ref": "1970s",
     "decadas": [
-      "1990s",
-      "2000s",
-      "2010s"
+      "1970s",
+      "1980s"
     ],
-    "nivel": "media-alta",
+    "nivel": "media",
     "fuente": "manual",
     "confianza": "media",
-    "confianza_puntos": 62,
+    "confianza_puntos": 65,
     "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "sepomex"
   },
@@ -19976,7 +20308,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "el palomar bosques": {
@@ -19990,7 +20322,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "el palomar canadas": {
@@ -20004,7 +20336,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "el palomar contry club": {
@@ -20018,7 +20350,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "el palomar first section": {
@@ -20046,7 +20378,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "el palomar neighborhood": {
@@ -20074,7 +20406,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "el palomar seccion bosques": {
@@ -20090,7 +20422,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "el palomar subdivision": {
@@ -20485,8 +20817,8 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 48,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "guadalajara",
+    "municipio_fuente": "perito"
   },
   "el real": {
     "decada_ref": "2000s",
@@ -20505,7 +20837,32 @@
       "san pedro tlaquepaque",
       "tlaquepaque",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "zapopan": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "2000s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Distrito ZPN-04 Vallarta Patria: parcelación tras Rafael Sanzio y Patria Poniente en los 80s. Ortofotos INEGI por polígono: en la serie 2000 solo ~26% ocupado (movimiento de tierras e infraestructura inicial); la edificación masiva ocurre 2000-2010, detonada por Plaza Galerías en 2003. cov2000=0.26 / cov2010=1.00 concuerda. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "san pedro tlaquepaque": {
+        "decada_ref": "1980s",
+        "decadas": [
+          "1970s",
+          "1980s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Distrito TLA-01, oriente del centro histórico junto a la calzada Del Delirio: huertas lotificadas a H3-U con la conectividad de Niños Héroes e Hidalgo hacia Revolución. Fotogrametría 1980 con retícula pavimentada y 60-70% edificado; ortofoto 1990 en 95-100%. La homónima de Zapopan (Vallarta Patria) es de los 2000s. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "el recodo": {
     "decada_ref": "1980s",
@@ -20562,7 +20919,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "el refugio tlaquepaque": {
@@ -20578,8 +20935,8 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 62,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "san pedro tlaquepaque",
+    "municipio_fuente": "perito"
   },
   "el rehilete": {
     "decada_ref": "1970s",
@@ -20726,7 +21083,45 @@
       "guadalajara",
       "tonala",
       "zapotlanejo"
-    ]
+    ],
+    "por_municipio": {
+      "tonala": {
+        "decada_ref": "1980s",
+        "decadas": [
+          "1970s",
+          "1980s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 65,
+        "nivel": "media",
+        "evidencia": "Distrito TON-06: no es fraccionamiento sino delegación de origen rural alfarero/ladrillero absorbida por la expansión del oriente del AMG. Fotogrametría 1980 con el núcleo tradicional disperso (~40%), ortofoto 1990 ya arriba del 85% y consolidación total en 2000. La década útil para valuar el parque construido es la de su absorción urbana. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "guadalajara": {
+        "decada_ref": "1950s",
+        "decadas": [
+          "1940s",
+          "1950s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Subdistrito 5 Olímpica/Atlas, sector Reforma-Agua Azul: vivienda obrera y ferrocarrilera junto a González Gallo y las vías. Planos y aerofotos de 1950 con traza reticular y más del 60% construido; ocupación total en 1960. Tabique rojo y losa plana de mediados de siglo. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "zapotlanejo": {
+        "decada_ref": "1990s",
+        "decadas": [
+          "1980s",
+          "1990s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 65,
+        "nivel": "media",
+        "evidencia": "Barrio periurbano de la cabecera: predios rústicos fragmentados a H3/H4 con la eclosión textil de Zapotlanejo desde finales de los 70. Censo 1980 de muy baja densidad, censo 1990 con manzanas y fincas, censo 2000 plenamente estructurada; servicios entre mediados de los 80 y finales de los 90. Autoconstrucción con talleres de confección en planta baja. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "el rosarito": {
     "decada_ref": "2000s",
@@ -21063,7 +21458,7 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 72,
-    "municipio": "tlaquepaque",
+    "municipio": "san pedro tlaquepaque",
     "municipio_fuente": "cache_index"
   },
   "el vergel 2da seccion": {
@@ -21091,7 +21486,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 36,
-    "municipio": "tlaquepaque",
+    "municipio": "san pedro tlaquepaque",
     "municipio_fuente": "cache_index"
   },
   "el vergelito": {
@@ -21153,7 +21548,33 @@
       "el salto",
       "guadalajara",
       "san pedro tlaquepaque"
-    ]
+    ],
+    "por_municipio": {
+      "san pedro tlaquepaque": {
+        "decada_ref": "1960s",
+        "decadas": [
+          "1950s",
+          "1960s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Predios agrarios del oriente de la cabecera, corredor a Zapotlanejo. Series históricas 1960 con 50-60% y 1970 al 95%: es de los 1960s. Corrige el 2000s de hemeroteca que tenía 40 pts, cuatro décadas tarde. La homónima de Guadalajara (Tetlán) es 1980s. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "guadalajara": {
+        "decada_ref": "1980s",
+        "decadas": [
+          "1970s",
+          "1980s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Subdistrito 7 Tetlán/San Andrés, límite con Tonalá: lotificación popular H3/H4 por presión demográfica del oriente y la extensión de Av. Malecón. Fotogrametría 1980 con 50-60% edificado; ortofoto 1990 en 90-95%; 100% hacia 1995 con la estación Tetlán de la Línea 2. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "el zapote": {
     "decada_ref": "1980s",
@@ -21180,7 +21601,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "electricistas": {
@@ -21268,16 +21689,14 @@
     "municipio_fuente": null
   },
   "emiliano zapata": {
-    "decada_ref": "1980s",
+    "decada_ref": "1970s",
     "decadas": [
-      "1970s",
-      "1980s",
-      "1990s"
+      "1970s"
     ],
     "nivel": "media",
-    "fuente": "plan-parcial",
+    "fuente": "manual",
     "confianza": "media",
-    "confianza_puntos": 72,
+    "confianza_puntos": 65,
     "municipio": "zapopan",
     "municipio_fuente": "maestro"
   },
@@ -22438,16 +22857,14 @@
     "municipio_fuente": null
   },
   "fovissste": {
-    "decada_ref": "1980s",
+    "decada_ref": "1970s",
     "decadas": [
-      "1970s",
-      "1980s",
-      "1990s"
+      "1970s"
     ],
     "nivel": "media",
-    "fuente": "plan-parcial",
+    "fuente": "manual",
     "confianza": "media",
-    "confianza_puntos": 46,
+    "confianza_puntos": 65,
     "municipio": "zapopan",
     "municipio_fuente": "maestro"
   },
@@ -22531,8 +22948,8 @@
     "fuente": "manual",
     "confianza": "alta",
     "confianza_puntos": 86,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "perito"
   },
   "fraccionacion nouve": {
     "decada_ref": "1990s",
@@ -22573,7 +22990,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlaquepaque",
+    "municipio": "san pedro tlaquepaque",
     "municipio_fuente": "cache_index"
   },
   "francisco sarabia": {
@@ -22621,16 +23038,14 @@
     "municipio_fuente": "maestro"
   },
   "francisco villa": {
-    "decada_ref": "1980s",
+    "decada_ref": "1970s",
     "decadas": [
-      "1970s",
-      "1980s",
-      "1990s"
+      "1970s"
     ],
     "nivel": "media",
-    "fuente": "plan-parcial",
+    "fuente": "manual",
     "confianza": "media",
-    "confianza_puntos": 72,
+    "confianza_puntos": 65,
     "municipio": "zapopan",
     "municipio_fuente": "maestro"
   },
@@ -22884,8 +23299,8 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 56,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "tonala",
+    "municipio_fuente": "perito"
   },
   "gallo colorado": {
     "decada_ref": "1990s",
@@ -23081,7 +23496,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "geovillas del real": {
@@ -23196,16 +23611,14 @@
     "municipio_fuente": "maestro"
   },
   "girasoles elite": {
-    "decada_ref": "1980s",
+    "decada_ref": "1990s",
     "decadas": [
-      "1970s",
-      "1980s",
       "1990s"
     ],
     "nivel": "media",
-    "fuente": "plan-parcial",
+    "fuente": "manual",
     "confianza": "media",
-    "confianza_puntos": 72,
+    "confianza_puntos": 65,
     "municipio": "zapopan",
     "municipio_fuente": "maestro"
   },
@@ -23405,7 +23818,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "granja central barragan moreno": {
@@ -23967,8 +24380,8 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 62,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "perito"
   },
   "hacienda copala": {
     "decada_ref": "2000s",
@@ -24022,8 +24435,8 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 62,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "perito"
   },
   "hacienda de tlaquepaque": {
     "decada_ref": "1980s",
@@ -24188,7 +24601,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "hacienda la herradura": {
@@ -24452,7 +24865,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "hacienda sant fe": {
@@ -24519,8 +24932,8 @@
     "confianza": "media",
     "nivel": "media",
     "confianza_puntos": 72,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "zapopan",
+    "municipio_fuente": "perito"
   },
   "hacienda vieja del castillo": {
     "decada_ref": "2000s",
@@ -24692,7 +25105,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlaquepaque",
+    "municipio": "san pedro tlaquepaque",
     "municipio_fuente": "cache_index"
   },
   "haciendas de zapopan": {
@@ -25270,7 +25683,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "hispania la rioja": {
@@ -25284,7 +25697,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "hispania la rioja tlajomulco": {
@@ -25326,7 +25739,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "hogar de atemajac": {
@@ -25619,7 +26032,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "huerta de pena": {
@@ -25676,7 +26089,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "huertas productivas de": {
@@ -26269,8 +26682,8 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 72,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "san pedro tlaquepaque",
+    "municipio_fuente": "perito"
   },
   "industrial el camino": {
     "decada_ref": "1960s",
@@ -26409,8 +26822,8 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 72,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "el salto",
+    "municipio_fuente": "perito"
   },
   "infonavit el castillo": {
     "decada_ref": "2000s",
@@ -27417,8 +27830,8 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 48,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "tonala",
+    "municipio_fuente": "perito"
   },
   "jalisco iv": {
     "decada_ref": "1960s",
@@ -27431,8 +27844,8 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 48,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "tonala",
+    "municipio_fuente": "perito"
   },
   "jalisco primera seccion": {
     "decada_ref": "1990s",
@@ -29637,7 +30050,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 38,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "la arbolada neighborhood": {
@@ -29655,17 +30068,17 @@
     "municipio_fuente": null
   },
   "la arbolada plus": {
-    "decada_ref": "2010s",
+    "decada_ref": "2000s",
     "decadas": [
-      "2000s",
-      "2010s"
+      "2000s"
     ],
     "nivel": "media",
     "fuente": "manual",
     "confianza": "media",
-    "confianza_puntos": 61,
+    "confianza_puntos": 70,
     "municipio": "tlajomulco de zuniga",
-    "municipio_fuente": "sepomex"
+    "municipio_fuente": "sepomex",
+    "nota": "variante de escritura de 'arboledas plus'"
   },
   "la arbolada real del valle fraccion": {
     "decada_ref": "2000s",
@@ -29725,7 +30138,21 @@
     "homonima_en": [
       "san pedro tlaquepaque",
       "tonala"
-    ]
+    ],
+    "por_municipio": {
+      "san pedro tlaquepaque": {
+        "decada_ref": "1960s",
+        "decadas": [
+          "1950s",
+          "1960s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Distrito TLA-01 Centro Histórico: antiguos bancos de arcilla, barro y arena de la industria alfarera, lotificados para los propios artesanos al integrarse Tlaquepaque al AMG. Aerofotos 1960 con retícula sobre las áreas de extracción y 50-60% edificado; ortofoto 1970 en 90-95%; 100% en 1980. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "la asuncion": {
     "decada_ref": "1980s",
@@ -30183,7 +30610,33 @@
       "juanacatlan",
       "san pedro tlaquepaque",
       "tuxcueca"
-    ]
+    ],
+    "por_municipio": {
+      "san pedro tlaquepaque": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "1990s",
+          "2000s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 65,
+        "nivel": "media",
+        "evidencia": "Oriente de Tlaquepaque: ortofoto 2010 con 70-75% edificado en autoconstrucción ya avanzada desde la década anterior. CORRIGE el cierre previo en 2010s: el cov2010=0.00 era desfase de la poligonal de AGEB, no suelo sin construir. La homónima de Juanacatlán es de los 90. |  |  |  | cruce espacial, no lámina catastral"
+      },
+      "juanacatlan": {
+        "decada_ref": "1990s",
+        "decadas": [
+          "1980s",
+          "1990s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Delegación en la margen oriente del río Santiago: caserío rural de los siglos XIX-XX que se parcela para vivienda de trabajadores con el polo industrial de El Salto. Fotogrametría 1980 con edificación dispersa (35-45%), ortofoto 1990 en 75-80% con manzanas y calles formales, 95-100% desde 2000. INEGI cov 0.52 (2000) / 0.75 (2010) concuerda. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "la coladera": {
     "decada_ref": "2000s",
@@ -30311,8 +30764,8 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 47,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "perito"
   },
   "la cuchilla extramuros de tesistan": {
     "decada_ref": "1990s",
@@ -30344,7 +30797,21 @@
     "homonima_en": [
       "tonala",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "zapopan": {
+        "decada_ref": "2010s",
+        "decadas": [
+          "2000s",
+          "2010s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Distrito ZPN-05 Tesistán: coto residencial autorizado hacia 2006-2008, ocupación 2010-2018. INEGI cov2000=0.00 / cov2010=0.01 / cov2020=0.99 confirma que en 2010 estaba prácticamente sin construir: la década efectiva es 2010s. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "la divina providencia": {
     "decada_ref": "1960s",
@@ -30596,7 +31063,7 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 45,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "la fresna enclosure": {
@@ -30646,7 +31113,44 @@
       "tlajomulco de zuniga",
       "tlaquepaque",
       "tonala"
-    ]
+    ],
+    "por_municipio": {
+      "san pedro tlaquepaque": {
+        "decada_ref": "1990s",
+        "decadas": [
+          "1980s",
+          "1990s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Ejidos al pie del Cerro del Gato, oriente de Tlaquepaque: vivienda popular de autoconstrucción. Ortofoto 1990 con 35-45% y 2000 arriba del 90%: el grueso es de los 1990s, no de los 2000s. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "tlajomulco de zuniga": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "2000s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Ejidos de transición hacia Tlaquepaque y el Cerro del Gato: interés social del corredor sur. Ortofoto 2000 con 15-25%, 2010 con 70-80% y 2020 arriba del 95%: el grueso se construyó entre 2000 y 2010. La homónima de Tonalá es 2010s y la de Tlaquepaque 1990s. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "tonala": {
+        "decada_ref": "2010s",
+        "decadas": [
+          "2000s",
+          "2010s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Distrito TON-05 El Jauja: parcelas ejidales de San Martín de las Flores subdivididas por el auge logístico de El Salto. Vuelo INEGI 2000 casi todo rústico (menos del 10%), ortofoto 2010 con lotificación y traza básica (~35-40%), y 85-90% hacia 2020. Origen rústico en los 90, pero la vivienda es de los 2010s. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "la giralda": {
     "decada_ref": "1970s",
@@ -30916,7 +31420,22 @@
     "homonima_en": [
       "zapopan",
       "zapotlanejo"
-    ]
+    ],
+    "por_municipio": {
+      "zapotlanejo": {
+        "decada_ref": "1980s",
+        "decadas": [
+          "1970s",
+          "1980s",
+          "1990s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 60,
+        "nivel": "media",
+        "evidencia": "Delegación rural histórica (caserío de principios del siglo XX) sobre el corredor libre y de cuota a Guadalajara: subdivisión y regularización de predios ejidales para vivienda H3/H4 entre los 70 y los 90. Censos 1970-1980 como localidad rural dispersa, censo 1990 con traza definida, censo 2000 consolidada. Adobe en las fincas antiguas, ladrillo y concreto en las nuevas. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "la liga": {
     "decada_ref": "2000s",
@@ -31180,8 +31699,8 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 62,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "guadalajara",
+    "municipio_fuente": "perito"
   },
   "la mora": {
     "decada_ref": "2010s",
@@ -31290,7 +31809,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "la noria residencial": {
@@ -31375,8 +31894,8 @@
     "confianza": "media",
     "nivel": "media",
     "confianza_puntos": 72,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "zapopan",
+    "municipio_fuente": "perito"
   },
   "la parota": {
     "decada_ref": "1990s",
@@ -31578,16 +32097,14 @@
     "municipio_fuente": null
   },
   "la primavera": {
-    "decada_ref": "1980s",
+    "decada_ref": "1990s",
     "decadas": [
-      "1970s",
-      "1980s",
       "1990s"
     ],
-    "nivel": "popular",
-    "fuente": "plan-parcial",
+    "nivel": "media",
+    "fuente": "manual",
     "confianza": "media",
-    "confianza_puntos": 72,
+    "confianza_puntos": 65,
     "municipio": "zapopan",
     "municipio_fuente": "maestro"
   },
@@ -31648,17 +32165,14 @@
     "municipio_fuente": null
   },
   "la purisima": {
-    "decada_ref": "2000s",
+    "decada_ref": "2010s",
     "decadas": [
-      "1980s",
-      "1990s",
-      "2000s",
       "2010s"
     ],
-    "nivel": "media-baja",
-    "fuente": "plan-parcial",
+    "nivel": "media",
+    "fuente": "manual",
     "confianza": "media",
-    "confianza_puntos": 47,
+    "confianza_puntos": 60,
     "municipio": null,
     "municipio_fuente": null,
     "homonima_en": [
@@ -31666,7 +32180,45 @@
       "tlajomulco",
       "tlajomulco de zuniga",
       "zapotlanejo"
-    ]
+    ],
+    "por_municipio": {
+      "tlajomulco de zuniga": {
+        "decada_ref": "2010s",
+        "decadas": [
+          "2000s",
+          "2010s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Parcelas agrícolas cerca de Cajititlán: vivienda económica periférica. Ortofoto 2000 fuera de localidad censal, 2010 con 30-40% y 2020 arriba del 90%. Confirma el 2010s que ya tenía. La de El Salto es 1980s y la de Zapotlanejo 2010s. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "el salto": {
+        "decada_ref": "1980s",
+        "decadas": [
+          "1980s",
+          "1990s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Junto a la cabecera y al corredor industrial: fragmentación de predios agrícolas en lotes para trabajadores desde finales de los 70, poblamiento por autoconstrucción en los 80 y 90 con la llegada de las plantas manufactureras; servicios entre mediados de los 80 y finales de los 90. Censo 1980 semirural disperso, salto en 1990, estructurada en 2000. Corrige el 'sin coincidencias' del OCR 2002, que no era ausencia. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "zapotlanejo": {
+        "decada_ref": "2010s",
+        "decadas": [
+          "2000s",
+          "2010s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 65,
+        "nivel": "media",
+        "evidencia": "Municipio periférico: ortofoto 2010 con solo 25-35% edificado, asentamiento rural-suburbano de baja densidad que las capas censales omitían por no alcanzar el umbral de concentración poblacional. El grueso es posterior a 2010 (cobertura 1.00 en 2020). La homónima de El Salto es de los 80. |  |  |  | cruce espacial, no lámina catastral"
+      }
+    }
   },
   "la quinta catalina": {
     "decada_ref": "1990s",
@@ -31836,7 +32388,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "la rua residential to the south of": {
@@ -31997,7 +32549,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "la union del cuatro": {
@@ -32070,7 +32622,21 @@
     "homonima_en": [
       "tonala",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "tonala": {
+        "decada_ref": "1990s",
+        "decadas": [
+          "1980s",
+          "1990s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Distrito TON-01/TON-02, acceso poniente a la cabecera: polígonos intermedios parcelados tras la consolidación del eje Río Nilo-Tonaltecas en los 80. Ortofoto 1990 con traza abierta y ~35-40% edificado; serie 2000 en 90-95% con servicios completos; 100% en 2010. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "la vista": {
     "decada_ref": "1980s",
@@ -33279,7 +33845,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "land with view of lake chapala": {
@@ -33697,7 +34263,21 @@
       "tlajomulco de zuniga",
       "tlaquepaque",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "zapopan": {
+        "decada_ref": "1970s",
+        "decadas": [
+          "1960s",
+          "1970s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 60,
+        "nivel": "media",
+        "evidencia": "Distrito ZPN-08 Las Águilas / Cruz del Sur: lotificación detonada por Ciudad del Sol (1955) y Plaza del Sol (1969); consolidación 70s-80s. INEGI cov2000=1.00. Ojo: en Tlajomulco 2002 la coincidencia OCR 'las flores' resultó ser Sta. Cruz de las Flores. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "las fuentes": {
     "decada_ref": "1940s",
@@ -33842,7 +34422,33 @@
       "guadalajara",
       "san pedro tlaquepaque",
       "tlaquepaque"
-    ]
+    ],
+    "por_municipio": {
+      "guadalajara": {
+        "decada_ref": "1960s",
+        "decadas": [
+          "1950s",
+          "1960s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Subdistrito 5, corredor Gobernador Curiel y cruce ferroviario: vivienda obrera parcelada con el parque industrial sur de los 50. Fotogrametría 1960 con retícula y 50-60% edificado; ortofoto 1970 en 90-95% con infraestructura completa; 100% en 1980. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "san pedro tlaquepaque": {
+        "decada_ref": "1980s",
+        "decadas": [
+          "1970s",
+          "1980s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Distrito TLA-04, cruce de Gobernador Curiel con Periférico Sur al pie del Cerro del Cuatro: nodo obrero e industrial ligero detonado por la industrialización del corredor y el Periférico en los 70. Fotogrametría 1980 con retícula pavimentada sobre las vías y ~60% edificado; ortofoto 1990 en 90-95%. INEGI cov2000=0.81 concuerda. La homónima de Guadalajara es de los 60. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "las juntitas": {
     "decada_ref": "1940s",
@@ -34015,7 +34621,21 @@
       "tlajomulco",
       "tlajomulco de zuniga",
       "tonala"
-    ]
+    ],
+    "por_municipio": {
+      "tonala": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "1990s",
+          "2000s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Ejidos del sector oriente: expansión urbana popular. Ortofoto 2000 con 25-35% y 2010 arriba del 90%: el grueso es de los 2000s, no de los 2010s que daba la cobertura. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "las palomas": {
     "decada_ref": "1960s",
@@ -34085,7 +34705,7 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 72,
-    "municipio": "tlaquepaque",
+    "municipio": "san pedro tlaquepaque",
     "municipio_fuente": "cache_index"
   },
   "las pintas el salto": {
@@ -34186,7 +34806,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlaquepaque",
+    "municipio": "san pedro tlaquepaque",
     "municipio_fuente": "cache_index"
   },
   "las terrazas residencial": {
@@ -34233,7 +34853,33 @@
     "homonima_en": [
       "jocotepec",
       "tlajomulco de zuniga"
-    ]
+    ],
+    "por_municipio": {
+      "jocotepec": {
+        "decada_ref": "1990s",
+        "decadas": [
+          "1980s",
+          "1990s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Quintas y terrenos agrícolas de la ribera de Chapala: crecimiento de la cabecera y turismo residencial. Ortofoto 1990 con 30-40%, 2000 con 75-85% y 2010 arriba del 90%: el grueso es de los 1990s, no de los 2010s. Pertenece al apartado de la ribera, no al cruce metropolitano. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "tlajomulco de zuniga": {
+        "decada_ref": "1990s",
+        "decadas": [
+          "1990s",
+          "2000s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Parcelas del valle sur con la conectividad de López Mateos Sur. Ortofoto 1990 con 20-30%, 2000 con 75-85% y 2010 al 95%: el grueso es de los 1990s. El cierre por cobertura la tenía en 2010s, dos décadas tarde. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "las varitas": {
     "decada_ref": "2000s",
@@ -34275,7 +34921,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "las victorias residencial": {
@@ -34520,7 +35166,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "libertad": {
@@ -34709,7 +35355,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "live in style at esenika sur lofty model": {
@@ -34723,7 +35369,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "live in style at esenika sur smart model": {
@@ -34737,7 +35383,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "live next to the metropolitan park": {
@@ -35026,7 +35672,44 @@
       "el salto",
       "guadalajara",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "el salto": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "2000s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Norte / centro-oriente de El Salto, junto a la carretera vía La Capilla y el corredor industrial. Ortofoto 1990 con 5-15% (ejidal abierto), 2000 con 30-40% (concuerda con el cov2000=0.31) y 2010 con 95-100% saturada. El grueso se construyó entre 2000 y 2010. La homónima de Tonalá es 1990s y la de Zapopan 1980s. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "zapopan": {
+        "decada_ref": "1980s",
+        "decadas": [
+          "1970s",
+          "1980s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 60,
+        "nivel": "media",
+        "evidencia": "Distrito ZPN-08 Cruz del Sur / Las Águilas: urbanizada tras la apertura de Patria Sur a finales de los 70s, edificación completa a mediados de los 90s. INEGI cov2000=1.00. El homónimo de El Salto es 2000s. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "tonala": {
+        "decada_ref": "1990s",
+        "decadas": [
+          "1980s",
+          "1990s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Predios ejidales junto a la cabecera: densificación del primer cuadro. Ortofoto 1990 con 40-50%, 2000 con 80-90% y consolidada en 2010: el grueso es de los 1990s. La de Zapopan es 1980s; la de El Salto sigue sin investigar. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "loma bonita 1a seccion": {
     "decada_ref": "1980s",
@@ -35410,7 +36093,20 @@
       "guadalajara",
       "tonala",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "zapopan": {
+        "decada_ref": "1990s",
+        "decadas": [
+          "1990s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Distrito ZPN-04 Vallarta Universidad: cotos detonados por Patria Poniente, Universidad y Juan Palomar y Arias. Ortofotos INEGI por polígono: movimiento de tierras a principios de los 90 y traza urbana e infraestructura al 100% ya en la serie 2000, con pocos baldíos. cov2000=1.00 concuerda. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "loma sur": {
     "decada_ref": "1990s",
@@ -35971,7 +36667,7 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 58,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "lomas de san diego": {
@@ -36033,7 +36729,33 @@
       "san pedro tlaquepaque",
       "tlaquepaque",
       "tonala"
-    ]
+    ],
+    "por_municipio": {
+      "tonala": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "1990s",
+          "2000s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Predios cerriles y ejidales del nororiente: autoproducción de densidad media. Ortofoto 2000 con 30-40% y 2010 arriba del 90%: el grueso es de los 2000s. La homónima de Tlaquepaque (San Martín de las Flores) es 1990s. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "san pedro tlaquepaque": {
+        "decada_ref": "1990s",
+        "decadas": [
+          "1980s",
+          "1990s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Distrito TLA-06 San Martín de las Flores, lomeríos del oriente sobre la carretera libre a Zapotlanejo: lotificación ejidal y autoproducción por la presión habitacional del oriente del AMG. Ortofoto 1990 con traza adaptada a la topografía y 35-45% edificado; serie 2000 en 80-85% con redes y pavimentación; más del 95% en 2010. La homónima de Tonalá es de los 2010s. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "lomas de san miguel ii": {
     "decada_ref": "2000s",
@@ -36186,7 +36908,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "lomas de tesistan": {
@@ -36298,7 +37020,7 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 72,
-    "municipio": "tlaquepaque",
+    "municipio": "san pedro tlaquepaque",
     "municipio_fuente": "cache_index"
   },
   "lomas del aeropuerto": {
@@ -36728,7 +37450,33 @@
       "tlajomulco",
       "tlajomulco de zuniga",
       "tonala"
-    ]
+    ],
+    "por_municipio": {
+      "tlajomulco de zuniga": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "1990s",
+          "2000s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 65,
+        "nivel": "media",
+        "evidencia": "Terrenos cerriles ejidales en San Agustín: fraccionamientos campestres con control de acceso. Ortofoto 2000 con 40-50% y 2010 en 90-95%: se reparte entre los 90 y los 2000. La homónima de Guadalajara (barranca de Huentitán) es 1990s. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "guadalajara": {
+        "decada_ref": "1990s",
+        "decadas": [
+          "1980s",
+          "1990s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Subdistrito 1 Huentitán, declives de pedregal basáltico de la barranca: ocupación tardía por la dificultad del suelo rocoso. Fotogrametría 1980 con menos del 20% edificado; ortofoto 1990 en ~60% con autoproducción adaptada a la pendiente; 90-95% en 2000 con escalinatas y concreto hidráulico. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "lomas del refugio": {
     "decada_ref": "1980s",
@@ -36830,7 +37578,45 @@
       "guadalajara",
       "zapopan",
       "zapotlanejo"
-    ]
+    ],
+    "por_municipio": {
+      "zapotlanejo": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "1990s",
+          "2000s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Predios ejidales de la periferia de la cabecera: expansión ligada al comercio y la industria textil local. Ortofoto 2000 con 25-35% y 2010 arriba del 90%: el grueso es de los 2000s. Las homónimas de Guadalajara y Zapopan son de los 70 y los 80. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "zapopan": {
+        "decada_ref": "1980s",
+        "decadas": [
+          "1970s",
+          "1980s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 60,
+        "nivel": "media",
+        "evidencia": "Distrito ZPN-03 Providencia / Lomas de Zapopan: detonada por el campus de la UAG (inicios de los 70s) y las avenidas Pablo Neruda y Terranova; fraccionamiento H2 completo a finales de los 80s. INEGI cov2000=0.80. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "guadalajara": {
+        "decada_ref": "1970s",
+        "decadas": [
+          "1960s",
+          "1970s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Subdistrito 2 Minerva/Providencia: lotes amplios H2-U parcelados por la expansión residencial alta hacia el poniente. Fotogrametría 1970 con traza pavimentada y 50-60% edificado; ortofoto 1980 en 90-95%; 100% en 1990. Arquitectura californiana y modernista tapatía. La homónima de Zapopan (UAG) es de los 80. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "lomas del verde": {
     "decada_ref": "1980s",
@@ -37012,7 +37798,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 36,
-    "municipio": "tlaquepaque",
+    "municipio": "san pedro tlaquepaque",
     "municipio_fuente": "cache_index"
   },
   "lopez de legaspi": {
@@ -37225,7 +38011,31 @@
     "homonima_en": [
       "tlajomulco de zuniga",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "zapopan": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "2000s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 65,
+        "nivel": "media",
+        "evidencia": "Distrito ZPN-03 Los Robles / Nuevo México, corredor Juan Gil Preciado: demanda detonada por la ampliación de la carretera a Tesistán y el Parque Industrial Zapopan Norte en los 90. Ortofoto INEGI 2000 con traza incipiente (~30%); consolidación cercana al 100% entre 2008 y 2010. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "tlajomulco de zuniga": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "2000s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Corredor carretera a Morelia / San Agustín, junto a San Diego y Santa Cruz de las Flores: rezonificación a H3/H4 y licencias de urbanización entre 1997-1999 y principios de los 2000; edificación 2000-2012. Censo 2000 con manzanas incipientes, censos 2010 y 2020 con brinco demográfico. La homónima de Zapopan (Nuevo México) también es de los 2000s. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "los alcatraces": {
     "decada_ref": "2000s",
@@ -37327,7 +38137,22 @@
     "homonima_en": [
       "san pedro tlaquepaque",
       "tonala"
-    ]
+    ],
+    "por_municipio": {
+      "tonala": {
+        "decada_ref": "1980s",
+        "decadas": [
+          "1970s",
+          "1980s",
+          "1990s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 65,
+        "nivel": "media",
+        "evidencia": "Distrito TNL-1 Centro / Aztlán, poniente contiguo a la carretera libre a Zapotlanejo: traza desde finales de los 70, poblamiento y regularización en los 80 y 90, con servicios SIAPA/CFE en ese periodo. AGEB incipiente en el censo 1980, ya consolidada en 1990-2000. Autoconstrucción progresiva de 1-2 niveles. El polígono DCAH da 0.23 en 2000 y 0.00 en 2010 (imposible): no usarlo, está mal asignado. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "los angeles de nextipac": {
     "decada_ref": "1990s",
@@ -37548,8 +38373,8 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 45,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "perito"
   },
   "los ciruelos": {
     "decada_ref": "2000s",
@@ -37595,7 +38420,33 @@
     "homonima_en": [
       "guadalajara",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "zapopan": {
+        "decada_ref": "2010s",
+        "decadas": [
+          "2000s",
+          "2010s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Distrito ZPN-05 Tesistán / Carretera a Colotlán: fraccionamientos y cotos H3/H4 construidos 2008-2018. INEGI cov2000=0.04 / cov2010=0.08 / cov2020=0.66 corrobora: en 2010 seguía sin construir. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "guadalajara": {
+        "decada_ref": "1980s",
+        "decadas": [
+          "1970s",
+          "1980s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Subdistrito 5, faldas del Cerro del Cuatro junto a Miravalle: ocupación impulsada por la demanda obrera del corredor Gobernador Curiel y el polígono Miravalle de INDECO/INFONAVIT. Fotogrametría 1980 con 40-50%; ortofoto 1990 en 85-90% con redes y escalinatas; 100% en 2000. La homónima de Zapopan (Tesistán) es de los 2010s. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "los conejos": {
     "decada_ref": "2000s",
@@ -37637,7 +38488,7 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 45,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "los flamingos la vinatera": {
@@ -37678,7 +38529,7 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 60,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "los gavilanes": {
@@ -37814,7 +38665,21 @@
       "tlajomulco",
       "tlajomulco de zuniga",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "zapopan": {
+        "decada_ref": "1970s",
+        "decadas": [
+          "1960s",
+          "1970s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 60,
+        "nivel": "media",
+        "evidencia": "Distrito ZPN-1 Zapopan Centro: primera ola de fraccionamientos que ligó el casco de la Basílica con Belenes, finales de los 60 y los 70; consolidación a principios de los 80. Fincas de clase media con cochera techada, marquesina y herrería. INEGI cov2000=1.00. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "los liberales": {
     "decada_ref": "1980s",
@@ -37848,7 +38713,21 @@
     "homonima_en": [
       "el salto",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "el salto": {
+        "decada_ref": "1980s",
+        "decadas": [
+          "1980s",
+          "1990s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Zona central/norte junto a la cabecera y El Castillo: lotes asignados a trabajadores de la educación a principios de los 80, rezonificación a H3/H4 entre los 80 y principios de los 90, servicios entre finales de los 80 y los 90. Censo 1980 rústico, censo 1990 con traza y ocupación, censo 2000 consolidada. Corrige el 'sin coincidencias' del OCR 2002. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "los manantiales": {
     "decada_ref": "1990s",
@@ -38015,7 +38894,45 @@
       "san pedro tlaquepaque",
       "tlajomulco",
       "tlaquepaque"
-    ]
+    ],
+    "por_municipio": {
+      "poncitlan": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "1990s",
+          "2000s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 65,
+        "nivel": "media",
+        "evidencia": "Junto a la delegación de Cuitzeo, corredor Poncitlán-Ocotlán: reserva urbana H3/H4 desde la segunda mitad de los 90, trazo 1995-1998 y poblamiento 1999-2012. Conteo 1995 aún agrícola, censo 2000 con manzanas definidas y viviendas habitadas; servicios y pavimentación entre finales de los 90 y los 2000. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "tlajomulco de zuniga": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "2000s",
+          "2010s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 65,
+        "nivel": "media",
+        "evidencia": "Periferia de la cabecera hacia la carretera a Morelia y el Circuito Sur: dictámenes y licencias de urbanización 2002-2006, edificación 2005-2015. Censo 2000 rústico, censo 2010 con cuadrícula y viviendas, censo 2020 consolidado. Fraccionamiento popular con autoconstrucción posterior. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "san pedro tlaquepaque": {
+        "decada_ref": "1990s",
+        "decadas": [
+          "1990s",
+          "2000s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 60,
+        "nivel": "media",
+        "evidencia": "Distrito TLA-06 San Martín de las Flores / Los Puestos, junto a Tateposco y la carretera libre a Zapotlanejo: lotificación por la demanda obrera del corredor logístico y el Periférico Oriente. Ortofoto 1990 agrícola con accesos rústicos; serie 2000 con manzanas y vialidades abiertas y 45-55% edificado por autoproducción; 90-95% en 2010. El polígono DCAH da 0.61 (2000) y 0.37 (2010), secuencia imposible: no usarlo. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "los naranjos condominium": {
     "decada_ref": "2010s",
@@ -38202,7 +39119,23 @@
       "tlajomulco de zuniga",
       "tonala",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "zapopan": {
+        "decada_ref": "1970s",
+        "decadas": [
+          "1960s",
+          "1970s",
+          "1980s",
+          "1990s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 65,
+        "nivel": "media",
+        "evidencia": "LLAVE MEZCLADA: tres polígonos DCAH distintos con este nombre en Zapopan y el CSV de cobertura los suma (227,287 m²). El mayor (177,313 m², 78% del área, centroide 20.68054/-103.40629) es el que manda: urbanización del norte del municipio (Atemajac/Tabachines), fotogrametría 1970 con 40-50% edificado y 1980 arriba del 95%, de los 60-70. Los otros dos son la rinconada surponiente junto a Bugambilias (20.60716/-103.43747, de los 80-90) y un fraccionamiento del norte (20.79207/-103.47436). Para valuar en el cuadrante sur no usar el valor de esta llave. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "los pinos campestre": {
     "decada_ref": "1990s",
@@ -38301,8 +39234,8 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 45,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "perito"
   },
   "los robles": {
     "decada_ref": "1990s",
@@ -38432,7 +39365,21 @@
     "homonima_en": [
       "chapala",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "zapopan": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "2000s",
+          "2010s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 60,
+        "nivel": "media",
+        "evidencia": "Zapopan norte, corredor Juan Gil Preciado / Tesistán: reserva urbana en la transición de siglo, licencias de coto aceleradas desde los 2000; AGEB con muy baja densidad en el censo 2000 y salto poblacional en 2010-2020. Modelo de coto cerrado, lotes de 90-140 m². (INEGI cov2000=1.00 no discrimina: el polígono cae dentro de la mancha urbana metropolitana.) |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "los sauces": {
     "decada_ref": "2000s",
@@ -38445,7 +39392,7 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 48,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "los silos": {
@@ -39104,8 +40051,8 @@
     "fuente": "hemeroteca",
     "confianza": "media",
     "confianza_puntos": 64,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "perito"
   },
   "manuel j clouthier": {
     "decada_ref": "1990s",
@@ -39164,16 +40111,14 @@
     "municipio_fuente": "sepomex"
   },
   "marcelino garcia barragan": {
-    "decada_ref": "1980s",
+    "decada_ref": "1970s",
     "decadas": [
-      "1970s",
-      "1980s",
-      "1990s"
+      "1970s"
     ],
-    "nivel": "media-alta",
-    "fuente": "plan-parcial",
+    "nivel": "media",
+    "fuente": "manual",
     "confianza": "media",
-    "confianza_puntos": 72,
+    "confianza_puntos": 65,
     "municipio": "zapopan",
     "municipio_fuente": "maestro"
   },
@@ -39677,8 +40622,8 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 62,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "chapala",
+    "municipio_fuente": "perito"
   },
   "mezquitan": {
     "decada_ref": "1960s",
@@ -40048,7 +40993,32 @@
     "homonima_en": [
       "tonala",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "zapopan": {
+        "decada_ref": "1980s",
+        "decadas": [
+          "1980s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Distrito ZPN-4 Tepeyac / Molino de Agua: predios intermedios entre Ciudad del Sol y La Estancia, fraccionados a finales de los 70; censo 1980 en trazo inicial y censo 1990 con ocupación casi total. Fincas de clase media de los 80 (tabique aparente, marquesina, cochera doble). |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "tonala": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "2000s",
+          "2010s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 65,
+        "nivel": "media",
+        "evidencia": "Nororiente de Tonalá (Colinas del Tonalá, Santa Isabel, Cerro de la Reina): reserva urbana desde 1997-1999, regularización y trazo 1998-2000s, poblamiento por autoconstrucción en los 2000s y 2010s con el Periférico Nuevo. AGEB incipiente en el censo 2000. Distinta de la mirador del sol de Zapopan, que es de los 80. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "mirador del tesoro": {
     "decada_ref": "1980s",
@@ -40216,8 +41186,8 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 48,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "guadalajara",
+    "municipio_fuente": "perito"
   },
   "miravalle ground floor": {
     "decada_ref": "1990s",
@@ -41817,7 +42787,31 @@
       "guadalajara",
       "tlajomulco",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "tlajomulco de zuniga": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "2000s"
+        ],
+        "fuente": "manual",
+        "confianza": "alta",
+        "confianza_puntos": 78,
+        "url": "https://ciesas.repositorioinstitucional.mx/jspui/bitstream/1015/1550/1/TE%20C.C.%202022%20Abril%20Fabiola%20Casas%20Cervantes.pdf",
+        "evidencia": "CIESAS, tesis de Fabiola Casas Cervantes (2022), apartado sobre Nueva Galicia: \"Este desarrollo fue construido en el año 2001 por GIG\" — https://ciesas.repositorioinstitucional.mx/jspui/bitstream/1015/1550/1/TE%20C.C.%202022%20Abril%20Fabiola%20Casas%20Cervantes.pdf"
+      },
+      "zapopan": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "2000s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 65,
+        "nivel": "media",
+        "evidencia": "OJO DE MUNICIPIO: formalmente está en Tlajomulco de Zúñiga (corredor López Mateos Sur, en el límite con Zapopan); se asocia a Zapopan por continuidad urbana con El Palomar y Agua Blanca. Trazo 1998-1999, comercialización y edificación masiva 2000-2010 (cotos Barcelona, Vigo, Granada, Oporto); AGEB de baja densidad en el censo 2000 y de los mayores incrementos del AMG en 2010. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "nueva galicia 1": {
     "decada_ref": "1970s",
@@ -41915,7 +42909,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "nueva galicia residencial": {
@@ -41984,7 +42978,7 @@
     "fuente": "hemeroteca",
     "confianza": "media",
     "confianza_puntos": 64,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "nueva lazaro cardenas": {
@@ -42070,7 +43064,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "nuevo israel": {
@@ -42224,8 +43218,8 @@
     "confianza": "media",
     "nivel": "media",
     "confianza_puntos": 72,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "zapopan",
+    "municipio_fuente": "perito"
   },
   "oaks hills": {
     "decada_ref": "1990s",
@@ -42300,7 +43294,21 @@
       "el salto",
       "guadalajara",
       "tonala"
-    ]
+    ],
+    "por_municipio": {
+      "guadalajara": {
+        "decada_ref": "1940s",
+        "decadas": [
+          "1930s",
+          "1940s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Subdistrito 4 Centro/San Andrés: uno de los primeros ensanches populares planeados fuera del primer cuadro, sobre huertas entre Analco y San Andrés, con los talleres de calzado y textil de la posrevolución. Planos y aerofotos de 1940 con retícula y más del 60% edificado; 100% en 1950. Adobe y tabique rojo, funcionalista temprano y neocolonial modesto. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "obrera centro": {
     "decada_ref": "1910s",
@@ -42428,7 +43436,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "olampica": {
@@ -42555,7 +43563,7 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 57,
-    "municipio": "tlaquepaque",
+    "municipio": "san pedro tlaquepaque",
     "municipio_fuente": "cache_index"
   },
   "olmos": {
@@ -42667,7 +43675,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlaquepaque",
+    "municipio": "san pedro tlaquepaque",
     "municipio_fuente": "cache_index"
   },
   "onialibertad": {
@@ -42755,7 +43763,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "opportunity price": {
@@ -43234,7 +44242,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "paraje area galerias santa anita": {
@@ -43549,7 +44557,21 @@
     "homonima_en": [
       "el salto",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "zapopan": {
+        "decada_ref": "2010s",
+        "decadas": [
+          "2000s",
+          "2010s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 65,
+        "nivel": "media",
+        "evidencia": "Distrito ZPN-4 Vallarta-Universidad: urbanización y venta de lotes 2005-2007, edificación 2008-2018 con Av. Universidad y Juan Palomar y Arias. INEGI cov2000=0.00 (suelo rústico) / cov2010=1.00 marca la urbanización, no la edificación: el grueso de las casas es de los 2010s. Arquitectura contemporánea/minimalista en coto. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "parques": {
     "decada_ref": "2000s",
@@ -43576,8 +44598,8 @@
     "confianza": "media",
     "nivel": "media",
     "confianza_puntos": 72,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "guadalajara",
+    "municipio_fuente": "perito"
   },
   "parques de": {
     "decada_ref": "1980s",
@@ -43661,8 +44683,9 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 72,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "tonala",
+    "municipio_fuente": "perito",
+    "nota": "ampliación posterior, colindante con la de los 80"
   },
   "parques de san pedro": {
     "decada_ref": "1960s",
@@ -43943,7 +44966,21 @@
     "homonima_en": [
       "tlajomulco",
       "tlaquepaque"
-    ]
+    ],
+    "por_municipio": {
+      "san pedro tlaquepaque": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "1990s",
+          "2000s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Ejidos de Santa Cruz del Valle junto al Periférico Sur: fraccionamientos de interés social. Ortofoto 2000 con 30-40% y 2010 arriba del 95%: confirma el 2000s que ya tenía, ahora con evidencia. Coincide con la lámina catastral 2020 zona 49 ya confirmada. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "parques tesistan": {
     "decada_ref": "2000s",
@@ -43970,8 +45007,8 @@
     "confianza": "media",
     "nivel": "media",
     "confianza_puntos": 72,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "zapopan",
+    "municipio_fuente": "perito"
   },
   "parques vallarta": {
     "decada_ref": "1980s",
@@ -44138,8 +45175,8 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 48,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "zapopan",
+    "municipio_fuente": "perito"
   },
   "paseo de los agaves": {
     "decada_ref": "2000s",
@@ -44301,8 +45338,8 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 62,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "perito"
   },
   "paseos de santiago": {
     "decada_ref": "2000s",
@@ -44442,7 +45479,21 @@
       "tlajomulco",
       "tlajomulco de zuniga",
       "tonala"
-    ]
+    ],
+    "por_municipio": {
+      "tlajomulco de zuniga": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "2000s",
+          "2010s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Macrofraccionamiento sobre ejido en el extremo sur, de la política federal de vivienda en serie. Ortofoto 2000 en cero, 2010 con 60-70% y 2020 arriba del 95%: el grueso es de los 2000s. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "paseos independencia": {
     "decada_ref": "1960s",
@@ -44469,7 +45520,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlaquepaque",
+    "municipio": "san pedro tlaquepaque",
     "municipio_fuente": "cache_index"
   },
   "paseos universidad": {
@@ -44518,7 +45569,33 @@
       "poncitlan",
       "tlajomulco de zuniga",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "guadalajara": {
+        "decada_ref": "1970s",
+        "decadas": [
+          "1960s",
+          "1970s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Subdistrito 7 Tetlán/San Andrés (también Patria Oriente): huertas parceladas para vivienda H3 con la extensión de Esteban Alatorre y Plutarco Elías Calles. Vuelo 1970 con retícula y 50-60% edificado; fotogrametría 1980 en 90-95% con servicios completos; 100% en 1990. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "poncitlan": {
+        "decada_ref": "1990s",
+        "decadas": [
+          "1990s",
+          "2000s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Nororiente del casco de la cabecera, junto al río Santiago: loteos a finales de los 80 y edificación 1992-2008. Censo 1990 periurbano en trazado inicial, censo 2000 con manzanas consolidadas y alta ocupación, censo 2010 saturada; redes CFE/agua en los 90 y pavimentación en los 2000. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "patria fovissste": {
     "decada_ref": "1980s",
@@ -45014,8 +46091,8 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 72,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "san pedro tlaquepaque",
+    "municipio_fuente": "perito"
   },
   "plan de rio": {
     "decada_ref": "1980s",
@@ -45378,7 +46455,21 @@
       "tlajomulco",
       "tlajomulco de zuniga",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "tlajomulco de zuniga": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "2000s",
+          "2010s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 65,
+        "nivel": "media",
+        "evidencia": "Predios agrícolas reconvertidos a cotos de nivel medio-alto sobre López Mateos Sur. Ortofoto 2000 con 10-20%, 2010 con 55-65% y 2020 arriba del 95%: algo más de la mitad se construyó en los 2000s. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "pontevedra capital norte": {
     "decada_ref": "1960s",
@@ -45575,8 +46666,8 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 49,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "perito"
   },
   "praderas de san antonio": {
     "decada_ref": "2000s",
@@ -45854,12 +46945,26 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 48,
-    "municipio": null,
-    "municipio_fuente": null,
+    "municipio": "zapopan",
+    "municipio_fuente": "perito",
     "homonima_en": [
       "tlajomulco de zuniga",
       "tonala"
-    ]
+    ],
+    "por_municipio": {
+      "tlajomulco de zuniga": {
+        "decada_ref": "2010s",
+        "decadas": [
+          "2000s",
+          "2010s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Distrito TLA-1 Cabecera, predios de la antigua hacienda de la Higuera junto al Circuito Sur: rezonificación H3/H4 y licencias 2004-2007, edificación 2008-2018. Censo 2000 rústico, censo 2010 con manzanas definidas, censo 2020 consolidado. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "prados de nextipac": {
     "decada_ref": "1990s",
@@ -47419,7 +48524,7 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 49,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "provenza la romana": {
@@ -47434,7 +48539,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "provenza residential": {
@@ -47553,16 +48658,14 @@
     "municipio_fuente": "cache_index"
   },
   "providencia 4a": {
-    "decada_ref": "1910s",
+    "decada_ref": "1960s",
     "decadas": [
-      "1900s",
-      "1910s",
-      "1920s"
+      "1960s"
     ],
-    "nivel": "lujo",
-    "fuente": "plan-parcial",
+    "nivel": "media",
+    "fuente": "manual",
     "confianza": "media",
-    "confianza_puntos": 48,
+    "confianza_puntos": 70,
     "municipio": "guadalajara",
     "municipio_fuente": "cache_index"
   },
@@ -47878,7 +48981,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "pueblo san antonio tlayacapan": {
@@ -47907,7 +49010,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "pueblo santa cruz de las flores": {
@@ -47921,7 +49024,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "pueblo tateposco": {
@@ -47982,15 +49085,15 @@
     "municipio_fuente": "sepomex"
   },
   "puerta de hierro": {
-    "decada_ref": "2000s",
+    "decada_ref": "1990s",
     "decadas": [
-      "2000s",
-      "2010s"
+      "1980s",
+      "1990s"
     ],
-    "nivel": "lujo",
+    "nivel": "media",
     "fuente": "manual",
-    "confianza": "alta",
-    "confianza_puntos": 84,
+    "confianza": "media",
+    "confianza_puntos": 65,
     "municipio": "zapopan",
     "municipio_fuente": "sepomex"
   },
@@ -48151,7 +49254,21 @@
       "ixtlahuacan de los membrillos",
       "tlajomulco",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "ixtlahuacan de los membrillos": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "2000s",
+          "2010s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 65,
+        "nivel": "media",
+        "evidencia": "Corredor carretera a Chapala, junto a Olivos, Cedros y Sabinos: vivienda en serie trazada en los 2000. Ortofoto 2000 agrícola sin traza; serie 2010 con retícula pavimentada, servicios y 50-60% edificado; 90-95% hacia 2020. CORRIGE el cierre anterior por cobertura: cov2010=0.00 no significaba suelo sin construir sino polígono fuera de la localidad urbana censal. |  |  |  | cruce espacial, no lámina catastral"
+      }
+    }
   },
   "puerta del valle": {
     "decada_ref": "1980s",
@@ -48283,7 +49400,32 @@
       "el salto",
       "tlajomulco de zuniga",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "tlajomulco de zuniga": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "1990s",
+          "2000s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Ejidos junto a San José del Castillo y el corredor industrial: conjuntos para trabajadores. Ortofoto 2000 con 25-35% y 2010 arriba del 90%: el grueso es de los 2000s. La homónima de Zapopan (Av. Universidad) también es 2000s. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "zapopan": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "2000s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 65,
+        "nivel": "media",
+        "evidencia": "Distrito ZPN-4 Vallarta-Universidad: comercialización 2001-2004 y edificación 2004-2012, primera generación de cotos sobre la prolongación de Av. Universidad (antecede a Parque Virreyes). Arquitectura neo-mediterránea de los 2000: teja, cantera, herrería. (cov2000=1.00 no discrimina, el polígono cae en la mancha metropolitana.) |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "puerta serena": {
     "decada_ref": "2000s",
@@ -48351,7 +49493,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "puertas del sol autopista": {
@@ -48572,7 +49714,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "punto sur facing the park": {
@@ -48686,7 +49828,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlaquepaque",
+    "municipio": "san pedro tlaquepaque",
     "municipio_fuente": "cache_index"
   },
   "quintanova residencial": {
@@ -48980,7 +50122,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "rancho grande residencial": {
@@ -49078,7 +50220,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "rancho road to cajititlan 2 hectares": {
@@ -49136,7 +50278,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "rancho sanchez": {
@@ -49320,16 +50462,14 @@
     "municipio_fuente": "maestro"
   },
   "real de valdepenas": {
-    "decada_ref": "1980s",
+    "decada_ref": "1990s",
     "decadas": [
-      "1970s",
-      "1980s",
       "1990s"
     ],
-    "nivel": "media-alta",
-    "fuente": "plan-parcial",
+    "nivel": "media",
+    "fuente": "manual",
     "confianza": "media",
-    "confianza_puntos": 72,
+    "confianza_puntos": 65,
     "municipio": "zapopan",
     "municipio_fuente": "maestro"
   },
@@ -49378,7 +50518,32 @@
       "tlajomulco",
       "tlajomulco de zuniga",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "tlajomulco de zuniga": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "2000s",
+          "2010s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Terrenos ejidales de Santa Fe / Chulavista: vivienda de interés social masiva. Ortofoto 2000 en cero, 2010 con 65-75% y 2020 arriba del 95%: el grueso es de los 2000s. La homónima de Zapopan (el Bajío) también es 2000s. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "zapopan": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "2000s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Distrito ZPN-4 Vallarta-Universidad, franja del Bajío: urbanización y venta de lotes 1997-1999, edificación 2000-2010. Conteo 1995 sin traza, censo 2000 con vialidad y primeras viviendas, censo 2010 con alta densidad. INEGI cov2000=0.33 concuerda. Arquitectura contemporánea de inicios de los 2000 en coto cerrado. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "real del camichin": {
     "decada_ref": "1980s",
@@ -49453,7 +50618,32 @@
       "tlajomulco",
       "tlajomulco de zuniga",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "tlajomulco de zuniga": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "2000s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Predios rústicos del corredor de López Mateos Sur: fraccionamientos privados. Ortofoto 2000 con 20-30%, 2010 con 70-80% y 2020 arriba del 95%: el grueso es de los 2000s. La homónima de Zapopan (Parque Metropolitano) también es 2000s. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "zapopan": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "1990s",
+          "2000s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 60,
+        "nivel": "media",
+        "evidencia": "Distrito ZPN-04 Vallarta Patria / Parque Metropolitano: cotos detonados por el Parque Metropolitano (1989) sobre Rafael Sanzio. Traza a finales de los 90, ortofoto INEGI 2000 con ~60% urbanizado, 100% habitacional hacia 2006-2008 con el nodo Galerías. El grueso de la vivienda es de los 2000s. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "real del parque tlajomulco de zuniga": {
     "decada_ref": "2000s",
@@ -49492,7 +50682,7 @@
     "fuente": "plan-parcial",
     "confianza": "alta",
     "confianza_puntos": 94,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "maestro"
   },
   "real del valle iv tlajomulco de zuniga": {
@@ -49605,16 +50795,14 @@
     "municipio_fuente": "sepomex"
   },
   "real valdepenas": {
-    "decada_ref": "1980s",
+    "decada_ref": "1990s",
     "decadas": [
-      "1970s",
-      "1980s",
       "1990s"
     ],
-    "nivel": "media-alta",
-    "fuente": "plan-parcial",
+    "nivel": "media",
+    "fuente": "manual",
     "confianza": "media",
-    "confianza_puntos": 72,
+    "confianza_puntos": 65,
     "municipio": "zapopan",
     "municipio_fuente": "maestro"
   },
@@ -50117,7 +51305,33 @@
       "guadalajara",
       "zapopan",
       "zapotlanejo"
-    ]
+    ],
+    "por_municipio": {
+      "guadalajara": {
+        "decada_ref": "1980s",
+        "decadas": [
+          "1970s",
+          "1980s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Subdistrito 4 San Andrés/San Rafael: parcelación H3 detonada por el Parque San Rafael (finales de los 60) y la apertura de San Jacinto e Historiadores. Fotogrametría 1980 con ~60% edificado; ortofoto 1990 en 95-100%. Concreto, cochera frontal y marquesina de los 70-80. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "zapotlanejo": {
+        "decada_ref": "2010s",
+        "decadas": [
+          "2000s",
+          "2010s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Fraccionamiento H3 en la periferia de la cabecera: urbanización y venta de lotes 2005-2008, edificación 2009-2018 por el auge comercial-textil. Censo 2000 aún rústico, censo 2010 con traza y primeras fincas, censo 2020 consolidado. Arquitectura contemporánea de 2 a 3 niveles. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "residencial del valle": {
     "decada_ref": "2000s",
@@ -50455,8 +51669,8 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 49,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "perito"
   },
   "residencial revolucion": {
     "decada_ref": "1980s",
@@ -50849,7 +52063,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "residential victoria": {
@@ -51034,7 +52248,21 @@
     "homonima_en": [
       "guadalajara",
       "tonala"
-    ]
+    ],
+    "por_municipio": {
+      "tonala": {
+        "decada_ref": "1980s",
+        "decadas": [
+          "1970s",
+          "1980s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Distrito TNL-1, anillo inmediato a la cabecera junto al Cerro de la Reina: trazo y poblamiento inicial a mediados de los 70, edificación y regularización en los 80, servicios CFE/SIAPA entre 1982 y 1992. Censo 1980 incipiente, salto demográfico en 1990, cobertura completa en 2000. INEGI cov2000=0.86. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "rincon de agua azul": {
     "decada_ref": "1950s",
@@ -51287,7 +52515,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "rinconada de los novelistas": {
@@ -51375,24 +52603,35 @@
     "municipio_fuente": null
   },
   "rinconada de santa rita": {
-    "decada_ref": "2000s",
+    "decada_ref": "1980s",
     "decadas": [
-      "1980s",
-      "1990s",
-      "2000s",
-      "2010s",
-      "2020s"
+      "1970s",
+      "1980s"
     ],
     "nivel": "media",
-    "fuente": "heuristica-anillo",
-    "confianza": "baja",
-    "confianza_puntos": 25,
-    "municipio": null,
-    "municipio_fuente": null,
+    "fuente": "manual",
+    "confianza": "media",
+    "confianza_puntos": 70,
+    "municipio": "guadalajara",
+    "municipio_fuente": "perito",
     "homonima_en": [
       "guadalajara",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "guadalajara": {
+        "decada_ref": "1980s",
+        "decadas": [
+          "1970s",
+          "1980s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Subdistrito 3 Cruz del Sur/Minerva: rinconadas y cerradas H2-U/H3-U lotificadas por el polo de López Mateos y Plaza del Sol (1969). Fotogrametría 1980 con traza e infraestructura y 50-60% edificado; ortofoto 1990 en 95-100%. Ladrillo aparente y jardines frontales de finales de los 70 y los 80. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "rinconada del aire": {
     "decada_ref": "2000s",
@@ -51803,8 +53042,8 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 72,
-    "municipio": null,
-    "municipio_fuente": null,
+    "municipio": "zapopan",
+    "municipio_fuente": "perito",
     "homonima_en": [
       "guadalajara",
       "zapopan"
@@ -51908,7 +53147,32 @@
     "homonima_en": [
       "tlajomulco de zuniga",
       "tonala"
-    ]
+    ],
+    "por_municipio": {
+      "tlajomulco de zuniga": {
+        "decada_ref": "1990s",
+        "decadas": [
+          "1980s",
+          "1990s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Terrenos agrícolas junto a la cabecera y el corredor norte: suburbano de densidad media. Ortofoto 1990 con 35-45%, 2000 con 80-90% y 2010 al 95-100%: el grueso es de los 1990s, no de los 2000s. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "zapopan": {
+        "decada_ref": "2010s",
+        "decadas": [
+          "2010s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 65,
+        "nivel": "media",
+        "evidencia": "Coto independiente de Zapopan, distinto del fraccionamiento homónimo de Tlajomulco (1990s, junto a la cabecera). Clase media, edificado en los 2010s. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "rinconadas del valle": {
     "decada_ref": "1980s",
@@ -51977,8 +53241,8 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 48,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "guadalajara",
+    "municipio_fuente": "perito"
   },
   "rio verde oblatos": {
     "decada_ref": "1960s",
@@ -52174,7 +53438,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "sale": {
@@ -52893,7 +54157,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "san agustin residential cot": {
@@ -52937,8 +54201,8 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 62,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "perito"
   },
   "san ana tepatitlan": {
     "decada_ref": "1990s",
@@ -53128,7 +54392,32 @@
     "homonima_en": [
       "guadalajara",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "zapopan": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "2000s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 65,
+        "nivel": "media",
+        "evidencia": "Distrito ZPN-03 Puerta de Hierro / Acueducto-Patria: revalorizado por Patria Poniente y el polo Puerta de Hierro a mediados de los 90. Ortofoto INEGI 2000 con vialidades incipientes (~30%); serie 2010 cerca del 100% edificado, con el crecimiento de Andares. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "guadalajara": {
+        "decada_ref": "1970s",
+        "decadas": [
+          "1960s",
+          "1970s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Subdistrito 1 Huentitán/La Normal: lotificación H3/H4 con la apertura de Fidel Velázquez y el transporte de Calzada Independencia. Vuelo 1970 con traza pavimentada y 60-70% edificado; ortofoto 1980 en 95-100% con servicios. La homónima de Zapopan (Puerta de Hierro) es de los 2000s. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "san carlos": {
     "decada_ref": "1980s",
@@ -53413,7 +54702,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "san isidro mezatepec": {
@@ -53658,8 +54947,8 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 48,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "guadalajara",
+    "municipio_fuente": "perito"
   },
   "san jose del tajo": {
     "decada_ref": "2000s",
@@ -53732,8 +55021,8 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 62,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "el salto",
+    "municipio_fuente": "perito"
   },
   "san jose el verde centro": {
     "decada_ref": "1980s",
@@ -53977,7 +55266,7 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 62,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "san lorenzo": {
@@ -54180,8 +55469,8 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 48,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "guadalajara",
+    "municipio_fuente": "perito"
   },
   "san mateo": {
     "decada_ref": "1990s",
@@ -54518,8 +55807,8 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 62,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "san pedro tlaquepaque",
+    "municipio_fuente": "perito"
   },
   "san rafael": {
     "decada_ref": "1960s",
@@ -54603,8 +55892,8 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 45,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "zapopan",
+    "municipio_fuente": "perito"
   },
   "san sebastian": {
     "decada_ref": "2000s",
@@ -54765,7 +56054,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "sant marti condominium": {
@@ -54854,18 +56143,17 @@
     "municipio_fuente": "sepomex"
   },
   "santa anita club de golf": {
-    "decada_ref": "2000s",
+    "decada_ref": "1980s",
     "decadas": [
-      "1990s",
-      "2000s",
-      "2010s"
+      "1980s",
+      "1990s"
     ],
     "nivel": "media",
     "fuente": "manual",
     "confianza": "media",
-    "confianza_puntos": 62,
-    "municipio": null,
-    "municipio_fuente": null
+    "confianza_puntos": 65,
+    "municipio": "tlajomulco de zuniga",
+    "municipio_fuente": "perito"
   },
   "santa anita country": {
     "decada_ref": "2000s",
@@ -54878,7 +56166,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "santa anita golf club": {
@@ -54892,7 +56180,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "santa anita private gated community": {
@@ -55088,7 +56376,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "santa cruz de la loma": {
@@ -55117,7 +56405,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "santa cruz de la soledad": {
@@ -55338,7 +56626,20 @@
       "tonala",
       "zapopan",
       "zapotlanejo"
-    ]
+    ],
+    "por_municipio": {
+      "zapopan": {
+        "decada_ref": "1980s",
+        "decadas": [
+          "1980s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 70,
+        "nivel": "media",
+        "evidencia": "Distrito ZPN-03 Providencia / UAG: lotificada tras el campus de la UAG (1970) y las avenidas Pablo Neruda y Patria. Serie fotogramétrica 1985 con ~70% edificado, ocupación completa 1992-1995. INEGI cov2000=1.00 concuerda. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "santa fe tlajomulco": {
     "decada_ref": "1990s",
@@ -56693,7 +57994,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "sendero de monteverde": {
@@ -56774,7 +58075,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "senderos de monte verde": {
@@ -56814,7 +58115,7 @@
     "fuente": "plan-parcial",
     "confianza": "alta",
     "confianza_puntos": 94,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "senderos de monteverde condominium": {
@@ -56950,7 +58251,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "senderos monteverde": {
@@ -57288,8 +58589,8 @@
     "confianza": "media",
     "nivel": "media",
     "confianza_puntos": 72,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "zapopan",
+    "municipio_fuente": "perito"
   },
   "soare iii": {
     "decada_ref": "2000s",
@@ -57302,8 +58603,8 @@
     "fuente": "inegi",
     "confianza": "media",
     "confianza_puntos": 72,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "zapopan",
+    "municipio_fuente": "perito"
   },
   "sofia habitat": {
     "decada_ref": "2010s",
@@ -58248,7 +59549,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlaquepaque",
+    "municipio": "san pedro tlaquepaque",
     "municipio_fuente": "cache_index"
   },
   "tejeda valley": {
@@ -58488,7 +59789,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "terreno chapalita polo field": {
@@ -59463,7 +60764,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "tinajitas": {
@@ -59608,7 +60909,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "tlajomulco de zuniga bonanza neighborhood": {
@@ -59912,8 +61213,8 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 48,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "tonala",
+    "municipio_fuente": "perito"
   },
   "tonaltecas ii": {
     "decada_ref": "1980s",
@@ -60763,7 +62064,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "tres reyes de cajititlan": {
@@ -60791,7 +62092,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "triventi residencial": {
@@ -60831,7 +62132,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "turquesa": {
@@ -61175,7 +62476,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "union square": {
@@ -61841,8 +63142,8 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 48,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "zapopan",
+    "municipio_fuente": "perito"
   },
   "valle de la misericordia": {
     "decada_ref": "1980s",
@@ -62025,16 +63326,14 @@
     "municipio_fuente": null
   },
   "valle de san isidro": {
-    "decada_ref": "1980s",
+    "decada_ref": "1990s",
     "decadas": [
-      "1970s",
-      "1980s",
       "1990s"
     ],
     "nivel": "media",
-    "fuente": "plan-parcial",
+    "fuente": "manual",
     "confianza": "media",
-    "confianza_puntos": 72,
+    "confianza_puntos": 65,
     "municipio": "zapopan",
     "municipio_fuente": "maestro"
   },
@@ -62236,7 +63535,56 @@
     "homonima_en": [
       "tonala",
       "zapopan"
-    ]
+    ],
+    "por_municipio": {
+      "zapopan": {
+        "decada_ref": "1990s",
+        "decadas": [
+          "1990s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 65,
+        "nivel": "media",
+        "evidencia": "Distrito ZPN-08 Mariano Otero / Paseos del Sol / Felipe Zetter (surponiente): lotificada tras Paseos del Sol, ortofoto INEGI 1990 con ~30% (traza y movimiento de tierras) y serie 2000 con ~100% de ocupación. POLÍGONO DCAH 2024 NO COINCIDENTE: el que lleva este nombre (cov 0.00/0.00/0.94) cae en otro desarrollo homónimo del norte, corredor Tesistán-Colotlán o Nextipac, construido después de 2010. No usar ese polígono para esta colonia. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "el salto": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "2000s",
+          "2010s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 60,
+        "nivel": "media",
+        "evidencia": "Corredor industrial Chapala-El Salto, junto a Las Pintas / San José del Castillo: rezonificación agrícola a H4/H5, planeación 2002-2005 y edificación masiva de interés social 2006-2015 (lotes de 60-90 m², vivienda en serie). Censo 2000 rústico, censo 2010 con traza y crecimiento acelerado. OJO: no es la valle del sol de Tonalá, que sigue pendiente. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "san pedro tlaquepaque": {
+        "decada_ref": "1990s",
+        "decadas": [
+          "1990s",
+          "2000s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 60,
+        "nivel": "media",
+        "evidencia": "Distrito TLA-05 San Martín / Periférico Sur, límite con Tonalá: suelo rústico lotificado por la demanda obrera del corredor de El Salto. Ortofoto 1990 con caminos vecinales y lotificación dispersa; serie 2000 con calles abiertas y 50-60% edificado; 90-95% en 2010. Cuarta valle del sol distinta: Zapopan 1990s, El Salto 2000s, Tonalá 2000s. |  |  |  | investigación documental del usuario, no lámina catastral"
+      },
+      "tonala": {
+        "decada_ref": "2000s",
+        "decadas": [
+          "2000s",
+          "2010s"
+        ],
+        "fuente": "manual",
+        "confianza": "media",
+        "confianza_puntos": 65,
+        "nivel": "media",
+        "evidencia": "Oriente de Tonalá, cerca del límite con El Salto y Zapotlanejo sobre el acceso a la autopista: rezonificación a H3/H4 del periodo 2000-2005, licencias y dictámenes 2003-2008, edificación masiva 2006-2016. Censo 2000 rústico, censo 2010 con manzanas estructuradas, censo 2020 consolidado. Ésta es la valle del sol de Tonalá, no la de El Salto ni la de Zapopan. |  |  |  | investigación documental del usuario, no lámina catastral"
+      }
+    }
   },
   "valle del sur": {
     "decada_ref": "1980s",
@@ -62360,8 +63708,8 @@
     "confianza": "media",
     "nivel": "media",
     "confianza_puntos": 72,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "zapopan",
+    "municipio_fuente": "perito"
   },
   "valle imperial egyptian lot": {
     "decada_ref": "2000s",
@@ -62492,15 +63840,14 @@
     "municipio_fuente": "sepomex"
   },
   "valle real": {
-    "decada_ref": "1980s",
+    "decada_ref": "1990s",
     "decadas": [
-      "1980s",
       "1990s"
     ],
-    "nivel": "lujo",
+    "nivel": "media",
     "fuente": "manual",
-    "confianza": "alta",
-    "confianza_puntos": 84,
+    "confianza": "media",
+    "confianza_puntos": 65,
     "municipio": "zapopan",
     "municipio_fuente": "sepomex"
   },
@@ -62543,7 +63890,7 @@
     "fuente": "plan-parcial",
     "confianza": "media",
     "confianza_puntos": 57,
-    "municipio": "tlaquepaque",
+    "municipio": "san pedro tlaquepaque",
     "municipio_fuente": "cache_index"
   },
   "valles de nuevo mexico la periquera": {
@@ -63687,16 +65034,14 @@
     "municipio_fuente": "sepomex"
   },
   "vicente guerrero": {
-    "decada_ref": "1980s",
+    "decada_ref": "1970s",
     "decadas": [
-      "1970s",
-      "1980s",
-      "1990s"
+      "1970s"
     ],
-    "nivel": "media-alta",
-    "fuente": "plan-parcial",
+    "nivel": "media",
+    "fuente": "manual",
     "confianza": "media",
-    "confianza_puntos": 72,
+    "confianza_puntos": 65,
     "municipio": "zapopan",
     "municipio_fuente": "maestro"
   },
@@ -63725,7 +65070,7 @@
     "fuente": "manual",
     "confianza": "media",
     "confianza_puntos": 49,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "vicenza residential": {
@@ -63864,7 +65209,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "villa california cordoba model": {
@@ -64536,7 +65881,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "villas camino real de colima": {
@@ -64744,7 +66089,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "villas de loma grande": {
@@ -66509,8 +67854,8 @@
     "fuente": "manual",
     "confianza": "baja",
     "confianza_puntos": 38,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "jocotepec",
+    "municipio_fuente": "perito"
   },
   "west point": {
     "decada_ref": "1980s",
@@ -66695,7 +68040,7 @@
     "fuente": "heuristica-anillo",
     "confianza": "baja",
     "confianza_puntos": 25,
-    "municipio": "tlajomulco",
+    "municipio": "tlajomulco de zuniga",
     "municipio_fuente": "cache_index"
   },
   "your next apartment on av naciones unidas": {
@@ -66924,8 +68269,8 @@
     "confianza": "media",
     "nivel": "media",
     "confianza_puntos": 72,
-    "municipio": null,
-    "municipio_fuente": null
+    "municipio": "zapopan",
+    "municipio_fuente": "perito"
   },
   "zapopan norte": {
     "decada_ref": "1990s",
