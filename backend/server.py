@@ -1189,11 +1189,18 @@ async def calculate_valuation(valuation_id: str, request: Request):
     
     # Conservation state affects remaining useful life
     conservation_factors = {
+        "Nuevo": 1.0,
         "Muy Bueno": 1.0,   # No penalty
         "Excelente": 1.0,   # legacy alias
         "Bueno": 0.85,      # 15% penalty
-        "Regular": 0.65,    # 35% penalty  
-        "Malo": 0.40        # 60% penalty
+        "Regular Bueno": 0.75,
+        "Regular": 0.65,    # 35% penalty
+        "Regular Malo": 0.52,
+        "Malo": 0.40,       # 60% penalty
+        "Muy Malo": 0.25,
+        "Remodelación Menor": 0.80,
+        "Remodelación Intermedia": 0.90,
+        "Remodelación Completa": 1.0,
     }
     conservation = prop.get("conservation_state") or "Bueno"
     conservation_factor = conservation_factors.get(conservation, 0.85)
@@ -1312,7 +1319,10 @@ def _physical_breakdown(prop: dict, comparative_ppsm: float) -> dict:
 
     age = float(prop.get("estimated_age") or 10)
     conservation_factors = {
-        "Muy Bueno": 1.0, "Excelente": 1.0, "Bueno": 0.85, "Regular": 0.65, "Malo": 0.40,
+        "Nuevo": 1.0, "Muy Bueno": 1.0, "Excelente": 1.0, "Bueno": 0.85,
+        "Regular Bueno": 0.75, "Regular": 0.65, "Regular Malo": 0.52,
+        "Malo": 0.40, "Muy Malo": 0.25,
+        "Remodelación Menor": 0.80, "Remodelación Intermedia": 0.90, "Remodelación Completa": 1.0,
     }
     conservation_factor = conservation_factors.get(prop.get("conservation_state") or "Bueno", 0.85)
     age_depreciation = min(age / 60.0, 0.50)

@@ -101,11 +101,18 @@ const CONSTRUCTION_QUALITIES = [
   { value: "Interés Social", label: "Interés Social" }
 ];
 
+// Misma escala que el verificador de zona (EdadesZonaPage CONSERVACIONES) — el motor
+// (motor_remi_api.js FACTORES_CONSERVACION) ya califica cada grado de "Regular" distinto
+// (regular_bueno 0.85 / regular_medio 0.75 / regular_malo 0.65), no es cosmético.
 const CONSERVATION_STATES = [
-  { value: "Excelente", label: "Excelente", color: "text-green-600" },
+  { value: "Nuevo", label: "Nuevo", color: "text-green-700" },
+  { value: "Muy Bueno", label: "Muy Bueno", color: "text-green-600" },
   { value: "Bueno", label: "Bueno", color: "text-blue-600" },
+  { value: "Regular Bueno", label: "Regular Bueno", color: "text-amber-500" },
   { value: "Regular", label: "Regular", color: "text-amber-600" },
+  { value: "Regular Malo", label: "Regular Malo", color: "text-amber-700" },
   { value: "Malo", label: "Malo", color: "text-red-600" },
+  { value: "Muy Malo", label: "Muy Malo", color: "text-red-700" },
   { value: "Remodelación Menor", label: "Remodelación Menor (acabados: pintura, pisos, baño/cocina)", color: "text-teal-600" },
   { value: "Remodelación Intermedia", label: "Remodelación Intermedia (instalaciones + acabados principales)", color: "text-teal-600" },
   { value: "Remodelación Completa", label: "Remodelación Completa (prácticamente nueva)", color: "text-teal-600" },
