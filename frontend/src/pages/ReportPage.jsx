@@ -36,7 +36,7 @@ const ReportPage = () => {
   const [appraiserReviewDone, setAppraiserReviewDone] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   // El perito/admin es quien HACE el avalúo: no se autocalifica ni reseña la plataforma tras cada reporte.
-  const isPro = ["appraiser", "super_admin", "valuador"].includes((currentUser?.role || "").toLowerCase());
+  const isPro = ["appraiser", "super_admin", "valuador", "realtor"].includes((currentUser?.role || "").toLowerCase());
 
   const allOptions = [
     "La información es valiosísima. De no haber tenido este avalúo exacto, seguramente habría perdido muchísimo dinero al malbaratar mi casa.",
