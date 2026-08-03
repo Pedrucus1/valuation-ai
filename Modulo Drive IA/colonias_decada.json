@@ -1376,20 +1376,6 @@
   "municipio": "tlajomulco",
   "municipio_fuente": "cache_index"
  },
- "almendros residential in": {
-  "decada_ref": "2010s",
-  "decadas": [
-   "2000s",
-   "2010s",
-   "2020s"
-  ],
-  "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": null,
-  "municipio_fuente": null
- },
  "almendros valle imperial": {
   "decada_ref": "2000s",
   "decadas": [
@@ -2526,34 +2512,6 @@
   "confianza_puntos": 49,
   "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "sepomex"
- },
- "arbolada neighborhood": {
-  "decada_ref": "1990s",
-  "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
-  ],
-  "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": null,
-  "municipio_fuente": null
- },
- "arbolada residential": {
-  "decada_ref": "2010s",
-  "decadas": [
-   "2000s",
-   "2010s",
-   "2020s"
-  ],
-  "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": null,
-  "municipio_fuente": null
  },
  "arbolada santa anita": {
   "decada_ref": "2000s",
@@ -5978,20 +5936,6 @@
   "municipio": null,
   "municipio_fuente": null
  },
- "bugambilias second section": {
-  "decada_ref": "2000s",
-  "decadas": [
-   "1990s",
-   "2000s",
-   "2010s"
-  ],
-  "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": null,
-  "municipio_fuente": null
- },
  "cadiz": {
   "decada_ref": "2000s",
   "decadas": [
@@ -7173,48 +7117,6 @@
    "1990s"
   ],
   "nivel": "media-alta",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": null,
-  "municipio_fuente": null
- },
- "cedar forests": {
-  "decada_ref": "1990s",
-  "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
-  ],
-  "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": null,
-  "municipio_fuente": null
- },
- "cedars forests": {
-  "decada_ref": "1990s",
-  "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
-  ],
-  "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": null,
-  "municipio_fuente": null
- },
- "cedros forests": {
-  "decada_ref": "1990s",
-  "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
-  ],
-  "nivel": "media",
   "fuente": "heuristica-anillo",
   "confianza": "baja",
   "confianza_puntos": 25,
@@ -15593,14 +15495,21 @@
   "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s"
+   "1910s",
+   "1920s",
+   "1930s",
+   "1940s",
+   "1950s"
   ],
   "nivel": "media-alta",
   "fuente": "manual",
   "confianza": "alta",
   "confianza_puntos": 86,
   "municipio": "guadalajara",
-  "municipio_fuente": "maestro"
+  "municipio_fuente": "maestro",
+  "nucleo_historico": true,
+  "nucleo_tipo": "centro fundacional",
+  "nota": "Nucleo historico: el parque edificado es heterogeneo y hay fabrica anterior a 1900 que la escala por decadas no representa. decada_ref es el piso, no el promedio: no aplicar una sola decada a ciegas, se data por inmueble."
  },
  "guadalajara el dean": {
   "decada_ref": "1990s",
@@ -20164,20 +20073,6 @@
   "municipio_fuente": null
  },
  "la alcantarilla": {
-  "decada_ref": "1990s",
-  "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
-  ],
-  "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": null,
-  "municipio_fuente": null
- },
- "la almena in casa fuerte": {
   "decada_ref": "1990s",
   "decadas": [
    "1980s",
@@ -40477,20 +40372,6 @@
   "municipio": "zapopan",
   "municipio_fuente": "maestro"
  },
- "santa margarita1a seccion": {
-  "decada_ref": "1990s",
-  "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
-  ],
-  "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": null,
-  "municipio_fuente": null
- },
  "santa maria": {
   "decada_ref": "1980s",
   "decadas": [
@@ -42482,20 +42363,6 @@
   "municipio": null,
   "municipio_fuente": null
  },
- "the cielo country club": {
-  "decada_ref": "2000s",
-  "decadas": [
-   "1990s",
-   "2000s",
-   "2010s"
-  ],
-  "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": null,
-  "municipio_fuente": null
- },
  "the gardens lot 4": {
   "decada_ref": "1990s",
   "decadas": [
@@ -42622,20 +42489,6 @@
   "municipio": null,
   "municipio_fuente": null
  },
- "the rioja": {
-  "decada_ref": "1990s",
-  "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
-  ],
-  "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": null,
-  "municipio_fuente": null
- },
  "the rivera de chapala": {
   "decada_ref": "1990s",
   "decadas": [
@@ -42679,20 +42532,6 @@
   "municipio_fuente": null
  },
  "the south orbara habitat nueva": {
-  "decada_ref": "1990s",
-  "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
-  ],
-  "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": null,
-  "municipio_fuente": null
- },
- "the views oasis": {
   "decada_ref": "1990s",
   "decadas": [
    "1980s",
@@ -48101,14 +47940,21 @@
   "decada_ref": "1900s",
   "decadas": [
    "1900s",
-   "1910s"
+   "1910s",
+   "1920s",
+   "1930s",
+   "1940s",
+   "1950s"
   ],
   "nivel": "media-alta",
   "fuente": "manual",
   "confianza": "alta",
   "confianza_puntos": 86,
   "municipio": "zapopan",
-  "municipio_fuente": "sepomex"
+  "municipio_fuente": "sepomex",
+  "nucleo_historico": true,
+  "nucleo_tipo": "centro fundacional",
+  "nota": "Nucleo historico: el parque edificado es heterogeneo y hay fabrica anterior a 1900 que la escala por decadas no representa. decada_ref es el piso, no el promedio: no aplicar una sola decada a ciegas, se data por inmueble."
  },
  "zapopan facing ciudad granja": {
   "decada_ref": "1990s",
@@ -48687,6 +48533,20 @@
    "2000s",
    "2010s",
    "2020s"
+  ],
+  "nivel": "media",
+  "fuente": "heuristica-anillo",
+  "confianza": "baja",
+  "confianza_puntos": 25,
+  "municipio": null,
+  "municipio_fuente": null
+ },
+ "el oasis": {
+  "decada_ref": "1990s",
+  "decadas": [
+   "1980s",
+   "1990s",
+   "2000s"
   ],
   "nivel": "media",
   "fuente": "heuristica-anillo",
