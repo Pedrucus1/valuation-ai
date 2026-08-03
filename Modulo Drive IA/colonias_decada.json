@@ -966,9 +966,9 @@
    "1990s"
   ],
   "nivel": "popular",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
@@ -2510,16 +2510,16 @@
   "municipio_fuente": "cache_index"
  },
  "arboleda bosques de santa anita": {
-  "decada_ref": "2000s",
+  "decada_ref": "2010s",
   "decadas": [
-   "1990s",
    "2000s",
-   "2010s"
+   "2010s",
+   "2020s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
@@ -5403,18 +5403,16 @@
   "municipio_fuente": "maestro"
  },
  "bosques del centinela i": {
-  "decada_ref": "1960s",
+  "decada_ref": "2000s",
   "decadas": [
-   "1940s",
-   "1950s",
-   "1960s",
-   "1970s",
-   "1980s"
+   "1990s",
+   "2000s",
+   "2010s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "zapopan",
   "municipio_fuente": "cache_index"
  },
@@ -6385,16 +6383,16 @@
   "municipio_fuente": "sepomex"
  },
  "campo lago": {
-  "decada_ref": "1970s",
+  "decada_ref": "2000s",
   "decadas": [
-   "1960s",
-   "1970s",
-   "1980s"
+   "1990s",
+   "2000s",
+   "2010s"
   ],
   "nivel": "lujo",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 30,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "zapopan",
   "municipio_fuente": "sepomex"
  },
@@ -11365,16 +11363,16 @@
   "municipio_fuente": "sepomex"
  },
  "el bajio": {
-  "decada_ref": "1960s",
+  "decada_ref": "2000s",
   "decadas": [
-   "1950s",
-   "1960s",
-   "1970s"
+   "1990s",
+   "2000s",
+   "2010s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "zapopan",
   "municipio_fuente": "perito_correccion"
  },
@@ -12043,9 +12041,9 @@
    "1960s"
   ],
   "nivel": "media-alta",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 30,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
   "municipio_fuente": "sepomex"
  },
@@ -13792,16 +13790,16 @@
   "municipio_fuente": "maestro"
  },
  "el zapote del valle": {
-  "decada_ref": "2000s",
+  "decada_ref": "1980s",
   "decadas": [
-   "1990s",
-   "2000s",
-   "2010s"
+   "1970s",
+   "1980s",
+   "1990s"
   ],
   "nivel": "popular",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
@@ -15336,20 +15334,6 @@
   "municipio": null,
   "municipio_fuente": null
  },
- "guadalajara": {
-  "decada_ref": "1960s",
-  "decadas": [
-   "1950s",
-   "1960s",
-   "1970s"
-  ],
-  "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": "guadalajara",
-  "municipio_fuente": "maestro"
- },
  "guadalajara centro": {
   "decada_ref": "1900s",
   "decadas": [
@@ -16046,16 +16030,16 @@
   "municipio_fuente": null
  },
  "hacienda san acacio": {
-  "decada_ref": "1980s",
+  "decada_ref": "2000s",
   "decadas": [
-   "1970s",
-   "1980s",
-   "1990s"
+   "1990s",
+   "2000s",
+   "2010s"
   ],
   "nivel": "media-alta",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "zapopan",
   "municipio_fuente": "cache_index"
  },
@@ -17675,16 +17659,16 @@
   "municipio_fuente": "cache_index"
  },
  "insurgentes 1a secc": {
-  "decada_ref": "1980s",
+  "decada_ref": "1970s",
   "decadas": [
+   "1960s",
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 30,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
   "municipio_fuente": "sepomex"
  },
@@ -21742,16 +21726,16 @@
   "municipio_fuente": "maestro"
  },
  "la perla": {
-  "decada_ref": "1960s",
+  "decada_ref": "1950s",
   "decadas": [
+   "1940s",
    "1950s",
-   "1960s",
-   "1970s"
+   "1960s"
   ],
   "nivel": "media-alta",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 30,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
   "municipio_fuente": "maestro"
  },
@@ -23693,9 +23677,9 @@
    "2010s"
   ],
   "nivel": "media-baja",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "sepomex"
  },
@@ -24791,16 +24775,16 @@
   "municipio_fuente": "maestro"
  },
  "lomas de providencia": {
-  "decada_ref": "1960s",
+  "decada_ref": "1970s",
   "decadas": [
-   "1950s",
    "1960s",
-   "1970s"
+   "1970s",
+   "1980s"
   ],
   "nivel": "media-alta",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 30,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
   "municipio_fuente": "sepomex"
  },
@@ -27287,16 +27271,16 @@
   "municipio_fuente": "maestro"
  },
  "los suenos": {
-  "decada_ref": "1960s",
+  "decada_ref": "2000s",
   "decadas": [
-   "1950s",
-   "1960s",
-   "1970s"
+   "1990s",
+   "2000s",
+   "2010s"
   ],
   "nivel": "media-alta",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "zapopan",
   "municipio_fuente": "sepomex"
  },
@@ -28784,16 +28768,16 @@
   "municipio_fuente": "cache_index"
  },
  "mitica residencial": {
-  "decada_ref": "1990s",
+  "decada_ref": "2010s",
   "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
+   "2000s",
+   "2010s",
+   "2020s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "zapopan",
   "municipio_fuente": "sepomex"
  },
@@ -29069,16 +29053,16 @@
   "municipio_fuente": "cache_index"
  },
  "natura": {
-  "decada_ref": "1960s",
+  "decada_ref": "2010s",
   "decadas": [
-   "1950s",
-   "1960s",
-   "1970s"
+   "2000s",
+   "2010s",
+   "2020s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "zapopan",
   "municipio_fuente": "cache_index"
  },
@@ -31199,16 +31183,16 @@
   "municipio_fuente": null
  },
  "paseo de la canada": {
-  "decada_ref": "1980s",
+  "decada_ref": "2000s",
   "decadas": [
-   "1970s",
-   "1980s",
-   "1990s"
+   "1990s",
+   "2000s",
+   "2010s"
   ],
   "nivel": "popular",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "tonala",
   "municipio_fuente": "sepomex"
  },
@@ -33774,16 +33758,16 @@
   "municipio_fuente": "maestro"
  },
  "puerta aqua": {
-  "decada_ref": "1940s",
+  "decada_ref": "2000s",
   "decadas": [
-   "1930s",
-   "1940s",
-   "1950s"
+   "1990s",
+   "2000s",
+   "2010s"
   ],
   "nivel": "lujo",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "zapopan",
   "municipio_fuente": "sepomex"
  },
@@ -34142,16 +34126,16 @@
   "municipio_fuente": "sepomex"
  },
  "puertas del tule": {
-  "decada_ref": "1990s",
+  "decada_ref": "2000s",
   "decadas": [
-   "1980s",
    "1990s",
-   "2000s"
+   "2000s",
+   "2010s"
   ],
   "nivel": "media-alta",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "zapopan",
   "municipio_fuente": "sepomex"
  },
@@ -34589,16 +34573,16 @@
   "municipio_fuente": null
  },
  "rancho contento": {
-  "decada_ref": "1980s",
+  "decada_ref": "1970s",
   "decadas": [
+   "1960s",
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media-alta",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "zapopan",
   "municipio_fuente": "sepomex"
  },
@@ -35738,9 +35722,9 @@
    "1980s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "zapopan",
   "municipio_fuente": "sepomex"
  },
@@ -37914,16 +37898,16 @@
   "nucleo_tipo": "Barrio"
  },
  "san carlos": {
-  "decada_ref": "1980s",
+  "decada_ref": "1940s",
   "decadas": [
-   "1970s",
-   "1980s",
-   "1990s"
+   "1930s",
+   "1940s",
+   "1950s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
   "municipio_fuente": "sepomex"
  },
@@ -39726,9 +39710,9 @@
    "1970s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
   "municipio_fuente": "sepomex"
  },
@@ -44845,9 +44829,9 @@
    "1970s"
   ],
   "nivel": "media-alta",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
   "municipio_fuente": "cache_index"
  },
@@ -47893,16 +47877,16 @@
   "municipio_fuente": "maestro"
  },
  "zona real": {
-  "decada_ref": "1980s",
+  "decada_ref": "2000s",
   "decadas": [
-   "1970s",
-   "1980s",
-   "1990s"
+   "1990s",
+   "2000s",
+   "2010s"
   ],
   "nivel": "lujo",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "zapopan",
   "municipio_fuente": "cache_index"
  },
