@@ -268,16 +268,16 @@
   "municipio_fuente": "sepomex"
  },
  "abasolo": {
-  "decada_ref": "1990s",
+  "decada_ref": "1930s",
   "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
+   "1920s",
+   "1930s",
+   "1940s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
   "municipio_fuente": "cache_index"
  },
@@ -2452,16 +2452,16 @@
   "municipio_fuente": null
  },
  "americana oriente": {
-  "decada_ref": "1990s",
+  "decada_ref": "1910s",
   "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
+   "1900s",
+   "1910s",
+   "1920s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
   "municipio_fuente": "cache_index"
  },
@@ -7382,16 +7382,16 @@
   "municipio_fuente": null
  },
  "calzada indepe": {
-  "decada_ref": "1990s",
+  "decada_ref": "1940s",
   "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
+   "1930s",
+   "1940s",
+   "1950s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
   "municipio_fuente": "cache_index"
  },
@@ -7410,16 +7410,16 @@
   "municipio_fuente": null
  },
  "calzada independencia norte": {
-  "decada_ref": "1990s",
+  "decada_ref": "1950s",
   "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
+   "1940s",
+   "1950s",
+   "1960s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
   "municipio_fuente": "cache_index"
  },
@@ -12285,18 +12285,19 @@
   "municipio_fuente": "sepomex"
  },
  "cumbres del cielo": {
-  "decada_ref": "1990s",
+  "decada_ref": "2000s",
   "decadas": [
-   "1980s",
    "1990s",
-   "2000s"
+   "2000s",
+   "2010s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": "guadalajara",
-  "municipio_fuente": "cache_index"
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "municipio": "san pedro tlaquepaque",
+  "municipio_fuente": "perito_correccion",
+  "nota": "No es Guadalajara: Tlaquepaque, zona Miravalle / Cerro del Cuatro. Vivienda de interes social y vertical a faldas del cerro. El municipio previo era sesgo de borde por continuidad urbana en la cuenca sur."
  },
  "cumbres del lago": {
   "decada_ref": "1990s",
@@ -12369,16 +12370,16 @@
   "municipio_fuente": null
  },
  "de la barranca": {
-  "decada_ref": "1990s",
+  "decada_ref": "1970s",
   "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
+   "1960s",
+   "1970s",
+   "1980s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
   "municipio_fuente": "cache_index"
  },
@@ -17611,16 +17612,16 @@
   "municipio_fuente": "maestro"
  },
  "fovissste estadio": {
-  "decada_ref": "1990s",
+  "decada_ref": "1980s",
   "decadas": [
+   "1970s",
    "1980s",
-   "1990s",
-   "2000s"
+   "1990s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
   "municipio_fuente": "cache_index"
  },
@@ -18394,16 +18395,16 @@
   "municipio_fuente": "cache_index"
  },
  "gral real": {
-  "decada_ref": "1990s",
+  "decada_ref": "1930s",
   "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
+   "1920s",
+   "1930s",
+   "1940s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
   "municipio_fuente": "cache_index"
  },
@@ -20282,16 +20283,16 @@
   "municipio_fuente": "sepomex"
  },
  "horizontes chapultepec": {
-  "decada_ref": "1990s",
+  "decada_ref": "2010s",
   "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
+   "2000s",
+   "2010s",
+   "2020s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
   "municipio_fuente": "cache_index"
  },
@@ -23823,16 +23824,15 @@
   "municipio_fuente": null
  },
  "kanva": {
-  "decada_ref": "1990s",
+  "decada_ref": "2020s",
   "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
+   "2010s",
+   "2020s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
   "municipio_fuente": "cache_index"
  },
@@ -24754,16 +24754,16 @@
   "municipio_fuente": "maestro"
  },
  "la esperanza la federacha": {
-  "decada_ref": "1990s",
+  "decada_ref": "1970s",
   "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
+   "1960s",
+   "1970s",
+   "1980s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
   "municipio_fuente": "cache_index"
  },
@@ -24825,16 +24825,16 @@
   "municipio_fuente": "maestro"
  },
  "la federacha calzada": {
-  "decada_ref": "1990s",
+  "decada_ref": "1970s",
   "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
+   "1960s",
+   "1970s",
+   "1980s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
   "municipio_fuente": "cache_index"
  },
@@ -31222,16 +31222,16 @@
   "municipio_fuente": "sepomex"
  },
  "los arcos": {
-  "decada_ref": "1990s",
+  "decada_ref": "1950s",
   "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
+   "1940s",
+   "1950s",
+   "1960s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
   "municipio_fuente": "cache_index",
   "nucleo_historico": true,
@@ -32974,16 +32974,16 @@
   "municipio_fuente": null
  },
  "marmara country club": {
-  "decada_ref": "1990s",
+  "decada_ref": "2010s",
   "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
+   "2000s",
+   "2010s",
+   "2020s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
   "municipio_fuente": "cache_index"
  },
@@ -33519,16 +33519,16 @@
   "municipio_fuente": null
  },
  "mirador": {
-  "decada_ref": "1990s",
+  "decada_ref": "1970s",
   "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
+   "1960s",
+   "1970s",
+   "1980s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
   "municipio_fuente": "cache_index"
  },
@@ -35860,16 +35860,16 @@
   "municipio_fuente": null
  },
  "ottawa": {
-  "decada_ref": "1990s",
+  "decada_ref": "1970s",
   "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
+   "1960s",
+   "1970s",
+   "1980s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
   "municipio_fuente": "cache_index"
  },
@@ -38175,16 +38175,16 @@
   "municipio_fuente": "sepomex"
  },
  "point": {
-  "decada_ref": "1990s",
+  "decada_ref": "2010s",
   "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
+   "2000s",
+   "2010s",
+   "2020s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
   "municipio_fuente": "cache_index"
  },
@@ -39867,16 +39867,16 @@
   "municipio_fuente": "cache_index"
  },
  "providencia 3a seccion": {
-  "decada_ref": "1990s",
+  "decada_ref": "1970s",
   "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
+   "1960s",
+   "1970s",
+   "1980s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
   "municipio_fuente": "cache_index"
  },
@@ -39893,16 +39893,16 @@
   "municipio_fuente": "cache_index"
  },
  "providencia 5a": {
-  "decada_ref": "1990s",
+  "decada_ref": "1970s",
   "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
+   "1960s",
+   "1970s",
+   "1980s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
   "municipio_fuente": "cache_index"
  },
@@ -43107,16 +43107,16 @@
   "municipio_fuente": "sepomex"
  },
  "rincon del bosque": {
-  "decada_ref": "1990s",
+  "decada_ref": "1970s",
   "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
+   "1960s",
+   "1970s",
+   "1980s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
   "municipio_fuente": "cache_index"
  },
@@ -45581,16 +45581,16 @@
   "nucleo_tipo": "Barrio"
  },
  "san juan de dios ii": {
-  "decada_ref": "1990s",
+  "decada_ref": "1940s",
   "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
+   "1930s",
+   "1940s",
+   "1950s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
   "municipio_fuente": "cache_index"
  },
@@ -45700,16 +45700,16 @@
   "municipio_fuente": null
  },
  "san marcos": {
-  "decada_ref": "1990s",
+  "decada_ref": "1950s",
   "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
+   "1940s",
+   "1950s",
+   "1960s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
   "municipio_fuente": "cache_index",
   "nucleo_historico": true,
@@ -47525,16 +47525,16 @@
   "municipio_fuente": "maestro"
  },
  "sao paulo": {
-  "decada_ref": "1990s",
+  "decada_ref": "1970s",
   "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
+   "1960s",
+   "1970s",
+   "1980s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
   "municipio_fuente": "cache_index"
  },
@@ -47636,16 +47636,16 @@
   "municipio_fuente": null
  },
  "sector reforma": {
-  "decada_ref": "1990s",
+  "decada_ref": "1930s",
   "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
+   "1920s",
+   "1930s",
+   "1940s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
   "municipio_fuente": "cache_index"
  },
@@ -51448,16 +51448,16 @@
   "municipio_fuente": "sepomex"
  },
  "unidad hab fidel velazquez": {
-  "decada_ref": "1990s",
+  "decada_ref": "1980s",
   "decadas": [
+   "1970s",
    "1980s",
-   "1990s",
-   "2000s"
+   "1990s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
   "municipio_fuente": "cache_index"
  },
@@ -55785,18 +55785,19 @@
   "municipio_fuente": "sepomex"
  },
  "vistas del tesoro": {
-  "decada_ref": "1990s",
+  "decada_ref": "2000s",
   "decadas": [
-   "1980s",
    "1990s",
-   "2000s"
+   "2000s",
+   "2010s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": "guadalajara",
-  "municipio_fuente": "cache_index"
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "municipio": "san pedro tlaquepaque",
+  "municipio_fuente": "perito_correccion",
+  "nota": "No es Guadalajara: colinda con El Tesoro (cerro del Tesoro / periferico sur), limite Tlaquepaque-Zapopan. Fraccionamiento de densidad media/alta consolidado desde los 2000, fuera del Periferico."
  },
  "vistas del tonallan": {
   "decada_ref": "1970s",
