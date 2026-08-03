@@ -104,6 +104,7 @@ const CONSTRUCTION_QUALITIES = [
 // Misma escala que el verificador de zona (EdadesZonaPage CONSERVACIONES) — el motor
 // (motor_remi_api.js FACTORES_CONSERVACION) ya califica cada grado de "Regular" distinto
 // (regular_bueno 0.85 / regular_medio 0.75 / regular_malo 0.65), no es cosmético.
+// La remodelación es un eje aparte (checkbox + grado + año, más abajo) — no se mezcla aquí.
 const CONSERVATION_STATES = [
   { value: "Nuevo", label: "Nuevo", color: "text-green-700" },
   { value: "Muy Bueno", label: "Muy Bueno", color: "text-green-600" },
@@ -113,9 +114,15 @@ const CONSERVATION_STATES = [
   { value: "Regular Malo", label: "Regular Malo", color: "text-amber-700" },
   { value: "Malo", label: "Malo", color: "text-red-600" },
   { value: "Muy Malo", label: "Muy Malo", color: "text-red-700" },
-  { value: "Remodelación Menor", label: "Remodelación Menor (acabados: pintura, pisos, baño/cocina)", color: "text-teal-600" },
-  { value: "Remodelación Intermedia", label: "Remodelación Intermedia (instalaciones + acabados principales)", color: "text-teal-600" },
-  { value: "Remodelación Completa", label: "Remodelación Completa (prácticamente nueva)", color: "text-teal-600" },
+];
+
+// Grado de remodelación → con el año calcula la edad efectiva ponderada
+// (mismo método que EdadesZonaPage / _edad_efectiva en edades.py).
+const GRADOS_REMOD = [
+  { value: "ligera", label: "Ligera / cosmética", hint: "pintura, pisos, un baño o cocina" },
+  { value: "basica", label: "Básica", hint: "acabados completos" },
+  { value: "intermedia", label: "Intermedia", hint: "acabados + instalaciones" },
+  { value: "completa", label: "Completa", hint: "+ estructura, casi nueva" },
 ];
 
 // Catálogo basado en Reglamento de Zonificación de Jalisco
@@ -697,6 +704,9 @@ const ValuationForm = () => {
     estimated_age: "",
     conservation_state: "",
     construction_quality: "",
+    tuvo_remodelacion: false,
+    remodelacion_grado: "",
+    remodelacion_anio: "",
     frontage_type: "", // NEW: tipo de frente
     special_features: [],
     other_features: "",
@@ -1036,6 +1046,8 @@ const ValuationForm = () => {
         estimated_age: formData.estimated_age ? parseInt(formData.estimated_age) : null,
         conservation_state: formData.conservation_state || null,
         construction_quality: formData.construction_quality || null,
+        remodelacion_grado: formData.tuvo_remodelacion ? (formData.remodelacion_grado || null) : null,
+        remodelacion_anio: formData.tuvo_remodelacion && formData.remodelacion_anio ? parseInt(formData.remodelacion_anio) : null,
         special_features: formData.special_features.length > 0 ? formData.special_features : null,
         other_features: formData.other_features || null,
         surface_source: formData.surface_source,
@@ -1881,6 +1893,61 @@ const ValuationForm = () => {
                     </SelectContent>
                   </Select>
                 </div>
+              </div>
+
+              {/* Remodelación — eje aparte de Estado de Conservación. Con el año calcula
+                  la edad efectiva ponderada (mismo método que el verificador de zona). */}
+              <div className="space-y-2 border border-[#52B788]/30 rounded-lg p-3 bg-[#52B788]/5">
+                <div className="flex items-center gap-2">
+                  <Checkbox
+                    id="tuvo-remodelacion"
+                    checked={formData.tuvo_remodelacion}
+                    onCheckedChange={(checked) => {
+                      handleInputChange("tuvo_remodelacion", !!checked);
+                      if (!checked) {
+                        handleInputChange("remodelacion_grado", "");
+                        handleInputChange("remodelacion_anio", "");
+                      }
+                    }}
+                  />
+                  <Label htmlFor="tuvo-remodelacion" className="text-sm font-semibold text-[#1B4332] cursor-pointer">
+                    ¿La propiedad tuvo alguna remodelación en años posteriores a su construcción?
+                  </Label>
+                </div>
+                {formData.tuvo_remodelacion && (
+                  <div className="grid grid-cols-2 gap-3 pt-1">
+                    <div className="space-y-2">
+                      <Label className="text-xs font-semibold text-[#1B4332]">Tipo / grado de remodelación</Label>
+                      <Select
+                        value={formData.remodelacion_grado}
+                        onValueChange={(value) => handleInputChange("remodelacion_grado", value)}
+                      >
+                        <SelectTrigger className={`h-11 ${!formData.remodelacion_grado ? 'text-slate-400' : 'text-slate-900'}`}>
+                          <SelectValue placeholder="▾ Seleccione grado" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {GRADOS_REMOD.map(g => (
+                            <SelectItem key={g.value} value={g.value}>
+                              {g.label} <span className="text-slate-400 text-xs">({g.hint})</span>
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label className="text-xs font-semibold text-[#1B4332]">Año de la remodelación</Label>
+                      <Input
+                        type="number"
+                        value={formData.remodelacion_anio}
+                        onChange={(e) => handleInputChange("remodelacion_anio", e.target.value)}
+                        placeholder={String(new Date().getFullYear() - 2)}
+                        className="h-11"
+                        min="1950"
+                        max={new Date().getFullYear()}
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Tipo de frente — al final de columna izquierda */}

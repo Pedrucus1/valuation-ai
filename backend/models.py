@@ -187,6 +187,8 @@ class PropertyInput(BaseModel):
     total_floors: Optional[int] = None
     estimated_age: Optional[int] = None
     conservation_state: Optional[str] = None
+    remodelacion_grado: Optional[str] = None  # ligera|basica|intermedia|completa
+    remodelacion_anio: Optional[int] = None
     construction_quality: Optional[str] = None
     special_features: Optional[List[str]] = None
     other_features: Optional[str] = None  # Free text for additional features

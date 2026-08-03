@@ -176,7 +176,7 @@ from routers.encargos import router as encargos_router
 from routers.inmobiliaria import router as inmobiliaria_router
 from routers.mercado_accesos import router as mercado_accesos_router, _seed_mercado_accesos
 from routers.reviews import router as reviews_router
-from routers.edades import router as edades_router
+from routers.edades import router as edades_router, _edad_efectiva as _edad_efectiva_ponderada
 from routers.data_exchange import router as data_exchange_router
 from routers.gamificacion import router as gamificacion_router
 from routers.admin_auth import router as admin_auth_router
@@ -1088,6 +1088,19 @@ async def select_comparables(valuation_id: str, request: Request):
     
     return {"message": "Comparables seleccionados", "selected_count": len(selected_ids)}
 
+def _edad_efectiva_opi(prop: dict) -> float:
+    """Edad a usar en la valuación: si hubo remodelación (grado+año), pondera con el
+    mismo método del dictamen de mejoras que usa el verificador de zona (_edad_efectiva).
+    Si no hay remodelación o falta el año, regresa la antigüedad declarada tal cual."""
+    edad = prop.get("estimated_age") or 10
+    grado = prop.get("remodelacion_grado")
+    if not grado:
+        return edad
+    ahora_year = datetime.now(timezone.utc).year
+    anio_construccion = ahora_year - int(edad)
+    ee = _edad_efectiva_ponderada(anio_construccion, prop.get("remodelacion_anio"), grado, ahora_year)
+    return ee if ee is not None else edad
+
 @api_router.post("/valuations/{valuation_id}/calculate")
 async def calculate_valuation(valuation_id: str, request: Request):
     """
@@ -1183,8 +1196,9 @@ async def calculate_valuation(valuation_id: str, request: Request):
     cost_per_sqm = quality_costs.get(quality, 16000)
     construction_new = cost_per_sqm * construction_area
     
-    # Age-based depreciation (Ross-Heidecke method simplified)
-    age = prop.get("estimated_age") or 10
+    # Age-based depreciation (Ross-Heidecke method simplified). Si hubo remodelación
+    # (grado+año), usa la edad efectiva ponderada en vez de la antigüedad cruda.
+    age = _edad_efectiva_opi(prop)
     useful_life = 60  # years for residential
     
     # Conservation state affects remaining useful life
@@ -1317,7 +1331,7 @@ def _physical_breakdown(prop: dict, comparative_ppsm: float) -> dict:
     cost_per_sqm = quality_costs.get(prop.get("construction_quality") or "Media", 16000)
     construction_new = cost_per_sqm * construction_area
 
-    age = float(prop.get("estimated_age") or 10)
+    age = float(_edad_efectiva_opi(prop))
     conservation_factors = {
         "Nuevo": 1.0, "Muy Bueno": 1.0, "Excelente": 1.0, "Bueno": 0.85,
         "Regular Bueno": 0.75, "Regular": 0.65, "Regular Malo": 0.52,
@@ -1355,7 +1369,7 @@ async def calculate_remi(valuation_id: str):
         "tipo":              prop.get("property_type", "casa"),
         "construccion":      prop.get("construction_area", 0),
         "terreno":           prop.get("land_area", 0),
-        "edad":              prop.get("estimated_age", 10),
+        "edad":              _edad_efectiva_opi(prop),
         "estadoConservacion": {
             "Muy Bueno":               "muy_bueno",
             "Excelente":               "muy_bueno",  # legacy
@@ -1584,7 +1598,7 @@ DATOS DE LA PROPIEDAD:
 - Terreno: {prop['land_area']} m², Construcción: {prop['construction_area']} m²
 - Habitaciones: {prop.get('bedrooms', 3)}, Baños: {prop.get('bathrooms', 2)}
 - Régimen: {prop['land_regime']}, Tipo: {prop.get('property_type', 'Casa')}
-- Conservación: {prop.get('conservation_state', 'Bueno')}, Edad: {prop.get('estimated_age', 10)} años
+- Conservación: {prop.get('conservation_state', 'Bueno')}, Edad: {prop.get('estimated_age', 10)} años{f", con remodelación {prop.get('remodelacion_grado')} en {prop.get('remodelacion_anio')}" if prop.get('remodelacion_grado') else ""}
 - Valor estimado: ${base_value:,.0f} MXN
 - Renta mensual estimada: ${monthly_rent:,.0f} MXN
 - Cap Rate: {cap_rate:.1f}%
