@@ -2,8 +2,14 @@
 
 > **Único archivo que se lee al iniciar** (corto, siempre vigente). Tareas por # → `BACKLOG.md` (grep). Historial → `BACKLOG_ARCHIVE.md`. Motor → `MOTOR_ANTECEDENTES.md` (grep). **Se sobrescribe en cada cierre de sesión.**
 
-**Última actualización:** 3 Ago 2026 (noche, cierre de la sesión de colonias)
-**Fase:** Prod Railway + Vercel público, estable. Deploy de esta noche: fix de depreciación física en `server.py` (`998d7b8`). Dos sesiones en paralelo el 2 y 3 de agosto: una de **features/deploys** (abajo) y otra de **datos de colonias + manual**. No se tocó el motor JS.
+**Última actualización:** 4 Ago 2026 (madrugada)
+**Fase:** Prod Railway + Vercel público, estable. Deploy de esta madrugada: unificación de `quality_costs` en `server.py` (commit `9dbc8c4`, Railway `e74d127b` SUCCESS). Dos sesiones en paralelo el 2 y 3 de agosto: una de **features/deploys** (abajo) y otra de **datos de colonias + manual**. No se tocó el motor JS.
+
+## 🔥 SESIÓN 4-AGO (madrugada) — unificado `construction_quality` frontend↔backend + verificador de zona
+
+- **Bug cerrado (era pendiente #15 de abajo):** `server.py::quality_costs` (2 copias, `calculate_valuation` y `_physical_breakdown`) usaba 5 llaves viejas (`Interés social/Media/Media-alta/Residencial/Residencial plus`) que el frontend **nunca manda** — `ValuationForm.jsx` manda las 7 de `CONSTRUCTION_QUALITIES` (`Lujo/Superior/Medio Alto/Medio Medio/Medio Bajo/Económico/Interés Social`). El costo/m² caía SIEMPRE al default $16,000 sin importar la calidad elegida, en todo avalúo histórico. Unificado a las 7 llaves reales ($12k Interés Social → $45k Lujo, default Medio Medio $19k). `CALIDADES_VIDA_70` (vida útil 70/60 por calidad) ya usaba la escala correcta, no se tocó.
+- **`EdadesZonaPage.jsx` (verificador por zona):** rango de antigüedad de remodelación ampliado con **31-40** y **40+ años** (antes topaba en 26-30). Agregado campo nuevo **calidad de construcción** por comp (mismo Select de 7 valores), conectado end-to-end: `construirPayload` → `POST /edad-estimada` → `routers/edades.py` (valida contra `CALIDAD_CONSTRUCCION_VALIDAS`, guarda `calidad_construccion` + `calidad_construccion_fuente` en `mercado_props`). **El motor JS todavía NO consume esta calidad de comps** (ni siquiera usaba `conservacion` de comps) — solo queda guardada en Mongo; conectarla a `remiSobreComps`/factores del motor requiere calibración offline antes de wirear (regla del proyecto).
+- Deploy manual (`railway up --detach`, este proyecto **no tiene auto-deploy de GitHub** — confirmado de nuevo, ver memoria `reference_propvalu_urls`). Commit `9dbc8c4` pusheado a `main`.
 
 ## 🔥 SESIÓN 3-AGO (noche) — bug depreciación física (Escorpión 3518) + fórmula Ross-Heidecke en observación
 
@@ -49,7 +55,7 @@
 
 ## ⚡ LO MÁS CALIENTE / decisiones vigentes
 - **🆕 Worksheet listo para el usuario:** `Manual-Arquitectura-ZMG\Peticion_Verificar_Heuristica_GDL_1990s.md` — 26 colonias de Guadalajara fechadas en 1990s por heurística. Bolsa falsa casi por construcción (documentadas 0% ahí; la ciudad decrece desde 1990). 4 contradicciones ya detectadas: Providencia 3a/5a (es 1960s), Americana Oriente (1900s-10s), Sector Reforma/San Juan de Dios II/La Federacha. **Él trae las respuestas → procesarlas y reasignar.** Pedirle a ÉL las fechas antes que buscarlas: la investigación web para esto NO escala (probado: 3 filas en 70 años, acervos cerrados).
-- **🆕 `result_lab_rh` en observación en cada `/calculate`** — decidir si reemplaza `estimated_value` tras validar con más OPIs. Y arreglar el mismatch `construction_quality` (frontend) ↔ `quality_costs` (server.py) antes de aplicar vida útil 70/60 por calidad.
+- **🆕 `result_lab_rh` en observación en cada `/calculate`** — decidir si reemplaza `estimated_value` tras validar con más OPIs. Mismatch `construction_quality` ↔ `quality_costs` ya **arreglado y desplegado** (4-ago), ya se puede aplicar vida útil 70/60 por calidad con datos reales.
 - **⏳ VALIDADOR DEL MOTOR SIN CERRAR.** Baseline guardado (±10 **49.8%** · ±15 62.3% · ±20 72.5% · errAbs 15.2%, 207 OPIs). El "después" quedó corriendo al cerrar la sesión. **Decisión del usuario: si sale peor NO se revierte** — se revisa qué pasó; esto es afinación y tiene estira y afloja. Correr `node validar_40_opis.js --n 1000` y comparar.
 - **`colonias_decada.json` SIGUE SIN CABLEARSE AL MOTOR.** El motor es JS y lee `colonias_maestro.json`; el camino de lectura en Python (`decada_de`) está listo y probado, el cableado es decisión aparte.
 - ~~102 homónimas~~ **CERRADAS el 3-ago** (107 pares en `homonimas_resueltas.json`, 0 pendientes).
@@ -60,7 +66,7 @@
 
 ## ⏳ Pendientes / decisiones abiertas
 1. **Cerrar el antes/después del validador** (ver arriba).
-2. **Manual de Arquitectura ZMG — 82 marcas.** Lo que sigue: 22 de cartografía (manchas urbanas por década, INEGI/IIEG/Visor Urbano), 15 de fotos reales, 19 de "ampliar" y ~26 verificaciones (torres, desarrolladoras, expedientes). Las 78 ilustraciones siguen sin generar. **El cableado al motor NO es la prioridad: el consumidor de estas décadas es el manual.**
+2. **Manual de Arquitectura ZMG — 82 marcas. **Ya es repo git propio (3-ago): https://github.com/Pedrucus1/manual-arquitectura-zmg, privado.**** Lo que sigue: 22 de cartografía (manchas urbanas por década, INEGI/IIEG/Visor Urbano), 15 de fotos reales, 19 de "ampliar" y ~26 verificaciones (torres, desarrolladoras, expedientes). Las 78 ilustraciones siguen sin generar. **El cableado al motor NO es la prioridad: el consumidor de estas décadas es el manual.**
 3. **Tarea 5 — desacoplar `colonias-confianza-web`** de `app\colonias-data.json` antes de decidir si se conserva el editor.
 4. Decidir si se cablea `colonias_decada.json` al motor JS (hoy no lo lee).
 5. Rediseñar hoja 2 del A4 EstateElite (pedir dirección de diseño antes de construir).
@@ -73,7 +79,8 @@
 12. Migrar usuarios con `credits` int plano a ledger explícito (opcional).
 13. Investigar por qué staging (`cluster1`) tiene datasets mucho más chicos que prod (La Calma: 29 vs 390).
 14. Decidir si `result_lab_rh` (Ross-Heidecke vida útil 70, calibrado) reemplaza `estimated_value` en prod, tras validar con más OPIs.
-15. Arreglar mismatch `construction_quality` (frontend: Lujo/Superior/Medio Alto/Medio Medio/Medio Bajo/Económico/Interés Social) vs `quality_costs` (server.py: Interés social/Media/Media-alta/Residencial/Residencial plus) — hoy la calidad no afecta el costo/m² en ningún avalúo. **Relacionado:** el manual usa 6 segmentos numerados y estables en las 13 décadas; el mapeo confirmado por el perito está en `CALIDAD_A_SEGMENTO` (`Manual-Arquitectura-ZMG\extraer_acabados_selectores.py`) — casa de autor va en Lujo, Superior colapsa con Medio Alto.
+15. ~~Arreglar mismatch `construction_quality` vs `quality_costs`~~ **CERRADO 4-ago** (ver sesión de arriba, deploy `e74d127b`). **Relacionado, sigue abierto:** el manual usa 6 segmentos numerados y estables en las 13 décadas; el mapeo confirmado por el perito está en `CALIDAD_A_SEGMENTO` (`Manual-Arquitectura-ZMG\extraer_acabados_selectores.py`) — casa de autor va en Lujo, Superior colapsa con Medio Alto.
+19. Conectar `calidad_construccion` (nueva, guardada por el verificador de zona en `mercado_props`) al motor JS — hoy solo se guarda, no se usa. Requiere validador offline antes de wirear (misma regla que #1).
 16. **Décadas sugeridas en el avalúo y en Verificación por Zona — PLAN APROBADO, sin implementar.** `~/.claude/plans/toasty-bouncing-crane.md`. Endpoint nuevo en `routers/edades.py` que llame a `decada_de()` (existe y está probado en `core/colonias.py:127`, **ningún endpoint lo usa hoy**) + chips en `ValuationForm.jsx:1804` y `EdadesZonaPage.jsx:808`. Al elegir se guarda el punto medio; el campo libre sigue mandando. Maqueta visual hecha (scratchpad, no en repo).
 17. **Selector de acabados para afinar la edad — PAUSADO con handoff.** `Manual-Arquitectura-ZMG\PENDIENTE_Acabados_Selector.md`. Ya corre `extraer_acabados_selectores.py` (852 items, 34 opciones, 16 fechan de verdad) y genera `acabados_selectores.json`. Falta cruzar el eje segmento × elemento y completar el mapa de palabras clave.
 18. **684 colonias sin municipio, ninguna con comps.** No las conoce SEPOMEX ZMG, ni `cache_index`, ni `_geo/colonia_cp.json`. Se llenarán solas cuando entre un anuncio con municipio. Prompt listo para pasárselo a alguien: `Modulo Drive IA\PROMPT_MUNICIPIOS.md`.

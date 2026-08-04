@@ -5,6 +5,35 @@
 
 ---
 
+## 4 Ago 2026 (madrugada) — Calidad de construcción unificada frontend↔backend + verificador de zona
+
+Sesión corta, arrancó pidiendo ampliar el rango de años de remodelación en el verificador de
+zona (`EdadesZonaPage.jsx`, tope en 26-30 → se agregó 31-40 y 40+). El usuario pidió agregar
+también "tipo de construcción" al mismo verificador porque ayuda a la edad/calidad de la
+propiedad — se agregó un Select de calidad de construcción por comp (mismas 7 llaves que
+`ValuationForm.jsx::CONSTRUCTION_QUALITIES`), conectado a `routers/edades.py` y guardado en
+`mercado_props.calidad_construccion`.
+
+Al preguntar por el estado de Escorpión 3518 (caso del bug de depreciación del 3-ago) salió a
+la luz el bug relacionado que había quedado sin arreglar en esa sesión: `server.py::quality_costs`
+(las dos copias, prod y `_physical_breakdown`) tenía 5 llaves (`Media`, `Media-alta`...) que el
+frontend nunca manda — la calidad de construcción **nunca había afectado el costo por m² en
+ningún avalúo histórico**, siempre caía al default $16,000. El usuario pidió unificar el
+criterio directo ("tocalo, unifica el criterio"). Se remapeó a las 7 llaves reales
+(Interés Social $12k → Lujo $45k, default Medio Medio $19k); `CALIDADES_VIDA_70` (vida útil
+70/60 por calidad) ya usaba la escala buena, no hizo falta tocarla.
+
+Al desplegar, el `git push` a `main` no disparó nada — recordatorio de que este proyecto **no
+tiene auto-deploy de GitHub conectado en Railway** (confirmado otra vez, ver memoria
+`reference_propvalu_urls`), hay que dispararlo con `railway up --detach`. Deploy confirmado
+`SUCCESS` (`e74d127b`) vía Railway MCP antes de cerrar.
+
+Pendiente explícito: el motor JS todavía no consume `calidad_construccion` de comps (tal como
+tampoco usaba `conservacion` de comps) — conectarlo requiere el mismo validador offline que
+bloqueó el wiring de edad crowdsource en su momento (#136), no se hizo en esta sesión.
+
+---
+
 ## 3 Ago 2026 (cierre) — El perito fechó 1,259 colonias: la cola por impacto quedó vacía
 
 La sesión arrancó con el usuario respondiendo la bolsa de 26 colonias de Guadalajara que la
