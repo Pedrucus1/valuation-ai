@@ -5505,14 +5505,17 @@
   "decada_ref": "1970s",
   "decadas": [
    "1970s",
-   "1980s"
+   "1980s",
+   "1990s"
   ],
   "nivel": "media",
   "fuente": "manual",
   "confianza": "alta",
-  "confianza_puntos": 84,
+  "confianza_puntos": 86,
   "municipio": "zapopan",
-  "municipio_fuente": "maestro"
+  "municipio_fuente": "maestro",
+  "por_etapas": true,
+  "nota": "Por etapas: 1a seccion / zona baja en 1970s, crece hasta 1990s en la 2a seccion / zona alta."
  },
  "bugambilias 1a": {
   "decada_ref": "1990s",
@@ -6540,14 +6543,13 @@
  "casa fuerte": {
   "decada_ref": "2000s",
   "decadas": [
-   "1990s",
    "2000s",
    "2010s"
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "media",
-  "confianza_puntos": 62,
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "perito_correccion",
   "por_municipio": {
@@ -6563,7 +6565,9 @@
     "evidencia": "Programa de Ordenamiento Ecológico Local de Tlajomulco, zona San Agustín-La Primavera: \"Hacienda Casa Fuerte ... del 2014\" — https://tlajomulco.gob.mx/sites/default/files/PoelTlajoZonaSanAgustin.pdf",
     "nota": "Corrige la referencia heredada 2000s: el documento municipal fecha expresamente el asentamiento en 2014."
    }
-  }
+  },
+  "por_etapas": true,
+  "nota": "Por etapas: arranca 2000s y consolida sus cotos (Bastion, Alcazar) en 2010s."
  },
  "casa fuerte condominium el bastion": {
   "decada_ref": "2010s",
@@ -7078,16 +7082,20 @@
  "chapalita": {
   "decada_ref": "1940s",
   "decadas": [
-   "1930s",
    "1940s",
-   "1950s"
+   "1950s",
+   "1960s",
+   "1970s",
+   "1980s"
   ],
   "nivel": "lujo",
   "fuente": "manual",
   "confianza": "alta",
   "confianza_puntos": 86,
   "municipio": "guadalajara",
-  "municipio_fuente": "maestro"
+  "municipio_fuente": "maestro",
+  "por_etapas": true,
+  "nota": "Nucleo original 1940s, de las primeras colonias campestres jardin. Sus anexos (Sur, Oriente, Las Fuentes, Inn) se desarrollan entre 1960s y 1980s."
  },
  "chapalita de occidente": {
   "decada_ref": "1960s",
@@ -7549,10 +7557,11 @@
   "municipio_fuente": "sepomex"
  },
  "ciudad bugambilia": {
-  "decada_ref": "1970s",
+  "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s"
+   "1980s",
+   "1990s"
   ],
   "nivel": "media",
   "fuente": "manual",
@@ -7560,20 +7569,24 @@
   "confianza_puntos": 86,
   "municipio": "zapopan",
   "municipio_fuente": "sepomex",
-  "alineada_a": "ciudad bugambilias"
+  "por_etapas": true,
+  "nota": "Variante de escritura de Ciudad Bugambilias. Mismo rango."
  },
  "ciudad bugambilias": {
-  "decada_ref": "1970s",
+  "decada_ref": "1980s",
   "decadas": [
    "1970s",
-   "1980s"
+   "1980s",
+   "1990s"
   ],
   "nivel": "media-alta",
   "fuente": "manual",
   "confianza": "alta",
-  "confianza_puntos": 84,
+  "confianza_puntos": 86,
   "municipio": "zapopan",
-  "municipio_fuente": "cache_index"
+  "municipio_fuente": "cache_index",
+  "por_etapas": true,
+  "nota": "Macrodesarrollo: trazo y urbanizacion a mediados de 1970s, pero la edificacion masiva de vivienda es de los 1980s. decada_ref sigue la edificacion, no el trazo."
  },
  "ciudad bugambilias 2da": {
   "decada_ref": "1990s",
@@ -8104,16 +8117,15 @@
  "colinas de san miguel": {
   "decada_ref": "2000s",
   "decadas": [
-   "1990s",
-   "2000s",
-   "2010s"
+   "2000s"
   ],
   "nivel": "media",
-  "fuente": "plan-parcial",
-  "confianza": "media",
-  "confianza_puntos": 46,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "zapopan",
-  "municipio_fuente": "sepomex"
+  "municipio_fuente": "perito_correccion",
+  "nota": "Coto cerrado reciente. NO es San Miguel de la Colina (1980s, zona alta de San Esteban / Tabachines)."
  },
  "colinas de santa anita": {
   "decada_ref": "1990s",
@@ -12126,14 +12138,20 @@
   "decada_ref": "1970s",
   "decadas": [
    "1970s",
-   "1980s"
+   "1980s",
+   "1990s",
+   "2000s",
+   "2010s",
+   "2020s"
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "media",
-  "confianza_puntos": 65,
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "sepomex"
+  "municipio_fuente": "sepomex",
+  "por_etapas": true,
+  "nota": "Por etapas: arranca 1970s (seccion Bosque) y se expande hasta 2010s-2020s (secciones altas, Cumbres). Cada seccion y coto conserva su edad propia."
  },
  "el palomar balcones": {
   "decada_ref": "2010s",
@@ -22959,16 +22977,15 @@
  "las victorias residencial": {
   "decada_ref": "2000s",
   "decadas": [
-   "1990s",
-   "2000s",
-   "2010s"
+   "2000s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 30,
-  "municipio": "zapopan",
-  "municipio_fuente": "sepomex"
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "municipio": "tlajomulco de zuniga",
+  "municipio_fuente": "perito_correccion",
+  "nota": "Fraccionamiento reciente de la periferia sur. NO es Residencial Victoria (1960s, Zapopan/Guadalajara, zona Lopez Mateos)."
  },
  "las villas": {
   "decada_ref": "2000s",
@@ -23202,9 +23219,9 @@
  "loma bonita": {
   "decada_ref": "1970s",
   "decadas": [
-   "1960s",
    "1970s",
-   "1980s"
+   "1980s",
+   "1990s"
   ],
   "nivel": "lujo",
   "fuente": "manual",
@@ -23253,7 +23270,9 @@
     "nivel": "media",
     "evidencia": "Predios ejidales junto a la cabecera: densificación del primer cuadro. Ortofoto 1990 con 40-50%, 2000 con 80-90% y consolidada en 2010: el grueso es de los 1990s. La de Zapopan es 1980s; la de El Salto sigue sin investigar. |  |  |  | investigación documental del usuario, no lámina catastral"
    }
-  }
+  },
+  "por_etapas": true,
+  "nota": "Por etapas: arranca 1970s, sus extensiones (Ejidal, Sur) siguen en 1980s-1990s."
  },
  "loma bonita 1a seccion": {
   "decada_ref": "1980s",
@@ -28468,13 +28487,14 @@
  "nueva galicia": {
   "decada_ref": "2000s",
   "decadas": [
+   "1990s",
    "2000s",
    "2010s"
   ],
   "nivel": "media",
-  "fuente": "hemeroteca",
-  "confianza": "media",
-  "confianza_puntos": 72,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "sepomex",
   "homonima_en": [
@@ -28505,7 +28525,9 @@
     "nivel": "media",
     "evidencia": "OJO DE MUNICIPIO: formalmente está en Tlajomulco de Zúñiga (corredor López Mateos Sur, en el límite con Zapopan); se asocia a Zapopan por continuidad urbana con El Palomar y Agua Blanca. Trazo 1998-1999, comercialización y edificación masiva 2000-2010 (cotos Barcelona, Vigo, Granada, Oporto); AGEB de baja densidad en el censo 2000 y de los mayores incrementos del AMG en 2010. |  |  |  | investigación documental del usuario, no lámina catastral"
    }
-  }
+  },
+  "por_etapas": true,
+  "nota": "Arranca a finales de los 1990s / principios de 2000s y se consolida por cotos durante 2000s-2010s."
  },
  "nueva galicia 1": {
   "decada_ref": "1970s",
@@ -32296,17 +32318,21 @@
  "providencia": {
   "decada_ref": "1960s",
   "decadas": [
-   "1940s",
-   "1950s",
    "1960s",
-   "1970s"
+   "1970s",
+   "1980s",
+   "1990s",
+   "2000s",
+   "2010s"
   ],
   "nivel": "lujo",
   "fuente": "manual",
   "confianza": "alta",
-  "confianza_puntos": 84,
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
-  "municipio_fuente": "maestro"
+  "municipio_fuente": "maestro",
+  "por_etapas": true,
+  "nota": "Por etapas: 1a y 2a seccion en 1960s; 3a, 4a y la reconversion a departamentos y comercial siguen entre 1970s y 2010s."
  },
  "providencia 1a": {
   "decada_ref": "1980s",
@@ -33719,16 +33745,15 @@
  "real de las lomas": {
   "decada_ref": "2000s",
   "decadas": [
-   "1990s",
-   "2000s",
-   "2010s"
+   "2000s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "zapopan",
-  "municipio_fuente": "sepomex"
+  "municipio_fuente": "perito_correccion",
+  "nota": "Coto posterior en la zona Real del Valle / Tesistan. NO es Loma Real (1980s, Camino Real a Colima / Zuniga)."
  },
  "real de navarra": {
   "decada_ref": "2000s",
@@ -36411,18 +36436,20 @@
  "san agustin": {
   "decada_ref": "1970s",
   "decadas": [
-   "1940s",
-   "1950s",
-   "1960s",
    "1970s",
-   "1980s"
+   "1980s",
+   "1990s",
+   "2000s",
+   "2010s"
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "media",
-  "confianza_puntos": 62,
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "sepomex"
+  "municipio_fuente": "sepomex",
+  "por_etapas": true,
+  "nota": "Pueblo originario y primer trazo urbano en 1970s; los fraccionamientos y secciones perifericas se expanden en 1990s y 2010s."
  },
  "san agustin poniente": {
   "decada_ref": "1990s",
@@ -38062,17 +38089,23 @@
  "santa anita": {
   "decada_ref": "1970s",
   "decadas": [
+   "1940s",
+   "1950s",
+   "1960s",
    "1970s",
-   "1980s"
+   "1980s",
+   "1990s"
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "media",
-  "confianza_puntos": 62,
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "maestro",
   "nucleo_historico": true,
-  "nucleo_tipo": "Pueblo"
+  "nucleo_tipo": "Pueblo",
+  "por_etapas": true,
+  "nota": "Casco historico de los 1940s, pero la urbanizacion residencial masiva arranca en 1970s y sigue en 1980s-1990s. decada_ref es la edificacion masiva, no el casco."
  },
  "santa anita camino real": {
   "decada_ref": "1940s",
@@ -39603,16 +39636,17 @@
  "solares": {
   "decada_ref": "2000s",
   "decadas": [
-   "1990s",
    "2000s",
    "2010s"
   ],
   "nivel": "media-alta",
-  "fuente": "inegi",
-  "confianza": "media",
-  "confianza_puntos": 72,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "zapopan",
-  "municipio_fuente": "maestro"
+  "municipio_fuente": "maestro",
+  "por_etapas": true,
+  "nota": "Por etapas: nucleo e infraestructura en 2000s, el grueso de los cotos en 2010s."
  },
  "solares altanza": {
   "decada_ref": "1990s",
