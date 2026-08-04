@@ -2,7 +2,7 @@
 
 > **Único archivo que se lee al iniciar** (corto, siempre vigente). Tareas por # → `BACKLOG.md` (grep). Historial → `BACKLOG_ARCHIVE.md`. Motor → `MOTOR_ANTECEDENTES.md` (grep). **Se sobrescribe en cada cierre de sesión.**
 
-**Última actualización:** 3 Ago 2026 (noche)
+**Última actualización:** 3 Ago 2026 (noche, cierre de la sesión de colonias)
 **Fase:** Prod Railway + Vercel público, estable. Deploy de esta noche: fix de depreciación física en `server.py` (`998d7b8`). Dos sesiones en paralelo el 2 y 3 de agosto: una de **features/deploys** (abajo) y otra de **datos de colonias + manual**. No se tocó el motor JS.
 
 ## 🔥 SESIÓN 3-AGO (noche) — bug depreciación física (Escorpión 3518) + fórmula Ross-Heidecke en observación
@@ -14,13 +14,16 @@
 - **Bug relacionado encontrado, SIN arreglar:** `construction_quality` del frontend (`Lujo/Superior/Medio Alto/Medio Medio/Medio Bajo/Económico/Interés Social`) no hace match con las claves de `quality_costs` en `server.py` (`Interés social/Media/Media-alta/Residencial/Residencial plus`) → **la calidad de construcción nunca afecta el costo/m² en ningún avalúo**, siempre cae al default $16,000 (Media). Esto también bloquea aplicar bien la regla de vida útil 70/60 por calidad.
 - Commit `998d7b8` (pusheado). Deploy Railway confirmado SUCCESS + health OK.
 
-## 🔥 SESIÓN 3-AGO (tarde) — purga de colonias_decada + núcleos históricos + manual
+## 🔥 SESIÓN 3-AGO (tarde/noche) — el perito fechó 1,259 colonias; la cola por impacto quedó VACÍA
 
-- **`colonias_decada.json`: 4,749 → 3,896.** El 46% sin municipio NO era problema de municipios: eran ~2,100 registros que **no son colonias**, sino titulares de anuncio en inglés que un scraper metió en el campo (`26 lots located in la providencia`, `chapalita on one floor`, `128 m apartment in cd granja 48`), más `_meta` colada como llave. Con municipio: 54% → **63%**.
-- Arreglado **dentro de `limpiar_colonias_decada.py`** (no en script nuevo — ese ya resolvía municipio contra 3 fuentes). Dos cambios: `canonica()` despega la cola de anuncio **solo en inglés** antes de agrupar (fusionó 114 grupos: `adamar` + `adamar residential` + `adamar subdivision` eran 3 registros de 1 colonia); y `es_junk_colonia` descarta 728, **pero SEPOMEX lo indulta** — tiene falsos positivos sobre nombres reales (`2001` cae por la regla de 3+ dígitos, `san miguel de huentitan el alto 1a secc` por la de 34 caracteres). Verificado antes de escribir: en ninguna fusión la heurística le ganó a una fuente documental.
-- **Campo nuevo `nucleo_historico`** (79 entradas) + `nucleo_tipo`, cruzando el campo `tipo` de SEPOMEX (Pueblo/Ranchería/Ejido/Barrio/Hacienda). Su década es la del **registro municipal, no la de la edificación**. El motor no debe usarla como edad de construcción.
-- **`heuristica-anillo` sigue en 71% y NINGUNA edad fue verificada.** Bajó de 76% solo porque se encogió el denominador. Medido: su sesgo **cambia de signo por municipio** (tarde en Guadalajara y Tonalá, temprano en Tlajomulco) — una corrección global no sirve.
-- Manual de arquitectura (fuera de git, `valuation-ai\Manual-Arquitectura-ZMG`): pendientes 64 → 40.
+- **`colonias_decada.json`: 4,749 → 3,202.** `fuente: manual` de 249 a **1,259**. Con municipio: 54% → **79%**. Homónimas sin resolver: **0**. Colisiones sin resolver: **0**.
+- **El método que funcionó, y es lo reusable:** cruzar el archivo contra los 20,824 comps de `cache_consolidado.json` y preguntarle al perito **solo por las colonias con comps encima**, en tandas ordenadas por cuántos anuncios dependen de cada década. 2,078 entradas tenían cero comps — preguntarlas habría sido tiempo tirado. **85% de los comps con colonia fechada ya trae década verificada por él.**
+- **Los dos sesgos de `heuristica-anillo`, confirmados al fechar 515:** los barrios fundacionales salían medio siglo TARDE (`barrio analco`/`mezquitan`/`san juan de dios` en 1960s, son 1900s) y los verticales nuevos salían décadas TEMPRANO (`central park` en 1900s, es 2010s — 110 años). Falla en las dos direcciones a la vez.
+- **`plan-parcial` fecha el TRAZO, no la edificación** — sesgo de un solo signo, 117 correcciones: los barrios del primer cuadro estaban en 1910s (fecha del plano) y su fábrica es de los 40-60.
+- **Campo nuevo `por_etapas`** (19 entradas) + ventana real en `decadas[]`: El Palomar 1970s-2020s, Providencia 1960s-2010s, Santa Anita 1940s-2020s, Bugambilias 2a secc 1980s-2020s. Una sola década miente en los desarrollos que siguen creciendo. Las secciones y cotos conservan edad propia (regla del perito).
+- **Borradas ~200 entradas de basura**, casi todas colonias de CDMX que el geocodificador de los portales deposita en **Tonalá** (`condesa`, `tacubaya`, `mixcoac`, `xotepingo`, `parque san andres`, `bosque de las lomas`). Patrón confirmado por el perito: no restaurar.
+- **MEDIDO — no repetir el experimento:** para completar municipio, **DeepSeek acierta 41%** (contesta "guadalajara" cuando no sabe) y **Google Maps 48-62%**; ambos de acuerdo, 78% cubriendo 45%. Un municipio equivocado es **peor que null** (`decada_de` devuelve None al contradecir). Lo que sí sirve: padrón SEPOMEX acotado a la ZMG, `cache_index` (22,914 listings), y **el municipio escrito en el propio nombre** (`camichines tonala`) — 88 gratis. DeepSeek **sí** sirve para clasificar texto: limpió 1,383 entradas bien.
+- Quedan **684 sin municipio, ninguna con comps encima**. No hay fuente que las conozca.
 
 ## 🔥 SESIÓN 2/3-AGO — homónimas CERRADAS + manual de arquitectura
 
@@ -70,7 +73,10 @@
 12. Migrar usuarios con `credits` int plano a ledger explícito (opcional).
 13. Investigar por qué staging (`cluster1`) tiene datasets mucho más chicos que prod (La Calma: 29 vs 390).
 14. Decidir si `result_lab_rh` (Ross-Heidecke vida útil 70, calibrado) reemplaza `estimated_value` en prod, tras validar con más OPIs.
-15. Arreglar mismatch `construction_quality` (frontend: Lujo/Superior/Medio Alto/Medio Medio/Medio Bajo/Económico/Interés Social) vs `quality_costs` (server.py: Interés social/Media/Media-alta/Residencial/Residencial plus) — hoy la calidad no afecta el costo/m² en ningún avalúo.
+15. Arreglar mismatch `construction_quality` (frontend: Lujo/Superior/Medio Alto/Medio Medio/Medio Bajo/Económico/Interés Social) vs `quality_costs` (server.py: Interés social/Media/Media-alta/Residencial/Residencial plus) — hoy la calidad no afecta el costo/m² en ningún avalúo. **Relacionado:** el manual usa 6 segmentos numerados y estables en las 13 décadas; el mapeo confirmado por el perito está en `CALIDAD_A_SEGMENTO` (`Manual-Arquitectura-ZMG\extraer_acabados_selectores.py`) — casa de autor va en Lujo, Superior colapsa con Medio Alto.
+16. **Décadas sugeridas en el avalúo y en Verificación por Zona — PLAN APROBADO, sin implementar.** `~/.claude/plans/toasty-bouncing-crane.md`. Endpoint nuevo en `routers/edades.py` que llame a `decada_de()` (existe y está probado en `core/colonias.py:127`, **ningún endpoint lo usa hoy**) + chips en `ValuationForm.jsx:1804` y `EdadesZonaPage.jsx:808`. Al elegir se guarda el punto medio; el campo libre sigue mandando. Maqueta visual hecha (scratchpad, no en repo).
+17. **Selector de acabados para afinar la edad — PAUSADO con handoff.** `Manual-Arquitectura-ZMG\PENDIENTE_Acabados_Selector.md`. Ya corre `extraer_acabados_selectores.py` (852 items, 34 opciones, 16 fechan de verdad) y genera `acabados_selectores.json`. Falta cruzar el eje segmento × elemento y completar el mapa de palabras clave.
+18. **684 colonias sin municipio, ninguna con comps.** No las conoce SEPOMEX ZMG, ni `cache_index`, ni `_geo/colonia_cp.json`. Se llenarán solas cuando entre un anuncio con municipio. Prompt listo para pasárselo a alguien: `Modulo Drive IA\PROMPT_MUNICIPIOS.md`.
 
 ## 🌐 URLs / accesos
 - **Sitio:** https://frontend-pedrucus-projects.vercel.app (alias prod: frontend-rosy-six-74.vercel.app)

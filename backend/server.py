@@ -1229,17 +1229,21 @@ async def calculate_valuation(valuation_id: str, request: Request):
     land_value_per_sqm = final_price_per_sqm * land_ratio
     land_value = land_value_per_sqm * land_area
     
-    # Construction cost (updated 2025 values for Mexico)
+    # Construction cost (updated 2025 values for Mexico). Escala unificada con
+    # CONSTRUCTION_QUALITIES del frontend (ValuationForm.jsx) — antes este dict usaba
+    # otras 5 llaves que el frontend nunca manda, así que siempre caía al default.
     quality_costs = {
-        "Interés social": 12000,    # Basic construction
-        "Media": 16000,              # Standard middle-class
-        "Media-alta": 22000,         # Upper-middle
-        "Residencial": 30000,        # High-end residential
-        "Residencial plus": 45000    # Luxury
+        "Interés Social": 12000,
+        "Económico": 14000,
+        "Medio Bajo": 16000,
+        "Medio Medio": 19000,     # Standard middle-class (default)
+        "Medio Alto": 23000,
+        "Superior": 30000,
+        "Lujo": 45000,
     }
-    
-    quality = prop.get("construction_quality") or "Media"
-    cost_per_sqm = quality_costs.get(quality, 16000)
+
+    quality = prop.get("construction_quality") or "Medio Medio"
+    cost_per_sqm = quality_costs.get(quality, 19000)
     construction_new = cost_per_sqm * construction_area
     
     # Age-based depreciation (Ross-Heidecke method simplified). Si hubo remodelación
@@ -1394,10 +1398,10 @@ def _physical_breakdown(prop: dict, comparative_ppsm: float) -> dict:
     land_value = comparative_ppsm * land_ratio * land_area
 
     quality_costs = {
-        "Interés social": 12000, "Media": 16000, "Media-alta": 22000,
-        "Residencial": 30000, "Residencial plus": 45000,
+        "Interés Social": 12000, "Económico": 14000, "Medio Bajo": 16000,
+        "Medio Medio": 19000, "Medio Alto": 23000, "Superior": 30000, "Lujo": 45000,
     }
-    cost_per_sqm = quality_costs.get(prop.get("construction_quality") or "Media", 16000)
+    cost_per_sqm = quality_costs.get(prop.get("construction_quality") or "Medio Medio", 19000)
     construction_new = cost_per_sqm * construction_area
 
     age = float(_edad_efectiva_opi(prop))

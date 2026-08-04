@@ -5,6 +5,64 @@
 
 ---
 
+## 3 Ago 2026 (cierre) — El perito fechó 1,259 colonias: la cola por impacto quedó vacía
+
+La sesión arrancó con el usuario respondiendo la bolsa de 26 colonias de Guadalajara que la
+heurística de anillo había puesto en los 1990s: **ninguna era de esa década**. De ahí salió el
+método que ordenó todo el día — en vez de revisar las 3,896 entradas, cruzar el archivo contra
+los 20,824 comps de `cache_consolidado.json` y preguntarle **solo por las colonias con anuncios
+encima**, en tandas ordenadas por cuántos comps dependen de cada década. 2,078 entradas tenían
+cero comps: preguntarlas habría sido tiempo tirado. Terminó fechando **1,259 a mano** (249 al
+empezar) y hoy **85% de los comps con colonia fechada trae década verificada por él**.
+
+Lo que la revisión destapó de la heurística: **falla en las dos direcciones a la vez**. Los
+barrios fundacionales salían medio siglo tarde (`barrio analco`, `mezquitan`, `san juan de dios`
+estaban en 1960s y son 1900s; `chapultepec` en 1980s, es 1920s) y los verticales nuevos salían
+décadas temprano (`central park` en 1900s, es 2010s — 110 años de error). Y el `plan-parcial`,
+que se creía fuente confiable, tiene un sesgo de un solo signo: **fecha el trazo, no la
+edificación**. Los barrios del primer cuadro estaban en 1910s por la fecha del plano cuando su
+fábrica es de los 40-60. 117 correcciones por esa sola causa.
+
+Segundo hallazgo de fondo: **una década no alcanza para los desarrollos que siguen creciendo**.
+El perito lo señaló en Bosques de Santa Anita ("es 1990s y 2000 porque han sido por etapas") y
+de ahí salió el campo **`por_etapas`** con ventana real en `decadas[]` — El Palomar 1970s-2020s,
+Providencia 1960s-2010s, Santa Anita 1940s-2020s, Bugambilias 2a sección 1980s-2020s. Las
+secciones y cotos conservan edad propia, que es su regla de siempre.
+
+Limpieza: **~200 entradas borradas**, casi todas colonias de la Ciudad de México que el
+geocodificador de los portales deposita en **Tonalá** (`condesa`, `tacubaya`, `mixcoac`,
+`xotepingo`, `parque san andres`, `bosque de las lomas`). DeepSeek limpió otras 1,383 entradas
+sin padrón ni comps: 264 borradas, 306 fusionadas contra su colonia real.
+
+**Municipios: 54% → 79%.** Y una medición que evita repetir el experimento: para completar los
+que faltan, **DeepSeek acierta 41%** (contesta "guadalajara" cuando no sabe) y **Google Maps
+48-62%** (devuelve la colonia como si fuera su propia localidad); ambos de acuerdo dan 78%
+cubriendo 45%. Como `decada_de` devuelve None cuando el municipio contradice al del dato, un
+municipio equivocado es **peor que null**. Lo que sí funcionó es determinístico: padrón SEPOMEX
+acotado a la ZMG, los 22,914 listings de `cache_index`, y **el municipio escrito en el propio
+nombre** (`camichines tonala`, `arcos de zapopan 2a seccion`) — 88 gratis. DeepSeek **sí** sirve
+para clasificar texto; para geografía no.
+
+Se cerraron además las **65 homónimas** que llevaban meses marcadas sin municipio (distintas de
+los 107 pares fechados el 2-ago: aquéllas ya tenían municipio, éstas nunca lo tuvieron), se
+unificó la ortografía de municipios (`tlajomulco` vs `tlajomulco de zuniga` convivían como si
+fueran distintos) y se resolvieron **35 contradicciones del propio perito** — casos donde había
+contestado dos variantes del mismo nombre en tandas distintas con décadas diferentes.
+
+**Dos errores míos, detectados por los self-checks antes de llegar a producción:** al alinear
+variantes de escritura empaté `mirador de san isidro` con su llave `|zapopan` y el índice
+descartó las dos (los empates no se resuelven, se saltan); y alineé `ciudad bugambilia` de 1980s
+a 1970s, comiéndome justo la distinción trazo/edificación que perseguíamos todo el día — el
+1980s de Wikipedia era el correcto.
+
+Se parquearon con handoff dos cosas que nacieron aquí: el plan aprobado de **décadas sugeridas**
+en el formulario de avalúo y en Verificación por Zona (`~/.claude/plans/toasty-bouncing-crane.md`
+— nota: `decada_de()` está probado desde hace semanas y **ningún endpoint lo llama**), y el
+**selector de acabados** para afinar la edad por puntos
+(`Manual-Arquitectura-ZMG\PENDIENTE_Acabados_Selector.md`).
+
+---
+
 ## 3 Ago 2026 (tarde) — purga de colonias_decada, núcleos históricos y manual de arquitectura
 
 Sesión de datos, en paralelo a la de features/deploy. No se tocó el motor ni `server.py`.

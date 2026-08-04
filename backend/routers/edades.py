@@ -135,6 +135,10 @@ TIPOS_CANON = {"casa", "departamento", "terreno", "terreno_construido", "local",
                "conjunto_mini_deptos", "hotel", "escuela", "salon_eventos",
                "centro_comercial", "nave_industrial"}
 
+CALIDAD_CONSTRUCCION_VALIDAS = {
+    "Lujo", "Superior", "Medio Alto", "Medio Medio", "Medio Bajo", "Económico", "Interés Social",
+}
+
 CONSERVACION_VALIDAS = {
     "Nuevo", "Muy Bueno", "Bueno", "Regular Bueno", "Regular",
     "Regular Malo", "Malo", "Muy Malo",
@@ -324,6 +328,7 @@ async def edad_estimada(request: Request):
     edad_exacta = body.get("edad_exacta")
     anio_terminacion = body.get("anio_terminacion_estimado")
     conservacion = str(body.get("conservacion") or "").strip()
+    calidad_construccion = str(body.get("calidad_construccion") or "").strip()
     anio_remod = body.get("anio_remodelacion")
     grado_remod = str(body.get("grado_remodelacion") or "").strip().lower()
     colonia_fix = str(body.get("colonia") or "").strip()[:60]
@@ -387,6 +392,8 @@ async def edad_estimada(request: Request):
         raise HTTPException(status_code=400, detail="Falta id_unico")
     if conservacion and conservacion not in CONSERVACION_VALIDAS:
         raise HTTPException(status_code=400, detail=f"Conservación inválida: {conservacion}")
+    if calidad_construccion and calidad_construccion not in CALIDAD_CONSTRUCCION_VALIDAS:
+        raise HTTPException(status_code=400, detail=f"Calidad de construcción inválida: {calidad_construccion}")
     if grado_remod and grado_remod not in GRADO_REMOD_P:
         raise HTTPException(status_code=400, detail=f"Grado de remodelación inválido: {grado_remod}")
     if tipo_fix and tipo_fix not in TIPOS_CANON:
@@ -442,8 +449,8 @@ async def edad_estimada(request: Request):
         if not (1900 <= anio_remod_val <= ahora.year + 1):
             raise HTTPException(status_code=400, detail="Año de remodelación fuera de rango")
 
-    if not tiene_edad and not conservacion and not grado_remod and not colonia_fix and not municipio_fix and not poblacion_fix and not tipo_fix and not uso_mixto and not retirado and not datos_basura and not en_juicio and nivel_val is None and not revisado and not conjunto and m2t_val is None and m2c_val is None:
-        raise HTTPException(status_code=400, detail="Falta edad, conservación, remodelación, colonia, tipo, nivel, retiro, m², conjunto, datos incorrectos o juicio/remate")
+    if not tiene_edad and not conservacion and not calidad_construccion and not grado_remod and not colonia_fix and not municipio_fix and not poblacion_fix and not tipo_fix and not uso_mixto and not retirado and not datos_basura and not en_juicio and nivel_val is None and not revisado and not conjunto and m2t_val is None and m2c_val is None:
+        raise HTTPException(status_code=400, detail="Falta edad, conservación, calidad, remodelación, colonia, tipo, nivel, retiro, m², conjunto, datos incorrectos o juicio/remate")
 
     if tiene_edad:
         if anio is not None:
@@ -456,6 +463,9 @@ async def edad_estimada(request: Request):
     if conservacion:
         update["conservacion"] = conservacion
         update["conservacion_fuente"] = "perito_crowdsource"
+    if calidad_construccion:
+        update["calidad_construccion"] = calidad_construccion
+        update["calidad_construccion_fuente"] = "perito_crowdsource"
     if grado_remod:
         update["grado_remodelacion"] = grado_remod
         if anio_remod_val:

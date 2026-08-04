@@ -36,6 +36,12 @@ const AGE_RANGES = [
 const CONSERVACIONES = [
   "Nuevo", "Muy Bueno", "Bueno", "Regular Bueno", "Regular", "Regular Malo", "Malo", "Muy Malo",
 ];
+// Calidad de construcción (materiales/acabados) — mismo eje que usa el formulario
+// de avalúo (ValuationForm). Distinto de conservación: una casa vieja puede ser
+// de calidad Lujo, y una nueva de Interés Social.
+const CALIDADES_CONSTRUCCION = [
+  "Lujo", "Superior", "Medio Alto", "Medio Medio", "Medio Bajo", "Económico", "Interés Social",
+];
 // Grado de remodelación → con el año calcula la edad efectiva ponderada.
 const GRADOS_REMOD = [
   { value: "ligera", label: "Ligera / cosmética", hint: "(pintura, pisos, un baño o cocina)" },
@@ -43,9 +49,8 @@ const GRADOS_REMOD = [
   { value: "intermedia", label: "Intermedia", hint: "(acabados + instalaciones)" },
   { value: "completa", label: "Completa", hint: "(+ estructura, casi nueva)" },
 ];
-// Rango de antigüedad de la remodelación (si no se sabe el año exacto). Una
-// remodelación relevante es reciente → tope 30 años. `mid` = punto medio en años,
-// se convierte a año = añoActual − mid.
+// Rango de antigüedad de la remodelación (si no se sabe el año exacto).
+// `mid` = punto medio en años, se convierte a año = añoActual − mid.
 const REMOD_RANGES = [
   { value: "reciente", label: "Reciente (< 1 año)", mid: 0 },
   { value: "1-5",   label: "1–5 años",   mid: 3 },
@@ -54,6 +59,8 @@ const REMOD_RANGES = [
   { value: "16-20", label: "16–20 años", mid: 18 },
   { value: "21-25", label: "21–25 años", mid: 23 },
   { value: "26-30", label: "26–30 años", mid: 28 },
+  { value: "31-40", label: "31–40 años", mid: 35 },
+  { value: "40+",   label: "Más de 40 años", mid: 45 },
 ];
 
 const TIPOS = ["Casa", "Departamento", "Terreno", "Local", "Oficina", "Rancho"];
@@ -281,6 +288,7 @@ const EdadesZonaPage = ({ embedded = false }) => {
   const [anioConst, setAnioConst] = useState({});   // año construcción exacto
   const [anioTerminacion, setAnioTerminacion] = useState({}); // preventa: año probable de terminación
   const [conserv, setConserv]     = useState({});   // estado de conservación
+  const [calidadConstr, setCalidadConstr] = useState({}); // calidad de construcción
   const [remodGrado, setRemodGrado] = useState({}); // grado de remodelación
   const [remodAnio, setRemodAnio]   = useState({}); // año de remodelación (exacto)
   const [remodRango, setRemodRango] = useState({}); // antigüedad remod por rango (si no hay año)
@@ -436,6 +444,7 @@ const EdadesZonaPage = ({ embedded = false }) => {
     } else if (anioConst[id]) p.anio_exacto = Number(anioConst[id]);
     else if (edadRango[id]) p.edad_rango = edadRango[id];
     if (conserv[id]) p.conservacion = conserv[id];
+    if (calidadConstr[id]) p.calidad_construccion = calidadConstr[id];
     if (remodGrado[id]) {
       p.grado_remodelacion = remodGrado[id];
       if (remodAnio[id]) {
@@ -837,6 +846,16 @@ const EdadesZonaPage = ({ embedded = false }) => {
                     <SelectTrigger className={INP}><SelectValue placeholder="Estado" /></SelectTrigger>
                     <SelectContent>
                       {CONSERVACIONES.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                    </SelectContent>
+                  </Select>
+                </div>
+                {/* Calidad de construcción: eje aparte de conservación (materiales/acabados) */}
+                <div>
+                  <label className={LBL}>Calidad de construcción</label>
+                  <Select value={calidadConstr[it.id_unico] || ""} onValueChange={v => set(setCalidadConstr)(it.id_unico, v)}>
+                    <SelectTrigger className={INP}><SelectValue placeholder="Calidad" /></SelectTrigger>
+                    <SelectContent>
+                      {CALIDADES_CONSTRUCCION.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
                     </SelectContent>
                   </Select>
                 </div>
