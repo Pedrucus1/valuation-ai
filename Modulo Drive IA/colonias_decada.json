@@ -39095,16 +39095,15 @@
   "municipio_fuente": "cache_index"
  },
  "sendero de monteverde": {
-  "decada_ref": "2000s",
+  "decada_ref": "2010s",
   "decadas": [
-   "1990s",
-   "2000s",
-   "2010s"
+   "2010s",
+   "2020s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": null,
   "municipio_fuente": null
  },
@@ -39148,42 +39147,41 @@
   "municipio_fuente": null
  },
  "senderos de monte verde": {
-  "decada_ref": "2020s",
+  "decada_ref": "2010s",
   "decadas": [
    "2010s",
    "2020s"
   ],
   "nivel": "media",
-  "fuente": "plan-parcial",
+  "fuente": "manual",
   "confianza": "alta",
-  "confianza_puntos": 94,
+  "confianza_puntos": 86,
   "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "maestro"
  },
  "senderos de monte verde tlajomulco": {
-  "decada_ref": "2000s",
-  "decadas": [
-   "1990s",
-   "2000s",
-   "2010s"
-  ],
-  "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
-  "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "nombre"
- },
- "senderos de monteverde": {
-  "decada_ref": "2020s",
+  "decada_ref": "2010s",
   "decadas": [
    "2010s",
    "2020s"
   ],
   "nivel": "media",
-  "fuente": "plan-parcial",
+  "fuente": "manual",
   "confianza": "alta",
-  "confianza_puntos": 94,
+  "confianza_puntos": 86,
+  "municipio": "tlajomulco de zuniga",
+  "municipio_fuente": "nombre"
+ },
+ "senderos de monteverde": {
+  "decada_ref": "2010s",
+  "decadas": [
+   "2010s",
+   "2020s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "cache_index"
  },
@@ -43215,16 +43213,15 @@
   "municipio_fuente": null
  },
  "venta en senderos de monteverde": {
-  "decada_ref": "2000s",
+  "decada_ref": "2010s",
   "decadas": [
-   "1990s",
-   "2000s",
-   "2010s"
+   "2010s",
+   "2020s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": null,
   "municipio_fuente": null
  },
