@@ -1,9 +1,39 @@
-# Cola de revision de edades — colonias con comps y decada heuristica
+# Decada de edificacion de colonias de la Zona Metropolitana de Guadalajara
 
-614 colonias, 1139 comps dependen de ellas. Ordenadas por impacto.
+Necesito la decada en que se EDIFICO cada colonia de la lista. Todas son de
+Jalisco, Mexico: Guadalajara, Zapopan, San Pedro Tlaquepaque, Tonala,
+Tlajomulco de Zuniga, El Salto y la ribera de Chapala.
 
-Formato de respuesta: nombre: 1970s — o NO SE / BASURA. El numero entre corchetes
-son los anuncios reales que usan esa decada hoy.
+Cada linea trae el nombre, la decada que el sistema tiene hoy (puesta por una
+heuristica, suele estar mal) y entre corchetes cuantos anuncios reales dependen
+de ese dato. La decada de hoy es solo referencia: corrigela si esta mal.
+
+Responde SOLO con una linea por colonia, en este formato exacto:
+nombre: 1970s
+
+Decadas validas: 1900s, 1910s, 1920s, 1930s, 1940s, 1950s, 1960s, 1970s,
+1980s, 1990s, 2000s, 2010s, 2020s
+
+Reglas duras:
+- Es la decada de la EDIFICACION, no la del trazo ni la del registro municipal.
+  Un barrio trazado en 1900 pero construido en los 40 es 1940s.
+- Si NO estas seguro: nombre: NO SE
+- Si el nombre no es una colonia (frase de anuncio, nombre de torre suelto,
+  colonia de otra ciudad metida por error): nombre: BASURA
+- Si dos nombres de la lista son la misma colonia escrita distinto, dilo al
+  final en una nota; no hace falta que repitas la decada.
+- Prefiero 30 respuestas correctas y 55 "NO SE" que 85 adivinadas. Una decada
+  equivocada deprecia mal todos los anuncios de esa colonia.
+- No inventes. No completes por parecido con otra colonia.
+
+Ejemplo de respuesta:
+  chapultepec: 1920s
+  los frailes: 1990s
+  roma norte: BASURA
+  el mante: NO SE
+
+Van 8 tandas. Puedes contestar una tanda a la vez; el orden es por impacto,
+la Tanda 6 es la que mas pesa.
 
 ## Tanda 6 — 85 colonias, 359 comps
 
