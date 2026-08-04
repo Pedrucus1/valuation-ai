@@ -36479,7 +36479,8 @@
    "1980s",
    "1990s",
    "2000s",
-   "2010s"
+   "2010s",
+   "2020s"
   ],
   "nivel": "media",
   "fuente": "manual",
@@ -36488,7 +36489,7 @@
   "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "sepomex",
   "por_etapas": true,
-  "nota": "Pueblo originario y primer trazo urbano en 1970s; los fraccionamientos y secciones perifericas se expanden en 1990s y 2010s."
+  "nota": "Pueblo originario y primer trazo urbano en 1970s. El corredor Santa Anita - San Agustin se expande en 1990s-2000s y llega hasta Alta California y condominios vecinos en 2020s."
  },
  "san agustin poniente": {
   "decada_ref": "1990s",
@@ -38133,7 +38134,10 @@
    "1960s",
    "1970s",
    "1980s",
-   "1990s"
+   "1990s",
+   "2000s",
+   "2010s",
+   "2020s"
   ],
   "nivel": "media",
   "fuente": "manual",
@@ -38144,7 +38148,7 @@
   "nucleo_historico": true,
   "nucleo_tipo": "Pueblo",
   "por_etapas": true,
-  "nota": "Casco historico de los 1940s, pero la urbanizacion residencial masiva arranca en 1970s y sigue en 1980s-1990s. decada_ref es la edificacion masiva, no el casco."
+  "nota": "Pueblo viejo (casco de los 1940s) que se urbaniza en masa en los 1970s. En los 2000s se amplian los desarrollos, el corredor alcanza San Agustin y sigue hasta Alta California y los condominios cercanos, ya en 2020s. decada_ref es la urbanizacion masiva; la ventana cubre desde el casco hasta lo que se sigue construyendo."
  },
  "santa anita camino real": {
   "decada_ref": "1940s",
