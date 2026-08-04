@@ -2775,18 +2775,19 @@
   "municipio_fuente": "maestro"
  },
  "arcos zapopan": {
-  "decada_ref": "2000s",
+  "decada_ref": "1990s",
   "decadas": [
+   "1980s",
    "1990s",
-   "2000s",
-   "2010s"
+   "2000s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "zapopan",
-  "municipio_fuente": "nombre"
+  "municipio_fuente": "nombre",
+  "alineada_a": "arcos de zapopan"
  },
  "arenales tapatios": {
   "decada_ref": "1980s",
@@ -5104,7 +5105,6 @@
  "bosques de santa anita": {
   "decada_ref": "1990s",
   "decadas": [
-   "1980s",
    "1990s",
    "2000s"
   ],
@@ -5127,7 +5127,8 @@
     "nivel": "media",
     "evidencia": "Predios boscosos al pie de La Primavera, camino a La Tijera: cotos residenciales campestres de alta gama. Ortofoto 2000 con 30-40% edificado y 2010 arriba del 90%: el grueso es de los 2000s, no de los 2010s como decía el cierre por cobertura. |  |  |  | investigación documental del usuario, no lámina catastral"
    }
-  }
+  },
+  "nota": "Desarrollo por etapas: se edifica desde los 1990s y continua en los 2000s. decada_ref es el arranque, no el promedio."
  },
  "bosques de santa anita monteza": {
   "decada_ref": "1990s",
@@ -5287,7 +5288,6 @@
  "bosques santa anita": {
   "decada_ref": "1990s",
   "decadas": [
-   "1980s",
    "1990s",
    "2000s"
   ],
@@ -5296,7 +5296,8 @@
   "confianza": "alta",
   "confianza_puntos": 86,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "sepomex"
+  "municipio_fuente": "sepomex",
+  "nota": "Desarrollo por etapas: se edifica desde los 1990s y continua en los 2000s. decada_ref es el arranque, no el promedio."
  },
  "bosques vallarta": {
   "decada_ref": "2010s",
@@ -6871,32 +6872,37 @@
   "municipio_fuente": "nombre"
  },
  "centro guadalajara": {
-  "decada_ref": "1910s",
+  "decada_ref": "1900s",
   "decadas": [
    "1900s",
    "1910s",
-   "1920s"
+   "1920s",
+   "1930s",
+   "1940s",
+   "1950s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
-  "municipio_fuente": "nombre"
+  "municipio_fuente": "nombre",
+  "alineada_a": "guadalajara centro"
  },
  "centro tonala": {
-  "decada_ref": "1980s",
+  "decada_ref": "1940s",
   "decadas": [
-   "1970s",
-   "1980s",
-   "1990s"
+   "1930s",
+   "1940s",
+   "1950s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "tonala",
-  "municipio_fuente": "nombre"
+  "municipio_fuente": "nombre",
+  "alineada_a": "tonala centro"
  },
  "cerezo": {
   "decada_ref": "1990s",
@@ -7543,17 +7549,18 @@
   "municipio_fuente": "sepomex"
  },
  "ciudad bugambilia": {
-  "decada_ref": "1980s",
+  "decada_ref": "1970s",
   "decadas": [
    "1970s",
    "1980s"
   ],
   "nivel": "media",
-  "fuente": "wikipedia",
-  "confianza": "media",
-  "confianza_puntos": 64,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "zapopan",
-  "municipio_fuente": "sepomex"
+  "municipio_fuente": "sepomex",
+  "alineada_a": "ciudad bugambilias"
  },
  "ciudad bugambilias": {
   "decada_ref": "1970s",
@@ -8151,17 +8158,19 @@
   "municipio_fuente": "sepomex"
  },
  "colinas del centinela": {
-  "decada_ref": "2000s",
+  "decada_ref": "1990s",
   "decadas": [
+   "1980s",
    "1990s",
    "2000s"
   ],
   "nivel": "media",
-  "fuente": "plan-parcial",
-  "confianza": "media",
-  "confianza_puntos": 52,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "zapopan",
-  "municipio_fuente": "sepomex"
+  "municipio_fuente": "sepomex",
+  "alineada_a": "colinas el centinela"
  },
  "colinas del desarroyo": {
   "decada_ref": "2000s",
@@ -8398,18 +8407,19 @@
   "municipio_fuente": "sepomex"
  },
  "colli urbano": {
-  "decada_ref": "1970s",
+  "decada_ref": "1980s",
   "decadas": [
-   "1960s",
    "1970s",
-   "1980s"
+   "1980s",
+   "1990s"
   ],
   "nivel": "media-alta",
-  "fuente": "plan-parcial",
-  "confianza": "media",
-  "confianza_puntos": 72,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "zapopan",
-  "municipio_fuente": "maestro"
+  "municipio_fuente": "maestro",
+  "alineada_a": "el colli urbano"
  },
  "colomos independencia": {
   "decada_ref": "1970s",
@@ -13543,18 +13553,19 @@
   "municipio_fuente": "sepomex"
  },
  "ermita": {
-  "decada_ref": "2000s",
+  "decada_ref": "1990s",
   "decadas": [
+   "1980s",
    "1990s",
-   "2000s",
-   "2010s"
+   "2000s"
   ],
   "nivel": "media",
-  "fuente": "plan-parcial",
-  "confianza": "media",
-  "confianza_puntos": 72,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "el salto",
-  "municipio_fuente": "sepomex"
+  "municipio_fuente": "sepomex",
+  "alineada_a": "la ermita"
  },
  "escandon i": {
   "decada_ref": "1990s",
@@ -15490,17 +15501,19 @@
   "municipio_fuente": null
  },
  "hacienda real": {
-  "decada_ref": "2000s",
+  "decada_ref": "1990s",
   "decadas": [
-   "2000s",
-   "2010s"
+   "1980s",
+   "1990s",
+   "2000s"
   ],
   "nivel": "media",
-  "fuente": "plan-parcial",
-  "confianza": "media",
-  "confianza_puntos": 72,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "tonala",
-  "municipio_fuente": "maestro"
+  "municipio_fuente": "maestro",
+  "alineada_a": "hacienda del real"
  },
  "hacienda real de colima": {
   "decada_ref": "2010s",
@@ -15724,18 +15737,19 @@
   "municipio_fuente": "maestro"
  },
  "haciendas de chapala": {
-  "decada_ref": "1960s",
+  "decada_ref": "1970s",
   "decadas": [
-   "1950s",
    "1960s",
-   "1970s"
+   "1970s",
+   "1980s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "chapala",
-  "municipio_fuente": "cache_index"
+  "municipio_fuente": "cache_index",
+  "alineada_a": "chapala haciendas"
  },
  "haciendas de la reyna": {
   "decada_ref": "2000s",
@@ -15794,32 +15808,34 @@
   "municipio_fuente": "cache_index"
  },
  "haciendas de tonala": {
-  "decada_ref": "1970s",
-  "decadas": [
-   "1960s",
-   "1970s",
-   "1980s"
-  ],
-  "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 36,
-  "municipio": "tonala",
-  "municipio_fuente": "sepomex"
- },
- "haciendas de vista hermosa": {
   "decada_ref": "2000s",
   "decadas": [
    "1990s",
    "2000s",
    "2010s"
   ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "municipio": "tonala",
+  "municipio_fuente": "sepomex",
+  "alineada_a": "haciendas tonala"
+ },
+ "haciendas de vista hermosa": {
+  "decada_ref": "1970s",
+  "decadas": [
+   "1960s",
+   "1970s",
+   "1980s"
+  ],
   "nivel": "popular",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "san pedro tlaquepaque",
-  "municipio_fuente": "cache_index"
+  "municipio_fuente": "cache_index",
+  "alineada_a": "haciendas vista hermosa"
  },
  "haciendas de zapopan": {
   "decada_ref": "2000s",
@@ -18243,18 +18259,19 @@
   "municipio_fuente": "sepomex"
  },
  "jardines de vallarta": {
-  "decada_ref": "1960s",
+  "decada_ref": "1970s",
   "decadas": [
-   "1950s",
    "1960s",
-   "1970s"
+   "1970s",
+   "1980s"
   ],
-  "fuente": "plan-parcial",
-  "confianza": "media",
+  "fuente": "manual",
+  "confianza": "alta",
   "nivel": "media",
-  "confianza_puntos": 72,
+  "confianza_puntos": 86,
   "municipio": "zapopan",
-  "municipio_fuente": "maestro"
+  "municipio_fuente": "maestro",
+  "alineada_a": "jardines vallarta"
  },
  "jardines de verano": {
   "decada_ref": "1990s",
@@ -18572,18 +18589,19 @@
   "municipio_fuente": "sepomex"
  },
  "jardines del tepeyac": {
-  "decada_ref": "1970s",
+  "decada_ref": "1960s",
   "decadas": [
+   "1950s",
    "1960s",
-   "1970s",
-   "1980s"
+   "1970s"
   ],
-  "fuente": "plan-parcial",
-  "confianza": "media",
+  "fuente": "manual",
+  "confianza": "alta",
   "nivel": "media",
-  "confianza_puntos": 72,
+  "confianza_puntos": 86,
   "municipio": "zapopan",
-  "municipio_fuente": "maestro"
+  "municipio_fuente": "maestro",
+  "alineada_a": "jardines tepeyac"
  },
  "jardines del valle": {
   "decada_ref": "2000s",
@@ -19190,19 +19208,19 @@
   "municipio_fuente": null
  },
  "la alameda": {
-  "decada_ref": "2000s",
+  "decada_ref": "1980s",
   "decadas": [
+   "1970s",
    "1980s",
-   "1990s",
-   "2000s",
-   "2010s"
+   "1990s"
   ],
   "nivel": "media",
-  "fuente": "plan-parcial",
-  "confianza": "media",
-  "confianza_puntos": 46,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "maestro"
+  "municipio_fuente": "maestro",
+  "alineada_a": "alameda"
  },
  "la alberca": {
   "decada_ref": "1980s",
@@ -19713,20 +19731,19 @@
   ]
  },
  "la cima zapopan": {
-  "decada_ref": "2000s",
+  "decada_ref": "2010s",
   "decadas": [
-   "1980s",
-   "1990s",
    "2000s",
    "2010s",
    "2020s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "zapopan",
-  "municipio_fuente": "nombre"
+  "municipio_fuente": "nombre",
+  "alineada_a": "la cima de zapopan"
  },
  "la cofradia": {
   "decada_ref": "1980s",
@@ -20012,18 +20029,19 @@
   "municipio_fuente": "sepomex"
  },
  "la esperanza": {
-  "decada_ref": "1980s",
+  "decada_ref": "1970s",
   "decadas": [
+   "1960s",
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "popular",
-  "fuente": "plan-parcial",
-  "confianza": "media",
-  "confianza_puntos": 48,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "guadalajara",
-  "municipio_fuente": "maestro"
+  "municipio_fuente": "maestro",
+  "alineada_a": "esperanza"
  },
  "la esperanza la federacha": {
   "decada_ref": "1970s",
@@ -20266,18 +20284,19 @@
   "municipio_fuente": "maestro"
  },
  "la gloria del colli": {
-  "decada_ref": "1970s",
+  "decada_ref": "1990s",
   "decadas": [
-   "1960s",
-   "1970s",
-   "1980s"
+   "1980s",
+   "1990s",
+   "2000s"
   ],
-  "fuente": "plan-parcial",
-  "confianza": "media",
+  "fuente": "manual",
+  "confianza": "alta",
   "nivel": "media",
-  "confianza_puntos": 72,
+  "confianza_puntos": 86,
   "municipio": "zapopan",
-  "municipio_fuente": "maestro"
+  "municipio_fuente": "maestro",
+  "alineada_a": "glorias del colli"
  },
  "la grana": {
   "decada_ref": "2000s",
@@ -28949,19 +28968,19 @@
   "municipio_fuente": null
  },
  "ojo de agua": {
-  "decada_ref": "2000s",
+  "decada_ref": "1990s",
   "decadas": [
    "1980s",
    "1990s",
-   "2000s",
-   "2010s"
+   "2000s"
   ],
   "nivel": "media",
-  "fuente": "plan-parcial",
-  "confianza": "media",
-  "confianza_puntos": 47,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "maestro"
+  "municipio_fuente": "maestro",
+  "alineada_a": "el ojo de agua"
  },
  "ojo de agua 2da etapa": {
   "decada_ref": "2000s",
@@ -29034,19 +29053,19 @@
   "municipio_fuente": "sepomex"
  },
  "olivos tlaquepaque": {
-  "decada_ref": "1980s",
+  "decada_ref": "1990s",
   "decadas": [
-   "1960s",
-   "1970s",
    "1980s",
-   "1990s"
+   "1990s",
+   "2000s"
   ],
   "nivel": "media",
-  "fuente": "plan-parcial",
-  "confianza": "media",
-  "confianza_puntos": 57,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "san pedro tlaquepaque",
-  "municipio_fuente": "cache_index"
+  "municipio_fuente": "cache_index",
+  "alineada_a": "los olivos de tlaquepaque"
  },
  "olmos": {
   "decada_ref": "2000s",
@@ -30021,16 +30040,16 @@
   "municipio_fuente": "cache_index"
  },
  "parques santa cruz del valle": {
-  "decada_ref": "1980s",
+  "decada_ref": "1990s",
   "decadas": [
-   "1970s",
    "1980s",
-   "1990s"
+   "1990s",
+   "2000s"
   ],
   "nivel": "media",
-  "fuente": "plan-parcial",
-  "confianza": "media",
-  "confianza_puntos": 51,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "san pedro tlaquepaque",
   "municipio_fuente": "perito_correccion",
   "por_municipio": {
@@ -30046,7 +30065,8 @@
     "nivel": "media",
     "evidencia": "Ejidos de Santa Cruz del Valle junto al Periférico Sur: fraccionamientos de interés social. Ortofoto 2000 con 30-40% y 2010 arriba del 95%: confirma el 2000s que ya tenía, ahora con evidencia. Coincide con la lámina catastral 2020 zona 49 ya confirmada. |  |  |  | investigación documental del usuario, no lámina catastral"
    }
-  }
+  },
+  "alineada_a": "parques de santa cruz del valle"
  },
  "parques tesistan": {
   "decada_ref": "2000s",
@@ -30119,18 +30139,19 @@
   "municipio_fuente": null
  },
  "parques zapopan": {
-  "decada_ref": "1980s",
+  "decada_ref": "1990s",
   "decadas": [
-   "1970s",
    "1980s",
-   "1990s"
+   "1990s",
+   "2000s"
   ],
-  "fuente": "plan-parcial",
-  "confianza": "media",
+  "fuente": "manual",
+  "confianza": "alta",
   "nivel": "media",
-  "confianza_puntos": 72,
+  "confianza_puntos": 86,
   "municipio": "zapopan",
-  "municipio_fuente": "nombre"
+  "municipio_fuente": "nombre",
+  "alineada_a": "parques de zapopan"
  },
  "parquess vallarta": {
   "decada_ref": "2010s",
@@ -33430,18 +33451,19 @@
   "municipio_fuente": "sepomex"
  },
  "rancho de la cruz": {
-  "decada_ref": "2000s",
+  "decada_ref": "1990s",
   "decadas": [
+   "1980s",
    "1990s",
-   "2000s",
-   "2010s"
+   "2000s"
   ],
   "nivel": "media",
-  "fuente": "plan-parcial",
-  "confianza": "media",
-  "confianza_puntos": 54,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "tonala",
-  "municipio_fuente": "cache_index"
+  "municipio_fuente": "cache_index",
+  "alineada_a": "rancho la cruz"
  },
  "rancho el centinela": {
   "decada_ref": "1980s",
@@ -45503,18 +45525,19 @@
   "municipio_fuente": "sepomex"
  },
  "vistas del pinar": {
-  "decada_ref": "1960s",
+  "decada_ref": "2000s",
   "decadas": [
-   "1950s",
-   "1960s",
-   "1970s"
+   "1990s",
+   "2000s",
+   "2010s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "zapopan",
-  "municipio_fuente": "sepomex"
+  "municipio_fuente": "sepomex",
+  "alineada_a": "vista del pinar"
  },
  "vistas del rey": {
   "decada_ref": "1980s",
@@ -45574,18 +45597,19 @@
   "nota": "No es Guadalajara: colinda con El Tesoro (cerro del Tesoro / periferico sur), limite Tlaquepaque-Zapopan. Fraccionamiento de densidad media/alta consolidado desde los 2000, fuera del Periferico."
  },
  "vistas del tonallan": {
-  "decada_ref": "1970s",
+  "decada_ref": "2000s",
   "decadas": [
-   "1960s",
-   "1970s",
-   "1980s"
+   "1990s",
+   "2000s",
+   "2010s"
   ],
   "nivel": "media",
-  "fuente": "heuristica-anillo",
-  "confianza": "baja",
-  "confianza_puntos": 25,
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
   "municipio": "tonala",
-  "municipio_fuente": "sepomex"
+  "municipio_fuente": "sepomex",
+  "alineada_a": "vistas tonallan"
  },
  "vistas del tule i": {
   "decada_ref": "2000s",
