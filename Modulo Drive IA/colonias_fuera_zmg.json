@@ -20,6 +20,12 @@
   "clave": "anzures|chapala"
  },
  {
+  "colonia": "anzures",
+  "municipio": "tonala",
+  "clave": "anzures|tonala",
+  "razon": "foranea ya contestada"
+ },
+ {
   "colonia": "Atlixco Centro",
   "municipio": "chapala",
   "clave": "atlixco centro|chapala"
@@ -70,6 +76,12 @@
   "clave": "bosques de las lomas|chapala"
  },
  {
+  "colonia": "bosques de las lomas",
+  "municipio": "tonala",
+  "clave": "bosques de las lomas|tonala",
+  "razon": "foranea ya contestada"
+ },
+ {
   "colonia": "Burgos Bugambilias",
   "municipio": "chapala",
   "clave": "burgos bugambilias|chapala"
@@ -93,6 +105,12 @@
   "colonia": "Cancun Centro",
   "municipio": "el salto",
   "clave": "cancun centro|el salto"
+ },
+ {
+  "colonia": "cancun centro",
+  "municipio": "tonala",
+  "clave": "cancun centro|tonala",
+  "razon": "foranea ya contestada"
  },
  {
   "colonia": "Cancun",
@@ -130,6 +148,12 @@
   "clave": "ciudad de cancun|el salto"
  },
  {
+  "colonia": "ciudad de cancun",
+  "municipio": "tonala",
+  "clave": "ciudad de cancun|tonala",
+  "razon": "foranea ya contestada"
+ },
+ {
   "colonia": "Ciudad Satelite",
   "municipio": "chapala",
   "clave": "ciudad satelite|chapala"
@@ -150,14 +174,32 @@
   "clave": "condesa|cuauhtemoc"
  },
  {
+  "colonia": "condesa",
+  "municipio": "tonala",
+  "clave": "condesa|tonala",
+  "razon": "foranea ya contestada"
+ },
+ {
   "colonia": "Contadero",
   "municipio": "cuajimalpa de morelos",
   "clave": "contadero|cuajimalpa de morelos"
  },
  {
+  "colonia": "contadero",
+  "municipio": "tonala",
+  "clave": "contadero|tonala",
+  "razon": "foranea ya contestada"
+ },
+ {
   "colonia": "Cuajimalpa",
   "municipio": "chapala",
   "clave": "cuajimalpa|chapala"
+ },
+ {
+  "colonia": "cuajimalpa",
+  "municipio": "tonala",
+  "clave": "cuajimalpa|tonala",
+  "razon": "foranea ya contestada"
  },
  {
   "colonia": "Cuautlancingo",
@@ -195,6 +237,12 @@
   "clave": "escandon 1 seccion|miguel hidalgo"
  },
  {
+  "colonia": "escandon i seccion",
+  "municipio": "tonala",
+  "clave": "escandon 1 seccion|tonala",
+  "razon": "foranea ya contestada"
+ },
+ {
   "colonia": "Excelente Inversion",
   "municipio": "guadalajara",
   "clave": "excelente inversion|guadalajara"
@@ -215,9 +263,33 @@
   "clave": "granjas estrella|chapala"
  },
  {
+  "colonia": "guadalajara",
+  "municipio": "chapala",
+  "clave": "guadalajara|chapala",
+  "razon": "no es colonia"
+ },
+ {
+  "colonia": "guadalajara",
+  "municipio": "guadalajara",
+  "clave": "guadalajara|guadalajara",
+  "razon": "no es colonia"
+ },
+ {
+  "colonia": "guadalajara",
+  "municipio": "tonala",
+  "clave": "guadalajara|tonala",
+  "razon": "no es colonia"
+ },
+ {
   "colonia": "Hacienda de las Palmas",
   "municipio": "chapala",
   "clave": "hacienda de las palmas|chapala"
+ },
+ {
+  "colonia": "hacienda de las palmas",
+  "municipio": "tonala",
+  "clave": "hacienda de las palmas|tonala",
+  "razon": "foranea ya contestada"
  },
  {
   "colonia": "Heroes de Padierna",
@@ -228,6 +300,12 @@
   "colonia": "Hipódromo Condesa",
   "municipio": "tlajomulco de zuniga",
   "clave": "hipodromo condesa|tlajomulco de zuniga"
+ },
+ {
+  "colonia": "hipodromo condesa",
+  "municipio": "tonala",
+  "clave": "hipodromo condesa|tonala",
+  "razon": "foranea ya contestada"
  },
  {
   "colonia": "Insurgentes Cuicuilco",
@@ -300,6 +378,12 @@
   "clave": "lagos del sol|chapala"
  },
  {
+  "colonia": "lagos del sol",
+  "municipio": "tonala",
+  "clave": "lagos del sol|tonala",
+  "razon": "foranea ya contestada"
+ },
+ {
   "colonia": "Lagos del Sol",
   "municipio": "zapopan",
   "clave": "lagos del sol|zapopan"
@@ -328,6 +412,12 @@
   "colonia": "Lomas de Cocoyoc",
   "municipio": "tlajomulco de zuniga",
   "clave": "lomas de cocoyoc|tlajomulco de zuniga"
+ },
+ {
+  "colonia": "ionamiento lomas de cocoyoc",
+  "municipio": "tonala",
+  "clave": "lomas de cocoyoc|tonala",
+  "razon": "foranea ya contestada"
  },
  {
   "colonia": "Lomas de Cuernavaca",
@@ -370,6 +460,12 @@
   "clave": "los alpes|alvaro obregon"
  },
  {
+  "colonia": "los alpes",
+  "municipio": "tonala",
+  "clave": "los alpes|tonala",
+  "razon": "foranea ya contestada"
+ },
+ {
   "colonia": "Luxury Residence With Pool | Garage For 6 Cars",
   "municipio": "zapopan",
   "clave": "luxury residence with pool | garage for 6 cars|zapopan"
@@ -400,14 +496,50 @@
   "clave": "napoles|chapala"
  },
  {
+  "colonia": "napoles",
+  "municipio": "tonala",
+  "clave": "napoles|tonala",
+  "razon": "foranea ya contestada"
+ },
+ {
   "colonia": "Natuur Towers",
   "municipio": "chapala",
   "clave": "natuur towers|chapala"
  },
  {
+  "colonia": "palacio de gobierno del estado de jalisco",
+  "municipio": "guadalajara",
+  "clave": "palacio de gobierno del estado de jalisco|guadalajara",
+  "razon": "no es colonia"
+ },
+ {
+  "colonia": "parque industrial el alamo",
+  "municipio": "guadalajara",
+  "clave": "parque industrial el alamo|guadalajara",
+  "razon": "no es colonia"
+ },
+ {
+  "colonia": "parque industrial el bosque i",
+  "municipio": "san pedro tlaquepaque",
+  "clave": "parque industrial el bosque 1 seccion|san pedro tlaquepaque",
+  "razon": "no es colonia"
+ },
+ {
+  "colonia": "parque industrial tecnologico",
+  "municipio": "san pedro tlaquepaque",
+  "clave": "parque industrial tecnologico|san pedro tlaquepaque",
+  "razon": "no es colonia"
+ },
+ {
   "colonia": "Parque San Andrés",
   "municipio": "chapala",
   "clave": "parque san andres|chapala"
+ },
+ {
+  "colonia": "parque san andres",
+  "municipio": "tonala",
+  "clave": "parque san andres|tonala",
+  "razon": "foranea ya contestada"
  },
  {
   "colonia": "Playa del Carmen Centro",
@@ -418,6 +550,12 @@
   "colonia": "Playa del Carmen",
   "municipio": "chapala",
   "clave": "playa del carmen|chapala"
+ },
+ {
+  "colonia": "playa del carmen",
+  "municipio": "tonala",
+  "clave": "playa del carmen|tonala",
+  "razon": "foranea ya contestada"
  },
  {
   "colonia": "Pueblo Chelem",
@@ -440,9 +578,39 @@
   "clave": "queretaro|el salto"
  },
  {
+  "colonia": "queretaro",
+  "municipio": "tonala",
+  "clave": "queretaro|tonala",
+  "razon": "foranea ya contestada"
+ },
+ {
   "colonia": "Rancho Cortes",
   "municipio": "chapala",
   "clave": "rancho cortes|chapala"
+ },
+ {
+  "colonia": "rancho o rancheria el vado",
+  "municipio": "tonala",
+  "clave": "rancho o rancheria el vado|tonala",
+  "razon": "no es colonia"
+ },
+ {
+  "colonia": "rancho o rancheria san pedrito",
+  "municipio": "guadalajara",
+  "clave": "rancho o rancheria san pedrito|guadalajara",
+  "razon": "no es colonia"
+ },
+ {
+  "colonia": "rancho o rancheria san sebastian el grande",
+  "municipio": "tlajomulco de zuniga",
+  "clave": "rancho o rancheria san sebastian el grande|tlajomulco de zuniga",
+  "razon": "no es colonia"
+ },
+ {
+  "colonia": "rancho o rancheria vista del lago (country club)",
+  "municipio": "chapala",
+  "clave": "rancho o rancheria vista del lago country club|chapala",
+  "razon": "no es colonia"
  },
  {
   "colonia": "Rancho Santa Monica",
@@ -470,6 +638,12 @@
   "clave": "roma norte|cuauhtemoc"
  },
  {
+  "colonia": "roma norte",
+  "municipio": "tonala",
+  "clave": "roma norte|tonala",
+  "razon": "foranea ya contestada"
+ },
+ {
   "colonia": "Sale Dept. Colonies Tower",
   "municipio": "guadalajara",
   "clave": "sale dept. colonies tower|guadalajara"
@@ -493,6 +667,12 @@
   "colonia": "San Jeronimo Lidice",
   "municipio": "chapala",
   "clave": "san jeronimo lidice|chapala"
+ },
+ {
+  "colonia": "san jeronimo lidice",
+  "municipio": "tonala",
+  "clave": "san jeronimo lidice|tonala",
+  "razon": "foranea ya contestada"
  },
  {
   "colonia": "San Juan Cuautlancingo Centro",
@@ -525,9 +705,33 @@
   "clave": "san pedro de los pinos|alvaro obregon"
  },
  {
+  "colonia": "san pedro de los pinos",
+  "municipio": "tonala",
+  "clave": "san pedro de los pinos|tonala",
+  "razon": "foranea ya contestada"
+ },
+ {
+  "colonia": "san pedro tlaquepaque",
+  "municipio": "guadalajara",
+  "clave": "san pedro tlaquepaque|guadalajara",
+  "razon": "no es colonia"
+ },
+ {
+  "colonia": "san pedro tlaquepaque",
+  "municipio": "tonala",
+  "clave": "san pedro tlaquepaque|tonala",
+  "razon": "no es colonia"
+ },
+ {
   "colonia": "San Simon Ticumac",
   "municipio": "chapala",
   "clave": "san simon ticumac|chapala"
+ },
+ {
+  "colonia": "san simon ticumac",
+  "municipio": "tonala",
+  "clave": "san simon ticumac|tonala",
+  "razon": "foranea ya contestada"
  },
  {
   "colonia": "Santa Leticia",
@@ -538,6 +742,12 @@
   "colonia": "Santa María Nonoalco",
   "municipio": "el salto",
   "clave": "santa maria nonoalco|el salto"
+ },
+ {
+  "colonia": "santa maria nonoalco",
+  "municipio": "tonala",
+  "clave": "santa maria nonoalco|tonala",
+  "razon": "foranea ya contestada"
  },
  {
   "colonia": "Sofia Estate - Rural Property",
@@ -615,6 +825,12 @@
   "clave": "veronica anzures|chapala"
  },
  {
+  "colonia": "veronica anzures",
+  "municipio": "tonala",
+  "clave": "veronica anzures|tonala",
+  "razon": "foranea ya contestada"
+ },
+ {
   "colonia": "Via Cordillera",
   "municipio": "chapala",
   "clave": "via cordillera|chapala"
@@ -650,9 +866,21 @@
   "clave": "xotepingo|chapala"
  },
  {
+  "colonia": "xotepingo",
+  "municipio": "tonala",
+  "clave": "xotepingo|tonala",
+  "razon": "foranea ya contestada"
+ },
+ {
   "colonia": "Yucatan Country Club",
   "municipio": "chapala",
   "clave": "yucatan country club|chapala"
+ },
+ {
+  "colonia": "yucatan country club",
+  "municipio": "tonala",
+  "clave": "yucatan country club|tonala",
+  "razon": "foranea ya contestada"
  },
  {
   "colonia": "Zaru",
@@ -665,8 +893,38 @@
   "clave": "zibata|chapala"
  },
  {
+  "colonia": "zibata",
+  "municipio": "tonala",
+  "clave": "zibata|tonala",
+  "razon": "foranea ya contestada"
+ },
+ {
   "colonia": "Zibata",
   "municipio": "zapopan",
   "clave": "zibata|zapopan"
+ },
+ {
+  "colonia": "zona hotelera norte",
+  "municipio": "tlajomulco de zuniga",
+  "clave": "zona hotelera norte|tlajomulco de zuniga",
+  "razon": "no es colonia"
+ },
+ {
+  "colonia": "zona hotelera",
+  "municipio": "chapala",
+  "clave": "zona hotelera|chapala",
+  "razon": "no es colonia"
+ },
+ {
+  "colonia": "zona hotelera",
+  "municipio": "tlajomulco de zuniga",
+  "clave": "zona hotelera|tlajomulco de zuniga",
+  "razon": "no es colonia"
+ },
+ {
+  "colonia": "zona hotelera",
+  "municipio": "tonala",
+  "clave": "zona hotelera|tonala",
+  "razon": "no es colonia"
  }
 ]

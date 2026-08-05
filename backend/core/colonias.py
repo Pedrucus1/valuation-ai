@@ -71,6 +71,11 @@ _SEC_NUM_RE = re.compile(r"\bseccion\s+([ivx]+|\d+)\b", re.I)
 _ROM_RE = re.compile(r"\b([ivx]+)\b(?=\s*seccion|$)", re.I)
 _NUM_FIN_RE = re.compile(r"\b(\d+)$")
 _PUNTO_ORD_RE = re.compile(r"(\d+)\.\s*")
+# El punto de las siglas y abreviaturas no es parte del nombre, y venía de dos
+# formas: el catálogo guarda 'colli ctm' y el scraper manda 'colli c.t.m.'. Sin
+# quitarlo eran dos colonias distintas, igual que 'gral. real' contra 'gral real'.
+# Se aplica DESPUÉS del ordinal, que necesita ver el punto de '1a.' para su regla.
+_PUNTO_RE = re.compile(r"\.")
 # 'Los Robles Residencial' y 'Residencial Provenza' son las mismas colonias que
 # 'los robles' y 'provenza': el portal cuelga la palabra de un lado o del otro
 # segun el anuncio. Costaba 250 anuncios. Va aparte de _DECOR_RE porque puede
@@ -94,7 +99,7 @@ def norm_seccion(s):
     s = _SEC_NUM_RE.sub(r"\1 seccion", s)     # 'seccion i' → 'i seccion'
     s = _ROM_RE.sub(lambda m: _ROMANO.get(m.group(1).lower(), m.group(1)), s)
     s = _NUM_FIN_RE.sub(r"\1 seccion", s)     # 'plutarco elias calles 1' → '... 1 seccion'
-    return " ".join(s.split())
+    return " ".join(_PUNTO_RE.sub("", s).split())
 
 
 def norm_col_key(s):
@@ -175,6 +180,24 @@ def es_junk_colonia(v):
                  r"downtown|commercial|local in|zone|expo)\b", v.lower()):
         return True                      # frases de anuncio, no nombres de colonia
     return False
+
+
+@lru_cache(maxsize=1)
+def _truncadas():
+    """Nombres a los que el scraper les corto el principio, mapeados al del
+    catalogo: 'l independencia' → 'colonial independencia'. Sale de
+    `cerrar_residuo.py` (repo del manual), que solo acepta el caso en que el
+    texto es sufijo de UNA entrada, y vive en archivo en vez de en el codigo
+    porque crece con cada corrida del scraper, no con cada cambio de logica.
+
+    Aparte de `_RESTAURA`, que resuelve los dos truncados fijos y conocidos
+    ('omos'/'inas') dentro de la identidad. Este es una caida marcada, no una
+    identidad: si el nombre completo existe, ese manda."""
+    p = _DRIVE_IA / "colonias_truncadas.json"
+    if not p.exists():
+        return {}
+    return {norm_col_key(k): norm_col_key(v)
+            for k, v in json.loads(p.read_text(encoding="utf-8")).items()}
 
 
 def _banda(v):
@@ -275,7 +298,8 @@ def decada_de(nombre, municipio=None):
         # banda de la colonia, que es mejor que nada y peor que el dato — las
         # secciones se abren por etapas y pueden separarse una década. Sale
         # marcado ambiguo para que quien lo consuma baje la confianza.
-        for base, como in ((sin_residencial(nombre), "sin-residencial"),
+        for base, como in ((_truncadas().get(nk), "truncado-restaurado"),
+                           (sin_residencial(nombre), "sin-residencial"),
                            (sin_seccion(nombre), "colonia-madre")):
             if not base or base == nk:
                 continue
