@@ -1,0 +1,672 @@
+[
+ {
+  "colonia": "Ampliacion Acozac",
+  "municipio": "chapala",
+  "clave": "ampliacion acozac|chapala"
+ },
+ {
+  "colonia": "Ampliacion Alpes",
+  "municipio": "chapala",
+  "clave": "ampliacion alpes|chapala"
+ },
+ {
+  "colonia": "Ampliacion Reforma",
+  "municipio": "chapala",
+  "clave": "ampliacion reforma|chapala"
+ },
+ {
+  "colonia": "Anzures",
+  "municipio": "chapala",
+  "clave": "anzures|chapala"
+ },
+ {
+  "colonia": "Atlixco Centro",
+  "municipio": "chapala",
+  "clave": "atlixco centro|chapala"
+ },
+ {
+  "colonia": "Author Residence In Jardín Real",
+  "municipio": "zapopan",
+  "clave": "author residence in jardin real|zapopan"
+ },
+ {
+  "colonia": "Autlan de Navarro Centro",
+  "municipio": "autlan de navarro",
+  "clave": "autlan de navarro centro|autlan de navarro"
+ },
+ {
+  "colonia": "Avenida Vallarta",
+  "municipio": "zapopan",
+  "clave": "avenida vallarta|zapopan"
+ },
+ {
+  "colonia": "Axapusco",
+  "municipio": "chapala",
+  "clave": "axapusco|chapala"
+ },
+ {
+  "colonia": "Bacalar",
+  "municipio": "chapala",
+  "clave": "bacalar|chapala"
+ },
+ {
+  "colonia": "Bacalar",
+  "municipio": "el salto",
+  "clave": "bacalar|el salto"
+ },
+ {
+  "colonia": "Banderilla Centro",
+  "municipio": "chapala",
+  "clave": "banderilla centro|chapala"
+ },
+ {
+  "colonia": "Bosques Amalucan",
+  "municipio": "chapala",
+  "clave": "bosques amalucan|chapala"
+ },
+ {
+  "colonia": "Bosques de las Lomas",
+  "municipio": "chapala",
+  "clave": "bosques de las lomas|chapala"
+ },
+ {
+  "colonia": "Burgos Bugambilias",
+  "municipio": "chapala",
+  "clave": "burgos bugambilias|chapala"
+ },
+ {
+  "colonia": "Burgos Bugambilias",
+  "municipio": "tlajomulco de zuniga",
+  "clave": "burgos bugambilias|tlajomulco de zuniga"
+ },
+ {
+  "colonia": "Burgos",
+  "municipio": "chapala",
+  "clave": "burgos|chapala"
+ },
+ {
+  "colonia": "Cañadas del Arroyo",
+  "municipio": "tlajomulco de zuniga",
+  "clave": "canadas del arroyo|tlajomulco de zuniga"
+ },
+ {
+  "colonia": "Cancun Centro",
+  "municipio": "el salto",
+  "clave": "cancun centro|el salto"
+ },
+ {
+  "colonia": "Cancun",
+  "municipio": "chapala",
+  "clave": "cancun|chapala"
+ },
+ {
+  "colonia": "Cancun",
+  "municipio": "el salto",
+  "clave": "cancun|el salto"
+ },
+ {
+  "colonia": "Cancun",
+  "municipio": "tlajomulco de zuniga",
+  "clave": "cancun|tlajomulco de zuniga"
+ },
+ {
+  "colonia": "Carretera a Nogales",
+  "municipio": "zapopan",
+  "clave": "carretera a nogales|zapopan"
+ },
+ {
+  "colonia": "Casa de 3r y Excelente Trato en el Fortin",
+  "municipio": "zapopan",
+  "clave": "casa de 3r y excelente trato en el fortin|zapopan"
+ },
+ {
+  "colonia": "Cd Caucel",
+  "municipio": "tlajomulco de zuniga",
+  "clave": "cd caucel|tlajomulco de zuniga"
+ },
+ {
+  "colonia": "Ciudad de Cancun",
+  "municipio": "el salto",
+  "clave": "ciudad de cancun|el salto"
+ },
+ {
+  "colonia": "Ciudad Satelite",
+  "municipio": "chapala",
+  "clave": "ciudad satelite|chapala"
+ },
+ {
+  "colonia": "Club de Golf la Loma",
+  "municipio": "chapala",
+  "clave": "club de golf la loma|chapala"
+ },
+ {
+  "colonia": "Coba",
+  "municipio": "chapala",
+  "clave": "coba|chapala"
+ },
+ {
+  "colonia": "Condesa",
+  "municipio": "cuauhtemoc",
+  "clave": "condesa|cuauhtemoc"
+ },
+ {
+  "colonia": "Contadero",
+  "municipio": "cuajimalpa de morelos",
+  "clave": "contadero|cuajimalpa de morelos"
+ },
+ {
+  "colonia": "Cuajimalpa",
+  "municipio": "chapala",
+  "clave": "cuajimalpa|chapala"
+ },
+ {
+  "colonia": "Cuautlancingo",
+  "municipio": "chapala",
+  "clave": "cuautlancingo|chapala"
+ },
+ {
+  "colonia": "Cuernavaca Centro",
+  "municipio": "chapala",
+  "clave": "cuernavaca centro|chapala"
+ },
+ {
+  "colonia": "Del Valle Norte",
+  "municipio": "chapala",
+  "clave": "del valle norte|chapala"
+ },
+ {
+  "colonia": "Departments Governors Tower",
+  "municipio": "guadalajara",
+  "clave": "departments governors tower|guadalajara"
+ },
+ {
+  "colonia": "Enchanted Forest",
+  "municipio": "zapopan",
+  "clave": "enchanted forest|zapopan"
+ },
+ {
+  "colonia": "Epa One Block From The American Consulate",
+  "municipio": "guadalajara",
+  "clave": "epa one block from the american consulate|guadalajara"
+ },
+ {
+  "colonia": "Escandon 1 Sección",
+  "municipio": "miguel hidalgo",
+  "clave": "escandon 1 seccion|miguel hidalgo"
+ },
+ {
+  "colonia": "Excelente Inversion",
+  "municipio": "guadalajara",
+  "clave": "excelente inversion|guadalajara"
+ },
+ {
+  "colonia": "Exceptional Loft",
+  "municipio": "guadalajara",
+  "clave": "exceptional loft|guadalajara"
+ },
+ {
+  "colonia": "Fuentes de Tepepan",
+  "municipio": "tlajomulco de zuniga",
+  "clave": "fuentes de tepepan|tlajomulco de zuniga"
+ },
+ {
+  "colonia": "Granjas Estrella",
+  "municipio": "chapala",
+  "clave": "granjas estrella|chapala"
+ },
+ {
+  "colonia": "Hacienda de las Palmas",
+  "municipio": "chapala",
+  "clave": "hacienda de las palmas|chapala"
+ },
+ {
+  "colonia": "Heroes de Padierna",
+  "municipio": "el salto",
+  "clave": "heroes de padierna|el salto"
+ },
+ {
+  "colonia": "Hipódromo Condesa",
+  "municipio": "tlajomulco de zuniga",
+  "clave": "hipodromo condesa|tlajomulco de zuniga"
+ },
+ {
+  "colonia": "Insurgentes Cuicuilco",
+  "municipio": "chapala",
+  "clave": "insurgentes cuicuilco|chapala"
+ },
+ {
+  "colonia": "Insurgentes Cuicuilco",
+  "municipio": "zapopan",
+  "clave": "insurgentes cuicuilco|zapopan"
+ },
+ {
+  "colonia": "Interlomas",
+  "municipio": "chapala",
+  "clave": "interlomas|chapala"
+ },
+ {
+  "colonia": "Jardines de Queretaro",
+  "municipio": "chapala",
+  "clave": "jardines de queretaro|chapala"
+ },
+ {
+  "colonia": "Jardines de San Manuel",
+  "municipio": "chapala",
+  "clave": "jardines de san manuel|chapala"
+ },
+ {
+  "colonia": "Jardines de San Mateo",
+  "municipio": "chapala",
+  "clave": "jardines de san mateo|chapala"
+ },
+ {
+  "colonia": "Jardines en la Montaña",
+  "municipio": "el salto",
+  "clave": "jardines en la montana|el salto"
+ },
+ {
+  "colonia": "Jardines en la Montaña",
+  "municipio": "tlalpan",
+  "clave": "jardines en la montana|tlalpan"
+ },
+ {
+  "colonia": "Kavi Pre-sale Type 1 Sección",
+  "municipio": "guadalajara",
+  "clave": "kavi pre-sale type 1 seccion|guadalajara"
+ },
+ {
+  "colonia": "Kavi Pre-sale Type 2 Sección",
+  "municipio": "guadalajara",
+  "clave": "kavi pre-sale type 2 seccion|guadalajara"
+ },
+ {
+  "colonia": "Kavi Pre-sale Type 4 Sección",
+  "municipio": "guadalajara",
+  "clave": "kavi pre-sale type 4 seccion|guadalajara"
+ },
+ {
+  "colonia": "La Encomienda",
+  "municipio": "el salto",
+  "clave": "la encomienda|el salto"
+ },
+ {
+  "colonia": "La Rejoyada Residencial",
+  "municipio": "tlajomulco de zuniga",
+  "clave": "la rejoyada residencial|tlajomulco de zuniga"
+ },
+ {
+  "colonia": "Lagos del Sol",
+  "municipio": "chapala",
+  "clave": "lagos del sol|chapala"
+ },
+ {
+  "colonia": "Lagos del Sol",
+  "municipio": "zapopan",
+  "clave": "lagos del sol|zapopan"
+ },
+ {
+  "colonia": "Las Águilas 2o Parque",
+  "municipio": "alvaro obregon",
+  "clave": "las aguilas 2o parque|alvaro obregon"
+ },
+ {
+  "colonia": "Local With Tenant In North Capital",
+  "municipio": "zapopan",
+  "clave": "local with tenant in north capital|zapopan"
+ },
+ {
+  "colonia": "Lomas de Bezares",
+  "municipio": "miguel hidalgo",
+  "clave": "lomas de bezares|miguel hidalgo"
+ },
+ {
+  "colonia": "Lomas de Chapultepec",
+  "municipio": "chapala",
+  "clave": "lomas de chapultepec|chapala"
+ },
+ {
+  "colonia": "Lomas de Cocoyoc",
+  "municipio": "tlajomulco de zuniga",
+  "clave": "lomas de cocoyoc|tlajomulco de zuniga"
+ },
+ {
+  "colonia": "Lomas de Cuernavaca",
+  "municipio": "chapala",
+  "clave": "lomas de cuernavaca|chapala"
+ },
+ {
+  "colonia": "Lomas de Juriquilla",
+  "municipio": "zapopan",
+  "clave": "lomas de juriquilla|zapopan"
+ },
+ {
+  "colonia": "Lomas de la Herradura",
+  "municipio": "chapala",
+  "clave": "lomas de la herradura|chapala"
+ },
+ {
+  "colonia": "Lomas de San Lorenzo",
+  "municipio": "chapala",
+  "clave": "lomas de san lorenzo|chapala"
+ },
+ {
+  "colonia": "Lomas de Santa Fe",
+  "municipio": "alvaro obregon",
+  "clave": "lomas de santa fe|alvaro obregon"
+ },
+ {
+  "colonia": "Lomas de Sotelo",
+  "municipio": "chapala",
+  "clave": "lomas de sotelo|chapala"
+ },
+ {
+  "colonia": "Lomas Hipódromo",
+  "municipio": "tlajomulco de zuniga",
+  "clave": "lomas hipodromo|tlajomulco de zuniga"
+ },
+ {
+  "colonia": "Los Alpes",
+  "municipio": "alvaro obregon",
+  "clave": "los alpes|alvaro obregon"
+ },
+ {
+  "colonia": "Luxury Residence With Pool | Garage For 6 Cars",
+  "municipio": "zapopan",
+  "clave": "luxury residence with pool | garage for 6 cars|zapopan"
+ },
+ {
+  "colonia": "Mazamitla",
+  "municipio": "mazamitla",
+  "clave": "mazamitla|mazamitla"
+ },
+ {
+  "colonia": "Merida Centro",
+  "municipio": "chapala",
+  "clave": "merida centro|chapala"
+ },
+ {
+  "colonia": "Merida Centro",
+  "municipio": "zapopan",
+  "clave": "merida centro|zapopan"
+ },
+ {
+  "colonia": "Milenio 3 Sección",
+  "municipio": "chapala",
+  "clave": "milenio 3 seccion|chapala"
+ },
+ {
+  "colonia": "Napoles",
+  "municipio": "chapala",
+  "clave": "napoles|chapala"
+ },
+ {
+  "colonia": "Natuur Towers",
+  "municipio": "chapala",
+  "clave": "natuur towers|chapala"
+ },
+ {
+  "colonia": "Parque San Andrés",
+  "municipio": "chapala",
+  "clave": "parque san andres|chapala"
+ },
+ {
+  "colonia": "Playa del Carmen Centro",
+  "municipio": "zapopan",
+  "clave": "playa del carmen centro|zapopan"
+ },
+ {
+  "colonia": "Playa del Carmen",
+  "municipio": "chapala",
+  "clave": "playa del carmen|chapala"
+ },
+ {
+  "colonia": "Pueblo Chelem",
+  "municipio": "chapala",
+  "clave": "pueblo chelem|chapala"
+ },
+ {
+  "colonia": "Pueblo Telchac Puerto",
+  "municipio": "zapopan",
+  "clave": "pueblo telchac puerto|zapopan"
+ },
+ {
+  "colonia": "Puerto Cancun",
+  "municipio": "chapala",
+  "clave": "puerto cancun|chapala"
+ },
+ {
+  "colonia": "Queretaro",
+  "municipio": "el salto",
+  "clave": "queretaro|el salto"
+ },
+ {
+  "colonia": "Rancho Cortes",
+  "municipio": "chapala",
+  "clave": "rancho cortes|chapala"
+ },
+ {
+  "colonia": "Rancho Santa Monica",
+  "municipio": "chapala",
+  "clave": "rancho santa monica|chapala"
+ },
+ {
+  "colonia": "Residencial Chipinque",
+  "municipio": "chapala",
+  "clave": "residencial chipinque|chapala"
+ },
+ {
+  "colonia": "Residencial Foresta",
+  "municipio": "chapala",
+  "clave": "residencial foresta|chapala"
+ },
+ {
+  "colonia": "Rinconada Coapa",
+  "municipio": "chapala",
+  "clave": "rinconada coapa|chapala"
+ },
+ {
+  "colonia": "Roma Norte",
+  "municipio": "cuauhtemoc",
+  "clave": "roma norte|cuauhtemoc"
+ },
+ {
+  "colonia": "Sale Dept. Colonies Tower",
+  "municipio": "guadalajara",
+  "clave": "sale dept. colonies tower|guadalajara"
+ },
+ {
+  "colonia": "Sale Hotel Independence Mansion",
+  "municipio": "guadalajara",
+  "clave": "sale hotel independence mansion|guadalajara"
+ },
+ {
+  "colonia": "San Ángel",
+  "municipio": "alvaro obregon",
+  "clave": "san angel|alvaro obregon"
+ },
+ {
+  "colonia": "San Jeronimo Aculco",
+  "municipio": "chapala",
+  "clave": "san jeronimo aculco|chapala"
+ },
+ {
+  "colonia": "San Jeronimo Lidice",
+  "municipio": "chapala",
+  "clave": "san jeronimo lidice|chapala"
+ },
+ {
+  "colonia": "San Juan Cuautlancingo Centro",
+  "municipio": "chapala",
+  "clave": "san juan cuautlancingo centro|chapala"
+ },
+ {
+  "colonia": "San Juan Xalpa",
+  "municipio": "chapala",
+  "clave": "san juan xalpa|chapala"
+ },
+ {
+  "colonia": "San Luis de la Paz",
+  "municipio": "el salto",
+  "clave": "san luis de la paz|el salto"
+ },
+ {
+  "colonia": "San Luis Potosi",
+  "municipio": "chapala",
+  "clave": "san luis potosi|chapala"
+ },
+ {
+  "colonia": "San Pedro Cholula",
+  "municipio": "tlajomulco de zuniga",
+  "clave": "san pedro cholula|tlajomulco de zuniga"
+ },
+ {
+  "colonia": "San Pedro de los Pinos",
+  "municipio": "alvaro obregon",
+  "clave": "san pedro de los pinos|alvaro obregon"
+ },
+ {
+  "colonia": "San Simon Ticumac",
+  "municipio": "chapala",
+  "clave": "san simon ticumac|chapala"
+ },
+ {
+  "colonia": "Santa Leticia",
+  "municipio": "chapala",
+  "clave": "santa leticia|chapala"
+ },
+ {
+  "colonia": "Santa María Nonoalco",
+  "municipio": "el salto",
+  "clave": "santa maria nonoalco|el salto"
+ },
+ {
+  "colonia": "Sofia Estate - Rural Property",
+  "municipio": "zapopan",
+  "clave": "sofia estate - rural property|zapopan"
+ },
+ {
+  "colonia": "Supermanzana 7 Sección",
+  "municipio": "chapala",
+  "clave": "supermanzana 7 seccion|chapala"
+ },
+ {
+  "colonia": "Supermanzana",
+  "municipio": "el salto",
+  "clave": "supermanzana|el salto"
+ },
+ {
+  "colonia": "Tabacalera",
+  "municipio": "cuauhtemoc",
+  "clave": "tabacalera|cuauhtemoc"
+ },
+ {
+  "colonia": "Tacubaya",
+  "municipio": "tonala",
+  "clave": "tacubaya|tonala"
+ },
+ {
+  "colonia": "Temozon Norte",
+  "municipio": "tlajomulco de zuniga",
+  "clave": "temozon norte|tlajomulco de zuniga"
+ },
+ {
+  "colonia": "Tlaxcala",
+  "municipio": "chapala",
+  "clave": "tlaxcala|chapala"
+ },
+ {
+  "colonia": "Topo Chico",
+  "municipio": "chapala",
+  "clave": "topo chico|chapala"
+ },
+ {
+  "colonia": "Torre",
+  "municipio": "zapopan",
+  "clave": "torre|zapopan"
+ },
+ {
+  "colonia": "Tulum Centro",
+  "municipio": "tlajomulco de zuniga",
+  "clave": "tulum centro|tlajomulco de zuniga"
+ },
+ {
+  "colonia": "Tulum",
+  "municipio": "tlajomulco de zuniga",
+  "clave": "tulum|tlajomulco de zuniga"
+ },
+ {
+  "colonia": "Unidad Habitacional Villas Residencial Ix-lol-be",
+  "municipio": "chapala",
+  "clave": "unidad habitacional villas residencial ix-lol-be|chapala"
+ },
+ {
+  "colonia": "Valle de Fontanna",
+  "municipio": "chapala",
+  "clave": "valle de fontanna|chapala"
+ },
+ {
+  "colonia": "Valle de Lincoln",
+  "municipio": "chapala",
+  "clave": "valle de lincoln|chapala"
+ },
+ {
+  "colonia": "Veronica Anzures",
+  "municipio": "chapala",
+  "clave": "veronica anzures|chapala"
+ },
+ {
+  "colonia": "Via Cordillera",
+  "municipio": "chapala",
+  "clave": "via cordillera|chapala"
+ },
+ {
+  "colonia": "Via Cumbres",
+  "municipio": "tlajomulco de zuniga",
+  "clave": "via cumbres|tlajomulco de zuniga"
+ },
+ {
+  "colonia": "Villas del Meson",
+  "municipio": "el salto",
+  "clave": "villas del meson|el salto"
+ },
+ {
+  "colonia": "Villas Taurinas",
+  "municipio": "autlan de navarro",
+  "clave": "villas taurinas|autlan de navarro"
+ },
+ {
+  "colonia": "Volcan Fujiyama",
+  "municipio": "guadalajara",
+  "clave": "volcan fujiyama|guadalajara"
+ },
+ {
+  "colonia": "Xcumpich",
+  "municipio": "chapala",
+  "clave": "xcumpich|chapala"
+ },
+ {
+  "colonia": "Xotepingo",
+  "municipio": "chapala",
+  "clave": "xotepingo|chapala"
+ },
+ {
+  "colonia": "Yucatan Country Club",
+  "municipio": "chapala",
+  "clave": "yucatan country club|chapala"
+ },
+ {
+  "colonia": "Zaru",
+  "municipio": "chapala",
+  "clave": "zaru|chapala"
+ },
+ {
+  "colonia": "Zibata",
+  "municipio": "chapala",
+  "clave": "zibata|chapala"
+ },
+ {
+  "colonia": "Zibata",
+  "municipio": "zapopan",
+  "clave": "zibata|zapopan"
+ }
+]
