@@ -55,10 +55,29 @@ def norm_col_key(s):
     return _DECOR_RE.sub("", _restaura_trunc(s))
 
 
+# El mismo municipio escrito de dos maneras se estaba tratando como dos, y
+# `decada_de()` devolvía None creyendo que era una homónima de otro municipio.
+# 'tlaquepaque' es el nombre corto de San Pedro Tlaquepaque; Ajijic es una
+# localidad DENTRO de Chapala, no un municipio. Medido: 292 anuncios perdían la
+# década por esto, sin que hubiera homónima ninguna.
+_ALIAS_MUNI = {
+    "tlaquepaque": "san pedro tlaquepaque",
+    "ajijic": "chapala",
+    "chapala jalisco": "chapala",
+    "zapopan jalisco": "zapopan",
+    "guadalajara jalisco": "guadalajara",
+    "tlajomulco": "tlajomulco de zuniga",
+    "ixtlahuacan": "ixtlahuacan de los membrillos",
+    "acatlan": "acatlan de juarez",
+}
+
+
 def norm_muni(s):
-    """Sin acentos + minúsculas (SEPOMEX y nuestros nombres difieren en acentos)."""
+    """Sin acentos + minúsculas (SEPOMEX y nuestros nombres difieren en acentos),
+    y con los alias del mismo municipio colapsados — ver `_ALIAS_MUNI`."""
     s = unicodedata.normalize("NFD", (s or "").lower())
-    return "".join(c for c in s if unicodedata.category(c) != "Mn").strip()
+    s = "".join(c for c in s if unicodedata.category(c) != "Mn").strip()
+    return _ALIAS_MUNI.get(s, s)
 
 
 def es_junk_colonia(v):
@@ -149,7 +168,26 @@ def decada_de(nombre, municipio=None):
     v = decada[llave]
     propio = norm_muni(v.get("municipio") or "")
     if muni and propio and propio != muni:
-        return None                # homónima de otro municipio: no es esta colonia
+        # Que el municipio no coincida NO significa siempre "otra colonia". Medido
+        # contra 20,824 anuncios reales, el desacuerdo es de dos tipos distintos y
+        # tratarlos igual costaba 440 anuncios que sí tenían su década:
+        #
+        #   a) HOMÓNIMA REAL — el nombre existe en los dos municipios y los dos
+        #      polígonos están lejos (Chulavista Tlajomulco vs Chapala, 39 km).
+        #      Son dos colonias. Devolver la década de una para la otra es inventar.
+        #      Van listadas en `homonima_en`, verificado por coordenada de CP.
+        #   b) DESACUERDO DE ETIQUETA — la colonia está a caballo del límite
+        #      (Chapalita, Colomos Providencia) o el anuncio trae mal el municipio.
+        #      Es la misma colonia y su década aplica; lo único honesto es marcar
+        #      el margen, no negar el dato.
+        #
+        # `homonima_en` se calcula en `marcar_homonimas.py` (repo del manual) con
+        # SEPOMEX + coordenadas, nunca a ojo. Ausente = caso (b): se contesta con
+        # `_ambiguo`, que es lo que ya usa quien consume esto para bajar confianza.
+        if muni in {norm_muni(x) for x in (v.get("homonima_en") or [])}:
+            return None            # (a) otra colonia con el mismo nombre
+        return {**v, "_llave": llave, "_match": "nombre-otro-municipio",
+                "_ambiguo": True}  # (b) misma colonia, etiqueta en desacuerdo
     return {**v, "_llave": llave, "_match": match,
             "_ambiguo": bool(v.get("homonima_en")) and not (muni and propio == muni)}
 
