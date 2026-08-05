@@ -42754,5 +42754,99 @@
   "homonima_confirmada": true,
   "municipio": "san pedro tlaquepaque",
   "municipio_fuente": "perito"
+ },
+ "chapalita|zapopan": {
+  "decada_ref": "1940s",
+  "decadas": [
+   "1940s",
+   "1950s",
+   "1960s",
+   "1970s"
+  ],
+  "nivel": "media",
+  "fuente": "capitulo",
+  "confianza": "alta",
+  "confianza_puntos": 80,
+  "municipio": "zapopan",
+  "municipio_fuente": "capitulo",
+  "fecha_captura": "2026-08-04"
+ },
+ "san juan evangelista|tlajomulco de zuniga": {
+  "decada_ref": "1970s",
+  "decadas": [
+   "1970s"
+  ],
+  "nivel": "media",
+  "fuente": "capitulo",
+  "confianza": "alta",
+  "confianza_puntos": 80,
+  "municipio": "tlajomulco de zuniga",
+  "municipio_fuente": "capitulo",
+  "fecha_captura": "2026-08-04"
+ },
+ "la noria|tlajomulco de zuniga": {
+  "decada_ref": "2000s",
+  "decadas": [
+   "2000s"
+  ],
+  "nivel": "media",
+  "fuente": "capitulo",
+  "confianza": "alta",
+  "confianza_puntos": 80,
+  "municipio": "tlajomulco de zuniga",
+  "municipio_fuente": "capitulo",
+  "fecha_captura": "2026-08-04"
+ },
+ "el alcazar|tlajomulco de zuniga": {
+  "decada_ref": "2000s",
+  "decadas": [
+   "2000s"
+  ],
+  "nivel": "media",
+  "fuente": "capitulo",
+  "confianza": "alta",
+  "confianza_puntos": 80,
+  "municipio": "tlajomulco de zuniga",
+  "municipio_fuente": "capitulo",
+  "fecha_captura": "2026-08-04"
+ },
+ "la rioja|zapopan": {
+  "decada_ref": "2000s",
+  "decadas": [
+   "2000s"
+  ],
+  "nivel": "media",
+  "fuente": "capitulo",
+  "confianza": "alta",
+  "confianza_puntos": 80,
+  "municipio": "zapopan",
+  "municipio_fuente": "capitulo",
+  "fecha_captura": "2026-08-04"
+ },
+ "el palomar|zapopan": {
+  "decada_ref": "2000s",
+  "decadas": [
+   "2000s"
+  ],
+  "nivel": "media",
+  "fuente": "capitulo",
+  "confianza": "alta",
+  "confianza_puntos": 80,
+  "municipio": "zapopan",
+  "municipio_fuente": "capitulo",
+  "fecha_captura": "2026-08-04"
+ },
+ "triventi|tlajomulco de zuniga": {
+  "decada_ref": "2010s",
+  "decadas": [
+   "2010s"
+  ],
+  "nivel": "media",
+  "fuente": "capitulo",
+  "confianza": "alta",
+  "confianza_puntos": 80,
+  "municipio": "tlajomulco de zuniga",
+  "municipio_fuente": "capitulo",
+  "fecha_captura": "2026-08-04"
  }
 }
