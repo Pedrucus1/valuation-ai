@@ -49,10 +49,51 @@ def limpia_decor(s):
     return _DECOR_RE.sub("", s).strip()
 
 
+# La misma sección venía escrita de cinco maneras — 'providencia 1a secc',
+# '... 1a seccion', '... 1ra', '... i' — y cada variante era una colonia distinta
+# para la búsqueda. No es un detalle de forma: el archivo SÍ fecha las secciones
+# una por una (175 entradas), y Providencia 1a es 1950s mientras la 5a es 1970s.
+# Sin unificar la escritura, 345 anuncios se quedaban sin su década ESTANDO
+# fechada su sección exacta. El paréntesis es el mismo caso: 'el alcazar (casa
+# fuerte)' es la entrada 'el alcazar casa fuerte'.
+#
+# Ojo: esto unifica la ESCRITURA de una sección, no las secciones entre sí. Se
+# resiste la tentación de colapsar 'providencia 1a' con 'providencia', que
+# borraría veinte años de diferencia ya curados. Esa caída ocurre en `decada_de`
+# y sale marcada como ambigua.
+_ROMANO = {"i": "1", "ii": "2", "iii": "3", "iv": "4", "v": "5"}
+_PAREN_RE = re.compile(r"\s*\(([^)]*)\)")
+_SECC_RE = re.compile(r"\b(secc?|secc?ion|secion|sec)\.?\b", re.I)
+_ORDINAL_RE = re.compile(r"\b(\d+)\s*(?:a|ra|da|ta|va|era|do|ro)\b", re.I)
+_SEC_NUM_RE = re.compile(r"\bseccion\s+([ivx]+|\d+)\b", re.I)
+_ROM_RE = re.compile(r"\b([ivx]+)\b(?=\s*seccion|$)", re.I)
+_NUM_FIN_RE = re.compile(r"\b(\d+)$")
+
+
+def norm_seccion(s):
+    """Deja una sola forma para el sufijo de sección: '<n> seccion'."""
+    s = _PAREN_RE.sub(r" \1", s)
+    s = _SECC_RE.sub("seccion", s)
+    s = _ORDINAL_RE.sub(r"\1", s)             # '1a' / '1ra' → '1'
+    s = _SEC_NUM_RE.sub(r"\1 seccion", s)     # 'seccion i' → 'i seccion'
+    s = _ROM_RE.sub(lambda m: _ROMANO.get(m.group(1).lower(), m.group(1)), s)
+    s = _NUM_FIN_RE.sub(r"\1 seccion", s)     # 'plutarco elias calles 1' → '... 1 seccion'
+    return " ".join(s.split())
+
+
 def norm_col_key(s):
     s = unicodedata.normalize("NFKD", str(s or "")).encode("ascii", "ignore").decode().lower()
     s = " ".join(s.split())
-    return _DECOR_RE.sub("", _restaura_trunc(s))
+    return norm_seccion(_DECOR_RE.sub("", _restaura_trunc(s)))
+
+
+def sin_seccion(s):
+    """La colonia madre: 'providencia 1 seccion' → 'providencia'. Solo para el
+    último intento de `decada_de`, nunca para identificar."""
+    return _SEC_SUFIJO_RE.sub("", norm_col_key(s)).strip()
+
+
+_SEC_SUFIJO_RE = re.compile(r"\s+(?:\d+\s+)?seccion\b.*$|\s+\d+$", re.I)
 
 
 # El mismo municipio escrito de dos maneras se estaba tratando como dos, y
@@ -163,6 +204,17 @@ def decada_de(nombre, municipio=None):
     if not llave:
         llave, match = por_clave.get(("", nk)), "nombre"
     if not llave:
+        # Último intento: la sección no está fechada, pero la colonia madre sí.
+        # 'lomas del paraiso 6 seccion' no existe; 'lomas del paraiso' sí. Da la
+        # banda de la colonia, que es mejor que nada y peor que el dato — las
+        # secciones se abren por etapas y pueden separarse una década. Sale
+        # marcado ambiguo para que quien lo consuma baje la confianza.
+        base = sin_seccion(nombre)
+        if base and base != nk:
+            llave = por_clave.get((muni, base)) or por_clave.get(("", base))
+            if llave:
+                return {**decada[llave], "_llave": llave, "_match": "colonia-madre",
+                        "_ambiguo": True}
         return None
 
     v = decada[llave]
