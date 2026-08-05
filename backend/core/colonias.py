@@ -159,7 +159,16 @@ def es_junk_colonia(v):
         return True                      # direcciones: "Av De La Paz 2121, Americana, GDL"
     if re.search(r"\d{3,}", v):
         return True                      # CP o número de calle (3+ dígitos): "44230 Guadalajara"
-    if len(v) > 34:
+    # El largo se mide SIN el adorno y DESPUÉS de restaurar el truncado, no sobre
+    # el crudo. Medido: 'fraccionamiento jardines de guadalupe' son 37 caracteres
+    # y la colonia está fechada; 'ionamiento club de golf santa anita' es el mismo
+    # caso con el truncado del scraper encima. Se descartaban 116 anuncios cuya
+    # colonia el diccionario ya tenía, sólo por la palabra que sobra delante.
+    #
+    # Y el corte estaba en 34 cuando el propio catálogo llega a 47 ('rinconada del
+    # sol por zona arqueologica ixtepec', 'san miguel de huentitan el alto 2
+    # seccion'): descartaba 8 de sus propias entradas. 48 no deja fuera ninguna.
+    if len(norm_col_key(v)) > 48:
         return True                      # nombres largos = títulos/descripciones, no colonias
     if re.search(r"\b(for sale|for rent|for pre-?sale|apartment|house|building|sale in|rent in|"
                  r"en renta|en venta|casa en|depto en|departamento en|se vende|se renta|dentro de|"
