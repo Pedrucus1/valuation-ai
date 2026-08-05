@@ -41827,5 +41827,932 @@
   "municipio_fuente": "perito",
   "tipo_entrada": "desarrollo",
   "nota": "coto de Real del Valle; acceso por Coto Ciprés"
+ },
+ "El Manantial|tlajomulco de zuniga": {
+  "decada_ref": "2000s",
+  "decadas": [
+   "2000s",
+   "2010s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "tlajomulco de zuniga",
+  "municipio_fuente": "perito"
+ },
+ "Colinas de San Javier|guadalajara": {
+  "decada_ref": "1960s",
+  "decadas": [
+   "1960s",
+   "1970s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "guadalajara",
+  "municipio_fuente": "perito"
+ },
+ "Chulavista|chapala": {
+  "decada_ref": "1960s",
+  "decadas": [
+   "1960s",
+   "1970s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "chapala",
+  "municipio_fuente": "perito"
+ },
+ "Artesanos|guadalajara": {
+  "decada_ref": "1950s",
+  "decadas": [
+   "1950s",
+   "1960s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "guadalajara",
+  "municipio_fuente": "perito"
+ },
+ "Nueva España|guadalajara": {
+  "decada_ref": "1970s",
+  "decadas": [
+   "1970s",
+   "1980s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "guadalajara",
+  "municipio_fuente": "perito"
+ },
+ "Jardines de la Paz|guadalajara": {
+  "decada_ref": "1960s",
+  "decadas": [
+   "1960s",
+   "1970s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "guadalajara",
+  "municipio_fuente": "perito"
+ },
+ "Pontevedra|tlajomulco de zuniga": {
+  "decada_ref": "2010s",
+  "decadas": [
+   "2010s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "tlajomulco de zuniga",
+  "municipio_fuente": "perito"
+ },
+ "Santa Anita|san pedro tlaquepaque": {
+  "decada_ref": "1970s",
+  "decadas": [
+   "1970s",
+   "1980s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "san pedro tlaquepaque",
+  "municipio_fuente": "perito"
+ },
+ "Jardines de Guadalupe|guadalajara": {
+  "decada_ref": "1960s",
+  "decadas": [
+   "1960s",
+   "1970s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "guadalajara",
+  "municipio_fuente": "perito"
+ },
+ "Revolución|san pedro tlaquepaque": {
+  "decada_ref": "1970s",
+  "decadas": [
+   "1970s",
+   "1980s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "san pedro tlaquepaque",
+  "municipio_fuente": "perito"
+ },
+ "Rinconada Santa Rita|zapopan": {
+  "decada_ref": "1970s",
+  "decadas": [
+   "1970s",
+   "1980s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "zapopan",
+  "municipio_fuente": "perito"
+ },
+ "Loma Bonita Ejidal|zapopan": {
+  "decada_ref": "1970s",
+  "decadas": [
+   "1970s",
+   "1980s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "zapopan",
+  "municipio_fuente": "perito"
+ },
+ "San Isidro|zapopan": {
+  "decada_ref": "1980s",
+  "decadas": [
+   "1980s",
+   "1990s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "zapopan",
+  "municipio_fuente": "perito"
+ },
+ "Lomas del Valle|guadalajara": {
+  "decada_ref": "1960s",
+  "decadas": [
+   "1960s",
+   "1970s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "guadalajara",
+  "municipio_fuente": "perito"
+ },
+ "El Rosario|guadalajara": {
+  "decada_ref": "1970s",
+  "decadas": [
+   "1970s",
+   "1980s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "guadalajara",
+  "municipio_fuente": "perito"
+ },
+ "Santa Isabel|zapopan": {
+  "decada_ref": "1970s",
+  "decadas": [
+   "1970s",
+   "1980s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "zapopan",
+  "municipio_fuente": "perito"
+ },
+ "Francisco Villa|tonala": {
+  "decada_ref": "1980s",
+  "decadas": [
+   "1980s",
+   "1990s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "tonala",
+  "municipio_fuente": "perito"
+ },
+ "San Bernardo|zapopan": {
+  "decada_ref": "1980s",
+  "decadas": [
+   "1980s",
+   "1990s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "zapopan",
+  "municipio_fuente": "perito"
+ },
+ "San Antonio|guadalajara": {
+  "decada_ref": "1940s",
+  "decadas": [
+   "1940s",
+   "1950s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "guadalajara",
+  "municipio_fuente": "perito"
+ },
+ "El Paraíso|tlajomulco de zuniga": {
+  "decada_ref": "2000s",
+  "decadas": [
+   "2000s",
+   "2010s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "tlajomulco de zuniga",
+  "municipio_fuente": "perito"
+ },
+ "Miguel Hidalgo|zapopan": {
+  "decada_ref": "1970s",
+  "decadas": [
+   "1970s",
+   "1980s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "zapopan",
+  "municipio_fuente": "perito"
+ },
+ "Real del Bosque|zapopan": {
+  "decada_ref": "1990s",
+  "decadas": [
+   "1990s",
+   "2000s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "zapopan",
+  "municipio_fuente": "perito"
+ },
+ "El Zapote|zapopan": {
+  "decada_ref": "1980s",
+  "decadas": [
+   "1980s",
+   "1990s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "zapopan",
+  "municipio_fuente": "perito"
+ },
+ "Santa Rosa|guadalajara": {
+  "decada_ref": "1950s",
+  "decadas": [
+   "1950s",
+   "1960s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "guadalajara",
+  "municipio_fuente": "perito"
+ },
+ "Los Laureles|tlajomulco de zuniga": {
+  "decada_ref": "2000s",
+  "decadas": [
+   "2000s",
+   "2010s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "tlajomulco de zuniga",
+  "municipio_fuente": "perito"
+ },
+ "Vicente Guerrero|guadalajara": {
+  "decada_ref": "1970s",
+  "decadas": [
+   "1970s",
+   "1980s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "guadalajara",
+  "municipio_fuente": "perito"
+ },
+ "Vistas del Valle|tlajomulco de zuniga": {
+  "decada_ref": "2000s",
+  "decadas": [
+   "2000s",
+   "2010s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "tlajomulco de zuniga",
+  "municipio_fuente": "perito"
+ },
+ "Jardines del Valle|guadalajara": {
+  "decada_ref": "1970s",
+  "decadas": [
+   "1970s",
+   "1980s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "guadalajara",
+  "municipio_fuente": "perito"
+ },
+ "La Loma|zapopan": {
+  "decada_ref": "1980s",
+  "decadas": [
+   "1980s",
+   "1990s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "zapopan",
+  "municipio_fuente": "perito"
+ },
+ "La Providencia|tlajomulco de zuniga": {
+  "decada_ref": "2000s",
+  "decadas": [
+   "2000s",
+   "2010s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "tlajomulco de zuniga",
+  "municipio_fuente": "perito"
+ },
+ "La Loma|tlajomulco de zuniga": {
+  "decada_ref": "2000s",
+  "decadas": [
+   "2000s",
+   "2010s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "tlajomulco de zuniga",
+  "municipio_fuente": "perito"
+ },
+ "El Zapote|tonala": {
+  "decada_ref": "1980s",
+  "decadas": [
+   "1980s",
+   "1990s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "tonala",
+  "municipio_fuente": "perito"
+ },
+ "Mirador del Sol|tonala": {
+  "decada_ref": "1980s",
+  "decadas": [
+   "1980s",
+   "1990s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "tonala",
+  "municipio_fuente": "perito"
+ },
+ "Emiliano Zapata|guadalajara": {
+  "decada_ref": "1970s",
+  "decadas": [
+   "1970s",
+   "1980s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "guadalajara",
+  "municipio_fuente": "perito"
+ },
+ "Las Juntas|san pedro tlaquepaque": {
+  "decada_ref": "1950s",
+  "decadas": [
+   "1950s",
+   "1960s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "san pedro tlaquepaque",
+  "municipio_fuente": "perito"
+ },
+ "Vista Hermosa|san pedro tlaquepaque": {
+  "decada_ref": "1980s",
+  "decadas": [
+   "1980s",
+   "1990s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "san pedro tlaquepaque",
+  "municipio_fuente": "perito"
+ },
+ "Francisco Villa|guadalajara": {
+  "decada_ref": "1960s",
+  "decadas": [
+   "1960s",
+   "1970s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "guadalajara",
+  "municipio_fuente": "perito"
+ },
+ "Benito Juárez|guadalajara": {
+  "decada_ref": "1960s",
+  "decadas": [
+   "1960s",
+   "1970s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "guadalajara",
+  "municipio_fuente": "perito"
+ },
+ "Paseos del Valle|tonala": {
+  "decada_ref": "2000s",
+  "decadas": [
+   "2000s",
+   "2010s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "tonala",
+  "municipio_fuente": "perito"
+ },
+ "Villas de Guadalupe|guadalajara": {
+  "decada_ref": "1980s",
+  "decadas": [
+   "1980s",
+   "1990s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "guadalajara",
+  "municipio_fuente": "perito"
+ },
+ "Ojo de Agua|tonala": {
+  "decada_ref": "1990s",
+  "decadas": [
+   "1990s",
+   "2000s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "tonala",
+  "municipio_fuente": "perito"
+ },
+ "Patria|zapopan": {
+  "decada_ref": "1970s",
+  "decadas": [
+   "1970s",
+   "1980s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "zapopan",
+  "municipio_fuente": "perito"
+ },
+ "El Real|san pedro tlaquepaque": {
+  "decada_ref": "1980s",
+  "decadas": [
+   "1980s",
+   "1990s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "san pedro tlaquepaque",
+  "municipio_fuente": "perito"
+ },
+ "Lomas de San Miguel|san pedro tlaquepaque": {
+  "decada_ref": "1980s",
+  "decadas": [
+   "1980s",
+   "1990s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "san pedro tlaquepaque",
+  "municipio_fuente": "perito"
+ },
+ "La Purísima|tlajomulco de zuniga": {
+  "decada_ref": "1990s",
+  "decadas": [
+   "1990s",
+   "2000s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "tlajomulco de zuniga",
+  "municipio_fuente": "perito"
+ },
+ "Revolución|zapopan": {
+  "decada_ref": "1970s",
+  "decadas": [
+   "1970s",
+   "1980s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "zapopan",
+  "municipio_fuente": "perito"
+ },
+ "Los Laureles|el salto": {
+  "decada_ref": "1990s",
+  "decadas": [
+   "1990s",
+   "2000s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "el salto",
+  "municipio_fuente": "perito"
+ },
+ "Emiliano Zapata|san pedro tlaquepaque": {
+  "decada_ref": "1970s",
+  "decadas": [
+   "1970s",
+   "1980s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "san pedro tlaquepaque",
+  "municipio_fuente": "perito"
+ },
+ "La Gigantera|san pedro tlaquepaque": {
+  "decada_ref": "1980s",
+  "decadas": [
+   "1980s",
+   "1990s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "san pedro tlaquepaque",
+  "municipio_fuente": "perito"
+ },
+ "Las Flores|san pedro tlaquepaque": {
+  "decada_ref": "1980s",
+  "decadas": [
+   "1980s",
+   "1990s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "san pedro tlaquepaque",
+  "municipio_fuente": "perito"
+ },
+ "Los Cajetes|san pedro tlaquepaque": {
+  "decada_ref": "1980s",
+  "decadas": [
+   "1980s",
+   "1990s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "san pedro tlaquepaque",
+  "municipio_fuente": "perito"
+ },
+ "El Mante|san pedro tlaquepaque": {
+  "decada_ref": "1970s",
+  "decadas": [
+   "1970s",
+   "1980s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "san pedro tlaquepaque",
+  "municipio_fuente": "perito"
+ },
+ "El Bajío|chapala": {
+  "decada_ref": "1990s",
+  "decadas": [
+   "1990s",
+   "2000s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "chapala",
+  "municipio_fuente": "perito"
+ },
+ "Del Carmen|lagos de moreno": {
+  "decada_ref": "1970s",
+  "decadas": [
+   "1970s",
+   "1980s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "lagos de moreno",
+  "municipio_fuente": "perito"
+ },
+ "Echeverría|autlan de navarro": {
+  "decada_ref": "1970s",
+  "decadas": [
+   "1970s",
+   "1980s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "autlan de navarro",
+  "municipio_fuente": "perito"
+ },
+ "Los Pinos|tonala": {
+  "decada_ref": "1980s",
+  "decadas": [
+   "1980s",
+   "1990s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "tonala",
+  "municipio_fuente": "perito"
+ },
+ "Brisas de Chapala|san pedro tlaquepaque": {
+  "decada_ref": "1980s",
+  "decadas": [
+   "1980s",
+   "1990s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "san pedro tlaquepaque",
+  "municipio_fuente": "perito"
+ },
+ "Lindavista|san pedro tlaquepaque": {
+  "decada_ref": "1960s",
+  "decadas": [
+   "1960s",
+   "1970s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-04",
+  "homonima_confirmada": true,
+  "municipio": "san pedro tlaquepaque",
+  "municipio_fuente": "perito"
  }
 }
