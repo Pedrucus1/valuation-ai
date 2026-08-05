@@ -2213,7 +2213,6 @@
  "arboledas 1a": {
   "decada_ref": "1970s",
   "decadas": [
-   "1960s",
    "1970s",
    "1980s"
   ],
@@ -2222,21 +2221,22 @@
   "confianza": "media",
   "confianza_puntos": 72,
   "municipio": "zapopan",
-  "municipio_fuente": "maestro"
+  "municipio_fuente": "maestro",
+  "banda_acordada": true
  },
  "arboledas 1a secc": {
-  "decada_ref": "1980s",
+  "decada_ref": "1970s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "manual",
   "confianza": "alta",
   "confianza_puntos": 86,
   "municipio": "zapopan",
-  "municipio_fuente": "sepomex"
+  "municipio_fuente": "sepomex",
+  "banda_acordada": true
  },
  "arboledas 2a": {
   "decada_ref": "1970s",
@@ -2252,18 +2252,18 @@
   "municipio_fuente": "cache_index"
  },
  "arboledas 2a secc": {
-  "decada_ref": "1980s",
+  "decada_ref": "1970s",
   "decadas": [
    "1970s",
-   "1980s",
-   "1990s"
+   "1980s"
   ],
   "nivel": "media",
   "fuente": "manual",
   "confianza": "alta",
   "confianza_puntos": 86,
   "municipio": "zapopan",
-  "municipio_fuente": "sepomex"
+  "municipio_fuente": "sepomex",
+  "banda_acordada": true
  },
  "arboledas de san gaspar": {
   "decada_ref": "2000s",
@@ -5123,8 +5123,9 @@
   "nota": "Macrodesarrollo que no ha dejado de crecer: trazo a mediados de los 1970s, edificacion masiva en los 1980s, y secciones y cotos nuevos hasta hoy."
  },
  "bugambilias 1a": {
-  "decada_ref": "1980s",
+  "decada_ref": "1970s",
   "decadas": [
+   "1970s",
    "1980s"
   ],
   "nivel": "media",
@@ -5132,12 +5133,12 @@
   "confianza": "alta",
   "confianza_puntos": 86,
   "municipio": "zapopan",
-  "municipio_fuente": "cache_index"
+  "municipio_fuente": "cache_index",
+  "banda_acordada": true
  },
  "bugambilias 1a seccion": {
   "decada_ref": "1970s",
   "decadas": [
-   "1960s",
    "1970s",
    "1980s"
   ],
@@ -5146,24 +5147,12 @@
   "confianza": "alta",
   "confianza_puntos": 86,
   "municipio": "zapopan",
-  "municipio_fuente": "cache_index"
+  "municipio_fuente": "cache_index",
+  "banda_acordada": true
  },
  "bugambilias 1ra": {
   "decada_ref": "1970s",
   "decadas": [
-   "1970s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "municipio": "zapopan",
-  "municipio_fuente": "perito"
- },
- "bugambilias 1ra seccion": {
-  "decada_ref": "1970s",
-  "decadas": [
-   "1960s",
    "1970s",
    "1980s"
   ],
@@ -5172,7 +5161,22 @@
   "confianza": "alta",
   "confianza_puntos": 86,
   "municipio": "zapopan",
-  "municipio_fuente": "cache_index"
+  "municipio_fuente": "perito",
+  "banda_acordada": true
+ },
+ "bugambilias 1ra seccion": {
+  "decada_ref": "1970s",
+  "decadas": [
+   "1970s",
+   "1980s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "municipio": "zapopan",
+  "municipio_fuente": "cache_index",
+  "banda_acordada": true
  },
  "bugambilias 2a": {
   "decada_ref": "1980s",
@@ -5259,8 +5263,9 @@
   "municipio_fuente": "sepomex"
  },
  "bugambilias i": {
-  "decada_ref": "1980s",
+  "decada_ref": "1970s",
   "decadas": [
+   "1970s",
    "1980s"
   ],
   "nivel": "media",
@@ -5268,7 +5273,8 @@
   "confianza": "alta",
   "confianza_puntos": 86,
   "municipio": "zapopan",
-  "municipio_fuente": "seccion-sepomex"
+  "municipio_fuente": "seccion-sepomex",
+  "banda_acordada": true
  },
  "cadiz": {
   "decada_ref": "1980s",
@@ -9238,19 +9244,17 @@
   "municipio_fuente": "maestro"
  },
  "del fresno 1a": {
-  "decada_ref": "1960s",
+  "decada_ref": "1940s",
   "decadas": [
-   "1940s",
-   "1950s",
-   "1960s",
-   "1970s"
+   "1940s"
   ],
   "nivel": "media-alta",
   "fuente": "plan-parcial",
   "confianza": "media",
   "confianza_puntos": 48,
   "municipio": "guadalajara",
-  "municipio_fuente": "maestro"
+  "municipio_fuente": "maestro",
+  "banda_acordada": true
  },
  "del fresno 1a seccion": {
   "decada_ref": "1940s",
@@ -11114,16 +11118,15 @@
  "el panoramico ii": {
   "decada_ref": "1990s",
   "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
+   "1990s"
   ],
   "nivel": "media",
   "fuente": "manual",
   "confianza": "alta",
   "confianza_puntos": 86,
   "municipio": "tonala",
-  "municipio_fuente": "cache_index"
+  "municipio_fuente": "cache_index",
+  "banda_acordada": true
  },
  "el paraiso": {
   "decada_ref": "1990s",
@@ -14420,18 +14423,17 @@
   "municipio_fuente": "cache_index"
  },
  "heliodoro hernandez loza 1a secc": {
-  "decada_ref": "1980s",
+  "decada_ref": "1970s",
   "decadas": [
-   "1970s",
-   "1980s",
-   "1990s"
+   "1970s"
   ],
   "nivel": "media",
   "fuente": "manual",
   "confianza": "alta",
   "confianza_puntos": 86,
   "municipio": "guadalajara",
-  "municipio_fuente": "sepomex"
+  "municipio_fuente": "sepomex",
+  "banda_acordada": true
  },
  "heliodoro hernandez loza 2a secc": {
   "decada_ref": "1980s",
@@ -15393,18 +15395,17 @@
   "municipio_fuente": "cache_index"
  },
  "insurgentes 1a secc": {
-  "decada_ref": "1970s",
+  "decada_ref": "1960s",
   "decadas": [
-   "1960s",
-   "1970s",
-   "1980s"
+   "1960s"
   ],
   "nivel": "media",
   "fuente": "manual",
   "confianza": "alta",
   "confianza_puntos": 86,
   "municipio": "guadalajara",
-  "municipio_fuente": "sepomex"
+  "municipio_fuente": "sepomex",
+  "banda_acordada": true
  },
  "insurgentes 2a secc": {
   "decada_ref": "1970s",
@@ -15597,18 +15598,17 @@
   "municipio_fuente": "sepomex"
  },
  "jalisco 1a": {
-  "decada_ref": "1980s",
+  "decada_ref": "1970s",
   "decadas": [
-   "1970s",
-   "1980s",
-   "1990s"
+   "1970s"
   ],
   "nivel": "popular",
   "fuente": "manual",
   "confianza": "media",
   "confianza_puntos": 62,
   "municipio": "tonala",
-  "municipio_fuente": "maestro"
+  "municipio_fuente": "maestro",
+  "banda_acordada": true
  },
  "jalisco 1a seccion": {
   "decada_ref": "1970s",
@@ -15647,18 +15647,17 @@
   "municipio_fuente": "perito"
  },
  "jalisco i": {
-  "decada_ref": "1980s",
+  "decada_ref": "1970s",
   "decadas": [
-   "1970s",
-   "1980s",
-   "1990s"
+   "1970s"
   ],
   "nivel": "popular",
   "fuente": "manual",
   "confianza": "media",
   "confianza_puntos": 62,
   "municipio": "tonala",
-  "municipio_fuente": "maestro"
+  "municipio_fuente": "maestro",
+  "banda_acordada": true
  },
  "jalisco ii": {
   "decada_ref": "1980s",
@@ -22453,10 +22452,8 @@
   "municipio_fuente": "perito"
  },
  "lomas del paraiso ii": {
-  "decada_ref": "1960s",
+  "decada_ref": "1970s",
   "decadas": [
-   "1950s",
-   "1960s",
    "1970s"
   ],
   "nivel": "media",
@@ -22464,21 +22461,21 @@
   "confianza": "media",
   "confianza_puntos": 48,
   "municipio": "guadalajara",
-  "municipio_fuente": "maestro"
+  "municipio_fuente": "maestro",
+  "banda_acordada": true
  },
  "lomas del paraiso iii": {
-  "decada_ref": "1980s",
+  "decada_ref": "1970s",
   "decadas": [
-   "1970s",
-   "1980s",
-   "1990s"
+   "1970s"
   ],
   "nivel": "media",
   "fuente": "manual",
   "confianza": "alta",
   "confianza_puntos": 86,
   "municipio": "guadalajara",
-  "municipio_fuente": "cache_index"
+  "municipio_fuente": "cache_index",
+  "banda_acordada": true
  },
  "lomas del pedregal": {
   "decada_ref": "2000s",
@@ -23104,16 +23101,15 @@
  "los camichines 2": {
   "decada_ref": "1990s",
   "decadas": [
-   "1980s",
-   "1990s",
-   "2000s"
+   "1990s"
   ],
   "nivel": "media",
   "fuente": "manual",
   "confianza": "alta",
   "confianza_puntos": 86,
   "municipio": "tonala",
-  "municipio_fuente": "sepomex"
+  "municipio_fuente": "sepomex",
+  "banda_acordada": true
  },
  "los camichines 3": {
   "decada_ref": "1990s",
@@ -29251,18 +29247,17 @@
   "municipio_fuente": "cache_index"
  },
  "providencia 3a seccion": {
-  "decada_ref": "1970s",
+  "decada_ref": "1960s",
   "decadas": [
-   "1960s",
-   "1970s",
-   "1980s"
+   "1960s"
   ],
   "nivel": "media",
   "fuente": "manual",
   "confianza": "alta",
   "confianza_puntos": 86,
   "municipio": "guadalajara",
-  "municipio_fuente": "cache_index"
+  "municipio_fuente": "cache_index",
+  "banda_acordada": true
  },
  "providencia 4a": {
   "decada_ref": "1960s",
@@ -34612,16 +34607,15 @@
  "santa cecilia 2a": {
   "decada_ref": "1970s",
   "decadas": [
-   "1960s",
-   "1970s",
-   "1980s"
+   "1970s"
   ],
   "nivel": "media",
   "fuente": "manual",
   "confianza": "media",
   "confianza_puntos": 62,
   "municipio": "guadalajara",
-  "municipio_fuente": "maestro"
+  "municipio_fuente": "maestro",
+  "banda_acordada": true
  },
  "santa cecilia 2a seccion": {
   "decada_ref": "1970s",
@@ -35644,9 +35638,8 @@
   "municipio_fuente": "maestro"
  },
  "senderos del lago 4ta": {
-  "decada_ref": "2000s",
+  "decada_ref": "2010s",
   "decadas": [
-   "2000s",
    "2010s"
   ],
   "nivel": "media",
@@ -35654,7 +35647,8 @@
   "confianza": "alta",
   "confianza_puntos": 86,
   "municipio": "jocotepec",
-  "municipio_fuente": "maestro"
+  "municipio_fuente": "maestro",
+  "banda_acordada": true
  },
  "senderos del lago 4ta seccion": {
   "decada_ref": "2010s",
@@ -41412,7 +41406,6 @@
  "residencial victoria|guadalajara": {
   "decada_ref": "1960s",
   "decadas": [
-   "1950s",
    "1960s",
    "1970s"
   ],
@@ -41421,7 +41414,8 @@
   "confianza": "alta",
   "confianza_puntos": 86,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito_correccion"
+  "municipio_fuente": "perito_correccion",
+  "banda_acordada": true
  },
  "residencial victoria|zapopan": {
   "decada_ref": "1960s",
@@ -41691,18 +41685,18 @@
   "tipo_entrada": "desarrollo"
  },
  "residencial victoria": {
-  "decada_ref": "1970s",
+  "decada_ref": "1960s",
   "decadas": [
    "1960s",
-   "1970s",
-   "1980s"
+   "1970s"
   ],
   "nivel": "media",
   "fuente": "manual",
   "confianza": "alta",
   "confianza_puntos": 86,
   "municipio": "guadalajara",
-  "municipio_fuente": "cache_index"
+  "municipio_fuente": "cache_index",
+  "banda_acordada": true
  },
  "residencial virreyes": {
   "decada_ref": "2000s",
