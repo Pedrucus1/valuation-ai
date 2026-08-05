@@ -121,8 +121,21 @@ def norm_seccion(s):
     return " ".join(_PUNTO_RE.sub("", s).split())
 
 
+# Mojibake clásico: el portal guardó UTF-8 y alguien lo leyó como latin-1, así
+# que 'í' quedó como 'ã­' y 'ó' como 'ã³'. Se deshace ANTES de quitar acentos —
+# después ya no hay nada que recuperar—. Estas secuencias no existen en un nombre
+# real, así que revertirlas no puede romper nada.
+_MOJIBAKE = {"ã¡": "á", "ã©": "é", "ã­": "í", "ã³": "ó", "ãº": "ú", "ã±": "ñ", "ã¼": "ü"}
+_MOJIBAKE_RE = re.compile("|".join(_MOJIBAKE), re.I)
+
+
+def _des_mojibake(s):
+    return _MOJIBAKE_RE.sub(lambda m: _MOJIBAKE[m.group(0).lower()], s)
+
+
 def norm_col_key(s):
-    s = unicodedata.normalize("NFKD", str(s or "")).encode("ascii", "ignore").decode().lower()
+    s = _des_mojibake(str(s or "").lower())
+    s = unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode().lower()
     s = " ".join(_GUION_RE.sub(" ", s).split())
     s = _DECOR_FIN_RE.sub("", _DECOR_RE.sub("", _restaura_trunc(s)))
     return norm_seccion(s.strip())

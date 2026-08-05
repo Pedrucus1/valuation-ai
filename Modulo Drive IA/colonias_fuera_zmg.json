@@ -1,5 +1,29 @@
 [
  {
+  "colonia": "8 de agosto",
+  "municipio": "tonala",
+  "clave": "8 de agosto|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "acueducto de guadalupe",
+  "municipio": "tonala",
+  "clave": "acueducto de guadalupe|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "agricola oriental",
+  "municipio": "tonala",
+  "clave": "agricola oriental|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "albert",
+  "municipio": "tonala",
+  "clave": "albert|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
   "clave": "ampliacion acozac|chapala",
   "colonia": "Ampliacion Acozac",
   "municipio": "chapala",
@@ -12,10 +36,34 @@
   "razon": "perito: no"
  },
  {
+  "colonia": "ampliacion granada",
+  "municipio": "tonala",
+  "clave": "ampliacion granada|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "ampliacion las aguilas",
+  "municipio": "tonala",
+  "clave": "ampliacion las aguilas|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "ampliacion petrolera",
+  "municipio": "tonala",
+  "clave": "ampliacion petrolera|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
   "clave": "ampliacion reforma|chapala",
   "colonia": "Ampliacion Reforma",
   "municipio": "chapala",
   "razon": "perito: no"
+ },
+ {
+  "colonia": "anexo ciudad aztlan",
+  "municipio": "tonala",
+  "clave": "anexo ciudad aztlan|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
  },
  {
   "clave": "anzures|chapala",
@@ -28,6 +76,18 @@
   "municipio": "tonala",
   "clave": "anzures|tonala",
   "razon": "foranea ya contestada"
+ },
+ {
+  "colonia": "aqua residencial",
+  "municipio": "tonala",
+  "clave": "aqua residencial|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "argentina antigua",
+  "municipio": "tonala",
+  "clave": "argentina antigua|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
  },
  {
   "clave": "artpark amber tower / model a soul|zapopan",
@@ -120,6 +180,30 @@
   "razon": "perito: no"
  },
  {
+  "colonia": "caã±adas de san lorenzo",
+  "municipio": "zapopan",
+  "clave": "caaadas de san lorenzo|zapopan",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "campestre churubusco",
+  "municipio": "tonala",
+  "clave": "campestre churubusco|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "campestre coyoacan",
+  "municipio": "tonala",
+  "clave": "campestre coyoacan|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "campestre palo alto",
+  "municipio": "tonala",
+  "clave": "campestre palo alto|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
   "clave": "canadas del arroyo|tlajomulco de zuniga",
   "colonia": "Cañadas del Arroyo",
   "municipio": "tlajomulco de zuniga",
@@ -156,6 +240,18 @@
   "razon": "perito: no"
  },
  {
+  "colonia": "caracol",
+  "municipio": "tonala",
+  "clave": "caracol|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "carr nacional",
+  "municipio": "tonala",
+  "clave": "carr nacional|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
   "clave": "carretera a nogales|zapopan",
   "colonia": "Carretera a Nogales",
   "municipio": "zapopan",
@@ -172,6 +268,30 @@
   "colonia": "Cd Caucel",
   "municipio": "tlajomulco de zuniga",
   "razon": "perito: no"
+ },
+ {
+  "colonia": "centro (area 1)",
+  "municipio": "tonala",
+  "clave": "centro area 1 seccion|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "chimalcoyoc",
+  "municipio": "tonala",
+  "clave": "chimalcoyoc|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "chimalistac",
+  "municipio": "tonala",
+  "clave": "chimalistac|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "circunvalaciafa3n oblatos",
+  "municipio": "guadalajara",
+  "clave": "circunvalaciafa3n oblatos|guadalajara",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
  },
  {
   "clave": "ciudad de cancun|el salto",
@@ -196,6 +316,12 @@
   "colonia": "Club de Golf la Loma",
   "municipio": "chapala",
   "razon": "perito: no"
+ },
+ {
+  "colonia": "club de golf mexico",
+  "municipio": "tonala",
+  "clave": "club de golf mexico|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
  },
  {
   "clave": "coba|chapala",
@@ -228,6 +354,18 @@
   "razon": "foranea ya contestada"
  },
  {
+  "colonia": "copilco el bajo",
+  "municipio": "tonala",
+  "clave": "copilco el bajo|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "credito constructor",
+  "municipio": "tonala",
+  "clave": "credito constructor|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
   "clave": "cuajimalpa|chapala",
   "colonia": "Cuajimalpa",
   "municipio": "chapala",
@@ -252,10 +390,34 @@
   "razon": "perito: no"
  },
  {
+  "colonia": "cumbres del cimatario",
+  "municipio": "tonala",
+  "clave": "cumbres del cimatario|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "del valle centro",
+  "municipio": "tonala",
+  "clave": "del valle centro|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
   "clave": "del valle norte|chapala",
   "colonia": "Del Valle Norte",
   "municipio": "chapala",
   "razon": "perito: no"
+ },
+ {
+  "colonia": "del valle sect oriente",
+  "municipio": "tonala",
+  "clave": "del valle sect oriente|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "del valle sur",
+  "municipio": "tonala",
+  "clave": "del valle sur|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
  },
  {
   "clave": "departments governors tower|guadalajara",
@@ -268,6 +430,18 @@
   "colonia": "sale dept. colonies tower",
   "municipio": "guadalajara",
   "razon": "copia de anuncio"
+ },
+ {
+  "colonia": "echeverrã­a",
+  "municipio": "guadalajara",
+  "clave": "echeverraa|guadalajara",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "educadores de jalisco",
+  "municipio": "tonala",
+  "clave": "educadores de jalisco|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
  },
  {
   "clave": "enchanted forest|zapopan",
@@ -312,6 +486,24 @@
   "razon": "perito: no"
  },
  {
+  "colonia": "general pedro maria anaya",
+  "municipio": "tonala",
+  "clave": "general pedro maria anaya|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "granada",
+  "municipio": "tonala",
+  "clave": "granada|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "grand preserve",
+  "municipio": "tonala",
+  "clave": "grand preserve|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
   "clave": "granjas estrella|chapala",
   "colonia": "Granjas Estrella",
   "municipio": "chapala",
@@ -346,6 +538,18 @@
   "municipio": "tonala",
   "clave": "hacienda de las palmas|tonala",
   "razon": "foranea ya contestada"
+ },
+ {
+  "colonia": "haciendas de coyoacan",
+  "municipio": "tonala",
+  "clave": "haciendas de coyoacan|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "haciendas de san josã©",
+  "municipio": "san pedro tlaquepaque",
+  "clave": "haciendas de san josa|san pedro tlaquepaque",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
  },
  {
   "clave": "heroes de padierna|el salto",
@@ -388,6 +592,12 @@
   "colonia": "Interlomas",
   "municipio": "chapala",
   "razon": "perito: no"
+ },
+ {
+  "colonia": "irrigacion",
+  "municipio": "tonala",
+  "clave": "irrigacion|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
  },
  {
   "clave": "jardines de queretaro|chapala",
@@ -462,10 +672,22 @@
   "razon": "perito: no"
  },
  {
+  "colonia": "la penita de jaltemba centro",
+  "municipio": "tonala",
+  "clave": "la penita de jaltemba centro|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
   "clave": "la rejoyada residencial|tlajomulco de zuniga",
   "colonia": "La Rejoyada Residencial",
   "municipio": "tlajomulco de zuniga",
   "razon": "perito: no"
+ },
+ {
+  "colonia": "lago sur",
+  "municipio": "tonala",
+  "clave": "lago sur|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
  },
  {
   "clave": "lagos del sol|chapala",
@@ -492,16 +714,46 @@
   "razon": "fuera de la ZMG"
  },
  {
+  "colonia": "las huertas de oblatos",
+  "municipio": "tonala",
+  "clave": "las huertas de oblatos|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "lazaro cardena",
+  "municipio": "tonala",
+  "clave": "lazaro cardena|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
   "clave": "local with tenant in north capital|zapopan",
   "colonia": "local with tenant in north capital",
   "municipio": "zapopan",
   "razon": "copia de anuncio"
  },
  {
+  "colonia": "lomas country club",
+  "municipio": "tonala",
+  "clave": "lomas country club|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
   "clave": "lomas de bezares|miguel hidalgo",
   "colonia": "Lomas de Bezares",
   "municipio": "miguel hidalgo",
   "razon": "fuera de la ZMG"
+ },
+ {
+  "colonia": "lomas de chapultepec i seccion",
+  "municipio": "tonala",
+  "clave": "lomas de chapultepec 1 seccion|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "lomas de chapultepec ii seccion",
+  "municipio": "tonala",
+  "clave": "lomas de chapultepec 2 seccion|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
  },
  {
   "clave": "lomas de chapultepec|chapala",
@@ -540,6 +792,12 @@
   "razon": "perito: no"
  },
  {
+  "colonia": "lomas de plateros",
+  "municipio": "tonala",
+  "clave": "lomas de plateros|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
   "clave": "lomas de san lorenzo|chapala",
   "colonia": "Lomas de San Lorenzo",
   "municipio": "chapala",
@@ -558,10 +816,22 @@
   "razon": "perito: no"
  },
  {
+  "colonia": "lomas de vista hermosa",
+  "municipio": "tonala",
+  "clave": "lomas de vista hermosa|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
   "clave": "lomas hipodromo|tlajomulco de zuniga",
   "colonia": "Lomas Hipódromo",
   "municipio": "tlajomulco de zuniga",
   "razon": "perito: no"
+ },
+ {
+  "colonia": "lorenzo boturini",
+  "municipio": "tonala",
+  "clave": "lorenzo boturini|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
  },
  {
   "clave": "los alpes|alvaro obregon",
@@ -587,6 +857,12 @@
   "razon": "copia de anuncio"
  },
  {
+  "colonia": "manzanastitla",
+  "municipio": "tonala",
+  "clave": "manzanastitla|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
   "clave": "mazamitla|mazamitla",
   "colonia": "Mazamitla",
   "municipio": "mazamitla",
@@ -605,10 +881,22 @@
   "razon": "perito: no"
  },
  {
+  "colonia": "merida",
+  "municipio": "tonala",
+  "clave": "merida|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
   "clave": "milenio 3 seccion|chapala",
   "colonia": "Milenio 3 Sección",
   "municipio": "chapala",
   "razon": "perito: no"
+ },
+ {
+  "colonia": "mixcoac",
+  "municipio": "tonala",
+  "clave": "mixcoac|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
  },
  {
   "clave": "napoles|chapala",
@@ -623,10 +911,52 @@
   "razon": "foranea ya contestada"
  },
  {
+  "colonia": "narvarte oriente",
+  "municipio": "tonala",
+  "clave": "narvarte oriente|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "narvarte poniente",
+  "municipio": "tonala",
+  "clave": "narvarte poniente|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
   "clave": "natuur towers|chapala",
   "colonia": "Natuur Towers",
   "municipio": "chapala",
   "razon": "perito: no"
+ },
+ {
+  "colonia": "niã±os hã©roes",
+  "municipio": "guadalajara",
+  "clave": "niaos haroes|guadalajara",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "nochebuena",
+  "municipio": "tonala",
+  "clave": "nochebuena|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "nonoalco tlatelolco",
+  "municipio": "tonala",
+  "clave": "nonoalco tlatelolco|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "olivar de los padres",
+  "municipio": "tonala",
+  "clave": "olivar de los padres|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "oxtopulco universidad",
+  "municipio": "tonala",
+  "clave": "oxtopulco universidad|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
  },
  {
   "colonia": "palacio de gobierno del estado de jalisco",
@@ -665,6 +995,24 @@
   "razon": "foranea ya contestada"
  },
  {
+  "colonia": "paseos del bosque",
+  "municipio": "tonala",
+  "clave": "paseos del bosque|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "pedregal de san francisco",
+  "municipio": "tonala",
+  "clave": "pedregal de san francisco|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "pedregal de san nicolas 2a seccion",
+  "municipio": "tonala",
+  "clave": "pedregal de san nicolas 2 seccion|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
   "clave": "ph country|guadalajara",
   "colonia": "ph country",
   "municipio": "guadalajara",
@@ -689,10 +1037,82 @@
   "razon": "foranea ya contestada"
  },
  {
+  "colonia": "plaza camichines",
+  "municipio": "tonala",
+  "clave": "plaza camichines|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "poder popular",
+  "municipio": "tonala",
+  "clave": "poder popular|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "portales sur",
+  "municipio": "tonala",
+  "clave": "portales sur|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "prado coapa 2a seccion",
+  "municipio": "tonala",
+  "clave": "prado coapa 2 seccion|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "prado coapa 3a seccion",
+  "municipio": "tonala",
+  "clave": "prado coapa 3 seccion|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "presidentes ejidales 2a seccion",
+  "municipio": "tonala",
+  "clave": "presidentes ejidales 2 seccion|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "pro-hogar",
+  "municipio": "tonala",
+  "clave": "pro hogar|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "progreso nacional",
+  "municipio": "tonala",
+  "clave": "progreso nacional|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "progreso tizapan",
+  "municipio": "tonala",
+  "clave": "progreso tizapan|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
   "clave": "pueblo chelem|chapala",
   "colonia": "Pueblo Chelem",
   "municipio": "chapala",
   "razon": "perito: no"
+ },
+ {
+  "colonia": "pueblo de santa ursula coapa",
+  "municipio": "tonala",
+  "clave": "pueblo de santa ursula coapa|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "pueblo nuevo bajo",
+  "municipio": "tonala",
+  "clave": "pueblo nuevo bajo|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "pueblo san antonio de la cal",
+  "municipio": "tonala",
+  "clave": "pueblo san antonio de la cal|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
  },
  {
   "clave": "pueblo telchac puerto|zapopan",
@@ -705,6 +1125,12 @@
   "colonia": "Puerto Cancun",
   "municipio": "chapala",
   "razon": "perito: no"
+ },
+ {
+  "colonia": "punta tiburon residencial marina y golf",
+  "municipio": "tonala",
+  "clave": "punta tiburon residencial marina y golf|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
  },
  {
   "clave": "queretaro|el salto",
@@ -749,6 +1175,12 @@
   "razon": "no es colonia"
  },
  {
+  "colonia": "rancho san francisco pueblo san bartolo ameyalco",
+  "municipio": "tonala",
+  "clave": "rancho san francisco pueblo san bartolo ameyalco|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
   "clave": "rancho santa monica|chapala",
   "colonia": "Rancho Santa Monica",
   "municipio": "chapala",
@@ -767,10 +1199,28 @@
   "razon": "perito: no"
  },
  {
+  "colonia": "residencias el prado",
+  "municipio": "tonala",
+  "clave": "residencias el prado|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "rincon del pedregal",
+  "municipio": "tonala",
+  "clave": "rincon del pedregal|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
   "clave": "rinconada coapa|chapala",
   "colonia": "Rinconada Coapa",
   "municipio": "chapala",
   "razon": "perito: no"
+ },
+ {
+  "colonia": "rinconada",
+  "municipio": "tonala",
+  "clave": "rinconada|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
  },
  {
   "clave": "roma norte|cuauhtemoc",
@@ -785,6 +1235,12 @@
   "razon": "foranea ya contestada"
  },
  {
+  "colonia": "roma sur",
+  "municipio": "tonala",
+  "clave": "roma sur|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
   "colonia": "Sale Dept. Colonies Tower",
   "municipio": "guadalajara",
   "clave": "sale dept. colonies tower|guadalajara"
@@ -795,10 +1251,22 @@
   "clave": "sale hotel independence mansion|guadalajara"
  },
  {
+  "colonia": "san agustin del pueblo tetelpan",
+  "municipio": "tonala",
+  "clave": "san agustin del pueblo tetelpan|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
   "clave": "san angel|alvaro obregon",
   "colonia": "San Ángel",
   "municipio": "alvaro obregon",
   "razon": "fuera de la ZMG"
+ },
+ {
+  "colonia": "san bartolo el chico",
+  "municipio": "tonala",
+  "clave": "san bartolo el chico|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
  },
  {
   "clave": "san jeronimo aculco|chapala",
@@ -817,6 +1285,18 @@
   "municipio": "tonala",
   "clave": "san jeronimo lidice|tonala",
   "razon": "foranea ya contestada"
+ },
+ {
+  "colonia": "san jose de los cedros",
+  "municipio": "tonala",
+  "clave": "san jose de los cedros|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "san jose insurgentes",
+  "municipio": "tonala",
+  "clave": "san jose insurgentes|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
  },
  {
   "clave": "san juan cuautlancingo centro|chapala",
@@ -841,6 +1321,18 @@
   "colonia": "San Luis Potosi",
   "municipio": "chapala",
   "razon": "perito: no"
+ },
+ {
+  "colonia": "san miguel chapultepec i seccion",
+  "municipio": "tonala",
+  "clave": "san miguel chapultepec 1 seccion|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "san nicolas del palote",
+  "municipio": "tonala",
+  "clave": "san nicolas del palote|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
  },
  {
   "clave": "san pedro cholula|tlajomulco de zuniga",
@@ -885,10 +1377,46 @@
   "razon": "foranea ya contestada"
  },
  {
+  "colonia": "santa cruz atoyac",
+  "municipio": "tonala",
+  "clave": "santa cruz atoyac|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "santa cruz xochitepec",
+  "municipio": "tonala",
+  "clave": "santa cruz xochitepec|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "santa fe cuajimalpa",
+  "municipio": "tonala",
+  "clave": "santa fe cuajimalpa|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "santa fe la loma",
+  "municipio": "tonala",
+  "clave": "santa fe la loma|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "santa gertrudis copo",
+  "municipio": "tonala",
+  "clave": "santa gertrudis copo|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
   "clave": "santa leticia|chapala",
   "colonia": "Santa Leticia",
   "municipio": "chapala",
   "razon": "perito: no"
+ },
+ {
+  "colonia": "santa maria la ribera",
+  "municipio": "tonala",
+  "clave": "santa maria la ribera|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
  },
  {
   "clave": "santa maria nonoalco|el salto",
@@ -901,6 +1429,12 @@
   "municipio": "tonala",
   "clave": "santa maria nonoalco|tonala",
   "razon": "foranea ya contestada"
+ },
+ {
+  "colonia": "sindicato mexicano de electricistas",
+  "municipio": "tonala",
+  "clave": "sindicato mexicano de electricistas|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
  },
  {
   "clave": "sofia estate - rural property|zapopan",
@@ -939,6 +1473,12 @@
   "razon": "perito: no"
  },
  {
+  "colonia": "tecalcapa del pueblo tetelpan",
+  "municipio": "tonala",
+  "clave": "tecalcapa del pueblo tetelpan|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
   "clave": "temozon norte|tlajomulco de zuniga",
   "colonia": "Temozon Norte",
   "municipio": "tlajomulco de zuniga",
@@ -951,16 +1491,46 @@
   "razon": "perito: no"
  },
  {
+  "colonia": "tlaxpana",
+  "municipio": "tonala",
+  "clave": "tlaxpana|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
   "clave": "topo chico|chapala",
   "colonia": "Topo Chico",
   "municipio": "chapala",
   "razon": "perito: no"
  },
  {
+  "colonia": "toriello guerra",
+  "municipio": "tonala",
+  "clave": "toriello guerra|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "torre blanca",
+  "municipio": "tonala",
+  "clave": "torre blanca|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
+  "colonia": "torres lindavista",
+  "municipio": "tonala",
+  "clave": "torres lindavista|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
   "clave": "torre|zapopan",
   "colonia": "Torre",
   "municipio": "zapopan",
   "razon": "perito: no"
+ },
+ {
+  "colonia": "transito",
+  "municipio": "tonala",
+  "clave": "transito|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
  },
  {
   "clave": "tulum centro|tlajomulco de zuniga",
@@ -1047,6 +1617,12 @@
   "razon": "perito: no"
  },
  {
+  "colonia": "xoco",
+  "municipio": "tonala",
+  "clave": "xoco|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
   "clave": "xotepingo|chapala",
   "colonia": "Xotepingo",
   "municipio": "chapala",
@@ -1071,10 +1647,22 @@
   "razon": "foranea ya contestada"
  },
  {
+  "colonia": "zacahuitzco",
+  "municipio": "tonala",
+  "clave": "zacahuitzco|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
+ },
+ {
   "clave": "zaru|chapala",
   "colonia": "Zaru",
   "municipio": "chapala",
   "razon": "perito: no"
+ },
+ {
+  "colonia": "ionamiento zerezotla",
+  "municipio": "tonala",
+  "clave": "zerezotla|tonala",
+  "razon": "no pasa el filtro: ni catálogo, ni SEPOMEX Jalisco, ni traducción"
  },
  {
   "clave": "zibata|chapala",
