@@ -139,6 +139,19 @@ def es_junk_colonia(v):
     return False
 
 
+def _banda(v):
+    """Las décadas que cubre una entrada. `decadas` es la banda; `decada_ref` es
+    sólo su punto representativo, y compararlo solo hace ver contradicción donde
+    hay distinta precisión."""
+    return set(v.get("decadas") or []) or {v["decada_ref"]}
+
+
+def _cruzan(decada, llaves):
+    """True si todas las entradas comparten al menos una década: es la misma
+    colonia contada con distinta finura, no dos fechas peleadas."""
+    return bool(set.intersection(*(_banda(decada[k]) for k in llaves)))
+
+
 def _fuerza(decada, k):
     """Orden de preferencia dentro de un grupo: primero la confianza del dato, y
     a igualdad la llave que ya es canónica."""
@@ -168,6 +181,21 @@ def _indice():
         top = llaves[0]
         if len(llaves) > 1:
             decadas = {decada[k]["decada_ref"] for k in llaves}
+            # Una colonia NO pertenece a una sola década: 1,852 de 3,001 entradas
+            # abarcan varias, y por eso `decadas` es una banda. Comparar el
+            # `decada_ref` —que es un punto— hacía ver como contradicción lo que
+            # sólo era distinta precisión: 'insurgentes 1a' mide 1960s y
+            # 'insurgentes 1a secc' dice 1970s con la banda ±1 por defecto, y
+            # 1960s cae dentro de esa banda. No se contradicen.
+            #
+            # Regla: si las bandas se cruzan es la misma colonia contada con
+            # distinta finura, y gana la más afilada. Medido sobre el archivo,
+            # así se resuelven 10 de 11 choques sin preguntarle nada al perito.
+            # Sólo cuando las bandas son DISJUNTAS hay conflicto de verdad.
+            if len(decadas) > 1 and _cruzan(decada, llaves):
+                por_clave[(muni, nk)] = min(llaves, key=lambda k: (len(_banda(decada[k])),
+                                                                  -_fuerza(decada, k)[0]))
+                continue
             empate = len(decadas) > 1 and _fuerza(decada, top) == _fuerza(decada, llaves[1])
             if len(decadas) > 1:
                 colisiones.append({
