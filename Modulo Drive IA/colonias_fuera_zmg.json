@@ -420,6 +420,24 @@
   "razon": "fuera de la ZMG"
  },
  {
+  "clave": "kavi pre sale type 1 seccion|guadalajara",
+  "colonia": "kavi pre-sale type 1 seccion",
+  "municipio": "guadalajara",
+  "razon": "copia de anuncio"
+ },
+ {
+  "clave": "kavi pre sale type 2 seccion|guadalajara",
+  "colonia": "kavi pre-sale type 2 seccion",
+  "municipio": "guadalajara",
+  "razon": "copia de anuncio"
+ },
+ {
+  "clave": "kavi pre sale type 4 seccion|guadalajara",
+  "colonia": "kavi pre-sale type 4 seccion",
+  "municipio": "guadalajara",
+  "razon": "copia de anuncio"
+ },
+ {
   "clave": "kavi pre-sale type 1 seccion|guadalajara",
   "colonia": "kavi pre-sale type 1 seccion",
   "municipio": "guadalajara",
@@ -891,6 +909,12 @@
   "razon": "copia de anuncio"
  },
  {
+  "clave": "sofia estate rural property|zapopan",
+  "colonia": "sofia estate - rural property",
+  "municipio": "zapopan",
+  "razon": "copia de anuncio"
+ },
+ {
   "clave": "supermanzana 7 seccion|chapala",
   "colonia": "Supermanzana 7 Sección",
   "municipio": "chapala",
@@ -948,6 +972,12 @@
   "clave": "tulum|tlajomulco de zuniga",
   "colonia": "Tulum",
   "municipio": "tlajomulco de zuniga",
+  "razon": "perito: no"
+ },
+ {
+  "clave": "unidad habitacional villas residencial ix lol be|chapala",
+  "colonia": "Unidad Habitacional Villas Residencial Ix Lol Be",
+  "municipio": "chapala",
   "razon": "perito: no"
  },
  {

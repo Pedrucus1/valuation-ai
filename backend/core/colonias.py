@@ -40,6 +40,14 @@ _RESTAURA = {"omos": "colomos", "inas": "colinas"}
 _TRUNC_RE = re.compile(r"^(omos|inas)[\s-]+", re.I)
 _DECOR_RE = re.compile(r"^(onia|ionamiento|amiento|col\.?|colonia|fracc\.?|"
                        r"fraccionamiento)\s+", re.I)
+# 'colonia' pegada al final es decoracion pura y se quita. 'fraccionamiento' NO:
+# se probo y el catalogo lo desmiente igual que con 'residencial' —Altavista es
+# 1980s y Altavista Fraccionamiento 1990s—, asi que esa cae en `decada_de`,
+# marcada, y no en la identidad.
+# El portal separa con guion lo que el catalogo separa con espacio
+# ('azaleas-bugambilias'), asi que el guion se trata como espacio.
+_DECOR_FIN_RE = re.compile(r"\s+(colonia|col\.?)$", re.I)
+_GUION_RE = re.compile(r"[-–—_]+")
 
 
 def _restaura_trunc(s):
@@ -84,7 +92,7 @@ _PUNTO_RE = re.compile(r"\.")
 # OJO: 'coto', 'condominio' y 'privada' NO entran aqui y no deben entrar. Un
 # coto de 2010 dentro de una colonia de los 60 es otra edad y otro producto;
 # 'residencial' en cambio no distingue nada, es decoracion del anuncio.
-_RESIDENCIAL_RE = re.compile(r"^residencial\s+|\s+residencial$", re.I)
+_RESIDENCIAL_RE = re.compile(r"^residencial\s+|\s+(residencial|fraccionamiento|fracc\.?)$", re.I)
 
 # Copia de anuncio disfrazada de colonia. Cada alternativa es una FORMA, no una
 # palabra suelta, para no tocar los nombres reales que usan las mismas palabras.
@@ -115,12 +123,14 @@ def norm_seccion(s):
 
 def norm_col_key(s):
     s = unicodedata.normalize("NFKD", str(s or "")).encode("ascii", "ignore").decode().lower()
-    s = " ".join(s.split())
-    return norm_seccion(_DECOR_RE.sub("", _restaura_trunc(s)))
+    s = " ".join(_GUION_RE.sub(" ", s).split())
+    s = _DECOR_FIN_RE.sub("", _DECOR_RE.sub("", _restaura_trunc(s)))
+    return norm_seccion(s.strip())
 
 
 def sin_residencial(s):
-    """'Los Robles Residencial' → 'los robles'. NO va en `norm_col_key`: se probó
+    """'Los Robles Residencial' y 'Altavista Fraccionamiento' → el nombre pelado.
+    NO va en `norm_col_key`: se probó
     y el propio archivo desmiente que sean lo mismo. San Andrés de Guadalajara es
     de los veinte y Residencial San Andrés de los sesenta; Tesistán 1990s contra
     Residencial Tesistán 2010s; Altavista 1980s contra Altavista Residencial

@@ -42131,22 +42131,6 @@
   "municipio": "guadalajara",
   "municipio_fuente": "perito"
  },
- "El Paraíso|tlajomulco de zuniga": {
-  "decada_ref": "2000s",
-  "decadas": [
-   "2000s",
-   "2010s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito",
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio_revisado": "2026-08-05"
- },
  "Miguel Hidalgo|zapopan": {
   "decada_ref": "1970s",
   "decadas": [
@@ -43029,6 +43013,38 @@
   "fechada_por": "perito",
   "fecha_captura": "2026-08-05"
  },
+ "Puerta del Sol|tlajomulco de zuniga": {
+  "decada_ref": "2000s",
+  "decadas": [
+   "2000s",
+   "2010s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "municipio": "tlajomulco de zuniga",
+  "municipio_fuente": "perito",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05",
+  "municipio_revisado": "2026-08-05"
+ },
+ "Santa Fe|tonala": {
+  "decada_ref": "1990s",
+  "decadas": [
+   "1990s",
+   "2000s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "municipio": "tonala",
+  "municipio_fuente": "perito",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05",
+  "municipio_revisado": "2026-08-05"
+ },
  "Adolfo López Mateos|chapala": {
   "decada_ref": "1970s",
   "decadas": [
@@ -43093,6 +43109,22 @@
   "fecha_captura": "2026-08-05",
   "municipio_revisado": "2026-08-05"
  },
+ "San Pedro|chapala": {
+  "decada_ref": "1980s",
+  "decadas": [
+   "1980s",
+   "1990s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "municipio": "chapala",
+  "municipio_fuente": "perito",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05",
+  "municipio_revisado": "2026-08-05"
+ },
  "Villas de San Isidro|chapala": {
   "decada_ref": "2000s",
   "decadas": [
@@ -43125,6 +43157,38 @@
   "fecha_captura": "2026-08-05",
   "municipio_revisado": "2026-08-05"
  },
+ "Las Palmas|tonala": {
+  "decada_ref": "1980s",
+  "decadas": [
+   "1980s",
+   "1990s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "municipio": "tonala",
+  "municipio_fuente": "perito",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05",
+  "municipio_revisado": "2026-08-05"
+ },
+ "Loma Real|guadalajara": {
+  "decada_ref": "1980s",
+  "decadas": [
+   "1980s",
+   "1990s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "municipio": "guadalajara",
+  "municipio_fuente": "perito",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05",
+  "municipio_revisado": "2026-08-05"
+ },
  "Santa Ines|tonala": {
   "decada_ref": "1990s",
   "decadas": [
@@ -43142,6 +43206,22 @@
   "municipio_revisado": "2026-08-05"
  },
  "Florida|tonala": {
+  "decada_ref": "1990s",
+  "decadas": [
+   "1990s",
+   "2000s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "municipio": "tonala",
+  "municipio_fuente": "perito",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05",
+  "municipio_revisado": "2026-08-05"
+ },
+ "Lomas del Pedregal|tonala": {
   "decada_ref": "1990s",
   "decadas": [
    "1990s",
@@ -43205,6 +43285,38 @@
   "fecha_captura": "2026-08-05",
   "municipio_revisado": "2026-08-05"
  },
+ "Obrera|tonala": {
+  "decada_ref": "1970s",
+  "decadas": [
+   "1970s",
+   "1980s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "municipio": "tonala",
+  "municipio_fuente": "perito",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05",
+  "municipio_revisado": "2026-08-05"
+ },
+ "Obrera|chapala": {
+  "decada_ref": "1970s",
+  "decadas": [
+   "1970s",
+   "1980s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "municipio": "chapala",
+  "municipio_fuente": "perito",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05",
+  "municipio_revisado": "2026-08-05"
+ },
  "Acacias|tonala": {
   "decada_ref": "1990s",
   "decadas": [
@@ -43232,6 +43344,38 @@
   "confianza": "alta",
   "confianza_puntos": 86,
   "municipio": "tlajomulco de zuniga",
+  "municipio_fuente": "perito",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05",
+  "municipio_revisado": "2026-08-05"
+ },
+ "Puerta Real|el salto": {
+  "decada_ref": "2000s",
+  "decadas": [
+   "2000s",
+   "2010s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "municipio": "el salto",
+  "municipio_fuente": "perito",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05",
+  "municipio_revisado": "2026-08-05"
+ },
+ "El Zalate|el salto": {
+  "decada_ref": "1980s",
+  "decadas": [
+   "1980s",
+   "1990s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "municipio": "el salto",
   "municipio_fuente": "perito",
   "fechada_por": "perito",
   "fecha_captura": "2026-08-05",
@@ -43317,17 +43461,17 @@
   "fecha_captura": "2026-08-05",
   "municipio_revisado": "2026-08-05"
  },
- "Providencia-1-seccion|guadalajara": {
-  "decada_ref": "1960s",
+ "Nueva Galicia|zapopan": {
+  "decada_ref": "2000s",
   "decadas": [
-   "1960s",
-   "1970s"
+   "2000s",
+   "2010s"
   ],
   "nivel": "media",
   "fuente": "manual",
   "confianza": "alta",
   "confianza_puntos": 86,
-  "municipio": "guadalajara",
+  "municipio": "zapopan",
   "municipio_fuente": "perito",
   "fechada_por": "perito",
   "fecha_captura": "2026-08-05",
@@ -43450,6 +43594,38 @@
   "decadas": [
    "2000s",
    "2010s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "municipio": "zapopan",
+  "municipio_fuente": "perito",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05",
+  "municipio_revisado": "2026-08-05"
+ },
+ "Altavista Fraccionamiento|zapopan": {
+  "decada_ref": "1990s",
+  "decadas": [
+   "1990s",
+   "2000s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "municipio": "zapopan",
+  "municipio_fuente": "perito",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05",
+  "municipio_revisado": "2026-08-05"
+ },
+ "Azaleas Bugambilias|zapopan": {
+  "decada_ref": "1980s",
+  "decadas": [
+   "1980s",
+   "1990s"
   ],
   "nivel": "media",
   "fuente": "manual",
@@ -43734,22 +43910,6 @@
   "municipio_revisado": "2026-08-05"
  },
  "Coral|zapopan": {
-  "decada_ref": "1980s",
-  "decadas": [
-   "1980s",
-   "1990s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "municipio": "zapopan",
-  "municipio_fuente": "perito",
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio_revisado": "2026-08-05"
- },
- "Azaleas Bugambilias|zapopan": {
   "decada_ref": "1980s",
   "decadas": [
    "1980s",
@@ -45340,6 +45500,22 @@
   "fecha_captura": "2026-08-05",
   "municipio_revisado": "2026-08-05"
  },
+ "Condominio Puerta Plata|tlajomulco de zuniga": {
+  "decada_ref": "2000s",
+  "decadas": [
+   "2000s",
+   "2010s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "municipio": "tlajomulco de zuniga",
+  "municipio_fuente": "perito",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05",
+  "municipio_revisado": "2026-08-05"
+ },
  "Estadio Unidad Habitacional|guadalajara": {
   "decada_ref": "1970s",
   "decadas": [
@@ -45626,22 +45802,6 @@
   "fecha_captura": "2026-08-05",
   "municipio_revisado": "2026-08-05"
  },
- "Altavista|zapopan": {
-  "decada_ref": "1990s",
-  "decadas": [
-   "1990s",
-   "2000s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "municipio": "zapopan",
-  "municipio_fuente": "perito",
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio_revisado": "2026-08-05"
- },
  "Cañadas de San Lorenzo|zapopan": {
   "decada_ref": "2010s",
   "decadas": [
@@ -45685,6 +45845,22 @@
   "confianza": "alta",
   "confianza_puntos": 86,
   "municipio": "guadalajara",
+  "municipio_fuente": "perito",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05",
+  "municipio_revisado": "2026-08-05"
+ },
+ "El Paraíso|tlajomulco de zuniga": {
+  "decada_ref": "2000s",
+  "decadas": [
+   "2000s",
+   "2010s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "municipio": "tlajomulco de zuniga",
   "municipio_fuente": "perito",
   "fechada_por": "perito",
   "fecha_captura": "2026-08-05",
