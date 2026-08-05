@@ -86,6 +86,17 @@ _PUNTO_RE = re.compile(r"\.")
 # 'residencial' en cambio no distingue nada, es decoracion del anuncio.
 _RESIDENCIAL_RE = re.compile(r"^residencial\s+|\s+residencial$", re.I)
 
+# Copia de anuncio disfrazada de colonia. Cada alternativa es una FORMA, no una
+# palabra suelta, para no tocar los nombres reales que usan las mismas palabras.
+_ANUNCIO_RE = re.compile(
+    r"^(sale|rent|venta|renta)\b"                     # 'Sale | Stadium Area'
+    r"|^(department|dept|depto|ph)\b\s*(in|of|de|at)?\b"   # 'Department in Moderna'
+    r"|\|"                                            # separador de plantilla
+    r"|\b(model [a-z]\b|pre-?sale|for investment|block from|with (pool|tenant)|"
+    r"excelente (inversion|trato)|ideal (house|para)|rural property)\b"
+    r"|^local\b",                                     # 'Local with tenant in...'
+    re.I)
+
 
 def norm_seccion(s):
     """Deja una sola forma para el sufijo de sección: '<n> seccion'."""
@@ -179,6 +190,18 @@ def es_junk_colonia(v):
                  r"en renta|en venta|casa en|depto en|departamento en|se vende|se renta|dentro de|"
                  r"downtown|commercial|local in|zone|expo)\b", v.lower()):
         return True                      # frases de anuncio, no nombres de colonia
+    # Lo anterior busca frases sueltas y por eso dejaba pasar 'Sale | Stadium Area
+    # Jalisco', 'Department in Moderna', 'PH Country' y 'Artpark Amber Tower |
+    # Model C Emotions': llegaron hasta la lista del perito.
+    #
+    # El criterio NO puede ser "esta en ingles". Atlas Country Club, Chapala
+    # Country Club, Estrela Living y Villa California son colonias reales del
+    # catalogo —89 entradas ya fechadas usan palabras en ingles— y filtrarlas por
+    # idioma las borraria. Lo que delata al anuncio es la FORMA: empieza con el
+    # tipo de propiedad o con un verbo de venta, trae separador de plantilla, o
+    # describe el inmueble en vez de nombrar un lugar.
+    if _ANUNCIO_RE.search(v.lower()):
+        return True
     return False
 
 

@@ -1,23 +1,27 @@
 [
  {
+  "clave": "ampliacion acozac|chapala",
   "colonia": "Ampliacion Acozac",
   "municipio": "chapala",
-  "clave": "ampliacion acozac|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "ampliacion alpes|chapala",
   "colonia": "Ampliacion Alpes",
   "municipio": "chapala",
-  "clave": "ampliacion alpes|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "ampliacion reforma|chapala",
   "colonia": "Ampliacion Reforma",
   "municipio": "chapala",
-  "clave": "ampliacion reforma|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "anzures|chapala",
   "colonia": "Anzures",
   "municipio": "chapala",
-  "clave": "anzures|chapala"
+  "razon": "perito: no"
  },
  {
   "colonia": "anzures",
@@ -26,54 +30,70 @@
   "razon": "foranea ya contestada"
  },
  {
+  "clave": "artpark amber tower / model a soul|zapopan",
+  "colonia": "artpark amber tower / model a soul |",
+  "municipio": "zapopan",
+  "razon": "copia de anuncio"
+ },
+ {
+  "clave": "atlixco centro|chapala",
   "colonia": "Atlixco Centro",
   "municipio": "chapala",
-  "clave": "atlixco centro|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "author residence in jardin real|zapopan",
   "colonia": "Author Residence In Jardín Real",
   "municipio": "zapopan",
-  "clave": "author residence in jardin real|zapopan"
+  "razon": "perito: no"
  },
  {
+  "clave": "autlan de navarro centro|autlan de navarro",
   "colonia": "Autlan de Navarro Centro",
   "municipio": "autlan de navarro",
-  "clave": "autlan de navarro centro|autlan de navarro"
+  "razon": "fuera de la ZMG"
  },
  {
+  "clave": "avenida vallarta|zapopan",
   "colonia": "Avenida Vallarta",
   "municipio": "zapopan",
-  "clave": "avenida vallarta|zapopan"
+  "razon": "perito: no"
  },
  {
+  "clave": "axapusco|chapala",
   "colonia": "Axapusco",
   "municipio": "chapala",
-  "clave": "axapusco|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "bacalar|chapala",
   "colonia": "Bacalar",
   "municipio": "chapala",
-  "clave": "bacalar|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "bacalar|el salto",
   "colonia": "Bacalar",
   "municipio": "el salto",
-  "clave": "bacalar|el salto"
+  "razon": "perito: no"
  },
  {
+  "clave": "banderilla centro|chapala",
   "colonia": "Banderilla Centro",
   "municipio": "chapala",
-  "clave": "banderilla centro|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "bosques amalucan|chapala",
   "colonia": "Bosques Amalucan",
   "municipio": "chapala",
-  "clave": "bosques amalucan|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "bosques de las lomas|chapala",
   "colonia": "Bosques de las Lomas",
   "municipio": "chapala",
-  "clave": "bosques de las lomas|chapala"
+  "razon": "perito: no"
  },
  {
   "colonia": "bosques de las lomas",
@@ -82,29 +102,34 @@
   "razon": "foranea ya contestada"
  },
  {
+  "clave": "burgos bugambilias|chapala",
   "colonia": "Burgos Bugambilias",
   "municipio": "chapala",
-  "clave": "burgos bugambilias|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "burgos bugambilias|tlajomulco de zuniga",
   "colonia": "Burgos Bugambilias",
   "municipio": "tlajomulco de zuniga",
-  "clave": "burgos bugambilias|tlajomulco de zuniga"
+  "razon": "perito: no"
  },
  {
+  "clave": "burgos|chapala",
   "colonia": "Burgos",
   "municipio": "chapala",
-  "clave": "burgos|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "canadas del arroyo|tlajomulco de zuniga",
   "colonia": "Cañadas del Arroyo",
   "municipio": "tlajomulco de zuniga",
-  "clave": "canadas del arroyo|tlajomulco de zuniga"
+  "razon": "perito: no"
  },
  {
+  "clave": "cancun centro|el salto",
   "colonia": "Cancun Centro",
   "municipio": "el salto",
-  "clave": "cancun centro|el salto"
+  "razon": "perito: no"
  },
  {
   "colonia": "cancun centro",
@@ -113,39 +138,46 @@
   "razon": "foranea ya contestada"
  },
  {
+  "clave": "cancun|chapala",
   "colonia": "Cancun",
   "municipio": "chapala",
-  "clave": "cancun|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "cancun|el salto",
   "colonia": "Cancun",
   "municipio": "el salto",
-  "clave": "cancun|el salto"
+  "razon": "perito: no"
  },
  {
+  "clave": "cancun|tlajomulco de zuniga",
   "colonia": "Cancun",
   "municipio": "tlajomulco de zuniga",
-  "clave": "cancun|tlajomulco de zuniga"
+  "razon": "perito: no"
  },
  {
+  "clave": "carretera a nogales|zapopan",
   "colonia": "Carretera a Nogales",
   "municipio": "zapopan",
-  "clave": "carretera a nogales|zapopan"
+  "razon": "perito: no"
  },
  {
-  "colonia": "Casa de 3r y Excelente Trato en el Fortin",
+  "clave": "casa de 3r y excelente trato en el fortin|zapopan",
+  "colonia": "casa de 3r y excelente trato en el fortin",
   "municipio": "zapopan",
-  "clave": "casa de 3r y excelente trato en el fortin|zapopan"
+  "razon": "copia de anuncio"
  },
  {
+  "clave": "cd caucel|tlajomulco de zuniga",
   "colonia": "Cd Caucel",
   "municipio": "tlajomulco de zuniga",
-  "clave": "cd caucel|tlajomulco de zuniga"
+  "razon": "perito: no"
  },
  {
+  "clave": "ciudad de cancun|el salto",
   "colonia": "Ciudad de Cancun",
   "municipio": "el salto",
-  "clave": "ciudad de cancun|el salto"
+  "razon": "perito: no"
  },
  {
   "colonia": "ciudad de cancun",
@@ -154,24 +186,28 @@
   "razon": "foranea ya contestada"
  },
  {
+  "clave": "ciudad satelite|chapala",
   "colonia": "Ciudad Satelite",
   "municipio": "chapala",
-  "clave": "ciudad satelite|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "club de golf la loma|chapala",
   "colonia": "Club de Golf la Loma",
   "municipio": "chapala",
-  "clave": "club de golf la loma|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "coba|chapala",
   "colonia": "Coba",
   "municipio": "chapala",
-  "clave": "coba|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "condesa|cuauhtemoc",
   "colonia": "Condesa",
   "municipio": "cuauhtemoc",
-  "clave": "condesa|cuauhtemoc"
+  "razon": "fuera de la ZMG"
  },
  {
   "colonia": "condesa",
@@ -180,9 +216,10 @@
   "razon": "foranea ya contestada"
  },
  {
+  "clave": "contadero|cuajimalpa de morelos",
   "colonia": "Contadero",
   "municipio": "cuajimalpa de morelos",
-  "clave": "contadero|cuajimalpa de morelos"
+  "razon": "fuera de la ZMG"
  },
  {
   "colonia": "contadero",
@@ -191,9 +228,10 @@
   "razon": "foranea ya contestada"
  },
  {
+  "clave": "cuajimalpa|chapala",
   "colonia": "Cuajimalpa",
   "municipio": "chapala",
-  "clave": "cuajimalpa|chapala"
+  "razon": "perito: no"
  },
  {
   "colonia": "cuajimalpa",
@@ -202,39 +240,52 @@
   "razon": "foranea ya contestada"
  },
  {
+  "clave": "cuautlancingo|chapala",
   "colonia": "Cuautlancingo",
   "municipio": "chapala",
-  "clave": "cuautlancingo|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "cuernavaca centro|chapala",
   "colonia": "Cuernavaca Centro",
   "municipio": "chapala",
-  "clave": "cuernavaca centro|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "del valle norte|chapala",
   "colonia": "Del Valle Norte",
   "municipio": "chapala",
-  "clave": "del valle norte|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "departments governors tower|guadalajara",
   "colonia": "Departments Governors Tower",
   "municipio": "guadalajara",
-  "clave": "departments governors tower|guadalajara"
+  "razon": "perito: no"
  },
  {
+  "clave": "dept colonies tower|guadalajara",
+  "colonia": "sale dept. colonies tower",
+  "municipio": "guadalajara",
+  "razon": "copia de anuncio"
+ },
+ {
+  "clave": "enchanted forest|zapopan",
   "colonia": "Enchanted Forest",
   "municipio": "zapopan",
-  "clave": "enchanted forest|zapopan"
+  "razon": "perito: no"
  },
  {
-  "colonia": "Epa One Block From The American Consulate",
+  "clave": "epa one block from the american consulate|guadalajara",
+  "colonia": "epa one block from the american consulate",
   "municipio": "guadalajara",
-  "clave": "epa one block from the american consulate|guadalajara"
+  "razon": "copia de anuncio"
  },
  {
+  "clave": "escandon 1 seccion|miguel hidalgo",
   "colonia": "Escandon 1 Sección",
   "municipio": "miguel hidalgo",
-  "clave": "escandon 1 seccion|miguel hidalgo"
+  "razon": "fuera de la ZMG"
  },
  {
   "colonia": "escandon i seccion",
@@ -243,24 +294,28 @@
   "razon": "foranea ya contestada"
  },
  {
-  "colonia": "Excelente Inversion",
+  "clave": "excelente inversion|guadalajara",
+  "colonia": "excelente inversion",
   "municipio": "guadalajara",
-  "clave": "excelente inversion|guadalajara"
+  "razon": "copia de anuncio"
  },
  {
+  "clave": "exceptional loft|guadalajara",
   "colonia": "Exceptional Loft",
   "municipio": "guadalajara",
-  "clave": "exceptional loft|guadalajara"
+  "razon": "perito: no"
  },
  {
+  "clave": "fuentes de tepepan|tlajomulco de zuniga",
   "colonia": "Fuentes de Tepepan",
   "municipio": "tlajomulco de zuniga",
-  "clave": "fuentes de tepepan|tlajomulco de zuniga"
+  "razon": "perito: no"
  },
  {
+  "clave": "granjas estrella|chapala",
   "colonia": "Granjas Estrella",
   "municipio": "chapala",
-  "clave": "granjas estrella|chapala"
+  "razon": "perito: no"
  },
  {
   "colonia": "guadalajara",
@@ -281,9 +336,10 @@
   "razon": "no es colonia"
  },
  {
+  "clave": "hacienda de las palmas|chapala",
   "colonia": "Hacienda de las Palmas",
   "municipio": "chapala",
-  "clave": "hacienda de las palmas|chapala"
+  "razon": "perito: no"
  },
  {
   "colonia": "hacienda de las palmas",
@@ -292,14 +348,16 @@
   "razon": "foranea ya contestada"
  },
  {
+  "clave": "heroes de padierna|el salto",
   "colonia": "Heroes de Padierna",
   "municipio": "el salto",
-  "clave": "heroes de padierna|el salto"
+  "razon": "perito: no"
  },
  {
+  "clave": "hipodromo condesa|tlajomulco de zuniga",
   "colonia": "Hipódromo Condesa",
   "municipio": "tlajomulco de zuniga",
-  "clave": "hipodromo condesa|tlajomulco de zuniga"
+  "razon": "perito: no"
  },
  {
   "colonia": "hipodromo condesa",
@@ -308,74 +366,94 @@
   "razon": "foranea ya contestada"
  },
  {
-  "colonia": "Insurgentes Cuicuilco",
-  "municipio": "chapala",
-  "clave": "insurgentes cuicuilco|chapala"
+  "clave": "hotel independence mansion|guadalajara",
+  "colonia": "Hotel Independence Mansion",
+  "municipio": "guadalajara",
+  "razon": "perito: no"
  },
  {
+  "clave": "insurgentes cuicuilco|chapala",
+  "colonia": "Insurgentes Cuicuilco",
+  "municipio": "chapala",
+  "razon": "perito: no"
+ },
+ {
+  "clave": "insurgentes cuicuilco|zapopan",
   "colonia": "Insurgentes Cuicuilco",
   "municipio": "zapopan",
-  "clave": "insurgentes cuicuilco|zapopan"
+  "razon": "perito: no"
  },
  {
+  "clave": "interlomas|chapala",
   "colonia": "Interlomas",
   "municipio": "chapala",
-  "clave": "interlomas|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "jardines de queretaro|chapala",
   "colonia": "Jardines de Queretaro",
   "municipio": "chapala",
-  "clave": "jardines de queretaro|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "jardines de san manuel|chapala",
   "colonia": "Jardines de San Manuel",
   "municipio": "chapala",
-  "clave": "jardines de san manuel|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "jardines de san mateo|chapala",
   "colonia": "Jardines de San Mateo",
   "municipio": "chapala",
-  "clave": "jardines de san mateo|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "jardines en la montana|el salto",
   "colonia": "Jardines en la Montaña",
   "municipio": "el salto",
-  "clave": "jardines en la montana|el salto"
+  "razon": "perito: no"
  },
  {
+  "clave": "jardines en la montana|tlalpan",
   "colonia": "Jardines en la Montaña",
   "municipio": "tlalpan",
-  "clave": "jardines en la montana|tlalpan"
+  "razon": "fuera de la ZMG"
  },
  {
-  "colonia": "Kavi Pre-sale Type 1 Sección",
+  "clave": "kavi pre-sale type 1 seccion|guadalajara",
+  "colonia": "kavi pre-sale type 1 seccion",
   "municipio": "guadalajara",
-  "clave": "kavi pre-sale type 1 seccion|guadalajara"
+  "razon": "copia de anuncio"
  },
  {
-  "colonia": "Kavi Pre-sale Type 2 Sección",
+  "clave": "kavi pre-sale type 2 seccion|guadalajara",
+  "colonia": "kavi pre-sale type 2 seccion",
   "municipio": "guadalajara",
-  "clave": "kavi pre-sale type 2 seccion|guadalajara"
+  "razon": "copia de anuncio"
  },
  {
-  "colonia": "Kavi Pre-sale Type 4 Sección",
+  "clave": "kavi pre-sale type 4 seccion|guadalajara",
+  "colonia": "kavi pre-sale type 4 seccion",
   "municipio": "guadalajara",
-  "clave": "kavi pre-sale type 4 seccion|guadalajara"
+  "razon": "copia de anuncio"
  },
  {
+  "clave": "la encomienda|el salto",
   "colonia": "La Encomienda",
   "municipio": "el salto",
-  "clave": "la encomienda|el salto"
+  "razon": "perito: no"
  },
  {
+  "clave": "la rejoyada residencial|tlajomulco de zuniga",
   "colonia": "La Rejoyada Residencial",
   "municipio": "tlajomulco de zuniga",
-  "clave": "la rejoyada residencial|tlajomulco de zuniga"
+  "razon": "perito: no"
  },
  {
+  "clave": "lagos del sol|chapala",
   "colonia": "Lagos del Sol",
   "municipio": "chapala",
-  "clave": "lagos del sol|chapala"
+  "razon": "perito: no"
  },
  {
   "colonia": "lagos del sol",
@@ -384,34 +462,40 @@
   "razon": "foranea ya contestada"
  },
  {
+  "clave": "lagos del sol|zapopan",
   "colonia": "Lagos del Sol",
   "municipio": "zapopan",
-  "clave": "lagos del sol|zapopan"
+  "razon": "perito: no"
  },
  {
+  "clave": "las aguilas 2o parque|alvaro obregon",
   "colonia": "Las Águilas 2o Parque",
   "municipio": "alvaro obregon",
-  "clave": "las aguilas 2o parque|alvaro obregon"
+  "razon": "fuera de la ZMG"
  },
  {
-  "colonia": "Local With Tenant In North Capital",
+  "clave": "local with tenant in north capital|zapopan",
+  "colonia": "local with tenant in north capital",
   "municipio": "zapopan",
-  "clave": "local with tenant in north capital|zapopan"
+  "razon": "copia de anuncio"
  },
  {
+  "clave": "lomas de bezares|miguel hidalgo",
   "colonia": "Lomas de Bezares",
   "municipio": "miguel hidalgo",
-  "clave": "lomas de bezares|miguel hidalgo"
+  "razon": "fuera de la ZMG"
  },
  {
+  "clave": "lomas de chapultepec|chapala",
   "colonia": "Lomas de Chapultepec",
   "municipio": "chapala",
-  "clave": "lomas de chapultepec|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "lomas de cocoyoc|tlajomulco de zuniga",
   "colonia": "Lomas de Cocoyoc",
   "municipio": "tlajomulco de zuniga",
-  "clave": "lomas de cocoyoc|tlajomulco de zuniga"
+  "razon": "perito: no"
  },
  {
   "colonia": "ionamiento lomas de cocoyoc",
@@ -420,44 +504,52 @@
   "razon": "foranea ya contestada"
  },
  {
+  "clave": "lomas de cuernavaca|chapala",
   "colonia": "Lomas de Cuernavaca",
   "municipio": "chapala",
-  "clave": "lomas de cuernavaca|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "lomas de juriquilla|zapopan",
   "colonia": "Lomas de Juriquilla",
   "municipio": "zapopan",
-  "clave": "lomas de juriquilla|zapopan"
+  "razon": "perito: no"
  },
  {
+  "clave": "lomas de la herradura|chapala",
   "colonia": "Lomas de la Herradura",
   "municipio": "chapala",
-  "clave": "lomas de la herradura|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "lomas de san lorenzo|chapala",
   "colonia": "Lomas de San Lorenzo",
   "municipio": "chapala",
-  "clave": "lomas de san lorenzo|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "lomas de santa fe|alvaro obregon",
   "colonia": "Lomas de Santa Fe",
   "municipio": "alvaro obregon",
-  "clave": "lomas de santa fe|alvaro obregon"
+  "razon": "fuera de la ZMG"
  },
  {
+  "clave": "lomas de sotelo|chapala",
   "colonia": "Lomas de Sotelo",
   "municipio": "chapala",
-  "clave": "lomas de sotelo|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "lomas hipodromo|tlajomulco de zuniga",
   "colonia": "Lomas Hipódromo",
   "municipio": "tlajomulco de zuniga",
-  "clave": "lomas hipodromo|tlajomulco de zuniga"
+  "razon": "perito: no"
  },
  {
+  "clave": "los alpes|alvaro obregon",
   "colonia": "Los Alpes",
   "municipio": "alvaro obregon",
-  "clave": "los alpes|alvaro obregon"
+  "razon": "fuera de la ZMG"
  },
  {
   "colonia": "los alpes",
@@ -471,29 +563,40 @@
   "clave": "luxury residence with pool | garage for 6 cars|zapopan"
  },
  {
+  "clave": "luxury residence with pool|zapopan",
+  "colonia": "luxury residence with pool | garage for 6 cars",
+  "municipio": "zapopan",
+  "razon": "copia de anuncio"
+ },
+ {
+  "clave": "mazamitla|mazamitla",
   "colonia": "Mazamitla",
   "municipio": "mazamitla",
-  "clave": "mazamitla|mazamitla"
+  "razon": "fuera de la ZMG"
  },
  {
+  "clave": "merida centro|chapala",
   "colonia": "Merida Centro",
   "municipio": "chapala",
-  "clave": "merida centro|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "merida centro|zapopan",
   "colonia": "Merida Centro",
   "municipio": "zapopan",
-  "clave": "merida centro|zapopan"
+  "razon": "perito: no"
  },
  {
+  "clave": "milenio 3 seccion|chapala",
   "colonia": "Milenio 3 Sección",
   "municipio": "chapala",
-  "clave": "milenio 3 seccion|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "napoles|chapala",
   "colonia": "Napoles",
   "municipio": "chapala",
-  "clave": "napoles|chapala"
+  "razon": "perito: no"
  },
  {
   "colonia": "napoles",
@@ -502,9 +605,10 @@
   "razon": "foranea ya contestada"
  },
  {
+  "clave": "natuur towers|chapala",
   "colonia": "Natuur Towers",
   "municipio": "chapala",
-  "clave": "natuur towers|chapala"
+  "razon": "perito: no"
  },
  {
   "colonia": "palacio de gobierno del estado de jalisco",
@@ -531,9 +635,10 @@
   "razon": "no es colonia"
  },
  {
+  "clave": "parque san andres|chapala",
   "colonia": "Parque San Andrés",
   "municipio": "chapala",
-  "clave": "parque san andres|chapala"
+  "razon": "perito: no"
  },
  {
   "colonia": "parque san andres",
@@ -542,14 +647,22 @@
   "razon": "foranea ya contestada"
  },
  {
-  "colonia": "Playa del Carmen Centro",
-  "municipio": "zapopan",
-  "clave": "playa del carmen centro|zapopan"
+  "clave": "ph country|guadalajara",
+  "colonia": "ph country",
+  "municipio": "guadalajara",
+  "razon": "copia de anuncio"
  },
  {
+  "clave": "playa del carmen centro|zapopan",
+  "colonia": "Playa del Carmen Centro",
+  "municipio": "zapopan",
+  "razon": "perito: no"
+ },
+ {
+  "clave": "playa del carmen|chapala",
   "colonia": "Playa del Carmen",
   "municipio": "chapala",
-  "clave": "playa del carmen|chapala"
+  "razon": "perito: no"
  },
  {
   "colonia": "playa del carmen",
@@ -558,24 +671,28 @@
   "razon": "foranea ya contestada"
  },
  {
+  "clave": "pueblo chelem|chapala",
   "colonia": "Pueblo Chelem",
   "municipio": "chapala",
-  "clave": "pueblo chelem|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "pueblo telchac puerto|zapopan",
   "colonia": "Pueblo Telchac Puerto",
   "municipio": "zapopan",
-  "clave": "pueblo telchac puerto|zapopan"
+  "razon": "perito: no"
  },
  {
+  "clave": "puerto cancun|chapala",
   "colonia": "Puerto Cancun",
   "municipio": "chapala",
-  "clave": "puerto cancun|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "queretaro|el salto",
   "colonia": "Queretaro",
   "municipio": "el salto",
-  "clave": "queretaro|el salto"
+  "razon": "perito: no"
  },
  {
   "colonia": "queretaro",
@@ -584,9 +701,10 @@
   "razon": "foranea ya contestada"
  },
  {
+  "clave": "rancho cortes|chapala",
   "colonia": "Rancho Cortes",
   "municipio": "chapala",
-  "clave": "rancho cortes|chapala"
+  "razon": "perito: no"
  },
  {
   "colonia": "rancho o rancheria el vado",
@@ -613,29 +731,34 @@
   "razon": "no es colonia"
  },
  {
+  "clave": "rancho santa monica|chapala",
   "colonia": "Rancho Santa Monica",
   "municipio": "chapala",
-  "clave": "rancho santa monica|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "residencial chipinque|chapala",
   "colonia": "Residencial Chipinque",
   "municipio": "chapala",
-  "clave": "residencial chipinque|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "residencial foresta|chapala",
   "colonia": "Residencial Foresta",
   "municipio": "chapala",
-  "clave": "residencial foresta|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "rinconada coapa|chapala",
   "colonia": "Rinconada Coapa",
   "municipio": "chapala",
-  "clave": "rinconada coapa|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "roma norte|cuauhtemoc",
   "colonia": "Roma Norte",
   "municipio": "cuauhtemoc",
-  "clave": "roma norte|cuauhtemoc"
+  "razon": "fuera de la ZMG"
  },
  {
   "colonia": "roma norte",
@@ -654,19 +777,22 @@
   "clave": "sale hotel independence mansion|guadalajara"
  },
  {
+  "clave": "san angel|alvaro obregon",
   "colonia": "San Ángel",
   "municipio": "alvaro obregon",
-  "clave": "san angel|alvaro obregon"
+  "razon": "fuera de la ZMG"
  },
  {
+  "clave": "san jeronimo aculco|chapala",
   "colonia": "San Jeronimo Aculco",
   "municipio": "chapala",
-  "clave": "san jeronimo aculco|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "san jeronimo lidice|chapala",
   "colonia": "San Jeronimo Lidice",
   "municipio": "chapala",
-  "clave": "san jeronimo lidice|chapala"
+  "razon": "perito: no"
  },
  {
   "colonia": "san jeronimo lidice",
@@ -675,34 +801,40 @@
   "razon": "foranea ya contestada"
  },
  {
+  "clave": "san juan cuautlancingo centro|chapala",
   "colonia": "San Juan Cuautlancingo Centro",
   "municipio": "chapala",
-  "clave": "san juan cuautlancingo centro|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "san juan xalpa|chapala",
   "colonia": "San Juan Xalpa",
   "municipio": "chapala",
-  "clave": "san juan xalpa|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "san luis de la paz|el salto",
   "colonia": "San Luis de la Paz",
   "municipio": "el salto",
-  "clave": "san luis de la paz|el salto"
+  "razon": "perito: no"
  },
  {
+  "clave": "san luis potosi|chapala",
   "colonia": "San Luis Potosi",
   "municipio": "chapala",
-  "clave": "san luis potosi|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "san pedro cholula|tlajomulco de zuniga",
   "colonia": "San Pedro Cholula",
   "municipio": "tlajomulco de zuniga",
-  "clave": "san pedro cholula|tlajomulco de zuniga"
+  "razon": "perito: no"
  },
  {
+  "clave": "san pedro de los pinos|alvaro obregon",
   "colonia": "San Pedro de los Pinos",
   "municipio": "alvaro obregon",
-  "clave": "san pedro de los pinos|alvaro obregon"
+  "razon": "fuera de la ZMG"
  },
  {
   "colonia": "san pedro de los pinos",
@@ -723,9 +855,10 @@
   "razon": "no es colonia"
  },
  {
+  "clave": "san simon ticumac|chapala",
   "colonia": "San Simon Ticumac",
   "municipio": "chapala",
-  "clave": "san simon ticumac|chapala"
+  "razon": "perito: no"
  },
  {
   "colonia": "san simon ticumac",
@@ -734,14 +867,16 @@
   "razon": "foranea ya contestada"
  },
  {
+  "clave": "santa leticia|chapala",
   "colonia": "Santa Leticia",
   "municipio": "chapala",
-  "clave": "santa leticia|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "santa maria nonoalco|el salto",
   "colonia": "Santa María Nonoalco",
   "municipio": "el salto",
-  "clave": "santa maria nonoalco|el salto"
+  "razon": "perito: no"
  },
  {
   "colonia": "santa maria nonoalco",
@@ -750,79 +885,94 @@
   "razon": "foranea ya contestada"
  },
  {
-  "colonia": "Sofia Estate - Rural Property",
+  "clave": "sofia estate - rural property|zapopan",
+  "colonia": "sofia estate - rural property",
   "municipio": "zapopan",
-  "clave": "sofia estate - rural property|zapopan"
+  "razon": "copia de anuncio"
  },
  {
+  "clave": "supermanzana 7 seccion|chapala",
   "colonia": "Supermanzana 7 Sección",
   "municipio": "chapala",
-  "clave": "supermanzana 7 seccion|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "supermanzana|el salto",
   "colonia": "Supermanzana",
   "municipio": "el salto",
-  "clave": "supermanzana|el salto"
+  "razon": "perito: no"
  },
  {
+  "clave": "tabacalera|cuauhtemoc",
   "colonia": "Tabacalera",
   "municipio": "cuauhtemoc",
-  "clave": "tabacalera|cuauhtemoc"
+  "razon": "fuera de la ZMG"
  },
  {
+  "clave": "tacubaya|tonala",
   "colonia": "Tacubaya",
   "municipio": "tonala",
-  "clave": "tacubaya|tonala"
+  "razon": "perito: no"
  },
  {
+  "clave": "temozon norte|tlajomulco de zuniga",
   "colonia": "Temozon Norte",
   "municipio": "tlajomulco de zuniga",
-  "clave": "temozon norte|tlajomulco de zuniga"
+  "razon": "perito: no"
  },
  {
+  "clave": "tlaxcala|chapala",
   "colonia": "Tlaxcala",
   "municipio": "chapala",
-  "clave": "tlaxcala|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "topo chico|chapala",
   "colonia": "Topo Chico",
   "municipio": "chapala",
-  "clave": "topo chico|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "torre|zapopan",
   "colonia": "Torre",
   "municipio": "zapopan",
-  "clave": "torre|zapopan"
+  "razon": "perito: no"
  },
  {
+  "clave": "tulum centro|tlajomulco de zuniga",
   "colonia": "Tulum Centro",
   "municipio": "tlajomulco de zuniga",
-  "clave": "tulum centro|tlajomulco de zuniga"
+  "razon": "perito: no"
  },
  {
+  "clave": "tulum|tlajomulco de zuniga",
   "colonia": "Tulum",
   "municipio": "tlajomulco de zuniga",
-  "clave": "tulum|tlajomulco de zuniga"
+  "razon": "perito: no"
  },
  {
+  "clave": "unidad habitacional villas residencial ix-lol-be|chapala",
   "colonia": "Unidad Habitacional Villas Residencial Ix-lol-be",
   "municipio": "chapala",
-  "clave": "unidad habitacional villas residencial ix-lol-be|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "valle de fontanna|chapala",
   "colonia": "Valle de Fontanna",
   "municipio": "chapala",
-  "clave": "valle de fontanna|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "valle de lincoln|chapala",
   "colonia": "Valle de Lincoln",
   "municipio": "chapala",
-  "clave": "valle de lincoln|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "veronica anzures|chapala",
   "colonia": "Veronica Anzures",
   "municipio": "chapala",
-  "clave": "veronica anzures|chapala"
+  "razon": "perito: no"
  },
  {
   "colonia": "veronica anzures",
@@ -831,39 +981,46 @@
   "razon": "foranea ya contestada"
  },
  {
+  "clave": "via cordillera|chapala",
   "colonia": "Via Cordillera",
   "municipio": "chapala",
-  "clave": "via cordillera|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "via cumbres|tlajomulco de zuniga",
   "colonia": "Via Cumbres",
   "municipio": "tlajomulco de zuniga",
-  "clave": "via cumbres|tlajomulco de zuniga"
+  "razon": "perito: no"
  },
  {
+  "clave": "villas del meson|el salto",
   "colonia": "Villas del Meson",
   "municipio": "el salto",
-  "clave": "villas del meson|el salto"
+  "razon": "perito: no"
  },
  {
+  "clave": "villas taurinas|autlan de navarro",
   "colonia": "Villas Taurinas",
   "municipio": "autlan de navarro",
-  "clave": "villas taurinas|autlan de navarro"
+  "razon": "fuera de la ZMG"
  },
  {
+  "clave": "volcan fujiyama|guadalajara",
   "colonia": "Volcan Fujiyama",
   "municipio": "guadalajara",
-  "clave": "volcan fujiyama|guadalajara"
+  "razon": "perito: no"
  },
  {
+  "clave": "xcumpich|chapala",
   "colonia": "Xcumpich",
   "municipio": "chapala",
-  "clave": "xcumpich|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "xotepingo|chapala",
   "colonia": "Xotepingo",
   "municipio": "chapala",
-  "clave": "xotepingo|chapala"
+  "razon": "perito: no"
  },
  {
   "colonia": "xotepingo",
@@ -872,9 +1029,10 @@
   "razon": "foranea ya contestada"
  },
  {
+  "clave": "yucatan country club|chapala",
   "colonia": "Yucatan Country Club",
   "municipio": "chapala",
-  "clave": "yucatan country club|chapala"
+  "razon": "perito: no"
  },
  {
   "colonia": "yucatan country club",
@@ -883,14 +1041,16 @@
   "razon": "foranea ya contestada"
  },
  {
+  "clave": "zaru|chapala",
   "colonia": "Zaru",
   "municipio": "chapala",
-  "clave": "zaru|chapala"
+  "razon": "perito: no"
  },
  {
+  "clave": "zibata|chapala",
   "colonia": "Zibata",
   "municipio": "chapala",
-  "clave": "zibata|chapala"
+  "razon": "perito: no"
  },
  {
   "colonia": "zibata",
@@ -899,9 +1059,10 @@
   "razon": "foranea ya contestada"
  },
  {
+  "clave": "zibata|zapopan",
   "colonia": "Zibata",
   "municipio": "zapopan",
-  "clave": "zibata|zapopan"
+  "razon": "perito: no"
  },
  {
   "colonia": "zona hotelera norte",

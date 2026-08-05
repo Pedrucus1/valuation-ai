@@ -42859,10 +42859,10 @@
   "fuente": "manual",
   "confianza": "alta",
   "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
   "municipio": "chapala",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "sepomex",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Cielo Contry Club|tlajomulco de zuniga": {
   "decada_ref": "2000s",
@@ -42874,10 +42874,10 @@
   "fuente": "manual",
   "confianza": "alta",
   "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "sepomex",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Tres Cañadas el Estrellon|chapala": {
   "decada_ref": "2000s",
@@ -42889,10 +42889,10 @@
   "fuente": "manual",
   "confianza": "alta",
   "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
   "municipio": "chapala",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "sepomex",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Las Redes|chapala": {
   "decada_ref": "1980s",
@@ -42904,10 +42904,10 @@
   "fuente": "manual",
   "confianza": "alta",
   "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
   "municipio": "chapala",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "sepomex",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Hipódromo|tonala": {
   "decada_ref": "1980s",
@@ -42919,10 +42919,10 @@
   "fuente": "manual",
   "confianza": "alta",
   "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
   "municipio": "tonala",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "sepomex",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Valles de Nuevo México la Periquera|zapopan": {
   "decada_ref": "2000s",
@@ -42934,25 +42934,10 @@
   "fuente": "manual",
   "confianza": "alta",
   "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
- },
- "Colli C.t.m|zapopan": {
-  "decada_ref": "1980s",
-  "decadas": [
-   "1980s",
-   "1990s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
+  "municipio_fuente": "sepomex",
   "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "fecha_captura": "2026-08-05"
  },
  "Potrero de San José|tonala": {
   "decada_ref": "1990s",
@@ -42964,10 +42949,10 @@
   "fuente": "manual",
   "confianza": "alta",
   "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
   "municipio": "tonala",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "sepomex",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Pedregal|tonala": {
   "decada_ref": "1990s",
@@ -42979,10 +42964,10 @@
   "fuente": "manual",
   "confianza": "alta",
   "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
   "municipio": "tonala",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "sepomex",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Rios de Agua Viva|chapala": {
   "decada_ref": "2000s",
@@ -42994,10 +42979,10 @@
   "fuente": "manual",
   "confianza": "alta",
   "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
   "municipio": "chapala",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "sepomex",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Vista del Lago Country Club de Chapala|chapala": {
   "decada_ref": "1970s",
@@ -43009,10 +42994,10 @@
   "fuente": "manual",
   "confianza": "alta",
   "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
   "municipio": "chapala",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "sepomex",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Las Pergolas|chapala": {
   "decada_ref": "1990s",
@@ -43024,25 +43009,10 @@
   "fuente": "manual",
   "confianza": "alta",
   "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
   "municipio": "chapala",
-  "municipio_fuente": "perito"
- },
- "Francisco I. Madero|san pedro tlaquepaque": {
-  "decada_ref": "1970s",
-  "decadas": [
-   "1970s",
-   "1980s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
+  "municipio_fuente": "sepomex",
   "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "san pedro tlaquepaque",
-  "municipio_fuente": "perito"
+  "fecha_captura": "2026-08-05"
  },
  "Zapopan Industrial Norte|zapopan": {
   "decada_ref": "1970s",
@@ -43054,40 +43024,10 @@
   "fuente": "manual",
   "confianza": "alta",
   "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
- },
- "Puerta del Sol|tlajomulco de zuniga": {
-  "decada_ref": "2000s",
-  "decadas": [
-   "2000s",
-   "2010s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
+  "municipio_fuente": "sepomex",
   "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
- },
- "Santa Fe|tonala": {
-  "decada_ref": "1990s",
-  "decadas": [
-   "1990s",
-   "2000s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "tonala",
-  "municipio_fuente": "perito"
+  "fecha_captura": "2026-08-05"
  },
  "Adolfo López Mateos|chapala": {
   "decada_ref": "1970s",
@@ -43097,12 +43037,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "chapala",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Santa Ana|zapopan": {
   "decada_ref": "1970s",
@@ -43112,12 +43052,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "San Ángel|tonala": {
   "decada_ref": "1990s",
@@ -43127,12 +43067,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tonala",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Los Ángeles|chapala": {
   "decada_ref": "1980s",
@@ -43142,27 +43082,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "chapala",
-  "municipio_fuente": "perito"
- },
- "San Pedro|chapala": {
-  "decada_ref": "1980s",
-  "decadas": [
-   "1980s",
-   "1990s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
+  "municipio_fuente": "anuncio",
   "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "chapala",
-  "municipio_fuente": "perito"
+  "fecha_captura": "2026-08-05"
  },
  "Villas de San Isidro|chapala": {
   "decada_ref": "2000s",
@@ -43172,12 +43097,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "chapala",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "La Muralla|chapala": {
   "decada_ref": "1990s",
@@ -43187,42 +43112,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "chapala",
-  "municipio_fuente": "perito"
- },
- "Las Palmas|tonala": {
-  "decada_ref": "1980s",
-  "decadas": [
-   "1980s",
-   "1990s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
+  "municipio_fuente": "anuncio",
   "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "tonala",
-  "municipio_fuente": "perito"
- },
- "Loma Real|guadalajara": {
-  "decada_ref": "1980s",
-  "decadas": [
-   "1980s",
-   "1990s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "fecha_captura": "2026-08-05"
  },
  "Santa Ines|tonala": {
   "decada_ref": "1990s",
@@ -43232,12 +43127,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tonala",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Florida|tonala": {
   "decada_ref": "1990s",
@@ -43247,27 +43142,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tonala",
-  "municipio_fuente": "perito"
- },
- "Lomas del Pedregal|tonala": {
-  "decada_ref": "1990s",
-  "decadas": [
-   "1990s",
-   "2000s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
+  "municipio_fuente": "anuncio",
   "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "tonala",
-  "municipio_fuente": "perito"
+  "fecha_captura": "2026-08-05"
  },
  "Hipódromo|guadalajara": {
   "decada_ref": "1960s",
@@ -43277,12 +43157,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Aquiles Serdan|tlajomulco de zuniga": {
   "decada_ref": "1980s",
@@ -43292,12 +43172,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "El Tule|zapopan": {
   "decada_ref": "1990s",
@@ -43307,42 +43187,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
- },
- "Obrera|tonala": {
-  "decada_ref": "1970s",
-  "decadas": [
-   "1970s",
-   "1980s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
+  "municipio_fuente": "anuncio",
   "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "tonala",
-  "municipio_fuente": "perito"
- },
- "Obrera|chapala": {
-  "decada_ref": "1970s",
-  "decadas": [
-   "1970s",
-   "1980s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "chapala",
-  "municipio_fuente": "perito"
+  "fecha_captura": "2026-08-05"
  },
  "Acacias|tonala": {
   "decada_ref": "1990s",
@@ -43352,12 +43202,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tonala",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Nuevo Progreso|tlajomulco de zuniga": {
   "decada_ref": "1990s",
@@ -43367,42 +43217,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
- },
- "Puerta Real|el salto": {
-  "decada_ref": "2000s",
-  "decadas": [
-   "2000s",
-   "2010s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
+  "municipio_fuente": "anuncio",
   "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "el salto",
-  "municipio_fuente": "perito"
- },
- "El Zalate|el salto": {
-  "decada_ref": "1980s",
-  "decadas": [
-   "1980s",
-   "1990s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "el salto",
-  "municipio_fuente": "perito"
+  "fecha_captura": "2026-08-05"
  },
  "Colonial Independencia|guadalajara": {
   "decada_ref": "1970s",
@@ -43412,12 +43232,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Tossa Residencial 2 Sección|san pedro tlaquepaque": {
   "decada_ref": "2010s",
@@ -43427,12 +43247,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "san pedro tlaquepaque",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Las Viboras Fraccionamiento Valle de las Flores|tlajomulco de zuniga": {
   "decada_ref": "2000s",
@@ -43442,12 +43262,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Senderos Monte Verde|tlajomulco de zuniga": {
   "decada_ref": "2010s",
@@ -43457,12 +43277,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Residencial el Coto|zapopan": {
   "decada_ref": "1990s",
@@ -43472,27 +43292,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
- },
- "Nueva Galicia|zapopan": {
-  "decada_ref": "2000s",
-  "decadas": [
-   "2000s",
-   "2010s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
+  "municipio_fuente": "anuncio",
   "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "fecha_captura": "2026-08-05"
  },
  "Providencia-1-seccion|guadalajara": {
   "decada_ref": "1960s",
@@ -43502,12 +43307,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Senderos de los Monte Verde|tlajomulco de zuniga": {
   "decada_ref": "2010s",
@@ -43517,12 +43322,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Figueroa|guadalajara": {
   "decada_ref": "1950s",
@@ -43532,12 +43337,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Santa Cruz de la Flores|tlajomulco de zuniga": {
   "decada_ref": "1970s",
@@ -43547,12 +43352,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Colinas de Tesistán|zapopan": {
   "decada_ref": "2000s",
@@ -43562,12 +43367,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Condominio Colinas Virreyes|zapopan": {
   "decada_ref": "1990s",
@@ -43577,12 +43382,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Delicias|chapala": {
   "decada_ref": "1980s",
@@ -43592,27 +43397,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "chapala",
-  "municipio_fuente": "perito"
- },
- "Gral. Real|guadalajara": {
-  "decada_ref": "1950s",
-  "decadas": [
-   "1950s",
-   "1960s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
+  "municipio_fuente": "anuncio",
   "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "fecha_captura": "2026-08-05"
  },
  "Senda del Valle|zapopan": {
   "decada_ref": "2010s",
@@ -43622,12 +43412,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Coto la Cima|zapopan": {
   "decada_ref": "2000s",
@@ -43637,12 +43427,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Altavista Fraccionamiento|zapopan": {
   "decada_ref": "1990s",
@@ -43652,12 +43442,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Azaleas-bugambilias|zapopan": {
   "decada_ref": "1980s",
@@ -43667,12 +43457,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Raquet Club San Juan Cosala|chapala": {
   "decada_ref": "1970s",
@@ -43682,12 +43472,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "chapala",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Santa Anita Country|tlajomulco de zuniga": {
   "decada_ref": "1980s",
@@ -43697,12 +43487,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Campo de Golf Santa Anita Condominio|tlajomulco de zuniga": {
   "decada_ref": "1980s",
@@ -43712,12 +43502,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "El Palomar Contry Club|tlajomulco de zuniga": {
   "decada_ref": "1970s",
@@ -43727,12 +43517,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Pueblo San Nicolás de Ibarra|chapala": {
   "decada_ref": "1970s",
@@ -43742,12 +43532,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "chapala",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Privanza Solares|zapopan": {
   "decada_ref": "2010s",
@@ -43757,12 +43547,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "La Romana|tlajomulco de zuniga": {
   "decada_ref": "2010s",
@@ -43772,27 +43562,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
- },
- "Cond. 2 Altaterra|zapopan": {
-  "decada_ref": "2010s",
-  "decadas": [
-   "2010s",
-   "2020s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
+  "municipio_fuente": "anuncio",
   "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "fecha_captura": "2026-08-05"
  },
  "Panorama|san pedro tlaquepaque": {
   "decada_ref": "1990s",
@@ -43802,12 +43577,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "san pedro tlaquepaque",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Lomas de Montechelo|zapopan": {
   "decada_ref": "2000s",
@@ -43817,12 +43592,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Villa Palma|zapopan": {
   "decada_ref": "2010s",
@@ -43832,12 +43607,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Cima Altosur|guadalajara": {
   "decada_ref": "2010s",
@@ -43847,12 +43622,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "El Olivo Coto Residencial|zapopan": {
   "decada_ref": "2010s",
@@ -43862,12 +43637,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "La Cima Coto J|zapopan": {
   "decada_ref": "2010s",
@@ -43877,12 +43652,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Ecologico Milpillas|zapopan": {
   "decada_ref": "1990s",
@@ -43892,12 +43667,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Bosques de Bugambilias|zapopan": {
   "decada_ref": "1980s",
@@ -43907,12 +43682,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Club de Golf las Lomas|zapopan": {
   "decada_ref": "2000s",
@@ -43922,12 +43697,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Tepeyac Casinos|zapopan": {
   "decada_ref": "1960s",
@@ -43937,12 +43712,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Coral|zapopan": {
   "decada_ref": "1980s",
@@ -43952,12 +43727,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Azaleas Bugambilias|zapopan": {
   "decada_ref": "1980s",
@@ -43967,12 +43742,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Primavera Norte|zapopan": {
   "decada_ref": "2000s",
@@ -43982,12 +43757,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Solares Residencial Soare 2 Sección|zapopan": {
   "decada_ref": "2010s",
@@ -43997,12 +43772,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Arboleda|zapopan": {
   "decada_ref": "1980s",
@@ -44012,12 +43787,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Riveras del Pilar|chapala": {
   "decada_ref": "1970s",
@@ -44027,12 +43802,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "chapala",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "El Tempisque Ajijic|chapala": {
   "decada_ref": "1990s",
@@ -44042,12 +43817,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "chapala",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Pueblo San Juan Evangelista|tlajomulco de zuniga": {
   "decada_ref": "1970s",
@@ -44057,12 +43832,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Condominio Santa Anita|tlajomulco de zuniga": {
   "decada_ref": "1980s",
@@ -44072,12 +43847,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "3 Reyes Cajititlán|tlajomulco de zuniga": {
   "decada_ref": "1900s",
@@ -44087,12 +43862,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Sector Libertad|guadalajara": {
   "decada_ref": "1930s",
@@ -44102,12 +43877,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "La Villita la Floreta|chapala": {
   "decada_ref": "1960s",
@@ -44117,27 +43892,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "chapala",
-  "municipio_fuente": "perito"
- },
- "Department In Albereda Residence|tlajomulco de zuniga": {
-  "decada_ref": "2010s",
-  "decadas": [
-   "2010s",
-   "2020s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
+  "municipio_fuente": "anuncio",
   "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "fecha_captura": "2026-08-05"
  },
  "La Querencia|chapala": {
   "decada_ref": "2000s",
@@ -44147,12 +43907,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "chapala",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Colina Seattle|zapopan": {
   "decada_ref": "1920s",
@@ -44162,12 +43922,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Altavista Bosques|zapopan": {
   "decada_ref": "2010s",
@@ -44177,12 +43937,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Marsala|zapopan": {
   "decada_ref": "2010s",
@@ -44192,12 +43952,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Toscana|zapopan": {
   "decada_ref": "2000s",
@@ -44207,12 +43967,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Bosque de la Luna|zapopan": {
   "decada_ref": "2010s",
@@ -44222,27 +43982,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
- },
- "Real Garden|zapopan": {
-  "decada_ref": "2010s",
-  "decadas": [
-   "2010s",
-   "2020s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
+  "municipio_fuente": "anuncio",
   "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "fecha_captura": "2026-08-05"
  },
  "Rinconada San Isidro Subdivision|zapopan": {
   "decada_ref": "2000s",
@@ -44252,12 +43997,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Puerta de las Lomas|zapopan": {
   "decada_ref": "2010s",
@@ -44267,27 +44012,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
- },
- "Imperial Valley|zapopan": {
-  "decada_ref": "2010s",
-  "decadas": [
-   "2010s",
-   "2020s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
+  "municipio_fuente": "anuncio",
   "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "fecha_captura": "2026-08-05"
  },
  "El Dosel|zapopan": {
   "decada_ref": "2010s",
@@ -44297,12 +44027,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "La Cañadas|zapopan": {
   "decada_ref": "1970s",
@@ -44312,12 +44042,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Puerta Galicia|tlajomulco de zuniga": {
   "decada_ref": "2010s",
@@ -44327,12 +44057,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "3 Reyes|tlajomulco de zuniga": {
   "decada_ref": "1990s",
@@ -44342,12 +44072,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Bosques de Cedro|tlajomulco de zuniga": {
   "decada_ref": "2010s",
@@ -44357,12 +44087,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Punto Madero|tlajomulco de zuniga": {
   "decada_ref": "2010s",
@@ -44372,12 +44102,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Valle Escondido|tlajomulco de zuniga": {
   "decada_ref": "2000s",
@@ -44387,12 +44117,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Santa Anita Golf Club|tlajomulco de zuniga": {
   "decada_ref": "1980s",
@@ -44402,12 +44132,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Coto Castilla|tlajomulco de zuniga": {
   "decada_ref": "2000s",
@@ -44417,12 +44147,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Banus Residential|tlajomulco de zuniga": {
   "decada_ref": "2000s",
@@ -44432,12 +44162,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Quinta Santa Anita|tlajomulco de zuniga": {
   "decada_ref": "1990s",
@@ -44447,27 +44177,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
- },
- "Vallarta Gardens|zapopan": {
-  "decada_ref": "2000s",
-  "decadas": [
-   "2000s",
-   "2010s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
+  "municipio_fuente": "anuncio",
   "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "fecha_captura": "2026-08-05"
  },
  "Punta Norte Habitat|zapopan": {
   "decada_ref": "2010s",
@@ -44477,12 +44192,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Fortin|zapopan": {
   "decada_ref": "1990s",
@@ -44492,12 +44207,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Puerta Lomas|zapopan": {
   "decada_ref": "2010s",
@@ -44507,12 +44222,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Bosque de las Lomas|zapopan": {
   "decada_ref": "1990s",
@@ -44522,12 +44237,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Boskia Otero|zapopan": {
   "decada_ref": "2020s",
@@ -44536,12 +44251,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Alazan San Acasio|zapopan": {
   "decada_ref": "1990s",
@@ -44551,12 +44266,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Altatera|zapopan": {
   "decada_ref": "2010s",
@@ -44566,12 +44281,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Puerta de Asis|zapopan": {
   "decada_ref": "2000s",
@@ -44581,12 +44296,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Oxford Virreyes|zapopan": {
   "decada_ref": "2010s",
@@ -44596,12 +44311,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "San Isidro Centinela|zapopan": {
   "decada_ref": "2000s",
@@ -44611,12 +44326,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Ceiba Residencial|zapopan": {
   "decada_ref": "2010s",
@@ -44626,12 +44341,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Hipódromo Providencia|guadalajara": {
   "decada_ref": "1970s",
@@ -44641,12 +44356,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Coto Azaleas Residencial|zapopan": {
   "decada_ref": "2000s",
@@ -44656,12 +44371,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Bugambilias 2nda Sección|zapopan": {
   "decada_ref": "1980s",
@@ -44671,27 +44386,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
- },
- "Valle Imperial. Nuevo México|zapopan": {
-  "decada_ref": "2010s",
-  "decadas": [
-   "2010s",
-   "2020s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
+  "municipio_fuente": "anuncio",
   "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "fecha_captura": "2026-08-05"
  },
  "Las Cañadas Bosque de San Isidro|zapopan": {
   "decada_ref": "1990s",
@@ -44701,12 +44401,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Nueva Galicia; Coto Toledo|tlajomulco de zuniga": {
   "decada_ref": "2000s",
@@ -44716,12 +44416,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Pueblo Valle de la Misericordia|guadalajara": {
   "decada_ref": "1990s",
@@ -44731,12 +44431,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Lomas de Miramar|zapopan": {
   "decada_ref": "1990s",
@@ -44746,12 +44446,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Ina de los Robles|zapopan": {
   "decada_ref": "2010s",
@@ -44761,12 +44461,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Arenas|san pedro tlaquepaque": {
   "decada_ref": "1980s",
@@ -44776,12 +44476,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "san pedro tlaquepaque",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Villa de Santa María|san pedro tlaquepaque": {
   "decada_ref": "1990s",
@@ -44791,12 +44491,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "san pedro tlaquepaque",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "El Cielo Country Club Tlajomulco|tlajomulco de zuniga": {
   "decada_ref": "2000s",
@@ -44806,12 +44506,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "El Paraaso|tlajomulco de zuniga": {
   "decada_ref": "2000s",
@@ -44821,12 +44521,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Haciendas de San Josa|san pedro tlaquepaque": {
   "decada_ref": "1990s",
@@ -44836,14 +44536,14 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "san pedro tlaquepaque",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
- "E 17col. las Grullas Residencial|tlajomulco de zuniga": {
+ "E 17col las Grullas Residencial|tlajomulco de zuniga": {
   "decada_ref": "2010s",
   "decadas": [
    "2010s",
@@ -44851,12 +44551,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Niaos Haroes|guadalajara": {
   "decada_ref": "1950s",
@@ -44866,12 +44566,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Echeverraa|guadalajara": {
   "decada_ref": "1970s",
@@ -44881,12 +44581,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "El Polvorin|zapopan": {
   "decada_ref": "1970s",
@@ -44896,12 +44596,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Madison Tower|guadalajara": {
   "decada_ref": "2010s",
@@ -44911,12 +44611,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "El Verde Infonavit|guadalajara": {
   "decada_ref": "1980s",
@@ -44926,12 +44626,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Sao Paulo Vertical|guadalajara": {
   "decada_ref": "2010s",
@@ -44941,12 +44641,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Elysian High Country|guadalajara": {
   "decada_ref": "2020s",
@@ -44955,12 +44655,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Serenium Tower|guadalajara": {
   "decada_ref": "2020s",
@@ -44969,12 +44669,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Urban Life|guadalajara": {
   "decada_ref": "2010s",
@@ -44984,27 +44684,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
- },
- "Department In Moderna|guadalajara": {
-  "decada_ref": "1910s",
-  "decadas": [
-   "1910s",
-   "1920s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
+  "municipio_fuente": "anuncio",
   "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "fecha_captura": "2026-08-05"
  },
  "Torre Zenia|guadalajara": {
   "decada_ref": "2010s",
@@ -45014,12 +44699,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Torre Plus|guadalajara": {
   "decada_ref": "1980s",
@@ -45029,12 +44714,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Colomos Forest|guadalajara": {
   "decada_ref": "1970s",
@@ -45044,27 +44729,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
- },
- "Venta de Departamento Colonia Americana|guadalajara": {
-  "decada_ref": "1910s",
-  "decadas": [
-   "1910s",
-   "1920s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
+  "municipio_fuente": "anuncio",
   "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "fecha_captura": "2026-08-05"
  },
  "Américas|guadalajara": {
   "decada_ref": "1960s",
@@ -45074,12 +44744,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Soho Morelos|guadalajara": {
   "decada_ref": "2020s",
@@ -45088,12 +44758,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "La Colonia Moderna|guadalajara": {
   "decada_ref": "1910s",
@@ -45103,12 +44773,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Conjunto Habitacional Laureles|zapopan": {
   "decada_ref": "1980s",
@@ -45118,12 +44788,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Conjunto Habitacional Lomas Altas|zapopan": {
   "decada_ref": "1980s",
@@ -45133,12 +44803,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Ventura Vertical District|zapopan": {
   "decada_ref": "2010s",
@@ -45148,12 +44818,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Unidad Habitacional Lomas de Independencia|guadalajara": {
   "decada_ref": "1970s",
@@ -45163,14 +44833,14 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
- "Department In los Cantaros|tlajomulco de zuniga": {
+ "Camino de los Castanos|tlajomulco de zuniga": {
   "decada_ref": "2000s",
   "decadas": [
    "2000s",
@@ -45178,57 +44848,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
- },
- "Department In Villalta|tlajomulco de zuniga": {
-  "decada_ref": "2010s",
-  "decadas": [
-   "2010s",
-   "2020s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
+  "municipio_fuente": "anuncio",
   "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
- },
- "Department Of Camino de los Castanos|tlajomulco de zuniga": {
-  "decada_ref": "2000s",
-  "decadas": [
-   "2000s",
-   "2010s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
- },
- "Department In Albereda Residential|tlajomulco de zuniga": {
-  "decada_ref": "2010s",
-  "decadas": [
-   "2010s",
-   "2020s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "fecha_captura": "2026-08-05"
  },
  "Villa Manchester|tlajomulco de zuniga": {
   "decada_ref": "2010s",
@@ -45238,12 +44863,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Colinas del Paraíso I y 2 Sección|tlajomulco de zuniga": {
   "decada_ref": "2000s",
@@ -45253,14 +44878,14 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
- "Department In Torre Hispana la Rioja|tlajomulco de zuniga": {
+ "Torre Hispana la Rioja|tlajomulco de zuniga": {
   "decada_ref": "2010s",
   "decadas": [
    "2010s",
@@ -45268,12 +44893,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Alcatraces|tlajomulco de zuniga": {
   "decada_ref": "2000s",
@@ -45283,12 +44908,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Hispania Tower la Rioja Floor 4 Sección|tlajomulco de zuniga": {
   "decada_ref": "2010s",
@@ -45298,12 +44923,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Esenika|tlajomulco de zuniga": {
   "decada_ref": "2010s",
@@ -45313,27 +44938,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
- },
- "Three Lakes|guadalajara": {
-  "decada_ref": "2010s",
-  "decadas": [
-   "2010s",
-   "2020s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
+  "municipio_fuente": "anuncio",
   "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "fecha_captura": "2026-08-05"
  },
  "La Minerva|guadalajara": {
   "decada_ref": "1950s",
@@ -45343,12 +44953,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Cititower|guadalajara": {
   "decada_ref": "2010s",
@@ -45358,12 +44968,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Torre Zuno|guadalajara": {
   "decada_ref": "2010s",
@@ -45373,12 +44983,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Torre del Bosque|guadalajara": {
   "decada_ref": "1990s",
@@ -45388,12 +44998,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Uno Urban Life|guadalajara": {
   "decada_ref": "2010s",
@@ -45403,12 +45013,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Central Park Tower|guadalajara": {
   "decada_ref": "2010s",
@@ -45418,12 +45028,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Zentral|zapopan": {
   "decada_ref": "2010s",
@@ -45433,12 +45043,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Blue Loft|zapopan": {
   "decada_ref": "2010s",
@@ -45448,27 +45058,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
- },
- "Department In Valle de los Molinos|zapopan": {
-  "decada_ref": "2010s",
-  "decadas": [
-   "2010s",
-   "2020s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
+  "municipio_fuente": "anuncio",
   "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "fecha_captura": "2026-08-05"
  },
  "Ventura District|zapopan": {
   "decada_ref": "2010s",
@@ -45478,29 +45073,14 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
- },
- "Venta Departamento Ciudad del Sol|zapopan": {
-  "decada_ref": "1950s",
-  "decadas": [
-   "1950s",
-   "1960s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
+  "municipio_fuente": "anuncio",
   "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "fecha_captura": "2026-08-05"
  },
- "Department In Torre Tricot 5th Floor|zapopan": {
+ "Torre Tricot|zapopan": {
   "decada_ref": "2010s",
   "decadas": [
    "2010s",
@@ -45508,26 +45088,26 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
- "Venta Departamento Altaluz Vertical|zapopan": {
+ "Altaluz Vertical|zapopan": {
   "decada_ref": "2020s",
   "decadas": [
    "2020s"
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Torres Colón|zapopan": {
   "decada_ref": "1980s",
@@ -45537,12 +45117,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Torre Inara|zapopan": {
   "decada_ref": "2020s",
@@ -45551,26 +45131,26 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
- "Department In Stelar Bougambilias|zapopan": {
+ "Stelar Bougambilias|zapopan": {
   "decada_ref": "2020s",
   "decadas": [
    "2020s"
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Biosfera Living Tower|zapopan": {
   "decada_ref": "2010s",
@@ -45580,12 +45160,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Yatta Living|zapopan": {
   "decada_ref": "2020s",
@@ -45594,12 +45174,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Anuva|zapopan": {
   "decada_ref": "2020s",
@@ -45608,12 +45188,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Inglaterra|zapopan": {
   "decada_ref": "1970s",
@@ -45623,12 +45203,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Eniti|zapopan": {
   "decada_ref": "2010s",
@@ -45638,12 +45218,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Country Chapultepec|zapopan": {
   "decada_ref": "1960s",
@@ -45653,14 +45233,14 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
- "Department At Hyatt Regency|zapopan": {
+ "Hyatt Regency|zapopan": {
   "decada_ref": "2010s",
   "decadas": [
    "2010s",
@@ -45668,12 +45248,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Horizontes Country|guadalajara": {
   "decada_ref": "2010s",
@@ -45683,12 +45263,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Ejido San José del Castillo|el salto": {
   "decada_ref": "1970s",
@@ -45698,27 +45278,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "el salto",
-  "municipio_fuente": "perito"
- },
- "Condominio Puerta Plata|tlajomulco de zuniga": {
-  "decada_ref": "2000s",
-  "decadas": [
-   "2000s",
-   "2010s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
+  "municipio_fuente": "anuncio",
   "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "fecha_captura": "2026-08-05"
  },
  "Estadio Unidad Habitacional|guadalajara": {
   "decada_ref": "1970s",
@@ -45728,12 +45293,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "El Estero|tlajomulco de zuniga": {
   "decada_ref": "2000s",
@@ -45743,12 +45308,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Barrio San Bernardo|guadalajara": {
   "decada_ref": "1980s",
@@ -45758,12 +45323,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Caaadas de San Lorenzo|zapopan": {
   "decada_ref": "2010s",
@@ -45773,12 +45338,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Jesus|guadalajara": {
   "decada_ref": "1900s",
@@ -45788,12 +45353,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Zapopan Tesistán|zapopan": {
   "decada_ref": "1970s",
@@ -45803,27 +45368,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
- },
- "San Javier Hills|zapopan": {
-  "decada_ref": "1980s",
-  "decadas": [
-   "1980s",
-   "1990s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
+  "municipio_fuente": "anuncio",
   "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "fecha_captura": "2026-08-05"
  },
  "Ventura|zapopan": {
   "decada_ref": "2010s",
@@ -45833,40 +45383,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
- },
- "| Artpark Amber Tower | Model C Emotions|zapopan": {
-  "decada_ref": "2020s",
-  "decadas": [
-   "2020s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
+  "municipio_fuente": "anuncio",
   "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "zapopan",
-  "municipio_fuente": "perito"
- },
- "Artpark Amber Tower / Model a Soul ||zapopan": {
-  "decada_ref": "2020s",
-  "decadas": [
-   "2020s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "fecha_captura": "2026-08-05"
  },
  "Balanty Tower In The South Of Jalisco|zapopan": {
   "decada_ref": "2010s",
@@ -45876,12 +45398,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Intervalo Tec|zapopan": {
   "decada_ref": "2020s",
@@ -45890,12 +45412,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Avant Industrial Park|tlajomulco de zuniga": {
   "decada_ref": "2010s",
@@ -45905,27 +45427,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
- },
- "Granja City|zapopan": {
-  "decada_ref": "1980s",
-  "decadas": [
-   "1980s",
-   "1990s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
+  "municipio_fuente": "anuncio",
   "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "fecha_captura": "2026-08-05"
  },
  "San Pedro Pescador|san pedro tlaquepaque": {
   "decada_ref": "1990s",
@@ -45935,12 +45442,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "san pedro tlaquepaque",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Mallorca Residence|chapala": {
   "decada_ref": "2010s",
@@ -45950,12 +45457,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "chapala",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Las Campanas|tlajomulco de zuniga": {
   "decada_ref": "2000s",
@@ -45965,12 +45472,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "San Juan Bautista|tlajomulco de zuniga": {
   "decada_ref": "1990s",
@@ -45980,12 +45487,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Jardines de los Pinos|zapopan": {
   "decada_ref": "1980s",
@@ -45995,14 +45502,14 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
- "Sale | Stadium Area Jalisco|guadalajara": {
+ "Stadium Area Jalisco|guadalajara": {
   "decada_ref": "1970s",
   "decadas": [
    "1970s",
@@ -46010,12 +45517,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Torre Nau Living|guadalajara": {
   "decada_ref": "2020s",
@@ -46024,27 +45531,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "guadalajara",
-  "municipio_fuente": "perito"
- },
- "Ph Country|guadalajara": {
-  "decada_ref": "2010s",
-  "decadas": [
-   "2010s",
-   "2020s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
+  "municipio_fuente": "anuncio",
   "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
-  "municipio": "guadalajara",
-  "municipio_fuente": "perito"
+  "fecha_captura": "2026-08-05"
  },
  "Saint Augustine|tlajomulco de zuniga": {
   "decada_ref": "1990s",
@@ -46054,12 +45546,12 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  },
  "Real Zapopan|zapopan": {
   "decada_ref": "2000s",
@@ -46069,11 +45561,11 @@
   ],
   "nivel": "media",
   "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-05",
+  "confianza": "media",
+  "confianza_puntos": 70,
   "municipio": "zapopan",
-  "municipio_fuente": "perito"
+  "municipio_fuente": "anuncio",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  }
 }
