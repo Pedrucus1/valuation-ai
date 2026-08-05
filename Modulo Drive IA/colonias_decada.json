@@ -38646,30 +38646,6 @@
   "municipio": "tonala",
   "municipio_fuente": "sepomex"
  },
- "venta en tlajomulco": {
-  "decada_ref": "2000s",
-  "decadas": [
-   "2000s"
-  ],
-  "nivel": "media-baja",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "nombre"
- },
- "venta en tlaquepaque": {
-  "decada_ref": "2000s",
-  "decadas": [
-   "2000s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "municipio": "san pedro tlaquepaque",
-  "municipio_fuente": "nombre"
- },
  "venustiano carranza": {
   "decada_ref": "1970s",
   "decadas": [
@@ -45832,5 +45808,20 @@
   "fechada_por": "perito",
   "fecha_captura": "2026-08-05",
   "municipio_revisado": "2026-08-05"
+ },
+ "Plaza Patria|zapopan": {
+  "decada_ref": "1970s",
+  "decadas": [
+   "1970s",
+   "1980s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "municipio": "zapopan",
+  "municipio_fuente": "sepomex",
+  "fechada_por": "perito",
+  "fecha_captura": "2026-08-05"
  }
 }

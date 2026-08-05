@@ -98,7 +98,9 @@ _RESIDENCIAL_RE = re.compile(r"^residencial\s+|\s+(residencial|fraccionamiento|f
 # palabra suelta, para no tocar los nombres reales que usan las mismas palabras.
 _ANUNCIO_RE = re.compile(
     r"^(sale|rent|venta|renta)\b"                     # 'Sale | Stadium Area'
-    r"|^(department|dept|depto|ph)\b\s*(in|of|de|at)?\b"   # 'Department in Moderna'
+    # 'dpto' sin la 'e' es como lo abrevia el portal ('dpto. 8'), y faltaba.
+    r"|^(department|dept|depto|dpto|dep)\b\s*(in|of|de|at)?\b"
+    r"|^ph\b"
     r"|\|"                                            # separador de plantilla
     r"|\b(model [a-z]\b|pre-?sale|for investment|block from|with (pool|tenant)|"
     r"excelente (inversion|trato)|ideal (house|para)|rural property)\b"
@@ -220,8 +222,11 @@ def es_junk_colonia(v):
     Solo para entradas crudas — ver docstring del módulo."""
     if "," in v:
         return True                      # direcciones: "Av De La Paz 2121, Americana, GDL"
-    if re.search(r"\d{3,}", v):
-        return True                      # CP o número de calle (3+ dígitos): "44230 Guadalajara"
+    # 3+ dígitos delatan un CP o un número de calle... salvo cuando son un AÑO
+    # que forma parte del nombre: 'Residencial 2000' y '2001' son colonias reales
+    # de Zapopan y el filtro las rechazaba, o sea rechazaba al propio catálogo.
+    if any(not (len(n) == 4 and 1900 <= int(n) <= 2035) for n in re.findall(r"\d{3,}", v)):
+        return True                      # CP o número de calle: "44230 Guadalajara"
     # El largo se mide SIN el adorno y DESPUÉS de restaurar el truncado, no sobre
     # el crudo. Medido: 'fraccionamiento jardines de guadalupe' son 37 caracteres
     # y la colonia está fechada; 'ionamiento club de golf santa anita' es el mismo
