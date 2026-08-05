@@ -35,7 +35,9 @@ _MAESTRO_PATH = _DRIVE_IA / "colonias_maestro.json"
 # colonia de los 60 es otra edad y otro producto ('coto del fresno' 2010s vs
 # 'del fresno' 1960s). 'colonia' y 'fraccionamiento' sí son genéricos.
 _RESTAURA = {"omos": "colomos", "inas": "colinas"}
-_TRUNC_RE = re.compile(r"^(omos|inas)\s+", re.I)
+# El separador no siempre es espacio: el portal escribe 'omos-providencia' con
+# guion y esa variante no se restauraba.
+_TRUNC_RE = re.compile(r"^(omos|inas)[\s-]+", re.I)
 _DECOR_RE = re.compile(r"^(onia|ionamiento|amiento|col\.?|colonia|fracc\.?|"
                        r"fraccionamiento)\s+", re.I)
 
@@ -68,6 +70,16 @@ _ORDINAL_RE = re.compile(r"\b(\d+)\s*(?:a|ra|da|ta|va|era|do|ro)\b", re.I)
 _SEC_NUM_RE = re.compile(r"\bseccion\s+([ivx]+|\d+)\b", re.I)
 _ROM_RE = re.compile(r"\b([ivx]+)\b(?=\s*seccion|$)", re.I)
 _NUM_FIN_RE = re.compile(r"\b(\d+)$")
+_PUNTO_ORD_RE = re.compile(r"(\d+)\.\s*")
+# 'Los Robles Residencial' y 'Residencial Provenza' son las mismas colonias que
+# 'los robles' y 'provenza': el portal cuelga la palabra de un lado o del otro
+# segun el anuncio. Costaba 250 anuncios. Va aparte de _DECOR_RE porque puede
+# ir al final, no solo al principio.
+#
+# OJO: 'coto', 'condominio' y 'privada' NO entran aqui y no deben entrar. Un
+# coto de 2010 dentro de una colonia de los 60 es otra edad y otro producto;
+# 'residencial' en cambio no distingue nada, es decoracion del anuncio.
+_RESIDENCIAL_RE = re.compile(r"^residencial\s+|\s+residencial$", re.I)
 
 
 def norm_seccion(s):
@@ -75,6 +87,10 @@ def norm_seccion(s):
     s = _PAREN_RE.sub(r" \1", s)
     s = _SECC_RE.sub("seccion", s)
     s = _ORDINAL_RE.sub(r"\1", s)             # '1a' / '1ra' → '1'
+    # El punto del ordinal abreviado sobrevivía a la sustitución de arriba y
+    # dejaba '1. seccion', que no casa con el '1 seccion' del archivo. Costaba
+    # 148 anuncios (El Colli Urbano, Del Fresno, Jardines de la Cruz).
+    s = _PUNTO_ORD_RE.sub(r"\1 ", s)
     s = _SEC_NUM_RE.sub(r"\1 seccion", s)     # 'seccion i' → 'i seccion'
     s = _ROM_RE.sub(lambda m: _ROMANO.get(m.group(1).lower(), m.group(1)), s)
     s = _NUM_FIN_RE.sub(r"\1 seccion", s)     # 'plutarco elias calles 1' → '... 1 seccion'
@@ -85,6 +101,19 @@ def norm_col_key(s):
     s = unicodedata.normalize("NFKD", str(s or "")).encode("ascii", "ignore").decode().lower()
     s = " ".join(s.split())
     return norm_seccion(_DECOR_RE.sub("", _restaura_trunc(s)))
+
+
+def sin_residencial(s):
+    """'Los Robles Residencial' → 'los robles'. NO va en `norm_col_key`: se probó
+    y el propio archivo desmiente que sean lo mismo. San Andrés de Guadalajara es
+    de los veinte y Residencial San Andrés de los sesenta; Tesistán 1990s contra
+    Residencial Tesistán 2010s; Altavista 1980s contra Altavista Residencial
+    2010s. La palabra distingue un desarrollo nuevo con el nombre del rumbo
+    viejo, igual que 'coto' o 'privada'.
+
+    Por eso vive en la cascada de `decada_de` y no en la identidad: sólo entra
+    cuando el archivo NO tiene la variante propia, y sale marcada ambigua."""
+    return _RESIDENCIAL_RE.sub("", norm_col_key(s)).strip()
 
 
 def sin_seccion(s):
@@ -237,11 +266,13 @@ def decada_de(nombre, municipio=None):
         # banda de la colonia, que es mejor que nada y peor que el dato — las
         # secciones se abren por etapas y pueden separarse una década. Sale
         # marcado ambiguo para que quien lo consuma baje la confianza.
-        base = sin_seccion(nombre)
-        if base and base != nk:
+        for base, como in ((sin_residencial(nombre), "sin-residencial"),
+                           (sin_seccion(nombre), "colonia-madre")):
+            if not base or base == nk:
+                continue
             llave = por_clave.get((muni, base)) or por_clave.get(("", base))
             if llave:
-                return {**decada[llave], "_llave": llave, "_match": "colonia-madre",
+                return {**decada[llave], "_llave": llave, "_match": como,
                         "_ambiguo": True}
         return None
 
