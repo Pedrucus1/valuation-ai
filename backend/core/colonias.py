@@ -168,6 +168,30 @@ _ALIAS_MUNI = {
 }
 
 
+# Los municipios que PropValu valúa. Fuera de aquí no se dictamina, así que una
+# colonia de Lagos de Moreno o de Autlán no tiene por qué estar en el catálogo
+# aunque sea de Jalisco: ensucia el diccionario y hace preguntar de más.
+#
+# Son los mismos tres bloques del diccionario impreso: la mancha continua, los
+# anexados a la delimitación oficial que todavía no la tocan, y la Ribera de
+# Chapala —que NO es ZMG y tiene mercado y cronología propios, pero sí se valúa—.
+MUNICIPIOS_ZMG = (
+    "guadalajara", "zapopan", "san pedro tlaquepaque", "tonala",
+    "tlajomulco de zuniga", "el salto")
+MUNICIPIOS_EXPANSION = (
+    "juanacatlan", "ixtlahuacan de los membrillos", "zapotlanejo", "acatlan de juarez")
+MUNICIPIOS_RIBERA = ("chapala", "poncitlan", "jocotepec", "tizapan el alto")
+MUNICIPIOS_COBERTURA = frozenset(MUNICIPIOS_ZMG + MUNICIPIOS_EXPANSION + MUNICIPIOS_RIBERA)
+
+
+def es_municipio_cubierto(m):
+    """True si PropValu valúa ahí. Sin municipio devuelve True: la entrada podrá
+    estar incompleta, pero no hay evidencia de que esté fuera y borrarla por
+    omisión sería peor que dejarla."""
+    m = norm_muni(m or "")
+    return not m or m in MUNICIPIOS_COBERTURA
+
+
 def norm_muni(s):
     """Sin acentos + minúsculas (SEPOMEX y nuestros nombres difieren en acentos),
     y con los alias del mismo municipio colapsados — ver `_ALIAS_MUNI`."""

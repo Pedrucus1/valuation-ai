@@ -33814,23 +33814,6 @@
   "nucleo_historico": true,
   "nucleo_tipo": "Pueblo"
  },
- "san luis soyotlan": {
-  "decada_ref": "1900s",
-  "decadas": [
-   "1900s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "municipio": "tuxcueca",
-  "municipio_fuente": "perito",
-  "nucleo_historico": true,
-  "nucleo_tipo": "nucleo historico (perito)",
-  "decadas_previas": [
-   "1800s"
-  ]
- },
  "san marcos": {
   "decada_ref": "1950s",
   "decadas": [
@@ -42657,38 +42640,6 @@
   "fecha_captura": "2026-08-04",
   "homonima_confirmada": true,
   "municipio": "chapala",
-  "municipio_fuente": "perito"
- },
- "Del Carmen|lagos de moreno": {
-  "decada_ref": "1970s",
-  "decadas": [
-   "1970s",
-   "1980s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-04",
-  "homonima_confirmada": true,
-  "municipio": "lagos de moreno",
-  "municipio_fuente": "perito"
- },
- "Echeverría|autlan de navarro": {
-  "decada_ref": "1970s",
-  "decadas": [
-   "1970s",
-   "1980s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "fechada_por": "perito",
-  "fecha_captura": "2026-08-04",
-  "homonima_confirmada": true,
-  "municipio": "autlan de navarro",
   "municipio_fuente": "perito"
  },
  "Los Pinos|tonala": {
