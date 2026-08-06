@@ -1211,7 +1211,7 @@ const ValuationForm = () => {
             <button
               type="button"
               onClick={prevStep}
-              className="flex items-center gap-1 flex-shrink-0 text-white/85 hover:text-white text-xs font-semibold px-2.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
+              className="flex items-center gap-1 flex-shrink-0 text-[#1B4332] hover:text-[#1B4332] text-xs font-bold px-2.5 py-1.5 rounded-lg bg-[#D9ED92] hover:bg-[#c9e370] transition-colors shadow-sm"
               title="Regresar al paso anterior"
               data-testid="header-prev-step-btn"
             >

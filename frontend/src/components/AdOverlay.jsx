@@ -28,10 +28,12 @@ const AdOverlay = ({ slot, zone = "", onDone }) => {
   const [videoEnded, setVideoEnded] = useState(false);
   const [videoReady, setVideoReady] = useState(false); // el video ya arrancó (para no contar mientras bufferea)
   const [muted, setMuted] = useState(true); // arranca muted: autoplay con audio lo bloquea el navegador (video se queda en negro)
+  const [videoFailed, setVideoFailed] = useState(false); // el <video> no cargó (404/códec no soportado) → cae a texto casa
+  const [tipIndex, setTipIndex] = useState(Math.floor(Math.random() * HOUSE_ADS.length));
   const timerRef = useRef(null);
+  const tipTimerRef = useRef(null);
   const trackedRef = useRef(false);
   const doneRef = useRef(false);
-  const houseRef = useRef(HOUSE_ADS[Math.floor(Math.random() * HOUSE_ADS.length)]);
 
   const finish = () => { if (!doneRef.current) { doneRef.current = true; onDone?.(); } };
 
@@ -64,6 +66,17 @@ const AdOverlay = ({ slot, zone = "", onDone }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ad, videoReady]);
 
+  // Rotar las láminas de consejo "casa" a ~8s c/u, repartiendo la duración del slot
+  // entre las N láminas (15s→2 láminas, 30s→~4, 60s→~7-8).
+  useEffect(() => {
+    const dur = SLOT_DURATION[slot] || 30;
+    const perTip = Math.max(4, Math.round(dur / HOUSE_ADS.length));
+    tipTimerRef.current = setInterval(() => {
+      setTipIndex((i) => (i + 1) % HOUSE_ADS.length);
+    }, perTip * 1000);
+    return () => clearInterval(tipTimerRef.current);
+  }, [slot]);
+
   // Registrar impresión una vez (solo pagada)
   useEffect(() => {
     if (ad && !trackedRef.current) {
@@ -75,7 +88,15 @@ const AdOverlay = ({ slot, zone = "", onDone }) => {
     }
   }, [ad]);
 
-  if (ad === null) return null; // brevísima carga, no parpadear
+  if (ad === null) {
+    // Cargando (fetch a /ads/active) — si el backend está en cold-start esto puede tardar
+    // varios segundos; sin esto se veía "en blanco"/congelado hasta refrescar.
+    return (
+      <div className="fixed inset-0 z-[9999] bg-black/75 backdrop-blur-sm flex items-center justify-center">
+        <div className="spinner" />
+      </div>
+    );
+  }
 
   const handleClick = () => {
     if (!ad || !ad.link_url) return;
@@ -89,8 +110,9 @@ const AdOverlay = ({ slot, zone = "", onDone }) => {
     window.open(url, "_blank", "noopener");
   };
 
-  // ¿Mostrar texto casa? Sin campaña pagada, o el video pagado ya terminó antes de tiempo.
-  const showHouse = !ad || (ad.file_type === "video" && videoEnded);
+  // ¿Mostrar texto casa? Sin campaña pagada, el video pagado ya terminó antes de tiempo,
+  // o el video falló al cargar (404/códec no soportado en ese navegador → antes se quedaba en negro).
+  const showHouse = !ad || (ad.file_type === "video" && (videoEnded || videoFailed));
   const totalDur = (ad && ad.duration) || SLOT_DURATION[slot] || 30;
   const pct = Math.round((seconds / totalDur) * 100);
   // Creativos subidos viven en el backend (/uploads/...); un src relativo resolvería contra
@@ -108,9 +130,9 @@ const AdOverlay = ({ slot, zone = "", onDone }) => {
           <span className="absolute top-3 left-4 text-white/60 text-[11px] font-semibold">Publicidad · PropValu</span>
           <span className="absolute top-3 right-4 text-white text-sm font-bold tabular-nums">{seconds}</span>
           <div className="mt-4">
-            <p className="text-[11px] font-bold text-[#D9ED92] uppercase tracking-widest mb-3">{houseRef.current.tag}</p>
-            <h2 className="font-['Outfit'] text-2xl sm:text-3xl font-bold text-white mb-4 leading-snug">{houseRef.current.title}</h2>
-            <p className="text-white/80 text-base leading-relaxed">{houseRef.current.body}</p>
+            <p className="text-[11px] font-bold text-[#D9ED92] uppercase tracking-widest mb-3">{HOUSE_ADS[tipIndex].tag}</p>
+            <h2 className="font-['Outfit'] text-2xl sm:text-3xl font-bold text-white mb-4 leading-snug">{HOUSE_ADS[tipIndex].title}</h2>
+            <p className="text-white/80 text-base leading-relaxed">{HOUSE_ADS[tipIndex].body}</p>
           </div>
           <div className="mt-6 w-full h-1.5 bg-white/20 rounded-full overflow-hidden">
             <div className="h-full bg-[#52B788] rounded-full transition-all duration-1000" style={{ width: `${pct}%` }} />
@@ -128,6 +150,7 @@ const AdOverlay = ({ slot, zone = "", onDone }) => {
                 playsInline
                 onPlaying={() => setVideoReady(true)}
                 onEnded={() => setVideoEnded(true)}
+                onError={() => { setVideoReady(true); setVideoFailed(true); }}
                 className="block max-h-[86vh] max-w-[92vw] object-contain cursor-pointer"
               />
               <button

@@ -1634,11 +1634,11 @@ async def generate_report(valuation_id: str, request: Request, include_analysis:
     comparables = valuation.get("comparables", [])
     selected_ids = valuation.get("selected_comparables", [])
     
-    if valuation.get("mode") == "private" and selected_ids:
+    if selected_ids:
         active_comparables = [c for c in comparables if c["comparable_id"] in selected_ids]
     else:
         active_comparables = comparables[:6]
-    
+
     # Generate analysis
     analysis = generate_analysis_text(prop, result, active_comparables)
     
@@ -1718,7 +1718,9 @@ Responde con este JSON (usa valores realistas para la zona, no inventes datos ab
   }}
 }}
 
-IMPORTANTE: Devuelve SOLO el JSON. Los scores de perfil_entorno deben ser enteros del 1 al 10 según el tipo de zona. Deja "count" y "nombres" con los placeholders — se rellenan con datos REALES de Google Places, NO inventes nombres de establecimientos, calles o vías (si los pones serán de otra zona y estarán mal). En los "texto" describe la zona en general sin nombrar lugares específicos. Los valores de plusvalía son proyecciones ya calculadas, solo ajusta el comentario."""
+IMPORTANTE: Devuelve SOLO el JSON. Los scores de perfil_entorno deben ser enteros del 1 al 10 según el tipo de zona. Deja "count" y "nombres" con los placeholders — se rellenan con datos REALES de Google Places, NO inventes nombres de establecimientos, calles o vías (si los pones serán de otra zona y estarán mal). En los "texto" describe la zona en general sin nombrar lugares específicos. Los valores de plusvalía son proyecciones ya calculadas, solo ajusta el comentario.
+
+REGLA para "oportunidades": usa la Conservación y Edad reales de arriba. Si Conservación es "Bueno"/"Muy Bueno"/"Excelente", NO sugieras actualizar acabados ni renovar por antigüedad — contradice el propio dato reportado; la antigüedad sola no es una desventaja si el estado es bueno. Enfoca las oportunidades en algo verificable de los datos (tamaño de terreno vs zona, distribución, un solo baño, falta de cochera) o en estrategia de negociación — nunca inventes un defecto que el dato ya reportado contradiga."""
 
             _genai.configure(api_key=gemini_key)
             _sys = "Valuador inmobiliario certificado en México. Responde SOLO con JSON válido, sin markdown."

@@ -436,7 +436,7 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
     photos = prop.get("photos", [])
     is_valuer_mode = valuation.get("mode") == "private"
 
-    if is_valuer_mode and selected_ids:
+    if selected_ids:
         active_comparables = [c for c in comparables if c["comparable_id"] in selected_ids]
     else:
         active_comparables = comparables[:6]
@@ -759,7 +759,13 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
 
     # Ventajas / Oportunidades
     v_items_html = ''.join(f'<li>{v}</li>' for v in ventajas) if ventajas else '<li>Ubicación estratégica</li><li>Superficie competitiva</li>'
-    o_items_html = ''.join(f'<li>{o}</li>' for o in oportunidades) if oportunidades else '<li>Revisar acabados interiores</li><li>Antigüedad perceptible</li>'
+    if oportunidades:
+        o_items_html = ''.join(f'<li>{o}</li>' for o in oportunidades)
+    elif conservation.lower() in ('bueno', 'muy bueno', 'excelente'):
+        # Estado bueno reportado por el cliente: no inventar acabados/antigüedad como defecto.
+        o_items_html = '<li>Negociar con base en tiempo de mercado de comparables similares</li><li>Verificar documentación y adeudos antes de cerrar</li>'
+    else:
+        o_items_html = '<li>Revisar acabados interiores</li><li>Antigüedad perceptible</li>'
 
     # Recom items (page 4)
     recom_items = ''
@@ -1243,7 +1249,7 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
 
   <div style="display:flex;align-items:center;gap:10px;margin-top:8px;border:1px solid var(--gray-200);border-left:4px solid {conf_global_color};border-radius:8px;padding:8px 12px;background:var(--box-bg);">
     <div style="font-size:11px;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.4px;">Confianza del avalúo</div>
-    <div style="font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;color:{conf_global_color};">&#x25CF; {conf_global_label} ({conf_global}/100)</div>
+    <div style="font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;color:{conf_global_color};">&#x25CF; Confianza {conf_global_label}</div>
     <div style="font-size:11px;color:var(--text-sec);margin-left:auto;text-align:right;">Basada en {n_comp} comparables &middot; dispersión {conf_global_dispersion}% &middot; corroboración multi-portal</div>
   </div>
 

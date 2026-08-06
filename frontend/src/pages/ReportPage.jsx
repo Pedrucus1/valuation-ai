@@ -200,8 +200,11 @@ const ReportPage = () => {
         // If calculated but no report, generate it with default options
         generateReport(true);
       } else {
-        // If not calculated, calculate first
-        await calculateAndGenerate();
+        // If not calculated, calculate first. NO await: calculateAndGenerate ya maneja su
+        // propio isGenerating/spinner/ad — si lo esperamos aquí, isLoading se queda true
+        // durante TODO el cálculo+IA (hasta 60s) y la página muestra solo "Cargando valuación..."
+        // sin anuncio ni progreso (parecía colgada / "en blanco" hasta refrescar).
+        calculateAndGenerate();
       }
     } catch (error) {
       console.error("Error:", error);
