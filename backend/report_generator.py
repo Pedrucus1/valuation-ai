@@ -472,6 +472,29 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
     land_percent_donut = (land_value / physical_value * 100) if physical_value > 0 else 50
     const_percent_donut = 100 - land_percent_donut
 
+    # Nota técnica de superficies: solo advertir cuando el dato viene de Predial
+    # (fuente no confiable). Si el usuario indicó Escrituras/Plano/Medidas Físicas,
+    # no tiene sentido decir que "no están validadas físicamente" (bug 07-ago:
+    # surface_source no estaba declarado en PropertyInput, Pydantic lo descartaba
+    # y el reporte siempre mostraba la advertencia sin importar lo que se eligiera).
+    surface_source = prop.get('surface_source')
+    if surface_source == 'Predial':
+        tech_note_html = (
+            '<strong>&#x26A0; Nota Técnica:</strong> '
+            'Las superficies de Predial no están validadas físicamente. '
+            'Discrepancias impactarán la precisión del valor.'
+        )
+    elif surface_source in ('Escrituras', 'Plano', 'Medidas Físicas'):
+        tech_note_html = ''
+    else:
+        # Valuaciones viejas sin el dato (antes del fix): conservar la advertencia
+        # por default, ya que no sabemos si la superficie viene de Predial o no.
+        tech_note_html = (
+            '<strong>&#x26A0; Nota Técnica:</strong> '
+            'Las superficies reportadas no están validadas físicamente. '
+            'Discrepancias impactarán la precisión del valor.'
+        )
+
     # Conservation & thermometer
     conservation = prop.get('conservation_state', 'Bueno')
     conservation_scores_map = {'Excelente': 100, 'Bueno': 70, 'Regular': 40, 'Malo': 15}
@@ -977,10 +1000,7 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
         <div class="prop-address">&#x1F4CD; {addr_full}</div>
         <div class="prop-city">{location_str}</div>
       </div>
-      <div class="tech-note">
-        <strong>&#x26A0; Nota Técnica:</strong>
-        Las superficies de Predial no están validadas físicamente. Discrepancias impactarán la precisión del valor.
-      </div>
+      {f'<div class="tech-note">{tech_note_html}</div>' if tech_note_html else ''}
     </div>
     <table class="data-grid" style="table-layout:fixed;">
       <tr>

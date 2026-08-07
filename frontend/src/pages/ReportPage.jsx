@@ -344,7 +344,13 @@ const ReportPage = () => {
             <div>
               <Button
                 variant="ghost"
-                onClick={() => navigate("/")}
+                onClick={() => {
+                  const role = (currentUser?.role || "").toLowerCase();
+                  if (role === "appraiser") navigate("/dashboard/valuador");
+                  else if (role === "realtor") navigate("/dashboard/inmobiliaria");
+                  else if (currentUser) navigate("/dashboard");
+                  else navigate("/");
+                }}
                 className="mb-2 text-[#1B4332] hover:bg-[#D9ED92]/30 -ml-4"
                 data-testid="back-home-btn"
               >

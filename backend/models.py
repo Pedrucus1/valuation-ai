@@ -195,6 +195,7 @@ class PropertyInput(BaseModel):
     street_address: Optional[str] = None
     postal_code: Optional[str] = None
     land_use: Optional[str] = None  # H1-U, H2-V, H3-V, H4-V, HM, HC, HO, CU, CB, CD, CS, CC, CR, I-L, I-M, I-P, IP, EA, EI, PE, AG
+    surface_source: Optional[str] = None  # Escrituras | Plano | Predial | Medidas Físicas — sin declarar aquí, Pydantic la descartaba silenciosamente y el reporte nunca sabía que ya era físico (bug 07-ago)
 
     # Location coordinates
     latitude: Optional[float] = None
