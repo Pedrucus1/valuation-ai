@@ -1590,6 +1590,7 @@ async def calculate_remi(valuation_id: str):
     return {**result, "result": web_result}
 
 @api_router.post("/valuations/{valuation_id}/generate-report")
+@limiter.limit("10/hour")
 async def generate_report(valuation_id: str, request: Request, include_analysis: bool = True):
     """
     Generate AI-powered valuation report

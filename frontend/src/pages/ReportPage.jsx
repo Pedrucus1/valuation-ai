@@ -345,9 +345,11 @@ const ReportPage = () => {
               <Button
                 variant="ghost"
                 onClick={() => {
-                  const role = (currentUser?.role || "").toLowerCase();
-                  if (role === "appraiser") navigate("/dashboard/valuador");
-                  else if (role === "realtor") navigate("/dashboard/inmobiliaria");
+                  // role||tipo: /auth/me devuelve el rol en distintas llaves según la
+                  // cuenta (ver checkAndShowReviewModal más abajo, mismo patrón).
+                  const role = (currentUser?.role || currentUser?.tipo || "").toLowerCase();
+                  if (role === "appraiser" || role === "valuador") navigate("/dashboard/valuador");
+                  else if (role === "realtor" || role === "inmobiliaria") navigate("/dashboard/inmobiliaria");
                   else if (currentUser) navigate("/dashboard");
                   else navigate("/");
                 }}
@@ -374,9 +376,10 @@ const ReportPage = () => {
                 disabled={isGenerating}
                 className="border-[#1B4332] text-[#1B4332]"
                 data-testid="regenerate-btn"
+                title="Vuelve a generar el análisis de IA (mercado, ventajas, oportunidades). No recalcula el valor ni los comparables."
               >
                 <RefreshCw className={`w-4 h-4 mr-2 ${isGenerating ? 'animate-spin' : ''}`} />
-                Regenerar
+                Actualizar análisis IA
               </Button>
               <Button
                 onClick={handleDownloadPDF}
