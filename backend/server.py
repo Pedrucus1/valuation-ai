@@ -1657,6 +1657,22 @@ async def generate_report(valuation_id: str, request: Request, include_analysis:
             monthly_rent = result.get('market_metrics', {}).get('monthly_rent_estimate', 0)
             cap_rate = result.get('market_metrics', {}).get('cap_rate', 0)
             base_value = result['estimated_value']
+
+            # Datos duros de oferta/posición de mercado — para que analisis_mercado y
+            # oportunidades se basen en la oferta real de la zona, no en relleno genérico
+            # (bug 07-ago: analisis_mercado citaba "Bosque Real" para una propiedad en
+            # La Calma porque el prompt solo veía el texto de comparables, sin contexto
+            # de cuántos son de zona exacta ni si el valor está arriba/abajo del promedio).
+            n_zona_exacta = sum(1 for c in active_comparables if str(c.get('zona_tag', '')).startswith('Zona exacta'))
+            n_vecina = len(active_comparables) - n_zona_exacta
+            _sqm_vals = [c['price'] / c['construction_area'] for c in active_comparables if c.get('construction_area')]
+            avg_zona_sqm = sum(_sqm_vals) / len(_sqm_vals) if _sqm_vals else 0
+            subject_sqm = base_value / prop['construction_area'] if prop.get('construction_area') else 0
+            if avg_zona_sqm:
+                _diff_pct = (subject_sqm - avg_zona_sqm) / avg_zona_sqm * 100
+                posicion_zona = f"{'arriba' if _diff_pct >= 0 else 'abajo'} del promedio de la zona por {abs(_diff_pct):.1f}%"
+            else:
+                posicion_zona = "sin referencia suficiente de zona"
             # Precompute projected values so f-string stays valid
             yr1 = base_value * (1 + annual_appreciation / 100) ** 1
             yr2 = base_value * (1 + annual_appreciation / 100) ** 2
@@ -1677,10 +1693,12 @@ DATOS DE LA PROPIEDAD:
 - Cap Rate: {cap_rate:.1f}%
 - Plusvalía histórica zona: {annual_appreciation:.1f}% anual
 - Comparables: {comparables_text}
+- Comparables de la colonia exacta del sujeto: {n_zona_exacta} · de colonias vecinas: {n_vecina}
+- $/m² construcción del sujeto vs promedio de los comparables usados: {posicion_zona}
 
 Responde con este JSON (usa valores realistas para la zona, no inventes datos absurdos):
 {{
-  "analisis_mercado": "UN SOLO párrafo breve (máx 4-5 líneas): mercado local + comparables + una recomendación de negociación/venta. Conciso, sin relleno, útil. Debe caber junto al cuadro de metodología en una hoja carta.",
+  "analisis_mercado": "UN SOLO párrafo breve (máx 4-5 líneas), basado en los datos duros de arriba: cuántos comparables son de la colonia exacta vs vecinas, si el $/m² del sujeto está arriba o abajo del promedio de la zona y qué implica eso para oferta/demanda (más oferta que la absorbe el mercado presiona el precio a la baja; posición por debajo del promedio es ventaja competitiva para vender rápido; por arriba requiere justificar valor o negociar). Termina con una recomendación concreta de negociación/venta. NUNCA nombres una colonia distinta a {prop['neighborhood']} salvo que sea explícitamente una de las colonias vecinas listadas en Comparables. Conciso, sin relleno. Debe caber junto al cuadro de metodología en una hoja carta.",
   "plusvalia": {{
     "tasa_anual": {annual_appreciation:.1f},
     "anio1": {yr1:.0f},
@@ -1720,7 +1738,7 @@ Responde con este JSON (usa valores realistas para la zona, no inventes datos ab
 
 IMPORTANTE: Devuelve SOLO el JSON. Los scores de perfil_entorno deben ser enteros del 1 al 10 según el tipo de zona. Deja "count" y "nombres" con los placeholders — se rellenan con datos REALES de Google Places, NO inventes nombres de establecimientos, calles o vías (si los pones serán de otra zona y estarán mal). En los "texto" describe la zona en general sin nombrar lugares específicos. Los valores de plusvalía son proyecciones ya calculadas, solo ajusta el comentario.
 
-REGLA para "oportunidades": usa la Conservación y Edad reales de arriba. Si Conservación es "Bueno"/"Muy Bueno"/"Excelente", NO sugieras actualizar acabados ni renovar por antigüedad — contradice el propio dato reportado; la antigüedad sola no es una desventaja si el estado es bueno. Enfoca las oportunidades en algo verificable de los datos (tamaño de terreno vs zona, distribución, un solo baño, falta de cochera) o en estrategia de negociación — nunca inventes un defecto que el dato ya reportado contradiga."""
+REGLA para "oportunidades": usa la Conservación, Edad y remodelación reales de arriba. Si Conservación es "Bueno"/"Muy Bueno"/"Excelente", O la Edad es menor a 15 años, O hay remodelación reportada, NO sugieras actualizar acabados/renovar/modernizar estilo — contradice el propio dato reportado (una remodelación reciente o poca edad ya cubre eso). En esos casos usa en su lugar la posición de mercado de arriba: si el sujeto está por ARRIBA del promedio de la zona con {n_zona_exacta+n_vecina} comparables activos, la oportunidad es que esa oferta compita por el mismo comprador y presione a bajar el precio de salida; si está por DEBAJO del promedio, es una ventaja competitiva a explotar en la negociación (mencionarlo así, sin inventar defectos). Fuera de esos casos, enfoca las oportunidades en algo verificable de los datos (tamaño de terreno vs zona, distribución, un solo baño, falta de cochera) — nunca inventes un defecto que el dato ya reportado contradiga."""
 
             _genai.configure(api_key=gemini_key)
             _sys = "Valuador inmobiliario certificado en México. Responde SOLO con JSON válido, sin markdown."

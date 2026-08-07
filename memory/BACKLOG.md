@@ -29,6 +29,7 @@
 | 23 | ✅ | **Carga de creatividades** — subir JPG/PNG/MP4, preview, estado pendiente de revisión. |
 | 11 | ✅ | **Consola de anunciantes** — `/anunciantes`, `/anunciantes/registro`, `/anunciantes/consola` (3 tabs). Métricas Resumen y Facturación conectadas a endpoints reales. Saldo a favor calculado desde budget-spend. Mocks eliminados. |
 | 145 | ✅ | **Fix video ads slot1 se veía negro (28-jul)** — causa real: metadata de color no estándar heredada de Remotion (`yuvj420p`+`color_range=pc`+colorspace SD sobre HD), combinación que el decodificador de hardware de Chrome/Windows renderiza negro sólido aunque el archivo sea válido. Fix: `_compress_video` en `ads.py` fuerza `bt709`+rango limitado; endpoint puntual `/admin/ads/reprocesar-video/{id}` para arreglar creatividades ya subidas; video de respaldo estático también recomprimido. Verificado con `ffprobe` antes/después contra el archivo real de producción. Commits `8a96c60`+`ea6f876`+`ce3e51c`. |
+| 146 | ⏳ | **Slides de texto (house ads PropValu) muy rápidas** — el usuario reportó (07-ago) que el tiempo que se muestran las slides de texto en los slots de ads no alcanza para leer todo el contenido. Subir a 15 segundos. Pendiente ubicar el countdown/duración en `AdRenderer.jsx` (ver #22) y aplicar. |
 
 ---
 

@@ -154,7 +154,11 @@ async def search_comparables_from_mongo(
         toks = [t for t in str(colonia).split() if len(t) >= 4]
         token = max(toks, key=len) if toks else ""
         if token:
-            cq = {**base_q, "municipio": municipio,
+            # municipio case-insensitive: property_data llega a veces en MAYÚSCULAS
+            # (frontend), mercado_props lo guarda en Title Case → un match exacto
+            # daba 0 resultados y tiraba directo al fallback de vecinas (bug real
+            # 07-ago: "ZAPOPAN" vs "Zapopan" en La Calma, comps de zona equivocada).
+            cq = {**base_q, "municipio": {"$regex": f"^{_re.escape(municipio)}$", "$options": "i"},
                   "colonia": {"$regex": _re.escape(token), "$options": "i"}}
             colonia_comps = await col.find(cq, CAMPOS_COMPARABLE).limit(max_results).to_list(length=max_results)
     for c in colonia_comps:

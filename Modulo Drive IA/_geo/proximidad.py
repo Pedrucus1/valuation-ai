@@ -28,18 +28,32 @@ _COLONIA_CP_PATH   = os.path.join(_DIR, "colonia_cp.json")
 # ---------------------------------------------------------------------------
 # Carga lazy de datos
 # ---------------------------------------------------------------------------
-_cp_coords:  Optional[dict] = None
-_colonia_cp: Optional[dict] = None
+_cp_coords:      Optional[dict] = None
+_colonia_cp:     Optional[dict] = None
+_cps_sin_precision: Optional[set] = None  # CPs cuya coord GeoNames es compartida por 2+ CPs
 
 
 def _load():
-    global _cp_coords, _colonia_cp
+    global _cp_coords, _colonia_cp, _cps_sin_precision
     if _cp_coords is None:
         with open(_CP_COORDS_PATH, encoding="utf-8") as f:
             _cp_coords = json.load(f)
     if _colonia_cp is None:
         with open(_COLONIA_CP_PATH, encoding="utf-8") as f:
             _colonia_cp = json.load(f)
+    if _cps_sin_precision is None:
+        # GeoNames MX.txt no tiene centroide propio para 35% de los CPs de Jalisco:
+        # varios CPs (a veces 20-70) comparten el mismo lat/lon "de relleno" — no es
+        # que compartan polígono postal real, es que GeoNames no tiene mejor dato.
+        # Bug real 07-ago-2026: La Calma (45070) y Bosque Real (45066) cayeron en el
+        # mismo punto de relleno → colonias_cercanas() los marcó 0.0 km de distancia
+        # cuando en realidad no son vecinas. Detectar estos CPs para no confiar en
+        # "distancia 0" cuando el CP del candidato es distinto al del origen.
+        from collections import defaultdict
+        _coord_to_cps: dict = defaultdict(list)
+        for cp, v in _cp_coords.items():
+            _coord_to_cps[(v["lat"], v["lon"])].append(cp)
+        _cps_sin_precision = {cp for cps in _coord_to_cps.values() if len(cps) > 1 for cp in cps}
 
 
 # ---------------------------------------------------------------------------
@@ -120,6 +134,7 @@ def colonias_cercanas(
     lat0, lon0 = origen["lat"], origen["lon"]
     norm_key_sujeto = f"{_normalizar(colonia)}|{_normalizar(municipio)}"
 
+    cp_origen = origen["cp"]
     resultados = []
     for key, cp_val in _colonia_cp.items():
         if key == norm_key_sujeto:
@@ -129,6 +144,13 @@ def colonias_cercanas(
         if coord is None:
             continue
         dist = haversine(lat0, lon0, coord["lat"], coord["lon"])
+        # Distancia ~0 entre CPs DISTINTOS solo es real si ninguno de los dos cae en
+        # un CP "sin precisión" (coordenada de relleno de GeoNames, ver _load()) —
+        # si no, es coincidencia de datos pobres, no vecindad real (ej. Bosque Real
+        # vs La Calma). Cuando el CP es el MISMO sí es 0 km legítimo (mismo polígono).
+        if dist < 0.05 and cp != cp_origen:
+            if cp in _cps_sin_precision or cp_origen in _cps_sin_precision:
+                continue
         if dist <= km_max:
             norm_col, norm_mun = key.rsplit("|", 1)
             resultados.append({
