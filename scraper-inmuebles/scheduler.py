@@ -667,10 +667,18 @@ def run(reset: bool = False, portal: str = None):
         if portal and tarea["portal"] != portal:
             continue
 
-        # Verificar desde disco que otra instancia no la tomó ya
+        # Verificar desde disco que otra instancia no la tomó ya. Antes comparaba
+        # tarea_disco["estado"] != "pendiente" — con el fix de _tarea_vencida() una
+        # tarea reactivada por antigüedad sigue teniendo estado "completada" en disco
+        # (el fix solo cambia el filtro de selección, no el estado persistido), así
+        # que ese guardia la descartaba de inmediato como "ya procesada" (bug real
+        # 07-ago, encontrado al relanzar tras el fix). _tarea_vencida() cubre ambos
+        # casos correctamente: si OTRA instancia la completó hace instantes, su
+        # timestamp es fresco y ya no está vencida (se salta, correcto); si sigue
+        # vieja, sigue vencida (se procesa, correcto).
         tareas_disco = cargar_progreso()
         tarea_disco = next((t for t in tareas_disco if t["id"] == tarea["id"]), None)
-        if tarea_disco and tarea_disco["estado"] != "pendiente":
+        if tarea_disco and not _tarea_vencida(tarea_disco):
             log.info(f"Tarea ya procesada por otra instancia, saltando: {tarea['id']}")
             tarea["estado"] = tarea_disco["estado"]
             continue
