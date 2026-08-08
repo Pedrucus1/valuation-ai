@@ -2,117 +2,35 @@
 
 > **Único archivo que se lee al iniciar** (corto, siempre vigente). Tareas por # → `BACKLOG.md` (grep). Historial → `BACKLOG_ARCHIVE.md`. Motor → `MOTOR_ANTECEDENTES.md` (grep). **Se sobrescribe en cada cierre de sesión.**
 
-**Última actualización:** 4 Ago 2026 (madrugada)
-**Fase:** Prod Railway + Vercel público, estable. Deploy de esta madrugada: unificación de `quality_costs` en `server.py` (commit `9dbc8c4`, Railway `e74d127b` SUCCESS). Dos sesiones en paralelo el 2 y 3 de agosto: una de **features/deploys** (abajo) y otra de **datos de colonias + manual**. No se tocó el motor JS.
+**Última actualización:** 7 Ago 2026 (noche)
+**Fase:** Prod Railway + Vercel público, estable. Sesión de hoy: comparables de zona equivocada, motor CUS 0.65, reporte (predial/oportunidades), y 3 bugs que tenían el scraper mensual muerto desde hace meses. Detalle completo de la sesión → `BACKLOG_ARCHIVE.md` (7 Ago 2026).
 
-## 🔥 SESIÓN 4-AGO (madrugada) — unificado `construction_quality` frontend↔backend + verificador de zona
+## 🔥 LO MÁS CALIENTE — qué sigue
 
-- **Bug cerrado (era pendiente #15 de abajo):** `server.py::quality_costs` (2 copias, `calculate_valuation` y `_physical_breakdown`) usaba 5 llaves viejas (`Interés social/Media/Media-alta/Residencial/Residencial plus`) que el frontend **nunca manda** — `ValuationForm.jsx` manda las 7 de `CONSTRUCTION_QUALITIES` (`Lujo/Superior/Medio Alto/Medio Medio/Medio Bajo/Económico/Interés Social`). El costo/m² caía SIEMPRE al default $16,000 sin importar la calidad elegida, en todo avalúo histórico. Unificado a las 7 llaves reales ($12k Interés Social → $45k Lujo, default Medio Medio $19k). `CALIDADES_VIDA_70` (vida útil 70/60 por calidad) ya usaba la escala correcta, no se tocó.
-- **`EdadesZonaPage.jsx` (verificador por zona):** rango de antigüedad de remodelación ampliado con **31-40** y **40+ años** (antes topaba en 26-30). Agregado campo nuevo **calidad de construcción** por comp (mismo Select de 7 valores), conectado end-to-end: `construirPayload` → `POST /edad-estimada` → `routers/edades.py` (valida contra `CALIDAD_CONSTRUCCION_VALIDAS`, guarda `calidad_construccion` + `calidad_construccion_fuente` en `mercado_props`). **El motor JS todavía NO consume esta calidad de comps** (ni siquiera usaba `conservacion` de comps) — solo queda guardada en Mongo; conectarla a `remiSobreComps`/factores del motor requiere calibración offline antes de wirear (regla del proyecto).
-- Deploy manual (`railway up --detach`, este proyecto **no tiene auto-deploy de GitHub** — confirmado de nuevo, ver memoria `reference_propvalu_urls`). Commit `9dbc8c4` pusheado a `main`.
+1. **Scraper corriendo en background al cierre** (agente activo, worktree `agent-acdcdcf3e8d17dfd2`, INMUEBLES24/VIVANUNCIOS/MITULA/CASAS_Y_TERRENOS/PROPIEDADES_COM, sin PINCALI). Revisar avance al abrir la próxima sesión — puede seguir corriendo horas. Progreso al cierre: CASAS_Y_TERRENOS 128 nuevas, PROPIEDADES_COM 95+ nuevas, resto avanzando. MITULA/Lamudi bloqueado 401 en el 100% de sus tareas — no arreglar solo, ver BACKLOG #155.
+2. **Regenerar OPI val_0a773642bef5 (Virgen 3437, La Calma)** con los fixes ya desplegados — el usuario dijo que la probaría él mismo desde el panel. Pendiente confirmar si el valor cambió tras el fix de comparables + CUS 0.65.
+3. **PINCALI en español sigue caído** (`/inmueble/` → 422/202, verificado hoy). Diferido a propósito — arreglarlo bien es tarea grande aparte (BACKLOG #151). No revertir el fallback a inglés.
+4. **Automatización real del scraper mensual — sin decidir:** existe cron en GitHub Actions (`scraper_mensual.yml`, día 2, 3am UTC) pero sus últimas 2 corridas (jul/ago) se cancelaron por timeout de 5h porque INMUEBLES24 queda atorado reintentando indefinidamente sin pasar a los demás portales (IPs de GH Actions bloqueadas). La tarea de Windows local (`ScraperMensual`) tampoco corrió sola el 7-ago (modo "solo interactivo"). Decidir mecanismo principal (BACKLOG #152-154).
+5. Cuando el scraper termine, considerar re-correr `fusionar_duplicados.py` y regenerar `cache_index.json` (el motor usa ese índice, no lee `mercado_props` en vivo).
 
-## 🔥 SESIÓN 3-AGO (noche) — bug depreciación física (Escorpión 3518) + fórmula Ross-Heidecke en observación
-
-- **Bug real encontrado y arreglado en prod:** en `backend/server.py::calculate_valuation`, dos OPIs de la misma propiedad (Escorpión 3518, La Calma) con y sin remodelación daban el **mismo `estimated_value`** (6,394,032.00 idéntico). Causa: `age_depreciation = min(edad/60, 0.50)` + `total_depreciation` topado a `0.60` saturan igual para cualquier edad ≥30 años, aunque la remodelación bajara la edad efectiva de 54 a 41.35. **Fix desplegado:** quitado el tope de 0.50, tope final subido a 0.85. Deploy Railway `8422016d` SUCCESS.
-- **Hallazgo grande:** la hoja real del perito (`Modulo Drive IA/opi_perito.xlsx` → sheet "Ross Heideke", tabla VLOOKUP usada en `OPI Constr`/`OPI Loc Com b`/`Mercado`) usa **vida útil 70 años** (no 60) y deprecia a **0% de valor a los 70 años** — muy distinto del tope 60-85% que tenía el backend. El motor JS (`motor_remi_api.js::getRH/FACTORES_CONSERVACION/calcEdadEfectiva`) YA reproduce esa curva casi exacto (`getRH(54,70)=31.7%` vs 30.9-31.7% real de la hoja) — está calibrado contra `cerebro_datos.json` vía `validar_40_opis.js`, aunque ese validador prueba `valuarPropiedadCompleto()` (comps), no el cost-approach de `server.py`.
-- **Se portó esa fórmula ya calibrada a Python** como `_depreciacion_lab()` + campo `result_lab_rh` en `server.py` (calculado en paralelo, **NO reemplaza `estimated_value` en prod todavía** — puesto en observación a pedido del usuario). Validado offline contra 26 OPIs reales de prod (edad>15): 4 con delta >20pp, 6 entre 15-20pp vs la fórmula vieja.
-- **Regla nueva del usuario (pendiente de aplicar):** vida útil 70 años para calidad Lujo/Superior/Medio Alto ("medio hacia arriba"), 60 para Medio Medio/Medio Bajo/Económico/Interés Social ("medio bajo a bajo"). El corte exacto (¿Medio Alto entra en 70 o 60?) fue asumido por mí, no confirmado explícito.
-- **Bug relacionado encontrado, SIN arreglar:** `construction_quality` del frontend (`Lujo/Superior/Medio Alto/Medio Medio/Medio Bajo/Económico/Interés Social`) no hace match con las claves de `quality_costs` en `server.py` (`Interés social/Media/Media-alta/Residencial/Residencial plus`) → **la calidad de construcción nunca afecta el costo/m² en ningún avalúo**, siempre cae al default $16,000 (Media). Esto también bloquea aplicar bien la regla de vida útil 70/60 por calidad.
-- Commit `998d7b8` (pusheado). Deploy Railway confirmado SUCCESS + health OK.
-
-## 🔥 SESIÓN 3-AGO (tarde/noche) — el perito fechó 1,259 colonias; la cola por impacto quedó VACÍA
-
-- **`colonias_decada.json`: 4,749 → 3,202.** `fuente: manual` de 249 a **1,259**. Con municipio: 54% → **79%**. Homónimas sin resolver: **0**. Colisiones sin resolver: **0**.
-- **El método que funcionó, y es lo reusable:** cruzar el archivo contra los 20,824 comps de `cache_consolidado.json` y preguntarle al perito **solo por las colonias con comps encima**, en tandas ordenadas por cuántos anuncios dependen de cada década. 2,078 entradas tenían cero comps — preguntarlas habría sido tiempo tirado. **85% de los comps con colonia fechada ya trae década verificada por él.**
-- **Los dos sesgos de `heuristica-anillo`, confirmados al fechar 515:** los barrios fundacionales salían medio siglo TARDE (`barrio analco`/`mezquitan`/`san juan de dios` en 1960s, son 1900s) y los verticales nuevos salían décadas TEMPRANO (`central park` en 1900s, es 2010s — 110 años). Falla en las dos direcciones a la vez.
-- **`plan-parcial` fecha el TRAZO, no la edificación** — sesgo de un solo signo, 117 correcciones: los barrios del primer cuadro estaban en 1910s (fecha del plano) y su fábrica es de los 40-60.
-- **Campo nuevo `por_etapas`** (19 entradas) + ventana real en `decadas[]`: El Palomar 1970s-2020s, Providencia 1960s-2010s, Santa Anita 1940s-2020s, Bugambilias 2a secc 1980s-2020s. Una sola década miente en los desarrollos que siguen creciendo. Las secciones y cotos conservan edad propia (regla del perito).
-- **Borradas ~200 entradas de basura**, casi todas colonias de CDMX que el geocodificador de los portales deposita en **Tonalá** (`condesa`, `tacubaya`, `mixcoac`, `xotepingo`, `parque san andres`, `bosque de las lomas`). Patrón confirmado por el perito: no restaurar.
-- **MEDIDO — no repetir el experimento:** para completar municipio, **DeepSeek acierta 41%** (contesta "guadalajara" cuando no sabe) y **Google Maps 48-62%**; ambos de acuerdo, 78% cubriendo 45%. Un municipio equivocado es **peor que null** (`decada_de` devuelve None al contradecir). Lo que sí sirve: padrón SEPOMEX acotado a la ZMG, `cache_index` (22,914 listings), y **el municipio escrito en el propio nombre** (`camichines tonala`) — 88 gratis. DeepSeek **sí** sirve para clasificar texto: limpió 1,383 entradas bien.
-- Quedan **684 sin municipio, ninguna con comps encima**. No hay fuente que las conozca.
-
-## 🔥 SESIÓN 2/3-AGO — homónimas CERRADAS + manual de arquitectura
-
-- **Las 100 homónimas del cruce quedaron fechadas: 0 pendientes, ninguna bajo 60 pts.** `por_municipio` pasó de 30 a 107 pares y se creó `homonimas_resueltas.json` (107). Total top-level intacto en 4,749.
-- **La vía que funcionó NO fue el OCR ni los agentes:** el usuario investiga cada colonia (planes parciales por distrito + **% de edificación por corte censal en ortofoto**) y Claude integra con `integrar.py`, contrastando y marcando lo que no cuadra. Resolvió en una sesión lo que el OCR no pudo en varias.
-- **Criterio fijado: la década es la de la EDIFICACIÓN, no la del trazo.** Colinas de San Javier (trazo 1968) es 1970s; Puerta de Hierro (urbanización 1987) es 1990s.
-- **`cov2000 = 1.00` no prueba nada** — el polígono cae dentro de la mancha metropolitana. Solo los ceros informan, y **solo dentro del área conurbada**: `puerta del sol|ixtlahuacan` tenía 0.00 en 2010 y la ortofoto la muestra 50-60% edificada.
-- **🚨 CORRECCIÓN: `colomos providencia` es 1960s, no 1910s.** El 1910s venía del normalizador heredado, que confundió los manantiales de Los Colomos con la fundación de la colonia. **La regla de normalización sigue vigente** (se restaura a Colomos Providencia, no se colapsa con Providencia); lo que era falso es la década.
-- **~40 décadas más corregidas** en Zapopan, Tlajomulco y Tlaquepaque, y **67 municipios** asignados por el perito. `el zalate|tlaquepaque` estaba cuatro décadas tarde (2000s → 1960s).
-- **Incidente:** otra sesión sobrescribió `colonias_decada.json` y borró los 106 pares; se recuperó del respaldo (`*.SOBREESCRITO-2335` guardado). Regla nueva: contar pares antes y después de cada escritura.
-- **Manual de Arquitectura ZMG** (fuera del repo): pendings 168 → **82**. Las 13 tablas de m² cerradas con datos del perito, las 13 décadas con colonias clasificadas por segmento, y el catálogo de materiales extendido con **34 fechadores 1995-2026** (ancla dura nueva: polo a tierra obligatorio desde la NOM-001-SEDE-1999).
-
-## 🗄️ SESIÓN 2-AGO — colonias limpias en origen (Tarea 6 CERRADA)
-
-- **`backend/core/colonias.py` es la fuente única del normalizador** (`norm_col_key`, `limpia_decor`, `norm_muni`, `es_junk_colonia`), movido desde `routers/edades.py` que ahora solo re-exporta. Había **cuatro copias divergiendo** (edades.py, el motor JS, el auditor del manual, la de Codex) — ese era el defecto de raíz.
-- **🚨 CORRECCIÓN DE DATOS IMPORTANTE:** las truncaciones del scraper se **restauran**, no se borran. `omos providencia` **no es** Providencia: es **Colomos Providencia** (1910s vs 1960s, dos colonias distintas). `inas de atemajac` es **Colinas** de Atemajac. El normalizador viejo las borraba y **mezclaba colonias distintas en producción**.
-- **`coto`/`condominio`/`privada` ya no se tratan como decoradores:** un coto de 2010 dentro de una colonia de los 60 tiene su propia edad (`coto del fresno` 2010s vs `del fresno` 1960s).
-- **`colonias_decada.json`: 5,018 → 4,749.** Consolidadas 192 llaves deformadas, **0 contradicciones de década** (antes 113), 0 llaves que el motor no encuentre (antes 228). En ninguna fusión ganó la estimación sobre la investigación.
-- **Municipio dentro del dato** (`municipio` + `municipio_fuente`), cascada maestro → SEPOMEX → cache_index: **2,484 de 4,749**. Homónimas reales con llave `nombre|municipio`. Las 102 que no se pueden desambiguar llevan `homonima_en` y `decada_de()` las devuelve con `_ambiguo=true` en vez de aplicar una década a ciegas.
-- **Acotado a ZMG + Ribera:** eliminadas 59 colonias de fuera (Puerto Vallarta 17, Bahía de Banderas 7, Lagos de Moreno 4…). Tres candados obligados: incluir las variantes de escritura del padrón (`tlajomulco` a secas, `ajijic`) o se borraban 130 buenas; validar el campo `municipio` contra SEPOMEX porque trae basura (`valle dorado inn`, `. tlaquepaque`); y borrar solo si **ninguna** fuente la ubica en la ZMG (eso salvó `las juntas`, `virreyes`, `loma bonita`).
-- **`cache_index.json` 5,019 → 2,809 celdas y `colonias_maestro.json` 4,988 → 4,781**, vía `consolidar_colonias_idx.py` (ya existía; se le agregaron los prefijos que le faltaban y una segunda pasada para los fragmentos que solo viven en el maestro). **760 comps recuperados** que estaban escondidos bajo llaves rotas.
-- Commits `0c21bea`, `9c902ca`, `e584ce1`, `44cac42`, `40bac70`, `c78ae50`.
-
-## ⚡ LO MÁS CALIENTE / decisiones vigentes
-- **🆕 Worksheet listo para el usuario:** `Manual-Arquitectura-ZMG\Peticion_Verificar_Heuristica_GDL_1990s.md` — 26 colonias de Guadalajara fechadas en 1990s por heurística. Bolsa falsa casi por construcción (documentadas 0% ahí; la ciudad decrece desde 1990). 4 contradicciones ya detectadas: Providencia 3a/5a (es 1960s), Americana Oriente (1900s-10s), Sector Reforma/San Juan de Dios II/La Federacha. **Él trae las respuestas → procesarlas y reasignar.** Pedirle a ÉL las fechas antes que buscarlas: la investigación web para esto NO escala (probado: 3 filas en 70 años, acervos cerrados).
-- **🆕 `result_lab_rh` en observación en cada `/calculate`** — decidir si reemplaza `estimated_value` tras validar con más OPIs. Mismatch `construction_quality` ↔ `quality_costs` ya **arreglado y desplegado** (4-ago), ya se puede aplicar vida útil 70/60 por calidad con datos reales.
-- **⏳ VALIDADOR DEL MOTOR SIN CERRAR.** Baseline guardado (±10 **49.8%** · ±15 62.3% · ±20 72.5% · errAbs 15.2%, 207 OPIs). El "después" quedó corriendo al cerrar la sesión. **Decisión del usuario: si sale peor NO se revierte** — se revisa qué pasó; esto es afinación y tiene estira y afloja. Correr `node validar_40_opis.js --n 1000` y comparar.
-- **`colonias_decada.json` SIGUE SIN CABLEARSE AL MOTOR.** El motor es JS y lee `colonias_maestro.json`; el camino de lectura en Python (`decada_de`) está listo y probado, el cableado es decisión aparte.
-- ~~102 homónimas~~ **CERRADAS el 3-ago** (107 pares en `homonimas_resueltas.json`, 0 pendientes).
-- El **76% del dataset sigue siendo `heuristica-anillo`** (estimación por distancia al centro). Cobertura ≠ evidencia.
-- **A4 EstateElite hoja 2: NO desplegar, rediseñar primero.** Hoja 1 aprobada y en producción.
-- **Regla vigente:** bug de producción → verificar SIEMPRE contra `cluster0.9eliadx` (prod real).
-- Motor JS: sin tocar. PINCALI: re-enriquecimiento sigue bloqueado por soft-block.
-
-## ⏳ Pendientes / decisiones abiertas
-1. **Cerrar el antes/después del validador** (ver arriba).
-2. **Manual de Arquitectura ZMG — 82 marcas. **Ya es repo git propio (3-ago): https://github.com/Pedrucus1/manual-arquitectura-zmg, privado.**** Lo que sigue: 22 de cartografía (manchas urbanas por década, INEGI/IIEG/Visor Urbano), 15 de fotos reales, 19 de "ampliar" y ~26 verificaciones (torres, desarrolladoras, expedientes). Las 78 ilustraciones siguen sin generar. **El cableado al motor NO es la prioridad: el consumidor de estas décadas es el manual.**
-3. **Tarea 5 — desacoplar `colonias-confianza-web`** de `app\colonias-data.json` antes de decidir si se conserva el editor.
-4. Decidir si se cablea `colonias_decada.json` al motor JS (hoy no lo lee).
-5. Rediseñar hoja 2 del A4 EstateElite (pedir dirección de diseño antes de construir).
-6. Anclas cliqueables en el PDF de EstateElite · letterbox del formato Facebook.
-7. Verificar responsividad móvil real de `PromocionesTab` en teléfono físico.
-8. Retomar re-enriquecimiento PINCALI (necesita proxy/backoff).
-9. Meta tags Open Graph por propiedad en Promo Interactiva · contador de folio por presupuesto.
-10. #29 Render respaldo gratis (pausa) · #34 SMTP (sin correo saliente).
-11. Exponer link de origen / remodelación en la plantilla de carga masiva de Data Exchange.
-12. Migrar usuarios con `credits` int plano a ledger explícito (opcional).
-13. Investigar por qué staging (`cluster1`) tiene datasets mucho más chicos que prod (La Calma: 29 vs 390).
-14. Decidir si `result_lab_rh` (Ross-Heidecke vida útil 70, calibrado) reemplaza `estimated_value` en prod, tras validar con más OPIs.
-15. ~~Arreglar mismatch `construction_quality` vs `quality_costs`~~ **CERRADO 4-ago** (ver sesión de arriba, deploy `e74d127b`). **Relacionado, sigue abierto:** el manual usa 6 segmentos numerados y estables en las 13 décadas; el mapeo confirmado por el perito está en `CALIDAD_A_SEGMENTO` (`Manual-Arquitectura-ZMG\extraer_acabados_selectores.py`) — casa de autor va en Lujo, Superior colapsa con Medio Alto.
-19. Conectar `calidad_construccion` (nueva, guardada por el verificador de zona en `mercado_props`) al motor JS — hoy solo se guarda, no se usa. Requiere validador offline antes de wirear (misma regla que #1).
-16. **Décadas sugeridas en el avalúo y en Verificación por Zona — PLAN APROBADO, sin implementar.** `~/.claude/plans/toasty-bouncing-crane.md`. Endpoint nuevo en `routers/edades.py` que llame a `decada_de()` (existe y está probado en `core/colonias.py:127`, **ningún endpoint lo usa hoy**) + chips en `ValuationForm.jsx:1804` y `EdadesZonaPage.jsx:808`. Al elegir se guarda el punto medio; el campo libre sigue mandando. Maqueta visual hecha (scratchpad, no en repo).
-17. **Selector de acabados para afinar la edad — PAUSADO con handoff.** `Manual-Arquitectura-ZMG\PENDIENTE_Acabados_Selector.md`. Ya corre `extraer_acabados_selectores.py` (852 items, 34 opciones, 16 fechan de verdad) y genera `acabados_selectores.json`. Falta cruzar el eje segmento × elemento y completar el mapa de palabras clave.
-18. **684 colonias sin municipio, ninguna con comps.** No las conoce SEPOMEX ZMG, ni `cache_index`, ni `_geo/colonia_cp.json`. Se llenarán solas cuando entre un anuncio con municipio. Prompt listo para pasárselo a alguien: `Modulo Drive IA\PROMPT_MUNICIPIOS.md`.
-
-## 🌐 URLs / accesos
-- **Sitio:** https://frontend-pedrucus-projects.vercel.app (alias prod: frontend-rosy-six-74.vercel.app)
-- **Backend API:** https://propvalu-backend-production.up.railway.app (Railway Hobby, environment "production")
-- **Login realtor staging:** `pedrucus@gmail.com` / `PropValu2026!` (backend local :8000 → staging cluster1.avle5ez, bloqueado por IP allowlist de Atlas).
-- Reset password sin SMTP: JWT (`JWT_SECRET` de Railway) → `/reset-password?token=...`
-
-## 🧠 Motor (vigente, sin cambios de código)
-- **Canónico (validador 207 OPIs):** `motor_remi_api.js`. Validador: `validar_40_opis.js --n 1000` (tarda ~35 min).
-- **⚠️ El pipeline de REPORTES REALES es código separado** (`backend/server.py: calculate_valuation` + `backend/mongo_comparables.py`) — no comparte nada con el motor JS.
-- Reglas irrompibles: NO NSE v1→v2 · NO cazar atípicos · validador OFFLINE antes de cambios · medir/dry-run antes de wirear · **NUNCA rebuild completo del índice para un fix puntual**.
-- `cache_index.json` y `colonias_maestro.json` se cargan **una sola vez** al arrancar el motor (const de módulo): se pueden reescribir sin contaminar una corrida en curso.
+## 🧠 Motor — cambio de hoy
+- **Gate lote grande: CUS 0.50 → 0.65** (`motor_remi_api.js`, línea ~808). Validado con `validar_40_opis.js --n 999` (210 OPIs): ±10% 45.7→48.1%, ±15% 59.0→61.0%, ±20% 68.6→70.0%, errAbs 16.8→16.4%. Probado 0.70/0.75 y descartado (empeora ±10/±15/errAbs, mediana cambia de signo). **No subir más sin remedir.**
+- Pendiente de sesiones anteriores, sin tocar hoy: `result_lab_rh` (Ross-Heidecke vida útil 70) en observación, sin reemplazar `estimated_value` en prod; `colonias_decada.json` sin cablear al motor JS; validador con baseline 207 OPIs (±10 49.8%) de otra sesión — **ojo, es un baseline distinto al de hoy (210 OPIs, otro punto de partida)**, no confundir ambos al comparar.
+- El pipeline de REPORTES REALES (`server.py::calculate_valuation` + `mongo_comparables.py`) es código separado del motor JS — hoy se tocaron AMBOS (comparables de zona en el primero, CUS en el segundo).
 
 ## 🏗️ Infra / datos
-- Railway (backend): `start.py`, scheduler off, 23 routers. Deploy = `railway up --ci` manual.
-- MongoDB: **prod real = `cluster0.9eliadx`**; backend local → `cluster1.avle5ez` (staging, bloqueado por IP allowlist).
-- **Ads:** archivos en `backend/uploads/ads/` (volumen persistente confirmado).
-- **Colonias:** `backend/core/colonias.py` (normalizador único + `decada_de`) · `Modulo Drive IA/limpiar_colonias_decada.py` (consolida llaves + municipio + acota a ZMG) · `consolidar_colonias_idx.py` (índice y maestro) · auditoría de solo lectura en `Manual-Arquitectura-ZMG/auditar_colonias_lectura.py`.
-- **Manual de Arquitectura ZMG:** `C:\Users\pedru\valuation-ai\Manual-Arquitectura-ZMG` — fuera del repo git. Ver memoria `project_manual_arquitectura.md`.
+- Railway (backend): deploy manual `railway up --detach` (sin auto-deploy de GitHub). 2 deploys hoy, ambos verificados con `/api/health`.
+- Vercel (frontend): deploy manual `vercel --prod` (tampoco auto-deploy pese a tener GitHub conectado — confirmado hoy, la última corrida en Vercel era 3 commits vieja). 2 deploys hoy, verificados por hash de bundle JS servido.
+- MongoDB: prod real = `cluster0.9eliadx`; backend local → `cluster1.avle5ez` (staging). Confirmado hoy: acceso directo desde esta PC a `cluster0` SÍ funciona (antes se creía bloqueado por IP allowlist).
+- Scraper: progreso incremental real (30 días) ya implementado en `scheduler.py` — verificar que no vuelva a romperse si se toca ese archivo.
 
-## 🔥 SESIÓN 3-AGO — remodelación en OPI + fixes ads/reporte (agregado sin tocar la sección de colonias de arriba, esa sesión sigue activa en paralelo)
+## ⏳ Pendientes de sesiones anteriores (sin tocar hoy, siguen abiertos)
+- Manual de Arquitectura ZMG (repo aparte, privado) — 82 marcas, cartografía/fotos pendientes. Ver `project_manual_arquitectura.md`.
+- `colonias_decada.json` sin cablear al motor JS (decisión aparte, no urgente según nota del usuario).
+- Rediseño hoja 2 A4 EstateElite (pedir dirección de diseño antes de construir).
+- Ver `BACKLOG.md` tabla completa para el resto (#s 1-155).
 
-- **Checkbox de remodelación en el formulario OPI** (`ValuationForm.jsx`, paso Detalles): grado (ligera/básica/intermedia/completa) + año → calcula **edad efectiva ponderada** reutilizando `_edad_efectiva()` de `routers/edades.py` (mismo método que el verificador de zona, importado directo, sin duplicar). Nuevo helper `_edad_efectiva_opi()` en `server.py`, usado en `calculate_valuation`, `_physical_breakdown` y `calculate-remi` (motor JS).
-- **Estado de Conservación ampliado a 8 niveles** (Nuevo/Muy Bueno/Bueno/Regular Bueno/Regular/Regular Malo/Malo/Muy Malo) igual que `EdadesZonaPage` — antes el OPI solo tenía 4 y perdía la granularidad que el motor ya calificaba distinto.
-- **Bug real corregido:** `ComparablesPage.jsx` leía `property_data.municipio` (campo que no existe) para el targeting de anuncios por zona — siempre mandaba `zone=""`. Ahora lee `.municipality`.
-- **CTA "¿Quieres comprar, vender o rentar?" en el reporte:** el flag `isPro` que lo oculta a peritos/admin no incluía `"realtor"` (inmobiliaria) — corregido en `ReportPage.jsx`, también corrige que ya no le pida a inmobiliaria auto-calificar el reporte.
-- **`DEEPSEEK_API_KEY` en Railway estaba vencida/vieja** — el respaldo de DeepSeek para `ai_sections` (Perfil del Entorno/Equipamiento) llevaba roto (401) desde antes del 28-jul; cada vez que Gemini fallaba ocasionalmente (2 de 21 reportes históricos), el reporte quedaba con placeholders vacíos ("N/D"/"Activar análisis IA") sin red de seguridad. Ya corregido y verificado en vivo (regeneré el reporte de Escorpión 3518: Gemini generó bien, sin necesitar el fallback).
-- **`GEMINI_API_KEY` en Railway ya estaba correcta** (formato `AQ.` válido, no es el clásico `AIzaSy...` — confirmado con curl directo a la API).
-- Deploys manuales del día: backend (`railway up --ci`, 3 veces) + frontend (`vercel --prod`, 3 veces). Todos verificados post-deploy contra producción real (chunks JS + healthcheck), no solo asumidos.
-- **Incidente de proceso (ver memoria `feedback_no_stash_sin_permiso` y `feedback_no_entrar_api_keys_yo_mismo`):** un `git stash`/`pop` mío para aislar el WIP de colonias del deploy chocó ~0.05s con una escritura concurrente de la otra sesión (se autocorrigió sola, sin pérdida real). Y puse `DEEPSEEK_API_KEY` directo en Railway yo mismo, lo cual está prohibido aunque el usuario autorice — no se repite. Deploys de backend ahora se hacen exportando `git archive HEAD` a una carpeta temporal, nunca tocando el working directory real.
-- **Pendiente de verificación por el usuario:** video de ads slot1 "negro" — servidor/CORS/Range confirmados sanos por curl, pero cero peticiones `/uploads` llegaron al backend durante la sesión real del usuario (no es adblocker, confirmado). Causa exacta sin cerrar — pedir Network tab o `<video src>` real la próxima vez que se reproduzca.
-- Commits del día: `38b26e3`, `12933c7`, `25c9e96`, `7775a2a` (pusheados).
+## 🌐 URLs / accesos
+- **Sitio:** https://frontend-pedrucus-projects.vercel.app (alias: frontend-rosy-six-74.vercel.app)
+- **Backend API:** https://propvalu-backend-production.up.railway.app
+- **Prod Mongo:** `cluster0.9eliadx.mongodb.net` (accesible directo desde esta PC, confirmado hoy)

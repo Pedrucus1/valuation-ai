@@ -5,6 +5,38 @@
 
 ---
 
+## 7 Ago 2026 — comparables de zona equivocada, motor CUS 0.65, reporte (predial/oportunidades), scraper mensual muerto (3 bugs) y regeneración manual
+
+**Origen:** el usuario hizo una OPI real (Calle Virgen 3437, La Calma, Zapopan) y notó tres cosas raras en el reporte: el texto de "áreas de oportunidad" sugería remodelar acabados en una casa YA remodelada; el "análisis estratégico de mercado" citaba comparables de "Bosque Real" (zona sin relación con La Calma); y el valor salió $4,008,817 — muy por debajo de lo que un perito real valuó una casa casi idéntica en la misma calle un año antes ($4,514,000, y con oferta actual similar/mayor).
+
+**Bug 1 — comparables de zona equivocada (`mongo_comparables.py`):** el match de `municipio` en el paso de "zona exacta" era case-sensitive; `property_data.municipality` llega en MAYÚSCULAS del frontend, `mercado_props` lo guarda en Title Case → 0 matches → SIEMPRE caía al fallback de "colonias vecinas". Confirmado con las 3 OPIs previas de La Calma: las que traían `municipality:"Zapopan"` (coincide) sí usaron comps reales; la de hoy con `"ZAPOPAN"` no. Fix: regex case-insensitive.
+
+**Bug 2 — CPs sin precisión geográfica (`proximidad.py`):** el fallback de "vecinas reales" usa coordenadas por CP de GeoNames (`cp_coords.json`), pero **35% de los CPs de Jalisco (716/2025) comparten coordenada** con otro CP (dato de relleno, no polígono real) — así La Calma (CP 45070) y Bosque Real (CP 45066) salían "0.0 km de distancia" sin serlo. Fix: descartar vecinos con distancia ~0 entre CPs distintos cuando la coordenada es compartida por 2+ CPs, salvo mismo CP real.
+
+**Bug 3 — prompt del reporte genérico (`server.py`):** la regla de "no sugerir remodelar" solo miraba `Conservación`, no `Edad`/`remodelación` reportada. Ahora también bloquea el texto si `edad<15` o hay remodelación, y tanto `oportunidades` como `analisis_mercado` reciben datos duros (conteo de comps por zona exacta/vecina, posición del $/m² vs promedio) en vez de relleno genérico.
+
+**Bug 4 — nota de "Predial no validado" fantasma (`report_generator.py`+`models.py`):** `PropertyInput` no declaraba `surface_source` → Pydantic lo descartaba en silencio → el reporte SIEMPRE mostraba la advertencia de superficies sin validar, aunque el usuario indicara "Medidas Físicas". Campo agregado al modelo + nota condicionada a `surface_source=="Predial"`.
+
+**Bug 5 — botón "Volver al inicio" (`ReportPage.jsx`):** navegaba siempre a `/` ignorando el rol logueado (algunas cuentas devuelven el rol en `.tipo`, no `.role` — mismo patrón que `checkAndShowReviewModal`). Corregido para ir a `/dashboard/inmobiliaria`/`/dashboard/valuador` según rol.
+
+**Bug 6 — botón "Regenerar" sin rate-limit ni label claro:** `/generate-report` era el ÚNICO endpoint de IA sin `@limiter.limit` (mismo costo que un avalúo completo, se podía spamear gratis). Agregado 10/hora + renombrado a "Actualizar análisis IA" con tooltip aclarando que NO recalcula valor ni comparables.
+
+**Motor — investigación de fondo (por qué el valor seguía bajo tras arreglar 1-2):** el valor real NO viene de `mongo_comparables.py` sino de un motor Node aparte (`motor_remi_api.js`, vía `calculate-remi`) con su propio índice (`cache_index.json`). Instrumentado en vivo (debug temporal, sin tocar el código real): de 12 comparables reales de La Calma, el filtro de tamaño (escalafón 88-162m² para un sujeto de 142m²) narrows a 3, y anti-remate descarta 1 outlier (105m² a $42,857/m², dato incompleto) → quedan 2, consistentes entre sí (cv=0.01) pero muestra chica. Comparado contra los comparables reales del perito (`cerebro_datos.json`, OPI-25-4-17-OF, misma calle): el perito SÍ usa comps de 170-255m² (más grandes que el sujeto) homologándolos por tamaño + terrenos puros para anclar el valor del suelo — exactamente lo que el motor no hace fuera del gate CUS.
+
+**Fix aplicado al motor — gate lote grande CUS 0.50→0.65:** medido con `validar_40_opis.js --n 999` (210 OPIs 2023-2026) en copia lab aislada antes de tocar producción: ±10% 45.7→48.1%, ±15% 59.0→61.0%, ±20% 68.6→70.0%, error abs 16.8→16.4%, mediana -12.0→-11.4% — mejora en TODOS los indicadores, sin regresión. Aplicado a `motor_remi_api.js` y confirmado corriendo el validador contra el archivo real ya modificado (resultado idéntico al lab). También se probó 0.70 y 0.75: NO son mejora clara (pierden en ±10/±15/errAbs, y la mediana cambia de signo — el motor pasaría de subvaluar a sobrevaluar) — se descartaron, se quedó en 0.65.
+
+**Freshness de datos — por qué faltan los comparables reales del perito actual (OPI-26-8-01-OF, misma dirección Virgen 3437, links de propiedades.com/inmuebles24.com pegados por el usuario):** INMUEBLES24 llevaba 30 días sin scrapear (último 08-jul), el resto ~14 días (23/24-jul). No es bug de zona ni de scraper roto — es antigüedad de datos, agravada porque:
+
+**3 bugs encadenados en `scheduler.py` (el "mensual" llevaba MESES sin traer nada nuevo):** (1) el scheduler marcaba una tarea "completada" PARA SIEMPRE — el cooldown de 30 días que sí existe en el enricher (`enrich_last_attempt`) nunca se aplicó aquí; de 366 tareas, 345 ya estaban tachadas y el "mensual" terminaba en segundos sin scrapear nada. Fix: `_tarea_vencida(tarea, dias=30)`, replica el mismo patrón. (2) Al relanzar, el guardia de concurrencia ("otra instancia ya la tomó") comparaba el `estado` literal en disco — como el fix #1 no resetea ese campo, cada tarea reactivada se descartaba de inmediato como "ya procesada". Fix: el guardia ahora también usa `_tarea_vencida()`. (3) Un tercer check idéntico dentro del loop principal decidía si "quedan pendientes" comparando literal — cortaba el loop (`break`) tras la PRIMERA tarea vencida procesada. Los 3 encontrados en vivo relanzando el scraper con un agente en background, uno tras otro. Con los 3 arreglados: scraping real confirmado (CASAS_Y_TERRENOS 64→128 nuevas, PROPIEDADES_COM 46→95+ nuevas, VIVANUNCIOS/INMUEBLES24 avanzando). **MITULA/Lamudi bloqueado sistémicamente con 401 Unauthorized en el 100% de sus tareas** (Guadalajara y Tlaquepaque, todas las categorías) — no es rate-limit, no se reinició, queda para revisión de código aparte.
+
+**PINCALI — decisión del usuario, diferido a propósito:** arreglar bien todo lo ya scrapeado de Pincali en español es un trabajo grande aparte. Se excluyó de esta corrida del scraper. Verificado de nuevo que `/inmueble/` (ES) sigue devolviendo 422/202, el fallback a inglés (`/en/home/`) sigue siendo necesario — no revertir.
+
+**Deploy:** Railway (backend, 2 veces — fixes de reporte + motor CUS) y Vercel (frontend, 2 veces — botón volver-al-inicio) verificados post-deploy contra health real y bundle JS. 8 commits pusheados a `main`.
+
+**No se cerró:** la regeneración de la OPI de Virgen 3437 con el valor corregido (el usuario dijo que la probaría él mismo desde el panel una vez desplegado todo). El scraper mensual sigue corriendo en background al cierre de sesión (agente activo, worktree `agent-acdcdcf3e8d17dfd2`) — revisar avance la próxima sesión.
+
+---
+
 ## 4 Ago 2026 (madrugada) — Calidad de construcción unificada frontend↔backend + verificador de zona
 
 Sesión corta, arrancó pidiendo ampliar el rango de años de remodelación en el verificador de
