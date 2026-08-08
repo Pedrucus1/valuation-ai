@@ -29,7 +29,7 @@ import time
 import random
 import argparse
 import traceback
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
@@ -127,6 +127,29 @@ def generar_tareas() -> list[dict]:
 # ─────────────────────────────────────────
 # Persistencia de progreso
 # ─────────────────────────────────────────
+
+DIAS_REPROCESO = 30
+
+def _tarea_vencida(tarea: dict, dias: int = DIAS_REPROCESO) -> bool:
+    """True si la tarea nunca corrió o su último intento (cualquier estado:
+    completada/error/bloqueado) tiene más de `dias` días.
+
+    Antes de este fix (07-ago-2026) el scheduler marcaba una tarea 'completada'
+    para SIEMPRE — la corrida "mensual" encontraba 345/366 tareas ya tachadas y
+    no volvía a scrapear nada. El enricher (enricher.py) ya tenía este mismo
+    cooldown de 30 días vía `enrich_last_attempt` (INDICE_SCRAPER.md:44); esto
+    replica el mismo patrón a nivel scheduler, que se había quedado atrás.
+    """
+    if tarea["estado"] == "pendiente":
+        return True
+    ts = tarea.get("timestamp")
+    if not ts:
+        return True
+    try:
+        return datetime.now() - datetime.fromisoformat(ts) > timedelta(days=dias)
+    except (ValueError, TypeError):
+        return True
+
 
 def cargar_progreso() -> list[dict]:
     if PROGRESS_FILE.exists():
@@ -601,10 +624,10 @@ def run(reset: bool = False, portal: str = None):
     # Filtrar por portal si se especificó
     if portal:
         portal = portal.upper()
-        pendientes = [t for t in tareas if t["estado"] == "pendiente" and t["portal"] == portal]
+        pendientes = [t for t in tareas if _tarea_vencida(t) and t["portal"] == portal]
         log.info(f"Filtrando solo portal: {portal}")
     else:
-        pendientes = [t for t in tareas if t["estado"] == "pendiente"]
+        pendientes = [t for t in tareas if _tarea_vencida(t)]
     log.info(f"Tareas pendientes: {len(pendientes)}")
 
     # Google Sheets retirado del scraper (usuario, 08-jul): MongoDB es la única base.
@@ -618,9 +641,9 @@ def run(reset: bool = False, portal: str = None):
     # Recargar tareas por si cambió el estado de algún 'scraped'
     tareas = cargar_progreso()
     if portal:
-        pendientes = [t for t in tareas if t["estado"] == "pendiente" and t["portal"] == portal]
+        pendientes = [t for t in tareas if _tarea_vencida(t) and t["portal"] == portal]
     else:
-        pendientes = [t for t in tareas if t["estado"] == "pendiente"]
+        pendientes = [t for t in tareas if _tarea_vencida(t)]
 
     if not pendientes:
         log.info("Todas las tareas completadas.")
@@ -639,7 +662,7 @@ def run(reset: bool = False, portal: str = None):
     completadas_esta_sesion = 0
 
     for idx, tarea in enumerate(tareas):
-        if tarea["estado"] != "pendiente":
+        if not _tarea_vencida(tarea):
             continue
         if portal and tarea["portal"] != portal:
             continue
