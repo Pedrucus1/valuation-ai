@@ -802,10 +802,12 @@ function valuarPropiedad(prop) {
         if (sp && sp.valor > 0) return { ...sp, confianza: 'MEDIA', cv: 0, pm2cAvg: Math.round(sp.valor / Math.max(m2C, 1)) };
     }
 
-    // Gate LOTE GRANDE: CUS<0.50 (ratioTerr>2.0) → homologación CUS si hay comps + semilla pm2T.
+    // Gate LOTE GRANDE: CUS<0.65 (ratioTerr>1.538) → homologación CUS si hay comps + semilla pm2T.
     // Umbral validado 30-jun: 0.50 mejor que 0.40 (band 0.40-0.50 mejoró sin romper; err 16.7→16.2).
+    // Umbral revalidado 07-ago: 0.65 mejor que 0.50 en las 210 OPIs 2023-2026 (validar_40_opis.js
+    // --n 999) — ±10 45.7→48.1%, ±15 59.0→61.0%, ±20 68.6→70.0%, errAbs 16.8→16.4%, sin regresión.
     // Si no hay datos, retorna null y sigue el flujo normal (no empeora nada).
-    if (ratioTerr > 2.0 && m2C >= 40 && m2T > 0) {
+    if (ratioTerr > (1 / 0.65) && m2C >= 40 && m2T > 0) {
         const lg = valuarLoteGrandeCUS(prop, muniNorm, colNorm, tipo, m2C, m2T);
         if (lg) return lg;
     }
