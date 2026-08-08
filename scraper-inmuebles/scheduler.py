@@ -722,8 +722,11 @@ def run(reset: bool = False, portal: str = None):
                 break
         guardar_progreso(tareas)
 
-        # Ver si quedan más pendientes (del portal filtrado si aplica)
-        restantes = [t for t in tareas if t["estado"] == "pendiente"
+        # Ver si quedan más pendientes (del portal filtrado si aplica). Mismo bug que
+        # el guardia de concurrencia: comparar contra "pendiente" literal cortaba el
+        # loop tras la primera tarea vencida procesada (el resto seguía con estado
+        # viejo "completada"/"error" hasta que les tocara su turno en el for).
+        restantes = [t for t in tareas if _tarea_vencida(t)
                      and (not portal or t["portal"] == portal)]
         if not restantes:
             break
