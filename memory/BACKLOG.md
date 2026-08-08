@@ -165,6 +165,18 @@
 
 ---
 
+## Scraper / Automatización mensual
+
+| # | Estado | Tarea |
+|---|---|---|
+| 151 | ⏳ | **PINCALI español — buscar alternativa** — `/inmueble/` sigue devolviendo 422/202 (verificado 07-ago, script `_test_pincali_espanol_status.py`). Diferido a propósito: arreglar TODO lo ya scrapeado de Pincali para que quede bien en español es un trabajo grande aparte. Investigar cuando se retome: headers `Accept-Language`, endpoint API interno (XHR que carga los datos, si el sitio es SPA), sitemap.xml con URLs es/en separadas, o si el propio Pincali expone alguna cookie/locale param distinto a `locale_changed`. |
+| 152 | ⏳ | **Scraper mensual NO trae datos nuevos (hallado 07-ago)** — Causa real, más profunda que la tarea de Windows: `run_mensual.ps1` llama `scheduler.py --portal X` SIN `--reset`; el archivo de progreso local ya tiene 345/366 tareas marcadas completadas de corridas viejas, así que cada portal encuentra ~0 pendientes y termina en segundos sin scrapear nada. Probable causa real de que INMUEBLES24 lleve 30 días sin datos frescos. Pendiente decidir: ¿reset completo cada mes (recorre las 91k+ props de nuevo, costo de proxy/tiempo alto) o una estrategia incremental real (reprocesar solo tareas con antigüedad >30 días, no las 366 en bloque)? No implementar sin medir costo/tiempo antes. |
+| 153 | ⏳ | **GitHub Actions `scraper_mensual.yml` — 2 corridas canceladas por timeout** — Cron mensual (día 2, 3am UTC) SÍ existe y SÍ se dispara (corridas 02-jul y 02-ago confirmadas en `gh run list`), pero ambas terminan `cancelled` a las 5h (timeout del job). Además el workflow NO incluye PROPIEDADES_COM (solo INMUEBLES24/CASAS_Y_TERRENOS/MITULA/VIVANUNCIOS/PINCALI en scrape+enrich). Investigar si esta corrida en la nube (no depende de que la PC esté prendida) es más confiable que la tarea de Windows local para "automático de verdad" — pero antes hay que resolver #152 (mismo problema de progreso/reset aplicaría aquí, o peor: VM efímera = sin progreso persistido = intenta las 366 desde cero cada vez, por eso el timeout). |
+| 154 | ⏳ | **Tarea de Windows `ScraperMensual` no se disparó el 07-ago** — Configurada correctamente (mensual, día 7, 10am) pero en modo "Solo interactivo" (logon type) — 1 missed run registrado. Cambiar a "ejecutar esté o no la sesión iniciada" requiere guardar credenciales de Windows en la tarea. Baja prioridad si se decide usar GitHub Actions (#153) como mecanismo principal en vez del Task Scheduler local. |
+| 155 | ⏳ | **Bugs encontrados en la corrida del 07-ago (agente), sin arreglar** — (1) Encoding: "Tlajomulco de Zúñiga" se corrompe a mojibake y el scheduler no encuentra la zona (`ValueError: Zona no encontrada`), afecta varias tareas INMUEBLES24. (2) CASAS_Y_TERRENOS: `'str' object has no attribute 'get'` en Zapopan/Tlajomulco/Tonalá venta. (3) El auto-enricher interno que dispara `scheduler.py` al terminar un portal usa una ruta relativa que resuelve mal (`C:\Users\pedru\OneDrive\Documents\enricher.py`, no existe) — nunca corre. |
+
+---
+
 ## Motor de Valuación IA (Modulo Drive IA)
 
 | # | Estado | Tarea |
