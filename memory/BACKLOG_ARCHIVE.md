@@ -5,6 +5,12 @@
 
 ---
 
+## 9 Ago 2026 — monitoreo del scraper desatendido + descartado self-hosting de IA
+
+Sesión corta, casi sin código: el scraper lanzado el 07-ago (agente en background, ver sesión de abajo) siguió corriendo desatendido dos días — se monitoreó (y luego se pidió reducir a silencio total salvo bloqueos reales) mientras acumulaba miles de props nuevas, sobre todo en CASAS_Y_TERRENOS (varios batches >1,000 en una sola tarea). **MITULA terminó su cola completa** (14 tareas) confirmando el bloqueo sistémico de Lamudi (401 en el 100%, no es rate-limit) — queda para revisión de código aparte (#158). El agente se cayó una vez por límite de sesión (resets a hora fija) y se reanudó sin pérdida de progreso (los procesos de scraping son independientes del agente, PowerShell jobs propios). El usuario preguntó si convenía self-hostear un modelo de IA open-weight (mencionó "Gemma") para el reporte en vez de depender de Gemini/DeepSeek — se recomendó NO hacerlo: a este volumen una GPU 24/7 sale más cara que pagar por llamada, y la calidad de un modelo barato de hostear sería peor; el problema real (llave DeepSeek venciéndose sin avisar, ya 2 veces) se resuelve con monitoreo de esa llave, no cambiando de arquitectura — queda pendiente implementar esa alerta.
+
+---
+
 ## 7 Ago 2026 — comparables de zona equivocada, motor CUS 0.65, reporte (predial/oportunidades), scraper mensual muerto (3 bugs) y regeneración manual
 
 **Origen:** el usuario hizo una OPI real (Calle Virgen 3437, La Calma, Zapopan) y notó tres cosas raras en el reporte: el texto de "áreas de oportunidad" sugería remodelar acabados en una casa YA remodelada; el "análisis estratégico de mercado" citaba comparables de "Bosque Real" (zona sin relación con La Calma); y el valor salió $4,008,817 — muy por debajo de lo que un perito real valuó una casa casi idéntica en la misma calle un año antes ($4,514,000, y con oferta actual similar/mayor).
