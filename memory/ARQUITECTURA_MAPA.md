@@ -14,7 +14,7 @@
 - **Auth**: `require_admin()` (admin, sesión rotatoria) · `require_auth()` (usuario, cookie/Bearer) · `require_admin_or_job()` (crons externos #66.3) → `backend/routers/*`
 - **Normalización**: `backend/core/colonias.py` es la **fuente única** del lado Python (`norm_col_key`, `limpia_decor`, `norm_muni`, `es_junk_colonia`) + `decada_de(nombre, municipio)` para leer `colonias_decada.json`; `routers/edades.py` solo re-exporta (antes había 4 copias divergiendo). El motor JS conserva su `normCol()`/`normMuni()` aparte. **Regla: las truncaciones del scraper se restauran (`omos X`→`colomos X`, `inas X`→`colinas X`), y `coto`/`condominio`/`privada` NO se quitan** — son desarrollos con edad propia.
 - **Motor valuación**: `valuarPropiedad()` / `valuarPropiedadCompleto()` → `Modulo Drive IA/motor_remi_api.js` (prod) · `motor_remi_api_lab.js` (LAB)
-- **Sheets**: `SheetsClient` / `googleSheetsConnector` — integración Google Sheets del scraper
+- **Sheets**: `SheetsClient` / `googleSheetsConnector` — integración Google Sheets del scraper. **MUERTO desde 08-jul** (10M celdas, scraper ya no le escribe). El caché del motor (`actualizar_cache_desde_mongo.py`) volvió a leer de Mongo el 12-ago tras 5+ semanas sirviendo una foto congelada — ver BACKLOG #159.
 - **Scrapers**: `BaseScraper` (clase base abstracta) · `ErrorScraping` → inmuebles24 / pincali / nocnok / mitula(lamudi) / casas_y_terrenos / propiedades.com
 
 ## Módulos (top-level)
@@ -24,8 +24,8 @@
 - `scraper-inmuebles/` — scrapers Python + enrichers (año/m2T) + Mongo + anti-bloqueo + SEPOMEX
 
 ## Flujos clave (hyperedges)
-1. **Pipeline datos**: scraper → Mongo `mercado_props` → caché `cache_consolidado.json` / `cache_index.json` → motor → reporte
-2. **Comps flywheel**: cada avalúo guarda comps de Gemini en CONSOLIDADO; `cache_consolidado.json` ↔ Mongo `mercado_props`
+1. **Pipeline datos**: scraper → Mongo `mercado_props` → `actualizar_cache_desde_mongo.py` (12-ago, reemplaza al builder de Sheets) → `cache_consolidado.json` / `cache_index.json` → motor → reporte. **El caché es una foto estática — no se refresca solo**; hay que re-correr el builder tras cada corrida grande del scraper o el motor sigue viendo datos viejos.
+2. **Comps flywheel**: `acumularComps()` guarda comps web (Tavily/Serper/Brave) en `comps_acumulados.ndjson` + Mongo `mercado_props` vía `enriquecerCompsWeb()`; requiere `node consolidar_comps_acumulados.js` + rebuild del caché (#1) para que lo nuevo llegue al motor — no es automático
 3. **Cascada NSE multicapa**: v1 perito → v2 (`colonias_similares.enriquecido.v2.json`) → idx
 4. **Calibración motor**: edad×clase (Ross-Heidecke) · seg_ratio discriminante · LAB_EDAD_EXACTA
 5. **Seguridad (S1–S7 resueltos, #64)**: require_admin, rate limiting (slowapi), fix IDOR, CORS restringido
