@@ -164,7 +164,9 @@ class CasasYTerrenosScraper(BaseScraper):
 
     def _normalizar_hit(self, hit: dict, zona: dict, operacion: str) -> Optional[dict]:
         # URL
-        slugs = hit.get("slugs", {})
+        slugs = hit.get("slugs") or {}
+        if not isinstance(slugs, dict):
+            slugs = {}
         slug_path = slugs.get("venta" if operacion == "venta" else "renta", "") or hit.get("canonical", "")
         if not slug_path:
             return None

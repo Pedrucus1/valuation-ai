@@ -49,8 +49,20 @@ FUENTES_PROTEGIDAS = {"perito_correccion", "usuario_correccion", "perito_crowdso
 # ─────────────────────────────────────────
 # Configuración del scheduler
 # ─────────────────────────────────────────
-PAUSA_MIN = 12   # minutos mínimos entre tareas
-PAUSA_MAX = 22   # minutos máximos entre tareas
+PAUSA_MIN = 12   # minutos mínimos entre tareas (default / portales con antibot real)
+PAUSA_MAX = 22   # minutos máximos entre tareas (default / portales con antibot real)
+
+# Pausa por portal (minutos), calibrada con el mismo criterio que DELAYS_PORTAL
+# del enricher (03-jun-2026, verificado en vivo sin 403/429/DataDome): PINCALI/
+# CASAS_Y_TERRENOS/MITULA son HTML/JSON plano sin protección real; PROPIEDADES_COM
+# tiene Akamai pero ya lo absorbe el fetch de Node; INMUEBLES24/VIVANUNCIOS sí
+# tienen antibot real (Playwright/DataDome) y se quedan en el valor conservador.
+PAUSA_PORTAL = {
+    "PINCALI":          (2, 5),
+    "CASAS_Y_TERRENOS": (2, 5),
+    "MITULA":           (2, 5),
+    "PROPIEDADES_COM":  (5, 10),
+}
 PROGRESS_FILE = Path(__file__).parent / "progress.json"
 
 # Buffer local — datos scrapeados que aún no se han subido a Sheets
@@ -325,15 +337,24 @@ def ejecutar_tarea(tarea: dict, sheets: SheetsClient) -> int:
     scraper_clase, tab = SCRAPERS_MAP.get(portal, (Inmuebles24Scraper, config.TAB_INMUEBLES24))
 
     def _normalizar(s: str) -> str:
-        """Corrige strings doblemente codificados (UTF-8 bytes como Latin-1)."""
-        try:
-            return s.encode("latin-1").decode("utf-8")
-        except (UnicodeEncodeError, UnicodeDecodeError):
-            return s
+        """Corrige strings mojibake (UTF-8 bytes reinterpretados como cp1252),
+        aplicando hasta 3 rondas — el doble/triple mojibake acumulado necesita
+        más de una pasada para volver al texto original."""
+        candidatos = {s}
+        cur = s
+        for _ in range(3):
+            try:
+                cur = cur.encode("cp1252").decode("utf-8")
+            except (UnicodeEncodeError, UnicodeDecodeError):
+                break
+            if cur in candidatos:
+                break
+            candidatos.add(cur)
+        return candidatos
 
-    mun_norm = _normalizar(municipio)
+    candidatos_municipio = _normalizar(municipio)
     zona_obj = next(
-        (z for z in config.ZONAS if z["municipio"] == mun_norm or z["municipio"] == municipio),
+        (z for z in config.ZONAS if z["municipio"] in candidatos_municipio),
         None,
     )
     if not zona_obj:
@@ -655,7 +676,7 @@ def run(reset: bool = False, portal: str = None):
     print(f"  SCHEDULER INMUEBLES24")
     print(f"  Inicio   : {datetime.now().strftime('%Y-%m-%d %H:%M')}")
     print(f"  Pendientes: {len(pendientes)} tareas")
-    print(f"  Pausa     : {PAUSA_MIN}-{PAUSA_MAX} min entre tareas")
+    print(f"  Pausa     : {PAUSA_MIN}-{PAUSA_MAX} min default (por portal, ver PAUSA_PORTAL)")
     print(f"  Proxy     : {'SI - ' + config.PROXY_URL[:30] if hasattr(config, 'PROXY_URL') and config.PROXY_URL else 'NO (IP directa)'}")
     print(f"{'='*60}\n")
 
@@ -731,10 +752,9 @@ def run(reset: bool = False, portal: str = None):
         if not restantes:
             break
 
-        # Pausa aleatoria antes de la siguiente tarea
-        pausa_min = PAUSA_MIN * 60
-        pausa_max = PAUSA_MAX * 60
-        espera = random.uniform(pausa_min, pausa_max)
+        # Pausa aleatoria antes de la siguiente tarea (calibrada por portal)
+        p_min, p_max = PAUSA_PORTAL.get(tarea["portal"], (PAUSA_MIN, PAUSA_MAX))
+        espera = random.uniform(p_min * 60, p_max * 60)
         prox = datetime.fromtimestamp(time.time() + espera).strftime("%H:%M:%S")
         print(f"  Siguiente tarea a las {prox} (en {espera/60:.1f} min)")
         time.sleep(espera)
