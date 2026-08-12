@@ -369,14 +369,33 @@ async function buscarEnTavily(query, key) {
     }
 }
 
-// Cascada de búsqueda web: prueba cada key de Tavily (gratis; TAVILY_API_KEY admite VARIAS
-// separadas por coma para apilar cuentas) y luego Serper (pago). Si una key está agotada
-// (null) pasa a la siguiente → permite sumar cuentas gratis y caer a pago al crecer.
+// Brave Search: 3er escalón de la cascada (tier gratis, ver credentials_registry).
+// Mismo contrato: null = key agotada/ausente → siguiente proveedor.
+async function buscarEnBrave(query, key) {
+    if (!key) return null;
+    try {
+        const res = await fetch(`https://api.search.brave.com/res/v1/web/search?q=${encodeURIComponent(query)}&count=10`, {
+            method: 'GET',
+            headers: { 'X-Subscription-Token': key, 'Accept': 'application/json' },
+        });
+        if (!res.ok) return null;   // cuota agotada / error → siguiente key/proveedor
+        const data = await res.json();
+        const results = data.web?.results || [];
+        return results.map(r => `[${r.title}]\n${r.description || ''}\nURL: ${r.url}`).join('\n\n---\n\n');
+    } catch (e) {
+        return null;
+    }
+}
+
+// Cascada de búsqueda web: Tavily → Serper → Brave (todas admiten VARIAS keys separadas
+// por coma para apilar cuentas gratis). Si una key está agotada (null) pasa a la
+// siguiente proveedor → permite sumar cuentas gratis y caer a pago al crecer.
 // Un '' (buscó pero sin resultados) SÍ corta (no malgasta otra key en la misma query).
 const _webKeys = env => (process.env[env] || '').split(',').map(s => s.trim()).filter(Boolean);
 async function buscarWeb(query) {
     for (const k of _webKeys('TAVILY_API_KEY')) { const r = await buscarEnTavily(query, k); if (r !== null) return r; }
     for (const k of _webKeys('SERPER_API_KEY')) { const r = await buscarEnSerper(query, k); if (r !== null) return r; }
+    for (const k of _webKeys('BRAVE_API_KEY')) { const r = await buscarEnBrave(query, k); if (r !== null) return r; }
     return '';
 }
 
@@ -418,7 +437,7 @@ async function enriquecerCompsWeb(comps, prop) {
 }
 
 async function buscarCompsConWeb(prop, similares) {
-    if (!_deepseek || (!process.env.SERPER_API_KEY && !process.env.TAVILY_API_KEY)) return [];
+    if (!_deepseek || (!process.env.SERPER_API_KEY && !process.env.TAVILY_API_KEY && !process.env.BRAVE_API_KEY)) return [];
 
     const tipoQ  = (prop.tipo || 'casa').toLowerCase().includes('depto') ? 'departamento' : 'casa';
     const m2Min  = Math.round((prop.construccion || 60) * 0.5);
@@ -1221,7 +1240,7 @@ async function valuarPropiedadCompleto(prop) {
     const necesitaSumaPartesWeb = ratioTerrWeb > 2.5
         && (prop.terreno || 0) > 200
         && !['suma_partes', 'suma_partes_mix'].includes(result.poolTipo)
-        && (!!process.env.SERPER_API_KEY || !!process.env.TAVILY_API_KEY);
+        && (!!process.env.SERPER_API_KEY || !!process.env.TAVILY_API_KEY || !!process.env.BRAVE_API_KEY);
 
     if (necesitaSumaPartesWeb) {
         const propTerreno = { ...prop, tipo: 'terreno', tipoRaw: 'terreno en venta' };
@@ -1250,7 +1269,7 @@ async function valuarPropiedadCompleto(prop) {
     const necesitaComplemento = !result.error
         && result.nComps > 0 && result.nComps < COMPS_MIN
         && !poolNoComplementable.includes(result.poolTipo)
-        && (!!process.env.SERPER_API_KEY || !!process.env.TAVILY_API_KEY);
+        && (!!process.env.SERPER_API_KEY || !!process.env.TAVILY_API_KEY || !!process.env.BRAVE_API_KEY);
 
     if (necesitaComplemento) {
         const compsExtra = await buscarCompsConWeb(prop, simFb);
