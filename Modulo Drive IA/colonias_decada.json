@@ -1733,17 +1733,18 @@
   "municipio_fuente": "sepomex"
  },
  "amaneceres": {
-  "decada_ref": "2000s",
+  "decada_ref": "2010s",
   "decadas": [
-   "2000s",
    "2010s"
   ],
   "nivel": "media",
-  "fuente": "manual",
-  "confianza": "baja",
-  "confianza_puntos": 44,
+  "fuente": "colonias-confianza-web",
+  "confianza": "media",
+  "confianza_puntos": 65,
   "municipio": "san pedro tlaquepaque",
-  "municipio_fuente": "sepomex"
+  "municipio_fuente": "sepomex",
+  "fuente_url": "https://www.tlaquepaque.gob.mx/desglose_post?id=1407",
+  "evidencia": "Fraccionamiento de interes social/medio, San Pedro Tlaquepaque. Preventa y trazo de vialidades 2014-2015; edificacion y entrega de los primeros cotos (Aurora, Celeste, Boreal) 2016-2018; consolidacion 2019 en adelante. Fuentes: Facebook (vecinos reportando fallas de agua, corrobora ubicacion y cotos), Ayuntamiento de Tlaquepaque (respuesta oficial a la peticion de agua potable), listados inmobiliarios Pincali/Trovit. No es licencia ni gaceta con folio -- confianza media, no alta."
  },
  "amaranto": {
   "decada_ref": "2000s",
@@ -13925,15 +13926,16 @@
  "hacienda real de colima": {
   "decada_ref": "2010s",
   "decadas": [
-   "2000s",
    "2010s"
   ],
   "nivel": "media",
-  "fuente": "manual",
-  "confianza": "baja",
-  "confianza_puntos": 42,
+  "fuente": "colonias-confianza-web",
+  "confianza": "media",
+  "confianza_puntos": 65,
   "municipio": "tlajomulco de zuniga",
-  "municipio_fuente": "sepomex"
+  "municipio_fuente": "sepomex",
+  "fuente_url": "https://www.pincali.com/inmueble/hacienda-real-de-colima-1201-23",
+  "evidencia": "Condominio residencial medio en Tlajomulco de Zuniga, delegacion San Agustin, sobre Camino Real a Colima 1201, corredor Lopez Mateos Sur. Edificacion formal iniciada alrededor de 2012. No es licencia ni gaceta con folio -- confianza media, no alta."
  },
  "hacienda real tonala": {
   "decada_ref": "2000s",
