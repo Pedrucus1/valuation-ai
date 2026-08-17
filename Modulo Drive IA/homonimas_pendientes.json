@@ -1,1595 +1,236 @@
 {
-  "agua blanca": {
-    "decada_ref_actual": "1970s",
-    "decadas_actual": [
-      "1960s",
-      "1970s",
-      "1980s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "el salto",
-      "tonala",
-      "zapopan"
-    ]
-  },
-  "agua escondida": {
-    "decada_ref_actual": "1990s",
-    "decadas_actual": [
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "fuente_actual": "inegi",
-    "confianza_puntos_actual": 72,
-    "nivel": "media",
-    "municipios_zmg": [
-      "ixtlahuacan de los membrillos",
-      "tonala",
-      "zapotlanejo"
-    ]
-  },
-  "alfareros": {
-    "decada_ref_actual": "1940s",
-    "decadas_actual": [
-      "1930s",
-      "1940s",
-      "1950s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "san pedro tlaquepaque",
-      "tonala"
-    ]
-  },
-  "altamira": {
-    "decada_ref_actual": "1980s",
-    "decadas_actual": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "lujo",
-    "municipios_zmg": [
-      "tonala",
-      "zapopan"
-    ]
-  },
-  "anzures": {
-    "decada_ref_actual": "1990s",
-    "decadas_actual": [
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "lujo",
-    "municipios_zmg": [
-      "ajijic",
-      "tonala"
-    ]
-  },
-  "arroyo seco": {
-    "decada_ref_actual": "1980s",
-    "decadas_actual": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "san pedro tlaquepaque",
-      "tonala"
-    ]
-  },
-  "bacalar": {
-    "decada_ref_actual": "1990s",
-    "decadas_actual": [
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "chapala",
-      "el salto"
-    ]
-  },
-  "balcones del sol": {
-    "decada_ref_actual": "1970s",
-    "decadas_actual": [
-      "1960s",
-      "1970s",
-      "1980s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "tonala",
-      "zapopan"
-    ]
-  },
-  "bellavista": {
-    "decada_ref_actual": "1980s",
-    "decadas_actual": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "acatlan de juarez",
-      "poncitlan",
-      "tonala",
-      "zapopan"
-    ]
-  },
-  "bosque de las lomas": {
-    "decada_ref_actual": "1980s",
-    "decadas_actual": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media-alta",
-    "municipios_zmg": [
-      "tonala",
-      "zapopan"
-    ]
-  },
-  "bosques de las lomas": {
-    "decada_ref_actual": "1980s",
-    "decadas_actual": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media-alta",
-    "municipios_zmg": [
-      "ajijic",
-      "tonala",
-      "zapopan"
-    ]
-  },
-  "bosques de santa anita": {
-    "decada_ref_actual": "2000s",
-    "decadas_actual": [
-      "1990s",
-      "2000s",
-      "2010s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "tlajomulco",
-      "zapopan"
-    ]
-  },
   "brisas": {
-    "decada_ref_actual": "1990s",
-    "decadas_actual": [
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
     "municipios_zmg": [
       "ajijic",
       "tlajomulco"
-    ]
-  },
-  "brisas de chapala": {
-    "decada_ref_actual": "1980s",
-    "decadas_actual": [
-      "1960s",
-      "1970s",
-      "1980s",
-      "1990s"
     ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 36,
-    "nivel": "media",
-    "municipios_zmg": [
-      "chapala",
-      "san pedro tlaquepaque",
-      "tlaquepaque"
-    ]
+    "decada_actual_canon": "2000s",
+    "municipio_canon": "tlajomulco de zuniga",
+    "confianza_canon": 86,
+    "fuente_canon": "manual",
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
   },
   "bugambilias 2a seccion": {
-    "decada_ref_actual": "1970s",
-    "decadas_actual": [
-      "1960s",
-      "1970s",
-      "1980s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
     "municipios_zmg": [
       "tlajomulco",
       "zapopan"
-    ]
-  },
-  "cancun": {
-    "decada_ref_actual": "1990s",
-    "decadas_actual": [
-      "1980s",
-      "1990s",
-      "2000s"
     ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "ajijic",
-      "chapala",
-      "el salto",
-      "tlajomulco"
-    ]
-  },
-  "casa fuerte": {
-    "decada_ref_actual": "2000s",
-    "decadas_actual": [
-      "1990s",
-      "2000s",
-      "2010s"
-    ],
-    "fuente_actual": "manual",
-    "confianza_puntos_actual": 62,
-    "nivel": "media",
-    "municipios_zmg": [
-      "tlajomulco",
-      "zapopan"
-    ]
+    "decada_actual_canon": "1980s",
+    "municipio_canon": "zapopan",
+    "confianza_canon": 86,
+    "fuente_canon": "manual",
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
   },
   "cipreses": {
-    "decada_ref_actual": "1990s",
-    "decadas_actual": [
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
     "municipios_zmg": [
       "tonala",
       "zapopan"
-    ]
+    ],
+    "decada_actual_canon": "2000s",
+    "municipio_canon": "zapopan",
+    "confianza_canon": 86,
+    "fuente_canon": "manual",
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
   },
   "ciudad bugambilias 2da seccion": {
-    "decada_ref_actual": "1970s",
-    "decadas_actual": [
-      "1960s",
-      "1970s",
-      "1980s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
     "municipios_zmg": [
       "tlajomulco",
       "zapopan"
-    ]
-  },
-  "ciudad de cancun": {
-    "decada_ref_actual": "1990s",
-    "decadas_actual": [
-      "1980s",
-      "1990s",
-      "2000s"
     ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "el salto",
-      "tonala"
-    ]
-  },
-  "colinas de san javier": {
-    "decada_ref_actual": "1960s",
-    "decadas_actual": [
-      "1960s",
-      "1970s"
-    ],
-    "fuente_actual": "manual",
-    "confianza_puntos_actual": 84,
-    "nivel": "lujo",
-    "municipios_zmg": [
-      "guadalajara",
-      "zapopan"
-    ]
+    "decada_actual_canon": "1980s",
+    "municipio_canon": "zapopan",
+    "confianza_canon": 86,
+    "fuente_canon": "manual",
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
   },
   "condominio puerta plata": {
-    "decada_ref_actual": "1960s",
-    "decadas_actual": [
-      "1940s",
-      "1950s",
-      "1960s",
-      "1970s",
-      "1980s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "lujo",
     "municipios_zmg": [
       "tlajomulco",
       "zapopan"
-    ]
-  },
-  "cuajimalpa": {
-    "decada_ref_actual": "1990s",
-    "decadas_actual": [
-      "1980s",
-      "1990s",
-      "2000s"
     ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media-alta",
-    "municipios_zmg": [
-      "ajijic",
-      "tonala"
-    ]
-  },
-  "del bosque": {
-    "decada_ref_actual": "1980s",
-    "decadas_actual": [
-      "1960s",
-      "1970s",
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "fuente_actual": "plan-parcial",
-    "confianza_puntos_actual": 46,
-    "nivel": "popular",
-    "municipios_zmg": [
-      "guadalajara",
-      "zapopan"
-    ]
-  },
-  "division del norte": {
-    "decada_ref_actual": "1960s",
-    "decadas_actual": [
-      "1940s",
-      "1950s",
-      "1960s",
-      "1970s"
-    ],
-    "fuente_actual": "inegi",
-    "confianza_puntos_actual": 72,
-    "nivel": "media-alta",
-    "municipios_zmg": [
-      "guadalajara",
-      "zapopan"
-    ]
-  },
-  "el alamo": {
-    "decada_ref_actual": "1960s",
-    "decadas_actual": [
-      "1950s",
-      "1960s",
-      "1970s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media-baja",
-    "municipios_zmg": [
-      "guadalajara",
-      "san pedro tlaquepaque",
-      "tlaquepaque",
-      "zapopan"
-    ]
+    "decada_actual_canon": "2000s",
+    "municipio_canon": "zapopan",
+    "confianza_canon": 86,
+    "fuente_canon": "manual",
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
   },
   "el bajio": {
-    "decada_ref_actual": "1960s",
-    "decadas_actual": [
-      "1950s",
-      "1960s",
-      "1970s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
     "municipios_zmg": [
       "chapala",
       "zapopan",
       "zapotlanejo"
-    ]
+    ],
+    "decada_actual_canon": "2000s",
+    "municipio_canon": "zapopan",
+    "confianza_canon": 86,
+    "fuente_canon": "manual",
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
   },
   "el cielo country club": {
-    "decada_ref_actual": "1970s",
-    "decadas_actual": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "fuente_actual": "hemeroteca",
-    "confianza_puntos_actual": 94,
-    "nivel": "media-alta",
     "municipios_zmg": [
       "tlajomulco",
       "zapopan"
-    ]
-  },
-  "el mante": {
-    "decada_ref_actual": "1980s",
-    "decadas_actual": [
-      "1970s",
-      "1980s",
-      "1990s"
     ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "san pedro tlaquepaque",
-      "tlaquepaque",
-      "zapopan"
-    ]
-  },
-  "el real": {
-    "decada_ref_actual": "2000s",
-    "decadas_actual": [
-      "1990s",
-      "2000s",
-      "2010s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "san pedro tlaquepaque",
-      "tlaquepaque",
-      "zapopan"
-    ]
-  },
-  "el rosario": {
-    "decada_ref_actual": "2000s",
-    "decadas_actual": [
-      "1990s",
-      "2000s",
-      "2010s"
-    ],
-    "fuente_actual": "plan-parcial",
-    "confianza_puntos_actual": 51,
-    "nivel": "media",
-    "municipios_zmg": [
-      "guadalajara",
-      "tonala",
-      "zapotlanejo"
-    ]
-  },
-  "el zalate": {
-    "decada_ref_actual": "1960s",
-    "decadas_actual": [
-      "1950s",
-      "1960s",
-      "1970s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "el salto",
-      "guadalajara",
-      "san pedro tlaquepaque"
-    ]
-  },
-  "insurgentes cuicuilco": {
-    "decada_ref_actual": "1990s",
-    "decadas_actual": [
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "ajijic",
-      "zapopan"
-    ]
-  },
-  "interlomas": {
-    "decada_ref_actual": "1990s",
-    "decadas_actual": [
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "lujo",
-    "municipios_zmg": [
-      "ajijic",
-      "chapala"
-    ]
+    "decada_actual_canon": "1990s",
+    "municipio_canon": "tlajomulco de zuniga",
+    "confianza_canon": 86,
+    "fuente_canon": "manual",
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
   },
   "jardines del pedregal": {
-    "decada_ref_actual": "1980s",
-    "decadas_actual": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "lujo",
     "municipios_zmg": [
       "tonala",
       "zapopan"
-    ]
+    ],
+    "decada_actual_canon": "1980s",
+    "municipio_canon": "zapopan",
+    "confianza_canon": 86,
+    "fuente_canon": "manual",
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
   },
   "juan diego": {
-    "decada_ref_actual": "1960s",
-    "decadas_actual": [
-      "1950s",
-      "1960s",
-      "1970s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
     "municipios_zmg": [
       "guadalajara",
       "san pedro tlaquepaque"
-    ]
-  },
-  "la arena": {
-    "decada_ref_actual": "1980s",
-    "decadas_actual": [
-      "1970s",
-      "1980s",
-      "1990s"
     ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "san pedro tlaquepaque",
-      "tonala"
-    ]
+    "decada_actual_canon": "1950s",
+    "municipio_canon": "guadalajara",
+    "confianza_canon": 86,
+    "fuente_canon": "manual",
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
   },
   "la cima de zapopan": {
-    "decada_ref_actual": "1960s",
-    "decadas_actual": [
-      "1950s",
-      "1960s",
-      "1970s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
     "municipios_zmg": [
       "guadalajara",
       "zapopan"
-    ]
-  },
-  "la cofradia": {
-    "decada_ref_actual": "1980s",
-    "decadas_actual": [
-      "1970s",
-      "1980s",
-      "1990s"
     ],
-    "fuente_actual": "plan-parcial",
-    "confianza_puntos_actual": 72,
-    "nivel": "media",
-    "municipios_zmg": [
-      "juanacatlan",
-      "san pedro tlaquepaque",
-      "tuxcueca"
-    ]
-  },
-  "la cuspide": {
-    "decada_ref_actual": "1990s",
-    "decadas_actual": [
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "tonala",
-      "zapopan"
-    ]
-  },
-  "la gigantera": {
-    "decada_ref_actual": "2000s",
-    "decadas_actual": [
-      "1980s",
-      "1990s",
-      "2000s",
-      "2010s"
-    ],
-    "fuente_actual": "plan-parcial",
-    "confianza_puntos_actual": 47,
-    "nivel": "media",
-    "municipios_zmg": [
-      "san pedro tlaquepaque",
-      "tlajomulco de zuniga",
-      "tlaquepaque",
-      "tonala"
-    ]
-  },
-  "la laja": {
-    "decada_ref_actual": "2000s",
-    "decadas_actual": [
-      "1990s",
-      "2000s",
-      "2010s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 30,
-    "nivel": "media",
-    "municipios_zmg": [
-      "zapopan",
-      "zapotlanejo"
-    ]
-  },
-  "la purisima": {
-    "decada_ref_actual": "2000s",
-    "decadas_actual": [
-      "1980s",
-      "1990s",
-      "2000s",
-      "2010s"
-    ],
-    "fuente_actual": "plan-parcial",
-    "confianza_puntos_actual": 47,
-    "nivel": "media-baja",
-    "municipios_zmg": [
-      "el salto",
-      "tlajomulco",
-      "tlajomulco de zuniga",
-      "zapotlanejo"
-    ]
+    "decada_actual_canon": "2010s",
+    "municipio_canon": "zapopan",
+    "confianza_canon": 86,
+    "fuente_canon": "manual",
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
   },
   "la severiana": {
-    "decada_ref_actual": "1980s",
-    "decadas_actual": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "fuente_actual": "plan-parcial",
-    "confianza_puntos_actual": 72,
-    "nivel": "media",
     "municipios_zmg": [
       "san pedro tlaquepaque",
       "tonala"
-    ]
-  },
-  "la villa": {
-    "decada_ref_actual": "1990s",
-    "decadas_actual": [
-      "1980s",
-      "1990s",
-      "2000s"
     ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "tonala",
-      "zapopan"
-    ]
-  },
-  "las flores": {
-    "decada_ref_actual": "1980s",
-    "decadas_actual": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "san pedro tlaquepaque",
-      "tlajomulco",
-      "tlajomulco de zuniga",
-      "tlaquepaque",
-      "zapopan"
-    ]
-  },
-  "las juntas": {
-    "decada_ref_actual": "1940s",
-    "decadas_actual": [
-      "1910s",
-      "1920s",
-      "1930s",
-      "1940s",
-      "1950s"
-    ],
-    "fuente_actual": "manual",
-    "confianza_puntos_actual": 62,
-    "nivel": "media",
-    "municipios_zmg": [
-      "guadalajara",
-      "san pedro tlaquepaque",
-      "tlaquepaque"
-    ]
-  },
-  "las palmas": {
-    "decada_ref_actual": "1980s",
-    "decadas_actual": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 30,
-    "nivel": "media",
-    "municipios_zmg": [
-      "guadalajara",
-      "tlajomulco",
-      "tlajomulco de zuniga",
-      "tonala"
-    ]
-  },
-  "las trojes": {
-    "decada_ref_actual": "2000s",
-    "decadas_actual": [
-      "1990s",
-      "2000s",
-      "2010s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "jocotepec",
-      "tlajomulco de zuniga"
-    ]
+    "decada_actual_canon": "1980s",
+    "municipio_canon": "tonala",
+    "confianza_canon": 72,
+    "fuente_canon": "plan-parcial",
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
   },
   "lindavista": {
-    "decada_ref_actual": "1980s",
-    "decadas_actual": [
-      "1960s",
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
     "municipios_zmg": [
       "guadalajara",
       "san pedro tlaquepaque",
       "tlaquepaque",
       "zapopan"
-    ]
-  },
-  "loma bonita": {
-    "decada_ref_actual": "1980s",
-    "decadas_actual": [
-      "1980s"
     ],
-    "fuente_actual": "manual",
-    "confianza_puntos_actual": 62,
-    "nivel": "lujo",
-    "municipios_zmg": [
-      "el salto",
-      "guadalajara",
-      "zapopan"
-    ]
-  },
-  "loma real": {
-    "decada_ref_actual": "1980s",
-    "decadas_actual": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media-alta",
-    "municipios_zmg": [
-      "guadalajara",
-      "tonala",
-      "zapopan"
-    ]
-  },
-  "lomas de san miguel": {
-    "decada_ref_actual": "1980s",
-    "decadas_actual": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "fuente_actual": "plan-parcial",
-    "confianza_puntos_actual": 57,
-    "nivel": "popular",
-    "municipios_zmg": [
-      "san pedro tlaquepaque",
-      "tlaquepaque",
-      "tonala"
-    ]
-  },
-  "lomas del pedregal": {
-    "decada_ref_actual": "2000s",
-    "decadas_actual": [
-      "1990s",
-      "2000s",
-      "2010s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "popular",
-    "municipios_zmg": [
-      "guadalajara",
-      "tlajomulco",
-      "tlajomulco de zuniga",
-      "tonala"
-    ]
-  },
-  "lomas del valle": {
-    "decada_ref_actual": "1960s",
-    "decadas_actual": [
-      "1950s",
-      "1960s",
-      "1970s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "lujo",
-    "municipios_zmg": [
-      "guadalajara",
-      "zapopan",
-      "zapotlanejo"
-    ]
-  },
-  "los alamos": {
-    "decada_ref_actual": "2000s",
-    "decadas_actual": [
-      "1990s",
-      "2000s",
-      "2010s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "tlajomulco de zuniga",
-      "zapopan"
-    ]
-  },
-  "los amiales": {
-    "decada_ref_actual": "2000s",
-    "decadas_actual": [
-      "1990s",
-      "2000s",
-      "2010s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "san pedro tlaquepaque",
-      "tonala"
-    ]
-  },
-  "los colorines": {
-    "decada_ref_actual": "1980s",
-    "decadas_actual": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "guadalajara",
-      "zapopan"
-    ]
-  },
-  "los laureles": {
-    "decada_ref_actual": "1980s",
-    "decadas_actual": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media-baja",
-    "municipios_zmg": [
-      "el salto",
-      "tlajomulco",
-      "tlajomulco de zuniga",
-      "zapopan"
-    ]
-  },
-  "los maestros": {
-    "decada_ref_actual": "1980s",
-    "decadas_actual": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "el salto",
-      "zapopan"
-    ]
+    "decada_actual_canon": "1970s",
+    "municipio_canon": "zapopan",
+    "confianza_canon": 86,
+    "fuente_canon": "manual",
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
   },
   "los manzanos": {
-    "decada_ref_actual": "2000s",
-    "decadas_actual": [
-      "1990s",
-      "2000s",
-      "2010s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
     "municipios_zmg": [
       "tlajomulco de zuniga",
       "zapopan"
-    ]
-  },
-  "los naranjos": {
-    "decada_ref_actual": "1980s",
-    "decadas_actual": [
-      "1970s",
-      "1980s",
-      "1990s"
     ],
-    "fuente_actual": "plan-parcial",
-    "confianza_puntos_actual": 72,
-    "nivel": "media",
-    "municipios_zmg": [
-      "poncitlan",
-      "san pedro tlaquepaque",
-      "tlajomulco",
-      "tlaquepaque"
-    ]
-  },
-  "los pinos": {
-    "decada_ref_actual": "1960s",
-    "decadas_actual": [
-      "1950s",
-      "1960s",
-      "1970s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media-alta",
-    "municipios_zmg": [
-      "tlajomulco de zuniga",
-      "tonala",
-      "zapopan"
-    ]
-  },
-  "los sabinos": {
-    "decada_ref_actual": "1980s",
-    "decadas_actual": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "chapala",
-      "zapopan"
-    ]
-  },
-  "merida centro": {
-    "decada_ref_actual": "1960s",
-    "decadas_actual": [
-      "1940s",
-      "1950s",
-      "1960s",
-      "1970s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "ajijic",
-      "zapopan"
-    ]
+    "decada_actual_canon": "2000s",
+    "municipio_canon": "zapopan",
+    "confianza_canon": 86,
+    "fuente_canon": "manual",
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
   },
   "mirador de los encinos": {
-    "decada_ref_actual": "1990s",
-    "decadas_actual": [
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
     "municipios_zmg": [
       "tlajomulco",
       "tonala"
-    ]
-  },
-  "mirador del sol": {
-    "decada_ref_actual": "1970s",
-    "decadas_actual": [
-      "1960s",
-      "1970s",
-      "1980s"
     ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media-alta",
-    "municipios_zmg": [
-      "tonala",
-      "zapopan"
-    ]
-  },
-  "napoles": {
-    "decada_ref_actual": "1990s",
-    "decadas_actual": [
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "lujo",
-    "municipios_zmg": [
-      "ajijic",
-      "tonala"
-    ]
-  },
-  "nueva galicia": {
-    "decada_ref_actual": "2000s",
-    "decadas_actual": [
-      "2000s",
-      "2010s"
-    ],
-    "fuente_actual": "hemeroteca",
-    "confianza_puntos_actual": 72,
-    "nivel": "media",
-    "municipios_zmg": [
-      "guadalajara",
-      "tlajomulco",
-      "zapopan"
-    ]
-  },
-  "obrera": {
-    "decada_ref_actual": "1960s",
-    "decadas_actual": [
-      "1950s",
-      "1960s",
-      "1970s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "ajijic",
-      "el salto",
-      "guadalajara",
-      "tonala"
-    ]
-  },
-  "parque san andres": {
-    "decada_ref_actual": "2000s",
-    "decadas_actual": [
-      "1990s",
-      "2000s",
-      "2010s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media-alta",
-    "municipios_zmg": [
-      "ajijic",
-      "chapala",
-      "tonala"
-    ]
-  },
-  "parque virreyes": {
-    "decada_ref_actual": "2000s",
-    "decadas_actual": [
-      "1990s",
-      "2000s",
-      "2010s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media-alta",
-    "municipios_zmg": [
-      "el salto",
-      "zapopan"
-    ]
-  },
-  "parques santa cruz del valle": {
-    "decada_ref_actual": "1980s",
-    "decadas_actual": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "fuente_actual": "plan-parcial",
-    "confianza_puntos_actual": 51,
-    "nivel": "media",
-    "municipios_zmg": [
-      "tlajomulco",
-      "tlaquepaque"
-    ]
-  },
-  "paseos del valle": {
-    "decada_ref_actual": "1990s",
-    "decadas_actual": [
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "fuente_actual": "plan-parcial",
-    "confianza_puntos_actual": 51,
-    "nivel": "media-baja",
-    "municipios_zmg": [
-      "tlajomulco",
-      "tlajomulco de zuniga",
-      "tonala"
-    ]
-  },
-  "patria": {
-    "decada_ref_actual": "1980s",
-    "decadas_actual": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "lujo",
-    "municipios_zmg": [
-      "guadalajara",
-      "poncitlan",
-      "tlajomulco de zuniga",
-      "zapopan"
-    ]
-  },
-  "polanco iv seccion": {
-    "decada_ref_actual": "1990s",
-    "decadas_actual": [
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "tonala",
-      "zapopan"
-    ]
-  },
-  "pontevedra": {
-    "decada_ref_actual": "1980s",
-    "decadas_actual": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "tlajomulco",
-      "tlajomulco de zuniga",
-      "zapopan"
-    ]
-  },
-  "prados de la higuera": {
-    "decada_ref_actual": "2000s",
-    "decadas_actual": [
-      "1990s",
-      "2000s",
-      "2010s"
-    ],
-    "fuente_actual": "plan-parcial",
-    "confianza_puntos_actual": 48,
-    "nivel": "media",
-    "municipios_zmg": [
-      "tlajomulco de zuniga",
-      "tonala"
-    ]
-  },
-  "puerta del sol": {
-    "decada_ref_actual": "2000s",
-    "decadas_actual": [
-      "1990s",
-      "2000s",
-      "2010s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "ixtlahuacan de los membrillos",
-      "tlajomulco",
-      "zapopan"
-    ]
-  },
-  "puerta real": {
-    "decada_ref_actual": "2000s",
-    "decadas_actual": [
-      "1990s",
-      "2000s",
-      "2010s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "el salto",
-      "tlajomulco de zuniga",
-      "zapopan"
-    ]
-  },
-  "real del bosque": {
-    "decada_ref_actual": "1980s",
-    "decadas_actual": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media-baja",
-    "municipios_zmg": [
-      "tlajomulco",
-      "tlajomulco de zuniga",
-      "zapopan"
-    ]
-  },
-  "real del parque": {
-    "decada_ref_actual": "2000s",
-    "decadas_actual": [
-      "1990s",
-      "2000s",
-      "2010s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media-alta",
-    "municipios_zmg": [
-      "tlajomulco",
-      "tlajomulco de zuniga",
-      "zapopan"
-    ]
-  },
-  "residencial del parque": {
-    "decada_ref_actual": "1980s",
-    "decadas_actual": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "guadalajara",
-      "zapopan",
-      "zapotlanejo"
-    ]
+    "decada_actual_canon": "2000s",
+    "municipio_canon": "tonala",
+    "confianza_canon": 86,
+    "fuente_canon": "manual",
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
   },
   "residencial victoria": {
-    "decada_ref_actual": "1980s",
-    "decadas_actual": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
     "municipios_zmg": [
       "guadalajara",
       "zapopan"
-    ]
-  },
-  "ricardo flores magon": {
-    "decada_ref_actual": "1960s",
-    "decadas_actual": [
-      "1950s",
-      "1960s",
-      "1970s"
     ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "guadalajara",
-      "tonala"
-    ]
-  },
-  "rinconada de santa rita": {
-    "decada_ref_actual": "2000s",
-    "decadas_actual": [
-      "1980s",
-      "1990s",
-      "2000s",
-      "2010s",
-      "2020s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "guadalajara",
-      "zapopan"
-    ]
+    "decada_actual_canon": "1960s",
+    "municipio_canon": "guadalajara",
+    "confianza_canon": 86,
+    "fuente_canon": "manual",
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
   },
   "rinconada santa rita": {
-    "decada_ref_actual": "1960s",
-    "decadas_actual": [
-      "1950s",
-      "1960s",
-      "1970s"
-    ],
-    "fuente_actual": "plan-parcial",
-    "confianza_puntos_actual": 72,
-    "nivel": "media-alta",
     "municipios_zmg": [
       "guadalajara",
       "zapopan"
-    ]
-  },
-  "rinconadas del sol": {
-    "decada_ref_actual": "2010s",
-    "decadas_actual": [
-      "2010s"
     ],
-    "fuente_actual": "plan-parcial",
-    "confianza_puntos_actual": 62,
-    "nivel": "media",
-    "municipios_zmg": [
-      "tlajomulco de zuniga",
-      "tonala"
-    ]
-  },
-  "san bernardo": {
-    "decada_ref_actual": "1960s",
-    "decadas_actual": [
-      "1950s",
-      "1960s",
-      "1970s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "lujo",
-    "municipios_zmg": [
-      "guadalajara",
-      "zapopan"
-    ]
-  },
-  "san jeronimo lidice": {
-    "decada_ref_actual": "1990s",
-    "decadas_actual": [
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "chapala",
-      "tonala"
-    ]
+    "decada_actual_canon": "1970s",
+    "municipio_canon": "guadalajara",
+    "confianza_canon": 86,
+    "fuente_canon": "manual",
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
   },
   "san pedro": {
-    "decada_ref_actual": "1970s",
-    "decadas_actual": [
-      "1960s",
-      "1970s",
-      "1980s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
     "municipios_zmg": [
       "ajijic",
       "tlaquepaque"
-    ]
-  },
-  "san pedro tlaquepaque": {
-    "decada_ref_actual": "1980s",
-    "decadas_actual": [
-      "1970s",
-      "1980s",
-      "1990s"
     ],
-    "fuente_actual": "plan-parcial",
-    "confianza_puntos_actual": 57,
-    "nivel": "media",
-    "municipios_zmg": [
-      "guadalajara",
-      "tlajomulco",
-      "tlaquepaque"
-    ]
-  },
-  "san simon ticumac": {
-    "decada_ref_actual": "1990s",
-    "decadas_actual": [
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "lujo",
-    "municipios_zmg": [
-      "ajijic",
-      "tonala"
-    ]
-  },
-  "santa fe": {
-    "decada_ref_actual": "2000s",
-    "decadas_actual": [
-      "1990s",
-      "2000s",
-      "2010s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media-alta",
-    "municipios_zmg": [
-      "tonala",
-      "zapopan",
-      "zapotlanejo"
-    ]
-  },
-  "santa maria nonoalco": {
-    "decada_ref_actual": "1990s",
-    "decadas_actual": [
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "lujo",
-    "municipios_zmg": [
-      "el salto",
-      "tonala"
-    ]
+    "decada_actual_canon": "1900s",
+    "municipio_canon": "san pedro tlaquepaque",
+    "confianza_canon": 86,
+    "fuente_canon": "manual",
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
   },
   "santa rita": {
-    "decada_ref_actual": "1960s",
-    "decadas_actual": [
-      "1950s",
-      "1960s",
-      "1970s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media-alta",
     "municipios_zmg": [
       "guadalajara",
       "zapopan"
-    ]
+    ],
+    "decada_actual_canon": "1960s",
+    "municipio_canon": "guadalajara",
+    "confianza_canon": 86,
+    "fuente_canon": "manual",
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
   },
   "vallarta cuauhtemoc": {
-    "decada_ref_actual": "2000s",
-    "decadas_actual": [
-      "1990s",
-      "2000s",
-      "2010s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media-alta",
     "municipios_zmg": [
       "guadalajara",
       "zapopan"
-    ]
-  },
-  "valle del sol": {
-    "decada_ref_actual": "2000s",
-    "decadas_actual": [
-      "1990s",
-      "2000s",
-      "2010s"
     ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "tonala",
-      "zapopan"
-    ]
+    "decada_actual_canon": "1970s",
+    "municipio_canon": "guadalajara",
+    "confianza_canon": 86,
+    "fuente_canon": "manual",
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
   },
   "virreyes": {
-    "decada_ref_actual": "1980s",
-    "decadas_actual": [
-      "1970s",
-      "1980s",
-      "1990s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "lujo",
     "municipios_zmg": [
       "guadalajara",
       "zapopan"
-    ]
+    ],
+    "decada_actual_canon": "1980s",
+    "municipio_canon": "zapopan",
+    "confianza_canon": 86,
+    "fuente_canon": "manual",
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
   },
   "vista sur residencial": {
-    "decada_ref_actual": "2000s",
-    "decadas_actual": [
-      "1990s",
-      "2000s",
-      "2010s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
     "municipios_zmg": [
       "tlajomulco de zuniga",
       "zapopan"
-    ]
-  },
-  "xotepingo": {
-    "decada_ref_actual": "1990s",
-    "decadas_actual": [
-      "1980s",
-      "1990s",
-      "2000s"
     ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "ajijic",
-      "tonala"
-    ]
-  },
-  "zona hotelera": {
-    "decada_ref_actual": "1990s",
-    "decadas_actual": [
-      "1980s",
-      "1990s",
-      "2000s"
-    ],
-    "fuente_actual": "heuristica-anillo",
-    "confianza_puntos_actual": 25,
-    "nivel": "media",
-    "municipios_zmg": [
-      "ajijic",
-      "tlajomulco",
-      "tonala"
-    ]
+    "decada_actual_canon": "2010s",
+    "municipio_canon": "tlajomulco de zuniga",
+    "confianza_canon": 86,
+    "fuente_canon": "manual",
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
   }
 }
