@@ -9,8 +9,8 @@
     "confianza_canon": 86,
     "fuente_canon": "manual",
     "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
-    "estatus_homonimia": "sin_evidencia_suficiente",
-    "evidencia_verificacion": "No se encontro 'Brisas' plana en Ajijic; solo aparece 'Brisas de Chapala' (colonia distinta, ya resuelta aparte) en Tlaquepaque y Chapala",
+    "estatus_homonimia": "revisar_existencia_en_canon",
+    "evidencia_verificacion": "CERO coincidencias de \"Brisas\" plana en SEPOMEX Jalisco completo. Solo existe \"Brisas de Chapala\" (San Pedro Tlaquepaque, CP45590), que ya es una entrada separada y resuelta en colonias_decada.json. Posible duplicado/confusion entre ambas entradas, revisar con el perito.",
     "sustento_cronologico": "sin_dato_historico",
     "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
   },
@@ -115,8 +115,8 @@
     "confianza_canon": 86,
     "fuente_canon": "manual",
     "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
-    "estatus_homonimia": "sin_evidencia_suficiente",
-    "evidencia_verificacion": "Zapopan sin confirmar por nombre exacto; en Tonala solo aparecio 'Vistas del Pedregal' (nombre distinto), no 'Jardines del Pedregal' -- posible confusion de nombre",
+    "estatus_homonimia": "revisar_existencia_en_canon",
+    "evidencia_verificacion": "CERO coincidencias en SEPOMEX Jalisco completo (6645 registros), ni Zapopan ni Tonala ni ningun municipio. \"Jardines del Pedregal\" es nombre de colonia emblematica de CDMX -- mismo patron de contaminacion del geocodificador ya purgado antes en este proyecto. Candidata a verificar con el perito si debe purgarse de colonias_decada.json, no solo del tracker de homonimas.",
     "sustento_cronologico": "sin_dato_historico",
     "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
   },
@@ -130,8 +130,8 @@
     "confianza_canon": 86,
     "fuente_canon": "manual",
     "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
-    "estatus_homonimia": "sin_evidencia_suficiente",
-    "evidencia_verificacion": "Tlaquepaque confirmado (CP45590); Guadalajara sin confirmar en esta busqueda",
+    "estatus_homonimia": "ruido_geocodificacion",
+    "evidencia_verificacion": "SEPOMEX Jalisco local (fuente primaria del proyecto, 6645 registros): UNICA coincidencia es Guadalajara CP44510. Nada en Tlaquepaque -- contradice sitio externo citado antes, se prioriza la fuente primaria.",
     "sustento_cronologico": "sin_dato_historico",
     "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
   },
