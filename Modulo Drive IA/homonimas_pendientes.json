@@ -8,7 +8,11 @@
     "municipio_canon": "tlajomulco de zuniga",
     "confianza_canon": 86,
     "fuente_canon": "manual",
-    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
+    "estatus_homonimia": "sin_evidencia_suficiente",
+    "evidencia_verificacion": "No se encontro 'Brisas' plana en Ajijic; solo aparece 'Brisas de Chapala' (colonia distinta, ya resuelta aparte) en Tlaquepaque y Chapala",
+    "sustento_cronologico": "sin_dato_historico",
+    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
   },
   "bugambilias 2a seccion": {
     "municipios_zmg": [
@@ -19,7 +23,11 @@
     "municipio_canon": "zapopan",
     "confianza_canon": 86,
     "fuente_canon": "manual",
-    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
+    "estatus_homonimia": "ruido_geocodificacion",
+    "evidencia_verificacion": "Solo Zapopan confirmado (CP45237/45238); Wikipedia: Ciudad Bugambilias fundada 1975, '2da seccion' es una seccion DENTRO del mismo desarrollo en Zapopan, no otro municipio",
+    "sustento_cronologico": "sin_dato_historico",
+    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
   },
   "cipreses": {
     "municipios_zmg": [
@@ -30,7 +38,11 @@
     "municipio_canon": "zapopan",
     "confianza_canon": 86,
     "fuente_canon": "manual",
-    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
+    "estatus_homonimia": "homonima_real_distinta",
+    "evidencia_verificacion": "Zapopan CP45133 + Tonala CP45403, confirmados por separado",
+    "sustento_cronologico": "sin_dato_historico",
+    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
   },
   "ciudad bugambilias 2da seccion": {
     "municipios_zmg": [
@@ -41,7 +53,11 @@
     "municipio_canon": "zapopan",
     "confianza_canon": 86,
     "fuente_canon": "manual",
-    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
+    "estatus_homonimia": "duplicado_de_otra_entrada",
+    "evidencia_verificacion": "Es el mismo desarrollo que 'bugambilias 2a seccion' con normalizacion de nombre distinta -- fusionar, no tratar como par homonimo",
+    "sustento_cronologico": "sin_dato_historico",
+    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
   },
   "condominio puerta plata": {
     "municipios_zmg": [
@@ -52,7 +68,11 @@
     "municipio_canon": "zapopan",
     "confianza_canon": 86,
     "fuente_canon": "manual",
-    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
+    "estatus_homonimia": "ruido_geocodificacion",
+    "evidencia_verificacion": "Solo Zapopan (Zona Real / Puerta de Hierro) encontrado en busqueda dedicada; sin rastro en Tlajomulco",
+    "sustento_cronologico": "sin_dato_historico",
+    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
   },
   "el bajio": {
     "municipios_zmg": [
@@ -64,7 +84,11 @@
     "municipio_canon": "zapopan",
     "confianza_canon": 86,
     "fuente_canon": "manual",
-    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
+    "estatus_homonimia": "homonima_real_distinta",
+    "evidencia_verificacion": "Zapopan CP45017 + Zapotlanejo CP45430 confirmados; Chapala sin confirmar",
+    "sustento_cronologico": "sin_dato_historico",
+    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
   },
   "el cielo country club": {
     "municipios_zmg": [
@@ -75,7 +99,11 @@
     "municipio_canon": "tlajomulco de zuniga",
     "confianza_canon": 86,
     "fuente_canon": "manual",
-    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
+    "estatus_homonimia": "ruido_geocodificacion",
+    "evidencia_verificacion": "Confirmado en Tlajomulco de Zuniga (Fracc. El Palomar), club construido 1997; sin rastro en Zapopan",
+    "sustento_cronologico": "sin_dato_historico",
+    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
   },
   "jardines del pedregal": {
     "municipios_zmg": [
@@ -86,7 +114,11 @@
     "municipio_canon": "zapopan",
     "confianza_canon": 86,
     "fuente_canon": "manual",
-    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
+    "estatus_homonimia": "sin_evidencia_suficiente",
+    "evidencia_verificacion": "Zapopan sin confirmar por nombre exacto; en Tonala solo aparecio 'Vistas del Pedregal' (nombre distinto), no 'Jardines del Pedregal' -- posible confusion de nombre",
+    "sustento_cronologico": "sin_dato_historico",
+    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
   },
   "juan diego": {
     "municipios_zmg": [
@@ -97,7 +129,11 @@
     "municipio_canon": "guadalajara",
     "confianza_canon": 86,
     "fuente_canon": "manual",
-    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
+    "estatus_homonimia": "sin_evidencia_suficiente",
+    "evidencia_verificacion": "Tlaquepaque confirmado (CP45590); Guadalajara sin confirmar en esta busqueda",
+    "sustento_cronologico": "sin_dato_historico",
+    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
   },
   "la cima de zapopan": {
     "municipios_zmg": [
@@ -108,7 +144,11 @@
     "municipio_canon": "zapopan",
     "confianza_canon": 86,
     "fuente_canon": "manual",
-    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
+    "estatus_homonimia": "ruido_geocodificacion",
+    "evidencia_verificacion": "Solo Zapopan confirmado (CP45134); sin evidencia de version en Guadalajara",
+    "sustento_cronologico": "sin_dato_historico",
+    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
   },
   "la severiana": {
     "municipios_zmg": [
@@ -119,7 +159,11 @@
     "municipio_canon": "tonala",
     "confianza_canon": 72,
     "fuente_canon": "plan-parcial",
-    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
+    "estatus_homonimia": "homonima_real_distinta",
+    "evidencia_verificacion": "Tonala CP45420 + Tlaquepaque CP45638, confirmados por separado -- CONTRADICE el 'no' de la tabla de ChatGPT",
+    "sustento_cronologico": "sin_dato_historico",
+    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
   },
   "lindavista": {
     "municipios_zmg": [
@@ -132,7 +176,11 @@
     "municipio_canon": "zapopan",
     "confianza_canon": 86,
     "fuente_canon": "manual",
-    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
+    "estatus_homonimia": "sin_evidencia_suficiente",
+    "evidencia_verificacion": "Tlaquepaque confirmado como colonia real (CP45520); sin decada verificable con fuente primaria en ningun municipio",
+    "sustento_cronologico": "sin_dato_historico",
+    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
   },
   "los manzanos": {
     "municipios_zmg": [
@@ -143,7 +191,11 @@
     "municipio_canon": "zapopan",
     "confianza_canon": 86,
     "fuente_canon": "manual",
-    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
+    "estatus_homonimia": "homonima_real_distinta",
+    "evidencia_verificacion": "Zapopan CP45200 + Tlajomulco de Zuniga CP45645, confirmados por separado",
+    "sustento_cronologico": "sin_dato_historico",
+    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
   },
   "mirador de los encinos": {
     "municipios_zmg": [
@@ -154,7 +206,11 @@
     "municipio_canon": "tonala",
     "confianza_canon": 86,
     "fuente_canon": "manual",
-    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
+    "estatus_homonimia": "revisar_municipio_canonico",
+    "evidencia_verificacion": "Solo se encontro en Tlajomulco de Zuniga (desarrollo JAVER activo); el municipio CANONICO actual es Tonala -- posible error en el dato base, no solo en el secundario",
+    "sustento_cronologico": "sin_dato_historico",
+    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
   },
   "residencial victoria": {
     "municipios_zmg": [
@@ -165,7 +221,11 @@
     "municipio_canon": "guadalajara",
     "confianza_canon": 86,
     "fuente_canon": "manual",
-    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
+    "estatus_homonimia": "homonima_administrativa_limite",
+    "evidencia_verificacion": "Segun aporte del usuario: nucleo urbano continuo dividido por el limite Guadalajara/Zapopan sobre Av. Mariano Otero, con CP y padron catastral separados a cada lado -- requiere ficha propia en cada municipio aunque sea un solo trazo original",
+    "sustento_cronologico": "sin_dato_historico",
+    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
   },
   "rinconada santa rita": {
     "municipios_zmg": [
@@ -176,7 +236,11 @@
     "municipio_canon": "guadalajara",
     "confianza_canon": 86,
     "fuente_canon": "manual",
-    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
+    "estatus_homonimia": "homonima_real_distinta",
+    "evidencia_verificacion": "Zapopan CP45120 + Guadalajara CP44690, confirmados por separado",
+    "sustento_cronologico": "sin_dato_historico",
+    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
   },
   "san pedro": {
     "municipios_zmg": [
@@ -187,7 +251,11 @@
     "municipio_canon": "san pedro tlaquepaque",
     "confianza_canon": 86,
     "fuente_canon": "manual",
-    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
+    "estatus_homonimia": "sin_evidencia_suficiente",
+    "evidencia_verificacion": "No se encontro 'Colonia San Pedro' como barrio propio en Ajijic/Chapala en esta busqueda",
+    "sustento_cronologico": "sin_dato_historico",
+    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
   },
   "santa rita": {
     "municipios_zmg": [
@@ -198,7 +266,11 @@
     "municipio_canon": "guadalajara",
     "confianza_canon": 86,
     "fuente_canon": "manual",
-    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
+    "estatus_homonimia": "ruido_geocodificacion",
+    "evidencia_verificacion": "Solo Guadalajara confirmado como 'Villa Santa Rita' CP44690; no existe 'Santa Rita' plana en Zapopan, solo 'Rinconada Santa Rita' (colonia distinta, ver esa entrada)",
+    "sustento_cronologico": "sin_dato_historico",
+    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
   },
   "vallarta cuauhtemoc": {
     "municipios_zmg": [
@@ -209,7 +281,11 @@
     "municipio_canon": "guadalajara",
     "confianza_canon": 86,
     "fuente_canon": "manual",
-    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
+    "estatus_homonimia": "sin_evidencia_suficiente",
+    "evidencia_verificacion": "Zapopan confirmado (CP45049); Guadalajara mencionado por una fuente sin CP verificable",
+    "sustento_cronologico": "sin_dato_historico",
+    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
   },
   "virreyes": {
     "municipios_zmg": [
@@ -220,7 +296,11 @@
     "municipio_canon": "zapopan",
     "confianza_canon": 86,
     "fuente_canon": "manual",
-    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
+    "estatus_homonimia": "ruido_geocodificacion",
+    "evidencia_verificacion": "Solo 'Virreyes Residencial' Zapopan confirmado (CP45110); sin evidencia de version en Guadalajara",
+    "sustento_cronologico": "sin_dato_historico",
+    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
   },
   "vista sur residencial": {
     "municipios_zmg": [
@@ -231,6 +311,10 @@
     "municipio_canon": "tlajomulco de zuniga",
     "confianza_canon": 86,
     "fuente_canon": "manual",
-    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista."
+    "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
+    "estatus_homonimia": "homonima_real_distinta",
+    "evidencia_verificacion": "Zapopan CP45133 + Tlajomulco de Zuniga CP45640, confirmados por separado",
+    "sustento_cronologico": "sin_dato_historico",
+    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
   }
 }
