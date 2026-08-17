@@ -1,4 +1,16 @@
 {
+ "2001": {
+  "decada_ref": "1970s",
+  "decadas": [
+   "1970s"
+  ],
+  "nivel": "media",
+  "fuente": "manual",
+  "confianza": "alta",
+  "confianza_puntos": 86,
+  "municipio": "guadalajara",
+  "municipio_fuente": "sepomex"
+ },
  "1 de mayo": {
   "decada_ref": "1970s",
   "decadas": [
@@ -66,18 +78,6 @@
   "confianza_puntos": 86,
   "municipio": "tonala",
   "municipio_fuente": "seccion-sepomex"
- },
- "2001": {
-  "decada_ref": "1970s",
-  "decadas": [
-   "1970s"
-  ],
-  "nivel": "media",
-  "fuente": "manual",
-  "confianza": "alta",
-  "confianza_puntos": 86,
-  "municipio": "guadalajara",
-  "municipio_fuente": "sepomex"
  },
  "27 de septiembre": {
   "decada_ref": "1980s",
