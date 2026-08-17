@@ -9,10 +9,11 @@
     "confianza_canon": 86,
     "fuente_canon": "manual",
     "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
-    "estatus_homonimia": "revisar_existencia_en_canon",
-    "evidencia_verificacion": "CERO coincidencias de \"Brisas\" plana en SEPOMEX Jalisco completo. Solo existe \"Brisas de Chapala\" (San Pedro Tlaquepaque, CP45590), que ya es una entrada separada y resuelta en colonias_decada.json. Posible duplicado/confusion entre ambas entradas, revisar con el perito.",
+    "estatus_homonimia": "ruido_geocodificacion",
+    "evidencia_verificacion": "Perito: no existe \"brisas\" separada, es confusion con \"Brisas de Chapala\" (CP45946/45590).",
     "sustento_cronologico": "sin_dato_historico",
-    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
+    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT",
+    "fuente": "perito_directo"
   },
   "bugambilias 2a seccion": {
     "municipios_zmg": [
@@ -115,10 +116,11 @@
     "confianza_canon": 86,
     "fuente_canon": "manual",
     "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
-    "estatus_homonimia": "revisar_existencia_en_canon",
-    "evidencia_verificacion": "CERO coincidencias en SEPOMEX Jalisco completo (6645 registros), ni Zapopan ni Tonala ni ningun municipio. \"Jardines del Pedregal\" es nombre de colonia emblematica de CDMX -- mismo patron de contaminacion del geocodificador ya purgado antes en este proyecto. Candidata a verificar con el perito si debe purgarse de colonias_decada.json, no solo del tracker de homonimas.",
+    "estatus_homonimia": "ruido_geocodificacion",
+    "evidencia_verificacion": "Perito: real solo en Zapopan CP45169, no existe en otro municipio.",
     "sustento_cronologico": "sin_dato_historico",
-    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
+    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT",
+    "fuente": "perito_directo"
   },
   "juan diego": {
     "municipios_zmg": [
@@ -177,10 +179,11 @@
     "confianza_canon": 86,
     "fuente_canon": "manual",
     "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
-    "estatus_homonimia": "sin_evidencia_suficiente",
-    "evidencia_verificacion": "Tlaquepaque confirmado como colonia real (CP45520); sin decada verificable con fuente primaria en ningun municipio Una 2a tabla externa afirmo \"Guadalajara CP44810 (Tetlan/Reforma-Libertad)\" -- NO SE PUDO VERIFICAR; ademas el CP real de Tetlan (la colonia de referencia que citan) es 44820, no 44810. Se descarta ese dato, sigue sin evidencia en Guadalajara.",
+    "estatus_homonimia": "homonima_real_distinta",
+    "evidencia_verificacion": "Perito: confirmado Tlaquepaque CP45520 (Linda Vista), ademas del Zapopan canonico.",
     "sustento_cronologico": "sin_dato_historico",
-    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
+    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT",
+    "fuente": "perito_directo"
   },
   "los manzanos": {
     "municipios_zmg": [
@@ -207,10 +210,11 @@
     "confianza_canon": 86,
     "fuente_canon": "manual",
     "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
-    "estatus_homonimia": "revisar_municipio_canonico",
-    "evidencia_verificacion": "Solo se encontro en Tlajomulco de Zuniga (desarrollo JAVER activo); el municipio CANONICO actual es Tonala -- posible error en el dato base, no solo en el secundario",
+    "estatus_homonimia": "corregido_municipio_canonico",
+    "evidencia_verificacion": "Perito: solo existe en Tlajomulco. Canon corregido de tonala a tlajomulco de zuniga.",
     "sustento_cronologico": "sin_dato_historico",
-    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
+    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT",
+    "fuente": "perito_directo"
   },
   "residencial victoria": {
     "municipios_zmg": [
@@ -252,10 +256,11 @@
     "confianza_canon": 86,
     "fuente_canon": "manual",
     "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
-    "estatus_homonimia": "sin_evidencia_suficiente",
-    "evidencia_verificacion": "No se encontro 'Colonia San Pedro' como barrio propio en Ajijic/Chapala en esta busqueda Una 2a tabla externa afirmo que Ajijic tiene \"seis barrios tradicionales\" con uno llamado San Pedro (capilla San Pedro Apostol) -- NO SE ENCONTRO NINGUNA fuente que lo corrobore. Se descarta, sigue sin evidencia.",
+    "estatus_homonimia": "ruido_geocodificacion",
+    "evidencia_verificacion": "Perito: en Ajijic \"San Pedro\" es solo el nombre de una calle del centro, no una colonia/barrio real.",
     "sustento_cronologico": "sin_dato_historico",
-    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
+    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT",
+    "fuente": "perito_directo"
   },
   "santa rita": {
     "municipios_zmg": [
@@ -282,10 +287,11 @@
     "confianza_canon": 86,
     "fuente_canon": "manual",
     "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
-    "estatus_homonimia": "revisar_municipio_canonico",
-    "evidencia_verificacion": "CONTRADICCION: el dato canonico dice municipio=guadalajara (perito_correccion, conf.86), pero verificacion independiente (Heraldo, postali.app, pueblosamerica.com) confirma con CP45049 que la colonia esta en ZAPOPAN. Una 2a tabla externa afirmo lo opuesto (Guadalajara CP44110, Zapopan inexistente) sin fuente verificable -- se descarta esa tabla, pero la contradiccion con el propio canon queda abierta y requiere que el perito la revise.",
+    "estatus_homonimia": "corregido_municipio_canonico",
+    "evidencia_verificacion": "Perito: es Zapopan. Canon corregido de guadalajara a zapopan.",
     "sustento_cronologico": "sin_dato_historico",
-    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
+    "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT",
+    "fuente": "perito_directo"
   },
   "virreyes": {
     "municipios_zmg": [
