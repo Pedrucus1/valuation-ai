@@ -131,7 +131,7 @@
     "fuente_canon": "manual",
     "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
     "estatus_homonimia": "ruido_geocodificacion",
-    "evidencia_verificacion": "SEPOMEX Jalisco local (fuente primaria del proyecto, 6645 registros): UNICA coincidencia es Guadalajara CP44510. Nada en Tlaquepaque -- contradice sitio externo citado antes, se prioriza la fuente primaria.",
+    "evidencia_verificacion": "SEPOMEX Jalisco local (fuente primaria del proyecto, 6645 registros): UNICA coincidencia es Guadalajara CP44510. Nada en Tlaquepaque -- contradice sitio externo citado antes, se prioriza la fuente primaria. CORRECCION: una 2a tabla externa cito \"CP44900, sector Juarez\" -- es incorrecto, el CP real (SEPOMEX local + multiples fuentes web) es 44510.",
     "sustento_cronologico": "sin_dato_historico",
     "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
   },
@@ -178,7 +178,7 @@
     "fuente_canon": "manual",
     "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
     "estatus_homonimia": "sin_evidencia_suficiente",
-    "evidencia_verificacion": "Tlaquepaque confirmado como colonia real (CP45520); sin decada verificable con fuente primaria en ningun municipio",
+    "evidencia_verificacion": "Tlaquepaque confirmado como colonia real (CP45520); sin decada verificable con fuente primaria en ningun municipio Una 2a tabla externa afirmo \"Guadalajara CP44810 (Tetlan/Reforma-Libertad)\" -- NO SE PUDO VERIFICAR; ademas el CP real de Tetlan (la colonia de referencia que citan) es 44820, no 44810. Se descarta ese dato, sigue sin evidencia en Guadalajara.",
     "sustento_cronologico": "sin_dato_historico",
     "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
   },
@@ -253,7 +253,7 @@
     "fuente_canon": "manual",
     "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
     "estatus_homonimia": "sin_evidencia_suficiente",
-    "evidencia_verificacion": "No se encontro 'Colonia San Pedro' como barrio propio en Ajijic/Chapala en esta busqueda",
+    "evidencia_verificacion": "No se encontro 'Colonia San Pedro' como barrio propio en Ajijic/Chapala en esta busqueda Una 2a tabla externa afirmo que Ajijic tiene \"seis barrios tradicionales\" con uno llamado San Pedro (capilla San Pedro Apostol) -- NO SE ENCONTRO NINGUNA fuente que lo corrobore. Se descarta, sigue sin evidencia.",
     "sustento_cronologico": "sin_dato_historico",
     "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
   },
@@ -282,8 +282,8 @@
     "confianza_canon": 86,
     "fuente_canon": "manual",
     "nota": "valor unico ya dictado por el perito (alta confianza); falta confirmar si el/los municipio(s) secundario(s) de municipios_zmg son homonima real (necesitan su propio por_municipio) o ruido de SEPOMEX que se puede descartar de esta lista.",
-    "estatus_homonimia": "sin_evidencia_suficiente",
-    "evidencia_verificacion": "Zapopan confirmado (CP45049); Guadalajara mencionado por una fuente sin CP verificable",
+    "estatus_homonimia": "revisar_municipio_canonico",
+    "evidencia_verificacion": "CONTRADICCION: el dato canonico dice municipio=guadalajara (perito_correccion, conf.86), pero verificacion independiente (Heraldo, postali.app, pueblosamerica.com) confirma con CP45049 que la colonia esta en ZAPOPAN. Una 2a tabla externa afirmo lo opuesto (Guadalajara CP44110, Zapopan inexistente) sin fuente verificable -- se descarta esa tabla, pero la contradiccion con el propio canon queda abierta y requiere que el perito la revise.",
     "sustento_cronologico": "sin_dato_historico",
     "verificado": "2026-08-17, busqueda directa de CP SEPOMEX independiente de la tabla de ChatGPT"
   },
