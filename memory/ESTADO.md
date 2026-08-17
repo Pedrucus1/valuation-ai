@@ -27,7 +27,8 @@
 - Scraper: `scheduler.py` con progreso incremental de 30 días (`_tarea_vencida`) + pausa por portal (`PAUSA_PORTAL`, 12-ago) — verificar que no se rompa si se vuelve a tocar ese archivo.
 
 ## ⏳ Pendientes de sesiones anteriores (sin tocar hoy, siguen abiertos)
-- Manual de Arquitectura ZMG (repo aparte, privado) — 82 marcas, cartografía/fotos pendientes. Ver `project_manual_arquitectura.md`.
+- Manual de Arquitectura ZMG (repo aparte, privado) — Selector "Identificador de Edad" construido (23 elementos, 159 opciones), pensado para conectarse a PropValu (verificador de zona + alta de propiedad, sin empezar). Ver `project_manual_arquitectura.md`.
+- **17-ago:** `colonias_decada.json` — 2 correcciones de municipio (`vallarta cuauhtemoc`→zapopan, `mirador de los encinos`→tlajomulco de zuniga) + homónimas cerradas (0 pendientes) + confianza=baja en 0. `colonias-confianza-web` conectada al dataset vigente (ver `project_propvalu_estado.md`).
 - Rediseño hoja 2 A4 EstateElite (pedir dirección de diseño antes de construir).
 - Regenerar OPI val_0a773642bef5 (Virgen 3437, La Calma) — confirmar si el usuario ya lo probó.
 - Decisión 9-ago: NO self-hostear IA de reportes (sale más caro que Gemini/DeepSeek por llamada) — pendiente monitoreo/alerta de vencimiento de la llave DeepSeek.
