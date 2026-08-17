@@ -104,7 +104,7 @@ COL_ACTIVO        = 21
 # CASAS_Y_TERRENOS y PINCALI exponen los datos vía requests simple (HTML/JSON
 # embebido) — NO necesitan Playwright. INMUEBLES24 protegido (DataDome) → Playwright.
 # VIVANUNCIOS: DataDome solo en listados, NO en páginas de detalle → requests funciona.
-PORTALES_PLAYWRIGHT = {"PROPIEDADES_COM", "INMUEBLES24"}
+PORTALES_PLAYWRIGHT = {"PROPIEDADES_COM", "INMUEBLES24", "PINCALI"}
 
 # Sin tope artificial — el enricher corre hasta agotar todos los pendientes.
 # enrich_last_attempt garantiza que no se reprocese nada ya intentado (<30d).
@@ -1053,8 +1053,9 @@ def fetch_detalle(url: str, portal: str, session: requests.Session) -> Optional[
     """Selecciona el método de descarga adecuado según el portal."""
     portal_real = portal if portal in PORTALES_PLAYWRIGHT or portal == "CASAS_Y_TERRENOS" else inferir_portal_por_url(url) or portal
 
-    # PINCALI: NO convertir a español — /inmueble/ devuelve 422 desde jun-2026.
-    # La URL inglesa /en/home/ funciona directamente con plain requests.
+    # PINCALI: NO convertir a español — /inmueble/ ya NO existe (404, confirmado 17-ago-2026).
+    # Desde 17-ago: AWS WAF challenge en TODAS las páginas de detalle → requests plano
+    # devuelve 202 vacío siempre. Requiere Playwright (ver PORTALES_PLAYWRIGHT).
     fetch_url = url
 
     # PROPIEDADES_COM: HTTP simple via Node (Akamai deja pasar el GET; el __NEXT_DATA__ trae `age`)
