@@ -221,14 +221,32 @@ def extraer_datos_detalle(html: str, portal: str, url: str = None, session=None)
             if len(num) >= 10:
                 resultado["telefono"] = num[-15:]
 
-    # ── CasasYTerrenos: extraer directo de __NEXT_DATA__ JSON ─────────────────
+    # ── CasasYTerrenos: extraer directo del JSON de features ──────────────────
+    # Hasta ago-2026 el sitio era Pages Router (__NEXT_DATA__ con todo el JSON).
+    # Migró a App Router (RSC streaming, self.__next_f.push(...)) — ya NO existe
+    # __NEXT_DATA__, pero el mismo objeto "features" (age/area/construction/
+    # bathrooms/rooms/parking) sigue viajando, ahora escapado dentro del payload
+    # RSC como \"features\":{...}. Fallback por regex cuando no hay __NEXT_DATA__.
     if portal == "CASAS_Y_TERRENOS":
         nd = soup.find("script", id="__NEXT_DATA__")
+        prop = {}
+        features = {}
         if nd:
             try:
                 data = json.loads(nd.string)
                 prop = data.get("props", {}).get("pageProps", {}).get("property", {})
                 features = prop.get("features", {})
+            except Exception:
+                pass
+        if not features:
+            mfeat = re.search(r'\\"features\\":(\{[^{}]*\})', html)
+            if mfeat:
+                try:
+                    features = json.loads(mfeat.group(1).replace('\\"', '"'))
+                except Exception:
+                    features = {}
+        if features:
+            try:
 
                 # CYT: age es ANTIGÜEDAD en años. age=0 NO es "nuevo" sino el default
                 # "sin dato" → producía año=2026 falso. Solo aceptar edad > 0.

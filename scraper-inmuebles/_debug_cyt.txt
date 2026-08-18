@@ -1,0 +1,9 @@
+https://www.casasyterrenos.com/propiedad/terreno-venta-avenida-soleras-rinconada-del-bosque-zapopan-jal-3798304
+{"status": 200, "len": 14646, "no_next_data": true}
+
+https://www.casasyterrenos.com/propiedad/casa-venta-villa-verona-villa-verona-zapopan-jal-3825987
+{"status": 200, "len": 14023, "no_next_data": true}
+
+https://www.casasyterrenos.com/propiedad/departamento-venta-av-del-servidor-publico-residencial-del-valle-zapopan-jal-3771143
+{"status": 404, "len": 2297, "no_next_data": true}
+
