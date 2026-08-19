@@ -11,6 +11,7 @@ import DATA from "@/data/acabados_selectores.json";
 const GRUPO_ESTRUCTURA = new Set(["instalacion", "hidraulica", "sanitaria", "estructura"]);
 const ORDEN_ELEMENTOS = DATA.elementos_principales;
 const DISCRIMINA = DATA.discrimina;
+const CAMPOS_RICOS = DATA.campos_ricos || {};
 
 const NOMBRES_ELEMENTO = {
   muro: "Muro (interior)", cubierta: "Techo / cubierta (estructura)", agua: "Manejo de agua (tinaco/cisterna)",
@@ -166,6 +167,8 @@ export default function IdentificadorEdadDialog({ open, onOpenChange, tipoInicia
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-[40vh] overflow-y-auto pr-1">
           {elementos.map((elem) => {
             const opciones = Object.keys(catalogo[elem]);
+            const fichasElem = CAMPOS_RICOS[elem] || {};
+            const ficha = marcas[elem] ? fichasElem[marcas[elem]] : null;
             return (
               <div key={elem}>
                 <label className="block text-[11px] font-semibold uppercase tracking-wide text-slate-500 mb-1">
@@ -178,12 +181,19 @@ export default function IdentificadorEdadDialog({ open, onOpenChange, tipoInicia
                   <SelectContent>
                     <SelectItem value="__none">— no sé / no aplica —</SelectItem>
                     {opciones.map((o) => (
-                      <SelectItem key={o} value={o}>
+                      <SelectItem key={o} value={o} title={fichasElem[o]?.como_se_identifica}>
                         {o}{(DISCRIMINA[elem] || {})[o] ? " ⟡" : ""}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
+                {ficha && (
+                  <div className="mt-1.5 rounded border-l-2 border-[#52B788] bg-[#F0F7F4] px-2.5 py-1.5 text-[11px] leading-snug text-slate-700">
+                    <p className="mb-1"><b className="text-[#1B4332]">Fechador:</b> {ficha.valor_como_fechador}</p>
+                    <p className="mb-1"><b className="text-[#1B4332]">Se identifica:</b> {ficha.como_se_identifica}</p>
+                    <p><b className="text-[#1B4332]">Confusiones:</b> {ficha.confusiones_frecuentes}</p>
+                  </div>
+                )}
               </div>
             );
           })}
