@@ -5,6 +5,73 @@
 
 ---
 
+## 18 Ago 2026 — Identificador de Edad conectado a PropValu (frontend, sin tocar scraper/motor)
+
+Sesión larga, casi toda en el Manual de Arquitectura ZMG con conexión a PropValu. Se
+construyó `IdentificadorEdadDialog.jsx`, portando la lógica de puntaje de
+`Selector_Acabados.html` del Manual (separa construcción original de última
+remodelación, usando instalación/hidráulica/sanitaria/estructura como las señas que
+casi nunca se remodelan). Se wireó en dos puntos: `ValuationForm.jsx` (Alta de
+propiedad, campo Antigüedad) y `EdadesZonaPage.jsx` (Verificador de zona, campo Edad
+de construcción). El usuario dio feedback en vivo sobre el layout del paso Detalles
+de `ValuationForm.jsx` — se encontró y arregló un bug de alineación preexistente
+(`items-end` en el grid de 2 columnas dejaba espacio en blanco), se reacomodaron
+"¿Cuántas calles da el inmueble?" (probado en la columna derecha, se veía disparejo,
+se revirtió a la izquierda tras remodelación) y el toggle de fotos (movido de ancho
+completo a la columna derecha, después de Otros Elementos Importantes).
+
+La parte más grande de la sesión fue en el repo del Manual: el usuario dictó
+correcciones y ampliaciones al catálogo de acabados por década, apartado por
+apartado (34 en total, 26 propuestos + 8 que el usuario agregó por su cuenta:
+apagadores/placas, iluminación fija, zócalos, ventilación/clima, domos/tragaluces,
+escaleras, barda/protecciones, gas/calentador). Antes de aplicar nada se comparó
+contra `Catalogo_Materiales_Transversal_v1.md` (fuente ya citada con años/fuentes) y
+salieron 8 discrepancias reales, que el usuario resolvió con dictamen técnico: PVC en
+ventanería estaba adelantado 20 años (corregido a 2010s+), aluminio blanco resultó
+ser dos productos distintos con épocas distintas (línea nacional 90s-00s vs. europea
+2010s+), el contacto sin tierra física estaba acotado de más (corregido a la ventana
+completa 1900s-1985 que ya marca la norma NOM-001-SEDE), PPR corregido a 2010s+,
+cemento pulido extendido a 1970s, "zaguán" resultó ser dos conceptos distintos
+confundidos bajo el mismo nombre (puerta de acceso vs. cochera, se separaron y
+renombraron), "hierro" a secas era un duplicado de "fierro fundido" en sanitaria (se
+descartó), y cobre ajustado a 1970s-2000s. El catálogo pasó de 23 a 34 elementos y de
+~200 a 304 opciones, aplicado en `extraer_acabados_selectores.py` (repo del Manual)
+como bloques `*_18AGO` que pisan por nombre exacto — sobreviven un futuro re-run del
+generador sin tocar los 5 archivos `Acabados_Segmento_*.md` de origen.
+
+El usuario preguntó si esta información ya estaba incorporada al Atlas de Acabados,
+al Programa Arquitectónico y a las fichas de década — la respuesta honesta fue que
+no, solo al JSON del Identificador de Edad. Eso abrió la pregunta de fondo: la misma
+info vive duplicada y mantenida a mano en 5 lugares. Se armó un plan con 3 agentes en
+paralelo (arquitectura técnica, esquema de datos, flujo de revisión), cada uno
+leyendo el código real antes de proponer — el agente de datos encontró, sin buscarlo,
+que la sesión ya había creado la misma clase de inconsistencia que el plan busca
+prevenir (décadas contradictorias entre versiones de "Enjarre rústico", "Monocomando"
+vs. "Monomando" sin normalizar). El plan quedó documentado en
+`PLAN_Fuente_Unica_Datos.md` (repo del Manual): Fase 0 = extraer los diccionarios
+Python del script a un JSON único y arreglar que `Selector_Acabados.html` no hace
+`fetch()` del JSON (está pegado a mano, eslabón roto fácil de olvidar); Fase 1 =
+capa de captura+revisión — se descartó Google Sheets por dependencia externa en
+producción, se decidió construirla con Mongo Atlas + backend de PropValu (ya en
+producción, mismo patrón que `AdminAccesos.jsx`); Fase 2 = generadores para Atlas y
+Programa Arquitectónico (requieren mapeo manual de taxonomía primero); fuera de
+alcance por ahora las 13 fichas de década (mezclan prosa con datos).
+
+Interludio no relacionado al código: a mitad de sesión el usuario reportó la PC
+lenta — se investigó y no era nada de esta sesión (Urban VPN con alto CPU acumulado,
+más 2 sesiones de Claude Code de otras ventanas consumiendo CPU sostenido; ambas
+causas resueltas). Después, el login local (staging `cluster1`) falló por IP no
+autorizada en el Network Access de Atlas — diagnosticado correctamente (el mismo
+error le pasaba al backend real, no solo a un script suelto) y resuelto por el
+usuario agregando su IP. Detalle técnico completo en memoria
+`feedback-propvalu-mongo-standalone-ssl`.
+
+**Todo commiteado y pusheado** en ambos repos (PropValu `df3dab1`, Manual
+`adfeddc`). **Pendiente real: no se probó el flujo completo en el navegador** —
+solo se confirmó que compila sin errores nuevos.
+
+---
+
 ## 9 Ago 2026 — monitoreo del scraper desatendido + descartado self-hosting de IA
 
 Sesión corta, casi sin código: el scraper lanzado el 07-ago (agente en background, ver sesión de abajo) siguió corriendo desatendido dos días — se monitoreó (y luego se pidió reducir a silencio total salvo bloqueos reales) mientras acumulaba miles de props nuevas, sobre todo en CASAS_Y_TERRENOS (varios batches >1,000 en una sola tarea). **MITULA terminó su cola completa** (14 tareas) confirmando el bloqueo sistémico de Lamudi (401 en el 100%, no es rate-limit) — queda para revisión de código aparte (#158). El agente se cayó una vez por límite de sesión (resets a hora fija) y se reanudó sin pérdida de progreso (los procesos de scraping son independientes del agente, PowerShell jobs propios). El usuario preguntó si convenía self-hostear un modelo de IA open-weight (mencionó "Gemma") para el reporte en vez de depender de Gemini/DeepSeek — se recomendó NO hacerlo: a este volumen una GPU 24/7 sale más cara que pagar por llamada, y la calidad de un modelo barato de hostear sería peor; el problema real (llave DeepSeek venciéndose sin avisar, ya 2 veces) se resuelve con monitoreo de esa llave, no cambiando de arquitectura — queda pendiente implementar esa alerta.

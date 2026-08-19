@@ -2,8 +2,8 @@
 
 > **Único archivo que se lee al iniciar** (corto, siempre vigente). Tareas por # → `BACKLOG.md` (grep). Historial → `BACKLOG_ARCHIVE.md`. Motor → `MOTOR_ANTECEDENTES.md` (grep). **Se sobrescribe en cada cierre de sesión.**
 
-**Última actualización:** 12 Ago 2026
-**Fase:** Prod Railway + Vercel público, estable. Sesión 12-ago: scraper mensual caído sin rastro (revivido + watchdog auto-reinicio), fix mojibake zonas + bug CASAS_Y_TERRENOS, pausa entre tareas calibrada por portal, migración caché motor Sheet→Mongo reactivada (Sheets llevaba muerto desde 08-jul), Brave Search agregado como 3er fallback de búsqueda web. Detalle → `BACKLOG_ARCHIVE.md` (12 Ago 2026).
+**Última actualización:** 18 Ago 2026
+**Fase:** Prod Railway + Vercel público, estable. Sesión 18-ago (frontend, sin tocar scraper/motor): **Identificador de Edad del Manual ZMG conectado a PropValu** — componente `IdentificadorEdadDialog.jsx` nuevo, botón en Alta de propiedad y Verificador de zona, catálogo fuente ampliado de 23 a 34 elementos (304 opciones). Commiteado y pusheado, **NO probado end-to-end en navegador** (bloqueo temporal de IP en Atlas durante la sesión, ya resuelto por el usuario). Detalle → `BACKLOG_ARCHIVE.md` (18 Ago 2026). Estado de scraper/motor de la sesión 12-ago sigue igual, sin cambios hoy.
 
 ## 🔥 LO MÁS CALIENTE — qué sigue
 
@@ -27,7 +27,7 @@
 - Scraper: `scheduler.py` con progreso incremental de 30 días (`_tarea_vencida`) + pausa por portal (`PAUSA_PORTAL`, 12-ago) — verificar que no se rompa si se vuelve a tocar ese archivo.
 
 ## ⏳ Pendientes de sesiones anteriores (sin tocar hoy, siguen abiertos)
-- Manual de Arquitectura ZMG (repo aparte, privado) — Selector "Identificador de Edad" construido (23 elementos, 159 opciones), pensado para conectarse a PropValu (verificador de zona + alta de propiedad, sin empezar). Ver `project_manual_arquitectura.md`.
+- **18-ago, Identificador de Edad:** conectado (ver arriba), falta: (1) probar en navegador real el flujo completo aplicar→guardar en ambos puntos, (2) plan de fuente única de datos aprobado (`PLAN_Fuente_Unica_Datos.md` en el repo del Manual) pero sin empezar la Fase 0. Ver `project_manual_arquitectura.md`.
 - **17-ago:** `colonias_decada.json` — 2 correcciones de municipio (`vallarta cuauhtemoc`→zapopan, `mirador de los encinos`→tlajomulco de zuniga) + homónimas cerradas (0 pendientes) + confianza=baja en 0. `colonias-confianza-web` conectada al dataset vigente (ver `project_propvalu_estado.md`).
 - Rediseño hoja 2 A4 EstateElite (pedir dirección de diseño antes de construir).
 - Regenerar OPI val_0a773642bef5 (Virgen 3437, La Calma) — confirmar si el usuario ya lo probó.

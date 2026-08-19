@@ -4,7 +4,7 @@ import {
   Building2, LayoutDashboard, Users, ShieldCheck, Megaphone,
   MessageSquare, LogOut, Menu, X, ChevronRight, Bell,
   UserCog, ClipboardList, Send, Activity, FileText,
-  DollarSign, MapPin, BarChart2, Ban, Mail, KeyRound,
+  DollarSign, MapPin, BarChart2, Ban, Mail, KeyRound, Hammer,
 } from "lucide-react";
 
 const NAV_GRUPOS = [
@@ -32,6 +32,7 @@ const NAV_GRUPOS = [
       { label: "Newsletter",   icon: Mail,            href: "/admin/newsletter" },
       { label: "Scraper",      icon: Activity,        href: "/admin/scraper" },
       { label: "Verificación de Datos por Zona", icon: MapPin,       href: "/edades-zona" },
+      { label: "Catálogo de Acabados", icon: Hammer,  href: "/admin/acabados" },
       { label: "CMS Legal",    icon: FileText,        href: "/admin/cms" },
     ],
   },
