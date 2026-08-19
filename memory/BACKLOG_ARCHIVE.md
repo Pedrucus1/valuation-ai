@@ -5,6 +5,75 @@
 
 ---
 
+## 19 Ago 2026 — Identificador de Edad probado en vivo + Fase 0/1 de fuente única
+
+Continuación directa de la sesión del 18-ago. Primera tarea: probar en navegador real
+el Identificador de Edad conectado el día anterior. `ValuationForm.jsx` se probó
+completo con Chrome MCP (levantando backend Express :3000 + FastAPI :8000): el modal
+abre, calcula década en tiempo real distinguiendo construcción original de
+remodelación, y "Usar esta década" aplica y cierra bien. `EdadesZonaPage.jsx` requería
+login de valuador que no había — se aceptó verificación por código (mismo componente
+ya probado, wireado correcto a `setAnioConst`).
+
+El usuario pidió luego varias pruebas de década en el propio Selector_Acabados.html
+del Manual (vía servidor HTTP local + JS directo, más rápido que clicks) para
+verificar que el motor ubica bien: 1930s puro, 1980s, 1960s y un caso de empate
+genuino en 2000s-2020s — los 4 salieron exactos al cálculo manual. Ahí surgió la
+pregunta de cómo eliminar empates en la práctica: se diagnosticó que `puntos(n)` era
+por umbral (3/2/1 según n_decadas), lo que generaba empates espurios entre opciones
+con distinto n_decadas pero mismo escalón. Cambiado a peso continuo `1/n_decadas` en
+las tres copias (JSX, HTML standalone, script Python). Segunda causa (más importante
+para "pocas preguntas, misma certeza"): el orden de las 34 preguntas es el recorrido
+de visita, no el de poder discriminante — se agregó un toggle "Recorrido de visita" /
+"Más discriminante primero" en ambas UIs, calculado por proporción de opciones ⟡ por
+elemento. Verificado en navegador que el reorden cambia y el desempate funciona.
+Descartado por ahora: bucketizar "niveles del edificio" en rangos numéricos limpios
+(el catálogo actual mezcla piso/elevador/sótano/estacionamiento en una sola lista, no
+es un eje limpio sin que el perito lo re-dictamine) y usar la colonia como prior
+automático de puntaje (se queda como contexto visual, ya funciona así).
+
+De paso se encontró que `Selector_Acabados.html` seguía en 23 elementos (no tenía los
+11 nuevos del 18-ago) — resincronizado a 34 vía extracción quirúrgica del bloque
+`const DATA` (conteo de llaves para no tocar la constante `COLONIAS` que vive justo
+después) y agregados los 11 nombres de elemento que faltaban en `NOMBRES_ELEMENTO`.
+
+Retomada la Fase 0 del plan de fuente única (pausada desde el 18-ago): los ~60
+diccionarios Python se extrajeron a `acabados_master.json` (ya generado antes,
+verificado que seguía vigente) y `extraer_acabados_selectores.py` se reescribió con
+`ast` para blanquear solo el VALOR de cada diccionario y dejar los comentarios de
+procedencia intactos en su posición original — el script ahora carga todo con
+`globals().update(json.loads(...))`. Test de regresión: `--escribir` regenera
+`acabados_selectores.json` byte a byte idéntico. Nuevo `inyectar_selector_html.py`
+con marcadores `/*DATA:START*/`/`/*DATA:END*/` en el HTML, idempotente.
+
+Fase 1 (decisión ya tomada en sesión anterior: Mongo en vez de Google Sheets)
+construida completa: `backend/routers/acabados.py` (colección `acabados_propuestas`,
+mismo patrón que `access.py`), `AdminAcabados.jsx` en `/admin/acabados` (link en
+`AdminLayout.jsx`), y `PROPUESTAS_APROBADAS`/`PROPUESTAS_ELIMINADAS` como las dos
+claves que `catalogo()` aplica al final (mismo patrón que las correcciones _18AGO).
+`aplicar_hallazgos_acabados.py` (Manual repo) es el puente: lee aprobadas vía la API
+de PropValu y las mergea, corriendo la cascada de regeneración.
+
+Verificación en vivo tuvo dos obstáculos no técnicos: (1) el usuario no tenía cuenta
+admin utilizable — se descubrió que `admin@propvalu.mx` ya existía pero con
+contraseña propia (el `ADMIN_SECRET` del bootstrap ya no aplicaba); se reactivó el
+bootstrap borrando solo el campo `hashed_password` (sin tocar nada más) y se le
+indicó al usuario dónde encontrar `ADMIN_SECRET` en su `.env` — nunca se manejó
+ninguna contraseña desde este lado (regla dura, ni con autorización explícita del
+usuario). (2) la vista previa aislada de Claude no comparte sesión con el Chrome real
+del usuario — se cambió a claude-in-chrome para operar en su navegador ya
+autenticado. Encontrado y corregido en vivo: los contadores KPI se calculaban sobre
+el subconjunto ya filtrado por `estado`, no globales (filtrar "Aprobadas" mostraba
+"Pendientes: 0"). Flujo completo verificado: crear propuesta → aprobar → contadores
+correctos → eliminar (con un diálogo `confirm()` nativo que el usuario tuvo que
+aceptar a mano, las herramientas de automatización no pueden interactuar con diálogos
+nativos del navegador). Nota operativa: el backend FastAPI llevaba corriendo desde
+antes de la sesión SIN `--reload`; hubo que reiniciarlo con cuidado de no tocar los
+`enricher.py` del scraper corriendo en paralelo en otros procesos python.
+
+Commits pusheados: PropValu `b788b88`, `c095aab` (capturado por el respaldo
+automático diario). Manual-Arquitectura-ZMG `cbb6052`, `e4dc277`, `cdea160`.
+
 ## 18 Ago 2026 — Identificador de Edad conectado a PropValu (frontend, sin tocar scraper/motor)
 
 Sesión larga, casi toda en el Manual de Arquitectura ZMG con conexión a PropValu. Se

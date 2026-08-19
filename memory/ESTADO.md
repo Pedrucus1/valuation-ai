@@ -2,8 +2,8 @@
 
 > **Único archivo que se lee al iniciar** (corto, siempre vigente). Tareas por # → `BACKLOG.md` (grep). Historial → `BACKLOG_ARCHIVE.md`. Motor → `MOTOR_ANTECEDENTES.md` (grep). **Se sobrescribe en cada cierre de sesión.**
 
-**Última actualización:** 18 Ago 2026
-**Fase:** Prod Railway + Vercel público, estable. Sesión 18-ago (frontend, sin tocar scraper/motor): **Identificador de Edad del Manual ZMG conectado a PropValu** — componente `IdentificadorEdadDialog.jsx` nuevo, botón en Alta de propiedad y Verificador de zona, catálogo fuente ampliado de 23 a 34 elementos (304 opciones). Commiteado y pusheado, **NO probado end-to-end en navegador** (bloqueo temporal de IP en Atlas durante la sesión, ya resuelto por el usuario). Detalle → `BACKLOG_ARCHIVE.md` (18 Ago 2026). Estado de scraper/motor de la sesión 12-ago sigue igual, sin cambios hoy.
+**Última actualización:** 19 Ago 2026
+**Fase:** Prod Railway + Vercel público, estable. Sesiones 18/19-ago (frontend + Manual ZMG, sin tocar scraper/motor): **Identificador de Edad probado end-to-end en navegador real** (ValuationForm ok; EdadesZonaPage verificado por código, mismo componente), puntaje cambiado de umbral 3/2/1 a peso continuo 1/n (menos empates falsos) + toggle de orden "recorrido/discriminante", y arrancada **Fase 0+1 del plan de fuente única** del Manual (`acabados_master.json` + `AdminAcabados.jsx` en `/admin/acabados` para proponer/aprobar cambios al catálogo sin tocar código). Todo commiteado y pusheado. Detalle → `BACKLOG_ARCHIVE.md` (19 Ago 2026). Estado de scraper/motor de la sesión 12-ago sigue igual, sin cambios hoy.
 
 ## 🔥 LO MÁS CALIENTE — qué sigue
 
@@ -27,7 +27,7 @@
 - Scraper: `scheduler.py` con progreso incremental de 30 días (`_tarea_vencida`) + pausa por portal (`PAUSA_PORTAL`, 12-ago) — verificar que no se rompa si se vuelve a tocar ese archivo.
 
 ## ⏳ Pendientes de sesiones anteriores (sin tocar hoy, siguen abiertos)
-- **18-ago, Identificador de Edad:** conectado (ver arriba), falta: (1) probar en navegador real el flujo completo aplicar→guardar en ambos puntos, (2) plan de fuente única de datos aprobado (`PLAN_Fuente_Unica_Datos.md` en el repo del Manual) pero sin empezar la Fase 0. Ver `project_manual_arquitectura.md`.
+- **19-ago, Identificador de Edad + fuente única:** probado en navegador (ver arriba). Plan de fuente única — Fase 0 (extracción a `acabados_master.json`) y Fase 1 (`AdminAcabados.jsx` + Mongo) CERRADAS. **Fase 2 (Atlas/Programa como generadores) bloqueada** — necesita que el perito mapee a mano la equivalencia de nombres entre esas tablas y el catálogo (ej. "Fórmica" vs "Cubierta de formica"). Fase 3 (fusionar `Catalogo_Materiales_Transversal_v1.md`) es futura, no bloquea nada. Ver `project_manual_arquitectura.md`.
 - **17-ago:** `colonias_decada.json` — 2 correcciones de municipio (`vallarta cuauhtemoc`→zapopan, `mirador de los encinos`→tlajomulco de zuniga) + homónimas cerradas (0 pendientes) + confianza=baja en 0. `colonias-confianza-web` conectada al dataset vigente (ver `project_propvalu_estado.md`).
 - Rediseño hoja 2 A4 EstateElite (pedir dirección de diseño antes de construir).
 - Regenerar OPI val_0a773642bef5 (Virgen 3437, La Calma) — confirmar si el usuario ya lo probó.
