@@ -25,10 +25,11 @@
     "2010s"
    ],
    "Cantera labrada": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s"
+    "1940s",
+    "1960s",
+    "1980s",
+    "1990s",
+    "2000s"
    ],
    "Concreto aparente": [
     "1970s",
@@ -209,6 +210,39 @@
     "1980s",
     "1990s",
     "2000s"
+   ],
+   "(aljibe / tanque de mampostería)": [
+    "1900s"
+   ],
+   "(aljibe)": [
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Aljibe; tanque de lámina": [
+    "1940s"
+   ],
+   "Asbesto-cemento incipiente": [
+    "1950s"
+   ],
+   "Asbesto-cemento visible": [
+    "1960s"
+   ],
+   "Asbesto-cemento": [
+    "1970s",
+    "1980s"
+   ],
+   "Polietileno negro (1989+)": [
+    "1990s"
+   ],
+   "Polietileno, empieza a ocultarse": [
+    "2000s"
+   ],
+   "Polietileno oculto tras pretil": [
+    "2010s"
+   ],
+   "Cisterna+hidroneumático (alto) / polietileno expuesto (IS)": [
+    "2020s"
    ]
   },
   "piso": {
@@ -341,6 +375,39 @@
    ],
    "Vinilico/SPC click": [
     "2010s",
+    "2020s"
+   ],
+   "Tierra / empedrado": [
+    "1900s",
+    "1910s"
+   ],
+   "Empedrado": [
+    "1920s"
+   ],
+   "Cemento incipiente": [
+    "1930s"
+   ],
+   "Cemento escobillado": [
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Cemento completo o huellas": [
+    "1970s"
+   ],
+   "Cemento / huellas": [
+    "1980s"
+   ],
+   "Adoquín o piedra": [
+    "1990s"
+   ],
+   "Adoquín / piedra": [
+    "2000s"
+   ],
+   "Adoquín / estampado": [
+    "2010s"
+   ],
+   "Porcelánico ext. / huellas con jardín": [
     "2020s"
    ]
   },
@@ -661,6 +728,68 @@
    "Melamina imitacion chocolate/nogal": [
     "2000s",
     "2010s"
+   ],
+   "Mueble de obra + azulejo": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Fórmica": [
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Fórmica / melamina": [
+    "1970s"
+   ],
+   "Azulejo / granito": [
+    "1980s"
+   ],
+   "Azulejo → granito": [
+    "1990s"
+   ],
+   "Granito nacional / cuarzo": [
+    "2000s"
+   ],
+   "Cuarzo": [
+    "2010s"
+   ],
+   "Superficie sinterizada": [
+    "2020s"
+   ],
+   "Mampostería / fierro esmaltado": [
+    "1900s"
+   ],
+   "Mampostería": [
+    "1910s",
+    "1920s"
+   ],
+   "Fierro esmaltado": [
+    "1930s"
+   ],
+   "Peltre": [
+    "1940s"
+   ],
+   "Peltre o inox temprano": [
+    "1950s"
+   ],
+   "Peltre / inox": [
+    "1960s"
+   ],
+   "Inox sobre cubierta": [
+    "1970s",
+    "1980s"
+   ],
+   "Inox con escurridor": [
+    "1990s",
+    "2000s"
+   ],
+   "Inox submontada": [
+    "2010s"
+   ],
+   "Submontada / integrada": [
+    "2020s"
    ]
   },
   "instalacion": {
@@ -835,6 +964,19 @@
     "2000s",
     "2010s",
     "2020s"
+   ],
+   "Seg. media-alta (inicio)": [
+    "1940s"
+   ],
+   "Seg. media a residencial": [
+    "1950s",
+    "1960s"
+   ],
+   "Media: vigente · Alta: en declive": [
+    "1970s"
+   ],
+   "Fase terminal / remodelaciones": [
+    "1980s"
    ]
   },
   "espejo": {
@@ -859,6 +1001,41 @@
    ],
    "Tira LED perimetral, antivaho / Bluetooth": [
     "2010s",
+    "2020s"
+   ],
+   "Madera tallada, ovalado": [
+    "1900s"
+   ],
+   "Madera tallada": [
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Botiquín empotrado, biselado": [
+    "1940s"
+   ],
+   "Botiquín empotrado": [
+    "1950s"
+   ],
+   "Botiquín / panorámico": [
+    "1960s"
+   ],
+   "Panorámico + regleta Hollywood": [
+    "1970s"
+   ],
+   "Panorámico": [
+    "1980s"
+   ],
+   "Sin marco (frameless)": [
+    "1990s"
+   ],
+   "Frameless": [
+    "2000s"
+   ],
+   "Frameless + luz indirecta": [
+    "2010s"
+   ],
+   "LED perimetral, antivaho": [
     "2020s"
    ]
   },
@@ -896,14 +1073,49 @@
    "Formato grande sin cenefa, a toda altura (30x60+)": [
     "2010s",
     "2020s"
+   ],
+   "Blanco 10×10": [
+    "1900s",
+    "1910s"
+   ],
+   "Pasta 10×10": [
+    "1920s"
+   ],
+   "Pastel 10×10": [
+    "1930s"
+   ],
+   "Blanco/pastel 10×10": [
+    "1940s"
+   ],
+   "Blanco/pastel 11×11": [
+    "1950s"
+   ],
+   "Relieve tierra": [
+    "1960s"
+   ],
+   "Color 11×11/15×15": [
+    "1970s"
+   ],
+   "Decorado con cenefa 15×15": [
+    "1980s"
+   ],
+   "Cenefa 15×15/20×20": [
+    "1990s"
+   ],
+   "Cenefa decreciente 25×33": [
+    "2000s"
+   ],
+   "A toda altura, sin cenefa": [
+    "2010s"
+   ],
+   "Porcelánico gran formato": [
+    "2020s"
    ]
   },
   "wc": {
    "Tanque alto con cadena": [
     "1900s",
-    "1910s",
-    "1920s",
-    "1930s"
+    "1910s"
    ],
    "Tanque bajo loza color pastel (rosa/verde/azul/beige)": [
     "1950s",
@@ -925,6 +1137,31 @@
    ],
    "Suspendido a pared / empotrado": [
     "2010s",
+    "2020s"
+   ],
+   "Tanque alto": [
+    "1920s",
+    "1930s"
+   ],
+   "Tanque bajo blanco": [
+    "1940s",
+    "1950s"
+   ],
+   "Tanque bajo, colores": [
+    "1960s",
+    "1970s"
+   ],
+   "Dos piezas, color": [
+    "1980s"
+   ],
+   "Dos piezas blanco": [
+    "1990s",
+    "2000s"
+   ],
+   "Bajo consumo, faldón": [
+    "2010s"
+   ],
+   "Una pieza / suspendido": [
     "2020s"
    ]
   },
@@ -1014,6 +1251,37 @@
    ],
    "Monomando empotrado en muro / lluvia": [
     "2010s",
+    "2020s"
+   ],
+   "Llaves separadas de cruz": [
+    "1900s",
+    "1910s"
+   ],
+   "Llaves separadas": [
+    "1920s",
+    "1930s"
+   ],
+   "Llaves separadas cromadas": [
+    "1940s",
+    "1950s"
+   ],
+   "Mezcladora de dos manijas": [
+    "1960s",
+    "1970s"
+   ],
+   "Mezcladora": [
+    "1980s"
+   ],
+   "Monomando incipiente (alta)": [
+    "1990s"
+   ],
+   "Monomando": [
+    "2000s"
+   ],
+   "Monomando de diseño": [
+    "2010s"
+   ],
+   "Negro mate / latón / sensor": [
     "2020s"
    ]
   },
@@ -1159,6 +1427,56 @@
     "1980s",
     "1990s",
     "2000s"
+   ],
+   "Con baño, al fondo": [
+    "1900s",
+    "1910s"
+   ],
+   "Con baño": [
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Más chico": [
+    "1970s",
+    "1980s"
+   ],
+   "Reducido u opcional": [
+    "1990s",
+    "2000s"
+   ],
+   "Rara vez": [
+    "2010s"
+   ],
+   "Ausente, salvo lujo": [
+    "2020s"
+   ],
+   "Patio con lavaderos": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Patio de lavado": [
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Área de lavado": [
+    "1970s",
+    "1980s"
+   ],
+   "Clóset de lavado (nicho)": [
+    "1990s"
+   ],
+   "Nicho para lavadora": [
+    "2000s",
+    "2010s"
+   ],
+   "Solo salida, sin cuarto": [
+    "2020s"
    ]
   },
   "niveles": {
@@ -1238,6 +1556,37 @@
    ],
    "Muebles abiertos en vestidor, sin puerta": [
     "2010s",
+    "2020s"
+   ],
+   "Ropero exento": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Nicho de obra / ropero": [
+    "1940s",
+    "1950s"
+   ],
+   "Nicho de obra": [
+    "1960s"
+   ],
+   "Pino, persiana o abatible": [
+    "1970s"
+   ],
+   "Pino / laminado": [
+    "1980s"
+   ],
+   "Melamina, corrediza": [
+    "1990s"
+   ],
+   "Melamina": [
+    "2000s"
+   ],
+   "Melamina / vestidor": [
+    "2010s"
+   ],
+   "Vestidor integrado, sin puerta": [
     "2020s"
    ]
   },
@@ -1588,6 +1937,57 @@
    "Climatizacion Inverter oculta en plafon con difusores lineales": [
     "2010s",
     "2020s"
+   ],
+   "Cooler evaporativo (incipiente)": [
+    "1950s"
+   ],
+   "Cooler evaporativo": [
+    "1960s"
+   ],
+   "Cooler / ventana en alto": [
+    "1970s"
+   ],
+   "AC de ventana (hueco en muro)": [
+    "1980s"
+   ],
+   "AC de ventana": [
+    "1990s"
+   ],
+   "Minisplit": [
+    "2000s",
+    "2010s"
+   ],
+   "Minisplit inverter / central": [
+    "2020s"
+   ],
+   "Cruzada por patio": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Celosía / tragaluz": [
+    "1930s",
+    "1940s",
+    "1950s"
+   ],
+   "Celosía de concreto": [
+    "1960s"
+   ],
+   "Ducto y extractor en baño interior": [
+    "1970s"
+   ],
+   "Extractor en baño": [
+    "1980s"
+   ],
+   "Extractor mecánico": [
+    "1990s",
+    "2000s"
+   ],
+   "Ductos verticales (torre)": [
+    "2010s"
+   ],
+   "Ventilación mecánica; baño ciego": [
+    "2020s"
    ]
   },
   "domos_tragaluces": {
@@ -1627,6 +2027,45 @@
    ],
    "Escalera flotante/volada, peldanos de madera sobre mazo o muro": [
     "2010s",
+    "2020s"
+   ],
+   "Forja artesanal": [
+    "1900s"
+   ],
+   "Forja sobria / balcón de fierro": [
+    "1910s"
+   ],
+   "Reja baja de jardín": [
+    "1920s"
+   ],
+   "Herrería geométrica déco": [
+    "1930s"
+   ],
+   "Tubular delgada": [
+    "1940s"
+   ],
+   "Tubular lisa": [
+    "1950s"
+   ],
+   "Forjada fina / tubular": [
+    "1960s"
+   ],
+   "Tubular liso": [
+    "1970s"
+   ],
+   "Negra tubular": [
+    "1980s"
+   ],
+   "Aluminio café / forja": [
+    "1990s"
+   ],
+   "Minimalista, barrotes rectos": [
+    "2000s"
+   ],
+   "Pletina + cristal templado": [
+    "2010s"
+   ],
+   "Cristal sin marco / cable de acero": [
     "2020s"
    ]
   },
@@ -1677,6 +2116,37 @@
    "Instalaciones 100% electricas (induccion + boiler electrico)": [
     "2010s",
     "2020s"
+   ],
+   "Leña / depósito": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Depósito": [
+    "1930s"
+   ],
+   "Gas de depósito, piloto": [
+    "1940s",
+    "1950s"
+   ],
+   "Gas de depósito automático": [
+    "1960s",
+    "1970s"
+   ],
+   "Depósito / de paso": [
+    "1980s"
+   ],
+   "Depósito / primeros de paso": [
+    "1990s"
+   ],
+   "De paso instantáneo (2003+)": [
+    "2000s"
+   ],
+   "De paso": [
+    "2010s"
+   ],
+   "Solar obligatorio + de paso": [
+    "2020s"
    ]
   },
   "instalaciones_especiales": {
@@ -1712,6 +2182,35 @@
    ],
    "Domotica de dispositivo suelto (Alexa/Google Home/apagador wifi)": [
     "2010s",
+    "2020s"
+   ]
+  },
+  "instalacion_gas": {
+   "Leña / carbón": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Cilindro de gas LP": [
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Cilindro / estacionario": [
+    "1970s"
+   ],
+   "Estacionario": [
+    "1980s"
+   ],
+   "Estacionario en azotea": [
+    "1990s",
+    "2000s"
+   ],
+   "Centralizado con medidores": [
+    "2010s"
+   ],
+   "Gas natural o induccion electrica": [
     "2020s"
    ]
   }
@@ -1776,12 +2275,6 @@
     "2000s",
     "2010s",
     "2020s"
-   ],
-   "Cantera labrada": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s"
    ]
   },
   "cubierta": {
@@ -1911,6 +2404,39 @@
     "1980s",
     "1990s",
     "2000s"
+   ],
+   "(aljibe / tanque de mampostería)": [
+    "1900s"
+   ],
+   "(aljibe)": [
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Aljibe; tanque de lámina": [
+    "1940s"
+   ],
+   "Asbesto-cemento incipiente": [
+    "1950s"
+   ],
+   "Asbesto-cemento visible": [
+    "1960s"
+   ],
+   "Asbesto-cemento": [
+    "1970s",
+    "1980s"
+   ],
+   "Polietileno negro (1989+)": [
+    "1990s"
+   ],
+   "Polietileno, empieza a ocultarse": [
+    "2000s"
+   ],
+   "Polietileno oculto tras pretil": [
+    "2010s"
+   ],
+   "Cisterna+hidroneumático (alto) / polietileno expuesto (IS)": [
+    "2020s"
    ]
   },
   "piso": {
@@ -2033,6 +2559,39 @@
    "Vinilico/SPC click": [
     "2010s",
     "2020s"
+   ],
+   "Tierra / empedrado": [
+    "1900s",
+    "1910s"
+   ],
+   "Empedrado": [
+    "1920s"
+   ],
+   "Cemento incipiente": [
+    "1930s"
+   ],
+   "Cemento escobillado": [
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Cemento completo o huellas": [
+    "1970s"
+   ],
+   "Cemento / huellas": [
+    "1980s"
+   ],
+   "Adoquín o piedra": [
+    "1990s"
+   ],
+   "Adoquín / piedra": [
+    "2000s"
+   ],
+   "Adoquín / estampado": [
+    "2010s"
+   ],
+   "Porcelánico ext. / huellas con jardín": [
+    "2020s"
    ]
   },
   "herreria": {
@@ -2331,6 +2890,68 @@
    "Melamina imitacion chocolate/nogal": [
     "2000s",
     "2010s"
+   ],
+   "Mueble de obra + azulejo": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Fórmica": [
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Fórmica / melamina": [
+    "1970s"
+   ],
+   "Azulejo / granito": [
+    "1980s"
+   ],
+   "Azulejo → granito": [
+    "1990s"
+   ],
+   "Granito nacional / cuarzo": [
+    "2000s"
+   ],
+   "Cuarzo": [
+    "2010s"
+   ],
+   "Superficie sinterizada": [
+    "2020s"
+   ],
+   "Mampostería / fierro esmaltado": [
+    "1900s"
+   ],
+   "Mampostería": [
+    "1910s",
+    "1920s"
+   ],
+   "Fierro esmaltado": [
+    "1930s"
+   ],
+   "Peltre": [
+    "1940s"
+   ],
+   "Peltre o inox temprano": [
+    "1950s"
+   ],
+   "Peltre / inox": [
+    "1960s"
+   ],
+   "Inox sobre cubierta": [
+    "1970s",
+    "1980s"
+   ],
+   "Inox con escurridor": [
+    "1990s",
+    "2000s"
+   ],
+   "Inox submontada": [
+    "2010s"
+   ],
+   "Submontada / integrada": [
+    "2020s"
    ]
   },
   "instalacion": {
@@ -2505,6 +3126,19 @@
     "2000s",
     "2010s",
     "2020s"
+   ],
+   "Seg. media-alta (inicio)": [
+    "1940s"
+   ],
+   "Seg. media a residencial": [
+    "1950s",
+    "1960s"
+   ],
+   "Media: vigente · Alta: en declive": [
+    "1970s"
+   ],
+   "Fase terminal / remodelaciones": [
+    "1980s"
    ]
   },
   "espejo": {
@@ -2529,6 +3163,41 @@
    ],
    "Tira LED perimetral, antivaho / Bluetooth": [
     "2010s",
+    "2020s"
+   ],
+   "Madera tallada, ovalado": [
+    "1900s"
+   ],
+   "Madera tallada": [
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Botiquín empotrado, biselado": [
+    "1940s"
+   ],
+   "Botiquín empotrado": [
+    "1950s"
+   ],
+   "Botiquín / panorámico": [
+    "1960s"
+   ],
+   "Panorámico + regleta Hollywood": [
+    "1970s"
+   ],
+   "Panorámico": [
+    "1980s"
+   ],
+   "Sin marco (frameless)": [
+    "1990s"
+   ],
+   "Frameless": [
+    "2000s"
+   ],
+   "Frameless + luz indirecta": [
+    "2010s"
+   ],
+   "LED perimetral, antivaho": [
     "2020s"
    ]
   },
@@ -2566,14 +3235,49 @@
    "Formato grande sin cenefa, a toda altura (30x60+)": [
     "2010s",
     "2020s"
+   ],
+   "Blanco 10×10": [
+    "1900s",
+    "1910s"
+   ],
+   "Pasta 10×10": [
+    "1920s"
+   ],
+   "Pastel 10×10": [
+    "1930s"
+   ],
+   "Blanco/pastel 10×10": [
+    "1940s"
+   ],
+   "Blanco/pastel 11×11": [
+    "1950s"
+   ],
+   "Relieve tierra": [
+    "1960s"
+   ],
+   "Color 11×11/15×15": [
+    "1970s"
+   ],
+   "Decorado con cenefa 15×15": [
+    "1980s"
+   ],
+   "Cenefa 15×15/20×20": [
+    "1990s"
+   ],
+   "Cenefa decreciente 25×33": [
+    "2000s"
+   ],
+   "A toda altura, sin cenefa": [
+    "2010s"
+   ],
+   "Porcelánico gran formato": [
+    "2020s"
    ]
   },
   "wc": {
    "Tanque alto con cadena": [
     "1900s",
-    "1910s",
-    "1920s",
-    "1930s"
+    "1910s"
    ],
    "Tanque bajo loza color pastel (rosa/verde/azul/beige)": [
     "1950s",
@@ -2595,6 +3299,31 @@
    ],
    "Suspendido a pared / empotrado": [
     "2010s",
+    "2020s"
+   ],
+   "Tanque alto": [
+    "1920s",
+    "1930s"
+   ],
+   "Tanque bajo blanco": [
+    "1940s",
+    "1950s"
+   ],
+   "Tanque bajo, colores": [
+    "1960s",
+    "1970s"
+   ],
+   "Dos piezas, color": [
+    "1980s"
+   ],
+   "Dos piezas blanco": [
+    "1990s",
+    "2000s"
+   ],
+   "Bajo consumo, faldón": [
+    "2010s"
+   ],
+   "Una pieza / suspendido": [
     "2020s"
    ]
   },
@@ -2684,6 +3413,37 @@
    ],
    "Monomando empotrado en muro / lluvia": [
     "2010s",
+    "2020s"
+   ],
+   "Llaves separadas de cruz": [
+    "1900s",
+    "1910s"
+   ],
+   "Llaves separadas": [
+    "1920s",
+    "1930s"
+   ],
+   "Llaves separadas cromadas": [
+    "1940s",
+    "1950s"
+   ],
+   "Mezcladora de dos manijas": [
+    "1960s",
+    "1970s"
+   ],
+   "Mezcladora": [
+    "1980s"
+   ],
+   "Monomando incipiente (alta)": [
+    "1990s"
+   ],
+   "Monomando": [
+    "2000s"
+   ],
+   "Monomando de diseño": [
+    "2010s"
+   ],
+   "Negro mate / latón / sensor": [
     "2020s"
    ]
   },
@@ -2829,6 +3589,56 @@
     "1980s",
     "1990s",
     "2000s"
+   ],
+   "Con baño, al fondo": [
+    "1900s",
+    "1910s"
+   ],
+   "Con baño": [
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Más chico": [
+    "1970s",
+    "1980s"
+   ],
+   "Reducido u opcional": [
+    "1990s",
+    "2000s"
+   ],
+   "Rara vez": [
+    "2010s"
+   ],
+   "Ausente, salvo lujo": [
+    "2020s"
+   ],
+   "Patio con lavaderos": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Patio de lavado": [
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Área de lavado": [
+    "1970s",
+    "1980s"
+   ],
+   "Clóset de lavado (nicho)": [
+    "1990s"
+   ],
+   "Nicho para lavadora": [
+    "2000s",
+    "2010s"
+   ],
+   "Solo salida, sin cuarto": [
+    "2020s"
    ]
   },
   "niveles": {
@@ -2908,6 +3718,37 @@
    ],
    "Muebles abiertos en vestidor, sin puerta": [
     "2010s",
+    "2020s"
+   ],
+   "Ropero exento": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Nicho de obra / ropero": [
+    "1940s",
+    "1950s"
+   ],
+   "Nicho de obra": [
+    "1960s"
+   ],
+   "Pino, persiana o abatible": [
+    "1970s"
+   ],
+   "Pino / laminado": [
+    "1980s"
+   ],
+   "Melamina, corrediza": [
+    "1990s"
+   ],
+   "Melamina": [
+    "2000s"
+   ],
+   "Melamina / vestidor": [
+    "2010s"
+   ],
+   "Vestidor integrado, sin puerta": [
     "2020s"
    ]
   },
@@ -3258,6 +4099,57 @@
    "Climatizacion Inverter oculta en plafon con difusores lineales": [
     "2010s",
     "2020s"
+   ],
+   "Cooler evaporativo (incipiente)": [
+    "1950s"
+   ],
+   "Cooler evaporativo": [
+    "1960s"
+   ],
+   "Cooler / ventana en alto": [
+    "1970s"
+   ],
+   "AC de ventana (hueco en muro)": [
+    "1980s"
+   ],
+   "AC de ventana": [
+    "1990s"
+   ],
+   "Minisplit": [
+    "2000s",
+    "2010s"
+   ],
+   "Minisplit inverter / central": [
+    "2020s"
+   ],
+   "Cruzada por patio": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Celosía / tragaluz": [
+    "1930s",
+    "1940s",
+    "1950s"
+   ],
+   "Celosía de concreto": [
+    "1960s"
+   ],
+   "Ducto y extractor en baño interior": [
+    "1970s"
+   ],
+   "Extractor en baño": [
+    "1980s"
+   ],
+   "Extractor mecánico": [
+    "1990s",
+    "2000s"
+   ],
+   "Ductos verticales (torre)": [
+    "2010s"
+   ],
+   "Ventilación mecánica; baño ciego": [
+    "2020s"
    ]
   },
   "domos_tragaluces": {
@@ -3297,6 +4189,45 @@
    ],
    "Escalera flotante/volada, peldanos de madera sobre mazo o muro": [
     "2010s",
+    "2020s"
+   ],
+   "Forja artesanal": [
+    "1900s"
+   ],
+   "Forja sobria / balcón de fierro": [
+    "1910s"
+   ],
+   "Reja baja de jardín": [
+    "1920s"
+   ],
+   "Herrería geométrica déco": [
+    "1930s"
+   ],
+   "Tubular delgada": [
+    "1940s"
+   ],
+   "Tubular lisa": [
+    "1950s"
+   ],
+   "Forjada fina / tubular": [
+    "1960s"
+   ],
+   "Tubular liso": [
+    "1970s"
+   ],
+   "Negra tubular": [
+    "1980s"
+   ],
+   "Aluminio café / forja": [
+    "1990s"
+   ],
+   "Minimalista, barrotes rectos": [
+    "2000s"
+   ],
+   "Pletina + cristal templado": [
+    "2010s"
+   ],
+   "Cristal sin marco / cable de acero": [
     "2020s"
    ]
   },
@@ -3347,6 +4278,37 @@
    "Instalaciones 100% electricas (induccion + boiler electrico)": [
     "2010s",
     "2020s"
+   ],
+   "Leña / depósito": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Depósito": [
+    "1930s"
+   ],
+   "Gas de depósito, piloto": [
+    "1940s",
+    "1950s"
+   ],
+   "Gas de depósito automático": [
+    "1960s",
+    "1970s"
+   ],
+   "Depósito / de paso": [
+    "1980s"
+   ],
+   "Depósito / primeros de paso": [
+    "1990s"
+   ],
+   "De paso instantáneo (2003+)": [
+    "2000s"
+   ],
+   "De paso": [
+    "2010s"
+   ],
+   "Solar obligatorio + de paso": [
+    "2020s"
    ]
   },
   "instalaciones_especiales": {
@@ -3382,6 +4344,35 @@
    ],
    "Domotica de dispositivo suelto (Alexa/Google Home/apagador wifi)": [
     "2010s",
+    "2020s"
+   ]
+  },
+  "instalacion_gas": {
+   "Leña / carbón": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Cilindro de gas LP": [
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Cilindro / estacionario": [
+    "1970s"
+   ],
+   "Estacionario": [
+    "1980s"
+   ],
+   "Estacionario en azotea": [
+    "1990s",
+    "2000s"
+   ],
+   "Centralizado con medidores": [
+    "2010s"
+   ],
+   "Gas natural o induccion electrica": [
     "2020s"
    ]
   }
@@ -3445,12 +4436,6 @@
     "2000s",
     "2010s",
     "2020s"
-   ],
-   "Cantera labrada": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s"
    ]
   },
   "agua": {
@@ -3509,6 +4494,39 @@
     "1980s",
     "1990s",
     "2000s"
+   ],
+   "(aljibe / tanque de mampostería)": [
+    "1900s"
+   ],
+   "(aljibe)": [
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Aljibe; tanque de lámina": [
+    "1940s"
+   ],
+   "Asbesto-cemento incipiente": [
+    "1950s"
+   ],
+   "Asbesto-cemento visible": [
+    "1960s"
+   ],
+   "Asbesto-cemento": [
+    "1970s",
+    "1980s"
+   ],
+   "Polietileno negro (1989+)": [
+    "1990s"
+   ],
+   "Polietileno, empieza a ocultarse": [
+    "2000s"
+   ],
+   "Polietileno oculto tras pretil": [
+    "2010s"
+   ],
+   "Cisterna+hidroneumático (alto) / polietileno expuesto (IS)": [
+    "2020s"
    ]
   },
   "piso": {
@@ -3625,6 +4643,39 @@
    ],
    "Vinilico/SPC click": [
     "2010s",
+    "2020s"
+   ],
+   "Tierra / empedrado": [
+    "1900s",
+    "1910s"
+   ],
+   "Empedrado": [
+    "1920s"
+   ],
+   "Cemento incipiente": [
+    "1930s"
+   ],
+   "Cemento escobillado": [
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Cemento completo o huellas": [
+    "1970s"
+   ],
+   "Cemento / huellas": [
+    "1980s"
+   ],
+   "Adoquín o piedra": [
+    "1990s"
+   ],
+   "Adoquín / piedra": [
+    "2000s"
+   ],
+   "Adoquín / estampado": [
+    "2010s"
+   ],
+   "Porcelánico ext. / huellas con jardín": [
     "2020s"
    ]
   },
@@ -3996,6 +5047,68 @@
    "Melamina imitacion chocolate/nogal": [
     "2000s",
     "2010s"
+   ],
+   "Mueble de obra + azulejo": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Fórmica": [
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Fórmica / melamina": [
+    "1970s"
+   ],
+   "Azulejo / granito": [
+    "1980s"
+   ],
+   "Azulejo → granito": [
+    "1990s"
+   ],
+   "Granito nacional / cuarzo": [
+    "2000s"
+   ],
+   "Cuarzo": [
+    "2010s"
+   ],
+   "Superficie sinterizada": [
+    "2020s"
+   ],
+   "Mampostería / fierro esmaltado": [
+    "1900s"
+   ],
+   "Mampostería": [
+    "1910s",
+    "1920s"
+   ],
+   "Fierro esmaltado": [
+    "1930s"
+   ],
+   "Peltre": [
+    "1940s"
+   ],
+   "Peltre o inox temprano": [
+    "1950s"
+   ],
+   "Peltre / inox": [
+    "1960s"
+   ],
+   "Inox sobre cubierta": [
+    "1970s",
+    "1980s"
+   ],
+   "Inox con escurridor": [
+    "1990s",
+    "2000s"
+   ],
+   "Inox submontada": [
+    "2010s"
+   ],
+   "Submontada / integrada": [
+    "2020s"
    ]
   },
   "instalacion": {
@@ -4170,6 +5283,19 @@
     "2000s",
     "2010s",
     "2020s"
+   ],
+   "Seg. media-alta (inicio)": [
+    "1940s"
+   ],
+   "Seg. media a residencial": [
+    "1950s",
+    "1960s"
+   ],
+   "Media: vigente · Alta: en declive": [
+    "1970s"
+   ],
+   "Fase terminal / remodelaciones": [
+    "1980s"
    ]
   },
   "espejo": {
@@ -4194,6 +5320,41 @@
    ],
    "Tira LED perimetral, antivaho / Bluetooth": [
     "2010s",
+    "2020s"
+   ],
+   "Madera tallada, ovalado": [
+    "1900s"
+   ],
+   "Madera tallada": [
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Botiquín empotrado, biselado": [
+    "1940s"
+   ],
+   "Botiquín empotrado": [
+    "1950s"
+   ],
+   "Botiquín / panorámico": [
+    "1960s"
+   ],
+   "Panorámico + regleta Hollywood": [
+    "1970s"
+   ],
+   "Panorámico": [
+    "1980s"
+   ],
+   "Sin marco (frameless)": [
+    "1990s"
+   ],
+   "Frameless": [
+    "2000s"
+   ],
+   "Frameless + luz indirecta": [
+    "2010s"
+   ],
+   "LED perimetral, antivaho": [
     "2020s"
    ]
   },
@@ -4231,14 +5392,49 @@
    "Formato grande sin cenefa, a toda altura (30x60+)": [
     "2010s",
     "2020s"
+   ],
+   "Blanco 10×10": [
+    "1900s",
+    "1910s"
+   ],
+   "Pasta 10×10": [
+    "1920s"
+   ],
+   "Pastel 10×10": [
+    "1930s"
+   ],
+   "Blanco/pastel 10×10": [
+    "1940s"
+   ],
+   "Blanco/pastel 11×11": [
+    "1950s"
+   ],
+   "Relieve tierra": [
+    "1960s"
+   ],
+   "Color 11×11/15×15": [
+    "1970s"
+   ],
+   "Decorado con cenefa 15×15": [
+    "1980s"
+   ],
+   "Cenefa 15×15/20×20": [
+    "1990s"
+   ],
+   "Cenefa decreciente 25×33": [
+    "2000s"
+   ],
+   "A toda altura, sin cenefa": [
+    "2010s"
+   ],
+   "Porcelánico gran formato": [
+    "2020s"
    ]
   },
   "wc": {
    "Tanque alto con cadena": [
     "1900s",
-    "1910s",
-    "1920s",
-    "1930s"
+    "1910s"
    ],
    "Tanque bajo loza color pastel (rosa/verde/azul/beige)": [
     "1950s",
@@ -4260,6 +5456,31 @@
    ],
    "Suspendido a pared / empotrado": [
     "2010s",
+    "2020s"
+   ],
+   "Tanque alto": [
+    "1920s",
+    "1930s"
+   ],
+   "Tanque bajo blanco": [
+    "1940s",
+    "1950s"
+   ],
+   "Tanque bajo, colores": [
+    "1960s",
+    "1970s"
+   ],
+   "Dos piezas, color": [
+    "1980s"
+   ],
+   "Dos piezas blanco": [
+    "1990s",
+    "2000s"
+   ],
+   "Bajo consumo, faldón": [
+    "2010s"
+   ],
+   "Una pieza / suspendido": [
     "2020s"
    ]
   },
@@ -4349,6 +5570,37 @@
    ],
    "Monomando empotrado en muro / lluvia": [
     "2010s",
+    "2020s"
+   ],
+   "Llaves separadas de cruz": [
+    "1900s",
+    "1910s"
+   ],
+   "Llaves separadas": [
+    "1920s",
+    "1930s"
+   ],
+   "Llaves separadas cromadas": [
+    "1940s",
+    "1950s"
+   ],
+   "Mezcladora de dos manijas": [
+    "1960s",
+    "1970s"
+   ],
+   "Mezcladora": [
+    "1980s"
+   ],
+   "Monomando incipiente (alta)": [
+    "1990s"
+   ],
+   "Monomando": [
+    "2000s"
+   ],
+   "Monomando de diseño": [
+    "2010s"
+   ],
+   "Negro mate / latón / sensor": [
     "2020s"
    ]
   },
@@ -4494,6 +5746,56 @@
     "1980s",
     "1990s",
     "2000s"
+   ],
+   "Con baño, al fondo": [
+    "1900s",
+    "1910s"
+   ],
+   "Con baño": [
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Más chico": [
+    "1970s",
+    "1980s"
+   ],
+   "Reducido u opcional": [
+    "1990s",
+    "2000s"
+   ],
+   "Rara vez": [
+    "2010s"
+   ],
+   "Ausente, salvo lujo": [
+    "2020s"
+   ],
+   "Patio con lavaderos": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Patio de lavado": [
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Área de lavado": [
+    "1970s",
+    "1980s"
+   ],
+   "Clóset de lavado (nicho)": [
+    "1990s"
+   ],
+   "Nicho para lavadora": [
+    "2000s",
+    "2010s"
+   ],
+   "Solo salida, sin cuarto": [
+    "2020s"
    ]
   },
   "niveles": {
@@ -4573,6 +5875,37 @@
    ],
    "Muebles abiertos en vestidor, sin puerta": [
     "2010s",
+    "2020s"
+   ],
+   "Ropero exento": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Nicho de obra / ropero": [
+    "1940s",
+    "1950s"
+   ],
+   "Nicho de obra": [
+    "1960s"
+   ],
+   "Pino, persiana o abatible": [
+    "1970s"
+   ],
+   "Pino / laminado": [
+    "1980s"
+   ],
+   "Melamina, corrediza": [
+    "1990s"
+   ],
+   "Melamina": [
+    "2000s"
+   ],
+   "Melamina / vestidor": [
+    "2010s"
+   ],
+   "Vestidor integrado, sin puerta": [
     "2020s"
    ]
   },
@@ -4923,6 +6256,57 @@
    "Climatizacion Inverter oculta en plafon con difusores lineales": [
     "2010s",
     "2020s"
+   ],
+   "Cooler evaporativo (incipiente)": [
+    "1950s"
+   ],
+   "Cooler evaporativo": [
+    "1960s"
+   ],
+   "Cooler / ventana en alto": [
+    "1970s"
+   ],
+   "AC de ventana (hueco en muro)": [
+    "1980s"
+   ],
+   "AC de ventana": [
+    "1990s"
+   ],
+   "Minisplit": [
+    "2000s",
+    "2010s"
+   ],
+   "Minisplit inverter / central": [
+    "2020s"
+   ],
+   "Cruzada por patio": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Celosía / tragaluz": [
+    "1930s",
+    "1940s",
+    "1950s"
+   ],
+   "Celosía de concreto": [
+    "1960s"
+   ],
+   "Ducto y extractor en baño interior": [
+    "1970s"
+   ],
+   "Extractor en baño": [
+    "1980s"
+   ],
+   "Extractor mecánico": [
+    "1990s",
+    "2000s"
+   ],
+   "Ductos verticales (torre)": [
+    "2010s"
+   ],
+   "Ventilación mecánica; baño ciego": [
+    "2020s"
    ]
   },
   "domos_tragaluces": {
@@ -4962,6 +6346,45 @@
    ],
    "Escalera flotante/volada, peldanos de madera sobre mazo o muro": [
     "2010s",
+    "2020s"
+   ],
+   "Forja artesanal": [
+    "1900s"
+   ],
+   "Forja sobria / balcón de fierro": [
+    "1910s"
+   ],
+   "Reja baja de jardín": [
+    "1920s"
+   ],
+   "Herrería geométrica déco": [
+    "1930s"
+   ],
+   "Tubular delgada": [
+    "1940s"
+   ],
+   "Tubular lisa": [
+    "1950s"
+   ],
+   "Forjada fina / tubular": [
+    "1960s"
+   ],
+   "Tubular liso": [
+    "1970s"
+   ],
+   "Negra tubular": [
+    "1980s"
+   ],
+   "Aluminio café / forja": [
+    "1990s"
+   ],
+   "Minimalista, barrotes rectos": [
+    "2000s"
+   ],
+   "Pletina + cristal templado": [
+    "2010s"
+   ],
+   "Cristal sin marco / cable de acero": [
     "2020s"
    ]
   },
@@ -5012,6 +6435,37 @@
    "Instalaciones 100% electricas (induccion + boiler electrico)": [
     "2010s",
     "2020s"
+   ],
+   "Leña / depósito": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Depósito": [
+    "1930s"
+   ],
+   "Gas de depósito, piloto": [
+    "1940s",
+    "1950s"
+   ],
+   "Gas de depósito automático": [
+    "1960s",
+    "1970s"
+   ],
+   "Depósito / de paso": [
+    "1980s"
+   ],
+   "Depósito / primeros de paso": [
+    "1990s"
+   ],
+   "De paso instantáneo (2003+)": [
+    "2000s"
+   ],
+   "De paso": [
+    "2010s"
+   ],
+   "Solar obligatorio + de paso": [
+    "2020s"
    ]
   },
   "instalaciones_especiales": {
@@ -5047,6 +6501,35 @@
    ],
    "Domotica de dispositivo suelto (Alexa/Google Home/apagador wifi)": [
     "2010s",
+    "2020s"
+   ]
+  },
+  "instalacion_gas": {
+   "Leña / carbón": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Cilindro de gas LP": [
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Cilindro / estacionario": [
+    "1970s"
+   ],
+   "Estacionario": [
+    "1980s"
+   ],
+   "Estacionario en azotea": [
+    "1990s",
+    "2000s"
+   ],
+   "Centralizado con medidores": [
+    "2010s"
+   ],
+   "Gas natural o induccion electrica": [
     "2020s"
    ]
   }
@@ -5108,12 +6591,6 @@
     "2000s",
     "2010s",
     "2020s"
-   ],
-   "Cantera labrada": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s"
    ]
   },
   "cubierta": {
@@ -5245,6 +6722,39 @@
     "1980s",
     "1990s",
     "2000s"
+   ],
+   "(aljibe / tanque de mampostería)": [
+    "1900s"
+   ],
+   "(aljibe)": [
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Aljibe; tanque de lámina": [
+    "1940s"
+   ],
+   "Asbesto-cemento incipiente": [
+    "1950s"
+   ],
+   "Asbesto-cemento visible": [
+    "1960s"
+   ],
+   "Asbesto-cemento": [
+    "1970s",
+    "1980s"
+   ],
+   "Polietileno negro (1989+)": [
+    "1990s"
+   ],
+   "Polietileno, empieza a ocultarse": [
+    "2000s"
+   ],
+   "Polietileno oculto tras pretil": [
+    "2010s"
+   ],
+   "Cisterna+hidroneumático (alto) / polietileno expuesto (IS)": [
+    "2020s"
    ]
   },
   "ventaneria": {
@@ -5589,6 +7099,39 @@
    "Vinilico/SPC click": [
     "2010s",
     "2020s"
+   ],
+   "Tierra / empedrado": [
+    "1900s",
+    "1910s"
+   ],
+   "Empedrado": [
+    "1920s"
+   ],
+   "Cemento incipiente": [
+    "1930s"
+   ],
+   "Cemento escobillado": [
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Cemento completo o huellas": [
+    "1970s"
+   ],
+   "Cemento / huellas": [
+    "1980s"
+   ],
+   "Adoquín o piedra": [
+    "1990s"
+   ],
+   "Adoquín / piedra": [
+    "2000s"
+   ],
+   "Adoquín / estampado": [
+    "2010s"
+   ],
+   "Porcelánico ext. / huellas con jardín": [
+    "2020s"
    ]
   },
   "cocina": {
@@ -5663,6 +7206,68 @@
    "Melamina imitacion chocolate/nogal": [
     "2000s",
     "2010s"
+   ],
+   "Mueble de obra + azulejo": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Fórmica": [
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Fórmica / melamina": [
+    "1970s"
+   ],
+   "Azulejo / granito": [
+    "1980s"
+   ],
+   "Azulejo → granito": [
+    "1990s"
+   ],
+   "Granito nacional / cuarzo": [
+    "2000s"
+   ],
+   "Cuarzo": [
+    "2010s"
+   ],
+   "Superficie sinterizada": [
+    "2020s"
+   ],
+   "Mampostería / fierro esmaltado": [
+    "1900s"
+   ],
+   "Mampostería": [
+    "1910s",
+    "1920s"
+   ],
+   "Fierro esmaltado": [
+    "1930s"
+   ],
+   "Peltre": [
+    "1940s"
+   ],
+   "Peltre o inox temprano": [
+    "1950s"
+   ],
+   "Peltre / inox": [
+    "1960s"
+   ],
+   "Inox sobre cubierta": [
+    "1970s",
+    "1980s"
+   ],
+   "Inox con escurridor": [
+    "1990s",
+    "2000s"
+   ],
+   "Inox submontada": [
+    "2010s"
+   ],
+   "Submontada / integrada": [
+    "2020s"
    ]
   },
   "instalacion": {
@@ -5837,6 +7442,19 @@
     "2000s",
     "2010s",
     "2020s"
+   ],
+   "Seg. media-alta (inicio)": [
+    "1940s"
+   ],
+   "Seg. media a residencial": [
+    "1950s",
+    "1960s"
+   ],
+   "Media: vigente · Alta: en declive": [
+    "1970s"
+   ],
+   "Fase terminal / remodelaciones": [
+    "1980s"
    ]
   },
   "espejo": {
@@ -5861,6 +7479,41 @@
    ],
    "Tira LED perimetral, antivaho / Bluetooth": [
     "2010s",
+    "2020s"
+   ],
+   "Madera tallada, ovalado": [
+    "1900s"
+   ],
+   "Madera tallada": [
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Botiquín empotrado, biselado": [
+    "1940s"
+   ],
+   "Botiquín empotrado": [
+    "1950s"
+   ],
+   "Botiquín / panorámico": [
+    "1960s"
+   ],
+   "Panorámico + regleta Hollywood": [
+    "1970s"
+   ],
+   "Panorámico": [
+    "1980s"
+   ],
+   "Sin marco (frameless)": [
+    "1990s"
+   ],
+   "Frameless": [
+    "2000s"
+   ],
+   "Frameless + luz indirecta": [
+    "2010s"
+   ],
+   "LED perimetral, antivaho": [
     "2020s"
    ]
   },
@@ -5898,14 +7551,49 @@
    "Formato grande sin cenefa, a toda altura (30x60+)": [
     "2010s",
     "2020s"
+   ],
+   "Blanco 10×10": [
+    "1900s",
+    "1910s"
+   ],
+   "Pasta 10×10": [
+    "1920s"
+   ],
+   "Pastel 10×10": [
+    "1930s"
+   ],
+   "Blanco/pastel 10×10": [
+    "1940s"
+   ],
+   "Blanco/pastel 11×11": [
+    "1950s"
+   ],
+   "Relieve tierra": [
+    "1960s"
+   ],
+   "Color 11×11/15×15": [
+    "1970s"
+   ],
+   "Decorado con cenefa 15×15": [
+    "1980s"
+   ],
+   "Cenefa 15×15/20×20": [
+    "1990s"
+   ],
+   "Cenefa decreciente 25×33": [
+    "2000s"
+   ],
+   "A toda altura, sin cenefa": [
+    "2010s"
+   ],
+   "Porcelánico gran formato": [
+    "2020s"
    ]
   },
   "wc": {
    "Tanque alto con cadena": [
     "1900s",
-    "1910s",
-    "1920s",
-    "1930s"
+    "1910s"
    ],
    "Tanque bajo loza color pastel (rosa/verde/azul/beige)": [
     "1950s",
@@ -5927,6 +7615,31 @@
    ],
    "Suspendido a pared / empotrado": [
     "2010s",
+    "2020s"
+   ],
+   "Tanque alto": [
+    "1920s",
+    "1930s"
+   ],
+   "Tanque bajo blanco": [
+    "1940s",
+    "1950s"
+   ],
+   "Tanque bajo, colores": [
+    "1960s",
+    "1970s"
+   ],
+   "Dos piezas, color": [
+    "1980s"
+   ],
+   "Dos piezas blanco": [
+    "1990s",
+    "2000s"
+   ],
+   "Bajo consumo, faldón": [
+    "2010s"
+   ],
+   "Una pieza / suspendido": [
     "2020s"
    ]
   },
@@ -6016,6 +7729,37 @@
    ],
    "Monomando empotrado en muro / lluvia": [
     "2010s",
+    "2020s"
+   ],
+   "Llaves separadas de cruz": [
+    "1900s",
+    "1910s"
+   ],
+   "Llaves separadas": [
+    "1920s",
+    "1930s"
+   ],
+   "Llaves separadas cromadas": [
+    "1940s",
+    "1950s"
+   ],
+   "Mezcladora de dos manijas": [
+    "1960s",
+    "1970s"
+   ],
+   "Mezcladora": [
+    "1980s"
+   ],
+   "Monomando incipiente (alta)": [
+    "1990s"
+   ],
+   "Monomando": [
+    "2000s"
+   ],
+   "Monomando de diseño": [
+    "2010s"
+   ],
+   "Negro mate / latón / sensor": [
     "2020s"
    ]
   },
@@ -6161,6 +7905,56 @@
     "1980s",
     "1990s",
     "2000s"
+   ],
+   "Con baño, al fondo": [
+    "1900s",
+    "1910s"
+   ],
+   "Con baño": [
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Más chico": [
+    "1970s",
+    "1980s"
+   ],
+   "Reducido u opcional": [
+    "1990s",
+    "2000s"
+   ],
+   "Rara vez": [
+    "2010s"
+   ],
+   "Ausente, salvo lujo": [
+    "2020s"
+   ],
+   "Patio con lavaderos": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Patio de lavado": [
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Área de lavado": [
+    "1970s",
+    "1980s"
+   ],
+   "Clóset de lavado (nicho)": [
+    "1990s"
+   ],
+   "Nicho para lavadora": [
+    "2000s",
+    "2010s"
+   ],
+   "Solo salida, sin cuarto": [
+    "2020s"
    ]
   },
   "niveles": {
@@ -6240,6 +8034,37 @@
    ],
    "Muebles abiertos en vestidor, sin puerta": [
     "2010s",
+    "2020s"
+   ],
+   "Ropero exento": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Nicho de obra / ropero": [
+    "1940s",
+    "1950s"
+   ],
+   "Nicho de obra": [
+    "1960s"
+   ],
+   "Pino, persiana o abatible": [
+    "1970s"
+   ],
+   "Pino / laminado": [
+    "1980s"
+   ],
+   "Melamina, corrediza": [
+    "1990s"
+   ],
+   "Melamina": [
+    "2000s"
+   ],
+   "Melamina / vestidor": [
+    "2010s"
+   ],
+   "Vestidor integrado, sin puerta": [
     "2020s"
    ]
   },
@@ -6590,6 +8415,57 @@
    "Climatizacion Inverter oculta en plafon con difusores lineales": [
     "2010s",
     "2020s"
+   ],
+   "Cooler evaporativo (incipiente)": [
+    "1950s"
+   ],
+   "Cooler evaporativo": [
+    "1960s"
+   ],
+   "Cooler / ventana en alto": [
+    "1970s"
+   ],
+   "AC de ventana (hueco en muro)": [
+    "1980s"
+   ],
+   "AC de ventana": [
+    "1990s"
+   ],
+   "Minisplit": [
+    "2000s",
+    "2010s"
+   ],
+   "Minisplit inverter / central": [
+    "2020s"
+   ],
+   "Cruzada por patio": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Celosía / tragaluz": [
+    "1930s",
+    "1940s",
+    "1950s"
+   ],
+   "Celosía de concreto": [
+    "1960s"
+   ],
+   "Ducto y extractor en baño interior": [
+    "1970s"
+   ],
+   "Extractor en baño": [
+    "1980s"
+   ],
+   "Extractor mecánico": [
+    "1990s",
+    "2000s"
+   ],
+   "Ductos verticales (torre)": [
+    "2010s"
+   ],
+   "Ventilación mecánica; baño ciego": [
+    "2020s"
    ]
   },
   "domos_tragaluces": {
@@ -6629,6 +8505,45 @@
    ],
    "Escalera flotante/volada, peldanos de madera sobre mazo o muro": [
     "2010s",
+    "2020s"
+   ],
+   "Forja artesanal": [
+    "1900s"
+   ],
+   "Forja sobria / balcón de fierro": [
+    "1910s"
+   ],
+   "Reja baja de jardín": [
+    "1920s"
+   ],
+   "Herrería geométrica déco": [
+    "1930s"
+   ],
+   "Tubular delgada": [
+    "1940s"
+   ],
+   "Tubular lisa": [
+    "1950s"
+   ],
+   "Forjada fina / tubular": [
+    "1960s"
+   ],
+   "Tubular liso": [
+    "1970s"
+   ],
+   "Negra tubular": [
+    "1980s"
+   ],
+   "Aluminio café / forja": [
+    "1990s"
+   ],
+   "Minimalista, barrotes rectos": [
+    "2000s"
+   ],
+   "Pletina + cristal templado": [
+    "2010s"
+   ],
+   "Cristal sin marco / cable de acero": [
     "2020s"
    ]
   },
@@ -6679,6 +8594,37 @@
    "Instalaciones 100% electricas (induccion + boiler electrico)": [
     "2010s",
     "2020s"
+   ],
+   "Leña / depósito": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Depósito": [
+    "1930s"
+   ],
+   "Gas de depósito, piloto": [
+    "1940s",
+    "1950s"
+   ],
+   "Gas de depósito automático": [
+    "1960s",
+    "1970s"
+   ],
+   "Depósito / de paso": [
+    "1980s"
+   ],
+   "Depósito / primeros de paso": [
+    "1990s"
+   ],
+   "De paso instantáneo (2003+)": [
+    "2000s"
+   ],
+   "De paso": [
+    "2010s"
+   ],
+   "Solar obligatorio + de paso": [
+    "2020s"
    ]
   },
   "instalaciones_especiales": {
@@ -6716,6 +8662,35 @@
     "2010s",
     "2020s"
    ]
+  },
+  "instalacion_gas": {
+   "Leña / carbón": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Cilindro de gas LP": [
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Cilindro / estacionario": [
+    "1970s"
+   ],
+   "Estacionario": [
+    "1980s"
+   ],
+   "Estacionario en azotea": [
+    "1990s",
+    "2000s"
+   ],
+   "Centralizado con medidores": [
+    "2010s"
+   ],
+   "Gas natural o induccion electrica": [
+    "2020s"
+   ]
   }
  },
  "4": {
@@ -6734,10 +8709,7 @@
     "1980s"
    ],
    "Cantera labrada": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s"
+    "1980s"
    ],
    "Texturizado": [
     "1990s"
@@ -6837,6 +8809,39 @@
     "1980s",
     "1990s",
     "2000s"
+   ],
+   "(aljibe / tanque de mampostería)": [
+    "1900s"
+   ],
+   "(aljibe)": [
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Aljibe; tanque de lámina": [
+    "1940s"
+   ],
+   "Asbesto-cemento incipiente": [
+    "1950s"
+   ],
+   "Asbesto-cemento visible": [
+    "1960s"
+   ],
+   "Asbesto-cemento": [
+    "1970s",
+    "1980s"
+   ],
+   "Polietileno negro (1989+)": [
+    "1990s"
+   ],
+   "Polietileno, empieza a ocultarse": [
+    "2000s"
+   ],
+   "Polietileno oculto tras pretil": [
+    "2010s"
+   ],
+   "Cisterna+hidroneumático (alto) / polietileno expuesto (IS)": [
+    "2020s"
    ]
   },
   "ventaneria": {
@@ -7251,6 +9256,39 @@
    "Vinilico/SPC click": [
     "2010s",
     "2020s"
+   ],
+   "Tierra / empedrado": [
+    "1900s",
+    "1910s"
+   ],
+   "Empedrado": [
+    "1920s"
+   ],
+   "Cemento incipiente": [
+    "1930s"
+   ],
+   "Cemento escobillado": [
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Cemento completo o huellas": [
+    "1970s"
+   ],
+   "Cemento / huellas": [
+    "1980s"
+   ],
+   "Adoquín o piedra": [
+    "1990s"
+   ],
+   "Adoquín / piedra": [
+    "2000s"
+   ],
+   "Adoquín / estampado": [
+    "2010s"
+   ],
+   "Porcelánico ext. / huellas con jardín": [
+    "2020s"
    ]
   },
   "cocina": {
@@ -7325,6 +9363,68 @@
    "Melamina imitacion chocolate/nogal": [
     "2000s",
     "2010s"
+   ],
+   "Mueble de obra + azulejo": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Fórmica": [
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Fórmica / melamina": [
+    "1970s"
+   ],
+   "Azulejo / granito": [
+    "1980s"
+   ],
+   "Azulejo → granito": [
+    "1990s"
+   ],
+   "Granito nacional / cuarzo": [
+    "2000s"
+   ],
+   "Cuarzo": [
+    "2010s"
+   ],
+   "Superficie sinterizada": [
+    "2020s"
+   ],
+   "Mampostería / fierro esmaltado": [
+    "1900s"
+   ],
+   "Mampostería": [
+    "1910s",
+    "1920s"
+   ],
+   "Fierro esmaltado": [
+    "1930s"
+   ],
+   "Peltre": [
+    "1940s"
+   ],
+   "Peltre o inox temprano": [
+    "1950s"
+   ],
+   "Peltre / inox": [
+    "1960s"
+   ],
+   "Inox sobre cubierta": [
+    "1970s",
+    "1980s"
+   ],
+   "Inox con escurridor": [
+    "1990s",
+    "2000s"
+   ],
+   "Inox submontada": [
+    "2010s"
+   ],
+   "Submontada / integrada": [
+    "2020s"
    ]
   },
   "instalacion": {
@@ -7499,6 +9599,19 @@
     "2000s",
     "2010s",
     "2020s"
+   ],
+   "Seg. media-alta (inicio)": [
+    "1940s"
+   ],
+   "Seg. media a residencial": [
+    "1950s",
+    "1960s"
+   ],
+   "Media: vigente · Alta: en declive": [
+    "1970s"
+   ],
+   "Fase terminal / remodelaciones": [
+    "1980s"
    ]
   },
   "espejo": {
@@ -7523,6 +9636,41 @@
    ],
    "Tira LED perimetral, antivaho / Bluetooth": [
     "2010s",
+    "2020s"
+   ],
+   "Madera tallada, ovalado": [
+    "1900s"
+   ],
+   "Madera tallada": [
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Botiquín empotrado, biselado": [
+    "1940s"
+   ],
+   "Botiquín empotrado": [
+    "1950s"
+   ],
+   "Botiquín / panorámico": [
+    "1960s"
+   ],
+   "Panorámico + regleta Hollywood": [
+    "1970s"
+   ],
+   "Panorámico": [
+    "1980s"
+   ],
+   "Sin marco (frameless)": [
+    "1990s"
+   ],
+   "Frameless": [
+    "2000s"
+   ],
+   "Frameless + luz indirecta": [
+    "2010s"
+   ],
+   "LED perimetral, antivaho": [
     "2020s"
    ]
   },
@@ -7560,14 +9708,49 @@
    "Formato grande sin cenefa, a toda altura (30x60+)": [
     "2010s",
     "2020s"
+   ],
+   "Blanco 10×10": [
+    "1900s",
+    "1910s"
+   ],
+   "Pasta 10×10": [
+    "1920s"
+   ],
+   "Pastel 10×10": [
+    "1930s"
+   ],
+   "Blanco/pastel 10×10": [
+    "1940s"
+   ],
+   "Blanco/pastel 11×11": [
+    "1950s"
+   ],
+   "Relieve tierra": [
+    "1960s"
+   ],
+   "Color 11×11/15×15": [
+    "1970s"
+   ],
+   "Decorado con cenefa 15×15": [
+    "1980s"
+   ],
+   "Cenefa 15×15/20×20": [
+    "1990s"
+   ],
+   "Cenefa decreciente 25×33": [
+    "2000s"
+   ],
+   "A toda altura, sin cenefa": [
+    "2010s"
+   ],
+   "Porcelánico gran formato": [
+    "2020s"
    ]
   },
   "wc": {
    "Tanque alto con cadena": [
     "1900s",
-    "1910s",
-    "1920s",
-    "1930s"
+    "1910s"
    ],
    "Tanque bajo loza color pastel (rosa/verde/azul/beige)": [
     "1950s",
@@ -7589,6 +9772,31 @@
    ],
    "Suspendido a pared / empotrado": [
     "2010s",
+    "2020s"
+   ],
+   "Tanque alto": [
+    "1920s",
+    "1930s"
+   ],
+   "Tanque bajo blanco": [
+    "1940s",
+    "1950s"
+   ],
+   "Tanque bajo, colores": [
+    "1960s",
+    "1970s"
+   ],
+   "Dos piezas, color": [
+    "1980s"
+   ],
+   "Dos piezas blanco": [
+    "1990s",
+    "2000s"
+   ],
+   "Bajo consumo, faldón": [
+    "2010s"
+   ],
+   "Una pieza / suspendido": [
     "2020s"
    ]
   },
@@ -7678,6 +9886,37 @@
    ],
    "Monomando empotrado en muro / lluvia": [
     "2010s",
+    "2020s"
+   ],
+   "Llaves separadas de cruz": [
+    "1900s",
+    "1910s"
+   ],
+   "Llaves separadas": [
+    "1920s",
+    "1930s"
+   ],
+   "Llaves separadas cromadas": [
+    "1940s",
+    "1950s"
+   ],
+   "Mezcladora de dos manijas": [
+    "1960s",
+    "1970s"
+   ],
+   "Mezcladora": [
+    "1980s"
+   ],
+   "Monomando incipiente (alta)": [
+    "1990s"
+   ],
+   "Monomando": [
+    "2000s"
+   ],
+   "Monomando de diseño": [
+    "2010s"
+   ],
+   "Negro mate / latón / sensor": [
     "2020s"
    ]
   },
@@ -7823,6 +10062,56 @@
     "1980s",
     "1990s",
     "2000s"
+   ],
+   "Con baño, al fondo": [
+    "1900s",
+    "1910s"
+   ],
+   "Con baño": [
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Más chico": [
+    "1970s",
+    "1980s"
+   ],
+   "Reducido u opcional": [
+    "1990s",
+    "2000s"
+   ],
+   "Rara vez": [
+    "2010s"
+   ],
+   "Ausente, salvo lujo": [
+    "2020s"
+   ],
+   "Patio con lavaderos": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Patio de lavado": [
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Área de lavado": [
+    "1970s",
+    "1980s"
+   ],
+   "Clóset de lavado (nicho)": [
+    "1990s"
+   ],
+   "Nicho para lavadora": [
+    "2000s",
+    "2010s"
+   ],
+   "Solo salida, sin cuarto": [
+    "2020s"
    ]
   },
   "niveles": {
@@ -7902,6 +10191,37 @@
    ],
    "Muebles abiertos en vestidor, sin puerta": [
     "2010s",
+    "2020s"
+   ],
+   "Ropero exento": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Nicho de obra / ropero": [
+    "1940s",
+    "1950s"
+   ],
+   "Nicho de obra": [
+    "1960s"
+   ],
+   "Pino, persiana o abatible": [
+    "1970s"
+   ],
+   "Pino / laminado": [
+    "1980s"
+   ],
+   "Melamina, corrediza": [
+    "1990s"
+   ],
+   "Melamina": [
+    "2000s"
+   ],
+   "Melamina / vestidor": [
+    "2010s"
+   ],
+   "Vestidor integrado, sin puerta": [
     "2020s"
    ]
   },
@@ -8252,6 +10572,57 @@
    "Climatizacion Inverter oculta en plafon con difusores lineales": [
     "2010s",
     "2020s"
+   ],
+   "Cooler evaporativo (incipiente)": [
+    "1950s"
+   ],
+   "Cooler evaporativo": [
+    "1960s"
+   ],
+   "Cooler / ventana en alto": [
+    "1970s"
+   ],
+   "AC de ventana (hueco en muro)": [
+    "1980s"
+   ],
+   "AC de ventana": [
+    "1990s"
+   ],
+   "Minisplit": [
+    "2000s",
+    "2010s"
+   ],
+   "Minisplit inverter / central": [
+    "2020s"
+   ],
+   "Cruzada por patio": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Celosía / tragaluz": [
+    "1930s",
+    "1940s",
+    "1950s"
+   ],
+   "Celosía de concreto": [
+    "1960s"
+   ],
+   "Ducto y extractor en baño interior": [
+    "1970s"
+   ],
+   "Extractor en baño": [
+    "1980s"
+   ],
+   "Extractor mecánico": [
+    "1990s",
+    "2000s"
+   ],
+   "Ductos verticales (torre)": [
+    "2010s"
+   ],
+   "Ventilación mecánica; baño ciego": [
+    "2020s"
    ]
   },
   "domos_tragaluces": {
@@ -8291,6 +10662,45 @@
    ],
    "Escalera flotante/volada, peldanos de madera sobre mazo o muro": [
     "2010s",
+    "2020s"
+   ],
+   "Forja artesanal": [
+    "1900s"
+   ],
+   "Forja sobria / balcón de fierro": [
+    "1910s"
+   ],
+   "Reja baja de jardín": [
+    "1920s"
+   ],
+   "Herrería geométrica déco": [
+    "1930s"
+   ],
+   "Tubular delgada": [
+    "1940s"
+   ],
+   "Tubular lisa": [
+    "1950s"
+   ],
+   "Forjada fina / tubular": [
+    "1960s"
+   ],
+   "Tubular liso": [
+    "1970s"
+   ],
+   "Negra tubular": [
+    "1980s"
+   ],
+   "Aluminio café / forja": [
+    "1990s"
+   ],
+   "Minimalista, barrotes rectos": [
+    "2000s"
+   ],
+   "Pletina + cristal templado": [
+    "2010s"
+   ],
+   "Cristal sin marco / cable de acero": [
     "2020s"
    ]
   },
@@ -8341,6 +10751,37 @@
    "Instalaciones 100% electricas (induccion + boiler electrico)": [
     "2010s",
     "2020s"
+   ],
+   "Leña / depósito": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Depósito": [
+    "1930s"
+   ],
+   "Gas de depósito, piloto": [
+    "1940s",
+    "1950s"
+   ],
+   "Gas de depósito automático": [
+    "1960s",
+    "1970s"
+   ],
+   "Depósito / de paso": [
+    "1980s"
+   ],
+   "Depósito / primeros de paso": [
+    "1990s"
+   ],
+   "De paso instantáneo (2003+)": [
+    "2000s"
+   ],
+   "De paso": [
+    "2010s"
+   ],
+   "Solar obligatorio + de paso": [
+    "2020s"
    ]
   },
   "instalaciones_especiales": {
@@ -8378,6 +10819,35 @@
     "2010s",
     "2020s"
    ]
+  },
+  "instalacion_gas": {
+   "Leña / carbón": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Cilindro de gas LP": [
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Cilindro / estacionario": [
+    "1970s"
+   ],
+   "Estacionario": [
+    "1980s"
+   ],
+   "Estacionario en azotea": [
+    "1990s",
+    "2000s"
+   ],
+   "Centralizado con medidores": [
+    "2010s"
+   ],
+   "Gas natural o induccion electrica": [
+    "2020s"
+   ]
   }
  },
  "5": {
@@ -8395,10 +10865,9 @@
     "1970s"
    ],
    "Cantera labrada": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s"
+    "1980s",
+    "1990s",
+    "2000s"
    ],
    "Texturizado": [
     "1980s"
@@ -8567,6 +11036,39 @@
     "1980s",
     "1990s",
     "2000s"
+   ],
+   "(aljibe / tanque de mampostería)": [
+    "1900s"
+   ],
+   "(aljibe)": [
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Aljibe; tanque de lámina": [
+    "1940s"
+   ],
+   "Asbesto-cemento incipiente": [
+    "1950s"
+   ],
+   "Asbesto-cemento visible": [
+    "1960s"
+   ],
+   "Asbesto-cemento": [
+    "1970s",
+    "1980s"
+   ],
+   "Polietileno negro (1989+)": [
+    "1990s"
+   ],
+   "Polietileno, empieza a ocultarse": [
+    "2000s"
+   ],
+   "Polietileno oculto tras pretil": [
+    "2010s"
+   ],
+   "Cisterna+hidroneumático (alto) / polietileno expuesto (IS)": [
+    "2020s"
    ]
   },
   "piso": {
@@ -8683,6 +11185,39 @@
    ],
    "Vinilico/SPC click": [
     "2010s",
+    "2020s"
+   ],
+   "Tierra / empedrado": [
+    "1900s",
+    "1910s"
+   ],
+   "Empedrado": [
+    "1920s"
+   ],
+   "Cemento incipiente": [
+    "1930s"
+   ],
+   "Cemento escobillado": [
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Cemento completo o huellas": [
+    "1970s"
+   ],
+   "Cemento / huellas": [
+    "1980s"
+   ],
+   "Adoquín o piedra": [
+    "1990s"
+   ],
+   "Adoquín / piedra": [
+    "2000s"
+   ],
+   "Adoquín / estampado": [
+    "2010s"
+   ],
+   "Porcelánico ext. / huellas con jardín": [
     "2020s"
    ]
   },
@@ -8981,6 +11516,68 @@
    "Melamina imitacion chocolate/nogal": [
     "2000s",
     "2010s"
+   ],
+   "Mueble de obra + azulejo": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Fórmica": [
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Fórmica / melamina": [
+    "1970s"
+   ],
+   "Azulejo / granito": [
+    "1980s"
+   ],
+   "Azulejo → granito": [
+    "1990s"
+   ],
+   "Granito nacional / cuarzo": [
+    "2000s"
+   ],
+   "Cuarzo": [
+    "2010s"
+   ],
+   "Superficie sinterizada": [
+    "2020s"
+   ],
+   "Mampostería / fierro esmaltado": [
+    "1900s"
+   ],
+   "Mampostería": [
+    "1910s",
+    "1920s"
+   ],
+   "Fierro esmaltado": [
+    "1930s"
+   ],
+   "Peltre": [
+    "1940s"
+   ],
+   "Peltre o inox temprano": [
+    "1950s"
+   ],
+   "Peltre / inox": [
+    "1960s"
+   ],
+   "Inox sobre cubierta": [
+    "1970s",
+    "1980s"
+   ],
+   "Inox con escurridor": [
+    "1990s",
+    "2000s"
+   ],
+   "Inox submontada": [
+    "2010s"
+   ],
+   "Submontada / integrada": [
+    "2020s"
    ]
   },
   "instalacion": {
@@ -9155,6 +11752,19 @@
     "2000s",
     "2010s",
     "2020s"
+   ],
+   "Seg. media-alta (inicio)": [
+    "1940s"
+   ],
+   "Seg. media a residencial": [
+    "1950s",
+    "1960s"
+   ],
+   "Media: vigente · Alta: en declive": [
+    "1970s"
+   ],
+   "Fase terminal / remodelaciones": [
+    "1980s"
    ]
   },
   "espejo": {
@@ -9179,6 +11789,41 @@
    ],
    "Tira LED perimetral, antivaho / Bluetooth": [
     "2010s",
+    "2020s"
+   ],
+   "Madera tallada, ovalado": [
+    "1900s"
+   ],
+   "Madera tallada": [
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Botiquín empotrado, biselado": [
+    "1940s"
+   ],
+   "Botiquín empotrado": [
+    "1950s"
+   ],
+   "Botiquín / panorámico": [
+    "1960s"
+   ],
+   "Panorámico + regleta Hollywood": [
+    "1970s"
+   ],
+   "Panorámico": [
+    "1980s"
+   ],
+   "Sin marco (frameless)": [
+    "1990s"
+   ],
+   "Frameless": [
+    "2000s"
+   ],
+   "Frameless + luz indirecta": [
+    "2010s"
+   ],
+   "LED perimetral, antivaho": [
     "2020s"
    ]
   },
@@ -9216,14 +11861,49 @@
    "Formato grande sin cenefa, a toda altura (30x60+)": [
     "2010s",
     "2020s"
+   ],
+   "Blanco 10×10": [
+    "1900s",
+    "1910s"
+   ],
+   "Pasta 10×10": [
+    "1920s"
+   ],
+   "Pastel 10×10": [
+    "1930s"
+   ],
+   "Blanco/pastel 10×10": [
+    "1940s"
+   ],
+   "Blanco/pastel 11×11": [
+    "1950s"
+   ],
+   "Relieve tierra": [
+    "1960s"
+   ],
+   "Color 11×11/15×15": [
+    "1970s"
+   ],
+   "Decorado con cenefa 15×15": [
+    "1980s"
+   ],
+   "Cenefa 15×15/20×20": [
+    "1990s"
+   ],
+   "Cenefa decreciente 25×33": [
+    "2000s"
+   ],
+   "A toda altura, sin cenefa": [
+    "2010s"
+   ],
+   "Porcelánico gran formato": [
+    "2020s"
    ]
   },
   "wc": {
    "Tanque alto con cadena": [
     "1900s",
-    "1910s",
-    "1920s",
-    "1930s"
+    "1910s"
    ],
    "Tanque bajo loza color pastel (rosa/verde/azul/beige)": [
     "1950s",
@@ -9245,6 +11925,31 @@
    ],
    "Suspendido a pared / empotrado": [
     "2010s",
+    "2020s"
+   ],
+   "Tanque alto": [
+    "1920s",
+    "1930s"
+   ],
+   "Tanque bajo blanco": [
+    "1940s",
+    "1950s"
+   ],
+   "Tanque bajo, colores": [
+    "1960s",
+    "1970s"
+   ],
+   "Dos piezas, color": [
+    "1980s"
+   ],
+   "Dos piezas blanco": [
+    "1990s",
+    "2000s"
+   ],
+   "Bajo consumo, faldón": [
+    "2010s"
+   ],
+   "Una pieza / suspendido": [
     "2020s"
    ]
   },
@@ -9334,6 +12039,37 @@
    ],
    "Monomando empotrado en muro / lluvia": [
     "2010s",
+    "2020s"
+   ],
+   "Llaves separadas de cruz": [
+    "1900s",
+    "1910s"
+   ],
+   "Llaves separadas": [
+    "1920s",
+    "1930s"
+   ],
+   "Llaves separadas cromadas": [
+    "1940s",
+    "1950s"
+   ],
+   "Mezcladora de dos manijas": [
+    "1960s",
+    "1970s"
+   ],
+   "Mezcladora": [
+    "1980s"
+   ],
+   "Monomando incipiente (alta)": [
+    "1990s"
+   ],
+   "Monomando": [
+    "2000s"
+   ],
+   "Monomando de diseño": [
+    "2010s"
+   ],
+   "Negro mate / latón / sensor": [
     "2020s"
    ]
   },
@@ -9479,6 +12215,56 @@
     "1980s",
     "1990s",
     "2000s"
+   ],
+   "Con baño, al fondo": [
+    "1900s",
+    "1910s"
+   ],
+   "Con baño": [
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Más chico": [
+    "1970s",
+    "1980s"
+   ],
+   "Reducido u opcional": [
+    "1990s",
+    "2000s"
+   ],
+   "Rara vez": [
+    "2010s"
+   ],
+   "Ausente, salvo lujo": [
+    "2020s"
+   ],
+   "Patio con lavaderos": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Patio de lavado": [
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Área de lavado": [
+    "1970s",
+    "1980s"
+   ],
+   "Clóset de lavado (nicho)": [
+    "1990s"
+   ],
+   "Nicho para lavadora": [
+    "2000s",
+    "2010s"
+   ],
+   "Solo salida, sin cuarto": [
+    "2020s"
    ]
   },
   "niveles": {
@@ -9558,6 +12344,37 @@
    ],
    "Muebles abiertos en vestidor, sin puerta": [
     "2010s",
+    "2020s"
+   ],
+   "Ropero exento": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Nicho de obra / ropero": [
+    "1940s",
+    "1950s"
+   ],
+   "Nicho de obra": [
+    "1960s"
+   ],
+   "Pino, persiana o abatible": [
+    "1970s"
+   ],
+   "Pino / laminado": [
+    "1980s"
+   ],
+   "Melamina, corrediza": [
+    "1990s"
+   ],
+   "Melamina": [
+    "2000s"
+   ],
+   "Melamina / vestidor": [
+    "2010s"
+   ],
+   "Vestidor integrado, sin puerta": [
     "2020s"
    ]
   },
@@ -9908,6 +12725,57 @@
    "Climatizacion Inverter oculta en plafon con difusores lineales": [
     "2010s",
     "2020s"
+   ],
+   "Cooler evaporativo (incipiente)": [
+    "1950s"
+   ],
+   "Cooler evaporativo": [
+    "1960s"
+   ],
+   "Cooler / ventana en alto": [
+    "1970s"
+   ],
+   "AC de ventana (hueco en muro)": [
+    "1980s"
+   ],
+   "AC de ventana": [
+    "1990s"
+   ],
+   "Minisplit": [
+    "2000s",
+    "2010s"
+   ],
+   "Minisplit inverter / central": [
+    "2020s"
+   ],
+   "Cruzada por patio": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Celosía / tragaluz": [
+    "1930s",
+    "1940s",
+    "1950s"
+   ],
+   "Celosía de concreto": [
+    "1960s"
+   ],
+   "Ducto y extractor en baño interior": [
+    "1970s"
+   ],
+   "Extractor en baño": [
+    "1980s"
+   ],
+   "Extractor mecánico": [
+    "1990s",
+    "2000s"
+   ],
+   "Ductos verticales (torre)": [
+    "2010s"
+   ],
+   "Ventilación mecánica; baño ciego": [
+    "2020s"
    ]
   },
   "domos_tragaluces": {
@@ -9947,6 +12815,45 @@
    ],
    "Escalera flotante/volada, peldanos de madera sobre mazo o muro": [
     "2010s",
+    "2020s"
+   ],
+   "Forja artesanal": [
+    "1900s"
+   ],
+   "Forja sobria / balcón de fierro": [
+    "1910s"
+   ],
+   "Reja baja de jardín": [
+    "1920s"
+   ],
+   "Herrería geométrica déco": [
+    "1930s"
+   ],
+   "Tubular delgada": [
+    "1940s"
+   ],
+   "Tubular lisa": [
+    "1950s"
+   ],
+   "Forjada fina / tubular": [
+    "1960s"
+   ],
+   "Tubular liso": [
+    "1970s"
+   ],
+   "Negra tubular": [
+    "1980s"
+   ],
+   "Aluminio café / forja": [
+    "1990s"
+   ],
+   "Minimalista, barrotes rectos": [
+    "2000s"
+   ],
+   "Pletina + cristal templado": [
+    "2010s"
+   ],
+   "Cristal sin marco / cable de acero": [
     "2020s"
    ]
   },
@@ -9997,6 +12904,37 @@
    "Instalaciones 100% electricas (induccion + boiler electrico)": [
     "2010s",
     "2020s"
+   ],
+   "Leña / depósito": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Depósito": [
+    "1930s"
+   ],
+   "Gas de depósito, piloto": [
+    "1940s",
+    "1950s"
+   ],
+   "Gas de depósito automático": [
+    "1960s",
+    "1970s"
+   ],
+   "Depósito / de paso": [
+    "1980s"
+   ],
+   "Depósito / primeros de paso": [
+    "1990s"
+   ],
+   "De paso instantáneo (2003+)": [
+    "2000s"
+   ],
+   "De paso": [
+    "2010s"
+   ],
+   "Solar obligatorio + de paso": [
+    "2020s"
    ]
   },
   "instalaciones_especiales": {
@@ -10034,6 +12972,35 @@
     "2010s",
     "2020s"
    ]
+  },
+  "instalacion_gas": {
+   "Leña / carbón": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Cilindro de gas LP": [
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Cilindro / estacionario": [
+    "1970s"
+   ],
+   "Estacionario": [
+    "1980s"
+   ],
+   "Estacionario en azotea": [
+    "1990s",
+    "2000s"
+   ],
+   "Centralizado con medidores": [
+    "2010s"
+   ],
+   "Gas natural o induccion electrica": [
+    "2020s"
+   ]
   }
  },
  "6": {
@@ -10053,10 +13020,10 @@
     "2010s"
    ],
    "Cantera labrada": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s"
+    "1940s",
+    "1960s",
+    "1980s",
+    "1990s"
    ],
    "Concreto aparente": [
     "1970s",
@@ -10284,6 +13251,39 @@
    ],
    "Vinilico/SPC click": [
     "2010s",
+    "2020s"
+   ],
+   "Tierra / empedrado": [
+    "1900s",
+    "1910s"
+   ],
+   "Empedrado": [
+    "1920s"
+   ],
+   "Cemento incipiente": [
+    "1930s"
+   ],
+   "Cemento escobillado": [
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Cemento completo o huellas": [
+    "1970s"
+   ],
+   "Cemento / huellas": [
+    "1980s"
+   ],
+   "Adoquín o piedra": [
+    "1990s"
+   ],
+   "Adoquín / piedra": [
+    "2000s"
+   ],
+   "Adoquín / estampado": [
+    "2010s"
+   ],
+   "Porcelánico ext. / huellas con jardín": [
     "2020s"
    ]
   },
@@ -10562,6 +13562,39 @@
     "1980s",
     "1990s",
     "2000s"
+   ],
+   "(aljibe / tanque de mampostería)": [
+    "1900s"
+   ],
+   "(aljibe)": [
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Aljibe; tanque de lámina": [
+    "1940s"
+   ],
+   "Asbesto-cemento incipiente": [
+    "1950s"
+   ],
+   "Asbesto-cemento visible": [
+    "1960s"
+   ],
+   "Asbesto-cemento": [
+    "1970s",
+    "1980s"
+   ],
+   "Polietileno negro (1989+)": [
+    "1990s"
+   ],
+   "Polietileno, empieza a ocultarse": [
+    "2000s"
+   ],
+   "Polietileno oculto tras pretil": [
+    "2010s"
+   ],
+   "Cisterna+hidroneumático (alto) / polietileno expuesto (IS)": [
+    "2020s"
    ]
   },
   "cocina": {
@@ -10636,6 +13669,68 @@
    "Melamina imitacion chocolate/nogal": [
     "2000s",
     "2010s"
+   ],
+   "Mueble de obra + azulejo": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Fórmica": [
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Fórmica / melamina": [
+    "1970s"
+   ],
+   "Azulejo / granito": [
+    "1980s"
+   ],
+   "Azulejo → granito": [
+    "1990s"
+   ],
+   "Granito nacional / cuarzo": [
+    "2000s"
+   ],
+   "Cuarzo": [
+    "2010s"
+   ],
+   "Superficie sinterizada": [
+    "2020s"
+   ],
+   "Mampostería / fierro esmaltado": [
+    "1900s"
+   ],
+   "Mampostería": [
+    "1910s",
+    "1920s"
+   ],
+   "Fierro esmaltado": [
+    "1930s"
+   ],
+   "Peltre": [
+    "1940s"
+   ],
+   "Peltre o inox temprano": [
+    "1950s"
+   ],
+   "Peltre / inox": [
+    "1960s"
+   ],
+   "Inox sobre cubierta": [
+    "1970s",
+    "1980s"
+   ],
+   "Inox con escurridor": [
+    "1990s",
+    "2000s"
+   ],
+   "Inox submontada": [
+    "2010s"
+   ],
+   "Submontada / integrada": [
+    "2020s"
    ]
   },
   "instalacion": {
@@ -10810,6 +13905,19 @@
     "2000s",
     "2010s",
     "2020s"
+   ],
+   "Seg. media-alta (inicio)": [
+    "1940s"
+   ],
+   "Seg. media a residencial": [
+    "1950s",
+    "1960s"
+   ],
+   "Media: vigente · Alta: en declive": [
+    "1970s"
+   ],
+   "Fase terminal / remodelaciones": [
+    "1980s"
    ]
   },
   "espejo": {
@@ -10834,6 +13942,41 @@
    ],
    "Tira LED perimetral, antivaho / Bluetooth": [
     "2010s",
+    "2020s"
+   ],
+   "Madera tallada, ovalado": [
+    "1900s"
+   ],
+   "Madera tallada": [
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Botiquín empotrado, biselado": [
+    "1940s"
+   ],
+   "Botiquín empotrado": [
+    "1950s"
+   ],
+   "Botiquín / panorámico": [
+    "1960s"
+   ],
+   "Panorámico + regleta Hollywood": [
+    "1970s"
+   ],
+   "Panorámico": [
+    "1980s"
+   ],
+   "Sin marco (frameless)": [
+    "1990s"
+   ],
+   "Frameless": [
+    "2000s"
+   ],
+   "Frameless + luz indirecta": [
+    "2010s"
+   ],
+   "LED perimetral, antivaho": [
     "2020s"
    ]
   },
@@ -10871,14 +14014,49 @@
    "Formato grande sin cenefa, a toda altura (30x60+)": [
     "2010s",
     "2020s"
+   ],
+   "Blanco 10×10": [
+    "1900s",
+    "1910s"
+   ],
+   "Pasta 10×10": [
+    "1920s"
+   ],
+   "Pastel 10×10": [
+    "1930s"
+   ],
+   "Blanco/pastel 10×10": [
+    "1940s"
+   ],
+   "Blanco/pastel 11×11": [
+    "1950s"
+   ],
+   "Relieve tierra": [
+    "1960s"
+   ],
+   "Color 11×11/15×15": [
+    "1970s"
+   ],
+   "Decorado con cenefa 15×15": [
+    "1980s"
+   ],
+   "Cenefa 15×15/20×20": [
+    "1990s"
+   ],
+   "Cenefa decreciente 25×33": [
+    "2000s"
+   ],
+   "A toda altura, sin cenefa": [
+    "2010s"
+   ],
+   "Porcelánico gran formato": [
+    "2020s"
    ]
   },
   "wc": {
    "Tanque alto con cadena": [
     "1900s",
-    "1910s",
-    "1920s",
-    "1930s"
+    "1910s"
    ],
    "Tanque bajo loza color pastel (rosa/verde/azul/beige)": [
     "1950s",
@@ -10900,6 +14078,31 @@
    ],
    "Suspendido a pared / empotrado": [
     "2010s",
+    "2020s"
+   ],
+   "Tanque alto": [
+    "1920s",
+    "1930s"
+   ],
+   "Tanque bajo blanco": [
+    "1940s",
+    "1950s"
+   ],
+   "Tanque bajo, colores": [
+    "1960s",
+    "1970s"
+   ],
+   "Dos piezas, color": [
+    "1980s"
+   ],
+   "Dos piezas blanco": [
+    "1990s",
+    "2000s"
+   ],
+   "Bajo consumo, faldón": [
+    "2010s"
+   ],
+   "Una pieza / suspendido": [
     "2020s"
    ]
   },
@@ -10989,6 +14192,37 @@
    ],
    "Monomando empotrado en muro / lluvia": [
     "2010s",
+    "2020s"
+   ],
+   "Llaves separadas de cruz": [
+    "1900s",
+    "1910s"
+   ],
+   "Llaves separadas": [
+    "1920s",
+    "1930s"
+   ],
+   "Llaves separadas cromadas": [
+    "1940s",
+    "1950s"
+   ],
+   "Mezcladora de dos manijas": [
+    "1960s",
+    "1970s"
+   ],
+   "Mezcladora": [
+    "1980s"
+   ],
+   "Monomando incipiente (alta)": [
+    "1990s"
+   ],
+   "Monomando": [
+    "2000s"
+   ],
+   "Monomando de diseño": [
+    "2010s"
+   ],
+   "Negro mate / latón / sensor": [
     "2020s"
    ]
   },
@@ -11134,6 +14368,56 @@
     "1980s",
     "1990s",
     "2000s"
+   ],
+   "Con baño, al fondo": [
+    "1900s",
+    "1910s"
+   ],
+   "Con baño": [
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Más chico": [
+    "1970s",
+    "1980s"
+   ],
+   "Reducido u opcional": [
+    "1990s",
+    "2000s"
+   ],
+   "Rara vez": [
+    "2010s"
+   ],
+   "Ausente, salvo lujo": [
+    "2020s"
+   ],
+   "Patio con lavaderos": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Patio de lavado": [
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Área de lavado": [
+    "1970s",
+    "1980s"
+   ],
+   "Clóset de lavado (nicho)": [
+    "1990s"
+   ],
+   "Nicho para lavadora": [
+    "2000s",
+    "2010s"
+   ],
+   "Solo salida, sin cuarto": [
+    "2020s"
    ]
   },
   "niveles": {
@@ -11213,6 +14497,37 @@
    ],
    "Muebles abiertos en vestidor, sin puerta": [
     "2010s",
+    "2020s"
+   ],
+   "Ropero exento": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Nicho de obra / ropero": [
+    "1940s",
+    "1950s"
+   ],
+   "Nicho de obra": [
+    "1960s"
+   ],
+   "Pino, persiana o abatible": [
+    "1970s"
+   ],
+   "Pino / laminado": [
+    "1980s"
+   ],
+   "Melamina, corrediza": [
+    "1990s"
+   ],
+   "Melamina": [
+    "2000s"
+   ],
+   "Melamina / vestidor": [
+    "2010s"
+   ],
+   "Vestidor integrado, sin puerta": [
     "2020s"
    ]
   },
@@ -11563,6 +14878,57 @@
    "Climatizacion Inverter oculta en plafon con difusores lineales": [
     "2010s",
     "2020s"
+   ],
+   "Cooler evaporativo (incipiente)": [
+    "1950s"
+   ],
+   "Cooler evaporativo": [
+    "1960s"
+   ],
+   "Cooler / ventana en alto": [
+    "1970s"
+   ],
+   "AC de ventana (hueco en muro)": [
+    "1980s"
+   ],
+   "AC de ventana": [
+    "1990s"
+   ],
+   "Minisplit": [
+    "2000s",
+    "2010s"
+   ],
+   "Minisplit inverter / central": [
+    "2020s"
+   ],
+   "Cruzada por patio": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Celosía / tragaluz": [
+    "1930s",
+    "1940s",
+    "1950s"
+   ],
+   "Celosía de concreto": [
+    "1960s"
+   ],
+   "Ducto y extractor en baño interior": [
+    "1970s"
+   ],
+   "Extractor en baño": [
+    "1980s"
+   ],
+   "Extractor mecánico": [
+    "1990s",
+    "2000s"
+   ],
+   "Ductos verticales (torre)": [
+    "2010s"
+   ],
+   "Ventilación mecánica; baño ciego": [
+    "2020s"
    ]
   },
   "domos_tragaluces": {
@@ -11602,6 +14968,45 @@
    ],
    "Escalera flotante/volada, peldanos de madera sobre mazo o muro": [
     "2010s",
+    "2020s"
+   ],
+   "Forja artesanal": [
+    "1900s"
+   ],
+   "Forja sobria / balcón de fierro": [
+    "1910s"
+   ],
+   "Reja baja de jardín": [
+    "1920s"
+   ],
+   "Herrería geométrica déco": [
+    "1930s"
+   ],
+   "Tubular delgada": [
+    "1940s"
+   ],
+   "Tubular lisa": [
+    "1950s"
+   ],
+   "Forjada fina / tubular": [
+    "1960s"
+   ],
+   "Tubular liso": [
+    "1970s"
+   ],
+   "Negra tubular": [
+    "1980s"
+   ],
+   "Aluminio café / forja": [
+    "1990s"
+   ],
+   "Minimalista, barrotes rectos": [
+    "2000s"
+   ],
+   "Pletina + cristal templado": [
+    "2010s"
+   ],
+   "Cristal sin marco / cable de acero": [
     "2020s"
    ]
   },
@@ -11652,6 +15057,37 @@
    "Instalaciones 100% electricas (induccion + boiler electrico)": [
     "2010s",
     "2020s"
+   ],
+   "Leña / depósito": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Depósito": [
+    "1930s"
+   ],
+   "Gas de depósito, piloto": [
+    "1940s",
+    "1950s"
+   ],
+   "Gas de depósito automático": [
+    "1960s",
+    "1970s"
+   ],
+   "Depósito / de paso": [
+    "1980s"
+   ],
+   "Depósito / primeros de paso": [
+    "1990s"
+   ],
+   "De paso instantáneo (2003+)": [
+    "2000s"
+   ],
+   "De paso": [
+    "2010s"
+   ],
+   "Solar obligatorio + de paso": [
+    "2020s"
    ]
   },
   "instalaciones_especiales": {
@@ -11689,6 +15125,35 @@
     "2010s",
     "2020s"
    ]
+  },
+  "instalacion_gas": {
+   "Leña / carbón": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Cilindro de gas LP": [
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Cilindro / estacionario": [
+    "1970s"
+   ],
+   "Estacionario": [
+    "1980s"
+   ],
+   "Estacionario en azotea": [
+    "1990s",
+    "2000s"
+   ],
+   "Centralizado con medidores": [
+    "2010s"
+   ],
+   "Gas natural o induccion electrica": [
+    "2020s"
+   ]
   }
  },
  "discrimina": {
@@ -11696,7 +15161,7 @@
    "Adobe": false,
    "Block enjarrado y pintado": false,
    "Tabique o block APARENTE": false,
-   "Cantera labrada": true,
+   "Cantera labrada": false,
    "Concreto aparente": true,
    "Texturizado": true,
    "Prefabricado": true,
@@ -11729,7 +15194,17 @@
    "Aljibe/cisterna de concreto armado": false,
    "Bomba/equipo hidroneumatico clasico (tanque con burbuja de aire)": true,
    "Bomba de presion constante / variador de frecuencia": true,
-   "Aljibe + tinaco combinados a la vez": true
+   "Aljibe + tinaco combinados a la vez": true,
+   "(aljibe / tanque de mampostería)": true,
+   "(aljibe)": true,
+   "Aljibe; tanque de lámina": true,
+   "Asbesto-cemento incipiente": true,
+   "Asbesto-cemento visible": true,
+   "Asbesto-cemento": true,
+   "Polietileno negro (1989+)": true,
+   "Polietileno, empieza a ocultarse": true,
+   "Polietileno oculto tras pretil": true,
+   "Cisterna+hidroneumático (alto) / polietileno expuesto (IS)": true
   },
   "piso": {
    "Tierra o firme de cemento": false,
@@ -11757,7 +15232,17 @@
    "Porcelanato acabado brillante": true,
    "Porcelanato imitacion piedra/madera texturizado": true,
    "Laminado (imitacion madera sobre HDF)": true,
-   "Vinilico/SPC click": true
+   "Vinilico/SPC click": true,
+   "Tierra / empedrado": true,
+   "Empedrado": true,
+   "Cemento incipiente": true,
+   "Cemento escobillado": true,
+   "Cemento completo o huellas": true,
+   "Cemento / huellas": true,
+   "Adoquín o piedra": true,
+   "Adoquín / piedra": true,
+   "Adoquín / estampado": true,
+   "Porcelánico ext. / huellas con jardín": true
   },
   "herreria": {
    "Forjada o artistica": false,
@@ -11826,7 +15311,25 @@
    "Lavavajillas de empotre": true,
    "Mueble de obra revestido de azulejo/mosaico": true,
    "Melamina imitacion madera miel/cerezo": true,
-   "Melamina imitacion chocolate/nogal": true
+   "Melamina imitacion chocolate/nogal": true,
+   "Mueble de obra + azulejo": true,
+   "Fórmica": true,
+   "Fórmica / melamina": true,
+   "Azulejo / granito": true,
+   "Azulejo → granito": true,
+   "Granito nacional / cuarzo": true,
+   "Cuarzo": true,
+   "Superficie sinterizada": true,
+   "Mampostería / fierro esmaltado": true,
+   "Mampostería": true,
+   "Fierro esmaltado": true,
+   "Peltre": true,
+   "Peltre o inox temprano": true,
+   "Peltre / inox": true,
+   "Inox sobre cubierta": true,
+   "Inox con escurridor": true,
+   "Inox submontada": true,
+   "Submontada / integrada": true
   },
   "instalacion": {
    "Alambre con forro de tela + conduit visible": false,
@@ -11859,14 +15362,29 @@
    "Tina encajonada en mamposteria forrada de azulejo (seg 3-6)": false,
    "Barandal/cancel de escalera, herreria o madera tradicional": false,
    "Barandal/cancel de escalera, cristal templado / acero inox": true,
-   "Cancel de PVC": true
+   "Cancel de PVC": true,
+   "Seg. media-alta (inicio)": true,
+   "Seg. media a residencial": true,
+   "Media: vigente · Alta: en declive": true,
+   "Fase terminal / remodelaciones": true
   },
   "espejo": {
    "Apliques laterales, luna de azogue pesado": true,
    "Botiquin empotrado + tubo fluorescente": true,
    "Regleta Hollywood (focos al descubierto), grapas cromadas": true,
    "Sin marco (frameless), dicroicos empotrados": true,
-   "Tira LED perimetral, antivaho / Bluetooth": true
+   "Tira LED perimetral, antivaho / Bluetooth": true,
+   "Madera tallada, ovalado": true,
+   "Madera tallada": true,
+   "Botiquín empotrado, biselado": true,
+   "Botiquín empotrado": true,
+   "Botiquín / panorámico": true,
+   "Panorámico + regleta Hollywood": true,
+   "Panorámico": true,
+   "Sin marco (frameless)": true,
+   "Frameless": true,
+   "Frameless + luz indirecta": true,
+   "LED perimetral, antivaho": true
   },
   "azulejo_bano": {
    "Blanco liso chico (10x10-11x11)": true,
@@ -11876,7 +15394,19 @@
    "Cenefa decorativa, formato creciente (20x20-30x60)": true,
    "Cenefa relieve floral (5x20 u 8x25cm)": true,
    "Cenefa mosaico veneciano en tira": true,
-   "Formato grande sin cenefa, a toda altura (30x60+)": true
+   "Formato grande sin cenefa, a toda altura (30x60+)": true,
+   "Blanco 10×10": true,
+   "Pasta 10×10": true,
+   "Pastel 10×10": true,
+   "Blanco/pastel 10×10": true,
+   "Blanco/pastel 11×11": true,
+   "Relieve tierra": true,
+   "Color 11×11/15×15": true,
+   "Decorado con cenefa 15×15": true,
+   "Cenefa 15×15/20×20": true,
+   "Cenefa decreciente 25×33": true,
+   "A toda altura, sin cenefa": true,
+   "Porcelánico gran formato": true
   },
   "wc": {
    "Tanque alto con cadena": true,
@@ -11884,7 +15414,14 @@
    "Tanque bajo 6 litros (ahorrador)": true,
    "Monoblock (una sola pieza)": true,
    "Dual flush / ecologico": true,
-   "Suspendido a pared / empotrado": true
+   "Suspendido a pared / empotrado": true,
+   "Tanque alto": true,
+   "Tanque bajo blanco": true,
+   "Tanque bajo, colores": true,
+   "Dos piezas, color": true,
+   "Dos piezas blanco": true,
+   "Bajo consumo, faldón": true,
+   "Una pieza / suspendido": true
   },
   "lavabo": {
    "De mamposteria / obra": false,
@@ -11906,7 +15443,16 @@
    "Monomando cromado inicial": true,
    "Monomando de diseno (Moen/Helvex)": true,
    "Monomando negro mate / laton cepillado": true,
-   "Monomando empotrado en muro / lluvia": true
+   "Monomando empotrado en muro / lluvia": true,
+   "Llaves separadas de cruz": true,
+   "Llaves separadas": true,
+   "Llaves separadas cromadas": true,
+   "Mezcladora de dos manijas": true,
+   "Mezcladora": true,
+   "Monomando incipiente (alta)": true,
+   "Monomando": true,
+   "Monomando de diseño": true,
+   "Negro mate / latón / sensor": true
   },
   "fachada": {
    "Piedra laja pegada en faldones de fachada": true,
@@ -11938,7 +15484,19 @@
    "No existe cuarto de servicio (desaparecio)": true,
    "Closet de lavado (sustituto compacto)": true,
    "Ubicado en azotea / 2do nivel (arriba)": true,
-   "Ubicado en planta baja junto al patio de servicio": true
+   "Ubicado en planta baja junto al patio de servicio": true,
+   "Con baño, al fondo": true,
+   "Con baño": false,
+   "Más chico": true,
+   "Reducido u opcional": true,
+   "Rara vez": true,
+   "Ausente, salvo lujo": true,
+   "Patio con lavaderos": true,
+   "Patio de lavado": true,
+   "Área de lavado": true,
+   "Clóset de lavado (nicho)": true,
+   "Nicho para lavadora": true,
+   "Solo salida, sin cuarto": true
   },
   "niveles": {
    "4-5 niveles SIN elevador (walk-up)": true,
@@ -11960,7 +15518,16 @@
    "Color claro (haya/maple)": true,
    "Color chocolate/wengue": true,
    "Melamina de color / tonos antracita/gris": true,
-   "Muebles abiertos en vestidor, sin puerta": true
+   "Muebles abiertos en vestidor, sin puerta": true,
+   "Ropero exento": true,
+   "Nicho de obra / ropero": true,
+   "Nicho de obra": true,
+   "Pino, persiana o abatible": true,
+   "Pino / laminado": true,
+   "Melamina, corrediza": true,
+   "Melamina": true,
+   "Melamina / vestidor": true,
+   "Vestidor integrado, sin puerta": true
   },
   "sanitaria": {
    "Tuberia de fierro fundido, union de plomo y estopa": false,
@@ -12039,7 +15606,22 @@
    "Ductos de aire lavado / calefaccion visibles en azotea o muro": true,
    "Ventiladores de techo con lampara (aspas de madera/laton)": true,
    "Aire acondicionado Mini-Split tradicional expuesto en pared": true,
-   "Climatizacion Inverter oculta en plafon con difusores lineales": true
+   "Climatizacion Inverter oculta en plafon con difusores lineales": true,
+   "Cooler evaporativo (incipiente)": true,
+   "Cooler evaporativo": true,
+   "Cooler / ventana en alto": true,
+   "AC de ventana (hueco en muro)": true,
+   "AC de ventana": true,
+   "Minisplit": true,
+   "Minisplit inverter / central": true,
+   "Cruzada por patio": true,
+   "Celosía / tragaluz": true,
+   "Celosía de concreto": true,
+   "Ducto y extractor en baño interior": true,
+   "Extractor en baño": true,
+   "Extractor mecánico": true,
+   "Ductos verticales (torre)": true,
+   "Ventilación mecánica; baño ciego": true
   },
   "domos_tragaluces": {
    "Domos de acrilico tipo burbuja amarillento/blanco, marco aluminio": true,
@@ -12051,7 +15633,20 @@
    "Escalera de concreto forrada en terrazo, perfil de laton antiderrapante": true,
    "Escalera de caracol metalica / lamina troquelada": true,
    "Escalera con alfombra integrada / estructura de concreto cerrada": true,
-   "Escalera flotante/volada, peldanos de madera sobre mazo o muro": true
+   "Escalera flotante/volada, peldanos de madera sobre mazo o muro": true,
+   "Forja artesanal": true,
+   "Forja sobria / balcón de fierro": true,
+   "Reja baja de jardín": true,
+   "Herrería geométrica déco": true,
+   "Tubular delgada": true,
+   "Tubular lisa": true,
+   "Forjada fina / tubular": true,
+   "Tubular liso": true,
+   "Negra tubular": true,
+   "Aluminio café / forja": true,
+   "Minimalista, barrotes rectos": true,
+   "Pletina + cristal templado": true,
+   "Cristal sin marco / cable de acero": true
   },
   "barda_protecciones": {
    "Vidrio picado/incrustado sobre mezcla en barda de piedra o tabique": true,
@@ -12065,7 +15660,16 @@
    "Calentador de paso de encendido manual": true,
    "Calentador de paso de rapida modulacion / digital (sin piloto)": true,
    "Calentador solar de tubos de vacio en azotea": true,
-   "Instalaciones 100% electricas (induccion + boiler electrico)": true
+   "Instalaciones 100% electricas (induccion + boiler electrico)": true,
+   "Leña / depósito": true,
+   "Depósito": true,
+   "Gas de depósito, piloto": true,
+   "Gas de depósito automático": true,
+   "Depósito / de paso": true,
+   "Depósito / primeros de paso": true,
+   "De paso instantáneo (2003+)": true,
+   "De paso": true,
+   "Solar obligatorio + de paso": true
   },
   "instalaciones_especiales": {
    "Cableado estructurado CAT 5e/6": true,
@@ -12076,6 +15680,15 @@
    "CCTV IP": true,
    "Domotica integrada de proyecto (KNX/cableado propio)": true,
    "Domotica de dispositivo suelto (Alexa/Google Home/apagador wifi)": true
+  },
+  "instalacion_gas": {
+   "Leña / carbón": true,
+   "Cilindro de gas LP": true,
+   "Cilindro / estacionario": true,
+   "Estacionario": true,
+   "Estacionario en azotea": true,
+   "Centralizado con medidores": true,
+   "Gas natural o induccion electrica": true
   }
  },
  "elementos_principales": [
@@ -12113,6 +15726,7 @@
   "agua",
   "ventilacion_clima",
   "gas_calentamiento",
+  "instalacion_gas",
   "instalaciones_especiales"
  ]
 }
