@@ -813,6 +813,13 @@
     "2010s",
     "2020s"
    ],
+   "Tina encajonada en mamposteria forrada de azulejo (seg 3-6)": [
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s"
+   ],
    "Barandal/cancel de escalera, herreria o madera tradicional": [
     "1950s",
     "1960s",
@@ -2431,6 +2438,13 @@
     "2010s",
     "2020s"
    ],
+   "Tina encajonada en mamposteria forrada de azulejo (seg 3-6)": [
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s"
+   ],
    "Barandal/cancel de escalera, herreria o madera tradicional": [
     "1950s",
     "1960s",
@@ -4043,6 +4057,13 @@
     "2000s",
     "2010s",
     "2020s"
+   ],
+   "Tina encajonada en mamposteria forrada de azulejo (seg 3-6)": [
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s"
    ],
    "Barandal/cancel de escalera, herreria o madera tradicional": [
     "1950s",
@@ -5659,6 +5680,13 @@
     "2010s",
     "2020s"
    ],
+   "Tina encajonada en mamposteria forrada de azulejo (seg 3-6)": [
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s"
+   ],
    "Barandal/cancel de escalera, herreria o madera tradicional": [
     "1950s",
     "1960s",
@@ -7269,6 +7297,13 @@
     "2010s",
     "2020s"
    ],
+   "Tina encajonada en mamposteria forrada de azulejo (seg 3-6)": [
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s"
+   ],
    "Barandal/cancel de escalera, herreria o madera tradicional": [
     "1950s",
     "1960s",
@@ -8873,6 +8908,13 @@
     "2010s",
     "2020s"
    ],
+   "Tina encajonada en mamposteria forrada de azulejo (seg 3-6)": [
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s"
+   ],
    "Barandal/cancel de escalera, herreria o madera tradicional": [
     "1950s",
     "1960s",
@@ -10476,6 +10518,13 @@
     "2010s",
     "2020s"
    ],
+   "Tina encajonada en mamposteria forrada de azulejo (seg 3-6)": [
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s"
+   ],
    "Barandal/cancel de escalera, herreria o madera tradicional": [
     "1950s",
     "1960s",
@@ -11492,6 +11541,7 @@
    "Cancel de cristal templado sin marco (frameless)": true,
    "Tina en bano principal": true,
    "Solo regadera, sin tina": true,
+   "Tina encajonada en mamposteria forrada de azulejo (seg 3-6)": false,
    "Barandal/cancel de escalera, herreria o madera tradicional": false,
    "Barandal/cancel de escalera, cristal templado / acero inox": true
   },
