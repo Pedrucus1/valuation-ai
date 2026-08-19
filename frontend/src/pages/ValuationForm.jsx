@@ -10,6 +10,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
+import IdentificadorEdadDialog from "@/components/IdentificadorEdadDialog";
 import {
   Building2,
   MapPin,
@@ -672,6 +673,7 @@ const ValuationForm = () => {
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [photoOrientations, setPhotoOrientations] = useState([]); // track vertical photos
   const [resetKey, setResetKey] = useState(0); // For forcing UI reset
+  const [identificadorOpen, setIdentificadorOpen] = useState(false); // Identificador de Edad
 
   const [formData, setFormData] = useState({
     // Step 1 - Location
@@ -1735,7 +1737,7 @@ const ValuationForm = () => {
                 Estos datos mejoran la precisión de la estimación
               </p>
 
-              <div className="grid md:grid-cols-2 gap-x-8 gap-y-0 items-end">
+              <div className="grid md:grid-cols-2 gap-x-8 gap-y-0 items-start">
               {/* ── COLUMNA IZQUIERDA ── */}
               <div className="flex flex-col gap-4">
 
@@ -1854,6 +1856,11 @@ const ValuationForm = () => {
                 </div>
               </div>
 
+              <button type="button" onClick={() => setIdentificadorOpen(true)}
+                      className="text-xs text-[#52B788] hover:text-[#40916C] font-semibold flex items-center gap-1 -mt-1">
+                <Search className="w-3 h-3" /> ¿No sabes la antigüedad? Identifícala por acabados
+              </button>
+
               {/* Quality and Conservation */}
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-2">
@@ -1950,7 +1957,7 @@ const ValuationForm = () => {
                 )}
               </div>
 
-              {/* Tipo de frente — al final de columna izquierda */}
+              {/* Tipo de frente — abajo de remodelación, al final de columna izquierda */}
               <div className="space-y-2">
                 <Label className="text-sm font-semibold text-[#1B4332] flex items-center gap-2">
                   <MapPin className="w-4 h-4 text-[#52B788]" /> ¿A cuántas calles da el inmueble?
@@ -2022,12 +2029,9 @@ const ValuationForm = () => {
                 />
               </div>
 
-              </div>{/* fin columna derecha */}
-              </div>{/* fin grid 2 cols */}
-
-              {/* Photos Toggle — ancho completo */}
-              <div className="mt-4 p-4 bg-[#D9ED92]/20 rounded-lg border border-[#D9ED92]">
-                <div className="flex items-center justify-between mb-4">
+              {/* Photos Toggle — debajo de Otros Elementos, misma columna */}
+              <div className="p-3 bg-[#D9ED92]/20 rounded-lg border border-[#D9ED92]">
+                <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
                     <ImageIcon className="w-5 h-5 text-[#1B4332]" />
                     <Label className="text-sm font-semibold text-[#1B4332]">
@@ -2061,6 +2065,9 @@ const ValuationForm = () => {
                   />
                 )}
               </div>
+
+              </div>{/* fin columna derecha */}
+              </div>{/* fin grid 2 cols */}
             </div>
           )}
 
@@ -2287,6 +2294,14 @@ const ValuationForm = () => {
         </CardContent>
       </Card>
       </div>
+      <IdentificadorEdadDialog
+        open={identificadorOpen}
+        onOpenChange={setIdentificadorOpen}
+        tipoInicial={formData.property_type === "Departamento" ? "departamento" : "casa"}
+        onAplicar={(anioAprox) =>
+          handleInputChange("estimated_age", String(new Date().getFullYear() - anioAprox))
+        }
+      />
     </div>
   );
 };

@@ -11,6 +11,7 @@ import { Building2, ArrowLeft, ExternalLink, MapPin, Search, Check, ChevronsUpDo
 import { API } from "@/App";
 import GamificacionVerificador from "@/components/GamificacionVerificador";
 import PropiedadManualForm from "@/components/PropiedadManualForm";
+import IdentificadorEdadDialog from "@/components/IdentificadorEdadDialog";
 
 // Rangos finos (Ross-Heidecke). "No sé" salta sin escribir.
 const AGE_RANGES = [
@@ -270,6 +271,7 @@ const EdadesZonaPage = ({ embedded = false }) => {
   const [tipo, setTipo] = useState("");
   const [soloRaras, setSoloRaras] = useState(false);  // ver solo propiedades con colonia mal capturada
   const [manualOpen, setManualOpen] = useState(false);
+  const [identificadorId, setIdentificadorId] = useState(null); // id_unico con el Identificador de Edad abierto
   const [estados, setEstados] = useState([]);
   const [municipios, setMunicipios] = useState([]);
   const [colonias, setColonias] = useState([]);
@@ -837,6 +839,10 @@ const EdadesZonaPage = ({ embedded = false }) => {
                              value={anioConst[it.id_unico] || ""} onChange={e => set(setAnioConst)(it.id_unico, e.target.value)}
                              className={INP + " w-20"} title="Año exacto si lo sabes" />
                     )}
+                    <Button type="button" variant="outline" size="icon" className="h-9 w-9 shrink-0"
+                            onClick={() => setIdentificadorId(it.id_unico)} title="Identificar por acabados">
+                      <Search className="w-4 h-4" />
+                    </Button>
                   </div>
                 </div>
                 {/* Conservación */}
@@ -964,6 +970,15 @@ const EdadesZonaPage = ({ embedded = false }) => {
           </p>
         )}
       </div>
+      <IdentificadorEdadDialog
+        open={!!identificadorId}
+        onOpenChange={(v) => !v && setIdentificadorId(null)}
+        tipoInicial={items.find(it => it.id_unico === identificadorId)?.tipo_propiedad}
+        onAplicar={(anioAprox) => {
+          set(setAnioConst)(identificadorId, String(anioAprox));
+          set(setEdadRango)(identificadorId, "");
+        }}
+      />
     </div>
   );
 };
