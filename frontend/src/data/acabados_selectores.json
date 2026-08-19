@@ -15728,5 +15728,398 @@
   "gas_calentamiento",
   "instalacion_gas",
   "instalaciones_especiales"
- ]
+ ],
+ "campos_ricos": {
+  "muro": {
+   "Adobe": {
+    "valor_como_fechador": "ALTO",
+    "nivel_socioeconomico_texto": "popular y medio de la epoca (material dominante, no exclusivo de pobreza)",
+    "como_se_identifica": "bloque grueso (40-60 cm de muro terminado), esquinas redondeadas por erosion, aplanado de cal que se desprende en placas, grietas diagonales en esquinas de vanos, zoclo de piedra o ladrillo",
+    "confusiones_frecuentes": "con block enjarrado de los 50s-60s cuando ambos estan pintados; se distingue por el espesor del muro y por el sonido hueco/macizo al tocar",
+    "fuente": "Catalogo_Materiales_Transversal_v1.md #1.1"
+   },
+   "Tabique o block APARENTE": {
+    "valor_como_fechador": "ALTO",
+    "nivel_socioeconomico_texto": "popular a medio (vivienda de conjunto/infonavit y ampliaciones economicas)",
+    "como_se_identifica": "paño de fachada completo sin aplanado ni pintura, junta de mortero visible entre piezas, textura porosa y color uniforme de fabrica; fechador combinado con vigueta y bovedilla, ver esa opcion",
+    "confusiones_frecuentes": "con muro en obra negra sin terminar; el aparente de los 80s tiene mortero de junta cuidado y a menudo remates/cadenas pintadas",
+    "fuente": "Catalogo_Materiales_Transversal_v1.md #1.4, fechador combinado #16 de la tabla resumen"
+   },
+   "Enjarre fino + panel prefabricado/muro seco/tablaroca": {
+    "valor_como_fechador": "MEDIO",
+    "nivel_socioeconomico_texto": "medio a medio alto",
+    "como_se_identifica": "superficie perfectamente lisa y plana sin ondulaciones de mano de obra artesanal, juntas rectas y regulares si es panel atornillado, esquinas con cinta y pasta visibles de cerca",
+    "confusiones_frecuentes": "con yeso pulido tradicional; se distingue por la ausencia total de imperfeccion manual y por las juntas de panel a contraluz rasante",
+    "fuente": "Catalogo_Materiales_Transversal_v1.md #1.5, tabla 1995-2026 (Tablaroca, entrada 1998)"
+   }
+  },
+  "cubierta": {
+   "Boveda catalana, ladrillo de canto": {
+    "valor_como_fechador": "ALTO",
+    "nivel_socioeconomico_texto": "medio alto a lujo (tecnica de mayor costo de mano de obra especializada)",
+    "como_se_identifica": "curvatura suave del plafon visible incluso bajo aplanado, ladrillo de canto en hiladas si queda expuesto, acustica particular, ausencia de vigas visibles",
+    "confusiones_frecuentes": "con losa de concreto armado curva (rarisima en vivienda); la confusion mas comun es simplemente no identificarla y asumir losa de concreto",
+    "fuente": "Catalogo_Materiales_Transversal_v1.md #3.2"
+   },
+   "Vigueria de madera con bovedilla de ladrillo/entablado": {
+    "valor_como_fechador": "ALTO",
+    "nivel_socioeconomico_texto": "todos los niveles de la epoca (sistema estandar antes del concreto armado generalizado)",
+    "como_se_identifica": "vigas de madera aparentes o entabladas con separacion regular; en plafones remodelados, modulacion de grietas de plafon cada 40-60 cm que sigue el paño de viga",
+    "confusiones_frecuentes": "con plafon falso de madera decorativo aplicado sobre losa de concreto; se distingue porque el falso no tiene funcion estructural",
+    "fuente": "Catalogo_Materiales_Transversal_v1.md #3.1"
+   },
+   "Vigueta y boveda": {
+    "valor_como_fechador": "ALTO",
+    "nivel_socioeconomico_texto": "popular a medio (sistema economico por excelencia de la vivienda en serie/infonavit)",
+    "como_se_identifica": "modulacion regular del intrados, sonido hueco alternado al golpear el plafon, mas ligera que la losa colada plana; fechador combinado con tabique/block aparente, ver esa opcion",
+    "confusiones_frecuentes": "con losa colada plana; distinguir por el sonido al golpe y por la modulacion del intrados",
+    "fuente": "Catalogo_Materiales_Transversal_v1.md #3.4, fechador combinado #16 de la tabla resumen"
+   }
+  },
+  "instalacion": {
+   "Alambre con forro de tela + conduit visible": {
+    "valor_como_fechador": "ALTO",
+    "nivel_socioeconomico_texto": "medio a alto de la epoca (la electrificacion domestica temprana no era universal)",
+    "como_se_identifica": "conductor con aislamiento de tela trenzada, tubo conduit metalico galvanizado visible corriendo por muro o plafon, cajas de conexion metalicas octagonales o rectangulares atornilladas",
+    "confusiones_frecuentes": "con instalacion 'industrial/loft' de imitacion contemporanea (2010s+); la reproduccion usa aislamiento plastico moderno con forro textil solo decorativo, conduit sin oxido real",
+    "fuente": "Catalogo_Materiales_Transversal_v1.md #11.1"
+   },
+   "Centro de carga: fusibles de tapon/cartucho": {
+    "valor_como_fechador": "ALTO",
+    "nivel_socioeconomico_texto": "todos los niveles (sistema de proteccion estandar de cada epoca)",
+    "como_se_identifica": "pieza roscada tipo foco con ventana de mica donde se ve el filamento fundido al fallar (tapon), o cilindro que se retira con pinzas (cartucho)",
+    "confusiones_frecuentes": "ninguna relevante; la distincion visual entre fusible y pastilla es practicamente inequivoca",
+    "fuente": "Catalogo_Materiales_Transversal_v1.md #11.4"
+   },
+   "Contacto sin tierra fisica (2 clavijas)": {
+    "valor_como_fechador": "MEDIO-ALTO",
+    "nivel_socioeconomico_texto": "todos los niveles (tema normativo, no de estatus)",
+    "como_se_identifica": "contacto de pared con dos ranuras verticales; el positivo (con tierra, tercer orificio redondo) es obligatorio desde la NOM-001-SEDE-1999",
+    "confusiones_frecuentes": "contactos de tres clavijas 'decorativos' instalados sin conexion real a tierra fisica; solo se verifica con multimetro",
+    "fuente": "Catalogo_Materiales_Transversal_v1.md #11.5, tabla 1995-2026 (NOM-001-SEDE-1999)"
+   }
+  },
+  "hidraulica": {
+   "Plomo": {
+    "valor_como_fechador": "ALTO",
+    "nivel_socioeconomico_texto": "medio a alto de la epoca (tener agua entubada dentro de la casa ya era signo de estatus)",
+    "como_se_identifica": "tubo gris mate, blando (se raya con la una o con una moneda), sin roscas visibles en tramos rectos, uniones soldadas con plomada de aspecto irregular",
+    "confusiones_frecuentes": "con fierro galvanizado (mas rigido, con rosca visible y color mas plateado/oxidado que el gris mate y blando del plomo)",
+    "fuente": "Catalogo_Materiales_Transversal_v1.md #9.1"
+   },
+   "Fierro galvanizado": {
+    "valor_como_fechador": "ALTO",
+    "nivel_socioeconomico_texto": "todos los niveles (estandar generalizado de mediados de siglo)",
+    "como_se_identifica": "tubo rigido plateado/gris con rosca visible en las uniones, oxidacion anaranjada caracteristica con los años",
+    "confusiones_frecuentes": "con cobre oxidado en verde (el cobre oxida en tonos verdosos/turquesa, el fierro galvanizado en tonos naranja/cafe)",
+    "fuente": "Catalogo_Materiales_Transversal_v1.md #9.2"
+   },
+   "CPVC (plastico beige/crema)": {
+    "valor_como_fechador": "ALTO",
+    "nivel_socioeconomico_texto": "popular a medio (opcion economica que desplazo al cobre y galvanizado)",
+    "como_se_identifica": "tubo plastico rigido color beige/crema, unido con cemento solvente (sin rosca ni soldadura), ligero al tacto",
+    "confusiones_frecuentes": "con PVC sanitario (gris, mayor diametro, para desague) y con PPR (verde/gris, se une por termofusion, no cemento)",
+    "fuente": "Catalogo_Materiales_Transversal_v1.md #9.4, tabla 1995-2026"
+   },
+   "PPR (termofusion, verde/gris)": {
+    "valor_como_fechador": "ALTO",
+    "nivel_socioeconomico_texto": "medio a alto (instalacion mas cara que el CPVC, elegida por durabilidad)",
+    "como_se_identifica": "tubo verde o gris con capa interior visible en el corte, unido por termofusion (marca de fusion visible como reborde uniforme en cada conexion)",
+    "confusiones_frecuentes": "con CPVC (union distinta: fusion termica lisa en PPR vs. cemento con reborde irregular en CPVC)",
+    "fuente": "Catalogo_Materiales_Transversal_v1.md #9.5"
+   },
+   "PEX flexible (recirculador de agua)": {
+    "valor_como_fechador": "ALTO",
+    "nivel_socioeconomico_texto": "medio a alto",
+    "como_se_identifica": "tubo flexible que se dobla sin conexiones intermedias en tramos largos, sistema de recirculador de agua caliente",
+    "confusiones_frecuentes": "con PPR (el PEX es flexible, el PPR es rigido y se une por termofusion)",
+    "fuente": "tabla 1995-2026 (Tuberia PEX, entrada 2008)"
+   }
+  },
+  "piso": {
+   "Mosaico de pasta 20x20 con dibujo (tapete)": {
+    "valor_como_fechador": "ALTO",
+    "nivel_socioeconomico_texto": "medio a semilujo (la cenefa decorativa y el diseno complejo suben con el nivel socioeconomico)",
+    "como_se_identifica": "pieza prensada (no cocida) de cemento y pigmento, diseno geometrico o floral repetido en cuadricula, colores mate ligeramente desvaidos, superficie con brillo natural desigual por el uso",
+    "confusiones_frecuentes": "con ceramica decorada 'estilo vintage' de fabricacion actual (Lamosa/Vitromex, lineas retro); el original es mate y prensado, la reproduccion es vidriada y de desgaste uniforme",
+    "fuente": "Catalogo_Materiales_Transversal_v1.md #2.2"
+   },
+   "Terrazo colado con tiras de laton/plastico": {
+    "valor_como_fechador": "ALTO",
+    "nivel_socioeconomico_texto": "medio a medio alto",
+    "como_se_identifica": "superficie continua colada con agregado de marmol/granito visible, pulida a plano, juntas de laton o plastico delgadas dividiendo paños geometricos",
+    "confusiones_frecuentes": "con loseta de terrazo prefabricada (junta de mortero regular en vez de juntas metalicas continuas) y con granito artificial de los 80s-90s",
+    "fuente": "Catalogo_Materiales_Transversal_v1.md #2.4"
+   },
+   "Porcelanato rectificado 60x60, junta fina (1-2mm)": {
+    "valor_como_fechador": "ALTO",
+    "nivel_socioeconomico_texto": "medio a lujo, segun formato y calidad de impresion",
+    "como_se_identifica": "pieza de alta densidad, canto uniforme sin porosidad, junta muy angosta o rectificada (casi invisible); el catalogo describe hasta 60x120+, esta opcion cubre el rango 60x60",
+    "confusiones_frecuentes": "con ceramica esmaltada de formato grande; se distingue por el canto y la junta (porcelanato rectificado = 1-2mm, ceramica = 3mm o mas visible)",
+    "fuente": "Catalogo_Materiales_Transversal_v1.md #2.7, tabla 1995-2026 (Porcelanato 60x60, entrada 2002)"
+   },
+   "Ceramica esmaltada 30x30, boquilla ancha (5-8mm)": {
+    "valor_como_fechador": "MEDIO-ALTO",
+    "nivel_socioeconomico_texto": "popular a medio en formatos chicos",
+    "como_se_identifica": "superficie vidriada brillante o mate, formato 30x30, junta de mortero ancha (5-8mm) tipica de fines de los 90s",
+    "confusiones_frecuentes": "con porcelanato (la ceramica es mas porosa en el corte del canto, el porcelanato es denso y uniforme en todo el espesor)",
+    "fuente": "tabla 1995-2026 (Loseta ceramica 30x30, entrada 1995, dominio 2000-2012)"
+   },
+   "Porcelanato gran formato (60x120+)": {
+    "valor_como_fechador": "ALTO",
+    "nivel_socioeconomico_texto": "medio alto a lujo",
+    "como_se_identifica": "piezas grandes 90x90 en adelante, imitacion de marmol/madera/concreto con impresion digital de alta definicion",
+    "confusiones_frecuentes": "con formatos intermedios (60x60); el gran formato es notablemente mas grande y con menos juntas visibles por metro cuadrado",
+    "fuente": "tabla 1995-2026 (Porcelanato gran formato 90x90+, entrada 2016)"
+   },
+   "Laminado (imitacion madera sobre HDF)": {
+    "valor_como_fechador": "MEDIO",
+    "nivel_socioeconomico_texto": "medio",
+    "como_se_identifica": "foto de madera sobre tablero HDF con textura uniforme repetida cada pocas piezas (patron detectable)",
+    "confusiones_frecuentes": "con madera maciza a simple vista; revisar canto de una pieza suelta, la maciza tiene veta continua, el laminado muestra capas de tablero prensado",
+    "fuente": "Catalogo_Materiales_Transversal_v1.md #2.8, tabla 1995-2026 (entrada 1998, cae desde 2018 por humedad)"
+   },
+   "Vinilico/SPC click": {
+    "valor_como_fechador": "MEDIO",
+    "nivel_socioeconomico_texto": "todos los niveles en la actualidad (se volvio commodity)",
+    "como_se_identifica": "flexible al pisar, mas silencioso, no cruje",
+    "confusiones_frecuentes": "con laminado; el vinilico es flexible y silencioso, el laminado es rigido y puede crujir",
+    "fuente": "tabla 1995-2026 (Vinilico SPC, entrada 2017)"
+   }
+  },
+  "sanitaria": {
+   "Albanal de barro vidriado": {
+    "valor_como_fechador": "ALTO",
+    "nivel_socioeconomico_texto": "todos los niveles con drenaje conectado",
+    "como_se_identifica": "tubo de ceramica vidriada color cafe/rojizo, secciones cortas unidas con mortero de cemento, visible normalmente solo en registros abiertos o excavaciones",
+    "confusiones_frecuentes": "con fierro fundido (mas oscuro, metalico, sin el vidriado ceramico caracteristico del barro)",
+    "fuente": "Catalogo_Materiales_Transversal_v1.md #10.1"
+   }
+  },
+  "puerta": {
+   "Entamborada de caobilla, panel pequeno repetido": {
+    "valor_como_fechador": "ALTO",
+    "nivel_socioeconomico_texto": "medio a medio alto",
+    "como_se_identifica": "superficie con multiples paneles pequenos en relieve repetidos en cuadricula, madera de caobilla o similar, barnizada en tono medio-oscuro",
+    "confusiones_frecuentes": "con tablero de pino de 1900-40s (paneles grandes, pocos por hoja); la entamborada tiene muchos mas paneles pequenos repetidos",
+    "fuente": "Catalogo_Materiales_Transversal_v1.md #8.3"
+   },
+   "Acceso domotico o digital": {
+    "valor_como_fechador": "MEDIO-ALTO",
+    "nivel_socioeconomico_texto": "medio alto a lujo",
+    "como_se_identifica": "cerradura sin llave fisica visible, teclado, lector biometrico o control por app",
+    "confusiones_frecuentes": "ninguna relevante",
+    "fuente": "tabla 1995-2026 (Cerradura digital, entrada 2012)"
+   }
+  },
+  "cocina": {
+   "Cubierta de formica": {
+    "valor_como_fechador": "ALTO",
+    "nivel_socioeconomico_texto": "medio",
+    "como_se_identifica": "superficie plastica lisa de color solido o con patron geometrico/veteado sintetico de la epoca, canto visible del laminado pegado al tablero, herrajes metalicos simples",
+    "confusiones_frecuentes": "con melamina de los 90s-2000s; la formica es mas brillante y con colores solidos saturados, la melamina imita vetas de madera de forma mas realista",
+    "fuente": "Catalogo_Materiales_Transversal_v1.md #7.2"
+   },
+   "Piedra sinterizada": {
+    "valor_como_fechador": "MEDIO-ALTO",
+    "nivel_socioeconomico_texto": "medio alto a lujo, subiendo con cada generacion de material",
+    "como_se_identifica": "gran formato, canto muy delgado (12-20mm) que el granito no logra sin refuerzo, superficie muy uniforme",
+    "confusiones_frecuentes": "con cuarzo (el sinterizado es aun mas uniforme y de canto mas delgado)",
+    "fuente": "Catalogo_Materiales_Transversal_v1.md #7.5, tabla 1995-2026 (entrada 2018)"
+   },
+   "Cubierta de granito": {
+    "valor_como_fechador": "MEDIO-ALTO",
+    "nivel_socioeconomico_texto": "medio alto a lujo",
+    "como_se_identifica": "veta/moteado mineral natural irregular",
+    "confusiones_frecuentes": "con cuarzo (patron mas uniforme y controlado, a veces imitando marmol de forma muy regular)",
+    "fuente": "Catalogo_Materiales_Transversal_v1.md #7.5, tabla 1995-2026 (entrada 1996, se masifica hacia 2005)"
+   },
+   "Cubierta de cuarzo": {
+    "valor_como_fechador": "MEDIO-ALTO",
+    "nivel_socioeconomico_texto": "medio alto a lujo",
+    "como_se_identifica": "patron uniforme y controlado, a veces imitando marmol de forma muy regular",
+    "confusiones_frecuentes": "con marmol natural (el cuarzo imita marmol con veta muy regular y repetida, el marmol real tiene veta irregular unica)",
+    "fuente": "Catalogo_Materiales_Transversal_v1.md #7.5, tabla 1995-2026 (entrada 2010)"
+   },
+   "Mueble de melamina": {
+    "valor_como_fechador": "MEDIO",
+    "nivel_socioeconomico_texto": "medio",
+    "como_se_identifica": "superficie uniforme, canto de PVC o del mismo material, herrajes industriales de mueble modular",
+    "confusiones_frecuentes": "con formica (la formica es mas brillante y de colores solidos saturados de epoca)",
+    "fuente": "tabla 1995-2026 (Melamina/MDF en cocina, entrada 1995, sustituye al aglomerado y al pino entintado)"
+   },
+   "Cocina integral (madera/laminado/MDF)": {
+    "valor_como_fechador": "MEDIO",
+    "nivel_socioeconomico_texto": "popular a medio en su version de interes social",
+    "como_se_identifica": "modulos industrializados con herrajes de fabrica, sin construccion de obra; no hay opcion separada para la version economica de interes social en este catalogo",
+    "confusiones_frecuentes": "con mueble de obra revestido de azulejo (ver esa opcion, anterior a 1980)",
+    "fuente": "tabla 1995-2026 (Cocina integral en interes social, entrada 2008, llega con el boom Infonavit/Mejoravit)"
+   }
+  },
+  "azulejo_bano": {
+   "Relieve geometrico con cenefa (11x11-15x15)": {
+    "valor_como_fechador": "ALTO",
+    "nivel_socioeconomico_texto": "medio a medio alto",
+    "como_se_identifica": "textura en relieve geometrico (no liso), color tierra/mostaza/naranja/aguamarina tipico de la paleta de la epoca, cenefa decorativa corrida como remate",
+    "confusiones_frecuentes": "pocas; posible confusion con reproduccion 'retro' contemporanea de catalogo, se nota por lo uniforme y 'demasiado perfecto' del acabado",
+    "fuente": "Catalogo_Materiales_Transversal_v1.md #6.2"
+   }
+  },
+  "ventaneria": {
+   "Aluminio natural (sin anodizar)": {
+    "valor_como_fechador": "MEDIO-ALTO",
+    "nivel_socioeconomico_texto": "popular a medio (alternativa economica y 'moderna' frente a madera y fierro)",
+    "como_se_identifica": "perfil delgado color plata/gris mate, corredizo de dos o tres canales, sin tratamiento de color, esquinas remachadas o atornilladas simples",
+    "confusiones_frecuentes": "con aluminio anodizado, que tiene acabado mas uniforme y con color (champagne, bronce); el natural es plateado mate sin tono añadido",
+    "fuente": "Catalogo_Materiales_Transversal_v1.md #4.3"
+   },
+   "Aluminio blanco linea nacional comercial (2\"-3\", pintura electrostatica)": {
+    "valor_como_fechador": "MEDIO-ALTO",
+    "nivel_socioeconomico_texto": "medio a medio alto",
+    "como_se_identifica": "perfil de seccion nacional 2-3 pulgadas, pintura electrostatica blanca uniforme",
+    "confusiones_frecuentes": "con aluminio blanco linea europea RPT (perfil europeo es de mayor seccion, con rotura de puente termico)",
+    "fuente": "tabla 1995-2026 (Aluminio blanco, entrada 1990, descontinuado en obra nueva desde 2018)"
+   },
+   "Aluminio negro / gris, linea europea": {
+    "valor_como_fechador": "MEDIO-ALTO",
+    "nivel_socioeconomico_texto": "medio alto a lujo",
+    "como_se_identifica": "perfil de mayor seccion, acabado negro mate o gris antracita, sello de hule visible, rotura de puente termico",
+    "confusiones_frecuentes": "con aluminio anodizado negro nacional de seccion menor",
+    "fuente": "tabla 1995-2026 (Aluminio negro/antracita, entrada 2012)"
+   }
+  },
+  "canceleria": {
+   "Cancel de aluminio con acrilico o vidrio martillado": {
+    "valor_como_fechador": "ALTO",
+    "nivel_socioeconomico_texto": "medio",
+    "como_se_identifica": "marco de aluminio (natural o anodizado bronce/dorado) con paneles corredizos de acrilico traslucido o vidrio texturizado (martillado, catedral o de rombos)",
+    "confusiones_frecuentes": "con cancel de cristal templado esmerilado contemporaneo; el moderno es cristal templado sin marco o con marco minimo, el de los 80s-90s siempre tiene marco de aluminio grueso perimetral",
+    "fuente": "Catalogo_Materiales_Transversal_v1.md #13.2"
+   },
+   "Cancel de cristal templado sin marco (frameless)": {
+    "valor_como_fechador": "ALTO",
+    "nivel_socioeconomico_texto": "medio alto a lujo",
+    "como_se_identifica": "panel de cristal templado transparente (o esmerilado en franja de privacidad) de 8-10mm, herrajes minimos de acero inoxidable o cromo, sin marco perimetral de aluminio",
+    "confusiones_frecuentes": "con acrilico transparente de menor costo (mas ligero, menor precision de corte en cantos)",
+    "fuente": "Catalogo_Materiales_Transversal_v1.md #13.3"
+   },
+   "Cancel de PVC": {
+    "valor_como_fechador": "MEDIO",
+    "nivel_socioeconomico_texto": "medio alto (solo medio alto y alto segun la captura pericial)",
+    "como_se_identifica": "marco de PVC blanco o color, mas grueso que el aluminio, tacto tibio",
+    "confusiones_frecuentes": "con aluminio blanco pintado; diferenciar por tacto (tibio vs. frio) y grosor de seccion",
+    "fuente": "tabla 1995-2026 (Canceleria de PVC, entrada 2005, dominio 2015-, solo medio alto y alto)"
+   }
+  },
+  "carpinteria": {
+   "Melamina texturizada, poro abierto / sincrona": {
+    "valor_como_fechador": "MEDIO-ALTO",
+    "nivel_socioeconomico_texto": "medio",
+    "como_se_identifica": "superficie que imita veta de madera de forma repetitiva (patron que se repite cada cierta distancia), canto de PVC o del mismo material; el tono evoluciona de miel/cerezo (90s) a chocolate/nogal oscuro (2000s-2010s)",
+    "confusiones_frecuentes": "con madera real o chapa de madera; la melamina tiene patron de veta repetido de forma identica, la madera real muestra variacion natural",
+    "fuente": "Catalogo_Materiales_Transversal_v1.md #7.3"
+   }
+  },
+  "agua": {
+   "Tinaco de polietileno (Rotoplas)": {
+    "valor_como_fechador": "MEDIO-ALTO",
+    "nivel_socioeconomico_texto": "todos los niveles desde su generalizacion",
+    "como_se_identifica": "cuerpo plastico rotomoldeado, normalmente negro por fuera y blanco por dentro, nervaduras de refuerzo horizontales visibles, tapa roscada, ligero comparado con asbesto-cemento",
+    "confusiones_frecuentes": "con tinaco de fibra de vidrio (menos comun en la ZMG, superficie mas lisa y brillante)",
+    "fuente": "Catalogo_Materiales_Transversal_v1.md #12.4 (Rotoplas fundada 1978, primer tinaco de polietileno 1989 - rotoplas.com/nuestra-historia)"
+   },
+   "Bomba de presion constante / variador de frecuencia": {
+    "valor_como_fechador": "MEDIO",
+    "nivel_socioeconomico_texto": "medio a alto",
+    "como_se_identifica": "equipo compacto con controlador electronico visible, sin el tanque grande de aire del hidroneumatico clasico",
+    "confusiones_frecuentes": "con hidroneumatico clasico (tanque cilindrico con burbuja de aire junto a la bomba)",
+    "fuente": "Catalogo_Materiales_Transversal_v1.md #12.5, tabla 1995-2026 (Cisterna con presurizador, entrada 2000)"
+   }
+  },
+  "fachada": {
+   "Concreto aparente": {
+    "valor_como_fechador": "ALTO",
+    "nivel_socioeconomico_texto": "medio alto a lujo (acabado caro por la precision de cimbra que requiere)",
+    "como_se_identifica": "textura de cimbra (lineas de tablon o cimbra metalica modular), color gris natural sin pintura, agujeros de separadores de cimbra a intervalos regulares",
+    "confusiones_frecuentes": "con block enjarrado gris sin pintar (obra detenida); se distingue por la marca de cimbra y el remate cuidado de aristas",
+    "fuente": "Catalogo_Materiales_Transversal_v1.md #1.6"
+   }
+  },
+  "gas_calentamiento": {
+   "Calentador de paso de rapida modulacion / digital (sin piloto)": {
+    "valor_como_fechador": "MEDIO-ALTO",
+    "nivel_socioeconomico_texto": "medio a alto",
+    "como_se_identifica": "pantalla digital o control electronico, encendido automatico sin piloto constante",
+    "confusiones_frecuentes": "con calentador de paso de encendido manual (version anterior, sin control digital)",
+    "fuente": "tabla 1995-2026 (Calentador de paso, entrada 2003)"
+   },
+   "Calentador solar de tubos de vacio en azotea": {
+    "valor_como_fechador": "ALTO",
+    "nivel_socioeconomico_texto": "todos los niveles (obligatorio en obra nueva de varios municipios de la ZMG)",
+    "como_se_identifica": "arreglo de tubos de vacio o paneles planos en azotea orientados al sol, tanque termico asociado",
+    "confusiones_frecuentes": "con panel fotovoltaico (el solar termico calienta agua directamente, el fotovoltaico genera electricidad; se distinguen por el tipo de panel y el tanque de agua asociado al termico)",
+    "fuente": "tabla 1995-2026 (entrada 2008)"
+   }
+  },
+  "apagadores_placas": {
+   "Contacto con USB integrado": {
+    "valor_como_fechador": "MEDIO",
+    "nivel_socioeconomico_texto": "medio a medio alto",
+    "como_se_identifica": "contacto de pared con puertos USB adicionales integrados a la placa | 2010s: primeros contactos duplex con USB Tipo-A al final de la decada, sustituyendo los 'cubos' de carga externos. 2020s: carga rapida USB-C (Power Delivery) combinada con USB-A.",
+    "confusiones_frecuentes": "ninguna relevante",
+    "fuente": "tabla 1995-2026 (entrada 2015) + dictado pericial 19-ago-2026 (progresion USB-A a USB-C)"
+   },
+   "Apagadores giratorios o de pulsador en porcelana/baquelita": {
+    "valor_como_fechador": "MEDIO",
+    "nivel_socioeconomico_texto": "todos los niveles (norma de instalacion, no de estatus)",
+    "como_se_identifica": "Ubicacion: apagador muy alto (1.40-1.50m) o suspendido por cordon; contactos fijos en muro practicamente inexistentes (se enroscaba un adaptador de clavija en el socket del foco). Densidad: 0-1 salida por habitacion. Polaridad: sin polaridad, 2 ranuras identicas; cableado expuesto sobre aisladores de porcelana (perilla y tubo) o conduit metalico visible. || En depto (1900s-1930s): Seg 1 (vecindad) 0-1 socket colgado por cuarto, sin contactos en muro. Seg 4 (depto sobre comercio) sin contactos en muro tampoco. Seg 5 (villa vertical inicial) ya con apagadores giratorios de porcelana/baquelita y 1 contacto sencillo. Seg 2, 3 y 6 no aplican todavia (arrancan 1970s/1960s/1990s).",
+    "confusiones_frecuentes": "",
+    "fuente": "dictado pericial 19-ago-2026 (ubicacion/densidad de contactos y apagadores) + dictado pericial 19-ago-2026 (apagadores de departamento por segmento)"
+   },
+   "Apagadores de palanca estrecha en baquelita negra/marron": {
+    "valor_como_fechador": "MEDIO",
+    "nivel_socioeconomico_texto": "todos los niveles (norma de instalacion, no de estatus)",
+    "como_se_identifica": "Ubicacion: apagador en acceso a 1.35-1.40m; contacto pegado al piso (15cm sobre zoclo) o integrado en la misma placa del apagador de entrada. Densidad: 1 contacto sencillo por habitacion (radio o lampara de pie), 1 en cocina. Polaridad: 2 ranuras rectas del mismo tamano, sin polaridad ni tierra; tuberia metalica rigida empotrada. NOTA: el catalogo agrupa 1930s-1960s en una sola opcion de baquelita; dentro de esa ventana hay una sub-transicion interna: 1930s-40s placa redonda/ovalada y boton de presion (apagador 1.35-1.40m) vs. 1950s-60s placa cuadrada con esquinas redondeadas y palanca de clic duro (apagador 1.25-1.30m, contacto sube a 20-30cm sobre zoclo, primeras salidas a 1.00m en cocina/bano sobre barra o lavabo, densidad sube a 1-2 contactos por recamara). || Por segmento (1950s-1960s): Seg 5-6 ya usa Arrow Hart/Royer de baquelita marfil con 2-3 contactos por recamara y contactos sobre barra en cocina/banos, sin tierra fisica. Seg 3-4 es esta opcion (baquelita cafe/negra, tornillo al centro), 1-2 contactos sobre zoclo 15-20cm. Seg 1-2 sigue en socket de foco con clavija integrada o perilla giratoria, 0-1 contacto en pared, cableado visible -- desfase de 15-25 anios frente al Residencial. || En depto (1940s-1950s): Seg 1 baquelita negra, 1 contacto sencillo por cuarto pegado al zoclo. Seg 4 (departamento funcionalista) baquelita marfil. Seg 5 baquelita marfil con 2 contactos dobles por espacio y apagadores tipo timbre -- ya mas avanzado que Seg 4 en la misma decada. Seg 2, 3 y 6 no aplican.",
+    "confusiones_frecuentes": "",
+    "fuente": "dictado pericial 19-ago-2026 (ubicacion/densidad de contactos y apagadores) + dictado pericial 19-ago-2026 (desfase por segmento, tabla completa) + dictado pericial 19-ago-2026 (apagadores de departamento por segmento)"
+   },
+   "Placas de aluminio anodizado dorado / acrilico boton ovalado": {
+    "valor_como_fechador": "MEDIO",
+    "nivel_socioeconomico_texto": "todos los niveles (norma de instalacion, no de estatus)",
+    "como_se_identifica": "Ubicacion: apagador a 1.20m; contacto general a 30cm sobre NPT; primeras salidas a media altura (1.00-1.10m) en recamaras para lampara de buro. Densidad: 2-3 contactos dobles por habitacion; en cocina 2-3 salidas dedicadas sobre la barra. Polaridad: transicion a clavija polarizada (ranura de neutro mas ancha); hacia 1980-85 empieza a llegar el tercer orificio de tierra fisica en proyectos residenciales. || Por segmento (1970s-1980s): Seg 5-6 = esta opcion, contactos a media altura para buro (1.00m), primeras bajadas con tierra fisica. Seg 3-4 = placas de baquelita o plastico beige/marfil, 2 contactos por recamara, transicion a clavija polarizada hasta finales de los 80. Seg 1-2 = placas de baquelita economica o plastico rigido, 1 contacto doble por cuarto, sin tierra fisica (2 ranuras identicas). || En depto (1960s-1970s): Seg 2 nace aqui (Infonavit vertical) con plastico marfil sin tierra, 1 contacto doble por cuarto -- mas basico que este acabado de aluminio anodizado, que aplica mejor a Seg 4 (placas de plastico beige, 2 contactos por recamara). Seg 3 nace tambien esta decada, sin dato especifico de apagador. Seg 5 suma aluminio anodizado. Seg 1 en declive sin dato nuevo, Seg 6 no aplica.",
+    "confusiones_frecuentes": "",
+    "fuente": "dictado pericial 19-ago-2026 (ubicacion/densidad de contactos y apagadores) + dictado pericial 19-ago-2026 (desfase por segmento, tabla completa) + dictado pericial 19-ago-2026 (apagadores de departamento por segmento)"
+   },
+   "Placas de plastico blanco estilo balancin ancho (Decora)": {
+    "valor_como_fechador": "MEDIO",
+    "nivel_socioeconomico_texto": "todos los niveles (norma de instalacion, no de estatus)",
+    "como_se_identifica": "Ubicacion: estandarizada por norma — apagador 1.10-1.20m, contacto general 30-40cm NPT, barras de cocina/banos/servicios 1.10-1.20m. Densidad: 3-4 contactos dobles por recamara (cabecera, muro opuesto para TV, area de escritorio). Polaridad: 100% polarizado y con tierra fisica obligatoria (NEMA 5-15R, 3 clavijas) tras la NOM-001-SEDE-1999; contactos GFCI obligatorios en zonas humedas (banos, cocinas, patios). || Por segmento (1990s-2000s): Seg 5-6 = Bticino Modus/Quinziño o Leviton Decora, 4+ contactos por cuarto, GFCI obligatorio en banos/cocina, tomas de TV/coaxial. Seg 3-4 = esta opcion (placa de plastico blanco estandar), 2-3 contactos por recamara, tierra fisica progresiva tras la NOM-001-SEDE-1999. Seg 1-2 = placa de plastico marfil/blanco basica, 1-2 contactos sencillos por cuarto, adaptacion tardia a 3 clavijas. || En depto (1980s-1990s): Seg 2 (bloque Infonavit masivo) plastico blanco economico, 1-2 contactos dobles sin tierra fisica. Seg 3 Bticino blanco basico. Seg 4 Bticino Modus. Seg 5 nivel intermedio sin dato especifico (entre Seg4 y el Bticino Quinziño/Leviton Decora de Seg 6, que nace en Puerta de Hierro con GFCI en baño/cocina y TV coaxial). Seg 1 no aplica (extinta).",
+    "confusiones_frecuentes": "",
+    "fuente": "dictado pericial 19-ago-2026 (ubicacion/densidad de contactos y apagadores) + dictado pericial 19-ago-2026 (desfase por segmento, tabla completa) + dictado pericial 19-ago-2026 (apagadores de departamento por segmento)"
+   },
+   "Placas moduladas de color (aluminio cepillado, grafito, cristal)": {
+    "valor_como_fechador": "MEDIO",
+    "nivel_socioeconomico_texto": "todos los niveles (norma de instalacion, no de estatus)",
+    "como_se_identifica": "Ubicacion: mismas alturas normativas mas contactos altos (1.40-1.60m) en salas/recamaras para ocultar cableado detras de pantallas planas; en 2020s tambien placas pasacables a 1.40m y 0.40m, y concentracion de tomas a altura de escritorio (0.75m) para home office. Densidad: 4-6 salidas por espacio en 2010s, 6+ organizadas en 'hubs'/placas de 4-6 modulos en 2020s. Cochera 2020s: salida/preparacion dedicada 220V (NEMA 14-50) para carga de auto electrico. Polaridad/proteccion: GFCI/AFCI, circuitos dedicados para cargas de alta demanda (minisplit inverter, auto electrico); centros de carga 2020s con supresor de picos (TVSS) y preparacion de tuberia desde azotea para microinversores fotovoltaicos. || Por segmento (2010s): Seg 5-6 = Bticino Living Light/Leviton, contacto alto para TV (1.50m), RJ45 Ethernet, primeros USB-A. Seg 3-4 = esta opcion (Bticino Quinziño MX o similar), 3-4 contactos por cuarto, GFCI en cocina y area de lavado. Seg 1-2 = placas de balancin blanco economico, 2 contactos dobles por cuarto, sin tomas especiales de datos. || En depto (2000s-2010s): Seg 2 contacto con tierra fisica (interes social Tlajomulco/Tonala). Seg 3 contacto alto para TV al final de la decada. Seg 4 Bticino MX. Seg 5 domotica basica. Seg 6 Master Suite con iluminacion LED integrada en vestidor boutique (sin marca de apagador especifica dictada). Seg 1 no aplica.",
+    "confusiones_frecuentes": "",
+    "fuente": "dictado pericial 19-ago-2026 (ubicacion/densidad de contactos y apagadores) + dictado pericial 19-ago-2026 (desfase por segmento, tabla completa) + dictado pericial 19-ago-2026 (apagadores de departamento por segmento)"
+   },
+   "Apagadores tactiles de cristal / interruptores domoticos WiFi": {
+    "valor_como_fechador": "MEDIO",
+    "nivel_socioeconomico_texto": "todos los niveles (norma de instalacion, no de estatus)",
+    "como_se_identifica": "Mismo periodo y ubicacion que las placas moduladas de arriba (2010s-2020s) — ver esa opcion para altura/densidad. Diferenciador propio: interruptor tactil o domotico (WiFi/Zigbee) con indicador LED discreto (Tuya, Sonoff, Lutron Caseta, Moes) en vez de palanca mecanica; puede operar sin cable neutro via micro-modulo oculto en la caja registro (2020s). || Por segmento (2020s): Seg 5-6 = domotica (Lutron, Sonoff, WiFi/Zigbee), placas mate/cristal, USB-C Power Delivery, preparacion 220V para EV en cochera. Seg 3-4 = placas minimalistas con USB integrado, contactos en zona de home office, apagadores inteligentes solo en areas comunes. Seg 1-2 = placas de balancin comercial (Truper/Volteck/Bticino basico), 2-3 contactos por cuarto con tierra fisica -- ya alcanzo la tierra fisica pero sigue 15-25 anios atras del Residencial en tecnologia. || En depto (2020s): Seg 3 (studio/microdepto 30-45 m2) sin dato especifico de apagador. Seg 4 (depto urbano 50-75 m2) placas mate negro/grafito, USB-C PD, apagadores WiFi inteligentes. Seg 5-6 (Luxury/Master Suite) domotica Lutron/Zigbee, placas tactiles de cristal, apagador 'Master Off'. Seg 1-2 plastico blanco mate, 2-3 contactos con tierra fisica (Seg 2 = regeneracion/vertical compacta periferica).",
+    "confusiones_frecuentes": "",
+    "fuente": "dictado pericial 19-ago-2026 (ubicacion/densidad de contactos y apagadores) + dictado pericial 19-ago-2026 (desfase por segmento, tabla completa) + dictado pericial 19-ago-2026 (apagadores de departamento por segmento)"
+   }
+  },
+  "instalaciones_especiales": {
+   "Cableado estructurado CAT 5e/6": {
+    "valor_como_fechador": "MEDIO",
+    "nivel_socioeconomico_texto": "medio a alto",
+    "como_se_identifica": "roseta Ethernet RJ45 (Cat 5e/6) y salida de cable coaxial en recamara principal y area de TV; manguera/canaleta oculta hacia el contacto alto (1.40-1.60m) para colgar pantalla sin cables visibles.",
+    "confusiones_frecuentes": "con salida de telefono analogico (RJ11), de menor tamano y sin las 8 posiciones del RJ45",
+    "fuente": "dictado pericial 19-ago-2026 (bloque 2010s)"
+   }
+  }
+ }
 }
