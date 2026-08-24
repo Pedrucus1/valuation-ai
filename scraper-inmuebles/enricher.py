@@ -738,20 +738,9 @@ def extraer_datos_detalle(html: str, portal: str, url: str = None, session=None)
                 resultado["año_construccion"] = int(myr_en.group(1))
             elif myr_new:
                 resultado["año_construccion"] = _date_pincali.today().year
-            elif session:
-                # 2. Fallback: página española /inmueble/ (puede estar a 422; intentar igual)
-                es_url = url.replace("/en/home/", "/inmueble/")
-                html_es = fetch_html_requests(es_url, session)
-                if html_es:
-                    myr_es = re.search(r'A\w*o de construcci\w*n:\s*([^<\n]{1,20})', html_es, re.I)
-                    if myr_es:
-                        val = myr_es.group(1).strip()
-                        if "estrenar" in val.lower():
-                            resultado["año_construccion"] = _date_pincali.today().year
-                        else:
-                            ano = normalizar_anio_construccion(val)
-                            if ano:
-                                resultado["año_construccion"] = ano
+            # ponytail: fallback a /inmueble/ (ES) eliminado 24-ago — AWS WAF bloquea esa ruta
+            # desde 17-ago (siempre 202 vacío), costaba un request completo por prop sin payoff.
+            # Si PINCALI reabre /inmueble/, reintroducir el fallback con fetch_html_requests.
 
     # ── nombre_agente ────────────────────────────────────────────────────────
     nombre_agente = None
