@@ -182,6 +182,7 @@ from routers.gamificacion import router as gamificacion_router
 from routers.admin_auth import router as admin_auth_router
 from routers.requisiciones import router as requisiciones_router
 from routers.acabados import router as acabados_router
+from routers.atlas_colonias import router as atlas_colonias_router
 
 # Auth y sesión -> routers/auth.py (#66.1)
 
@@ -2255,6 +2256,9 @@ async def _ensure_indexes():
     await db.propiedades_inmobiliaria.create_index("user_id")
     await db.requisiciones.create_index("user_id")
     await db.requisiciones.create_index("expira_en")
+    # Fase 4 federación (#atlas-colonias): espejo del feed público de clasificaciones
+    await db.colonia_classifications_atlas.create_index("atlas_proposal_id", unique=True)
+    await db.colonia_classifications_atlas.create_index([("municipio_norm", 1), ("colonia_norm", 1)])
 
 
 @app.on_event("startup")
@@ -2320,6 +2324,7 @@ app.include_router(gamificacion_router)
 app.include_router(admin_auth_router)
 app.include_router(requisiciones_router)
 app.include_router(acabados_router)
+app.include_router(atlas_colonias_router)
 
 # Serve uploaded files (ads, kyc) con soporte de HTTP Range (206).
 # StaticFiles en este entorno responde 200 sin Accept-Ranges a peticiones Range, y
