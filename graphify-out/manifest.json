@@ -1320,9 +1320,9 @@
     "semantic_hash": "23724c3002fae9fe0d5fc8b9139d9a87"
   },
   "backend/core/auth.py": {
-    "mtime": 1785171106.5148344,
-    "ast_hash": "b4bebe5ad7187d5a9f83153d40cb3060",
-    "semantic_hash": "b4bebe5ad7187d5a9f83153d40cb3060"
+    "mtime": 1787548052.6370783,
+    "ast_hash": "cc6e3a4fd7f3dcd3c90fc8148a1f1e0c",
+    "semantic_hash": ""
   },
   "backend/core/cache.py": {
     "mtime": 1780605707.6096408,
@@ -1385,9 +1385,9 @@
     "semantic_hash": "b07113c630110d2f26c3244f3c99cef6"
   },
   "backend/models.py": {
-    "mtime": 1786143364.9897523,
-    "ast_hash": "72311ea3322bc277b8e46125009e5847",
-    "semantic_hash": "72311ea3322bc277b8e46125009e5847"
+    "mtime": 1787548002.3268237,
+    "ast_hash": "bdad87c2ba1ce238b00e92bda99bbb1d",
+    "semantic_hash": ""
   },
   "backend/mongo_comparables.py": {
     "mtime": 1786141418.2923887,
@@ -1415,9 +1415,9 @@
     "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
   },
   "backend/routers/acabados.py": {
-    "mtime": 1787118854.4803004,
-    "ast_hash": "31f204687dcf4ee17698ae9f40c2a2ba",
-    "semantic_hash": "31f204687dcf4ee17698ae9f40c2a2ba"
+    "mtime": 1787542988.3749835,
+    "ast_hash": "14b03bb01ae04836d870c1dba51efcf9",
+    "semantic_hash": ""
   },
   "backend/routers/access.py": {
     "mtime": 1780374517.437251,
@@ -1465,9 +1465,9 @@
     "semantic_hash": "22c4b96b974401277e9b3628278097b0"
   },
   "backend/routers/auth.py": {
-    "mtime": 1785171142.7473223,
-    "ast_hash": "2baceebe878c87f2d1e766a60929965e",
-    "semantic_hash": "2baceebe878c87f2d1e766a60929965e"
+    "mtime": 1787548043.1664348,
+    "ast_hash": "6ba49c292873457cd30b728d63feb75d",
+    "semantic_hash": ""
   },
   "backend/routers/cms.py": {
     "mtime": 1780375631.343522,
@@ -1555,9 +1555,9 @@
     "semantic_hash": "f726ef1400ce2cb93ebd6916b4e0cfcf"
   },
   "backend/server.py": {
-    "mtime": 1787117516.7822075,
-    "ast_hash": "85bd115c9be1d2981cfd24322350ea37",
-    "semantic_hash": "85bd115c9be1d2981cfd24322350ea37"
+    "mtime": 1787537720.0936615,
+    "ast_hash": "f0237c9752dcd2b6fbdbc28f3082ef7d",
+    "semantic_hash": ""
   },
   "backend/sheets_comparables.py": {
     "mtime": 1776473228.832765,
@@ -1795,9 +1795,9 @@
     "semantic_hash": "c6c076c6ab378cfac67bfe0278daa1a7"
   },
   "frontend/src/App.js": {
-    "mtime": 1787117585.9107616,
-    "ast_hash": "3dc8b1e0bf93a813426c1258b825e466",
-    "semantic_hash": "3dc8b1e0bf93a813426c1258b825e466"
+    "mtime": 1787548096.4900992,
+    "ast_hash": "d7a6011740cf024efc2d4ede943e9a7f",
+    "semantic_hash": ""
   },
   "frontend/src/PlasmicPage.jsx": {
     "mtime": 1784805410.861088,
@@ -3393,5 +3393,640 @@
     "mtime": 1785204718.8460865,
     "ast_hash": "1807e00e5c90466068eff9e8001e0082",
     "semantic_hash": "1807e00e5c90466068eff9e8001e0082"
+  },
+  "backend/routers/atlas_colonias.py": {
+    "mtime": 1787543035.7632954,
+    "ast_hash": "58f8d31a9f8de240c356f7da846d861c",
+    "semantic_hash": ""
+  },
+  "frontend/src/pages/ColaborarAcabados.jsx": {
+    "mtime": 1787548134.7246003,
+    "ast_hash": "ce1e3aa5a2d850ad71377f498fe4be59",
+    "semantic_hash": ""
+  },
+  "frontend/src/pages/VerifyEmailPage.jsx": {
+    "mtime": 1787548082.1937847,
+    "ast_hash": "b73af15409896bcfc2a74aa42141c032",
+    "semantic_hash": ""
+  },
+  ".claude/skills/status/SKILL.md": {
+    "mtime": 1775546773.310324,
+    "ast_hash": "32a1e0e2b70997b396144bd4439994a8",
+    "semantic_hash": ""
+  },
+  ".emergent/emergent.yml": {
+    "mtime": 1772091954.082186,
+    "ast_hash": "3a946e79a6b82649cda3912a8279632f",
+    "semantic_hash": ""
+  },
+  ".emergent/summary.txt": {
+    "mtime": 1772091954.0875032,
+    "ast_hash": "b152f811c8167d18e3def9ac571e22bc",
+    "semantic_hash": ""
+  },
+  ".github/workflows/scraper_mensual.yml": {
+    "mtime": 1780531378.0248384,
+    "ast_hash": "a9538ef7e205d2a95b9c1381fa45a328",
+    "semantic_hash": ""
+  },
+  "ADMIN_PLAN.md": {
+    "mtime": 1773990368.2610366,
+    "ast_hash": "d056df655a5cdb94a2a29821cf413765",
+    "semantic_hash": ""
+  },
+  "BRAND.md": {
+    "mtime": 1774635331.88303,
+    "ast_hash": "7b7ef4a7f7754a17099f94170685779f",
+    "semantic_hash": ""
+  },
+  "CLAUDE.md": {
+    "mtime": 1784702291.6780555,
+    "ast_hash": "28e934a4516c3f1e40907edf723fceb9",
+    "semantic_hash": ""
+  },
+  "DIAGNOSTICO_COLONIAS_SIN_MUNICIPIO.md": {
+    "mtime": 1785735530.5483506,
+    "ast_hash": "290886a4b9c88672a7b3a0c9980379c1",
+    "semantic_hash": ""
+  },
+  "ESQUEMA_CAMPOS.md": {
+    "mtime": 1782869832.2182026,
+    "ast_hash": "66501f2fb08cc37fb1035510e293e6d4",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/ARQUITECTURA_DATOS.md": {
+    "mtime": 1780296941.3163974,
+    "ast_hash": "919a9094a0e80eebe0081e89e1a58d78",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/COLA_REVISION_2_DOCUMENTALES.md": {
+    "mtime": 1785802519.2337167,
+    "ast_hash": "559f00fd18ef0ee7e7c3866a53487e9c",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/COLA_REVISION_EDADES.md": {
+    "mtime": 1785801852.770687,
+    "ast_hash": "00aece678cb7d72a0b06f3f02777f551",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/CONOCIMIENTO_ESTRATEGICO_IA.md": {
+    "mtime": 1776484152.103483,
+    "ast_hash": "95b2d235ae8b4dd9fa826b4971b1af4d",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/CRITERIOS_VALUACION_IA.md": {
+    "mtime": 1776484449.3819778,
+    "ast_hash": "bbc91a735001899083d15a3cacfb6807",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/CUARZO_BOSQUES_VICTORIA.md": {
+    "mtime": 1784800644.8156717,
+    "ast_hash": "1bdce4e830f296f530ea8d6f80e65e6f",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/DICCIONARIO_ARCHIVOS.md": {
+    "mtime": 1784702291.6790552,
+    "ast_hash": "b20cc564d04a4225683c33a3bc3e25dc",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/DUDAS.md": {
+    "mtime": 1785803398.2175071,
+    "ast_hash": "28ca6bb3803382dbfcc24c3b4ce1c1d4",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/DUDAS_PROMPT.md": {
+    "mtime": 1785807138.4464426,
+    "ast_hash": "592d2d46c4885ad3f7f145f4faa34de9",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/FALTANTES.md": {
+    "mtime": 1785803009.6358783,
+    "ast_hash": "9e868ff615375ab25ee91f20c8026805",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/FUENTES_EXTERNAS_METROPOLITANAS.md": {
+    "mtime": 1784791594.62562,
+    "ast_hash": "32ee6293250b142df827398b862c2952",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/INDICE_MOTOR.md": {
+    "mtime": 1784702291.6815846,
+    "ast_hash": "4530a6b9942be3ce928a3c3785fdbfd5",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/INFORME_APRENDIZAJE.md": {
+    "mtime": 1776534010.5526104,
+    "ast_hash": "2afdfe991a8c35c7be2525841f324cc3",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/MEMORIA_TECNICA_IA.md": {
+    "mtime": 1776479237.676232,
+    "ast_hash": "4086b4c26719e14944ddbe0e5514ff66",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/METODOLOGIA_VALUACION_BETA.md": {
+    "mtime": 1776636832.7575212,
+    "ast_hash": "7669f66128bccde19a9dfa7c5807ca27",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/MOTOR_ANTECEDENTES.md": {
+    "mtime": 1784806229.0537753,
+    "ast_hash": "58d93dab4f3c9ff8ca6833652f3345d5",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/PROMPT_MUNICIPIOS.md": {
+    "mtime": 1785801733.920421,
+    "ast_hash": "5787325317a1374aaaa83422ce90ae57",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/PROMPT_llenar_colonias_decada.md": {
+    "mtime": 1785544177.8336039,
+    "ast_hash": "b9a6a1bc453de11ccb8d5dd64db11648",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/_big_base.txt": {
+    "mtime": 1782839845.104778,
+    "ast_hash": "86c657da6b7b2d9194dd69e461390d73",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/_big_dv.txt": {
+    "mtime": 1782839862.6133347,
+    "ast_hash": "d7c3ac411b65321cdce29004acb9f943",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/_cal_5_1.0_0.90.txt": {
+    "mtime": 1782818850.8984356,
+    "ast_hash": "7ba5fd9a1eb903171b05b95209ac9e69",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/_cal_5_1.0_0.92.txt": {
+    "mtime": 1782818835.7232926,
+    "ast_hash": "983804d8c2db7589ed395eefc1f7c6c5",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/_cal_5_1.0_0.95.txt": {
+    "mtime": 1782818827.8825047,
+    "ast_hash": "2d25e7a35f49aca9e47fd915bbca4789",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/_cal_5_1.0_1.00.txt": {
+    "mtime": 1782818819.7965176,
+    "ast_hash": "1444f070a14c67a028134309749434f7",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/_cal_8_1.0_0.92.txt": {
+    "mtime": 1782818875.387323,
+    "ast_hash": "3b2209cdec76b9b5cb6bf7134f08c2c1",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/_cal_8_1.0_0.95.txt": {
+    "mtime": 1782818858.8186233,
+    "ast_hash": "b5aa34e555f72e9adc95a49a89bdfc83",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/_dv_baseline.txt": {
+    "mtime": 1782818261.51566,
+    "ast_hash": "4b4dff4cddc06069f32673df7c5c5eed",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/_dv_run_default.txt": {
+    "mtime": 1782818609.1366363,
+    "ast_hash": "565f2e308ac4cbc8255e6a29795655f9",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/_dv_skipexacta.txt": {
+    "mtime": 1782841977.6906848,
+    "ast_hash": "36b1335626c3089cdb95488e22c4a6cf",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/_estac_N8_CON_estac.txt": {
+    "mtime": 1782837848.0785286,
+    "ast_hash": "55771270a002482d5e9931f46dbceb22",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/_estac_N8_SIN_estac.txt": {
+    "mtime": 1782837838.9712634,
+    "ast_hash": "6b6ffc005aefc8ab64b4ea692161e7e9",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/_geo_k0.txt": {
+    "mtime": 1782837511.7978134,
+    "ast_hash": "696b4ce04c72f7605246371c8ff15b6b",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/_geo_k10.txt": {
+    "mtime": 1782837552.4285715,
+    "ast_hash": "96ab80c943e0e457f5c1197b6078d964",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/_geo_k20.txt": {
+    "mtime": 1782837561.3647566,
+    "ast_hash": "3c0eb5c48ea694498cdc03b2f87fe73d",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/_geo_k3.txt": {
+    "mtime": 1782837534.7945397,
+    "ast_hash": "2d14118e34f0000d581ece1fd82970ea",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/_geo_k5.txt": {
+    "mtime": 1782837543.937212,
+    "ast_hash": "af4b4b0356d1bec85b3d12d6b3d79c18",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/_merge_check.txt": {
+    "mtime": 1782840745.4780128,
+    "ast_hash": "14d303ab09672e8315a26394fa95a033",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/_migr_check.txt": {
+    "mtime": 1782875320.4044576,
+    "ast_hash": "6f27d4c0715266821de4d3d13d9da26f",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/_prod_mongo_check.txt": {
+    "mtime": 1782881227.899973,
+    "ast_hash": "88f711dad4817327df17cdd79c729016",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/_rebuild_valid_1703.txt": {
+    "mtime": 1783551811.0718672,
+    "ast_hash": "1a2bb6f74da174953e62271344eb01aa",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/_sw_0_0.5.txt": {
+    "mtime": 1782818641.3919177,
+    "ast_hash": "98e21c793734c7c8a255ec55f17f3ec3",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/_sw_0_1.0.txt": {
+    "mtime": 1782818649.773089,
+    "ast_hash": "ec267cc5a75c480fd1626652731d16b6",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/_sw_0_1.5.txt": {
+    "mtime": 1782818657.9865465,
+    "ast_hash": "805da77ec746eebeb8d461862618aa0f",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/_sw_0_2.0.txt": {
+    "mtime": 1782818665.9560626,
+    "ast_hash": "2b8f7cf24ce991e4b55e6ac3fdfdcb9c",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/_sw_5_1.0.txt": {
+    "mtime": 1782818689.1304479,
+    "ast_hash": "d5f3996a02fd825266dc76fd6de80b06",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/_sw_5_1.5.txt": {
+    "mtime": 1782818706.3109603,
+    "ast_hash": "0519c4f208a382dbf03c69a94889a348",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/_sw_8_1.0.txt": {
+    "mtime": 1782818673.0508003,
+    "ast_hash": "8f64c3f580f271202a7e316ba0d32f11",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/_sw_8_1.5.txt": {
+    "mtime": 1782818680.9175248,
+    "ast_hash": "6171187aab13d4307a2a26b27a12784e",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/colonias_debiles_progreso.md": {
+    "mtime": 1784787159.1319559,
+    "ast_hash": "3c19383ced6f34496b24a79e9470826a",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/colonias_debiles_scraper.md": {
+    "mtime": 1784775167.2297232,
+    "ast_hash": "3a54f3f673cfaf04b8091dac34d0f9ca",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/extractor_log.txt": {
+    "mtime": 1779406498.8968701,
+    "ast_hash": "43afeab395a13a389db2cb2a4aac8ea0",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/ixtepete_calma_progreso.md": {
+    "mtime": 1784785700.1419938,
+    "ast_hash": "5b83f974ebb6e8bc9dbf69ada35e6aa9",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/motor_v2_patch.md": {
+    "mtime": 1780242758.1358066,
+    "ast_hash": "46760f665fa483f421c4cb12d44f4ee4",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/prompt_ia_test.txt": {
+    "mtime": 1779684903.8874161,
+    "ast_hash": "de0375dfc371f0e468122beb1252cdec",
+    "semantic_hash": ""
+  },
+  "Modulo Drive IA/remaining_colonias.txt": {
+    "mtime": 1784784529.3616207,
+    "ast_hash": "21e5e79de5809800d3ecdba6472ea541",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1772091954.0926764,
+    "ast_hash": "df178fb244b72e66fae172c514ef36f5",
+    "semantic_hash": ""
+  },
+  "REPORTE_FUNCIONANDO.html": {
+    "mtime": 1774491329.0559385,
+    "ast_hash": "fb81c25ddb096d8abd4cd0c6249a139a",
+    "semantic_hash": ""
+  },
+  "RESUMEN_CAMBIOS_UI.md": {
+    "mtime": 1773096487.3869715,
+    "ast_hash": "551d0e550febc596131154e23e08735c",
+    "semantic_hash": ""
+  },
+  "SEGURIDAD_ARQUITECTURA_ANTECEDENTES.md": {
+    "mtime": 1780530739.5901377,
+    "ast_hash": "359d85ea06546dd0391cf810073cae5d",
+    "semantic_hash": ""
+  },
+  "TEST_REPORTE.html": {
+    "mtime": 1774494757.5257833,
+    "ast_hash": "4bb194586af1cf448c63dddf44777482",
+    "semantic_hash": ""
+  },
+  "backend/requirements.txt": {
+    "mtime": 1782592686.0974724,
+    "ast_hash": "ad0af4ee3932636b9279b6c1cedbea63",
+    "semantic_hash": ""
+  },
+  "docs/FRONTEND_RULES.md": {
+    "mtime": 1780533295.006466,
+    "ast_hash": "af89a78b578fea63baefc7a06f60e69f",
+    "semantic_hash": ""
+  },
+  "frontend/README.md": {
+    "mtime": 1771496108.0,
+    "ast_hash": "33822368bfb3ad3de6fceb9cd76aa0dd",
+    "semantic_hash": ""
+  },
+  "frontend/public/index.html": {
+    "mtime": 1784270510.193639,
+    "ast_hash": "32f33547cd17fd572bf9aa1f610b4678",
+    "semantic_hash": ""
+  },
+  "frontend/public/llms.txt": {
+    "mtime": 1780604893.8030717,
+    "ast_hash": "861ad3d70a18457c4d1fd45a6efc1227",
+    "semantic_hash": ""
+  },
+  "peek_output.txt": {
+    "mtime": 1776479461.141312,
+    "ast_hash": "5d320b5ab02800ed437b50908ca46bf4",
+    "semantic_hash": ""
+  },
+  "scraper-inmuebles/INDICE_SCRAPER.md": {
+    "mtime": 1783928642.8082812,
+    "ast_hash": "98dd574e21a409681e028c39563bcfd5",
+    "semantic_hash": ""
+  },
+  "scraper-inmuebles/PINCALI_ENRICHER_NOTAS.md": {
+    "mtime": 1783929806.8169281,
+    "ast_hash": "a9505f074ac73134a5c67ef6ececdb37",
+    "semantic_hash": ""
+  },
+  "scraper-inmuebles/UserspedruAppDataLocalTemppropiedades_live.html": {
+    "mtime": 1776695412.0461352,
+    "ast_hash": "fa7a095f480cb57b02836996bf867419",
+    "semantic_hash": ""
+  },
+  "scraper-inmuebles/_debug_cyt.txt": {
+    "mtime": 1786982321.302415,
+    "ast_hash": "8b29096166ffab6fca3464796dd21f34",
+    "semantic_hash": ""
+  },
+  "scraper-inmuebles/_debug_cyt_casa.html": {
+    "mtime": 1786982455.8297944,
+    "ast_hash": "7e84c2fc0a59d5db17249715d8028f5c",
+    "semantic_hash": ""
+  },
+  "scraper-inmuebles/_debug_cyt_full.html": {
+    "mtime": 1786982332.451532,
+    "ast_hash": "fef09a7785232c0c62e8604fb6d83a88",
+    "semantic_hash": ""
+  },
+  "scraper-inmuebles/_debug_cyt_full2.html": {
+    "mtime": 1786982398.2755811,
+    "ast_hash": "e51d859deffe432f54174aa7b775ac0d",
+    "semantic_hash": ""
+  },
+  "scraper-inmuebles/requirements.txt": {
+    "mtime": 1776468823.6312184,
+    "ast_hash": "a6f0676ff32577e670155cdda7d266af",
+    "semantic_hash": ""
+  },
+  "scraper-inmuebles/scraper_last_run.txt": {
+    "mtime": 1786201201.993398,
+    "ast_hash": "7bbdc8d534afbb1eb879b53b1769af33",
+    "semantic_hash": ""
+  },
+  "task.md": {
+    "mtime": 1780612511.2406888,
+    "ast_hash": "ecaa88f7fa0bf610a5a26cf545dcd3aa",
+    "semantic_hash": ""
+  },
+  "test_result.md": {
+    "mtime": 1772091954.2771041,
+    "ast_hash": "260454560649db9093cc68db2c331e68",
+    "semantic_hash": ""
+  },
+  "walkthrough.md": {
+    "mtime": 1780602166.942764,
+    "ast_hash": "66ed67da4f2d19e6bd1eb5300735d3a9",
+    "semantic_hash": ""
+  },
+  "backend/uploads/ads/067f2da87a274ba195c4a0f90d7ee1df.webp": {
+    "mtime": 1774421162.8573608,
+    "ast_hash": "fc167448ff831432664f45dcea530345",
+    "semantic_hash": ""
+  },
+  "backend/uploads/ads/095976b91bbb4baa99288b3f1acf0249.webp": {
+    "mtime": 1774421163.1054225,
+    "ast_hash": "adb56a6678fa5b1462cda72faa86c809",
+    "semantic_hash": ""
+  },
+  "backend/uploads/ads/37340d85f1924f47a28242927bbe307c.webp": {
+    "mtime": 1774424907.0338,
+    "ast_hash": "d39957a551499c978c05dadc66df242b",
+    "semantic_hash": ""
+  },
+  "backend/uploads/ads/3e8b3e0c746e4e88b50fd6b8a9ee422c.webp": {
+    "mtime": 1774421162.9895902,
+    "ast_hash": "8461c5bf7c80833431a76e224bb7e295",
+    "semantic_hash": ""
+  },
+  "backend/uploads/ads/4d7477a325404ea5be099298f7cf06be.webp": {
+    "mtime": 1774423211.8571806,
+    "ast_hash": "b00cc1a2accf98aa1f4767b01477a756",
+    "semantic_hash": ""
+  },
+  "backend/uploads/ads/6f839c6d3f6e4dc0999f1be6f74354c6.webp": {
+    "mtime": 1774424907.1488907,
+    "ast_hash": "adb56a6678fa5b1462cda72faa86c809",
+    "semantic_hash": ""
+  },
+  "backend/uploads/ads/93656bcdc3414c47b8bfb7939a66df9e.webp": {
+    "mtime": 1774470611.3361197,
+    "ast_hash": "fc167448ff831432664f45dcea530345",
+    "semantic_hash": ""
+  },
+  "backend/uploads/ads/af371f96e6f44d4b9dbe0050acf33724.jpeg": {
+    "mtime": 1775111076.9540248,
+    "ast_hash": "09e1472a2b06f7389e171dfdbc768653",
+    "semantic_hash": ""
+  },
+  "backend/uploads/ads/c3b30d64f6b140099690d074575bde41.webp": {
+    "mtime": 1774470611.087804,
+    "ast_hash": "b00cc1a2accf98aa1f4767b01477a756",
+    "semantic_hash": ""
+  },
+  "backend/uploads/ads/cd9043c3fe164750b8542ac720d67ab1.jpg": {
+    "mtime": 1775111076.7097056,
+    "ast_hash": "bc6ebb6071272ab6644feba1ed2ae04d",
+    "semantic_hash": ""
+  },
+  "backend/uploads/ads/cdd809a9cd674966b62125e5231ac494.png": {
+    "mtime": 1775111076.8334837,
+    "ast_hash": "3996eeb25e427a71341f1bced369ff40",
+    "semantic_hash": ""
+  },
+  "backend/uploads/ads/d03d995ae9a9485f81f11c718db5a971.webp": {
+    "mtime": 1774470611.2089913,
+    "ast_hash": "adb56a6678fa5b1462cda72faa86c809",
+    "semantic_hash": ""
+  },
+  "backend/uploads/ads/e4ec28f5bf25449782a54d16d4525aad.jpeg": {
+    "mtime": 1775111077.0736108,
+    "ast_hash": "f78f9efb8f79cdea38405295000a5956",
+    "semantic_hash": ""
+  },
+  "backend/uploads/ads/f44b4164deef4538abb6901655a3b5ce.webp": {
+    "mtime": 1774424906.9132648,
+    "ast_hash": "fc167448ff831432664f45dcea530345",
+    "semantic_hash": ""
+  },
+  "backend/uploads/kyc/user_1b97adf34044/cedula_profesional_a0b5f63e.jpg": {
+    "mtime": 1775592198.17383,
+    "ast_hash": "a3ad2a0422070b3071d0d8f4eba5942c",
+    "semantic_hash": ""
+  },
+  "backend/uploads/kyc/user_1b97adf34044/ine_pasaporte_a80c4ff2.jpg": {
+    "mtime": 1775592177.2058115,
+    "ast_hash": "f4138f21daa811fe3f1359f915eebcac",
+    "semantic_hash": ""
+  },
+  "frontend/public/favicon-32.png": {
+    "mtime": 1784596137.22134,
+    "ast_hash": "5265e9f692ed3ef27ceec8f994aa8f93",
+    "semantic_hash": ""
+  },
+  "frontend/public/favicon-64.png": {
+    "mtime": 1784596137.2183433,
+    "ast_hash": "81b966ec03776b68cec1ce2f847532fb",
+    "semantic_hash": ""
+  },
+  "frontend/public/favicon.svg": {
+    "mtime": 1784596092.8691328,
+    "ast_hash": "1d0ebe3d09f571182539b59a386b013d",
+    "semantic_hash": ""
+  },
+  "frontend/public/logo192.png": {
+    "mtime": 1784270489.4043918,
+    "ast_hash": "54c7abebd44bb5a05986760c6f03c75c",
+    "semantic_hash": ""
+  },
+  "frontend/public/logo512.png": {
+    "mtime": 1784270489.3067544,
+    "ast_hash": "0bb06b6d0c5538de788d15d65bb66138",
+    "semantic_hash": ""
+  },
+  "frontend/public/templates/ficha_artdeco.png": {
+    "mtime": 1780604771.8834772,
+    "ast_hash": "ae86a4ae09e1e802cf7204503fc8ea92",
+    "semantic_hash": ""
+  },
+  "frontend/public/templates/ficha_classic.png": {
+    "mtime": 1780604793.9446292,
+    "ast_hash": "29d063598385dd2f962fd924d99b0b1e",
+    "semantic_hash": ""
+  },
+  "frontend/public/templates/ficha_coastal.png": {
+    "mtime": 1780604783.153475,
+    "ast_hash": "de0122c4fb3b29a917d7553a973c183f",
+    "semantic_hash": ""
+  },
+  "frontend/public/templates/ficha_corporate.png": {
+    "mtime": 1780604608.4969826,
+    "ast_hash": "8ce4714cb8f5cc2c502182db3d7c8f8a",
+    "semantic_hash": ""
+  },
+  "frontend/public/templates/ficha_eco.png": {
+    "mtime": 1780604742.1120255,
+    "ast_hash": "183375f2d688c468ab57b85ddaa9368b",
+    "semantic_hash": ""
+  },
+  "frontend/public/templates/ficha_friendly.png": {
+    "mtime": 1780604621.2379992,
+    "ast_hash": "fdfd402a69b587043f4880481b20ce5b",
+    "semantic_hash": ""
+  },
+  "frontend/public/templates/ficha_industrial.png": {
+    "mtime": 1780604751.4512608,
+    "ast_hash": "2c2aeab9d3ddab46f523571cec3883f6",
+    "semantic_hash": ""
+  },
+  "frontend/public/templates/ficha_layout_2.png": {
+    "mtime": 1780603638.9202101,
+    "ast_hash": "40c783dc595eb512f40b75d5eab85eb4",
+    "semantic_hash": ""
+  },
+  "frontend/public/templates/ficha_layout_3.png": {
+    "mtime": 1780603655.3976724,
+    "ast_hash": "2078b0991cf7b11469a8cc36237e6964",
+    "semantic_hash": ""
+  },
+  "frontend/public/templates/ficha_layout_4.png": {
+    "mtime": 1780603671.057544,
+    "ast_hash": "0418675c32a0b2759bfd249a3ace2285",
+    "semantic_hash": ""
+  },
+  "frontend/public/templates/ficha_layout_5.png": {
+    "mtime": 1780603685.9762964,
+    "ast_hash": "85e55ff0e51728431fd0b389ea355d20",
+    "semantic_hash": ""
+  },
+  "frontend/public/templates/ficha_luxury.png": {
+    "mtime": 1780604629.7434814,
+    "ast_hash": "ad6839d76b5aad7a262885ae4c025021",
+    "semantic_hash": ""
+  },
+  "frontend/public/templates/ficha_minimalist.png": {
+    "mtime": 1780604597.300781,
+    "ast_hash": "8588e0c9bded2e87d7ea17efc4e246aa",
+    "semantic_hash": ""
+  },
+  "frontend/public/templates/ficha_modern.png": {
+    "mtime": 1780604640.589143,
+    "ast_hash": "6cba8c7476cf13d9e4f0d2129c453aec",
+    "semantic_hash": ""
+  },
+  "frontend/public/templates/ficha_monochrome.png": {
+    "mtime": 1780604761.6382134,
+    "ast_hash": "d445b8c793a080d00577cc95304d0f09",
+    "semantic_hash": ""
+  },
+  "frontend/public/templates/ficha_popart.png": {
+    "mtime": 1780604810.4522395,
+    "ast_hash": "0560b2fb23ff93524f42c0fbda886b7d",
+    "semantic_hash": ""
   }
 }

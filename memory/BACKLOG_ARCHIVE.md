@@ -5,6 +5,54 @@
 
 ---
 
+## 24 Ago 2026 — Federación PropValu/Manual/atlas-colonias construida y desplegada
+
+Sesión larga, cerrando el pendiente que quedó abierto el 19-ago (el "tercer proyecto"
+atlas-colonias). Se auditó primero la Fase 0 del plan de federación con datos reales:
+el `colonyId` de atlas-colonias depende de coincidencia geométrica exacta contra el
+geojson oficial de IIEG, y solo calzaba para el 34.2% de las 3,253 colonias del
+diccionario del Manual — se resolvió parcialmente con match por similitud de nombre
+(Levenshtein) y separando las que son etapa/coto/privada de un desarrollo mayor
+(no se les inventa polígono, quedan trazables aparte). Se investigó y descartó Google
+Maps, Bing Maps y OpenStreetMap como fuente para el resto — ninguno tiene el detalle
+de etapa que falta; eso se resuelve con catastro municipal o levantamiento propio.
+
+Con la Fase 0 cerrada, se construyeron las Fases 1-6 del plan: dataOrigin/certainty
+en las propuestas del Atlas, rol "geógrafo" para clasificadores, el feed público de
+solo lectura (`/api/sync/feed`, `/api/sync/ack`, `/api/sync/profiles` en
+atlas-colonias), el consumidor pull en PropValu (`routers/atlas_colonias.py`), y la
+apertura de `acabados_propuestas` a colaboradores acreditados del Atlas (no solo
+admins) vía un guard nuevo en `core/auth.py` más una página pública
+`/colaborar/acabados`.
+
+Al intentar desplegar el feed se descubrió que la versión de atlas-colonias en
+`chatgpt.site` (plataforma "Sites" de OpenAI) gatea TODO el dominio detrás de
+"Sign in with ChatGPT" a nivel de plataforma — incluso rutas sin ningún auth propio
+en el código. Un feed público simple no podía vivir ahí. Se armó un despliegue
+independiente del mismo código directo a Cloudflare Workers (la app ya es 100% nativa
+de Cloudflare vía `vinext`) — creación de D1/cuenta real, 15 migraciones aplicadas,
+worker publicado en `atlas-colonias-zmg.pedrucus.workers.dev`, verificado en vivo
+sirviendo JSON real sin el candado de ChatGPT. `ATLAS_COLONIAS_FEED_URL` se conectó
+en Railway (vía Railway MCP, redeploy automático confirmado).
+
+Se corrieron 3 agentes auditores (seguridad, despliegue/crecimiento, páginas) sobre
+todo lo construido. Hallazgo alto: `/auth/register` no verificaba correo, lo cual
+rompía la premisa de que el email es un puente de identidad confiable entre PropValu
+y el Atlas — se cerró en la misma sesión con verificación completa de correo (mismo
+patrón JWT que forgot-password). Otros hallazgos menores corregidos: rate limit en
+creación de propuestas de acabados, fuga de email de perfiles rechazados en el feed
+del Atlas.
+
+Se intentó exportar los datos reales aprobados de la base de chatgpt.site para
+poblar la base nueva de Cloudflare — el export (mecanismo que ya existía,
+`/api/classifier/export`) dio 0 registros: no hay ninguna clasificación aprobada de
+verdad todavía en ningún lado, así que no hubo nada que migrar. Se dejó documentado
+en `INFRAESTRUCTURA_Y_COSTOS.md` (nuevo, en el repo del Manual) el mapa completo de
+qué vive en qué proveedor de hosting (Railway/Vercel/Mongo Atlas/Cloudflare/OpenAI
+Sites) y qué consolidaciones valen la pena (solo Vercel→Railway) vs cuáles no
+(Mongo→Railway, Cloudflare→Railway — ambas costarían más en riesgo/reescritura de lo
+que ahorran en número de proveedores).
+
 ## 19 Ago 2026 — Identificador de Edad probado en vivo + Fase 0/1 de fuente única
 
 Continuación directa de la sesión del 18-ago. Primera tarea: probar en navegador real

@@ -11,7 +11,7 @@
 > Si cambia la arquitectura, actualizar aquí. Grafo completo consultable: `C:\Users\pedru\graphify-out\` (`/graphify query "..."`).
 
 ## Ejes del sistema (god nodes — lo más conectado)
-- **Auth**: `require_admin()` (admin, sesión rotatoria) · `require_auth()` (usuario, cookie/Bearer) · `require_admin_or_job()` (crons externos #66.3) → `backend/routers/*`
+- **Auth**: `require_admin()` (admin, sesión rotatoria) · `require_auth()` (usuario, cookie/Bearer) · `require_admin_or_job()` (crons externos #66.3) · `require_admin_or_credentialed_contributor()` (24-ago, admin O usuario con email verificado que calza contra `classifier_profiles_atlas` — usado en `acabados.py::acabados_propuesta_crear`) → `backend/routers/*`. `User.email_verified` (24-ago) — `/auth/register` ya no crea cuentas sin confirmar correo (`/auth/verify-email`, `/auth/resend-verification`, mismo patrón JWT que forgot-password).
 - **Normalización**: `backend/core/colonias.py` es la **fuente única** del lado Python (`norm_col_key`, `limpia_decor`, `norm_muni`, `es_junk_colonia`) + `decada_de(nombre, municipio)` para leer `colonias_decada.json`; `routers/edades.py` solo re-exporta (antes había 4 copias divergiendo). El motor JS conserva su `normCol()`/`normMuni()` aparte. **Regla: las truncaciones del scraper se restauran (`omos X`→`colomos X`, `inas X`→`colinas X`), y `coto`/`condominio`/`privada` NO se quitan** — son desarrollos con edad propia.
 - **Motor valuación**: `valuarPropiedad()` / `valuarPropiedadCompleto()` → `Modulo Drive IA/motor_remi_api.js` (prod) · `motor_remi_api_lab.js` (LAB)
 - **Sheets**: `SheetsClient` / `googleSheetsConnector` — integración Google Sheets del scraper. **MUERTO desde 08-jul** (10M celdas, scraper ya no le escribe). El caché del motor (`actualizar_cache_desde_mongo.py`) volvió a leer de Mongo el 12-ago tras 5+ semanas sirviendo una foto congelada — ver BACKLOG #159.
@@ -32,6 +32,7 @@
 6. **Staging (#66)**: cluster Atlas separado — `db_target.py` / `seed_staging.py` / `core/db.py`
 7. **Email marketing**: `core/email.py` + `newsletter.py` + `AdminNewsletter.jsx` + Gemini + react-quill-new
 8. **Alta a `mercado_props` (3 caminos, misma validación/escritura #144):** scraper automático · Data Exchange masivo (`routers/data_exchange.py::confirmar`, archivo) · alta manual 1-10 (`.../data-exchange/manual` inmobiliaria, `.../comparables/manual` perito/admin vía `_quien()`). Los 3 últimos comparten `core/data_exchange.py::normalizar_fila/validar_fila/fila_a_doc_pool/fila_a_doc_crm` — tocar ahí propaga a ambos endpoints.
+9. **Federación con atlas-colonias (24-ago, #163):** `routers/atlas_colonias.py::atlas_colonias_sync`/`atlas_colonias_sync_profiles` jalan `GET {ATLAS_COLONIAS_FEED_URL}/api/sync/feed` y `/api/sync/profiles` (paginado, cursor en `colonia_sync_status`), hacen upsert en `colonia_classifications_atlas`/`classifier_profiles_atlas` (nunca tocan `colonias_decada.json`, cacheado en memoria por proceso vía `core/colonias.py::_indice`), y confirman con `POST /api/sync/ack`. Plan completo en `Manual-Arquitectura-ZMG/PLAN_FEDERACION_ECOSISTEMA.md`.
 
 ## Datos / campos
 - Campo año canónico: `anio_construccion` (sin ñ). Solo ~58 docs con año. Ver `ESQUEMA_CAMPOS.md`
