@@ -109,3 +109,41 @@ async def require_admin_or_job(request: Request):
     if expected and job_token and hmac.compare_digest(job_token, expected):
         return {"job": True}
     return await require_admin(request)
+
+
+async def require_admin_or_credentialed_contributor(request: Request) -> dict:
+    """Fase 5 del plan de federación: abre la creación de propuestas de acabados
+    (routers/acabados.py) a colaboradores acreditados, no solo a admins.
+
+    Acepta DOS vías:
+      - Sesión de admin normal (X-Admin-Token), igual que siempre.
+      - Un usuario de PropValu autenticado (require_auth) cuyo email coincide con
+        un classifierProfile del Atlas de colonias, aprobado (status=approved) y
+        con authorizedScope que cubra historical_development o both -- copiado
+        localmente por el sync de la Fase 6 (routers/atlas_colonias.py), nunca
+        consultado en vivo contra el Atlas en cada request.
+
+    El email es el único campo que comparten las dos identidades (PropValu tiene
+    su propio login; el Atlas usa "Sign in with ChatGPT") -- no hay un user_id
+    portátil entre los dos sistemas, así que el email es el puente real, no uno
+    inventado.
+    """
+    if request.headers.get("X-Admin-Token", ""):
+        return await require_admin(request)
+
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Inicia sesión o usa credenciales de administrador")
+
+    email = user.email.strip().lower()
+    profile = await db.classifier_profiles_atlas.find_one({
+        "email": email,
+        "status": "approved",
+        "authorizedScope": {"$in": ["historical_development", "both"]},
+    }, {"_id": 0})
+    if not profile:
+        raise HTTPException(
+            status_code=403,
+            detail="Requiere ser clasificador acreditado del Atlas de colonias (alcance de historia/acabados) o sesión de administrador",
+        )
+    return {"email": email, "is_admin": False, "contributor_profile": profile}

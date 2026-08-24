@@ -2,7 +2,13 @@
 de atlas-colonias (GET /api/sync/feed) -- guarda un espejo en Mongo y confirma
 de vuelta (POST /api/sync/ack). No toca colonias_decada.json (fuente cacheada en
 memoria por proceso, ver core/colonias.py) ni el lookup real de valuación --
-eso es una fase separada, deliberadamente."""
+eso es una fase separada, deliberadamente.
+
+Fase 6: copia local de identidad -- jala GET /api/sync/profiles (perfiles de
+clasificador aprobados/revocados en atlas-colonias) a classifier_profiles_atlas,
+para que require_admin_or_credentialed_contributor (core/auth.py) autorice sin
+llamar al Atlas en cada request. Sin ack: los perfiles no tienen un ciclo de
+"aplicado" como las propuestas, solo se reemplaza el espejo local."""
 import os
 from datetime import datetime, timezone
 
@@ -16,6 +22,7 @@ from core.colonias import norm_col_key, norm_muni
 router = APIRouter(prefix="/api")
 
 SYNC_STATUS_ID = "atlas_colonias"
+PROFILES_SYNC_STATUS_ID = "atlas_colonias_profiles"
 
 
 @router.post("/admin/atlas-colonias/sync")
@@ -79,3 +86,52 @@ async def atlas_colonias_sync(request: Request):
     })
 
     return {"ok": True, "pulled": pulled, "synced": synced, "failed": failed}
+
+
+@router.post("/admin/atlas-colonias/sync-profiles")
+async def atlas_colonias_sync_profiles(request: Request):
+    await require_admin_or_job(request)
+
+    feed_url = os.environ.get("ATLAS_COLONIAS_FEED_URL", "").rstrip("/")
+    if not feed_url:
+        return {"ok": False, "error": "ATLAS_COLONIAS_FEED_URL no configurada."}
+    api_key = os.environ.get("ATLAS_COLONIAS_API_KEY", "")
+    headers = {"x-api-key": api_key} if api_key else {}
+
+    status_doc = await db.colonia_sync_status.find_one({"_id": PROFILES_SYNC_STATUS_ID})
+    cursor = (status_doc or {}).get("last_after", 0)
+    last_seen = cursor
+    pulled = 0
+    now = datetime.now(timezone.utc)
+
+    async with httpx.AsyncClient(timeout=30.0) as client:
+        while True:
+            resp = await client.get(f"{feed_url}/api/sync/profiles", params={"after": cursor, "limit": 200}, headers=headers)
+            if resp.status_code != 200:
+                return {"ok": False, "error": f"Feed de perfiles respondió {resp.status_code}: {resp.text[:300]}"}
+            data = resp.json()
+            records = data.get("records", [])
+            pulled += len(records)
+
+            for record in records:
+                email = (record.get("email") or "").strip().lower()
+                if not email:
+                    continue
+                await db.classifier_profiles_atlas.update_one(
+                    {"atlas_profile_id": record["id"]},
+                    {"$set": {**record, "email": email, "synced_at": now.isoformat()}},
+                    upsert=True,
+                )
+                last_seen = record["id"]
+
+            next_after = data.get("nextAfter")
+            if not next_after:
+                break
+            cursor = next_after
+
+    await db.colonia_sync_status.update_one(
+        {"_id": PROFILES_SYNC_STATUS_ID},
+        {"$set": {"last_after": last_seen, "last_run_at": now.isoformat(), "last_pulled": pulled}},
+        upsert=True,
+    )
+    return {"ok": True, "pulled": pulled}

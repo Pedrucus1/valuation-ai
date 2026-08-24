@@ -2259,6 +2259,8 @@ async def _ensure_indexes():
     # Fase 4 federación (#atlas-colonias): espejo del feed público de clasificaciones
     await db.colonia_classifications_atlas.create_index("atlas_proposal_id", unique=True)
     await db.colonia_classifications_atlas.create_index([("municipio_norm", 1), ("colonia_norm", 1)])
+    await db.classifier_profiles_atlas.create_index("atlas_profile_id", unique=True)
+    await db.classifier_profiles_atlas.create_index("email")
 
 
 @app.on_event("startup")

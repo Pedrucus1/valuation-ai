@@ -14,7 +14,7 @@ from typing import Dict, Any, List
 from fastapi import APIRouter, Request, HTTPException
 
 from core.db import db
-from core.auth import require_admin
+from core.auth import require_admin, require_admin_or_credentialed_contributor
 
 router = APIRouter(prefix="/api")
 
@@ -41,7 +41,9 @@ async def acabados_propuestas_list(request: Request, estado: str = ""):
 
 @router.post("/admin/acabados/propuestas")
 async def acabados_propuesta_crear(request: Request):
-    admin = await require_admin(request)
+    # Fase 5 federación: admin O clasificador acreditado del Atlas de colonias
+    # (colaboradores externos pueden proponer, solo un admin aprueba/mergea).
+    admin = await require_admin_or_credentialed_contributor(request)
     body = await request.json()
 
     elemento = (body.get("elemento") or "").strip()
