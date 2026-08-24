@@ -23,6 +23,7 @@ class User(BaseModel):
     role: str = "public"
     created_at: datetime
     kyc_status: Optional[str] = "pending"
+    email_verified: Optional[bool] = False
     credits: Optional[int] = 0  # saldo EFECTIVO calculado por core.auth.get_current_user (ver core/creditos.py); no confiar en este valor si se lee el doc crudo de Mongo
     creditos_ledger: Optional[List[Dict[str, Any]]] = None  # [{monto, otorgado_en, expira_en, origen}], fuente de verdad real
     plan: Optional[str] = None
@@ -314,3 +315,6 @@ class ForgotPasswordRequest(BaseModel):
 class ResetPasswordRequest(BaseModel):
     token: str
     new_password: str
+
+class VerifyEmailRequest(BaseModel):
+    token: str

@@ -69,6 +69,8 @@ export default function ColaborarAcabados() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [needsCredential, setNeedsCredential] = useState(false);
+  const [needsVerification, setNeedsVerification] = useState(false);
+  const [resendState, setResendState] = useState("idle"); // idle | sending | sent
   const [sent, setSent] = useState(false);
 
   useEffect(() => {
@@ -88,7 +90,7 @@ export default function ColaborarAcabados() {
   const enviar = useCallback(async () => {
     if (!form.opcion.trim()) { setError("Escribe el nombre de la opción."); return; }
     if (form.accion !== "eliminar" && form.decadas.length === 0) { setError("Marca al menos una década."); return; }
-    setSaving(true); setError(""); setNeedsCredential(false);
+    setSaving(true); setError(""); setNeedsCredential(false); setNeedsVerification(false);
     try {
       const res = await fetch(`${API}/admin/acabados/propuestas`, {
         method: "POST",
@@ -96,7 +98,15 @@ export default function ColaborarAcabados() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-      if (res.status === 403) { setNeedsCredential(true); return; }
+      if (res.status === 403) {
+        const err = await res.json().catch(() => ({}));
+        // El guard devuelve 403 por dos motivos distintos (correo sin verificar
+        // vs. sin perfil aprobado en el Atlas) -- distinguir por el mensaje, no
+        // asumir siempre "falta acreditarte".
+        if ((err.detail || "").toLowerCase().includes("verifica tu correo")) setNeedsVerification(true);
+        else setNeedsCredential(true);
+        return;
+      }
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
         throw new Error(err.detail || `Error ${res.status}`);
@@ -108,6 +118,16 @@ export default function ColaborarAcabados() {
       setSaving(false);
     }
   }, [form]);
+
+  const reenviarVerificacion = useCallback(async () => {
+    setResendState("sending");
+    try {
+      await fetch(`${API}/auth/resend-verification`, { method: "POST", credentials: "include" });
+      setResendState("sent");
+    } catch {
+      setResendState("idle");
+    }
+  }, []);
 
   if (authState === "loading") {
     return <Shell><p className="text-slate-500 text-center py-10">Cargando…</p></Shell>;
@@ -132,6 +152,23 @@ export default function ColaborarAcabados() {
           <h1 className="text-xl font-bold text-[#1B4332] font-['Outfit'] mb-2">Aporta al catálogo de acabados</h1>
           <p className="text-slate-600 mb-4">Necesitas iniciar sesión en PropValu para proponer cambios.</p>
           <Button onClick={() => (window.location.href = "/login")}>Iniciar sesión</Button>
+        </CardContent></Card>
+      </Shell>
+    );
+  }
+
+  if (needsVerification) {
+    return (
+      <Shell>
+        <Card><CardContent className="p-6 text-center">
+          <h1 className="text-xl font-bold text-[#1B4332] font-['Outfit'] mb-2">Verifica tu correo primero</h1>
+          <p className="text-slate-600 mb-4">
+            Te mandamos un enlace de verificación al registrarte. Revisa tu bandeja (y spam) o pide que
+            se reenvíe.
+          </p>
+          <Button variant="outline" onClick={reenviarVerificacion} disabled={resendState === "sending"}>
+            {resendState === "sent" ? "Reenviado" : resendState === "sending" ? "Enviando…" : "Reenviar correo de verificación"}
+          </Button>
         </CardContent></Card>
       </Shell>
     );

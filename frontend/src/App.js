@@ -29,6 +29,7 @@ const LoginPage                 = lazy(() => import("@/pages/LoginPage"));
 const AuthCallback              = lazy(() => import("@/pages/AuthCallback"));
 const ForgotPasswordPage        = lazy(() => import("@/pages/ForgotPasswordPage"));
 const ResetPasswordPage         = lazy(() => import("@/pages/ResetPasswordPage"));
+const VerifyEmailPage           = lazy(() => import("@/pages/VerifyEmailPage"));
 
 // Dashboards (pesados — lazy crítico)
 const DashboardPage             = lazy(() => import("@/pages/DashboardPage"));
@@ -145,6 +146,7 @@ function AppRouter() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route path="/verify-email" element={<VerifyEmailPage />} />
         <Route path="/auth/callback" element={<AuthCallback />} />
         <Route path="/diseno/:pageSlug" element={<PlasmicPage />} />
         <Route path="/diseno" element={<PlasmicPage />} />

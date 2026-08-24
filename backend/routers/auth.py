@@ -12,13 +12,43 @@ from core.auth import get_current_user, require_auth, pwd_context
 from core.creditos import establecer_creditos_mensuales, saldo_efectivo
 from core.ratelimit import limiter
 from core.email import send_email
-from models import RegisterRequest, LoginRequest, ForgotPasswordRequest, ResetPasswordRequest
+from models import RegisterRequest, LoginRequest, ForgotPasswordRequest, ResetPasswordRequest, VerifyEmailRequest
 
 router = APIRouter(prefix="/api")
 
 # Secreto para firmar el JWT de recuperación (idealmente en .env)
 JWT_SECRET = os.getenv("JWT_SECRET", "super-secret-key-propvalu-reset-12345")
 JWT_ALGORITHM = "HS256"
+
+
+def _send_verification_email(user_id: str, email: str, name: str):
+    """Best-effort: si falla el SMTP no bloquea el registro/login -- el usuario
+    puede pedir que se reenvíe desde /auth/resend-verification."""
+    expiration = datetime.now(timezone.utc) + timedelta(hours=48)
+    token = jwt.encode(
+        {"sub": user_id, "email": email, "exp": expiration, "type": "verify_email"},
+        JWT_SECRET, algorithm=JWT_ALGORITHM,
+    )
+    frontend_url = os.getenv("FRONTEND_URL", "http://localhost:3000")
+    verify_link = f"{frontend_url}/verify-email?token={token}"
+    html_content = f"""
+    <html>
+      <body style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+        <h2 style="color: #1B4332;">PropValu</h2>
+        <p>Hola {name},</p>
+        <p>Confirma tu correo para poder participar como colaborador acreditado (por ejemplo, en el catálogo de acabados del Identificador de Edad). Este enlace expira en 48 horas:</p>
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="{verify_link}" style="background-color: #52B788; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Verificar mi correo</a>
+        </div>
+        <p style="font-size: 14px; color: #666;">Si el botón no funciona, copia y pega este enlace en tu navegador:</p>
+        <p style="font-size: 12px; color: #666; word-break: break-all;">{verify_link}</p>
+      </body>
+    </html>
+    """
+    try:
+        send_email([email], "Verifica tu correo - PropValu", html_content)
+    except Exception as e:
+        print(f"Error enviando email de verificación: {e}")
 
 
 @router.post("/auth/session")
@@ -309,11 +339,13 @@ async def register_email(request: Request, data: RegisterRequest, response: Resp
         "galardones": data.galardones,
         "hashed_password": hashed_pw,
         "kyc_status": "pending",
+        "email_verified": False,
         "credits": 0,
         "plan": None,
         "created_at": datetime.now(timezone.utc).isoformat(),
     }
     await db.users.insert_one(new_user)
+    _send_verification_email(user_id, data.email, data.name)
 
     session_token = f"sess_{uuid.uuid4().hex}"
     expires_at = datetime.now(timezone.utc) + timedelta(days=7)
@@ -449,3 +481,41 @@ async def reset_password(request: Request, data: ResetPasswordRequest):
     await db.user_sessions.delete_many({"user_id": user_id})
 
     return {"message": "Contraseña actualizada exitosamente"}
+
+
+@router.post("/auth/verify-email")
+@limiter.limit("10/minute")
+async def verify_email(request: Request, data: VerifyEmailRequest):
+    try:
+        payload = jwt.decode(data.token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
+        if payload.get("type") != "verify_email":
+            raise HTTPException(status_code=400, detail="Token inválido")
+        user_id = payload.get("sub")
+        email = payload.get("email")
+        if not user_id or not email:
+            raise HTTPException(status_code=400, detail="Token corrupto")
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status_code=400, detail="El enlace de verificación expiró. Pide que se reenvíe.")
+    except jwt.InvalidTokenError:
+        raise HTTPException(status_code=400, detail="El enlace de verificación no es válido.")
+
+    # El email en el token es el que se envió a verificar -- si el usuario cambió
+    # de correo desde entonces, este enlace viejo no debe validar el nuevo.
+    user_doc = await db.users.find_one({"user_id": user_id})
+    if not user_doc:
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+    if user_doc.get("email") != email:
+        raise HTTPException(status_code=400, detail="Este enlace corresponde a un correo distinto al actual de la cuenta.")
+
+    await db.users.update_one({"user_id": user_id}, {"$set": {"email_verified": True}})
+    return {"message": "Correo verificado correctamente"}
+
+
+@router.post("/auth/resend-verification")
+@limiter.limit("3/minute")
+async def resend_verification(request: Request):
+    user = await require_auth(request)
+    if user.email_verified:
+        return {"message": "Tu correo ya está verificado"}
+    _send_verification_email(user.user_id, user.email, user.name)
+    return {"message": "Correo de verificación reenviado"}

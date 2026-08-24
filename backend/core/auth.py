@@ -125,8 +125,10 @@ async def require_admin_or_credentialed_contributor(request: Request) -> dict:
 
     El email es el único campo que comparten las dos identidades (PropValu tiene
     su propio login; el Atlas usa "Sign in with ChatGPT") -- no hay un user_id
-    portátil entre los dos sistemas, así que el email es el puente real, no uno
-    inventado.
+    portátil entre los dos sistemas, así que el email es el puente real. Por eso
+    exige email_verified: /auth/register no confirmaba el correo, así que
+    cualquiera podía registrarse con el email de un clasificador ya acreditado
+    y colarse -- sin verificación, el "puente" no prueba nada.
     """
     if request.headers.get("X-Admin-Token", ""):
         return await require_admin(request)
@@ -134,6 +136,8 @@ async def require_admin_or_credentialed_contributor(request: Request) -> dict:
     user = await get_current_user(request)
     if not user:
         raise HTTPException(status_code=401, detail="Inicia sesión o usa credenciales de administrador")
+    if not user.email_verified:
+        raise HTTPException(status_code=403, detail="Verifica tu correo antes de proponer contenido (revisa tu bandeja o pide reenviarlo)")
 
     email = user.email.strip().lower()
     profile = await db.classifier_profiles_atlas.find_one({
