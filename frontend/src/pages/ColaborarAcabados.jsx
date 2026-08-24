@@ -64,7 +64,7 @@ function Shell({ children }) {
 }
 
 export default function ColaborarAcabados() {
-  const [authState, setAuthState] = useState("loading"); // loading | anon | ok
+  const [authState, setAuthState] = useState("loading"); // loading | anon | ok | error
   const [form, setForm] = useState({ ...EMPTY_FORM });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -73,8 +73,11 @@ export default function ColaborarAcabados() {
 
   useEffect(() => {
     fetch(`${API}/auth/me`, { credentials: "include" })
-      .then((res) => setAuthState(res.ok ? "ok" : "anon"))
-      .catch(() => setAuthState("anon"));
+      // 401 = de verdad sin sesión. Cualquier otra respuesta (500, etc.) o un
+      // fetch que ni siquiera llega (red caída) no es lo mismo que "no has
+      // iniciado sesión" -- no hay que decirle eso al usuario.
+      .then((res) => setAuthState(res.status === 401 ? "anon" : res.ok ? "ok" : "error"))
+      .catch(() => setAuthState("error"));
   }, []);
 
   const setField = (patch) => setForm((f) => ({ ...f, ...patch }));
@@ -108,6 +111,18 @@ export default function ColaborarAcabados() {
 
   if (authState === "loading") {
     return <Shell><p className="text-slate-500 text-center py-10">Cargando…</p></Shell>;
+  }
+
+  if (authState === "error") {
+    return (
+      <Shell>
+        <Card><CardContent className="p-6 text-center">
+          <h1 className="text-xl font-bold text-[#1B4332] font-['Outfit'] mb-2">No se pudo verificar tu sesión</h1>
+          <p className="text-slate-600 mb-4">Hubo un problema de conexión, no es que falte iniciar sesión. Intenta de nuevo.</p>
+          <Button variant="outline" onClick={() => window.location.reload()}>Reintentar</Button>
+        </CardContent></Card>
+      </Shell>
+    );
   }
 
   if (authState === "anon") {

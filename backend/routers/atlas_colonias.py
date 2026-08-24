@@ -114,12 +114,17 @@ async def atlas_colonias_sync_profiles(request: Request):
             pulled += len(records)
 
             for record in records:
-                email = (record.get("email") or "").strip().lower()
-                if not email:
-                    continue
+                # Un perfil rejected/suspended llega sin email/fullName (el feed ya no
+                # los expone para revocados, ver app/api/sync/profiles/route.ts) --
+                # igual hay que aplicar el update por atlas_profile_id, si no la
+                # revocación nunca llega al espejo local y el guard de contribuidor
+                # se queda autorizando a alguien ya revocado.
+                update = {**record, "synced_at": now.isoformat()}
+                if record.get("email"):
+                    update["email"] = record["email"].strip().lower()
                 await db.classifier_profiles_atlas.update_one(
                     {"atlas_profile_id": record["id"]},
-                    {"$set": {**record, "email": email, "synced_at": now.isoformat()}},
+                    {"$set": update},
                     upsert=True,
                 )
                 last_seen = record["id"]

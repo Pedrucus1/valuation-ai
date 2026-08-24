@@ -15,6 +15,7 @@ from fastapi import APIRouter, Request, HTTPException
 
 from core.db import db
 from core.auth import require_admin, require_admin_or_credentialed_contributor
+from core.ratelimit import limiter
 
 router = APIRouter(prefix="/api")
 
@@ -40,9 +41,11 @@ async def acabados_propuestas_list(request: Request, estado: str = ""):
 
 
 @router.post("/admin/acabados/propuestas")
+@limiter.limit("20/minute")
 async def acabados_propuesta_crear(request: Request):
     # Fase 5 federación: admin O clasificador acreditado del Atlas de colonias
     # (colaboradores externos pueden proponer, solo un admin aprueba/mergea).
+    # Rate limit: ya no es solo-admin, hay que frenar spam de la cola de revisión.
     admin = await require_admin_or_credentialed_contributor(request)
     body = await request.json()
 
