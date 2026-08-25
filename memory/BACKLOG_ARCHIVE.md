@@ -5,6 +5,58 @@
 
 ---
 
+## 24 Ago 2026 (noche, sesión 2) — Mini-reporte de 1 hoja + diseño de OPI de renta independiente
+
+Dos clientes (uno de flipping de casas, otro de bodegas en renta) pidieron un reporte de
+impresión mínimo, de 1 página, con solo el valor de la propiedad — sin las 5 páginas del
+reporte completo actual. Se planeó con `EnterPlanMode` (toca `server.py` + 2 archivos más,
+regla dura del repo) y se construyó: `generate_mini_report_html()` en `report_generator.py`
+(folio, dirección, valor+rango, terreno/construcción/edad/tipo, mini-mapa estático, "N
+comparables activos en la zona", sin sección de renta), endpoint nuevo
+`POST /valuations/{id}/generate-mini-report` (sin IA, sin gasto de créditos — reusa el
+`result` ya calculado) y botón "Resumen 1 hoja" en `ReportPage.jsx` que reutiliza el mismo
+flujo de descarga/print que ya existía vía `/gracias` (cero cambios en `ThankYouPage.jsx`).
+Verificado end-to-end en Chrome contra un avalúo real de staging (`val_c8e86a51563e`):
+folio/título/valor coinciden con el reporte completo, cabe en 1 página tamaño carta.
+
+Al levantar el backend local volvió a aparecer el bug ya documentado de `starlette` (un
+paquete MCP que comparte el mismo Python global lo sube a 1.6.0, incompatible con
+`fastapi==0.110.1`) — mismo fix de siempre (`pip install starlette==0.37.2`), ahora sí
+pinneado en `requirements.txt`.
+
+El usuario aclaró que la renta que pidieron los clientes NO es el factor derivado actual,
+sino un **OPI de renta independiente** (mismo método que venta pero con comparables de renta
+propios, comparando ambos resultados — así lo hace el perito real). Se lanzó un agente en
+paralelo a leer las fórmulas reales de `opi_perito.xlsx` (hojas "OPI Loc Com" y "OPI Rentas")
+mientras se construía el mini-reporte: confirmó la doble comprobación (venta-homologada×factor
+fijo 0.008 vs comparables de renta homologados directos) y dejó un diseño concreto de
+`valuarRentaPropiedad()`/`factorRentaVenta()` para `motor_remi_api.js`, sin escribir código
+todavía. Detalle completo en memoria Claude `project_propvalu_opi_renta_independiente.md`.
+BACKLOG #164 (mini-reporte, cerrado) y #165 (motor de renta, diseño pendiente de construir).
+
+---
+
+## 24 Ago 2026 (noche) — PINCALI: fix falso-positivo AWS WAF + guardas de carpeta vieja del scraper
+
+Sesión que arrancó como "instala Scrapling y pruébalo contra Pincali" y terminó horas
+editando `C:\Users\pedru\valuation-ai\scraper-inmuebles` (la carpeta VIEJA, no la que corre
+producción) sin haber corrido `graphify query` primero — trabajo duplicado con otra sesión
+del mismo día que ya había arreglado lo mismo en la carpeta correcta (commit `f290221`), con
+la regla de negocio opuesta (español, no inglés). El usuario lo notó antes que el asistente.
+
+Lo real y aprovechable que salió: (1) confirmación con headers HTTP reales de que PINCALI
+bloquea con AWS WAF (`x-amzn-waf-action: challenge`) tanto en español como en inglés, incluso
+con `requests` plano — no es tema de idioma, es sitewide (BACKLOG #151 actualizado); (2) un
+bug real de falso-positivo en el detector de bloqueo de `enricher.py` (no reconocía la página
+de challenge AWS WAF como bloqueo, la guardaba como "éxito" con contenido basura) — corregido
+en el repo correcto; (3) la carpeta vieja del scraper quedó documentada con precisión en su
+propio `README.md` (no "toda obsoleta" como se afirmó al principio — hospeda un orquestador
+de auto-fix que sí corre 24/7) tras corrección del usuario, que además pidió no crear archivos
+`.md` sueltos para esto. Detalle completo en memoria Claude `project_scraper_inmuebles.md`
+(sesión "24-ago-2026 (b)") y `feedback_scraper_carpetas_divergentes`.
+
+---
+
 ## 24 Ago 2026 — Federación PropValu/Manual/atlas-colonias construida y desplegada
 
 Sesión larga, cerrando el pendiente que quedó abierto el 19-ago (el "tercer proyecto"

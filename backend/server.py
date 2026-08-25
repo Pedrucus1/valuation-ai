@@ -1590,6 +1590,27 @@ async def calculate_remi(valuation_id: str):
     )
     return {**result, "result": web_result}
 
+@api_router.post("/valuations/{valuation_id}/generate-mini-report")
+@limiter.limit("20/hour")
+async def generate_mini_report(valuation_id: str, request: Request):
+    """Resumen de 1 página (solo venta) sobre un avalúo ya calculado.
+    No consume créditos ni llama IA: es solo un render distinto del mismo resultado."""
+    valuation = await db.valuations.find_one({"valuation_id": valuation_id}, {"_id": 0})
+    if not valuation:
+        raise HTTPException(status_code=404, detail="Valuación no encontrada")
+    if not valuation.get("result"):
+        raise HTTPException(status_code=400, detail="Primero calcule la valuación")
+
+    from report_generator import generate_mini_report_html
+    mini_html = generate_mini_report_html(valuation)
+
+    await db.valuations.update_one(
+        {"valuation_id": valuation_id},
+        {"$set": {"mini_report_html": mini_html, "updated_at": datetime.now(timezone.utc).isoformat()}}
+    )
+    return {"report_html": mini_html}
+
+
 @api_router.post("/valuations/{valuation_id}/generate-report")
 @limiter.limit("10/hour")
 async def generate_report(valuation_id: str, request: Request, include_analysis: bool = True):

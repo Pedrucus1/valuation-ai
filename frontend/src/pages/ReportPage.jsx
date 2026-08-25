@@ -275,6 +275,23 @@ const ReportPage = () => {
     }
   };
 
+  const generateMiniReport = async () => {
+    try {
+      const response = await fetch(`${API}/valuations/${valuationId}/generate-mini-report`, {
+        method: "POST",
+        credentials: "include"
+      });
+      if (!response.ok) {
+        throw new Error("Error al generar el resumen");
+      }
+      const data = await response.json();
+      navigate(`/gracias/${valuationId}`, { state: { reportHtml: data.report_html, autoDownload: true } });
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error(error.message);
+    }
+  };
+
   const handleDownloadPDF = () => {
     if (valuation?.mode !== "private") {
       // Show slot3 ad "antes de la descarga" for public/realtor users
@@ -380,6 +397,16 @@ const ReportPage = () => {
               >
                 <RefreshCw className={`w-4 h-4 mr-2 ${isGenerating ? 'animate-spin' : ''}`} />
                 Actualizar análisis IA
+              </Button>
+              <Button
+                variant="outline"
+                onClick={generateMiniReport}
+                className="border-[#1B4332] text-[#1B4332]"
+                data-testid="mini-report-btn"
+                title="Resumen de 1 hoja con solo el valor estimado, sin el reporte completo"
+              >
+                <FileText className="w-4 h-4 mr-2" />
+                Resumen 1 hoja
               </Button>
               <Button
                 onClick={handleDownloadPDF}
@@ -734,6 +761,15 @@ const ReportPage = () => {
             Nueva Valuación
           </Button>
           <div className="flex gap-2">
+            <Button
+              variant="outline"
+              onClick={generateMiniReport}
+              className="border-[#1B4332] text-[#1B4332]"
+              data-testid="mini-report-btn-footer"
+            >
+              <FileText className="w-4 h-4 mr-2" />
+              Resumen 1 hoja
+            </Button>
             <Button
               onClick={handleDownloadPDF}
               className="bg-[#1B4332] hover:bg-[#2D6A4F] text-white"

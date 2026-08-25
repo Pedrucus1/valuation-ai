@@ -427,6 +427,124 @@ _REPORT_CSS = """
 """
 
 
+def generate_mini_report_html(valuation: dict) -> str:
+    """Resumen de 1 página (venta) para clientes que solo quieren el valor.
+    Sin sección de renta: hoy la renta es un factor derivado de venta, no un
+    estudio de comparables de renta independiente (pendiente motor aparte)."""
+    prop = valuation["property_data"]
+    result = valuation["result"]
+    comparables = valuation.get("comparables", [])
+    selected_ids = valuation.get("selected_comparables", [])
+    active_comparables = [c for c in comparables if c["comparable_id"] in selected_ids] if selected_ids else comparables[:6]
+
+    consultation_date = valuation.get("consultation_date", datetime.now(timezone.utc).isoformat())
+    date_str = consultation_date[:10] if isinstance(consultation_date, str) else consultation_date.strftime("%Y-%m-%d")
+    try:
+        date_display = datetime.strptime(date_str, "%Y-%m-%d").strftime("%d/%m/%Y")
+    except Exception:
+        date_display = date_str
+
+    folio = valuation.get('folio') or generate_folio(valuation.get('valuation_id', '001'))
+
+    address = (prop.get('address') or prop.get('street_address') or '').strip()
+    neighborhood = prop.get('neighborhood', '')
+    city = prop.get('city') or prop.get('municipality') or ''
+    state_name = prop.get('state', '')
+    addr_full = ', '.join([p for p in [address, neighborhood] if p]) or 'Dirección no especificada'
+    location_str = ', '.join([p for p in [city, state_name] if p])
+
+    land_area = prop.get('land_area', '-')
+    construction_area = prop.get('construction_area', '-')
+    age = prop.get('estimated_age', '-')
+    property_type = prop.get('property_type', 'Casa')
+
+    total_value = result['estimated_value']
+    value_min = result['value_range_min']
+    value_max = result['value_range_max']
+    market_metrics = result.get('market_metrics', {})
+    similar_count = int(market_metrics.get('similar_properties_count', len(comparables)) or len(active_comparables))
+
+    def fmt_money(v):
+        return f"${v:,.0f} MXN"
+
+    lat = prop.get('latitude') or 20.6597
+    lng = prop.get('longitude') or -103.3496
+    map_data = get_map_for_report(lat, lng)
+    static_src = map_data.get('static_image') if map_data.get('has_static') else None
+    map_html = (
+        f'<img src="{static_src}" alt="Mapa" style="width:100%;height:100%;object-fit:cover;" '
+        f'onerror="this.style.display=\'none\';this.parentElement.innerHTML=\'&#x1F4CD; {lat:.6f}, {lng:.6f}\'">'
+        if static_src else f'<span>&#x1F4CD; {lat:.6f}, {lng:.6f}</span>'
+    )
+
+    return f"""<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PropValu {folio} - Resumen</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {{ --green-900:#1B4231; --green-700:#2D6A4F; --lime:#D9ED91; --text-main:#0F162A; --text-sec:#63738A; --gray-200:#e2e8f0; }}
+  * {{ margin:0; padding:0; box-sizing:border-box; }}
+  body {{ font-family:'Inter',sans-serif; color:var(--text-main); font-size:13px; -webkit-print-color-adjust:exact; print-color-adjust:exact; }}
+  h1,h2,h3 {{ font-family:'Outfit',sans-serif; }}
+  .page {{ width:210mm; min-height:297mm; margin:0 auto; padding:16mm 18mm; background:#fff; }}
+  .header {{ display:flex; justify-content:space-between; align-items:flex-start; border-bottom:2px solid var(--green-900); padding-bottom:10px; margin-bottom:18px; }}
+  .logo-text {{ font-family:'Outfit',sans-serif; font-weight:800; font-size:20px; color:var(--green-900); }}
+  .logo-text span {{ color:var(--green-700); }}
+  .folio-box {{ text-align:right; font-size:11px; color:var(--text-sec); }}
+  .addr {{ font-size:15px; font-weight:600; margin-bottom:2px; }}
+  .loc {{ font-size:12px; color:var(--text-sec); margin-bottom:20px; }}
+  .value-box {{ background:var(--green-900); color:#fff; border-radius:14px; padding:26px; text-align:center; margin-bottom:22px; }}
+  .value-label {{ font-size:12px; opacity:.85; letter-spacing:.5px; text-transform:uppercase; }}
+  .value-amount {{ font-family:'Outfit',sans-serif; font-weight:800; font-size:38px; margin:6px 0; }}
+  .value-range {{ font-size:12px; opacity:.85; }}
+  .grid4 {{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:20px; }}
+  .grid4 .cell {{ background:#f8fafc; border:1px solid var(--gray-200); border-radius:10px; padding:12px; text-align:center; }}
+  .grid4 .cell .lbl {{ font-size:10px; color:var(--text-sec); text-transform:uppercase; }}
+  .grid4 .cell .val {{ font-size:16px; font-weight:700; margin-top:4px; }}
+  .map-box {{ width:100%; height:190px; border-radius:10px; overflow:hidden; background:#e2e8f0; display:flex; align-items:center; justify-content:center; margin-bottom:16px; }}
+  .conf-line {{ font-size:12px; color:var(--text-sec); text-align:center; margin-bottom:24px; }}
+  .footer {{ border-top:1px solid var(--gray-200); padding-top:10px; font-size:9px; color:var(--text-sec); text-align:center; position:absolute; bottom:14mm; left:18mm; right:18mm; }}
+  @media print {{ @page {{ size:A4; margin:0; }} .page {{ margin:0; }} }}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div class="logo-text">Prop<span>Valu</span></div>
+    <div class="folio-box">Folio: <strong>{folio}</strong><br>Fecha: {date_display}</div>
+  </div>
+
+  <div class="addr">&#x1F4CD; {addr_full}</div>
+  <div class="loc">{location_str}</div>
+
+  <div class="value-box">
+    <div class="value-label">Valor Estimado de Mercado</div>
+    <div class="value-amount">{fmt_money(total_value)}</div>
+    <div class="value-range">Rango: {fmt_money(value_min)} &mdash; {fmt_money(value_max)}</div>
+  </div>
+
+  <div class="grid4">
+    <div class="cell"><div class="lbl">Terreno</div><div class="val">{land_area} m&#xB2;</div></div>
+    <div class="cell"><div class="lbl">Construcción</div><div class="val">{construction_area} m&#xB2;</div></div>
+    <div class="cell"><div class="lbl">Antigüedad</div><div class="val">{age} años</div></div>
+    <div class="cell"><div class="lbl">Tipo</div><div class="val">{property_type}</div></div>
+  </div>
+
+  <div class="map-box">{map_html}</div>
+
+  <div class="conf-line">Basado en {similar_count} comparables activos en la zona</div>
+
+  <div class="footer">
+    Estimación de mercado, no constituye avalúo formal ni dictamen pericial &mdash; PropValu &middot; propvalu.mx
+  </div>
+</div>
+</body>
+</html>"""
+
+
 def generate_html_report(valuation: dict, analysis: str, include_analysis: bool = True, ai_sections: dict = None) -> str:
     prop = valuation["property_data"]
     result = valuation["result"]
