@@ -2,14 +2,13 @@
 
 > **Único archivo que se lee al iniciar** (corto, siempre vigente). Tareas por # → `BACKLOG.md` (grep). Historial → `BACKLOG_ARCHIVE.md`. Motor → `MOTOR_ANTECEDENTES.md` (grep). **Se sobrescribe en cada cierre de sesión.**
 
-**Última actualización:** 24 Ago 2026 (madrugada)
-**Fase:** Prod Railway + Vercel público, estable. Sesión larga 23/24-ago cerrando la federación de datos
-entre PropValu / Manual-Arquitectura-ZMG / atlas-colonias (el "tercer proyecto" que quedó pendiente el
-19-ago). **Las Fases 0-6 del plan de federación quedaron construidas, probadas y en producción** — ver
-`project_propvalu.md` sección de sesión de hoy para el detalle completo. Resumen: PropValu ahora puede
-jalar clasificaciones de colonias aprobadas desde atlas-colonias, y un colaborador acreditado del Atlas
-puede proponer contenido de acabados sin ser admin. Se cerró también un hallazgo de seguridad alto
-(verificación de correo faltante en el registro) encontrado por un audit propio.
+**Última actualización:** 24 Ago 2026 (noche)
+**Fase:** Prod Railway + Vercel público, estable. Sesión larga 23/24-ago: primero se cerró la federación de
+datos entre PropValu / Manual-Arquitectura-ZMG / atlas-colonias (Fases 0-6, ver `project_propvalu.md`) y un
+hallazgo de seguridad alto (verificación de correo). **Bloque separado, tarde 24-ago: investigación a fondo
+de depreciación por edad (Ross-Heidecke) en el motor**, usando un avalúo SHF real como referencia — corrigió
+`result_lab_rh` a vida útil=70 fija (commit `97e8620`) y refrescó/ponderó `pm2t_semilla.json` (#159, ahora
+cerrado). Detalle completo en `MOTOR_ANTECEDENTES.md` ("RESULT_LAB_RH 24-Ago") y `BACKLOG.md` #148/#159.
 
 ## 🔥 LO MÁS CALIENTE — qué sigue
 
@@ -21,9 +20,9 @@ puede proponer contenido de acabados sin ser admin. Se cerró también un hallaz
    todavía ninguna clasificación aprobada de verdad en ningún lado**, no es un bug. Próximo paso real:
    confirmar si hay propuestas *pendientes* de aprobar en chatgpt.site (no solo aprobadas), y decidir
    si vale la pena mover ese flujo de revisión hacia el Atlas de Cloudflare a futuro.
-2. **Corrida mensual del scraper en curso**, relanzada 12-ago con fixes: mojibake de zonas (`Tonalá`/`Tlajomulco de Zúñiga`) arreglado (cp1252 iterativo, era triple-mojibake no simple), `CASAS_Y_TERRENOS` slugs-como-string arreglado, pausa entre tareas calibrada por portal (PINCALI/CYT/MITULA 2-5min, PROPIEDADES_COM 5-10min, INMUEBLES24/VIVANUNCIOS se quedan en 12-22min). Un watchdog (Bash + Monitor, corre solo mientras la sesión de Claude que lo lanzó siga viva) reinicia el proceso si muere y solo declara éxito cuando el log dice "Todas las tareas completadas". **Si se abre nueva sesión y el watchdog ya no está corriendo, verificar manualmente si `scheduler.py` sigue vivo** (no hay tarea de Windows para esto todavía).
+2. **Enricher del scraper APAGADO A PROPÓSITO (24-ago noche)** — los 3 shards (`enricher.py --shard 0/3, 1/3, 2/3`) entraron en loop de crash/relanzamiento (el watchdog los revivía cada ~200s, los 3 casi al mismo tiempo — huele a algo sistémico, no aislado, posible relación con el fix reciente "fallback muerto PINCALI"). Se mataron los 3 procesos y se detuvo el watchdog para cortar el loop. **Pendiente next session: diagnosticar por qué crashean los 3 juntos antes de relanzar.**
 3. **Causa raíz del "kill" del scraper SIGUE sin confirmar** (#156). Además la tarea de Windows `ScraperMonitorLocal` apunta a la carpeta VIEJA del scraper con credenciales de Mongo muertas (#162).
-4. **Migración de caché del motor Sheet→Mongo reactivada** (#159) — recalibrado, empate técnico contra baseline. **Sesgo residual aislado al pool `lote_grande_cus`** (pm2t_semilla.json de #120 desactualizado) — siguiente tarea del motor.
+4. **Migración de caché del motor Sheet→Mongo + `pm2t_semilla.json` — CERRADO (24-ago, #159).** Refrescado desde `cerebro_datos.json` actual + ponderación nueva por antigüedad de la OPI. Cero regresión, mejora consistente en los casos `lote_grande_cus` tocados. Detalle en `BACKLOG.md` #159.
 5. **Tavily agotado + Serper muerto desde 09-jul** (#161) — Brave Search cableado, falta API key real.
 6. **PINCALI en español sigue caído** (#151). Diferido a propósito.
 7. **Automatización real del scraper mensual — sin decidir** (#152-154).
@@ -36,13 +35,18 @@ puede proponer contenido de acabados sin ser admin. Se cerró también un hallaz
   (seguridad/despliegue/páginas) — ver `project_propvalu.md` para el detalle de los otros hallazgos
   (rate limit agregado, fuga de email en perfiles rechazados corregida del lado del Atlas).
 
-## 🧠 Motor — verificado 24-ago (limpieza de pendientes obsoletos)
+## 🧠 Motor — sesión larga de depreciación por edad (24-ago noche)
 - **Gate CUS 0.65: CERRADO.** Confirmado en código (`motor_remi_api.js:829`, revalidado 07-ago sobre 210 OPIs). No es pendiente.
-- **`result_lab_rh` (Ross-Heidecke): sigue en observación, a propósito.** `getRH()` SÍ corre en prod (motor JS vía `sumaDePartes()` y Python vía `server.py::_get_rh_lab`); lo pendiente es solo la decisión de promover `result_lab_rh` (campo paralelo del cost-approach en el reporte) a reemplazar `estimated_value` — abierta desde el 4-ago, no un bug.
-- **`colonias_decada.json`: cableado en `backend/` (edades/crowdsourcing), NO en el motor JS.** Son dos sistemas distintos — cerrado para su propósito actual. Si se quiere usar como prior de edad en `motor_remi_api.js`, es trabajo nuevo, no algo "pendiente de terminar".
+- **Ross-Heidecke investigado a fondo con un avalúo SHF real (folio 26080015287) — hallazgos importantes:**
+  1. RH cuadrático SÍ es la fórmula real del perito (`Fed=1-0.5*(x+x²)`), pero con **vida útil=70 fija**, no condicionada a calidad como asumía la regla vieja (un caso Interés Social real usó vida=70). Corregido en `server.py::_depreciacion_lab()` (commit `97e8620`) — solo afecta `result_lab_rh`, campo paralelo en observación, NO toca `estimated_value`.
+  2. **El perito real NO blendea físico+mercado** — usa 100% mercado, físico solo de referencia. `server.py` sí hace blend 80/20 fijo siempre — esa arquitectura es la pieza mal diseñada, no la curva de edad. Validado contra 614 OPIs + 22 avalúos reales de PropValu: cambiar solo la curva mueve <1% en promedio (blend+clamp ±30% amortiguan casi todo).
+  3. **El motor JS (`motor_remi_api.js`) NO usa RH para el flujo normal de comparables** — solo aparece en `sumaDePartes()` (fallback raro cuando faltan comps). El flujo normal deprecia por edad con `factorEdad` propio (K=0.010/GAP=25/piso 0.55 en pool `exacta`, con discriminante `_segRatio`) — ya calibrado y en prod, no se tocó hoy.
+  4. **Pendiente real, sin decidir:** si se quita el blend 80/20 de `server.py` (usar 100% comparativo + físico como referencia aparte, como el perito real), ahí sí valdría reevaluar la curva de edad de nuevo. Detalle completo en `MOTOR_ANTECEDENTES.md`.
+- **`colonias_decada.json`: cableado en `backend/` (edades/crowdsourcing), NO en el motor JS.** Son dos sistemas distintos — cerrado para su propósito actual.
 - **Tavily agotado: confirmado, sigue pendiente.** Free tier 1,000 req/mes se agota con uso normal (no es bug). `BRAVE_API_KEY` sigue sin existir en `.env` — el fallback cableado no tiene key real todavía.
 
 ## 🏗️ Infra / datos
+- **Backend local no arrancaba (causa raíz encontrada 24-ago):** `starlette` local estaba en 1.6.0 (subida sin querer por un paquete MCP compartiendo el mismo Python global) — incompatible con `fastapi==0.110.1` pinneado en `requirements.txt`. Arreglado localmente con `pip install starlette==0.37.2`. **`requirements.txt` NO tiene `starlette` pinneado explícito** — pendiente decidir si agregarlo para que no se rompa de nuevo si algo más toca ese Python compartido.
 - Railway (backend): deploy manual `railway up --detach` de git, PERO hoy se agregó
   `ATLAS_COLONIAS_FEED_URL` vía Railway MCP (`set-variables`) — eso sí dispara redeploy automático,
   confirmado `SUCCESS`. Vercel (frontend): deploy manual `vercel --prod`.
