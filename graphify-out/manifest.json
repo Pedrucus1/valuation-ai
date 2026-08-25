@@ -1322,7 +1322,7 @@
   "backend/core/auth.py": {
     "mtime": 1787548052.6370783,
     "ast_hash": "cc6e3a4fd7f3dcd3c90fc8148a1f1e0c",
-    "semantic_hash": ""
+    "semantic_hash": "cc6e3a4fd7f3dcd3c90fc8148a1f1e0c"
   },
   "backend/core/cache.py": {
     "mtime": 1780605707.6096408,
@@ -1387,7 +1387,7 @@
   "backend/models.py": {
     "mtime": 1787548002.3268237,
     "ast_hash": "bdad87c2ba1ce238b00e92bda99bbb1d",
-    "semantic_hash": ""
+    "semantic_hash": "bdad87c2ba1ce238b00e92bda99bbb1d"
   },
   "backend/mongo_comparables.py": {
     "mtime": 1786141418.2923887,
@@ -1417,7 +1417,7 @@
   "backend/routers/acabados.py": {
     "mtime": 1787542988.3749835,
     "ast_hash": "14b03bb01ae04836d870c1dba51efcf9",
-    "semantic_hash": ""
+    "semantic_hash": "14b03bb01ae04836d870c1dba51efcf9"
   },
   "backend/routers/access.py": {
     "mtime": 1780374517.437251,
@@ -1467,7 +1467,7 @@
   "backend/routers/auth.py": {
     "mtime": 1787548043.1664348,
     "ast_hash": "6ba49c292873457cd30b728d63feb75d",
-    "semantic_hash": ""
+    "semantic_hash": "6ba49c292873457cd30b728d63feb75d"
   },
   "backend/routers/cms.py": {
     "mtime": 1780375631.343522,
@@ -1555,9 +1555,9 @@
     "semantic_hash": "f726ef1400ce2cb93ebd6916b4e0cfcf"
   },
   "backend/server.py": {
-    "mtime": 1787537720.0936615,
+    "mtime": 1787594126.1584773,
     "ast_hash": "f0237c9752dcd2b6fbdbc28f3082ef7d",
-    "semantic_hash": ""
+    "semantic_hash": "f0237c9752dcd2b6fbdbc28f3082ef7d"
   },
   "backend/sheets_comparables.py": {
     "mtime": 1776473228.832765,
@@ -1797,7 +1797,7 @@
   "frontend/src/App.js": {
     "mtime": 1787548096.4900992,
     "ast_hash": "d7a6011740cf024efc2d4ede943e9a7f",
-    "semantic_hash": ""
+    "semantic_hash": "d7a6011740cf024efc2d4ede943e9a7f"
   },
   "frontend/src/PlasmicPage.jsx": {
     "mtime": 1784805410.861088,
@@ -3050,9 +3050,9 @@
     "semantic_hash": "a5a06ade88c8e16f548724e3ebcbbf7a"
   },
   "scraper-inmuebles/enricher.py": {
-    "mtime": 1786982479.8432505,
-    "ast_hash": "a21e126c3bf6dc0afdd0c7446c0b53f2",
-    "semantic_hash": "a21e126c3bf6dc0afdd0c7446c0b53f2"
+    "mtime": 1787603781.3229208,
+    "ast_hash": "4bf89363cba2b9eea1b502283ab1566e",
+    "semantic_hash": "4bf89363cba2b9eea1b502283ab1566e"
   },
   "scraper-inmuebles/exportar_edad_mongo.py": {
     "mtime": 1780469066.641649,
@@ -3397,17 +3397,17 @@
   "backend/routers/atlas_colonias.py": {
     "mtime": 1787543035.7632954,
     "ast_hash": "58f8d31a9f8de240c356f7da846d861c",
-    "semantic_hash": ""
+    "semantic_hash": "58f8d31a9f8de240c356f7da846d861c"
   },
   "frontend/src/pages/ColaborarAcabados.jsx": {
     "mtime": 1787548134.7246003,
     "ast_hash": "ce1e3aa5a2d850ad71377f498fe4be59",
-    "semantic_hash": ""
+    "semantic_hash": "ce1e3aa5a2d850ad71377f498fe4be59"
   },
   "frontend/src/pages/VerifyEmailPage.jsx": {
     "mtime": 1787548082.1937847,
     "ast_hash": "b73af15409896bcfc2a74aa42141c032",
-    "semantic_hash": ""
+    "semantic_hash": "b73af15409896bcfc2a74aa42141c032"
   },
   ".claude/skills/status/SKILL.md": {
     "mtime": 1775546773.310324,
