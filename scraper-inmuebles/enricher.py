@@ -947,8 +947,11 @@ def fetch_html_playwright(url: str, portal: str) -> Optional[str]:
             html = page.content()
             browser.close()
 
-        if any(k in titulo.lower() for k in ("cloudflare", "just a moment", "access denied", "403", "captcha")):
-            logger.warning(f"Bloqueado por bot-protection: {url}")
+        if any(k in titulo.lower() for k in ("cloudflare", "just a moment", "access denied", "403", "captcha", "human verification")) \
+           or "awsWafCookieDomainList" in html:
+            # AWS WAF (goku challenge, ver PINCALI desde 17-ago): título vacío/"Human
+            # Verification" y html corto (~9-10KB) — sin esto se guardaba como "éxito".
+            logger.warning(f"Bloqueado por bot-protection (AWS WAF): {url}")
             return None
 
         return html if len(html) > 2000 else None
