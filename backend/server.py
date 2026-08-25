@@ -1117,9 +1117,10 @@ FACTORES_CONSERVACION_LAB = {
     "Malo": 0.55, "Muy Malo": 0.45,
 }
 GRADO_REMOD_A_JS = {"ligera": "menor", "basica": "menor", "intermedia": "intermedia", "completa": "completa"}
-# "medio hacia arriba" (Lujo/Superior/Medio Alto) usa vida útil 70 años; "medio bajo a bajo"
-# (Medio Medio/Medio Bajo/Económico/Interés Social) usa 60 — mismo criterio que el perito.
-CALIDADES_VIDA_70 = {"Lujo", "Superior", "Medio Alto"}
+# Vida útil = 70 fija para todas las calidades. Antes se usaba 60 para calidades "medio bajo a bajo"
+# asumiendo que solo Lujo/Superior/Medio Alto llegan a 70 -- INVALIDADO 24-ago: un avalúo SHF real
+# (folio 26080015287, Interés Social) confirmó Fed=1-0.5*(x+x²) con vida=70 (edad=34 -> Fed=0.64,
+# coincide exacto con el PDF). Ver MOTOR_ANTECEDENTES.md "RESULT_LAB_RH 24-Ago".
 
 def _calc_edad_efectiva_lab(edad: float, grado: str | None) -> float:
     g = GRADO_REMOD_A_JS.get((grado or "").lower())
@@ -1142,10 +1143,8 @@ def _depreciacion_lab(prop: dict) -> float:
     edad = prop.get("estimated_age") or 10
     grado = prop.get("remodelacion_grado")
     conservation = prop.get("conservation_state") or "Bueno"
-    quality = prop.get("construction_quality")
-    vida = 70 if quality in CALIDADES_VIDA_70 else 60
     edad_ef = _calc_edad_efectiva_lab(edad, grado)
-    valor_restante = _get_rh_lab(edad_ef, vida) * FACTORES_CONSERVACION_LAB.get(conservation, 1.00)
+    valor_restante = _get_rh_lab(edad_ef, 70) * FACTORES_CONSERVACION_LAB.get(conservation, 1.00)
     valor_restante = max(0.0, min(1.05, valor_restante))
     return 1 - valor_restante
 

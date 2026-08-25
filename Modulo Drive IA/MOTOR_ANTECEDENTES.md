@@ -19,6 +19,52 @@
 
 ---
 
+## 🧾 RESULT_LAB_RH (server.py) 24-Ago — RH-vida70 confirmado como fórmula real; blend 80/20 es lo que está mal, no la curva
+
+**Contexto:** `result_lab_rh` (backend/server.py, campo paralelo NO usado en `estimated_value`, ver [[project_propvalu_depreciacion_fisica]]) lleva desde 4-ago en observación, sin decidir si promoverlo. Sesión de hoy: auditar la fórmula de depreciación física contra la metodología REAL de un perito, no contra intuición.
+
+**1) `opi_perito.xlsx` (el Excel de perito que teníamos) — la tabla "Ross Heideke" está HUÉRFANA en ese archivo específico.** Búsqueda exhaustiva de texto en las 20 hojas: solo 5 celdas la referencian (`OPI Constr!BB199`, `OPI Loc Com b!BC200`, `OPI Rentas!BA199`, `Mercado!M20:M24`) y NINGUNA es leída por ninguna otra celda — no llega al valor final. La curva que SÍ corre en vivo ahí para el sujeto es una lineal `AT=(0.1×vidaÚtil+0.9×remanente)/vidaÚtil` (piso 0.20), aplicada en la sección "Avalúo Físico". El "catalogo 2" (A142:C185) que homologa comparables por edad tampoco es RH: es una recta perfecta `%=100−0.5×edad` (SSE=0.0000 vs recta, SSE=157.97 contra el mejor ajuste posible de RH) — viene de un catálogo tipo INDAABIN/BANOBRAS (claves edad×calidad×conservación), no de Ross-Heidecke.
+
+**2) Avalúo SHF REAL (folio 26080015287, ABC Appraisers, formato oficial Infonavit/SHF) CONFIRMA que Ross-Heidecke cuadrático SÍ es la fórmula real usada en producción — y corrige la conclusión del punto 1.** El propio PDF documenta en Declaraciones: `Fed = 1-((edad/vida)+(edad²/vida²))/2` = exactamente `getRH()` del motor JS. Verificado con los números reales del avalúo: edad=34, vida=840meses=**70 años**, `Fed calculado=0.6392` → **PDF reporta Factor Edad=0.64.** Coincide exacto. Conservación "Bueno"=0.91 (dentro del rango 0.88-0.94 que declara el anexo) → Factor Resultante 0.582≈0.58, también exacto.
+
+**★ HALLAZGO CLAVE: vida=70 se aplicó a un inmueble "INTERÉS SOCIAL"**, lo que **invalida la regla vieja** `CALIDADES_VIDA_70={Lujo,Superior,Medio Alto}` de `server.py::_depreciacion_lab()` (que asumía vida=60 para Interés Social). Con un solo caso real no se puede generalizar del todo, pero es evidencia directa contra la regla actual. **Recomendación: `getRH(edad, 70)` fijo, no condicional a calidad**, hasta tener más casos reales que digan lo contrario.
+
+**3) El valor concluido real NO blendea físico+mercado — usa 100% mercado, físico es solo referencia/cross-check.** Confirmado en el mismo PDF: `7.1.1 Valor comparativo de mercado: $1,228,000` = `7.2.2 Importe del Valor Concluido` (idénticos). `Valor Físico=$986,000` se reporta aparte con nota textual del diferencial (19.71%), sin promediarse. **`server.py::calculate_valuation` hace `estimated_value = comparativo×0.80 + físico×0.20` — arquitectura que NO coincide con cómo el perito real llega a su número.**
+
+**4) Validación con comps reales de ese mismo avalúo (`validar_caso_real_shf.js`) confirma que RH-vida70 es la curva correcta para el FÍSICO aislado, aunque no ayude en el blend:**
+| curva | dep. | físico calculado | vs físico real ($986k) |
+|---|---|---|---|
+| VIEJA (prod, vida=60) | 61.2% | $762,037 | −22.7% |
+| LAB-RH (vida=60, default viejo) | 44.4% | $872,803 | −11.5% |
+| **RH-REAL (vida=70)** | 36.1% | $927,646 | **−5.9% (mejor)** |
+| LINEAL (catalogo2) | 17.0% | $1,053,621 | +6.9% |
+
+**5) Validación masiva (614 OPIs de `cerebro_datos.json`, `validar_rh_costapproach.js`) contra `valorMercado` (blend 80/20) — RH-vida70 sale IGUAL o LIGERAMENTE PEOR que VIEJA, y esto NO contradice el punto 4:**
+| | ±10 | ±15 | ±20 | errAbs | mediana |
+|---|---|---|---|---|---|
+| VIEJA (prod) | 36.3 | 49.7 | 59.6 | 25.5 | +5.4 |
+| LAB-RH (v=60) | 33.4 | 46.7 | 58.1 | 26.2 | +7.2 |
+| RH-REAL (v=70) | 33.1 | 45.3 | 56.8 | 26.7 | +8.0 |
+| LINEAL | 31.1 | 41.5 | 52.8 | 28.2 | +9.7 |
+| Comparativo puro (0% físico) | 37.9 | 50.8 | 61.1 | 30.4 | +5.8 |
+
+**Explicación (reconcilia 4 y 5):** el comparativo YA trae sesgo positivo (mediana +5.8% con 0% físico). Como el punto 3 confirmó que el perito real NO mezcla físico con mercado, comparar `estimated_value` (que sí lo mezcla) contra `valorMercado` es una prueba mal planteada — cualquier curva de físico, sin importar qué tan correcta sea, solo agrega ruido a un número que en la realidad no debería llevar físico mezclado. VIEJA "gana" esa prueba por casualidad (su depreciación agresiva compensa el sesgo del comparativo), no porque sea la curva correcta.
+
+**CONCLUSIÓN Y PENDIENTE:** la curva correcta de depreciación física es `getRH(edad, 70)`, confirmada dos veces contra un avalúo real. El problema real de `server.py` no es la curva — es blendear físico en `estimated_value` cuando el método real no lo hace. **NO se tocó `server.py` hoy** (cambio de curva sola, sin arreglar el blend, sería a medias). Próximo paso si se retoma: (a) fijar vida=70 en `_depreciacion_lab()`, (b) dejar de usar físico en el blend de `estimated_value` — reportarlo aparte como referencia, igual que el perito real. Terreno (`land_ratio`) queda **pendiente aparte** — el estudio real de terreno del mismo avalúo tiene señales de posible sobreestimación (comp a 7.05km rompe el radio de 5km que el propio reporte declara; los 4 factores de superficie apuntan todos hacia arriba, tratando el indiviso no-vendible de un depto como si fuera lote independiente subdividible) — no se sabe si el error de nuestro `land_ratio` (−15.5% vs el terreno real de este caso) es realmente error o si el real está inflado.
+
+**6) Impacto real medido sobre 22 avalúos YA generados en PropValu (staging Mongo, reusando su comparativo/terreno/costo ya calculados — solo se sustituyó la depreciación):**
+| | todos (n=22) | edad>30a (n=16) |
+|---|---|---|
+| RH-vida60 (actual, `result_lab_rh`) | −1.20% | −2.23% |
+| **RH-vida70 (correcta)** | **−0.15%** | **−0.92%** |
+| LINEAL | +2.57% | +2.54% |
+
+**En la práctica, migrar a RH-vida70 casi no mueve el valor final** (<1% en promedio incluso en casas viejas) — el físico solo pesa 20% del blend y el sanity-clamp (±30% vs promedio de comps) absorbe casi todo el efecto de la curva de edad. Confirma que el blend/clamp domina sobre la curva, reforzando la conclusión del punto 5. **Aparte, un caso (`val_924936bd21a1`, "Bosques de la Victoria" calidad=Media, mismos demás datos que 10 hermanos con calidad=Medio Medio) da −16.9% IDÉNTICO en las 3 curvas** — señal de que ese caso está pegado al clamp del ±30%, no a la depreciación; no se investigó más hoy.
+
+Scripts nuevos en `Modulo Drive IA/`: `validar_rh_costapproach.js` (614 OPIs de cerebro_datos.json, 4 curvas), `validar_caso_real_shf.js` (caso único con comps reales del PDF SHF), `validar_rh70_ejemplos_propvalu.js` (22 avalúos reales de staging Mongo). `staging_valuations_reales.json` = export puntual de staging, borrar cuando ya no se necesite (tiene datos de prueba, no sensibles).
+
+---
+
 ## 🏚️ CLUSTER EDAD (casas viejas) 08-Jul noche — LAB_EDAD_EXACTA + LECCIÓN de tensión edad×clase
 
 **El 18% fuera de ±20 lo dominan CASAS en pool `exacta` (17/20; solo 3 deptos), no deptos.** Dos clusters:

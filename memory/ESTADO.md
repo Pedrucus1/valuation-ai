@@ -36,9 +36,11 @@ puede proponer contenido de acabados sin ser admin. Se cerró también un hallaz
   (seguridad/despliegue/páginas) — ver `project_propvalu.md` para el detalle de los otros hallazgos
   (rate limit agregado, fuga de email en perfiles rechazados corregida del lado del Atlas).
 
-## 🧠 Motor — sin cambios hoy
-- Pendiente de sesiones anteriores, sin tocar: gate CUS 0.65 (línea ~808); `result_lab_rh`
-  (Ross-Heidecke vida útil 70) en observación; `colonias_decada.json` sin cablear al motor JS.
+## 🧠 Motor — verificado 24-ago (limpieza de pendientes obsoletos)
+- **Gate CUS 0.65: CERRADO.** Confirmado en código (`motor_remi_api.js:829`, revalidado 07-ago sobre 210 OPIs). No es pendiente.
+- **`result_lab_rh` (Ross-Heidecke): sigue en observación, a propósito.** `getRH()` SÍ corre en prod (motor JS vía `sumaDePartes()` y Python vía `server.py::_get_rh_lab`); lo pendiente es solo la decisión de promover `result_lab_rh` (campo paralelo del cost-approach en el reporte) a reemplazar `estimated_value` — abierta desde el 4-ago, no un bug.
+- **`colonias_decada.json`: cableado en `backend/` (edades/crowdsourcing), NO en el motor JS.** Son dos sistemas distintos — cerrado para su propósito actual. Si se quiere usar como prior de edad en `motor_remi_api.js`, es trabajo nuevo, no algo "pendiente de terminar".
+- **Tavily agotado: confirmado, sigue pendiente.** Free tier 1,000 req/mes se agota con uso normal (no es bug). `BRAVE_API_KEY` sigue sin existir en `.env` — el fallback cableado no tiene key real todavía.
 
 ## 🏗️ Infra / datos
 - Railway (backend): deploy manual `railway up --detach` de git, PERO hoy se agregó
