@@ -2372,73 +2372,88 @@
    "Submontada / integrada": [
     "2020s"
    ],
+   "Llave individual de bronce/laton": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s"
+   ],
+   "Llaves independientes cromadas (cruceta/palanca)": [
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s"
+   ],
+   "Mezcladora de dos manijas (cuerpo integrado)": [
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s"
+   ],
+   "Mezcladora de hierro cromado con perillas": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
    "Monomando con cabezal extraible (cocina)": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Griferia electronica / sensor infrarrojo": [
+    "2010s",
+    "2020s"
+   ],
+   "Monomando estandar (cocina)": [
+    "1990s",
     "2000s",
     "2010s",
     "2020s"
    ]
   },
   "griferia_bano": {
-   "Llave individual de bronce": [
+   "Llave individual de bronce/laton": [
     "1900s",
     "1910s",
     "1920s",
     "1930s",
+    "1940s"
+   ],
+   "Llaves independientes cromadas (cruceta/palanca)": [
+    "1930s",
     "1940s",
-    "1950s"
+    "1950s",
+    "1960s"
+   ],
+   "Mezcladora de dos manijas (cuerpo integrado)": [
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s"
+   ],
+   "Mezcladora de hierro cromado con perillas": [
+    "1970s",
+    "1980s",
+    "1990s"
    ],
    "Manerales acrilico traslucido (diamante)": [
     "1970s",
     "1980s",
     "1990s"
    ],
-   "Monomando cromado inicial": [
-    "1980s",
-    "1990s",
-    "2000s"
+   "Monomando empotrado en muro / regadera de lluvia": [
+    "2010s",
+    "2020s"
    ],
-   "Monomando de diseno (Moen/Helvex)": [
+   "Griferia electronica / sensor infrarrojo": [
+    "2010s",
+    "2020s"
+   ],
+   "Monomando estandar (bano)": [
     "1990s",
     "2000s",
-    "2010s"
-   ],
-   "Monomando negro mate / laton cepillado": [
     "2010s",
-    "2020s"
-   ],
-   "Monomando empotrado en muro / lluvia": [
-    "2010s",
-    "2020s"
-   ],
-   "Llaves separadas de cruz": [
-    "1900s",
-    "1910s"
-   ],
-   "Llaves separadas": [
-    "1920s",
-    "1930s"
-   ],
-   "Llaves separadas cromadas": [
-    "1940s",
-    "1950s"
-   ],
-   "Mezcladora de dos manijas": [
-    "1960s",
-    "1970s"
-   ],
-   "Mezcladora": [
-    "1980s"
-   ],
-   "Monomando incipiente (alta)": [
-    "1990s"
-   ],
-   "Monomando": [
-    "2000s"
-   ],
-   "Monomando de diseño": [
-    "2010s"
-   ],
-   "Negro mate / latón / sensor": [
     "2020s"
    ]
   },
@@ -4675,74 +4690,37 @@
    "Submontada / integrada": [
     "2020s"
    ],
-   "Monomando con cabezal extraible (cocina)": [
-    "2000s",
-    "2010s",
-    "2020s"
-   ]
-  },
-  "griferia_bano": {
-   "Llave individual de bronce": [
-    "1900s",
-    "1910s",
-    "1920s",
+   "Llave individual de bronce/laton": [
     "1930s",
-    "1940s",
-    "1950s"
+    "1940s"
    ],
-   "Manerales acrilico traslucido (diamante)": [
+   "Mezcladora de dos manijas (cuerpo integrado)": [
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s"
+   ],
+   "Mezcladora de hierro cromado con perillas": [
     "1970s",
     "1980s",
     "1990s"
+   ]
+  },
+  "griferia_bano": {
+   "Llave individual de bronce/laton": [
+    "1930s",
+    "1940s"
    ],
-   "Monomando cromado inicial": [
-    "1980s",
-    "1990s",
-    "2000s"
-   ],
-   "Monomando de diseno (Moen/Helvex)": [
-    "1990s",
-    "2000s",
-    "2010s"
-   ],
-   "Monomando negro mate / laton cepillado": [
-    "2010s",
-    "2020s"
-   ],
-   "Monomando empotrado en muro / lluvia": [
-    "2010s",
-    "2020s"
-   ],
-   "Llaves separadas de cruz": [
-    "1900s",
-    "1910s"
-   ],
-   "Llaves separadas": [
-    "1920s",
-    "1930s"
-   ],
-   "Llaves separadas cromadas": [
-    "1940s",
-    "1950s"
-   ],
-   "Mezcladora de dos manijas": [
+   "Mezcladora de dos manijas (cuerpo integrado)": [
+    "1950s",
     "1960s",
-    "1970s"
-   ],
-   "Mezcladora": [
+    "1970s",
     "1980s"
    ],
-   "Monomando incipiente (alta)": [
+   "Mezcladora de hierro cromado con perillas": [
+    "1970s",
+    "1980s",
     "1990s"
-   ],
-   "Monomando": [
-    "2000s"
-   ],
-   "Monomando de diseño": [
-    "2010s"
-   ],
-   "Negro mate / latón / sensor": [
-    "2020s"
    ]
   },
   "cableado_electrico": {
@@ -6994,74 +6972,34 @@
    "Submontada / integrada": [
     "2020s"
    ],
-   "Monomando con cabezal extraible (cocina)": [
+   "Mezcladora de dos manijas (cuerpo integrado)": [
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s"
+   ],
+   "Mezcladora de hierro cromado con perillas": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Monomando estandar (cocina)": [
     "2000s",
     "2010s",
     "2020s"
    ]
   },
   "griferia_bano": {
-   "Llave individual de bronce": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s",
-    "1940s",
-    "1950s"
+   "Mezcladora de dos manijas (cuerpo integrado)": [
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s"
    ],
-   "Manerales acrilico traslucido (diamante)": [
+   "Mezcladora de hierro cromado con perillas": [
     "1970s",
     "1980s",
     "1990s"
-   ],
-   "Monomando cromado inicial": [
-    "1980s",
-    "1990s",
-    "2000s"
-   ],
-   "Monomando de diseno (Moen/Helvex)": [
-    "1990s",
-    "2000s",
-    "2010s"
-   ],
-   "Monomando negro mate / laton cepillado": [
-    "2010s",
-    "2020s"
-   ],
-   "Monomando empotrado en muro / lluvia": [
-    "2010s",
-    "2020s"
-   ],
-   "Llaves separadas de cruz": [
-    "1900s",
-    "1910s"
-   ],
-   "Llaves separadas": [
-    "1920s",
-    "1930s"
-   ],
-   "Llaves separadas cromadas": [
-    "1940s",
-    "1950s"
-   ],
-   "Mezcladora de dos manijas": [
-    "1960s",
-    "1970s"
-   ],
-   "Mezcladora": [
-    "1980s"
-   ],
-   "Monomando incipiente (alta)": [
-    "1990s"
-   ],
-   "Monomando": [
-    "2000s"
-   ],
-   "Monomando de diseño": [
-    "2010s"
-   ],
-   "Negro mate / latón / sensor": [
-    "2020s"
    ]
   },
   "cableado_electrico": {
@@ -9324,73 +9262,56 @@
    "Submontada / integrada": [
     "2020s"
    ],
-   "Monomando con cabezal extraible (cocina)": [
+   "Llave individual de bronce/laton": [
+    "1930s",
+    "1940s"
+   ],
+   "Llaves independientes cromadas (cruceta/palanca)": [
+    "1960s"
+   ],
+   "Mezcladora de dos manijas (cuerpo integrado)": [
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s"
+   ],
+   "Mezcladora de hierro cromado con perillas": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Monomando estandar (cocina)": [
     "2000s",
     "2010s",
     "2020s"
    ]
   },
   "griferia_bano": {
-   "Llave individual de bronce": [
-    "1900s",
-    "1910s",
-    "1920s",
+   "Llave individual de bronce/laton": [
     "1930s",
-    "1940s",
-    "1950s"
+    "1940s"
+   ],
+   "Llaves independientes cromadas (cruceta/palanca)": [
+    "1960s"
+   ],
+   "Mezcladora de dos manijas (cuerpo integrado)": [
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s"
+   ],
+   "Mezcladora de hierro cromado con perillas": [
+    "1970s",
+    "1980s",
+    "1990s"
    ],
    "Manerales acrilico traslucido (diamante)": [
     "1970s",
     "1980s",
     "1990s"
    ],
-   "Monomando cromado inicial": [
-    "1980s",
-    "1990s",
-    "2000s"
-   ],
-   "Monomando de diseno (Moen/Helvex)": [
-    "1990s",
-    "2000s",
-    "2010s"
-   ],
-   "Monomando negro mate / laton cepillado": [
+   "Monomando estandar (bano)": [
     "2010s",
-    "2020s"
-   ],
-   "Monomando empotrado en muro / lluvia": [
-    "2010s",
-    "2020s"
-   ],
-   "Llaves separadas de cruz": [
-    "1900s",
-    "1910s"
-   ],
-   "Llaves separadas": [
-    "1920s",
-    "1930s"
-   ],
-   "Llaves separadas cromadas": [
-    "1940s",
-    "1950s"
-   ],
-   "Mezcladora de dos manijas": [
-    "1960s",
-    "1970s"
-   ],
-   "Mezcladora": [
-    "1980s"
-   ],
-   "Monomando incipiente (alta)": [
-    "1990s"
-   ],
-   "Monomando": [
-    "2000s"
-   ],
-   "Monomando de diseño": [
-    "2010s"
-   ],
-   "Negro mate / latón / sensor": [
     "2020s"
    ]
   },
@@ -11646,73 +11567,43 @@
    "Submontada / integrada": [
     "2020s"
    ],
+   "Llaves independientes cromadas (cruceta/palanca)": [
+    "1960s"
+   ],
+   "Mezcladora de dos manijas (cuerpo integrado)": [
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s"
+   ],
    "Monomando con cabezal extraible (cocina)": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Monomando estandar (cocina)": [
     "2000s",
     "2010s",
     "2020s"
    ]
   },
   "griferia_bano": {
-   "Llave individual de bronce": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s",
-    "1940s",
-    "1950s"
+   "Llaves independientes cromadas (cruceta/palanca)": [
+    "1960s"
+   ],
+   "Mezcladora de dos manijas (cuerpo integrado)": [
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s"
    ],
    "Manerales acrilico traslucido (diamante)": [
     "1970s",
     "1980s",
     "1990s"
    ],
-   "Monomando cromado inicial": [
-    "1980s",
-    "1990s",
-    "2000s"
-   ],
-   "Monomando de diseno (Moen/Helvex)": [
-    "1990s",
-    "2000s",
-    "2010s"
-   ],
-   "Monomando negro mate / laton cepillado": [
+   "Monomando estandar (bano)": [
     "2010s",
-    "2020s"
-   ],
-   "Monomando empotrado en muro / lluvia": [
-    "2010s",
-    "2020s"
-   ],
-   "Llaves separadas de cruz": [
-    "1900s",
-    "1910s"
-   ],
-   "Llaves separadas": [
-    "1920s",
-    "1930s"
-   ],
-   "Llaves separadas cromadas": [
-    "1940s",
-    "1950s"
-   ],
-   "Mezcladora de dos manijas": [
-    "1960s",
-    "1970s"
-   ],
-   "Mezcladora": [
-    "1980s"
-   ],
-   "Monomando incipiente (alta)": [
-    "1990s"
-   ],
-   "Monomando": [
-    "2000s"
-   ],
-   "Monomando de diseño": [
-    "2010s"
-   ],
-   "Negro mate / latón / sensor": [
     "2020s"
    ]
   },
@@ -14008,73 +13899,71 @@
    "Submontada / integrada": [
     "2020s"
    ],
+   "Llave individual de bronce/laton": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Llaves independientes cromadas (cruceta/palanca)": [
+    "1930s",
+    "1940s",
+    "1950s"
+   ],
+   "Mezcladora de dos manijas (cuerpo integrado)": [
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s"
+   ],
    "Monomando con cabezal extraible (cocina)": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Griferia electronica / sensor infrarrojo": [
+    "2010s",
+    "2020s"
+   ],
+   "Monomando estandar (cocina)": [
+    "1990s",
     "2000s",
     "2010s",
     "2020s"
    ]
   },
   "griferia_bano": {
-   "Llave individual de bronce": [
+   "Llave individual de bronce/laton": [
     "1900s",
     "1910s",
-    "1920s",
+    "1920s"
+   ],
+   "Llaves independientes cromadas (cruceta/palanca)": [
     "1930s",
     "1940s",
     "1950s"
+   ],
+   "Mezcladora de dos manijas (cuerpo integrado)": [
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s"
    ],
    "Manerales acrilico traslucido (diamante)": [
     "1970s",
     "1980s",
     "1990s"
    ],
-   "Monomando cromado inicial": [
-    "1980s",
-    "1990s",
-    "2000s"
+   "Monomando empotrado en muro / regadera de lluvia": [
+    "2010s",
+    "2020s"
    ],
-   "Monomando de diseno (Moen/Helvex)": [
-    "1990s",
+   "Griferia electronica / sensor infrarrojo": [
+    "2010s",
+    "2020s"
+   ],
+   "Monomando estandar (bano)": [
     "2000s",
-    "2010s"
-   ],
-   "Monomando negro mate / laton cepillado": [
     "2010s",
-    "2020s"
-   ],
-   "Monomando empotrado en muro / lluvia": [
-    "2010s",
-    "2020s"
-   ],
-   "Llaves separadas de cruz": [
-    "1900s",
-    "1910s"
-   ],
-   "Llaves separadas": [
-    "1920s",
-    "1930s"
-   ],
-   "Llaves separadas cromadas": [
-    "1940s",
-    "1950s"
-   ],
-   "Mezcladora de dos manijas": [
-    "1960s",
-    "1970s"
-   ],
-   "Mezcladora": [
-    "1980s"
-   ],
-   "Monomando incipiente (alta)": [
-    "1990s"
-   ],
-   "Monomando": [
-    "2000s"
-   ],
-   "Monomando de diseño": [
-    "2010s"
-   ],
-   "Negro mate / latón / sensor": [
     "2020s"
    ]
   },
@@ -16346,73 +16235,67 @@
    "Submontada / integrada": [
     "2020s"
    ],
+   "Llave individual de bronce/laton": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Llaves independientes cromadas (cruceta/palanca)": [
+    "1930s",
+    "1940s",
+    "1950s"
+   ],
+   "Mezcladora de dos manijas (cuerpo integrado)": [
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s"
+   ],
    "Monomando con cabezal extraible (cocina)": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Griferia electronica / sensor infrarrojo": [
+    "2010s",
+    "2020s"
+   ],
+   "Monomando estandar (cocina)": [
+    "1990s",
     "2000s",
     "2010s",
     "2020s"
    ]
   },
   "griferia_bano": {
-   "Llave individual de bronce": [
+   "Llave individual de bronce/laton": [
     "1900s",
     "1910s",
-    "1920s",
+    "1920s"
+   ],
+   "Llaves independientes cromadas (cruceta/palanca)": [
     "1930s",
     "1940s",
     "1950s"
    ],
-   "Manerales acrilico traslucido (diamante)": [
-    "1970s",
-    "1980s",
-    "1990s"
-   ],
-   "Monomando cromado inicial": [
-    "1980s",
-    "1990s",
-    "2000s"
-   ],
-   "Monomando de diseno (Moen/Helvex)": [
-    "1990s",
-    "2000s",
-    "2010s"
-   ],
-   "Monomando negro mate / laton cepillado": [
-    "2010s",
-    "2020s"
-   ],
-   "Monomando empotrado en muro / lluvia": [
-    "2010s",
-    "2020s"
-   ],
-   "Llaves separadas de cruz": [
-    "1900s",
-    "1910s"
-   ],
-   "Llaves separadas": [
-    "1920s",
-    "1930s"
-   ],
-   "Llaves separadas cromadas": [
-    "1940s",
-    "1950s"
-   ],
-   "Mezcladora de dos manijas": [
+   "Mezcladora de dos manijas (cuerpo integrado)": [
+    "1950s",
     "1960s",
-    "1970s"
-   ],
-   "Mezcladora": [
+    "1970s",
     "1980s"
    ],
-   "Monomando incipiente (alta)": [
-    "1990s"
+   "Monomando empotrado en muro / regadera de lluvia": [
+    "2010s",
+    "2020s"
    ],
-   "Monomando": [
-    "2000s"
+   "Griferia electronica / sensor infrarrojo": [
+    "2010s",
+    "2020s"
    ],
-   "Monomando de diseño": [
-    "2010s"
-   ],
-   "Negro mate / latón / sensor": [
+   "Monomando estandar (bano)": [
+    "1990s",
+    "2000s",
+    "2010s",
     "2020s"
    ]
   },
