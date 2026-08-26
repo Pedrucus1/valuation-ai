@@ -533,7 +533,7 @@ def generate_mini_report_html(valuation: dict, arv_estimado: float = None) -> st
   <div class="arv-box">
     <div class="value-label">Valor Estimado Remodelada (ARV)</div>
     <div class="value-amount">{fmt_money(arv_estimado)}</div>
-    <div class="value-range">Estimado tratando la propiedad en buen estado / remodelada</div>
+    <div class="value-range">Valor hipotético si la propiedad estuviera completamente remodelada &mdash; referencia para evaluar compra, remodelación y reventa (flipping)</div>
   </div>
 ''' if arv_estimado else ''}
   <div class="grid4">

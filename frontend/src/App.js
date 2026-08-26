@@ -23,6 +23,7 @@ const ValuadoresDirectorioPage  = lazy(() => import("@/pages/ValuadoresDirectori
 const InmobiliariasDirectorioPage = lazy(() => import("@/pages/InmobiliariasDirectorioPage"));
 const PromoPublicPage           = lazy(() => import("@/pages/PromoPublicPage"));
 const ColaborarAcabados         = lazy(() => import("@/pages/ColaborarAcabados"));
+const FlippingCalculatorPage    = lazy(() => import("@/pages/FlippingCalculatorPage"));
 
 // Auth
 const LoginPage                 = lazy(() => import("@/pages/LoginPage"));
@@ -137,6 +138,7 @@ function AppRouter() {
         <Route path="/comprar" element={<PricingPage />} />
         <Route path="/checkout/pro" element={<ProCheckoutPage />} />
         <Route path="/edades-zona" element={<EdadesZonaPage />} />
+        <Route path="/flipping" element={<FlippingCalculatorPage />} />
         <Route path="/colaborar/acabados" element={<ColaborarAcabados />} />
         <Route path="/dashboard/valuador" element={<ValuadorDashboardPage />} />
         <Route path="/dashboard/inmobiliaria" element={<InmobiliariaDashboardPage />} />

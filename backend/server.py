@@ -183,6 +183,7 @@ from routers.admin_auth import router as admin_auth_router
 from routers.requisiciones import router as requisiciones_router
 from routers.acabados import router as acabados_router
 from routers.atlas_colonias import router as atlas_colonias_router
+from routers.flipping import router as flipping_router
 
 # Auth y sesión -> routers/auth.py (#66.1)
 
@@ -2364,6 +2365,7 @@ app.include_router(admin_auth_router)
 app.include_router(requisiciones_router)
 app.include_router(acabados_router)
 app.include_router(atlas_colonias_router)
+app.include_router(flipping_router)
 
 # Serve uploaded files (ads, kyc) con soporte de HTTP Range (206).
 # StaticFiles en este entorno responde 200 sin Accept-Ranges a peticiones Range, y

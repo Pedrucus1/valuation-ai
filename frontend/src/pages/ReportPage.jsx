@@ -15,7 +15,8 @@ import {
   Share2,
   Building2,
   ArrowRight,
-  Star
+  Star,
+  Calculator
 } from "lucide-react";
 import { API } from "@/App";
 import AdOverlay from "@/components/AdOverlay";
@@ -407,6 +408,16 @@ const ReportPage = () => {
               >
                 <FileText className="w-4 h-4 mr-2" />
                 Resumen 1 hoja
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => navigate(`/flipping?valuation_id=${valuationId}`)}
+                className="border-[#1B4332] text-[#1B4332]"
+                data-testid="flipping-calc-btn"
+                title="Calculadora de viabilidad de flipping — margen, deudas, remodelación y oferta al dueño"
+              >
+                <Calculator className="w-4 h-4 mr-2" />
+                Calculadora de Flipping
               </Button>
               <Button
                 onClick={handleDownloadPDF}
