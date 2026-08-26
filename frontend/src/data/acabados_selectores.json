@@ -426,25 +426,10 @@
     "1990s"
    ],
    "Minimalista / sin proteccion": [
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Cristal en barandal": [
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Porton automatico seccional tipo panel": [
+    "1960s",
+    "1970s",
+    "1980s",
     "1990s",
-    "2000s",
-    "2010s"
-   ],
-   "Barandal de cristal templado con herrajes inox": [
-    "2010s",
-    "2020s"
-   ],
-   "Cerca electrificada residencial": [
     "2000s",
     "2010s",
     "2020s"
@@ -453,6 +438,57 @@
     "1980s",
     "1990s",
     "2000s"
+   ],
+   "Barandal de balcon/terraza en cristal": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Barandal de balcon/terraza en cristal templado con herrajes inox": [
+    "2010s",
+    "2020s"
+   ],
+   "Reja baja de jardín / acceso": [
+    "1920s"
+   ],
+   "Forja artesanal maciza con volutas (barrote 3/4-1\", remaches)": [
+    "1900s"
+   ],
+   "Forja de transicion simplificada (barrote fijo en peana de piedra)": [
+    "1910s"
+   ],
+   "Forja regionalista con platina y maceteros integrados": [
+    "1920s"
+   ],
+   "Perfil laminado geometrico Art Deco (solera/cuadrado 1/2-5/8\")": [
+    "1930s"
+   ],
+   "Barrote macizo con perfil Z/T para vidrio sobre sardinel": [
+    "1940s"
+   ],
+   "Barrote delgado geometrico lineal (redondo 3/8-1/2\")": [
+    "1950s"
+   ],
+   "Perfil tubular ligero cuadrado/rectangular (3/4-1\")": [
+    "1960s"
+   ],
+   "PTR comercial calibre 18-20, barrotes verticales simples": [
+    "1970s"
+   ],
+   "PTR pesado o varilla corrugada, rejilla densa post-crisis": [
+    "1980s"
+   ],
+   "PTR y angulo en cuadros tupidos tipo presidio": [
+    "1990s"
+   ],
+   "Perfileria de aluminio Linea 3\"/80 o panel Deacero electrosoldado": [
+    "2000s"
+   ],
+   "Platina o tubo rectangular minimalista con pintura electrostatica": [
+    "2010s"
+   ],
+   "Louvre o lamina calada CNC / ausencia por diseno": [
+    "2020s"
    ]
   },
   "cochera": {
@@ -494,6 +530,10 @@
    ],
    "Cochera para 3+ autos / subterraneo": [
     "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Sin cajon asignado / montacoches (DOT)": [
     "2010s",
     "2020s"
    ]
@@ -581,6 +621,20 @@
    "Vidrio color humo / reflectivo espejo": [
     "1980s",
     "1990s"
+   ],
+   "Postigo de madera solido (sin vidrio)": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Contraventana de tablillas / persiana de librillo en madera (sin vidrio)": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Manta o lienzo encerado sobre bastidor (sin vidrio)": [
+    "1900s",
+    "1910s"
    ]
   },
   "puerta": {
@@ -590,11 +644,6 @@
     "1960s",
     "1970s"
    ],
-   "Zaguan de madera": [
-    "1900s",
-    "1910s",
-    "1920s"
-   ],
    "Madera maciza": [
     "1900s",
     "1910s",
@@ -602,10 +651,6 @@
     "1930s",
     "1940s",
     "1950s"
-   ],
-   "Porton labrado": [
-    "1900s",
-    "1910s"
    ],
    "Metalica o de lamina": [
     "1950s",
@@ -640,238 +685,12 @@
     "1990s",
     "2000s"
    ],
-   "Acceso domotico o digital": [
-    "2020s"
-   ],
-   "Puerta pivotante de autor": [
-    "2020s"
-   ],
    "Entamborada de caobilla, panel pequeno repetido": [
     "1970s",
     "1980s",
     "1990s"
    ],
    "Maderas finas de autor (cedro/parota/nogal)": [
-    "2010s",
-    "2020s"
-   ]
-  },
-  "cocina": {
-   "Isla (madera fina o piedra)": [
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Tarja sobre mueble de obra": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s",
-    "1940s",
-    "1950s"
-   ],
-   "Cubierta de formica": [
-    "1960s",
-    "1970s",
-    "1980s",
-    "1990s"
-   ],
-   "Cubierta de azulejo": [
-    "1970s",
-    "1980s",
-    "1990s"
-   ],
-   "Cocina integral (madera/laminado/MDF)": [
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Cubierta de granito": [
-    "2000s",
-    "2010s"
-   ],
-   "Mueble de melamina": [
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Cubierta de cuarzo": [
-    "2010s",
-    "2020s"
-   ],
-   "Piedra sinterizada": [
-    "2010s",
-    "2020s"
-   ],
-   "Estufa europea de empotre (Teka/Bosch/Smeg)": [
-    "1990s",
-    "2000s"
-   ],
-   "Lavavajillas de empotre": [
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Mueble de obra revestido de azulejo/mosaico": [
-    "1940s",
-    "1950s",
-    "1960s",
-    "1970s"
-   ],
-   "Melamina imitacion madera miel/cerezo": [
-    "1990s"
-   ],
-   "Melamina imitacion chocolate/nogal": [
-    "2000s",
-    "2010s"
-   ],
-   "Mueble de obra + azulejo": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s"
-   ],
-   "Fórmica": [
-    "1940s",
-    "1950s",
-    "1960s"
-   ],
-   "Fórmica / melamina": [
-    "1970s"
-   ],
-   "Azulejo / granito": [
-    "1980s"
-   ],
-   "Azulejo → granito": [
-    "1990s"
-   ],
-   "Granito nacional / cuarzo": [
-    "2000s"
-   ],
-   "Cuarzo": [
-    "2010s"
-   ],
-   "Superficie sinterizada": [
-    "2020s"
-   ],
-   "Mampostería / fierro esmaltado": [
-    "1900s"
-   ],
-   "Mampostería": [
-    "1910s",
-    "1920s"
-   ],
-   "Fierro esmaltado": [
-    "1930s"
-   ],
-   "Peltre": [
-    "1940s"
-   ],
-   "Peltre o inox temprano": [
-    "1950s"
-   ],
-   "Peltre / inox": [
-    "1960s"
-   ],
-   "Inox sobre cubierta": [
-    "1970s",
-    "1980s"
-   ],
-   "Inox con escurridor": [
-    "1990s",
-    "2000s"
-   ],
-   "Inox submontada": [
-    "2010s"
-   ],
-   "Submontada / integrada": [
-    "2020s"
-   ]
-  },
-  "instalacion": {
-   "Alambre con forro de tela + conduit visible": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s",
-    "1940s"
-   ],
-   "Cableado THW en poliducto (oculto parcial)": [
-    "1960s",
-    "1970s",
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Canalizacion oculta normada, circuitos dedicados": [
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Centro de carga: fusibles de tapon/cartucho": [
-    "1930s",
-    "1940s",
-    "1950s",
-    "1960s",
-    "1970s"
-   ],
-   "Centro de carga: pastillas termomagneticas": [
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Contacto sin tierra fisica (2 clavijas)": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s",
-    "1940s",
-    "1950s",
-    "1960s",
-    "1970s",
-    "1980s"
-   ],
-   "Contacto con tierra fisica (3 clavijas)": [
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Fusible de tapon, porcelana con rosca tipo Edison": [
-    "1920s",
-    "1930s",
-    "1940s",
-    "1950s",
-    "1960s"
-   ],
-   "Contacto GFCI (boton Test/Reset visible)": [
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Contacto con USB integrado": [
-    "2010s",
-    "2020s"
-   ],
-   "Tapa de contacto de laton": [
-    "1960s",
-    "1970s",
-    "1980s"
-   ],
-   "Tapa de contacto de plastico": [
-    "1980s",
-    "1990s",
-    "2000s",
     "2010s",
     "2020s"
    ]
@@ -949,34 +768,10 @@
     "1970s",
     "1980s"
    ],
-   "Barandal/cancel de escalera, herreria o madera tradicional": [
-    "1950s",
-    "1960s",
-    "1970s",
-    "1980s",
-    "1990s"
-   ],
-   "Barandal/cancel de escalera, cristal templado / acero inox": [
-    "2010s",
-    "2020s"
-   ],
    "Cancel de PVC": [
     "2000s",
     "2010s",
     "2020s"
-   ],
-   "Seg. media-alta (inicio)": [
-    "1940s"
-   ],
-   "Seg. media a residencial": [
-    "1950s",
-    "1960s"
-   ],
-   "Media: vigente · Alta: en declive": [
-    "1970s"
-   ],
-   "Fase terminal / remodelaciones": [
-    "1980s"
    ]
   },
   "espejo": {
@@ -1207,84 +1002,6 @@
     "1980s"
    ]
   },
-  "griferia": {
-   "Llave individual de bronce": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s",
-    "1940s",
-    "1950s"
-   ],
-   "Manerales acrilico traslucido (diamante)": [
-    "1970s",
-    "1980s",
-    "1990s"
-   ],
-   "Monocomando cromado inicial": [
-    "1980s",
-    "1990s"
-   ],
-   "Monocomando de diseno (Moen/Helvex)": [
-    "1990s",
-    "2000s"
-   ],
-   "Monocomando negro mate / laton cepillado": [
-    "2010s",
-    "2020s"
-   ],
-   "Monocomando empotrado en muro / lluvia": [
-    "2010s",
-    "2020s"
-   ],
-   "Monomando cromado inicial": [
-    "1990s",
-    "2000s"
-   ],
-   "Monomando de diseno (Moen/Helvex)": [
-    "2000s",
-    "2010s"
-   ],
-   "Monomando negro mate / laton cepillado": [
-    "2010s",
-    "2020s"
-   ],
-   "Monomando empotrado en muro / lluvia": [
-    "2010s",
-    "2020s"
-   ],
-   "Llaves separadas de cruz": [
-    "1900s",
-    "1910s"
-   ],
-   "Llaves separadas": [
-    "1920s",
-    "1930s"
-   ],
-   "Llaves separadas cromadas": [
-    "1940s",
-    "1950s"
-   ],
-   "Mezcladora de dos manijas": [
-    "1960s",
-    "1970s"
-   ],
-   "Mezcladora": [
-    "1980s"
-   ],
-   "Monomando incipiente (alta)": [
-    "1990s"
-   ],
-   "Monomando": [
-    "2000s"
-   ],
-   "Monomando de diseño": [
-    "2010s"
-   ],
-   "Negro mate / latón / sensor": [
-    "2020s"
-   ]
-  },
   "fachada": {
    "Piedra laja pegada en faldones de fachada": [
     "1970s",
@@ -1480,33 +1197,57 @@
    ]
   },
   "niveles": {
-   "4-5 niveles SIN elevador (walk-up)": [
+   "1 nivel (planta baja)": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
     "1960s",
     "1970s",
-    "1980s"
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
    ],
-   "6-10 niveles, elevador de botones/manual": [
+   "2 niveles": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
     "1970s",
     "1980s",
-    "1990s"
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
    ],
-   "Con sotano estructurado 1-2 niveles": [
+   "3-4 niveles (walk-up, sin elevador)": [
+    "1960s",
+    "1970s",
+    "1980s",
     "1990s",
     "2000s"
    ],
-   "Con sotano 2-4 niveles + bodegas": [
+   "5-10 niveles": [
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s"
+   ],
+   "11-17 niveles": [
+    "2000s",
     "2010s",
     "2020s"
    ],
-   "Elevador MRL (sin cuarto de maquinas)": [
-    "2010s",
-    "2020s"
-   ],
-   "Torre suelta de lujo, 20+ niveles (enclave aislado)": [
-    "2010s",
-    "2020s"
-   ],
-   "Sin cajon asignado / montacoches (DOT)": [
+   "18-30+ niveles (torre de gran altura)": [
+    "2000s",
     "2010s",
     "2020s"
    ]
@@ -1763,7 +1504,11 @@
    "Metalica o de lamina": [
     "1960s",
     "1970s",
-    "1980s"
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
    ],
    "Prefabricada Macopan/MDF": [
     "1990s",
@@ -1772,7 +1517,9 @@
    "De aluminio": [
     "1980s",
     "1990s",
-    "2000s"
+    "2000s",
+    "2010s",
+    "2020s"
    ],
    "De fierro en placas": [
     "1970s",
@@ -1798,6 +1545,13 @@
    "Marco oculto, sin chambrana exterior": [
     "2010s",
     "2020s"
+   ],
+   "Puerta tubular o de lamina tipo tambor": [
+    "2010s",
+    "2020s"
+   ],
+   "Porton de placa forjada / diseno de transicion (acceso principal)": [
+    "1960s"
    ]
   },
   "lamparas": {
@@ -1883,6 +1637,18 @@
     "2020s"
    ],
    "Contacto con USB integrado": [
+    "2010s",
+    "2020s"
+   ],
+   "Tapa de contacto de laton": [
+    "1960s",
+    "1970s",
+    "1980s"
+   ],
+   "Tapa de contacto de plastico": [
+    "1980s",
+    "1990s",
+    "2000s",
     "2010s",
     "2020s"
    ]
@@ -2034,9 +1800,6 @@
    ],
    "Forja sobria / balcón de fierro": [
     "1910s"
-   ],
-   "Reja baja de jardín": [
-    "1920s"
    ],
    "Herrería geométrica déco": [
     "1930s"
@@ -2211,6 +1974,537 @@
     "2010s"
    ],
    "Gas natural o induccion electrica": [
+    "2020s"
+   ]
+  },
+  "elevador": {
+   "Sin elevador": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Elevador de botones/manual": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Elevador con variador (VVVF)": [
+    "1990s",
+    "2000s"
+   ],
+   "Elevador MRL (sin cuarto de maquinas)": [
+    "2010s",
+    "2020s"
+   ]
+  },
+  "sotano_estacionamiento": {
+   "Sin sotano": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Sotano estructurado 1-2 niveles": [
+    "1990s",
+    "2000s"
+   ],
+   "Sotano 2-4 niveles + bodegas": [
+    "2010s",
+    "2020s"
+   ]
+  },
+  "canceleria_cochera": {
+   "Reja baja sin techo": [
+    "1950s",
+    "1960s",
+    "1970s"
+   ],
+   "Porton de aluminio corrugado": [
+    "1990s",
+    "2000s",
+    "2010s"
+   ],
+   "Puerta de estructura con lamina de una hoja, sistema corredizo": [
+    "2020s"
+   ],
+   "Reja alta con marquesina": [
+    "1980s",
+    "1990s",
+    "2000s"
+   ]
+  },
+  "automatizacion_cochera": {
+   "Manual (sin motor)": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Motor de cadena (importado)": [
+    "1980s",
+    "1990s"
+   ],
+   "Piston hidraulico/electromecanico, abatible": [
+    "1990s",
+    "2000s"
+   ],
+   "Motor de cremallera (corredizo) o de techo (levadizo)": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Sistema integrado: app celular, RFID, infrarrojo, domotica": [
+    "2010s",
+    "2020s"
+   ]
+  },
+  "forma_ventana": {
+   "Arco de medio punto monumental en cantera (vano vertical)": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Vano rectangular vertical simple con dintel plano": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Ojo de buey decorativo circular u ovalado": [
+    "1920s"
+   ],
+   "Vano esquinero sin columna intermedia (voladizo funcionalista)": [
+    "1930s",
+    "1940s",
+    "1950s"
+   ],
+   "Cuadricula de cuarterones pequenos (geometria Art Deco)": [
+    "1930s"
+   ],
+   "Arco californiano con moldura de barro/repisa": [
+    "1940s"
+   ],
+   "Ventana horizontal en 3 panos (fijo + 2 batientes) funcionalista": [
+    "1940s"
+   ],
+   "Ventanal de piso a techo / ventana corrida a jardin": [
+    "1950s",
+    "1960s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Vano rectangular horizontal sobre antepecho": [
+    "1950s",
+    "1960s",
+    "1970s"
+   ],
+   "Franjas horizontales continuas piso-plafon, antepecho bajo": [
+    "1960s"
+   ],
+   "Vano modular cuadrado (1.20x1.20m)": [
+    "1960s"
+   ],
+   "Vano rectangular estandarizado (vivienda en serie)": [
+    "1970s"
+   ],
+   "Ventanal panoramico a terraza": [
+    "1970s"
+   ],
+   "Arco posmoderno truncado/falso en mortero": [
+    "1980s"
+   ],
+   "Vano rectilineo sin adorno": [
+    "1980s"
+   ],
+   "Ventana hexagonal/octagonal chica (bano o escalera)": [
+    "1980s",
+    "1990s"
+   ],
+   "Arco neomediterraneo alto y estrecho (coto cerrado)": [
+    "1990s"
+   ],
+   "Vano modular gran formato, reticula limpia (minimalismo incipiente)": [
+    "1990s"
+   ],
+   "Vano rectangular limpio sin arco, marco de gran altura (2.40m+)": [
+    "2000s"
+   ],
+   "Vano estandar con antepecho de 90cm": [
+    "2000s"
+   ],
+   "Muro cortina parcial / hueco sin marco visible": [
+    "2010s"
+   ],
+   "Vano estandarizado economico": [
+    "2010s"
+   ],
+   "Rasgadura vertical estrecha (slit window)": [
+    "2020s"
+   ],
+   "Vano horizontal de apertura total apilable": [
+    "2020s"
+   ],
+   "Vano horizontal estandar": [
+    "2020s"
+   ]
+  },
+  "mecanismo_ventana": {
+   "Guillotina con contrapesos/poleas (madera)": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Abatible/batiente simple hacia interior (espagnolette)": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Abatible de herreria con manivela y fallebas trabajadas": [
+    "1930s",
+    "1940s"
+   ],
+   "Fijo con proyectante/basculante central": [
+    "1930s",
+    "1940s"
+   ],
+   "Celosia / persiana de librillo tipo jalousie": [
+    "1950s",
+    "1960s",
+    "1970s"
+   ],
+   "Fijo con abatibles laterales de gran formato": [
+    "1950s",
+    "1960s"
+   ],
+   "Corrediza horizontal de 2 a 4 hojas (perfil de aluminio)": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Fijo de gran formato en areas sociales": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Proyectante con brazo de friccion": [
+    "2000s",
+    "2010s"
+   ],
+   "Oscilobatiente (doble apertura, PVC/aluminio europeo)": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Corrediza tradicional de perfil delgado": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Corrediza de elevacion / plegable tipo pocket door": [
+    "2020s"
+   ],
+   "Fijo estructural con ventilacion por louvres": [
+    "2020s"
+   ],
+   "Fija (sin apertura), pano complementario": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "cocina_gabinete": {
+   "Cocina integral (madera/laminado/MDF)": [
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Mueble de melamina": [
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Melamina imitacion madera miel/cerezo": [
+    "1990s"
+   ],
+   "Melamina imitacion chocolate/nogal": [
+    "2000s",
+    "2010s"
+   ],
+   "Mueble de obra revestido de azulejo/mosaico": [
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s"
+   ],
+   "Mueble de obra + azulejo": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Isla (madera fina o piedra)": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Estufa europea de empotre (Teka/Bosch/Smeg)": [
+    "1990s",
+    "2000s"
+   ],
+   "Lavavajillas de empotre": [
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "cocina_cubierta": {
+   "Cubierta de formica": [
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Cubierta de azulejo": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Transicion azulejo a granito": [
+    "1980s",
+    "1990s"
+   ],
+   "Cubierta de granito": [
+    "2000s",
+    "2010s"
+   ],
+   "Cubierta de cuarzo": [
+    "2010s",
+    "2020s"
+   ],
+   "Piedra o superficie sinterizada": [
+    "2010s",
+    "2020s"
+   ]
+  },
+  "cocina_tarja_griferia": {
+   "Tarja sobre mueble de obra": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s"
+   ],
+   "Mampostería / fierro esmaltado": [
+    "1900s"
+   ],
+   "Mampostería": [
+    "1910s",
+    "1920s"
+   ],
+   "Fierro esmaltado": [
+    "1930s"
+   ],
+   "Peltre": [
+    "1940s"
+   ],
+   "Peltre o inox temprano": [
+    "1950s"
+   ],
+   "Peltre / inox": [
+    "1960s"
+   ],
+   "Inox sobre cubierta": [
+    "1970s",
+    "1980s"
+   ],
+   "Inox con escurridor": [
+    "1990s",
+    "2000s"
+   ],
+   "Inox submontada": [
+    "2010s"
+   ],
+   "Submontada / integrada": [
+    "2020s"
+   ],
+   "Monomando con cabezal extraible (cocina)": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "griferia_bano": {
+   "Llave individual de bronce": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s"
+   ],
+   "Manerales acrilico traslucido (diamante)": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Monomando cromado inicial": [
+    "1980s",
+    "1990s",
+    "2000s"
+   ],
+   "Monomando de diseno (Moen/Helvex)": [
+    "1990s",
+    "2000s",
+    "2010s"
+   ],
+   "Monomando negro mate / laton cepillado": [
+    "2010s",
+    "2020s"
+   ],
+   "Monomando empotrado en muro / lluvia": [
+    "2010s",
+    "2020s"
+   ],
+   "Llaves separadas de cruz": [
+    "1900s",
+    "1910s"
+   ],
+   "Llaves separadas": [
+    "1920s",
+    "1930s"
+   ],
+   "Llaves separadas cromadas": [
+    "1940s",
+    "1950s"
+   ],
+   "Mezcladora de dos manijas": [
+    "1960s",
+    "1970s"
+   ],
+   "Mezcladora": [
+    "1980s"
+   ],
+   "Monomando incipiente (alta)": [
+    "1990s"
+   ],
+   "Monomando": [
+    "2000s"
+   ],
+   "Monomando de diseño": [
+    "2010s"
+   ],
+   "Negro mate / latón / sensor": [
+    "2020s"
+   ]
+  },
+  "cableado_electrico": {
+   "Alambre con forro de tela + conduit visible": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s"
+   ],
+   "Cableado THW en poliducto (oculto parcial)": [
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Canalizacion oculta normada, circuitos dedicados": [
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "centro_carga": {
+   "Centro de carga: fusibles de tapon/cartucho (rosca tipo Edison)": [
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s"
+   ],
+   "Centro de carga: pastillas termomagneticas": [
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "tipo_contacto": {
+   "Contacto sin tierra fisica (2 clavijas)": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s"
+   ],
+   "Contacto con tierra fisica (3 clavijas)": [
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Contacto GFCI (boton Test/Reset visible)": [
+    "2000s",
+    "2010s",
     "2020s"
    ]
   }
@@ -2608,20 +2902,6 @@
     "1980s",
     "1990s"
    ],
-   "Porton automatico seccional tipo panel": [
-    "1990s",
-    "2000s",
-    "2010s"
-   ],
-   "Barandal de cristal templado con herrajes inox": [
-    "2010s",
-    "2020s"
-   ],
-   "Cerca electrificada residencial": [
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
    "Geometrica / proteccion gruesa (post-1980, seguridad)": [
     "1980s",
     "1990s",
@@ -2632,9 +2912,34 @@
     "2010s",
     "2020s"
    ],
-   "Cristal en barandal": [
+   "Barandal de balcon/terraza en cristal": [
     "2000s",
     "2010s",
+    "2020s"
+   ],
+   "Barandal de balcon/terraza en cristal templado con herrajes inox": [
+    "2010s",
+    "2020s"
+   ],
+   "Reja baja de jardín / acceso": [
+    "1920s"
+   ],
+   "PTR comercial calibre 18-20, barrotes verticales simples": [
+    "1970s"
+   ],
+   "PTR pesado o varilla corrugada, rejilla densa post-crisis": [
+    "1980s"
+   ],
+   "PTR y angulo en cuadros tupidos tipo presidio": [
+    "1990s"
+   ],
+   "Perfileria de aluminio Linea 3\"/80 o panel Deacero electrosoldado": [
+    "2000s"
+   ],
+   "Platina o tubo rectangular minimalista con pintura electrostatica": [
+    "2010s"
+   ],
+   "Louvre o lamina calada CNC / ausencia por diseno": [
     "2020s"
    ]
   },
@@ -2674,6 +2979,10 @@
    ],
    "Cochera para 3+ autos / subterraneo": [
     "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Sin cajon asignado / montacoches (DOT)": [
     "2010s",
     "2020s"
    ]
@@ -2816,226 +3125,20 @@
    "Vidrio color humo / reflectivo espejo": [
     "1980s",
     "1990s"
-   ]
-  },
-  "cocina": {
-   "Tarja sobre mueble de obra": [
+   ],
+   "Postigo de madera solido (sin vidrio)": [
     "1900s",
-    "1910s",
-    "1920s",
-    "1930s",
-    "1940s",
-    "1950s"
-   ],
-   "Cubierta de formica": [
-    "1960s",
-    "1970s",
-    "1980s",
-    "1990s"
-   ],
-   "Cocina integral (madera/laminado/MDF)": [
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Cubierta de azulejo": [
-    "1970s",
-    "1980s",
-    "1990s"
-   ],
-   "Estufa europea de empotre (Teka/Bosch/Smeg)": [
-    "1990s",
-    "2000s"
-   ],
-   "Lavavajillas de empotre": [
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Isla (madera fina o piedra)": [
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Cubierta de granito": [
-    "2000s",
-    "2010s"
-   ],
-   "Mueble de melamina": [
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Cubierta de cuarzo": [
-    "2010s",
-    "2020s"
-   ],
-   "Piedra sinterizada": [
-    "2010s",
-    "2020s"
-   ],
-   "Mueble de obra revestido de azulejo/mosaico": [
-    "1940s",
-    "1950s",
-    "1960s",
-    "1970s"
-   ],
-   "Melamina imitacion madera miel/cerezo": [
-    "1990s"
-   ],
-   "Melamina imitacion chocolate/nogal": [
-    "2000s",
-    "2010s"
-   ],
-   "Mueble de obra + azulejo": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s"
-   ],
-   "Fórmica": [
-    "1940s",
-    "1950s",
-    "1960s"
-   ],
-   "Fórmica / melamina": [
-    "1970s"
-   ],
-   "Azulejo / granito": [
-    "1980s"
-   ],
-   "Azulejo → granito": [
-    "1990s"
-   ],
-   "Granito nacional / cuarzo": [
-    "2000s"
-   ],
-   "Cuarzo": [
-    "2010s"
-   ],
-   "Superficie sinterizada": [
-    "2020s"
-   ],
-   "Mampostería / fierro esmaltado": [
-    "1900s"
-   ],
-   "Mampostería": [
     "1910s",
     "1920s"
    ],
-   "Fierro esmaltado": [
-    "1930s"
-   ],
-   "Peltre": [
-    "1940s"
-   ],
-   "Peltre o inox temprano": [
-    "1950s"
-   ],
-   "Peltre / inox": [
-    "1960s"
-   ],
-   "Inox sobre cubierta": [
-    "1970s",
-    "1980s"
-   ],
-   "Inox con escurridor": [
-    "1990s",
-    "2000s"
-   ],
-   "Inox submontada": [
-    "2010s"
-   ],
-   "Submontada / integrada": [
-    "2020s"
-   ]
-  },
-  "instalacion": {
-   "Alambre con forro de tela + conduit visible": [
+   "Contraventana de tablillas / persiana de librillo en madera (sin vidrio)": [
     "1900s",
     "1910s",
-    "1920s",
-    "1930s",
-    "1940s"
+    "1920s"
    ],
-   "Cableado THW en poliducto (oculto parcial)": [
-    "1960s",
-    "1970s",
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Canalizacion oculta normada, circuitos dedicados": [
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Centro de carga: fusibles de tapon/cartucho": [
-    "1930s",
-    "1940s",
-    "1950s",
-    "1960s",
-    "1970s"
-   ],
-   "Centro de carga: pastillas termomagneticas": [
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Contacto sin tierra fisica (2 clavijas)": [
+   "Manta o lienzo encerado sobre bastidor (sin vidrio)": [
     "1900s",
-    "1910s",
-    "1920s",
-    "1930s",
-    "1940s",
-    "1950s",
-    "1960s",
-    "1970s",
-    "1980s"
-   ],
-   "Contacto con tierra fisica (3 clavijas)": [
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Fusible de tapon, porcelana con rosca tipo Edison": [
-    "1920s",
-    "1930s",
-    "1940s",
-    "1950s",
-    "1960s"
-   ],
-   "Contacto GFCI (boton Test/Reset visible)": [
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Contacto con USB integrado": [
-    "2010s",
-    "2020s"
-   ],
-   "Tapa de contacto de laton": [
-    "1960s",
-    "1970s",
-    "1980s"
-   ],
-   "Tapa de contacto de plastico": [
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
+    "1910s"
    ]
   },
   "hidraulica": {
@@ -3111,34 +3214,10 @@
     "1970s",
     "1980s"
    ],
-   "Barandal/cancel de escalera, herreria o madera tradicional": [
-    "1950s",
-    "1960s",
-    "1970s",
-    "1980s",
-    "1990s"
-   ],
-   "Barandal/cancel de escalera, cristal templado / acero inox": [
-    "2010s",
-    "2020s"
-   ],
    "Cancel de PVC": [
     "2000s",
     "2010s",
     "2020s"
-   ],
-   "Seg. media-alta (inicio)": [
-    "1940s"
-   ],
-   "Seg. media a residencial": [
-    "1950s",
-    "1960s"
-   ],
-   "Media: vigente · Alta: en declive": [
-    "1970s"
-   ],
-   "Fase terminal / remodelaciones": [
-    "1980s"
    ]
   },
   "espejo": {
@@ -3369,84 +3448,6 @@
     "1980s"
    ]
   },
-  "griferia": {
-   "Llave individual de bronce": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s",
-    "1940s",
-    "1950s"
-   ],
-   "Manerales acrilico traslucido (diamante)": [
-    "1970s",
-    "1980s",
-    "1990s"
-   ],
-   "Monocomando cromado inicial": [
-    "1980s",
-    "1990s"
-   ],
-   "Monocomando de diseno (Moen/Helvex)": [
-    "1990s",
-    "2000s"
-   ],
-   "Monocomando negro mate / laton cepillado": [
-    "2010s",
-    "2020s"
-   ],
-   "Monocomando empotrado en muro / lluvia": [
-    "2010s",
-    "2020s"
-   ],
-   "Monomando cromado inicial": [
-    "1990s",
-    "2000s"
-   ],
-   "Monomando de diseno (Moen/Helvex)": [
-    "2000s",
-    "2010s"
-   ],
-   "Monomando negro mate / laton cepillado": [
-    "2010s",
-    "2020s"
-   ],
-   "Monomando empotrado en muro / lluvia": [
-    "2010s",
-    "2020s"
-   ],
-   "Llaves separadas de cruz": [
-    "1900s",
-    "1910s"
-   ],
-   "Llaves separadas": [
-    "1920s",
-    "1930s"
-   ],
-   "Llaves separadas cromadas": [
-    "1940s",
-    "1950s"
-   ],
-   "Mezcladora de dos manijas": [
-    "1960s",
-    "1970s"
-   ],
-   "Mezcladora": [
-    "1980s"
-   ],
-   "Monomando incipiente (alta)": [
-    "1990s"
-   ],
-   "Monomando": [
-    "2000s"
-   ],
-   "Monomando de diseño": [
-    "2010s"
-   ],
-   "Negro mate / latón / sensor": [
-    "2020s"
-   ]
-  },
   "fachada": {
    "Piedra laja pegada en faldones de fachada": [
     "1970s",
@@ -3642,33 +3643,57 @@
    ]
   },
   "niveles": {
-   "4-5 niveles SIN elevador (walk-up)": [
+   "1 nivel (planta baja)": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
     "1960s",
     "1970s",
-    "1980s"
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
    ],
-   "6-10 niveles, elevador de botones/manual": [
+   "2 niveles": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
     "1970s",
     "1980s",
-    "1990s"
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
    ],
-   "Con sotano estructurado 1-2 niveles": [
+   "3-4 niveles (walk-up, sin elevador)": [
+    "1960s",
+    "1970s",
+    "1980s",
     "1990s",
     "2000s"
    ],
-   "Con sotano 2-4 niveles + bodegas": [
+   "5-10 niveles": [
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s"
+   ],
+   "11-17 niveles": [
+    "2000s",
     "2010s",
     "2020s"
    ],
-   "Elevador MRL (sin cuarto de maquinas)": [
-    "2010s",
-    "2020s"
-   ],
-   "Torre suelta de lujo, 20+ niveles (enclave aislado)": [
-    "2010s",
-    "2020s"
-   ],
-   "Sin cajon asignado / montacoches (DOT)": [
+   "18-30+ niveles (torre de gran altura)": [
+    "2000s",
     "2010s",
     "2020s"
    ]
@@ -3922,11 +3947,6 @@
     "1940s",
     "1950s"
    ],
-   "Metalica o de lamina": [
-    "1960s",
-    "1970s",
-    "1980s"
-   ],
    "Prefabricada Macopan/MDF": [
     "1990s",
     "2000s"
@@ -3934,7 +3954,9 @@
    "De aluminio": [
     "1980s",
     "1990s",
-    "2000s"
+    "2000s",
+    "2010s",
+    "2020s"
    ],
    "De fierro en placas": [
     "1970s",
@@ -3958,6 +3980,19 @@
     "2020s"
    ],
    "Marco oculto, sin chambrana exterior": [
+    "2010s",
+    "2020s"
+   ],
+   "Puerta tubular o de lamina tipo tambor": [
+    "2010s",
+    "2020s"
+   ],
+   "Metalica o de lamina": [
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
     "2010s",
     "2020s"
    ]
@@ -4045,6 +4080,18 @@
     "2020s"
    ],
    "Contacto con USB integrado": [
+    "2010s",
+    "2020s"
+   ],
+   "Tapa de contacto de laton": [
+    "1960s",
+    "1970s",
+    "1980s"
+   ],
+   "Tapa de contacto de plastico": [
+    "1980s",
+    "1990s",
+    "2000s",
     "2010s",
     "2020s"
    ]
@@ -4196,9 +4243,6 @@
    ],
    "Forja sobria / balcón de fierro": [
     "1910s"
-   ],
-   "Reja baja de jardín": [
-    "1920s"
    ],
    "Herrería geométrica déco": [
     "1930s"
@@ -4373,6 +4417,397 @@
     "2010s"
    ],
    "Gas natural o induccion electrica": [
+    "2020s"
+   ]
+  },
+  "elevador": {
+   "Sin elevador": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Elevador de botones/manual": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Elevador con variador (VVVF)": [
+    "1990s",
+    "2000s"
+   ],
+   "Elevador MRL (sin cuarto de maquinas)": [
+    "2010s",
+    "2020s"
+   ]
+  },
+  "sotano_estacionamiento": {
+   "Sin sotano": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Sotano estructurado 1-2 niveles": [
+    "1990s",
+    "2000s"
+   ],
+   "Sotano 2-4 niveles + bodegas": [
+    "2010s",
+    "2020s"
+   ]
+  },
+  "canceleria_cochera": {
+   "Puerta de estructura con lamina de una hoja, sistema corredizo": [
+    "2020s"
+   ],
+   "Porton de aluminio corrugado": [
+    "1990s",
+    "2000s",
+    "2010s"
+   ]
+  },
+  "automatizacion_cochera": {
+   "Manual (sin motor)": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "forma_ventana": {
+   "Vano rectangular vertical simple con dintel plano": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Vano rectangular horizontal sobre antepecho": [
+    "1950s",
+    "1960s",
+    "1970s"
+   ],
+   "Vano rectangular estandarizado (vivienda en serie)": [
+    "1970s"
+   ],
+   "Vano rectilineo sin adorno": [
+    "1980s"
+   ],
+   "Vano estandarizado economico": [
+    "2010s"
+   ],
+   "Vano horizontal estandar": [
+    "2020s"
+   ]
+  },
+  "mecanismo_ventana": {
+   "Abatible/batiente simple hacia interior (espagnolette)": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Corrediza horizontal de 2 a 4 hojas (perfil de aluminio)": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Fija (sin apertura), pano complementario": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "cocina_gabinete": {
+   "Cocina integral (madera/laminado/MDF)": [
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Mueble de melamina": [
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Melamina imitacion madera miel/cerezo": [
+    "1990s"
+   ],
+   "Melamina imitacion chocolate/nogal": [
+    "2000s",
+    "2010s"
+   ],
+   "Mueble de obra revestido de azulejo/mosaico": [
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s"
+   ],
+   "Mueble de obra + azulejo": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Isla (madera fina o piedra)": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Estufa europea de empotre (Teka/Bosch/Smeg)": [
+    "1990s",
+    "2000s"
+   ],
+   "Lavavajillas de empotre": [
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "cocina_cubierta": {
+   "Cubierta de formica": [
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Cubierta de azulejo": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Transicion azulejo a granito": [
+    "1980s",
+    "1990s"
+   ],
+   "Cubierta de granito": [
+    "2000s",
+    "2010s"
+   ],
+   "Cubierta de cuarzo": [
+    "2010s",
+    "2020s"
+   ],
+   "Piedra o superficie sinterizada": [
+    "2010s",
+    "2020s"
+   ]
+  },
+  "cocina_tarja_griferia": {
+   "Tarja sobre mueble de obra": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s"
+   ],
+   "Mampostería / fierro esmaltado": [
+    "1900s"
+   ],
+   "Mampostería": [
+    "1910s",
+    "1920s"
+   ],
+   "Fierro esmaltado": [
+    "1930s"
+   ],
+   "Peltre": [
+    "1940s"
+   ],
+   "Peltre o inox temprano": [
+    "1950s"
+   ],
+   "Peltre / inox": [
+    "1960s"
+   ],
+   "Inox sobre cubierta": [
+    "1970s",
+    "1980s"
+   ],
+   "Inox con escurridor": [
+    "1990s",
+    "2000s"
+   ],
+   "Inox submontada": [
+    "2010s"
+   ],
+   "Submontada / integrada": [
+    "2020s"
+   ],
+   "Monomando con cabezal extraible (cocina)": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "griferia_bano": {
+   "Llave individual de bronce": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s"
+   ],
+   "Manerales acrilico traslucido (diamante)": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Monomando cromado inicial": [
+    "1980s",
+    "1990s",
+    "2000s"
+   ],
+   "Monomando de diseno (Moen/Helvex)": [
+    "1990s",
+    "2000s",
+    "2010s"
+   ],
+   "Monomando negro mate / laton cepillado": [
+    "2010s",
+    "2020s"
+   ],
+   "Monomando empotrado en muro / lluvia": [
+    "2010s",
+    "2020s"
+   ],
+   "Llaves separadas de cruz": [
+    "1900s",
+    "1910s"
+   ],
+   "Llaves separadas": [
+    "1920s",
+    "1930s"
+   ],
+   "Llaves separadas cromadas": [
+    "1940s",
+    "1950s"
+   ],
+   "Mezcladora de dos manijas": [
+    "1960s",
+    "1970s"
+   ],
+   "Mezcladora": [
+    "1980s"
+   ],
+   "Monomando incipiente (alta)": [
+    "1990s"
+   ],
+   "Monomando": [
+    "2000s"
+   ],
+   "Monomando de diseño": [
+    "2010s"
+   ],
+   "Negro mate / latón / sensor": [
+    "2020s"
+   ]
+  },
+  "cableado_electrico": {
+   "Alambre con forro de tela + conduit visible": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s"
+   ],
+   "Cableado THW en poliducto (oculto parcial)": [
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Canalizacion oculta normada, circuitos dedicados": [
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "centro_carga": {
+   "Centro de carga: fusibles de tapon/cartucho (rosca tipo Edison)": [
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s"
+   ],
+   "Centro de carga: pastillas termomagneticas": [
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "tipo_contacto": {
+   "Contacto sin tierra fisica (2 clavijas)": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s"
+   ],
+   "Contacto con tierra fisica (3 clavijas)": [
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Contacto GFCI (boton Test/Reset visible)": [
+    "2000s",
+    "2010s",
     "2020s"
    ]
   }
@@ -4762,6 +5197,16 @@
    "Vidrio color humo / reflectivo espejo": [
     "1980s",
     "1990s"
+   ],
+   "Postigo de madera solido (sin vidrio)": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Contraventana de tablillas / persiana de librillo en madera (sin vidrio)": [
+    "1900s",
+    "1910s",
+    "1920s"
    ]
   },
   "puerta": {
@@ -4856,6 +5301,10 @@
     "2000s",
     "2010s",
     "2020s"
+   ],
+   "Sin cajon asignado / montacoches (DOT)": [
+    "2010s",
+    "2020s"
    ]
   },
   "herreria": {
@@ -4872,20 +5321,6 @@
     "1980s",
     "1990s"
    ],
-   "Porton automatico seccional tipo panel": [
-    "1990s",
-    "2000s",
-    "2010s"
-   ],
-   "Barandal de cristal templado con herrajes inox": [
-    "2010s",
-    "2020s"
-   ],
-   "Cerca electrificada residencial": [
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
    "Geometrica / proteccion gruesa (post-1980, seguridad)": [
     "1980s",
     "1990s",
@@ -4896,9 +5331,37 @@
     "2010s",
     "2020s"
    ],
-   "Cristal en barandal": [
+   "Barandal de balcon/terraza en cristal": [
     "2000s",
     "2010s",
+    "2020s"
+   ],
+   "Barandal de balcon/terraza en cristal templado con herrajes inox": [
+    "2010s",
+    "2020s"
+   ],
+   "Reja baja de jardín / acceso": [
+    "1920s"
+   ],
+   "Perfil tubular ligero cuadrado/rectangular (3/4-1\")": [
+    "1960s"
+   ],
+   "PTR comercial calibre 18-20, barrotes verticales simples": [
+    "1970s"
+   ],
+   "PTR pesado o varilla corrugada, rejilla densa post-crisis": [
+    "1980s"
+   ],
+   "PTR y angulo en cuadros tupidos tipo presidio": [
+    "1990s"
+   ],
+   "Perfileria de aluminio Linea 3\"/80 o panel Deacero electrosoldado": [
+    "2000s"
+   ],
+   "Platina o tubo rectangular minimalista con pintura electrostatica": [
+    "2010s"
+   ],
+   "Louvre o lamina calada CNC / ausencia por diseno": [
     "2020s"
    ]
   },
@@ -4975,226 +5438,6 @@
     "1930s"
    ]
   },
-  "cocina": {
-   "Tarja sobre mueble de obra": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s",
-    "1940s",
-    "1950s"
-   ],
-   "Cocina integral (madera/laminado/MDF)": [
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Cubierta de azulejo": [
-    "1970s",
-    "1980s",
-    "1990s"
-   ],
-   "Cubierta de granito": [
-    "2000s",
-    "2010s"
-   ],
-   "Mueble de melamina": [
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Estufa europea de empotre (Teka/Bosch/Smeg)": [
-    "1990s",
-    "2000s"
-   ],
-   "Lavavajillas de empotre": [
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Isla (madera fina o piedra)": [
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Cubierta de formica": [
-    "1960s",
-    "1970s",
-    "1980s",
-    "1990s"
-   ],
-   "Cubierta de cuarzo": [
-    "2010s",
-    "2020s"
-   ],
-   "Piedra sinterizada": [
-    "2010s",
-    "2020s"
-   ],
-   "Mueble de obra revestido de azulejo/mosaico": [
-    "1940s",
-    "1950s",
-    "1960s",
-    "1970s"
-   ],
-   "Melamina imitacion madera miel/cerezo": [
-    "1990s"
-   ],
-   "Melamina imitacion chocolate/nogal": [
-    "2000s",
-    "2010s"
-   ],
-   "Mueble de obra + azulejo": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s"
-   ],
-   "Fórmica": [
-    "1940s",
-    "1950s",
-    "1960s"
-   ],
-   "Fórmica / melamina": [
-    "1970s"
-   ],
-   "Azulejo / granito": [
-    "1980s"
-   ],
-   "Azulejo → granito": [
-    "1990s"
-   ],
-   "Granito nacional / cuarzo": [
-    "2000s"
-   ],
-   "Cuarzo": [
-    "2010s"
-   ],
-   "Superficie sinterizada": [
-    "2020s"
-   ],
-   "Mampostería / fierro esmaltado": [
-    "1900s"
-   ],
-   "Mampostería": [
-    "1910s",
-    "1920s"
-   ],
-   "Fierro esmaltado": [
-    "1930s"
-   ],
-   "Peltre": [
-    "1940s"
-   ],
-   "Peltre o inox temprano": [
-    "1950s"
-   ],
-   "Peltre / inox": [
-    "1960s"
-   ],
-   "Inox sobre cubierta": [
-    "1970s",
-    "1980s"
-   ],
-   "Inox con escurridor": [
-    "1990s",
-    "2000s"
-   ],
-   "Inox submontada": [
-    "2010s"
-   ],
-   "Submontada / integrada": [
-    "2020s"
-   ]
-  },
-  "instalacion": {
-   "Alambre con forro de tela + conduit visible": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s",
-    "1940s"
-   ],
-   "Cableado THW en poliducto (oculto parcial)": [
-    "1960s",
-    "1970s",
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Canalizacion oculta normada, circuitos dedicados": [
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Centro de carga: fusibles de tapon/cartucho": [
-    "1930s",
-    "1940s",
-    "1950s",
-    "1960s",
-    "1970s"
-   ],
-   "Centro de carga: pastillas termomagneticas": [
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Contacto sin tierra fisica (2 clavijas)": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s",
-    "1940s",
-    "1950s",
-    "1960s",
-    "1970s",
-    "1980s"
-   ],
-   "Contacto con tierra fisica (3 clavijas)": [
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Fusible de tapon, porcelana con rosca tipo Edison": [
-    "1920s",
-    "1930s",
-    "1940s",
-    "1950s",
-    "1960s"
-   ],
-   "Contacto GFCI (boton Test/Reset visible)": [
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Contacto con USB integrado": [
-    "2010s",
-    "2020s"
-   ],
-   "Tapa de contacto de laton": [
-    "1960s",
-    "1970s",
-    "1980s"
-   ],
-   "Tapa de contacto de plastico": [
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ]
-  },
   "hidraulica": {
    "Plomo": [
     "1900s",
@@ -5268,34 +5511,10 @@
     "1970s",
     "1980s"
    ],
-   "Barandal/cancel de escalera, herreria o madera tradicional": [
-    "1950s",
-    "1960s",
-    "1970s",
-    "1980s",
-    "1990s"
-   ],
-   "Barandal/cancel de escalera, cristal templado / acero inox": [
-    "2010s",
-    "2020s"
-   ],
    "Cancel de PVC": [
     "2000s",
     "2010s",
     "2020s"
-   ],
-   "Seg. media-alta (inicio)": [
-    "1940s"
-   ],
-   "Seg. media a residencial": [
-    "1950s",
-    "1960s"
-   ],
-   "Media: vigente · Alta: en declive": [
-    "1970s"
-   ],
-   "Fase terminal / remodelaciones": [
-    "1980s"
    ]
   },
   "espejo": {
@@ -5526,84 +5745,6 @@
     "1980s"
    ]
   },
-  "griferia": {
-   "Llave individual de bronce": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s",
-    "1940s",
-    "1950s"
-   ],
-   "Manerales acrilico traslucido (diamante)": [
-    "1970s",
-    "1980s",
-    "1990s"
-   ],
-   "Monocomando cromado inicial": [
-    "1980s",
-    "1990s"
-   ],
-   "Monocomando de diseno (Moen/Helvex)": [
-    "1990s",
-    "2000s"
-   ],
-   "Monocomando negro mate / laton cepillado": [
-    "2010s",
-    "2020s"
-   ],
-   "Monocomando empotrado en muro / lluvia": [
-    "2010s",
-    "2020s"
-   ],
-   "Monomando cromado inicial": [
-    "1990s",
-    "2000s"
-   ],
-   "Monomando de diseno (Moen/Helvex)": [
-    "2000s",
-    "2010s"
-   ],
-   "Monomando negro mate / laton cepillado": [
-    "2010s",
-    "2020s"
-   ],
-   "Monomando empotrado en muro / lluvia": [
-    "2010s",
-    "2020s"
-   ],
-   "Llaves separadas de cruz": [
-    "1900s",
-    "1910s"
-   ],
-   "Llaves separadas": [
-    "1920s",
-    "1930s"
-   ],
-   "Llaves separadas cromadas": [
-    "1940s",
-    "1950s"
-   ],
-   "Mezcladora de dos manijas": [
-    "1960s",
-    "1970s"
-   ],
-   "Mezcladora": [
-    "1980s"
-   ],
-   "Monomando incipiente (alta)": [
-    "1990s"
-   ],
-   "Monomando": [
-    "2000s"
-   ],
-   "Monomando de diseño": [
-    "2010s"
-   ],
-   "Negro mate / latón / sensor": [
-    "2020s"
-   ]
-  },
   "fachada": {
    "Piedra laja pegada en faldones de fachada": [
     "1970s",
@@ -5799,33 +5940,57 @@
    ]
   },
   "niveles": {
-   "4-5 niveles SIN elevador (walk-up)": [
+   "1 nivel (planta baja)": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
     "1960s",
     "1970s",
-    "1980s"
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
    ],
-   "6-10 niveles, elevador de botones/manual": [
+   "2 niveles": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
     "1970s",
     "1980s",
-    "1990s"
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
    ],
-   "Con sotano estructurado 1-2 niveles": [
+   "3-4 niveles (walk-up, sin elevador)": [
+    "1960s",
+    "1970s",
+    "1980s",
     "1990s",
     "2000s"
    ],
-   "Con sotano 2-4 niveles + bodegas": [
+   "5-10 niveles": [
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s"
+   ],
+   "11-17 niveles": [
+    "2000s",
     "2010s",
     "2020s"
    ],
-   "Elevador MRL (sin cuarto de maquinas)": [
-    "2010s",
-    "2020s"
-   ],
-   "Torre suelta de lujo, 20+ niveles (enclave aislado)": [
-    "2010s",
-    "2020s"
-   ],
-   "Sin cajon asignado / montacoches (DOT)": [
+   "18-30+ niveles (torre de gran altura)": [
+    "2000s",
     "2010s",
     "2020s"
    ]
@@ -6079,11 +6244,6 @@
     "1940s",
     "1950s"
    ],
-   "Metalica o de lamina": [
-    "1960s",
-    "1970s",
-    "1980s"
-   ],
    "Prefabricada Macopan/MDF": [
     "1990s",
     "2000s"
@@ -6091,7 +6251,9 @@
    "De aluminio": [
     "1980s",
     "1990s",
-    "2000s"
+    "2000s",
+    "2010s",
+    "2020s"
    ],
    "De fierro en placas": [
     "1970s",
@@ -6115,6 +6277,19 @@
     "2020s"
    ],
    "Marco oculto, sin chambrana exterior": [
+    "2010s",
+    "2020s"
+   ],
+   "Puerta tubular o de lamina tipo tambor": [
+    "2010s",
+    "2020s"
+   ],
+   "Metalica o de lamina": [
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
     "2010s",
     "2020s"
    ]
@@ -6202,6 +6377,18 @@
     "2020s"
    ],
    "Contacto con USB integrado": [
+    "2010s",
+    "2020s"
+   ],
+   "Tapa de contacto de laton": [
+    "1960s",
+    "1970s",
+    "1980s"
+   ],
+   "Tapa de contacto de plastico": [
+    "1980s",
+    "1990s",
+    "2000s",
     "2010s",
     "2020s"
    ]
@@ -6353,9 +6540,6 @@
    ],
    "Forja sobria / balcón de fierro": [
     "1910s"
-   ],
-   "Reja baja de jardín": [
-    "1920s"
    ],
    "Herrería geométrica déco": [
     "1930s"
@@ -6530,6 +6714,419 @@
     "2010s"
    ],
    "Gas natural o induccion electrica": [
+    "2020s"
+   ]
+  },
+  "elevador": {
+   "Sin elevador": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Elevador de botones/manual": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Elevador con variador (VVVF)": [
+    "1990s",
+    "2000s"
+   ],
+   "Elevador MRL (sin cuarto de maquinas)": [
+    "2010s",
+    "2020s"
+   ]
+  },
+  "sotano_estacionamiento": {
+   "Sin sotano": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Sotano estructurado 1-2 niveles": [
+    "1990s",
+    "2000s"
+   ],
+   "Sotano 2-4 niveles + bodegas": [
+    "2010s",
+    "2020s"
+   ]
+  },
+  "canceleria_cochera": {
+   "Puerta de estructura con lamina de una hoja, sistema corredizo": [
+    "2020s"
+   ],
+   "Reja alta con marquesina": [
+    "1980s",
+    "1990s",
+    "2000s"
+   ],
+   "Porton de aluminio corrugado": [
+    "1990s",
+    "2000s",
+    "2010s"
+   ]
+  },
+  "automatizacion_cochera": {
+   "Manual (sin motor)": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Motor de cadena (importado)": [
+    "1980s",
+    "1990s"
+   ]
+  },
+  "forma_ventana": {
+   "Vano rectangular vertical simple con dintel plano": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Vano rectangular horizontal sobre antepecho": [
+    "1950s",
+    "1960s",
+    "1970s"
+   ],
+   "Vano modular cuadrado (1.20x1.20m)": [
+    "1960s"
+   ],
+   "Vano rectangular estandarizado (vivienda en serie)": [
+    "1970s"
+   ],
+   "Vano rectilineo sin adorno": [
+    "1980s"
+   ],
+   "Vano estandar con antepecho de 90cm": [
+    "2000s"
+   ],
+   "Vano horizontal estandar": [
+    "2020s"
+   ]
+  },
+  "mecanismo_ventana": {
+   "Abatible/batiente simple hacia interior (espagnolette)": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Celosia / persiana de librillo tipo jalousie": [
+    "1950s",
+    "1960s",
+    "1970s"
+   ],
+   "Corrediza horizontal de 2 a 4 hojas (perfil de aluminio)": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Corrediza tradicional de perfil delgado": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Fija (sin apertura), pano complementario": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "cocina_gabinete": {
+   "Cocina integral (madera/laminado/MDF)": [
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Mueble de melamina": [
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Melamina imitacion madera miel/cerezo": [
+    "1990s"
+   ],
+   "Melamina imitacion chocolate/nogal": [
+    "2000s",
+    "2010s"
+   ],
+   "Mueble de obra revestido de azulejo/mosaico": [
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s"
+   ],
+   "Mueble de obra + azulejo": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Isla (madera fina o piedra)": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Estufa europea de empotre (Teka/Bosch/Smeg)": [
+    "1990s",
+    "2000s"
+   ],
+   "Lavavajillas de empotre": [
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "cocina_cubierta": {
+   "Cubierta de formica": [
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Cubierta de azulejo": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Transicion azulejo a granito": [
+    "1980s",
+    "1990s"
+   ],
+   "Cubierta de granito": [
+    "2000s",
+    "2010s"
+   ],
+   "Cubierta de cuarzo": [
+    "2010s",
+    "2020s"
+   ],
+   "Piedra o superficie sinterizada": [
+    "2010s",
+    "2020s"
+   ]
+  },
+  "cocina_tarja_griferia": {
+   "Tarja sobre mueble de obra": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s"
+   ],
+   "Mampostería / fierro esmaltado": [
+    "1900s"
+   ],
+   "Mampostería": [
+    "1910s",
+    "1920s"
+   ],
+   "Fierro esmaltado": [
+    "1930s"
+   ],
+   "Peltre": [
+    "1940s"
+   ],
+   "Peltre o inox temprano": [
+    "1950s"
+   ],
+   "Peltre / inox": [
+    "1960s"
+   ],
+   "Inox sobre cubierta": [
+    "1970s",
+    "1980s"
+   ],
+   "Inox con escurridor": [
+    "1990s",
+    "2000s"
+   ],
+   "Inox submontada": [
+    "2010s"
+   ],
+   "Submontada / integrada": [
+    "2020s"
+   ],
+   "Monomando con cabezal extraible (cocina)": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "griferia_bano": {
+   "Llave individual de bronce": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s"
+   ],
+   "Manerales acrilico traslucido (diamante)": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Monomando cromado inicial": [
+    "1980s",
+    "1990s",
+    "2000s"
+   ],
+   "Monomando de diseno (Moen/Helvex)": [
+    "1990s",
+    "2000s",
+    "2010s"
+   ],
+   "Monomando negro mate / laton cepillado": [
+    "2010s",
+    "2020s"
+   ],
+   "Monomando empotrado en muro / lluvia": [
+    "2010s",
+    "2020s"
+   ],
+   "Llaves separadas de cruz": [
+    "1900s",
+    "1910s"
+   ],
+   "Llaves separadas": [
+    "1920s",
+    "1930s"
+   ],
+   "Llaves separadas cromadas": [
+    "1940s",
+    "1950s"
+   ],
+   "Mezcladora de dos manijas": [
+    "1960s",
+    "1970s"
+   ],
+   "Mezcladora": [
+    "1980s"
+   ],
+   "Monomando incipiente (alta)": [
+    "1990s"
+   ],
+   "Monomando": [
+    "2000s"
+   ],
+   "Monomando de diseño": [
+    "2010s"
+   ],
+   "Negro mate / latón / sensor": [
+    "2020s"
+   ]
+  },
+  "cableado_electrico": {
+   "Alambre con forro de tela + conduit visible": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s"
+   ],
+   "Cableado THW en poliducto (oculto parcial)": [
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Canalizacion oculta normada, circuitos dedicados": [
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "centro_carga": {
+   "Centro de carga: fusibles de tapon/cartucho (rosca tipo Edison)": [
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s"
+   ],
+   "Centro de carga: pastillas termomagneticas": [
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "tipo_contacto": {
+   "Contacto sin tierra fisica (2 clavijas)": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s"
+   ],
+   "Contacto con tierra fisica (3 clavijas)": [
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Contacto GFCI (boton Test/Reset visible)": [
+    "2000s",
+    "2010s",
     "2020s"
    ]
   }
@@ -6840,14 +7437,14 @@
    "Vidrio color humo / reflectivo espejo": [
     "1980s",
     "1990s"
-   ]
-  },
-  "puerta": {
-   "Zaguan de madera": [
+   ],
+   "Contraventana de tablillas / persiana de librillo en madera (sin vidrio)": [
     "1900s",
     "1910s",
     "1920s"
-   ],
+   ]
+  },
+  "puerta": {
    "Madera maciza": [
     "1900s",
     "1910s",
@@ -6879,9 +7476,6 @@
     "1990s",
     "2000s",
     "2010s"
-   ],
-   "Acceso domotico o digital": [
-    "2020s"
    ],
    "Entamborada de caobilla, panel pequeno repetido": [
     "1970s",
@@ -6939,6 +7533,10 @@
     "2000s",
     "2010s",
     "2020s"
+   ],
+   "Sin cajon asignado / montacoches (DOT)": [
+    "2010s",
+    "2020s"
    ]
   },
   "herreria": {
@@ -6960,28 +7558,51 @@
     "2010s",
     "2020s"
    ],
-   "Porton automatico seccional tipo panel": [
-    "1990s",
-    "2000s",
-    "2010s"
-   ],
-   "Barandal de cristal templado con herrajes inox": [
-    "2010s",
-    "2020s"
-   ],
-   "Cerca electrificada residencial": [
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
    "Geometrica / proteccion gruesa (post-1980, seguridad)": [
     "1980s",
     "1990s",
     "2000s"
    ],
-   "Cristal en barandal": [
+   "Barandal de balcon/terraza en cristal": [
     "2000s",
     "2010s",
+    "2020s"
+   ],
+   "Barandal de balcon/terraza en cristal templado con herrajes inox": [
+    "2010s",
+    "2020s"
+   ],
+   "Reja baja de jardín / acceso": [
+    "1920s"
+   ],
+   "Perfil laminado geometrico Art Deco (solera/cuadrado 1/2-5/8\")": [
+    "1930s"
+   ],
+   "Barrote macizo con perfil Z/T para vidrio sobre sardinel": [
+    "1940s"
+   ],
+   "Barrote delgado geometrico lineal (redondo 3/8-1/2\")": [
+    "1950s"
+   ],
+   "Perfil tubular ligero cuadrado/rectangular (3/4-1\")": [
+    "1960s"
+   ],
+   "PTR comercial calibre 18-20, barrotes verticales simples": [
+    "1970s"
+   ],
+   "PTR pesado o varilla corrugada, rejilla densa post-crisis": [
+    "1980s"
+   ],
+   "PTR y angulo en cuadros tupidos tipo presidio": [
+    "1990s"
+   ],
+   "Perfileria de aluminio Linea 3\"/80 o panel Deacero electrosoldado": [
+    "2000s"
+   ],
+   "Platina o tubo rectangular minimalista con pintura electrostatica": [
+    "2010s"
+   ],
+   "Louvre o lamina calada CNC / ausencia por diseno": [
     "2020s"
    ]
   },
@@ -7134,226 +7755,6 @@
     "2020s"
    ]
   },
-  "cocina": {
-   "Tarja sobre mueble de obra": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s",
-    "1940s",
-    "1950s"
-   ],
-   "Cubierta de formica": [
-    "1960s",
-    "1970s",
-    "1980s",
-    "1990s"
-   ],
-   "Cocina integral (madera/laminado/MDF)": [
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Cubierta de azulejo": [
-    "1970s",
-    "1980s",
-    "1990s"
-   ],
-   "Cubierta de granito": [
-    "2000s",
-    "2010s"
-   ],
-   "Cubierta de cuarzo": [
-    "2010s",
-    "2020s"
-   ],
-   "Estufa europea de empotre (Teka/Bosch/Smeg)": [
-    "1990s",
-    "2000s"
-   ],
-   "Lavavajillas de empotre": [
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Isla (madera fina o piedra)": [
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Mueble de melamina": [
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Piedra sinterizada": [
-    "2010s",
-    "2020s"
-   ],
-   "Mueble de obra revestido de azulejo/mosaico": [
-    "1940s",
-    "1950s",
-    "1960s",
-    "1970s"
-   ],
-   "Melamina imitacion madera miel/cerezo": [
-    "1990s"
-   ],
-   "Melamina imitacion chocolate/nogal": [
-    "2000s",
-    "2010s"
-   ],
-   "Mueble de obra + azulejo": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s"
-   ],
-   "Fórmica": [
-    "1940s",
-    "1950s",
-    "1960s"
-   ],
-   "Fórmica / melamina": [
-    "1970s"
-   ],
-   "Azulejo / granito": [
-    "1980s"
-   ],
-   "Azulejo → granito": [
-    "1990s"
-   ],
-   "Granito nacional / cuarzo": [
-    "2000s"
-   ],
-   "Cuarzo": [
-    "2010s"
-   ],
-   "Superficie sinterizada": [
-    "2020s"
-   ],
-   "Mampostería / fierro esmaltado": [
-    "1900s"
-   ],
-   "Mampostería": [
-    "1910s",
-    "1920s"
-   ],
-   "Fierro esmaltado": [
-    "1930s"
-   ],
-   "Peltre": [
-    "1940s"
-   ],
-   "Peltre o inox temprano": [
-    "1950s"
-   ],
-   "Peltre / inox": [
-    "1960s"
-   ],
-   "Inox sobre cubierta": [
-    "1970s",
-    "1980s"
-   ],
-   "Inox con escurridor": [
-    "1990s",
-    "2000s"
-   ],
-   "Inox submontada": [
-    "2010s"
-   ],
-   "Submontada / integrada": [
-    "2020s"
-   ]
-  },
-  "instalacion": {
-   "Alambre con forro de tela + conduit visible": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s",
-    "1940s"
-   ],
-   "Cableado THW en poliducto (oculto parcial)": [
-    "1960s",
-    "1970s",
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Canalizacion oculta normada, circuitos dedicados": [
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Centro de carga: fusibles de tapon/cartucho": [
-    "1930s",
-    "1940s",
-    "1950s",
-    "1960s",
-    "1970s"
-   ],
-   "Centro de carga: pastillas termomagneticas": [
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Contacto sin tierra fisica (2 clavijas)": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s",
-    "1940s",
-    "1950s",
-    "1960s",
-    "1970s",
-    "1980s"
-   ],
-   "Contacto con tierra fisica (3 clavijas)": [
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Fusible de tapon, porcelana con rosca tipo Edison": [
-    "1920s",
-    "1930s",
-    "1940s",
-    "1950s",
-    "1960s"
-   ],
-   "Contacto GFCI (boton Test/Reset visible)": [
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Contacto con USB integrado": [
-    "2010s",
-    "2020s"
-   ],
-   "Tapa de contacto de laton": [
-    "1960s",
-    "1970s",
-    "1980s"
-   ],
-   "Tapa de contacto de plastico": [
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ]
-  },
   "hidraulica": {
    "Plomo": [
     "1900s",
@@ -7427,34 +7828,10 @@
     "1970s",
     "1980s"
    ],
-   "Barandal/cancel de escalera, herreria o madera tradicional": [
-    "1950s",
-    "1960s",
-    "1970s",
-    "1980s",
-    "1990s"
-   ],
-   "Barandal/cancel de escalera, cristal templado / acero inox": [
-    "2010s",
-    "2020s"
-   ],
    "Cancel de PVC": [
     "2000s",
     "2010s",
     "2020s"
-   ],
-   "Seg. media-alta (inicio)": [
-    "1940s"
-   ],
-   "Seg. media a residencial": [
-    "1950s",
-    "1960s"
-   ],
-   "Media: vigente · Alta: en declive": [
-    "1970s"
-   ],
-   "Fase terminal / remodelaciones": [
-    "1980s"
    ]
   },
   "espejo": {
@@ -7685,84 +8062,6 @@
     "1980s"
    ]
   },
-  "griferia": {
-   "Llave individual de bronce": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s",
-    "1940s",
-    "1950s"
-   ],
-   "Manerales acrilico traslucido (diamante)": [
-    "1970s",
-    "1980s",
-    "1990s"
-   ],
-   "Monocomando cromado inicial": [
-    "1980s",
-    "1990s"
-   ],
-   "Monocomando de diseno (Moen/Helvex)": [
-    "1990s",
-    "2000s"
-   ],
-   "Monocomando negro mate / laton cepillado": [
-    "2010s",
-    "2020s"
-   ],
-   "Monocomando empotrado en muro / lluvia": [
-    "2010s",
-    "2020s"
-   ],
-   "Monomando cromado inicial": [
-    "1990s",
-    "2000s"
-   ],
-   "Monomando de diseno (Moen/Helvex)": [
-    "2000s",
-    "2010s"
-   ],
-   "Monomando negro mate / laton cepillado": [
-    "2010s",
-    "2020s"
-   ],
-   "Monomando empotrado en muro / lluvia": [
-    "2010s",
-    "2020s"
-   ],
-   "Llaves separadas de cruz": [
-    "1900s",
-    "1910s"
-   ],
-   "Llaves separadas": [
-    "1920s",
-    "1930s"
-   ],
-   "Llaves separadas cromadas": [
-    "1940s",
-    "1950s"
-   ],
-   "Mezcladora de dos manijas": [
-    "1960s",
-    "1970s"
-   ],
-   "Mezcladora": [
-    "1980s"
-   ],
-   "Monomando incipiente (alta)": [
-    "1990s"
-   ],
-   "Monomando": [
-    "2000s"
-   ],
-   "Monomando de diseño": [
-    "2010s"
-   ],
-   "Negro mate / latón / sensor": [
-    "2020s"
-   ]
-  },
   "fachada": {
    "Piedra laja pegada en faldones de fachada": [
     "1970s",
@@ -7958,33 +8257,57 @@
    ]
   },
   "niveles": {
-   "4-5 niveles SIN elevador (walk-up)": [
+   "1 nivel (planta baja)": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
     "1960s",
     "1970s",
-    "1980s"
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
    ],
-   "6-10 niveles, elevador de botones/manual": [
+   "2 niveles": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
     "1970s",
     "1980s",
-    "1990s"
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
    ],
-   "Con sotano estructurado 1-2 niveles": [
+   "3-4 niveles (walk-up, sin elevador)": [
+    "1960s",
+    "1970s",
+    "1980s",
     "1990s",
     "2000s"
    ],
-   "Con sotano 2-4 niveles + bodegas": [
+   "5-10 niveles": [
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s"
+   ],
+   "11-17 niveles": [
+    "2000s",
     "2010s",
     "2020s"
    ],
-   "Elevador MRL (sin cuarto de maquinas)": [
-    "2010s",
-    "2020s"
-   ],
-   "Torre suelta de lujo, 20+ niveles (enclave aislado)": [
-    "2010s",
-    "2020s"
-   ],
-   "Sin cajon asignado / montacoches (DOT)": [
+   "18-30+ niveles (torre de gran altura)": [
+    "2000s",
     "2010s",
     "2020s"
    ]
@@ -8238,11 +8561,6 @@
     "1940s",
     "1950s"
    ],
-   "Metalica o de lamina": [
-    "1960s",
-    "1970s",
-    "1980s"
-   ],
    "Prefabricada Macopan/MDF": [
     "1990s",
     "2000s"
@@ -8250,7 +8568,9 @@
    "De aluminio": [
     "1980s",
     "1990s",
-    "2000s"
+    "2000s",
+    "2010s",
+    "2020s"
    ],
    "De fierro en placas": [
     "1970s",
@@ -8274,6 +8594,10 @@
     "2020s"
    ],
    "Marco oculto, sin chambrana exterior": [
+    "2010s",
+    "2020s"
+   ],
+   "Puerta tubular o de lamina tipo tambor": [
     "2010s",
     "2020s"
    ]
@@ -8361,6 +8685,18 @@
     "2020s"
    ],
    "Contacto con USB integrado": [
+    "2010s",
+    "2020s"
+   ],
+   "Tapa de contacto de laton": [
+    "1960s",
+    "1970s",
+    "1980s"
+   ],
+   "Tapa de contacto de plastico": [
+    "1980s",
+    "1990s",
+    "2000s",
     "2010s",
     "2020s"
    ]
@@ -8512,9 +8848,6 @@
    ],
    "Forja sobria / balcón de fierro": [
     "1910s"
-   ],
-   "Reja baja de jardín": [
-    "1920s"
    ],
    "Herrería geométrica déco": [
     "1930s"
@@ -8689,6 +9022,441 @@
     "2010s"
    ],
    "Gas natural o induccion electrica": [
+    "2020s"
+   ]
+  },
+  "elevador": {
+   "Sin elevador": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Elevador de botones/manual": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Elevador con variador (VVVF)": [
+    "1990s",
+    "2000s"
+   ],
+   "Elevador MRL (sin cuarto de maquinas)": [
+    "2010s",
+    "2020s"
+   ]
+  },
+  "sotano_estacionamiento": {
+   "Sin sotano": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Sotano estructurado 1-2 niveles": [
+    "1990s",
+    "2000s"
+   ],
+   "Sotano 2-4 niveles + bodegas": [
+    "2010s",
+    "2020s"
+   ]
+  },
+  "canceleria_cochera": {
+   "Puerta de estructura con lamina de una hoja, sistema corredizo": [
+    "2020s"
+   ],
+   "Reja alta con marquesina": [
+    "1980s",
+    "1990s",
+    "2000s"
+   ],
+   "Porton de aluminio corrugado": [
+    "1990s",
+    "2000s",
+    "2010s"
+   ]
+  },
+  "automatizacion_cochera": {
+   "Manual (sin motor)": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Motor de cadena (importado)": [
+    "1980s",
+    "1990s"
+   ],
+   "Motor de cremallera (corredizo) o de techo (levadizo)": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "forma_ventana": {
+   "Vano rectangular vertical simple con dintel plano": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Cuadricula de cuarterones pequenos (geometria Art Deco)": [
+    "1930s"
+   ],
+   "Ventana horizontal en 3 panos (fijo + 2 batientes) funcionalista": [
+    "1940s"
+   ],
+   "Vano rectangular horizontal sobre antepecho": [
+    "1950s",
+    "1960s",
+    "1970s"
+   ],
+   "Vano modular cuadrado (1.20x1.20m)": [
+    "1960s"
+   ],
+   "Vano rectangular estandarizado (vivienda en serie)": [
+    "1970s"
+   ],
+   "Arco posmoderno truncado/falso en mortero": [
+    "1980s"
+   ],
+   "Ventana hexagonal/octagonal chica (bano o escalera)": [
+    "1980s",
+    "1990s"
+   ],
+   "Vano modular gran formato, reticula limpia (minimalismo incipiente)": [
+    "1990s"
+   ],
+   "Vano estandar con antepecho de 90cm": [
+    "2000s"
+   ],
+   "Vano estandarizado economico": [
+    "2010s"
+   ]
+  },
+  "mecanismo_ventana": {
+   "Abatible/batiente simple hacia interior (espagnolette)": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Fijo con proyectante/basculante central": [
+    "1930s",
+    "1940s"
+   ],
+   "Celosia / persiana de librillo tipo jalousie": [
+    "1950s",
+    "1960s",
+    "1970s"
+   ],
+   "Corrediza horizontal de 2 a 4 hojas (perfil de aluminio)": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Corrediza tradicional de perfil delgado": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Fija (sin apertura), pano complementario": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "cocina_gabinete": {
+   "Cocina integral (madera/laminado/MDF)": [
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Mueble de melamina": [
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Melamina imitacion madera miel/cerezo": [
+    "1990s"
+   ],
+   "Melamina imitacion chocolate/nogal": [
+    "2000s",
+    "2010s"
+   ],
+   "Mueble de obra revestido de azulejo/mosaico": [
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s"
+   ],
+   "Mueble de obra + azulejo": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Isla (madera fina o piedra)": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Estufa europea de empotre (Teka/Bosch/Smeg)": [
+    "1990s",
+    "2000s"
+   ],
+   "Lavavajillas de empotre": [
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "cocina_cubierta": {
+   "Cubierta de formica": [
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Cubierta de azulejo": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Transicion azulejo a granito": [
+    "1980s",
+    "1990s"
+   ],
+   "Cubierta de granito": [
+    "2000s",
+    "2010s"
+   ],
+   "Cubierta de cuarzo": [
+    "2010s",
+    "2020s"
+   ],
+   "Piedra o superficie sinterizada": [
+    "2010s",
+    "2020s"
+   ]
+  },
+  "cocina_tarja_griferia": {
+   "Tarja sobre mueble de obra": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s"
+   ],
+   "Mampostería / fierro esmaltado": [
+    "1900s"
+   ],
+   "Mampostería": [
+    "1910s",
+    "1920s"
+   ],
+   "Fierro esmaltado": [
+    "1930s"
+   ],
+   "Peltre": [
+    "1940s"
+   ],
+   "Peltre o inox temprano": [
+    "1950s"
+   ],
+   "Peltre / inox": [
+    "1960s"
+   ],
+   "Inox sobre cubierta": [
+    "1970s",
+    "1980s"
+   ],
+   "Inox con escurridor": [
+    "1990s",
+    "2000s"
+   ],
+   "Inox submontada": [
+    "2010s"
+   ],
+   "Submontada / integrada": [
+    "2020s"
+   ],
+   "Monomando con cabezal extraible (cocina)": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "griferia_bano": {
+   "Llave individual de bronce": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s"
+   ],
+   "Manerales acrilico traslucido (diamante)": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Monomando cromado inicial": [
+    "1980s",
+    "1990s",
+    "2000s"
+   ],
+   "Monomando de diseno (Moen/Helvex)": [
+    "1990s",
+    "2000s",
+    "2010s"
+   ],
+   "Monomando negro mate / laton cepillado": [
+    "2010s",
+    "2020s"
+   ],
+   "Monomando empotrado en muro / lluvia": [
+    "2010s",
+    "2020s"
+   ],
+   "Llaves separadas de cruz": [
+    "1900s",
+    "1910s"
+   ],
+   "Llaves separadas": [
+    "1920s",
+    "1930s"
+   ],
+   "Llaves separadas cromadas": [
+    "1940s",
+    "1950s"
+   ],
+   "Mezcladora de dos manijas": [
+    "1960s",
+    "1970s"
+   ],
+   "Mezcladora": [
+    "1980s"
+   ],
+   "Monomando incipiente (alta)": [
+    "1990s"
+   ],
+   "Monomando": [
+    "2000s"
+   ],
+   "Monomando de diseño": [
+    "2010s"
+   ],
+   "Negro mate / latón / sensor": [
+    "2020s"
+   ]
+  },
+  "cableado_electrico": {
+   "Alambre con forro de tela + conduit visible": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s"
+   ],
+   "Cableado THW en poliducto (oculto parcial)": [
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Canalizacion oculta normada, circuitos dedicados": [
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "centro_carga": {
+   "Centro de carga: fusibles de tapon/cartucho (rosca tipo Edison)": [
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s"
+   ],
+   "Centro de carga: pastillas termomagneticas": [
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "tipo_contacto": {
+   "Contacto sin tierra fisica (2 clavijas)": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s"
+   ],
+   "Contacto con tierra fisica (3 clavijas)": [
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Contacto GFCI (boton Test/Reset visible)": [
+    "2000s",
+    "2010s",
     "2020s"
    ]
   }
@@ -8943,20 +9711,6 @@
     "1980s",
     "1990s"
    ],
-   "Porton automatico seccional tipo panel": [
-    "1990s",
-    "2000s",
-    "2010s"
-   ],
-   "Barandal de cristal templado con herrajes inox": [
-    "2010s",
-    "2020s"
-   ],
-   "Cerca electrificada residencial": [
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
    "Geometrica / proteccion gruesa (post-1980, seguridad)": [
     "1980s",
     "1990s",
@@ -8967,16 +9721,59 @@
     "2010s",
     "2020s"
    ],
-   "Cristal en barandal": [
+   "Barandal de balcon/terraza en cristal": [
     "2000s",
     "2010s",
+    "2020s"
+   ],
+   "Barandal de balcon/terraza en cristal templado con herrajes inox": [
+    "2010s",
+    "2020s"
+   ],
+   "Reja baja de jardín / acceso": [
+    "1920s"
+   ],
+   "Forja artesanal maciza con volutas (barrote 3/4-1\", remaches)": [
+    "1900s"
+   ],
+   "Forja de transicion simplificada (barrote fijo en peana de piedra)": [
+    "1910s"
+   ],
+   "Forja regionalista con platina y maceteros integrados": [
+    "1920s"
+   ],
+   "Perfil laminado geometrico Art Deco (solera/cuadrado 1/2-5/8\")": [
+    "1930s"
+   ],
+   "Barrote macizo con perfil Z/T para vidrio sobre sardinel": [
+    "1940s"
+   ],
+   "Barrote delgado geometrico lineal (redondo 3/8-1/2\")": [
+    "1950s"
+   ],
+   "Perfil tubular ligero cuadrado/rectangular (3/4-1\")": [
+    "1960s"
+   ],
+   "PTR comercial calibre 18-20, barrotes verticales simples": [
+    "1970s"
+   ],
+   "PTR pesado o varilla corrugada, rejilla densa post-crisis": [
+    "1980s"
+   ],
+   "PTR y angulo en cuadros tupidos tipo presidio": [
+    "1990s"
+   ],
+   "Perfileria de aluminio Linea 3\"/80 o panel Deacero electrosoldado": [
+    "2000s"
+   ],
+   "Platina o tubo rectangular minimalista con pintura electrostatica": [
+    "2010s"
+   ],
+   "Louvre o lamina calada CNC / ausencia por diseno": [
     "2020s"
    ]
   },
   "puerta": {
-   "Zaguan de madera": [
-    "1900s"
-   ],
    "Tablero de madera": [
     "1940s",
     "1950s",
@@ -8987,9 +9784,6 @@
     "1990s",
     "2000s",
     "2010s"
-   ],
-   "Acceso domotico o digital": [
-    "2020s"
    ],
    "Madera maciza": [
     "1900s",
@@ -9066,6 +9860,10 @@
    ],
    "Cochera para 3+ autos / subterraneo": [
     "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Sin cajon asignado / montacoches (DOT)": [
     "2010s",
     "2020s"
    ]
@@ -9291,226 +10089,6 @@
     "2020s"
    ]
   },
-  "cocina": {
-   "Cubierta de formica": [
-    "1960s",
-    "1970s",
-    "1980s",
-    "1990s"
-   ],
-   "Cocina integral (madera/laminado/MDF)": [
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Cubierta de granito": [
-    "2000s",
-    "2010s"
-   ],
-   "Cubierta de cuarzo": [
-    "2010s",
-    "2020s"
-   ],
-   "Isla (madera fina o piedra)": [
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Estufa europea de empotre (Teka/Bosch/Smeg)": [
-    "1990s",
-    "2000s"
-   ],
-   "Lavavajillas de empotre": [
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Tarja sobre mueble de obra": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s",
-    "1940s",
-    "1950s"
-   ],
-   "Cubierta de azulejo": [
-    "1970s",
-    "1980s",
-    "1990s"
-   ],
-   "Mueble de melamina": [
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Piedra sinterizada": [
-    "2010s",
-    "2020s"
-   ],
-   "Mueble de obra revestido de azulejo/mosaico": [
-    "1940s",
-    "1950s",
-    "1960s",
-    "1970s"
-   ],
-   "Melamina imitacion madera miel/cerezo": [
-    "1990s"
-   ],
-   "Melamina imitacion chocolate/nogal": [
-    "2000s",
-    "2010s"
-   ],
-   "Mueble de obra + azulejo": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s"
-   ],
-   "Fórmica": [
-    "1940s",
-    "1950s",
-    "1960s"
-   ],
-   "Fórmica / melamina": [
-    "1970s"
-   ],
-   "Azulejo / granito": [
-    "1980s"
-   ],
-   "Azulejo → granito": [
-    "1990s"
-   ],
-   "Granito nacional / cuarzo": [
-    "2000s"
-   ],
-   "Cuarzo": [
-    "2010s"
-   ],
-   "Superficie sinterizada": [
-    "2020s"
-   ],
-   "Mampostería / fierro esmaltado": [
-    "1900s"
-   ],
-   "Mampostería": [
-    "1910s",
-    "1920s"
-   ],
-   "Fierro esmaltado": [
-    "1930s"
-   ],
-   "Peltre": [
-    "1940s"
-   ],
-   "Peltre o inox temprano": [
-    "1950s"
-   ],
-   "Peltre / inox": [
-    "1960s"
-   ],
-   "Inox sobre cubierta": [
-    "1970s",
-    "1980s"
-   ],
-   "Inox con escurridor": [
-    "1990s",
-    "2000s"
-   ],
-   "Inox submontada": [
-    "2010s"
-   ],
-   "Submontada / integrada": [
-    "2020s"
-   ]
-  },
-  "instalacion": {
-   "Alambre con forro de tela + conduit visible": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s",
-    "1940s"
-   ],
-   "Cableado THW en poliducto (oculto parcial)": [
-    "1960s",
-    "1970s",
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Canalizacion oculta normada, circuitos dedicados": [
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Centro de carga: fusibles de tapon/cartucho": [
-    "1930s",
-    "1940s",
-    "1950s",
-    "1960s",
-    "1970s"
-   ],
-   "Centro de carga: pastillas termomagneticas": [
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Contacto sin tierra fisica (2 clavijas)": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s",
-    "1940s",
-    "1950s",
-    "1960s",
-    "1970s",
-    "1980s"
-   ],
-   "Contacto con tierra fisica (3 clavijas)": [
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Fusible de tapon, porcelana con rosca tipo Edison": [
-    "1920s",
-    "1930s",
-    "1940s",
-    "1950s",
-    "1960s"
-   ],
-   "Contacto GFCI (boton Test/Reset visible)": [
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Contacto con USB integrado": [
-    "2010s",
-    "2020s"
-   ],
-   "Tapa de contacto de laton": [
-    "1960s",
-    "1970s",
-    "1980s"
-   ],
-   "Tapa de contacto de plastico": [
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ]
-  },
   "hidraulica": {
    "Plomo": [
     "1900s",
@@ -9584,34 +10162,10 @@
     "1970s",
     "1980s"
    ],
-   "Barandal/cancel de escalera, herreria o madera tradicional": [
-    "1950s",
-    "1960s",
-    "1970s",
-    "1980s",
-    "1990s"
-   ],
-   "Barandal/cancel de escalera, cristal templado / acero inox": [
-    "2010s",
-    "2020s"
-   ],
    "Cancel de PVC": [
     "2000s",
     "2010s",
     "2020s"
-   ],
-   "Seg. media-alta (inicio)": [
-    "1940s"
-   ],
-   "Seg. media a residencial": [
-    "1950s",
-    "1960s"
-   ],
-   "Media: vigente · Alta: en declive": [
-    "1970s"
-   ],
-   "Fase terminal / remodelaciones": [
-    "1980s"
    ]
   },
   "espejo": {
@@ -9842,84 +10396,6 @@
     "1980s"
    ]
   },
-  "griferia": {
-   "Llave individual de bronce": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s",
-    "1940s",
-    "1950s"
-   ],
-   "Manerales acrilico traslucido (diamante)": [
-    "1970s",
-    "1980s",
-    "1990s"
-   ],
-   "Monocomando cromado inicial": [
-    "1980s",
-    "1990s"
-   ],
-   "Monocomando de diseno (Moen/Helvex)": [
-    "1990s",
-    "2000s"
-   ],
-   "Monocomando negro mate / laton cepillado": [
-    "2010s",
-    "2020s"
-   ],
-   "Monocomando empotrado en muro / lluvia": [
-    "2010s",
-    "2020s"
-   ],
-   "Monomando cromado inicial": [
-    "1990s",
-    "2000s"
-   ],
-   "Monomando de diseno (Moen/Helvex)": [
-    "2000s",
-    "2010s"
-   ],
-   "Monomando negro mate / laton cepillado": [
-    "2010s",
-    "2020s"
-   ],
-   "Monomando empotrado en muro / lluvia": [
-    "2010s",
-    "2020s"
-   ],
-   "Llaves separadas de cruz": [
-    "1900s",
-    "1910s"
-   ],
-   "Llaves separadas": [
-    "1920s",
-    "1930s"
-   ],
-   "Llaves separadas cromadas": [
-    "1940s",
-    "1950s"
-   ],
-   "Mezcladora de dos manijas": [
-    "1960s",
-    "1970s"
-   ],
-   "Mezcladora": [
-    "1980s"
-   ],
-   "Monomando incipiente (alta)": [
-    "1990s"
-   ],
-   "Monomando": [
-    "2000s"
-   ],
-   "Monomando de diseño": [
-    "2010s"
-   ],
-   "Negro mate / latón / sensor": [
-    "2020s"
-   ]
-  },
   "fachada": {
    "Piedra laja pegada en faldones de fachada": [
     "1970s",
@@ -10115,33 +10591,57 @@
    ]
   },
   "niveles": {
-   "4-5 niveles SIN elevador (walk-up)": [
+   "1 nivel (planta baja)": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
     "1960s",
     "1970s",
-    "1980s"
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
    ],
-   "6-10 niveles, elevador de botones/manual": [
+   "2 niveles": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
     "1970s",
     "1980s",
-    "1990s"
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
    ],
-   "Con sotano estructurado 1-2 niveles": [
+   "3-4 niveles (walk-up, sin elevador)": [
+    "1960s",
+    "1970s",
+    "1980s",
     "1990s",
     "2000s"
    ],
-   "Con sotano 2-4 niveles + bodegas": [
+   "5-10 niveles": [
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s"
+   ],
+   "11-17 niveles": [
+    "2000s",
     "2010s",
     "2020s"
    ],
-   "Elevador MRL (sin cuarto de maquinas)": [
-    "2010s",
-    "2020s"
-   ],
-   "Torre suelta de lujo, 20+ niveles (enclave aislado)": [
-    "2010s",
-    "2020s"
-   ],
-   "Sin cajon asignado / montacoches (DOT)": [
+   "18-30+ niveles (torre de gran altura)": [
+    "2000s",
     "2010s",
     "2020s"
    ]
@@ -10395,11 +10895,6 @@
     "1940s",
     "1950s"
    ],
-   "Metalica o de lamina": [
-    "1960s",
-    "1970s",
-    "1980s"
-   ],
    "Prefabricada Macopan/MDF": [
     "1990s",
     "2000s"
@@ -10407,7 +10902,9 @@
    "De aluminio": [
     "1980s",
     "1990s",
-    "2000s"
+    "2000s",
+    "2010s",
+    "2020s"
    ],
    "De fierro en placas": [
     "1970s",
@@ -10433,6 +10930,13 @@
    "Marco oculto, sin chambrana exterior": [
     "2010s",
     "2020s"
+   ],
+   "Puerta tubular o de lamina tipo tambor": [
+    "2010s",
+    "2020s"
+   ],
+   "Porton de placa forjada / diseno de transicion (acceso principal)": [
+    "1960s"
    ]
   },
   "lamparas": {
@@ -10518,6 +11022,18 @@
     "2020s"
    ],
    "Contacto con USB integrado": [
+    "2010s",
+    "2020s"
+   ],
+   "Tapa de contacto de laton": [
+    "1960s",
+    "1970s",
+    "1980s"
+   ],
+   "Tapa de contacto de plastico": [
+    "1980s",
+    "1990s",
+    "2000s",
     "2010s",
     "2020s"
    ]
@@ -10669,9 +11185,6 @@
    ],
    "Forja sobria / balcón de fierro": [
     "1910s"
-   ],
-   "Reja baja de jardín": [
-    "1920s"
    ],
    "Herrería geométrica déco": [
     "1930s"
@@ -10846,6 +11359,426 @@
     "2010s"
    ],
    "Gas natural o induccion electrica": [
+    "2020s"
+   ]
+  },
+  "elevador": {
+   "Sin elevador": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Elevador de botones/manual": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Elevador con variador (VVVF)": [
+    "1990s",
+    "2000s"
+   ],
+   "Elevador MRL (sin cuarto de maquinas)": [
+    "2010s",
+    "2020s"
+   ]
+  },
+  "sotano_estacionamiento": {
+   "Sin sotano": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Sotano estructurado 1-2 niveles": [
+    "1990s",
+    "2000s"
+   ],
+   "Sotano 2-4 niveles + bodegas": [
+    "2010s",
+    "2020s"
+   ]
+  },
+  "canceleria_cochera": {
+   "Puerta de estructura con lamina de una hoja, sistema corredizo": [
+    "2020s"
+   ],
+   "Reja baja sin techo": [
+    "1950s",
+    "1960s",
+    "1970s"
+   ],
+   "Reja alta con marquesina": [
+    "1980s",
+    "1990s",
+    "2000s"
+   ]
+  },
+  "automatizacion_cochera": {
+   "Manual (sin motor)": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Piston hidraulico/electromecanico, abatible": [
+    "1990s",
+    "2000s"
+   ],
+   "Motor de cremallera (corredizo) o de techo (levadizo)": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Sistema integrado: app celular, RFID, infrarrojo, domotica": [
+    "2010s",
+    "2020s"
+   ]
+  },
+  "forma_ventana": {
+   "Vano rectangular vertical simple con dintel plano": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Cuadricula de cuarterones pequenos (geometria Art Deco)": [
+    "1930s"
+   ],
+   "Ventana horizontal en 3 panos (fijo + 2 batientes) funcionalista": [
+    "1940s"
+   ],
+   "Vano rectangular estandarizado (vivienda en serie)": [
+    "1970s"
+   ],
+   "Arco posmoderno truncado/falso en mortero": [
+    "1980s"
+   ],
+   "Ventana hexagonal/octagonal chica (bano o escalera)": [
+    "1980s",
+    "1990s"
+   ],
+   "Vano modular gran formato, reticula limpia (minimalismo incipiente)": [
+    "1990s"
+   ]
+  },
+  "mecanismo_ventana": {
+   "Abatible/batiente simple hacia interior (espagnolette)": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Fijo con proyectante/basculante central": [
+    "1930s",
+    "1940s"
+   ],
+   "Celosia / persiana de librillo tipo jalousie": [
+    "1950s",
+    "1960s",
+    "1970s"
+   ],
+   "Corrediza horizontal de 2 a 4 hojas (perfil de aluminio)": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Fija (sin apertura), pano complementario": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "cocina_gabinete": {
+   "Cocina integral (madera/laminado/MDF)": [
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Mueble de melamina": [
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Melamina imitacion madera miel/cerezo": [
+    "1990s"
+   ],
+   "Melamina imitacion chocolate/nogal": [
+    "2000s",
+    "2010s"
+   ],
+   "Mueble de obra revestido de azulejo/mosaico": [
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s"
+   ],
+   "Mueble de obra + azulejo": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Isla (madera fina o piedra)": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Estufa europea de empotre (Teka/Bosch/Smeg)": [
+    "1990s",
+    "2000s"
+   ],
+   "Lavavajillas de empotre": [
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "cocina_cubierta": {
+   "Cubierta de formica": [
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Cubierta de azulejo": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Transicion azulejo a granito": [
+    "1980s",
+    "1990s"
+   ],
+   "Cubierta de granito": [
+    "2000s",
+    "2010s"
+   ],
+   "Cubierta de cuarzo": [
+    "2010s",
+    "2020s"
+   ],
+   "Piedra o superficie sinterizada": [
+    "2010s",
+    "2020s"
+   ]
+  },
+  "cocina_tarja_griferia": {
+   "Tarja sobre mueble de obra": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s"
+   ],
+   "Mampostería / fierro esmaltado": [
+    "1900s"
+   ],
+   "Mampostería": [
+    "1910s",
+    "1920s"
+   ],
+   "Fierro esmaltado": [
+    "1930s"
+   ],
+   "Peltre": [
+    "1940s"
+   ],
+   "Peltre o inox temprano": [
+    "1950s"
+   ],
+   "Peltre / inox": [
+    "1960s"
+   ],
+   "Inox sobre cubierta": [
+    "1970s",
+    "1980s"
+   ],
+   "Inox con escurridor": [
+    "1990s",
+    "2000s"
+   ],
+   "Inox submontada": [
+    "2010s"
+   ],
+   "Submontada / integrada": [
+    "2020s"
+   ],
+   "Monomando con cabezal extraible (cocina)": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "griferia_bano": {
+   "Llave individual de bronce": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s"
+   ],
+   "Manerales acrilico traslucido (diamante)": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Monomando cromado inicial": [
+    "1980s",
+    "1990s",
+    "2000s"
+   ],
+   "Monomando de diseno (Moen/Helvex)": [
+    "1990s",
+    "2000s",
+    "2010s"
+   ],
+   "Monomando negro mate / laton cepillado": [
+    "2010s",
+    "2020s"
+   ],
+   "Monomando empotrado en muro / lluvia": [
+    "2010s",
+    "2020s"
+   ],
+   "Llaves separadas de cruz": [
+    "1900s",
+    "1910s"
+   ],
+   "Llaves separadas": [
+    "1920s",
+    "1930s"
+   ],
+   "Llaves separadas cromadas": [
+    "1940s",
+    "1950s"
+   ],
+   "Mezcladora de dos manijas": [
+    "1960s",
+    "1970s"
+   ],
+   "Mezcladora": [
+    "1980s"
+   ],
+   "Monomando incipiente (alta)": [
+    "1990s"
+   ],
+   "Monomando": [
+    "2000s"
+   ],
+   "Monomando de diseño": [
+    "2010s"
+   ],
+   "Negro mate / latón / sensor": [
+    "2020s"
+   ]
+  },
+  "cableado_electrico": {
+   "Alambre con forro de tela + conduit visible": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s"
+   ],
+   "Cableado THW en poliducto (oculto parcial)": [
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Canalizacion oculta normada, circuitos dedicados": [
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "centro_carga": {
+   "Centro de carga: fusibles de tapon/cartucho (rosca tipo Edison)": [
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s"
+   ],
+   "Centro de carga: pastillas termomagneticas": [
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "tipo_contacto": {
+   "Contacto sin tierra fisica (2 clavijas)": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s"
+   ],
+   "Contacto con tierra fisica (3 clavijas)": [
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Contacto GFCI (boton Test/Reset visible)": [
+    "2000s",
+    "2010s",
     "2020s"
    ]
   }
@@ -11315,25 +12248,6 @@
     "1940s",
     "1950s"
    ],
-   "Cristal en barandal": [
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Porton automatico seccional tipo panel": [
-    "1990s",
-    "2000s",
-    "2010s"
-   ],
-   "Barandal de cristal templado con herrajes inox": [
-    "2010s",
-    "2020s"
-   ],
-   "Cerca electrificada residencial": [
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
    "Tubular lisa": [
     "1970s",
     "1980s",
@@ -11345,9 +12259,49 @@
     "2000s"
    ],
    "Minimalista / sin proteccion": [
+    "1990s",
     "2000s",
     "2010s",
     "2020s"
+   ],
+   "Barandal de balcon/terraza en cristal": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Barandal de balcon/terraza en cristal templado con herrajes inox": [
+    "2010s",
+    "2020s"
+   ],
+   "Reja baja de jardín / acceso": [
+    "1920s"
+   ],
+   "Forja artesanal maciza con volutas (barrote 3/4-1\", remaches)": [
+    "1900s"
+   ],
+   "Forja de transicion simplificada (barrote fijo en peana de piedra)": [
+    "1910s"
+   ],
+   "Forja regionalista con platina y maceteros integrados": [
+    "1920s"
+   ],
+   "Perfil laminado geometrico Art Deco (solera/cuadrado 1/2-5/8\")": [
+    "1930s"
+   ],
+   "Barrote macizo con perfil Z/T para vidrio sobre sardinel": [
+    "1940s"
+   ],
+   "Barrote delgado geometrico lineal (redondo 3/8-1/2\")": [
+    "1950s"
+   ],
+   "Perfil tubular ligero cuadrado/rectangular (3/4-1\")": [
+    "1960s"
+   ],
+   "PTR comercial calibre 18-20, barrotes verticales simples": [
+    "1970s"
+   ],
+   "PTR pesado o varilla corrugada, rejilla densa post-crisis": [
+    "1980s"
    ]
   },
   "cochera": {
@@ -11388,6 +12342,10 @@
     "2000s",
     "2010s",
     "2020s"
+   ],
+   "Sin cajon asignado / montacoches (DOT)": [
+    "2010s",
+    "2020s"
    ]
   },
   "puerta": {
@@ -11403,12 +12361,6 @@
     "1980s",
     "1990s",
     "2000s"
-   ],
-   "Puerta pivotante de autor": [
-    "2020s"
-   ],
-   "Acceso domotico o digital": [
-    "2020s"
    ],
    "Tablero de madera": [
     "1940s",
@@ -11440,226 +12392,6 @@
     "2010s"
    ],
    "Maderas finas de autor (cedro/parota/nogal)": [
-    "2010s",
-    "2020s"
-   ]
-  },
-  "cocina": {
-   "Cubierta de azulejo": [
-    "1970s",
-    "1980s",
-    "1990s"
-   ],
-   "Cubierta de formica": [
-    "1960s",
-    "1970s",
-    "1980s",
-    "1990s"
-   ],
-   "Cocina integral (madera/laminado/MDF)": [
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Cubierta de granito": [
-    "2000s",
-    "2010s"
-   ],
-   "Piedra sinterizada": [
-    "2010s",
-    "2020s"
-   ],
-   "Isla (madera fina o piedra)": [
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Estufa europea de empotre (Teka/Bosch/Smeg)": [
-    "1990s",
-    "2000s"
-   ],
-   "Lavavajillas de empotre": [
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Tarja sobre mueble de obra": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s",
-    "1940s",
-    "1950s"
-   ],
-   "Mueble de melamina": [
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Cubierta de cuarzo": [
-    "2010s",
-    "2020s"
-   ],
-   "Mueble de obra revestido de azulejo/mosaico": [
-    "1940s",
-    "1950s",
-    "1960s",
-    "1970s"
-   ],
-   "Melamina imitacion madera miel/cerezo": [
-    "1990s"
-   ],
-   "Melamina imitacion chocolate/nogal": [
-    "2000s",
-    "2010s"
-   ],
-   "Mueble de obra + azulejo": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s"
-   ],
-   "Fórmica": [
-    "1940s",
-    "1950s",
-    "1960s"
-   ],
-   "Fórmica / melamina": [
-    "1970s"
-   ],
-   "Azulejo / granito": [
-    "1980s"
-   ],
-   "Azulejo → granito": [
-    "1990s"
-   ],
-   "Granito nacional / cuarzo": [
-    "2000s"
-   ],
-   "Cuarzo": [
-    "2010s"
-   ],
-   "Superficie sinterizada": [
-    "2020s"
-   ],
-   "Mampostería / fierro esmaltado": [
-    "1900s"
-   ],
-   "Mampostería": [
-    "1910s",
-    "1920s"
-   ],
-   "Fierro esmaltado": [
-    "1930s"
-   ],
-   "Peltre": [
-    "1940s"
-   ],
-   "Peltre o inox temprano": [
-    "1950s"
-   ],
-   "Peltre / inox": [
-    "1960s"
-   ],
-   "Inox sobre cubierta": [
-    "1970s",
-    "1980s"
-   ],
-   "Inox con escurridor": [
-    "1990s",
-    "2000s"
-   ],
-   "Inox submontada": [
-    "2010s"
-   ],
-   "Submontada / integrada": [
-    "2020s"
-   ]
-  },
-  "instalacion": {
-   "Alambre con forro de tela + conduit visible": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s",
-    "1940s"
-   ],
-   "Cableado THW en poliducto (oculto parcial)": [
-    "1960s",
-    "1970s",
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Canalizacion oculta normada, circuitos dedicados": [
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Centro de carga: fusibles de tapon/cartucho": [
-    "1930s",
-    "1940s",
-    "1950s",
-    "1960s",
-    "1970s"
-   ],
-   "Centro de carga: pastillas termomagneticas": [
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Contacto sin tierra fisica (2 clavijas)": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s",
-    "1940s",
-    "1950s",
-    "1960s",
-    "1970s",
-    "1980s"
-   ],
-   "Contacto con tierra fisica (3 clavijas)": [
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Fusible de tapon, porcelana con rosca tipo Edison": [
-    "1920s",
-    "1930s",
-    "1940s",
-    "1950s",
-    "1960s"
-   ],
-   "Contacto GFCI (boton Test/Reset visible)": [
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Contacto con USB integrado": [
-    "2010s",
-    "2020s"
-   ],
-   "Tapa de contacto de laton": [
-    "1960s",
-    "1970s",
-    "1980s"
-   ],
-   "Tapa de contacto de plastico": [
-    "1980s",
-    "1990s",
-    "2000s",
     "2010s",
     "2020s"
    ]
@@ -11737,34 +12469,10 @@
     "1970s",
     "1980s"
    ],
-   "Barandal/cancel de escalera, herreria o madera tradicional": [
-    "1950s",
-    "1960s",
-    "1970s",
-    "1980s",
-    "1990s"
-   ],
-   "Barandal/cancel de escalera, cristal templado / acero inox": [
-    "2010s",
-    "2020s"
-   ],
    "Cancel de PVC": [
     "2000s",
     "2010s",
     "2020s"
-   ],
-   "Seg. media-alta (inicio)": [
-    "1940s"
-   ],
-   "Seg. media a residencial": [
-    "1950s",
-    "1960s"
-   ],
-   "Media: vigente · Alta: en declive": [
-    "1970s"
-   ],
-   "Fase terminal / remodelaciones": [
-    "1980s"
    ]
   },
   "espejo": {
@@ -11995,84 +12703,6 @@
     "1980s"
    ]
   },
-  "griferia": {
-   "Llave individual de bronce": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s",
-    "1940s",
-    "1950s"
-   ],
-   "Manerales acrilico traslucido (diamante)": [
-    "1970s",
-    "1980s",
-    "1990s"
-   ],
-   "Monocomando cromado inicial": [
-    "1980s",
-    "1990s"
-   ],
-   "Monocomando de diseno (Moen/Helvex)": [
-    "1990s",
-    "2000s"
-   ],
-   "Monocomando negro mate / laton cepillado": [
-    "2010s",
-    "2020s"
-   ],
-   "Monocomando empotrado en muro / lluvia": [
-    "2010s",
-    "2020s"
-   ],
-   "Monomando cromado inicial": [
-    "1990s",
-    "2000s"
-   ],
-   "Monomando de diseno (Moen/Helvex)": [
-    "2000s",
-    "2010s"
-   ],
-   "Monomando negro mate / laton cepillado": [
-    "2010s",
-    "2020s"
-   ],
-   "Monomando empotrado en muro / lluvia": [
-    "2010s",
-    "2020s"
-   ],
-   "Llaves separadas de cruz": [
-    "1900s",
-    "1910s"
-   ],
-   "Llaves separadas": [
-    "1920s",
-    "1930s"
-   ],
-   "Llaves separadas cromadas": [
-    "1940s",
-    "1950s"
-   ],
-   "Mezcladora de dos manijas": [
-    "1960s",
-    "1970s"
-   ],
-   "Mezcladora": [
-    "1980s"
-   ],
-   "Monomando incipiente (alta)": [
-    "1990s"
-   ],
-   "Monomando": [
-    "2000s"
-   ],
-   "Monomando de diseño": [
-    "2010s"
-   ],
-   "Negro mate / latón / sensor": [
-    "2020s"
-   ]
-  },
   "fachada": {
    "Piedra laja pegada en faldones de fachada": [
     "1970s",
@@ -12268,33 +12898,57 @@
    ]
   },
   "niveles": {
-   "4-5 niveles SIN elevador (walk-up)": [
+   "1 nivel (planta baja)": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
     "1960s",
     "1970s",
-    "1980s"
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
    ],
-   "6-10 niveles, elevador de botones/manual": [
+   "2 niveles": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
     "1970s",
     "1980s",
-    "1990s"
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
    ],
-   "Con sotano estructurado 1-2 niveles": [
+   "3-4 niveles (walk-up, sin elevador)": [
+    "1960s",
+    "1970s",
+    "1980s",
     "1990s",
     "2000s"
    ],
-   "Con sotano 2-4 niveles + bodegas": [
+   "5-10 niveles": [
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s"
+   ],
+   "11-17 niveles": [
+    "2000s",
     "2010s",
     "2020s"
    ],
-   "Elevador MRL (sin cuarto de maquinas)": [
-    "2010s",
-    "2020s"
-   ],
-   "Torre suelta de lujo, 20+ niveles (enclave aislado)": [
-    "2010s",
-    "2020s"
-   ],
-   "Sin cajon asignado / montacoches (DOT)": [
+   "18-30+ niveles (torre de gran altura)": [
+    "2000s",
     "2010s",
     "2020s"
    ]
@@ -12548,11 +13202,6 @@
     "1940s",
     "1950s"
    ],
-   "Metalica o de lamina": [
-    "1960s",
-    "1970s",
-    "1980s"
-   ],
    "Prefabricada Macopan/MDF": [
     "1990s",
     "2000s"
@@ -12560,7 +13209,9 @@
    "De aluminio": [
     "1980s",
     "1990s",
-    "2000s"
+    "2000s",
+    "2010s",
+    "2020s"
    ],
    "De fierro en placas": [
     "1970s",
@@ -12586,6 +13237,13 @@
    "Marco oculto, sin chambrana exterior": [
     "2010s",
     "2020s"
+   ],
+   "Puerta tubular o de lamina tipo tambor": [
+    "2010s",
+    "2020s"
+   ],
+   "Porton de placa forjada / diseno de transicion (acceso principal)": [
+    "1960s"
    ]
   },
   "lamparas": {
@@ -12671,6 +13329,18 @@
     "2020s"
    ],
    "Contacto con USB integrado": [
+    "2010s",
+    "2020s"
+   ],
+   "Tapa de contacto de laton": [
+    "1960s",
+    "1970s",
+    "1980s"
+   ],
+   "Tapa de contacto de plastico": [
+    "1980s",
+    "1990s",
+    "2000s",
     "2010s",
     "2020s"
    ]
@@ -12822,9 +13492,6 @@
    ],
    "Forja sobria / balcón de fierro": [
     "1910s"
-   ],
-   "Reja baja de jardín": [
-    "1920s"
    ],
    "Herrería geométrica déco": [
     "1930s"
@@ -12999,6 +13666,481 @@
     "2010s"
    ],
    "Gas natural o induccion electrica": [
+    "2020s"
+   ]
+  },
+  "elevador": {
+   "Sin elevador": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Elevador de botones/manual": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Elevador con variador (VVVF)": [
+    "1990s",
+    "2000s"
+   ],
+   "Elevador MRL (sin cuarto de maquinas)": [
+    "2010s",
+    "2020s"
+   ]
+  },
+  "sotano_estacionamiento": {
+   "Sin sotano": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Sotano estructurado 1-2 niveles": [
+    "1990s",
+    "2000s"
+   ],
+   "Sotano 2-4 niveles + bodegas": [
+    "2010s",
+    "2020s"
+   ]
+  },
+  "canceleria_cochera": {
+   "Puerta de estructura con lamina de una hoja, sistema corredizo": [
+    "2020s"
+   ],
+   "Reja baja sin techo": [
+    "1950s",
+    "1960s",
+    "1970s"
+   ],
+   "Reja alta con marquesina": [
+    "1980s",
+    "1990s",
+    "2000s"
+   ],
+   "Porton de aluminio corrugado": [
+    "1990s",
+    "2000s",
+    "2010s"
+   ]
+  },
+  "automatizacion_cochera": {
+   "Manual (sin motor)": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Motor de cadena (importado)": [
+    "1980s",
+    "1990s"
+   ],
+   "Piston hidraulico/electromecanico, abatible": [
+    "1990s",
+    "2000s"
+   ],
+   "Motor de cremallera (corredizo) o de techo (levadizo)": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Sistema integrado: app celular, RFID, infrarrojo, domotica": [
+    "2010s",
+    "2020s"
+   ]
+  },
+  "forma_ventana": {
+   "Arco de medio punto monumental en cantera (vano vertical)": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Ojo de buey decorativo circular u ovalado": [
+    "1920s"
+   ],
+   "Vano esquinero sin columna intermedia (voladizo funcionalista)": [
+    "1930s",
+    "1940s",
+    "1950s"
+   ],
+   "Arco californiano con moldura de barro/repisa": [
+    "1940s"
+   ],
+   "Ventanal de piso a techo / ventana corrida a jardin": [
+    "1950s",
+    "1960s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Franjas horizontales continuas piso-plafon, antepecho bajo": [
+    "1960s"
+   ],
+   "Ventanal panoramico a terraza": [
+    "1970s"
+   ],
+   "Arco posmoderno truncado/falso en mortero": [
+    "1980s"
+   ],
+   "Ventana hexagonal/octagonal chica (bano o escalera)": [
+    "1980s",
+    "1990s"
+   ],
+   "Arco neomediterraneo alto y estrecho (coto cerrado)": [
+    "1990s"
+   ],
+   "Vano rectangular limpio sin arco, marco de gran altura (2.40m+)": [
+    "2000s"
+   ],
+   "Muro cortina parcial / hueco sin marco visible": [
+    "2010s"
+   ],
+   "Rasgadura vertical estrecha (slit window)": [
+    "2020s"
+   ],
+   "Vano horizontal de apertura total apilable": [
+    "2020s"
+   ]
+  },
+  "mecanismo_ventana": {
+   "Guillotina con contrapesos/poleas (madera)": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Abatible de herreria con manivela y fallebas trabajadas": [
+    "1930s",
+    "1940s"
+   ],
+   "Fijo con abatibles laterales de gran formato": [
+    "1950s",
+    "1960s"
+   ],
+   "Corrediza horizontal de 2 a 4 hojas (perfil de aluminio)": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Fijo de gran formato en areas sociales": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Proyectante con brazo de friccion": [
+    "2000s",
+    "2010s"
+   ],
+   "Oscilobatiente (doble apertura, PVC/aluminio europeo)": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Corrediza de elevacion / plegable tipo pocket door": [
+    "2020s"
+   ],
+   "Fijo estructural con ventilacion por louvres": [
+    "2020s"
+   ],
+   "Fija (sin apertura), pano complementario": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "cocina_gabinete": {
+   "Cocina integral (madera/laminado/MDF)": [
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Mueble de melamina": [
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Melamina imitacion madera miel/cerezo": [
+    "1990s"
+   ],
+   "Melamina imitacion chocolate/nogal": [
+    "2000s",
+    "2010s"
+   ],
+   "Mueble de obra revestido de azulejo/mosaico": [
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s"
+   ],
+   "Mueble de obra + azulejo": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Isla (madera fina o piedra)": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Estufa europea de empotre (Teka/Bosch/Smeg)": [
+    "1990s",
+    "2000s"
+   ],
+   "Lavavajillas de empotre": [
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "cocina_cubierta": {
+   "Cubierta de formica": [
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Cubierta de azulejo": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Transicion azulejo a granito": [
+    "1980s",
+    "1990s"
+   ],
+   "Cubierta de granito": [
+    "2000s",
+    "2010s"
+   ],
+   "Cubierta de cuarzo": [
+    "2010s",
+    "2020s"
+   ],
+   "Piedra o superficie sinterizada": [
+    "2010s",
+    "2020s"
+   ]
+  },
+  "cocina_tarja_griferia": {
+   "Tarja sobre mueble de obra": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s"
+   ],
+   "Mampostería / fierro esmaltado": [
+    "1900s"
+   ],
+   "Mampostería": [
+    "1910s",
+    "1920s"
+   ],
+   "Fierro esmaltado": [
+    "1930s"
+   ],
+   "Peltre": [
+    "1940s"
+   ],
+   "Peltre o inox temprano": [
+    "1950s"
+   ],
+   "Peltre / inox": [
+    "1960s"
+   ],
+   "Inox sobre cubierta": [
+    "1970s",
+    "1980s"
+   ],
+   "Inox con escurridor": [
+    "1990s",
+    "2000s"
+   ],
+   "Inox submontada": [
+    "2010s"
+   ],
+   "Submontada / integrada": [
+    "2020s"
+   ],
+   "Monomando con cabezal extraible (cocina)": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "griferia_bano": {
+   "Llave individual de bronce": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s"
+   ],
+   "Manerales acrilico traslucido (diamante)": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Monomando cromado inicial": [
+    "1980s",
+    "1990s",
+    "2000s"
+   ],
+   "Monomando de diseno (Moen/Helvex)": [
+    "1990s",
+    "2000s",
+    "2010s"
+   ],
+   "Monomando negro mate / laton cepillado": [
+    "2010s",
+    "2020s"
+   ],
+   "Monomando empotrado en muro / lluvia": [
+    "2010s",
+    "2020s"
+   ],
+   "Llaves separadas de cruz": [
+    "1900s",
+    "1910s"
+   ],
+   "Llaves separadas": [
+    "1920s",
+    "1930s"
+   ],
+   "Llaves separadas cromadas": [
+    "1940s",
+    "1950s"
+   ],
+   "Mezcladora de dos manijas": [
+    "1960s",
+    "1970s"
+   ],
+   "Mezcladora": [
+    "1980s"
+   ],
+   "Monomando incipiente (alta)": [
+    "1990s"
+   ],
+   "Monomando": [
+    "2000s"
+   ],
+   "Monomando de diseño": [
+    "2010s"
+   ],
+   "Negro mate / latón / sensor": [
+    "2020s"
+   ]
+  },
+  "cableado_electrico": {
+   "Alambre con forro de tela + conduit visible": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s"
+   ],
+   "Cableado THW en poliducto (oculto parcial)": [
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Canalizacion oculta normada, circuitos dedicados": [
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "centro_carga": {
+   "Centro de carga: fusibles de tapon/cartucho (rosca tipo Edison)": [
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s"
+   ],
+   "Centro de carga: pastillas termomagneticas": [
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "tipo_contacto": {
+   "Contacto sin tierra fisica (2 clavijas)": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s"
+   ],
+   "Contacto con tierra fisica (3 clavijas)": [
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Contacto GFCI (boton Test/Reset visible)": [
+    "2000s",
+    "2010s",
     "2020s"
    ]
   }
@@ -13381,25 +14523,6 @@
     "1940s",
     "1950s"
    ],
-   "Cristal en barandal": [
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Porton automatico seccional tipo panel": [
-    "1990s",
-    "2000s",
-    "2010s"
-   ],
-   "Barandal de cristal templado con herrajes inox": [
-    "2010s",
-    "2020s"
-   ],
-   "Cerca electrificada residencial": [
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
    "Tubular lisa": [
     "1970s",
     "1980s",
@@ -13411,16 +14534,46 @@
     "2000s"
    ],
    "Minimalista / sin proteccion": [
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
     "2000s",
     "2010s",
     "2020s"
+   ],
+   "Barandal de balcon/terraza en cristal": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Barandal de balcon/terraza en cristal templado con herrajes inox": [
+    "2010s",
+    "2020s"
+   ],
+   "Reja baja de jardín / acceso": [
+    "1920s"
+   ],
+   "Forja artesanal maciza con volutas (barrote 3/4-1\", remaches)": [
+    "1900s"
+   ],
+   "Forja de transicion simplificada (barrote fijo en peana de piedra)": [
+    "1910s"
+   ],
+   "Forja regionalista con platina y maceteros integrados": [
+    "1920s"
+   ],
+   "Perfil laminado geometrico Art Deco (solera/cuadrado 1/2-5/8\")": [
+    "1930s"
+   ],
+   "Barrote macizo con perfil Z/T para vidrio sobre sardinel": [
+    "1940s"
+   ],
+   "Barrote delgado geometrico lineal (redondo 3/8-1/2\")": [
+    "1950s"
    ]
   },
   "puerta": {
-   "Porton labrado": [
-    "1900s",
-    "1910s"
-   ],
    "Madera maciza": [
     "1900s",
     "1910s",
@@ -13428,9 +14581,6 @@
     "1930s",
     "1940s",
     "1950s"
-   ],
-   "Acceso domotico o digital": [
-    "2020s"
    ],
    "Tablero de madera": [
     "1940s",
@@ -13507,6 +14657,10 @@
    ],
    "Cochera para 3+ autos / subterraneo": [
     "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Sin cajon asignado / montacoches (DOT)": [
     "2010s",
     "2020s"
    ]
@@ -13597,226 +14751,6 @@
     "2020s"
    ]
   },
-  "cocina": {
-   "Isla (madera fina o piedra)": [
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Cubierta de granito": [
-    "2000s",
-    "2010s"
-   ],
-   "Piedra sinterizada": [
-    "2010s",
-    "2020s"
-   ],
-   "Estufa europea de empotre (Teka/Bosch/Smeg)": [
-    "1990s",
-    "2000s"
-   ],
-   "Lavavajillas de empotre": [
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Tarja sobre mueble de obra": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s",
-    "1940s",
-    "1950s"
-   ],
-   "Cubierta de formica": [
-    "1960s",
-    "1970s",
-    "1980s",
-    "1990s"
-   ],
-   "Cubierta de azulejo": [
-    "1970s",
-    "1980s",
-    "1990s"
-   ],
-   "Cocina integral (madera/laminado/MDF)": [
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Mueble de melamina": [
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Cubierta de cuarzo": [
-    "2010s",
-    "2020s"
-   ],
-   "Mueble de obra revestido de azulejo/mosaico": [
-    "1940s",
-    "1950s",
-    "1960s",
-    "1970s"
-   ],
-   "Melamina imitacion madera miel/cerezo": [
-    "1990s"
-   ],
-   "Melamina imitacion chocolate/nogal": [
-    "2000s",
-    "2010s"
-   ],
-   "Mueble de obra + azulejo": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s"
-   ],
-   "Fórmica": [
-    "1940s",
-    "1950s",
-    "1960s"
-   ],
-   "Fórmica / melamina": [
-    "1970s"
-   ],
-   "Azulejo / granito": [
-    "1980s"
-   ],
-   "Azulejo → granito": [
-    "1990s"
-   ],
-   "Granito nacional / cuarzo": [
-    "2000s"
-   ],
-   "Cuarzo": [
-    "2010s"
-   ],
-   "Superficie sinterizada": [
-    "2020s"
-   ],
-   "Mampostería / fierro esmaltado": [
-    "1900s"
-   ],
-   "Mampostería": [
-    "1910s",
-    "1920s"
-   ],
-   "Fierro esmaltado": [
-    "1930s"
-   ],
-   "Peltre": [
-    "1940s"
-   ],
-   "Peltre o inox temprano": [
-    "1950s"
-   ],
-   "Peltre / inox": [
-    "1960s"
-   ],
-   "Inox sobre cubierta": [
-    "1970s",
-    "1980s"
-   ],
-   "Inox con escurridor": [
-    "1990s",
-    "2000s"
-   ],
-   "Inox submontada": [
-    "2010s"
-   ],
-   "Submontada / integrada": [
-    "2020s"
-   ]
-  },
-  "instalacion": {
-   "Alambre con forro de tela + conduit visible": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s",
-    "1940s"
-   ],
-   "Cableado THW en poliducto (oculto parcial)": [
-    "1960s",
-    "1970s",
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Canalizacion oculta normada, circuitos dedicados": [
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Centro de carga: fusibles de tapon/cartucho": [
-    "1930s",
-    "1940s",
-    "1950s",
-    "1960s",
-    "1970s"
-   ],
-   "Centro de carga: pastillas termomagneticas": [
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Contacto sin tierra fisica (2 clavijas)": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s",
-    "1940s",
-    "1950s",
-    "1960s",
-    "1970s",
-    "1980s"
-   ],
-   "Contacto con tierra fisica (3 clavijas)": [
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Fusible de tapon, porcelana con rosca tipo Edison": [
-    "1920s",
-    "1930s",
-    "1940s",
-    "1950s",
-    "1960s"
-   ],
-   "Contacto GFCI (boton Test/Reset visible)": [
-    "2000s",
-    "2010s",
-    "2020s"
-   ],
-   "Contacto con USB integrado": [
-    "2010s",
-    "2020s"
-   ],
-   "Tapa de contacto de laton": [
-    "1960s",
-    "1970s",
-    "1980s"
-   ],
-   "Tapa de contacto de plastico": [
-    "1980s",
-    "1990s",
-    "2000s",
-    "2010s",
-    "2020s"
-   ]
-  },
   "hidraulica": {
    "Plomo": [
     "1900s",
@@ -13890,34 +14824,10 @@
     "1970s",
     "1980s"
    ],
-   "Barandal/cancel de escalera, herreria o madera tradicional": [
-    "1950s",
-    "1960s",
-    "1970s",
-    "1980s",
-    "1990s"
-   ],
-   "Barandal/cancel de escalera, cristal templado / acero inox": [
-    "2010s",
-    "2020s"
-   ],
    "Cancel de PVC": [
     "2000s",
     "2010s",
     "2020s"
-   ],
-   "Seg. media-alta (inicio)": [
-    "1940s"
-   ],
-   "Seg. media a residencial": [
-    "1950s",
-    "1960s"
-   ],
-   "Media: vigente · Alta: en declive": [
-    "1970s"
-   ],
-   "Fase terminal / remodelaciones": [
-    "1980s"
    ]
   },
   "espejo": {
@@ -14148,84 +15058,6 @@
     "1980s"
    ]
   },
-  "griferia": {
-   "Llave individual de bronce": [
-    "1900s",
-    "1910s",
-    "1920s",
-    "1930s",
-    "1940s",
-    "1950s"
-   ],
-   "Manerales acrilico traslucido (diamante)": [
-    "1970s",
-    "1980s",
-    "1990s"
-   ],
-   "Monocomando cromado inicial": [
-    "1980s",
-    "1990s"
-   ],
-   "Monocomando de diseno (Moen/Helvex)": [
-    "1990s",
-    "2000s"
-   ],
-   "Monocomando negro mate / laton cepillado": [
-    "2010s",
-    "2020s"
-   ],
-   "Monocomando empotrado en muro / lluvia": [
-    "2010s",
-    "2020s"
-   ],
-   "Monomando cromado inicial": [
-    "1990s",
-    "2000s"
-   ],
-   "Monomando de diseno (Moen/Helvex)": [
-    "2000s",
-    "2010s"
-   ],
-   "Monomando negro mate / laton cepillado": [
-    "2010s",
-    "2020s"
-   ],
-   "Monomando empotrado en muro / lluvia": [
-    "2010s",
-    "2020s"
-   ],
-   "Llaves separadas de cruz": [
-    "1900s",
-    "1910s"
-   ],
-   "Llaves separadas": [
-    "1920s",
-    "1930s"
-   ],
-   "Llaves separadas cromadas": [
-    "1940s",
-    "1950s"
-   ],
-   "Mezcladora de dos manijas": [
-    "1960s",
-    "1970s"
-   ],
-   "Mezcladora": [
-    "1980s"
-   ],
-   "Monomando incipiente (alta)": [
-    "1990s"
-   ],
-   "Monomando": [
-    "2000s"
-   ],
-   "Monomando de diseño": [
-    "2010s"
-   ],
-   "Negro mate / latón / sensor": [
-    "2020s"
-   ]
-  },
   "fachada": {
    "Piedra laja pegada en faldones de fachada": [
     "1970s",
@@ -14421,33 +15253,57 @@
    ]
   },
   "niveles": {
-   "4-5 niveles SIN elevador (walk-up)": [
+   "1 nivel (planta baja)": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
     "1960s",
     "1970s",
-    "1980s"
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
    ],
-   "6-10 niveles, elevador de botones/manual": [
+   "2 niveles": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
     "1970s",
     "1980s",
-    "1990s"
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
    ],
-   "Con sotano estructurado 1-2 niveles": [
+   "3-4 niveles (walk-up, sin elevador)": [
+    "1960s",
+    "1970s",
+    "1980s",
     "1990s",
     "2000s"
    ],
-   "Con sotano 2-4 niveles + bodegas": [
+   "5-10 niveles": [
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s"
+   ],
+   "11-17 niveles": [
+    "2000s",
     "2010s",
     "2020s"
    ],
-   "Elevador MRL (sin cuarto de maquinas)": [
-    "2010s",
-    "2020s"
-   ],
-   "Torre suelta de lujo, 20+ niveles (enclave aislado)": [
-    "2010s",
-    "2020s"
-   ],
-   "Sin cajon asignado / montacoches (DOT)": [
+   "18-30+ niveles (torre de gran altura)": [
+    "2000s",
     "2010s",
     "2020s"
    ]
@@ -14701,11 +15557,6 @@
     "1940s",
     "1950s"
    ],
-   "Metalica o de lamina": [
-    "1960s",
-    "1970s",
-    "1980s"
-   ],
    "Prefabricada Macopan/MDF": [
     "1990s",
     "2000s"
@@ -14713,7 +15564,9 @@
    "De aluminio": [
     "1980s",
     "1990s",
-    "2000s"
+    "2000s",
+    "2010s",
+    "2020s"
    ],
    "De fierro en placas": [
     "1970s",
@@ -14739,6 +15592,13 @@
    "Marco oculto, sin chambrana exterior": [
     "2010s",
     "2020s"
+   ],
+   "Puerta tubular o de lamina tipo tambor": [
+    "2010s",
+    "2020s"
+   ],
+   "Porton de placa forjada / diseno de transicion (acceso principal)": [
+    "1960s"
    ]
   },
   "lamparas": {
@@ -14824,6 +15684,18 @@
     "2020s"
    ],
    "Contacto con USB integrado": [
+    "2010s",
+    "2020s"
+   ],
+   "Tapa de contacto de laton": [
+    "1960s",
+    "1970s",
+    "1980s"
+   ],
+   "Tapa de contacto de plastico": [
+    "1980s",
+    "1990s",
+    "2000s",
     "2010s",
     "2020s"
    ]
@@ -14975,9 +15847,6 @@
    ],
    "Forja sobria / balcón de fierro": [
     "1910s"
-   ],
-   "Reja baja de jardín": [
-    "1920s"
    ],
    "Herrería geométrica déco": [
     "1930s"
@@ -15154,6 +16023,464 @@
    "Gas natural o induccion electrica": [
     "2020s"
    ]
+  },
+  "elevador": {
+   "Sin elevador": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Elevador de botones/manual": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Elevador con variador (VVVF)": [
+    "1990s",
+    "2000s"
+   ],
+   "Elevador MRL (sin cuarto de maquinas)": [
+    "2010s",
+    "2020s"
+   ]
+  },
+  "sotano_estacionamiento": {
+   "Sin sotano": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Sotano estructurado 1-2 niveles": [
+    "1990s",
+    "2000s"
+   ],
+   "Sotano 2-4 niveles + bodegas": [
+    "2010s",
+    "2020s"
+   ]
+  },
+  "canceleria_cochera": {
+   "Puerta de estructura con lamina de una hoja, sistema corredizo": [
+    "2020s"
+   ],
+   "Reja baja sin techo": [
+    "1950s",
+    "1960s",
+    "1970s"
+   ]
+  },
+  "automatizacion_cochera": {
+   "Manual (sin motor)": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Motor de cadena (importado)": [
+    "1980s",
+    "1990s"
+   ],
+   "Piston hidraulico/electromecanico, abatible": [
+    "1990s",
+    "2000s"
+   ],
+   "Motor de cremallera (corredizo) o de techo (levadizo)": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Sistema integrado: app celular, RFID, infrarrojo, domotica": [
+    "2010s",
+    "2020s"
+   ]
+  },
+  "forma_ventana": {
+   "Arco de medio punto monumental en cantera (vano vertical)": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Ojo de buey decorativo circular u ovalado": [
+    "1920s"
+   ],
+   "Vano esquinero sin columna intermedia (voladizo funcionalista)": [
+    "1930s",
+    "1940s",
+    "1950s"
+   ],
+   "Arco californiano con moldura de barro/repisa": [
+    "1940s"
+   ],
+   "Ventanal de piso a techo / ventana corrida a jardin": [
+    "1950s",
+    "1960s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Franjas horizontales continuas piso-plafon, antepecho bajo": [
+    "1960s"
+   ],
+   "Ventanal panoramico a terraza": [
+    "1970s"
+   ],
+   "Arco neomediterraneo alto y estrecho (coto cerrado)": [
+    "1990s"
+   ],
+   "Vano rectangular limpio sin arco, marco de gran altura (2.40m+)": [
+    "2000s"
+   ],
+   "Muro cortina parcial / hueco sin marco visible": [
+    "2010s"
+   ],
+   "Rasgadura vertical estrecha (slit window)": [
+    "2020s"
+   ],
+   "Vano horizontal de apertura total apilable": [
+    "2020s"
+   ]
+  },
+  "mecanismo_ventana": {
+   "Guillotina con contrapesos/poleas (madera)": [
+    "1900s",
+    "1910s",
+    "1920s"
+   ],
+   "Abatible de herreria con manivela y fallebas trabajadas": [
+    "1930s",
+    "1940s"
+   ],
+   "Fijo con abatibles laterales de gran formato": [
+    "1950s",
+    "1960s"
+   ],
+   "Corrediza horizontal de 2 a 4 hojas (perfil de aluminio)": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Fijo de gran formato en areas sociales": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Proyectante con brazo de friccion": [
+    "2000s",
+    "2010s"
+   ],
+   "Oscilobatiente (doble apertura, PVC/aluminio europeo)": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Corrediza de elevacion / plegable tipo pocket door": [
+    "2020s"
+   ],
+   "Fijo estructural con ventilacion por louvres": [
+    "2020s"
+   ],
+   "Fija (sin apertura), pano complementario": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "cocina_gabinete": {
+   "Cocina integral (madera/laminado/MDF)": [
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Mueble de melamina": [
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Melamina imitacion madera miel/cerezo": [
+    "1990s"
+   ],
+   "Melamina imitacion chocolate/nogal": [
+    "2000s",
+    "2010s"
+   ],
+   "Mueble de obra revestido de azulejo/mosaico": [
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s"
+   ],
+   "Mueble de obra + azulejo": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s"
+   ],
+   "Isla (madera fina o piedra)": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Estufa europea de empotre (Teka/Bosch/Smeg)": [
+    "1990s",
+    "2000s"
+   ],
+   "Lavavajillas de empotre": [
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "cocina_cubierta": {
+   "Cubierta de formica": [
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Cubierta de azulejo": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Transicion azulejo a granito": [
+    "1980s",
+    "1990s"
+   ],
+   "Cubierta de granito": [
+    "2000s",
+    "2010s"
+   ],
+   "Cubierta de cuarzo": [
+    "2010s",
+    "2020s"
+   ],
+   "Piedra o superficie sinterizada": [
+    "2010s",
+    "2020s"
+   ]
+  },
+  "cocina_tarja_griferia": {
+   "Tarja sobre mueble de obra": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s"
+   ],
+   "Mampostería / fierro esmaltado": [
+    "1900s"
+   ],
+   "Mampostería": [
+    "1910s",
+    "1920s"
+   ],
+   "Fierro esmaltado": [
+    "1930s"
+   ],
+   "Peltre": [
+    "1940s"
+   ],
+   "Peltre o inox temprano": [
+    "1950s"
+   ],
+   "Peltre / inox": [
+    "1960s"
+   ],
+   "Inox sobre cubierta": [
+    "1970s",
+    "1980s"
+   ],
+   "Inox con escurridor": [
+    "1990s",
+    "2000s"
+   ],
+   "Inox submontada": [
+    "2010s"
+   ],
+   "Submontada / integrada": [
+    "2020s"
+   ],
+   "Monomando con cabezal extraible (cocina)": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "griferia_bano": {
+   "Llave individual de bronce": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s"
+   ],
+   "Manerales acrilico traslucido (diamante)": [
+    "1970s",
+    "1980s",
+    "1990s"
+   ],
+   "Monomando cromado inicial": [
+    "1980s",
+    "1990s",
+    "2000s"
+   ],
+   "Monomando de diseno (Moen/Helvex)": [
+    "1990s",
+    "2000s",
+    "2010s"
+   ],
+   "Monomando negro mate / laton cepillado": [
+    "2010s",
+    "2020s"
+   ],
+   "Monomando empotrado en muro / lluvia": [
+    "2010s",
+    "2020s"
+   ],
+   "Llaves separadas de cruz": [
+    "1900s",
+    "1910s"
+   ],
+   "Llaves separadas": [
+    "1920s",
+    "1930s"
+   ],
+   "Llaves separadas cromadas": [
+    "1940s",
+    "1950s"
+   ],
+   "Mezcladora de dos manijas": [
+    "1960s",
+    "1970s"
+   ],
+   "Mezcladora": [
+    "1980s"
+   ],
+   "Monomando incipiente (alta)": [
+    "1990s"
+   ],
+   "Monomando": [
+    "2000s"
+   ],
+   "Monomando de diseño": [
+    "2010s"
+   ],
+   "Negro mate / latón / sensor": [
+    "2020s"
+   ]
+  },
+  "cableado_electrico": {
+   "Alambre con forro de tela + conduit visible": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s"
+   ],
+   "Cableado THW en poliducto (oculto parcial)": [
+    "1960s",
+    "1970s",
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Canalizacion oculta normada, circuitos dedicados": [
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "centro_carga": {
+   "Centro de carga: fusibles de tapon/cartucho (rosca tipo Edison)": [
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s"
+   ],
+   "Centro de carga: pastillas termomagneticas": [
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
+  },
+  "tipo_contacto": {
+   "Contacto sin tierra fisica (2 clavijas)": [
+    "1900s",
+    "1910s",
+    "1920s",
+    "1930s",
+    "1940s",
+    "1950s",
+    "1960s",
+    "1970s",
+    "1980s"
+   ],
+   "Contacto con tierra fisica (3 clavijas)": [
+    "1980s",
+    "1990s",
+    "2000s",
+    "2010s",
+    "2020s"
+   ],
+   "Contacto GFCI (boton Test/Reset visible)": [
+    "2000s",
+    "2010s",
+    "2020s"
+   ]
   }
  },
  "discrimina": {
@@ -15248,11 +16575,9 @@
    "Forjada o artistica": false,
    "Tubular lisa": true,
    "Minimalista / sin proteccion": true,
-   "Cristal en barandal": true,
-   "Porton automatico seccional tipo panel": true,
-   "Barandal de cristal templado con herrajes inox": true,
-   "Cerca electrificada residencial": true,
-   "Geometrica / proteccion gruesa (post-1980, seguridad)": true
+   "Geometrica / proteccion gruesa (post-1980, seguridad)": true,
+   "Barandal de balcon/terraza en cristal": true,
+   "Barandal de balcon/terraza en cristal templado con herrajes inox": true
   },
   "cochera": {
    "SIN cochera techada": false,
@@ -15261,7 +16586,8 @@
    "Cochera de paso libre / pasillo vehicular frontal (sin porton ni losa)": true,
    "Cochera para 1 auto": true,
    "Cochera para 2 autos": true,
-   "Cochera para 3+ autos / subterraneo": true
+   "Cochera para 3+ autos / subterraneo": true,
+   "Sin cajon asignado / montacoches (DOT)": true
   },
   "ventaneria": {
    "Madera": false,
@@ -15284,16 +16610,12 @@
   },
   "puerta": {
    "Tablero de madera": true,
-   "Zaguan de madera": true,
    "Madera maciza": false,
-   "Porton labrado": true,
    "Metalica o de lamina": false,
    "Tambor (pino o MDF)": false,
    "Madera barnizada": true,
    "MDF enchapado": true,
    "Chapa de madera fina": true,
-   "Acceso domotico o digital": true,
-   "Puerta pivotante de autor": true,
    "Entamborada de caobilla, panel pequeno repetido": true,
    "Maderas finas de autor (cedro/parota/nogal)": true
   },
@@ -15341,7 +16663,6 @@
    "Contacto con tierra fisica (3 clavijas)": false,
    "Fusible de tapon, porcelana con rosca tipo Edison": false,
    "Contacto GFCI (boton Test/Reset visible)": true,
-   "Contacto con USB integrado": true,
    "Tapa de contacto de laton": true,
    "Tapa de contacto de plastico": false
   },
@@ -15360,13 +16681,7 @@
    "Tina en bano principal": true,
    "Solo regadera, sin tina": true,
    "Tina encajonada en mamposteria forrada de azulejo (seg 3-6)": false,
-   "Barandal/cancel de escalera, herreria o madera tradicional": false,
-   "Barandal/cancel de escalera, cristal templado / acero inox": true,
-   "Cancel de PVC": true,
-   "Seg. media-alta (inicio)": true,
-   "Seg. media a residencial": true,
-   "Media: vigente · Alta: en declive": true,
-   "Fase terminal / remodelaciones": true
+   "Cancel de PVC": true
   },
   "espejo": {
    "Apliques laterales, luna de azogue pesado": true,
@@ -15436,10 +16751,6 @@
   "griferia": {
    "Llave individual de bronce": false,
    "Manerales acrilico traslucido (diamante)": true,
-   "Monocomando cromado inicial": true,
-   "Monocomando de diseno (Moen/Helvex)": true,
-   "Monocomando negro mate / laton cepillado": true,
-   "Monocomando empotrado en muro / lluvia": true,
    "Monomando cromado inicial": true,
    "Monomando de diseno (Moen/Helvex)": true,
    "Monomando negro mate / laton cepillado": true,
@@ -15499,13 +16810,12 @@
    "Solo salida, sin cuarto": true
   },
   "niveles": {
-   "4-5 niveles SIN elevador (walk-up)": true,
-   "6-10 niveles, elevador de botones/manual": true,
-   "Con sotano estructurado 1-2 niveles": true,
-   "Con sotano 2-4 niveles + bodegas": true,
-   "Elevador MRL (sin cuarto de maquinas)": true,
-   "Torre suelta de lujo, 20+ niveles (enclave aislado)": true,
-   "Sin cajon asignado / montacoches (DOT)": true
+   "1 nivel (planta baja)": false,
+   "2 niveles": false,
+   "3-4 niveles (walk-up, sin elevador)": true,
+   "5-10 niveles": true,
+   "11-17 niveles": true,
+   "18-30+ niveles (torre de gran altura)": true
   },
   "carpinteria": {
    "Puertas de persiana o rejilla de pino": true,
@@ -15689,13 +16999,28 @@
    "Estacionario en azotea": true,
    "Centralizado con medidores": true,
    "Gas natural o induccion electrica": true
+  },
+  "elevador": {
+   "Sin elevador": false,
+   "Elevador de botones/manual": true,
+   "Elevador con variador (VVVF)": true,
+   "Elevador MRL (sin cuarto de maquinas)": true
+  },
+  "sotano_estacionamiento": {
+   "Sin sotano": false,
+   "Sotano estructurado 1-2 niveles": true,
+   "Sotano 2-4 niveles + bodegas": true
   }
  },
  "elementos_principales": [
   "fachada",
   "barda_protecciones",
   "niveles",
+  "elevador",
+  "sotano_estacionamiento",
   "cochera",
+  "canceleria_cochera",
+  "automatizacion_cochera",
   "puerta_ingreso",
   "muro",
   "estructura",
@@ -15704,20 +17029,26 @@
   "cubierta",
   "plafon",
   "ventaneria",
+  "forma_ventana",
+  "mecanismo_ventana",
   "herreria",
   "puerta",
   "carpinteria",
   "escaleras",
   "domos_tragaluces",
-  "cocina",
+  "cocina_gabinete",
+  "cocina_cubierta",
+  "cocina_tarja_griferia",
   "wc",
   "lavabo",
-  "griferia",
+  "griferia_bano",
   "canceleria",
   "azulejo_bano",
   "espejo",
   "servicio",
-  "instalacion",
+  "cableado_electrico",
+  "centro_carga",
+  "tipo_contacto",
   "apagadores_placas",
   "iluminacion_fija",
   "lamparas",
@@ -15903,13 +17234,6 @@
     "como_se_identifica": "superficie con multiples paneles pequenos en relieve repetidos en cuadricula, madera de caobilla o similar, barnizada en tono medio-oscuro",
     "confusiones_frecuentes": "con tablero de pino de 1900-40s (paneles grandes, pocos por hoja); la entamborada tiene muchos mas paneles pequenos repetidos",
     "fuente": "Catalogo_Materiales_Transversal_v1.md #8.3"
-   },
-   "Acceso domotico o digital": {
-    "valor_como_fechador": "MEDIO-ALTO",
-    "nivel_socioeconomico_texto": "medio alto a lujo",
-    "como_se_identifica": "cerradura sin llave fisica visible, teclado, lector biometrico o control por app",
-    "confusiones_frecuentes": "ninguna relevante",
-    "fuente": "tabla 1995-2026 (Cerradura digital, entrada 2012)"
    }
   },
   "cocina": {

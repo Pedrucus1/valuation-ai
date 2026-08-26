@@ -1426,20 +1426,9 @@ def _physical_breakdown(prop: dict, comparative_ppsm: float) -> dict:
     }
 
 
-@api_router.post("/valuations/{valuation_id}/calculate-remi")
-async def calculate_remi(valuation_id: str):
-    """
-    Calcula valor con motor Remi-Scraper (cache_index local, homologación directa $/m²C).
-    No requiere comparables manuales — los busca automáticamente por colonia/municipio.
-    """
-    valuation = await db.valuations.find_one({"valuation_id": valuation_id}, {"_id": 0})
-    if not valuation:
-        raise HTTPException(status_code=404, detail="Valuación no encontrada")
-
-    prop = valuation.get("property_data", {})
-
-    # Mapeo campos PropValu → motor Remi
-    motor_input = {
+def _motor_input_from_prop(prop: dict) -> dict:
+    """Mapeo campos PropValu → motor Remi (reusado por calculate-remi y el ARV del mini-reporte)."""
+    return {
         "tipo":              prop.get("property_type", "casa"),
         "construccion":      prop.get("construction_area", 0),
         "terreno":           prop.get("land_area", 0),
@@ -1464,10 +1453,13 @@ async def calculate_remi(valuation_id: str):
         "colonia":           prop.get("neighborhood", ""),
     }
 
-    # Subprocess en thread (subprocess.run) en vez de asyncio.create_subprocess_exec:
-    # bajo el event loop de uvicorn en Windows el segundo lanza NotImplementedError.
-    # Así funciona igual en Windows (local) y Linux (prod).
-    def _run_motor():
+
+async def _run_motor(motor_input: dict) -> dict:
+    """Invoca el motor Node (subprocess) y parsea su salida. Levanta HTTPException en error.
+    Subprocess en thread (subprocess.run) en vez de asyncio.create_subprocess_exec:
+    bajo el event loop de uvicorn en Windows el segundo lanza NotImplementedError.
+    Así funciona igual en Windows (local) y Linux (prod)."""
+    def _run_motor_sync():
         return subprocess.run(
             ["node", MOTOR_SCRIPT],
             input=json.dumps(motor_input).encode(),
@@ -1475,7 +1467,7 @@ async def calculate_remi(valuation_id: str):
         )
     try:
         _loop = asyncio.get_running_loop()
-        proc = await asyncio.wait_for(_loop.run_in_executor(None, _run_motor), timeout=40)
+        proc = await asyncio.wait_for(_loop.run_in_executor(None, _run_motor_sync), timeout=40)
     except (asyncio.TimeoutError, subprocess.TimeoutExpired):
         raise HTTPException(status_code=503, detail="Motor timeout")
     except Exception as e:
@@ -1487,9 +1479,24 @@ async def calculate_remi(valuation_id: str):
     try:
         # El motor imprime un banner (dotenvx) antes del JSON → tomar la última línea JSON.
         _lines = [l for l in proc.stdout.decode().splitlines() if l.strip().startswith("{")]
-        result = json.loads(_lines[-1]) if _lines else json.loads(proc.stdout.decode())
+        return json.loads(_lines[-1]) if _lines else json.loads(proc.stdout.decode())
     except Exception:
         raise HTTPException(status_code=503, detail="Motor respuesta inválida")
+
+
+@api_router.post("/valuations/{valuation_id}/calculate-remi")
+async def calculate_remi(valuation_id: str):
+    """
+    Calcula valor con motor Remi-Scraper (cache_index local, homologación directa $/m²C).
+    No requiere comparables manuales — los busca automáticamente por colonia/municipio.
+    """
+    valuation = await db.valuations.find_one({"valuation_id": valuation_id}, {"_id": 0})
+    if not valuation:
+        raise HTTPException(status_code=404, detail="Valuación no encontrada")
+
+    prop = valuation.get("property_data", {})
+    motor_input = _motor_input_from_prop(prop)
+    result = await _run_motor(motor_input)
 
     if result.get("error") and result.get("valor", 0) == 0:
         raise HTTPException(status_code=422, detail=result["error"])
@@ -1601,14 +1608,24 @@ async def generate_mini_report(valuation_id: str, request: Request):
     if not valuation.get("result"):
         raise HTTPException(status_code=400, detail="Primero calcule la valuación")
 
+    # ARV (flipping): mismo proceso del motor pero tratando la propiedad como remodelada.
+    arv_estimado = None
+    try:
+        arv_input = {**_motor_input_from_prop(valuation.get("property_data", {})), "estadoConservacion": "remodelacion_completa"}
+        arv_result = await _run_motor(arv_input)
+        if arv_result.get("valor"):
+            arv_estimado = round(float(arv_result["valor"]), 2)
+    except HTTPException:
+        pass  # el mini-reporte no debe romperse si el ARV falla — se omite el bloque
+
     from report_generator import generate_mini_report_html
-    mini_html = generate_mini_report_html(valuation)
+    mini_html = generate_mini_report_html(valuation, arv_estimado=arv_estimado)
 
     await db.valuations.update_one(
         {"valuation_id": valuation_id},
-        {"$set": {"mini_report_html": mini_html, "updated_at": datetime.now(timezone.utc).isoformat()}}
+        {"$set": {"mini_report_html": mini_html, "arv_estimado": arv_estimado, "updated_at": datetime.now(timezone.utc).isoformat()}}
     )
-    return {"report_html": mini_html}
+    return {"report_html": mini_html, "arv_estimado": arv_estimado}
 
 
 @api_router.post("/valuations/{valuation_id}/generate-report")

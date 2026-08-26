@@ -427,7 +427,7 @@ _REPORT_CSS = """
 """
 
 
-def generate_mini_report_html(valuation: dict) -> str:
+def generate_mini_report_html(valuation: dict, arv_estimado: float = None) -> str:
     """Resumen de 1 página (venta) para clientes que solo quieren el valor.
     Sin sección de renta: hoy la renta es un factor derivado de venta, no un
     estudio de comparables de renta independiente (pendiente motor aparte)."""
@@ -500,6 +500,10 @@ def generate_mini_report_html(valuation: dict) -> str:
   .value-label {{ font-size:12px; opacity:.85; letter-spacing:.5px; text-transform:uppercase; }}
   .value-amount {{ font-family:'Outfit',sans-serif; font-weight:800; font-size:38px; margin:6px 0; }}
   .value-range {{ font-size:12px; opacity:.85; }}
+  .arv-box {{ background:var(--green-100, #f0faf4); border:1.5px solid var(--green-700); color:var(--text-main); border-radius:14px; padding:20px; text-align:center; margin-bottom:22px; }}
+  .arv-box .value-label {{ color:var(--green-700); }}
+  .arv-box .value-amount {{ font-size:30px; color:var(--green-900); }}
+  .arv-box .value-range {{ color:var(--text-sec); }}
   .grid4 {{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:20px; }}
   .grid4 .cell {{ background:#f8fafc; border:1px solid var(--gray-200); border-radius:10px; padding:12px; text-align:center; }}
   .grid4 .cell .lbl {{ font-size:10px; color:var(--text-sec); text-transform:uppercase; }}
@@ -525,7 +529,13 @@ def generate_mini_report_html(valuation: dict) -> str:
     <div class="value-amount">{fmt_money(total_value)}</div>
     <div class="value-range">Rango: {fmt_money(value_min)} &mdash; {fmt_money(value_max)}</div>
   </div>
-
+{f'''
+  <div class="arv-box">
+    <div class="value-label">Valor Estimado Remodelada (ARV)</div>
+    <div class="value-amount">{fmt_money(arv_estimado)}</div>
+    <div class="value-range">Estimado tratando la propiedad en buen estado / remodelada</div>
+  </div>
+''' if arv_estimado else ''}
   <div class="grid4">
     <div class="cell"><div class="lbl">Terreno</div><div class="val">{land_area} m&#xB2;</div></div>
     <div class="cell"><div class="lbl">Construcción</div><div class="val">{construction_area} m&#xB2;</div></div>
