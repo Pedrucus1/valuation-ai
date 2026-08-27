@@ -2,35 +2,40 @@
 
 > **Único archivo que se lee al iniciar** (corto, siempre vigente). Tareas por # → `BACKLOG.md` (grep). Historial → `BACKLOG_ARCHIVE.md`. Motor → `MOTOR_ANTECEDENTES.md` (grep). **Se sobrescribe en cada cierre de sesión.**
 
-**Última actualización:** 24 Ago 2026 (noche, sesión 2)
-**Fase:** Prod Railway + Vercel público, estable. Sesión larga 23/24-ago: primero se cerró la federación de
-datos entre PropValu / Manual-Arquitectura-ZMG / atlas-colonias (Fases 0-6, ver `project_propvalu.md`) y un
-hallazgo de seguridad alto (verificación de correo). Bloque separado, tarde 24-ago: investigación a fondo
-de depreciación por edad (Ross-Heidecke) en el motor, corrigió `result_lab_rh` a vida útil=70 fija (commit
-`97e8620`) y refrescó/ponderó `pm2t_semilla.json` (#159, cerrado). **Sesión nueva, noche 24-ago:** construido
-y verificado end-to-end el **mini-reporte de 1 hoja (solo venta)** pedido por 2 clientes (#164, ver abajo) +
-**diseño** (sin código aún) del motor de OPI de renta independiente a partir de las fórmulas reales del
-perito en `opi_perito.xlsx` (#165). Detalle completo en `BACKLOG.md` #148/#159/#164/#165.
+**Última actualización:** 26 Ago 2026
+**Fase:** Prod Railway + Vercel público, estable. Sesión 25/26-ago: sobre el mini-reporte de 1 hoja (#164,
+cerrado 24-ago) se agregó el **ARV** (valor post-remodelación) y se construyó desde cero la **calculadora
+de viabilidad de flipping** (#167, `/flipping`) — margen neto + oferta máxima al dueño, con defaults
+calibrados a costos reales de México (no la regla del 70% de EE.UU.). Commit `0b1502e`, pusheado. Detalle
+completo en `BACKLOG.md` #164/#166/#167.
 
 ## 🔥 LO MÁS CALIENTE — qué sigue
 
-1. **Motor de OPI de renta independiente — diseño listo, falta construir (#165).** Hoy la renta es un factor
+1. **Calculadora de flipping: hecha y verificada (#167).** `/flipping` (conectable a un avalúo vía
+   `?valuation_id=`, o standalone). Backend `routers/flipping.py` (guarda en `flipping_calcs` por
+   `user_id`, mismo patrón que `requisiciones.py`), toda la aritmética vive en el frontend. Verificado en
+   navegador: precarga de ARV/dirección, matemática correcta a mano, modo standalone, falla con gracia sin
+   sesión. **Pendiente real:** probar el guardado con un usuario logueado de verdad (solo se probó que
+   falla bien sin sesión) y decidir si se cobra con créditos o se deja libre (a propósito sin decidir hoy).
+2. **ARV en el mini-reporte: hecho (#164 extendido).** `generate-mini-report` corre el motor una 2ª vez con
+   `estadoConservacion:"remodelacion_completa"` y agrega `arv_estimado` + caja visible en el PDF. Verificado
+   con avalúo real: as-is $1,804,153 → ARV $3,312,085 (propiedad de 45 años).
+3. **Idea anotada para después, sin diseñar (#166):** calculadora de inversión para renta de
+   estudios/aparta-estudios, estilo "Vive de las Rentas" (rentabilidad bruta/neta, cash-on-cash).
+4. **Motor de OPI de renta independiente — diseño listo, falta construir (#165).** Hoy la renta es un factor
    derivado de venta (`valor×0.005-0.006` o factor IA con pocos comparables), NO un estudio de comparables
    de renta propio. Se analizaron las fórmulas reales del perito (`opi_perito.xlsx`, hojas "OPI Loc Com" y
    "OPI Rentas"): la doble comprobación real es venta-homologada×factor **vs** comparables de renta directos
    homologados. Diseño de `valuarRentaPropiedad()`/`factorRentaVenta()` guardado en memoria Claude
    `project_propvalu_opi_renta_independiente` — decidir si se construye como función nueva en
    `motor_remi_api.js` o motor separado antes de escribir código.
-2. **Mini-reporte de 1 hoja: hecho, solo lado venta (#164).** Botón "Resumen 1 hoja" en `ReportPage.jsx`,
-   endpoint `generate-mini-report` (sin IA, sin costo), verificado con avalúo real en navegador. **Sin bloque
-   de renta a propósito** — se agrega cuando el #165 exista, para no mostrar un número con falsa precisión.
-3. **Fix recurrente: `starlette` se vuelve a subir de versión sola.** Un paquete MCP comparte el mismo Python
+5. **Fix recurrente: `starlette` se vuelve a subir de versión sola.** Un paquete MCP comparte el mismo Python
    global (`pythoncore-3.14-64`) y a veces sube `starlette` a 1.6.0, incompatible con `fastapi==0.110.1`
    (rompe el arranque local con `TypeError: Router.__init__() got an unexpected keyword argument 'on_startup'`).
    Ya pasó dos veces (24-ago tarde y noche). Fix: `pip install starlette==0.37.2` — ahora SÍ pinneado en
    `backend/requirements.txt` (pendiente de sesión anterior, ya commiteado esta sesión). Si vuelve a pasar,
    revisar qué paquete MCP lo sube.
-4. **Federación con atlas-colonias: construida pero sin datos reales todavía.** El feed público
+6. **Federación con atlas-colonias: construida pero sin datos reales todavía.** El feed público
    (`https://atlas-colonias-zmg.pedrucus.workers.dev/api/sync/feed`) está desplegado en Cloudflare y
    PropValu ya tiene `ATLAS_COLONIAS_FEED_URL` apuntando ahí (variable puesta en Railway hoy). Pero la
    base de datos nueva de Cloudflare está vacía — la real (con el trabajo de los peritos) sigue en la
@@ -38,13 +43,13 @@ perito en `opi_perito.xlsx` (#165). Detalle completo en `BACKLOG.md` #148/#159/#
    todavía ninguna clasificación aprobada de verdad en ningún lado**, no es un bug. Próximo paso real:
    confirmar si hay propuestas *pendientes* de aprobar en chatgpt.site (no solo aprobadas), y decidir
    si vale la pena mover ese flujo de revisión hacia el Atlas de Cloudflare a futuro.
-5. **Enricher del scraper APAGADO A PROPÓSITO (24-ago noche)** — los 3 shards (`enricher.py --shard 0/3, 1/3, 2/3`) entraron en loop de crash/relanzamiento (el watchdog los revivía cada ~200s, los 3 casi al mismo tiempo — huele a algo sistémico, no aislado, posible relación con el fix reciente "fallback muerto PINCALI"). Se mataron los 3 procesos y se detuvo el watchdog para cortar el loop. **Pendiente next session: diagnosticar por qué crashean los 3 juntos antes de relanzar.**
-6. **Causa raíz del "kill" del scraper SIGUE sin confirmar** (#156). Además la tarea de Windows `ScraperMonitorLocal` apunta a la carpeta VIEJA del scraper con credenciales de Mongo muertas (#162).
-7. **Migración de caché del motor Sheet→Mongo + `pm2t_semilla.json` — CERRADO (24-ago, #159).** Refrescado desde `cerebro_datos.json` actual + ponderación nueva por antigüedad de la OPI. Cero regresión, mejora consistente en los casos `lote_grande_cus` tocados. Detalle en `BACKLOG.md` #159.
-8. **Tavily agotado + Serper muerto desde 09-jul** (#161) — Brave Search cableado, falta API key real.
-9. **PINCALI en español sigue caído** (#151). Diferido a propósito. **Confirmado 24-ago (sesión aparte, tarde):** es AWS WAF (`x-amzn-waf-action: challenge`), bloquea ES y EN por igual incluso con `requests` plano — no es un tema de idioma, es sitewide. Se corrigió un bug real en `enricher.py`: el detector de bloqueo no reconocía la página de challenge AWS WAF (título vacío) y la guardaba como "éxito" con contenido basura — ya detecta también `awsWafCookieDomainList`. **Posible relación con el crash-loop del ítem 5 de arriba** — revisar si este fix o el "fallback ES eliminado" (mismo día) tiene algo que ver antes de relanzar el enricher.
-10. **Automatización real del scraper mensual — sin decidir** (#152-154).
-11. **Carpeta vieja del scraper (`C:\Users\pedru\valuation-ai\scraper-inmuebles`) documentada 24-ago:** no es "toda obsoleta" — hospeda `orquestador_ia.py`/`monitor_local.py` (activos, corren 24/7, pueden auto-fix+push su propio repo git `Pedrucus1/scraper-inmuebles`), pero `enricher.py`/`scheduler.py`/`scrapers/*` ahí SÍ divergen del método real. README de esa carpeta actualizado con el detalle exacto para no repetir la confusión (ver memoria `feedback_scraper_carpetas_divergentes`).
+7. **Enricher del scraper APAGADO A PROPÓSITO (24-ago noche)** — los 3 shards (`enricher.py --shard 0/3, 1/3, 2/3`) entraron en loop de crash/relanzamiento (el watchdog los revivía cada ~200s, los 3 casi al mismo tiempo — huele a algo sistémico, no aislado, posible relación con el fix reciente "fallback muerto PINCALI"). Se mataron los 3 procesos y se detuvo el watchdog para cortar el loop. **Pendiente next session: diagnosticar por qué crashean los 3 juntos antes de relanzar.**
+8. **Causa raíz del "kill" del scraper SIGUE sin confirmar** (#156). Además la tarea de Windows `ScraperMonitorLocal` apunta a la carpeta VIEJA del scraper con credenciales de Mongo muertas (#162).
+9. **Migración de caché del motor Sheet→Mongo + `pm2t_semilla.json` — CERRADO (24-ago, #159).** Refrescado desde `cerebro_datos.json` actual + ponderación nueva por antigüedad de la OPI. Cero regresión, mejora consistente en los casos `lote_grande_cus` tocados. Detalle en `BACKLOG.md` #159.
+10. **Tavily agotado + Serper muerto desde 09-jul** (#161) — Brave Search cableado, falta API key real.
+11. **PINCALI en español sigue caído** (#151). Diferido a propósito. **Confirmado 24-ago (sesión aparte, tarde):** es AWS WAF (`x-amzn-waf-action: challenge`), bloquea ES y EN por igual incluso con `requests` plano — no es un tema de idioma, es sitewide. Se corrigió un bug real en `enricher.py`: el detector de bloqueo no reconocía la página de challenge AWS WAF (título vacío) y la guardaba como "éxito" con contenido basura — ya detecta también `awsWafCookieDomainList`. **Posible relación con el crash-loop del ítem 5 de arriba** — revisar si este fix o el "fallback ES eliminado" (mismo día) tiene algo que ver antes de relanzar el enricher.
+12. **Automatización real del scraper mensual — sin decidir** (#152-154).
+13. **Carpeta vieja del scraper (`C:\Users\pedru\valuation-ai\scraper-inmuebles`) documentada 24-ago:** no es "toda obsoleta" — hospeda `orquestador_ia.py`/`monitor_local.py` (activos, corren 24/7, pueden auto-fix+push su propio repo git `Pedrucus1/scraper-inmuebles`), pero `enricher.py`/`scheduler.py`/`scrapers/*` ahí SÍ divergen del método real. README de esa carpeta actualizado con el detalle exacto para no repetir la confusión (ver memoria `feedback_scraper_carpetas_divergentes`).
 
 ## 🔐 Seguridad — cambio de hoy
 - `/auth/register` (perito e inmobiliaria, mismo endpoint) no verificaba correo — cerrado con flujo
@@ -91,7 +96,7 @@ perito en `opi_perito.xlsx` (#165). Detalle completo en `BACKLOG.md` #148/#159/#
 - Regenerar OPI val_0a773642bef5 (Virgen 3437, La Calma) — confirmar si el usuario ya lo probó.
 - Decisión 9-ago: NO self-hostear IA de reportes.
 - VIVANUNCIOS #157, MITULA #158.
-- Ver `BACKLOG.md` tabla completa para el resto (#s 1-161).
+- Ver `BACKLOG.md` tabla completa para el resto (#s 1-167).
 
 ## 🌐 URLs / accesos
 - **Sitio:** https://frontend-pedrucus-projects.vercel.app (alias: frontend-rosy-six-74.vercel.app)
