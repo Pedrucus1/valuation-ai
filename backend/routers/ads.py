@@ -602,8 +602,15 @@ async def get_active_ad(request: Request, slot: str = "slot1", zone: str = ""):
     default_durations = {"slot1": 30, "slot2": 30, "slot3": 15}
     # ponytail: BACKEND_URL no está seteada en Railway → caía en "" y el frontend
     # (otro origen, Vercel) pedía /uploads/... a su propio dominio (404). request.base_url
-    # siempre resuelve al dominio real que sirvió la request, sin depender de la env var.
-    backend_url = os.environ.get("BACKEND_URL", "") or str(request.base_url).rstrip("/")
+    # resuelve el dominio real, pero Railway termina TLS en el proxy y reenvía por http
+    # internamente sin ProxyHeadersMiddleware -> scheme salía "http" (mixed content
+    # bloqueado por el navegador en la página https). Se fuerza https via X-Forwarded-Proto.
+    if os.environ.get("BACKEND_URL"):
+        backend_url = os.environ["BACKEND_URL"]
+    else:
+        proto = request.headers.get("x-forwarded-proto", request.url.scheme)
+        port = f":{request.url.port}" if request.url.port else ""
+        backend_url = f"{proto}://{request.url.hostname}{port}"
     file_url = creative["file_url"]
     if not file_url.startswith("http"):
         file_url = f"{backend_url}{file_url}"
