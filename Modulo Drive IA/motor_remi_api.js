@@ -310,7 +310,13 @@ Responde ÚNICAMENTE con JSON válido, sin explicaciones:
 {"comparables":[{"colonia":"nombre_colonia","precio":1500000,"m2c":85,"m2t":120,"portal":"inmuebles24","url":"https://..."},...]}`
 
     try {
-        const result = await model.generateContent(prompt);
+        // ponytail: generateContent con googleSearch grounding no tiene timeout propio —
+        // es la otra causa (junto con buscarWeb) de que el motor se comiera los 30s del
+        // subprocess Python. Cap duro: si no responde en 20s, se cae a los demás fallbacks.
+        const result = await Promise.race([
+            model.generateContent(prompt),
+            new Promise((_, rej) => setTimeout(() => rej(new Error('gemini_timeout')), 15000)),
+        ]);
         const text = result.response.text();
         const m = text.match(/\{[\s\S]*"comparables"[\s\S]*\}/);
         if (!m) return [];
@@ -333,11 +339,25 @@ Responde ÚNICAMENTE con JSON válido, sin explicaciones:
 
 // ── Búsqueda web: Serper (Google) → DeepSeek extrae comparables ──────────────
 
+// ponytail: fetch() de Node no tiene timeout por defecto — un proveedor lento/colgado
+// se comía los 30s completos del subprocess (Python mataba todo con 503 "Motor timeout").
+// AbortController con límite corto: si un proveedor no responde rápido, cae al siguiente.
+const _WEB_FETCH_TIMEOUT_MS = 8000;
+async function _fetchConTimeout(url, opts) {
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), _WEB_FETCH_TIMEOUT_MS);
+    try {
+        return await fetch(url, { ...opts, signal: ctrl.signal });
+    } finally {
+        clearTimeout(t);
+    }
+}
+
 // Devuelve string de resultados, o null si la key falló/está agotada (para la cascada).
 async function buscarEnSerper(query, key) {
     if (!key) return null;
     try {
-        const res = await fetch('https://google.serper.dev/search', {
+        const res = await _fetchConTimeout('https://google.serper.dev/search', {
             method: 'POST',
             headers: { 'X-API-KEY': key, 'Content-Type': 'application/json' },
             body: JSON.stringify({ q: query, gl: 'mx', hl: 'es', num: 10 })
@@ -347,7 +367,7 @@ async function buscarEnSerper(query, key) {
         // Incluir link para que DeepSeek pueda extraer URL real
         return (data.organic || []).map(r => `[${r.title}]\n${r.snippet || ''}\nURL: ${r.link}`).join('\n\n---\n\n');
     } catch (e) {
-        return null;
+        return null;   // incluye AbortError por timeout
     }
 }
 
@@ -356,7 +376,7 @@ async function buscarEnSerper(query, key) {
 async function buscarEnTavily(query, key) {
     if (!key) return null;
     try {
-        const res = await fetch('https://api.tavily.com/search', {
+        const res = await _fetchConTimeout('https://api.tavily.com/search', {
             method: 'POST',
             headers: { 'Authorization': `Bearer ${key}`, 'Content-Type': 'application/json' },
             body: JSON.stringify({ query, max_results: 10, search_depth: 'basic', include_answer: false })
@@ -365,7 +385,7 @@ async function buscarEnTavily(query, key) {
         const data = await res.json();
         return (data.results || []).map(r => `[${r.title}]\n${(r.content || '').slice(0, 400)}\nURL: ${r.url}`).join('\n\n---\n\n');
     } catch (e) {
-        return null;
+        return null;   // incluye AbortError por timeout
     }
 }
 
@@ -374,7 +394,7 @@ async function buscarEnTavily(query, key) {
 async function buscarEnBrave(query, key) {
     if (!key) return null;
     try {
-        const res = await fetch(`https://api.search.brave.com/res/v1/web/search?q=${encodeURIComponent(query)}&count=10`, {
+        const res = await _fetchConTimeout(`https://api.search.brave.com/res/v1/web/search?q=${encodeURIComponent(query)}&count=10`, {
             method: 'GET',
             headers: { 'X-Subscription-Token': key, 'Accept': 'application/json' },
         });
@@ -383,7 +403,7 @@ async function buscarEnBrave(query, key) {
         const results = data.web?.results || [];
         return results.map(r => `[${r.title}]\n${r.description || ''}\nURL: ${r.url}`).join('\n\n---\n\n');
     } catch (e) {
-        return null;
+        return null;   // incluye AbortError por timeout
     }
 }
 

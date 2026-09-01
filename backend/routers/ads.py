@@ -585,7 +585,7 @@ async def admin_anunciantes_list(request: Request, q: str = ""):
     return {"anunciantes": advertisers}
 
 @router.get("/ads/active")
-async def get_active_ad(slot: str = "slot1", zone: str = ""):
+async def get_active_ad(request: Request, slot: str = "slot1", zone: str = ""):
     """Devuelve un anuncio activo aprobado para el slot/zona. Endpoint público."""
     query: Dict[str, Any] = {"slot": slot, "status": "active"}
     if zone:
@@ -600,7 +600,10 @@ async def get_active_ad(slot: str = "slot1", zone: str = ""):
     if not creative:
         return {"ad": None}
     default_durations = {"slot1": 30, "slot2": 30, "slot3": 15}
-    backend_url = os.environ.get("BACKEND_URL", "")
+    # ponytail: BACKEND_URL no está seteada en Railway → caía en "" y el frontend
+    # (otro origen, Vercel) pedía /uploads/... a su propio dominio (404). request.base_url
+    # siempre resuelve al dominio real que sirvió la request, sin depender de la env var.
+    backend_url = os.environ.get("BACKEND_URL", "") or str(request.base_url).rstrip("/")
     file_url = creative["file_url"]
     if not file_url.startswith("http"):
         file_url = f"{backend_url}{file_url}"
