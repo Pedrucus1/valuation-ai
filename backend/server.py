@@ -134,6 +134,73 @@ class _MetricsMiddleware:
 
 app.add_middleware(_MetricsMiddleware)
 
+
+class _ActivityLogMiddleware:
+    """ASGI puro (mismo patrón que _MetricsMiddleware, sin buffear body en general —
+    solo se acumula el body de la respuesta cuando status>=400, que siempre es JSON
+    chico; nunca se toca el streaming de /uploads). Persiste a db.activity_log para
+    que el admin vea errores sin depender de los logs de Railway."""
+    def __init__(self, app):
+        self.app = app
+
+    async def __call__(self, scope, receive, send):
+        if scope["type"] != "http":
+            return await self.app(scope, receive, send)
+        _t0 = _time.perf_counter()
+        state = {"code": 200, "body": b"", "capture": False}
+
+        async def _send(message):
+            if message["type"] == "http.response.start":
+                state["code"] = message["status"]
+                state["capture"] = state["code"] >= 400
+            elif message["type"] == "http.response.body" and state["capture"]:
+                state["body"] += message.get("body", b"") or b""
+            await send(message)
+
+        try:
+            await self.app(scope, receive, _send)
+        finally:
+            if state["code"] >= 400:
+                route = scope.get("route")
+                path = getattr(route, "path", None) or scope.get("path", "")
+                try:
+                    mensaje = state["body"][:500].decode("utf-8", errors="replace")
+                except Exception:
+                    mensaje = ""
+                asyncio.create_task(_log_activity_error(
+                    scope, path, state["code"], mensaje, (_time.perf_counter() - _t0) * 1000.0
+                ))
+
+
+async def _log_activity_error(scope, path, status_code, mensaje, duration_ms):
+    """Fire-and-forget: nunca debe tumbar el request real si Mongo falla."""
+    try:
+        from starlette.requests import Request as _StarletteRequest
+        from core.auth import get_current_user as _get_current_user
+        req = _StarletteRequest(scope)
+        email = None
+        try:
+            user = await _get_current_user(req)
+            email = user.email if user else None
+        except Exception:
+            pass
+        await db.activity_log.insert_one({
+            "tipo": "error",
+            "ts": datetime.now(timezone.utc).isoformat(),
+            "method": scope.get("method", ""),
+            "path": path,
+            "status": status_code,
+            "mensaje": mensaje,
+            "email": email,
+            "duration_ms": round(duration_ms, 1),
+            "ip": scope.get("client", ["", 0])[0],
+        })
+    except Exception:
+        pass
+
+
+app.add_middleware(_ActivityLogMiddleware)
+
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
 
@@ -163,6 +230,7 @@ from routers.cms import router as cms_router
 from routers.feedback import router as feedback_router
 from routers.admin_config import router as admin_config_router
 from routers.admin_misc import router as admin_misc_router
+from routers.admin_activity import router as admin_activity_router
 from routers.admin_inmobiliarias import router as admin_inmobiliarias_router
 from routers.admin_reportes import router as admin_reportes_router
 from routers.directorio import router as directorio_router
@@ -1469,7 +1537,11 @@ async def _run_motor(motor_input: dict) -> dict:
     try:
         _loop = asyncio.get_running_loop()
         proc = await asyncio.wait_for(_loop.run_in_executor(None, _run_motor_sync), timeout=55)
-    except (asyncio.TimeoutError, subprocess.TimeoutExpired):
+    except subprocess.TimeoutExpired as e:
+        partial = (e.stderr or b"").decode(errors="replace")[-2000:]
+        logger.error(f"Motor timeout — stderr parcial capturado:\n{partial}")
+        raise HTTPException(status_code=503, detail="Motor timeout")
+    except asyncio.TimeoutError:
         raise HTTPException(status_code=503, detail="Motor timeout")
     except Exception as e:
         raise HTTPException(status_code=503, detail=f"Motor error: {str(e) or type(e).__name__}")
