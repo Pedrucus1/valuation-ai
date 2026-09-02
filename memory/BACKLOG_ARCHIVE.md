@@ -5,6 +5,57 @@
 
 ---
 
+## 02 Sep 2026 — El cierre del 01-sep era falso: causa raíz real y 2 bugs escondidos más
+
+Sesión de continuación: verificar en frío el "cierre" del 01-sep del bug "Continuar Reporte". Se
+reprodujo el 503 sobre `val_908f730cbbf8` (El Roble, El Arenal) en menos de 5 minutos — el fix de
+JSON-LD del día anterior no era la causa raíz completa. Logs de Railway (MCP `railway`, recién
+autorizado en esta sesión) mostraron la traza real: el motor SÍ encontraba comps en varios pasos del
+fallback, pero **cada paso sobrescribía `compsIA` sin comparar con el anterior** — si el último paso
+(Gemini) fallaba con 0, borraba los comps reales que ya se habían encontrado. Bug de una sola línea de
+diseño, con semanas de vida, nunca detectado porque nadie había mirado los logs completos con el
+`_mark()` de diagnóstico que sí se agregó el 01-sep.
+
+Investigación previa a la corrección (a pedido del usuario, antes de tocar código): se revisó qué
+otras fuentes de datos ya existían pero no se usaban. Hallazgo clave: `buscar_comparables_browser.js`
+— scraper dedicado por portal (PINCALI/Propiedades.com fetch nativo, NOCNOK/CasasYTerrenos por API)
+— existía desde hace tiempo pero nunca se conectó al motor. Se investigó también si agregar más
+portales (Lamudi, Icasas, EasyBroker) valía la pena: EasyBroker se descartó rápido (API por
+cuenta/inmobiliaria individual, no hay endpoint centralizado — verificado en su documentación, no
+asumido); Lamudi quedó como spike pendiente (SERP client-side sin API expuesta en el HTML crudo,
+necesita captura de red con navegador real); se confirmó que Lamudi y Mitula comparten vocabulario de
+plataforma ("adform") sin ser el mismo dominio — mismo grupo (EMPG), scrapers distintos igual.
+
+Al revisar qué faltaba de tipos de propiedad por portal (pregunta del usuario: "¿ya se agregaron
+oficinas/locales en todos los portales?"), se encontró que la respuesta real era más matizada que la
+nota del backlog: INMUEBLES24/PINCALI/VIVANUNCIOS/CasasYTerrenos YA cubrían oficinas/locales/bodegas
+(algunos por diseño genérico, no necesitaban URL separada); el hueco real estaba solo en
+Propiedades.com (agregado hoy, con un slug corregido en vivo: `locales-venta`, no
+`locales-comerciales-venta` como se había asumido) y Mitula (limitación de portal ya documentada,
+no un olvido).
+
+Al intentar correr la prueba chica de los 4 municipios nuevos (El Arenal/Tala/Ixtlahuacán/San Isidro
+Mazatepec) en los 6 portales — corrección sobre el plan original: **no era solo PINCALI**, los 6
+portales tienen slugs sin verificar para estos municipios, confirmado leyendo `config.py` completo —
+se topó con un segundo bug escondido: `scrapers/pincali.py` no podía **importarse en absoluto** desde
+el commit `b54f818` (24-ago), por un docstring con una ruta Windows sin escapar (`\Users`)
+interpretada como escape unicode inválido. Bug de más de una semana, invisible porque nadie había
+intentado importar el módulo directamente (el batch runner probablemente también lo habría golpeado,
+explicando por qué el scraper de PINCALI llevaba desde julio sin correr).
+
+Fixes aplicados y verificados en local (pendiente confirmar en prod tras el push): cadena de fallback
+ahora acumula entre fuentes en vez de reemplazar; `buscar_comparables_browser.js` conectado como paso
+1b con modo `--json` nuevo; su `ZONAS[]` sincronizado con los 4 municipios nuevos; `pincali.py`
+arreglado; Propiedades.com con 3 tipos nuevos. El Roble/El Arenal resuelve en segundos con 4 comps
+reales de PINCALI en vez de 503 a los 45s (prueba local con `motor_remi_api.js` vía stdin).
+
+Quedó sin terminar: la corrida de prueba de los 4 municipios × 6 portales (corriendo en background al
+cerrar sesión — parcial visto: INMUEBLES24 0/4, PINCALI con bot-protection en El Arenal); el spike de
+Lamudi; y confirmar contra prod (Railway) que el deploy recogió el fix, ya que la última prueba contra
+prod fue anterior al commit.
+
+---
+
 ## 01 Sep 2026 — 503 mudo del motor CERRADO (JSON-LD real) + ads + log de actividad + auditoría de datos
 
 Sesión de bug-hunting larga arrancada por el usuario reportando error al picar "Continuar Reporte" en
