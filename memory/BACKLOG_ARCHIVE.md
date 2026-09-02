@@ -5,6 +5,83 @@
 
 ---
 
+## 01 Sep 2026 — 503 mudo del motor CERRADO (JSON-LD real) + ads + log de actividad + auditoría de datos
+
+Sesión de bug-hunting larga arrancada por el usuario reportando error al picar "Continuar Reporte" en
+un OPI de "El Roble, El Arenal". Cadena real reconstruida a pulso (Railway MCP + reproducción directa):
+zona sin comparables en caché → motor busca en vivo → Tavily/Serper solo devuelven **snippets** de
+páginas de listado sin precio visible → DeepSeek correctamente no inventa precio (por diseño) → 0 comps
+→ el motor se colgaba sin ningún timeout hasta que Python lo mataba a los 30s con 503 "Motor timeout"
+**completamente mudo** — se descubrió tras varias vueltas que Python descarta el stdout/stderr del
+subprocess al matarlo por `TimeoutExpired`, por eso nunca aparecía nada en los logs por más que se
+agregaran marcadores de diagnóstico. Fixes de timeout aplicados en cascada (Tavily/Serper/Brave 8s,
+Gemini 15s, DeepSeek 12s, margen subprocess 30s→45s) — ayudaron pero no resolvieron el fondo: el
+problema no era falta de timeout, era falta de DATO real en los snippets.
+
+**Fix de fondo (feature nueva):** `buscarCompsPaginasReales()` en `motor_remi_api.js` — en vez de
+conformarse con el snippet corto de Tavily, trae las URLs reales y LEE la página completa de cada una
+buscando el JSON-LD `RealEstateListing` (schema.org) que casi todo portal inmobiliario ya publica para
+SEO — dato estructurado real, sin necesidad de que una IA lo interprete/adivine. Verificado en vivo con
+"El Roble, El Arenal" (el usuario pegó 3 URLs reales de PINCALI/casasyterrenos que encontró a mano):
+encontró 4 casas reales, resolvió en 2 segundos (antes: 503/422 en 30-45s). Gotcha que costó una vuelta
+extra: PINCALI etiqueta sus terrenos como `SingleFamilyResidence` en el propio JSON-LD (dato de origen
+poco confiable) — el filtro real que sí funciona es recámaras>0 + m² de construcción en rango 30-1200,
+nunca confiar en el campo `@type` de schema.org.
+
+**Bug de ads invisibles, también cerrado:** dos capas. Primero `file_url` salía como ruta relativa
+(`BACKEND_URL` vacía en Railway, el frontend en otro dominio la pedía a sí mismo → 404). Arreglado con
+`request.base_url` como fallback — pero eso reveló una SEGUNDA capa: Railway termina TLS en su proxy y
+reenvía por `http://` internamente sin `ProxyHeadersMiddleware`, así que `request.base_url` seguía
+saliendo `http://` en una página `https://` → el navegador bloqueaba el video como mixed content. Fix
+final: arma la URL leyendo `X-Forwarded-Proto` del proxy.
+
+**Log de actividad/errores para el admin** (pedido explícito: "el admin está ciego, no sabe cuándo ni
+dónde sale un error, un programador necesita eso para poder buscar"). Se armó un plan corto en
+`EnterPlanMode` con alcance deliberadamente acotado — NO loguear cada click/movimiento de mouse (ruido +
+problema de privacidad sin valor real de debugging), sí loguear automáticamente cualquier respuesta
+`status>=400` vía un middleware ASGI nuevo (mismo patrón que el `_MetricsMiddleware` ya existente, sin
+buffear el body salvo cuando hay error) y persistirlo a `db.activity_log`. Bug propio detectado y
+arreglado en la misma sesión al hacer limpieza pre-cierre: se me olvidó el
+`app.include_router(admin_activity_router)` — el middleware sí escribía pero el endpoint de lectura no
+existía. Falta el frontend (`AdminActividad.jsx`) y los eventos de negocio manuales (login, valuación
+creada, reporte) — quedó en el plan guardado, no se llegó a esa parte.
+
+**Hallazgos mostrados al usuario sin resolver, a propósito (necesitan su decisión, no una corrección
+técnica):** (1) cuando faltan comparables reales, `generate_comparables` los **fabrica** con matemática
+aleatoria y les pega el nombre de un portal real + una URL con formato real pero inventada — se le
+mostró en vivo (captura con "El Roble" y 15 comparables, varios inventados); preguntado qué prefiere
+(no fabricar nada vs. etiquetar claro como "estimado sin fuente real"), no decidió todavía. (2) La
+selección de comparables de esa misma pantalla NO se usa para calcular la valuación final — el motor
+Node hace su propia búsqueda independiente, así que el usuario puede seleccionar 15 comparables y aun
+así que le salga "sin comparables" en el paso siguiente; confuso, el usuario lo notó solo. (3)
+`enrich-stream` es un endpoint que el frontend lleva tiempo llamando (para mostrar un anuncio durante
+un supuesto "enriquecimiento") pero que **nunca existió en el backend** — confirmado con `git log -S`
+que no hay ni un commit que lo haya creado alguna vez. 404 instantáneo, apaga el popup del anuncio en
+la misma fracción de segundo (por eso "no salía el ads" ahí específicamente). El usuario pidió
+construir el endpoint real — queda pendiente para la siguiente sesión.
+
+**Trabajo en paralelo (agente):** auditoría de calidad de `mercado_props` (8,875 activos) encontró y
+arregló 3 bugs reales — VIVANUNCIOS con 82% de sus precios en $0 (parser roto en el scraper, arreglado
+en `vivanuncios.py`), 220 colonias truncadas "ionamiento X" (bug histórico de over-stripping que se
+creía controlado, seguía vivo — 199 reparadas vía DeepSeek batch, 21 dejadas intactas por baja
+confianza en vez de adivinar), y 5 casas de lujo PINCALI con precio=0 (parse fail aislado). Todo con
+backup previo y reversión de un paso disponible.
+
+**`feedback_no_regex` reforzada por segunda vez:** al proponer (ni siquiera ejecutar) un fix con regex
+para las colonias truncadas, el usuario cortó de inmediato ("ya te lo había dicho 5 veces") — la
+excepción de la regla original ("solo para prefijos fijos y conocidos") queda revocada de facto:
+cualquier texto de colonia/dirección/municipio se trata como no confiable para string-matching, siempre
+DeepSeek/IA.
+
+**Housekeeping detectado de paso:** el frontend tenía 16 commits sin desplegar a Vercel desde julio
+(incluido un botón "Paso anterior" que el usuario pidió hace semanas y creía perdido — estaba
+commiteado, solo nunca se subió). Deploy pendiente de confirmación explícita del usuario. Se agregó una
+segunda cuenta de Tavily de respaldo (`TAVILY_API_KEY` apila keys por coma). Se prepararon 4 municipios
+nuevos + tipo bodegas para el scraper (`config.py`/`pincali.py`, repo `scraper-inmuebles`) a pedido
+explícito del usuario para lanzar en la siguiente sesión — slugs sin verificar todavía.
+
+---
+
 ## 24 Ago 2026 (noche, sesión 2) — Mini-reporte de 1 hoja + diseño de OPI de renta independiente
 
 Dos clientes (uno de flipping de casas, otro de bodegas en renta) pidieron un reporte de

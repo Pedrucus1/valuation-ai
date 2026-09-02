@@ -2,105 +2,106 @@
 
 > **Único archivo que se lee al iniciar** (corto, siempre vigente). Tareas por # → `BACKLOG.md` (grep). Historial → `BACKLOG_ARCHIVE.md`. Motor → `MOTOR_ANTECEDENTES.md` (grep). **Se sobrescribe en cada cierre de sesión.**
 
-**Última actualización:** 26 Ago 2026
-**Fase:** Prod Railway + Vercel público, estable. Sesión 25/26-ago: sobre el mini-reporte de 1 hoja (#164,
-cerrado 24-ago) se agregó el **ARV** (valor post-remodelación) y se construyó desde cero la **calculadora
-de viabilidad de flipping** (#167, `/flipping`) — margen neto + oferta máxima al dueño, con defaults
-calibrados a costos reales de México (no la regla del 70% de EE.UU.). Commit `0b1502e`, pusheado. Detalle
-completo en `BACKLOG.md` #164/#166/#167.
+**Última actualización:** 01 Sep 2026
+**Fase:** Prod Railway + Vercel. Sesión larga de bug-hunting: el botón "Continuar Reporte" tronaba
+(503 "Motor timeout") en zonas sin comparables en caché. Causa real encontrada tras varias vueltas
+(ver detalle abajo) y resuelta con una feature nueva: el motor ahora **lee la página completa** de
+los resultados de búsqueda (JSON-LD schema.org) en vez de solo el snippet corto, que nunca traía
+precio. Commits `4a62bf2`…`e53643c`, todos pusheados a origin y desplegados a Railway.
 
 ## 🔥 LO MÁS CALIENTE — qué sigue
 
-1. **Calculadora de flipping: hecha y verificada (#167).** `/flipping` (conectable a un avalúo vía
-   `?valuation_id=`, o standalone). Backend `routers/flipping.py` (guarda en `flipping_calcs` por
-   `user_id`, mismo patrón que `requisiciones.py`), toda la aritmética vive en el frontend. Verificado en
-   navegador: precarga de ARV/dirección, matemática correcta a mano, modo standalone, falla con gracia sin
-   sesión. **Pendiente real:** probar el guardado con un usuario logueado de verdad (solo se probó que
-   falla bien sin sesión) y decidir si se cobra con créditos o se deja libre (a propósito sin decidir hoy).
-2. **ARV en el mini-reporte: hecho (#164 extendido).** `generate-mini-report` corre el motor una 2ª vez con
-   `estadoConservacion:"remodelacion_completa"` y agrega `arv_estimado` + caja visible en el PDF. Verificado
-   con avalúo real: as-is $1,804,153 → ARV $3,312,085 (propiedad de 45 años).
-3. **Idea anotada para después, sin diseñar (#166):** calculadora de inversión para renta de
-   estudios/aparta-estudios, estilo "Vive de las Rentas" (rentabilidad bruta/neta, cash-on-cash).
-4. **Motor de OPI de renta independiente — diseño listo, falta construir (#165).** Hoy la renta es un factor
-   derivado de venta (`valor×0.005-0.006` o factor IA con pocos comparables), NO un estudio de comparables
-   de renta propio. Se analizaron las fórmulas reales del perito (`opi_perito.xlsx`, hojas "OPI Loc Com" y
-   "OPI Rentas"): la doble comprobación real es venta-homologada×factor **vs** comparables de renta directos
-   homologados. Diseño de `valuarRentaPropiedad()`/`factorRentaVenta()` guardado en memoria Claude
-   `project_propvalu_opi_renta_independiente` — decidir si se construye como función nueva en
-   `motor_remi_api.js` o motor separado antes de escribir código.
-5. **Fix recurrente: `starlette` se vuelve a subir de versión sola.** Un paquete MCP comparte el mismo Python
-   global (`pythoncore-3.14-64`) y a veces sube `starlette` a 1.6.0, incompatible con `fastapi==0.110.1`
-   (rompe el arranque local con `TypeError: Router.__init__() got an unexpected keyword argument 'on_startup'`).
-   Ya pasó dos veces (24-ago tarde y noche). Fix: `pip install starlette==0.37.2` — ahora SÍ pinneado en
-   `backend/requirements.txt` (pendiente de sesión anterior, ya commiteado esta sesión). Si vuelve a pasar,
-   revisar qué paquete MCP lo sube.
-6. **Federación con atlas-colonias: construida pero sin datos reales todavía.** El feed público
-   (`https://atlas-colonias-zmg.pedrucus.workers.dev/api/sync/feed`) está desplegado en Cloudflare y
-   PropValu ya tiene `ATLAS_COLONIAS_FEED_URL` apuntando ahí (variable puesta en Railway hoy). Pero la
-   base de datos nueva de Cloudflare está vacía — la real (con el trabajo de los peritos) sigue en la
-   versión de chatgpt.site, y un export de prueba (`kind=approved`) trajo 0 registros: **no hay
-   todavía ninguna clasificación aprobada de verdad en ningún lado**, no es un bug. Próximo paso real:
-   confirmar si hay propuestas *pendientes* de aprobar en chatgpt.site (no solo aprobadas), y decidir
-   si vale la pena mover ese flujo de revisión hacia el Atlas de Cloudflare a futuro.
-7. **Enricher del scraper APAGADO A PROPÓSITO (24-ago noche)** — los 3 shards (`enricher.py --shard 0/3, 1/3, 2/3`) entraron en loop de crash/relanzamiento (el watchdog los revivía cada ~200s, los 3 casi al mismo tiempo — huele a algo sistémico, no aislado, posible relación con el fix reciente "fallback muerto PINCALI"). Se mataron los 3 procesos y se detuvo el watchdog para cortar el loop. **Pendiente next session: diagnosticar por qué crashean los 3 juntos antes de relanzar.**
-8. **Causa raíz del "kill" del scraper SIGUE sin confirmar** (#156). Además la tarea de Windows `ScraperMonitorLocal` apunta a la carpeta VIEJA del scraper con credenciales de Mongo muertas (#162).
-9. **Migración de caché del motor Sheet→Mongo + `pm2t_semilla.json` — CERRADO (24-ago, #159).** Refrescado desde `cerebro_datos.json` actual + ponderación nueva por antigüedad de la OPI. Cero regresión, mejora consistente en los casos `lote_grande_cus` tocados. Detalle en `BACKLOG.md` #159.
-10. **Tavily agotado + Serper muerto desde 09-jul** (#161) — Brave Search cableado, falta API key real.
-11. **PINCALI en español sigue caído** (#151). Diferido a propósito. **Confirmado 24-ago (sesión aparte, tarde):** es AWS WAF (`x-amzn-waf-action: challenge`), bloquea ES y EN por igual incluso con `requests` plano — no es un tema de idioma, es sitewide. Se corrigió un bug real en `enricher.py`: el detector de bloqueo no reconocía la página de challenge AWS WAF (título vacío) y la guardaba como "éxito" con contenido basura — ya detecta también `awsWafCookieDomainList`. **Posible relación con el crash-loop del ítem 5 de arriba** — revisar si este fix o el "fallback ES eliminado" (mismo día) tiene algo que ver antes de relanzar el enricher.
-12. **Automatización real del scraper mensual — sin decidir** (#152-154).
-13. **Carpeta vieja del scraper (`C:\Users\pedru\valuation-ai\scraper-inmuebles`) documentada 24-ago:** no es "toda obsoleta" — hospeda `orquestador_ia.py`/`monitor_local.py` (activos, corren 24/7, pueden auto-fix+push su propio repo git `Pedrucus1/scraper-inmuebles`), pero `enricher.py`/`scheduler.py`/`scrapers/*` ahí SÍ divergen del método real. README de esa carpeta actualizado con el detalle exacto para no repetir la confusión (ver memoria `feedback_scraper_carpetas_divergentes`).
-
-## 🔐 Seguridad — cambio de hoy
-- `/auth/register` (perito e inmobiliaria, mismo endpoint) no verificaba correo — cerrado con flujo
-  completo de verificación (`User.email_verified`, `/auth/verify-email`, `/auth/resend-verification`,
-  mismo patrón JWT que forgot-password). El guard `require_admin_or_credentialed_contributor` ahora lo
-  exige antes de dejar proponer contenido. Hallazgo alto de un audit de 3 agentes corrido hoy mismo
-  (seguridad/despliegue/páginas) — ver `project_propvalu.md` para el detalle de los otros hallazgos
-  (rate limit agregado, fuga de email en perfiles rechazados corregida del lado del Atlas).
-
-## 🧠 Motor — sesión larga de depreciación por edad (24-ago noche)
-- **Gate CUS 0.65: CERRADO.** Confirmado en código (`motor_remi_api.js:829`, revalidado 07-ago sobre 210 OPIs). No es pendiente.
-- **Ross-Heidecke investigado a fondo con un avalúo SHF real (folio 26080015287) — hallazgos importantes:**
-  1. RH cuadrático SÍ es la fórmula real del perito (`Fed=1-0.5*(x+x²)`), pero con **vida útil=70 fija**, no condicionada a calidad como asumía la regla vieja (un caso Interés Social real usó vida=70). Corregido en `server.py::_depreciacion_lab()` (commit `97e8620`) — solo afecta `result_lab_rh`, campo paralelo en observación, NO toca `estimated_value`.
-  2. **El perito real NO blendea físico+mercado** — usa 100% mercado, físico solo de referencia. `server.py` sí hace blend 80/20 fijo siempre — esa arquitectura es la pieza mal diseñada, no la curva de edad. Validado contra 614 OPIs + 22 avalúos reales de PropValu: cambiar solo la curva mueve <1% en promedio (blend+clamp ±30% amortiguan casi todo).
-  3. **El motor JS (`motor_remi_api.js`) NO usa RH para el flujo normal de comparables** — solo aparece en `sumaDePartes()` (fallback raro cuando faltan comps). El flujo normal deprecia por edad con `factorEdad` propio (K=0.010/GAP=25/piso 0.55 en pool `exacta`, con discriminante `_segRatio`) — ya calibrado y en prod, no se tocó hoy.
-  4. **Pendiente real, sin decidir:** si se quita el blend 80/20 de `server.py` (usar 100% comparativo + físico como referencia aparte, como el perito real), ahí sí valdría reevaluar la curva de edad de nuevo. Detalle completo en `MOTOR_ANTECEDENTES.md`.
-- **`colonias_decada.json`: cableado en `backend/` (edades/crowdsourcing), NO en el motor JS.** Son dos sistemas distintos — cerrado para su propósito actual.
-- **Tavily agotado: confirmado, sigue pendiente.** Free tier 1,000 req/mes se agota con uso normal (no es bug). `BRAVE_API_KEY` sigue sin existir en `.env` — el fallback cableado no tiene key real todavía.
-
-## 🏗️ Infra / datos
-- **Backend local no arrancaba (causa raíz encontrada 24-ago):** `starlette` local estaba en 1.6.0 (subida sin querer por un paquete MCP compartiendo el mismo Python global) — incompatible con `fastapi==0.110.1` pinneado en `requirements.txt`. Arreglado localmente con `pip install starlette==0.37.2`. **`requirements.txt` NO tiene `starlette` pinneado explícito** — pendiente decidir si agregarlo para que no se rompa de nuevo si algo más toca ese Python compartido.
-- Railway (backend): deploy manual `railway up --detach` de git, PERO hoy se agregó
-  `ATLAS_COLONIAS_FEED_URL` vía Railway MCP (`set-variables`) — eso sí dispara redeploy automático,
-  confirmado `SUCCESS`. Vercel (frontend): deploy manual `vercel --prod`.
-- MongoDB: prod real = `cluster0.9eliadx`; backend local → `cluster1.avle5ez` (staging).
-- Colecciones Mongo nuevas hoy: `colonia_classifications_atlas`, `classifier_profiles_atlas`,
-  `colonia_sync_status`, `colonia_sync_log` (espejo del feed de atlas-colonias, ver
-  `routers/atlas_colonias.py`).
-- Scraper: `scheduler.py` con progreso incremental de 30 días + pausa por portal — sin tocar hoy.
-- **Nuevo:** atlas-colonias tiene ahora dos deploys — `chatgpt.site` (app completa, login ChatGPT,
-  donde trabajan los peritos) y `atlas-colonias-zmg.pedrucus.workers.dev` (Cloudflare directo, solo
-  sirve el feed público `/api/sync/*`, sin datos reales todavía). Cuenta Cloudflare:
-  `f6e265958283af0851cb2d6483974436`. D1: `atlas-colonias-zmg-db`
-  (`507af7a8-2518-416e-bf99-818603fb727a`).
-- **Nuevo:** mapa de qué vive en qué proveedor de hosting y opciones de consolidación en
-  `Manual-Arquitectura-ZMG/INFRAESTRUCTURA_Y_COSTOS.md` (Railway, Vercel, Mongo Atlas, Cloudflare,
-  OpenAI Sites — 5 proveedores hoy, solo Vercel→Railway vale la pena fusionar).
+1. **Bug de "Continuar Reporte" — RESUELTO (verificar una vez más en frío).** Cadena real: zona sin
+   comps en caché → motor busca en vivo → **Tavily/Serper solo devuelven snippets de páginas de
+   listado, sin precio visible** → DeepSeek correctamente no inventa precio → 0 comps → antes esto
+   colgaba el subprocess Python hasta morir a los 30s (503 mudo, sin ningún log). Fixes aplicados en
+   `motor_remi_api.js` y `server.py`:
+   - Timeout explícito (AbortController) en Tavily/Serper/Brave (8s) y Gemini (15s) — antes ninguno
+     tenía límite.
+   - `subprocess.run` de Python: 30s→45s de margen.
+   - **Feature nueva (la que de verdad arregla el fondo):** `buscarCompsPaginasReales()` — trae las
+     URLs reales de Tavily y lee cada página completa buscando el JSON-LD `RealEstateListing` que
+     casi todo portal ya expone para SEO (dato estructurado, sin IA, sin inventar). Probado en vivo
+     con "El Roble, El Arenal": encontró 4 casas reales de PINCALI, resolvió en 2s (antes: 503/422 en
+     30-45s). **Gotcha real que costó tiempo:** PINCALI etiqueta terrenos como `SingleFamilyResidence`
+     en su propio JSON-LD — el filtro no puede confiar en `@type`, usa recámaras>0 + m² en rango de
+     vivienda (30-1200) como señal real.
+   - Se agregó logging de diagnóstico (`_mark()` en el motor + captura de `stderr` parcial en
+     `server.py` en el `except TimeoutExpired`) — antes Python descartaba TODO el stdout/stderr del
+     motor cuando lo mataba por timeout, por eso nunca se veía nada en los logs de Railway pase lo
+     que pase. Dejar el logging (barato, útil); quitar los `_mark()` de una vez que se confirme que
+     no vuelve a fallar en frío.
+2. **Bug de ads — RESUELTO.** `file_url` salía como ruta relativa (`BACKEND_URL` vacía en Railway) y
+   además con `http://` cuando `request.base_url` no respeta el proxy de Railway (TLS termina ahí,
+   reenvía por http). Fix: arma la URL desde `X-Forwarded-Proto` + `request.url.hostname`.
+   Verificado en prod: `file_url` ya sale `https://propvalu-backend-production.up.railway.app/...`.
+3. **Log de actividad/errores para el admin — construido, falta probar en el navegador.** Pedido
+   explícito del usuario ("el admin está ciego"). Middleware `_ActivityLogMiddleware` en `server.py`
+   persiste a `db.activity_log` cualquier respuesta `status>=400` (path, status, mensaje, email si hay
+   sesión, IP, duración) — nunca loguea clicks/movimientos (ruido + privacidad, decisión explícita).
+   Endpoint de lectura `GET /api/admin/activity-log` en `routers/admin_activity.py` (protegido con
+   `require_admin`, filtros por tipo/texto, paginado). **Bug propio detectado y arreglado ya en esta
+   misma sesión:** se me olvidó el `app.include_router(admin_activity_router)` — el middleware sí
+   escribía pero el endpoint de lectura no existía (commit `e53643c`). **Falta: página nueva
+   `AdminActividad.jsx` en el frontend** (el plan completo quedó en
+   `C:\Users\pedru\.claude\plans\adaptive-giggling-pixel.md` — el backend del plan está hecho, el
+   frontend no) y los ~8-10 `insert_one` de eventos de negocio (login/registro/valuación creada/
+   reporte) que el plan también contemplaba y no se llegaron a agregar.
+4. **Comparables simulados/inventados en `generate_comparables` — sin resolver, pendiente decisión
+   del usuario.** `server.py:934-994`: cuando hay <10 comparables reales, el sistema **fabrica** los
+   que faltan con matemática aleatoria y les pega el nombre de un portal real + una URL con formato
+   real pero falsa (`https://www.inmuebles24.com/inmueble/548213`). Se le mostró esto al usuario en
+   vivo (captura de "El Roble" con 15 comparables, varios inventados). Preguntado qué hacer, no se
+   decidió nada todavía. Además: **la selección de comparables del usuario en esa pantalla NO se usa
+   para calcular la valuación** — `calculate-remi` hace su propia búsqueda desde cero vía el motor
+   Node, ignorando lo que el usuario seleccionó (está comentado así en el código a propósito, pero es
+   confuso para el usuario — vio 15 comps y le salió "sin comparables" en el paso siguiente).
+5. **`enrich-stream` — endpoint que el frontend llama pero NUNCA existió en el backend.**
+   `ComparablesPage.jsx:177` abre un `EventSource` a `/valuations/{id}/enrich-stream` para mostrar un
+   anuncio (`AdPopup`) mientras "enriquece" comparables — 404 instantáneo, `es.onerror` apaga el
+   popup en la misma fracción de segundo (por eso "no salía el ads" ahí). El usuario pidió
+   explícitamente construir el endpoint real (streaming SSE que enriquezca con IA en vivo) — **no se
+   llegó a hacer esta sesión**, queda para la siguiente.
+6. **Frontend con 16 commits sin desplegar a Vercel** (detectado hoy: el botón "Paso anterior" que el
+   usuario pidió hace semanas SÍ está commiteado desde el 21-jul pero nunca se hizo `vercel --prod`
+   después). El deploy quedó **pendiente de confirmación del usuario** (bloqueado por el modo
+   automático, requiere aprobación explícita) — avisarle que hace falta correr `vercel --prod` desde
+   `frontend/`.
+7. **Scraper: 4 municipios + tipo bodegas agregados a `config.py`/`pincali.py`, SIN correr todavía**
+   (commit `aca5f36` en el repo `scraper-inmuebles`, pedido explícito "para la siguiente sesión lo
+   aventamos"). Nuevos: El Arenal, Tala, Ixtlahuacán de los Membrillos, San Isidro Mazatepec — slugs
+   de URL **sin verificar**, probar con corrida chica antes de lanzar en serio. También falta:
+   locales-comerciales/oficinas/bodegas con venta+renta en TODOS los portales y municipios (solo
+   INMUEBLES24 los soporta completos hoy; PINCALI solo tenía bodegas agregado esta sesión;
+   `propiedades_com.py` solo soporta casas/deptos/terrenos, no se le agregó nada por no tener slugs
+   confirmados). El usuario avisa cuándo lanzar el enricher de PINCALI — no lanzado esta sesión.
+8. **Cuenta de respaldo Tavily agregada** (segunda cuenta, plan Free 1,000/mes) — key apilada en
+   `TAVILY_API_KEY` separada por coma (local `.env` + Railway), el motor ya soporta múltiples keys y
+   cae a la siguiente si una se agota (`_webKeys()`).
+9. **Auditoría de calidad de datos de `mercado_props` (8,875 activos) — 3 bugs reales encontrados y
+   arreglados** por un agente en paralelo: (1) VIVANUNCIOS con 82% de precios en $0 — parser roto en
+   el scraper, arreglado (`vivanuncios.py`, commit `840ac6f` en repo `scraper-inmuebles` — ojo, quedó
+   en el checkout activo `C:\Users\pedru\valuation-ai\scraper-inmuebles`, no en la copia anidada
+   vieja); 269 docs viejos marcados `activo=False` (no recuperables). (2) 220 colonias truncadas
+   "ionamiento X" (debía ser "Fraccionamiento X") — 199 reparadas vía DeepSeek (nunca regex, ver
+   memoria `feedback_no_regex` reforzada esta sesión), 21 dejadas intactas por baja confianza.
+   (3) 5 casas de lujo PINCALI con precio=0 — marcadas inactivas. Backups de todo antes del cambio.
+10. **Reforzado en memoria (regla dura, dos reincidencias ya):** NUNCA regex/`.replace()` para
+    limpiar/normalizar colonia, dirección o municipio — ni para "solo quitar un prefijo fijo",
+    siempre DeepSeek/IA. Ver `feedback_no_regex` en memoria global.
 
 ## ⏳ Pendientes de sesiones anteriores (sin tocar hoy, siguen abiertos)
 - **19-ago, Identificador de Edad + fuente única: CERRADO completo (Fases 0-3).** Ver `project_manual_arquitectura.md`.
-- **RESUELTO hoy** (era el pendiente #1 de la sesión 19-ago): diseño de cómo enlazar `colonias_decada.json` / Mongo PropValu / atlas-colonias — el plan de federación completo (`Manual-Arquitectura-ZMG/PLAN_FEDERACION_ECOSISTEMA.md`) tiene las 8 fases documentadas, 0-6 construidas.
-- **17-ago:** `colonias_decada.json` — correcciones de municipio, homónimas cerradas, `colonias-confianza-web` conectada.
+- `colonias_decada.json` / federación con atlas-colonias: diseño completo, 0-6 de 8 fases construidas.
 - Rediseño hoja 2 A4 EstateElite (pedir dirección de diseño antes de construir).
 - Regenerar OPI val_0a773642bef5 (Virgen 3437, La Calma) — confirmar si el usuario ya lo probó.
 - Decisión 9-ago: NO self-hostear IA de reportes.
-- VIVANUNCIOS #157, MITULA #158.
+- MITULA #158 (excluido a propósito del caché, dato corrupto).
 - Ver `BACKLOG.md` tabla completa para el resto (#s 1-167).
 
 ## 🌐 URLs / accesos
-- **Sitio:** https://frontend-pedrucus-projects.vercel.app (alias: frontend-rosy-six-74.vercel.app)
-- **Backend API:** https://propvalu-backend-production.up.railway.app
+- **Sitio:** https://frontend-pedrucus-projects.vercel.app (alias: frontend-rosy-six-74.vercel.app) — **desactualizado, 16 commits atrás, falta `vercel --prod`**.
+- **Backend API:** https://propvalu-backend-production.up.railway.app (al día, deploy `e53643c`).
 - **Prod Mongo:** `cluster0.9eliadx.mongodb.net`
 - **Atlas de colonias (revisión, ChatGPT):** https://atlas-colonias-guadalajara.avaluosyarquit852538.chatgpt.site/
 - **Atlas de colonias (feed público, Cloudflare):** https://atlas-colonias-zmg.pedrucus.workers.dev
