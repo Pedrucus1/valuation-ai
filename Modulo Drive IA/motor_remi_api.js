@@ -536,7 +536,7 @@ Devuelve SOLO JSON:
             ],
             max_tokens: 1500,
             temperature: 0.0
-        });
+        }, { timeout: 12000 });
         const text = res.choices[0].message.content.trim()
             .replace(/^```json\n?/, '').replace(/\n?```$/, '');
         const m = text.match(/\{[\s\S]*"comparables"[\s\S]*\}/);
@@ -631,7 +631,7 @@ Responde SOLO con JSON, sin texto adicional:
             ],
             max_tokens: 1500,
             temperature: 0.2
-        });
+        }, { timeout: 12000 });
         const text = res.choices[0].message.content.trim()
             .replace(/^```json\n?/, '').replace(/\n?```$/, '');
         const m = text.match(/\{[\s\S]*"comparables"[\s\S]*\}/);
