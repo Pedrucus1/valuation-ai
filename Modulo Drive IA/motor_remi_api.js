@@ -411,6 +411,86 @@ async function buscarEnBrave(query, key) {
     }
 }
 
+// Tavily solo-URLs (no formatea texto): para ir a leer la página completa después.
+// Los snippets de búsqueda casi nunca traen precio/m² (son resúmenes de páginas de
+// listado, no de la ficha individual) — DeepSeek los descarta correctamente por falta
+// de dato real. La página individual SÍ trae el precio, casi siempre en JSON-LD
+// (schema.org RealEstateListing) que ya usan PINCALI/Inmuebles24/etc para SEO.
+async function buscarUrlsTavily(query, key) {
+    if (!key) return [];
+    try {
+        const res = await _fetchConTimeout('https://api.tavily.com/search', {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${key}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ query, max_results: 10, search_depth: 'basic', include_answer: false })
+        });
+        if (!res.ok) return [];
+        const data = await res.json();
+        return (data.results || []).map(r => r.url).filter(Boolean);
+    } catch (e) {
+        return [];
+    }
+}
+
+// Extrae RealEstateListing (schema.org JSON-LD) de una página — dato real y estructurado
+// que el propio portal publica para SEO, sin necesidad de IA para interpretarlo.
+function _extraerJsonLdListings(html) {
+    const out = [];
+    const blocks = html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g);
+    for (const m of blocks) {
+        let obj;
+        try { obj = JSON.parse(m[1]); } catch (e) { continue; }
+        const tipos = Array.isArray(obj['@type']) ? obj['@type'] : [obj['@type']];
+        if (!tipos.includes('RealEstateListing')) continue;
+        const precio = obj.offers?.[0]?.price || obj.offers?.price || 0;
+        const m2c = obj.floorSize?.value || 0;
+        // ponytail: el @type de schema.org NO es confiable (PINCALI etiqueta terrenos como
+        // "SingleFamilyResidence"). Señal real de que es casa/depto: tiene recámaras y el
+        // m² de construcción cae en rango plausible de vivienda, no de lote.
+        const esCasaODepto = (obj.numberOfBedrooms ?? 0) > 0 && m2c >= 30 && m2c <= 1200;
+        if (!precio || !esCasaODepto) continue;   // sin AI: exige dato explícito, igual que DeepSeek
+        out.push({
+            precio: Number(precio),
+            m2c: Number(m2c),
+            m2t: 0,
+            colonia: (obj.address?.addressLocality || '').toLowerCase(),
+            portal: 'jsonld',
+            url: obj.url || obj['@id'] || '',
+            recamaras: obj.numberOfBedrooms ?? null,
+            banos: obj.numberOfBathroomsTotal ?? null,
+        });
+    }
+    return out;
+}
+
+// Fallback más confiable que snippets+DeepSeek: trae las URLs reales de Tavily y LEE
+// la página completa de cada una (con timeout corto, en paralelo) buscando el JSON-LD
+// que casi todo portal ya expone. Si una página no tiene JSON-LD, se ignora esa URL
+// (no se manda a DeepSeek para no reintroducir el riesgo de precios inventados).
+const _PAGINA_FETCH_TIMEOUT_MS = 7000;
+async function buscarCompsPaginasReales(prop, tipoQ, query) {
+    const key = _webKeys('TAVILY_API_KEY')[0];
+    if (!key) return [];
+    const urls = (await buscarUrlsTavily(query, key)).slice(0, 10);
+    if (!urls.length) return [];
+    const paginas = await Promise.all(urls.map(async (u) => {
+        try {
+            const ctrl = new AbortController();
+            const t = setTimeout(() => ctrl.abort(), _PAGINA_FETCH_TIMEOUT_MS);
+            const r = await fetch(u, {
+                signal: ctrl.signal,
+                headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36' },
+            });
+            clearTimeout(t);
+            if (!r.ok) return [];
+            return _extraerJsonLdListings(await r.text());
+        } catch (e) {
+            return [];
+        }
+    }));
+    return paginas.flat();
+}
+
 // Cascada de búsqueda web: Tavily → Serper → Brave (todas admiten VARIAS keys separadas
 // por coma para apilar cuentas gratis). Si una key está agotada (null) pasa a la
 // siguiente proveedor → permite sumar cuentas gratis y caer a pago al crecer.
@@ -1321,14 +1401,24 @@ async function valuarPropiedadCompleto(prop) {
     const necesitaFallback = result.error === 'sin_comps' || result.nComps === 0;
 
     if (necesitaFallback) {
-        // 1. Serper (Google real) + DeepSeek extrae
-        _mark('fallback: antes de buscarCompsConWeb');
-        let compsIA = await buscarCompsConWeb(prop, simFb);
-        _mark('fallback: despues de buscarCompsConWeb, n=' + compsIA.length);
-        acumularComps(compsIA, prop, 'fallback');   // guardar comps web reales (Gemini no trae URL → se ignora)
-        let poolIA  = 'web';
+        // 1. Leer la página completa (JSON-LD real, sin IA) — más confiable que snippets.
+        const tipoQFb = (prop.tipo || 'casa').toLowerCase().includes('depto') ? 'departamento' : 'casa';
+        const queryFb = `${tipoQFb} en venta ${colNormFb} ${muniNormFb} Jalisco precio pesos m2 construccion`;
+        _mark('fallback: antes de buscarCompsPaginasReales');
+        let compsIA = await buscarCompsPaginasReales(prop, tipoQFb, queryFb);
+        _mark('fallback: despues de buscarCompsPaginasReales, n=' + compsIA.length);
+        let poolIA  = 'jsonld';
 
-        // 2. Gemini solo si Serper no encontró suficientes
+        // 2. Si la página completa no dio suficientes, snippets + DeepSeek
+        if (compsIA.length < 3) {
+            _mark('fallback: antes de buscarCompsConWeb');
+            compsIA = await buscarCompsConWeb(prop, simFb);
+            _mark('fallback: despues de buscarCompsConWeb, n=' + compsIA.length);
+            poolIA = 'web';
+        }
+        acumularComps(compsIA, prop, 'fallback');   // guardar comps web reales (Gemini no trae URL → se ignora)
+
+        // 3. Gemini solo si lo anterior no encontró suficientes
         if (compsIA.length < 3 && _gemini) {
             _mark('fallback: antes de buscarCompsGemini');
             compsIA = await buscarCompsGemini(prop, simFb, idxPm2c);
