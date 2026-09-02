@@ -1546,6 +1546,11 @@ async def _run_motor(motor_input: dict) -> dict:
     except Exception as e:
         raise HTTPException(status_code=503, detail=f"Motor error: {str(e) or type(e).__name__}")
 
+    # ponytail: debug temporal, ver marcadores MOTOR aunque el proceso salga bien (returncode 0)
+    _stderr_txt = proc.stderr.decode(errors="replace")
+    if "MOTOR" in _stderr_txt:
+        logger.error(f"Motor stderr (markers):\n{_stderr_txt[-2000:]}")
+
     if proc.returncode != 0:
         raise HTTPException(status_code=503, detail=f"Motor error: {proc.stderr.decode()[:200] or ('exit ' + str(proc.returncode))}")
 
