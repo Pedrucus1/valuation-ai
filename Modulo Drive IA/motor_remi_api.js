@@ -20,6 +20,10 @@
 
 require('dotenv').config({ path: '../.env' });
 const fs   = require('fs');
+// ponytail: diagnostico temporal para ubicar donde se cuelga el fallback web en prod
+// (subprocess.run pierde el stdout bufferizado si Python mata el proceso a mitad) —
+// writeSync a stderr es sincrono, nunca se pierde. Quitar una vez confirmada la causa.
+const _mark = (label) => { try { fs.writeSync(2, `[MOTOR ${new Date().toISOString()}] ${label}\n`); } catch (e) {} };
 const path = require('path');
 const { spawn } = require('child_process');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
@@ -491,10 +495,12 @@ async function buscarCompsConWeb(prop, similares) {
         ? `${tipoQ} en venta ${simsNombres.join(' OR ')} ${muni} Jalisco precio pesos m2`
         : null;
 
+    _mark('buscarCompsConWeb: antes de buscarWeb');
     const [snip1, snip2] = await Promise.all([
         buscarWeb(q1),
         q2 ? buscarWeb(q2) : Promise.resolve(''),
     ]);
+    _mark('buscarCompsConWeb: despues de buscarWeb');
 
     const todosSnippets = [snip1, snip2].filter(Boolean).join('\n\n═══\n\n');
     if (!todosSnippets.trim()) return [];
@@ -528,6 +534,7 @@ Devuelve SOLO JSON:
 {"comparables":[{"colonia":"...","precio":0,"m2c":0,"m2t":0,"url":"https://..."}]}`;
 
     try {
+        _mark('buscarCompsConWeb: antes de deepseek');
         const res = await _deepseek.chat.completions.create({
             model: 'deepseek-chat',
             messages: [
@@ -537,6 +544,7 @@ Devuelve SOLO JSON:
             max_tokens: 1500,
             temperature: 0.0
         }, { timeout: 12000 });
+        _mark('buscarCompsConWeb: despues de deepseek');
         const text = res.choices[0].message.content.trim()
             .replace(/^```json\n?/, '').replace(/\n?```$/, '');
         const m = text.match(/\{[\s\S]*"comparables"[\s\S]*\}/);
@@ -1314,13 +1322,17 @@ async function valuarPropiedadCompleto(prop) {
 
     if (necesitaFallback) {
         // 1. Serper (Google real) + DeepSeek extrae
+        _mark('fallback: antes de buscarCompsConWeb');
         let compsIA = await buscarCompsConWeb(prop, simFb);
+        _mark('fallback: despues de buscarCompsConWeb, n=' + compsIA.length);
         acumularComps(compsIA, prop, 'fallback');   // guardar comps web reales (Gemini no trae URL → se ignora)
         let poolIA  = 'web';
 
         // 2. Gemini solo si Serper no encontró suficientes
         if (compsIA.length < 3 && _gemini) {
+            _mark('fallback: antes de buscarCompsGemini');
             compsIA = await buscarCompsGemini(prop, simFb, idxPm2c);
+            _mark('fallback: despues de buscarCompsGemini, n=' + compsIA.length);
             poolIA  = 'gemini';
         }
 
