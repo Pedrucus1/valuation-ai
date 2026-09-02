@@ -1464,11 +1464,11 @@ async def _run_motor(motor_input: dict) -> dict:
         return subprocess.run(
             ["node", MOTOR_SCRIPT],
             input=json.dumps(motor_input).encode(),
-            capture_output=True, cwd=str(MOTOR_DIR), timeout=30,
+            capture_output=True, cwd=str(MOTOR_DIR), timeout=45,
         )
     try:
         _loop = asyncio.get_running_loop()
-        proc = await asyncio.wait_for(_loop.run_in_executor(None, _run_motor_sync), timeout=40)
+        proc = await asyncio.wait_for(_loop.run_in_executor(None, _run_motor_sync), timeout=55)
     except (asyncio.TimeoutError, subprocess.TimeoutExpired):
         raise HTTPException(status_code=503, detail="Motor timeout")
     except Exception as e:
