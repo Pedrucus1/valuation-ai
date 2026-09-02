@@ -1,32 +1,17 @@
 [
   {
-    "id_unico": "058fcd16658b1ac9911f2e8347e7dd4f",
-    "url_original": "https://inmuebles.nocnok.com/propiedad/casa-en-venta/jalisco/tonala/lomas-de-los-pajaros-id-nn-hr1000191",
-    "portal_origen": "NOCNOK",
+    "id_unico": "ca0de41e1df70089937b5b91ceef3d36",
+    "url_original": "https://www.casasyterrenos.com/propiedad/casa-venta-paseos-de-los-robles-fraccionamiento-el-roble-el-arenal-jal-3887865",
+    "portal_origen": "CASAS_Y_TERRENOS",
     "tipo_propiedad": "casa",
     "tipo_operacion": "venta",
-    "precio": 16000000,
-    "m2_construccion": 649,
-    "colonia": "Lomas de los Pájaros",
-    "municipio": "Tonalá",
+    "precio": 3500000,
+    "m2_construccion": 158,
+    "colonia": "Fraccionamiento El Roble",
+    "municipio": "El Arenal",
     "estado": "Jalisco",
     "moneda": "MXN",
-    "fecha_scraping": "2026-07-24T01:56:00.997Z",
-    "activo": true
-  },
-  {
-    "id_unico": "2ac4e9ec7b43d91cc1738b7145b9f15e",
-    "url_original": "https://propiedades.com/inmuebles/casa-en-venta-cenzontle-lomas-de-los-pajaros-jalisco-31403405",
-    "portal_origen": "PROPIEDADES_COM",
-    "tipo_propiedad": "casa",
-    "tipo_operacion": "venta",
-    "precio": 14800000,
-    "m2_construccion": 693,
-    "colonia": "Lomas de los Pájaros",
-    "municipio": "Tonalá",
-    "estado": "Jalisco",
-    "moneda": "MXN",
-    "fecha_scraping": "2026-07-24T01:56:00.999Z",
+    "fecha_scraping": "2026-09-02T05:54:32.816Z",
     "activo": true
   }
 ]
