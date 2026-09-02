@@ -491,6 +491,36 @@ async function buscarCompsPaginasReales(prop, tipoQ, query) {
     return paginas.flat();
 }
 
+// buscar_comparables_browser.js — scraper dedicado por portal (PINCALI/Propiedades.com fetch nativo,
+// NOCNOK/CasasYTerrenos por su API JSON), más confiable que la búsqueda web genérica pero limitado a
+// las zonas en su ZONAS[]. Se corre como subproceso Node con --json (stdout = solo el array de comps,
+// progreso va a stderr) — mismo patrón spawn+timeout que enrich_urls.py más abajo.
+const _BROWSER_SCRIPT = path.join(__dirname, 'buscar_comparables_browser.js');
+const _BROWSER_TIMEOUT_MS = 15000;
+async function buscarCompsBrowser(prop, tipoQ, m2C) {
+    if (!prop.colonia || !prop.municipio || !fs.existsSync(_BROWSER_SCRIPT)) return [];
+    return new Promise((resolve) => {
+        const args = [_BROWSER_SCRIPT, '--colonia', prop.colonia, '--municipio', prop.municipio,
+                      '--tipo', tipoQ, '--m2', String(m2C || 100), '--json'];
+        const ps = spawn(process.execPath, args, { cwd: __dirname });
+        let out = '';
+        const killer = setTimeout(() => { try { ps.kill(); } catch (e) {} resolve([]); }, _BROWSER_TIMEOUT_MS);
+        ps.stdout.on('data', d => { out += d; });
+        ps.on('close', () => {
+            clearTimeout(killer);
+            try {
+                const comps = JSON.parse(out || '[]');
+                resolve(comps.map(c => ({
+                    precio: c.precio, m2c: c.construccion, m2t: 0,
+                    colonia: (c.colonia || '').toLowerCase(), portal: c.fuente || 'browser',
+                    url: c.url || '', recamaras: null, banos: null,
+                })));
+            } catch (e) { resolve([]); }
+        });
+        ps.on('error', () => { clearTimeout(killer); resolve([]); });
+    });
+}
+
 // Cascada de búsqueda web: Tavily → Serper → Brave (todas admiten VARIAS keys separadas
 // por coma para apilar cuentas gratis). Si una key está agotada (null) pasa a la
 // siguiente proveedor → permite sumar cuentas gratis y caer a pago al crecer.
@@ -1407,23 +1437,45 @@ async function valuarPropiedadCompleto(prop) {
         _mark('fallback: antes de buscarCompsPaginasReales');
         let compsIA = await buscarCompsPaginasReales(prop, tipoQFb, queryFb);
         _mark('fallback: despues de buscarCompsPaginasReales, n=' + compsIA.length);
-        let poolIA  = 'jsonld';
+        let poolIA  = compsIA.length ? 'jsonld' : '';
 
-        // 2. Si la página completa no dio suficientes, snippets + DeepSeek
+        // Acumula comps de una fuente nueva sobre lo ya encontrado (dedup por URL) — cada fuente
+        // por sí sola puede no llegar a 3, pero combinadas sí. Nunca se descarta lo ya encontrado.
+        const _acumularFallback = (nuevos, label) => {
+            if (!nuevos.length) return;
+            const vistos = new Set(compsIA.filter(c => c.url).map(c => c.url));
+            const extra = nuevos.filter(c => !c.url || !vistos.has(c.url));
+            if (extra.length) {
+                compsIA = compsIA.concat(extra);
+                poolIA = poolIA ? poolIA + '+' + label : label;
+            }
+        };
+
+        // 1b. Scraper dedicado por portal (buscar_comparables_browser.js) — más confiable que
+        // snippets+DeepSeek cuando la zona está en su ZONAS[], antes de gastar los 15s de Gemini.
+        if (compsIA.length < 3) {
+            _mark('fallback: antes de buscarCompsBrowser');
+            const compsBrowser = await buscarCompsBrowser(prop, tipoQFb, m2C);
+            _mark('fallback: despues de buscarCompsBrowser, n=' + compsBrowser.length);
+            acumularComps(compsBrowser, prop, 'fallback');   // guardar comps reales aunque no se usen
+            _acumularFallback(compsBrowser, 'browser');
+        }
+
+        // 2. Si lo anterior no dio suficientes, snippets + DeepSeek
         if (compsIA.length < 3) {
             _mark('fallback: antes de buscarCompsConWeb');
-            compsIA = await buscarCompsConWeb(prop, simFb);
-            _mark('fallback: despues de buscarCompsConWeb, n=' + compsIA.length);
-            poolIA = 'web';
+            const compsWeb = await buscarCompsConWeb(prop, simFb);
+            _mark('fallback: despues de buscarCompsConWeb, n=' + compsWeb.length);
+            acumularComps(compsWeb, prop, 'fallback');   // guardar comps web reales aunque no se usen
+            _acumularFallback(compsWeb, 'web');
         }
-        acumularComps(compsIA, prop, 'fallback');   // guardar comps web reales (Gemini no trae URL → se ignora)
 
-        // 3. Gemini solo si lo anterior no encontró suficientes
+        // 3. Gemini solo si lo anterior no encontró suficientes (no trae URL → no se acumula al flywheel)
         if (compsIA.length < 3 && _gemini) {
             _mark('fallback: antes de buscarCompsGemini');
-            compsIA = await buscarCompsGemini(prop, simFb, idxPm2c);
-            _mark('fallback: despues de buscarCompsGemini, n=' + compsIA.length);
-            poolIA  = 'gemini';
+            const compsGem = await buscarCompsGemini(prop, simFb, idxPm2c);
+            _mark('fallback: despues de buscarCompsGemini, n=' + compsGem.length);
+            _acumularFallback(compsGem, 'gemini');
         }
 
         if (compsIA.length >= 3) {

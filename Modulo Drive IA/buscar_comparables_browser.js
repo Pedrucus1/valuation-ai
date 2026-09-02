@@ -64,6 +64,11 @@ const M2_MAX    = Math.round(M2 * 1.5);
 const COLONIA_N = normCol(COLONIA);
 const MUNI_N    = normMuni(MUNICIPIO);
 
+// --json: modo no interactivo para invocación desde motor_remi_api.js (fallback en vivo) —
+// silencia el progreso (a stderr) y termina imprimiendo SOLO el JSON de comps a stdout.
+const JSON_MODE = process.argv.includes('--json');
+const log = (...a) => { if (JSON_MODE) console.error(...a); else console.log(...a); };
+
 // Zonas/slugs por portal — copiado de scraper-inmuebles/config.py ZONAS (fuente de verdad).
 const ZONAS = [
     { municipio: 'Guadalajara',            estado: 'Jalisco', slug_pincali: 'guadalajara-jalisco',              slug_propiedades: 'guadalajara',              nocnok_county: '570' },
@@ -73,6 +78,11 @@ const ZONAS = [
     { municipio: 'Tlajomulco de Zúñiga',   estado: 'Jalisco', slug_pincali: 'tlajomulco-de-zuniga-jalisco',     slug_propiedades: 'tlajomulco-de-zuniga',     nocnok_county: '628' },
     { municipio: 'Chapala',                estado: 'Jalisco', slug_pincali: 'chapala-jalisco',                  slug_propiedades: 'chapala',                  nocnok_county: '561' },
     { municipio: 'Ajijic',                 estado: 'Jalisco', slug_pincali: 'ajijic-jalisco',                   slug_propiedades: 'ajijic',                   nocnok_county: null },
+    // Agregados 01-sep (commit aca5f36 en scraper-inmuebles/config.py) — slugs sin verificar en vivo.
+    { municipio: 'El Arenal',              estado: 'Jalisco', slug_pincali: 'el-arenal-jalisco',                slug_propiedades: 'el-arenal',                nocnok_county: null },
+    { municipio: 'Tala',                   estado: 'Jalisco', slug_pincali: 'tala-jalisco',                     slug_propiedades: 'tala',                     nocnok_county: null },
+    { municipio: 'Ixtlahuacán de los Membrillos', estado: 'Jalisco', slug_pincali: 'ixtlahuacan-de-los-membrillos-jalisco', slug_propiedades: 'ixtlahuacan-de-los-membrillos', nocnok_county: null },
+    { municipio: 'San Isidro Mazatepec',   estado: 'Jalisco', slug_pincali: 'san-isidro-mazatepec-jalisco',     slug_propiedades: 'san-isidro-mazatepec',     nocnok_county: null },
 ];
 
 function resolverZona(municipioInput) {
@@ -111,10 +121,10 @@ async function buscarEnPincali(zona) {
     if (!zona) return comparables;
     const tipoUrl = PINCALI_TIPO[TIPO] || 'houses';
     const url = `https://www.pincali.com/en/properties/${tipoUrl}-for-sale-in-${zona.slug_pincali}`;
-    console.log(`[PINCALI] Buscando en ${url}`);
+    log(`[PINCALI] Buscando en ${url}`);
 
     const r = await fetchTexto(url, PINCALI_HEADERS);
-    if (!r.ok) { console.log(`  Error HTTP ${r.status}`); return comparables; }
+    if (!r.ok) { log(`  Error HTTP ${r.status}`); return comparables; }
 
     // Cortar por tarjeta (div.property__component); regex-split porque no hay parser HTML instalado.
     const tarjetas = r.body.split(/<div[^>]*class="[^"]*property__component[^"]*"/i).slice(1);
@@ -162,20 +172,20 @@ async function buscarEnNocnok(zona) {
 
     const home = await fetchTexto('https://inmuebles.nocnok.com', {});
     const buildIdM = home.body.match(/"buildId"\s*:\s*"([^"]+)"/);
-    if (!buildIdM) { console.log('[NOCNOK] No se pudo obtener buildId'); return comparables; }
+    if (!buildIdM) { log('[NOCNOK] No se pudo obtener buildId'); return comparables; }
     const buildId = buildIdM[1];
 
     let detallesUsados = 0;
     for (let pagina = 1; pagina <= NOCNOK_MAX_PAGINAS && detallesUsados < NOCNOK_MAX_DETALLES; pagina++) {
         const searchUrl = `https://inmuebles.nocnok.com/api/properties/search?stateId=14&countyIds=${zona.nocnok_county}&operation=sale&pageNumber=${pagina}`;
         const r = await fetchTexto(searchUrl, {});
-        if (!r.ok) { console.log(`[NOCNOK] Error HTTP ${r.status} pág ${pagina}`); break; }
+        if (!r.ok) { log(`[NOCNOK] Error HTTP ${r.status} pág ${pagina}`); break; }
 
         let data;
         try { data = JSON.parse(r.body); } catch { break; }
         const items = data.data || [];
         if (!items.length) break;
-        console.log(`[NOCNOK] pág ${pagina} — ${items.length} items`);
+        log(`[NOCNOK] pág ${pagina} — ${items.length} items`);
 
         for (const item of items) {
             const precio = parseNum(item.price);
@@ -239,17 +249,17 @@ async function buscarEnCasasYTerrenos(zona) {
     if (!zona) return comparables;
 
     // 1er intento: filtrar neighborhood server-side (case-insensitive, confirmado con prueba real).
-    console.log(`[CasasYTerrenos] Buscando neighborhood~"${COLONIA}" en ${zona.municipio}`);
+    log(`[CasasYTerrenos] Buscando neighborhood~"${COLONIA}" en ${zona.municipio}`);
     let data = await _meilisearch([`municipality = "${zona.municipio}"`, 'isSale = true', `neighborhood = "${COLONIA}"`]);
     let hits = data?.hits || [];
 
     // Fallback: sin filtro de colonia (por si difiere en acentos/puntuación) + match client-side.
     if (!hits.length) {
-        console.log('  Sin match directo, probando sin filtro de colonia...');
+        log('  Sin match directo, probando sin filtro de colonia...');
         data = await _meilisearch([`municipality = "${zona.municipio}"`, 'isSale = true']);
         hits = data?.hits || [];
     }
-    if (!data) { console.log('  Error MeiliSearch'); return comparables; }
+    if (!data) { log('  Error MeiliSearch'); return comparables; }
     for (const hit of hits) {
         const precio = parseNum(hit.priceSale);
         const m2c = parseNum(hit.construction);
@@ -299,7 +309,7 @@ async function buscarEnPropiedadesCom(zona) {
     // 1er intento: URL directa por colonia (confirmada real 22-jul: {colonia-kebab}-{municipio-slug}).
     const colKebab = normCol(COLONIA).replace(/\s+/g, '-');
     const urlColonia = `https://propiedades.com/${colKebab}-${zona.slug_propiedades}/${tipoUrl}-venta`;
-    console.log(`[Propiedades.com] Buscando en ${urlColonia}`);
+    log(`[Propiedades.com] Buscando en ${urlColonia}`);
     let r = await fetchTexto(urlColonia, PROPCOM_HEADERS);
     let tarjetas;
 
@@ -308,9 +318,9 @@ async function buscarEnPropiedadesCom(zona) {
     } else {
         // Fallback: listado municipio-wide + match de colonia en el alt de cada tarjeta.
         const urlMuni = `https://propiedades.com/${zona.slug_propiedades}/${tipoUrl}-venta`;
-        console.log(`  Sin URL directa (HTTP ${r.status}), probando municipio-wide: ${urlMuni}`);
+        log(`  Sin URL directa (HTTP ${r.status}), probando municipio-wide: ${urlMuni}`);
         r = await fetchTexto(urlMuni, PROPCOM_HEADERS);
-        if (!r.ok || r.body.length < 5000) { console.log(`  Error HTTP ${r.status} o respuesta corta`); return comparables; }
+        if (!r.ok || r.body.length < 5000) { log(`  Error HTTP ${r.status} o respuesta corta`); return comparables; }
         tarjetas = _extraerTarjetasPropCom(r.body).filter(t => normCol(t.colonia) === COLONIA_N);
     }
 
@@ -373,25 +383,29 @@ async function main() {
         process.exit(1);
     }
 
-    console.log(`\nBuscando comparables: ${TIPO} en ${COLONIA}, ${zona.municipio} | m² sujeto: ${M2} (rango ${M2_MIN}-${M2_MAX})\n`);
+    log(`\nBuscando comparables: ${TIPO} en ${COLONIA}, ${zona.municipio} | m² sujeto: ${M2} (rango ${M2_MIN}-${M2_MAX})\n`);
 
     const todos = [];
     for (const fn of [buscarEnNocnok, buscarEnCasasYTerrenos, buscarEnPincali, buscarEnPropiedadesCom]) {
-        try { todos.push(...await fn(zona)); } catch (e) { console.log(`  Error: ${e.message}`); }
+        try { todos.push(...await fn(zona)); } catch (e) { log(`  Error: ${e.message}`); }
     }
 
     const dedup = deduplicar(todos);
 
-    console.log(`\n=== ${dedup.length} comparables encontrados ===`);
+    log(`\n=== ${dedup.length} comparables encontrados ===`);
     dedup.forEach((c, i) => {
         const pm2 = c.construccion > 0 ? Math.round(c.precio / c.construccion) : 0;
-        console.log(`${i + 1}. $${c.precio.toLocaleString()} | ${c.construccion}m² | $${pm2.toLocaleString()}/m² | ${c.colonia} [${c.fuente}]`);
+        log(`${i + 1}. $${c.precio.toLocaleString()} | ${c.construccion}m² | $${pm2.toLocaleString()}/m² | ${c.colonia} [${c.fuente}]`);
     });
 
     const docs = dedup.map(c => aSchemaMongo(c, zona));
     const outPath = path.join(__dirname, '_comparables_browser_temp.json');
     fs.writeFileSync(outPath, JSON.stringify(docs, null, 2));
-    console.log(`\nGuardado en ${outPath} (listo para insertar_comparables_ondemand.py --mongo)`);
+    log(`\nGuardado en ${outPath} (listo para insertar_comparables_ondemand.py --mongo)`);
+
+    // En modo --json, stdout lleva SOLO este JSON (todo lo demás fue a stderr vía log())
+    // para que el proceso que invoca (motor_remi_api.js) pueda hacer JSON.parse(stdout) directo.
+    if (JSON_MODE) console.log(JSON.stringify(dedup));
 
     return dedup;
 }
