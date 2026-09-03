@@ -59,8 +59,13 @@ const COLONIA   = args.colonia   || '';
 const MUNICIPIO = args.municipio || '';
 const TIPO      = (args.tipo || 'casa').toLowerCase();
 const M2        = parseFloat(args.m2 || 100);
-const M2_MIN    = Math.round(M2 * 0.5);
-const M2_MAX    = Math.round(M2 * 1.5);
+// Rango ANCHO de cordura (no relativo al m² del sujeto): este scraper llena mercado_props
+// para TODA la colonia, no solo comps de este avalúo puntual — filtrar 0.5x-1.5x descartaba
+// datos reales que sí sirven a otro sujeto de la misma zona (o a este, vía la banda ±40/60%
+// que ya aplica mongo_comparables.py al consumir). Caso real: "Fraccionamiento El Roble" en
+// El Arenal traía una quinta de 362m² contra un sujeto de 100m² — descartada antes por error.
+const M2_MIN    = 20;
+const M2_MAX    = 2000;
 const COLONIA_N = normCol(COLONIA);
 const MUNI_N    = normMuni(MUNICIPIO);
 
@@ -244,25 +249,34 @@ async function _meilisearch(filtros) {
     return res.json();
 }
 
+// hit.type de CasasYTerrenos viene capitalizado en español (confirmado real: "Casa").
+const CYT_TIPO = { casa: 'Casa', departamento: 'Departamento', terreno: 'Terreno' };
+
 async function buscarEnCasasYTerrenos(zona) {
     const comparables = [];
     if (!zona) return comparables;
+    const tipoCyt = CYT_TIPO[TIPO] || 'Casa';
 
     // 1er intento: filtrar neighborhood server-side (case-insensitive, confirmado con prueba real).
     log(`[CasasYTerrenos] Buscando neighborhood~"${COLONIA}" en ${zona.municipio}`);
-    let data = await _meilisearch([`municipality = "${zona.municipio}"`, 'isSale = true', `neighborhood = "${COLONIA}"`]);
+    let data = await _meilisearch([`municipality = "${zona.municipio}"`, 'isSale = true', `type = "${tipoCyt}"`, `neighborhood = "${COLONIA}"`]);
     let hits = data?.hits || [];
 
     // Fallback: sin filtro de colonia (por si difiere en acentos/puntuación) + match client-side.
     if (!hits.length) {
         log('  Sin match directo, probando sin filtro de colonia...');
-        data = await _meilisearch([`municipality = "${zona.municipio}"`, 'isSale = true']);
+        data = await _meilisearch([`municipality = "${zona.municipio}"`, 'isSale = true', `type = "${tipoCyt}"`]);
         hits = data?.hits || [];
     }
     if (!data) { log('  Error MeiliSearch'); return comparables; }
     for (const hit of hits) {
+        // Bug real (02-sep): no había filtro de tipo — un terreno pedido devolvía las mismas
+        // casas y se guardaban mal etiquetadas como terreno. `type` server-side + chequeo aquí
+        // por si el valor no matchea exacto.
+        if ((hit.type || '') !== tipoCyt) continue;
         const precio = parseNum(hit.priceSale);
-        const m2c = parseNum(hit.construction);
+        // Terreno: el $/m² relevante es el de la SUPERFICIE, no construcción (no aplica/es 0).
+        const m2c = TIPO === 'terreno' ? parseNum(hit.surface) : parseNum(hit.construction);
         const colonia = hit.neighborhood || '';
         if (!(precio > 100000 && precio < 50000000)) continue;
         if (!(m2c >= M2_MIN && m2c <= M2_MAX)) continue;
@@ -349,7 +363,8 @@ function aSchemaMongo(c, zona) {
         tipo_propiedad: TIPO,          // canónico: casa/departamento/terreno (ya viene así del arg --tipo)
         tipo_operacion: 'venta',
         precio: c.precio,
-        m2_construccion: c.construccion,
+        // Terreno: el m² capturado es de SUPERFICIE, no construcción (no aplica).
+        ...(TIPO === 'terreno' ? { m2_terreno: c.construccion } : { m2_construccion: c.construccion }),
         colonia: c.colonia,
         municipio: zona.municipio,
         estado: zona.estado,

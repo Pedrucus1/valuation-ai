@@ -141,21 +141,23 @@ def main():
     )
     cutoff = ObjectId.from_datetime(started_at)
 
-    # 1. Scrape on-demand (ya existe, tal cual)
-    log(f"=== [1/4] Scraping {args.colonia}, {args.municipio} ===")
-    subprocess.run(
-        ["node", str(MODULO_DRIVE_IA / "buscar_comparables_browser.js"),
-         "--colonia", args.colonia, "--municipio", args.municipio,
-         "--tipo", args.tipo, "--m2", args.m2],
-        cwd=str(MODULO_DRIVE_IA), timeout=180,
-    )
-
-    # 2. Insert con dedup (ya existe, tal cual)
-    log("=== [2/4] Insertando en mercado_props ===")
-    subprocess.run(
-        [sys.executable, str(HERE / "insertar_comparables_ondemand.py"), str(TEMP_JSON)],
-        cwd=str(HERE), timeout=60,
-    )
+    # 1-2. Scrape + insert (ya existen, tal cual). También terreno (aparte de casa/depto)
+    # cuando el sujeto no es ya terreno: el motor de valuación de terreno (residual) necesita
+    # comparables de solo-tierra de la misma zona, no solo los de construcción.
+    tipos = [args.tipo] + (["terreno"] if args.tipo != "terreno" else [])
+    for tipo in tipos:
+        log(f"=== [1/4] Scraping {args.colonia}, {args.municipio} (tipo={tipo}) ===")
+        subprocess.run(
+            ["node", str(MODULO_DRIVE_IA / "buscar_comparables_browser.js"),
+             "--colonia", args.colonia, "--municipio", args.municipio,
+             "--tipo", tipo, "--m2", args.m2],
+            cwd=str(MODULO_DRIVE_IA), timeout=180,
+        )
+        log(f"=== [2/4] Insertando en mercado_props (tipo={tipo}) ===")
+        subprocess.run(
+            [sys.executable, str(HERE / "insertar_comparables_ondemand.py"), str(TEMP_JSON)],
+            cwd=str(HERE), timeout=60,
+        )
 
     nuevos = list(col.find({"_id": {"$gte": cutoff}}, {"portal_origen": 1, "colonia": 1}))
     portales = {d["portal_origen"] for d in nuevos if d.get("portal_origen")}
