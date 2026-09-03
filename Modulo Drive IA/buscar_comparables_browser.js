@@ -18,6 +18,7 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const { coloniasCercanas } = require('./_geo/proximidad.cjs');
 
 // normCol/normMuni copiadas de motor_remi_api.js (exportadas, pero requerir ese módulo
 // engancha listeners de stdin a nivel de módulo y cuelga este script) — misma lógica, no reinventada.
@@ -73,6 +74,17 @@ const MUNI_N    = normMuni(MUNICIPIO);
 // silencia el progreso (a stderr) y termina imprimiendo SOLO el JSON de comps a stdout.
 const JSON_MODE = process.argv.includes('--json');
 const log = (...a) => { if (JSON_MODE) console.error(...a); else console.log(...a); };
+
+// Ampliar a colonias realmente cercanas (no todo el municipio) usando el mismo catálogo
+// geográfico (SEPOMEX, nacional) que ya usa motor_remi_api.js en su cascada de fallback al
+// consumir comparables. Si la colonia del sujeto no está en el catálogo (ej. fraccionamiento
+// privado no oficial, como "El Roble"), coloniasCercanas devuelve [] y esto cae solo a la
+// colonia exacta — mismo comportamiento que antes, sin caso especial.
+const RADIO_KM = 3;
+const MAX_CERCANAS = 4;
+const CERCANAS = coloniasCercanas(COLONIA, MUNICIPIO, RADIO_KM).slice(0, MAX_CERCANAS);
+const COLONIAS_OBJETIVO = [COLONIA, ...CERCANAS.map(c => c.colonia)];
+const COLONIAS_OBJETIVO_N = new Set([COLONIA_N, ...CERCANAS.map(c => normCol(c.colonia))]);
 
 // Zonas/slugs por portal — copiado de scraper-inmuebles/config.py ZONAS (fuente de verdad).
 const ZONAS = [
@@ -152,7 +164,7 @@ async function buscarEnPincali(zona) {
         const barrioM = d.body.match(/Property Neighborhood[^:]*:?\s*&quot;([^&"]+)&quot;/i)
                      || d.body.match(/vecindario[^:]*:\s*([^<\n]{2,60})/i);
         const colonia = barrioM ? barrioM[1].trim() : '';
-        if (!colonia || normCol(colonia) !== COLONIA_N) continue;
+        if (!colonia || !COLONIAS_OBJETIVO_N.has(normCol(colonia))) continue;
 
         // Año: mismo fetch ES ya cargado — capturar "Año de construcción: 2012" / "A estrenar" (PINCALI_ENRICHER_NOTAS.md).
         let anio = null;
@@ -204,7 +216,7 @@ async function buscarEnNocnok(zona) {
 
             // Pre-filtro barato: 'location' de búsqueda trae "colonia, municipio, estado".
             const colonieRapida = (item.location || '').split(',')[0].trim();
-            let colonia = normCol(colonieRapida) === COLONIA_N ? colonieRapida : '';
+            let colonia = COLONIAS_OBJETIVO_N.has(normCol(colonieRapida)) ? colonieRapida : '';
             let anio = null;
 
             if (!colonia) {
@@ -216,7 +228,7 @@ async function buscarEnNocnok(zona) {
                 let det;
                 try { det = JSON.parse(d.body); } catch { continue; }
                 const settlement = det?.pageProps?.property?.settlement || '';
-                if (!settlement || normCol(settlement) !== COLONIA_N) continue;
+                if (!settlement || !COLONIAS_OBJETIVO_N.has(normCol(settlement))) continue;
                 colonia = settlement;
 
                 // yearBuilt: mismo detalle ya cargado — puede venir como edad-en-años o año directo
@@ -257,16 +269,24 @@ async function buscarEnCasasYTerrenos(zona) {
     if (!zona) return comparables;
     const tipoCyt = CYT_TIPO[TIPO] || 'Casa';
 
-    // 1er intento: filtrar neighborhood server-side (case-insensitive, confirmado con prueba real).
-    log(`[CasasYTerrenos] Buscando neighborhood~"${COLONIA}" en ${zona.municipio}`);
-    let data = await _meilisearch([`municipality = "${zona.municipio}"`, 'isSale = true', `type = "${tipoCyt}"`, `neighborhood = "${COLONIA}"`]);
-    let hits = data?.hits || [];
-
-    // Fallback: sin filtro de colonia (por si difiere en acentos/puntuación) + match client-side.
-    if (!hits.length) {
-        log('  Sin match directo, probando sin filtro de colonia...');
+    let data, hits;
+    if (CERCANAS.length) {
+        // Hay colonias cercanas reales que cubrir: una sola llamada municipio-wide (el filtro
+        // client-side por set ya recorta) en vez de una por colonia — más barato y MeiliSearch
+        // no soporta OR de neighborhood limpio.
+        log(`[CasasYTerrenos] Buscando en ${zona.municipio} (colonias: ${COLONIAS_OBJETIVO.join(', ')})`);
         data = await _meilisearch([`municipality = "${zona.municipio}"`, 'isSale = true', `type = "${tipoCyt}"`]);
         hits = data?.hits || [];
+    } else {
+        // Sin cercanas conocidas (colonia fuera del catálogo SEPOMEX): comportamiento original.
+        log(`[CasasYTerrenos] Buscando neighborhood~"${COLONIA}" en ${zona.municipio}`);
+        data = await _meilisearch([`municipality = "${zona.municipio}"`, 'isSale = true', `type = "${tipoCyt}"`, `neighborhood = "${COLONIA}"`]);
+        hits = data?.hits || [];
+        if (!hits.length) {
+            log('  Sin match directo, probando sin filtro de colonia...');
+            data = await _meilisearch([`municipality = "${zona.municipio}"`, 'isSale = true', `type = "${tipoCyt}"`]);
+            hits = data?.hits || [];
+        }
     }
     if (!data) { log('  Error MeiliSearch'); return comparables; }
     for (const hit of hits) {
@@ -280,7 +300,7 @@ async function buscarEnCasasYTerrenos(zona) {
         const colonia = hit.neighborhood || '';
         if (!(precio > 100000 && precio < 50000000)) continue;
         if (!(m2c >= M2_MIN && m2c <= M2_MAX)) continue;
-        if (!colonia || normCol(colonia) !== COLONIA_N) continue;
+        if (!colonia || !COLONIAS_OBJETIVO_N.has(normCol(colonia))) continue;
 
         const slugPath = (hit.slugs && hit.slugs.venta) || hit.canonical || '';
         comparables.push({ precio, construccion: m2c, colonia, fuente: 'CasasYTerrenos', url: 'https://www.casasyterrenos.com' + slugPath });
@@ -319,29 +339,31 @@ async function buscarEnPropiedadesCom(zona) {
     const comparables = [];
     if (!zona) return comparables;
     const tipoUrl = PROPCOM_TIPO[TIPO] || 'casas';
+    let tarjetas = [];
 
-    // 1er intento: URL directa por colonia (confirmada real 22-jul: {colonia-kebab}-{municipio-slug}).
-    const colKebab = normCol(COLONIA).replace(/\s+/g, '-');
-    const urlColonia = `https://propiedades.com/${colKebab}-${zona.slug_propiedades}/${tipoUrl}-venta`;
-    log(`[Propiedades.com] Buscando en ${urlColonia}`);
-    let r = await fetchTexto(urlColonia, PROPCOM_HEADERS);
-    let tarjetas;
+    // URL directa por colonia (confirmada real 22-jul: {colonia-kebab}-{municipio-slug}) — una
+    // por colonia objetivo (sujeto + cercanas reales), no todo el municipio.
+    for (const nombreColonia of COLONIAS_OBJETIVO) {
+        const colKebab = normCol(nombreColonia).replace(/\s+/g, '-');
+        const urlColonia = `https://propiedades.com/${colKebab}-${zona.slug_propiedades}/${tipoUrl}-venta`;
+        log(`[Propiedades.com] Buscando en ${urlColonia}`);
+        const r = await fetchTexto(urlColonia, PROPCOM_HEADERS);
+        if (r.ok && r.body.length >= 5000) tarjetas.push(..._extraerTarjetasPropCom(r.body));
+    }
 
-    if (r.ok && r.body.length >= 5000) {
-        tarjetas = _extraerTarjetasPropCom(r.body);
-    } else {
-        // Fallback: listado municipio-wide + match de colonia en el alt de cada tarjeta.
+    // Fallback (solo si ninguna URL directa dio resultado): listado municipio-wide + filtro cliente.
+    if (!tarjetas.length) {
         const urlMuni = `https://propiedades.com/${zona.slug_propiedades}/${tipoUrl}-venta`;
-        log(`  Sin URL directa (HTTP ${r.status}), probando municipio-wide: ${urlMuni}`);
-        r = await fetchTexto(urlMuni, PROPCOM_HEADERS);
+        log(`  Sin URL directa, probando municipio-wide: ${urlMuni}`);
+        const r = await fetchTexto(urlMuni, PROPCOM_HEADERS);
         if (!r.ok || r.body.length < 5000) { log(`  Error HTTP ${r.status} o respuesta corta`); return comparables; }
-        tarjetas = _extraerTarjetasPropCom(r.body).filter(t => normCol(t.colonia) === COLONIA_N);
+        tarjetas = _extraerTarjetasPropCom(r.body);
     }
 
     for (const t of tarjetas) {
         if (!(t.precio > 100000 && t.precio < 50000000)) continue;
         if (!(t.construccion >= M2_MIN && t.construccion <= M2_MAX)) continue;
-        if (normCol(t.colonia) !== COLONIA_N) continue;
+        if (!COLONIAS_OBJETIVO_N.has(normCol(t.colonia))) continue;
         comparables.push({ precio: t.precio, construccion: t.construccion, colonia: t.colonia, fuente: 'Propiedades.com', url: t.url });
     }
     return comparables;
@@ -398,7 +420,10 @@ async function main() {
         process.exit(1);
     }
 
-    log(`\nBuscando comparables: ${TIPO} en ${COLONIA}, ${zona.municipio} | m² sujeto: ${M2} (rango ${M2_MIN}-${M2_MAX})\n`);
+    log(`\nBuscando comparables: ${TIPO} en ${COLONIA}, ${zona.municipio} | m² sujeto: ${M2} (rango ${M2_MIN}-${M2_MAX})`);
+    log(CERCANAS.length
+        ? `Colonias cercanas (≤${RADIO_KM}km, catálogo SEPOMEX): ${CERCANAS.map(c => `${c.colonia} (${c.distancia_km}km)`).join(', ')}\n`
+        : `Sin colonias cercanas en catálogo — solo colonia exacta\n`);
 
     const todos = [];
     for (const fn of [buscarEnNocnok, buscarEnCasasYTerrenos, buscarEnPincali, buscarEnPropiedadesCom]) {

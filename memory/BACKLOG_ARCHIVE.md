@@ -5,6 +5,87 @@
 
 ---
 
+## 03 Sep 2026 — Cadena de bugs reales destapada siguiendo una sola OPI real hasta el fondo
+
+Sesión larga, un solo hilo: la OPI real "El Roble" (El Arenal, `val_908f730cbbf8`,
+pedrucus@gmail.com/inmobiliaria), probando cada fix contra producción real (no solo staging).
+
+**#171 CERRADO — comparables inventados eliminados.** `generate_comparables` fabricaba precios/URLs
+falsos con nombre de portal real cuando el pool real de `mercado_props` era corto (<10). Decisión del
+usuario: nunca fabricar. Si quedan <3 reales, dispara `ondemand_pipeline.py` (nuevo) en segundo plano:
+scrape por colonia (y terreno si el sujeto no lo es) → insert Mongo → `enricher.py --min-id` (flag
+nuevo, acota al lote recién insertado) → validación de colonia SEPOMEX+DeepSeek → `comparables_job`
+en la valuación. `ComparablesPage.jsx` muestra aviso con ETA y se auto-refresca sola cuando termina
+(llama `searchMoreComparables()` — sin esto el aviso quedaba sin efecto visible, bug propio detectado
+y corregido en la misma sesión). Campana de avisos conectada a datos reales en ambos dashboards
+(antes era un booleano local de KYC en Inmobiliaria, y no existía en Valuador).
+
+**#181 CERRADO — 2 bugs reales en el scraper on-demand**, encontrados al probar el pipeline contra
+"El Roble" y dar 0 resultados pese a que el usuario encontró listings reales a mano en Google:
+1. `buscar_comparables_browser.js` filtraba m² 0.5x-1.5x del SUJETO al momento de scrapear, no solo
+   al valuar — tiraba comps reales de la colonia que no aplicaban a esa OPI puntual pero sí a
+   `mercado_props` en general. Cambiado a rango de cordura fijo (20-2000m²): el ajuste fino por
+   tamaño del sujeto ya lo hace `mongo_comparables.py` al consumir, no hace falta repetirlo al scrapear.
+2. `buscarEnCasasYTerrenos` nunca filtraba por tipo de propiedad — pedir "terreno" devolvía las
+   mismas casas y las guardaba mal etiquetadas (mismo `id_unico`, sobrescribía `tipo_propiedad` en
+   cada upsert). Agregado filtro `type=` server-side + chequeo client-side; terreno ahora guarda en
+   `m2_terreno`, no `m2_construccion`.
+Verificado en vivo: El Roble pasó de 0 a 4 casas + 8 terrenos reales insertados en producción.
+
+**#182 CERRADO — bug viejo del motor (no de esta sesión), encontrado al intentar usar los terrenos
+recién scrapeados.** `medPm2Zona` salía 0 en `/calculate-remi` pese a haber datos reales ya en Mongo.
+Causa raíz: el motor no lee Mongo en vivo, lee `cache_index.json` (snapshot local) que se reconstruye
+**a mano, sin cron ni tarea programada** — confirmado 0 tareas relacionadas en Windows Task Scheduler,
+archivo con 22 días de atraso (12-ago). Y al correr la cadena de rebuild completa por primera vez en
+mucho tiempo, `construir_idx_valoracion.js`/`construir_nse_v2.js` daban SIEMPRE 0 colonias sin ningún
+error visible: leían campos legacy (`c`/`p`/`t`/`fs`) que `build_cache_index.js` dejó de escribir en
+algún punto (ahora `m2c`/`precio`/`m2t`/`fecha`) — un desfase de nombres de campo silencioso entre dos
+scripts que dejaron de estar sincronizados, probablemente la razón real por la que nadie corría este
+rebuild desde hace tanto (fallaba en silencio, sin señal de que valiera la pena reintentar). Corregido
+en ambos archivos. Tras el fix: `idx_valoracion` pasó de 0 a 1966 colonias (111 con terreno real),
+`colonias_nse_v2` de 0 a 875 (317 nuevas que no estaban en la capa "ganada" v1). Se confirmó leyendo
+`ARQUITECTURA_DATOS.md` que el diseño de 2 capas (`nse.v1` "ganada"/calibración manual del perito,
+prioridad 1 siempre, vs `nse.v2`/`idx` "derivada"/automática, prioridad 2) nunca se pisa entre sí — el
+rebuild es seguro de correr aunque algo salga mal, no puede degradar lo ya calibrado a mano por el
+perito. Nuevo orquestador `Modulo Drive IA/actualizar_indices_motor.js` encadena todo el pipeline
+Mongo-only (el `actualizar_todo.js` viejo tenía como primer paso una descarga de Sheets ya
+descontinuada, por eso no se reusó tal cual).
+
+**Cascade de fallback (colonia exacta → CUS/lote grande con superficie ampliada → similares por NSE
+cruzando municipio) ya existía y estaba calibrado** — `valuarLoteGrandeCUS` (validado 07-ago contra
+210 OPIs reales del perito) maneja exactamente el caso de lote grande/CUS bajo que motivó la pregunta
+del usuario sobre ampliar la búsqueda por superficie. No hacía falta escribir un cascade nuevo, como
+se pensó al inicio de la conversación sobre este tema. El bloqueo real en los 3 pasos del cascade era
+el mismo de siempre: los catálogos que lo alimentan (`colonias_nse*.json`, `colonias_similares*.json`,
+`pm2t_semilla.json`) solo cubren la ZMG (1,451 colonias, 0 de El Arenal) — confirmado además que
+`generar_similares_sepomex.js` (el generador de similares) sí es genérico, sin lista de municipios
+hardcodeada (`MUNIS_AMG_NORM` resultó ser solo una tabla de alias de nombres, no un filtro), así que
+ahora cataloga automáticamente cualquier municipio nuevo que aparezca en `cache_index.json`.
+
+**Flywheel de terreno confirmado por el perito** (nuevo, `db.terreno_flywheel`): campo opcional
+"Terreno $/m²" en `ComparablesPage.jsx`, junto al selector de negociación, antes de calcular. Decisión
+de diseño explícita tras discutirlo: la captura debía ser CONFIRMADA por el perito, no pasiva/
+automática como `comps_acumulados.ndjson` — el `land_value` calculado puede salir absurdo en zonas
+sin comps reales de terreno (visto en vivo: **$7.3M de terreno implícito para una casa completa de
+$2.3M** en El Roble, en ambos métodos de cálculo probados) y retroalimentar el motor con eso lo
+empeoraría en vez de mejorarlo. Pendiente que `build_pm2t_semilla.py` (hoy solo lee
+`cerebro_datos.json`, las 768 OPIs históricas del perito, más AC108 de hojas Excel) lea también esta
+colección nueva — anotado como #184e, no implementado esta sesión.
+
+**Pendiente identificado, no resuelto:** clasificar el NSE de terreno con la misma tabla de umbrales
+$/m² que se usa para casas (`construir_idx_valoracion.js`, `NSE_CATS`) puede no tener sentido
+metodológico — el suelo generalmente vale mucho menos por m² que lo construido, así que un terreno a
+$12,000/m² no debería caer en la misma categoría socioeconómica que una casa a $12,000/m² de
+construcción. El usuario tampoco está seguro del criterio correcto; queda para analizar con calma,
+impacto acotado por ahora (se compara terreno-vs-terreno casi siempre, el sesgo se cancela en la
+comparación relativa aunque la etiqueta mostrada pueda ser engañosa).
+
+Commits: `49154ee` (pipeline on-demand), `558a567` (fix refresco post-pipeline), `9b937f8` (fix m²/tipo
+scraper), `73cc617` (fix campos idx/nse), `c428b40` (flywheel terreno), `de7b8b2` (data: índices
+reconstruidos). Plan completo (2 fases) en `C:\Users\pedru\.claude\plans\crystalline-sniffing-gizmo.md`.
+
+---
+
 ## 02 Sep 2026 (noche) — Dos carpetas de scraper consolidadas en una + corrida real lanzada
 
 Sesión de continuación de la de la tarde (municipios nuevos). Se pidió repetir la prueba de INMUEBLES24

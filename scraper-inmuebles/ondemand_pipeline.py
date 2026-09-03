@@ -151,7 +151,7 @@ def main():
             ["node", str(MODULO_DRIVE_IA / "buscar_comparables_browser.js"),
              "--colonia", args.colonia, "--municipio", args.municipio,
              "--tipo", tipo, "--m2", args.m2],
-            cwd=str(MODULO_DRIVE_IA), timeout=180,
+            cwd=str(MODULO_DRIVE_IA), timeout=300,
         )
         log(f"=== [2/4] Insertando en mercado_props (tipo={tipo}) ===")
         subprocess.run(
