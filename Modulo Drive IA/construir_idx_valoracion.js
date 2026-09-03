@@ -101,7 +101,7 @@ function calcularEntrada(listings) {
     if (!listings.length) return null;
 
     // Preferir ventana temporal; fallback a todos
-    const recientes = listings.filter(l => dentroDeVentana(l.fs));
+    const recientes = listings.filter(l => dentroDeVentana(l.fecha));
     const base = recientes.length >= MIN_LISTINGS ? recientes : listings;
     if (base.length < MIN_LISTINGS) return null;
 
@@ -160,26 +160,26 @@ function main() {
                 const esTerr = tipo === 'terreno';
                 const aplicarCapM2C = tipo === 'casa' || tipo === 'depto';
 
-                // Puente mientras cache_consolidado no se regenera: si terreno tiene t=0 y c>0,
-                // usar c como área de terreno (mismo fix que actualizar_cache_consolidado.js).
+                // Puente mientras cache_consolidado no se regenera: si terreno tiene m2t=0 y m2c>0,
+                // usar m2c como área de terreno (mismo fix que actualizar_cache_consolidado.js).
                 const listings = esTerr
-                    ? data.listings.map(l => l.t === 0 && l.c > 0 ? { ...l, t: l.c, c: 0 } : l)
+                    ? data.listings.map(l => l.m2t === 0 && l.m2c > 0 ? { ...l, m2t: l.m2c, m2c: 0 } : l)
                     : data.listings;
 
                 // Filtro base de plausibilidad
                 const pm2Max = PM2_MAX_TIPO[tipo] || 100000;
                 const validos = listings.filter(l => {
-                    const sup = esTerr ? l.t : l.c;
+                    const sup = esTerr ? l.m2t : l.m2c;
                     if (!sup || sup <= 0) return false;
-                    if (aplicarCapM2C && l.c > M2C_MAX_RESIDENCIAL) return false;
-                    if (!l.p > 0) return false;
-                    const pm2Raw = l.p / sup;
+                    if (aplicarCapM2C && l.m2c > M2C_MAX_RESIDENCIAL) return false;
+                    if (!(l.precio > 0)) return false;
+                    const pm2Raw = l.precio / sup;
                     if (pm2Raw > pm2Max) return false; // preventa/desarrollo mal clasificado
                     return true;
                 }).map(l => ({
                     ...l,
-                    _sup: esTerr ? l.t : l.c,
-                    _pm2: l.p / (esTerr ? l.t : l.c),
+                    _sup: esTerr ? l.m2t : l.m2c,
+                    _pm2: l.precio / (esTerr ? l.m2t : l.m2c),
                 }));
 
                 if (!validos.length) continue;

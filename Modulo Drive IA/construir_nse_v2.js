@@ -74,19 +74,19 @@ function main() {
 
             // Filtrar listings residenciales (m²C plausible para casa)
             const residenciales = data.listings.filter(l =>
-                l.c > 0 && l.c <= M2C_MAX_RESIDENCIAL && l.p > 0
+                l.m2c > 0 && l.m2c <= M2C_MAX_RESIDENCIAL && l.precio > 0
             );
             descartados += data.listings.length - residenciales.length;
 
             // Intentar usar solo la ventana temporal; si no hay suficientes, usar todos
-            const enVentana = residenciales.filter(l => dentroDeVentana(l.fs));
+            const enVentana = residenciales.filter(l => dentroDeVentana(l.fecha));
             const base = enVentana.length >= MIN_LISTINGS ? enVentana : residenciales;
             const esTemporal = enVentana.length >= MIN_LISTINGS;
             if (esTemporal) usandoVentana++; else usandoFallback++;
 
             if (base.length < MIN_LISTINGS) continue;
 
-            const pm2s = base.map(l => l.p / l.c).filter(v => v > 100 && v < 500000);
+            const pm2s = base.map(l => l.precio / l.m2c).filter(v => v > 100 && v < 500000);
             if (pm2s.length < MIN_LISTINGS) continue;
 
             // Eliminar outliers p10-p90
