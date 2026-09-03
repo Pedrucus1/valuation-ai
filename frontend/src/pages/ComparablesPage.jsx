@@ -216,7 +216,11 @@ const ComparablesPage = () => {
   useEffect(() => {
     const status = valuation?.comparables_job?.status;
     if (status === "listo") {
+      // El pipeline solo guardó los comparables nuevos en mercado_props — hay que
+      // volver a pedirle a generate-comparables que arme la lista de la OPI con
+      // esos datos reales (si no, el aviso "listo" queda sin efecto visible aquí).
       toast.success(`Se encontraron ${valuation.comparables_job.encontrados || ""} comparables reales — actualizando`);
+      searchMoreComparables();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [valuation?.comparables_job?.status]);
