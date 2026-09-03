@@ -1541,7 +1541,7 @@ async def _run_motor(motor_input: dict) -> dict:
 
 
 @api_router.post("/valuations/{valuation_id}/calculate-remi")
-async def calculate_remi(valuation_id: str):
+async def calculate_remi(valuation_id: str, request: Request):
     """
     Calcula valor con motor Remi-Scraper (cache_index local, homologación directa $/m²C).
     No requiere comparables manuales — los busca automáticamente por colonia/municipio.
@@ -1553,6 +1553,27 @@ async def calculate_remi(valuation_id: str):
     prop = valuation.get("property_data", {})
     motor_input = _motor_input_from_prop(prop)
     result = await _run_motor(motor_input)
+
+    # Flywheel de terreno: si el perito confirma/ajusta un $/m² de terreno en pantalla
+    # (ComparablesPage, junto a negociación), se guarda como dato GANADO (validado por
+    # humano) — a diferencia del land_value calculado, que puede salir mal en zonas sin
+    # comps reales. Alimenta a futuro pm2t_semilla.json (build_pm2t_semilla.py).
+    try:
+        body = await request.json()
+    except Exception:
+        body = {}
+    terreno_pm2 = body.get("terreno_pm2_confirmado")
+    if terreno_pm2 and float(terreno_pm2) > 0:
+        await db.terreno_flywheel.insert_one({
+            "valuation_id": valuation_id,
+            "municipio": prop.get("municipality", ""),
+            "colonia": prop.get("neighborhood", ""),
+            "estado": prop.get("state", ""),
+            "m2_terreno": prop.get("land_area"),
+            "valor_m2": float(terreno_pm2),
+            "fuente": "perito_dashboard",
+            "fecha": datetime.now(timezone.utc).isoformat(),
+        })
 
     if result.get("error") and result.get("valor", 0) == 0:
         raise HTTPException(status_code=422, detail=result["error"])

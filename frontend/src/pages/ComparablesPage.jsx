@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -140,6 +141,8 @@ const ComparablesPage = () => {
 
   // Negotiation adjustment (combo, -1 to -10%, max 10%)
   const [negotiation, setNegotiation] = useState(-5);
+  // Valor de terreno $/m² confirmado por el perito (opcional) — flywheel de pm2t_semilla.
+  const [terrenoPm2, setTerrenoPm2] = useState("");
 
   useEffect(() => {
     fetchValuation();
@@ -430,7 +433,11 @@ const ComparablesPage = () => {
       // queda como verificación humana; el motor selecciona y calcula por su cuenta.
       const calcResponse = await fetch(`${API}/valuations/${valuationId}/calculate-remi`, {
         method: "POST",
-        credentials: "include"
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({
+          terreno_pm2_confirmado: terrenoPm2 ? Number(terrenoPm2) : null
+        })
       });
 
       if (!calcResponse.ok) throw new Error("Error al calcular valuación");
@@ -717,6 +724,20 @@ const ComparablesPage = () => {
                     ))}
                   </SelectContent>
                 </Select>
+              </div>
+              {/* Valor de terreno confirmado por el perito — flywheel: solo se guarda si lo llena */}
+              <div className="flex items-center gap-2">
+                <Label className="text-xs font-semibold text-slate-500 whitespace-nowrap">Terreno $/m² (opcional):</Label>
+                <Input
+                  type="number"
+                  min="0"
+                  step="1"
+                  value={terrenoPm2}
+                  onChange={(e) => setTerrenoPm2(e.target.value)}
+                  placeholder="ej. 2000"
+                  className="h-8 w-28 text-sm border-[#52B788] text-[#1B4332] font-semibold"
+                  data-testid="terreno-pm2-input"
+                />
               </div>
             </div>
 
