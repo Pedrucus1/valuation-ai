@@ -224,6 +224,7 @@ from core.auth import get_current_user, require_auth, require_admin, require_adm
 import hmac
 from core.accesos import _acceso_estado
 from core.pricing import PRECIOS_DEFAULT
+from core.config import SCRAPER_DIR
 from routers.access import router as access_router
 from routers.newsletter import router as newsletter_router
 from routers.cms import router as cms_router
@@ -1081,6 +1082,107 @@ async def generate_comparables(valuation_id: str, request: Request, append: bool
         "ai_providers_used": ai_providers_used,
         "comparables_job": comparables_job
     }
+
+@api_router.get("/valuations/{valuation_id}/enrich-stream")
+async def enrich_comparables_stream(valuation_id: str):
+    """SSE: enriquece in-place los comparables de la OPI a los que les falte
+    construction_area/land_area/age, abriendo su página de detalle (por URL,
+    ya guardada en source_url) y extrayendo esos campos.
+
+    Contrato (lo consume ComparablesPage.jsx, useEffect 'Iniciar enriquecimiento SSE'):
+      data: {"type":"enriched","comparable_id":"...","updates":{...}}\n\n   (uno por comparable enriquecido)
+      data: {"type":"done","enriched":<n>}\n\n                              (siempre al final)
+
+    Reusa el extractor ya probado de scraper-inmuebles/enricher.py vía el subprocess
+    enrich_urls.py (mismo que ya invoca _enrich_comp_urls en generate-comparables) —
+    NO reinventa selectores/regex por portal. Sin Playwright propio: el subprocess ya
+    decide por portal si basta requests/Node-fetch o si necesita Playwright (PINCALI,
+    INMUEBLES24), con un deadline duro que nunca cuelga el stream.
+    """
+    from starlette.responses import StreamingResponse
+
+    valuation = await db.valuations.find_one(
+        {"valuation_id": valuation_id}, {"_id": 0, "comparables": 1}
+    )
+    if not valuation:
+        raise HTTPException(status_code=404, detail="Valuación no encontrada")
+
+    comparables = valuation.get("comparables") or []
+
+    def _falta_dato(c: dict) -> bool:
+        return not c.get("construction_area") or not c.get("land_area") or c.get("age") is None
+
+    pendientes = [
+        c for c in comparables
+        if _falta_dato(c) and str(c.get("source_url") or "").startswith("http")
+    ]
+
+    async def _stream():
+        enriched_count = 0
+        if not pendientes:
+            yield f"data: {json.dumps({'type': 'done', 'enriched': 0})}\n\n"
+            return
+
+        urls = [c["source_url"] for c in pendientes]
+        try:
+            # Deadline generoso pero acotado: el frontend cierra la conexión a los
+            # 90s (safetyTimer) si no llega 'done' — dejamos margen para Mongo + red.
+            enriched_map = await _enrich_comp_urls(urls, deadline=60.0)
+        except Exception as e:
+            logging.warning(f"[enrich-stream] {valuation_id}: fallo global enriqueciendo: {e}")
+            enriched_map = {}
+
+        campo_map = (
+            ("recamaras", "bedrooms"),
+            ("banos", "bathrooms"),
+            ("estacionamientos", "estacionamientos"),
+            ("telefono", "telefono"),
+            ("inmobiliaria", "inmobiliaria"),
+        )
+
+        for c in pendientes:
+            cid = c.get("comparable_id")
+            ed = enriched_map.get(c.get("source_url") or "") or {}
+            if not ed or not cid:
+                continue  # portal no soportado o fetch falló — seguir con el siguiente, nunca tronar el stream
+
+            updates: dict = {}
+            if ed.get("m2_construccion") is not None and not c.get("construction_area"):
+                updates["construction_area"] = ed["m2_construccion"]
+            if ed.get("m2_terreno") is not None and not c.get("land_area"):
+                updates["land_area"] = ed["m2_terreno"]
+            if ed.get("anio_construccion") is not None and c.get("age") is None:
+                edad = _edad(ed["anio_construccion"])
+                if edad is not None:
+                    updates["age"] = edad
+                    updates["anio_construccion"] = ed["anio_construccion"]
+            for src, dst in campo_map:
+                if ed.get(src) is not None and not c.get(dst):
+                    updates[dst] = ed[src]
+
+            if not updates:
+                continue
+            updates["enriched"] = True
+
+            try:
+                await db.valuations.update_one(
+                    {"valuation_id": valuation_id, "comparables.comparable_id": cid},
+                    {"$set": {f"comparables.$.{k}": v for k, v in updates.items()}}
+                )
+            except Exception as e:
+                logging.warning(f"[enrich-stream] {valuation_id}: no se pudo persistir {cid}: {e}")
+
+            enriched_count += 1
+            yield f"data: {json.dumps({'type': 'enriched', 'comparable_id': cid, 'updates': updates}, ensure_ascii=False)}\n\n"
+
+        yield f"data: {json.dumps({'type': 'done', 'enriched': enriched_count})}\n\n"
+
+    return StreamingResponse(
+        _stream(),
+        media_type="text/event-stream",
+        headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
+    )
+
 
 @api_router.post("/valuations/{valuation_id}/select-comparables")
 async def select_comparables(valuation_id: str, request: Request):
