@@ -184,6 +184,56 @@ ZONAS = [
         "slug_casas_terrenos": "ajijic",
         "slug_pincali": "ajijic-jalisco",
     },
+    # ── Municipios agregados 01-sep-2026 (portados desde valuation-ai/scraper-inmuebles) ──
+    # Slugs confirmados válidos en test_municipios_nuevos.py (02-sep): PINCALI 43,
+    # VIVANUNCIOS 108, PROPIEDADES_COM 176, MITULA 120, CASAS_Y_TERRENOS 356.
+    # INMUEBLES24 confirmado por separado (3/4 municipios, ver nota San Isidro Mazatepec).
+    {
+        "municipio": "El Arenal",
+        "estado": "Jalisco",
+        "slug_inmuebles24": "el-arenal",
+        "slug_vivanuncios": "el-arenal",
+        "slug_propiedades": "el-arenal",
+        "slug_mitula": "el-arenal",
+        "slug_casas_terrenos": "el-arenal",
+        "slug_pincali": "el-arenal-jalisco",
+    },
+    {
+        "municipio": "Tala",
+        "estado": "Jalisco",
+        "slug_inmuebles24": "tala",
+        "slug_vivanuncios": "tala",
+        "slug_propiedades": "tala",
+        "slug_mitula": "tala",
+        "slug_casas_terrenos": "tala",
+        "slug_pincali": "tala-jalisco",
+    },
+    {
+        "municipio": "Ixtlahuacán de los Membrillos",
+        "estado": "Jalisco",
+        "slug_inmuebles24": "ixtlahuacan-de-los-membrillos",
+        "slug_vivanuncios": "ixtlahuacan-de-los-membrillos",
+        "slug_propiedades": "ixtlahuacan-de-los-membrillos",
+        "slug_mitula": "ixtlahuacan-de-los-membrillos",
+        "slug_casas_terrenos": "ixtlahuacan-de-los-membrillos",
+        "slug_pincali": "ixtlahuacan-de-los-membrillos-jalisco",
+    },
+    {
+        # SIN CONFIRMAR (nota heredada de la sesión 01-sep): localidad dentro de Tlajomulco
+        # (mismo patrón que Ajijic dentro de Chapala) — confirmar con el usuario si se refería
+        # a esta antes de correr el scraper en serio. INMUEBLES24 dio 0 en TODOS los tipos/operación
+        # para este municipio en la corrida del 02-sep (redirige a la URL genérica sin filtro de
+        # ciudad) — puede ser que el slug no exista en ese portal, o que el municipio en sí tenga
+        # poco/nulo inventario listado.
+        "municipio": "San Isidro Mazatepec",
+        "estado": "Jalisco",
+        "slug_inmuebles24": "san-isidro-mazatepec",
+        "slug_vivanuncios": "san-isidro-mazatepec",
+        "slug_propiedades": "san-isidro-mazatepec",
+        "slug_mitula": "san-isidro-mazatepec",
+        "slug_casas_terrenos": "san-isidro-mazatepec",
+        "slug_pincali": "san-isidro-mazatepec-jalisco",
+    },
 ]
 
 # Tipos de operación a scrapear

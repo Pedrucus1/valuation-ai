@@ -29,9 +29,6 @@ _PLAIN_FETCH_JS = Path(__file__).parent / "plain_fetch.js"
 _CDP_FETCH_JS = Path(__file__).parent / "cdp_fetch.js"
 CDP_PORT = getattr(config, "PROPIEDADES_CDP_PORT", 9333)  # Chrome aislado, no el personal 9222 (#105)
 
-# Tipos de propiedad que scrapear (genera URLs separadas por tipo)
-TIPOS_PROP_URL = ["casas", "departamentos", "terrenos"]
-
 SELECTORES = {
     # Verificado 2026-04-20 con DevTools en Chrome CDP (propiedades.com Next.js)
     "tarjeta": "section.pcom-property-card",
@@ -52,10 +49,15 @@ SELECTORES = {
 BASE_URL = "https://propiedades.com"
 
 # Tipos de propiedad scrapeados (clave = valor URL, valor = label normalizado)
+# Verificado en vivo (01-sep, portado desde valuation-ai/scraper-inmuebles): oficinas y
+# bodegas-comerciales dan 200; "locales-comerciales" da 404, el slug real es "locales".
 TIPOS_URL = {
-    "casas":          "casa",
-    "departamentos":  "departamento",
-    "terrenos":       "terreno",
+    "casas":                  "casa",
+    "departamentos":          "departamento",
+    "terrenos":               "terreno",
+    "locales":                "local",
+    "oficinas":               "oficina",
+    "bodegas-comerciales":    "bodega",
 }
 
 

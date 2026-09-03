@@ -16,11 +16,17 @@ NO usar la inglesa `/en/home/`. Motivo: la ES trae **TODO junto** (colonia, prec
 (`obtener_filas_sin_enriquecer`, `enriquecer_tab`, `SheetsClient`, `COL_*`) son **LEGACY muertas** —
 el enricher real es `obtener_props_mongo` (`--mongo`). No proponer ni reactivar Sheets.
 
-## ⛔ REGLA DURA: CARPETA CANÓNICA del scraper/enricher
-El código que CORRE es `Pagina-Valuacion-con-Ai--main\scraper-inmuebles\` (lo lanza `monitor_local.py:_ENRICHER_DIR`).
-La carpeta `valuation-ai\scraper-inmuebles\` es DIVERGENTE/vieja (ahí vive `monitor_local.py`, el watchdog).
-Editar el enricher SIEMPRE en la carpeta MAIN. Si tocas la query `q` de `obtener_props_mongo`, sincroniza
-los conteos de `monitor_local.py` (mismos filtros) o el watchdog cree que quedó trabajo y reinicia en loop.
+## ⛔ REGLA DURA: CARPETA ÚNICA del scraper/enricher (consolidado 02-sep-2026)
+Ya NO hay dos carpetas. Todo — scraper, enricher, `monitor_local.py` (watchdog), `orquestador_ia.py`
+(auto-fix), `lanzador_scraper_mensual.py` — vive en `Pagina-Valuacion-con-Ai--main\scraper-inmuebles\`.
+La antigua `valuation-ai\scraper-inmuebles\` (divergente, escribía a Google Sheets) quedó archivada en
+`valuation-ai\_archived_scraper-inmuebles_OLD_20260902\` — NO usarla, NO reactivarla, solo referencia
+histórica. Antes de esa fecha se agregaron 4 municipios nuevos y un fix de tipos en `propiedades_com.py`
+SOLO en la carpeta vieja; ya están portados a esta carpeta (ver `config.py` y `propiedades_com.py`).
+Tareas de Windows Task Scheduler actualizadas: `ScraperMonitorLocal` y `ScraperOrquestadorIA` ahora
+apuntan aquí; `ScraperMensual` (vieja, duplicaba `PropValu_ScraperMensual`) quedó deshabilitada.
+Si tocas la query `q` de `obtener_props_mongo`, sincroniza los conteos de `monitor_local.py`
+(mismos filtros) o el watchdog cree que quedó trabajo y reinicia en loop.
 
 ## ⛔ REGLA DURA: IPRoyal / proxy DESCARTADO 100% (06-Jul-2026)
 **NO usar el proxy IPRoyal.** Causa **conflicto con las páginas** y además quedó **sin saldo (402 Payment Required)**.

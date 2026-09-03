@@ -20,6 +20,7 @@ from pathlib import Path
 DIR = Path(__file__).resolve().parent
 LOG = DIR / "scraper_mensual.log"
 STATE = DIR / "scraper_last_run.txt"
+FLAG = DIR / "scrape_active.flag"  # monitor_local.py lo lee para saber si hay scrape en curso
 
 VENTANA_INI, VENTANA_FIN = 2, 10
 
@@ -53,6 +54,7 @@ def main() -> None:
     # Le toca HOY: marcar antes de correr (evita doble arranque)
     STATE.write_text(ym, encoding="utf-8")
     log(f"Dia {dia}: ARRANCA scraper mensual ({ym})")
+    FLAG.write_text(datetime.now().isoformat(), encoding="utf-8")
     try:
         r = subprocess.run(
             [sys.executable, str(DIR / "scheduler.py")],
@@ -65,6 +67,8 @@ def main() -> None:
             log(f"stderr: {r.stderr.strip()[:500]}")
     except Exception as e:  # noqa: BLE001
         log(f"ERROR: {e}")
+    finally:
+        FLAG.unlink(missing_ok=True)
 
 
 if __name__ == "__main__":
