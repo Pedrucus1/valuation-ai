@@ -408,15 +408,15 @@
     "global": {
      "medianaPm2": 13158,
      "nListings": 3,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     ">800": {
      "medianaPm2": 13158,
      "nListings": 3,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    },
@@ -1070,15 +1070,15 @@
     "global": {
      "medianaPm2": 12517,
      "nListings": 9,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     "120-300": {
      "medianaPm2": 13206,
      "nListings": 8,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    }
@@ -1419,8 +1419,8 @@
     "global": {
      "medianaPm2": 20722,
      "nListings": 4,
-     "nse": "medio-bajo",
-     "nseIdx": 2,
+     "nse": "medio-medio",
+     "nseIdx": 3,
      "fuente": "idx-18m"
     }
    }
@@ -1829,8 +1829,8 @@
     "global": {
      "medianaPm2": 16493,
      "nListings": 3,
-     "nse": "medio-bajo",
-     "nseIdx": 2,
+     "nse": "medio-medio",
+     "nseIdx": 3,
      "fuente": "idx-18m"
     }
    }
@@ -2261,8 +2261,8 @@
     "global": {
      "medianaPm2": 13132,
      "nListings": 3,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    },
@@ -2476,15 +2476,15 @@
     "global": {
      "medianaPm2": 12903,
      "nListings": 5,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     ">800": {
      "medianaPm2": 12903,
      "nListings": 3,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    }
@@ -4834,15 +4834,15 @@
     "global": {
      "medianaPm2": 11803,
      "nListings": 15,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     ">800": {
      "medianaPm2": 10568,
      "nListings": 11,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    }
@@ -6440,15 +6440,15 @@
     "global": {
      "medianaPm2": 20427,
      "nListings": 5,
-     "nse": "medio-bajo",
-     "nseIdx": 2,
+     "nse": "medio-medio",
+     "nseIdx": 3,
      "fuente": "idx-18m"
     },
     "120-300": {
      "medianaPm2": 20427,
      "nListings": 5,
-     "nse": "medio-bajo",
-     "nseIdx": 2,
+     "nse": "medio-medio",
+     "nseIdx": 3,
      "fuente": "idx-18m"
     }
    }
@@ -6776,15 +6776,15 @@
     "global": {
      "medianaPm2": 13158,
      "nListings": 10,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     "120-300": {
      "medianaPm2": 13158,
      "nListings": 10,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    }
@@ -7690,8 +7690,8 @@
     "global": {
      "medianaPm2": 5133,
      "nListings": 9,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     },
     ">800": {
@@ -8141,15 +8141,15 @@
     "global": {
      "medianaPm2": 16192,
      "nListings": 5,
-     "nse": "medio-bajo",
-     "nseIdx": 2,
+     "nse": "medio-medio",
+     "nseIdx": 3,
      "fuente": "idx-18m"
     },
     "300-800": {
      "medianaPm2": 19455,
      "nListings": 3,
-     "nse": "medio-bajo",
-     "nseIdx": 2,
+     "nse": "medio-medio",
+     "nseIdx": 3,
      "fuente": "idx-18m"
     }
    }
@@ -8739,15 +8739,15 @@
     "global": {
      "medianaPm2": 13816,
      "nListings": 6,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     "120-300": {
      "medianaPm2": 13816,
      "nListings": 6,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    }
@@ -10511,22 +10511,22 @@
     "global": {
      "medianaPm2": 13000,
      "nListings": 15,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     "120-300": {
      "medianaPm2": 12698,
      "nListings": 7,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     ">800": {
      "medianaPm2": 15849,
      "nListings": 4,
-     "nse": "medio-bajo",
-     "nseIdx": 2,
+     "nse": "medio-medio",
+     "nseIdx": 3,
      "fuente": "idx-18m"
     }
    },
@@ -10681,15 +10681,15 @@
     "global": {
      "medianaPm2": 5262,
      "nListings": 4,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     },
     ">800": {
      "medianaPm2": 5025,
      "nListings": 3,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     }
    },
@@ -13944,8 +13944,8 @@
     "global": {
      "medianaPm2": 18000,
      "nListings": 3,
-     "nse": "medio-bajo",
-     "nseIdx": 2,
+     "nse": "medio-medio",
+     "nseIdx": 3,
      "fuente": "idx-historico"
     }
    }
@@ -17768,15 +17768,15 @@
     "global": {
      "medianaPm2": 8127,
      "nListings": 4,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     "120-300": {
      "medianaPm2": 7672,
      "nListings": 3,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     }
    }
@@ -18216,15 +18216,15 @@
     "global": {
      "medianaPm2": 12042,
      "nListings": 7,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     "120-300": {
      "medianaPm2": 12042,
      "nListings": 7,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    }
@@ -18328,8 +18328,8 @@
     "300-800": {
      "medianaPm2": 15001,
      "nListings": 4,
-     "nse": "medio-bajo",
-     "nseIdx": 2,
+     "nse": "medio-medio",
+     "nseIdx": 3,
      "fuente": "idx-18m"
     }
    }
@@ -18429,22 +18429,22 @@
     "global": {
      "medianaPm2": 10954,
      "nListings": 15,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     "<120": {
      "medianaPm2": 11607,
      "nListings": 3,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     "120-300": {
      "medianaPm2": 10954,
      "nListings": 9,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    }
@@ -18634,29 +18634,29 @@
     "global": {
      "medianaPm2": 11500,
      "nListings": 18,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     "<120": {
      "medianaPm2": 12662,
      "nListings": 3,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     "120-300": {
      "medianaPm2": 15600,
      "nListings": 3,
-     "nse": "medio-bajo",
-     "nseIdx": 2,
+     "nse": "medio-medio",
+     "nseIdx": 3,
      "fuente": "idx-18m"
     },
     ">800": {
      "medianaPm2": 4645,
      "nListings": 12,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     }
    },
@@ -18852,8 +18852,8 @@
     "global": {
      "medianaPm2": 8130,
      "nListings": 3,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    }
@@ -19004,8 +19004,8 @@
     "global": {
      "medianaPm2": 3592,
      "nListings": 6,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     },
     ">800": {
@@ -19087,22 +19087,22 @@
     "global": {
      "medianaPm2": 17724,
      "nListings": 10,
-     "nse": "medio-bajo",
-     "nseIdx": 2,
+     "nse": "medio-medio",
+     "nseIdx": 3,
      "fuente": "idx-18m"
     },
     "300-800": {
      "medianaPm2": 17861,
      "nListings": 6,
-     "nse": "medio-bajo",
-     "nseIdx": 2,
+     "nse": "medio-medio",
+     "nseIdx": 3,
      "fuente": "idx-18m"
     },
     ">800": {
      "medianaPm2": 16571,
      "nListings": 4,
-     "nse": "medio-bajo",
-     "nseIdx": 2,
+     "nse": "medio-medio",
+     "nseIdx": 3,
      "fuente": "idx-18m"
     }
    }
@@ -19191,15 +19191,15 @@
     "global": {
      "medianaPm2": 7634,
      "nListings": 13,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     },
     "120-300": {
      "medianaPm2": 7634,
      "nListings": 13,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     }
    }
@@ -19550,15 +19550,15 @@
     "global": {
      "medianaPm2": 7200,
      "nListings": 17,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     },
     ">800": {
      "medianaPm2": 7199,
      "nListings": 15,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     }
    }
@@ -19965,15 +19965,15 @@
     "global": {
      "medianaPm2": 8746,
      "nListings": 5,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     "300-800": {
      "medianaPm2": 8746,
      "nListings": 5,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    }
@@ -20199,15 +20199,15 @@
     "global": {
      "medianaPm2": 7252,
      "nListings": 5,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     },
     ">800": {
      "medianaPm2": 4500,
      "nListings": 3,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     }
    }
@@ -20313,15 +20313,15 @@
     "global": {
      "medianaPm2": 19535,
      "nListings": 6,
-     "nse": "medio-bajo",
-     "nseIdx": 2,
+     "nse": "medio-medio",
+     "nseIdx": 3,
      "fuente": "idx-18m"
     },
     "120-300": {
      "medianaPm2": 20070,
      "nListings": 3,
-     "nse": "medio-bajo",
-     "nseIdx": 2,
+     "nse": "medio-medio",
+     "nseIdx": 3,
      "fuente": "idx-18m"
     }
    }
@@ -20695,8 +20695,8 @@
     "global": {
      "medianaPm2": 16000,
      "nListings": 3,
-     "nse": "medio-bajo",
-     "nseIdx": 2,
+     "nse": "medio-medio",
+     "nseIdx": 3,
      "fuente": "idx-18m"
     }
    }
@@ -20816,15 +20816,15 @@
     "global": {
      "medianaPm2": 20979,
      "nListings": 4,
-     "nse": "medio-bajo",
-     "nseIdx": 2,
+     "nse": "medio-medio",
+     "nseIdx": 3,
      "fuente": "idx-18m"
     },
     "120-300": {
      "medianaPm2": 20979,
      "nListings": 4,
-     "nse": "medio-bajo",
-     "nseIdx": 2,
+     "nse": "medio-medio",
+     "nseIdx": 3,
      "fuente": "idx-18m"
     }
    }
@@ -20982,8 +20982,8 @@
     "global": {
      "medianaPm2": 8549,
      "nListings": 4,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    }
@@ -21083,15 +21083,15 @@
     "global": {
      "medianaPm2": 13647,
      "nListings": 5,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     "120-300": {
      "medianaPm2": 13900,
      "nListings": 3,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    }
@@ -21876,8 +21876,8 @@
     "global": {
      "medianaPm2": 3000,
      "nListings": 3,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     }
    }
@@ -22257,8 +22257,8 @@
     ">800": {
      "medianaPm2": 3715,
      "nListings": 6,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     }
    },
@@ -22427,8 +22427,8 @@
     "global": {
      "medianaPm2": 10304,
      "nListings": 3,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    },
@@ -22656,8 +22656,8 @@
     "global": {
      "medianaPm2": 9716,
      "nListings": 3,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    }
@@ -23210,15 +23210,15 @@
     "global": {
      "medianaPm2": 8285,
      "nListings": 6,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     ">800": {
      "medianaPm2": 8170,
      "nListings": 5,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    },
@@ -23291,8 +23291,8 @@
     "global": {
      "medianaPm2": 6140,
      "nListings": 3,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     }
    }
@@ -23568,8 +23568,8 @@
     "global": {
      "medianaPm2": 9580,
      "nListings": 4,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    }
@@ -23651,15 +23651,15 @@
     "global": {
      "medianaPm2": 3800,
      "nListings": 11,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     },
     "300-800": {
      "medianaPm2": 6962,
      "nListings": 3,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     },
     ">800": {
@@ -25262,15 +25262,15 @@
     "global": {
      "medianaPm2": 3700,
      "nListings": 10,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     },
     ">800": {
      "medianaPm2": 3250,
      "nListings": 8,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     }
    }
@@ -25457,8 +25457,8 @@
     "300-800": {
      "medianaPm2": 7143,
      "nListings": 3,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     },
     ">800": {
@@ -29748,8 +29748,8 @@
     "global": {
      "medianaPm2": 8295,
      "nListings": 3,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    }
@@ -30175,15 +30175,15 @@
     "global": {
      "medianaPm2": 18483,
      "nListings": 5,
-     "nse": "medio-bajo",
-     "nseIdx": 2,
+     "nse": "medio-medio",
+     "nseIdx": 3,
      "fuente": "idx-18m"
     },
     ">800": {
      "medianaPm2": 18950,
      "nListings": 4,
-     "nse": "medio-bajo",
-     "nseIdx": 2,
+     "nse": "medio-medio",
+     "nseIdx": 3,
      "fuente": "idx-18m"
     }
    }
@@ -30363,22 +30363,22 @@
     "global": {
      "medianaPm2": 6508,
      "nListings": 14,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     },
     "300-800": {
      "medianaPm2": 5605,
      "nListings": 3,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     },
     ">800": {
      "medianaPm2": 7410,
      "nListings": 11,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     }
    },
@@ -31659,8 +31659,8 @@
     "global": {
      "medianaPm2": 13011,
      "nListings": 3,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    }
@@ -31923,8 +31923,8 @@
     "global": {
      "medianaPm2": 8500,
      "nListings": 4,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    }
@@ -32013,15 +32013,15 @@
     "global": {
      "medianaPm2": 6626,
      "nListings": 3,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     },
     ">800": {
      "medianaPm2": 6626,
      "nListings": 3,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     }
    },
@@ -32183,15 +32183,15 @@
     "global": {
      "medianaPm2": 7850,
      "nListings": 6,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     },
     ">800": {
      "medianaPm2": 7900,
      "nListings": 5,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     }
    },
@@ -32268,8 +32268,8 @@
     "global": {
      "medianaPm2": 4042,
      "nListings": 4,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     }
    }
@@ -32460,15 +32460,15 @@
     "global": {
      "medianaPm2": 8592,
      "nListings": 13,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     ">800": {
      "medianaPm2": 8592,
      "nListings": 13,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    },
@@ -32636,22 +32636,22 @@
     "global": {
      "medianaPm2": 8999,
      "nListings": 26,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     "300-800": {
      "medianaPm2": 9136,
      "nListings": 6,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     ">800": {
      "medianaPm2": 8200,
      "nListings": 19,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    },
@@ -32957,8 +32957,8 @@
     "global": {
      "medianaPm2": 6740,
      "nListings": 3,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     }
    }
@@ -33223,15 +33223,15 @@
     "global": {
      "medianaPm2": 4364,
      "nListings": 5,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     },
     ">800": {
      "medianaPm2": 4364,
      "nListings": 5,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     }
    }
@@ -33366,22 +33366,22 @@
     "global": {
      "medianaPm2": 9164,
      "nListings": 7,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     "<120": {
      "medianaPm2": 9168,
      "nListings": 3,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     "120-300": {
      "medianaPm2": 9152,
      "nListings": 4,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    }
@@ -36858,15 +36858,15 @@
     "global": {
      "medianaPm2": 15083,
      "nListings": 7,
-     "nse": "medio-bajo",
-     "nseIdx": 2,
+     "nse": "medio-medio",
+     "nseIdx": 3,
      "fuente": "idx-18m"
     },
     "300-800": {
      "medianaPm2": 15083,
      "nListings": 5,
-     "nse": "medio-bajo",
-     "nseIdx": 2,
+     "nse": "medio-medio",
+     "nseIdx": 3,
      "fuente": "idx-18m"
     }
    }
@@ -37617,15 +37617,15 @@
     "global": {
      "medianaPm2": 13500,
      "nListings": 4,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     ">800": {
      "medianaPm2": 13499,
      "nListings": 3,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    }
@@ -37850,15 +37850,15 @@
     "global": {
      "medianaPm2": 8524,
      "nListings": 6,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     "300-800": {
      "medianaPm2": 9082,
      "nListings": 4,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    }
@@ -41682,8 +41682,8 @@
     "global": {
      "medianaPm2": 8946,
      "nListings": 3,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    }
@@ -43257,15 +43257,15 @@
     "global": {
      "medianaPm2": 16236,
      "nListings": 6,
-     "nse": "medio-bajo",
-     "nseIdx": 2,
+     "nse": "medio-medio",
+     "nseIdx": 3,
      "fuente": "idx-18m"
     },
     "<120": {
      "medianaPm2": 16236,
      "nListings": 3,
-     "nse": "medio-bajo",
-     "nseIdx": 2,
+     "nse": "medio-medio",
+     "nseIdx": 3,
      "fuente": "idx-18m"
     }
    },
@@ -45777,15 +45777,15 @@
     "global": {
      "medianaPm2": 9998,
      "nListings": 5,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     "120-300": {
      "medianaPm2": 9990,
      "nListings": 4,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    }
@@ -46253,22 +46253,22 @@
     "global": {
      "medianaPm2": 7494,
      "nListings": 20,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     },
     "300-800": {
      "medianaPm2": 8061,
      "nListings": 11,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     ">800": {
      "medianaPm2": 4600,
      "nListings": 9,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     }
    }
@@ -46420,22 +46420,22 @@
     "global": {
      "medianaPm2": 9054,
      "nListings": 12,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     "300-800": {
      "medianaPm2": 9406,
      "nListings": 6,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     ">800": {
      "medianaPm2": 8952,
      "nListings": 6,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    },
@@ -46523,8 +46523,8 @@
     "global": {
      "medianaPm2": 3500,
      "nListings": 7,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     },
     ">800": {
@@ -47214,15 +47214,15 @@
     "global": {
      "medianaPm2": 6923,
      "nListings": 5,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     },
     "120-300": {
      "medianaPm2": 6923,
      "nListings": 5,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     }
    }
@@ -47290,15 +47290,15 @@
     "global": {
      "medianaPm2": 8350,
      "nListings": 6,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     ">800": {
      "medianaPm2": 8200,
      "nListings": 5,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    }
@@ -47758,15 +47758,15 @@
     "global": {
      "medianaPm2": 16257,
      "nListings": 3,
-     "nse": "medio-bajo",
-     "nseIdx": 2,
+     "nse": "medio-medio",
+     "nseIdx": 3,
      "fuente": "idx-18m"
     },
     "300-800": {
      "medianaPm2": 16257,
      "nListings": 3,
-     "nse": "medio-bajo",
-     "nseIdx": 2,
+     "nse": "medio-medio",
+     "nseIdx": 3,
      "fuente": "idx-18m"
     }
    }
@@ -48303,15 +48303,15 @@
     "global": {
      "medianaPm2": 7700,
      "nListings": 7,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     },
     ">800": {
      "medianaPm2": 7700,
      "nListings": 5,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     }
    },
@@ -48538,15 +48538,15 @@
     "global": {
      "medianaPm2": 3970,
      "nListings": 4,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     },
     ">800": {
      "medianaPm2": 3941,
      "nListings": 3,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     }
    },
@@ -49412,8 +49412,8 @@
     "global": {
      "medianaPm2": 3324,
      "nListings": 3,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     }
    }
@@ -51954,15 +51954,15 @@
     "global": {
      "medianaPm2": 10192,
      "nListings": 4,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     "300-800": {
      "medianaPm2": 10345,
      "nListings": 3,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    }
@@ -52110,15 +52110,15 @@
     "global": {
      "medianaPm2": 8973,
      "nListings": 6,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     ">800": {
      "medianaPm2": 8351,
      "nListings": 3,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    },
@@ -53204,15 +53204,15 @@
     "global": {
      "medianaPm2": 8500,
      "nListings": 4,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     ">800": {
      "medianaPm2": 8500,
      "nListings": 4,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    },
@@ -57090,8 +57090,8 @@
     "global": {
      "medianaPm2": 20811,
      "nListings": 4,
-     "nse": "medio-bajo",
-     "nseIdx": 2,
+     "nse": "medio-medio",
+     "nseIdx": 3,
      "fuente": "idx-18m"
     }
    },
@@ -63365,8 +63365,8 @@
     "global": {
      "medianaPm2": 7800,
      "nListings": 3,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     }
    }
@@ -64235,8 +64235,8 @@
     "global": {
      "medianaPm2": 5571,
      "nListings": 3,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     }
    },
@@ -65752,8 +65752,8 @@
     "global": {
      "medianaPm2": 13333,
      "nListings": 3,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    }
@@ -66134,15 +66134,15 @@
     "global": {
      "medianaPm2": 8600,
      "nListings": 6,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     ">800": {
      "medianaPm2": 8600,
      "nListings": 6,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    }
@@ -66245,15 +66245,15 @@
     "global": {
      "medianaPm2": 4524,
      "nListings": 6,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     },
     ">800": {
      "medianaPm2": 4524,
      "nListings": 6,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     }
    }
@@ -83544,8 +83544,8 @@
     ">800": {
      "medianaPm2": 4121,
      "nListings": 6,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     }
    }
@@ -98720,8 +98720,8 @@
     "global": {
      "medianaPm2": 10385,
      "nListings": 3,
-     "nse": "interes-social",
-     "nseIdx": 1,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    }
@@ -108959,8 +108959,8 @@
     "global": {
      "medianaPm2": 7671,
      "nListings": 3,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "interes-social",
+     "nseIdx": 1,
      "fuente": "idx-18m"
     }
    }
@@ -109014,15 +109014,15 @@
     "global": {
      "medianaPm2": 8200,
      "nListings": 4,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     },
     ">800": {
      "medianaPm2": 8200,
      "nListings": 4,
-     "nse": "economico",
-     "nseIdx": 0,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
      "fuente": "idx-18m"
     }
    },
@@ -161526,7 +161526,7 @@
   ]
  },
  "_meta": {
-  "generado": "2026-09-03T18:47:08.200Z",
+  "generado": "2026-09-03T19:22:26.866Z",
   "capas": {
    "ganada_v1": {
     "campo": "nse.v1",
@@ -161543,7 +161543,7 @@
     "campos": "nse.v2 / idx",
     "fuente": "scraper",
     "ventanaMeses": 18,
-    "fechaCalculo": "2026-09-03T10:52:45.743Z",
+    "fechaCalculo": "2026-09-03T19:22:21.071Z",
     "prioridad": 3
    }
   },

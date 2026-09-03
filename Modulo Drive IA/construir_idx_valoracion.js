@@ -44,8 +44,25 @@ const NSE_CATS = [
     { idx: 5, nombre: 'lujo',           min: 52000,  max: 85000    },
     { idx: 6, nombre: 'super-lujo',     min: 85000,  max: Infinity },
 ];
-function nseDepm2(pm2) {
-    return NSE_CATS.find(c => pm2 >= c.min && pm2 < c.max) || NSE_CATS[NSE_CATS.length - 1];
+// Terreno usa una escala de $/m² totalmente distinta a construcción (suelo puro, sin edificar).
+// Calibrado 2026-09-03 sobre cache_index.json (1,764 listings de terreno válidos, 622 colonias):
+// percentiles empíricos del propio pool de terreno (p10≈2.7k, p25≈8.2k, p50≈18k, p75≈39.5k,
+// p90≈118k, p95≈156k), redondeados a cortes limpios. Reusar NSE_CATS (calibrado para casas)
+// clasificaba casi todo terreno como "económico" porque el suelo vale mucho menos por m² que lo
+// construido. Ver Modulo Drive IA/ARQUITECTURA_DATOS.md.
+const NSE_CATS_TERRENO = [
+    { idx: 0, nombre: 'economico',      min: 0,      max: 3000     },
+    { idx: 1, nombre: 'interes-social', min: 3000,   max: 8000     },
+    { idx: 2, nombre: 'medio-bajo',     min: 8000,   max: 15000    },
+    { idx: 3, nombre: 'medio-medio',    min: 15000,  max: 30000    },
+    { idx: 4, nombre: 'medio-alto',     min: 30000,  max: 70000    },
+    { idx: 5, nombre: 'lujo',           min: 70000,  max: 150000   },
+    { idx: 6, nombre: 'super-lujo',     min: 150000, max: Infinity },
+];
+
+function nseDepm2(pm2, tipo = 'casa') {
+    const cats = tipo === 'terreno' ? NSE_CATS_TERRENO : NSE_CATS;
+    return cats.find(c => pm2 >= c.min && pm2 < c.max) || cats[cats.length - 1];
 }
 
 // ── Segmentos por tipo ────────────────────────────────────────────────────────
@@ -97,7 +114,7 @@ function dentroDeVentana(fecha) {
     return meses <= VENTANA_MESES;
 }
 
-function calcularEntrada(listings) {
+function calcularEntrada(listings, tipo = 'casa') {
     if (!listings.length) return null;
 
     // Preferir ventana temporal; fallback a todos
@@ -115,7 +132,7 @@ function calcularEntrada(listings) {
     const filtrados = pm2s.filter(v => v >= p10 && v <= p90);
     const med = mediana(filtrados.length >= MIN_LISTINGS ? filtrados : pm2s);
 
-    const cat = nseDepm2(med);
+    const cat = nseDepm2(med, tipo);
     return {
         medianaPm2: Math.round(med),
         nListings:  base.length,
@@ -188,7 +205,7 @@ function main() {
                 if (!resultado[col][tipo]) resultado[col][tipo] = {};
 
                 // ── Entrada global del tipo (sin segmento) ──────────────────
-                const entGlobal = calcularEntrada(validos);
+                const entGlobal = calcularEntrada(validos, tipo);
                 if (entGlobal) {
                     resultado[col][tipo]['global'] = entGlobal;
                     stats.entradas++;
@@ -198,7 +215,7 @@ function main() {
                 // ── Entradas por segmento de superficie ─────────────────────
                 for (const seg of (SEGMENTOS[tipo] || [])) {
                     const enSeg = validos.filter(l => l._sup >= seg.min && l._sup < seg.max);
-                    const ent = calcularEntrada(enSeg);
+                    const ent = calcularEntrada(enSeg, tipo);
                     if (ent) {
                         resultado[col][tipo][seg.key] = ent;
                         stats.entradas++;
