@@ -342,6 +342,16 @@ async def get_valuation(valuation_id: str, request: Request):
     if owner_id and not await _puede_acceder_valuacion(request, owner_id):
         raise HTTPException(status_code=403, detail="No autorizado para ver esta valuación")
 
+    # Al abrir la OPI se apaga el aviso de la campana del dashboard (comparables_job
+    # ya listo/sin_datos y aún no visto).
+    job = valuation.get("comparables_job")
+    if job and job.get("status") in ("listo", "sin_datos") and not job.get("notified"):
+        job["notified"] = True
+        await db.valuations.update_one(
+            {"valuation_id": valuation_id},
+            {"$set": {"comparables_job.notified": True}}
+        )
+
     return valuation
 
 @api_router.post("/valuations/{valuation_id}/upload-photos")
@@ -999,67 +1009,33 @@ async def generate_comparables(valuation_id: str, request: Request, append: bool
         except Exception as e:
             logger.error(f"Scraping fallback error: {e}")
     
-    # ============== 3. LAST RESORT: SIMULATED DATA ==============
+    # ponytail: relleno con datos random ELIMINADO (mostraba precios/URLs inventados
+    # como si fueran comparables reales). Si el pool real queda corto, se avisa por log
+    # y el frontend debe mostrar los que haya (aunque sean <10) en vez de fabricar.
+    comparables_job = None
     if len(comparables) < 10:
-        logger.info(f"Adding simulated comparables (have {len(comparables)}, need 10-15)")
-        search_method = "mixed" if len(comparables) > 0 else "simulated"
-        
-        base_prices = {
-            "Ciudad de México": 35000, "Nuevo León": 30000, "Jalisco": 25000,
-            "Quintana Roo": 28000, "Estado de México": 18000, "Querétaro": 22000,
-        }
-        base_price = base_prices.get(prop["state"], 20000)
-        
-        type_multipliers = {
-            "Casa": 1.0, "Departamento": 1.1, "Terreno": 0.4,
-            "Local comercial": 1.3, "Oficina": 1.2, "Bodega": 0.6, "Nave industrial": 0.5
-        }
-        base_price *= type_multipliers.get(search_type, 1.0)
-        
-        sources = ["inmuebles24.com", "lamudi.com.mx", "vivanuncios.com.mx", "propiedades.com"]
-        
-        for i in range(15 - len(comparables)):
-            land_var = random.uniform(0.75, 1.25)
-            const_var = random.uniform(0.75, 1.25)
-            price_var = random.uniform(0.85, 1.15)
-            
-            land_area = prop["land_area"] * land_var
-            construction_area = prop["construction_area"] * const_var
-            price_per_sqm = base_price * price_var
-            price = price_per_sqm * construction_area
-            
-            area_adj = random.uniform(-3, 3)
-            condition_adj = random.uniform(-3, 3)
-            location_adj = random.uniform(-2, 2)
-            regime_adj = 0 if prop["land_regime"] == "URBANO" else {"EJIDAL": -20, "COMUNAL": -25, "RUSTICO": -30}.get(prop["land_regime"], 0)
-            total_adj = base_negotiation + area_adj + condition_adj + location_adj + regime_adj
-            adjusted_price = price_per_sqm * (1 + total_adj / 100)
-            
-            source = random.choice(sources)
-            
-            comparable = Comparable(
-                source=source,
-                source_url=f"https://www.{source}/inmueble/{random.randint(100000, 999999)}",
-                title=f"{search_type} en {prop['neighborhood']}",
-                neighborhood=prop["neighborhood"],
-                municipality=prop["municipality"],
-                state=prop["state"],
-                land_area=round(land_area, 2),
-                construction_area=round(construction_area, 2),
-                price=round(price, 2),
-                price_per_sqm=round(price_per_sqm, 2),
-                property_type=search_type,
-                land_regime=prop["land_regime"],
-                listing_type="venta",
-                negotiation_adjustment=base_negotiation,
-                area_adjustment=round(area_adj, 2),
-                condition_adjustment=round(condition_adj, 2),
-                location_adjustment=round(location_adj, 2),
-                regime_adjustment=regime_adj,
-                total_adjustment=round(total_adj, 2),
-                adjusted_price_per_sqm=round(adjusted_price, 2)
-            )
-            comparables.append(comparable.model_dump())
+        logger.warning(f"Pool de comparables reales corto: {len(comparables)} (se esperaban >=10) para {location}")
+        if len(comparables) < 3:
+            search_method = "sin_datos"
+            comparables_job = {"status": "corriendo", "eta_min": 4, "notified": False}
+            # Dispara el pipeline on-demand (scrape → insert → enricher → validación
+            # de colonia) en segundo plano; no bloquea esta respuesta. Mismo patrón
+            # fire-and-forget que admin_scraper.py (asyncio.create_task + subprocess).
+            try:
+                from core.config import SCRAPER_DIR
+                python_exe = os.environ.get("SCRAPER_PYTHON", "python")
+                asyncio.create_task(asyncio.create_subprocess_exec(
+                    python_exe, "ondemand_pipeline.py",
+                    "--valuation-id", valuation_id,
+                    "--colonia", prop["neighborhood"],
+                    "--municipio", prop["municipality"],
+                    "--tipo", search_type,
+                    "--m2", str(prop.get("construction_area") or 100),
+                    cwd=str(SCRAPER_DIR),
+                ))
+                logger.info(f"ondemand_pipeline lanzado para {valuation_id} ({prop['neighborhood']}, {prop['municipality']})")
+            except Exception as e:
+                logger.warning(f"No se pudo lanzar ondemand_pipeline: {e}")
 
     comparables.sort(key=lambda c: c.get("confiabilidad") or 0, reverse=True)
 
@@ -1078,22 +1054,23 @@ async def generate_comparables(valuation_id: str, request: Request, append: bool
         comparables = comparables[:15]
 
     # Update valuation in database
+    update_fields = {
+        "comparables": comparables,
+        "rental_comparables": rental_comparables,
+        "rental_factor_data": rental_factor_data,
+        "similar_properties_count": len(comparables),
+        "search_method": search_method,
+        "ai_providers_used": ai_providers_used,
+        "status": "comparables_ready",
+        "updated_at": datetime.now(timezone.utc).isoformat()
+    }
+    if comparables_job:
+        update_fields["comparables_job"] = comparables_job
     await db.valuations.update_one(
         {"valuation_id": valuation_id},
-        {
-            "$set": {
-                "comparables": comparables,
-                "rental_comparables": rental_comparables,
-                "rental_factor_data": rental_factor_data,
-                "similar_properties_count": len(comparables),
-                "search_method": search_method,
-                "ai_providers_used": ai_providers_used,
-                "status": "comparables_ready",
-                "updated_at": datetime.now(timezone.utc).isoformat()
-            }
-        }
+        {"$set": update_fields}
     )
-    
+
     return {
         "comparables": comparables,
         "rental_comparables": rental_comparables,
@@ -1101,7 +1078,8 @@ async def generate_comparables(valuation_id: str, request: Request, append: bool
         "rental_count": len(rental_comparables),
         "rental_factor": rental_factor_data,
         "search_method": search_method,
-        "ai_providers_used": ai_providers_used
+        "ai_providers_used": ai_providers_used,
+        "comparables_job": comparables_job
     }
 
 @api_router.post("/valuations/{valuation_id}/select-comparables")

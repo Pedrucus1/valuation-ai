@@ -204,6 +204,23 @@ const ComparablesPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [valuation?.comparables?.length]);
 
+  // Pool real insuficiente (<3): el backend lanzó ondemand_pipeline (scrape+enrich+
+  // validación) en segundo plano. Mientras corre, refrescar cada 20s hasta que termine.
+  useEffect(() => {
+    if (valuation?.comparables_job?.status !== "corriendo") return;
+    const poll = setInterval(fetchValuation, 20000);
+    return () => clearInterval(poll);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [valuation?.comparables_job?.status]);
+
+  useEffect(() => {
+    const status = valuation?.comparables_job?.status;
+    if (status === "listo") {
+      toast.success(`Se encontraron ${valuation.comparables_job.encontrados || ""} comparables reales — actualizando`);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [valuation?.comparables_job?.status]);
+
   const fetchValuation = async () => {
     try {
       const response = await fetch(`${API}/valuations/${valuationId}`, {
@@ -603,6 +620,26 @@ const ComparablesPage = () => {
           </div>
         </div>
       </div>
+
+      {/* Aviso: pool real insuficiente, pipeline on-demand corriendo o sin resultado */}
+      {valuation.comparables_job?.status === "corriendo" && (
+        <div className="max-w-6xl mx-auto mb-6 rounded-xl border border-[#52B788]/40 bg-[#F0FAF5] p-4 flex items-center gap-3">
+          <RefreshCw className="w-5 h-5 text-[#52B788] animate-spin shrink-0" />
+          <p className="text-sm text-[#1B4332]">
+            Esta zona tenía pocos comparables reales — estamos buscando, enriqueciendo y
+            validando datos nuevos automáticamente (~{valuation.comparables_job.eta_min || 4} min).
+            Esta página se actualiza sola cuando terminen.
+          </p>
+        </div>
+      )}
+      {valuation.comparables_job?.status === "sin_datos" && (
+        <div className="max-w-6xl mx-auto mb-6 rounded-xl border border-amber-400/50 bg-amber-50 p-4">
+          <p className="text-sm text-amber-800">
+            No encontramos suficiente cobertura real de mercado en esta zona todavía.
+            Puedes continuar con los comparables que haya, o intentar "Buscar otros" más tarde.
+          </p>
+        </div>
+      )}
 
       {/* Property Summary */}
       <Card className="max-w-6xl mx-auto mb-6 bg-white shadow-sm border-0">

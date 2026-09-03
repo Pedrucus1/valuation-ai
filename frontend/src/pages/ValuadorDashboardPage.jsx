@@ -185,6 +185,7 @@ function normalizeValuacion(v) {
     status: (v.status || "").toLowerCase(),
     lat: typeof v.property_data?.latitude === "number" ? v.property_data.latitude : null,
     lng: typeof v.property_data?.longitude === "number" ? v.property_data.longitude : null,
+    comparables_job: v.comparables_job || null,
   };
 }
 
@@ -2391,6 +2392,21 @@ const ValuadorDashboardPage = () => {
 
           {/* Right: user chip + logout */}
           <div className="flex items-center gap-3">
+            {(() => {
+              const comparablesListos = valuaciones.filter(
+                (v) => ["listo", "sin_datos"].includes(v.comparables_job?.status) && !v.comparables_job?.notified
+              );
+              return (
+                <button
+                  onClick={() => comparablesListos[0] && navigate(destinoValuacion(comparablesListos[0]))}
+                  className="relative p-2 rounded-full hover:bg-slate-100 transition-colors"
+                  title={comparablesListos.length > 0 ? `${comparablesListos.length} avalúo(s) con comparables listos` : "Avisos"}
+                >
+                  <Bell className={`w-5 h-5 ${comparablesListos.length > 0 ? "text-red-500" : "text-slate-500"}`} />
+                  {comparablesListos.length > 0 && <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-red-500" />}
+                </button>
+              );
+            })()}
             <div className="hidden sm:flex items-center gap-2 px-2 py-1 bg-[#D9ED92]/40 rounded-full max-w-xs">
               {(() => {
                 const fotoDoc = kycDocs.find(d => d.doc_tipo === "foto_profesional");

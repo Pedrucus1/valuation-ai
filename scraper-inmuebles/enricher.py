@@ -35,6 +35,7 @@ from typing import Optional
 
 import json
 import requests
+from bson import ObjectId
 from bs4 import BeautifulSoup
 from loguru import logger
 from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeout
@@ -1526,7 +1527,13 @@ def main():
     parser.add_argument("--shard", default=None,
                         help="Partición N/M para correr varios procesos del mismo portal "
                              "sin pisarse (ej. --shard 0/3, 1/3, 2/3). Solo modo --mongo.")
+    parser.add_argument("--min-id", default=None,
+                        help="ObjectId (hex) — acota a docs insertados desde ese punto en "
+                             "adelante, para enriquecer solo un lote on-demand recién "
+                             "insertado sin barrer todo el backlog del portal. Solo --mongo.")
     args = parser.parse_args()
+
+    min_id = ObjectId(args.min_id) if args.min_id else None
 
     shard = None
     if args.shard:
@@ -1559,7 +1566,7 @@ def main():
         for portal in tabs:
             try:
                 r = enriquecer_mongo(col, portal, args.max, args.dry_run, urls_procesadas,
-                                     shard=shard)
+                                     shard=shard, min_id=min_id)
                 resultados.append(r)
             except Exception as e:
                 logger.error(f"Error procesando portal '{portal}': {e}")

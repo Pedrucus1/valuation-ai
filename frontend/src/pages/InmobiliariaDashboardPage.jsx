@@ -282,6 +282,7 @@ function mapValuacionBackend(v) {
     valuador_nombre: null,
     valuador_id: null,
     calificada: false,
+    comparables_job: v.comparables_job || null,
   };
 }
 
@@ -731,6 +732,12 @@ const InmobiliariaDashboardPage = () => {
   /* ── Tabs ── */
   const docsSubidos = DOCS_REQUERIDOS.filter((d) => docSubido(d.key)).length;
   const docsCompletos = docsSubidos === DOCS_REQUERIDOS.length;
+
+  // Comparables reales de una OPI listos tras el pipeline on-demand (o sin cobertura):
+  // se apagan solos al abrir esa valuación (backend marca comparables_job.notified).
+  const comparablesPendientes = valuacionesList.filter(
+    (v) => ["listo", "sin_datos"].includes(v.comparables_job?.status) && !v.comparables_job?.notified
+  );
 
   const marcarAvisosVistos = () => {
     localStorage.setItem("pv_avisos_vistos", `${showKycBanner}-${docsCompletos}`);
@@ -2255,8 +2262,8 @@ const InmobiliariaDashboardPage = () => {
               className="relative p-2 rounded-full hover:bg-slate-100 transition-colors"
               title="Avisos"
             >
-              <Bell className={`w-5 h-5 ${avisosNoLeidos ? "text-red-500" : "text-slate-500"}`} />
-              {avisosNoLeidos && <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-red-500" />}
+              <Bell className={`w-5 h-5 ${(avisosNoLeidos || comparablesPendientes.length > 0) ? "text-red-500" : "text-slate-500"}`} />
+              {(avisosNoLeidos || comparablesPendientes.length > 0) && <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-red-500" />}
             </button>
             <div className="hidden sm:flex items-center gap-1.5">
               <div className="flex items-center gap-2 px-2 py-1 bg-[#D9ED92]/40 rounded-full max-w-[160px]">
