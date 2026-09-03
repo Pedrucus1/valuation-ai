@@ -2,13 +2,16 @@
 
 > **Único archivo que se lee al iniciar** (corto, siempre vigente). Tareas por # → `BACKLOG.md` (grep). Historial → `BACKLOG_ARCHIVE.md`. Motor → `MOTOR_ANTECEDENTES.md` (grep). **Se sobrescribe en cada cierre de sesión.**
 
-**Última actualización:** 02 Sep 2026
+**Última actualización:** 02 Sep 2026 (noche)
 **Fase:** Prod Railway + Vercel. El cierre del 01-sep del bug "Continuar Reporte" fue prematuro —
 se verificó en frío y seguía dando 503. Causa raíz real encontrada y corregida hoy: la cadena de
 fallback del motor perdía los comps ya encontrados al pisarlos con el resultado del siguiente paso
-(si Gemini fallaba, borraba lo que ya había). Además se destapó un bug crítico separado: `pincali.py`
-llevaba **más de una semana** sin poder importarse (SyntaxError en el docstring), por eso el scraper
-batch de PINCALI nunca corrió pese a estar "listo".
+(si Gemini fallaba, borraba lo que ya había).
+
+**Scraper/enricher: consolidado en UNA sola carpeta hoy** (ver punto 2) — la carpeta vieja
+`valuation-ai\scraper-inmuebles` (con su propio `pincali.py`/`orquesta.py`, ya no relevante) quedó
+archivada en `valuation-ai\_archived_scraper-inmuebles_OLD_20260902\`. Todo el trabajo de scraper
+va ahora en `Pagina-Valuacion-con-Ai--main\scraper-inmuebles\`.
 
 ## 🔥 LO MÁS CALIENTE — qué sigue
 
@@ -22,24 +25,29 @@ batch de PINCALI nunca corrió pese a estar "listo".
    en segundos con 4 comps reales de PINCALI (antes: 503 a los 45s). Commit `d6207aa`, pusheado.
    **PENDIENTE siguiente sesión: repetir `POST /calculate-remi` contra prod (Railway) para confirmar
    que el deploy recogió el fix** — la última prueba contra prod fue ANTES de este commit.
-2. **`scrapers/pincali.py` no importaba desde hace +1 semana — CERRADO.** Docstring tenía una ruta
-   Windows sin escapar (`\Users...`) desde commit `b54f818` (24-ago) → `SyntaxError` en cualquier
-   `import scrapers.pincali`. Fix: raw string. Commit en `scraper-inmuebles` (repo activo
-   `C:\Users\pedru\valuation-ai\scraper-inmuebles`), pusheado.
-3. **`buscar_comparables_browser.js` — ZONAS sincronizado + modo `--json` agregado.** Ahora incluye
-   los 4 municipios nuevos (El Arenal, Tala, Ixtlahuacán de los Membrillos, San Isidro Mazatepec) que
-   antes solo tenía `config.py` (11 municipios) y no el script (7). `--json` imprime SOLO el array de
-   comps a stdout (progreso va a stderr) para que el motor pueda invocarlo como subprocess.
-4. **Propiedades.com: agregados oficinas/locales/bodegas-comerciales a `TIPOS_URL`.** La clasificación
-   por tipo ya los reconocía, solo faltaban en el dict que arma las URLs. Slugs verificados en vivo:
-   `oficinas-venta` y `bodegas-comerciales-venta` dan 200 con tarjetas reales; ojo,
-   `locales-comerciales-venta` da 404 — el slug real es **`locales-venta`**. `orquesta.py` sigue
-   con PROPIEDADES_COM comentado del todo (bloqueo de proxy residencial, aparte de este tema).
-5. **Corrida de prueba (4 municipios nuevos × 6 portales) — quedó SIN TERMINAR al cerrar sesión**
-   (`scraper-inmuebles/test_municipios_nuevos.py`, corriendo en background, commit `d333fcf`).
-   Parcial visto antes de cerrar: INMUEBLES24 dio 0/4 (slugs fallando o bloqueo anti-bot), PINCALI
-   topó con bot-protection en El Arenal. **Falta: correr completo y leer el resumen final antes de
-   lanzar la corrida real de estos 4 municipios en batch.**
+2. **Scraper/enricher consolidados en una sola carpeta (`Pagina-Valuacion-con-Ai--main\scraper-inmuebles`) —
+   CERRADO hoy.** Había DOS carpetas divergentes (queja fuerte del usuario: nunca se debió repetir
+   trabajo ya resuelto). Portado a la canónica lo que faltaba: 4 municipios nuevos en `config.py`
+   (El Arenal, Tala, Ixtlahuacán de los Membrillos, San Isidro Mazatepec — slugs para los 6 portales),
+   fix de `propiedades_com.py` `TIPOS_URL` (oficinas/bodegas-comerciales/`locales`→slug real
+   `locales-venta`, no `locales-comerciales-venta` que da 404; limpiada constante muerta
+   `TIPOS_PROP_URL`), `monitor_local.py` (watchdog, ya probado ahí: detectó y reinició un enricher de
+   NOCNOK trabado) y `orquestador_ia.py` (auto-fix). Tareas de Windows Task Scheduler
+   `ScraperMonitorLocal`/`ScraperOrquestadorIA` repuntadas a la carpeta correcta; `ScraperMensual`
+   (vieja, duplicaba `PropValu_ScraperMensual`) **deshabilitada**. Carpeta vieja movida (no borrada) a
+   `valuation-ai\_archived_scraper-inmuebles_OLD_20260902\`. Commit `5c15fce`, pusheado.
+   Nota abierta: **San Isidro Mazatepec da 0 en INMUEBLES24** (redirige a URL genérica) — puede ser
+   localidad sin slug propio (patrón Ajijic-en-Chapala); falta confirmar con el usuario si es el
+   municipio correcto antes de asumirlo. También se corrigió que Mongo estaba "fallando" porque un
+   script usaba el `.env` viejo con password desactualizada — el `.env` de la carpeta canónica
+   siempre funcionó bien (120K+ props en `mercado_props`).
+3. **Corrida real de los 4 municipios nuevos — EN CURSO (lanzada hoy, sigue corriendo en background).**
+   `scheduler.py` en la carpeta canónica, 194 tareas pendientes (incluye los 4 municipios × 6 portales
+   + tipos), pausas de 12-22 min entre tareas, escribe directo a Mongo `mercado_props` (Sheets ya NO
+   se usa, ver `INDICE_SCRAPER.md`). `enricher.py --mongo` corriendo en paralelo, recogiendo props
+   nuevas conforme llegan (cooldown de 30 días para reintentos). Verificar avance con `/logs` la
+   próxima sesión — si el proceso murió, relanzar `python scheduler.py` desde
+   `Pagina-Valuacion-con-Ai--main\scraper-inmuebles`.
 6. **Spike de Lamudi — pendiente, no arrancado.** El HTML crudo de su SERP no expone listings ni API
    (bundles JS propios "adform"), hace falta capturar tráfico de red con navegador real
    (Playwright/agent-browser). Timeboxed ~30 min. Mitula comparte el mismo vocabulario "adform" —

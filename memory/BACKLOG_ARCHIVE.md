@@ -5,6 +5,44 @@
 
 ---
 
+## 02 Sep 2026 (noche) — Dos carpetas de scraper consolidadas en una + corrida real lanzada
+
+Sesión de continuación de la de la tarde (municipios nuevos). Se pidió repetir la prueba de INMUEBLES24
+para los 4 municipios nuevos levantando Chrome CDP a mano en el puerto 9223 (el auto-chequeo de
+`_verificar_acceso()` solo activa CDP si Chrome ya está escuchando — no lo lanza antes de decidir).
+Resultado: 3/4 municipios OK, San Isidro Mazatepec en 0 (redirige a URL genérica sin filtro de ciudad).
+
+Al intentar lanzar la corrida real en batch, el usuario detuvo el trabajo con una serie de correcciones
+fuertes: "¿no había ya una forma de escrapear esto?", "el scrap no se hace en Google Sheets, estaba
+prohibido hace mucho", "Mongo reemplazó a Sheets", "no es posible que haya 2 carpetas del mismo tema,
+ordénalo". Investigación reveló que TODA la sesión se había trabajado en `valuation-ai\scraper-inmuebles`
+— una copia vieja y divergente con su propio `.git`, que además escribía a Google Sheets pese a que esa
+regla llevaba meses descartada. La carpeta real y activa es `Pagina-Valuacion-con-Ai--main\scraper-inmuebles`,
+documentada en su propio `INDICE_SCRAPER.md` con reglas duras (Sheets descartado, PINCALI solo ES para
+el año de construcción, proxy descartado, carpeta canónica) que nunca se consultaron antes de actuar.
+El propio `pincali.py` de la carpeta vieja tenía, en su docstring, un aviso apuntando a la ruta correcta
+— pasó inadvertido. También se descubrió que un batch de escritura a Sheets ya había llegado al límite
+de 10M celdas de Google Sheets (9,999,980/10,000,000) a mitad de la corrida — otra señal de que ese
+camino estaba mal desde el principio. El "bad auth" de Mongo que parecía un problema real resultó ser
+que el script de la carpeta vieja usaba un `.env` con password desactualizada; el `.env` de la carpeta
+canónica siempre conectó bien (120K+ props en `mercado_props`).
+
+Consolidación ejecutada: se portó a la canónica lo único que le faltaba de la vieja (4 municipios nuevos
+en `config.py`, fix de tipos en `propiedades_com.py`, `monitor_local.py` el watchdog, `orquestador_ia.py`
+el auto-fix, `geocode_colonias.py`, `credentials.json`), se repuntaron las tareas de Windows Task
+Scheduler `ScraperMonitorLocal`/`ScraperOrquestadorIA` a la carpeta correcta, se deshabilitó la tarea
+`ScraperMensual` vieja (duplicaba `PropValu_ScraperMensual`), se reescribieron los skills
+`/reset-scraper` y `/logs`, y se actualizó `INDICE_SCRAPER.md` documentando la carpeta única. La carpeta
+vieja se archivó (no se borró) en `valuation-ai\_archived_scraper-inmuebles_OLD_20260902\`. Se verificó
+en vivo que `monitor_local.py` funciona correctamente en su nueva ubicación (detectó y reinició un
+enricher de NOCNOK trabado). Commit `5c15fce`, pusheado. Con la carpeta correcta, `scheduler.py`
+detectó automáticamente los 4 municipios nuevos vía `config.ZONAS` y agregó 194 tareas al progreso
+existente — se lanzó la corrida real en background junto con `enricher.py --mongo` en paralelo.
+
+Aprendizaje explícito del usuario en esta sesión: consultar SIEMPRE lo que ya existe (memoria, índices,
+el grafo de graphify) antes de reconstruir o adivinar algo que ya se resolvió — la queja se repitió
+varias veces y quedó como regla dura en `CLAUDE.md` (protocolo "DÓNDE VIVE CADA COSA").
+
 ## 02 Sep 2026 — El cierre del 01-sep era falso: causa raíz real y 2 bugs escondidos más
 
 Sesión de continuación: verificar en frío el "cierre" del 01-sep del bug "Continuar Reporte". Se
