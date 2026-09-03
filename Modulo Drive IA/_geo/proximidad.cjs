@@ -88,7 +88,44 @@ function coloniasCercanas(colonia, municipio, kmMax = 2.5) {
   return resultados;
 }
 
-module.exports = { haversine, coordsDeColonia, coloniasCercanas };
+// ── Colonias cercanas a un punto (lat/lon) directo ────────────────────────────
+// Para sujetos cuya colonia NO está en colonia_cp.json (fraccionamientos privados
+// no catalogados por SEPOMEX, ej. "El Roble" en El Arenal) pero SÍ tienen lat/lon
+// reales capturadas en el formulario — evita depender del nombre de colonia para
+// encontrar vecinas.
+let _cpToColonias = null;
+function _buildReverseIndex() {
+  if (_cpToColonias) return;
+  _load();
+  _cpToColonias = {};
+  for (const [key, cpVal] of Object.entries(_coloniaCP)) {
+    const cps = Array.isArray(cpVal) ? cpVal : [cpVal];
+    const colonia = key.split('|')[0];
+    for (const cp of cps) {
+      if (!_cpToColonias[cp]) _cpToColonias[cp] = [];
+      _cpToColonias[cp].push(colonia);
+    }
+  }
+}
+
+function coloniasCercanasDesdeCoords(lat, lon, kmMax = 3) {
+  _load();
+  _buildReverseIndex();
+  if (!(Number.isFinite(lat) && Number.isFinite(lon))) return [];
+
+  const resultados = [];
+  for (const [cp, coord] of Object.entries(_cpCoords)) {
+    const dist = haversine(lat, lon, coord.lat, coord.lon);
+    if (dist > kmMax) continue;
+    for (const colonia of (_cpToColonias[cp] || [])) {
+      resultados.push({ colonia, municipio: coord.municipio, cp, distancia_km: Math.round(dist * 1000) / 1000 });
+    }
+  }
+  resultados.sort((a, b) => a.distancia_km - b.distancia_km);
+  return resultados;
+}
+
+module.exports = { haversine, coordsDeColonia, coloniasCercanas, coloniasCercanasDesdeCoords };
 
 // ── Self-test ─────────────────────────────────────────────────────────────────
 if (require.main === module) {

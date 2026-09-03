@@ -125,6 +125,8 @@ def main():
     ap.add_argument("--municipio", required=True)
     ap.add_argument("--tipo", default="casa")
     ap.add_argument("--m2", default="100")
+    ap.add_argument("--lat", default=None)
+    ap.add_argument("--lon", default=None)
     args = ap.parse_args()
 
     client = MongoClient(MONGO_URL, serverSelectionTimeoutMS=15000, socketTimeoutMS=60000)
@@ -145,12 +147,14 @@ def main():
     # cuando el sujeto no es ya terreno: el motor de valuación de terreno (residual) necesita
     # comparables de solo-tierra de la misma zona, no solo los de construcción.
     tipos = [args.tipo] + (["terreno"] if args.tipo != "terreno" else [])
+    cmd_base = ["node", str(MODULO_DRIVE_IA / "buscar_comparables_browser.js"),
+                "--colonia", args.colonia, "--municipio", args.municipio, "--m2", args.m2]
+    if args.lat is not None and args.lon is not None:
+        cmd_base += ["--lat", str(args.lat), "--lon", str(args.lon)]
     for tipo in tipos:
         log(f"=== [1/4] Scraping {args.colonia}, {args.municipio} (tipo={tipo}) ===")
         subprocess.run(
-            ["node", str(MODULO_DRIVE_IA / "buscar_comparables_browser.js"),
-             "--colonia", args.colonia, "--municipio", args.municipio,
-             "--tipo", tipo, "--m2", args.m2],
+            cmd_base + ["--tipo", tipo],
             cwd=str(MODULO_DRIVE_IA), timeout=300,
         )
         log(f"=== [2/4] Insertando en mercado_props (tipo={tipo}) ===")

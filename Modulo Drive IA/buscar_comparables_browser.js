@@ -18,7 +18,7 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
-const { coloniasCercanas } = require('./_geo/proximidad.cjs');
+const { coloniasCercanas, coloniasCercanasDesdeCoords } = require('./_geo/proximidad.cjs');
 
 // normCol/normMuni copiadas de motor_remi_api.js (exportadas, pero requerir ese módulo
 // engancha listeners de stdin a nivel de módulo y cuelga este script) — misma lógica, no reinventada.
@@ -60,6 +60,11 @@ const COLONIA   = args.colonia   || '';
 const MUNICIPIO = args.municipio || '';
 const TIPO      = (args.tipo || 'casa').toLowerCase();
 const M2        = parseFloat(args.m2 || 100);
+// lat/lon del sujeto (opcionales) — fallback cuando la colonia no está en el catálogo
+// SEPOMEX (fraccionamientos privados, ej. "El Roble" en El Arenal) pero el formulario
+// sí capturó coordenadas reales.
+const LAT       = args.lat != null ? parseFloat(args.lat) : NaN;
+const LON       = args.lon != null ? parseFloat(args.lon) : NaN;
 // Rango ANCHO de cordura (no relativo al m² del sujeto): este scraper llena mercado_props
 // para TODA la colonia, no solo comps de este avalúo puntual — filtrar 0.5x-1.5x descartaba
 // datos reales que sí sirven a otro sujeto de la misma zona (o a este, vía la banda ±40/60%
@@ -81,8 +86,23 @@ const log = (...a) => { if (JSON_MODE) console.error(...a); else console.log(...
 // privado no oficial, como "El Roble"), coloniasCercanas devuelve [] y esto cae solo a la
 // colonia exacta — mismo comportamiento que antes, sin caso especial.
 const RADIO_KM = 3;
+// Radio más ancho SOLO para el fallback por coordenadas: es ya el último recurso
+// (colonia no catalogada, ej. fraccionamientos privados/zonas rurales periféricas como
+// El Roble en El Arenal, donde la colonia oficial más cercana está a ~4km) — no vale la
+// pena devolver 0 cuando hay algo real un poco más lejos.
+const RADIO_KM_COORDS = 5;
 const MAX_CERCANAS = 4;
-const CERCANAS = coloniasCercanas(COLONIA, MUNICIPIO, RADIO_KM).slice(0, MAX_CERCANAS);
+let CERCANAS = coloniasCercanas(COLONIA, MUNICIPIO, RADIO_KM);
+let CERCANAS_FUENTE = 'catalogo-sepomex';
+// Fallback: la colonia no está en el catálogo por nombre (fraccionamiento privado no
+// oficial) pero el formulario trajo lat/lon reales del sujeto — buscar cercanas por
+// coordenadas directas en vez de depender del nombre.
+if (!CERCANAS.length && Number.isFinite(LAT) && Number.isFinite(LON)) {
+    CERCANAS = coloniasCercanasDesdeCoords(LAT, LON, RADIO_KM_COORDS)
+        .filter(c => normCol(c.colonia) !== COLONIA_N);
+    CERCANAS_FUENTE = 'lat-lon-sujeto';
+}
+CERCANAS = CERCANAS.slice(0, MAX_CERCANAS);
 const COLONIAS_OBJETIVO = [COLONIA, ...CERCANAS.map(c => c.colonia)];
 const COLONIAS_OBJETIVO_N = new Set([COLONIA_N, ...CERCANAS.map(c => normCol(c.colonia))]);
 
@@ -422,8 +442,8 @@ async function main() {
 
     log(`\nBuscando comparables: ${TIPO} en ${COLONIA}, ${zona.municipio} | m² sujeto: ${M2} (rango ${M2_MIN}-${M2_MAX})`);
     log(CERCANAS.length
-        ? `Colonias cercanas (≤${RADIO_KM}km, catálogo SEPOMEX): ${CERCANAS.map(c => `${c.colonia} (${c.distancia_km}km)`).join(', ')}\n`
-        : `Sin colonias cercanas en catálogo — solo colonia exacta\n`);
+        ? `Colonias cercanas (≤${RADIO_KM}km, ${CERCANAS_FUENTE}): ${CERCANAS.map(c => `${c.colonia} (${c.distancia_km}km)`).join(', ')}\n`
+        : `Sin colonias cercanas (ni catálogo ni lat/lon útiles) — solo colonia exacta\n`);
 
     const todos = [];
     for (const fn of [buscarEnNocnok, buscarEnCasasYTerrenos, buscarEnPincali, buscarEnPropiedadesCom]) {

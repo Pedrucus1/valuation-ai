@@ -1023,17 +1023,21 @@ async def generate_comparables(valuation_id: str, request: Request, append: bool
             # de colonia) en segundo plano; no bloquea esta respuesta. Mismo patrón
             # fire-and-forget que admin_scraper.py (asyncio.create_task + subprocess).
             try:
-                from core.config import SCRAPER_DIR
                 python_exe = os.environ.get("SCRAPER_PYTHON", "python")
-                asyncio.create_task(asyncio.create_subprocess_exec(
+                cmd = [
                     python_exe, "ondemand_pipeline.py",
                     "--valuation-id", valuation_id,
                     "--colonia", prop["neighborhood"],
                     "--municipio", prop["municipality"],
                     "--tipo", search_type,
                     "--m2", str(prop.get("construction_area") or 100),
-                    cwd=str(SCRAPER_DIR),
-                ))
+                ]
+                # lat/lon reales del sujeto: fallback para hallar colonias cercanas cuando
+                # el nombre de colonia no está en el catálogo SEPOMEX (fraccionamientos
+                # privados no oficiales, ej. "El Roble" en El Arenal).
+                if prop.get("latitude") is not None and prop.get("longitude") is not None:
+                    cmd += ["--lat", str(prop["latitude"]), "--lon", str(prop["longitude"])]
+                asyncio.create_task(asyncio.create_subprocess_exec(*cmd, cwd=str(SCRAPER_DIR)))
                 logger.info(f"ondemand_pipeline lanzado para {valuation_id} ({prop['neighborhood']}, {prop['municipality']})")
             except Exception as e:
                 logger.warning(f"No se pudo lanzar ondemand_pipeline: {e}")
