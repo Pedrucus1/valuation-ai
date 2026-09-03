@@ -360,8 +360,39 @@ const PROPCOM_HEADERS = {
 };
 
 function _extraerTarjetasPropCom(html) {
-    // Sin parser HTML instalado: cortar por tarjeta exacta y leer amenities-count en orden
-    // (recámaras, baños, m2c — confirmado real 22-jul, mismo orden que SELECTORES de propiedades_com.py).
+    // Fuente principal: el bloque <script type="application/ld+json"> (schema.org ItemList)
+    // que la página ya trae con TODOS los listados — precio, m², colonia y URL exactos, sin
+    // depender de que el regex de tarjetas HTML matchee bien. Encontrado real 03-sep: el parser
+    // viejo (regex sobre <section class="pcom-property-card">) perdía listados reales presentes
+    // en este JSON-LD (2 de 42 en una corrida real de El Arenal, sin patrón obvio de por qué).
+    // Terreno usa otra estructura en este JSON-LD (itemOffered['@type']==='Place', sin schema
+    // de tamaño de lote claro todavía) — sin investigar, se queda en el parser HTML de abajo
+    // para no arriesgar una regresión silenciosa (antes de este cambio ya daba 0 casi siempre
+    // por el bug de URL 404 de terreno en Propiedades.com, aparte y sin tocar hoy).
+    const ldM = TIPO !== 'terreno' && html.match(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/);
+    if (ldM) {
+        try {
+            const data = JSON.parse(ldM[1]);
+            const items = data?.mainEntity?.itemListElement;
+            if (Array.isArray(items) && items.length) {
+                return items.map(it => {
+                    const r = it.item;
+                    const o = r?.offers?.itemOffered;
+                    if (!r || !o) return null;
+                    const m2 = o.floorSize?.value;
+                    if (!(o['@type'] === 'House' || o['@type'] === 'Apartment')) return null; // terreno = 'Place', otra estructura, se maneja aparte
+                    return {
+                        precio: parseNum(r.offers.price),
+                        construccion: parseNum(m2),
+                        colonia: (o.address?.addressLocality || '').trim(),
+                        url: r.url,
+                    };
+                }).filter(Boolean);
+            }
+        } catch { /* cae al parser HTML de abajo */ }
+    }
+    // Fallback: parser HTML original (sin parser instalado — cortar por tarjeta y leer
+    // amenities-count en orden: recámaras, baños, m2c — mismo orden que propiedades_com.py).
     return html.split(/<section class="pcom-property-card"/).slice(1).map(raw => {
         const precioM = raw.match(/\$\s*([\d,]+(?:\.\d+)?)/);
         const amenities = [...raw.matchAll(/amenities-count[^>]*>([^<]+)</gi)].map(m => m[1]);
