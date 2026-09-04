@@ -15,9 +15,9 @@
     "semantic_hash": "ce9d0be39fcb761748e77512cedfbdcd"
   },
   "Modulo Drive IA/_comparables_browser_temp.json": {
-    "mtime": 1788328472.8183937,
-    "ast_hash": "77a2d2f5e123468a94a0a466357aedec",
-    "semantic_hash": "77a2d2f5e123468a94a0a466357aedec"
+    "mtime": 1788429194.217371,
+    "ast_hash": "495889d5022c4b9de2c699f8ae62851f",
+    "semantic_hash": "495889d5022c4b9de2c699f8ae62851f"
   },
   "Modulo Drive IA/_geo/colonia_cp.json": {
     "mtime": 1780595596.2606242,
@@ -295,9 +295,9 @@
     "semantic_hash": "3e70e3003785b5ca59243471981c8887"
   },
   "Modulo Drive IA/buscar_comparables_browser.js": {
-    "mtime": 1788328177.233887,
-    "ast_hash": "66a6f38bfebc905a30083e6e9b4be8c8",
-    "semantic_hash": "66a6f38bfebc905a30083e6e9b4be8c8"
+    "mtime": 1788429143.6679897,
+    "ast_hash": "3f4c84a8fe2ae72b13093d62d18aa347",
+    "semantic_hash": "3f4c84a8fe2ae72b13093d62d18aa347"
   },
   "Modulo Drive IA/buscar_keys_basura.js": {
     "mtime": 1780202813.8605742,
@@ -360,9 +360,9 @@
     "semantic_hash": "b9db00b86336ce8bebbe73eb10eac8a8"
   },
   "Modulo Drive IA/cache_consolidado.json": {
-    "mtime": 1786526302.1966524,
-    "ast_hash": "9071aabe022acd6d9fe7c197ac5ea42b",
-    "semantic_hash": "9071aabe022acd6d9fe7c197ac5ea42b"
+    "mtime": 1788431835.147995,
+    "ast_hash": "d8e5c54e0da11d0963c7606d7ea6268e",
+    "semantic_hash": "d8e5c54e0da11d0963c7606d7ea6268e"
   },
   "Modulo Drive IA/cache_consolidado_limpio.json": {
     "mtime": 1782922326.6175196,
@@ -425,9 +425,9 @@
     "semantic_hash": "de27aeab45c4e6b7cd0d40991cfb3224"
   },
   "Modulo Drive IA/cache_index.json": {
-    "mtime": 1786526312.9860094,
-    "ast_hash": "0ecaf428a79121c15932cd8f7c9e53a8",
-    "semantic_hash": "0ecaf428a79121c15932cd8f7c9e53a8"
+    "mtime": 1788431835.797979,
+    "ast_hash": "70ba364e6dcf80030579e7716c01f153",
+    "semantic_hash": "70ba364e6dcf80030579e7716c01f153"
   },
   "Modulo Drive IA/cache_index_dv.json": {
     "mtime": 1782818458.5488448,
@@ -600,9 +600,9 @@
     "semantic_hash": "2dc60e7c43c5bec132ae3de13b746939"
   },
   "Modulo Drive IA/colonias_maestro.json": {
-    "mtime": 1785648739.2289524,
-    "ast_hash": "21dd3291ee3ea055cb6e4f88f5be7c21",
-    "semantic_hash": "21dd3291ee3ea055cb6e4f88f5be7c21"
+    "mtime": 1788432793.3543093,
+    "ast_hash": "e1490081838edbddf3c94265f7afe0ba",
+    "semantic_hash": "e1490081838edbddf3c94265f7afe0ba"
   },
   "Modulo Drive IA/colonias_maestro.lab.json": {
     "mtime": 1784786402.8041384,
@@ -625,9 +625,9 @@
     "semantic_hash": "772b26e8906d171f44e23d1e5a3c7110"
   },
   "Modulo Drive IA/colonias_nse_v2.json": {
-    "mtime": 1780250261.6646967,
-    "ast_hash": "8ee9d0b101079986e7d0e1e7bbbc3629",
-    "semantic_hash": "8ee9d0b101079986e7d0e1e7bbbc3629"
+    "mtime": 1788432766.0020316,
+    "ast_hash": "398ed48aa055feb8f2e0630313ad866d",
+    "semantic_hash": "398ed48aa055feb8f2e0630313ad866d"
   },
   "Modulo Drive IA/colonias_progress.json": {
     "mtime": 1779163046.2583904,
@@ -655,9 +655,9 @@
     "semantic_hash": "8f5cdbc5f8fe4ce94a7a35b4c6759bcc"
   },
   "Modulo Drive IA/colonias_similares_enriquecido.json": {
-    "mtime": 1784786167.1642525,
-    "ast_hash": "a7ed87ad4b10ff5cdc73e207a50d0dd6",
-    "semantic_hash": "a7ed87ad4b10ff5cdc73e207a50d0dd6"
+    "mtime": 1788431836.6878455,
+    "ast_hash": "ed4bfd2387303c0f023d7ce6811ddeab",
+    "semantic_hash": "ed4bfd2387303c0f023d7ce6811ddeab"
   },
   "Modulo Drive IA/colonias_truncadas.json": {
     "mtime": 1785913877.2531712,
@@ -725,9 +725,9 @@
     "semantic_hash": "82604e2cf422a22a5dc89e21fbbffa7d"
   },
   "Modulo Drive IA/construir_idx_valoracion.js": {
-    "mtime": 1780249370.5750062,
-    "ast_hash": "0caa0f32123907ec212902e38463e0dc",
-    "semantic_hash": "0caa0f32123907ec212902e38463e0dc"
+    "mtime": 1788432744.829875,
+    "ast_hash": "3cc34679ae4b9b16761a53a550fafdb2",
+    "semantic_hash": "3cc34679ae4b9b16761a53a550fafdb2"
   },
   "Modulo Drive IA/construir_maestro.js": {
     "mtime": 1780598775.5007274,
@@ -740,9 +740,9 @@
     "semantic_hash": "cd09a1fac1cc8930be82b9c50bea61d9"
   },
   "Modulo Drive IA/construir_nse_v2.js": {
-    "mtime": 1780246120.6505473,
-    "ast_hash": "05b29c661e36849317b4059b7ed44761",
-    "semantic_hash": "05b29c661e36849317b4059b7ed44761"
+    "mtime": 1788432759.595217,
+    "ast_hash": "7a121bd2e96938e9f586f770d2d2021f",
+    "semantic_hash": "7a121bd2e96938e9f586f770d2d2021f"
   },
   "Modulo Drive IA/construir_puente_comps.js": {
     "mtime": 1780550576.0635045,
@@ -920,9 +920,9 @@
     "semantic_hash": "34d4bc3510c6f50cae884871b5ab02c1"
   },
   "Modulo Drive IA/idx_valoracion.json": {
-    "mtime": 1780262466.2004502,
-    "ast_hash": "30fb63ed32ed32f25250928d0b0a2638",
-    "semantic_hash": "30fb63ed32ed32f25250928d0b0a2638"
+    "mtime": 1788432765.7533088,
+    "ast_hash": "1f8a5eb619956d8083d5383f9c952276",
+    "semantic_hash": "1f8a5eb619956d8083d5383f9c952276"
   },
   "Modulo Drive IA/inspect_sepomex.js": {
     "mtime": 1780201162.6109073,
@@ -1040,9 +1040,9 @@
     "semantic_hash": "9e582d06bb92d632327fea0fe900a8d9"
   },
   "Modulo Drive IA/pm2t_semilla.json": {
-    "mtime": 1787629639.1965253,
-    "ast_hash": "a6306a35277815d424a9dcf4368177b5",
-    "semantic_hash": "a6306a35277815d424a9dcf4368177b5"
+    "mtime": 1788432160.860787,
+    "ast_hash": "d3f9b4460fe66baf9b6e7a42ccd74860",
+    "semantic_hash": "d3f9b4460fe66baf9b6e7a42ccd74860"
   },
   "Modulo Drive IA/recalcular_nse_desde_cache.js": {
     "mtime": 1783391363.4345076,
@@ -1585,9 +1585,9 @@
     "semantic_hash": "f726ef1400ce2cb93ebd6916b4e0cfcf"
   },
   "backend/server.py": {
-    "mtime": 1788313267.5201247,
-    "ast_hash": "f3abc55431811055f72aff070a3f3440",
-    "semantic_hash": "f3abc55431811055f72aff070a3f3440"
+    "mtime": 1788433910.717837,
+    "ast_hash": "74d188174723ea310a11b6a3f77671ee",
+    "semantic_hash": "74d188174723ea310a11b6a3f77671ee"
   },
   "backend/sheets_comparables.py": {
     "mtime": 1776473228.832765,
@@ -2335,9 +2335,9 @@
     "semantic_hash": "ce1e3aa5a2d850ad71377f498fe4be59"
   },
   "frontend/src/pages/ComparablesPage.jsx": {
-    "mtime": 1785730455.152139,
-    "ast_hash": "87831be2d648854b835a7209968dd7eb",
-    "semantic_hash": "87831be2d648854b835a7209968dd7eb"
+    "mtime": 1788433897.8977568,
+    "ast_hash": "009db2acf473338aa03128df8017c593",
+    "semantic_hash": "009db2acf473338aa03128df8017c593"
   },
   "frontend/src/pages/ContactoPage.jsx": {
     "mtime": 1774044574.3909073,
@@ -2370,9 +2370,9 @@
     "semantic_hash": "3b36aa91a6687a8d0a2496e5afee8507"
   },
   "frontend/src/pages/InmobiliariaDashboardPage.jsx": {
-    "mtime": 1785182788.7909236,
-    "ast_hash": "c4930939182e61a3a85d7efaac90dfc3",
-    "semantic_hash": "c4930939182e61a3a85d7efaac90dfc3"
+    "mtime": 1788426503.968414,
+    "ast_hash": "ffc0bb5d85638ca062395448c5096aa7",
+    "semantic_hash": "ffc0bb5d85638ca062395448c5096aa7"
   },
   "frontend/src/pages/InmobiliariaPage.jsx": {
     "mtime": 1775608568.536804,
@@ -2455,9 +2455,9 @@
     "semantic_hash": "43b6a96e1f3d8ac91887d10bd305ff81"
   },
   "frontend/src/pages/ValuadorDashboardPage.jsx": {
-    "mtime": 1784702291.8317466,
-    "ast_hash": "90650ae6f03eb54849d51b9588a24eb1",
-    "semantic_hash": "90650ae6f03eb54849d51b9588a24eb1"
+    "mtime": 1788426552.4018073,
+    "ast_hash": "4bed7f03f1695f7d1a91e01dc71e36a1",
+    "semantic_hash": "4bed7f03f1695f7d1a91e01dc71e36a1"
   },
   "frontend/src/pages/ValuadorPage.jsx": {
     "mtime": 1775609348.8761425,
@@ -3095,9 +3095,9 @@
     "semantic_hash": "a5a06ade88c8e16f548724e3ebcbbf7a"
   },
   "scraper-inmuebles/enricher.py": {
-    "mtime": 1787625631.6807072,
-    "ast_hash": "03257c2e0396ae1cefdf0de42a42e66a",
-    "semantic_hash": "03257c2e0396ae1cefdf0de42a42e66a"
+    "mtime": 1788426203.8781881,
+    "ast_hash": "e966dccf33b41134e65f84de10123a12",
+    "semantic_hash": "e966dccf33b41134e65f84de10123a12"
   },
   "scraper-inmuebles/exportar_edad_mongo.py": {
     "mtime": 1780469066.641649,
@@ -3455,13 +3455,23 @@
     "semantic_hash": "81cb2abcde0d497a6d4b59bcebe886af"
   },
   "scraper-inmuebles/monitor_local.py": {
-    "mtime": 1783927706.4160948,
-    "ast_hash": "1e66a6578cd1d624d9ac7b9d4e7a54cc",
-    "semantic_hash": "1e66a6578cd1d624d9ac7b9d4e7a54cc"
+    "mtime": 1788424989.45985,
+    "ast_hash": "7855ec00506af24d41149fdfd101f92d",
+    "semantic_hash": "7855ec00506af24d41149fdfd101f92d"
   },
   "scraper-inmuebles/orquestador_ia.py": {
     "mtime": 1781568536.218039,
     "ast_hash": "4a2f982ad56e8a8f65fc5369adf1d081",
     "semantic_hash": "4a2f982ad56e8a8f65fc5369adf1d081"
+  },
+  "Modulo Drive IA/actualizar_indices_motor.js": {
+    "mtime": 1788431814.0434818,
+    "ast_hash": "e942b6727c6fade11719d64b37145f33",
+    "semantic_hash": "e942b6727c6fade11719d64b37145f33"
+  },
+  "scraper-inmuebles/ondemand_pipeline.py": {
+    "mtime": 1788429060.16598,
+    "ast_hash": "8a92a1d1d4d23c7ac4629f5a5ed40fa8",
+    "semantic_hash": "8a92a1d1d4d23c7ac4629f5a5ed40fa8"
   }
 }

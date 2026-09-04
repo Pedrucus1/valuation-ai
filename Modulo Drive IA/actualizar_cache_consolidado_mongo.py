@@ -66,8 +66,18 @@ def main():
         # NO filtrar `duplicado`/`es_remate` aquí: PROBADO 13-jul, encoge el pool y
         # empeora el motor (±10 −2.9, ±15 −3.0, ±20 flat, errAbs +0.9). Los comps extra
         # ayudan la mediana más de lo que estorban. Ver MOTOR_ANTECEDENTES.
-        "m2_construccion":            {"$gt": 0},
         "precio":                     {"$gte": 100000},
+        # Bug real 03-sep: exigir m2_construccion>0 SIEMPRE excluía los terrenos que ya
+        # vienen bien modelados (sin m2_construccion, solo m2_terreno — así los escribe
+        # aSchemaMongo() del on-demand y los scrapers puntuales de esta sesión). La
+        # "corrección terreno c->t" de abajo nunca llegaba a verlos porque ya habían sido
+        # descartados por esta query. Aceptar también terreno/lote/predio/solar con
+        # m2_terreno>0 aunque no traigan m2_construccion.
+        "$or": [
+            {"m2_construccion": {"$gt": 0}},
+            {"tipo_propiedad": {"$regex": "terreno|lote|predio|solar", "$options": "i"},
+             "m2_terreno": {"$gt": 0}},
+        ],
     }
     proj = {
         "precio": 1, "m2_construccion": 1, "m2_terreno": 1, "tipo_propiedad": 1,
@@ -79,7 +89,7 @@ def main():
     for d in col.find(q, proj, batch_size=500):
         raw.append({
             "precio":    round(d["precio"]),
-            "m2c":       round(d["m2_construccion"]),
+            "m2c":       round(d.get("m2_construccion") or 0),
             "m2t":       round(d.get("m2_terreno") or 0),
             "tipo":      low(d.get("tipo_propiedad")),
             "colonia":   low(d.get("colonia")),

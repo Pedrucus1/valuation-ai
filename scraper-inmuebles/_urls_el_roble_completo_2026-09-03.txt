@@ -1,0 +1,36 @@
+MONOPOLIO
+https://monopolio.com.mx/busqueda/propiedad/finca-de-campo-ideal-para-eventos-y-descanso
+https://monopolio.com.mx/busqueda/propiedad/casa-de-campo-en-el-roble-con-terraza-y-jardin
+https://monopolio.com.mx/busqueda/propiedad/quinta-y-casa-ideal-para-eventos-en-el-roble
+https://monopolio.com.mx/busqueda/propiedad/casa-de-una-planta-en-exclusivo-fraccionamiento-5
+https://monopolio.com.mx/busqueda/propiedad/oportunidad-2-casas-en-el-roble-el-arenal
+https://monopolio.com.mx/busqueda/propiedad/casa-en-fraccionamiento-privado-con-lujo-y-seguridad
+
+PROPIEDADES_COM
+https://propiedades.com/inmuebles/casa-en-venta-kilometro-el-arenal-jalisco-30142224
+https://propiedades.com/inmuebles/casa-en-venta-el-arenal-jalisco-31018168
+https://propiedades.com/inmuebles/casa-en-venta-hacienda-la-isla-137-el-arenal-jalisco-31688838
+https://propiedades.com/inmuebles/casa-en-venta-emiliano-zapata-el-arenal-jalisco-31691105
+https://propiedades.com/inmuebles/casa-en-venta-paseo-del-roble-14-el-arenal-jalisco-28419191
+
+VIVANUNCIOS
+https://www.vivanuncios.com.mx/a-venta-terreno/emiliano-zapata/terreno-en-venta-en-fraccionamiento-las-tortugas/149843907
+https://www.vivanuncios.com.mx/a-venta-terreno/emiliano-zapata/terreno-en-venta-en-punta-bosque-residencial/147805689
+https://www.vivanuncios.com.mx/a-venta-casa/emiliano-zapata/casa-de-campo-en-venta-emiliano-zapata-el-arenal-jalisco/145471191
+https://www.vivanuncios.com.mx/a-venta-terreno/emiliano-zapata/terreno-y-casa-de-campo-en-venta-en-el-arenal-jalisco/148763556
+https://www.vivanuncios.com.mx/a-venta-casa/el-roble/casa-en-venta-en-el-roble-el-arenal-jalisco/150548342
+https://www.vivanuncios.com.mx/a-venta-casa/el-roble/casa-en-el-roble/150548334
+https://www.vivanuncios.com.mx/a-venta-terreno/el-roble/terreno-en-venta-en-fraccionamiento-el-roble-el-arenal-jalisco/150548340
+https://www.vivanuncios.com.mx/a-venta-terreno/el-roble/terreno-en-venta-en-el-roble/149091298
+https://www.vivanuncios.com.mx/a-venta-terreno/el-roble/-oferta-terreno-en-reserva-de-los-encinos/146216931
+https://www.vivanuncios.com.mx/a-venta-terreno/el-roble/terreno-en-venta-en-el-roble-arenal-jalisco/146684204
+https://www.vivanuncios.com.mx/a-venta-casa/el-roble/casa-en-venta-en-fraccionamiento-el-roble/150827205
+https://www.vivanuncios.com.mx/a-venta-terreno/el-roble/terreno-en-venta-en-fraccionamiento-el-roble/144611942
+https://www.vivanuncios.com.mx/a-venta-terreno/el-roble/terreno-campestre-por-club-de-la-udg-precio-debajo-avaluo/147833377
+https://www.vivanuncios.com.mx/a-venta-terreno/el-roble/terreno-campreste-en-fraccionamiento-el-roble-en-arenal-jalisco/146532158
+
+CASAS_Y_TERRENOS (pagina de listado, no propiedad individual)
+https://www.casasyterrenos.com/jalisco/el-arenal/fracc-el-roble/casas/venta
+
+PINCALI (pagina de listado, no propiedad individual)
+https://www.pincali.com/inmuebles/propiedades-en-venta-en-fraccionamiento-el-roble-el-arenal-jalisco

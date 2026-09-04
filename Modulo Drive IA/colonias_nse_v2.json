@@ -1002,8 +1002,8 @@
   "san isidro": {
     "nse": "medio-bajo",
     "nseIdx": 2,
-    "medianaPm2": 16835,
-    "nListings": 12,
+    "medianaPm2": 17098,
+    "nListings": 13,
     "fuente": "idx-casa",
     "ventana": "sin-fecha"
   },
@@ -1570,8 +1570,8 @@
   "auditorio": {
     "nse": "medio-bajo",
     "nseIdx": 2,
-    "medianaPm2": 20587,
-    "nListings": 16,
+    "medianaPm2": 20500,
+    "nListings": 17,
     "fuente": "idx-casa",
     "ventana": "sin-fecha"
   },
@@ -1594,8 +1594,8 @@
   "vallarta la patria": {
     "nse": "medio-alto",
     "nseIdx": 4,
-    "medianaPm2": 35435,
-    "nListings": 4,
+    "medianaPm2": 42129,
+    "nListings": 5,
     "fuente": "idx-casa",
     "ventana": "sin-fecha"
   },
@@ -1698,7 +1698,7 @@
   "flores del valle": {
     "nse": "medio-medio",
     "nseIdx": 3,
-    "medianaPm2": 23822,
+    "medianaPm2": 24702,
     "nListings": 8,
     "fuente": "idx-casa",
     "ventana": "sin-fecha"
@@ -1706,8 +1706,8 @@
   "arcos de zapopan": {
     "nse": "medio-medio",
     "nseIdx": 3,
-    "medianaPm2": 26176,
-    "nListings": 9,
+    "medianaPm2": 29000,
+    "nListings": 10,
     "fuente": "idx-casa",
     "ventana": "sin-fecha"
   },
@@ -1740,6 +1740,30 @@
     "nseIdx": 3,
     "medianaPm2": 30041,
     "nListings": 5,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "l26b": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36943,
+    "nListings": 7,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "lomas del centinela": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16575,
+    "nListings": 9,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "sta margarita": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17040,
+    "nListings": 9,
     "fuente": "idx-casa",
     "ventana": "sin-fecha"
   },
@@ -1823,14 +1847,6 @@
     "fuente": "idx-casa",
     "ventana": "sin-fecha"
   },
-  "lomas del centinela": {
-    "nse": "medio-bajo",
-    "nseIdx": 2,
-    "medianaPm2": 15162,
-    "nListings": 8,
-    "fuente": "idx-casa",
-    "ventana": "sin-fecha"
-  },
   "valle esmeralda": {
     "nse": "medio-alto",
     "nseIdx": 4,
@@ -1847,14 +1863,6 @@
     "fuente": "idx-casa",
     "ventana": "sin-fecha"
   },
-  "sta margarita": {
-    "nse": "medio-bajo",
-    "nseIdx": 2,
-    "medianaPm2": 16923,
-    "nListings": 8,
-    "fuente": "idx-casa",
-    "ventana": "sin-fecha"
-  },
   "interior casa 19": {
     "nse": "medio-medio",
     "nseIdx": 3,
@@ -1868,14 +1876,6 @@
     "nseIdx": 4,
     "medianaPm2": 36483,
     "nListings": 6,
-    "fuente": "idx-casa",
-    "ventana": "sin-fecha"
-  },
-  "l26b": {
-    "nse": "medio-alto",
-    "nseIdx": 4,
-    "medianaPm2": 36943,
-    "nListings": 5,
     "fuente": "idx-casa",
     "ventana": "sin-fecha"
   },
@@ -3010,8 +3010,24 @@
   "bosques del boulevard": {
     "nse": "medio-medio",
     "nseIdx": 3,
-    "medianaPm2": 21330,
-    "nListings": 13,
+    "medianaPm2": 21546,
+    "nListings": 14,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "hermosa provincia": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15505,
+    "nListings": 6,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "el bethel": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 12891,
+    "nListings": 7,
     "fuente": "idx-casa",
     "ventana": "sin-fecha"
   },
@@ -3079,27 +3095,11 @@
     "fuente": "idx-casa",
     "ventana": "sin-fecha"
   },
-  "el bethel": {
-    "nse": "interes-social",
-    "nseIdx": 1,
-    "medianaPm2": 12695,
-    "nListings": 6,
-    "fuente": "idx-casa",
-    "ventana": "sin-fecha"
-  },
   "juan manuel vallarta": {
     "nse": "medio-alto",
     "nseIdx": 4,
     "medianaPm2": 39963,
     "nListings": 6,
-    "fuente": "idx-casa",
-    "ventana": "sin-fecha"
-  },
-  "hermosa provincia": {
-    "nse": "medio-bajo",
-    "nseIdx": 2,
-    "medianaPm2": 15385,
-    "nListings": 5,
     "fuente": "idx-casa",
     "ventana": "sin-fecha"
   },
@@ -4223,6 +4223,14 @@
     "fuente": "idx-casa",
     "ventana": "sin-fecha"
   },
+  "colinas de la cruz": {
+    "nse": "interes-social",
+    "nseIdx": 1,
+    "medianaPm2": 13881,
+    "nListings": 9,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
   "e 17col las grullas": {
     "nse": "medio-medio",
     "nseIdx": 3,
@@ -4251,14 +4259,6 @@
     "nse": "interes-social",
     "nseIdx": 1,
     "medianaPm2": 12480,
-    "nListings": 8,
-    "fuente": "idx-casa",
-    "ventana": "sin-fecha"
-  },
-  "colinas de la cruz": {
-    "nse": "interes-social",
-    "nseIdx": 1,
-    "medianaPm2": 13440,
     "nListings": 8,
     "fuente": "idx-casa",
     "ventana": "sin-fecha"
@@ -4610,8 +4610,8 @@
   "san francisco": {
     "nse": "medio-bajo",
     "nseIdx": 2,
-    "medianaPm2": 20306,
-    "nListings": 9,
+    "medianaPm2": 20313,
+    "nListings": 10,
     "fuente": "idx-casa",
     "ventana": "sin-fecha"
   },
@@ -5008,10 +5008,10 @@
     "ventana": "últimos 18 meses"
   },
   "parques de santa cruz del valle": {
-    "nse": "medio-medio",
-    "nseIdx": 3,
-    "medianaPm2": 23548,
-    "nListings": 8,
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20845,
+    "nListings": 9,
     "fuente": "idx-casa",
     "ventana": "sin-fecha"
   },
@@ -5066,8 +5066,8 @@
   "cantera colorada": {
     "nse": "medio-bajo",
     "nseIdx": 2,
-    "medianaPm2": 18686,
-    "nListings": 8,
+    "medianaPm2": 19394,
+    "nListings": 9,
     "fuente": "idx-casa",
     "ventana": "sin-fecha"
   },
@@ -5076,6 +5076,14 @@
     "nseIdx": 3,
     "medianaPm2": 26071,
     "nListings": 7,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "los olivos": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 20602,
+    "nListings": 6,
     "fuente": "idx-casa",
     "ventana": "sin-fecha"
   },
@@ -5124,14 +5132,6 @@
     "nseIdx": 3,
     "medianaPm2": 24524,
     "nListings": 7,
-    "fuente": "idx-casa",
-    "ventana": "sin-fecha"
-  },
-  "los olivos": {
-    "nse": "medio-bajo",
-    "nseIdx": 2,
-    "medianaPm2": 20345,
-    "nListings": 5,
     "fuente": "idx-casa",
     "ventana": "sin-fecha"
   },
@@ -5340,6 +5340,14 @@
     "nseIdx": 1,
     "medianaPm2": 12794,
     "nListings": 3,
+    "fuente": "idx-casa-18m",
+    "ventana": "últimos 18 meses"
+  },
+  "el arenal centro": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 19345,
+    "nListings": 13,
     "fuente": "idx-casa-18m",
     "ventana": "últimos 18 meses"
   },

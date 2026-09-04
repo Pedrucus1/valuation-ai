@@ -920,7 +920,20 @@ function valuarLoteGrandeCUS(prop, muniNorm, colNorm, tipo, m2C, m2T) {
     const casa  = exact.length >= 3 ? exact : [...exact, ...todos.filter(esSim)];
     if (casa.length < 3) return null;
     const pm2T = pm2tSemilla(muniNorm, colNorm, sims);
-    if (!pm2T) return null;  // sin valor de suelo confiable → caer al flujo normal
+    if (!pm2T) {
+        // Sin semilla de valor de suelo (colonia sin dato "ganado" de terreno) — no se puede
+        // homologar por CUS, pero SÍ hay comparables reales en la zona (`casa`, ya sin el
+        // recorte de ±50% de m²c que aplica el pool normal). En vez de caer al flujo genérico
+        // municipio-wide (peor: descarta lo poco que hay en la colonia), usar esos mismos
+        // comparables tal cual con remiSobreComps — su factor (m2c/m2C)^(1/6) ya homologa
+        // tamaño. Confianza tope MEDIA: son casas más grandes que el sujeto, no CUS-ajustadas.
+        const rg = remiSobreComps(casa, m2C, prop.edad || 0, prop.estadoConservacion, 'similares');
+        if (rg && rg.valor > 0) {
+            return { ...rg, confianza: rg.confianza === 'ALTA' ? 'MEDIA' : rg.confianza,
+                     poolTipo: 'lote_grande_sin_semilla' };
+        }
+        return null;  // ni eso — caer al flujo normal
+    }
     const K = 0.8;  // descuento del terreno excedente (rendimiento decreciente del lote grande)
     const pus = casa.slice(0, 15).map(d => {
         const cusC = d.m2c / d.m2t;

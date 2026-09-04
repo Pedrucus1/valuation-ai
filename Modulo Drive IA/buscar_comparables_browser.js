@@ -12,13 +12,22 @@
  * Esta versión reusa exactamente el método que YA funciona por portal (scrapers/*.py), sin
  * navegador: PINCALI y Propiedades.com por fetch nativo, NOCNOK y CasasYTerrenos por su API JSON.
  *
+ * MONOPOLIO (agregado 03-sep): su página de detalle es SSR puro (extracción por regex, sin
+ * navegador). Pero el LISTADO por colonia se hidrata en el cliente — fetch nativo no trae
+ * resultados. Único caso de este archivo que sí usa navegador (Puppeteer, ya instalado y usado
+ * en services/browserEnricher.js — mismo singleton, sin dependencia nueva ni costo extra):
+ * un solo page.goto() al listado (URL armada con un geohash de la colonia, ver buscarEnMonopolio)
+ * para leer los links ya renderizados, y de ahí en adelante puro fetch nativo para el detalle
+ * de cada propiedad — no se abre una pestaña por cada una.
+ *
  * Uso: node buscar_comparables_browser.js --colonia "Tabachines" --municipio "Zapopan" --tipo "casa" --m2 120
  */
 
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
-const { coloniasCercanas, coloniasCercanasDesdeCoords } = require('./_geo/proximidad.cjs');
+const { coloniasCercanas, coloniasCercanasDesdeCoords, coordsDeColonia } = require('./_geo/proximidad.cjs');
+const { fetchWithBrowser, closeBrowser } = require('../services/browserEnricher.js');
 
 // normCol/normMuni copiadas de motor_remi_api.js (exportadas, pero requerir ese módulo
 // engancha listeners de stdin a nivel de módulo y cuelga este script) — misma lógica, no reinventada.
@@ -461,12 +470,91 @@ async function buscarEnPropiedadesCom(zona) {
     return comparables;
 }
 
+// ── MONOPOLIO (único portal de este archivo que usa navegador — ver nota de cabecera) ──
+const MONOPOLIO_MAX_DETALLES = 20;
+
+// Geohash estándar (precisión 9 = el que usa Monopolio en sus URLs de listado por zona —
+// confirmado en vivo: el resto de los segmentos del path son cosméticos, solo importa este id).
+function geohashEncode(lat, lon, precision = 9) {
+    const BASE32 = '0123456789bcdefghjkmnpqrstuvwxyz';
+    let latRange = [-90, 90], lonRange = [-180, 180];
+    let geohash = '', bit = 0, ch = 0, even = true;
+    while (geohash.length < precision) {
+        if (even) {
+            const mid = (lonRange[0] + lonRange[1]) / 2;
+            if (lon > mid) { ch |= (1 << (4 - bit)); lonRange[0] = mid; } else { lonRange[1] = mid; }
+        } else {
+            const mid = (latRange[0] + latRange[1]) / 2;
+            if (lat > mid) { ch |= (1 << (4 - bit)); latRange[0] = mid; } else { latRange[1] = mid; }
+        }
+        even = !even;
+        if (bit < 4) bit++; else { geohash += BASE32[ch]; bit = 0; ch = 0; }
+    }
+    return geohash;
+}
+
+// Extracción por regex del JSON embebido en la página de DETALLE — esa sí es SSR puro, no
+// necesita navegador (misma lógica que scraper-inmuebles/scrapers/monopolio.py).
+function _extraerDetalleMonopolio(html) {
+    const h = html.replace(/\\"/g, '"');
+    const num = (re, cast = parseFloat) => { const m = h.match(re); return m ? cast(m[1]) : null; };
+    const precio = num(/"priceAmount":([\d.]+)/);
+    if (!precio) return null;
+    const construccion = num(/"constructionSurface":([\d.]+)/);
+    const terreno = num(/"terrainSurface":([\d.]+)/);
+    const anioM = h.match(/"builtYear":(\d+)/);
+    const anio = anioM ? parseInt(anioM[1], 10) : null;
+
+    let colonia = '';
+    const bc = h.match(/\[\{"type":"state".*?\],"dataUpdateCount"/);
+    if (bc) {
+        const m = bc[0].match(/"type":"neighborhood","id":"[^"]*","name":"([^"]+)"/);
+        if (m) colonia = m[1].replace(/\b\w/g, c => c.toUpperCase());
+    }
+    return { precio, construccion: construccion || terreno, colonia, anio };
+}
+
+async function buscarEnMonopolio(zona) {
+    const comparables = [];
+    // Geocodificar la colonia (catálogo SEPOMEX); si no está catalogada (fraccionamiento
+    // privado, ej. "El Roble"), usar lat/lon del sujeto — mismo fallback que ya usa este
+    // archivo para colonias cercanas.
+    let origen = coordsDeColonia(COLONIA, MUNICIPIO);
+    if (!origen && Number.isFinite(LAT) && Number.isFinite(LON)) origen = { lat: LAT, lon: LON };
+    if (!origen) { log('[Monopolio] Sin coordenadas de la colonia ni del sujeto — se omite'); return comparables; }
+
+    const geohash = geohashEncode(origen.lat, origen.lon, 9);
+    const urlListado = `https://monopolio.com.mx/busqueda/propiedades-en-venta/_/_/_/${geohash}`;
+    log(`[Monopolio] Buscando en ${urlListado} (geohash de ${COLONIA || 'lat/lon sujeto'})`);
+
+    // Único fetch con navegador de todo el archivo: la página de listado se hidrata client-side.
+    const html = await fetchWithBrowser(urlListado, 15000, 'a[href*="/busqueda/propiedad/"]');
+    if (!html) { log('  Error de navegador al cargar el listado'); return comparables; }
+
+    const slugs = [...new Set([...html.matchAll(/\/busqueda\/propiedad\/([a-z0-9-]+)/g)].map(m => m[1]))];
+    log(`  ${slugs.length} propiedades en el listado`);
+
+    // De aquí en adelante, fetch nativo (sin navegador) — el detalle sí es SSR.
+    for (const slug of slugs.slice(0, MONOPOLIO_MAX_DETALLES)) {
+        const url = `https://monopolio.com.mx/busqueda/propiedad/${slug}`;
+        const d = await fetchTexto(url, {});
+        if (!d.ok) continue;
+        const det = _extraerDetalleMonopolio(d.body);
+        if (!det || !det.construccion) continue;
+        if (!(det.precio > 100000 && det.precio < 50000000)) continue;
+        if (!(det.construccion >= M2_MIN && det.construccion <= M2_MAX)) continue;
+        comparables.push({ precio: det.precio, construccion: det.construccion, colonia: det.colonia, anio: det.anio, fuente: 'Monopolio', url });
+    }
+    return comparables;
+}
+
 // fuente (nombre de display) → portal_origen canónico (ESQUEMA_CAMPOS.md / mercado_props).
 const PORTAL_ORIGEN = {
     NOCNOK: 'NOCNOK',
     CasasYTerrenos: 'CASAS_Y_TERRENOS',
     PINCALI: 'PINCALI',
     'Propiedades.com': 'PROPIEDADES_COM',
+    Monopolio: 'MONOPOLIO',
 };
 
 function aSchemaMongo(c, zona) {
@@ -518,9 +606,12 @@ async function main() {
         : `Sin colonias cercanas (ni catálogo ni lat/lon útiles) — solo colonia exacta\n`);
 
     const todos = [];
-    for (const fn of [buscarEnNocnok, buscarEnCasasYTerrenos, buscarEnPincali, buscarEnPropiedadesCom]) {
+    for (const fn of [buscarEnNocnok, buscarEnCasasYTerrenos, buscarEnPincali, buscarEnPropiedadesCom, buscarEnMonopolio]) {
         try { todos.push(...await fn(zona)); } catch (e) { log(`  Error: ${e.message}`); }
     }
+    // Monopolio es el único que abre un navegador (Puppeteer singleton) — cerrarlo al terminar,
+    // si no el proceso Node se queda colgado sin salir.
+    await closeBrowser();
 
     const dedup = deduplicar(todos);
 

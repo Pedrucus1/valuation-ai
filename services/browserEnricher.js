@@ -29,7 +29,7 @@ async function getBrowser() {
 // ---------------------------------------------------------------------------
 // Fetch de una URL con Puppeteer — retorna HTML o null si falla/timeout
 // ---------------------------------------------------------------------------
-async function fetchWithBrowser(url, timeoutMs = 15000) {
+async function fetchWithBrowser(url, timeoutMs = 15000, waitForSelector = null) {
     let page = null;
     try {
         const browser = await getBrowser();
@@ -51,11 +51,18 @@ async function fetchWithBrowser(url, timeoutMs = 15000) {
 
         await page.goto(url, { waitUntil: "domcontentloaded", timeout: timeoutMs });
 
-        // Esperar a que el contenido principal cargue (CSR portals)
-        await page.waitForFunction(
-            () => document.body && document.body.innerText.length > 500,
-            { timeout: 8000 }
-        ).catch(() => {}); // ignorar timeout — tomamos lo que hay
+        // Esperar a que el contenido principal cargue (CSR portals). Un selector concreto
+        // (ej. las tarjetas de un listado que hidrata client-side) es más confiable que el
+        // umbral genérico de texto — el body puede pasar de 500 caracteres con el nav/filtros
+        // ya renderizados, antes de que los resultados en sí lleguen al DOM (real: Monopolio).
+        if (waitForSelector) {
+            await page.waitForSelector(waitForSelector, { timeout: 8000 }).catch(() => {});
+        } else {
+            await page.waitForFunction(
+                () => document.body && document.body.innerText.length > 500,
+                { timeout: 8000 }
+            ).catch(() => {}); // ignorar timeout — tomamos lo que hay
+        }
 
         const html = await page.content();
         return html;
@@ -191,4 +198,4 @@ async function closeBrowser() {
     }
 }
 
-module.exports = { enrichOneComparable, closeBrowser };
+module.exports = { enrichOneComparable, closeBrowser, fetchWithBrowser };

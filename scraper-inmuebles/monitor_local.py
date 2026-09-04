@@ -466,9 +466,7 @@ def verificar_enrichers():
                 f"{pendientes:,} pendientes; inactivo {mins} min; auto-restart: {estado}",
             )
 
-        if reiniciados:
-            _notificar_windows("🔄 Enricher reiniciado", "\n".join(reiniciados[:4]))
-        else:
+        if not reiniciados:
             logger.info("Enrichers: sin portales colgados con actividad reciente")
 
     except Exception as e:

@@ -8294,6 +8294,32 @@
       "fuente": "ia-sepomex"
     }
   ],
+  "real valdepeaas": [
+    {
+      "colonia": "chapalita de occidente",
+      "peso": 20
+    },
+    {
+      "colonia": "girasoles elite",
+      "peso": 18
+    },
+    {
+      "colonia": "santa fe",
+      "peso": 16
+    },
+    {
+      "colonia": "lomas de zapopan",
+      "peso": 14
+    },
+    {
+      "colonia": "prados de guadalupe",
+      "peso": 12
+    },
+    {
+      "colonia": "chapalita las fuentes",
+      "peso": 10
+    }
+  ],
   "int 2": [
     {
       "colonia": "villas la loma",
@@ -9320,6 +9346,58 @@
       "fuente": "ia-sepomex"
     }
   ],
+  "el alcazar": [
+    {
+      "colonia": "villas camino real de colima",
+      "peso": 20
+    },
+    {
+      "colonia": "san isidro mazatepec",
+      "peso": 18
+    },
+    {
+      "colonia": "ionamiento sendero las moras",
+      "peso": 16
+    },
+    {
+      "colonia": "cima del sol",
+      "peso": 14
+    },
+    {
+      "colonia": "ionamiento nueva galicia",
+      "peso": 12
+    },
+    {
+      "colonia": "tulipanes",
+      "peso": 10
+    }
+  ],
+  "pueblo nextipac": [
+    {
+      "colonia": "la venta del astillero",
+      "peso": 20
+    },
+    {
+      "colonia": "los cajetes",
+      "peso": 18
+    },
+    {
+      "colonia": "rio blanco",
+      "peso": 16
+    },
+    {
+      "colonia": "los pinos campestre",
+      "peso": 14
+    },
+    {
+      "colonia": "onia santa ana tepetitlan",
+      "peso": 12
+    },
+    {
+      "colonia": "san jose ejidal",
+      "peso": 10
+    }
+  ],
   "industrial los belenes": [
     {
       "colonia": "los paraisos",
@@ -9340,6 +9418,353 @@
       "colonia": "el paraiso",
       "menciones": 1,
       "fuente": "ia-sepomex"
+    }
+  ],
+  "el triangulo": [
+    {
+      "colonia": "jardines del valle",
+      "peso": 20
+    },
+    {
+      "colonia": "del valle",
+      "peso": 18
+    },
+    {
+      "colonia": "ciudad bugambilia",
+      "peso": 16
+    },
+    {
+      "colonia": "mitica",
+      "peso": 14
+    },
+    {
+      "colonia": "diana nature",
+      "peso": 12
+    },
+    {
+      "colonia": "las canadas",
+      "peso": 10
+    }
+  ],
+  "club de golf las lomas": [
+    {
+      "colonia": "lomas altas",
+      "peso": 20
+    },
+    {
+      "colonia": "zona real",
+      "peso": 18
+    },
+    {
+      "colonia": "eucalipto vallarta",
+      "peso": 16
+    },
+    {
+      "colonia": "santa fe",
+      "peso": 14
+    },
+    {
+      "colonia": "bosques vallarta",
+      "peso": 12
+    },
+    {
+      "colonia": "patria",
+      "peso": 10
+    }
+  ],
+  "canteras": [
+    {
+      "colonia": "los nisperos",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "colinas de san miguel",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "alva residencial",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "abie",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "nara",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "creta residencial",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "carrara",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "capital norte",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    }
+  ],
+  "los pinos campestre": [
+    {
+      "colonia": "azaleas residencial",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "bugambilias",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "bugambilias country",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "ciudad bugambilia",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "coto la joya",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "cristal",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "ebano",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "hacienda jacarandas",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "haciendas la herradura",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "la loma",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "paraiso los pinos",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "residencial el bosque",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "rinconada del iris",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "valle de bugambilias",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "villa serena",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "villas esmeralda",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "villas del ixtepete",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "villas perisur",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "vistas del sol",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    }
+  ],
+  "ciudad bugambilias 2da seccion": [
+    {
+      "colonia": "ionamiento bosque real",
+      "peso": 20
+    },
+    {
+      "colonia": "santa anita",
+      "peso": 18
+    },
+    {
+      "colonia": "bosques cedros",
+      "peso": 16
+    },
+    {
+      "colonia": "valle de tlajomulco",
+      "peso": 14
+    },
+    {
+      "colonia": "bosque real",
+      "peso": 12
+    },
+    {
+      "colonia": "santa anita country",
+      "peso": 10
+    }
+  ],
+  "onia el bajio": [
+    {
+      "colonia": "puerta real",
+      "peso": 20
+    },
+    {
+      "colonia": "ciudad granja",
+      "peso": 18
+    },
+    {
+      "colonia": "cd granja",
+      "peso": 16
+    },
+    {
+      "colonia": "puerta del bosque",
+      "peso": 14
+    },
+    {
+      "colonia": "san francisco",
+      "peso": 12
+    },
+    {
+      "colonia": "ionamiento victoria",
+      "peso": 10
+    }
+  ],
+  "ionamiento haciendas san acasio": [
+    {
+      "colonia": "los robles",
+      "peso": 20
+    },
+    {
+      "colonia": "la mojonera",
+      "peso": 18
+    },
+    {
+      "colonia": "san jose del bajio",
+      "peso": 16
+    },
+    {
+      "colonia": "li urbano",
+      "peso": 14
+    },
+    {
+      "colonia": "el colli 1a",
+      "peso": 12
+    },
+    {
+      "colonia": "los almendros",
+      "peso": 10
+    }
+  ],
+  "ionamiento las lomas club golf": [
+    {
+      "colonia": "ionamiento solares",
+      "peso": 20
+    },
+    {
+      "colonia": "mitica",
+      "peso": 18
+    },
+    {
+      "colonia": "jardines vallarta",
+      "peso": 16
+    },
+    {
+      "colonia": "del valle",
+      "peso": 14
+    },
+    {
+      "colonia": "el campanario",
+      "peso": 12
+    },
+    {
+      "colonia": "jardines del valle",
+      "peso": 10
+    }
+  ],
+  "ionamiento diana nature": [
+    {
+      "colonia": "diana natura",
+      "peso": 20
+    },
+    {
+      "colonia": "zapopan industrial norte",
+      "peso": 18
+    },
+    {
+      "colonia": "ciudad bugambilias",
+      "peso": 16
+    },
+    {
+      "colonia": "colinas de los belenes",
+      "peso": 14
+    },
+    {
+      "colonia": "los molinos",
+      "peso": 12
+    },
+    {
+      "colonia": "tesistan",
+      "peso": 10
+    }
+  ],
+  "onia ciudad del sol": [
+    {
+      "colonia": "el alcazar poniente",
+      "peso": 20
+    },
+    {
+      "colonia": "colinas de san javier",
+      "peso": 18
+    },
+    {
+      "colonia": "el alcazar",
+      "peso": 16
+    },
+    {
+      "colonia": "chapalita oriente",
+      "peso": 14
+    },
+    {
+      "colonia": "solares",
+      "peso": 12
+    },
+    {
+      "colonia": "jardines universidad",
+      "peso": 10
     }
   ],
   "las palomas": [
@@ -9372,6 +9797,58 @@
       "colonia": "el carrizal",
       "menciones": 1,
       "fuente": "ia-sepomex"
+    }
+  ],
+  "zapopan industrial norte": [
+    {
+      "colonia": "ciudad bugambilias",
+      "peso": 20
+    },
+    {
+      "colonia": "diana natura",
+      "peso": 18
+    },
+    {
+      "colonia": "los molinos",
+      "peso": 16
+    },
+    {
+      "colonia": "ionamiento diana nature",
+      "peso": 14
+    },
+    {
+      "colonia": "tesistan",
+      "peso": 12
+    },
+    {
+      "colonia": "copalita",
+      "peso": 10
+    }
+  ],
+  "bosques de las lomas": [
+    {
+      "colonia": "lomas del valle",
+      "peso": 20
+    },
+    {
+      "colonia": "rinconada del bosque",
+      "peso": 18
+    },
+    {
+      "colonia": "puerta de hierro",
+      "peso": 16
+    },
+    {
+      "colonia": "onia puerta de hierro",
+      "peso": 14
+    },
+    {
+      "colonia": "valle real",
+      "peso": 12
+    },
+    {
+      "colonia": "la estancia",
+      "peso": 10
     }
   ],
   "colinas de los belenes": [
@@ -9414,32 +9891,6 @@
       "colonia": "alba",
       "menciones": 1,
       "fuente": "ia-sepomex"
-    }
-  ],
-  "el triangulo": [
-    {
-      "colonia": "jardines del valle",
-      "peso": 20
-    },
-    {
-      "colonia": "del valle",
-      "peso": 18
-    },
-    {
-      "colonia": "ciudad bugambilia",
-      "peso": 16
-    },
-    {
-      "colonia": "mitica",
-      "peso": 14
-    },
-    {
-      "colonia": "diana nature",
-      "peso": 12
-    },
-    {
-      "colonia": "las canadas",
-      "peso": 10
     }
   ],
   "san jose ejidal": [
@@ -9492,6 +9943,394 @@
       "colonia": "santa lucia",
       "menciones": 1,
       "fuente": "ia-sepomex"
+    }
+  ],
+  "rinconada coapa": [
+    {
+      "colonia": "puerto cancun",
+      "peso": 20
+    },
+    {
+      "colonia": "jardines de san agustin",
+      "peso": 18
+    }
+  ],
+  "altozano el nuevo queretaro": [
+    {
+      "colonia": "villa magna",
+      "peso": 20
+    },
+    {
+      "colonia": "reforma",
+      "peso": 18
+    },
+    {
+      "colonia": "lagos del sol",
+      "peso": 16
+    },
+    {
+      "colonia": "cancun centro",
+      "peso": 14
+    },
+    {
+      "colonia": "zibata",
+      "peso": 12
+    },
+    {
+      "colonia": "la vista",
+      "peso": 10
+    }
+  ],
+  "temozon norte": [
+    {
+      "colonia": "merida",
+      "peso": 20
+    },
+    {
+      "colonia": "cancun",
+      "peso": 18
+    }
+  ],
+  "lomas de chapultepec": [
+    {
+      "colonia": "puerto cancun",
+      "peso": 20
+    },
+    {
+      "colonia": "rinconada coapa",
+      "peso": 18
+    }
+  ],
+  "cancun": [
+    {
+      "colonia": "el palomar",
+      "peso": 20
+    },
+    {
+      "colonia": "san jose del tajo",
+      "peso": 18
+    },
+    {
+      "colonia": "villa fontana aqua",
+      "peso": 16
+    },
+    {
+      "colonia": "santa anita",
+      "peso": 14
+    },
+    {
+      "colonia": "los gavilanes",
+      "peso": 12
+    },
+    {
+      "colonia": "punto sur",
+      "peso": 10
+    }
+  ],
+  "cancun centro": [
+    {
+      "colonia": "lagos del sol",
+      "peso": 20
+    },
+    {
+      "colonia": "zibata",
+      "peso": 18
+    },
+    {
+      "colonia": "la vista",
+      "peso": 16
+    },
+    {
+      "colonia": "juriquilla",
+      "peso": 14
+    },
+    {
+      "colonia": "carlota hacienda vanegas",
+      "peso": 12
+    },
+    {
+      "colonia": "reforma",
+      "peso": 10
+    }
+  ],
+  "lomas de angelopolis": [
+    {
+      "colonia": "villa magna",
+      "peso": 20
+    },
+    {
+      "colonia": "altozano el nuevo queretaro",
+      "peso": 18
+    },
+    {
+      "colonia": "reforma",
+      "peso": 16
+    },
+    {
+      "colonia": "santa maria tepepan",
+      "peso": 14
+    },
+    {
+      "colonia": "el campanario",
+      "peso": 12
+    },
+    {
+      "colonia": "lagos del sol",
+      "peso": 10
+    }
+  ],
+  "juriquilla": [
+    {
+      "colonia": "la vista",
+      "peso": 20
+    },
+    {
+      "colonia": "carlota hacienda vanegas",
+      "peso": 18
+    },
+    {
+      "colonia": "zibata",
+      "peso": 16
+    },
+    {
+      "colonia": "chablekal",
+      "peso": 14
+    },
+    {
+      "colonia": "cancun centro",
+      "peso": 12
+    },
+    {
+      "colonia": "yucatan country club",
+      "peso": 10
+    }
+  ],
+  "alvarado": [
+    {
+      "colonia": "yucatan country club",
+      "peso": 20
+    },
+    {
+      "colonia": "chablekal",
+      "peso": 18
+    },
+    {
+      "colonia": "cancun",
+      "peso": 16
+    },
+    {
+      "colonia": "carlota hacienda vanegas",
+      "peso": 14
+    },
+    {
+      "colonia": "merida",
+      "peso": 12
+    },
+    {
+      "colonia": "juriquilla",
+      "peso": 10
+    }
+  ],
+  "chablekal": [
+    {
+      "colonia": "carlota hacienda vanegas",
+      "peso": 20
+    },
+    {
+      "colonia": "juriquilla",
+      "peso": 18
+    },
+    {
+      "colonia": "yucatan country club",
+      "peso": 16
+    },
+    {
+      "colonia": "la vista",
+      "peso": 14
+    },
+    {
+      "colonia": "zibata",
+      "peso": 12
+    },
+    {
+      "colonia": "alvarado",
+      "peso": 10
+    }
+  ],
+  "merida": [
+    {
+      "colonia": "cancun",
+      "peso": 20
+    },
+    {
+      "colonia": "temozon norte",
+      "peso": 18
+    },
+    {
+      "colonia": "alvarado",
+      "peso": 16
+    },
+    {
+      "colonia": "yucatan country club",
+      "peso": 14
+    }
+  ],
+  "yucatan country club": [
+    {
+      "colonia": "alvarado",
+      "peso": 20
+    },
+    {
+      "colonia": "chablekal",
+      "peso": 18
+    },
+    {
+      "colonia": "carlota hacienda vanegas",
+      "peso": 16
+    },
+    {
+      "colonia": "juriquilla",
+      "peso": 14
+    },
+    {
+      "colonia": "la vista",
+      "peso": 12
+    },
+    {
+      "colonia": "zibata",
+      "peso": 10
+    }
+  ],
+  "la vista": [
+    {
+      "colonia": "vista sur residencial",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "punta centinela",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "colinas de san isidro",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "praderas del centinela",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "canteras del centinela",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "mirador de san isidro",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "altavista residencial",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "residencial san isidro",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    }
+  ],
+  "santa maria tepepan": [
+    {
+      "colonia": "el campanario",
+      "peso": 20
+    },
+    {
+      "colonia": "jardines de san agustin",
+      "peso": 18
+    },
+    {
+      "colonia": "lomas de angelopolis",
+      "peso": 16
+    }
+  ],
+  "lagos del sol": [
+    {
+      "colonia": "cancun centro",
+      "peso": 20
+    },
+    {
+      "colonia": "zibata",
+      "peso": 18
+    },
+    {
+      "colonia": "la vista",
+      "peso": 16
+    },
+    {
+      "colonia": "juriquilla",
+      "peso": 14
+    },
+    {
+      "colonia": "reforma",
+      "peso": 12
+    },
+    {
+      "colonia": "altozano el nuevo queretaro",
+      "peso": 10
+    }
+  ],
+  "jardines de san agustin": [
+    {
+      "colonia": "el campanario",
+      "peso": 20
+    },
+    {
+      "colonia": "santa maria tepepan",
+      "peso": 18
+    },
+    {
+      "colonia": "lomas de angelopolis",
+      "peso": 16
+    }
+  ],
+  "carlota hacienda vanegas": [
+    {
+      "colonia": "chablekal",
+      "peso": 20
+    },
+    {
+      "colonia": "juriquilla",
+      "peso": 18
+    },
+    {
+      "colonia": "la vista",
+      "peso": 16
+    },
+    {
+      "colonia": "zibata",
+      "peso": 14
+    },
+    {
+      "colonia": "yucatan country club",
+      "peso": 12
+    },
+    {
+      "colonia": "alvarado",
+      "peso": 10
+    }
+  ],
+  "puerto cancun": [
+    {
+      "colonia": "rinconada coapa",
+      "peso": 20
+    },
+    {
+      "colonia": "lomas de chapultepec",
+      "peso": 18
     }
   ],
   "figueroa": [
@@ -13399,6 +14238,32 @@
       "fuente": "ia-sepomex"
     }
   ],
+  "echeverraa": [
+    {
+      "colonia": "guadalupana norte",
+      "peso": 20
+    },
+    {
+      "colonia": "blanco y cuellar 1ra",
+      "peso": 18
+    },
+    {
+      "colonia": "lomas del paraiso 2a seccion",
+      "peso": 16
+    },
+    {
+      "colonia": "int 21 an2",
+      "peso": 14
+    },
+    {
+      "colonia": "revolucion",
+      "peso": 12
+    },
+    {
+      "colonia": "rancho nuevo",
+      "peso": 10
+    }
+  ],
   "fovissste independencia": [
     {
       "colonia": "rancho nuevo",
@@ -15218,6 +16083,319 @@
       "colonia": "real",
       "menciones": 1,
       "fuente": "ia-sepomex"
+    }
+  ],
+  "ionamiento verde valle": [
+    {
+      "colonia": "verde valle",
+      "peso": 20
+    },
+    {
+      "colonia": "bosques de la victoria",
+      "peso": 18
+    },
+    {
+      "colonia": "ionamiento lomas del country",
+      "peso": 16
+    },
+    {
+      "colonia": "jardines del bosque",
+      "peso": 14
+    },
+    {
+      "colonia": "lomas del country",
+      "peso": 12
+    },
+    {
+      "colonia": "mezquitan",
+      "peso": 10
+    }
+  ],
+  "san miguel de huentitan el alto": [
+    {
+      "colonia": "ferrocarril",
+      "peso": 20
+    },
+    {
+      "colonia": "unidad habitacional los arrayanes",
+      "peso": 18
+    },
+    {
+      "colonia": "la nogalera",
+      "peso": 16
+    },
+    {
+      "colonia": "tlaquepaque",
+      "peso": 14
+    },
+    {
+      "colonia": "san vicente",
+      "peso": 12
+    }
+  ],
+  "la aurora": [
+    {
+      "colonia": "la loma",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "medrano",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "hernandez romo",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "obrera",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "unidad modelo",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "valentin gomez farias",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "el dean",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "ferrocarril",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "valle del alamo",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "analco",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "las conchas",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "san carlos",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "rincon de agua azul",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "barragan y hernandez",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "higuerillas 1a secc",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "higuerillas 2a secc",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "la nogalera",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "el manantial",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "lazaro cardenas",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "las juntas",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "agustin yanez",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "jardines de san francisco",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "la florida",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "versalles",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "san antonio",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "magana",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "europa",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "electricistas",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    }
+  ],
+  "el zalate": [
+    {
+      "colonia": "el porvenir oriente",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "los romo",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "beatriz hernandez",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "miguel hidalgo",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "verde valle",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "los amiales",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "abadia san martin",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    }
+  ],
+  "guadalupana sur": [
+    {
+      "colonia": "guadalupana norte",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "simon bolivar",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "jardines de atemajac",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "autocinema",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "santa elena de la cruz",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "santa elena estadio",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "division del norte",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "independencia infonavit",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    }
+  ],
+  "san patricio": [
+    {
+      "colonia": "guadalajara centro",
+      "peso": 20
+    },
+    {
+      "colonia": "agustin yanez",
+      "peso": 18
+    },
+    {
+      "colonia": "centro",
+      "peso": 16
+    },
+    {
+      "colonia": "miravalle",
+      "peso": 14
+    },
+    {
+      "colonia": "lomas del paraiso",
+      "peso": 12
+    },
+    {
+      "colonia": "ninos heroes",
+      "peso": 10
+    }
+  ],
+  "unidad habitacional los arrayanes": [
+    {
+      "colonia": "san miguel de huentitan el alto",
+      "peso": 20
+    },
+    {
+      "colonia": "ferrocarril",
+      "peso": 18
+    },
+    {
+      "colonia": "la nogalera",
+      "peso": 16
+    },
+    {
+      "colonia": "tlaquepaque",
+      "peso": 14
     }
   ],
   "santa cruz de la loma tepetates": [
@@ -18723,32 +19901,6 @@
       "peso": 10
     }
   ],
-  "ciudad bugambilias 2da seccion": [
-    {
-      "colonia": "ionamiento bosque real",
-      "peso": 20
-    },
-    {
-      "colonia": "santa anita",
-      "peso": 18
-    },
-    {
-      "colonia": "bosques cedros",
-      "peso": 16
-    },
-    {
-      "colonia": "valle de tlajomulco",
-      "peso": 14
-    },
-    {
-      "colonia": "bosque real",
-      "peso": 12
-    },
-    {
-      "colonia": "santa anita country",
-      "peso": 10
-    }
-  ],
   "ionamiento belcanto": [
     {
       "colonia": "el paraiso",
@@ -19396,32 +20548,6 @@
       "fuente": "ia-sepomex"
     }
   ],
-  "el alcazar": [
-    {
-      "colonia": "villas camino real de colima",
-      "peso": 20
-    },
-    {
-      "colonia": "san isidro mazatepec",
-      "peso": 18
-    },
-    {
-      "colonia": "ionamiento sendero las moras",
-      "peso": 16
-    },
-    {
-      "colonia": "cima del sol",
-      "peso": 14
-    },
-    {
-      "colonia": "ionamiento nueva galicia",
-      "peso": 12
-    },
-    {
-      "colonia": "tulipanes",
-      "peso": 10
-    }
-  ],
   "rinconada de san sebastian": [
     {
       "colonia": "jardines de primavera",
@@ -19878,32 +21004,6 @@
       "fuente": "ia-sepomex"
     }
   ],
-  "cancun": [
-    {
-      "colonia": "el palomar",
-      "peso": 20
-    },
-    {
-      "colonia": "san jose del tajo",
-      "peso": 18
-    },
-    {
-      "colonia": "villa fontana aqua",
-      "peso": 16
-    },
-    {
-      "colonia": "santa anita",
-      "peso": 14
-    },
-    {
-      "colonia": "los gavilanes",
-      "peso": 12
-    },
-    {
-      "colonia": "punto sur",
-      "peso": 10
-    }
-  ],
   "zona hotelera": [
     {
       "colonia": "el palomar",
@@ -19987,7 +21087,111 @@
       "fuente": "ia-sepomex"
     }
   ],
-  "buenavista": [
+  "las viboras valle de las flores": [
+    {
+      "colonia": "jardines de tlajomulco",
+      "peso": 20
+    },
+    {
+      "colonia": "cajititlan",
+      "peso": 18
+    },
+    {
+      "colonia": "senderos de monte verde",
+      "peso": 16
+    },
+    {
+      "colonia": "el palomar",
+      "peso": 14
+    },
+    {
+      "colonia": "santa cruz de las flores",
+      "peso": 12
+    },
+    {
+      "colonia": "jardines del capulin",
+      "peso": 10
+    }
+  ],
+  "ionamiento el manantial": [
+    {
+      "colonia": "el manantial",
+      "peso": 20
+    },
+    {
+      "colonia": "la rioja",
+      "peso": 18
+    },
+    {
+      "colonia": "sendero de las moras",
+      "peso": 16
+    },
+    {
+      "colonia": "del pilar",
+      "peso": 14
+    },
+    {
+      "colonia": "cielo contry club",
+      "peso": 12
+    },
+    {
+      "colonia": "el cielo country club",
+      "peso": 10
+    }
+  ],
+  "ionamiento senderos de monte verde": [
+    {
+      "colonia": "el cortijo",
+      "peso": 20
+    },
+    {
+      "colonia": "san agustin",
+      "peso": 18
+    },
+    {
+      "colonia": "zapote del valle",
+      "peso": 16
+    },
+    {
+      "colonia": "los laureles",
+      "peso": 14
+    },
+    {
+      "colonia": "san juan evangelista san juan",
+      "peso": 12
+    },
+    {
+      "colonia": "cortijo de san agustin",
+      "peso": 10
+    }
+  ],
+  "pueblo cajititlan": [
+    {
+      "colonia": "valle dorado",
+      "peso": 20
+    },
+    {
+      "colonia": "balcones de la calera",
+      "peso": 18
+    },
+    {
+      "colonia": "san jose del valle",
+      "peso": 16
+    },
+    {
+      "colonia": "tres reyes",
+      "peso": 14
+    },
+    {
+      "colonia": "ionamiento tres reyes",
+      "peso": 12
+    },
+    {
+      "colonia": "tres reyes cajititlan",
+      "peso": 10
+    }
+  ],
+  "cofradia": [
     {
       "colonia": "lomas del pedregal",
       "menciones": 1,
@@ -20009,6 +21213,11 @@
       "fuente": "ia-sepomex"
     },
     {
+      "colonia": "buenavista",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
       "colonia": "jardines de tlajomulco",
       "menciones": 1,
       "fuente": "ia-sepomex"
@@ -20019,14 +21228,122 @@
       "fuente": "ia-sepomex"
     },
     {
-      "colonia": "cofradia",
+      "colonia": "el cortijo",
       "menciones": 1,
       "fuente": "ia-sepomex"
     },
     {
-      "colonia": "el cortijo",
+      "colonia": "lazaro cardenas",
       "menciones": 1,
       "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "san juan corral",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "tulipanes",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "potrero de san jose",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "surcos largos",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "colosio",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "residencias el prado jardines del prado",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    }
+  ],
+  "ionamiento tres reyes": [
+    {
+      "colonia": "paseo de los agaves",
+      "peso": 20
+    },
+    {
+      "colonia": "tres reyes",
+      "peso": 18
+    },
+    {
+      "colonia": "san jose del valle",
+      "peso": 16
+    },
+    {
+      "colonia": "balcones de la calera",
+      "peso": 14
+    },
+    {
+      "colonia": "pueblo cajititlan",
+      "peso": 12
+    },
+    {
+      "colonia": "valle dorado",
+      "peso": 10
+    }
+  ],
+  "rancho o rancheria san jose del tajo": [
+    {
+      "colonia": "nueva galicia",
+      "peso": 20
+    },
+    {
+      "colonia": "las grullas",
+      "peso": 18
+    },
+    {
+      "colonia": "el origen",
+      "peso": 16
+    },
+    {
+      "colonia": "rancho san jose del tajo",
+      "peso": 14
+    },
+    {
+      "colonia": "san jose del tajo",
+      "peso": 12
+    },
+    {
+      "colonia": "provenza la romana",
+      "peso": 10
+    }
+  ],
+  "san juan evangelista san juan": [
+    {
+      "colonia": "onia el palomar",
+      "peso": 20
+    },
+    {
+      "colonia": "las viboras valle de las flores",
+      "peso": 18
+    },
+    {
+      "colonia": "cortijo san agustin",
+      "peso": 16
+    },
+    {
+      "colonia": "la arbolada",
+      "peso": 14
+    },
+    {
+      "colonia": "acueducto san agustin",
+      "peso": 12
+    },
+    {
+      "colonia": "ionamiento senderos de monte verde",
+      "peso": 10
     }
   ],
   "san lucas evangelista": [
@@ -20055,17 +21372,289 @@
       "peso": 10
     }
   ],
-  "las viboras valle de las flores": [
+  "valle de santa cruz": [
     {
-      "colonia": "jardines de tlajomulco",
+      "colonia": "santa cruz de las flores",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "tlajomulco centro",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "lomas de santa anita",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "colinas de santa anita",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "la lomita",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "larios",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "heroes de nacozari",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "las galeanas",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    }
+  ],
+  "habitat san millan": [
+    {
+      "colonia": "bosques california",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "las grullas",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "atmosfera",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "bella vicenza",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "el eden",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "hacienda san agustin",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "san jose del tajo",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "bosques santa anita",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    }
+  ],
+  "las galeanas": [
+    {
+      "colonia": "valle de santa cruz",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "santa cruz de las flores",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "tlajomulco centro",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "lomas de santa anita",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "colinas de santa anita",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "la lomita",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "larios",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "heroes de nacozari",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    }
+  ],
+  "3 reyes cajititlan": [
+    {
+      "colonia": "colinas de santa anita",
       "peso": 20
     },
     {
-      "colonia": "cajititlan",
+      "colonia": "inas de santa anita",
       "peso": 18
     },
     {
-      "colonia": "senderos de monte verde",
+      "colonia": "tlajomulco centro",
+      "peso": 16
+    },
+    {
+      "colonia": "el palomar bosques",
+      "peso": 14
+    },
+    {
+      "colonia": "la providencia",
+      "peso": 12
+    },
+    {
+      "colonia": "cortijo de san agustin",
+      "peso": 10
+    }
+  ],
+  "el capulin": [
+    {
+      "colonia": "paseos del valle",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "las asturias",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "zapote del valle",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "los sauces",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "la purisima",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "los silos",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "el lago",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "albereda residencial",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    }
+  ],
+  "parque industrial aeropuerto": [
+    {
+      "colonia": "campo sur",
+      "peso": 20
+    },
+    {
+      "colonia": "los sauces",
+      "peso": 18
+    },
+    {
+      "colonia": "jardines de la calera",
+      "peso": 16
+    },
+    {
+      "colonia": "la alameda",
+      "peso": 14
+    },
+    {
+      "colonia": "los agaves",
+      "peso": 12
+    },
+    {
+      "colonia": "pontevedra",
+      "peso": 10
+    }
+  ],
+  "onia el palomar": [
+    {
+      "colonia": "san juan evangelista san juan",
+      "peso": 20
+    },
+    {
+      "colonia": "las viboras valle de las flores",
+      "peso": 18
+    },
+    {
+      "colonia": "cortijo san agustin",
+      "peso": 16
+    },
+    {
+      "colonia": "la arbolada",
+      "peso": 14
+    },
+    {
+      "colonia": "acueducto san agustin",
+      "peso": 12
+    },
+    {
+      "colonia": "ionamiento senderos de monte verde",
+      "peso": 10
+    }
+  ],
+  "centro tlajomulco": [
+    {
+      "colonia": "las flores",
+      "peso": 20
+    },
+    {
+      "colonia": "hacienda santa fe",
+      "peso": 18
+    },
+    {
+      "colonia": "cajititlan",
+      "peso": 16
+    },
+    {
+      "colonia": "tres reyes cajititlan",
+      "peso": 14
+    },
+    {
+      "colonia": "chulavista",
+      "peso": 12
+    },
+    {
+      "colonia": "valle dorado",
+      "peso": 10
+    }
+  ],
+  "onia los gavilanes poniente": [
+    {
+      "colonia": "senderos de monteverde",
+      "peso": 20
+    },
+    {
+      "colonia": "ionamiento senderos monte verde",
+      "peso": 18
+    },
+    {
+      "colonia": "hacienda del oro",
       "peso": 16
     },
     {
@@ -20073,39 +21662,64 @@
       "peso": 14
     },
     {
-      "colonia": "santa cruz de las flores",
+      "colonia": "senderos monte verde",
       "peso": 12
     },
     {
-      "colonia": "jardines del capulin",
+      "colonia": "jardines de tlajomulco",
       "peso": 10
     }
   ],
-  "lomas de san diego": [
+  "rancho san jose del tajo": [
     {
-      "colonia": "renaceres",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
+      "colonia": "san jose del tajo",
+      "peso": 20
     },
     {
-      "colonia": "san miguel cuyutlan",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
+      "colonia": "rancho o rancheria san jose del tajo",
+      "peso": 18
     },
     {
-      "colonia": "san diego",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
+      "colonia": "nueva galicia",
+      "peso": 16
     },
     {
-      "colonia": "pedregal de san miguel",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
+      "colonia": "las grullas",
+      "peso": 14
     },
     {
-      "colonia": "nuevo san miguel",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
+      "colonia": "el origen",
+      "peso": 12
+    },
+    {
+      "colonia": "provenza la romana",
+      "peso": 10
+    }
+  ],
+  "los agaves": [
+    {
+      "colonia": "lomas de santa anita",
+      "peso": 20
+    },
+    {
+      "colonia": "campo sur",
+      "peso": 18
+    },
+    {
+      "colonia": "parque industrial aeropuerto",
+      "peso": 16
+    },
+    {
+      "colonia": "pueblo santa cruz de las flores",
+      "peso": 14
+    },
+    {
+      "colonia": "cofradia",
+      "peso": 12
+    },
+    {
+      "colonia": "san lucas evangelista",
+      "peso": 10
     }
   ],
   "jauja": [
@@ -21634,6 +23248,258 @@
       "peso": 18
     }
   ],
+  "linda vista": [
+    {
+      "colonia": "quintana catalina",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "barrio nuevo",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    }
+  ],
+  "gallo colorado": [
+    {
+      "colonia": "el mirador",
+      "peso": 20
+    },
+    {
+      "colonia": "jalisco 1a",
+      "peso": 18
+    },
+    {
+      "colonia": "los amiales",
+      "peso": 16
+    },
+    {
+      "colonia": "santa paula",
+      "peso": 14
+    },
+    {
+      "colonia": "anexo ciudad aztlan",
+      "peso": 12
+    },
+    {
+      "colonia": "haciendas tonala",
+      "peso": 10
+    }
+  ],
+  "san jose tateposco": [
+    {
+      "colonia": "coyula",
+      "peso": 20
+    },
+    {
+      "colonia": "hacienda del real",
+      "peso": 18
+    },
+    {
+      "colonia": "agua blanca",
+      "peso": 16
+    },
+    {
+      "colonia": "lomas de la soledad",
+      "peso": 14
+    },
+    {
+      "colonia": "tonala centro",
+      "peso": 12
+    },
+    {
+      "colonia": "san gaspar",
+      "peso": 10
+    }
+  ],
+  "los conejos": [
+    {
+      "colonia": "francisco villa",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "emiliano zapata",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "la noria",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "jalisco 1a seccion",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "gallos viejos",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "loma de san gaspar",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "mirador oriente",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "lazaro cardenas barranquitas",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    }
+  ],
+  "ionamiento la noria": [
+    {
+      "colonia": "rancho o rancheria el vado",
+      "peso": 20
+    },
+    {
+      "colonia": "colimilla",
+      "peso": 18
+    },
+    {
+      "colonia": "paseos de santiago",
+      "peso": 16
+    },
+    {
+      "colonia": "la noria",
+      "peso": 14
+    },
+    {
+      "colonia": "inas de tonala",
+      "peso": 12
+    },
+    {
+      "colonia": "mirador del sol",
+      "peso": 10
+    }
+  ],
+  "la presa": [
+    {
+      "colonia": "lomas del manantial",
+      "peso": 20
+    },
+    {
+      "colonia": "zalatitan",
+      "peso": 18
+    },
+    {
+      "colonia": "puerta del rosario",
+      "peso": 16
+    },
+    {
+      "colonia": "bosques de tonala",
+      "peso": 14
+    },
+    {
+      "colonia": "inas tonala",
+      "peso": 12
+    },
+    {
+      "colonia": "vistas tonallan",
+      "peso": 10
+    }
+  ],
+  "vistas tonallan": [
+    {
+      "colonia": "rinconadas del sol",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "mision del campanario",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "las gabrielas",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "buenos aires",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "vistas del valle",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "arroyos",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "rinconada tonala",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "jardines de san rafael",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    }
+  ],
+  "colimilla": [
+    {
+      "colonia": "san gaspar",
+      "peso": 20
+    },
+    {
+      "colonia": "lomas de san miguel",
+      "peso": 18
+    }
+  ],
+  "san gaspar de las flores": [
+    {
+      "colonia": "la mojonera",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "huertas del valle",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "lopez cotilla",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "arboledas de san gaspar",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "huertas de san gaspar",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "la pila de san gaspar",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "la perseverancia",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "bajio san gaspar",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    }
+  ],
   "el barro": [
     {
       "colonia": "plan de ayala",
@@ -21728,48 +23594,6 @@
       "fuente": "ia-sepomex"
     }
   ],
-  "los conejos": [
-    {
-      "colonia": "francisco villa",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "emiliano zapata",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "la noria",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "jalisco 1a seccion",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "gallos viejos",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "loma de san gaspar",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "mirador oriente",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "lazaro cardenas barranquitas",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    }
-  ],
   "jalisco 1a seccion": [
     {
       "colonia": "francisco villa",
@@ -21812,16 +23636,6 @@
       "fuente": "ia-sepomex"
     }
   ],
-  "colimilla": [
-    {
-      "colonia": "san gaspar",
-      "peso": 20
-    },
-    {
-      "colonia": "lomas de san miguel",
-      "peso": 18
-    }
-  ],
   "puerta sol": [
     {
       "colonia": "el panoramico",
@@ -21860,6 +23674,362 @@
     },
     {
       "colonia": "urbi villa del rio",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    }
+  ],
+  "anexo ciudad aztlan": [
+    {
+      "colonia": "haciendas tonala",
+      "peso": 20
+    },
+    {
+      "colonia": "santa paula",
+      "peso": 18
+    },
+    {
+      "colonia": "bosques de tonala",
+      "peso": 16
+    },
+    {
+      "colonia": "gallo colorado",
+      "peso": 14
+    },
+    {
+      "colonia": "puerta del rosario",
+      "peso": 12
+    },
+    {
+      "colonia": "el mirador",
+      "peso": 10
+    }
+  ],
+  "puerta del rosario": [
+    {
+      "colonia": "balcones del rosario",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "buenavista i",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "buenavista ii",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "huerta",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "rinconada del rosario",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    }
+  ],
+  "colinas tonala": [
+    {
+      "colonia": "san gaspar de las flores",
+      "peso": 20
+    },
+    {
+      "colonia": "santa cruz de las huertas",
+      "peso": 18
+    },
+    {
+      "colonia": "mirador del sol",
+      "peso": 16
+    },
+    {
+      "colonia": "loma bonita",
+      "peso": 14
+    },
+    {
+      "colonia": "inas de tonala",
+      "peso": 12
+    },
+    {
+      "colonia": "san gaspar",
+      "peso": 10
+    }
+  ],
+  "agua blanca": [
+    {
+      "colonia": "los colorines",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "el nuevo resplandor",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "la mesita",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "san jeronimo",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "agua blanca sur",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "el mante",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "los mirasoles",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "agricola",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "el jordan",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "san jorge",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "puente grande",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "tololotlan",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "ejidal del sol",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "real fresno",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "rinconada de san antonio",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "lomas del salto",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "lomas de san miguel ii",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "villas de agua blanca",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "parques del triunfo",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "pintitas poniente",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "las pintas",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "guadalupe montenegro",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    }
+  ],
+  "inas tonala": [
+    {
+      "colonia": "vistas tonallan",
+      "peso": 20
+    },
+    {
+      "colonia": "ciudad aztlan",
+      "peso": 18
+    },
+    {
+      "colonia": "jalisco 1a seccion",
+      "peso": 16
+    },
+    {
+      "colonia": "puerta sol",
+      "peso": 14
+    },
+    {
+      "colonia": "la providencia",
+      "peso": 12
+    },
+    {
+      "colonia": "zalatitan",
+      "peso": 10
+    }
+  ],
+  "los amiales": [
+    {
+      "colonia": "verde valle",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "el zalate",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "abadia san martin",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "la loma",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "el arenal",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "nueva aurora",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "rancho sanchez",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "el gallo colorado",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "ocotillo",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "los encinos",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    }
+  ],
+  "la severiana": [
+    {
+      "colonia": "emiliano zapata",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "el sauz",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "la arena",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "los puestos",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "los naranjos",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "parques de la victoria",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "arboledas de san martin",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "haciendas de san martin",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "francisco silva romero",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "los hornos",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "la puerta",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "el bordo",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "la gigantera",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "la pilita",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "la liga",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "ojo de agua",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "potrerillo",
       "menciones": 1,
       "fuente": "ia-sepomex"
     }
@@ -22182,10 +24352,136 @@
       "peso": 10
     }
   ],
-  "santa cruz de la soledad": [
+  "ionamiento brisas de chapala": [
     {
-      "colonia": "las redes",
+      "colonia": "san nicolas de ibarra",
       "peso": 20
+    },
+    {
+      "colonia": "brisas de chapala",
+      "peso": 18
+    }
+  ],
+  "raquet club": [
+    {
+      "colonia": "ionamiento chulavista",
+      "peso": 20
+    },
+    {
+      "colonia": "raquet club san juan cosala",
+      "peso": 18
+    },
+    {
+      "colonia": "ribera del pilar",
+      "peso": 16
+    },
+    {
+      "colonia": "san antonio tlayacapan",
+      "peso": 14
+    },
+    {
+      "colonia": "pueblo san antonio tlayacapan",
+      "peso": 12
+    },
+    {
+      "colonia": "chulavista",
+      "peso": 10
+    }
+  ],
+  "pueblo san antonio tlayacapan": [
+    {
+      "colonia": "raquet club san juan cosala",
+      "peso": 20
+    },
+    {
+      "colonia": "ionamiento chulavista",
+      "peso": 18
+    },
+    {
+      "colonia": "raquet club",
+      "peso": 16
+    },
+    {
+      "colonia": "chapala centro",
+      "peso": 14
+    },
+    {
+      "colonia": "ionamiento chapala haciendas",
+      "peso": 12
+    },
+    {
+      "colonia": "ribera del pilar",
+      "peso": 10
+    }
+  ],
+  "ionamiento chulavista": [
+    {
+      "colonia": "raquet club",
+      "peso": 20
+    },
+    {
+      "colonia": "raquet club san juan cosala",
+      "peso": 18
+    },
+    {
+      "colonia": "ribera del pilar",
+      "peso": 16
+    },
+    {
+      "colonia": "san antonio tlayacapan",
+      "peso": 14
+    },
+    {
+      "colonia": "pueblo san antonio tlayacapan",
+      "peso": 12
+    },
+    {
+      "colonia": "chulavista",
+      "peso": 10
+    }
+  ],
+  "pueblo santa cruz de la soledad": [
+    {
+      "colonia": "ionamiento chapala haciendas",
+      "peso": 20
+    },
+    {
+      "colonia": "chapala centro",
+      "peso": 18
+    },
+    {
+      "colonia": "brisas de chapala",
+      "peso": 16
+    },
+    {
+      "colonia": "san nicolas de ibarra",
+      "peso": 14
+    },
+    {
+      "colonia": "ionamiento brisas de chapala",
+      "peso": 12
+    }
+  ],
+  "ionamiento chapala haciendas": [
+    {
+      "colonia": "chapala centro",
+      "peso": 20
+    },
+    {
+      "colonia": "pueblo santa cruz de la soledad",
+      "peso": 18
+    },
+    {
+      "colonia": "pueblo san antonio tlayacapan",
+      "peso": 16
+    },
+    {
+      "colonia": "brisas de chapala",
+      "peso": 14
+    },
+    {
+      "colonia": "san nicolas de ibarra",
+      "peso": 12
     }
   ],
   "san pedro": [
@@ -23333,6 +25629,68 @@
       "fuente": "ia-sepomex"
     }
   ],
+  "la duraznera": [
+    {
+      "colonia": "residencial revolucion",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "revolucion",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "canal 58",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "hacienda de vidrios",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "salvador portillo lopez",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "el puente",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "los portales",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "villas los cantaros",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "villas de loma grande",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "solidaridad",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "azabache",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "el palomo",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    }
+  ],
   "las pintitas centro": [
     {
       "colonia": "ermita",
@@ -23479,140 +25837,68 @@
       "fuente": "ia-sepomex"
     }
   ],
-  "mazamitla centro": [
+  "la azucena": [
     {
-      "colonia": "el tabardillo",
-      "peso": 20
-    }
-  ],
-  "tala centro": [
-    {
-      "colonia": "la culebra",
+      "colonia": "el pedregal",
       "peso": 20
     },
     {
-      "colonia": "san isidro mazatepec",
+      "colonia": "mesa de los laureles",
       "peso": 18
     },
     {
-      "colonia": "el venado",
+      "colonia": "felipe angeles",
       "peso": 16
     },
     {
-      "colonia": "la higuera",
+      "colonia": "balcones del salto",
       "peso": 14
     },
     {
-      "colonia": "la villita",
+      "colonia": "parques del castillo",
       "peso": 12
     }
   ],
-  "el venado": [
+  "mesa de los laureles": [
     {
-      "colonia": "la higuera",
-      "peso": 20
+      "colonia": "el salto centro",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
     },
     {
-      "colonia": "el alamo",
-      "peso": 18
+      "colonia": "alvarez del castillo",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
     },
     {
-      "colonia": "los ruisenores",
-      "peso": 16
+      "colonia": "ampelio",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
     },
     {
-      "colonia": "san isidro mazatepec",
-      "peso": 14
-    }
-  ],
-  "la culebra": [
-    {
-      "colonia": "tala centro",
-      "peso": 20
+      "colonia": "balcones del salto",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
     },
     {
-      "colonia": "san isidro mazatepec",
-      "peso": 18
+      "colonia": "el sabino",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
     },
     {
-      "colonia": "el venado",
-      "peso": 16
+      "colonia": "jesus maria",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
     },
     {
-      "colonia": "la higuera",
-      "peso": 14
-    }
-  ],
-  "la villita": [
-    {
-      "colonia": "tala centro",
-      "peso": 20
+      "colonia": "palo dulce",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
     },
     {
-      "colonia": "la culebra",
-      "peso": 18
-    }
-  ],
-  "tesistan centro": [
-    {
-      "colonia": "ahujas",
-      "peso": 20
-    }
-  ],
-  "zapopan jalisco centro": [
-    {
-      "colonia": "colinas del rey",
-      "peso": 20
-    }
-  ],
-  "miravalle centro": [
-    {
-      "colonia": "andador grosellos 6",
-      "peso": 20
-    }
-  ],
-  "nuevo mexico centro": [
-    {
-      "colonia": "la periquera",
-      "peso": 20
-    }
-  ],
-  "col del fresno centro": [
-    {
-      "colonia": "del fresno",
-      "peso": 20
-    }
-  ],
-  "real del valle centro": [
-    {
-      "colonia": "el marquez",
-      "peso": 20
-    }
-  ],
-  "jalisco": [
-    {
-      "colonia": "ionamiento valle imperial",
-      "peso": 20
-    },
-    {
-      "colonia": "villas de oriente",
-      "peso": 18
-    },
-    {
-      "colonia": "narvarte poniente",
-      "peso": 16
-    },
-    {
-      "colonia": "loma dorada ejidal",
-      "peso": 14
-    },
-    {
-      "colonia": "loma dorada c",
-      "peso": 12
-    },
-    {
-      "colonia": "loma dorada b",
-      "peso": 10
+      "colonia": "potrero nuevo",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
     }
   ],
   "felipe angeles": [
@@ -23705,6 +25991,357 @@
       "colonia": "el seminario",
       "menciones": 1,
       "fuente": "ia-sepomex"
+    }
+  ],
+  "pueblo el salto centro": [
+    {
+      "colonia": "las pintas",
+      "peso": 20
+    },
+    {
+      "colonia": "las pintitas centro",
+      "peso": 18
+    },
+    {
+      "colonia": "san jose del quince",
+      "peso": 16
+    },
+    {
+      "colonia": "ejido las pintas",
+      "peso": 14
+    },
+    {
+      "colonia": "la purisima",
+      "peso": 12
+    },
+    {
+      "colonia": "club de golf atlas",
+      "peso": 10
+    }
+  ],
+  "ejido las pintas": [
+    {
+      "colonia": "las pintitas centro",
+      "peso": 20
+    },
+    {
+      "colonia": "la purisima",
+      "peso": 18
+    },
+    {
+      "colonia": "pueblo el salto centro",
+      "peso": 16
+    },
+    {
+      "colonia": "las pintas",
+      "peso": 14
+    },
+    {
+      "colonia": "san jose del quince",
+      "peso": 12
+    },
+    {
+      "colonia": "el zalate",
+      "peso": 10
+    }
+  ],
+  "balcones del salto": [
+    {
+      "colonia": "el mirador",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "obrera",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "los arrayanes",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "los laureles",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "las lilas",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "coto san miguel",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "alvarez del castillo",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "ampelio",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    }
+  ],
+  "mazamitla centro": [
+    {
+      "colonia": "el tabardillo",
+      "peso": 20
+    }
+  ],
+  "tala centro": [
+    {
+      "colonia": "la culebra",
+      "peso": 20
+    },
+    {
+      "colonia": "san isidro mazatepec",
+      "peso": 18
+    },
+    {
+      "colonia": "el venado",
+      "peso": 16
+    },
+    {
+      "colonia": "la higuera",
+      "peso": 14
+    },
+    {
+      "colonia": "la villita",
+      "peso": 12
+    }
+  ],
+  "el venado": [
+    {
+      "colonia": "la higuera",
+      "peso": 20
+    },
+    {
+      "colonia": "el alamo",
+      "peso": 18
+    },
+    {
+      "colonia": "los ruisenores",
+      "peso": 16
+    },
+    {
+      "colonia": "san isidro mazatepec",
+      "peso": 14
+    }
+  ],
+  "la culebra": [
+    {
+      "colonia": "tala centro",
+      "peso": 20
+    },
+    {
+      "colonia": "san isidro mazatepec",
+      "peso": 18
+    },
+    {
+      "colonia": "el venado",
+      "peso": 16
+    },
+    {
+      "colonia": "la higuera",
+      "peso": 14
+    }
+  ],
+  "la villita": [
+    {
+      "colonia": "tala centro",
+      "peso": 20
+    },
+    {
+      "colonia": "la culebra",
+      "peso": 18
+    }
+  ],
+  "el arenal centro": [
+    {
+      "colonia": "el roble",
+      "peso": 20
+    },
+    {
+      "colonia": "santa sofia hacienda country club",
+      "peso": 18
+    }
+  ],
+  "santa sofia hacienda country club": [
+    {
+      "colonia": "el arenal centro",
+      "peso": 20
+    },
+    {
+      "colonia": "el roble",
+      "peso": 18
+    }
+  ],
+  "santa cruz del astillero": [
+    {
+      "colonia": "el rio country club",
+      "peso": 20
+    },
+    {
+      "colonia": "el arenal centro",
+      "peso": 18
+    }
+  ],
+  "huaxtla": [
+    {
+      "colonia": "el arenal centro",
+      "peso": 20
+    }
+  ],
+  "el rio country club": [
+    {
+      "colonia": "santa cruz del astillero",
+      "peso": 20
+    },
+    {
+      "colonia": "el arenal centro",
+      "peso": 18
+    }
+  ],
+  "tesistan centro": [
+    {
+      "colonia": "ahujas",
+      "peso": 20
+    }
+  ],
+  "zapopan jalisco centro": [
+    {
+      "colonia": "colinas del rey",
+      "peso": 20
+    }
+  ],
+  "miravalle centro": [
+    {
+      "colonia": "andador grosellos 6",
+      "peso": 20
+    }
+  ],
+  "nuevo mexico centro": [
+    {
+      "colonia": "la periquera",
+      "peso": 20
+    }
+  ],
+  "col del fresno centro": [
+    {
+      "colonia": "del fresno",
+      "peso": 20
+    }
+  ],
+  "real del valle centro": [
+    {
+      "colonia": "el marquez",
+      "peso": 20
+    }
+  ],
+  "jalisco": [
+    {
+      "colonia": "ionamiento valle imperial",
+      "peso": 20
+    },
+    {
+      "colonia": "villas de oriente",
+      "peso": 18
+    },
+    {
+      "colonia": "narvarte poniente",
+      "peso": 16
+    },
+    {
+      "colonia": "loma dorada ejidal",
+      "peso": 14
+    },
+    {
+      "colonia": "loma dorada c",
+      "peso": 12
+    },
+    {
+      "colonia": "loma dorada b",
+      "peso": 10
+    }
+  ],
+  "buenavista": [
+    {
+      "colonia": "lomas del pedregal",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "las flores",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "los pinos",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "los alamos",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "jardines de tlajomulco",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "prados de la higuera",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "cofradia",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "el cortijo",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    }
+  ],
+  "lomas de san diego": [
+    {
+      "colonia": "renaceres",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "san miguel cuyutlan",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "san diego",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "pedregal de san miguel",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    },
+    {
+      "colonia": "nuevo san miguel",
+      "menciones": 1,
+      "fuente": "ia-sepomex"
+    }
+  ],
+  "santa cruz de la soledad": [
+    {
+      "colonia": "las redes",
+      "peso": 20
     }
   ],
   "san elias": [
@@ -70041,48 +72678,6 @@
       "fuente": "ia-sepomex"
     }
   ],
-  "guadalupana sur": [
-    {
-      "colonia": "guadalupana norte",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "simon bolivar",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "jardines de atemajac",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "autocinema",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "santa elena de la cruz",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "santa elena estadio",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "division del norte",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "independencia infonavit",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    }
-  ],
   "simon bolivar": [
     {
       "colonia": "guadalupana sur",
@@ -71965,148 +74560,6 @@
     },
     {
       "colonia": "olimpica",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    }
-  ],
-  "la aurora": [
-    {
-      "colonia": "la loma",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "medrano",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "hernandez romo",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "obrera",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "unidad modelo",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "valentin gomez farias",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "el dean",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "ferrocarril",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "valle del alamo",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "analco",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "las conchas",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "san carlos",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "rincon de agua azul",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "barragan y hernandez",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "higuerillas 1a secc",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "higuerillas 2a secc",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "la nogalera",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "el manantial",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "lazaro cardenas",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "las juntas",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "agustin yanez",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "jardines de san francisco",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "la florida",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "versalles",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "san antonio",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "magana",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "europa",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "electricistas",
       "menciones": 1,
       "fuente": "ia-sepomex"
     }
@@ -75119,43 +77572,6 @@
     },
     {
       "colonia": "miguel hidalgo",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    }
-  ],
-  "el zalate": [
-    {
-      "colonia": "el porvenir oriente",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "los romo",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "beatriz hernandez",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "miguel hidalgo",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "verde valle",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "los amiales",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "abadia san martin",
       "menciones": 1,
       "fuente": "ia-sepomex"
     }
@@ -82912,48 +85328,6 @@
       "fuente": "ia-sepomex"
     }
   ],
-  "la vista": [
-    {
-      "colonia": "vista sur residencial",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "punta centinela",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "colinas de san isidro",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "praderas del centinela",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "canteras del centinela",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "mirador de san isidro",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "altavista residencial",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "residencial san isidro",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    }
-  ],
   "sotavento": [
     {
       "colonia": "san francisco",
@@ -84840,48 +87214,6 @@
   "los nisperos": [
     {
       "colonia": "canteras",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "colinas de san miguel",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "alva residencial",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "abie",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "nara",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "creta residencial",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "carrara",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "capital norte",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    }
-  ],
-  "canteras": [
-    {
-      "colonia": "los nisperos",
       "menciones": 1,
       "fuente": "ia-sepomex"
     },
@@ -91912,118 +94244,6 @@
       "fuente": "ia-sepomex"
     }
   ],
-  "agua blanca": [
-    {
-      "colonia": "los colorines",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "el nuevo resplandor",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "la mesita",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "san jeronimo",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "agua blanca sur",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "el mante",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "los mirasoles",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "agricola",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "el jordan",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "san jorge",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "puente grande",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "tololotlan",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "ejidal del sol",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "real fresno",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "rinconada de san antonio",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "lomas del salto",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "lomas de san miguel ii",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "villas de agua blanca",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "parques del triunfo",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "pintitas poniente",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "las pintas",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "guadalupe montenegro",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    }
-  ],
   "agua blanca sur": [
     {
       "colonia": "los colorines",
@@ -92861,103 +95081,6 @@
     },
     {
       "colonia": "los pinos campestre",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "paraiso los pinos",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "residencial el bosque",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "rinconada del iris",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "valle de bugambilias",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "villa serena",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "villas esmeralda",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "villas del ixtepete",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "villas perisur",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "vistas del sol",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    }
-  ],
-  "los pinos campestre": [
-    {
-      "colonia": "azaleas residencial",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "bugambilias",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "bugambilias country",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "ciudad bugambilia",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "coto la joya",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "cristal",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "ebano",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "hacienda jacarandas",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "haciendas la herradura",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "la loma",
       "menciones": 1,
       "fuente": "ia-sepomex"
     },
@@ -94571,68 +96694,6 @@
     },
     {
       "colonia": "la duraznera",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "salvador portillo lopez",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "el puente",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "los portales",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "villas los cantaros",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "villas de loma grande",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "solidaridad",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "azabache",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "el palomo",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    }
-  ],
-  "la duraznera": [
-    {
-      "colonia": "residencial revolucion",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "revolucion",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "canal 58",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "hacienda de vidrios",
       "menciones": 1,
       "fuente": "ia-sepomex"
     },
@@ -97746,58 +99807,6 @@
       "fuente": "ia-sepomex"
     }
   ],
-  "los amiales": [
-    {
-      "colonia": "verde valle",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "el zalate",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "abadia san martin",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "la loma",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "el arenal",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "nueva aurora",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "rancho sanchez",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "el gallo colorado",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "ocotillo",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "los encinos",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    }
-  ],
   "abadia san martin": [
     {
       "colonia": "iberoamericano",
@@ -98340,93 +100349,6 @@
     },
     {
       "colonia": "los camichines 2",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    }
-  ],
-  "la severiana": [
-    {
-      "colonia": "emiliano zapata",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "el sauz",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "la arena",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "los puestos",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "los naranjos",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "parques de la victoria",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "arboledas de san martin",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "haciendas de san martin",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "francisco silva romero",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "los hornos",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "la puerta",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "el bordo",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "la gigantera",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "la pilita",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "la liga",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "ojo de agua",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "potrerillo",
       "menciones": 1,
       "fuente": "ia-sepomex"
     }
@@ -99089,125 +101011,6 @@
       "fuente": "ia-sepomex"
     }
   ],
-  "cofradia": [
-    {
-      "colonia": "lomas del pedregal",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "las flores",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "los pinos",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "los alamos",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "buenavista",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "jardines de tlajomulco",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "prados de la higuera",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "el cortijo",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "lazaro cardenas",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "san juan corral",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "tulipanes",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "potrero de san jose",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "surcos largos",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "colosio",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "residencias el prado jardines del prado",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    }
-  ],
-  "valle de santa cruz": [
-    {
-      "colonia": "santa cruz de las flores",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "tlajomulco centro",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "lomas de santa anita",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "colinas de santa anita",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "la lomita",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "larios",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "heroes de nacozari",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "las galeanas",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    }
-  ],
   "altiplano": [
     {
       "colonia": "patria",
@@ -99540,48 +101343,6 @@
     },
     {
       "colonia": "las galeanas",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    }
-  ],
-  "las galeanas": [
-    {
-      "colonia": "valle de santa cruz",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "santa cruz de las flores",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "tlajomulco centro",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "lomas de santa anita",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "colinas de santa anita",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "la lomita",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "larios",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "heroes de nacozari",
       "menciones": 1,
       "fuente": "ia-sepomex"
     }
@@ -101155,48 +102916,6 @@
     },
     {
       "colonia": "habitat san millan",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "bella vicenza",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "el eden",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "hacienda san agustin",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "san jose del tajo",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "bosques santa anita",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    }
-  ],
-  "habitat san millan": [
-    {
-      "colonia": "bosques california",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "las grullas",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "atmosfera",
       "menciones": 1,
       "fuente": "ia-sepomex"
     },
@@ -103641,48 +105360,6 @@
       "fuente": "ia-sepomex"
     }
   ],
-  "el capulin": [
-    {
-      "colonia": "paseos del valle",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "las asturias",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "zapote del valle",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "los sauces",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "la purisima",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "los silos",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "el lago",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "albereda residencial",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    }
-  ],
   "los ciruelos": [
     {
       "colonia": "el refugio",
@@ -105259,48 +106936,6 @@
       "fuente": "ia-sepomex"
     }
   ],
-  "vistas tonallan": [
-    {
-      "colonia": "rinconadas del sol",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "mision del campanario",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "las gabrielas",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "buenos aires",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "vistas del valle",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "arroyos",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "rinconada tonala",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "jardines de san rafael",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    }
-  ],
   "jardines de san rafael": [
     {
       "colonia": "rinconadas del sol",
@@ -105549,18 +107184,6 @@
     },
     {
       "colonia": "el cerrito",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    }
-  ],
-  "linda vista": [
-    {
-      "colonia": "quintana catalina",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "barrio nuevo",
       "menciones": 1,
       "fuente": "ia-sepomex"
     }
@@ -107041,33 +108664,6 @@
       "fuente": "ia-sepomex"
     }
   ],
-  "puerta del rosario": [
-    {
-      "colonia": "balcones del rosario",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "buenavista i",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "buenavista ii",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "huerta",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "rinconada del rosario",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    }
-  ],
   "rinconada del rosario": [
     {
       "colonia": "balcones del rosario",
@@ -107907,48 +109503,6 @@
     },
     {
       "colonia": "san gaspar de las flores",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "arboledas de san gaspar",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "huertas de san gaspar",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "la pila de san gaspar",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "la perseverancia",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "bajio san gaspar",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    }
-  ],
-  "san gaspar de las flores": [
-    {
-      "colonia": "la mojonera",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "huertas del valle",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "lopez cotilla",
       "menciones": 1,
       "fuente": "ia-sepomex"
     },
@@ -111443,48 +112997,6 @@
       "fuente": "ia-sepomex"
     }
   ],
-  "balcones del salto": [
-    {
-      "colonia": "el mirador",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "obrera",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "los arrayanes",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "los laureles",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "las lilas",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "coto san miguel",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "alvarez del castillo",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "ampelio",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    }
-  ],
   "la mesa infonavit": [
     {
       "colonia": "las lilas",
@@ -111597,48 +113109,6 @@
     },
     {
       "colonia": "mesa de los laureles",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "palo dulce",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "potrero nuevo",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    }
-  ],
-  "mesa de los laureles": [
-    {
-      "colonia": "el salto centro",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "alvarez del castillo",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "ampelio",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "balcones del salto",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "el sabino",
-      "menciones": 1,
-      "fuente": "ia-sepomex"
-    },
-    {
-      "colonia": "jesus maria",
       "menciones": 1,
       "fuente": "ia-sepomex"
     },

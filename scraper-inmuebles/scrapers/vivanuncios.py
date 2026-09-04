@@ -171,6 +171,15 @@ class VivanunciosScraper(BaseScraper):
         if m:
             estac = m.group(1)
 
+        # Guard (bug real 03-sep): sin vivanuncios_loc_code, OLX puede ignorar el segmento de
+        # ciudad en la URL y devolver resultados NACIONALES — el scraper los etiquetaba ciegamente
+        # con zona["municipio"] sin validar. 27 props de otras ciudades (Cancún, Mérida, Polanco...)
+        # quedaron marcadas "El Arenal" en Mongo antes de este fix. Aceptar solo si el municipio
+        # configurado aparece en el texto de ubicación de la propia tarjeta.
+        municipio_n = zona["municipio"].lower()
+        if municipio_n not in ubicacion_texto.lower() and municipio_n not in texto_completo:
+            return None
+
         # Descripción
         desc_tag = tarjeta.select_one(SELECTORES["descripcion"])
         descripcion = desc_tag.get_text(strip=True) if desc_tag else ""
