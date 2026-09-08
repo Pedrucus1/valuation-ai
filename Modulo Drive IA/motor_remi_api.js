@@ -801,6 +801,17 @@ function listingsEnMuni(muni, tipo) {
 // ── Suma de Partes: terreno (IDX) + construcción depreciada INDAABIN ───────────
 const INDAABIN_COSTO = { residencial_plus: 26000, residencial: 18000, media: 12000, economica: 7500 };
 
+// $/m² por calidad de construcción declarada por el perito — MISMA tabla que usa
+// backend/server.py::_physical_breakdown y que se muestra en FlippingCalculatorPage.jsx.
+// Preferida sobre INDAABIN_COSTO (que infiere el nivel del valor del TERRENO) cuando el
+// perito sí capturó la calidad: real 03-sep, Fracc. El Roble tiene terreno barato ($1,673/m²,
+// cae en "económica") pero construcciones campestres de nivel medio/alto encima — el proxy
+// terreno-barato→construcción-barata no aplica ahí.
+const QUALITY_COSTS = {
+    'Interés Social': 12000, 'Económico': 14000, 'Medio Bajo': 16000,
+    'Medio Medio': 19000, 'Medio Alto': 23000, 'Superior': 30000, 'Lujo': 45000,
+};
+
 function getRH(edad, vida = 70) {
     if (edad <= 0) return 1.0;
     const x = Math.min(1, edad / vida);
@@ -818,7 +829,7 @@ const PM2T_MAX_PLAUSIBLE = 25000;
 const COMP_CAP = 15;
 const COMP_CAP_GENERAL = 10;
 
-function sumaDePartes(muniNorm, colNorm, m2T, m2C, edad, conservacion, esEjidal = false, pm2tOverride = 0) {
+function sumaDePartes(muniNorm, colNorm, m2T, m2C, edad, conservacion, esEjidal = false, pm2tOverride = 0, calidadConstruccion = '') {
     // Buscar pm2T en IDX de terrenos: colonia exacta (n≥3) → zona padre → similares residencial → municipal
     let pm2t = pm2tOverride || 0, nTerrenos = pm2tOverride ? 1 : 0;
     const terrenosMuni = IDX[muniNorm]?.['terreno'] ?? {};
@@ -880,11 +891,22 @@ function sumaDePartes(muniNorm, colNorm, m2T, m2C, edad, conservacion, esEjidal 
     // donde "ejidal" aparece en el tipo del inmueble y no en el nombre de la colonia.
     const pm2tTerreno = esEjidal ? pm2t * 0.50 : pm2t;
     const valorTerreno = pm2tTerreno * m2T;
-    const pm2cRef = pm2t * 1.8;  // nseKey usa pm2t original (estándar constructivo)
-    const nseKey  = pm2cRef >= 25000 ? 'residencial_plus'
-                  : pm2cRef >= 15000 ? 'residencial'
-                  : pm2cRef >= 8000  ? 'media' : 'economica';
-    const costo   = INDAABIN_COSTO[nseKey];
+    // Nivel de costo de construcción: preferir la calidad que capturó el perito (tabla
+    // QUALITY_COSTS, la misma que usa el resto de la app) — inferirla del valor del TERRENO
+    // (pm2cRef) falla en zonas de terreno barato con construcción de nivel medio/alto encima
+    // (campestres/quintas, ver comentario de QUALITY_COSTS). Solo cae al proxy viejo si el
+    // perito no capturó calidad.
+    let nseKey, costo;
+    if (calidadConstruccion && QUALITY_COSTS[calidadConstruccion]) {
+        costo = QUALITY_COSTS[calidadConstruccion];
+        nseKey = `calidad:${calidadConstruccion}`;
+    } else {
+        const pm2cRef = pm2t * 1.8;  // nseKey usa pm2t original (estándar constructivo)
+        nseKey = pm2cRef >= 25000 ? 'residencial_plus'
+               : pm2cRef >= 15000 ? 'residencial'
+               : pm2cRef >= 8000  ? 'media' : 'economica';
+        costo = INDAABIN_COSTO[nseKey];
+    }
     const depre   = getRH(calcEdadEfectiva(edad, conservacion));
     const fConserv = FACTORES_CONSERVACION[conservacion] || 1.00;
     // +20% sobre costo INDAABIN para aproximar valor de mercado (costo reposición < valor mercado)
@@ -968,7 +990,7 @@ function valuarPropiedad(prop) {
     // ratio ≤ 4 → Motor 1 primero; suma_partes como fallback post-Motor-1
     const ratioTerr = m2C > 0 && m2T > 0 ? m2T / m2C : 0;
     if (ratioTerr > 4 && m2T > 200) {
-        const sp = sumaDePartes(muniNorm, colNorm, m2T, m2C, prop.edad || 0, prop.estadoConservacion, prop.esEjidal || false);
+        const sp = sumaDePartes(muniNorm, colNorm, m2T, m2C, prop.edad || 0, prop.estadoConservacion, prop.esEjidal || false, 0, prop.calidadConstruccion || '');
         if (sp && sp.valor > 0) return { ...sp, confianza: 'MEDIA', cv: 0, pm2cAvg: Math.round(sp.valor / Math.max(m2C, 1)) };
     }
 
@@ -1341,7 +1363,7 @@ function valuarPropiedad(prop) {
     const exactaCount = enColonia.length || (IDX[muniNorm]?.[tipo]?.[colNorm]?.count || 0);
     const sinMercadoExacto = exactaCount < 3 && compsFilt.length < 5;
     if (sinMercadoExacto && m2T > 0) {
-        const sp = sumaDePartes(muniNorm, colNorm, m2T, m2C, prop.edad || 0, prop.estadoConservacion, prop.esEjidal || false);
+        const sp = sumaDePartes(muniNorm, colNorm, m2T, m2C, prop.edad || 0, prop.estadoConservacion, prop.esEjidal || false, 0, prop.calidadConstruccion || '');
         if (sp && sp.valor > 0) {
             // Promedio ponderado 60% suma_partes / 40% pool. Si pool tiene nComps<3, 100% suma_partes.
             if (compsFilt.length < 3) {
@@ -1404,7 +1426,7 @@ async function valuarPropiedadCompleto(prop) {
         if (pm2tVals.length >= 2) {
             const pm2tWeb = Math.round(mediana(pm2tVals));
             const spWeb = sumaDePartes(muniNormFb, colNormFb, prop.terreno, m2C,
-                                       edad, conserv, prop.esEjidal || false, pm2tWeb);
+                                       edad, conserv, prop.esEjidal || false, pm2tWeb, prop.calidadConstruccion || '');
             if (spWeb && spWeb.valor > 0) {
                 delete result._comps;
                 return { ...spWeb, poolTipo: 'suma_partes_web', confianza: 'MEDIA',

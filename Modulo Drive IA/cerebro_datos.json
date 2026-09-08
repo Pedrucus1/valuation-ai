@@ -96527,5 +96527,1782 @@
     "banos": 2.5,
     "estacionamientos": 2,
     "estadoConservacion": "bueno"
+  },
+  {
+    "fileId": "1m_-7UJz3l33hL_P5O45HMeQcWYSDHJfBtoDN-WQKlUA",
+    "fileName": "OPI-26-8-16-OF C. San Carlos 28, Santa Rosa, 45690 Las Pintas, Jal.",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Santa Rosa",
+    "municipio": "Las Pintas",
+    "comparables": [],
+    "folio": "No hallado",
+    "tipo": "LOCAL COMERCIAL",
+    "direccion": "C. San Carlos 28, Santa Rosa, 45690 Las Pintas, Jal.",
+    "valorMercado": "No hallado",
+    "m2Terreno": "No hallado",
+    "m2Construccion": "No hallado",
+    "edad": "No hallado",
+    "valorM2Aplicable": "No hallado",
+    "recamaras": null,
+    "banos": null,
+    "estacionamientos": null,
+    "_tabFallback": "OPI Loc Com b",
+    "estadoConservacion": null
+  },
+  {
+    "fileId": "118RvJJYNW-liXD7qH6ghScjgqWDf9Z5wrpfSeDqkb1c",
+    "fileName": "OPI-26-8-15-OF Virgen de Guadalupe 137, Haciendas La Candelaria, 45600 Santa Anita, Jal.",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Haciendas La Candelaria",
+    "municipio": "Santa Anita",
+    "comparables": [
+      {
+        "terreno": 447,
+        "construccion": 0,
+        "precio": 2592600,
+        "colonia": "SANTA ANITA,",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-cerrada-matamoros-santa-anita-tlajomulco-de-zuniga-jal-3778218"
+      },
+      {
+        "terreno": 125,
+        "construccion": 0,
+        "precio": 940000,
+        "colonia": "Ojo de Agua",
+        "link": "https://propiedades.com/inmuebles/terreno-habitacional-en-venta-agua-transparente-ojo-de-agua-45600-santa-anita-jal-santa-anita-jalisco-31060784#tipos=terrenos-habitacionales-venta&area=santa-anita-san-pedro-tlaquepaque&pos=10"
+      },
+      {
+        "terreno": 1419,
+        "construccion": 0,
+        "precio": 9507000,
+        "colonia": "Santa Anita",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-santa-anita-jalisco-149859742.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=5020c10f-2a4c-4fb2-a987-05e9e3fcfb96"
+      },
+      {
+        "terreno": 82,
+        "construccion": 60,
+        "precio": 1900000,
+        "colonia": "haciendas la candelaria",
+        "link": ""
+      },
+      {
+        "terreno": 129,
+        "construccion": 73,
+        "precio": 2480000,
+        "colonia": "inas de Santa Anita",
+        "link": ""
+      },
+      {
+        "terreno": 215,
+        "construccion": 170,
+        "precio": 5200000,
+        "colonia": "San Agustín",
+        "link": ""
+      },
+      {
+        "terreno": 70,
+        "construccion": 131,
+        "precio": 3200000,
+        "colonia": "Loreto Coto California",
+        "link": ""
+      },
+      {
+        "terreno": 170,
+        "construccion": 120,
+        "precio": 3800000,
+        "colonia": "ionamiento DEL Pilar",
+        "link": ""
+      },
+      {
+        "terreno": 82,
+        "construccion": 60,
+        "precio": 1900000,
+        "colonia": "haciendas la candelaria",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-en-venta-cerca-santa-anita-la-candelaria-150552564.html?n_src=Listado&n_pos=1&n_search_id=2eec14fe-e3ea-4e7e-84b0-2b27008eebe5"
+      },
+      {
+        "terreno": 129,
+        "construccion": 73,
+        "precio": 2480000,
+        "colonia": "inas de Santa Anita",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-en-santa-anita-2-niveles-3-recamaras-cochera-150538539.html?n_src=Listado&n_pos=1&n_search_id=2eec14fe-e3ea-4e7e-84b0-2b27008eebe5"
+      },
+      {
+        "terreno": 215,
+        "construccion": 170,
+        "precio": 5200000,
+        "colonia": "San Agustín",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-en-venta-camino-real-a-colima-150591721.html?n_src=Listado&n_pos=1&n_search_id=14f02cc6-504e-494e-ae4f-f048021cb225"
+      },
+      {
+        "terreno": 70,
+        "construccion": 131,
+        "precio": 3200000,
+        "colonia": "Loreto Coto California",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-se-vende-casa-en-loreto-coto-california-150392041.html?n_src=Listado&n_pos=1&n_search_id=2eec14fe-e3ea-4e7e-84b0-2b27008eebe5"
+      },
+      {
+        "terreno": 170,
+        "construccion": 120,
+        "precio": 3800000,
+        "colonia": "ionamiento DEL Pilar",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-en-oportunidad-para-remodelar-149346998.html?n_src=Listado&n_pos=1&n_search_id=24652053-1126-46c2-bee9-efb3d02a3db3"
+      },
+      {
+        "terreno": 73,
+        "construccion": 107,
+        "precio": 2200000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcapa-casa-en-loreto-tlaquepaque-2-recamaras-150765762.html?n_src=Listado&n_pos=1&n_search_id=2eec14fe-e3ea-4e7e-84b0-2b27008eebe5"
+      }
+    ],
+    "folio": "OPI-26-8-15-OF",
+    "tipo": "CASA HABITACIÓN EN CONDOMINIO",
+    "direccion": "Virgen de Guadalupe 137, Haciendas La Candelaria, 45600, Tlaquepaque, Jal.",
+    "valorMercado": "$1,120,000.00",
+    "m2Terreno": "75.53 M2",
+    "m2Construccion": "54.00 M2",
+    "edad": "25 AÑOS.    ",
+    "valorM2Aplicable": " $ 20,749 ",
+    "recamaras": 2,
+    "banos": 1,
+    "estacionamientos": 1,
+    "estadoConservacion": "regular_medio"
+  },
+  {
+    "fileId": "1JdkYxryam_Q1j1eW073m-V91WlNZneiutJZ3iIp0GjI",
+    "fileName": "OPI-26-8-14-OF Robert Shuman 5694 A, la Estancia",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "la Estancia",
+    "municipio": "la Estancia",
+    "comparables": [
+      {
+        "terreno": 324,
+        "construccion": 0,
+        "precio": 8500000,
+        "colonia": "Chapalita de Occidente",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltepa-terreno-venta-chapalita-de-occidente-zapopan-150687301.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=57900f70-f607-4ed3-af29-ba57c7e80ab1"
+      },
+      {
+        "terreno": 502,
+        "construccion": 0,
+        "precio": 13800000,
+        "colonia": "EUCALIPTO VALLARTA",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-eucalipto-vallarta-guadalajara-149142129.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=d2cda773-a73a-410b-8b34-3d94f288295c"
+      },
+      {
+        "terreno": 262,
+        "construccion": 0,
+        "precio": 6350000,
+        "colonia": "Rinconada Del Parque",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltepa-terreno-en-venta-150410853.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=d2cda773-a73a-410b-8b34-3d94f288295c"
+      },
+      {
+        "terreno": 300,
+        "construccion": 0,
+        "precio": 8900000,
+        "colonia": "Jardines de Guadalupe",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-unico-terreno-en-venta.-jardines-de-guadalupe-149748495.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=d2cda773-a73a-410b-8b34-3d94f288295c"
+      },
+      {
+        "terreno": 168,
+        "construccion": 212,
+        "precio": 7500000,
+        "colonia": "La Estancia",
+        "link": ""
+      },
+      {
+        "terreno": 144,
+        "construccion": 208,
+        "precio": 7500000,
+        "colonia": "La Estancia",
+        "link": ""
+      },
+      {
+        "terreno": 142,
+        "construccion": 177,
+        "precio": 7850000,
+        "colonia": "La Estancia",
+        "link": ""
+      },
+      {
+        "terreno": 144,
+        "construccion": 224,
+        "precio": 7600000,
+        "colonia": "La Estancia",
+        "link": ""
+      },
+      {
+        "terreno": 137,
+        "construccion": 303,
+        "precio": 8849000,
+        "colonia": "La Estancia",
+        "link": ""
+      },
+      {
+        "terreno": 168,
+        "construccion": 212,
+        "precio": 7500000,
+        "colonia": "La Estancia",
+        "link": "https://propiedades.com/inmuebles/casa-en-venta-wolfgang-amadeus-mozart-5329-la-estancia-jalisco-31696506#tipos=casas-venta&area=la-estancia-zapopan&pos=11"
+      },
+      {
+        "terreno": 144,
+        "construccion": 208,
+        "precio": 7500000,
+        "colonia": "La Estancia",
+        "link": "https://propiedades.com/inmuebles/casa-en-venta-c-velazquez-real-vallarta-zapopan-jal-la-estancia-jalisco-30351881#tipos=casas-venta&area=la-estancia-zapopan&pos=19"
+      },
+      {
+        "terreno": 142,
+        "construccion": 177,
+        "precio": 7850000,
+        "colonia": "La Estancia",
+        "link": "https://propiedades.com/inmuebles/casa-en-venta-rafael-sanzio-la-estancia-jalisco-31680686#tipos=casas-venta&area=la-estancia-zapopan&pos=31"
+      },
+      {
+        "terreno": 144,
+        "construccion": 224,
+        "precio": 7600000,
+        "colonia": "La Estancia",
+        "link": "https://www.casasyterrenos.com/propiedad/casa-venta-johannes-brahms-colonia-la-estancia-zapopan-jal-3881483"
+      },
+      {
+        "terreno": 137,
+        "construccion": 303,
+        "precio": 8849000,
+        "colonia": "La Estancia",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-en-venta-en-la-estancia-zapopan-frente-al-150559191.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=ffa4a020-3ad9-4d9a-9eac-cc7baf4898b7"
+      },
+      {
+        "terreno": 200,
+        "construccion": 225,
+        "precio": 6990000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-en-venta-en-la-estancia-150494593.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=ffa4a020-3ad9-4d9a-9eac-cc7baf4898b7"
+      }
+    ],
+    "folio": "OPI-26-8-14-OF",
+    "tipo": "CASA HABITACIÓN",
+    "direccion": "C. Robert Schumann 5694, La Estancia, 45030 Zapopan, Jal.",
+    "valorMercado": "$5,968,000.00",
+    "m2Terreno": "141.14 M2",
+    "m2Construccion": "232.23 M2",
+    "edad": "40 AÑOS.    ",
+    "valorM2Aplicable": " $ 25,700 ",
+    "recamaras": 4,
+    "banos": 3,
+    "estacionamientos": 3,
+    "estadoConservacion": "bueno"
+  },
+  {
+    "fileId": "1RUc1YbMuDQoL6Ovecej70HSocT3dtghA_cRX25cwjZw",
+    "fileName": "OPI-26-8-13-OF Isla Zanzibar 4407 int. B11, el Sauz",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "el Sauz",
+    "municipio": "el Sauz",
+    "comparables": [
+      {
+        "terreno": 382,
+        "construccion": 0,
+        "precio": 3600000,
+        "colonia": ", EL CARMEN",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-miguel-topete-el-carmen-guadalajara-jal-3795264"
+      },
+      {
+        "terreno": 689,
+        "construccion": 0,
+        "precio": 6560000,
+        "colonia": "Mirador del Tesoro",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-cerro-del-tesoro-tlaquepaque-149801472.html?n_src=Listado&n_pg=0&n_pos=1&n_search_id=d48fd066-c472-45cd-8a97-b963a03ccdca"
+      },
+      {
+        "terreno": 56,
+        "construccion": 56,
+        "precio": 1650000,
+        "colonia": "EL SAUZ",
+        "link": ""
+      },
+      {
+        "terreno": 55,
+        "construccion": 55,
+        "precio": 1500000,
+        "colonia": "EL SAUZ",
+        "link": ""
+      },
+      {
+        "terreno": 74,
+        "construccion": 74,
+        "precio": 1690000,
+        "colonia": "EL SAUZ",
+        "link": ""
+      },
+      {
+        "terreno": 63,
+        "construccion": 63,
+        "precio": 1530000,
+        "colonia": "EL SAUZ",
+        "link": ""
+      },
+      {
+        "terreno": 65,
+        "construccion": 65,
+        "precio": 1699000,
+        "colonia": "EL SAUZ",
+        "link": ""
+      },
+      {
+        "terreno": 56,
+        "construccion": 56,
+        "precio": 1650000,
+        "colonia": "EL SAUZ",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclapin-se-vende-departamento-en-el-sauz-planta-baja-150607126.html?n_src=Listado&n_pg=0&n_pos=1&n_search_id=a78d2512-45b2-4412-91eb-6f6d743b720f"
+      },
+      {
+        "terreno": 55,
+        "construccion": 55,
+        "precio": 1500000,
+        "colonia": "EL SAUZ",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclapin-bonito-departamento-en-venta-en-el-sauz-guadalajara-149098116.html?n_src=Listado&n_pg=0&n_pos=1&n_search_id=a78d2512-45b2-4412-91eb-6f6d743b720f"
+      },
+      {
+        "terreno": 74,
+        "construccion": 74,
+        "precio": 1690000,
+        "colonia": "EL SAUZ",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclapin-departamento-planta-baja-3-recamaras-2-banos-149982360.html?n_src=Listado&n_pg=0&n_pos=1&n_search_id=a78d2512-45b2-4412-91eb-6f6d743b720f"
+      },
+      {
+        "terreno": 63,
+        "construccion": 63,
+        "precio": 1530000,
+        "colonia": "EL SAUZ",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclapin-venta-de-departamento-piso-2-en-el-sauz-cerca-del-tren-148706843.html?n_src=Listado&n_pg=0&n_pos=1&n_search_id=a78d2512-45b2-4412-91eb-6f6d743b720f"
+      },
+      {
+        "terreno": 65,
+        "construccion": 65,
+        "precio": 1699000,
+        "colonia": "EL SAUZ",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclapin-bonito-depto-en-venta-zona-el-sauz-149433478.html?n_src=Listado&n_pg=0&n_pos=1&n_search_id=a78d2512-45b2-4412-91eb-6f6d743b720f"
+      },
+      {
+        "terreno": 55,
+        "construccion": 55,
+        "precio": 1600000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclappa-departamento-en-venta-en-isla-samoa-150772948.html?n_src=Listado&n_pg=0&n_pos=1&n_search_id=a78d2512-45b2-4412-91eb-6f6d743b720f"
+      },
+      {
+        "terreno": 53,
+        "construccion": 53,
+        "precio": 1690000,
+        "colonia": "Jardines El Sauz",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclapin-departamento-en-venta-en-la-zona-de-el-sauz-150917063.html?n_src=Listado&n_pg=0&n_pos=1&n_search_id=a78d2512-45b2-4412-91eb-6f6d743b720f"
+      }
+    ],
+    "folio": "OPI-26-8-13-OF",
+    "tipo": "DEPARTAMENTO EN CONDOMINIO",
+    "direccion": "C. Isla Zanzibar 4407-B11, El Sauz, 45608 Guadalajara, Jal.",
+    "valorMercado": "$1,622,000.00",
+    "m2Terreno": "71.45 M2",
+    "m2Construccion": "71.45 M2",
+    "edad": "36 AÑOS.    ",
+    "valorM2Aplicable": " $ 22,702 ",
+    "recamaras": 2,
+    "banos": null,
+    "estacionamientos": 1,
+    "estadoConservacion": "bueno"
+  },
+  {
+    "fileId": "18PaynOx3AKmDj1Mg1ThYThywYTQ-JqKI_EP0XTeX0gE",
+    "fileName": "OPI-26-8-12-OF Cerca de C. Juárez s/n, Santa Ana Tepetitlán, 45230 Zapopan, Jal.",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Santa Ana Tepetitlán",
+    "municipio": "Zapopan",
+    "comparables": [
+      {
+        "terreno": 3924,
+        "construccion": 0,
+        "precio": 18000000,
+        "colonia": "SAnta Ana Tepetitlán",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-camino-nacional-colonia-santa-ana-tepetitlan-zapopan-jal-3742989"
+      },
+      {
+        "terreno": 3200,
+        "construccion": 0,
+        "precio": 25000000,
+        "colonia": "santa Ana Tepetitlán",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-venustiano-carranza-santa-ana-tepetitlan-zapopan-jal-3854666"
+      },
+      {
+        "terreno": 1089,
+        "construccion": 0,
+        "precio": 7850000,
+        "colonia": "SAnta Ana Tepetitlán",
+        "link": "https://propiedades.com/inmuebles/terreno-habitacional-en-venta-la-calerilla-santa-ana-tepetitlan-jalisco-31276367#tipos=terrenos-habitacionales&area=santa-ana-tepetitlan-zapopan&pos=20"
+      },
+      {
+        "terreno": 3924,
+        "construccion": 0,
+        "precio": 15000000,
+        "colonia": "SAnta Ana Tepetitlán",
+        "link": "https://propiedades.com/inmuebles/terreno-habitacional-en-venta-c-cam-nacional-76-santa-ana-tepetitlan-45230-zapopan-jal-76-santa-ana-tepetitlan-jalisco-31466208#tipos=terrenos-habitacionales&area=santa-ana-tepetitlan-zapopan&pos=1"
+      },
+      {
+        "terreno": 1848,
+        "construccion": 0,
+        "precio": 12960000,
+        "colonia": "LA HACIENDITA",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-tepeyac-la-haciendita-zapopan-jal-3874993"
+      },
+      {
+        "terreno": 4500,
+        "construccion": 0,
+        "precio": 45000000,
+        "colonia": "Santa Ana Tepetitlán",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-primavera-el-fortin-zapopan-jal-3783081"
+      },
+      {
+        "terreno": 2197,
+        "construccion": 0,
+        "precio": 21970000,
+        "colonia": "santa Ana Tepetitlán",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-avenida-tepeyac-mariano-otero-zapopan-jal-3863796"
+      },
+      {
+        "terreno": 1553,
+        "construccion": 0,
+        "precio": 21742000,
+        "colonia": "el fortin",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-c.-heroico-colegio-militar-146109893.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=655da559-fefa-46f5-9f32-635e0e395a97"
+      },
+      {
+        "terreno": 2825,
+        "construccion": 0,
+        "precio": 27566822,
+        "colonia": "",
+        "link": "https://propiedades.com/inmuebles/terreno-habitacional-en-venta-camino-a-santa-ana-tepetitlan-santa-ana-tepetitlan-jalisco-31460861#tipos=terrenos-habitacionales&area=santa-ana-tepetitlan-zapopan&pos=5"
+      },
+      {
+        "terreno": 3095,
+        "construccion": 0,
+        "precio": 29329000,
+        "colonia": "",
+        "link": "https://propiedades.com/inmuebles/terreno-habitacional-en-venta-prol-mariano-otero-santa-ana-tepetitlan-jalisco-29690677#tipos=terrenos-habitacionales&area=santa-ana-tepetitlan-zapopan&pos=10"
+      }
+    ],
+    "folio": "OPI-26-8-12-OF",
+    "tipo": "TERRENO URBANO",
+    "direccion": "C. Juárez S/N, Santa Ana Tepetitlán, 45230 Zapopan, Jal.",
+    "valorMercado": "$10,073,000.00",
+    "m2Terreno": "1,486.00 M2",
+    "m2Construccion": "0.00 M2",
+    "valorM2Terreno": " $ 6,672.30 ",
+    "edad": "0 AÑOS.    ",
+    "estadoConservacion": "regular_medio"
+  },
+  {
+    "fileId": "1SmWFc9QezO-ArLKDXdqzL7pyJBnQ87Xju4eTeUBmO4I",
+    "fileName": "OPI-26-8-11-OF Copán 206, Hacienda Santa Fe, 45653 Hacienda Santa Fe, Jal.",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Hacienda Santa Fe",
+    "municipio": "Hacienda Santa Fe",
+    "comparables": [
+      {
+        "terreno": 2200,
+        "construccion": 0,
+        "precio": 7480000,
+        "colonia": "Hacienda Santa Fe",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-boulevard-tegucigalpa-fraccionamiento-hacienda-santa-fe-tlajomulco-de-zuniga-fraccionamiento-hacienda-santa-fe-tlajomulco-de-zuniga-jal-3845300"
+      },
+      {
+        "terreno": 882,
+        "construccion": 0,
+        "precio": 1930000,
+        "colonia": "San José del Valle",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-barda-san-jose-del-valle-tlajomulco-de-zuniga-jal-3735695"
+      },
+      {
+        "terreno": 276,
+        "construccion": 0,
+        "precio": 891800,
+        "colonia": "SAN JOSE DEL VALLE, Tla",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-aldama-sn-lote-san-jose-del-valle-tlajomulco-de-zuniga-jal-3811915"
+      },
+      {
+        "terreno": 73,
+        "construccion": 70,
+        "precio": 1250000,
+        "colonia": "Hacienda Santa Fe",
+        "link": ""
+      },
+      {
+        "terreno": 96,
+        "construccion": 55,
+        "precio": 1100000,
+        "colonia": "Hacienda Santa Fe",
+        "link": ""
+      },
+      {
+        "terreno": 90,
+        "construccion": 40,
+        "precio": 940000,
+        "colonia": "Rancho o rancheria Chilarillo",
+        "link": ""
+      },
+      {
+        "terreno": 77,
+        "construccion": 72,
+        "precio": 1425000,
+        "colonia": "VALLE DORADO",
+        "link": ""
+      },
+      {
+        "terreno": 80,
+        "construccion": 58,
+        "precio": 1100000,
+        "colonia": "Hacienda Santa Fe",
+        "link": ""
+      },
+      {
+        "terreno": 73,
+        "construccion": 70,
+        "precio": 1250000,
+        "colonia": "Hacienda Santa Fe",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-haciendas-de-santa-fe-casa-de-73-m-sup2--con-2-150791040.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=700ee894-4307-42e4-ba91-d386c2b178ed"
+      },
+      {
+        "terreno": 96,
+        "construccion": 55,
+        "precio": 1100000,
+        "colonia": "Hacienda Santa Fe",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-con-96-m-sup2--superficie-de-terreno-2-recamaras-149416593.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=700ee894-4307-42e4-ba91-d386c2b178ed"
+      },
+      {
+        "terreno": 90,
+        "construccion": 40,
+        "precio": 940000,
+        "colonia": "Rancho o rancheria Chilarillo",
+        "link": "https://www.casasyterrenos.com/propiedad/casa-venta-1a-privada-tlaltenango-21-rancho-o-rancheria-chilarillo-villa-hidalgo-jal-3873053"
+      },
+      {
+        "terreno": 77,
+        "construccion": 72,
+        "precio": 1425000,
+        "colonia": "VALLE DORADO",
+        "link": "https://www.casasyterrenos.com/propiedad/casa-venta-valle-del-cielo-valle-dorado-tlajomulco-de-zuniga-jal-3890850"
+      },
+      {
+        "terreno": 80,
+        "construccion": 58,
+        "precio": 1100000,
+        "colonia": "Hacienda Santa Fe",
+        "link": "https://www.casasyterrenos.com/propiedad/casa-venta-venecia-fraccionamiento-hacienda-santa-fe-tlajomulco-de-zuniga-jal-3770878"
+      }
+    ],
+    "folio": "OPI-26-8-11-OF",
+    "tipo": "CASA HABITACIÓN",
+    "direccion": "Copán 206, Hacienda Santa Fe, 45653, Tlajomulco de Zúñiga, Jal.",
+    "valorMercado": "$1,028,000.00",
+    "m2Terreno": "80.00 M2",
+    "m2Construccion": "59.22 M2",
+    "edad": "24 AÑOS.    ",
+    "valorM2Aplicable": " $ 17,358 ",
+    "recamaras": 2,
+    "banos": 2,
+    "estacionamientos": null,
+    "estadoConservacion": "bueno"
+  },
+  {
+    "fileId": "1iYrUs8SSPMIhVdrSJUuoGHMPZnPvVzjfGs3Ol6pvW7A",
+    "fileName": " OPI-26-8-04-OF C. Melocotón 3166, Guadalajara, Jal., México",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Guadalajara",
+    "municipio": "México",
+    "comparables": [
+      {
+        "terreno": 357,
+        "construccion": 0,
+        "precio": 3600000,
+        "colonia": "El Carmen",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-colonia-el-carmen-guadalajara-jalisco-147395014.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=e7a3b423-c3e5-4551-8e49-9973348b4ff3"
+      },
+      {
+        "terreno": 760,
+        "construccion": 0,
+        "precio": 3990000,
+        "colonia": "Nueva Santa María en Tlaquepaque",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-nueva-santa-maria-en-tlaquepaque-147434319.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=f9484b96-4390-43c3-ab4d-42a5fe4ec0a2"
+      },
+      {
+        "terreno": 689,
+        "construccion": 0,
+        "precio": 6560000,
+        "colonia": "Mirador del Tesoro",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-cerro-del-tesoro-tlaquepaque-149801472.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=f9484b96-4390-43c3-ab4d-42a5fe4ec0a2"
+      },
+      {
+        "terreno": 247,
+        "construccion": 192,
+        "precio": 6750000,
+        "colonia": "Arboledas del Sur",
+        "link": ""
+      },
+      {
+        "terreno": 60,
+        "construccion": 90,
+        "precio": 2550000,
+        "colonia": "Balcones de Santa María",
+        "link": ""
+      },
+      {
+        "terreno": 188,
+        "construccion": 56,
+        "precio": 2650000,
+        "colonia": "Nueva España",
+        "link": ""
+      },
+      {
+        "terreno": 80,
+        "construccion": 109,
+        "precio": 2290000,
+        "colonia": "PARQUES COLON",
+        "link": ""
+      },
+      {
+        "terreno": 60,
+        "construccion": 82,
+        "precio": 2290000,
+        "colonia": "PARQUES COLON",
+        "link": ""
+      },
+      {
+        "terreno": 247,
+        "construccion": 192,
+        "precio": 6750000,
+        "colonia": "Arboledas del Sur",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-en-venta-colonia-arboledas-del-sur-tlalpan-147073580.html?n_src=Listado&n_pills=%C3%81rea+de+lavado&n_pg=1&n_pos=1&n_search_id=4017d999-6d80-49d9-a82f-a10d495a81fa"
+      },
+      {
+        "terreno": 60,
+        "construccion": 90,
+        "precio": 2550000,
+        "colonia": "Balcones de Santa María",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-en-venta-en-balcones-de-santa-maria-150533319.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=c2f918cb-141b-47ad-a5b1-fd00180b3b97"
+      },
+      {
+        "terreno": 188,
+        "construccion": 56,
+        "precio": 2650000,
+        "colonia": "Nueva España",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-aquirire-tu-casa-en-nueva-espana-guadalajara-148350968.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=c2f918cb-141b-47ad-a5b1-fd00180b3b97"
+      },
+      {
+        "terreno": 80,
+        "construccion": 109,
+        "precio": 2290000,
+        "colonia": "PARQUES COLON",
+        "link": "https://www.casasyterrenos.com/propiedad/casa-venta-isla-mexcaltitan-42-parques-colon-san-pedro-tlaquepaque-jal-3873128"
+      },
+      {
+        "terreno": 60,
+        "construccion": 82,
+        "precio": 2290000,
+        "colonia": "PARQUES COLON",
+        "link": "https://www.casasyterrenos.com/propiedad/casa-venta-isla-mexcaltitan-parques-colon-san-pedro-tlaquepaque-jal-3873690"
+      },
+      {
+        "terreno": 80,
+        "construccion": 109,
+        "precio": 2290000,
+        "colonia": "san pedro",
+        "link": "https://www.casasyterrenos.com/propiedad/casa-venta-isla-mexcaltitan-42-parques-colon-san-pedro-tlaquepaque-jal-3873128"
+      },
+      {
+        "terreno": 121,
+        "construccion": 110,
+        "precio": 2100000,
+        "colonia": "el carmen",
+        "link": "https://www.casasyterrenos.com/propiedad/casa-venta-calle-jose-marquez-el-carmen-guadalajara-jal-3889392"
+      }
+    ],
+    "folio": "OPI-26-8-04-OF",
+    "tipo": "CASA HABITACIÓN",
+    "direccion": "C. Melocotón 3166, 44980 Guadalajara, Jal.",
+    "valorMercado": "$1,700,000.00",
+    "m2Terreno": "90.00 M2",
+    "m2Construccion": "61.44 M2",
+    "edad": "26 AÑOS.    ",
+    "valorM2Aplicable": " $ 27,674 ",
+    "recamaras": 2,
+    "banos": 1,
+    "estacionamientos": 1,
+    "estadoConservacion": "bueno"
+  },
+  {
+    "fileId": "1kxN764MnvP0lw9mKQ-ybfy6H-cE5mNFCactYPk3ywVA",
+    "fileName": "OPI-26-8-10-OF Sierra Alta 134,  Hacienda Santa Fe, Jal.",
+    "fecha": "No hallado",
+    "sujetoColonia": "Hacienda Santa Fe",
+    "municipio": "Hacienda Santa Fe",
+    "comparables": [],
+    "folio": "No hallado",
+    "valorMercado": "No hallado",
+    "estadoConservacion": null
+  },
+  {
+    "fileId": "1XP91bmqQrxq8eCgdSjK3ey9bCjidf32Xs1OXRUAkFTs",
+    "fileName": "OPI-26-8-09-OF San Ramon 89, Lomas de San Miguel,  La Punta, Jal.",
+    "fecha": "No hallado",
+    "sujetoColonia": "Lomas de San Miguel",
+    "municipio": "La Punta",
+    "comparables": [],
+    "folio": "No hallado",
+    "valorMercado": "No hallado",
+    "estadoConservacion": null
+  },
+  {
+    "fileId": "1omfSFhcPdbkyNt9YGEVCxMia2DRCZ6f6MQRBBNy2fQY",
+    "fileName": "OPI-26-8-08-OF Loma Verde 267-2, La Joya El Verde, El Salto",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "La Joya El Verde",
+    "municipio": "El Salto",
+    "comparables": [],
+    "folio": "No hallado",
+    "tipo": "LOCAL COMERCIAL",
+    "direccion": "Loma Verde 267-2, La Joya El Verde, El Salto",
+    "valorMercado": "No hallado",
+    "m2Terreno": "No hallado",
+    "m2Construccion": "No hallado",
+    "edad": "No hallado",
+    "valorM2Aplicable": "No hallado",
+    "recamaras": null,
+    "banos": null,
+    "estacionamientos": null,
+    "_tabFallback": "OPI Loc Com b",
+    "estadoConservacion": null
+  },
+  {
+    "fileId": "1CLMVdUTFl1cyBgHZ4u9E_Ub949QA4kDwqaCrMMUkS7E",
+    "fileName": "OPI-26-8-07-OF De la Sierra 58 , la Loma el Salto",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "la Loma el Salto",
+    "municipio": "la Loma el Salto",
+    "comparables": [
+      {
+        "terreno": 129,
+        "construccion": 0,
+        "precio": 260000,
+        "colonia": "LA LOMA",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-$260-000-146133951.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=55a60c76-70ec-4f5c-8ccb-96bc8edb19e77"
+      },
+      {
+        "terreno": 168,
+        "construccion": 0,
+        "precio": 472752,
+        "colonia": "LA LOMA",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-la-loma-el-salto-148392474.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=02b527a2-0b84-4b73-8c39-2bdc92084d61"
+      },
+      {
+        "terreno": 112,
+        "construccion": 0,
+        "precio": 270000,
+        "colonia": "San José del Quince",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-el-salto-jalisco-148102212.html?n_src=Listado&n_pg=1&n_pos=7&n_search_id=55a60c76-70ec-4f5c-8ccb-96bc8edb19e7"
+      },
+      {
+        "terreno": 174,
+        "construccion": 0,
+        "precio": 270000,
+        "colonia": "LA LOMA",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-privada-aguamarina-la-loma-el-salto-jal-3877107"
+      },
+      {
+        "terreno": 124,
+        "construccion": 0,
+        "precio": 250000,
+        "colonia": "el verde",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltepa-lote-terreno-para-construccion-150885321.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=02b527a2-0b84-4b73-8c39-2bdc92084d61"
+      },
+      {
+        "terreno": 360,
+        "construccion": 0,
+        "precio": 900000,
+        "colonia": "San Jose El Verde Centro,",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-el-verde-colonia-san-jose-el-verde-centro-el-salto-jal-3754546"
+      },
+      {
+        "terreno": 236,
+        "construccion": 0,
+        "precio": 495600,
+        "colonia": "de terreno",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-lote-de-terreno-el-salto-jalisco-colonia-la-150746617.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=289cff4f-2d99-45ac-8d9d-ce143bb13b82"
+      },
+      {
+        "terreno": 112,
+        "construccion": 0,
+        "precio": 270000,
+        "colonia": "del quince",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-ejido-norte-san-jose-del-quince-el-salto-jal-3860040"
+      },
+      {
+        "terreno": 245,
+        "construccion": 0,
+        "precio": 437000,
+        "colonia": ", San Martín de las Flores de Abajo",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-ignacio-aldama-san-martin-de-las-flores-de-abajo-tlaquepaque-jal-3885833"
+      },
+      {
+        "terreno": 201,
+        "construccion": 143,
+        "precio": 1750000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 202,
+        "construccion": 150,
+        "precio": 1850000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 97,
+        "construccion": 90,
+        "precio": 1000000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 85,
+        "construccion": 120,
+        "precio": 1190000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 66,
+        "construccion": 73,
+        "precio": 1450000,
+        "colonia": "",
+        "link": ""
+      },
+      {
+        "terreno": 201,
+        "construccion": 143,
+        "precio": 1750000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-en-venta-de-una-planta-en-las-pintitas-el-salto-149764532.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=9986ec73-2921-420d-820c-f2d21d405647"
+      },
+      {
+        "terreno": 202,
+        "construccion": 150,
+        "precio": 1850000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-ejidal-solo-contado-con-200-m-sup2--de-terreno-149766166.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=1ec11a3a-c390-4277-b38d-7f6b9c00bbda"
+      },
+      {
+        "terreno": 97,
+        "construccion": 90,
+        "precio": 1000000,
+        "colonia": "",
+        "link": "https://propiedades.com/inmuebles/casa-en-venta-porfirio-diaz-20-el-verde-45694-san-jose-el-verde-jal-20-san-jose-el-verde-centro-jalisco-30890284#tipos=casas-venta&area=san-jose-el-verde-centro-el-salto&pos=1"
+      },
+      {
+        "terreno": 85,
+        "construccion": 120,
+        "precio": 1190000,
+        "colonia": "el verde",
+        "link": "https://www.casasyterrenos.com/propiedad/casa-venta-gabriela-mistral-25-el-verde-el-salto-jal-3873147"
+      },
+      {
+        "terreno": 66,
+        "construccion": 73,
+        "precio": 1450000,
+        "colonia": "del real",
+        "link": "https://www.casasyterrenos.com/propiedad/casa-venta-hacienda-real-coto-9-hacienda-del-real-tonala-jal-3847221"
+      }
+    ],
+    "folio": "OPI-26-8-07-OF",
+    "tipo": "CASA HABITACIÓN",
+    "direccion": "De La Sierra 58, La Loma, 45694 San José el Verde, Jal.",
+    "valorMercado": "$1,111,000.00",
+    "m2Terreno": "115.50 M2",
+    "m2Construccion": "56.58 M2",
+    "valorM2Terreno": " $ 2,442.79 ",
+    "edad": "4 AÑOS.    ",
+    "estadoConservacion": "bueno"
+  },
+  {
+    "fileId": "135is7-Uw_uCQbgrntHlZ9zAtK2kiEaNjXV5M_tZkQEU",
+    "fileName": "OPI-26-8-06-OF Aldama 198, San Agustín, Jal.",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "San Agustín",
+    "municipio": "San Agustín",
+    "comparables": [
+      {
+        "terreno": 232,
+        "construccion": 0,
+        "precio": 1490000,
+        "colonia": "Cortijo de San Agustin",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-paseo-del-sol-cortijo-de-san-agustin-tlajomulco-de-zuniga-jal-3756281"
+      },
+      {
+        "terreno": 158,
+        "construccion": 0,
+        "precio": 1300000,
+        "colonia": "Cortijo de San Agustin",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-paseo-del-cortijo-cortijo-de-san-agustin-tlajomulco-de-zuniga-jal-3862020"
+      },
+      {
+        "terreno": 315,
+        "construccion": 0,
+        "precio": 2042145,
+        "colonia": "San Agustín",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-l-en-venta-en-cortijo-san-agustin-cerca-de-149635388.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=b91015a6-0f31-4c1f-8cce-933cf9e0ce8a"
+      },
+      {
+        "terreno": 90,
+        "construccion": 0,
+        "precio": 900000,
+        "colonia": "SAN AGUSTIN",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-san-agustin-san-agustin-tlajomulco-de-zuniga-jal-3871904"
+      },
+      {
+        "terreno": 447,
+        "construccion": 0,
+        "precio": 2592600,
+        "colonia": "Santa Anita",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-plano-en-venta-santa-anita-tlajomulco-146981591.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=b91015a6-0f31-4c1f-8cce-933cf9e0ce8a"
+      },
+      {
+        "terreno": 120,
+        "construccion": 0,
+        "precio": 1198800,
+        "colonia": "",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-prolongacion-5-de-mayo-180-cortijo-san-agustin-tlajomulco-de-zuniga-jal-3839888"
+      }
+    ],
+    "folio": "OPI-26-8-06-OF",
+    "tipo": "TERRENO URBANO",
+    "direccion": "Aldama 198, 45640 San Agustín, Jal.",
+    "valorMercado": "$1,073,000.00",
+    "m2Terreno": "140.00 M2",
+    "m2Construccion": "0.00 M2",
+    "valorM2Terreno": " $ 7,661.47 ",
+    "edad": "0 AÑOS.    ",
+    "estadoConservacion": "regular_medio"
+  },
+  {
+    "fileId": "12vBO6PmB-hp__0OcRn4NYdlimqc4HDrnYMejQp8QkTQ",
+    "fileName": "OPI-26-8-05-OF San Guillermo 982, Chapalita, 44510 Guadalajara, Jal.",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Chapalita",
+    "municipio": "Guadalajara",
+    "comparables": [
+      {
+        "terreno": 400,
+        "construccion": 0,
+        "precio": 10400000,
+        "colonia": "CIUDAD DEL SOL,",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-tonallan-ciudad-del-sol-zapopan-jal-3824814"
+      },
+      {
+        "terreno": 614,
+        "construccion": 0,
+        "precio": 14500000,
+        "colonia": "Chapalita",
+        "link": "https://propiedades.com/inmuebles/terreno-habitacional-en-venta-esquina-inglaterrawashington-chapalita-jalisco-31543983#tipos=terrenos-habitacionales-venta&area=chapalita-guadalajara&pos=5"
+      },
+      {
+        "terreno": 320,
+        "construccion": 0,
+        "precio": 8890000,
+        "colonia": "Chapalita,",
+        "link": "https://propiedades.com/inmuebles/terreno-habitacional-en-venta-chapalita-jalisco-30866600#tipos=terrenos-habitacionales-venta&area=chapalita-guadalajara&pos=1"
+      },
+      {
+        "terreno": 260,
+        "construccion": 0,
+        "precio": 6800000,
+        "colonia": "CHAPALITA SUR,",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-santa-maria-chapalita-sur-zapopan-jal-3886421"
+      },
+      {
+        "terreno": 195,
+        "construccion": 264,
+        "precio": 8853000,
+        "colonia": "chapalita",
+        "link": ""
+      },
+      {
+        "terreno": 206,
+        "construccion": 156,
+        "precio": 7000000,
+        "colonia": "chapalita",
+        "link": ""
+      },
+      {
+        "terreno": 170,
+        "construccion": 280,
+        "precio": 10890000,
+        "colonia": "chapalita",
+        "link": ""
+      },
+      {
+        "terreno": 219,
+        "construccion": 230,
+        "precio": 8600000,
+        "colonia": "chapalita",
+        "link": ""
+      },
+      {
+        "terreno": 137,
+        "construccion": 225,
+        "precio": 6150000,
+        "colonia": "jardines del bosque",
+        "link": ""
+      },
+      {
+        "terreno": 195,
+        "construccion": 264,
+        "precio": 8853000,
+        "colonia": "chapalita",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-en-venta-col-chapalita-guadalajara-jal-150565977.html?n_src=Listado&n_pills=Terraza&n_pg=1&n_pos=3&n_search_id=a6538641-cc7d-438b-bcd8-133824bab65d"
+      },
+      {
+        "terreno": 206,
+        "construccion": 156,
+        "precio": 7000000,
+        "colonia": "chapalita",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-en-venta-en-chapalita-de-una-sola-planta-149321241.html?n_src=Listado&n_pills=Patio&n_pg=1&n_pos=15&n_search_id=a6538641-cc7d-438b-bcd8-133824bab65d"
+      },
+      {
+        "terreno": 170,
+        "construccion": 280,
+        "precio": 10890000,
+        "colonia": "chapalita",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-venta-remodelada-en-chapalita-149591526.html?n_src=Listado&n_pills=%C3%81rea+de+lavado&n_pg=1&n_pos=18&n_search_id=a6538641-cc7d-438b-bcd8-133824bab65d"
+      },
+      {
+        "terreno": 219,
+        "construccion": 230,
+        "precio": 8600000,
+        "colonia": "chapalita",
+        "link": "https://www.casasyterrenos.com/propiedad/casa-venta-cenit-colonia-chapalita-guadalajara-jal-3850768"
+      },
+      {
+        "terreno": 137,
+        "construccion": 225,
+        "precio": 6150000,
+        "colonia": "jardines del bosque",
+        "link": "https://www.casasyterrenos.com/propiedad/casa-venta-calle-horizonte-jardines-del-bosque-guadalajara-jal-3824627"
+      },
+      {
+        "terreno": 270,
+        "construccion": 300,
+        "precio": 7990000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-en-venta-en-jardines-de-los-arcos-144345130.html?n_src=Listado&n_pills=Terraza&n_pg=1&n_pos=27&n_search_id=a6538641-cc7d-438b-bcd8-133824bab65d"
+      },
+      {
+        "terreno": 275,
+        "construccion": 259,
+        "precio": 8950000,
+        "colonia": "del bosque",
+        "link": "https://www.casasyterrenos.com/propiedad/casa-venta-cenit-jardines-del-bosque-guadalajara-jal-3773041"
+      }
+    ],
+    "folio": "OPI-26-8-05-OF",
+    "tipo": "CASA HABITACIÓN",
+    "direccion": "San Guillermo 982, Chapalita, 44510 Guadalajara, Jal.",
+    "valorMercado": "$3,167,000.00",
+    "m2Terreno": "98.00 M2",
+    "m2Construccion": "140.17 M2",
+    "edad": "66 AÑOS.    ",
+    "valorM2Aplicable": " $ 22,592 ",
+    "recamaras": 7,
+    "banos": 7,
+    "estacionamientos": 2,
+    "estadoConservacion": "bueno"
+  },
+  {
+    "fileId": "1cUIwPu95KQZ5YDdfwRs_ZtqZK7pUZj9lFNsNjWPSaCY",
+    "fileName": "OPI-26-8-03-OF Juan Gil Preciado 1, Lomas de La Soledad,  Tonalá, Jal.",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Lomas de La Soledad",
+    "municipio": "Tonalá",
+    "comparables": [
+      {
+        "terreno": 220,
+        "construccion": 0,
+        "precio": 1600000,
+        "colonia": ", Fraccionamiento Loma Dorada,",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-mexico-jalisco-tonala-fraccionamiento-loma-dorada-fraccionamiento-loma-dorada-tonala-jal-3882464"
+      },
+      {
+        "terreno": 3340,
+        "construccion": 0,
+        "precio": 8500000,
+        "colonia": "Arcos de Zalatitan,",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-san-gaspar-arcos-de-zalatitan-tonala-jal-3845282"
+      },
+      {
+        "terreno": 1090,
+        "construccion": 0,
+        "precio": 4200000,
+        "colonia": ", Lomas de La Soledad",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-para-desarrollador-inmobiliario-con-proyecto-57117750.html?n_src=Listado&n_pills=Escuelas+cercanas&n_pg=1&n_pos=1&n_search_id=c08ce2b0-e45b-48fd-9cc2-57eafdaee819"
+      },
+      {
+        "terreno": 122,
+        "construccion": 164,
+        "precio": 2750000,
+        "colonia": "Loma Dorada Delegación a",
+        "link": ""
+      },
+      {
+        "terreno": 109,
+        "construccion": 122,
+        "precio": 2700000,
+        "colonia": "Loma Dorada Delegación a",
+        "link": ""
+      },
+      {
+        "terreno": 93,
+        "construccion": 138,
+        "precio": 3300000,
+        "colonia": "Loma Dorada Secc B",
+        "link": ""
+      },
+      {
+        "terreno": 98,
+        "construccion": 215,
+        "precio": 5500000,
+        "colonia": "PARQUES DE TLAQUEPAQUE",
+        "link": ""
+      },
+      {
+        "terreno": 80,
+        "construccion": 119,
+        "precio": 2900000,
+        "colonia": "LAS LOMAS",
+        "link": ""
+      },
+      {
+        "terreno": 122,
+        "construccion": 164,
+        "precio": 2750000,
+        "colonia": "Loma Dorada Delegación a",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-se-vende-casa-en-tonala-148173444.html?n_src=Listado&n_pg=0&n_pos=1&n_search_id=b0a128a8-91a6-489d-aab1-74a746c31a99"
+      },
+      {
+        "terreno": 109,
+        "construccion": 122,
+        "precio": 2700000,
+        "colonia": "Loma Dorada Delegación a",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-en-venta-en-loma-dorada-loma-arandas-199-149360551.html?n_src=Listado&n_pg=0&n_pos=1&n_search_id=b0a128a8-91a6-489d-aab1-74a746c31a99"
+      },
+      {
+        "terreno": 93,
+        "construccion": 138,
+        "precio": 3300000,
+        "colonia": "Loma Dorada Secc B",
+        "link": "https://www.casasyterrenos.com/propiedad/casa-venta-loma-poncitlan-nte-loma-dorada-secc-b-tonala-jal-3861968"
+      },
+      {
+        "terreno": 98,
+        "construccion": 215,
+        "precio": 5500000,
+        "colonia": "PARQUES DE TLAQUEPAQUE",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-en-venta-parques-de-tlaquepaque-jalisco-149476344.html?n_src=Listado&n_pg=0&n_pos=1&n_search_id=b0a128a8-91a6-489d-aab1-74a746c31a99"
+      },
+      {
+        "terreno": 80,
+        "construccion": 119,
+        "precio": 2900000,
+        "colonia": "LAS LOMAS",
+        "link": "https://www.casasyterrenos.com/propiedad/casa-venta-loma-jalapa-17-las-lomas-tonala-jal-3871665"
+      },
+      {
+        "terreno": 132,
+        "construccion": 240,
+        "precio": 3280000,
+        "colonia": "del manantial",
+        "link": "https://www.casasyterrenos.com/propiedad/casa-venta-loma-blanca-lomas-del-manantial-tonala-jal-3844977"
+      },
+      {
+        "terreno": 67,
+        "construccion": 69,
+        "precio": 2070000,
+        "colonia": "secc b",
+        "link": "https://www.casasyterrenos.com/propiedad/casa-venta-av-loma-dorada-norte-y-circuito-loma-dorada-loma-dorada-secc-b-tonala-jal-3854172"
+      },
+      {
+        "terreno": 98,
+        "construccion": 148,
+        "precio": 4200000,
+        "colonia": "san pedro",
+        "link": "https://www.casasyterrenos.com/propiedad/casa-venta-av-malecon-san-pedro-tlaquepaque-san-pedro-tlaquepaque-jal-3744450"
+      },
+      {
+        "terreno": 112,
+        "construccion": 193,
+        "precio": 2750000,
+        "colonia": "delegacion a",
+        "link": "https://www.casasyterrenos.com/propiedad/casa-venta-loma-quemada-loma-dorada-delegacion-a-tonala-jal-3855052"
+      },
+      {
+        "terreno": 90,
+        "construccion": 187,
+        "precio": 2991000,
+        "colonia": "secc a",
+        "link": "https://www.casasyterrenos.com/propiedad/casa-venta-indarapend-loma-dorada-secc-a-tonala-jal-3862772"
+      },
+      {
+        "terreno": 123,
+        "construccion": 163,
+        "precio": 2655000,
+        "colonia": "secc a",
+        "link": "https://www.casasyterrenos.com/propiedad/casa-venta-cuquio-loma-dorada-secc-a-tonala-jal-3874753"
+      }
+    ],
+    "folio": "OPI-26-8-03-OF",
+    "tipo": "CASA HABITACIÓN",
+    "direccion": "Juan Gil Preciado 1B, Rosario Residencial\r\n, 45403 Tonalá, Jal.",
+    "valorMercado": "$2,622,000.00",
+    "m2Terreno": "75.96 M2",
+    "m2Construccion": "116.11 M2",
+    "edad": "10 AÑOS.    ",
+    "valorM2Aplicable": " $ 22,581 ",
+    "recamaras": 2,
+    "banos": 2,
+    "estacionamientos": 1,
+    "estadoConservacion": "muy_bueno"
+  },
+  {
+    "fileId": "1AfrVXW8jQ-k71LoP0CbVqAnCD6kvP6AKxefMhPFwDlo",
+    "fileName": "OPI-26-8-02-OF Aries 4058 Col. Juan Manuel Vallarta Guadalajara, Jalisco ",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Jalisco",
+    "municipio": "",
+    "comparables": [
+      {
+        "terreno": 715,
+        "construccion": 0,
+        "precio": 14033208,
+        "colonia": "JARDINES VALLARTA",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-av-novelistas-jardines-vallarta-zapopan-jal-3825932"
+      },
+      {
+        "terreno": 161,
+        "construccion": 0,
+        "precio": 2990000,
+        "colonia": "Bosques Vallart",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-av-inglaterra-solares-zapopan-jal-3787864"
+      },
+      {
+        "terreno": 433,
+        "construccion": 0,
+        "precio": 11500000,
+        "colonia": "LOMAS DEL SEMINARIO,",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-san-juan-de-letran-lomas-del-seminario-zapopan-jal-3862858"
+      },
+      {
+        "terreno": 150,
+        "construccion": 227,
+        "precio": 7900000,
+        "colonia": "JARDINES UNIVERSIDAD",
+        "link": ""
+      },
+      {
+        "terreno": 263,
+        "construccion": 280,
+        "precio": 10950000,
+        "colonia": "LOMAS ALTAS",
+        "link": ""
+      },
+      {
+        "terreno": 256,
+        "construccion": 353,
+        "precio": 11500000,
+        "colonia": "Monraz",
+        "link": ""
+      },
+      {
+        "terreno": 171,
+        "construccion": 210,
+        "precio": 8445000,
+        "colonia": "Jardines de La Patria",
+        "link": ""
+      },
+      {
+        "terreno": 250,
+        "construccion": 357,
+        "precio": 10900000,
+        "colonia": "Providencia Sur",
+        "link": ""
+      },
+      {
+        "terreno": 150,
+        "construccion": 227,
+        "precio": 7900000,
+        "colonia": "JARDINES UNIVERSIDAD",
+        "link": "https://www.casasyterrenos.com/propiedad/casa-venta-salvador-de-maradiaga-jardines-universidad-zapopan-jal-3883648"
+      },
+      {
+        "terreno": 263,
+        "construccion": 280,
+        "precio": 10950000,
+        "colonia": "LOMAS ALTAS",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-en-venta-en-lomas-altas-149507224.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=a6454274-5efd-4d83-9c98-0d61c45ef0b7"
+      },
+      {
+        "terreno": 256,
+        "construccion": 353,
+        "precio": 11500000,
+        "colonia": "Monraz",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-en-venta-en-rinconada-santa-rita-a-una-cuadra-149189204.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=25dae551-c2de-4171-9ec1-73839948ca71"
+      },
+      {
+        "terreno": 171,
+        "construccion": 210,
+        "precio": 8445000,
+        "colonia": "Jardines de La Patria",
+        "link": "https://www.casasyterrenos.com/propiedad/casa-venta-honorato-de-balzac-2-colonia-jardines-de-la-patria-zapopan-jal-3852836"
+      },
+      {
+        "terreno": 250,
+        "construccion": 357,
+        "precio": 10900000,
+        "colonia": "Providencia Sur",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-en-providencia-sur-con-excelente-distribucion-en-141981653.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=881b55c6-a1c9-4206-9c31-bfffa16050ed"
+      },
+      {
+        "terreno": 251,
+        "construccion": 300,
+        "precio": 14480000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-en-venta-en-jardines-vallarta-149911324.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=31d035f5-0fae-4a4b-a458-8b975e6ed643"
+      },
+      {
+        "terreno": 130,
+        "construccion": 180,
+        "precio": 7900000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-en-venta-col.-lomas-altas-zapopan-149634970.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=a6454274-5efd-4d83-9c98-0d61c45ef0b7"
+      }
+    ],
+    "folio": "OPI-26-8-02-OF",
+    "tipo": "CASA HABITACIÓN",
+    "direccion": "Aries 4058 Juan Manuel Vallarta 45120 Zapopan, Jal.",
+    "valorMercado": "$10,054,000.00",
+    "m2Terreno": "206.05 M2",
+    "m2Construccion": "298.16 M2",
+    "edad": "18 AÑOS.    ",
+    "valorM2Aplicable": " $ 33,719 ",
+    "recamaras": null,
+    "banos": 5,
+    "estacionamientos": 3,
+    "estadoConservacion": null
+  },
+  {
+    "fileId": "1koGrI9JWdAWPYbKZd9D31cfUzrCSCKnbKxy-59LFRJg",
+    "fileName": "OPI-26-8-01-OF Virgen 3437, La Calma",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "La Calma",
+    "municipio": "La Calma",
+    "comparables": [
+      {
+        "terreno": 707,
+        "construccion": 0,
+        "precio": 17000000,
+        "colonia": "la victoria",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-av-topacio-bosques-de-la-victoria-guadalajara-jal-3853339"
+      },
+      {
+        "terreno": 480,
+        "construccion": 0,
+        "precio": 7500000,
+        "colonia": "faro eduwiges",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-avenida-faro-eduwiges-guadalajara-jal-3865913"
+      },
+      {
+        "terreno": 541,
+        "construccion": 0,
+        "precio": 12750000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-para-desarrollo-vertical-habitacional-en-venta-148921717.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=43584c1a-f309-4bfc-ab75-e88c5babbf23"
+      },
+      {
+        "terreno": 200,
+        "construccion": 189,
+        "precio": 6749000,
+        "colonia": "la calma",
+        "link": ""
+      },
+      {
+        "terreno": 210,
+        "construccion": 218,
+        "precio": 7500000,
+        "colonia": "las aguilas",
+        "link": ""
+      },
+      {
+        "terreno": 200,
+        "construccion": 142,
+        "precio": 7500000,
+        "colonia": "arboledas",
+        "link": ""
+      },
+      {
+        "terreno": 200,
+        "construccion": 249,
+        "precio": 6800000,
+        "colonia": "arboledas",
+        "link": ""
+      },
+      {
+        "terreno": 207,
+        "construccion": 124,
+        "precio": 4799000,
+        "colonia": "la calma",
+        "link": ""
+      },
+      {
+        "terreno": 200,
+        "construccion": 189,
+        "precio": 6749000,
+        "colonia": "la calma",
+        "link": "https://propiedades.com/inmuebles/casa-en-venta-virgen-la-calma-jalisco-31047201#tipos=casas-venta&area=la-calma-zapopan&pos=15"
+      },
+      {
+        "terreno": 210,
+        "construccion": 218,
+        "precio": 7500000,
+        "colonia": "las aguilas",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-en-venta-zona-las-aguilas-150262087.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=f2f72989-76a6-4201-a55c-1116b997ebfb"
+      },
+      {
+        "terreno": 200,
+        "construccion": 142,
+        "precio": 7500000,
+        "colonia": "arboledas",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-en-venta-de-1-nivel-col-arboledas-148792925.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=f2f72989-76a6-4201-a55c-1116b997ebfb"
+      },
+      {
+        "terreno": 200,
+        "construccion": 249,
+        "precio": 6800000,
+        "colonia": "arboledas",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-frente-a-parque-espacios-increibles-y-gran-150031635.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=f2f72989-76a6-4201-a55c-1116b997ebfb"
+      },
+      {
+        "terreno": 207,
+        "construccion": 124,
+        "precio": 4799000,
+        "colonia": "la calma",
+        "link": "https://propiedades.com/inmuebles/casa-en-venta-sierra-de-mazamitla-la-calma-jalisco-31610580#tipos=casas-venta&area=la-calma-zapopan&pos=5"
+      },
+      {
+        "terreno": 142,
+        "construccion": 184,
+        "precio": 3900000,
+        "colonia": "las aguilas",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-en-venta-en-las-aguilas-zapopan-jalisco-150548306.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=f2f72989-76a6-4201-a55c-1116b997ebfb"
+      },
+      {
+        "terreno": 126,
+        "construccion": 159,
+        "precio": 4000000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-en-venta-en-colonia-18-de-marzo-149141502.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=f2f72989-76a6-4201-a55c-1116b997ebfb"
+      },
+      {
+        "terreno": 300,
+        "construccion": 161,
+        "precio": 6500000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-de-una-planta-en-venta.-arboledas-147299076.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=f2f72989-76a6-4201-a55c-1116b997ebfb"
+      },
+      {
+        "terreno": 200,
+        "construccion": 203,
+        "precio": 5750000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-p.-del-sol-remodelada-203-m.-4recam.-2-en-planta-baja-148981333.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=f2f72989-76a6-4201-a55c-1116b997ebfb"
+      }
+    ],
+    "folio": "OPI-26-8-01-OF",
+    "tipo": "CASA HABITACIÓN",
+    "direccion": "C. Virgen 3437, La Calma, 45080 Zapopan, Jal.",
+    "valorMercado": "$4,745,000.00",
+    "m2Terreno": "200.00 M2",
+    "m2Construccion": "141.63 M2",
+    "edad": "55 AÑOS.    ",
+    "valorM2Aplicable": " $ 33,504 ",
+    "recamaras": 3,
+    "banos": 2,
+    "estacionamientos": 1,
+    "estadoConservacion": "bueno"
+  },
+  {
+    "fileId": "1lUCQ1qw-Po9ylNrYAUrhnus6-ae_1KYfsEWqy5mrB1A",
+    "fileName": "OPI-26-7-26-OF P.º de la Huerta 186, Francisco Villa, 45130 Zapopan, Jal.",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Francisco Villa",
+    "municipio": "Zapopan",
+    "comparables": [
+      {
+        "terreno": 270,
+        "construccion": 0,
+        "precio": 4495000,
+        "colonia": "Lomas de Zapopan",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-lomas-de-zapopan-143742038.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=9b80bd93-62ca-4188-8808-8f773b2e151f"
+      },
+      {
+        "terreno": 166,
+        "construccion": 0,
+        "precio": 2450000,
+        "colonia": "ionamiento Real de Valdepeñas,",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-150424708.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=9b80bd93-62ca-4188-8808-8f773b2e151f"
+      },
+      {
+        "terreno": 65,
+        "construccion": 61,
+        "precio": 2050000,
+        "colonia": "Francisco Villa",
+        "link": ""
+      },
+      {
+        "terreno": 116,
+        "construccion": 96,
+        "precio": 3750000,
+        "colonia": "Lomas de Zapopan",
+        "link": ""
+      },
+      {
+        "terreno": 60,
+        "construccion": 69,
+        "precio": 2350000,
+        "colonia": "inas Del Rey",
+        "link": ""
+      },
+      {
+        "terreno": 54,
+        "construccion": 63,
+        "precio": 2100000,
+        "colonia": "Rinconadas de las Palmas",
+        "link": ""
+      },
+      {
+        "terreno": 122,
+        "construccion": 92,
+        "precio": 3200000,
+        "colonia": "LOMAS DE ZAPOPAN",
+        "link": ""
+      },
+      {
+        "terreno": 65,
+        "construccion": 61,
+        "precio": 2050000,
+        "colonia": "Francisco Villa",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-en-coto-villas-la-huerta-en-av-torremolinos-254-150645330.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=c654cf6e-31ad-48f1-b444-abea8a3c0747"
+      },
+      {
+        "terreno": 116,
+        "construccion": 96,
+        "precio": 3750000,
+        "colonia": "Lomas de Zapopan",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-en-venta-valdepenas-zapopan-150433330.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=c654cf6e-31ad-48f1-b444-abea8a3c0747"
+      },
+      {
+        "terreno": 60,
+        "construccion": 69,
+        "precio": 2350000,
+        "colonia": "inas Del Rey",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-en-venta-en-colinas-del-rey-$2-350-000-149657156.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=c654cf6e-31ad-48f1-b444-abea8a3c0747"
+      },
+      {
+        "terreno": 54,
+        "construccion": 63,
+        "precio": 2100000,
+        "colonia": "Rinconadas de las Palmas",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-en-venta--rinconada-de-las-palmas-en-zapopan-149665872.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=c654cf6e-31ad-48f1-b444-abea8a3c0747"
+      },
+      {
+        "terreno": 122,
+        "construccion": 92,
+        "precio": 3200000,
+        "colonia": "LOMAS DE ZAPOPAN",
+        "link": "https://www.casasyterrenos.com/propiedad/casa-venta-calle-covadonga-lomas-de-zapopan-zapopan-jal-3876527"
+      },
+      {
+        "terreno": 60,
+        "construccion": 74,
+        "precio": 2499999,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-av-torremolinos-casa-coto-150628542.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=c654cf6e-31ad-48f1-b444-abea8a3c0747"
+      },
+      {
+        "terreno": 73,
+        "construccion": 84,
+        "precio": 2445000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-en-venta-av-federalistas-y-valdepenas-zapopan.-149909881.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=c654cf6e-31ad-48f1-b444-abea8a3c0747"
+      },
+      {
+        "terreno": 54,
+        "construccion": 72,
+        "precio": 2046500,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-en-venta-en-rinconada-de-las-palmas-149080348.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=c654cf6e-31ad-48f1-b444-abea8a3c0747"
+      },
+      {
+        "terreno": 73,
+        "construccion": 84,
+        "precio": 2560000,
+        "colonia": "las palmas",
+        "link": "https://www.casasyterrenos.com/propiedad/casa-venta-avenida-federalistas-las-palmas-zapopan-jal-3864024"
+      }
+    ],
+    "folio": "OPI-26-7-26-OF",
+    "tipo": "CASA HABITACIÓN EN CONDOMINIO",
+    "direccion": "P.º de la Huerta 186, Francisco Villa, 45130 Zapopan, Jal.",
+    "valorMercado": "$1,936,000.00",
+    "m2Terreno": "64.80 M2",
+    "m2Construccion": "58.40 M2",
+    "edad": "20 AÑOS.    ",
+    "valorM2Aplicable": " $ 33,144 ",
+    "recamaras": 2,
+    "banos": 1.5,
+    "estacionamientos": 1,
+    "estadoConservacion": "bueno"
+  },
+  {
+    "fileId": "1dPrULpdN6FFWTB7-E8m1YmflzVnoo-4Xpba7JZS9Mw0",
+    "fileName": "OPI-26-7-25-OF C. Cerro El Mochomo 451, Fraccionamiento Colinas del Roble, Tlajomulco, Jal.",
+    "fecha": "ESTATUS COMERCIAL:",
+    "sujetoColonia": "Fraccionamiento Colinas del Roble",
+    "municipio": "Tlajomulco",
+    "comparables": [
+      {
+        "terreno": 1850,
+        "construccion": 0,
+        "precio": 9060000,
+        "colonia": ". LOMAS DEL SUR",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-oportunidad-de-inversion-en-terreno-para-147508233.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=d061e1b9-4b77-4d26-baed-5e17ab85781b"
+      },
+      {
+        "terreno": 1000,
+        "construccion": 0,
+        "precio": 2800000,
+        "colonia": ". LOMAS DEL SUR",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/vecltein-terreno-en-venta-en-lomas-del-sur-jalisco-150500999.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=d061e1b9-4b77-4d26-baed-5e17ab85781b"
+      },
+      {
+        "terreno": 1500,
+        "construccion": 0,
+        "precio": 1250000,
+        "colonia": "LOS SAUCES, Tla",
+        "link": "https://www.casasyterrenos.com/propiedad/terreno-venta-vereda-del-jazmin-los-sauces-tlajomulco-de-zuniga-jal-3859235"
+      },
+      {
+        "terreno": 60,
+        "construccion": 56,
+        "precio": 938000,
+        "colonia": "INAS DEL ROBLE",
+        "link": ""
+      },
+      {
+        "terreno": 61,
+        "construccion": 56,
+        "precio": 780000,
+        "colonia": "INAS DEL ROBLE",
+        "link": ""
+      },
+      {
+        "terreno": 80,
+        "construccion": 69,
+        "precio": 1450000,
+        "colonia": "Los Encinos",
+        "link": ""
+      },
+      {
+        "terreno": 125,
+        "construccion": 86,
+        "precio": 1700000,
+        "colonia": "Lomas del Sur",
+        "link": ""
+      },
+      {
+        "terreno": 77,
+        "construccion": 60,
+        "precio": 939000,
+        "colonia": "inas del Roble",
+        "link": ""
+      },
+      {
+        "terreno": 60,
+        "construccion": 56,
+        "precio": 938000,
+        "colonia": "INAS DEL ROBLE",
+        "link": "https://propiedades.com/inmuebles/casa-en-venta-lote-29-veintinueve-de-la-manzana-5-cinco-se-construyo-la-vivienda-marcada-con-el-numero-243-doscie-colinas-del-roble-jalisco-31256391#area=colinas-del-roble-tlajomulco-de-zuniga&pos=1"
+      },
+      {
+        "terreno": 61,
+        "construccion": 56,
+        "precio": 780000,
+        "colonia": "INAS DEL ROBLE",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-venta-casa-en-colinas-del-roble-tlajomulco-148528125.html"
+      },
+      {
+        "terreno": 80,
+        "construccion": 69,
+        "precio": 1450000,
+        "colonia": "Los Encinos",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcapa-bonita-casa-los-encinos-150433463.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=30317737-9ee5-4706-bcdd-dd9daf120115"
+      },
+      {
+        "terreno": 125,
+        "construccion": 86,
+        "precio": 1700000,
+        "colonia": "Lomas del Sur",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-en-venta-en-villas-terranova-146426523.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=d7d3093e-5630-423b-b469-3c70051c63b2"
+      },
+      {
+        "terreno": 77,
+        "construccion": 60,
+        "precio": 939000,
+        "colonia": "inas del Roble",
+        "link": "https://propiedades.com/inmuebles/casa-en-venta-45650-lomas-de-san-agustin-jal-colinas-del-roble-jalisco-31131853#area=colinas-del-roble-tlajomulco-de-zuniga&pos=10"
+      },
+      {
+        "terreno": 49,
+        "construccion": 60,
+        "precio": 790000,
+        "colonia": "",
+        "link": "https://www.inmuebles24.com/propiedades/clasificado/veclcain-casa-remodelada-en-valle-de-los-encinos-jalisco-148978796.html?n_src=Listado&n_pg=1&n_pos=1&n_search_id=d7d3093e-5630-423b-b469-3c70051c63b2"
+      },
+      {
+        "terreno": 77,
+        "construccion": 65,
+        "precio": 825000,
+        "colonia": "",
+        "link": "https://www.casasyterrenos.com/propiedad/casa-venta-loma-de-vicenza-fraccionamiento-lomas-del-sur-tlajomulco-de-zuniga-jal-3810926"
+      }
+    ],
+    "folio": "OPI-26-7-25-OF ",
+    "tipo": "CASA HABITACIÓN",
+    "direccion": "Cerro El Mochomo 451, Fraccionamiento Colinas del Roble, 45650 Colinas del Roble, Jal.",
+    "valorMercado": "$946,000.00",
+    "m2Terreno": "60.00 M2",
+    "m2Construccion": "56.96 M2",
+    "edad": "18 AÑOS.    ",
+    "valorM2Aplicable": " $ 16,614 ",
+    "recamaras": 2,
+    "banos": 1.5,
+    "estacionamientos": 1,
+    "estadoConservacion": "bueno"
   }
 ]

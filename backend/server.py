@@ -1604,6 +1604,7 @@ def _motor_input_from_prop(prop: dict) -> dict:
         "banos":             prop.get("bathrooms", 0),
         "municipio":         prop.get("municipality") or prop.get("city", ""),
         "colonia":           prop.get("neighborhood", ""),
+        "calidadConstruccion": prop.get("construction_quality") or "",
     }
 
 
