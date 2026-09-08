@@ -368,7 +368,7 @@ const ReportPage = () => {
                   const role = (currentUser?.role || currentUser?.tipo || "").toLowerCase();
                   if (role === "appraiser" || role === "valuador") navigate("/dashboard/valuador");
                   else if (role === "realtor" || role === "inmobiliaria") navigate("/dashboard/inmobiliaria");
-                  else if (currentUser) navigate("/dashboard");
+                  else if (currentUser) navigate("/dashboard/valuador");
                   else navigate("/");
                 }}
                 className="mb-2 text-[#1B4332] hover:bg-[#D9ED92]/30 -ml-4"
