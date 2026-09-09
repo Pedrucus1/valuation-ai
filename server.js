@@ -934,7 +934,7 @@ app.post('/api/valuations/:id/calculate', async (req, res) => {
   // Investment Indicators (new — matches PDF reference)
   const annualRent = marketMetrics.annual_rent_estimate;
   const capRate = parseFloat(marketMetrics.cap_rate); // %
-  const cetesRate = 10.0; // Reference CETES rate %
+  const cetesRate = parseFloat(process.env.CETES_RATE) || 10.0; // Reference CETES rate % — override via env, update manually until a live feed is wired
   const plusvaliaAnual = 5.2; // % estimated annual appreciation
   const paybackYears = annualRent > 0 ? (estimatedValue / annualRent).toFixed(1) : 'N/A';
   const roi10 = annualRent > 0

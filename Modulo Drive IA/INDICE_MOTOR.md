@@ -17,6 +17,15 @@
 
 **Rebuild completo del caché:** `python actualizar_cache_consolidado_mongo.py` → `node build_cache_index.js`.
 
+**Pipeline canónico de colonias similares (resuelto 3-sep, documentado 09-sep — #184-b):**
+1. `generar_similares_sepomex.js` → `colonias_similares_enriquecido.json` (desde `cache_index.json`, genérico por municipio).
+2. `construir_maestro.js` → fusiona 6 fuentes en `colonias_maestro.json` — **el único archivo que lee el motor en producción**.
+3. `merge_simIA_a_maestro.js` → alternativa ADITIVA a (2), preferir cuando hay ediciones manuales en `colonias_maestro.json` que un rebuild completo perdería (medido: -647 colonias en un caso real).
+- `resolver_similares_municipios.js` sigue vigente (resuelve ambigüedad de municipio en SEPOMEX).
+- Archivados en `_archivo/` (pre-SEPOMEX, dependían de Gemini/Sheets descontinuados, ver `_archivo/README.md`): `build_colonias_similares.js`, `construir_colonias_similares.js`, `exportar_colonias_similares.js`, `fill_similares_gemini.js`, `optimizar_similares_ds.js`, `validar_similares_gemini.js`.
+- `enriquecer_full_v2.js`/`enriquecer_sample_v2.js` (generan `colonias_similares.enriquecido.v2.json`) son un experimento v2 separado, **no migrado al motor** — no forman parte del pipeline canónico.
+- Este sub-pipeline NO está encadenado en `actualizar_indices_motor.js` (el orquestador Mongo→índices) — sigue siendo manual.
+
 ## 📊 DÓNDE VIVE LA INFORMACIÓN
 | Qué | Archivo | Estructura |
 |---|---|---|
@@ -24,7 +33,7 @@
 | **Comps del motor** (pool de mercado) | `cache_consolidado.json` | por comp: precio, m²C, m²T, año(parcial), rec, baños, estac. ~25,556 comps. |
 | **Índice/IDX** (medianas $/m²C por colonia/tipo — lo que lee el motor) | `cache_index.json` | `IDX[municipio][tipo][colonia].{listings, medianaPm2c, count}`. |
 | **Ancla NSE** por colonia | `colonias_nse.json` (v1, PROD) · `colonias_nse_v2.json` | REGLA DURA: NO cambiar v1→v2. |
-| **Colonias similares** (mapa SIM) | `colonias_sim*.json`, `colonias_ia*.json` | Para pool `similares`. |
+| **Colonias similares** (mapa SIM) | `colonias_maestro.json` (ÚNICO que lee el motor en prod) | Para pool `similares`. Ver pipeline canónico abajo. |
 | **Geo** (colonia→CP→coords) | `_geo/proximidad.cjs`, `_geo/*.json` | proximidad geográfica. |
 | **Catálogo de cotos/zonas** (#25) | `catalogo_cotos.json` | `{_meta, zonas:[{colonia_oficial, municipio, tipo_sepomex, es_coto_privado, n, pm2_mediana, variantes[], conjuntos[{nombre,n}], bucket}]}`. 1,762 zonas desde `mercado_props`+SEPOMEX; nivel conjunto (coto interior) canonicalizado con DeepSeek. **Aún NO wireado al motor** — data lista para validar/normalizar colonias. |
 | **Reglas/calibraciones/antecedentes** | `MOTOR_ANTECEDENTES.md` | fuente de verdad de decisiones del motor. |
