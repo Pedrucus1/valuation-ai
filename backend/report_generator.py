@@ -53,7 +53,7 @@ FEATURE_ICONS = {
 FEATURE_NAMES = {
     "parking": "Estacionamiento", "pool": "Alberca", "garden": "Jardín", "patio": "Patio",
     "terrace": "Terraza", "gym": "Gimnasio", "security": "Seguridad 24/7", "elevator": "Elevador",
-    "rooftop": "Roof Garden", "service_room": "Cuarto de Servicio", "laundry_room": "Cuarto de Lavado",
+    "rooftop": "Terraza-Jardín", "service_room": "Cuarto de Servicio", "laundry_room": "Cuarto de Lavado",
     "storage": "Bodega/Almacén", "kitchen_integral": "Cocina Integral",
     "solar_panels": "Paneles Solares", "solar_heater": "Calentador Solar",
     "cistern": "Cisterna/Aljibe", "electric_fence": "Cerca Eléctrica", "ac": "Aire Acondicionado",
@@ -1312,7 +1312,7 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
   <div class="section-title">&#x1F4CA; INDICADORES DE INVERSIÓN</div>
   <div class="indicadores-grid">
     <div class="ind-card">
-      <div class="ind-label">Cap Rate</div>
+      <div class="ind-label">Tasa de Capitalización</div>
       <div class="ind-value">{cap_rate:.1f}%</div>
       <div class="ind-sub">vs CETES {cetes:.0f}%</div>
     </div>
@@ -1497,7 +1497,7 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
     {recom_items}
   </div>
 
-  <div class="section-title">&#x1F4A1; TIPS GENERALES DE PRESENTACIÓN (HOME STAGING)</div>
+  <div class="section-title">&#x1F4A1; CONSEJOS GENERALES DE PRESENTACIÓN DE LA PROPIEDAD</div>
   <div class="tips-grid">
     <div class="tip-card">
       <div class="tip-icon">&#x1F3A8;</div>
@@ -1513,7 +1513,7 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
     </div>
     <div class="tip-card">
       <div class="tip-icon">&#x1F4E6;</div>
-      <div><div class="tip-title">Despersonalización:</div><div class="tip-text">Retirar fotos familiares, ordenar closets, reducir muebles. Espacios vacíos se perciben más amplios</div></div>
+      <div><div class="tip-title">Despersonalización:</div><div class="tip-text">Retirar fotos familiares, ordenar armarios, reducir muebles. Espacios vacíos se perciben más amplios</div></div>
     </div>
     <div class="tip-card">
       <div class="tip-icon">&#x1F527;</div>

@@ -1917,7 +1917,7 @@ DATOS DE LA PROPIEDAD:
 - Conservación: {prop.get('conservation_state', 'Bueno')}, Edad: {prop.get('estimated_age', 10)} años{f", con remodelación {prop.get('remodelacion_grado')} en {prop.get('remodelacion_anio')}" if prop.get('remodelacion_grado') else ""}
 - Valor estimado: ${base_value:,.0f} MXN
 - Renta mensual estimada: ${monthly_rent:,.0f} MXN
-- Cap Rate: {cap_rate:.1f}%
+- Tasa de Capitalización: {cap_rate:.1f}%
 - Plusvalía histórica zona: {annual_appreciation:.1f}% anual
 - Comparables: {comparables_text}
 - Comparables de la colonia exacta del sujeto: {n_zona_exacta} · de colonias vecinas: {n_vecina}
@@ -2140,7 +2140,7 @@ ANÁLISIS DE MERCADO Y RENTABILIDAD
 
 Se analizaron {num_comparables} inmuebles comparables en la zona. El precio unitario ajustado oscila entre ${result['comparative_min_value']/prop['construction_area']:,.0f}/m² y ${result['comparative_max_value']/prop['construction_area']:,.0f}/m².
 
-La renta mensual estimada es de ${monthly_rent:,.0f} MXN, lo que representa un Cap Rate del {cap_rate:.1f}% anual. La plusvalía histórica de la zona es aproximadamente {appreciation:.1f}% anual.
+La renta mensual estimada es de ${monthly_rent:,.0f} MXN, lo que representa un Tasa de Capitalización del {cap_rate:.1f}% anual. La plusvalía histórica de la zona es aproximadamente {appreciation:.1f}% anual.
 
 El método comparativo (70%) arrojó ${result['comparative_weighted']:,.0f} MXN, mientras que el método físico (30%) estimó ${result['physical_total']:,.0f} MXN.
 
