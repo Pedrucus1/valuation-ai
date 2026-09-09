@@ -284,9 +284,17 @@ def handle_http_error(col, doc):
                       f"Error HTTP en {portal}: {detalle}. Revisar si la URL cambió.")
 
 
+def handle_enricher_inactivo(col, doc):
+    # ponytail: verificar_enrichers() ya reinicia el proceso ANTES de insertar este diagnóstico
+    # (monitor_local.py:460) — este handler solo cierra el ticket para que no quede pendiente
+    # por siempre y siga disparando "requiere atención" en cada corrida.
+    _marcar_resuelto(col, doc["_id"], doc.get("detalle", "reiniciado por verificar_enrichers()"))
+
+
 HANDLERS = {
     "cloudflare_blocked": handle_cloudflare_blocked,
     "timeout":            handle_timeout,
+    "enricher_inactivo":  handle_enricher_inactivo,
     "http_403":           handle_http_error,
     "http_429":           handle_http_error,
     "http_4xx":           handle_http_error,
