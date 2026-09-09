@@ -8615,8 +8615,8 @@
   "idx": {
    "casa": {
     "global": {
-     "medianaPm2": 14207,
-     "nListings": 8,
+     "medianaPm2": 16204,
+     "nListings": 9,
      "nse": "medio-bajo",
      "nseIdx": 2,
      "fuente": "idx-historico"
@@ -14671,8 +14671,8 @@
   "idx": {
    "casa": {
     "global": {
-     "medianaPm2": 15133,
-     "nListings": 11,
+     "medianaPm2": 14953,
+     "nListings": 12,
      "nse": "medio-bajo",
      "nseIdx": 2,
      "fuente": "idx-historico"
@@ -14685,8 +14685,8 @@
      "fuente": "idx-historico"
     },
     "150-250": {
-     "medianaPm2": 13091,
-     "nListings": 6,
+     "medianaPm2": 11410,
+     "nListings": 7,
      "nse": "interes-social",
      "nseIdx": 1,
      "fuente": "idx-historico"
@@ -26387,15 +26387,15 @@
   "idx": {
    "casa": {
     "global": {
-     "medianaPm2": 30000,
-     "nListings": 19,
+     "medianaPm2": 30556,
+     "nListings": 20,
      "nse": "medio-medio",
      "nseIdx": 3,
      "fuente": "idx-18m"
     },
     "80-150": {
-     "medianaPm2": 32965,
-     "nListings": 6,
+     "medianaPm2": 31852,
+     "nListings": 7,
      "nse": "medio-medio",
      "nseIdx": 3,
      "fuente": "idx-18m"
@@ -32628,6 +32628,7 @@
   },
   "idx": {
    "casa": {},
+   "depto": {},
    "terreno": {
     "global": {
      "medianaPm2": 2308,
@@ -47949,8 +47950,8 @@
    },
    "depto": {
     "global": {
-     "medianaPm2": 48749,
-     "nListings": 34,
+     "medianaPm2": 48674,
+     "nListings": 35,
      "nse": "medio-alto",
      "nseIdx": 4,
      "fuente": "idx-18m"
@@ -47970,8 +47971,8 @@
      "fuente": "idx-18m"
     },
     ">160": {
-     "medianaPm2": 39555,
-     "nListings": 8,
+     "medianaPm2": 40120,
+     "nListings": 9,
      "nse": "medio-alto",
      "nseIdx": 4,
      "fuente": "idx-18m"
@@ -62091,7 +62092,8 @@
      "fuente": "idx-historico"
     }
    },
-   "bodega": {}
+   "bodega": {},
+   "depto": {}
   },
   "similares": [
    {
@@ -75485,7 +75487,7 @@
    "casa": {
     "global": {
      "medianaPm2": 19394,
-     "nListings": 9,
+     "nListings": 10,
      "nse": "medio-bajo",
      "nseIdx": 2,
      "fuente": "idx-historico"
@@ -75956,15 +75958,15 @@
   "idx": {
    "casa": {
     "global": {
-     "medianaPm2": 16736,
-     "nListings": 7,
+     "medianaPm2": 16105,
+     "nListings": 8,
      "nse": "medio-bajo",
      "nseIdx": 2,
      "fuente": "idx-historico"
     },
     "80-150": {
-     "medianaPm2": 16105,
-     "nListings": 4,
+     "medianaPm2": 15474,
+     "nListings": 5,
      "nse": "medio-bajo",
      "nseIdx": 2,
      "fuente": "idx-historico"
@@ -79884,15 +79886,15 @@
   "idx": {
    "casa": {
     "global": {
-     "medianaPm2": 30041,
-     "nListings": 5,
-     "nse": "medio-medio",
-     "nseIdx": 3,
+     "medianaPm2": 40625,
+     "nListings": 7,
+     "nse": "medio-alto",
+     "nseIdx": 4,
      "fuente": "idx-historico"
     },
     "150-250": {
-     "medianaPm2": 40625,
-     "nListings": 3,
+     "medianaPm2": 43414,
+     "nListings": 4,
      "nse": "medio-alto",
      "nseIdx": 4,
      "fuente": "idx-historico"
@@ -87124,9 +87126,9 @@
  "parques de santa cruz del valle": {
   "nse": {
    "v2": {
-    "nse": "medio-bajo",
-    "nseIdx": 2,
-    "medianaPm2": 20845,
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26250,
     "nListings": 9,
     "fuente": "idx-casa",
     "ventana": "sin-fecha"
@@ -87135,15 +87137,15 @@
   "idx": {
    "casa": {
     "global": {
-     "medianaPm2": 20845,
+     "medianaPm2": 26250,
      "nListings": 9,
-     "nse": "medio-bajo",
-     "nseIdx": 2,
+     "nse": "medio-medio",
+     "nseIdx": 3,
      "fuente": "idx-historico"
     },
     "<80": {
-     "medianaPm2": 26250,
-     "nListings": 7,
+     "medianaPm2": 26394,
+     "nListings": 8,
      "nse": "medio-medio",
      "nseIdx": 3,
      "fuente": "idx-historico"
@@ -87413,6 +87415,79 @@
      "Tonalá/Jalisco"
     ],
     "menciones": 1
+   }
+  ]
+ },
+ "condominio jardines del vergel": {
+  "municipio": "San Pedro Tlaquepaque",
+  "zona": "AMG-SE",
+  "nse": {
+   "perito": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17462,
+    "nListings": 1,
+    "n_avaluos": 1,
+    "municipio": "San Pedro Tlaquepaque",
+    "fecha_verificacion": "2024-10",
+    "fuente": "perito"
+   }
+  },
+  "idx": {
+   "casa": {
+    "global": {
+     "medianaPm2": 17614,
+     "nListings": 6,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
+     "fuente": "idx-historico"
+    },
+    "80-150": {
+     "medianaPm2": 17807,
+     "nListings": 4,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
+     "fuente": "idx-historico"
+    }
+   }
+  },
+  "similares": [
+   {
+    "colonia": "vista hermosa",
+    "municipio": "San Pedro Tlaquepaque",
+    "estado": "Jalisco",
+    "zona": "AMG-SE",
+    "tipo": "Colonia",
+    "fuente": "sepomex+muni-sujeto",
+    "menciones": 4
+   },
+   {
+    "colonia": "el vergel",
+    "municipio": null,
+    "fuente": "sepomex_ambiguo",
+    "candidatos": [
+     "Lagos de Moreno/Jalisco",
+     "Atotonilco el Alto/Jalisco"
+    ],
+    "menciones": 2
+   },
+   {
+    "colonia": "el vergel 1ra",
+    "municipio": "San Pedro Tlaquepaque",
+    "estado": "Jalisco",
+    "zona": "AMG-SE",
+    "tipo": "Colonia",
+    "fuente": "sepomex",
+    "menciones": 2
+   },
+   {
+    "colonia": "loma linda",
+    "municipio": "San Pedro Tlaquepaque",
+    "estado": "Jalisco",
+    "zona": "AMG-SE",
+    "tipo": "Colonia",
+    "fuente": "sepomex+muni-sujeto",
+    "menciones": 2
    }
   ]
  },
@@ -87881,79 +87956,6 @@
     "estado": "Jalisco",
     "zona": "AMG-SE",
     "fuente": "ai-coto",
-    "menciones": 2
-   }
-  ]
- },
- "condominio jardines del vergel": {
-  "municipio": "San Pedro Tlaquepaque",
-  "zona": "AMG-SE",
-  "nse": {
-   "perito": {
-    "nse": "medio-bajo",
-    "nseIdx": 2,
-    "medianaPm2": 17462,
-    "nListings": 1,
-    "n_avaluos": 1,
-    "municipio": "San Pedro Tlaquepaque",
-    "fecha_verificacion": "2024-10",
-    "fuente": "perito"
-   }
-  },
-  "idx": {
-   "casa": {
-    "global": {
-     "medianaPm2": 18955,
-     "nListings": 5,
-     "nse": "medio-bajo",
-     "nseIdx": 2,
-     "fuente": "idx-historico"
-    },
-    "80-150": {
-     "medianaPm2": 17807,
-     "nListings": 4,
-     "nse": "medio-bajo",
-     "nseIdx": 2,
-     "fuente": "idx-historico"
-    }
-   }
-  },
-  "similares": [
-   {
-    "colonia": "vista hermosa",
-    "municipio": "San Pedro Tlaquepaque",
-    "estado": "Jalisco",
-    "zona": "AMG-SE",
-    "tipo": "Colonia",
-    "fuente": "sepomex+muni-sujeto",
-    "menciones": 4
-   },
-   {
-    "colonia": "el vergel",
-    "municipio": null,
-    "fuente": "sepomex_ambiguo",
-    "candidatos": [
-     "Lagos de Moreno/Jalisco",
-     "Atotonilco el Alto/Jalisco"
-    ],
-    "menciones": 2
-   },
-   {
-    "colonia": "el vergel 1ra",
-    "municipio": "San Pedro Tlaquepaque",
-    "estado": "Jalisco",
-    "zona": "AMG-SE",
-    "tipo": "Colonia",
-    "fuente": "sepomex",
-    "menciones": 2
-   },
-   {
-    "colonia": "loma linda",
-    "municipio": "San Pedro Tlaquepaque",
-    "estado": "Jalisco",
-    "zona": "AMG-SE",
-    "tipo": "Colonia",
-    "fuente": "sepomex+muni-sujeto",
     "menciones": 2
    }
   ]
@@ -88896,6 +88898,29 @@
     "menciones": 2
    }
   ]
+ },
+ "el cortijo san agustan": {
+  "nse": {
+   "v2": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15111,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+   }
+  },
+  "idx": {
+   "casa": {
+    "global": {
+     "medianaPm2": 15111,
+     "nListings": 3,
+     "nse": "medio-bajo",
+     "nseIdx": 2,
+     "fuente": "idx-historico"
+    }
+   }
+  }
  },
  "tala centro": {
   "nse": {
@@ -96847,6 +96872,13 @@
    }
   ]
  },
+ "cholul": {
+  "idx": {
+   "casa": {},
+   "depto": {},
+   "terreno": {}
+  }
+ },
  "el olivo": {
   "idx": {
    "casa": {}
@@ -100140,6 +100172,53 @@
    }
   ]
  },
+ "villas mirador": {
+  "idx": {
+   "casa": {}
+  },
+  "similares": [
+   {
+    "colonia": "mision del bosque",
+    "municipio": "Zapopan",
+    "estado": "Jalisco",
+    "zona": "AMG-NW",
+    "tipo": "Fraccionamiento",
+    "fuente": "sepomex",
+    "menciones": 4
+   }
+  ]
+ },
+ "el fortan": {
+  "idx": {
+   "casa": {}
+  },
+  "similares": [
+   {
+    "colonia": "lomas de san gonzalo",
+    "peso": 20
+   },
+   {
+    "colonia": "mariano otero",
+    "peso": 18
+   },
+   {
+    "colonia": "ionamiento campestre los robles",
+    "peso": 16
+   },
+   {
+    "colonia": "col sta margarita",
+    "peso": 14
+   },
+   {
+    "colonia": "las agujas",
+    "peso": 12
+   },
+   {
+    "colonia": "las bovedas",
+    "peso": 10
+   }
+  ]
+ },
  "remodelada 2 recaramas 15 banos 1 cochera": {
   "idx": {
    "casa": {}
@@ -103227,12 +103306,6 @@
    "depto": {}
   }
  },
- "cholul": {
-  "idx": {
-   "depto": {},
-   "terreno": {}
-  }
- },
  "ejido nuevo vallarta": {
   "idx": {
    "terreno": {}
@@ -103524,10 +103597,10 @@
    },
    "depto": {
     "global": {
-     "medianaPm2": 57517,
-     "nListings": 3,
-     "nse": "lujo",
-     "nseIdx": 5,
+     "medianaPm2": 49955,
+     "nListings": 4,
+     "nse": "medio-alto",
+     "nseIdx": 4,
      "fuente": "idx-18m"
     }
    },
@@ -103579,7 +103652,15 @@
   "idx": {
    "terreno": {},
    "casa": {},
-   "depto": {}
+   "depto": {
+    "global": {
+     "medianaPm2": 41179,
+     "nListings": 3,
+     "nse": "medio-alto",
+     "nseIdx": 4,
+     "fuente": "idx-18m"
+    }
+   }
   },
   "similares": [
    {
@@ -107900,6 +107981,37 @@
    "casa": {}
   }
  },
+ "ladran de guevara": {
+  "idx": {
+   "casa": {}
+  },
+  "similares": [
+   {
+    "colonia": "providencia 5a",
+    "peso": 20
+   },
+   {
+    "colonia": "lomas del valle",
+    "peso": 18
+   },
+   {
+    "colonia": "colomos providencia",
+    "peso": 16
+   },
+   {
+    "colonia": "country club",
+    "peso": 14
+   },
+   {
+    "colonia": "americana",
+    "peso": 12
+   },
+   {
+    "colonia": "el retiro",
+    "peso": 10
+   }
+  ]
+ },
  "cuenta con 4 habitaciones con bano cada una": {
   "idx": {
    "casa": {}
@@ -111526,6 +111638,11 @@
    "casa": {}
   }
  },
+ "playa car fase ii": {
+  "idx": {
+   "casa": {}
+  }
+ },
  "jardines de san sebastian": {
   "municipio": "Tlajomulco de Zúñiga",
   "zona": "AMG-S",
@@ -112292,6 +112409,34 @@
   "idx": {
    "depto": {}
   }
+ },
+ "solidaridad": {
+  "municipio": "San Pedro Tlaquepaque",
+  "zona": "AMG-SE",
+  "cp": "45580",
+  "idx": {
+   "depto": {}
+  },
+  "similares": [
+   {
+    "colonia": "centro",
+    "municipio": "Ruíz",
+    "estado": "Nayarit",
+    "zona": "Otro",
+    "tipo": "Colonia",
+    "fuente": "sepomex",
+    "menciones": 2
+   },
+   {
+    "colonia": "plan de oriente tlaquepaque",
+    "municipio": "San Pedro Tlaquepaque",
+    "estado": "Jalisco",
+    "zona": "AMG-SE",
+    "tipo": "Colonia",
+    "fuente": "sepomex",
+    "menciones": 1
+   }
+  ]
  },
  "condominio bruma cortijo san agustin": {
   "idx": {
@@ -117748,6 +117893,12 @@
    }
   ]
  },
+ "el chante": {
+  "idx": {
+   "casa": {},
+   "terreno": {}
+  }
+ },
  "pueblo ixtlahuacan de los membrillos": {
   "idx": {
    "depto": {}
@@ -118133,17 +118284,17 @@
    "terreno": {}
   }
  },
- "el chante": {
-  "idx": {
-   "terreno": {}
-  }
- },
  "ionamiento san antonio": {
   "idx": {
    "terreno": {}
   }
  },
  "rancho o rancheria los galapagos": {
+  "idx": {
+   "terreno": {}
+  }
+ },
+ "los galapagos": {
   "idx": {
    "terreno": {}
   }
@@ -121147,11 +121298,6 @@
   }
  },
  "el paraaso": {
-  "idx": {
-   "casa": {}
-  }
- },
- "el cortijo san agustan": {
   "idx": {
    "casa": {}
   }
@@ -125649,19 +125795,6 @@
    }
   ]
  },
- "villas mirador": {
-  "similares": [
-   {
-    "colonia": "mision del bosque",
-    "municipio": "Zapopan",
-    "estado": "Jalisco",
-    "zona": "AMG-NW",
-    "tipo": "Fraccionamiento",
-    "fuente": "sepomex",
-    "menciones": 4
-   }
-  ]
- },
  "pueblo tateposco": {
   "similares": [
    {
@@ -127917,31 +128050,6 @@
     "tipo": "Fraccionamiento",
     "fuente": "sepomex",
     "menciones": 2
-   }
-  ]
- },
- "solidaridad": {
-  "municipio": "San Pedro Tlaquepaque",
-  "zona": "AMG-SE",
-  "cp": "45580",
-  "similares": [
-   {
-    "colonia": "centro",
-    "municipio": "Ruíz",
-    "estado": "Nayarit",
-    "zona": "Otro",
-    "tipo": "Colonia",
-    "fuente": "sepomex",
-    "menciones": 2
-   },
-   {
-    "colonia": "plan de oriente tlaquepaque",
-    "municipio": "San Pedro Tlaquepaque",
-    "estado": "Jalisco",
-    "zona": "AMG-SE",
-    "tipo": "Colonia",
-    "fuente": "sepomex",
-    "menciones": 1
    }
   ]
  },
@@ -167995,7 +168103,7 @@
   ]
  },
  "_meta": {
-  "generado": "2026-09-04T02:11:30.943Z",
+  "generado": "2026-09-09T23:50:59.726Z",
   "capas": {
    "ganada_v1": {
     "campo": "nse.v1",
@@ -168012,7 +168120,7 @@
     "campos": "nse.v2 / idx",
     "fuente": "scraper",
     "ventanaMeses": 18,
-    "fechaCalculo": "2026-09-04T02:06:40.188Z",
+    "fechaCalculo": "2026-09-09T23:47:13.932Z",
     "prioridad": 3
    }
   },

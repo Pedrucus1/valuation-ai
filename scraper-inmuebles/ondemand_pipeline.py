@@ -215,6 +215,22 @@ def main():
     )
     log(f"=== FIN: {status} — {encontrados} comparables reales activos en {args.colonia} ===")
 
+    # #184-c: reconstruir índices del motor con los comps nuevos, EN BACKGROUND (Popen, no
+    # subprocess.run) — no bloquear el status "listo" que el usuario ya está esperando en el
+    # dashboard. Medido en vivo (09-sep): ~4 min, no debe agregarse al ETA del comparables_job.
+    try:
+        modulo_drive_ia = MODULO_DRIVE_IA
+        log_path = HERE / "actualizar_indices_ondemand.log"
+        with open(log_path, "a", encoding="utf-8") as logf:
+            subprocess.Popen(
+                ["node", "actualizar_indices_motor.js"],
+                cwd=str(modulo_drive_ia), stdout=logf, stderr=logf,
+                start_new_session=True,
+            )
+        log("Reconstrucción de índices disparada en background (no bloquea)")
+    except Exception as e:
+        log(f"No se pudo disparar actualizar_indices_motor.js (no crítico): {e}")
+
 
 if __name__ == "__main__":
     main()

@@ -1,7 +1,7 @@
 {
   "_meta": {
     "version": 2,
-    "fechaCalculo": "2026-09-04T02:06:40.188Z",
+    "fechaCalculo": "2026-09-09T23:47:13.932Z",
     "ventanaMeses": 18,
     "tiposActivos": [
       "casa",
@@ -106,8 +106,8 @@
     },
     "nota": "Paralelo a colonias_nse.json. Motor consulta primero idx_valoracion, fallback a v1.",
     "stats": {
-      "colonias": 2283,
-      "entradas": 3311
+      "colonias": 2289,
+      "entradas": 3313
     }
   },
   "jardines del sol": {
@@ -5692,8 +5692,8 @@
   "francisco villa": {
     "casa": {
       "global": {
-        "medianaPm2": 14207,
-        "nListings": 8,
+        "medianaPm2": 16204,
+        "nListings": 9,
         "nse": "medio-bajo",
         "nseIdx": 2,
         "fuente": "idx-historico"
@@ -6361,6 +6361,11 @@
   },
   "periodistas": {
     "casa": {}
+  },
+  "cholul": {
+    "casa": {},
+    "depto": {},
+    "terreno": {}
   },
   "ionamiento valle imperial": {
     "casa": {
@@ -8846,15 +8851,15 @@
   "rancho el centinela": {
     "casa": {
       "global": {
-        "medianaPm2": 30041,
-        "nListings": 5,
-        "nse": "medio-medio",
-        "nseIdx": 3,
+        "medianaPm2": 40625,
+        "nListings": 7,
+        "nse": "medio-alto",
+        "nseIdx": 4,
         "fuente": "idx-historico"
       },
       "150-250": {
-        "medianaPm2": 40625,
-        "nListings": 3,
+        "medianaPm2": 43414,
+        "nListings": 4,
         "nse": "medio-alto",
         "nseIdx": 4,
         "fuente": "idx-historico"
@@ -8970,6 +8975,55 @@
         "nListings": 3,
         "nse": "medio-bajo",
         "nseIdx": 2,
+        "fuente": "idx-historico"
+      }
+    }
+  },
+  "la experiencia": {
+    "casa": {
+      "global": {
+        "medianaPm2": 16105,
+        "nListings": 8,
+        "nse": "medio-bajo",
+        "nseIdx": 2,
+        "fuente": "idx-historico"
+      },
+      "80-150": {
+        "medianaPm2": 15474,
+        "nListings": 5,
+        "nse": "medio-bajo",
+        "nseIdx": 2,
+        "fuente": "idx-historico"
+      }
+    }
+  },
+  "villas mirador": {
+    "casa": {}
+  },
+  "el fortan": {
+    "casa": {}
+  },
+  "cd del sol": {
+    "casa": {
+      "global": {
+        "medianaPm2": 36098,
+        "nListings": 12,
+        "nse": "medio-alto",
+        "nseIdx": 4,
+        "fuente": "idx-historico"
+      },
+      "150-250": {
+        "medianaPm2": 36842,
+        "nListings": 7,
+        "nse": "medio-alto",
+        "nseIdx": 4,
+        "fuente": "idx-historico"
+      },
+      "250-450": {
+        "medianaPm2": 33902,
+        "nListings": 5,
+        "nse": "medio-alto",
+        "nseIdx": 4,
         "fuente": "idx-historico"
       }
     }
@@ -9099,31 +9153,6 @@
       }
     }
   },
-  "cd del sol": {
-    "casa": {
-      "global": {
-        "medianaPm2": 36098,
-        "nListings": 12,
-        "nse": "medio-alto",
-        "nseIdx": 4,
-        "fuente": "idx-historico"
-      },
-      "150-250": {
-        "medianaPm2": 36842,
-        "nListings": 7,
-        "nse": "medio-alto",
-        "nseIdx": 4,
-        "fuente": "idx-historico"
-      },
-      "250-450": {
-        "medianaPm2": 33902,
-        "nListings": 5,
-        "nse": "medio-alto",
-        "nseIdx": 4,
-        "fuente": "idx-historico"
-      }
-    }
-  },
   "rinconada del sol": {
     "casa": {
       "global": {
@@ -9187,24 +9216,6 @@
         "nListings": 5,
         "nse": "medio-alto",
         "nseIdx": 4,
-        "fuente": "idx-historico"
-      }
-    }
-  },
-  "la experiencia": {
-    "casa": {
-      "global": {
-        "medianaPm2": 16736,
-        "nListings": 7,
-        "nse": "medio-bajo",
-        "nseIdx": 2,
-        "fuente": "idx-historico"
-      },
-      "80-150": {
-        "medianaPm2": 16105,
-        "nListings": 4,
-        "nse": "medio-bajo",
-        "nseIdx": 2,
         "fuente": "idx-historico"
       }
     }
@@ -11162,8 +11173,8 @@
     },
     "depto": {
       "global": {
-        "medianaPm2": 48749,
-        "nListings": 34,
+        "medianaPm2": 48674,
+        "nListings": 35,
         "nse": "medio-alto",
         "nseIdx": 4,
         "fuente": "idx-18m"
@@ -11183,8 +11194,8 @@
         "fuente": "idx-18m"
       },
       ">160": {
-        "medianaPm2": 39555,
-        "nListings": 8,
+        "medianaPm2": 40120,
+        "nListings": 9,
         "nse": "medio-alto",
         "nseIdx": 4,
         "fuente": "idx-18m"
@@ -11257,10 +11268,6 @@
   },
   "tetelpan": {
     "depto": {}
-  },
-  "cholul": {
-    "depto": {},
-    "terreno": {}
   },
   "ejido nuevo vallarta": {
     "terreno": {}
@@ -11345,10 +11352,10 @@
     },
     "depto": {
       "global": {
-        "medianaPm2": 57517,
-        "nListings": 3,
-        "nse": "lujo",
-        "nseIdx": 5,
+        "medianaPm2": 49955,
+        "nListings": 4,
+        "nse": "medio-alto",
+        "nseIdx": 4,
         "fuente": "idx-18m"
       }
     },
@@ -11366,7 +11373,15 @@
   "playa del carmen": {
     "terreno": {},
     "casa": {},
-    "depto": {}
+    "depto": {
+      "global": {
+        "medianaPm2": 41179,
+        "nListings": 3,
+        "nse": "medio-alto",
+        "nseIdx": 4,
+        "fuente": "idx-18m"
+      }
+    }
   },
   "ionamiento hacienda real tejeda": {
     "terreno": {}
@@ -14164,8 +14179,8 @@
   "lazaro cardenas": {
     "casa": {
       "global": {
-        "medianaPm2": 15133,
-        "nListings": 11,
+        "medianaPm2": 14953,
+        "nListings": 12,
         "nse": "medio-bajo",
         "nseIdx": 2,
         "fuente": "idx-historico"
@@ -14178,8 +14193,8 @@
         "fuente": "idx-historico"
       },
       "150-250": {
-        "medianaPm2": 13091,
-        "nListings": 6,
+        "medianaPm2": 11410,
+        "nListings": 7,
         "nse": "interes-social",
         "nseIdx": 1,
         "fuente": "idx-historico"
@@ -15689,7 +15704,8 @@
         "fuente": "idx-historico"
       }
     },
-    "bodega": {}
+    "bodega": {},
+    "depto": {}
   },
   "lomas de oblatos 1a": {
     "casa": {
@@ -16935,6 +16951,9 @@
         "fuente": "idx-historico"
       }
     }
+  },
+  "ladran de guevara": {
+    "casa": {}
   },
   "cuenta con 4 habitaciones con bano cada una": {
     "casa": {}
@@ -23351,6 +23370,9 @@
   "burgos bugambilias": {
     "casa": {}
   },
+  "playa car fase ii": {
+    "casa": {}
+  },
   "jardines de san sebastian": {
     "casa": {},
     "depto": {}
@@ -23812,6 +23834,9 @@
     "depto": {}
   },
   "brisas": {
+    "depto": {}
+  },
+  "solidaridad": {
     "depto": {}
   },
   "condominio bruma cortijo san agustin": {
@@ -25607,6 +25632,7 @@
   },
   "el pedregal": {
     "casa": {},
+    "depto": {},
     "terreno": {
       "global": {
         "medianaPm2": 2308,
@@ -26676,15 +26702,15 @@
   "chapala centro": {
     "casa": {
       "global": {
-        "medianaPm2": 30000,
-        "nListings": 19,
+        "medianaPm2": 30556,
+        "nListings": 20,
         "nse": "medio-medio",
         "nseIdx": 3,
         "fuente": "idx-18m"
       },
       "80-150": {
-        "medianaPm2": 32965,
-        "nListings": 6,
+        "medianaPm2": 31852,
+        "nListings": 7,
         "nse": "medio-medio",
         "nseIdx": 3,
         "fuente": "idx-18m"
@@ -26981,6 +27007,10 @@
     "casa": {},
     "terreno": {}
   },
+  "el chante": {
+    "casa": {},
+    "terreno": {}
+  },
   "haciendas de chapala": {
     "casa": {
       "global": {
@@ -27173,13 +27203,13 @@
   "jardines de san mateo": {
     "terreno": {}
   },
-  "el chante": {
-    "terreno": {}
-  },
   "ionamiento san antonio": {
     "terreno": {}
   },
   "rancho o rancheria los galapagos": {
+    "terreno": {}
+  },
+  "los galapagos": {
     "terreno": {}
   },
   "la parota": {
@@ -27802,15 +27832,15 @@
   "parques de santa cruz del valle": {
     "casa": {
       "global": {
-        "medianaPm2": 20845,
+        "medianaPm2": 26250,
         "nListings": 9,
-        "nse": "medio-bajo",
-        "nseIdx": 2,
+        "nse": "medio-medio",
+        "nseIdx": 3,
         "fuente": "idx-historico"
       },
       "<80": {
-        "medianaPm2": 26250,
-        "nListings": 7,
+        "medianaPm2": 26394,
+        "nListings": 8,
         "nse": "medio-medio",
         "nseIdx": 3,
         "fuente": "idx-historico"
@@ -28017,7 +28047,7 @@
     "casa": {
       "global": {
         "medianaPm2": 19394,
-        "nListings": 9,
+        "nListings": 10,
         "nse": "medio-bajo",
         "nseIdx": 2,
         "fuente": "idx-historico"
@@ -28110,6 +28140,24 @@
   },
   "camichines alborada 3 seccion": {
     "casa": {}
+  },
+  "condominio jardines del vergel": {
+    "casa": {
+      "global": {
+        "medianaPm2": 17614,
+        "nListings": 6,
+        "nse": "medio-bajo",
+        "nseIdx": 2,
+        "fuente": "idx-historico"
+      },
+      "80-150": {
+        "medianaPm2": 17807,
+        "nListings": 4,
+        "nse": "medio-bajo",
+        "nseIdx": 2,
+        "fuente": "idx-historico"
+      }
+    }
   },
   "con 4 recamaras 2 banos 1 cochera": {
     "casa": {}
@@ -28228,24 +28276,6 @@
         "nListings": 6,
         "nse": "medio-medio",
         "nseIdx": 3,
-        "fuente": "idx-historico"
-      }
-    }
-  },
-  "condominio jardines del vergel": {
-    "casa": {
-      "global": {
-        "medianaPm2": 18955,
-        "nListings": 5,
-        "nse": "medio-bajo",
-        "nseIdx": 2,
-        "fuente": "idx-historico"
-      },
-      "80-150": {
-        "medianaPm2": 17807,
-        "nListings": 4,
-        "nse": "medio-bajo",
-        "nseIdx": 2,
         "fuente": "idx-historico"
       }
     }
@@ -29161,7 +29191,15 @@
     "casa": {}
   },
   "el cortijo san agustan": {
-    "casa": {}
+    "casa": {
+      "global": {
+        "medianaPm2": 15111,
+        "nListings": 3,
+        "nse": "medio-bajo",
+        "nseIdx": 2,
+        "fuente": "idx-historico"
+      }
+    }
   },
   "tala centro": {
     "casa": {

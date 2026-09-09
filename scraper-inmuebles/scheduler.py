@@ -802,6 +802,17 @@ def run(reset: bool = False, portal: str = None):
             log.info("Enricher terminado — corriendo dedup estricto...")
             _sp.run([python, "dedup_estricto.py"], check=False)
 
+    # #184-c: reconstruir los índices del motor (colonias_maestro.json y cadena) al cierre de
+    # CUALQUIER corrida (full o por portal) — hay mercado_props nuevo, el índice debe reflejarlo.
+    # Medido en vivo (09-sep): ~4 min, aceptable al final de una corrida que ya dura horas.
+    try:
+        import subprocess as _sp3
+        log.info("Reconstruyendo índices del motor (actualizar_indices_motor.js)...")
+        modulo_drive_ia = Path(__file__).resolve().parent.parent / "Modulo Drive IA"
+        _sp3.run(["node", "actualizar_indices_motor.js"], cwd=str(modulo_drive_ia), check=False, timeout=900)
+    except Exception as e:
+        log.error(f"actualizar_indices_motor.js falló (no bloquea el resto): {e}")
+
 
 # ─────────────────────────────────────────
 # Entrada

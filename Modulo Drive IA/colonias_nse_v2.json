@@ -1162,8 +1162,8 @@
   "francisco villa": {
     "nse": "medio-bajo",
     "nseIdx": 2,
-    "medianaPm2": 14207,
-    "nListings": 8,
+    "medianaPm2": 16204,
+    "nListings": 9,
     "fuente": "idx-casa",
     "ventana": "sin-fecha"
   },
@@ -1736,10 +1736,10 @@
     "ventana": "últimos 18 meses"
   },
   "rancho el centinela": {
-    "nse": "medio-medio",
-    "nseIdx": 3,
-    "medianaPm2": 30041,
-    "nListings": 5,
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 40625,
+    "nListings": 7,
     "fuente": "idx-casa",
     "ventana": "sin-fecha"
   },
@@ -1764,6 +1764,22 @@
     "nseIdx": 2,
     "medianaPm2": 17040,
     "nListings": 9,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "la experiencia": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 16105,
+    "nListings": 8,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "cd del sol": {
+    "nse": "medio-alto",
+    "nseIdx": 4,
+    "medianaPm2": 36098,
+    "nListings": 12,
     "fuente": "idx-casa",
     "ventana": "sin-fecha"
   },
@@ -1799,14 +1815,6 @@
     "fuente": "idx-casa",
     "ventana": "sin-fecha"
   },
-  "cd del sol": {
-    "nse": "medio-alto",
-    "nseIdx": 4,
-    "medianaPm2": 36098,
-    "nListings": 12,
-    "fuente": "idx-casa",
-    "ventana": "sin-fecha"
-  },
   "rinconada del sol": {
     "nse": "medio-medio",
     "nseIdx": 3,
@@ -1820,14 +1828,6 @@
     "nseIdx": 3,
     "medianaPm2": 27448,
     "nListings": 9,
-    "fuente": "idx-casa",
-    "ventana": "sin-fecha"
-  },
-  "la experiencia": {
-    "nse": "medio-bajo",
-    "nseIdx": 2,
-    "medianaPm2": 16736,
-    "nListings": 7,
     "fuente": "idx-casa",
     "ventana": "sin-fecha"
   },
@@ -2402,8 +2402,8 @@
   "lazaro cardenas": {
     "nse": "medio-bajo",
     "nseIdx": 2,
-    "medianaPm2": 15133,
-    "nListings": 11,
+    "medianaPm2": 14953,
+    "nListings": 12,
     "fuente": "idx-casa",
     "ventana": "sin-fecha"
   },
@@ -4690,8 +4690,8 @@
   "chapala centro": {
     "nse": "medio-medio",
     "nseIdx": 3,
-    "medianaPm2": 30000,
-    "nListings": 19,
+    "medianaPm2": 30556,
+    "nListings": 20,
     "fuente": "idx-casa-18m",
     "ventana": "últimos 18 meses"
   },
@@ -5008,9 +5008,9 @@
     "ventana": "últimos 18 meses"
   },
   "parques de santa cruz del valle": {
-    "nse": "medio-bajo",
-    "nseIdx": 2,
-    "medianaPm2": 20845,
+    "nse": "medio-medio",
+    "nseIdx": 3,
+    "medianaPm2": 26250,
     "nListings": 9,
     "fuente": "idx-casa",
     "ventana": "sin-fecha"
@@ -5067,7 +5067,7 @@
     "nse": "medio-bajo",
     "nseIdx": 2,
     "medianaPm2": 19394,
-    "nListings": 9,
+    "nListings": 10,
     "fuente": "idx-casa",
     "ventana": "sin-fecha"
   },
@@ -5083,6 +5083,14 @@
     "nse": "medio-bajo",
     "nseIdx": 2,
     "medianaPm2": 20602,
+    "nListings": 6,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "condominio jardines del vergel": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 17614,
     "nListings": 6,
     "fuente": "idx-casa",
     "ventana": "sin-fecha"
@@ -5140,14 +5148,6 @@
     "nseIdx": 3,
     "medianaPm2": 25440,
     "nListings": 8,
-    "fuente": "idx-casa",
-    "ventana": "sin-fecha"
-  },
-  "condominio jardines del vergel": {
-    "nse": "medio-bajo",
-    "nseIdx": 2,
-    "medianaPm2": 18955,
-    "nListings": 5,
     "fuente": "idx-casa",
     "ventana": "sin-fecha"
   },
@@ -5315,6 +5315,14 @@
     "nse": "medio-medio",
     "nseIdx": 3,
     "medianaPm2": 22707,
+    "nListings": 3,
+    "fuente": "idx-casa",
+    "ventana": "sin-fecha"
+  },
+  "el cortijo san agustan": {
+    "nse": "medio-bajo",
+    "nseIdx": 2,
+    "medianaPm2": 15111,
     "nListings": 3,
     "fuente": "idx-casa",
     "ventana": "sin-fecha"

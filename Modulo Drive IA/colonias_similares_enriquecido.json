@@ -8320,6 +8320,32 @@
       "peso": 10
     }
   ],
+  "el fortan": [
+    {
+      "colonia": "lomas de san gonzalo",
+      "peso": 20
+    },
+    {
+      "colonia": "mariano otero",
+      "peso": 18
+    },
+    {
+      "colonia": "ionamiento campestre los robles",
+      "peso": 16
+    },
+    {
+      "colonia": "col sta margarita",
+      "peso": 14
+    },
+    {
+      "colonia": "las agujas",
+      "peso": 12
+    },
+    {
+      "colonia": "las bovedas",
+      "peso": 10
+    }
+  ],
   "int 2": [
     {
       "colonia": "villas la loma",
@@ -14261,6 +14287,32 @@
     },
     {
       "colonia": "rancho nuevo",
+      "peso": 10
+    }
+  ],
+  "ladran de guevara": [
+    {
+      "colonia": "providencia 5a",
+      "peso": 20
+    },
+    {
+      "colonia": "lomas del valle",
+      "peso": 18
+    },
+    {
+      "colonia": "colomos providencia",
+      "peso": 16
+    },
+    {
+      "colonia": "country club",
+      "peso": 14
+    },
+    {
+      "colonia": "americana",
+      "peso": 12
+    },
+    {
+      "colonia": "el retiro",
       "peso": 10
     }
   ],
@@ -23078,32 +23130,6 @@
       "peso": 14
     }
   ],
-  "paseos de tonala": [
-    {
-      "colonia": "rancho la cruz",
-      "peso": 20
-    },
-    {
-      "colonia": "coyula",
-      "peso": 18
-    },
-    {
-      "colonia": "infonavit la soledad",
-      "peso": 16
-    },
-    {
-      "colonia": "tonala centro",
-      "peso": 14
-    },
-    {
-      "colonia": "barrio nuevo",
-      "peso": 12
-    },
-    {
-      "colonia": "loma dorada delegacion a",
-      "peso": 10
-    }
-  ],
   "playa del carmen": [
     {
       "colonia": "zona hotelera",
@@ -23127,6 +23153,32 @@
     },
     {
       "colonia": "roma norte",
+      "peso": 10
+    }
+  ],
+  "paseos de tonala": [
+    {
+      "colonia": "rancho la cruz",
+      "peso": 20
+    },
+    {
+      "colonia": "coyula",
+      "peso": 18
+    },
+    {
+      "colonia": "infonavit la soledad",
+      "peso": 16
+    },
+    {
+      "colonia": "tonala centro",
+      "peso": 14
+    },
+    {
+      "colonia": "barrio nuevo",
+      "peso": 12
+    },
+    {
+      "colonia": "loma dorada delegacion a",
       "peso": 10
     }
   ],
