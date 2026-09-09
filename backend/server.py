@@ -550,7 +550,7 @@ async def generate_comparables(valuation_id: str, request: Request, append: bool
     
     comparables = []
     rental_comparables = []
-    rental_factor_data = {"factor": 0.005, "source": "default", "rental_listings_count": 0}
+    rental_factor_data = {"factor": 0.00333, "source": "default", "rental_listings_count": 0}
     search_method = "simulated"
     ai_providers_used = []
 
@@ -1482,8 +1482,8 @@ async def calculate_valuation(valuation_id: str, request: Request):
         confidence = "BAJO"
     
     # Get rental factor and calculate market metrics
-    rental_factor_data = valuation.get("rental_factor_data", {"factor": 0.005})
-    rental_factor = rental_factor_data.get("factor", 0.005)
+    rental_factor_data = valuation.get("rental_factor_data", {"factor": 0.00333})
+    rental_factor = rental_factor_data.get("factor", 0.00333)
     
     property_type = prop.get("property_type", "Casa")
     
@@ -1766,7 +1766,7 @@ async def calculate_remi(valuation_id: str, request: Request):
     rfd = valuation.get("rental_factor_data") or {}
     mm = calculate_market_metrics(
         estimated_value=valor,
-        rental_factor=rfd.get("factor", 0.005),
+        rental_factor=rfd.get("factor", 0.00333),
         property_type=prop.get("property_type", "Casa"),
         state=prop.get("state", ""),
         value_min=valor * (1 - rango),
