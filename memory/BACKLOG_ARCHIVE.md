@@ -5,6 +5,124 @@
 
 ---
 
+## 09 Sep 2026 — Costos de construcción corregidos + homologación de terreno por superficie
+
+Sesión corta, dos correcciones al motor/reporte.
+
+**#178 — `quality_costs` reordenado y actualizado a rangos reales 2026.** Económico estaba mal
+ordenado ARRIBA de Interés Social (más caro que algo más básico) desde #149. Nuevos valores dados
+por el usuario: Económico $8k, Interés Social $10k, Medio Bajo $13k, Medio Medio $16k (default),
+Medio Alto $20k, Superior $26k, Lujo $38k/m². Aplicado en `server.py::calculate_valuation` y
+`_physical_breakdown` (2 copias del dict) + `FlippingCalculatorPage.jsx` (referencia visual, no
+autocálculo).
+
+**#177 — homologación de $/m² de terreno por superficie en `sumaDePartes()`.** Antes mezclaba
+$/m² crudo de lotes de tamaños muy distintos (300m² vs 5000m²) como si el precio unitario fuera
+directamente comparable — el suelo tiene economía de escala igual que la construcción. `homologarPm2t()`
+nuevo aplica el mismo factor `(m2/m2Sujeto)^(1/6)` que ya usa `remiSobreComps`, con mínimo n≥3
+listings o cae al `medianaPm2c` crudo (sin regresión para colonias con pocos datos).
+
+**#176 — el reporte ya muestra terreno/suma de partes cuando ese es el método real.** Antes
+siempre mostraba tabla y confianza de casas aunque el valor viniera de terreno+construcción —
+quedaba desconectado del número final. Ahora, si `poolTipo` empieza con `suma_partes`/
+`lote_grande`: tabla de terrenos reales (con $/m² crudo y homologado, commit `f6704cf`), desglose
+terreno+construcción, confianza recalculada sobre esos terrenos. De paso: el texto de "entorno"
+por categoría ya no contradice el conteo real de Google Places (si count=0, se reemplaza el texto
+inventado por la IA).
+
+**#175 — fix botón "volver" del reporte sacaba al login.** `/dashboard` no existe (`App.js` la
+redirige a `/login`); el fallback cuando el rol no matchea exacto mandaba ahí en vez de
+`/dashboard/valuador`.
+
+Commits: `7f7c5f9` (botón volver), `b07307f` (reporte terreno), `f6704cf` (costos + homologación
+terreno, cierre de esta sesión).
+
+---
+
+## 03 Sep 2026 (continuación) — El Roble/El Arenal: scrape ampliado, enrich-stream, NSE terreno
+
+Continuación de la sesión "El Roble" del mismo día (ver sección siguiente para el arranque:
+comparables inventados eliminados, pipeline on-demand, #171). Esta parte se centró en ampliar la
+cobertura real de datos para esa misma OPI (`val_908f730cbbf8`) y cerrar dos pendientes que había
+dejado la sesión anterior (enrich-stream, NSE de terreno).
+
+**#172 CERRADO — `enrich-stream` construido y verificado end-to-end.** Nuevo endpoint SSE en
+`server.py` (`GET /valuations/{id}/enrich-stream`), reusa `_enrich_comp_urls` (mismo extractor ya
+probado que usa `generate-comparables`). Causa real por la que ni el enriquecimiento YA EXISTENTE
+funcionaba: `SCRAPER_DIR` (`core/config.py`) calculaba con un nivel de más desde la consolidación
+del scraper el 01-sep (`scraper-inmuebles` pasó a vivir DENTRO del repo, ya no como sibling de
+`valuation-ai`) — apuntaba a una carpeta inexistente, `WinError 267` tragado en silencio por el
+`except` de `_enrich_comp_urls`. Verificado en vivo contra Mongo real: 7/15 comparables
+enriquecidos con datos reales de portal, persistidos por `comparable_id`. Commit `99e76fc`.
+
+**#173 CERRADO (correcto pero inerte hoy) — NSE de terreno con tabla de umbrales propia.**
+`construir_idx_valoracion.js` clasificaba terreno con la MISMA tabla que casas (calibrada para
+$/m² de construcción) — terreno vale mucho menos por m², salía casi todo "económico" sin sentido.
+`NSE_CATS_TERRENO` nueva, calibrada sobre 1,764 listings reales de terreno (percentiles empíricos).
+Medido con el validador offline (202 OPIs, casos `suma_partes`/`suma_partes_mix`): resultado
+IDÉNTICO byte a byte antes/después — `sumaDePartes()` usa el $/m² numérico directo del IDX, nunca
+`getNSE(..., 'terreno')`, así que hoy no cambia ningún cálculo real. Queda listo para cuando se
+conecte a un futuro filtro NSE de similares de terreno. Commit `fd1917e`.
+
+**Scrape on-demand ampliado a colonias cercanas reales (no todo el municipio).**
+`buscar_comparables_browser.js` solo aceptaba colonia EXACTA — en zonas con poco inventario (El
+Roble) el pool quedaba casi vacío aunque hubiera propiedades reales a unas cuadras.
+`coloniasCercanas()` (`_geo/proximidad.cjs`, catálogo SEPOMEX nacional — la misma fuente que ya
+usa `motor_remi_api.js` en su cascada de consumo) amplía a colonias reales dentro de 3km,
+filtradas por tipo de vivienda. Cuando la colonia no está en el catálogo (fraccionamientos
+privados no oficiales, como "El Roble" mismo) cae a `coloniasCercanasDesdeCoords()` — nueva,
+resuelve cercanas por lat/lon real del sujeto (radio 5km, más ancho por ser ya el último recurso).
+Commits `d11e124` (base), `c9c8190` (fallback lat/lon).
+
+**Pipeline canónico de `colonias_similares` definido y limpiado.** Ya estaba decidido en el
+código (`colonias_maestro.json` vía `construir_maestro.js`) pero nunca se documentó ni se
+archivaron 6 iteraciones viejas (Gemini/Sheets descontinuados, sin cobertura genérica de
+municipios nuevos) — por eso costaba saber cuál usar. `generar_similares_sepomex.js` es el
+generador vigente (genérico, cataloga cualquier municipio con datos en `cache_index.json`).
+Scripts viejos movidos a `_archivo/` (no borrados), con README explicando el pipeline vigente.
+Commit `17cc22a`.
+
+**Dos huecos reales más encontrados y cerrados verificando El Roble en vivo:**
+1. Propiedades.com etiqueta listados rurales con el nombre del MUNICIPIO como colonia cuando no
+   tiene una colonia propia en su taxonomía (real: "Paseo del Roble 14" salió colonia="El Arenal",
+   nunca iba a aparecer en ninguna URL directa por colonia). La búsqueda municipio-wide ahora corre
+   siempre que hay cercanas y acepta cualquier colonia de ahí. Además el slug corto de listado
+   municipal daba 404 para El Arenal (hacía falta "-jalisco") — fallback genérico `{slug}-{estado}`.
+   Commit `567bb34`.
+2. El parser de tarjetas HTML de Propiedades.com (regex sobre `<section class="pcom-property-card">`)
+   perdía listados reales sin patrón obvio (2 de 42 en una corrida real). La página ya trae un
+   `<script type="application/ld+json">` con TODOS los listados estructurados (precio, m² vía
+   `floorSize`, colonia vía `address.addressLocality`, url) — fuente mucho más confiable. Ahora es
+   la fuente principal para casa/depto, con el parser HTML como fallback. Terreno se queda en el
+   parser HTML (el JSON-LD marca terreno como `itemOffered['@type']=='Place'`, estructura de
+   tamaño de lote sin investigar todavía). Commit `84bb6e4`.
+
+**Resultado medido para la OPI real:** pool de comparables de casa pasó de 5 a 44+ reales en
+producción (cluster0), con datos de Santa Cruz del Astillero, Huertas el Zamorano, Cuisillos,
+Haciendas de Huaxtla, Santa Sofía Hacienda Country Club, El Rio Country Club, Fracc. Paraíso de
+las Tortugas y el propio El Arenal centro. 7 propiedades reales rescatadas de un falso positivo
+del validador DeepSeek de colonias (Santa Sofía/Río Country Club/Paraíso de las Tortugas
+descartadas por "colonia inválida" sin serlo). "Santa Sofía Country Club" y "Río Country Club"
+unificados con sus variantes de nombre más completas (confirmado por el usuario que son el mismo
+lugar). Pipeline completo de índices (`actualizar_indices_motor.js`, 7 pasos) re-corrido tras
+todo esto — corrió limpio, 314.7s.
+
+**Bug real encontrado y NO resuelto — colisión de NSE entre colonias homónimas de distinto
+municipio.** `colonias_maestro.json` indexa por nombre de colonia SOLO, sin municipio — "El Roble"
+en Tonalá y en El Arenal comparten la misma clave. Verificado que SÍ existe una guardia
+anti-colisión en `motor_remi_api.js` (~984-992, de sesión anterior) que corrige el ANCLA de precio
+usando el caché indexado por municipio cuando detecta el municipio equivocado — funciona bien para
+El Roble (usa $16,022/m² real de El Arenal, no $29,663 de Tonalá). Pero la clasificación NSE
+(categoría/nseIdx) sigue viniendo del municipio equivocado en ese caso — no cuantificado cuántas
+colonias más colisionan. Queda para sesión propia con calma, no se tocó más hoy.
+
+**Vivanuncios y Monopolio.com.mx — inventario real de El Roble encontrado por el usuario, no
+capturado.** Vivanuncios usa Playwright (`scrapers/vivanuncios.py`) — excluido a propósito del
+scraper on-demand (fetch nativo, sin navegador, por velocidad/confiabilidad en ese contexto).
+Monopolio.com.mx nunca se integró en absoluto (cero investigación). Queda pendiente evaluar.
+
+---
+
 ## 03 Sep 2026 — Cadena de bugs reales destapada siguiendo una sola OPI real hasta el fondo
 
 Sesión larga, un solo hilo: la OPI real "El Roble" (El Arenal, `val_908f730cbbf8`,
