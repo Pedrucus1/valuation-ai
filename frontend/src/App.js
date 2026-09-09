@@ -68,6 +68,7 @@ const AdminValuadores           = lazy(() => import("@/pages/admin/AdminValuador
 const AdminBroadcast            = lazy(() => import("@/pages/admin/AdminBroadcast"));
 const AdminNewsletter           = lazy(() => import("@/pages/admin/AdminNewsletter"));
 const AdminScraper              = lazy(() => import("@/pages/admin/AdminScraper"));
+const AdminActividad            = lazy(() => import("@/pages/admin/AdminActividad"));
 const AdminCMS                  = lazy(() => import("@/pages/admin/AdminCMS"));
 const AdminCFDI                 = lazy(() => import("@/pages/admin/AdminCFDI"));
 const AdminPayouts              = lazy(() => import("@/pages/admin/AdminPayouts"));
@@ -183,6 +184,7 @@ function AppRouter() {
         <Route path="/admin/broadcast" element={<AdminProtectedRoute rolesPermitidos={["superadmin","moderador","contenido"]}><AdminBroadcast /></AdminProtectedRoute>} />
         <Route path="/admin/newsletter" element={<AdminProtectedRoute rolesPermitidos={["superadmin","moderador","contenido"]}><AdminNewsletter /></AdminProtectedRoute>} />
         <Route path="/admin/scraper" element={<AdminProtectedRoute rolesPermitidos={["superadmin","moderador"]}><AdminScraper /></AdminProtectedRoute>} />
+        <Route path="/admin/actividad" element={<AdminProtectedRoute rolesPermitidos={["superadmin","moderador"]}><AdminActividad /></AdminProtectedRoute>} />
         <Route path="/admin/cms" element={<AdminProtectedRoute rolesPermitidos={["superadmin","contenido"]}><AdminCMS /></AdminProtectedRoute>} />
         <Route path="/admin/cfdi" element={<AdminProtectedRoute rolesPermitidos={["superadmin","finanzas"]}><AdminCFDI /></AdminProtectedRoute>} />
         <Route path="/admin/payouts" element={<AdminProtectedRoute rolesPermitidos={["superadmin","finanzas"]}><AdminPayouts /></AdminProtectedRoute>} />
