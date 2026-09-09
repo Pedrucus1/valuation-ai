@@ -1386,14 +1386,17 @@ async def calculate_valuation(valuation_id: str, request: Request):
     # Construction cost (updated 2025 values for Mexico). Escala unificada con
     # CONSTRUCTION_QUALITIES del frontend (ValuationForm.jsx) — antes este dict usaba
     # otras 5 llaves que el frontend nunca manda, así que siempre caía al default.
+    # Costos $/m2 2026 (rangos reales México: interés social 8-12k, media 12-18k,
+    # residencial 18-30k, premium 30-50k+ — usuario 09-sep). Económico va DEBAJO de
+    # Interés Social (más básico), no arriba como estaba antes.
     quality_costs = {
-        "Interés Social": 12000,
-        "Económico": 14000,
-        "Medio Bajo": 16000,
-        "Medio Medio": 19000,     # Standard middle-class (default)
-        "Medio Alto": 23000,
-        "Superior": 30000,
-        "Lujo": 45000,
+        "Económico": 8000,
+        "Interés Social": 10000,
+        "Medio Bajo": 13000,
+        "Medio Medio": 16000,     # Standard middle-class (default)
+        "Medio Alto": 20000,
+        "Superior": 26000,
+        "Lujo": 38000,
     }
 
     quality = prop.get("construction_quality") or "Medio Medio"
@@ -1552,8 +1555,8 @@ def _physical_breakdown(prop: dict, comparative_ppsm: float) -> dict:
     land_value = comparative_ppsm * land_ratio * land_area
 
     quality_costs = {
-        "Interés Social": 12000, "Económico": 14000, "Medio Bajo": 16000,
-        "Medio Medio": 19000, "Medio Alto": 23000, "Superior": 30000, "Lujo": 45000,
+        "Económico": 8000, "Interés Social": 10000, "Medio Bajo": 13000,
+        "Medio Medio": 16000, "Medio Alto": 20000, "Superior": 26000, "Lujo": 38000,
     }
     cost_per_sqm = quality_costs.get(prop.get("construction_quality") or "Medio Medio", 19000)
     construction_new = cost_per_sqm * construction_area

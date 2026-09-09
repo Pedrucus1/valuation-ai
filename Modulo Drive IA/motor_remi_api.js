@@ -808,8 +808,8 @@ const INDAABIN_COSTO = { residencial_plus: 26000, residencial: 18000, media: 120
 // cae en "económica") pero construcciones campestres de nivel medio/alto encima — el proxy
 // terreno-barato→construcción-barata no aplica ahí.
 const QUALITY_COSTS = {
-    'Interés Social': 12000, 'Económico': 14000, 'Medio Bajo': 16000,
-    'Medio Medio': 19000, 'Medio Alto': 23000, 'Superior': 30000, 'Lujo': 45000,
+    'Económico': 8000, 'Interés Social': 10000, 'Medio Bajo': 13000,
+    'Medio Medio': 16000, 'Medio Alto': 20000, 'Superior': 26000, 'Lujo': 38000,
 };
 
 function getRH(edad, vida = 70) {
@@ -829,6 +829,19 @@ const PM2T_MAX_PLAUSIBLE = 25000;
 const COMP_CAP = 15;
 const COMP_CAP_GENERAL = 10;
 
+// Homologa el $/m² de cada terreno comparable hacia la superficie del sujeto (mismo factor
+// (m2/m2Sujeto)^(1/6) que ya usa remiSobreComps para construcción — terreno también tiene
+// economía de escala: lotes grandes valen menos por m². Sin esto, la mediana cruda mezclaba
+// lotes de 300m² y 5000m² como si el $/m² fuera comparable directo. Requiere ≥3 listings
+// válidos; si no, regresa null y el llamador cae al medianaPm2c crudo (comportamiento previo).
+function homologarPm2t(listings, m2TSujeto) {
+    const vals = (listings || [])
+        .filter(l => l.precio > 0 && l.m2t > 0)
+        .map(l => (l.precio / l.m2t) * Math.pow(l.m2t / m2TSujeto, 1 / 6));
+    if (vals.length < 3) return null;
+    return { pm2t: vals.reduce((a, b) => a + b, 0) / vals.length, n: vals.length };
+}
+
 function sumaDePartes(muniNorm, colNorm, m2T, m2C, edad, conservacion, esEjidal = false, pm2tOverride = 0, calidadConstruccion = '') {
     // Buscar pm2T en IDX de terrenos: colonia exacta (n≥3) → zona padre → similares residencial → municipal
     let pm2t = pm2tOverride || 0, nTerrenos = pm2tOverride ? 1 : 0;
@@ -842,7 +855,8 @@ function sumaDePartes(muniNorm, colNorm, m2T, m2C, edad, conservacion, esEjidal 
     const terrenosCol = terrenosMuni[colNorm];
     if (terrenosCol && terrenosCol.count >= 3 && terrenosCol.medianaPm2c > 0
         && terrenosCol.medianaPm2c <= PM2T_MAX_PLAUSIBLE) {
-        pm2t = terrenosCol.medianaPm2c;
+        const homolog = homologarPm2t(terrenosCol.listings, m2T);
+        pm2t = homolog ? homolog.pm2t : terrenosCol.medianaPm2c;
         nTerrenos = terrenosCol.count;
         terrenosListado = terrenosCol.listings || [];
     }
@@ -854,7 +868,12 @@ function sumaDePartes(muniNorm, colNorm, m2T, m2C, edad, conservacion, esEjidal 
             .filter(([k, d]) => k.length >= 5 && colNorm.includes(k)
                 && d.count >= 5 && d.medianaPm2c > 0 && d.medianaPm2c <= PM2T_MAX_PLAUSIBLE)
             .sort((a, b) => b[1].count - a[1].count)[0]; // mayor n primero
-        if (match) { pm2t = match[1].medianaPm2c; nTerrenos = match[1].count; terrenosListado = match[1].listings || []; }
+        if (match) {
+            const homolog = homologarPm2t(match[1].listings, m2T);
+            pm2t = homolog ? homolog.pm2t : match[1].medianaPm2c;
+            nTerrenos = match[1].count;
+            terrenosListado = match[1].listings || [];
+        }
     }
 
     // 3. Colonias similares: pm2T residual de casas — solo cuando terreno domina (ratio>2)
@@ -920,9 +939,13 @@ function sumaDePartes(muniNorm, colNorm, m2T, m2C, edad, conservacion, esEjidal 
 
     const terrenosDetalle = terrenosListado
         .filter(l => l.precio > 0 && l.m2t > 0)
-        .map(l => ({ precio: l.precio, m2t: l.m2t, pm2: Math.round(l.precio / l.m2t), fecha: l.fecha || null }))
-        .sort((a, b) => (b.fecha || '').localeCompare(a.fecha || ''))
-        .slice(0, 15);
+        .map(l => {
+            const pm2 = l.precio / l.m2t;
+            const pm2Aj = pm2 * Math.pow(l.m2t / m2T, 1 / 6);
+            return { precio: l.precio, m2t: l.m2t, pm2: Math.round(pm2), pm2Aj: Math.round(pm2Aj), fecha: l.fecha || null };
+        })
+        .sort((a, b) => Math.abs(a.m2t - m2T) - Math.abs(b.m2t - m2T))
+        .slice(0, 8);
 
     return { valor, pm2t: Math.round(pm2tTerreno), nTerrenos, nseKey,
              valorTerreno: Math.round(valorTerreno), valorConst: Math.round(valorConst),

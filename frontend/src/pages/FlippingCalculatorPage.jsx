@@ -11,8 +11,8 @@ import { API } from "@/App";
 // $/m² de construcción por calidad — misma tabla que usa el motor (backend/server.py::_physical_breakdown).
 // Referencia visual junto al campo de remodelación, NO se usa para autocalcular un monto.
 const QUALITY_COSTS = [
-  ["Interés Social", 12000], ["Económico", 14000], ["Medio Bajo", 16000],
-  ["Medio Medio", 19000], ["Medio Alto", 23000], ["Superior", 30000], ["Lujo", 45000],
+  ["Económico", 8000], ["Interés Social", 10000], ["Medio Bajo", 13000],
+  ["Medio Medio", 16000], ["Medio Alto", 20000], ["Superior", 26000], ["Lujo", 38000],
 ];
 
 const num = (v) => { const n = parseFloat(v); return isNaN(n) ? 0 : n; };

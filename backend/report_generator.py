@@ -853,8 +853,9 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
         return (p or '').replace('_', ' ').replace('.com.mx', '').replace('.com', '').replace('www.', '').strip().title()
 
     if usa_terreno:
-        comp_section_title = f'&#x1F5FA; ESTUDIO DE MERCADO DE TERRENOS ({len(terrenos)})'
-        comp_table_head_html = '<th>#</th><th>Colonia</th><th>M&#xB2; Terreno</th><th>Precio</th><th>$/M&#xB2;</th><th>Fecha</th>'
+        comp_section_title = f'&#x1F5FA; ESTUDIO DE MERCADO DE TERRENOS ({len(terrenos)} de {remi.get("nTerrenos", len(terrenos))})'
+        comp_table_head_html = ('<th>#</th><th>Colonia</th><th>M&#xB2; Terreno</th><th>Precio</th>'
+                                 '<th>$/M&#xB2;</th><th>$/M&#xB2; Homolog.</th><th>Fecha</th>')
         for i, t in enumerate(terrenos, 1):
             comp_rows += f"""
       <tr>
@@ -862,7 +863,8 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
         <td>{prop.get('neighborhood', '')[:28]}</td>
         <td>{t['m2t']:,.0f}</td>
         <td>${t['precio']:,.0f}</td>
-        <td style="font-weight:700">${t['pm2']:,.0f}</td>
+        <td>${t['pm2']:,.0f}</td>
+        <td style="font-weight:700">${t.get('pm2Aj', t['pm2']):,.0f}</td>
         <td class="comp-fuente">{t.get('fecha') or 'N/D'}</td>
       </tr>"""
     for i, comp in ([] if usa_terreno else enumerate(active_comparables, 1)):
@@ -911,8 +913,10 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
     if usa_terreno:
         n_comp = len(terrenos)
         avg_raw = sum(t['pm2'] for t in terrenos) / n_comp if n_comp else 0
-        avg_adj_pct = 0.0  # terreno crudo, sin homologación por edad/conservación/negociación
-        avg_adj_sqm = avg_raw
+        # avg_adj_sqm = el pm2t YA homologado por superficie que de verdad usó el cálculo
+        # (remi['pm2t'], promedio de los nTerrenos totales, no solo de los N mostrados aquí).
+        avg_adj_sqm = remi.get('pm2t') or avg_raw
+        avg_adj_pct = ((avg_adj_sqm / avg_raw) - 1) * 100 if avg_raw else 0.0
     else:
         n_comp = len(active_comparables)
         if n_comp > 0:
