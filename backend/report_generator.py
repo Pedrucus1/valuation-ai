@@ -8,6 +8,7 @@ HTML Report Generator for PropValu v3.0
 from datetime import datetime, timezone
 from typing import Dict, List, Optional
 from static_map import get_map_for_report
+from cetes import get_cetes_rate
 
 # Catálogo de uso de suelo
 LAND_USE_INFO = {
@@ -666,7 +667,19 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
     confidence_level = result.get('confidence_level', 'ALTO').upper()
 
     # Investment indicators
-    cetes = 10.0
+    cetes_data = get_cetes_rate()
+    cetes = cetes_data["rate"]
+    cetes_source = cetes_data.get("source", "banxico" if cetes_data["live"] else "fallback")
+    if cetes_source == "banxico":
+        cetes_footnote = f"CETES 28d {cetes:.2f}% al {cetes_data['date']} (Banxico)"
+    elif cetes_source == "gemini":
+        cetes_footnote = (
+            f"CETES 28d ~{cetes:.2f}% al {cetes_data['date']} (estimado por IA)"
+            if cetes_data["date"]
+            else f"CETES 28d ~{cetes:.2f}% (estimado por IA, sin fecha confirmada)"
+        )
+    else:
+        cetes_footnote = f"CETES {cetes:.0f}% (referencia, sin conexión a Banxico)"
     payback = (1 / (cap_rate / 100)) if cap_rate > 0 else 0
     roi_10 = (cap_rate * 10) + (appreciation * 10) if cap_rate > 0 else appreciation * 10
     cap_vs_cetes = cap_rate - cetes
@@ -1341,6 +1354,7 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
       <div class="ind-sub">{'&#x25BC; Abajo CETES' if cap_vs_cetes < 0 else '&#x25B2; Sobre CETES'}</div>
     </div>
   </div>
+  <div style="font-size:9px;color:#9ca3af;margin-top:4px;">{cetes_footnote}</div>
 
   <div class="section-title">&#x2696; DESGLOSE DE VALOR FÍSICO</div>
   <div style="border:1px solid var(--gray-200);border-radius:10px;padding:12px 14px;margin-bottom:12px;">
