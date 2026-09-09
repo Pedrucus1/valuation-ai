@@ -569,6 +569,15 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
     else:
         active_comparables = comparables[:6]
 
+    # Cuando el motor valuó por suma de partes (terreno real + construcción, casa chica
+    # en lote grande) el estudio de mercado que sustenta el valor es de TERRENOS, no de
+    # casas — active_comparables (arriba) queda desconectado del número real. Bug real
+    # 03-sep: El Roble calculó $3.4M con 12 terrenos pero el reporte mostraba casas de
+    # otra zona y "Confianza Baja" (calculada sobre esas casas, no sobre lo que se usó).
+    remi = valuation.get('remi_result') or {}
+    usa_terreno = str(remi.get('poolTipo', '')).startswith(('suma_partes', 'lote_grande'))
+    terrenos = remi.get('terrenosListado') or []
+
     # Date
     if isinstance(consultation_date, str):
         date_str = consultation_date[:10]
@@ -834,12 +843,29 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
 {pe_scores_cards}
   </div>"""
 
-    # Comparables table
+    # Comparables table — terrenos (suma de partes) o casas (comparativo), según el método
+    # que realmente calculó el valor (ver `usa_terreno` arriba).
     comp_rows = ''
+    comp_table_head_html = '<th>#</th><th>Colonia</th><th>Terr.</th><th>Const.</th><th>Precio</th><th>$/M&#xB2;</th><th>Aj.</th><th>$/M&#xB2; Aj.</th><th>Fuente</th>'
+    comp_section_title = f'&#x1F50D; COMPARABLES SELECCIONADOS ({len(active_comparables)})'
+
     def _portal_label(p):
         return (p or '').replace('_', ' ').replace('.com.mx', '').replace('.com', '').replace('www.', '').strip().title()
 
-    for i, comp in enumerate(active_comparables, 1):
+    if usa_terreno:
+        comp_section_title = f'&#x1F5FA; ESTUDIO DE MERCADO DE TERRENOS ({len(terrenos)})'
+        comp_table_head_html = '<th>#</th><th>Colonia</th><th>M&#xB2; Terreno</th><th>Precio</th><th>$/M&#xB2;</th><th>Fecha</th>'
+        for i, t in enumerate(terrenos, 1):
+            comp_rows += f"""
+      <tr>
+        <td>{i}</td>
+        <td>{prop.get('neighborhood', '')[:28]}</td>
+        <td>{t['m2t']:,.0f}</td>
+        <td>${t['precio']:,.0f}</td>
+        <td style="font-weight:700">${t['pm2']:,.0f}</td>
+        <td class="comp-fuente">{t.get('fecha') or 'N/D'}</td>
+      </tr>"""
+    for i, comp in ([] if usa_terreno else enumerate(active_comparables, 1)):
         # Antes se mostraban links a los anuncios/portal; se quitaron del reporte.
         # En su lugar mostramos SOLO la calificación de calidad del comparable.
         conf = comp.get('confiabilidad')
@@ -882,28 +908,47 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
       </tr>"""
 
     # Comparables stats
-    n_comp = len(active_comparables)
-    if n_comp > 0:
-        avg_raw = sum(c['price_per_sqm'] for c in active_comparables) / n_comp
-        avg_adj_pct = sum(c.get('total_adjustment', 0) for c in active_comparables) / n_comp
-        avg_adj_sqm = sum(c.get('adjusted_price_per_sqm', c['price_per_sqm']) for c in active_comparables) / n_comp
+    if usa_terreno:
+        n_comp = len(terrenos)
+        avg_raw = sum(t['pm2'] for t in terrenos) / n_comp if n_comp else 0
+        avg_adj_pct = 0.0  # terreno crudo, sin homologación por edad/conservación/negociación
+        avg_adj_sqm = avg_raw
     else:
-        avg_raw = avg_adj_pct = avg_adj_sqm = 0
+        n_comp = len(active_comparables)
+        if n_comp > 0:
+            avg_raw = sum(c['price_per_sqm'] for c in active_comparables) / n_comp
+            avg_adj_pct = sum(c.get('total_adjustment', 0) for c in active_comparables) / n_comp
+            avg_adj_sqm = sum(c.get('adjusted_price_per_sqm', c['price_per_sqm']) for c in active_comparables) / n_comp
+        else:
+            avg_raw = avg_adj_pct = avg_adj_sqm = 0
     adj_color_css = 'var(--red)' if avg_adj_pct < 0 else 'var(--green-500)'
 
-    # Confianza global del avalúo (informativo): dispersión del $/m² ajustado +
-    # confiabilidad promedio de los comparables + tamaño de muestra. NO cambia el valor.
-    _adj_vals = [c.get('adjusted_price_per_sqm', c['price_per_sqm']) for c in active_comparables]
-    if n_comp >= 2 and avg_adj_sqm > 0:
-        _sd = (sum((v - avg_adj_sqm) ** 2 for v in _adj_vals) / n_comp) ** 0.5
-        _cv = _sd / avg_adj_sqm
+    # Confianza global del avalúo (informativo): dispersión del $/m² + tamaño de muestra.
+    # NO cambia el valor. Para terrenos no hay "confiabilidad" por portal (esa metadata se
+    # pierde al consolidar el IDX del motor) — se cae a 60% dispersión / 40% muestra en vez
+    # de repartir 45/35/20 con un tercer componente que no existe para este método.
+    if usa_terreno:
+        _pm2_vals = [t['pm2'] for t in terrenos]
+        if n_comp >= 2 and avg_adj_sqm > 0:
+            _sd = (sum((v - avg_adj_sqm) ** 2 for v in _pm2_vals) / n_comp) ** 0.5
+            _cv = _sd / avg_adj_sqm
+        else:
+            _cv = 0.40
+        _disp_score = max(0.0, 100 - _cv * 250)
+        _n_score = min(n_comp / 6, 1.0) * 100
+        conf_global = max(0, min(100, round(0.60 * _disp_score + 0.40 * _n_score)))
     else:
-        _cv = 0.40
-    _conf_list = [c.get('confiabilidad') for c in active_comparables if c.get('confiabilidad') is not None]
-    _avg_conf = sum(_conf_list) / len(_conf_list) if _conf_list else 50
-    _disp_score = max(0.0, 100 - _cv * 250)          # cv 0.10→75, 0.20→50, 0.40→0
-    _n_score = min(n_comp / 6, 1.0) * 100
-    conf_global = max(0, min(100, round(0.45 * _disp_score + 0.35 * _avg_conf + 0.20 * _n_score)))
+        _adj_vals = [c.get('adjusted_price_per_sqm', c['price_per_sqm']) for c in active_comparables]
+        if n_comp >= 2 and avg_adj_sqm > 0:
+            _sd = (sum((v - avg_adj_sqm) ** 2 for v in _adj_vals) / n_comp) ** 0.5
+            _cv = _sd / avg_adj_sqm
+        else:
+            _cv = 0.40
+        _conf_list = [c.get('confiabilidad') for c in active_comparables if c.get('confiabilidad') is not None]
+        _avg_conf = sum(_conf_list) / len(_conf_list) if _conf_list else 50
+        _disp_score = max(0.0, 100 - _cv * 250)          # cv 0.10→75, 0.20→50, 0.40→0
+        _n_score = min(n_comp / 6, 1.0) * 100
+        conf_global = max(0, min(100, round(0.45 * _disp_score + 0.35 * _avg_conf + 0.20 * _n_score)))
     conf_global_label = 'Alta' if conf_global >= 70 else ('Media' if conf_global >= 50 else 'Baja')
     conf_global_color = {'Alta': '#16a34a', 'Media': '#d97706', 'Baja': '#dc2626'}[conf_global_label]
     conf_global_dispersion = round(_cv * 100, 1)
@@ -1336,19 +1381,42 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
 <div class="page">
 {_header()}
 
-  <div class="section-title">&#x1F50D; COMPARABLES SELECCIONADOS ({n_comp})</div>
+  <div class="section-title">{comp_section_title}</div>
 
   <table class="comp-table">
     <thead>
       <tr>
-        <th>#</th><th>Colonia</th><th>Terr.</th><th>Const.</th>
-        <th>Precio</th><th>$/M&#xB2;</th><th>Aj.</th><th>$/M&#xB2; Aj.</th><th>Fuente</th>
+        {comp_table_head_html}
       </tr>
     </thead>
     <tbody>
       {comp_rows}
     </tbody>
   </table>
+
+  {f'''<div class="metodo-box" style="margin-top:10px;">
+    <div class="mb-title">&#x2795; DESGLOSE — SUMA DE PARTES</div>
+    <p>Casa de {prop.get("construction_area", 0):,.0f} m&#xB2; en terreno de {prop.get("land_area", 0):,.0f} m&#xB2;
+    — el terreno domina el valor, comparar por $/m&#xB2; de construcción contra casas de otro tamaño
+    subvaluaría la propiedad. Se valúan terreno y construcción por separado:</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px;">
+      <div style="border:1px solid var(--gray-200);border-radius:8px;padding:9px 10px;text-align:center;background:var(--box-bg);">
+        <div style="font-size:11px;color:var(--gray-400);">TERRENO</div>
+        <div style="font-family:'Outfit',sans-serif;font-size:15px;font-weight:800;color:#1B4231;">${remi.get("valorTerreno", 0):,.0f}</div>
+        <div style="font-size:10px;color:var(--text-sec);">{prop.get("land_area", 0):,.0f}m&#xB2; &times; ${remi.get("pm2t", 0):,.0f}/m&#xB2;</div>
+      </div>
+      <div style="border:1px solid var(--gray-200);border-radius:8px;padding:9px 10px;text-align:center;background:var(--box-bg);">
+        <div style="font-size:11px;color:var(--gray-400);">CONSTRUCCIÓN</div>
+        <div style="font-family:'Outfit',sans-serif;font-size:15px;font-weight:800;color:#1B4231;">${remi.get("valorConst", 0):,.0f}</div>
+        <div style="font-size:10px;color:var(--text-sec);">{prop.get("construction_area", 0):,.0f}m&#xB2; &middot; {str(remi.get("nseKey", "")).replace("calidad:", "")} &middot; depreciada</div>
+      </div>
+      <div style="border:1px solid var(--gray-200);border-radius:8px;padding:9px 10px;text-align:center;background:var(--green-100);">
+        <div style="font-size:11px;color:var(--gray-400);">VALOR TOTAL</div>
+        <div style="font-family:'Outfit',sans-serif;font-size:15px;font-weight:800;color:#1B4231;">${remi.get("valor", 0):,.0f}</div>
+        <div style="font-size:10px;color:var(--text-sec);">terreno + construcción</div>
+      </div>
+    </div>
+  </div>''' if usa_terreno else ''}
 
   <div class="va-grid">
     <div class="va-card green-bg">
@@ -1368,7 +1436,7 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
 
   <div class="metodo-box">
     <div class="mb-title">&#x1F3E0; METODOLOGÍA DE VALUACIÓN</div>
-    <p>Se aplicó el <strong>Método de Comparación de Mercado con Homologación Técnica</strong>. A cada comparable se aplicaron factores de ajuste por: <strong>Edad (Ross-Heidecke)</strong>, <strong>Estado de Conservación</strong> y <strong>Margen de Negociación</strong>. El valor final es un promedio ponderado que prioriza la <strong>mediana estadística</strong> para eliminar valores atípicos.</p>
+    <p>{'Se aplicó el <strong>Método de Suma de Partes</strong>: valor de terreno homologado al $/m&#xB2; de mercado de terrenos comparables de la zona, más valor de construcción a costo de reposición (tabla INDAABIN por calidad declarada) con depreciación <strong>Ross-Heidecke</strong> por edad y estado de conservación. Se usa cuando el terreno domina el valor de la propiedad (casa chica en lote grande) — comparar por $/m&#xB2; de construcción contra comparables de otro tamaño subvaluaría la propiedad.' if usa_terreno else 'Se aplicó el <strong>Método de Comparación de Mercado con Homologación Técnica</strong>. A cada comparable se aplicaron factores de ajuste por: <strong>Edad (Ross-Heidecke)</strong>, <strong>Estado de Conservación</strong> y <strong>Margen de Negociación</strong>. El valor final es un promedio ponderado que prioriza la <strong>mediana estadística</strong> para eliminar valores atípicos.'}</p>
     <p style="margin-top:4px;font-size:9px;color:var(--gray-400);">Norma: INDAABIN &middot; Manual de Valuación Bancaria SHF &middot; Circular CNBV 1/2009</p>
   </div>
 

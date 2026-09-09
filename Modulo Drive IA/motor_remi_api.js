@@ -832,6 +832,10 @@ const COMP_CAP_GENERAL = 10;
 function sumaDePartes(muniNorm, colNorm, m2T, m2C, edad, conservacion, esEjidal = false, pm2tOverride = 0, calidadConstruccion = '') {
     // Buscar pm2T en IDX de terrenos: colonia exacta (n≥3) → zona padre → similares residencial → municipal
     let pm2t = pm2tOverride || 0, nTerrenos = pm2tOverride ? 1 : 0;
+    // Detalle por comparable de la fuente que efectivamente ancló pm2t — para que el reporte
+    // pueda mostrar el estudio de mercado de terrenos, no solo el agregado (bug real 03-sep:
+    // el valor salía de 12 terrenos reales pero el reporte no mostraba ninguno).
+    let terrenosListado = [];
     const terrenosMuni = IDX[muniNorm]?.['terreno'] ?? {};
 
     // 1. Colonia exacta con n≥3 (n<3 es demasiado volátil para anclar sumaDePartes)
@@ -840,6 +844,7 @@ function sumaDePartes(muniNorm, colNorm, m2T, m2C, edad, conservacion, esEjidal 
         && terrenosCol.medianaPm2c <= PM2T_MAX_PLAUSIBLE) {
         pm2t = terrenosCol.medianaPm2c;
         nTerrenos = terrenosCol.count;
+        terrenosListado = terrenosCol.listings || [];
     }
 
     // 2. Zona padre: buscar colonia IDX cuyo nombre esté contenido en colNorm
@@ -849,7 +854,7 @@ function sumaDePartes(muniNorm, colNorm, m2T, m2C, edad, conservacion, esEjidal 
             .filter(([k, d]) => k.length >= 5 && colNorm.includes(k)
                 && d.count >= 5 && d.medianaPm2c > 0 && d.medianaPm2c <= PM2T_MAX_PLAUSIBLE)
             .sort((a, b) => b[1].count - a[1].count)[0]; // mayor n primero
-        if (match) { pm2t = match[1].medianaPm2c; nTerrenos = match[1].count; }
+        if (match) { pm2t = match[1].medianaPm2c; nTerrenos = match[1].count; terrenosListado = match[1].listings || []; }
     }
 
     // 3. Colonias similares: pm2T residual de casas — solo cuando terreno domina (ratio>2)
@@ -913,9 +918,15 @@ function sumaDePartes(muniNorm, colNorm, m2T, m2C, edad, conservacion, esEjidal 
     const valorConst = m2C > 0 ? costo * 1.20 * m2C * depre * fConserv * 0.95 : 0;
     const valor = Math.round(valorTerreno + valorConst);
 
+    const terrenosDetalle = terrenosListado
+        .filter(l => l.precio > 0 && l.m2t > 0)
+        .map(l => ({ precio: l.precio, m2t: l.m2t, pm2: Math.round(l.precio / l.m2t), fecha: l.fecha || null }))
+        .sort((a, b) => (b.fecha || '').localeCompare(a.fecha || ''))
+        .slice(0, 15);
+
     return { valor, pm2t: Math.round(pm2tTerreno), nTerrenos, nseKey,
              valorTerreno: Math.round(valorTerreno), valorConst: Math.round(valorConst),
-             poolTipo: 'suma_partes', nComps: nTerrenos };
+             poolTipo: 'suma_partes', nComps: nTerrenos, terrenosListado: terrenosDetalle };
 }
 
 // ── motor principal ───────────────────────────────────────────────────────────
