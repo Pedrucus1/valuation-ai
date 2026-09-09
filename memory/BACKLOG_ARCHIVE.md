@@ -5,6 +5,42 @@
 
 ---
 
+## 09 Sep 2026 (continuación) — Renta/plusvalía editables + Vercel sin auto-deploy desde agosto
+
+Sesión larga usando `val_908f730cbbf8` (El Roble) como caso de prueba real de punta a punta.
+
+- **Motor de terreno completo:** `sumaDePartes()` homologa $/m² de terreno por superficie
+  (factor `^1/6`, mismo que construcción — un lote de 300m² y uno de 5000m² ya no se
+  promedian como directamente comparables). Tabla `QUALITY_COSTS` reordenada (Económico
+  estaba arriba de Interés Social) y anclada a rangos reales 2026 dados por el usuario.
+  `calidadConstruccion` de la OPI manda sobre la inferencia por valor de terreno.
+- **Reporte:** cuando el valor viene de `suma_partes`/`lote_grande_*`, muestra tabla de
+  terrenos reales + desglose terreno/construcción en vez de la tabla de casas desconectada
+  del número (bug encontrado en vivo: "Confianza Baja" se calculaba sobre casas que no
+  sustentaban el valor real). Rango min/max de renta agregado. Anglicismos corregidos
+  ("Cap Rate"→"Tasa de Capitalización", "Home Staging"→"Consejos de Presentación"; "closets"
+  y "Roof Garden" quedaron igual, el usuario confirmó que sí se usan en México).
+- **Renta y plusvalía editables** en `ComparablesPage.jsx`, mismo patrón que el flywheel de
+  terreno $/m² del 03-sep: renta solo la ajusta `appraiser` (verificado server-side); plusvalía
+  la ajustan `appraiser` y `realtor` (tabla default por estado no capta zonas rurales). Default
+  de renta corregido de 6%→4% anual (dato de mercado del usuario).
+- **Scrapers nuevos:** `scrapers/monopolio.py` (SSR + geohash de colonia — único portal del
+  on-demand que necesita navegador, vía Puppeteer reusando `services/browserEnricher.js`) y
+  `scrapers/vivanuncios_detalle.py`. Bug real en `vivanuncios.py`: sin loc_code, OLX devolvía
+  resultados nacionales y el scraper los etiquetaba como "El Arenal" — 27 docs de otras
+  ciudades borrados de prod. **Violación de la regla de "nunca regex para colonia/dirección"
+  en `vivanuncios_detalle.py` y `scrapear_propiedades_com_urls.js` — pendiente corregir.**
+- **Hallazgo grande: Vercel no auto-desplegaba desde el 7-ago (95 commits, ~1 mes) — mismo bug
+  que Railway (03-sep, GitHub App/webhook roto).** Todos los fixes de frontend de ese mes
+  nunca llegaron a producción hasta el deploy manual (`vercel --prod`) de hoy. Railway también
+  necesitó `railway up` manual varias veces en el día. **Pendiente real: reconectar el
+  auto-deploy de verdad en ambos servicios** — si no, el síntoma se repite cada sesión sin que
+  se note hasta que alguien reporta "no veo mi cambio".
+- Commits: `d51c6a6`, `e254074`, `cb93549`, `25ff649`, `85db829`, `d6d188f`.
+- BACKLOG #185 (nuevo, no implementado): bóveda de respaldo pagado al descargar avalúo
+  público (6/12/18/36 meses, $50/$80/$120/$190 + popup correo/checkout + email). #187 (nuevo,
+  no implementado): CETES hardcodeado en 10%, falta integración real con Banxico.
+
 ## 09 Sep 2026 — Costos de construcción corregidos + homologación de terreno por superficie
 
 Sesión corta, dos correcciones al motor/reporte.

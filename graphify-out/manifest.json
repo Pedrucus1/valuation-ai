@@ -1390,9 +1390,9 @@
     "semantic_hash": "9cf6167f0d555cff553bcb4c75ec1c77"
   },
   "backend/report_generator.py": {
-    "mtime": 1788976251.014943,
-    "ast_hash": "22905d64d153652995c9653efc82a9c9",
-    "semantic_hash": "22905d64d153652995c9653efc82a9c9"
+    "mtime": 1788982906.7027445,
+    "ast_hash": "d25bc76a7891228e1681c574f4de01c1",
+    "semantic_hash": "d25bc76a7891228e1681c574f4de01c1"
   },
   "backend/reset_test_user.py": {
     "mtime": 1780612131.3906004,
@@ -1540,9 +1540,9 @@
     "semantic_hash": "51989d42cc68aef6103a840985db5751"
   },
   "backend/scraper.py": {
-    "mtime": 1772091954.1023743,
-    "ast_hash": "a44f25a8003bf13c31d031520d451434",
-    "semantic_hash": "a44f25a8003bf13c31d031520d451434"
+    "mtime": 1788982205.967844,
+    "ast_hash": "0314fd0fcd01e6c7c463a3b0dfe023c8",
+    "semantic_hash": "0314fd0fcd01e6c7c463a3b0dfe023c8"
   },
   "backend/seed_demo.py": {
     "mtime": 1775335459.9652848,
@@ -1555,9 +1555,9 @@
     "semantic_hash": "f726ef1400ce2cb93ebd6916b4e0cfcf"
   },
   "backend/server.py": {
-    "mtime": 1788976859.8722198,
-    "ast_hash": "9687f20bc81cb4ea0c82febf146feae3",
-    "semantic_hash": "9687f20bc81cb4ea0c82febf146feae3"
+    "mtime": 1788985663.267392,
+    "ast_hash": "07ccab5c3b7b43e7caf57110b62b83db",
+    "semantic_hash": "07ccab5c3b7b43e7caf57110b62b83db"
   },
   "backend/sheets_comparables.py": {
     "mtime": 1776473228.832765,
@@ -2305,9 +2305,9 @@
     "semantic_hash": "ce1e3aa5a2d850ad71377f498fe4be59"
   },
   "frontend/src/pages/ComparablesPage.jsx": {
-    "mtime": 1788433897.8977568,
-    "ast_hash": "009db2acf473338aa03128df8017c593",
-    "semantic_hash": "009db2acf473338aa03128df8017c593"
+    "mtime": 1788985688.6707776,
+    "ast_hash": "da5b41073864548c7058ad37b1acb594",
+    "semantic_hash": "da5b41073864548c7058ad37b1acb594"
   },
   "frontend/src/pages/ContactoPage.jsx": {
     "mtime": 1774044574.3909073,
@@ -3425,9 +3425,9 @@
     "semantic_hash": "81cb2abcde0d497a6d4b59bcebe886af"
   },
   "scraper-inmuebles/monitor_local.py": {
-    "mtime": 1788424989.45985,
-    "ast_hash": "7855ec00506af24d41149fdfd101f92d",
-    "semantic_hash": "7855ec00506af24d41149fdfd101f92d"
+    "mtime": 1788986807.4556994,
+    "ast_hash": "1f5c8845d485a59ec372adeeb3679c3c",
+    "semantic_hash": "1f5c8845d485a59ec372adeeb3679c3c"
   },
   "scraper-inmuebles/orquestador_ia.py": {
     "mtime": 1781568536.218039,
