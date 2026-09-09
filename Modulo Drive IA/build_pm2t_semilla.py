@@ -2,9 +2,12 @@
 # -*- coding: utf-8 -*-
 """Construye pm2t_semilla.json: valor de terreno ($/m2) por colonia,
 sembrado desde los comparables de TERRENO que el perito uso en sus 768 avaluos (cerebro_datos.json).
-Tambien incorpora el AC108 (valor terreno) de las hojas opi_*.xlsx descargadas si existen.
+Tambien incorpora el AC108 (valor terreno) de las hojas opi_*.xlsx descargadas si existen,
+y db.terreno_flywheel (Mongo, solo LECTURA) — terreno $/m2 confirmado a mano por el perito
+en el dashboard de comparables (#184-e), mismo nivel de confianza que AC108 (dato ganado, no calculado).
 Pondera por antiguedad: OPIs mas recientes pesan mas (decae cada 3 meses, ver peso())."""
 import json, re, sys, unicodedata, statistics as st, glob, os, datetime
+from pathlib import Path
 sys.stdout.reconfigure(encoding='utf-8')
 
 def folio_edad_meses(folio):
@@ -75,7 +78,40 @@ try:
         except Exception: pass
 except ImportError: pass
 
-out={'_meta':{'fecha':'2026-06-30','total_colonias':len(semilla),'fuente':'cerebro terreno comps + AC108 hojas perito'},
+# incorporar db.terreno_flywheel (Mongo, solo LECTURA) — terreno $/m2 confirmado a mano por
+# el perito en ComparablesPage.jsx, dato ganado igual de confiable que AC108. Pisa acc/semilla
+# como AC108, no requiere Mongo disponible (degrada limpio si no hay MONGO_URL o falla la conexion).
+n_flywheel = 0
+try:
+    from dotenv import load_dotenv
+    from pymongo import MongoClient
+    _ROOT = Path(__file__).resolve().parent.parent
+    load_dotenv(_ROOT / "scraper-inmuebles" / ".env")
+    load_dotenv(_ROOT / ".env")
+    _mongo_url = os.environ.get("MONGO_URL")
+    if _mongo_url:
+        cli = MongoClient(_mongo_url, serverSelectionTimeoutMS=10000)
+        db_name = os.environ.get("DB_NAME") or cli.get_default_database().name
+        rows = list(cli[db_name].terreno_flywheel.find({}, {
+            'municipio': 1, 'colonia': 1, 'valor_m2': 1,
+        }))
+        for r in rows:
+            muni = nm(r.get('municipio', '')); col = norm(r.get('colonia', ''))
+            val = num(r.get('valor_m2'))
+            if not muni or len(col) < 4 or not (1500 <= val <= 30000):
+                continue
+            key = f"{muni}|{col}"
+            semilla[key] = {'pm2T': round(val), 'n': semilla.get(key, {}).get('n', 0) + 1, 'fuente': 'perito_flywheel'}
+            n_flywheel += 1
+        cli.close()
+        print(f"terreno_flywheel: {n_flywheel} registros incorporados ({len(rows)} en la coleccion)")
+    else:
+        print("terreno_flywheel: MONGO_URL no encontrado, se omite (semilla queda solo con cerebro/AC108)")
+except Exception as e:
+    print(f"terreno_flywheel: omitido, {e}")
+
+out={'_meta':{'fecha':datetime.date.today().isoformat(),'total_colonias':len(semilla),
+              'fuente':'cerebro terreno comps + AC108 hojas perito + terreno_flywheel','n_flywheel':n_flywheel},
      'zonas':semilla}
 json.dump(out, open('pm2t_semilla.json','w',encoding='utf-8'), ensure_ascii=False, indent=1)
 print(f"pm2t_semilla.json escrito: {len(semilla)} colonias con valor de terreno")

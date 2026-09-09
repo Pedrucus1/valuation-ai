@@ -1,8 +1,9 @@
 {
  "_meta": {
-  "fecha": "2026-06-30",
-  "total_colonias": 562,
-  "fuente": "cerebro terreno comps + AC108 hojas perito"
+  "fecha": "2026-09-09",
+  "total_colonias": 570,
+  "fuente": "cerebro terreno comps + AC108 hojas perito + terreno_flywheel",
+  "n_flywheel": 0
  },
  "zonas": {
   "fracc colon|colon": {
@@ -141,8 +142,8 @@
    "fuente": "perito_terreno_comps"
   },
   "san agustin|san agustin": {
-   "pm2T": 8500,
-   "n": 3,
+   "pm2T": 8228,
+   "n": 9,
    "fuente": "perito_terreno_comps"
   },
   "tesistan|tesistan": {
@@ -301,8 +302,8 @@
    "fuente": "perito_terreno_comps"
   },
   "hacienda santa fe|hacienda santa fe": {
-   "pm2T": 3882,
-   "n": 17,
+   "pm2T": 3231,
+   "n": 20,
    "fuente": "perito_terreno_comps"
   },
   "santa anita|el mirador juan arias": {
@@ -981,8 +982,8 @@
    "fuente": "perito_terreno_comps"
   },
   "la calma|la calma": {
-   "pm2T": 13952,
-   "n": 14,
+   "pm2T": 19167,
+   "n": 17,
    "fuente": "perito_terreno_comps"
   },
   "guadalajara|alcalde barranquitas": {
@@ -1331,8 +1332,8 @@
    "fuente": "perito_terreno_comps"
   },
   "tonala|lomas de la soledad": {
-   "pm2T": 5314,
-   "n": 13,
+   "pm2T": 4218,
+   "n": 16,
    "fuente": "perito_terreno_comps"
   },
   "tonala|cerro de la reyna": {
@@ -2111,8 +2112,8 @@
    "fuente": "perito_terreno_comps"
   },
   "la estancia|la estancia": {
-   "pm2T": 19000,
-   "n": 2,
+   "pm2T": 26235,
+   "n": 6,
    "fuente": "perito_terreno_comps"
   },
   "ajijic|ajijic": {
@@ -2798,6 +2799,46 @@
   "zapopan|el fortin": {
    "pm2T": 12295,
    "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "santa anita|haciendas la candelaria": {
+   "pm2T": 6700,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "el sauz|el sauz": {
+   "pm2T": 9424,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|santa ana tepetitlan": {
+   "pm2T": 7812,
+   "n": 10,
+   "fuente": "perito_terreno_comps"
+  },
+  "mexico|guadalajara": {
+   "pm2T": 9521,
+   "n": 3,
+   "fuente": "perito_terreno_comps"
+  },
+  "la loma el salto|la loma el salto": {
+   "pm2T": 2100,
+   "n": 9,
+   "fuente": "perito_terreno_comps"
+  },
+  "guadalajara|chapalita": {
+   "pm2T": 26000,
+   "n": 4,
+   "fuente": "perito_terreno_comps"
+  },
+  "zapopan|francisco villa": {
+   "pm2T": 14759,
+   "n": 2,
+   "fuente": "perito_terreno_comps"
+  },
+  "tlajomulco|colinas del roble": {
+   "pm2T": 2800,
+   "n": 2,
    "fuente": "perito_terreno_comps"
   },
   "tlaquepaque|tateposco": {

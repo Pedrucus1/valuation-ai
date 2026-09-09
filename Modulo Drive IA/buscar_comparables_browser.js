@@ -243,9 +243,10 @@ async function buscarEnNocnok(zona) {
             // suele ser el m2c corrupto, no el precio. Filtro de cordura, no dato inventado.
             if (precio / m2c < 5000) continue;
 
-            // Pre-filtro barato: 'location' de búsqueda trae "colonia, municipio, estado".
-            const colonieRapida = (item.location || '').split(',')[0].trim();
-            let colonia = COLONIAS_OBJETIVO_N.has(normCol(colonieRapida)) ? colonieRapida : '';
+            // countyIds ya acota a TODO el municipio (server-side) — aceptar cualquier colonia de
+            // ahí, no solo las objetivo (mismo criterio ya aplicado en CasasYTerrenos/Propiedades.com
+            // para búsqueda municipio-wide; #184-a). 'location' de búsqueda trae "colonia, municipio, estado".
+            let colonia = (item.location || '').split(',')[0].trim();
             let anio = null;
 
             if (!colonia) {
@@ -257,7 +258,7 @@ async function buscarEnNocnok(zona) {
                 let det;
                 try { det = JSON.parse(d.body); } catch { continue; }
                 const settlement = det?.pageProps?.property?.settlement || '';
-                if (!settlement || !COLONIAS_OBJETIVO_N.has(normCol(settlement))) continue;
+                if (!settlement) continue;
                 colonia = settlement;
 
                 // yearBuilt: mismo detalle ya cargado — puede venir como edad-en-años o año directo
