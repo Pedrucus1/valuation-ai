@@ -340,8 +340,8 @@ def _err_log_path(portal: str) -> Path:
     return _ENRICHER_DIR / f"_enr_{portal.lower()}_err.log"
 
 
-def _pid_enricher(portal: str) -> int | None:
-    """Devuelve el PID del proceso enricher para el portal, o None si no corre."""
+def _pids_enricher(portal: str) -> list[int]:
+    """Devuelve TODOS los PIDs de enricher corriendo para el portal (puede haber duplicados leaked)."""
     try:
         result = subprocess.run(
             ["powershell", "-NonInteractive", "-Command",
@@ -349,15 +349,15 @@ def _pid_enricher(portal: str) -> int | None:
             capture_output=True, text=True, timeout=10,
             creationflags=0x08000000,  # CREATE_NO_WINDOW — no abrir ventana de PowerShell en pantalla
         )
-        pid_str = result.stdout.strip()
-        return int(pid_str) if pid_str.isdigit() else None
+        return [int(l) for l in result.stdout.splitlines() if l.strip().isdigit()]
     except Exception:
-        return None
+        return []
 
 
 def _matar_enricher(portal: str):
-    pid = _pid_enricher(portal)
-    if pid:
+    # ponytail: mata TODOS los duplicados leaked, no solo uno — un solo PID (isdigit) rompía
+    # la detección en cuanto había 2+, dejando acumular procesos sin límite.
+    for pid in _pids_enricher(portal):
         try:
             subprocess.run(["taskkill", "/F", "/PID", str(pid)],
                            capture_output=True, timeout=10,
