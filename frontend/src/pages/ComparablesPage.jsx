@@ -143,6 +143,8 @@ const ComparablesPage = () => {
   const [negotiation, setNegotiation] = useState(-5);
   // Valor de terreno $/m² confirmado por el perito (opcional) — flywheel de pm2t_semilla.
   const [terrenoPm2, setTerrenoPm2] = useState("");
+  // Factor de renta ajustado por el perito (opcional) — solo appraiser, ver render abajo.
+  const [rentaFactorOverride, setRentaFactorOverride] = useState("");
 
   useEffect(() => {
     fetchValuation();
@@ -436,7 +438,8 @@ const ComparablesPage = () => {
         headers: { "Content-Type": "application/json" },
         credentials: "include",
         body: JSON.stringify({
-          terreno_pm2_confirmado: terrenoPm2 ? Number(terrenoPm2) : null
+          terreno_pm2_confirmado: terrenoPm2 ? Number(terrenoPm2) : null,
+          rental_factor_override: rentaFactorOverride ? Number(rentaFactorOverride) : null
         })
       });
 
@@ -738,6 +741,28 @@ const ComparablesPage = () => {
                   className="h-8 w-28 text-sm border-[#52B788] text-[#1B4332] font-semibold"
                   data-testid="terreno-pm2-input"
                 />
+              </div>
+              {/* Renta estimada: visible para todos, editable SOLO para el valuador (no
+                  inmobiliaria) — mismo patrón de campo opcional que terreno $/m² arriba. */}
+              <div className="flex items-center gap-2">
+                <Label className="text-xs font-semibold text-slate-500 whitespace-nowrap">
+                  Renta estimada: {formatCurrency(valuation?.result?.market_metrics?.monthly_rent_estimate || 0)}/mes
+                </Label>
+                {user?.role === "appraiser" && (
+                  <>
+                    <Label className="text-xs font-semibold text-slate-500 whitespace-nowrap">Factor (opcional):</Label>
+                    <Input
+                      type="number"
+                      min="0"
+                      step="0.0001"
+                      value={rentaFactorOverride}
+                      onChange={(e) => setRentaFactorOverride(e.target.value)}
+                      placeholder={String(valuation?.result?.market_metrics?.rental_factor_used || 0.005)}
+                      className="h-8 w-24 text-sm border-[#52B788] text-[#1B4332] font-semibold"
+                      data-testid="renta-factor-input"
+                    />
+                  </>
+                )}
               </div>
             </div>
 

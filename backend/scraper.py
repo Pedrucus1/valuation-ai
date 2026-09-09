@@ -479,7 +479,9 @@ def calculate_market_metrics(
     estimated_value: float,
     rental_factor: float,
     property_type: str,
-    state: str
+    state: str,
+    value_min: float = None,
+    value_max: float = None,
 ) -> Dict:
     """
     Calculate additional market metrics
@@ -487,6 +489,9 @@ def calculate_market_metrics(
     # Monthly rent estimate
     monthly_rent = estimated_value * rental_factor
     annual_rent = monthly_rent * 12
+    # Rango de renta: mismo factor aplicado al rango de valor, no un cálculo aparte.
+    monthly_rent_min = (value_min if value_min is not None else estimated_value) * rental_factor
+    monthly_rent_max = (value_max if value_max is not None else estimated_value) * rental_factor
     
     # Cap Rate (Annual rent / Property value)
     cap_rate = (annual_rent / estimated_value) * 100 if estimated_value > 0 else 0
@@ -506,6 +511,8 @@ def calculate_market_metrics(
     
     return {
         "monthly_rent_estimate": round(monthly_rent, 2),
+        "monthly_rent_min": round(monthly_rent_min, 2),
+        "monthly_rent_max": round(monthly_rent_max, 2),
         "annual_rent_estimate": round(annual_rent, 2),
         "cap_rate": round(cap_rate, 2),
         "annual_appreciation": appreciation,

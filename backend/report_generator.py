@@ -53,7 +53,7 @@ FEATURE_ICONS = {
 FEATURE_NAMES = {
     "parking": "Estacionamiento", "pool": "Alberca", "garden": "Jardín", "patio": "Patio",
     "terrace": "Terraza", "gym": "Gimnasio", "security": "Seguridad 24/7", "elevator": "Elevador",
-    "rooftop": "Terraza-Jardín", "service_room": "Cuarto de Servicio", "laundry_room": "Cuarto de Lavado",
+    "rooftop": "Roof Garden", "service_room": "Cuarto de Servicio", "laundry_room": "Cuarto de Lavado",
     "storage": "Bodega/Almacén", "kitchen_integral": "Cocina Integral",
     "solar_panels": "Paneles Solares", "solar_heater": "Calentador Solar",
     "cistern": "Cisterna/Aljibe", "electric_fence": "Cerca Eléctrica", "ac": "Aire Acondicionado",
@@ -594,6 +594,9 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
     # Market metrics
     market_metrics = result.get('market_metrics', {})
     monthly_rent = market_metrics.get('monthly_rent_estimate', 0)
+    # Fallback ±10% para reportes viejos generados antes de que el cálculo devolviera rango.
+    monthly_rent_min = market_metrics.get('monthly_rent_min') or monthly_rent * 0.9
+    monthly_rent_max = market_metrics.get('monthly_rent_max') or monthly_rent * 1.1
     cap_rate = float(market_metrics.get('cap_rate', 0))
     appreciation = float(market_metrics.get('annual_appreciation', 5))
     similar_count = market_metrics.get('similar_properties_count', len(comparables))
@@ -1292,6 +1295,7 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
     <div class="resumen-box">
       <div class="rb-value">${monthly_rent:,.0f}</div>
       <div class="rb-label">Renta / Mes</div>
+      <div class="value-range" style="font-size:9px;">Rango: ${monthly_rent_min:,.0f} &mdash; ${monthly_rent_max:,.0f}</div>
     </div>
     <div class="resumen-box">
       <div class="rb-value">${physical_value:,.0f}</div>
@@ -1513,7 +1517,7 @@ def generate_html_report(valuation: dict, analysis: str, include_analysis: bool 
     </div>
     <div class="tip-card">
       <div class="tip-icon">&#x1F4E6;</div>
-      <div><div class="tip-title">Despersonalización:</div><div class="tip-text">Retirar fotos familiares, ordenar armarios, reducir muebles. Espacios vacíos se perciben más amplios</div></div>
+      <div><div class="tip-title">Despersonalización:</div><div class="tip-text">Retirar fotos familiares, ordenar closets, reducir muebles. Espacios vacíos se perciben más amplios</div></div>
     </div>
     <div class="tip-card">
       <div class="tip-icon">&#x1F527;</div>

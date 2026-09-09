@@ -1685,6 +1685,25 @@ async def calculate_remi(valuation_id: str, request: Request):
             "fecha": datetime.now(timezone.utc).isoformat(),
         })
 
+    # Factor de renta ajustado por el perito (ComparablesPage) — a diferencia del
+    # flywheel de terreno de arriba, este SÍ cambia el cálculo (no solo se loguea):
+    # si el valuador conoce la renta real de la zona, tiene forma de corregirla antes
+    # de generar el reporte. Solo el rol "appraiser" puede ajustarlo — si otro rol
+    # manda el campo (no debería, el frontend lo oculta) se ignora server-side.
+    rental_factor_override = body.get("rental_factor_override")
+    if rental_factor_override and float(rental_factor_override) > 0:
+        _rfu = await get_current_user(request)
+        if _rfu and (_rfu.role or "").lower() in ("appraiser", "super_admin"):
+            await db.valuations.update_one(
+                {"valuation_id": valuation_id},
+                {"$set": {"rental_factor_data": {
+                    "factor": float(rental_factor_override),
+                    "source": "perito_confirmado",
+                    "rental_listings_count": (valuation.get("rental_factor_data") or {}).get("rental_listings_count", 0),
+                }}},
+            )
+            valuation["rental_factor_data"] = {"factor": float(rental_factor_override)}
+
     if result.get("error") and result.get("valor", 0) == 0:
         raise HTTPException(status_code=422, detail=result["error"])
 
@@ -1750,6 +1769,8 @@ async def calculate_remi(valuation_id: str, request: Request):
         rental_factor=rfd.get("factor", 0.005),
         property_type=prop.get("property_type", "Casa"),
         state=prop.get("state", ""),
+        value_min=valor * (1 - rango),
+        value_max=valor * (1 + rango),
     )
     mm["similar_properties_count"] = int(result.get("nComps") or 0)
     mm["rental_listings_count"] = rfd.get("rental_listings_count", 0)
