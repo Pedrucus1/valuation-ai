@@ -1,0 +1,43 @@
+  OPI-24-11-04-AV  diff:+32.0%  pool:suma_partes_mix  n:3
+  OPI-25-4-15-AV   diff:+31.3%  pool:suma_partes_mix  n:4
+  OPI-23-10-22-OF  diff:-31.2%  pool:similares  n:5
+  OPI-24-10-03-AV  diff:-31.2%  pool:exacta  n:3
+  OPI-24-11-32-AV  diff:-31.1%  pool:suma_partes  n:76
+  OPI-24-9-23-AV   diff:+30.8%  pool:suma_partes_mix  n:3
+  OPI-25-7-03-OF   diff:+29.9%  pool:exacta  n:6
+  OPI-24-9-11-AV   diff:+29.9%  pool:suma_partes_mix  n:3
+  OPI-24-2-25-EK   diff:+29.0%  pool:exacta  n:6
+  OPI-23-12-24-OF  diff:-27.5%  pool:lote_grande_cus  n:5
+  OPI-26-7-18-OF   diff:-27.2%  pool:general  n:9
+  OPI-25-1-14-EK   diff:+26.9%  pool:exacta  n:10
+  OPI-24-6-12-OF   diff:-26.7%  pool:exacta+w  n:6
+  OPI-24-10-21-AV  diff:-26.7%  pool:exacta+w  n:6
+  OPI-25-2-08-RM   diff:+26.6%  pool:exacta  n:5
+  No hallado       diff:-26.5%  pool:exacta  n:2
+  OPI-23-10-27-OF  diff:+26.4%  pool:lote_grande_cus  n:13
+  OPI-25-2-03-RM   diff:+26.3%  pool:lote_grande_cus  n:5
+  OPI-25-6-13-LM   diff:-26.2%  pool:exacta  n:2
+  OPI-23-8-09-OF   diff:-25.7%  pool:exacta+w  n:7
+  OPI-25-2-14-RM   diff:+25.7%  pool:suma_partes_mix  n:4
+  OPI-24-11-37-AV  diff:-25.4%  pool:exacta  n:3
+  OPI-25-5-14-OF   diff:-24.5%  pool:exacta  n:3
+  OPI-24-11-18-OF  diff:+24.4%  pool:exacta  n:4
+  OPI-24-10-24-OF  diff:+24.2%  pool:exacta  n:4
+  OPI-25-7-10-LM   diff:+24.1%  pool:lote_grande_cus  n:26
+  OPI-24-10-08-AV  diff:+23.5%  pool:exacta  n:5
+  OPI-25-9-15-OF   diff:-23.5%  pool:lote_grande_cus  n:35
+  OPI-25-6-08-OF   diff:+23.2%  pool:exacta  n:4
+  OPI-24-3-09-EK   diff:+22.8%  pool:exacta  n:3
+  OPI-24-2-17-EK   diff:+22.5%  pool:exacta  n:3
+  OPI-24-11-08-AV  diff:-22.3%  pool:exacta+w  n:5
+  OPI-24-9-18-AV   diff:-22.3%  pool:exacta  n:3
+  OPI-24-10-28-AV  diff:+22.2%  pool:lote_grande_cus  n:14
+  OPI-24-7-26-AV   diff:-21.6%  pool:exacta  n:3
+  OPI-24-9-21-AV   diff:-21.3%  pool:suma_partes_mix  n:4
+  OPI-25-3-21-AV   diff:+21.0%  pool:exacta  n:7
+  OPI-24-12-17-AV  diff:-20.9%  pool:exacta  n:6
+  OPI-26-8-03-OF   diff:-20.1%  pool:exacta  n:3
+
+
+[exited with code 0]
+Guardado: validar_40_opis.js --n 999, corrido 2026-09-09 tras homologacion de terreno + tabla de costos corregida. Sin resumen agregado (bug del script, solo listo peores 40 diffs sin comparar antes/despues). Pendiente: revisar despues / correr version que si compare.
