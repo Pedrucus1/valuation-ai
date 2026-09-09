@@ -1704,6 +1704,18 @@ async def calculate_remi(valuation_id: str, request: Request):
             )
             valuation["rental_factor_data"] = {"factor": float(rental_factor_override)}
 
+    # Plusvalía anual ajustada — a diferencia del factor de renta, aquí SÍ pueden ambos
+    # roles (perito e inmobiliaria): la tabla default (scraper.py::appreciation_rates)
+    # es por estado, no por zona — una campestre rural como El Roble no aprecia igual
+    # que zona urbana de Jalisco. Se guarda directo en la OPI, no requiere rol específico.
+    plusvalia_override = body.get("plusvalia_override")
+    if plusvalia_override is not None and float(plusvalia_override) >= 0:
+        await db.valuations.update_one(
+            {"valuation_id": valuation_id},
+            {"$set": {"appreciation_override": float(plusvalia_override)}},
+        )
+        valuation["appreciation_override"] = float(plusvalia_override)
+
     if result.get("error") and result.get("valor", 0) == 0:
         raise HTTPException(status_code=422, detail=result["error"])
 
@@ -1774,6 +1786,8 @@ async def calculate_remi(valuation_id: str, request: Request):
     )
     mm["similar_properties_count"] = int(result.get("nComps") or 0)
     mm["rental_listings_count"] = rfd.get("rental_listings_count", 0)
+    if valuation.get("appreciation_override") is not None:
+        mm["annual_appreciation"] = float(valuation["appreciation_override"])
     web_result = {
         "comparative_min_value": round(valor * (1 - rango), 2),
         "comparative_avg_value": round(valor, 2),

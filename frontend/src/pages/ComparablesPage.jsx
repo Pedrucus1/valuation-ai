@@ -145,6 +145,8 @@ const ComparablesPage = () => {
   const [terrenoPm2, setTerrenoPm2] = useState("");
   // Factor de renta ajustado por el perito (opcional) — solo appraiser, ver render abajo.
   const [rentaFactorOverride, setRentaFactorOverride] = useState("");
+  // Plusvalía anual ajustada (opcional) — visible/editable para appraiser E inmobiliaria.
+  const [plusvaliaOverride, setPlusvaliaOverride] = useState("");
 
   useEffect(() => {
     fetchValuation();
@@ -439,7 +441,8 @@ const ComparablesPage = () => {
         credentials: "include",
         body: JSON.stringify({
           terreno_pm2_confirmado: terrenoPm2 ? Number(terrenoPm2) : null,
-          rental_factor_override: rentaFactorOverride ? Number(rentaFactorOverride) : null
+          rental_factor_override: rentaFactorOverride ? Number(rentaFactorOverride) : null,
+          plusvalia_override: plusvaliaOverride !== "" ? Number(plusvaliaOverride) : null
         })
       });
 
@@ -763,6 +766,23 @@ const ComparablesPage = () => {
                     />
                   </>
                 )}
+              </div>
+              {/* Plusvalía: a diferencia de renta, aquí SÍ puede editar inmobiliaria también
+                  — la tabla default es por estado, no capta zonas rurales/campestres. */}
+              <div className="flex items-center gap-2">
+                <Label className="text-xs font-semibold text-slate-500 whitespace-nowrap">
+                  Plusvalía anual (opcional, %):
+                </Label>
+                <Input
+                  type="number"
+                  min="0"
+                  step="0.1"
+                  value={plusvaliaOverride}
+                  onChange={(e) => setPlusvaliaOverride(e.target.value)}
+                  placeholder={String(valuation?.result?.market_metrics?.annual_appreciation || 5)}
+                  className="h-8 w-20 text-sm border-[#52B788] text-[#1B4332] font-semibold"
+                  data-testid="plusvalia-input"
+                />
               </div>
             </div>
 
