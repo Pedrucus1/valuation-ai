@@ -2,45 +2,53 @@
 
 > **Único archivo que se lee al iniciar** (corto, siempre vigente). Tareas por # → `BACKLOG.md` (grep). Historial → `BACKLOG_ARCHIVE.md`. Motor → `MOTOR_ANTECEDENTES.md` (grep). **Se sobrescribe en cada cierre de sesión.**
 
-**Última actualización:** 09 Sep 2026
-**Fase:** Prod Railway + Vercel, ambos desplegados manualmente hoy (ver #7). Caso real
-"El Roble" (`val_908f730cbbf8`) usado todo el día como caso de prueba end-to-end.
+**Última actualización:** 09 Sep 2026 (tarde-noche)
+**Fase:** Vercel auto-deploy reconectado de verdad (GitHub App + git link, ya no manual).
+Railway auto-deploy dejado **staged** (repo/root/start command listos, falta que el
+usuario apruebe el deploy en su dashboard — no se tocó en vivo por riesgo a prod).
 
 ## 🔥 LO MÁS CALIENTE — qué sigue
 
-1. **Motor de terreno completo (#186).** `sumaDePartes()` ya homologa $/m² de terreno por
-   superficie (factor `^1/6`, mismo que construcción — no mezcla lotes de 300m² y 5000m² como
-   directamente comparables). Reporte muestra la tabla de terrenos reales + desglose
-   terreno/construcción cuando `poolTipo` es `suma_partes`/`lote_grande_*` (antes mostraba
-   casas desconectadas del valor real y "Confianza Baja" sin sentido).
-2. **Tabla de costos de construcción (`QUALITY_COSTS`) corregida (#186).** Estaba invertida
-   (Económico > Interés Social) desde hace tiempo; ahora ordenada y anclada a rangos reales
-   2026 (Económico $8k → Lujo $38k/m²). 3 archivos: `motor_remi_api.js`, `server.py` (2
-   ocurrencias), `FlippingCalculatorPage.jsx`. `calidadConstruccion` de la OPI ahora manda
-   sobre la inferencia por valor de terreno (fallaba en zonas rurales con terreno barato +
-   construcción de nivel medio/alto encima, ej. El Roble).
-3. **Renta y plusvalía editables (#186, nuevo hoy).** Factor de renta default bajó de 6%→4%
-   anual. Override en `ComparablesPage.jsx` junto al de terreno $/m²: **renta solo la edita
-   appraiser** (server-side, no solo oculto en frontend); **plusvalía la editan appraiser Y
-   realtor** (tabla default es por estado, no capta zonas rurales). Reporte ahora muestra
-   rango min/max de renta, no solo el punto.
-4. **Vercel NO auto-desplegaba desde el 7-ago (95 commits atrás) — mismo bug que Railway
-   (sesión 03-sep).** Deploy manual por CLI hecho hoy (`vercel --prod` desde `frontend/`) y
-   confirmado en producción. **Pendiente real: reconectar el auto-deploy de verdad en AMBOS
-   servicios** (revisar GitHub App de Railway reinstalada + integración git de Vercel) — si no,
-   cada sesión futura va a necesitar el mismo deploy manual sin darse cuenta de que hace falta.
-5. **BACKLOG #185 (nuevo, NO implementado):** bóveda de respaldo pagado para avalúo público al
-   descargar (6/12/18/36 meses, $50/$80/$120/$190) — aviso + popup correo/checkout + email de
-   confirmación. Requiere Stripe conectado (prerequisito N4, SAPI constituida).
-6. **Bug real NO resuelto — colisión de NSE entre colonias homónimas de distinto municipio.**
+1. **Railway: aprobar el deploy staged.** `railway/connect-service-source` +
+   `update-service` (root `backend`, start `uvicorn server:app --host 0.0.0.0 --port $PORT`,
+   reemplaza el placeholder `echo HELLO_FROM_RAILWAY`) quedaron preparados sin aplicar.
+   El usuario tiene que darle "Deploy" en el dashboard de Railway para que el auto-deploy
+   quede realmente activo.
+2. **CETES real, cascada Banxico → Gemini → fijo (#187, cerrado y verificado en vivo).**
+   `backend/cetes.py` nuevo: Banxico SIE API (necesita `BANXICO_TOKEN`, el usuario no lo
+   tiene todavía) → si falla, le pregunta a Gemini con anti-alucinación (rango 3-20%,
+   fecha del año actual/anterior) → si también falla, 10% fijo (mismo comportamiento de
+   antes). Corrida real: `{rate: 11.0, source: 'gemini'}`, caché 24h confirmado. Reporte
+   muestra footnote con la fuente real. Pendiente del usuario: sacar token gratis en
+   banxico.org.mx/SieAPIRest y ponerlo en Railway si quiere la fuente oficial en vez de IA.
+3. **AdminActividad.jsx construida y verificada en vivo (#170, cerrado).** Tabla de
+   `activity_log` con filtro tipo/buscador/expandir stack trace. Login admin, backend
+   local, 4 filas reales en staging — todo confirmado con screenshot, no solo por código.
+4. **#184 casi cerrado (a/b/c/e; solo falta d).**
+   - (a) NOCNOK ya no descarta resultados fuera de colonias objetivo (mismo bug ya resuelto
+     en CasasYTerrenos/Propiedades.com). Pincali sigue sin cubrir todo el municipio — su URL
+     es por-colonia, cambio estructural mayor, no trivial.
+   - (b) Era falsa alarma: el pipeline canónico de `colonias_similares` ya estaba resuelto
+     desde el 3-sep, solo faltaba documentarlo — hecho en `INDICE_MOTOR.md`.
+   - (c) Medido en vivo primero (regla del proyecto): pipeline completo de 7 pasos tarda
+     4m1s contra Mongo real. Wireado: `scheduler.py` lo dispara al final de cualquier
+     corrida (bloqueante, ya es un batch de horas); `ondemand_pipeline.py` lo dispara en
+     background (`Popen`, no alarga la espera del usuario en el dashboard).
+   - (d) NSE de terreno con la misma tabla que casas — sigue sin decidir, es pregunta
+     metodológica, no código, no urgente.
+   - (e) `build_pm2t_semilla.py` ya lee `db.terreno_flywheel` (solo lectura), verificado
+     corriendo en vivo — colección vacía hoy, degrada limpio a cerebro/AC108.
+5. **Bug real NO resuelto — colisión de NSE entre colonias homónimas de distinto municipio.**
    `colonias_maestro.json` indexa por nombre de colonia solo (sin municipio). El precio SÍ se
    corrige (guardia en `motor_remi_api.js` ~984-992), la clasificación NSE (nseIdx) no. No
    cuantificado cuántas colonias colisionan — sesión propia pendiente.
-7. **Regex prohibido — violación real hoy, sin corregir.** `scraper-inmuebles/scrapers/
+6. **Regex prohibido — violación real, sin corregir.** `scraper-inmuebles/scrapers/
    vivanuncios_detalle.py` y el fallback de colonia en `Modulo Drive IA/
    scrapear_propiedades_com_urls.js` usan regex sobre texto libre para colonia/dirección
    (regla dura: SIEMPRE por IA, nunca regex — memoria `feedback_no_regex`). Pendiente migrar
    esa extracción a IA.
+7. **BACKLOG #185 (NO implementado):** bóveda de respaldo pagado para avalúo público al
+   descargar (6/12/18/36 meses, $50/$80/$120/$190). Requiere Stripe conectado (N4, SAPI).
 
 ## ⏳ Pendientes de sesiones anteriores (sin tocar hoy, siguen abiertos)
 - Decisión 9-ago: NO self-hostear IA de reportes.
@@ -48,13 +56,12 @@
 - Rediseño hoja 2 A4 EstateElite (pedir dirección de diseño antes de construir).
 - MITULA #158 (excluido a propósito del caché, dato corrupto).
 - San Isidro Mazatepec da 0 en INMUEBLES24 — puede ser localidad sin slug propio.
-- Log de actividad admin (#170): backend hecho, falta `AdminActividad.jsx`.
-- #184: pendientes de scraping on-demand/similares.json de la sesión 03-sep, sin tocar hoy.
+- Pincali sin cubrir municipio completo (ver #184-a arriba).
 - Ver `BACKLOG.md` tabla completa para el resto.
 
 ## 🌐 URLs / accesos
-- **Sitio:** https://frontend-rosy-six-74.vercel.app — actualizado hoy (deploy manual, auto-deploy roto — ver #4).
-- **Backend API:** https://propvalu-backend-production.up.railway.app — auto-deploy roto, deploy manual por CLI (`railway up`) — ver #4.
+- **Sitio:** https://frontend-rosy-six-74.vercel.app — auto-deploy RECONECTADO hoy (GitHub App + git link en proyecto "frontend" de Vercel).
+- **Backend API:** https://propvalu-backend-production.up.railway.app — auto-deploy STAGED (falta aprobar en dashboard, ver punto 1).
 - **Prod Mongo:** `cluster0.9eliadx.mongodb.net`
 - **Backend local:** apunta a **staging** (`cluster1.avle5ez.mongodb.net`) — distinto del cluster de producción, no confundir al verificar datos.
 - **Atlas de colonias (revisión, ChatGPT):** https://atlas-colonias-guadalajara.avaluosyarquit852538.chatgpt.site/

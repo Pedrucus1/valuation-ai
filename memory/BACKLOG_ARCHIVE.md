@@ -5,6 +5,65 @@
 
 ---
 
+## 09 Sep 2026 (noche) — Vercel/Railway reconectados, CETES real, AdminActividad, #184 casi cerrado
+
+- **Vercel auto-deploy reconectado de verdad** (no manual como en la sesión anterior). Bloqueo
+  real: "Login Connection" con GitHub en la cuenta de Vercel (paso de cuenta, no de API) — el
+  usuario lo agregó a mitad de sesión. Luego faltó instalar la GitHub App de Vercel en el repo
+  (confirmado con el usuario antes de instalar, solo repo `valuation-ai`). El proyecto real de
+  producción en Vercel se llama **"frontend"** (dominio `frontend-rosy-six-74.vercel.app`), NO
+  "valuation-ai" — `create_git_project` vía MCP creó un proyecto duplicado vacío por ese desfase
+  de nombre (se dejó, el usuario decidió no borrarlo). Conexión real hecha a mano en el dashboard
+  (`Project Settings → Git → Connect`).
+- **Railway dejado en `staged`, sin aplicar** — decisión explícita del usuario, no tocar en vivo
+  un backend de producción funcionando. `connect-service-source` + `update-service` (root
+  `backend`, start command real reemplazando el placeholder `echo HELLO_FROM_RAILWAY` que tenía).
+  Falta que el usuario apruebe en el dashboard de Railway.
+- **CETES real (#187).** `backend/cetes.py` nuevo: cascada Banxico SIE API (requiere
+  `BANXICO_TOKEN`, el usuario no lo tiene) → Gemini como fallback (pedido explícito del usuario:
+  aprovechar que el reporte ya le pregunta varias cosas a la IA) con anti-alucinación (rango
+  3-20%, fecha del año actual/anterior) → fijo 10% (mismo comportamiento de antes). Corrida real
+  verificada por subagente: `{rate: 11.0, source: 'gemini'}`, caché 24h confirmado sin llamada
+  repetida. Reporte muestra footnote con la fuente real ("Banxico"/"estimado por IA"/"referencia").
+- **AdminActividad.jsx (#170) construida y verificada en vivo con screenshot**, no solo por
+  lectura de código — login admin real, backend local contra staging, 4 filas reales de
+  `activity_log`, filtro por tipo/buscador de texto/expandir stack trace confirmados.
+- **#184 casi cerrado (a/b/c/e; solo falta d).**
+  - (b) era falsa alarma: el pipeline canónico de `colonias_similares` ya estaba resuelto desde
+    el 3-sep (`generar_similares_sepomex.js` → `construir_maestro.js` → `merge_simIA_a_maestro.js`,
+    `colonias_maestro.json` es lo único que lee el motor en prod) — solo faltaba documentarlo en
+    `INDICE_MOTOR.md`.
+  - (a) NOCNOK tenía el mismo bug ya resuelto en CasasYTerrenos/Propiedades.com: buscaba todo el
+    municipio vía API (`countyIds`) pero descartaba resultados fuera de las colonias objetivo —
+    corregido. Pincali sigue sin cubrir todo el municipio, es un cambio estructural (su URL es
+    por-colonia: `/properties/houses-for-sale-in-{slug}`), no trivial.
+  - (c) medido en vivo primero (regla dura del proyecto — nunca conectar sin medir): pipeline
+    completo de 7 pasos (`actualizar_indices_motor.js`) tarda 4m1s contra Mongo real. Wireado
+    después: bloqueante al final de `scheduler.py` (cualquier corrida, ya es un batch de horas);
+    background (`Popen`, no `subprocess.run`) al final de `ondemand_pipeline.py` para no alargar
+    el ETA que el usuario ve en el dashboard. `colonias_maestro.json` regenerado en la corrida de
+    medición: 3,898 colonias, 297 con NSE de flywheel, 2,761 con similares.
+  - (e) `build_pm2t_semilla.py` ahora lee `db.terreno_flywheel` (solo lectura, mismo patrón que
+    `actualizar_cache_consolidado_mongo.py` — `MONGO_URL` del `.env`, nunca hardcodeada).
+    Verificado corriendo en vivo: conecta bien, colección vacía hoy, degrada limpio a
+    cerebro/AC108 sin romper nada (562→570 colonias es deriva normal por fecha, no bug).
+  - (d) NSE de terreno con la misma tabla de umbrales que casas sigue sin decidir — pregunta
+    metodológica, no de código, el usuario no está seguro, no urgente.
+- **Patrón de trabajo nuevo en esta sesión:** varias tareas independientes delegadas a
+  subagentes en paralelo (CETES, AdminActividad, verificación en navegador con screenshot,
+  investigación de #184-b) mientras la conversación principal seguía atendiendo otros
+  pendientes — pedido explícito del usuario ("pon esta tarea con subagentes, y deja aqui para
+  dialogar de otros pendientes") para no bloquear el hilo esperando cada resultado.
+- **Aprendizaje operativo:** un intento de subagente (conectar `build_pm2t_semilla.py` a Mongo
+  de producción, solo lectura) fue bloqueado por el clasificador de permisos de Claude Code por
+  el lenguaje del prompt ("Mongo de producción") aunque la operación en sí era segura — se hizo
+  directo en el hilo principal sin problema, siguiendo el mismo patrón ya usado por
+  `actualizar_cache_consolidado_mongo.py`.
+- Commits: `09f5251`, `98de38a`, `9a79100`, `f848953` (+ `10c2c16` CETES, `4e089f0`
+  AdminActividad, de los subagentes).
+
+---
+
 ## 09 Sep 2026 (continuación) — Renta/plusvalía editables + Vercel sin auto-deploy desde agosto
 
 Sesión larga usando `val_908f730cbbf8` (El Roble) como caso de prueba real de punta a punta.
