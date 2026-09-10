@@ -5,6 +5,20 @@
 
 ---
 
+## 10 Sep 2026 (tarde) — Railway auto-deploy reconectado + CETES token cargado
+
+**Railway (#189):** el patch staged (repo `Pedrucus1/valuation-ai` conectado, Root Directory=`backend`, start command uvicorn) llevaba semanas sin aplicar (ver ESTADO.md sesión madrugada). Antes de aprobarlo, el MCP de Railway mostró un diff ambiguo: 16 variables de entorno (Mongo, JWT, API keys, SMTP) marcadas como "removed", lo que habría tumbado producción. Se verificó directo en el dashboard de Railway (navegador) en vez de confiar en el MCP — ahí el diff real mostraba solo 4 cambios seguros (Branch, Repo, Root Directory, Start Command), confirmando que era un artefacto de cómo el tool arma el diff, no un riesgo real.
+
+Al aprobar el deploy, el build falló dos veces: "/backend/requirements.txt: not found". Causa raíz: el `Dockerfile` en la raíz del repo asume que el contexto de build es la raíz (`COPY backend/requirements.txt ./backend/`, `CMD cd backend && uvicorn...`) — con `Root Directory=backend`, Railway arma el contexto ya DENTRO de `backend/`, así que `COPY backend/requirements.txt` busca `backend/backend/requirements.txt`. Fix: `Root Directory` de vuelta a la raíz del repo + Start Command explícito `cd backend && uvicorn server:app --host 0.0.0.0 --port $PORT`.
+
+Gotcha de plataforma descubierto en el proceso: el botón "Redeploy" (tanto del historial de deployments como el del menú de tres puntos sobre un deployment específico) reusa el snapshot CONGELADO de ESE deployment — no la config live del servicio. Así que aplicar el fix vía `update-service` no alcanzaba: dos redeploys seguidos repitieron el mismo error porque seguían construyendo con el snapshot roto. La solución fue volver a llamar `connect-service-source` (mismo repo/rama) para forzar un deployment genuinamente nuevo que sí levanta la config actual del servicio. Verificado end-to-end: build OK, deploy OK, `GET /api/health` → `{"status":"healthy",...}` en prod. A partir de ahora un push a `main` dispara deploy solo (antes era `railway up` manual, mismo patrón de brecha que se había visto con Vercel en la sesión del 9-sep).
+
+**CETES (#187):** el usuario sacó el token gratuito de Banxico en banxico.org.mx/SieAPIRest y lo pasó por chat. Se confirmó primero el nombre exacto de la env var (`BANXICO_TOKEN`, grep en `backend/cetes.py`) antes de cargarlo, para no adivinar. Cargado en `.env` raíz (repo base, vía Bash porque el Edit/Write tool bloquea escribir fuera del worktree de la sesión) + Railway prod (`set-variables`) + registrado en `credentials_registry.md` (memoria global). Cascada Banxico → Gemini → fijo 10% queda usando la fuente oficial.
+
+**Login Railway anotado:** el usuario entra al dashboard vía GitHub → "Continue with Google" con pedrucus@gmail.com, no con password directo de GitHub — quedó registrado en `credentials_registry.md` para no volver a preguntar.
+
+---
+
 ## 10 Sep 2026 (madrugada) — #188 colisión de NSE cerrada + #185 bóveda de respaldo construida
 
 **#188 (colisión de NSE entre colonias homónimas de distinto municipio).** Cuantificado primero:

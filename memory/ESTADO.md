@@ -2,17 +2,30 @@
 
 > **Único archivo que se lee al iniciar** (corto, siempre vigente). Tareas por # → `BACKLOG.md` (grep). Historial → `BACKLOG_ARCHIVE.md`. Motor → `MOTOR_ANTECEDENTES.md` (grep). **Se sobrescribe en cada cierre de sesión.**
 
-**Última actualización:** 10 Sep 2026 (madrugada)
-**Fase:** Dos features cerrados hoy — colisión de NSE (#188) y bóveda de respaldo (#185).
+**Última actualización:** 10 Sep 2026 (tarde/noche)
+**Fase:** Deploy de Railway reconectado a auto-deploy (#189) + token CETES real cargado (#187 cerrado del todo).
 Servidores locales de prueba (backend/frontend) apagados al cerrar sesión. El scraper
 mensual sigue corriendo independiente en background (Windows Task Scheduler), no se tocó.
 
 ## 🔥 LO MÁS CALIENTE — qué sigue
 
-1. **Railway: aprobar el deploy staged.** `railway/connect-service-source` +
-   `update-service` (root `backend`, start `uvicorn server:app --host 0.0.0.0 --port $PORT`)
-   quedaron preparados sin aplicar. El usuario tiene que darle "Deploy" en el dashboard.
-2. **#188 CERRADO — colisión de NSE entre colonias homónimas de distinto municipio.**
+1. **#189 CERRADO — Railway backend con auto-deploy real (10-sep tarde).** El patch
+   staged (repo conectado + `Root Directory=backend` + start command) llevaba semanas sin
+   aplicar. Al aprobarlo el build falló: el `Dockerfile` en la raíz del repo asume
+   contexto=raíz (`COPY backend/requirements.txt`, `cd backend && uvicorn...`), así que
+   `Root Directory=backend` lo rompía (buscaba `backend/backend/requirements.txt`). Fix:
+   `Root Directory` de vuelta a la raíz + Start Command `cd backend && uvicorn server:app
+   --host 0.0.0.0 --port $PORT`. Verificado en vivo: build+deploy OK, `/api/health` →
+   `{"status":"healthy"}`. **Gotcha para la próxima vez:** el botón "Redeploy" del
+   dashboard reusa el snapshot congelado del deployment (config vieja), NO la config live
+   del servicio — para que un fix de config dispare un build nuevo real hace falta
+   `connect-service-source` (o "Latest deploy" desde el menú del servicio, no desde el
+   historial) o un push nuevo a GitHub. Ahora un push a `main` despliega solo.
+2. **#187 CERRADO del todo — CETES real vía Banxico.** `BANXICO_TOKEN` obtenido y cargado
+   (10-sep) en `.env` raíz + Railway prod + `credentials_registry.md`. Cascada
+   Banxico → Gemini → fijo 10% ya usa la fuente oficial en vez de caer siempre al
+   fallback.
+3. **#188 CERRADO — colisión de NSE entre colonias homónimas de distinto municipio.**
    `construir_maestro.js` indexa también por llave compuesta `nombre|municipio` (733
    colonias); `getNSE`/`getSimilares` en `motor_remi_api.js` (+ `_lab.js`) generalizan la
    guardia anti-colisión a los 7 call-sites del motor. Validado offline: efecto neutro en
@@ -20,7 +33,7 @@ mensual sigue corriendo independiente en background (Windows Task Scheduler), no
    `283123d`. **Metodología corregida en el proceso:** comparar un fix en `_lab.js` contra
    el baseline de producción mezcla dos variables — el control correcto es el mismo
    archivo con/sin el cambio. Memoria: `feedback_validador_mismo_archivo_baseline`.
-3. **#185 CERRADO (v2) — bóveda de respaldo, sin Stripe real (bloqueado por N3/N4, SAPI no
+4. **#185 CERRADO (v2) — bóveda de respaldo, sin Stripe real (bloqueado por N3/N4, SAPI no
    constituida).** `ThankYouPage.jsx` aviso junto al botón de descarga → `VaultModal.jsx`:
    tabla de planes (Gratis 3 meses, 1/3/5/10 años → $0/$50/$110/$150/$195), toggle
    "Inversión por año" ↔ "% de ahorro", checkbox de términos obligatorio (política de
@@ -34,10 +47,8 @@ mensual sigue corriendo independiente en background (Windows Task Scheduler), no
    (idempotente). ~20 commits `5d970e9`…`a40e2b2` (mayoría copy/UX iterativo).
    **Pendiente:** pantalla de admin para ver `vault_requests` (usuario dijo "después"),
    tarifa de "descarga suelta sin plan" ($230/$260 — hoy solo texto de referencia, no
-   comprable), configurar `SMTP_*` real (usuario no tiene credenciales aún).
-4. **CETES real, cascada Banxico → Gemini → fijo (#187, cerrado y verificado en vivo).**
-   Pendiente del usuario: sacar token gratis en banxico.org.mx/SieAPIRest y ponerlo en
-   Railway si quiere la fuente oficial en vez de IA.
+   comprable), configurar `SMTP_*` real (usuario no tiene credenciales aún) — mismo hueco
+   que #34 "Email notifications" del BACKLOG, sigue abierto.
 5. **#184 casi cerrado (a/b/c/e; solo falta d).**
    - (a) Pincali sigue sin cubrir todo el municipio (URL por-colonia, cambio estructural
      mayor, no trivial).
@@ -56,8 +67,8 @@ mensual sigue corriendo independiente en background (Windows Task Scheduler), no
    - `scraper-inmuebles/scrapers/vivanuncios_detalle.py` líneas 53-60: JSON estructurado
      con etiquetas explícitas, no texto libre — usuario aún no decidió si cuenta como
      excepción. Decidir al retomar.
-7. **Scraper: 2 fallos de PINCALI hoy** (oficinas Guadalajara, casas Ajijic — "falló 3
-   veces"). No bloqueó la cola, pero si se repite vale la pena revisar el scraper de
+7. **Scraper: 2 fallos de PINCALI el 10-sep** (oficinas Guadalajara, casas Ajijic — "falló
+   3 veces"). No bloqueó la cola, pero si se repite vale la pena revisar el scraper de
    PINCALI en la próxima sesión.
 
 ## ⏳ Pendientes de sesiones anteriores (sin tocar hoy, siguen abiertos)
@@ -66,11 +77,12 @@ mensual sigue corriendo independiente en background (Windows Task Scheduler), no
 - Rediseño hoja 2 A4 EstateElite (pedir dirección de diseño antes de construir).
 - MITULA #158 (excluido a propósito del caché, dato corrupto).
 - San Isidro Mazatepec da 0 en INMUEBLES24 — puede ser localidad sin slug propio.
+- #34 Email notifications (SendGrid/SMTP) — mismo hueco que SMTP del vault (punto 4).
 - Ver `BACKLOG.md` tabla completa para el resto.
 
 ## 🌐 URLs / accesos
 - **Sitio:** https://frontend-rosy-six-74.vercel.app — auto-deploy RECONECTADO (GitHub App + git link en proyecto "frontend" de Vercel).
-- **Backend API:** https://propvalu-backend-production.up.railway.app — auto-deploy STAGED (falta aprobar en dashboard, ver punto 1).
+- **Backend API:** https://propvalu-backend-production.up.railway.app — auto-deploy RECONECTADO 10-sep (ver punto 1). `/api/health` verificado en vivo.
 - **Prod Mongo:** `cluster0.9eliadx.mongodb.net`
 - **Backend local:** apunta a **staging** (`cluster1.avle5ez.mongodb.net`) — distinto del cluster de producción, no confundir al verificar datos.
 - **Atlas de colonias (revisión, ChatGPT):** https://atlas-colonias-guadalajara.avaluosyarquit852538.chatgpt.site/
