@@ -257,9 +257,7 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
                 de valores, eso es un servicio distinto. Los datos proporcionados se usan para
                 dar seguimiento al respaldo, noticias, invitaciones, nuevos servicios o
                 promociones de PropValu. No se comparten con terceros ni se usan para otros
-                fines. Conforme a la Ley Federal de Protección de Datos Personales, puedes
-                ejercer tus derechos de acceso, rectificación, cancelación u oposición
-                escribiendo a privacidad@propvalu.com.
+                fines. Si tienes dudas sobre tus datos, escríbenos a privacidad@propvalu.com.
               </div>
             )}
 
