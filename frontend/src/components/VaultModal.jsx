@@ -8,17 +8,17 @@ import { API } from "@/App";
 // #185 sin Stripe real (bloqueado por N3/N4 — falta SAPI constituida): el pago es simulado,
 // mismo patrón que ValuationForm.jsx (checkout de valuación) y ProCheckoutPage.jsx — no se
 // mueve dinero real, solo se marca la solicitud como pagada en el backend.
-// PRECIO_SIN_PLAN: lo que costaría recuperar el avalúo más adelante sin haber pagado un
-// plan hoy — referencia para la columna "si esperas" (genera el contraste, no es un plan
-// comprable todavía; ese flujo de pago único quedó fuera de alcance de este pase).
-const PRECIO_SIN_PLAN = 230;
+// Precio de un avalúo individual completo, CON IVA (ValuationForm.jsx CHECKOUT_PLANS
+// "individual": $280 + 16% IVA, mismo cálculo que su checkout real) — referencia de "lo que
+// te ahorras volviendo a pagar todo" en el aviso de arriba.
+const PRECIO_AVALUO = Math.round(280 * 1.16);
 
 const PLANES = [
   { meses: 3, precio: 0, label: "3 meses", sub: "Gratis" },
   { meses: 12, precio: 50, label: "1 año" },
   { meses: 36, precio: 110, label: "3 años", tag: "Más elegido" },
   { meses: 60, precio: 150, label: "5 años" },
-  { meses: 120, precio: 195, label: "Bóveda Total", sub: "10 años" },
+  { meses: 120, precio: 195, label: "10 años" },
 ];
 
 const fmtCardNum = (v) => v.replace(/\D/g, "").slice(0, 16).replace(/(.{4})/g, "$1 ").trim();
@@ -110,7 +110,9 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
               </div>
               <DialogTitle className="text-[#1B4332]">Guardar respaldo</DialogTitle>
               <DialogDescription>
-                Elige por cuánto tiempo quieres que resguardemos tu avalúo para poder recuperarlo después.
+                Es común que quien valúa una propiedad regrese años después a actualizarla o
+                pedir una copia. Guarda tu respaldo ahora y evita pagar un avalúo completo de
+                nuevo (${PRECIO_AVALUO} MXN con IVA, precio actual).
               </DialogDescription>
             </DialogHeader>
 
@@ -119,11 +121,11 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
                 <span></span>
                 <span>Plan</span>
                 <span className="text-right">Precio</span>
-                <span className="text-right">Si esperas</span>
+                <span className="text-right">$/año</span>
               </div>
               {PLANES.map((p) => {
                 const selected = plan?.meses === p.meses;
-                const ahorro = p.precio > 0 ? PRECIO_SIN_PLAN - p.precio : null;
+                const porAnio = p.precio > 0 ? Math.round(p.precio / (p.meses / 12)) : null;
                 return (
                   <button
                     key={p.meses}
@@ -149,15 +151,12 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
                     <span className={`text-sm font-bold text-right whitespace-nowrap ${p.precio === 0 ? "text-[#52B788]" : "text-[#1B4332]"}`}>
                       {p.precio === 0 ? "Gratis" : `$${p.precio}`}
                     </span>
-                    <span className="text-xs text-right text-amber-600 font-semibold whitespace-nowrap">
-                      {ahorro ? `ahorras $${ahorro}` : "—"}
+                    <span className="text-xs text-right text-slate-400 font-medium whitespace-nowrap">
+                      {porAnio ? `$${porAnio}` : "—"}
                     </span>
                   </button>
                 );
               })}
-              <p className="text-[10px] text-slate-400 px-3 py-1.5 bg-slate-50 border-t border-slate-100">
-                Recuperarlo después sin plan cuesta ${PRECIO_SIN_PLAN} MXN.
-              </p>
             </div>
 
             <input
