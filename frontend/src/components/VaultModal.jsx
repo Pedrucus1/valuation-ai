@@ -252,10 +252,10 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
               </span>
             </label>
             {mostrarTerminos && (
-              <div className="bg-white/10 rounded-lg p-2.5 text-xs text-white/70 leading-relaxed max-h-24 overflow-y-auto">
-                Los datos proporcionados son para dar seguimiento al respaldo, noticias,
-                invitaciones, nuevos servicios o promociones de PropValu. No se comparten con
-                terceros.
+              <div className="bg-white/10 rounded-lg p-2.5 text-[10px] text-white/70 leading-relaxed max-h-24 overflow-y-auto">
+                Los datos proporcionados (nombre y correo) son para dar seguimiento al
+                respaldo, noticias, invitaciones, nuevos servicios o promociones de PropValu.
+                No se comparten con terceros ni se usan para otros fines.
               </div>
             )}
 
