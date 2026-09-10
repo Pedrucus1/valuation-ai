@@ -8,9 +8,10 @@ import { API } from "@/App";
 // #185 sin Stripe real (bloqueado por N3/N4 — falta SAPI constituida): el pago es simulado,
 // mismo patrón que ValuationForm.jsx (checkout de valuación) y ProCheckoutPage.jsx — no se
 // mueve dinero real, solo se marca la solicitud como pagada en el backend.
-// Precio neto de un avalúo individual completo (ValuationForm.jsx CHECKOUT_PLANS
-// "individual") — referencia de "lo que te ahorras volviendo a pagar todo" en el aviso.
-const PRECIO_AVALUO = 280;
+// Precio TOTAL (con IVA) de un avalúo individual completo — mismo cálculo que muestra
+// PricingPage.jsx ("Total con IVA") y ValuationForm.jsx ($280 base + 16% IVA) — es la única
+// cifra que el cliente real paga, referencia de "lo que te ahorras volviendo a pagar todo".
+const PRECIO_AVALUO = Math.round(280 * 1.16);
 
 const PLANES = [
   { meses: 3, precio: 0, label: "3 meses", sub: "Gratis" },
@@ -111,7 +112,7 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
               <DialogDescription>
                 El 70% de las personas que valúan una propiedad vuelven a actualizarla o
                 solicitar una copia años después. Guarda tu respaldo ahora y evita pagar un
-                avalúo completo de nuevo (${PRECIO_AVALUO} MXN, precio actual).
+                avalúo completo de nuevo (${PRECIO_AVALUO} MXN, precio total con IVA).
               </DialogDescription>
             </DialogHeader>
 
