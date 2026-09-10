@@ -157,7 +157,7 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
                     <th></th>
                     <th className="text-left py-1.5 px-2">Plan</th>
                     <th className="text-right py-1.5 px-2">Precio</th>
-                    <th className="text-right py-1.5 pr-3">{vista === "anio" ? "Inversión" : "Ahorras"}</th>
+                    <th className="text-center py-1.5 pr-3">{vista === "anio" ? "Inversión" : "Ahorras"}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -191,7 +191,7 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
                         <td className={`py-2 px-2 align-middle text-sm font-bold text-right whitespace-nowrap ${p.precio === 0 ? "text-[#52B788]" : "text-[#1B4332]"}`}>
                           {p.precio === 0 ? "Gratis" : `$${p.precio}`}
                         </td>
-                        <td className="py-2 pr-3 align-middle text-right whitespace-nowrap">
+                        <td className="py-2 pr-3 align-middle text-center whitespace-nowrap">
                           {p.precio === 0 ? (
                             <span className="text-xs text-slate-300">—</span>
                           ) : (
