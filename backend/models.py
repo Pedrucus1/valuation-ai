@@ -313,6 +313,7 @@ class VaultRequestIn(BaseModel):
     nombre: str
     email: str
     plan_meses: int  # 3 | 12 | 36 | 60 | 120 — validado contra PLANES_BOVEDA en el router
+    acepta_terminos: bool = False  # checkbox obligatorio, validado server-side en el router
 
 class VaultRequest(BaseModel):
     model_config = ConfigDict(extra="ignore")
@@ -325,6 +326,9 @@ class VaultRequest(BaseModel):
     estado: str = "pendiente_pago"  # -> "pagado" solo vía /confirmar-pago
     fecha_solicitud: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     expira_en: Optional[datetime] = None  # se llena al confirmar el pago (TTL index sobre este campo)
+    acepta_terminos_en: Optional[datetime] = None  # cuándo aceptó términos (evidencia, no solo bool)
+    # Recordatorios ya enviados (evita duplicados) — claves tipo "anual_2027", "pre_expiracion".
+    recordatorios_enviados: List[str] = []
 
 class ForgotPasswordRequest(BaseModel):
     email: str

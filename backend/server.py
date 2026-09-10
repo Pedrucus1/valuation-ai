@@ -253,7 +253,7 @@ from routers.requisiciones import router as requisiciones_router
 from routers.acabados import router as acabados_router
 from routers.atlas_colonias import router as atlas_colonias_router
 from routers.flipping import router as flipping_router
-from routers.vault import router as vault_router
+from routers.vault import router as vault_router, enviar_recordatorios_boveda
 
 # Auth y sesión -> routers/auth.py (#66.1)
 
@@ -2566,6 +2566,15 @@ async def startup():
                 _job_sync_sheets,
                 CronTrigger(day=3, hour=4, minute=30),
                 id="sync_sheets_mensual",
+                replace_existing=True,
+            )
+            # A diferencia de scrape_mensual/sync_sheets (atados al scraper local), este job
+            # SÍ debe correr en cualquier entorno con el backend arriba (incluido Railway) —
+            # comparte el mismo flag ENABLE_SCHEDULER solo porque es el único on/off que existe.
+            _scheduler.add_job(
+                enviar_recordatorios_boveda,
+                CronTrigger(hour=8, minute=0),
+                id="vault_recordatorios",
                 replace_existing=True,
             )
             _scheduler.start()

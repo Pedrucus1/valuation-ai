@@ -33,6 +33,8 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [card, setCard] = useState({ number: "", expiry: "", cvv: "", name: "" });
+  const [aceptaTerminos, setAceptaTerminos] = useState(false);
+  const [mostrarTerminos, setMostrarTerminos] = useState(false);
   const [vaultRequestId, setVaultRequestId] = useState(null);
   const [expiraEn, setExpiraEn] = useState(null);
   const [enviando, setEnviando] = useState(false);
@@ -48,6 +50,7 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
         setPaso(PASO.PLAN); setPlan(PLANES[0]); setNombre(""); setEmail("");
         setCard({ number: "", expiry: "", cvv: "", name: "" });
         setVaultRequestId(null); setExpiraEn(null);
+        setAceptaTerminos(false); setMostrarTerminos(false);
       }, 200);
     }
   };
@@ -66,12 +69,19 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
       toast.error("Ingresa un correo válido");
       return;
     }
+    if (!aceptaTerminos) {
+      toast.error("Acepta los términos para continuar");
+      return;
+    }
     setEnviando(true);
     try {
       const res = await fetch(`${API}/valuations/${valuationId}/vault-request`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nombre: nombre.trim(), email: email.trim(), plan_meses: plan.meses }),
+        body: JSON.stringify({
+          nombre: nombre.trim(), email: email.trim(), plan_meses: plan.meses,
+          acepta_terminos: aceptaTerminos,
+        }),
       });
       if (!res.ok) throw new Error("fallo");
       const data = await res.json();
@@ -110,7 +120,7 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
         }
       >
         {paso === PASO.PLAN && (
-          <div className="space-y-2">
+          <div className="space-y-2.5">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-lg bg-red-500/15 flex items-center justify-center shrink-0">
                 <ShieldAlert className="w-4 h-4 text-red-400" />
@@ -222,10 +232,39 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
               className="w-full text-sm rounded-xl px-4 py-1.5 focus:outline-none focus:ring-2 focus:ring-white/30 text-white placeholder:text-white/40 border !bg-white/10 !border-white/20 [&:not(:placeholder-shown)]:!bg-white/10 [&:not(:placeholder-shown)]:!border-white/20 [&:not(:placeholder-shown)]:!text-white"
             />
 
+            <label className="flex items-start gap-2 text-[11px] text-white/70 leading-snug">
+              <input
+                type="checkbox"
+                checked={aceptaTerminos}
+                onChange={(e) => setAceptaTerminos(e.target.checked)}
+                className="mt-0.5 accent-[#D9ED92] w-3.5 h-3.5 shrink-0"
+              />
+              <span>
+                Acepto los{" "}
+                <button
+                  type="button"
+                  onClick={() => setMostrarTerminos((v) => !v)}
+                  className="underline font-semibold text-white"
+                >
+                  términos y política de privacidad
+                </button>
+                .
+              </span>
+            </label>
+            {mostrarTerminos && (
+              <div className="bg-white/10 rounded-lg p-2.5 text-[10px] text-white/70 leading-relaxed max-h-24 overflow-y-auto">
+                Guardamos tu nombre, correo y los datos de tu avalúo únicamente para brindarte
+                este servicio de respaldo. Al aceptar, autorizas a PropValu a enviarte
+                invitaciones, noticias, promociones o información sobre nuevos servicios por
+                este correo — independientemente del plazo del plan que hayas elegido. No
+                compartimos tus datos con terceros para fines distintos a este servicio.
+              </div>
+            )}
+
             <Button
               onClick={solicitar}
-              disabled={!plan || enviando}
-              className="w-full bg-[#D9ED92] hover:bg-[#c8e070] text-[#1B4332] font-bold rounded-xl"
+              disabled={!plan || !aceptaTerminos || enviando}
+              className="w-full bg-[#D9ED92] hover:bg-[#c8e070] text-[#1B4332] font-bold rounded-xl disabled:opacity-50"
             >
               {enviando ? "Enviando…" : plan?.precio === 0 ? "Activar gratis" : "Continuar"}
             </Button>

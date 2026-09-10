@@ -20,11 +20,22 @@ router = APIRouter(prefix="/api")
 # meses -> precio MXN. 0 = plan gratis (gancho, no pasa por el paso de "pago").
 PLANES_BOVEDA = {3: 0, 12: 50, 36: 110, 60: 150, 120: 195}
 
+DIAS_AVISO_PRE_EXPIRACION = 30
+
+
+def _label_plan(meses: int) -> str:
+    if meses < 12:
+        return f"{meses} meses"
+    anios = meses // 12
+    return "1 año" if anios == 1 else f"{anios} años"
+
 
 @router.post("/valuations/{valuation_id}/vault-request")
 async def crear_solicitud_boveda(valuation_id: str, body: VaultRequestIn, request: Request):
     if body.plan_meses not in PLANES_BOVEDA:
         raise HTTPException(400, f"Plan inválido. Opciones: {sorted(PLANES_BOVEDA)} meses")
+    if not body.acepta_terminos:
+        raise HTTPException(400, "Debes aceptar los términos para continuar")
 
     valuation = await db["valuations"].find_one({"valuation_id": valuation_id}, {"_id": 0, "valuation_id": 1})
     if not valuation:
@@ -41,6 +52,7 @@ async def crear_solicitud_boveda(valuation_id: str, body: VaultRequestIn, reques
         email=email,
         plan_meses=body.plan_meses,
         monto=monto,
+        acepta_terminos_en=datetime.now(timezone.utc),
     )
     await db["vault_requests"].insert_one(vault_req.model_dump())
 
@@ -69,13 +81,75 @@ async def confirmar_pago_boveda(vault_request_id: str):
             [vault_req["email"]],
             "Tu respaldo está activo — PropValu",
             f"<p>{saludo}</p>"
-            f"<p>Tu respaldo quedó activo hasta el <strong>{expira_en.strftime('%d/%m/%Y')}</strong>.</p>"
+            f"<p>Tu respaldo quedó activo por <strong>{_label_plan(vault_req['plan_meses'])}</strong>, "
+            f"hasta el <strong>{expira_en.strftime('%d/%m/%Y')}</strong>.</p>"
+            f"<p>Te recordaremos cada año y antes de que venza, para que nunca lo pierdas.</p>"
             f"<p>Para recuperarlo en cualquier momento, entra a propvalu.com/recuperar con este correo.</p>",
         )
     except Exception as e:
         logger.warning(f"confirmar-pago: no se pudo enviar confirmación a {vault_req['email']}: {e}")
 
     return {"ok": True, "expira_en": expira_en}
+
+
+async def enviar_recordatorios_boveda():
+    """Job del scheduler (server.py, gateado por ENABLE_SCHEDULER=1 — mismo patrón que
+    scrape_mensual/sync_sheets). Corre diario: manda un recordatorio ANUAL (aniversario de
+    fecha_solicitud) y uno PRE-EXPIRACIÓN (30 días antes de expira_en) por respaldo activo,
+    sin duplicar (recordatorios_enviados). Best-effort — si SMTP no está configurado, solo
+    loggea, no revienta el job."""
+    hoy = datetime.now(timezone.utc).date()
+    enviados = 0
+    async for vr in db["vault_requests"].find({"estado": "pagado"}):
+        claves_nuevas = []
+        expira_en = vr.get("expira_en")
+        fecha_solicitud = vr.get("fecha_solicitud")
+        ya_enviados = set(vr.get("recordatorios_enviados") or [])
+        saludo = f"Hola {vr['nombre']}," if vr.get("nombre") else "Hola,"
+
+        # Pre-expiración: 30 días antes, una sola vez.
+        if expira_en:
+            dias_restantes = (expira_en.date() - hoy).days
+            if 0 <= dias_restantes <= DIAS_AVISO_PRE_EXPIRACION and "pre_expiracion" not in ya_enviados:
+                try:
+                    send_email(
+                        [vr["email"]],
+                        "Tu respaldo está por vencer — PropValu",
+                        f"<p>{saludo}</p>"
+                        f"<p>Tu respaldo vence el <strong>{expira_en.strftime('%d/%m/%Y')}</strong> "
+                        f"({dias_restantes} días). Renuévalo antes para no perder el acceso.</p>",
+                    )
+                except Exception as e:
+                    logger.warning(f"recordatorio pre-expiración a {vr['email']}: {e}")
+                claves_nuevas.append("pre_expiracion")
+
+        # Anual: aniversario de fecha_solicitud, una vez por año calendario.
+        if fecha_solicitud:
+            anios_transcurridos = hoy.year - fecha_solicitud.date().year
+            if anios_transcurridos >= 1:
+                clave_anio = f"anual_{hoy.year}"
+                aniversario_hoy = (hoy.month, hoy.day) == (fecha_solicitud.date().month, fecha_solicitud.date().day)
+                if aniversario_hoy and clave_anio not in ya_enviados:
+                    try:
+                        send_email(
+                            [vr["email"]],
+                            "Recordatorio de tu respaldo — PropValu",
+                            f"<p>{saludo}</p>"
+                            f"<p>Han pasado {anios_transcurridos} año(s) desde que guardaste tu respaldo "
+                            f"en PropValu. Sigue activo — entra a propvalu.com/recuperar con este correo "
+                            f"cuando lo necesites.</p>",
+                        )
+                    except Exception as e:
+                        logger.warning(f"recordatorio anual a {vr['email']}: {e}")
+                    claves_nuevas.append(clave_anio)
+
+        if claves_nuevas:
+            await db["vault_requests"].update_one(
+                {"vault_request_id": vr["vault_request_id"]},
+                {"$addToSet": {"recordatorios_enviados": {"$each": claves_nuevas}}},
+            )
+            enviados += len(claves_nuevas)
+    logger.info(f"[vault] recordatorios: {enviados} enviados")
 
 
 @router.get("/vault/recuperar")
