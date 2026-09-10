@@ -120,8 +120,8 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
             <div className="bg-[#52B788] rounded-xl p-3 mb-3">
               <DialogDescription className="text-white text-sm font-medium leading-snug">
                 El 70% de las personas que valúan una propiedad vuelven a actualizarla o
-                solicitar una copia años después. Guarda tu respaldo ahora y evita pagar un
-                avalúo completo de nuevo (${PRECIO_AVALUO} MXN, precio total con IVA).
+                solicitar una copia después de un año. Guarda tu respaldo ahora y evita pagar
+                un avalúo completo de nuevo (${PRECIO_AVALUO} MXN, precio total con IVA).
               </DialogDescription>
             </div>
 
@@ -169,7 +169,7 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
                       <tr
                         key={p.meses}
                         onClick={() => setPlan(p)}
-                        className={`cursor-pointer border-t border-slate-100 transition-colors ${
+                        className={`cursor-pointer border-t border-slate-300 transition-colors ${
                           selected ? "bg-[#F0FAF5]" : "hover:bg-slate-50"
                         }`}
                       >
@@ -191,12 +191,14 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
                         <td className={`py-2 px-2 align-middle text-sm font-bold text-right whitespace-nowrap ${p.precio === 0 ? "text-[#52B788]" : "text-[#1B4332]"}`}>
                           {p.precio === 0 ? "Gratis" : `$${p.precio}`}
                         </td>
-                        <td className="py-2 pr-3 align-middle text-xs text-right text-slate-400 font-medium whitespace-nowrap">
-                          {p.precio === 0
-                            ? "—"
-                            : vista === "anio"
-                            ? `$${porAnio}/año`
-                            : `${pctAhorro}% menos`}
+                        <td className="py-2 pr-3 align-middle text-right whitespace-nowrap">
+                          {p.precio === 0 ? (
+                            <span className="text-xs text-slate-300">—</span>
+                          ) : (
+                            <span className="inline-block text-[11px] font-extrabold px-2 py-0.5 rounded-full bg-[#D9ED92] text-[#1B4332]">
+                              {vista === "anio" ? `$${porAnio}/año` : `${pctAhorro}% menos`}
+                            </span>
+                          )}
                         </td>
                       </tr>
                     );
