@@ -280,9 +280,9 @@
     "semantic_hash": "ecfb972b3867158d0730e743a50c3135"
   },
   "Modulo Drive IA/build_pm2t_semilla.py": {
-    "mtime": 1787629439.8969235,
-    "ast_hash": "fb2eceaa021d04733d411799689cd31e",
-    "semantic_hash": "fb2eceaa021d04733d411799689cd31e"
+    "mtime": 1788997340.7677417,
+    "ast_hash": "5526a06ff00c43e0f61bc42645d91905",
+    "semantic_hash": "5526a06ff00c43e0f61bc42645d91905"
   },
   "Modulo Drive IA/build_seg_anclas.py": {
     "mtime": 1783411226.8527157,
@@ -290,9 +290,9 @@
     "semantic_hash": "3e70e3003785b5ca59243471981c8887"
   },
   "Modulo Drive IA/buscar_comparables_browser.js": {
-    "mtime": 1788472308.046333,
-    "ast_hash": "793f922af9e8f342aeec1a4ff0aa3036",
-    "semantic_hash": "793f922af9e8f342aeec1a4ff0aa3036"
+    "mtime": 1788997538.8946571,
+    "ast_hash": "cbe482bb827aee876bb461262e3897af",
+    "semantic_hash": "cbe482bb827aee876bb461262e3897af"
   },
   "Modulo Drive IA/buscar_keys_basura.js": {
     "mtime": 1780202813.8605742,
@@ -355,9 +355,9 @@
     "semantic_hash": "b9db00b86336ce8bebbe73eb10eac8a8"
   },
   "Modulo Drive IA/cache_consolidado.json": {
-    "mtime": 1788487598.415758,
-    "ast_hash": "2fdb20e0e869a910daad64edf4d05cfc",
-    "semantic_hash": "2fdb20e0e869a910daad64edf4d05cfc"
+    "mtime": 1788997632.2027516,
+    "ast_hash": "cda9731f2c040f2917efaded4ff77304",
+    "semantic_hash": "cda9731f2c040f2917efaded4ff77304"
   },
   "Modulo Drive IA/cache_consolidado_limpio.json": {
     "mtime": 1782922326.6175196,
@@ -420,9 +420,9 @@
     "semantic_hash": "de27aeab45c4e6b7cd0d40991cfb3224"
   },
   "Modulo Drive IA/cache_index.json": {
-    "mtime": 1788487599.7105434,
-    "ast_hash": "ebdaec75f0529238f60b1916dc04680c",
-    "semantic_hash": "ebdaec75f0529238f60b1916dc04680c"
+    "mtime": 1788997633.4668746,
+    "ast_hash": "a630c1f733b48cfffb305da8eba70214",
+    "semantic_hash": "a630c1f733b48cfffb305da8eba70214"
   },
   "Modulo Drive IA/cache_index_dv.json": {
     "mtime": 1782818458.5488448,
@@ -595,9 +595,9 @@
     "semantic_hash": "2dc60e7c43c5bec132ae3de13b746939"
   },
   "Modulo Drive IA/colonias_maestro.json": {
-    "mtime": 1788487890.9967916,
-    "ast_hash": "b3d4c1266aad7fde85ab1656fc9570a7",
-    "semantic_hash": "b3d4c1266aad7fde85ab1656fc9570a7"
+    "mtime": 1788997859.7688148,
+    "ast_hash": "435181a5b8030c7459ba2bc1ccf118be",
+    "semantic_hash": "435181a5b8030c7459ba2bc1ccf118be"
   },
   "Modulo Drive IA/colonias_maestro.lab.json": {
     "mtime": 1784786402.8041384,
@@ -620,9 +620,9 @@
     "semantic_hash": "772b26e8906d171f44e23d1e5a3c7110"
   },
   "Modulo Drive IA/colonias_nse_v2.json": {
-    "mtime": 1788487600.5618975,
-    "ast_hash": "1c49afd40223d4ea9edbfad5045bf5fe",
-    "semantic_hash": "1c49afd40223d4ea9edbfad5045bf5fe"
+    "mtime": 1788997634.2419467,
+    "ast_hash": "d4eb4aa1e7f90e25fb232df40a9c1c01",
+    "semantic_hash": "d4eb4aa1e7f90e25fb232df40a9c1c01"
   },
   "Modulo Drive IA/colonias_progress.json": {
     "mtime": 1779163046.2583904,
@@ -650,9 +650,9 @@
     "semantic_hash": "8f5cdbc5f8fe4ce94a7a35b4c6759bcc"
   },
   "Modulo Drive IA/colonias_similares_enriquecido.json": {
-    "mtime": 1788487601.1413713,
-    "ast_hash": "9d90fedd03eef38fc4836784eb7ee995",
-    "semantic_hash": "9d90fedd03eef38fc4836784eb7ee995"
+    "mtime": 1788997634.8537083,
+    "ast_hash": "4b7bce9b30ae47d51fe8896e6a066332",
+    "semantic_hash": "4b7bce9b30ae47d51fe8896e6a066332"
   },
   "Modulo Drive IA/colonias_truncadas.json": {
     "mtime": 1785913877.2531712,
@@ -900,9 +900,9 @@
     "semantic_hash": "34d4bc3510c6f50cae884871b5ab02c1"
   },
   "Modulo Drive IA/idx_valoracion.json": {
-    "mtime": 1788487600.2010095,
-    "ast_hash": "04835ccba92e506f4225b0cdc75ab95c",
-    "semantic_hash": "04835ccba92e506f4225b0cdc75ab95c"
+    "mtime": 1788997633.942913,
+    "ast_hash": "39c0f3a5a66b8d7acf0efbbe4cab347c",
+    "semantic_hash": "39c0f3a5a66b8d7acf0efbbe4cab347c"
   },
   "Modulo Drive IA/inspect_sepomex.js": {
     "mtime": 1780201162.6109073,
@@ -1015,9 +1015,9 @@
     "semantic_hash": "9e582d06bb92d632327fea0fe900a8d9"
   },
   "Modulo Drive IA/pm2t_semilla.json": {
-    "mtime": 1788487888.6596098,
-    "ast_hash": "d3f9b4460fe66baf9b6e7a42ccd74860",
-    "semantic_hash": "d3f9b4460fe66baf9b6e7a42ccd74860"
+    "mtime": 1788997855.2730606,
+    "ast_hash": "e8f5dbf452bfecb06e31dc01a673460e",
+    "semantic_hash": "e8f5dbf452bfecb06e31dc01a673460e"
   },
   "Modulo Drive IA/recalcular_nse_desde_cache.js": {
     "mtime": 1783391363.4345076,
@@ -1390,9 +1390,9 @@
     "semantic_hash": "9cf6167f0d555cff553bcb4c75ec1c77"
   },
   "backend/report_generator.py": {
-    "mtime": 1788982906.7027445,
-    "ast_hash": "d25bc76a7891228e1681c574f4de01c1",
-    "semantic_hash": "d25bc76a7891228e1681c574f4de01c1"
+    "mtime": 1788988636.5895734,
+    "ast_hash": "d907322d7a8e5e4131834e011ec5dd77",
+    "semantic_hash": "d907322d7a8e5e4131834e011ec5dd77"
   },
   "backend/reset_test_user.py": {
     "mtime": 1780612131.3906004,
@@ -1795,9 +1795,9 @@
     "semantic_hash": "c6c076c6ab378cfac67bfe0278daa1a7"
   },
   "frontend/src/App.js": {
-    "mtime": 1787730204.0482829,
-    "ast_hash": "3a95ad330ccfa4a68f1b2f5c3951a036",
-    "semantic_hash": "3a95ad330ccfa4a68f1b2f5c3951a036"
+    "mtime": 1788988723.7860537,
+    "ast_hash": "48e2f637fb51baf3680fdb3e743276fe",
+    "semantic_hash": "48e2f637fb51baf3680fdb3e743276fe"
   },
   "frontend/src/PlasmicPage.jsx": {
     "mtime": 1784805410.861088,
@@ -1815,9 +1815,9 @@
     "semantic_hash": "b104a396f291e43c8a9acb01272cc073"
   },
   "frontend/src/components/AdminLayout.jsx": {
-    "mtime": 1787117593.9975276,
-    "ast_hash": "4db24a8a7a53264c5cb20791070ccc45",
-    "semantic_hash": "4db24a8a7a53264c5cb20791070ccc45"
+    "mtime": 1788988729.5496435,
+    "ast_hash": "59452e960c387e4b1aaaabec08d51764",
+    "semantic_hash": "59452e960c387e4b1aaaabec08d51764"
   },
   "frontend/src/components/AdminProtectedRoute.jsx": {
     "mtime": 1773993321.6288736,
@@ -3155,9 +3155,9 @@
     "semantic_hash": "a63c21175109c524fa58154604527730"
   },
   "scraper-inmuebles/scheduler.py": {
-    "mtime": 1786508409.9561243,
-    "ast_hash": "25875db093e0ec53ef05c99114aff505",
-    "semantic_hash": "25875db093e0ec53ef05c99114aff505"
+    "mtime": 1788997915.0027547,
+    "ast_hash": "b01bc1fec7fe83edfcf36f5eb9df6e5a",
+    "semantic_hash": "b01bc1fec7fe83edfcf36f5eb9df6e5a"
   },
   "scraper-inmuebles/scrapers/__init__.py": {
     "mtime": 1776468823.7347512,
@@ -3290,9 +3290,9 @@
     "semantic_hash": "bb76a149d8c521fe4f1802f8add8e76f"
   },
   "server.js": {
-    "mtime": 1773942143.385525,
-    "ast_hash": "98b7226e0b577820a9ffb74369c35894",
-    "semantic_hash": "98b7226e0b577820a9ffb74369c35894"
+    "mtime": 1788988360.60878,
+    "ast_hash": "4ee6c765dc6900f03904e02fa00de76c",
+    "semantic_hash": "4ee6c765dc6900f03904e02fa00de76c"
   },
   "services/aiSearch.js": {
     "mtime": 1776639833.9031298,
@@ -3440,9 +3440,9 @@
     "semantic_hash": "e942b6727c6fade11719d64b37145f33"
   },
   "scraper-inmuebles/ondemand_pipeline.py": {
-    "mtime": 1788466274.3687127,
-    "ast_hash": "6a33f5083179902d0fa4b56ef4a4649c",
-    "semantic_hash": "6a33f5083179902d0fa4b56ef4a4649c"
+    "mtime": 1788997921.2708306,
+    "ast_hash": "b2bbcb80c76f079af4a133501e3ebfde",
+    "semantic_hash": "b2bbcb80c76f079af4a133501e3ebfde"
   },
   "Modulo Drive IA/_archivo/build_colonias_similares.js": {
     "mtime": 1779337553.3832674,
@@ -3488,5 +3488,20 @@
     "mtime": 1788487047.5893466,
     "ast_hash": "b94f5fcaadd2344085250f341929d008",
     "semantic_hash": "b94f5fcaadd2344085250f341929d008"
+  },
+  ".claude/launch.json": {
+    "mtime": 1788989023.5673015,
+    "ast_hash": "876c038cef8a1469aef94065a977abac",
+    "semantic_hash": "876c038cef8a1469aef94065a977abac"
+  },
+  "backend/cetes.py": {
+    "mtime": 1788988631.952506,
+    "ast_hash": "f76ee693673609b108b951baf8bf9bfe",
+    "semantic_hash": "f76ee693673609b108b951baf8bf9bfe"
+  },
+  "frontend/src/pages/admin/AdminActividad.jsx": {
+    "mtime": 1788988718.3090756,
+    "ast_hash": "1c8c0cacb5edb1da681806efa60e73fb",
+    "semantic_hash": "1c8c0cacb5edb1da681806efa60e73fb"
   }
 }

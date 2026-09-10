@@ -2,10 +2,11 @@
 
 > **Único archivo que se lee al iniciar** (corto, siempre vigente). Tareas por # → `BACKLOG.md` (grep). Historial → `BACKLOG_ARCHIVE.md`. Motor → `MOTOR_ANTECEDENTES.md` (grep). **Se sobrescribe en cada cierre de sesión.**
 
-**Última actualización:** 09 Sep 2026 (tarde-noche)
+**Última actualización:** 10 Sep 2026 (madrugada)
 **Fase:** Vercel auto-deploy reconectado de verdad (GitHub App + git link, ya no manual).
 Railway auto-deploy dejado **staged** (repo/root/start command listos, falta que el
 usuario apruebe el deploy en su dashboard — no se tocó en vivo por riesgo a prod).
+Colisión de NSE por colonias homónimas (#5) CERRADA e implementada en producción.
 
 ## 🔥 LO MÁS CALIENTE — qué sigue
 
@@ -38,15 +39,24 @@ usuario apruebe el deploy en su dashboard — no se tocó en vivo por riesgo a p
      metodológica, no código, no urgente.
    - (e) `build_pm2t_semilla.py` ya lee `db.terreno_flywheel` (solo lectura), verificado
      corriendo en vivo — colección vacía hoy, degrada limpio a cerebro/AC108.
-5. **Bug real NO resuelto — colisión de NSE entre colonias homónimas de distinto municipio.**
-   `colonias_maestro.json` indexa por nombre de colonia solo (sin municipio). El precio SÍ se
-   corrige (guardia en `motor_remi_api.js` ~984-992), la clasificación NSE (nseIdx) no. No
-   cuantificado cuántas colonias colisionan — sesión propia pendiente.
-6. **Regex prohibido — violación real, sin corregir.** `scraper-inmuebles/scrapers/
-   vivanuncios_detalle.py` y el fallback de colonia en `Modulo Drive IA/
-   scrapear_propiedades_com_urls.js` usan regex sobre texto libre para colonia/dirección
-   (regla dura: SIEMPRE por IA, nunca regex — memoria `feedback_no_regex`). Pendiente migrar
-   esa extracción a IA.
+5. **#5 CERRADO — colisión de NSE entre colonias homónimas de distinto municipio.**
+   Cuantificado (58/3,898 colonias colisionan, 35 con precio/m² divergente ≥25%) y arreglado:
+   `construir_maestro.js` ahora indexa también por llave compuesta `nombre|municipio` cuando se
+   conoce el municipio (733 colonias hoy); `getNSE`/`getSimilares` en `motor_remi_api.js` (y
+   `_lab.js`) generalizan la guardia anti-colisión a los 7 call-sites (antes solo 1 la tenía).
+   Validado offline contra los 40 avalúos reales del perito: efecto neutro (±10% 67.6%→64.7%,
+   ruido de 1 caso — esperado, la mayoría de la muestra no toca colonias colisionadas). Commit
+   `283123d`. Fuera de alcance a propósito (marcado `ponytail:`, no rotos, solo sin aprovechar
+   la llave compuesta): `merge_simIA_a_maestro.js`, `backfill_cp_maestro.js`,
+   `consolidar_colonias_idx.py`, `validar_produccion.py`, `validar_hibrido_40.py`.
+6. **Regex prohibido — violación real, sin corregir. ESPERAR a que termine el scraping activo
+   antes de tocar estos archivos** (el usuario lo pidió explícito 10-sep). Dos casos distintos:
+   - `Modulo Drive IA/scrapear_propiedades_com_urls.js` línea 44: texto libre real
+     (`streetAddress.match(/col\.?\s*([^,]+?)\s*c\.?p\.?/i)`) — el caso que la regla ataca
+     directo, migrar a IA.
+   - `scraper-inmuebles/scrapers/vivanuncios_detalle.py` líneas 53-60: JSON estructurado
+     embebido con etiquetas explícitas (`"label":"ZONA"/"CIUDAD"/"PROVINCIA"`), no texto libre
+     — el usuario aún no decidió si cuenta como excepción o si migra igual. Decidir al retomar.
 7. **BACKLOG #185 (NO implementado):** bóveda de respaldo pagado para avalúo público al
    descargar (6/12/18/36 meses, $50/$80/$120/$190). Requiere Stripe conectado (N4, SAPI).
 
