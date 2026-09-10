@@ -131,7 +131,7 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
               <DialogDescription className="text-white text-xs font-medium leading-snug">
                 El 70% de las personas que valúan una propiedad vuelven a actualizarla o
                 solicitar una copia después de un año. Guarda tu respaldo ahora y evita pagar
-                un avalúo completo de nuevo (${PRECIO_AVALUO} MXN, precio total con IVA).
+                una opinión de valor completa de nuevo (${PRECIO_AVALUO} MXN, precio total con IVA).
               </DialogDescription>
             </div>
 
@@ -253,11 +253,9 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
             </label>
             {mostrarTerminos && (
               <div className="bg-white/10 rounded-lg p-2.5 text-[10px] text-white/70 leading-relaxed max-h-24 overflow-y-auto">
-                Usamos tu nombre, correo y los datos de tu avalúo solo para darte este
-                servicio de respaldo. También nos gustaría mantenerte al tanto con
-                invitaciones, noticias, promociones o nuevos servicios de PropValu por este
-                correo, sin importar el plan que elijas. Tu información nunca se comparte con
-                terceros para otros fines.
+                Los datos proporcionados son para dar seguimiento al respaldo, y para
+                noticias, invitaciones, nuevos servicios o promociones de PropValu. Nunca se
+                comparten con terceros.
               </div>
             )}
 
