@@ -102,30 +102,34 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
 
   return (
     <Dialog open={open} onOpenChange={cerrar}>
-      <DialogContent className="max-w-md max-h-[88vh] overflow-y-auto">
+      <DialogContent
+        className={
+          paso === PASO.PLAN
+            ? "max-w-md bg-gradient-to-br from-[#1B4332] to-[#2D6A4F] border-none p-5"
+            : "max-w-md"
+        }
+      >
         {paso === PASO.PLAN && (
           <>
-            <div className="bg-gradient-to-br from-[#1B4332] to-[#2D6A4F] rounded-2xl p-4 -mx-1 mb-1">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-11 h-11 rounded-xl bg-red-500/15 flex items-center justify-center shrink-0">
-                  <ShieldAlert className="w-6 h-6 text-red-400" />
-                </div>
-                <DialogTitle className="text-white text-lg">Guarda tu respaldo</DialogTitle>
+            <div className="flex items-center gap-2.5 mb-2">
+              <div className="w-9 h-9 rounded-lg bg-red-500/15 flex items-center justify-center shrink-0">
+                <ShieldAlert className="w-5 h-5 text-red-400" />
               </div>
-              <div className="bg-white/10 border border-white/15 rounded-xl p-3">
-                <DialogDescription className="text-white/85 text-xs leading-relaxed">
-                  El 70% de las personas que valúan una propiedad vuelven a actualizarla o
-                  solicitar una copia años después. Guarda tu respaldo ahora y evita pagar un
-                  avalúo completo de nuevo (${PRECIO_AVALUO} MXN, precio total con IVA).
-                </DialogDescription>
-              </div>
+              <DialogTitle className="text-white text-lg">Guarda tu respaldo</DialogTitle>
+            </div>
+            <div className="bg-[#52B788] rounded-xl p-3 mb-3">
+              <DialogDescription className="text-white text-sm font-medium leading-snug">
+                El 70% de las personas que valúan una propiedad vuelven a actualizarla o
+                solicitar una copia años después. Guarda tu respaldo ahora y evita pagar un
+                avalúo completo de nuevo (${PRECIO_AVALUO} MXN, precio total con IVA).
+              </DialogDescription>
             </div>
 
-            <div className="flex items-center justify-center gap-1 my-2 text-xs">
+            <div className="flex items-center justify-center gap-1 mb-2 text-xs">
               <button
                 onClick={() => setVista("anio")}
                 className={`px-2.5 py-1 rounded-full font-semibold transition-colors ${
-                  vista === "anio" ? "bg-[#1B4332] text-white" : "text-slate-400 hover:text-slate-600"
+                  vista === "anio" ? "bg-white text-[#1B4332]" : "text-white/50 hover:text-white/80"
                 }`}
               >
                 Inversión por año
@@ -133,59 +137,67 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
               <button
                 onClick={() => setVista("descuento")}
                 className={`px-2.5 py-1 rounded-full font-semibold transition-colors ${
-                  vista === "descuento" ? "bg-[#1B4332] text-white" : "text-slate-400 hover:text-slate-600"
+                  vista === "descuento" ? "bg-white text-[#1B4332]" : "text-white/50 hover:text-white/80"
                 }`}
               >
                 % de ahorro
               </button>
             </div>
 
-            <div className="rounded-xl border border-slate-200 overflow-hidden mb-3">
-              <div className="grid grid-cols-[auto_1fr_auto_auto] gap-x-3 px-3 py-1.5 bg-slate-50 text-[10px] font-semibold text-slate-400 uppercase tracking-wide">
-                <span></span>
-                <span>Plan</span>
-                <span className="text-right">Precio</span>
-                <span className="text-right">{vista === "anio" ? "Inversión" : "Ahorras"}</span>
-              </div>
-              {PLANES.map((p) => {
-                const selected = plan?.meses === p.meses;
-                const porAnio = p.precio > 0 ? Math.round(p.precio / (p.meses / 12)) : null;
-                const pctAhorro = p.precio > 0 ? Math.round((1 - p.precio / PRECIO_AVALUO) * 100) : null;
-                return (
-                  <button
-                    key={p.meses}
-                    onClick={() => setPlan(p)}
-                    className={`w-full grid grid-cols-[auto_1fr_auto_auto] items-center gap-x-3 px-3 py-2 border-t border-slate-100 text-left transition-colors ${
-                      selected ? "bg-[#F0FAF5]" : "hover:bg-slate-50"
-                    }`}
-                  >
-                    <span className={`w-4 h-4 rounded-full border-2 shrink-0 ${
-                      selected ? "border-[#52B788] bg-[#52B788]" : "border-slate-300"
-                    }`} />
-                    <span className="min-w-0">
-                      <span className="block text-sm font-semibold text-[#1B4332] truncate">
-                        {p.label}
-                        {p.tag && (
-                          <span className="ml-1.5 text-[9px] font-extrabold px-1.5 py-0.5 rounded-full bg-[#D9ED92] text-[#1B4332] align-middle whitespace-nowrap">
-                            {p.tag}
+            <div className="rounded-xl overflow-hidden mb-3 bg-white">
+              <table className="w-full border-collapse">
+                <thead>
+                  <tr className="text-[10px] font-semibold text-slate-400 uppercase tracking-wide bg-slate-50">
+                    <th className="w-7"></th>
+                    <th className="text-left py-1.5 px-2">Plan</th>
+                    <th className="text-right py-1.5 px-2">Precio</th>
+                    <th className="text-right py-1.5 pr-3">{vista === "anio" ? "Inversión" : "Ahorras"}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {PLANES.map((p) => {
+                    const selected = plan?.meses === p.meses;
+                    const porAnio = p.precio > 0 ? Math.round(p.precio / (p.meses / 12)) : null;
+                    const pctAhorro = p.precio > 0 ? Math.round((1 - p.precio / PRECIO_AVALUO) * 100) : null;
+                    return (
+                      <tr
+                        key={p.meses}
+                        onClick={() => setPlan(p)}
+                        className={`cursor-pointer border-t border-slate-100 transition-colors ${
+                          selected ? "bg-[#F0FAF5]" : "hover:bg-slate-50"
+                        }`}
+                      >
+                        <td className="pl-2 py-2">
+                          <span className={`block w-4 h-4 rounded-full border-2 ${
+                            selected ? "border-[#52B788] bg-[#52B788]" : "border-slate-300"
+                          }`} />
+                        </td>
+                        <td className="py-2 px-2">
+                          <span className="block text-sm font-semibold text-[#1B4332] whitespace-nowrap">
+                            {p.label}
+                            {p.tag && (
+                              <span className="ml-1.5 text-[9px] font-extrabold px-1.5 py-0.5 rounded-full bg-[#D9ED92] text-[#1B4332] align-middle whitespace-nowrap">
+                                {p.tag}
+                              </span>
+                            )}
                           </span>
-                        )}
-                      </span>
-                      {p.sub && <span className="block text-[11px] text-slate-400">{p.sub}</span>}
-                    </span>
-                    <span className={`text-sm font-bold text-right whitespace-nowrap ${p.precio === 0 ? "text-[#52B788]" : "text-[#1B4332]"}`}>
-                      {p.precio === 0 ? "Gratis" : `$${p.precio}`}
-                    </span>
-                    <span className="text-xs text-right text-slate-400 font-medium whitespace-nowrap">
-                      {p.precio === 0
-                        ? "—"
-                        : vista === "anio"
-                        ? `$${porAnio}/año`
-                        : `${pctAhorro}% menos`}
-                    </span>
-                  </button>
-                );
-              })}
+                          {p.sub && <span className="block text-[11px] text-slate-400">{p.sub}</span>}
+                        </td>
+                        <td className={`py-2 px-2 text-sm font-bold text-right whitespace-nowrap ${p.precio === 0 ? "text-[#52B788]" : "text-[#1B4332]"}`}>
+                          {p.precio === 0 ? "Gratis" : `$${p.precio}`}
+                        </td>
+                        <td className="py-2 pr-3 text-xs text-right text-slate-400 font-medium whitespace-nowrap">
+                          {p.precio === 0
+                            ? "—"
+                            : vista === "anio"
+                            ? `$${porAnio}/año`
+                            : `${pctAhorro}% menos`}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
             </div>
 
             <input
@@ -193,20 +205,20 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
               onChange={(e) => setNombre(e.target.value)}
               placeholder="Tu nombre (opcional)"
               maxLength={120}
-              className="w-full text-sm border border-slate-200 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#52B788]/40 text-slate-700 placeholder:text-slate-300 mb-2"
+              className="w-full text-sm rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-white/30 text-white placeholder:text-white/40 mb-2 border !bg-white/10 !border-white/20"
             />
             <input
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Tu correo"
               type="email"
-              className="w-full text-sm border border-slate-200 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#52B788]/40 text-slate-700 placeholder:text-slate-300 mb-3"
+              className="w-full text-sm rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-white/30 text-white placeholder:text-white/40 mb-3 border !bg-white/10 !border-white/20"
             />
 
             <Button
               onClick={solicitar}
               disabled={!plan || enviando}
-              className="w-full bg-[#52B788] hover:bg-[#40916C] text-white font-semibold rounded-xl"
+              className="w-full bg-[#D9ED92] hover:bg-[#c8e070] text-[#1B4332] font-bold rounded-xl"
             >
               {enviando ? "Enviando…" : plan?.precio === 0 ? "Activar gratis" : "Continuar"}
             </Button>
