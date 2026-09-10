@@ -120,7 +120,7 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
         }
       >
         {paso === PASO.PLAN && (
-          <div className="space-y-2.5">
+          <div className="space-y-3">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-lg bg-red-500/15 flex items-center justify-center shrink-0">
                 <ShieldAlert className="w-4 h-4 text-red-400" />
@@ -222,14 +222,14 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
               onChange={(e) => setNombre(e.target.value)}
               placeholder="Tu nombre (opcional)"
               maxLength={120}
-              className="w-full text-sm rounded-xl px-4 py-1.5 focus:outline-none focus:ring-2 focus:ring-white/30 text-white placeholder:text-white/40 border !bg-white/10 !border-white/20 [&:not(:placeholder-shown)]:!bg-white/10 [&:not(:placeholder-shown)]:!border-white/20 [&:not(:placeholder-shown)]:!text-white"
+              className="w-full text-sm rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-white/30 text-white placeholder:text-white/40 border !bg-white/10 !border-white/20 [&:not(:placeholder-shown)]:!bg-white/10 [&:not(:placeholder-shown)]:!border-white/20 [&:not(:placeholder-shown)]:!text-white"
             />
             <input
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Tu correo"
               type="email"
-              className="w-full text-sm rounded-xl px-4 py-1.5 focus:outline-none focus:ring-2 focus:ring-white/30 text-white placeholder:text-white/40 border !bg-white/10 !border-white/20 [&:not(:placeholder-shown)]:!bg-white/10 [&:not(:placeholder-shown)]:!border-white/20 [&:not(:placeholder-shown)]:!text-white"
+              className="w-full text-sm rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-white/30 text-white placeholder:text-white/40 border !bg-white/10 !border-white/20 [&:not(:placeholder-shown)]:!bg-white/10 [&:not(:placeholder-shown)]:!border-white/20 [&:not(:placeholder-shown)]:!text-white"
             />
 
             <label className="flex items-start gap-2 text-[11px] text-white/70 leading-snug">
