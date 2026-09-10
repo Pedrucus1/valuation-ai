@@ -28,6 +28,7 @@ const PASO = { PLAN: "plan", PAGO: "pago", LISTO: "listo" };
 
 export default function VaultModal({ open, onOpenChange, valuationId }) {
   const [paso, setPaso] = useState(PASO.PLAN);
+  const [vista, setVista] = useState("anio"); // "anio" | "descuento" — toggle A/B de la tabla
   const [plan, setPlan] = useState(PLANES[0]); // preseleccionado: 3 meses gratis
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
@@ -101,36 +102,60 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
 
   return (
     <Dialog open={open} onOpenChange={cerrar}>
-      <DialogContent className="max-w-md">
+      <DialogContent className="max-w-md max-h-[88vh] overflow-y-auto">
         {paso === PASO.PLAN && (
           <>
-            <DialogHeader>
-              <div className="w-16 h-16 rounded-xl bg-red-50 flex items-center justify-center mb-2">
-                <ShieldAlert className="w-9 h-9 text-red-600" />
+            <div className="bg-gradient-to-br from-[#1B4332] to-[#2D6A4F] rounded-2xl p-4 -mx-1 mb-1">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-11 h-11 rounded-xl bg-red-500/15 flex items-center justify-center shrink-0">
+                  <ShieldAlert className="w-6 h-6 text-red-400" />
+                </div>
+                <DialogTitle className="text-white text-lg">Guarda tu respaldo</DialogTitle>
               </div>
-              <DialogTitle className="text-[#1B4332]">Guardar respaldo</DialogTitle>
-              <DialogDescription>
-                El 70% de las personas que valúan una propiedad vuelven a actualizarla o
-                solicitar una copia años después. Guarda tu respaldo ahora y evita pagar un
-                avalúo completo de nuevo (${PRECIO_AVALUO} MXN, precio total con IVA).
-              </DialogDescription>
-            </DialogHeader>
+              <div className="bg-white/10 border border-white/15 rounded-xl p-3">
+                <DialogDescription className="text-white/85 text-xs leading-relaxed">
+                  El 70% de las personas que valúan una propiedad vuelven a actualizarla o
+                  solicitar una copia años después. Guarda tu respaldo ahora y evita pagar un
+                  avalúo completo de nuevo (${PRECIO_AVALUO} MXN, precio total con IVA).
+                </DialogDescription>
+              </div>
+            </div>
 
-            <div className="rounded-xl border border-slate-200 overflow-hidden my-3">
+            <div className="flex items-center justify-center gap-1 my-2 text-xs">
+              <button
+                onClick={() => setVista("anio")}
+                className={`px-2.5 py-1 rounded-full font-semibold transition-colors ${
+                  vista === "anio" ? "bg-[#1B4332] text-white" : "text-slate-400 hover:text-slate-600"
+                }`}
+              >
+                Inversión por año
+              </button>
+              <button
+                onClick={() => setVista("descuento")}
+                className={`px-2.5 py-1 rounded-full font-semibold transition-colors ${
+                  vista === "descuento" ? "bg-[#1B4332] text-white" : "text-slate-400 hover:text-slate-600"
+                }`}
+              >
+                % de ahorro
+              </button>
+            </div>
+
+            <div className="rounded-xl border border-slate-200 overflow-hidden mb-3">
               <div className="grid grid-cols-[auto_1fr_auto_auto] gap-x-3 px-3 py-1.5 bg-slate-50 text-[10px] font-semibold text-slate-400 uppercase tracking-wide">
                 <span></span>
                 <span>Plan</span>
                 <span className="text-right">Precio</span>
-                <span className="text-right">$/año</span>
+                <span className="text-right">{vista === "anio" ? "Inversión" : "Ahorras"}</span>
               </div>
               {PLANES.map((p) => {
                 const selected = plan?.meses === p.meses;
                 const porAnio = p.precio > 0 ? Math.round(p.precio / (p.meses / 12)) : null;
+                const pctAhorro = p.precio > 0 ? Math.round((1 - p.precio / PRECIO_AVALUO) * 100) : null;
                 return (
                   <button
                     key={p.meses}
                     onClick={() => setPlan(p)}
-                    className={`w-full grid grid-cols-[auto_1fr_auto_auto] items-center gap-x-3 px-3 py-2.5 border-t border-slate-100 text-left transition-colors ${
+                    className={`w-full grid grid-cols-[auto_1fr_auto_auto] items-center gap-x-3 px-3 py-2 border-t border-slate-100 text-left transition-colors ${
                       selected ? "bg-[#F0FAF5]" : "hover:bg-slate-50"
                     }`}
                   >
@@ -152,7 +177,11 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
                       {p.precio === 0 ? "Gratis" : `$${p.precio}`}
                     </span>
                     <span className="text-xs text-right text-slate-400 font-medium whitespace-nowrap">
-                      {porAnio ? `$${porAnio}` : "—"}
+                      {p.precio === 0
+                        ? "—"
+                        : vista === "anio"
+                        ? `$${porAnio}/año`
+                        : `${pctAhorro}% menos`}
                     </span>
                   </button>
                 );
@@ -164,14 +193,14 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
               onChange={(e) => setNombre(e.target.value)}
               placeholder="Tu nombre (opcional)"
               maxLength={120}
-              className="w-full text-sm border border-slate-200 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#52B788]/40 text-slate-700 placeholder:text-slate-300 mb-2"
+              className="w-full text-sm border border-slate-200 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#52B788]/40 text-slate-700 placeholder:text-slate-300 mb-2"
             />
             <input
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Tu correo"
               type="email"
-              className="w-full text-sm border border-slate-200 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#52B788]/40 text-slate-700 placeholder:text-slate-300 mb-4"
+              className="w-full text-sm border border-slate-200 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#52B788]/40 text-slate-700 placeholder:text-slate-300 mb-3"
             />
 
             <Button
