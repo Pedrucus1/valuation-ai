@@ -309,6 +309,22 @@ class Valuation(BaseModel):
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
+class VaultRequestIn(BaseModel):
+    nombre: str
+    email: str
+    plan_meses: int  # 6 | 12 | 18 | 36 — validado contra PLANES_BOVEDA en el router
+
+class VaultRequest(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    vault_request_id: str = Field(default_factory=lambda: f"vlt_{uuid.uuid4().hex[:12]}")
+    valuation_id: str
+    nombre: str
+    email: str
+    plan_meses: int
+    monto: float  # calculado server-side, nunca confiar en el del cliente
+    estado: str = "pendiente_pago"
+    fecha_solicitud: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
 class ForgotPasswordRequest(BaseModel):
     email: str
 

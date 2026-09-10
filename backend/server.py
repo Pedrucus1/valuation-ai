@@ -253,6 +253,7 @@ from routers.requisiciones import router as requisiciones_router
 from routers.acabados import router as acabados_router
 from routers.atlas_colonias import router as atlas_colonias_router
 from routers.flipping import router as flipping_router
+from routers.vault import router as vault_router
 
 # Auth y sesión -> routers/auth.py (#66.1)
 
@@ -2512,6 +2513,7 @@ async def _ensure_indexes():
     await db.user_sessions.create_index("expires_at")
     await db.valuations.create_index("valuation_id")
     await db.valuations.create_index("user_id")
+    await db.vault_requests.create_index("valuation_id")
     await db["authorized_access"].create_index("email")
     await db.admins.create_index("token")
     await db.admins.create_index("email")
@@ -2598,6 +2600,7 @@ app.include_router(requisiciones_router)
 app.include_router(acabados_router)
 app.include_router(atlas_colonias_router)
 app.include_router(flipping_router)
+app.include_router(vault_router)
 
 # Serve uploaded files (ads, kyc) con soporte de HTTP Range (206).
 # StaticFiles en este entorno responde 200 sin Accept-Ranges a peticiones Range, y

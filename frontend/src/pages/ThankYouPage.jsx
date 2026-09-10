@@ -5,6 +5,7 @@ import { Building2, Star, ArrowRight, ArrowLeft, Share2, Download, LayoutDashboa
 import { toast } from "sonner";
 import { API } from "@/App";
 import { downloadReportPdf } from "@/lib/downloadReportPdf";
+import VaultModal from "@/components/VaultModal";
 
 const RATING_LABELS = {
   1: "Muy malo",
@@ -28,6 +29,7 @@ const ThankYouPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [downloading, setDownloading] = useState(false);
   const [role, setRole] = useState(null);   // rol del usuario logueado (para no sacarlo del dashboard)
+  const [vaultOpen, setVaultOpen] = useState(false);
 
   // Fetch report HTML if not passed via navigation state
   useEffect(() => {
@@ -287,7 +289,22 @@ const ThankYouPage = () => {
           <p className="text-white/40 text-xs text-center mt-3">
             Estimación realizada con inteligencia de PropValu
           </p>
+          <div className="border-t border-white/10 mt-4 pt-3 text-center">
+            <p className="text-white/50 text-xs mb-2">
+              Una vez descargado, no podemos garantizar que puedas recuperar una copia después.
+            </p>
+            <button
+              onClick={() => setVaultOpen(true)}
+              className="text-[#D9ED92] text-xs font-semibold underline underline-offset-2 hover:text-white transition-colors"
+            >
+              Guardar respaldo
+            </button>
+          </div>
         </div>
+
+        {valuationId && (
+          <VaultModal open={vaultOpen} onOpenChange={setVaultOpen} valuationId={valuationId} />
+        )}
 
         {/* Actions */}
         <div className="flex flex-col sm:flex-row gap-3">
