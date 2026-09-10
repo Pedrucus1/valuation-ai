@@ -14,7 +14,7 @@ import { API } from "@/App";
 const PRECIO_AVALUO = Math.round(280 * 1.16);
 
 const PLANES = [
-  { meses: 3, precio: 0, label: "3 meses", sub: "Gratis" },
+  { meses: 3, precio: 0, label: "3 meses" },
   { meses: 12, precio: 50, label: "1 año" },
   { meses: 36, precio: 110, label: "3 años", tag: "Más elegido" },
   { meses: 60, precio: 150, label: "5 años" },
@@ -105,8 +105,8 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
       <DialogContent
         className={
           paso === PASO.PLAN
-            ? "max-w-md bg-gradient-to-br from-[#1B4332] to-[#2D6A4F] border-none p-5"
-            : "max-w-md"
+            ? "max-w-md max-h-[95vh] overflow-y-auto bg-gradient-to-br from-[#1B4332] to-[#2D6A4F] border-none p-5"
+            : "max-w-md max-h-[95vh] overflow-y-auto"
         }
       >
         {paso === PASO.PLAN && (
@@ -145,10 +145,16 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
             </div>
 
             <div className="rounded-xl overflow-hidden mb-3 bg-white">
-              <table className="w-full border-collapse">
+              <table className="w-full border-collapse table-fixed">
+                <colgroup>
+                  <col className="w-8" />
+                  <col />
+                  <col className="w-16" />
+                  <col className="w-[92px]" />
+                </colgroup>
                 <thead>
                   <tr className="text-[10px] font-semibold text-slate-400 uppercase tracking-wide bg-slate-50">
-                    <th className="w-7"></th>
+                    <th></th>
                     <th className="text-left py-1.5 px-2">Plan</th>
                     <th className="text-right py-1.5 px-2">Precio</th>
                     <th className="text-right py-1.5 pr-3">{vista === "anio" ? "Inversión" : "Ahorras"}</th>
@@ -167,12 +173,12 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
                           selected ? "bg-[#F0FAF5]" : "hover:bg-slate-50"
                         }`}
                       >
-                        <td className="pl-2 py-2">
+                        <td className="pl-2 py-2 align-middle">
                           <span className={`block w-4 h-4 rounded-full border-2 ${
                             selected ? "border-[#52B788] bg-[#52B788]" : "border-slate-300"
                           }`} />
                         </td>
-                        <td className="py-2 px-2">
+                        <td className="py-2 px-2 align-middle">
                           <span className="block text-sm font-semibold text-[#1B4332] whitespace-nowrap">
                             {p.label}
                             {p.tag && (
@@ -181,12 +187,11 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
                               </span>
                             )}
                           </span>
-                          {p.sub && <span className="block text-[11px] text-slate-400">{p.sub}</span>}
                         </td>
-                        <td className={`py-2 px-2 text-sm font-bold text-right whitespace-nowrap ${p.precio === 0 ? "text-[#52B788]" : "text-[#1B4332]"}`}>
+                        <td className={`py-2 px-2 align-middle text-sm font-bold text-right whitespace-nowrap ${p.precio === 0 ? "text-[#52B788]" : "text-[#1B4332]"}`}>
                           {p.precio === 0 ? "Gratis" : `$${p.precio}`}
                         </td>
-                        <td className="py-2 pr-3 text-xs text-right text-slate-400 font-medium whitespace-nowrap">
+                        <td className="py-2 pr-3 align-middle text-xs text-right text-slate-400 font-medium whitespace-nowrap">
                           {p.precio === 0
                             ? "—"
                             : vista === "anio"
