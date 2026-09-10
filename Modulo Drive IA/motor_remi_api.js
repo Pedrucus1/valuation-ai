@@ -98,19 +98,51 @@ function _zonaOf(muniNorm) { return muniNorm ? (_ZONAS_MAP[muniNorm] || 'Otro') 
 //   2. v2 (casas limpias por tipo) — para colonias sin entrada en v1
 //   3. idx_valoracion tipo-específico — para colonias sin v1/v2, con NSE correcto por tipo
 //   4. idx_valoracion casa como proxy — si el tipo no tiene entrada pero casa sí
-function getNSE(colNorm, tipo = 'casa') {
+// Lookup del maestro por llave compuesta nombre|municipio cuando se conoce el municipio
+// (evita la colisión de colonias homónimas de distinto municipio — bug #5), con fallback
+// a la llave plana por nombre (comportamiento anterior, para cuando no se conoce el muni).
+function lookupMaestro(colNorm, muniNorm) {
+    if (!_maestro) return null;
+    if (muniNorm) {
+        const rec = _maestro[colNorm + '|' + muniNorm];
+        if (rec) return rec;
+    }
+    return _maestro[colNorm] || null;
+}
+
+function getNSE(colNorm, tipo = 'casa', muniNorm = null, colNormCache = null) {
+    // colNormCache: nombre crudo para el cache IDX cuando colNorm viene ajustado (ej. "x centro"
+    // para colonia vaga) — el IDX no tiene esas variantes, así que la guardia usa el nombre real.
+    const colCache = colNormCache || colNorm;
     // Maestro: misma cascada v1 → v2 → idx[tipo] → idx[casa], leída de un solo registro
     if (_maestro) {
-        const rec = _maestro[colNorm];
+        const rec = lookupMaestro(colNorm, muniNorm);
         if (!rec) return null;
-        if (rec.nse?.v1)     return rec.nse.v1;       // calibración histórica (gana siempre)
-        if (rec.nse?.perito) return rec.nse.perito;   // flywheel: avalúo real verificado (llena huecos sobre scraper)
-        if (rec.nse?.v2)     return rec.nse.v2;
-        const t = rec.idx?.[tipo]?.global;
-        if (t) return { nse: t.nse, nseIdx: t.nseIdx, medianaPm2: t.medianaPm2, fuente: 'idx-val-' + tipo };
-        const c = rec.idx?.casa?.global;
-        if (c) return { nse: c.nse, nseIdx: c.nseIdx, medianaPm2: c.medianaPm2, fuente: 'idx-val-casa' };
-        return null;
+        let out = null;
+        if (rec.nse?.v1)          out = rec.nse.v1;       // calibración histórica (gana siempre)
+        else if (rec.nse?.perito) out = rec.nse.perito;   // flywheel: avalúo real verificado (llena huecos sobre scraper)
+        else if (rec.nse?.v2)     out = rec.nse.v2;
+        else {
+            const t = rec.idx?.[tipo]?.global;
+            if (t) out = { nse: t.nse, nseIdx: t.nseIdx, medianaPm2: t.medianaPm2, fuente: 'idx-val-' + tipo };
+            else {
+                const c = rec.idx?.casa?.global;
+                if (c) out = { nse: c.nse, nseIdx: c.nseIdx, medianaPm2: c.medianaPm2, fuente: 'idx-val-casa' };
+            }
+        }
+        if (!out) return null;
+        // Anti-colisión (generaliza la guardia que antes vivía en un solo call-site): si el
+        // registro resuelto es de OTRO municipio del pedido (cayó al fallback de llave plana
+        // porque esa colonia no tiene entrada NSE propia en el municipio consultado), no confiar
+        // en su nseIdx — solo tomar el precio del cache muni-indexado (sin colisión posible), o
+        // null si tampoco hay dato ahí. Evita atribuir el NSE de un lugar a otro (bug #5).
+        if (muniNorm && rec.municipio && normMuni(rec.municipio) !== muniNorm) {
+            const cellMuni = IDX[muniNorm]?.[tipo]?.[colCache];
+            out = (cellMuni && cellMuni.medianaPm2c > 0)
+                ? { ...out, medianaPm2: cellMuni.medianaPm2c, fuente: 'cache-muni' }
+                : null;
+        }
+        return out;
     }
     // Legacy (sin maestro)
     if (_nse[colNorm])  return _nse[colNorm];
@@ -128,7 +160,7 @@ function getSimilares(colNorm, muniSujeto) {
     const zonaSujeto = muniSujeto ? _zonaOf(muniSujeto) : null;
 
     if (_maestro) {
-        const rec = _maestro[colNorm];
+        const rec = lookupMaestro(colNorm, muniSujeto);
         const sims = rec && rec.similares;
         if (!sims || !sims.length) return [];
         if (zonaSujeto) {
@@ -1049,17 +1081,10 @@ function valuarPropiedad(prop) {
     const colNormEfectivo = (coloniaEsVaga && colNorm) ? colNorm + ' centro' : colNorm;
 
     // NSE — pasa tipo del sujeto para que idx_valoracion use la entrada correcta
-    let nseSubjeto = getNSE(colNormEfectivo, tipo);
-    // Anti-colisión de nombres: si el NSE hallado es de OTRO municipio (misma colonia, distinto
-    // lugar — ej. Nueva Santa María Guadalajara vs Tlaquepaque), usar el nivel de la colonia EN SU
-    // municipio (cache, indexado por muni → sin colisión). Solo afecta colonias colisionadas.
-    const _maeMuni = _maestro && _maestro[colNormEfectivo] && _maestro[colNormEfectivo].municipio;
-    if (nseSubjeto && _maeMuni && normMuni(_maeMuni) !== muniNorm) {
-        const cellSuj = IDX[muniNorm]?.[tipo]?.[colNorm];
-        nseSubjeto = (cellSuj && cellSuj.medianaPm2c > 0)
-            ? { ...nseSubjeto, medianaPm2: cellSuj.medianaPm2c, fuente: 'cache-muni' }
-            : null;  // sin dato muni-correcto → no aplicar el tope de otra zona
-    }
+    // NSE — pasa tipo y municipio del sujeto: getNSE ya resuelve la colonia EN SU municipio
+    // (llave compuesta nombre|municipio) en vez de tomar el registro de un homónimo de otro
+    // municipio (bug #5) — reemplaza la guardia manual post-hoc que había aquí antes.
+    let nseSubjeto = getNSE(colNormEfectivo, tipo, muniNorm, colNorm);
     const similaresBrutos = getSimilares(colNorm, muniNorm).slice(0, 8).map(x => normCol(x.colonia));
     const similares = nseSubjeto
         ? similaresBrutos.filter(s => {

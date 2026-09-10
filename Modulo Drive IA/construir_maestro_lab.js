@@ -21,6 +21,19 @@ const { coordsDeColonia } = require('./_geo/proximidad.cjs');
 
 const R = f => fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : {};
 
+// Mismo normalizador que motor_remi_api.js normMuni() — necesario para que las llaves
+// compuestas "nombre|municipio" calcen entre builder y consumidor.
+function normMuni(s) {
+  if (!s) return '';
+  return s.toString().toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z\s]/g, '').replace(/\s+/g, ' ').trim()
+    .replace(/san pedro tlaquepaque/, 'tlaquepaque')
+    .replace(/tlajomulco de zuniga/, 'tlajomulco')
+    .replace(/tlajomulco de z.niga/, 'tlajomulco')
+    .replace(/(\b\w+)\1\b/, '$1');
+}
+
 const nse   = R(path.join(__dirname, 'colonias_nse.json'));
 const nse2  = R(path.join(__dirname, 'colonias_nse_v2.json'));
 const idxRaw = R(path.join(__dirname, 'idx_valoracion.json'));
@@ -89,6 +102,17 @@ for (const key of todas) {
   if (sims) { rec.similares = sims; stats.con_sim++; }
 
   maestro[key] = rec;
+
+  // Llave compuesta nombre|municipio cuando se conoce el municipio real de este registro
+  // (geo v2, o el municipio verificado por el perito) — evita que una colonia homónima de
+  // OTRO municipio sobreescriba este registro al procesarse después (bug #5, colisión NSE).
+  // La llave plana de arriba se conserva como fallback: comportamiento actual intacto para
+  // colonias sin colisión ni municipio conocido.
+  const muniReg = rec.municipio || (nseObj.perito && nseObj.perito.municipio);
+  if (muniReg) {
+    maestro[key + '|' + normMuni(muniReg)] = rec;
+    stats.con_llave_compuesta = (stats.con_llave_compuesta || 0) + 1;
+  }
 }
 
 // _meta: capas (ganada vs derivada) + temporalidad. El motor ignora "_meta" (no es colonia).
@@ -115,5 +139,6 @@ console.log('  con NSE v2 (solo):', stats.con_v2, '(v2 redundantes omitidas:', s
 console.log('  con idx:          ', stats.con_idx);
 console.log('  con similares:    ', stats.con_sim);
 console.log('  con geo (muni):   ', stats.con_geo);
+console.log('  con llave nombre|municipio:', stats.con_llave_compuesta || 0);
 const kb = (fs.statSync(OUT).size / 1024).toFixed(0);
 console.log('Tamaño maestro:     ', kb, 'KB');
