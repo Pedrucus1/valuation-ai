@@ -57,8 +57,23 @@ Colisión de NSE por colonias homónimas (#5) CERRADA e implementada en producci
    - `scraper-inmuebles/scrapers/vivanuncios_detalle.py` líneas 53-60: JSON estructurado
      embebido con etiquetas explícitas (`"label":"ZONA"/"CIUDAD"/"PROVINCIA"`), no texto libre
      — el usuario aún no decidió si cuenta como excepción o si migra igual. Decidir al retomar.
-7. **BACKLOG #185 (NO implementado):** bóveda de respaldo pagado para avalúo público al
-   descargar (6/12/18/36 meses, $50/$80/$120/$190). Requiere Stripe conectado (N4, SAPI).
+7. **#185 CERRADO (v2), loop completo verificado en vivo — sin Stripe real (sigue bloqueado
+   por N3/N4, SAPI no constituida), pago simulado en su lugar.** `ThankYouPage.jsx` muestra el
+   aviso prominente junto al botón "Descargar PDF" → `VaultModal.jsx`: tabla (no tarjetas-botón)
+   con 5 planes — Gratis (3 meses), 1 año $50, 3 años $110 ("Más elegido"), 5 años $150, Bóveda
+   Total (10 años) $195 — columna "si esperas" con el ahorro vs $230 (recuperar sin plan, tarifa
+   de referencia, no comprable aún). Plan gratis activa directo; planes pagados pasan por
+   checkout simulado (mismo patrón que `ValuationForm.jsx`/`ProCheckoutPage.jsx`: delay +
+   validación de formato de tarjeta, label "simulado" explícito, sin cobro real). Backend:
+   `POST /vault-request` (crea `pendiente_pago`) → `POST /vault-requests/{id}/confirmar-pago`
+   (marca `pagado`, calcula `expira_en`) → `GET /vault/recuperar?email=` + `GET
+   /vault/recuperar/{valuation_id}?email=` (recuperación real, nunca confía en el valuation_id
+   solo, siempre revalida correo+estado pagado) — nueva página `/recuperar`. Primer índice TTL
+   del proyecto (`vault_requests.expira_en`, `expireAfterSeconds=0`) — confirmado en Mongo.
+   Commits `5d970e9` (MVP) + `fd90aab` (v2). Fuera de alcance a propósito: Stripe real, tarifa
+   de $230/$260 (descarga suelta/actualización) como flujo de pago único real — solo aparece
+   como referencia de texto, no es comprable —, `SMTP_*` (usuario no tiene credenciales, correo
+   degrada a solo-log).
 
 ## ⏳ Pendientes de sesiones anteriores (sin tocar hoy, siguen abiertos)
 - Decisión 9-ago: NO self-hostear IA de reportes.
