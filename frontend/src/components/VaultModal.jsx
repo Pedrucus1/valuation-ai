@@ -253,9 +253,13 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
             </label>
             {mostrarTerminos && (
               <div className="bg-white/10 rounded-lg p-2.5 text-[10px] text-white/70 leading-relaxed max-h-24 overflow-y-auto">
-                Los datos proporcionados (nombre y correo) son para dar seguimiento al
-                respaldo, noticias, invitaciones, nuevos servicios o promociones de PropValu.
-                No se comparten con terceros ni se usan para otros fines.
+                Este respaldo es solo una copia de lo ya generado — no incluye actualización
+                de valores, eso es un servicio distinto. Los datos proporcionados se usan para
+                dar seguimiento al respaldo, noticias, invitaciones, nuevos servicios o
+                promociones de PropValu. No se comparten con terceros ni se usan para otros
+                fines. Conforme a la Ley Federal de Protección de Datos Personales, puedes
+                ejercer tus derechos de acceso, rectificación, cancelación u oposición
+                escribiendo a privacidad@propvalu.com.
               </div>
             )}
 
