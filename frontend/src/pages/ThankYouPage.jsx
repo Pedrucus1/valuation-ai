@@ -278,6 +278,20 @@ const ThankYouPage = () => {
               </p>
             </div>
           </div>
+          <div className="bg-white/10 border border-white/15 rounded-xl p-3 mb-3">
+            <p className="text-white text-xs font-semibold mb-0.5">
+              ¿Y si en unos años quieres recuperarlo?
+            </p>
+            <p className="text-white/60 text-[11px] mb-2">
+              Una vez descargado, no podemos garantizar que puedas recuperar una copia después.
+            </p>
+            <button
+              onClick={() => setVaultOpen(true)}
+              className="text-[#1B4332] bg-[#D9ED92] hover:bg-[#c8e070] text-xs font-bold px-3 py-1.5 rounded-lg transition-colors"
+            >
+              Guardar respaldo
+            </button>
+          </div>
           <Button
             onClick={handleDownload}
             className="w-full bg-[#D9ED92] text-[#1B4332] hover:bg-[#c8e070] font-bold text-base py-5 rounded-xl gap-2"
@@ -289,17 +303,6 @@ const ThankYouPage = () => {
           <p className="text-white/40 text-xs text-center mt-3">
             Estimación realizada con inteligencia de PropValu
           </p>
-          <div className="border-t border-white/10 mt-4 pt-3 text-center">
-            <p className="text-white/50 text-xs mb-2">
-              Una vez descargado, no podemos garantizar que puedas recuperar una copia después.
-            </p>
-            <button
-              onClick={() => setVaultOpen(true)}
-              className="text-[#D9ED92] text-xs font-semibold underline underline-offset-2 hover:text-white transition-colors"
-            >
-              Guardar respaldo
-            </button>
-          </div>
         </div>
 
         {valuationId && (

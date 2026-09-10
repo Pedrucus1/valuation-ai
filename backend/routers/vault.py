@@ -1,20 +1,24 @@
-"""Bóveda de respaldo (#185): solicitud de guardado pagado de un avalúo público.
+"""Bóveda de respaldo (#185): solicitud + "pago" ficticio + recuperación de un avalúo público.
 
-MVP sin Stripe (bloqueado por N3/N4 — falta SAPI constituida): solo captura la solicitud
-(plan + correo) como lead/waitlist. No cobra nada real. El envío de confirmación por correo
-es best-effort — si SMTP no está configurado, solo se loggea, nunca rompe la solicitud.
+Sin Stripe real (bloqueado por N3/N4 — falta SAPI constituida): el "pago" es simulado, mismo
+patrón que ya usa el resto de la app (ValuationForm.jsx, ProCheckoutPage.jsx) — no se mueve
+dinero real, solo se marca la solicitud como pagada. El envío de correo es best-effort — si
+SMTP no está configurado, solo se loggea, nunca rompe la solicitud.
 """
 import logging
+from datetime import datetime, timedelta, timezone
 from fastapi import APIRouter, HTTPException, Request
 
 from core.db import db
 from core.email import send_email
+from core.ratelimit import limiter
 from models import VaultRequest, VaultRequestIn
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api")
 
-PLANES_BOVEDA = {6: 50, 12: 80, 18: 120, 36: 170, 120: 195}
+# meses -> precio MXN. 0 = plan gratis (gancho, no pasa por el paso de "pago").
+PLANES_BOVEDA = {3: 0, 12: 50, 36: 110, 60: 150, 120: 195}
 
 
 @router.post("/valuations/{valuation_id}/vault-request")
@@ -40,16 +44,86 @@ async def crear_solicitud_boveda(valuation_id: str, body: VaultRequestIn, reques
     )
     await db["vault_requests"].insert_one(vault_req.model_dump())
 
+    return {"ok": True, "vault_request_id": vault_req.vault_request_id, "monto": monto}
+
+
+@router.post("/vault-requests/{vault_request_id}/confirmar-pago")
+async def confirmar_pago_boveda(vault_request_id: str):
+    """Marca la solicitud como pagada. Gratis o pagado, el flujo es el mismo desde aquí —
+    el frontend ya hizo (o se saltó, si es gratis) el paso de checkout simulado antes de llamar."""
+    vault_req = await db["vault_requests"].find_one({"vault_request_id": vault_request_id})
+    if not vault_req:
+        raise HTTPException(404, "Solicitud no encontrada")
+    if vault_req["estado"] == "pagado":
+        return {"ok": True, "expira_en": vault_req["expira_en"]}
+
+    expira_en = datetime.now(timezone.utc) + timedelta(days=vault_req["plan_meses"] * 30)
+    await db["vault_requests"].update_one(
+        {"vault_request_id": vault_request_id},
+        {"$set": {"estado": "pagado", "expira_en": expira_en}},
+    )
+
     try:
+        saludo = f"Hola {vault_req['nombre']}," if vault_req.get("nombre") else "Hola,"
         send_email(
-            [email],
-            "Recibimos tu solicitud de respaldo — PropValu",
-            f"<p>Hola{f' {vault_req.nombre}' if vault_req.nombre else ''},</p>"
-            f"<p>Recibimos tu solicitud de respaldo por <strong>${monto} MXN</strong> "
-            f"(plan de {body.plan_meses} meses) para tu avalúo.</p>"
-            f"<p>Te avisaremos por este correo en cuanto el pago esté disponible.</p>",
+            [vault_req["email"]],
+            "Tu respaldo está activo — PropValu",
+            f"<p>{saludo}</p>"
+            f"<p>Tu respaldo quedó activo hasta el <strong>{expira_en.strftime('%d/%m/%Y')}</strong>.</p>"
+            f"<p>Para recuperarlo en cualquier momento, entra a propvalu.com/recuperar con este correo.</p>",
         )
     except Exception as e:
-        logger.warning(f"vault-request: no se pudo enviar confirmación a {email}: {e}")
+        logger.warning(f"confirmar-pago: no se pudo enviar confirmación a {vault_req['email']}: {e}")
 
-    return {"ok": True, "message": "Solicitud registrada", "monto": monto}
+    return {"ok": True, "expira_en": expira_en}
+
+
+@router.get("/vault/recuperar")
+@limiter.limit("10/minute")
+async def buscar_boveda(request: Request, email: str = ""):
+    correo = (email or "").strip().lower()
+    if not correo or "@" not in correo:
+        raise HTTPException(400, "Correo inválido")
+
+    reqs = await db["vault_requests"].find(
+        {"email": correo, "estado": "pagado"}, {"_id": 0}
+    ).to_list(50)
+    if not reqs:
+        return {"items": []}
+
+    items = []
+    for r in reqs:
+        val = await db["valuations"].find_one(
+            {"valuation_id": r["valuation_id"]},
+            {"_id": 0, "property_data": 1},
+        )
+        prop = (val or {}).get("property_data", {})
+        items.append({
+            "valuation_id": r["valuation_id"],
+            "municipio": prop.get("municipality"),
+            "colonia": prop.get("neighborhood"),
+            "direccion": prop.get("street_address"),
+            "expira_en": r["expira_en"],
+        })
+    return {"items": items}
+
+
+@router.get("/vault/recuperar/{valuation_id}")
+@limiter.limit("10/minute")
+async def recuperar_reporte(valuation_id: str, request: Request, email: str = ""):
+    correo = (email or "").strip().lower()
+    if not correo:
+        raise HTTPException(400, "Correo requerido")
+
+    # Nunca confiar en el valuation_id solo — revalidar dueño+pago antes de devolver el HTML.
+    vault_req = await db["vault_requests"].find_one(
+        {"valuation_id": valuation_id, "email": correo, "estado": "pagado"}
+    )
+    if not vault_req:
+        raise HTTPException(404, "No encontramos un respaldo activo con ese correo para este avalúo")
+
+    val = await db["valuations"].find_one({"valuation_id": valuation_id}, {"_id": 0, "report_html": 1})
+    if not val or not val.get("report_html"):
+        raise HTTPException(404, "El reporte ya no está disponible")
+
+    return {"report_html": val["report_html"]}

@@ -2514,6 +2514,11 @@ async def _ensure_indexes():
     await db.valuations.create_index("valuation_id")
     await db.valuations.create_index("user_id")
     await db.vault_requests.create_index("valuation_id")
+    await db.vault_requests.create_index("email")
+    # Primer TTL index del proyecto: expireAfterSeconds=0 borra el doc en el instante exacto
+    # guardado en expira_en (Mongo revisa cada ~60s). Docs sin expira_en (pendientes de pago,
+    # nunca confirmados) no tienen ese campo -> nunca se borran solos (lead frío, aceptable).
+    await db.vault_requests.create_index("expira_en", expireAfterSeconds=0)
     await db["authorized_access"].create_index("email")
     await db.admins.create_index("token")
     await db.admins.create_index("email")

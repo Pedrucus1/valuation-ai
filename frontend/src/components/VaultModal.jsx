@@ -1,33 +1,62 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { ShieldCheck, Check } from "lucide-react";
+import { ShieldCheck, Check, CreditCard } from "lucide-react";
 import { toast } from "sonner";
 import { API } from "@/App";
 
-// #185 MVP sin Stripe (bloqueado por N3/N4 — falta SAPI constituida): esto solo registra
-// la solicitud como lead/waitlist, no cobra nada real. El backend valida el monto server-side.
+// #185 sin Stripe real (bloqueado por N3/N4 — falta SAPI constituida): el pago es simulado,
+// mismo patrón que ValuationForm.jsx (checkout de valuación) y ProCheckoutPage.jsx — no se
+// mueve dinero real, solo se marca la solicitud como pagada en el backend.
+// PRECIO_SIN_PLAN: lo que costaría recuperar el avalúo más adelante sin haber pagado un
+// plan hoy — referencia para la columna "si esperas" (genera el contraste, no es un plan
+// comprable todavía; ese flujo de pago único quedó fuera de alcance de este pase).
+const PRECIO_SIN_PLAN = 230;
+
 const PLANES = [
-  { meses: 6, precio: 50 },
-  { meses: 12, precio: 80 },
-  { meses: 18, precio: 120 },
-  { meses: 36, precio: 170 },
-  { meses: 120, precio: 195 },
+  { meses: 3, precio: 0, label: "3 meses", sub: "Gratis" },
+  { meses: 12, precio: 50, label: "1 año" },
+  { meses: 36, precio: 110, label: "3 años", tag: "Más elegido" },
+  { meses: 60, precio: 150, label: "5 años" },
+  { meses: 120, precio: 195, label: "Bóveda Total", sub: "10 años" },
 ];
 
+const fmtCardNum = (v) => v.replace(/\D/g, "").slice(0, 16).replace(/(.{4})/g, "$1 ").trim();
+const fmtExpiry = (v) => v.replace(/\D/g, "").slice(0, 4).replace(/^(\d{2})(\d)/, "$1/$2");
+
+const PASO = { PLAN: "plan", PAGO: "pago", LISTO: "listo" };
+
 export default function VaultModal({ open, onOpenChange, valuationId }) {
+  const [paso, setPaso] = useState(PASO.PLAN);
   const [plan, setPlan] = useState(null);
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
+  const [card, setCard] = useState({ number: "", expiry: "", cvv: "", name: "" });
+  const [vaultRequestId, setVaultRequestId] = useState(null);
+  const [expiraEn, setExpiraEn] = useState(null);
   const [enviando, setEnviando] = useState(false);
-  const [listo, setListo] = useState(false);
+  const [procesandoPago, setProcesandoPago] = useState(false);
+
+  const cardOk = card.number.replace(/\s/g, "").length === 16
+    && card.expiry.length === 5 && card.cvv.length >= 3 && card.name.trim().length >= 3;
 
   const cerrar = (v) => {
     onOpenChange(v);
     if (!v) {
-      // reset al cerrar, para que la próxima apertura empiece limpia
-      setTimeout(() => { setPlan(null); setNombre(""); setEmail(""); setListo(false); }, 200);
+      setTimeout(() => {
+        setPaso(PASO.PLAN); setPlan(null); setNombre(""); setEmail("");
+        setCard({ number: "", expiry: "", cvv: "", name: "" });
+        setVaultRequestId(null); setExpiraEn(null);
+      }, 200);
     }
+  };
+
+  const confirmarPago = async (reqId) => {
+    const res = await fetch(`${API}/vault-requests/${reqId}/confirmar-pago`, { method: "POST" });
+    if (!res.ok) throw new Error("fallo confirmar");
+    const data = await res.json();
+    setExpiraEn(data.expira_en);
+    setPaso(PASO.LISTO);
   };
 
   const solicitar = async () => {
@@ -41,10 +70,16 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
       const res = await fetch(`${API}/valuations/${valuationId}/vault-request`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nombre: nombre.trim(), email: email.trim(), plan_meses: plan }),
+        body: JSON.stringify({ nombre: nombre.trim(), email: email.trim(), plan_meses: plan.meses }),
       });
       if (!res.ok) throw new Error("fallo");
-      setListo(true);
+      const data = await res.json();
+      setVaultRequestId(data.vault_request_id);
+      if (plan.precio === 0) {
+        await confirmarPago(data.vault_request_id);
+      } else {
+        setPaso(PASO.PAGO);
+      }
     } catch {
       toast.error("No se pudo registrar la solicitud. Intenta de nuevo.");
     } finally {
@@ -52,10 +87,22 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
     }
   };
 
+  const pagar = async () => {
+    setProcesandoPago(true);
+    await new Promise((r) => setTimeout(r, 2000)); // simulado — sin Stripe real
+    try {
+      await confirmarPago(vaultRequestId);
+    } catch {
+      toast.error("No se pudo confirmar el pago. Intenta de nuevo.");
+    } finally {
+      setProcesandoPago(false);
+    }
+  };
+
   return (
     <Dialog open={open} onOpenChange={cerrar}>
       <DialogContent className="max-w-md">
-        {!listo ? (
+        {paso === PASO.PLAN && (
           <>
             <DialogHeader>
               <div className="w-10 h-10 rounded-xl bg-[#F0FAF5] flex items-center justify-center mb-2">
@@ -67,27 +114,50 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
               </DialogDescription>
             </DialogHeader>
 
-            <div className="grid grid-cols-2 gap-2 my-3">
-              {PLANES.map((p) => (
-                <button
-                  key={p.meses}
-                  onClick={() => setPlan(p.meses)}
-                  className={`rounded-xl border p-3 text-left transition-colors ${
-                    plan === p.meses
-                      ? "border-[#52B788] bg-[#F0FAF5] ring-2 ring-[#52B788]/30"
-                      : "border-slate-200 hover:border-slate-300"
-                  }`}
-                >
-                  <p className="text-xs text-slate-500">
-                    {p.meses < 12
-                      ? `${p.meses} meses`
-                      : p.meses === 12
-                      ? "1 año"
-                      : `${parseFloat((p.meses / 12).toFixed(1))} años`}
-                  </p>
-                  <p className="font-bold text-[#1B4332]">${p.precio} MXN</p>
-                </button>
-              ))}
+            <div className="rounded-xl border border-slate-200 overflow-hidden my-3">
+              <div className="grid grid-cols-[auto_1fr_auto_auto] gap-x-3 px-3 py-1.5 bg-slate-50 text-[10px] font-semibold text-slate-400 uppercase tracking-wide">
+                <span></span>
+                <span>Plan</span>
+                <span className="text-right">Precio</span>
+                <span className="text-right">Si esperas</span>
+              </div>
+              {PLANES.map((p) => {
+                const selected = plan?.meses === p.meses;
+                const ahorro = p.precio > 0 ? PRECIO_SIN_PLAN - p.precio : null;
+                return (
+                  <button
+                    key={p.meses}
+                    onClick={() => setPlan(p)}
+                    className={`w-full grid grid-cols-[auto_1fr_auto_auto] items-center gap-x-3 px-3 py-2.5 border-t border-slate-100 text-left transition-colors ${
+                      selected ? "bg-[#F0FAF5]" : "hover:bg-slate-50"
+                    }`}
+                  >
+                    <span className={`w-4 h-4 rounded-full border-2 shrink-0 ${
+                      selected ? "border-[#52B788] bg-[#52B788]" : "border-slate-300"
+                    }`} />
+                    <span className="min-w-0">
+                      <span className="block text-sm font-semibold text-[#1B4332] truncate">
+                        {p.label}
+                        {p.tag && (
+                          <span className="ml-1.5 text-[9px] font-extrabold px-1.5 py-0.5 rounded-full bg-[#D9ED92] text-[#1B4332] align-middle whitespace-nowrap">
+                            {p.tag}
+                          </span>
+                        )}
+                      </span>
+                      {p.sub && <span className="block text-[11px] text-slate-400">{p.sub}</span>}
+                    </span>
+                    <span className={`text-sm font-bold text-right whitespace-nowrap ${p.precio === 0 ? "text-[#52B788]" : "text-[#1B4332]"}`}>
+                      {p.precio === 0 ? "Gratis" : `$${p.precio}`}
+                    </span>
+                    <span className="text-xs text-right text-amber-600 font-semibold whitespace-nowrap">
+                      {ahorro ? `ahorras $${ahorro}` : "—"}
+                    </span>
+                  </button>
+                );
+              })}
+              <p className="text-[10px] text-slate-400 px-3 py-1.5 bg-slate-50 border-t border-slate-100">
+                Recuperarlo después sin plan cuesta ${PRECIO_SIN_PLAN} MXN.
+              </p>
             </div>
 
             <input
@@ -110,20 +180,75 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
               disabled={!plan || enviando}
               className="w-full bg-[#52B788] hover:bg-[#40916C] text-white font-semibold rounded-xl"
             >
-              {enviando ? "Enviando…" : "Solicitar"}
+              {enviando ? "Enviando…" : plan?.precio === 0 ? "Activar gratis" : "Continuar"}
             </Button>
-            <p className="text-xs text-slate-400 text-center mt-2">
-              El pago todavía no está disponible — registramos tu solicitud y te avisamos por correo.
-            </p>
           </>
-        ) : (
+        )}
+
+        {paso === PASO.PAGO && (
+          <>
+            <DialogHeader>
+              <DialogTitle className="text-[#1B4332]">Pago <span className="text-xs text-slate-400 font-normal">(simulado)</span></DialogTitle>
+              <DialogDescription>
+                {plan?.label} — ${plan?.precio} MXN. No se procesa ningún cobro real.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-3 my-2">
+              <input
+                className="w-full border border-[#B7E4C7] rounded-lg bg-[#F0FAF5] px-3 py-2.5 text-sm focus:outline-none focus:border-[#52B788] font-mono tracking-wider"
+                placeholder="Número de tarjeta   4242 4242 4242 4242"
+                value={card.number}
+                maxLength={19}
+                onChange={(e) => setCard((p) => ({ ...p, number: fmtCardNum(e.target.value) }))}
+              />
+              <div className="grid grid-cols-2 gap-3">
+                <input
+                  className="w-full border border-[#B7E4C7] rounded-lg bg-[#F0FAF5] px-3 py-2.5 text-sm focus:outline-none focus:border-[#52B788]"
+                  placeholder="MM/AA"
+                  value={card.expiry}
+                  maxLength={5}
+                  onChange={(e) => setCard((p) => ({ ...p, expiry: fmtExpiry(e.target.value) }))}
+                />
+                <input
+                  className="w-full border border-[#B7E4C7] rounded-lg bg-[#F0FAF5] px-3 py-2.5 text-sm focus:outline-none focus:border-[#52B788]"
+                  placeholder="CVV"
+                  value={card.cvv}
+                  maxLength={4}
+                  onChange={(e) => setCard((p) => ({ ...p, cvv: e.target.value.replace(/\D/g, "").slice(0, 4) }))}
+                />
+              </div>
+              <input
+                className="w-full border border-[#B7E4C7] rounded-lg bg-[#F0FAF5] px-3 py-2.5 text-sm focus:outline-none focus:border-[#52B788] uppercase"
+                placeholder="NOMBRE EN LA TARJETA"
+                value={card.name}
+                onChange={(e) => setCard((p) => ({ ...p, name: e.target.value.toUpperCase() }))}
+              />
+            </div>
+            <Button
+              onClick={pagar}
+              disabled={!cardOk || procesandoPago}
+              className="w-full bg-[#52B788] hover:bg-[#40916C] text-white font-bold rounded-xl gap-2"
+            >
+              {procesandoPago ? (
+                <>Procesando pago…</>
+              ) : (
+                <><CreditCard className="w-4 h-4" />Pagar ${plan?.precio} MXN</>
+              )}
+            </Button>
+          </>
+        )}
+
+        {paso === PASO.LISTO && (
           <div className="text-center py-4">
             <div className="w-12 h-12 rounded-full bg-[#F0FAF5] flex items-center justify-center mx-auto mb-3">
               <Check className="w-6 h-6 text-[#52B788]" />
             </div>
-            <p className="font-bold text-[#1B4332] mb-1">Solicitud registrada</p>
-            <p className="text-sm text-slate-500 mb-4">
-              Te avisaremos a {email} en cuanto el pago esté disponible.
+            <p className="font-bold text-[#1B4332] mb-1">Respaldo activo</p>
+            <p className="text-sm text-slate-500 mb-1">
+              Válido hasta {expiraEn ? new Date(expiraEn).toLocaleDateString("es-MX") : "—"}.
+            </p>
+            <p className="text-xs text-slate-400 mb-4">
+              Recupéralo cuando quieras en propvalu.com/recuperar con {email}.
             </p>
             <Button onClick={() => cerrar(false)} variant="outline" className="w-full">
               Cerrar
