@@ -1,17 +1,16 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { ShieldCheck, Check, CreditCard } from "lucide-react";
+import { ShieldAlert, Check, CreditCard } from "lucide-react";
 import { toast } from "sonner";
 import { API } from "@/App";
 
 // #185 sin Stripe real (bloqueado por N3/N4 — falta SAPI constituida): el pago es simulado,
 // mismo patrón que ValuationForm.jsx (checkout de valuación) y ProCheckoutPage.jsx — no se
 // mueve dinero real, solo se marca la solicitud como pagada en el backend.
-// Precio de un avalúo individual completo, CON IVA (ValuationForm.jsx CHECKOUT_PLANS
-// "individual": $280 + 16% IVA, mismo cálculo que su checkout real) — referencia de "lo que
-// te ahorras volviendo a pagar todo" en el aviso de arriba.
-const PRECIO_AVALUO = Math.round(280 * 1.16);
+// Precio neto de un avalúo individual completo (ValuationForm.jsx CHECKOUT_PLANS
+// "individual") — referencia de "lo que te ahorras volviendo a pagar todo" en el aviso.
+const PRECIO_AVALUO = 280;
 
 const PLANES = [
   { meses: 3, precio: 0, label: "3 meses", sub: "Gratis" },
@@ -28,7 +27,7 @@ const PASO = { PLAN: "plan", PAGO: "pago", LISTO: "listo" };
 
 export default function VaultModal({ open, onOpenChange, valuationId }) {
   const [paso, setPaso] = useState(PASO.PLAN);
-  const [plan, setPlan] = useState(null);
+  const [plan, setPlan] = useState(PLANES[0]); // preseleccionado: 3 meses gratis
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [card, setCard] = useState({ number: "", expiry: "", cvv: "", name: "" });
@@ -44,7 +43,7 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
     onOpenChange(v);
     if (!v) {
       setTimeout(() => {
-        setPaso(PASO.PLAN); setPlan(null); setNombre(""); setEmail("");
+        setPaso(PASO.PLAN); setPlan(PLANES[0]); setNombre(""); setEmail("");
         setCard({ number: "", expiry: "", cvv: "", name: "" });
         setVaultRequestId(null); setExpiraEn(null);
       }, 200);
@@ -105,14 +104,14 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
         {paso === PASO.PLAN && (
           <>
             <DialogHeader>
-              <div className="w-10 h-10 rounded-xl bg-[#F0FAF5] flex items-center justify-center mb-2">
-                <ShieldCheck className="w-5 h-5 text-[#1B4332]" />
+              <div className="w-16 h-16 rounded-xl bg-red-50 flex items-center justify-center mb-2">
+                <ShieldAlert className="w-9 h-9 text-red-600" />
               </div>
               <DialogTitle className="text-[#1B4332]">Guardar respaldo</DialogTitle>
               <DialogDescription>
-                Es común que quien valúa una propiedad regrese años después a actualizarla o
-                pedir una copia. Guarda tu respaldo ahora y evita pagar un avalúo completo de
-                nuevo (${PRECIO_AVALUO} MXN con IVA, precio actual).
+                El 70% de las personas que valúan una propiedad vuelven a actualizarla o
+                solicitar una copia años después. Guarda tu respaldo ahora y evita pagar un
+                avalúo completo de nuevo (${PRECIO_AVALUO} MXN, precio actual).
               </DialogDescription>
             </DialogHeader>
 

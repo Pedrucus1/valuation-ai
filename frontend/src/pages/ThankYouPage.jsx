@@ -283,7 +283,8 @@ const ThankYouPage = () => {
               ¿Y si en unos años quieres recuperarlo?
             </p>
             <p className="text-white/60 text-[11px] mb-2">
-              Una vez descargado, no podemos garantizar que puedas recuperar una copia después.
+              Una vez descargado, no podemos garantizar que puedas recuperar una copia después
+              (aprovecha la oferta).
             </p>
             <button
               onClick={() => setVaultOpen(true)}
