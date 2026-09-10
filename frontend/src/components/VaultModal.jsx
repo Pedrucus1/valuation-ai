@@ -105,27 +105,27 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
       <DialogContent
         className={
           paso === PASO.PLAN
-            ? "max-w-md max-h-[95vh] overflow-y-auto bg-gradient-to-br from-[#1B4332] to-[#2D6A4F] border-none p-5"
-            : "max-w-md max-h-[95vh] overflow-y-auto"
+            ? "max-w-md bg-gradient-to-br from-[#1B4332] to-[#2D6A4F] border-none p-4"
+            : "max-w-md"
         }
       >
         {paso === PASO.PLAN && (
-          <>
-            <div className="flex items-center gap-2.5 mb-2">
-              <div className="w-9 h-9 rounded-lg bg-red-500/15 flex items-center justify-center shrink-0">
-                <ShieldAlert className="w-5 h-5 text-red-400" />
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-red-500/15 flex items-center justify-center shrink-0">
+                <ShieldAlert className="w-4 h-4 text-red-400" />
               </div>
-              <DialogTitle className="text-white text-lg">Guarda tu respaldo</DialogTitle>
+              <DialogTitle className="text-white text-base">Guarda tu respaldo</DialogTitle>
             </div>
-            <div className="bg-[#52B788] rounded-xl p-3 mb-3">
-              <DialogDescription className="text-white text-sm font-medium leading-snug">
+            <div className="bg-[#52B788] rounded-xl p-2.5">
+              <DialogDescription className="text-white text-xs font-medium leading-snug">
                 El 70% de las personas que valúan una propiedad vuelven a actualizarla o
                 solicitar una copia después de un año. Guarda tu respaldo ahora y evita pagar
                 un avalúo completo de nuevo (${PRECIO_AVALUO} MXN, precio total con IVA).
               </DialogDescription>
             </div>
 
-            <div className="flex items-center justify-center gap-1 mb-2 text-xs">
+            <div className="flex items-center justify-center gap-1 text-xs">
               <button
                 onClick={() => setVista("anio")}
                 className={`px-2.5 py-1 rounded-full font-semibold transition-colors ${
@@ -144,7 +144,7 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
               </button>
             </div>
 
-            <div className="rounded-xl overflow-hidden mb-3 bg-white">
+            <div className="rounded-xl overflow-hidden bg-white">
               <table className="w-full border-collapse table-fixed">
                 <colgroup>
                   <col className="w-8" />
@@ -173,12 +173,12 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
                           selected ? "bg-[#F0FAF5]" : "hover:bg-slate-50"
                         }`}
                       >
-                        <td className="pl-2 py-2 align-middle">
+                        <td className="pl-2 py-1.5 align-middle">
                           <span className={`block w-4 h-4 rounded-full border-2 ${
                             selected ? "border-[#52B788] bg-[#52B788]" : "border-slate-300"
                           }`} />
                         </td>
-                        <td className="py-2 px-2 align-middle">
+                        <td className="py-1.5 px-2 align-middle">
                           <span className="block text-sm font-semibold text-[#1B4332] whitespace-nowrap">
                             {p.label}
                             {p.tag && (
@@ -188,10 +188,10 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
                             )}
                           </span>
                         </td>
-                        <td className={`py-2 px-2 align-middle text-sm font-bold text-right whitespace-nowrap ${p.precio === 0 ? "text-[#52B788]" : "text-[#1B4332]"}`}>
+                        <td className={`py-1.5 px-2 align-middle text-sm font-bold text-right whitespace-nowrap ${p.precio === 0 ? "text-[#52B788]" : "text-[#1B4332]"}`}>
                           {p.precio === 0 ? "Gratis" : `$${p.precio}`}
                         </td>
-                        <td className="py-2 pr-3 align-middle text-center whitespace-nowrap">
+                        <td className="py-1.5 pr-3 align-middle text-center whitespace-nowrap">
                           {p.precio === 0 ? (
                             <span className="text-xs text-slate-300">—</span>
                           ) : (
@@ -212,14 +212,14 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
               onChange={(e) => setNombre(e.target.value)}
               placeholder="Tu nombre (opcional)"
               maxLength={120}
-              className="w-full text-sm rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-white/30 text-white placeholder:text-white/40 mb-2 border !bg-white/10 !border-white/20"
+              className="w-full text-sm rounded-xl px-4 py-1.5 focus:outline-none focus:ring-2 focus:ring-white/30 text-white placeholder:text-white/40 border !bg-white/10 !border-white/20 [&:not(:placeholder-shown)]:!bg-white/10 [&:not(:placeholder-shown)]:!border-white/20 [&:not(:placeholder-shown)]:!text-white"
             />
             <input
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Tu correo"
               type="email"
-              className="w-full text-sm rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-white/30 text-white placeholder:text-white/40 mb-3 border !bg-white/10 !border-white/20"
+              className="w-full text-sm rounded-xl px-4 py-1.5 focus:outline-none focus:ring-2 focus:ring-white/30 text-white placeholder:text-white/40 border !bg-white/10 !border-white/20 [&:not(:placeholder-shown)]:!bg-white/10 [&:not(:placeholder-shown)]:!border-white/20 [&:not(:placeholder-shown)]:!text-white"
             />
 
             <Button
@@ -229,7 +229,7 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
             >
               {enviando ? "Enviando…" : plan?.precio === 0 ? "Activar gratis" : "Continuar"}
             </Button>
-          </>
+          </div>
         )}
 
         {paso === PASO.PAGO && (
