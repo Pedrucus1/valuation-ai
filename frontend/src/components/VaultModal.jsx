@@ -253,11 +253,11 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
             </label>
             {mostrarTerminos && (
               <div className="bg-white/10 rounded-lg p-2.5 text-[10px] text-white/70 leading-relaxed max-h-24 overflow-y-auto">
-                Guardamos tu nombre, correo y los datos de tu avalúo únicamente para brindarte
-                este servicio de respaldo. Al aceptar, autorizas a PropValu a enviarte
-                invitaciones, noticias, promociones o información sobre nuevos servicios por
-                este correo — independientemente del plazo del plan que hayas elegido. No
-                compartimos tus datos con terceros para fines distintos a este servicio.
+                Usamos tu nombre, correo y los datos de tu avalúo solo para darte este
+                servicio de respaldo. También nos gustaría mantenerte al tanto con
+                invitaciones, noticias, promociones o nuevos servicios de PropValu por este
+                correo, sin importar el plan que elijas. Tu información nunca se comparte con
+                terceros para otros fines.
               </div>
             )}
 
