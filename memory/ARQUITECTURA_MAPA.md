@@ -34,6 +34,12 @@
 6. **Staging (#66)**: cluster Atlas separado — `db_target.py` / `seed_staging.py` / `core/db.py`
 7. **Email marketing**: `core/email.py` + `newsletter.py` + `AdminNewsletter.jsx` + Gemini + react-quill-new
 8. **Alta a `mercado_props` (3 caminos, misma validación/escritura #144):** scraper automático · Data Exchange masivo (`routers/data_exchange.py::confirmar`, archivo) · alta manual 1-10 (`.../data-exchange/manual` inmobiliaria, `.../comparables/manual` perito/admin vía `_quien()`). Los 3 últimos comparten `core/data_exchange.py::normalizar_fila/validar_fila/fila_a_doc_pool/fila_a_doc_crm` — tocar ahí propaga a ambos endpoints.
+9b. **Bóveda de respaldo (10-sep, #185):** `routers/vault.py` — `db.vault_requests` (primer
+    índice **TTL** del proyecto, `expira_en`/`expireAfterSeconds=0`). Flujo: solicitud →
+    "pago" simulado (sin Stripe real, bloqueado por SAPI/N3-N4) → confirmar-pago (marca
+    `pagado`, calcula `expira_en`) → recuperación real por correo (`/vault/recuperar`,
+    nunca confía en `valuation_id` solo). Recordatorios (anual + pre-expiración) vía el
+    APScheduler ya existente en `server.py` (mismo flag `ENABLE_SCHEDULER=1`).
 9. **Federación con atlas-colonias (24-ago, #163):** `routers/atlas_colonias.py::atlas_colonias_sync`/`atlas_colonias_sync_profiles` jalan `GET {ATLAS_COLONIAS_FEED_URL}/api/sync/feed` y `/api/sync/profiles` (paginado, cursor en `colonia_sync_status`), hacen upsert en `colonia_classifications_atlas`/`classifier_profiles_atlas` (nunca tocan `colonias_decada.json`, cacheado en memoria por proceso vía `core/colonias.py::_indice`), y confirman con `POST /api/sync/ack`. Plan completo en `Manual-Arquitectura-ZMG/PLAN_FEDERACION_ECOSISTEMA.md`.
 
 ## Datos / campos

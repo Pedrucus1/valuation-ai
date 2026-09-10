@@ -595,14 +595,14 @@
     "semantic_hash": "2dc60e7c43c5bec132ae3de13b746939"
   },
   "Modulo Drive IA/colonias_maestro.json": {
-    "mtime": 1788997859.7688148,
-    "ast_hash": "435181a5b8030c7459ba2bc1ccf118be",
-    "semantic_hash": "435181a5b8030c7459ba2bc1ccf118be"
+    "mtime": 1789012512.9913023,
+    "ast_hash": "152c128e5d4d9c27a3c5b84ea5ccf117",
+    "semantic_hash": "152c128e5d4d9c27a3c5b84ea5ccf117"
   },
   "Modulo Drive IA/colonias_maestro.lab.json": {
-    "mtime": 1784786402.8041384,
-    "ast_hash": "0542d86701d5a467a1323f6c806be4cc",
-    "semantic_hash": "0542d86701d5a467a1323f6c806be4cc"
+    "mtime": 1788999765.3761747,
+    "ast_hash": "9cede5b931947f1c04fe34bdd3e71895",
+    "semantic_hash": "9cede5b931947f1c04fe34bdd3e71895"
   },
   "Modulo Drive IA/colonias_manual_municipios.json": {
     "mtime": 1780286742.785053,
@@ -720,14 +720,14 @@
     "semantic_hash": "841bef96a661975101e2fc94bfa54089"
   },
   "Modulo Drive IA/construir_maestro.js": {
-    "mtime": 1780598775.5007274,
-    "ast_hash": "6636c8dd92ee84615415684acf7e5de5",
-    "semantic_hash": "6636c8dd92ee84615415684acf7e5de5"
+    "mtime": 1788999742.9337506,
+    "ast_hash": "fefdf1c42ddb48981caad590549196d2",
+    "semantic_hash": "fefdf1c42ddb48981caad590549196d2"
   },
   "Modulo Drive IA/construir_maestro_lab.js": {
-    "mtime": 1784786396.3501928,
-    "ast_hash": "cd09a1fac1cc8930be82b9c50bea61d9",
-    "semantic_hash": "cd09a1fac1cc8930be82b9c50bea61d9"
+    "mtime": 1788999760.651387,
+    "ast_hash": "f95845d76d824200215ea637a13327c2",
+    "semantic_hash": "f95845d76d824200215ea637a13327c2"
   },
   "Modulo Drive IA/construir_nse_v2.js": {
     "mtime": 1788432759.595217,
@@ -970,9 +970,9 @@
     "semantic_hash": "77e8ff80785d74745d98b73e9665efbc"
   },
   "Modulo Drive IA/motor_remi_api.js": {
-    "mtime": 1788976864.3050773,
-    "ast_hash": "84409305654a853e86dfb3d7b7cce76f",
-    "semantic_hash": "84409305654a853e86dfb3d7b7cce76f"
+    "mtime": 1789012477.812805,
+    "ast_hash": "28730bb72262b8c725b0297ae5cd506d",
+    "semantic_hash": "28730bb72262b8c725b0297ae5cd506d"
   },
   "Modulo Drive IA/motor_remi_api_dv.js": {
     "mtime": 1782841941.69444,
@@ -980,9 +980,9 @@
     "semantic_hash": "a3e79643dcab90205665bfdb6ba75b82"
   },
   "Modulo Drive IA/motor_remi_api_lab.js": {
-    "mtime": 1784802846.8235614,
-    "ast_hash": "93eae176468694083fb202a1af533be9",
-    "semantic_hash": "93eae176468694083fb202a1af533be9"
+    "mtime": 1789012442.1040075,
+    "ast_hash": "3731500bf6300271cfa70da46e30e9dd",
+    "semantic_hash": "3731500bf6300271cfa70da46e30e9dd"
   },
   "Modulo Drive IA/motor_remi_api_limpio.js": {
     "mtime": 1782922409.1899111,
@@ -1375,9 +1375,9 @@
     "semantic_hash": "b07113c630110d2f26c3244f3c99cef6"
   },
   "backend/models.py": {
-    "mtime": 1787548002.3268237,
-    "ast_hash": "bdad87c2ba1ce238b00e92bda99bbb1d",
-    "semantic_hash": "bdad87c2ba1ce238b00e92bda99bbb1d"
+    "mtime": 1789031706.865888,
+    "ast_hash": "fb5916811b9cb818572e44ddd6fb69c3",
+    "semantic_hash": "fb5916811b9cb818572e44ddd6fb69c3"
   },
   "backend/mongo_comparables.py": {
     "mtime": 1786141418.2923887,
@@ -1555,9 +1555,9 @@
     "semantic_hash": "f726ef1400ce2cb93ebd6916b4e0cfcf"
   },
   "backend/server.py": {
-    "mtime": 1788985663.267392,
-    "ast_hash": "07ccab5c3b7b43e7caf57110b62b83db",
-    "semantic_hash": "07ccab5c3b7b43e7caf57110b62b83db"
+    "mtime": 1789031786.7707183,
+    "ast_hash": "afbe61854abe09ac3c6cfd1133365629",
+    "semantic_hash": "afbe61854abe09ac3c6cfd1133365629"
   },
   "backend/sheets_comparables.py": {
     "mtime": 1776473228.832765,
@@ -1795,9 +1795,9 @@
     "semantic_hash": "c6c076c6ab378cfac67bfe0278daa1a7"
   },
   "frontend/src/App.js": {
-    "mtime": 1788988723.7860537,
-    "ast_hash": "48e2f637fb51baf3680fdb3e743276fe",
-    "semantic_hash": "48e2f637fb51baf3680fdb3e743276fe"
+    "mtime": 1789028187.739615,
+    "ast_hash": "b22cdd1b4be1d698cdc4856ffcc5da29",
+    "semantic_hash": "b22cdd1b4be1d698cdc4856ffcc5da29"
   },
   "frontend/src/PlasmicPage.jsx": {
     "mtime": 1784805410.861088,
@@ -2420,9 +2420,9 @@
     "semantic_hash": "59d30b9bb347a1d023f13cef8c0947a3"
   },
   "frontend/src/pages/ThankYouPage.jsx": {
-    "mtime": 1784702291.8287473,
-    "ast_hash": "43b6a96e1f3d8ac91887d10bd305ff81",
-    "semantic_hash": "43b6a96e1f3d8ac91887d10bd305ff81"
+    "mtime": 1789029424.4009557,
+    "ast_hash": "d6e734687e23c8407860d132e69c0109",
+    "semantic_hash": "d6e734687e23c8407860d132e69c0109"
   },
   "frontend/src/pages/ValuadorDashboardPage.jsx": {
     "mtime": 1788426552.4018073,
@@ -3503,5 +3503,20 @@
     "mtime": 1788988718.3090756,
     "ast_hash": "1c8c0cacb5edb1da681806efa60e73fb",
     "semantic_hash": "1c8c0cacb5edb1da681806efa60e73fb"
+  },
+  "backend/routers/vault.py": {
+    "mtime": 1789031759.436586,
+    "ast_hash": "49ed84855ebcade30ef9226346af8a21",
+    "semantic_hash": "49ed84855ebcade30ef9226346af8a21"
+  },
+  "frontend/src/components/VaultModal.jsx": {
+    "mtime": 1789033150.432488,
+    "ast_hash": "79a11136aea6693bbfcadfb3f8c51073",
+    "semantic_hash": "79a11136aea6693bbfcadfb3f8c51073"
+  },
+  "frontend/src/pages/RecuperarPage.jsx": {
+    "mtime": 1789028178.7031171,
+    "ast_hash": "adce7e44f821fd7ecd05ed0b38b5cd88",
+    "semantic_hash": "adce7e44f821fd7ecd05ed0b38b5cd88"
   }
 }

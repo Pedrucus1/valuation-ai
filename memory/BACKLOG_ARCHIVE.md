@@ -5,6 +5,67 @@
 
 ---
 
+## 10 Sep 2026 (madrugada) — #188 colisión de NSE cerrada + #185 bóveda de respaldo construida
+
+**#188 (colisión de NSE entre colonias homónimas de distinto municipio).** Cuantificado primero:
+58/3,898 colonias colisionan, 35 con precio/m² divergente ≥25% (ej. "Chulavista" devolvía el NSE
+de Tlajomulco al consultarse para Chapala). Fix: `construir_maestro.js` indexa también por llave
+compuesta `nombre|municipio` cuando se conoce el municipio (733 colonias, siguiendo el patrón ya
+usado en `backfill_cp_maestro.js`/`core/colonias.py`); `getNSE`/`getSimilares` en
+`motor_remi_api.js` (+ `_lab.js`) generalizan la guardia anti-colisión a los 7 call-sites del motor
+(antes solo 1 la tenía, y solo parcheaba el precio, no el NSE). Validado offline: efecto neutro en
+los 40 avalúos reales del perito. Commit `283123d`.
+
+**Error de metodología propio, detectado y corregido en la misma sesión:** el primer intento de
+validación comparó el fix (vive en `_lab.js`) contra el baseline de PRODUCCIÓN
+(`motor_remi_api.js`) — dio "negativo" (67.6%→50.0%), pero era un artefacto de comparar dos
+archivos ya distintos entre sí por razones ajenas al fix (flags experimentales del `_lab.js`). El
+control correcto (mismo `_lab.js`, con/sin el cambio) mostró el resultado real: neutro. Nueva
+regla guardada en memoria: validar un fix de `_lab` siempre contra ese mismo archivo sin el
+cambio, nunca contra producción.
+
+Debate de panel simulado (valuador/inmobiliario/perspectiva-INDAABIN/sistemas/industrial/PM) sobre
+#184-d (NSE de terreno): no construir tabla nueva — conectar el atlas de colonias (vivo, sin usar
+hoy) al fallback de `sumaDePartes`. Hallazgo del panel: el problema es más amplio de lo pensado,
+`sumaDePartes` no recibe `tipo` como parámetro, así que también afecta depto/local/bodega/oficina
+(la tabla INDAABIN de costos es residencial-only — mismatch más grave ahí que en terreno).
+
+**#185 (bóveda de respaldo pagado para avalúo público), MVP → v2 completo.** Sin Stripe real (SAPI
+no constituida, N3/N4 bloqueados) — "pago" simulado con el mismo patrón exacto que
+`ValuationForm.jsx`/`ProCheckoutPage.jsx` (delay + validación de formato de tarjeta, label
+"simulado" explícito, nunca cobro real). MVP (`5d970e9`) capturaba la solicitud como lead sin
+cobrar; v2 (`fd90aab` en adelante) agregó el loop completo: confirmación real
+(`estado→pagado`+`expira_en`), primer índice **TTL** del proyecto (`vault_requests.expira_en`),
+recuperación real por correo (`/vault/recuperar`, nunca confía en `valuation_id` solo,
+rate-limited), y recordatorios anual + 30 días antes de vencer reusando el APScheduler ya
+existente del proyecto (`ENABLE_SCHEDULER=1`) — verificado con documentos simulados, idempotente
+en corridas repetidas. Checkbox de términos obligatorio con política de marketing (correo usable
+para noticias/promos independiente del plan) + aclaración de que el respaldo NO implica
+actualización de valores — texto iterado ~8 veces en vivo hasta una versión corta e impersonal.
+
+**2 bugs reales de CSS encontrados probando en el navegador real del usuario** (no solo el del
+agente): (1) el modal se salía de la pantalla — causa real: `DialogContent` (shadcn) usa
+`grid gap-4` entre cada hijo directo, y con 7 elementos sueltos eso solo sumaba ~96px de más; se
+resolvió agrupando todo en un wrapper único con su propio `space-y`, no bajando paddings a ciegas.
+(2) el texto se volvía invisible al escribir en los inputs — una segunda regla global de
+`index.css` (`input:not(:placeholder-shown) { background-color:#fff !important }`) solo se activa
+cuando el campo YA tiene texto; el primer override de tema oscuro no la cubría. Tabla de planes
+rediseñada de grid-por-fila (las columnas se desalineaban entre header y filas porque cada fila era
+un grid independiente) a `<table>` real con `table-fixed` — necesario porque el toggle A/B
+(inversión/año vs % de ahorro) cambiaba el ancho del texto de la última columna y hacía saltar
+verticalmente toda la tabla completa. Precio de referencia del avalúo confirmado contra
+`PricingPage.jsx` en vivo: el sitio siempre muestra "Total con IVA" separado — la primera versión
+($280 sin IVA) estaba mal, la correcta es $325.
+
+Pendiente explícito (usuario dijo "después"): pantalla de admin para `vault_requests`; tarifa de
+"descarga suelta sin plan" ($230/$260, hoy solo texto, no comprable); configurar `SMTP_*` real.
+Además: scraper mensual relanzado tras encontrarlo muerto sin log de error (358/560 tareas ya
+completadas al retomar), 2 fallos de PINCALI detectados durante la sesión (no bloquearon la cola).
+
+Commits: `283123d` (#188) + ~20 commits `5d970e9`…`a40e2b2` (#185).
+
+---
+
 ## 09 Sep 2026 (noche) — Vercel/Railway reconectados, CETES real, AdminActividad, #184 casi cerrado
 
 - **Vercel auto-deploy reconectado de verdad** (no manual como en la sesión anterior). Bloqueo
