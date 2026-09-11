@@ -421,7 +421,7 @@ def verificar_enrichers():
             logp = _log_path(portal)
             if logp.exists():
                 mins_log = (time.time() - logp.stat().st_mtime) / 60
-                if mins_log > 25:
+                if mins_log > 8:  # ponytail: bajado de 25 — el "killer misterioso" mata procesos c/~7min, 25min dejaba mucho tiempo muerto
                     pend_q = col.count_documents({
                         "portal_origen": portal, "activo": {"$ne": False},
                         "es_duplicado_secundario": {"$ne": True},
