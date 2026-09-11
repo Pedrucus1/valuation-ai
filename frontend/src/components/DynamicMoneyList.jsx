@@ -13,7 +13,7 @@ export default function DynamicMoneyList({ items, onChange, addLabel = "Agregar"
   const remove = (id) => onChange(items.filter((it) => it.id !== id));
 
   return (
-    <div className="space-y-2">
+    <div className="flex flex-col gap-3">
       {items.length === 0 && emptyHint && <p className="text-xs text-slate-400">{emptyHint}</p>}
       {items.map((it) => (
         <div key={it.id} className="flex items-end gap-2">

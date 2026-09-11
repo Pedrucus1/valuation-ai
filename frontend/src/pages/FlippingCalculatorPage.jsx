@@ -547,7 +547,7 @@ export default function FlippingCalculatorPage() {
             <CardContent className="p-4 space-y-2">
               <h2 className="font-semibold text-[#1B4332] text-sm">Deudas de la propiedad</h2>
               <p className="text-[10px] text-slate-400 mb-1">Se restan de lo que recibe el dueño</p>
-              <div className="space-y-5">
+              <div className="flex flex-col gap-5">
                 {DEUDA_ITEMS.map(([key, label, Icon]) => (
                   <div key={key}>
                     <Label className="text-xs flex items-center gap-1.5 mb-1.5"><Icon className="w-3.5 h-3.5 text-[#1B4332]" /> {label}</Label>
