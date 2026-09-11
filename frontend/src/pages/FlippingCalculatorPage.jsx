@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -87,6 +87,19 @@ export default function FlippingCalculatorPage() {
   const [saveStatus, setSaveStatus] = useState(""); // "", "guardando", "guardado"
   const [reportHtml, setReportHtml] = useState(null);
   const [showReport, setShowReport] = useState(false);
+  const reportPreviewRef = useRef(null);
+  const [previewScale, setPreviewScale] = useState(1);
+
+  useEffect(() => {
+    if (!showReport) return;
+    const recalc = () => {
+      const w = reportPreviewRef.current?.clientWidth;
+      if (w) setPreviewScale(Math.min(1, (w - 16) / 816));
+    };
+    recalc();
+    window.addEventListener("resize", recalc);
+    return () => window.removeEventListener("resize", recalc);
+  }, [showReport]);
 
   useEffect(() => {
     (async () => {
@@ -733,18 +746,24 @@ export default function FlippingCalculatorPage() {
       </div>
 
       {showReport && (
-        <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-lg shadow-2xl w-full max-w-3xl max-h-[92vh] flex flex-col">
+        <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-2 sm:p-4">
+          <div className="bg-white rounded-lg shadow-2xl w-full max-w-4xl h-[95vh] sm:h-[92vh] flex flex-col">
             <div className="flex items-center justify-between p-3 border-b shrink-0">
               <span className="font-semibold text-[#1B4332]">Vista previa del reporte</span>
               <button onClick={() => setShowReport(false)} className="text-slate-400 hover:text-[#1B4332]"><X className="w-5 h-5" /></button>
             </div>
-            <div className="overflow-auto flex-1 bg-slate-200 p-4">
-              <iframe
-                title="Reporte de flipping"
-                srcDoc={reportHtml}
-                style={{ width: "816px", height: "2130px", border: "none", background: "#fff", margin: "0 auto", display: "block", boxShadow: "0 2px 12px rgba(0,0,0,0.2)" }}
-              />
+            <div ref={reportPreviewRef} className="overflow-y-auto overflow-x-hidden flex-1 bg-slate-200 p-2 sm:p-4">
+              <div style={{ width: 816 * previewScale, height: 2130 * previewScale, margin: "0 auto" }}>
+                <iframe
+                  title="Reporte de flipping"
+                  srcDoc={reportHtml}
+                  style={{
+                    width: "816px", height: "2130px", border: "none", background: "#fff",
+                    transform: `scale(${previewScale})`, transformOrigin: "top left",
+                    boxShadow: "0 2px 12px rgba(0,0,0,0.2)",
+                  }}
+                />
+              </div>
             </div>
             <div className="p-3 border-t shrink-0 flex justify-end gap-2">
               <Button variant="outline" onClick={() => setShowReport(false)} className="border-[#1B4332] text-[#1B4332]">Volver a editar</Button>
