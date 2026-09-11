@@ -547,10 +547,10 @@ export default function FlippingCalculatorPage() {
             <CardContent className="p-4 space-y-2">
               <h2 className="font-semibold text-[#1B4332] text-sm">Deudas de la propiedad</h2>
               <p className="text-[10px] text-slate-400 mb-1">Se restan de lo que recibe el dueño</p>
-              <div className="flex flex-col gap-5">
+              <div className="flex flex-col gap-3">
                 {DEUDA_ITEMS.map(([key, label, Icon]) => (
                   <div key={key}>
-                    <Label className="text-xs flex items-center gap-1.5 mb-1.5"><Icon className="w-3.5 h-3.5 text-[#1B4332]" /> {label}</Label>
+                    <Label className="text-xs flex items-center gap-1.5 mb-1"><Icon className="w-3.5 h-3.5 text-[#1B4332]" /> {label}</Label>
                     <MoneyInput value={inputs[key]} onChange={set(key)} />
                   </div>
                 ))}
@@ -572,17 +572,17 @@ export default function FlippingCalculatorPage() {
           <Card className="bg-white shadow-sm border-0 h-full">
             <CardContent className="p-4 space-y-2">
               <h2 className="font-semibold text-[#1B4332] text-sm">Costos de venta, cierre y operación</h2>
-              <div className="space-y-5">
-                <div><Label className="text-xs block mb-1.5">Comisión inmobiliaria (% del ARV)</Label><Input type="number" value={inputs.comision_pct} onChange={set("comision_pct")} /></div>
+              <div className="space-y-3">
+                <div><Label className="text-xs block mb-1">Comisión inmobiliaria (% del ARV)</Label><Input type="number" value={inputs.comision_pct} onChange={set("comision_pct")} /></div>
                 <div>
-                  <Label className="text-xs flex items-center justify-between mb-1.5">Escrituración / notario
+                  <Label className="text-xs flex items-center justify-between mb-1">Escrituración / notario
                     {autoLocked.escrituracion_notario && <button type="button" onClick={resetAutoField("escrituracion_notario")} className="text-slate-400 hover:text-[#1B4332]" title="Volver a automático"><RotateCcw className="w-3 h-3" /></button>}
                   </Label>
                   <MoneyInput value={inputs.escrituracion_notario} onChange={setAutoField("escrituracion_notario")} />
                   {!autoLocked.escrituracion_notario && <p className="text-[10px] text-slate-400 mt-0.5">Auto: 2% del ARV</p>}
                 </div>
                 <div>
-                  <Label className="text-xs flex items-center justify-between mb-1.5">ISR sobre la ganancia
+                  <Label className="text-xs flex items-center justify-between mb-1">ISR sobre la ganancia
                     {autoLocked.isr && <button type="button" onClick={resetAutoField("isr")} className="text-slate-400 hover:text-[#1B4332]" title="Volver a automático"><RotateCcw className="w-3 h-3" /></button>}
                   </Label>
                   <MoneyInput value={inputs.isr} onChange={setAutoField("isr")} />
@@ -591,14 +591,14 @@ export default function FlippingCalculatorPage() {
                   </p>
                 </div>
                 <div>
-                  <Label className="text-xs flex items-center justify-between mb-1.5">ISAI + notarial de compra
+                  <Label className="text-xs flex items-center justify-between mb-1">ISAI + notarial de compra
                     {autoLocked.costos_contrato_diligencias && <button type="button" onClick={resetAutoField("costos_contrato_diligencias")} className="text-slate-400 hover:text-[#1B4332]" title="Volver a automático"><RotateCcw className="w-3 h-3" /></button>}
                   </Label>
                   <MoneyInput value={inputs.costos_contrato_diligencias} onChange={setAutoField("costos_contrato_diligencias")} />
                   {!autoLocked.costos_contrato_diligencias && <p className="text-[10px] text-slate-400 mt-0.5">Auto: 4% del precio de compra</p>}
                 </div>
                 <div>
-                  <Label className="text-xs block mb-1.5">Costo financiero {inputs.costo_financiero_modo === "mensual" ? "(mensual)" : "(total del préstamo)"}</Label>
+                  <Label className="text-xs block mb-1">Costo financiero {inputs.costo_financiero_modo === "mensual" ? "(mensual)" : "(total del préstamo)"}</Label>
                   <MoneyInput value={inputs.costo_financiero} onChange={set("costo_financiero")} />
                   <div className="flex gap-1 mt-1">
                     <button type="button" onClick={() => setInputs((p) => ({ ...p, costo_financiero_modo: "mensual" }))} className={`text-[10px] px-1.5 py-0.5 rounded ${inputs.costo_financiero_modo === "mensual" ? "bg-[#1B4332] text-white" : "bg-slate-100 text-slate-500"}`}>Mensual</button>
@@ -610,9 +610,9 @@ export default function FlippingCalculatorPage() {
                       : "Monto único, ej. comisión de apertura del crédito puente."}
                   </p>
                 </div>
-                <div><Label className="text-xs block mb-1.5">Administración / tenencia</Label><MoneyInput value={inputs.costo_administracion} onChange={set("costo_administracion")} /></div>
+                <div><Label className="text-xs block mb-1">Administración / tenencia</Label><MoneyInput value={inputs.costo_administracion} onChange={set("costo_administracion")} /></div>
                 <div>
-                  <Label className="text-xs block mb-1.5">Tiempo estimado para vender (meses)</Label>
+                  <Label className="text-xs block mb-1">Tiempo estimado para vender (meses)</Label>
                   <Input type="number" value={inputs.meses_venta} onChange={set("meses_venta")} className="max-w-[100px]" />
                 </div>
               </div>
