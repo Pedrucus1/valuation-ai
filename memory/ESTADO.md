@@ -59,18 +59,19 @@
    tocar `scrapear_propiedades_com_urls.js`/`vivanuncios_detalle.py` (pedido explícito).
 
 ## ⏳ Pendientes de sesiones anteriores (sin tocar hoy, siguen abiertos)
-- #185 bóveda de respaldo: falta pantalla de admin, tarifa de descarga suelta, `SMTP_*` real.
+- #185 bóveda de respaldo: falta pantalla de admin, tarifa de descarga suelta. `SMTP_*` **ya resuelto** (11-sep, sesión 2 — Gmail `propvalu.contacto@gmail.com`, ver `.env`), falta solo confirmar que `send_email()` en `vault.py` también lo esté usando bien (probado hoy solo en el flujo de créditos).
 - Decisión 9-ago: NO self-hostear IA de reportes.
 - `colonias_decada.json` / federación con atlas-colonias: 0-6 de 8 fases construidas.
 - Rediseño hoja 2 A4 EstateElite (pedir dirección de diseño antes de construir).
 - MITULA #158 (excluido a propósito del caché, dato corrupto).
 - San Isidro Mazatepec da 0 en INMUEBLES24 — puede ser localidad sin slug propio.
-- #34 Email notifications (SendGrid/SMTP) — mismo hueco que SMTP del vault.
+- #34 Email notifications (SendGrid/SMTP) — **ya resuelto** (11-sep, sesión 2), mismo `SMTP_*` de arriba.
 - Ver `BACKLOG.md` tabla completa para el resto.
 
 ## 🌐 URLs / accesos
-- **Sitio:** https://frontend-rosy-six-74.vercel.app — auto-deploy conectado (GitHub App + git link en proyecto "frontend" de Vercel).
-- **Backend API:** https://propvalu-backend-production.up.railway.app — auto-deploy conectado 10-sep. `/api/health` verificado en vivo.
+- **Sitio:** https://www.propvalu.com.mx (dominio propio, conectado 11-sep sesión 2 — verificado 200 en vivo) — sigue disponible también en https://frontend-rosy-six-74.vercel.app. Auto-deploy conectado (GitHub App + git link en proyecto "frontend" de Vercel).
+- **Backend API:** https://api.propvalu.com.mx (dominio propio, conectado 11-sep — confirmar que ya resuelve, seguía propagando al cerrar sesión) o https://propvalu-backend-production.up.railway.app (siempre funciona). Auto-deploy conectado 10-sep. `/api/health` verificado en vivo.
+- **Correo del dominio:** `ventas@`/`soporte@`/`notificaciones@`/`admin@`/`contacto@propvalu.com.mx` reenvían a `propvalu.contacto@gmail.com` vía Cloudflare Email Routing (11-sep). DNS del dominio gestionado en Cloudflare, cuenta `propvalu.contacto@gmail.com`.
 - **Prod Mongo:** `cluster0.9eliadx.mongodb.net`
 - **Backend local:** apunta a **staging** (`cluster1.avle5ez.mongodb.net`) — distinto del cluster de producción, no confundir al verificar datos.
 - **Atlas de colonias (revisión, ChatGPT):** https://atlas-colonias-guadalajara.avaluosyarquit852538.chatgpt.site/
