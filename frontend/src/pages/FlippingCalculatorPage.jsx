@@ -14,8 +14,12 @@ import { buildFlippingReportHtml } from "@/lib/flippingReportHtml";
 import { downloadReportPdf } from "@/lib/downloadReportPdf";
 import { compressImage } from "@/lib/compressImage";
 import { toast } from "sonner";
-import { ArrowLeft, Calculator, Save, Info, Search, Home, Building2, RotateCcw, Download, Camera, X } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts";
+import {
+  ArrowLeft, Calculator, Save, Info, Search, Home, Building2, RotateCcw, Download, Camera, X, FileText,
+  Layers, Paintbrush, Fence, ChefHat, Shirt, DoorOpen, Bath, Grid3x3, AppWindow,
+  Droplets, Receipt, Zap, Tv, Landmark,
+} from "lucide-react";
+import { PieChart, Pie, BarChart, Bar, XAxis, YAxis, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { API } from "@/App";
 
 // $/m² de construcción por calidad — misma tabla que usa el motor (backend/server.py::_physical_breakdown).
@@ -27,9 +31,14 @@ const QUALITY_COSTS = [
 
 // Partidas de obra típicas de un flip — cada una es opcional, con su propio monto.
 const REMODEL_ITEMS = [
-  ["piso", "Piso"], ["pintura", "Pintura"], ["herreria", "Herrería"],
-  ["cocina", "Cocina"], ["closets", "Closets"], ["puerta", "Puertas"],
-  ["banos", "Muebles de baño"], ["azulejo", "Azulejo/loseta"], ["ventaneria", "Ventanería"],
+  ["piso", "Piso", Layers], ["pintura", "Pintura", Paintbrush], ["herreria", "Herrería", Fence],
+  ["cocina", "Cocina", ChefHat], ["closets", "Closets", Shirt], ["puerta", "Puertas", DoorOpen],
+  ["banos", "Muebles de baño", Bath], ["azulejo", "Azulejo/loseta", Grid3x3], ["ventaneria", "Ventanería", AppWindow],
+];
+
+const DEUDA_ITEMS = [
+  ["deuda_agua", "Agua", Droplets], ["deuda_predial", "Predial", Receipt], ["deuda_luz", "Luz", Zap],
+  ["deuda_cable", "Cable/TV", Tv], ["deuda_credito", "Crédito hipotecario", Landmark],
 ];
 
 const num = (v) => { const n = parseFloat(v); return isNaN(n) ? 0 : n; };
@@ -62,7 +71,6 @@ export default function FlippingCalculatorPage() {
   const [direccion, setDireccion] = useState("");
   const [asIsValue, setAsIsValue] = useState(null);
   const [loadingVal, setLoadingVal] = useState(!!valuationId);
-  const [saving, setSaving] = useState(false);
   const [downloading, setDownloading] = useState(false);
 
   const [prop, setProp] = useState(emptyProp);
@@ -75,6 +83,21 @@ export default function FlippingCalculatorPage() {
   const [photos, setPhotos] = useState([]);
   const [facadeIndex, setFacadeIndex] = useState(null);
   const MAX_PHOTOS = 4;
+  const [currentUser, setCurrentUser] = useState(undefined); // undefined = cargando, null = público/sin sesión
+  const [saveStatus, setSaveStatus] = useState(""); // "", "guardando", "guardado"
+  const [reportHtml, setReportHtml] = useState(null);
+  const [showReport, setShowReport] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch(`${API}/auth/me`, { credentials: "include" });
+        setCurrentUser(res.ok ? await res.json() : null);
+      } catch {
+        setCurrentUser(null);
+      }
+    })();
+  }, []);
 
   useEffect(() => {
     if (!valuationId) return;
@@ -258,14 +281,31 @@ export default function FlippingCalculatorPage() {
 
   const chartData = useMemo(() => [
     { name: "Compra", valor: calc.precioCompra, color: "#1B4332" },
-    { name: "Remodelación", valor: calc.remodelacion, color: "#52B788" },
-    { name: "Gestión", valor: calc.gestionTotal, color: "#74C69D" },
-    { name: "Venta/cierre", valor: calc.costosVentaTotal, color: "#95D5B2" },
-    { name: "Ganancia", valor: Math.max(calc.margenNeto, 0), color: "#D9ED92" },
-  ], [calc]);
+    { name: "Remodelación", valor: calc.remodelacion, color: "#2D6A4F" },
+    { name: "Gestión", valor: calc.gestionTotal, color: "#52B788" },
+    { name: "Venta/cierre", valor: calc.costosVentaTotal, color: "#74C69D" },
+    { name: "Financiero/admin", valor: calc.financiero + num(inputs.costo_administracion), color: "#95D5B2" },
+    { name: "Utilidad proyectada", valor: Math.max(calc.margenNeto, 0), color: "#D9ED92" },
+  ].filter((d) => d.valor > 0), [calc, inputs.costo_administracion]);
+
+  // Cómo cambia el ROI anualizado si el flip tarda más o menos en venderse —
+  // solo el costo financiero (cuando es "mensual") y el factor 12/meses mueven el número.
+  const roiTimeData = useMemo(() => {
+    const arvValor = num(inputs.valor_venta_estimado);
+    const financieroMensual = num(inputs.costo_financiero);
+    const fijos = calc.precioCompra + calc.remodelacion + calc.gestionTotal + calc.costosVentaTotal
+      + num(inputs.costo_administracion) + num(inputs.costos_contrato_diligencias);
+    return [3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((meses) => {
+      const financiero = inputs.costo_financiero_modo === "mensual" ? financieroMensual * meses : financieroMensual;
+      const inversion = fijos + financiero;
+      const utilidad = arvValor - inversion;
+      const roiPct = inversion > 0 ? (utilidad / inversion) * 100 : 0;
+      return { meses, roiAnualizado: roiPct * (12 / meses), utilidad };
+    });
+  }, [calc, inputs]);
 
   const guardar = async () => {
-    setSaving(true);
+    setSaveStatus("guardando");
     try {
       const res = await fetch(`${API}/flipping/calculos`, {
         method: "POST",
@@ -280,25 +320,45 @@ export default function FlippingCalculatorPage() {
         }),
       });
       if (!res.ok) throw new Error();
-      toast.success("Cálculo guardado");
+      setSaveStatus("guardado");
     } catch {
-      toast.error("No se pudo guardar — ¿iniciaste sesión?");
-    } finally {
-      setSaving(false);
+      setSaveStatus("");
     }
+  };
+
+  // Autoguardado: solo para usuarios con sesión (appraiser/realtor/inversionista, etc).
+  // El flujo público (sin login) no persiste — no hay panel donde recuperarlo.
+  const esPublico = !currentUser || currentUser.role === "public";
+  useEffect(() => {
+    if (esPublico) return;
+    if (!num(inputs.precio_compra) && !num(inputs.valor_venta_estimado)) return; // nada que guardar todavía
+    const t = setTimeout(guardar, 1500);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [esPublico, inputs, prop, arv, remodelSel, remodelExtra, deudaExtra, gestionItems]);
+
+  const buildReportHtml = () => {
+    const arvParaReporte = arv.avg != null
+      ? arv
+      : { min: num(inputs.valor_venta_estimado), avg: num(inputs.valor_venta_estimado), max: num(inputs.valor_venta_estimado) };
+    const folio = arv.valuationId || valuationId || `FLIP-${Date.now().toString(36).toUpperCase()}`;
+    return buildFlippingReportHtml({
+      prop, direccion: direccion || direccionBusqueda, arv: arvParaReporte, calc, folio,
+      facadePhoto: facadeIndex != null ? photos[facadeIndex] : null,
+    });
+  };
+
+  const generarReporte = () => {
+    setReportHtml(buildReportHtml());
+    setShowReport(true);
   };
 
   const descargarPdf = async () => {
     setDownloading(true);
     try {
-      const arvParaReporte = arv.avg != null
-        ? arv
-        : { min: num(inputs.valor_venta_estimado), avg: num(inputs.valor_venta_estimado), max: num(inputs.valor_venta_estimado) };
-      const folio = arv.valuationId || valuationId || `FLIP-${Date.now().toString(36).toUpperCase()}`;
-      const html = buildFlippingReportHtml({
-        prop, direccion: direccion || direccionBusqueda, arv: arvParaReporte, calc, folio,
-      });
-      const ok = await downloadReportPdf(html, `Flipping ${direccion || prop.colonia || folio}`);
+      const html = reportHtml || buildReportHtml();
+      const folioName = direccion || prop.colonia || "flipping";
+      const ok = await downloadReportPdf(html, `Flipping ${folioName}`, "letter");
       if (ok) toast.success("Reporte descargado en PDF");
       else toast.error("No se pudo generar el PDF");
     } finally {
@@ -435,13 +495,13 @@ export default function FlippingCalculatorPage() {
         <Card className="bg-white shadow-sm border-0 mb-4">
           <CardContent className="p-4 space-y-3">
             <h2 className="font-semibold text-[#1B4332]">Precio y valor de venta</h2>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <Label className="text-xs">Precio de compra (oferta al dueño)</Label>
+                <Label className="text-xs block mb-1">Precio de compra (oferta al dueño)</Label>
                 <MoneyInput value={inputs.precio_compra} onChange={set("precio_compra")} />
               </div>
               <div>
-                <Label className="text-xs">Valor de venta estimado (ARV)</Label>
+                <Label className="text-xs block mb-1">Valor de venta estimado (ARV)</Label>
                 <MoneyInput value={inputs.valor_venta_estimado} onChange={set("valor_venta_estimado")} />
               </div>
             </div>
@@ -452,13 +512,14 @@ export default function FlippingCalculatorPage() {
           <Card className="bg-white shadow-sm border-0 h-full">
             <CardContent className="p-4 space-y-2">
               <h2 className="font-semibold text-[#1B4332] text-sm">Deudas de la propiedad</h2>
-              <p className="text-[10px] text-slate-400 -mt-1">Se restan de lo que recibe el dueño</p>
-              <div className="space-y-2">
-                <div><Label className="text-xs">Agua</Label><MoneyInput value={inputs.deuda_agua} onChange={set("deuda_agua")} /></div>
-                <div><Label className="text-xs">Predial</Label><MoneyInput value={inputs.deuda_predial} onChange={set("deuda_predial")} /></div>
-                <div><Label className="text-xs">Luz</Label><MoneyInput value={inputs.deuda_luz} onChange={set("deuda_luz")} /></div>
-                <div><Label className="text-xs">Cable/TV</Label><MoneyInput value={inputs.deuda_cable} onChange={set("deuda_cable")} /></div>
-                <div><Label className="text-xs">Crédito hipotecario</Label><MoneyInput value={inputs.deuda_credito} onChange={set("deuda_credito")} /></div>
+              <p className="text-[10px] text-slate-400">Se restan de lo que recibe el dueño</p>
+              <div className="space-y-3">
+                {DEUDA_ITEMS.map(([key, label, Icon]) => (
+                  <div key={key}>
+                    <Label className="text-xs flex items-center gap-1 mb-1"><Icon className="w-3.5 h-3.5 text-[#1B4332]" /> {label}</Label>
+                    <MoneyInput value={inputs[key]} onChange={set(key)} />
+                  </div>
+                ))}
               </div>
               <DynamicMoneyList items={deudaExtra} onChange={setDeudaExtra} addLabel="Agregar otra deuda" />
             </CardContent>
@@ -477,8 +538,8 @@ export default function FlippingCalculatorPage() {
           <Card className="bg-white shadow-sm border-0 h-full">
             <CardContent className="p-4 space-y-2">
               <h2 className="font-semibold text-[#1B4332] text-sm">Costos de venta, cierre y operación</h2>
-              <div className="space-y-2">
-                <div><Label className="text-xs">Comisión inmobiliaria (% del ARV)</Label><Input type="number" value={inputs.comision_pct} onChange={set("comision_pct")} /></div>
+              <div className="space-y-3">
+                <div><Label className="text-xs block mb-1">Comisión inmobiliaria (% del ARV)</Label><Input type="number" value={inputs.comision_pct} onChange={set("comision_pct")} /></div>
                 <div>
                   <Label className="text-xs flex items-center justify-between">Escrituración / notario
                     {autoLocked.escrituracion_notario && <button type="button" onClick={resetAutoField("escrituracion_notario")} className="text-slate-400 hover:text-[#1B4332]" title="Volver a automático"><RotateCcw className="w-3 h-3" /></button>}
@@ -528,24 +589,21 @@ export default function FlippingCalculatorPage() {
         <Card className="bg-white shadow-sm border-0 mb-4">
           <CardContent className="p-4 space-y-3">
             <h2 className="font-semibold text-[#1B4332]">Remodelación — gasto de obra</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              {REMODEL_ITEMS.map(([key, label]) => (
-                <div key={key} className="flex items-start gap-2">
-                  <Checkbox
-                    className="mt-2"
-                    checked={!!remodelSel[key]?.checked}
-                    onCheckedChange={toggleRemodelItem(key)}
-                  />
-                  <div className="flex-1">
-                    <Label className="text-xs">{label}</Label>
-                    <MoneyInput
-                      disabled={!remodelSel[key]?.checked}
-                      value={remodelSel[key]?.costo || ""}
-                      onChange={setRemodelCosto(key)}
-                    />
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+              {REMODEL_ITEMS.map(([key, label, Icon]) => {
+                const checked = !!remodelSel[key]?.checked;
+                return (
+                  <div key={key} className="flex items-start gap-2">
+                    <Checkbox className="mt-1" checked={checked} onCheckedChange={toggleRemodelItem(key)} />
+                    <div className="flex-1">
+                      <Label className="text-xs flex items-center gap-1 mb-1"><Icon className="w-3.5 h-3.5 text-[#1B4332]" /> {label}</Label>
+                      {checked && (
+                        <MoneyInput value={remodelSel[key]?.costo || ""} onChange={setRemodelCosto(key)} />
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
             <DynamicMoneyList items={remodelExtra} onChange={setRemodelExtra} addLabel="Agregar otro trabajo de obra" />
             <div className="text-xs text-slate-500 flex items-start gap-1 mt-1">
@@ -589,17 +647,45 @@ export default function FlippingCalculatorPage() {
                 <span className="text-xl font-bold text-[#1B4332]">{calc.mesesVenta || 0} meses</span>
               </div>
             </div>
-            <div style={{ width: "100%", height: 200 }}>
-              <ResponsiveContainer>
-                <BarChart data={chartData} layout="vertical" margin={{ left: 8, right: 24 }}>
-                  <XAxis type="number" tickFormatter={(v) => `$${(v / 1000).toFixed(0)}k`} tick={{ fontSize: 10 }} />
-                  <YAxis type="category" dataKey="name" width={90} tick={{ fontSize: 11 }} />
-                  <Tooltip formatter={(v) => fmt(v)} />
-                  <Bar dataKey="valor" radius={[0, 4, 4, 0]}>
-                    {chartData.map((d, i) => <Cell key={i} fill={d.color} />)}
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <p className="text-xs font-medium text-slate-500 text-center mb-1">Desglose de la inversión</p>
+                <div style={{ width: "100%", height: 260 }}>
+                  <ResponsiveContainer>
+                    <PieChart>
+                      <Pie
+                        data={chartData}
+                        dataKey="valor"
+                        nameKey="name"
+                        innerRadius={0}
+                        outerRadius={80}
+                        label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                        labelLine={false}
+                      >
+                        {chartData.map((d, i) => <Cell key={i} fill={d.color} />)}
+                      </Pie>
+                      <Tooltip formatter={(v) => fmt(v)} />
+                      <Legend wrapperStyle={{ fontSize: 10 }} />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
+              <div>
+                <p className="text-xs font-medium text-slate-500 text-center mb-1">ROI anualizado según meses para vender</p>
+                <div style={{ width: "100%", height: 260 }}>
+                  <ResponsiveContainer>
+                    <BarChart data={roiTimeData} margin={{ top: 10 }}>
+                      <XAxis dataKey="meses" tick={{ fontSize: 10 }} tickFormatter={(m) => `${m}m`} />
+                      <YAxis tick={{ fontSize: 10 }} tickFormatter={(v) => `${v.toFixed(0)}%`} />
+                      <Tooltip formatter={(v, n) => n === "roiAnualizado" ? `${v.toFixed(1)}%` : fmt(v)} labelFormatter={(m) => `${m} meses`} />
+                      <Bar dataKey="roiAnualizado" radius={[4, 4, 0, 0]}>
+                        {roiTimeData.map((d, i) => <Cell key={i} fill={d.meses === calc.mesesVenta ? "#1B4332" : "#95D5B2"} />)}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+                <p className="text-[10px] text-slate-400 text-center">Barra oscura = tu selección actual ({calc.mesesVenta || 0} meses)</p>
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -618,17 +704,46 @@ export default function FlippingCalculatorPage() {
           </CardContent>
         </Card>
 
-        <div className="flex gap-3">
-          <Button onClick={guardar} disabled={saving} className="bg-[#52B788] hover:bg-[#40916C] text-white">
-            <Save className="w-4 h-4 mr-2" />
-            {saving ? "Guardando…" : "Guardar cálculo"}
+        <div className="flex items-center gap-3 flex-wrap">
+          <Button onClick={generarReporte} className="bg-[#1B4332] hover:bg-[#143024] text-white">
+            <FileText className="w-4 h-4 mr-2" />
+            Generar reporte
           </Button>
-          <Button onClick={descargarPdf} disabled={downloading} variant="outline" className="border-[#1B4332] text-[#1B4332] hover:bg-[#D9ED92]/20">
-            <Download className="w-4 h-4 mr-2" />
-            {downloading ? "Generando…" : "Descargar PDF"}
-          </Button>
+          {!esPublico && saveStatus && (
+            <span className="text-xs text-slate-400 flex items-center gap-1">
+              <Save className="w-3.5 h-3.5" /> {saveStatus === "guardando" ? "Guardando…" : "Guardado en tu panel"}
+            </span>
+          )}
+          {esPublico && (
+            <span className="text-xs text-slate-400">Inicia sesión para guardar este cálculo en tu panel</span>
+          )}
         </div>
       </div>
+
+      {showReport && (
+        <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-lg shadow-2xl w-full max-w-3xl max-h-[92vh] flex flex-col">
+            <div className="flex items-center justify-between p-3 border-b shrink-0">
+              <span className="font-semibold text-[#1B4332]">Vista previa del reporte</span>
+              <button onClick={() => setShowReport(false)} className="text-slate-400 hover:text-[#1B4332]"><X className="w-5 h-5" /></button>
+            </div>
+            <div className="overflow-auto flex-1 bg-slate-200 p-4">
+              <iframe
+                title="Reporte de flipping"
+                srcDoc={reportHtml}
+                style={{ width: "816px", height: "2130px", border: "none", background: "#fff", margin: "0 auto", display: "block", boxShadow: "0 2px 12px rgba(0,0,0,0.2)" }}
+              />
+            </div>
+            <div className="p-3 border-t shrink-0 flex justify-end gap-2">
+              <Button variant="outline" onClick={() => setShowReport(false)} className="border-[#1B4332] text-[#1B4332]">Volver a editar</Button>
+              <Button onClick={descargarPdf} disabled={downloading} className="bg-[#52B788] hover:bg-[#40916C] text-white">
+                <Download className="w-4 h-4 mr-2" />
+                {downloading ? "Generando…" : "Descargar PDF"}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

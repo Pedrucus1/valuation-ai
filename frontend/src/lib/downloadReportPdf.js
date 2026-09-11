@@ -9,15 +9,19 @@ import html2canvas from "html2canvas";
  * html2canvas puede fallar en esa página; por eso se captura página por página
  * y se usa useCORS. Devuelve true si descargó, false si algo falló.
  */
-export async function downloadReportPdf(reportHtml, fileName = "Reporte PropValu") {
+export async function downloadReportPdf(reportHtml, fileName = "Reporte PropValu", format = "a4") {
   if (!reportHtml) return false;
+
+  // Dimensiones @96dpi de cada tamaño de página soportado.
+  const PAGE_PX = { a4: { w: 794, h: 1123 }, letter: { w: 816, h: 1056 } };
+  const px = PAGE_PX[format] || PAGE_PX.a4;
 
   const iframe = document.createElement("iframe");
   iframe.style.position = "fixed";
   iframe.style.left = "-10000px";
   iframe.style.top = "0";
-  iframe.style.width = "794px";  // ancho A4 @ 96dpi (210mm) — el reporte está diseñado en A4
-  iframe.style.height = "1123px"; // alto A4 @ 96dpi (297mm)
+  iframe.style.width = `${px.w}px`;
+  iframe.style.height = `${px.h}px`;
   document.body.appendChild(iframe);
 
   try {
@@ -33,7 +37,7 @@ export async function downloadReportPdf(reportHtml, fileName = "Reporte PropValu
     const pages = doc.querySelectorAll(".page");
     const targets = pages.length ? Array.from(pages) : [doc.body];
 
-    const pdf = new jsPDF({ unit: "pt", format: "a4" });
+    const pdf = new jsPDF({ unit: "pt", format });
     const pw = pdf.internal.pageSize.getWidth();
     const ph = pdf.internal.pageSize.getHeight();
 
