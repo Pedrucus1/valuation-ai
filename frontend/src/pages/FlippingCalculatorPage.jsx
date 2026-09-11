@@ -12,8 +12,9 @@ import DynamicMoneyList from "@/components/DynamicMoneyList";
 import { MEXICAN_STATES } from "@/lib/mexicanStates";
 import { buildFlippingReportHtml } from "@/lib/flippingReportHtml";
 import { downloadReportPdf } from "@/lib/downloadReportPdf";
+import { compressImage } from "@/lib/compressImage";
 import { toast } from "sonner";
-import { ArrowLeft, Calculator, Save, Info, Search, Home, Building2, RotateCcw, Download } from "lucide-react";
+import { ArrowLeft, Calculator, Save, Info, Search, Home, Building2, RotateCcw, Download, Camera, X } from "lucide-react";
 import { API } from "@/App";
 
 // $/m² de construcción por calidad — misma tabla que usa el motor (backend/server.py::_physical_breakdown).
@@ -68,6 +69,7 @@ export default function FlippingCalculatorPage() {
   const [deudaExtra, setDeudaExtra] = useState([]);
   const [gestionItems, setGestionItems] = useState([]);
   const [autoLocked, setAutoLocked] = useState({ escrituracion_notario: false, isr: false, costos_contrato_diligencias: false });
+  const [photos, setPhotos] = useState([]);
 
   useEffect(() => {
     if (!valuationId) return;
@@ -101,6 +103,14 @@ export default function FlippingCalculatorPage() {
   const handleLocationChange = (lat, lng) => setProp((prev) => ({ ...prev, lat, lng }));
   const direccionBusqueda = [prop.calle, prop.colonia, prop.municipio, prop.estado].filter(Boolean).join(", ");
 
+  const addPhotos = async (e) => {
+    const files = Array.from(e.target.files || []).slice(0, 6 - photos.length);
+    e.target.value = "";
+    const compressed = await Promise.all(files.map((f) => compressImage(f).then((r) => r.dataUrl)));
+    setPhotos((prev) => [...prev, ...compressed]);
+  };
+  const removePhoto = (i) => setPhotos((prev) => prev.filter((_, idx) => idx !== i));
+
   const toggleRemodelItem = (key) => (checked) =>
     setRemodelSel((prev) => ({ ...prev, [key]: { checked, costo: prev[key]?.costo || "" } }));
   const setRemodelCosto = (key) => (e) =>
@@ -130,6 +140,7 @@ export default function FlippingCalculatorPage() {
           conservation_state: "Nuevo",
           latitude: prop.lat,
           longitude: prop.lng,
+          photos: photos.length ? photos : undefined,
         }),
       });
       if (!createRes.ok) throw new Error("No se pudo crear la OPI");
@@ -326,13 +337,34 @@ export default function FlippingCalculatorPage() {
                 <div><Label className="text-xs">m² construcción *</Label><Input type="number" value={prop.construccion_m2} onChange={setProp1("construccion_m2")} placeholder="0" /></div>
               </div>
 
-              <LocationMap
-                latitude={prop.lat}
-                longitude={prop.lng}
-                onLocationChange={handleLocationChange}
-                address={direccionBusqueda}
-                autoSearch={!!(prop.municipio && prop.colonia && prop.estado)}
-              />
+              <div className="flex flex-col md:flex-row gap-3 items-start">
+                <div className="flex-1 w-full">
+                  <LocationMap
+                    latitude={prop.lat}
+                    longitude={prop.lng}
+                    onLocationChange={handleLocationChange}
+                    address={direccionBusqueda}
+                    autoSearch={!!(prop.municipio && prop.colonia && prop.estado)}
+                  />
+                </div>
+                <div className="w-full md:w-32 shrink-0 space-y-2">
+                  <label className="flex flex-col items-center justify-center gap-1 h-20 border-2 border-dashed border-slate-300 rounded-lg cursor-pointer hover:border-[#52B788] text-slate-400 hover:text-[#52B788] transition-colors">
+                    <Camera className="w-5 h-5" />
+                    <span className="text-[11px]">Subir foto</span>
+                    <input type="file" accept="image/*" multiple className="hidden" onChange={addPhotos} disabled={photos.length >= 6} />
+                  </label>
+                  <div className="grid grid-cols-3 md:grid-cols-1 gap-1">
+                    {photos.map((src, i) => (
+                      <div key={i} className="relative">
+                        <img src={src} alt="" className="w-full h-14 object-cover rounded" />
+                        <button type="button" onClick={() => removePhoto(i)} className="absolute -top-1 -right-1 bg-white rounded-full shadow p-0.5">
+                          <X className="w-3 h-3 text-slate-600" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
 
               <Button onClick={calcularARV} disabled={arv.loading} className="bg-[#1B4332] hover:bg-[#143024] text-white">
                 <Search className="w-4 h-4 mr-2" />
