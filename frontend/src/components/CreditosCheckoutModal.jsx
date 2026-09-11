@@ -22,6 +22,10 @@ export default function CreditosCheckoutModal({ open, onOpenChange, session }) {
   const [purchaseId, setPurchaseId] = useState(null);
   const [comprobante, setComprobante] = useState(null);
   const [subiendo, setSubiendo] = useState(false);
+  const [mostrarPromo, setMostrarPromo] = useState(false);
+  const [promoCode, setPromoCode] = useState("");
+  const [telefono, setTelefono] = useState("");
+  const [canjeando, setCanjeando] = useState(false);
 
   useEffect(() => {
     if (!open) return;
@@ -64,6 +68,31 @@ export default function CreditosCheckoutModal({ open, onOpenChange, session }) {
       toast.error("No se pudo registrar la compra. Intenta de nuevo.");
     } finally {
       setEnviando(false);
+    }
+  };
+
+  const canjearPromo = async () => {
+    if (!promoCode.trim()) return;
+    if (!session && (!nombre.trim() || !email.includes("@") || telefono.replace(/\D/g, "").length < 10)) {
+      toast.error("Ingresa tu nombre, correo y teléfono a 10 dígitos");
+      return;
+    }
+    setCanjeando(true);
+    try {
+      const res = await fetch(`${API}/creditos/promo`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ code: promoCode, nombre, email, telefono }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "Código inválido");
+      toast.success(`¡${data.creditos} créditos agregados!`);
+      cerrar(false);
+    } catch (e) {
+      toast.error(e.message);
+    } finally {
+      setCanjeando(false);
     }
   };
 
@@ -140,6 +169,43 @@ export default function CreditosCheckoutModal({ open, onOpenChange, session }) {
             >
               {enviando ? "Procesando…" : "Continuar"}
             </Button>
+
+            {!mostrarPromo ? (
+              <button
+                onClick={() => setMostrarPromo(true)}
+                className="w-full text-center text-xs text-slate-400 hover:text-[#52B788] mt-3"
+              >
+                ¿Tienes un código de prueba?
+              </button>
+            ) : (
+              <div className="space-y-2 mt-3">
+                {!session && (
+                  <input
+                    value={telefono}
+                    onChange={(e) => setTelefono(e.target.value)}
+                    placeholder="Tu teléfono (10 dígitos)"
+                    type="tel"
+                    className="w-full text-sm rounded-lg px-3 py-2 border border-[#B7E4C7] bg-[#F0FAF5] focus:outline-none focus:border-[#52B788]"
+                  />
+                )}
+                <div className="flex gap-2">
+                  <input
+                    value={promoCode}
+                    onChange={(e) => setPromoCode(e.target.value)}
+                    placeholder="Código"
+                    className="flex-1 text-sm rounded-lg px-3 py-2 border border-[#B7E4C7] bg-[#F0FAF5] focus:outline-none focus:border-[#52B788]"
+                  />
+                  <Button
+                    onClick={canjearPromo}
+                    disabled={!promoCode.trim() || canjeando}
+                    variant="outline"
+                    className="disabled:opacity-50"
+                  >
+                    {canjeando ? "..." : "Canjear"}
+                  </Button>
+                </div>
+              </div>
+            )}
           </>
         )}
 

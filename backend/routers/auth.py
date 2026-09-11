@@ -42,7 +42,7 @@ async def crear_sesion(response: Response, user_id: str) -> str:
     return session_token
 
 
-async def crear_usuario_investor_publico(response: Response, nombre: str, email: str) -> dict:
+async def crear_usuario_investor_publico(response: Response, nombre: str, email: str, telefono: str | None = None) -> dict:
     """Alta mínima de investor sin contraseña, usada por el checkout de créditos
     (routers/creditos_compra.py) cuando alguien compra sin tener cuenta todavía —
     mismo rol sin-KYC que el registro normal de investor, pero sin password."""
@@ -53,7 +53,7 @@ async def crear_usuario_investor_publico(response: Response, nombre: str, email:
         "name": nombre,
         "picture": None,
         "role": "investor",
-        "phone": None,
+        "phone": telefono,
         "hashed_password": None,
         "kyc_status": None,
         "email_verified": False,
