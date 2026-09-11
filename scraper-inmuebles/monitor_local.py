@@ -367,7 +367,10 @@ def _matar_enricher(portal: str):
     # la detección en cuanto había 2+, dejando acumular procesos sin límite.
     for pid in _pids_enricher(portal):
         try:
-            subprocess.run(["taskkill", "/F", "/PID", str(pid)],
+            # ponytail: /T mata el árbol completo — sin esto, chrome-headless-shell.exe (hijo de
+            # Playwright) quedaba huérfano en cada restart y se acumulaba sin límite (77 procesos
+            # zombie encontrados 10-sep, RAM casi agotada).
+            subprocess.run(["taskkill", "/F", "/T", "/PID", str(pid)],
                            capture_output=True, timeout=10,
                            creationflags=0x08000000)  # CREATE_NO_WINDOW — sin ventana en pantalla
             logger.info(f"[RESTART] {portal} — proceso PID {pid} terminado")
