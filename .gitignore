@@ -169,3 +169,6 @@ Modulo Drive IA/cache_index.LAB_*.json
 Modulo Drive IA/colonias_decada.json.bak-*
 Modulo Drive IA/homonimas_resueltas.json.bak-*
 Modulo Drive IA/*.SOBREESCRITO-*
+
+# Comprobantes de compra de créditos subidos por usuarios (datos, no código)
+backend/uploads/comprobantes/
