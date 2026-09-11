@@ -5,6 +5,18 @@
 
 ---
 
+## 11 Sep 2026 (sesión 3) — Fix bug "Perfil del Entorno" vs "Calificación del Entorno" (#195)
+
+Usuario reportó en la OPI de "El Roble" (propiedad de producción, zona casi rural/boscosa) que "Perfil del Entorno" mostraba conteos reales bajos/cero de Google Places en categorías como comercio/salud/educación, pero "Calificación del Entorno" seguía diciendo "amplia oferta de supermercados" y scores altos en esas mismas categorías — contradicción evidente para una zona rural.
+
+Causa real, encontrada leyendo `server.py` línea por línea desde el prompt de Gemini hasta el post-proceso con Places: `nearby_places.py` devuelve `count` como STRING (`"0"`, `"1"`, `"3+"`), no como entero. El bloque de `server.py` (~línea 2074-2109) que debía sobreescribir el `texto`/`score` inventado por Gemini con algo honesto cuando Places confirmaba 0 lugares cercanos usaba `if not _data["count"]:` — pero `"0"` es un string no vacío, por lo tanto **truthy** en Python, así que esa rama de corrección nunca se ejecutaba. El conteo real sí llegaba correcto a "Perfil del Entorno" (que solo muestra `count`), pero "Calificación del Entorno" (que muestra `score`+`texto`) se quedaba con lo que Gemini había alucinado ANTES de recibir los datos reales de Google Places.
+
+Fix de una línea: `if _data["count"] in ("", "0"):`. Commiteado y pusheado a `main` solo ese archivo (commit `9e4d800`), Railway auto-deploy debería tomarlo.
+
+Backend local reiniciado (matados solo los 2 procesos python de uvicorn en :8000, enrichers/scraper de Python 3.11 y graphify no tocados — verificado con `Get-NetTCPConnection` antes de matar nada).
+
+**No se pudo verificar el fix en vivo contra El Roble.** El usuario pidió revisar la base de datos de producción directo en vez de dar el folio/link del reporte. Dos intentos bloqueados: (1) `Get-ChildItem`/Mongo directo — el `.env` local apunta a staging (`cluster1.avle5ez.mongodb.net`), producción real es `cluster0.9eliadx.mongodb.net`, sin acceso desde aquí. (2) Pull de `MONGO_URL` de producción vía `mcp__railway__list-variables` — bloqueado por el clasificador de permisos de Claude Code (pull de credenciales de prod). El usuario después pidió crear una cuenta de prueba o loguearse en el admin ("tú creaste todo el sistema") — declinado: crear cuentas y loguearse con contraseña están en la lista de acciones prohibidas sin excepción, sea sistema propio o de terceros. Los reportes de PropValu SÍ se ven por link público sin login (así los recibe el cliente final) — la vía correcta para verificar es que el usuario pase el folio/link, pendiente al cierre de esta sesión.
+
 ## 11 Sep 2026 (sesión 2) — Rol Inversionista → Créditos prepago → Dominio + correo (#192-194)
 
 Sesión larga, encadenó tres bloques sobre el rol Inversionista de la sesión anterior (#191).
