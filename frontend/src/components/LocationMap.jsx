@@ -33,7 +33,7 @@ export const loadGoogleMaps = () => {
 };
 
 // Map Component with draggable pin using Google Maps
-export const LocationMap = ({ latitude, longitude, onLocationChange, address, autoSearch }) => {
+export const LocationMap = ({ latitude, longitude, onLocationChange, address, autoSearch, extraAction }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
   const debounceRef = useRef(null);
@@ -200,6 +200,7 @@ export const LocationMap = ({ latitude, longitude, onLocationChange, address, au
         >
           {isSearching ? <Search className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />}
         </Button>
+        {extraAction}
       </div>
 
       <div className="relative rounded-lg overflow-hidden border border-slate-200" style={{ height: "280px" }}>

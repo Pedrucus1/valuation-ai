@@ -337,34 +337,31 @@ export default function FlippingCalculatorPage() {
                 <div><Label className="text-xs">m² construcción *</Label><Input type="number" value={prop.construccion_m2} onChange={setProp1("construccion_m2")} placeholder="0" /></div>
               </div>
 
-              <div className="flex flex-col md:flex-row gap-3 items-start">
-                <div className="flex-1 w-full">
-                  <LocationMap
-                    latitude={prop.lat}
-                    longitude={prop.lng}
-                    onLocationChange={handleLocationChange}
-                    address={direccionBusqueda}
-                    autoSearch={!!(prop.municipio && prop.colonia && prop.estado)}
-                  />
-                </div>
-                <div className="w-full md:w-32 shrink-0 space-y-2">
-                  <label className="flex flex-col items-center justify-center gap-1 h-20 border-2 border-dashed border-slate-300 rounded-lg cursor-pointer hover:border-[#52B788] text-slate-400 hover:text-[#52B788] transition-colors">
-                    <Camera className="w-5 h-5" />
-                    <span className="text-[11px]">Subir foto</span>
+              <LocationMap
+                latitude={prop.lat}
+                longitude={prop.lng}
+                onLocationChange={handleLocationChange}
+                address={direccionBusqueda}
+                autoSearch={!!(prop.municipio && prop.colonia && prop.estado)}
+                extraAction={
+                  <label className="flex items-center gap-1 text-xs text-[#1B4332] hover:underline cursor-pointer whitespace-nowrap px-1">
+                    <Camera className="w-4 h-4" /> Subir foto
                     <input type="file" accept="image/*" multiple className="hidden" onChange={addPhotos} disabled={photos.length >= 6} />
                   </label>
-                  <div className="grid grid-cols-3 md:grid-cols-1 gap-1">
-                    {photos.map((src, i) => (
-                      <div key={i} className="relative">
-                        <img src={src} alt="" className="w-full h-14 object-cover rounded" />
-                        <button type="button" onClick={() => removePhoto(i)} className="absolute -top-1 -right-1 bg-white rounded-full shadow p-0.5">
-                          <X className="w-3 h-3 text-slate-600" />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
+                }
+              />
+              {photos.length > 0 && (
+                <div className="flex gap-2 flex-wrap">
+                  {photos.map((src, i) => (
+                    <div key={i} className="relative">
+                      <img src={src} alt="" className="w-16 h-16 object-cover rounded" />
+                      <button type="button" onClick={() => removePhoto(i)} className="absolute -top-1 -right-1 bg-white rounded-full shadow p-0.5">
+                        <X className="w-3 h-3 text-slate-600" />
+                      </button>
+                    </div>
+                  ))}
                 </div>
-              </div>
+              )}
 
               <Button onClick={calcularARV} disabled={arv.loading} className="bg-[#1B4332] hover:bg-[#143024] text-white">
                 <Search className="w-4 h-4 mr-2" />
