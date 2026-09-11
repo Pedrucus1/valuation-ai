@@ -5,6 +5,139 @@
 
 ---
 
+## 10 Sep 2026 (noche) — `/flipping` rehecho de punta a punta (#190), 14 commits
+
+Sesión larga sobre `/flipping`, la calculadora de viabilidad de flipping (#167, 25-ago). Empezó
+conectándola al motor real para el ARV (antes 100% manual) y terminó siendo una reconstrucción casi
+completa con paridad visual a la OPI, sección de ROI con gráficas, reporte en PDF con vista previa,
+y una cadena de bugs reales de UI destapados verificando el PDF descargado de verdad, no solo la
+vista previa en pantalla.
+
+**ARV real:** "Calcular valor de mercado" crea una OPI con `estimated_age=0`/`conservation_state=
+"Nuevo"` (como si estuviera remodelada y terminada) y llama a `POST /valuations/{id}/calculate-remi`
+— el mismo endpoint que usa la OPI normal, sin cambios de backend. Muestra mínimo/promedio/máximo
+real de comparables en vez del campo de texto libre que tenía antes.
+
+**Paridad visual con la OPI:** `LocationMap` (mapa con pin arrastrable + auto-búsqueda) y
+`compressImage` (compresión de fotos 800x600 jpeg 0.82) vivían solo dentro de `ValuationForm.jsx` —
+se extrajeron a `frontend/src/components/LocationMap.jsx` y `frontend/src/lib/compressImage.js`
+compartidos, y `ValuationForm.jsx` pasó a importarlos (mismo comportamiento, cero regresión). Se
+agregó selector Casa/Departamento, Estado por `Select` (antes texto libre), y captura de hasta 4
+fotos con selección de fachada. La fachada se hizo mal en el primer intento — una caja gris aparte
+que parecía "otro botón de subir foto" — corregida en vivo tras la queja del usuario para que fuera
+EXACTAMENTE el flujo real de la OPI: subes las fotos por un solo control, y LUEGO eliges cuál es la
+fachada desde las miniaturas (hover + botón "Elegir"/badge "PORTADA"), igual que
+`report_generator.py:1102-1225` la usa después en el reporte real (mapa a ancho completo si no hay
+fachada, 50/50 si sí hay).
+
+**Captura financiera más rica:** nuevo componente `MoneyInput` ($ + separador de miles en vivo,
+mismo contrato value/onChange que un `<Input>` normal) aplicado a todos los montos. Nuevo
+`DynamicMoneyList` (concepto libre + monto + botón "+") reusado en tres lugares: deudas
+imprevistas, trabajos de obra no listados, y gastos de gestión — evita triplicar el JSX. Remodelación
+pasó de un solo campo a checklist de 9 partidas (piso, pintura, herrería, cocina, closets, puertas,
+baños, azulejo, ventanería) con ícono por concepto, cuya caja de captura solo aparece si el check
+está marcado (antes siempre visible, solo deshabilitada). Íconos también en deudas (agua, predial,
+luz, cable, crédito), todos en verde oscuro `#1B4332`. Escrituración (2% del ARV), ISAI (4% del
+precio de compra) e ISR (35% de la ganancia fiscal = ARV − compra − remodelación − escrituración −
+ISAI) se autocalculan pero quedan editables — al tocarlos a mano se bloquean (dejan de
+recalcularse) y aparece un botón "↺" para volver a automático.
+
+**Nuevo: "Retorno para el inversionista".** Card con ROI del flip, ROI anualizado (ROI × 12/meses),
+gráfica de pastel del desglose de inversión (compra/remodelación/gestión/venta-cierre/
+financiero-admin/utilidad, con porcentaje de cada slice) y gráfica de barras de ROI anualizado
+según meses para vender (3 a 12 meses, resalta el mes actualmente seleccionado) — ambas reactivas
+en vivo al campo "Tiempo estimado para vender (meses)" (sugerido 6, editable, ya alimentaba la
+fórmula desde antes de que se pidieran las gráficas). `recharts` ya estaba instalado en el proyecto
+(lo usa `InmobiliariaDashboardPage.jsx`), no hizo falta agregar dependencia nueva. El costo
+financiero ganó un toggle Mensual/Total, pensado para el interés mensual de un socio inversionista
+que financia el flip (se multiplica por los meses para vender cuando es "mensual").
+
+**Nuevo: reporte con vista previa antes de descargar.** El botón "Guardar cálculo" (que posteaba a
+`/flipping/calculos` con un click manual) se quitó — el usuario aclaró que el guardado debe ser
+automático en el panel del usuario logueado, no un botón. Ahora hay un `useEffect` con debounce
+de 1.5s que autoguarda solo si `currentUser` (fetched de `/auth/me` al montar) no es público/nulo;
+en modo público se muestra un aviso de que no persiste. En su lugar, nuevo botón "Generar reporte"
+abre un modal con vista previa **escalable** (un `iframe` de 816px fijos dentro de un
+`transform:scale()` recalculado con `ResizeObserver`-style listener en `resize`, para que quepa en
+cualquier ancho de modal sin scroll horizontal — el primer intento sin escalar se salía de pantalla,
+bug reportado y corregido en la misma sesión) de un reporte HTML nuevo
+(`frontend/src/lib/flippingReportHtml.js`) con el mismo esqueleto/CSS que
+`backend/report_generator.py::generate_mini_report_html`, pero tamaño **carta** (no A4) y hasta
+**2 páginas** (pedido explícito del usuario: "1 hoja, o 2 max"). El header replica el de la OPI real:
+ícono+logo, línea verde, folio a la derecha, y debajo de la línea un banner de título
+`.title-banner` verde oscuro (mismo patrón que `report_generator.py:1136-1186`, que el usuario pidió
+"unificar" después de ver que el mío no lo tenía). El folio usa el mismo formato que
+`build_folio()` del backend: `FLI-YYMMDD-TIPO[-SIGLAS]-NN` (en vez de `EST-`), calculado en JS desde
+`currentUser.role`/`company_name` (mismo mapeo IN/PE/AD/PU, mismas siglas de 2 iniciales, mismo
+fallback de secuencia "01"). `downloadReportPdf.js` (compartido con la OPI) ganó un tercer parámetro
+opcional `format` ("a4" por default, "letter" para flipping) que ajusta tanto el tamaño de página de
+jsPDF como las dimensiones del iframe oculto de captura — cero cambio de comportamiento para los
+callers existentes de la OPI que no pasan el parámetro.
+
+**3 bugs reales encontrados verificando el PDF real descargado (el usuario mandó el archivo, no
+solo una captura de la vista previa en pantalla) — ninguno visible en la vista previa en vivo:**
+
+1. **Texto aplastado en el PDF** ("Margen neto del flip" salía como "Margennetodelflip", sin
+   espacios). Causa: dos reglas CSS pedían `font-weight:800` sobre la familia `Inter`, pero el
+   `<link>` de Google Fonts del reporte solo carga `Inter:wght@400;500;600;700` — al no existir el
+   peso 800, el navegador sustituye una fuente fallback, y `html2canvas` (que rasteriza el iframe
+   para meterlo al PDF) calcula el ancho de cada glifo con la métrica de la fuente pedida en vez de
+   la realmente pintada, produciendo texto comprimido/superpuesto. Es un bug conocido de
+   `html2canvas` con pesos de fuente no cargados. Fix: bajar esos dos `font-weight:800` a `700`
+   (sí cargado). Las dos ocurrencias que sí usan `font-family:'Outfit'` con peso 800 (que SÍ está
+   cargado: `Outfit:wght@600;700;800`) se dejaron igual, ahí nunca hubo bug.
+2. **Media hoja en blanco en la portada** — después del mapa/fachada no había más contenido hasta
+   el pie de página, dejando ~40% de la hoja vacía. Se llenó con una card "Resumen de la operación"
+   (precio de compra, inversión total, margen neto, ROI anualizado en 4 columnas) — contenido
+   genuinamente útil, no relleno decorativo.
+3. **El más importante, y el que más rondas tomó cerrar: el espaciado "pegado" en Deudas y en las
+   listas de `DynamicMoneyList` (Gestión, deudas extra, obra extra), reportado por el usuario 4+
+   veces a lo largo de la sesión.** Las primeras 3 veces se investigó mal: se asumió que era CSS
+   insuficiente (`space-y-2`→`space-y-3`→`space-y-5`, subiendo el valor cada vez) o percepción del
+   usuario/caché del navegador — ninguna de las dos hipótesis era la causa real, y el usuario lo dejó
+   claro ("no has aprendido"). La causa real, encontrada inspeccionando el DOM real con
+   `document.querySelectorAll` en la consola: el entorno de preview de este navegador (Claude
+   Browser Pane) envuelve el array completo que devuelve cada `.map()` de React en un
+   `<span style="display:contents" data-ve-dynamic="true" x-file-name="..." x-line-number="...">`
+   — instrumentación de un visual editor, no parte del código de la app. El selector CSS de
+   Tailwind para `space-y-*` es `& > :not([hidden]) ~ :not([hidden])` — un combinador de HERMANOS
+   DIRECTOS que recorre el árbol DOM tal cual está escrito. Como los 5 `<div>` de cada campo de
+   deuda quedan como hijos del `<span>` (no hijos directos del contenedor `space-y-*`), el selector
+   nunca los encuentra como hermanos entre sí — cero margen aplicado, sin importar qué valor de
+   `space-y-*` se pusiera. En cambio `gap` (flex/grid) SÍ funciona a través de `display:contents`
+   porque así lo define el spec de CSS (los hijos de un elemento `display:contents` se "aplanan" en
+   el contexto de formato flex/grid del abuelo para efectos de layout, aunque no para selectores).
+   Por eso Remodelación (que usa `grid ... gap-4`) nunca tuvo el problema mientras Deudas (`space-y`)
+   sí. Fix real: reemplazar `space-y-*` por `flex flex-col gap-*` en el contenedor de Deudas
+   (`FlippingCalculatorPage.jsx`) y en `DynamicMoneyList.jsx` (compartido por las 3 listas). Subida
+   de más a `gap-5` como primer intento del fix se sintió excesiva ("uff mejor pero... muucho") y se
+   bajó a `gap-3`/`space-y-3`/`mb-1`, unificado con el resto de las cards de la página. **Lección
+   para cualquier código nuevo en este proyecto: una lista renderizada con `.map()` en este entorno
+   de preview necesita `gap` (flex/grid), nunca `space-y`/`space-x` — el combinador de hermanos no
+   atraviesa la instrumentación del visual editor.**
+
+**Pendiente explícito, sin resolver esta sesión** (el usuario dio una instrucción larga —
+usuario "Inversionista" sin credenciales, cobro de $380 neto por transferencia bancaria, iconos y
+gráficas — y luego dijo "sí claro" a seguir, pero se enfocó primero en las gráficas/reporte; las
+preguntas de diseño sobre el Inversionista quedaron sin responder):
+- No existe hoy un rol sin contraseña: `RegisterRequest`/`register_email` en `backend/routers/
+  auth.py:281-297` siempre exige `password` y solo acepta `role` en `("appraiser","realtor")`. El
+  patrón más cercano a "sin login" es `Valuation.mode="public"` con `user_id=None` (el mismo que ya
+  usa hoy el flipping anónimo) — construir un alta passwordless real requeriría o extender
+  `register_email` para saltar el hash de password en un rol nuevo, o modelar todo sobre ese patrón
+  de `Valuation` anónima sin colección `users` real.
+- No existe ningún patrón de pago por transferencia/OXXO/SPEI en el código — `ProCheckoutPage.jsx`
+  solo tiene un `PaymentModal` de tarjeta simulada. Habría que construir la UI de instrucciones de
+  transferencia desde cero, y el usuario todavía no tiene los datos bancarios para poner ahí.
+- Falta decidir cómo se empaqueta el cobro de $380 (¿paquetes por cantidad como Valuadores/
+  Inmobiliarias, o pago individual por flip?) y cómo se integra la opción de flipping en los
+  paneles existentes según tipo de usuario.
+
+Commits: `5e637ca`, `f79423d`, `184f86a`, `81bed4a`, `812b46f`, `c515131`, `357c399`, `1d98ce2`,
+`7661696`, `c0f78ab`, `41708b9`, `790b132`, `6b798f2`, `66d03ac` — todos pusheados a `main`.
+
+---
+
 ## 10 Sep 2026 (tarde) — Railway auto-deploy reconectado + CETES token cargado
 
 **Railway (#189):** el patch staged (repo `Pedrucus1/valuation-ai` conectado, Root Directory=`backend`, start command uvicorn) llevaba semanas sin aplicar (ver ESTADO.md sesión madrugada). Antes de aprobarlo, el MCP de Railway mostró un diff ambiguo: 16 variables de entorno (Mongo, JWT, API keys, SMTP) marcadas como "removed", lo que habría tumbado producción. Se verificó directo en el dashboard de Railway (navegador) en vez de confiar en el MCP — ahí el diff real mostraba solo 4 cambios seguros (Branch, Repo, Root Directory, Start Command), confirmando que era un artefacto de cómo el tool arma el diff, no un riesgo real.

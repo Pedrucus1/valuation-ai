@@ -356,7 +356,9 @@ const LoginPage = () => {
     }));
 
   /* ── Step counts ── */
-  const STEPS = regData.role === "appraiser"
+  const STEPS = regData.role === "investor"
+    ? ["Datos básicos", "Confirmar"]
+    : regData.role === "appraiser"
     ? ["Datos básicos", "Modo y servicios", "Documentos"]
     : ["Datos básicos", "Modo y perfil", "Documentos"];
 
@@ -377,6 +379,7 @@ const LoginPage = () => {
       return true;
     }
     if (step === 2) {
+      if (regData.role === "investor") return true;
       if (!regData.modo_perfil) { toast.error("Selecciona cómo quieres participar en PropValu"); return false; }
       if (regData.role === "appraiser") {
         if (!regData.estado) { toast.error("Selecciona el estado donde darás el servicio"); return false; }
@@ -413,6 +416,8 @@ const LoginPage = () => {
       navigate("/dashboard/valuador", { state: { user } });
     } else if (user.role === "realtor") {
       navigate("/dashboard/inmobiliaria", { state: { user } });
+    } else if (user.role === "investor") {
+      navigate("/dashboard/investor", { state: { user } });
     } else {
       navigate("/dashboard", { state: { user } });
     }
@@ -545,7 +550,9 @@ const LoginPage = () => {
       }
 
       try { localStorage.removeItem(REG_STORAGE_KEY); } catch {}
-      if (verificacion_pendiente) {
+      if (regData.role === "investor") {
+        toast.success(`Bienvenido, ${data.name}`);
+      } else if (verificacion_pendiente) {
         toast.info("Registro completado. Puedes subir tus documentos desde tu perfil para activar la verificación.", { duration: 6000 });
       } else {
         toast.success(
@@ -571,10 +578,11 @@ const LoginPage = () => {
   const renderStep1 = () => (
     <div className="space-y-3">
       {/* Rol */}
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-3 gap-3">
         {[
           { value: "appraiser", label: "Soy Valuador",     desc: "Perito certificado",       icon: <User className="w-4 h-4" /> },
           { value: "realtor",   label: "Soy Inmobiliaria", desc: "Agencia, broker o asesor",  icon: <Briefcase className="w-4 h-4" /> },
+          { value: "investor",  label: "Soy Inversionista",desc: "Flipping y OPIs propios",   icon: <User className="w-4 h-4" /> },
         ].map(opt => (
           <button key={opt.value} type="button" onClick={() => setReg("role", opt.value)}
             className={`px-3 py-2.5 rounded-xl border-2 text-left transition-all flex items-center gap-2 ${
@@ -803,6 +811,41 @@ const LoginPage = () => {
           </div>
         </button>
 
+      </div>
+    </div>
+  );
+
+  const renderStep2Investor = () => (
+    <div className="space-y-5">
+      <div className="rounded-xl bg-[#F0FAF5] border border-[#B7E4C7] p-4">
+        <p className="text-sm font-semibold text-[#1B4332]">Términos y Política de Privacidad</p>
+        <p className="text-xs text-slate-500 leading-relaxed mt-1">
+          Antes de crear tu cuenta, lee y acepta:
+        </p>
+        <div className="flex flex-col gap-2 mt-2">
+          <a href="/terminos-valuadores" target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-xs text-[#1B4332] font-medium underline underline-offset-2 hover:text-[#52B788]">
+            <FileText className="w-3.5 h-3.5 shrink-0" />
+            Términos del Servicio
+          </a>
+          <a href="/privacidad" target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-xs text-[#1B4332] font-medium underline underline-offset-2 hover:text-[#52B788]">
+            <FileText className="w-3.5 h-3.5 shrink-0" />
+            Política de Privacidad y Tratamiento de Datos Personales
+          </a>
+        </div>
+        <button type="button"
+          onClick={() => setReg("aceptaTerminos", !regData.aceptaTerminos)}
+          className="flex items-center gap-3 mt-3">
+          <div className={`w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 transition-all ${
+            regData.aceptaTerminos ? "bg-[#52B788] border-[#52B788]" : "border-slate-300"
+          }`}>
+            {regData.aceptaTerminos && <Check className="w-3 h-3 text-white" />}
+          </div>
+          <span className="text-xs text-slate-600 text-left">
+            He leído y acepto los <strong>Términos del Servicio</strong> y la <strong>Política de Privacidad</strong>, incluyendo el tratamiento de mis datos personales conforme a la LFPDPPP.
+          </span>
+        </button>
       </div>
     </div>
   );
@@ -1907,6 +1950,7 @@ const LoginPage = () => {
               <form onSubmit={handleRegister}>
 
                 {regStep === 1 && renderStep1()}
+                {regStep === 2 && regData.role === "investor"  && renderStep2Investor()}
                 {regStep === 2 && regData.role === "appraiser" && renderStep2Appraiser()}
                 {regStep === 2 && regData.role === "realtor"   && renderStep2Realtor()}
                 {regStep === 3 && regData.role === "appraiser" && renderStep3Appraiser()}
@@ -1922,7 +1966,7 @@ const LoginPage = () => {
                     </Button>
                   )}
 
-                  {regStep < 3 ? (
+                  {regStep < STEPS.length ? (
                     <Button type="button" onClick={handleNext}
                       className={`bg-[#1B4332] hover:bg-[#2D6A4F] text-white font-semibold ${regStep === 1 ? "w-full" : "flex-1"}`}>
                       Continuar <ArrowRight className="w-4 h-4 ml-1" />

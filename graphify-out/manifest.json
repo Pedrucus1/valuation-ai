@@ -1555,9 +1555,9 @@
     "semantic_hash": "f726ef1400ce2cb93ebd6916b4e0cfcf"
   },
   "backend/server.py": {
-    "mtime": 1789031786.7707183,
-    "ast_hash": "afbe61854abe09ac3c6cfd1133365629",
-    "semantic_hash": "afbe61854abe09ac3c6cfd1133365629"
+    "mtime": 1789098519.3252413,
+    "ast_hash": "6527738990b4ea7439ac65ec1cbd790a",
+    "semantic_hash": "6527738990b4ea7439ac65ec1cbd790a"
   },
   "backend/sheets_comparables.py": {
     "mtime": 1776473228.832765,
@@ -2260,9 +2260,9 @@
     "semantic_hash": "13bc9a04955e76f88bb93459e239aa68"
   },
   "frontend/src/lib/downloadReportPdf.js": {
-    "mtime": 1784702291.820225,
-    "ast_hash": "49aae3ecc80face7e98201b351b2f5aa",
-    "semantic_hash": "49aae3ecc80face7e98201b351b2f5aa"
+    "mtime": 1789096488.1350038,
+    "ast_hash": "3b9ad56d3b5bb6f8127f1def917809b8",
+    "semantic_hash": "3b9ad56d3b5bb6f8127f1def917809b8"
   },
   "frontend/src/lib/utils.js": {
     "mtime": 1772091954.2161508,
@@ -2330,9 +2330,9 @@
     "semantic_hash": "26d72bc45ed615ea866e26efc41db298"
   },
   "frontend/src/pages/FlippingCalculatorPage.jsx": {
-    "mtime": 1788976868.404846,
-    "ast_hash": "2fdb963f5ed3ea3611b2996d72df534b",
-    "semantic_hash": "2fdb963f5ed3ea3611b2996d72df534b"
+    "mtime": 1789099657.1308475,
+    "ast_hash": "5cbd5e3c0797232439dba4d5bbf1d8e8",
+    "semantic_hash": "5cbd5e3c0797232439dba4d5bbf1d8e8"
   },
   "frontend/src/pages/ForgotPasswordPage.jsx": {
     "mtime": 1780612826.4684472,
@@ -2445,9 +2445,9 @@
     "semantic_hash": "1184f4d204c79b0f8c59aa2cda8da08f"
   },
   "frontend/src/pages/ValuationForm.jsx": {
-    "mtime": 1787100707.7967281,
-    "ast_hash": "dc32dc4d432e6c013747846b7f40d0fa",
-    "semantic_hash": "dc32dc4d432e6c013747846b7f40d0fa"
+    "mtime": 1789092017.9797099,
+    "ast_hash": "9088b6b013297bc938a2dff5f3f36540",
+    "semantic_hash": "9088b6b013297bc938a2dff5f3f36540"
   },
   "frontend/src/pages/VerifyEmailPage.jsx": {
     "mtime": 1787548082.1937847,
@@ -3425,9 +3425,9 @@
     "semantic_hash": "81cb2abcde0d497a6d4b59bcebe886af"
   },
   "scraper-inmuebles/monitor_local.py": {
-    "mtime": 1788986807.4556994,
-    "ast_hash": "1f5c8845d485a59ec372adeeb3679c3c",
-    "semantic_hash": "1f5c8845d485a59ec372adeeb3679c3c"
+    "mtime": 1789095944.7752259,
+    "ast_hash": "81c3d496f7caf4dc0bb6951659f8d506",
+    "semantic_hash": "81c3d496f7caf4dc0bb6951659f8d506"
   },
   "scraper-inmuebles/orquestador_ia.py": {
     "mtime": 1781568536.218039,
@@ -3518,5 +3518,35 @@
     "mtime": 1789028178.7031171,
     "ast_hash": "adce7e44f821fd7ecd05ed0b38b5cd88",
     "semantic_hash": "adce7e44f821fd7ecd05ed0b38b5cd88"
+  },
+  "frontend/src/components/DynamicMoneyList.jsx": {
+    "mtime": 1789099522.9805808,
+    "ast_hash": "9b22c842df5aa244f75a9faa02afe7c5",
+    "semantic_hash": "9b22c842df5aa244f75a9faa02afe7c5"
+  },
+  "frontend/src/components/LocationMap.jsx": {
+    "mtime": 1789092244.1611688,
+    "ast_hash": "4c2baadd1727e223047bc910267aefc4",
+    "semantic_hash": "4c2baadd1727e223047bc910267aefc4"
+  },
+  "frontend/src/components/ui/money-input.jsx": {
+    "mtime": 1789090522.4343908,
+    "ast_hash": "586565959d6ba97e1d10a08d26c3cdaf",
+    "semantic_hash": "586565959d6ba97e1d10a08d26c3cdaf"
+  },
+  "frontend/src/lib/compressImage.js": {
+    "mtime": 1789092006.176628,
+    "ast_hash": "f62eb37f9c1a2688d9016efb39a68668",
+    "semantic_hash": "f62eb37f9c1a2688d9016efb39a68668"
+  },
+  "frontend/src/lib/flippingReportHtml.js": {
+    "mtime": 1789099131.3569956,
+    "ast_hash": "41e80e03abf5a4be11e2788d8f6e6523",
+    "semantic_hash": "41e80e03abf5a4be11e2788d8f6e6523"
+  },
+  "frontend/src/lib/mexicanStates.js": {
+    "mtime": 1789090464.1863694,
+    "ast_hash": "eca17c9d8d68c6251d4e7cc418a7e03a",
+    "semantic_hash": "eca17c9d8d68c6251d4e7cc418a7e03a"
   }
 }

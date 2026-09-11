@@ -37,6 +37,7 @@ const VerifyEmailPage           = lazy(() => import("@/pages/VerifyEmailPage"));
 const DashboardPage             = lazy(() => import("@/pages/DashboardPage"));
 const ValuadorDashboardPage     = lazy(() => import("@/pages/ValuadorDashboardPage"));
 const InmobiliariaDashboardPage = lazy(() => import("@/pages/InmobiliariaDashboardPage"));
+const InversionistaDashboardPage = lazy(() => import("@/pages/InversionistaDashboardPage"));
 const ProCheckoutPage           = lazy(() => import("@/pages/ProCheckoutPage"));
 
 // Anunciantes
@@ -62,6 +63,7 @@ const AdminLogin                = lazy(() => import("@/pages/admin/AdminLogin"))
 const AdminDashboard            = lazy(() => import("@/pages/admin/AdminDashboard"));
 const AdminUsuarios             = lazy(() => import("@/pages/admin/AdminUsuarios"));
 const AdminKYC                  = lazy(() => import("@/pages/admin/AdminKYC"));
+const AdminCreditos             = lazy(() => import("@/pages/admin/AdminCreditos"));
 const AdminModeracion           = lazy(() => import("@/pages/admin/AdminModeracion"));
 const AdminRoles                = lazy(() => import("@/pages/admin/AdminRoles"));
 const AdminFeedback             = lazy(() => import("@/pages/admin/AdminFeedback"));
@@ -144,6 +146,7 @@ function AppRouter() {
         <Route path="/colaborar/acabados" element={<ColaborarAcabados />} />
         <Route path="/dashboard/valuador" element={<ValuadorDashboardPage />} />
         <Route path="/dashboard/inmobiliaria" element={<InmobiliariaDashboardPage />} />
+        <Route path="/dashboard/investor" element={<InversionistaDashboardPage />} />
         <Route path="/gracias/:valuationId" element={<ThankYouPage />} />
         <Route path="/recuperar" element={<RecuperarPage />} />
         <Route path="/para-valuadores" element={<ValuadorPage />} />
@@ -177,6 +180,7 @@ function AppRouter() {
         <Route path="/admin" element={<AdminProtectedRoute><AdminDashboard /></AdminProtectedRoute>} />
         <Route path="/admin/usuarios" element={<AdminProtectedRoute><AdminUsuarios /></AdminProtectedRoute>} />
         <Route path="/admin/kyc" element={<AdminProtectedRoute><AdminKYC /></AdminProtectedRoute>} />
+        <Route path="/admin/creditos" element={<AdminProtectedRoute><AdminCreditos /></AdminProtectedRoute>} />
         <Route path="/admin/moderacion" element={<AdminProtectedRoute><AdminModeracion /></AdminProtectedRoute>} />
         <Route path="/admin/roles" element={<AdminProtectedRoute rolesPermitidos={["superadmin"]}><AdminRoles /></AdminProtectedRoute>} />
         <Route path="/admin/feedback" element={<AdminProtectedRoute><AdminFeedback /></AdminProtectedRoute>} />

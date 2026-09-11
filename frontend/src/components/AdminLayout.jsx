@@ -39,6 +39,7 @@ const NAV_GRUPOS = [
   {
     grupo: "Finanzas y datos",
     items: [
+      { label: "Créditos",     icon: DollarSign,      href: "/admin/creditos", badge: "creditos" },
       { label: "Accesos",      icon: KeyRound,        href: "/admin/accesos" },
       { label: "CFDI",         icon: DollarSign,      href: "/admin/cfdi" },
       { label: "Payouts",      icon: DollarSign,      href: "/admin/payouts" },

@@ -21,6 +21,51 @@ JWT_SECRET = os.getenv("JWT_SECRET", "super-secret-key-propvalu-reset-12345")
 JWT_ALGORITHM = "HS256"
 
 
+async def crear_sesion(response: Response, user_id: str) -> str:
+    """Crea la sesión (7 días) + cookie httponly. Compartido por registro, login
+    y alta rápida de investor sin contraseña (routers/creditos_compra.py)."""
+    session_token = f"sess_{uuid.uuid4().hex}"
+    expires_at = datetime.now(timezone.utc) + timedelta(days=7)
+    await db.user_sessions.delete_many({"user_id": user_id})
+    await db.user_sessions.insert_one({
+        "session_id": str(uuid.uuid4()),
+        "user_id": user_id,
+        "session_token": session_token,
+        "expires_at": expires_at.isoformat(),
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    })
+    response.set_cookie(
+        key="session_token", value=session_token,
+        httponly=True, secure=True, samesite="none",
+        path="/", max_age=7 * 24 * 60 * 60,
+    )
+    return session_token
+
+
+async def crear_usuario_investor_publico(response: Response, nombre: str, email: str) -> dict:
+    """Alta mínima de investor sin contraseña, usada por el checkout de créditos
+    (routers/creditos_compra.py) cuando alguien compra sin tener cuenta todavía —
+    mismo rol sin-KYC que el registro normal de investor, pero sin password."""
+    user_id = f"user_{uuid.uuid4().hex[:12]}"
+    new_user = {
+        "user_id": user_id,
+        "email": email,
+        "name": nombre,
+        "picture": None,
+        "role": "investor",
+        "phone": None,
+        "hashed_password": None,
+        "kyc_status": None,
+        "email_verified": False,
+        "credits": 0,
+        "plan": None,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    }
+    await db.users.insert_one(new_user)
+    await crear_sesion(response, user_id)
+    return new_user
+
+
 def _send_verification_email(user_id: str, email: str, name: str):
     """Best-effort: si falla el SMTP no bloquea el registro/login -- el usuario
     puede pedir que se reenvíe desde /auth/resend-verification."""
@@ -285,7 +330,7 @@ async def register_email(request: Request, data: RegisterRequest, response: Resp
     if existing:
         raise HTTPException(status_code=400, detail="El correo ya está registrado")
 
-    if data.role not in ("appraiser", "realtor"):
+    if data.role not in ("appraiser", "realtor", "investor"):
         raise HTTPException(status_code=400, detail="Rol inválido")
 
     user_id = f"user_{uuid.uuid4().hex[:12]}"
@@ -338,7 +383,7 @@ async def register_email(request: Request, data: RegisterRequest, response: Resp
         "redes_sociales": data.redes_sociales,
         "galardones": data.galardones,
         "hashed_password": hashed_pw,
-        "kyc_status": "pending",
+        "kyc_status": "pending" if data.role != "investor" else None,  # investor no es un profesional verificado, no requiere KYC
         "email_verified": False,
         "credits": 0,
         "plan": None,
@@ -347,21 +392,7 @@ async def register_email(request: Request, data: RegisterRequest, response: Resp
     await db.users.insert_one(new_user)
     _send_verification_email(user_id, data.email, data.name)
 
-    session_token = f"sess_{uuid.uuid4().hex}"
-    expires_at = datetime.now(timezone.utc) + timedelta(days=7)
-    await db.user_sessions.delete_many({"user_id": user_id})
-    await db.user_sessions.insert_one({
-        "session_id": str(uuid.uuid4()),
-        "user_id": user_id,
-        "session_token": session_token,
-        "expires_at": expires_at.isoformat(),
-        "created_at": datetime.now(timezone.utc).isoformat(),
-    })
-    response.set_cookie(
-        key="session_token", value=session_token,
-        httponly=True, secure=True, samesite="none",
-        path="/", max_age=7 * 24 * 60 * 60,
-    )
+    await crear_sesion(response, user_id)
     user_out = {k: v for k, v in new_user.items() if k not in ("hashed_password", "_id")}
     return user_out
 
@@ -377,21 +408,7 @@ async def login_email(request: Request, data: LoginRequest, response: Response):
         raise HTTPException(status_code=401, detail="Correo o contraseña incorrectos")
 
     user_id = user_doc["user_id"]
-    session_token = f"sess_{uuid.uuid4().hex}"
-    expires_at = datetime.now(timezone.utc) + timedelta(days=7)
-    await db.user_sessions.delete_many({"user_id": user_id})
-    await db.user_sessions.insert_one({
-        "session_id": str(uuid.uuid4()),
-        "user_id": user_id,
-        "session_token": session_token,
-        "expires_at": expires_at.isoformat(),
-        "created_at": datetime.now(timezone.utc).isoformat(),
-    })
-    response.set_cookie(
-        key="session_token", value=session_token,
-        httponly=True, secure=True, samesite="none",
-        path="/", max_age=7 * 24 * 60 * 60,
-    )
+    session_token = await crear_sesion(response, user_id)
     user_out = {k: v for k, v in user_doc.items() if k not in ("hashed_password",)}
     user_out["session_token"] = session_token   # para auth por Bearer (no depende de la cookie cross-dominio)
     return user_out

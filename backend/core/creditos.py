@@ -32,9 +32,14 @@ def _parse_fecha(fecha):
     return dt
 
 
-def saldo_efectivo(user_doc: dict) -> int:
-    """Suma de créditos vigentes (no expirados) del ledger. Si el usuario aún
-    no tiene `creditos_ledger` (pre-migración), cae al int legado `credits`."""
+def saldo_efectivo(user_doc: dict, uso: str | None = None) -> int:
+    """Suma de créditos vigentes (no expirados) del ledger, opcionalmente filtrada
+    por `uso` ("opi" | "flipping"): una entrada con `uso="flipping"` (paquete
+    solo-Flipping) NO cuenta para saldo de OPI, pero una entrada `uso="cualquiera"`
+    (mixta, o legacy sin el campo) cuenta para ambas. `uso=None` = comportamiento
+    histórico, cuenta todo (usado por /auth/me y paneles de saldo general).
+    Si el usuario aún no tiene `creditos_ledger` (pre-migración), cae al int
+    legado `credits`."""
     ledger = user_doc.get("creditos_ledger")
     if ledger is None:
         return int(user_doc.get("credits") or 0)
@@ -42,8 +47,12 @@ def saldo_efectivo(user_doc: dict) -> int:
     total = 0
     for g in ledger:
         exp = _parse_fecha(g.get("expira_en"))
-        if exp is None or exp >= ahora:
-            total += int(g.get("monto", 0))
+        if exp is not None and exp < ahora:
+            continue
+        entry_uso = g.get("uso") or "cualquiera"
+        if uso == "opi" and entry_uso not in ("cualquiera",):
+            continue
+        total += int(g.get("monto", 0))
     return total
 
 
@@ -65,16 +74,44 @@ def fin_de_mes() -> str:
     return _mas_meses(inicio_mes, 1).isoformat()
 
 
-async def otorgar_credito(db, user_id: str, monto: int, origen: str, expira_en: str):
+async def otorgar_credito(db, user_id: str, monto: int, origen: str, expira_en: str | None, uso: str = "cualquiera"):
     """Agrega UNA entrada aditiva al ledger. Usado por gamificación (cada
-    tramo de META puntos es un crédito nuevo, no reemplaza los anteriores)."""
+    tramo de META puntos es un crédito nuevo, no reemplaza los anteriores) y
+    por la compra de créditos por transferencia (routers/creditos_compra.py,
+    `expira_en=None` porque ya está pagado, no vence)."""
     entrada = {
         "monto": monto,
         "otorgado_en": datetime.now(timezone.utc).isoformat(),
         "expira_en": expira_en,
         "origen": origen,
+        "uso": uso,
     }
     await db.users.update_one({"user_id": user_id}, {"$push": {"creditos_ledger": entrada}})
+
+
+async def gastar_credito(db, user_id: str, uso: str) -> bool:
+    """Descuenta 1 crédito elegible para `uso` ("opi" | "flipping") del ledger.
+    Recorre las entradas vigentes en orden y resta del primer paquete elegible
+    con saldo — elimina la entrada si llega a 0. Devuelve False si no hay saldo
+    (el caller responde 402 y ofrece comprar)."""
+    user_doc = await db.users.find_one({"user_id": user_id}, {"_id": 0, "creditos_ledger": 1})
+    ledger = list((user_doc or {}).get("creditos_ledger") or [])
+    ahora = datetime.now(timezone.utc)
+    for i, g in enumerate(ledger):
+        exp = _parse_fecha(g.get("expira_en"))
+        if exp is not None and exp < ahora:
+            continue
+        entry_uso = g.get("uso") or "cualquiera"
+        if uso == "opi" and entry_uso not in ("cualquiera",):
+            continue
+        if int(g.get("monto", 0)) <= 0:
+            continue
+        g["monto"] = int(g["monto"]) - 1
+        if g["monto"] <= 0:
+            ledger.pop(i)
+        await db.users.update_one({"user_id": user_id}, {"$set": {"creditos_ledger": ledger}})
+        return True
+    return False
 
 
 async def establecer_creditos_mensuales(db, user_id: str, monto: int):

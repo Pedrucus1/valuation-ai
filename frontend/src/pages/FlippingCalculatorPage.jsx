@@ -13,6 +13,7 @@ import { MEXICAN_STATES } from "@/lib/mexicanStates";
 import { buildFlippingReportHtml } from "@/lib/flippingReportHtml";
 import { downloadReportPdf } from "@/lib/downloadReportPdf";
 import { compressImage } from "@/lib/compressImage";
+import CreditosCheckoutModal from "@/components/CreditosCheckoutModal";
 import { toast } from "sonner";
 import {
   ArrowLeft, Calculator, Save, Info, Search, Home, Building2, RotateCcw, Download, Camera, X, FileText,
@@ -175,7 +176,7 @@ export default function FlippingCalculatorPage() {
     }
     setArv((a) => ({ ...a, loading: true, error: null }));
     try {
-      const createRes = await fetch(`${API}/valuations`, {
+      const createRes = await fetch(`${API}/valuations?purpose=flipping`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -382,7 +383,29 @@ export default function FlippingCalculatorPage() {
     });
   };
 
-  const generarReporte = () => {
+  const [showCheckout, setShowCheckout] = useState(false);
+  const [verificandoCredito, setVerificandoCredito] = useState(false);
+
+  const generarReporte = async () => {
+    setVerificandoCredito(true);
+    try {
+      const res = await fetch(`${API}/creditos/consumir`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ uso: "flipping" }),
+      });
+      if (res.status === 402) {
+        setShowCheckout(true);
+        return;
+      }
+      if (!res.ok) throw new Error("fallo");
+    } catch {
+      toast.error("No se pudo verificar tu saldo de créditos. Intenta de nuevo.");
+      return;
+    } finally {
+      setVerificandoCredito(false);
+    }
     setReportHtml(buildReportHtml());
     setShowReport(true);
   };
@@ -751,9 +774,9 @@ export default function FlippingCalculatorPage() {
         </Card>
 
         <div className="flex items-center gap-3 flex-wrap">
-          <Button onClick={generarReporte} className="bg-[#1B4332] hover:bg-[#143024] text-white">
+          <Button onClick={generarReporte} disabled={verificandoCredito} className="bg-[#1B4332] hover:bg-[#143024] text-white disabled:opacity-50">
             <FileText className="w-4 h-4 mr-2" />
-            Generar reporte
+            {verificandoCredito ? "Verificando…" : "Generar reporte"}
           </Button>
           {!esPublico && saveStatus && (
             <span className="text-xs text-slate-400 flex items-center gap-1">
@@ -765,6 +788,8 @@ export default function FlippingCalculatorPage() {
           )}
         </div>
       </div>
+
+      <CreditosCheckoutModal open={showCheckout} onOpenChange={setShowCheckout} session={currentUser} />
 
       {showReport && (
         <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-2 sm:p-4">

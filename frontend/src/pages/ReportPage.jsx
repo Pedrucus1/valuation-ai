@@ -22,6 +22,7 @@ import { API } from "@/App";
 import AdOverlay from "@/components/AdOverlay";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
+import CreditosCheckoutModal from "@/components/CreditosCheckoutModal";
 
 const ReportPage = () => {
   const { valuationId } = useParams();
@@ -36,6 +37,7 @@ const ReportPage = () => {
   const [isSubmittingReview, setIsSubmittingReview] = useState(false);
   const [appraiserReviewDone, setAppraiserReviewDone] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [showCheckout, setShowCheckout] = useState(false);
   // El perito/admin es quien HACE el avalúo: no se autocalifica ni reseña la plataforma tras cada reporte.
   const isPro = ["appraiser", "super_admin", "valuador", "realtor"].includes((currentUser?.role || "").toLowerCase());
 
@@ -241,6 +243,23 @@ const ReportPage = () => {
 
   const generateReport = async (withAnalysis = true) => {
     setIsGenerating(true);
+    try {
+      const creditRes = await fetch(`${API}/creditos/consumir`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ uso: "opi" }),
+      });
+      if (creditRes.status === 402) {
+        setShowCheckout(true);
+        setIsGenerating(false);
+        return;
+      }
+    } catch {
+      toast.error("No se pudo verificar tu saldo de créditos. Intenta de nuevo.");
+      setIsGenerating(false);
+      return;
+    }
     // Show slot2 ad "durante la generación con IA" (only for non-private mode)
     if (valuation?.mode !== "private") setShowSlot2Ad(true);
     try {
@@ -792,6 +811,7 @@ const ReportPage = () => {
           </div>
         </div>
       </div>
+      <CreditosCheckoutModal open={showCheckout} onOpenChange={setShowCheckout} session={currentUser} />
     </div>
   );
 };

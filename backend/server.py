@@ -254,6 +254,7 @@ from routers.acabados import router as acabados_router
 from routers.atlas_colonias import router as atlas_colonias_router
 from routers.flipping import router as flipping_router
 from routers.vault import router as vault_router, enviar_recordatorios_boveda
+from routers.creditos_compra import router as creditos_compra_router
 
 # Auth y sesión -> routers/auth.py (#66.1)
 
@@ -261,20 +262,21 @@ from routers.vault import router as vault_router, enviar_recordatorios_boveda
 
 @api_router.post("/valuations", response_model=dict)
 @limiter.limit("30/hour")
-async def create_valuation(request: Request, property_input: PropertyInput):
+async def create_valuation(request: Request, property_input: PropertyInput, purpose: str = "opi"):
     user = await get_current_user(request)
-    
+
     mode = "public"
     user_id = None
-    
+
     if user:
         user_id = user.user_id
         if user.role == "appraiser":
             mode = "private"
-    
+
     valuation = Valuation(
         user_id=user_id,
         mode=mode,
+        purpose=purpose if purpose == "flipping" else "opi",
         property_data=property_input,
         status="draft"
     )
@@ -291,14 +293,18 @@ async def create_valuation(request: Request, property_input: PropertyInput):
     return doc
 
 @api_router.get("/valuations", response_model=List[dict])
-async def get_valuations(request: Request):
+async def get_valuations(request: Request, purpose: Optional[str] = None):
     user = await get_current_user(request)
-    
+
     if not user:
         return []
-    
+
+    query = {"user_id": user.user_id}
+    if purpose in ("opi", "flipping"):
+        query["purpose"] = purpose
+
     valuations = await db.valuations.find(
-        {"user_id": user.user_id}, 
+        query,
         {"_id": 0}
     ).sort("created_at", -1).to_list(100)
     return valuations
@@ -2615,6 +2621,7 @@ app.include_router(acabados_router)
 app.include_router(atlas_colonias_router)
 app.include_router(flipping_router)
 app.include_router(vault_router)
+app.include_router(creditos_compra_router)
 
 # Serve uploaded files (ads, kyc) con soporte de HTTP Range (206).
 # StaticFiles en este entorno responde 200 sin Accept-Ranges a peticiones Range, y

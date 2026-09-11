@@ -10,6 +10,8 @@ KYC_DIR = UPLOADS_DIR / "kyc"
 KYC_DIR.mkdir(parents=True, exist_ok=True)
 ADS_DIR = UPLOADS_DIR / "ads"
 ADS_DIR.mkdir(parents=True, exist_ok=True)
+COMPROBANTES_DIR = UPLOADS_DIR / "comprobantes"
+COMPROBANTES_DIR.mkdir(parents=True, exist_ok=True)
 
 # Ruta del scraper (override por env SCRAPER_DIR). Consolidado 01-sep-2026 dentro del
 # propio repo: Pagina-Valuacion-con-Ai--main/scraper-inmuebles (BACKEND_DIR.parent = proyecto).

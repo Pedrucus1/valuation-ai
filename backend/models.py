@@ -58,7 +58,7 @@ class RegisterRequest(BaseModel):
     name: str
     email: str
     password: str
-    role: str  # "appraiser" | "realtor"
+    role: str  # "appraiser" | "realtor" | "investor"
     phone: Optional[str] = None
     company_name: Optional[str] = None
     estado: Optional[str] = None
@@ -295,6 +295,7 @@ class Valuation(BaseModel):
     valuation_id: str = Field(default_factory=lambda: f"val_{uuid.uuid4().hex[:12]}")
     user_id: Optional[str] = None
     mode: str = "public"
+    purpose: str = "opi"  # "opi" | "flipping"
 
     property_data: PropertyInput
     comparables: List[Comparable] = []
@@ -329,6 +330,22 @@ class VaultRequest(BaseModel):
     acepta_terminos_en: Optional[datetime] = None  # cuándo aceptó términos (evidencia, no solo bool)
     # Recordatorios ya enviados (evita duplicados) — claves tipo "anual_2027", "pre_expiracion".
     recordatorios_enviados: List[str] = []
+
+class CreditPurchase(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    purchase_id: str = Field(default_factory=lambda: f"cp_{uuid.uuid4().hex[:12]}")
+    user_id: str
+    email: str
+    nombre: str
+    package_id: str
+    creditos: int
+    monto: float
+    tipo: str  # "flipping" | "mixto" — qué uso desbloquean los créditos (ver core/creditos.saldo_efectivo)
+    estado: str = "pendiente_comprobante"  # -> pendiente_revision -> pagado | rechazado
+    comprobante_doc_id: Optional[str] = None
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    confirmado_en: Optional[datetime] = None
+    confirmado_por: Optional[str] = None  # email del admin que confirmó/rechazó
 
 class ForgotPasswordRequest(BaseModel):
     email: str
