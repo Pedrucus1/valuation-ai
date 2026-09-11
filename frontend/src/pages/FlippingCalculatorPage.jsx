@@ -15,6 +15,7 @@ import { downloadReportPdf } from "@/lib/downloadReportPdf";
 import { compressImage } from "@/lib/compressImage";
 import { toast } from "sonner";
 import { ArrowLeft, Calculator, Save, Info, Search, Home, Building2, RotateCcw, Download, Camera, X } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts";
 import { API } from "@/App";
 
 // $/m² de construcción por calidad — misma tabla que usa el motor (backend/server.py::_physical_breakdown).
@@ -39,10 +40,12 @@ const emptyInputs = {
   deuda_agua: "", deuda_predial: "", deuda_luz: "", deuda_cable: "", deuda_credito: "",
   comision_pct: "5", escrituracion_notario: "", isr: "",
   costo_financiero: "",
+  costo_financiero_modo: "mensual", // "mensual" | "total" — un socio inversionista suele cobrar interés mensual
   costo_administracion: "",
   costos_contrato_diligencias: "",
   valor_venta_estimado: "",
   margen_deseado_pct: "25",
+  meses_venta: "6",
 };
 
 const emptyProp = {
@@ -225,7 +228,9 @@ export default function FlippingCalculatorPage() {
 
     const gestionTotal = gestionItems.reduce((s, it) => s + num(it.monto), 0);
 
-    const financiero = num(inputs.costo_financiero);
+    const mesesVenta = num(inputs.meses_venta);
+    const financieroMensual = num(inputs.costo_financiero);
+    const financiero = inputs.costo_financiero_modo === "mensual" ? financieroMensual * mesesVenta : financieroMensual;
     const administracion = num(inputs.costo_administracion);
     const contratoDiligencias = num(inputs.costos_contrato_diligencias);
     const margenPct = num(inputs.margen_deseado_pct) / 100;
@@ -239,13 +244,25 @@ export default function FlippingCalculatorPage() {
     const precioCompraMax = arvValor - otrosCostos - (arvValor * margenPct);
     const netoAlDuenoMax = precioCompraMax - deudasTotal;
 
+    const roiPct = inversionTotal > 0 ? (margenNeto / inversionTotal) * 100 : 0;
+    const roiAnualizado = mesesVenta > 0 ? roiPct * (12 / mesesVenta) : 0;
+
     return {
       precioCompra, deudasTotal, costosVentaTotal, remodelacion: remodelacionTotal, gestionTotal,
       netoAlDueno, inversionTotal, margenNeto, margenPctReal, precioCompraMax, netoAlDuenoMax,
+      financiero, mesesVenta, roiPct, roiAnualizado,
     };
   }, [inputs, remodelacionTotal, gestionItems, deudaExtra]);
 
   const margenColor = calc.margenPctReal >= 0.20 ? "text-[#D9ED92]" : calc.margenPctReal >= 0.10 ? "text-amber-300" : "text-red-300";
+
+  const chartData = useMemo(() => [
+    { name: "Compra", valor: calc.precioCompra, color: "#1B4332" },
+    { name: "Remodelación", valor: calc.remodelacion, color: "#52B788" },
+    { name: "Gestión", valor: calc.gestionTotal, color: "#74C69D" },
+    { name: "Venta/cierre", valor: calc.costosVentaTotal, color: "#95D5B2" },
+    { name: "Ganancia", valor: Math.max(calc.margenNeto, 0), color: "#D9ED92" },
+  ], [calc]);
 
   const guardar = async () => {
     setSaving(true);
@@ -366,30 +383,36 @@ export default function FlippingCalculatorPage() {
                     }
                   />
                 </div>
-                <div className="w-24 shrink-0 space-y-1">
-                  <Label className="text-[10px] text-slate-400 block text-center">Fachada</Label>
-                  {facadeIndex != null && photos[facadeIndex] ? (
-                    <img src={photos[facadeIndex]} alt="Fachada" className="w-24 h-24 object-cover rounded-lg border-2 border-[#52B788]" />
-                  ) : (
-                    <div className="w-24 h-24 rounded-lg border-2 border-dashed border-slate-300 flex items-center justify-center text-slate-300">
-                      <Camera className="w-6 h-6" />
-                    </div>
-                  )}
-                </div>
+                {facadeIndex != null && photos[facadeIndex] && (
+                  <img src={photos[facadeIndex]} alt="Fachada" className="w-24 h-24 shrink-0 object-cover rounded-lg border-2 border-[#52B788]" />
+                )}
               </div>
 
               {photos.length > 0 && (
-                <div className="flex gap-2 flex-wrap">
-                  {photos.map((src, i) => (
-                    <div key={i} className="relative">
-                      <button type="button" onClick={() => setFacadeIndex(i)} title="Marcar como fachada">
-                        <img src={src} alt="" className={`w-16 h-16 object-cover rounded ${facadeIndex === i ? "ring-2 ring-[#52B788]" : ""}`} />
-                      </button>
-                      <button type="button" onClick={() => removePhoto(i)} className="absolute -top-1 -right-1 bg-white rounded-full shadow p-0.5">
-                        <X className="w-3 h-3 text-slate-600" />
-                      </button>
-                    </div>
-                  ))}
+                <div className="space-y-1">
+                  <p className="text-[10px] text-slate-400">Selecciona una como "Fachada" para la portada.</p>
+                  <div className="flex gap-2 flex-wrap">
+                    {photos.map((src, i) => (
+                      <div key={i} className="relative group w-16 h-16 rounded overflow-hidden border border-slate-200">
+                        <img src={src} alt="" className="w-full h-full object-cover" />
+                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-1">
+                          <button type="button" onClick={() => removePhoto(i)} className="self-end p-0.5 bg-white/20 hover:bg-red-500 text-white rounded-full">
+                            <X className="w-3 h-3" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setFacadeIndex(facadeIndex === i ? null : i)}
+                            className={`w-full py-0.5 rounded text-[8px] font-bold uppercase ${facadeIndex === i ? "bg-[#52B788] text-white" : "bg-white/90 text-[#1B4332]"}`}
+                          >
+                            {facadeIndex === i ? "★ Fachada" : "Elegir"}
+                          </button>
+                        </div>
+                        {facadeIndex === i && (
+                          <div className="absolute top-0.5 left-0.5 bg-[#52B788] text-white text-[7px] font-bold px-1 rounded">PORTADA</div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               )}
 
@@ -479,8 +502,24 @@ export default function FlippingCalculatorPage() {
                   <MoneyInput value={inputs.costos_contrato_diligencias} onChange={setAutoField("costos_contrato_diligencias")} />
                   {!autoLocked.costos_contrato_diligencias && <p className="text-[10px] text-slate-400 mt-0.5">Auto: 4% del precio de compra</p>}
                 </div>
-                <div><Label className="text-xs">Costo financiero (crédito puente)</Label><MoneyInput value={inputs.costo_financiero} onChange={set("costo_financiero")} /></div>
+                <div>
+                  <Label className="text-xs">Costo financiero {inputs.costo_financiero_modo === "mensual" ? "(mensual)" : "(total del préstamo)"}</Label>
+                  <MoneyInput value={inputs.costo_financiero} onChange={set("costo_financiero")} />
+                  <div className="flex gap-1 mt-1">
+                    <button type="button" onClick={() => setInputs((p) => ({ ...p, costo_financiero_modo: "mensual" }))} className={`text-[10px] px-1.5 py-0.5 rounded ${inputs.costo_financiero_modo === "mensual" ? "bg-[#1B4332] text-white" : "bg-slate-100 text-slate-500"}`}>Mensual</button>
+                    <button type="button" onClick={() => setInputs((p) => ({ ...p, costo_financiero_modo: "total" }))} className={`text-[10px] px-1.5 py-0.5 rounded ${inputs.costo_financiero_modo === "total" ? "bg-[#1B4332] text-white" : "bg-slate-100 text-slate-500"}`}>Total</button>
+                  </div>
+                  <p className="text-[10px] text-slate-400 mt-0.5">
+                    {inputs.costo_financiero_modo === "mensual"
+                      ? "Ej. interés mensual de un socio inversionista — se multiplica por los meses para vender."
+                      : "Monto único, ej. comisión de apertura del crédito puente."}
+                  </p>
+                </div>
                 <div><Label className="text-xs">Administración / tenencia</Label><MoneyInput value={inputs.costo_administracion} onChange={set("costo_administracion")} /></div>
+                <div>
+                  <Label className="text-xs">Tiempo estimado para vender (meses)</Label>
+                  <Input type="number" value={inputs.meses_venta} onChange={set("meses_venta")} className="max-w-[100px]" />
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -529,6 +568,38 @@ export default function FlippingCalculatorPage() {
             <div className="flex items-center justify-between pt-2 border-t border-white/20 mt-2">
               <span className="opacity-90 font-medium">Margen neto</span>
               <span className={`font-extrabold text-2xl ${margenColor}`}>{fmt(calc.margenNeto)} ({(calc.margenPctReal * 100).toFixed(1)}%)</span>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-white shadow-sm border-0 mb-4">
+          <CardContent className="p-4 space-y-3">
+            <h2 className="font-semibold text-[#1B4332]">Retorno para el inversionista</h2>
+            <div className="grid grid-cols-3 gap-3 text-center">
+              <div className="bg-slate-50 rounded-lg p-3">
+                <span className="text-[10px] text-slate-500 uppercase block">ROI del flip</span>
+                <span className="text-xl font-bold text-[#1B4332]">{calc.roiPct.toFixed(1)}%</span>
+              </div>
+              <div className="bg-slate-50 rounded-lg p-3">
+                <span className="text-[10px] text-slate-500 uppercase block">ROI anualizado</span>
+                <span className="text-xl font-bold text-[#1B4332]">{calc.roiAnualizado.toFixed(1)}%</span>
+              </div>
+              <div className="bg-slate-50 rounded-lg p-3">
+                <span className="text-[10px] text-slate-500 uppercase block">Tiempo para vender</span>
+                <span className="text-xl font-bold text-[#1B4332]">{calc.mesesVenta || 0} meses</span>
+              </div>
+            </div>
+            <div style={{ width: "100%", height: 200 }}>
+              <ResponsiveContainer>
+                <BarChart data={chartData} layout="vertical" margin={{ left: 8, right: 24 }}>
+                  <XAxis type="number" tickFormatter={(v) => `$${(v / 1000).toFixed(0)}k`} tick={{ fontSize: 10 }} />
+                  <YAxis type="category" dataKey="name" width={90} tick={{ fontSize: 11 }} />
+                  <Tooltip formatter={(v) => fmt(v)} />
+                  <Bar dataKey="valor" radius={[0, 4, 4, 0]}>
+                    {chartData.map((d, i) => <Cell key={i} fill={d.color} />)}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
             </div>
           </CardContent>
         </Card>
