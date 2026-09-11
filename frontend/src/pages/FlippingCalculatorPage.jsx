@@ -366,19 +366,66 @@ export default function FlippingCalculatorPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white shadow-sm border-0 mb-4">
-          <CardContent className="p-4 space-y-3">
-            <h2 className="font-semibold text-[#1B4332]">Deudas de la propiedad (se restan de lo que recibe el dueño)</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              <div><Label className="text-xs">Agua</Label><MoneyInput value={inputs.deuda_agua} onChange={set("deuda_agua")} /></div>
-              <div><Label className="text-xs">Predial</Label><MoneyInput value={inputs.deuda_predial} onChange={set("deuda_predial")} /></div>
-              <div><Label className="text-xs">Luz</Label><MoneyInput value={inputs.deuda_luz} onChange={set("deuda_luz")} /></div>
-              <div><Label className="text-xs">Cable/TV</Label><MoneyInput value={inputs.deuda_cable} onChange={set("deuda_cable")} /></div>
-              <div><Label className="text-xs">Crédito hipotecario</Label><MoneyInput value={inputs.deuda_credito} onChange={set("deuda_credito")} /></div>
-            </div>
-            <DynamicMoneyList items={deudaExtra} onChange={setDeudaExtra} addLabel="Agregar otra deuda" />
-          </CardContent>
-        </Card>
+        <div className="grid md:grid-cols-3 gap-4 mb-4 items-start">
+          <Card className="bg-white shadow-sm border-0 h-full">
+            <CardContent className="p-4 space-y-2">
+              <h2 className="font-semibold text-[#1B4332] text-sm">Deudas de la propiedad</h2>
+              <p className="text-[10px] text-slate-400 -mt-1">Se restan de lo que recibe el dueño</p>
+              <div className="space-y-2">
+                <div><Label className="text-xs">Agua</Label><MoneyInput value={inputs.deuda_agua} onChange={set("deuda_agua")} /></div>
+                <div><Label className="text-xs">Predial</Label><MoneyInput value={inputs.deuda_predial} onChange={set("deuda_predial")} /></div>
+                <div><Label className="text-xs">Luz</Label><MoneyInput value={inputs.deuda_luz} onChange={set("deuda_luz")} /></div>
+                <div><Label className="text-xs">Cable/TV</Label><MoneyInput value={inputs.deuda_cable} onChange={set("deuda_cable")} /></div>
+                <div><Label className="text-xs">Crédito hipotecario</Label><MoneyInput value={inputs.deuda_credito} onChange={set("deuda_credito")} /></div>
+              </div>
+              <DynamicMoneyList items={deudaExtra} onChange={setDeudaExtra} addLabel="Agregar otra deuda" />
+            </CardContent>
+          </Card>
+
+          <Card className="bg-white shadow-sm border-0 h-full">
+            <CardContent className="p-4 space-y-2">
+              <h2 className="font-semibold text-[#1B4332] text-sm">Gastos de gestión</h2>
+              <DynamicMoneyList items={gestionItems} onChange={setGestionItems} addLabel="Agregar gasto" emptyHint="Trámites, permisos, gestoría." />
+              {gestionItems.length > 0 && (
+                <div className="text-sm font-semibold text-[#1B4332] pt-1">Total: {fmt(calc.gestionTotal)}</div>
+              )}
+            </CardContent>
+          </Card>
+
+          <Card className="bg-white shadow-sm border-0 h-full">
+            <CardContent className="p-4 space-y-2">
+              <h2 className="font-semibold text-[#1B4332] text-sm">Costos de venta, cierre y operación</h2>
+              <div className="space-y-2">
+                <div><Label className="text-xs">Comisión inmobiliaria (% del ARV)</Label><Input type="number" value={inputs.comision_pct} onChange={set("comision_pct")} /></div>
+                <div>
+                  <Label className="text-xs flex items-center justify-between">Escrituración / notario
+                    {autoLocked.escrituracion_notario && <button type="button" onClick={resetAutoField("escrituracion_notario")} className="text-slate-400 hover:text-[#1B4332]" title="Volver a automático"><RotateCcw className="w-3 h-3" /></button>}
+                  </Label>
+                  <MoneyInput value={inputs.escrituracion_notario} onChange={setAutoField("escrituracion_notario")} />
+                  {!autoLocked.escrituracion_notario && <p className="text-[10px] text-slate-400 mt-0.5">Auto: 2% del ARV</p>}
+                </div>
+                <div>
+                  <Label className="text-xs flex items-center justify-between">ISR sobre la ganancia
+                    {autoLocked.isr && <button type="button" onClick={resetAutoField("isr")} className="text-slate-400 hover:text-[#1B4332]" title="Volver a automático"><RotateCcw className="w-3 h-3" /></button>}
+                  </Label>
+                  <MoneyInput value={inputs.isr} onChange={setAutoField("isr")} />
+                  <p className="text-[10px] text-slate-400 mt-0.5">
+                    {autoLocked.isr ? "Editado a mano — puede haber exención" : "Auto: 35% de la ganancia fiscal"}
+                  </p>
+                </div>
+                <div>
+                  <Label className="text-xs flex items-center justify-between">ISAI + notarial de compra
+                    {autoLocked.costos_contrato_diligencias && <button type="button" onClick={resetAutoField("costos_contrato_diligencias")} className="text-slate-400 hover:text-[#1B4332]" title="Volver a automático"><RotateCcw className="w-3 h-3" /></button>}
+                  </Label>
+                  <MoneyInput value={inputs.costos_contrato_diligencias} onChange={setAutoField("costos_contrato_diligencias")} />
+                  {!autoLocked.costos_contrato_diligencias && <p className="text-[10px] text-slate-400 mt-0.5">Auto: 4% del precio de compra</p>}
+                </div>
+                <div><Label className="text-xs">Costo financiero (crédito puente)</Label><MoneyInput value={inputs.costo_financiero} onChange={set("costo_financiero")} /></div>
+                <div><Label className="text-xs">Administración / tenencia</Label><MoneyInput value={inputs.costo_administracion} onChange={set("costo_administracion")} /></div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
 
         <Card className="bg-white shadow-sm border-0 mb-4">
           <CardContent className="p-4 space-y-3">
@@ -410,50 +457,6 @@ export default function FlippingCalculatorPage() {
               </span>
             </div>
             <div className="text-sm font-semibold text-[#1B4332] pt-1">Total obra: {fmt(calc.remodelacion)}</div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-white shadow-sm border-0 mb-4">
-          <CardContent className="p-4 space-y-3">
-            <h2 className="font-semibold text-[#1B4332]">Gastos de gestión</h2>
-            <DynamicMoneyList items={gestionItems} onChange={setGestionItems} addLabel="Agregar gasto" emptyHint="Trámites, permisos, gestoría — agrega los que apliquen." />
-            {gestionItems.length > 0 && (
-              <div className="text-sm font-semibold text-[#1B4332] pt-1">Total gestión: {fmt(calc.gestionTotal)}</div>
-            )}
-          </CardContent>
-        </Card>
-
-        <Card className="bg-white shadow-sm border-0 mb-4">
-          <CardContent className="p-4 space-y-3">
-            <h2 className="font-semibold text-[#1B4332]">Costos de venta, cierre y operación</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              <div><Label className="text-xs">Comisión inmobiliaria (% del ARV)</Label><Input type="number" value={inputs.comision_pct} onChange={set("comision_pct")} /></div>
-              <div>
-                <Label className="text-xs flex items-center justify-between">Escrituración / notario (venta)
-                  {autoLocked.escrituracion_notario && <button type="button" onClick={resetAutoField("escrituracion_notario")} className="text-slate-400 hover:text-[#1B4332]" title="Volver a automático"><RotateCcw className="w-3 h-3" /></button>}
-                </Label>
-                <MoneyInput value={inputs.escrituracion_notario} onChange={setAutoField("escrituracion_notario")} />
-                {!autoLocked.escrituracion_notario && <p className="text-[10px] text-slate-400 mt-0.5">Auto: 2% del ARV</p>}
-              </div>
-              <div>
-                <Label className="text-xs flex items-center justify-between">ISR sobre la ganancia
-                  {autoLocked.isr && <button type="button" onClick={resetAutoField("isr")} className="text-slate-400 hover:text-[#1B4332]" title="Volver a automático"><RotateCcw className="w-3 h-3" /></button>}
-                </Label>
-                <MoneyInput value={inputs.isr} onChange={setAutoField("isr")} />
-                <p className="text-[10px] text-slate-400 mt-0.5">
-                  {autoLocked.isr ? "Editado a mano — consulta a tu contador, puede haber exención" : "Auto: 35% de la ganancia fiscal — edítalo si aplica exención"}
-                </p>
-              </div>
-              <div>
-                <Label className="text-xs flex items-center justify-between">ISAI + notarial de compra
-                  {autoLocked.costos_contrato_diligencias && <button type="button" onClick={resetAutoField("costos_contrato_diligencias")} className="text-slate-400 hover:text-[#1B4332]" title="Volver a automático"><RotateCcw className="w-3 h-3" /></button>}
-                </Label>
-                <MoneyInput value={inputs.costos_contrato_diligencias} onChange={setAutoField("costos_contrato_diligencias")} />
-                {!autoLocked.costos_contrato_diligencias && <p className="text-[10px] text-slate-400 mt-0.5">Auto: 4% del precio de compra</p>}
-              </div>
-              <div><Label className="text-xs">Costo financiero (crédito puente)</Label><MoneyInput value={inputs.costo_financiero} onChange={set("costo_financiero")} /></div>
-              <div><Label className="text-xs">Administración / tenencia</Label><MoneyInput value={inputs.costo_administracion} onChange={set("costo_administracion")} /></div>
-            </div>
           </CardContent>
         </Card>
 
