@@ -3,10 +3,17 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { MoneyInput } from "@/components/ui/money-input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { LocationMap } from "@/components/LocationMap";
+import DynamicMoneyList from "@/components/DynamicMoneyList";
+import { MEXICAN_STATES } from "@/lib/mexicanStates";
+import { buildFlippingReportHtml } from "@/lib/flippingReportHtml";
+import { downloadReportPdf } from "@/lib/downloadReportPdf";
 import { toast } from "sonner";
-import { ArrowLeft, Calculator, Save, Info, Search, Plus, X } from "lucide-react";
+import { ArrowLeft, Calculator, Save, Info, Search, Home, Building2, RotateCcw, Download } from "lucide-react";
 import { API } from "@/App";
 
 // $/m² de construcción por calidad — misma tabla que usa el motor (backend/server.py::_physical_breakdown).
@@ -28,17 +35,19 @@ const fmt = (v) => `$${Math.round(v || 0).toLocaleString("es-MX")} MXN`;
 
 const emptyInputs = {
   precio_compra: "",
-  deuda_agua: "", deuda_predial: "", deuda_luz: "", deuda_cable: "", deuda_credito: "", deuda_otras: "",
+  deuda_agua: "", deuda_predial: "", deuda_luz: "", deuda_cable: "", deuda_credito: "",
   comision_pct: "5", escrituracion_notario: "", isr: "",
   costo_financiero: "",
   costo_administracion: "",
   costos_contrato_diligencias: "",
   valor_venta_estimado: "",
   margen_deseado_pct: "25",
-  remodelacion_otros: "",
 };
 
-const emptyProp = { estado: "", municipio: "", colonia: "", calle: "", terreno_m2: "", construccion_m2: "" };
+const emptyProp = {
+  estado: "", municipio: "", colonia: "", calle: "", terreno_m2: "", construccion_m2: "",
+  propertyType: "Casa", lat: 19.4326, lng: -99.1332,
+};
 
 export default function FlippingCalculatorPage() {
   const navigate = useNavigate();
@@ -50,11 +59,15 @@ export default function FlippingCalculatorPage() {
   const [asIsValue, setAsIsValue] = useState(null);
   const [loadingVal, setLoadingVal] = useState(!!valuationId);
   const [saving, setSaving] = useState(false);
+  const [downloading, setDownloading] = useState(false);
 
   const [prop, setProp] = useState(emptyProp);
   const [arv, setArv] = useState({ loading: false, error: null, min: null, avg: null, max: null, valuationId: null });
   const [remodelSel, setRemodelSel] = useState({});
+  const [remodelExtra, setRemodelExtra] = useState([]);
+  const [deudaExtra, setDeudaExtra] = useState([]);
   const [gestionItems, setGestionItems] = useState([]);
+  const [autoLocked, setAutoLocked] = useState({ escrituracion_notario: false, isr: false, costos_contrato_diligencias: false });
 
   useEffect(() => {
     if (!valuationId) return;
@@ -78,18 +91,20 @@ export default function FlippingCalculatorPage() {
   }, [valuationId]);
 
   const set = (field) => (e) => setInputs((prev) => ({ ...prev, [field]: e.target.value }));
-  const setProp1 = (field) => (e) => setProp((prev) => ({ ...prev, [field]: e.target.value }));
+  const setAutoField = (field) => (e) => {
+    setAutoLocked((prev) => ({ ...prev, [field]: true }));
+    setInputs((prev) => ({ ...prev, [field]: e.target.value }));
+  };
+  const resetAutoField = (field) => () => setAutoLocked((prev) => ({ ...prev, [field]: false }));
+
+  const setProp1 = (field) => (e) => setProp((prev) => ({ ...prev, [field]: e.target?.value ?? e }));
+  const handleLocationChange = (lat, lng) => setProp((prev) => ({ ...prev, lat, lng }));
+  const direccionBusqueda = [prop.calle, prop.colonia, prop.municipio, prop.estado].filter(Boolean).join(", ");
 
   const toggleRemodelItem = (key) => (checked) =>
     setRemodelSel((prev) => ({ ...prev, [key]: { checked, costo: prev[key]?.costo || "" } }));
   const setRemodelCosto = (key) => (e) =>
     setRemodelSel((prev) => ({ ...prev, [key]: { ...prev[key], costo: e.target.value } }));
-
-  const addGestionItem = () =>
-    setGestionItems((prev) => [...prev, { id: Date.now() + Math.random(), label: "", monto: "" }]);
-  const setGestionField = (id, field) => (e) =>
-    setGestionItems((prev) => prev.map((it) => (it.id === id ? { ...it, [field]: e.target.value } : it)));
-  const removeGestionItem = (id) => setGestionItems((prev) => prev.filter((it) => it.id !== id));
 
   const calcularARV = async () => {
     if (!prop.municipio || !prop.colonia || !num(prop.terreno_m2) || !num(prop.construccion_m2)) {
@@ -110,9 +125,11 @@ export default function FlippingCalculatorPage() {
           land_area: num(prop.terreno_m2),
           construction_area: num(prop.construccion_m2),
           land_regime: "URBANO",
-          property_type: "Casa",
+          property_type: prop.propertyType,
           estimated_age: 0,
           conservation_state: "Nuevo",
+          latitude: prop.lat,
+          longitude: prop.lng,
         }),
       });
       if (!createRes.ok) throw new Error("No se pudo crear la OPI");
@@ -140,16 +157,48 @@ export default function FlippingCalculatorPage() {
     }
   };
 
+  const remodelacionTotal = useMemo(() => {
+    const checklist = Object.values(remodelSel).reduce((s, it) => s + (it.checked ? num(it.costo) : 0), 0);
+    const extra = remodelExtra.reduce((s, it) => s + num(it.monto), 0);
+    return checklist + extra;
+  }, [remodelSel, remodelExtra]);
+
+  // Sugerencias automáticas (editable a mano) — escrituración 2% ARV, ISAI 4% precio de
+  // compra, ISR 35% de la ganancia fiscal (ARV - compra - remodelación - escrituración - ISAI).
+  const autoSuggested = useMemo(() => {
+    const arvValor = num(inputs.valor_venta_estimado);
+    const precioCompra = num(inputs.precio_compra);
+    const escrit = arvValor * 0.02;
+    const isai = precioCompra * 0.04;
+    const ganancia = Math.max(0, arvValor - precioCompra - remodelacionTotal - escrit - isai);
+    return { escrituracion_notario: escrit, costos_contrato_diligencias: isai, isr: ganancia * 0.35 };
+  }, [inputs.valor_venta_estimado, inputs.precio_compra, remodelacionTotal]);
+
+  useEffect(() => {
+    setInputs((prev) => {
+      const next = { ...prev };
+      let changed = false;
+      for (const key of ["escrituracion_notario", "costos_contrato_diligencias", "isr"]) {
+        if (autoLocked[key]) continue;
+        const suggested = autoSuggested[key];
+        const v = suggested > 0 ? String(Math.round(suggested)) : "";
+        if (v !== prev[key]) { next[key] = v; changed = true; }
+      }
+      return changed ? next : prev;
+    });
+  }, [autoSuggested, autoLocked]);
+
   const calc = useMemo(() => {
     const precioCompra = num(inputs.precio_compra);
-    const deudasTotal = ["deuda_agua", "deuda_predial", "deuda_luz", "deuda_cable", "deuda_credito", "deuda_otras"]
+    const deudasFijas = ["deuda_agua", "deuda_predial", "deuda_luz", "deuda_cable", "deuda_credito"]
       .reduce((s, k) => s + num(inputs[k]), 0);
+    const deudasExtraTotal = deudaExtra.reduce((s, it) => s + num(it.monto), 0);
+    const deudasTotal = deudasFijas + deudasExtraTotal;
+
     const arvValor = num(inputs.valor_venta_estimado);
     const comision = arvValor * (num(inputs.comision_pct) / 100);
     const costosVentaTotal = comision + num(inputs.escrituracion_notario) + num(inputs.isr);
 
-    const remodelacion = Object.values(remodelSel).reduce((s, it) => s + (it.checked ? num(it.costo) : 0), 0)
-      + num(inputs.remodelacion_otros);
     const gestionTotal = gestionItems.reduce((s, it) => s + num(it.monto), 0);
 
     const financiero = num(inputs.costo_financiero);
@@ -158,19 +207,21 @@ export default function FlippingCalculatorPage() {
     const margenPct = num(inputs.margen_deseado_pct) / 100;
 
     const netoAlDueno = precioCompra - deudasTotal;
-    const inversionTotal = precioCompra + remodelacion + gestionTotal + costosVentaTotal + financiero + administracion + contratoDiligencias;
+    const inversionTotal = precioCompra + remodelacionTotal + gestionTotal + costosVentaTotal + financiero + administracion + contratoDiligencias;
     const margenNeto = arvValor - inversionTotal;
     const margenPctReal = arvValor > 0 ? margenNeto / arvValor : 0;
 
-    const otrosCostos = remodelacion + gestionTotal + costosVentaTotal + financiero + administracion + contratoDiligencias;
+    const otrosCostos = remodelacionTotal + gestionTotal + costosVentaTotal + financiero + administracion + contratoDiligencias;
     const precioCompraMax = arvValor - otrosCostos - (arvValor * margenPct);
     const netoAlDuenoMax = precioCompraMax - deudasTotal;
 
     return {
-      deudasTotal, costosVentaTotal, remodelacion, gestionTotal, netoAlDueno, inversionTotal, margenNeto, margenPctReal,
-      precioCompraMax, netoAlDuenoMax,
+      precioCompra, deudasTotal, costosVentaTotal, remodelacion: remodelacionTotal, gestionTotal,
+      netoAlDueno, inversionTotal, margenNeto, margenPctReal, precioCompraMax, netoAlDuenoMax,
     };
-  }, [inputs, remodelSel, gestionItems]);
+  }, [inputs, remodelacionTotal, gestionItems, deudaExtra]);
+
+  const margenColor = calc.margenPctReal >= 0.20 ? "text-[#D9ED92]" : calc.margenPctReal >= 0.10 ? "text-amber-300" : "text-red-300";
 
   const guardar = async () => {
     setSaving(true);
@@ -182,10 +233,7 @@ export default function FlippingCalculatorPage() {
         body: JSON.stringify({
           valuation_id: valuationId || arv.valuationId || null,
           direccion: direccion || [prop.calle, prop.colonia, prop.municipio].filter(Boolean).join(", "),
-          prop,
-          arv,
-          remodelSel,
-          gestionItems,
+          prop, arv, remodelSel, remodelExtra, deudaExtra, gestionItems,
           inputs,
           outputs: calc,
         }),
@@ -196,6 +244,24 @@ export default function FlippingCalculatorPage() {
       toast.error("No se pudo guardar — ¿iniciaste sesión?");
     } finally {
       setSaving(false);
+    }
+  };
+
+  const descargarPdf = async () => {
+    setDownloading(true);
+    try {
+      const arvParaReporte = arv.avg != null
+        ? arv
+        : { min: num(inputs.valor_venta_estimado), avg: num(inputs.valor_venta_estimado), max: num(inputs.valor_venta_estimado) };
+      const folio = arv.valuationId || valuationId || `FLIP-${Date.now().toString(36).toUpperCase()}`;
+      const html = buildFlippingReportHtml({
+        prop, direccion: direccion || direccionBusqueda, arv: arvParaReporte, calc, folio,
+      });
+      const ok = await downloadReportPdf(html, `Flipping ${direccion || prop.colonia || folio}`);
+      if (ok) toast.success("Reporte descargado en PDF");
+      else toast.error("No se pudo generar el PDF");
+    } finally {
+      setDownloading(false);
     }
   };
 
@@ -227,24 +293,57 @@ export default function FlippingCalculatorPage() {
               <p className="text-xs text-slate-500">
                 Se calcula como si la propiedad ya estuviera remodelada y terminada (año 0), contra comparables reales de la zona.
               </p>
-              <div className="grid grid-cols-2 gap-3">
-                <div><Label className="text-xs">Estado</Label><Input value={prop.estado} onChange={setProp1("estado")} placeholder="Jalisco" /></div>
+
+              <div className="flex gap-2">
+                {[["Casa", Home], ["Departamento", Building2]].map(([label, Icon]) => (
+                  <button
+                    key={label}
+                    type="button"
+                    onClick={() => setProp((prev) => ({ ...prev, propertyType: label }))}
+                    className={`flex-1 py-2 px-3 rounded-lg border-2 flex items-center justify-center gap-2 text-sm font-medium transition-colors ${
+                      prop.propertyType === label ? "border-[#52B788] bg-[#D9ED92]/20 text-[#1B4332]" : "border-slate-200 text-slate-500 hover:border-[#52B788]/50"
+                    }`}
+                  >
+                    <Icon className="w-4 h-4" /> {label}
+                  </button>
+                ))}
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                <div>
+                  <Label className="text-xs">Estado</Label>
+                  <Select value={prop.estado} onValueChange={(v) => setProp1("estado")(v)}>
+                    <SelectTrigger><SelectValue placeholder="Selecciona" /></SelectTrigger>
+                    <SelectContent>
+                      {MEXICAN_STATES.map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}
+                    </SelectContent>
+                  </Select>
+                </div>
                 <div><Label className="text-xs">Municipio *</Label><Input value={prop.municipio} onChange={setProp1("municipio")} placeholder="Guadalajara" /></div>
                 <div><Label className="text-xs">Colonia *</Label><Input value={prop.colonia} onChange={setProp1("colonia")} placeholder="Chapalita" /></div>
                 <div><Label className="text-xs">Calle / referencia (opcional)</Label><Input value={prop.calle} onChange={setProp1("calle")} /></div>
                 <div><Label className="text-xs">m² terreno *</Label><Input type="number" value={prop.terreno_m2} onChange={setProp1("terreno_m2")} placeholder="0" /></div>
                 <div><Label className="text-xs">m² construcción *</Label><Input type="number" value={prop.construccion_m2} onChange={setProp1("construccion_m2")} placeholder="0" /></div>
               </div>
+
+              <LocationMap
+                latitude={prop.lat}
+                longitude={prop.lng}
+                onLocationChange={handleLocationChange}
+                address={direccionBusqueda}
+                autoSearch={!!(prop.municipio && prop.colonia && prop.estado)}
+              />
+
               <Button onClick={calcularARV} disabled={arv.loading} className="bg-[#1B4332] hover:bg-[#143024] text-white">
                 <Search className="w-4 h-4 mr-2" />
                 {arv.loading ? "Calculando…" : "Calcular valor de mercado"}
               </Button>
               {arv.error && <p className="text-xs text-red-600">{arv.error}</p>}
               {arv.avg != null && (
-                <div className="grid grid-cols-3 gap-3 pt-2 text-sm">
-                  <div><span className="text-xs text-slate-500 block">Mínimo</span><span className="font-semibold">{fmt(arv.min)}</span></div>
-                  <div><span className="text-xs text-slate-500 block">Promedio (usado como ARV)</span><span className="font-semibold text-[#1B4332]">{fmt(arv.avg)}</span></div>
-                  <div><span className="text-xs text-slate-500 block">Máximo</span><span className="font-semibold">{fmt(arv.max)}</span></div>
+                <div className="bg-[#1B4332] text-white rounded-lg p-4 grid grid-cols-3 gap-3 text-center">
+                  <div><span className="text-[11px] uppercase tracking-wide opacity-80 block">Mínimo</span><span className="font-bold text-lg">{fmt(arv.min)}</span></div>
+                  <div><span className="text-[11px] uppercase tracking-wide opacity-80 block">Promedio (usado como ARV)</span><span className="font-bold text-lg text-[#D9ED92]">{fmt(arv.avg)}</span></div>
+                  <div><span className="text-[11px] uppercase tracking-wide opacity-80 block">Máximo</span><span className="font-bold text-lg">{fmt(arv.max)}</span></div>
                 </div>
               )}
             </CardContent>
@@ -257,11 +356,11 @@ export default function FlippingCalculatorPage() {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <Label className="text-xs">Precio de compra (oferta al dueño)</Label>
-                <Input type="number" value={inputs.precio_compra} onChange={set("precio_compra")} placeholder="0" />
+                <MoneyInput value={inputs.precio_compra} onChange={set("precio_compra")} />
               </div>
               <div>
                 <Label className="text-xs">Valor de venta estimado (ARV)</Label>
-                <Input type="number" value={inputs.valor_venta_estimado} onChange={set("valor_venta_estimado")} placeholder="0" />
+                <MoneyInput value={inputs.valor_venta_estimado} onChange={set("valor_venta_estimado")} />
               </div>
             </div>
           </CardContent>
@@ -270,14 +369,14 @@ export default function FlippingCalculatorPage() {
         <Card className="bg-white shadow-sm border-0 mb-4">
           <CardContent className="p-4 space-y-3">
             <h2 className="font-semibold text-[#1B4332]">Deudas de la propiedad (se restan de lo que recibe el dueño)</h2>
-            <div className="grid grid-cols-3 gap-3">
-              <div><Label className="text-xs">Agua</Label><Input type="number" value={inputs.deuda_agua} onChange={set("deuda_agua")} placeholder="0" /></div>
-              <div><Label className="text-xs">Predial</Label><Input type="number" value={inputs.deuda_predial} onChange={set("deuda_predial")} placeholder="0" /></div>
-              <div><Label className="text-xs">Luz</Label><Input type="number" value={inputs.deuda_luz} onChange={set("deuda_luz")} placeholder="0" /></div>
-              <div><Label className="text-xs">Cable/TV</Label><Input type="number" value={inputs.deuda_cable} onChange={set("deuda_cable")} placeholder="0" /></div>
-              <div><Label className="text-xs">Crédito hipotecario</Label><Input type="number" value={inputs.deuda_credito} onChange={set("deuda_credito")} placeholder="0" /></div>
-              <div><Label className="text-xs">Otras</Label><Input type="number" value={inputs.deuda_otras} onChange={set("deuda_otras")} placeholder="0" /></div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <div><Label className="text-xs">Agua</Label><MoneyInput value={inputs.deuda_agua} onChange={set("deuda_agua")} /></div>
+              <div><Label className="text-xs">Predial</Label><MoneyInput value={inputs.deuda_predial} onChange={set("deuda_predial")} /></div>
+              <div><Label className="text-xs">Luz</Label><MoneyInput value={inputs.deuda_luz} onChange={set("deuda_luz")} /></div>
+              <div><Label className="text-xs">Cable/TV</Label><MoneyInput value={inputs.deuda_cable} onChange={set("deuda_cable")} /></div>
+              <div><Label className="text-xs">Crédito hipotecario</Label><MoneyInput value={inputs.deuda_credito} onChange={set("deuda_credito")} /></div>
             </div>
+            <DynamicMoneyList items={deudaExtra} onChange={setDeudaExtra} addLabel="Agregar otra deuda" />
           </CardContent>
         </Card>
 
@@ -294,8 +393,7 @@ export default function FlippingCalculatorPage() {
                   />
                   <div className="flex-1">
                     <Label className="text-xs">{label}</Label>
-                    <Input
-                      type="number" placeholder="$"
+                    <MoneyInput
                       disabled={!remodelSel[key]?.checked}
                       value={remodelSel[key]?.costo || ""}
                       onChange={setRemodelCosto(key)}
@@ -304,10 +402,7 @@ export default function FlippingCalculatorPage() {
                 </div>
               ))}
             </div>
-            <div>
-              <Label className="text-xs">Otros trabajos de obra (monto libre)</Label>
-              <Input type="number" value={inputs.remodelacion_otros} onChange={set("remodelacion_otros")} placeholder="0" />
-            </div>
+            <DynamicMoneyList items={remodelExtra} onChange={setRemodelExtra} addLabel="Agregar otro trabajo de obra" />
             <div className="text-xs text-slate-500 flex items-start gap-1 mt-1">
               <Info className="w-3.5 h-3.5 shrink-0 mt-0.5" />
               <span>Referencia de $/m² de construcción por calidad:
@@ -320,22 +415,8 @@ export default function FlippingCalculatorPage() {
 
         <Card className="bg-white shadow-sm border-0 mb-4">
           <CardContent className="p-4 space-y-3">
-            <div className="flex items-center justify-between">
-              <h2 className="font-semibold text-[#1B4332]">Gastos de gestión</h2>
-              <Button variant="outline" size="sm" onClick={addGestionItem}>
-                <Plus className="w-3.5 h-3.5 mr-1" /> Agregar
-              </Button>
-            </div>
-            {gestionItems.length === 0 && (
-              <p className="text-xs text-slate-400">Trámites, permisos, gestoría — agrega los que apliquen.</p>
-            )}
-            {gestionItems.map((it) => (
-              <div key={it.id} className="flex items-end gap-2">
-                <div className="flex-1"><Label className="text-xs">Concepto</Label><Input value={it.label} onChange={setGestionField(it.id, "label")} placeholder="Ej. gestoría" /></div>
-                <div className="w-32"><Label className="text-xs">Monto</Label><Input type="number" value={it.monto} onChange={setGestionField(it.id, "monto")} placeholder="0" /></div>
-                <Button variant="ghost" size="icon" onClick={() => removeGestionItem(it.id)}><X className="w-4 h-4" /></Button>
-              </div>
-            ))}
+            <h2 className="font-semibold text-[#1B4332]">Gastos de gestión</h2>
+            <DynamicMoneyList items={gestionItems} onChange={setGestionItems} addLabel="Agregar gasto" emptyHint="Trámites, permisos, gestoría — agrega los que apliquen." />
             {gestionItems.length > 0 && (
               <div className="text-sm font-semibold text-[#1B4332] pt-1">Total gestión: {fmt(calc.gestionTotal)}</div>
             )}
@@ -345,17 +426,33 @@ export default function FlippingCalculatorPage() {
         <Card className="bg-white shadow-sm border-0 mb-4">
           <CardContent className="p-4 space-y-3">
             <h2 className="font-semibold text-[#1B4332]">Costos de venta, cierre y operación</h2>
-            <div className="grid grid-cols-2 gap-3">
-              <div><Label className="text-xs">Comisión inmobiliaria (% del ARV, típico 3-6%)</Label><Input type="number" value={inputs.comision_pct} onChange={set("comision_pct")} /></div>
-              <div><Label className="text-xs">Escrituración / notario (venta)</Label><Input type="number" value={inputs.escrituracion_notario} onChange={set("escrituracion_notario")} placeholder="0" /></div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <div><Label className="text-xs">Comisión inmobiliaria (% del ARV)</Label><Input type="number" value={inputs.comision_pct} onChange={set("comision_pct")} /></div>
               <div>
-                <Label className="text-xs">ISR sobre la ganancia</Label>
-                <Input type="number" value={inputs.isr} onChange={set("isr")} placeholder="0" />
-                <p className="text-[11px] text-slate-400 mt-0.5">Hasta 35% de la ganancia; consulta a tu contador — rara vez exento en un flip rápido.</p>
+                <Label className="text-xs flex items-center justify-between">Escrituración / notario (venta)
+                  {autoLocked.escrituracion_notario && <button type="button" onClick={resetAutoField("escrituracion_notario")} className="text-slate-400 hover:text-[#1B4332]" title="Volver a automático"><RotateCcw className="w-3 h-3" /></button>}
+                </Label>
+                <MoneyInput value={inputs.escrituracion_notario} onChange={setAutoField("escrituracion_notario")} />
+                {!autoLocked.escrituracion_notario && <p className="text-[10px] text-slate-400 mt-0.5">Auto: 2% del ARV</p>}
               </div>
-              <div><Label className="text-xs">ISAI + notarial de compra (~4% típico)</Label><Input type="number" value={inputs.costos_contrato_diligencias} onChange={set("costos_contrato_diligencias")} placeholder="0" /></div>
-              <div><Label className="text-xs">Costo financiero (intereses del crédito puente)</Label><Input type="number" value={inputs.costo_financiero} onChange={set("costo_financiero")} placeholder="0" /></div>
-              <div><Label className="text-xs">Administración / tenencia durante el proceso</Label><Input type="number" value={inputs.costo_administracion} onChange={set("costo_administracion")} placeholder="0" /></div>
+              <div>
+                <Label className="text-xs flex items-center justify-between">ISR sobre la ganancia
+                  {autoLocked.isr && <button type="button" onClick={resetAutoField("isr")} className="text-slate-400 hover:text-[#1B4332]" title="Volver a automático"><RotateCcw className="w-3 h-3" /></button>}
+                </Label>
+                <MoneyInput value={inputs.isr} onChange={setAutoField("isr")} />
+                <p className="text-[10px] text-slate-400 mt-0.5">
+                  {autoLocked.isr ? "Editado a mano — consulta a tu contador, puede haber exención" : "Auto: 35% de la ganancia fiscal — edítalo si aplica exención"}
+                </p>
+              </div>
+              <div>
+                <Label className="text-xs flex items-center justify-between">ISAI + notarial de compra
+                  {autoLocked.costos_contrato_diligencias && <button type="button" onClick={resetAutoField("costos_contrato_diligencias")} className="text-slate-400 hover:text-[#1B4332]" title="Volver a automático"><RotateCcw className="w-3 h-3" /></button>}
+                </Label>
+                <MoneyInput value={inputs.costos_contrato_diligencias} onChange={setAutoField("costos_contrato_diligencias")} />
+                {!autoLocked.costos_contrato_diligencias && <p className="text-[10px] text-slate-400 mt-0.5">Auto: 4% del precio de compra</p>}
+              </div>
+              <div><Label className="text-xs">Costo financiero (crédito puente)</Label><MoneyInput value={inputs.costo_financiero} onChange={set("costo_financiero")} /></div>
+              <div><Label className="text-xs">Administración / tenencia</Label><MoneyInput value={inputs.costo_administracion} onChange={set("costo_administracion")} /></div>
             </div>
           </CardContent>
         </Card>
@@ -366,7 +463,10 @@ export default function FlippingCalculatorPage() {
             <div className="grid grid-cols-2 gap-x-6 gap-y-1 text-sm">
               <span className="opacity-80">Neto que recibe el dueño</span><span className="text-right font-semibold">{fmt(calc.netoAlDueno)}</span>
               <span className="opacity-80">Inversión total</span><span className="text-right font-semibold">{fmt(calc.inversionTotal)}</span>
-              <span className="opacity-80">Margen neto</span><span className="text-right font-semibold">{fmt(calc.margenNeto)} ({(calc.margenPctReal * 100).toFixed(1)}%)</span>
+            </div>
+            <div className="flex items-center justify-between pt-2 border-t border-white/20 mt-2">
+              <span className="opacity-90 font-medium">Margen neto</span>
+              <span className={`font-extrabold text-2xl ${margenColor}`}>{fmt(calc.margenNeto)} ({(calc.margenPctReal * 100).toFixed(1)}%)</span>
             </div>
           </CardContent>
         </Card>
@@ -385,10 +485,16 @@ export default function FlippingCalculatorPage() {
           </CardContent>
         </Card>
 
-        <Button onClick={guardar} disabled={saving} className="bg-[#52B788] hover:bg-[#40916C] text-white">
-          <Save className="w-4 h-4 mr-2" />
-          {saving ? "Guardando…" : "Guardar cálculo"}
-        </Button>
+        <div className="flex gap-3">
+          <Button onClick={guardar} disabled={saving} className="bg-[#52B788] hover:bg-[#40916C] text-white">
+            <Save className="w-4 h-4 mr-2" />
+            {saving ? "Guardando…" : "Guardar cálculo"}
+          </Button>
+          <Button onClick={descargarPdf} disabled={downloading} variant="outline" className="border-[#1B4332] text-[#1B4332] hover:bg-[#D9ED92]/20">
+            <Download className="w-4 h-4 mr-2" />
+            {downloading ? "Generando…" : "Descargar PDF"}
+          </Button>
+        </div>
       </div>
     </div>
   );
