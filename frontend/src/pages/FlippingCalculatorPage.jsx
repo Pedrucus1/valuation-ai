@@ -651,38 +651,50 @@ export default function FlippingCalculatorPage() {
               <div>
                 <p className="text-xs font-medium text-slate-500 text-center mb-1">Desglose de la inversión</p>
                 <div style={{ width: "100%", height: 260 }}>
-                  <ResponsiveContainer>
-                    <PieChart>
-                      <Pie
-                        data={chartData}
-                        dataKey="valor"
-                        nameKey="name"
-                        innerRadius={0}
-                        outerRadius={80}
-                        label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                        labelLine={false}
-                      >
-                        {chartData.map((d, i) => <Cell key={i} fill={d.color} />)}
-                      </Pie>
-                      <Tooltip formatter={(v) => fmt(v)} />
-                      <Legend wrapperStyle={{ fontSize: 10 }} />
-                    </PieChart>
-                  </ResponsiveContainer>
+                  {chartData.length === 0 ? (
+                    <div className="h-full flex items-center justify-center text-xs text-slate-400 text-center px-6">
+                      Captura precio de compra y ARV para ver el desglose
+                    </div>
+                  ) : (
+                    <ResponsiveContainer>
+                      <PieChart>
+                        <Pie
+                          data={chartData}
+                          dataKey="valor"
+                          nameKey="name"
+                          innerRadius={0}
+                          outerRadius={80}
+                          label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                          labelLine={false}
+                        >
+                          {chartData.map((d, i) => <Cell key={i} fill={d.color} />)}
+                        </Pie>
+                        <Tooltip formatter={(v) => fmt(v)} />
+                        <Legend wrapperStyle={{ fontSize: 10 }} />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  )}
                 </div>
               </div>
               <div>
                 <p className="text-xs font-medium text-slate-500 text-center mb-1">ROI anualizado según meses para vender</p>
                 <div style={{ width: "100%", height: 260 }}>
-                  <ResponsiveContainer>
-                    <BarChart data={roiTimeData} margin={{ top: 10 }}>
-                      <XAxis dataKey="meses" tick={{ fontSize: 10 }} tickFormatter={(m) => `${m}m`} />
-                      <YAxis tick={{ fontSize: 10 }} tickFormatter={(v) => `${v.toFixed(0)}%`} />
-                      <Tooltip formatter={(v, n) => n === "roiAnualizado" ? `${v.toFixed(1)}%` : fmt(v)} labelFormatter={(m) => `${m} meses`} />
-                      <Bar dataKey="roiAnualizado" radius={[4, 4, 0, 0]}>
-                        {roiTimeData.map((d, i) => <Cell key={i} fill={d.meses === calc.mesesVenta ? "#1B4332" : "#95D5B2"} />)}
-                      </Bar>
-                    </BarChart>
-                  </ResponsiveContainer>
+                  {calc.inversionTotal <= 0 || !num(inputs.valor_venta_estimado) ? (
+                    <div className="h-full flex items-center justify-center text-xs text-slate-400 text-center px-6">
+                      Captura precio de compra y ARV para ver el ROI proyectado
+                    </div>
+                  ) : (
+                    <ResponsiveContainer>
+                      <BarChart data={roiTimeData} margin={{ top: 10 }}>
+                        <XAxis dataKey="meses" tick={{ fontSize: 10 }} tickFormatter={(m) => `${m}m`} />
+                        <YAxis tick={{ fontSize: 10 }} tickFormatter={(v) => `${v.toFixed(0)}%`} domain={[(min) => Math.min(0, min), (max) => Math.max(10, max)]} />
+                        <Tooltip formatter={(v) => `${v.toFixed(1)}%`} labelFormatter={(m) => `${m} meses`} />
+                        <Bar dataKey="roiAnualizado" radius={[4, 4, 0, 0]}>
+                          {roiTimeData.map((d, i) => <Cell key={i} fill={d.meses === calc.mesesVenta ? "#1B4332" : "#95D5B2"} />)}
+                        </Bar>
+                      </BarChart>
+                    </ResponsiveContainer>
+                  )}
                 </div>
                 <p className="text-[10px] text-slate-400 text-center">Barra oscura = tu selección actual ({calc.mesesVenta || 0} meses)</p>
               </div>
