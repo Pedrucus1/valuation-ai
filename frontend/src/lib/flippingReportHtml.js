@@ -78,7 +78,7 @@ export function buildFlippingReportHtml({ prop, direccion, arv, calc, folio, fac
   .logo-text { font-family:'Outfit',sans-serif; font-weight:800; font-size:19px; color:var(--green-900); }
   .logo-text span { color:var(--green-700); }
   .folio-box { text-align:right; font-size:10px; color:var(--text-sec); line-height:1.6; }
-  .folio-box strong { color:var(--text-main); }
+  .folio-box strong { color:var(--text-main); white-space:nowrap; }
   .title-banner { background:var(--green-900); color:#fff; text-align:center; padding:8px 16px; border-radius:8px; margin-bottom:14px; font-family:'Outfit',sans-serif; font-size:12px; font-weight:700; }
   .addr { font-size:14px; font-weight:600; margin-bottom:2px; }
   .loc { font-size:11px; color:var(--text-sec); margin-bottom:14px; }
@@ -99,11 +99,11 @@ export function buildFlippingReportHtml({ prop, direccion, arv, calc, folio, fac
   table.costos tr.total td { border-top:2px solid var(--green-900); border-bottom:none; font-weight:700; padding-top:8px; }
   .result-box { background:#f0faf4; border:1.5px solid var(--green-700); border-radius:14px; padding:16px; margin-bottom:14px; }
   .result-row { display:flex; justify-content:space-between; font-size:12px; padding:3px 0; }
-  .result-row.margen { font-size:17px; font-weight:800; margin-top:5px; }
+  .result-row.margen { font-size:17px; font-weight:700; margin-top:5px; }
   .roi-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:14px; }
   .roi-grid .cell { background:#f8fafc; border-radius:10px; padding:10px; text-align:center; }
   .roi-grid .cell .lbl { font-size:9px; color:var(--text-sec); text-transform:uppercase; }
-  .roi-grid .cell .val { font-size:16px; font-weight:800; color:var(--green-900); margin-top:2px; }
+  .roi-grid .cell .val { font-size:16px; font-weight:700; color:var(--green-900); margin-top:2px; }
   .stack-bar { display:flex; width:100%; height:22px; border-radius:6px; overflow:hidden; margin-bottom:8px; }
   .legend-row { display:flex; align-items:center; gap:6px; font-size:10px; padding:2px 0; }
   .legend-row .dot { width:8px; height:8px; border-radius:2px; flex-shrink:0; }
@@ -148,6 +148,14 @@ export function buildFlippingReportHtml({ prop, direccion, arv, calc, folio, fac
   <div class="photos-row">
     <div class="box" style="${facadePhoto ? "flex:1;" : "width:100%;"}">${mapHtml}</div>
     ${facadePhoto ? `<div class="box" style="flex:1;"><img src="${facadePhoto}" alt="Fachada" style="width:100%;height:100%;object-fit:cover;"></div>` : ""}
+  </div>
+
+  <h3 class="section">Resumen de la operación</h3>
+  <div class="roi-grid" style="grid-template-columns:repeat(4,1fr);">
+    <div class="cell"><div class="lbl">Precio de compra</div><div class="val" style="font-size:13px;">${fmt(calc.precioCompra)}</div></div>
+    <div class="cell"><div class="lbl">Inversión total</div><div class="val" style="font-size:13px;">${fmt(calc.inversionTotal)}</div></div>
+    <div class="cell"><div class="lbl">Margen neto</div><div class="val" style="font-size:13px;color:${margenColor}">${fmt(calc.margenNeto)}</div></div>
+    <div class="cell"><div class="lbl">ROI anualizado</div><div class="val" style="font-size:13px;">${pct(calc.roiAnualizado)}</div></div>
   </div>
 
   <div class="footer">

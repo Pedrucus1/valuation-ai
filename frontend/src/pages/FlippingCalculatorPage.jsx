@@ -470,8 +470,8 @@ export default function FlippingCalculatorPage() {
                     address={direccionBusqueda}
                     autoSearch={!!(prop.municipio && prop.colonia && prop.estado)}
                     extraAction={
-                      <label className={`flex items-center gap-1 text-xs text-[#1B4332] hover:underline whitespace-nowrap px-1 ${photos.length >= MAX_PHOTOS ? "opacity-40" : "cursor-pointer"}`}>
-                        <Camera className="w-4 h-4" /> Subir foto ({photos.length}/{MAX_PHOTOS})
+                      <label className={`flex items-center gap-1 text-xs text-[#1B4332] hover:underline whitespace-nowrap px-1 ${photos.length >= MAX_PHOTOS ? "opacity-40" : "cursor-pointer"}`} title={`Subir foto (${photos.length}/${MAX_PHOTOS})`}>
+                        <Camera className="w-4 h-4" /> <span className="hidden sm:inline">Subir foto ({photos.length}/{MAX_PHOTOS})</span>
                         <input type="file" accept="image/*" multiple className="hidden" onChange={addPhotos} disabled={photos.length >= MAX_PHOTOS} />
                       </label>
                     }
