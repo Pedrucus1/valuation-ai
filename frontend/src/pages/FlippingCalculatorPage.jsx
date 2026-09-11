@@ -70,6 +70,8 @@ export default function FlippingCalculatorPage() {
   const [gestionItems, setGestionItems] = useState([]);
   const [autoLocked, setAutoLocked] = useState({ escrituracion_notario: false, isr: false, costos_contrato_diligencias: false });
   const [photos, setPhotos] = useState([]);
+  const [facadeIndex, setFacadeIndex] = useState(null);
+  const MAX_PHOTOS = 4;
 
   useEffect(() => {
     if (!valuationId) return;
@@ -104,12 +106,23 @@ export default function FlippingCalculatorPage() {
   const direccionBusqueda = [prop.calle, prop.colonia, prop.municipio, prop.estado].filter(Boolean).join(", ");
 
   const addPhotos = async (e) => {
-    const files = Array.from(e.target.files || []).slice(0, 6 - photos.length);
+    const files = Array.from(e.target.files || []).slice(0, MAX_PHOTOS - photos.length);
     e.target.value = "";
     const compressed = await Promise.all(files.map((f) => compressImage(f).then((r) => r.dataUrl)));
-    setPhotos((prev) => [...prev, ...compressed]);
+    setPhotos((prev) => {
+      const next = [...prev, ...compressed];
+      if (prev.length === 0 && next.length > 0) setFacadeIndex(0);
+      return next;
+    });
   };
-  const removePhoto = (i) => setPhotos((prev) => prev.filter((_, idx) => idx !== i));
+  const removePhoto = (i) => {
+    setPhotos((prev) => prev.filter((_, idx) => idx !== i));
+    setFacadeIndex((prev) => {
+      if (prev === i) return null;
+      if (prev !== null && prev > i) return prev - 1;
+      return prev;
+    });
+  };
 
   const toggleRemodelItem = (key) => (checked) =>
     setRemodelSel((prev) => ({ ...prev, [key]: { checked, costo: prev[key]?.costo || "" } }));
@@ -337,24 +350,41 @@ export default function FlippingCalculatorPage() {
                 <div><Label className="text-xs">m² construcción *</Label><Input type="number" value={prop.construccion_m2} onChange={setProp1("construccion_m2")} placeholder="0" /></div>
               </div>
 
-              <LocationMap
-                latitude={prop.lat}
-                longitude={prop.lng}
-                onLocationChange={handleLocationChange}
-                address={direccionBusqueda}
-                autoSearch={!!(prop.municipio && prop.colonia && prop.estado)}
-                extraAction={
-                  <label className="flex items-center gap-1 text-xs text-[#1B4332] hover:underline cursor-pointer whitespace-nowrap px-1">
-                    <Camera className="w-4 h-4" /> Subir foto
-                    <input type="file" accept="image/*" multiple className="hidden" onChange={addPhotos} disabled={photos.length >= 6} />
-                  </label>
-                }
-              />
+              <div className="flex gap-3 items-start">
+                <div className="flex-1 min-w-0">
+                  <LocationMap
+                    latitude={prop.lat}
+                    longitude={prop.lng}
+                    onLocationChange={handleLocationChange}
+                    address={direccionBusqueda}
+                    autoSearch={!!(prop.municipio && prop.colonia && prop.estado)}
+                    extraAction={
+                      <label className={`flex items-center gap-1 text-xs text-[#1B4332] hover:underline whitespace-nowrap px-1 ${photos.length >= MAX_PHOTOS ? "opacity-40" : "cursor-pointer"}`}>
+                        <Camera className="w-4 h-4" /> Subir foto ({photos.length}/{MAX_PHOTOS})
+                        <input type="file" accept="image/*" multiple className="hidden" onChange={addPhotos} disabled={photos.length >= MAX_PHOTOS} />
+                      </label>
+                    }
+                  />
+                </div>
+                <div className="w-24 shrink-0 space-y-1">
+                  <Label className="text-[10px] text-slate-400 block text-center">Fachada</Label>
+                  {facadeIndex != null && photos[facadeIndex] ? (
+                    <img src={photos[facadeIndex]} alt="Fachada" className="w-24 h-24 object-cover rounded-lg border-2 border-[#52B788]" />
+                  ) : (
+                    <div className="w-24 h-24 rounded-lg border-2 border-dashed border-slate-300 flex items-center justify-center text-slate-300">
+                      <Camera className="w-6 h-6" />
+                    </div>
+                  )}
+                </div>
+              </div>
+
               {photos.length > 0 && (
                 <div className="flex gap-2 flex-wrap">
                   {photos.map((src, i) => (
                     <div key={i} className="relative">
-                      <img src={src} alt="" className="w-16 h-16 object-cover rounded" />
+                      <button type="button" onClick={() => setFacadeIndex(i)} title="Marcar como fachada">
+                        <img src={src} alt="" className={`w-16 h-16 object-cover rounded ${facadeIndex === i ? "ring-2 ring-[#52B788]" : ""}`} />
+                      </button>
                       <button type="button" onClick={() => removePhoto(i)} className="absolute -top-1 -right-1 bg-white rounded-full shadow p-0.5">
                         <X className="w-3 h-3 text-slate-600" />
                       </button>
