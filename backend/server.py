@@ -2093,7 +2093,7 @@ REGLA para "oportunidades": usa la Conservación, Edad y remodelación reales de
                         # mismo reporte. Si Places confirma que no hay nada cerca, el texto
                         # de la IA no es confiable para esa categoría: reemplazar por algo
                         # honesto y bajar el score en vez de dejar la narrativa inventada.
-                        if not _data["count"]:
+                        if _data["count"] in ("", "0"):
                             pe[_cat]["texto"] = "No se detectaron opciones de este tipo dentro de un radio cercano (dato verificado con Google Places)."
                             pe[_cat]["score"] = min(int(pe[_cat].get("score") or 0), 3)
                 logger.info(f"Entorno con datos reales de Places: { {k: v['count'] for k, v in real.items()} }")
