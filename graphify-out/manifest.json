@@ -1375,9 +1375,9 @@
     "semantic_hash": "b07113c630110d2f26c3244f3c99cef6"
   },
   "backend/models.py": {
-    "mtime": 1789103426.155842,
-    "ast_hash": "0b45925c5c414187e5f64ce10196ad9c",
-    "semantic_hash": "0b45925c5c414187e5f64ce10196ad9c"
+    "mtime": 1789173041.0710845,
+    "ast_hash": "438b0099338c64101a0eec75289cc9ce",
+    "semantic_hash": "438b0099338c64101a0eec75289cc9ce"
   },
   "backend/mongo_comparables.py": {
     "mtime": 1786141418.2923887,
@@ -1460,9 +1460,9 @@
     "semantic_hash": "58f8d31a9f8de240c356f7da846d861c"
   },
   "backend/routers/auth.py": {
-    "mtime": 1789103416.4941747,
-    "ast_hash": "75162323b2ed531353efccfaae9ffd79",
-    "semantic_hash": "75162323b2ed531353efccfaae9ffd79"
+    "mtime": 1789169251.1671207,
+    "ast_hash": "4d19b5648563e2c28a519d97bcfa73a4",
+    "semantic_hash": "4d19b5648563e2c28a519d97bcfa73a4"
   },
   "backend/routers/cms.py": {
     "mtime": 1780375631.343522,
@@ -1555,9 +1555,9 @@
     "semantic_hash": "f726ef1400ce2cb93ebd6916b4e0cfcf"
   },
   "backend/server.py": {
-    "mtime": 1789103503.089512,
-    "ast_hash": "c809ee1d8eca364ab4041d0b4da04e51",
-    "semantic_hash": "c809ee1d8eca364ab4041d0b4da04e51"
+    "mtime": 1789172883.253488,
+    "ast_hash": "a20c5559b5ad1deda8f7f081d32d131d",
+    "semantic_hash": "a20c5559b5ad1deda8f7f081d32d131d"
   },
   "backend/sheets_comparables.py": {
     "mtime": 1776473228.832765,
@@ -1795,9 +1795,9 @@
     "semantic_hash": "c6c076c6ab378cfac67bfe0278daa1a7"
   },
   "frontend/src/App.js": {
-    "mtime": 1789103722.6966047,
-    "ast_hash": "8594ec79e9bec442b0b70e269e6c2d80",
-    "semantic_hash": "8594ec79e9bec442b0b70e269e6c2d80"
+    "mtime": 1789172999.837349,
+    "ast_hash": "3ab44117901411dbd044f512c1e3318f",
+    "semantic_hash": "3ab44117901411dbd044f512c1e3318f"
   },
   "frontend/src/PlasmicPage.jsx": {
     "mtime": 1784805410.861088,
@@ -1815,9 +1815,9 @@
     "semantic_hash": "b104a396f291e43c8a9acb01272cc073"
   },
   "frontend/src/components/AdminLayout.jsx": {
-    "mtime": 1789103652.3548837,
-    "ast_hash": "182c55a8222821e735d5cd6d5730ded0",
-    "semantic_hash": "182c55a8222821e735d5cd6d5730ded0"
+    "mtime": 1789173009.4923832,
+    "ast_hash": "b8bcd999a9418020f5c688b19644e364",
+    "semantic_hash": "b8bcd999a9418020f5c688b19644e364"
   },
   "frontend/src/components/AdminProtectedRoute.jsx": {
     "mtime": 1773993321.6288736,
@@ -3505,14 +3505,14 @@
     "semantic_hash": "1c8c0cacb5edb1da681806efa60e73fb"
   },
   "backend/routers/vault.py": {
-    "mtime": 1789031759.436586,
-    "ast_hash": "49ed84855ebcade30ef9226346af8a21",
-    "semantic_hash": "49ed84855ebcade30ef9226346af8a21"
+    "mtime": 1789173131.9278088,
+    "ast_hash": "d7c4f5e302047e4be9f4473ef8e4b07d",
+    "semantic_hash": "d7c4f5e302047e4be9f4473ef8e4b07d"
   },
   "frontend/src/components/VaultModal.jsx": {
-    "mtime": 1789033150.432488,
-    "ast_hash": "79a11136aea6693bbfcadfb3f8c51073",
-    "semantic_hash": "79a11136aea6693bbfcadfb3f8c51073"
+    "mtime": 1789173170.5892441,
+    "ast_hash": "3f1f661a6e444f54f9215c643314d546",
+    "semantic_hash": "3f1f661a6e444f54f9215c643314d546"
   },
   "frontend/src/pages/RecuperarPage.jsx": {
     "mtime": 1789028178.7031171,
@@ -3550,14 +3550,14 @@
     "semantic_hash": "eca17c9d8d68c6251d4e7cc418a7e03a"
   },
   "backend/routers/creditos_compra.py": {
-    "mtime": 1789103897.0614169,
-    "ast_hash": "05ee1c1ded1436b4162da83d5fe60843",
-    "semantic_hash": "05ee1c1ded1436b4162da83d5fe60843"
+    "mtime": 1789172901.7753625,
+    "ast_hash": "ddd6433749fb85ab20b9f28ff1011945",
+    "semantic_hash": "ddd6433749fb85ab20b9f28ff1011945"
   },
   "frontend/src/components/CreditosCheckoutModal.jsx": {
-    "mtime": 1789103558.6685581,
-    "ast_hash": "f19e7e83136c67f3b86be0b9f80128a1",
-    "semantic_hash": "f19e7e83136c67f3b86be0b9f80128a1"
+    "mtime": 1789169321.8056982,
+    "ast_hash": "81754d522b2577603af4eb2d07185417",
+    "semantic_hash": "81754d522b2577603af4eb2d07185417"
   },
   "frontend/src/pages/InversionistaDashboardPage.jsx": {
     "mtime": 1789103763.7787702,
@@ -3565,8 +3565,13 @@
     "semantic_hash": "ae0b3585ebe8c335aea56319dd8eae44"
   },
   "frontend/src/pages/admin/AdminCreditos.jsx": {
-    "mtime": 1789103713.6465197,
-    "ast_hash": "b849d2da891ef5e72ebe1af590af8619",
-    "semantic_hash": "b849d2da891ef5e72ebe1af590af8619"
+    "mtime": 1789169224.9799457,
+    "ast_hash": "8b63833f28ac5897da316bf0351ab825",
+    "semantic_hash": "8b63833f28ac5897da316bf0351ab825"
+  },
+  "frontend/src/pages/admin/AdminBoveda.jsx": {
+    "mtime": 1789172979.6343648,
+    "ast_hash": "5e91b0758dd4769741f748bf578b77a8",
+    "semantic_hash": "5e91b0758dd4769741f748bf578b77a8"
   }
 }
