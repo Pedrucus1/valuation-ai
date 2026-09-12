@@ -20,7 +20,7 @@ from fastapi import APIRouter, HTTPException, Request, Response, UploadFile, Fil
 from core.db import db
 from core.auth import get_current_user, require_admin
 from core.config import COMPROBANTES_DIR
-from core.creditos import otorgar_credito, gastar_credito
+from core.creditos import otorgar_credito, gastar_credito, saldo_efectivo
 from core.email import send_email
 from core.ratelimit import client_key
 from models import CreditPurchase
@@ -54,9 +54,18 @@ MAX_PROMO_POR_IP = 1  # decisión del negocio: 1 por oficina/red, aunque bloquee
 
 @router.post("/creditos/consumir")
 async def consumir_credito(request: Request):
-    """Gate llamado por el frontend antes de generar un reporte (Flipping u OPI
-    pública). Solo aplica a public/investor — appraiser/realtor siguen con su
-    sistema de planes/facturación mensual, sin tocar."""
+    """Gate llamado por el frontend ANTES de generar un reporte, para abrir el
+    modal de compra temprano si no hay saldo (mejor UX que esperar el 402 del
+    endpoint real). Solo aplica a public/investor — appraiser/realtor siguen
+    con su sistema de planes/facturación mensual, sin tocar.
+
+    uso="opi": desde el hallazgo de que /valuations/{id}/generate-report se
+    podía llamar directo sin pasar por aquí (bypass total del cobro), ESE
+    endpoint (server.py) es ahora el único que de verdad descuenta — aquí solo
+    se checa saldo, sin gastar, para no cobrar doble por el mismo reporte.
+    uso="flipping": el reporte se arma 100% en el navegador (no hay endpoint
+    de backend que lo genere), así que aquí sigue siendo el único punto de
+    cobro real — ver auditoría 11-sep, pendiente resolver de fondo."""
     body = await request.json()
     uso = body.get("uso")
     if uso not in ("opi", "flipping"):
@@ -67,6 +76,12 @@ async def consumir_credito(request: Request):
         # Visitante sin cuenta: nunca tiene créditos, directo a comprar.
         raise HTTPException(status_code=402, detail={"need_purchase": True})
     if user.role not in ("public", "investor"):
+        return {"ok": True}
+
+    if uso == "opi":
+        user_doc = await db.users.find_one({"user_id": user.user_id}, {"_id": 0, "creditos_ledger": 1, "credits": 1})
+        if saldo_efectivo(user_doc or {}, "opi") <= 0:
+            raise HTTPException(status_code=402, detail={"need_purchase": True})
         return {"ok": True}
 
     ok = await gastar_credito(db, user.user_id, uso)

@@ -223,6 +223,7 @@ from models import (
 from core.auth import get_current_user, require_auth, require_admin, require_admin_or_job, pwd_context, new_admin_token_expiry
 import hmac
 from core.accesos import _acceso_estado
+from core.creditos import gastar_credito
 from core.pricing import PRECIOS_DEFAULT
 from core.config import SCRAPER_DIR
 from routers.access import router as access_router
@@ -1871,19 +1872,41 @@ async def generate_report(valuation_id: str, request: Request, include_analysis:
         {"valuation_id": valuation_id},
         {"_id": 0}
     )
-    
+
     if not valuation:
         raise HTTPException(status_code=404, detail="Valuación no encontrada")
-    
+
+    _gr_user = await get_current_user(request)
+
+    # IDOR: si la valuación tiene dueño (user_id, ej. investor logueado), solo
+    # ese usuario puede generar su reporte -- 404 y no 403 para no confirmar
+    # que el valuation_id existe. Las anónimas (user_id=None, flujo público sin
+    # login) siguen siendo accesibles por link, eso es intencional.
+    _owner_id = valuation.get("user_id")
+    if _owner_id and (not _gr_user or _gr_user.user_id != _owner_id):
+        raise HTTPException(status_code=404, detail="Valuación no encontrada")
+
     if not valuation.get("result"):
         raise HTTPException(status_code=400, detail="Primero calcule la valuación")
+
+    # Gate de créditos (#192), server-side -- antes solo lo llamaba el frontend
+    # (POST /creditos/consumir) antes de pedir este endpoint, así que pegarle
+    # directo se saltaba el cobro. El cobro real ahora vive aquí, idempotente
+    # por valuación (`credito_consumido`) para no descontar dos veces si se
+    # regenera el mismo reporte (ej. con/sin análisis IA). /creditos/consumir
+    # sigue existiendo pero para "opi" ya solo checa saldo, no descuenta --
+    # ver creditos_compra.py.
+    if not valuation.get("credito_consumido") and _gr_user and _gr_user.role in ("public", "investor"):
+        if not await gastar_credito(db, _gr_user.user_id, "opi"):
+            raise HTTPException(status_code=402, detail={"need_purchase": True})
+        await db.valuations.update_one({"valuation_id": valuation_id}, {"$set": {"credito_consumido": True}})
 
     # Consumo de acceso de cortesía / prueba (una sola vez por valuación, para no
     # descontar al regenerar el reporte). Solo aplica si el usuario logueado tiene
     # un acceso autorizado activo; los avalúos por cupo descuentan, los de acceso
     # total solo se marcan. No bloquea: el gate de UX vive en /access/status.
     if not valuation.get("cortesia_aplicada"):
-        _user = await get_current_user(request)
+        _user = _gr_user
         if _user and getattr(_user, "email", None):
             _acc = await db["authorized_access"].find_one(
                 {"email": _user.email.lower().strip()}, {"_id": 0})
