@@ -21,6 +21,10 @@ const PLANES = [
   { meses: 120, precio: 195, label: "10 años" },
 ];
 
+// Descarga suelta (#185): pagar UNA vez por este avalúo, sin plan de bóveda completo —
+// no vence, pero sin recordatorios ni el resto del servicio. Precio fijo, no en la tabla.
+const DESCARGA_SUELTA = { tipo: "descarga_suelta", precio: 79, label: "Descarga suelta (sin plan)" };
+
 const fmtCardNum = (v) => v.replace(/\D/g, "").slice(0, 16).replace(/(.{4})/g, "$1 ").trim();
 const fmtExpiry = (v) => v.replace(/\D/g, "").slice(0, 4).replace(/^(\d{2})(\d)/, "$1/$2");
 
@@ -79,7 +83,9 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          nombre: nombre.trim(), email: email.trim(), plan_meses: plan.meses,
+          nombre: nombre.trim(), email: email.trim(),
+          tipo: plan.tipo === "descarga_suelta" ? "descarga_suelta" : "plan",
+          plan_meses: plan.meses || 0,
           acepta_terminos: aceptaTerminos,
         }),
       });
@@ -217,6 +223,17 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
               </table>
             </div>
 
+            <button
+              type="button"
+              onClick={() => setPlan(plan?.tipo === "descarga_suelta" ? PLANES[0] : DESCARGA_SUELTA)}
+              className={`w-full text-left rounded-xl p-2.5 border-2 transition-colors ${
+                plan?.tipo === "descarga_suelta" ? "border-[#D9ED92] bg-white/10" : "border-white/20 hover:border-white/30"
+              }`}
+            >
+              <p className="text-xs font-semibold text-white">{DESCARGA_SUELTA.label}</p>
+              <p className="text-[10px] text-white/60">${DESCARGA_SUELTA.precio} MXN, pago único, no vence — sin recordatorios ni el resto del servicio de bóveda.</p>
+            </button>
+
             <input
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
@@ -331,7 +348,7 @@ export default function VaultModal({ open, onOpenChange, valuationId }) {
             </div>
             <p className="font-bold text-[#1B4332] mb-1">Respaldo activo</p>
             <p className="text-sm text-slate-500 mb-1">
-              Válido hasta {expiraEn ? new Date(expiraEn).toLocaleDateString("es-MX") : "—"}.
+              {expiraEn ? `Válido hasta ${new Date(expiraEn).toLocaleDateString("es-MX")}.` : "No vence."}
             </p>
             <p className="text-xs text-slate-400 mb-4">
               Recupéralo cuando quieras en propvalu.com/recuperar con {email}.

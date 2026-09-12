@@ -9,6 +9,7 @@ import logging
 from datetime import datetime, timedelta, timezone
 from fastapi import APIRouter, HTTPException, Request
 
+from core.auth import require_admin
 from core.db import db
 from core.email import send_email
 from core.ratelimit import limiter
@@ -19,6 +20,11 @@ router = APIRouter(prefix="/api")
 
 # meses -> precio MXN. 0 = plan gratis (gancho, no pasa por el paso de "pago").
 PLANES_BOVEDA = {3: 0, 12: 50, 36: 110, 60: 150, 120: 195}
+
+# Precio placeholder — pagar UN avalúo suelto sin comprar un plan de respaldo completo.
+# No expira (igual que el plan de 10 años), pero sin recordatorios ni el resto del servicio
+# de bóveda — por eso va por debajo de PLANES_BOVEDA[120]=$195, no por encima.
+PRECIO_DESCARGA_SUELTA = 79
 
 DIAS_AVISO_PRE_EXPIRACION = 30
 
@@ -32,8 +38,13 @@ def _label_plan(meses: int) -> str:
 
 @router.post("/valuations/{valuation_id}/vault-request")
 async def crear_solicitud_boveda(valuation_id: str, body: VaultRequestIn, request: Request):
-    if body.plan_meses not in PLANES_BOVEDA:
-        raise HTTPException(400, f"Plan inválido. Opciones: {sorted(PLANES_BOVEDA)} meses")
+    tipo = body.tipo if body.tipo in ("plan", "descarga_suelta") else "plan"
+    if tipo == "plan":
+        if body.plan_meses not in PLANES_BOVEDA:
+            raise HTTPException(400, f"Plan inválido. Opciones: {sorted(PLANES_BOVEDA)} meses")
+        monto = PLANES_BOVEDA[body.plan_meses]  # server-side, nunca confiar en el del cliente
+    else:
+        monto = PRECIO_DESCARGA_SUELTA
     if not body.acepta_terminos:
         raise HTTPException(400, "Debes aceptar los términos para continuar")
 
@@ -45,12 +56,12 @@ async def crear_solicitud_boveda(valuation_id: str, body: VaultRequestIn, reques
     if not email or "@" not in email:
         raise HTTPException(400, "Correo inválido")
 
-    monto = PLANES_BOVEDA[body.plan_meses]  # server-side, nunca confiar en el del cliente
     vault_req = VaultRequest(
         valuation_id=valuation_id,
         nombre=(body.nombre or "").strip()[:120],
         email=email,
-        plan_meses=body.plan_meses,
+        tipo=tipo,
+        plan_meses=body.plan_meses if tipo == "plan" else 0,
         monto=monto,
         acepta_terminos_en=datetime.now(timezone.utc),
     )
@@ -67,9 +78,11 @@ async def confirmar_pago_boveda(vault_request_id: str):
     if not vault_req:
         raise HTTPException(404, "Solicitud no encontrada")
     if vault_req["estado"] == "pagado":
-        return {"ok": True, "expira_en": vault_req["expira_en"]}
+        return {"ok": True, "expira_en": vault_req.get("expira_en")}
 
-    expira_en = datetime.now(timezone.utc) + timedelta(days=vault_req["plan_meses"] * 30)
+    es_suelta = vault_req.get("tipo") == "descarga_suelta"
+    # Descarga suelta: pagaste ESE avalúo, no una suscripción — no vence, sin recordatorios.
+    expira_en = None if es_suelta else datetime.now(timezone.utc) + timedelta(days=vault_req["plan_meses"] * 30)
     await db["vault_requests"].update_one(
         {"vault_request_id": vault_request_id},
         {"$set": {"estado": "pagado", "expira_en": expira_en}},
@@ -77,13 +90,18 @@ async def confirmar_pago_boveda(vault_request_id: str):
 
     try:
         saludo = f"Hola {vault_req['nombre']}," if vault_req.get("nombre") else "Hola,"
+        if es_suelta:
+            cuerpo_plan = "<p>Ya tienes acceso permanente a este avalúo — no vence.</p>"
+        else:
+            cuerpo_plan = (
+                f"<p>Tu respaldo quedó activo por <strong>{_label_plan(vault_req['plan_meses'])}</strong>, "
+                f"hasta el <strong>{expira_en.strftime('%d/%m/%Y')}</strong>.</p>"
+                f"<p>Te recordaremos cada año y antes de que venza, para que nunca lo pierdas.</p>"
+            )
         send_email(
             [vault_req["email"]],
             "Tu respaldo está activo — PropValu",
-            f"<p>{saludo}</p>"
-            f"<p>Tu respaldo quedó activo por <strong>{_label_plan(vault_req['plan_meses'])}</strong>, "
-            f"hasta el <strong>{expira_en.strftime('%d/%m/%Y')}</strong>.</p>"
-            f"<p>Te recordaremos cada año y antes de que venza, para que nunca lo pierdas.</p>"
+            f"<p>{saludo}</p>{cuerpo_plan}"
             f"<p>Para recuperarlo en cualquier momento, entra a propvalu.com/recuperar con este correo.</p>",
         )
     except Exception as e:
@@ -201,3 +219,26 @@ async def recuperar_reporte(valuation_id: str, request: Request, email: str = ""
         raise HTTPException(404, "El reporte ya no está disponible")
 
     return {"report_html": val["report_html"]}
+
+
+@router.get("/admin/vault-requests")
+async def admin_listar_boveda(request: Request, estado: str = ""):
+    await require_admin(request)
+    filtro = {"estado": estado} if estado else {}
+    items = await db["vault_requests"].find(filtro, {"_id": 0}).sort("fecha_solicitud", -1).to_list(500)
+
+    total_pagados = await db["vault_requests"].count_documents({"estado": "pagado"})
+    ingresos = 0
+    ingresos_suelta = 0
+    async for vr in db["vault_requests"].find({"estado": "pagado"}, {"_id": 0, "monto": 1, "tipo": 1}):
+        ingresos += vr.get("monto") or 0
+        if vr.get("tipo") == "descarga_suelta":
+            ingresos_suelta += vr.get("monto") or 0
+
+    return {
+        "items": items,
+        "totales": {
+            "pagados": total_pagados, "ingresos": ingresos, "total": len(items),
+            "ingresos_descarga_suelta": ingresos_suelta,
+        },
+    }

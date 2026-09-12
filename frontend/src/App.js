@@ -85,6 +85,7 @@ const AdminPrecios              = lazy(() => import("@/pages/admin/AdminPrecios"
 const AdminMantenimiento        = lazy(() => import("@/pages/admin/AdminMantenimiento"));
 const AdminAdsAnalytics         = lazy(() => import("@/pages/admin/AdminAdsAnalytics"));
 const AdminInmobiliarias        = lazy(() => import("@/pages/admin/AdminInmobiliarias"));
+const AdminBoveda                = lazy(() => import("@/pages/admin/AdminBoveda"));
 
 // ── Spinner compartido ────────────────────────────────────────────────────────
 const PageSpinner = () => (
@@ -195,6 +196,7 @@ function AppRouter() {
         <Route path="/admin/cfdi" element={<AdminProtectedRoute rolesPermitidos={["superadmin","finanzas"]}><AdminCFDI /></AdminProtectedRoute>} />
         <Route path="/admin/payouts" element={<AdminProtectedRoute rolesPermitidos={["superadmin","finanzas"]}><AdminPayouts /></AdminProtectedRoute>} />
         <Route path="/admin/reportes" element={<AdminProtectedRoute rolesPermitidos={["superadmin","finanzas"]}><AdminReportes /></AdminProtectedRoute>} />
+        <Route path="/admin/boveda" element={<AdminProtectedRoute rolesPermitidos={["superadmin","finanzas"]}><AdminBoveda /></AdminProtectedRoute>} />
         <Route path="/admin/cobertura" element={<AdminProtectedRoute rolesPermitidos={["superadmin","moderador"]}><AdminCobertura /></AdminProtectedRoute>} />
         <Route path="/admin/blacklist" element={<AdminProtectedRoute rolesPermitidos={["superadmin","moderador","contenido"]}><AdminBlacklist /></AdminProtectedRoute>} />
         <Route path="/admin/alertas" element={<AdminProtectedRoute><AdminAlertas /></AdminProtectedRoute>} />

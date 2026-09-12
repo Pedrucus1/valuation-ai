@@ -313,7 +313,8 @@ class Valuation(BaseModel):
 class VaultRequestIn(BaseModel):
     nombre: str
     email: str
-    plan_meses: int  # 3 | 12 | 36 | 60 | 120 — validado contra PLANES_BOVEDA en el router
+    tipo: str = "plan"  # "plan" (suscripción por plan_meses) | "descarga_suelta" (pago único, 1 avalúo)
+    plan_meses: int = 0  # 3 | 12 | 36 | 60 | 120 — validado contra PLANES_BOVEDA solo si tipo="plan"
     acepta_terminos: bool = False  # checkbox obligatorio, validado server-side en el router
 
 class VaultRequest(BaseModel):
@@ -322,7 +323,8 @@ class VaultRequest(BaseModel):
     valuation_id: str
     nombre: str
     email: str
-    plan_meses: int
+    tipo: str = "plan"
+    plan_meses: int = 0
     monto: float  # calculado server-side, nunca confiar en el del cliente
     estado: str = "pendiente_pago"  # -> "pagado" solo vía /confirmar-pago
     fecha_solicitud: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
